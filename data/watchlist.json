@@ -1,1 +1,26 @@
-{}
+{
+  "STNE": {
+    "ticker": "STNE",
+    "company_name": "StoneCo Ltd.",
+    "baseline_price": 10.6,
+    "current_price": 10.6,
+    "return_pct": 0.0,
+    "status_label": "Fintech Pure",
+    "labels": [
+      "Fintech Pure",
+      "Arv Arbitrage",
+      "Deep Value"
+    ],
+    "fair_value_estimate": "$24.80",
+    "bear_target": "$7.20 (-32.1%)",
+    "base_target": "$24.80 (+134.0%)",
+    "bull_target": "$33.50 (+216.0%)",
+    "upper_alert_threshold": 15.0,
+    "lower_alert_threshold": 8.5,
+    "next_catalyst_date": "August 13, 2026",
+    "next_catalyst_event": "Q2 2026 Earnings Release",
+    "last_updated": "2026-08-08",
+    "total_versions": 1,
+    "report_path": "reports/STNE.html"
+  }
+}
