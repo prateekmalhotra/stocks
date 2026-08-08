@@ -201,6 +201,7 @@ CORE PRINCIPLES & GUIDELINES:
 
 4. Premium Editorial Aesthetics & Zero Ugly Formatting:
    - NEVER output ugly raw lines of text for financial figures or KPIs.
+   - NEVER output raw text blocks of labels, pill badges, or metadata key-value dumps (such as "HIGH CONVICTION ... DYNAMIC SURVEILLANCE & PRICE ALERT CORRIDORS: Upper Alert Threshold $16.50...") directly into the section prose. The system dashboard automatically renders all header badges, price corridors, and valuation cards.
    - Present quarterly financial performance and metrics using EITHER:
      1. Metric Stat Cards: `<div class="metrics-grid"><div class="metric-card"><div class="metric-label">Q1 Revenue</div><div class="metric-value">R$ 3.58B</div><div class="metric-delta pos">+6.5% YoY</div></div>...</div>`
      2. Structured HTML Tables: `<table><thead><tr><th>Metric</th><th>Q1 2026</th><th>YoY Growth</th></tr></thead><tbody>...</tbody></table>`
@@ -213,7 +214,7 @@ CORE PRINCIPLES & GUIDELINES:
    - NEVER use generic industry/sector names (avoid tags like "Latam Fintech" or "Payments Credit").
 
 6. Dynamic Price Alert Corridors & Surveillance Triggers:
-   - You MUST design custom upper and lower price alert thresholds (`upper_alert_threshold` and `lower_alert_threshold`) with explicit trigger reasons.
+   - You MUST design custom upper and lower price alert thresholds (`upper_alert_threshold` and `lower_alert_threshold`) with explicit trigger reasons in the JSON metadata.
    - Upper Threshold: Set at a key upside realization or trim level (e.g., nearing fair value or bull target).
    - Lower Threshold: Set at a crucial margin-of-safety test or thesis invalidation floor (e.g., testing bear case support).
    - When market price crosses either threshold, the system automatically triggers an urgent thesis review and publishes a new alert.
@@ -241,6 +242,7 @@ Key Areas to Investigate via Real-Time Filings, Earnings Calls & Announcements:
 
 Editorial Aesthetics Mandate:
 - Format all financial KPIs and quarterly numbers into `<div class="metrics-grid"><div class="metric-card">...</div></div>` or structured HTML tables. Zero raw text dumps.
+- DO NOT duplicate raw metadata text or pill badges inside the HTML sections.
 - Sub-agents can include relevant official product images or diagrams via `<div class="figure-container"><img src="..." alt="..." /><div class="figure-caption">...</div></div>`.
 
 Labels Directive:

@@ -964,7 +964,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             {chart_html}
 
             <!-- Key Metrics Grid -->
-            <div class="metrics-grid">
+            <div class="metrics-grid" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));">
                 <div class="metric-cell">
                     <div class="metric-label">Fair Value</div>
                     <div class="metric-value" style="color: var(--accent-warm);">{stock.fair_value_estimate}</div>
@@ -980,6 +980,10 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 <div class="metric-cell">
                     <div class="metric-label">Bull Target</div>
                     <div class="metric-value" style="color: var(--accent-green);">{stock.bull_target}</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Alert Corridor</div>
+                    <div class="metric-value" style="font-size: 1.05rem; font-family: var(--font-mono); color: var(--text-title);">${stock.lower_alert_threshold:.2f} ⇄ ${stock.upper_alert_threshold:.2f}</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Next Catalyst</div>
@@ -1106,6 +1110,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">{stock.next_catalyst_date or 'TBD'}</span>
                     {f'<span class="tbl-cat-desc">{clean_catalyst_desc}</span>' if clean_catalyst_desc else ''}
+                    {f'<span class="tbl-corridor" style="font-size: 0.74rem; color: var(--text-dim); font-family: var(--font-mono); display: block; margin-top: 4px;">Alerts: ${stock.lower_alert_threshold:.2f} ⇄ ${stock.upper_alert_threshold:.2f}</span>' if (stock.lower_alert_threshold and stock.upper_alert_threshold) else ''}
                 </div>
             </td>
         </tr>
