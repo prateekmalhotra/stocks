@@ -946,7 +946,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         <div class="empty-sub">All positions within normal corridors.</div>
     </div>
     """
-    disp_style = "display: block;" if not alerts else "display: none;"
+    disp_style = "display: flex;" if not alerts else "display: none;"
     alerts_feed_html = alerts_feed_html + empty_alerts_html.format(display_style=disp_style)
 
     return f"""<!DOCTYPE html>
@@ -1291,60 +1291,41 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         .pos {{ color: var(--accent-green); }}
         .neg {{ color: var(--accent-red); }}
 
-        .empty-state-box {{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 85px 24px;
-            text-align: center;
-            gap: 12px;
-        }}
-        .empty-state-title {{
-            font-family: var(--font-serif);
-            font-size: 1.45rem;
-            font-weight: 400;
-            color: var(--text-title);
-            letter-spacing: -0.01em;
-            line-height: 1.25;
-        }}
-        .empty-state-sub {{
-            font-family: var(--font-sans);
-            font-size: 0.88rem;
-            color: var(--text-dim);
-            font-weight: 400;
-            letter-spacing: 0.02em;
-            line-height: 1.35;
-        }}
-
-        .empty-alerts {{
+        .empty-state-box, .empty-alerts {{
             background: var(--bg-panel);
             border: 1px dashed var(--border-color);
             border-radius: 14px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 85px 24px;
-            text-align: center;
-            gap: 12px;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
+            padding: 80px 24px !important;
+            gap: 12px !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
         }}
-        .empty-title {{
-            font-family: var(--font-serif);
-            font-size: 1.45rem;
-            font-weight: 400;
-            color: var(--text-title);
-            letter-spacing: -0.01em;
-            line-height: 1.25;
+        .empty-state-title, .empty-title {{
+            font-family: var(--font-serif) !important;
+            font-size: 1.45rem !important;
+            font-weight: 400 !important;
+            color: var(--text-title) !important;
+            letter-spacing: -0.01em !important;
+            text-align: center !important;
+            width: 100% !important;
+            margin: 0 auto !important;
+            line-height: 1.25 !important;
         }}
-        .empty-sub {{
-            font-family: var(--font-sans);
-            font-size: 0.88rem;
-            color: var(--text-dim);
-            font-weight: 400;
-            letter-spacing: 0.02em;
-            line-height: 1.35;
-            max-width: 440px;
+        .empty-state-sub, .empty-sub {{
+            font-family: var(--font-sans) !important;
+            font-size: 0.88rem !important;
+            color: var(--text-dim) !important;
+            font-weight: 400 !important;
+            letter-spacing: 0.02em !important;
+            text-align: center !important;
+            width: 100% !important;
+            margin: 0 auto !important;
+            line-height: 1.35 !important;
         }}
 
         /* Modal */
@@ -1549,7 +1530,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
 
             const emptyBox = document.getElementById('empty-alerts-box');
             if (emptyBox) {{
-                emptyBox.style.display = (visibleCount === 0 ? 'block' : 'none');
+                emptyBox.style.display = (visibleCount === 0 ? 'flex' : 'none');
             }}
         }}
 
