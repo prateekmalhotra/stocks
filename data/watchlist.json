@@ -1,1 +1,26 @@
-{}
+{
+  "GOOG": {
+    "ticker": "GOOG",
+    "company_name": "Alphabet Inc.",
+    "baseline_price": 353.47,
+    "current_price": 353.47,
+    "return_pct": 0.0,
+    "status_label": "High Conviction",
+    "labels": [
+      "High Conviction",
+      "Ai Cloud",
+      "Capital Light"
+    ],
+    "fair_value_estimate": "$420.00",
+    "bear_target": "$280.00 (-20.8%)",
+    "base_target": "$420.00 (+18.8%)",
+    "bull_target": "$520.00 (+47.1%)",
+    "upper_alert_threshold": 400.0,
+    "lower_alert_threshold": 300.0,
+    "next_catalyst_date": "2026-10-28",
+    "next_catalyst_event": "Q3 2026 Earnings Release",
+    "last_updated": "2026-08-08",
+    "total_versions": 1,
+    "report_path": "reports/GOOG.html"
+  }
+}
