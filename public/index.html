@@ -421,7 +421,7 @@
         <!-- Navigation Controls -->
         <div class="hub-controls">
             <div class="hub-tabs">
-                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage (1)</button>
+                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage (0)</button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')">Alerts (0)</button>
             </div>
             <div class="view-toggle" id="view-toggle-bar">
@@ -453,35 +453,10 @@
                     </thead>
                     <tbody>
                         
-        <tr class="table-row" onclick="location.href='reports/CNK.html'">
-            <td>
-                <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">CNK</span>
-                    <span class="tbl-company-hover">Cinemark Holdings, Inc.</span>
-                </div>
-            </td>
-            <td>
-                <div class="tbl-price-cell">
-                    <span class="tbl-price">$37.24</span>
-                    <span class="tbl-return pos">+0.00%</span>
-                </div>
-            </td>
-            <td>
-                <div class="tbl-labels-cell">
-                    <span class="pill pill-active">Lease Adjusted</span> <span class="pill pill-neutral">Negative Working</span> <span class="pill pill-neutral">Owner Earnings</span>
-                </div>
-            </td>
-            <td>
-                <div class="tbl-val-cell">
-                    <span class="tbl-fv" style="color: var(--accent-warm);">$27.50</span>
-                    <span class="tbl-base">-26.2%</span>
-                </div>
-            </td>
-            <td>
-                <div class="tbl-catalyst-cell">
-                    <span class="tbl-cat-date">November 2026</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
-                </div>
+        <tr>
+            <td colspan="5" style="text-align: center; padding: 70px 24px; color: var(--text-secondary); font-family: var(--font-serif); font-size: 1.15rem;">
+                <div style="color: var(--text-title); font-size: 1.25rem; font-weight: 500; margin-bottom: 6px;">Watchlist Empty</div>
+                <div style="font-size: 1rem; color: var(--text-secondary);">Add stocks to begin due diligence and tracking.</div>
             </td>
         </tr>
         
@@ -492,39 +467,9 @@
             <!-- Grid Cards View -->
             <div id="stocks-grid-view" class="grid-cards-wrap" style="display: none;">
                 
-        <div class="grid-card" onclick="location.href='reports/CNK.html'">
-            <div class="grid-card-top">
-                <span class="grid-symbol">CNK</span>
-                <div class="grid-price">$37.24</div>
-            </div>
-            <div class="grid-labels-row" style="margin: 6px 0 14px;">
-                <span class="pill pill-active">Lease Adjusted</span> <span class="pill pill-neutral">Negative Working</span> <span class="pill pill-neutral">Owner Earnings</span>
-            </div>
-            <div class="grid-company">Cinemark Holdings, Inc.</div>
-            
-            <div class="grid-metrics-box">
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Return</span>
-                    <span class="grid-stat-val pos">+0.00%</span>
-                </div>
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Fair Value</span>
-                    <span class="grid-stat-val" style="color: var(--accent-warm);">$27.50</span>
-                </div>
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Base Target</span>
-                    <span class="grid-stat-val">$27.50 (-26.2%)</span>
-                </div>
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Next Catalyst</span>
-                    <span class="grid-stat-val" style="font-family: var(--font-sans);">November 2026</span>
-                </div>
-            </div>
-            
-            <div class="grid-card-foot">
-                <span class="grid-updated">Updated 2026-08-08</span>
-                <span class="grid-open">Open →</span>
-            </div>
+        <div style="grid-column: 1 / -1; text-align: center; padding: 70px 24px; background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 16px;">
+            <div style="color: var(--text-title); font-size: 1.25rem; font-weight: 500; margin-bottom: 6px;">No Active Coverage</div>
+            <div style="color: var(--text-secondary); font-size: 1rem;">Ready to process initial due diligence memos.</div>
         </div>
         
             </div>
