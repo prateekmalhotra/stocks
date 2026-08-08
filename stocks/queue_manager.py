@@ -91,6 +91,7 @@ def _handle_genesis_task(ticker: str, notes: str):
         report_path=f"reports/{ticker}.html"
     )
     save_stock(stock_record)
+    render_all()
     # NOTE: Initial analysis does NOT trigger a user alert. Alerts are ONLY created on real trigger events!
 
 
