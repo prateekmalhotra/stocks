@@ -1070,6 +1070,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         table.fin-table {{
             width: 100%;
             border-collapse: collapse;
+            table-layout: fixed;
             text-align: left;
         }}
         table.fin-table th {{
@@ -1080,15 +1081,21 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            padding: 14px 22px;
+            padding: 16px 20px;
             border-bottom: 1px solid var(--border-color);
         }}
         table.fin-table td {{
-            padding: 18px 22px;
+            padding: 18px 20px;
             border-bottom: 1px solid var(--border-color);
             font-size: 0.96rem;
             color: var(--text-body);
             vertical-align: middle;
+        }}
+        table.fin-table th:first-child, table.fin-table td:first-child {{
+            padding-left: 28px;
+        }}
+        table.fin-table th:last-child, table.fin-table td:last-child {{
+            padding-right: 28px;
         }}
         .table-row {{ cursor: pointer; transition: background 0.15s; position: relative; }}
         .table-row:hover {{ background: var(--bg-hover); }}
@@ -1370,6 +1377,13 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             <!-- Table View -->
             <div id="stocks-table-view" class="table-wrap">
                 <table class="fin-table">
+                    <colgroup>
+                        <col style="width: 22%;">
+                        <col style="width: 17%;">
+                        <col style="width: 25%;">
+                        <col style="width: 18%;">
+                        <col style="width: 18%;">
+                    </colgroup>
                     <thead>
                         <tr>
                             <th>Ticker</th>
