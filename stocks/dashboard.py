@@ -900,47 +900,50 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         """
 
     alerts_feed_html = ""
-    if not alerts:
-        alerts_feed_html = """
-        <div class="empty-alerts">
-            <div class="empty-title">No Active Alerts</div>
-            <div class="empty-sub">All positions within normal corridors.</div>
+    for a in alerts:
+        ret_class = "pos" if a.price_change_pct >= 0 else "neg"
+        labels_html = format_labels_pills(a.labels or [a.severity])
+        alert_id = f"{a.ticker}_{a.timestamp.replace(' ', '_').replace(':', '')}"
+        safe_payload = json.dumps({
+            "id": alert_id,
+            "ticker": a.ticker,
+            "title": a.title,
+            "timestamp": a.timestamp,
+            "severity": a.severity,
+            "price": a.price_at_alert,
+            "change": a.price_change_pct,
+            "trigger_reason": a.trigger_reason,
+            "what_was_before": a.what_was_before,
+            "what_changes_now": a.what_changes_now,
+            "report_url": a.report_url
+        }).replace("'", "&#39;").replace('"', "&quot;")
+
+        alerts_feed_html += f"""
+        <div class="alert-item" data-alert-id="{alert_id}" onclick='openAlertModal({safe_payload})'>
+            <div class="alert-left">
+                <div class="alert-badges">
+                    <strong class="alert-ticker">{a.ticker}</strong>
+                    {labels_html}
+                    <span class="alert-time">{a.timestamp}</span>
+                </div>
+                <div class="alert-title">{a.title}</div>
+                <div class="alert-blurb">{a.what_changes_now[:220]}...</div>
+            </div>
+            <div class="alert-right">
+                <div class="alert-price-val">${a.price_at_alert:.2f}</div>
+                <div class="alert-price-pct {ret_class}">{a.price_change_pct:+.2f}%</div>
+            </div>
         </div>
         """
-    else:
-        for a in alerts:
-            ret_class = "pos" if a.price_change_pct >= 0 else "neg"
-            labels_html = format_labels_pills(a.labels or [a.severity])
-            safe_payload = json.dumps({
-                "ticker": a.ticker,
-                "title": a.title,
-                "timestamp": a.timestamp,
-                "severity": a.severity,
-                "price": a.price_at_alert,
-                "change": a.price_change_pct,
-                "trigger_reason": a.trigger_reason,
-                "what_was_before": a.what_was_before,
-                "what_changes_now": a.what_changes_now,
-                "report_url": a.report_url
-            }).replace("'", "&#39;").replace('"', "&quot;")
 
-            alerts_feed_html += f"""
-            <div class="alert-item" onclick='openAlertModal({safe_payload})'>
-                <div class="alert-left">
-                    <div class="alert-badges">
-                        <strong class="alert-ticker">{a.ticker}</strong>
-                        {labels_html}
-                        <span class="alert-time">{a.timestamp}</span>
-                    </div>
-                    <div class="alert-title">{a.title}</div>
-                    <div class="alert-blurb">{a.what_changes_now[:220]}...</div>
-                </div>
-                <div class="alert-right">
-                    <div class="alert-price-val">${a.price_at_alert:.2f}</div>
-                    <div class="alert-price-pct {ret_class}">{a.price_change_pct:+.2f}%</div>
-                </div>
-            </div>
-            """
+    empty_alerts_html = """
+    <div id="empty-alerts-box" class="empty-alerts" style="{display_style}">
+        <div class="empty-title">No Active Alerts</div>
+        <div class="empty-sub">All positions within normal corridors.</div>
+    </div>
+    """
+    disp_style = "display: block;" if not alerts else "display: none;"
+    alerts_feed_html = alerts_feed_html + empty_alerts_html.format(display_style=disp_style)
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -1374,7 +1377,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         <div class="hub-controls">
             <div class="hub-tabs">
                 <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage ({len(watchlist)})</button>
-                <button class="hub-tab-btn" onclick="switchTab('alerts')">Alerts ({len(alerts)})</button>
+                <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts ({len(alerts)})</span></button>
             </div>
             <div class="view-toggle" id="view-toggle-bar">
                 <button class="view-btn active" onclick="setView('table')">Table</button>
@@ -1449,13 +1452,57 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             </div>
 
             <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 28px;">
-                <button class="btn-outline" onclick="closeAlertModal()">Dismiss</button>
-                <a id="modal-report-link" href="#" class="btn-primary">Open Research Memo →</a>
+                <button class="btn-outline" onclick="dismissCurrentAlert()">Dismiss</button>
+                <a id="modal-report-link" href="#" class="btn-primary" onclick="dismissCurrentAlert()">Open Research Memo →</a>
             </div>
         </div>
     </div>
 
     <script>
+        let currentAlertId = null;
+
+        function getDismissedAlertIds() {{
+            try {{
+                return JSON.parse(localStorage.getItem('alphathesis_dismissed_alerts') || '[]');
+            }} catch(e) {{
+                return [];
+            }}
+        }}
+
+        function dismissAlert(alertId) {{
+            if (!alertId) return;
+            const dismissed = getDismissedAlertIds();
+            if (!dismissed.includes(alertId)) {{
+                dismissed.push(alertId);
+                localStorage.setItem('alphathesis_dismissed_alerts', JSON.stringify(dismissed));
+            }}
+            refreshAlertsUI();
+        }}
+
+        function refreshAlertsUI() {{
+            const dismissed = getDismissedAlertIds();
+            const items = document.querySelectorAll('.alert-item');
+            let visibleCount = 0;
+
+            items.forEach(el => {{
+                const id = el.getAttribute('data-alert-id');
+                if (dismissed.includes(id)) {{
+                    el.style.display = 'none';
+                }} else {{
+                    el.style.display = 'flex';
+                    visibleCount++;
+                }}
+            }});
+
+            const countLabel = document.getElementById('alerts-tab-count');
+            if (countLabel) countLabel.innerText = 'Alerts (' + visibleCount + ')';
+
+            const emptyBox = document.getElementById('empty-alerts-box');
+            if (emptyBox) {{
+                emptyBox.style.display = (visibleCount === 0 ? 'block' : 'none');
+            }}
+        }}
+
         function switchTab(tab) {{
             document.querySelectorAll('.hub-tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-panel').forEach(sec => sec.classList.remove('active'));
@@ -1485,6 +1532,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         }}
 
         function openAlertModal(payload) {{
+            currentAlertId = payload.id || (payload.ticker + '_' + payload.timestamp);
             document.getElementById('modal-ticker').innerText = payload.ticker;
             document.getElementById('modal-title').innerText = payload.title;
             document.getElementById('modal-time').innerText = payload.timestamp;
@@ -1497,6 +1545,13 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             document.getElementById('alert-modal').style.display = 'flex';
         }}
 
+        function dismissCurrentAlert() {{
+            if (currentAlertId) {{
+                dismissAlert(currentAlertId);
+            }}
+            closeAlertModal();
+        }}
+
         function closeAlertModal() {{
             document.getElementById('alert-modal').style.display = 'none';
         }}
@@ -1506,6 +1561,9 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                 closeAlertModal();
             }}
         }}
+
+        document.addEventListener('DOMContentLoaded', refreshAlertsUI);
+        refreshAlertsUI();
     </script>
 </body>
 </html>

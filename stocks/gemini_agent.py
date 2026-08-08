@@ -420,25 +420,24 @@ Current Price: ${current_price:.2f} (Change: {price_change_pct:+.2f}%)
 Previous Stance: {previous_status}
 Previous Thesis Summary: {previous_thesis_summary}
 
-[AUTONOMY NOTE: Everything below is a guide. You have full freedom to evaluate the news and adjust the valuation however best reflects the situation.]
-
-Search real-time news, filings, 10-Q updates, earnings releases, and market commentary:
-- What happened?
-- Did the fundamental thesis hold, inflect positively, or break?
-- Update the DCF valuation, fair value, scenario matrix, and alert corridors.
-- Provide 1 to 3 dynamic labels (max 2 words each).
-- CRITICAL: Never force the valuation to match the current price. Keep it level-headed and grounded in reality.
-- CRITICAL: Treat SBC as a real 100% cash drain in DCF and cash flow models.
-- CRITICAL: Do NOT include meta-references or template names.
+[AUTONOMY & THESIS INFLECTION GUIDANCE]:
+Everything below is a conceptual guide. You have full analytical freedom to evaluate the situation and determine the updated thesis:
+- Did the core fundamental thesis hold, improve, or break?
+- Conviction & Stance Changes:
+  - If the valuation or fundamentals change to a Buy, Strong Buy, Screaming Buy, Hold, Trim, Sell, or Screaming Sell, explicitly state this conviction in the alert headline, the "what_changes_now" summary, and the updated research memo.
+- Dynamic 3-Label Updates:
+  - Update the 1 to 3 dynamic labels (max 2 words each) to reflect the new reality (e.g. ["Screaming Buy", "Moat Expanding", "Deleveraged"] or ["Screaming Sell", "Thesis Broken", "Multiple Compression"]).
+- Level-Headed DCF Valuation:
+  - Update the 5-year DCF valuation, fair value, scenario matrix, and alert corridors. Never force numbers to match the stock price. Treat SBC as a 100% real cash charge.
 
 Output in TWO parts:
 Part 1: JSON metadata in ```json ... ```:
 {{
-  "alert_title": "<Punchy headline>",
-  "alert_severity": "<1-2 word severity, e.g. Accumulate, Caution, Thesis Intact>",
+  "alert_title": "<Punchy headline stating if thesis shifted or conviction changed>",
+  "alert_severity": "<1-2 word severity, e.g. Strong Buy, Caution, Thesis Broken, Accumulate>",
   "labels": ["<Label 1>", "<Label 2>", "<Label 3>"],
   "what_was_before": "<Summary of previous thesis>",
-  "what_changes_now": "<What changed and our new forward stance>",
+  "what_changes_now": "<What changed, why conviction shifted, and our new forward stance>",
   "new_fair_value": "$<Updated DCF Fair Value>",
   "new_bear_target": "$<Updated Bear>",
   "new_base_target": "$<Updated Base>",

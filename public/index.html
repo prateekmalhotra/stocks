@@ -430,7 +430,7 @@
         <div class="hub-controls">
             <div class="hub-tabs">
                 <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage (0)</button>
-                <button class="hub-tab-btn" onclick="switchTab('alerts')">Alerts (0)</button>
+                <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts (0)</span></button>
             </div>
             <div class="view-toggle" id="view-toggle-bar">
                 <button class="view-btn active" onclick="setView('table')">Table</button>
@@ -487,11 +487,11 @@
         <section id="pane-alerts" class="tab-panel">
             <div class="alerts-feed">
                 
-        <div class="empty-alerts">
-            <div class="empty-title">No Active Alerts</div>
-            <div class="empty-sub">All positions within normal corridors.</div>
-        </div>
-        
+    <div id="empty-alerts-box" class="empty-alerts" style="display: block;">
+        <div class="empty-title">No Active Alerts</div>
+        <div class="empty-sub">All positions within normal corridors.</div>
+    </div>
+    
             </div>
         </section>
     </main>
@@ -522,13 +522,57 @@
             </div>
 
             <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 28px;">
-                <button class="btn-outline" onclick="closeAlertModal()">Dismiss</button>
-                <a id="modal-report-link" href="#" class="btn-primary">Open Research Memo →</a>
+                <button class="btn-outline" onclick="dismissCurrentAlert()">Dismiss</button>
+                <a id="modal-report-link" href="#" class="btn-primary" onclick="dismissCurrentAlert()">Open Research Memo →</a>
             </div>
         </div>
     </div>
 
     <script>
+        let currentAlertId = null;
+
+        function getDismissedAlertIds() {
+            try {
+                return JSON.parse(localStorage.getItem('alphathesis_dismissed_alerts') || '[]');
+            } catch(e) {
+                return [];
+            }
+        }
+
+        function dismissAlert(alertId) {
+            if (!alertId) return;
+            const dismissed = getDismissedAlertIds();
+            if (!dismissed.includes(alertId)) {
+                dismissed.push(alertId);
+                localStorage.setItem('alphathesis_dismissed_alerts', JSON.stringify(dismissed));
+            }
+            refreshAlertsUI();
+        }
+
+        function refreshAlertsUI() {
+            const dismissed = getDismissedAlertIds();
+            const items = document.querySelectorAll('.alert-item');
+            let visibleCount = 0;
+
+            items.forEach(el => {
+                const id = el.getAttribute('data-alert-id');
+                if (dismissed.includes(id)) {
+                    el.style.display = 'none';
+                } else {
+                    el.style.display = 'flex';
+                    visibleCount++;
+                }
+            });
+
+            const countLabel = document.getElementById('alerts-tab-count');
+            if (countLabel) countLabel.innerText = 'Alerts (' + visibleCount + ')';
+
+            const emptyBox = document.getElementById('empty-alerts-box');
+            if (emptyBox) {
+                emptyBox.style.display = (visibleCount === 0 ? 'block' : 'none');
+            }
+        }
+
         function switchTab(tab) {
             document.querySelectorAll('.hub-tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-panel').forEach(sec => sec.classList.remove('active'));
@@ -558,6 +602,7 @@
         }
 
         function openAlertModal(payload) {
+            currentAlertId = payload.id || (payload.ticker + '_' + payload.timestamp);
             document.getElementById('modal-ticker').innerText = payload.ticker;
             document.getElementById('modal-title').innerText = payload.title;
             document.getElementById('modal-time').innerText = payload.timestamp;
@@ -570,6 +615,13 @@
             document.getElementById('alert-modal').style.display = 'flex';
         }
 
+        function dismissCurrentAlert() {
+            if (currentAlertId) {
+                dismissAlert(currentAlertId);
+            }
+            closeAlertModal();
+        }
+
         function closeAlertModal() {
             document.getElementById('alert-modal').style.display = 'none';
         }
@@ -579,6 +631,9 @@
                 closeAlertModal();
             }
         }
+
+        document.addEventListener('DOMContentLoaded', refreshAlertsUI);
+        refreshAlertsUI();
     </script>
 </body>
 </html>
