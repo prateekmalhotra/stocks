@@ -243,7 +243,7 @@ def _execute_task(task: TaskItem):
         if task.task_type in ("GENESIS", "ANALYZE_NEW"):
             notes = task.payload.get("notes", "") if getattr(task, "payload", None) else getattr(task, "notes", "") or ""
             _handle_genesis_task(task.ticker, notes)
-        elif task.task_type in ("REVIEW", "PRICE_TRIGGER"):
+        elif task.task_type in ("REVIEW", "PRICE_TRIGGER", "CATALYST_TRIGGER", "SURVEILLANCE_REVIEW"):
             trigger_reason = task.payload.get("trigger_reason", "") if getattr(task, "payload", None) else getattr(task, "notes", "") or "Market Trigger"
             _handle_review_task(task.ticker, trigger_reason)
         else:
