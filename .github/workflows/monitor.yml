@@ -44,6 +44,7 @@ jobs:
       - name: Run Surveillance Engine
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PYTHONUNBUFFERED: "1"
         run: |
           if [ "${{ github.event.inputs.action }}" = "add_stock" ] && [ -n "${{ github.event.inputs.ticker }}" ]; then
             echo "Adding new stock: ${{ github.event.inputs.ticker }}"

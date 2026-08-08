@@ -36,8 +36,8 @@ jobs:
       - name: Run Genesis Institutional Coverage Pipeline
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PYTHONUNBUFFERED: "1"
         run: |
-          echo "Initiating institutional research on ${{ github.event.inputs.ticker }}..."
           poetry run python -m stocks.main add "${{ github.event.inputs.ticker }}" --notes "${{ github.event.inputs.notes }}"
 
       - name: Commit and Push Changes

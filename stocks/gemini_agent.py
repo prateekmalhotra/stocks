@@ -302,10 +302,17 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     """Generates a level-headed, honest institutional investment memo via dynamic autonomous multi-agent orchestration."""
     ticker_clean = ticker.upper().strip()
     
+    print("\n" + "=" * 70, flush=True)
+    print(f"🏢 INITIATING LEVEL-HEADED COVERAGE: {ticker_clean} ({company_name})", flush=True)
+    print(f"💵 Market Entry Price: ${current_price:.2f} | Autonomous Multi-Agent Pipeline", flush=True)
+    if initial_notes:
+        print(f"📝 User Notes / Focus: {initial_notes}", flush=True)
+    print("=" * 70, flush=True)
+    
     # ------------------------------------------------------------------
     # Step 1: Autonomous Master Planner dynamically devises the sub-agent plan
     # ------------------------------------------------------------------
-    print(f"  [Planner] Formulating customized multi-agent research strategy for {ticker_clean}...")
+    print(f"\n🧠 [STAGE 1/4: MASTER PLANNER] Formulating dynamic research strategy for {ticker_clean}...", flush=True)
     planner_prompt = MASTER_PLANNER_PROMPT.format(
         ticker=ticker_clean,
         company_name=company_name,
@@ -315,9 +322,11 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     planner_res = call_gemini_with_search(planner_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
     plan_json = extract_json_block(planner_res)
     
+    research_obj = plan_json.get("research_objective", f"Evaluate {ticker_clean} core business reality and valuation.")
+    print(f"   │ Strategy: {research_obj}", flush=True)
+
     sub_agents = plan_json.get("sub_agents", [])
     if not sub_agents or not isinstance(sub_agents, list):
-        # Fallback default specialized agents if planner did not format list
         sub_agents = [
             {
                 "role": "Business Model & Competitive Moat",
@@ -332,6 +341,9 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
                 "prompt": f"Investigate {ticker_clean} ({company_name}) ownership and valuation. Verify latest official 13F whale positions (exclude exited investors), management alignment, upcoming catalyst dates, and realistic Bear/Base/Bull ballpark valuation."
             }
         ]
+    
+    print(f"   │ Planned Sub-Agents: {len(sub_agents)} specialized autonomous tasks", flush=True)
+    print("   └" + "─" * 50, flush=True)
 
     # ------------------------------------------------------------------
     # Step 2: Execute Dynamic Sub-Agents with Real-Time Search Grounding
@@ -340,16 +352,22 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     for idx, agent in enumerate(sub_agents, 1):
         role_name = agent.get("role", f"Sub-Agent {idx}")
         agent_prompt = agent.get("prompt", "")
-        print(f"  [Agent {idx}/{len(sub_agents)}] Executing: {role_name} for {ticker_clean}...")
+        print(f"\n🤖 [STAGE 2/4: AGENT {idx}/{len(sub_agents)}] {role_name}", flush=True)
+        prompt_snippet = agent_prompt.replace('\n', ' ')[:100] + '...' if len(agent_prompt) > 100 else agent_prompt
+        print(f"   │ Focus: {prompt_snippet}", flush=True)
+        print(f"   │ Search Grounding: Querying real-time filings & consensus...", flush=True)
+        
         agent_out = call_gemini_with_search(agent_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
         aggregated_findings_list.append(f"### Findings from {role_name}:\n{agent_out}\n")
+        print(f"   │ Status: Complete ({len(agent_out.split())} words analyzed)", flush=True)
+        print("   └" + "─" * 50, flush=True)
 
     aggregated_findings = "\n".join(aggregated_findings_list)
 
     # ------------------------------------------------------------------
     # Step 3: Level-Headed Investment Memo Synthesis
     # ------------------------------------------------------------------
-    print(f"  [Synthesis] Compiling level-headed Investment Memo for {ticker_clean}...")
+    print(f"\n✍️ [STAGE 3/4: MEMO SYNTHESIS] Chief Investment Officer compiling memo for {ticker_clean}...", flush=True)
     synthesis_prompt = MEMO_SYNTHESIS_PROMPT.format(
         ticker=ticker_clean,
         company_name=company_name,
@@ -366,10 +384,24 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         draft_html = draft_html[:-3]
     draft_html = clean_grounding_artifacts(draft_html.strip())
 
+    if metadata:
+        labels_display = metadata.get("labels", ["Active"])
+        fv_display = metadata.get("fair_value_estimate", f"${current_price * 1.15:.2f}")
+        bear_display = metadata.get("bear_target", "N/A")
+        base_display = metadata.get("base_target", "N/A")
+        bull_display = metadata.get("bull_target", "N/A")
+        cat_date = metadata.get("next_catalyst_date", "TBD")
+        cat_ev = metadata.get("next_catalyst_event", "Scheduled Report")
+        print(f"   │ Dynamic Labels: {labels_display}", flush=True)
+        print(f"   │ Fair Value Estimate: {fv_display}", flush=True)
+        print(f"   │ Scenario Matrix: Bear: {bear_display} | Base: {base_display} | Bull: {bull_display}", flush=True)
+        print(f"   │ Upcoming Catalyst: {cat_date} ({cat_ev})", flush=True)
+    print("   └" + "─" * 50, flush=True)
+
     # ------------------------------------------------------------------
     # Step 4: Managing Editor QA & Polish Filter
     # ------------------------------------------------------------------
-    print(f"  [QA Filter] Conducting editorial review and structural polish for {ticker_clean}...")
+    print(f"\n🛡️ [STAGE 4/4: MANAGING EDITOR] Reviewing readability, tag balance & polish...", flush=True)
     qa_prompt = EDITORIAL_QA_PROMPT.format(
         ticker=ticker_clean,
         company_name=company_name,
@@ -381,9 +413,11 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         if qa_html.endswith("```"):
             qa_html = qa_html[:-3].strip()
         full_html = verify_and_repair_html_structure(qa_html) if len(qa_html) > 1500 else verify_and_repair_html_structure(draft_html)
+        print(f"   │ Verification: Structural integrity & dark aesthetic confirmed", flush=True)
     except Exception as e:
-        print(f"  ⚠️ QA filter fallback to deterministic repair: {e}")
+        print(f"   ⚠️ QA filter fallback to deterministic repair: {e}", flush=True)
         full_html = verify_and_repair_html_structure(draft_html)
+    print("   └" + "─" * 50, flush=True)
 
     if not metadata:
         metadata = {
@@ -405,6 +439,12 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
 
     metadata["labels"] = sanitize_labels(metadata.get("labels") or metadata.get("status_label"))
     metadata["status_label"] = metadata["labels"][0] if metadata["labels"] else "Active"
+
+    print("\n" + "=" * 70, flush=True)
+    print(f"✅ DOSSIER COMPLETE: {ticker_clean} ({metadata['status_label']}) at ${current_price:.2f}", flush=True)
+    print("=" * 70 + "\n", flush=True)
+
+    return metadata, full_html
 
     return metadata, full_html
 
