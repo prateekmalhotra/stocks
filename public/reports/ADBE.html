@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADBE — Investment Memo</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="apple-touch-icon" href="../favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-canvas: #141312;
+            --bg-panel: #1A1917;
+            --bg-subpanel: #21201D;
+            --bg-hover: #282623;
+            --text-title: #D8D2C6;
+            --text-body: #BDB7AA;
+            --text-secondary: #8E887D;
+            --text-dim: #666157;
+            --accent-warm: #C99A75;
+            --accent-green: #7D9D81;
+            --accent-red: #C4726C;
+            --border-color: rgba(215, 205, 190, 0.07);
+            --border-focus: rgba(215, 205, 190, 0.14);
+            --font-serif: 'Newsreader', Garamond, Georgia, serif;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--bg-canvas);
+            color: var(--text-body);
+            font-family: var(--font-serif);
+            line-height: 1.85;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 120px;
+        }
+
+        .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+        /* Top Nav */
+        nav.nav-bar {
+            background: rgba(20, 19, 18, 0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 16px 0;
+        }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .nav-back {
+            color: var(--accent-warm);
+            text-decoration: none;
+            font-family: var(--font-sans);
+            font-size: 0.88rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.15s;
+        }
+        .nav-back:hover { color: #DDB495; }
+
+        /* Hero Deck */
+        .hero-deck {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 36px 40px;
+            margin: 32px 0 28px;
+        }
+
+        .hero-top-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px; }
+        .ticker-symbol {
+            font-family: var(--font-serif);
+            font-size: 2.8rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: var(--text-title);
+        }
+        .company-meta { color: var(--text-secondary); font-size: 1.05rem; font-style: italic; margin-top: 2px; }
+
+        .price-callout { text-align: right; }
+        .price-number { font-size: 2.6rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }
+        .price-sub { font-size: 0.88rem; font-family: var(--font-mono); margin-top: 2px; }
+
+        /* Native SVG Area Chart */
+        .native-chart-wrap {
+            margin-top: 28px;
+            background: #171614;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px 20px 12px;
+            position: relative;
+            user-select: none;
+        }
+        .chart-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            min-height: 28px;
+        }
+        .chart-live-val {
+            font-size: 0.88rem;
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .chart-range-pills {
+            display: flex;
+            gap: 4px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 2px;
+        }
+        .range-pill {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.72rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .range-pill:hover { color: var(--text-title); }
+        .range-pill.active {
+            background: var(--accent-warm);
+            color: #141312;
+            font-weight: 600;
+        }
+        .chart-svg { width: 100%; height: 220px; display: block; overflow: visible; }
+        .chart-tooltip {
+            position: absolute;
+            top: 14px;
+            left: 20px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-focus);
+            color: var(--text-title);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            padding: 5px 12px;
+            border-radius: 6px;
+            pointer-events: none;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            font-family: var(--font-sans);
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Key Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin-top: 24px;
+        }
+        .metric-cell {
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px 16px;
+        }
+        .metric-label { font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); letter-spacing: 0.05em; }
+        .metric-value { font-size: 1.15rem; font-weight: 500; color: var(--text-title); font-family: var(--font-mono); margin-top: 3px; }
+
+        /* Tabs */
+        .tabs-header {
+            display: flex;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-color);
+            margin: 32px 0 28px;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-family: var(--font-serif);
+            padding: 12px 18px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.15s;
+        }
+        .tab-btn:hover { color: var(--text-title); }
+        .tab-btn.active { color: var(--accent-warm); }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0; right: 0;
+            height: 2px;
+            background: var(--accent-warm);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Memo Content & Premium Editorial Typography */
+        .memo-container {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 48px 52px;
+        }
+        .memo-container * {
+            box-sizing: border-box;
+        }
+        .memo-container a {
+            color: var(--accent-warm) !important;
+            text-decoration: none !important;
+            transition: color 0.15s ease !important;
+            border-bottom: 1px dotted rgba(201, 154, 117, 0.4) !important;
+        }
+        .memo-container a:hover {
+            color: #E2DDD5 !important;
+            border-bottom-color: var(--accent-warm) !important;
+        }
+        .memo-container h1, .memo-container h2 {
+            font-family: var(--font-serif) !important;
+            font-size: 1.55rem !important;
+            font-weight: 500 !important;
+            color: var(--text-title) !important;
+            margin: 44px 0 18px !important;
+            padding-bottom: 10px !important;
+            border-bottom: 1px solid var(--border-color) !important;
+            letter-spacing: -0.02em !important;
+            line-height: 1.35 !important;
+        }
+        .memo-container h1:first-child, .memo-container h2:first-of-type { margin-top: 0 !important; }
+        .memo-container h3 {
+            font-family: var(--font-serif) !important;
+            font-size: 1.28rem !important;
+            font-weight: 500 !important;
+            color: var(--accent-warm) !important;
+            margin: 32px 0 14px !important;
+            line-height: 1.4 !important;
+        }
+        .memo-container h4, .memo-container h5, .memo-container h6 {
+            font-family: var(--font-serif) !important;
+            font-size: 1.12rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            margin: 24px 0 10px !important;
+        }
+        .memo-container p {
+            font-family: var(--font-serif) !important;
+            font-size: 1.15rem !important;
+            line-height: 1.9 !important;
+            color: var(--text-body) !important;
+            margin-bottom: 22px !important;
+        }
+        .memo-container ul, .memo-container ol {
+            font-family: var(--font-serif) !important;
+            font-size: 1.12rem !important;
+            line-height: 1.9 !important;
+            color: var(--text-body) !important;
+            margin: 0 0 26px 30px !important;
+        }
+        .memo-container li { margin-bottom: 10px !important; color: var(--text-body) !important; }
+        .memo-container strong, .memo-container b {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+
+        /* STUNNING CONSISTENT TABLES - SOOTHING WARM TONES & ZERO OVERFLOW */
+        .table-scroll-wrap {
+            width: 100% !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            margin: 32px 0 !important;
+            background: #171614 !important;
+            background-color: #171614 !important;
+            border-radius: 12px !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            box-sizing: border-box !important;
+        }
+        .memo-container table {
+            width: 100% !important;
+            min-width: 600px !important;
+            border-collapse: separate !important;
+            border-spacing: 0 !important;
+            margin: 0 !important;
+            background: transparent !important;
+            background-color: transparent !important;
+            border: none !important;
+        }
+        .memo-container tr, .memo-container td, .memo-container th {
+            background: transparent !important;
+            background-color: transparent !important;
+        }
+        .memo-container th {
+            background: #1E1D1A !important;
+            background-color: #1E1D1A !important;
+            color: #C99A75 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            padding: 14px 18px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
+            text-align: left !important;
+        }
+        .memo-container td {
+            padding: 14px 18px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.05) !important;
+            font-size: 0.92rem !important;
+            color: #BDB7AA !important;
+            font-family: var(--font-mono) !important;
+            text-align: left !important;
+        }
+        .memo-container tr:last-child td {
+            border-bottom: none !important;
+        }
+        .memo-container tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.012) !important;
+            background-color: rgba(255, 255, 255, 0.012) !important;
+        }
+        .memo-container tr:hover td {
+            background: rgba(201, 154, 117, 0.04) !important;
+            background-color: rgba(201, 154, 117, 0.04) !important;
+        }
+        .memo-container td strong, .memo-container td b {
+            color: #D8D2C6 !important;
+            font-weight: 500 !important;
+        }
+
+        /* UNIVERSAL CALLOUT & BOX STYLING - NEVER WHITE OR PINK, STRICT DARK OBSIDIAN */
+        .memo-container blockquote,
+        .memo-container .callout,
+        .memo-container .falsification-box,
+        .memo-container .institutional-box,
+        .memo-container div[class*="box"],
+        .memo-container div[class*="card"],
+        .memo-container div[class*="alert"],
+        .memo-container div[class*="warning"],
+        .memo-container div[class*="highlight-box"] {
+            background: var(--bg-subpanel) !important;
+            background-color: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-left: 3px solid var(--accent-warm) !important;
+            padding: 22px 26px !important;
+            border-radius: 8px !important;
+            margin: 28px 0 !important;
+            color: var(--text-body) !important;
+            line-height: 1.8 !important;
+        }
+        .memo-container blockquote *,
+        .memo-container .callout *,
+        .memo-container .falsification-box *,
+        .memo-container .institutional-box *,
+        .memo-container div[class*="box"] *,
+        .memo-container div[class*="card"] *,
+        .memo-container div[class*="alert"] * {
+            background: transparent !important;
+            background-color: transparent !important;
+            color: var(--text-body) !important;
+        }
+        .memo-container blockquote h3,
+        .memo-container blockquote h4,
+        .memo-container .callout h3,
+        .memo-container .callout h4,
+        .memo-container .falsification-box h4,
+        .memo-container .falsification-box strong,
+        .memo-container .institutional-box h4,
+        .memo-container .institutional-box strong,
+        .memo-container div[class*="box"] h4,
+        .memo-container div[class*="box"] strong,
+        .memo-container div[class*="card"] strong {
+            color: var(--text-title) !important;
+        }
+        .highlight, mark {
+            background: rgba(201, 154, 117, 0.16) !important;
+            color: #E2DDD5 !important;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* FINANCIAL METRIC CARDS & STAT GRIDS */
+        .metrics-grid, .stats-grid, .grid-3, .grid-4, .grid-2, .metric-grid {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+            gap: 16px !important;
+            margin: 28px 0 !important;
+        }
+        .metric-card, .stat-card, div[class*="metric-box"], div[class*="stat-box"], div[class*="kpi-card"] {
+            background: var(--bg-subpanel) !important;
+            background-color: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-radius: 10px !important;
+            padding: 18px 20px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            box-sizing: border-box !important;
+        }
+        .metric-label, .stat-label, .kpi-label {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            color: var(--text-secondary) !important;
+            margin-bottom: 6px !important;
+        }
+        .metric-value, .stat-value, .kpi-value {
+            font-family: var(--font-mono) !important;
+            font-size: 1.4rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            letter-spacing: -0.02em !important;
+            line-height: 1.2 !important;
+            margin-bottom: 4px !important;
+        }
+        .metric-delta, .metric-sub, .stat-sub, .kpi-sub {
+            font-family: var(--font-mono) !important;
+            font-size: 0.82rem !important;
+            color: var(--accent-warm) !important;
+        }
+
+        /* EMBEDDED IMAGES, CHARTS & VISUAL INFOGRAPHICS */
+        .figure-container, figure {
+            margin: 32px 0 !important;
+            text-align: center !important;
+            background: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-radius: 12px !important;
+            padding: 16px !important;
+            overflow: hidden !important;
+        }
+        .memo-container img {
+            max-width: 100% !important;
+            height: auto !important;
+            border-radius: 8px !important;
+            display: block !important;
+            margin: 0 auto !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+        }
+        .figure-caption, figcaption {
+            font-family: var(--font-sans) !important;
+            font-size: 0.8rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 10px !important;
+            text-align: center !important;
+        }
+
+        /* Evolution Update Highlight Banner at top of Memo */
+        .update-banner-box {
+            background: #1C1B18 !important;
+            border: 1px solid rgba(201, 154, 117, 0.3) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 12px !important;
+            padding: 24px 28px !important;
+            margin-bottom: 36px !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .update-banner-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 14px !important;
+            padding-bottom: 10px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
+        }
+        .update-banner-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.76rem !important;
+            font-weight: 600 !important;
+            color: var(--accent-warm) !important;
+            letter-spacing: 0.04em !important;
+            text-transform: uppercase !important;
+        }
+        .update-trigger-pill {
+            font-family: var(--font-mono) !important;
+            font-size: 0.74rem !important;
+            color: var(--text-secondary) !important;
+            background: var(--bg-subpanel) !important;
+            padding: 3px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid var(--border-color) !important;
+        }
+        .update-banner-title {
+            font-family: var(--font-serif) !important;
+            font-size: 1.22rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            margin-bottom: 8px !important;
+        }
+        .update-banner-desc {
+            font-family: var(--font-serif) !important;
+            font-size: 1.08rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-body) !important;
+        }
+
+        /* History */
+        .history-entry {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 28px 32px;
+            margin-bottom: 20px;
+        }
+        .history-entry-active { border-color: rgba(201, 154, 117, 0.35); }
+        .history-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+        .history-tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .history-time { color: var(--text-secondary); font-size: 0.88rem; font-family: var(--font-sans); }
+        .history-price { font-family: var(--font-mono); font-size: 0.92rem; }
+
+        .diff-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) { .diff-grid { grid-template-columns: 1fr; } }
+        .diff-box {
+            padding: 18px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .diff-prev { background: rgba(196, 114, 108, 0.05); border-color: rgba(196, 114, 108, 0.18); }
+        .diff-now { background: rgba(125, 157, 129, 0.05); border-color: rgba(125, 157, 129, 0.18); }
+        .diff-label { font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+        .diff-prev .diff-label { color: var(--accent-red); }
+        .diff-now .diff-label { color: var(--accent-green); }
+        .diff-text { font-size: 1.02rem; color: var(--text-body); line-height: 1.65; }
+
+        /* Pills */
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 11px;
+            border-radius: 9999px;
+            font-size: 0.72rem;
+            font-family: var(--font-sans);
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+        }
+        .pill-active { background: rgba(201, 154, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.45); font-weight: 600; box-shadow: 0 0 10px rgba(201, 154, 117, 0.06); }
+        .pill-neutral { background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); font-weight: 500; }
+        .pill-alert { background: rgba(191, 160, 117, 0.14); color: var(--accent-warm); border: 1px solid rgba(191, 160, 117, 0.28); }
+
+        .btn-subtle {
+            background: var(--bg-subpanel);
+            color: var(--text-title);
+            border: 1px solid var(--border-color);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            padding: 7px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .btn-subtle:hover { background: var(--bg-hover); }
+
+        .snapshot-drawer { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color); }
+
+        .pos { color: var(--accent-green); }
+        .neg { color: var(--accent-red); }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="container nav-inner">
+            <a href="../index.html" class="nav-back">← AlphaThesis</a>
+            <span style="font-size: 0.82rem; color: var(--text-dim); font-family: var(--font-sans);">ADBE RESEARCH</span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Hero Deck -->
+        <section class="hero-deck">
+            <div class="hero-top-row">
+                <div>
+                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                        <span class="ticker-symbol">ADBE</span>
+                        <span class="pill pill-active">High Conviction</span> <span class="pill pill-neutral">Buyback Cannibal</span> <span class="pill pill-neutral">Ai Compounder</span>
+                    </div>
+                    <div class="company-meta">Adobe Inc.</div>
+                </div>
+                <div class="price-callout">
+                    <div class="price-number">$265.21</div>
+                    <div class="price-sub pos">
+                        +0.00% vs Genesis
+                    </div>
+                </div>
+            </div>
+
+            <!-- Native Multi-Range Interactive Area Chart -->
+            
+    <div class="native-chart-wrap" id="chart-container">
+        <div class="chart-top-bar">
+            <div id="chart-live-val" class="chart-live-val">
+                <span id="tooltip-date">Aug 07, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$265.21</strong>
+            </div>
+            <div class="chart-range-pills">
+                <button class="range-pill active" onclick="switchChartRange('1Y')">1Y</button>
+                <button class="range-pill" onclick="switchChartRange('5Y')">5Y</button>
+                <button class="range-pill" onclick="switchChartRange('10Y')">10Y</button>
+                <button class="range-pill" onclick="switchChartRange('MAX')">MAX</button>
+            </div>
+        </div>
+
+        <svg id="interactive-svg" viewBox="0 0 900 260" preserveAspectRatio="none" class="chart-svg">
+            <defs>
+                <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#C99A75" stop-opacity="0.18" />
+                    <stop offset="100%" stop-color="#C99A75" stop-opacity="0.0" />
+                </linearGradient>
+            </defs>
+            
+            <line x1="20" y1="25" x2="880" y2="25" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
+            <line x1="20" y1="130.0" x2="880" y2="130.0" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
+            <line x1="20" y1="235" x2="880" y2="235" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
+
+            <path id="chart-area-path" d="" fill="url(#area-grad)" />
+            <path id="chart-line-path" d="" fill="none" stroke="#C99A75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+            <line id="crosshair-line" x1="0" y1="25" x2="0" y2="235" stroke="rgba(201,154,117,0.35)" stroke-width="1" stroke-dasharray="3 3" style="display: none;" />
+            <circle id="hover-dot" r="4" fill="#C99A75" stroke="#1A1917" stroke-width="2" style="display: none;" />
+        </svg>
+        <div class="chart-labels">
+            <span id="chart-start-lbl">Aug 08, 2025 ($193.41)</span>
+            <span id="chart-range-title">1-Year Historical Range</span>
+            <span id="chart-end-lbl">Aug 07, 2026 ($265.21)</span>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const allDatasets = {"1Y": [{"date": "Aug 08, 2025", "price": 341.05}, {"date": "Aug 11, 2025", "price": 333.65}, {"date": "Aug 12, 2025", "price": 338.43}, {"date": "Aug 13, 2025", "price": 351.07}, {"date": "Aug 14, 2025", "price": 348.58}, {"date": "Aug 15, 2025", "price": 354.85}, {"date": "Aug 18, 2025", "price": 357.24}, {"date": "Aug 19, 2025", "price": 361.03}, {"date": "Aug 20, 2025", "price": 353.43}, {"date": "Aug 21, 2025", "price": 353.43}, {"date": "Aug 22, 2025", "price": 362.09}, {"date": "Aug 25, 2025", "price": 363.21}, {"date": "Aug 26, 2025", "price": 354.91}, {"date": "Aug 27, 2025", "price": 356.35}, {"date": "Aug 28, 2025", "price": 353.96}, {"date": "Aug 29, 2025", "price": 356.7}, {"date": "Sep 02, 2025", "price": 345.63}, {"date": "Sep 03, 2025", "price": 348.5}, {"date": "Sep 04, 2025", "price": 344.31}, {"date": "Sep 05, 2025", "price": 348.97}, {"date": "Sep 08, 2025", "price": 358.66}, {"date": "Sep 09, 2025", "price": 354.06}, {"date": "Sep 10, 2025", "price": 350.16}, {"date": "Sep 11, 2025", "price": 350.55}, {"date": "Sep 12, 2025", "price": 349.36}, {"date": "Sep 15, 2025", "price": 347.1}, {"date": "Sep 16, 2025", "price": 352.73}, {"date": "Sep 17, 2025", "price": 362.07}, {"date": "Sep 18, 2025", "price": 367.46}, {"date": "Sep 19, 2025", "price": 365.9}, {"date": "Sep 22, 2025", "price": 364.08}, {"date": "Sep 23, 2025", "price": 361.78}, {"date": "Sep 24, 2025", "price": 353.27}, {"date": "Sep 25, 2025", "price": 354.16}, {"date": "Sep 26, 2025", "price": 360.37}, {"date": "Sep 29, 2025", "price": 359.42}, {"date": "Sep 30, 2025", "price": 352.75}, {"date": "Oct 01, 2025", "price": 343.72}, {"date": "Oct 02, 2025", "price": 351.48}, {"date": "Oct 03, 2025", "price": 346.74}, {"date": "Oct 06, 2025", "price": 350.14}, {"date": "Oct 07, 2025", "price": 348.31}, {"date": "Oct 08, 2025", "price": 348.77}, {"date": "Oct 09, 2025", "price": 347.47}, {"date": "Oct 10, 2025", "price": 337.51}, {"date": "Oct 13, 2025", "price": 339.32}, {"date": "Oct 14, 2025", "price": 335.94}, {"date": "Oct 15, 2025", "price": 330.63}, {"date": "Oct 16, 2025", "price": 329.23}, {"date": "Oct 17, 2025", "price": 333.26}, {"date": "Oct 20, 2025", "price": 343.4}, {"date": "Oct 21, 2025", "price": 357.55}, {"date": "Oct 22, 2025", "price": 354.09}, {"date": "Oct 23, 2025", "price": 354.12}, {"date": "Oct 24, 2025", "price": 353.52}, {"date": "Oct 27, 2025", "price": 357.8}, {"date": "Oct 28, 2025", "price": 359.91}, {"date": "Oct 29, 2025", "price": 337.86}, {"date": "Oct 30, 2025", "price": 339.24}, {"date": "Oct 31, 2025", "price": 340.31}, {"date": "Nov 03, 2025", "price": 337.47}, {"date": "Nov 04, 2025", "price": 335.35}, {"date": "Nov 05, 2025", "price": 335.53}, {"date": "Nov 06, 2025", "price": 327.35}, {"date": "Nov 07, 2025", "price": 326.95}, {"date": "Nov 10, 2025", "price": 328.85}, {"date": "Nov 11, 2025", "price": 333.22}, {"date": "Nov 12, 2025", "price": 337.05}, {"date": "Nov 13, 2025", "price": 333.6}, {"date": "Nov 14, 2025", "price": 331.11}, {"date": "Nov 17, 2025", "price": 325.07}, {"date": "Nov 18, 2025", "price": 324.47}, {"date": "Nov 19, 2025", "price": 318.11}, {"date": "Nov 20, 2025", "price": 312.4}, {"date": "Nov 21, 2025", "price": 324.19}, {"date": "Nov 24, 2025", "price": 318.73}, {"date": "Nov 25, 2025", "price": 319.55}, {"date": "Nov 26, 2025", "price": 317.52}, {"date": "Nov 28, 2025", "price": 320.13}, {"date": "Dec 01, 2025", "price": 322.85}, {"date": "Dec 02, 2025", "price": 322.81}, {"date": "Dec 03, 2025", "price": 326.78}, {"date": "Dec 04, 2025", "price": 328.73}, {"date": "Dec 05, 2025", "price": 346.26}, {"date": "Dec 08, 2025", "price": 339.12}, {"date": "Dec 09, 2025", "price": 344.32}, {"date": "Dec 10, 2025", "price": 343.13}, {"date": "Dec 11, 2025", "price": 350.43}, {"date": "Dec 12, 2025", "price": 356.43}, {"date": "Dec 15, 2025", "price": 351.15}, {"date": "Dec 16, 2025", "price": 347.89}, {"date": "Dec 17, 2025", "price": 354.66}, {"date": "Dec 18, 2025", "price": 355.81}, {"date": "Dec 19, 2025", "price": 355.86}, {"date": "Dec 22, 2025", "price": 357.53}, {"date": "Dec 23, 2025", "price": 352.42}, {"date": "Dec 24, 2025", "price": 352.98}, {"date": "Dec 26, 2025", "price": 353.8}, {"date": "Dec 29, 2025", "price": 353.16}, {"date": "Dec 30, 2025", "price": 352.51}, {"date": "Dec 31, 2025", "price": 349.99}, {"date": "Jan 02, 2026", "price": 333.3}, {"date": "Jan 05, 2026", "price": 331.56}, {"date": "Jan 06, 2026", "price": 335.99}, {"date": "Jan 07, 2026", "price": 338.1}, {"date": "Jan 08, 2026", "price": 339.04}, {"date": "Jan 09, 2026", "price": 333.95}, {"date": "Jan 12, 2026", "price": 327.65}, {"date": "Jan 13, 2026", "price": 309.93}, {"date": "Jan 14, 2026", "price": 304.44}, {"date": "Jan 15, 2026", "price": 304.09}, {"date": "Jan 16, 2026", "price": 296.12}, {"date": "Jan 20, 2026", "price": 290.37}, {"date": "Jan 21, 2026", "price": 294.23}, {"date": "Jan 22, 2026", "price": 299.73}, {"date": "Jan 23, 2026", "price": 301.07}, {"date": "Jan 26, 2026", "price": 304.72}, {"date": "Jan 27, 2026", "price": 297.42}, {"date": "Jan 28, 2026", "price": 299.58}, {"date": "Jan 29, 2026", "price": 291.65}, {"date": "Jan 30, 2026", "price": 293.25}, {"date": "Feb 02, 2026", "price": 293.38}, {"date": "Feb 03, 2026", "price": 271.93}, {"date": "Feb 04, 2026", "price": 279.71}, {"date": "Feb 05, 2026", "price": 269.39}, {"date": "Feb 06, 2026", "price": 268.38}, {"date": "Feb 09, 2026", "price": 266.9}, {"date": "Feb 10, 2026", "price": 264.67}, {"date": "Feb 11, 2026", "price": 257.16}, {"date": "Feb 12, 2026", "price": 262.5}, {"date": "Feb 13, 2026", "price": 263.97}, {"date": "Feb 17, 2026", "price": 260.45}, {"date": "Feb 18, 2026", "price": 263.17}, {"date": "Feb 19, 2026", "price": 259.21}, {"date": "Feb 20, 2026", "price": 258.61}, {"date": "Feb 23, 2026", "price": 246.68}, {"date": "Feb 24, 2026", "price": 255.17}, {"date": "Feb 25, 2026", "price": 257.81}, {"date": "Feb 26, 2026", "price": 259.04}, {"date": "Feb 27, 2026", "price": 262.41}, {"date": "Mar 02, 2026", "price": 260.88}, {"date": "Mar 03, 2026", "price": 270.99}, {"date": "Mar 04, 2026", "price": 273.12}, {"date": "Mar 05, 2026", "price": 281.74}, {"date": "Mar 06, 2026", "price": 283.62}, {"date": "Mar 09, 2026", "price": 282.44}, {"date": "Mar 10, 2026", "price": 275.13}, {"date": "Mar 11, 2026", "price": 273.71}, {"date": "Mar 12, 2026", "price": 269.78}, {"date": "Mar 13, 2026", "price": 249.32}, {"date": "Mar 16, 2026", "price": 251.86}, {"date": "Mar 17, 2026", "price": 254.2}, {"date": "Mar 18, 2026", "price": 246.0}, {"date": "Mar 19, 2026", "price": 245.99}, {"date": "Mar 20, 2026", "price": 248.15}, {"date": "Mar 23, 2026", "price": 247.64}, {"date": "Mar 24, 2026", "price": 238.87}, {"date": "Mar 25, 2026", "price": 237.25}, {"date": "Mar 26, 2026", "price": 240.88}, {"date": "Mar 27, 2026", "price": 234.84}, {"date": "Mar 30, 2026", "price": 241.13}, {"date": "Mar 31, 2026", "price": 243.08}, {"date": "Apr 01, 2026", "price": 241.37}, {"date": "Apr 02, 2026", "price": 242.92}, {"date": "Apr 06, 2026", "price": 244.36}, {"date": "Apr 07, 2026", "price": 240.14}, {"date": "Apr 08, 2026", "price": 239.31}, {"date": "Apr 09, 2026", "price": 229.94}, {"date": "Apr 10, 2026", "price": 225.35}, {"date": "Apr 13, 2026", "price": 240.11}, {"date": "Apr 14, 2026", "price": 235.72}, {"date": "Apr 15, 2026", "price": 244.66}, {"date": "Apr 16, 2026", "price": 248.16}, {"date": "Apr 17, 2026", "price": 244.45}, {"date": "Apr 20, 2026", "price": 248.63}, {"date": "Apr 21, 2026", "price": 247.18}, {"date": "Apr 22, 2026", "price": 255.94}, {"date": "Apr 23, 2026", "price": 238.98}, {"date": "Apr 24, 2026", "price": 245.44}, {"date": "Apr 27, 2026", "price": 239.31}, {"date": "Apr 28, 2026", "price": 243.2}, {"date": "Apr 29, 2026", "price": 243.57}, {"date": "Apr 30, 2026", "price": 246.1}, {"date": "May 01, 2026", "price": 250.71}, {"date": "May 04, 2026", "price": 253.96}, {"date": "May 05, 2026", "price": 255.62}, {"date": "May 06, 2026", "price": 250.17}, {"date": "May 07, 2026", "price": 256.51}, {"date": "May 08, 2026", "price": 253.04}, {"date": "May 11, 2026", "price": 246.15}, {"date": "May 12, 2026", "price": 240.83}, {"date": "May 13, 2026", "price": 236.07}, {"date": "May 14, 2026", "price": 237.01}, {"date": "May 15, 2026", "price": 247.6}, {"date": "May 18, 2026", "price": 255.64}, {"date": "May 19, 2026", "price": 254.99}, {"date": "May 20, 2026", "price": 253.37}, {"date": "May 21, 2026", "price": 244.1}, {"date": "May 22, 2026", "price": 244.76}, {"date": "May 26, 2026", "price": 240.49}, {"date": "May 27, 2026", "price": 238.24}, {"date": "May 28, 2026", "price": 241.44}, {"date": "May 29, 2026", "price": 259.21}, {"date": "Jun 01, 2026", "price": 274.03}, {"date": "Jun 02, 2026", "price": 262.11}, {"date": "Jun 03, 2026", "price": 256.24}, {"date": "Jun 04, 2026", "price": 258.42}, {"date": "Jun 05, 2026", "price": 251.44}, {"date": "Jun 08, 2026", "price": 244.99}, {"date": "Jun 09, 2026", "price": 237.88}, {"date": "Jun 10, 2026", "price": 233.38}, {"date": "Jun 11, 2026", "price": 218.8}, {"date": "Jun 12, 2026", "price": 204.02}, {"date": "Jun 15, 2026", "price": 206.36}, {"date": "Jun 16, 2026", "price": 207.32}, {"date": "Jun 17, 2026", "price": 196.28}, {"date": "Jun 18, 2026", "price": 195.16}, {"date": "Jun 22, 2026", "price": 194.9}, {"date": "Jun 23, 2026", "price": 197.43}, {"date": "Jun 24, 2026", "price": 196.57}, {"date": "Jun 25, 2026", "price": 193.41}, {"date": "Jun 26, 2026", "price": 202.73}, {"date": "Jun 29, 2026", "price": 206.43}, {"date": "Jun 30, 2026", "price": 205.02}, {"date": "Jul 01, 2026", "price": 210.98}, {"date": "Jul 02, 2026", "price": 219.72}, {"date": "Jul 06, 2026", "price": 218.07}, {"date": "Jul 07, 2026", "price": 221.54}, {"date": "Jul 08, 2026", "price": 220.94}, {"date": "Jul 09, 2026", "price": 222.65}, {"date": "Jul 10, 2026", "price": 223.64}, {"date": "Jul 13, 2026", "price": 230.61}, {"date": "Jul 14, 2026", "price": 220.78}, {"date": "Jul 15, 2026", "price": 224.56}, {"date": "Jul 16, 2026", "price": 235.31}, {"date": "Jul 17, 2026", "price": 237.25}, {"date": "Jul 20, 2026", "price": 234.74}, {"date": "Jul 21, 2026", "price": 227.16}, {"date": "Jul 22, 2026", "price": 218.36}, {"date": "Jul 23, 2026", "price": 212.17}, {"date": "Jul 24, 2026", "price": 225.11}, {"date": "Jul 27, 2026", "price": 237.75}, {"date": "Jul 28, 2026", "price": 249.18}, {"date": "Jul 29, 2026", "price": 263.43}, {"date": "Jul 30, 2026", "price": 247.9}, {"date": "Jul 31, 2026", "price": 250.41}, {"date": "Aug 03, 2026", "price": 251.34}, {"date": "Aug 04, 2026", "price": 257.49}, {"date": "Aug 05, 2026", "price": 259.32}, {"date": "Aug 06, 2026", "price": 260.24}, {"date": "Aug 07, 2026", "price": 265.21}], "5Y": [{"date": "Aug 09, 2021", "price": 637.31}, {"date": "Aug 16, 2021", "price": 647.34}, {"date": "Aug 23, 2021", "price": 658.52}, {"date": "Aug 30, 2021", "price": 666.59}, {"date": "Sep 06, 2021", "price": 658.94}, {"date": "Sep 13, 2021", "price": 654.48}, {"date": "Sep 20, 2021", "price": 622.71}, {"date": "Sep 27, 2021", "price": 577.47}, {"date": "Oct 04, 2021", "price": 576.86}, {"date": "Oct 11, 2021", "price": 610.09}, {"date": "Oct 18, 2021", "price": 643.58}, {"date": "Oct 25, 2021", "price": 650.36}, {"date": "Nov 01, 2021", "price": 662.72}, {"date": "Nov 08, 2021", "price": 657.6}, {"date": "Nov 15, 2021", "price": 688.37}, {"date": "Nov 22, 2021", "price": 662.1}, {"date": "Nov 29, 2021", "price": 616.53}, {"date": "Dec 06, 2021", "price": 654.45}, {"date": "Dec 13, 2021", "price": 556.64}, {"date": "Dec 20, 2021", "price": 569.62}, {"date": "Dec 27, 2021", "price": 567.06}, {"date": "Jan 03, 2022", "price": 510.7}, {"date": "Jan 10, 2022", "price": 520.6}, {"date": "Jan 17, 2022", "price": 499.91}, {"date": "Jan 24, 2022", "price": 518.16}, {"date": "Jan 31, 2022", "price": 513.54}, {"date": "Feb 07, 2022", "price": 473.97}, {"date": "Feb 14, 2022", "price": 442.56}, {"date": "Feb 21, 2022", "price": 465.54}, {"date": "Feb 28, 2022", "price": 452.13}, {"date": "Mar 07, 2022", "price": 416.38}, {"date": "Mar 14, 2022", "price": 453.33}, {"date": "Mar 21, 2022", "price": 431.62}, {"date": "Mar 28, 2022", "price": 458.19}, {"date": "Apr 04, 2022", "price": 445.34}, {"date": "Apr 11, 2022", "price": 420.44}, {"date": "Apr 18, 2022", "price": 408.67}, {"date": "Apr 25, 2022", "price": 395.95}, {"date": "May 02, 2022", "price": 391.01}, {"date": "May 09, 2022", "price": 405.45}, {"date": "May 16, 2022", "price": 399.09}, {"date": "May 23, 2022", "price": 428.22}, {"date": "May 30, 2022", "price": 429.76}, {"date": "Jun 06, 2022", "price": 393.84}, {"date": "Jun 13, 2022", "price": 360.79}, {"date": "Jun 20, 2022", "price": 387.72}, {"date": "Jun 27, 2022", "price": 368.48}, {"date": "Jul 04, 2022", "price": 389.44}, {"date": "Jul 11, 2022", "price": 379.86}, {"date": "Jul 18, 2022", "price": 401.9}, {"date": "Jul 25, 2022", "price": 410.12}, {"date": "Aug 01, 2022", "price": 433.43}, {"date": "Aug 08, 2022", "price": 445.67}, {"date": "Aug 15, 2022", "price": 425.06}, {"date": "Aug 22, 2022", "price": 381.02}, {"date": "Aug 29, 2022", "price": 368.14}, {"date": "Sep 05, 2022", "price": 394.78}, {"date": "Sep 12, 2022", "price": 299.5}, {"date": "Sep 19, 2022", "price": 284.56}, {"date": "Sep 26, 2022", "price": 275.2}, {"date": "Oct 03, 2022", "price": 288.77}, {"date": "Oct 10, 2022", "price": 287.94}, {"date": "Oct 17, 2022", "price": 306.37}, {"date": "Oct 24, 2022", "price": 325.68}, {"date": "Oct 31, 2022", "price": 285.75}, {"date": "Nov 07, 2022", "price": 341.15}, {"date": "Nov 14, 2022", "price": 330.86}, {"date": "Nov 21, 2022", "price": 334.3}, {"date": "Nov 28, 2022", "price": 341.53}, {"date": "Dec 05, 2022", "price": 330.64}, {"date": "Dec 12, 2022", "price": 338.54}, {"date": "Dec 19, 2022", "price": 338.45}, {"date": "Dec 26, 2022", "price": 336.53}, {"date": "Jan 02, 2023", "price": 332.75}, {"date": "Jan 09, 2023", "price": 344.38}, {"date": "Jan 16, 2023", "price": 356.38}, {"date": "Jan 23, 2023", "price": 370.71}, {"date": "Jan 30, 2023", "price": 379.33}, {"date": "Feb 06, 2023", "price": 370.99}, {"date": "Feb 13, 2023", "price": 356.85}, {"date": "Feb 20, 2023", "price": 320.54}, {"date": "Feb 27, 2023", "price": 344.04}, {"date": "Mar 06, 2023", "price": 329.3}, {"date": "Mar 13, 2023", "price": 358.14}, {"date": "Mar 20, 2023", "price": 374.96}, {"date": "Mar 27, 2023", "price": 385.37}, {"date": "Apr 03, 2023", "price": 380.6}, {"date": "Apr 10, 2023", "price": 379.38}, {"date": "Apr 17, 2023", "price": 377.67}, {"date": "Apr 24, 2023", "price": 377.56}, {"date": "May 01, 2023", "price": 348.4}, {"date": "May 08, 2023", "price": 335.45}, {"date": "May 15, 2023", "price": 371.25}, {"date": "May 22, 2023", "price": 415.39}, {"date": "May 29, 2023", "price": 436.37}, {"date": "Jun 05, 2023", "price": 454.0}, {"date": "Jun 12, 2023", "price": 495.18}, {"date": "Jun 19, 2023", "price": 484.72}, {"date": "Jun 26, 2023", "price": 488.99}, {"date": "Jul 03, 2023", "price": 485.27}, {"date": "Jul 10, 2023", "price": 514.83}, {"date": "Jul 17, 2023", "price": 520.23}, {"date": "Jul 24, 2023", "price": 528.87}, {"date": "Jul 31, 2023", "price": 526.88}, {"date": "Aug 07, 2023", "price": 508.45}, {"date": "Aug 14, 2023", "price": 508.13}, {"date": "Aug 21, 2023", "price": 525.06}, {"date": "Aug 28, 2023", "price": 563.21}, {"date": "Sep 04, 2023", "price": 560.36}, {"date": "Sep 11, 2023", "price": 528.89}, {"date": "Sep 18, 2023", "price": 512.9}, {"date": "Sep 25, 2023", "price": 509.9}, {"date": "Oct 02, 2023", "price": 526.68}, {"date": "Oct 09, 2023", "price": 548.76}, {"date": "Oct 16, 2023", "price": 540.96}, {"date": "Oct 23, 2023", "price": 508.12}, {"date": "Oct 30, 2023", "price": 563.66}, {"date": "Nov 06, 2023", "price": 597.22}, {"date": "Nov 13, 2023", "price": 602.66}, {"date": "Nov 20, 2023", "price": 619.43}, {"date": "Nov 27, 2023", "price": 612.47}, {"date": "Dec 04, 2023", "price": 610.01}, {"date": "Dec 11, 2023", "price": 584.68}, {"date": "Dec 18, 2023", "price": 598.75}, {"date": "Dec 25, 2023", "price": 596.6}, {"date": "Jan 01, 2024", "price": 564.6}, {"date": "Jan 08, 2024", "price": 596.54}, {"date": "Jan 15, 2024", "price": 611.55}, {"date": "Jan 22, 2024", "price": 613.93}, {"date": "Jan 29, 2024", "price": 634.76}, {"date": "Feb 05, 2024", "price": 627.21}, {"date": "Feb 12, 2024", "price": 546.66}, {"date": "Feb 19, 2024", "price": 553.44}, {"date": "Feb 26, 2024", "price": 570.93}, {"date": "Mar 04, 2024", "price": 551.69}, {"date": "Mar 11, 2024", "price": 492.46}, {"date": "Mar 18, 2024", "price": 499.52}, {"date": "Mar 25, 2024", "price": 504.6}, {"date": "Apr 01, 2024", "price": 485.12}, {"date": "Apr 08, 2024", "price": 474.09}, {"date": "Apr 15, 2024", "price": 465.02}, {"date": "Apr 22, 2024", "price": 477.56}, {"date": "Apr 29, 2024", "price": 486.18}, {"date": "May 06, 2024", "price": 482.29}, {"date": "May 13, 2024", "price": 483.43}, {"date": "May 20, 2024", "price": 475.43}, {"date": "May 27, 2024", "price": 444.76}, {"date": "Jun 03, 2024", "price": 465.43}, {"date": "Jun 10, 2024", "price": 525.31}, {"date": "Jun 17, 2024", "price": 533.44}, {"date": "Jun 24, 2024", "price": 555.54}, {"date": "Jul 01, 2024", "price": 578.34}, {"date": "Jul 08, 2024", "price": 559.05}, {"date": "Jul 15, 2024", "price": 551.0}, {"date": "Jul 22, 2024", "price": 542.44}, {"date": "Jul 29, 2024", "price": 526.17}, {"date": "Aug 05, 2024", "price": 536.3}, {"date": "Aug 12, 2024", "price": 553.46}, {"date": "Aug 19, 2024", "price": 558.3}, {"date": "Aug 26, 2024", "price": 574.41}, {"date": "Sep 02, 2024", "price": 563.41}, {"date": "Sep 09, 2024", "price": 536.87}, {"date": "Sep 16, 2024", "price": 522.3}, {"date": "Sep 23, 2024", "price": 515.48}, {"date": "Sep 30, 2024", "price": 507.22}, {"date": "Oct 07, 2024", "price": 495.42}, {"date": "Oct 14, 2024", "price": 494.9}, {"date": "Oct 21, 2024", "price": 483.72}, {"date": "Oct 28, 2024", "price": 482.8}, {"date": "Nov 04, 2024", "price": 494.68}, {"date": "Nov 11, 2024", "price": 503.37}, {"date": "Nov 18, 2024", "price": 512.15}, {"date": "Nov 25, 2024", "price": 515.93}, {"date": "Dec 02, 2024", "price": 552.96}, {"date": "Dec 09, 2024", "price": 465.69}, {"date": "Dec 16, 2024", "price": 447.17}, {"date": "Dec 23, 2024", "price": 446.48}, {"date": "Dec 30, 2024", "price": 430.57}, {"date": "Jan 06, 2025", "price": 405.92}, {"date": "Jan 13, 2025", "price": 429.99}, {"date": "Jan 20, 2025", "price": 435.38}, {"date": "Jan 27, 2025", "price": 437.45}, {"date": "Feb 03, 2025", "price": 433.07}, {"date": "Feb 10, 2025", "price": 460.16}, {"date": "Feb 17, 2025", "price": 444.32}, {"date": "Feb 24, 2025", "price": 438.56}, {"date": "Mar 03, 2025", "price": 449.4}, {"date": "Mar 10, 2025", "price": 394.74}, {"date": "Mar 17, 2025", "price": 387.26}, {"date": "Mar 24, 2025", "price": 385.71}, {"date": "Mar 31, 2025", "price": 349.07}, {"date": "Apr 07, 2025", "price": 352.47}, {"date": "Apr 14, 2025", "price": 348.8}, {"date": "Apr 21, 2025", "price": 367.72}, {"date": "Apr 28, 2025", "price": 380.87}, {"date": "May 05, 2025", "price": 383.28}, {"date": "May 12, 2025", "price": 417.13}, {"date": "May 19, 2025", "price": 407.69}, {"date": "May 26, 2025", "price": 415.09}, {"date": "Jun 02, 2025", "price": 416.92}, {"date": "Jun 09, 2025", "price": 391.68}, {"date": "Jun 16, 2025", "price": 376.92}, {"date": "Jun 23, 2025", "price": 385.83}, {"date": "Jun 30, 2025", "price": 379.31}, {"date": "Jul 07, 2025", "price": 363.35}, {"date": "Jul 14, 2025", "price": 365.79}, {"date": "Jul 21, 2025", "price": 370.74}, {"date": "Jul 28, 2025", "price": 347.8}, {"date": "Aug 04, 2025", "price": 341.05}, {"date": "Aug 11, 2025", "price": 354.85}, {"date": "Aug 18, 2025", "price": 362.09}, {"date": "Aug 25, 2025", "price": 356.7}, {"date": "Sep 01, 2025", "price": 348.97}, {"date": "Sep 08, 2025", "price": 349.36}, {"date": "Sep 15, 2025", "price": 365.9}, {"date": "Sep 22, 2025", "price": 360.37}, {"date": "Sep 29, 2025", "price": 346.74}, {"date": "Oct 06, 2025", "price": 337.51}, {"date": "Oct 13, 2025", "price": 333.26}, {"date": "Oct 20, 2025", "price": 353.52}, {"date": "Oct 27, 2025", "price": 340.31}, {"date": "Nov 03, 2025", "price": 326.95}, {"date": "Nov 10, 2025", "price": 331.11}, {"date": "Nov 17, 2025", "price": 324.19}, {"date": "Nov 24, 2025", "price": 320.13}, {"date": "Dec 01, 2025", "price": 346.26}, {"date": "Dec 08, 2025", "price": 356.43}, {"date": "Dec 15, 2025", "price": 355.86}, {"date": "Dec 22, 2025", "price": 353.8}, {"date": "Dec 29, 2025", "price": 333.3}, {"date": "Jan 05, 2026", "price": 333.95}, {"date": "Jan 12, 2026", "price": 296.12}, {"date": "Jan 19, 2026", "price": 301.07}, {"date": "Jan 26, 2026", "price": 293.25}, {"date": "Feb 02, 2026", "price": 268.38}, {"date": "Feb 09, 2026", "price": 263.97}, {"date": "Feb 16, 2026", "price": 258.61}, {"date": "Feb 23, 2026", "price": 262.41}, {"date": "Mar 02, 2026", "price": 283.62}, {"date": "Mar 09, 2026", "price": 249.32}, {"date": "Mar 16, 2026", "price": 248.15}, {"date": "Mar 23, 2026", "price": 234.84}, {"date": "Mar 30, 2026", "price": 242.92}, {"date": "Apr 06, 2026", "price": 225.35}, {"date": "Apr 13, 2026", "price": 244.45}, {"date": "Apr 20, 2026", "price": 245.44}, {"date": "Apr 27, 2026", "price": 250.71}, {"date": "May 04, 2026", "price": 253.04}, {"date": "May 11, 2026", "price": 247.6}, {"date": "May 18, 2026", "price": 244.76}, {"date": "May 25, 2026", "price": 259.21}, {"date": "Jun 01, 2026", "price": 251.44}, {"date": "Jun 08, 2026", "price": 204.02}, {"date": "Jun 15, 2026", "price": 195.16}, {"date": "Jun 22, 2026", "price": 202.73}, {"date": "Jun 29, 2026", "price": 219.72}, {"date": "Jul 06, 2026", "price": 223.64}, {"date": "Jul 13, 2026", "price": 237.25}, {"date": "Jul 20, 2026", "price": 225.11}, {"date": "Jul 27, 2026", "price": 250.41}, {"date": "Aug 03, 2026", "price": 265.21}, {"date": "Aug 07, 2026", "price": 265.21}], "10Y": [{"date": "Sep 01, 2016", "price": 108.54}, {"date": "Oct 01, 2016", "price": 107.51}, {"date": "Nov 01, 2016", "price": 102.81}, {"date": "Dec 01, 2016", "price": 102.95}, {"date": "Jan 01, 2017", "price": 113.38}, {"date": "Feb 01, 2017", "price": 118.34}, {"date": "Mar 01, 2017", "price": 130.13}, {"date": "Apr 01, 2017", "price": 133.74}, {"date": "May 01, 2017", "price": 141.86}, {"date": "Jun 01, 2017", "price": 141.44}, {"date": "Jul 01, 2017", "price": 146.49}, {"date": "Aug 01, 2017", "price": 155.16}, {"date": "Sep 01, 2017", "price": 149.18}, {"date": "Oct 01, 2017", "price": 175.16}, {"date": "Nov 01, 2017", "price": 181.47}, {"date": "Dec 01, 2017", "price": 175.24}, {"date": "Jan 01, 2018", "price": 199.76}, {"date": "Feb 01, 2018", "price": 209.13}, {"date": "Mar 01, 2018", "price": 216.08}, {"date": "Apr 01, 2018", "price": 221.6}, {"date": "May 01, 2018", "price": 249.28}, {"date": "Jun 01, 2018", "price": 243.81}, {"date": "Jul 01, 2018", "price": 244.68}, {"date": "Aug 01, 2018", "price": 263.51}, {"date": "Sep 01, 2018", "price": 269.95}, {"date": "Oct 01, 2018", "price": 245.76}, {"date": "Nov 01, 2018", "price": 250.89}, {"date": "Dec 01, 2018", "price": 226.24}, {"date": "Jan 01, 2019", "price": 247.82}, {"date": "Feb 01, 2019", "price": 262.5}, {"date": "Mar 01, 2019", "price": 266.49}, {"date": "Apr 01, 2019", "price": 289.25}, {"date": "May 01, 2019", "price": 270.9}, {"date": "Jun 01, 2019", "price": 294.65}, {"date": "Jul 01, 2019", "price": 298.86}, {"date": "Aug 01, 2019", "price": 284.51}, {"date": "Sep 01, 2019", "price": 276.25}, {"date": "Oct 01, 2019", "price": 277.93}, {"date": "Nov 01, 2019", "price": 309.53}, {"date": "Dec 01, 2019", "price": 329.81}, {"date": "Jan 01, 2020", "price": 351.14}, {"date": "Feb 01, 2020", "price": 345.12}, {"date": "Mar 01, 2020", "price": 318.24}, {"date": "Apr 01, 2020", "price": 353.64}, {"date": "May 01, 2020", "price": 386.6}, {"date": "Jun 01, 2020", "price": 435.31}, {"date": "Jul 01, 2020", "price": 444.32}, {"date": "Aug 01, 2020", "price": 513.39}, {"date": "Sep 01, 2020", "price": 490.43}, {"date": "Oct 01, 2020", "price": 447.1}, {"date": "Nov 01, 2020", "price": 478.47}, {"date": "Dec 01, 2020", "price": 500.12}, {"date": "Jan 01, 2021", "price": 458.77}, {"date": "Feb 01, 2021", "price": 459.67}, {"date": "Mar 01, 2021", "price": 475.37}, {"date": "Apr 01, 2021", "price": 508.34}, {"date": "May 01, 2021", "price": 504.58}, {"date": "Jun 01, 2021", "price": 585.64}, {"date": "Jul 01, 2021", "price": 621.63}, {"date": "Aug 01, 2021", "price": 663.7}, {"date": "Sep 01, 2021", "price": 575.72}, {"date": "Oct 01, 2021", "price": 650.36}, {"date": "Nov 01, 2021", "price": 669.85}, {"date": "Dec 01, 2021", "price": 567.06}, {"date": "Jan 01, 2022", "price": 534.3}, {"date": "Feb 01, 2022", "price": 467.68}, {"date": "Mar 01, 2022", "price": 455.62}, {"date": "Apr 01, 2022", "price": 395.95}, {"date": "May 01, 2022", "price": 416.48}, {"date": "Jun 01, 2022", "price": 366.06}, {"date": "Jul 01, 2022", "price": 410.12}, {"date": "Aug 01, 2022", "price": 373.44}, {"date": "Sep 01, 2022", "price": 275.2}, {"date": "Oct 01, 2022", "price": 318.5}, {"date": "Nov 01, 2022", "price": 344.93}, {"date": "Dec 01, 2022", "price": 336.53}, {"date": "Jan 01, 2023", "price": 370.34}, {"date": "Feb 01, 2023", "price": 323.95}, {"date": "Mar 01, 2023", "price": 385.37}, {"date": "Apr 01, 2023", "price": 377.56}, {"date": "May 01, 2023", "price": 417.79}, {"date": "Jun 01, 2023", "price": 488.99}, {"date": "Jul 01, 2023", "price": 546.17}, {"date": "Aug 01, 2023", "price": 559.34}, {"date": "Sep 01, 2023", "price": 509.9}, {"date": "Oct 01, 2023", "price": 532.06}, {"date": "Nov 01, 2023", "price": 611.01}, {"date": "Dec 01, 2023", "price": 596.6}, {"date": "Jan 01, 2024", "price": 617.78}, {"date": "Feb 01, 2024", "price": 560.28}, {"date": "Mar 01, 2024", "price": 504.6}, {"date": "Apr 01, 2024", "price": 462.83}, {"date": "May 01, 2024", "price": 444.76}, {"date": "Jun 01, 2024", "price": 555.54}, {"date": "Jul 01, 2024", "price": 551.65}, {"date": "Aug 01, 2024", "price": 574.41}, {"date": "Sep 01, 2024", "price": 517.78}, {"date": "Oct 01, 2024", "price": 478.08}, {"date": "Nov 01, 2024", "price": 515.93}, {"date": "Dec 01, 2024", "price": 444.68}, {"date": "Jan 01, 2025", "price": 437.45}, {"date": "Feb 01, 2025", "price": 438.56}, {"date": "Mar 01, 2025", "price": 383.53}, {"date": "Apr 01, 2025", "price": 374.98}, {"date": "May 01, 2025", "price": 415.09}, {"date": "Jun 01, 2025", "price": 386.88}, {"date": "Jul 01, 2025", "price": 357.69}, {"date": "Aug 01, 2025", "price": 356.7}, {"date": "Sep 01, 2025", "price": 352.75}, {"date": "Oct 01, 2025", "price": 340.31}, {"date": "Nov 01, 2025", "price": 320.13}, {"date": "Dec 01, 2025", "price": 349.99}, {"date": "Jan 01, 2026", "price": 293.25}, {"date": "Feb 01, 2026", "price": 262.41}, {"date": "Mar 01, 2026", "price": 243.08}, {"date": "Apr 01, 2026", "price": 246.1}, {"date": "May 01, 2026", "price": 259.21}, {"date": "Jun 01, 2026", "price": 205.02}, {"date": "Jul 01, 2026", "price": 250.41}, {"date": "Aug 01, 2026", "price": 265.21}, {"date": "Aug 07, 2026", "price": 265.21}], "MAX": [{"date": "Aug 01, 1986", "price": 0.37}, {"date": "Nov 01, 1986", "price": 0.53}, {"date": "Feb 01, 1987", "price": 1.52}, {"date": "May 01, 1987", "price": 1.03}, {"date": "Aug 01, 1987", "price": 0.7}, {"date": "Nov 01, 1987", "price": 0.83}, {"date": "Feb 01, 1988", "price": 1.09}, {"date": "May 01, 1988", "price": 1.3}, {"date": "Aug 01, 1988", "price": 1.34}, {"date": "Nov 01, 1988", "price": 1.45}, {"date": "Feb 01, 1989", "price": 1.67}, {"date": "May 01, 1989", "price": 1.42}, {"date": "Aug 01, 1989", "price": 1.05}, {"date": "Nov 01, 1989", "price": 1.47}, {"date": "Feb 01, 1990", "price": 2.39}, {"date": "May 01, 1990", "price": 2.2}, {"date": "Aug 01, 1990", "price": 1.5}, {"date": "Nov 01, 1990", "price": 2.38}, {"date": "Feb 01, 1991", "price": 3.23}, {"date": "May 01, 1991", "price": 3.34}, {"date": "Aug 01, 1991", "price": 3.31}, {"date": "Nov 01, 1991", "price": 3.84}, {"date": "Feb 01, 1992", "price": 2.77}, {"date": "May 01, 1992", "price": 2.38}, {"date": "Aug 01, 1992", "price": 2.23}, {"date": "Nov 01, 1992", "price": 2.59}, {"date": "Feb 01, 1993", "price": 3.58}, {"date": "May 01, 1993", "price": 3.09}, {"date": "Aug 01, 1993", "price": 2.72}, {"date": "Nov 01, 1993", "price": 3.78}, {"date": "Feb 01, 1994", "price": 3.34}, {"date": "May 01, 1994", "price": 3.88}, {"date": "Aug 01, 1994", "price": 4.5}, {"date": "Nov 01, 1994", "price": 3.62}, {"date": "Feb 01, 1995", "price": 7.28}, {"date": "May 01, 1995", "price": 7.72}, {"date": "Aug 01, 1995", "price": 7.12}, {"date": "Nov 01, 1995", "price": 4.25}, {"date": "Feb 01, 1996", "price": 5.38}, {"date": "May 01, 1996", "price": 3.8}, {"date": "Aug 01, 1996", "price": 4.33}, {"date": "Nov 01, 1996", "price": 4.73}, {"date": "Feb 01, 1997", "price": 4.89}, {"date": "May 01, 1997", "price": 4.67}, {"date": "Aug 01, 1997", "price": 5.97}, {"date": "Nov 01, 1997", "price": 4.81}, {"date": "Feb 01, 1998", "price": 6.26}, {"date": "May 01, 1998", "price": 4.04}, {"date": "Aug 01, 1998", "price": 4.64}, {"date": "Nov 01, 1998", "price": 5.97}, {"date": "Feb 01, 1999", "price": 7.92}, {"date": "May 01, 1999", "price": 10.72}, {"date": "Aug 01, 1999", "price": 17.48}, {"date": "Nov 01, 1999", "price": 13.77}, {"date": "Feb 01, 2000", "price": 30.23}, {"date": "May 01, 2000", "price": 28.62}, {"date": "Aug 01, 2000", "price": 38.03}, {"date": "Nov 01, 2000", "price": 21.84}, {"date": "Feb 01, 2001", "price": 22.46}, {"date": "May 01, 2001", "price": 18.75}, {"date": "Aug 01, 2001", "price": 13.2}, {"date": "Nov 01, 2001", "price": 16.85}, {"date": "Feb 01, 2002", "price": 19.98}, {"date": "May 01, 2002", "price": 11.98}, {"date": "Aug 01, 2002", "price": 11.82}, {"date": "Nov 01, 2002", "price": 13.21}, {"date": "Feb 01, 2003", "price": 17.26}, {"date": "May 01, 2003", "price": 16.36}, {"date": "Aug 01, 2003", "price": 21.88}, {"date": "Nov 01, 2003", "price": 19.15}, {"date": "Feb 01, 2004", "price": 20.75}, {"date": "May 01, 2004", "price": 21.09}, {"date": "Aug 01, 2004", "price": 28.01}, {"date": "Nov 01, 2004", "price": 28.45}, {"date": "Feb 01, 2005", "price": 29.74}, {"date": "May 01, 2005", "price": 29.64}, {"date": "Aug 01, 2005", "price": 32.25}, {"date": "Nov 01, 2005", "price": 39.73}, {"date": "Feb 01, 2006", "price": 39.2}, {"date": "May 01, 2006", "price": 28.51}, {"date": "Aug 01, 2006", "price": 38.25}, {"date": "Nov 01, 2006", "price": 38.87}, {"date": "Feb 01, 2007", "price": 41.56}, {"date": "May 01, 2007", "price": 40.29}, {"date": "Aug 01, 2007", "price": 47.9}, {"date": "Nov 01, 2007", "price": 34.93}, {"date": "Feb 01, 2008", "price": 37.29}, {"date": "May 01, 2008", "price": 41.35}, {"date": "Aug 01, 2008", "price": 26.64}, {"date": "Nov 01, 2008", "price": 19.31}, {"date": "Feb 01, 2009", "price": 27.35}, {"date": "May 01, 2009", "price": 32.42}, {"date": "Aug 01, 2009", "price": 32.94}, {"date": "Nov 01, 2009", "price": 32.3}, {"date": "Feb 01, 2010", "price": 33.6}, {"date": "May 01, 2010", "price": 28.72}, {"date": "Aug 01, 2010", "price": 28.15}, {"date": "Nov 01, 2010", "price": 33.05}, {"date": "Feb 01, 2011", "price": 33.55}, {"date": "May 01, 2011", "price": 27.71}, {"date": "Aug 01, 2011", "price": 29.41}, {"date": "Nov 01, 2011", "price": 30.95}, {"date": "Feb 01, 2012", "price": 33.55}, {"date": "May 01, 2012", "price": 30.88}, {"date": "Aug 01, 2012", "price": 34.03}, {"date": "Nov 01, 2012", "price": 37.83}, {"date": "Feb 01, 2013", "price": 45.08}, {"date": "May 01, 2013", "price": 47.28}, {"date": "Aug 01, 2013", "price": 54.22}, {"date": "Nov 01, 2013", "price": 59.19}, {"date": "Feb 01, 2014", "price": 61.69}, {"date": "May 01, 2014", "price": 69.25}, {"date": "Aug 01, 2014", "price": 70.12}, {"date": "Nov 01, 2014", "price": 70.13}, {"date": "Feb 01, 2015", "price": 76.06}, {"date": "May 01, 2015", "price": 81.99}, {"date": "Aug 01, 2015", "price": 88.66}, {"date": "Nov 01, 2015", "price": 89.13}, {"date": "Feb 01, 2016", "price": 94.22}, {"date": "May 01, 2016", "price": 97.86}, {"date": "Aug 01, 2016", "price": 107.51}, {"date": "Nov 01, 2016", "price": 113.38}, {"date": "Feb 01, 2017", "price": 133.74}, {"date": "May 01, 2017", "price": 146.49}, {"date": "Aug 01, 2017", "price": 175.16}, {"date": "Nov 01, 2017", "price": 199.76}, {"date": "Feb 01, 2018", "price": 221.6}, {"date": "May 01, 2018", "price": 244.68}, {"date": "Aug 01, 2018", "price": 245.76}, {"date": "Nov 01, 2018", "price": 247.82}, {"date": "Feb 01, 2019", "price": 289.25}, {"date": "May 01, 2019", "price": 298.86}, {"date": "Aug 01, 2019", "price": 277.93}, {"date": "Nov 01, 2019", "price": 351.14}, {"date": "Feb 01, 2020", "price": 353.64}, {"date": "May 01, 2020", "price": 444.32}, {"date": "Aug 01, 2020", "price": 447.1}, {"date": "Nov 01, 2020", "price": 458.77}, {"date": "Feb 01, 2021", "price": 508.34}, {"date": "May 01, 2021", "price": 621.63}, {"date": "Aug 01, 2021", "price": 650.36}, {"date": "Nov 01, 2021", "price": 534.3}, {"date": "Feb 01, 2022", "price": 395.95}, {"date": "May 01, 2022", "price": 410.12}, {"date": "Aug 01, 2022", "price": 318.5}, {"date": "Nov 01, 2022", "price": 370.34}, {"date": "Feb 01, 2023", "price": 377.56}, {"date": "May 01, 2023", "price": 546.17}, {"date": "Aug 01, 2023", "price": 532.06}, {"date": "Nov 01, 2023", "price": 617.78}, {"date": "Feb 01, 2024", "price": 462.83}, {"date": "May 01, 2024", "price": 551.65}, {"date": "Aug 01, 2024", "price": 478.08}, {"date": "Nov 01, 2024", "price": 437.45}, {"date": "Feb 01, 2025", "price": 374.98}, {"date": "May 01, 2025", "price": 357.69}, {"date": "Aug 01, 2025", "price": 340.31}, {"date": "Nov 01, 2025", "price": 293.25}, {"date": "Feb 01, 2026", "price": 246.1}, {"date": "May 01, 2026", "price": 250.41}, {"date": "Aug 01, 2026", "price": 265.21}, {"date": "Aug 07, 2026", "price": 265.21}]};
+        let currentRangeKey = '1Y';
+        let currentPoints = allDatasets[currentRangeKey] || [];
+        let currentSvgCoords = [];
+
+        const width = 900;
+        const height = 260;
+        const padX = 20;
+        const padY = 25;
+
+        const container = document.getElementById('chart-container');
+        const svg = document.getElementById('interactive-svg');
+        const linePath = document.getElementById('chart-line-path');
+        const areaPath = document.getElementById('chart-area-path');
+        const tooltipDate = document.getElementById('tooltip-date');
+        const tooltipPrice = document.getElementById('tooltip-price');
+        const crosshair = document.getElementById('crosshair-line');
+        const dot = document.getElementById('hover-dot');
+        const startLbl = document.getElementById('chart-start-lbl');
+        const endLbl = document.getElementById('chart-end-lbl');
+        const rangeTitle = document.getElementById('chart-range-title');
+
+        function recalculatePaths(points) {
+            if (!points || points.length < 2) return;
+            const prices = points.map(p => p.price);
+            const minP = Math.min(...prices);
+            const maxP = Math.max(...prices);
+            const pRange = Math.max(maxP - minP, 0.01);
+            const n = points.length;
+
+            currentSvgCoords = [];
+            for (let i = 0; i < n; i++) {
+                const x = padX + (i / (n - 1)) * (width - 2 * padX);
+                const y = height - padY - ((points[i].price - minP) / pRange) * (height - 2 * padY);
+                currentSvgCoords.push([Math.round(x * 10) / 10, Math.round(y * 10) / 10]);
+            }
+
+            const lineD = 'M ' + currentSvgCoords.map(c => c[0] + ',' + c[1]).join(' L ');
+            const firstC = currentSvgCoords[0];
+            const lastC = currentSvgCoords[currentSvgCoords.length - 1];
+            const areaD = lineD + ' L ' + lastC[0] + ',' + height + ' L ' + firstC[0] + ',' + height + ' Z';
+
+            linePath.setAttribute('d', lineD);
+            areaPath.setAttribute('d', areaD);
+
+            startLbl.innerText = points[0].date + ' ($' + minP.toFixed(2) + ')';
+            endLbl.innerText = points[n - 1].date + ' ($' + points[n - 1].price.toFixed(2) + ')';
+            
+            tooltipDate.innerText = points[n - 1].date;
+            tooltipPrice.innerText = '$' + points[n - 1].price.toFixed(2);
+
+            const titles = { '1Y': '1-Year Range', '5Y': '5-Year Range', '10Y': '10-Year Range', 'MAX': 'All-Time Historical Range' };
+            rangeTitle.innerText = titles[currentRangeKey] || currentRangeKey + ' Range';
+        }
+
+        window.switchChartRange = function(rangeKey) {
+            if (!allDatasets[rangeKey]) return;
+            currentRangeKey = rangeKey;
+            currentPoints = allDatasets[rangeKey];
+            
+            document.querySelectorAll('.range-pill').forEach(btn => {
+                if (btn.innerText.trim() === rangeKey) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            recalculatePaths(currentPoints);
+            hideHover();
+        };
+
+        function updateHover(e) {
+            if (!currentPoints.length || !currentSvgCoords.length) return;
+            const rect = svg.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const pct = Math.max(0, Math.min(1, mouseX / rect.width));
+            const idx = Math.round(pct * (currentPoints.length - 1));
+            
+            const pt = currentPoints[idx];
+            const coord = currentSvgCoords[idx];
+            if (!pt || !coord) return;
+
+            crosshair.setAttribute('x1', coord[0]);
+            crosshair.setAttribute('x2', coord[0]);
+            crosshair.style.display = 'block';
+
+            dot.setAttribute('cx', coord[0]);
+            dot.setAttribute('cy', coord[1]);
+            dot.style.display = 'block';
+
+            tooltipDate.innerText = pt.date;
+            tooltipPrice.innerText = '$' + pt.price.toFixed(2);
+        }
+
+        function hideHover() {
+            crosshair.style.display = 'none';
+            dot.style.display = 'none';
+            if (currentPoints.length) {
+                tooltipDate.innerText = currentPoints[currentPoints.length - 1].date;
+                tooltipPrice.innerText = '$' + currentPoints[currentPoints.length - 1].price.toFixed(2);
+            }
+        }
+
+        container.addEventListener('mousemove', updateHover);
+        container.addEventListener('mouseleave', hideHover);
+        container.addEventListener('touchstart', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
+        container.addEventListener('touchmove', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
+        container.addEventListener('touchend', hideHover);
+
+        recalculatePaths(currentPoints);
+    })();
+    </script>
+    
+
+            <!-- Key Metrics Grid -->
+            <div class="metrics-grid" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));">
+                <div class="metric-cell">
+                    <div class="metric-label">Fair Value</div>
+                    <div class="metric-value" style="color: var(--accent-warm);">$340.00</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Bear Target</div>
+                    <div class="metric-value" style="color: var(--accent-red);">$220.00 (-17.0%)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Base Target</div>
+                    <div class="metric-value">$340.00 (+28.2%)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Bull Target</div>
+                    <div class="metric-value" style="color: var(--accent-green);">$410.00 (+54.6%)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Alert Corridor</div>
+                    <div class="metric-value" style="font-size: 1.05rem; font-family: var(--font-mono); color: var(--text-title);">$235.00 ⇄ $330.00</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Next Catalyst</div>
+                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">2026-09-17</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation Tabs -->
+        <div class="tabs-header">
+            <button class="tab-btn active" onclick="showTab('memo')">Investment Thesis</button>
+            <button class="tab-btn" onclick="showTab('history')">Evolution (0)</button>
+        </div>
+
+        <!-- Memo Content -->
+        <div id="tab-memo" class="tab-content active">
+            <article class="memo-container">
+                <div class="section">
+  <h3>1. Q2 FY2026 Financial Highlights & Business Model Architecture</h3>
+  
+  <p>Adobe Inc. (ADBE) reported record financial performance for Q2 FY2026 (quarter ended May 29, 2026), demonstrating robust operational execution across its core SaaS ecosystem. Total revenue reached $6.62 billion, representing a 13% year-over-year increase (+11% in constant currency). Top-line expansion was overwhelmingly driven by subscription strength, with subscription revenue accounting for 96.5% of total revenue. Annualized Recurring Revenue (ARR) across the entire platform scaled to $27.10 billion (+12.5% YoY), benefiting from inorganic contribution via the closed acquisition of Semrush as well as organic acceleration in AI-native products.</p>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Q2 FY2026 Revenue</div>
+      <div class="metric-value">$6.62B</div>
+      <div class="metric-delta pos">+13.0% YoY</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Subscription Revenue</div>
+      <div class="metric-value">$6.39B</div>
+      <div class="metric-delta pos">+14.0% YoY</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Total Adobe ARR</div>
+      <div class="metric-value">$27.10B</div>
+      <div class="metric-delta pos">+12.5% YoY</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">AI-First ARR</div>
+      <div class="metric-value">&gt;$500M</div>
+      <div class="metric-delta pos">&gt;3x YoY</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Acrobat &amp; Express MAUs</div>
+      <div class="metric-value">&gt;850M</div>
+      <div class="metric-delta pos">+20.0% YoY</div>
+    </div>
+  </div>
+
+  <h4>Monetization Engine Across Three Core Clouds</h4>
+  <p>Adobe's business model rests on three distinct yet interconnected SaaS pillars, augmented by strategic enterprise acquisitions:</p>
+  <ul>
+    <li><strong>Creative Cloud ($4.54B Subscription Revenue, +13% YoY):</strong> The foundational bedrock of professional design, video editing, and digital creation. Adobe monetizes Photoshop, Illustrator, Premiere Pro, and After Effects through single-app and All Apps monthly/annual subscriptions. Growth is increasingly augmented by generative AI credit consumption packs for heavy Firefly usage.</li>
+    <li><strong>Document Cloud ($1.85B Subscription Revenue, +16% YoY):</strong> The productivity flywheel encompassing Acrobat, Adobe Sign, and mobile Reader apps. The key driver here is the rapid adoption of the <strong>Acrobat AI Assistant</strong>, which turns static PDF documents into conversational knowledge bases, doubling monetization per user.</li>
+    <li><strong>Experience Cloud &amp; Semrush Acquisition:</strong> The enterprise marketing, customer experience orchestration (CXO), and digital analytics engine. In April 2026, Adobe formally completed its <strong>$1.87 billion all-cash acquisition of Semrush</strong> ($12.00/share). Semrush contributed ~$480 million in total ARR and $40 million in Q2 subscription revenue. This strategic move expands Experience Cloud into <strong>Generative Engine Optimization (GEO)</strong> and <strong>Agentic Search Optimization (ASO)</strong>, allowing enterprise CMOs to monitor, optimize, and control how their brand is cited across LLM discovery channels (ChatGPT, Gemini, Perplexity) alongside traditional search.</li>
+  </ul>
+
+  <h4>The Freemium AI Funnel &amp; TAM Expansion Strategy</h4>
+  <p>Under management's strategic evolution, Adobe is executing a deliberate pivot from locked paywalls toward a <strong>frictionless, freemium AI-first onboarding funnel</strong>. By offering zero-barrier access to Firefly web apps, Adobe Express, and Acrobat Reader AI, Adobe is aggressively widening its top-of-funnel customer acquisition.</p>
+  <p>Creative freemium Monthly Active Users (MAUs) expanded from 50 million to over 90 million year-over-year, while combined Acrobat and Express MAUs crossed 850 million. Once users establish habitual usage within Express or Acrobat, Adobe monetizes them via two mechanisms: (1) high-margin micro-transactions via monthly Firefly generative credit refills, and (2) upsell migration into full individual and team Creative Cloud subscriptions as their workflow complexity escalates. Management explicitly views habit formation among students, freelancers, and business communicators as vital for multi-year customer lifetime value (LTV) maximization.</p>
+
+  <div class="callout">
+    <strong>Executive Commentary &amp; Strategic Pivot Takeaways:</strong>
+    <p><em>"AI is accelerating customer behavior at an unprecedented speed... the immediate opportunity for Adobe is to accelerate new user acquisition and lifetime value through a freemium offering. We believe this traffic is better served through a customized, friction-free onboarding experience without immediate paywalls."</em> — <strong>Shantanu Narayen, Chair &amp; CEO</strong></p>
+    <ul>
+      <li><strong>Pricing Optimization Deferral:</strong> To prioritize top-of-funnel conversion into free Firefly and Express funnels, management made the strategic decision to <strong>defer previously planned H2 FY2026 Creative Cloud individual price increases</strong>. While this temporarily lowered second-half individual ARR growth guidance by ~$480M, top-line revenue guidance was raised to $26.5B–$26.6B due to strong enterprise software conversions.</li>
+      <li><strong>C-Suite Transition Context:</strong> Adobe is undergoing a major leadership transition. CEO Shantanu Narayen announced his retirement/transition to Board Chair, while CFO Dan Durn departed on June 15, 2026. Longtime finance executive Steve Day took over as Interim CFO. Despite market nervousness around leadership timing, operational discipline remains intact with non-GAAP operating margins holding strong at ~44.5%.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <h3>2. Competitive Moat, Ecosystem Lock-In &amp; Disruption Counter-Thesis</h3>
+
+  <p>Despite narrative concerns regarding generative AI startups disrupting traditional design software, Adobe maintains one of the most entrenched competitive economic moats in software history. This moat is composed of four defensive layers: format dominance, workflow integration, enterprise copyright safety, and cross-platform orchestration.</p>
+
+  <h4>1. Proprietary File Format Monopoly &amp; Switching Costs</h4>
+  <p>Adobe owns the structural plumbing of digital media creation through proprietary standard file formats: <code>.PSD</code> (Photoshop), <code>.AI</code> (Illustrator), <code>.INDD</code> (InDesign), and <code>.PDF</code> (Acrobat). These formats act as structural switching cost barriers. Global agency workflows, enterprise asset libraries, print production systems, and marketing departments are anchored on multi-layer non-destructive editable file standards. A competitor offering standalone image generation cannot replace the non-destructive layer editing, vector node control, or color profile fidelity required for commercial production.</p>
+
+  <h4>2. Enterprise-Grade Copyright Safety: The Firefly Advantage</h4>
+  <p>Generative AI tools such as Midjourney or Stability AI face continuous legal exposure, copyright litigation, and regulatory scrutiny over un-cleared dataset web scraping. In sharp contrast, Adobe's proprietary <strong>Firefly model is trained strictly on Adobe Stock</strong> (over hundreds of millions of licensed, high-resolution assets) and public domain content where copyright has expired. This allows Adobe to offer enterprise clients explicit <strong>indemnification against IP infringement claims</strong>. For Fortune 500 brands, legal safety outweighs raw novelty, making Firefly the default AI model for commercial creative workflows.</p>
+
+  <h4>3. Countering Generative AI &amp; Startup Threats</h4>
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Threat Vector</th>
+        <th>Competitor / Startup</th>
+        <th>Market Concern</th>
+        <th>Adobe Moat &amp; Counter-Defense Strategy</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Standalone Image/Video AI</strong></td>
+        <td>Midjourney, Sora (OpenAI)</td>
+        <td>Users generate assets via prompt engineering without needing Photoshop or Premiere.</td>
+        <td><strong>Workflow Native Integration:</strong> Firefly and third-party models are embedded directly inside Creative Cloud timelines/canvases as non-destructive generative fill tools, turning text-to-image from a standalone tool into a feature of professional editing.</td>
+      </tr>
+      <tr>
+        <td><strong>Low-Friction Design Platforms</strong></td>
+        <td>Canva</td>
+        <td>Capture of non-professional creators and SMB design teams through intuitive templates.</td>
+        <td><strong>Adobe Express &amp; Freemium Onboarding:</strong> Express offers enterprise-managed brand kit guardrails, native Creative Cloud asset sync, and free Firefly credits, neutralizing Canva's ease-of-use lead while offering path to pro tools.</td>
+      </tr>
+      <tr>
+        <td><strong>Agentic Brand Visibility</strong></td>
+        <td>Perplexity, SearchGPT, AI Agents</td>
+        <td>Consumers discover products via AI summaries rather than traditional web search, bypassing ad networks.</td>
+        <td><strong>Semrush GEO &amp; ASO Stack:</strong> By acquiring Semrush, Adobe equips marketers with Generative Engine Optimization (GEO) tracking tools to audit, analyze, and optimize brand mentions inside AI responses.</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <h4>4. Network Effects &amp; Enterprise Content Supply Chain</h4>
+  <p>In large enterprise settings, Adobe's moat is further reinforced by its <strong>GenStudio and Content Supply Chain</strong> capabilities. Enterprise marketing teams do not simply create isolated images; they orchestrate thousands of localized ad variants across web, mobile, and social channels. Adobe's enterprise stack integrates creative asset creation (Photoshop/Illustrator), brand governance (Express), asset management (AEM), search/AI visibility (Semrush), and real-time performance analytics. This end-to-end integration creates high organizational sticky factor, making complete vendor replacement practically impossible.</p>
+</div>
+
+<div class="section">
+  <h2>Section 3: Cash Flow Audit, SBC Dilution & Buyback Cannibal Mechanics</h2>
+
+  <p>A rigorous fundamental evaluation of Adobe Inc. (ADBE) requires looking past non-GAAP reconciliations to conduct an uncompromising cash flow and economic audit. Operating in a highly recurring subscription SaaS model, Adobe generates massive top-line cash conversion. However, assessing true economic productivity—Warren Buffett's "Owner Earnings"—demands treating stock-based compensation (SBC) as an unavoidable cash-equivalent expense and analyzing how aggressively management uses repurchases to counter economic dilution.</p>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">H1 FY2026 Operating Cash Flow</div>
+      <div class="metric-value">$5.12B</div>
+      <div class="metric-delta pos">+10% YoY</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Q2 FY2026 Cash Flow</div>
+      <div class="metric-value">$2.17B</div>
+      <div class="metric-delta pos">Solid Conversion</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Cash & Short-Term Investments</div>
+      <div class="metric-value">$5.63B</div>
+      <div class="metric-delta pos">High Liquidity</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">H1 Buybacks</div>
+      <div class="metric-value">$4.59B</div>
+      <div class="metric-delta pos">16.6M Shares Retired</div>
+    </div>
+  </div>
+
+  <h3>Stock-Based Compensation (SBC) & Owner Earnings Audit</h3>
+
+  <p>In official earnings releases, software management routinely adds back stock-based compensation to non-GAAP net income and non-GAAP free cash flow. From an owner-oriented framework, equity compensation is a real operating expense—issuing shares to employees dilutes existing owners just as surely as paying cash salaries. In Q2 FY2026, Adobe recorded <strong>$534 million</strong> in stock-based compensation (up from $481 million in Q2 FY2025), bringing annualized SBC to approximately <strong>$1.80B–$2.00B</strong>.</p>
+
+  <p>To calculate Adobe's true normalized Owner Earnings, we deduct maintenance capital expenditures and 100% of stock-based compensation directly from reported operating cash flow:</p>
+
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Cash Flow Component</th>
+        <th>Q2 FY2026 (Actual)</th>
+        <th>H1 FY2026 (Actual)</th>
+        <th>FY2026 Annualized Run-Rate</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Operating Cash Flow (GAAP)</strong></td>
+        <td>$2,165M</td>
+        <td>$5,125M</td>
+        <td>~$10,000M–$10,250M</td>
+      </tr>
+      <tr>
+        <td>Less: Property, Plant & Equipment (CapEx)</td>
+        <td>($58M)</td>
+        <td>($110M)</td>
+        <td>(~$220M–$250M)</td>
+      </tr>
+      <tr>
+        <td><strong>Traditional Free Cash Flow (FCF)</strong></td>
+        <td><strong>$2,107M</strong></td>
+        <td><strong>$5,015M</strong></td>
+        <td><strong>~$9,780M–$10,000M</strong></td>
+      </tr>
+      <tr>
+        <td>Less: Stock-Based Compensation (100% Cash Expense)</td>
+        <td>($534M)</td>
+        <td>($1,034M)</td>
+        <td>(~$1,900M–$2,000M)</td>
+      </tr>
+      <tr>
+        <td><strong>Normalized Owner Earnings (True Economic FCF)</strong></td>
+        <td><strong>$1,573M</strong></td>
+        <td><strong>$3,981M</strong></td>
+        <td><strong>~$7,880M–$8,000M</strong></td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout">
+    <strong>Owner Earnings Takeaway:</strong> While traditional non-GAAP metrics report software free cash flow near $10B, Adobe's true normalized economic cash flow—after fully deducting real employee equity dilution ($1.9B+) and capital expenditures—stands at a robust <strong>~$8.0B annually</strong>. Because Adobe operates a hyper-capital-light model with capital expenditures representing under 3% of operating cash flow, its ROIC exceeds 30%, making every dollar of retained capital highly productive.
+  </div>
+
+  <h3>Share Repurchase Acceleration & "Cannibal" Mechanics</h3>
+
+  <p>To prevent equity grants from diluting shareholders, Adobe employs an aggressive share buyback strategy. During Q2 FY2026 alone, Adobe deployed <strong>$2.11 billion</strong> in cash repurchases to retire 8.5 million shares. Across the first half of FY2026, total repurchases reached <strong>$4.59 billion</strong> (16.6 million shares retired at an average cost of ~$276.50 per share).</p>
+
+  <ul>
+    <li><strong>Share Count Trajectory:</strong> Weighted average diluted shares are projected to drop to approximately <strong>~395 million shares</strong> in Q3 FY2026, down significantly from over 450 million shares five years ago.</li>
+    <li><strong>Net Neutralization of Dilution:</strong> Gross equity issuance from RSU vestings adds ~1.2%–1.5% to the share count annually. By repurchasing ~3.5%–4.0% of outstanding stock per year, Adobe nets a <strong>~2.0%–2.5% annual net reduction in share count</strong>.</li>
+    <li><strong>Remaining Capital Return Runway:</strong> Board authorization retains <strong>$26.78 billion</strong> in remaining buyback capacity as of May 29, 2026. At current market prices, this authorization empowers management to retire nearly 20% of the entire outstanding equity float over the next 3–4 years.</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>Section 4: Balance Sheet Liquidity, Debt Audit & Institutional Ownership</h2>
+
+  <p>Adobe's capital structure remains structured for balance sheet resilience and funding flexibilities. Management maintains high liquidity to support strategic tuck-in M&amp;A (such as the recent Semrush integration) and multi-billion-dollar annual share repurchases, backed by short-term cash liquidity and an investment-grade credit rating.</p>
+
+  <h3>Capital Structure & Net Debt Audit</h3>
+
+  <p>As of the end of Q2 FY2026 (May 29, 2026), Adobe's total cash, debt obligations, and contractual operating lease liabilities are detailed below:</p>
+
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Balance Sheet Line Item</th>
+        <th>Carrying Value (Q2 FY2026)</th>
+        <th>Notes & Terms</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Cash & Cash Equivalents</td>
+        <td>$3,120M</td>
+        <td>Liquid operating cash</td>
+      </tr>
+      <tr>
+        <td>Short-Term Investments</td>
+        <td>$2,510M</td>
+        <td>High-grade corporate bonds & US Treasuries</td>
+      </tr>
+      <tr>
+        <td><strong>Total Liquid Funds</strong></td>
+        <td><strong>$5,630M</strong></td>
+        <td><strong>Immediate cash & ST investments reserve</strong></td>
+      </tr>
+      <tr>
+        <td>Current Portion of Senior Notes & Debt</td>
+        <td>$1,843M</td>
+        <td>Maturing within 12 months</td>
+      </tr>
+      <tr>
+        <td>Long-Term Senior Notes</td>
+        <td>$4,307M</td>
+        <td>Fixed-rate institutional debt maturities</td>
+      </tr>
+      <tr>
+        <td>Commercial Paper Borrowings</td>
+        <td>$500M</td>
+        <td>Short-term unsecured liquidity program</td>
+      </tr>
+      <tr>
+        <td><strong>Total Contractual Debt</strong></td>
+        <td><strong>$6,650M</strong></td>
+        <td><strong>$6.15B Senior Notes + $500M Commercial Paper</strong></td>
+      </tr>
+      <tr>
+        <td>Operating Lease Liabilities (Current + Non-Current)</td>
+        <td>$420M</td>
+        <td>$91M current + $329M long-term real estate leases</td>
+      </tr>
+      <tr>
+        <td><strong>Total Obligations (Debt + Leases)</strong></td>
+        <td><strong>$7,070M</strong></td>
+        <td><strong>Comprehensive financial leverage baseline</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Net Debt Position (Excluding Leases)</strong></td>
+        <td><strong>$1,020M</strong></td>
+        <td><strong>$6.65B Total Debt less $5.63B Liquid Cash</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Net Debt Position (Including Leases)</strong></td>
+        <td><strong>$1,440M</strong></td>
+        <td><strong>Conservative net financial liability position</strong></td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout">
+    <strong>Liquidity & Solvency Assessment:</strong> With net debt sitting at a modest <strong>$1.02B</strong> against <strong>~$10B in annual operating cash flow</strong>, Adobe's Net Debt-to-Operating Cash Flow ratio is less than 0.1x. Net interest expense is negligible relative to operating income ($8.7B+ TTM), giving Adobe balance sheet capacity to comfortably service debt, absorb short-term macroeconomic shocks, and maintain cash returns to shareholders without balance sheet distress.
+  </div>
+
+  <h3>Verified Institutional Ownership & 13F Whales</h3>
+
+  <p>Adobe maintains an institutional shareholder base dominated by mega-cap asset managers and fundamental long-only funds. Based on official 2026 Form 13F SEC filings, the top active institutional holders of ADBE common stock are summarized below:</p>
+
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Institutional Holder</th>
+        <th>Reported Shares Held</th>
+        <th>Approx. % Ownership</th>
+        <th>Investment Strategy Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>The Vanguard Group, Inc.</strong></td>
+        <td>~38.5M shares</td>
+        <td>~9.7%</td>
+        <td>Primary Index & Core Passive Institutional Anchor</td>
+      </tr>
+      <tr>
+        <td><strong>BlackRock, Inc.</strong></td>
+        <td>~34.2M shares</td>
+        <td>~8.6%</td>
+        <td>iShares ETF & Institutional Asset Allocation</td>
+      </tr>
+      <tr>
+        <td><strong>State Street Corporation</strong></td>
+        <td>~18.1M shares</td>
+        <td>~4.6%</td>
+        <td>SPDR Indexing & Sector Institutional Funds</td>
+      </tr>
+      <tr>
+        <td><strong>Primecap Management Company</strong></td>
+        <td>~13.5M shares</td>
+        <td>~3.4%</td>
+        <td>Active Fundamental Equity Manager & Value/Growth Compounder Holder</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <p><em>Note: Former legacy institutional holders who have completely exited or liquidated their ADBE positions are explicitly excluded from active shareholder analysis to ensure accurate 13F audit verification.</em></p>
+</div>
+
+<div class="section">
+  <h2>Section 5: Warren Buffett Owner Earnings & Intrinsic Valuation Model</h2>
+  
+  <p>To value Adobe Inc. (NASDAQ: ADBE), we strictly bypass short-term Wall Street earnings multiples and arbitrary Year 5 terminal exit multiples. In accordance with Warren Buffett’s 1986 Shareholder Letter, true intrinsic value is the discounted value of all net cash that can be extracted from a business during its remaining life, adjusted for capital intensity and shareholder dilution.</p>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Current Share Price</div>
+      <div class="metric-value">$265.21</div>
+      <div class="metric-delta neg">-28.2% YTD</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Base Intrinsic Value</div>
+      <div class="metric-value">$340.00</div>
+      <div class="metric-delta pos">+28.2% Upside</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Normalized Owner Earnings</div>
+      <div class="metric-value">$7.75B</div>
+      <div class="metric-delta pos">Post-SBC FCF</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Post-SBC Owner Cash Yield</div>
+      <div class="metric-value">7.3%</div>
+      <div class="metric-delta pos">Unlevered Baseline</div>
+    </div>
+  </div>
+
+  <h3>The 7-Pillar Owner Earnings Framework Breakdown</h3>
+
+  <h4>Step 1: Calculate Normalized Owner Earnings</h4>
+  <p>Operating cash flow alone overstates economic earnings when stock grants dilute owners. We treat Stock-Based Compensation (SBC) as an explicit cash expense required to recruit and retain software talent.</p>
+  <ul>
+    <li><strong>Trailing Operating Cash Flow (TTM):</strong> ~$10.00 Billion</li>
+    <li><strong>Minus Maintenance CapEx:</strong> -$350 Million (Physical infrastructure and servers to support baseline operations; excludes growth CapEx)</li>
+    <li><strong>Minus Stock-Based Compensation (SBC):</strong> -$1.90 Billion (100% deduction as real economic dilution)</li>
+    <li><strong>Normalized Post-SBC Owner Earnings:</strong> <strong>~$7.75 Billion</strong></li>
+  </ul>
+
+  <h4>Step 2: Mid-Cycle Normalization & ARR Base</h4>
+  <p>Adobe operates a capital-light software subscription engine with highly predictable recurring cash flows. Exiting Q2 FY2026, total Annualized Recurring Revenue (ARR) reached $27.10 Billion (including ~$480 Million from the Semrush integration). Over 92% of revenue is non-cyclical subscription content, removing the need for deep cyclical trough adjustments.</p>
+
+  <h4>Step 3: Localized Sovereign Discounting & Hurdle Rate</h4>
+  <p>In alignment with Buffett’s PetroChina/Iscar discount methodology, we anchor our hurdle rate strictly to the local sovereign risk-free rate rather than arbitrary exit multiples:</p>
+  <ul>
+    <li><strong>US 10-Year Treasury Yield (Risk-Free Rate):</strong> ~4.20%</li>
+    <li><strong>Equity Risk Premium (ERP):</strong> 5.80%</li>
+    <li><strong>Sovereign Hurdle / Discount Rate ($r$):</strong> <strong>10.00%</strong></li>
+    <li><strong>Perpetual Terminal Growth Rate ($g$):</strong> 2.50% (capped strictly at long-term US GDP growth)</li>
+  </ul>
+
+  <h4>Step 4: Capital-Light Moat & Cash Yield</h4>
+  <p>At a market price of $265.21 per share (~$106.6 Billion market cap on 402 Million diluted shares):</p>
+  <ul>
+    <li><strong>Initial Owner Earnings Yield:</strong> $7.75B / $106.6B = <strong>7.3%</strong> (Post-SBC)</li>
+    <li><strong>Return on Invested Capital (ROIC):</strong> <strong>36.5%</strong>, demonstrating extreme capital efficiency where minimal physical reinvestment is required to generate incremental cash.</li>
+  </ul>
+
+  <h4>Step 5: Share Buyback Cannibal Factor</h4>
+  <p>Management is deploying excess cash into an aggressive $25 Billion share repurchase program. We model a conservative <strong>3.0% annual reduction</strong> in diluted share count over the next 5 years, shrinking diluted shares outstanding from 402 Million down to ~345 Million.</p>
+
+  <h4>Step 6: Balance Sheet Net Debt Bridge (Q2 FY2026)</h4>
+  <p>To bridge Enterprise Value to Equity Value, we incorporate all cash, debt, and contractual liabilities:</p>
+  <ul>
+    <li><strong>Cash & Short-Term Investments:</strong> +$5.63 Billion</li>
+    <li><strong>Total Debt (Short & Long-Term):</strong> -$6.65 Billion</li>
+    <li><strong>Operating Lease Liabilities:</strong> -$0.42 Billion</li>
+    <li><strong>Net Debt Adjustment:</strong> <strong>-$1.44 Billion</strong> (-$3.58 per share)</li>
+  </ul>
+
+  <h3>Valuation Scenario Matrix</h3>
+  <p>Below is the transparent intrinsic value breakdown under Bear, Base, and Bull operational trajectories discounted back at our 10.0% sovereign hurdle rate:</p>
+
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Valuation Metric / Assumption</th>
+        <th>Bear Case</th>
+        <th>Base Case</th>
+        <th>Bull Case</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>5-Year Owner Earnings CAGR</strong></td>
+        <td>2.50%</td>
+        <td>7.50%</td>
+        <td>11.50%</td>
+      </tr>
+      <tr>
+        <td><strong>Year 5 Post-SBC Owner Earnings</strong></td>
+        <td>$8.77 Billion</td>
+        <td>$11.13 Billion</td>
+        <td>$13.35 Billion</td>
+      </tr>
+      <tr>
+        <td><strong>Terminal Growth Rate ($g$)</strong></td>
+        <td>2.00%</td>
+        <td>2.50%</td>
+        <td>2.50%</td>
+      </tr>
+      <tr>
+        <td><strong>Discount Rate / Sovereign Hurdle</strong></td>
+        <td>10.00%</td>
+        <td>10.00%</td>
+        <td>10.00%</td>
+      </tr>
+      <tr>
+        <td><strong>Present Value of 5Y Cash Flows</strong></td>
+        <td>$31.85 Billion</td>
+        <td>$36.18 Billion</td>
+        <td>$40.21 Billion</td>
+      </tr>
+      <tr>
+        <td><strong>PV of Terminal Value (Gordon Growth)</strong></td>
+        <td>$51.23 Billion</td>
+        <td>$94.46 Billion</td>
+        <td>$113.33 Billion</td>
+      </tr>
+      <tr>
+        <td><strong>Net Debt Bridge Adjustment</strong></td>
+        <td>-$1.44 Billion</td>
+        <td>-$1.44 Billion</td>
+        <td>-$1.44 Billion</td>
+      </tr>
+      <tr>
+        <td><strong>Total Intrinsic Equity Value</strong></td>
+        <td>$81.64 Billion</td>
+        <td>$129.20 Billion</td>
+        <td>$152.10 Billion</td>
+      </tr>
+      <tr>
+        <td><strong>Year 5 Diluted Share Count</strong></td>
+        <td>371.0 Million (-1.5%/yr)</td>
+        <td>345.2 Million (-3.0%/yr)</td>
+        <td>328.0 Million (-4.0%/yr)</td>
+      </tr>
+      <tr>
+        <td><strong>Intrinsic Value Per Share</strong></td>
+        <td><strong>$220.00</strong></td>
+        <td><strong>$340.00</strong></td>
+        <td><strong>$410.00</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Implied Upside / (Downside) at $265.21</strong></td>
+        <td><span class="metric-delta neg">-17.0%</span></td>
+        <td><span class="metric-delta pos">+28.2%</span></td>
+        <td><span class="metric-delta pos">+54.6%</span></td>
+      </tr>
+    </tbody>
+  </table></div>
+</div>
+
+<div class="section">
+  <h2>Section 6: Execution Risk Assessment & Margin of Safety</h2>
+
+  <p>While Adobe’s initial Post-SBC cash yield of 7.3% and Base Case intrinsic value of $340.00 provide an attractive structural margin of safety, reaching fair value requires clear-eyed evaluation of execution headwinds and governance hurdles.</p>
+
+  <h3>Key Execution Headwinds</h3>
+  <ul>
+    <li><strong>Freemium Conversion Friction:</strong> Adobe’s strategic decision to expand its freemium top-of-funnel across Express, Acrobat, and Firefly has surged Monthly Active Users (MAU) from 50M to over 90M in Creative freemium and up to 850M in Document Cloud. However, monetizing lightweight casual users into full $20–$60/month subscription seats incurs higher Customer Acquisition Costs (CAC) and risks slowing near-term paid ARR expansion.</li>
+    <li><strong>Executive Leadership Vacuum & CFO Departure:</strong> Concurrent governance changes—including executive CFO transitions and ongoing CEO succession uncertainty—introduce capital allocation risks during a critical strategic pivot.</li>
+    <li><strong>Generative AI Commodity & Pricing Resistance:</strong> Rapid proliferation of open-source image/video generation models (e.g., Midjourney, Stable Diffusion, Sora) creates competitive pressure. If enterprise clients treat AI capabilities as basic utilities rather than premium add-ons, Adobe's historical pricing power could compress.</li>
+  </ul>
+
+  <h3>The 5-Year Exchange Closure Test</h3>
+  <p>Applying Warren Buffett’s classic stress test—<em>"If the stock market closed for 5 years, would we be comfortable holding this security based solely on organic cash generation?"</em>—Adobe passes with high confidence:</p>
+  <ul>
+    <li>With $7.75 Billion in baseline Post-SBC Owner Earnings and ~$22.27 Billion in contracted Remaining Performance Obligations (RPO), the business generates ~$42 Billion in net organic cash over 5 years.</li>
+    <li>Deploying this cash into share repurchases at current depressed prices cannibalizes share count by 15%+, driving per-share Owner Earnings growth even if topline software expansion moderates to low single digits.</li>
+  </ul>
+
+  <div class="callout">
+    <h4>Pre-Mortem Thesis Falsification Triggers</h4>
+    <p>We will immediately downgrade our conviction and revise our Base Case intrinsic value down toward the $220.00 Bear Case if any of the following operational breaches occur:</p>
+    <ul>
+      <li><strong>Trigger 1 (Organic ARR Deceleration):</strong> Organic Digital Media ARR growth deceleration below 8.0% YoY for two consecutive quarters, signaling permanent freemium conversion friction or seat loss to AI-native competitors.</li>
+      <li><strong>Trigger 2 (SBC Dilution Spike):</strong> Stock-Based Compensation expanding above 12.0% of total revenue (>$2.5B annually), eroding Post-SBC Owner Earnings cash flows.</li>
+      <li><strong>Trigger 3 (Capital Allocation Misstep):</strong> Management abandoning share buybacks to pursue large-scale, overpriced dilutive M&A acquisitions above 25x FCF.</li>
+    </ul>
+  </div>
+</div>
+            </article>
+        </div>
+
+        <!-- History Content -->
+        <div id="tab-history" class="tab-content">
+            
+        <div class="empty-state-box" style="background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px; padding: 75px 24px;">
+            <div class="empty-state-title">Initial Baseline Active</div>
+            <div class="empty-state-sub">Version 1 represents the initial underwriting thesis. Future revisions, price trigger reviews, and catalyst audits will be logged here</div>
+        </div>
+        
+        </div>
+    </main>
+
+    <script>
+        function showTab(id) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            if (id === 'memo') {
+                document.querySelectorAll('.tab-btn')[0].classList.add('active');
+                document.getElementById('tab-memo').classList.add('active');
+            } else {
+                document.querySelectorAll('.tab-btn')[1].classList.add('active');
+                document.getElementById('tab-history').classList.add('active');
+            }
+        }
+
+        function toggleSnapshot(ver) {
+            const el = document.getElementById('snapshot-' + ver);
+            el.style.display = (el.style.display === 'none' ? 'block' : 'none');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DECK — Investment Memo</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="apple-touch-icon" href="../favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-canvas: #141312;
+            --bg-panel: #1A1917;
+            --bg-subpanel: #21201D;
+            --bg-hover: #282623;
+            --text-title: #D8D2C6;
+            --text-body: #BDB7AA;
+            --text-secondary: #8E887D;
+            --text-dim: #666157;
+            --accent-warm: #C99A75;
+            --accent-green: #7D9D81;
+            --accent-red: #C4726C;
+            --border-color: rgba(215, 205, 190, 0.07);
+            --border-focus: rgba(215, 205, 190, 0.14);
+            --font-serif: 'Newsreader', Garamond, Georgia, serif;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--bg-canvas);
+            color: var(--text-body);
+            font-family: var(--font-serif);
+            line-height: 1.85;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 120px;
+        }
+
+        .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+        /* Top Nav */
+        nav.nav-bar {
+            background: rgba(20, 19, 18, 0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 16px 0;
+        }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .nav-back {
+            color: var(--accent-warm);
+            text-decoration: none;
+            font-family: var(--font-sans);
+            font-size: 0.88rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.15s;
+        }
+        .nav-back:hover { color: #DDB495; }
+
+        /* Hero Deck */
+        .hero-deck {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 36px 40px;
+            margin: 32px 0 28px;
+        }
+
+        .hero-top-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px; }
+        .ticker-symbol {
+            font-family: var(--font-serif);
+            font-size: 2.8rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: var(--text-title);
+        }
+        .company-meta { color: var(--text-secondary); font-size: 1.05rem; font-style: italic; margin-top: 2px; }
+
+        .price-callout { text-align: right; }
+        .price-number { font-size: 2.6rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }
+        .price-sub { font-size: 0.88rem; font-family: var(--font-mono); margin-top: 2px; }
+
+        /* Native SVG Area Chart */
+        .native-chart-wrap {
+            margin-top: 28px;
+            background: #171614;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px 20px 12px;
+            position: relative;
+            user-select: none;
+        }
+        .chart-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            min-height: 28px;
+        }
+        .chart-live-val {
+            font-size: 0.88rem;
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .chart-range-pills {
+            display: flex;
+            gap: 4px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 2px;
+        }
+        .range-pill {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.72rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .range-pill:hover { color: var(--text-title); }
+        .range-pill.active {
+            background: var(--accent-warm);
+            color: #141312;
+            font-weight: 600;
+        }
+        .chart-svg { width: 100%; height: 220px; display: block; overflow: visible; }
+        .chart-tooltip {
+            position: absolute;
+            top: 14px;
+            left: 20px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-focus);
+            color: var(--text-title);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            padding: 5px 12px;
+            border-radius: 6px;
+            pointer-events: none;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            font-family: var(--font-sans);
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Key Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin-top: 24px;
+        }
+        .metric-cell {
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px 16px;
+        }
+        .metric-label { font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); letter-spacing: 0.05em; }
+        .metric-value { font-size: 1.15rem; font-weight: 500; color: var(--text-title); font-family: var(--font-mono); margin-top: 3px; }
+
+        /* Tabs */
+        .tabs-header {
+            display: flex;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-color);
+            margin: 32px 0 28px;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-family: var(--font-serif);
+            padding: 12px 18px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.15s;
+        }
+        .tab-btn:hover { color: var(--text-title); }
+        .tab-btn.active { color: var(--accent-warm); }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0; right: 0;
+            height: 2px;
+            background: var(--accent-warm);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Memo Content & Premium Editorial Typography */
+        .memo-container {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 48px 52px;
+        }
+        .memo-container * {
+            box-sizing: border-box;
+        }
+        .memo-container a {
+            color: var(--accent-warm) !important;
+            text-decoration: none !important;
+            transition: color 0.15s ease !important;
+            border-bottom: 1px dotted rgba(201, 154, 117, 0.4) !important;
+        }
+        .memo-container a:hover {
+            color: #E2DDD5 !important;
+            border-bottom-color: var(--accent-warm) !important;
+        }
+        .memo-container h1, .memo-container h2 {
+            font-family: var(--font-serif) !important;
+            font-size: 1.55rem !important;
+            font-weight: 500 !important;
+            color: var(--text-title) !important;
+            margin: 44px 0 18px !important;
+            padding-bottom: 10px !important;
+            border-bottom: 1px solid var(--border-color) !important;
+            letter-spacing: -0.02em !important;
+            line-height: 1.35 !important;
+        }
+        .memo-container h1:first-child, .memo-container h2:first-of-type { margin-top: 0 !important; }
+        .memo-container h3 {
+            font-family: var(--font-serif) !important;
+            font-size: 1.28rem !important;
+            font-weight: 500 !important;
+            color: var(--accent-warm) !important;
+            margin: 32px 0 14px !important;
+            line-height: 1.4 !important;
+        }
+        .memo-container h4, .memo-container h5, .memo-container h6 {
+            font-family: var(--font-serif) !important;
+            font-size: 1.12rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            margin: 24px 0 10px !important;
+        }
+        .memo-container p {
+            font-family: var(--font-serif) !important;
+            font-size: 1.15rem !important;
+            line-height: 1.9 !important;
+            color: var(--text-body) !important;
+            margin-bottom: 22px !important;
+        }
+        .memo-container ul, .memo-container ol {
+            font-family: var(--font-serif) !important;
+            font-size: 1.12rem !important;
+            line-height: 1.9 !important;
+            color: var(--text-body) !important;
+            margin: 0 0 26px 30px !important;
+        }
+        .memo-container li { margin-bottom: 10px !important; color: var(--text-body) !important; }
+        .memo-container strong, .memo-container b {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+
+        /* STUNNING CONSISTENT TABLES - SOOTHING WARM TONES & ZERO OVERFLOW */
+        .table-scroll-wrap {
+            width: 100% !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            margin: 32px 0 !important;
+            background: #171614 !important;
+            background-color: #171614 !important;
+            border-radius: 12px !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            box-sizing: border-box !important;
+        }
+        .memo-container table {
+            width: 100% !important;
+            min-width: 600px !important;
+            border-collapse: separate !important;
+            border-spacing: 0 !important;
+            margin: 0 !important;
+            background: transparent !important;
+            background-color: transparent !important;
+            border: none !important;
+        }
+        .memo-container tr, .memo-container td, .memo-container th {
+            background: transparent !important;
+            background-color: transparent !important;
+        }
+        .memo-container th {
+            background: #1E1D1A !important;
+            background-color: #1E1D1A !important;
+            color: #C99A75 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            padding: 14px 18px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
+            text-align: left !important;
+        }
+        .memo-container td {
+            padding: 14px 18px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.05) !important;
+            font-size: 0.92rem !important;
+            color: #BDB7AA !important;
+            font-family: var(--font-mono) !important;
+            text-align: left !important;
+        }
+        .memo-container tr:last-child td {
+            border-bottom: none !important;
+        }
+        .memo-container tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.012) !important;
+            background-color: rgba(255, 255, 255, 0.012) !important;
+        }
+        .memo-container tr:hover td {
+            background: rgba(201, 154, 117, 0.04) !important;
+            background-color: rgba(201, 154, 117, 0.04) !important;
+        }
+        .memo-container td strong, .memo-container td b {
+            color: #D8D2C6 !important;
+            font-weight: 500 !important;
+        }
+
+        /* UNIVERSAL CALLOUT & BOX STYLING - NEVER WHITE OR PINK, STRICT DARK OBSIDIAN */
+        .memo-container blockquote,
+        .memo-container .callout,
+        .memo-container .falsification-box,
+        .memo-container .institutional-box,
+        .memo-container div[class*="box"],
+        .memo-container div[class*="card"],
+        .memo-container div[class*="alert"],
+        .memo-container div[class*="warning"],
+        .memo-container div[class*="highlight-box"] {
+            background: var(--bg-subpanel) !important;
+            background-color: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-left: 3px solid var(--accent-warm) !important;
+            padding: 22px 26px !important;
+            border-radius: 8px !important;
+            margin: 28px 0 !important;
+            color: var(--text-body) !important;
+            line-height: 1.8 !important;
+        }
+        .memo-container blockquote *,
+        .memo-container .callout *,
+        .memo-container .falsification-box *,
+        .memo-container .institutional-box *,
+        .memo-container div[class*="box"] *,
+        .memo-container div[class*="card"] *,
+        .memo-container div[class*="alert"] * {
+            background: transparent !important;
+            background-color: transparent !important;
+            color: var(--text-body) !important;
+        }
+        .memo-container blockquote h3,
+        .memo-container blockquote h4,
+        .memo-container .callout h3,
+        .memo-container .callout h4,
+        .memo-container .falsification-box h4,
+        .memo-container .falsification-box strong,
+        .memo-container .institutional-box h4,
+        .memo-container .institutional-box strong,
+        .memo-container div[class*="box"] h4,
+        .memo-container div[class*="box"] strong,
+        .memo-container div[class*="card"] strong {
+            color: var(--text-title) !important;
+        }
+        .highlight, mark {
+            background: rgba(201, 154, 117, 0.16) !important;
+            color: #E2DDD5 !important;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* FINANCIAL METRIC CARDS & STAT GRIDS */
+        .metrics-grid, .stats-grid, .grid-3, .grid-4, .grid-2, .metric-grid {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+            gap: 16px !important;
+            margin: 28px 0 !important;
+        }
+        .metric-card, .stat-card, div[class*="metric-box"], div[class*="stat-box"], div[class*="kpi-card"] {
+            background: var(--bg-subpanel) !important;
+            background-color: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-radius: 10px !important;
+            padding: 18px 20px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            box-sizing: border-box !important;
+        }
+        .metric-label, .stat-label, .kpi-label {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            color: var(--text-secondary) !important;
+            margin-bottom: 6px !important;
+        }
+        .metric-value, .stat-value, .kpi-value {
+            font-family: var(--font-mono) !important;
+            font-size: 1.4rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            letter-spacing: -0.02em !important;
+            line-height: 1.2 !important;
+            margin-bottom: 4px !important;
+        }
+        .metric-delta, .metric-sub, .stat-sub, .kpi-sub {
+            font-family: var(--font-mono) !important;
+            font-size: 0.82rem !important;
+            color: var(--accent-warm) !important;
+        }
+
+        /* EMBEDDED IMAGES, CHARTS & VISUAL INFOGRAPHICS */
+        .figure-container, figure {
+            margin: 32px 0 !important;
+            text-align: center !important;
+            background: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-radius: 12px !important;
+            padding: 16px !important;
+            overflow: hidden !important;
+        }
+        .memo-container img {
+            max-width: 100% !important;
+            height: auto !important;
+            border-radius: 8px !important;
+            display: block !important;
+            margin: 0 auto !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+        }
+        .figure-caption, figcaption {
+            font-family: var(--font-sans) !important;
+            font-size: 0.8rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 10px !important;
+            text-align: center !important;
+        }
+
+        /* Evolution Update Highlight Banner at top of Memo */
+        .update-banner-box {
+            background: #1C1B18 !important;
+            border: 1px solid rgba(201, 154, 117, 0.3) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 12px !important;
+            padding: 24px 28px !important;
+            margin-bottom: 36px !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .update-banner-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 14px !important;
+            padding-bottom: 10px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
+        }
+        .update-banner-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.76rem !important;
+            font-weight: 600 !important;
+            color: var(--accent-warm) !important;
+            letter-spacing: 0.04em !important;
+            text-transform: uppercase !important;
+        }
+        .update-trigger-pill {
+            font-family: var(--font-mono) !important;
+            font-size: 0.74rem !important;
+            color: var(--text-secondary) !important;
+            background: var(--bg-subpanel) !important;
+            padding: 3px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid var(--border-color) !important;
+        }
+        .update-banner-title {
+            font-family: var(--font-serif) !important;
+            font-size: 1.22rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            margin-bottom: 8px !important;
+        }
+        .update-banner-desc {
+            font-family: var(--font-serif) !important;
+            font-size: 1.08rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-body) !important;
+        }
+
+        /* History */
+        .history-entry {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 28px 32px;
+            margin-bottom: 20px;
+        }
+        .history-entry-active { border-color: rgba(201, 154, 117, 0.35); }
+        .history-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+        .history-tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .history-time { color: var(--text-secondary); font-size: 0.88rem; font-family: var(--font-sans); }
+        .history-price { font-family: var(--font-mono); font-size: 0.92rem; }
+
+        .diff-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) { .diff-grid { grid-template-columns: 1fr; } }
+        .diff-box {
+            padding: 18px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .diff-prev { background: rgba(196, 114, 108, 0.05); border-color: rgba(196, 114, 108, 0.18); }
+        .diff-now { background: rgba(125, 157, 129, 0.05); border-color: rgba(125, 157, 129, 0.18); }
+        .diff-label { font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+        .diff-prev .diff-label { color: var(--accent-red); }
+        .diff-now .diff-label { color: var(--accent-green); }
+        .diff-text { font-size: 1.02rem; color: var(--text-body); line-height: 1.65; }
+
+        /* Pills */
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 11px;
+            border-radius: 9999px;
+            font-size: 0.72rem;
+            font-family: var(--font-sans);
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+        }
+        .pill-active { background: rgba(201, 154, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.45); font-weight: 600; box-shadow: 0 0 10px rgba(201, 154, 117, 0.06); }
+        .pill-neutral { background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); font-weight: 500; }
+        .pill-alert { background: rgba(191, 160, 117, 0.14); color: var(--accent-warm); border: 1px solid rgba(191, 160, 117, 0.28); }
+
+        .btn-subtle {
+            background: var(--bg-subpanel);
+            color: var(--text-title);
+            border: 1px solid var(--border-color);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            padding: 7px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .btn-subtle:hover { background: var(--bg-hover); }
+
+        .snapshot-drawer { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color); }
+
+        .pos { color: var(--accent-green); }
+        .neg { color: var(--accent-red); }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="container nav-inner">
+            <a href="../index.html" class="nav-back">← AlphaThesis</a>
+            <span style="font-size: 0.82rem; color: var(--text-dim); font-family: var(--font-sans);">DECK RESEARCH</span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Hero Deck -->
+        <section class="hero-deck">
+            <div class="hero-top-row">
+                <div>
+                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                        <span class="ticker-symbol">DECK</span>
+                        <span class="pill pill-active">High Conviction</span> <span class="pill pill-neutral">Buyback Cannibal</span> <span class="pill pill-neutral">Cash Fortress</span>
+                    </div>
+                    <div class="company-meta">Deckers Outdoor Corporation</div>
+                </div>
+                <div class="price-callout">
+                    <div class="price-number">$97.46</div>
+                    <div class="price-sub pos">
+                        +0.00% vs Genesis
+                    </div>
+                </div>
+            </div>
+
+            <!-- Native Multi-Range Interactive Area Chart -->
+            
+    <div class="native-chart-wrap" id="chart-container">
+        <div class="chart-top-bar">
+            <div id="chart-live-val" class="chart-live-val">
+                <span id="tooltip-date">Aug 07, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$97.46</strong>
+            </div>
+            <div class="chart-range-pills">
+                <button class="range-pill active" onclick="switchChartRange('1Y')">1Y</button>
+                <button class="range-pill" onclick="switchChartRange('5Y')">5Y</button>
+                <button class="range-pill" onclick="switchChartRange('10Y')">10Y</button>
+                <button class="range-pill" onclick="switchChartRange('MAX')">MAX</button>
+            </div>
+        </div>
+
+        <svg id="interactive-svg" viewBox="0 0 900 260" preserveAspectRatio="none" class="chart-svg">
+            <defs>
+                <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#C99A75" stop-opacity="0.18" />
+                    <stop offset="100%" stop-color="#C99A75" stop-opacity="0.0" />
+                </linearGradient>
+            </defs>
+            
+            <line x1="20" y1="25" x2="880" y2="25" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
+            <line x1="20" y1="130.0" x2="880" y2="130.0" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
+            <line x1="20" y1="235" x2="880" y2="235" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
+
+            <path id="chart-area-path" d="" fill="url(#area-grad)" />
+            <path id="chart-line-path" d="" fill="none" stroke="#C99A75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+            <line id="crosshair-line" x1="0" y1="25" x2="0" y2="235" stroke="rgba(201,154,117,0.35)" stroke-width="1" stroke-dasharray="3 3" style="display: none;" />
+            <circle id="hover-dot" r="4" fill="#C99A75" stroke="#1A1917" stroke-width="2" style="display: none;" />
+        </svg>
+        <div class="chart-labels">
+            <span id="chart-start-lbl">Aug 08, 2025 ($79.54)</span>
+            <span id="chart-range-title">1-Year Historical Range</span>
+            <span id="chart-end-lbl">Aug 07, 2026 ($97.46)</span>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const allDatasets = {"1Y": [{"date": "Aug 08, 2025", "price": 101.68}, {"date": "Aug 11, 2025", "price": 100.47}, {"date": "Aug 12, 2025", "price": 103.74}, {"date": "Aug 13, 2025", "price": 106.48}, {"date": "Aug 14, 2025", "price": 103.86}, {"date": "Aug 15, 2025", "price": 102.96}, {"date": "Aug 18, 2025", "price": 105.58}, {"date": "Aug 19, 2025", "price": 105.52}, {"date": "Aug 20, 2025", "price": 104.05}, {"date": "Aug 21, 2025", "price": 104.69}, {"date": "Aug 22, 2025", "price": 109.1}, {"date": "Aug 25, 2025", "price": 113.03}, {"date": "Aug 26, 2025", "price": 113.69}, {"date": "Aug 27, 2025", "price": 116.73}, {"date": "Aug 28, 2025", "price": 118.14}, {"date": "Aug 29, 2025", "price": 119.63}, {"date": "Sep 02, 2025", "price": 122.88}, {"date": "Sep 03, 2025", "price": 123.67}, {"date": "Sep 04, 2025", "price": 123.91}, {"date": "Sep 05, 2025", "price": 120.4}, {"date": "Sep 08, 2025", "price": 117.17}, {"date": "Sep 09, 2025", "price": 115.41}, {"date": "Sep 10, 2025", "price": 114.13}, {"date": "Sep 11, 2025", "price": 117.87}, {"date": "Sep 12, 2025", "price": 118.5}, {"date": "Sep 15, 2025", "price": 118.66}, {"date": "Sep 16, 2025", "price": 118.69}, {"date": "Sep 17, 2025", "price": 118.68}, {"date": "Sep 18, 2025", "price": 115.43}, {"date": "Sep 19, 2025", "price": 113.79}, {"date": "Sep 22, 2025", "price": 113.22}, {"date": "Sep 23, 2025", "price": 112.03}, {"date": "Sep 24, 2025", "price": 111.23}, {"date": "Sep 25, 2025", "price": 105.83}, {"date": "Sep 26, 2025", "price": 105.77}, {"date": "Sep 29, 2025", "price": 103.28}, {"date": "Sep 30, 2025", "price": 101.37}, {"date": "Oct 01, 2025", "price": 101.18}, {"date": "Oct 02, 2025", "price": 103.8}, {"date": "Oct 03, 2025", "price": 103.05}, {"date": "Oct 06, 2025", "price": 102.04}, {"date": "Oct 07, 2025", "price": 97.98}, {"date": "Oct 08, 2025", "price": 101.58}, {"date": "Oct 09, 2025", "price": 98.85}, {"date": "Oct 10, 2025", "price": 95.07}, {"date": "Oct 13, 2025", "price": 98.31}, {"date": "Oct 14, 2025", "price": 99.28}, {"date": "Oct 15, 2025", "price": 96.44}, {"date": "Oct 16, 2025", "price": 99.06}, {"date": "Oct 17, 2025", "price": 99.82}, {"date": "Oct 20, 2025", "price": 100.19}, {"date": "Oct 21, 2025", "price": 102.96}, {"date": "Oct 22, 2025", "price": 100.89}, {"date": "Oct 23, 2025", "price": 102.54}, {"date": "Oct 24, 2025", "price": 86.94}, {"date": "Oct 27, 2025", "price": 90.47}, {"date": "Oct 28, 2025", "price": 87.61}, {"date": "Oct 29, 2025", "price": 83.84}, {"date": "Oct 30, 2025", "price": 80.89}, {"date": "Oct 31, 2025", "price": 81.5}, {"date": "Nov 03, 2025", "price": 81.12}, {"date": "Nov 04, 2025", "price": 79.54}, {"date": "Nov 05, 2025", "price": 81.81}, {"date": "Nov 06, 2025", "price": 79.81}, {"date": "Nov 07, 2025", "price": 81.77}, {"date": "Nov 10, 2025", "price": 79.84}, {"date": "Nov 11, 2025", "price": 82.71}, {"date": "Nov 12, 2025", "price": 84.39}, {"date": "Nov 13, 2025", "price": 83.1}, {"date": "Nov 14, 2025", "price": 82.82}, {"date": "Nov 17, 2025", "price": 80.72}, {"date": "Nov 18, 2025", "price": 83.77}, {"date": "Nov 19, 2025", "price": 83.01}, {"date": "Nov 20, 2025", "price": 81.48}, {"date": "Nov 21, 2025", "price": 85.13}, {"date": "Nov 24, 2025", "price": 83.13}, {"date": "Nov 25, 2025", "price": 85.47}, {"date": "Nov 26, 2025", "price": 87.19}, {"date": "Nov 28, 2025", "price": 88.03}, {"date": "Dec 01, 2025", "price": 92.02}, {"date": "Dec 02, 2025", "price": 91.77}, {"date": "Dec 03, 2025", "price": 94.97}, {"date": "Dec 04, 2025", "price": 96.25}, {"date": "Dec 05, 2025", "price": 99.7}, {"date": "Dec 08, 2025", "price": 101.21}, {"date": "Dec 09, 2025", "price": 100.81}, {"date": "Dec 10, 2025", "price": 100.71}, {"date": "Dec 11, 2025", "price": 101.36}, {"date": "Dec 12, 2025", "price": 101.18}, {"date": "Dec 15, 2025", "price": 103.99}, {"date": "Dec 16, 2025", "price": 104.2}, {"date": "Dec 17, 2025", "price": 102.39}, {"date": "Dec 18, 2025", "price": 100.55}, {"date": "Dec 19, 2025", "price": 99.47}, {"date": "Dec 22, 2025", "price": 101.91}, {"date": "Dec 23, 2025", "price": 100.68}, {"date": "Dec 24, 2025", "price": 100.95}, {"date": "Dec 26, 2025", "price": 103.09}, {"date": "Dec 29, 2025", "price": 103.71}, {"date": "Dec 30, 2025", "price": 105.03}, {"date": "Dec 31, 2025", "price": 103.67}, {"date": "Jan 02, 2026", "price": 106.79}, {"date": "Jan 05, 2026", "price": 108.1}, {"date": "Jan 06, 2026", "price": 107.46}, {"date": "Jan 07, 2026", "price": 103.04}, {"date": "Jan 08, 2026", "price": 107.36}, {"date": "Jan 09, 2026", "price": 103.76}, {"date": "Jan 12, 2026", "price": 101.81}, {"date": "Jan 13, 2026", "price": 101.71}, {"date": "Jan 14, 2026", "price": 101.4}, {"date": "Jan 15, 2026", "price": 103.07}, {"date": "Jan 16, 2026", "price": 100.69}, {"date": "Jan 20, 2026", "price": 97.98}, {"date": "Jan 21, 2026", "price": 101.94}, {"date": "Jan 22, 2026", "price": 101.62}, {"date": "Jan 23, 2026", "price": 99.98}, {"date": "Jan 26, 2026", "price": 101.3}, {"date": "Jan 27, 2026", "price": 100.16}, {"date": "Jan 28, 2026", "price": 97.62}, {"date": "Jan 29, 2026", "price": 99.9}, {"date": "Jan 30, 2026", "price": 119.34}, {"date": "Feb 02, 2026", "price": 116.25}, {"date": "Feb 03, 2026", "price": 113.34}, {"date": "Feb 04, 2026", "price": 112.25}, {"date": "Feb 05, 2026", "price": 111.17}, {"date": "Feb 06, 2026", "price": 115.45}, {"date": "Feb 09, 2026", "price": 114.5}, {"date": "Feb 10, 2026", "price": 115.51}, {"date": "Feb 11, 2026", "price": 115.36}, {"date": "Feb 12, 2026", "price": 116.02}, {"date": "Feb 13, 2026", "price": 115.73}, {"date": "Feb 17, 2026", "price": 117.35}, {"date": "Feb 18, 2026", "price": 118.89}, {"date": "Feb 19, 2026", "price": 118.07}, {"date": "Feb 20, 2026", "price": 118.69}, {"date": "Feb 23, 2026", "price": 118.17}, {"date": "Feb 24, 2026", "price": 120.94}, {"date": "Feb 25, 2026", "price": 119.42}, {"date": "Feb 26, 2026", "price": 119.41}, {"date": "Feb 27, 2026", "price": 117.27}, {"date": "Mar 02, 2026", "price": 114.51}, {"date": "Mar 03, 2026", "price": 109.86}, {"date": "Mar 04, 2026", "price": 108.74}, {"date": "Mar 05, 2026", "price": 107.58}, {"date": "Mar 06, 2026", "price": 104.25}, {"date": "Mar 09, 2026", "price": 104.32}, {"date": "Mar 10, 2026", "price": 105.26}, {"date": "Mar 11, 2026", "price": 102.72}, {"date": "Mar 12, 2026", "price": 100.69}, {"date": "Mar 13, 2026", "price": 100.78}, {"date": "Mar 16, 2026", "price": 101.71}, {"date": "Mar 17, 2026", "price": 104.71}, {"date": "Mar 18, 2026", "price": 104.54}, {"date": "Mar 19, 2026", "price": 104.91}, {"date": "Mar 20, 2026", "price": 100.43}, {"date": "Mar 23, 2026", "price": 102.45}, {"date": "Mar 24, 2026", "price": 101.39}, {"date": "Mar 25, 2026", "price": 100.05}, {"date": "Mar 26, 2026", "price": 93.69}, {"date": "Mar 27, 2026", "price": 94.05}, {"date": "Mar 30, 2026", "price": 94.97}, {"date": "Mar 31, 2026", "price": 100.09}, {"date": "Apr 01, 2026", "price": 100.91}, {"date": "Apr 02, 2026", "price": 98.31}, {"date": "Apr 06, 2026", "price": 101.64}, {"date": "Apr 07, 2026", "price": 100.26}, {"date": "Apr 08, 2026", "price": 106.35}, {"date": "Apr 09, 2026", "price": 109.77}, {"date": "Apr 10, 2026", "price": 107.86}, {"date": "Apr 13, 2026", "price": 108.14}, {"date": "Apr 14, 2026", "price": 107.81}, {"date": "Apr 15, 2026", "price": 108.87}, {"date": "Apr 16, 2026", "price": 108.33}, {"date": "Apr 17, 2026", "price": 112.5}, {"date": "Apr 20, 2026", "price": 111.06}, {"date": "Apr 21, 2026", "price": 110.17}, {"date": "Apr 22, 2026", "price": 107.69}, {"date": "Apr 23, 2026", "price": 107.71}, {"date": "Apr 24, 2026", "price": 108.53}, {"date": "Apr 27, 2026", "price": 106.77}, {"date": "Apr 28, 2026", "price": 106.18}, {"date": "Apr 29, 2026", "price": 101.34}, {"date": "Apr 30, 2026", "price": 102.2}, {"date": "May 01, 2026", "price": 100.88}, {"date": "May 04, 2026", "price": 97.65}, {"date": "May 05, 2026", "price": 98.54}, {"date": "May 06, 2026", "price": 103.92}, {"date": "May 07, 2026", "price": 102.72}, {"date": "May 08, 2026", "price": 100.42}, {"date": "May 11, 2026", "price": 96.65}, {"date": "May 12, 2026", "price": 94.89}, {"date": "May 13, 2026", "price": 93.93}, {"date": "May 14, 2026", "price": 94.97}, {"date": "May 15, 2026", "price": 93.56}, {"date": "May 18, 2026", "price": 94.61}, {"date": "May 19, 2026", "price": 94.27}, {"date": "May 20, 2026", "price": 98.24}, {"date": "May 21, 2026", "price": 102.62}, {"date": "May 22, 2026", "price": 106.67}, {"date": "May 26, 2026", "price": 111.44}, {"date": "May 27, 2026", "price": 114.37}, {"date": "May 28, 2026", "price": 114.31}, {"date": "May 29, 2026", "price": 113.85}, {"date": "Jun 01, 2026", "price": 110.82}, {"date": "Jun 02, 2026", "price": 110.79}, {"date": "Jun 03, 2026", "price": 107.36}, {"date": "Jun 04, 2026", "price": 108.96}, {"date": "Jun 05, 2026", "price": 108.13}, {"date": "Jun 08, 2026", "price": 109.73}, {"date": "Jun 09, 2026", "price": 112.48}, {"date": "Jun 10, 2026", "price": 111.18}, {"date": "Jun 11, 2026", "price": 114.37}, {"date": "Jun 12, 2026", "price": 113.83}, {"date": "Jun 15, 2026", "price": 112.5}, {"date": "Jun 16, 2026", "price": 110.17}, {"date": "Jun 17, 2026", "price": 105.72}, {"date": "Jun 18, 2026", "price": 109.11}, {"date": "Jun 22, 2026", "price": 105.57}, {"date": "Jun 23, 2026", "price": 103.63}, {"date": "Jun 24, 2026", "price": 105.7}, {"date": "Jun 25, 2026", "price": 102.59}, {"date": "Jun 26, 2026", "price": 104.56}, {"date": "Jun 29, 2026", "price": 101.28}, {"date": "Jun 30, 2026", "price": 99.29}, {"date": "Jul 01, 2026", "price": 100.33}, {"date": "Jul 02, 2026", "price": 104.69}, {"date": "Jul 06, 2026", "price": 105.67}, {"date": "Jul 07, 2026", "price": 106.08}, {"date": "Jul 08, 2026", "price": 102.22}, {"date": "Jul 09, 2026", "price": 104.26}, {"date": "Jul 10, 2026", "price": 105.99}, {"date": "Jul 13, 2026", "price": 107.8}, {"date": "Jul 14, 2026", "price": 106.6}, {"date": "Jul 15, 2026", "price": 106.53}, {"date": "Jul 16, 2026", "price": 109.03}, {"date": "Jul 17, 2026", "price": 106.49}, {"date": "Jul 20, 2026", "price": 104.04}, {"date": "Jul 21, 2026", "price": 103.31}, {"date": "Jul 22, 2026", "price": 102.47}, {"date": "Jul 23, 2026", "price": 96.23}, {"date": "Jul 24, 2026", "price": 96.04}, {"date": "Jul 27, 2026", "price": 97.73}, {"date": "Jul 28, 2026", "price": 103.92}, {"date": "Jul 29, 2026", "price": 103.54}, {"date": "Jul 30, 2026", "price": 99.69}, {"date": "Jul 31, 2026", "price": 96.88}, {"date": "Aug 03, 2026", "price": 99.5}, {"date": "Aug 04, 2026", "price": 99.87}, {"date": "Aug 05, 2026", "price": 99.31}, {"date": "Aug 06, 2026", "price": 97.87}, {"date": "Aug 07, 2026", "price": 97.46}], "5Y": [{"date": "Aug 09, 2021", "price": 72.41}, {"date": "Aug 16, 2021", "price": 72.42}, {"date": "Aug 23, 2021", "price": 70.56}, {"date": "Aug 30, 2021", "price": 68.35}, {"date": "Sep 06, 2021", "price": 69.32}, {"date": "Sep 13, 2021", "price": 72.5}, {"date": "Sep 20, 2021", "price": 64.79}, {"date": "Sep 27, 2021", "price": 60.91}, {"date": "Oct 04, 2021", "price": 59.97}, {"date": "Oct 11, 2021", "price": 59.71}, {"date": "Oct 18, 2021", "price": 63.18}, {"date": "Oct 25, 2021", "price": 65.89}, {"date": "Nov 01, 2021", "price": 70.57}, {"date": "Nov 08, 2021", "price": 71.22}, {"date": "Nov 15, 2021", "price": 72.42}, {"date": "Nov 22, 2021", "price": 69.09}, {"date": "Nov 29, 2021", "price": 65.02}, {"date": "Dec 06, 2021", "price": 64.97}, {"date": "Dec 13, 2021", "price": 59.35}, {"date": "Dec 20, 2021", "price": 59.42}, {"date": "Dec 27, 2021", "price": 61.05}, {"date": "Jan 03, 2022", "price": 56.35}, {"date": "Jan 10, 2022", "price": 53.97}, {"date": "Jan 17, 2022", "price": 51.94}, {"date": "Jan 24, 2022", "price": 50.83}, {"date": "Jan 31, 2022", "price": 50.63}, {"date": "Feb 07, 2022", "price": 50.69}, {"date": "Feb 14, 2022", "price": 49.38}, {"date": "Feb 21, 2022", "price": 47.92}, {"date": "Feb 28, 2022", "price": 40.93}, {"date": "Mar 07, 2022", "price": 42.9}, {"date": "Mar 14, 2022", "price": 48.53}, {"date": "Mar 21, 2022", "price": 44.78}, {"date": "Mar 28, 2022", "price": 46.11}, {"date": "Apr 04, 2022", "price": 43.96}, {"date": "Apr 11, 2022", "price": 45.21}, {"date": "Apr 18, 2022", "price": 45.66}, {"date": "Apr 25, 2022", "price": 44.29}, {"date": "May 02, 2022", "price": 41.11}, {"date": "May 09, 2022", "price": 41.08}, {"date": "May 16, 2022", "price": 42.55}, {"date": "May 23, 2022", "price": 45.31}, {"date": "May 30, 2022", "price": 45.1}, {"date": "Jun 06, 2022", "price": 44.99}, {"date": "Jun 13, 2022", "price": 41.72}, {"date": "Jun 20, 2022", "price": 45.55}, {"date": "Jun 27, 2022", "price": 40.78}, {"date": "Jul 04, 2022", "price": 44.93}, {"date": "Jul 11, 2022", "price": 45.12}, {"date": "Jul 18, 2022", "price": 48.99}, {"date": "Jul 25, 2022", "price": 52.2}, {"date": "Aug 01, 2022", "price": 52.89}, {"date": "Aug 08, 2022", "price": 55.56}, {"date": "Aug 15, 2022", "price": 54.55}, {"date": "Aug 22, 2022", "price": 54.74}, {"date": "Aug 29, 2022", "price": 52.89}, {"date": "Sep 05, 2022", "price": 58.12}, {"date": "Sep 12, 2022", "price": 56.2}, {"date": "Sep 19, 2022", "price": 53.33}, {"date": "Sep 26, 2022", "price": 52.1}, {"date": "Oct 03, 2022", "price": 55.81}, {"date": "Oct 10, 2022", "price": 56.84}, {"date": "Oct 17, 2022", "price": 60.55}, {"date": "Oct 24, 2022", "price": 57.56}, {"date": "Oct 31, 2022", "price": 58.94}, {"date": "Nov 07, 2022", "price": 57.51}, {"date": "Nov 14, 2022", "price": 62.57}, {"date": "Nov 21, 2022", "price": 63.53}, {"date": "Nov 28, 2022", "price": 64.89}, {"date": "Dec 05, 2022", "price": 62.18}, {"date": "Dec 12, 2022", "price": 61.58}, {"date": "Dec 19, 2022", "price": 65.14}, {"date": "Dec 26, 2022", "price": 66.53}, {"date": "Jan 02, 2023", "price": 66.26}, {"date": "Jan 09, 2023", "price": 70.15}, {"date": "Jan 16, 2023", "price": 69.67}, {"date": "Jan 23, 2023", "price": 71.08}, {"date": "Jan 30, 2023", "price": 69.06}, {"date": "Feb 06, 2023", "price": 69.09}, {"date": "Feb 13, 2023", "price": 67.56}, {"date": "Feb 20, 2023", "price": 66.7}, {"date": "Feb 27, 2023", "price": 71.4}, {"date": "Mar 06, 2023", "price": 68.72}, {"date": "Mar 13, 2023", "price": 68.71}, {"date": "Mar 20, 2023", "price": 73.79}, {"date": "Mar 27, 2023", "price": 74.93}, {"date": "Apr 03, 2023", "price": 74.4}, {"date": "Apr 10, 2023", "price": 77.84}, {"date": "Apr 17, 2023", "price": 81.11}, {"date": "Apr 24, 2023", "price": 79.89}, {"date": "May 01, 2023", "price": 80.87}, {"date": "May 08, 2023", "price": 81.76}, {"date": "May 15, 2023", "price": 75.8}, {"date": "May 22, 2023", "price": 77.53}, {"date": "May 29, 2023", "price": 79.46}, {"date": "Jun 05, 2023", "price": 81.39}, {"date": "Jun 12, 2023", "price": 85.45}, {"date": "Jun 19, 2023", "price": 84.35}, {"date": "Jun 26, 2023", "price": 87.94}, {"date": "Jul 03, 2023", "price": 87.86}, {"date": "Jul 10, 2023", "price": 90.58}, {"date": "Jul 17, 2023", "price": 89.59}, {"date": "Jul 24, 2023", "price": 89.01}, {"date": "Jul 31, 2023", "price": 92.08}, {"date": "Aug 07, 2023", "price": 92.04}, {"date": "Aug 14, 2023", "price": 92.88}, {"date": "Aug 21, 2023", "price": 86.92}, {"date": "Aug 28, 2023", "price": 88.79}, {"date": "Sep 04, 2023", "price": 87.87}, {"date": "Sep 11, 2023", "price": 87.15}, {"date": "Sep 18, 2023", "price": 85.1}, {"date": "Sep 25, 2023", "price": 85.68}, {"date": "Oct 02, 2023", "price": 82.51}, {"date": "Oct 09, 2023", "price": 82.07}, {"date": "Oct 16, 2023", "price": 82.93}, {"date": "Oct 23, 2023", "price": 96.06}, {"date": "Oct 30, 2023", "price": 99.52}, {"date": "Nov 06, 2023", "price": 105.46}, {"date": "Nov 13, 2023", "price": 103.42}, {"date": "Nov 20, 2023", "price": 106.18}, {"date": "Nov 27, 2023", "price": 114.18}, {"date": "Dec 04, 2023", "price": 115.9}, {"date": "Dec 11, 2023", "price": 117.14}, {"date": "Dec 18, 2023", "price": 115.61}, {"date": "Dec 25, 2023", "price": 111.4}, {"date": "Jan 01, 2024", "price": 108.71}, {"date": "Jan 08, 2024", "price": 117.78}, {"date": "Jan 15, 2024", "price": 124.88}, {"date": "Jan 22, 2024", "price": 127.96}, {"date": "Jan 29, 2024", "price": 147.01}, {"date": "Feb 05, 2024", "price": 140.87}, {"date": "Feb 12, 2024", "price": 143.83}, {"date": "Feb 19, 2024", "price": 146.75}, {"date": "Feb 26, 2024", "price": 150.55}, {"date": "Mar 04, 2024", "price": 152.03}, {"date": "Mar 11, 2024", "price": 151.63}, {"date": "Mar 18, 2024", "price": 153.74}, {"date": "Mar 25, 2024", "price": 156.88}, {"date": "Apr 01, 2024", "price": 146.65}, {"date": "Apr 08, 2024", "price": 135.73}, {"date": "Apr 15, 2024", "price": 133.4}, {"date": "Apr 22, 2024", "price": 138.91}, {"date": "Apr 29, 2024", "price": 140.39}, {"date": "May 06, 2024", "price": 143.66}, {"date": "May 13, 2024", "price": 148.09}, {"date": "May 20, 2024", "price": 172.15}, {"date": "May 27, 2024", "price": 182.32}, {"date": "Jun 03, 2024", "price": 174.05}, {"date": "Jun 10, 2024", "price": 170.62}, {"date": "Jun 17, 2024", "price": 163.36}, {"date": "Jun 24, 2024", "price": 161.32}, {"date": "Jul 01, 2024", "price": 156.55}, {"date": "Jul 08, 2024", "price": 149.68}, {"date": "Jul 15, 2024", "price": 145.21}, {"date": "Jul 22, 2024", "price": 149.12}, {"date": "Jul 29, 2024", "price": 144.22}, {"date": "Aug 05, 2024", "price": 148.38}, {"date": "Aug 12, 2024", "price": 158.42}, {"date": "Aug 19, 2024", "price": 162.43}, {"date": "Aug 26, 2024", "price": 159.88}, {"date": "Sep 02, 2024", "price": 143.33}, {"date": "Sep 09, 2024", "price": 155.85}, {"date": "Sep 16, 2024", "price": 150.73}, {"date": "Sep 23, 2024", "price": 159.42}, {"date": "Sep 30, 2024", "price": 166.81}, {"date": "Oct 07, 2024", "price": 161.25}, {"date": "Oct 14, 2024", "price": 161.85}, {"date": "Oct 21, 2024", "price": 168.11}, {"date": "Oct 28, 2024", "price": 158.12}, {"date": "Nov 04, 2024", "price": 175.61}, {"date": "Nov 11, 2024", "price": 175.66}, {"date": "Nov 18, 2024", "price": 192.15}, {"date": "Nov 25, 2024", "price": 195.96}, {"date": "Dec 02, 2024", "price": 199.55}, {"date": "Dec 09, 2024", "price": 206.63}, {"date": "Dec 16, 2024", "price": 210.97}, {"date": "Dec 23, 2024", "price": 207.11}, {"date": "Dec 30, 2024", "price": 207.25}, {"date": "Jan 06, 2025", "price": 207.5}, {"date": "Jan 13, 2025", "price": 209.91}, {"date": "Jan 20, 2025", "price": 217.16}, {"date": "Jan 27, 2025", "price": 177.36}, {"date": "Feb 03, 2025", "price": 168.24}, {"date": "Feb 10, 2025", "price": 155.07}, {"date": "Feb 17, 2025", "price": 146.57}, {"date": "Feb 24, 2025", "price": 139.36}, {"date": "Mar 03, 2025", "price": 126.72}, {"date": "Mar 10, 2025", "price": 118.68}, {"date": "Mar 17, 2025", "price": 117.86}, {"date": "Mar 24, 2025", "price": 111.56}, {"date": "Mar 31, 2025", "price": 106.02}, {"date": "Apr 07, 2025", "price": 109.05}, {"date": "Apr 14, 2025", "price": 105.67}, {"date": "Apr 21, 2025", "price": 109.19}, {"date": "Apr 28, 2025", "price": 116.94}, {"date": "May 05, 2025", "price": 121.07}, {"date": "May 12, 2025", "price": 127.91}, {"date": "May 19, 2025", "price": 101.05}, {"date": "May 26, 2025", "price": 105.52}, {"date": "Jun 02, 2025", "price": 109.22}, {"date": "Jun 09, 2025", "price": 101.48}, {"date": "Jun 16, 2025", "price": 101.69}, {"date": "Jun 23, 2025", "price": 104.2}, {"date": "Jun 30, 2025", "price": 106.2}, {"date": "Jul 07, 2025", "price": 101.73}, {"date": "Jul 14, 2025", "price": 101.91}, {"date": "Jul 21, 2025", "price": 116.85}, {"date": "Jul 28, 2025", "price": 103.35}, {"date": "Aug 04, 2025", "price": 101.68}, {"date": "Aug 11, 2025", "price": 102.96}, {"date": "Aug 18, 2025", "price": 109.1}, {"date": "Aug 25, 2025", "price": 119.63}, {"date": "Sep 01, 2025", "price": 120.4}, {"date": "Sep 08, 2025", "price": 118.5}, {"date": "Sep 15, 2025", "price": 113.79}, {"date": "Sep 22, 2025", "price": 105.77}, {"date": "Sep 29, 2025", "price": 103.05}, {"date": "Oct 06, 2025", "price": 95.07}, {"date": "Oct 13, 2025", "price": 99.82}, {"date": "Oct 20, 2025", "price": 86.94}, {"date": "Oct 27, 2025", "price": 81.5}, {"date": "Nov 03, 2025", "price": 81.77}, {"date": "Nov 10, 2025", "price": 82.82}, {"date": "Nov 17, 2025", "price": 85.13}, {"date": "Nov 24, 2025", "price": 88.03}, {"date": "Dec 01, 2025", "price": 99.7}, {"date": "Dec 08, 2025", "price": 101.18}, {"date": "Dec 15, 2025", "price": 99.47}, {"date": "Dec 22, 2025", "price": 103.09}, {"date": "Dec 29, 2025", "price": 106.79}, {"date": "Jan 05, 2026", "price": 103.76}, {"date": "Jan 12, 2026", "price": 100.69}, {"date": "Jan 19, 2026", "price": 99.98}, {"date": "Jan 26, 2026", "price": 119.34}, {"date": "Feb 02, 2026", "price": 115.45}, {"date": "Feb 09, 2026", "price": 115.73}, {"date": "Feb 16, 2026", "price": 118.69}, {"date": "Feb 23, 2026", "price": 117.27}, {"date": "Mar 02, 2026", "price": 104.25}, {"date": "Mar 09, 2026", "price": 100.78}, {"date": "Mar 16, 2026", "price": 100.43}, {"date": "Mar 23, 2026", "price": 94.05}, {"date": "Mar 30, 2026", "price": 98.31}, {"date": "Apr 06, 2026", "price": 107.86}, {"date": "Apr 13, 2026", "price": 112.5}, {"date": "Apr 20, 2026", "price": 108.53}, {"date": "Apr 27, 2026", "price": 100.88}, {"date": "May 04, 2026", "price": 100.42}, {"date": "May 11, 2026", "price": 93.56}, {"date": "May 18, 2026", "price": 106.67}, {"date": "May 25, 2026", "price": 113.85}, {"date": "Jun 01, 2026", "price": 108.13}, {"date": "Jun 08, 2026", "price": 113.83}, {"date": "Jun 15, 2026", "price": 109.11}, {"date": "Jun 22, 2026", "price": 104.56}, {"date": "Jun 29, 2026", "price": 104.69}, {"date": "Jul 06, 2026", "price": 105.99}, {"date": "Jul 13, 2026", "price": 106.49}, {"date": "Jul 20, 2026", "price": 96.04}, {"date": "Jul 27, 2026", "price": 96.88}, {"date": "Aug 03, 2026", "price": 97.46}, {"date": "Aug 07, 2026", "price": 97.46}], "10Y": [{"date": "Sep 01, 2016", "price": 9.93}, {"date": "Oct 01, 2016", "price": 8.7}, {"date": "Nov 01, 2016", "price": 9.91}, {"date": "Dec 01, 2016", "price": 9.23}, {"date": "Jan 01, 2017", "price": 9.6}, {"date": "Feb 01, 2017", "price": 8.81}, {"date": "Mar 01, 2017", "price": 9.95}, {"date": "Apr 01, 2017", "price": 9.93}, {"date": "May 01, 2017", "price": 11.56}, {"date": "Jun 01, 2017", "price": 11.38}, {"date": "Jul 01, 2017", "price": 10.81}, {"date": "Aug 01, 2017", "price": 10.65}, {"date": "Sep 01, 2017", "price": 11.4}, {"date": "Oct 01, 2017", "price": 11.37}, {"date": "Nov 01, 2017", "price": 12.45}, {"date": "Dec 01, 2017", "price": 13.38}, {"date": "Jan 01, 2018", "price": 14.28}, {"date": "Feb 01, 2018", "price": 15.76}, {"date": "Mar 01, 2018", "price": 15.01}, {"date": "Apr 01, 2018", "price": 15.54}, {"date": "May 01, 2018", "price": 18.86}, {"date": "Jun 01, 2018", "price": 18.82}, {"date": "Jul 01, 2018", "price": 18.81}, {"date": "Aug 01, 2018", "price": 20.31}, {"date": "Sep 01, 2018", "price": 19.76}, {"date": "Oct 01, 2018", "price": 21.19}, {"date": "Nov 01, 2018", "price": 22.21}, {"date": "Dec 01, 2018", "price": 21.33}, {"date": "Jan 01, 2019", "price": 21.41}, {"date": "Feb 01, 2019", "price": 24.66}, {"date": "Mar 01, 2019", "price": 24.5}, {"date": "Apr 01, 2019", "price": 26.37}, {"date": "May 01, 2019", "price": 25.35}, {"date": "Jun 01, 2019", "price": 29.33}, {"date": "Jul 01, 2019", "price": 26.05}, {"date": "Aug 01, 2019", "price": 24.58}, {"date": "Sep 01, 2019", "price": 24.56}, {"date": "Oct 01, 2019", "price": 25.48}, {"date": "Nov 01, 2019", "price": 28.03}, {"date": "Dec 01, 2019", "price": 28.14}, {"date": "Jan 01, 2020", "price": 31.82}, {"date": "Feb 01, 2020", "price": 28.97}, {"date": "Mar 01, 2020", "price": 22.33}, {"date": "Apr 01, 2020", "price": 24.79}, {"date": "May 01, 2020", "price": 30.42}, {"date": "Jun 01, 2020", "price": 32.73}, {"date": "Jul 01, 2020", "price": 34.88}, {"date": "Aug 01, 2020", "price": 33.98}, {"date": "Sep 01, 2020", "price": 36.67}, {"date": "Oct 01, 2020", "price": 42.23}, {"date": "Nov 01, 2020", "price": 42.43}, {"date": "Dec 01, 2020", "price": 47.8}, {"date": "Jan 01, 2021", "price": 48.66}, {"date": "Feb 01, 2021", "price": 54.35}, {"date": "Mar 01, 2021", "price": 55.07}, {"date": "Apr 01, 2021", "price": 56.37}, {"date": "May 01, 2021", "price": 55.91}, {"date": "Jun 01, 2021", "price": 64.01}, {"date": "Jul 01, 2021", "price": 68.47}, {"date": "Aug 01, 2021", "price": 69.74}, {"date": "Sep 01, 2021", "price": 60.03}, {"date": "Oct 01, 2021", "price": 65.89}, {"date": "Nov 01, 2021", "price": 67.57}, {"date": "Dec 01, 2021", "price": 61.05}, {"date": "Jan 01, 2022", "price": 53.37}, {"date": "Feb 01, 2022", "price": 48.11}, {"date": "Mar 01, 2022", "price": 45.63}, {"date": "Apr 01, 2022", "price": 44.29}, {"date": "May 01, 2022", "price": 44.76}, {"date": "Jun 01, 2022", "price": 42.56}, {"date": "Jul 01, 2022", "price": 52.2}, {"date": "Aug 01, 2022", "price": 53.6}, {"date": "Sep 01, 2022", "price": 52.1}, {"date": "Oct 01, 2022", "price": 58.32}, {"date": "Nov 01, 2022", "price": 66.48}, {"date": "Dec 01, 2022", "price": 66.53}, {"date": "Jan 01, 2023", "price": 71.25}, {"date": "Feb 01, 2023", "price": 69.39}, {"date": "Mar 01, 2023", "price": 74.93}, {"date": "Apr 01, 2023", "price": 79.89}, {"date": "May 01, 2023", "price": 79.17}, {"date": "Jun 01, 2023", "price": 87.94}, {"date": "Jul 01, 2023", "price": 90.61}, {"date": "Aug 01, 2023", "price": 88.18}, {"date": "Sep 01, 2023", "price": 85.68}, {"date": "Oct 01, 2023", "price": 99.51}, {"date": "Nov 01, 2023", "price": 110.66}, {"date": "Dec 01, 2023", "price": 111.4}, {"date": "Jan 01, 2024", "price": 125.62}, {"date": "Feb 01, 2024", "price": 149.26}, {"date": "Mar 01, 2024", "price": 156.88}, {"date": "Apr 01, 2024", "price": 136.41}, {"date": "May 01, 2024", "price": 182.32}, {"date": "Jun 01, 2024", "price": 161.32}, {"date": "Jul 01, 2024", "price": 153.77}, {"date": "Aug 01, 2024", "price": 159.88}, {"date": "Sep 01, 2024", "price": 159.45}, {"date": "Oct 01, 2024", "price": 160.89}, {"date": "Nov 01, 2024", "price": 195.96}, {"date": "Dec 01, 2024", "price": 203.09}, {"date": "Jan 01, 2025", "price": 177.36}, {"date": "Feb 01, 2025", "price": 139.36}, {"date": "Mar 01, 2025", "price": 111.81}, {"date": "Apr 01, 2025", "price": 110.83}, {"date": "May 01, 2025", "price": 105.52}, {"date": "Jun 01, 2025", "price": 103.07}, {"date": "Jul 01, 2025", "price": 106.17}, {"date": "Aug 01, 2025", "price": 119.63}, {"date": "Sep 01, 2025", "price": 101.37}, {"date": "Oct 01, 2025", "price": 81.5}, {"date": "Nov 01, 2025", "price": 88.03}, {"date": "Dec 01, 2025", "price": 103.67}, {"date": "Jan 01, 2026", "price": 119.34}, {"date": "Feb 01, 2026", "price": 117.27}, {"date": "Mar 01, 2026", "price": 100.09}, {"date": "Apr 01, 2026", "price": 102.2}, {"date": "May 01, 2026", "price": 113.85}, {"date": "Jun 01, 2026", "price": 99.29}, {"date": "Jul 01, 2026", "price": 96.88}, {"date": "Aug 01, 2026", "price": 97.46}, {"date": "Aug 07, 2026", "price": 97.46}], "MAX": [{"date": "Nov 01, 1993", "price": 1.08}, {"date": "Dec 01, 1993", "price": 1.0}, {"date": "Jan 01, 1994", "price": 0.93}, {"date": "Feb 01, 1994", "price": 0.92}, {"date": "Mar 01, 1994", "price": 0.92}, {"date": "Apr 01, 1994", "price": 0.86}, {"date": "May 01, 1994", "price": 0.83}, {"date": "Jun 01, 1994", "price": 0.72}, {"date": "Jul 01, 1994", "price": 0.79}, {"date": "Aug 01, 1994", "price": 0.9}, {"date": "Sep 01, 1994", "price": 0.9}, {"date": "Oct 01, 1994", "price": 0.85}, {"date": "Nov 01, 1994", "price": 0.81}, {"date": "Dec 01, 1994", "price": 0.69}, {"date": "Jan 01, 1995", "price": 0.72}, {"date": "Feb 01, 1995", "price": 0.75}, {"date": "Mar 01, 1995", "price": 0.83}, {"date": "Apr 01, 1995", "price": 0.94}, {"date": "May 01, 1995", "price": 0.62}, {"date": "Jun 01, 1995", "price": 0.56}, {"date": "Jul 01, 1995", "price": 0.45}, {"date": "Aug 01, 1995", "price": 0.45}, {"date": "Sep 01, 1995", "price": 0.45}, {"date": "Oct 01, 1995", "price": 0.33}, {"date": "Nov 01, 1995", "price": 0.38}, {"date": "Dec 01, 1995", "price": 0.32}, {"date": "Jan 01, 1996", "price": 0.35}, {"date": "Feb 01, 1996", "price": 0.33}, {"date": "Mar 01, 1996", "price": 0.41}, {"date": "Apr 01, 1996", "price": 0.38}, {"date": "May 01, 1996", "price": 0.47}, {"date": "Jun 01, 1996", "price": 0.48}, {"date": "Jul 01, 1996", "price": 0.41}, {"date": "Aug 01, 1996", "price": 0.49}, {"date": "Sep 01, 1996", "price": 0.5}, {"date": "Oct 01, 1996", "price": 0.44}, {"date": "Nov 01, 1996", "price": 0.49}, {"date": "Dec 01, 1996", "price": 0.38}, {"date": "Jan 01, 1997", "price": 0.38}, {"date": "Feb 01, 1997", "price": 0.37}, {"date": "Mar 01, 1997", "price": 0.38}, {"date": "Apr 01, 1997", "price": 0.41}, {"date": "May 01, 1997", "price": 0.42}, {"date": "Jun 01, 1997", "price": 0.41}, {"date": "Jul 01, 1997", "price": 0.39}, {"date": "Aug 01, 1997", "price": 0.42}, {"date": "Sep 01, 1997", "price": 0.43}, {"date": "Oct 01, 1997", "price": 0.44}, {"date": "Nov 01, 1997", "price": 0.46}, {"date": "Dec 01, 1997", "price": 0.42}, {"date": "Jan 01, 1998", "price": 0.45}, {"date": "Feb 01, 1998", "price": 0.44}, {"date": "Mar 01, 1998", "price": 0.4}, {"date": "Apr 01, 1998", "price": 0.39}, {"date": "May 01, 1998", "price": 0.4}, {"date": "Jun 01, 1998", "price": 0.38}, {"date": "Jul 01, 1998", "price": 0.32}, {"date": "Aug 01, 1998", "price": 0.28}, {"date": "Sep 01, 1998", "price": 0.28}, {"date": "Oct 01, 1998", "price": 0.15}, {"date": "Nov 01, 1998", "price": 0.12}, {"date": "Dec 01, 1998", "price": 0.12}, {"date": "Jan 01, 1999", "price": 0.13}, {"date": "Feb 01, 1999", "price": 0.16}, {"date": "Mar 01, 1999", "price": 0.14}, {"date": "Apr 01, 1999", "price": 0.14}, {"date": "May 01, 1999", "price": 0.19}, {"date": "Jun 01, 1999", "price": 0.2}, {"date": "Jul 01, 1999", "price": 0.18}, {"date": "Aug 01, 1999", "price": 0.16}, {"date": "Sep 01, 1999", "price": 0.17}, {"date": "Oct 01, 1999", "price": 0.16}, {"date": "Nov 01, 1999", "price": 0.16}, {"date": "Dec 01, 1999", "price": 0.15}, {"date": "Jan 01, 2000", "price": 0.15}, {"date": "Feb 01, 2000", "price": 0.19}, {"date": "Mar 01, 2000", "price": 0.22}, {"date": "Apr 01, 2000", "price": 0.22}, {"date": "May 01, 2000", "price": 0.18}, {"date": "Jun 01, 2000", "price": 0.18}, {"date": "Jul 01, 2000", "price": 0.2}, {"date": "Aug 01, 2000", "price": 0.3}, {"date": "Sep 01, 2000", "price": 0.3}, {"date": "Oct 01, 2000", "price": 0.28}, {"date": "Nov 01, 2000", "price": 0.25}, {"date": "Dec 01, 2000", "price": 0.29}, {"date": "Jan 01, 2001", "price": 0.21}, {"date": "Feb 01, 2001", "price": 0.22}, {"date": "Mar 01, 2001", "price": 0.19}, {"date": "Apr 01, 2001", "price": 0.19}, {"date": "May 01, 2001", "price": 0.22}, {"date": "Jun 01, 2001", "price": 0.22}, {"date": "Jul 01, 2001", "price": 0.23}, {"date": "Aug 01, 2001", "price": 0.24}, {"date": "Sep 01, 2001", "price": 0.22}, {"date": "Oct 01, 2001", "price": 0.22}, {"date": "Nov 01, 2001", "price": 0.21}, {"date": "Dec 01, 2001", "price": 0.24}, {"date": "Jan 01, 2002", "price": 0.29}, {"date": "Feb 01, 2002", "price": 0.28}, {"date": "Mar 01, 2002", "price": 0.29}, {"date": "Apr 01, 2002", "price": 0.29}, {"date": "May 01, 2002", "price": 0.26}, {"date": "Jun 01, 2002", "price": 0.25}, {"date": "Jul 01, 2002", "price": 0.25}, {"date": "Aug 01, 2002", "price": 0.26}, {"date": "Sep 01, 2002", "price": 0.25}, {"date": "Oct 01, 2002", "price": 0.21}, {"date": "Nov 01, 2002", "price": 0.21}, {"date": "Dec 01, 2002", "price": 0.19}, {"date": "Jan 01, 2003", "price": 0.24}, {"date": "Feb 01, 2003", "price": 0.26}, {"date": "Mar 01, 2003", "price": 0.23}, {"date": "Apr 01, 2003", "price": 0.33}, {"date": "May 01, 2003", "price": 0.35}, {"date": "Jun 01, 2003", "price": 0.36}, {"date": "Jul 01, 2003", "price": 0.46}, {"date": "Aug 01, 2003", "price": 0.51}, {"date": "Sep 01, 2003", "price": 0.56}, {"date": "Oct 01, 2003", "price": 0.8}, {"date": "Nov 01, 2003", "price": 0.93}, {"date": "Dec 01, 2003", "price": 1.14}, {"date": "Jan 01, 2004", "price": 1.18}, {"date": "Feb 01, 2004", "price": 1.46}, {"date": "Mar 01, 2004", "price": 1.44}, {"date": "Apr 01, 2004", "price": 1.49}, {"date": "May 01, 2004", "price": 1.39}, {"date": "Jun 01, 2004", "price": 1.64}, {"date": "Jul 01, 2004", "price": 1.62}, {"date": "Aug 01, 2004", "price": 1.63}, {"date": "Sep 01, 2004", "price": 1.89}, {"date": "Oct 01, 2004", "price": 2.1}, {"date": "Nov 01, 2004", "price": 2.42}, {"date": "Dec 01, 2004", "price": 2.61}, {"date": "Jan 01, 2005", "price": 2.15}, {"date": "Feb 01, 2005", "price": 2.28}, {"date": "Mar 01, 2005", "price": 1.99}, {"date": "Apr 01, 2005", "price": 1.17}, {"date": "May 01, 2005", "price": 1.35}, {"date": "Jun 01, 2005", "price": 1.37}, {"date": "Jul 01, 2005", "price": 1.56}, {"date": "Aug 01, 2005", "price": 1.29}, {"date": "Sep 01, 2005", "price": 1.34}, {"date": "Oct 01, 2005", "price": 0.95}, {"date": "Nov 01, 2005", "price": 1.28}, {"date": "Dec 01, 2005", "price": 1.53}, {"date": "Jan 01, 2006", "price": 1.77}, {"date": "Feb 01, 2006", "price": 1.88}, {"date": "Mar 01, 2006", "price": 2.25}, {"date": "Apr 01, 2006", "price": 2.37}, {"date": "May 01, 2006", "price": 1.97}, {"date": "Jun 01, 2006", "price": 2.14}, {"date": "Jul 01, 2006", "price": 2.37}, {"date": "Aug 01, 2006", "price": 2.28}, {"date": "Sep 01, 2006", "price": 2.63}, {"date": "Oct 01, 2006", "price": 2.95}, {"date": "Nov 01, 2006", "price": 3.1}, {"date": "Dec 01, 2006", "price": 3.33}, {"date": "Jan 01, 2007", "price": 3.24}, {"date": "Feb 01, 2007", "price": 3.62}, {"date": "Mar 01, 2007", "price": 3.95}, {"date": "Apr 01, 2007", "price": 4.21}, {"date": "May 01, 2007", "price": 4.88}, {"date": "Jun 01, 2007", "price": 5.61}, {"date": "Jul 01, 2007", "price": 5.73}, {"date": "Aug 01, 2007", "price": 5.23}, {"date": "Sep 01, 2007", "price": 6.1}, {"date": "Oct 01, 2007", "price": 7.77}, {"date": "Nov 01, 2007", "price": 8.01}, {"date": "Dec 01, 2007", "price": 8.61}, {"date": "Jan 01, 2008", "price": 6.74}, {"date": "Feb 01, 2008", "price": 6.15}, {"date": "Mar 01, 2008", "price": 5.99}, {"date": "Apr 01, 2008", "price": 7.67}, {"date": "May 01, 2008", "price": 7.6}, {"date": "Jun 01, 2008", "price": 7.73}, {"date": "Jul 01, 2008", "price": 6.28}, {"date": "Aug 01, 2008", "price": 6.32}, {"date": "Sep 01, 2008", "price": 5.78}, {"date": "Oct 01, 2008", "price": 4.71}, {"date": "Nov 01, 2008", "price": 3.31}, {"date": "Dec 01, 2008", "price": 4.44}, {"date": "Jan 01, 2009", "price": 2.9}, {"date": "Feb 01, 2009", "price": 2.29}, {"date": "Mar 01, 2009", "price": 2.95}, {"date": "Apr 01, 2009", "price": 3.14}, {"date": "May 01, 2009", "price": 3.22}, {"date": "Jun 01, 2009", "price": 3.9}, {"date": "Jul 01, 2009", "price": 3.76}, {"date": "Aug 01, 2009", "price": 3.79}, {"date": "Sep 01, 2009", "price": 4.71}, {"date": "Oct 01, 2009", "price": 4.98}, {"date": "Nov 01, 2009", "price": 5.15}, {"date": "Dec 01, 2009", "price": 5.65}, {"date": "Jan 01, 2010", "price": 5.45}, {"date": "Feb 01, 2010", "price": 6.68}, {"date": "Mar 01, 2010", "price": 7.67}, {"date": "Apr 01, 2010", "price": 7.81}, {"date": "May 01, 2010", "price": 8.04}, {"date": "Jun 01, 2010", "price": 7.94}, {"date": "Jul 01, 2010", "price": 8.48}, {"date": "Aug 01, 2010", "price": 7.24}, {"date": "Sep 01, 2010", "price": 8.33}, {"date": "Oct 01, 2010", "price": 9.68}, {"date": "Nov 01, 2010", "price": 12.82}, {"date": "Dec 01, 2010", "price": 13.29}, {"date": "Jan 01, 2011", "price": 12.23}, {"date": "Feb 01, 2011", "price": 14.7}, {"date": "Mar 01, 2011", "price": 14.36}, {"date": "Apr 01, 2011", "price": 14.14}, {"date": "May 01, 2011", "price": 15.18}, {"date": "Jun 01, 2011", "price": 14.69}, {"date": "Jul 01, 2011", "price": 16.54}, {"date": "Aug 01, 2011", "price": 14.83}, {"date": "Sep 01, 2011", "price": 15.53}, {"date": "Oct 01, 2011", "price": 19.21}, {"date": "Nov 01, 2011", "price": 18.16}, {"date": "Dec 01, 2011", "price": 12.6}, {"date": "Jan 01, 2012", "price": 13.48}, {"date": "Feb 01, 2012", "price": 12.46}, {"date": "Mar 01, 2012", "price": 10.51}, {"date": "Apr 01, 2012", "price": 8.5}, {"date": "May 01, 2012", "price": 9.28}, {"date": "Jun 01, 2012", "price": 7.34}, {"date": "Jul 01, 2012", "price": 6.95}, {"date": "Aug 01, 2012", "price": 8.25}, {"date": "Sep 01, 2012", "price": 6.11}, {"date": "Oct 01, 2012", "price": 4.77}, {"date": "Nov 01, 2012", "price": 6.38}, {"date": "Dec 01, 2012", "price": 6.71}, {"date": "Jan 01, 2013", "price": 6.66}, {"date": "Feb 01, 2013", "price": 6.74}, {"date": "Mar 01, 2013", "price": 9.28}, {"date": "Apr 01, 2013", "price": 9.19}, {"date": "May 01, 2013", "price": 8.95}, {"date": "Jun 01, 2013", "price": 8.42}, {"date": "Jul 01, 2013", "price": 9.15}, {"date": "Aug 01, 2013", "price": 9.79}, {"date": "Sep 01, 2013", "price": 10.99}, {"date": "Oct 01, 2013", "price": 11.47}, {"date": "Nov 01, 2013", "price": 13.77}, {"date": "Dec 01, 2013", "price": 14.08}, {"date": "Jan 01, 2014", "price": 12.99}, {"date": "Feb 01, 2014", "price": 12.39}, {"date": "Mar 01, 2014", "price": 13.29}, {"date": "Apr 01, 2014", "price": 13.16}, {"date": "May 01, 2014", "price": 12.88}, {"date": "Jun 01, 2014", "price": 14.39}, {"date": "Jul 01, 2014", "price": 14.75}, {"date": "Aug 01, 2014", "price": 15.37}, {"date": "Sep 01, 2014", "price": 16.2}, {"date": "Oct 01, 2014", "price": 14.58}, {"date": "Nov 01, 2014", "price": 16.12}, {"date": "Dec 01, 2014", "price": 15.17}, {"date": "Jan 01, 2015", "price": 11.01}, {"date": "Feb 01, 2015", "price": 12.37}, {"date": "Mar 01, 2015", "price": 12.15}, {"date": "Apr 01, 2015", "price": 12.33}, {"date": "May 01, 2015", "price": 11.36}, {"date": "Jun 01, 2015", "price": 11.99}, {"date": "Jul 01, 2015", "price": 12.15}, {"date": "Aug 01, 2015", "price": 10.73}, {"date": "Sep 01, 2015", "price": 9.68}, {"date": "Oct 01, 2015", "price": 9.28}, {"date": "Nov 01, 2015", "price": 8.16}, {"date": "Dec 01, 2015", "price": 7.87}, {"date": "Jan 01, 2016", "price": 8.24}, {"date": "Feb 01, 2016", "price": 9.43}, {"date": "Mar 01, 2016", "price": 9.98}, {"date": "Apr 01, 2016", "price": 9.64}, {"date": "May 01, 2016", "price": 8.77}, {"date": "Jun 01, 2016", "price": 9.59}, {"date": "Jul 01, 2016", "price": 11.0}, {"date": "Aug 01, 2016", "price": 10.89}, {"date": "Sep 01, 2016", "price": 9.93}, {"date": "Oct 01, 2016", "price": 8.7}, {"date": "Nov 01, 2016", "price": 9.91}, {"date": "Dec 01, 2016", "price": 9.23}, {"date": "Jan 01, 2017", "price": 9.6}, {"date": "Feb 01, 2017", "price": 8.81}, {"date": "Mar 01, 2017", "price": 9.95}, {"date": "Apr 01, 2017", "price": 9.93}, {"date": "May 01, 2017", "price": 11.56}, {"date": "Jun 01, 2017", "price": 11.38}, {"date": "Jul 01, 2017", "price": 10.81}, {"date": "Aug 01, 2017", "price": 10.65}, {"date": "Sep 01, 2017", "price": 11.4}, {"date": "Oct 01, 2017", "price": 11.37}, {"date": "Nov 01, 2017", "price": 12.45}, {"date": "Dec 01, 2017", "price": 13.38}, {"date": "Jan 01, 2018", "price": 14.28}, {"date": "Feb 01, 2018", "price": 15.76}, {"date": "Mar 01, 2018", "price": 15.01}, {"date": "Apr 01, 2018", "price": 15.54}, {"date": "May 01, 2018", "price": 18.86}, {"date": "Jun 01, 2018", "price": 18.82}, {"date": "Jul 01, 2018", "price": 18.81}, {"date": "Aug 01, 2018", "price": 20.31}, {"date": "Sep 01, 2018", "price": 19.76}, {"date": "Oct 01, 2018", "price": 21.19}, {"date": "Nov 01, 2018", "price": 22.21}, {"date": "Dec 01, 2018", "price": 21.33}, {"date": "Jan 01, 2019", "price": 21.41}, {"date": "Feb 01, 2019", "price": 24.66}, {"date": "Mar 01, 2019", "price": 24.5}, {"date": "Apr 01, 2019", "price": 26.37}, {"date": "May 01, 2019", "price": 25.35}, {"date": "Jun 01, 2019", "price": 29.33}, {"date": "Jul 01, 2019", "price": 26.05}, {"date": "Aug 01, 2019", "price": 24.58}, {"date": "Sep 01, 2019", "price": 24.56}, {"date": "Oct 01, 2019", "price": 25.48}, {"date": "Nov 01, 2019", "price": 28.03}, {"date": "Dec 01, 2019", "price": 28.14}, {"date": "Jan 01, 2020", "price": 31.82}, {"date": "Feb 01, 2020", "price": 28.97}, {"date": "Mar 01, 2020", "price": 22.33}, {"date": "Apr 01, 2020", "price": 24.79}, {"date": "May 01, 2020", "price": 30.42}, {"date": "Jun 01, 2020", "price": 32.73}, {"date": "Jul 01, 2020", "price": 34.88}, {"date": "Aug 01, 2020", "price": 33.98}, {"date": "Sep 01, 2020", "price": 36.67}, {"date": "Oct 01, 2020", "price": 42.23}, {"date": "Nov 01, 2020", "price": 42.43}, {"date": "Dec 01, 2020", "price": 47.8}, {"date": "Jan 01, 2021", "price": 48.66}, {"date": "Feb 01, 2021", "price": 54.35}, {"date": "Mar 01, 2021", "price": 55.07}, {"date": "Apr 01, 2021", "price": 56.37}, {"date": "May 01, 2021", "price": 55.91}, {"date": "Jun 01, 2021", "price": 64.01}, {"date": "Jul 01, 2021", "price": 68.47}, {"date": "Aug 01, 2021", "price": 69.74}, {"date": "Sep 01, 2021", "price": 60.03}, {"date": "Oct 01, 2021", "price": 65.89}, {"date": "Nov 01, 2021", "price": 67.57}, {"date": "Dec 01, 2021", "price": 61.05}, {"date": "Jan 01, 2022", "price": 53.37}, {"date": "Feb 01, 2022", "price": 48.11}, {"date": "Mar 01, 2022", "price": 45.63}, {"date": "Apr 01, 2022", "price": 44.29}, {"date": "May 01, 2022", "price": 44.76}, {"date": "Jun 01, 2022", "price": 42.56}, {"date": "Jul 01, 2022", "price": 52.2}, {"date": "Aug 01, 2022", "price": 53.6}, {"date": "Sep 01, 2022", "price": 52.1}, {"date": "Oct 01, 2022", "price": 58.32}, {"date": "Nov 01, 2022", "price": 66.48}, {"date": "Dec 01, 2022", "price": 66.53}, {"date": "Jan 01, 2023", "price": 71.25}, {"date": "Feb 01, 2023", "price": 69.39}, {"date": "Mar 01, 2023", "price": 74.93}, {"date": "Apr 01, 2023", "price": 79.89}, {"date": "May 01, 2023", "price": 79.17}, {"date": "Jun 01, 2023", "price": 87.94}, {"date": "Jul 01, 2023", "price": 90.61}, {"date": "Aug 01, 2023", "price": 88.18}, {"date": "Sep 01, 2023", "price": 85.68}, {"date": "Oct 01, 2023", "price": 99.51}, {"date": "Nov 01, 2023", "price": 110.66}, {"date": "Dec 01, 2023", "price": 111.4}, {"date": "Jan 01, 2024", "price": 125.62}, {"date": "Feb 01, 2024", "price": 149.26}, {"date": "Mar 01, 2024", "price": 156.88}, {"date": "Apr 01, 2024", "price": 136.41}, {"date": "May 01, 2024", "price": 182.32}, {"date": "Jun 01, 2024", "price": 161.32}, {"date": "Jul 01, 2024", "price": 153.77}, {"date": "Aug 01, 2024", "price": 159.88}, {"date": "Sep 01, 2024", "price": 159.45}, {"date": "Oct 01, 2024", "price": 160.89}, {"date": "Nov 01, 2024", "price": 195.96}, {"date": "Dec 01, 2024", "price": 203.09}, {"date": "Jan 01, 2025", "price": 177.36}, {"date": "Feb 01, 2025", "price": 139.36}, {"date": "Mar 01, 2025", "price": 111.81}, {"date": "Apr 01, 2025", "price": 110.83}, {"date": "May 01, 2025", "price": 105.52}, {"date": "Jun 01, 2025", "price": 103.07}, {"date": "Jul 01, 2025", "price": 106.17}, {"date": "Aug 01, 2025", "price": 119.63}, {"date": "Sep 01, 2025", "price": 101.37}, {"date": "Oct 01, 2025", "price": 81.5}, {"date": "Nov 01, 2025", "price": 88.03}, {"date": "Dec 01, 2025", "price": 103.67}, {"date": "Jan 01, 2026", "price": 119.34}, {"date": "Feb 01, 2026", "price": 117.27}, {"date": "Mar 01, 2026", "price": 100.09}, {"date": "Apr 01, 2026", "price": 102.2}, {"date": "May 01, 2026", "price": 113.85}, {"date": "Jun 01, 2026", "price": 99.29}, {"date": "Jul 01, 2026", "price": 96.88}, {"date": "Aug 01, 2026", "price": 97.46}, {"date": "Aug 07, 2026", "price": 97.46}]};
+        let currentRangeKey = '1Y';
+        let currentPoints = allDatasets[currentRangeKey] || [];
+        let currentSvgCoords = [];
+
+        const width = 900;
+        const height = 260;
+        const padX = 20;
+        const padY = 25;
+
+        const container = document.getElementById('chart-container');
+        const svg = document.getElementById('interactive-svg');
+        const linePath = document.getElementById('chart-line-path');
+        const areaPath = document.getElementById('chart-area-path');
+        const tooltipDate = document.getElementById('tooltip-date');
+        const tooltipPrice = document.getElementById('tooltip-price');
+        const crosshair = document.getElementById('crosshair-line');
+        const dot = document.getElementById('hover-dot');
+        const startLbl = document.getElementById('chart-start-lbl');
+        const endLbl = document.getElementById('chart-end-lbl');
+        const rangeTitle = document.getElementById('chart-range-title');
+
+        function recalculatePaths(points) {
+            if (!points || points.length < 2) return;
+            const prices = points.map(p => p.price);
+            const minP = Math.min(...prices);
+            const maxP = Math.max(...prices);
+            const pRange = Math.max(maxP - minP, 0.01);
+            const n = points.length;
+
+            currentSvgCoords = [];
+            for (let i = 0; i < n; i++) {
+                const x = padX + (i / (n - 1)) * (width - 2 * padX);
+                const y = height - padY - ((points[i].price - minP) / pRange) * (height - 2 * padY);
+                currentSvgCoords.push([Math.round(x * 10) / 10, Math.round(y * 10) / 10]);
+            }
+
+            const lineD = 'M ' + currentSvgCoords.map(c => c[0] + ',' + c[1]).join(' L ');
+            const firstC = currentSvgCoords[0];
+            const lastC = currentSvgCoords[currentSvgCoords.length - 1];
+            const areaD = lineD + ' L ' + lastC[0] + ',' + height + ' L ' + firstC[0] + ',' + height + ' Z';
+
+            linePath.setAttribute('d', lineD);
+            areaPath.setAttribute('d', areaD);
+
+            startLbl.innerText = points[0].date + ' ($' + minP.toFixed(2) + ')';
+            endLbl.innerText = points[n - 1].date + ' ($' + points[n - 1].price.toFixed(2) + ')';
+            
+            tooltipDate.innerText = points[n - 1].date;
+            tooltipPrice.innerText = '$' + points[n - 1].price.toFixed(2);
+
+            const titles = { '1Y': '1-Year Range', '5Y': '5-Year Range', '10Y': '10-Year Range', 'MAX': 'All-Time Historical Range' };
+            rangeTitle.innerText = titles[currentRangeKey] || currentRangeKey + ' Range';
+        }
+
+        window.switchChartRange = function(rangeKey) {
+            if (!allDatasets[rangeKey]) return;
+            currentRangeKey = rangeKey;
+            currentPoints = allDatasets[rangeKey];
+            
+            document.querySelectorAll('.range-pill').forEach(btn => {
+                if (btn.innerText.trim() === rangeKey) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            recalculatePaths(currentPoints);
+            hideHover();
+        };
+
+        function updateHover(e) {
+            if (!currentPoints.length || !currentSvgCoords.length) return;
+            const rect = svg.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const pct = Math.max(0, Math.min(1, mouseX / rect.width));
+            const idx = Math.round(pct * (currentPoints.length - 1));
+            
+            const pt = currentPoints[idx];
+            const coord = currentSvgCoords[idx];
+            if (!pt || !coord) return;
+
+            crosshair.setAttribute('x1', coord[0]);
+            crosshair.setAttribute('x2', coord[0]);
+            crosshair.style.display = 'block';
+
+            dot.setAttribute('cx', coord[0]);
+            dot.setAttribute('cy', coord[1]);
+            dot.style.display = 'block';
+
+            tooltipDate.innerText = pt.date;
+            tooltipPrice.innerText = '$' + pt.price.toFixed(2);
+        }
+
+        function hideHover() {
+            crosshair.style.display = 'none';
+            dot.style.display = 'none';
+            if (currentPoints.length) {
+                tooltipDate.innerText = currentPoints[currentPoints.length - 1].date;
+                tooltipPrice.innerText = '$' + currentPoints[currentPoints.length - 1].price.toFixed(2);
+            }
+        }
+
+        container.addEventListener('mousemove', updateHover);
+        container.addEventListener('mouseleave', hideHover);
+        container.addEventListener('touchstart', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
+        container.addEventListener('touchmove', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
+        container.addEventListener('touchend', hideHover);
+
+        recalculatePaths(currentPoints);
+    })();
+    </script>
+    
+
+            <!-- Key Metrics Grid -->
+            <div class="metrics-grid" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));">
+                <div class="metric-cell">
+                    <div class="metric-label">Fair Value</div>
+                    <div class="metric-value" style="color: var(--accent-warm);">$118.00</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Bear Target</div>
+                    <div class="metric-value" style="color: var(--accent-red);">$78.00 (-19.96%)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Base Target</div>
+                    <div class="metric-value">$118.00 (+21.07%)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Bull Target</div>
+                    <div class="metric-value" style="color: var(--accent-green);">$148.00 (+51.86%)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Alert Corridor</div>
+                    <div class="metric-value" style="font-size: 1.05rem; font-family: var(--font-mono); color: var(--text-title);">$82.00 ⇄ $115.00</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Next Catalyst</div>
+                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">2026-10-22</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation Tabs -->
+        <div class="tabs-header">
+            <button class="tab-btn active" onclick="showTab('memo')">Investment Thesis</button>
+            <button class="tab-btn" onclick="showTab('history')">Evolution (0)</button>
+        </div>
+
+        <!-- Memo Content -->
+        <div id="tab-memo" class="tab-content active">
+            <article class="memo-container">
+                <div class="section">
+  <h2>Section 1: Business Model &amp; Competitive Moat</h2>
+
+  <h3>1. Core Portfolio Architecture &amp; Strategic Monetization</h3>
+  <p>
+    Deckers Outdoor Corporation (NYSE: DECK) operates an elite, capital-light brand management and footwear innovation engine centered around two hyper-growth powerhouses: <strong>HOKA®</strong> and <strong>UGG®</strong>. Over the past five fiscal years, Deckers has successfully transformed from a seasonal footwear company reliant on UGG winter boots into a diversified, year-round global performance and lifestyle powerhouse.
+  </p>
+  <p>
+    In Full-Year FY2026, Deckers generated a record $5.47 billion in net sales (+9.8% YoY). The monetization engine is structured across distinct brand segments:
+  </p>
+  <ul>
+    <li>
+      <strong>HOKA ($2.59B FY26 Revenue, +16% YoY):</strong> The primary growth vector of the company. Built on proprietary maximalist cushioning, meta-rocker geometry, and premium active performance design, HOKA has captured significant market share in running, trail, walking, and lifestyle footwear. In Q1 FY2027, HOKA delivered $703.5 million in revenue (+7.7% YoY).
+    </li>
+    <li>
+      <strong>UGG ($2.74B FY26 Revenue, +8% YoY):</strong> The foundational cash-cow franchise offering high-margin premium lifestyle footwear, loungewear, and casual fashion. Driven by its successful "365-day" year-round strategy, UGG expanded beyond sheepskin boots into casual sneakers, platform fashion, sandals, and men's footwear (Golden Collection, Lowmel, and Minimel franchises). UGG generated $278.0 million in Q1 FY2027 (+4.9% YoY).
+    </li>
+    <li>
+      <strong>Teva &amp; Brand Portfolio Rationalization ($37.9M Q1 FY27 Revenue, -18.1% YoY):</strong> Teva serves as an outdoor sandals brand. To eliminate low-margin friction and direct 100% of executive bandwidth and capital toward Tier-1 assets, management executed a decisive portfolio rationalization: divesting the <em>Sanuk</em> brand and initiating the formal phase-out of <em>Koolaburra by UGG</em>.
+    </li>
+  </ul>
+
+  <div class="callout">
+    <strong>CEO Perspective on Portfolio Focus:</strong><br>
+    <em>"Deckers delivered a solid start to the fiscal year, surpassing $1 billion of first quarter revenue for the first time... This performance reflects the continued strength of HOKA and UGG, with growing global demand as both brands extend their reach through compelling product innovation. As we build deeper connections with consumers across geographies and channels, we remain focused on advancing our premium brands and executing with discipline against our long term strategies."</em>
+    <br>&mdash; <strong>Stefano Caroti</strong>, President &amp; Chief Executive Officer
+  </div>
+
+  <h3>2. Economic Moat: Pricing Power, Brand Equity &amp; Channel Control</h3>
+  <p>
+    Deckers’ competitive advantage is rooted in a robust <strong>Brand Equity and Pricing Power Moat</strong>, reinforced by strict supply-chain discipline and direct-to-consumer (DTC) channel control. 
+  </p>
+  <ul>
+    <li>
+      <strong>Full-Price Sell-Through &amp; Margin Protection:</strong> Unlike peers who rely on promotional markdown cycles to push inventory, Deckers maintains tight allocation across wholesale partners. By intentionally limiting wholesale supply, management preserves premium pricing, sustaining Gross Margins above 56%.
+    </li>
+    <li>
+      <strong>Customer Retention &amp; Franchise Segmentation:</strong> HOKA enjoys high customer retention driven by biomechanical performance, while UGG retains multi-generational brand loyalty. Innovation segmentation—such as HOKA's <em>Fly</em> (speed/race) versus <em>Glide</em> (everyday cushioning/Clifton/Bondi) franchises—allows Deckers to cross-sell into broader usage occasions.
+    </li>
+    <li>
+      <strong>Controlled Channel Shift (DTC Focus):</strong> Deckers actively leans into higher-margin DTC sales (ecommerce and brand retail) relative to wholesale. In Q1 FY2027, DTC sales surged 13.0% YoY to $352.8 million (with DTC comparable sales up 6.8%), while wholesale expanded at a disciplined 2.2% rate to $666.7 million.
+    </li>
+  </ul>
+
+  <h3>3. Geographic Expansion Runway &amp; Total Addressable Market</h3>
+  <p>
+    While domestic growth remains stable, international markets represent a massive structural growth runway. HOKA brand awareness in the United States stands at approximately <strong>60%</strong>, whereas international brand awareness is at just <strong>40%</strong>.
+  </p>
+  <p>
+    International net sales reached $502.1 million in Q1 FY2027 (+8.4% YoY; +25.5% YoY in Q4 FY2026), fast approaching domestic sales of $517.4 million (+3.2% YoY). Expansion across EMEA (Greater China, Japan, UK, France) provides multi-year top-line momentum as store openings and localized brand campaigns scale global awareness.
+  </p>
+</div>
+
+<div class="section">
+  <h2>Section 2: Latest Financial Performance &amp; Operations</h2>
+
+  <h3>1. Q1 FY2027 Financial Summary: Exceeding $1 Billion Revenue Milestone</h3>
+  <p>
+    In Q1 FY2027 (quarter ended June 30, 2026), Deckers surpassed $1.0 billion in first-quarter revenue for the first time in company history, delivering net sales of $1.020 billion (+5.7% YoY; +4.8% on a constant currency basis). Diluted EPS rose to $0.94 (+1.1% YoY), beating Street consensus estimates of $0.88.
+  </p>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Q1 FY27 Net Sales</div>
+      <div class="metric-value">$1,020.0M</div>
+      <div class="metric-delta pos">+5.7% YoY</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Q1 FY27 Diluted EPS</div>
+      <div class="metric-value">$0.94</div>
+      <div class="metric-delta pos">+1.1% YoY</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Gross Margin</div>
+      <div class="metric-value">56.4%</div>
+      <div class="metric-delta pos">+60 bps YoY</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">DTC Channel Growth</div>
+      <div class="metric-value">$352.8M</div>
+      <div class="metric-delta pos">+13.0% YoY</div>
+    </div>
+  </div>
+
+  <h3>2. Brand, Channel &amp; Geographic Revenue Breakdown</h3>
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Segment / Metric</th>
+        <th>Q1 FY2027 ($M)</th>
+        <th>Q1 FY2026 ($M)</th>
+        <th>YoY Change (%)</th>
+        <th>FY2026 Full Year ($M)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>HOKA Brand</strong></td>
+        <td>$703.5</td>
+        <td>$653.1</td>
+        <td>+7.7%</td>
+        <td>$2,590.0</td>
+      </tr>
+      <tr>
+        <td><strong>UGG Brand</strong></td>
+        <td>$278.0</td>
+        <td>$265.1</td>
+        <td>+4.9%</td>
+        <td>$2,740.0</td>
+      </tr>
+      <tr>
+        <td><strong>Other Brands (Teva/Other)</strong></td>
+        <td>$37.9</td>
+        <td>$46.3</td>
+        <td>-18.1%</td>
+        <td>$140.0</td>
+      </tr>
+      <tr>
+        <td><strong>Wholesale Channel</strong></td>
+        <td>$666.7</td>
+        <td>$652.4</td>
+        <td>+2.2%</td>
+        <td>$3,180.0</td>
+      </tr>
+      <tr>
+        <td><strong>Direct-to-Consumer (DTC)</strong></td>
+        <td>$352.8</td>
+        <td>$312.2</td>
+        <td>+13.0%</td>
+        <td>$2,290.0</td>
+      </tr>
+      <tr>
+        <td><strong>Domestic Sales (US)</strong></td>
+        <td>$517.4</td>
+        <td>$501.3</td>
+        <td>+3.2%</td>
+        <td>$3,620.0</td>
+      </tr>
+      <tr>
+        <td><strong>International Sales</strong></td>
+        <td>$502.1</td>
+        <td>$463.3</td>
+        <td>+8.4%</td>
+        <td>$1,850.0</td>
+      </tr>
+      <tr>
+        <td><strong>Total Net Sales</strong></td>
+        <td><strong>$1,020.0</strong></td>
+        <td><strong>$964.5</strong></td>
+        <td><strong>+5.7%</strong></td>
+        <td><strong>$5,470.0</strong></td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <h3>3. Operational Efficiency, Tariffs &amp; Operating Margins</h3>
+  <p>
+    Gross margin expanded 60 basis points YoY to <strong>56.4%</strong> in Q1 FY2027 (versus 55.8% in Q1 FY2026), benefiting from favorable full-price selling mix and lower freight costs. However, operating income declined slightly from $165.3 million to $155.3 million as SG&amp;A expenses expanded to $419.9 million (31.5% increase) due to strategic investments in global retail store footprint, DTC marketing, and talent acquisition.
+  </p>
+
+  <div class="callout">
+    <strong>CFO Commentary on Guidance &amp; Supply Chain Dynamics:</strong><br>
+    <em>"Gross margin for the quarter was 56.4%... Total company revenue was $1.02 billion, up 5.7% versus the prior year... We have been disciplined in how we're managing supply, protecting brand heat and avoiding unnecessary promotional pressure."</em><br>
+    Management raised its conservative tariff assumption to <strong>12.5%</strong> within its full-year modeling while reaffirming net sales outlook and boosting EPS expectations.
+    <br>&mdash; <strong>Steve Fasching</strong>, Chief Financial Officer
+  </div>
+
+  <h3>4. Balance Sheet Fortress &amp; Share Buyback Execution</h3>
+  <p>
+    Deckers maintains a zero-debt balance sheet. As of June 30, 2026:
+  </p>
+  <ul>
+    <li><strong>Cash &amp; Cash Equivalents:</strong> $1.603 billion (down from $1.907B at March 31, 2026, following aggressive share repurchases).</li>
+    <li><strong>Total Debt:</strong> $0 outstanding borrowings.</li>
+    <li><strong>Inventories:</strong> $807.6 million (down from $849.4 million a year prior), reflecting pristine inventory health.</li>
+    <li><strong>Share Buyback Cannibalization:</strong> During Q1 FY2027, Deckers repurchased approximately <strong>3.3 million shares</strong> of common stock for <strong>$338.2 million</strong> at an average price of $103.79 per share. Deckers retains approximately <strong>$4.7 billion</strong> under its authorized share repurchase program.</li>
+  </ul>
+
+  <h3>5. Full-Year FY2027 Guidance Outlook</h3>
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th>Prior FY2027 Guidance</th>
+        <th>Updated FY2027 Guidance</th>
+        <th>Strategic Management Target</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Net Sales</strong></td>
+        <td>$5.86B &ndash; $5.91B</td>
+        <td><strong>$5.86B &ndash; $5.91B</strong></td>
+        <td>High-single-digit YoY growth (~7%&ndash;8%)</td>
+      </tr>
+      <tr>
+        <td><strong>HOKA Growth</strong></td>
+        <td>Low double-digits</td>
+        <td><strong>Low double-digits</strong></td>
+        <td>Continued market share gains in global run</td>
+      </tr>
+      <tr>
+        <td><strong>UGG Growth</strong></td>
+        <td>Mid single-digits</td>
+        <td><strong>Mid single-digits</strong></td>
+        <td>Driven by 365-day casual style momentum</td>
+      </tr>
+      <tr>
+        <td><strong>Gross Margin</strong></td>
+        <td>Slightly above 56.5%</td>
+        <td><strong>Slightly above 56.5%</strong></td>
+        <td>Controlled promotions &amp; freight savings</td>
+      </tr>
+      <tr>
+        <td><strong>Operating Margin</strong></td>
+        <td>Slightly above 21.5%</td>
+        <td><strong>Slightly above 21.5%</strong></td>
+        <td>Industry-leading profitability profile</td>
+      </tr>
+      <tr>
+        <td><strong>Diluted EPS</strong></td>
+        <td>$7.30 &ndash; $7.45</td>
+        <td><strong>$7.35 &ndash; $7.50</strong></td>
+        <td>Boosted by lower share count &amp; operational rigor</td>
+      </tr>
+    </tbody>
+  </table></div>
+</div>
+
+<div class="section">
+  <h2>Section 3: Real Cash Flow &amp; SBC Dilution Audit</h2>
+  
+  <p>
+    A rigorous audit of Deckers Outdoor Corporation’s (NYSE: DECK) cash generation requires peeling back GAAP Net Income to evaluate true economic cash generation. In accordance with Warren Buffett’s Owner Earnings framework, Stock-Based Compensation (SBC) is treated not as a harmless non-cash accounting adjustment, but as a real economic expense that dilute existing equity owners if uncountered.
+  </p>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Operating Cash Flow (FY26)</div>
+      <div class="metric-value">$1,181.96M</div>
+      <div class="metric-delta pos">+13.2% YoY</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Free Cash Flow (FCF)</div>
+      <div class="metric-value">$1,097.34M</div>
+      <div class="metric-delta pos">92.8% Conversion</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Stock-Based Comp (SBC)</div>
+      <div class="metric-value">$44.84M</div>
+      <div class="metric-delta">3.8% of OCF</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Post-SBC Owner Cash Flow</div>
+      <div class="metric-value">$1,052.50M</div>
+      <div class="metric-delta pos">+14.1% YoY</div>
+    </div>
+  </div>
+
+  <h3>FY26 Cash Flow &amp; Owner Earnings Reconciliation</h3>
+  <p>
+    Deckers demonstrates world-class cash flow conversion, delivering $1.182 billion in operating cash flow against GAAP Net Income of $1.024 billion (a 115% cash conversion ratio). Because Deckers relies on an asset-light, third-party contract manufacturing model, capital expenditures remain exceptionally lean at $84.62 million (1.5% of sales). Deducting maintenance CapEx and fully expensing $44.84 million in SBC reveals true Post-SBC Owner Cash Flow of <strong>$1.052 billion</strong>.
+  </p>
+
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Cash Flow Waterfall Component</th>
+        <th>FY24 Amount ($M)</th>
+        <th>FY25 Amount ($M)</th>
+        <th>FY26 Amount ($M)</th>
+        <th>% of Revenue (FY26)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>GAAP Net Income</strong></td>
+        <td>$759.56</td>
+        <td>$966.09</td>
+        <td>$1,024.07</td>
+        <td>18.7%</td>
+      </tr>
+      <tr>
+        <td>(+) Depreciation &amp; Amortization</td>
+        <td>$59.66</td>
+        <td>$71.73</td>
+        <td>$78.01</td>
+        <td>1.4%</td>
+      </tr>
+      <tr>
+        <td>(+) Stock-Based Compensation</td>
+        <td>$37.29</td>
+        <td>$37.94</td>
+        <td>$44.84</td>
+        <td>0.8%</td>
+      </tr>
+      <tr>
+        <td>(+/-) Working Capital &amp; Other Changes</td>
+        <td>$176.67</td>
+        <td>-$31.24</td>
+        <td>$35.04</td>
+        <td>0.6%</td>
+      </tr>
+      <tr>
+        <td><strong>Net Cash Provided by Operating Activities</strong></td>
+        <td><strong>$1,033.18</strong></td>
+        <td><strong>$1,044.52</strong></td>
+        <td><strong>$1,181.96</strong></td>
+        <td><strong>21.6%</strong></td>
+      </tr>
+      <tr>
+        <td>(-) Capital Expenditures (Property &amp; Equipment)</td>
+        <td>-$89.37</td>
+        <td>-$86.17</td>
+        <td>-$84.62</td>
+        <td>1.5%</td>
+      </tr>
+      <tr>
+        <td><strong>Free Cash Flow (Traditional FCF)</strong></td>
+        <td><strong>$943.81</strong></td>
+        <td><strong>$958.35</strong></td>
+        <td><strong>$1,097.34</strong></td>
+        <td><strong>20.1%</strong></td>
+      </tr>
+      <tr>
+        <td>(-) Stock-Based Compensation (Real Cash Expense)</td>
+        <td>-$37.29</td>
+        <td>-$37.94</td>
+        <td>-$44.84</td>
+        <td>0.8%</td>
+      </tr>
+      <tr>
+        <td><strong>True Post-SBC Owner Cash Flow</strong></td>
+        <td><strong>$906.52</strong></td>
+        <td><strong>$920.41</strong></td>
+        <td><strong>$1,052.50</strong></td>
+        <td><strong>19.2%</strong></td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout">
+    <p>
+      <strong>SBC Dilution vs. Share Cannibalism Audit:</strong> Stock-based compensation of $44.84 million represents a modest 0.8% of net sales and 3.8% of operating cash flow. Rather than using buybacks merely to mop up dilution, Deckers deployed <strong>$1.075 billion</strong> into repurchasing common stock in FY26—overcoming SBC dilution by <strong>24x</strong>. This aggressive, organic cannibalization reduced outstanding common shares from ~150.2 million to ~140.0 million, driving real, persistent per-share compounding.
+    </p>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Section 4: Balance Sheet Fortress &amp; Capital Allocation</h2>
+
+  <p>
+    Deckers operates one of the most pristine, unencumbered balance sheets in the global consumer retail industry. Free from funded debt and financial leverage, the balance sheet serves as both an offensive weapon for shareholder returns and an impenetrable defensive buffer during macroeconomic downturns.
+  </p>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Cash &amp; Equivalents</div>
+      <div class="metric-value">$1,907.25M</div>
+      <div class="metric-delta pos">Zero Debt</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Operating Lease Liabilities</div>
+      <div class="metric-value">$375.19M</div>
+      <div class="metric-delta">$83.9M Current</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Net Cash (Net of Leases)</div>
+      <div class="metric-value">$1,532.06M</div>
+      <div class="metric-delta pos">~$10.90 / Share</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">ROIC</div>
+      <div class="metric-value">&gt; 30.0%</div>
+      <div class="metric-delta pos">Top Tier Decile</div>
+    </div>
+  </div>
+
+  <h3>Capital Structure &amp; Enterprise Net Cash Breakdown</h3>
+  <p>
+    As of the close of FY26, Deckers held <strong>$1.907 billion</strong> in cash and cash equivalents with <strong>$0 funded financial debt</strong>. Incorporating contractual operating lease obligations ($83.93 million current and $291.26 million non-current liabilities), the true enterprise Net Cash position stands at <strong>$1.532 billion</strong>, or approximately <strong>$10.90 per diluted share</strong>.
+  </p>
+
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Balance Sheet Component</th>
+        <th>FY25 ($M)</th>
+        <th>FY26 ($M)</th>
+        <th>YoY Change ($M)</th>
+        <th>Audit &amp; Valuation Impact</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Cash &amp; Cash Equivalents</td>
+        <td>$1,889.19</td>
+        <td>$1,907.25</td>
+        <td>+$18.06</td>
+        <td>100% liquid cash reserves</td>
+      </tr>
+      <tr>
+        <td>Funded Financial Debt (Short &amp; Long Term)</td>
+        <td>$0.00</td>
+        <td>$0.00</td>
+        <td>$0.00</td>
+        <td>Zero interest-bearing debt risk</td>
+      </tr>
+      <tr>
+        <td>Current Operating Lease Liabilities</td>
+        <td>$54.45</td>
+        <td>$83.93</td>
+        <td>+$29.48</td>
+        <td>Store retail &amp; facility lease obligations due &lt;1 yr</td>
+      </tr>
+      <tr>
+        <td>Long-Term Operating Lease Liabilities</td>
+        <td>$222.52</td>
+        <td>$291.26</td>
+        <td>+$68.74</td>
+        <td>Long-term retail &amp; warehouse leases</td>
+      </tr>
+      <tr>
+        <td><strong>Total Contractual Debt &amp; Lease Liabilities</strong></td>
+        <td><strong>$276.97</strong></td>
+        <td><strong>$375.19</strong></td>
+        <td><strong>+$98.22</strong></td>
+        <td>Total contractual financial obligations</td>
+      </tr>
+      <tr>
+        <td><strong>Net Cash (Net of Operating Leases)</strong></td>
+        <td><strong>$1,612.22</strong></td>
+        <td><strong>$1,532.06</strong></td>
+        <td><strong>-$80.16</strong></td>
+        <td><strong>Net Cash backing equity value ($10.90/sh)</strong></td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <h3>Working Capital Efficiency &amp; Capital Allocation Strategy</h3>
+  <p>
+    Management’s operational execution is reflected in its working capital discipline. Despite achieving a 10% net revenue surge to $5.47 billion in FY26, year-end inventory declined 1.7% to <strong>$487.0 million</strong> (down from $495.2 million). This inventory contraction during a period of robust top-line growth highlights high product velocity, minimal clearance exposure, and optimized supply chain turns.
+  </p>
+
+  <div class="callout">
+    <p>
+      <strong>Capital Allocation &amp; $5.0B Buyback War Chest:</strong> Return on Invested Capital (ROIC) comfortably exceeds <strong>30%</strong>, sustained by outsourcing physical manufacturing and focusing capital on brand marketing, R&amp;D, and DTC channel optimization. With zero debt and high cash flow generation, management’s capital allocation priority is direct share buybacks. 
+    </p>
+    <p>
+      Following the deployment of $1.075 billion in share repurchases in FY26, the Board of Directors authorized an additional <strong>$3.5 billion</strong> repurchase capacity on May 20, 2026. This expansion elevates Deckers' total authorized buyback pipeline to approximately <strong>$4.84 billion to $5.0 billion</strong>—providing management with capacity to repurchase over 15% of the total outstanding share count at current market valuations.
+    </p>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Section 5: Warren Buffett Owner Earnings &amp; Intrinsic Value Matrix</h2>
+
+  <p>
+    Rooted in Warren Buffett's 1986 Berkshire Hathaway Shareholder Letter framework, evaluating Deckers Outdoor Corporation (NYSE: DECK) requires looking past short-term accounting noise and focusing strictly on <strong>True Owner Earnings</strong>—the actual cash generated that can be extracted from the enterprise without impairing its competitive moat.
+  </p>
+
+  <p>
+    Deckers presents a textbook capital-light footwear compounder. Unlike capital-intensive manufacturing industrials, Deckers outsources primary footwear production to third-party manufacturing partners in Asia, requiring minimal maintenance capital expenditures (~1.2% to 1.5% of net revenues). This asset-light model enables Deckers to convert over 90% of GAAP net income into free cash flow while delivering an extraordinary Return on Invested Capital (ROIC) exceeding 40%.
+  </p>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Current Stock Price</div>
+      <div class="metric-value">$97.46</div>
+      <div class="metric-delta">Market Cap ~$13.4B</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Normalized Owner Earnings</div>
+      <div class="metric-value">$7.60 / sh</div>
+      <div class="metric-delta pos">Initial Yield: 7.8%</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Base EV / Owner Earnings</div>
+      <div class="metric-value">11.3x</div>
+      <div class="metric-delta pos">Ex-Cash Multiple</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Net Cash Bridge</div>
+      <div class="metric-value">+$10.90 / sh</div>
+      <div class="metric-delta pos">Zero Funded Debt</div>
+    </div>
+  </div>
+
+  <h3>Buffett Owner Earnings Calculation &amp; Adjustments</h3>
+  <p>
+    To derive Normalized Owner Earnings per share of <strong>$7.60</strong>, we begin with reported TTM Cash Flow from Operations ($1.12B) and apply strict economic deductions:
+  </p>
+  <ul>
+    <li><strong>Maintenance CapEx Deduction (-$85M / ~$0.62 per share):</strong> We strictly separate growth CapEx (new flagship DTC stores and distribution center expansions) from baseline maintenance CapEx (IT infrastructure, store refreshes, tooling re-orders). Maintenance CapEx is estimated at ~1.5% of net revenues.</li>
+    <li><strong>Stock-Based Compensation (SBC) Deduction (-$48M / ~$0.35 per share):</strong> In accordance with Buffett's principle that "if stock compensation is not expense, what is it?", 100% of SBC is treated as a real economic cash drain and dilution factor.</li>
+    <li><strong>Working Capital Normalization:</strong> Operating cash flow is adjusted for quarterly inventory build timing ahead of peak winter/holiday UGG shipping seasons to reflect smooth multi-year organic generation.</li>
+  </ul>
+
+  <h3>Discount Rate &amp; Capital Structure Bridge</h3>
+  <p>
+    We discount future Owner Earnings streams at a strict <strong>10.0% hurdle rate</strong>, consisting of the US 10-Year Treasury yield (~4.20%) plus an Equity Risk Premium of 5.80%. Furthermore, Deckers operates with a pristine balance sheet holding zero funded debt and approximately $1.50B in cash and cash equivalents ($10.90 per share across 136.7M diluted shares). Subtracting this net cash balance from the $97.46 stock price yields an Enterprise Value per share of just <strong>$86.56</strong>—implying an ex-cash Base EV/Owner Earnings multiple of only <strong>11.3x</strong>.
+  </p>
+
+  <div class="callout">
+    <strong>The Buyback Cannibal Driver:</strong> Management consistently deploys excess organic cash into repurchasing common stock (repurchasing over $338M in Q1 alone). At an ~11x EV/OE multiple, share buybacks are highly accretive, shrinking outstanding shares by 3.5% annually in our Base Case and continuously compounding per-share Owner Earnings even during macro slowdowns.
+  </div>
+
+  <h3>3-Scenario Intrinsic Value Matrix</h3>
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Valuation Metric / Assumption</th>
+        <th>Bear Scenario</th>
+        <th>Base Scenario</th>
+        <th>Bull Scenario</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>5-Year Owner Earnings CAGR</strong></td>
+        <td>2.5%</td>
+        <td>8.5%</td>
+        <td>13.5%</td>
+      </tr>
+      <tr>
+        <td><strong>Annual Share Cannibal Reduction</strong></td>
+        <td>2.0%</td>
+        <td>3.5%</td>
+        <td>5.0%</td>
+      </tr>
+      <tr>
+        <td><strong>Per-Share OE CAGR (Combined)</strong></td>
+        <td>4.5%</td>
+        <td>12.0%</td>
+        <td>18.5%</td>
+      </tr>
+      <tr>
+        <td><strong>Discount Rate (US10Y 4.2% + Hurdle)</strong></td>
+        <td>10.0%</td>
+        <td>10.0%</td>
+        <td>10.0%</td>
+      </tr>
+      <tr>
+        <td><strong>Terminal Growth Rate</strong></td>
+        <td>1.5%</td>
+        <td>2.5%</td>
+        <td>2.5%</td>
+      </tr>
+      <tr>
+        <td><strong>PV of 10Y Cash Streams</strong></td>
+        <td>$67.10</td>
+        <td>$107.10</td>
+        <td>$137.10</td>
+      </tr>
+      <tr>
+        <td><strong>Net Cash Balance per Share</strong></td>
+        <td>+$10.90</td>
+        <td>+$10.90</td>
+        <td>+$10.90</td>
+      </tr>
+      <tr>
+        <td><strong>Intrinsic Fair Value per Share</strong></td>
+        <td><strong>$78.00</strong></td>
+        <td><strong>$118.00</strong></td>
+        <td><strong>$148.00</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Implied Upside / Downside</strong></td>
+        <td><span class="neg">-19.96%</span></td>
+        <td><span class="pos">+21.07%</span></td>
+        <td><span class="pos">+51.86%</span></td>
+      </tr>
+      <tr>
+        <td><strong>Implied EV / Owner Earnings Multiple</strong></td>
+        <td>8.8x</td>
+        <td>11.3x</td>
+        <td>14.2x</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <p>
+    Under our Base Case, Deckers generates a <strong>+21.07% upside to $118.00 per share</strong>, driven by steady mid-single-digit HOKA category expansion, stable UGG seasonal cash flows, and aggressive share buybacks. In the Bull Case, international direct-to-consumer (DTC) acceleration propels intrinsic value to <strong>$148.00 (+51.86%)</strong>. Even in a severe recessional Bear Case ($78.00), the firm's $10.90 per share cash fortress provides a massive margin of safety.
+  </p>
+</div>
+
+<div class="section">
+  <h2>Section 6: Thesis Confidence, Execution Risks &amp; Falsification Triggers</h2>
+
+  <p>
+    <strong>PRIMARY PILL: High Conviction</strong><br />
+    <strong>ECONOMIC PLAY &amp; CATALYST DRIVERS: Deep Value | Buyback Cannibal | Brand Compounder</strong>
+  </p>
+
+  <p>
+    Our <strong>High Conviction</strong> stance is anchored by the stark disconnect between Deckers' operational quality (40%+ ROIC, zero debt, 56%+ gross margins) and its depressed market valuation (~11.3x EV/OE). The market is currently pricing DECK as a melting ice cube cyclical footwear brand, severely underestimating HOKA's structural market share gains against incumbents like Nike and Adidas, as well as the defensive cash generation of UGG.
+  </p>
+
+  <h3>Key Execution &amp; Macro Risks</h3>
+  <ul>
+    <li>
+      <strong>Tariff Policy &amp; Gross Margin Headwinds (~12.5% Effective Rate):</strong> The primary narrative overhang stems from prospective or enacted US import tariffs on footwear manufactured in Asia. Deckers has accumulated over $120M in IEEPA tariff expenses. While Deckers' high gross margin buffer (56.4%) allows it to absorb moderate tariffs better than low-margin peers, unmitigated duty increases of 10–25% could compress gross margins by 150–250 bps if pricing power falters.
+    </li>
+    <li>
+      <strong>HOKA Brand Deceleration &amp; Running Saturation:</strong> HOKA's growth slowed from historical 25%+ rates to ~11% YoY in recent quarters as wholesale distribution reached maturity. If HOKA fails to maintain innovation momentum in core performance running, or experiences fashion fatigue, top-line growth could compress toward low single digits.
+    </li>
+    <li>
+      <strong>Freight Costs &amp; Supply Chain Disruption:</strong> Geopolitical tensions and ocean freight rate spikes directly impact inbound shipping costs, pressuring short-term SG&amp;A and gross margins.
+    </li>
+    <li>
+      <strong>Consumer Discretionary Pullback:</strong> A broader North American or European recession could lead consumers to defer premium footwear purchases ($140–$200 price points), driving promotional discounting across wholesale channels.
+    </li>
+  </ul>
+
+  <div class="callout">
+    <h3>Dynamic Price Alert Corridors &amp; Surveillance Triggers</h3>
+    <ul>
+      <li>
+        <strong>Upper Surveillance Threshold ($135.00 / Trim Trigger):</strong> Nearing full Base/Bull intrinsic valuation. Reaching this corridor triggers a disciplined review to lock in gains and reduce position size unless HOKA international DTC growth accelerates beyond 25% YoY.
+      </li>
+      <li>
+        <strong>Lower Surveillance Threshold ($82.00 / Margin-of-Safety Test):</strong> Approaching our Bear Case floor ($78.00). Price action below $82.00 triggers an immediate thesis review to verify whether the price drop is driven by macro tariff rhetoric or permanent structural damage to brand pricing power.
+      </li>
+    </ul>
+  </div>
+
+  <div class="callout">
+    <h3>Pre-Mortem Falsification Triggers (Thesis Invalidation Criteria)</h3>
+    <p>
+      We will explicitly invalidate our investment thesis and cut losses if any of the following pre-mortem triggers occur:
+    </p>
+    <ol>
+      <li>
+        <strong>HOKA Organic Revenue Growth Drops Below +5.0% YoY for Two Consecutive Quarters:</strong> Signals brand fatigue or loss of market share to rising competitors (e.g., On Running, Brooks) rather than macro headwinds.
+      </li>
+      <li>
+        <strong>Consolidated Gross Margin Sustained Below 50.0%:</strong> Indicates complete loss of pricing power or an inability to pass through foreign tariff/freight cost increases to end consumers.
+      </li>
+      <li>
+        <strong>Capital Allocation Pivot / Buyback Cessation:</strong> If management halts share buybacks and allows excess cash to sit idle or pursues value-destructive acquisitions instead of cannibal repurchases at low valuations.
+      </li>
+      <li>
+        <strong>Net Cash Position Depleted Below $750 Million:</strong> Signals severe working capital degradation or unhedged credit losses.
+      </li>
+    </ol>
+  </div>
+</div>
+            </article>
+        </div>
+
+        <!-- History Content -->
+        <div id="tab-history" class="tab-content">
+            
+        <div class="empty-state-box" style="background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px; padding: 75px 24px;">
+            <div class="empty-state-title">Initial Baseline Active</div>
+            <div class="empty-state-sub">Version 1 represents the initial underwriting thesis. Future revisions, price trigger reviews, and catalyst audits will be logged here</div>
+        </div>
+        
+        </div>
+    </main>
+
+    <script>
+        function showTab(id) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            if (id === 'memo') {
+                document.querySelectorAll('.tab-btn')[0].classList.add('active');
+                document.getElementById('tab-memo').classList.add('active');
+            } else {
+                document.querySelectorAll('.tab-btn')[1].classList.add('active');
+                document.getElementById('tab-history').classList.add('active');
+            }
+        }
+
+        function toggleSnapshot(ver) {
+            const el = document.getElementById('snapshot-' + ver);
+            el.style.display = (el.style.display === 'none' ? 'block' : 'none');
+        }
+    </script>
+</body>
+</html>
