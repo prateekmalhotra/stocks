@@ -1,0 +1,53 @@
+name: Add Stock Coverage
+
+on:
+  workflow_dispatch:
+    inputs:
+      ticker:
+        description: 'Stock Ticker (e.g. STNE, AAPL, NVDA)'
+        required: true
+        type: string
+      notes:
+        description: 'Optional focus notes or areas of interest'
+        required: false
+        type: string
+        default: ''
+
+jobs:
+  add_coverage:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Poetry & Dependencies
+        run: |
+          pip install poetry
+          poetry install --no-root
+
+      - name: Run Genesis Institutional Coverage Pipeline
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          echo "Initiating institutional research on ${{ github.event.inputs.ticker }}..."
+          poetry run python -m stocks.main add "${{ github.event.inputs.ticker }}" --notes "${{ github.event.inputs.notes }}"
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "Prateek Malhotra"
+          git config --global user.email "prateekmalhotra@g.ucla.edu"
+          git add data/ public/
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Initiate coverage for ${{ github.event.inputs.ticker }} via GitHub Actions"
+            git push origin main
+          fi
