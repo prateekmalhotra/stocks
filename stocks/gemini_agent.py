@@ -258,8 +258,9 @@ CORE PRINCIPLES & GUIDELINES:
    - NEVER include images, `<img>` tags, figure containers, or external image links. Keep all analyses purely professional text, data tables, callouts, and metric cards. Zero images.
 
 5. Dynamic Labels (2-Tier Intuitive Architecture):
-   - Label #1 (MANDATORY PRIMARY PILL — THESIS CONVICTION & CONFIDENCE RATING): You have full freedom to formulate the most fitting MAX 2-WORD conviction/confidence label that accurately reflects your thesis certainty and execution risk (e.g. "High Conviction", "Cautious Stance", "Speculative Risk", "High Confidence", "Moderate Conviction", "Turnaround Risk", "Defensive Safe", "High Uncertainty", "Asymmetric Upside", "Low Conviction", "Solid Conviction"). DO NOT put play types like "Deep Value" into Label #1.
+   - Label #1 (MANDATORY PRIMARY PILL — THESIS CONVICTION & CONFIDENCE RATING): State in MAX 2 WORDS your thesis conviction level and confidence in reaching fair value (e.g. "High Conviction", "Cautious Stance", "Speculative Risk", "High Confidence", "Moderate Conviction", "Turnaround Risk", "Defensive Safe", "High Uncertainty", "Asymmetric Upside", "Low Conviction", "Solid Conviction"). DO NOT put play types like "Deep Value" into Label #1.
    - Labels #2 & #3 (THE ECONOMIC PLAY & CATALYST DRIVERS): Describe the specific nature of the play and what drives the upside in intuitive plain English (e.g. "Deep Value", "Turnaround Play", "Safe Compounder", "Buyback Cannibal", "Margin Expansion", "Cash Fortress", "Debt Paydown", "Pricing Power", "Moat Expansion", "Special Situation", "Quality Compounder", "Market Leader"). Avoid textbook jargon.
+   - 100% CREATIVE FREEDOM: All listed examples are strictly for inspiration. You have full analytical freedom to invent and choose ANY original 2-word label names that best describe this specific company and your conviction.
    - NEVER use generic industry/sector names (avoid tags like "Latam Fintech" or "Payments Credit").
 
 6. Dynamic Price Alert Corridors & Surveillance Triggers:
@@ -305,6 +306,7 @@ Editorial Aesthetics Mandate:
 Labels Directive (2-Tier Intuitive Structure):
 - Label #1 (MANDATORY PRIMARY PILL — CONVICTION & CONFIDENCE RATING): State in MAX 2 WORDS your thesis conviction/certainty (e.g. "High Conviction", "Cautious Stance", "Speculative Risk", "High Confidence", "Moderate Conviction", "Turnaround Risk", "Defensive Safe", "High Uncertainty", "Asymmetric Upside"). DO NOT put play types here.
 - Labels #2 & #3 (THE PLAY NATURE & CATALYST DRIVERS): Describe the economic play and catalyst driver in intuitive plain English (e.g. "Deep Value", "Turnaround Play", "Safe Compounder", "Buyback Cannibal", "Margin Expansion", "Cash Fortress", "Debt Paydown", "Pricing Power", "Moat Expansion", "Special Situation"). Avoid textbook jargon.
+- 100% FREEDOM: Examples are inspiration only. You can freely choose or invent any 2-word label names that best fit the company.
 
 Return your plan strictly as a JSON object in ```json ... ```:
 ```json
