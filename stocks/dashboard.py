@@ -1,9 +1,8 @@
-"""Editorial Book-Style Financial Terminal & Living Dossier HTML Generator."""
+"""Claude-Inspired Warm Obsidian & Literary Serif Financial Terminal & Living Dossier."""
 
 import json
 from pathlib import Path
 from typing import List, Dict
-from datetime import datetime
 from stocks.models import WatchlistStock, AlertItem, ThesisVersion
 from stocks.data_store import load_watchlist, load_alerts, load_thesis_history
 
@@ -17,7 +16,7 @@ def _ensure_dirs():
 
 
 def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: List[ThesisVersion]) -> str:
-    """Generates a warm, editorial book-style research dossier with literary serif typography."""
+    """Generates a Claude-inspired warm obsidian living memo."""
     current_version = history[-1] if history else None
     
     # Corridor percentages
@@ -30,7 +29,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     history_cards_html = ""
     for v in reversed(history):
         is_current = (v.version == len(history))
-        current_badge = '<span class="pill pill-success">Active Stance</span>' if is_current else f'<span class="pill pill-neutral">v{v.version}</span>'
+        current_badge = '<span class="pill pill-terracotta">Active Thesis</span>' if is_current else f'<span class="pill pill-muted">v{v.version}</span>'
         
         diff_box = ""
         if v.what_was_before or v.what_changes_now:
@@ -52,14 +51,14 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             <div class="history-top">
                 <div class="history-tags">
                     {current_badge}
-                    <span class="history-time">📅 {v.date}</span>
+                    <span class="history-time">{v.date}</span>
                     <span class="history-price">Price: <strong>${v.price_at_version:.2f}</strong></span>
-                    <span class="pill pill-status">{v.status_label}</span>
+                    <span class="pill pill-neutral">{v.status_label}</span>
                 </div>
-                <button class="btn btn-outline-sm" onclick="toggleSnapshot({v.version})">Read Snapshot ▾</button>
+                <button class="btn btn-subtle" onclick="toggleSnapshot({v.version})">Read Snapshot ▾</button>
             </div>
             <div class="history-content">
-                <p class="history-shift-desc"><strong>Thesis Evolution:</strong> {v.summary_of_change}</p>
+                <p class="history-shift-desc"><strong>Thesis Shift:</strong> {v.summary_of_change}</p>
                 {diff_box}
                 <div id="snapshot-{v.version}" class="snapshot-drawer" style="display: none;">
                     <div class="snapshot-body">
@@ -77,29 +76,29 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{ticker} — Investment Due Diligence Memo | AlphaThesis</title>
+    <title>{ticker} — Investment Memo | AlphaThesis</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <style>
         :root {{
-            --bg-canvas: #F9F7F2;       /* Warm unbleached paper */
-            --bg-card: #FFFFFF;         /* Crisp folio page */
-            --bg-subpanel: #F3EFE6;     /* Natural linen tint */
-            --bg-elevated: #ECE6DA;     /* Warm contrast */
-            --text-title: #1C1917;      /* Warm charcoal ink */
-            --text-body: #292524;       /* Deep readable ink */
-            --text-secondary: #57534E;  /* Editorial secondary */
-            --text-dim: #78716C;        /* Stone label */
-            --accent-brand: #1E3A8A;    /* Oxford Navy */
-            --accent-brand-rgb: 30, 58, 138;
-            --accent-success: #15803D;  /* Forest / Sage green */
-            --accent-danger: #B91C1C;   /* Warm Burgundy */
-            --accent-amber: #B45309;    /* Terracotta / Cognac */
-            --border-color: #E5DFD3;    /* Book deckle rule */
-            --border-focus: #D6CEBE;
-            --font-editorial: 'Newsreader', Garamond, Georgia, serif;
+            --bg-canvas: #181816;         /* Claude warm obsidian espresso */
+            --bg-panel: #22211D;          /* Warm dark card */
+            --bg-subpanel: #2A2924;       /* Subtle inner container */
+            --bg-hover: #32302A;
+            --text-title: #FAF7F2;        /* Claude warm alabaster */
+            --text-body: #DCD6CD;         /* Soothing warm cream text */
+            --text-secondary: #A39D93;    /* Muted warm stone */
+            --text-dim: #706B62;          /* Subtle label */
+            --accent-terracotta: #D97757; /* Claude signature starburst terracotta */
+            --accent-terracotta-tint: rgba(217, 119, 87, 0.12);
+            --accent-sage: #86A789;       /* Muted warm sage green */
+            --accent-rose: #D4736E;       /* Muted warm brick rose */
+            --accent-warm: #C4A482;       /* Warm parchment gold */
+            --border-color: rgba(240, 235, 225, 0.08);
+            --border-focus: rgba(240, 235, 225, 0.16);
+            --font-serif: 'Newsreader', Garamond, Georgia, serif;
             --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
         }}
@@ -108,71 +107,77 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         body {{
             background: var(--bg-canvas);
             color: var(--text-body);
-            font-family: var(--font-editorial);
-            line-height: 1.75;
+            font-family: var(--font-serif);
+            line-height: 1.85;
             -webkit-font-smoothing: antialiased;
-            padding-bottom: 120px;
+            padding-bottom: 140px;
         }}
 
-        .container {{ max-width: 1060px; margin: 0 auto; padding: 0 24px; }}
+        .container {{ max-width: 1040px; margin: 0 auto; padding: 0 28px; }}
 
-        /* Top Literary Navigation */
+        /* Top Navigation */
         nav.nav-bar {{
-            background: rgba(249, 247, 242, 0.92);
-            backdrop-filter: blur(16px);
+            background: rgba(24, 24, 22, 0.88);
+            backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
             z-index: 100;
-            padding: 16px 0;
+            padding: 18px 0;
         }}
         .nav-inner {{ display: flex; justify-content: space-between; align-items: center; }}
         .nav-back {{
-            color: var(--accent-brand);
+            color: var(--accent-terracotta);
             text-decoration: none;
             font-family: var(--font-sans);
-            font-size: 0.88rem;
-            font-weight: 700;
+            font-size: 0.9rem;
+            font-weight: 600;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            transition: transform 0.15s;
+            transition: all 0.15s;
         }}
-        .nav-back:hover {{ transform: translateX(-3px); }}
-        .nav-meta {{ font-size: 0.75rem; color: var(--text-dim); font-family: var(--font-sans); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; }}
+        .nav-back:hover {{ transform: translateX(-3px); color: #E89073; }}
+        .nav-meta {{ font-size: 0.76rem; color: var(--text-dim); font-family: var(--font-sans); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }}
 
         /* Hero Deck */
         .hero-deck {{
-            background: var(--bg-card);
+            background: var(--bg-panel);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 40px 48px;
-            margin: 36px 0 32px;
-            box-shadow: 0 4px 24px rgba(28, 25, 23, 0.04);
+            border-radius: 20px;
+            padding: 44px 48px;
+            margin: 40px 0 36px;
             position: relative;
         }}
 
         .hero-top-row {{ display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 24px; }}
-        .ticker-symbol {{ font-family: var(--font-sans); font-size: 3rem; font-weight: 800; letter-spacing: -0.04em; color: var(--text-title); }}
+        .ticker-headline {{ display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }}
+        .ticker-symbol {{
+            font-family: var(--font-serif);
+            font-size: 3.2rem;
+            font-weight: 500;
+            letter-spacing: -0.03em;
+            color: var(--text-title);
+        }}
         .company-meta {{ color: var(--text-secondary); font-size: 1.15rem; font-style: italic; margin-top: 4px; }}
 
         .price-callout {{ text-align: right; }}
-        .price-number {{ font-size: 3rem; font-weight: 800; font-family: var(--font-mono); letter-spacing: -0.03em; color: var(--text-title); }}
-        .price-sub {{ font-size: 0.95rem; font-weight: 600; font-family: var(--font-mono); margin-top: 2px; }}
+        .price-number {{ font-size: 3rem; font-weight: 600; font-family: var(--font-mono); color: var(--text-title); letter-spacing: -0.03em; }}
+        .price-sub {{ font-size: 0.92rem; font-weight: 500; font-family: var(--font-mono); margin-top: 4px; }}
 
-        /* Interactive TradingView Chart Section (Light Theme) */
+        /* Embedded Chart Section */
         .chart-section {{
             margin-top: 32px;
-            background: #FFFFFF;
+            background: #1C1B18;
             border: 1px solid var(--border-color);
-            border-radius: 12px;
+            border-radius: 14px;
             overflow: hidden;
             height: 380px;
         }}
 
-        /* Dynamic Visual Corridor Bar */
+        /* Corridor Slider */
         .corridor-container {{
-            margin-top: 28px;
+            margin-top: 32px;
             padding-top: 24px;
             border-top: 1px solid var(--border-color);
         }}
@@ -183,36 +188,36 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             color: var(--text-dim);
             text-transform: uppercase;
             font-family: var(--font-sans);
-            font-weight: 700;
+            font-weight: 600;
             letter-spacing: 0.05em;
             margin-bottom: 10px;
         }}
         .corridor-track {{
-            height: 8px;
+            height: 6px;
             background: var(--bg-subpanel);
             border-radius: 9999px;
             position: relative;
-            border: 1px solid var(--border-color);
         }}
         .corridor-fill {{
             height: 100%;
-            background: linear-gradient(90deg, #FCA5A5, #FDE68A, #86EFAC, #93C5FD);
+            background: linear-gradient(90deg, #A85854, #C4A482, #789A7A, #D97757);
             border-radius: 9999px;
+            opacity: 0.7;
             width: 100%;
         }}
         .corridor-marker {{
             position: absolute;
             top: -6px;
-            width: 20px;
-            height: 20px;
-            background: #FFFFFF;
-            border: 3px solid var(--accent-brand);
+            width: 18px;
+            height: 18px;
+            background: var(--text-title);
+            border: 3px solid var(--accent-terracotta);
             border-radius: 50%;
             transform: translateX(-50%);
-            box-shadow: 0 2px 8px rgba(30, 58, 138, 0.3);
+            box-shadow: 0 0 10px rgba(217, 119, 87, 0.4);
         }}
 
-        /* Key Metrics Grid */
+        /* Metrics Ribbon */
         .metrics-grid {{
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
@@ -222,57 +227,55 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         .metric-cell {{
             background: var(--bg-subpanel);
             border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 14px 16px;
+            border-radius: 12px;
+            padding: 16px 18px;
         }}
-        .metric-label {{ font-size: 0.7rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); font-weight: 700; letter-spacing: 0.05em; }}
-        .metric-value {{ font-size: 1.2rem; font-weight: 700; color: var(--text-title); font-family: var(--font-mono); margin-top: 4px; }}
+        .metric-label {{ font-size: 0.7rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); font-weight: 600; letter-spacing: 0.05em; }}
+        .metric-value {{ font-size: 1.25rem; font-weight: 600; color: var(--text-title); font-family: var(--font-mono); margin-top: 4px; }}
 
-        /* Tabs */
+        /* Tabs Header */
         .tabs-header {{
             display: flex;
             gap: 12px;
-            border-bottom: 2px solid var(--border-color);
-            margin: 36px 0 32px;
+            border-bottom: 1px solid var(--border-color);
+            margin: 40px 0 32px;
         }}
         .tab-btn {{
             background: none;
             border: none;
             color: var(--text-secondary);
-            font-size: 1.1rem;
-            font-weight: 700;
-            padding: 14px 24px;
+            font-size: 1.15rem;
+            font-family: var(--font-serif);
+            padding: 14px 22px;
             cursor: pointer;
             position: relative;
-            font-family: var(--font-sans);
             transition: all 0.15s;
         }}
         .tab-btn:hover {{ color: var(--text-title); }}
-        .tab-btn.active {{ color: var(--accent-brand); }}
+        .tab-btn.active {{ color: var(--accent-terracotta); }}
         .tab-btn.active::after {{
             content: '';
             position: absolute;
-            bottom: -2px;
+            bottom: -1px;
             left: 0; right: 0;
             height: 2px;
-            background: var(--accent-brand);
+            background: var(--accent-terracotta);
         }}
 
         .tab-content {{ display: none; }}
         .tab-content.active {{ display: block; }}
 
-        /* Living Thesis Editorial Book Styling */
+        /* Due Diligence Memo Styling */
         .memo-container {{
-            background: var(--bg-card);
+            background: var(--bg-panel);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
+            border-radius: 20px;
             padding: 56px 64px;
-            box-shadow: 0 4px 24px rgba(28, 25, 23, 0.03);
         }}
         .memo-container h2 {{
-            font-family: var(--font-sans);
-            font-size: 1.55rem;
-            font-weight: 800;
+            font-family: var(--font-serif);
+            font-size: 1.65rem;
+            font-weight: 500;
             color: var(--text-title);
             margin: 48px 0 20px;
             padding-bottom: 12px;
@@ -284,26 +287,23 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         }}
         .memo-container h2:first-of-type {{ margin-top: 0; }}
         .memo-container h3 {{
-            font-family: var(--font-sans);
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--text-title);
+            font-family: var(--font-serif);
+            font-size: 1.35rem;
+            font-weight: 500;
+            color: var(--accent-warm);
             margin: 32px 0 14px;
-            letter-spacing: -0.01em;
         }}
         .memo-container p {{
-            font-family: var(--font-editorial);
-            font-size: 1.22rem;
+            font-size: 1.25rem;
             line-height: 1.95;
             color: var(--text-body);
             margin-bottom: 24px;
         }}
         .memo-container ul, .memo-container ol {{
-            font-family: var(--font-editorial);
-            font-size: 1.18rem;
+            font-size: 1.2rem;
             line-height: 1.95;
             color: var(--text-body);
-            margin: 0 0 26px 32px;
+            margin: 0 0 28px 36px;
         }}
         .memo-container li {{ margin-bottom: 10px; }}
 
@@ -311,8 +311,8 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             width: 100%;
             border-collapse: collapse;
             margin: 32px 0;
-            background: var(--bg-card);
-            border-radius: 8px;
+            background: var(--bg-subpanel);
+            border-radius: 10px;
             overflow: hidden;
             border: 1px solid var(--border-color);
         }}
@@ -323,49 +323,47 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             font-size: 0.95rem;
         }}
         .memo-container th {{
-            background: var(--bg-subpanel);
+            background: rgba(0, 0, 0, 0.2);
             color: var(--text-title);
             font-family: var(--font-sans);
-            font-weight: 700;
-            font-size: 0.78rem;
+            font-weight: 600;
+            font-size: 0.76rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }}
         .memo-container blockquote {{
             background: var(--bg-subpanel);
-            border-left: 4px solid var(--accent-brand);
+            border-left: 3px solid var(--accent-terracotta);
             padding: 22px 30px;
             border-radius: 0 10px 10px 0;
             margin: 32px 0;
-            font-family: var(--font-editorial);
             font-style: italic;
-            font-size: 1.2rem;
+            font-size: 1.22rem;
             color: var(--text-title);
-            line-height: 1.8;
+            line-height: 1.85;
         }}
         .memo-container .callout {{
             background: var(--bg-subpanel);
             border: 1px solid var(--border-color);
-            border-left: 4px solid var(--accent-amber);
-            border-radius: 8px;
-            padding: 20px 24px;
-            margin: 24px 0;
+            border-left: 3px solid var(--accent-warm);
+            border-radius: 10px;
+            padding: 22px 26px;
+            margin: 28px 0;
         }}
 
-        /* History Tab */
+        /* History Entry */
         .history-entry {{
-            background: var(--bg-card);
+            background: var(--bg-panel);
             border: 1px solid var(--border-color);
-            border-radius: 14px;
+            border-radius: 16px;
             padding: 32px 36px;
             margin-bottom: 24px;
-            box-shadow: 0 2px 12px rgba(28, 25, 23, 0.02);
         }}
-        .history-entry-active {{ border-color: var(--accent-success); }}
+        .history-entry-active {{ border-color: rgba(217, 119, 87, 0.4); }}
         .history-top {{ display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 18px; }}
         .history-tags {{ display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }}
         .history-time {{ color: var(--text-secondary); font-size: 0.92rem; font-family: var(--font-sans); }}
-        .history-price {{ font-family: var(--font-mono); font-size: 0.98rem; }}
+        .history-price {{ font-family: var(--font-mono); font-size: 0.96rem; }}
 
         .diff-grid {{
             display: grid;
@@ -379,14 +377,14 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             border-radius: 10px;
             border: 1px solid var(--border-color);
         }}
-        .diff-prev {{ background: #FEF2F2; border-color: #FECACA; }}
-        .diff-now {{ background: #F0FDF4; border-color: #BBF7D0; }}
-        .diff-label {{ font-family: var(--font-sans); font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }}
-        .diff-prev .diff-label {{ color: var(--accent-danger); }}
-        .diff-now .diff-label {{ color: var(--accent-success); }}
-        .diff-text {{ font-family: var(--font-editorial); font-size: 1.08rem; color: var(--text-body); line-height: 1.7; }}
+        .diff-prev {{ background: rgba(212, 115, 110, 0.06); border-color: rgba(212, 115, 110, 0.2); }}
+        .diff-now {{ background: rgba(134, 167, 137, 0.06); border-color: rgba(134, 167, 137, 0.2); }}
+        .diff-label {{ font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }}
+        .diff-prev .diff-label {{ color: var(--accent-rose); }}
+        .diff-now .diff-label {{ color: var(--accent-sage); }}
+        .diff-text {{ font-size: 1.1rem; color: var(--text-body); line-height: 1.7; }}
 
-        /* Badges & Pills */
+        /* Pills & Badges */
         .pill {{
             display: inline-flex;
             align-items: center;
@@ -394,39 +392,39 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             border-radius: 9999px;
             font-size: 0.74rem;
             font-family: var(--font-sans);
-            font-weight: 700;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.04em;
         }}
-        .pill-status {{ background: #EFF6FF; color: var(--accent-brand); border: 1px solid #BFDBFE; }}
-        .pill-success {{ background: #F0FDF4; color: var(--accent-success); border: 1px solid #BBF7D0; }}
+        .pill-terracotta {{ background: var(--accent-terracotta-tint); color: var(--accent-terracotta); border: 1px solid rgba(217, 119, 87, 0.3); }}
         .pill-neutral {{ background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); }}
+        .pill-muted {{ background: var(--bg-subpanel); color: var(--text-dim); }}
 
-        .btn-outline-sm {{
+        .btn-subtle {{
             background: var(--bg-subpanel);
             color: var(--text-title);
             border: 1px solid var(--border-color);
             font-family: var(--font-sans);
             font-size: 0.82rem;
-            font-weight: 700;
+            font-weight: 600;
             padding: 8px 16px;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.15s;
         }}
-        .btn-outline-sm:hover {{ background: var(--bg-elevated); }}
+        .btn-subtle:hover {{ background: var(--bg-hover); }}
 
         .snapshot-drawer {{ margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--border-color); }}
 
-        .pos {{ color: var(--accent-success); }}
-        .neg {{ color: var(--accent-danger); }}
+        .pos {{ color: var(--accent-sage); }}
+        .neg {{ color: var(--accent-rose); }}
     </style>
 </head>
 <body>
     <nav class="nav-bar">
         <div class="container nav-inner">
-            <a href="../index.html" class="nav-back">← Master Portfolio Ledger</a>
-            <span class="nav-meta">RESEARCH MEMO // {ticker}</span>
+            <a href="../index.html" class="nav-back">← Master Ledger</a>
+            <span class="nav-meta">RESEARCH DOSSIER // {ticker}</span>
         </div>
     </nav>
 
@@ -435,9 +433,9 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         <section class="hero-deck">
             <div class="hero-top-row">
                 <div>
-                    <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+                    <div class="ticker-headline">
                         <span class="ticker-symbol">{stock.ticker}</span>
-                        <span class="pill pill-status">{stock.status_label}</span>
+                        <span class="pill pill-terracotta">{stock.status_label}</span>
                     </div>
                     <div class="company-meta">{stock.company_name} • Last Evaluated: {stock.last_updated}</div>
                 </div>
@@ -449,7 +447,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 </div>
             </div>
 
-            <!-- Light-Mode TradingView Chart -->
+            <!-- Embedded Live Chart -->
             <div class="chart-section">
                 <div id="tradingview_chart_container" style="height: 100%; width: 100%;"></div>
                 <script type="text/javascript">
@@ -458,10 +456,10 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                     "symbol": "{stock.ticker}",
                     "interval": "D",
                     "timezone": "America/New_York",
-                    "theme": "light",
+                    "theme": "dark",
                     "style": "3",
                     "locale": "en",
-                    "toolbar_bg": "#F9F7F2",
+                    "toolbar_bg": "#1C1B18",
                     "enable_publishing": false,
                     "hide_top_toolbar": false,
                     "hide_legend": false,
@@ -471,7 +469,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 </script>
             </div>
 
-            <!-- Visual Range Corridor -->
+            <!-- Corridor -->
             <div class="corridor-container">
                 <div class="corridor-header">
                     <span>Bear Floor (${bear_p:.2f})</span>
@@ -484,15 +482,15 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 </div>
             </div>
 
-            <!-- KPI Metric Ribbon -->
+            <!-- Key Metrics Grid -->
             <div class="metrics-grid">
                 <div class="metric-cell">
                     <div class="metric-label">Fair Value Target</div>
-                    <div class="metric-value" style="color: var(--accent-brand);">{stock.fair_value_estimate}</div>
+                    <div class="metric-value" style="color: var(--accent-terracotta);">{stock.fair_value_estimate}</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bear Case</div>
-                    <div class="metric-value" style="color: var(--accent-danger);">{stock.bear_target}</div>
+                    <div class="metric-value" style="color: var(--accent-rose);">{stock.bear_target}</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Base Case</div>
@@ -500,7 +498,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bull Case</div>
-                    <div class="metric-value" style="color: var(--accent-success);">{stock.bull_target}</div>
+                    <div class="metric-value" style="color: var(--accent-sage);">{stock.bull_target}</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Upper Trigger</div>
@@ -519,11 +517,11 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 
         <!-- Navigation Tabs -->
         <div class="tabs-header">
-            <button class="tab-btn active" onclick="showTab('memo')">📖 Active Investment Memo</button>
-            <button class="tab-btn" onclick="showTab('history')">⏳ Historical Snapshots ({len(history)})</button>
+            <button class="tab-btn active" onclick="showTab('memo')">Active Investment Thesis</button>
+            <button class="tab-btn" onclick="showTab('history')">Evolution & Snapshots ({len(history)})</button>
         </div>
 
-        <!-- Living Memo Content -->
+        <!-- Memo Content -->
         <div id="tab-memo" class="tab-content active">
             <article class="memo-container">
                 {active_content}
@@ -561,7 +559,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 
 
 def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts: List[AlertItem]) -> str:
-    """Generates the master warm editorial folio dashboard."""
+    """Generates the Claude-inspired warm obsidian master ledger."""
     _ensure_dirs()
     
     table_rows_html = ""
@@ -590,11 +588,11 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                 </div>
             </td>
             <td>
-                <span class="pill pill-status">{stock.status_label}</span>
+                <span class="pill pill-terracotta">{stock.status_label}</span>
             </td>
             <td>
                 <div class="tbl-val-cell">
-                    <span class="tbl-fv" style="color: var(--accent-brand);">{stock.fair_value_estimate}</span>
+                    <span class="tbl-fv" style="color: var(--accent-terracotta);">{stock.fair_value_estimate}</span>
                     <span class="tbl-base">{stock.base_target}</span>
                 </div>
             </td>
@@ -616,8 +614,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                     <span class="tbl-cat-desc">{stock.next_catalyst_event[:45] if stock.next_catalyst_event else ''}</span>
                 </div>
             </td>
-            <td style="text-align: right;">
-                <a href="reports/{stock.ticker}.html" class="btn-action" onclick="event.stopPropagation()">Read Memo →</a>
+            <td style="text-align: right; white-space: nowrap;">
+                <a href="reports/{stock.ticker}.html" class="btn-action" onclick="event.stopPropagation()">Read Thesis →</a>
             </td>
         </tr>
         """
@@ -627,7 +625,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             <div class="grid-card-top">
                 <div>
                     <span class="grid-symbol">{stock.ticker}</span>
-                    <span class="pill pill-status" style="margin-left: 8px;">{stock.status_label}</span>
+                    <span class="pill pill-terracotta" style="margin-left: 10px;">{stock.status_label}</span>
                 </div>
                 <div class="grid-price">${stock.current_price:.2f}</div>
             </div>
@@ -640,7 +638,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Fair Value</span>
-                    <span class="grid-stat-val" style="color: var(--accent-brand);">{stock.fair_value_estimate}</span>
+                    <span class="grid-stat-val" style="color: var(--accent-terracotta);">{stock.fair_value_estimate}</span>
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Trigger Bounds</span>
@@ -653,8 +651,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             </div>
             
             <div class="grid-card-foot">
-                <span class="grid-updated">Updated {stock.last_updated}</span>
-                <span class="grid-open">Read Memo →</span>
+                <span class="grid-updated">Evaluated {stock.last_updated}</span>
+                <span class="grid-open">Read Thesis →</span>
             </div>
         </div>
         """
@@ -663,9 +661,9 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
     if not alerts:
         alerts_feed_html = """
         <div class="empty-alerts">
-            <div class="empty-icon">📖</div>
-            <div class="empty-title">All Positions In Equilibrium</div>
-            <div class="empty-sub">No critical threshold breaches or catalyst alerts logged. The 24/7 surveillance engine is monitoring active quotes.</div>
+            <div class="empty-star">✳</div>
+            <div class="empty-title">All Positions Within Surveillance Corridors</div>
+            <div class="empty-sub">No critical threshold breaches or catalyst alerts fired. The 24/7 surveillance engine is monitoring active quotes.</div>
         </div>
         """
     else:
@@ -690,7 +688,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                     <div class="alert-badges">
                         <span class="pill pill-alert">{a.severity}</span>
                         <strong class="alert-ticker">{a.ticker}</strong>
-                        <span class="alert-time">🕒 {a.timestamp}</span>
+                        <span class="alert-time">{a.timestamp}</span>
                     </div>
                     <div class="alert-title">{a.title}</div>
                     <div class="alert-blurb">{a.what_changes_now[:220]}...</div>
@@ -708,28 +706,28 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AlphaThesis — Concentrated Equity Research Ledger</title>
+    <title>AlphaThesis — Concentrated Equity Research Hub</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {{
-            --bg-canvas: #F9F7F2;       /* Warm unbleached parchment */
-            --bg-card: #FFFFFF;         /* Crisp folio */
-            --bg-subpanel: #F3EFE6;     /* Linen tint */
-            --bg-elevated: #ECE6DA;     /* Warm contrast */
-            --text-title: #1C1917;      /* Warm ink */
-            --text-body: #292524;       /* Deep readable ink */
-            --text-secondary: #57534E;  /* Editorial secondary */
-            --text-dim: #78716C;        /* Stone label */
-            --accent-brand: #1E3A8A;    /* Oxford Navy */
-            --accent-brand-rgb: 30, 58, 138;
-            --accent-success: #15803D;  /* Forest / Sage green */
-            --accent-danger: #B91C1C;   /* Warm Burgundy */
-            --accent-amber: #B45309;    /* Terracotta / Cognac */
-            --border-color: #E5DFD3;    /* Book deckle rule */
-            --border-focus: #D6CEBE;
-            --font-editorial: 'Newsreader', Garamond, Georgia, serif;
+            --bg-canvas: #181816;         /* Claude warm obsidian espresso */
+            --bg-panel: #22211D;          /* Warm dark card */
+            --bg-subpanel: #2A2924;       /* Subtle inner container */
+            --bg-hover: #302E29;
+            --text-title: #FAF7F2;        /* Claude warm alabaster */
+            --text-body: #DCD6CD;         /* Soothing warm cream */
+            --text-secondary: #A39D93;    /* Muted warm stone */
+            --text-dim: #706B62;          /* Subtle label */
+            --accent-terracotta: #D97757; /* Claude starburst terracotta */
+            --accent-terracotta-tint: rgba(217, 119, 87, 0.12);
+            --accent-sage: #86A789;       /* Muted warm sage green */
+            --accent-rose: #D4736E;       /* Muted warm brick rose */
+            --accent-warm: #C4A482;       /* Warm parchment gold */
+            --border-color: rgba(240, 235, 225, 0.08);
+            --border-focus: rgba(240, 235, 225, 0.16);
+            --font-serif: 'Newsreader', Garamond, Georgia, serif;
             --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
         }}
@@ -738,18 +736,18 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         body {{
             background: var(--bg-canvas);
             color: var(--text-body);
-            font-family: var(--font-editorial);
+            font-family: var(--font-serif);
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
-            padding-bottom: 120px;
+            padding-bottom: 140px;
         }}
 
-        .container {{ max-width: 1140px; margin: 0 auto; padding: 0 24px; }}
+        .container {{ max-width: 1140px; margin: 0 auto; padding: 0 28px; }}
 
         /* Header */
         header.nav-header {{
-            background: rgba(249, 247, 242, 0.92);
-            backdrop-filter: blur(16px);
+            background: rgba(24, 24, 22, 0.88);
+            backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
@@ -757,49 +755,44 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             padding: 18px 0;
         }}
         .header-content {{ display: flex; justify-content: space-between; align-items: center; }}
-        .brand-logo {{ display: flex; align-items: center; gap: 12px; font-family: var(--font-sans); font-size: 1.3rem; font-weight: 800; letter-spacing: -0.03em; color: var(--text-title); }}
-        .brand-symbol {{ color: var(--accent-brand); font-size: 1.4rem; }}
+        .brand-logo {{ display: flex; align-items: center; gap: 10px; font-family: var(--font-serif); font-size: 1.45rem; font-weight: 500; letter-spacing: -0.02em; color: var(--text-title); }}
+        .brand-star {{ color: var(--accent-terracotta); font-size: 1.5rem; line-height: 1; }}
         .engine-pill {{
-            background: #EFF6FF;
-            color: var(--accent-brand);
+            background: var(--accent-terracotta-tint);
+            color: var(--accent-terracotta);
             font-size: 0.74rem;
             font-family: var(--font-sans);
-            font-weight: 700;
+            font-weight: 600;
             padding: 4px 12px;
             border-radius: 9999px;
-            border: 1px solid #BFDBFE;
+            border: 1px solid rgba(217, 119, 87, 0.25);
             text-transform: uppercase;
             letter-spacing: 0.04em;
+            margin-left: 8px;
         }}
 
-        .pulse-dot {{
-            width: 8px; height: 8px; border-radius: 50%; background: var(--accent-success);
-            box-shadow: 0 0 8px rgba(21, 128, 61, 0.5); display: inline-block; margin-right: 6px;
-        }}
-
-        /* Macro Summary Stats Ribbon */
+        /* Macro Stats Ribbon */
         .macro-ribbon {{
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 16px;
-            margin: 36px 0 32px;
+            margin: 40px 0 32px;
         }}
         .macro-card {{
-            background: var(--bg-card);
+            background: var(--bg-panel);
             border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 22px 26px;
+            border-radius: 16px;
+            padding: 24px 28px;
             display: flex;
             align-items: center;
             gap: 18px;
-            box-shadow: 0 2px 10px rgba(28, 25, 23, 0.02);
         }}
-        .macro-icon {{ font-size: 1.9rem; }}
+        .macro-icon {{ font-size: 1.6rem; color: var(--accent-terracotta); }}
         .macro-data {{ display: flex; flex-direction: column; }}
-        .macro-lbl {{ font-size: 0.74rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); font-weight: 700; letter-spacing: 0.05em; }}
-        .macro-val {{ font-size: 1.5rem; font-weight: 800; color: var(--text-title); font-family: var(--font-mono); margin-top: 2px; }}
+        .macro-lbl {{ font-size: 0.72rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); font-weight: 600; letter-spacing: 0.06em; }}
+        .macro-val {{ font-size: 1.55rem; font-weight: 500; color: var(--text-title); font-family: var(--font-serif); margin-top: 2px; }}
 
-        /* Navigation & View Toggle */
+        /* Navigation Controls */
         .hub-controls {{
             display: flex;
             justify-content: space-between;
@@ -815,23 +808,23 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             background: none;
             border: none;
             color: var(--text-secondary);
-            font-size: 1.1rem;
-            font-weight: 700;
-            padding: 10px 22px;
+            font-size: 1.15rem;
+            font-family: var(--font-serif);
+            font-weight: 400;
+            padding: 10px 20px;
             cursor: pointer;
             position: relative;
-            font-family: var(--font-sans);
             transition: all 0.15s;
         }}
         .hub-tab-btn:hover {{ color: var(--text-title); }}
-        .hub-tab-btn.active {{ color: var(--accent-brand); }}
+        .hub-tab-btn.active {{ color: var(--accent-terracotta); }}
         .hub-tab-btn.active::after {{
             content: '';
             position: absolute;
             bottom: -17px;
             left: 0; right: 0;
             height: 2px;
-            background: var(--accent-brand);
+            background: var(--accent-terracotta);
         }}
 
         .view-toggle {{
@@ -845,26 +838,25 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             background: none;
             border: none;
             color: var(--text-secondary);
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             font-family: var(--font-sans);
-            font-weight: 700;
+            font-weight: 600;
             padding: 6px 14px;
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.15s;
         }}
-        .view-btn.active {{ background: #FFFFFF; color: var(--text-title); box-shadow: 0 1px 4px rgba(0,0,0,0.06); }}
+        .view-btn.active {{ background: var(--bg-hover); color: var(--text-title); }}
 
         .tab-panel {{ display: none; }}
         .tab-panel.active {{ display: block; }}
 
         /* Table View */
         .table-wrap {{
-            background: var(--bg-card);
+            background: var(--bg-panel);
             border: 1px solid var(--border-color);
-            border-radius: 14px;
+            border-radius: 18px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(28, 25, 23, 0.03);
         }}
         table.fin-table {{
             width: 100%;
@@ -873,69 +865,72 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         }}
         table.fin-table th {{
             background: var(--bg-subpanel);
-            color: var(--text-title);
+            color: var(--text-dim);
             font-family: var(--font-sans);
-            font-size: 0.75rem;
-            font-weight: 700;
+            font-size: 0.72rem;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            padding: 16px 22px;
+            letter-spacing: 0.06em;
+            padding: 16px 24px;
             border-bottom: 1px solid var(--border-color);
         }}
         table.fin-table td {{
-            padding: 18px 22px;
+            padding: 20px 24px;
             border-bottom: 1px solid var(--border-color);
-            font-size: 0.98rem;
+            font-size: 1rem;
             vertical-align: middle;
         }}
         .table-row {{ cursor: pointer; transition: background 0.15s; }}
-        .table-row:hover {{ background: #FAF7F0; }}
+        .table-row:hover {{ background: var(--bg-hover); }}
         .table-row:last-child td {{ border-bottom: none; }}
 
         .tbl-ticker-cell {{ display: flex; flex-direction: column; }}
-        .tbl-symbol {{ font-family: var(--font-sans); font-size: 1.35rem; font-weight: 800; color: var(--text-title); letter-spacing: -0.02em; }}
-        .tbl-company {{ font-size: 0.85rem; color: var(--text-dim); font-style: italic; }}
+        .tbl-symbol {{ font-family: var(--font-serif); font-size: 1.45rem; font-weight: 500; color: var(--text-title); }}
+        .tbl-company {{ font-size: 0.9rem; color: var(--text-dim); font-style: italic; }}
 
         .tbl-price-cell {{ display: flex; flex-direction: column; }}
-        .tbl-price {{ font-size: 1.2rem; font-weight: 700; font-family: var(--font-mono); color: var(--text-title); }}
-        .tbl-return {{ font-size: 0.85rem; font-weight: 600; font-family: var(--font-mono); }}
+        .tbl-price {{ font-size: 1.25rem; font-weight: 600; font-family: var(--font-mono); color: var(--text-title); }}
+        .tbl-return {{ font-size: 0.82rem; font-weight: 500; font-family: var(--font-mono); }}
 
         .tbl-val-cell {{ display: flex; flex-direction: column; }}
-        .tbl-fv {{ font-size: 1.1rem; font-weight: 700; font-family: var(--font-mono); }}
+        .tbl-fv {{ font-size: 1.15rem; font-weight: 600; font-family: var(--font-mono); }}
         .tbl-base {{ font-size: 0.85rem; color: var(--text-secondary); }}
 
-        .tbl-corridor-cell {{ min-width: 150px; }}
+        .tbl-corridor-cell {{ min-width: 160px; }}
         .tbl-corridor-labels {{ display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-dim); font-family: var(--font-mono); margin-bottom: 4px; }}
         .mini-corridor-track {{
-            height: 6px; background: var(--bg-subpanel); border-radius: 9999px; position: relative; border: 1px solid var(--border-color);
+            height: 6px; background: var(--bg-subpanel); border-radius: 9999px; position: relative;
         }}
         .mini-corridor-fill {{
             height: 100%; width: 100%; border-radius: 9999px;
-            background: linear-gradient(90deg, #FCA5A5, #FDE68A, #86EFAC, #93C5FD);
+            background: linear-gradient(90deg, #A85854, #C4A482, #789A7A, #D97757);
+            opacity: 0.7;
         }}
         .mini-corridor-dot {{
-            position: absolute; top: -4px; width: 14px; height: 14px;
-            background: #FFFFFF; border: 2px solid var(--accent-brand); border-radius: 50%;
-            transform: translateX(-50%); box-shadow: 0 1px 4px rgba(30, 58, 138, 0.3);
+            position: absolute; top: -3px; width: 12px; height: 12px;
+            background: var(--text-title); border: 2px solid var(--accent-terracotta); border-radius: 50%;
+            transform: translateX(-50%); box-shadow: 0 0 8px rgba(217, 119, 87, 0.4);
         }}
 
-        .tbl-catalyst-cell {{ display: flex; flex-direction: column; max-width: 190px; }}
-        .tbl-cat-date {{ font-family: var(--font-sans); font-size: 0.88rem; font-weight: 700; color: var(--text-title); }}
-        .tbl-cat-desc {{ font-size: 0.8rem; color: var(--text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
+        .tbl-catalyst-cell {{ display: flex; flex-direction: column; max-width: 200px; }}
+        .tbl-cat-date {{ font-family: var(--font-sans); font-size: 0.88rem; font-weight: 600; color: var(--text-title); }}
+        .tbl-cat-desc {{ font-size: 0.82rem; color: var(--text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
 
         .btn-action {{
             background: var(--bg-subpanel);
-            color: var(--accent-brand);
+            color: var(--text-title);
             border: 1px solid var(--border-color);
             font-family: var(--font-sans);
             font-size: 0.82rem;
-            font-weight: 700;
-            padding: 8px 18px;
+            font-weight: 600;
+            padding: 9px 18px;
             border-radius: 8px;
             text-decoration: none;
+            display: inline-flex;
+            align-items: center;
             transition: all 0.15s;
         }}
-        .btn-action:hover {{ background: var(--bg-elevated); border-color: var(--accent-brand); }}
+        .btn-action:hover {{ background: var(--bg-hover); color: var(--accent-terracotta); border-color: rgba(217, 119, 87, 0.4); }}
 
         /* Grid View */
         .grid-cards-wrap {{
@@ -944,26 +939,25 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             gap: 20px;
         }}
         .grid-card {{
-            background: var(--bg-card);
+            background: var(--bg-panel);
             border: 1px solid var(--border-color);
-            border-radius: 14px;
+            border-radius: 18px;
             padding: 28px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             cursor: pointer;
-            box-shadow: 0 4px 20px rgba(28, 25, 23, 0.03);
             transition: all 0.2s;
         }}
         .grid-card:hover {{
+            background: var(--bg-hover);
             border-color: var(--border-focus);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(28, 25, 23, 0.06);
+            transform: translateY(-2px);
         }}
         .grid-card-top {{ display: flex; justify-content: space-between; align-items: center; }}
-        .grid-symbol {{ font-family: var(--font-sans); font-size: 1.8rem; font-weight: 800; color: var(--text-title); letter-spacing: -0.02em; }}
-        .grid-price {{ font-size: 1.7rem; font-weight: 700; font-family: var(--font-mono); color: var(--text-title); }}
-        .grid-company {{ color: var(--text-secondary); font-size: 0.95rem; font-style: italic; margin: 4px 0 22px; }}
+        .grid-symbol {{ font-family: var(--font-serif); font-size: 1.9rem; font-weight: 500; color: var(--text-title); }}
+        .grid-price {{ font-size: 1.7rem; font-weight: 600; font-family: var(--font-mono); color: var(--text-title); }}
+        .grid-company {{ color: var(--text-secondary); font-size: 0.96rem; font-style: italic; margin: 4px 0 22px; }}
 
         .grid-metrics-box {{
             display: grid;
@@ -971,52 +965,52 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             gap: 12px;
             background: var(--bg-subpanel);
             padding: 16px;
-            border-radius: 10px;
+            border-radius: 12px;
             margin-bottom: 22px;
         }}
         .grid-stat {{ display: flex; flex-direction: column; }}
-        .grid-stat-lbl {{ font-size: 0.7rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); font-weight: 700; }}
-        .grid-stat-val {{ font-size: 1.05rem; font-weight: 700; font-family: var(--font-mono); margin-top: 2px; }}
+        .grid-stat-lbl {{ font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); font-weight: 600; }}
+        .grid-stat-val {{ font-size: 1.05rem; font-weight: 600; font-family: var(--font-mono); margin-top: 2px; }}
 
         .grid-card-foot {{
             display: flex; justify-content: space-between; align-items: center;
             border-top: 1px solid var(--border-color); padding-top: 16px;
         }}
         .grid-updated {{ font-size: 0.78rem; color: var(--text-dim); font-family: var(--font-mono); }}
-        .grid-open {{ font-family: var(--font-sans); font-size: 0.88rem; font-weight: 700; color: var(--accent-brand); }}
+        .grid-open {{ font-family: var(--font-sans); font-size: 0.85rem; font-weight: 600; color: var(--accent-terracotta); }}
 
         /* Alerts List */
         .alerts-feed {{ display: flex; flex-direction: column; gap: 16px; }}
         .alert-item {{
-            background: var(--bg-card);
+            background: var(--bg-panel);
             border: 1px solid var(--border-color);
-            border-radius: 14px;
+            border-radius: 16px;
             padding: 26px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 24px;
             cursor: pointer;
-            box-shadow: 0 2px 12px rgba(28, 25, 23, 0.02);
             transition: all 0.15s;
         }}
         .alert-item:hover {{
-            border-color: var(--accent-brand);
-            transform: translateX(4px);
+            background: var(--bg-hover);
+            border-color: rgba(217, 119, 87, 0.4);
+            transform: translateX(3px);
         }}
         .alert-left {{ flex: 1; }}
         .alert-badges {{ display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }}
-        .alert-ticker {{ font-family: var(--font-sans); font-size: 1.2rem; font-weight: 800; color: var(--text-title); }}
+        .alert-ticker {{ font-family: var(--font-serif); font-size: 1.25rem; font-weight: 500; color: var(--text-title); }}
         .alert-time {{ font-size: 0.82rem; color: var(--text-dim); font-family: var(--font-mono); }}
-        .alert-title {{ font-family: var(--font-sans); font-size: 1.18rem; font-weight: 700; color: var(--text-title); margin-bottom: 6px; }}
-        .alert-blurb {{ font-size: 1.05rem; color: var(--text-secondary); line-height: 1.6; }}
+        .alert-title {{ font-family: var(--font-serif); font-size: 1.25rem; font-weight: 500; color: var(--text-title); margin-bottom: 6px; }}
+        .alert-blurb {{ font-size: 1.1rem; color: var(--text-secondary); line-height: 1.6; }}
 
         .alert-right {{ text-align: right; min-width: 150px; }}
-        .alert-price-val {{ font-size: 1.5rem; font-weight: 700; font-family: var(--font-mono); color: var(--text-title); }}
-        .alert-price-pct {{ font-size: 0.95rem; font-weight: 600; font-family: var(--font-mono); }}
-        .alert-view-btn {{ font-family: var(--font-sans); font-size: 0.85rem; font-weight: 700; color: var(--accent-brand); display: inline-block; margin-top: 8px; }}
+        .alert-price-val {{ font-size: 1.55rem; font-weight: 600; font-family: var(--font-mono); color: var(--text-title); }}
+        .alert-price-pct {{ font-size: 0.95rem; font-weight: 500; font-family: var(--font-mono); }}
+        .alert-view-btn {{ font-family: var(--font-sans); font-size: 0.85rem; font-weight: 600; color: var(--accent-terracotta); display: inline-block; margin-top: 8px; }}
 
-        /* Badges */
+        /* Pills */
         .pill {{
             display: inline-flex;
             align-items: center;
@@ -1024,33 +1018,33 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             border-radius: 9999px;
             font-size: 0.74rem;
             font-family: var(--font-sans);
-            font-weight: 700;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.04em;
         }}
-        .pill-status {{ background: #EFF6FF; color: var(--accent-brand); border: 1px solid #BFDBFE; }}
-        .pill-alert {{ background: #FEF3C7; color: var(--accent-amber); border: 1px solid #FDE68A; }}
+        .pill-terracotta {{ background: var(--accent-terracotta-tint); color: var(--accent-terracotta); border: 1px solid rgba(217, 119, 87, 0.3); }}
+        .pill-alert {{ background: rgba(196, 164, 130, 0.12); color: var(--accent-warm); border: 1px solid rgba(196, 164, 130, 0.3); }}
 
-        .pos {{ color: var(--accent-success); }}
-        .neg {{ color: var(--accent-danger); }}
+        .pos {{ color: var(--accent-sage); }}
+        .neg {{ color: var(--accent-rose); }}
 
         .empty-alerts {{
             text-align: center;
-            background: var(--bg-card);
+            background: var(--bg-panel);
             border: 1px dashed var(--border-color);
-            border-radius: 14px;
+            border-radius: 16px;
             padding: 70px 24px;
         }}
-        .empty-icon {{ font-size: 2.4rem; margin-bottom: 12px; }}
-        .empty-title {{ font-family: var(--font-sans); font-size: 1.2rem; font-weight: 700; color: var(--text-title); margin-bottom: 6px; }}
-        .empty-sub {{ font-size: 1.05rem; color: var(--text-secondary); max-width: 480px; margin: 0 auto; }}
+        .empty-star {{ font-size: 2.2rem; color: var(--accent-terracotta); margin-bottom: 12px; }}
+        .empty-title {{ font-family: var(--font-serif); font-size: 1.35rem; font-weight: 500; color: var(--text-title); margin-bottom: 6px; }}
+        .empty-sub {{ font-size: 1.1rem; color: var(--text-secondary); max-width: 480px; margin: 0 auto; }}
 
         /* Modal */
         .modal-shade {{
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(28, 25, 23, 0.6);
-            backdrop-filter: blur(12px);
+            background: rgba(12, 12, 11, 0.8);
+            backdrop-filter: blur(14px);
             z-index: 1000;
             display: none;
             justify-content: center;
@@ -1058,15 +1052,14 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             padding: 24px;
         }}
         .modal-body-card {{
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 18px;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-focus);
+            border-radius: 20px;
             max-width: 760px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
             padding: 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
             position: relative;
         }}
         .modal-x {{
@@ -1088,47 +1081,47 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         }}
         @media (max-width: 640px) {{ .diff-modal-wrap {{ grid-template-columns: 1fr; }} }}
         .diff-side {{ padding: 22px; border-radius: 10px; border: 1px solid var(--border-color); }}
-        .side-before {{ background: #FEF2F2; border-color: #FECACA; }}
-        .side-after {{ background: #F0FDF4; border-color: #BBF7D0; }}
-        .side-heading {{ font-family: var(--font-sans); font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }}
-        .side-before .side-heading {{ color: var(--accent-danger); }}
-        .side-after .side-heading {{ color: var(--accent-success); }}
-        .side-text {{ font-family: var(--font-editorial); font-size: 1.08rem; color: var(--text-body); line-height: 1.7; }}
+        .side-before {{ background: rgba(212, 115, 110, 0.06); border-color: rgba(212, 115, 110, 0.2); }}
+        .side-after {{ background: rgba(134, 167, 137, 0.06); border-color: rgba(134, 167, 137, 0.2); }}
+        .side-heading {{ font-family: var(--font-sans); font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }}
+        .side-before .side-heading {{ color: var(--accent-rose); }}
+        .side-after .side-heading {{ color: var(--accent-sage); }}
+        .side-text {{ font-size: 1.1rem; color: var(--text-body); line-height: 1.7; }}
 
         .btn-primary {{
-            background: var(--accent-brand); color: #FFFFFF; font-family: var(--font-sans); font-weight: 700;
+            background: var(--accent-terracotta); color: #FAF7F2; font-family: var(--font-sans); font-weight: 600;
             padding: 12px 24px; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; border: none; cursor: pointer;
-            box-shadow: 0 2px 8px rgba(30, 58, 138, 0.2);
+            transition: all 0.15s;
         }}
-        .btn-primary:hover {{ background: #1D4ED8; }}
+        .btn-primary:hover {{ background: #E89073; }}
         .btn-outline {{
             background: var(--bg-subpanel); color: var(--text-title); border: 1px solid var(--border-color);
-            font-family: var(--font-sans); font-weight: 700; padding: 12px 22px; border-radius: 8px; cursor: pointer;
+            font-family: var(--font-sans); font-weight: 600; padding: 12px 22px; border-radius: 8px; cursor: pointer;
         }}
-        .btn-outline:hover {{ background: var(--bg-elevated); }}
+        .btn-outline:hover {{ background: var(--bg-hover); }}
     </style>
 </head>
 <body>
     <header class="nav-header">
         <div class="container header-content">
             <div class="brand-logo">
-                <span class="brand-symbol">◈</span>
-                <span>ALPHATHESIS</span>
-                <span class="engine-pill"><span class="pulse-dot"></span>GEMINI 3.6 FLASH</span>
+                <span class="brand-star">✳</span>
+                <span>AlphaThesis</span>
+                <span class="engine-pill">Gemini 3.6 Flash</span>
             </div>
-            <div style="font-size: 0.82rem; color: var(--text-dim); font-family: var(--font-sans); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">
-                AUTONOMOUS EQUITY SURVEILLANCE
+            <div style="font-size: 0.82rem; color: var(--text-dim); font-family: var(--font-sans); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;">
+                Surveillance Terminal
             </div>
         </div>
     </header>
 
     <main class="container">
-        <!-- Macro Summary Stats Ribbon -->
+        <!-- Macro Ribbon -->
         <section class="macro-ribbon">
             <div class="macro-card">
-                <div class="macro-icon">📚</div>
+                <div class="macro-icon">✳</div>
                 <div class="macro-data">
-                    <span class="macro-lbl">Active Coverage</span>
+                    <span class="macro-lbl">Active Watchlist</span>
                     <span class="macro-val">{len(watchlist)} Companies</span>
                 </div>
             </div>
@@ -1136,14 +1129,14 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                 <div class="macro-icon">⚡</div>
                 <div class="macro-data">
                     <span class="macro-lbl">Surveillance Cadence</span>
-                    <span class="macro-val" style="color: var(--accent-success);">2x Daily Cron</span>
+                    <span class="macro-val" style="color: var(--accent-sage);">2x Daily Cron</span>
                 </div>
             </div>
             <div class="macro-card">
                 <div class="macro-icon">🚨</div>
                 <div class="macro-data">
-                    <span class="macro-lbl">Critical Alerts</span>
-                    <span class="macro-val" style="color: var(--accent-amber);">{len(alerts)} Active</span>
+                    <span class="macro-lbl">Active Alerts</span>
+                    <span class="macro-val" style="color: var(--accent-warm);">{len(alerts)} Triggered</span>
                 </div>
             </div>
         </section>
@@ -1151,12 +1144,12 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         <!-- Navigation Tabs & View Toggle -->
         <div class="hub-controls">
             <div class="hub-tabs">
-                <button class="hub-tab-btn active" onclick="switchTab('stocks')">📖 Portfolio Ledger ({len(watchlist)})</button>
-                <button class="hub-tab-btn" onclick="switchTab('alerts')">🚨 Critical Alerts ({len(alerts)})</button>
+                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Active Coverage ({len(watchlist)})</button>
+                <button class="hub-tab-btn" onclick="switchTab('alerts')">Critical Alerts ({len(alerts)})</button>
             </div>
             <div class="view-toggle" id="view-toggle-bar">
-                <button class="view-btn active" onclick="setView('table')">Ledger View</button>
-                <button class="view-btn" onclick="setView('grid')">Folio Cards</button>
+                <button class="view-btn active" onclick="setView('table')">Table View</button>
+                <button class="view-btn" onclick="setView('grid')">Cards View</button>
             </div>
         </div>
 
@@ -1202,10 +1195,10 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             <button class="modal-x" onclick="closeAlertModal()">✕</button>
             <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
                 <span id="modal-badge" class="pill pill-alert">ALERT</span>
-                <strong id="modal-ticker" style="font-family: var(--font-sans); font-size: 1.35rem; color: var(--text-title);">TICKER</strong>
+                <strong id="modal-ticker" style="font-family: var(--font-serif); font-size: 1.4rem; color: var(--text-title);">TICKER</strong>
                 <span id="modal-time" style="color: var(--text-dim); font-size: 0.85rem; font-family: var(--font-mono);">Timestamp</span>
             </div>
-            <h2 id="modal-title" style="font-family: var(--font-sans); font-size: 1.45rem; color: var(--text-title); margin-bottom: 12px; letter-spacing: -0.02em;">Alert Headline</h2>
+            <h2 id="modal-title" style="font-family: var(--font-serif); font-size: 1.55rem; color: var(--text-title); margin-bottom: 12px; letter-spacing: -0.02em;">Alert Headline</h2>
             <div style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 20px;">
                 <strong>Trigger Event:</strong> <span id="modal-trigger">Reason</span>
             </div>
