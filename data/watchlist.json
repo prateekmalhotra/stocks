@@ -334,5 +334,77 @@
     "last_updated": "2026-08-08",
     "total_versions": 1,
     "report_path": "reports/MTCH.html"
+  },
+  "CELH": {
+    "ticker": "CELH",
+    "company_name": "Celsius Holdings, Inc.",
+    "baseline_price": 27.77,
+    "current_price": 27.77,
+    "return_pct": 0.0,
+    "status_label": "Moderate Conviction",
+    "labels": [
+      "Moderate Conviction",
+      "Multi Brand",
+      "Margin Expansion"
+    ],
+    "fair_value_estimate": "$34.00",
+    "bear_target": "$21.00 (-24.4%)",
+    "base_target": "$34.00 (+22.4%)",
+    "bull_target": "$44.00 (+58.4%)",
+    "upper_alert_threshold": 33.5,
+    "lower_alert_threshold": 22.0,
+    "next_catalyst_date": "2026-11-05",
+    "next_catalyst_event": "Q3 2026 Earnings Release",
+    "last_updated": "2026-08-08",
+    "total_versions": 1,
+    "report_path": "reports/CELH.html"
+  },
+  "AMZN": {
+    "ticker": "AMZN",
+    "company_name": "Amazon.com, Inc.",
+    "baseline_price": 274.48,
+    "current_price": 274.48,
+    "return_pct": 0.0,
+    "status_label": "High Conviction",
+    "labels": [
+      "High Conviction",
+      "Safe Compounder",
+      "Moat Expansion"
+    ],
+    "fair_value_estimate": "$320.00",
+    "bear_target": "$220.00 (-19.85%)",
+    "base_target": "$320.00 (+16.58%)",
+    "bull_target": "$390.00 (+42.09%)",
+    "upper_alert_threshold": 310.0,
+    "lower_alert_threshold": 220.0,
+    "next_catalyst_date": "2026-10-29",
+    "next_catalyst_event": "Q3 2026 Earnings Release",
+    "last_updated": "2026-08-08",
+    "total_versions": 1,
+    "report_path": "reports/AMZN.html"
+  },
+  "MSFT": {
+    "ticker": "MSFT",
+    "company_name": "Microsoft Corporation",
+    "baseline_price": 499.99,
+    "current_price": 499.99,
+    "return_pct": 0.0,
+    "status_label": "High Conviction",
+    "labels": [
+      "High Conviction",
+      "Quality Compounder",
+      "Moat Expansion"
+    ],
+    "fair_value_estimate": "$520.00",
+    "bear_target": "$420.00 (-16.0%)",
+    "base_target": "$525.00 (+5.0%)",
+    "bull_target": "$610.00 (+22.0%)",
+    "upper_alert_threshold": 550.0,
+    "lower_alert_threshold": 435.0,
+    "next_catalyst_date": "2026-10-27",
+    "next_catalyst_event": "Q1 FY27 Earnings Release",
+    "last_updated": "2026-08-08",
+    "total_versions": 1,
+    "report_path": "reports/MSFT.html"
   }
 }

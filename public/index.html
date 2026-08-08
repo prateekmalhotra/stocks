@@ -455,7 +455,7 @@
         <!-- Navigation Controls -->
         <div class="hub-controls">
             <div class="hub-tabs">
-                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage (14)</button>
+                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage (17)</button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts (0)</span></button>
             </div>
             <div class="view-toggle" id="view-toggle-bar">
@@ -487,6 +487,39 @@
                     </thead>
                     <tbody>
                         
+        <tr class="table-row" onclick="location.href='reports/AMZN.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <span class="tbl-symbol">AMZN</span>
+                    <span class="tbl-company-hover">Amazon.com, Inc</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price">$274.48</span>
+                    <span class="tbl-return pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="pill pill-active">High Conviction</span> <span class="pill pill-neutral">Safe Compounder</span> <span class="pill pill-neutral">Moat Expansion</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-val-cell">
+                    <span class="tbl-fv" style="color: var(--accent-warm);">$320.00</span>
+                    <span class="tbl-base">+16.58%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-date">2026-10-29</span>
+                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-corridor" style="font-size: 0.74rem; color: var(--text-dim); font-family: var(--font-mono); display: block; margin-top: 4px;">Alerts: $220.00 ⇄ $310.00</span>
+                </div>
+            </td>
+        </tr>
+        
         <tr class="table-row" onclick="location.href='reports/BABA.html'">
             <td>
                 <div class="tbl-ticker-cell">
@@ -615,6 +648,39 @@
                     <span class="tbl-cat-date">2026-10-22</span>
                     <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
                     <span class="tbl-corridor" style="font-size: 0.74rem; color: var(--text-dim); font-family: var(--font-mono); display: block; margin-top: 4px;">Alerts: $72.00 ⇄ $98.00</span>
+                </div>
+            </td>
+        </tr>
+        
+        <tr class="table-row" onclick="location.href='reports/CELH.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <span class="tbl-symbol">CELH</span>
+                    <span class="tbl-company-hover">Celsius Holdings, Inc</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price">$27.77</span>
+                    <span class="tbl-return pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="pill pill-active">Moderate Conviction</span> <span class="pill pill-neutral">Multi Brand</span> <span class="pill pill-neutral">Margin Expansion</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-val-cell">
+                    <span class="tbl-fv" style="color: var(--accent-warm);">$34.00</span>
+                    <span class="tbl-base">+22.4%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-date">2026-11-05</span>
+                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-corridor" style="font-size: 0.74rem; color: var(--text-dim); font-family: var(--font-mono); display: block; margin-top: 4px;">Alerts: $22.00 ⇄ $33.50</span>
                 </div>
             </td>
         </tr>
@@ -817,6 +883,39 @@
             </td>
         </tr>
         
+        <tr class="table-row" onclick="location.href='reports/MSFT.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <span class="tbl-symbol">MSFT</span>
+                    <span class="tbl-company-hover">Microsoft Corporation</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price">$499.99</span>
+                    <span class="tbl-return pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="pill pill-active">High Conviction</span> <span class="pill pill-neutral">Quality Compounder</span> <span class="pill pill-neutral">Moat Expansion</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-val-cell">
+                    <span class="tbl-fv" style="color: var(--accent-warm);">$520.00</span>
+                    <span class="tbl-base">+5.0%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-date">2026-10-27</span>
+                    <span class="tbl-cat-desc">Q1 FY27 Earnings Release</span>
+                    <span class="tbl-corridor" style="font-size: 0.74rem; color: var(--text-dim); font-family: var(--font-mono); display: block; margin-top: 4px;">Alerts: $435.00 ⇄ $550.00</span>
+                </div>
+            </td>
+        </tr>
+        
         <tr class="table-row" onclick="location.href='reports/MTCH.html'">
             <td>
                 <div class="tbl-ticker-cell">
@@ -956,6 +1055,41 @@
             <!-- Grid Cards View -->
             <div id="stocks-grid-view" class="grid-cards-wrap" style="display: none;">
                 
+        <div class="grid-card" onclick="location.href='reports/AMZN.html'">
+            <div class="grid-card-top">
+                <span class="grid-symbol">AMZN</span>
+                <div class="grid-price">$274.48</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 6px 0 14px;">
+                <span class="pill pill-active">High Conviction</span> <span class="pill pill-neutral">Safe Compounder</span> <span class="pill pill-neutral">Moat Expansion</span>
+            </div>
+            <div class="grid-company">Amazon.com, Inc</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Fair Value</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">$320.00</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Base Target</span>
+                    <span class="grid-stat-val">$320.00 (+16.58%)</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Next Catalyst</span>
+                    <span class="grid-stat-val" style="font-family: var(--font-sans);">2026-10-29</span>
+                </div>
+            </div>
+            
+            <div class="grid-card-foot">
+                <span class="grid-updated">Updated 2026-08-08</span>
+                <span class="grid-open">Open →</span>
+            </div>
+        </div>
+        
         <div class="grid-card" onclick="location.href='reports/BABA.html'">
             <div class="grid-card-top">
                 <span class="grid-symbol">BABA</span>
@@ -1087,6 +1221,41 @@
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Next Catalyst</span>
                     <span class="grid-stat-val" style="font-family: var(--font-sans);">2026-10-22</span>
+                </div>
+            </div>
+            
+            <div class="grid-card-foot">
+                <span class="grid-updated">Updated 2026-08-08</span>
+                <span class="grid-open">Open →</span>
+            </div>
+        </div>
+        
+        <div class="grid-card" onclick="location.href='reports/CELH.html'">
+            <div class="grid-card-top">
+                <span class="grid-symbol">CELH</span>
+                <div class="grid-price">$27.77</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 6px 0 14px;">
+                <span class="pill pill-active">Moderate Conviction</span> <span class="pill pill-neutral">Multi Brand</span> <span class="pill pill-neutral">Margin Expansion</span>
+            </div>
+            <div class="grid-company">Celsius Holdings, Inc</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Fair Value</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">$34.00</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Base Target</span>
+                    <span class="grid-stat-val">$34.00 (+22.4%)</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Next Catalyst</span>
+                    <span class="grid-stat-val" style="font-family: var(--font-sans);">2026-11-05</span>
                 </div>
             </div>
             
@@ -1297,6 +1466,41 @@
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Next Catalyst</span>
                     <span class="grid-stat-val" style="font-family: var(--font-sans);">2026-10-28</span>
+                </div>
+            </div>
+            
+            <div class="grid-card-foot">
+                <span class="grid-updated">Updated 2026-08-08</span>
+                <span class="grid-open">Open →</span>
+            </div>
+        </div>
+        
+        <div class="grid-card" onclick="location.href='reports/MSFT.html'">
+            <div class="grid-card-top">
+                <span class="grid-symbol">MSFT</span>
+                <div class="grid-price">$499.99</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 6px 0 14px;">
+                <span class="pill pill-active">High Conviction</span> <span class="pill pill-neutral">Quality Compounder</span> <span class="pill pill-neutral">Moat Expansion</span>
+            </div>
+            <div class="grid-company">Microsoft Corporation</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Fair Value</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">$520.00</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Base Target</span>
+                    <span class="grid-stat-val">$525.00 (+5.0%)</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Next Catalyst</span>
+                    <span class="grid-stat-val" style="font-family: var(--font-sans);">2026-10-27</span>
                 </div>
             </div>
             
