@@ -300,6 +300,8 @@ CORE PRINCIPLES & GUIDELINES:
         * The 5-Year Exchange Closure Test: Demand a clear Margin of Safety (20–40% discount) so that even if the stock market were closed for 5 years, the investor earns an attractive return purely from organic cash generation.
      7. Financial Institutions & Banking Books (1990 & 2011 Letters on Wells Fargo & Amex):
         * For banks or fintechs with expanding credit/loan portfolios (e.g. StoneCo Banking, PayPal Credit), evaluate Credit Quality, Non-Performing Loans (NPLs), provision coverage, Cost of Deposits, and Return on Tangible Equity (ROTE) rather than pure FCF.
+   - BUFFETT RESOLUTION & RESEARCH FALLBACK DIRECTIVE:
+     If you encounter any accounting edge cases, complex capital structure, negative working capital dilemma, cyclical distortion, foreign banking nuance, or feel stuck on any valuation step, you MUST search and reference Warren Buffett's Berkshire Hathaway Shareholder Letters and 'The Essays of Warren Buffett' (by Lawrence Cunningham). Apply how Warren Buffett and Charlie Munger resolved that exact economic problem from first principles.
    - Present a clean, transparent Bear / Base / Bull scenario table in Section 5 detailing Owner Earnings, growth assumptions, and per-share intrinsic values.
 """
 
@@ -317,7 +319,7 @@ Key Areas to Investigate via Real-Time Filings, Earnings Calls & Announcements:
 - Business Model Reality & Moat: How the company makes money, customer retention, pricing power, and competitive advantages in plain English.
 - Real Cash Flow, SBC & Capital Structure: Real cash generation (treating SBC as a cash charge), dilution vs. buybacks, Net Cash/Debt, and capital allocation.
 - Ownership & Catalysts: Verified active 13F whale positions from latest official filings (exclude exited investors), management alignment, and upcoming catalysts.
-- Warren Buffett Owner Earnings & Intrinsic Value Matrix: Calculate normalized Owner Earnings (Post-SBC cash flow minus maintenance CapEx, float/lease debt discipline), project 3-5 year compounding, factor in share count reduction from buybacks, and discount strictly via the LOCAL SOVEREIGN BOND YIELD (e.g. Brazilian NTN-F/SELIC for Brazil, US 10Y for US, Gilts for UK) with zero arbitrary exit multiples. Build a clean Bear / Base / Bull scenario table in Section 5, assess confidence, execution risk, and explicit falsification triggers.
+- Warren Buffett Owner Earnings & Intrinsic Value Matrix: Calculate normalized Owner Earnings (Post-SBC cash flow minus maintenance CapEx, float/lease debt discipline), project 3-5 year compounding, factor in share count reduction from buybacks, and discount strictly via the LOCAL SOVEREIGN BOND YIELD (e.g. Brazilian NTN-F/SELIC for Brazil, US 10Y for US, Gilts for UK) with zero arbitrary exit multiples. (If you ever face an accounting dilemma or feel stuck on any valuation step, search and reference Warren Buffett's Berkshire Shareholder Letters & Essays to resolve it from first principles). Build a clean Bear / Base / Bull scenario table in Section 5, assess confidence, execution risk, and explicit falsification triggers.
 - Dynamic Alert Corridors: Establish exact `upper_alert_threshold` (upside breakout / trim level) and `lower_alert_threshold` (downside margin-of-safety floor) based on your valuation targets.
 
 Editorial Aesthetics Mandate:
@@ -409,8 +411,8 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
                 "prompt": f"Investigate {ticker_clean} ({company_name}) financials at ${current_price:.2f}. In clean Semantic HTML (<div class=\"section\">...</div>), write Section 3 (Honest Cash Flow, SBC Dilution & Capital Structure) and Section 4 (Ownership & Governance Check). Audit revenue, real cash flow deducting SBC (100% real cash charge), share count dilution vs buybacks, Net Cash/Debt, and verified active 13F whales from official filings. Do not use inline styles."
             },
             {
-                "role": "Ballpark Valuation & Invalidation Specialist",
-                "prompt": f"Investigate {ticker_clean} ({company_name}) valuation at ${current_price:.2f}. In clean Semantic HTML (<div class=\"section\">...</div>), write Section 5 (Down-to-Earth Ballpark Valuation with complete Bear/Base/Bull scenario table & 3-Yr expected returns, using localized risk-free/discount rates if international) and Section 6 (What Breaks The Thesis & Invalidation Pre-Mortem). Keep calculations transparent and simple. Do not use inline styles."
+                "role": "Warren Buffett Owner Earnings & Invalidation Specialist",
+                "prompt": f"Investigate {ticker_clean} ({company_name}) valuation at ${current_price:.2f}. In clean Semantic HTML (<div class=\"section\">...</div>), write Section 5 (Warren Buffett Owner Earnings & Intrinsic Value with complete Bear/Base/Bull scenario table, localized sovereign discount rates, and zero arbitrary exit multiples) and Section 6 (What Breaks The Thesis & Invalidation Pre-Mortem). If you encounter any accounting edge cases or feel stuck on any step, search and reference Warren Buffett's Berkshire Hathaway Shareholder Letters and 'The Essays of Warren Buffett' to resolve the dilemma from first principles. Keep calculations transparent and simple. Do not use inline styles."
             }
         ]
     
