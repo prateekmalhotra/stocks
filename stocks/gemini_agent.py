@@ -452,22 +452,31 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
 
     raw_html = f"{html_part1}\n\n{html_part2}\n\n{html_part3}".strip()
 
-    print(f"  [Pipeline 6/7] Running Managing Editor QA Verification & Polish Filter for {ticker_clean}...")
-    qa_prompt = STAGE_6_QA_VERIFICATION_PROMPT.format(
-        ticker=ticker_clean,
-        company_name=company_name,
-        current_price=current_price,
-        draft_html=raw_html
-    )
-    try:
-        qa_out = call_gemini_with_search(qa_prompt, system_instruction=INSTITUTIONAL_SYSTEM_PHILOSOPHY)
-        qa_html = re.sub(r"```(?:html)?\s*", "", qa_out).strip()
-        if qa_html.endswith("```"):
-            qa_html = qa_html[:-3].strip()
-        full_html = verify_and_repair_html_structure(qa_html) if len(qa_html) > 5000 else verify_and_repair_html_structure(raw_html)
-    except Exception as e:
-        print(f"  ⚠️ QA filter fallback to deterministic repair: {e}")
-        full_html = verify_and_repair_html_structure(raw_html)
+    print(f"  [Pipeline 6/6] Executing Final QA Verification & Structural Integrity Filter for {ticker_clean}...")
+    # Check if Section 12 (Invalidation Catalysts & Risk Pre-Mortem) is present
+    if "Invalidation" not in raw_html and "Pre-Mortem" not in raw_html:
+        print(f"  ⚡ Synthesizing Section 12 (Invalidation Catalysts & Risk Pre-Mortem) for {ticker_clean}...")
+        sec12_prompt = f"""You are the Chief Investment Officer compiling Section 12 (Invalidation Catalysts & Risk Pre-Mortem) for {ticker_clean} ({company_name}).
+Stock Price: ${current_price:.2f}
+
+Write a comprehensive, rigorous Section 12 in clean Semantic HTML:
+<div class="section">
+  <h2>12. Invalidation Catalysts & Risk Pre-Mortem</h2>
+  <h3>12.1 Specific Falsification Triggers</h3>
+  <p>Detail clear metric thresholds that would break the fundamental thesis.</p>
+  <h3>12.2 Macro, Regulatory & Execution Headwinds</h3>
+  <p>Detail severe downside risks and probability weighting.</p>
+</div>
+
+Do NOT output outer <html> or <body> tags. Ensure all tags are closed.
+"""
+        sec12_html = call_gemini_with_search(sec12_prompt, system_instruction=INSTITUTIONAL_SYSTEM_PHILOSOPHY)
+        sec12_html = re.sub(r"```(?:html)?\s*", "", sec12_html).strip()
+        if sec12_html.endswith("```"):
+            sec12_html = sec12_html[:-3].strip()
+        raw_html = f"{raw_html}\n\n{sec12_html}".strip()
+
+    full_html = verify_and_repair_html_structure(raw_html)
 
     if not metadata:
         metadata = {
