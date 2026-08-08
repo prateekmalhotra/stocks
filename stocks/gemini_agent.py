@@ -180,37 +180,38 @@ def verify_and_repair_html_structure(html: str) -> str:
 # AUTONOMOUS LEVEL-HEADED MULTI-AGENT PROMPT ARCHITECTURE
 # =====================================================================
 
-LEVEL_HEADED_INVESTOR_PHILOSOPHY = """You are a seasoned, down-to-earth fundamental value investor and research strategist.
+LEVEL_HEADED_INVESTOR_PHILOSOPHY = """You are a seasoned, down-to-earth fundamental investor and research strategist.
 
-CORE ANALYTICAL PRINCIPLES:
-1. Simplicity & Real-World Reality:
-   - Avoid excessive financial jargon, false academic precision, and 50-variable DCFs.
-   - Deliver clear, realistic, level-headed, and common-sense economic analysis that any intelligent business owner would appreciate.
-2. Honest Financial Accounting & Cash Drag:
-   - Stock-Based Compensation (SBC) must ALWAYS be treated as a 100% real economic cash charge and shareholder dilution factor.
-   - Track real organic growth, share dilution vs buyback pace, and true Net Cash (Cash minus Total Debt/Obligations).
-   - Always verify facts, financial numbers, and 13F whale positions against the LATEST official SEC filings (do not use outdated historical memory or list exited investors as current holders).
-3. Realistic Ballpark Valuation:
-   - Provide a sensible, realistic ballpark valuation range (Bear / Base / Bull) with straightforward 3-Year expected annualized returns (IRRs).
-4. Analytical Autonomy:
-   - You have complete freedom to structure the research, formulate sub-agent tasks, and emphasize what is most essential for this specific company. You can override any default guidance if a different approach better fits the economic reality of the business.
+CORE PRINCIPLES & GUIDELINES:
+1. Broad Objective & Analytical Freedom:
+   - Your broad goal is to evaluate the company objectively and provide a realistic, level-headed fundamental evaluation.
+   - You have complete freedom to analyze and value the business however you prefer. Choose whatever framework, metrics, and valuation methods best reflect the economic reality of the company.
+   - You can override any default suggestions whenever you deem appropriate.
+
+2. Simple Economic Ground Rules (Avoid Silly Accounting Traps):
+   - Stock-Based Compensation (SBC): Always treat SBC as a real cash expense and shareholder dilution factor.
+   - Capital Structure: Properly account for Net Cash or Net Debt (Cash & equivalents minus total debt/obligations) in the valuation.
+   - Localized International Valuation: If analyzing an international or cross-border company, use the appropriate country-specific risk-free and discount rates (e.g. SELIC for Brazil, local sovereign bond yields) and sensible, balanced currency conversions—neither overly optimistic nor overly pessimistic.
+   - Factual Accuracy: Ground institutional ownership (13F whales) and financials in the LATEST official filings (never list exited investors as active holders).
+
+3. Down-to-Earth Ballpark Valuation:
+   - Keep valuations simple, realistic, and level-headed (e.g. a clear Bear / Base / Bull scenario range with expected 3-year annualized returns).
 """
 
 MASTER_PLANNER_PROMPT = """Target: {ticker} ({company_name}) | Current Stock Price: ${current_price:.2f}
 User Focus / Research Notes: {notes}
 
-You are the Lead Investment Strategist. Your broad goal is to formulate a level-headed, honest fundamental evaluation of {ticker}.
+You are the Lead Investment Strategist. Your broad goal is to formulate an honest, down-to-earth fundamental evaluation of {ticker}.
 
-[FULL ANALYTICAL AUTONOMY & ZERO BIAS DIRECTIVE]:
-You have complete freedom to decide what matters most for this business.
-You are NOT bound by rigid templates, checklists, or forced assumptions.
-You will divide the memo into 3 to 4 specialized sub-agents. Each sub-agent will research its assigned topic and directly output its dedicated section in clean Semantic HTML (<div class="section"> ... </div>).
+[AUTONOMY & BROAD OBJECTIVE DIRECTIVE]:
+You have full freedom to decide what matters most for this business and how to evaluate it.
+You will divide the research memo into 3 to 4 specialized sub-agents. Each sub-agent will research its assigned area using real-time search and directly output its dedicated section in clean Semantic HTML (<div class="section"> ... </div>).
 
-Key Areas of Investigation:
-1. Business Model Reality & Moat: How does the company actually make money, what is its competitive moat, customer retention, and pricing power in plain English?
-2. Cash Flow & Financial Reality: Real cash generation deducting Stock-Based Compensation (SBC is a 100% real cash charge), organic revenue trajectory, share count dilution vs. buyback pace, and true Net Cash or Net Debt.
-3. Governance, Whales & Catalysts: Verified 13F institutional positions from latest official filings (exclude exited holders), management alignment, and upcoming catalysts.
-4. Down-to-Earth Ballpark Valuation: Level-headed, realistic Bear / Base / Bull scenario valuation range (3-Yr expected returns) and key falsification risks.
+Broad Areas to Consider (adapt, expand, or adjust as you see fit):
+- Business Model Reality & Moat: How the company makes money, customer retention, pricing power, and competitive advantages in plain English.
+- Real Cash Flow, SBC & Capital Structure: Real cash generation (treating SBC as a cash charge), dilution vs. buybacks, Net Cash/Debt, and capital allocation.
+- Ownership & Catalysts: Verified active 13F whale positions from latest official filings (exclude exited investors), management alignment, and upcoming catalysts.
+- Level-Headed Ballpark Valuation & Invalidation: Down-to-earth Bear / Base / Bull scenario range (using localized risk-free/discount rates if international) and key falsification triggers.
 
 Return your plan strictly as a JSON object in ```json ... ```:
 ```json
@@ -292,7 +293,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
             },
             {
                 "role": "Ballpark Valuation & Invalidation Specialist",
-                "prompt": f"Investigate {ticker_clean} ({company_name}) valuation at ${current_price:.2f}. In clean Semantic HTML (<div class=\"section\">...</div>), write Section 5 (Down-to-Earth Ballpark Valuation with complete Bear/Base/Bull scenario table & 3-Yr expected returns) and Section 6 (What Breaks The Thesis & Invalidation Pre-Mortem). Keep calculations transparent and simple. Do not use inline styles."
+                "prompt": f"Investigate {ticker_clean} ({company_name}) valuation at ${current_price:.2f}. In clean Semantic HTML (<div class=\"section\">...</div>), write Section 5 (Down-to-Earth Ballpark Valuation with complete Bear/Base/Bull scenario table & 3-Yr expected returns, using localized risk-free/discount rates if international) and Section 6 (What Breaks The Thesis & Invalidation Pre-Mortem). Keep calculations transparent and simple. Do not use inline styles."
             }
         ]
     
@@ -326,33 +327,6 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     full_html = verify_and_repair_html_structure(raw_full_html)
     print(f"   │ Verification: All sections joined with zero overflow and 100% tag integrity", flush=True)
     print("   └" + "─" * 50, flush=True)
-
-    if not metadata:
-        metadata = {
-            "ticker": ticker_clean,
-            "company_name": company_name,
-            "labels": ["Active"],
-            "fair_value_estimate": f"${current_price * 1.15:.2f}",
-            "bear_target": f"${current_price * 0.75:.2f} (-25.0%)",
-            "base_target": f"${current_price * 1.15:.2f} (+15.0%)",
-            "bull_target": f"${current_price * 1.50:.2f} (+50.0%)",
-            "upper_alert_threshold": round(current_price * 1.15, 2),
-            "lower_alert_threshold": round(current_price * 0.88, 2),
-            "upper_trigger_reason": "Upside valuation breakout",
-            "lower_trigger_reason": "Downside margin of safety test",
-            "next_catalyst_date": "Next Earnings",
-            "next_catalyst_event": "Scheduled quarterly report",
-            "executive_summary": f"Level-headed fundamental investment memo established for {ticker_clean}."
-        }
-
-    metadata["labels"] = sanitize_labels(metadata.get("labels") or metadata.get("status_label"))
-    metadata["status_label"] = metadata["labels"][0] if metadata["labels"] else "Active"
-
-    print("\n" + "=" * 70, flush=True)
-    print(f"✅ DOSSIER COMPLETE: {ticker_clean} ({metadata['status_label']}) at ${current_price:.2f}", flush=True)
-    print("=" * 70 + "\n", flush=True)
-
-    return metadata, full_html
 
     if not metadata:
         metadata = {
