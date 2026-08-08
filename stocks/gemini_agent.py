@@ -195,11 +195,16 @@ CORE PRINCIPLES & GUIDELINES:
    - Localized International Valuation: If analyzing an international or cross-border company, use the appropriate country-specific risk-free and discount rates (e.g. SELIC for Brazil, local sovereign bond yields) and sensible, balanced currency conversions—neither overly optimistic nor overly pessimistic.
    - Factual Accuracy: Ground institutional ownership (13F whales) and financials in the LATEST official filings (never list exited investors as active holders).
 
-3. Investment Play & Reliability Labels:
-   - Generate 1 to 3 crisp dynamic labels (max 2 words each).
-   - Labels MUST describe the NATURE of the investment play and its RELIABILITY/RISK profile (e.g., "Turnaround Play", "Deep Value", "Safe Compounder", "High Risk", "Asymmetric Upside", "Quality Moat", "Special Situation", "Cyclical Play", "Capital Return") rather than generic industry/sector names (avoid tags like "Latam Fintech" or "Payments Credit").
+3. Thesis Confidence & Execution Risk Assessment:
+   - Assess how confident you are in the fair value estimate and how easy, safe, complex, or fragile the path to reaching it is.
+   - Explicitly evaluate execution risk: How much can bad management execution, credit losses, or adverse macro kill this thesis, and how wide is the true margin of safety?
 
-4. Down-to-Earth Ballpark Valuation:
+4. Dynamic Labels (First Label is ALWAYS Primary Confidence / Risk Profile):
+   - Label #1 (MANDATORY PRIMARY PILL): Must tell the investor in MAX 2 WORDS the thesis confidence, execution risk, and reliability of the opportunity (e.g., "High Conviction", "Safe Compounder", "Turnaround Risk", "Speculative Bet", "Deep Value", "High Risk", "Asymmetric Upside", "Execution Heavy", "Defensive Quality").
+   - Labels #2 & #3 (OPTIONAL DRIVERS): Specific economic play nature or key catalyst driver (e.g., "Buyback Cannibal", "Operating Leverage", "Moat Expansion", "Deleveraging Play").
+   - NEVER use generic industry/sector names (avoid tags like "Latam Fintech" or "Payments Credit").
+
+5. Down-to-Earth Ballpark Valuation:
    - Keep valuations simple, realistic, and level-headed (e.g. a clear Bear / Base / Bull scenario range with expected 3-year annualized returns).
 """
 
@@ -217,10 +222,11 @@ Key Areas to Investigate via Real-Time Filings, Earnings Calls & Announcements:
 - Business Model Reality & Moat: How the company makes money, customer retention, pricing power, and competitive advantages in plain English.
 - Real Cash Flow, SBC & Capital Structure: Real cash generation (treating SBC as a cash charge), dilution vs. buybacks, Net Cash/Debt, and capital allocation.
 - Ownership & Catalysts: Verified active 13F whale positions from latest official filings (exclude exited investors), management alignment, and upcoming catalysts.
-- Level-Headed Ballpark Valuation & Invalidation: Down-to-earth Bear / Base / Bull scenario range (using localized risk-free/discount rates if international) and key falsification triggers.
+- Thesis Confidence, Execution Risk & Ballpark Valuation: Down-to-earth Bear / Base / Bull scenario range (using localized risk-free/discount rates if international), how confident we are in reaching fair value, how much bad execution can hurt the thesis, and explicit falsification triggers.
 
 Labels Directive:
-- Select 1 to 3 labels (max 2 words each) that describe the play nature and reliability (e.g. "Turnaround Play", "Deep Value", "Safe Compounder", "High Risk", "Asymmetric Upside") rather than the sector/industry.
+- Label #1 (MANDATORY PRIMARY PILL): Must state in max 2 words the confidence, execution complexity, and risk/safety profile (e.g. "High Conviction", "Safe Compounder", "Turnaround Risk", "Speculative Bet", "Deep Value", "High Risk", "Asymmetric Upside", "Execution Heavy", "Defensive Quality").
+- Labels #2 & #3 (OPTIONAL DRIVERS): Key catalyst or economic driver (e.g. "Buyback Cannibal", "Operating Leverage", "Moat Expansion").
 
 Return your plan strictly as a JSON object in ```json ... ```:
 ```json
@@ -228,7 +234,7 @@ Return your plan strictly as a JSON object in ```json ... ```:
   "metadata": {{
     "ticker": "{ticker}",
     "company_name": "{company_name}",
-    "labels": ["<Play/Reliability Label 1>", "<Play/Reliability Label 2>", "<Play/Reliability Label 3>"],
+    "labels": ["<Confidence/Risk Label 1>", "<Play Driver Label 2>", "<Play Driver Label 3>"],
     "fair_value_estimate": "$<Estimated Fair Value>",
     "bear_target": "$<Price> (<% Upside/Downside>)",
     "base_target": "$<Price> (<% Upside/Downside>)",
@@ -252,8 +258,8 @@ Return your plan strictly as a JSON object in ```json ... ```:
       "prompt": "<Detailed prompt instructing Sub-Agent 2 to search latest earnings release/transcript, news & filings and output Section 3 & 4 in clean Semantic HTML>"
     }},
     {{
-      "role": "<Sub-Agent 3 Role Name, e.g. Ballpark Valuation & Invalidation Specialist>",
-      "prompt": "<Detailed prompt instructing Sub-Agent 3 to search latest earnings release/transcript, news & filings and output Section 5 & 6 with complete Bear/Base/Bull tables in clean Semantic HTML>"
+      "role": "<Sub-Agent 3 Role Name, e.g. Ballpark Valuation, Confidence & Invalidation Specialist>",
+      "prompt": "<Detailed prompt instructing Sub-Agent 3 to search latest earnings release/transcript, news & filings and output Section 5 & 6 evaluating fair value confidence, execution risk, and Bear/Base/Bull tables in clean Semantic HTML>"
     }}
   ]
 }}
