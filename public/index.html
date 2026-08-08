@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AlphaThesis — Concentrated Equity Research</title>
+    <title>AlphaThesis</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-canvas: #161514;         /* Deep soothing warm espresso */
-            --bg-panel: #1E1D1B;          /* Soft card tone */
-            --bg-subpanel: #262522;       /* Subtle subcontainer */
+            --bg-canvas: #161514;
+            --bg-panel: #1E1D1B;
+            --bg-subpanel: #262522;
             --bg-hover: #2C2A26;
-            --text-title: #E8E3DA;        /* Soothing warm cream */
-            --text-body: #C9C4BA;         /* Warm readable parchment */
-            --text-secondary: #948F85;    /* Muted stone */
-            --text-dim: #6B665E;          /* Subtle label */
-            --accent-warm: #C99A75;       /* Warm subtle amber-gold */
-            --accent-green: #7D9D81;      /* Muted sage */
-            --accent-red: #C4726C;        /* Muted brick */
+            --text-title: #E8E3DA;
+            --text-body: #C9C4BA;
+            --text-secondary: #948F85;
+            --text-dim: #6B665E;
+            --accent-warm: #C99A75;
+            --accent-green: #7D9D81;
+            --accent-red: #C4726C;
             --border-color: rgba(230, 220, 205, 0.07);
             --border-focus: rgba(230, 220, 205, 0.14);
             --font-serif: 'Newsreader', Garamond, Georgia, serif;
@@ -37,21 +37,27 @@
             padding-bottom: 120px;
         }
 
-        .container { max-width: 1060px; margin: 0 auto; padding: 0 24px; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
 
         /* Header */
         header.nav-header {
-            background: rgba(22, 21, 20, 0.9);
+            background: rgba(22, 21, 20, 0.92);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
             z-index: 100;
-            padding: 18px 0;
+            padding: 20px 0;
         }
         .header-content { display: flex; justify-content: space-between; align-items: center; }
-        .brand-logo { display: flex; align-items: center; gap: 8px; font-family: var(--font-serif); font-size: 1.4rem; font-weight: 500; letter-spacing: -0.01em; color: var(--text-title); text-decoration: none; }
-        .brand-symbol { color: var(--accent-warm); font-size: 1.3rem; line-height: 1; }
+        .brand-logo {
+            font-family: var(--font-serif);
+            font-size: 1.45rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            color: var(--text-title);
+            text-decoration: none;
+        }
 
         /* Navigation Controls */
         .hub-controls {
@@ -60,7 +66,7 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 16px;
-            margin: 36px 0 24px;
+            margin: 36px 0 20px;
             padding-bottom: 14px;
             border-bottom: 1px solid var(--border-color);
         }
@@ -75,7 +81,7 @@
             padding: 8px 16px;
             cursor: pointer;
             position: relative;
-            transition: all 0.15s;
+            transition: color 0.15s;
         }
         .hub-tab-btn:hover { color: var(--text-title); }
         .hub-tab-btn.active { color: var(--accent-warm); }
@@ -132,11 +138,11 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            padding: 14px 20px;
+            padding: 14px 22px;
             border-bottom: 1px solid var(--border-color);
         }
         table.fin-table td {
-            padding: 18px 20px;
+            padding: 18px 22px;
             border-bottom: 1px solid var(--border-color);
             font-size: 0.98rem;
             vertical-align: middle;
@@ -145,58 +151,26 @@
         .table-row:hover { background: var(--bg-hover); }
         .table-row:last-child td { border-bottom: none; }
 
-        .tbl-ticker-cell { display: flex; flex-direction: column; }
-        .tbl-symbol { font-family: var(--font-serif); font-size: 1.35rem; font-weight: 500; color: var(--text-title); }
-        .tbl-company { font-size: 0.85rem; color: var(--text-dim); font-style: italic; }
+        .tbl-ticker-cell { display: flex; flex-direction: column; gap: 2px; }
+        .tbl-symbol { font-family: var(--font-serif); font-size: 1.35rem; font-weight: 500; color: var(--text-title); line-height: 1.1; }
+        .tbl-company { font-size: 0.85rem; color: var(--text-dim); font-style: italic; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; }
 
-        .tbl-price-cell { display: flex; flex-direction: column; }
-        .tbl-price { font-size: 1.18rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }
+        .tbl-price-cell { display: flex; flex-direction: column; gap: 2px; }
+        .tbl-price { font-size: 1.18rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); line-height: 1.1; }
         .tbl-return { font-size: 0.8rem; font-family: var(--font-mono); }
 
-        .tbl-val-cell { display: flex; flex-direction: column; }
-        .tbl-fv { font-size: 1.1rem; font-weight: 500; font-family: var(--font-mono); }
+        .tbl-val-cell { display: flex; flex-direction: column; gap: 2px; }
+        .tbl-fv { font-size: 1.1rem; font-weight: 500; font-family: var(--font-mono); line-height: 1.1; }
         .tbl-base { font-size: 0.82rem; color: var(--text-secondary); }
 
-        .tbl-corridor-cell { min-width: 150px; }
-        .tbl-corridor-labels { display: flex; justify-content: space-between; font-size: 0.68rem; color: var(--text-dim); font-family: var(--font-mono); margin-bottom: 4px; }
-        .mini-corridor-track {
-            height: 5px; background: var(--bg-subpanel); border-radius: 9999px; position: relative;
-        }
-        .mini-corridor-fill {
-            height: 100%; width: 100%; border-radius: 9999px;
-            background: linear-gradient(90deg, #9C5852, #BFA075, #7D9D81, #C99A75);
-            opacity: 0.65;
-        }
-        .mini-corridor-dot {
-            position: absolute; top: -3px; width: 11px; height: 11px;
-            background: var(--text-title); border: 2px solid var(--accent-warm); border-radius: 50%;
-            transform: translateX(-50%);
-        }
-
-        .tbl-catalyst-cell { display: flex; flex-direction: column; max-width: 180px; }
+        .tbl-catalyst-cell { display: flex; flex-direction: column; gap: 2px; max-width: 240px; }
         .tbl-cat-date { font-family: var(--font-sans); font-size: 0.85rem; font-weight: 500; color: var(--text-title); }
         .tbl-cat-desc { font-size: 0.78rem; color: var(--text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-        .btn-action {
-            background: var(--bg-subpanel);
-            color: var(--text-title);
-            border: 1px solid var(--border-color);
-            font-family: var(--font-sans);
-            font-size: 0.8rem;
-            font-weight: 500;
-            padding: 7px 15px;
-            border-radius: 6px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            transition: all 0.15s;
-        }
-        .btn-action:hover { background: var(--bg-hover); color: var(--accent-warm); border-color: rgba(201, 154, 117, 0.4); }
 
         /* Grid View */
         .grid-cards-wrap {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 18px;
         }
         .grid-card {
@@ -267,7 +241,6 @@
         .alert-right { text-align: right; min-width: 140px; }
         .alert-price-val { font-size: 1.45rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }
         .alert-price-pct { font-size: 0.9rem; font-family: var(--font-mono); }
-        .alert-view-btn { font-family: var(--font-sans); font-size: 0.82rem; font-weight: 500; color: var(--accent-warm); display: inline-block; margin-top: 6px; }
 
         /* Pills */
         .pill {
@@ -362,10 +335,7 @@
 <body>
     <header class="nav-header">
         <div class="container header-content">
-            <a href="#" class="brand-logo">
-                <span class="brand-symbol">⟡</span>
-                <span>AlphaThesis</span>
-            </a>
+            <a href="#" class="brand-logo">AlphaThesis</a>
         </div>
     </header>
 
@@ -391,11 +361,9 @@
                         <tr>
                             <th>Ticker & Company</th>
                             <th>Market Price</th>
-                            <th>Thesis Stance</th>
-                            <th>Intrinsic Value</th>
-                            <th>Surveillance Corridor</th>
+                            <th>Stance</th>
+                            <th>Fair Value</th>
                             <th>Catalyst Horizon</th>
-                            <th style="text-align: right;">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -404,7 +372,7 @@
             <td>
                 <div class="tbl-ticker-cell">
                     <span class="tbl-symbol">CNK</span>
-                    <span class="tbl-company">Cinemark Holdings Inc Cinemark </span>
+                    <span class="tbl-company">Cinemark Holdings Inc Cinemark</span>
                 </div>
             </td>
             <td>
@@ -414,7 +382,7 @@
                 </div>
             </td>
             <td>
-                <span class="pill pill-active">Overvalued Momentum / Cyclical Peak Risk</span>
+                <span class="pill pill-active">Overvalued Momentum</span>
             </td>
             <td>
                 <div class="tbl-val-cell">
@@ -423,25 +391,10 @@
                 </div>
             </td>
             <td>
-                <div class="tbl-corridor-cell">
-                    <div class="tbl-corridor-labels">
-                        <span>$20</span>
-                        <span>$42</span>
-                    </div>
-                    <div class="mini-corridor-track">
-                        <div class="mini-corridor-fill"></div>
-                        <div class="mini-corridor-dot" style="left: 78%;"></div>
-                    </div>
-                </div>
-            </td>
-            <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">November 2026</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release & 2027 Studio Releas</span>
+                    <span class="tbl-cat-desc">Q3 2026 Earnings Release & 2027 Studio Release Sla</span>
                 </div>
-            </td>
-            <td style="text-align: right; white-space: nowrap;">
-                <a href="reports/CNK.html" class="btn-action" onclick="event.stopPropagation()">Read Thesis →</a>
             </td>
         </tr>
         
@@ -456,11 +409,11 @@
             <div class="grid-card-top">
                 <div>
                     <span class="grid-symbol">CNK</span>
-                    <span class="pill pill-active" style="margin-left: 10px;">Overvalued Momentum / Cyclical Peak Risk</span>
+                    <span class="pill pill-active" style="margin-left: 10px;">Overvalued Momentum</span>
                 </div>
                 <div class="grid-price">$37.24</div>
             </div>
-            <div class="grid-company">Cinemark Holdings Inc Cinemark </div>
+            <div class="grid-company">Cinemark Holdings Inc Cinemark</div>
             
             <div class="grid-metrics-box">
                 <div class="grid-stat">
@@ -472,8 +425,8 @@
                     <span class="grid-stat-val" style="color: var(--accent-warm);">$22.50</span>
                 </div>
                 <div class="grid-stat">
-                    <span class="grid-stat-lbl">Trigger Bounds</span>
-                    <span class="grid-stat-val">$20 — $42</span>
+                    <span class="grid-stat-lbl">Base Target</span>
+                    <span class="grid-stat-val">$22.50 (-39.6%)</span>
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Next Catalyst</span>
@@ -482,8 +435,8 @@
             </div>
             
             <div class="grid-card-foot">
-                <span class="grid-updated">Evaluated 2026-08-07</span>
-                <span class="grid-open">Read Thesis →</span>
+                <span class="grid-updated">Updated 2026-08-07</span>
+                <span class="grid-open">Open →</span>
             </div>
         </div>
         
@@ -495,7 +448,6 @@
             <div class="alerts-feed">
                 
         <div class="empty-alerts">
-            <div style="font-size: 1.8rem; color: var(--accent-warm); margin-bottom: 10px;">⟡</div>
             <div class="empty-title">All Positions In Normal Corridors</div>
             <div class="empty-sub">No critical threshold breaches or catalyst alerts logged. Surveillance is active.</div>
         </div>

@@ -1,6 +1,7 @@
 """Minimalist, Soothing Financial Research Dashboard & Due Diligence Dossier."""
 
 import json
+import re
 from pathlib import Path
 from typing import List, Dict, Any
 from stocks.models import WatchlistStock, AlertItem, ThesisVersion
@@ -16,11 +17,20 @@ def _ensure_dirs():
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
 
 
+def format_short_label(label: str) -> str:
+    """Clamps status label to max 2 words for clean, uncluttered presentation."""
+    if not label:
+        return "Active"
+    words = [w for w in label.replace("/", " ").replace("-", " ").replace("&", " ").split() if w.strip()]
+    if not words:
+        return "Active"
+    return " ".join(words[:2]).title()
+
+
 def build_native_svg_chart(ticker: str, current_price: float) -> str:
     """Builds a lightweight, native interactive SVG area chart with mouse hover tracking."""
     points = fetch_historical_chart_data(ticker, "1y")
     if not points or len(points) < 2:
-        # Minimal synthetic fallback based on current price if market is closed/empty
         points = [
             {"date": "Start", "price": round(current_price * 0.92, 2)},
             {"date": "Mid", "price": round(current_price * 0.97, 2)},
@@ -33,16 +43,14 @@ def build_native_svg_chart(ticker: str, current_price: float) -> str:
     price_range = max(max_p - min_p, 0.01)
 
     width = 900
-    height = 280
+    height = 260
     padding_x = 20
     padding_y = 25
 
-    # Compute SVG coordinates
     svg_pts = []
     n = len(points)
     for i, p in enumerate(points):
         x = padding_x + (i / (n - 1)) * (width - 2 * padding_x)
-        # Invert y: highest price at top padding_y, lowest price at (height - padding_y)
         y = height - padding_y - ((p["price"] - min_p) / price_range) * (height - 2 * padding_y)
         svg_pts.append((round(x, 1), round(y, 1)))
 
@@ -62,27 +70,24 @@ def build_native_svg_chart(ticker: str, current_price: float) -> str:
         <svg id="interactive-svg" viewBox="0 0 {width} {height}" preserveAspectRatio="none" class="chart-svg">
             <defs>
                 <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#C99A75" stop-opacity="0.22" />
+                    <stop offset="0%" stop-color="#C99A75" stop-opacity="0.20" />
                     <stop offset="100%" stop-color="#C99A75" stop-opacity="0.0" />
                 </linearGradient>
             </defs>
             
-            <!-- Horizontal grid lines -->
-            <line x1="{padding_x}" y1="{padding_y}" x2="{width - padding_x}" y2="{padding_y}" stroke="rgba(230,220,205,0.05)" stroke-width="1" />
-            <line x1="{padding_x}" y1="{height/2}" x2="{width - padding_x}" y2="{height/2}" stroke="rgba(230,220,205,0.05)" stroke-width="1" />
-            <line x1="{padding_x}" y1="{height - padding_y}" x2="{width - padding_x}" y2="{height - padding_y}" stroke="rgba(230,220,205,0.05)" stroke-width="1" />
+            <line x1="{padding_x}" y1="{padding_y}" x2="{width - padding_x}" y2="{padding_y}" stroke="rgba(230,220,205,0.04)" stroke-width="1" />
+            <line x1="{padding_x}" y1="{height/2}" x2="{width - padding_x}" y2="{height/2}" stroke="rgba(230,220,205,0.04)" stroke-width="1" />
+            <line x1="{padding_x}" y1="{height - padding_y}" x2="{width - padding_x}" y2="{height - padding_y}" stroke="rgba(230,220,205,0.04)" stroke-width="1" />
 
-            <!-- Area Fill & Stroke Line -->
             <path d="{area_path_d}" fill="url(#area-grad)" />
             <path d="{line_path_d}" fill="none" stroke="#C99A75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 
-            <!-- Hover crosshair and active dot -->
-            <line id="crosshair-line" x1="0" y1="{padding_y}" x2="0" y2="{height - padding_y}" stroke="rgba(201,154,117,0.4)" stroke-width="1" stroke-dasharray="3 3" style="display: none;" />
+            <line id="crosshair-line" x1="0" y1="{padding_y}" x2="0" y2="{height - padding_y}" stroke="rgba(201,154,117,0.35)" stroke-width="1" stroke-dasharray="3 3" style="display: none;" />
             <circle id="hover-dot" r="4" fill="#C99A75" stroke="#1E1D1B" stroke-width="2" style="display: none;" />
         </svg>
         <div class="chart-labels">
             <span>{points[0]['date']} (${min_p:.2f})</span>
-            <span>1-Year Performance Range</span>
+            <span>1-Year Range</span>
             <span>{points[-1]['date']} (${points[-1]['price']:.2f})</span>
         </div>
     </div>
@@ -111,7 +116,6 @@ def build_native_svg_chart(ticker: str, current_price: float) -> str:
             const coord = svgCoords[idx];
             if (!pt || !coord) return;
 
-            // Position crosshair & dot
             crosshair.setAttribute('x1', coord[0]);
             crosshair.setAttribute('x2', coord[0]);
             crosshair.style.display = 'block';
@@ -120,7 +124,6 @@ def build_native_svg_chart(ticker: str, current_price: float) -> str:
             dot.setAttribute('cy', coord[1]);
             dot.style.display = 'block';
 
-            // Position tooltip
             tooltipDate.innerText = pt.date;
             tooltipPrice.innerText = '$' + pt.price.toFixed(2);
             tooltip.style.display = 'block';
@@ -146,21 +149,17 @@ def build_native_svg_chart(ticker: str, current_price: float) -> str:
 
 
 def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: List[ThesisVersion]) -> str:
-    """Generates a clean, soothing, book-like investment due diligence dossier with native minimalist SVG area chart."""
+    """Generates a clean, soothing, book-like investment due diligence dossier."""
     current_version = history[-1] if history else None
-    
-    # Corridor percentages
-    bear_p = stock.lower_alert_threshold or (stock.current_price * 0.8)
-    bull_p = stock.upper_alert_threshold or (stock.current_price * 1.3)
-    span = max(bull_p - bear_p, 1.0)
-    current_pos_pct = max(0, min(100, ((stock.current_price - bear_p) / span) * 100))
+    short_status = format_short_label(stock.status_label)
 
     # Format history timeline cards
     history_cards_html = ""
     for v in reversed(history):
         is_current = (v.version == len(history))
-        current_badge = '<span class="pill pill-active">Active Thesis</span>' if is_current else f'<span class="pill pill-muted">v{v.version}</span>'
-        
+        current_badge = '<span class="pill pill-active">Active</span>' if is_current else f'<span class="pill pill-muted">v{v.version}</span>'
+        v_label = format_short_label(v.status_label)
+
         diff_box = ""
         if v.what_was_before or v.what_changes_now:
             diff_box = f"""
@@ -183,7 +182,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                     {current_badge}
                     <span class="history-time">{v.date}</span>
                     <span class="history-price">${v.price_at_version:.2f}</span>
-                    <span class="pill pill-neutral">{v.status_label}</span>
+                    <span class="pill pill-neutral">{v_label}</span>
                 </div>
                 <button class="btn btn-subtle" onclick="toggleSnapshot({v.version})">Read Snapshot ▾</button>
             </div>
@@ -207,23 +206,23 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{ticker} — Investment Memo | AlphaThesis</title>
+    <title>{ticker} — Investment Memo</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {{
-            --bg-canvas: #161514;         /* Deep soothing warm espresso */
-            --bg-panel: #1E1D1B;          /* Soft card tone */
-            --bg-subpanel: #262522;       /* Subtle subcontainer */
+            --bg-canvas: #161514;
+            --bg-panel: #1E1D1B;
+            --bg-subpanel: #262522;
             --bg-hover: #2C2A26;
-            --text-title: #E8E3DA;        /* Soothing warm cream */
-            --text-body: #C9C4BA;         /* Warm readable parchment */
-            --text-secondary: #948F85;    /* Muted stone */
-            --text-dim: #6B665E;          /* Subtle label */
-            --accent-warm: #C99A75;       /* Warm subtle amber-gold */
-            --accent-green: #7D9D81;      /* Muted sage */
-            --accent-red: #C4726C;        /* Muted brick */
+            --text-title: #E8E3DA;
+            --text-body: #C9C4BA;
+            --text-secondary: #948F85;
+            --text-dim: #6B665E;
+            --accent-warm: #C99A75;
+            --accent-green: #7D9D81;
+            --accent-red: #C4726C;
             --border-color: rgba(230, 220, 205, 0.07);
             --border-focus: rgba(230, 220, 205, 0.14);
             --font-serif: 'Newsreader', Garamond, Georgia, serif;
@@ -241,11 +240,11 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             padding-bottom: 120px;
         }}
 
-        .container {{ max-width: 980px; margin: 0 auto; padding: 0 24px; }}
+        .container {{ max-width: 960px; margin: 0 auto; padding: 0 24px; }}
 
         /* Top Nav */
         nav.nav-bar {{
-            background: rgba(22, 21, 20, 0.9);
+            background: rgba(22, 21, 20, 0.92);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
@@ -263,7 +262,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            transition: all 0.15s;
+            transition: color 0.15s;
         }}
         .nav-back:hover {{ color: #DDB495; }}
 
@@ -327,50 +326,10 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             border-top: 1px solid var(--border-color);
         }}
 
-        /* Corridor */
-        .corridor-container {{
-            margin-top: 28px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border-color);
-        }}
-        .corridor-header {{
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.75rem;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            font-family: var(--font-sans);
-            letter-spacing: 0.05em;
-            margin-bottom: 8px;
-        }}
-        .corridor-track {{
-            height: 5px;
-            background: var(--bg-subpanel);
-            border-radius: 9999px;
-            position: relative;
-        }}
-        .corridor-fill {{
-            height: 100%;
-            background: linear-gradient(90deg, #9C5852, #BFA075, #7D9D81, #C99A75);
-            border-radius: 9999px;
-            opacity: 0.65;
-            width: 100%;
-        }}
-        .corridor-marker {{
-            position: absolute;
-            top: -5px;
-            width: 15px;
-            height: 15px;
-            background: var(--text-title);
-            border: 2px solid var(--accent-warm);
-            border-radius: 50%;
-            transform: translateX(-50%);
-        }}
-
-        /* Metrics */
+        /* Key Metrics Grid */
         .metrics-grid {{
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
             gap: 10px;
             margin-top: 24px;
         }}
@@ -568,8 +527,8 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 <body>
     <nav class="nav-bar">
         <div class="container nav-inner">
-            <a href="../index.html" class="nav-back">← Portfolio</a>
-            <span style="font-size: 0.82rem; color: var(--text-dim); font-family: var(--font-sans);">{ticker} DUE DILIGENCE</span>
+            <a href="../index.html" class="nav-back">← AlphaThesis</a>
+            <span style="font-size: 0.82rem; color: var(--text-dim); font-family: var(--font-sans);">{ticker} RESEARCH</span>
         </div>
     </nav>
 
@@ -580,7 +539,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 <div>
                     <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
                         <span class="ticker-symbol">{stock.ticker}</span>
-                        <span class="pill pill-active">{stock.status_label}</span>
+                        <span class="pill pill-active">{short_status}</span>
                     </div>
                     <div class="company-meta">{stock.company_name}</div>
                 </div>
@@ -592,21 +551,8 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 </div>
             </div>
 
-            <!-- Native Interactive Area Chart -->
+            <!-- Native Area Chart -->
             {chart_html}
-
-            <!-- Corridor -->
-            <div class="corridor-container">
-                <div class="corridor-header">
-                    <span>Bear Floor (${bear_p:.2f})</span>
-                    <span>Market: ${stock.current_price:.2f}</span>
-                    <span>Bull Target (${bull_p:.2f})</span>
-                </div>
-                <div class="corridor-track">
-                    <div class="corridor-fill"></div>
-                    <div class="corridor-marker" style="left: {current_pos_pct:.1f}%;"></div>
-                </div>
-            </div>
 
             <!-- Key Metrics Grid -->
             <div class="metrics-grid">
@@ -627,16 +573,8 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                     <div class="metric-value" style="color: var(--accent-green);">{stock.bull_target}</div>
                 </div>
                 <div class="metric-cell">
-                    <div class="metric-label">Upper Alert</div>
-                    <div class="metric-value">${stock.upper_alert_threshold:.2f}</div>
-                </div>
-                <div class="metric-cell">
-                    <div class="metric-label">Lower Alert</div>
-                    <div class="metric-value">${stock.lower_alert_threshold:.2f}</div>
-                </div>
-                <div class="metric-cell">
                     <div class="metric-label">Next Catalyst</div>
-                    <div class="metric-value" style="font-size: 0.9rem; font-family: var(--font-sans);">{stock.next_catalyst_date or 'TBD'}</div>
+                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">{stock.next_catalyst_date or 'TBD'}</div>
                 </div>
             </div>
         </section>
@@ -694,16 +632,14 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
     if not watchlist:
         table_rows_html = """
         <tr>
-            <td colspan="7" style="text-align: center; padding: 70px 24px; color: var(--text-secondary); font-family: var(--font-serif); font-size: 1.15rem;">
-                <div style="font-size: 1.8rem; color: var(--accent-warm); margin-bottom: 10px;">⟡</div>
+            <td colspan="5" style="text-align: center; padding: 70px 24px; color: var(--text-secondary); font-family: var(--font-serif); font-size: 1.15rem;">
                 <div style="color: var(--text-title); font-size: 1.25rem; font-weight: 500; margin-bottom: 6px;">Watchlist Empty</div>
-                <div style="font-size: 1rem; color: var(--text-secondary);">Add stocks to begin due diligence and 24/7 surveillance tracking.</div>
+                <div style="font-size: 1rem; color: var(--text-secondary);">Add stocks to begin due diligence and tracking.</div>
             </td>
         </tr>
         """
         grid_cards_html = """
         <div style="grid-column: 1 / -1; text-align: center; padding: 70px 24px; background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 16px;">
-            <div style="font-size: 1.8rem; color: var(--accent-warm); margin-bottom: 10px;">⟡</div>
             <div style="color: var(--text-title); font-size: 1.25rem; font-weight: 500; margin-bottom: 6px;">No Active Coverage</div>
             <div style="color: var(--text-secondary); font-size: 1rem;">Ready to process initial due diligence memos.</div>
         </div>
@@ -711,18 +647,23 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
 
     for ticker, stock in sorted(watchlist.items(), key=lambda x: x[0]):
         ret_class = "pos" if stock.return_pct >= 0 else "neg"
+        short_status = format_short_label(stock.status_label)
         
-        bear_p = stock.lower_alert_threshold or (stock.current_price * 0.8)
-        bull_p = stock.upper_alert_threshold or (stock.current_price * 1.3)
-        span = max(bull_p - bear_p, 1.0)
-        pos_pct = max(0, min(100, ((stock.current_price - bear_p) / span) * 100))
+        # Clean company name
+        clean_company = stock.company_name
+        if clean_company.upper() == stock.ticker.upper():
+            clean_company = ""
+        else:
+            # Strip redundant ticker mentions in name
+            clean_company = re.sub(r"\b" + stock.ticker + r"\b", "", clean_company, flags=re.IGNORECASE).strip()
+            clean_company = re.sub(r"\s+", " ", clean_company).strip()
 
         table_rows_html += f"""
         <tr class="table-row" onclick="location.href='reports/{stock.ticker}.html'">
             <td>
                 <div class="tbl-ticker-cell">
                     <span class="tbl-symbol">{stock.ticker}</span>
-                    <span class="tbl-company">{stock.company_name}</span>
+                    <span class="tbl-company">{clean_company}</span>
                 </div>
             </td>
             <td>
@@ -732,7 +673,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                 </div>
             </td>
             <td>
-                <span class="pill pill-active">{stock.status_label}</span>
+                <span class="pill pill-active">{short_status}</span>
             </td>
             <td>
                 <div class="tbl-val-cell">
@@ -741,25 +682,10 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                 </div>
             </td>
             <td>
-                <div class="tbl-corridor-cell">
-                    <div class="tbl-corridor-labels">
-                        <span>${stock.lower_alert_threshold:.0f}</span>
-                        <span>${stock.upper_alert_threshold:.0f}</span>
-                    </div>
-                    <div class="mini-corridor-track">
-                        <div class="mini-corridor-fill"></div>
-                        <div class="mini-corridor-dot" style="left: {pos_pct:.0f}%;"></div>
-                    </div>
-                </div>
-            </td>
-            <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">{stock.next_catalyst_date or 'TBD'}</span>
-                    <span class="tbl-cat-desc">{stock.next_catalyst_event[:45] if stock.next_catalyst_event else ''}</span>
+                    <span class="tbl-cat-desc">{stock.next_catalyst_event[:50] if stock.next_catalyst_event else ''}</span>
                 </div>
-            </td>
-            <td style="text-align: right; white-space: nowrap;">
-                <a href="reports/{stock.ticker}.html" class="btn-action" onclick="event.stopPropagation()">Read Thesis →</a>
             </td>
         </tr>
         """
@@ -769,11 +695,11 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             <div class="grid-card-top">
                 <div>
                     <span class="grid-symbol">{stock.ticker}</span>
-                    <span class="pill pill-active" style="margin-left: 10px;">{stock.status_label}</span>
+                    <span class="pill pill-active" style="margin-left: 10px;">{short_status}</span>
                 </div>
                 <div class="grid-price">${stock.current_price:.2f}</div>
             </div>
-            <div class="grid-company">{stock.company_name}</div>
+            <div class="grid-company">{clean_company}</div>
             
             <div class="grid-metrics-box">
                 <div class="grid-stat">
@@ -785,8 +711,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                     <span class="grid-stat-val" style="color: var(--accent-warm);">{stock.fair_value_estimate}</span>
                 </div>
                 <div class="grid-stat">
-                    <span class="grid-stat-lbl">Trigger Bounds</span>
-                    <span class="grid-stat-val">${stock.lower_alert_threshold:.0f} — ${stock.upper_alert_threshold:.0f}</span>
+                    <span class="grid-stat-lbl">Base Target</span>
+                    <span class="grid-stat-val">{stock.base_target}</span>
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Next Catalyst</span>
@@ -795,8 +721,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             </div>
             
             <div class="grid-card-foot">
-                <span class="grid-updated">Evaluated {stock.last_updated}</span>
-                <span class="grid-open">Read Thesis →</span>
+                <span class="grid-updated">Updated {stock.last_updated}</span>
+                <span class="grid-open">Open →</span>
             </div>
         </div>
         """
@@ -805,7 +731,6 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
     if not alerts:
         alerts_feed_html = """
         <div class="empty-alerts">
-            <div style="font-size: 1.8rem; color: var(--accent-warm); margin-bottom: 10px;">⟡</div>
             <div class="empty-title">All Positions In Normal Corridors</div>
             <div class="empty-sub">No critical threshold breaches or catalyst alerts logged. Surveillance is active.</div>
         </div>
@@ -813,11 +738,12 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
     else:
         for a in alerts:
             ret_class = "pos" if a.price_change_pct >= 0 else "neg"
+            short_severity = format_short_label(a.severity)
             safe_payload = json.dumps({
                 "ticker": a.ticker,
                 "title": a.title,
                 "timestamp": a.timestamp,
-                "severity": a.severity,
+                "severity": short_severity,
                 "price": a.price_at_alert,
                 "change": a.price_change_pct,
                 "trigger_reason": a.trigger_reason,
@@ -830,7 +756,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             <div class="alert-item" onclick='openAlertModal({safe_payload})'>
                 <div class="alert-left">
                     <div class="alert-badges">
-                        <span class="pill pill-alert">{a.severity}</span>
+                        <span class="pill pill-alert">{short_severity}</span>
                         <strong class="alert-ticker">{a.ticker}</strong>
                         <span class="alert-time">{a.timestamp}</span>
                     </div>
@@ -840,7 +766,6 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                 <div class="alert-right">
                     <div class="alert-price-val">${a.price_at_alert:.2f}</div>
                     <div class="alert-price-pct {ret_class}">{a.price_change_pct:+.2f}%</div>
-                    <span class="alert-view-btn">Inspect Thesis Delta →</span>
                 </div>
             </div>
             """
@@ -850,23 +775,23 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AlphaThesis — Concentrated Equity Research</title>
+    <title>AlphaThesis</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {{
-            --bg-canvas: #161514;         /* Deep soothing warm espresso */
-            --bg-panel: #1E1D1B;          /* Soft card tone */
-            --bg-subpanel: #262522;       /* Subtle subcontainer */
+            --bg-canvas: #161514;
+            --bg-panel: #1E1D1B;
+            --bg-subpanel: #262522;
             --bg-hover: #2C2A26;
-            --text-title: #E8E3DA;        /* Soothing warm cream */
-            --text-body: #C9C4BA;         /* Warm readable parchment */
-            --text-secondary: #948F85;    /* Muted stone */
-            --text-dim: #6B665E;          /* Subtle label */
-            --accent-warm: #C99A75;       /* Warm subtle amber-gold */
-            --accent-green: #7D9D81;      /* Muted sage */
-            --accent-red: #C4726C;        /* Muted brick */
+            --text-title: #E8E3DA;
+            --text-body: #C9C4BA;
+            --text-secondary: #948F85;
+            --text-dim: #6B665E;
+            --accent-warm: #C99A75;
+            --accent-green: #7D9D81;
+            --accent-red: #C4726C;
             --border-color: rgba(230, 220, 205, 0.07);
             --border-focus: rgba(230, 220, 205, 0.14);
             --font-serif: 'Newsreader', Garamond, Georgia, serif;
@@ -884,21 +809,27 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             padding-bottom: 120px;
         }}
 
-        .container {{ max-width: 1060px; margin: 0 auto; padding: 0 24px; }}
+        .container {{ max-width: 1000px; margin: 0 auto; padding: 0 24px; }}
 
         /* Header */
         header.nav-header {{
-            background: rgba(22, 21, 20, 0.9);
+            background: rgba(22, 21, 20, 0.92);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
             z-index: 100;
-            padding: 18px 0;
+            padding: 20px 0;
         }}
         .header-content {{ display: flex; justify-content: space-between; align-items: center; }}
-        .brand-logo {{ display: flex; align-items: center; gap: 8px; font-family: var(--font-serif); font-size: 1.4rem; font-weight: 500; letter-spacing: -0.01em; color: var(--text-title); text-decoration: none; }}
-        .brand-symbol {{ color: var(--accent-warm); font-size: 1.3rem; line-height: 1; }}
+        .brand-logo {{
+            font-family: var(--font-serif);
+            font-size: 1.45rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            color: var(--text-title);
+            text-decoration: none;
+        }}
 
         /* Navigation Controls */
         .hub-controls {{
@@ -907,7 +838,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             align-items: center;
             flex-wrap: wrap;
             gap: 16px;
-            margin: 36px 0 24px;
+            margin: 36px 0 20px;
             padding-bottom: 14px;
             border-bottom: 1px solid var(--border-color);
         }}
@@ -922,7 +853,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             padding: 8px 16px;
             cursor: pointer;
             position: relative;
-            transition: all 0.15s;
+            transition: color 0.15s;
         }}
         .hub-tab-btn:hover {{ color: var(--text-title); }}
         .hub-tab-btn.active {{ color: var(--accent-warm); }}
@@ -979,11 +910,11 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            padding: 14px 20px;
+            padding: 14px 22px;
             border-bottom: 1px solid var(--border-color);
         }}
         table.fin-table td {{
-            padding: 18px 20px;
+            padding: 18px 22px;
             border-bottom: 1px solid var(--border-color);
             font-size: 0.98rem;
             vertical-align: middle;
@@ -992,58 +923,26 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         .table-row:hover {{ background: var(--bg-hover); }}
         .table-row:last-child td {{ border-bottom: none; }}
 
-        .tbl-ticker-cell {{ display: flex; flex-direction: column; }}
-        .tbl-symbol {{ font-family: var(--font-serif); font-size: 1.35rem; font-weight: 500; color: var(--text-title); }}
-        .tbl-company {{ font-size: 0.85rem; color: var(--text-dim); font-style: italic; }}
+        .tbl-ticker-cell {{ display: flex; flex-direction: column; gap: 2px; }}
+        .tbl-symbol {{ font-family: var(--font-serif); font-size: 1.35rem; font-weight: 500; color: var(--text-title); line-height: 1.1; }}
+        .tbl-company {{ font-size: 0.85rem; color: var(--text-dim); font-style: italic; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; }}
 
-        .tbl-price-cell {{ display: flex; flex-direction: column; }}
-        .tbl-price {{ font-size: 1.18rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }}
+        .tbl-price-cell {{ display: flex; flex-direction: column; gap: 2px; }}
+        .tbl-price {{ font-size: 1.18rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); line-height: 1.1; }}
         .tbl-return {{ font-size: 0.8rem; font-family: var(--font-mono); }}
 
-        .tbl-val-cell {{ display: flex; flex-direction: column; }}
-        .tbl-fv {{ font-size: 1.1rem; font-weight: 500; font-family: var(--font-mono); }}
+        .tbl-val-cell {{ display: flex; flex-direction: column; gap: 2px; }}
+        .tbl-fv {{ font-size: 1.1rem; font-weight: 500; font-family: var(--font-mono); line-height: 1.1; }}
         .tbl-base {{ font-size: 0.82rem; color: var(--text-secondary); }}
 
-        .tbl-corridor-cell {{ min-width: 150px; }}
-        .tbl-corridor-labels {{ display: flex; justify-content: space-between; font-size: 0.68rem; color: var(--text-dim); font-family: var(--font-mono); margin-bottom: 4px; }}
-        .mini-corridor-track {{
-            height: 5px; background: var(--bg-subpanel); border-radius: 9999px; position: relative;
-        }}
-        .mini-corridor-fill {{
-            height: 100%; width: 100%; border-radius: 9999px;
-            background: linear-gradient(90deg, #9C5852, #BFA075, #7D9D81, #C99A75);
-            opacity: 0.65;
-        }}
-        .mini-corridor-dot {{
-            position: absolute; top: -3px; width: 11px; height: 11px;
-            background: var(--text-title); border: 2px solid var(--accent-warm); border-radius: 50%;
-            transform: translateX(-50%);
-        }}
-
-        .tbl-catalyst-cell {{ display: flex; flex-direction: column; max-width: 180px; }}
+        .tbl-catalyst-cell {{ display: flex; flex-direction: column; gap: 2px; max-width: 240px; }}
         .tbl-cat-date {{ font-family: var(--font-sans); font-size: 0.85rem; font-weight: 500; color: var(--text-title); }}
         .tbl-cat-desc {{ font-size: 0.78rem; color: var(--text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
-
-        .btn-action {{
-            background: var(--bg-subpanel);
-            color: var(--text-title);
-            border: 1px solid var(--border-color);
-            font-family: var(--font-sans);
-            font-size: 0.8rem;
-            font-weight: 500;
-            padding: 7px 15px;
-            border-radius: 6px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            transition: all 0.15s;
-        }}
-        .btn-action:hover {{ background: var(--bg-hover); color: var(--accent-warm); border-color: rgba(201, 154, 117, 0.4); }}
 
         /* Grid View */
         .grid-cards-wrap {{
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 18px;
         }}
         .grid-card {{
@@ -1114,7 +1013,6 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         .alert-right {{ text-align: right; min-width: 140px; }}
         .alert-price-val {{ font-size: 1.45rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }}
         .alert-price-pct {{ font-size: 0.9rem; font-family: var(--font-mono); }}
-        .alert-view-btn {{ font-family: var(--font-sans); font-size: 0.82rem; font-weight: 500; color: var(--accent-warm); display: inline-block; margin-top: 6px; }}
 
         /* Pills */
         .pill {{
@@ -1209,10 +1107,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
 <body>
     <header class="nav-header">
         <div class="container header-content">
-            <a href="#" class="brand-logo">
-                <span class="brand-symbol">⟡</span>
-                <span>AlphaThesis</span>
-            </a>
+            <a href="#" class="brand-logo">AlphaThesis</a>
         </div>
     </header>
 
@@ -1238,11 +1133,9 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                         <tr>
                             <th>Ticker & Company</th>
                             <th>Market Price</th>
-                            <th>Thesis Stance</th>
-                            <th>Intrinsic Value</th>
-                            <th>Surveillance Corridor</th>
+                            <th>Stance</th>
+                            <th>Fair Value</th>
                             <th>Catalyst Horizon</th>
-                            <th style="text-align: right;">Action</th>
                         </tr>
                     </thead>
                     <tbody>
