@@ -112,22 +112,22 @@ def sanitize_labels(labels: Any) -> List[str]:
 
 
 def normalize_action_signal(signal: Any, default: str = "BUY") -> str:
-    """Normalizes action signal into one of BUY, HOLD, CAUTION, AVOID.
-    - BUY (Green subtle pulsing beacon): Thesis accelerating / deep value accumulation zone.
-    - HOLD (Yellow subtle pulsing beacon): Thesis steady / patient wait / hold for catalyst.
-    - CAUTION (Orange subtle pulsing beacon): Thesis facing headwinds / execution friction / trim.
-    - AVOID (Red subtle pulsing beacon): Thesis broken / fundamental breakdown / exit.
+    """Normalizes action signal into one of BUY (Green), HOLD (Yellow), CAUTION (Orange), AVOID (Red).
+    - BUY / GREEN (Green pulsing beacon): Thesis playing out great / deep value / get in NOW.
+    - HOLD / WAIT / YELLOW (Yellow pulsing beacon): Thesis steady / wait & do nothing for now / hold for catalyst.
+    - CAUTION / ORANGE (Orange pulsing beacon): Thesis facing headwinds / execution friction / trim.
+    - AVOID / RED (Red pulsing beacon): Thesis broken / fundamental impairment / do NOT buy / exit.
     """
     if not signal or not isinstance(signal, str):
         return default
     sig = signal.upper().strip()
-    if any(k in sig for k in ["BROKEN", "AVOID", "EXIT", "SELL", "DANGER", "CRITICAL"]):
+    if any(k in sig for k in ["RED", "BROKEN", "AVOID", "EXIT", "SELL", "DANGER", "CRITICAL", "DO NOT BUY", "DON'T BUY"]):
         return "AVOID"
-    elif any(k in sig for k in ["CAUTION", "TRIM", "HEADWIND", "WARNING", "FRICTION", "EXECUTION RISK"]):
+    elif any(k in sig for k in ["ORANGE", "CAUTION", "TRIM", "HEADWIND", "WARNING", "FRICTION", "EXECUTION RISK", "GOING BAD"]):
         return "CAUTION"
-    elif any(k in sig for k in ["WAIT", "HOLD", "MONITOR", "PATIENT", "NEUTRAL", "STEADY"]):
+    elif any(k in sig for k in ["YELLOW", "WAIT", "HOLD", "MONITOR", "PATIENT", "NEUTRAL", "STEADY", "DO NOTHING"]):
         return "HOLD"
-    elif any(k in sig for k in ["STRONG", "BUY", "ACCUMULATE", "ADD", "ENTRY", "OPPORTUNITY"]):
+    elif any(k in sig for k in ["GREEN", "STRONG", "BUY", "ACCUMULATE", "ADD", "ENTRY", "NOW", "OPPORTUNITY"]):
         return "BUY"
     return default
 
@@ -521,13 +521,23 @@ Previous Thesis Summary: {previous_thesis_summary}
 [ANALYTICAL AUTONOMY & THESIS INFLECTION DIRECTIVES]:
 You have full analytical freedom to evaluate the new facts and determine the evolved thesis:
 1. Primary Source Audit: Search the latest quarterly earnings release, latest earnings call transcript, material corporate announcements, and latest 13F whale filings.
-2. What Changed & Thesis Impact:
+2. Forward Action Beacon Selection (action_signal):
+   Autonomously choose the actionable status signal based on how the thesis is playing out in the real world:
+   - "BUY" (Green Beacon): Thesis is playing out great, fundamentals accelerating, deep value / buy zone -> we want to get in NOW.
+   - "HOLD" (Yellow Beacon): Thesis is steady, waiting for next catalyst / fairly valued -> wait and do nothing for now.
+   - "CAUTION" (Orange Beacon): Thesis facing execution friction, headwinds, or margin pressure -> caution / trim.
+   - "AVOID" (Red Beacon): Thesis broken, severe structural impairment -> avoid / do not buy / exit.
+3. 2-Tier Autonomous Labels:
+   Slot 1 = Forward Conviction/Confidence Rating (e.g. "High Conviction", "Cautious Stance", "Speculative Risk", "Solid Conviction", "Turnaround Risk").
+   Slots 2 & 3 = Key Play Drivers & Catalysts (e.g. "Buyback Cannibal", "Margin Expansion", "Deep Value", "Cash Fortress").
+   (Note: You choose both the action_signal color and labels independently based on your forward evaluation).
+4. What Changed & Thesis Impact:
    - Detail what new information has arrived.
    - Explain whether this reinforces our thesis (making the opportunity safer / higher confidence) or breaks/weakens it (increasing execution risk / lowering fair value).
    - Formulate a clear 2-3 sentence executive evolution summary for "what_changes_now".
-4. Warren Buffett Owner Earnings & Intrinsic Value Framework:
+5. Warren Buffett Owner Earnings & Intrinsic Value Framework:
    - Update fair value and Bear / Base / Bull scenario targets using Warren Buffett's 7-pillar Owner Earnings methodology (Post-SBC cash flow minus maintenance CapEx, lease debt/float bridge, share count reduction from buybacks, strictly discounting via local sovereign bond yields, zero arbitrary exit multiples).
-5. Self-Healing Catalyst Date Update Rule:
+6. Self-Healing Catalyst Date Update Rule:
    - "next_catalyst_date" MUST ALWAYS BE IN STRICT "YYYY-MM-DD" FORMAT (e.g. 2026-11-18).
    - If on the trigger date after market close no earnings release or event has occurred (or the event was rescheduled), search investor relations for the newly confirmed or estimated date, set "next_catalyst_date" to the new YYYY-MM-DD, and explain in "what_changes_now" that the calendar date has been refreshed.
 
@@ -536,7 +546,7 @@ Part 1: JSON metadata in ```json ... ```:
 {{
   "alert_title": "<Punchy headline stating if thesis shifted, conviction changed, or catalyst date refreshed>",
   "alert_severity": "<1-2 word severity, e.g. Strong Buy, Caution, Thesis Broken, Accumulate, Calendar Update>",
-  "action_signal": "<BUY | HOLD | CAUTION | AVOID (BUY if thesis accelerating/get in now, HOLD if steady/wait, CAUTION if headwinds/trim, AVOID if thesis broken)>",
+  "action_signal": "<BUY | HOLD | CAUTION | AVOID (BUY=Green get in now, HOLD=Yellow wait/do nothing, CAUTION=Orange headwinds/trim, AVOID=Red broken/don't buy)>",
   "labels": ["<Confidence/Risk Label 1>", "<Play Driver Label 2>", "<Play Driver Label 3>"],
   "what_was_before": "<Summary of previous thesis>",
   "what_changes_now": "<Comprehensive summary of what new information arrived, how it impacts risk/safety, and our updated forward conviction>",
