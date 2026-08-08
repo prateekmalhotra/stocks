@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BVHMF — Investment Memo</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="apple-touch-icon" href="../favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-canvas: #141312;
+            --bg-panel: #1A1917;
+            --bg-subpanel: #21201D;
+            --bg-hover: #282623;
+            --text-title: #D8D2C6;
+            --text-body: #BDB7AA;
+            --text-secondary: #8E887D;
+            --text-dim: #666157;
+            --accent-warm: #C99A75;
+            --accent-green: #7D9D81;
+            --accent-red: #C4726C;
+            --border-color: rgba(215, 205, 190, 0.07);
+            --border-focus: rgba(215, 205, 190, 0.14);
+            --font-serif: 'Newsreader', Garamond, Georgia, serif;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--bg-canvas);
+            color: var(--text-body);
+            font-family: var(--font-serif);
+            line-height: 1.85;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 120px;
+        }
+
+        .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+        /* Top Nav */
+        nav.nav-bar {
+            background: rgba(20, 19, 18, 0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 16px 0;
+        }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .nav-back {
+            color: var(--accent-warm);
+            text-decoration: none;
+            font-family: var(--font-sans);
+            font-size: 0.88rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.15s;
+        }
+        .nav-back:hover { color: #DDB495; }
+
+        /* Hero Deck */
+        .hero-deck {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 36px 40px;
+            margin: 32px 0 28px;
+        }
+
+        .hero-top-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px; }
+        .ticker-symbol {
+            font-family: var(--font-serif);
+            font-size: 2.8rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: var(--text-title);
+        }
+        .company-meta { color: var(--text-secondary); font-size: 1.05rem; font-style: italic; margin-top: 2px; }
+
+        .price-callout { text-align: right; }
+        .price-number { font-size: 2.6rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }
+        .price-sub { font-size: 0.88rem; font-family: var(--font-mono); margin-top: 2px; }
+
+        /* Native SVG Area Chart */
+        .native-chart-wrap {
+            margin-top: 28px;
+            background: #171614;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px 20px 12px;
+            position: relative;
+            user-select: none;
+        }
+        .chart-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            min-height: 28px;
+        }
+        .chart-live-val {
+            font-size: 0.88rem;
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .chart-range-pills {
+            display: flex;
+            gap: 4px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 2px;
+        }
+        .range-pill {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.72rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .range-pill:hover { color: var(--text-title); }
+        .range-pill.active {
+            background: var(--accent-warm);
+            color: #141312;
+            font-weight: 600;
+        }
+        .chart-svg { width: 100%; height: 220px; display: block; overflow: visible; }
+        .chart-tooltip {
+            position: absolute;
+            top: 14px;
+            left: 20px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-focus);
+            color: var(--text-title);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            padding: 5px 12px;
+            border-radius: 6px;
+            pointer-events: none;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            font-family: var(--font-sans);
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Key Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin-top: 24px;
+        }
+        .metric-cell {
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px 16px;
+        }
+        .metric-label { font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); letter-spacing: 0.05em; }
+        .metric-value { font-size: 1.15rem; font-weight: 500; color: var(--text-title); font-family: var(--font-mono); margin-top: 3px; }
+
+        /* Tabs */
+        .tabs-header {
+            display: flex;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-color);
+            margin: 32px 0 28px;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-family: var(--font-serif);
+            padding: 12px 18px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.15s;
+        }
+        .tab-btn:hover { color: var(--text-title); }
+        .tab-btn.active { color: var(--accent-warm); }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0; right: 0;
+            height: 2px;
+            background: var(--accent-warm);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Memo Content & Premium Editorial Typography */
+        .memo-container {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 48px 52px;
+        }
+        .memo-container * {
+            box-sizing: border-box;
+        }
+        .memo-container a {
+            color: var(--accent-warm) !important;
+            text-decoration: none !important;
+            transition: color 0.15s ease !important;
+            border-bottom: 1px dotted rgba(201, 154, 117, 0.4) !important;
+        }
+        .memo-container a:hover {
+            color: #E2DDD5 !important;
+            border-bottom-color: var(--accent-warm) !important;
+        }
+        .memo-container h1, .memo-container h2 {
+            font-family: var(--font-serif) !important;
+            font-size: 1.55rem !important;
+            font-weight: 500 !important;
+            color: var(--text-title) !important;
+            margin: 44px 0 18px !important;
+            padding-bottom: 10px !important;
+            border-bottom: 1px solid var(--border-color) !important;
+            letter-spacing: -0.02em !important;
+            line-height: 1.35 !important;
+        }
+        .memo-container h1:first-child, .memo-container h2:first-of-type { margin-top: 0 !important; }
+        .memo-container h3 {
+            font-family: var(--font-serif) !important;
+            font-size: 1.28rem !important;
+            font-weight: 500 !important;
+            color: var(--accent-warm) !important;
+            margin: 32px 0 14px !important;
+            line-height: 1.4 !important;
+        }
+        .memo-container h4, .memo-container h5, .memo-container h6 {
+            font-family: var(--font-serif) !important;
+            font-size: 1.12rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            margin: 24px 0 10px !important;
+        }
+        .memo-container p {
+            font-family: var(--font-serif) !important;
+            font-size: 1.15rem !important;
+            line-height: 1.9 !important;
+            color: var(--text-body) !important;
+            margin-bottom: 22px !important;
+        }
+        .memo-container ul, .memo-container ol {
+            font-family: var(--font-serif) !important;
+            font-size: 1.12rem !important;
+            line-height: 1.9 !important;
+            color: var(--text-body) !important;
+            margin: 0 0 26px 30px !important;
+        }
+        .memo-container li { margin-bottom: 10px !important; color: var(--text-body) !important; }
+        .memo-container strong, .memo-container b {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+
+        /* STUNNING CONSISTENT TABLES - SOOTHING WARM TONES & ZERO OVERFLOW */
+        .table-scroll-wrap {
+            width: 100% !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            margin: 32px 0 !important;
+            background: #171614 !important;
+            background-color: #171614 !important;
+            border-radius: 12px !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            box-sizing: border-box !important;
+        }
+        .memo-container table {
+            width: 100% !important;
+            min-width: 600px !important;
+            border-collapse: separate !important;
+            border-spacing: 0 !important;
+            margin: 0 !important;
+            background: transparent !important;
+            background-color: transparent !important;
+            border: none !important;
+        }
+        .memo-container tr, .memo-container td, .memo-container th {
+            background: transparent !important;
+            background-color: transparent !important;
+        }
+        .memo-container th {
+            background: #1E1D1A !important;
+            background-color: #1E1D1A !important;
+            color: #C99A75 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            padding: 14px 18px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
+            text-align: left !important;
+        }
+        .memo-container td {
+            padding: 14px 18px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.05) !important;
+            font-size: 0.92rem !important;
+            color: #BDB7AA !important;
+            font-family: var(--font-mono) !important;
+            text-align: left !important;
+        }
+        .memo-container tr:last-child td {
+            border-bottom: none !important;
+        }
+        .memo-container tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.012) !important;
+            background-color: rgba(255, 255, 255, 0.012) !important;
+        }
+        .memo-container tr:hover td {
+            background: rgba(201, 154, 117, 0.04) !important;
+            background-color: rgba(201, 154, 117, 0.04) !important;
+        }
+        .memo-container td strong, .memo-container td b {
+            color: #D8D2C6 !important;
+            font-weight: 500 !important;
+        }
+
+        /* UNIVERSAL CALLOUT & BOX STYLING - NEVER WHITE OR PINK, STRICT DARK OBSIDIAN */
+        .memo-container blockquote,
+        .memo-container .callout,
+        .memo-container .falsification-box,
+        .memo-container .institutional-box,
+        .memo-container div[class*="box"],
+        .memo-container div[class*="card"],
+        .memo-container div[class*="alert"],
+        .memo-container div[class*="warning"],
+        .memo-container div[class*="highlight-box"] {
+            background: var(--bg-subpanel) !important;
+            background-color: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-left: 3px solid var(--accent-warm) !important;
+            padding: 22px 26px !important;
+            border-radius: 8px !important;
+            margin: 28px 0 !important;
+            color: var(--text-body) !important;
+            line-height: 1.8 !important;
+        }
+        .memo-container blockquote *,
+        .memo-container .callout *,
+        .memo-container .falsification-box *,
+        .memo-container .institutional-box *,
+        .memo-container div[class*="box"] *,
+        .memo-container div[class*="card"] *,
+        .memo-container div[class*="alert"] * {
+            background: transparent !important;
+            background-color: transparent !important;
+            color: var(--text-body) !important;
+        }
+        .memo-container blockquote h3,
+        .memo-container blockquote h4,
+        .memo-container .callout h3,
+        .memo-container .callout h4,
+        .memo-container .falsification-box h4,
+        .memo-container .falsification-box strong,
+        .memo-container .institutional-box h4,
+        .memo-container .institutional-box strong,
+        .memo-container div[class*="box"] h4,
+        .memo-container div[class*="box"] strong,
+        .memo-container div[class*="card"] strong {
+            color: var(--text-title) !important;
+        }
+        .highlight, mark {
+            background: rgba(201, 154, 117, 0.16) !important;
+            color: #E2DDD5 !important;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* FINANCIAL METRIC CARDS & STAT GRIDS */
+        .metrics-grid, .stats-grid, .grid-3, .grid-4, .grid-2, .metric-grid {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+            gap: 16px !important;
+            margin: 28px 0 !important;
+        }
+        .metric-card, .stat-card, div[class*="metric-box"], div[class*="stat-box"], div[class*="kpi-card"] {
+            background: var(--bg-subpanel) !important;
+            background-color: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-radius: 10px !important;
+            padding: 18px 20px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            box-sizing: border-box !important;
+        }
+        .metric-label, .stat-label, .kpi-label {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            color: var(--text-secondary) !important;
+            margin-bottom: 6px !important;
+        }
+        .metric-value, .stat-value, .kpi-value {
+            font-family: var(--font-mono) !important;
+            font-size: 1.4rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            letter-spacing: -0.02em !important;
+            line-height: 1.2 !important;
+            margin-bottom: 4px !important;
+        }
+        .metric-delta, .metric-sub, .stat-sub, .kpi-sub {
+            font-family: var(--font-mono) !important;
+            font-size: 0.82rem !important;
+            color: var(--accent-warm) !important;
+        }
+
+        /* EMBEDDED IMAGES, CHARTS & VISUAL INFOGRAPHICS */
+        .figure-container, figure {
+            margin: 32px 0 !important;
+            text-align: center !important;
+            background: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-radius: 12px !important;
+            padding: 16px !important;
+            overflow: hidden !important;
+        }
+        .memo-container img {
+            max-width: 100% !important;
+            height: auto !important;
+            border-radius: 8px !important;
+            display: block !important;
+            margin: 0 auto !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+        }
+        .figure-caption, figcaption {
+            font-family: var(--font-sans) !important;
+            font-size: 0.8rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 10px !important;
+            text-align: center !important;
+        }
+
+        /* Evolution Update Highlight Banner at top of Memo */
+        .update-banner-box {
+            background: #1C1B18 !important;
+            border: 1px solid rgba(201, 154, 117, 0.3) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 12px !important;
+            padding: 24px 28px !important;
+            margin-bottom: 36px !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .update-banner-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 14px !important;
+            padding-bottom: 10px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
+        }
+        .update-banner-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.76rem !important;
+            font-weight: 600 !important;
+            color: var(--accent-warm) !important;
+            letter-spacing: 0.04em !important;
+            text-transform: uppercase !important;
+        }
+        .update-trigger-pill {
+            font-family: var(--font-mono) !important;
+            font-size: 0.74rem !important;
+            color: var(--text-secondary) !important;
+            background: var(--bg-subpanel) !important;
+            padding: 3px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid var(--border-color) !important;
+        }
+        .update-banner-title {
+            font-family: var(--font-serif) !important;
+            font-size: 1.22rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            margin-bottom: 8px !important;
+        }
+        .update-banner-desc {
+            font-family: var(--font-serif) !important;
+            font-size: 1.08rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-body) !important;
+        }
+
+        /* History */
+        .history-entry {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 28px 32px;
+            margin-bottom: 20px;
+        }
+        .history-entry-active { border-color: rgba(201, 154, 117, 0.35); }
+        .history-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+        .history-tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .history-time { color: var(--text-secondary); font-size: 0.88rem; font-family: var(--font-sans); }
+        .history-price { font-family: var(--font-mono); font-size: 0.92rem; }
+
+        .diff-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) { .diff-grid { grid-template-columns: 1fr; } }
+        .diff-box {
+            padding: 18px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .diff-prev { background: rgba(196, 114, 108, 0.05); border-color: rgba(196, 114, 108, 0.18); }
+        .diff-now { background: rgba(125, 157, 129, 0.05); border-color: rgba(125, 157, 129, 0.18); }
+        .diff-label { font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+        .diff-prev .diff-label { color: var(--accent-red); }
+        .diff-now .diff-label { color: var(--accent-green); }
+        .diff-text { font-size: 1.02rem; color: var(--text-body); line-height: 1.65; }
+
+        /* Pills */
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 11px;
+            border-radius: 9999px;
+            font-size: 0.72rem;
+            font-family: var(--font-sans);
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+        }
+        .pill-active { background: rgba(201, 154, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.45); font-weight: 600; box-shadow: 0 0 10px rgba(201, 154, 117, 0.06); }
+        .pill-neutral { background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); font-weight: 500; }
+        .pill-alert { background: rgba(191, 160, 117, 0.14); color: var(--accent-warm); border: 1px solid rgba(191, 160, 117, 0.28); }
+
+        .btn-subtle {
+            background: var(--bg-subpanel);
+            color: var(--text-title);
+            border: 1px solid var(--border-color);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            padding: 7px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .btn-subtle:hover { background: var(--bg-hover); }
+
+        .snapshot-drawer { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color); }
+
+        .pos { color: var(--accent-green); }
+        .neg { color: var(--accent-red); }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="container nav-inner">
+            <a href="../index.html" class="nav-back">← AlphaThesis</a>
+            <span style="font-size: 0.82rem; color: var(--text-dim); font-family: var(--font-sans);">BVHMF RESEARCH</span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Hero Deck -->
+        <section class="hero-deck">
+            <div class="hero-top-row">
+                <div>
+                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                        <span class="ticker-symbol">BVHMF</span>
+                        <span class="pill pill-active">Turnaround Risk</span> <span class="pill pill-neutral">Deep Value</span> <span class="pill pill-neutral">Debt Paydown</span>
+                    </div>
+                    <div class="company-meta">VISTRY GROUP PLC.</div>
+                </div>
+                <div class="price-callout">
+                    <div class="price-number">$3.75</div>
+                    <div class="price-sub pos">
+                        +0.00% vs Genesis
+                    </div>
+                </div>
+            </div>
+
+            <!-- Native Multi-Range Interactive Area Chart -->
+            
+    <div class="native-chart-wrap" id="chart-container">
+        <div class="chart-top-bar">
+            <div id="chart-live-val" class="chart-live-val">
+                <span id="tooltip-date">Aug 07, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$3.75</strong>
+            </div>
+            <div class="chart-range-pills">
+                <button class="range-pill active" onclick="switchChartRange('1Y')">1Y</button>
+                <button class="range-pill" onclick="switchChartRange('5Y')">5Y</button>
+                <button class="range-pill" onclick="switchChartRange('10Y')">10Y</button>
+                <button class="range-pill" onclick="switchChartRange('MAX')">MAX</button>
+            </div>
+        </div>
+
+        <svg id="interactive-svg" viewBox="0 0 900 260" preserveAspectRatio="none" class="chart-svg">
+            <defs>
+                <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#C99A75" stop-opacity="0.18" />
+                    <stop offset="100%" stop-color="#C99A75" stop-opacity="0.0" />
+                </linearGradient>
+            </defs>
+            
+            <line x1="20" y1="25" x2="880" y2="25" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
+            <line x1="20" y1="130.0" x2="880" y2="130.0" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
+            <line x1="20" y1="235" x2="880" y2="235" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
+
+            <path id="chart-area-path" d="" fill="url(#area-grad)" />
+            <path id="chart-line-path" d="" fill="none" stroke="#C99A75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+            <line id="crosshair-line" x1="0" y1="25" x2="0" y2="235" stroke="rgba(201,154,117,0.35)" stroke-width="1" stroke-dasharray="3 3" style="display: none;" />
+            <circle id="hover-dot" r="4" fill="#C99A75" stroke="#1A1917" stroke-width="2" style="display: none;" />
+        </svg>
+        <div class="chart-labels">
+            <span id="chart-start-lbl">Aug 08, 2025 ($3.01)</span>
+            <span id="chart-range-title">1-Year Historical Range</span>
+            <span id="chart-end-lbl">Aug 07, 2026 ($3.75)</span>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const allDatasets = {"1Y": [{"date": "Aug 08, 2025", "price": 8.5}, {"date": "Aug 11, 2025", "price": 8.4}, {"date": "Aug 12, 2025", "price": 8.5}, {"date": "Aug 13, 2025", "price": 8.45}, {"date": "Aug 14, 2025", "price": 8.78}, {"date": "Aug 15, 2025", "price": 8.8}, {"date": "Aug 18, 2025", "price": 8.61}, {"date": "Aug 19, 2025", "price": 8.75}, {"date": "Aug 20, 2025", "price": 8.7}, {"date": "Aug 21, 2025", "price": 8.69}, {"date": "Aug 22, 2025", "price": 8.75}, {"date": "Aug 25, 2025", "price": 8.75}, {"date": "Aug 26, 2025", "price": 8.52}, {"date": "Aug 27, 2025", "price": 8.68}, {"date": "Aug 28, 2025", "price": 8.5}, {"date": "Aug 29, 2025", "price": 8.17}, {"date": "Sep 02, 2025", "price": 7.78}, {"date": "Sep 03, 2025", "price": 8.01}, {"date": "Sep 04, 2025", "price": 8.01}, {"date": "Sep 05, 2025", "price": 8.3}, {"date": "Sep 08, 2025", "price": 8.55}, {"date": "Sep 09, 2025", "price": 8.2}, {"date": "Sep 10, 2025", "price": 7.97}, {"date": "Sep 11, 2025", "price": 8.05}, {"date": "Sep 12, 2025", "price": 8.2}, {"date": "Sep 15, 2025", "price": 8.44}, {"date": "Sep 16, 2025", "price": 8.44}, {"date": "Sep 17, 2025", "price": 8.85}, {"date": "Sep 18, 2025", "price": 9.08}, {"date": "Sep 19, 2025", "price": 8.74}, {"date": "Sep 22, 2025", "price": 8.51}, {"date": "Sep 23, 2025", "price": 8.5}, {"date": "Sep 24, 2025", "price": 8.23}, {"date": "Sep 25, 2025", "price": 8.23}, {"date": "Sep 26, 2025", "price": 8.45}, {"date": "Sep 29, 2025", "price": 8.43}, {"date": "Sep 30, 2025", "price": 8.48}, {"date": "Oct 01, 2025", "price": 8.77}, {"date": "Oct 02, 2025", "price": 8.65}, {"date": "Oct 03, 2025", "price": 8.71}, {"date": "Oct 06, 2025", "price": 8.64}, {"date": "Oct 07, 2025", "price": 8.64}, {"date": "Oct 08, 2025", "price": 8.64}, {"date": "Oct 09, 2025", "price": 8.44}, {"date": "Oct 10, 2025", "price": 7.94}, {"date": "Oct 13, 2025", "price": 8.6}, {"date": "Oct 14, 2025", "price": 8.33}, {"date": "Oct 15, 2025", "price": 8.31}, {"date": "Oct 16, 2025", "price": 8.41}, {"date": "Oct 17, 2025", "price": 8.4}, {"date": "Oct 20, 2025", "price": 8.52}, {"date": "Oct 21, 2025", "price": 8.52}, {"date": "Oct 22, 2025", "price": 9.0}, {"date": "Oct 23, 2025", "price": 9.01}, {"date": "Oct 24, 2025", "price": 9.36}, {"date": "Oct 27, 2025", "price": 9.15}, {"date": "Oct 28, 2025", "price": 8.7}, {"date": "Oct 29, 2025", "price": 9.1}, {"date": "Oct 30, 2025", "price": 8.58}, {"date": "Oct 31, 2025", "price": 8.67}, {"date": "Nov 03, 2025", "price": 8.21}, {"date": "Nov 04, 2025", "price": 8.2}, {"date": "Nov 05, 2025", "price": 8.21}, {"date": "Nov 06, 2025", "price": 8.2}, {"date": "Nov 07, 2025", "price": 8.21}, {"date": "Nov 10, 2025", "price": 8.21}, {"date": "Nov 11, 2025", "price": 8.21}, {"date": "Nov 12, 2025", "price": 8.45}, {"date": "Nov 13, 2025", "price": 8.33}, {"date": "Nov 14, 2025", "price": 8.4}, {"date": "Nov 17, 2025", "price": 8.1}, {"date": "Nov 18, 2025", "price": 8.0}, {"date": "Nov 19, 2025", "price": 7.9}, {"date": "Nov 20, 2025", "price": 7.76}, {"date": "Nov 21, 2025", "price": 7.7}, {"date": "Nov 24, 2025", "price": 8.06}, {"date": "Nov 25, 2025", "price": 8.62}, {"date": "Nov 26, 2025", "price": 8.73}, {"date": "Nov 28, 2025", "price": 8.73}, {"date": "Dec 01, 2025", "price": 8.73}, {"date": "Dec 02, 2025", "price": 8.6}, {"date": "Dec 03, 2025", "price": 8.76}, {"date": "Dec 04, 2025", "price": 8.68}, {"date": "Dec 05, 2025", "price": 8.36}, {"date": "Dec 08, 2025", "price": 8.36}, {"date": "Dec 09, 2025", "price": 8.2}, {"date": "Dec 10, 2025", "price": 8.2}, {"date": "Dec 11, 2025", "price": 8.4}, {"date": "Dec 12, 2025", "price": 8.4}, {"date": "Dec 15, 2025", "price": 8.25}, {"date": "Dec 16, 2025", "price": 8.25}, {"date": "Dec 17, 2025", "price": 8.34}, {"date": "Dec 18, 2025", "price": 8.47}, {"date": "Dec 19, 2025", "price": 8.28}, {"date": "Dec 22, 2025", "price": 8.25}, {"date": "Dec 23, 2025", "price": 8.36}, {"date": "Dec 24, 2025", "price": 8.36}, {"date": "Dec 26, 2025", "price": 8.52}, {"date": "Dec 29, 2025", "price": 8.42}, {"date": "Dec 30, 2025", "price": 8.5}, {"date": "Dec 31, 2025", "price": 8.5}, {"date": "Jan 02, 2026", "price": 8.6}, {"date": "Jan 05, 2026", "price": 8.95}, {"date": "Jan 06, 2026", "price": 8.95}, {"date": "Jan 07, 2026", "price": 8.69}, {"date": "Jan 08, 2026", "price": 8.96}, {"date": "Jan 09, 2026", "price": 8.88}, {"date": "Jan 12, 2026", "price": 9.49}, {"date": "Jan 13, 2026", "price": 9.27}, {"date": "Jan 14, 2026", "price": 8.5}, {"date": "Jan 15, 2026", "price": 8.45}, {"date": "Jan 16, 2026", "price": 8.68}, {"date": "Jan 20, 2026", "price": 8.99}, {"date": "Jan 21, 2026", "price": 8.73}, {"date": "Jan 22, 2026", "price": 8.81}, {"date": "Jan 23, 2026", "price": 8.56}, {"date": "Jan 26, 2026", "price": 9.01}, {"date": "Jan 27, 2026", "price": 9.07}, {"date": "Jan 28, 2026", "price": 8.99}, {"date": "Jan 29, 2026", "price": 9.15}, {"date": "Jan 30, 2026", "price": 9.12}, {"date": "Feb 02, 2026", "price": 9.11}, {"date": "Feb 03, 2026", "price": 9.11}, {"date": "Feb 04, 2026", "price": 9.28}, {"date": "Feb 05, 2026", "price": 8.85}, {"date": "Feb 06, 2026", "price": 8.86}, {"date": "Feb 09, 2026", "price": 9.15}, {"date": "Feb 10, 2026", "price": 9.57}, {"date": "Feb 11, 2026", "price": 9.9}, {"date": "Feb 12, 2026", "price": 9.93}, {"date": "Feb 13, 2026", "price": 9.94}, {"date": "Feb 17, 2026", "price": 9.53}, {"date": "Feb 18, 2026", "price": 9.79}, {"date": "Feb 19, 2026", "price": 9.53}, {"date": "Feb 20, 2026", "price": 9.85}, {"date": "Feb 23, 2026", "price": 9.56}, {"date": "Feb 24, 2026", "price": 9.26}, {"date": "Feb 25, 2026", "price": 9.36}, {"date": "Feb 26, 2026", "price": 9.36}, {"date": "Feb 27, 2026", "price": 9.36}, {"date": "Mar 02, 2026", "price": 8.98}, {"date": "Mar 03, 2026", "price": 8.56}, {"date": "Mar 04, 2026", "price": 6.27}, {"date": "Mar 05, 2026", "price": 6.43}, {"date": "Mar 06, 2026", "price": 5.92}, {"date": "Mar 09, 2026", "price": 5.74}, {"date": "Mar 10, 2026", "price": 5.5}, {"date": "Mar 11, 2026", "price": 5.38}, {"date": "Mar 12, 2026", "price": 5.46}, {"date": "Mar 13, 2026", "price": 5.5}, {"date": "Mar 16, 2026", "price": 5.11}, {"date": "Mar 17, 2026", "price": 5.17}, {"date": "Mar 18, 2026", "price": 5.05}, {"date": "Mar 19, 2026", "price": 4.85}, {"date": "Mar 20, 2026", "price": 4.7}, {"date": "Mar 23, 2026", "price": 4.61}, {"date": "Mar 24, 2026", "price": 4.55}, {"date": "Mar 25, 2026", "price": 4.72}, {"date": "Mar 26, 2026", "price": 4.7}, {"date": "Mar 27, 2026", "price": 4.52}, {"date": "Mar 30, 2026", "price": 4.45}, {"date": "Mar 31, 2026", "price": 4.59}, {"date": "Apr 01, 2026", "price": 4.41}, {"date": "Apr 02, 2026", "price": 4.43}, {"date": "Apr 06, 2026", "price": 4.39}, {"date": "Apr 07, 2026", "price": 4.37}, {"date": "Apr 08, 2026", "price": 4.6}, {"date": "Apr 09, 2026", "price": 4.63}, {"date": "Apr 10, 2026", "price": 4.62}, {"date": "Apr 13, 2026", "price": 4.62}, {"date": "Apr 14, 2026", "price": 4.63}, {"date": "Apr 15, 2026", "price": 4.53}, {"date": "Apr 16, 2026", "price": 4.73}, {"date": "Apr 17, 2026", "price": 4.93}, {"date": "Apr 20, 2026", "price": 4.85}, {"date": "Apr 21, 2026", "price": 4.7}, {"date": "Apr 22, 2026", "price": 4.71}, {"date": "Apr 23, 2026", "price": 4.57}, {"date": "Apr 24, 2026", "price": 4.56}, {"date": "Apr 27, 2026", "price": 4.44}, {"date": "Apr 28, 2026", "price": 4.33}, {"date": "Apr 29, 2026", "price": 4.24}, {"date": "Apr 30, 2026", "price": 4.43}, {"date": "May 01, 2026", "price": 4.5}, {"date": "May 04, 2026", "price": 4.3}, {"date": "May 05, 2026", "price": 4.4}, {"date": "May 06, 2026", "price": 4.59}, {"date": "May 07, 2026", "price": 4.62}, {"date": "May 08, 2026", "price": 4.75}, {"date": "May 11, 2026", "price": 4.66}, {"date": "May 12, 2026", "price": 4.41}, {"date": "May 13, 2026", "price": 3.92}, {"date": "May 14, 2026", "price": 3.78}, {"date": "May 15, 2026", "price": 3.7}, {"date": "May 18, 2026", "price": 3.5}, {"date": "May 19, 2026", "price": 3.41}, {"date": "May 20, 2026", "price": 3.44}, {"date": "May 21, 2026", "price": 3.53}, {"date": "May 22, 2026", "price": 3.52}, {"date": "May 26, 2026", "price": 3.61}, {"date": "May 27, 2026", "price": 3.7}, {"date": "May 28, 2026", "price": 3.65}, {"date": "May 29, 2026", "price": 3.65}, {"date": "Jun 01, 2026", "price": 3.54}, {"date": "Jun 02, 2026", "price": 3.5}, {"date": "Jun 03, 2026", "price": 3.5}, {"date": "Jun 04, 2026", "price": 3.47}, {"date": "Jun 05, 2026", "price": 3.46}, {"date": "Jun 08, 2026", "price": 3.32}, {"date": "Jun 09, 2026", "price": 3.32}, {"date": "Jun 10, 2026", "price": 3.32}, {"date": "Jun 11, 2026", "price": 3.16}, {"date": "Jun 12, 2026", "price": 3.34}, {"date": "Jun 15, 2026", "price": 3.06}, {"date": "Jun 16, 2026", "price": 3.08}, {"date": "Jun 17, 2026", "price": 3.01}, {"date": "Jun 18, 2026", "price": 3.27}, {"date": "Jun 22, 2026", "price": 3.22}, {"date": "Jun 23, 2026", "price": 3.15}, {"date": "Jun 24, 2026", "price": 3.4}, {"date": "Jun 25, 2026", "price": 3.66}, {"date": "Jun 26, 2026", "price": 3.66}, {"date": "Jun 29, 2026", "price": 3.4}, {"date": "Jun 30, 2026", "price": 3.4}, {"date": "Jul 01, 2026", "price": 3.4}, {"date": "Jul 02, 2026", "price": 3.32}, {"date": "Jul 06, 2026", "price": 3.32}, {"date": "Jul 07, 2026", "price": 3.32}, {"date": "Jul 08, 2026", "price": 3.1}, {"date": "Jul 09, 2026", "price": 3.27}, {"date": "Jul 10, 2026", "price": 3.27}, {"date": "Jul 13, 2026", "price": 3.3}, {"date": "Jul 14, 2026", "price": 3.5}, {"date": "Jul 15, 2026", "price": 3.66}, {"date": "Jul 16, 2026", "price": 3.66}, {"date": "Jul 17, 2026", "price": 3.74}, {"date": "Jul 20, 2026", "price": 3.61}, {"date": "Jul 21, 2026", "price": 3.64}, {"date": "Jul 22, 2026", "price": 3.66}, {"date": "Jul 23, 2026", "price": 3.6}, {"date": "Jul 24, 2026", "price": 3.74}, {"date": "Jul 27, 2026", "price": 3.77}, {"date": "Jul 28, 2026", "price": 3.81}, {"date": "Jul 29, 2026", "price": 3.85}, {"date": "Jul 30, 2026", "price": 4.03}, {"date": "Aug 03, 2026", "price": 4.1}, {"date": "Aug 04, 2026", "price": 3.8}, {"date": "Aug 05, 2026", "price": 3.7}, {"date": "Aug 06, 2026", "price": 3.67}, {"date": "Aug 07, 2026", "price": 3.75}], "5Y": [{"date": "Aug 09, 2021", "price": 16.45}, {"date": "Aug 16, 2021", "price": 16.45}, {"date": "Aug 23, 2021", "price": 16.45}, {"date": "Aug 30, 2021", "price": 16.45}, {"date": "Sep 06, 2021", "price": 16.45}, {"date": "Sep 13, 2021", "price": 16.45}, {"date": "Sep 20, 2021", "price": 16.45}, {"date": "Sep 27, 2021", "price": 16.45}, {"date": "Oct 04, 2021", "price": 16.45}, {"date": "Oct 11, 2021", "price": 16.45}, {"date": "Oct 18, 2021", "price": 16.45}, {"date": "Oct 25, 2021", "price": 16.45}, {"date": "Nov 01, 2021", "price": 16.45}, {"date": "Nov 08, 2021", "price": 16.45}, {"date": "Nov 15, 2021", "price": 16.45}, {"date": "Nov 22, 2021", "price": 16.45}, {"date": "Nov 29, 2021", "price": 16.45}, {"date": "Dec 06, 2021", "price": 16.45}, {"date": "Dec 13, 2021", "price": 16.45}, {"date": "Dec 20, 2021", "price": 16.45}, {"date": "Dec 27, 2021", "price": 16.45}, {"date": "Jan 03, 2022", "price": 16.45}, {"date": "Jan 10, 2022", "price": 16.45}, {"date": "Jan 17, 2022", "price": 16.45}, {"date": "Jan 24, 2022", "price": 16.45}, {"date": "Jan 31, 2022", "price": 16.45}, {"date": "Feb 07, 2022", "price": 16.45}, {"date": "Feb 14, 2022", "price": 16.45}, {"date": "Feb 21, 2022", "price": 16.45}, {"date": "Feb 28, 2022", "price": 16.45}, {"date": "Mar 07, 2022", "price": 13.21}, {"date": "Mar 14, 2022", "price": 13.21}, {"date": "Mar 21, 2022", "price": 13.21}, {"date": "Mar 28, 2022", "price": 12.02}, {"date": "Apr 04, 2022", "price": 12.02}, {"date": "Apr 11, 2022", "price": 12.02}, {"date": "Apr 18, 2022", "price": 12.02}, {"date": "Apr 25, 2022", "price": 12.02}, {"date": "May 02, 2022", "price": 9.44}, {"date": "May 09, 2022", "price": 9.44}, {"date": "May 16, 2022", "price": 9.44}, {"date": "May 23, 2022", "price": 9.44}, {"date": "May 30, 2022", "price": 9.44}, {"date": "Jun 06, 2022", "price": 9.44}, {"date": "Jun 13, 2022", "price": 9.44}, {"date": "Jun 20, 2022", "price": 9.44}, {"date": "Jun 27, 2022", "price": 9.44}, {"date": "Jul 04, 2022", "price": 9.44}, {"date": "Jul 11, 2022", "price": 9.44}, {"date": "Jul 18, 2022", "price": 10.13}, {"date": "Jul 25, 2022", "price": 10.13}, {"date": "Aug 01, 2022", "price": 10.13}, {"date": "Aug 08, 2022", "price": 10.13}, {"date": "Aug 15, 2022", "price": 10.13}, {"date": "Aug 22, 2022", "price": 10.13}, {"date": "Aug 29, 2022", "price": 10.13}, {"date": "Sep 05, 2022", "price": 9.34}, {"date": "Sep 12, 2022", "price": 9.34}, {"date": "Sep 19, 2022", "price": 7.5}, {"date": "Sep 26, 2022", "price": 6.54}, {"date": "Oct 03, 2022", "price": 6.47}, {"date": "Oct 10, 2022", "price": 6.0}, {"date": "Oct 17, 2022", "price": 6.0}, {"date": "Oct 24, 2022", "price": 6.0}, {"date": "Oct 31, 2022", "price": 6.0}, {"date": "Nov 07, 2022", "price": 6.0}, {"date": "Nov 14, 2022", "price": 6.0}, {"date": "Nov 21, 2022", "price": 6.0}, {"date": "Nov 28, 2022", "price": 6.0}, {"date": "Dec 05, 2022", "price": 6.0}, {"date": "Dec 12, 2022", "price": 6.0}, {"date": "Dec 19, 2022", "price": 6.0}, {"date": "Dec 26, 2022", "price": 6.0}, {"date": "Jan 02, 2023", "price": 6.0}, {"date": "Jan 09, 2023", "price": 6.0}, {"date": "Jan 16, 2023", "price": 6.0}, {"date": "Jan 23, 2023", "price": 6.0}, {"date": "Jan 30, 2023", "price": 6.0}, {"date": "Feb 06, 2023", "price": 9.5}, {"date": "Feb 13, 2023", "price": 9.51}, {"date": "Feb 20, 2023", "price": 9.51}, {"date": "Feb 27, 2023", "price": 9.51}, {"date": "Mar 06, 2023", "price": 9.51}, {"date": "Mar 13, 2023", "price": 9.51}, {"date": "Mar 20, 2023", "price": 9.51}, {"date": "Mar 27, 2023", "price": 9.51}, {"date": "Apr 03, 2023", "price": 9.51}, {"date": "Apr 10, 2023", "price": 9.96}, {"date": "Apr 17, 2023", "price": 10.6}, {"date": "Apr 24, 2023", "price": 9.78}, {"date": "May 01, 2023", "price": 9.78}, {"date": "May 08, 2023", "price": 9.78}, {"date": "May 15, 2023", "price": 9.78}, {"date": "May 22, 2023", "price": 9.78}, {"date": "May 29, 2023", "price": 9.78}, {"date": "Jun 05, 2023", "price": 9.78}, {"date": "Jun 12, 2023", "price": 9.78}, {"date": "Jun 19, 2023", "price": 9.78}, {"date": "Jun 26, 2023", "price": 9.78}, {"date": "Jul 03, 2023", "price": 9.78}, {"date": "Jul 10, 2023", "price": 9.78}, {"date": "Jul 17, 2023", "price": 10.17}, {"date": "Jul 24, 2023", "price": 10.17}, {"date": "Jul 31, 2023", "price": 9.94}, {"date": "Aug 07, 2023", "price": 9.94}, {"date": "Aug 14, 2023", "price": 9.94}, {"date": "Aug 21, 2023", "price": 9.94}, {"date": "Aug 28, 2023", "price": 9.94}, {"date": "Sep 04, 2023", "price": 9.94}, {"date": "Sep 11, 2023", "price": 11.25}, {"date": "Sep 18, 2023", "price": 11.83}, {"date": "Sep 25, 2023", "price": 11.83}, {"date": "Oct 02, 2023", "price": 9.62}, {"date": "Oct 09, 2023", "price": 9.7}, {"date": "Oct 16, 2023", "price": 9.7}, {"date": "Oct 23, 2023", "price": 9.7}, {"date": "Oct 30, 2023", "price": 8.15}, {"date": "Nov 06, 2023", "price": 9.25}, {"date": "Nov 13, 2023", "price": 9.25}, {"date": "Nov 20, 2023", "price": 10.7}, {"date": "Nov 27, 2023", "price": 9.66}, {"date": "Dec 04, 2023", "price": 9.66}, {"date": "Dec 11, 2023", "price": 10.9}, {"date": "Dec 18, 2023", "price": 11.98}, {"date": "Dec 25, 2023", "price": 12.0}, {"date": "Jan 01, 2024", "price": 11.55}, {"date": "Jan 08, 2024", "price": 12.56}, {"date": "Jan 15, 2024", "price": 11.85}, {"date": "Jan 22, 2024", "price": 12.57}, {"date": "Jan 29, 2024", "price": 12.8}, {"date": "Feb 05, 2024", "price": 12.56}, {"date": "Feb 12, 2024", "price": 12.5}, {"date": "Feb 19, 2024", "price": 13.35}, {"date": "Feb 26, 2024", "price": 14.0}, {"date": "Mar 04, 2024", "price": 14.31}, {"date": "Mar 11, 2024", "price": 15.56}, {"date": "Mar 18, 2024", "price": 15.85}, {"date": "Mar 25, 2024", "price": 15.78}, {"date": "Apr 01, 2024", "price": 14.91}, {"date": "Apr 08, 2024", "price": 14.75}, {"date": "Apr 15, 2024", "price": 14.02}, {"date": "Apr 22, 2024", "price": 14.9}, {"date": "Apr 29, 2024", "price": 15.66}, {"date": "May 06, 2024", "price": 16.66}, {"date": "May 13, 2024", "price": 17.23}, {"date": "May 20, 2024", "price": 16.25}, {"date": "May 27, 2024", "price": 16.41}, {"date": "Jun 03, 2024", "price": 15.76}, {"date": "Jun 10, 2024", "price": 15.37}, {"date": "Jun 17, 2024", "price": 15.26}, {"date": "Jun 24, 2024", "price": 15.25}, {"date": "Jul 01, 2024", "price": 16.95}, {"date": "Jul 08, 2024", "price": 18.08}, {"date": "Jul 15, 2024", "price": 17.5}, {"date": "Jul 22, 2024", "price": 17.7}, {"date": "Jul 29, 2024", "price": 16.8}, {"date": "Aug 05, 2024", "price": 17.05}, {"date": "Aug 12, 2024", "price": 18.0}, {"date": "Aug 19, 2024", "price": 18.81}, {"date": "Aug 26, 2024", "price": 17.31}, {"date": "Sep 02, 2024", "price": 18.0}, {"date": "Sep 09, 2024", "price": 18.34}, {"date": "Sep 16, 2024", "price": 18.9}, {"date": "Sep 23, 2024", "price": 18.12}, {"date": "Sep 30, 2024", "price": 17.5}, {"date": "Oct 07, 2024", "price": 12.41}, {"date": "Oct 14, 2024", "price": 12.82}, {"date": "Oct 21, 2024", "price": 12.5}, {"date": "Oct 28, 2024", "price": 11.85}, {"date": "Nov 04, 2024", "price": 9.69}, {"date": "Nov 11, 2024", "price": 8.95}, {"date": "Nov 18, 2024", "price": 8.15}, {"date": "Nov 25, 2024", "price": 8.5}, {"date": "Dec 02, 2024", "price": 8.72}, {"date": "Dec 09, 2024", "price": 8.32}, {"date": "Dec 16, 2024", "price": 8.51}, {"date": "Dec 23, 2024", "price": 7.1}, {"date": "Dec 30, 2024", "price": 7.1}, {"date": "Jan 06, 2025", "price": 6.49}, {"date": "Jan 13, 2025", "price": 7.28}, {"date": "Jan 20, 2025", "price": 7.48}, {"date": "Jan 27, 2025", "price": 7.4}, {"date": "Feb 03, 2025", "price": 7.32}, {"date": "Feb 10, 2025", "price": 8.0}, {"date": "Feb 17, 2025", "price": 7.41}, {"date": "Feb 24, 2025", "price": 7.7}, {"date": "Mar 03, 2025", "price": 7.9}, {"date": "Mar 10, 2025", "price": 7.7}, {"date": "Mar 17, 2025", "price": 8.17}, {"date": "Mar 24, 2025", "price": 7.62}, {"date": "Mar 31, 2025", "price": 6.82}, {"date": "Apr 07, 2025", "price": 7.28}, {"date": "Apr 14, 2025", "price": 8.0}, {"date": "Apr 21, 2025", "price": 8.0}, {"date": "Apr 28, 2025", "price": 8.4}, {"date": "May 05, 2025", "price": 8.3}, {"date": "May 12, 2025", "price": 8.15}, {"date": "May 19, 2025", "price": 8.0}, {"date": "May 26, 2025", "price": 8.5}, {"date": "Jun 02, 2025", "price": 8.02}, {"date": "Jun 09, 2025", "price": 9.0}, {"date": "Jun 16, 2025", "price": 8.5}, {"date": "Jun 23, 2025", "price": 9.0}, {"date": "Jun 30, 2025", "price": 8.51}, {"date": "Jul 07, 2025", "price": 8.43}, {"date": "Jul 14, 2025", "price": 8.0}, {"date": "Jul 21, 2025", "price": 8.27}, {"date": "Jul 28, 2025", "price": 7.89}, {"date": "Aug 04, 2025", "price": 8.5}, {"date": "Aug 11, 2025", "price": 8.8}, {"date": "Aug 18, 2025", "price": 8.75}, {"date": "Aug 25, 2025", "price": 8.17}, {"date": "Sep 01, 2025", "price": 8.3}, {"date": "Sep 08, 2025", "price": 8.2}, {"date": "Sep 15, 2025", "price": 8.74}, {"date": "Sep 22, 2025", "price": 8.45}, {"date": "Sep 29, 2025", "price": 8.71}, {"date": "Oct 06, 2025", "price": 7.94}, {"date": "Oct 13, 2025", "price": 8.4}, {"date": "Oct 20, 2025", "price": 9.36}, {"date": "Oct 27, 2025", "price": 8.67}, {"date": "Nov 03, 2025", "price": 8.21}, {"date": "Nov 10, 2025", "price": 8.4}, {"date": "Nov 17, 2025", "price": 7.7}, {"date": "Nov 24, 2025", "price": 8.73}, {"date": "Dec 01, 2025", "price": 8.36}, {"date": "Dec 08, 2025", "price": 8.4}, {"date": "Dec 15, 2025", "price": 8.28}, {"date": "Dec 22, 2025", "price": 8.52}, {"date": "Dec 29, 2025", "price": 8.6}, {"date": "Jan 05, 2026", "price": 8.88}, {"date": "Jan 12, 2026", "price": 8.68}, {"date": "Jan 19, 2026", "price": 8.56}, {"date": "Jan 26, 2026", "price": 9.12}, {"date": "Feb 02, 2026", "price": 8.86}, {"date": "Feb 09, 2026", "price": 9.94}, {"date": "Feb 16, 2026", "price": 9.85}, {"date": "Feb 23, 2026", "price": 9.36}, {"date": "Mar 02, 2026", "price": 5.92}, {"date": "Mar 09, 2026", "price": 5.5}, {"date": "Mar 16, 2026", "price": 4.7}, {"date": "Mar 23, 2026", "price": 4.52}, {"date": "Mar 30, 2026", "price": 4.43}, {"date": "Apr 06, 2026", "price": 4.62}, {"date": "Apr 13, 2026", "price": 4.93}, {"date": "Apr 20, 2026", "price": 4.56}, {"date": "Apr 27, 2026", "price": 4.5}, {"date": "May 04, 2026", "price": 4.75}, {"date": "May 11, 2026", "price": 3.7}, {"date": "May 18, 2026", "price": 3.52}, {"date": "May 25, 2026", "price": 3.65}, {"date": "Jun 01, 2026", "price": 3.46}, {"date": "Jun 08, 2026", "price": 3.34}, {"date": "Jun 15, 2026", "price": 3.27}, {"date": "Jun 22, 2026", "price": 3.66}, {"date": "Jun 29, 2026", "price": 3.32}, {"date": "Jul 06, 2026", "price": 3.27}, {"date": "Jul 13, 2026", "price": 3.74}, {"date": "Jul 20, 2026", "price": 3.74}, {"date": "Jul 27, 2026", "price": 4.03}, {"date": "Aug 03, 2026", "price": 3.75}, {"date": "Aug 07, 2026", "price": 3.75}], "10Y": [{"date": "Sep 01, 2016", "price": 14.78}, {"date": "Oct 01, 2016", "price": 14.78}, {"date": "Nov 01, 2016", "price": 14.78}, {"date": "Dec 01, 2016", "price": 14.78}, {"date": "Jan 01, 2017", "price": 14.78}, {"date": "Feb 01, 2017", "price": 14.78}, {"date": "Mar 01, 2017", "price": 14.78}, {"date": "Apr 01, 2017", "price": 14.78}, {"date": "May 01, 2017", "price": 14.78}, {"date": "Jun 01, 2017", "price": 14.78}, {"date": "Jul 01, 2017", "price": 14.78}, {"date": "Aug 01, 2017", "price": 14.78}, {"date": "Sep 01, 2017", "price": 14.78}, {"date": "Oct 01, 2017", "price": 14.81}, {"date": "Nov 01, 2017", "price": 14.81}, {"date": "Dec 01, 2017", "price": 14.81}, {"date": "Jan 01, 2018", "price": 14.81}, {"date": "Feb 01, 2018", "price": 14.81}, {"date": "Mar 01, 2018", "price": 14.81}, {"date": "Apr 01, 2018", "price": 14.81}, {"date": "May 01, 2018", "price": 14.81}, {"date": "Jun 01, 2018", "price": 14.81}, {"date": "Jul 01, 2018", "price": 14.81}, {"date": "Aug 01, 2018", "price": 14.81}, {"date": "Sep 01, 2018", "price": 14.81}, {"date": "Oct 01, 2018", "price": 14.81}, {"date": "Nov 01, 2018", "price": 12.14}, {"date": "Dec 01, 2018", "price": 12.14}, {"date": "Jan 01, 2019", "price": 12.92}, {"date": "Feb 01, 2019", "price": 12.92}, {"date": "Mar 01, 2019", "price": 12.92}, {"date": "Apr 01, 2019", "price": 12.92}, {"date": "May 01, 2019", "price": 12.92}, {"date": "Jun 01, 2019", "price": 12.92}, {"date": "Jul 01, 2019", "price": 12.92}, {"date": "Aug 01, 2019", "price": 12.92}, {"date": "Sep 01, 2019", "price": 12.24}, {"date": "Oct 01, 2019", "price": 12.24}, {"date": "Nov 01, 2019", "price": 12.24}, {"date": "Dec 01, 2019", "price": 12.24}, {"date": "Jan 01, 2020", "price": 17.15}, {"date": "Feb 01, 2020", "price": 17.15}, {"date": "Mar 01, 2020", "price": 17.15}, {"date": "Apr 01, 2020", "price": 17.15}, {"date": "May 01, 2020", "price": 8.99}, {"date": "Jun 01, 2020", "price": 8.99}, {"date": "Jul 01, 2020", "price": 8.99}, {"date": "Aug 01, 2020", "price": 8.99}, {"date": "Sep 01, 2020", "price": 6.85}, {"date": "Oct 01, 2020", "price": 6.85}, {"date": "Nov 01, 2020", "price": 10.05}, {"date": "Dec 01, 2020", "price": 12.2}, {"date": "Jan 01, 2021", "price": 12.2}, {"date": "Feb 01, 2021", "price": 12.2}, {"date": "Mar 01, 2021", "price": 12.2}, {"date": "Apr 01, 2021", "price": 12.2}, {"date": "May 01, 2021", "price": 12.2}, {"date": "Jun 01, 2021", "price": 17.58}, {"date": "Jul 01, 2021", "price": 16.45}, {"date": "Aug 01, 2021", "price": 16.45}, {"date": "Sep 01, 2021", "price": 16.45}, {"date": "Oct 01, 2021", "price": 16.45}, {"date": "Nov 01, 2021", "price": 16.45}, {"date": "Dec 01, 2021", "price": 16.45}, {"date": "Jan 01, 2022", "price": 16.45}, {"date": "Feb 01, 2022", "price": 16.45}, {"date": "Mar 01, 2022", "price": 12.02}, {"date": "Apr 01, 2022", "price": 12.02}, {"date": "May 01, 2022", "price": 9.44}, {"date": "Jun 01, 2022", "price": 9.44}, {"date": "Jul 01, 2022", "price": 10.13}, {"date": "Aug 01, 2022", "price": 10.13}, {"date": "Sep 01, 2022", "price": 6.54}, {"date": "Oct 01, 2022", "price": 6.0}, {"date": "Nov 01, 2022", "price": 6.0}, {"date": "Dec 01, 2022", "price": 6.0}, {"date": "Jan 01, 2023", "price": 6.0}, {"date": "Feb 01, 2023", "price": 9.51}, {"date": "Mar 01, 2023", "price": 9.51}, {"date": "Apr 01, 2023", "price": 9.78}, {"date": "May 01, 2023", "price": 9.78}, {"date": "Jun 01, 2023", "price": 9.78}, {"date": "Jul 01, 2023", "price": 9.94}, {"date": "Aug 01, 2023", "price": 9.94}, {"date": "Sep 01, 2023", "price": 11.83}, {"date": "Oct 01, 2023", "price": 8.15}, {"date": "Nov 01, 2023", "price": 9.66}, {"date": "Dec 01, 2023", "price": 12.0}, {"date": "Jan 01, 2024", "price": 12.77}, {"date": "Feb 01, 2024", "price": 13.4}, {"date": "Mar 01, 2024", "price": 15.78}, {"date": "Apr 01, 2024", "price": 14.7}, {"date": "May 01, 2024", "price": 16.41}, {"date": "Jun 01, 2024", "price": 15.25}, {"date": "Jul 01, 2024", "price": 18.1}, {"date": "Aug 01, 2024", "price": 17.31}, {"date": "Sep 01, 2024", "price": 18.13}, {"date": "Oct 01, 2024", "price": 11.83}, {"date": "Nov 01, 2024", "price": 8.5}, {"date": "Dec 01, 2024", "price": 7.41}, {"date": "Jan 01, 2025", "price": 7.4}, {"date": "Feb 01, 2025", "price": 7.7}, {"date": "Mar 01, 2025", "price": 7.62}, {"date": "Apr 01, 2025", "price": 8.15}, {"date": "May 01, 2025", "price": 8.5}, {"date": "Jun 01, 2025", "price": 8.7}, {"date": "Jul 01, 2025", "price": 8.02}, {"date": "Aug 01, 2025", "price": 8.17}, {"date": "Sep 01, 2025", "price": 8.48}, {"date": "Oct 01, 2025", "price": 8.67}, {"date": "Nov 01, 2025", "price": 8.73}, {"date": "Dec 01, 2025", "price": 8.5}, {"date": "Jan 01, 2026", "price": 9.12}, {"date": "Feb 01, 2026", "price": 9.36}, {"date": "Mar 01, 2026", "price": 4.59}, {"date": "Apr 01, 2026", "price": 4.43}, {"date": "May 01, 2026", "price": 3.65}, {"date": "Jun 01, 2026", "price": 3.4}, {"date": "Jul 01, 2026", "price": 4.03}, {"date": "Aug 01, 2026", "price": 3.75}, {"date": "Aug 07, 2026", "price": 3.75}], "MAX": [{"date": "May 01, 2010", "price": 6.12}, {"date": "Jun 01, 2010", "price": 6.12}, {"date": "Jul 01, 2010", "price": 6.12}, {"date": "Aug 01, 2010", "price": 6.12}, {"date": "Sep 01, 2010", "price": 6.12}, {"date": "Oct 01, 2010", "price": 6.12}, {"date": "Nov 01, 2010", "price": 6.12}, {"date": "Dec 01, 2010", "price": 6.12}, {"date": "Jan 01, 2011", "price": 6.12}, {"date": "Feb 01, 2011", "price": 6.12}, {"date": "Mar 01, 2011", "price": 6.12}, {"date": "Apr 01, 2011", "price": 6.12}, {"date": "May 01, 2011", "price": 6.12}, {"date": "Jun 01, 2011", "price": 6.12}, {"date": "Jul 01, 2011", "price": 6.12}, {"date": "Aug 01, 2011", "price": 6.12}, {"date": "Sep 01, 2011", "price": 6.12}, {"date": "Oct 01, 2011", "price": 6.12}, {"date": "Nov 01, 2011", "price": 6.12}, {"date": "Dec 01, 2011", "price": 6.12}, {"date": "Jan 01, 2012", "price": 6.12}, {"date": "Feb 01, 2012", "price": 6.12}, {"date": "Mar 01, 2012", "price": 6.12}, {"date": "Apr 01, 2012", "price": 6.12}, {"date": "May 01, 2012", "price": 6.12}, {"date": "Jun 01, 2012", "price": 6.12}, {"date": "Jul 01, 2012", "price": 6.12}, {"date": "Aug 01, 2012", "price": 6.12}, {"date": "Sep 01, 2012", "price": 6.12}, {"date": "Oct 01, 2012", "price": 6.12}, {"date": "Nov 01, 2012", "price": 6.12}, {"date": "Dec 01, 2012", "price": 6.12}, {"date": "Jan 01, 2013", "price": 6.12}, {"date": "Feb 01, 2013", "price": 6.12}, {"date": "Mar 01, 2013", "price": 6.12}, {"date": "Apr 01, 2013", "price": 6.12}, {"date": "May 01, 2013", "price": 6.12}, {"date": "Jun 01, 2013", "price": 6.12}, {"date": "Jul 01, 2013", "price": 6.12}, {"date": "Aug 01, 2013", "price": 6.12}, {"date": "Sep 01, 2013", "price": 6.12}, {"date": "Oct 01, 2013", "price": 6.12}, {"date": "Nov 01, 2013", "price": 12.21}, {"date": "Dec 01, 2013", "price": 12.21}, {"date": "Jan 01, 2014", "price": 13.6}, {"date": "Feb 01, 2014", "price": 15.21}, {"date": "Mar 01, 2014", "price": 15.21}, {"date": "Apr 01, 2014", "price": 15.21}, {"date": "May 01, 2014", "price": 12.05}, {"date": "Jun 01, 2014", "price": 13.13}, {"date": "Jul 01, 2014", "price": 12.81}, {"date": "Aug 01, 2014", "price": 12.81}, {"date": "Sep 01, 2014", "price": 12.81}, {"date": "Oct 01, 2014", "price": 12.81}, {"date": "Nov 01, 2014", "price": 13.24}, {"date": "Dec 01, 2014", "price": 13.24}, {"date": "Jan 01, 2015", "price": 12.34}, {"date": "Feb 01, 2015", "price": 12.34}, {"date": "Mar 01, 2015", "price": 12.34}, {"date": "Apr 01, 2015", "price": 12.34}, {"date": "May 01, 2015", "price": 12.34}, {"date": "Jun 01, 2015", "price": 12.34}, {"date": "Jul 01, 2015", "price": 12.34}, {"date": "Aug 01, 2015", "price": 12.34}, {"date": "Sep 01, 2015", "price": 12.34}, {"date": "Oct 01, 2015", "price": 12.34}, {"date": "Nov 01, 2015", "price": 14.78}, {"date": "Dec 01, 2015", "price": 14.78}, {"date": "Jan 01, 2016", "price": 14.78}, {"date": "Feb 01, 2016", "price": 14.78}, {"date": "Mar 01, 2016", "price": 14.78}, {"date": "Apr 01, 2016", "price": 14.78}, {"date": "May 01, 2016", "price": 14.78}, {"date": "Jun 01, 2016", "price": 14.78}, {"date": "Jul 01, 2016", "price": 14.78}, {"date": "Aug 01, 2016", "price": 14.78}, {"date": "Sep 01, 2016", "price": 14.78}, {"date": "Oct 01, 2016", "price": 14.78}, {"date": "Nov 01, 2016", "price": 14.78}, {"date": "Dec 01, 2016", "price": 14.78}, {"date": "Jan 01, 2017", "price": 14.78}, {"date": "Feb 01, 2017", "price": 14.78}, {"date": "Mar 01, 2017", "price": 14.78}, {"date": "Apr 01, 2017", "price": 14.78}, {"date": "May 01, 2017", "price": 14.78}, {"date": "Jun 01, 2017", "price": 14.78}, {"date": "Jul 01, 2017", "price": 14.78}, {"date": "Aug 01, 2017", "price": 14.78}, {"date": "Sep 01, 2017", "price": 14.78}, {"date": "Oct 01, 2017", "price": 14.81}, {"date": "Nov 01, 2017", "price": 14.81}, {"date": "Dec 01, 2017", "price": 14.81}, {"date": "Jan 01, 2018", "price": 14.81}, {"date": "Feb 01, 2018", "price": 14.81}, {"date": "Mar 01, 2018", "price": 14.81}, {"date": "Apr 01, 2018", "price": 14.81}, {"date": "May 01, 2018", "price": 14.81}, {"date": "Jun 01, 2018", "price": 14.81}, {"date": "Jul 01, 2018", "price": 14.81}, {"date": "Aug 01, 2018", "price": 14.81}, {"date": "Sep 01, 2018", "price": 14.81}, {"date": "Oct 01, 2018", "price": 14.81}, {"date": "Nov 01, 2018", "price": 12.14}, {"date": "Dec 01, 2018", "price": 12.14}, {"date": "Jan 01, 2019", "price": 12.92}, {"date": "Feb 01, 2019", "price": 12.92}, {"date": "Mar 01, 2019", "price": 12.92}, {"date": "Apr 01, 2019", "price": 12.92}, {"date": "May 01, 2019", "price": 12.92}, {"date": "Jun 01, 2019", "price": 12.92}, {"date": "Jul 01, 2019", "price": 12.92}, {"date": "Aug 01, 2019", "price": 12.92}, {"date": "Sep 01, 2019", "price": 12.24}, {"date": "Oct 01, 2019", "price": 12.24}, {"date": "Nov 01, 2019", "price": 12.24}, {"date": "Dec 01, 2019", "price": 12.24}, {"date": "Jan 01, 2020", "price": 17.15}, {"date": "Feb 01, 2020", "price": 17.15}, {"date": "Mar 01, 2020", "price": 17.15}, {"date": "Apr 01, 2020", "price": 17.15}, {"date": "May 01, 2020", "price": 8.99}, {"date": "Jun 01, 2020", "price": 8.99}, {"date": "Jul 01, 2020", "price": 8.99}, {"date": "Aug 01, 2020", "price": 8.99}, {"date": "Sep 01, 2020", "price": 6.85}, {"date": "Oct 01, 2020", "price": 6.85}, {"date": "Nov 01, 2020", "price": 10.05}, {"date": "Dec 01, 2020", "price": 12.2}, {"date": "Jan 01, 2021", "price": 12.2}, {"date": "Feb 01, 2021", "price": 12.2}, {"date": "Mar 01, 2021", "price": 12.2}, {"date": "Apr 01, 2021", "price": 12.2}, {"date": "May 01, 2021", "price": 12.2}, {"date": "Jun 01, 2021", "price": 17.58}, {"date": "Jul 01, 2021", "price": 16.45}, {"date": "Aug 01, 2021", "price": 16.45}, {"date": "Sep 01, 2021", "price": 16.45}, {"date": "Oct 01, 2021", "price": 16.45}, {"date": "Nov 01, 2021", "price": 16.45}, {"date": "Dec 01, 2021", "price": 16.45}, {"date": "Jan 01, 2022", "price": 16.45}, {"date": "Feb 01, 2022", "price": 16.45}, {"date": "Mar 01, 2022", "price": 12.02}, {"date": "Apr 01, 2022", "price": 12.02}, {"date": "May 01, 2022", "price": 9.44}, {"date": "Jun 01, 2022", "price": 9.44}, {"date": "Jul 01, 2022", "price": 10.13}, {"date": "Aug 01, 2022", "price": 10.13}, {"date": "Sep 01, 2022", "price": 6.54}, {"date": "Oct 01, 2022", "price": 6.0}, {"date": "Nov 01, 2022", "price": 6.0}, {"date": "Dec 01, 2022", "price": 6.0}, {"date": "Jan 01, 2023", "price": 6.0}, {"date": "Feb 01, 2023", "price": 9.51}, {"date": "Mar 01, 2023", "price": 9.51}, {"date": "Apr 01, 2023", "price": 9.78}, {"date": "May 01, 2023", "price": 9.78}, {"date": "Jun 01, 2023", "price": 9.78}, {"date": "Jul 01, 2023", "price": 9.94}, {"date": "Aug 01, 2023", "price": 9.94}, {"date": "Sep 01, 2023", "price": 11.83}, {"date": "Oct 01, 2023", "price": 8.15}, {"date": "Nov 01, 2023", "price": 9.66}, {"date": "Dec 01, 2023", "price": 12.0}, {"date": "Jan 01, 2024", "price": 12.77}, {"date": "Feb 01, 2024", "price": 13.4}, {"date": "Mar 01, 2024", "price": 15.78}, {"date": "Apr 01, 2024", "price": 14.7}, {"date": "May 01, 2024", "price": 16.41}, {"date": "Jun 01, 2024", "price": 15.25}, {"date": "Jul 01, 2024", "price": 18.1}, {"date": "Aug 01, 2024", "price": 17.31}, {"date": "Sep 01, 2024", "price": 18.13}, {"date": "Oct 01, 2024", "price": 11.83}, {"date": "Nov 01, 2024", "price": 8.5}, {"date": "Dec 01, 2024", "price": 7.41}, {"date": "Jan 01, 2025", "price": 7.4}, {"date": "Feb 01, 2025", "price": 7.7}, {"date": "Mar 01, 2025", "price": 7.62}, {"date": "Apr 01, 2025", "price": 8.15}, {"date": "May 01, 2025", "price": 8.5}, {"date": "Jun 01, 2025", "price": 8.7}, {"date": "Jul 01, 2025", "price": 8.02}, {"date": "Aug 01, 2025", "price": 8.17}, {"date": "Sep 01, 2025", "price": 8.48}, {"date": "Oct 01, 2025", "price": 8.67}, {"date": "Nov 01, 2025", "price": 8.73}, {"date": "Dec 01, 2025", "price": 8.5}, {"date": "Jan 01, 2026", "price": 9.12}, {"date": "Feb 01, 2026", "price": 9.36}, {"date": "Mar 01, 2026", "price": 4.59}, {"date": "Apr 01, 2026", "price": 4.43}, {"date": "May 01, 2026", "price": 3.65}, {"date": "Jun 01, 2026", "price": 3.4}, {"date": "Jul 01, 2026", "price": 4.03}, {"date": "Aug 01, 2026", "price": 3.75}, {"date": "Aug 07, 2026", "price": 3.75}]};
+        let currentRangeKey = '1Y';
+        let currentPoints = allDatasets[currentRangeKey] || [];
+        let currentSvgCoords = [];
+
+        const width = 900;
+        const height = 260;
+        const padX = 20;
+        const padY = 25;
+
+        const container = document.getElementById('chart-container');
+        const svg = document.getElementById('interactive-svg');
+        const linePath = document.getElementById('chart-line-path');
+        const areaPath = document.getElementById('chart-area-path');
+        const tooltipDate = document.getElementById('tooltip-date');
+        const tooltipPrice = document.getElementById('tooltip-price');
+        const crosshair = document.getElementById('crosshair-line');
+        const dot = document.getElementById('hover-dot');
+        const startLbl = document.getElementById('chart-start-lbl');
+        const endLbl = document.getElementById('chart-end-lbl');
+        const rangeTitle = document.getElementById('chart-range-title');
+
+        function recalculatePaths(points) {
+            if (!points || points.length < 2) return;
+            const prices = points.map(p => p.price);
+            const minP = Math.min(...prices);
+            const maxP = Math.max(...prices);
+            const pRange = Math.max(maxP - minP, 0.01);
+            const n = points.length;
+
+            currentSvgCoords = [];
+            for (let i = 0; i < n; i++) {
+                const x = padX + (i / (n - 1)) * (width - 2 * padX);
+                const y = height - padY - ((points[i].price - minP) / pRange) * (height - 2 * padY);
+                currentSvgCoords.push([Math.round(x * 10) / 10, Math.round(y * 10) / 10]);
+            }
+
+            const lineD = 'M ' + currentSvgCoords.map(c => c[0] + ',' + c[1]).join(' L ');
+            const firstC = currentSvgCoords[0];
+            const lastC = currentSvgCoords[currentSvgCoords.length - 1];
+            const areaD = lineD + ' L ' + lastC[0] + ',' + height + ' L ' + firstC[0] + ',' + height + ' Z';
+
+            linePath.setAttribute('d', lineD);
+            areaPath.setAttribute('d', areaD);
+
+            startLbl.innerText = points[0].date + ' ($' + minP.toFixed(2) + ')';
+            endLbl.innerText = points[n - 1].date + ' ($' + points[n - 1].price.toFixed(2) + ')';
+            
+            tooltipDate.innerText = points[n - 1].date;
+            tooltipPrice.innerText = '$' + points[n - 1].price.toFixed(2);
+
+            const titles = { '1Y': '1-Year Range', '5Y': '5-Year Range', '10Y': '10-Year Range', 'MAX': 'All-Time Historical Range' };
+            rangeTitle.innerText = titles[currentRangeKey] || currentRangeKey + ' Range';
+        }
+
+        window.switchChartRange = function(rangeKey) {
+            if (!allDatasets[rangeKey]) return;
+            currentRangeKey = rangeKey;
+            currentPoints = allDatasets[rangeKey];
+            
+            document.querySelectorAll('.range-pill').forEach(btn => {
+                if (btn.innerText.trim() === rangeKey) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            recalculatePaths(currentPoints);
+            hideHover();
+        };
+
+        function updateHover(e) {
+            if (!currentPoints.length || !currentSvgCoords.length) return;
+            const rect = svg.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const pct = Math.max(0, Math.min(1, mouseX / rect.width));
+            const idx = Math.round(pct * (currentPoints.length - 1));
+            
+            const pt = currentPoints[idx];
+            const coord = currentSvgCoords[idx];
+            if (!pt || !coord) return;
+
+            crosshair.setAttribute('x1', coord[0]);
+            crosshair.setAttribute('x2', coord[0]);
+            crosshair.style.display = 'block';
+
+            dot.setAttribute('cx', coord[0]);
+            dot.setAttribute('cy', coord[1]);
+            dot.style.display = 'block';
+
+            tooltipDate.innerText = pt.date;
+            tooltipPrice.innerText = '$' + pt.price.toFixed(2);
+        }
+
+        function hideHover() {
+            crosshair.style.display = 'none';
+            dot.style.display = 'none';
+            if (currentPoints.length) {
+                tooltipDate.innerText = currentPoints[currentPoints.length - 1].date;
+                tooltipPrice.innerText = '$' + currentPoints[currentPoints.length - 1].price.toFixed(2);
+            }
+        }
+
+        container.addEventListener('mousemove', updateHover);
+        container.addEventListener('mouseleave', hideHover);
+        container.addEventListener('touchstart', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
+        container.addEventListener('touchmove', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
+        container.addEventListener('touchend', hideHover);
+
+        recalculatePaths(currentPoints);
+    })();
+    </script>
+    
+
+            <!-- Key Metrics Grid -->
+            <div class="metrics-grid" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));">
+                <div class="metric-cell">
+                    <div class="metric-label">Fair Value</div>
+                    <div class="metric-value" style="color: var(--accent-warm);">$4.80</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Bear Target</div>
+                    <div class="metric-value" style="color: var(--accent-red);">$2.50 (-33.3%)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Base Target</div>
+                    <div class="metric-value">$4.80 (+28.0%)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Bull Target</div>
+                    <div class="metric-value" style="color: var(--accent-green);">$7.20 (+92.0%)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Alert Corridor</div>
+                    <div class="metric-value" style="font-size: 1.05rem; font-family: var(--font-mono); color: var(--text-title);">$2.80 ⇄ $5.20</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Next Catalyst</div>
+                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">2026-09-24</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation Tabs -->
+        <div class="tabs-header">
+            <button class="tab-btn active" onclick="showTab('memo')">Investment Thesis</button>
+            <button class="tab-btn" onclick="showTab('history')">Evolution (0)</button>
+        </div>
+
+        <!-- Memo Content -->
+        <div id="tab-memo" class="tab-content active">
+            <article class="memo-container">
+                <div class="section">
+  <h2>Section 1: Business Model Reality & Strategic Pivot</h2>
+
+  <p>Vistry Group plc (LON: VTY / BVHMF) is executing one of the most structural strategic pivots in modern European housebuilding: transitioning from a traditional, cyclical speculative housebuilder—anchored by its legacy <strong>Bovis Homes</strong> and <strong>Linden Homes</strong> retail brands—into a capital-light, high-Return on Capital Employed (ROCE) multi-tenure housing provider built around <strong>Countryside Partnerships</strong> (acquired for £1.3B in 2022). Rather than relying on the traditional housebuilder playbook of buying land, holding it on balance sheet for 3–5 years, and selling pre-built private units to retail mortgage buyers, Vistry’s Partnerships model pre-sells land and housing blocks directly to institutional partners before groundbreaking.</p>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">H1 2026 Expected PBT</div>
+      <div class="metric-value">£(30)M</div>
+      <div class="metric-delta neg">Includes £50M Cash Action Hit</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Avg Private Discount Rate</div>
+      <div class="metric-value">7.1%</div>
+      <div class="metric-delta neg">+570 bps vs H1 2025 (1.4%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Private WIP Clearance</div>
+      <div class="metric-value">&lt;£300M</div>
+      <div class="metric-delta pos">Halved from £600M Peak</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">H1 2026 Net Debt (Daily Avg)</div>
+      <div class="metric-value">£799M</div>
+      <div class="metric-delta neg">Spot Net Debt £470M</div>
+    </div>
+  </div>
+
+  <h3>Capital Insulation & Revenue Mechanics of Partner-Funded Models</h3>
+  <p>Under the traditional speculative homebuilding model, developers absorb 100% of the upfront land acquisition, planning, and civil infrastructure costs, carrying heavy Work-In-Progress (WIP) on balance sheet while exposing shareholders to open-market demand cycles and interest rate fluctuations. Vistry’s Partnerships model re-engineers this economics framework by targeting a site portfolio mix of approximately <strong>65% Partner-Funded units</strong> and <strong>35% Open-Market private sales</strong> (compared to the industry standard of 75% private open-market / 25% Section 106 affordable allocations).</p>
+
+  <p>In partner-funded arrangements—contracted with Local Authorities, Housing Associations, Homes England, and Private Rented Sector (PRS) institutional investors—the partner typically purchases the underlying land plot upfront upon entering the development agreement. The partner then funds the ongoing construction through monthly milestone stage payments as build progress is achieved on site. This cash flow cadence provides critical operational benefits:</p>
+
+  <ul>
+    <li><strong>Capital Insulation & Balance Sheet Optimization:</strong> Offloading land debt and construction WIP to institutional partners significantly reduces balance sheet capital intensity, enabling higher long-term ROCE and unlocking self-funding development capacity.</li>
+    <li><strong>Enhanced Build Velocity:</strong> Unconstrained by the slow absorption rates of open-market retail sales (where developers restrict build rates to match buyer mortgage approvals), partner-funded sites can build out at maximum physical capacity, generating up to <strong>150% of the volume output</strong> of a conventional speculative scheme.</li>
+    <li><strong>De-risked Forward Order Visibility:</strong> Contracts signed with Registered Providers and local authorities lock in revenue and cash collection years in advance, yielding high visibility over cash flows.</li>
+  </ul>
+
+  <h3>H1 2026 Operational Friction & Private Inventory De-Stocking Shock</h3>
+  <p>Despite the structural merits of the Partnerships pivot, Vistry’s execution encountered severe tactical friction during the first half of 2026. Under newly appointed Chief Executive <strong>Adam Daniels</strong> (who assumed the leadership role in April 2026 following Greg Fitzgerald’s announced retirement plan), the group initiated an aggressive balance sheet reset and private inventory clearance campaign.</p>
+
+  <p>Entering 2026 with roughly <strong>£600M in unsold private Work-In-Progress (WIP) stock</strong>, management prioritized balance sheet de-leveraging and debt reduction over short-term margin defense. To accelerate sales velocity in a sluggish UK private mortgage environment, Vistry escalated tactical sales incentives, pushing average private home discounts from 1.4% in H1 2025 up to <strong>7.1% of book price in H1 2026</strong>. These aggressive cash-generation measures—encompassing deeper pricing discounts, accelerated bulk asset sales, part-exchange exits, and build-rate adjustments—inflicted a direct <strong>£50M adverse hit on first-half profitability</strong>.</p>
+
+  <div class="callout">
+    <strong>Strategic Realignment in Action:</strong> The H1 2026 trading update revealed an expected pre-tax loss of ~£30M (compared to an underlying pre-tax profit of ~£20M before specific cash-generation actions). While painful for near-term reported earnings, this tactical clear-out halved private WIP inventory to under £300M, set full-year adjusted PBT guidance at £200M, and laid the groundwork to drive spot net debt down to a targeted net cash position exceeding £100M by year-end 2026.
+  </div>
+
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Operational Metric</th>
+        <th>Traditional Speculative Developer</th>
+        <th>Vistry Partnerships Model</th>
+        <th>Vistry H1 2026 Reality</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Tenure Mix (Private / Partner)</strong></td>
+        <td>75% Private / 25% Affordable</td>
+        <td>35% Private / 65% Partner-Funded</td>
+        <td>~45% Private / ~55% Partner-Funded</td>
+      </tr>
+      <tr>
+        <td><strong>Land & WIP Funding</strong></td>
+        <td>100% Developer Balance Sheet</td>
+        <td>Partner Stage Funding & Pre-Sales</td>
+        <td>Elevated (£470M Net Debt; £799M Avg Daily)</td>
+      </tr>
+      <tr>
+        <td><strong>Build Velocity</strong></td>
+        <td>Sales-Rate Constrained (0.5–0.7/wk)</td>
+        <td>Unconstrained (~150% Output)</td>
+        <td>1.03 Sales Rate (Boosted by 7.1% Discounting)</td>
+      </tr>
+      <tr>
+        <td><strong>Capital Efficiency (ROCE Target)</strong></td>
+        <td>15% – 20% Peak Cycle</td>
+        <td>40%+ Capital-Light Target</td>
+        <td>Under Pressure (2026 Transition Year)</td>
+      </tr>
+    </tbody>
+  </table></div>
+</div>
+
+<div class="section">
+  <h2>Section 2: Competitive Moat & Market Positioning</h2>
+
+  <p>Vistry Group’s competitive moat does not rest on traditional speculative land banking, but on an integrated operational framework combining institutional sovereign scale, modern automated manufacturing, and deep partner relationships. However, this moat faces scrutiny from internal governance failures and divisional execution overruns.</p>
+
+  <h3>Industrialized Vertical Integration: Vistry Works Modern Methods of Construction</h3>
+  <p>A core structural moat protecting Vistry's operational efficiency is its proprietary off-site manufacturing arm, <strong>Vistry Works</strong>. Operating three automated timber-frame panel manufacturing facilities (including major plants in Leicestershire/Bardon and the East Midlands), Vistry possesses an internal production capacity exceeding <strong>10,000 timber-frame units per annum</strong>.</p>
+
+  <ul>
+    <li><strong>Cost & Speed Efficiency:</strong> Off-site timber-frame panel fabrication reduces on-site construction timelines by up to 2–3 months per unit, mitigates acute UK bricklayer and subcontractor labor shortages, and protects gross margins against build cost inflation.</li>
+    <li><strong>Sustainability Dominance:</strong> Each home constructed using Vistry Works 2D structural timber panels emits approximately <strong>14,460 kg CO2e less</strong> than a standard brick-and-block traditional build, giving Vistry a decisive competitive edge when bidding for ESG-mandated public tenders from Housing Associations and Homes England.</li>
+  </ul>
+
+  <h3>Institutional & Sovereign Alignment: The £39B Strategic Affordable Housing Programme</h3>
+  <p>Vistry occupies a privileged market position as the UK's largest builder of affordable housing, delivering approximately <strong>1 in every 7 new affordable homes nationally (~15%)</strong>. It remains the <em>only mixed-tenure developer designated as a Strategic Partner of Homes England</em> under national housing frameworks.</p>
+
+  <p>This institutional status directly aligns Vistry with the UK government’s expanded 10-year, <strong>£39 Billion Strategic Affordable Housing Programme (SAHP 2026–2036)</strong>. Combined with the government's 10-year social rent settlement policy (providing long-term CPI+1% rent predictability for housing associations), Vistry’s delivery platform sits directly in the flow of long-term sovereign capital deployment.</p>
+
+  <div class="callout">
+    <strong>Governance & Accounting Headwinds (FRC Investigation):</strong>
+    In March 2026, the Financial Reporting Council (FRC) launched a formal enforcement investigation into two former Vistry finance managers regarding forecasting and financial reporting errors in the group's <strong>South Division</strong> across FY2023 and FY2024. Understated site build costs across 18 development projects forced Vistry into sequential profit warnings, culminating in a cumulative <strong>£165M pre-tax profit write-down</strong>. Restoring investor confidence in management's internal controls and site cost accounting is the central task for CEO Adam Daniels during the ongoing strategic review.
+  </div>
+
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Moat Pillar</th>
+        <th>Source of Advantage</th>
+        <th>Competitive Impact & Sustainability</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Vistry Works MMC</strong></td>
+        <td>3 automated timber-frame plants (10k units/yr)</td>
+        <td>Drives 14.5t CO2e savings/home; shortens build cycles; reduces labor reliance.</td>
+      </tr>
+      <tr>
+        <td><strong>Homes England Strategic Partner</strong></td>
+        <td>Sole mixed-tenure developer with top-tier status</td>
+        <td>Direct access to £39B SAHP funding pipeline (2026–2036) and land allocations.</td>
+      </tr>
+      <tr>
+        <td><strong>Scale & Partner Pipeline</strong></td>
+        <td>Relationships with 350+ Housing Associations & Councils</td>
+        <td>£3.9B order book provides forward revenue coverage across UK regions.</td>
+      </tr>
+      <tr>
+        <td><strong>Governance Risk (Counter-Moat)</strong></td>
+        <td>FRC probe into South Division cost overruns (£165M hit)</td>
+        <td>Requires structural overhaul of site cost estimation discipline and divisional oversight.</td>
+      </tr>
+    </tbody>
+  </table></div>
+</div>
+
+<div class="section">
+  <h2>Section 3: Real Cash Flow, SBC &amp; Working Capital Audit</h2>
+  
+  <p>
+    Vistry Group (LON: VTY / BVHMF) is navigating a radical, management-mandated operational pivot. Framed by newly appointed CEO Adam Daniels as a <strong>"transition year,"</strong> 2026 marks an aggressive shift from open-market expansion to cash preservation, debt liquidation, and balance sheet de-risking. Operating under intense market scrutiny following profit warnings and executive turnover, Vistry's cash flow dynamics reflect the friction of winding down speculative housing stock while accelerating payments to subcontractors and land creditors.
+  </p>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">H1 2026 Reported Loss Before Tax</div>
+      <div class="metric-value">~(£30.0M)</div>
+      <div class="metric-delta neg">Incl. £50M cash-action hit</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Underlying H1 2026 PBT</div>
+      <div class="metric-value">~£20.0M</div>
+      <div class="metric-delta neg">-75% vs H1 2025 (£80.6M)</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Private WIP Stock Reduction</div>
+      <div class="metric-value">&lt;£300.0M</div>
+      <div class="metric-delta pos">Down from £600M at FY25</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Overhead Savings Target</div>
+      <div class="metric-value">£25.0M</div>
+      <div class="metric-delta pos">Annualized via Exit Scheme</div>
+    </div>
+  </div>
+
+  <h3>Stock-Based Compensation &amp; Real Owner Earnings Adjustment</h3>
+  <p>
+    A fundamental audit of Vistry’s cash generation requires stripping away accounting adjustments and treating <strong>Stock-Based Compensation (SBC)</strong> as a real cash expense and dilution factor. In line with Warren Buffett’s owner earnings methodology, SBC represents compensation paid via equity that directly dilutes existing shareholders if not offset by cash repurchases. Because Vistry has formally suspended its share buyback program in 2026 to conserve liquidity, SBC is a direct dilutive cost that cannot be ignored.
+  </p>
+  <p>
+    Furthermore, reported accounting profits in H1 2026 were heavily distorted by management's decision to liquidate slow-moving speculative assets. Vistry took an estimated <strong>£50 million pre-tax cash-action hit</strong> in H1 2026. This comprised enhanced pricing discounts (average private sales discounting rose to <strong>7.1%</strong> compared to 1.4% in H1 2025), accelerated asset disposals, and inventory write-downs on zero- or low-margin sites.
+  </p>
+
+  <h3>Working Capital Release Plan: The 4-Pillar Capital Unlocking Strategy</h3>
+  <p>
+    To restore financial flexibility, management has executed an emergency working capital release plan centered on four primary initiatives:
+  </p>
+  
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Working Capital Pillar</th>
+        <th>Historical / Peak Capital Locked</th>
+        <th>H1 2026 Execution Status</th>
+        <th>H2 2026 Cash Target &amp; Impact</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Private WIP Unsold Stock</strong></td>
+        <td>£600.0M (Start of FY26)</td>
+        <td>Reduced by &gt;50% to &lt;£300.0M through heavy sales discounting (7.1%)</td>
+        <td>~£190M cash inflow expected upon completions in H2 2026.</td>
+      </tr>
+      <tr>
+        <td><strong>Part-Exchange (PX) Exit</strong></td>
+        <td>~£50.0M locked capital</td>
+        <td>Deals completed to exit PX portfolio entirely; service terminated</td>
+        <td>Eliminates speculative balance sheet exposure to second-hand homes.</td>
+      </tr>
+      <tr>
+        <td><strong>Land Bank &amp; Spend Reduction</strong></td>
+        <td>Legacy strategic land acquisition</td>
+        <td>Land buying significantly scaled back in Q2; limited to key schemes</td>
+        <td>Reduces land spend by a further <strong>£200M</strong> in H2 2026.</td>
+      </tr>
+      <tr>
+        <td><strong>Land Creditor Settlement</strong></td>
+        <td>Peak land obligations</td>
+        <td>Land creditors reduced by <strong>&gt;£150M</strong> in H1 2026</td>
+        <td>Further <strong>£100M</strong> reduction planned for H2 2026.</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <h3>Executive Leadership Changes &amp; Operational Strategic Review</h3>
+  <p>
+    The capital reallocation program coincides with substantial management restructuring. Following the April 2026 resignation of longtime CEO Greg Fitzgerald, <strong>Adam Daniels</strong> took over as Chief Executive. Daniels immediately launched a comprehensive operational review aimed at shrinking Vistry’s regional footprint, reducing private housing exposure, and shifting focus back toward asset-light partnership housing.
+  </p>
+  <p>
+    In July 2026, Vistry announced that Chief Financial Officer <strong>Tim Lawlor</strong> had submitted his resignation to take a CFO role in a private company. Lawlor is remaining in his post until October 2026 to oversee the release of H1 interim financial results and support the transition. The full findings of CEO Adam Daniels' operational review are scheduled for publication on <strong>September 24, 2026</strong>.
+  </p>
+
+  <div class="callout">
+    <strong>Auditor Insight on Executive Turnover &amp; Cost Rationalization:</strong><br />
+    The simultaneous exit of CEO Greg Fitzgerald and CFO Tim Lawlor during a balance sheet restructuring introduces elevated execution risk. To support overhead reduction, management instituted a Voluntary Exit Scheme in June 2026, offering enhanced redundancy packages. This restructuring is projected to generate <strong>£25 million in annualized overhead savings</strong>, fully taking effect in FY2027.
+  </div>
+</div>
+
+<div class="section">
+  <h2>Section 4: Capital Structure &amp; Balance Sheet Bridge</h2>
+
+  <p>
+    Vistry’s balance sheet structure stands out within the UK housebuilding sector. While peers typically operate with net cash buffers, Vistry carries substantial financial leverage. A thorough audit requires looking beyond period-end net debt figures to examine <strong>average daily net debt</strong>, which captures intra-period working capital drain and supplier payment dynamics.
+  </p>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">H1 2026 Net Debt (30 June)</div>
+      <div class="metric-value">£470.0M</div>
+      <div class="metric-delta neg">+£325.8M vs FY25 (£144.2M)</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">H1 2026 Avg Daily Net Debt</div>
+      <div class="metric-value">£799.0M</div>
+      <div class="metric-delta neg">Up from £733.7M in FY25</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">FY2026 Net Cash Target</div>
+      <div class="metric-value">&gt;£100.0M</div>
+      <div class="metric-delta pos">Management Guidance Target</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">FY26 Cons. Adjusted PBT</div>
+      <div class="metric-value">~£200.0M</div>
+      <div class="metric-delta pos">Excl. future CEO review hits</div>
+    </div>
+  </div>
+
+  <h3>Audit of Net Debt Dynamics: The Daily Debt Gap</h3>
+  <p>
+    During H1 2026, Vistry’s reported net debt expanded from £144.2 million at year-end FY2025 to <strong>£470.0 million at 30 June 2026</strong>. More critically, average daily net debt surged to <strong>£799 million</strong> (up from £695 million in H1 2025 and £733.7 million in FY2025). 
+  </p>
+  <p>
+    This disparity between period-end debt (£470M) and intra-quarter daily borrowing (~£800M) highlights heavy intra-period working capital demands. The elevated daily debt level was driven by three main factors:
+  </p>
+  <ul>
+    <li><strong>Land Creditor Outflows:</strong> Over £150 million was cash-settled in H1 2026 to pay down legacy land liabilities.</li>
+    <li><strong>Supplier &amp; Subcontractor Payment Acceleration:</strong> Vistry intentionally shortened payment terms to support supply chain stability, creating temporary cash outflows.</li>
+    <li><strong>Partner Transaction Delays:</strong> A hiatus between government affordable housing funding cycles delayed cash receipts from partner-funded deals, pushing cash generation into H2 2026.</li>
+  </ul>
+
+  <h3>Balance Sheet &amp; Net Debt Deleveraging Bridge (FY2025 to FY2026 Target)</h3>
+  
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Balance Sheet Component / Bridge Item</th>
+        <th>FY2025 Actual (Dec 2025)</th>
+        <th>H1 2026 Actual (Jun 2026)</th>
+        <th>H2 2026 Target / FY2026 Exit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Period-End Net Debt / (Net Cash)</strong></td>
+        <td>(£144.2M) Net Debt</td>
+        <td>(£470.0M) Net Debt</td>
+        <td><strong>&gt;£100.0M Net Cash</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Average Daily Net Debt</strong></td>
+        <td>£733.7M</td>
+        <td>£799.0M</td>
+        <td>Material Reduction in H2 2026</td>
+      </tr>
+      <tr>
+        <td><strong>Land Creditors Liability</strong></td>
+        <td>Legacy Peak Balance</td>
+        <td>Sunk by &gt;£150M</td>
+        <td>Further £100M reduction in H2</td>
+      </tr>
+      <tr>
+        <td><strong>Private Housing WIP</strong></td>
+        <td>~£600.0M</td>
+        <td>&lt;£300.0M</td>
+        <td>~£190M Cash Realization in H2</td>
+      </tr>
+      <tr>
+        <td><strong>Land Acquisition Reinvestment</strong></td>
+        <td>12,599 plots acquired</td>
+        <td>Scaled back (Q2 pause)</td>
+        <td>£200M spend reduction in H2</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <h3>Capital Allocation Evolution: Repurchase Suspension vs. Debt Paydown</h3>
+  <p>
+    In FY2025, Vistry returned capital via share buybacks as part of its distribution framework. However, as trade conditions softened in Q2 2026 and daily leverage spiked near £800 million, management reallocated capital priorities.
+  </p>
+  <p>
+    In May 2026, Vistry formally <strong>paused its ongoing share buyback program</strong> (which had approximately £29 million unexecuted at year-end 2025) and confirmed no new repurchase programs will be authorized for 2026. Capital is fully allocated toward deleveraging, land creditor paydowns, and achieving the targeted <strong>&gt;£100 million net cash position by year-end FY2026</strong>.
+  </p>
+
+  <div class="callout">
+    <strong>Crucial Management &amp; Execution Risk Disclosures:</strong><br />
+    <ul>
+      <li><strong>H2 Seasonality &amp; Partner Deal Reliance:</strong> Reaching &gt;£100M net cash from a £470M debt position requires a ~£570M+ net cash swing in H2 2026. This relies on completing delayed partner-funded housing transactions and receiving SAHP grant allocations in September 2026.</li>
+      <li><strong>Cost Inflation &amp; Demand Softening:</strong> Secondary impacts from international geopolitical tensions (e.g., Middle East/Iran conflict) have increased building material prices and labor costs, while mortgage rate uncertainty continues to weigh on open-market buyer demand.</li>
+      <li><strong>Refinancing &amp; Covenant Headroom:</strong> With average daily debt near £800M during H1, maintaining robust liquidity buffers remains critical until H2 cash inflows materialize.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Section 5: Warren Buffett Owner Earnings &amp; Valuation Matrix</h2>
+
+  <p>To evaluate Vistry Group PLC (OTC: BVHMF / LON: VTY) through an authentic Berkshire Hathaway lens, valuation must strictly bypass short-term accounting noise, land write-downs, and cyclical housing distortions. In accordance with Warren Buffett’s 1986 Shareholder Letter, intrinsic value is determined by discounting the net cash that can be extracted from the business over its remaining life—defined as <strong>Normalized Owner Earnings</strong>:</p>
+
+  <p>$$\text{Owner Earnings} = \text{Operating Cash Flow} - \text{Maintenance CapEx} - \text{Stock-Based Compensation (SBC)} \pm \text{Normalized Working Capital}$$</p>
+
+  <h3>1. Deconstructing Normalized Owner Earnings &amp; Capital Lightness</h3>
+  <p>Traditional housebuilders are capital-intensive land hoarders, requiring massive balance sheet capital to hold multi-year landbanks. Vistry’s strategic transition toward a pure-play <strong>Partnerships Housing Model</strong> fundamentally alters this dynamic. By co-funding developments with Housing Associations, local authorities, and Homes England, Vistry pre-sells 50%–65% of units before construction commences. This drastically reduces maintenance CapEx (estimated at less than £15M annually for timber-frame plant infrastructure like Vistry Works) and frees up working capital.</p>
+
+  <p>To establish normalized Owner Earnings across a full 5-year UK housing cycle, we adjust for temporary private inventory discounting (such as the £50M cash-generation hit in H1 2026) and subtract full stock-based compensation (SBC) as an irreducible cash equity dilution cost. Mid-cycle operating cash flow for the combined group normalizes at approximately £190M–£210M, yielding mid-cycle Owner Earnings of ~£165M (~$211M USD at an FX conversion of $1.28/£).</p>
+
+  <h3>2. Localized Sovereign Discount Rate Architecture</h3>
+  <p>Applying US Treasury rates to a UK-domiciled builder operating under Sterling cash flows is a fundamental valuation error. Grounding the discount rate strictly in localized UK economic parameters:</p>
+  <ul>
+    <li><strong>UK 10-Year Gilt Benchmark Rate:</strong> ~4.35%</li>
+    <li><strong>Equity Risk Premium (ERP):</strong> 5.65% (reflecting UK housing cyclicality and execution risks)</li>
+    <li><strong>Total Localized Hurdle Rate (Discount Rate):</strong> <strong>10.0%</strong></li>
+    <li><strong>Perpetual Terminal Growth Rate ($g$):</strong> 2.0% (capped at long-term UK GDP growth)</li>
+    <li><strong>Foreign Exchange Bridge:</strong> £1.00 GBP = $1.28 USD</li>
+  </ul>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Current Price (BVHMF)</div>
+      <div class="metric-value">$3.75</div>
+      <div class="metric-delta neutral">Market Cap $1.19B</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Base Case Fair Value</div>
+      <div class="metric-value">$5.65</div>
+      <div class="metric-delta pos">+50.7% Upside</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Normalized Owner Earnings</div>
+      <div class="metric-value">£165M</div>
+      <div class="metric-delta pos">~$211M USD</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Partnership Target ROCE</div>
+      <div class="metric-value">40.0%</div>
+      <div class="metric-delta pos">Asset-Light Model</div>
+    </div>
+  </div>
+
+  <h3>3. Bear / Base / Bull Valuation Scenario Analysis</h3>
+  <p>The matrix below outlines intrinsic equity valuations based on 317.4M diluted shares outstanding, factoring in the net debt bridge (£470M H1 2026 net debt unwinding toward a net cash position >£100M by year-end 2026).</p>
+
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Valuation Metric / Assumption</th>
+        <th>Bear Case (Stagnant Cycle)</th>
+        <th>Base Case (Partnerships Transition)</th>
+        <th>Bull Case (40% ROCE Compounder)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Normalized FY2026 Adjusted PBT</strong></td>
+        <td>£140M</td>
+        <td>£200M (Consensus Guidance)</td>
+        <td>£240M</td>
+      </tr>
+      <tr>
+        <td><strong>Normalized Annual Owner Earnings (£)</strong></td>
+        <td>£100M</td>
+        <td>£165M</td>
+        <td>£225M</td>
+      </tr>
+      <tr>
+        <td><strong>Return on Capital Employed (ROCE) Target</strong></td>
+        <td>12.0% - 15.0%</td>
+        <td>25.0% - 30.0%</td>
+        <td>38.0% - 40.0%</td>
+      </tr>
+      <tr>
+        <td><strong>5-Year Owner Earnings CAGR</strong></td>
+        <td>1.5%</td>
+        <td>5.5%</td>
+        <td>9.5%</td>
+      </tr>
+      <tr>
+        <td><strong>Discount Rate (UK Hurdle)</strong></td>
+        <td>11.0%</td>
+        <td>10.0%</td>
+        <td>9.5%</td>
+      </tr>
+      <tr>
+        <td><strong>Perpetual Growth Rate ($g$)</strong></td>
+        <td>1.5%</td>
+        <td>2.0%</td>
+        <td>2.5%</td>
+      </tr>
+      <tr>
+        <td><strong>Net Debt / (Cash) Adjustment</strong></td>
+        <td>£200M Net Debt</td>
+        <td>(£100M Net Cash)</td>
+        <td>(£200M Net Cash)</td>
+      </tr>
+      <tr>
+        <td><strong>Intrinsic Equity Value (£ GBP)</strong></td>
+        <td>£645M</td>
+        <td>£1,402M</td>
+        <td>£1,947M</td>
+      </tr>
+      <tr>
+        <td><strong>Intrinsic Fair Value Per Share (GBP - LON: VTY)</strong></td>
+        <td>£2.03</td>
+        <td>£4.41</td>
+        <td>£6.13</td>
+      </tr>
+      <tr>
+        <td><strong>Intrinsic Fair Value Per Share (USD - BVHMF)</strong></td>
+        <td><strong>$2.60</strong></td>
+        <td><strong>$5.65</strong></td>
+        <td><strong>$7.85</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Implied Margin of Safety / Upside</strong></td>
+        <td><span>-30.7% Downside</span></td>
+        <td><span>+50.7% Upside</span></td>
+        <td><span>+109.3% Upside</span></td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <p>Under Buffett's 5-Year Exchange Closure Test, an investor buying BVHMF at $3.75 obtains an initial Owner Earnings cash yield of ~17.7% on normalized base-case cash flow ($211M OE / $1.19B Market Cap). As the capital-light business model compounds toward a 30%+ ROCE, organic cash generation alone provides a margin of safety even if open-market equity multiples contract further.</p>
+</div>
+
+<div class="section">
+  <h2>Section 6: Execution Risk &amp; Invalidation Triggers</h2>
+
+  <p>A rigorous fundamental valuation must confront execution risks that could impair business moat stability or destroy capital. Vistry’s investment thesis carries notable operational and regulatory risk factors:</p>
+
+  <h3>1. Core Operational &amp; Macro Execution Risks</h3>
+  <ul>
+    <li><strong>Severe H2-2026 Profit Weighting &amp; Guidance Fragility:</strong> Having generated an expected H1 2026 pre-tax loss of ~£30M (due to £50M in tactical private site discounting and inventory clearing), meeting full-year consensus PBT guidance of £200M requires an aggressive H2 operational ramp (>£230M PBT in H2). Any delay in partner funding allocations under the UK's Social and Affordable Homes Programme (SAHP 2026–2036) will cause a guidance miss.</li>
+    <li><strong>Building Safety &amp; Cladding Remediation Outflows:</strong> Legacy cladding liabilities remain an absolute cash drain. Net cash remediation spending is projected at £60M–£70M in 2026 (following £46M spent in 2025). Unforeseen scope expansion on high-rise structures could prolong cash bleed into 2027–2028.</li>
+    <li><strong>FRC Accounting Investigation Overhang:</strong> The March 2026 Financial Reporting Council (FRC) investigation into two former accountants regarding £165M in historic cost underestimations within the South Division presents non-trivial reputational risk. While the probe targets individuals rather than the corporate entity, institutional partners (Homes England, Housing Associations) may demand heightened diligence, slowing partnership sign-offs.</li>
+    <li><strong>Macro UK Mortgage Rate &amp; Consumer Pressure:</strong> Open market private sales rates remain sensitive to UK interest rate expectations. Private sales discounts elevated to 7.1% in H1 2026 to accelerate cash collection, directly eroding gross margins.</li>
+  </ul>
+
+  <h3>2. Dynamic Price Alert Corridors &amp; Surveillance Triggers</h3>
+  <p>To ensure disciplined portfolio surveillance, automatic thesis re-evaluations are anchored to explicit price corridors:</p>
+  <ul>
+    <li><strong>Upper Threshold ($5.20 USD / ~406p VTY):</strong> Represents a +38.7% move from current levels, approaching 92% of Base Case intrinsic fair value ($5.65). Crossing this upper threshold triggers an automatic review to evaluate whether ROCE expansion toward 40% justifies holding or trimming for capital re-allocation.</li>
+    <li><strong>Lower Threshold ($2.80 USD / ~218p VTY):</strong> Represents a -25.3% drop from current levels, testing Bear Case asset support ($2.60). Crossing this lower threshold triggers an immediate solvency and balance sheet verification audit to ensure H2 cash collection is tracking to plan.</li>
+  </ul>
+
+  <div class="callout">
+    <h3>Pre-Mortem Thesis Falsification Triggers</h3>
+    <p>The investment thesis will be considered fundamentally broken and demand a full exit if any of the following pre-mortems manifest:</p>
+    <ol>
+      <li><strong>FY2026 Adjusted PBT Failure:</strong> Full-year adjusted Profit Before Tax misses the £200M guidance threshold by more than 15% (falling below £170M) due to operational execution failure in H2.</li>
+      <li><strong>Net Debt Target Invalidation:</strong> Management fails to transition the balance sheet back to a Net Cash position exceeding £100M by December 31, 2026, leaving average daily net debt elevated above £500M into 2027.</li>
+      <li><strong>Building Safety Cash Drain Inflation:</strong> Total net cumulative cash outlays for building safety remediation exceed £250M across 2025–2027, exhausting operating cash generation.</li>
+      <li><strong>FRC Probe Escalation &amp; Governance Breach:</strong> FRC findings expand beyond individual former employees into formal corporate governance sanctions or contractual defaults with public sector housing partners.</li>
+    </ol>
+  </div>
+</div>
+            </article>
+        </div>
+
+        <!-- History Content -->
+        <div id="tab-history" class="tab-content">
+            
+        <div class="empty-state-box" style="background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px; padding: 75px 24px;">
+            <div class="empty-state-title">Initial Baseline Active</div>
+            <div class="empty-state-sub">Version 1 represents the initial underwriting thesis. Future revisions, price trigger reviews, and catalyst audits will be logged here</div>
+        </div>
+        
+        </div>
+    </main>
+
+    <script>
+        function showTab(id) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            if (id === 'memo') {
+                document.querySelectorAll('.tab-btn')[0].classList.add('active');
+                document.getElementById('tab-memo').classList.add('active');
+            } else {
+                document.querySelectorAll('.tab-btn')[1].classList.add('active');
+                document.getElementById('tab-history').classList.add('active');
+            }
+        }
+
+        function toggleSnapshot(ver) {
+            const el = document.getElementById('snapshot-' + ver);
+            el.style.display = (el.style.display === 'none' ? 'block' : 'none');
+        }
+    </script>
+</body>
+</html>
