@@ -12,7 +12,7 @@ from stocks.data_store import (
     add_alert
 )
 from stocks.tracker import fetch_live_stock_info
-from stocks.gemini_agent import generate_genesis_thesis, review_stock_thesis, sanitize_labels
+from stocks.gemini_agent import generate_genesis_thesis, review_stock_thesis, sanitize_labels, normalize_catalyst_date
 from stocks.dashboard import render_all
 
 
@@ -82,7 +82,7 @@ def _handle_genesis_task(ticker: str, notes: str):
         bull_target=meta.get("bull_target", ""),
         upper_alert_threshold=safe_float(meta.get("upper_alert_threshold"), current_price * 1.15),
         lower_alert_threshold=safe_float(meta.get("lower_alert_threshold"), current_price * 0.88),
-        next_catalyst_date=meta.get("next_catalyst_date", ""),
+        next_catalyst_date=normalize_catalyst_date(meta.get("next_catalyst_date", "")),
         next_catalyst_event=meta.get("next_catalyst_event", ""),
         full_html_content=html_content
     )
@@ -159,7 +159,7 @@ def _handle_review_task(ticker: str, trigger_reason: str):
         bull_target=meta.get("new_bull_target", stock.bull_target),
         upper_alert_threshold=safe_float(meta.get("new_upper_alert_threshold"), current_price * 1.15),
         lower_alert_threshold=safe_float(meta.get("new_lower_alert_threshold"), current_price * 0.88),
-        next_catalyst_date=meta.get("next_catalyst_date", stock.next_catalyst_date),
+        next_catalyst_date=normalize_catalyst_date(meta.get("next_catalyst_date", stock.next_catalyst_date)),
         next_catalyst_event=meta.get("next_catalyst_event", stock.next_catalyst_event),
         full_html_content=html_content
     )

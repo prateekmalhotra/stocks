@@ -1,9 +1,8 @@
-"""Autonomous Multi-Agent Fundamental Equity Due Diligence & Ballpark Valuation Engine."""
-
 import os
 import json
 import re
 import requests
+from datetime import datetime, timedelta
 from typing import Dict, Any, Tuple, Optional, List
 from dotenv import load_dotenv
 
@@ -15,6 +14,50 @@ def get_api_key() -> str:
     if not key:
         raise ValueError("GEMINI_API_KEY is not set in environment or .env file.")
     return key
+
+
+def normalize_catalyst_date(raw_date: Any) -> str:
+    """Deterministically normalizes any raw date string to strict YYYY-MM-DD format."""
+    if not raw_date or not isinstance(raw_date, str):
+        return (datetime.now() + timedelta(days=90)).strftime("%Y-%m-%d")
+    
+    cleaned = raw_date.strip()
+    
+    # 1. Match exact YYYY-MM-DD
+    match_iso = re.search(r"\b(202[4-9])-([01]\d)-([0-3]\d)\b", cleaned)
+    if match_iso:
+        return f"{match_iso.group(1)}-{match_iso.group(2)}-{match_iso.group(3)}"
+    
+    # 2. Try standard strptime formats
+    date_formats = [
+        "%B %d, %Y", "%b %d, %Y", "%B %d %Y", "%b %d %Y",
+        "%d %B %Y", "%d %b %Y", "%Y/%m/%d", "%m/%d/%Y",
+        "%B %Y", "%b %Y"
+    ]
+    for fmt in date_formats:
+        try:
+            dt = datetime.strptime(cleaned, fmt)
+            if fmt in ("%B %Y", "%b %Y"):
+                dt = dt.replace(day=15)
+            return dt.strftime("%Y-%m-%d")
+        except ValueError:
+            continue
+            
+    # 3. Match Month + Year substring (e.g. 'Expected November 2026')
+    months = {
+        'jan': '01', 'feb': '02', 'mar': '03', 'apr': '04', 'may': '05', 'jun': '06',
+        'jul': '07', 'aug': '08', 'sep': '09', 'oct': '10', 'nov': '11', 'dec': '12'
+    }
+    for m_str, m_num in months.items():
+        if m_str in cleaned.lower():
+            year_match = re.search(r"\b(202[4-9])\b", cleaned)
+            year = year_match.group(1) if year_match else datetime.now().strftime("%Y")
+            day_match = re.search(r"\b([0-3]?\d)\b", cleaned.replace(year, ""))
+            day = f"{int(day_match.group(1)):02d}" if day_match and 1 <= int(day_match.group(1)) <= 31 else "15"
+            return f"{year}-{m_num}-{day}"
+            
+    # 4. Fallback to next quarter (+90 days)
+    return (datetime.now() + timedelta(days=90)).strftime("%Y-%m-%d")
 
 
 def clean_grounding_artifacts(text: str) -> str:
@@ -384,6 +427,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
 
     metadata["labels"] = sanitize_labels(metadata.get("labels") or metadata.get("status_label"))
     metadata["status_label"] = metadata["labels"][0] if metadata["labels"] else "Active"
+    metadata["next_catalyst_date"] = normalize_catalyst_date(metadata.get("next_catalyst_date"))
 
     print("\n" + "=" * 70, flush=True)
     print(f"✅ DOSSIER COMPLETE: {ticker_clean} ({metadata['status_label']}) at ${current_price:.2f}", flush=True)
@@ -478,5 +522,6 @@ Part 2: Updated HTML memo content reflecting the evolution of the thesis.
 
     metadata["labels"] = sanitize_labels(metadata.get("labels") or metadata.get("alert_severity"))
     metadata["alert_severity"] = metadata["labels"][0] if metadata["labels"] else "Review"
+    metadata["next_catalyst_date"] = normalize_catalyst_date(metadata.get("next_catalyst_date"))
 
     return metadata, html_content
