@@ -240,47 +240,60 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     current_version = history[-1] if history else None
     labels_html = format_labels_pills(stock.labels or [stock.status_label])
 
+    evolution_count = max(0, len(history) - 1)
     history_cards_html = ""
-    for v in reversed(history):
-        is_current = (v.version == len(history))
-        v_labels_html = format_labels_pills(v.labels or [v.status_label])
+    
+    if evolution_count == 0:
+        history_cards_html = """
+        <div class="empty-state-box" style="background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px; padding: 75px 24px;">
+            <div class="empty-state-title">Initial Baseline Active</div>
+            <div class="empty-state-sub">Version 1 represents the initial underwriting thesis. Future revisions, price trigger reviews, and catalyst audits will be logged here</div>
+        </div>
+        """
+    else:
+        # Show actual evolution revisions (v2, v3, ...)
+        for v in reversed(history):
+            if v.version == 1:
+                continue
+            is_current = (v.version == len(history))
+            v_labels_html = format_labels_pills(v.labels or [v.status_label])
 
-        diff_box = ""
-        if v.what_was_before or v.what_changes_now:
-            diff_box = f"""
-            <div class="diff-grid">
-                <div class="diff-box diff-prev">
-                    <div class="diff-label">PREVIOUS THESIS</div>
-                    <div class="diff-text">{v.what_was_before or 'Genesis baseline initiated.'}</div>
+            diff_box = ""
+            if v.what_was_before or v.what_changes_now:
+                diff_box = f"""
+                <div class="diff-grid">
+                    <div class="diff-box diff-prev">
+                        <div class="diff-label">PREVIOUS THESIS</div>
+                        <div class="diff-text">{v.what_was_before or 'Previous stance'}</div>
+                    </div>
+                    <div class="diff-box diff-now">
+                        <div class="diff-label">THESIS EVOLUTION</div>
+                        <div class="diff-text">{v.what_changes_now or v.summary_of_change}</div>
+                    </div>
                 </div>
-                <div class="diff-box diff-now">
-                    <div class="diff-label">THESIS EVOLUTION</div>
-                    <div class="diff-text">{v.what_changes_now or v.summary_of_change}</div>
+                """
+                
+            history_cards_html += f"""
+            <div class="history-entry {'history-entry-active' if is_current else ''}">
+                <div class="history-top">
+                    <div class="history-tags">
+                        <span class="history-time">{v.date}</span>
+                        <span class="history-price">${v.price_at_version:.2f}</span>
+                        {v_labels_html}
+                    </div>
+                    <button class="btn btn-subtle" onclick="toggleSnapshot({v.version})">Read Snapshot ▾</button>
                 </div>
-            </div>
-            """
-            
-        history_cards_html += f"""
-        <div class="history-entry {'history-entry-active' if is_current else ''}">
-            <div class="history-top">
-                <div class="history-tags">
-                    <span class="history-time">{v.date}</span>
-                    <span class="history-price">${v.price_at_version:.2f}</span>
-                    {v_labels_html}
-                </div>
-                <button class="btn btn-subtle" onclick="toggleSnapshot({v.version})">Read Snapshot ▾</button>
-            </div>
-            <div class="history-content">
-                <p class="history-shift-desc">{v.summary_of_change}</p>
-                {diff_box}
-                <div id="snapshot-{v.version}" class="snapshot-drawer" style="display: none;">
-                    <div class="snapshot-body">
-                        {v.full_html_content}
+                <div class="history-content">
+                    <p class="history-shift-desc">{v.summary_of_change}</p>
+                    {diff_box}
+                    <div id="snapshot-{v.version}" class="snapshot-drawer" style="display: none;">
+                        <div class="snapshot-body">
+                            {v.full_html_content}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        """
+            """
 
     def wrap_tables(content: str) -> str:
         if not content:
@@ -762,7 +775,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         <!-- Navigation Tabs -->
         <div class="tabs-header">
             <button class="tab-btn active" onclick="showTab('memo')">Investment Thesis</button>
-            <button class="tab-btn" onclick="showTab('history')">Evolution ({len(history)})</button>
+            <button class="tab-btn" onclick="showTab('history')">Evolution ({evolution_count})</button>
         </div>
 
         <!-- Memo Content -->
