@@ -565,6 +565,24 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
     table_rows_html = ""
     grid_cards_html = ""
 
+    if not watchlist:
+        table_rows_html = """
+        <tr>
+            <td colspan="7" style="text-align: center; padding: 70px 24px; color: var(--text-secondary); font-family: var(--font-serif); font-size: 1.15rem;">
+                <div style="font-size: 2rem; color: var(--accent-terracotta); margin-bottom: 12px;">✳</div>
+                <div style="color: var(--text-title); font-size: 1.3rem; font-weight: 500; margin-bottom: 6px;">Ledger is Currently Empty</div>
+                <div style="font-size: 1.05rem;">Add stocks to begin due diligence and 24/7 surveillance tracking.</div>
+            </td>
+        </tr>
+        """
+        grid_cards_html = """
+        <div style="grid-column: 1 / -1; text-align: center; padding: 70px 24px; background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 18px;">
+            <div style="font-size: 2rem; color: var(--accent-terracotta); margin-bottom: 12px;">✳</div>
+            <div style="color: var(--text-title); font-size: 1.3rem; font-weight: 500; margin-bottom: 6px;">No Active Coverage</div>
+            <div style="color: var(--text-secondary); font-size: 1.05rem;">Ready to process initial due diligence memos.</div>
+        </div>
+        """
+
     for ticker, stock in sorted(watchlist.items(), key=lambda x: x[0]):
         ret_class = "pos" if stock.return_pct >= 0 else "neg"
         
