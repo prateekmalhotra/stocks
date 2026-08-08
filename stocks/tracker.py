@@ -125,12 +125,18 @@ def check_watchlist_triggers() -> int:
             stock.return_pct = round(((current_price - stock.baseline_price) / stock.baseline_price) * 100, 2)
         save_watchlist(watchlist)
 
+        today_iso = datetime.now().strftime("%Y-%m-%d")
+        today_month = datetime.now().strftime("%B %Y").lower()
+        today_short_month = datetime.now().strftime("%b %Y").lower()
+
         reasons = []
         if stock.upper_alert_threshold and current_price >= stock.upper_alert_threshold:
             reasons.append(f"Upper Alert Threshold Breached (${current_price:.2f} >= ${stock.upper_alert_threshold:.2f})")
         if stock.lower_alert_threshold and current_price <= stock.lower_alert_threshold:
             reasons.append(f"Lower Alert Threshold Breached (${current_price:.2f} <= ${stock.lower_alert_threshold:.2f})")
-        if stock.next_catalyst_date and stock.next_catalyst_date in today_str:
+        
+        cat_date_clean = (stock.next_catalyst_date or "").strip().lower()
+        if cat_date_clean and (cat_date_clean in today_iso or cat_date_clean in today_month or cat_date_clean in today_short_month):
             reasons.append(f"Catalyst Date Reached ({stock.next_catalyst_date}: {stock.next_catalyst_event})")
 
         if reasons:
