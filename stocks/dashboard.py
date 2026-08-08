@@ -800,7 +800,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             <td colspan="5" style="border-bottom: none !important; padding: 0 !important;">
                 <div class="empty-state-box">
                     <div class="empty-state-title">No Stocks Tracked</div>
-                    <div class="empty-state-sub">Ready for coverage.</div>
+                    <div class="empty-state-sub">Ready for coverage</div>
                 </div>
             </td>
         </tr>
@@ -809,7 +809,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         <div style="grid-column: 1 / -1; background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px;">
             <div class="empty-state-box">
                 <div class="empty-state-title">No Stocks Tracked</div>
-                <div class="empty-state-sub">Ready for coverage.</div>
+                <div class="empty-state-sub">Ready for coverage</div>
             </div>
         </div>
         """
@@ -818,19 +818,20 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         ret_class = "pos" if stock.return_pct >= 0 else "neg"
         labels_html = format_labels_pills(stock.labels or [stock.status_label])
         
-        # Clean company name
+        # Clean company name (strip trailing dots/periods)
         clean_company = stock.company_name
         if clean_company.upper() == stock.ticker.upper():
             clean_company = stock.ticker
         else:
             clean_company = re.sub(r"\b" + stock.ticker + r"\b", "", clean_company, flags=re.IGNORECASE).strip()
             clean_company = re.sub(r"\s+", " ", clean_company).strip()
+        clean_company = clean_company.rstrip(".")
 
         # Clean percentage delta for fair value
         pct_delta_str = extract_pct_delta(stock.base_target, stock.current_price, stock.fair_value_estimate)
 
         # Clean catalyst description (max 4 words, no ellipses, wraps cleanly)
-        clean_catalyst_desc = sanitize_catalyst_desc(stock.next_catalyst_event)
+        clean_catalyst_desc = sanitize_catalyst_desc(stock.next_catalyst_event).rstrip(".")
 
         table_rows_html += f"""
         <tr class="table-row" onclick="location.href='reports/{stock.ticker}.html'">
@@ -911,16 +912,18 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         safe_payload = json.dumps({
             "id": alert_id,
             "ticker": a.ticker,
-            "title": a.title,
+            "title": a.title.rstrip("."),
             "timestamp": a.timestamp,
             "severity": a.severity,
             "price": a.price_at_alert,
             "change": a.price_change_pct,
-            "trigger_reason": a.trigger_reason,
-            "what_was_before": a.what_was_before,
-            "what_changes_now": a.what_changes_now,
+            "trigger_reason": a.trigger_reason.rstrip("."),
+            "what_was_before": a.what_was_before.rstrip("."),
+            "what_changes_now": a.what_changes_now.rstrip("."),
             "report_url": a.report_url
         }).replace("'", "&#39;").replace('"', "&quot;")
+
+        clean_blurb = a.what_changes_now[:220].rstrip(".")
 
         alerts_feed_html += f"""
         <div class="alert-item" data-alert-id="{alert_id}" onclick='openAlertModal({safe_payload})'>
@@ -930,8 +933,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                     {labels_html}
                     <span class="alert-time">{a.timestamp}</span>
                 </div>
-                <div class="alert-title">{a.title}</div>
-                <div class="alert-blurb">{a.what_changes_now[:220]}...</div>
+                <div class="alert-title">{a.title.rstrip(".")}</div>
+                <div class="alert-blurb">{clean_blurb}</div>
             </div>
             <div class="alert-right">
                 <div class="alert-price-val">${a.price_at_alert:.2f}</div>
@@ -943,7 +946,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
     empty_alerts_html = """
     <div id="empty-alerts-box" class="empty-alerts" style="{display_style}">
         <div class="empty-title">No Active Alerts</div>
-        <div class="empty-sub">All positions within normal corridors.</div>
+        <div class="empty-sub">All positions within normal corridors</div>
     </div>
     """
     disp_style = "display: flex;" if not alerts else "display: none;"
