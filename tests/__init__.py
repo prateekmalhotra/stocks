@@ -1,0 +1,1 @@
+"""Tests for stocks package."""
