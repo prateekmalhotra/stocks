@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMBL — Investment Memo</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="apple-touch-icon" href="../favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-canvas: #141312;
+            --bg-panel: #1A1917;
+            --bg-subpanel: #21201D;
+            --bg-hover: #282623;
+            --text-title: #D8D2C6;
+            --text-body: #BDB7AA;
+            --text-secondary: #8E887D;
+            --text-dim: #666157;
+            --accent-warm: #C99A75;
+            --accent-green: #7D9D81;
+            --accent-red: #C4726C;
+            --border-color: rgba(215, 205, 190, 0.07);
+            --border-focus: rgba(215, 205, 190, 0.14);
+            --font-serif: 'Newsreader', Garamond, Georgia, serif;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--bg-canvas);
+            color: var(--text-body);
+            font-family: var(--font-serif);
+            line-height: 1.85;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 120px;
+        }
+
+        .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+        /* Top Nav */
+        nav.nav-bar {
+            background: rgba(20, 19, 18, 0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 16px 0;
+        }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .nav-back {
+            color: var(--accent-warm);
+            text-decoration: none;
+            font-family: var(--font-sans);
+            font-size: 0.88rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.15s;
+        }
+        .nav-back:hover { color: #DDB495; }
+
+        /* Hero Deck */
+        .hero-deck {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 36px 40px;
+            margin: 32px 0 28px;
+        }
+
+        .hero-top-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px; }
+        .ticker-symbol {
+            font-family: var(--font-serif);
+            font-size: 2.8rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: var(--text-title);
+        }
+        .company-meta { color: var(--text-secondary); font-size: 1.05rem; font-style: italic; margin-top: 2px; }
+
+        .price-callout { text-align: right; }
+        .price-number { font-size: 2.6rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }
+        .price-sub { font-size: 0.88rem; font-family: var(--font-mono); margin-top: 2px; }
+
+        /* Native SVG Area Chart */
+        .native-chart-wrap {
+            margin-top: 28px;
+            background: #171614;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px 20px 12px;
+            position: relative;
+            user-select: none;
+        }
+        .chart-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            min-height: 28px;
+        }
+        .chart-live-val {
+            font-size: 0.88rem;
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .chart-range-pills {
+            display: flex;
+            gap: 4px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 2px;
+        }
+        .range-pill {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.72rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .range-pill:hover { color: var(--text-title); }
+        .range-pill.active {
+            background: var(--accent-warm);
+            color: #141312;
+            font-weight: 600;
+        }
+        .chart-svg { width: 100%; height: 220px; display: block; overflow: visible; }
+        .chart-tooltip {
+            position: absolute;
+            top: 14px;
+            left: 20px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-focus);
+            color: var(--text-title);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            padding: 5px 12px;
+            border-radius: 6px;
+            pointer-events: none;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            font-family: var(--font-sans);
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Key Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin-top: 24px;
+        }
+        .metric-cell {
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px 16px;
+        }
+        .metric-label { font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); letter-spacing: 0.05em; }
+        .metric-value { font-size: 1.15rem; font-weight: 500; color: var(--text-title); font-family: var(--font-mono); margin-top: 3px; }
+
+        /* Tabs */
+        .tabs-header {
+            display: flex;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-color);
+            margin: 32px 0 28px;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-family: var(--font-serif);
+            padding: 12px 18px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.15s;
+        }
+        .tab-btn:hover { color: var(--text-title); }
+        .tab-btn.active { color: var(--accent-warm); }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0; right: 0;
+            height: 2px;
+            background: var(--accent-warm);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Memo Content & Premium Editorial Typography */
+        .memo-container {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 48px 52px;
+        }
+        .memo-container * {
+            box-sizing: border-box;
+        }
+        .memo-container a {
+            color: var(--accent-warm) !important;
+            text-decoration: none !important;
+            transition: color 0.15s ease !important;
+            border-bottom: 1px dotted rgba(201, 154, 117, 0.4) !important;
+        }
+        .memo-container a:hover {
+            color: #E2DDD5 !important;
+            border-bottom-color: var(--accent-warm) !important;
+        }
+        .memo-container h1, .memo-container h2 {
+            font-family: var(--font-serif) !important;
+            font-size: 1.55rem !important;
+            font-weight: 500 !important;
+            color: var(--text-title) !important;
+            margin: 44px 0 18px !important;
+            padding-bottom: 10px !important;
+            border-bottom: 1px solid var(--border-color) !important;
+            letter-spacing: -0.02em !important;
+            line-height: 1.35 !important;
+        }
+        .memo-container h1:first-child, .memo-container h2:first-of-type { margin-top: 0 !important; }
+        .memo-container h3 {
+            font-family: var(--font-serif) !important;
+            font-size: 1.28rem !important;
+            font-weight: 500 !important;
+            color: var(--accent-warm) !important;
+            margin: 32px 0 14px !important;
+            line-height: 1.4 !important;
+        }
+        .memo-container h4, .memo-container h5, .memo-container h6 {
+            font-family: var(--font-serif) !important;
+            font-size: 1.12rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            margin: 24px 0 10px !important;
+        }
+        .memo-container p {
+            font-family: var(--font-serif) !important;
+            font-size: 1.15rem !important;
+            line-height: 1.9 !important;
+            color: var(--text-body) !important;
+            margin-bottom: 22px !important;
+        }
+        .memo-container ul, .memo-container ol {
+            font-family: var(--font-serif) !important;
+            font-size: 1.12rem !important;
+            line-height: 1.9 !important;
+            color: var(--text-body) !important;
+            margin: 0 0 26px 30px !important;
+        }
+        .memo-container li { margin-bottom: 10px !important; color: var(--text-body) !important; }
+        .memo-container strong, .memo-container b {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+
+        /* STUNNING CONSISTENT TABLES - SOOTHING WARM TONES & ZERO OVERFLOW */
+        .table-scroll-wrap {
+            width: 100% !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            margin: 32px 0 !important;
+            background: #171614 !important;
+            background-color: #171614 !important;
+            border-radius: 12px !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            box-sizing: border-box !important;
+        }
+        .memo-container table {
+            width: 100% !important;
+            min-width: 600px !important;
+            border-collapse: separate !important;
+            border-spacing: 0 !important;
+            margin: 0 !important;
+            background: transparent !important;
+            background-color: transparent !important;
+            border: none !important;
+        }
+        .memo-container tr, .memo-container td, .memo-container th {
+            background: transparent !important;
+            background-color: transparent !important;
+        }
+        .memo-container th {
+            background: #1E1D1A !important;
+            background-color: #1E1D1A !important;
+            color: #C99A75 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            padding: 14px 18px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
+            text-align: left !important;
+        }
+        .memo-container td {
+            padding: 14px 18px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.05) !important;
+            font-size: 0.92rem !important;
+            color: #BDB7AA !important;
+            font-family: var(--font-mono) !important;
+            text-align: left !important;
+        }
+        .memo-container tr:last-child td {
+            border-bottom: none !important;
+        }
+        .memo-container tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.012) !important;
+            background-color: rgba(255, 255, 255, 0.012) !important;
+        }
+        .memo-container tr:hover td {
+            background: rgba(201, 154, 117, 0.04) !important;
+            background-color: rgba(201, 154, 117, 0.04) !important;
+        }
+        .memo-container td strong, .memo-container td b {
+            color: #D8D2C6 !important;
+            font-weight: 500 !important;
+        }
+
+        /* UNIVERSAL CALLOUT & BOX STYLING - NEVER WHITE OR PINK, STRICT DARK OBSIDIAN */
+        .memo-container blockquote,
+        .memo-container .callout,
+        .memo-container .falsification-box,
+        .memo-container .institutional-box,
+        .memo-container div[class*="box"],
+        .memo-container div[class*="card"],
+        .memo-container div[class*="alert"],
+        .memo-container div[class*="warning"],
+        .memo-container div[class*="highlight-box"] {
+            background: var(--bg-subpanel) !important;
+            background-color: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-left: 3px solid var(--accent-warm) !important;
+            padding: 22px 26px !important;
+            border-radius: 8px !important;
+            margin: 28px 0 !important;
+            color: var(--text-body) !important;
+            line-height: 1.8 !important;
+        }
+        .memo-container blockquote *,
+        .memo-container .callout *,
+        .memo-container .falsification-box *,
+        .memo-container .institutional-box *,
+        .memo-container div[class*="box"] *,
+        .memo-container div[class*="card"] *,
+        .memo-container div[class*="alert"] * {
+            background: transparent !important;
+            background-color: transparent !important;
+            color: var(--text-body) !important;
+        }
+        .memo-container blockquote h3,
+        .memo-container blockquote h4,
+        .memo-container .callout h3,
+        .memo-container .callout h4,
+        .memo-container .falsification-box h4,
+        .memo-container .falsification-box strong,
+        .memo-container .institutional-box h4,
+        .memo-container .institutional-box strong,
+        .memo-container div[class*="box"] h4,
+        .memo-container div[class*="box"] strong,
+        .memo-container div[class*="card"] strong {
+            color: var(--text-title) !important;
+        }
+        .highlight, mark {
+            background: rgba(201, 154, 117, 0.16) !important;
+            color: #E2DDD5 !important;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* FINANCIAL METRIC CARDS & STAT GRIDS */
+        .metrics-grid, .stats-grid, .grid-3, .grid-4, .grid-2, .metric-grid {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+            gap: 16px !important;
+            margin: 28px 0 !important;
+        }
+        .metric-card, .stat-card, div[class*="metric-box"], div[class*="stat-box"], div[class*="kpi-card"] {
+            background: var(--bg-subpanel) !important;
+            background-color: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-radius: 10px !important;
+            padding: 18px 20px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            box-sizing: border-box !important;
+        }
+        .metric-label, .stat-label, .kpi-label {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            color: var(--text-secondary) !important;
+            margin-bottom: 6px !important;
+        }
+        .metric-value, .stat-value, .kpi-value {
+            font-family: var(--font-mono) !important;
+            font-size: 1.4rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            letter-spacing: -0.02em !important;
+            line-height: 1.2 !important;
+            margin-bottom: 4px !important;
+        }
+        .metric-delta, .metric-sub, .stat-sub, .kpi-sub {
+            font-family: var(--font-mono) !important;
+            font-size: 0.82rem !important;
+            color: var(--accent-warm) !important;
+        }
+
+        /* EMBEDDED IMAGES, CHARTS & VISUAL INFOGRAPHICS */
+        .figure-container, figure {
+            margin: 32px 0 !important;
+            text-align: center !important;
+            background: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-radius: 12px !important;
+            padding: 16px !important;
+            overflow: hidden !important;
+        }
+        .memo-container img {
+            max-width: 100% !important;
+            height: auto !important;
+            border-radius: 8px !important;
+            display: block !important;
+            margin: 0 auto !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+        }
+        .figure-caption, figcaption {
+            font-family: var(--font-sans) !important;
+            font-size: 0.8rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 10px !important;
+            text-align: center !important;
+        }
+
+        /* Evolution Update Highlight Banner at top of Memo */
+        .update-banner-box {
+            background: #1C1B18 !important;
+            border: 1px solid rgba(201, 154, 117, 0.3) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 12px !important;
+            padding: 24px 28px !important;
+            margin-bottom: 36px !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .update-banner-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 14px !important;
+            padding-bottom: 10px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
+        }
+        .update-banner-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.76rem !important;
+            font-weight: 600 !important;
+            color: var(--accent-warm) !important;
+            letter-spacing: 0.04em !important;
+            text-transform: uppercase !important;
+        }
+        .update-trigger-pill {
+            font-family: var(--font-mono) !important;
+            font-size: 0.74rem !important;
+            color: var(--text-secondary) !important;
+            background: var(--bg-subpanel) !important;
+            padding: 3px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid var(--border-color) !important;
+        }
+        .update-banner-title {
+            font-family: var(--font-serif) !important;
+            font-size: 1.22rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            margin-bottom: 8px !important;
+        }
+        .update-banner-desc {
+            font-family: var(--font-serif) !important;
+            font-size: 1.08rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-body) !important;
+        }
+
+        /* History */
+        .history-entry {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 28px 32px;
+            margin-bottom: 20px;
+        }
+        .history-entry-active { border-color: rgba(201, 154, 117, 0.35); }
+        .history-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+        .history-tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .history-time { color: var(--text-secondary); font-size: 0.88rem; font-family: var(--font-sans); }
+        .history-price { font-family: var(--font-mono); font-size: 0.92rem; }
+
+        .diff-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) { .diff-grid { grid-template-columns: 1fr; } }
+        .diff-box {
+            padding: 18px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .diff-prev { background: rgba(196, 114, 108, 0.05); border-color: rgba(196, 114, 108, 0.18); }
+        .diff-now { background: rgba(125, 157, 129, 0.05); border-color: rgba(125, 157, 129, 0.18); }
+        .diff-label { font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+        .diff-prev .diff-label { color: var(--accent-red); }
+        .diff-now .diff-label { color: var(--accent-green); }
+        .diff-text { font-size: 1.02rem; color: var(--text-body); line-height: 1.65; }
+
+        /* Pills */
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 11px;
+            border-radius: 9999px;
+            font-size: 0.72rem;
+            font-family: var(--font-sans);
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+        }
+        .pill-active { background: rgba(201, 154, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.45); font-weight: 600; box-shadow: 0 0 10px rgba(201, 154, 117, 0.06); }
+        .pill-neutral { background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); font-weight: 500; }
+        .pill-alert { background: rgba(191, 160, 117, 0.14); color: var(--accent-warm); border: 1px solid rgba(191, 160, 117, 0.28); }
+
+        .btn-subtle {
+            background: var(--bg-subpanel);
+            color: var(--text-title);
+            border: 1px solid var(--border-color);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            padding: 7px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .btn-subtle:hover { background: var(--bg-hover); }
+
+        .snapshot-drawer { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color); }
+
+        .pos { color: var(--accent-green); }
+        .neg { color: var(--accent-red); }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="container nav-inner">
+            <a href="../index.html" class="nav-back">← AlphaThesis</a>
+            <span style="font-size: 0.82rem; color: var(--text-dim); font-family: var(--font-sans);">BMBL RESEARCH</span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Hero Deck -->
+        <section class="hero-deck">
+            <div class="hero-top-row">
+                <div>
+                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                        <span class="ticker-symbol">BMBL</span>
+                        <span class="pill pill-active">Speculative Risk</span> <span class="pill pill-neutral">Deep Value</span> <span class="pill pill-neutral">Turnaround Play</span>
+                    </div>
+                    <div class="company-meta">Bumble Inc.</div>
+                </div>
+                <div class="price-callout">
+                    <div class="price-number">$2.83</div>
+                    <div class="price-sub pos">
+                        +0.00% vs Genesis
+                    </div>
+                </div>
+            </div>
+
+            <!-- Native Multi-Range Interactive Area Chart -->
+            
+    <div class="native-chart-wrap" id="chart-container">
+        <div class="chart-top-bar">
+            <div id="chart-live-val" class="chart-live-val">
+                <span id="tooltip-date">Aug 07, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$2.83</strong>
+            </div>
+            <div class="chart-range-pills">
+                <button class="range-pill active" onclick="switchChartRange('1Y')">1Y</button>
+                <button class="range-pill" onclick="switchChartRange('5Y')">5Y</button>
+                <button class="range-pill" onclick="switchChartRange('10Y')">10Y</button>
+                <button class="range-pill" onclick="switchChartRange('MAX')">MAX</button>
+            </div>
+        </div>
+
+        <svg id="interactive-svg" viewBox="0 0 900 260" preserveAspectRatio="none" class="chart-svg">
+            <defs>
+                <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#C99A75" stop-opacity="0.18" />
+                    <stop offset="100%" stop-color="#C99A75" stop-opacity="0.0" />
+                </linearGradient>
+            </defs>
+            
+            <line x1="20" y1="25" x2="880" y2="25" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
+            <line x1="20" y1="130.0" x2="880" y2="130.0" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
+            <line x1="20" y1="235" x2="880" y2="235" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
+
+            <path id="chart-area-path" d="" fill="url(#area-grad)" />
+            <path id="chart-line-path" d="" fill="none" stroke="#C99A75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+            <line id="crosshair-line" x1="0" y1="25" x2="0" y2="235" stroke="rgba(201,154,117,0.35)" stroke-width="1" stroke-dasharray="3 3" style="display: none;" />
+            <circle id="hover-dot" r="4" fill="#C99A75" stroke="#1A1917" stroke-width="2" style="display: none;" />
+        </svg>
+        <div class="chart-labels">
+            <span id="chart-start-lbl">Aug 08, 2025 ($2.70)</span>
+            <span id="chart-range-title">1-Year Historical Range</span>
+            <span id="chart-end-lbl">Aug 07, 2026 ($2.83)</span>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const allDatasets = {"1Y": [{"date": "Aug 08, 2025", "price": 6.32}, {"date": "Aug 11, 2025", "price": 6.32}, {"date": "Aug 12, 2025", "price": 6.52}, {"date": "Aug 13, 2025", "price": 7.15}, {"date": "Aug 14, 2025", "price": 6.07}, {"date": "Aug 15, 2025", "price": 6.29}, {"date": "Aug 18, 2025", "price": 6.37}, {"date": "Aug 19, 2025", "price": 6.38}, {"date": "Aug 20, 2025", "price": 6.52}, {"date": "Aug 21, 2025", "price": 6.44}, {"date": "Aug 22, 2025", "price": 6.36}, {"date": "Aug 25, 2025", "price": 6.41}, {"date": "Aug 26, 2025", "price": 6.45}, {"date": "Aug 27, 2025", "price": 6.29}, {"date": "Aug 28, 2025", "price": 6.33}, {"date": "Aug 29, 2025", "price": 6.17}, {"date": "Sep 02, 2025", "price": 6.1}, {"date": "Sep 03, 2025", "price": 6.32}, {"date": "Sep 04, 2025", "price": 6.46}, {"date": "Sep 05, 2025", "price": 6.7}, {"date": "Sep 08, 2025", "price": 6.76}, {"date": "Sep 09, 2025", "price": 6.62}, {"date": "Sep 10, 2025", "price": 6.56}, {"date": "Sep 11, 2025", "price": 6.75}, {"date": "Sep 12, 2025", "price": 6.83}, {"date": "Sep 15, 2025", "price": 7.01}, {"date": "Sep 16, 2025", "price": 6.91}, {"date": "Sep 17, 2025", "price": 6.93}, {"date": "Sep 18, 2025", "price": 7.17}, {"date": "Sep 19, 2025", "price": 7.05}, {"date": "Sep 22, 2025", "price": 6.84}, {"date": "Sep 23, 2025", "price": 6.85}, {"date": "Sep 24, 2025", "price": 6.6}, {"date": "Sep 25, 2025", "price": 6.44}, {"date": "Sep 26, 2025", "price": 6.28}, {"date": "Sep 29, 2025", "price": 6.3}, {"date": "Sep 30, 2025", "price": 6.09}, {"date": "Oct 01, 2025", "price": 6.03}, {"date": "Oct 02, 2025", "price": 6.04}, {"date": "Oct 03, 2025", "price": 5.86}, {"date": "Oct 06, 2025", "price": 5.91}, {"date": "Oct 07, 2025", "price": 5.82}, {"date": "Oct 08, 2025", "price": 5.67}, {"date": "Oct 09, 2025", "price": 5.51}, {"date": "Oct 10, 2025", "price": 5.07}, {"date": "Oct 13, 2025", "price": 5.24}, {"date": "Oct 14, 2025", "price": 5.34}, {"date": "Oct 15, 2025", "price": 5.5}, {"date": "Oct 16, 2025", "price": 5.33}, {"date": "Oct 17, 2025", "price": 5.28}, {"date": "Oct 20, 2025", "price": 5.7}, {"date": "Oct 21, 2025", "price": 5.61}, {"date": "Oct 22, 2025", "price": 5.67}, {"date": "Oct 23, 2025", "price": 5.76}, {"date": "Oct 24, 2025", "price": 5.88}, {"date": "Oct 27, 2025", "price": 5.78}, {"date": "Oct 28, 2025", "price": 5.6}, {"date": "Oct 29, 2025", "price": 5.54}, {"date": "Oct 30, 2025", "price": 5.48}, {"date": "Oct 31, 2025", "price": 5.55}, {"date": "Nov 03, 2025", "price": 5.49}, {"date": "Nov 04, 2025", "price": 5.26}, {"date": "Nov 05, 2025", "price": 5.42}, {"date": "Nov 06, 2025", "price": 4.24}, {"date": "Nov 07, 2025", "price": 4.26}, {"date": "Nov 10, 2025", "price": 4.11}, {"date": "Nov 11, 2025", "price": 4.0}, {"date": "Nov 12, 2025", "price": 3.9}, {"date": "Nov 13, 2025", "price": 3.74}, {"date": "Nov 14, 2025", "price": 3.6}, {"date": "Nov 17, 2025", "price": 3.57}, {"date": "Nov 18, 2025", "price": 3.51}, {"date": "Nov 19, 2025", "price": 3.4}, {"date": "Nov 20, 2025", "price": 3.23}, {"date": "Nov 21, 2025", "price": 3.32}, {"date": "Nov 24, 2025", "price": 3.47}, {"date": "Nov 25, 2025", "price": 3.56}, {"date": "Nov 26, 2025", "price": 3.53}, {"date": "Nov 28, 2025", "price": 3.55}, {"date": "Dec 01, 2025", "price": 3.67}, {"date": "Dec 02, 2025", "price": 3.67}, {"date": "Dec 03, 2025", "price": 3.76}, {"date": "Dec 04, 2025", "price": 3.71}, {"date": "Dec 05, 2025", "price": 3.62}, {"date": "Dec 08, 2025", "price": 3.64}, {"date": "Dec 09, 2025", "price": 3.78}, {"date": "Dec 10, 2025", "price": 3.87}, {"date": "Dec 11, 2025", "price": 3.7}, {"date": "Dec 12, 2025", "price": 3.39}, {"date": "Dec 15, 2025", "price": 3.46}, {"date": "Dec 16, 2025", "price": 3.53}, {"date": "Dec 17, 2025", "price": 3.45}, {"date": "Dec 18, 2025", "price": 3.49}, {"date": "Dec 19, 2025", "price": 3.46}, {"date": "Dec 22, 2025", "price": 3.54}, {"date": "Dec 23, 2025", "price": 3.58}, {"date": "Dec 24, 2025", "price": 3.58}, {"date": "Dec 26, 2025", "price": 3.52}, {"date": "Dec 29, 2025", "price": 3.45}, {"date": "Dec 30, 2025", "price": 3.62}, {"date": "Dec 31, 2025", "price": 3.57}, {"date": "Jan 02, 2026", "price": 3.62}, {"date": "Jan 05, 2026", "price": 3.64}, {"date": "Jan 06, 2026", "price": 3.6}, {"date": "Jan 07, 2026", "price": 3.62}, {"date": "Jan 08, 2026", "price": 3.52}, {"date": "Jan 09, 2026", "price": 3.48}, {"date": "Jan 12, 2026", "price": 3.55}, {"date": "Jan 13, 2026", "price": 3.62}, {"date": "Jan 14, 2026", "price": 3.59}, {"date": "Jan 15, 2026", "price": 3.65}, {"date": "Jan 16, 2026", "price": 3.57}, {"date": "Jan 20, 2026", "price": 3.52}, {"date": "Jan 21, 2026", "price": 3.59}, {"date": "Jan 22, 2026", "price": 3.61}, {"date": "Jan 23, 2026", "price": 3.54}, {"date": "Jan 26, 2026", "price": 3.88}, {"date": "Jan 27, 2026", "price": 3.68}, {"date": "Jan 28, 2026", "price": 3.63}, {"date": "Jan 29, 2026", "price": 3.51}, {"date": "Jan 30, 2026", "price": 3.35}, {"date": "Feb 02, 2026", "price": 3.34}, {"date": "Feb 03, 2026", "price": 3.24}, {"date": "Feb 04, 2026", "price": 3.27}, {"date": "Feb 05, 2026", "price": 3.09}, {"date": "Feb 06, 2026", "price": 3.22}, {"date": "Feb 09, 2026", "price": 3.19}, {"date": "Feb 10, 2026", "price": 3.25}, {"date": "Feb 11, 2026", "price": 2.95}, {"date": "Feb 12, 2026", "price": 2.79}, {"date": "Feb 13, 2026", "price": 2.75}, {"date": "Feb 17, 2026", "price": 2.74}, {"date": "Feb 18, 2026", "price": 2.7}, {"date": "Feb 19, 2026", "price": 2.87}, {"date": "Feb 20, 2026", "price": 3.03}, {"date": "Feb 23, 2026", "price": 2.77}, {"date": "Feb 24, 2026", "price": 2.91}, {"date": "Feb 25, 2026", "price": 2.92}, {"date": "Feb 26, 2026", "price": 3.11}, {"date": "Feb 27, 2026", "price": 3.04}, {"date": "Mar 02, 2026", "price": 3.04}, {"date": "Mar 03, 2026", "price": 2.96}, {"date": "Mar 04, 2026", "price": 3.02}, {"date": "Mar 05, 2026", "price": 3.13}, {"date": "Mar 06, 2026", "price": 3.06}, {"date": "Mar 09, 2026", "price": 2.96}, {"date": "Mar 10, 2026", "price": 2.81}, {"date": "Mar 11, 2026", "price": 2.84}, {"date": "Mar 12, 2026", "price": 3.81}, {"date": "Mar 13, 2026", "price": 3.77}, {"date": "Mar 16, 2026", "price": 3.87}, {"date": "Mar 17, 2026", "price": 4.14}, {"date": "Mar 18, 2026", "price": 3.78}, {"date": "Mar 19, 2026", "price": 3.74}, {"date": "Mar 20, 2026", "price": 3.57}, {"date": "Mar 23, 2026", "price": 3.59}, {"date": "Mar 24, 2026", "price": 3.4}, {"date": "Mar 25, 2026", "price": 3.32}, {"date": "Mar 26, 2026", "price": 3.33}, {"date": "Mar 27, 2026", "price": 3.22}, {"date": "Mar 30, 2026", "price": 3.24}, {"date": "Mar 31, 2026", "price": 3.26}, {"date": "Apr 01, 2026", "price": 3.33}, {"date": "Apr 02, 2026", "price": 3.36}, {"date": "Apr 06, 2026", "price": 3.45}, {"date": "Apr 07, 2026", "price": 3.48}, {"date": "Apr 08, 2026", "price": 3.49}, {"date": "Apr 09, 2026", "price": 3.45}, {"date": "Apr 10, 2026", "price": 3.4}, {"date": "Apr 13, 2026", "price": 3.58}, {"date": "Apr 14, 2026", "price": 3.77}, {"date": "Apr 15, 2026", "price": 4.09}, {"date": "Apr 16, 2026", "price": 4.31}, {"date": "Apr 17, 2026", "price": 4.26}, {"date": "Apr 20, 2026", "price": 4.43}, {"date": "Apr 21, 2026", "price": 4.47}, {"date": "Apr 22, 2026", "price": 4.42}, {"date": "Apr 23, 2026", "price": 4.21}, {"date": "Apr 24, 2026", "price": 4.27}, {"date": "Apr 27, 2026", "price": 4.28}, {"date": "Apr 28, 2026", "price": 4.26}, {"date": "Apr 29, 2026", "price": 4.21}, {"date": "Apr 30, 2026", "price": 4.15}, {"date": "May 01, 2026", "price": 4.16}, {"date": "May 04, 2026", "price": 4.27}, {"date": "May 05, 2026", "price": 4.29}, {"date": "May 06, 2026", "price": 3.43}, {"date": "May 07, 2026", "price": 3.46}, {"date": "May 08, 2026", "price": 3.62}, {"date": "May 11, 2026", "price": 3.29}, {"date": "May 12, 2026", "price": 3.36}, {"date": "May 13, 2026", "price": 3.4}, {"date": "May 14, 2026", "price": 3.26}, {"date": "May 15, 2026", "price": 3.14}, {"date": "May 18, 2026", "price": 3.18}, {"date": "May 19, 2026", "price": 3.16}, {"date": "May 20, 2026", "price": 3.12}, {"date": "May 21, 2026", "price": 3.06}, {"date": "May 22, 2026", "price": 3.11}, {"date": "May 26, 2026", "price": 3.16}, {"date": "May 27, 2026", "price": 3.16}, {"date": "May 28, 2026", "price": 3.26}, {"date": "May 29, 2026", "price": 3.17}, {"date": "Jun 01, 2026", "price": 3.22}, {"date": "Jun 02, 2026", "price": 3.04}, {"date": "Jun 03, 2026", "price": 2.85}, {"date": "Jun 04, 2026", "price": 2.99}, {"date": "Jun 05, 2026", "price": 2.84}, {"date": "Jun 08, 2026", "price": 2.85}, {"date": "Jun 09, 2026", "price": 2.79}, {"date": "Jun 10, 2026", "price": 2.71}, {"date": "Jun 11, 2026", "price": 2.73}, {"date": "Jun 12, 2026", "price": 2.72}, {"date": "Jun 15, 2026", "price": 2.94}, {"date": "Jun 16, 2026", "price": 3.06}, {"date": "Jun 17, 2026", "price": 2.96}, {"date": "Jun 18, 2026", "price": 2.96}, {"date": "Jun 22, 2026", "price": 2.79}, {"date": "Jun 23, 2026", "price": 2.8}, {"date": "Jun 24, 2026", "price": 2.72}, {"date": "Jun 25, 2026", "price": 2.94}, {"date": "Jun 26, 2026", "price": 3.04}, {"date": "Jun 29, 2026", "price": 3.2}, {"date": "Jun 30, 2026", "price": 3.2}, {"date": "Jul 01, 2026", "price": 3.23}, {"date": "Jul 02, 2026", "price": 3.28}, {"date": "Jul 06, 2026", "price": 3.17}, {"date": "Jul 07, 2026", "price": 3.12}, {"date": "Jul 08, 2026", "price": 3.0}, {"date": "Jul 09, 2026", "price": 3.07}, {"date": "Jul 10, 2026", "price": 3.03}, {"date": "Jul 13, 2026", "price": 3.11}, {"date": "Jul 14, 2026", "price": 2.93}, {"date": "Jul 15, 2026", "price": 3.1}, {"date": "Jul 16, 2026", "price": 3.03}, {"date": "Jul 17, 2026", "price": 2.92}, {"date": "Jul 20, 2026", "price": 2.93}, {"date": "Jul 21, 2026", "price": 2.87}, {"date": "Jul 22, 2026", "price": 2.81}, {"date": "Jul 23, 2026", "price": 2.79}, {"date": "Jul 24, 2026", "price": 2.81}, {"date": "Jul 27, 2026", "price": 2.96}, {"date": "Jul 28, 2026", "price": 3.01}, {"date": "Jul 29, 2026", "price": 2.97}, {"date": "Jul 30, 2026", "price": 2.91}, {"date": "Jul 31, 2026", "price": 2.85}, {"date": "Aug 03, 2026", "price": 3.09}, {"date": "Aug 04, 2026", "price": 3.2}, {"date": "Aug 05, 2026", "price": 3.04}, {"date": "Aug 06, 2026", "price": 2.85}, {"date": "Aug 07, 2026", "price": 2.83}], "5Y": [{"date": "Aug 09, 2021", "price": 49.57}, {"date": "Aug 16, 2021", "price": 48.29}, {"date": "Aug 23, 2021", "price": 55.19}, {"date": "Aug 30, 2021", "price": 59.94}, {"date": "Sep 06, 2021", "price": 58.2}, {"date": "Sep 13, 2021", "price": 53.97}, {"date": "Sep 20, 2021", "price": 53.5}, {"date": "Sep 27, 2021", "price": 51.09}, {"date": "Oct 04, 2021", "price": 49.01}, {"date": "Oct 11, 2021", "price": 52.18}, {"date": "Oct 18, 2021", "price": 55.48}, {"date": "Oct 25, 2021", "price": 52.52}, {"date": "Nov 01, 2021", "price": 52.0}, {"date": "Nov 08, 2021", "price": 36.55}, {"date": "Nov 15, 2021", "price": 36.38}, {"date": "Nov 22, 2021", "price": 33.83}, {"date": "Nov 29, 2021", "price": 31.74}, {"date": "Dec 06, 2021", "price": 36.27}, {"date": "Dec 13, 2021", "price": 32.85}, {"date": "Dec 20, 2021", "price": 34.87}, {"date": "Dec 27, 2021", "price": 33.86}, {"date": "Jan 03, 2022", "price": 31.47}, {"date": "Jan 10, 2022", "price": 33.25}, {"date": "Jan 17, 2022", "price": 30.0}, {"date": "Jan 24, 2022", "price": 27.96}, {"date": "Jan 31, 2022", "price": 27.66}, {"date": "Feb 07, 2022", "price": 28.1}, {"date": "Feb 14, 2022", "price": 25.19}, {"date": "Feb 21, 2022", "price": 26.38}, {"date": "Feb 28, 2022", "price": 18.08}, {"date": "Mar 07, 2022", "price": 21.63}, {"date": "Mar 14, 2022", "price": 28.95}, {"date": "Mar 21, 2022", "price": 28.17}, {"date": "Mar 28, 2022", "price": 27.95}, {"date": "Apr 04, 2022", "price": 25.78}, {"date": "Apr 11, 2022", "price": 25.91}, {"date": "Apr 18, 2022", "price": 23.45}, {"date": "Apr 25, 2022", "price": 23.99}, {"date": "May 02, 2022", "price": 21.91}, {"date": "May 09, 2022", "price": 25.54}, {"date": "May 16, 2022", "price": 28.17}, {"date": "May 23, 2022", "price": 28.99}, {"date": "May 30, 2022", "price": 30.42}, {"date": "Jun 06, 2022", "price": 30.36}, {"date": "Jun 13, 2022", "price": 27.93}, {"date": "Jun 20, 2022", "price": 31.98}, {"date": "Jun 27, 2022", "price": 29.36}, {"date": "Jul 04, 2022", "price": 34.16}, {"date": "Jul 11, 2022", "price": 33.08}, {"date": "Jul 18, 2022", "price": 33.88}, {"date": "Jul 25, 2022", "price": 37.92}, {"date": "Aug 01, 2022", "price": 37.56}, {"date": "Aug 08, 2022", "price": 31.38}, {"date": "Aug 15, 2022", "price": 28.26}, {"date": "Aug 22, 2022", "price": 26.69}, {"date": "Aug 29, 2022", "price": 24.65}, {"date": "Sep 05, 2022", "price": 27.49}, {"date": "Sep 12, 2022", "price": 23.56}, {"date": "Sep 19, 2022", "price": 21.23}, {"date": "Sep 26, 2022", "price": 21.49}, {"date": "Oct 03, 2022", "price": 23.58}, {"date": "Oct 10, 2022", "price": 21.14}, {"date": "Oct 17, 2022", "price": 21.95}, {"date": "Oct 24, 2022", "price": 25.5}, {"date": "Oct 31, 2022", "price": 22.75}, {"date": "Nov 07, 2022", "price": 25.46}, {"date": "Nov 14, 2022", "price": 23.11}, {"date": "Nov 21, 2022", "price": 22.05}, {"date": "Nov 28, 2022", "price": 24.8}, {"date": "Dec 05, 2022", "price": 23.43}, {"date": "Dec 12, 2022", "price": 23.02}, {"date": "Dec 19, 2022", "price": 20.94}, {"date": "Dec 26, 2022", "price": 21.05}, {"date": "Jan 02, 2023", "price": 19.49}, {"date": "Jan 09, 2023", "price": 23.08}, {"date": "Jan 16, 2023", "price": 24.01}, {"date": "Jan 23, 2023", "price": 26.49}, {"date": "Jan 30, 2023", "price": 26.85}, {"date": "Feb 06, 2023", "price": 24.32}, {"date": "Feb 13, 2023", "price": 22.74}, {"date": "Feb 20, 2023", "price": 23.52}, {"date": "Feb 27, 2023", "price": 22.38}, {"date": "Mar 06, 2023", "price": 19.52}, {"date": "Mar 13, 2023", "price": 19.93}, {"date": "Mar 20, 2023", "price": 18.86}, {"date": "Mar 27, 2023", "price": 19.55}, {"date": "Apr 03, 2023", "price": 18.6}, {"date": "Apr 10, 2023", "price": 17.02}, {"date": "Apr 17, 2023", "price": 17.58}, {"date": "Apr 24, 2023", "price": 18.21}, {"date": "May 01, 2023", "price": 17.52}, {"date": "May 08, 2023", "price": 15.99}, {"date": "May 15, 2023", "price": 16.14}, {"date": "May 22, 2023", "price": 17.13}, {"date": "May 29, 2023", "price": 16.55}, {"date": "Jun 05, 2023", "price": 16.94}, {"date": "Jun 12, 2023", "price": 17.88}, {"date": "Jun 19, 2023", "price": 17.18}, {"date": "Jun 26, 2023", "price": 16.78}, {"date": "Jul 03, 2023", "price": 16.62}, {"date": "Jul 10, 2023", "price": 19.82}, {"date": "Jul 17, 2023", "price": 18.68}, {"date": "Jul 24, 2023", "price": 18.21}, {"date": "Jul 31, 2023", "price": 17.18}, {"date": "Aug 07, 2023", "price": 16.51}, {"date": "Aug 14, 2023", "price": 16.47}, {"date": "Aug 21, 2023", "price": 16.04}, {"date": "Aug 28, 2023", "price": 16.99}, {"date": "Sep 04, 2023", "price": 15.73}, {"date": "Sep 11, 2023", "price": 15.6}, {"date": "Sep 18, 2023", "price": 14.65}, {"date": "Sep 25, 2023", "price": 14.92}, {"date": "Oct 02, 2023", "price": 14.13}, {"date": "Oct 09, 2023", "price": 13.97}, {"date": "Oct 16, 2023", "price": 13.41}, {"date": "Oct 23, 2023", "price": 13.35}, {"date": "Oct 30, 2023", "price": 13.67}, {"date": "Nov 06, 2023", "price": 14.25}, {"date": "Nov 13, 2023", "price": 14.71}, {"date": "Nov 20, 2023", "price": 14.08}, {"date": "Nov 27, 2023", "price": 14.31}, {"date": "Dec 04, 2023", "price": 14.04}, {"date": "Dec 11, 2023", "price": 15.16}, {"date": "Dec 18, 2023", "price": 15.0}, {"date": "Dec 25, 2023", "price": 14.74}, {"date": "Jan 01, 2024", "price": 14.01}, {"date": "Jan 08, 2024", "price": 13.87}, {"date": "Jan 15, 2024", "price": 13.77}, {"date": "Jan 22, 2024", "price": 14.2}, {"date": "Jan 29, 2024", "price": 13.71}, {"date": "Feb 05, 2024", "price": 13.28}, {"date": "Feb 12, 2024", "price": 13.57}, {"date": "Feb 19, 2024", "price": 13.11}, {"date": "Feb 26, 2024", "price": 11.44}, {"date": "Mar 04, 2024", "price": 10.87}, {"date": "Mar 11, 2024", "price": 10.74}, {"date": "Mar 18, 2024", "price": 10.87}, {"date": "Mar 25, 2024", "price": 11.35}, {"date": "Apr 01, 2024", "price": 10.53}, {"date": "Apr 08, 2024", "price": 10.53}, {"date": "Apr 15, 2024", "price": 10.18}, {"date": "Apr 22, 2024", "price": 10.49}, {"date": "Apr 29, 2024", "price": 10.14}, {"date": "May 06, 2024", "price": 11.45}, {"date": "May 13, 2024", "price": 12.3}, {"date": "May 20, 2024", "price": 11.47}, {"date": "May 27, 2024", "price": 11.7}, {"date": "Jun 03, 2024", "price": 11.22}, {"date": "Jun 10, 2024", "price": 10.75}, {"date": "Jun 17, 2024", "price": 10.25}, {"date": "Jun 24, 2024", "price": 10.51}, {"date": "Jul 01, 2024", "price": 9.34}, {"date": "Jul 08, 2024", "price": 9.39}, {"date": "Jul 15, 2024", "price": 8.82}, {"date": "Jul 22, 2024", "price": 9.13}, {"date": "Jul 29, 2024", "price": 8.52}, {"date": "Aug 05, 2024", "price": 5.98}, {"date": "Aug 12, 2024", "price": 6.0}, {"date": "Aug 19, 2024", "price": 6.67}, {"date": "Aug 26, 2024", "price": 6.71}, {"date": "Sep 02, 2024", "price": 6.78}, {"date": "Sep 09, 2024", "price": 6.32}, {"date": "Sep 16, 2024", "price": 6.09}, {"date": "Sep 23, 2024", "price": 6.43}, {"date": "Sep 30, 2024", "price": 6.65}, {"date": "Oct 07, 2024", "price": 6.81}, {"date": "Oct 14, 2024", "price": 7.31}, {"date": "Oct 21, 2024", "price": 7.11}, {"date": "Oct 28, 2024", "price": 7.31}, {"date": "Nov 04, 2024", "price": 8.07}, {"date": "Nov 11, 2024", "price": 7.87}, {"date": "Nov 18, 2024", "price": 8.18}, {"date": "Nov 25, 2024", "price": 8.69}, {"date": "Dec 02, 2024", "price": 8.25}, {"date": "Dec 09, 2024", "price": 8.32}, {"date": "Dec 16, 2024", "price": 7.75}, {"date": "Dec 23, 2024", "price": 8.02}, {"date": "Dec 30, 2024", "price": 8.1}, {"date": "Jan 06, 2025", "price": 7.56}, {"date": "Jan 13, 2025", "price": 7.7}, {"date": "Jan 20, 2025", "price": 7.5}, {"date": "Jan 27, 2025", "price": 8.11}, {"date": "Feb 03, 2025", "price": 8.49}, {"date": "Feb 10, 2025", "price": 8.46}, {"date": "Feb 17, 2025", "price": 5.21}, {"date": "Feb 24, 2025", "price": 5.2}, {"date": "Mar 03, 2025", "price": 5.08}, {"date": "Mar 10, 2025", "price": 4.82}, {"date": "Mar 17, 2025", "price": 4.53}, {"date": "Mar 24, 2025", "price": 4.3}, {"date": "Mar 31, 2025", "price": 4.06}, {"date": "Apr 07, 2025", "price": 3.95}, {"date": "Apr 14, 2025", "price": 4.36}, {"date": "Apr 21, 2025", "price": 4.47}, {"date": "Apr 28, 2025", "price": 4.66}, {"date": "May 05, 2025", "price": 5.68}, {"date": "May 12, 2025", "price": 5.77}, {"date": "May 19, 2025", "price": 5.72}, {"date": "May 26, 2025", "price": 5.62}, {"date": "Jun 02, 2025", "price": 5.31}, {"date": "Jun 09, 2025", "price": 4.95}, {"date": "Jun 16, 2025", "price": 5.2}, {"date": "Jun 23, 2025", "price": 6.45}, {"date": "Jun 30, 2025", "price": 6.51}, {"date": "Jul 07, 2025", "price": 6.52}, {"date": "Jul 14, 2025", "price": 7.14}, {"date": "Jul 21, 2025", "price": 8.22}, {"date": "Jul 28, 2025", "price": 7.59}, {"date": "Aug 04, 2025", "price": 6.32}, {"date": "Aug 11, 2025", "price": 6.29}, {"date": "Aug 18, 2025", "price": 6.36}, {"date": "Aug 25, 2025", "price": 6.17}, {"date": "Sep 01, 2025", "price": 6.7}, {"date": "Sep 08, 2025", "price": 6.83}, {"date": "Sep 15, 2025", "price": 7.05}, {"date": "Sep 22, 2025", "price": 6.28}, {"date": "Sep 29, 2025", "price": 5.86}, {"date": "Oct 06, 2025", "price": 5.07}, {"date": "Oct 13, 2025", "price": 5.28}, {"date": "Oct 20, 2025", "price": 5.88}, {"date": "Oct 27, 2025", "price": 5.55}, {"date": "Nov 03, 2025", "price": 4.26}, {"date": "Nov 10, 2025", "price": 3.6}, {"date": "Nov 17, 2025", "price": 3.32}, {"date": "Nov 24, 2025", "price": 3.55}, {"date": "Dec 01, 2025", "price": 3.62}, {"date": "Dec 08, 2025", "price": 3.39}, {"date": "Dec 15, 2025", "price": 3.46}, {"date": "Dec 22, 2025", "price": 3.52}, {"date": "Dec 29, 2025", "price": 3.62}, {"date": "Jan 05, 2026", "price": 3.48}, {"date": "Jan 12, 2026", "price": 3.57}, {"date": "Jan 19, 2026", "price": 3.54}, {"date": "Jan 26, 2026", "price": 3.35}, {"date": "Feb 02, 2026", "price": 3.22}, {"date": "Feb 09, 2026", "price": 2.75}, {"date": "Feb 16, 2026", "price": 3.03}, {"date": "Feb 23, 2026", "price": 3.04}, {"date": "Mar 02, 2026", "price": 3.06}, {"date": "Mar 09, 2026", "price": 3.77}, {"date": "Mar 16, 2026", "price": 3.57}, {"date": "Mar 23, 2026", "price": 3.22}, {"date": "Mar 30, 2026", "price": 3.36}, {"date": "Apr 06, 2026", "price": 3.4}, {"date": "Apr 13, 2026", "price": 4.26}, {"date": "Apr 20, 2026", "price": 4.27}, {"date": "Apr 27, 2026", "price": 4.16}, {"date": "May 04, 2026", "price": 3.62}, {"date": "May 11, 2026", "price": 3.14}, {"date": "May 18, 2026", "price": 3.11}, {"date": "May 25, 2026", "price": 3.17}, {"date": "Jun 01, 2026", "price": 2.84}, {"date": "Jun 08, 2026", "price": 2.72}, {"date": "Jun 15, 2026", "price": 2.96}, {"date": "Jun 22, 2026", "price": 3.04}, {"date": "Jun 29, 2026", "price": 3.28}, {"date": "Jul 06, 2026", "price": 3.03}, {"date": "Jul 13, 2026", "price": 2.92}, {"date": "Jul 20, 2026", "price": 2.81}, {"date": "Jul 27, 2026", "price": 2.85}, {"date": "Aug 03, 2026", "price": 2.83}, {"date": "Aug 07, 2026", "price": 2.83}], "10Y": [{"date": "Mar 01, 2021", "price": 62.38}, {"date": "Apr 01, 2021", "price": 60.24}, {"date": "May 01, 2021", "price": 47.72}, {"date": "Jun 01, 2021", "price": 57.6}, {"date": "Jul 01, 2021", "price": 50.88}, {"date": "Aug 01, 2021", "price": 54.5}, {"date": "Sep 01, 2021", "price": 49.98}, {"date": "Oct 01, 2021", "price": 52.52}, {"date": "Nov 01, 2021", "price": 34.26}, {"date": "Dec 01, 2021", "price": 33.86}, {"date": "Jan 01, 2022", "price": 29.51}, {"date": "Feb 01, 2022", "price": 25.63}, {"date": "Mar 01, 2022", "price": 28.98}, {"date": "Apr 01, 2022", "price": 23.99}, {"date": "May 01, 2022", "price": 28.5}, {"date": "Jun 01, 2022", "price": 28.15}, {"date": "Jul 01, 2022", "price": 37.92}, {"date": "Aug 01, 2022", "price": 25.05}, {"date": "Sep 01, 2022", "price": 21.49}, {"date": "Oct 01, 2022", "price": 25.4}, {"date": "Nov 01, 2022", "price": 24.36}, {"date": "Dec 01, 2022", "price": 21.05}, {"date": "Jan 01, 2023", "price": 25.75}, {"date": "Feb 01, 2023", "price": 24.18}, {"date": "Mar 01, 2023", "price": 19.55}, {"date": "Apr 01, 2023", "price": 18.21}, {"date": "May 01, 2023", "price": 15.3}, {"date": "Jun 01, 2023", "price": 16.78}, {"date": "Jul 01, 2023", "price": 18.52}, {"date": "Aug 01, 2023", "price": 16.78}, {"date": "Sep 01, 2023", "price": 14.92}, {"date": "Oct 01, 2023", "price": 13.44}, {"date": "Nov 01, 2023", "price": 13.86}, {"date": "Dec 01, 2023", "price": 14.74}, {"date": "Jan 01, 2024", "price": 13.72}, {"date": "Feb 01, 2024", "price": 11.45}, {"date": "Mar 01, 2024", "price": 11.35}, {"date": "Apr 01, 2024", "price": 10.1}, {"date": "May 01, 2024", "price": 11.7}, {"date": "Jun 01, 2024", "price": 10.51}, {"date": "Jul 01, 2024", "price": 9.34}, {"date": "Aug 01, 2024", "price": 6.71}, {"date": "Sep 01, 2024", "price": 6.38}, {"date": "Oct 01, 2024", "price": 7.08}, {"date": "Nov 01, 2024", "price": 8.69}, {"date": "Dec 01, 2024", "price": 8.14}, {"date": "Jan 01, 2025", "price": 8.11}, {"date": "Feb 01, 2025", "price": 5.2}, {"date": "Mar 01, 2025", "price": 4.34}, {"date": "Apr 01, 2025", "price": 4.22}, {"date": "May 01, 2025", "price": 5.62}, {"date": "Jun 01, 2025", "price": 6.59}, {"date": "Jul 01, 2025", "price": 7.78}, {"date": "Aug 01, 2025", "price": 6.17}, {"date": "Sep 01, 2025", "price": 6.09}, {"date": "Oct 01, 2025", "price": 5.55}, {"date": "Nov 01, 2025", "price": 3.55}, {"date": "Dec 01, 2025", "price": 3.57}, {"date": "Jan 01, 2026", "price": 3.35}, {"date": "Feb 01, 2026", "price": 3.04}, {"date": "Mar 01, 2026", "price": 3.26}, {"date": "Apr 01, 2026", "price": 4.15}, {"date": "May 01, 2026", "price": 3.17}, {"date": "Jun 01, 2026", "price": 3.2}, {"date": "Jul 01, 2026", "price": 2.85}, {"date": "Aug 01, 2026", "price": 2.83}, {"date": "Aug 07, 2026", "price": 2.83}], "MAX": [{"date": "Feb 08, 2021", "price": 75.46}, {"date": "Feb 15, 2021", "price": 71.75}, {"date": "Feb 22, 2021", "price": 67.31}, {"date": "Mar 01, 2021", "price": 61.65}, {"date": "Mar 08, 2021", "price": 69.26}, {"date": "Mar 15, 2021", "price": 68.16}, {"date": "Mar 22, 2021", "price": 62.6}, {"date": "Mar 29, 2021", "price": 61.48}, {"date": "Apr 05, 2021", "price": 60.21}, {"date": "Apr 12, 2021", "price": 59.81}, {"date": "Apr 19, 2021", "price": 58.96}, {"date": "Apr 26, 2021", "price": 60.24}, {"date": "May 03, 2021", "price": 57.99}, {"date": "May 10, 2021", "price": 42.82}, {"date": "May 17, 2021", "price": 40.45}, {"date": "May 24, 2021", "price": 47.72}, {"date": "May 31, 2021", "price": 46.72}, {"date": "Jun 07, 2021", "price": 47.62}, {"date": "Jun 14, 2021", "price": 50.24}, {"date": "Jun 21, 2021", "price": 58.7}, {"date": "Jun 28, 2021", "price": 55.4}, {"date": "Jul 05, 2021", "price": 53.3}, {"date": "Jul 12, 2021", "price": 48.76}, {"date": "Jul 19, 2021", "price": 51.76}, {"date": "Jul 26, 2021", "price": 50.88}, {"date": "Aug 02, 2021", "price": 48.78}, {"date": "Aug 09, 2021", "price": 49.57}, {"date": "Aug 16, 2021", "price": 48.29}, {"date": "Aug 23, 2021", "price": 55.19}, {"date": "Aug 30, 2021", "price": 59.94}, {"date": "Sep 06, 2021", "price": 58.2}, {"date": "Sep 13, 2021", "price": 53.97}, {"date": "Sep 20, 2021", "price": 53.5}, {"date": "Sep 27, 2021", "price": 51.09}, {"date": "Oct 04, 2021", "price": 49.01}, {"date": "Oct 11, 2021", "price": 52.18}, {"date": "Oct 18, 2021", "price": 55.48}, {"date": "Oct 25, 2021", "price": 52.52}, {"date": "Nov 01, 2021", "price": 52.0}, {"date": "Nov 08, 2021", "price": 36.55}, {"date": "Nov 15, 2021", "price": 36.38}, {"date": "Nov 22, 2021", "price": 33.83}, {"date": "Nov 29, 2021", "price": 31.74}, {"date": "Dec 06, 2021", "price": 36.27}, {"date": "Dec 13, 2021", "price": 32.85}, {"date": "Dec 20, 2021", "price": 34.87}, {"date": "Dec 27, 2021", "price": 33.86}, {"date": "Jan 03, 2022", "price": 31.47}, {"date": "Jan 10, 2022", "price": 33.25}, {"date": "Jan 17, 2022", "price": 30.0}, {"date": "Jan 24, 2022", "price": 27.96}, {"date": "Jan 31, 2022", "price": 27.66}, {"date": "Feb 07, 2022", "price": 28.1}, {"date": "Feb 14, 2022", "price": 25.19}, {"date": "Feb 21, 2022", "price": 26.38}, {"date": "Feb 28, 2022", "price": 18.08}, {"date": "Mar 07, 2022", "price": 21.63}, {"date": "Mar 14, 2022", "price": 28.95}, {"date": "Mar 21, 2022", "price": 28.17}, {"date": "Mar 28, 2022", "price": 27.95}, {"date": "Apr 04, 2022", "price": 25.78}, {"date": "Apr 11, 2022", "price": 25.91}, {"date": "Apr 18, 2022", "price": 23.45}, {"date": "Apr 25, 2022", "price": 23.99}, {"date": "May 02, 2022", "price": 21.91}, {"date": "May 09, 2022", "price": 25.54}, {"date": "May 16, 2022", "price": 28.17}, {"date": "May 23, 2022", "price": 28.99}, {"date": "May 30, 2022", "price": 30.42}, {"date": "Jun 06, 2022", "price": 30.36}, {"date": "Jun 13, 2022", "price": 27.93}, {"date": "Jun 20, 2022", "price": 31.98}, {"date": "Jun 27, 2022", "price": 29.36}, {"date": "Jul 04, 2022", "price": 34.16}, {"date": "Jul 11, 2022", "price": 33.08}, {"date": "Jul 18, 2022", "price": 33.88}, {"date": "Jul 25, 2022", "price": 37.92}, {"date": "Aug 01, 2022", "price": 37.56}, {"date": "Aug 08, 2022", "price": 31.38}, {"date": "Aug 15, 2022", "price": 28.26}, {"date": "Aug 22, 2022", "price": 26.69}, {"date": "Aug 29, 2022", "price": 24.65}, {"date": "Sep 05, 2022", "price": 27.49}, {"date": "Sep 12, 2022", "price": 23.56}, {"date": "Sep 19, 2022", "price": 21.23}, {"date": "Sep 26, 2022", "price": 21.49}, {"date": "Oct 03, 2022", "price": 23.58}, {"date": "Oct 10, 2022", "price": 21.14}, {"date": "Oct 17, 2022", "price": 21.95}, {"date": "Oct 24, 2022", "price": 25.5}, {"date": "Oct 31, 2022", "price": 22.75}, {"date": "Nov 07, 2022", "price": 25.46}, {"date": "Nov 14, 2022", "price": 23.11}, {"date": "Nov 21, 2022", "price": 22.05}, {"date": "Nov 28, 2022", "price": 24.8}, {"date": "Dec 05, 2022", "price": 23.43}, {"date": "Dec 12, 2022", "price": 23.02}, {"date": "Dec 19, 2022", "price": 20.94}, {"date": "Dec 26, 2022", "price": 21.05}, {"date": "Jan 02, 2023", "price": 19.49}, {"date": "Jan 09, 2023", "price": 23.08}, {"date": "Jan 16, 2023", "price": 24.01}, {"date": "Jan 23, 2023", "price": 26.49}, {"date": "Jan 30, 2023", "price": 26.85}, {"date": "Feb 06, 2023", "price": 24.32}, {"date": "Feb 13, 2023", "price": 22.74}, {"date": "Feb 20, 2023", "price": 23.52}, {"date": "Feb 27, 2023", "price": 22.38}, {"date": "Mar 06, 2023", "price": 19.52}, {"date": "Mar 13, 2023", "price": 19.93}, {"date": "Mar 20, 2023", "price": 18.86}, {"date": "Mar 27, 2023", "price": 19.55}, {"date": "Apr 03, 2023", "price": 18.6}, {"date": "Apr 10, 2023", "price": 17.02}, {"date": "Apr 17, 2023", "price": 17.58}, {"date": "Apr 24, 2023", "price": 18.21}, {"date": "May 01, 2023", "price": 17.52}, {"date": "May 08, 2023", "price": 15.99}, {"date": "May 15, 2023", "price": 16.14}, {"date": "May 22, 2023", "price": 17.13}, {"date": "May 29, 2023", "price": 16.55}, {"date": "Jun 05, 2023", "price": 16.94}, {"date": "Jun 12, 2023", "price": 17.88}, {"date": "Jun 19, 2023", "price": 17.18}, {"date": "Jun 26, 2023", "price": 16.78}, {"date": "Jul 03, 2023", "price": 16.62}, {"date": "Jul 10, 2023", "price": 19.82}, {"date": "Jul 17, 2023", "price": 18.68}, {"date": "Jul 24, 2023", "price": 18.21}, {"date": "Jul 31, 2023", "price": 17.18}, {"date": "Aug 07, 2023", "price": 16.51}, {"date": "Aug 14, 2023", "price": 16.47}, {"date": "Aug 21, 2023", "price": 16.04}, {"date": "Aug 28, 2023", "price": 16.99}, {"date": "Sep 04, 2023", "price": 15.73}, {"date": "Sep 11, 2023", "price": 15.6}, {"date": "Sep 18, 2023", "price": 14.65}, {"date": "Sep 25, 2023", "price": 14.92}, {"date": "Oct 02, 2023", "price": 14.13}, {"date": "Oct 09, 2023", "price": 13.97}, {"date": "Oct 16, 2023", "price": 13.41}, {"date": "Oct 23, 2023", "price": 13.35}, {"date": "Oct 30, 2023", "price": 13.67}, {"date": "Nov 06, 2023", "price": 14.25}, {"date": "Nov 13, 2023", "price": 14.71}, {"date": "Nov 20, 2023", "price": 14.08}, {"date": "Nov 27, 2023", "price": 14.31}, {"date": "Dec 04, 2023", "price": 14.04}, {"date": "Dec 11, 2023", "price": 15.16}, {"date": "Dec 18, 2023", "price": 15.0}, {"date": "Dec 25, 2023", "price": 14.74}, {"date": "Jan 01, 2024", "price": 14.01}, {"date": "Jan 08, 2024", "price": 13.87}, {"date": "Jan 15, 2024", "price": 13.77}, {"date": "Jan 22, 2024", "price": 14.2}, {"date": "Jan 29, 2024", "price": 13.71}, {"date": "Feb 05, 2024", "price": 13.28}, {"date": "Feb 12, 2024", "price": 13.57}, {"date": "Feb 19, 2024", "price": 13.11}, {"date": "Feb 26, 2024", "price": 11.44}, {"date": "Mar 04, 2024", "price": 10.87}, {"date": "Mar 11, 2024", "price": 10.74}, {"date": "Mar 18, 2024", "price": 10.87}, {"date": "Mar 25, 2024", "price": 11.35}, {"date": "Apr 01, 2024", "price": 10.53}, {"date": "Apr 08, 2024", "price": 10.53}, {"date": "Apr 15, 2024", "price": 10.18}, {"date": "Apr 22, 2024", "price": 10.49}, {"date": "Apr 29, 2024", "price": 10.14}, {"date": "May 06, 2024", "price": 11.45}, {"date": "May 13, 2024", "price": 12.3}, {"date": "May 20, 2024", "price": 11.47}, {"date": "May 27, 2024", "price": 11.7}, {"date": "Jun 03, 2024", "price": 11.22}, {"date": "Jun 10, 2024", "price": 10.75}, {"date": "Jun 17, 2024", "price": 10.25}, {"date": "Jun 24, 2024", "price": 10.51}, {"date": "Jul 01, 2024", "price": 9.34}, {"date": "Jul 08, 2024", "price": 9.39}, {"date": "Jul 15, 2024", "price": 8.82}, {"date": "Jul 22, 2024", "price": 9.13}, {"date": "Jul 29, 2024", "price": 8.52}, {"date": "Aug 05, 2024", "price": 5.98}, {"date": "Aug 12, 2024", "price": 6.0}, {"date": "Aug 19, 2024", "price": 6.67}, {"date": "Aug 26, 2024", "price": 6.71}, {"date": "Sep 02, 2024", "price": 6.78}, {"date": "Sep 09, 2024", "price": 6.32}, {"date": "Sep 16, 2024", "price": 6.09}, {"date": "Sep 23, 2024", "price": 6.43}, {"date": "Sep 30, 2024", "price": 6.65}, {"date": "Oct 07, 2024", "price": 6.81}, {"date": "Oct 14, 2024", "price": 7.31}, {"date": "Oct 21, 2024", "price": 7.11}, {"date": "Oct 28, 2024", "price": 7.31}, {"date": "Nov 04, 2024", "price": 8.07}, {"date": "Nov 11, 2024", "price": 7.87}, {"date": "Nov 18, 2024", "price": 8.18}, {"date": "Nov 25, 2024", "price": 8.69}, {"date": "Dec 02, 2024", "price": 8.25}, {"date": "Dec 09, 2024", "price": 8.32}, {"date": "Dec 16, 2024", "price": 7.75}, {"date": "Dec 23, 2024", "price": 8.02}, {"date": "Dec 30, 2024", "price": 8.1}, {"date": "Jan 06, 2025", "price": 7.56}, {"date": "Jan 13, 2025", "price": 7.7}, {"date": "Jan 20, 2025", "price": 7.5}, {"date": "Jan 27, 2025", "price": 8.11}, {"date": "Feb 03, 2025", "price": 8.49}, {"date": "Feb 10, 2025", "price": 8.46}, {"date": "Feb 17, 2025", "price": 5.21}, {"date": "Feb 24, 2025", "price": 5.2}, {"date": "Mar 03, 2025", "price": 5.08}, {"date": "Mar 10, 2025", "price": 4.82}, {"date": "Mar 17, 2025", "price": 4.53}, {"date": "Mar 24, 2025", "price": 4.3}, {"date": "Mar 31, 2025", "price": 4.06}, {"date": "Apr 07, 2025", "price": 3.95}, {"date": "Apr 14, 2025", "price": 4.36}, {"date": "Apr 21, 2025", "price": 4.47}, {"date": "Apr 28, 2025", "price": 4.66}, {"date": "May 05, 2025", "price": 5.68}, {"date": "May 12, 2025", "price": 5.77}, {"date": "May 19, 2025", "price": 5.72}, {"date": "May 26, 2025", "price": 5.62}, {"date": "Jun 02, 2025", "price": 5.31}, {"date": "Jun 09, 2025", "price": 4.95}, {"date": "Jun 16, 2025", "price": 5.2}, {"date": "Jun 23, 2025", "price": 6.45}, {"date": "Jun 30, 2025", "price": 6.51}, {"date": "Jul 07, 2025", "price": 6.52}, {"date": "Jul 14, 2025", "price": 7.14}, {"date": "Jul 21, 2025", "price": 8.22}, {"date": "Jul 28, 2025", "price": 7.59}, {"date": "Aug 04, 2025", "price": 6.32}, {"date": "Aug 11, 2025", "price": 6.29}, {"date": "Aug 18, 2025", "price": 6.36}, {"date": "Aug 25, 2025", "price": 6.17}, {"date": "Sep 01, 2025", "price": 6.7}, {"date": "Sep 08, 2025", "price": 6.83}, {"date": "Sep 15, 2025", "price": 7.05}, {"date": "Sep 22, 2025", "price": 6.28}, {"date": "Sep 29, 2025", "price": 5.86}, {"date": "Oct 06, 2025", "price": 5.07}, {"date": "Oct 13, 2025", "price": 5.28}, {"date": "Oct 20, 2025", "price": 5.88}, {"date": "Oct 27, 2025", "price": 5.55}, {"date": "Nov 03, 2025", "price": 4.26}, {"date": "Nov 10, 2025", "price": 3.6}, {"date": "Nov 17, 2025", "price": 3.32}, {"date": "Nov 24, 2025", "price": 3.55}, {"date": "Dec 01, 2025", "price": 3.62}, {"date": "Dec 08, 2025", "price": 3.39}, {"date": "Dec 15, 2025", "price": 3.46}, {"date": "Dec 22, 2025", "price": 3.52}, {"date": "Dec 29, 2025", "price": 3.62}, {"date": "Jan 05, 2026", "price": 3.48}, {"date": "Jan 12, 2026", "price": 3.57}, {"date": "Jan 19, 2026", "price": 3.54}, {"date": "Jan 26, 2026", "price": 3.35}, {"date": "Feb 02, 2026", "price": 3.22}, {"date": "Feb 09, 2026", "price": 2.75}, {"date": "Feb 16, 2026", "price": 3.03}, {"date": "Feb 23, 2026", "price": 3.04}, {"date": "Mar 02, 2026", "price": 3.06}, {"date": "Mar 09, 2026", "price": 3.77}, {"date": "Mar 16, 2026", "price": 3.57}, {"date": "Mar 23, 2026", "price": 3.22}, {"date": "Mar 30, 2026", "price": 3.36}, {"date": "Apr 06, 2026", "price": 3.4}, {"date": "Apr 13, 2026", "price": 4.26}, {"date": "Apr 20, 2026", "price": 4.27}, {"date": "Apr 27, 2026", "price": 4.16}, {"date": "May 04, 2026", "price": 3.62}, {"date": "May 11, 2026", "price": 3.14}, {"date": "May 18, 2026", "price": 3.11}, {"date": "May 25, 2026", "price": 3.17}, {"date": "Jun 01, 2026", "price": 2.84}, {"date": "Jun 08, 2026", "price": 2.72}, {"date": "Jun 15, 2026", "price": 2.96}, {"date": "Jun 22, 2026", "price": 3.04}, {"date": "Jun 29, 2026", "price": 3.28}, {"date": "Jul 06, 2026", "price": 3.03}, {"date": "Jul 13, 2026", "price": 2.92}, {"date": "Jul 20, 2026", "price": 2.81}, {"date": "Jul 27, 2026", "price": 2.85}, {"date": "Aug 03, 2026", "price": 2.83}, {"date": "Aug 07, 2026", "price": 2.83}]};
+        let currentRangeKey = '1Y';
+        let currentPoints = allDatasets[currentRangeKey] || [];
+        let currentSvgCoords = [];
+
+        const width = 900;
+        const height = 260;
+        const padX = 20;
+        const padY = 25;
+
+        const container = document.getElementById('chart-container');
+        const svg = document.getElementById('interactive-svg');
+        const linePath = document.getElementById('chart-line-path');
+        const areaPath = document.getElementById('chart-area-path');
+        const tooltipDate = document.getElementById('tooltip-date');
+        const tooltipPrice = document.getElementById('tooltip-price');
+        const crosshair = document.getElementById('crosshair-line');
+        const dot = document.getElementById('hover-dot');
+        const startLbl = document.getElementById('chart-start-lbl');
+        const endLbl = document.getElementById('chart-end-lbl');
+        const rangeTitle = document.getElementById('chart-range-title');
+
+        function recalculatePaths(points) {
+            if (!points || points.length < 2) return;
+            const prices = points.map(p => p.price);
+            const minP = Math.min(...prices);
+            const maxP = Math.max(...prices);
+            const pRange = Math.max(maxP - minP, 0.01);
+            const n = points.length;
+
+            currentSvgCoords = [];
+            for (let i = 0; i < n; i++) {
+                const x = padX + (i / (n - 1)) * (width - 2 * padX);
+                const y = height - padY - ((points[i].price - minP) / pRange) * (height - 2 * padY);
+                currentSvgCoords.push([Math.round(x * 10) / 10, Math.round(y * 10) / 10]);
+            }
+
+            const lineD = 'M ' + currentSvgCoords.map(c => c[0] + ',' + c[1]).join(' L ');
+            const firstC = currentSvgCoords[0];
+            const lastC = currentSvgCoords[currentSvgCoords.length - 1];
+            const areaD = lineD + ' L ' + lastC[0] + ',' + height + ' L ' + firstC[0] + ',' + height + ' Z';
+
+            linePath.setAttribute('d', lineD);
+            areaPath.setAttribute('d', areaD);
+
+            startLbl.innerText = points[0].date + ' ($' + minP.toFixed(2) + ')';
+            endLbl.innerText = points[n - 1].date + ' ($' + points[n - 1].price.toFixed(2) + ')';
+            
+            tooltipDate.innerText = points[n - 1].date;
+            tooltipPrice.innerText = '$' + points[n - 1].price.toFixed(2);
+
+            const titles = { '1Y': '1-Year Range', '5Y': '5-Year Range', '10Y': '10-Year Range', 'MAX': 'All-Time Historical Range' };
+            rangeTitle.innerText = titles[currentRangeKey] || currentRangeKey + ' Range';
+        }
+
+        window.switchChartRange = function(rangeKey) {
+            if (!allDatasets[rangeKey]) return;
+            currentRangeKey = rangeKey;
+            currentPoints = allDatasets[rangeKey];
+            
+            document.querySelectorAll('.range-pill').forEach(btn => {
+                if (btn.innerText.trim() === rangeKey) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            recalculatePaths(currentPoints);
+            hideHover();
+        };
+
+        function updateHover(e) {
+            if (!currentPoints.length || !currentSvgCoords.length) return;
+            const rect = svg.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const pct = Math.max(0, Math.min(1, mouseX / rect.width));
+            const idx = Math.round(pct * (currentPoints.length - 1));
+            
+            const pt = currentPoints[idx];
+            const coord = currentSvgCoords[idx];
+            if (!pt || !coord) return;
+
+            crosshair.setAttribute('x1', coord[0]);
+            crosshair.setAttribute('x2', coord[0]);
+            crosshair.style.display = 'block';
+
+            dot.setAttribute('cx', coord[0]);
+            dot.setAttribute('cy', coord[1]);
+            dot.style.display = 'block';
+
+            tooltipDate.innerText = pt.date;
+            tooltipPrice.innerText = '$' + pt.price.toFixed(2);
+        }
+
+        function hideHover() {
+            crosshair.style.display = 'none';
+            dot.style.display = 'none';
+            if (currentPoints.length) {
+                tooltipDate.innerText = currentPoints[currentPoints.length - 1].date;
+                tooltipPrice.innerText = '$' + currentPoints[currentPoints.length - 1].price.toFixed(2);
+            }
+        }
+
+        container.addEventListener('mousemove', updateHover);
+        container.addEventListener('mouseleave', hideHover);
+        container.addEventListener('touchstart', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
+        container.addEventListener('touchmove', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
+        container.addEventListener('touchend', hideHover);
+
+        recalculatePaths(currentPoints);
+    })();
+    </script>
+    
+
+            <!-- Key Metrics Grid -->
+            <div class="metrics-grid" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));">
+                <div class="metric-cell">
+                    <div class="metric-label">Fair Value</div>
+                    <div class="metric-value" style="color: var(--accent-warm);">$5.50</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Bear Target</div>
+                    <div class="metric-value" style="color: var(--accent-red);">$1.80 (-36% Downside)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Base Target</div>
+                    <div class="metric-value">$5.50 (+94% Upside)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Bull Target</div>
+                    <div class="metric-value" style="color: var(--accent-green);">$9.50 (+236% Upside)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Alert Corridor</div>
+                    <div class="metric-value" style="font-size: 1.05rem; font-family: var(--font-mono); color: var(--text-title);">$2.00 ⇄ $4.20</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Next Catalyst</div>
+                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">2026-11-05</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation Tabs -->
+        <div class="tabs-header">
+            <button class="tab-btn active" onclick="showTab('memo')">Investment Thesis</button>
+            <button class="tab-btn" onclick="showTab('history')">Evolution (0)</button>
+        </div>
+
+        <!-- Memo Content -->
+        <div id="tab-memo" class="tab-content active">
+            <article class="memo-container">
+                <div class="section">
+  <h2>Section 1: Operational Performance & Financial Baseline (Q2 2026)</h2>
+  
+  <p>Bumble Inc. (NASDAQ: BMBL) presented its Q2 2026 financial results on August 5, 2026, outlining the financial impact of Founder & CEO Whitney Wolfe Herd’s structural "quality over quantity" platform reset. Consolidated total revenue fell 15.2% year-over-year to $210.5 million, reflecting a contraction in the overall paying user base as management intentionally purged low-intent accounts and discontinued promotional discount tactics. Despite top-line contraction, profitability was buoyed by strict cost discipline and alternative billing adoption. However, GAAP net loss stood at $127.9 million due to a $169.3 million non-cash goodwill and brand impairment charge triggered by the prolonged contraction in equity market capitalization.</p>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Q2 2026 Total Revenue</div>
+      <div class="metric-value">$210.5M</div>
+      <div class="metric-delta neg">-15.2% YoY</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Bumble App Revenue</div>
+      <div class="metric-value">$171.7M</div>
+      <div class="metric-delta neg">-14.7% YoY</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Total Paying Users</div>
+      <div class="metric-value">3.16M</div>
+      <div class="metric-delta neg">-16.4% YoY</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Bumble App ARPPU</div>
+      <div class="metric-value">$27.55</div>
+      <div class="metric-delta pos">+3.0% YoY</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Adjusted EBITDA</div>
+      <div class="metric-value">$72.9M</div>
+      <div class="metric-delta neg">34.6% Margin</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">H1 Free Cash Flow</div>
+      <div class="metric-value">$124.9M</div>
+      <div class="metric-delta pos">+15.0% YoY</div>
+    </div>
+  </div>
+
+  <h3>Segment Decomposition & Unit Economics</h3>
+  <p>The operational divide between Bumble’s flagship application and its legacy Badoo asset highlights two distinct economic vectors. Bumble App revenue declined 14.7% YoY to $171.7 million, while Badoo App & Other revenue contracted 17.1% YoY to $38.8 million. While top-line contraction across both platforms was sharp, sequential trends suggest the most acute phase of member attrition on the flagship app may be stabilizing. Flagship paying users declined by only 5,000 sequentially in Q2 2026 to 2.077 million—a material deceleration from sequential losses of 103,000 in Q1 2026 and 159,000 in Q4 2025.</p>
+
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Financial & Operational Metric</th>
+        <th>Q2 2026</th>
+        <th>Q2 2025</th>
+        <th>YoY Change</th>
+        <th>Sequential Trend / Commentary</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Total Revenue</strong></td>
+        <td>$210.5M</td>
+        <td>$248.2M</td>
+        <td>-15.2%</td>
+        <td>Upper half of guided $205M–$213M range</td>
+      </tr>
+      <tr>
+        <td><strong>Bumble App Revenue</strong></td>
+        <td>$171.7M</td>
+        <td>$201.4M</td>
+        <td>-14.7%</td>
+        <td>Represents 81.6% of total revenue mix</td>
+      </tr>
+      <tr>
+        <td><strong>Badoo App & Other Revenue</strong></td>
+        <td>$38.8M</td>
+        <td>$46.8M</td>
+        <td>-17.1%</td>
+        <td>Ongoing structural drag from international legacy base</td>
+      </tr>
+      <tr>
+        <td><strong>Total Paying Users</strong></td>
+        <td>3.16M</td>
+        <td>3.78M</td>
+        <td>-16.4%</td>
+        <td>Driven by deliberate purge of low-intent accounts</td>
+      </tr>
+      <tr>
+        <td><strong>Bumble App Paying Users</strong></td>
+        <td>2.077M</td>
+        <td>2.502M</td>
+        <td>-17.0%</td>
+        <td>Sequential loss narrowed to -5k vs -103k in Q1 2026</td>
+      </tr>
+      <tr>
+        <td><strong>Bumble App ARPPU</strong></td>
+        <td>$27.55</td>
+        <td>$26.85</td>
+        <td>+3.0%</td>
+        <td>Reflects monetization power over remaining high-intent users</td>
+      </tr>
+      <tr>
+        <td><strong>Total ARPPU</strong></td>
+        <td>$21.96</td>
+        <td>$21.69</td>
+        <td>+1.2%</td>
+        <td>Resilient pricing power across active paid tiers</td>
+      </tr>
+      <tr>
+        <td><strong>Gross Margin</strong></td>
+        <td>74.4%</td>
+        <td>70.1%</td>
+        <td>+430 bps</td>
+        <td>Benefited from alternative billing adoption bypassing app store fees</td>
+      </tr>
+      <tr>
+        <td><strong>Adjusted EBITDA</strong></td>
+        <td>$72.9M</td>
+        <td>$94.6M</td>
+        <td>-22.9%</td>
+        <td>Margin compressed to 34.6% vs 38.1% in Q2 2025</td>
+      </tr>
+      <tr>
+        <td><strong>GAAP Net Loss</strong></td>
+        <td>$(127.9M)</td>
+        <td>$(367.0M)</td>
+        <td>+65.1%</td>
+        <td>Includes $169.3M non-cash impairment charge</td>
+      </tr>
+      <tr>
+        <td><strong>Free Cash Flow (FCF)</strong></td>
+        <td>$51.0M</td>
+        <td>$71.2M (OCF)</td>
+        <td>N/A</td>
+        <td>H1 FCF reached $124.9M with 80.3% cash conversion</td>
+      </tr>
+      <tr>
+        <td><strong>Cash & Debt Position</strong></td>
+        <td>$154.0M Cash</td>
+        <td>$451.0M Debt</td>
+        <td>N/A</td>
+        <td>Refinanced $475M Term Loan extends debt maturity to 2030</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout">
+    <strong>Strategic Management Insight — Q3 2026 Guidance Squeeze:</strong>
+    <p>While Bumble generated $124.9 million in Free Cash Flow during the first half of 2026 (an 80.3% conversion rate of Adjusted EBITDA), management alerted analysts during the Q2 call that margin compression will escalate in H2 2026. Third-quarter guidance pegs revenue between $205M and $213M with Adjusted EBITDA dropping to $56M–$60M (~27.5% margin at midpoint). This margin reset is driven by deliberate re-investments into free tier member experience, subscription simplification, and brand marketing to support the upcoming platform overhaul.</p>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Section 2: Strategic Platform Reset, Technology Overhaul & Moat Analysis</h2>
+
+  <h3>1. Product Modernization & The 2027 Relaunch Delay</h3>
+  <p>Bumble is in the middle of a comprehensive platform overhaul designed to transition the company away from legacy, transactional swipe models toward algorithmic, intent-driven matchmaking. Key structural changes executed during Q2 2026 include:</p>
+  <ul>
+    <li><strong>Abolishing Strict "Women Message First" Constraints:</strong> Bumble expanded its matching protocol globally to allow <em>any member</em> to send a single opening message. The conversation remains paused until the recipient explicitly responds, preserving member control while reducing drop-off. Furthermore, the reply response window was extended from 24 to 72 hours.</li>
+    <li><strong>Relaunch Timeline Delay (Q2 Earnings Call Revelation):</strong> During the August 5, 2026 conference call, CEO Whitney Wolfe Herd revealed that while platform modernization and cloud-native migration are progressing, the complex data schema re-architecting has pushed the rollout of the fully reimagined interaction model (the replacement for the swipe mechanism) from late 2026 into <strong>early 2027</strong>. This operational delay extends the duration of top-line friction, requiring investors to underwrite two additional quarters of revenue weakness before the new user experience hits the market.</li>
+  </ul>
+
+  <h3>2. AI Assistant Strategy: 'Bee' as the Intelligence Engine</h3>
+  <p>Rather than positioning artificial intelligence as a substitute for human relationships, Bumble's proprietary AI assistant, <strong>'Bee'</strong>, functions as an underlying intelligence layer. Deployed during onboarding and profile setup, 'Bee' captures rich conversational signals regarding user values, relationship intent, and lifestyle preferences. Management emphasized on the Q2 call that 'Bee' will not eliminate or automate dating, but rather surface high-compatibility matches to elevate real-world meetup conversion rates.</p>
+
+  <h3>3. Economic Moat Evaluation & Competitive Landscape</h3>
+  <p>Bumble’s historical economic moat was predicated on brand equity and network effects built around its "women-first" positioning. However, secular shifts and competitive actions have tested this moat:</p>
+  
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Core Differentiator</div>
+      <div class="metric-value">Brand Equity</div>
+      <div class="metric-delta neg">Diverging Utility</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Competitive Stance</div>
+      <div class="metric-value">vs. Match Group</div>
+      <div class="metric-delta neg">Hinge Gaining Share</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">New Vector</div>
+      <div class="metric-value">BFF & Plans</div>
+      <div class="metric-delta pos">IRL & Social Focus</div>
+    </div>
+  </div>
+
+  <ul>
+    <li><strong>Erosion of Differentiator Supremacy:</strong> By removing the strict requirement for women to send the first message, Bumble's core product functionality now aligns closely with traditional dating apps. The moat must now shift toward algorithm superior match quality and trust/safety infrastructure rather than a simple rules-based UI gate.</li>
+    <li><strong>Match Group (Hinge / Tinder) Dynamics:</strong> While Match Group’s Tinder battles similar swipe fatigue, Match’s Hinge platform continues to capture high-intent Gen Z relationship seekers, posing a persistent threat to Bumble’s core demographic.</li>
+    <li><strong>Gen Z Fatigue & The IRL Shift:</strong> Gen Z users are increasingly dissatisfied with gamified swiping, leading to lower conversion from download to paying subscription. Bumble is attempting to counter this via <strong>Bumble For Friends (BFF)</strong>, the acquisition of community app Geneva, and testing a standalone in-person events platform ("Plans") to capture real-world social discovery.</li>
+  </ul>
+
+  <div class="callout">
+    <strong>Thesis Pre-Mortem & Falsification Triggers:</strong>
+    <p>The investment thesis hinges on Bumble successfully stabilizing its active user base and monetizing its early 2027 product relaunch. The thesis will be invalidated if:</p>
+    <ol>
+      <li><strong>Sequential User Bleed Accelerates:</strong> Sequential Bumble App paying user losses exceed 50,000 per quarter in Q3 or Q4 2026, demonstrating that the "quality reset" has failed to establish an active user floor.</li>
+      <li><strong>Execution Delays Compound:</strong> The 2027 platform relaunch experiences further engineering slippage past Q1 2027, burning cash on tech migration while revenue continues to decline.</li>
+      <li><strong>Adjusted EBITDA Margin Collapses:</strong> H2 2026 growth investments fail to drive top-line stabilization, dragging Adjusted EBITDA margins persistently below 25% without restoring user growth.</li>
+    </ol>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Section 3: Forensic Cash Flow & SBC Dilution Audit</h2>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">H1 2026 Operating Cash Flow</div>
+      <div class="metric-value">$130.9M</div>
+      <div class="metric-delta pos">+20.5% YoY</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">H1 2026 Free Cash Flow</div>
+      <div class="metric-value">$124.9M</div>
+      <div class="metric-delta pos">80.3% EBITDA Conv.</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">H1 2026 SBC Expense</div>
+      <div class="metric-value">$20.3M</div>
+      <div class="metric-delta neg">$9.5M in Q2</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">H1 Maintenance CapEx</div>
+      <div class="metric-value">~$6.0M</div>
+      <div class="metric-delta pos">1.4% of Sales</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Post-SBC Owner Earnings</div>
+      <div class="metric-value">$104.6M</div>
+      <div class="metric-delta pos">~$190M-$200M Ann.</div>
+    </div>
+  </div>
+
+  <h3>GAAP Net Loss vs. Real Economic Cash Generation</h3>
+  <p>
+    A surface-level review of Bumble Inc.’s Q2 2026 income statement presents an alarming headline GAAP Net Loss of <strong>-$127.9M</strong> (and a cumulative H1 2026 GAAP Net Loss of -$75.3M). However, a rigorous forensic accounting audit reveals that this paper deficit is overwhelmingly driven by a non-cash accounting impairment. Specifically, during Q2 2026, management recorded a <strong>$169.3M non-cash goodwill and indefinite-lived brand intangible impairment charge</strong>, triggered by the sustained contraction in Bumble’s market capitalization. 
+  </p>
+  <p>
+    Excluding this non-cash accounting write-down, Bumble’s core operations remain robustly cash-generative. In Q2 2026 alone, operating cash flow reached <strong>$53.6M</strong>, yielding <strong>$51.1M in Free Cash Flow (FCF)</strong> after modest capital expenditures of $2.5M. For the first half of 2026 (H1), Bumble generated <strong>$130.9M in Operating Cash Flow</strong> and <strong>$124.9M in Free Cash Flow</strong>, representing an exceptional <strong>80.3% FCF conversion rate</strong> relative to H1 Adjusted EBITDA of $155.5M. The app network operates with virtually no inventory and minimal working capital intensity, allowing gross cash from subscribers to immediately convert into balance sheet liquidity.
+  </p>
+
+  <h3>Stock-Based Compensation (SBC) & Buffett Owner Earnings Adjustment</h3>
+  <p>
+    Under standard non-GAAP practices, management adds back Stock-Based Compensation (SBC) to calculate Adjusted EBITDA ($72.9M in Q2, $155.5M in H1). Following fundamental investment principles, SBC must be audited as a real cash expense—it represents ongoing shareholder dilution that must either be offset via share buybacks or subtracted directly from owner cash flows.
+  </p>
+  <p>
+    In H1 2026, Bumble recognized <strong>$20.3M in total SBC</strong> ($9.5M in Q2 and $10.8M in Q1). Deducting SBC and maintenance CapEx (~$6.0M in H1) from GAAP Operating Cash Flow yields normalized <strong>Post-SBC Owner Earnings of $104.6M for H1 2026</strong>. On an annualized basis, Bumble is producing <strong>~$190M to $200M in true Post-SBC Owner Earnings</strong>, proving that despite top-line user compression, the platform retains a highly capital-light, cash-rich economic engine.
+  </p>
+
+  <h3>Cash Flow Reconciliation Table (H1 & Q2 2026)</h3>
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Cash Flow Metric ($ Millions)</th>
+        <th>Q2 2026</th>
+        <th>H1 2026</th>
+        <th>Forensic Audit &amp; Adjustment Rationale</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>GAAP Net Income (Loss)</strong></td>
+        <td><strong>-$127.9</strong></td>
+        <td><strong>-$75.3</strong></td>
+        <td>Distorted by non-cash impairment charges.</td>
+      </tr>
+      <tr>
+        <td>(+) Goodwill &amp; Intangibles Impairment</td>
+        <td>+$169.3</td>
+        <td>+$169.3</td>
+        <td>100% non-cash write-down of legacy M&amp;A valuation.</td>
+      </tr>
+      <tr>
+        <td>(+) Depreciation &amp; Amortization</td>
+        <td>+$11.2</td>
+        <td>+$22.4</td>
+        <td>Non-cash amortization of platform software and hardware.</td>
+      </tr>
+      <tr>
+        <td>(+) Stock-Based Compensation (GAAP)</td>
+        <td>+$9.5</td>
+        <td>+$20.3</td>
+        <td>Non-cash charge on GAAP P&amp;L; added back in GAAP OCF.</td>
+      </tr>
+      <tr>
+        <td>(+/-) Working Capital &amp; Other Items</td>
+        <td>-$8.5</td>
+        <td>-$5.8</td>
+        <td>Normal operating shifts in prepaid app store fees and payables.</td>
+      </tr>
+      <tr>
+        <td><strong>GAAP Operating Cash Flow (OCF)</strong></td>
+        <td><strong>$53.6</strong></td>
+        <td><strong>$130.9</strong></td>
+        <td><strong>True organic cash generated from subscriber billings.</strong></td>
+      </tr>
+      <tr>
+        <td>(-) Capital Expenditures (CapEx)</td>
+        <td>-$2.5</td>
+        <td>-$6.0</td>
+        <td>Low capital requirements (~1.4% of total revenues).</td>
+      </tr>
+      <tr>
+        <td><strong>Free Cash Flow (FCF)</strong></td>
+        <td><strong>$51.1</strong></td>
+        <td><strong>$124.9</strong></td>
+        <td><strong>Non-GAAP FCF (80.3% EBITDA conversion in H1).</strong></td>
+      </tr>
+      <tr>
+        <td>(-) Stock-Based Compensation Deduction</td>
+        <td>-$9.5</td>
+        <td>-$20.3</td>
+        <td>Full economic deduction to penalize equity dilution.</td>
+      </tr>
+      <tr>
+        <td><strong>Post-SBC Normalized Owner Earnings</strong></td>
+        <td><strong>$41.6</strong></td>
+        <td><strong>$104.6</strong></td>
+        <td><strong>True residual cash flow accruing to common shareholders.</strong></td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout">
+    <strong>Auditor's Cash Flow Verdict:</strong> While reported GAAP profits are negative due to non-cash brand impairments, Bumble’s underlying cash generation remains structurally sound. Converting >80% of Adjusted EBITDA into Free Cash Flow provides management with ~$190M-$200M in annual post-SBC discretionary cash flow, giving the company significant runway to fund its ongoing IT migration and platform redesign without relying on capital markets.
+  </div>
+</div>
+
+<div class="section">
+  <h2>Section 4: Capital Structure, Credit Refinancing & Institutional Ownership</h2>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Cash &amp; Cash Equivalents</div>
+      <div class="metric-value">$154.0M</div>
+      <div class="metric-delta pos">Unrestricted Liquidity</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Long-Term Debt</div>
+      <div class="metric-value">$451.0M</div>
+      <div class="metric-delta pos">Refinanced Term Loan</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Net Debt Position</div>
+      <div class="metric-value">~$297.0M</div>
+      <div class="metric-delta pos">-$115.7M vs FY25</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Refinanced Debt Maturity</div>
+      <div class="metric-value">2030</div>
+      <div class="metric-delta pos">$475M Senior Facility</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Blackstone Ownership</div>
+      <div class="metric-value">17.2%</div>
+      <div class="metric-delta neg">22.4M Shares Held</div>
+    </div>
+  </div>
+
+  <h3>Comprehensive Balance Sheet Audit & April 2026 Debt Refinancing</h3>
+  <p>
+    A critical milestone in Bumble’s capital structure de-risking occurred in April 2026, when management successfully completed a major credit facility overhaul. Bumble executed a new <strong>$475M Senior Secured Term Loan due 2030</strong> (generating $456.0M in net proceeds) and completely repaid $589.1M in outstanding borrowings under its legacy term loan facility. 
+  </p>
+  <p>
+    This refinancing achieved three pivotal strategic outcomes:
+  </p>
+  <ul>
+    <li><strong>Extended Debt Maturity Runway:</strong> Pushed principal maturities out to 2030, eliminating near-term debt wall risks while terminating the prior restrictive credit agreement.</li>
+    <li><strong>Absolute Debt Reduction:</strong> Reduced gross long-term debt from <strong>$588.5M at year-end 2025 to $451.0M as of June 30, 2026</strong>, utilizing ~$133M of balance sheet cash to extinguish debt.</li>
+    <li><strong>Leverage Reduction:</strong> As of June 30, 2026, Bumble held <strong>$154.0M in cash and cash equivalents</strong> against $451.0M in gross debt, resulting in a net debt position of <strong>~$297.0M</strong> (down from $412.7M at FYE 2025). Net Debt to Annualized Adjusted EBITDA sits at a manageable <strong>~0.95x</strong>.</li>
+  </ul>
+
+  <h3>Balance Sheet &amp; Debt Structure Breakdown</h3>
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Balance Sheet Line Item ($ Millions)</th>
+        <th>FY 2025 (Dec 31)</th>
+        <th>Q2 2026 (Jun 30)</th>
+        <th>Variance ($M)</th>
+        <th>Capital Structure &amp; Maturity Terms</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Cash and Cash Equivalents</td>
+        <td>$175.8</td>
+        <td>$154.0</td>
+        <td>-$21.8</td>
+        <td>Liquid cash held across tier-1 financial institutions.</td>
+      </tr>
+      <tr>
+        <td>Senior Secured Term Loan B (2030)</td>
+        <td>$588.5</td>
+        <td>$451.0</td>
+        <td>-$137.5</td>
+        <td>Refinanced April 2026; $475M nominal face value, maturity 2030.</td>
+      </tr>
+      <tr>
+        <td><strong>Total Long-Term Debt</strong></td>
+        <td><strong>$588.5</strong></td>
+        <td><strong>$451.0</strong></td>
+        <td><strong>-$137.5</strong></td>
+        <td><strong>Gross debt reduced by 23.4% via cash paydown.</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Net Debt Position</strong></td>
+        <td><strong>$412.7</strong></td>
+        <td><strong>$297.0</strong></td>
+        <td><strong>-$115.7</strong></td>
+        <td><strong>Conservative ~0.95x Net Debt / Adjusted EBITDA leverage.</strong></td>
+      </tr>
+      <tr>
+        <td>Total Stockholders' Equity</td>
+        <td>$1,120.4</td>
+        <td>$1,024.8</td>
+        <td>-$95.6</td>
+        <td>Impacted by non-cash goodwill write-downs.</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <h3>Institutional Ownership Analysis & Blackstone Forward Derivatives</h3>
+  <p>
+    Bumble’s equity structure remains closely held by private equity and institutional whales:
+  </p>
+  <ul>
+    <li>
+      <strong>Blackstone Inc. (Sponsor):</strong> Blackstone remains Bumble’s largest single shareholder, controlling <strong>22,432,496 Class A shares (17.2% of the class)</strong>. When combined with founder Whitney Wolfe Herd and her affiliates, the core control group holds 44,800,163 shares, representing <strong>29.5% beneficial ownership</strong>. 
+    </li>
+    <li>
+      <strong>June 2026 Forward Derivative Settlement:</strong> On June 16, 2026, Blackstone-affiliated entities settled a pre-arranged post-paid forward transaction with an unaffiliated financial institution, delivering <strong>7,477,500 Class A shares at $3.7751 per share</strong> ($28.2M total transaction value). SEC filings confirm this was the contractual settlement of a derivative hedge set up in prior quarters rather than a new discretionary open-market dump. However, 22.4M of Blackstone's remaining shares remain pledged under a margin loan facility securing $28.9M of principal.
+    </li>
+    <li>
+      <strong>Institutional Base:</strong> Key institutional holders include passive managers <strong>BlackRock Inc. (~7-8%)</strong> and <strong>Vanguard Group (~6-7%)</strong>, along with activist/value-oriented funds like <strong>Saba Capital Management</strong> and early sponsor remnant positions from <strong>Accel Partners</strong>.
+    </li>
+  </ul>
+
+  <h3>Capital Allocation Audit: Debt Paydown vs. Buybacks</h3>
+  <p>
+    Management’s recent capital allocation decisions reflect strict conservatism. In H1 2026, Bumble prioritized balance sheet de-risking over aggressive share buybacks, deploying over $114M of net cash to shrink its debt burden during the term loan refinancing. With $154.0M in cash and ~$190M+ in annual owner earnings, management retains full optionality to resume opportunistic share repurchases once the platform modernization and product overhaul complete in late 2026 / early 2027.
+  </p>
+
+  <div class="callout">
+    <strong>Pre-Mortem Thesis Invalidation Trigger:</strong> The debt refinancing into a 2030 maturity eliminates immediate liquidity risk. However, the primary structural risk centers on operational execution: if paying users continue to decline (down 16.4% YoY to 3.16M in Q2) and cause Post-SBC Owner Earnings to fall below $120M annually, Bumble’s net debt paydown capacity will stall, forcing management to trim growth investments and jeopardizing the turnaround timeline.
+  </div>
+</div>
+
+<div class="section">
+  <h2>Section 5: Warren Buffett Intrinsic Valuation Framework &amp; Scenario Matrix</h2>
+  
+  <p>To value Bumble Inc. (NASDAQ: BMBL) from the perspective of an owner-operator, we reject wall street exit multiples—which rely on selling to a "greater fool" in Year 5—and instead anchor our analysis strictly in Warren Buffett’s <strong>Owner Earnings</strong> framework. In accordance with the 1986 Berkshire Hathaway Shareholder Letter, true economic earnings equal reported cash flow from operations minus maintenance capital expenditures and 100% of stock-based compensation (SBC), treating equity compensation as a real cash expense and dilution factor.</p>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">H1 2026 Operating Cash Flow</div>
+      <div class="metric-value">$130.9M</div>
+      <div class="metric-delta pos">+18.3% YoY</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">H1 2026 Free Cash Flow</div>
+      <div class="metric-value">$124.9M</div>
+      <div class="metric-delta pos">80.3% Conversion</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Net Debt (Q2 2026)</div>
+      <div class="metric-value">$297.0M</div>
+      <div class="metric-delta neg">$451M Debt / $154M Cash</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Discount / Hurdle Rate</div>
+      <div class="metric-value">10.0%</div>
+      <div class="metric-delta neutral">4.2% UST + 5.8% ERP</div>
+    </div>
+  </div>
+
+  <p>Bumble operates a capital-light software model requiring minimal physical reinvestment (maintenance CapEx runs at ~2–3% of revenue). However, GAAP net losses ($127.9M in Q2 2026, driven by non-cash impairment charges of $169.3M) distort GAAP earnings, making cash conversion and Owner Earnings the true intrinsic anchors. Discounting is calculated using a 10.0% equity hurdle rate (grounded in the 10-Year US Treasury yield of ~4.2% plus a 5.8% equity risk premium) and a conservative 2.0% terminal growth rate, strictly capped at long-term US GDP growth.</p>
+
+  <div class="callout">
+    <strong>Warren Buffett Owner Earnings Equation for BMBL:</strong><br>
+    <code>Owner Earnings = Operating Cash Flow - Maintenance CapEx ($10M–$15M) - Stock-Based Compensation ($45M–$55M)</code><br>
+    <em>Net Balance Sheet Bridge:</em> Intrinsic Equity Value equals the Present Value (PV) of 10-Year Discounted Owner Earnings plus Terminal Cash Stream, minus Net Debt of $297.0M ($451.0M 2030 Term Loan minus $154.0M Cash). Divided by ~126M diluted shares outstanding.
+  </div>
+
+  <h3>Bear / Base / Bull Valuation Matrix</h3>
+
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Valuation Metric / Driver</th>
+        <th>Bear Case ($1.80)</th>
+        <th>Base Case ($5.50)</th>
+        <th>Bull Case ($9.50)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Paying User Base</strong></td>
+        <td>2.5M users (Ongoing user churn across Bumble &amp; Badoo)</td>
+        <td>3.0M users (Stabilizes following quality reset)</td>
+        <td>3.5M+ users (Rebounds via Gen Z AI feature adoption)</td>
+      </tr>
+      <tr>
+        <td><strong>Total ARPPU Range</strong></td>
+        <td>$18.00 – $19.50</td>
+        <td>$22.00 – $28.00</td>
+        <td>$28.50 – $32.00</td>
+      </tr>
+      <tr>
+        <td><strong>Annual Revenue Run-Rate</strong></td>
+        <td>~$700M / year</td>
+        <td>~$850M – $900M / year</td>
+        <td>~$1.05B – $1.15B / year</td>
+      </tr>
+      <tr>
+        <td><strong>Normalized Post-SBC Owner Earnings</strong></td>
+        <td>$80.0M / year</td>
+        <td>$145.0M / year ($140M–$150M)</td>
+        <td>$210.0M / year</td>
+      </tr>
+      <tr>
+        <td><strong>10-Yr Cash Flow Growth Rate</strong></td>
+        <td>-2.0% annual contraction</td>
+        <td>+2.5% steady compound growth</td>
+        <td>+6.5% AI &amp; product expansion</td>
+      </tr>
+      <tr>
+        <td><strong>Terminal Growth Rate</strong></td>
+        <td>1.0%</td>
+        <td>2.0%</td>
+        <td>2.0%</td>
+      </tr>
+      <tr>
+        <td><strong>PV of 10-Yr OE + Terminal Value</strong></td>
+        <td>$524.0M</td>
+        <td>$990.0M</td>
+        <td>$1,494.0M</td>
+      </tr>
+      <tr>
+        <td><strong>Less Net Debt Bridge</strong></td>
+        <td>-$297.0M ($227M Equity Value)</td>
+        <td>-$297.0M ($693M Equity Value)</td>
+        <td>-$297.0M ($1,197M Equity Value)</td>
+      </tr>
+      <tr>
+        <td><strong>Intrinsic Fair Value Per Share</strong></td>
+        <td><strong>$1.80</strong></td>
+        <td><strong>$5.50</strong></td>
+        <td><strong>$9.50</strong></td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <p>At the current market price of ~$2.90–$3.00, Bumble trades at a discount to its Base Case intrinsic value of $5.50 per share, offering a nominal margin of safety. However, the economic path to realizing this fair value is gated by significant execution friction and operational transition risks.</p>
+</div>
+
+<div class="section">
+  <h2>Section 6: Thesis Confidence, Execution Risks &amp; Pre-Mortem Falsification Triggers</h2>
+
+  <div class="callout">
+    <strong>Thesis Conviction Rating: Turnaround Risk / Speculative Risk</strong><br>
+    While Bumble generates resilient near-term free cash flow ($124.9M in H1 2026), the equity thesis carries substantial execution risk due to a multi-quarter contraction in paying users, platform migration delays, and shifting Gen Z dating behaviors. The risk-reward is asymmetric but highly fragile until user count metrics demonstrate structural stabilization.
+  </div>
+
+  <h3>Key Execution &amp; Structural Risks</h3>
+  <ul>
+    <li><strong>Platform Migration ("Tech 2.0") Delays:</strong> Management’s deliberate platform modernization and backend data migration have been delayed by several months, pushing the release of the reimagined interaction model and AI agent ("Bee") into early 2027. Continued execution slippage risks prolonging user churn and delaying monetization recovery.</li>
+    <li><strong>Gen Z Dating App Fatigue &amp; Paid Subscription Resistance:</strong> Younger cohorts are increasingly resistant to high monthly subscription paywalls, relying more on organic social meetups and free tiers. If Bumble's new free features fail to drive conversion into paid tiers, ARPPU growth will cap out.</li>
+    <li><strong>Competitive Pressure from Match Group &amp; Niche Players:</strong> Match Group's Hinge continues to capture market share among Gen Z and millennial demographics in key Western markets, while specialized apps (e.g., Grindr, Raya) insulate specific niches.</li>
+    <li><strong>Debt Capital Structure &amp; Refinancing Overhead:</strong> Bumble carries $451.0M in long-term debt (refinanced in April 2026 into a 2030 senior term loan). While liquidity is supported by $154.0M in cash, debt service consumes mandatory cash flow that could otherwise be deployed toward aggressive share repurchases at historical low share valuations.</li>
+  </ul>
+
+  <div class="callout">
+    <strong>Pre-Mortem Falsification Triggers (Thesis Invalidation Criteria):</strong>
+    <p>The Base Case intrinsic valuation ($5.50) and turnaround thesis will be formally invalidated if any of the following operational or financial thresholds are breached over the next 12 to 18 months:</p>
+    <ol>
+      <li><strong>Total Paying User Floor Breach (&lt;2.80M):</strong> Total paying users fall below 2.80 million across Bumble and Badoo (down from 3.16M in Q2 2026), signaling structural product obsolescence rather than a temporary "quality reset".</li>
+      <li><strong>Free Cash Flow Conversion Breakdown (&lt;60%):</strong> Free cash flow conversion relative to Adjusted EBITDA drops below 60% (currently ~80%), caused by expanding working capital drag or uncontained capex spend during the Tech 2.0 rollout.</li>
+      <li><strong>Post-SBC Owner Earnings Collapse (&lt;$100M/yr):</strong> Normalized annual post-SBC Owner Earnings fall below $100M for two consecutive quarters, destroying the fundamental cash yield supporting the balance sheet.</li>
+      <li><strong>Credit Agreement &amp; Debt Covenant Distress:</strong> Leverage ratios under the new 2030 $475M Term Loan facility test restrictive debt covenant thresholds due to sustained EBITDA contraction (Q2 2026 Adjusted EBITDA down 22.9% YoY to $72.9M).</li>
+    </ol>
+  </div>
+</div>
+            </article>
+        </div>
+
+        <!-- History Content -->
+        <div id="tab-history" class="tab-content">
+            
+        <div class="empty-state-box" style="background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px; padding: 75px 24px;">
+            <div class="empty-state-title">Initial Baseline Active</div>
+            <div class="empty-state-sub">Version 1 represents the initial underwriting thesis. Future revisions, price trigger reviews, and catalyst audits will be logged here</div>
+        </div>
+        
+        </div>
+    </main>
+
+    <script>
+        function showTab(id) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            if (id === 'memo') {
+                document.querySelectorAll('.tab-btn')[0].classList.add('active');
+                document.getElementById('tab-memo').classList.add('active');
+            } else {
+                document.querySelectorAll('.tab-btn')[1].classList.add('active');
+                document.getElementById('tab-history').classList.add('active');
+            }
+        }
+
+        function toggleSnapshot(ver) {
+            const el = document.getElementById('snapshot-' + ver);
+            el.style.display = (el.style.display === 'none' ? 'block' : 'none');
+        }
+    </script>
+</body>
+</html>
