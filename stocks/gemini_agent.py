@@ -470,9 +470,10 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         html_part3 = html_part3[7:]
     if html_part3.endswith("```"):
         html_part3 = html_part3[:-3]
-    html_part3 = clean_grounding_artifacts(html_part3.strip())
-
-    raw_html = f"{html_part1}\n\n{html_part2}\n\n{html_part3}".strip()
+    p1 = verify_and_repair_html_structure(html_part1)
+    p2 = verify_and_repair_html_structure(html_part2)
+    p3 = verify_and_repair_html_structure(html_part3)
+    raw_html = f"{p1}\n\n{p2}\n\n{p3}".strip()
 
     print(f"  [Pipeline 6/6] Executing Final QA Verification & Structural Integrity Filter for {ticker_clean}...")
     # Check if Section 12 (Invalidation Catalysts & Risk Pre-Mortem) is present
@@ -490,13 +491,11 @@ Write a comprehensive, rigorous Section 12 in clean Semantic HTML:
   <p>Detail severe downside risks and probability weighting.</p>
 </div>
 
-Do NOT output outer <html> or <body> tags. Ensure all tags are closed.
+Do NOT output code fences, markdown blocks, or outer <html> or <body> tags. Ensure all tags are closed.
 """
         sec12_html = call_gemini_with_search(sec12_prompt, system_instruction=INSTITUTIONAL_SYSTEM_PHILOSOPHY)
-        sec12_html = re.sub(r"```(?:html)?\s*", "", sec12_html).strip()
-        if sec12_html.endswith("```"):
-            sec12_html = sec12_html[:-3].strip()
-        raw_html = f"{raw_html}\n\n{sec12_html}".strip()
+        sec12_clean = verify_and_repair_html_structure(sec12_html)
+        raw_html = f"{raw_html}\n\n{sec12_clean}".strip()
 
     full_html = verify_and_repair_html_structure(raw_html)
 

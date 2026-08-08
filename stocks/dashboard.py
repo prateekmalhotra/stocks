@@ -243,11 +243,29 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     def clean_and_sanitize_html(content: str) -> str:
         if not content:
             return ""
-        # 1. Strip ALL inline style="..." attributes so rogue colors (like #333, red borders, #f9f9f9) can NEVER override our curated design
-        cleaned = re.sub(r'\s*style\s*=\s*"[^"]*"', '', content, flags=re.IGNORECASE)
+        # 1. Strip code fences or markdown blocks wrapping prose
+        cleaned = re.sub(r"^```(?:html)?\s*", "", content, flags=re.MULTILINE)
+        cleaned = re.sub(r"\s*```$", "", cleaned, flags=re.MULTILINE).strip()
+        cleaned = re.sub(r'\s*style\s*=\s*"[^"]*"', '', cleaned, flags=re.IGNORECASE)
         cleaned = re.sub(r"\s*style\s*=\s*'[^']*'", '', cleaned, flags=re.IGNORECASE)
         
-        # 2. Wrap all tables in table-scroll-wrap
+        # 2. Auto-close any unclosed tables and divs before rendering
+        open_tr = len(re.findall(r"<tr\b", cleaned, re.IGNORECASE))
+        close_tr = len(re.findall(r"</tr>", cleaned, re.IGNORECASE))
+        if open_tr > close_tr:
+            cleaned += "</tr>" * (open_tr - close_tr)
+
+        open_tables = len(re.findall(r"<table\b", cleaned, re.IGNORECASE))
+        close_tables = len(re.findall(r"</table>", cleaned, re.IGNORECASE))
+        if open_tables > close_tables:
+            cleaned += "\n" + ("</tbody></table>" * (open_tables - close_tables))
+            
+        open_divs = len(re.findall(r"<div\b", cleaned, re.IGNORECASE))
+        close_divs = len(re.findall(r"</div>", cleaned, re.IGNORECASE))
+        if open_divs > close_divs:
+            cleaned += "\n" + ("</div>" * (open_divs - close_divs))
+
+        # 3. Wrap all tables in table-scroll-wrap
         cleaned = re.sub(r'(?<!<div class="table-scroll-wrap">)(<table\b[^>]*>.*?</table>)', r'<div class="table-scroll-wrap">\1</div>', cleaned, flags=re.DOTALL)
         return cleaned
 
