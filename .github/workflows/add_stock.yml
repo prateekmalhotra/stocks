@@ -4,11 +4,11 @@ on:
   workflow_dispatch:
     inputs:
       ticker:
-        description: 'Stock Ticker (e.g. STNE, AAPL, NVDA)'
+        description: 'Stock Ticker(s) - e.g. STNE or comma-separated: MELI, NU, PAGS'
         required: true
         type: string
       notes:
-        description: 'Optional focus notes or areas of interest'
+        description: 'Optional focus notes or areas of interest (applies to all specified tickers)'
         required: false
         type: string
         default: ''

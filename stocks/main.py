@@ -12,15 +12,19 @@ from stocks.dashboard import render_all
 
 
 def cmd_add(tickers: List[str], notes: str = "", force: bool = False):
-    """Enqueues and processes one or more new stock analyses (skips existing unless force=True)."""
+    """Enqueues and processes one or more new stock analyses (supports comma, semicolon, or space-separated lists)."""
     watchlist = load_watchlist()
     enqueued = []
 
-    for t in tickers:
-        ticker = t.upper().strip()
-        if not ticker:
-            continue
+    # Flatten and parse comma, semicolon, and space separated tickers
+    parsed_tickers = []
+    for raw_arg in tickers:
+        for item in re.split(r"[,;\s]+", raw_arg):
+            clean = item.upper().strip()
+            if clean and clean not in parsed_tickers:
+                parsed_tickers.append(clean)
 
+    for ticker in parsed_tickers:
         if ticker in watchlist and not force:
             print(f"⏭️ [SKIPPED] {ticker} already has an active thesis in watchlist. Use --force to re-analyze.")
             continue
@@ -37,7 +41,7 @@ def cmd_add(tickers: List[str], notes: str = "", force: bool = False):
         print(f"📥 [ENQUEUED] Genesis Research task for {ticker}.")
 
     if enqueued:
-        print(f"\n⚡ Processing {len(enqueued)} enqueued stock(s)...")
+        print(f"\n⚡ Processing {len(enqueued)} enqueued stock(s): {', '.join(enqueued)}...")
         process_all_pending_tasks()
         render_all()
 
