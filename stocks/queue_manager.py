@@ -204,15 +204,50 @@ def _handle_review_task(ticker: str, trigger_reason: str):
     render_all()
 
 
+def process_task(task: TaskItem):
+    """Processes a single task item."""
+    _execute_task(task)
+
+
+def process_all_pending_tasks() -> int:
+    """Processes all pending tasks from the data_store queue."""
+    from stocks.data_store import load_queue, save_queue
+    queue = load_queue()
+    if not queue:
+        return 0
+
+    processed_count = 0
+    remaining_queue = []
+    
+    for task in queue:
+        if task.status in ("PENDING", "IN_PROGRESS"):
+            try:
+                print(f"🚀 Processing task: {task.task_type} for {task.ticker}...")
+                _execute_task(task)
+                task.status = "COMPLETED"
+                processed_count += 1
+            except Exception as e:
+                print(f"❌ Failed task {task.id}: {e}")
+                task.status = "FAILED"
+                remaining_queue.append(task)
+        else:
+            remaining_queue.append(task)
+            
+    save_queue(remaining_queue)
+    return processed_count
+
+
 def _execute_task(task: TaskItem):
     """Internal task dispatcher."""
     try:
-        if task.task_type == "GENESIS":
-            notes = task.payload.get("notes", "")
+        if task.task_type in ("GENESIS", "ANALYZE_NEW"):
+            notes = task.payload.get("notes", "") if getattr(task, "payload", None) else getattr(task, "notes", "") or ""
             _handle_genesis_task(task.ticker, notes)
-        elif task.task_type == "REVIEW":
-            trigger_reason = task.payload.get("trigger_reason", "Market Trigger")
+        elif task.task_type in ("REVIEW", "PRICE_TRIGGER"):
+            trigger_reason = task.payload.get("trigger_reason", "") if getattr(task, "payload", None) else getattr(task, "notes", "") or "Market Trigger"
             _handle_review_task(task.ticker, trigger_reason)
+        else:
+            print(f"⚠️ Unknown task type: {task.task_type}")
     except Exception as e:
         print(f"❌ Error executing task {task.id}: {e}")
         raise e
