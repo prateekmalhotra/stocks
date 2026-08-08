@@ -75,8 +75,10 @@ def clean_grounding_artifacts(text: str) -> str:
     cleaned = re.sub(r"\s*style\s*=\s*'[^']*'", '', cleaned, flags=re.IGNORECASE)
     cleaned = re.sub(r'<(table|thead|tbody|tr|th|td)\b([^>]*?)(bgcolor="[^"]*")([^>]*?)>', r'<\1\2\4>', cleaned, flags=re.IGNORECASE)
     cleaned = re.sub(r'<(table|thead|tbody|tr|th|td)\b([^>]*?)(border="[^"]*")([^>]*?)>', r'<\1\2\4>', cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r'<(table|thead|tbody|tr|th|td)\b([^>]*?)(cellpadding="[^"]*")([^>]*?)>', r'<\1\2\4>', cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r'<(table|thead|tbody|tr|th|td)\b([^>]*?)(cellspacing="[^"]*")([^>]*?)>', r'<\1\2\4>', cleaned, flags=re.IGNORECASE)
+    # Strip ALL img tags and figure containers (pure professional text and tables only)
+    cleaned = re.sub(r'<div\s+class="figure-container"[^>]*>.*?</div>', '', cleaned, flags=re.DOTALL | re.IGNORECASE)
+    cleaned = re.sub(r'<figure\b[^>]*>.*?</figure>', '', cleaned, flags=re.DOTALL | re.IGNORECASE)
+    cleaned = re.sub(r'<img\b[^>]*>', '', cleaned, flags=re.IGNORECASE)
     cleaned = re.sub(r'class="[^"]*bg-white[^"]*"', '', cleaned, flags=re.IGNORECASE)
     cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
     return cleaned.strip()
@@ -249,7 +251,7 @@ CORE PRINCIPLES & GUIDELINES:
      1. Metric Stat Cards: `<div class="metrics-grid"><div class="metric-card"><div class="metric-label">Q1 Revenue</div><div class="metric-value">R$ 3.58B</div><div class="metric-delta pos">+6.5% YoY</div></div>...</div>`
      2. Structured HTML Tables: `<table><thead><tr><th>Metric</th><th>Q1 2026</th><th>YoY Growth</th></tr></thead><tbody>...</tbody></table>`
    - Use Callout boxes (`<div class="callout">...</div>`) for key insights, management quotes, and pre-mortem falsification triggers.
-   - You may search and embed relevant official product photos, diagrams, or company assets via `<img>` or `<div class="figure-container"><img src="url" alt="description" /><div class="figure-caption">Caption</div></div>`.
+   - NEVER include images, `<img>` tags, figure containers, or external image links. Keep all analyses purely professional text, data tables, callouts, and metric cards. Zero images.
 
 5. Dynamic Labels (First Label is ALWAYS Primary Confidence / Risk Profile):
    - Label #1 (MANDATORY PRIMARY PILL): Must tell the investor in MAX 2 WORDS the thesis confidence, execution risk, and reliability of the opportunity (e.g., "High Conviction", "Safe Compounder", "Turnaround Risk", "Speculative Bet", "Deep Value", "High Risk", "Asymmetric Upside", "Execution Heavy", "Defensive Quality").
@@ -294,7 +296,7 @@ Key Areas to Investigate via Real-Time Filings, Earnings Calls & Announcements:
 Editorial Aesthetics Mandate:
 - Format all financial KPIs and quarterly numbers into `<div class="metrics-grid"><div class="metric-card">...</div></div>` or structured HTML tables. Zero raw text dumps.
 - DO NOT duplicate raw metadata text or pill badges inside the HTML sections.
-- Sub-agents can include relevant official product images or diagrams via `<div class="figure-container"><img src="..." alt="..." /><div class="figure-caption">...</div></div>`.
+- NO IMAGES: Do not output `<img>` tags or figure containers. Pure analytical text, tables, and metric cards only.
 
 Labels Directive:
 - Label #1 (MANDATORY PRIMARY PILL): Must state in max 2 words the confidence, execution complexity, and risk/safety profile (e.g. "High Conviction", "Safe Compounder", "Turnaround Risk", "Speculative Bet", "Deep Value", "High Risk", "Asymmetric Upside", "Execution Heavy", "Defensive Quality").

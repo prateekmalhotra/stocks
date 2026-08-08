@@ -249,6 +249,11 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         cleaned = re.sub(r'\s*style\s*=\s*"[^"]*"', '', cleaned, flags=re.IGNORECASE)
         cleaned = re.sub(r"\s*style\s*=\s*'[^']*'", '', cleaned, flags=re.IGNORECASE)
         
+        # 1b. Strip all img tags, figure containers, and broken image embeds
+        cleaned = re.sub(r'<div\s+class="figure-container"[^>]*>.*?</div>', '', cleaned, flags=re.DOTALL | re.IGNORECASE)
+        cleaned = re.sub(r'<figure\b[^>]*>.*?</figure>', '', cleaned, flags=re.DOTALL | re.IGNORECASE)
+        cleaned = re.sub(r'<img\b[^>]*>', '', cleaned, flags=re.IGNORECASE)
+        
         # 2. Auto-close any unclosed tables and divs before rendering
         open_tr = len(re.findall(r"<tr\b", cleaned, re.IGNORECASE))
         close_tr = len(re.findall(r"</tr>", cleaned, re.IGNORECASE))
