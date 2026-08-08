@@ -1,14 +1,10 @@
-"""Asynchronous Task Queue Manager for Batching & Living Surveillance."""
+"""Task Queue Manager for Async Thesis Ingestion & Monitoring."""
 
-import traceback
+import re
 from datetime import datetime
-from typing import Optional, List
-from stocks.models import TaskItem, WatchlistStock, ThesisVersion, AlertItem
+from typing import Optional, List, Any
+from stocks.models import WatchlistStock, ThesisVersion, AlertItem, TaskItem
 from stocks.data_store import (
-    load_queue,
-    save_queue,
-    pop_next_pending_task,
-    update_task_status,
     get_stock,
     save_stock,
     load_thesis_history,
@@ -20,32 +16,45 @@ from stocks.gemini_agent import generate_genesis_thesis, review_stock_thesis, sa
 from stocks.dashboard import render_all
 
 
-def process_next_task() -> Optional[TaskItem]:
-    """Pops the next pending task, executes the LLM research pipeline, and updates the store."""
-    task = pop_next_pending_task()
-    if not task:
-        return None
+def safe_float(val: Any, default: float) -> float:
+    """Safely extracts float from float, int, or string like '$42.50'."""
+    if val is None:
+        return default
+    if isinstance(val, (int, float)):
+        return float(val)
+    match = re.search(r"[-+]?\d+(?:\.\d+)?", str(val).replace(",", ""))
+    if match:
+        return float(match.group(0))
+    return default
 
-    update_task_status(task.id, status="IN_PROGRESS")
-    print(f"\n⚡ [PROCESSING TASK] ID: {task.id} | Type: {task.task_type} | Ticker: {task.ticker}")
 
-    try:
-        if task.task_type == "ANALYZE_NEW":
-            _handle_genesis_task(task.ticker, task.notes or "")
-        elif task.task_type in ("PRICE_TRIGGER", "CATALYST_REVIEW"):
-            _handle_review_task(task.ticker, task.notes or "Price threshold breach")
-        else:
-            raise ValueError(f"Unknown task type: {task.task_type}")
+def enqueue_task(task: TaskItem):
+    """Enqueues a task for execution."""
+    _execute_task(task)
 
-        update_task_status(task.id, status="COMPLETED")
-        print(f"✅ [TASK COMPLETED] {task.id} for {task.ticker}\n")
-        return task
 
-    except Exception as e:
-        print(f"❌ [TASK FAILED] {task.id} for {task.ticker}: {e}")
-        traceback.print_exc()
-        update_task_status(task.id, status="FAILED", error=str(e))
-        raise
+def enqueue_genesis(ticker: str, notes: str = ""):
+    """Enqueues an initial Living Thesis generation task for a new stock."""
+    task = TaskItem(
+        id=f"genesis-{ticker.upper()}-{int(datetime.now().timestamp())}",
+        task_type="GENESIS",
+        ticker=ticker.upper(),
+        payload={"notes": notes},
+        created_at=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    )
+    enqueue_task(task)
+
+
+def enqueue_review(ticker: str, trigger_reason: str):
+    """Enqueues a thesis review task triggered by a price or catalyst threshold."""
+    task = TaskItem(
+        id=f"review-{ticker.upper()}-{int(datetime.now().timestamp())}",
+        task_type="REVIEW",
+        ticker=ticker.upper(),
+        payload={"trigger_reason": trigger_reason},
+        created_at=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    )
+    enqueue_task(task)
 
 
 def _handle_genesis_task(ticker: str, notes: str):
@@ -71,8 +80,8 @@ def _handle_genesis_task(ticker: str, notes: str):
         bear_target=meta.get("bear_target", ""),
         base_target=meta.get("base_target", ""),
         bull_target=meta.get("bull_target", ""),
-        upper_alert_threshold=float(meta.get("upper_alert_threshold", current_price * 1.15)),
-        lower_alert_threshold=float(meta.get("lower_alert_threshold", current_price * 0.88)),
+        upper_alert_threshold=safe_float(meta.get("upper_alert_threshold"), current_price * 1.15),
+        lower_alert_threshold=safe_float(meta.get("lower_alert_threshold"), current_price * 0.88),
         next_catalyst_date=meta.get("next_catalyst_date", ""),
         next_catalyst_event=meta.get("next_catalyst_event", ""),
         full_html_content=html_content
@@ -148,8 +157,8 @@ def _handle_review_task(ticker: str, trigger_reason: str):
         bear_target=meta.get("new_bear_target", stock.bear_target),
         base_target=meta.get("new_base_target", stock.base_target),
         bull_target=meta.get("new_bull_target", stock.bull_target),
-        upper_alert_threshold=float(meta.get("new_upper_alert_threshold", current_price * 1.15)),
-        lower_alert_threshold=float(meta.get("new_lower_alert_threshold", current_price * 0.88)),
+        upper_alert_threshold=safe_float(meta.get("new_upper_alert_threshold"), current_price * 1.15),
+        lower_alert_threshold=safe_float(meta.get("new_lower_alert_threshold"), current_price * 0.88),
         next_catalyst_date=meta.get("next_catalyst_date", stock.next_catalyst_date),
         next_catalyst_event=meta.get("next_catalyst_event", stock.next_catalyst_event),
         full_html_content=html_content
@@ -173,18 +182,18 @@ def _handle_review_task(ticker: str, trigger_reason: str):
     stock.total_versions = new_version_num
     save_stock(stock)
 
-    # 3. Create Alert Record
-    price_change_pct = ((current_price - stock.baseline_price) / stock.baseline_price) * 100 if stock.baseline_price else 0.0
+    # 3. Create Alert Item
+    price_change_pct = round(((current_price - stock.baseline_price) / stock.baseline_price) * 100, 2)
     alert_obj = AlertItem(
-        id=f"alert_{ticker}_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
+        id=f"alert-{ticker.lower()}-{int(datetime.now().timestamp())}",
         ticker=ticker,
-        timestamp=datetime.now().strftime("%b %d, %Y • %I:%M %p"),
-        title=meta.get("alert_title", f"{ticker} Thesis Review"),
+        timestamp=datetime.now().strftime("%Y-%m-%d %H:%M"),
+        title=meta.get("alert_title", f"{ticker} Alert: Price Threshold Breached"),
         severity=labels[0] if labels else "Review",
         labels=labels,
         trigger_reason=trigger_reason,
-        what_was_before=new_version.what_was_before or "Previous baseline",
-        what_changes_now=new_version.what_changes_now or new_version.summary_of_change,
+        what_was_before=meta.get("what_was_before", prev_summary),
+        what_changes_now=meta.get("what_changes_now", "Living thesis updated with recent market developments."),
         price_at_alert=current_price,
         price_change_pct=price_change_pct,
         report_url=f"reports/{ticker}.html"
@@ -195,16 +204,15 @@ def _handle_review_task(ticker: str, trigger_reason: str):
     render_all()
 
 
-def process_all_pending_tasks():
-    """Processes all enqueued tasks in the queue until empty."""
-    queue = load_queue()
-    pending = [t for t in queue if t.status == "PENDING"]
-    if not pending:
-        print("No pending tasks in queue.")
-        return
-
-    print(f"⚡ Processing {len(pending)} enqueued stock(s)...")
-    while True:
-        task = process_next_task()
-        if not task:
-            break
+def _execute_task(task: TaskItem):
+    """Internal task dispatcher."""
+    try:
+        if task.task_type == "GENESIS":
+            notes = task.payload.get("notes", "")
+            _handle_genesis_task(task.ticker, notes)
+        elif task.task_type == "REVIEW":
+            trigger_reason = task.payload.get("trigger_reason", "Market Trigger")
+            _handle_review_task(task.ticker, trigger_reason)
+    except Exception as e:
+        print(f"❌ Error executing task {task.id}: {e}")
+        raise e

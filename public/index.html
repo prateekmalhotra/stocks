@@ -9,19 +9,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-canvas: #161514;
-            --bg-panel: #1E1D1B;
-            --bg-subpanel: #262522;
-            --bg-hover: #2C2A26;
-            --text-title: #E8E3DA;
-            --text-body: #C9C4BA;
-            --text-secondary: #948F85;
-            --text-dim: #6B665E;
+            --bg-canvas: #141312;
+            --bg-panel: #1A1917;
+            --bg-subpanel: #21201D;
+            --bg-hover: #282623;
+            --text-title: #D8D2C6;
+            --text-body: #BDB7AA;
+            --text-secondary: #8E887D;
+            --text-dim: #666157;
             --accent-warm: #C99A75;
             --accent-green: #7D9D81;
             --accent-red: #C4726C;
-            --border-color: rgba(230, 220, 205, 0.07);
-            --border-focus: rgba(230, 220, 205, 0.14);
+            --border-color: rgba(215, 205, 190, 0.07);
+            --border-focus: rgba(215, 205, 190, 0.14);
             --font-serif: 'Newsreader', Garamond, Georgia, serif;
             --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
@@ -41,7 +41,7 @@
 
         /* Header */
         header.nav-header {
-            background: rgba(22, 21, 20, 0.92);
+            background: rgba(20, 19, 18, 0.92);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
@@ -144,7 +144,8 @@
         table.fin-table td {
             padding: 18px 22px;
             border-bottom: 1px solid var(--border-color);
-            font-size: 0.98rem;
+            font-size: 0.96rem;
+            color: var(--text-body);
             vertical-align: middle;
         }
         .table-row { cursor: pointer; transition: background 0.15s; position: relative; }
@@ -305,7 +306,7 @@
         .alert-ticker { font-family: var(--font-serif); font-size: 1.2rem; font-weight: 500; color: var(--text-title); }
         .alert-time { font-size: 0.78rem; color: var(--text-dim); font-family: var(--font-mono); }
         .alert-title { font-family: var(--font-serif); font-size: 1.2rem; font-weight: 500; color: var(--text-title); margin-bottom: 4px; }
-        .alert-blurb { font-size: 1.05rem; color: var(--text-secondary); line-height: 1.55; }
+        .alert-blurb { font-size: 1.02rem; color: var(--text-secondary); line-height: 1.55; }
 
         .alert-right { text-align: right; min-width: 140px; }
         .alert-price-val { font-size: 1.45rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }
@@ -344,7 +345,7 @@
         .modal-shade {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(10, 10, 9, 0.82);
+            background: rgba(10, 10, 9, 0.85);
             backdrop-filter: blur(12px);
             z-index: 1000;
             display: none;
@@ -387,10 +388,10 @@
         .side-heading { font-family: var(--font-sans); font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
         .side-before .side-heading { color: var(--accent-red); }
         .side-after .side-heading { color: var(--accent-green); }
-        .side-text { font-size: 1.05rem; color: var(--text-body); line-height: 1.65; }
+        .side-text { font-size: 1.02rem; color: var(--text-body); line-height: 1.65; }
 
         .btn-primary {
-            background: var(--accent-warm); color: #161514; font-family: var(--font-sans); font-weight: 500;
+            background: var(--accent-warm); color: #141312; font-family: var(--font-sans); font-weight: 500;
             padding: 10px 20px; border-radius: 6px; text-decoration: none; display: inline-flex; align-items: center; border: none; cursor: pointer;
             transition: all 0.15s;
         }
@@ -414,7 +415,7 @@
         <div class="hub-controls">
             <div class="hub-tabs">
                 <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage (1)</button>
-                <button class="hub-tab-btn" onclick="switchTab('alerts')">Alerts (1)</button>
+                <button class="hub-tab-btn" onclick="switchTab('alerts')">Alerts (0)</button>
             </div>
             <div class="view-toggle" id="view-toggle-bar">
                 <button class="view-btn active" onclick="setView('table')">Table</button>
@@ -458,14 +459,14 @@
             </td>
             <td>
                 <div class="tbl-val-cell">
-                    <span class="tbl-fv" style="color: var(--accent-warm);">$22.50</span>
-                    <span class="tbl-base">-39.6%</span>
+                    <span class="tbl-fv" style="color: var(--accent-warm);">$34.50</span>
+                    <span class="tbl-base">-7.4%</span>
                 </div>
             </td>
             <td>
                 <div class="tbl-catalyst-cell">
-                    <span class="tbl-cat-date">November 2026</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release & 2027 Studio Release Slate Ou</span>
+                    <span class="tbl-cat-date">November 5, 2026</span>
+                    <span class="tbl-cat-desc">Q3 2026 Earnings Release & Box Office Attendance Update</span>
                 </div>
             </td>
         </tr>
@@ -494,20 +495,20 @@
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Fair Value</span>
-                    <span class="grid-stat-val" style="color: var(--accent-warm);">$22.50</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">$34.50</span>
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Base Target</span>
-                    <span class="grid-stat-val">$22.50 (-39.6%)</span>
+                    <span class="grid-stat-val">$34.50 (-7.4%)</span>
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Next Catalyst</span>
-                    <span class="grid-stat-val" style="font-family: var(--font-sans);">November 2026</span>
+                    <span class="grid-stat-val" style="font-family: var(--font-sans);">November 5, 2026</span>
                 </div>
             </div>
             
             <div class="grid-card-foot">
-                <span class="grid-updated">Updated 2026-08-07</span>
+                <span class="grid-updated">Updated 2026-08-08</span>
                 <span class="grid-open">Open →</span>
             </div>
         </div>
@@ -519,22 +520,11 @@
         <section id="pane-alerts" class="tab-panel">
             <div class="alerts-feed">
                 
-            <div class="alert-item" onclick='openAlertModal({&quot;ticker&quot;: &quot;CNK&quot;, &quot;title&quot;: &quot;Upper Valuation Corridor Breach (.24)&quot;, &quot;timestamp&quot;: &quot;2026-08-08 09:30 EST&quot;, &quot;severity&quot;: &quot;Overvalued&quot;, &quot;price&quot;: 37.24, &quot;change&quot;: 0.0, &quot;trigger_reason&quot;: &quot;Market price rallied past conservative normalized cash flow corridor (.00+)&quot;, &quot;what_was_before&quot;: &quot;Initial baseline modeled mid-cycle normalized fair value at .50 based on 100 wide-release studio slates and M maintenance CapEx.&quot;, &quot;what_changes_now&quot;: &quot;Momentum squeeze capitalization. Multiple expanded to 14.2x TEV/Owner FCF despite .37B net debt overhang. Reiterating Hold/Trim discipline; upside asymmetry is fully exhausted.&quot;, &quot;report_url&quot;: &quot;reports/CNK.html&quot;})'>
-                <div class="alert-left">
-                    <div class="alert-badges">
-                        <strong class="alert-ticker">CNK</strong>
-                        <span class="pill pill-active">Overvalued</span> <span class="pill pill-neutral">Peak Multiple</span>
-                        <span class="alert-time">2026-08-08 09:30 EST</span>
-                    </div>
-                    <div class="alert-title">Upper Valuation Corridor Breach (.24)</div>
-                    <div class="alert-blurb">Momentum squeeze capitalization. Multiple expanded to 14.2x TEV/Owner FCF despite .37B net debt overhang. Reiterating Hold/Trim discipline; upside asymmetry is fully exhausted....</div>
-                </div>
-                <div class="alert-right">
-                    <div class="alert-price-val">$37.24</div>
-                    <div class="alert-price-pct pos">+0.00%</div>
-                </div>
-            </div>
-            
+        <div class="empty-alerts">
+            <div class="empty-title">All Positions In Normal Corridors</div>
+            <div class="empty-sub">No critical threshold breaches or catalyst alerts logged. Surveillance is active.</div>
+        </div>
+        
             </div>
         </section>
     </main>

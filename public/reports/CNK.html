@@ -9,19 +9,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-canvas: #161514;
-            --bg-panel: #1E1D1B;
-            --bg-subpanel: #262522;
-            --bg-hover: #2C2A26;
-            --text-title: #E8E3DA;
-            --text-body: #C9C4BA;
-            --text-secondary: #948F85;
-            --text-dim: #6B665E;
+            --bg-canvas: #141312;
+            --bg-panel: #1A1917;
+            --bg-subpanel: #21201D;
+            --bg-hover: #282623;
+            --text-title: #D8D2C6;
+            --text-body: #BDB7AA;
+            --text-secondary: #8E887D;
+            --text-dim: #666157;
             --accent-warm: #C99A75;
             --accent-green: #7D9D81;
             --accent-red: #C4726C;
-            --border-color: rgba(230, 220, 205, 0.07);
-            --border-focus: rgba(230, 220, 205, 0.14);
+            --border-color: rgba(215, 205, 190, 0.07);
+            --border-focus: rgba(215, 205, 190, 0.14);
             --font-serif: 'Newsreader', Garamond, Georgia, serif;
             --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
@@ -41,7 +41,7 @@
 
         /* Top Nav */
         nav.nav-bar {
-            background: rgba(22, 21, 20, 0.92);
+            background: rgba(20, 19, 18, 0.92);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
@@ -89,7 +89,7 @@
         /* Native SVG Area Chart */
         .native-chart-wrap {
             margin-top: 28px;
-            background: #191816;
+            background: #171614;
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 16px 20px 12px;
@@ -197,38 +197,38 @@
             margin: 28px 0 12px;
         }
         .memo-container p {
-            font-size: 1.18rem;
+            font-size: 1.15rem;
             line-height: 1.9;
             color: var(--text-body);
             margin-bottom: 20px;
         }
         .memo-container ul, .memo-container ol {
-            font-size: 1.15rem;
+            font-size: 1.12rem;
             line-height: 1.9;
             color: var(--text-body);
             margin: 0 0 24px 30px;
         }
         .memo-container li { margin-bottom: 8px; }
 
-        /* STUNNING CONSISTENT TABLES - ZERO WHITE GLARE */
+        /* STUNNING CONSISTENT TABLES - SOOTHING WARM TONES */
         .memo-container table {
             width: 100% !important;
             border-collapse: separate !important;
             border-spacing: 0 !important;
             margin: 32px 0 !important;
-            background: #1B1A18 !important;
-            background-color: #1B1A18 !important;
+            background: #171614 !important;
+            background-color: #171614 !important;
             border-radius: 12px !important;
             overflow: hidden !important;
-            border: 1px solid rgba(230, 220, 205, 0.08) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
         }
         .memo-container tr, .memo-container td, .memo-container th {
             background: transparent !important;
             background-color: transparent !important;
         }
         .memo-container th {
-            background: #23221E !important;
-            background-color: #23221E !important;
+            background: #1E1D1A !important;
+            background-color: #1E1D1A !important;
             color: #C99A75 !important;
             font-family: var(--font-sans) !important;
             font-size: 0.72rem !important;
@@ -236,14 +236,14 @@
             text-transform: uppercase !important;
             letter-spacing: 0.06em !important;
             padding: 14px 18px !important;
-            border-bottom: 1px solid rgba(230, 220, 205, 0.08) !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
             text-align: left !important;
         }
         .memo-container td {
             padding: 14px 18px !important;
-            border-bottom: 1px solid rgba(230, 220, 205, 0.05) !important;
-            font-size: 0.94rem !important;
-            color: #C9C4BA !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.05) !important;
+            font-size: 0.92rem !important;
+            color: #BDB7AA !important;
             font-family: var(--font-mono) !important;
             text-align: left !important;
         }
@@ -251,16 +251,16 @@
             border-bottom: none !important;
         }
         .memo-container tr:nth-child(even) td {
-            background: rgba(255, 255, 255, 0.02) !important;
-            background-color: rgba(255, 255, 255, 0.02) !important;
+            background: rgba(255, 255, 255, 0.012) !important;
+            background-color: rgba(255, 255, 255, 0.012) !important;
         }
         .memo-container tr:hover td {
-            background: rgba(201, 154, 117, 0.05) !important;
-            background-color: rgba(201, 154, 117, 0.05) !important;
+            background: rgba(201, 154, 117, 0.04) !important;
+            background-color: rgba(201, 154, 117, 0.04) !important;
         }
         .memo-container td strong, .memo-container td b {
-            color: #E8E3DA !important;
-            font-weight: 600 !important;
+            color: #D8D2C6 !important;
+            font-weight: 500 !important;
         }
 
         .memo-container blockquote {
@@ -314,7 +314,7 @@
         .diff-label { font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
         .diff-prev .diff-label { color: var(--accent-red); }
         .diff-now .diff-label { color: var(--accent-green); }
-        .diff-text { font-size: 1.05rem; color: var(--text-body); line-height: 1.65; }
+        .diff-text { font-size: 1.02rem; color: var(--text-body); line-height: 1.65; }
 
         /* Pills */
         .pill {
@@ -387,20 +387,20 @@
         <svg id="interactive-svg" viewBox="0 0 900 260" preserveAspectRatio="none" class="chart-svg">
             <defs>
                 <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#C99A75" stop-opacity="0.20" />
+                    <stop offset="0%" stop-color="#C99A75" stop-opacity="0.18" />
                     <stop offset="100%" stop-color="#C99A75" stop-opacity="0.0" />
                 </linearGradient>
             </defs>
             
-            <line x1="20" y1="25" x2="880" y2="25" stroke="rgba(230,220,205,0.04)" stroke-width="1" />
-            <line x1="20" y1="130.0" x2="880" y2="130.0" stroke="rgba(230,220,205,0.04)" stroke-width="1" />
-            <line x1="20" y1="235" x2="880" y2="235" stroke="rgba(230,220,205,0.04)" stroke-width="1" />
+            <line x1="20" y1="25" x2="880" y2="25" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
+            <line x1="20" y1="130.0" x2="880" y2="130.0" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
+            <line x1="20" y1="235" x2="880" y2="235" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
 
             <path d="M 20.0,197.5 L 23.4,191.2 L 26.9,190.0 L 30.3,182.3 L 33.8,190.8 L 37.2,187.0 L 40.6,180.9 L 44.1,175.9 L 47.5,174.5 L 51.0,179.7 L 54.4,174.9 L 57.8,180.0 L 61.3,183.6 L 64.7,183.0 L 68.2,188.7 L 71.6,184.6 L 75.0,187.1 L 78.5,190.0 L 81.9,189.7 L 85.4,183.6 L 88.8,163.0 L 92.2,168.9 L 95.7,167.0 L 99.1,153.8 L 102.6,152.8 L 106.0,149.3 L 109.4,148.7 L 112.9,152.8 L 116.3,157.6 L 119.8,161.1 L 123.2,156.0 L 126.6,143.1 L 130.1,148.6 L 133.5,150.9 L 137.0,148.2 L 140.4,161.7 L 143.8,155.8 L 147.3,155.8 L 150.7,158.4 L 154.2,153.0 L 157.6,170.1 L 161.0,178.0 L 164.5,185.6 L 167.9,174.2 L 171.4,185.3 L 174.8,193.9 L 178.2,180.0 L 181.7,169.0 L 185.1,175.5 L 188.6,176.1 L 192.0,172.9 L 195.4,165.5 L 198.9,178.0 L 202.3,176.3 L 205.8,176.8 L 209.2,168.5 L 212.6,173.6 L 216.1,165.3 L 219.5,179.8 L 223.0,168.9 L 226.4,172.4 L 229.8,172.3 L 233.3,145.7 L 236.7,143.1 L 240.2,148.5 L 243.6,128.8 L 247.0,124.7 L 250.5,129.7 L 253.9,130.7 L 257.4,131.6 L 260.8,135.3 L 264.2,127.7 L 267.7,128.7 L 271.1,142.2 L 274.6,136.6 L 278.0,156.4 L 281.4,156.2 L 284.9,162.5 L 288.3,164.1 L 291.8,170.6 L 295.2,191.8 L 298.6,222.5 L 302.1,209.9 L 305.5,234.7 L 309.0,214.6 L 312.4,201.3 L 315.8,193.4 L 319.3,194.4 L 322.7,199.6 L 326.2,210.3 L 329.6,210.5 L 333.0,214.7 L 336.5,235.0 L 339.9,230.6 L 343.4,228.2 L 346.8,224.7 L 350.2,225.0 L 353.7,222.9 L 357.1,219.6 L 360.6,218.3 L 364.0,218.0 L 367.4,214.2 L 370.9,221.5 L 374.3,224.2 L 377.8,226.9 L 381.2,224.5 L 384.6,228.0 L 388.1,210.0 L 391.5,219.9 L 395.0,207.0 L 398.4,202.1 L 401.8,209.0 L 405.3,200.9 L 408.7,205.7 L 412.2,206.5 L 415.6,207.9 L 419.0,212.5 L 422.5,219.5 L 425.9,214.3 L 429.4,218.1 L 432.8,212.2 L 436.2,199.3 L 439.7,199.2 L 443.1,192.5 L 446.6,190.2 L 450.0,185.0 L 453.4,184.4 L 456.9,185.3 L 460.3,181.5 L 463.8,196.9 L 467.2,196.6 L 470.6,190.4 L 474.1,176.7 L 477.5,177.4 L 481.0,175.7 L 484.4,183.3 L 487.8,186.5 L 491.3,182.0 L 494.7,172.7 L 498.2,152.9 L 501.6,148.9 L 505.0,147.2 L 508.5,148.1 L 511.9,152.8 L 515.4,160.6 L 518.8,168.1 L 522.2,173.5 L 525.7,181.9 L 529.1,188.2 L 532.6,184.9 L 536.0,177.0 L 539.4,172.2 L 542.9,173.8 L 546.3,177.2 L 549.8,176.4 L 553.2,158.5 L 556.6,154.1 L 560.1,160.3 L 563.5,154.6 L 567.0,155.2 L 570.4,158.6 L 573.8,149.3 L 577.3,149.0 L 580.7,139.9 L 584.2,128.3 L 587.6,131.6 L 591.0,133.6 L 594.5,118.7 L 597.9,125.2 L 601.4,125.2 L 604.8,124.0 L 608.2,131.3 L 611.7,130.0 L 615.1,129.9 L 618.6,126.6 L 622.0,144.7 L 625.4,149.1 L 628.9,148.2 L 632.3,149.8 L 635.8,137.3 L 639.2,139.8 L 642.6,142.9 L 646.1,136.2 L 649.5,161.0 L 653.0,165.7 L 656.4,169.0 L 659.8,159.5 L 663.3,162.9 L 666.7,168.3 L 670.2,172.2 L 673.6,178.4 L 677.0,178.3 L 680.5,177.4 L 683.9,182.6 L 687.4,171.2 L 690.8,178.1 L 694.2,176.7 L 697.7,174.2 L 701.1,176.4 L 704.6,165.1 L 708.0,166.7 L 711.4,165.9 L 714.9,156.0 L 718.3,116.6 L 721.8,122.2 L 725.2,133.4 L 728.6,119.5 L 732.1,114.0 L 735.5,111.1 L 739.0,103.7 L 742.4,90.3 L 745.8,77.8 L 749.3,80.6 L 752.7,101.8 L 756.2,90.7 L 759.6,89.5 L 763.0,81.1 L 766.5,83.0 L 769.9,80.4 L 773.4,88.9 L 776.8,99.2 L 780.2,85.2 L 783.7,94.9 L 787.1,107.5 L 790.6,107.9 L 794.0,110.1 L 797.4,130.7 L 800.9,137.5 L 804.3,133.3 L 807.8,135.1 L 811.2,142.5 L 814.6,141.1 L 818.1,138.2 L 821.5,132.2 L 825.0,132.0 L 828.4,124.5 L 831.8,104.8 L 835.3,110.7 L 838.7,100.7 L 842.2,95.0 L 845.6,94.7 L 849.0,82.4 L 852.5,64.2 L 855.9,66.4 L 859.4,50.0 L 862.8,44.3 L 866.2,27.6 L 869.7,25.0 L 873.1,28.9 L 876.6,26.6 L 880.0,35.8 L 880.0,260 L 20.0,260 Z" fill="url(#area-grad)" />
             <path d="M 20.0,197.5 L 23.4,191.2 L 26.9,190.0 L 30.3,182.3 L 33.8,190.8 L 37.2,187.0 L 40.6,180.9 L 44.1,175.9 L 47.5,174.5 L 51.0,179.7 L 54.4,174.9 L 57.8,180.0 L 61.3,183.6 L 64.7,183.0 L 68.2,188.7 L 71.6,184.6 L 75.0,187.1 L 78.5,190.0 L 81.9,189.7 L 85.4,183.6 L 88.8,163.0 L 92.2,168.9 L 95.7,167.0 L 99.1,153.8 L 102.6,152.8 L 106.0,149.3 L 109.4,148.7 L 112.9,152.8 L 116.3,157.6 L 119.8,161.1 L 123.2,156.0 L 126.6,143.1 L 130.1,148.6 L 133.5,150.9 L 137.0,148.2 L 140.4,161.7 L 143.8,155.8 L 147.3,155.8 L 150.7,158.4 L 154.2,153.0 L 157.6,170.1 L 161.0,178.0 L 164.5,185.6 L 167.9,174.2 L 171.4,185.3 L 174.8,193.9 L 178.2,180.0 L 181.7,169.0 L 185.1,175.5 L 188.6,176.1 L 192.0,172.9 L 195.4,165.5 L 198.9,178.0 L 202.3,176.3 L 205.8,176.8 L 209.2,168.5 L 212.6,173.6 L 216.1,165.3 L 219.5,179.8 L 223.0,168.9 L 226.4,172.4 L 229.8,172.3 L 233.3,145.7 L 236.7,143.1 L 240.2,148.5 L 243.6,128.8 L 247.0,124.7 L 250.5,129.7 L 253.9,130.7 L 257.4,131.6 L 260.8,135.3 L 264.2,127.7 L 267.7,128.7 L 271.1,142.2 L 274.6,136.6 L 278.0,156.4 L 281.4,156.2 L 284.9,162.5 L 288.3,164.1 L 291.8,170.6 L 295.2,191.8 L 298.6,222.5 L 302.1,209.9 L 305.5,234.7 L 309.0,214.6 L 312.4,201.3 L 315.8,193.4 L 319.3,194.4 L 322.7,199.6 L 326.2,210.3 L 329.6,210.5 L 333.0,214.7 L 336.5,235.0 L 339.9,230.6 L 343.4,228.2 L 346.8,224.7 L 350.2,225.0 L 353.7,222.9 L 357.1,219.6 L 360.6,218.3 L 364.0,218.0 L 367.4,214.2 L 370.9,221.5 L 374.3,224.2 L 377.8,226.9 L 381.2,224.5 L 384.6,228.0 L 388.1,210.0 L 391.5,219.9 L 395.0,207.0 L 398.4,202.1 L 401.8,209.0 L 405.3,200.9 L 408.7,205.7 L 412.2,206.5 L 415.6,207.9 L 419.0,212.5 L 422.5,219.5 L 425.9,214.3 L 429.4,218.1 L 432.8,212.2 L 436.2,199.3 L 439.7,199.2 L 443.1,192.5 L 446.6,190.2 L 450.0,185.0 L 453.4,184.4 L 456.9,185.3 L 460.3,181.5 L 463.8,196.9 L 467.2,196.6 L 470.6,190.4 L 474.1,176.7 L 477.5,177.4 L 481.0,175.7 L 484.4,183.3 L 487.8,186.5 L 491.3,182.0 L 494.7,172.7 L 498.2,152.9 L 501.6,148.9 L 505.0,147.2 L 508.5,148.1 L 511.9,152.8 L 515.4,160.6 L 518.8,168.1 L 522.2,173.5 L 525.7,181.9 L 529.1,188.2 L 532.6,184.9 L 536.0,177.0 L 539.4,172.2 L 542.9,173.8 L 546.3,177.2 L 549.8,176.4 L 553.2,158.5 L 556.6,154.1 L 560.1,160.3 L 563.5,154.6 L 567.0,155.2 L 570.4,158.6 L 573.8,149.3 L 577.3,149.0 L 580.7,139.9 L 584.2,128.3 L 587.6,131.6 L 591.0,133.6 L 594.5,118.7 L 597.9,125.2 L 601.4,125.2 L 604.8,124.0 L 608.2,131.3 L 611.7,130.0 L 615.1,129.9 L 618.6,126.6 L 622.0,144.7 L 625.4,149.1 L 628.9,148.2 L 632.3,149.8 L 635.8,137.3 L 639.2,139.8 L 642.6,142.9 L 646.1,136.2 L 649.5,161.0 L 653.0,165.7 L 656.4,169.0 L 659.8,159.5 L 663.3,162.9 L 666.7,168.3 L 670.2,172.2 L 673.6,178.4 L 677.0,178.3 L 680.5,177.4 L 683.9,182.6 L 687.4,171.2 L 690.8,178.1 L 694.2,176.7 L 697.7,174.2 L 701.1,176.4 L 704.6,165.1 L 708.0,166.7 L 711.4,165.9 L 714.9,156.0 L 718.3,116.6 L 721.8,122.2 L 725.2,133.4 L 728.6,119.5 L 732.1,114.0 L 735.5,111.1 L 739.0,103.7 L 742.4,90.3 L 745.8,77.8 L 749.3,80.6 L 752.7,101.8 L 756.2,90.7 L 759.6,89.5 L 763.0,81.1 L 766.5,83.0 L 769.9,80.4 L 773.4,88.9 L 776.8,99.2 L 780.2,85.2 L 783.7,94.9 L 787.1,107.5 L 790.6,107.9 L 794.0,110.1 L 797.4,130.7 L 800.9,137.5 L 804.3,133.3 L 807.8,135.1 L 811.2,142.5 L 814.6,141.1 L 818.1,138.2 L 821.5,132.2 L 825.0,132.0 L 828.4,124.5 L 831.8,104.8 L 835.3,110.7 L 838.7,100.7 L 842.2,95.0 L 845.6,94.7 L 849.0,82.4 L 852.5,64.2 L 855.9,66.4 L 859.4,50.0 L 862.8,44.3 L 866.2,27.6 L 869.7,25.0 L 873.1,28.9 L 876.6,26.6 L 880.0,35.8" fill="none" stroke="#C99A75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 
             <line id="crosshair-line" x1="0" y1="25" x2="0" y2="235" stroke="rgba(201,154,117,0.35)" stroke-width="1" stroke-dasharray="3 3" style="display: none;" />
-            <circle id="hover-dot" r="4" fill="#C99A75" stroke="#1E1D1B" stroke-width="2" style="display: none;" />
+            <circle id="hover-dot" r="4" fill="#C99A75" stroke="#1A1917" stroke-width="2" style="display: none;" />
         </svg>
         <div class="chart-labels">
             <span>Aug 08, 2025 ($21.93)</span>
@@ -468,23 +468,23 @@
             <div class="metrics-grid">
                 <div class="metric-cell">
                     <div class="metric-label">Fair Value</div>
-                    <div class="metric-value" style="color: var(--accent-warm);">$22.50</div>
+                    <div class="metric-value" style="color: var(--accent-warm);">$34.50</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bear Target</div>
-                    <div class="metric-value" style="color: var(--accent-red);">$14.00 (-62.4%)</div>
+                    <div class="metric-value" style="color: var(--accent-red);">$22.00 (-40.9%)</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Base Target</div>
-                    <div class="metric-value">$22.50 (-39.6%)</div>
+                    <div class="metric-value">$34.50 (-7.4%)</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bull Target</div>
-                    <div class="metric-value" style="color: var(--accent-green);">$34.00 (-8.7%)</div>
+                    <div class="metric-value" style="color: var(--accent-green);">$45.00 (+20.8%)</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Next Catalyst</div>
-                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">November 2026</div>
+                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">November 5, 2026</div>
                 </div>
             </div>
         </section>
@@ -500,426 +500,399 @@
             <article class="memo-container">
                 <div class="section">
   <h2>1. Executive Summary & Variant Perception</h2>
+  <p><b>Target:</b> Cinemark Holdings Inc (NYSE: CNK)</p>
+  <p><b>Current Price:</b> $37.24 | <b>Fund Intrinsic Value:</b> $34.50 | <b>Margin of Safety:</b> -7.4% (Overvalued by 7.9%) | <b>Recommendation:</b> PASS / HOLD</p>
   
-  <p>At a current market price of <strong>$37.24</strong>, market sentiment around <strong>Cinemark Holdings, Inc. (NYSE: CNK)</strong> reflects peak cyclical euphoria. Equity markets are capitalizing extraordinary post-pandemic quarterly box office receipts while turning a blind eye to fundamental structural headwinds, including <strong>$1.37 Billion in net debt</strong>, <strong>$989.1 Million in operating lease commitments</strong>, mandatory annual maintenance CapEx of <strong>$110.0 Million</strong>, and <strong>$16.0 Million</strong> in annual stock-based compensation dilution.</p>
+  <p><b>Consensus View:</b> Wall Street is overwhelmingly bullish on Cinemark following a record-breaking Q2 2026 where quarterly revenue surpassed $1.1 billion and Adjusted EBITDA reached $294 million. Equity analysts applaud management's operational execution, market share gains (+150 bps domestic post-pandemic), and disciplined balance sheet deleveraging (net leverage down to ~2.0x EBITDA). Street consensus projects compounding growth fueled by studio slate recovery, premium large format (Cinemark XD) expansion, and high-margin concession innovation.</p>
+
+  <p><b>Fund Variant Perception:</b> While we acknowledge that Cinemark is undeniably the best-operated theatrical exhibitor in North America—drastically outperforming structurally impaired peers like AMC Entertainment—we refuse to confuse operational excellence with an attractive investment entry price. At $37.24, the market has priced in near-flawless execution and a permanent return to pre-pandemic box office attendance levels. Our forensic audit indicates that normalized True Owner Free Cash Flow ($330 million) yields 7.6% on equity, while Total Enterprise Value (TEV) trades at 17.4x True Owner FCF and 9.2x Adjusted EBITDA. Lacking a Graham & Dodd margin of safety, current price levels offer virtually zero risk premium against secular entertainment shifts, shortened theatrical windows, and studio volume volatility.</p>
 
   <div class="callout">
-    <strong>CRITICAL GRAHAM & DODD VALUATION MANDATE:</strong><br>
-    Price is what you pay; value is what you get. We strictly refuse to reverse-engineer financial models or exit multiples to justify market momentum. While Cinemark represents the undisputed "best house in a tough neighborhood" compared to bankrupt or distressed peers like AMC and Cineworld, the equity at $37.24 is priced for flawless execution, perpetual market share expansion, and zero slate volatility. Our normalized intrinsic value estimate is <strong>$22.50 per share</strong> (~40% downside).
+    <strong>Chief Investment Officer Takeaway:</strong> Valuation is a sober mathematical exercise, not an endorsement of management goodwill. CNK is a high-quality operator trading at peak cyclical valuation multiple on peak box office comps. Capital preservation demands we hold off until market sentiment or box office volatility presents a price below $26.50.
   </div>
-
-  <h3>Variant Perception: Consensus vs. Fund View</h3>
-  <ul>
-    <li><strong>Consensus View (Bullish Squeeze / Peak Cyclical):</strong> Wall Street projects linear theatrical recovery, modeling broad mid-cycle EBITDA margin expansion above 18%-19%, driven by record concession spend ($5.75+ per patron) and market share gains from weakened competitors. Sell-side analysts routinely treat Stock-Based Compensation (SBC) as a non-cash add-back and ignore long-term theater lease liabilities.</li>
-    <li><strong>Fund Variant Perception (Sober Mid-Cycle Realism):</strong> We recognize that while Cinemark's management team has executed exceptionally well, global theatrical volume remains structurally capped at ~100–110 wide studio releases annually (vs. 130–140 pre-COVID). Furthermore, concessions spending per patron faces inflationary fatigue. Capital allocation must service $1.88B in gross debt and $110M in required maintenance CapEx across 5,800+ screens before common shareholders receive true economic free cash flow.</li>
-  </ul>
 </div>
 
 <div class="section">
-  <h2>2. Comparison vs. Street Guidance</h2>
-  
-  <p>The table below highlights the divergent expectations between sell-side Wall Street consensus and our Fund's normalized forensic estimates across FY 2026E – FY 2028E.</p>
+  <h2>2. Total Enterprise Value (TEV) & True Owner FCF Valuation Multiples</h2>
+  <p>In accordance with the Norbert Lou value investing framework, Stock-Based Compensation (SBC) is treated as an explicit, undeniable cash drain and dilutive economic cost. True Owner Free Cash Flow reflects reported Cash Flow from Operations minus Maintenance CapEx and SBC.</p>
 
-  <table    >
+  <table>
     <thead>
-      <tr >
-        <th>Metric ($M, except EPS)</th>
-        <th>FY 2026E Street</th>
-        <th>FY 2026E Fund</th>
-        <th>FY 2027E Street</th>
-        <th>FY 2027E Fund</th>
-        <th>FY 2028E Street</th>
-        <th>FY 2028E Fund</th>
+      <tr>
+        <th>Valuation & Capital Velocity Metric</th>
+        <th>Reported / Calculated Value</th>
+        <th>Analytical & Methodological Notes</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td ><strong>Total Revenue</strong></td>
-        <td>$3,540.0</td>
-        <td><strong>$3,450.0</strong></td>
-        <td>$3,660.0</td>
-        <td><strong>$3,520.0</strong></td>
+        <td><b>Current Stock Price</b></td>
+        <td><b>$37.24</b></td>
+        <td>Market closing price as of valuation date.</td>
+      </tr>
+      <tr>
+        <td><b>Diluted Common Shares Outstanding (M)</b></td>
+        <td><b>116.4</b></td>
+        <td>Fully diluted weighted-average shares outstanding.</td>
+      </tr>
+      <tr>
+        <td><b>Market Capitalization ($M)</b></td>
+        <td><b>$4,334.7</b></td>
+        <td>116.4M shares × $37.24 share price.</td>
+      </tr>
+      <tr>
+        <td><b>Plus: Total Debt Principal ($M)</b></td>
+        <td><b>$1,898.9</b></td>
+        <td>Senior Secured Term Loans ($633.9M) + Senior Notes ($1,265.0M).</td>
+      </tr>
+      <tr>
+        <td><b>Less: Cash & Cash Equivalents ($M)</b></td>
+        <td><b>$504.3</b></td>
+        <td>Unencumbered liquid cash reserves.</td>
+      </tr>
+      <tr>
+        <td><b>Net Debt ($M)</b></td>
+        <td><b>$1,394.6</b></td>
+        <td>Net leverage stands at 2.03x TTM Adjusted EBITDA.</td>
+      </tr>
+      <tr>
+        <td><b>Total Enterprise Value (TEV) ($M)</b></td>
+        <td><b>$5,729.3</b></td>
+        <td>Market Capitalization ($4,334.7M) + Net Debt ($1,394.6M).</td>
+      </tr>
+      <tr>
+        <td><b>TTM Consolidated Revenue ($M)</b></td>
+        <td><b>$3,368.3</b></td>
+        <td>Trailing 12-month consolidated revenues across 500 theaters.</td>
+      </tr>
+      <tr>
+        <td><b>TTM Adjusted EBITDA ($M)</b></td>
+        <td><b>$625.0</b></td>
+        <td>Consolidated operating earnings before interest, tax, D&A.</td>
+      </tr>
+      <tr>
+        <td><b>Estimated Maintenance CapEx ($M)</b></td>
+        <td><b>$110.0</b></td>
+        <td>Baseline annual CapEx required to maintain screen technology (~65% of total CapEx).</td>
+      </tr>
+      <tr>
+        <td><b>Stock-Based Compensation (SBC) ($M)</b></td>
+        <td><b>$35.0</b></td>
+        <td>Economic cash drain / equity dilution adjustment.</td>
+      </tr>
+      <tr>
+        <td><b>TTM Operating Cash Flow ($M)</b></td>
+        <td><b>$475.0</b></td>
+        <td>Reported cash generated from operating activities.</td>
+      </tr>
+      <tr>
+        <td><b>True Owner Free Cash Flow ($M)</b></td>
+        <td><b>$330.0</b></td>
+        <td>Operating Cash Flow ($475M) - Maintenance CapEx ($110M) - SBC ($35M).</td>
+      </tr>
+      <tr>
+        <td><b>TEV / TTM Revenue</b></td>
+        <td><b>1.70x</b></td>
+        <td>Multiple reflects peak cyclical theatrical revenue.</td>
+      </tr>
+      <tr>
+        <td><b>TEV / TTM Adjusted EBITDA</b></td>
+        <td><b>9.17x</b></td>
+        <td>Historically full valuation multiple for legacy exhibition.</td>
+      </tr>
+      <tr>
+        <td><b>TEV / (EBITDA - Maintenance CapEx)</b></td>
+        <td><b>11.12x</b></td>
+        <td>Reflects unlevered capital intensity of theater upkeep.</td>
+      </tr>
+      <tr>
+        <td><b>TEV / True Owner FCF</b></td>
+        <td><b>17.36x</b></td>
+        <td>Elevated enterprise multiple relative to secular growth profile.</td>
+      </tr>
+      <tr>
+        <td><b>True Owner FCF Yield</b></td>
+        <td><b>7.61%</b></td>
+        <td>True Owner FCF ($330M) / Market Capitalization ($4,334.7M).</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h2>3. Comparison vs. Street Guidance (Consensus vs Fund Estimates)</h2>
+  <p>Wall Street sell-side models extrapolate the blockbuster Q2 2026 comps linearly through FY2028. Our internal model builds in realistic box office normalization, studio production delays, and wage inflation across retail exhibition.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Metric / Financial Year</th>
+        <th>FY 2026 Consensus</th>
+        <th>FY 2026 Fund Est.</th>
+        <th>FY 2027 Consensus</th>
+        <th>FY 2027 Fund Est.</th>
+        <th>FY 2028 Consensus</th>
+        <th>FY 2028 Fund Est.</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Consolidated Revenue ($M)</b></td>
+        <td>$3,450.0</td>
+        <td><b>$3,380.0</b></td>
+        <td>$3,650.0</td>
+        <td><b>$3,480.0</b></td>
         <td>$3,820.0</td>
-        <td><strong>$3,600.0</strong></td>
-      </tr>
-      <tr >
-        <td ><strong>EBIT (Operating Income)</strong></td>
-        <td>$450.0</td>
-        <td><strong>$410.0</strong></td>
-        <td>$485.0</td>
-        <td><strong>$425.0</strong></td>
-        <td>$520.0</td>
-        <td><strong>$440.0</strong></td>
+        <td><b>$3,550.0</b></td>
       </tr>
       <tr>
-        <td ><strong>Adjusted EBITDA</strong></td>
-        <td>$650.0</td>
-        <td><strong>$605.0</strong></td>
+        <td><b>Adjusted EBITDA ($M)</b></td>
+        <td>$640.0</td>
+        <td><b>$615.0</b></td>
         <td>$690.0</td>
-        <td><strong>$625.0</strong></td>
+        <td><b>$635.0</b></td>
         <td>$730.0</td>
-        <td><strong>$645.0</strong></td>
-      </tr>
-      <tr >
-        <td ><strong>Net Income</strong></td>
-        <td>$275.0</td>
-        <td><strong>$210.0</strong></td>
-        <td>$309.0</td>
-        <td><strong>$222.0</strong></td>
-        <td>$343.0</td>
-        <td><strong>$235.0</strong></td>
+        <td><b>$650.0</b></td>
       </tr>
       <tr>
-        <td ><strong>Diluted Shares (M)</strong></td>
-        <td>117.0</td>
-        <td><strong>117.0</strong></td>
-        <td>117.0</td>
-        <td><strong>117.0</strong></td>
-        <td>117.0</td>
-        <td><strong>117.0</strong></td>
+        <td><b>True Owner FCF ($M)</b></td>
+        <td>$350.0</td>
+        <td><b>$310.0</b></td>
+        <td>$390.0</td>
+        <td><b>$330.0</b></td>
+        <td>$425.0</td>
+        <td><b>$345.0</b></td>
       </tr>
-      <tr >
-        <td ><strong>Diluted EPS ($)</strong></td>
-        <td>$2.35</td>
-        <td><strong>$1.79</strong></td>
-        <td>$2.64</td>
-        <td><strong>$1.90</strong></td>
-        <td>$2.93</td>
-        <td><strong>$2.01</strong></td>
+      <tr>
+        <td><b>Diluted EPS ($)</b></td>
+        <td>$2.15</td>
+        <td><b>$1.85</b></td>
+        <td>$2.60</td>
+        <td><b>$2.10</b></td>
+        <td>$3.00</td>
+        <td><b>$2.25</b></td>
       </tr>
     </tbody>
   </table>
 
-  <div class="callout" style="margin-top: 15px;">
-    <strong>KEY VARIANCE DRIVERS:</strong>
-    <ul>
-      <li><strong>Revenue:</strong> Consensus assumes rapid recovery to 2019 box office levels ($11.4B North American box office). We model a structurally lower industry ceiling ($8.8B–$9.2B) due to shortened theatrical windows (45 days vs historical 90 days) and streaming competition.</li>
-      <li><strong>Earnings & EPS:</strong> Street consensus fails to burden operating cash flow with $16.0M in annual stock-based compensation and undercounts required maintenance CapEx ($110M Fund vs $80M Street assumption).</li>
-    </ul>
+  <div class="callout">
+    <strong>Key Disconnect:</strong> The Street projects continuous 5%+ annual top-line box office expansion. Our fund models a plateau in North American theatrical wide-release titles (100–105 titles vs 110–120 pre-pandemic) as major media conglomerates balance theatrical releases with direct-to-consumer streaming economics.
   </div>
 </div>
 
 <div class="section">
-  <h2>3. Business Anatomy, Origin & Secular Industry Shifts</h2>
-  
-  <p>Founded in 1984 by Lee Roy Mitchell, <strong>Cinemark Holdings</strong> has grown into the world's second-largest motion picture exhibitor, operating <strong>518 theaters and 5,847 screens</strong> across 42 U.S. states and 13 Latin American countries (primarily Brazil, Mexico, and Argentina). Historically, Cinemark built its legacy as a disciplined suburban operator, focusing on market dominance in mid-sized U.S. metropolitan areas and high-margin urban centers across South America.</p>
+  <h2>4. Operating Model Anatomy, Capital Velocity & Working Capital Mechanics</h2>
+  <p>Cinemark’s operating model possesses specific structural advantages over industry competitors, characterized by efficient unit economics and favorable cash conversion dynamics:</p>
 
-  <h3>Secular Industry Dynamics & Structural Trends</h3>
   <ul>
-    <li><strong>The Premiumization Imperative:</strong> Attendance volume remains ~20%-25% below 2019 pre-pandemic levels. To offset lower foot traffic, exhibitors have relied heavily on price hikes via Premium Large Formats (PLF / XD screens, Dolby Cinema, D-BOX) and elevated food and beverage (F&B) pricing per patron.</li>
-    <li><strong>Compressed Release Windows:</strong> The traditional 90-day exclusive theatrical window has shrunk permanently to 30–45 days for major studio releases, accelerating home streaming access and reducing long-tail theatrical runs.</li>
-    <li><strong>Studio Consolidation & Content Bottleneck:</strong> Major Hollywood studios have rationalized production budgets, shifting from volume to high-budget franchise blockbusters. This creates earnings volatility when film releases experience delays or underperform.</li>
+    <li><b>Concession Gross Margins (>85%):</b> Concessions represent ~35% of total revenue but generate over 50% of total operating profit. Per-patron concession spend has risen from ~$4.70 pre-pandemic to over $5.80 via expanded premium food, alcohol offerings, and self-serve layouts.</li>
+    <li><b>Film Rental Structure (~50% Margin Split):</b> Attendance box office revenue is shared with movie studios under variable sliding-scale contracts. While major blockbusters incur higher initial studio splits (~60%), aggregate annual film rental costs hover between 48% and 53%, providing inherent operational flexibility during box office downturns.</li>
+    <li><b>Negative Working Capital Mechanics:</b> Exhibition operates with favorable working capital dynamics. Customers pay cash or credit upfront for tickets and concessions, whereas film rentals payable to studios are settled on 30- to 60-day terms. During periods of rising attendance, working capital generates immediate cash inflows.</li>
+    <li><b>Asset-Light Leasehold Footprint:</b> Unlike real estate owners with heavy balance sheet debt, Cinemark leases ~90% of its theater locations under long-term operating leases. This structure limits direct real estate exposure while enabling disciplined exit strategies for underperforming locations upon lease expiration.</li>
   </ul>
 </div>
 
 <div class="section">
-  <h2>4. Competitive Moat, Unit Economics & Competitor Benchmark Matrix</h2>
-  
-  <p>Cinemark possesses a modest operational moat rooted in local real estate density, scale efficiency in film licensing, and superior concession execution. While the exhibition industry as a whole lacks deep structural barriers to entry, Cinemark's disciplined cost control allows it to generate industry-leading unit economics.</p>
+  <h2>5. Competitive Moat & Competitor Benchmark Matrix</h2>
+  <p>Cinemark’s economic moat stems from cost leadership, superior location density in suburban mid-tier markets, and high-margin Premium Large Formats (PLF). Below is a side-by-side operating audit against key theatrical peers.</p>
 
-  <h3>Competitor Peer Benchmark Matrix (FY 2025 – FY 2026E)</h3>
-
-  <table    >
+  <table>
     <thead>
-      <tr >
-        <th>Metric / Competitor</th>
+      <tr>
+        <th>Operational Benchmark Metric</th>
         <th>Cinemark (CNK)</th>
         <th>AMC Entertainment (AMC)</th>
         <th>Marcus Corp (MCS)</th>
-        <th>Regal (Cineworld)</th>
+        <th>IMAX Corp (IMAX)</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td ><strong>Global Screen Count</strong></td>
-        <td><strong>5,847</strong></td>
-        <td>10,000+</td>
-        <td>1,000+</td>
-        <td>8,500+</td>
-      </tr>
-      <tr >
-        <td ><strong>Market Share Position</strong></td>
-        <td><strong>#2 North America / #1 LatAm</strong></td>
-        <td>#1 North America</td>
-        <td>Regional Leader (Midwest)</td>
-        <td>#2 North America</td>
+        <td><b>Global Screen Count</b></td>
+        <td><b>5,620</b> (500 locations)</td>
+        <td>9,800 (890 locations)</td>
+        <td>1,000 (79 locations)</td>
+        <td>1,700+ partner screens</td>
       </tr>
       <tr>
-        <td ><strong>Adjusted EBITDA Margin</strong></td>
-        <td><strong>21.5% – 27.1%</strong></td>
-        <td>10.0% – 13.5%</td>
-        <td>15.0% – 17.5%</td>
-        <td>Post-Bankruptcy Restructured</td>
+        <td><b>TTM EBITDA Margin (%)</b></td>
+        <td><b>18.5%</b></td>
+        <td>~9.2%</td>
+        <td>~14.5%</td>
+        <td>~36.0% (Asset-light tech)</td>
       </tr>
-      <tr >
-        <td ><strong>Concession Rev / Patron</strong></td>
-        <td><strong>$5.75</strong></td>
+      <tr>
+        <td><b>Concession Spend per Patron ($)</b></td>
+        <td><b>$5.85</b></td>
         <td>$6.40</td>
-        <td>$5.20</td>
-        <td>$5.35</td>
+        <td>$6.10</td>
+        <td>N/A (Asset-light model)</td>
       </tr>
       <tr>
-        <td ><strong>Net Funded Debt / EBITDA</strong></td>
-        <td><strong>2.2x</strong></td>
-        <td>> 6.5x (Distressed)</td>
+        <td><b>Net Leverage Ratio (Net Debt / EBITDA)</b></td>
+        <td><b>2.03x</b></td>
+        <td>>6.5x (Distressed)</td>
         <td>2.8x</td>
-        <td>Restructured Equity</td>
+        <td>1.2x</td>
       </tr>
-      <tr >
-        <td ><strong>Normalized ROIC</strong></td>
-        <td><strong>11.2%</strong></td>
-        <td>Negative / Diluted</td>
-        <td>5.8%</td>
+      <tr>
+        <td><b>Market Share Trend (Post-Pandemic)</b></td>
+        <td><b>+150 bps Gains</b></td>
+        <td>Lost Share / Closed Units</td>
+        <td>Flat Market Share</td>
+        <td>Expanding Technology Penetration</td>
+      </tr>
+      <tr>
+        <td><b>Capital Structure Viability</b></td>
+        <td><b>Refortified / Deleveraged</b></td>
+        <td>Severely Diluted / High Debt</td>
+        <td>Conservatively Managed</td>
+        <td>Asset-Light / Pristine</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h2>6. Capital Allocation Discipline, ROIC Anatomy & Buyback History</h2>
+  <p>Unlike AMC, which engaged in massive equity dilution and speculative asset purchases, Cinemark management maintained strict capital allocation discipline. Management prioritizes balance sheet deleveraging, high-return maintenance CapEx, and opportunistic share repurchases.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Fiscal Period / Capital Strategy</th>
+        <th>Growth & Maintain CapEx ($M)</th>
+        <th>Debt Reduction ($M)</th>
+        <th>Dividends Paid ($M)</th>
+        <th>Share Buybacks ($M)</th>
+        <th>Diluted Share Count (M)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>FY 2022</b></td>
+        <td>$112.0</td>
+        <td>$0.0 (Liquidity preservation)</td>
+        <td>$0.0</td>
+        <td>$0.0</td>
+        <td>120.2</td>
+      </tr>
+      <tr>
+        <td><b>FY 2023</b></td>
+        <td>$145.0</td>
+        <td>$155.0</td>
+        <td>$0.0</td>
+        <td>$0.0</td>
+        <td>121.5</td>
+      </tr>
+      <tr>
+        <td><b>FY 2024</b></td>
+        <td>$150.0</td>
+        <td>$405.0 (Redeemed 5.875% Notes)</td>
+        <td>$0.0</td>
+        <td>$0.0</td>
+        <td>119.8</td>
+      </tr>
+      <tr>
+        <td><b>FY 2025</b></td>
+        <td>$160.0</td>
+        <td>$120.0</td>
+        <td>$18.0 (Dividend Reinstated)</td>
+        <td>$25.0</td>
+        <td>117.2</td>
+      </tr>
+      <tr>
+        <td><b>Q2 2026 YTD</b></td>
+        <td>$85.0</td>
+        <td>$50.0</td>
+        <td>$21.0 ($0.36 Annualized)</td>
+        <td>$75.0 ($300M Auth)</td>
+        <td><b>116.4</b></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><b>ROIC vs WACC Breakdown:</b> Historical normalized ROIC stands at <b>8.2%</b> against an estimated Cost of Capital (WACC) of <b>9.8%</b>. Because exhibition is structurally capital-intensive, value creation is achieved primarily through operational market share expansion and opportunistic debt repricing rather than structural returns far above WACC.</p>
+</div>
+
+<div class="section">
+  <h2>7. Management Integrity, Earnings Call Truth Test & 13F Whale Tracking</h2>
+  <p>CEO Sean Gamble and CFO Melissa Thomas have consistently met operational milestones communicated during quarterly earnings calls:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Management Strategic Promise</th>
+        <th>Targeted Outcome</th>
+        <th>Execution Audit</th>
+        <th>Truth Test Rating</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Domestic Market Share Growth</b></td>
+        <td>Outperform industry box office recovery</td>
+        <td>Captured 150+ bps market share gain vs pre-pandemic baseline.</td>
+        <td><b>PASSED / EXCEEDED</b></td>
+      </tr>
+      <tr>
+        <td><b>Debt Refinancing & Deleveraging</b></td>
+        <td>Eliminate near-term maturities to 2028+</td>
+        <td>Fully retired pandemic convertible notes and senior notes due 2026.</td>
+        <td><b>PASSED</b></td>
+      </tr>
+      <tr>
+        <td><b>Capital Returns Reinstatement</b></td>
+        <td>Return capital upon reaching <2.5x net leverage</td>
+        <td>Reinstated quarterly cash dividend ($0.09/sh) & $300M repurchase authorization.</td>
+        <td><b>PASSED</b></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>13F Institutional Holder Audit</h3>
+  <p>Institutional ownership stands at <b>~75.2%</b> of total shares. Prominent long-term institutional holders include:</p>
+  <ul>
+    <li><b>BlackRock, Inc.:</b> 15.81M shares (13.7% ownership stake)</li>
+    <li><b>Orbis Investment Management:</b> 15.06M shares (13.0% ownership stake)</li>
+    <li><b>Wellington Management Group:</b> 8.76M shares (7.6% ownership stake)</li>
+    <li><b>Vanguard Group:</b> 6.06M shares (5.2% ownership stake)</li>
+    <li><b>Renaissance Technologies:</b> 3.99M shares (3.5% quantitative position)</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>8. Capital Structure & Net Debt Schedule</h2>
+  <p>Management's balance sheet restructuring successfully extended debt maturities to 2028–2032 while maintaining robust liquidity ($504.3M Cash + $125M undrawn credit line).</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Capital Structure Obligation</th>
+        <th>Principal Amount ($M)</th>
+        <th>Interest Rate / Coupon</th>
+        <th>Maturity Date</th>
+        <th>Covenants & Key Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Cash & Cash Equivalents</b></td>
+        <td><b>($504.3)</b></td>
+        <td>Yielding Liquid Cash</td>
         <td>N/A</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="callout" style="margin-top: 15px;">
-    <strong>MOAT ASSESSMENT:</strong> Cinemark holds a clear operational advantage over AMC, benefiting from lower overhead costs and lower leverage. However, its moat is constrained by macroeconomic pressures on consumer discretionary spending and studio content power.
-  </div>
-</div>
-
-<div class="section">
-  <h2>5. Management Track Record, Earnings Call Integrity & Capital Allocation</h2>
-  
-  <p>Cinemark's leadership team is widely recognized as the premier management group in the theatrical exhibition sector. CEO <strong>Sean Gamble</strong> (former CFO of Universal Pictures and GE executive) and CFO <strong>Melissa Thomas</strong> (former CFO of Groupon) have maintained operational discipline throughout severe industry distress.</p>
-
-  <h3>Capital Allocation Discipline & ROIC Audit</h3>
-  <ul>
-    <li><strong>Normalized Returns:</strong> CNK delivers a <strong>Normalized ROIC of 11.22%</strong>, ROCE of 10.57%, and normalized ROE exceeding 45%, vastly outperforming peers who destroyed value during the pandemic.</li>
-    <li><strong>Permanent Market Share Expansion:</strong> Sustained over <strong>150 bps of permanent market share gains</strong> post-pandemic across both U.S. and Latin American circuits.</li>
-    <li><strong>Deleveraging Integrity:</strong> Unlike AMC, which diluted shareholders heavily, Cinemark retired its <strong>$460 Million 4.50% Convertible Senior Notes in cash</strong> in August 2025, eliminating 32 million potential dilution shares, and repurchased 7.93 million shares in March 2025 to extinguish legacy warrant exposure.</li>
-    <li><strong>Capital Return Reinstatement:</strong> Reinstated quarterly cash dividends (<strong>$0.09/share</strong>) and authorized a <strong>$300 Million share repurchase program</strong>.</li>
-  </ul>
-
-  <h3>Earnings Call Integrity & Non-GAAP Reporting Audit</h3>
-  <table    >
-    <thead>
-      <tr >
-        <th >Incentive / Report Metric</th>
-        <th >Management Focus</th>
-        <th >Fund Forensic Critique</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>Adjusted EBITDA</strong></td>
-        <td>Primary performance metric for STIP & LTIP bonus payouts.</td>
-        <td>Adds back cash rent obligations, cash SBC, and stock adjustments. Overstates operating profitability by ~30%-35%.</td>
-      </tr>
-      <tr >
-        <td><strong>Free Cash Flow (Reported)</strong></td>
-        <td>Calculated as Operating Cash Flow minus CapEx.</td>
-        <td>Ignores finance lease principal payments ($8.8M/yr) and treats routine screen maintenance CapEx as discretionary growth investment.</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<div class="section">
-  <h2>6. Ownership Structure, Form 4 Insiders & 13F Whale Commentary</h2>
-  
-  <p>Cinemark's ownership is heavily institutionalized, with high concentration among passive index managers and active value/special situations funds.</p>
-
-  <h3>Key Ownership Breakdown</h3>
-  <ul>
-    <li><strong>Institutional Float:</strong> ~88% of common shares outstanding are held by institutional managers. Top holders include BlackRock, Vanguard, and Dimensional Fund Advisors.</li>
-    <li><strong>Insider Ownership & Founder Presence:</strong> Founder Lee Roy Mitchell retains board influence and equity through the Mitchell Special Trust (~3.8% ownership). Executive officers and board members hold ~5.2% combined.</li>
-    <li><strong>Form 4 Insider Activity:</strong> Recent SEC Form 4 filings indicate net insider selling and routine option exercises by senior management over the past 12 months at prices between $28.00 and $36.50, taking profits during stock price strength.</li>
-  </ul>
-</div>
-
-<div class="section">
-  <h2>7. Capital Structure & Net Debt Bridge</h2>
-  
-  <p>As of Q2 2026 (June 30, 2026), Cinemark maintains <strong>$504.3 Million in cash and cash equivalents</strong> against <strong>$1,876.8 Million in total gross debt</strong>, resulting in a <strong>Net Debt position of $1,372.5 Million</strong>.</p>
-
-  <h3>Detailed Debt & Capital Structure Schedule (As of Q2 2026)</h3>
-
-  <table    >
-    <thead>
-      <tr >
-        <th>Debt Instrument</th>
-        <th>Coupon / Pricing</th>
-        <th>Maturity</th>
-        <th>Principal ($M)</th>
-        <th>Carrying Value ($M)</th>
-        <th>Status / Security</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td ><strong>Revolving Credit Facility</strong></td>
-        <td>SOFR + 1.75%–2.00%</td>
-        <td>May 2028</td>
-        <td>$0.0</td>
-        <td>$0.0</td>
-        <td >$225.0M capacity; $0 drawn</td>
-      </tr>
-      <tr >
-        <td ><strong>Cinemark USA Term Loan</strong></td>
-        <td>SOFR + 2.00% (5.6% net)</td>
-        <td>May 2030</td>
-        <td>$629.1</td>
-        <td>$629.1</td>
-        <td >Amortizes $1.6M/qtr; repriced down</td>
+        <td>Unencumbered cash liquidity buffer.</td>
       </tr>
       <tr>
-        <td ><strong>Senior Notes</strong></td>
-        <td>5.250%</td>
-        <td>July 2028</td>
-        <td>$765.0</td>
-        <td>$765.0</td>
-        <td >Unsecured senior obligations</td>
-      </tr>
-      <tr >
-        <td ><strong>Senior Notes</strong></td>
-        <td>7.000%</td>
-        <td>July 2032</td>
-        <td>$500.0</td>
-        <td>$500.0</td>
-        <td >Issued 2024 to refi pandemic high-yield debt</td>
+        <td><b>Senior Secured Term Loan B</b></td>
+        <td><b>$633.9</b></td>
+        <td>Term SOFR + 1.75% (~5.45% net)</td>
+        <td>May 24, 2030</td>
+        <td>Repriced Q2 2026 (-25 bps margin cut saving $1.6M cash interest p.a.).</td>
       </tr>
       <tr>
-        <td ><strong>4.50% Convertible Notes</strong></td>
-        <td>4.500%</td>
-        <td>August 2025</td>
-        <td>$0.0</td>
-        <td>$0.0</td>
-        <td ><strong>RETIRED IN FULL IN CASH</strong> (Aug 2025)</td>
-      </tr>
-      <tr >
-        <td ><strong>Total Gross Funded Debt</strong></td>
-        <td>—</td>
-        <td>—</td>
-        <td><strong>$1,894.1</strong></td>
-        <td><strong>$1,876.8</strong></td>
-        <td >Includes $6.3M current portion</td>
-      </tr>
-      <tr>
-        <td ><strong>Finance Lease Obligations</strong></td>
-        <td>Fixed / Imputed</td>
-        <td>Various</td>
-        <td>$93.7</td>
-        <td>$93.7</td>
-        <td >$8.8M current + $84.9M long-term</td>
-      </tr>
-      <tr >
-        <td ><strong>Operating Lease PV</strong></td>
-        <td>Discounted @ ~6.5%</td>
-        <td>Various</td>
-        <td>$989.1</td>
-        <td>$989.1</td>
-        <td >Off-balance sheet present value liability</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="callout" style="margin-top: 15px;">
-    <strong>NET DEBT & TOTAL ECONOMIC OBLIGATIONS:</strong><br>
-    <ul>
-      <li><strong>Cash Balance:</strong> $504.3M</li>
-      <li><strong>Net Funded Debt:</strong> $1,372.5M ($1,876.8M Funded Debt minus $504.3M Cash)</li>
-      <li><strong>Total Economic Liabilities (Funded Debt + Finance Leases + Operating Leases):</strong> $2,959.6M gross / <strong>$2,455.3M net of cash</strong>.</li>
-    </ul>
-  </div>
-</div>
-
-<div class="section">
-  <h2>8. True Owner Earnings & SBC Cash Audit</h2>
-  
-  <p>In accordance with Graham & Dodd principles, Stock-Based Compensation (SBC) is an ongoing dilution risk and real economic cost. Management regularly adds back ~$16.0M in annual SBC when calculating Adjusted EBITDA, effectively masking dilution.</p>
-
-  <h3>True Owner Earnings Reconciliation (FY 2026E Fund Estimate)</h3>
-
-  <table    >
-    <thead>
-      <tr >
-        <th >Financial Metric Line Item</th>
-        <th >Amount ($M)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Reported Net Income (Fund Estimate)</td>
-        <td >$210.0</td>
-      </tr>
-      <tr >
-        <td>(+) Depreciation & Amortization</td>
-        <td >+$195.0</td>
-      </tr>
-      <tr>
-        <td>(-) Maintenance CapEx (Mandatory screen & theater upkeep)</td>
-        <td >-$110.0</td>
-      </tr>
-      <tr >
-        <td>(-) Stock-Based Compensation (Real Economic Dilution)</td>
-        <td >-$16.0</td>
-      </tr>
-      <tr>
-        <td>(-) Finance Lease Principal Amortization</td>
-        <td >-$8.8</td>
-      </tr>
-      <tr >
-        <td><strong>TRUE OWNER EARNINGS (Normalized Mid-Cycle Cash Flow)</strong></td>
-        <td ><strong>$270.2</strong></td>
-      </tr>
-      <tr>
-        <td>True Owner Earnings Per Share (117.0M Shares)</td>
-        <td ><strong>$2.31 / share</strong></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <p style="margin-top: 15px;">At a market price of $37.24, CNK trades at <strong>16.1x True Owner Earnings</strong>, an unjustified premium for a mature, capital-intensive industry subject to secular disruption.</p>
-</div>
-
-<div class="section">
-  <h2>9. Valuation Triangulation & Scenario Asymmetry</h2>
-  
-  <p>We perform valuation triangulation using Earnings Power Value (EPV), Discounted Cash Flow (DCF), and a 3-Scenario Probability Matrix.</p>
-
-  <h3>Scenario Analysis Matrix</h3>
-
-  <table    >
-    <thead>
-      <tr >
-        <th>Scenario</th>
-        <th>Probability</th>
-        <th>Fair Value Target</th>
-        <th>Implied Upside / Downside</th>
-        <th>Key Assumptions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr >
-        <td><strong>Bear Case</strong></td>
-        <td>25%</td>
-        <td><strong>$14.00</strong></td>
-        <td><strong>-62.4%</strong></td>
-        <td >Box office stagnates at $8.2B; concession inflation turns negative; EV/EBITDA compresses to 5.0x.</td>
-      </tr>
-      <tr >
-        <td><strong>Base Case</strong></td>
-        <td>55%</td>
-        <td><strong>$22.50</strong></td>
-        <td><strong>-39.6%</strong></td>
-        <td >Box office normalizes at $9.0B; Adj. EBITDA $625M; EV/EBITDA multiple of 6.5x normalized earnings.</td>
-      </tr>
-      <tr >
-        <td><strong>Bull Case</strong></td>
-        <td>20%</td>
-        <td><strong>$34.00</strong></td>
-        <td><strong>-8.7%</strong></td>
-        <td >Box office reaches $10.0B; market share reaches 18%; EV/EBITDA multiple expands to 8.0x.</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <h3>Earnings Power Value (EPV) & Discounted Cash Flow (DCF) Summary</h3>
-  <ul>
-    <li><strong>Earnings Power Value (EPV):</strong> EPV assumes zero growth cash flows capitalized at WACC (8.5%). With normalized adjusted EBIT of $4
+        <td><b>5.25% Senior Unsecured Notes</b></td>
+        <td><b>$765.0</b></td>
             </article>
         </div>
 
@@ -929,14 +902,14 @@
         <div class="history-entry history-entry-active">
             <div class="history-top">
                 <div class="history-tags">
-                    <span class="history-time">2026-08-07</span>
+                    <span class="history-time">2026-08-08</span>
                     <span class="history-price">$37.24</span>
                     <span class="pill pill-active">Overvalued</span> <span class="pill pill-neutral">Theatrical Moat</span> <span class="pill pill-neutral">Deleveraging</span>
                 </div>
                 <button class="btn btn-subtle" onclick="toggleSnapshot(1)">Read Snapshot ▾</button>
             </div>
             <div class="history-content">
-                <p class="history-shift-desc">Cinemark is capitalizing on peak post-pandemic box office momentum, but the equity market at $37.24 is severely mispricing $1.37B in net debt obligations, $110M in annual required maintenance CapEx, and persistent stock-based compensation dilution. We value CNK at $22.50 per share based on normalized mid-cycle True Owner Earnings, representing ~40% downside from current market levels.</p>
+                <p class="history-shift-desc">Cinemark represents best-in-class theatrical operational execution with expanding market share and strong balance sheet deleveraging. However, at $37.24, equity valuation fully discounts a record-setting box office recovery and leaves no margin of safety for secular streaming headwinds or box office volatility.</p>
                 
             <div class="diff-grid">
                 <div class="diff-box diff-prev">
@@ -945,7 +918,7 @@
                 </div>
                 <div class="diff-box diff-now">
                     <div class="diff-label">THESIS EVOLUTION</div>
-                    <div class="diff-text">Cinemark is capitalizing on peak post-pandemic box office momentum, but the equity market at $37.24 is severely mispricing $1.37B in net debt obligations, $110M in annual required maintenance CapEx, and persistent stock-based compensation dilution. We value CNK at $22.50 per share based on normalized mid-cycle True Owner Earnings, representing ~40% downside from current market levels.</div>
+                    <div class="diff-text">Cinemark represents best-in-class theatrical operational execution with expanding market share and strong balance sheet deleveraging. However, at $37.24, equity valuation fully discounts a record-setting box office recovery and leaves no margin of safety for secular streaming headwinds or box office volatility.</div>
                 </div>
             </div>
             
@@ -953,426 +926,399 @@
                     <div class="snapshot-body">
                         <div class="section">
   <h2>1. Executive Summary & Variant Perception</h2>
+  <p><b>Target:</b> Cinemark Holdings Inc (NYSE: CNK)</p>
+  <p><b>Current Price:</b> $37.24 | <b>Fund Intrinsic Value:</b> $34.50 | <b>Margin of Safety:</b> -7.4% (Overvalued by 7.9%) | <b>Recommendation:</b> PASS / HOLD</p>
   
-  <p>At a current market price of <strong>$37.24</strong>, market sentiment around <strong>Cinemark Holdings, Inc. (NYSE: CNK)</strong> reflects peak cyclical euphoria. Equity markets are capitalizing extraordinary post-pandemic quarterly box office receipts while turning a blind eye to fundamental structural headwinds, including <strong>$1.37 Billion in net debt</strong>, <strong>$989.1 Million in operating lease commitments</strong>, mandatory annual maintenance CapEx of <strong>$110.0 Million</strong>, and <strong>$16.0 Million</strong> in annual stock-based compensation dilution.</p>
+  <p><b>Consensus View:</b> Wall Street is overwhelmingly bullish on Cinemark following a record-breaking Q2 2026 where quarterly revenue surpassed $1.1 billion and Adjusted EBITDA reached $294 million. Equity analysts applaud management's operational execution, market share gains (+150 bps domestic post-pandemic), and disciplined balance sheet deleveraging (net leverage down to ~2.0x EBITDA). Street consensus projects compounding growth fueled by studio slate recovery, premium large format (Cinemark XD) expansion, and high-margin concession innovation.</p>
+
+  <p><b>Fund Variant Perception:</b> While we acknowledge that Cinemark is undeniably the best-operated theatrical exhibitor in North America—drastically outperforming structurally impaired peers like AMC Entertainment—we refuse to confuse operational excellence with an attractive investment entry price. At $37.24, the market has priced in near-flawless execution and a permanent return to pre-pandemic box office attendance levels. Our forensic audit indicates that normalized True Owner Free Cash Flow ($330 million) yields 7.6% on equity, while Total Enterprise Value (TEV) trades at 17.4x True Owner FCF and 9.2x Adjusted EBITDA. Lacking a Graham & Dodd margin of safety, current price levels offer virtually zero risk premium against secular entertainment shifts, shortened theatrical windows, and studio volume volatility.</p>
 
   <div class="callout">
-    <strong>CRITICAL GRAHAM & DODD VALUATION MANDATE:</strong><br>
-    Price is what you pay; value is what you get. We strictly refuse to reverse-engineer financial models or exit multiples to justify market momentum. While Cinemark represents the undisputed "best house in a tough neighborhood" compared to bankrupt or distressed peers like AMC and Cineworld, the equity at $37.24 is priced for flawless execution, perpetual market share expansion, and zero slate volatility. Our normalized intrinsic value estimate is <strong>$22.50 per share</strong> (~40% downside).
+    <strong>Chief Investment Officer Takeaway:</strong> Valuation is a sober mathematical exercise, not an endorsement of management goodwill. CNK is a high-quality operator trading at peak cyclical valuation multiple on peak box office comps. Capital preservation demands we hold off until market sentiment or box office volatility presents a price below $26.50.
   </div>
-
-  <h3>Variant Perception: Consensus vs. Fund View</h3>
-  <ul>
-    <li><strong>Consensus View (Bullish Squeeze / Peak Cyclical):</strong> Wall Street projects linear theatrical recovery, modeling broad mid-cycle EBITDA margin expansion above 18%-19%, driven by record concession spend ($5.75+ per patron) and market share gains from weakened competitors. Sell-side analysts routinely treat Stock-Based Compensation (SBC) as a non-cash add-back and ignore long-term theater lease liabilities.</li>
-    <li><strong>Fund Variant Perception (Sober Mid-Cycle Realism):</strong> We recognize that while Cinemark's management team has executed exceptionally well, global theatrical volume remains structurally capped at ~100–110 wide studio releases annually (vs. 130–140 pre-COVID). Furthermore, concessions spending per patron faces inflationary fatigue. Capital allocation must service $1.88B in gross debt and $110M in required maintenance CapEx across 5,800+ screens before common shareholders receive true economic free cash flow.</li>
-  </ul>
 </div>
 
 <div class="section">
-  <h2>2. Comparison vs. Street Guidance</h2>
-  
-  <p>The table below highlights the divergent expectations between sell-side Wall Street consensus and our Fund's normalized forensic estimates across FY 2026E – FY 2028E.</p>
+  <h2>2. Total Enterprise Value (TEV) & True Owner FCF Valuation Multiples</h2>
+  <p>In accordance with the Norbert Lou value investing framework, Stock-Based Compensation (SBC) is treated as an explicit, undeniable cash drain and dilutive economic cost. True Owner Free Cash Flow reflects reported Cash Flow from Operations minus Maintenance CapEx and SBC.</p>
 
-  <table    >
+  <table>
     <thead>
-      <tr >
-        <th>Metric ($M, except EPS)</th>
-        <th>FY 2026E Street</th>
-        <th>FY 2026E Fund</th>
-        <th>FY 2027E Street</th>
-        <th>FY 2027E Fund</th>
-        <th>FY 2028E Street</th>
-        <th>FY 2028E Fund</th>
+      <tr>
+        <th>Valuation & Capital Velocity Metric</th>
+        <th>Reported / Calculated Value</th>
+        <th>Analytical & Methodological Notes</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td ><strong>Total Revenue</strong></td>
-        <td>$3,540.0</td>
-        <td><strong>$3,450.0</strong></td>
-        <td>$3,660.0</td>
-        <td><strong>$3,520.0</strong></td>
+        <td><b>Current Stock Price</b></td>
+        <td><b>$37.24</b></td>
+        <td>Market closing price as of valuation date.</td>
+      </tr>
+      <tr>
+        <td><b>Diluted Common Shares Outstanding (M)</b></td>
+        <td><b>116.4</b></td>
+        <td>Fully diluted weighted-average shares outstanding.</td>
+      </tr>
+      <tr>
+        <td><b>Market Capitalization ($M)</b></td>
+        <td><b>$4,334.7</b></td>
+        <td>116.4M shares × $37.24 share price.</td>
+      </tr>
+      <tr>
+        <td><b>Plus: Total Debt Principal ($M)</b></td>
+        <td><b>$1,898.9</b></td>
+        <td>Senior Secured Term Loans ($633.9M) + Senior Notes ($1,265.0M).</td>
+      </tr>
+      <tr>
+        <td><b>Less: Cash & Cash Equivalents ($M)</b></td>
+        <td><b>$504.3</b></td>
+        <td>Unencumbered liquid cash reserves.</td>
+      </tr>
+      <tr>
+        <td><b>Net Debt ($M)</b></td>
+        <td><b>$1,394.6</b></td>
+        <td>Net leverage stands at 2.03x TTM Adjusted EBITDA.</td>
+      </tr>
+      <tr>
+        <td><b>Total Enterprise Value (TEV) ($M)</b></td>
+        <td><b>$5,729.3</b></td>
+        <td>Market Capitalization ($4,334.7M) + Net Debt ($1,394.6M).</td>
+      </tr>
+      <tr>
+        <td><b>TTM Consolidated Revenue ($M)</b></td>
+        <td><b>$3,368.3</b></td>
+        <td>Trailing 12-month consolidated revenues across 500 theaters.</td>
+      </tr>
+      <tr>
+        <td><b>TTM Adjusted EBITDA ($M)</b></td>
+        <td><b>$625.0</b></td>
+        <td>Consolidated operating earnings before interest, tax, D&A.</td>
+      </tr>
+      <tr>
+        <td><b>Estimated Maintenance CapEx ($M)</b></td>
+        <td><b>$110.0</b></td>
+        <td>Baseline annual CapEx required to maintain screen technology (~65% of total CapEx).</td>
+      </tr>
+      <tr>
+        <td><b>Stock-Based Compensation (SBC) ($M)</b></td>
+        <td><b>$35.0</b></td>
+        <td>Economic cash drain / equity dilution adjustment.</td>
+      </tr>
+      <tr>
+        <td><b>TTM Operating Cash Flow ($M)</b></td>
+        <td><b>$475.0</b></td>
+        <td>Reported cash generated from operating activities.</td>
+      </tr>
+      <tr>
+        <td><b>True Owner Free Cash Flow ($M)</b></td>
+        <td><b>$330.0</b></td>
+        <td>Operating Cash Flow ($475M) - Maintenance CapEx ($110M) - SBC ($35M).</td>
+      </tr>
+      <tr>
+        <td><b>TEV / TTM Revenue</b></td>
+        <td><b>1.70x</b></td>
+        <td>Multiple reflects peak cyclical theatrical revenue.</td>
+      </tr>
+      <tr>
+        <td><b>TEV / TTM Adjusted EBITDA</b></td>
+        <td><b>9.17x</b></td>
+        <td>Historically full valuation multiple for legacy exhibition.</td>
+      </tr>
+      <tr>
+        <td><b>TEV / (EBITDA - Maintenance CapEx)</b></td>
+        <td><b>11.12x</b></td>
+        <td>Reflects unlevered capital intensity of theater upkeep.</td>
+      </tr>
+      <tr>
+        <td><b>TEV / True Owner FCF</b></td>
+        <td><b>17.36x</b></td>
+        <td>Elevated enterprise multiple relative to secular growth profile.</td>
+      </tr>
+      <tr>
+        <td><b>True Owner FCF Yield</b></td>
+        <td><b>7.61%</b></td>
+        <td>True Owner FCF ($330M) / Market Capitalization ($4,334.7M).</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h2>3. Comparison vs. Street Guidance (Consensus vs Fund Estimates)</h2>
+  <p>Wall Street sell-side models extrapolate the blockbuster Q2 2026 comps linearly through FY2028. Our internal model builds in realistic box office normalization, studio production delays, and wage inflation across retail exhibition.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Metric / Financial Year</th>
+        <th>FY 2026 Consensus</th>
+        <th>FY 2026 Fund Est.</th>
+        <th>FY 2027 Consensus</th>
+        <th>FY 2027 Fund Est.</th>
+        <th>FY 2028 Consensus</th>
+        <th>FY 2028 Fund Est.</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Consolidated Revenue ($M)</b></td>
+        <td>$3,450.0</td>
+        <td><b>$3,380.0</b></td>
+        <td>$3,650.0</td>
+        <td><b>$3,480.0</b></td>
         <td>$3,820.0</td>
-        <td><strong>$3,600.0</strong></td>
-      </tr>
-      <tr >
-        <td ><strong>EBIT (Operating Income)</strong></td>
-        <td>$450.0</td>
-        <td><strong>$410.0</strong></td>
-        <td>$485.0</td>
-        <td><strong>$425.0</strong></td>
-        <td>$520.0</td>
-        <td><strong>$440.0</strong></td>
+        <td><b>$3,550.0</b></td>
       </tr>
       <tr>
-        <td ><strong>Adjusted EBITDA</strong></td>
-        <td>$650.0</td>
-        <td><strong>$605.0</strong></td>
+        <td><b>Adjusted EBITDA ($M)</b></td>
+        <td>$640.0</td>
+        <td><b>$615.0</b></td>
         <td>$690.0</td>
-        <td><strong>$625.0</strong></td>
+        <td><b>$635.0</b></td>
         <td>$730.0</td>
-        <td><strong>$645.0</strong></td>
-      </tr>
-      <tr >
-        <td ><strong>Net Income</strong></td>
-        <td>$275.0</td>
-        <td><strong>$210.0</strong></td>
-        <td>$309.0</td>
-        <td><strong>$222.0</strong></td>
-        <td>$343.0</td>
-        <td><strong>$235.0</strong></td>
+        <td><b>$650.0</b></td>
       </tr>
       <tr>
-        <td ><strong>Diluted Shares (M)</strong></td>
-        <td>117.0</td>
-        <td><strong>117.0</strong></td>
-        <td>117.0</td>
-        <td><strong>117.0</strong></td>
-        <td>117.0</td>
-        <td><strong>117.0</strong></td>
+        <td><b>True Owner FCF ($M)</b></td>
+        <td>$350.0</td>
+        <td><b>$310.0</b></td>
+        <td>$390.0</td>
+        <td><b>$330.0</b></td>
+        <td>$425.0</td>
+        <td><b>$345.0</b></td>
       </tr>
-      <tr >
-        <td ><strong>Diluted EPS ($)</strong></td>
-        <td>$2.35</td>
-        <td><strong>$1.79</strong></td>
-        <td>$2.64</td>
-        <td><strong>$1.90</strong></td>
-        <td>$2.93</td>
-        <td><strong>$2.01</strong></td>
+      <tr>
+        <td><b>Diluted EPS ($)</b></td>
+        <td>$2.15</td>
+        <td><b>$1.85</b></td>
+        <td>$2.60</td>
+        <td><b>$2.10</b></td>
+        <td>$3.00</td>
+        <td><b>$2.25</b></td>
       </tr>
     </tbody>
   </table>
 
-  <div class="callout" style="margin-top: 15px;">
-    <strong>KEY VARIANCE DRIVERS:</strong>
-    <ul>
-      <li><strong>Revenue:</strong> Consensus assumes rapid recovery to 2019 box office levels ($11.4B North American box office). We model a structurally lower industry ceiling ($8.8B–$9.2B) due to shortened theatrical windows (45 days vs historical 90 days) and streaming competition.</li>
-      <li><strong>Earnings & EPS:</strong> Street consensus fails to burden operating cash flow with $16.0M in annual stock-based compensation and undercounts required maintenance CapEx ($110M Fund vs $80M Street assumption).</li>
-    </ul>
+  <div class="callout">
+    <strong>Key Disconnect:</strong> The Street projects continuous 5%+ annual top-line box office expansion. Our fund models a plateau in North American theatrical wide-release titles (100–105 titles vs 110–120 pre-pandemic) as major media conglomerates balance theatrical releases with direct-to-consumer streaming economics.
   </div>
 </div>
 
 <div class="section">
-  <h2>3. Business Anatomy, Origin & Secular Industry Shifts</h2>
-  
-  <p>Founded in 1984 by Lee Roy Mitchell, <strong>Cinemark Holdings</strong> has grown into the world's second-largest motion picture exhibitor, operating <strong>518 theaters and 5,847 screens</strong> across 42 U.S. states and 13 Latin American countries (primarily Brazil, Mexico, and Argentina). Historically, Cinemark built its legacy as a disciplined suburban operator, focusing on market dominance in mid-sized U.S. metropolitan areas and high-margin urban centers across South America.</p>
+  <h2>4. Operating Model Anatomy, Capital Velocity & Working Capital Mechanics</h2>
+  <p>Cinemark’s operating model possesses specific structural advantages over industry competitors, characterized by efficient unit economics and favorable cash conversion dynamics:</p>
 
-  <h3>Secular Industry Dynamics & Structural Trends</h3>
   <ul>
-    <li><strong>The Premiumization Imperative:</strong> Attendance volume remains ~20%-25% below 2019 pre-pandemic levels. To offset lower foot traffic, exhibitors have relied heavily on price hikes via Premium Large Formats (PLF / XD screens, Dolby Cinema, D-BOX) and elevated food and beverage (F&B) pricing per patron.</li>
-    <li><strong>Compressed Release Windows:</strong> The traditional 90-day exclusive theatrical window has shrunk permanently to 30–45 days for major studio releases, accelerating home streaming access and reducing long-tail theatrical runs.</li>
-    <li><strong>Studio Consolidation & Content Bottleneck:</strong> Major Hollywood studios have rationalized production budgets, shifting from volume to high-budget franchise blockbusters. This creates earnings volatility when film releases experience delays or underperform.</li>
+    <li><b>Concession Gross Margins (>85%):</b> Concessions represent ~35% of total revenue but generate over 50% of total operating profit. Per-patron concession spend has risen from ~$4.70 pre-pandemic to over $5.80 via expanded premium food, alcohol offerings, and self-serve layouts.</li>
+    <li><b>Film Rental Structure (~50% Margin Split):</b> Attendance box office revenue is shared with movie studios under variable sliding-scale contracts. While major blockbusters incur higher initial studio splits (~60%), aggregate annual film rental costs hover between 48% and 53%, providing inherent operational flexibility during box office downturns.</li>
+    <li><b>Negative Working Capital Mechanics:</b> Exhibition operates with favorable working capital dynamics. Customers pay cash or credit upfront for tickets and concessions, whereas film rentals payable to studios are settled on 30- to 60-day terms. During periods of rising attendance, working capital generates immediate cash inflows.</li>
+    <li><b>Asset-Light Leasehold Footprint:</b> Unlike real estate owners with heavy balance sheet debt, Cinemark leases ~90% of its theater locations under long-term operating leases. This structure limits direct real estate exposure while enabling disciplined exit strategies for underperforming locations upon lease expiration.</li>
   </ul>
 </div>
 
 <div class="section">
-  <h2>4. Competitive Moat, Unit Economics & Competitor Benchmark Matrix</h2>
-  
-  <p>Cinemark possesses a modest operational moat rooted in local real estate density, scale efficiency in film licensing, and superior concession execution. While the exhibition industry as a whole lacks deep structural barriers to entry, Cinemark's disciplined cost control allows it to generate industry-leading unit economics.</p>
+  <h2>5. Competitive Moat & Competitor Benchmark Matrix</h2>
+  <p>Cinemark’s economic moat stems from cost leadership, superior location density in suburban mid-tier markets, and high-margin Premium Large Formats (PLF). Below is a side-by-side operating audit against key theatrical peers.</p>
 
-  <h3>Competitor Peer Benchmark Matrix (FY 2025 – FY 2026E)</h3>
-
-  <table    >
+  <table>
     <thead>
-      <tr >
-        <th>Metric / Competitor</th>
+      <tr>
+        <th>Operational Benchmark Metric</th>
         <th>Cinemark (CNK)</th>
         <th>AMC Entertainment (AMC)</th>
         <th>Marcus Corp (MCS)</th>
-        <th>Regal (Cineworld)</th>
+        <th>IMAX Corp (IMAX)</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td ><strong>Global Screen Count</strong></td>
-        <td><strong>5,847</strong></td>
-        <td>10,000+</td>
-        <td>1,000+</td>
-        <td>8,500+</td>
-      </tr>
-      <tr >
-        <td ><strong>Market Share Position</strong></td>
-        <td><strong>#2 North America / #1 LatAm</strong></td>
-        <td>#1 North America</td>
-        <td>Regional Leader (Midwest)</td>
-        <td>#2 North America</td>
+        <td><b>Global Screen Count</b></td>
+        <td><b>5,620</b> (500 locations)</td>
+        <td>9,800 (890 locations)</td>
+        <td>1,000 (79 locations)</td>
+        <td>1,700+ partner screens</td>
       </tr>
       <tr>
-        <td ><strong>Adjusted EBITDA Margin</strong></td>
-        <td><strong>21.5% – 27.1%</strong></td>
-        <td>10.0% – 13.5%</td>
-        <td>15.0% – 17.5%</td>
-        <td>Post-Bankruptcy Restructured</td>
+        <td><b>TTM EBITDA Margin (%)</b></td>
+        <td><b>18.5%</b></td>
+        <td>~9.2%</td>
+        <td>~14.5%</td>
+        <td>~36.0% (Asset-light tech)</td>
       </tr>
-      <tr >
-        <td ><strong>Concession Rev / Patron</strong></td>
-        <td><strong>$5.75</strong></td>
+      <tr>
+        <td><b>Concession Spend per Patron ($)</b></td>
+        <td><b>$5.85</b></td>
         <td>$6.40</td>
-        <td>$5.20</td>
-        <td>$5.35</td>
+        <td>$6.10</td>
+        <td>N/A (Asset-light model)</td>
       </tr>
       <tr>
-        <td ><strong>Net Funded Debt / EBITDA</strong></td>
-        <td><strong>2.2x</strong></td>
-        <td>> 6.5x (Distressed)</td>
+        <td><b>Net Leverage Ratio (Net Debt / EBITDA)</b></td>
+        <td><b>2.03x</b></td>
+        <td>>6.5x (Distressed)</td>
         <td>2.8x</td>
-        <td>Restructured Equity</td>
+        <td>1.2x</td>
       </tr>
-      <tr >
-        <td ><strong>Normalized ROIC</strong></td>
-        <td><strong>11.2%</strong></td>
-        <td>Negative / Diluted</td>
-        <td>5.8%</td>
+      <tr>
+        <td><b>Market Share Trend (Post-Pandemic)</b></td>
+        <td><b>+150 bps Gains</b></td>
+        <td>Lost Share / Closed Units</td>
+        <td>Flat Market Share</td>
+        <td>Expanding Technology Penetration</td>
+      </tr>
+      <tr>
+        <td><b>Capital Structure Viability</b></td>
+        <td><b>Refortified / Deleveraged</b></td>
+        <td>Severely Diluted / High Debt</td>
+        <td>Conservatively Managed</td>
+        <td>Asset-Light / Pristine</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h2>6. Capital Allocation Discipline, ROIC Anatomy & Buyback History</h2>
+  <p>Unlike AMC, which engaged in massive equity dilution and speculative asset purchases, Cinemark management maintained strict capital allocation discipline. Management prioritizes balance sheet deleveraging, high-return maintenance CapEx, and opportunistic share repurchases.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Fiscal Period / Capital Strategy</th>
+        <th>Growth & Maintain CapEx ($M)</th>
+        <th>Debt Reduction ($M)</th>
+        <th>Dividends Paid ($M)</th>
+        <th>Share Buybacks ($M)</th>
+        <th>Diluted Share Count (M)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>FY 2022</b></td>
+        <td>$112.0</td>
+        <td>$0.0 (Liquidity preservation)</td>
+        <td>$0.0</td>
+        <td>$0.0</td>
+        <td>120.2</td>
+      </tr>
+      <tr>
+        <td><b>FY 2023</b></td>
+        <td>$145.0</td>
+        <td>$155.0</td>
+        <td>$0.0</td>
+        <td>$0.0</td>
+        <td>121.5</td>
+      </tr>
+      <tr>
+        <td><b>FY 2024</b></td>
+        <td>$150.0</td>
+        <td>$405.0 (Redeemed 5.875% Notes)</td>
+        <td>$0.0</td>
+        <td>$0.0</td>
+        <td>119.8</td>
+      </tr>
+      <tr>
+        <td><b>FY 2025</b></td>
+        <td>$160.0</td>
+        <td>$120.0</td>
+        <td>$18.0 (Dividend Reinstated)</td>
+        <td>$25.0</td>
+        <td>117.2</td>
+      </tr>
+      <tr>
+        <td><b>Q2 2026 YTD</b></td>
+        <td>$85.0</td>
+        <td>$50.0</td>
+        <td>$21.0 ($0.36 Annualized)</td>
+        <td>$75.0 ($300M Auth)</td>
+        <td><b>116.4</b></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><b>ROIC vs WACC Breakdown:</b> Historical normalized ROIC stands at <b>8.2%</b> against an estimated Cost of Capital (WACC) of <b>9.8%</b>. Because exhibition is structurally capital-intensive, value creation is achieved primarily through operational market share expansion and opportunistic debt repricing rather than structural returns far above WACC.</p>
+</div>
+
+<div class="section">
+  <h2>7. Management Integrity, Earnings Call Truth Test & 13F Whale Tracking</h2>
+  <p>CEO Sean Gamble and CFO Melissa Thomas have consistently met operational milestones communicated during quarterly earnings calls:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Management Strategic Promise</th>
+        <th>Targeted Outcome</th>
+        <th>Execution Audit</th>
+        <th>Truth Test Rating</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Domestic Market Share Growth</b></td>
+        <td>Outperform industry box office recovery</td>
+        <td>Captured 150+ bps market share gain vs pre-pandemic baseline.</td>
+        <td><b>PASSED / EXCEEDED</b></td>
+      </tr>
+      <tr>
+        <td><b>Debt Refinancing & Deleveraging</b></td>
+        <td>Eliminate near-term maturities to 2028+</td>
+        <td>Fully retired pandemic convertible notes and senior notes due 2026.</td>
+        <td><b>PASSED</b></td>
+      </tr>
+      <tr>
+        <td><b>Capital Returns Reinstatement</b></td>
+        <td>Return capital upon reaching <2.5x net leverage</td>
+        <td>Reinstated quarterly cash dividend ($0.09/sh) & $300M repurchase authorization.</td>
+        <td><b>PASSED</b></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>13F Institutional Holder Audit</h3>
+  <p>Institutional ownership stands at <b>~75.2%</b> of total shares. Prominent long-term institutional holders include:</p>
+  <ul>
+    <li><b>BlackRock, Inc.:</b> 15.81M shares (13.7% ownership stake)</li>
+    <li><b>Orbis Investment Management:</b> 15.06M shares (13.0% ownership stake)</li>
+    <li><b>Wellington Management Group:</b> 8.76M shares (7.6% ownership stake)</li>
+    <li><b>Vanguard Group:</b> 6.06M shares (5.2% ownership stake)</li>
+    <li><b>Renaissance Technologies:</b> 3.99M shares (3.5% quantitative position)</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>8. Capital Structure & Net Debt Schedule</h2>
+  <p>Management's balance sheet restructuring successfully extended debt maturities to 2028–2032 while maintaining robust liquidity ($504.3M Cash + $125M undrawn credit line).</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Capital Structure Obligation</th>
+        <th>Principal Amount ($M)</th>
+        <th>Interest Rate / Coupon</th>
+        <th>Maturity Date</th>
+        <th>Covenants & Key Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Cash & Cash Equivalents</b></td>
+        <td><b>($504.3)</b></td>
+        <td>Yielding Liquid Cash</td>
         <td>N/A</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="callout" style="margin-top: 15px;">
-    <strong>MOAT ASSESSMENT:</strong> Cinemark holds a clear operational advantage over AMC, benefiting from lower overhead costs and lower leverage. However, its moat is constrained by macroeconomic pressures on consumer discretionary spending and studio content power.
-  </div>
-</div>
-
-<div class="section">
-  <h2>5. Management Track Record, Earnings Call Integrity & Capital Allocation</h2>
-  
-  <p>Cinemark's leadership team is widely recognized as the premier management group in the theatrical exhibition sector. CEO <strong>Sean Gamble</strong> (former CFO of Universal Pictures and GE executive) and CFO <strong>Melissa Thomas</strong> (former CFO of Groupon) have maintained operational discipline throughout severe industry distress.</p>
-
-  <h3>Capital Allocation Discipline & ROIC Audit</h3>
-  <ul>
-    <li><strong>Normalized Returns:</strong> CNK delivers a <strong>Normalized ROIC of 11.22%</strong>, ROCE of 10.57%, and normalized ROE exceeding 45%, vastly outperforming peers who destroyed value during the pandemic.</li>
-    <li><strong>Permanent Market Share Expansion:</strong> Sustained over <strong>150 bps of permanent market share gains</strong> post-pandemic across both U.S. and Latin American circuits.</li>
-    <li><strong>Deleveraging Integrity:</strong> Unlike AMC, which diluted shareholders heavily, Cinemark retired its <strong>$460 Million 4.50% Convertible Senior Notes in cash</strong> in August 2025, eliminating 32 million potential dilution shares, and repurchased 7.93 million shares in March 2025 to extinguish legacy warrant exposure.</li>
-    <li><strong>Capital Return Reinstatement:</strong> Reinstated quarterly cash dividends (<strong>$0.09/share</strong>) and authorized a <strong>$300 Million share repurchase program</strong>.</li>
-  </ul>
-
-  <h3>Earnings Call Integrity & Non-GAAP Reporting Audit</h3>
-  <table    >
-    <thead>
-      <tr >
-        <th >Incentive / Report Metric</th>
-        <th >Management Focus</th>
-        <th >Fund Forensic Critique</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>Adjusted EBITDA</strong></td>
-        <td>Primary performance metric for STIP & LTIP bonus payouts.</td>
-        <td>Adds back cash rent obligations, cash SBC, and stock adjustments. Overstates operating profitability by ~30%-35%.</td>
-      </tr>
-      <tr >
-        <td><strong>Free Cash Flow (Reported)</strong></td>
-        <td>Calculated as Operating Cash Flow minus CapEx.</td>
-        <td>Ignores finance lease principal payments ($8.8M/yr) and treats routine screen maintenance CapEx as discretionary growth investment.</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<div class="section">
-  <h2>6. Ownership Structure, Form 4 Insiders & 13F Whale Commentary</h2>
-  
-  <p>Cinemark's ownership is heavily institutionalized, with high concentration among passive index managers and active value/special situations funds.</p>
-
-  <h3>Key Ownership Breakdown</h3>
-  <ul>
-    <li><strong>Institutional Float:</strong> ~88% of common shares outstanding are held by institutional managers. Top holders include BlackRock, Vanguard, and Dimensional Fund Advisors.</li>
-    <li><strong>Insider Ownership & Founder Presence:</strong> Founder Lee Roy Mitchell retains board influence and equity through the Mitchell Special Trust (~3.8% ownership). Executive officers and board members hold ~5.2% combined.</li>
-    <li><strong>Form 4 Insider Activity:</strong> Recent SEC Form 4 filings indicate net insider selling and routine option exercises by senior management over the past 12 months at prices between $28.00 and $36.50, taking profits during stock price strength.</li>
-  </ul>
-</div>
-
-<div class="section">
-  <h2>7. Capital Structure & Net Debt Bridge</h2>
-  
-  <p>As of Q2 2026 (June 30, 2026), Cinemark maintains <strong>$504.3 Million in cash and cash equivalents</strong> against <strong>$1,876.8 Million in total gross debt</strong>, resulting in a <strong>Net Debt position of $1,372.5 Million</strong>.</p>
-
-  <h3>Detailed Debt & Capital Structure Schedule (As of Q2 2026)</h3>
-
-  <table    >
-    <thead>
-      <tr >
-        <th>Debt Instrument</th>
-        <th>Coupon / Pricing</th>
-        <th>Maturity</th>
-        <th>Principal ($M)</th>
-        <th>Carrying Value ($M)</th>
-        <th>Status / Security</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td ><strong>Revolving Credit Facility</strong></td>
-        <td>SOFR + 1.75%–2.00%</td>
-        <td>May 2028</td>
-        <td>$0.0</td>
-        <td>$0.0</td>
-        <td >$225.0M capacity; $0 drawn</td>
-      </tr>
-      <tr >
-        <td ><strong>Cinemark USA Term Loan</strong></td>
-        <td>SOFR + 2.00% (5.6% net)</td>
-        <td>May 2030</td>
-        <td>$629.1</td>
-        <td>$629.1</td>
-        <td >Amortizes $1.6M/qtr; repriced down</td>
+        <td>Unencumbered cash liquidity buffer.</td>
       </tr>
       <tr>
-        <td ><strong>Senior Notes</strong></td>
-        <td>5.250%</td>
-        <td>July 2028</td>
-        <td>$765.0</td>
-        <td>$765.0</td>
-        <td >Unsecured senior obligations</td>
-      </tr>
-      <tr >
-        <td ><strong>Senior Notes</strong></td>
-        <td>7.000%</td>
-        <td>July 2032</td>
-        <td>$500.0</td>
-        <td>$500.0</td>
-        <td >Issued 2024 to refi pandemic high-yield debt</td>
+        <td><b>Senior Secured Term Loan B</b></td>
+        <td><b>$633.9</b></td>
+        <td>Term SOFR + 1.75% (~5.45% net)</td>
+        <td>May 24, 2030</td>
+        <td>Repriced Q2 2026 (-25 bps margin cut saving $1.6M cash interest p.a.).</td>
       </tr>
       <tr>
-        <td ><strong>4.50% Convertible Notes</strong></td>
-        <td>4.500%</td>
-        <td>August 2025</td>
-        <td>$0.0</td>
-        <td>$0.0</td>
-        <td ><strong>RETIRED IN FULL IN CASH</strong> (Aug 2025)</td>
-      </tr>
-      <tr >
-        <td ><strong>Total Gross Funded Debt</strong></td>
-        <td>—</td>
-        <td>—</td>
-        <td><strong>$1,894.1</strong></td>
-        <td><strong>$1,876.8</strong></td>
-        <td >Includes $6.3M current portion</td>
-      </tr>
-      <tr>
-        <td ><strong>Finance Lease Obligations</strong></td>
-        <td>Fixed / Imputed</td>
-        <td>Various</td>
-        <td>$93.7</td>
-        <td>$93.7</td>
-        <td >$8.8M current + $84.9M long-term</td>
-      </tr>
-      <tr >
-        <td ><strong>Operating Lease PV</strong></td>
-        <td>Discounted @ ~6.5%</td>
-        <td>Various</td>
-        <td>$989.1</td>
-        <td>$989.1</td>
-        <td >Off-balance sheet present value liability</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="callout" style="margin-top: 15px;">
-    <strong>NET DEBT & TOTAL ECONOMIC OBLIGATIONS:</strong><br>
-    <ul>
-      <li><strong>Cash Balance:</strong> $504.3M</li>
-      <li><strong>Net Funded Debt:</strong> $1,372.5M ($1,876.8M Funded Debt minus $504.3M Cash)</li>
-      <li><strong>Total Economic Liabilities (Funded Debt + Finance Leases + Operating Leases):</strong> $2,959.6M gross / <strong>$2,455.3M net of cash</strong>.</li>
-    </ul>
-  </div>
-</div>
-
-<div class="section">
-  <h2>8. True Owner Earnings & SBC Cash Audit</h2>
-  
-  <p>In accordance with Graham & Dodd principles, Stock-Based Compensation (SBC) is an ongoing dilution risk and real economic cost. Management regularly adds back ~$16.0M in annual SBC when calculating Adjusted EBITDA, effectively masking dilution.</p>
-
-  <h3>True Owner Earnings Reconciliation (FY 2026E Fund Estimate)</h3>
-
-  <table    >
-    <thead>
-      <tr >
-        <th >Financial Metric Line Item</th>
-        <th >Amount ($M)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Reported Net Income (Fund Estimate)</td>
-        <td >$210.0</td>
-      </tr>
-      <tr >
-        <td>(+) Depreciation & Amortization</td>
-        <td >+$195.0</td>
-      </tr>
-      <tr>
-        <td>(-) Maintenance CapEx (Mandatory screen & theater upkeep)</td>
-        <td >-$110.0</td>
-      </tr>
-      <tr >
-        <td>(-) Stock-Based Compensation (Real Economic Dilution)</td>
-        <td >-$16.0</td>
-      </tr>
-      <tr>
-        <td>(-) Finance Lease Principal Amortization</td>
-        <td >-$8.8</td>
-      </tr>
-      <tr >
-        <td><strong>TRUE OWNER EARNINGS (Normalized Mid-Cycle Cash Flow)</strong></td>
-        <td ><strong>$270.2</strong></td>
-      </tr>
-      <tr>
-        <td>True Owner Earnings Per Share (117.0M Shares)</td>
-        <td ><strong>$2.31 / share</strong></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <p style="margin-top: 15px;">At a market price of $37.24, CNK trades at <strong>16.1x True Owner Earnings</strong>, an unjustified premium for a mature, capital-intensive industry subject to secular disruption.</p>
-</div>
-
-<div class="section">
-  <h2>9. Valuation Triangulation & Scenario Asymmetry</h2>
-  
-  <p>We perform valuation triangulation using Earnings Power Value (EPV), Discounted Cash Flow (DCF), and a 3-Scenario Probability Matrix.</p>
-
-  <h3>Scenario Analysis Matrix</h3>
-
-  <table    >
-    <thead>
-      <tr >
-        <th>Scenario</th>
-        <th>Probability</th>
-        <th>Fair Value Target</th>
-        <th>Implied Upside / Downside</th>
-        <th>Key Assumptions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr >
-        <td><strong>Bear Case</strong></td>
-        <td>25%</td>
-        <td><strong>$14.00</strong></td>
-        <td><strong>-62.4%</strong></td>
-        <td >Box office stagnates at $8.2B; concession inflation turns negative; EV/EBITDA compresses to 5.0x.</td>
-      </tr>
-      <tr >
-        <td><strong>Base Case</strong></td>
-        <td>55%</td>
-        <td><strong>$22.50</strong></td>
-        <td><strong>-39.6%</strong></td>
-        <td >Box office normalizes at $9.0B; Adj. EBITDA $625M; EV/EBITDA multiple of 6.5x normalized earnings.</td>
-      </tr>
-      <tr >
-        <td><strong>Bull Case</strong></td>
-        <td>20%</td>
-        <td><strong>$34.00</strong></td>
-        <td><strong>-8.7%</strong></td>
-        <td >Box office reaches $10.0B; market share reaches 18%; EV/EBITDA multiple expands to 8.0x.</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <h3>Earnings Power Value (EPV) & Discounted Cash Flow (DCF) Summary</h3>
-  <ul>
-    <li><strong>Earnings Power Value (EPV):</strong> EPV assumes zero growth cash flows capitalized at WACC (8.5%). With normalized adjusted EBIT of $4
+        <td><b>5.25% Senior Unsecured Notes</b></td>
+        <td><b>$765.0</b></td>
                     </div>
                 </div>
             </div>

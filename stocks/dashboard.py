@@ -35,12 +35,10 @@ def format_labels_pills(labels: List[str]) -> str:
 
 def extract_pct_delta(base_target: str, current_price: float, fair_value_str: str) -> str:
     """Extracts clean percentage difference without repeating the dollar value."""
-    # Look for parenthetical percentage like (-39.6%)
     match = re.search(r"\(([-+]?\d+(?:\.\d+)?%)\)", base_target)
     if match:
         return match.group(1)
     
-    # Otherwise calculate from fair value and current price
     fv_match = re.search(r"[-+]?\d+(?:\.\d+)?", fair_value_str.replace(",", ""))
     if fv_match and current_price > 0:
         fv = float(fv_match.group(0))
@@ -93,20 +91,20 @@ def build_native_svg_chart(ticker: str, current_price: float) -> str:
         <svg id="interactive-svg" viewBox="0 0 {width} {height}" preserveAspectRatio="none" class="chart-svg">
             <defs>
                 <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#C99A75" stop-opacity="0.20" />
+                    <stop offset="0%" stop-color="#C99A75" stop-opacity="0.18" />
                     <stop offset="100%" stop-color="#C99A75" stop-opacity="0.0" />
                 </linearGradient>
             </defs>
             
-            <line x1="{padding_x}" y1="{padding_y}" x2="{width - padding_x}" y2="{padding_y}" stroke="rgba(230,220,205,0.04)" stroke-width="1" />
-            <line x1="{padding_x}" y1="{height/2}" x2="{width - padding_x}" y2="{height/2}" stroke="rgba(230,220,205,0.04)" stroke-width="1" />
-            <line x1="{padding_x}" y1="{height - padding_y}" x2="{width - padding_x}" y2="{height - padding_y}" stroke="rgba(230,220,205,0.04)" stroke-width="1" />
+            <line x1="{padding_x}" y1="{padding_y}" x2="{width - padding_x}" y2="{padding_y}" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
+            <line x1="{padding_x}" y1="{height/2}" x2="{width - padding_x}" y2="{height/2}" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
+            <line x1="{padding_x}" y1="{height - padding_y}" x2="{width - padding_x}" y2="{height - padding_y}" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
 
             <path d="{area_path_d}" fill="url(#area-grad)" />
             <path d="{line_path_d}" fill="none" stroke="#C99A75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 
             <line id="crosshair-line" x1="0" y1="{padding_y}" x2="0" y2="{height - padding_y}" stroke="rgba(201,154,117,0.35)" stroke-width="1" stroke-dasharray="3 3" style="display: none;" />
-            <circle id="hover-dot" r="4" fill="#C99A75" stroke="#1E1D1B" stroke-width="2" style="display: none;" />
+            <circle id="hover-dot" r="4" fill="#C99A75" stroke="#1A1917" stroke-width="2" style="display: none;" />
         </svg>
         <div class="chart-labels">
             <span>{points[0]['date']} (${min_p:.2f})</span>
@@ -176,7 +174,6 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     current_version = history[-1] if history else None
     labels_html = format_labels_pills(stock.labels or [stock.status_label])
 
-    # Format history timeline cards
     history_cards_html = ""
     for v in reversed(history):
         is_current = (v.version == len(history))
@@ -233,19 +230,19 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {{
-            --bg-canvas: #161514;
-            --bg-panel: #1E1D1B;
-            --bg-subpanel: #262522;
-            --bg-hover: #2C2A26;
-            --text-title: #E8E3DA;
-            --text-body: #C9C4BA;
-            --text-secondary: #948F85;
-            --text-dim: #6B665E;
+            --bg-canvas: #141312;
+            --bg-panel: #1A1917;
+            --bg-subpanel: #21201D;
+            --bg-hover: #282623;
+            --text-title: #D8D2C6;
+            --text-body: #BDB7AA;
+            --text-secondary: #8E887D;
+            --text-dim: #666157;
             --accent-warm: #C99A75;
             --accent-green: #7D9D81;
             --accent-red: #C4726C;
-            --border-color: rgba(230, 220, 205, 0.07);
-            --border-focus: rgba(230, 220, 205, 0.14);
+            --border-color: rgba(215, 205, 190, 0.07);
+            --border-focus: rgba(215, 205, 190, 0.14);
             --font-serif: 'Newsreader', Garamond, Georgia, serif;
             --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
@@ -265,7 +262,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 
         /* Top Nav */
         nav.nav-bar {{
-            background: rgba(22, 21, 20, 0.92);
+            background: rgba(20, 19, 18, 0.92);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
@@ -313,7 +310,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         /* Native SVG Area Chart */
         .native-chart-wrap {{
             margin-top: 28px;
-            background: #191816;
+            background: #171614;
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 16px 20px 12px;
@@ -421,38 +418,38 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             margin: 28px 0 12px;
         }}
         .memo-container p {{
-            font-size: 1.18rem;
+            font-size: 1.15rem;
             line-height: 1.9;
             color: var(--text-body);
             margin-bottom: 20px;
         }}
         .memo-container ul, .memo-container ol {{
-            font-size: 1.15rem;
+            font-size: 1.12rem;
             line-height: 1.9;
             color: var(--text-body);
             margin: 0 0 24px 30px;
         }}
         .memo-container li {{ margin-bottom: 8px; }}
 
-        /* STUNNING CONSISTENT TABLES - ZERO WHITE GLARE */
+        /* STUNNING CONSISTENT TABLES - SOOTHING WARM TONES */
         .memo-container table {{
             width: 100% !important;
             border-collapse: separate !important;
             border-spacing: 0 !important;
             margin: 32px 0 !important;
-            background: #1B1A18 !important;
-            background-color: #1B1A18 !important;
+            background: #171614 !important;
+            background-color: #171614 !important;
             border-radius: 12px !important;
             overflow: hidden !important;
-            border: 1px solid rgba(230, 220, 205, 0.08) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
         }}
         .memo-container tr, .memo-container td, .memo-container th {{
             background: transparent !important;
             background-color: transparent !important;
         }}
         .memo-container th {{
-            background: #23221E !important;
-            background-color: #23221E !important;
+            background: #1E1D1A !important;
+            background-color: #1E1D1A !important;
             color: #C99A75 !important;
             font-family: var(--font-sans) !important;
             font-size: 0.72rem !important;
@@ -460,14 +457,14 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             text-transform: uppercase !important;
             letter-spacing: 0.06em !important;
             padding: 14px 18px !important;
-            border-bottom: 1px solid rgba(230, 220, 205, 0.08) !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
             text-align: left !important;
         }}
         .memo-container td {{
             padding: 14px 18px !important;
-            border-bottom: 1px solid rgba(230, 220, 205, 0.05) !important;
-            font-size: 0.94rem !important;
-            color: #C9C4BA !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.05) !important;
+            font-size: 0.92rem !important;
+            color: #BDB7AA !important;
             font-family: var(--font-mono) !important;
             text-align: left !important;
         }}
@@ -475,16 +472,16 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             border-bottom: none !important;
         }}
         .memo-container tr:nth-child(even) td {{
-            background: rgba(255, 255, 255, 0.02) !important;
-            background-color: rgba(255, 255, 255, 0.02) !important;
+            background: rgba(255, 255, 255, 0.012) !important;
+            background-color: rgba(255, 255, 255, 0.012) !important;
         }}
         .memo-container tr:hover td {{
-            background: rgba(201, 154, 117, 0.05) !important;
-            background-color: rgba(201, 154, 117, 0.05) !important;
+            background: rgba(201, 154, 117, 0.04) !important;
+            background-color: rgba(201, 154, 117, 0.04) !important;
         }}
         .memo-container td strong, .memo-container td b {{
-            color: #E8E3DA !important;
-            font-weight: 600 !important;
+            color: #D8D2C6 !important;
+            font-weight: 500 !important;
         }}
 
         .memo-container blockquote {{
@@ -538,7 +535,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         .diff-label {{ font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }}
         .diff-prev .diff-label {{ color: var(--accent-red); }}
         .diff-now .diff-label {{ color: var(--accent-green); }}
-        .diff-text {{ font-size: 1.05rem; color: var(--text-body); line-height: 1.65; }}
+        .diff-text {{ font-size: 1.02rem; color: var(--text-body); line-height: 1.65; }}
 
         /* Pills */
         .pill {{
@@ -836,19 +833,19 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {{
-            --bg-canvas: #161514;
-            --bg-panel: #1E1D1B;
-            --bg-subpanel: #262522;
-            --bg-hover: #2C2A26;
-            --text-title: #E8E3DA;
-            --text-body: #C9C4BA;
-            --text-secondary: #948F85;
-            --text-dim: #6B665E;
+            --bg-canvas: #141312;
+            --bg-panel: #1A1917;
+            --bg-subpanel: #21201D;
+            --bg-hover: #282623;
+            --text-title: #D8D2C6;
+            --text-body: #BDB7AA;
+            --text-secondary: #8E887D;
+            --text-dim: #666157;
             --accent-warm: #C99A75;
             --accent-green: #7D9D81;
             --accent-red: #C4726C;
-            --border-color: rgba(230, 220, 205, 0.07);
-            --border-focus: rgba(230, 220, 205, 0.14);
+            --border-color: rgba(215, 205, 190, 0.07);
+            --border-focus: rgba(215, 205, 190, 0.14);
             --font-serif: 'Newsreader', Garamond, Georgia, serif;
             --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
@@ -868,7 +865,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
 
         /* Header */
         header.nav-header {{
-            background: rgba(22, 21, 20, 0.92);
+            background: rgba(20, 19, 18, 0.92);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
@@ -971,7 +968,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         table.fin-table td {{
             padding: 18px 22px;
             border-bottom: 1px solid var(--border-color);
-            font-size: 0.98rem;
+            font-size: 0.96rem;
+            color: var(--text-body);
             vertical-align: middle;
         }}
         .table-row {{ cursor: pointer; transition: background 0.15s; position: relative; }}
@@ -1132,7 +1130,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         .alert-ticker {{ font-family: var(--font-serif); font-size: 1.2rem; font-weight: 500; color: var(--text-title); }}
         .alert-time {{ font-size: 0.78rem; color: var(--text-dim); font-family: var(--font-mono); }}
         .alert-title {{ font-family: var(--font-serif); font-size: 1.2rem; font-weight: 500; color: var(--text-title); margin-bottom: 4px; }}
-        .alert-blurb {{ font-size: 1.05rem; color: var(--text-secondary); line-height: 1.55; }}
+        .alert-blurb {{ font-size: 1.02rem; color: var(--text-secondary); line-height: 1.55; }}
 
         .alert-right {{ text-align: right; min-width: 140px; }}
         .alert-price-val {{ font-size: 1.45rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }}
@@ -1171,7 +1169,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         .modal-shade {{
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(10, 10, 9, 0.82);
+            background: rgba(10, 10, 9, 0.85);
             backdrop-filter: blur(12px);
             z-index: 1000;
             display: none;
@@ -1214,10 +1212,10 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         .side-heading {{ font-family: var(--font-sans); font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }}
         .side-before .side-heading {{ color: var(--accent-red); }}
         .side-after .side-heading {{ color: var(--accent-green); }}
-        .side-text {{ font-size: 1.05rem; color: var(--text-body); line-height: 1.65; }}
+        .side-text {{ font-size: 1.02rem; color: var(--text-body); line-height: 1.65; }}
 
         .btn-primary {{
-            background: var(--accent-warm); color: #161514; font-family: var(--font-sans); font-weight: 500;
+            background: var(--accent-warm); color: #141312; font-family: var(--font-sans); font-weight: 500;
             padding: 10px 20px; border-radius: 6px; text-decoration: none; display: inline-flex; align-items: center; border: none; cursor: pointer;
             transition: all 0.15s;
         }}
