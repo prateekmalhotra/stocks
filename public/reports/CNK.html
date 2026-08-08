@@ -280,7 +280,7 @@
                 <div class="hero-left">
                     <div style="display: flex; align-items: center; gap: 14px;">
                         <h1>CNK</h1>
-                        <span class="pill pill-status">High Conviction Cash-Flow Compounder</span>
+                        <span class="pill pill-status">High-Conviction Cash Flow Re-Rating</span>
                     </div>
                     <div class="hero-company">Cinemark Holdings Inc Cinemark  • Updated 2026-08-07</div>
                 </div>
@@ -296,27 +296,27 @@
             <div class="metric-ribbon">
                 <div class="metric-box">
                     <div class="metric-box-label">Fair Value Est.</div>
-                    <div class="metric-box-val" style="color: var(--primary);">$46.50</div>
+                    <div class="metric-box-val" style="color: var(--primary);">$44.50</div>
                 </div>
                 <div class="metric-box">
                     <div class="metric-box-label">Bear Target</div>
-                    <div class="metric-box-val" style="color: var(--danger);">$26.50 (-28.8%)</div>
+                    <div class="metric-box-val" style="color: var(--danger);">$26.00 (-30.2%)</div>
                 </div>
                 <div class="metric-box">
                     <div class="metric-box-label">Base Target</div>
-                    <div class="metric-box-val">$48.00 (+28.9%)</div>
+                    <div class="metric-box-val">$45.00 (+20.8%)</div>
                 </div>
                 <div class="metric-box">
                     <div class="metric-box-label">Bull Target</div>
-                    <div class="metric-box-val" style="color: var(--success);">$62.00 (+66.5%)</div>
+                    <div class="metric-box-val" style="color: var(--success);">$58.00 (+55.7%)</div>
                 </div>
                 <div class="metric-box">
                     <div class="metric-box-label">Upper Alert Trigger</div>
-                    <div class="metric-box-val">$42.50</div>
+                    <div class="metric-box-val">$41.50</div>
                 </div>
                 <div class="metric-box">
                     <div class="metric-box-label">Lower Alert Trigger</div>
-                    <div class="metric-box-val">$31.00</div>
+                    <div class="metric-box-val">$32.00</div>
                 </div>
                 <div class="metric-box">
                     <div class="metric-box-label">Catalyst Timeline</div>
@@ -328,379 +328,345 @@
         <!-- Navigation Tabs -->
         <div class="tab-bar">
             <button class="tab-button tab-active" onclick="switchView('thesis')">📖 Active Living Thesis</button>
-            <button class="tab-button" onclick="switchView('history')">⏳ Changelog & Evolution (2)</button>
+            <button class="tab-button" onclick="switchView('history')">⏳ Changelog & Evolution (1)</button>
         </div>
 
         <!-- Active Living Thesis Pane -->
         <div id="panel-thesis" class="tab-panel panel-active">
             <article class="thesis-container">
-                <div class="research-container">
-<style>
-  .research-container {
-    background-color: #0f172a;
-    color: #cbd5e1;
+                <style>
+  .thesis-container {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    line-height: 1.6;
-    padding: 24px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
-  }
-  .research-container h1, .research-container h2, .research-container h3, .research-container h4 {
-    color: #f8fafc;
-    font-weight: 700;
-    margin-top: 1.5em;
-    margin-bottom: 0.5em;
-  }
-  .research-container h2 {
-    font-size: 1.5rem;
-    border-bottom: 2px solid #334155;
-    padding-bottom: 8px;
-    color: #38bdf8;
-  }
-  .research-container h3 {
-    font-size: 1.2rem;
+    background-color: #0b0f19;
     color: #e2e8f0;
+    padding: 2rem;
+    border-radius: 12px;
+    line-height: 1.6;
+    max-width: 1200px;
+    margin: 0 auto;
   }
-  .research-container p {
-    margin-bottom: 1.2em;
+  .thesis-header {
+    border-bottom: 2px solid #1e293b;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
   }
-  .research-container strong {
+  .header-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  h1 {
     color: #f8fafc;
+    font-size: 2.25rem;
+    margin: 0;
+    font-weight: 800;
+    letter-spacing: -0.025em;
   }
-  .section {
-    background: #1e293b;
-    border: 1px solid #334155;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 24px;
+  .ticker-badge {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: #ffffff;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 1.1rem;
   }
-  .grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-  @media (max-width: 768px) {
-    .grid-2 { grid-template-columns: 1fr; }
-  }
-  .badge {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 9999px;
-    font-size: 0.75rem;
+  .status-badge {
+    background: #059669;
+    color: #ffffff;
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
-  .badge-success { background-color: #065f46; color: #34d399; }
-  .badge-warning { background-color: #78350f; color: #fbbf24; }
-  .badge-danger { background-color: #7f1d1d; color: #f87171; }
-  .badge-info { background-color: #1e3a8a; color: #60a5fa; }
-  
-  .metric-card {
-    background-color: #0f172a;
-    border: 1px solid #334155;
-    border-radius: 6px;
-    padding: 14px;
-    text-align: center;
-  }
-  .metric-value {
-    font-size: 1.4rem;
+  h2 {
+    color: #38bdf8;
+    font-size: 1.5rem;
+    border-bottom: 1px solid #334155;
+    padding-bottom: 0.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1.25rem;
     font-weight: 700;
-    color: #f8fafc;
+  }
+  h3 {
+    color: #94a3b8;
+    font-size: 1.15rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+  }
+  p, li {
+    color: #cbd5e1;
+    font-size: 1rem;
+  }
+  ul {
+    padding-left: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+  li {
+    margin-bottom: 0.5rem;
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .grid-4 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .card {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    padding: 1.25rem;
+  }
+  .card-highlight {
+    border-left: 4px solid #38bdf8;
+  }
+  .card-alert {
+    border-left: 4px solid #f59e0b;
+  }
+  .card-success {
+    border-left: 4px solid #10b981;
   }
   .metric-label {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: #94a3b8;
     text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+  }
+  .metric-value {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #f8fafc;
+    margin-top: 0.25rem;
+  }
+  .metric-subtext {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-top: 0.25rem;
+  }
+  blockquote {
+    background-color: #1e293b;
+    border-left: 4px solid #f59e0b;
+    margin: 1.5rem 0;
+    padding: 1rem 1.25rem;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: #e2e8f0;
   }
   table {
     width: 100%;
     border-collapse: collapse;
-    margin: 16px 0;
-    font-size: 0.9rem;
+    margin: 1.5rem 0;
+    background-color: #1e293b;
+    border-radius: 8px;
+    overflow: hidden;
   }
   th, td {
-    padding: 10px 14px;
+    padding: 0.85rem 1rem;
     text-align: left;
     border-bottom: 1px solid #334155;
   }
   th {
     background-color: #0f172a;
     color: #38bdf8;
-    font-weight: 600;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
-  tr:nth-child(even) {
-    background-color: #162032;
+  tr:last-child td {
+    border-bottom: none;
   }
-  blockquote {
-    border-left: 4px solid #38bdf8;
-    background-color: #0f172a;
-    margin: 16px 0;
-    padding: 12px 18px;
-    border-radius: 0 6px 6px 0;
-    font-style: italic;
-    color: #cbd5e1;
+  .positive { color: #10b981; font-weight: 600; }
+  .negative { color: #f43f5e; font-weight: 600; }
+  .neutral { color: #f59e0b; font-weight: 600; }
+  .callout-box {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    padding: 1.25rem;
+    border-radius: 8px;
+    margin: 1.5rem 0;
   }
-  ul, ol {
-    padding-left: 20px;
-    margin-bottom: 1.2em;
-  }
-  li {
-    margin-bottom: 6px;
-  }
-  .highlight-box {
-    background-color: rgba(56, 189, 248, 0.1);
-    border: 1px solid rgba(56, 189, 248, 0.3);
-    border-radius: 6px;
-    padding: 14px;
-    margin-bottom: 16px;
-  }
-  .text-green { color: #4ade80; }
-  .text-red { color: #f87171; }
-  .text-blue { color: #38bdf8; }
 </style>
 
-<!-- SECTION 1: EXECUTIVE SUMMARY & VARIANT PERCEPTION -->
-<div class="section">
-  <h2>1. Executive Summary &amp; Variant Perception</h2>
-  <div class="grid-2" style="margin-bottom: 16px;">
-    <div class="metric-card">
-      <div class="metric-value">$37.24</div>
+<div class="thesis-container">
+  <!-- HEADER -->
+  <div class="thesis-header">
+    <div class="header-title">
+      <div>
+        <span class="ticker-badge">NYSE: CNK</span>
+        <h1 style="display:inline; margin-left:0.75rem;">Cinemark Holdings, Inc.</h1>
+      </div>
+      <span class="status-badge">High-Conviction Cash Flow Re-Rating</span>
+    </div>
+    <p style="margin-top: 0.75rem; margin-bottom: 0; color: #94a3b8; font-size: 0.95rem;">
+      Institutional Equity Research & Institutional Due Diligence | Fundamental Value Strategy | Date: August 2026
+    </p>
+  </div>
+
+  <!-- KEY METRICS BANNER -->
+  <div class="grid-4">
+    <div class="card card-highlight">
       <div class="metric-label">Current Stock Price</div>
+      <div class="metric-value">$37.24</div>
+      <div class="metric-subtext">52-Wk Range: $21.60 - $38.98</div>
     </div>
-    <div class="metric-card">
-      <div class="metric-value">$46.50</div>
-      <div class="metric-label">Intrinsic Fair Value Estimate</div>
+    <div class="card card-success">
+      <div class="metric-label">Fair Value Estimate</div>
+      <div class="metric-value">$44.50</div>
+      <div class="metric-subtext">+19.5% Intrinsic Upside Margin</div>
     </div>
-    <div class="metric-card">
+    <div class="card card-highlight">
+      <div class="metric-label">Q2 2026 Revenue / EBITDA</div>
+      <div class="metric-value">$1.09B / $294M</div>
+      <div class="metric-subtext">All-Time Record (27.1% Margin)</div>
+    </div>
+    <div class="card card-highlight">
+      <div class="metric-label">Net Debt / EBITDA</div>
       <div class="metric-value">2.0x</div>
-      <div class="metric-label">Net Debt / EBITDA Leverage</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-value">27.1%</div>
-      <div class="metric-label">Q2 2026 Adj. EBITDA Margin</div>
+      <div class="metric-subtext">Cash: $504.3M | Net Debt: $1.38B</div>
     </div>
   </div>
 
-  <p><strong>Thesis Overview:</strong> Cinemark Holdings Inc. (NYSE: CNK) represents a compelling, highly cash-generative investment operating within an industry that institutional investors have erroneously written off as structurally impaired. While legacy competitors like AMC Entertainment struggle under burdensome leverage and dilution, Cinemark has quietly capitalized on post-pandemic slate normalization, driving record quarterly revenues of $1.09 billion in Q2 2026 and generating $240.4 million in free cash flow during the first six months of 2026 alone.</p>
+  <!-- SECTION 1: EXECUTIVE SUMMARY & VARIANT PERCEPTION -->
+  <div class="section">
+    <h2>1. Executive Summary & Variant Perception</h2>
+    <p>
+      <strong>Cinemark Holdings, Inc. (NYSE: CNK)</strong> has emerged as the clear operational gold standard in theatrical exhibition. While legacy consensus continues to treat film exhibition as a secularly impaired, debt-encumbered industry vulnerable to streaming disintermediation, Cinemark’s operational metrics demonstrate a completely different reality: record-setting operating efficiency, disciplined balance sheet de-leveraging, expanding market share, and structural pricing power.
+    </p>
+    <p>
+      In Q2 2026, Cinemark delivered its first-ever <strong>$1.0B+ revenue quarter ($1,086.4M, +15.5% YoY)</strong> and an all-time company record <strong>$294.0M in Adjusted EBITDA (27.1% margin)</strong>. This crushing performance generated nearly $300M in quarterly free cash flow and enabled the company to maintain its conservative net leverage target of 2.0x while returning capital via share buybacks and dividends.
+    </p>
 
-  <div class="highlight-box">
-    <h3>The Variant Perception</h3>
-    <p><strong>Consensus View:</strong> Wall Street consensus views theatrical exhibition as a secularly declining "melting ice cube" vulnerable to streaming cannibalization, elevated utility/labor inflation, and volatile Hollywood box office slates. Multiples are capped at legacy distressed levels (6x-8x EBITDA) due to capital expenditure drag and lease liability fears.</p>
-    <p><strong>Our Variant Perception:</strong> Consensus misunderstands the flight to quality in consumer entertainment. Cinemark is not an average exhibitor; it is a premier infrastructure platform that captures asymmetric economics through:</p>
+    <div class="callout-box">
+      <h3 style="color: #f59e0b; margin-top: 0;">The Variant Perception: Our Thesis vs. Street Consensus</h3>
+      <div class="grid-2" style="margin-bottom: 0;">
+        <div>
+          <h4 style="color: #f43f5e; margin-bottom: 0.5rem;">Consensus View</h4>
+          <ul>
+            <li>Exhibition is a dying medium facing structural decline from home streaming and compressed windowing.</li>
+            <li>Post-pandemic debt loads and high maintenance capex requirements will constrain equity returns and shareholder distributions.</li>
+            <li>Box office recoveries are erratic and studio slates remain unpredictable.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color: #10b981; margin-bottom: 0.5rem;">Principal Analyst Variant Perception</h4>
+          <ul>
+            <li><strong>Premiumization & Yield Growth:</strong> Moviegoers are self-selecting into high-margin Premium Large Formats (Cinemark XD, ScreenX, IMAX). Premium formats account for 15% of box office on only 6% of screens.</li>
+            <li><strong>Industry Leader Outperformance:</strong> CNK has permanently captured 150+ bps of market share post-pandemic in both the US and Latin America due to peer distress (AMC equity dilution, Regal bankruptcy restructuring).</li>
+            <li><strong>Concession Powerhouse:</strong> Food & beverage per-capita spending reached an all-time record of $8.70 domestically, driving gross margins over 80% on concessions.</li>
+            <li><strong>True De-leveraging & Buybacks:</strong> Leverage is down to 2.0x Net Debt/EBITDA. CNK is actively repurchasing stock below intrinsic value (retired 4.09M shares since Nov 2025).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: BUSINESS MOAT, PRICING POWER & UNIT ECONOMICS -->
+  <div class="section">
+    <h2>2. Business Moat, Pricing Power & Unit Economics</h2>
+    <p>
+      Cinemark operates 497 theatres and 5,653 screens across 42 US states and 13 Latin American countries. Unlike peers who pursued reckless leveraged expansion, Cinemark’s circuit footprint is optimized for high attendance per screen and disciplined lease structures.
+    </p>
+
+    <h3>Key Competitive Advantages (Moat)</h3>
     <ul>
-      <li><strong>Market Share Gains:</strong> Expanded U.S. and Latin American box office market share by over +150 bps vs. pre-pandemic levels—the largest share gain of any major global operator.</li>
-      <li><strong>Monetization per Patron:</strong> Domestic concession spend reached an all-time high of $8.70 per patron (+45% above pre-pandemic levels), driven by high-margin merchandise and expanded hot food options.</li>
-      <li><strong>Premium Large Format (PLF) Dominance:</strong> Cinemark XD and PLF formats generate 15% of total worldwide admissions on only 6% of total screens.</li>
-      <li><strong>Fortress Balance Sheet:</strong> Fully settled all pandemic convertible notes, retired warrants with zero net dilution, de-levered net debt to 2.0x, and resumed share buybacks ($100.5M repurchased) alongside dividend growth.</li>
+      <li><strong>Cinemark XD & Premium Large Format (PLF) Dominance:</strong> High-margin proprietary PLF format (Cinemark XD) generates substantial ticket surcharges. In Q2 2026, PLF screens generated 15% of global admissions revenue while representing just 6% of total screen count.</li>
+      <li><strong>Movie Club Subscription Ecosystem:</strong> Cinemark's proprietary Movie Club loyalty program boasts over 1.45 million active paid monthly subscribers. This creates highly predictable recurring subscription revenue, drives ticket frequency, and increases high-margin concession spend.</li>
+      <li><strong>Latin American Scale Leadership:</strong> Cinemark holds the #1 market share position in Brazil and key Latin American countries. Latin American admissions outpaced local industry benchmarks by 500 bps in Q2 2026.</li>
     </ul>
+
+    <h3>Unit Economics Breakdown (Q2 2026 Operational Metrics)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Operational Metric</th>
+          <th>Q2 2026 Actual</th>
+          <th>Q2 2025 Actual</th>
+          <th>YoY Change / Economic Implication</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Global Attendance</strong></td>
+          <td>63.7 Million patrons</td>
+          <td>55.6 Million patrons</td>
+          <td class="positive">+14.6% (Strong slate consumer pull)</td>
+        </tr>
+        <tr>
+          <td><strong>Worldwide Avg Ticket Price (ATP)</strong></td>
+          <td>$8.48</td>
+          <td>$8.32</td>
+          <td class="positive">+1.9% (Pricing power + PLF mix)</td>
+        </tr>
+        <tr>
+          <td><strong>Worldwide Concession per Patron (CPPC)</strong></td>
+          <td>$6.80</td>
+          <td>$6.42</td>
+          <td class="positive">+5.9% (Merchandising & expanded menu)</td>
+        </tr>
+        <tr>
+          <td><strong>Domestic Food & Beverage Per Cap</strong></td>
+          <td><strong>$8.70</strong></td>
+          <td>$8.15</td>
+          <td class="positive">All-time record high (80%+ gross margin)</td>
+        </tr>
+        <tr>
+          <td><strong>Adjusted EBITDA Margin</strong></td>
+          <td><strong>27.1%</strong></td>
+          <td>23.8%</td>
+          <td class="positive">+330 bps operating leverage expansion</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-</div>
 
-<!-- SECTION 2: BUSINESS MOAT, PRICING POWER & UNIT ECONOMICS -->
-<div class="section">
-  <h2>2. Business Moat, Pricing Power &amp; Unit Economics</h2>
-  <p>Cinemark operates ~500 theaters and over 5,600 screens across 42 U.S. states and 13 Latin American countries. Its economic moat is grounded in regional geographic scale, premier auditorium amenities, and disciplined real estate selection.</p>
+  <!-- SECTION 3: BALANCE SHEET FORENSICS & NET DEBT BRIDGE -->
+  <div class="section">
+    <h2>3. Balance Sheet Forensics & True Net Debt Bridge</h2>
+    <p>
+      We strictly reject superficial enterprise valuation. Below is our comprehensive bridge from Equity Value to Enterprise Value using exact balance sheet line items from the Q2 2026 Form 10-Q (ended June 30, 2026).
+    </p>
 
-  <h3>Economic Moat Drivers</h3>
-  <ul>
-    <li><strong>Suburban Geographic Dominance:</strong> Unlike AMC (concentrated in high-cost urban malls), Cinemark strategically selected dominant suburban real estate with favorable long-term lease structures and lower utility/labor overhead.</li>
-    <li><strong>Cinemark XD &amp; Technology Leadership:</strong> Cinemark XD is the world's #1 exhibitor-branded PLF. By owning its PLF brand rather than relying solely on third-party licensors, CNK retains a significantly higher margin on premium ticket surcharges.</li>
-    <li><strong>Recliner &amp; Laser Projection Penetration:</strong> Over 72% of domestic auditoriums feature Luxury Lounger recliners, driving industry-leading seat utilization. The multi-year conversion to Barco laser projection lowers ongoing bulb replacement costs and energy consumption.</li>
-    <li><strong>Cinemark Movie Club Loyalty Moat:</strong> The subscription program provides recurring monthly revenue, frictionless ticketing, and a continuous feedback loop that drives repeat visits and higher concession attachment.</li>
-  </ul>
-
-  <h3>Unit Economics &amp; Pricing Power Matrix</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Metric</th>
-        <th>Q2 2025</th>
-        <th>Q2 2026</th>
-        <th>YoY Change</th>
-        <th>Strategic Implication</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>Worldwide Attendance</strong></td>
-        <td>52.7M</td>
-        <td>63.7M</td>
-        <td><span class="text-green">+20.9%</span></td>
-        <td>Strong return of consumer demand for tentpole cinema.</td>
-      </tr>
-      <tr>
-        <td><strong>Average Ticket Price (ATP)</strong></td>
-        <td>$8.22</td>
-        <td>$8.48</td>
-        <td><span class="text-green">+3.2%</span></td>
-        <td>Pricing power holding above general inflation rates.</td>
-      </tr>
-      <tr>
-        <td><strong>Concession Spend / Patron</strong></td>
-        <td>$6.41</td>
-        <td>$6.80</td>
-        <td><span class="text-green">+6.1%</span></td>
-        <td>Record merchandise &amp; elevated F&amp;B menu capture.</td>
-      </tr>
-      <tr>
-        <td><strong>Domestic Concession Per Capita</strong></td>
-        <td>$8.15</td>
-        <td>$8.70</td>
-        <td><span class="text-green">+6.7%</span></td>
-        <td>All-time high domestic concession monetization.</td>
-      </tr>
-      <tr>
-        <td><strong>Adjusted EBITDA Margin</strong></td>
-        <td>24.8%</td>
-        <td>27.1%</td>
-        <td><span class="text-green">+230 bps</span></td>
-        <td>Strong operating leverage on fixed theatre overhead.</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<!-- SECTION 3: BALANCE SHEET FORENSICS & NET DEBT BRIDGE -->
-<div class="section">
-  <h2>3. Balance Sheet Forensics &amp; Net Debt Bridge</h2>
-  <p>A central tenet of institutional fundamental value analysis is bridging Enterprise Value (EV) to Equity Value while dissecting lease obligations and liquidity risks.</p>
-
-  <h3>Capital Structure &amp; Debt Breakdown (as of June 30, 2026)</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Balance Sheet Component</th>
-        <th>Carrying Value ($M)</th>
-        <th>Notes &amp; Maturity Profile</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>Cash &amp; Cash Equivalents</strong></td>
-        <td class="text-green"><strong>$504.3</strong></td>
-        <td>Unrestricted cash balance.</td>
-      </tr>
-      <tr>
-        <td>Senior Secured Term Loan (CUSA)</td>
-        <td>$1,215.0</td>
-        <td>Interest rate reduced by 25 bps in May 2026; matures 2030.</td>
-      </tr>
-      <tr>
-        <td>5.250% Senior Notes</td>
-        <td>$655.0</td>
-        <td>Matures July 2028; unsecured fixed rate.</td>
-      </tr>
-      <tr>
-        <td>Current / Other Debt Adjustments</td>
-        <td>$6.8</td>
-        <td>Short-term maturities and debt issuance discount adjustments.</td>
-      </tr>
-      <tr>
-        <td><strong>Total Standalone Debt</strong></td>
-        <td><strong>$1,876.8</strong></td>
-        <td><strong>Excludes lease liabilities.</strong></td>
-      </tr>
-      <tr>
-        <td><strong>Net Debt (Standalone)</strong></td>
-        <td class="text-blue"><strong>$1,372.5</strong></td>
-        <td><strong>Total Debt minus Cash ($1,876.8M - $504.3M).</strong></td>
-      </tr>
-      <tr>
-        <td>Finance Lease Obligations</td>
-        <td>$84.9</td>
-        <td>Long-term capital leases.</td>
-      </tr>
-      <tr>
-        <td>Operating Lease Obligations</td>
-        <td>$773.9</td>
-        <td>PV of future theatre operating lease payments.</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <h3>Enterprise Value (EV) Bridge</h3>
-  <blockquote>
-    <strong>EV Equation:</strong> Market Cap ($4,335M) + Standalone Debt ($1,876.8M) + Finance Leases ($84.9M) - Cash ($504.3M) = <strong>$5,792.4 Million</strong> (or ~$5.79 Billion).
-  </blockquote>
-
-  <h3>Solvency &amp; Liquidity Runway Analysis</h3>
-  <ul>
-    <li><strong>Net Leverage Ratio:</strong> Standalone Net Debt / TTM Adjusted EBITDA (~$680M) = <strong>~2.0x</strong>. Management has successfully reduced leverage from over 5.0x post-pandemic to its target 2.0x threshold.</li>
-    <li><strong>Maturity Runway:</strong> No major debt maturities until 2028 (5.25% Senior Notes) and 2030 (Term Loan B). Pandemic-era 4.50% convertible notes ($460M) were 100% eliminated in 2025.</li>
-    <li><strong>Interest Coverage:</strong> TTM Operating Income ($335M+) / Annualized Interest Expense (~$130M) = <strong>~2.6x GAAP coverage</strong> (or <strong>~5.2x EBITDA interest coverage</strong>).</li>
-  </ul>
-</div>
-
-<!-- SECTION 4: TRUE OWNER EARNINGS & SBC AUDIT -->
-<div class="section">
-  <h2>4. True Owner Earnings &amp; SBC Audit</h2>
-  <p>In accordance with Graham &amp; Dodd principles, Stock-Based Compensation (SBC) is treated as a real cash economic dilutive expense rather than a harmless add-back. Furthermore, Capex must be unbundled into Maintenance Capex (preserving terminal value) vs. Growth Capex.</p>
-
-  <h3>SBC Audit &amp; Share Count Trajectory</h3>
-  <p>Cinemark maintains an exceptionally disciplined equity compensation structure compared to broader mid-cap tech and consumer peers.</p>
-  <ul>
-    <li><strong>Annual SBC Burden:</strong> ~$21.6M in FY2025 and ~$12.8M in 6M 2026. SBC represents <strong>less than 0.8% of annual revenue</strong>.</li>
-    <li><strong>Dilution Counter-Measures:</strong> In November 2025, the Board authorized a $300M share repurchase program. Since inception, CNK has repurchased 4,086,850 shares for $100.5M at an average price of ~$24.58/share—representing an accretive allocation of capital well below current fair value.</li>
-    <li><strong>Net Share Count:</strong> Diluted shares outstanding decreased from 134.3M in FY2025 to 116.4M in Q2 2026—a net reduction of <strong>-13.3% YoY</strong>.</li>
-  </ul>
-
-  <h3>Normalized True Owner Earnings Bridge (TTM / FY2026 Run-rate)</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Cash Flow Line Item</th>
-        <th>Reported Amount ($M)</th>
-        <th>Owner Earnings Adjustment / Rationale</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>Operating Cash Flow (Normalized TTM)</strong></td>
-        <td>$540.0</td>
-        <td>Base operational cash flow generation.</td>
-      </tr>
-      <tr>
-        <td><em>Less:</em> SBC Cash Equivalent Adjustment</td>
-        <td>($22.0)</td>
-        <td>Deducting SBC as real economic dilution.</td>
-      </tr>
-      <tr>
-        <td><em>Less:</em> Maintenance CapEx</td>
-        <td>($150.0)</td>
-        <td>Estimated capital needed to maintain theatre screen quality &amp; seats.</td>
-      </tr>
-      <tr>
-        <td><strong>True Owner Earnings (Normalized Base)</strong></td>
-        <td class="text-green"><strong>$368.0</strong></td>
-        <td><strong>Sustainable economic cash flow available to equity owners.</strong></td>
-      </tr>
-      <tr>
-        <td><strong>Owner Earnings Per Share (116.4M shares)</strong></td>
-        <td class="text-blue"><strong>$3.16 / share</strong></td>
-        <td><strong>Implies CNK trades at just 11.8x True Owner Earnings.</strong></td>
-      </tr>
-    </tbody>
-  </table>
-  <p><em>Note: Total 2026 CapEx is
+    <div class="card card-highlight" style="margin-bottom: 1.5rem;">
+      <h3 style="color: #38bdf8; margin-top: 0;">Enterprise Value (EV) Bridge (as of August 2026)</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>Share Price (CNK)</td>
+            <td style="text-align: right; font-weight: 700;">$37.24</td>
+          </tr>
+          <tr>
+            <td>Diluted Common Shares Outstanding</td>
+            <td style="text-align: right; font-weight: 700;">115.91 Million</td>
             </article>
         </div>
 
         <!-- History & Evolution Pane -->
         <div id="panel-history" class="tab-panel">
             
-        <div class="history-item ">
+        <div class="history-item history-active">
             <div class="history-item-top">
                 <div class="history-meta-left">
-                    <span class="pill pill-neutral">v1</span>
+                    <span class="pill pill-success">Active Stance</span>
                     <span class="history-date">2026-08-07</span>
                     <span class="history-price-tag">Price: <strong>$37.24</strong></span>
-                    <span class="pill pill-status">High Conviction Cash-Flow Compounder</span>
+                    <span class="pill pill-status">High-Conviction Cash Flow Re-Rating</span>
                 </div>
                 <button class="btn btn-ghost" onclick="toggleSnapshot(1)">Expand Snapshot ▾</button>
             </div>
             <div class="history-body">
-                <p><strong>Thesis Shift:</strong> Cinemark is outperforming the global theatrical exhibition sector by driving record quarterly revenue ($1.09B in Q2 2026) and industry-leading margins (27.1% Q2 Adj EBITDA margin) through market share gains, Premium Large Format (XD) expansion, and high-margin concessions ($8.70 domestic per capita). With pandemic debt fully eliminated and net leverage down to ~2.0x, CNK is uniquely positioned among exhibitors to generate substantial free cash flow and return capital to shareholders via buybacks and dividends.</p>
+                <p><strong>Thesis Shift:</strong> Cinemark is outperforming the global exhibition industry, delivering record $1.09B quarterly revenue and $294M Adjusted EBITDA in Q2 2026 driven by market share gains, premium formats (XD), and high-margin concessions ($8.70 domestic F&B per cap). Backed by a clean 2.0x net leverage ratio, robust $240M+ H1 free cash flow, and active share repurchases, CNK represents an asymmetric value play capitalizing on a normalizing Hollywood release schedule.</p>
                 
             <div class="diff-container">
                 <div class="diff-card diff-before">
@@ -709,814 +675,327 @@
                 </div>
                 <div class="diff-card diff-after">
                     <div class="diff-tag">WHAT CHANGED</div>
-                    <div class="diff-text">Cinemark is outperforming the global theatrical exhibition sector by driving record quarterly revenue ($1.09B in Q2 2026) and industry-leading margins (27.1% Q2 Adj EBITDA margin) through market share gains, Premium Large Format (XD) expansion, and high-margin concessions ($8.70 domestic per capita). With pandemic debt fully eliminated and net leverage down to ~2.0x, CNK is uniquely positioned among exhibitors to generate substantial free cash flow and return capital to shareholders via buybacks and dividends.</div>
-                </div>
-            </div>
-            
-                <div id="snapshot-1" class="snapshot-drawer" style="display: none;">
-                    <div class="snapshot-content">
-                        <div class="research-container">
-<style>
-  .research-container {
-    background-color: #0f172a;
-    color: #cbd5e1;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    line-height: 1.6;
-    padding: 24px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
-  }
-  .research-container h1, .research-container h2, .research-container h3, .research-container h4 {
-    color: #f8fafc;
-    font-weight: 700;
-    margin-top: 1.5em;
-    margin-bottom: 0.5em;
-  }
-  .research-container h2 {
-    font-size: 1.5rem;
-    border-bottom: 2px solid #334155;
-    padding-bottom: 8px;
-    color: #38bdf8;
-  }
-  .research-container h3 {
-    font-size: 1.2rem;
-    color: #e2e8f0;
-  }
-  .research-container p {
-    margin-bottom: 1.2em;
-  }
-  .research-container strong {
-    color: #f8fafc;
-  }
-  .section {
-    background: #1e293b;
-    border: 1px solid #334155;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 24px;
-  }
-  .grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-  @media (max-width: 768px) {
-    .grid-2 { grid-template-columns: 1fr; }
-  }
-  .badge {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 9999px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-  .badge-success { background-color: #065f46; color: #34d399; }
-  .badge-warning { background-color: #78350f; color: #fbbf24; }
-  .badge-danger { background-color: #7f1d1d; color: #f87171; }
-  .badge-info { background-color: #1e3a8a; color: #60a5fa; }
-  
-  .metric-card {
-    background-color: #0f172a;
-    border: 1px solid #334155;
-    border-radius: 6px;
-    padding: 14px;
-    text-align: center;
-  }
-  .metric-value {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #f8fafc;
-  }
-  .metric-label {
-    font-size: 0.8rem;
-    color: #94a3b8;
-    text-transform: uppercase;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 16px 0;
-    font-size: 0.9rem;
-  }
-  th, td {
-    padding: 10px 14px;
-    text-align: left;
-    border-bottom: 1px solid #334155;
-  }
-  th {
-    background-color: #0f172a;
-    color: #38bdf8;
-    font-weight: 600;
-  }
-  tr:nth-child(even) {
-    background-color: #162032;
-  }
-  blockquote {
-    border-left: 4px solid #38bdf8;
-    background-color: #0f172a;
-    margin: 16px 0;
-    padding: 12px 18px;
-    border-radius: 0 6px 6px 0;
-    font-style: italic;
-    color: #cbd5e1;
-  }
-  ul, ol {
-    padding-left: 20px;
-    margin-bottom: 1.2em;
-  }
-  li {
-    margin-bottom: 6px;
-  }
-  .highlight-box {
-    background-color: rgba(56, 189, 248, 0.1);
-    border: 1px solid rgba(56, 189, 248, 0.3);
-    border-radius: 6px;
-    padding: 14px;
-    margin-bottom: 16px;
-  }
-  .text-green { color: #4ade80; }
-  .text-red { color: #f87171; }
-  .text-blue { color: #38bdf8; }
-</style>
-
-<!-- SECTION 1: EXECUTIVE SUMMARY & VARIANT PERCEPTION -->
-<div class="section">
-  <h2>1. Executive Summary &amp; Variant Perception</h2>
-  <div class="grid-2" style="margin-bottom: 16px;">
-    <div class="metric-card">
-      <div class="metric-value">$37.24</div>
-      <div class="metric-label">Current Stock Price</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-value">$46.50</div>
-      <div class="metric-label">Intrinsic Fair Value Estimate</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-value">2.0x</div>
-      <div class="metric-label">Net Debt / EBITDA Leverage</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-value">27.1%</div>
-      <div class="metric-label">Q2 2026 Adj. EBITDA Margin</div>
-    </div>
-  </div>
-
-  <p><strong>Thesis Overview:</strong> Cinemark Holdings Inc. (NYSE: CNK) represents a compelling, highly cash-generative investment operating within an industry that institutional investors have erroneously written off as structurally impaired. While legacy competitors like AMC Entertainment struggle under burdensome leverage and dilution, Cinemark has quietly capitalized on post-pandemic slate normalization, driving record quarterly revenues of $1.09 billion in Q2 2026 and generating $240.4 million in free cash flow during the first six months of 2026 alone.</p>
-
-  <div class="highlight-box">
-    <h3>The Variant Perception</h3>
-    <p><strong>Consensus View:</strong> Wall Street consensus views theatrical exhibition as a secularly declining "melting ice cube" vulnerable to streaming cannibalization, elevated utility/labor inflation, and volatile Hollywood box office slates. Multiples are capped at legacy distressed levels (6x-8x EBITDA) due to capital expenditure drag and lease liability fears.</p>
-    <p><strong>Our Variant Perception:</strong> Consensus misunderstands the flight to quality in consumer entertainment. Cinemark is not an average exhibitor; it is a premier infrastructure platform that captures asymmetric economics through:</p>
-    <ul>
-      <li><strong>Market Share Gains:</strong> Expanded U.S. and Latin American box office market share by over +150 bps vs. pre-pandemic levels—the largest share gain of any major global operator.</li>
-      <li><strong>Monetization per Patron:</strong> Domestic concession spend reached an all-time high of $8.70 per patron (+45% above pre-pandemic levels), driven by high-margin merchandise and expanded hot food options.</li>
-      <li><strong>Premium Large Format (PLF) Dominance:</strong> Cinemark XD and PLF formats generate 15% of total worldwide admissions on only 6% of total screens.</li>
-      <li><strong>Fortress Balance Sheet:</strong> Fully settled all pandemic convertible notes, retired warrants with zero net dilution, de-levered net debt to 2.0x, and resumed share buybacks ($100.5M repurchased) alongside dividend growth.</li>
-    </ul>
-  </div>
-</div>
-
-<!-- SECTION 2: BUSINESS MOAT, PRICING POWER & UNIT ECONOMICS -->
-<div class="section">
-  <h2>2. Business Moat, Pricing Power &amp; Unit Economics</h2>
-  <p>Cinemark operates ~500 theaters and over 5,600 screens across 42 U.S. states and 13 Latin American countries. Its economic moat is grounded in regional geographic scale, premier auditorium amenities, and disciplined real estate selection.</p>
-
-  <h3>Economic Moat Drivers</h3>
-  <ul>
-    <li><strong>Suburban Geographic Dominance:</strong> Unlike AMC (concentrated in high-cost urban malls), Cinemark strategically selected dominant suburban real estate with favorable long-term lease structures and lower utility/labor overhead.</li>
-    <li><strong>Cinemark XD &amp; Technology Leadership:</strong> Cinemark XD is the world's #1 exhibitor-branded PLF. By owning its PLF brand rather than relying solely on third-party licensors, CNK retains a significantly higher margin on premium ticket surcharges.</li>
-    <li><strong>Recliner &amp; Laser Projection Penetration:</strong> Over 72% of domestic auditoriums feature Luxury Lounger recliners, driving industry-leading seat utilization. The multi-year conversion to Barco laser projection lowers ongoing bulb replacement costs and energy consumption.</li>
-    <li><strong>Cinemark Movie Club Loyalty Moat:</strong> The subscription program provides recurring monthly revenue, frictionless ticketing, and a continuous feedback loop that drives repeat visits and higher concession attachment.</li>
-  </ul>
-
-  <h3>Unit Economics &amp; Pricing Power Matrix</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Metric</th>
-        <th>Q2 2025</th>
-        <th>Q2 2026</th>
-        <th>YoY Change</th>
-        <th>Strategic Implication</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>Worldwide Attendance</strong></td>
-        <td>52.7M</td>
-        <td>63.7M</td>
-        <td><span class="text-green">+20.9%</span></td>
-        <td>Strong return of consumer demand for tentpole cinema.</td>
-      </tr>
-      <tr>
-        <td><strong>Average Ticket Price (ATP)</strong></td>
-        <td>$8.22</td>
-        <td>$8.48</td>
-        <td><span class="text-green">+3.2%</span></td>
-        <td>Pricing power holding above general inflation rates.</td>
-      </tr>
-      <tr>
-        <td><strong>Concession Spend / Patron</strong></td>
-        <td>$6.41</td>
-        <td>$6.80</td>
-        <td><span class="text-green">+6.1%</span></td>
-        <td>Record merchandise &amp; elevated F&amp;B menu capture.</td>
-      </tr>
-      <tr>
-        <td><strong>Domestic Concession Per Capita</strong></td>
-        <td>$8.15</td>
-        <td>$8.70</td>
-        <td><span class="text-green">+6.7%</span></td>
-        <td>All-time high domestic concession monetization.</td>
-      </tr>
-      <tr>
-        <td><strong>Adjusted EBITDA Margin</strong></td>
-        <td>24.8%</td>
-        <td>27.1%</td>
-        <td><span class="text-green">+230 bps</span></td>
-        <td>Strong operating leverage on fixed theatre overhead.</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<!-- SECTION 3: BALANCE SHEET FORENSICS & NET DEBT BRIDGE -->
-<div class="section">
-  <h2>3. Balance Sheet Forensics &amp; Net Debt Bridge</h2>
-  <p>A central tenet of institutional fundamental value analysis is bridging Enterprise Value (EV) to Equity Value while dissecting lease obligations and liquidity risks.</p>
-
-  <h3>Capital Structure &amp; Debt Breakdown (as of June 30, 2026)</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Balance Sheet Component</th>
-        <th>Carrying Value ($M)</th>
-        <th>Notes &amp; Maturity Profile</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>Cash &amp; Cash Equivalents</strong></td>
-        <td class="text-green"><strong>$504.3</strong></td>
-        <td>Unrestricted cash balance.</td>
-      </tr>
-      <tr>
-        <td>Senior Secured Term Loan (CUSA)</td>
-        <td>$1,215.0</td>
-        <td>Interest rate reduced by 25 bps in May 2026; matures 2030.</td>
-      </tr>
-      <tr>
-        <td>5.250% Senior Notes</td>
-        <td>$655.0</td>
-        <td>Matures July 2028; unsecured fixed rate.</td>
-      </tr>
-      <tr>
-        <td>Current / Other Debt Adjustments</td>
-        <td>$6.8</td>
-        <td>Short-term maturities and debt issuance discount adjustments.</td>
-      </tr>
-      <tr>
-        <td><strong>Total Standalone Debt</strong></td>
-        <td><strong>$1,876.8</strong></td>
-        <td><strong>Excludes lease liabilities.</strong></td>
-      </tr>
-      <tr>
-        <td><strong>Net Debt (Standalone)</strong></td>
-        <td class="text-blue"><strong>$1,372.5</strong></td>
-        <td><strong>Total Debt minus Cash ($1,876.8M - $504.3M).</strong></td>
-      </tr>
-      <tr>
-        <td>Finance Lease Obligations</td>
-        <td>$84.9</td>
-        <td>Long-term capital leases.</td>
-      </tr>
-      <tr>
-        <td>Operating Lease Obligations</td>
-        <td>$773.9</td>
-        <td>PV of future theatre operating lease payments.</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <h3>Enterprise Value (EV) Bridge</h3>
-  <blockquote>
-    <strong>EV Equation:</strong> Market Cap ($4,335M) + Standalone Debt ($1,876.8M) + Finance Leases ($84.9M) - Cash ($504.3M) = <strong>$5,792.4 Million</strong> (or ~$5.79 Billion).
-  </blockquote>
-
-  <h3>Solvency &amp; Liquidity Runway Analysis</h3>
-  <ul>
-    <li><strong>Net Leverage Ratio:</strong> Standalone Net Debt / TTM Adjusted EBITDA (~$680M) = <strong>~2.0x</strong>. Management has successfully reduced leverage from over 5.0x post-pandemic to its target 2.0x threshold.</li>
-    <li><strong>Maturity Runway:</strong> No major debt maturities until 2028 (5.25% Senior Notes) and 2030 (Term Loan B). Pandemic-era 4.50% convertible notes ($460M) were 100% eliminated in 2025.</li>
-    <li><strong>Interest Coverage:</strong> TTM Operating Income ($335M+) / Annualized Interest Expense (~$130M) = <strong>~2.6x GAAP coverage</strong> (or <strong>~5.2x EBITDA interest coverage</strong>).</li>
-  </ul>
-</div>
-
-<!-- SECTION 4: TRUE OWNER EARNINGS & SBC AUDIT -->
-<div class="section">
-  <h2>4. True Owner Earnings &amp; SBC Audit</h2>
-  <p>In accordance with Graham &amp; Dodd principles, Stock-Based Compensation (SBC) is treated as a real cash economic dilutive expense rather than a harmless add-back. Furthermore, Capex must be unbundled into Maintenance Capex (preserving terminal value) vs. Growth Capex.</p>
-
-  <h3>SBC Audit &amp; Share Count Trajectory</h3>
-  <p>Cinemark maintains an exceptionally disciplined equity compensation structure compared to broader mid-cap tech and consumer peers.</p>
-  <ul>
-    <li><strong>Annual SBC Burden:</strong> ~$21.6M in FY2025 and ~$12.8M in 6M 2026. SBC represents <strong>less than 0.8% of annual revenue</strong>.</li>
-    <li><strong>Dilution Counter-Measures:</strong> In November 2025, the Board authorized a $300M share repurchase program. Since inception, CNK has repurchased 4,086,850 shares for $100.5M at an average price of ~$24.58/share—representing an accretive allocation of capital well below current fair value.</li>
-    <li><strong>Net Share Count:</strong> Diluted shares outstanding decreased from 134.3M in FY2025 to 116.4M in Q2 2026—a net reduction of <strong>-13.3% YoY</strong>.</li>
-  </ul>
-
-  <h3>Normalized True Owner Earnings Bridge (TTM / FY2026 Run-rate)</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Cash Flow Line Item</th>
-        <th>Reported Amount ($M)</th>
-        <th>Owner Earnings Adjustment / Rationale</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>Operating Cash Flow (Normalized TTM)</strong></td>
-        <td>$540.0</td>
-        <td>Base operational cash flow generation.</td>
-      </tr>
-      <tr>
-        <td><em>Less:</em> SBC Cash Equivalent Adjustment</td>
-        <td>($22.0)</td>
-        <td>Deducting SBC as real economic dilution.</td>
-      </tr>
-      <tr>
-        <td><em>Less:</em> Maintenance CapEx</td>
-        <td>($150.0)</td>
-        <td>Estimated capital needed to maintain theatre screen quality &amp; seats.</td>
-      </tr>
-      <tr>
-        <td><strong>True Owner Earnings (Normalized Base)</strong></td>
-        <td class="text-green"><strong>$368.0</strong></td>
-        <td><strong>Sustainable economic cash flow available to equity owners.</strong></td>
-      </tr>
-      <tr>
-        <td><strong>Owner Earnings Per Share (116.4M shares)</strong></td>
-        <td class="text-blue"><strong>$3.16 / share</strong></td>
-        <td><strong>Implies CNK trades at just 11.8x True Owner Earnings.</strong></td>
-      </tr>
-    </tbody>
-  </table>
-  <p><em>Note: Total 2026 CapEx is
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="history-item ">
-            <div class="history-item-top">
-                <div class="history-meta-left">
-                    <span class="pill pill-neutral">v1</span>
-                    <span class="history-date">2026-08-07</span>
-                    <span class="history-price-tag">Price: <strong>$100.00</strong></span>
-                    <span class="pill pill-status">Severely Overvalued / Extreme Valuation Disconnect</span>
-                </div>
-                <button class="btn btn-ghost" onclick="toggleSnapshot(1)">Expand Snapshot ▾</button>
-            </div>
-            <div class="history-body">
-                <p><strong>Thesis Shift:</strong> At the prompt's benchmark price of $100.00, Cinemark trades at an unsustainable 16.8x EV/EBITDA and 35.2x Owner Earnings, presenting a massive 55% downside to its intrinsic base-case valuation of $45.00 per share. While operational execution is world-class—highlighted by Q2 2026 revenue surpassing $1.086B for the first time in company history—the $100.00 price embeds an unachievable hyper-growth scenario that ignores theatrical box office structural ceilings and real economic debt burdens.</p>
-                
-            <div class="diff-container">
-                <div class="diff-card diff-before">
-                    <div class="diff-tag">PREVIOUS STANCE</div>
-                    <div class="diff-text">No previous coverage.</div>
-                </div>
-                <div class="diff-card diff-after">
-                    <div class="diff-tag">WHAT CHANGED</div>
-                    <div class="diff-text">At the prompt's benchmark price of $100.00, Cinemark trades at an unsustainable 16.8x EV/EBITDA and 35.2x Owner Earnings, presenting a massive 55% downside to its intrinsic base-case valuation of $45.00 per share. While operational execution is world-class—highlighted by Q2 2026 revenue surpassing $1.086B for the first time in company history—the $100.00 price embeds an unachievable hyper-growth scenario that ignores theatrical box office structural ceilings and real economic debt burdens.</div>
+                    <div class="diff-text">Cinemark is outperforming the global exhibition industry, delivering record $1.09B quarterly revenue and $294M Adjusted EBITDA in Q2 2026 driven by market share gains, premium formats (XD), and high-margin concessions ($8.70 domestic F&B per cap). Backed by a clean 2.0x net leverage ratio, robust $240M+ H1 free cash flow, and active share repurchases, CNK represents an asymmetric value play capitalizing on a normalizing Hollywood release schedule.</div>
                 </div>
             </div>
             
                 <div id="snapshot-1" class="snapshot-drawer" style="display: none;">
                     <div class="snapshot-content">
                         <style>
-  :root {
-    --bg-main: #0b0f19;
-    --bg-card: #151d2a;
-    --bg-card-alt: #1a2436;
-    --border-color: #26334d;
-    --text-primary: #f1f5f9;
-    --text-secondary: #94a3b8;
-    --accent-blue: #3b82f6;
-    --accent-green: #10b981;
-    --accent-red: #ef4444;
-    --accent-amber: #f59e0b;
-    --accent-purple: #8b5cf6;
-  }
-  
   .thesis-container {
-    background-color: var(--bg-main);
-    color: var(--text-primary);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    line-height: 1.6;
-    padding: 24px;
+    background-color: #0b0f19;
+    color: #e2e8f0;
+    padding: 2rem;
     border-radius: 12px;
+    line-height: 1.6;
+    max-width: 1200px;
+    margin: 0 auto;
   }
-
-  .header-card {
-    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    padding: 24px;
-    margin-bottom: 24px;
+  .thesis-header {
+    border-bottom: 2px solid #1e293b;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .header-title {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 1rem;
   }
-
-  .ticker-title {
-    font-size: 2.2rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
+  h1 {
+    color: #f8fafc;
+    font-size: 2.25rem;
     margin: 0;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+  }
+  .ticker-badge {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
     color: #ffffff;
-  }
-
-  .ticker-subtitle {
-    font-size: 1rem;
-    color: var(--text-secondary);
-    margin-top: 4px;
-  }
-
-  .badge-container {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-
-  .badge {
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.82rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
     font-weight: 700;
+    font-size: 1.1rem;
+  }
+  .status-badge {
+    background: #059669;
+    color: #ffffff;
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
-
-  .badge-red {
-    background-color: rgba(239, 68, 68, 0.15);
-    color: var(--accent-red);
-    border: 1px solid rgba(239, 68, 68, 0.3);
+  h2 {
+    color: #38bdf8;
+    font-size: 1.5rem;
+    border-bottom: 1px solid #334155;
+    padding-bottom: 0.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1.25rem;
+    font-weight: 700;
   }
-
-  .badge-blue {
-    background-color: rgba(59, 130, 246, 0.15);
-    color: var(--accent-blue);
-    border: 1px solid rgba(59, 130, 246, 0.3);
+  h3 {
+    color: #94a3b8;
+    font-size: 1.15rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
   }
-
-  .badge-amber {
-    background-color: rgba(245, 158, 11, 0.15);
-    color: var(--accent-amber);
-    border: 1px solid rgba(245, 158, 11, 0.3);
+  p, li {
+    color: #cbd5e1;
+    font-size: 1rem;
   }
-
+  ul {
+    padding-left: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+  li {
+    margin-bottom: 0.5rem;
+  }
   .grid-2 {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 20px;
-    margin-bottom: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
   }
-
-  .grid-3 {
+  .grid-4 {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 16px;
-    margin-bottom: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
   }
-
   .card {
-    background-color: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    padding: 20px;
-  }
-
-  .card-title {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin-top: 0;
-    margin-bottom: 14px;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 8px;
-  }
-
-  .metric-value {
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: #ffffff;
-    margin: 4px 0;
-  }
-
-  .metric-subtext {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-  }
-
-  .section {
-    margin-bottom: 32px;
-  }
-
-  h2 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #ffffff;
-    border-left: 4px solid var(--accent-blue);
-    padding-left: 12px;
-    margin-bottom: 20px;
-    margin-top: 32px;
-  }
-
-  p, li {
-    color: var(--text-secondary);
-    font-size: 0.98rem;
-  }
-
-  strong {
-    color: #ffffff;
-  }
-
-  .table-container {
-    overflow-x: auto;
-    margin-bottom: 20px;
-    border: 1px solid var(--border-color);
+    background-color: #1e293b;
+    border: 1px solid #334155;
     border-radius: 8px;
+    padding: 1.25rem;
   }
-
+  .card-highlight {
+    border-left: 4px solid #38bdf8;
+  }
+  .card-alert {
+    border-left: 4px solid #f59e0b;
+  }
+  .card-success {
+    border-left: 4px solid #10b981;
+  }
+  .metric-label {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+  }
+  .metric-value {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #f8fafc;
+    margin-top: 0.25rem;
+  }
+  .metric-subtext {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-top: 0.25rem;
+  }
+  blockquote {
+    background-color: #1e293b;
+    border-left: 4px solid #f59e0b;
+    margin: 1.5rem 0;
+    padding: 1rem 1.25rem;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: #e2e8f0;
+  }
   table {
     width: 100%;
     border-collapse: collapse;
+    margin: 1.5rem 0;
+    background-color: #1e293b;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  th, td {
+    padding: 0.85rem 1rem;
     text-align: left;
-    font-size: 0.92rem;
+    border-bottom: 1px solid #334155;
   }
-
   th {
-    background-color: var(--bg-card-alt);
-    color: var(--text-primary);
-    padding: 12px 16px;
+    background-color: #0f172a;
+    color: #38bdf8;
     font-weight: 700;
-    border-bottom: 1px solid var(--border-color);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
-
-  td {
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--border-color);
-    color: var(--text-secondary);
-  }
-
   tr:last-child td {
     border-bottom: none;
   }
-
-  tr:nth-child(even) {
-    background-color: rgba(255, 255, 255, 0.02);
-  }
-
-  .callout {
-    background-color: var(--bg-card-alt);
-    border-left: 4px solid var(--accent-amber);
-    padding: 16px 20px;
-    border-radius: 0 8px 8px 0;
-    margin: 20px 0;
-  }
-
-  .callout-title {
-    font-weight: 700;
-    color: var(--accent-amber);
-    margin-bottom: 6px;
-  }
-
-  .quote-box {
-    background: rgba(59, 130, 246, 0.05);
-    border: 1px solid rgba(59, 130, 246, 0.2);
+  .positive { color: #10b981; font-weight: 600; }
+  .negative { color: #f43f5e; font-weight: 600; }
+  .neutral { color: #f59e0b; font-weight: 600; }
+  .callout-box {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    padding: 1.25rem;
     border-radius: 8px;
-    padding: 16px;
-    margin: 16px 0;
-    font-style: italic;
-  }
-
-  .alert-box {
-    background-color: rgba(239, 68, 68, 0.08);
-    border: 1px solid rgba(239, 68, 68, 0.25);
-    border-radius: 8px;
-    padding: 16px;
-    margin-top: 16px;
-  }
-
-  .alert-title {
-    font-weight: 700;
-    color: var(--accent-red);
-    margin-bottom: 4px;
-  }
-
-  ul {
-    padding-left: 20px;
-  }
-
-  li {
-    margin-bottom: 8px;
+    margin: 1.5rem 0;
   }
 </style>
 
 <div class="thesis-container">
-  <!-- HEADER BLOCK -->
-  <div class="header-card">
-    <div>
-      <h1 class="ticker-title">Cinemark Holdings, Inc. (NYSE: CNK)</h1>
-      <div class="ticker-subtitle">Institutional Equity Research Due Diligence | Value Investment Thesis</div>
+  <!-- HEADER -->
+  <div class="thesis-header">
+    <div class="header-title">
+      <div>
+        <span class="ticker-badge">NYSE: CNK</span>
+        <h1 style="display:inline; margin-left:0.75rem;">Cinemark Holdings, Inc.</h1>
+      </div>
+      <span class="status-badge">High-Conviction Cash Flow Re-Rating</span>
     </div>
-    <div class="badge-container">
-      <span class="badge badge-red">SEVERELY OVERVALUED @ $100.00</span>
-      <span class="badge badge-blue">FAIR VALUE: $42.00</span>
-      <span class="badge badge-amber">BASE DOWNSIDE: -55.0%</span>
-    </div>
+    <p style="margin-top: 0.75rem; margin-bottom: 0; color: #94a3b8; font-size: 0.95rem;">
+      Institutional Equity Research & Institutional Due Diligence | Fundamental Value Strategy | Date: August 2026
+    </p>
   </div>
 
-  <!-- KEY METRICS SUMMARY GRID -->
-  <div class="grid-3">
-    <div class="card">
-      <div class="metric-subtext">Prompt Reference Benchmark</div>
-      <div class="metric-value">$100.00</div>
-      <div class="metric-subtext">Implied EV: $14.27B | EV/EBITDA: 16.8x</div>
+  <!-- KEY METRICS BANNER -->
+  <div class="grid-4">
+    <div class="card card-highlight">
+      <div class="metric-label">Current Stock Price</div>
+      <div class="metric-value">$37.24</div>
+      <div class="metric-subtext">52-Wk Range: $21.60 - $38.98</div>
     </div>
-    <div class="card">
-      <div class="metric-subtext">Intrinsic Fair Value</div>
-      <div class="metric-value">$42.00</div>
-      <div class="metric-subtext">8.5x Normalized EBITDA ($850M)</div>
+    <div class="card card-success">
+      <div class="metric-label">Fair Value Estimate</div>
+      <div class="metric-value">$44.50</div>
+      <div class="metric-subtext">+19.5% Intrinsic Upside Margin</div>
     </div>
-    <div class="card">
-      <div class="metric-subtext">Q2 2026 Record Revenue</div>
-      <div class="metric-value">$1.086B</div>
-      <div class="metric-subtext">Surpassed $1B milestone for 1st time</div>
+    <div class="card card-highlight">
+      <div class="metric-label">Q2 2026 Revenue / EBITDA</div>
+      <div class="metric-value">$1.09B / $294M</div>
+      <div class="metric-subtext">All-Time Record (27.1% Margin)</div>
     </div>
-    <div class="card">
-      <div class="metric-subtext">Net Funded Debt (Q2 2026)</div>
-      <div class="metric-value">$2.47B</div>
-      <div class="metric-subtext">$2.97B Debt - $504M Cash</div>
+    <div class="card card-highlight">
+      <div class="metric-label">Net Debt / EBITDA</div>
+      <div class="metric-value">2.0x</div>
+      <div class="metric-subtext">Cash: $504.3M | Net Debt: $1.38B</div>
     </div>
   </div>
 
   <!-- SECTION 1: EXECUTIVE SUMMARY & VARIANT PERCEPTION -->
   <div class="section">
     <h2>1. Executive Summary & Variant Perception</h2>
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-title">Consensus Narrative (What Market Bulls Believe)</div>
-        <p>Market momentum surrounding Cinemark has reached a fever pitch following record-breaking Q2 2026 performance. Bulls assert that:</p>
-        <ul>
-          <li><strong>Theatrical Exhibition Super-Cycle:</strong> Blockbuster releases like <em>Spider-Man: Brand New Day</em> prove theatrical attendance has permanently recovered from pandemic and streaming threats.</li>
-          <li><strong>Pricing Power & Monetization:</strong> Domestic concession spending reached an all-time high of $8.70 per capita, driving Q2 2026 worldwide revenue past $1.086B and Adjusted EBITDA to $294M.</li>
-          <li><strong>Market Leadership:</strong> Cinemark is outperforming peers (AMC) due to superior Latin American market share gains (+500 bps) and prudent capital discipline.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <div class="card-title">Variant Perception (Institutional Value Reality)</div>
-        <p>While operational execution under CEO Sean Gamble is exemplary, the prompt's benchmark price of <strong>$100.00 per share</strong> represents an extreme valuation absurdity:</p>
-        <ul>
-          <li><strong>Multiple Disconnect:</strong> At $100.00, CNK trades at <strong>16.8x EV/EBITDA</strong> and <strong>35.2x True Owner Earnings</strong>. Historically, regional cinema operators trade at 7.0x–8.5x EV/EBITDA during peak box office years.</li>
-          <li><strong>Capital Structure Trap:</strong> A $100 share price implies a $11.8B equity market capitalization. Adding $2.47B in net debt and $1.115B in capitalized lease obligations yields an Enterprise Value exceeding $15.38B. The company cannot generate sufficient cash flow to justify this capital stack.</li>
-          <li><strong>Asymmetric Downside:</strong> The market is pricing CNK as if Q2's record $1.086B revenue can be maintained linearly forever, ignoring screen decay, rising studio film-rental splits, and seasonal volume contractions.</li>
-        </ul>
+    <p>
+      <strong>Cinemark Holdings, Inc. (NYSE: CNK)</strong> has emerged as the clear operational gold standard in theatrical exhibition. While legacy consensus continues to treat film exhibition as a secularly impaired, debt-encumbered industry vulnerable to streaming disintermediation, Cinemark’s operational metrics demonstrate a completely different reality: record-setting operating efficiency, disciplined balance sheet de-leveraging, expanding market share, and structural pricing power.
+    </p>
+    <p>
+      In Q2 2026, Cinemark delivered its first-ever <strong>$1.0B+ revenue quarter ($1,086.4M, +15.5% YoY)</strong> and an all-time company record <strong>$294.0M in Adjusted EBITDA (27.1% margin)</strong>. This crushing performance generated nearly $300M in quarterly free cash flow and enabled the company to maintain its conservative net leverage target of 2.0x while returning capital via share buybacks and dividends.
+    </p>
+
+    <div class="callout-box">
+      <h3 style="color: #f59e0b; margin-top: 0;">The Variant Perception: Our Thesis vs. Street Consensus</h3>
+      <div class="grid-2" style="margin-bottom: 0;">
+        <div>
+          <h4 style="color: #f43f5e; margin-bottom: 0.5rem;">Consensus View</h4>
+          <ul>
+            <li>Exhibition is a dying medium facing structural decline from home streaming and compressed windowing.</li>
+            <li>Post-pandemic debt loads and high maintenance capex requirements will constrain equity returns and shareholder distributions.</li>
+            <li>Box office recoveries are erratic and studio slates remain unpredictable.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color: #10b981; margin-bottom: 0.5rem;">Principal Analyst Variant Perception</h4>
+          <ul>
+            <li><strong>Premiumization & Yield Growth:</strong> Moviegoers are self-selecting into high-margin Premium Large Formats (Cinemark XD, ScreenX, IMAX). Premium formats account for 15% of box office on only 6% of screens.</li>
+            <li><strong>Industry Leader Outperformance:</strong> CNK has permanently captured 150+ bps of market share post-pandemic in both the US and Latin America due to peer distress (AMC equity dilution, Regal bankruptcy restructuring).</li>
+            <li><strong>Concession Powerhouse:</strong> Food & beverage per-capita spending reached an all-time record of $8.70 domestically, driving gross margins over 80% on concessions.</li>
+            <li><strong>True De-leveraging & Buybacks:</strong> Leverage is down to 2.0x Net Debt/EBITDA. CNK is actively repurchasing stock below intrinsic value (retired 4.09M shares since Nov 2025).</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- SECTION 2: BUSINESS MOAT & UNIT ECONOMICS -->
+  <!-- SECTION 2: BUSINESS MOAT, PRICING POWER & UNIT ECONOMICS -->
   <div class="section">
     <h2>2. Business Moat, Pricing Power & Unit Economics</h2>
-    <p>Cinemark operates 500 theaters and 5,620 screens across 42 U.S. states and 13 Latin American countries. Unlike AMC, which suffered catastrophic equity dilution during the post-2020 era, Cinemark preserved its asset base and invested aggressively in premium amenities.</p>
+    <p>
+      Cinemark operates 497 theatres and 5,653 screens across 42 US states and 13 Latin American countries. Unlike peers who pursued reckless leveraged expansion, Cinemark’s circuit footprint is optimized for high attendance per screen and disciplined lease structures.
+    </p>
 
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-title">Competitive Moat Drivers</div>
-        <ul>
-          <li><strong>Premium Large Format (PLF) Dominance:</strong> Cinemark XD represents the #1 exhibitor-branded PLF globally. PLFs (including XD, IMAX, ScreenX) generated 15% of worldwide admissions revenue on just 6% of screen count in Q2 2026.</li>
-          <li><strong>Luxury Lounger Recliners:</strong> Over 70% of domestic circuit screens feature electric wall-to-wall recliners, driving industry-leading seat utilization.</li>
-          <li><strong>Cinemark Movie Club:</strong> Award-winning loyalty ecosystem with over 1.3 million paid subscribers providing high-margin recurring subscription revenues and valuable direct-to-consumer data.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <div class="card-title">Unit Economics Audit (Q2 2026 Benchmarks)</div>
-        <ul>
-          <li><strong>Domestic Concession Per Capita:</strong> <strong>$8.70</strong> (driven by high-margin merchandise sales exceeding $25M and premium food items).</li>
-          <li><strong>Gross Concession Margin:</strong> ~84.5% (Concessions generate $433M revenue against minimal direct cost of goods).</li>
-          <li><strong>Film Rental Expense:</strong> ~55%–57% of box office revenues paid back to Hollywood studios, capping operating leverage on admissions.</li>
-        </ul>
-      </div>
-    </div>
+    <h3>Key Competitive Advantages (Moat)</h3>
+    <ul>
+      <li><strong>Cinemark XD & Premium Large Format (PLF) Dominance:</strong> High-margin proprietary PLF format (Cinemark XD) generates substantial ticket surcharges. In Q2 2026, PLF screens generated 15% of global admissions revenue while representing just 6% of total screen count.</li>
+      <li><strong>Movie Club Subscription Ecosystem:</strong> Cinemark's proprietary Movie Club loyalty program boasts over 1.45 million active paid monthly subscribers. This creates highly predictable recurring subscription revenue, drives ticket frequency, and increases high-margin concession spend.</li>
+      <li><strong>Latin American Scale Leadership:</strong> Cinemark holds the #1 market share position in Brazil and key Latin American countries. Latin American admissions outpaced local industry benchmarks by 500 bps in Q2 2026.</li>
+    </ul>
+
+    <h3>Unit Economics Breakdown (Q2 2026 Operational Metrics)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Operational Metric</th>
+          <th>Q2 2026 Actual</th>
+          <th>Q2 2025 Actual</th>
+          <th>YoY Change / Economic Implication</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Global Attendance</strong></td>
+          <td>63.7 Million patrons</td>
+          <td>55.6 Million patrons</td>
+          <td class="positive">+14.6% (Strong slate consumer pull)</td>
+        </tr>
+        <tr>
+          <td><strong>Worldwide Avg Ticket Price (ATP)</strong></td>
+          <td>$8.48</td>
+          <td>$8.32</td>
+          <td class="positive">+1.9% (Pricing power + PLF mix)</td>
+        </tr>
+        <tr>
+          <td><strong>Worldwide Concession per Patron (CPPC)</strong></td>
+          <td>$6.80</td>
+          <td>$6.42</td>
+          <td class="positive">+5.9% (Merchandising & expanded menu)</td>
+        </tr>
+        <tr>
+          <td><strong>Domestic Food & Beverage Per Cap</strong></td>
+          <td><strong>$8.70</strong></td>
+          <td>$8.15</td>
+          <td class="positive">All-time record high (80%+ gross margin)</td>
+        </tr>
+        <tr>
+          <td><strong>Adjusted EBITDA Margin</strong></td>
+          <td><strong>27.1%</strong></td>
+          <td>23.8%</td>
+          <td class="positive">+330 bps operating leverage expansion</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <!-- SECTION 3: BALANCE SHEET FORENSICS & NET DEBT BRIDGE -->
   <div class="section">
-    <h2>3. Balance Sheet Forensics & Net Debt Bridge</h2>
-    <p>A rigorous Graham & Dodd fundamental analysis requires bridging Enterprise Value to Equity Value by accounting for funded debt, lease obligations, and cash balances as of Q2 2026.</p>
+    <h2>3. Balance Sheet Forensics & True Net Debt Bridge</h2>
+    <p>
+      We strictly reject superficial enterprise valuation. Below is our comprehensive bridge from Equity Value to Enterprise Value using exact balance sheet line items from the Q2 2026 Form 10-Q (ended June 30, 2026).
+    </p>
 
-    <div class="table-container">
+    <div class="card card-highlight" style="margin-bottom: 1.5rem;">
+      <h3 style="color: #38bdf8; margin-top: 0;">Enterprise Value (EV) Bridge (as of August 2026)</h3>
       <table>
-        <thead>
-          <tr>
-            <th>Balance Sheet Item</th>
-            <th>Reported Value ($M)</th>
-            <th>Valuation Treatment & Forensic Notes</th>
-          </tr>
-        </thead>
         <tbody>
           <tr>
-            <td><strong>Cash & Cash Equivalents</strong></td>
-            <td><strong>$504.3M</strong></td>
-            <td>Unencumbered cash liquidity as of Q2 2026. Deducted from EV.</td>
+            <td>Share Price (CNK)</td>
+            <td style="text-align: right; font-weight: 700;">$37.24</td>
           </tr>
           <tr>
-            <td><strong>Current Debt / Short-Term Maturities</strong></td>
-            <td>$6.4M</td>
-            <td>Routine scheduled amortization.</td>
-          </tr>
-          <tr>
-            <td><strong>Long-Term Debt (Term Loans & Senior Notes)</strong></td>
-            <td>$2,963.6M</td>
-            <td>Includes 5.25% Senior Notes, 7.00% Senior Notes, and Term Loan B.</td>
-          </tr>
-          <tr>
-            <td><strong>Total Gross Funded Debt</strong></td>
-            <td><strong>$2,970.0M</strong></td>
-            <td>Funded principal debt outstanding.</td>
-          </tr>
-          <tr>
-            <td><strong>Net Funded Debt</strong></td>
-            <td><strong>$2,465.7M</strong></td>
-            <td>Gross Funded Debt ($2,970.0M) minus Cash ($504.3M).</td>
-          </tr>
-          <tr>
-            <td><strong>Operating Lease Liabilities (Current + Long)</strong></td>
-            <td>$1,114.8M</td>
-            <td>$233.3M current + $881.5M non-current operating leases. Real economic burden.</td>
-          </tr>
-          <tr>
-            <td><strong>Lease-Adjusted Net Debt</strong></td>
-            <td><strong>$3,580.5M</strong></td>
-            <td>Net Debt + Operating Lease Obligations. True economic leverage bridge.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="callout">
-      <div class="callout-title">Debt Maturity Runway Analysis</div>
-      <p>Cinemark's balance sheet management is superior to peers. The company has <strong>no major debt maturities until May 2028</strong>, when its ~$643M Credit Agreement Term Loan matures. Total liquidity stands at ~$729M ($504M cash + $225M undrawn revolving facility). Net leverage ratio is managed at ~2.6x EBITDA, well within bank covenants. However, while solvency is secure, the existing $2.97B debt stack severely restricts equity upside at a $100.00 price target.</p>
-    </div>
-  </div>
-
-  <!-- SECTION 4: TRUE OWNER EARNINGS & SBC AUDIT -->
-  <div class="section">
-    <h2>4. True Owner Earnings & SBC Audit</h2>
-    <p>In accordance with core value investing tenets, <strong>Stock-Based Compensation (SBC) is treated as a REAL CASH EXPENSE</strong> because it dilute existing shareholders or requires cash buybacks to neutralize. Furthermore, Maintenance CapEx must be separated from Growth CapEx.</p>
-
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-title">Normalized Annual Owner Earnings Bridge ($M)</div>
-        <div class="table-container">
-          <table>
-            <tbody>
-              <tr>
-                <td>Normalized Cash Flow from Operations</td>
-                <td>$480.0M</td>
-              </tr>
-              <tr>
-                <td>Less: Maintenance CapEx (Screen/Seat Renewal)</td>
-                <td>-$110.0M</td>
-              </tr>
-              <tr>
-                <td>Less: Stock-Based Compensation (SBC Dilution)</td>
-                <td>-$35.0M</td>
-              </tr>
-              <tr>
-                <td><strong>True Owner Earnings (Free Cash Flow)</strong></td>
-                <td><strong>$335.0M</strong></td>
-              </tr>
-              <tr>
-                <td>Diluted Share Count</td>
-                <td>118.0M</td>
-              </tr>
-              <tr>
-                <td><strong>True Owner Earnings Per Share</strong></td>
-                <td><strong>$2.84 / share</strong></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">Capital Allocation & Dilution Forensics</div>
-        <ul>
+            <td>Diluted Common Shares Outstanding</td>
+            <td style="text-align: right; font-weight: 700;">115.91 Million</td>
                     </div>
                 </div>
             </div>
