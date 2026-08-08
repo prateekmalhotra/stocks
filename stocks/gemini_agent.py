@@ -262,8 +262,16 @@ CORE PRINCIPLES & GUIDELINES:
    - Lower Threshold: Set at a crucial margin-of-safety test or thesis invalidation floor (e.g., testing bear case support).
    - When market price crosses either threshold, the system automatically triggers an urgent thesis review and publishes a new alert.
 
-7. Down-to-Earth Ballpark Valuation:
-   - Keep valuations simple, realistic, and level-headed (e.g. a clear Bear / Base / Bull scenario range with expected 3-year annualized returns).
+7. True Intrinsic Valuation (DCF as North Star — Zero Market Price Anchoring):
+   - NEVER anchor your fair value estimate to the current market stock price. Do not randomly apply multiples just to justify the current price. Your job is to determine what the business is genuinely worth from first principles.
+   - Where applicable (cash-generating businesses), Discounted Cash Flow (DCF) is the primary North Star framework:
+     a) Real Cash Generation (Owner Earnings): Start with normalized Free Cash Flow, strictly deducting Stock-Based Compensation (SBC) as an economic cash expense and accounting for maintenance CapEx.
+     b) Explicit Projections & Growth: Project realistic cash flow growth over a 5-to-10 year horizon (level-headed, neither overly optimistic hockey sticks nor overly pessimistic).
+     c) Localized Discount Rate / WACC: Ground the discount rate in local sovereign/risk-free rates (e.g. 10Y Treasury for US, SELIC/NTN-F for Brazil) plus an appropriate equity risk premium.
+     d) Balance Sheet Bridge: Explicitly bridge Enterprise Value to Equity Value: $\text{Equity Value} = \text{PV of Cash Flows} + \text{PV of Terminal Value} + \text{Cash} - \text{Total Debt}$.
+     e) Intrinsic Per-Share Fair Value: Divide Equity Value by fully diluted share count.
+   - Present a clear, structured DCF / Valuation Scenario Table in Section 5 with Bear / Base / Bull assumptions (growth rates, discount rates, terminal multiples, fair value per share, and expected 3-year annualized returns).
+   - Analytical Autonomy: If analyzing a bank, financial institution, or asset-heavy play where DCF is not applicable, use the best economic framework (e.g. Tangible Book Value / Return on Tangible Equity), but always derive true intrinsic value without bias from current market prices.
 """
 
 MASTER_PLANNER_PROMPT = """Target: {ticker} ({company_name}) | Current Stock Price: ${current_price:.2f}
@@ -280,7 +288,7 @@ Key Areas to Investigate via Real-Time Filings, Earnings Calls & Announcements:
 - Business Model Reality & Moat: How the company makes money, customer retention, pricing power, and competitive advantages in plain English.
 - Real Cash Flow, SBC & Capital Structure: Real cash generation (treating SBC as a cash charge), dilution vs. buybacks, Net Cash/Debt, and capital allocation.
 - Ownership & Catalysts: Verified active 13F whale positions from latest official filings (exclude exited investors), management alignment, and upcoming catalysts.
-- Thesis Confidence, Execution Risk & Ballpark Valuation: Down-to-earth Bear / Base / Bull scenario range (using localized risk-free/discount rates if international), how confident we are in reaching fair value, how much bad execution can hurt the thesis, and explicit falsification triggers.
+- True Intrinsic Valuation & DCF Scenario Matrix: Bottom-up DCF (or appropriate intrinsic framework) with zero market price anchoring. Calculate Bear / Base / Bull scenario range (using localized risk-free/discount rates if international), assess fair value confidence, execution risk, and explicit falsification triggers.
 - Dynamic Alert Corridors: Establish exact `upper_alert_threshold` (upside breakout / trim level) and `lower_alert_threshold` (downside margin-of-safety floor) based on your valuation targets.
 
 Editorial Aesthetics Mandate:
@@ -465,9 +473,8 @@ You have full analytical freedom to evaluate the new facts and determine the evo
    - Formulate a clear 2-3 sentence executive evolution summary for "what_changes_now".
 3. Dynamic Labels:
    - Update Label #1 (MANDATORY PRIMARY PILL) to reflect the new confidence and risk profile (e.g. "High Conviction", "Safe Compounder", "Turnaround Risk", "High Risk", "Asymmetric Upside", "Thesis Broken").
-   - Update Labels #2 & #3 for key economic drivers (e.g. "Buyback Cannibal", "Operating Leverage").
-4. Ballpark Valuation & Corridors:
-   - Update the fair value and Bear / Base / Bull scenario targets. Treat SBC as a 100% real cash charge and account for Net Cash / Net Debt.
+4. True Intrinsic Valuation & DCF North Star:
+   - Update fair value and Bear / Base / Bull scenario targets using first-principles DCF / cash-flow fundamentals without anchoring to current market stock price. Treat SBC as a 100% real cash charge, bridge Enterprise Value to Equity Value via Net Cash/Debt, and recalculate intrinsic per-share value.
 5. Self-Healing Catalyst Date Update Rule:
    - "next_catalyst_date" MUST ALWAYS BE IN STRICT "YYYY-MM-DD" FORMAT (e.g. 2026-11-18).
    - If on the trigger date after market close no earnings release or event has occurred (or the event was rescheduled), search investor relations for the newly confirmed or estimated date, set "next_catalyst_date" to the new YYYY-MM-DD, and explain in "what_changes_now" that the calendar date has been refreshed.
