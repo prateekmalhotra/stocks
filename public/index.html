@@ -455,7 +455,7 @@
         <!-- Navigation Controls -->
         <div class="hub-controls">
             <div class="hub-tabs">
-                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage (4)</button>
+                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage (7)</button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts (0)</span></button>
             </div>
             <div class="view-toggle" id="view-toggle-bar">
@@ -487,6 +487,39 @@
                     </thead>
                     <tbody>
                         
+        <tr class="table-row" onclick="location.href='reports/BABA.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <span class="tbl-symbol">BABA</span>
+                    <span class="tbl-company-hover">Alibaba Group Holding Limited</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price">$128.41</span>
+                    <span class="tbl-return pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="pill pill-active">Active</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-val-cell">
+                    <span class="tbl-fv" style="color: var(--accent-warm);">$147.67</span>
+                    <span class="tbl-base">+15.0%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-date">Next Earnings</span>
+                    <span class="tbl-cat-desc">Scheduled quarterly report</span>
+                    <span class="tbl-corridor" style="font-size: 0.74rem; color: var(--text-dim); font-family: var(--font-mono); display: block; margin-top: 4px;">Alerts: $113.00 ⇄ $147.67</span>
+                </div>
+            </td>
+        </tr>
+        
         <tr class="table-row" onclick="location.href='reports/BMBL.html'">
             <td>
                 <div class="tbl-ticker-cell">
@@ -586,6 +619,72 @@
             </td>
         </tr>
         
+        <tr class="table-row" onclick="location.href='reports/JD.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <span class="tbl-symbol">JD</span>
+                    <span class="tbl-company-hover">.com, Inc</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price">$32.97</span>
+                    <span class="tbl-return pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="pill pill-active">Deep Value</span> <span class="pill pill-neutral">Buyback Cannibal</span> <span class="pill pill-neutral">Supply Chain</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-val-cell">
+                    <span class="tbl-fv" style="color: var(--accent-warm);">$48.00</span>
+                    <span class="tbl-base">+45.6%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-date">August 2026</span>
+                    <span class="tbl-cat-desc">Q2 2026 Earnings Release</span>
+                    <span class="tbl-corridor" style="font-size: 0.74rem; color: var(--text-dim); font-family: var(--font-mono); display: block; margin-top: 4px;">Alerts: $26.50 ⇄ $46.00</span>
+                </div>
+            </td>
+        </tr>
+        
+        <tr class="table-row" onclick="location.href='reports/PDD.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <span class="tbl-symbol">PDD</span>
+                    <span class="tbl-company-hover">Holdings Inc</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price">$91.76</span>
+                    <span class="tbl-return pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="pill pill-active">Asymmetric Upside</span> <span class="pill pill-neutral">Net Cash</span> <span class="pill pill-neutral">Global Cross</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-val-cell">
+                    <span class="tbl-fv" style="color: var(--accent-warm);">$145.00</span>
+                    <span class="tbl-base">+58.0%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-date">August 2026</span>
+                    <span class="tbl-cat-desc">Q2 2026 Earnings Release</span>
+                    <span class="tbl-corridor" style="font-size: 0.74rem; color: var(--text-dim); font-family: var(--font-mono); display: block; margin-top: 4px;">Alerts: $75.00 ⇄ $135.00</span>
+                </div>
+            </td>
+        </tr>
+        
         <tr class="table-row" onclick="location.href='reports/STNE.html'">
             <td>
                 <div class="tbl-ticker-cell">
@@ -626,6 +725,41 @@
             <!-- Grid Cards View -->
             <div id="stocks-grid-view" class="grid-cards-wrap" style="display: none;">
                 
+        <div class="grid-card" onclick="location.href='reports/BABA.html'">
+            <div class="grid-card-top">
+                <span class="grid-symbol">BABA</span>
+                <div class="grid-price">$128.41</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 6px 0 14px;">
+                <span class="pill pill-active">Active</span>
+            </div>
+            <div class="grid-company">Alibaba Group Holding Limited</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Fair Value</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">$147.67</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Base Target</span>
+                    <span class="grid-stat-val">$147.67 (+15.0%)</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Next Catalyst</span>
+                    <span class="grid-stat-val" style="font-family: var(--font-sans);">Next Earnings</span>
+                </div>
+            </div>
+            
+            <div class="grid-card-foot">
+                <span class="grid-updated">Updated 2026-08-08</span>
+                <span class="grid-open">Open →</span>
+            </div>
+        </div>
+        
         <div class="grid-card" onclick="location.href='reports/BMBL.html'">
             <div class="grid-card-top">
                 <span class="grid-symbol">BMBL</span>
@@ -722,6 +856,76 @@
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Next Catalyst</span>
                     <span class="grid-stat-val" style="font-family: var(--font-sans);">October 2026</span>
+                </div>
+            </div>
+            
+            <div class="grid-card-foot">
+                <span class="grid-updated">Updated 2026-08-08</span>
+                <span class="grid-open">Open →</span>
+            </div>
+        </div>
+        
+        <div class="grid-card" onclick="location.href='reports/JD.html'">
+            <div class="grid-card-top">
+                <span class="grid-symbol">JD</span>
+                <div class="grid-price">$32.97</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 6px 0 14px;">
+                <span class="pill pill-active">Deep Value</span> <span class="pill pill-neutral">Buyback Cannibal</span> <span class="pill pill-neutral">Supply Chain</span>
+            </div>
+            <div class="grid-company">.com, Inc</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Fair Value</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">$48.00</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Base Target</span>
+                    <span class="grid-stat-val">$48.00 (+45.6%)</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Next Catalyst</span>
+                    <span class="grid-stat-val" style="font-family: var(--font-sans);">August 2026</span>
+                </div>
+            </div>
+            
+            <div class="grid-card-foot">
+                <span class="grid-updated">Updated 2026-08-08</span>
+                <span class="grid-open">Open →</span>
+            </div>
+        </div>
+        
+        <div class="grid-card" onclick="location.href='reports/PDD.html'">
+            <div class="grid-card-top">
+                <span class="grid-symbol">PDD</span>
+                <div class="grid-price">$91.76</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 6px 0 14px;">
+                <span class="pill pill-active">Asymmetric Upside</span> <span class="pill pill-neutral">Net Cash</span> <span class="pill pill-neutral">Global Cross</span>
+            </div>
+            <div class="grid-company">Holdings Inc</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Fair Value</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">$145.00</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Base Target</span>
+                    <span class="grid-stat-val">$145.00 (+58.0%)</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Next Catalyst</span>
+                    <span class="grid-stat-val" style="font-family: var(--font-sans);">August 2026</span>
                 </div>
             </div>
             
