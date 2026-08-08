@@ -46,5 +46,29 @@
     "last_updated": "2026-08-08",
     "total_versions": 1,
     "report_path": "reports/BMBL.html"
+  },
+  "BYD": {
+    "ticker": "BYD",
+    "company_name": "Boyd Gaming Corporation",
+    "baseline_price": 83.42,
+    "current_price": 83.42,
+    "return_pct": 0.0,
+    "status_label": "Safe Compounder",
+    "labels": [
+      "Safe Compounder",
+      "Buyback Cannibal",
+      "Operating Leverage"
+    ],
+    "fair_value_estimate": "$95.00",
+    "bear_target": "$68.00 (-18.5%)",
+    "base_target": "$98.00 (+17.5%)",
+    "bull_target": "$118.00 (+41.5%)",
+    "upper_alert_threshold": 95.0,
+    "lower_alert_threshold": 72.0,
+    "next_catalyst_date": "2026-10-22",
+    "next_catalyst_event": "Q3 2026 Earnings Release",
+    "last_updated": "2026-08-08",
+    "total_versions": 1,
+    "report_path": "reports/BYD.html"
   }
 }
