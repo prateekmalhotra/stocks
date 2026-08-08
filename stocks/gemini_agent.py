@@ -258,7 +258,7 @@ Management & Ownership Data:
 Output complete mathematical and tabular calculations.
 """
 
-STAGE_5A_SYNTHESIS_PART1_PROMPT = """You are the Chief Investment Officer compiling Part 1 (Sections 1 to 5) of the Investment Due Diligence Memo on {ticker} ({company_name}).
+STAGE_5A_SYNTHESIS_PART1_PROMPT = """You are the Chief Investment Officer compiling Part 1 (Sections 1 to 4) of the Investment Due Diligence Memo on {ticker} ({company_name}).
 Current Stock Price: ${current_price:.2f}
 
 [AUTONOMY NOTE: Treat the outline below as a guide. You have full freedom to format, structure, and emphasize what is most essential.]
@@ -281,14 +281,13 @@ Part 1: A JSON metadata block in ```json ... ```:
   "executive_summary": "<2-3 sentence punchy summary of variant perception>"
 }}
 
-Part 2: Semantic HTML for Sections 1 to 5:
+Part 2: Semantic HTML for Sections 1 to 4 (DO NOT TRUNCATE, KEEP ALL TABLES FULLY CLOSED):
 1. Executive Summary & Variant Perception (Consensus vs What We Believe with <mark class="highlight">key takeaways</mark>)
 2. Enterprise Value (TEV) & Normalized Cash Flow Multiples (Complete Table)
 3. Internal Forecast vs. Wall Street Consensus (3-Year Forecast Comparison Table)
 4. Business Model Anatomy & Cash Conversion Cycle Mechanics
-5. Competitive Advantage, Unit Economics & Competitor Benchmark Matrix (Complete Table)
 
-Use clean semantic HTML (<div class="section">, <h2>, <h3>, <table>, <ul>, <p>, <blockquote>, <div class="callout">, <mark class="highlight">). Do NOT output outer <html> or <body> tags. Do NOT cut off.
+Use clean semantic HTML (<div class="section">, <h2>, <h3>, <table>, <ul>, <p>, <blockquote>, <div class="callout">, <mark class="highlight">). Do NOT output outer <html> or <body> tags.
 
 Analyst Inputs:
 Financial Forensics: {stage1_data}
@@ -297,21 +296,38 @@ Management & Ownership: {stage3_data}
 Valuation & DCF: {stage4_data}
 """
 
-STAGE_5B_SYNTHESIS_PART2_PROMPT = """You are the Chief Investment Officer compiling Part 2 (Sections 6 to 12) of the Investment Due Diligence Memo on {ticker} ({company_name}).
+STAGE_5B_SYNTHESIS_PART2_PROMPT = """You are the Chief Investment Officer compiling Part 2 (Sections 5 to 8) of the Investment Due Diligence Memo on {ticker} ({company_name}).
+Current Stock Price: ${current_price:.2f}
+
+[AUTONOMY NOTE: Treat the outline below as a guide. You have full freedom to present the analysis with complete analytical discretion.]
+
+Generate complete, beautiful Semantic HTML for Sections 5 to 8 (DO NOT TRUNCATE, KEEP ALL TABLES COMPLETE):
+5. Competitive Advantage, Unit Economics & Competitor Benchmark Matrix (Complete Table)
+6. Capital Allocation Track Record, ROIC & Share Buyback History (Complete Table)
+7. Management Track Record, Compensation Alignment & 13F Ownership
+8. Capital Structure & Complete Net Debt Schedule (Maturities & Interest Coverage Complete Table)
+
+Use clean semantic HTML (<div class="section">, <h2>, <h3>, <table>, <ul>, <p>, <blockquote>, <div class="callout">, <mark class="highlight">). Do NOT output outer <html> or <body> tags.
+
+Analyst Inputs:
+Financial Forensics: {stage1_data}
+Moat & Industry: {stage2_data}
+Management & Ownership: {stage3_data}
+Valuation & DCF: {stage4_data}
+"""
+
+STAGE_5C_SYNTHESIS_PART3_PROMPT = """You are the Chief Investment Officer compiling Part 3 (Sections 9 to 12) of the Investment Due Diligence Memo on {ticker} ({company_name}).
 Current Stock Price: ${current_price:.2f}
 
 [AUTONOMY NOTE: Treat the outline below as a guide. You have full freedom to present the valuation and risk analysis with complete analytical discretion.]
 
-Generate complete, beautiful Semantic HTML for Sections 6 to 12 (DO NOT TRUNCATE OR STOP EARLY):
-6. Capital Allocation Track Record, ROIC & Share Buyback History (Complete Table)
-7. Management Track Record, Compensation Alignment & 13F Ownership
-8. Capital Structure & Complete Net Debt Schedule (Maturities & Interest Coverage Complete Table)
-9. True Owner Earnings & SBC 100% Cash Charge Audit (Complete Table)
+Generate complete, beautiful Semantic HTML for Sections 9 to 12 (DO NOT TRUNCATE, FINISH ALL TABLES AND SECTIONS TO THE END):
+9. True Owner Earnings & SBC 100% Cash Equivalent Charge Audit (Complete Table)
 10. Rigorous 5-Year Unlevered DCF Model, WACC Specification, Sensitivity Matrix & Zero-Growth EPV (Complete Tables)
 11. Triangulated Scenario Matrix (Bear / Base / Bull + 3-Yr Annualized IRRs Complete Table)
 12. Invalidation Catalysts & Risk Pre-Mortem
 
-Use clean semantic HTML (<div class="section">, <h2>, <h3>, <table>, <ul>, <p>, <blockquote>, <div class="callout">, <mark class="highlight">). Ensure all tables are complete with all rows and columns fully closed. Do NOT output outer <html> or <body> tags.
+Use clean semantic HTML (<div class="section">, <h2>, <h3>, <table>, <ul>, <p>, <blockquote>, <div class="callout">, <mark class="highlight">). Ensure all table rows are completely closed with all calculations intact. Do NOT output outer <html> or <body> tags.
 
 Analyst Inputs:
 Financial Forensics: {stage1_data}
@@ -324,26 +340,26 @@ Valuation & DCF: {stage4_data}
 def generate_genesis_thesis(ticker: str, company_name: str, current_price: float, initial_notes: str = "") -> Tuple[Dict[str, Any], str]:
     """Generates an authentic, independent institutional investment memo via modular multi-agent synthesis."""
     ticker_clean = ticker.upper().strip()
-    print(f"  [Pipeline 1/5] Running Forensic Accounting & Capital Structure Audit for {ticker_clean}...")
+    print(f"  [Pipeline 1/6] Running Forensic Accounting & Capital Structure Audit for {ticker_clean}...")
     stage1_prompt = STAGE_1_FINANCIALS_PROMPT.format(ticker=ticker_clean, company_name=company_name, current_price=current_price)
     stage1_out = call_gemini_with_search(stage1_prompt, system_instruction=INSTITUTIONAL_SYSTEM_PHILOSOPHY)
 
-    print(f"  [Pipeline 2/5] Investigating Operating Model Anatomy, Cash Conversion & Moat for {ticker_clean}...")
+    print(f"  [Pipeline 2/6] Investigating Operating Model Anatomy, Cash Conversion & Moat for {ticker_clean}...")
     stage2_prompt = STAGE_2_MOAT_INDUSTRY_PROMPT.format(ticker=ticker_clean, company_name=company_name, current_price=current_price)
     stage2_out = call_gemini_with_search(stage2_prompt, system_instruction=INSTITUTIONAL_SYSTEM_PHILOSOPHY)
 
-    print(f"  [Pipeline 3/5] Auditing Capital Allocation (ROIC/Buybacks) & 13F Whales for {ticker_clean}...")
+    print(f"  [Pipeline 3/6] Auditing Capital Allocation (ROIC/Buybacks) & 13F Whales for {ticker_clean}...")
     stage3_prompt = STAGE_3_MANAGEMENT_OWNERSHIP_PROMPT.format(ticker=ticker_clean, company_name=company_name, current_price=current_price)
     stage3_out = call_gemini_with_search(stage3_prompt, system_instruction=INSTITUTIONAL_SYSTEM_PHILOSOPHY)
 
-    print(f"  [Pipeline 4/5] Executing 5-Year Unlevered DCF, EPV & Sensitivity Model for {ticker_clean}...")
+    print(f"  [Pipeline 4/6] Executing 5-Year Unlevered DCF, EPV & Sensitivity Model for {ticker_clean}...")
     stage4_prompt = STAGE_4_VALUATION_PROMPT.format(
         ticker=ticker_clean, company_name=company_name, current_price=current_price,
         stage1_data=stage1_out[:3500], stage2_data=stage2_out[:3500], stage3_data=stage3_out[:3500]
     )
     stage4_out = call_gemini_with_search(stage4_prompt, system_instruction=INSTITUTIONAL_SYSTEM_PHILOSOPHY)
 
-    print(f"  [Pipeline 5a/5] Synthesizing Strategic & Industry Memo Sections (1-5) for {ticker_clean}...")
+    print(f"  [Pipeline 5a/6] Synthesizing Strategic & Operating Memo Sections (1-4) for {ticker_clean}...")
     stage5a_prompt = STAGE_5A_SYNTHESIS_PART1_PROMPT.format(
         ticker=ticker_clean, company_name=company_name, current_price=current_price,
         stage1_data=stage1_out[:2200], stage2_data=stage2_out[:2200],
@@ -359,7 +375,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         html_part1 = html_part1[:-3]
     html_part1 = clean_grounding_artifacts(html_part1.strip())
 
-    print(f"  [Pipeline 5b/5] Synthesizing Valuation, DCF & Balance Sheet Sections (6-12) for {ticker_clean}...")
+    print(f"  [Pipeline 5b/6] Synthesizing Moat, Capital Allocation & Debt Sections (5-8) for {ticker_clean}...")
     stage5b_prompt = STAGE_5B_SYNTHESIS_PART2_PROMPT.format(
         ticker=ticker_clean, company_name=company_name, current_price=current_price,
         stage1_data=stage1_out[:2200], stage2_data=stage2_out[:2200],
@@ -374,7 +390,22 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         html_part2 = html_part2[:-3]
     html_part2 = clean_grounding_artifacts(html_part2.strip())
 
-    full_html = f"{html_part1}\n\n{html_part2}".strip()
+    print(f"  [Pipeline 5c/6] Synthesizing Valuation, DCF, Scenarios & Risks Sections (9-12) for {ticker_clean}...")
+    stage5c_prompt = STAGE_5C_SYNTHESIS_PART3_PROMPT.format(
+        ticker=ticker_clean, company_name=company_name, current_price=current_price,
+        stage1_data=stage1_out[:2200], stage2_data=stage2_out[:2200],
+        stage3_data=stage3_out[:2200], stage4_data=stage4_out[:3000]
+    )
+    res_part3 = call_gemini_with_search(stage5c_prompt, system_instruction=INSTITUTIONAL_SYSTEM_PHILOSOPHY)
+
+    html_part3 = re.sub(r"```(?:json)?\s*\{.*?\}\s*```", "", res_part3, flags=re.DOTALL).strip()
+    if html_part3.startswith("```html"):
+        html_part3 = html_part3[7:]
+    if html_part3.endswith("```"):
+        html_part3 = html_part3[:-3]
+    html_part3 = clean_grounding_artifacts(html_part3.strip())
+
+    full_html = f"{html_part1}\n\n{html_part2}\n\n{html_part3}".strip()
 
     if not metadata:
         metadata = {

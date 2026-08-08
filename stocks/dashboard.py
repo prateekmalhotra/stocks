@@ -282,7 +282,12 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         </div>
         """
 
-    active_content = current_version.full_html_content if current_version else "<p>No active thesis found.</p>"
+    def wrap_tables(content: str) -> str:
+        if not content:
+            return ""
+        return re.sub(r'(?<!<div class="table-scroll-wrap">)(<table\b[^>]*>.*?</table>)', r'<div class="table-scroll-wrap">\1</div>', content, flags=re.DOTALL)
+
+    active_content = wrap_tables(current_version.full_html_content if current_version else "<p>No active thesis found.</p>")
     chart_html = build_native_svg_chart(ticker, stock.current_price)
 
     return f"""<!DOCTYPE html>
@@ -542,17 +547,27 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         }}
         .memo-container li {{ margin-bottom: 8px; }}
 
-        /* STUNNING CONSISTENT TABLES - SOOTHING WARM TONES */
-        .memo-container table {{
+        /* STUNNING CONSISTENT TABLES - SOOTHING WARM TONES & ZERO OVERFLOW */
+        .table-scroll-wrap {{
             width: 100% !important;
-            border-collapse: separate !important;
-            border-spacing: 0 !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
             margin: 32px 0 !important;
             background: #171614 !important;
             background-color: #171614 !important;
             border-radius: 12px !important;
-            overflow: hidden !important;
             border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            box-sizing: border-box !important;
+        }}
+        .memo-container table {{
+            width: 100% !important;
+            min-width: 600px !important;
+            border-collapse: separate !important;
+            border-spacing: 0 !important;
+            margin: 0 !important;
+            background: transparent !important;
+            background-color: transparent !important;
+            border: none !important;
         }}
         .memo-container tr, .memo-container td, .memo-container th {{
             background: transparent !important;
