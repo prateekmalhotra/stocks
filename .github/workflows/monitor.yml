@@ -1,0 +1,66 @@
+name: 24/7 Equity Surveillance & Living Thesis Engine
+
+on:
+  schedule:
+    # 10:30 AM EST (14:30 UTC) - 1 hour after market open (Mon-Fri)
+    - cron: '30 14 * * 1-5'
+    # 5:00 PM EST (21:00 UTC) - 1 hour after market close (Mon-Fri)
+    - cron: '0 21 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Action to perform'
+        required: true
+        default: 'run'
+        type: choice
+        options:
+          - run
+          - add_stock
+      ticker:
+        description: 'Ticker symbol (if action is add_stock)'
+        required: false
+        default: ''
+
+jobs:
+  surveillance:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Poetry & Dependencies
+        run: |
+          pip install poetry
+          poetry install --no-root
+
+      - name: Run Surveillance Engine
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          if [ "${{ github.event.inputs.action }}" = "add_stock" ] && [ -n "${{ github.event.inputs.ticker }}" ]; then
+            echo "Adding new stock: ${{ github.event.inputs.ticker }}"
+            poetry run python -m stocks.main add "${{ github.event.inputs.ticker }}"
+          else
+            echo "Running complete surveillance pass..."
+            poetry run python -m stocks.main run
+          fi
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/ public/
+          if git diff --staged --quiet; then
+            echo "No changes in data or public reports."
+          else
+            git commit -m "Auto-update: Living theses & surveillance hub [skip ci]"
+            git push origin main
+          fi
