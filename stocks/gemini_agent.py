@@ -4,7 +4,7 @@ import os
 import json
 import re
 import requests
-from typing import Dict, Any, Tuple, Optional
+from typing import Dict, Any, Tuple, Optional, List
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -19,13 +19,33 @@ def get_api_key() -> str:
 
 def clean_grounding_artifacts(text: str) -> str:
     """Strips internal search grounding artifacts like [PerQueryResult(...)] and raw tokens."""
-    # Remove PerQueryResult, cite, source tags
     cleaned = re.sub(r"\[(?:PerQueryResult|cite|source|citation)[^\]]*\]", "", text, flags=re.IGNORECASE)
-    # Remove raw query index citations like [1.3.8] or [1.4.5, 2.2.3]
     cleaned = re.sub(r"\[\s*\d+(?:\.\d+)*(?:\s*,\s*\d+(?:\.\d+)*)*\s*\]", "", cleaned)
-    # Remove excessive blank lines
     cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
     return cleaned.strip()
+
+
+def sanitize_labels(labels: Any) -> List[str]:
+    """Sanitizes labels so there are max 3 labels and each label has max 2 words."""
+    if not isinstance(labels, list):
+        if isinstance(labels, str) and labels:
+            labels = [labels]
+        else:
+            return ["Active"]
+    
+    clean_list = []
+    for lbl in labels:
+        if not isinstance(lbl, str):
+            continue
+        words = [w for w in lbl.replace("/", " ").replace("-", " ").replace("&", " ").split() if w.strip()]
+        if words:
+            short_lbl = " ".join(words[:2]).title()
+            if short_lbl not in clean_list:
+                clean_list.append(short_lbl)
+        if len(clean_list) >= 3:
+            break
+            
+    return clean_list if clean_list else ["Active"]
 
 
 def call_gemini_with_search(prompt: str, system_instruction: str = "", temperature: float = 0.5) -> str:
@@ -101,14 +121,12 @@ CRITICAL INTELLECTUAL MANDATES:
    - Price is what you pay; Value is what you get.
    - You must NEVER reverse-engineer your valuation, EBITDA multiples, or DCF assumptions to justify the current market price.
    - If a stock is trading at $100 but normalized cash flows only support a $45 valuation, state $45 without hesitation.
-   - If a stock is a deep value mispricing at $20 with $40 intrinsic value, state that.
 2. SBC (STOCK-BASED COMPENSATION) IS A REAL CASH DRAIN:
    - Always treat SBC as an unavoidable economic drain and dilution against True Owner Earnings.
-3. FORENSIC NET DEBT & CAPITAL STRUCTURE:
-   - Account for funded debt, revolvers, convertible notes, finance leases, and interest coverage.
-4. HIGHLIGHT CRITICAL NUMBERS & TAKEAWAYS:
-   - Avoid dense walls of text. Use structured data comparison tables, bold key metrics, and clean highlighted callout blocks (<div class="callout">).
-   - Never output internal search citations like [PerQueryResult(...)] or [1.3.4].
+3. LABELS RULE:
+   - Provide 1 to 3 dynamic categorical labels (e.g. ["Overvalued", "Box Office Moat", "Deleveraging"]). Every label must be at most 2 words.
+4. HIGHLIGHT CRITICAL NUMBERS:
+   - Avoid dense walls of text. Use structured comparison tables and highlighted callout blocks (<div class="callout">).
 """
 
 STAGE_1_FINANCIALS_PROMPT = """Target: {ticker} ({company_name}) | Current Stock Price: ${current_price:.2f}
@@ -199,15 +217,15 @@ Current Stock Price: ${current_price:.2f}
 Synthesize all 4 analyst reports into a cohesive, beautifully structured investment memo.
 
 CRITICAL PRESENTATION RULES:
-1. NO DENSE WALLS OF TEXT: Break up thoughts into clear sections with bolded figures, comparison tables, and highlight callout boxes (<div class="callout">...</div>).
-2. NO INTERNAL TOKENS: Never output tokens like [PerQueryResult(...)] or [1.3.8].
-3. SOOTHING EYES: Format data cleanly.
+1. LABELS: Choose 1 to 3 dynamic category labels for this setup (e.g. ["Overvalued", "Theatrical Moat", "Deleveraging"]). Every label MUST be at most 2 words.
+2. NO DENSE WALLS OF TEXT: Break up thoughts into clear sections with bolded figures, comparison tables, and highlight callout boxes (<div class="callout">...</div>).
+3. NO INTERNAL TOKENS: Never output tokens like [PerQueryResult(...)] or [1.3.8].
 
 Part 1: A JSON metadata block in ```json ... ```:
 {{
   "ticker": "{ticker}",
   "company_name": "{company_name}",
-  "status_label": "<Fluid status, e.g. High-Conviction Compounder, Deep Value Re-rating, Cyclical Inflection, Overvalued Momentum>",
+  "labels": ["<Max 2-Word Label 1>", "<Max 2-Word Label 2>", "<Max 2-Word Label 3>"],
   "fair_value_estimate": "$<Fair Value>",
   "bear_target": "$<Bear Price> (<Downside %>)",
   "base_target": "$<Base Price> (<Upside %>)",
@@ -286,7 +304,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         metadata = {
             "ticker": ticker_clean,
             "company_name": company_name,
-            "status_label": "High-Conviction Research Candidate",
+            "labels": ["Active"],
             "fair_value_estimate": f"${current_price * 1.20:.2f}",
             "bear_target": f"${current_price * 0.75:.2f} (-25.0%)",
             "base_target": f"${current_price * 1.25:.2f} (+25.0%)",
@@ -299,6 +317,9 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
             "next_catalyst_event": "Scheduled quarterly report",
             "executive_summary": f"Full Columbia-grade due diligence established for {ticker_clean}."
         }
+
+    metadata["labels"] = sanitize_labels(metadata.get("labels") or metadata.get("status_label"))
+    metadata["status_label"] = metadata["labels"][0] if metadata["labels"] else "Active"
 
     return metadata, html_content
 
@@ -327,6 +348,7 @@ Search real-time news, filings, 10-Q updates, earnings releases, and market comm
 - What happened?
 - Did the fundamental thesis hold, inflect positively, or break?
 - Update the valuation, fair value, scenario matrix, and alert corridors.
+- Provide 1 to 3 dynamic labels (max 2 words each).
 - CRITICAL: Never force the valuation to match the current price. Keep it level-headed and grounded in reality.
 - CRITICAL: Never output search artifacts like [PerQueryResult(...)].
 
@@ -334,10 +356,10 @@ Output in TWO parts:
 Part 1: JSON metadata in ```json ... ```:
 {{
   "alert_title": "<Punchy headline>",
-  "alert_severity": "<Fluid severity, e.g. HIGH CONVICTION ACCUMULATION, THESIS VALIDATED, DENTED - CAUTION, TAKE PROFIT>",
+  "alert_severity": "<1-2 word severity, e.g. Accumulate, Caution, Thesis Intact>",
+  "labels": ["<Label 1>", "<Label 2>", "<Label 3>"],
   "what_was_before": "<Summary of previous thesis>",
   "what_changes_now": "<What changed and our new forward stance>",
-  "new_status_label": "<Updated status>",
   "new_fair_value": "$<Updated Fair Value>",
   "new_bear_target": "$<Updated Bear>",
   "new_base_target": "$<Updated Base>",
@@ -364,10 +386,10 @@ Part 2: Updated HTML memo content reflecting the evolution of the thesis.
     if not metadata:
         metadata = {
             "alert_title": f"{ticker.upper()} Review at ${current_price:.2f}",
-            "alert_severity": "THESIS REVIEW",
+            "alert_severity": "Review",
+            "labels": ["Review"],
             "what_was_before": previous_thesis_summary,
             "what_changes_now": f"Stock moved to ${current_price:.2f} ({price_change_pct:+.1f}%).",
-            "new_status_label": previous_status,
             "new_fair_value": f"${current_price * 1.2:.2f}",
             "new_bear_target": f"${current_price * 0.8:.2f}",
             "new_base_target": f"${current_price * 1.25:.2f}",
@@ -377,5 +399,8 @@ Part 2: Updated HTML memo content reflecting the evolution of the thesis.
             "next_catalyst_date": "Next Earnings",
             "next_catalyst_event": "Scheduled report"
         }
+
+    metadata["labels"] = sanitize_labels(metadata.get("labels") or metadata.get("alert_severity"))
+    metadata["alert_severity"] = metadata["labels"][0] if metadata["labels"] else "Review"
 
     return metadata, html_content

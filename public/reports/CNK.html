@@ -263,7 +263,7 @@
         }
         .history-entry-active { border-color: rgba(201, 154, 117, 0.35); }
         .history-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
-        .history-tags { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .history-tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
         .history-time { color: var(--text-secondary); font-size: 0.88rem; font-family: var(--font-sans); }
         .history-price { font-family: var(--font-mono); font-size: 0.92rem; }
 
@@ -290,17 +290,17 @@
         .pill {
             display: inline-flex;
             align-items: center;
-            padding: 3px 12px;
+            padding: 3px 10px;
             border-radius: 9999px;
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             font-family: var(--font-sans);
             font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.03em;
+            white-space: nowrap;
         }
-        .pill-active { background: rgba(201, 154, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.25); }
+        .pill-active { background: rgba(201, 154, 117, 0.14); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.28); }
         .pill-neutral { background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); }
-        .pill-muted { background: var(--bg-subpanel); color: var(--text-dim); }
+        .pill-alert { background: rgba(191, 160, 117, 0.14); color: var(--accent-warm); border: 1px solid rgba(191, 160, 117, 0.28); }
 
         .btn-subtle {
             background: var(--bg-subpanel);
@@ -334,9 +334,9 @@
         <section class="hero-deck">
             <div class="hero-top-row">
                 <div>
-                    <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
                         <span class="ticker-symbol">CNK</span>
-                        <span class="pill pill-active">Overvalued Momentum</span>
+                        <span class="pill pill-active">Overvalued</span> <span class="pill pill-neutral">Theatrical Moat</span> <span class="pill pill-neutral">Deleveraging</span>
                     </div>
                     <div class="company-meta">Cinemark Holdings Inc Cinemark </div>
                 </div>
@@ -899,10 +899,9 @@
         <div class="history-entry history-entry-active">
             <div class="history-top">
                 <div class="history-tags">
-                    <span class="pill pill-active">Active</span>
                     <span class="history-time">2026-08-07</span>
                     <span class="history-price">$37.24</span>
-                    <span class="pill pill-neutral">Overvalued Momentum</span>
+                    <span class="pill pill-active">Overvalued</span> <span class="pill pill-neutral">Theatrical Moat</span> <span class="pill pill-neutral">Deleveraging</span>
                 </div>
                 <button class="btn btn-subtle" onclick="toggleSnapshot(1)">Read Snapshot ▾</button>
             </div>

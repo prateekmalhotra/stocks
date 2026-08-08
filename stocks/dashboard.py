@@ -17,14 +17,20 @@ def _ensure_dirs():
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
 
 
-def format_short_label(label: str) -> str:
-    """Clamps status label to max 2 words for clean, uncluttered presentation."""
-    if not label:
-        return "Active"
-    words = [w for w in label.replace("/", " ").replace("-", " ").replace("&", " ").split() if w.strip()]
-    if not words:
-        return "Active"
-    return " ".join(words[:2]).title()
+def format_labels_pills(labels: List[str]) -> str:
+    """Formats up to 3 labels (max 2 words each) into clean, elegant pills."""
+    if not labels:
+        return '<span class="pill pill-neutral">Active</span>'
+    
+    html = ""
+    for i, lbl in enumerate(labels[:3]):
+        words = [w for w in lbl.replace("/", " ").replace("-", " ").replace("&", " ").split() if w.strip()]
+        if not words:
+            continue
+        short_lbl = " ".join(words[:2]).title()
+        pill_cls = "pill-active" if i == 0 else "pill-neutral"
+        html += f'<span class="pill {pill_cls}">{short_lbl}</span> '
+    return html.strip() or '<span class="pill pill-neutral">Active</span>'
 
 
 def build_native_svg_chart(ticker: str, current_price: float) -> str:
@@ -151,14 +157,13 @@ def build_native_svg_chart(ticker: str, current_price: float) -> str:
 def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: List[ThesisVersion]) -> str:
     """Generates a clean, soothing, book-like investment due diligence dossier."""
     current_version = history[-1] if history else None
-    short_status = format_short_label(stock.status_label)
+    labels_html = format_labels_pills(stock.labels or [stock.status_label])
 
     # Format history timeline cards
     history_cards_html = ""
     for v in reversed(history):
         is_current = (v.version == len(history))
-        current_badge = '<span class="pill pill-active">Active</span>' if is_current else f'<span class="pill pill-muted">v{v.version}</span>'
-        v_label = format_short_label(v.status_label)
+        v_labels_html = format_labels_pills(v.labels or [v.status_label])
 
         diff_box = ""
         if v.what_was_before or v.what_changes_now:
@@ -179,10 +184,9 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         <div class="history-entry {'history-entry-active' if is_current else ''}">
             <div class="history-top">
                 <div class="history-tags">
-                    {current_badge}
                     <span class="history-time">{v.date}</span>
                     <span class="history-price">${v.price_at_version:.2f}</span>
-                    <span class="pill pill-neutral">{v_label}</span>
+                    {v_labels_html}
                 </div>
                 <button class="btn btn-subtle" onclick="toggleSnapshot({v.version})">Read Snapshot ▾</button>
             </div>
@@ -466,7 +470,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         }}
         .history-entry-active {{ border-color: rgba(201, 154, 117, 0.35); }}
         .history-top {{ display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }}
-        .history-tags {{ display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }}
+        .history-tags {{ display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }}
         .history-time {{ color: var(--text-secondary); font-size: 0.88rem; font-family: var(--font-sans); }}
         .history-price {{ font-family: var(--font-mono); font-size: 0.92rem; }}
 
@@ -493,17 +497,17 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         .pill {{
             display: inline-flex;
             align-items: center;
-            padding: 3px 12px;
+            padding: 3px 10px;
             border-radius: 9999px;
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             font-family: var(--font-sans);
             font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.03em;
+            white-space: nowrap;
         }}
-        .pill-active {{ background: rgba(201, 154, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.25); }}
+        .pill-active {{ background: rgba(201, 154, 117, 0.14); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.28); }}
         .pill-neutral {{ background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); }}
-        .pill-muted {{ background: var(--bg-subpanel); color: var(--text-dim); }}
+        .pill-alert {{ background: rgba(191, 160, 117, 0.14); color: var(--accent-warm); border: 1px solid rgba(191, 160, 117, 0.28); }}
 
         .btn-subtle {{
             background: var(--bg-subpanel);
@@ -537,9 +541,9 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         <section class="hero-deck">
             <div class="hero-top-row">
                 <div>
-                    <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
                         <span class="ticker-symbol">{stock.ticker}</span>
-                        <span class="pill pill-active">{short_status}</span>
+                        {labels_html}
                     </div>
                     <div class="company-meta">{stock.company_name}</div>
                 </div>
@@ -647,23 +651,22 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
 
     for ticker, stock in sorted(watchlist.items(), key=lambda x: x[0]):
         ret_class = "pos" if stock.return_pct >= 0 else "neg"
-        short_status = format_short_label(stock.status_label)
+        labels_html = format_labels_pills(stock.labels or [stock.status_label])
         
-        # Clean company name
+        # Clean company name for hover
         clean_company = stock.company_name
         if clean_company.upper() == stock.ticker.upper():
-            clean_company = ""
+            clean_company = stock.ticker
         else:
-            # Strip redundant ticker mentions in name
             clean_company = re.sub(r"\b" + stock.ticker + r"\b", "", clean_company, flags=re.IGNORECASE).strip()
             clean_company = re.sub(r"\s+", " ", clean_company).strip()
 
         table_rows_html += f"""
-        <tr class="table-row" onclick="location.href='reports/{stock.ticker}.html'">
+        <tr class="table-row" onclick="location.href='reports/{stock.ticker}.html'" title="{clean_company}">
             <td>
                 <div class="tbl-ticker-cell">
                     <span class="tbl-symbol">{stock.ticker}</span>
-                    <span class="tbl-company">{clean_company}</span>
+                    <span class="tbl-company-hover">{clean_company}</span>
                 </div>
             </td>
             <td>
@@ -673,7 +676,9 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                 </div>
             </td>
             <td>
-                <span class="pill pill-active">{short_status}</span>
+                <div class="tbl-labels-cell">
+                    {labels_html}
+                </div>
             </td>
             <td>
                 <div class="tbl-val-cell">
@@ -693,11 +698,11 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         grid_cards_html += f"""
         <div class="grid-card" onclick="location.href='reports/{stock.ticker}.html'">
             <div class="grid-card-top">
-                <div>
-                    <span class="grid-symbol">{stock.ticker}</span>
-                    <span class="pill pill-active" style="margin-left: 10px;">{short_status}</span>
-                </div>
+                <span class="grid-symbol">{stock.ticker}</span>
                 <div class="grid-price">${stock.current_price:.2f}</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 6px 0 14px;">
+                {labels_html}
             </div>
             <div class="grid-company">{clean_company}</div>
             
@@ -738,12 +743,12 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
     else:
         for a in alerts:
             ret_class = "pos" if a.price_change_pct >= 0 else "neg"
-            short_severity = format_short_label(a.severity)
+            labels_html = format_labels_pills(a.labels or [a.severity])
             safe_payload = json.dumps({
                 "ticker": a.ticker,
                 "title": a.title,
                 "timestamp": a.timestamp,
-                "severity": short_severity,
+                "severity": a.severity,
                 "price": a.price_at_alert,
                 "change": a.price_change_pct,
                 "trigger_reason": a.trigger_reason,
@@ -756,8 +761,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             <div class="alert-item" onclick='openAlertModal({safe_payload})'>
                 <div class="alert-left">
                     <div class="alert-badges">
-                        <span class="pill pill-alert">{short_severity}</span>
                         <strong class="alert-ticker">{a.ticker}</strong>
+                        {labels_html}
                         <span class="alert-time">{a.timestamp}</span>
                     </div>
                     <div class="alert-title">{a.title}</div>
@@ -919,17 +924,33 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             font-size: 0.98rem;
             vertical-align: middle;
         }}
-        .table-row {{ cursor: pointer; transition: background 0.15s; }}
+        .table-row {{ cursor: pointer; transition: background 0.15s; position: relative; }}
         .table-row:hover {{ background: var(--bg-hover); }}
         .table-row:last-child td {{ border-bottom: none; }}
 
-        .tbl-ticker-cell {{ display: flex; flex-direction: column; gap: 2px; }}
-        .tbl-symbol {{ font-family: var(--font-serif); font-size: 1.35rem; font-weight: 500; color: var(--text-title); line-height: 1.1; }}
-        .tbl-company {{ font-size: 0.85rem; color: var(--text-dim); font-style: italic; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; }}
+        /* Clean Ticker with Smooth Hover Company Name */
+        .tbl-ticker-cell {{ display: flex; flex-direction: column; position: relative; }}
+        .tbl-symbol {{ font-family: var(--font-serif); font-size: 1.4rem; font-weight: 500; color: var(--text-title); line-height: 1; }}
+        .tbl-company-hover {{
+            font-size: 0.8rem;
+            color: var(--accent-warm);
+            font-style: italic;
+            margin-top: 3px;
+            opacity: 0.0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.2s ease-in-out;
+        }}
+        .table-row:hover .tbl-company-hover {{
+            opacity: 0.85;
+            max-height: 20px;
+        }}
 
         .tbl-price-cell {{ display: flex; flex-direction: column; gap: 2px; }}
         .tbl-price {{ font-size: 1.18rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); line-height: 1.1; }}
         .tbl-return {{ font-size: 0.8rem; font-family: var(--font-mono); }}
+
+        .tbl-labels-cell {{ display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }}
 
         .tbl-val-cell {{ display: flex; flex-direction: column; gap: 2px; }}
         .tbl-fv {{ font-size: 1.1rem; font-weight: 500; font-family: var(--font-mono); line-height: 1.1; }}
@@ -963,6 +984,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         .grid-card-top {{ display: flex; justify-content: space-between; align-items: center; }}
         .grid-symbol {{ font-family: var(--font-serif); font-size: 1.8rem; font-weight: 500; color: var(--text-title); }}
         .grid-price {{ font-size: 1.6rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }}
+        .grid-labels-row {{ display: flex; gap: 6px; flex-wrap: wrap; }}
         .grid-company {{ color: var(--text-secondary); font-size: 0.92rem; font-style: italic; margin: 4px 0 18px; }}
 
         .grid-metrics-box {{
@@ -1023,11 +1045,12 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             font-size: 0.7rem;
             font-family: var(--font-sans);
             font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.03em;
+            white-space: nowrap;
         }}
-        .pill-active {{ background: rgba(201, 154, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.25); }}
-        .pill-alert {{ background: rgba(191, 160, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(191, 160, 117, 0.25); }}
+        .pill-active {{ background: rgba(201, 154, 117, 0.14); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.28); }}
+        .pill-neutral {{ background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); }}
+        .pill-alert {{ background: rgba(191, 160, 117, 0.14); color: var(--accent-warm); border: 1px solid rgba(191, 160, 117, 0.28); }}
 
         .pos {{ color: var(--accent-green); }}
         .neg {{ color: var(--accent-red); }}
@@ -1131,9 +1154,9 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                 <table class="fin-table">
                     <thead>
                         <tr>
-                            <th>Ticker & Company</th>
+                            <th>Ticker</th>
                             <th>Market Price</th>
-                            <th>Stance</th>
+                            <th>Labels</th>
                             <th>Fair Value</th>
                             <th>Catalyst Horizon</th>
                         </tr>

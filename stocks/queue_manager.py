@@ -1,52 +1,60 @@
-"""Autonomous Queue Worker for executing stock research & review tasks."""
+"""Asynchronous Task Queue Manager for Batching & Living Surveillance."""
 
-import time
+import traceback
 from datetime import datetime
-from typing import Optional
-from stocks.models import WatchlistStock, ThesisVersion, AlertItem, TaskItem
+from typing import Optional, List
+from stocks.models import TaskItem, WatchlistStock, ThesisVersion, AlertItem
 from stocks.data_store import (
+    load_queue,
+    save_queue,
     pop_next_pending_task,
     update_task_status,
-    save_stock,
     get_stock,
-    save_thesis_version,
+    save_stock,
     load_thesis_history,
-    add_alert
+    save_thesis_version,
+    append_alert
 )
 from stocks.tracker import fetch_live_stock_info
-from stocks.gemini_agent import generate_genesis_thesis, review_stock_thesis
+from stocks.gemini_agent import generate_genesis_thesis, review_stock_thesis, sanitize_labels
 from stocks.dashboard import render_all
 
 
-def process_task(task: TaskItem):
-    """Processes a single task from the queue."""
-    ticker = task.ticker.upper()
-    print(f"\n⚡ [PROCESSING TASK] ID: {task.id} | Type: {task.task_type} | Ticker: {ticker}")
+def process_next_task() -> Optional[TaskItem]:
+    """Pops the next pending task, executes the LLM research pipeline, and updates the store."""
+    task = pop_next_pending_task()
+    if not task:
+        return None
+
+    update_task_status(task.id, status="IN_PROGRESS")
+    print(f"\n⚡ [PROCESSING TASK] ID: {task.id} | Type: {task.task_type} | Ticker: {task.ticker}")
 
     try:
-        if task.task_type in ("ANALYZE_NEW", "INITIAL_RESEARCH"):
-            _handle_genesis_task(ticker, task.notes or "")
-        elif task.task_type in ("PRICE_TRIGGER", "CATALYST_DUE", "MANUAL_REVIEW", "WEEKLY_PULSE"):
-            _handle_review_task(ticker, task.notes or "Scheduled surveillance check")
+        if task.task_type == "ANALYZE_NEW":
+            _handle_genesis_task(task.ticker, task.notes or "")
+        elif task.task_type in ("PRICE_TRIGGER", "CATALYST_REVIEW"):
+            _handle_review_task(task.ticker, task.notes or "Price threshold breach")
         else:
             raise ValueError(f"Unknown task type: {task.task_type}")
 
         update_task_status(task.id, status="COMPLETED")
-        render_all()
-        print(f"✅ [TASK COMPLETED] {task.id} for {ticker}")
+        print(f"✅ [TASK COMPLETED] {task.id} for {task.ticker}\n")
+        return task
 
     except Exception as e:
-        print(f"❌ [TASK FAILED] {task.id} for {ticker}: {e}")
+        print(f"❌ [TASK FAILED] {task.id} for {task.ticker}: {e}")
+        traceback.print_exc()
         update_task_status(task.id, status="FAILED", error=str(e))
         raise
 
 
 def _handle_genesis_task(ticker: str, notes: str):
-    """Executes the Genesis Living Thesis generation for a new stock (does NOT spam alerts)."""
+    """Executes the Genesis Living Thesis generation for a new stock."""
     company_name, current_price = fetch_live_stock_info(ticker)
     print(f"🔍 Researching {ticker} ({company_name}) at real market price ${current_price:.2f} with Gemini 3.6 Flash + Search...")
 
     meta, html_content = generate_genesis_thesis(ticker, company_name, current_price, notes)
+    labels = sanitize_labels(meta.get("labels") or meta.get("status_label"))
 
     # 1. Create Initial Thesis Version
     today_str = datetime.now().strftime("%Y-%m-%d")
@@ -54,7 +62,8 @@ def _handle_genesis_task(ticker: str, notes: str):
         version=1,
         date=today_str,
         price_at_version=current_price,
-        status_label=meta.get("status_label", "Genesis Research Active"),
+        status_label=labels[0] if labels else "Active",
+        labels=labels,
         summary_of_change=meta.get("executive_summary", "Initial institutional thesis established."),
         what_was_before="Initial Genesis baseline.",
         what_changes_now=meta.get("executive_summary", "Initial coverage initiated."),
@@ -78,6 +87,7 @@ def _handle_genesis_task(ticker: str, notes: str):
         current_price=current_price,
         return_pct=0.0,
         status_label=version_1.status_label,
+        labels=labels,
         fair_value_estimate=version_1.fair_value_estimate,
         bear_target=version_1.bear_target,
         base_target=version_1.base_target,
@@ -92,7 +102,6 @@ def _handle_genesis_task(ticker: str, notes: str):
     )
     save_stock(stock_record)
     render_all()
-    # NOTE: Initial analysis does NOT trigger a user alert. Alerts are ONLY created on real trigger events!
 
 
 def _handle_review_task(ticker: str, trigger_reason: str):
@@ -121,6 +130,7 @@ def _handle_review_task(ticker: str, trigger_reason: str):
         previous_version_num=len(history)
     )
 
+    labels = sanitize_labels(meta.get("labels") or meta.get("new_status_label"))
     new_version_num = len(history) + 1
     today_str = datetime.now().strftime("%Y-%m-%d")
 
@@ -129,7 +139,8 @@ def _handle_review_task(ticker: str, trigger_reason: str):
         version=new_version_num,
         date=today_str,
         price_at_version=current_price,
-        status_label=meta.get("new_status_label", prev_status),
+        status_label=labels[0] if labels else prev_status,
+        labels=labels,
         summary_of_change=meta.get("what_changes_now", "Living thesis updated with recent market developments."),
         what_was_before=meta.get("what_was_before", prev_summary),
         what_changes_now=meta.get("what_changes_now", ""),
@@ -149,6 +160,7 @@ def _handle_review_task(ticker: str, trigger_reason: str):
     stock.current_price = current_price
     stock.return_pct = round(((current_price - stock.baseline_price) / stock.baseline_price) * 100, 2)
     stock.status_label = new_version.status_label
+    stock.labels = labels
     stock.fair_value_estimate = new_version.fair_value_estimate
     stock.bear_target = new_version.bear_target
     stock.base_target = new_version.base_target
@@ -161,31 +173,38 @@ def _handle_review_task(ticker: str, trigger_reason: str):
     stock.total_versions = new_version_num
     save_stock(stock)
 
-    # 3. Add High-Signal Alert Item for Dashboard
-    alert = AlertItem(
+    # 3. Create Alert Record
+    price_change_pct = ((current_price - stock.baseline_price) / stock.baseline_price) * 100 if stock.baseline_price else 0.0
+    alert_obj = AlertItem(
         id=f"alert_{ticker}_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
         ticker=ticker,
-        timestamp=datetime.now().strftime("%Y-%m-%d %H:%M"),
-        title=meta.get("alert_title", f"{ticker} Trigger Fired: Thesis Re-Evaluated"),
-        severity=meta.get("alert_severity", "MATERIAL EVENT"),
+        timestamp=datetime.now().strftime("%b %d, %Y • %I:%M %p"),
+        title=meta.get("alert_title", f"{ticker} Thesis Review"),
+        severity=labels[0] if labels else "Review",
+        labels=labels,
         trigger_reason=trigger_reason,
-        what_was_before=new_version.what_was_before or "",
-        what_changes_now=new_version.what_changes_now or "",
+        what_was_before=new_version.what_was_before or "Previous baseline",
+        what_changes_now=new_version.what_changes_now or new_version.summary_of_change,
         price_at_alert=current_price,
-        price_change_pct=stock.return_pct,
+        price_change_pct=price_change_pct,
         report_url=f"reports/{ticker}.html"
     )
-    add_alert(alert)
+    append_alert(alert_obj)
+
+    # 4. Re-render HTML Dashboard
+    render_all()
 
 
 def process_all_pending_tasks():
-    """Processes all pending tasks in the queue until empty."""
-    processed = 0
+    """Processes all enqueued tasks in the queue until empty."""
+    queue = load_queue()
+    pending = [t for t in queue if t.status == "PENDING"]
+    if not pending:
+        print("No pending tasks in queue.")
+        return
+
+    print(f"⚡ Processing {len(pending)} enqueued stock(s)...")
     while True:
-        task = pop_next_pending_task()
+        task = process_next_task()
         if not task:
             break
-        process_task(task)
-        processed += 1
-        time.sleep(2)
-    return processed

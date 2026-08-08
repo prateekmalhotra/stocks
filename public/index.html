@@ -147,17 +147,33 @@
             font-size: 0.98rem;
             vertical-align: middle;
         }
-        .table-row { cursor: pointer; transition: background 0.15s; }
+        .table-row { cursor: pointer; transition: background 0.15s; position: relative; }
         .table-row:hover { background: var(--bg-hover); }
         .table-row:last-child td { border-bottom: none; }
 
-        .tbl-ticker-cell { display: flex; flex-direction: column; gap: 2px; }
-        .tbl-symbol { font-family: var(--font-serif); font-size: 1.35rem; font-weight: 500; color: var(--text-title); line-height: 1.1; }
-        .tbl-company { font-size: 0.85rem; color: var(--text-dim); font-style: italic; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; }
+        /* Clean Ticker with Smooth Hover Company Name */
+        .tbl-ticker-cell { display: flex; flex-direction: column; position: relative; }
+        .tbl-symbol { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 500; color: var(--text-title); line-height: 1; }
+        .tbl-company-hover {
+            font-size: 0.8rem;
+            color: var(--accent-warm);
+            font-style: italic;
+            margin-top: 3px;
+            opacity: 0.0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.2s ease-in-out;
+        }
+        .table-row:hover .tbl-company-hover {
+            opacity: 0.85;
+            max-height: 20px;
+        }
 
         .tbl-price-cell { display: flex; flex-direction: column; gap: 2px; }
         .tbl-price { font-size: 1.18rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); line-height: 1.1; }
         .tbl-return { font-size: 0.8rem; font-family: var(--font-mono); }
+
+        .tbl-labels-cell { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
 
         .tbl-val-cell { display: flex; flex-direction: column; gap: 2px; }
         .tbl-fv { font-size: 1.1rem; font-weight: 500; font-family: var(--font-mono); line-height: 1.1; }
@@ -191,6 +207,7 @@
         .grid-card-top { display: flex; justify-content: space-between; align-items: center; }
         .grid-symbol { font-family: var(--font-serif); font-size: 1.8rem; font-weight: 500; color: var(--text-title); }
         .grid-price { font-size: 1.6rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }
+        .grid-labels-row { display: flex; gap: 6px; flex-wrap: wrap; }
         .grid-company { color: var(--text-secondary); font-size: 0.92rem; font-style: italic; margin: 4px 0 18px; }
 
         .grid-metrics-box {
@@ -251,11 +268,12 @@
             font-size: 0.7rem;
             font-family: var(--font-sans);
             font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.03em;
+            white-space: nowrap;
         }
-        .pill-active { background: rgba(201, 154, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.25); }
-        .pill-alert { background: rgba(191, 160, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(191, 160, 117, 0.25); }
+        .pill-active { background: rgba(201, 154, 117, 0.14); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.28); }
+        .pill-neutral { background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); }
+        .pill-alert { background: rgba(191, 160, 117, 0.14); color: var(--accent-warm); border: 1px solid rgba(191, 160, 117, 0.28); }
 
         .pos { color: var(--accent-green); }
         .neg { color: var(--accent-red); }
@@ -359,20 +377,20 @@
                 <table class="fin-table">
                     <thead>
                         <tr>
-                            <th>Ticker & Company</th>
+                            <th>Ticker</th>
                             <th>Market Price</th>
-                            <th>Stance</th>
+                            <th>Labels</th>
                             <th>Fair Value</th>
                             <th>Catalyst Horizon</th>
                         </tr>
                     </thead>
                     <tbody>
                         
-        <tr class="table-row" onclick="location.href='reports/CNK.html'">
+        <tr class="table-row" onclick="location.href='reports/CNK.html'" title="Cinemark Holdings Inc Cinemark">
             <td>
                 <div class="tbl-ticker-cell">
                     <span class="tbl-symbol">CNK</span>
-                    <span class="tbl-company">Cinemark Holdings Inc Cinemark</span>
+                    <span class="tbl-company-hover">Cinemark Holdings Inc Cinemark</span>
                 </div>
             </td>
             <td>
@@ -382,7 +400,9 @@
                 </div>
             </td>
             <td>
-                <span class="pill pill-active">Overvalued Momentum</span>
+                <div class="tbl-labels-cell">
+                    <span class="pill pill-active">Overvalued</span> <span class="pill pill-neutral">Theatrical Moat</span> <span class="pill pill-neutral">Deleveraging</span>
+                </div>
             </td>
             <td>
                 <div class="tbl-val-cell">
@@ -407,11 +427,11 @@
                 
         <div class="grid-card" onclick="location.href='reports/CNK.html'">
             <div class="grid-card-top">
-                <div>
-                    <span class="grid-symbol">CNK</span>
-                    <span class="pill pill-active" style="margin-left: 10px;">Overvalued Momentum</span>
-                </div>
+                <span class="grid-symbol">CNK</span>
                 <div class="grid-price">$37.24</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 6px 0 14px;">
+                <span class="pill pill-active">Overvalued</span> <span class="pill pill-neutral">Theatrical Moat</span> <span class="pill pill-neutral">Deleveraging</span>
             </div>
             <div class="grid-company">Cinemark Holdings Inc Cinemark</div>
             

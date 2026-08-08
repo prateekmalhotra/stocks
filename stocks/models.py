@@ -11,7 +11,8 @@ class ThesisVersion(BaseModel):
     version: int
     date: str
     price_at_version: float
-    status_label: str
+    status_label: str = "Active"
+    labels: List[str] = Field(default_factory=list)  # Max 3 labels, max 2 words each
     summary_of_change: str  # How the company/thesis changed in this version
     what_was_before: Optional[str] = ""
     what_changes_now: Optional[str] = ""
@@ -32,7 +33,8 @@ class AlertItem(BaseModel):
     ticker: str
     timestamp: str
     title: str
-    severity: str = "INFO"  # LLM-assigned: e.g. "HIGH CONVICTION ACCUMULATION", "THESIS DENTED", "BREAKOUT"
+    severity: str = "Review"
+    labels: List[str] = Field(default_factory=list)
     trigger_reason: str
     what_was_before: str
     what_changes_now: str
@@ -48,7 +50,8 @@ class WatchlistStock(BaseModel):
     baseline_price: float
     current_price: float
     return_pct: float
-    status_label: str
+    status_label: str = "Active"
+    labels: List[str] = Field(default_factory=list)  # Max 3 labels, max 2 words each
     fair_value_estimate: str
     bear_target: str
     base_target: str
@@ -59,15 +62,15 @@ class WatchlistStock(BaseModel):
     next_catalyst_event: Optional[str] = ""
     last_updated: str
     total_versions: int = 1
-    report_path: str = ""
+    report_path: str
 
 
 class TaskItem(BaseModel):
-    """Task in the autonomous processing queue."""
+    """Represents a work item in the queue."""
     id: str
-    task_type: str  # ANALYZE_NEW, PRICE_TRIGGER, CATALYST_DUE, MANUAL_REVIEW
+    task_type: str
     ticker: str
     notes: Optional[str] = ""
-    created_at: str
-    status: str = "PENDING"  # PENDING, IN_PROGRESS, COMPLETED, FAILED
-    error_message: Optional[str] = None
+    created_at: str = Field(default_factory=lambda: datetime.now().isoformat())
+    status: str = "PENDING"
+    error: Optional[str] = None
