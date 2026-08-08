@@ -391,24 +391,27 @@ Current Price: ${current_price:.2f} (Change: {price_change_pct:+.2f}%)
 Previous Stance: {previous_status}
 Previous Thesis Summary: {previous_thesis_summary}
 
-[ANALYTICAL AUTONOMY & THESIS INFLECTION GUIDANCE]:
-You have full analytical freedom to evaluate the situation and determine the updated thesis:
-- Did the core fundamental thesis hold, improve, or break?
-- Conviction & Stance Changes:
-  - If the valuation or fundamentals change to a Buy, Strong Buy, Screaming Buy, Hold, Trim, Sell, or Screaming Sell, explicitly state this conviction in the alert headline, the "what_changes_now" summary, and the updated research memo.
-- Dynamic 3-Label Updates:
-  - Update the 1 to 3 dynamic labels (max 2 words each) to reflect the new reality (e.g. ["Screaming Buy", "Moat Expanding", "Deleveraged"] or ["Screaming Sell", "Thesis Broken", "Multiple Compression"]).
-- Level-Headed Ballpark Valuation:
-  - Update the ballpark valuation, fair value, scenario matrix, and alert corridors. Never force numbers to match the stock price. Treat SBC as a 100% real cash charge.
+[ANALYTICAL AUTONOMY & THESIS INFLECTION DIRECTIVES]:
+You have full analytical freedom to evaluate the new facts and determine the evolved thesis:
+1. Primary Source Audit: Search the latest quarterly earnings release, latest earnings call transcript, material corporate announcements, and latest 13F whale filings.
+2. What Changed & Thesis Impact:
+   - Detail what new information has arrived.
+   - Explain whether this reinforces our thesis (making the opportunity safer / higher confidence) or breaks/weakens it (increasing execution risk / lowering fair value).
+   - Formulate a clear 2-3 sentence executive evolution summary for "what_changes_now".
+3. Dynamic Labels:
+   - Update Label #1 (MANDATORY PRIMARY PILL) to reflect the new confidence and risk profile (e.g. "High Conviction", "Safe Compounder", "Turnaround Risk", "High Risk", "Asymmetric Upside", "Thesis Broken").
+   - Update Labels #2 & #3 for key economic drivers (e.g. "Buyback Cannibal", "Operating Leverage").
+4. Ballpark Valuation:
+   - Update the fair value and Bear / Base / Bull scenario targets. Treat SBC as a 100% real cash charge and account for Net Cash / Net Debt.
 
 Output in TWO parts:
 Part 1: JSON metadata in ```json ... ```:
 {{
   "alert_title": "<Punchy headline stating if thesis shifted or conviction changed>",
   "alert_severity": "<1-2 word severity, e.g. Strong Buy, Caution, Thesis Broken, Accumulate>",
-  "labels": ["<Label 1>", "<Label 2>", "<Label 3>"],
+  "labels": ["<Confidence/Risk Label 1>", "<Play Driver Label 2>", "<Play Driver Label 3>"],
   "what_was_before": "<Summary of previous thesis>",
-  "what_changes_now": "<What changed, why conviction shifted, and our new forward stance>",
+  "what_changes_now": "<Comprehensive summary of what new information arrived, how it impacts risk/safety, and our updated forward conviction>",
   "new_fair_value": "$<Updated Fair Value>",
   "new_bear_target": "$<Updated Bear>",
   "new_base_target": "$<Updated Base>",

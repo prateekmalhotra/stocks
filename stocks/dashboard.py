@@ -325,7 +325,27 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             </div>
             """
 
-    active_content = clean_and_sanitize_html(current_version.full_html_content if current_version else "<p>No active thesis found.</p>")
+    raw_active_content = clean_and_sanitize_html(current_version.full_html_content if current_version else "<p>No active thesis found.</p>")
+    
+    # Prepend highlighted evolution notes if this is an updated version (v2, v3, etc.)
+    evolution_banner_html = ""
+    if current_version and current_version.version > 1:
+        v_diff = current_version.what_changes_now or current_version.summary_of_change
+        v_trigger = current_version.trigger_reason or "Surveillance Review"
+        evolution_banner_html = f"""
+        <div class="update-banner-box">
+            <div class="update-banner-header">
+                <span class="update-banner-badge">⚡ Version {current_version.version} Thesis Evolution • {current_version.date}</span>
+                <span class="update-trigger-pill">Trigger: {v_trigger}</span>
+            </div>
+            <div class="update-banner-body">
+                <div class="update-banner-title">What Changed & Forward Thesis Impact</div>
+                <div class="update-banner-desc">{v_diff}</div>
+            </div>
+        </div>
+        """
+
+    active_content = evolution_banner_html + raw_active_content
     chart_html = build_native_svg_chart(ticker, stock.current_price)
 
     return f"""<!DOCTYPE html>
@@ -725,6 +745,57 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             color: #E2DDD5 !important;
             padding: 2px 6px;
             border-radius: 4px;
+        }}
+
+        /* Evolution Update Highlight Banner at top of Memo */
+        .update-banner-box {{
+            background: #1C1B18 !important;
+            border: 1px solid rgba(201, 154, 117, 0.3) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 12px !important;
+            padding: 24px 28px !important;
+            margin-bottom: 36px !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }}
+        .update-banner-header {{
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 14px !important;
+            padding-bottom: 10px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
+        }}
+        .update-banner-badge {{
+            font-family: var(--font-sans) !important;
+            font-size: 0.76rem !important;
+            font-weight: 600 !important;
+            color: var(--accent-warm) !important;
+            letter-spacing: 0.04em !important;
+            text-transform: uppercase !important;
+        }}
+        .update-trigger-pill {{
+            font-family: var(--font-mono) !important;
+            font-size: 0.74rem !important;
+            color: var(--text-secondary) !important;
+            background: var(--bg-subpanel) !important;
+            padding: 3px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid var(--border-color) !important;
+        }}
+        .update-banner-title {{
+            font-family: var(--font-serif) !important;
+            font-size: 1.22rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            margin-bottom: 8px !important;
+        }}
+        .update-banner-desc {{
+            font-family: var(--font-serif) !important;
+            font-size: 1.08rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-body) !important;
         }}
 
         /* History */
