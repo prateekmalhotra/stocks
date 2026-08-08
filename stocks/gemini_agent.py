@@ -111,6 +111,27 @@ def sanitize_labels(labels: Any) -> List[str]:
     return clean_list if clean_list else ["High Conviction", "Deep Value", "Margin Expansion"]
 
 
+def normalize_action_signal(signal: Any, default: str = "BUY") -> str:
+    """Normalizes action signal into one of BUY, HOLD, CAUTION, AVOID.
+    - BUY (Green subtle pulsing beacon): Thesis accelerating / deep value accumulation zone.
+    - HOLD (Yellow subtle pulsing beacon): Thesis steady / patient wait / hold for catalyst.
+    - CAUTION (Orange subtle pulsing beacon): Thesis facing headwinds / execution friction / trim.
+    - AVOID (Red subtle pulsing beacon): Thesis broken / fundamental breakdown / exit.
+    """
+    if not signal or not isinstance(signal, str):
+        return default
+    sig = signal.upper().strip()
+    if any(k in sig for k in ["BROKEN", "AVOID", "EXIT", "SELL", "DANGER", "CRITICAL"]):
+        return "AVOID"
+    elif any(k in sig for k in ["CAUTION", "TRIM", "HEADWIND", "WARNING", "FRICTION", "EXECUTION RISK"]):
+        return "CAUTION"
+    elif any(k in sig for k in ["WAIT", "HOLD", "MONITOR", "PATIENT", "NEUTRAL", "STEADY"]):
+        return "HOLD"
+    elif any(k in sig for k in ["STRONG", "BUY", "ACCUMULATE", "ADD", "ENTRY", "OPPORTUNITY"]):
+        return "BUY"
+    return default
+
+
 def call_gemini_with_search(prompt: str, system_instruction: str = "", temperature: float = 0.4) -> str:
     """Calls Gemini 3.6 Flash via REST API with Google Search Grounding, exponential retry, and safety fallback."""
     import time
@@ -339,6 +360,7 @@ Return your plan strictly as a JSON object in ```json ... ```:
     "ticker": "{ticker}",
     "company_name": "{company_name}",
     "labels": ["<Confidence/Risk Label 1>", "<Play Driver Label 2>", "<Play Driver Label 3>"],
+    "action_signal": "<BUY | HOLD | CAUTION | AVOID (Actionable stance: BUY if thesis accelerating/deep value, HOLD if steady/wait, CAUTION if headwinds/trim, AVOID if broken)>",
     "fair_value_estimate": "$<Estimated Fair Value>",
     "bear_target": "$<Price> (<% Upside/Downside>)",
     "base_target": "$<Price> (<% Upside/Downside>)",
@@ -514,6 +536,7 @@ Part 1: JSON metadata in ```json ... ```:
 {{
   "alert_title": "<Punchy headline stating if thesis shifted, conviction changed, or catalyst date refreshed>",
   "alert_severity": "<1-2 word severity, e.g. Strong Buy, Caution, Thesis Broken, Accumulate, Calendar Update>",
+  "action_signal": "<BUY | HOLD | CAUTION | AVOID (BUY if thesis accelerating/get in now, HOLD if steady/wait, CAUTION if headwinds/trim, AVOID if thesis broken)>",
   "labels": ["<Confidence/Risk Label 1>", "<Play Driver Label 2>", "<Play Driver Label 3>"],
   "what_was_before": "<Summary of previous thesis>",
   "what_changes_now": "<Comprehensive summary of what new information arrived, how it impacts risk/safety, and our updated forward conviction>",

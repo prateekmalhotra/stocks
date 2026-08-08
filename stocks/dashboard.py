@@ -3,7 +3,7 @@
 import json
 import re
 from pathlib import Path
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 from stocks.models import WatchlistStock, AlertItem, ThesisVersion
 from stocks.data_store import load_watchlist, load_alerts, load_thesis_history
 from stocks.tracker import fetch_all_chart_ranges
@@ -57,6 +57,25 @@ def sanitize_catalyst_desc(desc: str) -> str:
     if len(words) > 4:
         return " ".join(words[:4])
     return " ".join(words)
+
+
+def format_action_beacon(signal: Optional[str]) -> str:
+    """Renders a subtle Hinge-style pulsing status beacon next to ticker/company."""
+    sig = (signal or "BUY").upper().strip()
+    if any(k in sig for k in ["BROKEN", "AVOID", "EXIT", "SELL", "DANGER", "CRITICAL"]):
+        css = "beacon-avoid"
+        tooltip = "Action Stance: Avoid / Exit (Thesis Broken)"
+    elif any(k in sig for k in ["CAUTION", "TRIM", "HEADWIND", "WARNING", "FRICTION", "DETERIORATING"]):
+        css = "beacon-caution"
+        tooltip = "Action Stance: Caution (Facing Headwinds / Execution Risk)"
+    elif any(k in sig for k in ["WAIT", "HOLD", "MONITOR", "PATIENT", "NEUTRAL", "STEADY"]):
+        css = "beacon-hold"
+        tooltip = "Action Stance: Hold / Wait (Thesis Steady)"
+    else:
+        css = "beacon-buy"
+        tooltip = "Action Stance: Strong Buy / Accumulate (Thesis Accelerating)"
+    
+    return f'<span class="status-beacon {css}" title="{tooltip}"><span class="beacon-ping"></span><span class="beacon-dot"></span></span>'
 
 
 def build_native_svg_chart(ticker: str, current_price: float) -> str:
@@ -307,6 +326,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 </div>
                 """
                 
+            v_beacon_html = format_action_beacon(getattr(v, "action_signal", "BUY"))
             sanitized_snapshot = clean_and_sanitize_html(v.full_html_content)
             history_cards_html += f"""
             <div class="history-entry {'history-entry-active' if is_current else ''}">
@@ -314,6 +334,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                     <div class="history-tags">
                         <span class="history-time">{v.date}</span>
                         <span class="history-price">${v.price_at_version:.2f}</span>
+                        {v_beacon_html}
                         {v_labels_html}
                     </div>
                     <button class="btn btn-subtle" onclick="toggleSnapshot({v.version})">Read Snapshot ▾</button>
@@ -352,6 +373,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 
     active_content = evolution_banner_html + raw_active_content
     chart_html = build_native_svg_chart(ticker, stock.current_price)
+    dossier_beacon = format_action_beacon(getattr(stock, "action_signal", "BUY"))
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -934,6 +956,49 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 
         .snapshot-drawer {{ margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color); }}
 
+        /* Subtle Hinge-style Status Pulse Beacon */
+        .status-beacon {{
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 9px;
+            height: 9px;
+            margin-left: 7px;
+            vertical-align: middle;
+            cursor: help;
+        }}
+        .beacon-dot {{
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            position: relative;
+            z-index: 2;
+        }}
+        .beacon-ping {{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            animation: beacon-ripple 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+            z-index: 1;
+        }}
+        .beacon-buy .beacon-dot {{ background-color: #10b981; box-shadow: 0 0 6px rgba(16, 185, 129, 0.7); }}
+        .beacon-buy .beacon-ping {{ background-color: rgba(16, 185, 129, 0.45); }}
+        .beacon-hold .beacon-dot {{ background-color: #f59e0b; box-shadow: 0 0 6px rgba(245, 158, 11, 0.7); }}
+        .beacon-hold .beacon-ping {{ background-color: rgba(245, 158, 11, 0.45); }}
+        .beacon-caution .beacon-dot {{ background-color: #f97316; box-shadow: 0 0 6px rgba(249, 115, 22, 0.7); }}
+        .beacon-caution .beacon-ping {{ background-color: rgba(249, 115, 22, 0.45); }}
+        .beacon-avoid .beacon-dot {{ background-color: #ef4444; box-shadow: 0 0 6px rgba(239, 68, 68, 0.7); }}
+        .beacon-avoid .beacon-ping {{ background-color: rgba(239, 68, 68, 0.45); }}
+        @keyframes beacon-ripple {{
+            0% {{ transform: scale(0.9); opacity: 0.85; }}
+            70% {{ transform: scale(2.5); opacity: 0; }}
+            100% {{ transform: scale(2.5); opacity: 0; }}
+        }}
+
         .pos {{ color: var(--accent-green); }}
         .neg {{ color: var(--accent-red); }}
     </style>
@@ -952,7 +1017,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             <div class="hero-top-row">
                 <div>
                     <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-                        <span class="ticker-symbol">{stock.ticker}</span>
+                        <span class="ticker-symbol">{stock.ticker}{dossier_beacon}</span>
                         {labels_html}
                     </div>
                     <div class="company-meta">{stock.company_name}</div>
@@ -1070,15 +1135,10 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
     for ticker, stock in sorted(watchlist.items(), key=lambda x: x[0]):
         ret_class = "pos" if stock.return_pct >= 0 else "neg"
         labels_html = format_labels_pills(stock.labels or [stock.status_label])
+        stock_beacon = format_action_beacon(getattr(stock, "action_signal", "BUY"))
         
-        # Clean company name (strip trailing dots/periods)
-        clean_company = stock.company_name
-        if clean_company.upper() == stock.ticker.upper():
-            clean_company = stock.ticker
-        else:
-            clean_company = re.sub(r"\b" + stock.ticker + r"\b", "", clean_company, flags=re.IGNORECASE).strip()
-            clean_company = re.sub(r"\s+", " ", clean_company).strip()
-        clean_company = clean_company.rstrip(".")
+        # Clean company name (preserve full name like JD.com, Inc. without cutting ticker prefix)
+        clean_company = (stock.company_name or stock.ticker).strip().rstrip(".")
 
         # Clean percentage delta for fair value
         pct_delta_str = extract_pct_delta(stock.base_target, stock.current_price, stock.fair_value_estimate)
@@ -1090,7 +1150,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         <tr class="table-row" onclick="location.href='reports/{stock.ticker}.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">{stock.ticker}</span>
+                    <span class="tbl-symbol">{stock.ticker}{stock_beacon}</span>
                     <span class="tbl-company-hover">{clean_company}</span>
                 </div>
             </td>
@@ -1124,7 +1184,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         grid_cards_html += f"""
         <div class="grid-card" onclick="location.href='reports/{stock.ticker}.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">{stock.ticker}</span>
+                <span class="grid-symbol">{stock.ticker}{stock_beacon}</span>
                 <div class="grid-price">${stock.current_price:.2f}</div>
             </div>
             <div class="grid-labels-row" style="margin: 6px 0 14px;">
@@ -1162,6 +1222,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
     for a in alerts:
         ret_class = "pos" if a.price_change_pct >= 0 else "neg"
         labels_html = format_labels_pills(a.labels or [a.severity])
+        alert_beacon = format_action_beacon(getattr(a, "action_signal", "BUY"))
         alert_id = f"{a.ticker}_{a.timestamp.replace(' ', '_').replace(':', '')}"
         safe_payload = json.dumps({
             "id": alert_id,
@@ -1183,7 +1244,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         <div class="alert-item" data-alert-id="{alert_id}" onclick='openAlertModal({safe_payload})'>
             <div class="alert-left">
                 <div class="alert-badges">
-                    <strong class="alert-ticker">{a.ticker}</strong>
+                    <strong class="alert-ticker">{a.ticker}{alert_beacon}</strong>
                     {labels_html}
                     <span class="alert-time">{a.timestamp}</span>
                 </div>
@@ -1582,6 +1643,49 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             width: 100% !important;
             margin: 0 auto !important;
             line-height: 1.35 !important;
+        }}
+
+        /* Subtle Hinge-style Status Pulse Beacon */
+        .status-beacon {{
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 9px;
+            height: 9px;
+            margin-left: 7px;
+            vertical-align: middle;
+            cursor: help;
+        }}
+        .beacon-dot {{
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            position: relative;
+            z-index: 2;
+        }}
+        .beacon-ping {{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            animation: beacon-ripple 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+            z-index: 1;
+        }}
+        .beacon-buy .beacon-dot {{ background-color: #10b981; box-shadow: 0 0 6px rgba(16, 185, 129, 0.7); }}
+        .beacon-buy .beacon-ping {{ background-color: rgba(16, 185, 129, 0.45); }}
+        .beacon-hold .beacon-dot {{ background-color: #f59e0b; box-shadow: 0 0 6px rgba(245, 158, 11, 0.7); }}
+        .beacon-hold .beacon-ping {{ background-color: rgba(245, 158, 11, 0.45); }}
+        .beacon-caution .beacon-dot {{ background-color: #f97316; box-shadow: 0 0 6px rgba(249, 115, 22, 0.7); }}
+        .beacon-caution .beacon-ping {{ background-color: rgba(249, 115, 22, 0.45); }}
+        .beacon-avoid .beacon-dot {{ background-color: #ef4444; box-shadow: 0 0 6px rgba(239, 68, 68, 0.7); }}
+        .beacon-avoid .beacon-ping {{ background-color: rgba(239, 68, 68, 0.45); }}
+        @keyframes beacon-ripple {{
+            0% {{ transform: scale(0.9); opacity: 0.85; }}
+            70% {{ transform: scale(2.5); opacity: 0; }}
+            100% {{ transform: scale(2.5); opacity: 0; }}
         }}
 
         /* Modal */

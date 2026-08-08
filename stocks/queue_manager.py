@@ -12,7 +12,7 @@ from stocks.data_store import (
     add_alert
 )
 from stocks.tracker import fetch_live_stock_info
-from stocks.gemini_agent import generate_genesis_thesis, review_stock_thesis, sanitize_labels, normalize_catalyst_date
+from stocks.gemini_agent import generate_genesis_thesis, review_stock_thesis, sanitize_labels, normalize_catalyst_date, normalize_action_signal
 from stocks.dashboard import render_all
 
 
@@ -64,6 +64,7 @@ def _handle_genesis_task(ticker: str, notes: str):
 
     meta, html_content = generate_genesis_thesis(ticker, company_name, current_price, notes)
     labels = sanitize_labels(meta.get("labels") or meta.get("status_label"))
+    action_signal = normalize_action_signal(meta.get("action_signal", "BUY"))
 
     # 1. Create Initial Thesis Version
     today_str = datetime.now().strftime("%Y-%m-%d")
@@ -73,6 +74,7 @@ def _handle_genesis_task(ticker: str, notes: str):
         price_at_version=current_price,
         status_label=labels[0] if labels else "Active",
         labels=labels,
+        action_signal=action_signal,
         summary_of_change=meta.get("executive_summary", "Initial institutional thesis established."),
         what_was_before="Initial Genesis baseline.",
         what_changes_now=meta.get("executive_summary", "Initial coverage initiated."),
@@ -97,6 +99,7 @@ def _handle_genesis_task(ticker: str, notes: str):
         return_pct=0.0,
         status_label=version_1.status_label,
         labels=labels,
+        action_signal=action_signal,
         fair_value_estimate=version_1.fair_value_estimate,
         bear_target=version_1.bear_target,
         base_target=version_1.base_target,
@@ -140,6 +143,7 @@ def _handle_review_task(ticker: str, trigger_reason: str):
     )
 
     labels = sanitize_labels(meta.get("labels") or meta.get("new_status_label"))
+    action_signal = normalize_action_signal(meta.get("action_signal", "BUY"))
     new_version_num = len(history) + 1
     today_str = datetime.now().strftime("%Y-%m-%d")
 
@@ -150,6 +154,7 @@ def _handle_review_task(ticker: str, trigger_reason: str):
         price_at_version=current_price,
         status_label=labels[0] if labels else prev_status,
         labels=labels,
+        action_signal=action_signal,
         summary_of_change=meta.get("what_changes_now", "Living thesis updated with recent market developments."),
         what_was_before=meta.get("what_was_before", prev_summary),
         what_changes_now=meta.get("what_changes_now", ""),
@@ -170,6 +175,7 @@ def _handle_review_task(ticker: str, trigger_reason: str):
     stock.return_pct = round(((current_price - stock.baseline_price) / stock.baseline_price) * 100, 2)
     stock.status_label = new_version.status_label
     stock.labels = labels
+    stock.action_signal = action_signal
     stock.fair_value_estimate = new_version.fair_value_estimate
     stock.bear_target = new_version.bear_target
     stock.base_target = new_version.base_target
@@ -191,6 +197,7 @@ def _handle_review_task(ticker: str, trigger_reason: str):
         title=meta.get("alert_title", f"{ticker} Alert: Price Threshold Breached"),
         severity=labels[0] if labels else "Review",
         labels=labels,
+        action_signal=action_signal,
         trigger_reason=trigger_reason,
         what_was_before=meta.get("what_was_before", prev_summary),
         what_changes_now=meta.get("what_changes_now", "Living thesis updated with recent market developments."),
