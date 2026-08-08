@@ -70,5 +70,29 @@
     "last_updated": "2026-08-08",
     "total_versions": 1,
     "report_path": "reports/BYD.html"
+  },
+  "GOOG": {
+    "ticker": "GOOG",
+    "company_name": "Alphabet Inc.",
+    "baseline_price": 353.47,
+    "current_price": 353.47,
+    "return_pct": 0.0,
+    "status_label": "Safe Compounder",
+    "labels": [
+      "Safe Compounder",
+      "Ai Monetization",
+      "Moat Expansion"
+    ],
+    "fair_value_estimate": "$420.00",
+    "bear_target": "$290.00 (-18.0%)",
+    "base_target": "$420.00 (+18.8%)",
+    "bull_target": "$520.00 (+47.1%)",
+    "upper_alert_threshold": 400.0,
+    "lower_alert_threshold": 310.0,
+    "next_catalyst_date": "October 2026",
+    "next_catalyst_event": "Q3 2026 Earnings Release",
+    "last_updated": "2026-08-08",
+    "total_versions": 1,
+    "report_path": "reports/GOOG.html"
   }
 }
