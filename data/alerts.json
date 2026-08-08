@@ -1,1 +1,19 @@
-[]
+[
+  {
+    "id": "alert-cnk-001",
+    "ticker": "CNK",
+    "timestamp": "2026-08-08 09:30 EST",
+    "title": "Upper Valuation Corridor Breach (.24)",
+    "severity": "Overvalued",
+    "labels": [
+      "Overvalued",
+      "Peak Multiple"
+    ],
+    "trigger_reason": "Market price rallied past conservative normalized cash flow corridor (.00+)",
+    "what_was_before": "Initial baseline modeled mid-cycle normalized fair value at .50 based on 100 wide-release studio slates and M maintenance CapEx.",
+    "what_changes_now": "Momentum squeeze capitalization. Multiple expanded to 14.2x TEV/Owner FCF despite .37B net debt overhang. Reiterating Hold/Trim discipline; upside asymmetry is fully exhausted.",
+    "price_at_alert": 37.24,
+    "price_change_pct": 0.0,
+    "report_url": "reports/CNK.html"
+  }
+]

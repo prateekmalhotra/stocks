@@ -33,6 +33,23 @@ def format_labels_pills(labels: List[str]) -> str:
     return html.strip() or '<span class="pill pill-neutral">Active</span>'
 
 
+def extract_pct_delta(base_target: str, current_price: float, fair_value_str: str) -> str:
+    """Extracts clean percentage difference without repeating the dollar value."""
+    # Look for parenthetical percentage like (-39.6%)
+    match = re.search(r"\(([-+]?\d+(?:\.\d+)?%)\)", base_target)
+    if match:
+        return match.group(1)
+    
+    # Otherwise calculate from fair value and current price
+    fv_match = re.search(r"[-+]?\d+(?:\.\d+)?", fair_value_str.replace(",", ""))
+    if fv_match and current_price > 0:
+        fv = float(fv_match.group(0))
+        diff_pct = ((fv - current_price) / current_price) * 100
+        return f"{diff_pct:+.1f}%"
+        
+    return ""
+
+
 def build_native_svg_chart(ticker: str, current_price: float) -> str:
     """Builds a lightweight, native interactive SVG area chart with mouse hover tracking."""
     points = fetch_historical_chart_data(ticker, "1y")
@@ -424,15 +441,18 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             border-spacing: 0 !important;
             margin: 32px 0 !important;
             background: #1B1A18 !important;
+            background-color: #1B1A18 !important;
             border-radius: 12px !important;
             overflow: hidden !important;
             border: 1px solid rgba(230, 220, 205, 0.08) !important;
         }}
         .memo-container tr, .memo-container td, .memo-container th {{
             background: transparent !important;
+            background-color: transparent !important;
         }}
         .memo-container th {{
             background: #23221E !important;
+            background-color: #23221E !important;
             color: #C99A75 !important;
             font-family: var(--font-sans) !important;
             font-size: 0.72rem !important;
@@ -455,10 +475,12 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             border-bottom: none !important;
         }}
         .memo-container tr:nth-child(even) td {{
-            background: rgba(255, 255, 255, 0.015) !important;
+            background: rgba(255, 255, 255, 0.02) !important;
+            background-color: rgba(255, 255, 255, 0.02) !important;
         }}
         .memo-container tr:hover td {{
-            background: rgba(201, 154, 117, 0.04) !important;
+            background: rgba(201, 154, 117, 0.05) !important;
+            background-color: rgba(201, 154, 117, 0.05) !important;
         }}
         .memo-container td strong, .memo-container td b {{
             color: #E8E3DA !important;
@@ -678,7 +700,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         ret_class = "pos" if stock.return_pct >= 0 else "neg"
         labels_html = format_labels_pills(stock.labels or [stock.status_label])
         
-        # Clean company name for hover
+        # Clean company name
         clean_company = stock.company_name
         if clean_company.upper() == stock.ticker.upper():
             clean_company = stock.ticker
@@ -686,8 +708,11 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             clean_company = re.sub(r"\b" + stock.ticker + r"\b", "", clean_company, flags=re.IGNORECASE).strip()
             clean_company = re.sub(r"\s+", " ", clean_company).strip()
 
+        # Clean percentage delta for fair value
+        pct_delta_str = extract_pct_delta(stock.base_target, stock.current_price, stock.fair_value_estimate)
+
         table_rows_html += f"""
-        <tr class="table-row" onclick="location.href='reports/{stock.ticker}.html'" title="{clean_company}">
+        <tr class="table-row" onclick="location.href='reports/{stock.ticker}.html'">
             <td>
                 <div class="tbl-ticker-cell">
                     <span class="tbl-symbol">{stock.ticker}</span>
@@ -708,13 +733,13 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             <td>
                 <div class="tbl-val-cell">
                     <span class="tbl-fv" style="color: var(--accent-warm);">{stock.fair_value_estimate}</span>
-                    <span class="tbl-base">{stock.base_target}</span>
+                    {f'<span class="tbl-base">{pct_delta_str}</span>' if pct_delta_str else ''}
                 </div>
             </td>
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">{stock.next_catalyst_date or 'TBD'}</span>
-                    <span class="tbl-cat-desc">{stock.next_catalyst_event[:50] if stock.next_catalyst_event else ''}</span>
+                    <span class="tbl-cat-desc">{stock.next_catalyst_event[:55] if stock.next_catalyst_event else ''}</span>
                 </div>
             </td>
         </tr>
@@ -953,37 +978,89 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         .table-row:hover {{ background: var(--bg-hover); }}
         .table-row:last-child td {{ border-bottom: none; }}
 
-        /* Clean Ticker with Smooth Hover Company Name */
-        .tbl-ticker-cell {{ display: flex; flex-direction: column; position: relative; }}
-        .tbl-symbol {{ font-family: var(--font-serif); font-size: 1.4rem; font-weight: 500; color: var(--text-title); line-height: 1; }}
-        .tbl-company-hover {{
-            font-size: 0.8rem;
-            color: var(--accent-warm);
-            font-style: italic;
-            margin-top: 3px;
-            opacity: 0.0;
-            max-height: 0;
-            overflow: hidden;
-            transition: all 0.2s ease-in-out;
+        /* Spacious Ticker Column with No Overlap */
+        .tbl-ticker-cell {{
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            line-height: 1.3;
         }}
-        .table-row:hover .tbl-company-hover {{
-            opacity: 0.85;
-            max-height: 20px;
+        .tbl-symbol {{
+            font-family: var(--font-serif);
+            font-size: 1.35rem;
+            font-weight: 500;
+            color: var(--text-title);
+            line-height: 1.2;
+        }}
+        .tbl-company-hover {{
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            line-height: 1.2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 200px;
         }}
 
-        .tbl-price-cell {{ display: flex; flex-direction: column; gap: 2px; }}
-        .tbl-price {{ font-size: 1.18rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); line-height: 1.1; }}
+        .tbl-price-cell {{
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            line-height: 1.3;
+        }}
+        .tbl-price {{
+            font-size: 1.2rem;
+            font-weight: 500;
+            font-family: var(--font-mono);
+            color: var(--text-title);
+            line-height: 1.2;
+        }}
         .tbl-return {{ font-size: 0.8rem; font-family: var(--font-mono); }}
 
         .tbl-labels-cell {{ display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }}
 
-        .tbl-val-cell {{ display: flex; flex-direction: column; gap: 2px; }}
-        .tbl-fv {{ font-size: 1.1rem; font-weight: 500; font-family: var(--font-mono); line-height: 1.1; }}
-        .tbl-base {{ font-size: 0.82rem; color: var(--text-secondary); }}
+        .tbl-val-cell {{
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            line-height: 1.3;
+        }}
+        .tbl-fv {{
+            font-size: 1.15rem;
+            font-weight: 500;
+            font-family: var(--font-mono);
+            line-height: 1.2;
+        }}
+        .tbl-base {{
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            font-family: var(--font-mono);
+            line-height: 1.2;
+        }}
 
-        .tbl-catalyst-cell {{ display: flex; flex-direction: column; gap: 2px; max-width: 240px; }}
-        .tbl-cat-date {{ font-family: var(--font-sans); font-size: 0.85rem; font-weight: 500; color: var(--text-title); }}
-        .tbl-cat-desc {{ font-size: 0.78rem; color: var(--text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
+        .tbl-catalyst-cell {{
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            max-width: 250px;
+            line-height: 1.3;
+        }}
+        .tbl-cat-date {{
+            font-family: var(--font-sans);
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--text-title);
+            line-height: 1.2;
+        }}
+        .tbl-cat-desc {{
+            font-size: 0.78rem;
+            color: var(--text-dim);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.2;
+        }}
 
         /* Grid View */
         .grid-cards-wrap {{
@@ -1211,8 +1288,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         <div class="modal-body-card" id="modal-card">
             <button class="modal-x" onclick="closeAlertModal()">✕</button>
             <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                <span id="modal-badge" class="pill pill-alert">ALERT</span>
                 <strong id="modal-ticker" style="font-family: var(--font-serif); font-size: 1.35rem; color: var(--text-title);">TICKER</strong>
+                <span id="modal-badge" class="pill pill-alert">ALERT</span>
                 <span id="modal-time" style="color: var(--text-dim); font-size: 0.8rem; font-family: var(--font-mono);">Timestamp</span>
             </div>
             <h2 id="modal-title" style="font-family: var(--font-serif); font-size: 1.45rem; color: var(--text-title); margin-bottom: 10px; letter-spacing: -0.02em;">Alert Headline</h2>
