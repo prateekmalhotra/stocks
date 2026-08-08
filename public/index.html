@@ -455,7 +455,7 @@
         <!-- Navigation Controls -->
         <div class="hub-controls">
             <div class="hub-tabs">
-                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage (0)</button>
+                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage (3)</button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts (0)</span></button>
             </div>
             <div class="view-toggle" id="view-toggle-bar">
@@ -487,11 +487,101 @@
                     </thead>
                     <tbody>
                         
-        <tr>
-            <td colspan="5" style="border-bottom: none !important; padding: 0 !important;">
-                <div class="empty-state-box">
-                    <div class="empty-state-title">No Stocks Tracked</div>
-                    <div class="empty-state-sub">Ready for coverage</div>
+        <tr class="table-row" onclick="location.href='reports/AMZN.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <span class="tbl-symbol">AMZN</span>
+                    <span class="tbl-company-hover">Amazon.com, Inc</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price">$274.48</span>
+                    <span class="tbl-return pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="pill pill-active">Safe Compounder</span> <span class="pill pill-neutral">Aws Ai</span> <span class="pill pill-neutral">Operating Leverage</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-val-cell">
+                    <span class="tbl-fv" style="color: var(--accent-warm);">$305.00</span>
+                    <span class="tbl-base">+11.1%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-date">2026-10-29</span>
+                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-corridor" style="font-size: 0.74rem; color: var(--text-dim); font-family: var(--font-mono); display: block; margin-top: 4px;">Alerts: $235.00 ⇄ $300.00</span>
+                </div>
+            </td>
+        </tr>
+        
+        <tr class="table-row" onclick="location.href='reports/GOOG.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <span class="tbl-symbol">GOOG</span>
+                    <span class="tbl-company-hover">Alphabet Inc</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price">$353.47</span>
+                    <span class="tbl-return pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="pill pill-active">Safe Compounder</span> <span class="pill pill-neutral">Ai Infrastructure</span> <span class="pill pill-neutral">Buyback Cannibal</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-val-cell">
+                    <span class="tbl-fv" style="color: var(--accent-warm);">$410.00</span>
+                    <span class="tbl-base">+16.0%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-date">2026-10-27</span>
+                    <span class="tbl-cat-desc">Q3 2026 Financial Results</span>
+                    <span class="tbl-corridor" style="font-size: 0.74rem; color: var(--text-dim); font-family: var(--font-mono); display: block; margin-top: 4px;">Alerts: $310.00 ⇄ $395.00</span>
+                </div>
+            </td>
+        </tr>
+        
+        <tr class="table-row" onclick="location.href='reports/META.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <span class="tbl-symbol">META</span>
+                    <span class="tbl-company-hover">Platforms, Inc</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price">$592.10</span>
+                    <span class="tbl-return pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="pill pill-active">Safe Compounder</span> <span class="pill pill-neutral">Operating Leverage</span> <span class="pill pill-neutral">Moat Expansion</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-val-cell">
+                    <span class="tbl-fv" style="color: var(--accent-warm);">$680.00</span>
+                    <span class="tbl-base">+14.8%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-date">2026-10-28</span>
+                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-corridor" style="font-size: 0.74rem; color: var(--text-dim); font-family: var(--font-mono); display: block; margin-top: 4px;">Alerts: $510.00 ⇄ $675.00</span>
                 </div>
             </td>
         </tr>
@@ -503,10 +593,108 @@
             <!-- Grid Cards View -->
             <div id="stocks-grid-view" class="grid-cards-wrap" style="display: none;">
                 
-        <div style="grid-column: 1 / -1; background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px;">
-            <div class="empty-state-box">
-                <div class="empty-state-title">No Stocks Tracked</div>
-                <div class="empty-state-sub">Ready for coverage</div>
+        <div class="grid-card" onclick="location.href='reports/AMZN.html'">
+            <div class="grid-card-top">
+                <span class="grid-symbol">AMZN</span>
+                <div class="grid-price">$274.48</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 6px 0 14px;">
+                <span class="pill pill-active">Safe Compounder</span> <span class="pill pill-neutral">Aws Ai</span> <span class="pill pill-neutral">Operating Leverage</span>
+            </div>
+            <div class="grid-company">Amazon.com, Inc</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Fair Value</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">$305.00</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Base Target</span>
+                    <span class="grid-stat-val">$305.00 (+11.1%)</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Next Catalyst</span>
+                    <span class="grid-stat-val" style="font-family: var(--font-sans);">2026-10-29</span>
+                </div>
+            </div>
+            
+            <div class="grid-card-foot">
+                <span class="grid-updated">Updated 2026-08-08</span>
+                <span class="grid-open">Open →</span>
+            </div>
+        </div>
+        
+        <div class="grid-card" onclick="location.href='reports/GOOG.html'">
+            <div class="grid-card-top">
+                <span class="grid-symbol">GOOG</span>
+                <div class="grid-price">$353.47</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 6px 0 14px;">
+                <span class="pill pill-active">Safe Compounder</span> <span class="pill pill-neutral">Ai Infrastructure</span> <span class="pill pill-neutral">Buyback Cannibal</span>
+            </div>
+            <div class="grid-company">Alphabet Inc</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Fair Value</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">$410.00</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Base Target</span>
+                    <span class="grid-stat-val">$410.00 (+16.0%)</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Next Catalyst</span>
+                    <span class="grid-stat-val" style="font-family: var(--font-sans);">2026-10-27</span>
+                </div>
+            </div>
+            
+            <div class="grid-card-foot">
+                <span class="grid-updated">Updated 2026-08-08</span>
+                <span class="grid-open">Open →</span>
+            </div>
+        </div>
+        
+        <div class="grid-card" onclick="location.href='reports/META.html'">
+            <div class="grid-card-top">
+                <span class="grid-symbol">META</span>
+                <div class="grid-price">$592.10</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 6px 0 14px;">
+                <span class="pill pill-active">Safe Compounder</span> <span class="pill pill-neutral">Operating Leverage</span> <span class="pill pill-neutral">Moat Expansion</span>
+            </div>
+            <div class="grid-company">Platforms, Inc</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Fair Value</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">$680.00</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Base Target</span>
+                    <span class="grid-stat-val">$680.00 (+14.8%)</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Next Catalyst</span>
+                    <span class="grid-stat-val" style="font-family: var(--font-sans);">2026-10-28</span>
+                </div>
+            </div>
+            
+            <div class="grid-card-foot">
+                <span class="grid-updated">Updated 2026-08-08</span>
+                <span class="grid-open">Open →</span>
             </div>
         </div>
         

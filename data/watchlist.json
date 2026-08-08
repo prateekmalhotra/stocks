@@ -1,1 +1,74 @@
-{}
+{
+  "META": {
+    "ticker": "META",
+    "company_name": "Meta Platforms, Inc.",
+    "baseline_price": 592.1,
+    "current_price": 592.1,
+    "return_pct": 0.0,
+    "status_label": "Safe Compounder",
+    "labels": [
+      "Safe Compounder",
+      "Operating Leverage",
+      "Moat Expansion"
+    ],
+    "fair_value_estimate": "$680.00",
+    "bear_target": "$450.00 (-24.0%)",
+    "base_target": "$680.00 (+14.8%)",
+    "bull_target": "$820.00 (+38.5%)",
+    "upper_alert_threshold": 675.0,
+    "lower_alert_threshold": 510.0,
+    "next_catalyst_date": "2026-10-28",
+    "next_catalyst_event": "Q3 2026 Earnings Release",
+    "last_updated": "2026-08-08",
+    "total_versions": 1,
+    "report_path": "reports/META.html"
+  },
+  "GOOG": {
+    "ticker": "GOOG",
+    "company_name": "Alphabet Inc.",
+    "baseline_price": 353.47,
+    "current_price": 353.47,
+    "return_pct": 0.0,
+    "status_label": "Safe Compounder",
+    "labels": [
+      "Safe Compounder",
+      "Ai Infrastructure",
+      "Buyback Cannibal"
+    ],
+    "fair_value_estimate": "$410.00",
+    "bear_target": "$300.00 (-15.1%)",
+    "base_target": "$410.00 (+16.0%)",
+    "bull_target": "$500.00 (+41.5%)",
+    "upper_alert_threshold": 395.0,
+    "lower_alert_threshold": 310.0,
+    "next_catalyst_date": "2026-10-27",
+    "next_catalyst_event": "Q3 2026 Financial Results",
+    "last_updated": "2026-08-08",
+    "total_versions": 1,
+    "report_path": "reports/GOOG.html"
+  },
+  "AMZN": {
+    "ticker": "AMZN",
+    "company_name": "Amazon.com, Inc.",
+    "baseline_price": 274.48,
+    "current_price": 274.48,
+    "return_pct": 0.0,
+    "status_label": "Safe Compounder",
+    "labels": [
+      "Safe Compounder",
+      "Aws Ai",
+      "Operating Leverage"
+    ],
+    "fair_value_estimate": "$305.00",
+    "bear_target": "$215.00 (-21.7%)",
+    "base_target": "$305.00 (+11.1%)",
+    "bull_target": "$360.00 (+31.2%)",
+    "upper_alert_threshold": 300.0,
+    "lower_alert_threshold": 235.0,
+    "next_catalyst_date": "2026-10-29",
+    "next_catalyst_event": "Q3 2026 Earnings Release",
+    "last_updated": "2026-08-08",
+    "total_versions": 1,
+    "report_path": "reports/AMZN.html"
+  }
+}
