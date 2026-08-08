@@ -3,159 +3,288 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Institutional Equity Research Hub</title>
+    <title>AlphaThesis — Institutional Equity Surveillance Hub</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-page: #08090d;
-            --bg-card: #0f121a;
-            --bg-card-hover: #141a26;
-            --bg-elevated: #171f2e;
-            --bg-accent: #1e293d;
-            --text-primary: #f8fafc;
+            --bg-canvas: #080a0f;
+            --bg-panel: #0d121c;
+            --bg-panel-hover: #121824;
+            --bg-subpanel: #161e2e;
+            --bg-elevated: #1d273b;
+            --text-title: #ffffff;
+            --text-body: #e2e8f0;
             --text-secondary: #94a3b8;
-            --text-muted: #64748b;
-            --primary: #38bdf8;
-            --primary-rgb: 56, 189, 248;
-            --success: #10b981;
-            --danger: #f43f5e;
-            --warning: #fbbf24;
-            --border: #1e2638;
-            --border-highlight: #2a364f;
+            --text-dim: #64748b;
+            --accent-cyan: #38bdf8;
+            --accent-cyan-rgb: 56, 189, 248;
+            --accent-emerald: #10b981;
+            --accent-emerald-rgb: 16, 185, 129;
+            --accent-rose: #f43f5e;
+            --accent-amber: #f59e0b;
+            --border-color: #1e283d;
+            --border-focus: #2c3c5c;
             --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: var(--bg-page);
-            color: var(--text-primary);
+            background: var(--bg-canvas);
+            color: var(--text-body);
             font-family: var(--font-sans);
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
-            padding-bottom: 100px;
+            padding-bottom: 120px;
         }
 
-        .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
-        /* Top Header */
-        header.terminal-nav {
-            background: rgba(8, 9, 13, 0.85);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--border);
+        /* Top Bar */
+        header.nav-header {
+            background: rgba(8, 10, 15, 0.88);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
-            z-index: 50;
+            z-index: 100;
             padding: 16px 0;
         }
-        .header-wrap { display: flex; justify-content: space-between; align-items: center; }
-        .brand { display: flex; align-items: center; gap: 10px; font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; }
-        .brand-badge {
-            background: rgba(var(--primary-rgb), 0.12);
-            color: var(--primary);
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        .brand-logo { display: flex; align-items: center; gap: 12px; font-size: 1.25rem; font-weight: 800; letter-spacing: -0.03em; color: #fff; }
+        .brand-symbol { color: var(--accent-cyan); font-size: 1.4rem; }
+        .engine-pill {
+            background: rgba(var(--accent-cyan-rgb), 0.12);
+            color: var(--accent-cyan);
             font-size: 0.72rem;
             font-weight: 700;
-            padding: 3px 8px;
-            border-radius: 6px;
-            border: 1px solid rgba(var(--primary-rgb), 0.3);
+            padding: 3px 10px;
+            border-radius: 9999px;
+            border: 1px solid rgba(var(--accent-cyan-rgb), 0.3);
             text-transform: uppercase;
+            letter-spacing: 0.04em;
         }
-        .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--success); box-shadow: 0 0 8px var(--success); margin-right: 6px; }
 
-        /* Navigation Tabs */
-        .main-nav-tabs {
-            display: flex;
-            gap: 8px;
-            border-bottom: 1px solid var(--border);
-            margin: 36px 0 28px;
+        .pulse-dot {
+            width: 8px; height: 8px; border-radius: 50%; background: var(--accent-emerald);
+            box-shadow: 0 0 10px var(--accent-emerald); display: inline-block; margin-right: 6px;
         }
-        .nav-tab-btn {
+
+        /* Macro Summary Stats Ribbon */
+        .macro-ribbon {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 32px 0 28px;
+        }
+        .macro-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        .macro-icon { font-size: 1.8rem; }
+        .macro-data { display: flex; flex-direction: column; }
+        .macro-lbl { font-size: 0.72rem; text-transform: uppercase; color: var(--text-dim); font-weight: 700; letter-spacing: 0.05em; }
+        .macro-val { font-size: 1.4rem; font-weight: 800; color: #fff; font-family: var(--font-mono); margin-top: 2px; }
+
+        /* Navigation & View Toggle */
+        .hub-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .hub-tabs { display: flex; gap: 8px; }
+        .hub-tab-btn {
             background: none;
             border: none;
             color: var(--text-secondary);
             font-size: 1.05rem;
             font-weight: 700;
-            padding: 12px 24px;
+            padding: 10px 20px;
             cursor: pointer;
             position: relative;
             font-family: var(--font-sans);
             transition: all 0.15s;
         }
-        .nav-tab-btn:hover { color: var(--text-primary); }
-        .nav-tab-btn.active { color: var(--primary); }
-        .nav-tab-btn.active::after {
+        .hub-tab-btn:hover { color: #fff; }
+        .hub-tab-btn.active { color: var(--accent-cyan); }
+        .hub-tab-btn.active::after {
             content: '';
             position: absolute;
-            bottom: -1px;
+            bottom: -17px;
             left: 0; right: 0;
             height: 2px;
-            background: var(--primary);
-            box-shadow: 0 0 12px var(--primary);
+            background: var(--accent-cyan);
+            box-shadow: 0 0 12px var(--accent-cyan);
         }
 
-        .tab-section { display: none; }
-        .tab-section.active { display: block; }
+        .view-toggle {
+            display: flex;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 3px;
+        }
+        .view-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .view-btn.active { background: var(--bg-elevated); color: #fff; }
 
-        /* Stock Cards Grid */
-        .stock-grid {
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+
+        /* Institutional Table View */
+        .table-wrap {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+        }
+        table.fin-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        table.fin-table th {
+            background: var(--bg-subpanel);
+            color: var(--text-dim);
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        table.fin-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.95rem;
+            vertical-align: middle;
+        }
+        .table-row { cursor: pointer; transition: background 0.15s; }
+        .table-row:hover { background: var(--bg-panel-hover); }
+        .table-row:last-child td { border-bottom: none; }
+
+        .tbl-ticker-cell { display: flex; flex-direction: column; }
+        .tbl-symbol { font-size: 1.25rem; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
+        .tbl-company { font-size: 0.82rem; color: var(--text-dim); }
+
+        .tbl-price-cell { display: flex; flex-direction: column; }
+        .tbl-price { font-size: 1.15rem; font-weight: 700; font-family: var(--font-mono); color: #fff; }
+        .tbl-return { font-size: 0.8rem; font-weight: 600; font-family: var(--font-mono); }
+
+        .tbl-val-cell { display: flex; flex-direction: column; }
+        .tbl-fv { font-size: 1.05rem; font-weight: 700; font-family: var(--font-mono); }
+        .tbl-base { font-size: 0.8rem; color: var(--text-secondary); }
+
+        .tbl-corridor-cell { min-width: 150px; }
+        .tbl-corridor-labels { display: flex; justify-content: space-between; font-size: 0.68rem; color: var(--text-dim); font-family: var(--font-mono); margin-bottom: 4px; }
+        .mini-corridor-track {
+            height: 6px; background: var(--bg-elevated); border-radius: 9999px; position: relative;
+        }
+        .mini-corridor-fill {
+            height: 100%; width: 100%; border-radius: 9999px;
+            background: linear-gradient(90deg, var(--accent-rose), var(--accent-amber), var(--accent-emerald), var(--accent-cyan));
+            opacity: 0.5;
+        }
+        .mini-corridor-dot {
+            position: absolute; top: -3px; width: 12px; height: 12px;
+            background: #fff; border: 2px solid var(--accent-cyan); border-radius: 50%;
+            transform: translateX(-50%); box-shadow: 0 0 8px var(--accent-cyan);
+        }
+
+        .tbl-catalyst-cell { display: flex; flex-direction: column; max-width: 180px; }
+        .tbl-cat-date { font-size: 0.85rem; font-weight: 600; color: #fff; }
+        .tbl-cat-desc { font-size: 0.75rem; color: var(--text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+        .btn-action {
+            background: var(--bg-subpanel);
+            color: var(--accent-cyan);
+            border: 1px solid var(--border-color);
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.15s;
+        }
+        .btn-action:hover { background: var(--bg-elevated); border-color: var(--accent-cyan); }
+
+        /* Grid View */
+        .grid-cards-wrap {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
             gap: 20px;
         }
-        .stock-item {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
+        .grid-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 26px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.2s;
         }
-        .stock-item:hover {
-            background: var(--bg-card-hover);
-            border-color: var(--border-highlight);
+        .grid-card:hover {
+            background: var(--bg-panel-hover);
+            border-color: var(--border-focus);
             transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+            box-shadow: 0 16px 36px rgba(0,0,0,0.4);
         }
-        .stock-item-head { display: flex; justify-content: space-between; align-items: center; }
-        .stock-symbol { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.02em; }
-        .stock-price-val { font-size: 1.5rem; font-weight: 700; font-family: var(--font-mono); }
-        .stock-full-name { color: var(--text-secondary); font-size: 0.9rem; margin: 4px 0 20px; }
+        .grid-card-top { display: flex; justify-content: space-between; align-items: center; }
+        .grid-symbol { font-size: 1.7rem; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
+        .grid-price { font-size: 1.6rem; font-weight: 700; font-family: var(--font-mono); color: #fff; }
+        .grid-company { color: var(--text-secondary); font-size: 0.92rem; margin: 4px 0 20px; }
 
-        .stock-stat-grid {
+        .grid-metrics-box {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            background: var(--bg-elevated);
-            padding: 14px;
+            gap: 12px;
+            background: var(--bg-subpanel);
+            padding: 16px;
             border-radius: 12px;
             margin-bottom: 20px;
         }
-        .stat-cell { display: flex; flex-direction: column; }
-        .stat-label { font-size: 0.68rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600; }
-        .stat-value { font-size: 0.95rem; font-weight: 700; font-family: var(--font-mono); margin-top: 2px; }
+        .grid-stat { display: flex; flex-direction: column; }
+        .grid-stat-lbl { font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-weight: 700; }
+        .grid-stat-val { font-size: 1rem; font-weight: 700; font-family: var(--font-mono); margin-top: 2px; }
 
-        .stock-card-foot {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid var(--border);
-            padding-top: 16px;
+        .grid-card-foot {
+            display: flex; justify-content: space-between; align-items: center;
+            border-top: 1px solid var(--border-color); padding-top: 16px;
         }
-        .stock-updated-tag { font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono); }
-        .open-link { font-size: 0.85rem; font-weight: 700; color: var(--primary); }
+        .grid-updated { font-size: 0.75rem; color: var(--text-dim); font-family: var(--font-mono); }
+        .grid-open { font-size: 0.85rem; font-weight: 700; color: var(--accent-cyan); }
 
-        /* Alerts Feed */
-        .alerts-feed { display: flex; flex-direction: column; gap: 14px; }
-        .alert-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 22px 26px;
+        /* Alerts List */
+        .alerts-feed { display: flex; flex-direction: column; gap: 16px; }
+        .alert-item {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px 28px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -163,26 +292,27 @@
             cursor: pointer;
             transition: all 0.15s;
         }
-        .alert-card:hover {
-            background: var(--bg-card-hover);
-            border-color: var(--primary);
+        .alert-item:hover {
+            background: var(--bg-panel-hover);
+            border-color: var(--accent-cyan);
             transform: translateX(4px);
         }
-        .alert-card-left { flex: 1; }
-        .alert-tags { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-        .alert-ticker-name { font-size: 1.1rem; font-weight: 800; }
-        .alert-timestamp { font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-mono); }
-        .alert-headline { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
-        .alert-blurb { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.45; }
+        .alert-left { flex: 1; }
+        .alert-badges { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+        .alert-ticker { font-size: 1.15rem; font-weight: 800; color: #fff; }
+        .alert-time { font-size: 0.8rem; color: var(--text-dim); font-family: var(--font-mono); }
+        .alert-title { font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
+        .alert-blurb { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.5; }
 
-        .alert-card-right { text-align: right; min-width: 140px; }
-        .alert-price-tag { font-size: 1.4rem; font-weight: 700; font-family: var(--font-mono); }
-        .alert-change-pct { font-size: 0.9rem; font-weight: 600; font-family: var(--font-mono); }
-        .alert-inspect-btn { font-size: 0.8rem; font-weight: 700; color: var(--primary); display: inline-block; margin-top: 6px; }
+        .alert-right { text-align: right; min-width: 150px; }
+        .alert-price-val { font-size: 1.45rem; font-weight: 700; font-family: var(--font-mono); color: #fff; }
+        .alert-price-pct { font-size: 0.92rem; font-weight: 600; font-family: var(--font-mono); }
+        .alert-view-btn { font-size: 0.82rem; font-weight: 700; color: var(--accent-cyan); display: inline-block; margin-top: 8px; }
 
-        /* Badges & Pills */
+        /* Badges */
         .pill {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
             padding: 3px 10px;
             border-radius: 9999px;
             font-size: 0.72rem;
@@ -190,26 +320,29 @@
             text-transform: uppercase;
             letter-spacing: 0.04em;
         }
-        .pill-status { background: rgba(var(--primary-rgb), 0.12); color: var(--primary); border: 1px solid rgba(var(--primary-rgb), 0.3); }
-        .pill-alert { background: rgba(251, 191, 36, 0.12); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
+        .pill-primary { background: rgba(var(--accent-cyan-rgb), 0.12); color: var(--accent-cyan); border: 1px solid rgba(var(--accent-cyan-rgb), 0.3); }
+        .pill-alert { background: rgba(245, 158, 11, 0.12); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
 
-        .pos { color: var(--success); }
-        .neg { color: var(--danger); }
-        .empty-feed {
+        .pos { color: var(--accent-emerald); }
+        .neg { color: var(--accent-rose); }
+
+        .empty-alerts {
             text-align: center;
-            background: var(--bg-card);
-            border: 1px dashed var(--border);
-            border-radius: 16px;
-            padding: 60px 24px;
-            margin: 20px 0;
+            background: var(--bg-panel);
+            border: 1px dashed var(--border-color);
+            border-radius: 18px;
+            padding: 70px 24px;
         }
+        .empty-icon { font-size: 2.2rem; margin-bottom: 12px; }
+        .empty-title { font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
+        .empty-sub { font-size: 0.92rem; color: var(--text-secondary); max-width: 480px; margin: 0 auto; }
 
-        /* Modal Overlay */
+        /* Modal */
         .modal-shade {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(12px);
+            background: rgba(0, 0, 0, 0.82);
+            backdrop-filter: blur(16px);
             z-index: 1000;
             display: none;
             justify-content: center;
@@ -217,15 +350,15 @@
             padding: 24px;
         }
         .modal-body-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-highlight);
+            background: var(--bg-panel);
+            border: 1px solid var(--border-focus);
             border-radius: 20px;
             max-width: 760px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
             padding: 36px;
-            box-shadow: 0 24px 60px rgba(0,0,0,0.7);
+            box-shadow: 0 24px 60px rgba(0,0,0,0.8);
             position: relative;
         }
         .modal-x {
@@ -233,11 +366,11 @@
             top: 24px; right: 24px;
             background: none;
             border: none;
-            color: var(--text-muted);
+            color: var(--text-dim);
             font-size: 1.4rem;
             cursor: pointer;
         }
-        .modal-x:hover { color: var(--text-primary); }
+        .modal-x:hover { color: #fff; }
 
         .diff-modal-wrap {
             display: grid;
@@ -246,13 +379,13 @@
             margin: 24px 0;
         }
         @media (max-width: 640px) { .diff-modal-wrap { grid-template-columns: 1fr; } }
-        .diff-side { padding: 18px; border-radius: 12px; border: 1px solid var(--border); }
-        .side-before { background: rgba(244, 63, 94, 0.04); border-color: rgba(244, 63, 94, 0.2); }
-        .side-after { background: rgba(var(--success-rgb), 0.04); border-color: rgba(var(--success-rgb), 0.2); }
+        .diff-side { padding: 20px; border-radius: 12px; border: 1px solid var(--border-color); }
+        .side-before { background: rgba(244, 63, 94, 0.03); border-color: rgba(244, 63, 94, 0.2); }
+        .side-after { background: rgba(var(--accent-emerald-rgb), 0.03); border-color: rgba(var(--accent-emerald-rgb), 0.2); }
         .side-heading { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
         .side-before .side-heading { color: #fb7185; }
         .side-after .side-heading { color: #34d399; }
-        .side-text { font-size: 0.95rem; color: #cbd5e1; line-height: 1.55; }
+        .side-text { font-size: 0.95rem; color: #cbd5e1; line-height: 1.6; }
 
         .btn {
             padding: 10px 20px;
@@ -266,81 +399,180 @@
             border: none;
             transition: all 0.15s;
         }
-        .btn-primary { background: var(--primary); color: #08090d; }
+        .btn-primary { background: var(--accent-cyan); color: #090b10; }
         .btn-primary:hover { background: #7dd3fc; }
-        .btn-outline { background: var(--bg-elevated); color: var(--text-primary); border: 1px solid var(--border); }
-        .btn-outline:hover { background: var(--bg-accent); }
+        .btn-outline { background: var(--bg-elevated); color: #fff; border: 1px solid var(--border-color); }
+        .btn-outline:hover { background: var(--bg-subpanel); }
     </style>
 </head>
 <body>
-    <header class="terminal-nav">
-        <div class="container header-wrap">
-            <div class="brand">
-                <span class="status-dot"></span>
-                <span>Institutional Equity Surveillance Hub</span>
-                <span class="brand-badge">Gemini 3.6 Flash</span>
+    <header class="nav-header">
+        <div class="container header-content">
+            <div class="brand-logo">
+                <span class="brand-symbol">◈</span>
+                <span>ALPHATHESIS</span>
+                <span class="engine-pill"><span class="pulse-dot"></span>GEMINI 3.6 FLASH</span>
             </div>
-            <div style="font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-mono);">24/7 ACTIVE SURVEILLANCE</div>
+            <div style="font-size: 0.8rem; color: var(--text-dim); font-family: var(--font-mono);">
+                AUTONOMOUS EQUITY SURVEILLANCE
+            </div>
         </div>
     </header>
 
     <main class="container">
-        <!-- Navigation Tabs -->
-        <div class="main-nav-tabs">
-            <button class="nav-tab-btn active" onclick="switchMainTab('stocks')">📊 Active Portfolio & Watchlist (1)</button>
-            <button class="nav-tab-btn" onclick="switchMainTab('alerts')">🚨 Critical Alerts (0)</button>
+        <!-- Macro Summary Stats Ribbon -->
+        <section class="macro-ribbon">
+            <div class="macro-card">
+                <div class="macro-icon">📊</div>
+                <div class="macro-data">
+                    <span class="macro-lbl">Active Watchlist</span>
+                    <span class="macro-val">1 Companies</span>
+                </div>
+            </div>
+            <div class="macro-card">
+                <div class="macro-icon">⚡</div>
+                <div class="macro-data">
+                    <span class="macro-lbl">Surveillance Engine</span>
+                    <span class="macro-val" style="color: var(--accent-emerald);">2x Daily Cron</span>
+                </div>
+            </div>
+            <div class="macro-card">
+                <div class="macro-icon">🚨</div>
+                <div class="macro-data">
+                    <span class="macro-lbl">Critical Alerts</span>
+                    <span class="macro-val" style="color: var(--accent-amber);">0 Active</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation Tabs & View Toggle -->
+        <div class="hub-controls">
+            <div class="hub-tabs">
+                <button class="hub-tab-btn active" onclick="switchTab('stocks')">📈 Tracked Coverage (1)</button>
+                <button class="hub-tab-btn" onclick="switchTab('alerts')">🚨 Critical Alerts (0)</button>
+            </div>
+            <div class="view-toggle" id="view-toggle-bar">
+                <button class="view-btn active" onclick="setView('table')">Table View</button>
+                <button class="view-btn" onclick="setView('grid')">Grid Cards</button>
+            </div>
         </div>
 
-        <!-- STOCKS TAB -->
-        <section id="section-stocks" class="tab-section active">
-            <div class="stock-grid">
+        <!-- STOCKS SECTION -->
+        <section id="pane-stocks" class="tab-panel active">
+            <!-- Table View (Default) -->
+            <div id="stocks-table-view" class="table-wrap">
+                <table class="fin-table">
+                    <thead>
+                        <tr>
+                            <th>Ticker & Company</th>
+                            <th>Current Price</th>
+                            <th>Thesis Stance</th>
+                            <th>Intrinsic Valuation</th>
+                            <th>Surveillance Corridor</th>
+                            <th>Catalyst Horizon</th>
+                            <th style="text-align: right;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+        <tr class="table-row" onclick="location.href='reports/CNK.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <span class="tbl-symbol">CNK</span>
+                    <span class="tbl-company">Cinemark Holdings Inc Cinemark </span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price">$37.24</span>
+                    <span class="tbl-return pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <span class="pill pill-primary">High-Conviction Cash Flow Re-Rating</span>
+            </td>
+            <td>
+                <div class="tbl-val-cell">
+                    <span class="tbl-fv" style="color: var(--accent-cyan);">$44.50</span>
+                    <span class="tbl-base">$45.00 (+20.8%)</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-corridor-cell">
+                    <div class="tbl-corridor-labels">
+                        <span>$32</span>
+                        <span>$42</span>
+                    </div>
+                    <div class="mini-corridor-track">
+                        <div class="mini-corridor-fill"></div>
+                        <div class="mini-corridor-dot" style="left: 55%;"></div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-date">November 2026</span>
+                    <span class="tbl-cat-desc">Q3 2026 Earnings Release and Q4/2027 Box</span>
+                </div>
+            </td>
+            <td style="text-align: right;">
+                <a href="reports/CNK.html" class="btn btn-action" onclick="event.stopPropagation()">Dossier →</a>
+            </td>
+        </tr>
+        
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Grid Cards View -->
+            <div id="stocks-grid-view" class="grid-cards-wrap" style="display: none;">
                 
-        <div class="stock-item" onclick="location.href='reports/CNK.html'">
-            <div class="stock-item-head">
+        <div class="grid-card" onclick="location.href='reports/CNK.html'">
+            <div class="grid-card-top">
                 <div>
-                    <span class="stock-symbol">CNK</span>
-                    <span class="pill pill-status" style="margin-left: 8px;">High-Conviction Cash Flow Re-Rating</span>
+                    <span class="grid-symbol">CNK</span>
+                    <span class="pill pill-primary" style="margin-left: 8px;">High-Conviction Cash Flow Re-Rating</span>
                 </div>
-                <div class="stock-price-val">$37.24</div>
+                <div class="grid-price">$37.24</div>
             </div>
-            <div class="stock-full-name">Cinemark Holdings Inc Cinemark </div>
+            <div class="grid-company">Cinemark Holdings Inc Cinemark </div>
             
-            <div class="stock-stat-grid">
-                <div class="stat-cell">
-                    <span class="stat-label">Return</span>
-                    <span class="stat-value pos">+0.00%</span>
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val pos">+0.00%</span>
                 </div>
-                <div class="stat-cell">
-                    <span class="stat-label">Fair Value</span>
-                    <span class="stat-value" style="color: var(--primary);">$44.50</span>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Fair Value</span>
+                    <span class="grid-stat-val" style="color: var(--accent-cyan);">$44.50</span>
                 </div>
-                <div class="stat-cell">
-                    <span class="stat-label">Trigger Bounds</span>
-                    <span class="stat-value">$32 — $42</span>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Trigger Bounds</span>
+                    <span class="grid-stat-val">$32 — $42</span>
                 </div>
-                <div class="stat-cell">
-                    <span class="stat-label">Next Catalyst</span>
-                    <span class="stat-value">November 2026</span>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Next Catalyst</span>
+                    <span class="grid-stat-val">November 2026</span>
                 </div>
             </div>
             
-            <div class="stock-card-foot">
-                <span class="stock-updated-tag">Updated 2026-08-07</span>
-                <span class="open-link">Read Dossier →</span>
+            <div class="grid-card-foot">
+                <span class="grid-updated">Updated 2026-08-07</span>
+                <span class="grid-open">Deep Dive →</span>
             </div>
         </div>
         
             </div>
         </section>
 
-        <!-- ALERTS TAB -->
-        <section id="section-alerts" class="tab-section">
+        <!-- ALERTS SECTION -->
+        <section id="pane-alerts" class="tab-panel">
             <div class="alerts-feed">
                 
-        <div class="empty-feed">
-            <div style="font-size: 2rem; margin-bottom: 8px;">🛡️</div>
-            <div style="font-weight: 700; font-size: 1.1rem; color: var(--text-primary);">All Positions Stable</div>
-            <div style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px;">No critical threshold breaches or catalyst alerts triggered. Surveillance engine is active.</div>
+        <div class="empty-alerts">
+            <div class="empty-icon">🛡️</div>
+            <div class="empty-title">All Tracked Positions Within Safe Bounds</div>
+            <div class="empty-sub">No critical threshold breaches or catalyst alerts fired. The 24/7 surveillance engine is monitoring active quotes.</div>
         </div>
         
             </div>
@@ -353,17 +585,17 @@
             <button class="modal-x" onclick="closeAlertModal()">✕</button>
             <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
                 <span id="modal-badge" class="pill pill-alert">ALERT</span>
-                <strong id="modal-ticker" style="font-size: 1.3rem;">TICKER</strong>
-                <span id="modal-time" style="color: var(--text-muted); font-size: 0.85rem; font-family: var(--font-mono);">Timestamp</span>
+                <strong id="modal-ticker" style="font-size: 1.3rem; color: #fff;">TICKER</strong>
+                <span id="modal-time" style="color: var(--text-dim); font-size: 0.85rem; font-family: var(--font-mono);">Timestamp</span>
             </div>
-            <h2 id="modal-title" style="font-size: 1.4rem; margin-bottom: 12px; letter-spacing: -0.02em;">Alert Headline</h2>
+            <h2 id="modal-title" style="font-size: 1.4rem; color: #fff; margin-bottom: 12px; letter-spacing: -0.02em;">Alert Headline</h2>
             <div style="font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 20px;">
-                <strong>Trigger Cause:</strong> <span id="modal-trigger">Reason</span>
+                <strong>Trigger Event:</strong> <span id="modal-trigger">Reason</span>
             </div>
 
             <div class="diff-modal-wrap">
                 <div class="diff-side side-before">
-                    <div class="side-heading">⏪ What Was Before</div>
+                    <div class="side-heading">⏪ Previous Thesis Stance</div>
                     <div id="modal-before" class="side-text">Previous stance...</div>
                 </div>
                 <div class="diff-side side-after">
@@ -374,22 +606,37 @@
 
             <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 28px;">
                 <button class="btn btn-outline" onclick="closeAlertModal()">Dismiss</button>
-                <a id="modal-report-link" href="#" class="btn btn-primary">Open Full Updated Dossier →</a>
+                <a id="modal-report-link" href="#" class="btn btn-primary">Open Full Living Dossier →</a>
             </div>
         </div>
     </div>
 
     <script>
-        function switchMainTab(tab) {
-            document.querySelectorAll('.nav-tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.tab-section').forEach(sec => sec.classList.remove('active'));
+        function switchTab(tab) {
+            document.querySelectorAll('.hub-tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(sec => sec.classList.remove('active'));
             
             if (tab === 'stocks') {
-                document.querySelectorAll('.nav-tab-btn')[0].classList.add('active');
-                document.getElementById('section-stocks').classList.add('active');
+                document.querySelectorAll('.hub-tab-btn')[0].classList.add('active');
+                document.getElementById('pane-stocks').classList.add('active');
+                document.getElementById('view-toggle-bar').style.display = 'flex';
             } else {
-                document.querySelectorAll('.nav-tab-btn')[1].classList.add('active');
-                document.getElementById('section-alerts').classList.add('active');
+                document.querySelectorAll('.hub-tab-btn')[1].classList.add('active');
+                document.getElementById('pane-alerts').classList.add('active');
+                document.getElementById('view-toggle-bar').style.display = 'none';
+            }
+        }
+
+        function setView(viewType) {
+            document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
+            if (viewType === 'table') {
+                document.querySelectorAll('.view-btn')[0].classList.add('active');
+                document.getElementById('stocks-table-view').style.display = 'block';
+                document.getElementById('stocks-grid-view').style.display = 'none';
+            } else {
+                document.querySelectorAll('.view-btn')[1].classList.add('active');
+                document.getElementById('stocks-table-view').style.display = 'none';
+                document.getElementById('stocks-grid-view').style.display = 'grid';
             }
         }
 
@@ -399,7 +646,7 @@
             document.getElementById('modal-time').innerText = payload.timestamp;
             document.getElementById('modal-badge').innerText = payload.severity;
             document.getElementById('modal-trigger').innerText = payload.trigger_reason;
-            document.getElementById('modal-before').innerText = payload.what_was_before || 'Initial Genesis baseline';
+            document.getElementById('modal-before').innerText = payload.what_was_before || 'Genesis baseline';
             document.getElementById('modal-after').innerText = payload.what_changes_now || 'Thesis updated';
             document.getElementById('modal-report-link').href = payload.report_url;
             
