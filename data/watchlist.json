@@ -22,5 +22,29 @@
     "last_updated": "2026-08-08",
     "total_versions": 1,
     "report_path": "reports/STNE.html"
+  },
+  "BMBL": {
+    "ticker": "BMBL",
+    "company_name": "Bumble Inc.",
+    "baseline_price": 2.83,
+    "current_price": 2.83,
+    "return_pct": 0.0,
+    "status_label": "Turnaround Risk",
+    "labels": [
+      "Turnaround Risk",
+      "Strategic Alternatives",
+      "Product Relaunch"
+    ],
+    "fair_value_estimate": "$4.50",
+    "bear_target": "$1.80 (-36.4%)",
+    "base_target": "$4.50 (+59.0%)",
+    "bull_target": "$7.50 (+165.0%)",
+    "upper_alert_threshold": 4.5,
+    "lower_alert_threshold": 2.0,
+    "next_catalyst_date": "November 2026",
+    "next_catalyst_event": "Q3 2026 Earnings & Redesign",
+    "last_updated": "2026-08-08",
+    "total_versions": 1,
+    "report_path": "reports/BMBL.html"
   }
 }

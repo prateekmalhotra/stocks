@@ -455,7 +455,7 @@
         <!-- Navigation Controls -->
         <div class="hub-controls">
             <div class="hub-tabs">
-                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage (1)</button>
+                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage (2)</button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts (0)</span></button>
             </div>
             <div class="view-toggle" id="view-toggle-bar">
@@ -487,6 +487,39 @@
                     </thead>
                     <tbody>
                         
+        <tr class="table-row" onclick="location.href='reports/BMBL.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <span class="tbl-symbol">BMBL</span>
+                    <span class="tbl-company-hover">Bumble Inc</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price">$2.83</span>
+                    <span class="tbl-return pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="pill pill-active">Turnaround Risk</span> <span class="pill pill-neutral">Strategic Alternatives</span> <span class="pill pill-neutral">Product Relaunch</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-val-cell">
+                    <span class="tbl-fv" style="color: var(--accent-warm);">$4.50</span>
+                    <span class="tbl-base">+59.0%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-date">November 2026</span>
+                    <span class="tbl-cat-desc">Q3 2026 Earnings &</span>
+                    <span class="tbl-corridor" style="font-size: 0.74rem; color: var(--text-dim); font-family: var(--font-mono); display: block; margin-top: 4px;">Alerts: $2.00 ⇄ $4.50</span>
+                </div>
+            </td>
+        </tr>
+        
         <tr class="table-row" onclick="location.href='reports/STNE.html'">
             <td>
                 <div class="tbl-ticker-cell">
@@ -527,6 +560,41 @@
             <!-- Grid Cards View -->
             <div id="stocks-grid-view" class="grid-cards-wrap" style="display: none;">
                 
+        <div class="grid-card" onclick="location.href='reports/BMBL.html'">
+            <div class="grid-card-top">
+                <span class="grid-symbol">BMBL</span>
+                <div class="grid-price">$2.83</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 6px 0 14px;">
+                <span class="pill pill-active">Turnaround Risk</span> <span class="pill pill-neutral">Strategic Alternatives</span> <span class="pill pill-neutral">Product Relaunch</span>
+            </div>
+            <div class="grid-company">Bumble Inc</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Fair Value</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">$4.50</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Base Target</span>
+                    <span class="grid-stat-val">$4.50 (+59.0%)</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Next Catalyst</span>
+                    <span class="grid-stat-val" style="font-family: var(--font-sans);">November 2026</span>
+                </div>
+            </div>
+            
+            <div class="grid-card-foot">
+                <span class="grid-updated">Updated 2026-08-08</span>
+                <span class="grid-open">Open →</span>
+            </div>
+        </div>
+        
         <div class="grid-card" onclick="location.href='reports/STNE.html'">
             <div class="grid-card-top">
                 <span class="grid-symbol">STNE</span>
