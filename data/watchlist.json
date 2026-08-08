@@ -848,5 +848,28 @@
     "last_updated": "2026-08-08",
     "total_versions": 1,
     "report_path": "reports/INTU.html"
+  },
+  "KSS": {
+    "ticker": "KSS",
+    "company_name": "Kohl's Corporation",
+    "baseline_price": 19.3,
+    "current_price": 19.3,
+    "return_pct": 0.0,
+    "status_label": "Active",
+    "labels": [
+      "Active"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$22.20",
+    "bear_target": "$14.48 (-25.0%)",
+    "base_target": "$22.20 (+15.0%)",
+    "bull_target": "$28.95 (+50.0%)",
+    "upper_alert_threshold": 22.2,
+    "lower_alert_threshold": 16.98,
+    "next_catalyst_date": "2026-11-06",
+    "next_catalyst_event": "Scheduled quarterly report",
+    "last_updated": "2026-08-08",
+    "total_versions": 1,
+    "report_path": "reports/KSS.html"
   }
 }
