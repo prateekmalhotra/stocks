@@ -340,15 +340,61 @@
         .pos { color: var(--accent-green); }
         .neg { color: var(--accent-red); }
 
-        .empty-alerts {
+        .empty-state-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 85px 24px;
             text-align: center;
+            gap: 12px;
+        }
+        .empty-state-title {
+            font-family: var(--font-serif);
+            font-size: 1.45rem;
+            font-weight: 400;
+            color: var(--text-title);
+            letter-spacing: -0.01em;
+            line-height: 1.25;
+        }
+        .empty-state-sub {
+            font-family: var(--font-sans);
+            font-size: 0.88rem;
+            color: var(--text-dim);
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            line-height: 1.35;
+        }
+
+        .empty-alerts {
             background: var(--bg-panel);
             border: 1px dashed var(--border-color);
             border-radius: 14px;
-            padding: 60px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 85px 24px;
+            text-align: center;
+            gap: 12px;
         }
-        .empty-title { font-family: var(--font-serif); font-size: 1.25rem; font-weight: 500; color: var(--text-title); margin-bottom: 4px; }
-        .empty-sub { font-size: 1rem; color: var(--text-secondary); max-width: 440px; margin: 0 auto; }
+        .empty-title {
+            font-family: var(--font-serif);
+            font-size: 1.45rem;
+            font-weight: 400;
+            color: var(--text-title);
+            letter-spacing: -0.01em;
+            line-height: 1.25;
+        }
+        .empty-sub {
+            font-family: var(--font-sans);
+            font-size: 0.88rem;
+            color: var(--text-dim);
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            line-height: 1.35;
+            max-width: 440px;
+        }
 
         /* Modal */
         .modal-shade {
@@ -462,9 +508,11 @@
                     <tbody>
                         
         <tr>
-            <td colspan="5" style="text-align: center; padding: 60px 24px; color: var(--text-secondary); font-family: var(--font-serif);">
-                <div style="color: var(--text-title); font-size: 1.15rem; font-weight: 500; margin-bottom: 4px;">No Stocks Tracked</div>
-                <div style="font-size: 0.9rem; color: var(--text-secondary);">Ready for coverage.</div>
+            <td colspan="5" style="border-bottom: none !important; padding: 0 !important;">
+                <div class="empty-state-box">
+                    <div class="empty-state-title">No Stocks Tracked</div>
+                    <div class="empty-state-sub">Ready for coverage.</div>
+                </div>
             </td>
         </tr>
         
@@ -475,9 +523,11 @@
             <!-- Grid Cards View -->
             <div id="stocks-grid-view" class="grid-cards-wrap" style="display: none;">
                 
-        <div style="grid-column: 1 / -1; text-align: center; padding: 60px 24px; background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px;">
-            <div style="color: var(--text-title); font-size: 1.15rem; font-weight: 500; margin-bottom: 4px;">No Stocks Tracked</div>
-            <div style="color: var(--text-secondary); font-size: 0.9rem;">Ready for coverage.</div>
+        <div style="grid-column: 1 / -1; background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px;">
+            <div class="empty-state-box">
+                <div class="empty-state-title">No Stocks Tracked</div>
+                <div class="empty-state-sub">Ready for coverage.</div>
+            </div>
         </div>
         
             </div>
