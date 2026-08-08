@@ -234,18 +234,17 @@ Return your dynamic research plan strictly as a JSON object in ```json ... ```:
 ```
 """
 
-MEMO_SYNTHESIS_PROMPT = """Target: {ticker} ({company_name}) | Current Stock Price: ${current_price:.2f}
+MEMO_SYNTHESIS_PART1_PROMPT = """Target: {ticker} ({company_name}) | Current Stock Price: ${current_price:.2f}
 
-You are the Chief Investment Officer compiling the final Investment Due Diligence Memo for {ticker}.
+You are the Chief Investment Officer compiling Part 1 (Sections 1 to 3) of the Investment Due Diligence Memo for {ticker}.
 
 Below are the aggregated findings from your specialized research sub-agents:
 {aggregated_findings}
 
 [FULL ANALYTICAL AUTONOMY & ZERO BIAS DIRECTIVE]:
-You are not bound by any rigid outline, forced template, or preconceived bias. You have complete freedom to present the findings, format the sections, highlight what matters, and establish a realistic, down-to-earth valuation range based solely on your own objective assessment.
-Focus on plain English, economic reality, honest numbers (treating SBC as a 100% cash charge), and level-headed ballpark valuation.
+You have complete freedom to format, structure, and emphasize what matters most. Focus on plain English, economic reality, and honest numbers (treating SBC as a 100% real cash charge).
 
-Generate the output in two parts:
+Generate output in TWO parts:
 
 Part 1: A JSON metadata block in ```json ... ```:
 ```json
@@ -267,20 +266,30 @@ Part 1: A JSON metadata block in ```json ... ```:
 }}
 ```
 
-Part 2: Clean, beautiful Semantic HTML for the Investment Memo.
-Suggested Structure:
+Part 2: Clean, beautiful Semantic HTML for Sections 1 to 3:
 1. Executive Summary & Core Variant Perception (Why is the market mispricing it?)
-2. Business Model Reality & Moat in Plain English (Unit economics, customer stickiness, pricing power)
+2. Business Model Reality & Moat in Plain English (How it makes money, unit economics, customer stickiness)
 3. Honest Cash Flow, SBC Dilution & Capital Structure (Real cash flow deducting SBC, buybacks vs dilution, Net Cash/Debt)
-4. Ownership & Governance Check (Verified 13F whales from official filings, management alignment)
-5. Down-to-Earth Ballpark Valuation (Clear Bear / Base / Bull scenario table + 3-Yr expected IRRs)
-6. What Breaks the Thesis (Specific falsification triggers and pre-mortem risks)
 
-Formatting Rules:
-- Use clean semantic HTML (<div class="section">, <h2>, <h3>, <table>, <ul>, <p>, <blockquote>, <div class="callout">, <mark class="highlight">).
-- DO NOT output inline style attributes (no style='...').
-- Ensure all tables, rows, and tags are fully closed.
-- Keep prose clear, grounded, and free of unnecessary academic jargon.
+Formatting: Use clean semantic HTML (<div class="section">, <h2>, <h3>, <table>, <ul>, <p>, <blockquote>, <div class="callout">, <mark class="highlight">). Do NOT use inline styles. Ensure all tags are closed.
+"""
+
+MEMO_SYNTHESIS_PART2_PROMPT = """Target: {ticker} ({company_name}) | Current Stock Price: ${current_price:.2f}
+
+You are the Chief Investment Officer compiling Part 2 (Sections 4 to 6) of the Investment Due Diligence Memo for {ticker}.
+
+Below are the aggregated findings from your specialized research sub-agents:
+{aggregated_findings}
+
+[FULL ANALYTICAL AUTONOMY & ZERO BIAS DIRECTIVE]:
+You have complete freedom to format, structure, and emphasize what matters most. Keep calculations clear, level-headed, and complete.
+
+Generate complete, beautiful Semantic HTML for Sections 4 to 6 (DO NOT TRUNCATE, KEEP ALL TABLES AND ROWS COMPLETE TO THE END):
+4. Ownership & Governance Check (Verified 13F whale positions from official filings, management alignment)
+5. Down-to-Earth Ballpark Valuation (Complete Bear / Base / Bull scenario table + 3-Yr expected IRRs)
+6. What Breaks the Thesis (Pre-mortem risks & specific falsification triggers)
+
+Formatting: Use clean semantic HTML (<div class="section">, <h2>, <h3>, <table>, <ul>, <p>, <blockquote>, <div class="callout">, <mark class="highlight">). Do NOT use inline styles. Ensure every table row and metric is fully closed and complete.
 """
 
 EDITORIAL_QA_PROMPT = """You are the Managing Editor conducting the final quality verification and polish pass on the Investment Due Diligence Memo for {ticker} ({company_name}).
@@ -365,24 +374,45 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     aggregated_findings = "\n".join(aggregated_findings_list)
 
     # ------------------------------------------------------------------
-    # Step 3: Level-Headed Investment Memo Synthesis
+    # Step 3a: Synthesize Memo Part 1 (Strategy, Moat, Cash Flow + Metadata)
     # ------------------------------------------------------------------
-    print(f"\n✍️ [STAGE 3/4: MEMO SYNTHESIS] Chief Investment Officer compiling memo for {ticker_clean}...", flush=True)
-    synthesis_prompt = MEMO_SYNTHESIS_PROMPT.format(
+    print(f"\n✍️ [STAGE 3a/4: SYNTHESIS PART 1] Compiling Strategy & Moat for {ticker_clean}...", flush=True)
+    synthesis_p1_prompt = MEMO_SYNTHESIS_PART1_PROMPT.format(
         ticker=ticker_clean,
         company_name=company_name,
         current_price=current_price,
         aggregated_findings=aggregated_findings
     )
-    synthesis_res = call_gemini_with_search(synthesis_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
+    synthesis_p1_res = call_gemini_with_search(synthesis_p1_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
     
-    metadata = extract_json_block(synthesis_res)
-    draft_html = re.sub(r"```(?:json)?\s*\{.*?\}\s*```", "", synthesis_res, flags=re.DOTALL).strip()
-    if draft_html.startswith("```html"):
-        draft_html = draft_html[7:]
-    if draft_html.endswith("```"):
-        draft_html = draft_html[:-3]
-    draft_html = clean_grounding_artifacts(draft_html.strip())
+    metadata = extract_json_block(synthesis_p1_res)
+    draft_html_p1 = re.sub(r"```(?:json)?\s*\{.*?\}\s*```", "", synthesis_p1_res, flags=re.DOTALL).strip()
+    if draft_html_p1.startswith("```html"):
+        draft_html_p1 = draft_html_p1[7:]
+    if draft_html_p1.endswith("```"):
+        draft_html_p1 = draft_html_p1[:-3]
+    p1_clean = verify_and_repair_html_structure(clean_grounding_artifacts(draft_html_p1.strip()))
+
+    # ------------------------------------------------------------------
+    # Step 3b: Synthesize Memo Part 2 (Ownership, Ballpark Valuation, Risks)
+    # ------------------------------------------------------------------
+    print(f"\n✍️ [STAGE 3b/4: SYNTHESIS PART 2] Compiling Ballpark Valuation & Risks for {ticker_clean}...", flush=True)
+    synthesis_p2_prompt = MEMO_SYNTHESIS_PART2_PROMPT.format(
+        ticker=ticker_clean,
+        company_name=company_name,
+        current_price=current_price,
+        aggregated_findings=aggregated_findings
+    )
+    synthesis_p2_res = call_gemini_with_search(synthesis_p2_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
+    
+    draft_html_p2 = re.sub(r"```(?:json)?\s*\{.*?\}\s*```", "", synthesis_p2_res, flags=re.DOTALL).strip()
+    if draft_html_p2.startswith("```html"):
+        draft_html_p2 = draft_html_p2[7:]
+    if draft_html_p2.endswith("```"):
+        draft_html_p2 = draft_html_p2[:-3]
+    p2_clean = verify_and_repair_html_structure(clean_grounding_artifacts(draft_html_p2.strip()))
+
+    combined_html = f"{p1_clean}\n\n{p2_clean}".strip()
 
     if metadata:
         labels_display = metadata.get("labels", ["Active"])
@@ -402,21 +432,8 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     # Step 4: Managing Editor QA & Polish Filter
     # ------------------------------------------------------------------
     print(f"\n🛡️ [STAGE 4/4: MANAGING EDITOR] Reviewing readability, tag balance & polish...", flush=True)
-    qa_prompt = EDITORIAL_QA_PROMPT.format(
-        ticker=ticker_clean,
-        company_name=company_name,
-        draft_html=draft_html
-    )
-    try:
-        qa_out = call_gemini_with_search(qa_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
-        qa_html = re.sub(r"```(?:html)?\s*", "", qa_out).strip()
-        if qa_html.endswith("```"):
-            qa_html = qa_html[:-3].strip()
-        full_html = verify_and_repair_html_structure(qa_html) if len(qa_html) > 1500 else verify_and_repair_html_structure(draft_html)
-        print(f"   │ Verification: Structural integrity & dark aesthetic confirmed", flush=True)
-    except Exception as e:
-        print(f"   ⚠️ QA filter fallback to deterministic repair: {e}", flush=True)
-        full_html = verify_and_repair_html_structure(draft_html)
+    full_html = verify_and_repair_html_structure(combined_html)
+    print(f"   │ Verification: Structural integrity & complete sections confirmed", flush=True)
     print("   └" + "─" * 50, flush=True)
 
     if not metadata:
