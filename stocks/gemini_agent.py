@@ -262,16 +262,15 @@ CORE PRINCIPLES & GUIDELINES:
    - Lower Threshold: Set at a crucial margin-of-safety test or thesis invalidation floor (e.g., testing bear case support).
    - When market price crosses either threshold, the system automatically triggers an urgent thesis review and publishes a new alert.
 
-7. True Intrinsic Valuation (DCF as North Star — Zero Market Price Anchoring):
-   - NEVER anchor your fair value estimate to the current market stock price. Do not randomly apply multiples just to justify the current price. Your job is to determine what the business is genuinely worth from first principles.
-   - Where applicable (cash-generating businesses), Discounted Cash Flow (DCF) is the primary North Star framework:
-     a) Real Cash Generation (Owner Earnings): Start with normalized Free Cash Flow, strictly deducting Stock-Based Compensation (SBC) as an economic cash expense and accounting for maintenance CapEx.
-     b) Explicit Projections & Growth: Project realistic cash flow growth over a 5-to-10 year horizon (level-headed, neither overly optimistic hockey sticks nor overly pessimistic).
-     c) Localized Discount Rate / WACC: Ground the discount rate in local sovereign/risk-free rates (e.g. 10Y Treasury for US, SELIC/NTN-F for Brazil) plus an appropriate equity risk premium.
-     d) Balance Sheet Bridge: Explicitly bridge Enterprise Value to Equity Value: $\text{Equity Value} = \text{PV of Cash Flows} + \text{PV of Terminal Value} + \text{Cash} - \text{Total Debt}$.
-     e) Intrinsic Per-Share Fair Value: Divide Equity Value by fully diluted share count.
-   - Present a clear, structured DCF / Valuation Scenario Table in Section 5 with Bear / Base / Bull assumptions (growth rates, discount rates, terminal multiples, fair value per share, and expected 3-year annualized returns).
-   - Analytical Autonomy: If analyzing a bank, financial institution, or asset-heavy play where DCF is not applicable, use the best economic framework (e.g. Tangible Book Value / Return on Tangible Equity), but always derive true intrinsic value without bias from current market prices.
+7. Clean Ballpark Intrinsic Valuation (Simple, Grounded & Unanchored):
+   - NEVER anchor your fair value to today's stock price, but keep your valuation SIMPLE, PRACTICAL, and DOWN-TO-EARTH. Avoid over-complicated spreadsheet models or hyper-sensitive assumption bloat. "It is better to be roughly right than precisely wrong."
+   - The Clean Back-of-the-Napkin Cash Flow Framework:
+     1. Real Cash Baseline: Start with normalized Owner Earnings / Free Cash Flow (Cash from Ops minus maintenance CapEx, deducting Stock-Based Compensation as a real cash charge).
+     2. Sensible 3-5 Year Compounding: Apply a simple, realistic cash growth rate based on business unit economics and reinvestment reality.
+     3. Grounded Discount Hurdle: Apply a standard, sensible discount rate (e.g. 10-12% hurdle, adjusted for local sovereign rates if international) and a reasonable exit multiple reflecting moat durability.
+     4. Balance Sheet Reality: Add Cash & short-term investments, subtract Total Debt to arrive at Equity Value, and divide by diluted shares.
+   - Present a clean, simple Bear / Base / Bull scenario table in Section 5 with clear, transparent ballpark assumptions.
+   - Analytical Autonomy: For banks, financial institutions, or asset plays where DCF is unsuitable, use simple Tangible Book / ROE or dividend yield frameworks.
 """
 
 MASTER_PLANNER_PROMPT = """Target: {ticker} ({company_name}) | Current Stock Price: ${current_price:.2f}
@@ -288,7 +287,7 @@ Key Areas to Investigate via Real-Time Filings, Earnings Calls & Announcements:
 - Business Model Reality & Moat: How the company makes money, customer retention, pricing power, and competitive advantages in plain English.
 - Real Cash Flow, SBC & Capital Structure: Real cash generation (treating SBC as a cash charge), dilution vs. buybacks, Net Cash/Debt, and capital allocation.
 - Ownership & Catalysts: Verified active 13F whale positions from latest official filings (exclude exited investors), management alignment, and upcoming catalysts.
-- True Intrinsic Valuation & DCF Scenario Matrix: Bottom-up DCF (or appropriate intrinsic framework) with zero market price anchoring. Calculate Bear / Base / Bull scenario range (using localized risk-free/discount rates if international), assess fair value confidence, execution risk, and explicit falsification triggers.
+- Clean Ballpark Intrinsic Valuation: Back-of-the-napkin DCF / Owner Earnings without market price anchoring. Calculate a simple Bear / Base / Bull scenario range (Post-SBC cash flow, 3-5 year compounding, Net Cash/Debt bridge), assess confidence, execution risk, and explicit falsification triggers.
 - Dynamic Alert Corridors: Establish exact `upper_alert_threshold` (upside breakout / trim level) and `lower_alert_threshold` (downside margin-of-safety floor) based on your valuation targets.
 
 Editorial Aesthetics Mandate:
