@@ -16,7 +16,7 @@ def _ensure_dirs():
 
 
 def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: List[ThesisVersion]) -> str:
-    """Generates a clean, soothing, book-like investment due diligence dossier."""
+    """Generates a clean, soothing, book-like investment due diligence dossier with minimalist interactive area chart."""
     current_version = history[-1] if history else None
     
     # Corridor percentages
@@ -71,6 +71,36 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 
     active_content = current_version.full_html_content if current_version else "<p>No active thesis found.</p>"
 
+    # Safe symbol JSON for TradingView overview widget
+    tv_config = json.dumps({
+        "symbols": [[ticker]],
+        "chartOnly": True,
+        "width": "100%",
+        "height": "100%",
+        "locale": "en",
+        "colorTheme": "dark",
+        "autosize": True,
+        "showVolume": True,
+        "showMA": False,
+        "hideDateRanges": False,
+        "hideMarketStatus": True,
+        "hideSymbolLogo": True,
+        "scalePosition": "right",
+        "scaleMode": "Normal",
+        "fontFamily": "-apple-system, BlinkMacSystemFont, 'Plus Jakarta Sans', sans-serif",
+        "fontSize": "10",
+        "noTimeScale": False,
+        "valuesTracking": "1",
+        "changeMode": "price-and-percent",
+        "chartType": "area",
+        "backgroundColor": "rgba(24, 23, 21, 1)",
+        "gridLineColor": "rgba(230, 220, 205, 0.05)",
+        "lineWidth": 2,
+        "lineColor": "#C99A75",
+        "topColor": "rgba(201, 154, 117, 0.22)",
+        "bottomColor": "rgba(201, 154, 117, 0.0)"
+    }, indent=2)
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,7 +110,6 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <style>
         :root {{
             --bg-canvas: #161514;         /* Deep soothing warm espresso */
@@ -160,14 +189,15 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         .price-number {{ font-size: 2.6rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }}
         .price-sub {{ font-size: 0.88rem; font-family: var(--font-mono); margin-top: 2px; }}
 
-        /* Chart */
+        /* Minimalist Chart Section */
         .chart-section {{
             margin-top: 28px;
             background: #181715;
             border: 1px solid var(--border-color);
             border-radius: 12px;
             overflow: hidden;
-            height: 360px;
+            height: 340px;
+            padding: 6px 6px 0 6px;
         }}
 
         /* Corridor */
@@ -435,26 +465,14 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 </div>
             </div>
 
-            <!-- Embedded Live Chart -->
+            <!-- Minimalist Area Chart with Interactive Hover -->
             <div class="chart-section">
-                <div id="tradingview_chart_container" style="height: 100%; width: 100%;"></div>
-                <script type="text/javascript">
-                new TradingView.widget({{
-                    "autosize": true,
-                    "symbol": "{stock.ticker}",
-                    "interval": "D",
-                    "timezone": "America/New_York",
-                    "theme": "dark",
-                    "style": "3",
-                    "locale": "en",
-                    "toolbar_bg": "#181715",
-                    "enable_publishing": false,
-                    "hide_top_toolbar": false,
-                    "hide_legend": false,
-                    "save_image": false,
-                    "container_id": "tradingview_chart_container"
-                }});
-                </script>
+                <div class="tradingview-widget-container" style="height: 100%; width: 100%;">
+                    <div class="tradingview-widget-container__widget" style="height: 100%; width: 100%;"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js" async>
+                    {tv_config}
+                    </script>
+                </div>
             </div>
 
             <!-- Corridor -->
