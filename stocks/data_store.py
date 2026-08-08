@@ -67,7 +67,6 @@ def add_alert(alert: AlertItem):
     _ensure_dirs()
     alerts = load_alerts()
     alerts.insert(0, alert)  # Newest first
-    # Keep up to 200 most recent alerts
     alerts = alerts[:200]
     with open(ALERTS_FILE, "w", encoding="utf-8") as f:
         json.dump([a.model_dump() for a in alerts], f, indent=2)
@@ -92,11 +91,14 @@ def load_thesis_history(ticker: str) -> List[ThesisVersion]:
         return []
 
 
-def save_thesis_version(ticker: str, version: ThesisVersion):
+def save_thesis_version(ticker: str, version: ThesisVersion, reset: bool = False):
     _ensure_dirs()
-    history = load_thesis_history(ticker)
-    history.append(version)
     file_path = get_thesis_file(ticker)
+    if reset or version.version == 1:
+        history = [version]
+    else:
+        history = load_thesis_history(ticker)
+        history.append(version)
     with open(file_path, "w", encoding="utf-8") as f:
         json.dump([v.model_dump() for v in history], f, indent=2)
 
@@ -123,7 +125,6 @@ def save_queue(queue: List[TaskItem]):
 
 def enqueue_task(task: TaskItem):
     queue = load_queue()
-    # Avoid duplicate pending tasks for same ticker & type
     for existing in queue:
         if existing.status == "PENDING" and existing.ticker == task.ticker and existing.task_type == task.task_type:
             return

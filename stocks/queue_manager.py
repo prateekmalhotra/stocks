@@ -42,9 +42,9 @@ def process_task(task: TaskItem):
 
 
 def _handle_genesis_task(ticker: str, notes: str):
-    """Executes the Genesis Living Thesis generation for a new stock."""
+    """Executes the Genesis Living Thesis generation for a new stock (does NOT spam alerts)."""
     company_name, current_price = fetch_live_stock_info(ticker)
-    print(f"🔍 Researching {ticker} ({company_name}) at ${current_price:.2f} with Gemini 3.6 Flash + Search...")
+    print(f"🔍 Researching {ticker} ({company_name}) at real market price ${current_price:.2f} with Gemini 3.6 Flash + Search...")
 
     meta, html_content = generate_genesis_thesis(ticker, company_name, current_price, notes)
 
@@ -56,7 +56,7 @@ def _handle_genesis_task(ticker: str, notes: str):
         price_at_version=current_price,
         status_label=meta.get("status_label", "Genesis Research Active"),
         summary_of_change=meta.get("executive_summary", "Initial institutional thesis established."),
-        what_was_before="No previous coverage.",
+        what_was_before="Initial Genesis baseline.",
         what_changes_now=meta.get("executive_summary", "Initial coverage initiated."),
         fair_value_estimate=meta.get("fair_value_estimate", f"${current_price:.2f}"),
         bear_target=meta.get("bear_target", ""),
@@ -91,26 +91,11 @@ def _handle_genesis_task(ticker: str, notes: str):
         report_path=f"reports/{ticker}.html"
     )
     save_stock(stock_record)
-
-    # 3. Create Initial Alert Record
-    initial_alert = AlertItem(
-        id=f"alert_{ticker}_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
-        ticker=ticker,
-        timestamp=datetime.now().strftime("%Y-%m-%d %H:%M"),
-        title=f"Initial Coverage Initiated: {ticker} ({stock_record.status_label})",
-        severity="COVERAGE INITIATED",
-        trigger_reason="Genesis research completed by Gemini 3.6 Flash.",
-        what_was_before="No previous coverage.",
-        what_changes_now=version_1.summary_of_change,
-        price_at_alert=current_price,
-        price_change_pct=0.0,
-        report_url=f"reports/{ticker}.html"
-    )
-    add_alert(initial_alert)
+    # NOTE: Initial analysis does NOT trigger a user alert. Alerts are ONLY created on real trigger events!
 
 
 def _handle_review_task(ticker: str, trigger_reason: str):
-    """Executes a Living Thesis Review when a price threshold or catalyst is triggered."""
+    """Executes a Living Thesis Review when a price threshold or catalyst is triggered and emits an alert."""
     stock = get_stock(ticker)
     if not stock:
         raise ValueError(f"Cannot review {ticker}: Stock not found in watchlist.")
@@ -175,13 +160,13 @@ def _handle_review_task(ticker: str, trigger_reason: str):
     stock.total_versions = new_version_num
     save_stock(stock)
 
-    # 3. Add Alert Item for Dashboard
+    # 3. Add High-Signal Alert Item for Dashboard
     alert = AlertItem(
         id=f"alert_{ticker}_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
         ticker=ticker,
         timestamp=datetime.now().strftime("%Y-%m-%d %H:%M"),
-        title=meta.get("alert_title", f"{ticker} Living Thesis Update"),
-        severity=meta.get("alert_severity", "THESIS EVOLVED"),
+        title=meta.get("alert_title", f"{ticker} Trigger Fired: Thesis Re-Evaluated"),
+        severity=meta.get("alert_severity", "MATERIAL EVENT"),
         trigger_reason=trigger_reason,
         what_was_before=new_version.what_was_before or "",
         what_changes_now=new_version.what_changes_now or "",
@@ -201,5 +186,5 @@ def process_all_pending_tasks():
             break
         process_task(task)
         processed += 1
-        time.sleep(2)  # brief pause between calls
+        time.sleep(2)
     return processed

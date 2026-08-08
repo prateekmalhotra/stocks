@@ -3,300 +3,330 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Institutional Equity Research & Surveillance Hub</title>
+    <title>Institutional Equity Research Hub</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-base: #090c15;
-            --bg-card: #111726;
-            --bg-surface: #172034;
-            --bg-accent: #1e2c47;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --text-dim: #64748b;
+            --bg-page: #08090d;
+            --bg-card: #0f121a;
+            --bg-card-hover: #141a26;
+            --bg-elevated: #171f2e;
+            --bg-accent: #1e293d;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
             --primary: #38bdf8;
-            --primary-glow: rgba(56, 189, 248, 0.15);
+            --primary-rgb: 56, 189, 248;
             --success: #10b981;
-            --success-glow: rgba(16, 185, 129, 0.15);
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --border: #1e293b;
-            --border-light: #28364f;
-            --font-display: 'Outfit', sans-serif;
+            --danger: #f43f5e;
+            --warning: #fbbf24;
+            --border: #1e2638;
+            --border-highlight: #2a364f;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: var(--bg-base);
-            color: var(--text-main);
-            font-family: var(--font-display);
+            background: var(--bg-page);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
             min-height: 100vh;
-            padding-bottom: 80px;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 100px;
         }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
 
-        /* Top Nav */
-        header {
-            background: rgba(17, 23, 38, 0.85);
-            backdrop-filter: blur(12px);
+        /* Top Header */
+        header.terminal-nav {
+            background: rgba(8, 9, 13, 0.85);
+            backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
-            z-index: 100;
-            padding: 18px 0;
+            z-index: 50;
+            padding: 16px 0;
         }
-        .header-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { display: flex; align-items: center; gap: 10px; font-size: 1.3rem; font-weight: 800; letter-spacing: -0.5px; }
-        .logo-badge { background: var(--primary-glow); color: var(--primary); font-size: 0.75rem; padding: 3px 8px; border-radius: 6px; border: 1px solid var(--primary); }
+        .header-wrap { display: flex; justify-content: space-between; align-items: center; }
+        .brand { display: flex; align-items: center; gap: 10px; font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; }
+        .brand-badge {
+            background: rgba(var(--primary-rgb), 0.12);
+            color: var(--primary);
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(var(--primary-rgb), 0.3);
+            text-transform: uppercase;
+        }
+        .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--success); box-shadow: 0 0 8px var(--success); margin-right: 6px; }
 
-        /* Main Tabs */
-        .main-tabs {
+        /* Navigation Tabs */
+        .main-nav-tabs {
             display: flex;
-            gap: 16px;
+            gap: 8px;
             border-bottom: 1px solid var(--border);
-            margin: 32px 0 24px;
+            margin: 36px 0 28px;
         }
-        .tab-btn {
+        .nav-tab-btn {
             background: none;
             border: none;
-            color: var(--text-muted);
-            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
             font-weight: 700;
             padding: 12px 24px;
             cursor: pointer;
             position: relative;
-            font-family: var(--font-display);
-            transition: all 0.2s;
+            font-family: var(--font-sans);
+            transition: all 0.15s;
         }
-        .tab-btn:hover { color: var(--text-main); }
-        .tab-btn.active { color: var(--primary); }
-        .tab-btn.active::after {
+        .nav-tab-btn:hover { color: var(--text-primary); }
+        .nav-tab-btn.active { color: var(--primary); }
+        .nav-tab-btn.active::after {
             content: '';
             position: absolute;
             bottom: -1px;
-            left: 0;
-            right: 0;
-            height: 3px;
+            left: 0; right: 0;
+            height: 2px;
             background: var(--primary);
-            border-radius: 3px 3px 0 0;
             box-shadow: 0 0 12px var(--primary);
         }
 
-        .tab-pane { display: none; }
-        .tab-pane.active { display: block; }
+        .tab-section { display: none; }
+        .tab-section.active { display: block; }
 
         /* Stock Cards Grid */
-        .stocks-grid {
+        .stock-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 20px;
         }
-        .stock-card {
+        .stock-item {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 14px;
+            border-radius: 16px;
             padding: 24px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            cursor: pointer;
             transition: all 0.2s ease;
         }
-        .stock-card:hover {
+        .stock-item:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-highlight);
             transform: translateY(-3px);
-            border-color: var(--border-light);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
         }
-        .stock-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-        .stock-ticker { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px; }
-        .stock-price { font-size: 1.5rem; font-weight: 700; font-family: var(--font-mono); }
-        .stock-name { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; }
+        .stock-item-head { display: flex; justify-content: space-between; align-items: center; }
+        .stock-symbol { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.02em; }
+        .stock-price-val { font-size: 1.5rem; font-weight: 700; font-family: var(--font-mono); }
+        .stock-full-name { color: var(--text-secondary); font-size: 0.9rem; margin: 4px 0 20px; }
 
-        .stock-metrics {
+        .stock-stat-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
-            background: var(--bg-surface);
+            background: var(--bg-elevated);
             padding: 14px;
-            border-radius: 10px;
+            border-radius: 12px;
             margin-bottom: 20px;
         }
-        .sm-tile { display: flex; flex-direction: column; }
-        .sm-lbl { font-size: 0.7rem; text-transform: uppercase; color: var(--text-dim); margin-bottom: 2px; }
-        .sm-val { font-size: 0.95rem; font-weight: 700; font-family: var(--font-mono); }
+        .stat-cell { display: flex; flex-direction: column; }
+        .stat-label { font-size: 0.68rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600; }
+        .stat-value { font-size: 0.95rem; font-weight: 700; font-family: var(--font-mono); margin-top: 2px; }
 
-        .stock-card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 16px; }
-
-        /* Alerts List */
-        .alerts-list { display: flex; flex-direction: column; gap: 14px; }
-        .alert-row {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
+        .stock-card-foot {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 20px;
-            cursor: pointer;
-            transition: all 0.2s;
+            border-top: 1px solid var(--border);
+            padding-top: 16px;
         }
-        .alert-row:hover {
-            background: var(--bg-surface);
+        .stock-updated-tag { font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono); }
+        .open-link { font-size: 0.85rem; font-weight: 700; color: var(--primary); }
+
+        /* Alerts Feed */
+        .alerts-feed { display: flex; flex-direction: column; gap: 14px; }
+        .alert-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 22px 26px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .alert-card:hover {
+            background: var(--bg-card-hover);
             border-color: var(--primary);
             transform: translateX(4px);
         }
-        .alert-left { flex: 1; }
-        .alert-badge-group { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-        .alert-ticker { font-size: 1.1rem; font-weight: 800; }
-        .alert-time { font-size: 0.8rem; color: var(--text-dim); }
-        .alert-title { font-size: 1.1rem; font-weight: 700; color: var(--text-main); margin-bottom: 6px; }
-        .alert-preview { font-size: 0.9rem; color: var(--text-muted); line-height: 1.4; }
-        
-        .alert-right { text-align: right; min-width: 140px; }
-        .alert-price { font-size: 1.3rem; font-weight: 700; font-family: var(--font-mono); }
-        .alert-pct { font-size: 0.9rem; font-weight: 600; }
+        .alert-card-left { flex: 1; }
+        .alert-tags { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+        .alert-ticker-name { font-size: 1.1rem; font-weight: 800; }
+        .alert-timestamp { font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-mono); }
+        .alert-headline { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
+        .alert-blurb { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.45; }
 
-        /* Badges & Buttons */
-        .badge {
+        .alert-card-right { text-align: right; min-width: 140px; }
+        .alert-price-tag { font-size: 1.4rem; font-weight: 700; font-family: var(--font-mono); }
+        .alert-change-pct { font-size: 0.9rem; font-weight: 600; font-family: var(--font-mono); }
+        .alert-inspect-btn { font-size: 0.8rem; font-weight: 700; color: var(--primary); display: inline-block; margin-top: 6px; }
+
+        /* Badges & Pills */
+        .pill {
             display: inline-block;
             padding: 3px 10px;
-            border-radius: 16px;
-            font-size: 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.72rem;
             font-weight: 700;
             text-transform: uppercase;
+            letter-spacing: 0.04em;
         }
-        .badge-status { background: var(--primary-glow); color: var(--primary); border: 1px solid var(--primary); }
-        .badge-alert { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid #f59e0b; }
+        .pill-status { background: rgba(var(--primary-rgb), 0.12); color: var(--primary); border: 1px solid rgba(var(--primary-rgb), 0.3); }
+        .pill-alert { background: rgba(251, 191, 36, 0.12); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
 
-        .btn {
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            border: none;
-            transition: all 0.2s;
+        .pos { color: var(--success); }
+        .neg { color: var(--danger); }
+        .empty-feed {
+            text-align: center;
+            background: var(--bg-card);
+            border: 1px dashed var(--border);
+            border-radius: 16px;
+            padding: 60px 24px;
+            margin: 20px 0;
         }
-        .btn-primary { background: var(--primary); color: #050811; }
-        .btn-primary:hover { background: #7dd3fc; }
-        .btn-outline { background: transparent; color: var(--primary); border: 1px solid var(--primary); }
-        .btn-outline:hover { background: var(--primary-glow); }
-        .btn-sm { padding: 6px 12px; font-size: 0.8rem; }
 
-        .return-pos { color: var(--success); }
-        .return-neg { color: var(--danger); }
-        .empty-state { text-align: center; padding: 60px 20px; color: var(--text-dim); font-size: 1.1rem; }
-
-        /* Modal / Popup */
-        .modal-overlay {
+        /* Modal Overlay */
+        .modal-shade {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(12px);
             z-index: 1000;
             display: none;
             justify-content: center;
             align-items: center;
             padding: 24px;
         }
-        .modal-card {
+        .modal-body-card {
             background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: 16px;
-            max-width: 720px;
+            border: 1px solid var(--border-highlight);
+            border-radius: 20px;
+            max-width: 760px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
-            padding: 32px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            padding: 36px;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.7);
             position: relative;
         }
-        .modal-close {
+        .modal-x {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 24px; right: 24px;
             background: none;
             border: none;
-            color: var(--text-dim);
-            font-size: 1.5rem;
+            color: var(--text-muted);
+            font-size: 1.4rem;
             cursor: pointer;
         }
-        .modal-close:hover { color: var(--text-main); }
-        .diff-modal-grid {
+        .modal-x:hover { color: var(--text-primary); }
+
+        .diff-modal-wrap {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 16px;
-            margin: 20px 0;
+            margin: 24px 0;
         }
-        @media (max-width: 640px) { .diff-modal-grid { grid-template-columns: 1fr; } }
-        .diff-box { padding: 16px; border-radius: 8px; border: 1px solid var(--border); }
-        .diff-before { background: rgba(239, 68, 68, 0.05); border-color: rgba(239, 68, 68, 0.2); }
-        .diff-after { background: rgba(16, 185, 129, 0.05); border-color: rgba(16, 185, 129, 0.2); }
-        .diff-title { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 6px; }
-        .diff-content { font-size: 0.95rem; color: #cbd5e1; line-height: 1.5; }
+        @media (max-width: 640px) { .diff-modal-wrap { grid-template-columns: 1fr; } }
+        .diff-side { padding: 18px; border-radius: 12px; border: 1px solid var(--border); }
+        .side-before { background: rgba(244, 63, 94, 0.04); border-color: rgba(244, 63, 94, 0.2); }
+        .side-after { background: rgba(var(--success-rgb), 0.04); border-color: rgba(var(--success-rgb), 0.2); }
+        .side-heading { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+        .side-before .side-heading { color: #fb7185; }
+        .side-after .side-heading { color: #34d399; }
+        .side-text { font-size: 0.95rem; color: #cbd5e1; line-height: 1.55; }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            border: none;
+            transition: all 0.15s;
+        }
+        .btn-primary { background: var(--primary); color: #08090d; }
+        .btn-primary:hover { background: #7dd3fc; }
+        .btn-outline { background: var(--bg-elevated); color: var(--text-primary); border: 1px solid var(--border); }
+        .btn-outline:hover { background: var(--bg-accent); }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container header-inner">
-            <div class="logo">
-                <span>📈 Equity Living Thesis Hub</span>
-                <span class="logo-badge">Gemini 3.6 Flash Grounded</span>
+    <header class="terminal-nav">
+        <div class="container header-wrap">
+            <div class="brand">
+                <span class="status-dot"></span>
+                <span>Institutional Equity Surveillance Hub</span>
+                <span class="brand-badge">Gemini 3.6 Flash</span>
             </div>
-            <div style="font-size: 0.85rem; color: var(--text-dim);">Autonomous 24/7 Surveillance</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-mono);">24/7 ACTIVE SURVEILLANCE</div>
         </div>
     </header>
 
     <main class="container">
-        <!-- Main Navigation Tabs -->
-        <nav class="main-tabs">
-            <button class="tab-btn active" onclick="switchMainTab('stocks')">📊 Active Watchlist (1)</button>
-            <button class="tab-btn" onclick="switchMainTab('alerts')">🚨 Alerts & Trigger Feed (1)</button>
-        </nav>
+        <!-- Navigation Tabs -->
+        <div class="main-nav-tabs">
+            <button class="nav-tab-btn active" onclick="switchMainTab('stocks')">📊 Active Portfolio & Watchlist (1)</button>
+            <button class="nav-tab-btn" onclick="switchMainTab('alerts')">🚨 Critical Alerts (0)</button>
+        </div>
 
         <!-- STOCKS TAB -->
-        <section id="pane-stocks" class="tab-pane active">
-            <div class="stocks-grid">
+        <section id="section-stocks" class="tab-section active">
+            <div class="stock-grid">
                 
-        <div class="stock-card" data-ticker="CNK">
-            <div class="stock-card-header">
+        <div class="stock-item" onclick="location.href='reports/CNK.html'">
+            <div class="stock-item-head">
                 <div>
-                    <span class="stock-ticker">CNK</span>
-                    <span class="badge badge-status" style="margin-left: 8px;">Severely Overvalued / Extreme Valuation Disconnect</span>
+                    <span class="stock-symbol">CNK</span>
+                    <span class="pill pill-status" style="margin-left: 8px;">High Conviction Cash-Flow Compounder</span>
                 </div>
-                <div class="stock-price">$100.00</div>
+                <div class="stock-price-val">$37.24</div>
             </div>
-            <div class="stock-name">CNK</div>
+            <div class="stock-full-name">Cinemark Holdings Inc Cinemark </div>
             
-            <div class="stock-metrics">
-                <div class="sm-tile">
-                    <span class="sm-lbl">Return</span>
-                    <span class="sm-val return-pos">+0.00%</span>
+            <div class="stock-stat-grid">
+                <div class="stat-cell">
+                    <span class="stat-label">Return</span>
+                    <span class="stat-value pos">+0.00%</span>
                 </div>
-                <div class="sm-tile">
-                    <span class="sm-lbl">Fair Value</span>
-                    <span class="sm-val" style="color: var(--primary);">$42.00</span>
+                <div class="stat-cell">
+                    <span class="stat-label">Fair Value</span>
+                    <span class="stat-value" style="color: var(--primary);">$46.50</span>
                 </div>
-                <div class="sm-tile">
-                    <span class="sm-lbl">Trigger Bounds</span>
-                    <span class="sm-val">$38 — $115</span>
+                <div class="stat-cell">
+                    <span class="stat-label">Trigger Bounds</span>
+                    <span class="stat-value">$31 — $42</span>
                 </div>
-                <div class="sm-tile">
-                    <span class="sm-lbl">Next Catalyst</span>
-                    <span class="sm-val">October 2026</span>
+                <div class="stat-cell">
+                    <span class="stat-label">Next Catalyst</span>
+                    <span class="stat-value">November 2026</span>
                 </div>
             </div>
             
-            <div class="stock-card-footer">
-                <span style="font-size: 0.8rem; color: var(--text-dim);">Updated: 2026-08-07</span>
-                <a href="reports/CNK.html" class="btn btn-sm btn-primary">Open Dossier →</a>
+            <div class="stock-card-foot">
+                <span class="stock-updated-tag">Updated 2026-08-07</span>
+                <span class="open-link">Read Dossier →</span>
             </div>
         </div>
         
@@ -304,56 +334,45 @@
         </section>
 
         <!-- ALERTS TAB -->
-        <section id="pane-alerts" class="tab-pane">
-            <div class="alerts-list">
+        <section id="section-alerts" class="tab-section">
+            <div class="alerts-feed">
                 
-            <div class="alert-row" onclick='openAlertModal({&quot;ticker&quot;: &quot;CNK&quot;, &quot;title&quot;: &quot;Initial Coverage Initiated: CNK (Severely Overvalued / Extreme Valuation Disconnect)&quot;, &quot;timestamp&quot;: &quot;2026-08-07 23:07&quot;, &quot;severity&quot;: &quot;COVERAGE INITIATED&quot;, &quot;price&quot;: 100.0, &quot;change&quot;: 0.0, &quot;trigger_reason&quot;: &quot;Genesis research completed by Gemini 3.6 Flash.&quot;, &quot;what_was_before&quot;: &quot;No previous coverage.&quot;, &quot;what_changes_now&quot;: &quot;At the prompt&#39;s benchmark price of $100.00, Cinemark trades at an unsustainable 16.8x EV/EBITDA and 35.2x Owner Earnings, presenting a massive 55% downside to its intrinsic base-case valuation of $45.00 per share. While operational execution is world-class\u2014highlighted by Q2 2026 revenue surpassing $1.086B for the first time in company history\u2014the $100.00 price embeds an unachievable hyper-growth scenario that ignores theatrical box office structural ceilings and real economic debt burdens.&quot;, &quot;report_url&quot;: &quot;reports/CNK.html&quot;})'>
-                <div class="alert-left">
-                    <div class="alert-badge-group">
-                        <span class="badge badge-alert">COVERAGE INITIATED</span>
-                        <strong class="alert-ticker">CNK</strong>
-                        <span class="alert-time">🕒 2026-08-07 23:07</span>
-                    </div>
-                    <div class="alert-title">Initial Coverage Initiated: CNK (Severely Overvalued / Extreme Valuation Disconnect)</div>
-                    <div class="alert-preview">At the prompt's benchmark price of $100.00, Cinemark trades at an unsustainable 16.8x EV/EBITDA and 35.2x Owner Earnings, presenting a massive 55% downside to its intrinsic base-ca...</div>
-                </div>
-                <div class="alert-right">
-                    <div class="alert-price">$100.00</div>
-                    <div class="alert-pct return-pos">+0.00%</div>
-                    <button class="btn btn-sm btn-outline" style="margin-top: 8px;">Review Delta →</button>
-                </div>
-            </div>
-            
+        <div class="empty-feed">
+            <div style="font-size: 2rem; margin-bottom: 8px;">🛡️</div>
+            <div style="font-weight: 700; font-size: 1.1rem; color: var(--text-primary);">All Positions Stable</div>
+            <div style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px;">No critical threshold breaches or catalyst alerts triggered. Surveillance engine is active.</div>
+        </div>
+        
             </div>
         </section>
     </main>
 
-    <!-- Interactive Alert Modal (What was before vs What changes now) -->
-    <div id="alert-modal" class="modal-overlay" onclick="closeModalOnOutsideClick(event)">
-        <div class="modal-card" id="modal-card">
-            <button class="modal-close" onclick="closeAlertModal()">✕</button>
+    <!-- Alert Delta Modal -->
+    <div id="alert-modal" class="modal-shade" onclick="closeModalOutside(event)">
+        <div class="modal-body-card" id="modal-card">
+            <button class="modal-x" onclick="closeAlertModal()">✕</button>
             <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
-                <span id="modal-badge" class="badge badge-alert">ALERT</span>
+                <span id="modal-badge" class="pill pill-alert">ALERT</span>
                 <strong id="modal-ticker" style="font-size: 1.3rem;">TICKER</strong>
-                <span id="modal-time" style="color: var(--text-dim); font-size: 0.85rem;">Timestamp</span>
+                <span id="modal-time" style="color: var(--text-muted); font-size: 0.85rem; font-family: var(--font-mono);">Timestamp</span>
             </div>
-            <h2 id="modal-title" style="font-size: 1.4rem; margin-bottom: 16px;">Alert Headline</h2>
-            <div style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 16px;">
-                <strong>Trigger Cause:</strong> <span id="modal-trigger">Trigger description</span>
-            </div>
-
-            <div class="diff-modal-grid">
-                <div class="diff-box diff-before">
-                    <div class="diff-title" style="color: #f87171;">⏪ What Was Before</div>
-                    <div id="modal-before" class="diff-content">Previous stance...</div>
-                </div>
-                <div class="diff-box diff-after">
-                    <div class="diff-title" style="color: #34d399;">⚡ What Changes Now</div>
-                    <div id="modal-after" class="diff-content">Updated thesis stance...</div>
-                </div>
+            <h2 id="modal-title" style="font-size: 1.4rem; margin-bottom: 12px; letter-spacing: -0.02em;">Alert Headline</h2>
+            <div style="font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 20px;">
+                <strong>Trigger Cause:</strong> <span id="modal-trigger">Reason</span>
             </div>
 
-            <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px;">
+            <div class="diff-modal-wrap">
+                <div class="diff-side side-before">
+                    <div class="side-heading">⏪ What Was Before</div>
+                    <div id="modal-before" class="side-text">Previous stance...</div>
+                </div>
+                <div class="diff-side side-after">
+                    <div class="side-heading">⚡ What Changes Now</div>
+                    <div id="modal-after" class="side-text">Updated thesis...</div>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 28px;">
                 <button class="btn btn-outline" onclick="closeAlertModal()">Dismiss</button>
                 <a id="modal-report-link" href="#" class="btn btn-primary">Open Full Updated Dossier →</a>
             </div>
@@ -362,15 +381,15 @@
 
     <script>
         function switchMainTab(tab) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+            document.querySelectorAll('.nav-tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-section').forEach(sec => sec.classList.remove('active'));
             
             if (tab === 'stocks') {
-                document.querySelectorAll('.tab-btn')[0].classList.add('active');
-                document.getElementById('pane-stocks').classList.add('active');
+                document.querySelectorAll('.nav-tab-btn')[0].classList.add('active');
+                document.getElementById('section-stocks').classList.add('active');
             } else {
-                document.querySelectorAll('.tab-btn')[1].classList.add('active');
-                document.getElementById('pane-alerts').classList.add('active');
+                document.querySelectorAll('.nav-tab-btn')[1].classList.add('active');
+                document.getElementById('section-alerts').classList.add('active');
             }
         }
 
@@ -380,7 +399,7 @@
             document.getElementById('modal-time').innerText = payload.timestamp;
             document.getElementById('modal-badge').innerText = payload.severity;
             document.getElementById('modal-trigger').innerText = payload.trigger_reason;
-            document.getElementById('modal-before').innerText = payload.what_was_before || 'Genesis baseline';
+            document.getElementById('modal-before').innerText = payload.what_was_before || 'Initial Genesis baseline';
             document.getElementById('modal-after').innerText = payload.what_changes_now || 'Thesis updated';
             document.getElementById('modal-report-link').href = payload.report_url;
             
@@ -391,7 +410,7 @@
             document.getElementById('alert-modal').style.display = 'none';
         }
 
-        function closeModalOnOutsideClick(event) {
+        function closeModalOutside(event) {
             if (event.target.id === 'alert-modal') {
                 closeAlertModal();
             }
