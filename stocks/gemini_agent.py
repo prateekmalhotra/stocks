@@ -212,7 +212,13 @@ CORE PRINCIPLES & GUIDELINES:
    - Labels #2 & #3 (OPTIONAL DRIVERS): Specific economic play nature or key catalyst driver (e.g., "Buyback Cannibal", "Operating Leverage", "Moat Expansion", "Deleveraging Play").
    - NEVER use generic industry/sector names (avoid tags like "Latam Fintech" or "Payments Credit").
 
-6. Down-to-Earth Ballpark Valuation:
+6. Dynamic Price Alert Corridors & Surveillance Triggers:
+   - You MUST design custom upper and lower price alert thresholds (`upper_alert_threshold` and `lower_alert_threshold`) with explicit trigger reasons.
+   - Upper Threshold: Set at a key upside realization or trim level (e.g., nearing fair value or bull target).
+   - Lower Threshold: Set at a crucial margin-of-safety test or thesis invalidation floor (e.g., testing bear case support).
+   - When market price crosses either threshold, the system automatically triggers an urgent thesis review and publishes a new alert.
+
+7. Down-to-Earth Ballpark Valuation:
    - Keep valuations simple, realistic, and level-headed (e.g. a clear Bear / Base / Bull scenario range with expected 3-year annualized returns).
 """
 
@@ -231,6 +237,7 @@ Key Areas to Investigate via Real-Time Filings, Earnings Calls & Announcements:
 - Real Cash Flow, SBC & Capital Structure: Real cash generation (treating SBC as a cash charge), dilution vs. buybacks, Net Cash/Debt, and capital allocation.
 - Ownership & Catalysts: Verified active 13F whale positions from latest official filings (exclude exited investors), management alignment, and upcoming catalysts.
 - Thesis Confidence, Execution Risk & Ballpark Valuation: Down-to-earth Bear / Base / Bull scenario range (using localized risk-free/discount rates if international), how confident we are in reaching fair value, how much bad execution can hurt the thesis, and explicit falsification triggers.
+- Dynamic Alert Corridors: Establish exact `upper_alert_threshold` (upside breakout / trim level) and `lower_alert_threshold` (downside margin-of-safety floor) based on your valuation targets.
 
 Editorial Aesthetics Mandate:
 - Format all financial KPIs and quarterly numbers into `<div class="metrics-grid"><div class="metric-card">...</div></div>` or structured HTML tables. Zero raw text dumps.
