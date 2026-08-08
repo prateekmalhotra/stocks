@@ -600,6 +600,12 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             padding: 18px 22px;
             margin: 24px 0;
         }}
+        .highlight, mark {{
+            background: rgba(201, 154, 117, 0.16) !important;
+            color: #E2DDD5 !important;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }}
 
         /* History */
         .history-entry {{
