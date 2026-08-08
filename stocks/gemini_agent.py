@@ -268,7 +268,8 @@ CORE PRINCIPLES & GUIDELINES:
      1. Real Cash Baseline: Start with normalized Owner Earnings / Free Cash Flow (Cash from Ops minus maintenance CapEx, deducting Stock-Based Compensation as a real cash charge).
      2. Sensible 3-5 Year Compounding: Apply a simple, realistic cash growth rate based on business unit economics and reinvestment reality.
      3. Grounded Discount Hurdle: Apply a standard, sensible discount rate (e.g. 10-12% hurdle, adjusted for local sovereign rates if international) and a reasonable exit multiple reflecting moat durability.
-     4. Balance Sheet Reality: Add Cash & short-term investments, subtract Total Debt to arrive at Equity Value, and divide by diluted shares.
+     4. Share Buybacks & Cannibal Dynamics: Explicitly factor in active share repurchase programs. If management is retiring shares with excess cash flow (e.g. 3-8% annual share count reduction), model this shrinking share count into the forward per-share Free Cash Flow and intrinsic value targets (especially in Base and Bull cases).
+     5. Balance Sheet Reality: Add Cash & short-term investments, subtract Total Debt to arrive at Equity Value, and divide by the diluted share count.
    - Present a clean, simple Bear / Base / Bull scenario table in Section 5 with clear, transparent ballpark assumptions.
    - Analytical Autonomy: For banks, financial institutions, or asset plays where DCF is unsuitable, use simple Tangible Book / ROE or dividend yield frameworks.
 """
