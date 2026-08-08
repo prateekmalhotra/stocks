@@ -195,7 +195,11 @@ CORE PRINCIPLES & GUIDELINES:
    - Localized International Valuation: If analyzing an international or cross-border company, use the appropriate country-specific risk-free and discount rates (e.g. SELIC for Brazil, local sovereign bond yields) and sensible, balanced currency conversions—neither overly optimistic nor overly pessimistic.
    - Factual Accuracy: Ground institutional ownership (13F whales) and financials in the LATEST official filings (never list exited investors as active holders).
 
-3. Down-to-Earth Ballpark Valuation:
+3. Investment Play & Reliability Labels:
+   - Generate 1 to 3 crisp dynamic labels (max 2 words each).
+   - Labels MUST describe the NATURE of the investment play and its RELIABILITY/RISK profile (e.g., "Turnaround Play", "Deep Value", "Safe Compounder", "High Risk", "Asymmetric Upside", "Quality Moat", "Special Situation", "Cyclical Play", "Capital Return") rather than generic industry/sector names (avoid tags like "Latam Fintech" or "Payments Credit").
+
+4. Down-to-Earth Ballpark Valuation:
    - Keep valuations simple, realistic, and level-headed (e.g. a clear Bear / Base / Bull scenario range with expected 3-year annualized returns).
 """
 
@@ -215,13 +219,16 @@ Key Areas to Investigate via Real-Time Filings, Earnings Calls & Announcements:
 - Ownership & Catalysts: Verified active 13F whale positions from latest official filings (exclude exited investors), management alignment, and upcoming catalysts.
 - Level-Headed Ballpark Valuation & Invalidation: Down-to-earth Bear / Base / Bull scenario range (using localized risk-free/discount rates if international) and key falsification triggers.
 
+Labels Directive:
+- Select 1 to 3 labels (max 2 words each) that describe the play nature and reliability (e.g. "Turnaround Play", "Deep Value", "Safe Compounder", "High Risk", "Asymmetric Upside") rather than the sector/industry.
+
 Return your plan strictly as a JSON object in ```json ... ```:
 ```json
 {{
   "metadata": {{
     "ticker": "{ticker}",
     "company_name": "{company_name}",
-    "labels": ["<Max 2-Word Label 1>", "<Max 2-Word Label 2>", "<Max 2-Word Label 3>"],
+    "labels": ["<Play/Reliability Label 1>", "<Play/Reliability Label 2>", "<Play/Reliability Label 3>"],
     "fair_value_estimate": "$<Estimated Fair Value>",
     "bear_target": "$<Price> (<% Upside/Downside>)",
     "base_target": "$<Price> (<% Upside/Downside>)",
