@@ -328,7 +328,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 </div>
                 """
                 
-            v_beacon_html = format_action_beacon(getattr(v, "action_signal", None), v.labels, v.status_label)
+            v_beacon_html = format_action_beacon(getattr(v, "action_signal", None), v.labels, v.status_label) if v.version > 1 else ""
             sanitized_snapshot = clean_and_sanitize_html(v.full_html_content)
             history_cards_html += f"""
             <div class="history-entry {'history-entry-active' if is_current else ''}">
@@ -375,7 +375,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 
     active_content = evolution_banner_html + raw_active_content
     chart_html = build_native_svg_chart(ticker, stock.current_price)
-    dossier_beacon = format_action_beacon(getattr(stock, "action_signal", None), stock.labels, stock.status_label)
+    dossier_beacon = format_action_beacon(getattr(stock, "action_signal", None), stock.labels, stock.status_label) if stock.total_versions > 1 else ""
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -1137,7 +1137,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
     for ticker, stock in sorted(watchlist.items(), key=lambda x: x[0]):
         ret_class = "pos" if stock.return_pct >= 0 else "neg"
         labels_html = format_labels_pills(stock.labels or [stock.status_label])
-        stock_beacon = format_action_beacon(getattr(stock, "action_signal", None), stock.labels, stock.status_label)
+        stock_beacon = format_action_beacon(getattr(stock, "action_signal", None), stock.labels, stock.status_label) if stock.total_versions > 1 else ""
         
         # Clean company name (preserve full name like JD.com, Inc. without cutting ticker prefix)
         clean_company = (stock.company_name or stock.ticker).strip().rstrip(".")
