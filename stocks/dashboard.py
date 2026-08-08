@@ -59,16 +59,18 @@ def sanitize_catalyst_desc(desc: str) -> str:
     return " ".join(words)
 
 
-def format_action_beacon(signal: Optional[str]) -> str:
-    """Renders a subtle Hinge-style pulsing status beacon next to ticker/company."""
-    sig = (signal or "BUY").upper().strip()
-    if any(k in sig for k in ["BROKEN", "AVOID", "EXIT", "SELL", "DANGER", "CRITICAL"]):
+def format_action_beacon(signal: Optional[str] = None, labels: Optional[List[str]] = None, status_label: Optional[str] = None) -> str:
+    """Renders a subtle Hinge-style pulsing status beacon next to ticker/company based on conviction & thesis execution."""
+    all_text = f"{signal or ''} {status_label or ''} {' '.join(labels or [])}".upper()
+    primary_label = (labels[0] if labels else (status_label or signal or "")).upper()
+    
+    if any(k in all_text for k in ["THESIS BROKEN", "AVOID", "EXIT", "CRITICAL IMPAIRMENT", "SELL"]):
         css = "beacon-avoid"
         tooltip = "Action Stance: Avoid / Exit (Thesis Broken)"
-    elif any(k in sig for k in ["CAUTION", "TRIM", "HEADWIND", "WARNING", "FRICTION", "DETERIORATING"]):
+    elif any(k in primary_label for k in ["CAUTIOUS", "CAUTION", "TRIM", "HEADWIND", "SPECULATIVE", "TURNAROUND RISK", "HIGH RISK", "DILUTION"]) or (signal and signal.upper() in ["CAUTION", "TRIM", "HEADWINDS"]):
         css = "beacon-caution"
         tooltip = "Action Stance: Caution (Facing Headwinds / Execution Risk)"
-    elif any(k in sig for k in ["WAIT", "HOLD", "MONITOR", "PATIENT", "NEUTRAL", "STEADY"]):
+    elif any(k in primary_label for k in ["MODERATE CONVICTION", "WAIT", "HOLD", "PATIENT", "NEUTRAL", "FAIR VALUE", "FAIRLY VALUED", "MONITOR"]) or (signal and signal.upper() in ["HOLD", "WAIT", "NEUTRAL"]):
         css = "beacon-hold"
         tooltip = "Action Stance: Hold / Wait (Thesis Steady)"
     else:
@@ -326,7 +328,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 </div>
                 """
                 
-            v_beacon_html = format_action_beacon(getattr(v, "action_signal", "BUY"))
+            v_beacon_html = format_action_beacon(getattr(v, "action_signal", None), v.labels, v.status_label)
             sanitized_snapshot = clean_and_sanitize_html(v.full_html_content)
             history_cards_html += f"""
             <div class="history-entry {'history-entry-active' if is_current else ''}">
@@ -373,7 +375,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 
     active_content = evolution_banner_html + raw_active_content
     chart_html = build_native_svg_chart(ticker, stock.current_price)
-    dossier_beacon = format_action_beacon(getattr(stock, "action_signal", "BUY"))
+    dossier_beacon = format_action_beacon(getattr(stock, "action_signal", None), stock.labels, stock.status_label)
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -1135,7 +1137,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
     for ticker, stock in sorted(watchlist.items(), key=lambda x: x[0]):
         ret_class = "pos" if stock.return_pct >= 0 else "neg"
         labels_html = format_labels_pills(stock.labels or [stock.status_label])
-        stock_beacon = format_action_beacon(getattr(stock, "action_signal", "BUY"))
+        stock_beacon = format_action_beacon(getattr(stock, "action_signal", None), stock.labels, stock.status_label)
         
         # Clean company name (preserve full name like JD.com, Inc. without cutting ticker prefix)
         clean_company = (stock.company_name or stock.ticker).strip().rstrip(".")
@@ -1222,7 +1224,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
     for a in alerts:
         ret_class = "pos" if a.price_change_pct >= 0 else "neg"
         labels_html = format_labels_pills(a.labels or [a.severity])
-        alert_beacon = format_action_beacon(getattr(a, "action_signal", "BUY"))
+        alert_beacon = format_action_beacon(getattr(a, "action_signal", None), a.labels, a.severity)
         alert_id = f"{a.ticker}_{a.timestamp.replace(' ', '_').replace(':', '')}"
         safe_payload = json.dumps({
             "id": alert_id,
