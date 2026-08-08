@@ -13,7 +13,7 @@ from stocks.data_store import (
     save_stock,
     load_thesis_history,
     save_thesis_version,
-    append_alert
+    add_alert
 )
 from stocks.tracker import fetch_live_stock_info
 from stocks.gemini_agent import generate_genesis_thesis, review_stock_thesis, sanitize_labels
@@ -189,7 +189,7 @@ def _handle_review_task(ticker: str, trigger_reason: str):
         price_change_pct=price_change_pct,
         report_url=f"reports/{ticker}.html"
     )
-    append_alert(alert_obj)
+    add_alert(alert_obj)
 
     # 4. Re-render HTML Dashboard
     render_all()

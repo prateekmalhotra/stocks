@@ -210,29 +210,54 @@
         }
         .memo-container li { margin-bottom: 8px; }
 
+        /* STUNNING CONSISTENT TABLES - ZERO WHITE GLARE */
         .memo-container table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 28px 0;
-            background: var(--bg-subpanel);
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
+            width: 100% !important;
+            border-collapse: separate !important;
+            border-spacing: 0 !important;
+            margin: 32px 0 !important;
+            background: #1B1A18 !important;
+            border-radius: 12px !important;
+            overflow: hidden !important;
+            border: 1px solid rgba(230, 220, 205, 0.08) !important;
         }
-        .memo-container th, .memo-container td {
-            padding: 12px 18px;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
-            font-size: 0.92rem;
+        .memo-container tr, .memo-container td, .memo-container th {
+            background: transparent !important;
         }
         .memo-container th {
-            background: rgba(0, 0, 0, 0.25);
-            color: var(--text-title);
-            font-family: var(--font-sans);
-            font-size: 0.72rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            background: #23221E !important;
+            color: #C99A75 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            padding: 14px 18px !important;
+            border-bottom: 1px solid rgba(230, 220, 205, 0.08) !important;
+            text-align: left !important;
         }
+        .memo-container td {
+            padding: 14px 18px !important;
+            border-bottom: 1px solid rgba(230, 220, 205, 0.05) !important;
+            font-size: 0.94rem !important;
+            color: #C9C4BA !important;
+            font-family: var(--font-mono) !important;
+            text-align: left !important;
+        }
+        .memo-container tr:last-child td {
+            border-bottom: none !important;
+        }
+        .memo-container tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.015) !important;
+        }
+        .memo-container tr:hover td {
+            background: rgba(201, 154, 117, 0.04) !important;
+        }
+        .memo-container td strong, .memo-container td b {
+            color: #E8E3DA !important;
+            font-weight: 600 !important;
+        }
+
         .memo-container blockquote {
             background: var(--bg-subpanel);
             border-left: 3px solid var(--accent-warm);
@@ -490,9 +515,9 @@
   
   <p>The table below highlights the divergent expectations between sell-side Wall Street consensus and our Fund's normalized forensic estimates across FY 2026E – FY 2028E.</p>
 
-  <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse; text-align: center;">
+  <table    >
     <thead>
-      <tr style="background-color: #1a202c; color: #ffffff;">
+      <tr >
         <th>Metric ($M, except EPS)</th>
         <th>FY 2026E Street</th>
         <th>FY 2026E Fund</th>
@@ -504,7 +529,7 @@
     </thead>
     <tbody>
       <tr>
-        <td style="text-align: left;"><strong>Total Revenue</strong></td>
+        <td ><strong>Total Revenue</strong></td>
         <td>$3,540.0</td>
         <td><strong>$3,450.0</strong></td>
         <td>$3,660.0</td>
@@ -512,8 +537,8 @@
         <td>$3,820.0</td>
         <td><strong>$3,600.0</strong></td>
       </tr>
-      <tr style="background-color: #f7fafc;">
-        <td style="text-align: left;"><strong>EBIT (Operating Income)</strong></td>
+      <tr >
+        <td ><strong>EBIT (Operating Income)</strong></td>
         <td>$450.0</td>
         <td><strong>$410.0</strong></td>
         <td>$485.0</td>
@@ -522,7 +547,7 @@
         <td><strong>$440.0</strong></td>
       </tr>
       <tr>
-        <td style="text-align: left;"><strong>Adjusted EBITDA</strong></td>
+        <td ><strong>Adjusted EBITDA</strong></td>
         <td>$650.0</td>
         <td><strong>$605.0</strong></td>
         <td>$690.0</td>
@@ -530,8 +555,8 @@
         <td>$730.0</td>
         <td><strong>$645.0</strong></td>
       </tr>
-      <tr style="background-color: #f7fafc;">
-        <td style="text-align: left;"><strong>Net Income</strong></td>
+      <tr >
+        <td ><strong>Net Income</strong></td>
         <td>$275.0</td>
         <td><strong>$210.0</strong></td>
         <td>$309.0</td>
@@ -540,7 +565,7 @@
         <td><strong>$235.0</strong></td>
       </tr>
       <tr>
-        <td style="text-align: left;"><strong>Diluted Shares (M)</strong></td>
+        <td ><strong>Diluted Shares (M)</strong></td>
         <td>117.0</td>
         <td><strong>117.0</strong></td>
         <td>117.0</td>
@@ -548,8 +573,8 @@
         <td>117.0</td>
         <td><strong>117.0</strong></td>
       </tr>
-      <tr style="background-color: #f7fafc;">
-        <td style="text-align: left;"><strong>Diluted EPS ($)</strong></td>
+      <tr >
+        <td ><strong>Diluted EPS ($)</strong></td>
         <td>$2.35</td>
         <td><strong>$1.79</strong></td>
         <td>$2.64</td>
@@ -589,9 +614,9 @@
 
   <h3>Competitor Peer Benchmark Matrix (FY 2025 – FY 2026E)</h3>
 
-  <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse; text-align: center;">
+  <table    >
     <thead>
-      <tr style="background-color: #1a202c; color: #ffffff;">
+      <tr >
         <th>Metric / Competitor</th>
         <th>Cinemark (CNK)</th>
         <th>AMC Entertainment (AMC)</th>
@@ -601,42 +626,42 @@
     </thead>
     <tbody>
       <tr>
-        <td style="text-align: left;"><strong>Global Screen Count</strong></td>
+        <td ><strong>Global Screen Count</strong></td>
         <td><strong>5,847</strong></td>
         <td>10,000+</td>
         <td>1,000+</td>
         <td>8,500+</td>
       </tr>
-      <tr style="background-color: #f7fafc;">
-        <td style="text-align: left;"><strong>Market Share Position</strong></td>
+      <tr >
+        <td ><strong>Market Share Position</strong></td>
         <td><strong>#2 North America / #1 LatAm</strong></td>
         <td>#1 North America</td>
         <td>Regional Leader (Midwest)</td>
         <td>#2 North America</td>
       </tr>
       <tr>
-        <td style="text-align: left;"><strong>Adjusted EBITDA Margin</strong></td>
+        <td ><strong>Adjusted EBITDA Margin</strong></td>
         <td><strong>21.5% – 27.1%</strong></td>
         <td>10.0% – 13.5%</td>
         <td>15.0% – 17.5%</td>
         <td>Post-Bankruptcy Restructured</td>
       </tr>
-      <tr style="background-color: #f7fafc;">
-        <td style="text-align: left;"><strong>Concession Rev / Patron</strong></td>
+      <tr >
+        <td ><strong>Concession Rev / Patron</strong></td>
         <td><strong>$5.75</strong></td>
         <td>$6.40</td>
         <td>$5.20</td>
         <td>$5.35</td>
       </tr>
       <tr>
-        <td style="text-align: left;"><strong>Net Funded Debt / EBITDA</strong></td>
+        <td ><strong>Net Funded Debt / EBITDA</strong></td>
         <td><strong>2.2x</strong></td>
         <td>> 6.5x (Distressed)</td>
         <td>2.8x</td>
         <td>Restructured Equity</td>
       </tr>
-      <tr style="background-color: #f7fafc;">
-        <td style="text-align: left;"><strong>Normalized ROIC</strong></td>
+      <tr >
+        <td ><strong>Normalized ROIC</strong></td>
         <td><strong>11.2%</strong></td>
         <td>Negative / Diluted</td>
         <td>5.8%</td>
@@ -664,12 +689,12 @@
   </ul>
 
   <h3>Earnings Call Integrity & Non-GAAP Reporting Audit</h3>
-  <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse; text-align: left;">
+  <table    >
     <thead>
-      <tr style="background-color: #1a202c; color: #ffffff;">
-        <th style="width: 30%;">Incentive / Report Metric</th>
-        <th style="width: 35%;">Management Focus</th>
-        <th style="width: 35%;">Fund Forensic Critique</th>
+      <tr >
+        <th >Incentive / Report Metric</th>
+        <th >Management Focus</th>
+        <th >Fund Forensic Critique</th>
       </tr>
     </thead>
     <tbody>
@@ -678,7 +703,7 @@
         <td>Primary performance metric for STIP & LTIP bonus payouts.</td>
         <td>Adds back cash rent obligations, cash SBC, and stock adjustments. Overstates operating profitability by ~30%-35%.</td>
       </tr>
-      <tr style="background-color: #f7fafc;">
+      <tr >
         <td><strong>Free Cash Flow (Reported)</strong></td>
         <td>Calculated as Operating Cash Flow minus CapEx.</td>
         <td>Ignores finance lease principal payments ($8.8M/yr) and treats routine screen maintenance CapEx as discretionary growth investment.</td>
@@ -707,9 +732,9 @@
 
   <h3>Detailed Debt & Capital Structure Schedule (As of Q2 2026)</h3>
 
-  <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse; text-align: center;">
+  <table    >
     <thead>
-      <tr style="background-color: #1a202c; color: #ffffff;">
+      <tr >
         <th>Debt Instrument</th>
         <th>Coupon / Pricing</th>
         <th>Maturity</th>
@@ -720,68 +745,68 @@
     </thead>
     <tbody>
       <tr>
-        <td style="text-align: left;"><strong>Revolving Credit Facility</strong></td>
+        <td ><strong>Revolving Credit Facility</strong></td>
         <td>SOFR + 1.75%–2.00%</td>
         <td>May 2028</td>
         <td>$0.0</td>
         <td>$0.0</td>
-        <td style="text-align: left;">$225.0M capacity; $0 drawn</td>
+        <td >$225.0M capacity; $0 drawn</td>
       </tr>
-      <tr style="background-color: #f7fafc;">
-        <td style="text-align: left;"><strong>Cinemark USA Term Loan</strong></td>
+      <tr >
+        <td ><strong>Cinemark USA Term Loan</strong></td>
         <td>SOFR + 2.00% (5.6% net)</td>
         <td>May 2030</td>
         <td>$629.1</td>
         <td>$629.1</td>
-        <td style="text-align: left;">Amortizes $1.6M/qtr; repriced down</td>
+        <td >Amortizes $1.6M/qtr; repriced down</td>
       </tr>
       <tr>
-        <td style="text-align: left;"><strong>Senior Notes</strong></td>
+        <td ><strong>Senior Notes</strong></td>
         <td>5.250%</td>
         <td>July 2028</td>
         <td>$765.0</td>
         <td>$765.0</td>
-        <td style="text-align: left;">Unsecured senior obligations</td>
+        <td >Unsecured senior obligations</td>
       </tr>
-      <tr style="background-color: #f7fafc;">
-        <td style="text-align: left;"><strong>Senior Notes</strong></td>
+      <tr >
+        <td ><strong>Senior Notes</strong></td>
         <td>7.000%</td>
         <td>July 2032</td>
         <td>$500.0</td>
         <td>$500.0</td>
-        <td style="text-align: left;">Issued 2024 to refi pandemic high-yield debt</td>
+        <td >Issued 2024 to refi pandemic high-yield debt</td>
       </tr>
       <tr>
-        <td style="text-align: left;"><strong>4.50% Convertible Notes</strong></td>
+        <td ><strong>4.50% Convertible Notes</strong></td>
         <td>4.500%</td>
         <td>August 2025</td>
         <td>$0.0</td>
         <td>$0.0</td>
-        <td style="text-align: left;"><strong>RETIRED IN FULL IN CASH</strong> (Aug 2025)</td>
+        <td ><strong>RETIRED IN FULL IN CASH</strong> (Aug 2025)</td>
       </tr>
-      <tr style="background-color: #f7fafc;">
-        <td style="text-align: left;"><strong>Total Gross Funded Debt</strong></td>
+      <tr >
+        <td ><strong>Total Gross Funded Debt</strong></td>
         <td>—</td>
         <td>—</td>
         <td><strong>$1,894.1</strong></td>
         <td><strong>$1,876.8</strong></td>
-        <td style="text-align: left;">Includes $6.3M current portion</td>
+        <td >Includes $6.3M current portion</td>
       </tr>
       <tr>
-        <td style="text-align: left;"><strong>Finance Lease Obligations</strong></td>
+        <td ><strong>Finance Lease Obligations</strong></td>
         <td>Fixed / Imputed</td>
         <td>Various</td>
         <td>$93.7</td>
         <td>$93.7</td>
-        <td style="text-align: left;">$8.8M current + $84.9M long-term</td>
+        <td >$8.8M current + $84.9M long-term</td>
       </tr>
-      <tr style="background-color: #f7fafc;">
-        <td style="text-align: left;"><strong>Operating Lease PV</strong></td>
+      <tr >
+        <td ><strong>Operating Lease PV</strong></td>
         <td>Discounted @ ~6.5%</td>
         <td>Various</td>
         <td>$989.1</td>
         <td>$989.1</td>
-        <td style="text-align: left;">Off-balance sheet present value liability</td>
+        <td >Off-balance sheet present value liability</td>
       </tr>
     </tbody>
   </table>
@@ -803,41 +828,41 @@
 
   <h3>True Owner Earnings Reconciliation (FY 2026E Fund Estimate)</h3>
 
-  <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse; text-align: left;">
+  <table    >
     <thead>
-      <tr style="background-color: #1a202c; color: #ffffff;">
-        <th style="width: 60%;">Financial Metric Line Item</th>
-        <th style="width: 40%; text-align: right;">Amount ($M)</th>
+      <tr >
+        <th >Financial Metric Line Item</th>
+        <th >Amount ($M)</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>Reported Net Income (Fund Estimate)</td>
-        <td style="text-align: right;">$210.0</td>
+        <td >$210.0</td>
       </tr>
-      <tr style="background-color: #f7fafc;">
+      <tr >
         <td>(+) Depreciation & Amortization</td>
-        <td style="text-align: right;">+$195.0</td>
+        <td >+$195.0</td>
       </tr>
       <tr>
         <td>(-) Maintenance CapEx (Mandatory screen & theater upkeep)</td>
-        <td style="text-align: right;">-$110.0</td>
+        <td >-$110.0</td>
       </tr>
-      <tr style="background-color: #f7fafc;">
+      <tr >
         <td>(-) Stock-Based Compensation (Real Economic Dilution)</td>
-        <td style="text-align: right;">-$16.0</td>
+        <td >-$16.0</td>
       </tr>
       <tr>
         <td>(-) Finance Lease Principal Amortization</td>
-        <td style="text-align: right;">-$8.8</td>
+        <td >-$8.8</td>
       </tr>
-      <tr style="background-color: #e2e8f0; font-weight: bold;">
+      <tr >
         <td><strong>TRUE OWNER EARNINGS (Normalized Mid-Cycle Cash Flow)</strong></td>
-        <td style="text-align: right;"><strong>$270.2</strong></td>
+        <td ><strong>$270.2</strong></td>
       </tr>
       <tr>
         <td>True Owner Earnings Per Share (117.0M Shares)</td>
-        <td style="text-align: right;"><strong>$2.31 / share</strong></td>
+        <td ><strong>$2.31 / share</strong></td>
       </tr>
     </tbody>
   </table>
@@ -852,9 +877,9 @@
 
   <h3>Scenario Analysis Matrix</h3>
 
-  <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse; text-align: center;">
+  <table    >
     <thead>
-      <tr style="background-color: #1a202c; color: #ffffff;">
+      <tr >
         <th>Scenario</th>
         <th>Probability</th>
         <th>Fair Value Target</th>
@@ -863,26 +888,26 @@
       </tr>
     </thead>
     <tbody>
-      <tr style="background-color: #fff5f5;">
+      <tr >
         <td><strong>Bear Case</strong></td>
         <td>25%</td>
         <td><strong>$14.00</strong></td>
         <td><strong>-62.4%</strong></td>
-        <td style="text-align: left;">Box office stagnates at $8.2B; concession inflation turns negative; EV/EBITDA compresses to 5.0x.</td>
+        <td >Box office stagnates at $8.2B; concession inflation turns negative; EV/EBITDA compresses to 5.0x.</td>
       </tr>
-      <tr style="background-color: #f7fafc;">
+      <tr >
         <td><strong>Base Case</strong></td>
         <td>55%</td>
         <td><strong>$22.50</strong></td>
         <td><strong>-39.6%</strong></td>
-        <td style="text-align: left;">Box office normalizes at $9.0B; Adj. EBITDA $625M; EV/EBITDA multiple of 6.5x normalized earnings.</td>
+        <td >Box office normalizes at $9.0B; Adj. EBITDA $625M; EV/EBITDA multiple of 6.5x normalized earnings.</td>
       </tr>
-      <tr style="background-color: #f0fff4;">
+      <tr >
         <td><strong>Bull Case</strong></td>
         <td>20%</td>
         <td><strong>$34.00</strong></td>
         <td><strong>-8.7%</strong></td>
-        <td style="text-align: left;">Box office reaches $10.0B; market share reaches 18%; EV/EBITDA multiple expands to 8.0x.</td>
+        <td >Box office reaches $10.0B; market share reaches 18%; EV/EBITDA multiple expands to 8.0x.</td>
       </tr>
     </tbody>
   </table>
@@ -943,9 +968,9 @@
   
   <p>The table below highlights the divergent expectations between sell-side Wall Street consensus and our Fund's normalized forensic estimates across FY 2026E – FY 2028E.</p>
 
-  <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse; text-align: center;">
+  <table    >
     <thead>
-      <tr style="background-color: #1a202c; color: #ffffff;">
+      <tr >
         <th>Metric ($M, except EPS)</th>
         <th>FY 2026E Street</th>
         <th>FY 2026E Fund</th>
@@ -957,7 +982,7 @@
     </thead>
     <tbody>
       <tr>
-        <td style="text-align: left;"><strong>Total Revenue</strong></td>
+        <td ><strong>Total Revenue</strong></td>
         <td>$3,540.0</td>
         <td><strong>$3,450.0</strong></td>
         <td>$3,660.0</td>
@@ -965,8 +990,8 @@
         <td>$3,820.0</td>
         <td><strong>$3,600.0</strong></td>
       </tr>
-      <tr style="background-color: #f7fafc;">
-        <td style="text-align: left;"><strong>EBIT (Operating Income)</strong></td>
+      <tr >
+        <td ><strong>EBIT (Operating Income)</strong></td>
         <td>$450.0</td>
         <td><strong>$410.0</strong></td>
         <td>$485.0</td>
@@ -975,7 +1000,7 @@
         <td><strong>$440.0</strong></td>
       </tr>
       <tr>
-        <td style="text-align: left;"><strong>Adjusted EBITDA</strong></td>
+        <td ><strong>Adjusted EBITDA</strong></td>
         <td>$650.0</td>
         <td><strong>$605.0</strong></td>
         <td>$690.0</td>
@@ -983,8 +1008,8 @@
         <td>$730.0</td>
         <td><strong>$645.0</strong></td>
       </tr>
-      <tr style="background-color: #f7fafc;">
-        <td style="text-align: left;"><strong>Net Income</strong></td>
+      <tr >
+        <td ><strong>Net Income</strong></td>
         <td>$275.0</td>
         <td><strong>$210.0</strong></td>
         <td>$309.0</td>
@@ -993,7 +1018,7 @@
         <td><strong>$235.0</strong></td>
       </tr>
       <tr>
-        <td style="text-align: left;"><strong>Diluted Shares (M)</strong></td>
+        <td ><strong>Diluted Shares (M)</strong></td>
         <td>117.0</td>
         <td><strong>117.0</strong></td>
         <td>117.0</td>
@@ -1001,8 +1026,8 @@
         <td>117.0</td>
         <td><strong>117.0</strong></td>
       </tr>
-      <tr style="background-color: #f7fafc;">
-        <td style="text-align: left;"><strong>Diluted EPS ($)</strong></td>
+      <tr >
+        <td ><strong>Diluted EPS ($)</strong></td>
         <td>$2.35</td>
         <td><strong>$1.79</strong></td>
         <td>$2.64</td>
@@ -1042,9 +1067,9 @@
 
   <h3>Competitor Peer Benchmark Matrix (FY 2025 – FY 2026E)</h3>
 
-  <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse; text-align: center;">
+  <table    >
     <thead>
-      <tr style="background-color: #1a202c; color: #ffffff;">
+      <tr >
         <th>Metric / Competitor</th>
         <th>Cinemark (CNK)</th>
         <th>AMC Entertainment (AMC)</th>
@@ -1054,42 +1079,42 @@
     </thead>
     <tbody>
       <tr>
-        <td style="text-align: left;"><strong>Global Screen Count</strong></td>
+        <td ><strong>Global Screen Count</strong></td>
         <td><strong>5,847</strong></td>
         <td>10,000+</td>
         <td>1,000+</td>
         <td>8,500+</td>
       </tr>
-      <tr style="background-color: #f7fafc;">
-        <td style="text-align: left;"><strong>Market Share Position</strong></td>
+      <tr >
+        <td ><strong>Market Share Position</strong></td>
         <td><strong>#2 North America / #1 LatAm</strong></td>
         <td>#1 North America</td>
         <td>Regional Leader (Midwest)</td>
         <td>#2 North America</td>
       </tr>
       <tr>
-        <td style="text-align: left;"><strong>Adjusted EBITDA Margin</strong></td>
+        <td ><strong>Adjusted EBITDA Margin</strong></td>
         <td><strong>21.5% – 27.1%</strong></td>
         <td>10.0% – 13.5%</td>
         <td>15.0% – 17.5%</td>
         <td>Post-Bankruptcy Restructured</td>
       </tr>
-      <tr style="background-color: #f7fafc;">
-        <td style="text-align: left;"><strong>Concession Rev / Patron</strong></td>
+      <tr >
+        <td ><strong>Concession Rev / Patron</strong></td>
         <td><strong>$5.75</strong></td>
         <td>$6.40</td>
         <td>$5.20</td>
         <td>$5.35</td>
       </tr>
       <tr>
-        <td style="text-align: left;"><strong>Net Funded Debt / EBITDA</strong></td>
+        <td ><strong>Net Funded Debt / EBITDA</strong></td>
         <td><strong>2.2x</strong></td>
         <td>> 6.5x (Distressed)</td>
         <td>2.8x</td>
         <td>Restructured Equity</td>
       </tr>
-      <tr style="background-color: #f7fafc;">
-        <td style="text-align: left;"><strong>Normalized ROIC</strong></td>
+      <tr >
+        <td ><strong>Normalized ROIC</strong></td>
         <td><strong>11.2%</strong></td>
         <td>Negative / Diluted</td>
         <td>5.8%</td>
@@ -1117,12 +1142,12 @@
   </ul>
 
   <h3>Earnings Call Integrity & Non-GAAP Reporting Audit</h3>
-  <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse; text-align: left;">
+  <table    >
     <thead>
-      <tr style="background-color: #1a202c; color: #ffffff;">
-        <th style="width: 30%;">Incentive / Report Metric</th>
-        <th style="width: 35%;">Management Focus</th>
-        <th style="width: 35%;">Fund Forensic Critique</th>
+      <tr >
+        <th >Incentive / Report Metric</th>
+        <th >Management Focus</th>
+        <th >Fund Forensic Critique</th>
       </tr>
     </thead>
     <tbody>
@@ -1131,7 +1156,7 @@
         <td>Primary performance metric for STIP & LTIP bonus payouts.</td>
         <td>Adds back cash rent obligations, cash SBC, and stock adjustments. Overstates operating profitability by ~30%-35%.</td>
       </tr>
-      <tr style="background-color: #f7fafc;">
+      <tr >
         <td><strong>Free Cash Flow (Reported)</strong></td>
         <td>Calculated as Operating Cash Flow minus CapEx.</td>
         <td>Ignores finance lease principal payments ($8.8M/yr) and treats routine screen maintenance CapEx as discretionary growth investment.</td>
@@ -1160,9 +1185,9 @@
 
   <h3>Detailed Debt & Capital Structure Schedule (As of Q2 2026)</h3>
 
-  <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse; text-align: center;">
+  <table    >
     <thead>
-      <tr style="background-color: #1a202c; color: #ffffff;">
+      <tr >
         <th>Debt Instrument</th>
         <th>Coupon / Pricing</th>
         <th>Maturity</th>
@@ -1173,68 +1198,68 @@
     </thead>
     <tbody>
       <tr>
-        <td style="text-align: left;"><strong>Revolving Credit Facility</strong></td>
+        <td ><strong>Revolving Credit Facility</strong></td>
         <td>SOFR + 1.75%–2.00%</td>
         <td>May 2028</td>
         <td>$0.0</td>
         <td>$0.0</td>
-        <td style="text-align: left;">$225.0M capacity; $0 drawn</td>
+        <td >$225.0M capacity; $0 drawn</td>
       </tr>
-      <tr style="background-color: #f7fafc;">
-        <td style="text-align: left;"><strong>Cinemark USA Term Loan</strong></td>
+      <tr >
+        <td ><strong>Cinemark USA Term Loan</strong></td>
         <td>SOFR + 2.00% (5.6% net)</td>
         <td>May 2030</td>
         <td>$629.1</td>
         <td>$629.1</td>
-        <td style="text-align: left;">Amortizes $1.6M/qtr; repriced down</td>
+        <td >Amortizes $1.6M/qtr; repriced down</td>
       </tr>
       <tr>
-        <td style="text-align: left;"><strong>Senior Notes</strong></td>
+        <td ><strong>Senior Notes</strong></td>
         <td>5.250%</td>
         <td>July 2028</td>
         <td>$765.0</td>
         <td>$765.0</td>
-        <td style="text-align: left;">Unsecured senior obligations</td>
+        <td >Unsecured senior obligations</td>
       </tr>
-      <tr style="background-color: #f7fafc;">
-        <td style="text-align: left;"><strong>Senior Notes</strong></td>
+      <tr >
+        <td ><strong>Senior Notes</strong></td>
         <td>7.000%</td>
         <td>July 2032</td>
         <td>$500.0</td>
         <td>$500.0</td>
-        <td style="text-align: left;">Issued 2024 to refi pandemic high-yield debt</td>
+        <td >Issued 2024 to refi pandemic high-yield debt</td>
       </tr>
       <tr>
-        <td style="text-align: left;"><strong>4.50% Convertible Notes</strong></td>
+        <td ><strong>4.50% Convertible Notes</strong></td>
         <td>4.500%</td>
         <td>August 2025</td>
         <td>$0.0</td>
         <td>$0.0</td>
-        <td style="text-align: left;"><strong>RETIRED IN FULL IN CASH</strong> (Aug 2025)</td>
+        <td ><strong>RETIRED IN FULL IN CASH</strong> (Aug 2025)</td>
       </tr>
-      <tr style="background-color: #f7fafc;">
-        <td style="text-align: left;"><strong>Total Gross Funded Debt</strong></td>
+      <tr >
+        <td ><strong>Total Gross Funded Debt</strong></td>
         <td>—</td>
         <td>—</td>
         <td><strong>$1,894.1</strong></td>
         <td><strong>$1,876.8</strong></td>
-        <td style="text-align: left;">Includes $6.3M current portion</td>
+        <td >Includes $6.3M current portion</td>
       </tr>
       <tr>
-        <td style="text-align: left;"><strong>Finance Lease Obligations</strong></td>
+        <td ><strong>Finance Lease Obligations</strong></td>
         <td>Fixed / Imputed</td>
         <td>Various</td>
         <td>$93.7</td>
         <td>$93.7</td>
-        <td style="text-align: left;">$8.8M current + $84.9M long-term</td>
+        <td >$8.8M current + $84.9M long-term</td>
       </tr>
-      <tr style="background-color: #f7fafc;">
-        <td style="text-align: left;"><strong>Operating Lease PV</strong></td>
+      <tr >
+        <td ><strong>Operating Lease PV</strong></td>
         <td>Discounted @ ~6.5%</td>
         <td>Various</td>
         <td>$989.1</td>
         <td>$989.1</td>
-        <td style="text-align: left;">Off-balance sheet present value liability</td>
+        <td >Off-balance sheet present value liability</td>
       </tr>
     </tbody>
   </table>
@@ -1256,41 +1281,41 @@
 
   <h3>True Owner Earnings Reconciliation (FY 2026E Fund Estimate)</h3>
 
-  <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse; text-align: left;">
+  <table    >
     <thead>
-      <tr style="background-color: #1a202c; color: #ffffff;">
-        <th style="width: 60%;">Financial Metric Line Item</th>
-        <th style="width: 40%; text-align: right;">Amount ($M)</th>
+      <tr >
+        <th >Financial Metric Line Item</th>
+        <th >Amount ($M)</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>Reported Net Income (Fund Estimate)</td>
-        <td style="text-align: right;">$210.0</td>
+        <td >$210.0</td>
       </tr>
-      <tr style="background-color: #f7fafc;">
+      <tr >
         <td>(+) Depreciation & Amortization</td>
-        <td style="text-align: right;">+$195.0</td>
+        <td >+$195.0</td>
       </tr>
       <tr>
         <td>(-) Maintenance CapEx (Mandatory screen & theater upkeep)</td>
-        <td style="text-align: right;">-$110.0</td>
+        <td >-$110.0</td>
       </tr>
-      <tr style="background-color: #f7fafc;">
+      <tr >
         <td>(-) Stock-Based Compensation (Real Economic Dilution)</td>
-        <td style="text-align: right;">-$16.0</td>
+        <td >-$16.0</td>
       </tr>
       <tr>
         <td>(-) Finance Lease Principal Amortization</td>
-        <td style="text-align: right;">-$8.8</td>
+        <td >-$8.8</td>
       </tr>
-      <tr style="background-color: #e2e8f0; font-weight: bold;">
+      <tr >
         <td><strong>TRUE OWNER EARNINGS (Normalized Mid-Cycle Cash Flow)</strong></td>
-        <td style="text-align: right;"><strong>$270.2</strong></td>
+        <td ><strong>$270.2</strong></td>
       </tr>
       <tr>
         <td>True Owner Earnings Per Share (117.0M Shares)</td>
-        <td style="text-align: right;"><strong>$2.31 / share</strong></td>
+        <td ><strong>$2.31 / share</strong></td>
       </tr>
     </tbody>
   </table>
@@ -1305,9 +1330,9 @@
 
   <h3>Scenario Analysis Matrix</h3>
 
-  <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse; text-align: center;">
+  <table    >
     <thead>
-      <tr style="background-color: #1a202c; color: #ffffff;">
+      <tr >
         <th>Scenario</th>
         <th>Probability</th>
         <th>Fair Value Target</th>
@@ -1316,26 +1341,26 @@
       </tr>
     </thead>
     <tbody>
-      <tr style="background-color: #fff5f5;">
+      <tr >
         <td><strong>Bear Case</strong></td>
         <td>25%</td>
         <td><strong>$14.00</strong></td>
         <td><strong>-62.4%</strong></td>
-        <td style="text-align: left;">Box office stagnates at $8.2B; concession inflation turns negative; EV/EBITDA compresses to 5.0x.</td>
+        <td >Box office stagnates at $8.2B; concession inflation turns negative; EV/EBITDA compresses to 5.0x.</td>
       </tr>
-      <tr style="background-color: #f7fafc;">
+      <tr >
         <td><strong>Base Case</strong></td>
         <td>55%</td>
         <td><strong>$22.50</strong></td>
         <td><strong>-39.6%</strong></td>
-        <td style="text-align: left;">Box office normalizes at $9.0B; Adj. EBITDA $625M; EV/EBITDA multiple of 6.5x normalized earnings.</td>
+        <td >Box office normalizes at $9.0B; Adj. EBITDA $625M; EV/EBITDA multiple of 6.5x normalized earnings.</td>
       </tr>
-      <tr style="background-color: #f0fff4;">
+      <tr >
         <td><strong>Bull Case</strong></td>
         <td>20%</td>
         <td><strong>$34.00</strong></td>
         <td><strong>-8.7%</strong></td>
-        <td style="text-align: left;">Box office reaches $10.0B; market share reaches 18%; EV/EBITDA multiple expands to 8.0x.</td>
+        <td >Box office reaches $10.0B; market share reaches 18%; EV/EBITDA multiple expands to 8.0x.</td>
       </tr>
     </tbody>
   </table>

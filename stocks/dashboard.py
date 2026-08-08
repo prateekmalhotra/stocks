@@ -417,29 +417,54 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         }}
         .memo-container li {{ margin-bottom: 8px; }}
 
+        /* STUNNING CONSISTENT TABLES - ZERO WHITE GLARE */
         .memo-container table {{
-            width: 100%;
-            border-collapse: collapse;
-            margin: 28px 0;
-            background: var(--bg-subpanel);
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
+            width: 100% !important;
+            border-collapse: separate !important;
+            border-spacing: 0 !important;
+            margin: 32px 0 !important;
+            background: #1B1A18 !important;
+            border-radius: 12px !important;
+            overflow: hidden !important;
+            border: 1px solid rgba(230, 220, 205, 0.08) !important;
         }}
-        .memo-container th, .memo-container td {{
-            padding: 12px 18px;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
-            font-size: 0.92rem;
+        .memo-container tr, .memo-container td, .memo-container th {{
+            background: transparent !important;
         }}
         .memo-container th {{
-            background: rgba(0, 0, 0, 0.25);
-            color: var(--text-title);
-            font-family: var(--font-sans);
-            font-size: 0.72rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            background: #23221E !important;
+            color: #C99A75 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            padding: 14px 18px !important;
+            border-bottom: 1px solid rgba(230, 220, 205, 0.08) !important;
+            text-align: left !important;
         }}
+        .memo-container td {{
+            padding: 14px 18px !important;
+            border-bottom: 1px solid rgba(230, 220, 205, 0.05) !important;
+            font-size: 0.94rem !important;
+            color: #C9C4BA !important;
+            font-family: var(--font-mono) !important;
+            text-align: left !important;
+        }}
+        .memo-container tr:last-child td {{
+            border-bottom: none !important;
+        }}
+        .memo-container tr:nth-child(even) td {{
+            background: rgba(255, 255, 255, 0.015) !important;
+        }}
+        .memo-container tr:hover td {{
+            background: rgba(201, 154, 117, 0.04) !important;
+        }}
+        .memo-container td strong, .memo-container td b {{
+            color: #E8E3DA !important;
+            font-weight: 600 !important;
+        }}
+
         .memo-container blockquote {{
             background: var(--bg-subpanel);
             border-left: 3px solid var(--accent-warm);
