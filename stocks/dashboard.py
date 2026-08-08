@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import List, Dict, Any
 from stocks.models import WatchlistStock, AlertItem, ThesisVersion
 from stocks.data_store import load_watchlist, load_alerts, load_thesis_history
-from stocks.tracker import fetch_historical_chart_data
+from stocks.tracker import fetch_all_chart_ranges
 
 PUBLIC_DIR = Path("public")
 REPORTS_DIR = PUBLIC_DIR / "reports"
@@ -48,46 +48,46 @@ def extract_pct_delta(base_target: str, current_price: float, fair_value_str: st
     return ""
 
 
-def build_native_svg_chart(ticker: str, current_price: float) -> str:
-    """Builds a lightweight, native interactive SVG area chart with mouse hover tracking."""
-    points = fetch_historical_chart_data(ticker, "1y")
-    if not points or len(points) < 2:
-        points = [
-            {"date": "Start", "price": round(current_price * 0.92, 2)},
-            {"date": "Mid", "price": round(current_price * 0.97, 2)},
-            {"date": "Today", "price": round(current_price, 2)}
-        ]
+def sanitize_catalyst_desc(desc: str) -> str:
+    """Formats catalyst description to max 4 words without ellipses or clutter."""
+    if not desc:
+        return ""
+    cleaned = re.sub(r"\.{2,}", "", desc).strip()
+    words = [w for w in cleaned.split() if w.strip()]
+    if len(words) > 4:
+        return " ".join(words[:4])
+    return " ".join(words)
 
-    prices = [p["price"] for p in points]
-    min_p = min(prices)
-    max_p = max(prices)
-    price_range = max(max_p - min_p, 0.01)
+
+def build_native_svg_chart(ticker: str, current_price: float) -> str:
+    """Builds a lightweight, native interactive SVG area chart with 1Y, 5Y, 10Y, MAX ranges."""
+    all_ranges_data = fetch_all_chart_ranges(ticker, current_price)
+    ranges_json = json.dumps(all_ranges_data)
+
+    initial_pts = all_ranges_data.get("1Y", [])
+    prices = [p["price"] for p in initial_pts]
+    min_p = min(prices) if prices else current_price * 0.9
+    max_p = max(prices) if prices else current_price * 1.1
 
     width = 900
     height = 260
     padding_x = 20
     padding_y = 25
 
-    svg_pts = []
-    n = len(points)
-    for i, p in enumerate(points):
-        x = padding_x + (i / (n - 1)) * (width - 2 * padding_x)
-        y = height - padding_y - ((p["price"] - min_p) / price_range) * (height - 2 * padding_y)
-        svg_pts.append((round(x, 1), round(y, 1)))
-
-    line_path_d = "M " + " L ".join(f"{x},{y}" for x, y in svg_pts)
-    first_x, first_y = svg_pts[0]
-    last_x, last_y = svg_pts[-1]
-    area_path_d = f"{line_path_d} L {last_x},{height} L {first_x},{height} Z"
-
-    pts_json = json.dumps(points)
-    svg_pts_json = json.dumps(svg_pts)
-
     return f"""
     <div class="native-chart-wrap" id="chart-container">
-        <div id="chart-tooltip" class="chart-tooltip">
-            <span id="tooltip-date">---</span> • <strong id="tooltip-price">$0.00</strong>
+        <div class="chart-top-bar">
+            <div id="chart-tooltip" class="chart-tooltip">
+                <span id="tooltip-date">---</span> • <strong id="tooltip-price">$0.00</strong>
+            </div>
+            <div class="chart-range-pills">
+                <button class="range-pill active" onclick="switchChartRange('1Y')">1Y</button>
+                <button class="range-pill" onclick="switchChartRange('5Y')">5Y</button>
+                <button class="range-pill" onclick="switchChartRange('10Y')">10Y</button>
+                <button class="range-pill" onclick="switchChartRange('MAX')">MAX</button>
+            </div>
         </div>
+
         <svg id="interactive-svg" viewBox="0 0 {width} {height}" preserveAspectRatio="none" class="chart-svg">
             <defs>
                 <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
@@ -100,41 +100,100 @@ def build_native_svg_chart(ticker: str, current_price: float) -> str:
             <line x1="{padding_x}" y1="{height/2}" x2="{width - padding_x}" y2="{height/2}" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
             <line x1="{padding_x}" y1="{height - padding_y}" x2="{width - padding_x}" y2="{height - padding_y}" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
 
-            <path d="{area_path_d}" fill="url(#area-grad)" />
-            <path d="{line_path_d}" fill="none" stroke="#C99A75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path id="chart-area-path" d="" fill="url(#area-grad)" />
+            <path id="chart-line-path" d="" fill="none" stroke="#C99A75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 
             <line id="crosshair-line" x1="0" y1="{padding_y}" x2="0" y2="{height - padding_y}" stroke="rgba(201,154,117,0.35)" stroke-width="1" stroke-dasharray="3 3" style="display: none;" />
             <circle id="hover-dot" r="4" fill="#C99A75" stroke="#1A1917" stroke-width="2" style="display: none;" />
         </svg>
         <div class="chart-labels">
-            <span>{points[0]['date']} (${min_p:.2f})</span>
-            <span>1-Year Range</span>
-            <span>{points[-1]['date']} (${points[-1]['price']:.2f})</span>
+            <span id="chart-start-lbl">{initial_pts[0]['date']} (${min_p:.2f})</span>
+            <span id="chart-range-title">1-Year Historical Range</span>
+            <span id="chart-end-lbl">{initial_pts[-1]['date']} (${initial_pts[-1]['price']:.2f})</span>
         </div>
     </div>
 
     <script>
     (function() {{
-        const rawPoints = {pts_json};
-        const svgCoords = {svg_pts_json};
+        const allDatasets = {ranges_json};
+        let currentRangeKey = '1Y';
+        let currentPoints = allDatasets[currentRangeKey] || [];
+        let currentSvgCoords = [];
+
+        const width = {width};
+        const height = {height};
+        const padX = {padding_x};
+        const padY = {padding_y};
+
         const container = document.getElementById('chart-container');
         const svg = document.getElementById('interactive-svg');
+        const linePath = document.getElementById('chart-line-path');
+        const areaPath = document.getElementById('chart-area-path');
         const tooltip = document.getElementById('chart-tooltip');
         const tooltipDate = document.getElementById('tooltip-date');
         const tooltipPrice = document.getElementById('tooltip-price');
         const crosshair = document.getElementById('crosshair-line');
         const dot = document.getElementById('hover-dot');
+        const startLbl = document.getElementById('chart-start-lbl');
+        const endLbl = document.getElementById('chart-end-lbl');
+        const rangeTitle = document.getElementById('chart-range-title');
 
-        if (!container || !rawPoints.length) return;
+        function recalculatePaths(points) {{
+            if (!points || points.length < 2) return;
+            const prices = points.map(p => p.price);
+            const minP = Math.min(...prices);
+            const maxP = Math.max(...prices);
+            const pRange = Math.max(maxP - minP, 0.01);
+            const n = points.length;
+
+            currentSvgCoords = [];
+            for (let i = 0; i < n; i++) {{
+                const x = padX + (i / (n - 1)) * (width - 2 * padX);
+                const y = height - padY - ((points[i].price - minP) / pRange) * (height - 2 * padY);
+                currentSvgCoords.push([Math.round(x * 10) / 10, Math.round(y * 10) / 10]);
+            }}
+
+            const lineD = 'M ' + currentSvgCoords.map(c => c[0] + ',' + c[1]).join(' L ');
+            const firstC = currentSvgCoords[0];
+            const lastC = currentSvgCoords[currentSvgCoords.length - 1];
+            const areaD = lineD + ' L ' + lastC[0] + ',' + height + ' L ' + firstC[0] + ',' + height + ' Z';
+
+            linePath.setAttribute('d', lineD);
+            areaPath.setAttribute('d', areaD);
+
+            startLbl.innerText = points[0].date + ' ($' + minP.toFixed(2) + ')';
+            endLbl.innerText = points[n - 1].date + ' ($' + points[n - 1].price.toFixed(2) + ')';
+            
+            const titles = {{ '1Y': '1-Year Range', '5Y': '5-Year Range', '10Y': '10-Year Range', 'MAX': 'All-Time Historical Range' }};
+            rangeTitle.innerText = titles[currentRangeKey] || currentRangeKey + ' Range';
+        }}
+
+        window.switchChartRange = function(rangeKey) {{
+            if (!allDatasets[rangeKey]) return;
+            currentRangeKey = rangeKey;
+            currentPoints = allDatasets[rangeKey];
+            
+            document.querySelectorAll('.range-pill').forEach(btn => {{
+                if (btn.innerText.trim() === rangeKey) {{
+                    btn.classList.add('active');
+                }} else {{
+                    btn.classList.remove('active');
+                }}
+            }});
+
+            recalculatePaths(currentPoints);
+            hideHover();
+        }};
 
         function updateHover(e) {{
+            if (!currentPoints.length || !currentSvgCoords.length) return;
             const rect = svg.getBoundingClientRect();
             const mouseX = e.clientX - rect.left;
             const pct = Math.max(0, Math.min(1, mouseX / rect.width));
-            const idx = Math.round(pct * (rawPoints.length - 1));
+            const idx = Math.round(pct * (currentPoints.length - 1));
             
-            const pt = rawPoints[idx];
-            const coord = svgCoords[idx];
+            const pt = currentPoints[idx];
+            const coord = currentSvgCoords[idx];
             if (!pt || !coord) return;
 
             crosshair.setAttribute('x1', coord[0]);
@@ -149,7 +208,7 @@ def build_native_svg_chart(ticker: str, current_price: float) -> str:
             tooltipPrice.innerText = '$' + pt.price.toFixed(2);
             tooltip.style.display = 'block';
             
-            const tooltipX = (coord[0] / {width}) * rect.width;
+            const tooltipX = (coord[0] / width) * rect.width;
             tooltip.style.left = Math.max(10, Math.min(rect.width - 150, tooltipX - 70)) + 'px';
         }}
 
@@ -164,6 +223,9 @@ def build_native_svg_chart(ticker: str, current_price: float) -> str:
         container.addEventListener('touchstart', (e) => {{ if (e.touches.length) updateHover(e.touches[0]); }}, {{passive: true}});
         container.addEventListener('touchmove', (e) => {{ if (e.touches.length) updateHover(e.touches[0]); }}, {{passive: true}});
         container.addEventListener('touchend', hideHover);
+
+        // Initial Path Calculation
+        recalculatePaths(currentPoints);
     }})();
     </script>
     """
@@ -317,6 +379,40 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             position: relative;
             user-select: none;
         }}
+        .chart-top-bar {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            min-height: 28px;
+        }}
+        .chart-range-pills {{
+            display: flex;
+            gap: 4px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 2px;
+            margin-left: auto;
+        }}
+        .range-pill {{
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.72rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }}
+        .range-pill:hover {{ color: var(--text-title); }}
+        .range-pill.active {{
+            background: var(--accent-warm);
+            color: #141312;
+            font-weight: 600;
+        }}
         .chart-svg {{ width: 100%; height: 220px; display: block; overflow: visible; }}
         .chart-tooltip {{
             position: absolute;
@@ -332,6 +428,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             pointer-events: none;
             display: none;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 10;
         }}
         .chart-labels {{
             display: flex;
@@ -599,7 +696,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 </div>
             </div>
 
-            <!-- Native Area Chart -->
+            <!-- Native Multi-Range Interactive Area Chart -->
             {chart_html}
 
             <!-- Key Metrics Grid -->
@@ -708,6 +805,9 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         # Clean percentage delta for fair value
         pct_delta_str = extract_pct_delta(stock.base_target, stock.current_price, stock.fair_value_estimate)
 
+        # Clean catalyst description (max 4 words, no ellipses, wraps cleanly)
+        clean_catalyst_desc = sanitize_catalyst_desc(stock.next_catalyst_event)
+
         table_rows_html += f"""
         <tr class="table-row" onclick="location.href='reports/{stock.ticker}.html'">
             <td>
@@ -736,7 +836,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">{stock.next_catalyst_date or 'TBD'}</span>
-                    <span class="tbl-cat-desc">{stock.next_catalyst_event[:55] if stock.next_catalyst_event else ''}</span>
+                    {f'<span class="tbl-cat-desc">{clean_catalyst_desc}</span>' if clean_catalyst_desc else ''}
                 </div>
             </td>
         </tr>
@@ -1037,12 +1137,13 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             line-height: 1.2;
         }}
 
+        /* Catalyst Column: Max 4 Words, Clean Line Wrap, No Truncation */
         .tbl-catalyst-cell {{
             display: flex;
             flex-direction: column;
-            gap: 4px;
-            max-width: 250px;
-            line-height: 1.3;
+            gap: 6px;
+            max-width: 220px;
+            line-height: 1.4;
         }}
         .tbl-cat-date {{
             font-family: var(--font-sans);
@@ -1052,12 +1153,11 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             line-height: 1.2;
         }}
         .tbl-cat-desc {{
-            font-size: 0.78rem;
+            font-size: 0.8rem;
             color: var(--text-dim);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            line-height: 1.2;
+            line-height: 1.35;
+            white-space: normal;
+            word-break: break-word;
         }}
 
         /* Grid View */

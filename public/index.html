@@ -213,12 +213,13 @@
             line-height: 1.2;
         }
 
+        /* Catalyst Column: Max 4 Words, Clean Line Wrap, No Truncation */
         .tbl-catalyst-cell {
             display: flex;
             flex-direction: column;
-            gap: 4px;
-            max-width: 250px;
-            line-height: 1.3;
+            gap: 6px;
+            max-width: 220px;
+            line-height: 1.4;
         }
         .tbl-cat-date {
             font-family: var(--font-sans);
@@ -228,12 +229,11 @@
             line-height: 1.2;
         }
         .tbl-cat-desc {
-            font-size: 0.78rem;
+            font-size: 0.8rem;
             color: var(--text-dim);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            line-height: 1.2;
+            line-height: 1.35;
+            white-space: normal;
+            word-break: break-word;
         }
 
         /* Grid View */
@@ -459,14 +459,14 @@
             </td>
             <td>
                 <div class="tbl-val-cell">
-                    <span class="tbl-fv" style="color: var(--accent-warm);">$34.50</span>
-                    <span class="tbl-base">-7.4%</span>
+                    <span class="tbl-fv" style="color: var(--accent-warm);">$30.50</span>
+                    <span class="tbl-base">-18.1%</span>
                 </div>
             </td>
             <td>
                 <div class="tbl-catalyst-cell">
-                    <span class="tbl-cat-date">November 5, 2026</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release & Box Office Attendance Update</span>
+                    <span class="tbl-cat-date">November 04, 2026</span>
+                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
                 </div>
             </td>
         </tr>
@@ -495,15 +495,15 @@
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Fair Value</span>
-                    <span class="grid-stat-val" style="color: var(--accent-warm);">$34.50</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">$30.50</span>
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Base Target</span>
-                    <span class="grid-stat-val">$34.50 (-7.4%)</span>
+                    <span class="grid-stat-val">$30.50 (-18.1%)</span>
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Next Catalyst</span>
-                    <span class="grid-stat-val" style="font-family: var(--font-sans);">November 5, 2026</span>
+                    <span class="grid-stat-val" style="font-family: var(--font-sans);">November 04, 2026</span>
                 </div>
             </div>
             
