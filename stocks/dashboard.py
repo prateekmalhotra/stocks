@@ -69,6 +69,10 @@ def build_native_svg_chart(ticker: str, current_price: float) -> str:
     min_p = min(prices) if prices else current_price * 0.9
     max_p = max(prices) if prices else current_price * 1.1
 
+    first_date = initial_pts[0]["date"] if initial_pts else ""
+    last_date = initial_pts[-1]["date"] if initial_pts else ""
+    last_price = initial_pts[-1]["price"] if initial_pts else current_price
+
     width = 900
     height = 260
     padding_x = 20
@@ -77,8 +81,8 @@ def build_native_svg_chart(ticker: str, current_price: float) -> str:
     return f"""
     <div class="native-chart-wrap" id="chart-container">
         <div class="chart-top-bar">
-            <div id="chart-tooltip" class="chart-tooltip">
-                <span id="tooltip-date">---</span> • <strong id="tooltip-price">$0.00</strong>
+            <div id="chart-live-val" class="chart-live-val">
+                <span id="tooltip-date">{last_date}</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">${last_price:.2f}</strong>
             </div>
             <div class="chart-range-pills">
                 <button class="range-pill active" onclick="switchChartRange('1Y')">1Y</button>
@@ -107,9 +111,9 @@ def build_native_svg_chart(ticker: str, current_price: float) -> str:
             <circle id="hover-dot" r="4" fill="#C99A75" stroke="#1A1917" stroke-width="2" style="display: none;" />
         </svg>
         <div class="chart-labels">
-            <span id="chart-start-lbl">{initial_pts[0]['date']} (${min_p:.2f})</span>
+            <span id="chart-start-lbl">{first_date} (${min_p:.2f})</span>
             <span id="chart-range-title">1-Year Historical Range</span>
-            <span id="chart-end-lbl">{initial_pts[-1]['date']} (${initial_pts[-1]['price']:.2f})</span>
+            <span id="chart-end-lbl">{last_date} (${last_price:.2f})</span>
         </div>
     </div>
 
@@ -129,7 +133,6 @@ def build_native_svg_chart(ticker: str, current_price: float) -> str:
         const svg = document.getElementById('interactive-svg');
         const linePath = document.getElementById('chart-line-path');
         const areaPath = document.getElementById('chart-area-path');
-        const tooltip = document.getElementById('chart-tooltip');
         const tooltipDate = document.getElementById('tooltip-date');
         const tooltipPrice = document.getElementById('tooltip-price');
         const crosshair = document.getElementById('crosshair-line');
@@ -164,6 +167,9 @@ def build_native_svg_chart(ticker: str, current_price: float) -> str:
             startLbl.innerText = points[0].date + ' ($' + minP.toFixed(2) + ')';
             endLbl.innerText = points[n - 1].date + ' ($' + points[n - 1].price.toFixed(2) + ')';
             
+            tooltipDate.innerText = points[n - 1].date;
+            tooltipPrice.innerText = '$' + points[n - 1].price.toFixed(2);
+
             const titles = {{ '1Y': '1-Year Range', '5Y': '5-Year Range', '10Y': '10-Year Range', 'MAX': 'All-Time Historical Range' }};
             rangeTitle.innerText = titles[currentRangeKey] || currentRangeKey + ' Range';
         }}
@@ -206,16 +212,15 @@ def build_native_svg_chart(ticker: str, current_price: float) -> str:
 
             tooltipDate.innerText = pt.date;
             tooltipPrice.innerText = '$' + pt.price.toFixed(2);
-            tooltip.style.display = 'block';
-            
-            const tooltipX = (coord[0] / width) * rect.width;
-            tooltip.style.left = Math.max(10, Math.min(rect.width - 150, tooltipX - 70)) + 'px';
         }}
 
         function hideHover() {{
             crosshair.style.display = 'none';
             dot.style.display = 'none';
-            tooltip.style.display = 'none';
+            if (currentPoints.length) {{
+                tooltipDate.innerText = currentPoints[currentPoints.length - 1].date;
+                tooltipPrice.innerText = '$' + currentPoints[currentPoints.length - 1].price.toFixed(2);
+            }}
         }}
 
         container.addEventListener('mousemove', updateHover);
@@ -224,7 +229,6 @@ def build_native_svg_chart(ticker: str, current_price: float) -> str:
         container.addEventListener('touchmove', (e) => {{ if (e.touches.length) updateHover(e.touches[0]); }}, {{passive: true}});
         container.addEventListener('touchend', hideHover);
 
-        // Initial Path Calculation
         recalculatePaths(currentPoints);
     }})();
     </script>
@@ -383,8 +387,17 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
             min-height: 28px;
+        }}
+        .chart-live-val {{
+            font-size: 0.88rem;
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }}
         .chart-range-pills {{
             display: flex;
@@ -393,7 +406,6 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             border: 1px solid var(--border-color);
             border-radius: 6px;
             padding: 2px;
-            margin-left: auto;
         }}
         .range-pill {{
             background: none;

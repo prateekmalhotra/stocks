@@ -100,8 +100,17 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
             min-height: 28px;
+        }
+        .chart-live-val {
+            font-size: 0.88rem;
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
         .chart-range-pills {
             display: flex;
@@ -110,7 +119,6 @@
             border: 1px solid var(--border-color);
             border-radius: 6px;
             padding: 2px;
-            margin-left: auto;
         }
         .range-pill {
             background: none;
@@ -317,6 +325,12 @@
             padding: 18px 22px;
             margin: 24px 0;
         }
+        .highlight, mark {
+            background: rgba(201, 154, 117, 0.16) !important;
+            color: #E2DDD5 !important;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
 
         /* History */
         .history-entry {
@@ -417,8 +431,8 @@
             
     <div class="native-chart-wrap" id="chart-container">
         <div class="chart-top-bar">
-            <div id="chart-tooltip" class="chart-tooltip">
-                <span id="tooltip-date">---</span> • <strong id="tooltip-price">$0.00</strong>
+            <div id="chart-live-val" class="chart-live-val">
+                <span id="tooltip-date">Aug 07, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$37.24</strong>
             </div>
             <div class="chart-range-pills">
                 <button class="range-pill active" onclick="switchChartRange('1Y')">1Y</button>
@@ -469,7 +483,6 @@
         const svg = document.getElementById('interactive-svg');
         const linePath = document.getElementById('chart-line-path');
         const areaPath = document.getElementById('chart-area-path');
-        const tooltip = document.getElementById('chart-tooltip');
         const tooltipDate = document.getElementById('tooltip-date');
         const tooltipPrice = document.getElementById('tooltip-price');
         const crosshair = document.getElementById('crosshair-line');
@@ -504,6 +517,9 @@
             startLbl.innerText = points[0].date + ' ($' + minP.toFixed(2) + ')';
             endLbl.innerText = points[n - 1].date + ' ($' + points[n - 1].price.toFixed(2) + ')';
             
+            tooltipDate.innerText = points[n - 1].date;
+            tooltipPrice.innerText = '$' + points[n - 1].price.toFixed(2);
+
             const titles = { '1Y': '1-Year Range', '5Y': '5-Year Range', '10Y': '10-Year Range', 'MAX': 'All-Time Historical Range' };
             rangeTitle.innerText = titles[currentRangeKey] || currentRangeKey + ' Range';
         }
@@ -546,16 +562,15 @@
 
             tooltipDate.innerText = pt.date;
             tooltipPrice.innerText = '$' + pt.price.toFixed(2);
-            tooltip.style.display = 'block';
-            
-            const tooltipX = (coord[0] / width) * rect.width;
-            tooltip.style.left = Math.max(10, Math.min(rect.width - 150, tooltipX - 70)) + 'px';
         }
 
         function hideHover() {
             crosshair.style.display = 'none';
             dot.style.display = 'none';
-            tooltip.style.display = 'none';
+            if (currentPoints.length) {
+                tooltipDate.innerText = currentPoints[currentPoints.length - 1].date;
+                tooltipPrice.innerText = '$' + currentPoints[currentPoints.length - 1].price.toFixed(2);
+            }
         }
 
         container.addEventListener('mousemove', updateHover);
@@ -564,7 +579,6 @@
         container.addEventListener('touchmove', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
         container.addEventListener('touchend', hideHover);
 
-        // Initial Path Calculation
         recalculatePaths(currentPoints);
     })();
     </script>
