@@ -284,7 +284,7 @@ CORE PRINCIPLES & GUIDELINES:
 
 5. Dynamic Labels (2-Tier Mandatory Structure):
    - Label #1 (MANDATORY PRIMARY PILL — CONVICTION & CONFIDENCE LEVEL ONLY): Must state in MAX 2 WORDS your thesis conviction level and confidence in reaching fair value (e.g. "High Conviction", "High Confidence", "Moderate Conviction", "Speculative Risk", "Asymmetric Conviction", "Cautious Stance", "Low Conviction"). DO NOT put play types like "Deep Value" in Label #1.
-   - Labels #2 & #3 (THE ECONOMIC PLAY & CATALYSTS): Must describe the specific nature of the play and drivers of upside (e.g. "Deep Value", "Turnaround Play", "Safe Compounder", "Buyback Cannibal", "Operating Leverage", "Moat Expansion", "Deleveraging Play", "Special Situation").
+   - Labels #2 & #3 (THE ECONOMIC PLAY & CATALYSTS — INVENTIVE & INTUITIVE PLAIN ENGLISH): Must describe the specific nature of the play and what drives the upside in plain English (e.g. "Deep Value", "Turnaround Play", "Safe Compounder", "Buyback Cannibal", "Margin Expansion", "Cash Fortress", "Debt Paydown", "Pricing Power", "Special Situation"). Avoid obscure jargon.
    - NEVER use generic industry/sector names (avoid tags like "Latam Fintech" or "Payments Credit").
 
 6. Dynamic Price Alert Corridors & Surveillance Triggers:
@@ -329,7 +329,7 @@ Editorial Aesthetics Mandate:
 
 Labels Directive (2-Tier Structure):
 - Label #1 (MANDATORY PRIMARY PILL — CONVICTION / CONFIDENCE LEVEL ONLY): Must state in max 2 words your thesis conviction rating (e.g. "High Conviction", "High Confidence", "Moderate Conviction", "Speculative Risk", "Asymmetric Conviction", "Cautious Stance"). DO NOT put play types here.
-- Labels #2 & #3 (THE PLAY NATURE & CATALYSTS): Describe the economic play and catalyst driver (e.g. "Deep Value", "Turnaround Play", "Safe Compounder", "Buyback Cannibal", "Operating Leverage", "Moat Expansion").
+- Labels #2 & #3 (THE PLAY NATURE & CATALYSTS — INTUITIVE PLAIN ENGLISH): Describe the economic play and catalyst driver in simple, intuitive terms (e.g. "Deep Value", "Turnaround Play", "Safe Compounder", "Buyback Cannibal", "Margin Expansion", "Cash Fortress", "Debt Paydown", "Pricing Power"). Avoid textbook jargon.
 
 Return your plan strictly as a JSON object in ```json ... ```:
 ```json
