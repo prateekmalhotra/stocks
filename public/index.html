@@ -3,29 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AlphaThesis — Institutional Equity Surveillance Hub</title>
+    <title>AlphaThesis — Concentrated Equity Research Ledger</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-canvas: #080a0f;
-            --bg-panel: #0d121c;
-            --bg-panel-hover: #121824;
-            --bg-subpanel: #161e2e;
-            --bg-elevated: #1d273b;
-            --text-title: #ffffff;
-            --text-body: #e2e8f0;
-            --text-secondary: #94a3b8;
-            --text-dim: #64748b;
-            --accent-cyan: #38bdf8;
-            --accent-cyan-rgb: 56, 189, 248;
-            --accent-emerald: #10b981;
-            --accent-emerald-rgb: 16, 185, 129;
-            --accent-rose: #f43f5e;
-            --accent-amber: #f59e0b;
-            --border-color: #1e283d;
-            --border-focus: #2c3c5c;
+            --bg-canvas: #F9F7F2;       /* Warm unbleached parchment */
+            --bg-card: #FFFFFF;         /* Crisp folio */
+            --bg-subpanel: #F3EFE6;     /* Linen tint */
+            --bg-elevated: #ECE6DA;     /* Warm contrast */
+            --text-title: #1C1917;      /* Warm ink */
+            --text-body: #292524;       /* Deep readable ink */
+            --text-secondary: #57534E;  /* Editorial secondary */
+            --text-dim: #78716C;        /* Stone label */
+            --accent-brand: #1E3A8A;    /* Oxford Navy */
+            --accent-brand-rgb: 30, 58, 138;
+            --accent-success: #15803D;  /* Forest / Sage green */
+            --accent-danger: #B91C1C;   /* Warm Burgundy */
+            --accent-amber: #B45309;    /* Terracotta / Cognac */
+            --border-color: #E5DFD3;    /* Book deckle rule */
+            --border-focus: #D6CEBE;
+            --font-editorial: 'Newsreader', Garamond, Georgia, serif;
             --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
         }
@@ -34,42 +33,43 @@
         body {
             background: var(--bg-canvas);
             color: var(--text-body);
-            font-family: var(--font-sans);
+            font-family: var(--font-editorial);
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
             padding-bottom: 120px;
         }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
 
-        /* Top Bar */
+        /* Header */
         header.nav-header {
-            background: rgba(8, 10, 15, 0.88);
-            backdrop-filter: blur(20px);
+            background: rgba(249, 247, 242, 0.92);
+            backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
             z-index: 100;
-            padding: 16px 0;
+            padding: 18px 0;
         }
         .header-content { display: flex; justify-content: space-between; align-items: center; }
-        .brand-logo { display: flex; align-items: center; gap: 12px; font-size: 1.25rem; font-weight: 800; letter-spacing: -0.03em; color: #fff; }
-        .brand-symbol { color: var(--accent-cyan); font-size: 1.4rem; }
+        .brand-logo { display: flex; align-items: center; gap: 12px; font-family: var(--font-sans); font-size: 1.3rem; font-weight: 800; letter-spacing: -0.03em; color: var(--text-title); }
+        .brand-symbol { color: var(--accent-brand); font-size: 1.4rem; }
         .engine-pill {
-            background: rgba(var(--accent-cyan-rgb), 0.12);
-            color: var(--accent-cyan);
-            font-size: 0.72rem;
+            background: #EFF6FF;
+            color: var(--accent-brand);
+            font-size: 0.74rem;
+            font-family: var(--font-sans);
             font-weight: 700;
-            padding: 3px 10px;
+            padding: 4px 12px;
             border-radius: 9999px;
-            border: 1px solid rgba(var(--accent-cyan-rgb), 0.3);
+            border: 1px solid #BFDBFE;
             text-transform: uppercase;
             letter-spacing: 0.04em;
         }
 
         .pulse-dot {
-            width: 8px; height: 8px; border-radius: 50%; background: var(--accent-emerald);
-            box-shadow: 0 0 10px var(--accent-emerald); display: inline-block; margin-right: 6px;
+            width: 8px; height: 8px; border-radius: 50%; background: var(--accent-success);
+            box-shadow: 0 0 8px rgba(21, 128, 61, 0.5); display: inline-block; margin-right: 6px;
         }
 
         /* Macro Summary Stats Ribbon */
@@ -77,21 +77,22 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 16px;
-            margin: 32px 0 28px;
+            margin: 36px 0 32px;
         }
         .macro-card {
-            background: var(--bg-panel);
+            background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 20px 24px;
+            border-radius: 14px;
+            padding: 22px 26px;
             display: flex;
             align-items: center;
             gap: 18px;
+            box-shadow: 0 2px 10px rgba(28, 25, 23, 0.02);
         }
-        .macro-icon { font-size: 1.8rem; }
+        .macro-icon { font-size: 1.9rem; }
         .macro-data { display: flex; flex-direction: column; }
-        .macro-lbl { font-size: 0.72rem; text-transform: uppercase; color: var(--text-dim); font-weight: 700; letter-spacing: 0.05em; }
-        .macro-val { font-size: 1.4rem; font-weight: 800; color: #fff; font-family: var(--font-mono); margin-top: 2px; }
+        .macro-lbl { font-size: 0.74rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); font-weight: 700; letter-spacing: 0.05em; }
+        .macro-val { font-size: 1.5rem; font-weight: 800; color: var(--text-title); font-family: var(--font-mono); margin-top: 2px; }
 
         /* Navigation & View Toggle */
         .hub-controls {
@@ -109,29 +110,28 @@
             background: none;
             border: none;
             color: var(--text-secondary);
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             font-weight: 700;
-            padding: 10px 20px;
+            padding: 10px 22px;
             cursor: pointer;
             position: relative;
             font-family: var(--font-sans);
             transition: all 0.15s;
         }
-        .hub-tab-btn:hover { color: #fff; }
-        .hub-tab-btn.active { color: var(--accent-cyan); }
+        .hub-tab-btn:hover { color: var(--text-title); }
+        .hub-tab-btn.active { color: var(--accent-brand); }
         .hub-tab-btn.active::after {
             content: '';
             position: absolute;
             bottom: -17px;
             left: 0; right: 0;
             height: 2px;
-            background: var(--accent-cyan);
-            box-shadow: 0 0 12px var(--accent-cyan);
+            background: var(--accent-brand);
         }
 
         .view-toggle {
             display: flex;
-            background: var(--bg-panel);
+            background: var(--bg-subpanel);
             border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 3px;
@@ -140,25 +140,26 @@
             background: none;
             border: none;
             color: var(--text-secondary);
-            font-size: 0.8rem;
+            font-size: 0.82rem;
+            font-family: var(--font-sans);
             font-weight: 700;
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.15s;
         }
-        .view-btn.active { background: var(--bg-elevated); color: #fff; }
+        .view-btn.active { background: #FFFFFF; color: var(--text-title); box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
 
         .tab-panel { display: none; }
         .tab-panel.active { display: block; }
 
-        /* Institutional Table View */
+        /* Table View */
         .table-wrap {
-            background: var(--bg-panel);
+            background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
+            border-radius: 14px;
             overflow: hidden;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 20px rgba(28, 25, 23, 0.03);
         }
         table.fin-table {
             width: 100%;
@@ -167,68 +168,69 @@
         }
         table.fin-table th {
             background: var(--bg-subpanel);
-            color: var(--text-dim);
-            font-size: 0.72rem;
+            color: var(--text-title);
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            padding: 14px 20px;
+            padding: 16px 22px;
             border-bottom: 1px solid var(--border-color);
         }
         table.fin-table td {
-            padding: 18px 20px;
+            padding: 18px 22px;
             border-bottom: 1px solid var(--border-color);
-            font-size: 0.95rem;
+            font-size: 0.98rem;
             vertical-align: middle;
         }
         .table-row { cursor: pointer; transition: background 0.15s; }
-        .table-row:hover { background: var(--bg-panel-hover); }
+        .table-row:hover { background: #FAF7F0; }
         .table-row:last-child td { border-bottom: none; }
 
         .tbl-ticker-cell { display: flex; flex-direction: column; }
-        .tbl-symbol { font-size: 1.25rem; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
-        .tbl-company { font-size: 0.82rem; color: var(--text-dim); }
+        .tbl-symbol { font-family: var(--font-sans); font-size: 1.35rem; font-weight: 800; color: var(--text-title); letter-spacing: -0.02em; }
+        .tbl-company { font-size: 0.85rem; color: var(--text-dim); font-style: italic; }
 
         .tbl-price-cell { display: flex; flex-direction: column; }
-        .tbl-price { font-size: 1.15rem; font-weight: 700; font-family: var(--font-mono); color: #fff; }
-        .tbl-return { font-size: 0.8rem; font-weight: 600; font-family: var(--font-mono); }
+        .tbl-price { font-size: 1.2rem; font-weight: 700; font-family: var(--font-mono); color: var(--text-title); }
+        .tbl-return { font-size: 0.85rem; font-weight: 600; font-family: var(--font-mono); }
 
         .tbl-val-cell { display: flex; flex-direction: column; }
-        .tbl-fv { font-size: 1.05rem; font-weight: 700; font-family: var(--font-mono); }
-        .tbl-base { font-size: 0.8rem; color: var(--text-secondary); }
+        .tbl-fv { font-size: 1.1rem; font-weight: 700; font-family: var(--font-mono); }
+        .tbl-base { font-size: 0.85rem; color: var(--text-secondary); }
 
         .tbl-corridor-cell { min-width: 150px; }
-        .tbl-corridor-labels { display: flex; justify-content: space-between; font-size: 0.68rem; color: var(--text-dim); font-family: var(--font-mono); margin-bottom: 4px; }
+        .tbl-corridor-labels { display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-dim); font-family: var(--font-mono); margin-bottom: 4px; }
         .mini-corridor-track {
-            height: 6px; background: var(--bg-elevated); border-radius: 9999px; position: relative;
+            height: 6px; background: var(--bg-subpanel); border-radius: 9999px; position: relative; border: 1px solid var(--border-color);
         }
         .mini-corridor-fill {
             height: 100%; width: 100%; border-radius: 9999px;
-            background: linear-gradient(90deg, var(--accent-rose), var(--accent-amber), var(--accent-emerald), var(--accent-cyan));
-            opacity: 0.5;
+            background: linear-gradient(90deg, #FCA5A5, #FDE68A, #86EFAC, #93C5FD);
         }
         .mini-corridor-dot {
-            position: absolute; top: -3px; width: 12px; height: 12px;
-            background: #fff; border: 2px solid var(--accent-cyan); border-radius: 50%;
-            transform: translateX(-50%); box-shadow: 0 0 8px var(--accent-cyan);
+            position: absolute; top: -4px; width: 14px; height: 14px;
+            background: #FFFFFF; border: 2px solid var(--accent-brand); border-radius: 50%;
+            transform: translateX(-50%); box-shadow: 0 1px 4px rgba(30, 58, 138, 0.3);
         }
 
-        .tbl-catalyst-cell { display: flex; flex-direction: column; max-width: 180px; }
-        .tbl-cat-date { font-size: 0.85rem; font-weight: 600; color: #fff; }
-        .tbl-cat-desc { font-size: 0.75rem; color: var(--text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .tbl-catalyst-cell { display: flex; flex-direction: column; max-width: 190px; }
+        .tbl-cat-date { font-family: var(--font-sans); font-size: 0.88rem; font-weight: 700; color: var(--text-title); }
+        .tbl-cat-desc { font-size: 0.8rem; color: var(--text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
         .btn-action {
             background: var(--bg-subpanel);
-            color: var(--accent-cyan);
+            color: var(--accent-brand);
             border: 1px solid var(--border-color);
-            font-size: 0.8rem;
+            font-family: var(--font-sans);
+            font-size: 0.82rem;
             font-weight: 700;
-            padding: 8px 16px;
+            padding: 8px 18px;
             border-radius: 8px;
             text-decoration: none;
             transition: all 0.15s;
         }
-        .btn-action:hover { background: var(--bg-elevated); border-color: var(--accent-cyan); }
+        .btn-action:hover { background: var(--bg-elevated); border-color: var(--accent-brand); }
 
         /* Grid View */
         .grid-cards-wrap {
@@ -237,26 +239,26 @@
             gap: 20px;
         }
         .grid-card {
-            background: var(--bg-panel);
+            background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 18px;
-            padding: 26px;
+            border-radius: 14px;
+            padding: 28px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             cursor: pointer;
+            box-shadow: 0 4px 20px rgba(28, 25, 23, 0.03);
             transition: all 0.2s;
         }
         .grid-card:hover {
-            background: var(--bg-panel-hover);
             border-color: var(--border-focus);
             transform: translateY(-3px);
-            box-shadow: 0 16px 36px rgba(0,0,0,0.4);
+            box-shadow: 0 8px 30px rgba(28, 25, 23, 0.06);
         }
         .grid-card-top { display: flex; justify-content: space-between; align-items: center; }
-        .grid-symbol { font-size: 1.7rem; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
-        .grid-price { font-size: 1.6rem; font-weight: 700; font-family: var(--font-mono); color: #fff; }
-        .grid-company { color: var(--text-secondary); font-size: 0.92rem; margin: 4px 0 20px; }
+        .grid-symbol { font-family: var(--font-sans); font-size: 1.8rem; font-weight: 800; color: var(--text-title); letter-spacing: -0.02em; }
+        .grid-price { font-size: 1.7rem; font-weight: 700; font-family: var(--font-mono); color: var(--text-title); }
+        .grid-company { color: var(--text-secondary); font-size: 0.95rem; font-style: italic; margin: 4px 0 22px; }
 
         .grid-metrics-box {
             display: grid;
@@ -264,85 +266,86 @@
             gap: 12px;
             background: var(--bg-subpanel);
             padding: 16px;
-            border-radius: 12px;
-            margin-bottom: 20px;
+            border-radius: 10px;
+            margin-bottom: 22px;
         }
         .grid-stat { display: flex; flex-direction: column; }
-        .grid-stat-lbl { font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-weight: 700; }
-        .grid-stat-val { font-size: 1rem; font-weight: 700; font-family: var(--font-mono); margin-top: 2px; }
+        .grid-stat-lbl { font-size: 0.7rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); font-weight: 700; }
+        .grid-stat-val { font-size: 1.05rem; font-weight: 700; font-family: var(--font-mono); margin-top: 2px; }
 
         .grid-card-foot {
             display: flex; justify-content: space-between; align-items: center;
             border-top: 1px solid var(--border-color); padding-top: 16px;
         }
-        .grid-updated { font-size: 0.75rem; color: var(--text-dim); font-family: var(--font-mono); }
-        .grid-open { font-size: 0.85rem; font-weight: 700; color: var(--accent-cyan); }
+        .grid-updated { font-size: 0.78rem; color: var(--text-dim); font-family: var(--font-mono); }
+        .grid-open { font-family: var(--font-sans); font-size: 0.88rem; font-weight: 700; color: var(--accent-brand); }
 
         /* Alerts List */
         .alerts-feed { display: flex; flex-direction: column; gap: 16px; }
         .alert-item {
-            background: var(--bg-panel);
+            background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 24px 28px;
+            border-radius: 14px;
+            padding: 26px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 24px;
             cursor: pointer;
+            box-shadow: 0 2px 12px rgba(28, 25, 23, 0.02);
             transition: all 0.15s;
         }
         .alert-item:hover {
-            background: var(--bg-panel-hover);
-            border-color: var(--accent-cyan);
+            border-color: var(--accent-brand);
             transform: translateX(4px);
         }
         .alert-left { flex: 1; }
-        .alert-badges { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-        .alert-ticker { font-size: 1.15rem; font-weight: 800; color: #fff; }
-        .alert-time { font-size: 0.8rem; color: var(--text-dim); font-family: var(--font-mono); }
-        .alert-title { font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
-        .alert-blurb { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.5; }
+        .alert-badges { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+        .alert-ticker { font-family: var(--font-sans); font-size: 1.2rem; font-weight: 800; color: var(--text-title); }
+        .alert-time { font-size: 0.82rem; color: var(--text-dim); font-family: var(--font-mono); }
+        .alert-title { font-family: var(--font-sans); font-size: 1.18rem; font-weight: 700; color: var(--text-title); margin-bottom: 6px; }
+        .alert-blurb { font-size: 1.05rem; color: var(--text-secondary); line-height: 1.6; }
 
         .alert-right { text-align: right; min-width: 150px; }
-        .alert-price-val { font-size: 1.45rem; font-weight: 700; font-family: var(--font-mono); color: #fff; }
-        .alert-price-pct { font-size: 0.92rem; font-weight: 600; font-family: var(--font-mono); }
-        .alert-view-btn { font-size: 0.82rem; font-weight: 700; color: var(--accent-cyan); display: inline-block; margin-top: 8px; }
+        .alert-price-val { font-size: 1.5rem; font-weight: 700; font-family: var(--font-mono); color: var(--text-title); }
+        .alert-price-pct { font-size: 0.95rem; font-weight: 600; font-family: var(--font-mono); }
+        .alert-view-btn { font-family: var(--font-sans); font-size: 0.85rem; font-weight: 700; color: var(--accent-brand); display: inline-block; margin-top: 8px; }
 
         /* Badges */
         .pill {
             display: inline-flex;
             align-items: center;
-            padding: 3px 10px;
+            padding: 4px 14px;
             border-radius: 9999px;
-            font-size: 0.72rem;
+            font-size: 0.74rem;
+            font-family: var(--font-sans);
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.04em;
         }
-        .pill-primary { background: rgba(var(--accent-cyan-rgb), 0.12); color: var(--accent-cyan); border: 1px solid rgba(var(--accent-cyan-rgb), 0.3); }
-        .pill-alert { background: rgba(245, 158, 11, 0.12); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+        .pill-status { background: #EFF6FF; color: var(--accent-brand); border: 1px solid #BFDBFE; }
+        .pill-alert { background: #FEF3C7; color: var(--accent-amber); border: 1px solid #FDE68A; }
 
-        .pos { color: var(--accent-emerald); }
-        .neg { color: var(--accent-rose); }
+        .pos { color: var(--accent-success); }
+        .neg { color: var(--accent-danger); }
 
         .empty-alerts {
             text-align: center;
-            background: var(--bg-panel);
+            background: var(--bg-card);
             border: 1px dashed var(--border-color);
-            border-radius: 18px;
+            border-radius: 14px;
             padding: 70px 24px;
         }
-        .empty-icon { font-size: 2.2rem; margin-bottom: 12px; }
-        .empty-title { font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
-        .empty-sub { font-size: 0.92rem; color: var(--text-secondary); max-width: 480px; margin: 0 auto; }
+        .empty-icon { font-size: 2.4rem; margin-bottom: 12px; }
+        .empty-title { font-family: var(--font-sans); font-size: 1.2rem; font-weight: 700; color: var(--text-title); margin-bottom: 6px; }
+        .empty-sub { font-size: 1.05rem; color: var(--text-secondary); max-width: 480px; margin: 0 auto; }
 
         /* Modal */
         .modal-shade {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.82);
-            backdrop-filter: blur(16px);
+            background: rgba(28, 25, 23, 0.6);
+            backdrop-filter: blur(12px);
             z-index: 1000;
             display: none;
             justify-content: center;
@@ -350,15 +353,15 @@
             padding: 24px;
         }
         .modal-body-card {
-            background: var(--bg-panel);
-            border: 1px solid var(--border-focus);
-            border-radius: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
             max-width: 760px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
-            padding: 36px;
-            box-shadow: 0 24px 60px rgba(0,0,0,0.8);
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
             position: relative;
         }
         .modal-x {
@@ -367,36 +370,37 @@
             background: none;
             border: none;
             color: var(--text-dim);
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             cursor: pointer;
         }
-        .modal-x:hover { color: #fff; }
+        .modal-x:hover { color: var(--text-title); }
 
         .diff-modal-wrap {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin: 24px 0;
+            gap: 18px;
+            margin: 26px 0;
         }
         @media (max-width: 640px) { .diff-modal-wrap { grid-template-columns: 1fr; } }
-        .diff-side { padding: 20px; border-radius: 12px; border: 1px solid var(--border-color); }
-        .side-before { background: rgba(244, 63, 94, 0.03); border-color: rgba(244, 63, 94, 0.2); }
-        .side-after { background: rgba(var(--accent-emerald-rgb), 0.03); border-color: rgba(var(--accent-emerald-rgb), 0.2); }
-        .side-heading { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
-        .side-before .side-heading { color: #fb7185; }
-        .side-after .side-heading { color: #34d399; }
-        .side-text { font-size: 0.95rem; color: #cbd5e1; line-height: 1.6; }
+        .diff-side { padding: 22px; border-radius: 10px; border: 1px solid var(--border-color); }
+        .side-before { background: #FEF2F2; border-color: #FECACA; }
+        .side-after { background: #F0FDF4; border-color: #BBF7D0; }
+        .side-heading { font-family: var(--font-sans); font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+        .side-before .side-heading { color: var(--accent-danger); }
+        .side-after .side-heading { color: var(--accent-success); }
+        .side-text { font-family: var(--font-editorial); font-size: 1.08rem; color: var(--text-body); line-height: 1.7; }
 
         .btn-primary {
-            background: var(--accent-cyan); color: #080a0f; font-weight: 700;
-            padding: 10px 20px; border-radius: 10px; text-decoration: none; display: inline-flex; align-items: center; border: none; cursor: pointer;
+            background: var(--accent-brand); color: #FFFFFF; font-family: var(--font-sans); font-weight: 700;
+            padding: 12px 24px; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; border: none; cursor: pointer;
+            box-shadow: 0 2px 8px rgba(30, 58, 138, 0.2);
         }
-        .btn-primary:hover { background: #7dd3fc; }
+        .btn-primary:hover { background: #1D4ED8; }
         .btn-outline {
-            background: var(--bg-elevated); color: #fff; border: 1px solid var(--border-color);
-            padding: 10px 20px; border-radius: 10px; cursor: pointer;
+            background: var(--bg-subpanel); color: var(--text-title); border: 1px solid var(--border-color);
+            font-family: var(--font-sans); font-weight: 700; padding: 12px 22px; border-radius: 8px; cursor: pointer;
         }
-        .btn-outline:hover { background: var(--bg-subpanel); }
+        .btn-outline:hover { background: var(--bg-elevated); }
     </style>
 </head>
 <body>
@@ -407,7 +411,7 @@
                 <span>ALPHATHESIS</span>
                 <span class="engine-pill"><span class="pulse-dot"></span>GEMINI 3.6 FLASH</span>
             </div>
-            <div style="font-size: 0.8rem; color: var(--text-dim); font-family: var(--font-mono);">
+            <div style="font-size: 0.82rem; color: var(--text-dim); font-family: var(--font-sans); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">
                 AUTONOMOUS EQUITY SURVEILLANCE
             </div>
         </div>
@@ -417,17 +421,17 @@
         <!-- Macro Summary Stats Ribbon -->
         <section class="macro-ribbon">
             <div class="macro-card">
-                <div class="macro-icon">📊</div>
+                <div class="macro-icon">📚</div>
                 <div class="macro-data">
-                    <span class="macro-lbl">Active Watchlist</span>
+                    <span class="macro-lbl">Active Coverage</span>
                     <span class="macro-val">2 Companies</span>
                 </div>
             </div>
             <div class="macro-card">
                 <div class="macro-icon">⚡</div>
                 <div class="macro-data">
-                    <span class="macro-lbl">Surveillance Engine</span>
-                    <span class="macro-val" style="color: var(--accent-emerald);">2x Daily Cron</span>
+                    <span class="macro-lbl">Surveillance Cadence</span>
+                    <span class="macro-val" style="color: var(--accent-success);">2x Daily Cron</span>
                 </div>
             </div>
             <div class="macro-card">
@@ -442,12 +446,12 @@
         <!-- Navigation Tabs & View Toggle -->
         <div class="hub-controls">
             <div class="hub-tabs">
-                <button class="hub-tab-btn active" onclick="switchTab('stocks')">📈 Tracked Coverage (2)</button>
+                <button class="hub-tab-btn active" onclick="switchTab('stocks')">📖 Portfolio Ledger (2)</button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')">🚨 Critical Alerts (0)</button>
             </div>
             <div class="view-toggle" id="view-toggle-bar">
-                <button class="view-btn active" onclick="setView('table')">Table View</button>
-                <button class="view-btn" onclick="setView('grid')">Grid Cards</button>
+                <button class="view-btn active" onclick="setView('table')">Ledger View</button>
+                <button class="view-btn" onclick="setView('grid')">Folio Cards</button>
             </div>
         </div>
 
@@ -483,11 +487,11 @@
                 </div>
             </td>
             <td>
-                <span class="pill pill-primary">High-Conviction Cash Flow Re-Rating</span>
+                <span class="pill pill-status">High-Conviction Cash Flow Re-Rating</span>
             </td>
             <td>
                 <div class="tbl-val-cell">
-                    <span class="tbl-fv" style="color: var(--accent-cyan);">$44.50</span>
+                    <span class="tbl-fv" style="color: var(--accent-brand);">$44.50</span>
                     <span class="tbl-base">$45.00 (+20.8%)</span>
                 </div>
             </td>
@@ -506,11 +510,11 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">November 2026</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release and Q4/2027 Box</span>
+                    <span class="tbl-cat-desc">Q3 2026 Earnings Release and Q4/2027 Box Offi</span>
                 </div>
             </td>
             <td style="text-align: right;">
-                <a href="reports/CNK.html" class="btn-action" onclick="event.stopPropagation()">Dossier →</a>
+                <a href="reports/CNK.html" class="btn-action" onclick="event.stopPropagation()">Read Memo →</a>
             </td>
         </tr>
         
@@ -528,11 +532,11 @@
                 </div>
             </td>
             <td>
-                <span class="pill pill-primary">High-Conviction AI Monopoly Compounder</span>
+                <span class="pill pill-status">High-Conviction AI Monopoly Compounder</span>
             </td>
             <td>
                 <div class="tbl-val-cell">
-                    <span class="tbl-fv" style="color: var(--accent-cyan);">$285.00</span>
+                    <span class="tbl-fv" style="color: var(--accent-brand);">$285.00</span>
                     <span class="tbl-base">$280.00 (+25.0%)</span>
                 </div>
             </td>
@@ -551,11 +555,11 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">August 26, 2026</span>
-                    <span class="tbl-cat-desc">Q2 FY2027 Financial Results & Vera Rubin</span>
+                    <span class="tbl-cat-desc">Q2 FY2027 Financial Results & Vera Rubin Arch</span>
                 </div>
             </td>
             <td style="text-align: right;">
-                <a href="reports/NVDA.html" class="btn-action" onclick="event.stopPropagation()">Dossier →</a>
+                <a href="reports/NVDA.html" class="btn-action" onclick="event.stopPropagation()">Read Memo →</a>
             </td>
         </tr>
         
@@ -570,7 +574,7 @@
             <div class="grid-card-top">
                 <div>
                     <span class="grid-symbol">CNK</span>
-                    <span class="pill pill-primary" style="margin-left: 8px;">High-Conviction Cash Flow Re-Rating</span>
+                    <span class="pill pill-status" style="margin-left: 8px;">High-Conviction Cash Flow Re-Rating</span>
                 </div>
                 <div class="grid-price">$37.24</div>
             </div>
@@ -583,7 +587,7 @@
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Fair Value</span>
-                    <span class="grid-stat-val" style="color: var(--accent-cyan);">$44.50</span>
+                    <span class="grid-stat-val" style="color: var(--accent-brand);">$44.50</span>
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Trigger Bounds</span>
@@ -591,13 +595,13 @@
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Next Catalyst</span>
-                    <span class="grid-stat-val">November 2026</span>
+                    <span class="grid-stat-val" style="font-family: var(--font-sans);">November 2026</span>
                 </div>
             </div>
             
             <div class="grid-card-foot">
                 <span class="grid-updated">Updated 2026-08-07</span>
-                <span class="grid-open">Deep Dive →</span>
+                <span class="grid-open">Read Memo →</span>
             </div>
         </div>
         
@@ -605,7 +609,7 @@
             <div class="grid-card-top">
                 <div>
                     <span class="grid-symbol">NVDA</span>
-                    <span class="pill pill-primary" style="margin-left: 8px;">High-Conviction AI Monopoly Compounder</span>
+                    <span class="pill pill-status" style="margin-left: 8px;">High-Conviction AI Monopoly Compounder</span>
                 </div>
                 <div class="grid-price">$223.96</div>
             </div>
@@ -618,7 +622,7 @@
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Fair Value</span>
-                    <span class="grid-stat-val" style="color: var(--accent-cyan);">$285.00</span>
+                    <span class="grid-stat-val" style="color: var(--accent-brand);">$285.00</span>
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Trigger Bounds</span>
@@ -626,13 +630,13 @@
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Next Catalyst</span>
-                    <span class="grid-stat-val">August 26, 2026</span>
+                    <span class="grid-stat-val" style="font-family: var(--font-sans);">August 26, 2026</span>
                 </div>
             </div>
             
             <div class="grid-card-foot">
                 <span class="grid-updated">Updated 2026-08-07</span>
-                <span class="grid-open">Deep Dive →</span>
+                <span class="grid-open">Read Memo →</span>
             </div>
         </div>
         
@@ -644,9 +648,9 @@
             <div class="alerts-feed">
                 
         <div class="empty-alerts">
-            <div class="empty-icon">🛡️</div>
-            <div class="empty-title">All Tracked Positions Within Safe Bounds</div>
-            <div class="empty-sub">No critical threshold breaches or catalyst alerts fired. The 24/7 surveillance engine is monitoring active quotes.</div>
+            <div class="empty-icon">📖</div>
+            <div class="empty-title">All Positions In Equilibrium</div>
+            <div class="empty-sub">No critical threshold breaches or catalyst alerts logged. The 24/7 surveillance engine is monitoring active quotes.</div>
         </div>
         
             </div>
@@ -659,11 +663,11 @@
             <button class="modal-x" onclick="closeAlertModal()">✕</button>
             <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
                 <span id="modal-badge" class="pill pill-alert">ALERT</span>
-                <strong id="modal-ticker" style="font-size: 1.3rem; color: #fff;">TICKER</strong>
+                <strong id="modal-ticker" style="font-family: var(--font-sans); font-size: 1.35rem; color: var(--text-title);">TICKER</strong>
                 <span id="modal-time" style="color: var(--text-dim); font-size: 0.85rem; font-family: var(--font-mono);">Timestamp</span>
             </div>
-            <h2 id="modal-title" style="font-size: 1.4rem; color: #fff; margin-bottom: 12px; letter-spacing: -0.02em;">Alert Headline</h2>
-            <div style="font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 20px;">
+            <h2 id="modal-title" style="font-family: var(--font-sans); font-size: 1.45rem; color: var(--text-title); margin-bottom: 12px; letter-spacing: -0.02em;">Alert Headline</h2>
+            <div style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 20px;">
                 <strong>Trigger Event:</strong> <span id="modal-trigger">Reason</span>
             </div>
 
@@ -678,9 +682,9 @@
                 </div>
             </div>
 
-            <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 28px;">
+            <div style="display: flex; justify-content: flex-end; gap: 14px; margin-top: 32px;">
                 <button class="btn-outline" onclick="closeAlertModal()">Dismiss</button>
-                <a id="modal-report-link" href="#" class="btn-primary">Open Full Living Dossier →</a>
+                <a id="modal-report-link" href="#" class="btn-primary">Open Research Memo →</a>
             </div>
         </div>
     </div>
