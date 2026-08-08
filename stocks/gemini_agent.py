@@ -84,16 +84,11 @@ def clean_grounding_artifacts(text: str) -> str:
     return cleaned.strip()
 
 
-CONVICTION_TERMS = {
-    "high conviction", "medium conviction", "moderate conviction", "speculative", "low conviction"
-}
-
-
 def sanitize_labels(labels: Any) -> List[str]:
     """Sanitizes labels ensuring:
-    - Label #1 is strictly one of 3 simple conviction tiers: 'High Conviction', 'Medium Conviction', or 'Speculative'.
-    - Labels #2 & #3 are the Play Type / Catalysts (e.g. 'Deep Value', 'Buyback Cannibal', 'Safe Compounder').
-    Max 3 labels total, max 2 words per label.
+    - Max 3 labels total.
+    - Each label is max 2 words, properly Title Cased.
+    - Preserves the model's nuanced conviction/confidence evaluation in Slot 1 and play drivers in Slots 2 & 3.
     """
     if not isinstance(labels, list):
         if isinstance(labels, str) and labels:
@@ -108,32 +103,12 @@ def sanitize_labels(labels: Any) -> List[str]:
         words = [w for w in lbl.replace("/", " ").replace("-", " ").replace("&", " ").split() if w.strip()]
         if words:
             short_lbl = " ".join(words[:2]).title()
-            # Standardize conviction terms
-            if short_lbl.lower() in ("moderate conviction", "medium conviction", "moderate confidence", "high confidence"):
-                short_lbl = "Medium Conviction" if "moderate" in short_lbl.lower() or "medium" in short_lbl.lower() else "High Conviction"
-            elif short_lbl.lower() in ("speculative risk", "speculative bet", "asymmetric conviction", "low conviction", "cautious stance"):
-                short_lbl = "Speculative"
             if short_lbl not in clean_list:
                 clean_list.append(short_lbl)
+        if len(clean_list) >= 3:
+            break
 
-    if not clean_list:
-        return ["High Conviction", "Deep Value", "Margin Expansion"]
-
-    # Check if first label is a valid conviction tier
-    first_lbl_lower = clean_list[0].lower()
-    is_conviction_label = any(term in first_lbl_lower for term in CONVICTION_TERMS)
-
-    if not is_conviction_label:
-        if any(w in first_lbl_lower for w in ["turnaround", "speculative", "distressed", "broken", "risk", "asymmetric"]):
-            conviction_pill = "Speculative"
-        elif any(w in first_lbl_lower for w in ["safe", "compounder", "quality", "moat", "defensive", "cannibal"]):
-            conviction_pill = "High Conviction"
-        else:
-            conviction_pill = "High Conviction"
-        
-        clean_list.insert(0, conviction_pill)
-
-    return clean_list[:3]
+    return clean_list if clean_list else ["High Conviction", "Deep Value", "Margin Expansion"]
 
 
 def call_gemini_with_search(prompt: str, system_instruction: str = "", temperature: float = 0.4) -> str:
@@ -282,9 +257,9 @@ CORE PRINCIPLES & GUIDELINES:
    - Use Callout boxes (`<div class="callout">...</div>`) for key insights, management quotes, and pre-mortem falsification triggers.
    - NEVER include images, `<img>` tags, figure containers, or external image links. Keep all analyses purely professional text, data tables, callouts, and metric cards. Zero images.
 
-5. Dynamic Labels (2-Tier Mandatory Structure):
-   - Label #1 (MANDATORY PRIMARY PILL — CONVICTION TIER ONLY): Must be ONE of these 3 simple tiers: "High Conviction", "Medium Conviction", or "Speculative".
-   - Labels #2 & #3 (THE ECONOMIC PLAY & CATALYSTS — INVENTIVE & INTUITIVE PLAIN ENGLISH): Must describe the specific nature of the play and what drives the upside in plain English (e.g. "Deep Value", "Turnaround Play", "Safe Compounder", "Buyback Cannibal", "Margin Expansion", "Cash Fortress", "Debt Paydown", "Pricing Power", "Special Situation"). Avoid obscure jargon.
+5. Dynamic Labels (2-Tier Intuitive Architecture):
+   - Label #1 (MANDATORY PRIMARY PILL — THESIS CONVICTION & CONFIDENCE RATING): You have full freedom to formulate the most fitting MAX 2-WORD conviction/confidence label that accurately reflects your thesis certainty and execution risk (e.g. "High Conviction", "Cautious Stance", "Speculative Risk", "High Confidence", "Moderate Conviction", "Turnaround Risk", "Defensive Safe", "High Uncertainty", "Asymmetric Upside", "Low Conviction", "Solid Conviction"). DO NOT put play types like "Deep Value" into Label #1.
+   - Labels #2 & #3 (THE ECONOMIC PLAY & CATALYST DRIVERS): Describe the specific nature of the play and what drives the upside in intuitive plain English (e.g. "Deep Value", "Turnaround Play", "Safe Compounder", "Buyback Cannibal", "Margin Expansion", "Cash Fortress", "Debt Paydown", "Pricing Power", "Moat Expansion", "Special Situation", "Quality Compounder", "Market Leader"). Avoid textbook jargon.
    - NEVER use generic industry/sector names (avoid tags like "Latam Fintech" or "Payments Credit").
 
 6. Dynamic Price Alert Corridors & Surveillance Triggers:
@@ -327,9 +302,9 @@ Editorial Aesthetics Mandate:
 - DO NOT duplicate raw metadata text or pill badges inside the HTML sections.
 - NO IMAGES: Do not output `<img>` tags or figure containers. Pure analytical text, tables, and metric cards only.
 
-Labels Directive (2-Tier Structure):
-- Label #1 (MANDATORY PRIMARY PILL — CONVICTION TIER ONLY): Must be strictly one of: "High Conviction", "Medium Conviction", or "Speculative".
-- Labels #2 & #3 (THE PLAY NATURE & CATALYSTS — INTUITIVE PLAIN ENGLISH): Describe the economic play and catalyst driver in simple, intuitive terms (e.g. "Deep Value", "Turnaround Play", "Safe Compounder", "Buyback Cannibal", "Margin Expansion", "Cash Fortress", "Debt Paydown", "Pricing Power"). Avoid textbook jargon.
+Labels Directive (2-Tier Intuitive Structure):
+- Label #1 (MANDATORY PRIMARY PILL — CONVICTION & CONFIDENCE RATING): State in MAX 2 WORDS your thesis conviction/certainty (e.g. "High Conviction", "Cautious Stance", "Speculative Risk", "High Confidence", "Moderate Conviction", "Turnaround Risk", "Defensive Safe", "High Uncertainty", "Asymmetric Upside"). DO NOT put play types here.
+- Labels #2 & #3 (THE PLAY NATURE & CATALYST DRIVERS): Describe the economic play and catalyst driver in intuitive plain English (e.g. "Deep Value", "Turnaround Play", "Safe Compounder", "Buyback Cannibal", "Margin Expansion", "Cash Fortress", "Debt Paydown", "Pricing Power", "Moat Expansion", "Special Situation"). Avoid textbook jargon.
 
 Return your plan strictly as a JSON object in ```json ... ```:
 ```json
