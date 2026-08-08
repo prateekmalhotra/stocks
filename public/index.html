@@ -456,7 +456,7 @@
         <!-- Navigation Controls -->
         <div class="hub-controls">
             <div class="hub-tabs">
-                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage (0)</button>
+                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage (1)</button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts (0)</span></button>
             </div>
             <div class="view-toggle" id="view-toggle-bar">
@@ -488,11 +488,34 @@
                     </thead>
                     <tbody>
                         
-        <tr>
-            <td colspan="5" style="border-bottom: none !important; padding: 0 !important;">
-                <div class="empty-state-box">
-                    <div class="empty-state-title">No Stocks Tracked</div>
-                    <div class="empty-state-sub">Ready for coverage</div>
+        <tr class="table-row" onclick="location.href='reports/STNE.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <span class="tbl-symbol">STNE</span>
+                    <span class="tbl-company-hover">StoneCo Ltd</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price">$10.60</span>
+                    <span class="tbl-return pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="pill pill-active">Deep Value</span> <span class="pill pill-neutral">Turnaround Play</span> <span class="pill pill-neutral">Asymmetric Upside</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-val-cell">
+                    <span class="tbl-fv" style="color: var(--accent-warm);">$18.00</span>
+                    <span class="tbl-base">+69.8%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-date">2026-08-13</span>
+                    <span class="tbl-cat-desc">Q2 2026 Financial Results</span>
                 </div>
             </td>
         </tr>
@@ -504,10 +527,38 @@
             <!-- Grid Cards View -->
             <div id="stocks-grid-view" class="grid-cards-wrap" style="display: none;">
                 
-        <div style="grid-column: 1 / -1; background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px;">
-            <div class="empty-state-box">
-                <div class="empty-state-title">No Stocks Tracked</div>
-                <div class="empty-state-sub">Ready for coverage</div>
+        <div class="grid-card" onclick="location.href='reports/STNE.html'">
+            <div class="grid-card-top">
+                <span class="grid-symbol">STNE</span>
+                <div class="grid-price">$10.60</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 6px 0 14px;">
+                <span class="pill pill-active">Deep Value</span> <span class="pill pill-neutral">Turnaround Play</span> <span class="pill pill-neutral">Asymmetric Upside</span>
+            </div>
+            <div class="grid-company">StoneCo Ltd</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Fair Value</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">$18.00</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Base Target</span>
+                    <span class="grid-stat-val">$17.50 (+65.1% upside)</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Next Catalyst</span>
+                    <span class="grid-stat-val" style="font-family: var(--font-sans);">2026-08-13</span>
+                </div>
+            </div>
+            
+            <div class="grid-card-foot">
+                <span class="grid-updated">Updated 2026-08-08</span>
+                <span class="grid-open">Open →</span>
             </div>
         </div>
         
