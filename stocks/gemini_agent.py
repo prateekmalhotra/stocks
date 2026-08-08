@@ -209,21 +209,23 @@ Output complete comparison tables and concise highlighted takeaways.
 
 STAGE_3_MANAGEMENT_OWNERSHIP_PROMPT = """Target: {ticker} ({company_name}) | Current Stock Price: ${current_price:.2f}
 
-[AUTONOMY NOTE: Everything below is a guide and starting idea. You have full freedom to investigate governance, insider transactions, and 13F whale positioning.]
+[AUTONOMY NOTE: Everything below is a guide. You have full freedom to investigate governance, insider transactions, and 13F whale positioning.]
+
+[CRITICAL FACT-CHECKING DIRECTIVE: You MUST verify all ownership tables, 13F whale positions, and institutional stakes against the LATEST official SEC filings (SEC 13F-HR, Form 4, 10-K, 20-F). Do NOT use stale pre-2024 memory or outdated stakes. For example, if a famous investor (like Berkshire Hathaway in StoneCo) completely sold out/exited, you MUST state they exited or exclude them from current active holders. Only list active, verified shareholders based on the latest available 13F filings.]
 
 Investigate governance, management track record, insider activity, and institutional accumulation using Google Search:
 1. MANAGEMENT INTEGRITY & CAPITAL ALLOCATION:
    - Historical capital allocation discipline: Historical Return on Invested Capital (ROIC) vs Cost of Capital (WACC).
-   - Did management deliver on historical promises and guidance made in previous earnings calls? Do they rely on aggressive non-GAAP adjustments?
+   - Did management deliver on historical guidance in recent earnings calls?
    - Executive compensation alignment (Are bonuses tied to ROIC/FCF-per-share or vanity revenue growth?).
 2. FORM 4 INSIDER TRANSACTIONS:
    - Form 4 insider trading audit over the past 12-18 months. Are executives buying with personal cash or systematically selling?
-3. OWNERSHIP BREAKDOWN & 13F WHALE TRACKING:
-   - % Institutional, % Insiders, % Retail Float.
-   - Top 13F institutional holders (who is accumulating vs who is trimming).
-   - Public Commentary: Summarize the core thesis from respected fund manager quarterly letters and investor presentations.
+3. OWNERSHIP BREAKDOWN & LATEST OFFICIAL 13F WHALE TRACKING:
+   - % Institutional, % Insiders, % Retail Float based on latest official filings.
+   - Top active 13F institutional holders (who is actively accumulating vs who is trimming vs who has completely exited).
+   - Public Commentary: Summarize the core thesis from recent respected fund manager quarterly letters and investor presentations.
 
-Output exact names, numbers, and clear takeaways.
+Output exact, verified names, share counts, and clear takeaways based on official filings.
 """
 
 STAGE_4_VALUATION_PROMPT = """Target: {ticker} ({company_name}) | Current Stock Price: ${current_price:.2f}
@@ -317,7 +319,7 @@ Current Stock Price: ${current_price:.2f}
 Generate complete, beautiful Semantic HTML for Sections 5 to 8 (DO NOT TRUNCATE, KEEP ALL TABLES COMPLETE):
 5. Competitive Advantage, Unit Economics & Competitor Benchmark Matrix (Complete Table)
 6. Capital Allocation Track Record, ROIC & Share Buyback History (Complete Table)
-7. Management Track Record, Compensation Alignment & 13F Ownership
+7. Management Track Record, Compensation Alignment & Verified Latest Official 13F Ownership (Verify all holders against latest official SEC filings; do NOT list exited/historical investors as current active holders)
 8. Capital Structure & Complete Net Debt Schedule (Maturities & Interest Coverage Complete Table)
 
 Use clean semantic HTML (<div class="section">, <h2>, <h3>, <table>, <ul>, <p>, <blockquote>, <div class="callout">, <mark class="highlight">). Do NOT output outer <html> or <body> tags.
