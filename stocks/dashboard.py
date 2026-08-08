@@ -1,4 +1,4 @@
-"""AlphaSense-Inspired Institutional Financial Dashboard & Living Dossier HTML Generator."""
+"""AlphaSense-Inspired Institutional Financial Dashboard & Living Dossier with Embedded Real-Time Charts."""
 
 import json
 from pathlib import Path
@@ -17,7 +17,7 @@ def _ensure_dirs():
 
 
 def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: List[ThesisVersion]) -> str:
-    """Generates an AlphaSense-grade institutional equity research living dossier."""
+    """Generates an AlphaSense-grade institutional equity research living dossier with live interactive chart."""
     current_version = history[-1] if history else None
     
     # Calculate corridor percentages for visual range bar
@@ -30,7 +30,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     history_cards_html = ""
     for v in reversed(history):
         is_current = (v.version == len(history))
-        current_badge = '<span class="pill pill-emerald">Active Version</span>' if is_current else f'<span class="pill pill-neutral">v{v.version}</span>'
+        current_badge = '<span class="pill pill-emerald">Active Stance</span>' if is_current else f'<span class="pill pill-neutral">v{v.version}</span>'
         
         diff_box = ""
         if v.what_was_before or v.what_changes_now:
@@ -81,13 +81,14 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <style>
         :root {{
-            --bg-canvas: #090b10;
-            --bg-panel: #0e131d;
-            --bg-subpanel: #141b29;
-            --bg-elevated: #1b2438;
-            --bg-highlight: #23304a;
+            --bg-canvas: #080a0f;
+            --bg-panel: #0d121c;
+            --bg-subpanel: #131926;
+            --bg-elevated: #1a2336;
+            --bg-highlight: #222f47;
             --text-title: #ffffff;
             --text-body: #e2e8f0;
             --text-secondary: #94a3b8;
@@ -99,7 +100,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             --accent-rose: #f43f5e;
             --accent-amber: #f59e0b;
             --border-color: #1e283d;
-            --border-focus: #2e3e5c;
+            --border-focus: #2c3c5c;
             --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
             --font-editorial: 'Newsreader', Georgia, serif;
@@ -117,9 +118,9 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 
         .container {{ max-width: 1140px; margin: 0 auto; padding: 0 24px; }}
 
-        /* Top AlphaSense-Style Bar */
+        /* Top Nav */
         nav.nav-bar {{
-            background: rgba(9, 11, 16, 0.85);
+            background: rgba(8, 10, 15, 0.88);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
@@ -168,10 +169,20 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         .price-number {{ font-size: 2.8rem; font-weight: 800; font-family: var(--font-mono); letter-spacing: -0.03em; color: #fff; }}
         .price-sub {{ font-size: 0.92rem; font-weight: 600; font-family: var(--font-mono); margin-top: 2px; }}
 
+        /* Interactive TradingView Chart Section */
+        .chart-section {{
+            margin-top: 28px;
+            background: #090c14;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            overflow: hidden;
+            height: 380px;
+        }}
+
         /* Dynamic Visual Corridor Bar */
         .corridor-container {{
-            margin-top: 28px;
-            padding-top: 22px;
+            margin-top: 24px;
+            padding-top: 20px;
             border-top: 1px solid var(--border-color);
         }}
         .corridor-header {{ display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 8px; }}
@@ -180,7 +191,6 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             background: var(--bg-elevated);
             border-radius: 9999px;
             position: relative;
-            overflow: visible;
         }}
         .corridor-fill {{
             height: 100%;
@@ -350,7 +360,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         .diff-now .diff-label {{ color: #34d399; }}
         .diff-text {{ font-size: 0.95rem; color: #cbd5e1; line-height: 1.6; }}
 
-        /* Badges & Buttons */
+        /* Badges & Pills */
         .pill {{
             display: inline-flex;
             align-items: center;
@@ -365,19 +375,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         .pill-emerald {{ background: rgba(var(--accent-emerald-rgb), 0.12); color: var(--accent-emerald); border: 1px solid rgba(var(--accent-emerald-rgb), 0.3); }}
         .pill-neutral {{ background: var(--bg-elevated); color: var(--text-secondary); border: 1px solid var(--border-color); }}
 
-        .btn {{
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 0.88rem;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            border: none;
-            transition: all 0.15s;
-        }}
-        .btn-outline-sm {{ background: var(--bg-elevated); color: var(--text-body); border: 1px solid var(--border-color); font-size: 0.8rem; padding: 6px 14px; border-radius: 8px; }}
+        .btn-outline-sm {{ background: var(--bg-elevated); color: var(--text-body); border: 1px solid var(--border-color); font-size: 0.8rem; padding: 6px 14px; border-radius: 8px; cursor: pointer; }}
         .btn-outline-sm:hover {{ background: var(--bg-highlight); }}
 
         .snapshot-drawer {{ margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color); }}
@@ -411,6 +409,28 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                         {stock.return_pct:+.2f}% vs Genesis (${stock.baseline_price:.2f})
                     </div>
                 </div>
+            </div>
+
+            <!-- Live Interactive TradingView Chart -->
+            <div class="chart-section">
+                <div id="tradingview_chart_container" style="height: 100%; width: 100%;"></div>
+                <script type="text/javascript">
+                new TradingView.widget({{
+                    "autosize": true,
+                    "symbol": "{stock.ticker}",
+                    "interval": "D",
+                    "timezone": "America/New_York",
+                    "theme": "dark",
+                    "style": "3",
+                    "locale": "en",
+                    "toolbar_bg": "#0d121c",
+                    "enable_publishing": false,
+                    "hide_top_toolbar": false,
+                    "hide_legend": false,
+                    "save_image": false,
+                    "container_id": "tradingview_chart_container"
+                }});
+                </script>
             </div>
 
             <!-- Visual Range Corridor -->
@@ -506,20 +526,17 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
     """Generates the master AlphaSense-grade financial terminal dashboard."""
     _ensure_dirs()
     
-    # Table rows
     table_rows_html = ""
     grid_cards_html = ""
 
     for ticker, stock in sorted(watchlist.items(), key=lambda x: x[0]):
         ret_class = "pos" if stock.return_pct >= 0 else "neg"
         
-        # Corridor slider calculation
         bear_p = stock.lower_alert_threshold or (stock.current_price * 0.8)
         bull_p = stock.upper_alert_threshold or (stock.current_price * 1.3)
         span = max(bull_p - bear_p, 1.0)
         pos_pct = max(0, min(100, ((stock.current_price - bear_p) / span) * 100))
 
-        # 1. Table row
         table_rows_html += f"""
         <tr class="table-row" onclick="location.href='reports/{stock.ticker}.html'">
             <td>
@@ -562,12 +579,11 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                 </div>
             </td>
             <td style="text-align: right;">
-                <a href="reports/{stock.ticker}.html" class="btn btn-action" onclick="event.stopPropagation()">Dossier →</a>
+                <a href="reports/{stock.ticker}.html" class="btn-action" onclick="event.stopPropagation()">Dossier →</a>
             </td>
         </tr>
         """
 
-        # 2. Grid card
         grid_cards_html += f"""
         <div class="grid-card" onclick="location.href='reports/{stock.ticker}.html'">
             <div class="grid-card-top">
@@ -605,7 +621,6 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         </div>
         """
 
-    # Alerts feed
     alerts_feed_html = ""
     if not alerts:
         alerts_feed_html = """
@@ -1039,21 +1054,15 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         .side-after .side-heading {{ color: #34d399; }}
         .side-text {{ font-size: 0.95rem; color: #cbd5e1; line-height: 1.6; }}
 
-        .btn {{
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            border: none;
-            transition: all 0.15s;
+        .btn-primary {{
+            background: var(--accent-cyan); color: #080a0f; font-weight: 700;
+            padding: 10px 20px; border-radius: 10px; text-decoration: none; display: inline-flex; align-items: center; border: none; cursor: pointer;
         }}
-        .btn-primary {{ background: var(--accent-cyan); color: #090b10; }}
         .btn-primary:hover {{ background: #7dd3fc; }}
-        .btn-outline {{ background: var(--bg-elevated); color: #fff; border: 1px solid var(--border-color); }}
+        .btn-outline {{
+            background: var(--bg-elevated); color: #fff; border: 1px solid var(--border-color);
+            padding: 10px 20px; border-radius: 10px; cursor: pointer;
+        }}
         .btn-outline:hover {{ background: var(--bg-subpanel); }}
     </style>
 </head>
@@ -1111,7 +1120,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
 
         <!-- STOCKS SECTION -->
         <section id="pane-stocks" class="tab-panel active">
-            <!-- Table View (Default) -->
+            <!-- Table View -->
             <div id="stocks-table-view" class="table-wrap">
                 <table class="fin-table">
                     <thead>
@@ -1171,8 +1180,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             </div>
 
             <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 28px;">
-                <button class="btn btn-outline" onclick="closeAlertModal()">Dismiss</button>
-                <a id="modal-report-link" href="#" class="btn btn-primary">Open Full Living Dossier →</a>
+                <button class="btn-outline" onclick="closeAlertModal()">Dismiss</button>
+                <a id="modal-report-link" href="#" class="btn-primary">Open Full Living Dossier →</a>
             </div>
         </div>
     </div>
@@ -1240,7 +1249,6 @@ def render_all():
     watchlist = load_watchlist()
     alerts = load_alerts()
     
-    # 1. Render each company dossier
     for ticker, stock in watchlist.items():
         history = load_thesis_history(ticker)
         html = generate_company_dossier_html(ticker, stock, history)
@@ -1248,7 +1256,6 @@ def render_all():
         with open(report_file, "w", encoding="utf-8") as f:
             f.write(html)
             
-    # 2. Render master index dashboard
     master_html = generate_master_dashboard_html(watchlist, alerts)
     with open(PUBLIC_DIR / "index.html", "w", encoding="utf-8") as f:
         f.write(master_html)

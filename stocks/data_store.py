@@ -135,7 +135,7 @@ def enqueue_task(task: TaskItem):
 def pop_next_pending_task() -> Optional[TaskItem]:
     queue = load_queue()
     for task in queue:
-        if task.status == "PENDING":
+        if task.status in ("PENDING", "IN_PROGRESS"):
             task.status = "IN_PROGRESS"
             save_queue(queue)
             return task

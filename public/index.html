@@ -387,21 +387,15 @@
         .side-after .side-heading { color: #34d399; }
         .side-text { font-size: 0.95rem; color: #cbd5e1; line-height: 1.6; }
 
-        .btn {
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            border: none;
-            transition: all 0.15s;
+        .btn-primary {
+            background: var(--accent-cyan); color: #080a0f; font-weight: 700;
+            padding: 10px 20px; border-radius: 10px; text-decoration: none; display: inline-flex; align-items: center; border: none; cursor: pointer;
         }
-        .btn-primary { background: var(--accent-cyan); color: #090b10; }
         .btn-primary:hover { background: #7dd3fc; }
-        .btn-outline { background: var(--bg-elevated); color: #fff; border: 1px solid var(--border-color); }
+        .btn-outline {
+            background: var(--bg-elevated); color: #fff; border: 1px solid var(--border-color);
+            padding: 10px 20px; border-radius: 10px; cursor: pointer;
+        }
         .btn-outline:hover { background: var(--bg-subpanel); }
     </style>
 </head>
@@ -426,7 +420,7 @@
                 <div class="macro-icon">📊</div>
                 <div class="macro-data">
                     <span class="macro-lbl">Active Watchlist</span>
-                    <span class="macro-val">1 Companies</span>
+                    <span class="macro-val">2 Companies</span>
                 </div>
             </div>
             <div class="macro-card">
@@ -448,7 +442,7 @@
         <!-- Navigation Tabs & View Toggle -->
         <div class="hub-controls">
             <div class="hub-tabs">
-                <button class="hub-tab-btn active" onclick="switchTab('stocks')">📈 Tracked Coverage (1)</button>
+                <button class="hub-tab-btn active" onclick="switchTab('stocks')">📈 Tracked Coverage (2)</button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')">🚨 Critical Alerts (0)</button>
             </div>
             <div class="view-toggle" id="view-toggle-bar">
@@ -459,7 +453,7 @@
 
         <!-- STOCKS SECTION -->
         <section id="pane-stocks" class="tab-panel active">
-            <!-- Table View (Default) -->
+            <!-- Table View -->
             <div id="stocks-table-view" class="table-wrap">
                 <table class="fin-table">
                     <thead>
@@ -516,7 +510,52 @@
                 </div>
             </td>
             <td style="text-align: right;">
-                <a href="reports/CNK.html" class="btn btn-action" onclick="event.stopPropagation()">Dossier →</a>
+                <a href="reports/CNK.html" class="btn-action" onclick="event.stopPropagation()">Dossier →</a>
+            </td>
+        </tr>
+        
+        <tr class="table-row" onclick="location.href='reports/NVDA.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <span class="tbl-symbol">NVDA</span>
+                    <span class="tbl-company">NVIDIA Corporation</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price">$223.96</span>
+                    <span class="tbl-return pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <span class="pill pill-primary">High-Conviction Secular Compounder with Digestion Risk</span>
+            </td>
+            <td>
+                <div class="tbl-val-cell">
+                    <span class="tbl-fv" style="color: var(--accent-cyan);">$280.00</span>
+                    <span class="tbl-base">$293.76 (+31.2%)</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-corridor-cell">
+                    <div class="tbl-corridor-labels">
+                        <span>$175</span>
+                        <span>$285</span>
+                    </div>
+                    <div class="mini-corridor-track">
+                        <div class="mini-corridor-fill"></div>
+                        <div class="mini-corridor-dot" style="left: 45%;"></div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-date">August 26, 2026</span>
+                    <span class="tbl-cat-desc">Q2 FY2027 Earnings Release & Blackwell N</span>
+                </div>
+            </td>
+            <td style="text-align: right;">
+                <a href="reports/NVDA.html" class="btn-action" onclick="event.stopPropagation()">Dossier →</a>
             </td>
         </tr>
         
@@ -553,6 +592,41 @@
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Next Catalyst</span>
                     <span class="grid-stat-val">November 2026</span>
+                </div>
+            </div>
+            
+            <div class="grid-card-foot">
+                <span class="grid-updated">Updated 2026-08-07</span>
+                <span class="grid-open">Deep Dive →</span>
+            </div>
+        </div>
+        
+        <div class="grid-card" onclick="location.href='reports/NVDA.html'">
+            <div class="grid-card-top">
+                <div>
+                    <span class="grid-symbol">NVDA</span>
+                    <span class="pill pill-primary" style="margin-left: 8px;">High-Conviction Secular Compounder with Digestion Risk</span>
+                </div>
+                <div class="grid-price">$223.96</div>
+            </div>
+            <div class="grid-company">NVIDIA Corporation</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Fair Value</span>
+                    <span class="grid-stat-val" style="color: var(--accent-cyan);">$280.00</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Trigger Bounds</span>
+                    <span class="grid-stat-val">$175 — $285</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Next Catalyst</span>
+                    <span class="grid-stat-val">August 26, 2026</span>
                 </div>
             </div>
             
@@ -605,8 +679,8 @@
             </div>
 
             <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 28px;">
-                <button class="btn btn-outline" onclick="closeAlertModal()">Dismiss</button>
-                <a id="modal-report-link" href="#" class="btn btn-primary">Open Full Living Dossier →</a>
+                <button class="btn-outline" onclick="closeAlertModal()">Dismiss</button>
+                <a id="modal-report-link" href="#" class="btn-primary">Open Full Living Dossier →</a>
             </div>
         </div>
     </div>

@@ -7,13 +7,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <style>
         :root {
-            --bg-canvas: #090b10;
-            --bg-panel: #0e131d;
-            --bg-subpanel: #141b29;
-            --bg-elevated: #1b2438;
-            --bg-highlight: #23304a;
+            --bg-canvas: #080a0f;
+            --bg-panel: #0d121c;
+            --bg-subpanel: #131926;
+            --bg-elevated: #1a2336;
+            --bg-highlight: #222f47;
             --text-title: #ffffff;
             --text-body: #e2e8f0;
             --text-secondary: #94a3b8;
@@ -25,7 +26,7 @@
             --accent-rose: #f43f5e;
             --accent-amber: #f59e0b;
             --border-color: #1e283d;
-            --border-focus: #2e3e5c;
+            --border-focus: #2c3c5c;
             --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
             --font-editorial: 'Newsreader', Georgia, serif;
@@ -43,9 +44,9 @@
 
         .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
 
-        /* Top AlphaSense-Style Bar */
+        /* Top Nav */
         nav.nav-bar {
-            background: rgba(9, 11, 16, 0.85);
+            background: rgba(8, 10, 15, 0.88);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
@@ -94,10 +95,20 @@
         .price-number { font-size: 2.8rem; font-weight: 800; font-family: var(--font-mono); letter-spacing: -0.03em; color: #fff; }
         .price-sub { font-size: 0.92rem; font-weight: 600; font-family: var(--font-mono); margin-top: 2px; }
 
+        /* Interactive TradingView Chart Section */
+        .chart-section {
+            margin-top: 28px;
+            background: #090c14;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            overflow: hidden;
+            height: 380px;
+        }
+
         /* Dynamic Visual Corridor Bar */
         .corridor-container {
-            margin-top: 28px;
-            padding-top: 22px;
+            margin-top: 24px;
+            padding-top: 20px;
             border-top: 1px solid var(--border-color);
         }
         .corridor-header { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 8px; }
@@ -106,7 +117,6 @@
             background: var(--bg-elevated);
             border-radius: 9999px;
             position: relative;
-            overflow: visible;
         }
         .corridor-fill {
             height: 100%;
@@ -276,7 +286,7 @@
         .diff-now .diff-label { color: #34d399; }
         .diff-text { font-size: 0.95rem; color: #cbd5e1; line-height: 1.6; }
 
-        /* Badges & Buttons */
+        /* Badges & Pills */
         .pill {
             display: inline-flex;
             align-items: center;
@@ -291,19 +301,7 @@
         .pill-emerald { background: rgba(var(--accent-emerald-rgb), 0.12); color: var(--accent-emerald); border: 1px solid rgba(var(--accent-emerald-rgb), 0.3); }
         .pill-neutral { background: var(--bg-elevated); color: var(--text-secondary); border: 1px solid var(--border-color); }
 
-        .btn {
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 0.88rem;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            border: none;
-            transition: all 0.15s;
-        }
-        .btn-outline-sm { background: var(--bg-elevated); color: var(--text-body); border: 1px solid var(--border-color); font-size: 0.8rem; padding: 6px 14px; border-radius: 8px; }
+        .btn-outline-sm { background: var(--bg-elevated); color: var(--text-body); border: 1px solid var(--border-color); font-size: 0.8rem; padding: 6px 14px; border-radius: 8px; cursor: pointer; }
         .btn-outline-sm:hover { background: var(--bg-highlight); }
 
         .snapshot-drawer { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color); }
@@ -337,6 +335,28 @@
                         +0.00% vs Genesis ($37.24)
                     </div>
                 </div>
+            </div>
+
+            <!-- Live Interactive TradingView Chart -->
+            <div class="chart-section">
+                <div id="tradingview_chart_container" style="height: 100%; width: 100%;"></div>
+                <script type="text/javascript">
+                new TradingView.widget({
+                    "autosize": true,
+                    "symbol": "CNK",
+                    "interval": "D",
+                    "timezone": "America/New_York",
+                    "theme": "dark",
+                    "style": "3",
+                    "locale": "en",
+                    "toolbar_bg": "#0d121c",
+                    "enable_publishing": false,
+                    "hide_top_toolbar": false,
+                    "hide_legend": false,
+                    "save_image": false,
+                    "container_id": "tradingview_chart_container"
+                });
+                </script>
             </div>
 
             <!-- Visual Range Corridor -->
@@ -718,7 +738,7 @@
         <div class="history-entry history-entry-active">
             <div class="history-top">
                 <div class="history-tags">
-                    <span class="pill pill-emerald">Active Version</span>
+                    <span class="pill pill-emerald">Active Stance</span>
                     <span class="history-time">📅 2026-08-07</span>
                     <span class="history-price">Price: <strong>$37.24</strong></span>
                     <span class="pill pill-primary">High-Conviction Cash Flow Re-Rating</span>

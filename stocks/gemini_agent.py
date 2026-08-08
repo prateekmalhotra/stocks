@@ -1,4 +1,4 @@
-"""Gemini 3.6 Flash Institutional Research Agent with Google Search Grounding."""
+"""Gemini 3.6 Flash Institutional Research Agent with Google Search Grounding & 13F/Insider Tracking."""
 
 import os
 import json
@@ -52,7 +52,6 @@ def call_gemini_with_search(prompt: str, system_instruction: str = "") -> str:
 
 def extract_json_block(text: str) -> Dict[str, Any]:
     """Extracts a JSON object from markdown code fences or raw text."""
-    # Look for ```json ... ```
     match = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", text, re.DOTALL)
     if match:
         try:
@@ -60,7 +59,6 @@ def extract_json_block(text: str) -> Dict[str, Any]:
         except Exception:
             pass
     
-    # Fallback to finding outer braces
     start = text.find("{")
     end = text.rfind("}")
     if start != -1 and end != -1 and end > start:
@@ -72,75 +70,76 @@ def extract_json_block(text: str) -> Dict[str, Any]:
     return {}
 
 
-# ==================== GENESIS THESIS PROMPT ====================
+COLUMBIA_ANALYST_SYSTEM_PROMPT = """You are a Principal Investment Partner at a concentrated fundamental equity fund (Graham & Dodd / Columbia Business School methodology).
 
-COLUMBIA_ANALYST_SYSTEM_PROMPT = """You are a Principal Investment Analyst and Partner at a concentrated fundamental value investment fund (in the tradition of Graham & Dodd and Columbia Business School). 
-
-You write institutional-grade, intellectually rigorous investment theses that stand up to the highest scrutiny. You never write generic filler, platitudes, or superficial overviews. 
-
-CORE INVESTMENT PHILOSOPHIES YOU RIGOROUSLY ENFORCE:
-1. SBC (Stock-Based Compensation) is a CASH EXPENSE: Never treat SBC as a harmless non-cash add-back. You must treat SBC as real economic dilution that reduces true Owner Earnings.
-2. Balance Sheet & True Net Debt Bridge: Always bridge Enterprise Value to Equity Value (EV = Market Cap + Debt + Preferred + Minorities - Cash & Equivalents). Analyze debt maturities, interest coverage, and liquidity runway.
-3. Capital Allocation: Evaluate whether share buybacks are accretive (buying below intrinsic value) or destructive. Track net share count trajectory.
-4. Triangulated Valuation & Asymmetry:
-   - Scenario Modeling: Bear Case, Base Case, Bull Case with explicit EV/EBITDA or P/FCF multiples, implied target prices, and 2-3 year annualized IRRs.
-   - Earnings Power Value (EPV) / Normalized FCF: Sustainable operating margin capitalized at WACC.
-   - Fair Value Estimate: A level-headed, defensible intrinsic value per share.
-5. Socratic Self-Questioning & Devil's Advocate:
-   - Identify the Variant Perception: What does consensus believe vs. what is the actual reality?
-   - Poke brutal holes into your own thesis: What are the specific metrics in the next 10-Q/10-K that would prove you wrong and invalidate this thesis?
-6. Dynamic Alert Triggers:
-   - Establish an Upper Alert Threshold ($) (e.g. Breakout / Catalyst confirmed)
-   - Establish a Lower Alert Threshold ($) (e.g. Deep Discount / Margin of safety entry or stop-loss check)
-   - Identify upcoming catalyst dates (e.g. next earnings, major product release, FDA/regulatory decision)
-   - Assign a fluid, descriptive Status Label (e.g. 'High Conviction Compounder', 'Deep Value Re-rating', 'High-Risk Turnaround', 'Wait for Pullback').
+CORE MANDATES YOU MUST RIGOROUSLY EXECUTE:
+1. SBC (Stock-Based Compensation) IS A CASH DRAIN: Treat SBC as real economic dilution that reduces True Owner Earnings.
+2. Balance Sheet & Net Debt Bridge: Account for funded debt, operating leases, cash balances, maturities, and interest coverage.
+3. Ownership, Insiders & 13F Smart Money Tracking:
+   - Search for recent Form 4 Insider Buys / Sells by C-suite and Directors. (Are executives buying with their own cash?)
+   - Ownership breakdown (% Institutional, % Insider/Founders, Float).
+   - Notable Institutional / Hedge Fund 13F holders (Who is accumulating or trimming?).
+   - Public Commentary: What are respected fund managers, activist investors, or quarterly investor letters saying about this stock?
+4. Capital Allocation: Evaluate share buyback accretion vs dilution and ROIC.
+5. Triangulated Valuation & Asymmetry:
+   - Scenario Matrix: Bear, Base, Bull cases with explicit multiples, target prices, and 2-3 year annualized IRRs.
+   - Fair Value Estimate: A defensible intrinsic value per share.
+6. Socratic Self-Questioning & Variant Perception:
+   - Contrast Consensus View vs Variant Reality.
+   - Pre-Mortem: What specific 10-Q metrics would destroy this thesis?
+7. Dynamic Alert Triggers:
+   - Set Upper Threshold ($), Lower Threshold ($), and next major Catalyst Date.
+   - Assign a fluid, descriptive status label.
 """
 
 
 def generate_genesis_thesis(ticker: str, company_name: str, current_price: float, initial_notes: str = "") -> Tuple[Dict[str, Any], str]:
     """Generates the initial comprehensive Genesis Living Thesis using Gemini 3.6 Flash with Search."""
-    prompt = f"""Perform a comprehensive institutional equity research due diligence on {ticker.upper()} ({company_name}).
-Current Stock Price: ${current_price:.2f}
-Additional context/user notes: {initial_notes if initial_notes else 'None provided.'}
+    prompt = f"""Conduct an institutional due diligence equity research thesis on {ticker.upper()} ({company_name}).
+CURRENT STOCK PRICE: ${current_price:.2f}
+Additional user notes: {initial_notes if initial_notes else 'None.'}
 
-Use Google Search to find real-time financial metrics, latest 10-K/10-Q filings, recent earnings reports, balance sheet items (Cash, Debt), share count trends, SBC, and major industry news.
+Use Google Search to retrieve:
+- Real-time financial statements, latest 10-K/10-Q data, revenue, EBITDA, cash, debt, and SBC numbers.
+- Insider Transactions (Recent Form 4 purchases/sales by CEO/CFO/Directors).
+- Institutional Ownership & 13F Hedge Fund holdings (Top funds holding or accumulating; quotes/thesis from top fund letters).
+- Industry dynamics, moat, pricing power, and upcoming catalyst dates.
 
 You MUST produce your output in TWO parts:
-Part 1: A JSON metadata block at the top enclosed in ```json ... ``` with this exact structure:
+Part 1: A JSON metadata block enclosed in ```json ... ```:
 {{
   "ticker": "{ticker.upper()}",
   "company_name": "{company_name}",
-  "status_label": "<Fluid custom status label, e.g. High Conviction Compounder>",
+  "status_label": "<Fluid status label, e.g. High Conviction Compounder, Deep Value Re-rating, Turnaround>",
   "fair_value_estimate": "$<Fair Value>",
   "bear_target": "$<Bear Price> (<Downside %>)",
   "base_target": "$<Base Price> (<Upside %>)",
   "bull_target": "$<Bull Price> (<Upside %>)",
-  "upper_alert_threshold": <Float number of upper trigger price, e.g. 155.0>,
-  "lower_alert_threshold": <Float number of lower trigger price, e.g. 118.0>,
-  "upper_trigger_reason": "<Why wake up if price crosses above this>",
-  "lower_trigger_reason": "<Why wake up if price drops below this>",
-  "next_catalyst_date": "<YYYY-MM-DD or Month Year of next major catalyst/earnings>",
-  "next_catalyst_event": "<Description of upcoming catalyst>",
-  "executive_summary": "<2-3 sentence punchy summary of why this is or is not an attractive investment right now>"
+  "upper_alert_threshold": <Float upper trigger price, e.g. 42.5>,
+  "lower_alert_threshold": <Float lower trigger price, e.g. 31.0>,
+  "upper_trigger_reason": "<Why wake up on upside break>",
+  "lower_trigger_reason": "<Why wake up on downside drop>",
+  "next_catalyst_date": "<Upcoming Date, e.g. November 2026>",
+  "next_catalyst_event": "<Upcoming Event Description>",
+  "executive_summary": "<2-3 sentence punchy summary of the thesis and variant perception>"
 }}
 
-Part 2: The complete, richly styled, dark-mode Living Thesis HTML body content.
-The HTML content must be structured into clear sections:
-1. Executive Summary & Variant Perception (What consensus thinks vs What we believe)
-2. Business Moat, Pricing Power & Unit Economics
-3. Balance Sheet Forensics & Net Debt Bridge (Cash, Debt, Maturities, Liquidity)
-4. True Owner Earnings & SBC Audit (SBC impact, Maintenance Capex vs Growth Capex, Share Count Trajectory)
-5. Valuation Triangulation & Scenario Matrix (Table with Bear / Base / Bull, Multiples, Implied Share Prices, IRRs)
-6. Socratic Cross-Examination & Pre-Mortem (The Devil's Advocate: How could this fail? Specific invalidation triggers)
-7. Catalyst Timeline & Monitoring Boundaries (Upper trigger, Lower trigger, Next catalyst date)
+Part 2: The rich HTML body content formatted in semantic HTML sections:
+1. Executive Summary & Variant Perception (Consensus vs What We Believe)
+2. Ownership Structure, Insider Buying & 13F Smart Money (Form 4 Insider transactions, % Institutional/Insider ownership, top funds holding/accumulating, and public fund commentary/quotes)
+3. Business Moat, Pricing Power & Unit Economics
+4. Balance Sheet Forensics & Net Debt Bridge (Cash, Debt schedule, Maturities, Liquidity runway)
+5. True Owner Earnings & SBC Audit (SBC dilution as cash expense, Maintenance vs Growth CapEx)
+6. Valuation Triangulation & Scenario Matrix (Bear / Base / Bull table with multiples, prices, IRRs)
+7. Socratic Pre-Mortem & Downside Risks (Brutal cross-examination: How this thesis could fail)
+8. Surveillance Boundaries & Catalyst Timeline (Upper trigger, Lower trigger, Next catalyst date)
 
-Use clean HTML tags (<div class="section">, <h2>, <table>, <ul>, <p>, <blockquote>, <span class="badge">). Do NOT include full <html><body> tags, just the inner container content. Use semantic classes.
+Use clean semantic HTML (<div class="section">, <h2>, <h3>, <table>, <ul>, <p>, <blockquote>, <div class="callout">). Do NOT include outer <html> or <body> tags.
 """
 
     response_text = call_gemini_with_search(prompt, system_instruction=COLUMBIA_ANALYST_SYSTEM_PROMPT)
     metadata = extract_json_block(response_text)
     
-    # Clean out the json block to isolate the HTML content
     html_content = re.sub(r"```(?:json)?\s*\{.*?\}\s*```", "", response_text, flags=re.DOTALL).strip()
     if html_content.startswith("```html"):
         html_content = html_content[7:]
@@ -148,29 +147,26 @@ Use clean HTML tags (<div class="section">, <h2>, <table>, <ul>, <p>, <blockquot
         html_content = html_content[:-3]
     html_content = html_content.strip()
 
-    # Fill fallback metadata if needed
     if not metadata:
         metadata = {
             "ticker": ticker.upper(),
             "company_name": company_name,
             "status_label": "Watchlist Candidate",
-            "fair_value_estimate": f"${current_price:.2f}",
-            "bear_target": f"${current_price * 0.8:.2f} (-20%)",
-            "base_target": f"${current_price * 1.25:.2f} (+25%)",
-            "bull_target": f"${current_price * 1.6:.2f} (+60%)",
+            "fair_value_estimate": f"${current_price * 1.25:.2f}",
+            "bear_target": f"${current_price * 0.75:.2f} (-25.0%)",
+            "base_target": f"${current_price * 1.25:.2f} (+25.0%)",
+            "bull_target": f"${current_price * 1.6:.2f} (+60.0%)",
             "upper_alert_threshold": round(current_price * 1.15, 2),
             "lower_alert_threshold": round(current_price * 0.88, 2),
-            "upper_trigger_reason": "Upside momentum / valuation expansion",
-            "lower_trigger_reason": "Downside support test / discount zone",
+            "upper_trigger_reason": "Upside momentum breakout",
+            "lower_trigger_reason": "Downside support / margin of safety test",
             "next_catalyst_date": "Next Earnings",
-            "next_catalyst_event": "Quarterly earnings report and guidance",
-            "executive_summary": f"Initial research dossier generated for {ticker.upper()} at ${current_price:.2f}."
+            "next_catalyst_event": "Quarterly earnings release",
+            "executive_summary": f"Initial institutional research established for {ticker.upper()} at ${current_price:.2f}."
         }
 
     return metadata, html_content
 
-
-# ==================== THESIS REVIEW / ALERT PROMPT ====================
 
 def review_stock_thesis(
     ticker: str,
@@ -192,25 +188,24 @@ Current Price: ${current_price:.2f} (Total Change: {price_change_pct:+.2f}%)
 Previous Status: {previous_status}
 Previous Thesis Summary: {previous_thesis_summary}
 
-Use Google Search to research what happened to {ticker.upper()} recently: breaking news, earnings results, analyst revisions, executive changes, macro factors, or industry developments explaining the move.
-
-Evaluate the core question:
-- Has the investment thesis been VALIDATED, STRENGTHENED, INTACT (Mr. Market Discount Opportunity), or COMPROMISED/DENTED?
+Use Google Search to research what happened:
+- Breaking news, earnings, management commentary, insider Form 4 activity, fund 13F changes, macro shifts.
+- Is the thesis VALIDATED, INTACT (Discount Opportunity), or COMPROMISED?
 
 Produce your output in TWO parts:
-Part 1: A JSON metadata block enclosed in ```json ... ```:
+Part 1: A JSON metadata block in ```json ... ```:
 {{
-  "alert_title": "<Concise Punchy Alert Headline, e.g. NVDA Breaks $155 Threshold on Hyperscaler CapEx Spike>",
-  "alert_severity": "<Fluid LLM Severity/Category, e.g. HIGH CONVICTION ACCUMULATION, THESIS VALIDATED, DENTED - CAUTION, or TAKE PROFIT>",
-  "what_was_before": "<Summary of previous thesis, valuation stance, and assumptions>",
-  "what_changes_now": "<What new information arrived, how the thesis changes, and our new forward action>",
-  "new_status_label": "<New fluid status label, e.g. Compounding On Track, Discount Opportunity, High-Risk Hold, Cut Position>",
+  "alert_title": "<Concise Punchy Alert Headline>",
+  "alert_severity": "<Fluid LLM Severity, e.g. HIGH CONVICTION ACCUMULATION, THESIS VALIDATED, DENTED - CAUTION, or TAKE PROFIT>",
+  "what_was_before": "<Summary of previous thesis and assumptions>",
+  "what_changes_now": "<What new information arrived, how the thesis changes, and our new forward stance>",
+  "new_status_label": "<New fluid status label>",
   "new_fair_value": "$<Updated Fair Value>",
   "new_bear_target": "$<Updated Bear>",
   "new_base_target": "$<Updated Base>",
   "new_bull_target": "$<Updated Bull>",
-  "new_upper_alert_threshold": <New Float upper price trigger, e.g. 175.0>,
-  "new_lower_alert_threshold": <New Float lower price trigger, e.g. 135.0>,
+  "new_upper_alert_threshold": <New Float upper price trigger>,
+  "new_lower_alert_threshold": <New Float lower price trigger>,
   "next_catalyst_date": "<Upcoming Date>",
   "next_catalyst_event": "<Upcoming Event Description>"
 }}
