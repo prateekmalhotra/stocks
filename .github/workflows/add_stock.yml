@@ -13,11 +13,21 @@ on:
         type: string
         default: ''
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
-  add_coverage:
+  add_coverage_and_deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout Repository
@@ -40,7 +50,7 @@ jobs:
         run: |
           poetry run python -m stocks.main add "${{ github.event.inputs.ticker }}" --notes "${{ github.event.inputs.notes }}"
 
-      - name: Commit and Push Changes
+      - name: Commit and Push Changes to Main
         run: |
           git config --global user.name "Prateek Malhotra"
           git config --global user.email "prateekmalhotra@g.ucla.edu"
@@ -51,3 +61,15 @@ jobs:
             git commit -m "Initiate coverage for ${{ github.event.inputs.ticker }} via GitHub Actions"
             git push origin main
           fi
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'public'
+
+      - name: Deploy Live to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
