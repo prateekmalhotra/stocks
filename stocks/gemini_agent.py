@@ -264,7 +264,7 @@ Return your plan strictly as a JSON object in ```json ... ```:
     "lower_alert_threshold": <Float price to alert on downside break>,
     "upper_trigger_reason": "<Short reason>",
     "lower_trigger_reason": "<Short reason>",
-    "next_catalyst_date": "<YYYY-MM-DD or Month Year>",
+    "next_catalyst_date": "<YYYY-MM-DD (Strict ISO date, e.g. 2026-08-13; if unconfirmed, estimate exact calendar day based on historical reporting cadence)>",
     "next_catalyst_event": "<Short description of catalyst, max 4 words>",
     "executive_summary": "<2-3 sentence crisp executive summary>"
   }},
@@ -422,14 +422,17 @@ You have full analytical freedom to evaluate the new facts and determine the evo
 3. Dynamic Labels:
    - Update Label #1 (MANDATORY PRIMARY PILL) to reflect the new confidence and risk profile (e.g. "High Conviction", "Safe Compounder", "Turnaround Risk", "High Risk", "Asymmetric Upside", "Thesis Broken").
    - Update Labels #2 & #3 for key economic drivers (e.g. "Buyback Cannibal", "Operating Leverage").
-4. Ballpark Valuation:
+4. Ballpark Valuation & Corridors:
    - Update the fair value and Bear / Base / Bull scenario targets. Treat SBC as a 100% real cash charge and account for Net Cash / Net Debt.
+5. Self-Healing Catalyst Date Update Rule:
+   - "next_catalyst_date" MUST ALWAYS BE IN STRICT "YYYY-MM-DD" FORMAT (e.g. 2026-11-18).
+   - If on the trigger date after market close no earnings release or event has occurred (or the event was rescheduled), search investor relations for the newly confirmed or estimated date, set "next_catalyst_date" to the new YYYY-MM-DD, and explain in "what_changes_now" that the calendar date has been refreshed.
 
 Output in TWO parts:
 Part 1: JSON metadata in ```json ... ```:
 {{
-  "alert_title": "<Punchy headline stating if thesis shifted or conviction changed>",
-  "alert_severity": "<1-2 word severity, e.g. Strong Buy, Caution, Thesis Broken, Accumulate>",
+  "alert_title": "<Punchy headline stating if thesis shifted, conviction changed, or catalyst date refreshed>",
+  "alert_severity": "<1-2 word severity, e.g. Strong Buy, Caution, Thesis Broken, Accumulate, Calendar Update>",
   "labels": ["<Confidence/Risk Label 1>", "<Play Driver Label 2>", "<Play Driver Label 3>"],
   "what_was_before": "<Summary of previous thesis>",
   "what_changes_now": "<Comprehensive summary of what new information arrived, how it impacts risk/safety, and our updated forward conviction>",
@@ -439,7 +442,7 @@ Part 1: JSON metadata in ```json ... ```:
   "new_bull_target": "$<Updated Bull>",
   "new_upper_alert_threshold": <New upper price trigger>,
   "new_lower_alert_threshold": <New lower price trigger>,
-  "next_catalyst_date": "<Upcoming Date>",
+  "next_catalyst_date": "<YYYY-MM-DD (Strict ISO date for next catalyst, e.g. 2026-11-18)>",
   "next_catalyst_event": "<Upcoming Event max 4 words>"
 }}
 
