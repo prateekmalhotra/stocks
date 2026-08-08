@@ -269,27 +269,38 @@ CORE PRINCIPLES & GUIDELINES:
    - Lower Threshold: Set at a crucial margin-of-safety test or thesis invalidation floor (e.g., testing bear case support).
    - When market price crosses either threshold, the system automatically triggers an urgent thesis review and publishes a new alert.
 
-7. Warren Buffett Owner Earnings & Intrinsic Value Framework:
+7. Warren Buffett Owner Earnings & Intrinsic Value Master Framework (from Berkshire Letters & Essays):
    - Root your valuation entirely in Warren Buffett's intrinsic value philosophy (from his Berkshire Shareholder Letters and Essays). NEVER rely on arbitrary exit multiples (which Charlie Munger dismissed as "relying on a greater fool in Year 5").
-   - The 5-Step Warren Buffett Valuation Method:
-     1. Calculate Normalized Owner Earnings:
+   - The 7-Pillar Warren Buffett Valuation Methodology:
+     1. Calculate Normalized Owner Earnings (1986 Shareholder Letter):
         Owner Earnings = Operating Cash Flow - Maintenance CapEx - Stock-Based Compensation (SBC).
-        * Strictly distinguish maintenance CapEx (capital required to maintain the company's unit volume and competitive moat) from discretionary growth CapEx.
-        * Strictly treat SBC as a 100% real economic cash charge.
-     2. The "Equity as an Expanding Bond" Cash Yield:
-        * Calculate the initial Owner Earnings Cash Yield: (Owner Earnings per Share / Current Stock Price).
-        * Evaluate pricing power and Return on Invested Capital (ROIC): Is this a capital-light compounder that throws off cash, or a capital-heavy business that consumes cash just to grow?
-     3. Share Buyback Cannibal Compounding:
-        * If management uses excess cash to aggressively repurchase shares at attractive prices, factor in the annual reduction in share count (e.g., 3-7% per year). This shrinks the denominator and directly compounds per-share Owner Earnings (especially in Base and Bull cases).
-     4. Discounting via Sovereign Treasury Benchmark (Zero Exit Multiples):
-        * Discount the projected cash flows using the long-term sovereign risk-free rate (e.g. 10Y US Treasury, local sovereign rate if international) + standard equity hurdle (e.g. 9-10% discount rate).
-        * For terminal value, use perpetual steady-state growth capped at long-term GDP (2.0%-2.5%) or Earnings Power Value (EPV), rather than arbitrary exit multiples.
-     5. Balance Sheet Reality & Margin of Safety:
-        * Intrinsic Equity Value = PV of 5-10Y Owner Earnings + PV of Terminal Cash Stream + Cash & Short-Term Investments - Total Debt.
+        * Maintenance CapEx vs. Growth CapEx: Strictly distinguish maintenance CapEx (capital required to protect unit volume and competitive moat) from discretionary growth CapEx.
+        * SBC Reality: Deduct 100% of Stock-Based Compensation as a real cash expense.
+        * Working Capital / Float Discipline (1995 & 2002 Letters): Verify that Operating Cash Flow reflects sustainable organic cash generation rather than one-quarter working capital timing spikes. If the company operates with negative working capital (like Amazon, Temu/PDD, or StoneCo collecting upfront and paying suppliers later), treat this interest-free customer float as a competitive funding advantage.
+     2. Mid-Cycle Normalization for Cyclicals (1982 & 1991 Letters):
+        * For cyclical businesses (housing, industrials, retail, consumer), NEVER extrapolate a single peak or trough year. Normalize Owner Earnings across a full 5-year business cycle.
+     3. Strict Localized Country-Specific Sovereign Discounting (The PetroChina / Iscar / Japan Rule):
+        * NEVER use US 10-Year Treasury rates to value international companies!
+        * Ground the discount rate strictly in the LOCAL SOVEREIGN BOND YIELD of the company's operating currency + an appropriate equity risk premium:
+          - Brazil (e.g. STNE): Ground in Brazilian NTN-F 10-Year Bond / SELIC (~10.5%–12.0%).
+          - United States (e.g. META, GOOG, AMZN): Ground in US 10-Year Treasury (~4.0%–4.5%) + equity hurdle (9-10%).
+          - China (e.g. JD, PDD, BABA): Ground in Chinese 10-Year Government Bond (~2.3%–2.5%) + emerging market/geopolitical risk premium.
+          - United Kingdom (e.g. BVHMF): Ground in UK 10-Year Gilt (~4.0%–4.5%).
+        * Apply realistic, level-headed foreign exchange conversion rates.
+     4. Capital-Light Moats (ROIC) & The "Expanding Bond" Cash Yield:
+        * Calculate Initial Owner Earnings Cash Yield: (Owner Earnings per Share / Current Stock Price).
+        * Evaluate Return on Invested Capital (ROIC): Does this business require heavy physical reinvestment just to stay alive (capital trap), or is it a capital-light compounder that throws off cash to owners?
+     5. Share Buyback Cannibal Compounding (1999 & 2018 Letters):
+        * If management uses excess cash to aggressively repurchase shares at attractive prices, model the annual reduction in share count (e.g. 3–7%/year). This shrinks the share denominator and directly compounds per-share Owner Earnings into future cash streams.
+     6. Balance Sheet Reality Bridge (Leases, Total Debt & Look-Through Assets):
+        * Total Debt MUST include contractual Capital and Operating Lease Liabilities (especially for retailers, store networks, and casinos).
+        * Add Cash, Short-Term Treasuries, and the look-through fair value of unconsolidated equity stakes (e.g. BABA's Ant Group, GOOG's equity stakes).
+        * Intrinsic Equity Value = PV of 5-10Y Owner Earnings + PV of Terminal Cash Stream (Gordon Growth capped at 2.0%-2.5% long-term GDP) + Cash & Equities - Total Debt & Leases.
         * Divide by diluted share count to arrive at Intrinsic Fair Value per Share.
-        * Apply the 5-Year Exchange Closure Test: Demand a clear Margin of Safety so that even if the stock market were closed for 5 years, the investor earns a great return purely from cash generation and capital return.
+        * The 5-Year Exchange Closure Test: Demand a clear Margin of Safety (20–40% discount) so that even if the stock market were closed for 5 years, the investor earns an attractive return purely from organic cash generation.
+     7. Financial Institutions & Banking Books (1990 & 2011 Letters on Wells Fargo & Amex):
+        * For banks or fintechs with expanding credit/loan portfolios (e.g. StoneCo Banking, PayPal Credit), evaluate Credit Quality, Non-Performing Loans (NPLs), provision coverage, Cost of Deposits, and Return on Tangible Equity (ROTE) rather than pure FCF.
    - Present a clean, transparent Bear / Base / Bull scenario table in Section 5 detailing Owner Earnings, growth assumptions, and per-share intrinsic values.
-   - Analytical Autonomy: For banks, financial institutions, or asset plays where Owner Earnings DCF is unsuitable, use simple Tangible Book Value / ROE or dividend yield frameworks.
 """
 
 MASTER_PLANNER_PROMPT = """Target: {ticker} ({company_name}) | Current Stock Price: ${current_price:.2f}
@@ -306,7 +317,7 @@ Key Areas to Investigate via Real-Time Filings, Earnings Calls & Announcements:
 - Business Model Reality & Moat: How the company makes money, customer retention, pricing power, and competitive advantages in plain English.
 - Real Cash Flow, SBC & Capital Structure: Real cash generation (treating SBC as a cash charge), dilution vs. buybacks, Net Cash/Debt, and capital allocation.
 - Ownership & Catalysts: Verified active 13F whale positions from latest official filings (exclude exited investors), management alignment, and upcoming catalysts.
-- Warren Buffett Owner Earnings & Intrinsic Value Matrix: Calculate normalized Owner Earnings (Post-SBC cash flow minus maintenance CapEx), project 3-5 year compounding, factor in share count reduction from buybacks, and discount via the 10Y Treasury benchmark with zero exit multiples. Build a clean Bear / Base / Bull scenario table in Section 5, assess confidence, execution risk, and explicit falsification triggers.
+- Warren Buffett Owner Earnings & Intrinsic Value Matrix: Calculate normalized Owner Earnings (Post-SBC cash flow minus maintenance CapEx, float/lease debt discipline), project 3-5 year compounding, factor in share count reduction from buybacks, and discount strictly via the LOCAL SOVEREIGN BOND YIELD (e.g. Brazilian NTN-F/SELIC for Brazil, US 10Y for US, Gilts for UK) with zero arbitrary exit multiples. Build a clean Bear / Base / Bull scenario table in Section 5, assess confidence, execution risk, and explicit falsification triggers.
 - Dynamic Alert Corridors: Establish exact `upper_alert_threshold` (upside breakout / trim level) and `lower_alert_threshold` (downside margin-of-safety floor) based on your valuation targets.
 
 Editorial Aesthetics Mandate:
@@ -490,10 +501,8 @@ You have full analytical freedom to evaluate the new facts and determine the evo
    - Detail what new information has arrived.
    - Explain whether this reinforces our thesis (making the opportunity safer / higher confidence) or breaks/weakens it (increasing execution risk / lowering fair value).
    - Formulate a clear 2-3 sentence executive evolution summary for "what_changes_now".
-3. Dynamic Labels:
-   - Update Label #1 (MANDATORY PRIMARY PILL) to reflect the new confidence and risk profile (e.g. "High Conviction", "Safe Compounder", "Turnaround Risk", "High Risk", "Asymmetric Upside", "Thesis Broken").
 4. Warren Buffett Owner Earnings & Intrinsic Value Framework:
-   - Update fair value and Bear / Base / Bull scenario targets using Warren Buffett's Owner Earnings methodology (Post-SBC cash flow minus maintenance CapEx, share count reduction from buybacks, 10Y Treasury benchmark discounting, zero exit multiples). Bridge via Net Cash/Debt to arrive at per-share intrinsic value.
+   - Update fair value and Bear / Base / Bull scenario targets using Warren Buffett's 7-pillar Owner Earnings methodology (Post-SBC cash flow minus maintenance CapEx, lease debt/float bridge, share count reduction from buybacks, strictly discounting via local sovereign bond yields, zero arbitrary exit multiples).
 5. Self-Healing Catalyst Date Update Rule:
    - "next_catalyst_date" MUST ALWAYS BE IN STRICT "YYYY-MM-DD" FORMAT (e.g. 2026-11-18).
    - If on the trigger date after market close no earnings release or event has occurred (or the event was rescheduled), search investor relations for the newly confirmed or estimated date, set "next_catalyst_date" to the new YYYY-MM-DD, and explain in "what_changes_now" that the calendar date has been refreshed.
