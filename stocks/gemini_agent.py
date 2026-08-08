@@ -371,13 +371,17 @@ Output ONLY the verified, polished, 100% complete Semantic HTML. Do not output o
 
 
 def verify_and_repair_html_structure(html: str) -> str:
-    """Deterministic structural cleanup and tag balancing."""
+    """Deterministic structural cleanup, inline style removal, and tag balancing."""
     if not html:
         return ""
     
     cleaned = re.sub(r"^```(?:html)?\s*", "", html, flags=re.MULTILINE)
     cleaned = re.sub(r"\s*```$", "", cleaned, flags=re.MULTILINE).strip()
     
+    # Strip ALL rogue inline style attributes to enforce 100% color consistency
+    cleaned = re.sub(r'\s*style\s*=\s*"[^"]*"', '', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\s*style\s*=\s*'[^']*'", '', cleaned, flags=re.IGNORECASE)
+
     # Auto-close unclosed tables
     open_tables = len(re.findall(r"<table\b", cleaned, re.IGNORECASE))
     close_tables = len(re.findall(r"</table>", cleaned, re.IGNORECASE))

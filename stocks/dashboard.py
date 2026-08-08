@@ -240,6 +240,17 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     current_version = history[-1] if history else None
     labels_html = format_labels_pills(stock.labels or [stock.status_label])
 
+    def clean_and_sanitize_html(content: str) -> str:
+        if not content:
+            return ""
+        # 1. Strip ALL inline style="..." attributes so rogue colors (like #333, red borders, #f9f9f9) can NEVER override our curated design
+        cleaned = re.sub(r'\s*style\s*=\s*"[^"]*"', '', content, flags=re.IGNORECASE)
+        cleaned = re.sub(r"\s*style\s*=\s*'[^']*'", '', cleaned, flags=re.IGNORECASE)
+        
+        # 2. Wrap all tables in table-scroll-wrap
+        cleaned = re.sub(r'(?<!<div class="table-scroll-wrap">)(<table\b[^>]*>.*?</table>)', r'<div class="table-scroll-wrap">\1</div>', cleaned, flags=re.DOTALL)
+        return cleaned
+
     evolution_count = max(0, len(history) - 1)
     history_cards_html = ""
     
@@ -273,6 +284,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 </div>
                 """
                 
+            sanitized_snapshot = clean_and_sanitize_html(v.full_html_content)
             history_cards_html += f"""
             <div class="history-entry {'history-entry-active' if is_current else ''}">
                 <div class="history-top">
@@ -288,19 +300,14 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                     {diff_box}
                     <div id="snapshot-{v.version}" class="snapshot-drawer" style="display: none;">
                         <div class="snapshot-body">
-                            {v.full_html_content}
+                            {sanitized_snapshot}
                         </div>
                     </div>
                 </div>
             </div>
             """
 
-    def wrap_tables(content: str) -> str:
-        if not content:
-            return ""
-        return re.sub(r'(?<!<div class="table-scroll-wrap">)(<table\b[^>]*>.*?</table>)', r'<div class="table-scroll-wrap">\1</div>', content, flags=re.DOTALL)
-
-    active_content = wrap_tables(current_version.full_html_content if current_version else "<p>No active thesis found.</p>")
+    active_content = clean_and_sanitize_html(current_version.full_html_content if current_version else "<p>No active thesis found.</p>")
     chart_html = build_native_svg_chart(ticker, stock.current_price)
 
     return f"""<!DOCTYPE html>
@@ -624,23 +631,26 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         }}
 
         .memo-container blockquote {{
-            background: var(--bg-subpanel);
-            border-left: 3px solid var(--accent-warm);
-            padding: 18px 24px;
-            border-radius: 0 8px 8px 0;
-            margin: 28px 0;
-            font-style: italic;
-            font-size: 1.15rem;
-            color: var(--text-title);
-            line-height: 1.8;
+            background: var(--bg-subpanel) !important;
+            background-color: var(--bg-subpanel) !important;
+            border-left: 3px solid var(--accent-warm) !important;
+            padding: 18px 24px !important;
+            border-radius: 0 8px 8px 0 !important;
+            margin: 28px 0 !important;
+            font-style: italic !important;
+            font-size: 1.15rem !important;
+            color: var(--text-title) !important;
+            line-height: 1.8 !important;
         }}
         .memo-container .callout {{
-            background: var(--bg-subpanel);
-            border: 1px solid var(--border-color);
-            border-left: 3px solid var(--accent-warm);
-            border-radius: 8px;
-            padding: 18px 22px;
-            margin: 24px 0;
+            background: var(--bg-subpanel) !important;
+            background-color: var(--bg-subpanel) !important;
+            border: 1px solid var(--border-color) !important;
+            border-left: 3px solid var(--accent-warm) !important;
+            border-radius: 8px !important;
+            padding: 18px 22px !important;
+            margin: 24px 0 !important;
+            color: var(--text-body) !important;
         }}
         .highlight, mark {{
             background: rgba(201, 154, 117, 0.16) !important;
