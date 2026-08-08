@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LGCY — Investment Memo</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="apple-touch-icon" href="../favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-canvas: #141312;
+            --bg-panel: #1A1917;
+            --bg-subpanel: #21201D;
+            --bg-hover: #282623;
+            --text-title: #D8D2C6;
+            --text-body: #BDB7AA;
+            --text-secondary: #8E887D;
+            --text-dim: #666157;
+            --accent-warm: #C99A75;
+            --accent-green: #7D9D81;
+            --accent-red: #C4726C;
+            --border-color: rgba(215, 205, 190, 0.07);
+            --border-focus: rgba(215, 205, 190, 0.14);
+            --font-serif: 'Newsreader', Garamond, Georgia, serif;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--bg-canvas);
+            color: var(--text-body);
+            font-family: var(--font-serif);
+            line-height: 1.85;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 120px;
+        }
+
+        .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+        /* Top Nav */
+        nav.nav-bar {
+            background: rgba(20, 19, 18, 0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 16px 0;
+        }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .nav-back {
+            color: var(--accent-warm);
+            text-decoration: none;
+            font-family: var(--font-sans);
+            font-size: 0.88rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.15s;
+        }
+        .nav-back:hover { color: #DDB495; }
+
+        /* Hero Deck */
+        .hero-deck {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 36px 40px;
+            margin: 32px 0 28px;
+        }
+
+        .hero-top-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px; }
+        .ticker-symbol {
+            font-family: var(--font-serif);
+            font-size: 2.8rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: var(--text-title);
+        }
+        .company-meta { color: var(--text-secondary); font-size: 1.05rem; font-style: italic; margin-top: 2px; }
+
+        .price-callout { text-align: right; }
+        .price-number { font-size: 2.6rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }
+        .price-sub { font-size: 0.88rem; font-family: var(--font-mono); margin-top: 2px; }
+
+        /* Native SVG Area Chart */
+        .native-chart-wrap {
+            margin-top: 28px;
+            background: #171614;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px 20px 12px;
+            position: relative;
+            user-select: none;
+        }
+        .chart-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            min-height: 28px;
+        }
+        .chart-live-val {
+            font-size: 0.88rem;
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .chart-range-pills {
+            display: flex;
+            gap: 4px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 2px;
+        }
+        .range-pill {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.72rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .range-pill:hover { color: var(--text-title); }
+        .range-pill.active {
+            background: var(--accent-warm);
+            color: #141312;
+            font-weight: 600;
+        }
+        .chart-svg { width: 100%; height: 220px; display: block; overflow: visible; }
+        .chart-tooltip {
+            position: absolute;
+            top: 14px;
+            left: 20px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-focus);
+            color: var(--text-title);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            padding: 5px 12px;
+            border-radius: 6px;
+            pointer-events: none;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            font-family: var(--font-sans);
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Key Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin-top: 24px;
+        }
+        .metric-cell {
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px 16px;
+        }
+        .metric-label { font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); letter-spacing: 0.05em; }
+        .metric-value { font-size: 1.15rem; font-weight: 500; color: var(--text-title); font-family: var(--font-mono); margin-top: 3px; }
+
+        /* Tabs */
+        .tabs-header {
+            display: flex;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-color);
+            margin: 32px 0 28px;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-family: var(--font-serif);
+            padding: 12px 18px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.15s;
+        }
+        .tab-btn:hover { color: var(--text-title); }
+        .tab-btn.active { color: var(--accent-warm); }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0; right: 0;
+            height: 2px;
+            background: var(--accent-warm);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Memo Content & Premium Editorial Typography */
+        .memo-container {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 48px 52px;
+        }
+        .memo-container * {
+            box-sizing: border-box;
+        }
+        .memo-container a {
+            color: var(--accent-warm) !important;
+            text-decoration: none !important;
+            transition: color 0.15s ease !important;
+            border-bottom: 1px dotted rgba(201, 154, 117, 0.4) !important;
+        }
+        .memo-container a:hover {
+            color: #E2DDD5 !important;
+            border-bottom-color: var(--accent-warm) !important;
+        }
+        .memo-container h1, .memo-container h2 {
+            font-family: var(--font-serif) !important;
+            font-size: 1.55rem !important;
+            font-weight: 500 !important;
+            color: var(--text-title) !important;
+            margin: 44px 0 18px !important;
+            padding-bottom: 10px !important;
+            border-bottom: 1px solid var(--border-color) !important;
+            letter-spacing: -0.02em !important;
+            line-height: 1.35 !important;
+        }
+        .memo-container h1:first-child, .memo-container h2:first-of-type { margin-top: 0 !important; }
+        .memo-container h3 {
+            font-family: var(--font-serif) !important;
+            font-size: 1.28rem !important;
+            font-weight: 500 !important;
+            color: var(--accent-warm) !important;
+            margin: 32px 0 14px !important;
+            line-height: 1.4 !important;
+        }
+        .memo-container h4, .memo-container h5, .memo-container h6 {
+            font-family: var(--font-serif) !important;
+            font-size: 1.12rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            margin: 24px 0 10px !important;
+        }
+        .memo-container p {
+            font-family: var(--font-serif) !important;
+            font-size: 1.15rem !important;
+            line-height: 1.9 !important;
+            color: var(--text-body) !important;
+            margin-bottom: 22px !important;
+        }
+        .memo-container ul, .memo-container ol {
+            font-family: var(--font-serif) !important;
+            font-size: 1.12rem !important;
+            line-height: 1.9 !important;
+            color: var(--text-body) !important;
+            margin: 0 0 26px 30px !important;
+        }
+        .memo-container li { margin-bottom: 10px !important; color: var(--text-body) !important; }
+        .memo-container strong, .memo-container b {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+
+        /* STUNNING CONSISTENT TABLES - SOOTHING WARM TONES & ZERO OVERFLOW */
+        .table-scroll-wrap {
+            width: 100% !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            margin: 32px 0 !important;
+            background: #171614 !important;
+            background-color: #171614 !important;
+            border-radius: 12px !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            box-sizing: border-box !important;
+        }
+        .memo-container table {
+            width: 100% !important;
+            min-width: 600px !important;
+            border-collapse: separate !important;
+            border-spacing: 0 !important;
+            margin: 0 !important;
+            background: transparent !important;
+            background-color: transparent !important;
+            border: none !important;
+        }
+        .memo-container tr, .memo-container td, .memo-container th {
+            background: transparent !important;
+            background-color: transparent !important;
+        }
+        .memo-container th {
+            background: #1E1D1A !important;
+            background-color: #1E1D1A !important;
+            color: #C99A75 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            padding: 14px 18px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
+            text-align: left !important;
+        }
+        .memo-container td {
+            padding: 14px 18px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.05) !important;
+            font-size: 0.92rem !important;
+            color: #BDB7AA !important;
+            font-family: var(--font-mono) !important;
+            text-align: left !important;
+        }
+        .memo-container tr:last-child td {
+            border-bottom: none !important;
+        }
+        .memo-container tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.012) !important;
+            background-color: rgba(255, 255, 255, 0.012) !important;
+        }
+        .memo-container tr:hover td {
+            background: rgba(201, 154, 117, 0.04) !important;
+            background-color: rgba(201, 154, 117, 0.04) !important;
+        }
+        .memo-container td strong, .memo-container td b {
+            color: #D8D2C6 !important;
+            font-weight: 500 !important;
+        }
+
+        /* UNIVERSAL CALLOUT & BOX STYLING - NEVER WHITE OR PINK, STRICT DARK OBSIDIAN */
+        .memo-container blockquote,
+        .memo-container .callout,
+        .memo-container .falsification-box,
+        .memo-container .institutional-box,
+        .memo-container div[class*="box"],
+        .memo-container div[class*="card"],
+        .memo-container div[class*="alert"],
+        .memo-container div[class*="warning"],
+        .memo-container div[class*="highlight-box"] {
+            background: var(--bg-subpanel) !important;
+            background-color: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-left: 3px solid var(--accent-warm) !important;
+            padding: 22px 26px !important;
+            border-radius: 8px !important;
+            margin: 28px 0 !important;
+            color: var(--text-body) !important;
+            line-height: 1.8 !important;
+        }
+        .memo-container blockquote *,
+        .memo-container .callout *,
+        .memo-container .falsification-box *,
+        .memo-container .institutional-box *,
+        .memo-container div[class*="box"] *,
+        .memo-container div[class*="card"] *,
+        .memo-container div[class*="alert"] * {
+            background: transparent !important;
+            background-color: transparent !important;
+            color: var(--text-body) !important;
+        }
+        .memo-container blockquote h3,
+        .memo-container blockquote h4,
+        .memo-container .callout h3,
+        .memo-container .callout h4,
+        .memo-container .falsification-box h4,
+        .memo-container .falsification-box strong,
+        .memo-container .institutional-box h4,
+        .memo-container .institutional-box strong,
+        .memo-container div[class*="box"] h4,
+        .memo-container div[class*="box"] strong,
+        .memo-container div[class*="card"] strong {
+            color: var(--text-title) !important;
+        }
+        .highlight, mark {
+            background: rgba(201, 154, 117, 0.16) !important;
+            color: #E2DDD5 !important;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* FINANCIAL METRIC CARDS & STAT GRIDS */
+        .metrics-grid, .stats-grid, .grid-3, .grid-4, .grid-2, .metric-grid {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+            gap: 16px !important;
+            margin: 28px 0 !important;
+        }
+        .metric-card, .stat-card, div[class*="metric-box"], div[class*="stat-box"], div[class*="kpi-card"] {
+            background: var(--bg-subpanel) !important;
+            background-color: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-radius: 10px !important;
+            padding: 18px 20px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            box-sizing: border-box !important;
+        }
+        .metric-label, .stat-label, .kpi-label {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            color: var(--text-secondary) !important;
+            margin-bottom: 6px !important;
+        }
+        .metric-value, .stat-value, .kpi-value {
+            font-family: var(--font-mono) !important;
+            font-size: 1.4rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            letter-spacing: -0.02em !important;
+            line-height: 1.2 !important;
+            margin-bottom: 4px !important;
+        }
+        .metric-delta, .metric-sub, .stat-sub, .kpi-sub {
+            font-family: var(--font-mono) !important;
+            font-size: 0.82rem !important;
+            color: var(--accent-warm) !important;
+        }
+
+        /* EMBEDDED IMAGES, CHARTS & VISUAL INFOGRAPHICS */
+        .figure-container, figure {
+            margin: 32px 0 !important;
+            text-align: center !important;
+            background: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-radius: 12px !important;
+            padding: 16px !important;
+            overflow: hidden !important;
+        }
+        .memo-container img {
+            max-width: 100% !important;
+            height: auto !important;
+            border-radius: 8px !important;
+            display: block !important;
+            margin: 0 auto !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+        }
+        .figure-caption, figcaption {
+            font-family: var(--font-sans) !important;
+            font-size: 0.8rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 10px !important;
+            text-align: center !important;
+        }
+
+        /* Evolution Update Highlight Banner at top of Memo */
+        .update-banner-box {
+            background: #1C1B18 !important;
+            border: 1px solid rgba(201, 154, 117, 0.3) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 12px !important;
+            padding: 24px 28px !important;
+            margin-bottom: 36px !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .update-banner-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 14px !important;
+            padding-bottom: 10px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
+        }
+        .update-banner-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.76rem !important;
+            font-weight: 600 !important;
+            color: var(--accent-warm) !important;
+            letter-spacing: 0.04em !important;
+            text-transform: uppercase !important;
+        }
+        .update-trigger-pill {
+            font-family: var(--font-mono) !important;
+            font-size: 0.74rem !important;
+            color: var(--text-secondary) !important;
+            background: var(--bg-subpanel) !important;
+            padding: 3px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid var(--border-color) !important;
+        }
+        .update-banner-title {
+            font-family: var(--font-serif) !important;
+            font-size: 1.22rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            margin-bottom: 8px !important;
+        }
+        .update-banner-desc {
+            font-family: var(--font-serif) !important;
+            font-size: 1.08rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-body) !important;
+        }
+
+        /* History */
+        .history-entry {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 28px 32px;
+            margin-bottom: 20px;
+        }
+        .history-entry-active { border-color: rgba(201, 154, 117, 0.35); }
+        .history-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+        .history-tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .history-time { color: var(--text-secondary); font-size: 0.88rem; font-family: var(--font-sans); }
+        .history-price { font-family: var(--font-mono); font-size: 0.92rem; }
+
+        .diff-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) { .diff-grid { grid-template-columns: 1fr; } }
+        .diff-box {
+            padding: 18px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .diff-prev { background: rgba(196, 114, 108, 0.05); border-color: rgba(196, 114, 108, 0.18); }
+        .diff-now { background: rgba(125, 157, 129, 0.05); border-color: rgba(125, 157, 129, 0.18); }
+        .diff-label { font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+        .diff-prev .diff-label { color: var(--accent-red); }
+        .diff-now .diff-label { color: var(--accent-green); }
+        .diff-text { font-size: 1.02rem; color: var(--text-body); line-height: 1.65; }
+
+        /* Pills */
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 11px;
+            border-radius: 9999px;
+            font-size: 0.72rem;
+            font-family: var(--font-sans);
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+        }
+        .pill-active { background: rgba(201, 154, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.45); font-weight: 600; box-shadow: 0 0 10px rgba(201, 154, 117, 0.06); }
+        .pill-neutral { background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); font-weight: 500; }
+        .pill-alert { background: rgba(191, 160, 117, 0.14); color: var(--accent-warm); border: 1px solid rgba(191, 160, 117, 0.28); }
+
+        .btn-subtle {
+            background: var(--bg-subpanel);
+            color: var(--text-title);
+            border: 1px solid var(--border-color);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            padding: 7px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .btn-subtle:hover { background: var(--bg-hover); }
+
+        .snapshot-drawer { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color); }
+
+        .pos { color: var(--accent-green); }
+        .neg { color: var(--accent-red); }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="container nav-inner">
+            <a href="../index.html" class="nav-back">← AlphaThesis</a>
+            <span style="font-size: 0.82rem; color: var(--text-dim); font-family: var(--font-sans);">LGCY RESEARCH</span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Hero Deck -->
+        <section class="hero-deck">
+            <div class="hero-top-row">
+                <div>
+                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                        <span class="ticker-symbol">LGCY</span>
+                        <span class="pill pill-active">Asymmetric Upside</span> <span class="pill pill-neutral">Healthcare Demand</span> <span class="pill pill-neutral">Campus Expansion</span>
+                    </div>
+                    <div class="company-meta">Legacy Education Inc.</div>
+                </div>
+                <div class="price-callout">
+                    <div class="price-number">$11.50</div>
+                    <div class="price-sub pos">
+                        +0.00% vs Genesis
+                    </div>
+                </div>
+            </div>
+
+            <!-- Native Multi-Range Interactive Area Chart -->
+            
+    <div class="native-chart-wrap" id="chart-container">
+        <div class="chart-top-bar">
+            <div id="chart-live-val" class="chart-live-val">
+                <span id="tooltip-date">Aug 07, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$11.50</strong>
+            </div>
+            <div class="chart-range-pills">
+                <button class="range-pill active" onclick="switchChartRange('1Y')">1Y</button>
+                <button class="range-pill" onclick="switchChartRange('5Y')">5Y</button>
+                <button class="range-pill" onclick="switchChartRange('10Y')">10Y</button>
+                <button class="range-pill" onclick="switchChartRange('MAX')">MAX</button>
+            </div>
+        </div>
+
+        <svg id="interactive-svg" viewBox="0 0 900 260" preserveAspectRatio="none" class="chart-svg">
+            <defs>
+                <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#C99A75" stop-opacity="0.18" />
+                    <stop offset="100%" stop-color="#C99A75" stop-opacity="0.0" />
+                </linearGradient>
+            </defs>
+            
+            <line x1="20" y1="25" x2="880" y2="25" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
+            <line x1="20" y1="130.0" x2="880" y2="130.0" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
+            <line x1="20" y1="235" x2="880" y2="235" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
+
+            <path id="chart-area-path" d="" fill="url(#area-grad)" />
+            <path id="chart-line-path" d="" fill="none" stroke="#C99A75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+            <line id="crosshair-line" x1="0" y1="25" x2="0" y2="235" stroke="rgba(201,154,117,0.35)" stroke-width="1" stroke-dasharray="3 3" style="display: none;" />
+            <circle id="hover-dot" r="4" fill="#C99A75" stroke="#1A1917" stroke-width="2" style="display: none;" />
+        </svg>
+        <div class="chart-labels">
+            <span id="chart-start-lbl">Aug 08, 2025 ($8.15)</span>
+            <span id="chart-range-title">1-Year Historical Range</span>
+            <span id="chart-end-lbl">Aug 07, 2026 ($11.50)</span>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const allDatasets = {"1Y": [{"date": "Aug 08, 2025", "price": 10.88}, {"date": "Aug 11, 2025", "price": 10.93}, {"date": "Aug 12, 2025", "price": 11.01}, {"date": "Aug 13, 2025", "price": 11.78}, {"date": "Aug 14, 2025", "price": 11.89}, {"date": "Aug 15, 2025", "price": 11.19}, {"date": "Aug 18, 2025", "price": 11.58}, {"date": "Aug 19, 2025", "price": 11.7}, {"date": "Aug 20, 2025", "price": 12.35}, {"date": "Aug 21, 2025", "price": 12.54}, {"date": "Aug 22, 2025", "price": 12.42}, {"date": "Aug 25, 2025", "price": 12.4}, {"date": "Aug 26, 2025", "price": 12.79}, {"date": "Aug 27, 2025", "price": 13.22}, {"date": "Aug 28, 2025", "price": 12.5}, {"date": "Aug 29, 2025", "price": 12.06}, {"date": "Sep 02, 2025", "price": 12.0}, {"date": "Sep 03, 2025", "price": 11.99}, {"date": "Sep 04, 2025", "price": 12.5}, {"date": "Sep 05, 2025", "price": 12.43}, {"date": "Sep 08, 2025", "price": 12.86}, {"date": "Sep 09, 2025", "price": 12.75}, {"date": "Sep 10, 2025", "price": 12.61}, {"date": "Sep 11, 2025", "price": 12.42}, {"date": "Sep 12, 2025", "price": 12.86}, {"date": "Sep 15, 2025", "price": 13.45}, {"date": "Sep 16, 2025", "price": 13.1}, {"date": "Sep 17, 2025", "price": 12.51}, {"date": "Sep 18, 2025", "price": 12.51}, {"date": "Sep 19, 2025", "price": 12.86}, {"date": "Sep 22, 2025", "price": 12.88}, {"date": "Sep 23, 2025", "price": 12.45}, {"date": "Sep 24, 2025", "price": 12.67}, {"date": "Sep 25, 2025", "price": 12.32}, {"date": "Sep 26, 2025", "price": 9.99}, {"date": "Sep 29, 2025", "price": 9.95}, {"date": "Sep 30, 2025", "price": 9.57}, {"date": "Oct 01, 2025", "price": 9.66}, {"date": "Oct 02, 2025", "price": 9.59}, {"date": "Oct 03, 2025", "price": 9.81}, {"date": "Oct 06, 2025", "price": 10.25}, {"date": "Oct 07, 2025", "price": 9.7}, {"date": "Oct 08, 2025", "price": 9.58}, {"date": "Oct 09, 2025", "price": 9.68}, {"date": "Oct 10, 2025", "price": 9.24}, {"date": "Oct 13, 2025", "price": 9.39}, {"date": "Oct 14, 2025", "price": 9.33}, {"date": "Oct 15, 2025", "price": 10.1}, {"date": "Oct 16, 2025", "price": 9.51}, {"date": "Oct 17, 2025", "price": 9.56}, {"date": "Oct 20, 2025", "price": 9.75}, {"date": "Oct 21, 2025", "price": 9.65}, {"date": "Oct 22, 2025", "price": 9.79}, {"date": "Oct 23, 2025", "price": 9.85}, {"date": "Oct 24, 2025", "price": 9.7}, {"date": "Oct 27, 2025", "price": 9.47}, {"date": "Oct 28, 2025", "price": 9.6}, {"date": "Oct 29, 2025", "price": 9.15}, {"date": "Oct 30, 2025", "price": 9.04}, {"date": "Oct 31, 2025", "price": 9.03}, {"date": "Nov 03, 2025", "price": 8.79}, {"date": "Nov 04, 2025", "price": 8.66}, {"date": "Nov 05, 2025", "price": 8.6}, {"date": "Nov 06, 2025", "price": 8.15}, {"date": "Nov 07, 2025", "price": 8.31}, {"date": "Nov 10, 2025", "price": 8.57}, {"date": "Nov 11, 2025", "price": 8.77}, {"date": "Nov 12, 2025", "price": 8.97}, {"date": "Nov 13, 2025", "price": 8.43}, {"date": "Nov 14, 2025", "price": 9.46}, {"date": "Nov 17, 2025", "price": 8.5}, {"date": "Nov 18, 2025", "price": 8.66}, {"date": "Nov 19, 2025", "price": 9.58}, {"date": "Nov 20, 2025", "price": 9.6}, {"date": "Nov 21, 2025", "price": 10.08}, {"date": "Nov 24, 2025", "price": 9.85}, {"date": "Nov 25, 2025", "price": 9.96}, {"date": "Nov 26, 2025", "price": 10.08}, {"date": "Nov 28, 2025", "price": 10.49}, {"date": "Dec 01, 2025", "price": 9.74}, {"date": "Dec 02, 2025", "price": 9.6}, {"date": "Dec 03, 2025", "price": 9.83}, {"date": "Dec 04, 2025", "price": 9.75}, {"date": "Dec 05, 2025", "price": 9.84}, {"date": "Dec 08, 2025", "price": 9.71}, {"date": "Dec 09, 2025", "price": 10.48}, {"date": "Dec 10, 2025", "price": 10.34}, {"date": "Dec 11, 2025", "price": 10.8}, {"date": "Dec 12, 2025", "price": 10.3}, {"date": "Dec 15, 2025", "price": 10.16}, {"date": "Dec 16, 2025", "price": 9.77}, {"date": "Dec 17, 2025", "price": 9.62}, {"date": "Dec 18, 2025", "price": 9.85}, {"date": "Dec 19, 2025", "price": 10.47}, {"date": "Dec 22, 2025", "price": 10.47}, {"date": "Dec 23, 2025", "price": 10.28}, {"date": "Dec 24, 2025", "price": 10.25}, {"date": "Dec 26, 2025", "price": 10.53}, {"date": "Dec 29, 2025", "price": 9.96}, {"date": "Dec 30, 2025", "price": 10.0}, {"date": "Dec 31, 2025", "price": 10.19}, {"date": "Jan 02, 2026", "price": 10.35}, {"date": "Jan 05, 2026", "price": 10.57}, {"date": "Jan 06, 2026", "price": 10.55}, {"date": "Jan 07, 2026", "price": 10.55}, {"date": "Jan 08, 2026", "price": 10.31}, {"date": "Jan 09, 2026", "price": 10.45}, {"date": "Jan 12, 2026", "price": 10.37}, {"date": "Jan 13, 2026", "price": 10.25}, {"date": "Jan 14, 2026", "price": 9.96}, {"date": "Jan 15, 2026", "price": 10.21}, {"date": "Jan 16, 2026", "price": 10.16}, {"date": "Jan 20, 2026", "price": 9.96}, {"date": "Jan 21, 2026", "price": 9.89}, {"date": "Jan 22, 2026", "price": 10.1}, {"date": "Jan 23, 2026", "price": 10.09}, {"date": "Jan 26, 2026", "price": 10.29}, {"date": "Jan 27, 2026", "price": 9.83}, {"date": "Jan 28, 2026", "price": 10.06}, {"date": "Jan 29, 2026", "price": 10.18}, {"date": "Jan 30, 2026", "price": 10.08}, {"date": "Feb 02, 2026", "price": 10.0}, {"date": "Feb 03, 2026", "price": 9.9}, {"date": "Feb 04, 2026", "price": 10.26}, {"date": "Feb 05, 2026", "price": 10.16}, {"date": "Feb 06, 2026", "price": 10.34}, {"date": "Feb 09, 2026", "price": 10.49}, {"date": "Feb 10, 2026", "price": 10.65}, {"date": "Feb 11, 2026", "price": 10.5}, {"date": "Feb 12, 2026", "price": 10.04}, {"date": "Feb 13, 2026", "price": 11.55}, {"date": "Feb 17, 2026", "price": 12.17}, {"date": "Feb 18, 2026", "price": 12.25}, {"date": "Feb 19, 2026", "price": 12.23}, {"date": "Feb 20, 2026", "price": 12.72}, {"date": "Feb 23, 2026", "price": 12.75}, {"date": "Feb 24, 2026", "price": 12.85}, {"date": "Feb 25, 2026", "price": 13.5}, {"date": "Feb 26, 2026", "price": 13.52}, {"date": "Feb 27, 2026", "price": 13.77}, {"date": "Mar 02, 2026", "price": 14.2}, {"date": "Mar 03, 2026", "price": 14.2}, {"date": "Mar 04, 2026", "price": 14.33}, {"date": "Mar 05, 2026", "price": 14.19}, {"date": "Mar 06, 2026", "price": 13.89}, {"date": "Mar 09, 2026", "price": 13.95}, {"date": "Mar 10, 2026", "price": 14.13}, {"date": "Mar 11, 2026", "price": 14.0}, {"date": "Mar 12, 2026", "price": 13.1}, {"date": "Mar 13, 2026", "price": 13.62}, {"date": "Mar 16, 2026", "price": 13.78}, {"date": "Mar 17, 2026", "price": 13.93}, {"date": "Mar 18, 2026", "price": 13.06}, {"date": "Mar 19, 2026", "price": 13.27}, {"date": "Mar 20, 2026", "price": 12.65}, {"date": "Mar 23, 2026", "price": 12.96}, {"date": "Mar 24, 2026", "price": 13.2}, {"date": "Mar 25, 2026", "price": 13.24}, {"date": "Mar 26, 2026", "price": 12.95}, {"date": "Mar 27, 2026", "price": 12.47}, {"date": "Mar 30, 2026", "price": 12.28}, {"date": "Mar 31, 2026", "price": 12.52}, {"date": "Apr 01, 2026", "price": 12.37}, {"date": "Apr 02, 2026", "price": 12.56}, {"date": "Apr 06, 2026", "price": 12.72}, {"date": "Apr 07, 2026", "price": 12.11}, {"date": "Apr 08, 2026", "price": 12.39}, {"date": "Apr 09, 2026", "price": 13.7}, {"date": "Apr 10, 2026", "price": 13.6}, {"date": "Apr 13, 2026", "price": 13.52}, {"date": "Apr 14, 2026", "price": 13.79}, {"date": "Apr 15, 2026", "price": 13.4}, {"date": "Apr 16, 2026", "price": 13.25}, {"date": "Apr 17, 2026", "price": 13.45}, {"date": "Apr 20, 2026", "price": 13.42}, {"date": "Apr 21, 2026", "price": 12.73}, {"date": "Apr 22, 2026", "price": 12.38}, {"date": "Apr 23, 2026", "price": 12.35}, {"date": "Apr 24, 2026", "price": 11.8}, {"date": "Apr 27, 2026", "price": 11.71}, {"date": "Apr 28, 2026", "price": 11.21}, {"date": "Apr 29, 2026", "price": 11.28}, {"date": "Apr 30, 2026", "price": 10.85}, {"date": "May 01, 2026", "price": 11.02}, {"date": "May 04, 2026", "price": 11.2}, {"date": "May 05, 2026", "price": 11.2}, {"date": "May 06, 2026", "price": 11.28}, {"date": "May 07, 2026", "price": 11.29}, {"date": "May 08, 2026", "price": 11.7}, {"date": "May 11, 2026", "price": 11.56}, {"date": "May 12, 2026", "price": 11.92}, {"date": "May 13, 2026", "price": 12.2}, {"date": "May 14, 2026", "price": 12.5}, {"date": "May 15, 2026", "price": 11.92}, {"date": "May 18, 2026", "price": 12.0}, {"date": "May 19, 2026", "price": 11.71}, {"date": "May 20, 2026", "price": 11.76}, {"date": "May 21, 2026", "price": 11.42}, {"date": "May 22, 2026", "price": 11.04}, {"date": "May 26, 2026", "price": 10.85}, {"date": "May 27, 2026", "price": 11.13}, {"date": "May 28, 2026", "price": 11.26}, {"date": "May 29, 2026", "price": 11.11}, {"date": "Jun 01, 2026", "price": 11.2}, {"date": "Jun 02, 2026", "price": 11.15}, {"date": "Jun 03, 2026", "price": 11.18}, {"date": "Jun 04, 2026", "price": 11.18}, {"date": "Jun 05, 2026", "price": 11.06}, {"date": "Jun 08, 2026", "price": 11.24}, {"date": "Jun 09, 2026", "price": 11.17}, {"date": "Jun 10, 2026", "price": 11.04}, {"date": "Jun 11, 2026", "price": 11.16}, {"date": "Jun 12, 2026", "price": 11.01}, {"date": "Jun 15, 2026", "price": 11.0}, {"date": "Jun 16, 2026", "price": 11.15}, {"date": "Jun 17, 2026", "price": 11.2}, {"date": "Jun 18, 2026", "price": 11.17}, {"date": "Jun 22, 2026", "price": 11.05}, {"date": "Jun 23, 2026", "price": 11.15}, {"date": "Jun 24, 2026", "price": 11.0}, {"date": "Jun 25, 2026", "price": 11.03}, {"date": "Jun 26, 2026", "price": 11.4}, {"date": "Jun 29, 2026", "price": 11.96}, {"date": "Jun 30, 2026", "price": 11.76}, {"date": "Jul 01, 2026", "price": 11.84}, {"date": "Jul 02, 2026", "price": 11.69}, {"date": "Jul 06, 2026", "price": 11.75}, {"date": "Jul 07, 2026", "price": 11.27}, {"date": "Jul 08, 2026", "price": 11.69}, {"date": "Jul 09, 2026", "price": 11.67}, {"date": "Jul 10, 2026", "price": 11.71}, {"date": "Jul 13, 2026", "price": 11.71}, {"date": "Jul 14, 2026", "price": 12.3}, {"date": "Jul 15, 2026", "price": 11.72}, {"date": "Jul 16, 2026", "price": 12.01}, {"date": "Jul 17, 2026", "price": 12.14}, {"date": "Jul 20, 2026", "price": 12.15}, {"date": "Jul 21, 2026", "price": 11.81}, {"date": "Jul 22, 2026", "price": 11.59}, {"date": "Jul 23, 2026", "price": 11.67}, {"date": "Jul 24, 2026", "price": 11.73}, {"date": "Jul 27, 2026", "price": 11.69}, {"date": "Jul 28, 2026", "price": 12.07}, {"date": "Jul 29, 2026", "price": 12.23}, {"date": "Jul 30, 2026", "price": 12.11}, {"date": "Jul 31, 2026", "price": 11.79}, {"date": "Aug 03, 2026", "price": 12.2}, {"date": "Aug 04, 2026", "price": 11.95}, {"date": "Aug 05, 2026", "price": 11.98}, {"date": "Aug 06, 2026", "price": 11.98}, {"date": "Aug 07, 2026", "price": 11.5}], "5Y": [{"date": "Sep 23, 2024", "price": 4.39}, {"date": "Sep 30, 2024", "price": 4.87}, {"date": "Oct 07, 2024", "price": 5.77}, {"date": "Oct 14, 2024", "price": 5.94}, {"date": "Oct 21, 2024", "price": 5.26}, {"date": "Oct 28, 2024", "price": 5.48}, {"date": "Nov 04, 2024", "price": 5.98}, {"date": "Nov 11, 2024", "price": 6.52}, {"date": "Nov 18, 2024", "price": 7.93}, {"date": "Nov 25, 2024", "price": 8.21}, {"date": "Dec 02, 2024", "price": 8.07}, {"date": "Dec 09, 2024", "price": 8.93}, {"date": "Dec 16, 2024", "price": 7.39}, {"date": "Dec 23, 2024", "price": 8.25}, {"date": "Dec 30, 2024", "price": 8.22}, {"date": "Jan 06, 2025", "price": 8.7}, {"date": "Jan 13, 2025", "price": 8.73}, {"date": "Jan 20, 2025", "price": 8.45}, {"date": "Jan 27, 2025", "price": 8.63}, {"date": "Feb 03, 2025", "price": 9.6}, {"date": "Feb 10, 2025", "price": 8.64}, {"date": "Feb 17, 2025", "price": 7.5}, {"date": "Feb 24, 2025", "price": 7.32}, {"date": "Mar 03, 2025", "price": 7.05}, {"date": "Mar 10, 2025", "price": 6.64}, {"date": "Mar 17, 2025", "price": 6.86}, {"date": "Mar 24, 2025", "price": 7.31}, {"date": "Mar 31, 2025", "price": 6.76}, {"date": "Apr 07, 2025", "price": 6.18}, {"date": "Apr 14, 2025", "price": 6.45}, {"date": "Apr 21, 2025", "price": 6.59}, {"date": "Apr 28, 2025", "price": 7.2}, {"date": "May 05, 2025", "price": 7.19}, {"date": "May 12, 2025", "price": 9.08}, {"date": "May 19, 2025", "price": 8.99}, {"date": "May 26, 2025", "price": 9.04}, {"date": "Jun 02, 2025", "price": 9.49}, {"date": "Jun 09, 2025", "price": 8.99}, {"date": "Jun 16, 2025", "price": 11.05}, {"date": "Jun 23, 2025", "price": 11.69}, {"date": "Jun 30, 2025", "price": 10.86}, {"date": "Jul 07, 2025", "price": 11.65}, {"date": "Jul 14, 2025", "price": 11.38}, {"date": "Jul 21, 2025", "price": 11.26}, {"date": "Jul 28, 2025", "price": 10.69}, {"date": "Aug 04, 2025", "price": 10.88}, {"date": "Aug 11, 2025", "price": 11.19}, {"date": "Aug 18, 2025", "price": 12.42}, {"date": "Aug 25, 2025", "price": 12.06}, {"date": "Sep 01, 2025", "price": 12.43}, {"date": "Sep 08, 2025", "price": 12.86}, {"date": "Sep 15, 2025", "price": 12.86}, {"date": "Sep 22, 2025", "price": 9.99}, {"date": "Sep 29, 2025", "price": 9.81}, {"date": "Oct 06, 2025", "price": 9.24}, {"date": "Oct 13, 2025", "price": 9.56}, {"date": "Oct 20, 2025", "price": 9.7}, {"date": "Oct 27, 2025", "price": 9.03}, {"date": "Nov 03, 2025", "price": 8.31}, {"date": "Nov 10, 2025", "price": 9.46}, {"date": "Nov 17, 2025", "price": 10.08}, {"date": "Nov 24, 2025", "price": 10.49}, {"date": "Dec 01, 2025", "price": 9.84}, {"date": "Dec 08, 2025", "price": 10.3}, {"date": "Dec 15, 2025", "price": 10.47}, {"date": "Dec 22, 2025", "price": 10.53}, {"date": "Dec 29, 2025", "price": 10.35}, {"date": "Jan 05, 2026", "price": 10.45}, {"date": "Jan 12, 2026", "price": 10.16}, {"date": "Jan 19, 2026", "price": 10.09}, {"date": "Jan 26, 2026", "price": 10.08}, {"date": "Feb 02, 2026", "price": 10.34}, {"date": "Feb 09, 2026", "price": 11.55}, {"date": "Feb 16, 2026", "price": 12.72}, {"date": "Feb 23, 2026", "price": 13.77}, {"date": "Mar 02, 2026", "price": 13.89}, {"date": "Mar 09, 2026", "price": 13.62}, {"date": "Mar 16, 2026", "price": 12.65}, {"date": "Mar 23, 2026", "price": 12.47}, {"date": "Mar 30, 2026", "price": 12.56}, {"date": "Apr 06, 2026", "price": 13.6}, {"date": "Apr 13, 2026", "price": 13.45}, {"date": "Apr 20, 2026", "price": 11.8}, {"date": "Apr 27, 2026", "price": 11.02}, {"date": "May 04, 2026", "price": 11.7}, {"date": "May 11, 2026", "price": 11.92}, {"date": "May 18, 2026", "price": 11.04}, {"date": "May 25, 2026", "price": 11.11}, {"date": "Jun 01, 2026", "price": 11.06}, {"date": "Jun 08, 2026", "price": 11.01}, {"date": "Jun 15, 2026", "price": 11.17}, {"date": "Jun 22, 2026", "price": 11.4}, {"date": "Jun 29, 2026", "price": 11.69}, {"date": "Jul 06, 2026", "price": 11.71}, {"date": "Jul 13, 2026", "price": 12.14}, {"date": "Jul 20, 2026", "price": 11.73}, {"date": "Jul 27, 2026", "price": 11.79}, {"date": "Aug 03, 2026", "price": 11.5}, {"date": "Aug 07, 2026", "price": 11.5}], "10Y": [{"date": "Oct 01, 2024", "price": 5.29}, {"date": "Nov 01, 2024", "price": 8.21}, {"date": "Dec 01, 2024", "price": 8.32}, {"date": "Jan 01, 2025", "price": 8.63}, {"date": "Feb 01, 2025", "price": 7.32}, {"date": "Mar 01, 2025", "price": 7.17}, {"date": "Apr 01, 2025", "price": 6.65}, {"date": "May 01, 2025", "price": 9.04}, {"date": "Jun 01, 2025", "price": 11.18}, {"date": "Jul 01, 2025", "price": 11.27}, {"date": "Aug 01, 2025", "price": 12.06}, {"date": "Sep 01, 2025", "price": 9.57}, {"date": "Oct 01, 2025", "price": 9.03}, {"date": "Nov 01, 2025", "price": 10.49}, {"date": "Dec 01, 2025", "price": 10.19}, {"date": "Jan 01, 2026", "price": 10.08}, {"date": "Feb 01, 2026", "price": 13.77}, {"date": "Mar 01, 2026", "price": 12.52}, {"date": "Apr 01, 2026", "price": 10.85}, {"date": "May 01, 2026", "price": 11.11}, {"date": "Jun 01, 2026", "price": 11.76}, {"date": "Jul 01, 2026", "price": 11.79}, {"date": "Aug 01, 2026", "price": 11.5}, {"date": "Aug 07, 2026", "price": 11.5}], "MAX": [{"date": "Sep 26, 2024", "price": 4.02}, {"date": "Sep 27, 2024", "price": 4.39}, {"date": "Sep 30, 2024", "price": 4.6}, {"date": "Oct 01, 2024", "price": 4.68}, {"date": "Oct 02, 2024", "price": 4.65}, {"date": "Oct 03, 2024", "price": 4.77}, {"date": "Oct 04, 2024", "price": 4.87}, {"date": "Oct 07, 2024", "price": 5.07}, {"date": "Oct 08, 2024", "price": 5.62}, {"date": "Oct 09, 2024", "price": 5.75}, {"date": "Oct 10, 2024", "price": 5.75}, {"date": "Oct 11, 2024", "price": 5.77}, {"date": "Oct 14, 2024", "price": 5.77}, {"date": "Oct 15, 2024", "price": 5.82}, {"date": "Oct 16, 2024", "price": 5.82}, {"date": "Oct 17, 2024", "price": 5.98}, {"date": "Oct 18, 2024", "price": 5.94}, {"date": "Oct 21, 2024", "price": 5.89}, {"date": "Oct 22, 2024", "price": 5.66}, {"date": "Oct 23, 2024", "price": 5.05}, {"date": "Oct 24, 2024", "price": 5.29}, {"date": "Oct 25, 2024", "price": 5.26}, {"date": "Oct 28, 2024", "price": 4.89}, {"date": "Oct 29, 2024", "price": 5.08}, {"date": "Oct 30, 2024", "price": 5.06}, {"date": "Oct 31, 2024", "price": 5.29}, {"date": "Nov 01, 2024", "price": 5.48}, {"date": "Nov 04, 2024", "price": 5.3}, {"date": "Nov 05, 2024", "price": 5.33}, {"date": "Nov 06, 2024", "price": 5.59}, {"date": "Nov 07, 2024", "price": 5.65}, {"date": "Nov 08, 2024", "price": 5.98}, {"date": "Nov 11, 2024", "price": 5.67}, {"date": "Nov 12, 2024", "price": 5.7}, {"date": "Nov 13, 2024", "price": 5.66}, {"date": "Nov 14, 2024", "price": 5.6}, {"date": "Nov 15, 2024", "price": 6.52}, {"date": "Nov 18, 2024", "price": 6.41}, {"date": "Nov 19, 2024", "price": 6.32}, {"date": "Nov 20, 2024", "price": 7.4}, {"date": "Nov 21, 2024", "price": 7.57}, {"date": "Nov 22, 2024", "price": 7.93}, {"date": "Nov 25, 2024", "price": 7.5}, {"date": "Nov 26, 2024", "price": 7.86}, {"date": "Nov 27, 2024", "price": 8.1}, {"date": "Nov 29, 2024", "price": 8.21}, {"date": "Dec 02, 2024", "price": 7.69}, {"date": "Dec 03, 2024", "price": 7.85}, {"date": "Dec 04, 2024", "price": 7.9}, {"date": "Dec 05, 2024", "price": 8.04}, {"date": "Dec 06, 2024", "price": 8.07}, {"date": "Dec 09, 2024", "price": 8.12}, {"date": "Dec 10, 2024", "price": 7.95}, {"date": "Dec 11, 2024", "price": 8.02}, {"date": "Dec 12, 2024", "price": 8.24}, {"date": "Dec 13, 2024", "price": 8.93}, {"date": "Dec 16, 2024", "price": 8.98}, {"date": "Dec 17, 2024", "price": 8.41}, {"date": "Dec 18, 2024", "price": 8.0}, {"date": "Dec 19, 2024", "price": 7.66}, {"date": "Dec 20, 2024", "price": 7.39}, {"date": "Dec 23, 2024", "price": 8.5}, {"date": "Dec 24, 2024", "price": 8.32}, {"date": "Dec 26, 2024", "price": 8.48}, {"date": "Dec 27, 2024", "price": 8.25}, {"date": "Dec 30, 2024", "price": 8.2}, {"date": "Dec 31, 2024", "price": 8.32}, {"date": "Jan 02, 2025", "price": 8.16}, {"date": "Jan 03, 2025", "price": 8.22}, {"date": "Jan 06, 2025", "price": 8.48}, {"date": "Jan 07, 2025", "price": 8.36}, {"date": "Jan 08, 2025", "price": 8.35}, {"date": "Jan 10, 2025", "price": 8.7}, {"date": "Jan 13, 2025", "price": 7.45}, {"date": "Jan 14, 2025", "price": 7.8}, {"date": "Jan 15, 2025", "price": 7.88}, {"date": "Jan 16, 2025", "price": 8.05}, {"date": "Jan 17, 2025", "price": 8.73}, {"date": "Jan 21, 2025", "price": 8.2}, {"date": "Jan 22, 2025", "price": 8.32}, {"date": "Jan 23, 2025", "price": 8.17}, {"date": "Jan 24, 2025", "price": 8.45}, {"date": "Jan 27, 2025", "price": 8.32}, {"date": "Jan 28, 2025", "price": 8.43}, {"date": "Jan 29, 2025", "price": 8.21}, {"date": "Jan 30, 2025", "price": 8.07}, {"date": "Jan 31, 2025", "price": 8.63}, {"date": "Feb 03, 2025", "price": 8.36}, {"date": "Feb 04, 2025", "price": 8.51}, {"date": "Feb 05, 2025", "price": 9.63}, {"date": "Feb 06, 2025", "price": 9.33}, {"date": "Feb 07, 2025", "price": 9.6}, {"date": "Feb 10, 2025", "price": 9.27}, {"date": "Feb 11, 2025", "price": 8.93}, {"date": "Feb 12, 2025", "price": 8.81}, {"date": "Feb 13, 2025", "price": 9.68}, {"date": "Feb 14, 2025", "price": 8.64}, {"date": "Feb 18, 2025", "price": 8.27}, {"date": "Feb 19, 2025", "price": 8.2}, {"date": "Feb 20, 2025", "price": 8.0}, {"date": "Feb 21, 2025", "price": 7.5}, {"date": "Feb 24, 2025", "price": 7.5}, {"date": "Feb 25, 2025", "price": 7.5}, {"date": "Feb 26, 2025", "price": 7.45}, {"date": "Feb 27, 2025", "price": 7.2}, {"date": "Feb 28, 2025", "price": 7.32}, {"date": "Mar 03, 2025", "price": 7.03}, {"date": "Mar 04, 2025", "price": 6.97}, {"date": "Mar 05, 2025", "price": 6.95}, {"date": "Mar 06, 2025", "price": 6.72}, {"date": "Mar 07, 2025", "price": 7.05}, {"date": "Mar 10, 2025", "price": 6.65}, {"date": "Mar 11, 2025", "price": 6.76}, {"date": "Mar 12, 2025", "price": 6.65}, {"date": "Mar 13, 2025", "price": 6.46}, {"date": "Mar 14, 2025", "price": 6.64}, {"date": "Mar 17, 2025", "price": 7.39}, {"date": "Mar 18, 2025", "price": 7.35}, {"date": "Mar 19, 2025", "price": 7.5}, {"date": "Mar 20, 2025", "price": 7.23}, {"date": "Mar 21, 2025", "price": 6.86}, {"date": "Mar 24, 2025", "price": 7.05}, {"date": "Mar 25, 2025", "price": 7.04}, {"date": "Mar 26, 2025", "price": 7.05}, {"date": "Mar 27, 2025", "price": 7.14}, {"date": "Mar 28, 2025", "price": 7.31}, {"date": "Mar 31, 2025", "price": 7.17}, {"date": "Apr 01, 2025", "price": 7.22}, {"date": "Apr 02, 2025", "price": 7.25}, {"date": "Apr 03, 2025", "price": 7.2}, {"date": "Apr 04, 2025", "price": 6.76}, {"date": "Apr 07, 2025", "price": 6.65}, {"date": "Apr 08, 2025", "price": 6.47}, {"date": "Apr 09, 2025", "price": 7.02}, {"date": "Apr 10, 2025", "price": 6.42}, {"date": "Apr 11, 2025", "price": 6.18}, {"date": "Apr 14, 2025", "price": 6.17}, {"date": "Apr 15, 2025", "price": 6.37}, {"date": "Apr 16, 2025", "price": 6.38}, {"date": "Apr 17, 2025", "price": 6.45}, {"date": "Apr 21, 2025", "price": 6.35}, {"date": "Apr 22, 2025", "price": 6.45}, {"date": "Apr 23, 2025", "price": 6.6}, {"date": "Apr 24, 2025", "price": 6.7}, {"date": "Apr 25, 2025", "price": 6.59}, {"date": "Apr 28, 2025", "price": 6.39}, {"date": "Apr 29, 2025", "price": 6.19}, {"date": "Apr 30, 2025", "price": 6.65}, {"date": "May 01, 2025", "price": 6.81}, {"date": "May 02, 2025", "price": 7.2}, {"date": "May 05, 2025", "price": 6.87}, {"date": "May 06, 2025", "price": 6.87}, {"date": "May 07, 2025", "price": 6.92}, {"date": "May 08, 2025", "price": 6.78}, {"date": "May 09, 2025", "price": 7.19}, {"date": "May 12, 2025", "price": 7.5}, {"date": "May 13, 2025", "price": 7.51}, {"date": "May 14, 2025", "price": 7.42}, {"date": "May 15, 2025", "price": 7.78}, {"date": "May 16, 2025", "price": 9.08}, {"date": "May 19, 2025", "price": 8.83}, {"date": "May 20, 2025", "price": 8.42}, {"date": "May 21, 2025", "price": 8.81}, {"date": "May 22, 2025", "price": 9.07}, {"date": "May 23, 2025", "price": 8.99}, {"date": "May 27, 2025", "price": 8.95}, {"date": "May 28, 2025", "price": 9.33}, {"date": "May 29, 2025", "price": 9.02}, {"date": "May 30, 2025", "price": 9.04}, {"date": "Jun 02, 2025", "price": 9.2}, {"date": "Jun 03, 2025", "price": 9.1}, {"date": "Jun 04, 2025", "price": 9.35}, {"date": "Jun 05, 2025", "price": 9.31}, {"date": "Jun 06, 2025", "price": 9.49}, {"date": "Jun 09, 2025", "price": 9.51}, {"date": "Jun 10, 2025", "price": 9.1}, {"date": "Jun 11, 2025", "price": 8.75}, {"date": "Jun 12, 2025", "price": 8.99}, {"date": "Jun 13, 2025", "price": 8.99}, {"date": "Jun 16, 2025", "price": 10.02}, {"date": "Jun 17, 2025", "price": 9.65}, {"date": "Jun 18, 2025", "price": 10.2}, {"date": "Jun 20, 2025", "price": 11.05}, {"date": "Jun 23, 2025", "price": 11.38}, {"date": "Jun 24, 2025", "price": 11.35}, {"date": "Jun 25, 2025", "price": 11.36}, {"date": "Jun 26, 2025", "price": 11.51}, {"date": "Jun 27, 2025", "price": 11.69}, {"date": "Jun 30, 2025", "price": 11.18}, {"date": "Jul 01, 2025", "price": 10.82}, {"date": "Jul 02, 2025", "price": 10.64}, {"date": "Jul 03, 2025", "price": 10.86}, {"date": "Jul 07, 2025", "price": 10.67}, {"date": "Jul 08, 2025", "price": 10.75}, {"date": "Jul 09, 2025", "price": 11.13}, {"date": "Jul 10, 2025", "price": 11.02}, {"date": "Jul 11, 2025", "price": 11.65}, {"date": "Jul 14, 2025", "price": 11.56}, {"date": "Jul 15, 2025", "price": 11.56}, {"date": "Jul 16, 2025", "price": 11.5}, {"date": "Jul 17, 2025", "price": 11.26}, {"date": "Jul 18, 2025", "price": 11.38}, {"date": "Jul 21, 2025", "price": 12.29}, {"date": "Jul 22, 2025", "price": 11.45}, {"date": "Jul 23, 2025", "price": 11.2}, {"date": "Jul 24, 2025", "price": 11.39}, {"date": "Jul 25, 2025", "price": 11.26}, {"date": "Jul 28, 2025", "price": 11.05}, {"date": "Jul 29, 2025", "price": 10.63}, {"date": "Jul 30, 2025", "price": 11.81}, {"date": "Jul 31, 2025", "price": 11.27}, {"date": "Aug 01, 2025", "price": 10.69}, {"date": "Aug 04, 2025", "price": 10.56}, {"date": "Aug 05, 2025", "price": 9.78}, {"date": "Aug 06, 2025", "price": 10.96}, {"date": "Aug 07, 2025", "price": 10.79}, {"date": "Aug 08, 2025", "price": 10.88}, {"date": "Aug 11, 2025", "price": 10.93}, {"date": "Aug 12, 2025", "price": 11.01}, {"date": "Aug 13, 2025", "price": 11.78}, {"date": "Aug 14, 2025", "price": 11.89}, {"date": "Aug 15, 2025", "price": 11.19}, {"date": "Aug 18, 2025", "price": 11.58}, {"date": "Aug 19, 2025", "price": 11.7}, {"date": "Aug 20, 2025", "price": 12.35}, {"date": "Aug 21, 2025", "price": 12.54}, {"date": "Aug 22, 2025", "price": 12.42}, {"date": "Aug 25, 2025", "price": 12.4}, {"date": "Aug 26, 2025", "price": 12.79}, {"date": "Aug 27, 2025", "price": 13.22}, {"date": "Aug 28, 2025", "price": 12.5}, {"date": "Aug 29, 2025", "price": 12.06}, {"date": "Sep 02, 2025", "price": 12.0}, {"date": "Sep 03, 2025", "price": 11.99}, {"date": "Sep 04, 2025", "price": 12.5}, {"date": "Sep 05, 2025", "price": 12.43}, {"date": "Sep 08, 2025", "price": 12.86}, {"date": "Sep 09, 2025", "price": 12.75}, {"date": "Sep 10, 2025", "price": 12.61}, {"date": "Sep 11, 2025", "price": 12.42}, {"date": "Sep 12, 2025", "price": 12.86}, {"date": "Sep 15, 2025", "price": 13.45}, {"date": "Sep 16, 2025", "price": 13.1}, {"date": "Sep 17, 2025", "price": 12.51}, {"date": "Sep 18, 2025", "price": 12.51}, {"date": "Sep 19, 2025", "price": 12.86}, {"date": "Sep 22, 2025", "price": 12.88}, {"date": "Sep 23, 2025", "price": 12.45}, {"date": "Sep 24, 2025", "price": 12.67}, {"date": "Sep 25, 2025", "price": 12.32}, {"date": "Sep 26, 2025", "price": 9.99}, {"date": "Sep 29, 2025", "price": 9.95}, {"date": "Sep 30, 2025", "price": 9.57}, {"date": "Oct 01, 2025", "price": 9.66}, {"date": "Oct 02, 2025", "price": 9.59}, {"date": "Oct 03, 2025", "price": 9.81}, {"date": "Oct 06, 2025", "price": 10.25}, {"date": "Oct 07, 2025", "price": 9.7}, {"date": "Oct 08, 2025", "price": 9.58}, {"date": "Oct 09, 2025", "price": 9.68}, {"date": "Oct 10, 2025", "price": 9.24}, {"date": "Oct 13, 2025", "price": 9.39}, {"date": "Oct 14, 2025", "price": 9.33}, {"date": "Oct 15, 2025", "price": 10.1}, {"date": "Oct 16, 2025", "price": 9.51}, {"date": "Oct 17, 2025", "price": 9.56}, {"date": "Oct 20, 2025", "price": 9.75}, {"date": "Oct 21, 2025", "price": 9.65}, {"date": "Oct 22, 2025", "price": 9.79}, {"date": "Oct 23, 2025", "price": 9.85}, {"date": "Oct 24, 2025", "price": 9.7}, {"date": "Oct 27, 2025", "price": 9.47}, {"date": "Oct 28, 2025", "price": 9.6}, {"date": "Oct 29, 2025", "price": 9.15}, {"date": "Oct 30, 2025", "price": 9.04}, {"date": "Oct 31, 2025", "price": 9.03}, {"date": "Nov 03, 2025", "price": 8.79}, {"date": "Nov 04, 2025", "price": 8.66}, {"date": "Nov 05, 2025", "price": 8.6}, {"date": "Nov 06, 2025", "price": 8.15}, {"date": "Nov 07, 2025", "price": 8.31}, {"date": "Nov 10, 2025", "price": 8.57}, {"date": "Nov 11, 2025", "price": 8.77}, {"date": "Nov 12, 2025", "price": 8.97}, {"date": "Nov 13, 2025", "price": 8.43}, {"date": "Nov 14, 2025", "price": 9.46}, {"date": "Nov 17, 2025", "price": 8.5}, {"date": "Nov 18, 2025", "price": 8.66}, {"date": "Nov 19, 2025", "price": 9.58}, {"date": "Nov 20, 2025", "price": 9.6}, {"date": "Nov 21, 2025", "price": 10.08}, {"date": "Nov 24, 2025", "price": 9.85}, {"date": "Nov 25, 2025", "price": 9.96}, {"date": "Nov 26, 2025", "price": 10.08}, {"date": "Nov 28, 2025", "price": 10.49}, {"date": "Dec 01, 2025", "price": 9.74}, {"date": "Dec 02, 2025", "price": 9.6}, {"date": "Dec 03, 2025", "price": 9.83}, {"date": "Dec 04, 2025", "price": 9.75}, {"date": "Dec 05, 2025", "price": 9.84}, {"date": "Dec 08, 2025", "price": 9.71}, {"date": "Dec 09, 2025", "price": 10.48}, {"date": "Dec 10, 2025", "price": 10.34}, {"date": "Dec 11, 2025", "price": 10.8}, {"date": "Dec 12, 2025", "price": 10.3}, {"date": "Dec 15, 2025", "price": 10.16}, {"date": "Dec 16, 2025", "price": 9.77}, {"date": "Dec 17, 2025", "price": 9.62}, {"date": "Dec 18, 2025", "price": 9.85}, {"date": "Dec 19, 2025", "price": 10.47}, {"date": "Dec 22, 2025", "price": 10.47}, {"date": "Dec 23, 2025", "price": 10.28}, {"date": "Dec 24, 2025", "price": 10.25}, {"date": "Dec 26, 2025", "price": 10.53}, {"date": "Dec 29, 2025", "price": 9.96}, {"date": "Dec 30, 2025", "price": 10.0}, {"date": "Dec 31, 2025", "price": 10.19}, {"date": "Jan 02, 2026", "price": 10.35}, {"date": "Jan 05, 2026", "price": 10.57}, {"date": "Jan 06, 2026", "price": 10.55}, {"date": "Jan 07, 2026", "price": 10.55}, {"date": "Jan 08, 2026", "price": 10.31}, {"date": "Jan 09, 2026", "price": 10.45}, {"date": "Jan 12, 2026", "price": 10.37}, {"date": "Jan 13, 2026", "price": 10.25}, {"date": "Jan 14, 2026", "price": 9.96}, {"date": "Jan 15, 2026", "price": 10.21}, {"date": "Jan 16, 2026", "price": 10.16}, {"date": "Jan 20, 2026", "price": 9.96}, {"date": "Jan 21, 2026", "price": 9.89}, {"date": "Jan 22, 2026", "price": 10.1}, {"date": "Jan 23, 2026", "price": 10.09}, {"date": "Jan 26, 2026", "price": 10.29}, {"date": "Jan 27, 2026", "price": 9.83}, {"date": "Jan 28, 2026", "price": 10.06}, {"date": "Jan 29, 2026", "price": 10.18}, {"date": "Jan 30, 2026", "price": 10.08}, {"date": "Feb 02, 2026", "price": 10.0}, {"date": "Feb 03, 2026", "price": 9.9}, {"date": "Feb 04, 2026", "price": 10.26}, {"date": "Feb 05, 2026", "price": 10.16}, {"date": "Feb 06, 2026", "price": 10.34}, {"date": "Feb 09, 2026", "price": 10.49}, {"date": "Feb 10, 2026", "price": 10.65}, {"date": "Feb 11, 2026", "price": 10.5}, {"date": "Feb 12, 2026", "price": 10.04}, {"date": "Feb 13, 2026", "price": 11.55}, {"date": "Feb 17, 2026", "price": 12.17}, {"date": "Feb 18, 2026", "price": 12.25}, {"date": "Feb 19, 2026", "price": 12.23}, {"date": "Feb 20, 2026", "price": 12.72}, {"date": "Feb 23, 2026", "price": 12.75}, {"date": "Feb 24, 2026", "price": 12.85}, {"date": "Feb 25, 2026", "price": 13.5}, {"date": "Feb 26, 2026", "price": 13.52}, {"date": "Feb 27, 2026", "price": 13.77}, {"date": "Mar 02, 2026", "price": 14.2}, {"date": "Mar 03, 2026", "price": 14.2}, {"date": "Mar 04, 2026", "price": 14.33}, {"date": "Mar 05, 2026", "price": 14.19}, {"date": "Mar 06, 2026", "price": 13.89}, {"date": "Mar 09, 2026", "price": 13.95}, {"date": "Mar 10, 2026", "price": 14.13}, {"date": "Mar 11, 2026", "price": 14.0}, {"date": "Mar 12, 2026", "price": 13.1}, {"date": "Mar 13, 2026", "price": 13.62}, {"date": "Mar 16, 2026", "price": 13.78}, {"date": "Mar 17, 2026", "price": 13.93}, {"date": "Mar 18, 2026", "price": 13.06}, {"date": "Mar 19, 2026", "price": 13.27}, {"date": "Mar 20, 2026", "price": 12.65}, {"date": "Mar 23, 2026", "price": 12.96}, {"date": "Mar 24, 2026", "price": 13.2}, {"date": "Mar 25, 2026", "price": 13.24}, {"date": "Mar 26, 2026", "price": 12.95}, {"date": "Mar 27, 2026", "price": 12.47}, {"date": "Mar 30, 2026", "price": 12.28}, {"date": "Mar 31, 2026", "price": 12.52}, {"date": "Apr 01, 2026", "price": 12.37}, {"date": "Apr 02, 2026", "price": 12.56}, {"date": "Apr 06, 2026", "price": 12.72}, {"date": "Apr 07, 2026", "price": 12.11}, {"date": "Apr 08, 2026", "price": 12.39}, {"date": "Apr 09, 2026", "price": 13.7}, {"date": "Apr 10, 2026", "price": 13.6}, {"date": "Apr 13, 2026", "price": 13.52}, {"date": "Apr 14, 2026", "price": 13.79}, {"date": "Apr 15, 2026", "price": 13.4}, {"date": "Apr 16, 2026", "price": 13.25}, {"date": "Apr 17, 2026", "price": 13.45}, {"date": "Apr 20, 2026", "price": 13.42}, {"date": "Apr 21, 2026", "price": 12.73}, {"date": "Apr 22, 2026", "price": 12.38}, {"date": "Apr 23, 2026", "price": 12.35}, {"date": "Apr 24, 2026", "price": 11.8}, {"date": "Apr 27, 2026", "price": 11.71}, {"date": "Apr 28, 2026", "price": 11.21}, {"date": "Apr 29, 2026", "price": 11.28}, {"date": "Apr 30, 2026", "price": 10.85}, {"date": "May 01, 2026", "price": 11.02}, {"date": "May 04, 2026", "price": 11.2}, {"date": "May 05, 2026", "price": 11.2}, {"date": "May 06, 2026", "price": 11.28}, {"date": "May 07, 2026", "price": 11.29}, {"date": "May 08, 2026", "price": 11.7}, {"date": "May 11, 2026", "price": 11.56}, {"date": "May 12, 2026", "price": 11.92}, {"date": "May 13, 2026", "price": 12.2}, {"date": "May 14, 2026", "price": 12.5}, {"date": "May 15, 2026", "price": 11.92}, {"date": "May 18, 2026", "price": 12.0}, {"date": "May 19, 2026", "price": 11.71}, {"date": "May 20, 2026", "price": 11.76}, {"date": "May 21, 2026", "price": 11.42}, {"date": "May 22, 2026", "price": 11.04}, {"date": "May 26, 2026", "price": 10.85}, {"date": "May 27, 2026", "price": 11.13}, {"date": "May 28, 2026", "price": 11.26}, {"date": "May 29, 2026", "price": 11.11}, {"date": "Jun 01, 2026", "price": 11.2}, {"date": "Jun 02, 2026", "price": 11.15}, {"date": "Jun 03, 2026", "price": 11.18}, {"date": "Jun 04, 2026", "price": 11.18}, {"date": "Jun 05, 2026", "price": 11.06}, {"date": "Jun 08, 2026", "price": 11.24}, {"date": "Jun 09, 2026", "price": 11.17}, {"date": "Jun 10, 2026", "price": 11.04}, {"date": "Jun 11, 2026", "price": 11.16}, {"date": "Jun 12, 2026", "price": 11.01}, {"date": "Jun 15, 2026", "price": 11.0}, {"date": "Jun 16, 2026", "price": 11.15}, {"date": "Jun 17, 2026", "price": 11.2}, {"date": "Jun 18, 2026", "price": 11.17}, {"date": "Jun 22, 2026", "price": 11.05}, {"date": "Jun 23, 2026", "price": 11.15}, {"date": "Jun 24, 2026", "price": 11.0}, {"date": "Jun 25, 2026", "price": 11.03}, {"date": "Jun 26, 2026", "price": 11.4}, {"date": "Jun 29, 2026", "price": 11.96}, {"date": "Jun 30, 2026", "price": 11.76}, {"date": "Jul 01, 2026", "price": 11.84}, {"date": "Jul 02, 2026", "price": 11.69}, {"date": "Jul 06, 2026", "price": 11.75}, {"date": "Jul 07, 2026", "price": 11.27}, {"date": "Jul 08, 2026", "price": 11.69}, {"date": "Jul 09, 2026", "price": 11.67}, {"date": "Jul 10, 2026", "price": 11.71}, {"date": "Jul 13, 2026", "price": 11.71}, {"date": "Jul 14, 2026", "price": 12.3}, {"date": "Jul 15, 2026", "price": 11.72}, {"date": "Jul 16, 2026", "price": 12.01}, {"date": "Jul 17, 2026", "price": 12.14}, {"date": "Jul 20, 2026", "price": 12.15}, {"date": "Jul 21, 2026", "price": 11.81}, {"date": "Jul 22, 2026", "price": 11.59}, {"date": "Jul 23, 2026", "price": 11.67}, {"date": "Jul 24, 2026", "price": 11.73}, {"date": "Jul 27, 2026", "price": 11.69}, {"date": "Jul 28, 2026", "price": 12.07}, {"date": "Jul 29, 2026", "price": 12.23}, {"date": "Jul 30, 2026", "price": 12.11}, {"date": "Jul 31, 2026", "price": 11.79}, {"date": "Aug 03, 2026", "price": 12.2}, {"date": "Aug 04, 2026", "price": 11.95}, {"date": "Aug 05, 2026", "price": 11.98}, {"date": "Aug 06, 2026", "price": 11.98}, {"date": "Aug 07, 2026", "price": 11.5}]};
+        let currentRangeKey = '1Y';
+        let currentPoints = allDatasets[currentRangeKey] || [];
+        let currentSvgCoords = [];
+
+        const width = 900;
+        const height = 260;
+        const padX = 20;
+        const padY = 25;
+
+        const container = document.getElementById('chart-container');
+        const svg = document.getElementById('interactive-svg');
+        const linePath = document.getElementById('chart-line-path');
+        const areaPath = document.getElementById('chart-area-path');
+        const tooltipDate = document.getElementById('tooltip-date');
+        const tooltipPrice = document.getElementById('tooltip-price');
+        const crosshair = document.getElementById('crosshair-line');
+        const dot = document.getElementById('hover-dot');
+        const startLbl = document.getElementById('chart-start-lbl');
+        const endLbl = document.getElementById('chart-end-lbl');
+        const rangeTitle = document.getElementById('chart-range-title');
+
+        function recalculatePaths(points) {
+            if (!points || points.length < 2) return;
+            const prices = points.map(p => p.price);
+            const minP = Math.min(...prices);
+            const maxP = Math.max(...prices);
+            const pRange = Math.max(maxP - minP, 0.01);
+            const n = points.length;
+
+            currentSvgCoords = [];
+            for (let i = 0; i < n; i++) {
+                const x = padX + (i / (n - 1)) * (width - 2 * padX);
+                const y = height - padY - ((points[i].price - minP) / pRange) * (height - 2 * padY);
+                currentSvgCoords.push([Math.round(x * 10) / 10, Math.round(y * 10) / 10]);
+            }
+
+            const lineD = 'M ' + currentSvgCoords.map(c => c[0] + ',' + c[1]).join(' L ');
+            const firstC = currentSvgCoords[0];
+            const lastC = currentSvgCoords[currentSvgCoords.length - 1];
+            const areaD = lineD + ' L ' + lastC[0] + ',' + height + ' L ' + firstC[0] + ',' + height + ' Z';
+
+            linePath.setAttribute('d', lineD);
+            areaPath.setAttribute('d', areaD);
+
+            startLbl.innerText = points[0].date + ' ($' + minP.toFixed(2) + ')';
+            endLbl.innerText = points[n - 1].date + ' ($' + points[n - 1].price.toFixed(2) + ')';
+            
+            tooltipDate.innerText = points[n - 1].date;
+            tooltipPrice.innerText = '$' + points[n - 1].price.toFixed(2);
+
+            const titles = { '1Y': '1-Year Range', '5Y': '5-Year Range', '10Y': '10-Year Range', 'MAX': 'All-Time Historical Range' };
+            rangeTitle.innerText = titles[currentRangeKey] || currentRangeKey + ' Range';
+        }
+
+        window.switchChartRange = function(rangeKey) {
+            if (!allDatasets[rangeKey]) return;
+            currentRangeKey = rangeKey;
+            currentPoints = allDatasets[rangeKey];
+            
+            document.querySelectorAll('.range-pill').forEach(btn => {
+                if (btn.innerText.trim() === rangeKey) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            recalculatePaths(currentPoints);
+            hideHover();
+        };
+
+        function updateHover(e) {
+            if (!currentPoints.length || !currentSvgCoords.length) return;
+            const rect = svg.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const pct = Math.max(0, Math.min(1, mouseX / rect.width));
+            const idx = Math.round(pct * (currentPoints.length - 1));
+            
+            const pt = currentPoints[idx];
+            const coord = currentSvgCoords[idx];
+            if (!pt || !coord) return;
+
+            crosshair.setAttribute('x1', coord[0]);
+            crosshair.setAttribute('x2', coord[0]);
+            crosshair.style.display = 'block';
+
+            dot.setAttribute('cx', coord[0]);
+            dot.setAttribute('cy', coord[1]);
+            dot.style.display = 'block';
+
+            tooltipDate.innerText = pt.date;
+            tooltipPrice.innerText = '$' + pt.price.toFixed(2);
+        }
+
+        function hideHover() {
+            crosshair.style.display = 'none';
+            dot.style.display = 'none';
+            if (currentPoints.length) {
+                tooltipDate.innerText = currentPoints[currentPoints.length - 1].date;
+                tooltipPrice.innerText = '$' + currentPoints[currentPoints.length - 1].price.toFixed(2);
+            }
+        }
+
+        container.addEventListener('mousemove', updateHover);
+        container.addEventListener('mouseleave', hideHover);
+        container.addEventListener('touchstart', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
+        container.addEventListener('touchmove', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
+        container.addEventListener('touchend', hideHover);
+
+        recalculatePaths(currentPoints);
+    })();
+    </script>
+    
+
+            <!-- Key Metrics Grid -->
+            <div class="metrics-grid" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));">
+                <div class="metric-cell">
+                    <div class="metric-label">Fair Value</div>
+                    <div class="metric-value" style="color: var(--accent-warm);">$15.00</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Bear Target</div>
+                    <div class="metric-value" style="color: var(--accent-red);">$9.50 (-17.4%)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Base Target</div>
+                    <div class="metric-value">$15.00 (+30.4%)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Bull Target</div>
+                    <div class="metric-value" style="color: var(--accent-green);">$19.50 (+69.6%)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Alert Corridor</div>
+                    <div class="metric-value" style="font-size: 1.05rem; font-family: var(--font-mono); color: var(--text-title);">$9.80 ⇄ $14.50</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Next Catalyst</div>
+                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">2026-09-24</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation Tabs -->
+        <div class="tabs-header">
+            <button class="tab-btn active" onclick="showTab('memo')">Investment Thesis</button>
+            <button class="tab-btn" onclick="showTab('history')">Evolution (0)</button>
+        </div>
+
+        <!-- Memo Content -->
+        <div id="tab-memo" class="tab-content active">
+            <article class="memo-container">
+                <div class="section">
+  <h2>Section 1: Business Overview & Healthcare Moat</h2>
+  
+  <p>Legacy Education Inc. (NYSE American: LGCY) operates a dedicated, career-focused post-secondary education platform specializing in allied health and medical professions. The company's operational footprint spans <strong>four distinct institutions across six physical campuses</strong> in California:</p>
+  
+  <ul>
+    <li><strong>High Desert Medical College (HDMC):</strong> Campuses in Lancaster, Bakersfield, and Temecula, CA.</li>
+    <li><strong>Central Coast College (CCC):</strong> Campus in Salinas, CA.</li>
+    <li><strong>Contra Costa Medical Career College (CCMCC):</strong> Campus in Antioch, CA (acquired in December 2024).</li>
+    <li><strong>Integrity College of Health (ICH):</strong> Campus in Pasadena, CA.</li>
+  </ul>
+
+  <p>LGCY's economic engine is anchored in providing vocational diplomas and Associate of Applied Science (AAS) degrees tailored directly to regional healthcare workforce shortages. Unlike broader liberal arts or general technical schools, Legacy focuses on clinical trades where employer demand is acute, state licensing requirements create barriers to entry, and student outcomes dictate institutional longevity.</p>
+
+  <h3>Key Program Offerings & Training Ecosystem</h3>
+  
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Program Discipline</th>
+        <th>Credential Level</th>
+        <th>Primary Campus Locations</th>
+        <th>Target Career & Industry Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Vocational Nursing (VN)</strong></td>
+        <td>Diploma / Certificate</td>
+        <td>HDMC (Bakersfield, Lancaster), CCC (Salinas)</td>
+        <td>Licensed Vocational Nurse (LVN) in hospitals & clinics</td>
+      </tr>
+      <tr>
+        <td><strong>Surgical Technology</strong></td>
+        <td>AAS Degree</td>
+        <td>HDMC (Lancaster), CCC (Salinas)</td>
+        <td>Surgical Technologist in operating rooms</td>
+      </tr>
+      <tr>
+        <td><strong>Diagnostic & Cardiac Sonography / MRI</strong></td>
+        <td>AAS Degree</td>
+        <td>ICH (Pasadena), CCC (Salinas), CCMCC (Antioch)</td>
+        <td>Ultrasound, Cardiac Sonographer & MRI Technologist</td>
+      </tr>
+      <tr>
+        <td><strong>Sterile Processing</strong></td>
+        <td>Certificate</td>
+        <td>HDMC (Lancaster, Temecula)</td>
+        <td>Sterile Processing & Distribution Technician</td>
+      </tr>
+      <tr>
+        <td><strong>Medical & Dental Assisting</strong></td>
+        <td>Diploma / Certificate</td>
+        <td>All Campuses (HDMC, CCC, CCMCC, ICH)</td>
+        <td>Clinical/Administrative Assistant, Dental Assistant</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <h3>Structural Healthcare Shortages as a Macro Tailwind</h3>
+  <p>The core catalyst behind Legacy's enrollment durability is the severe, persistent labor shortage across U.S. allied health sectors. Driven by an aging population, nurse and technician burnout, and expanding outpatient infrastructure, regional hospital systems and private medical clinics face persistent staffing deficits. Because LGCY's programs offer rapid, high-yield pathways to employment (often 9 to 24 months), student demand remains resilient across economic cycles.</p>
+
+  <h3>Accreditation, Regulatory Compliance & Moat Structure</h3>
+  <p>Regulatory oversight and accreditation represent significant moats in post-secondary education, serving as crucial barriers to entry for potential competitors:</p>
+  
+  <ul>
+    <li><strong>ACCET Reaccreditation:</strong> In March 2026, Legacy announced that Contra Costa Medical Career College (CCMCC) earned a full 5-year grant of reaccreditation from the Accrediting Council for Continuing Education & Training (ACCET), a national accrediting agency recognized by the U.S. Department of Education. Additionally, Integrity College of Health secured a 6-year reaccreditation grant from ABHES (Accrediting Bureau of Health Education Schools) in February 2026.</li>
+    <li><strong>State Approval & Licensing:</strong> All institutions operate with state licensure from California's Bureau for Private Postsecondary Education (BPPE) and program-specific approvals from professional licensing bodies (e.g., California Board of Vocational Nursing and Psychiatric Technicians).</li>
+    <li><strong>Title IV & 90/10 Compliance:</strong> Maintenance of Title IV federal financial aid eligibility requires strict adherence to federal standards, including the 90/10 Rule (mandating that no more than 90% of revenue originates from federal Title IV funds) and Cohort Default Rate (CDR) thresholds. LGCY maintains a disciplined compliance framework that protects its access to federal student loans and Pell Grants.</li>
+  </ul>
+
+  <div class="callout">
+    <p><strong>Management Commentary on Program Demand & Outcomes:</strong></p>
+    <p><em>"Our outcomes are strong, and these programs that we have added are high in demand and the employers are seeking us out directly for graduate placements."</em> — <strong>LeeAnn Rohmann, CEO of Legacy Education Inc.</strong></p>
+  </div>
+
+  <h3>Competitive Positioning vs. Community Colleges & Proprietary Peers</h3>
+  <p>Community colleges offer low tuition but frequently suffer from 1- to 3-year waitlists for specialized clinical slots (such as Nursing and Sonography) due to strict faculty-to-student ratio caps and budget constraints. Legacy competes by offering guaranteed, accelerated cohort starts, modern simulation labs, and direct career placement assistance. Compared to generalist for-profit post-secondary operators, LGCY's pure-play focus on healthcare insulates it from broader shifts in online degree preferences, as clinical training requires mandatory, hands-on, in-person lab instruction.</p>
+</div>
+
+<div class="section">
+  <h2>Section 2: Latest Quarterly Performance & Operational Momentum</h2>
+
+  <p>Legacy Education reported its fiscal third-quarter 2026 financial results for the period ended March 31, 2026, demonstrating continued top-line growth, disciplined margin management, and steady operational expansion.</p>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Q3 FY26 Revenue</div>
+      <div class="metric-value">$21.4M</div>
+      <div class="metric-delta pos">+15.0% YoY</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">9M FY26 Revenue</div>
+      <div class="metric-value">$60.0M</div>
+      <div class="metric-delta pos">+29.7% YoY</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Total Student Population</div>
+      <div class="metric-value">3,550</div>
+      <div class="metric-delta pos">+9.4% YoY</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Q3 Adjusted EBITDA</div>
+      <div class="metric-value">$4.4M</div>
+      <div class="metric-delta pos">+12.6% YoY</div>
+    </div>
+  </div>
+
+  <h3>Detailed Financial Performance Breakdown</h3>
+  
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Financial / Operational Metric</th>
+        <th>Q3 FY26 (3 Months)</th>
+        <th>Q3 FY25 (3 Months)</th>
+        <th>9M FY26 (9 Months)</th>
+        <th>9M FY25 (9 Months)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Total Revenue</strong></td>
+        <td>$21.4M</td>
+        <td>$18.6M (+15.0%)</td>
+        <td>$60.0M</td>
+        <td>$46.2M (+29.7%)</td>
+      </tr>
+      <tr>
+        <td><strong>Net Income</strong></td>
+        <td>$3.03M</td>
+        <td>$2.82M (+7.5%)</td>
+        <td>$7.26M</td>
+        <td>$6.31M (+15.1%)</td>
+      </tr>
+      <tr>
+        <td><strong>Diluted EPS</strong></td>
+        <td>$0.22</td>
+        <td>$0.21 (+4.8%)</td>
+        <td>$0.52</td>
+        <td>$0.51 (+2.0%)</td>
+      </tr>
+      <tr>
+        <td><strong>Adjusted EBITDA</strong></td>
+        <td>$4.4M</td>
+        <td>$3.9M (+12.6%)</td>
+        <td>$10.5M</td>
+        <td>$8.6M (+22.3%)</td>
+      </tr>
+      <tr>
+        <td><strong>Total Student Enrollment</strong></td>
+        <td>3,550</td>
+        <td>3,245 (+9.4%)</td>
+        <td>3,550</td>
+        <td>3,245 (+9.4%)</td>
+      </tr>
+      <tr>
+        <td><strong>New Student Starts</strong></td>
+        <td>1,078</td>
+        <td>1,227 (-12.1%)</td>
+        <td>2,788</td>
+        <td>2,474 (+12.7%)</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <h3>Operational Metrics & Top-of-Funnel Dynamics</h3>
+  <p>Total student count expanded to <strong>3,550 students</strong> as of March 31, 2026, representing a 9.4% year-over-year increase. On a 9-month basis, new student starts grew 12.7% to 2,788. However, quarterly new student starts in Q3 FY26 moderated to 1,078 compared to an exceptionally high prior-year comparison quarter (1,227 starts in Q3 FY25), reflecting a normalization toward organic student growth following the integration of recent campus additions.</p>
+
+  <p>Educational services expenses improved operationally, dropping to <strong>51.7% of revenue ($11.0M)</strong> in Q3 FY26 compared to 54.4% of revenue ($10.1M) in Q3 FY25. General and administrative expenses stood at $6.2M (28.8% of revenue), reflecting ongoing corporate investments in marketing and multi-campus infrastructure expansion. LGCY maintains a conservative capital structure, ending the quarter with <strong>$21.7M in cash & equivalents</strong>, $30.9M in working capital, and low total debt of ~$0.6M.</p>
+
+  <div class="callout">
+    <p><strong>CEO Commentary on Execution & Growth Strategy:</strong></p>
+    <p><em>"Our Q3 results demonstrate the strength of our execution and the effectiveness of our growth strategies. As we continue to expand our footprint, strengthen enrollment, and invest in high-demand healthcare programs, we look forward to sharing our progress and executing on our long-term roadmap."</em> — <strong>LeeAnn Rohmann, CEO of Legacy Education Inc.</strong></p>
+  </div>
+
+  <h3>Facility Expansions & Capacity Scaling</h3>
+  <p>To support its medium-term enrollment target, Legacy is actively expanding physical square footage across core campuses:</p>
+  
+  <ul>
+    <li><strong>Lancaster Campus Expansion:</strong> Added 6,000 square feet to its existing 26,000 square foot facility to accommodate expanding lab cohorts for Surgical Technology and Nursing.</li>
+    <li><strong>Temecula Campus Expansion:</strong> Phased expansion across a 53,000 square foot facility footprint to significantly elevate regional capacity.</li>
+    <li><strong>Capacity Impact:</strong> Management projects that the physical expansions at Lancaster and Temecula will unlock total capacity to add approximately <strong>1,200 to 1,500 additional students</strong> over the next 12 to 24 months.</li>
+  </ul>
+
+  <h3>New Program Rollouts & Out-of-State Horizon</h3>
+  <p>LGCY continues to broaden its programmatic roster following recent ACCET approvals for the <em>Surgical Technology AAS</em> and <em>Sterile Processing Technician Certificate</em> at High Desert Medical College, as well as <em>Cardiac Sonography AAS</em> and <em>MRI AAS</em> at Central Coast College. On its Q3 FY26 earnings call, executive management also confirmed that the company has executed a Branch Letter of Intent and is preparing for branch expansion into geographic markets <strong>outside of California</strong>, marking the next stage in its strategic evolution.</p>
+</div>
+
+### Section 3: Owner Earnings, Cash Conversion & SBC Audit
+
+#### Cash Flow Quality & Owner Earnings Breakdown
+For the nine months ended March 31, 2026 (9M FY26), Legacy Education Inc. (LGCY) reported GAAP Net Income of **$7.26M** ($7,258,957), representing an increase from $6.31M in 9M FY25. Cash flow generation remains high-quality, driven by an upfront tuition collection model supported by Title IV federal funding and direct student payment plans. 
+
+Operating cash flows closely track GAAP earnings, generating **$7.77M** on an LTM basis and achieving an operating cash flow conversion rate above **100%** of net income.
+
+<div class="callout">
+  <strong>Key Cash Flow &amp; Liquidity Takeaway:</strong> Legacy Education demonstrates exceptional cash conversion, turning $7.26M of 9M FY26 GAAP net income into robust operating cash flow without reliance on aggressive working capital adjustments. With $21.68M in liquid cash against $15.52M in total liabilities (including GAAP lease obligations), LGCY maintains a net cash cushion of ~$6.16M ($20.98M net cash against traditional debt alone), providing self-funded capital for campus expansions.
+</div>
+#### CapEx Allocation: Maintenance vs. Growth Expansion
+Legacy Education's core business is capital-light, requiring minimal baseline maintenance CapEx to maintain operational classrooms and accredited laboratories. However, capital expenditures have expanded as management executes its organic growth strategy:
+
+* **Maintenance CapEx:** Historically under **$0.5M annually** (~0.8%–1.2% of revenue), covering standard IT infrastructure, medical equipment replacement, and routine campus repairs across existing facilities.
+* **Expansion CapEx:** Capital deployment is directed toward high-ROI facility upgrades and footprint additions, including:
+  1. Surgical Technology and Sterile Processing lab buildouts at the **Lancaster** and **Temecula** campuses.
+  2. The launch of new Associate of Applied Science (AAS) degree programs (MRI AAS, Cardiac Sonography AAS) at **Central Coast College**.
+  3. A 53,000 sq. ft. multi-tenant industrial facility lease in **Wildomar, California** (commenced April 1, 2026) to expand Allied Health degree capacity across multiple phases through 2028.
+
+#### Stock-Based Compensation (SBC) & Economic Dilution Audit
+In evaluating true Owner Earnings, Stock-Based Compensation (SBC) is treated as an economic cash expense due to its dilutive impact on existing shareholders:
+
+* **Post-IPO Share Expansion:** Since its September 2024 initial public offering (which issued 2.0M shares at $6.00/share, raising ~$10.28M net), Legacy Education's share count has expanded gradually via equity incentive grants and option exercises.
+* **Basic vs. Diluted Share Gap:**
+  * **Basic Weighted Average Shares:** **12.62M shares** (12,617,328).
+  * **Diluted Weighted Average Shares:** **14.06M shares** (14,064,470).
+  * **Dilution Spread:** The **1.44M share variance** represents a **11.4% potential economic dilution** overhang stemming from unvested RSUs, stock options, and underwriter warrants.
+* **SBC Cash Impact:** Non-cash compensation charges totaled ~$0.45M annually, representing a manageable ~6% drag on net earnings. Management has avoided aggressive, hyper-dilutive equity grant structures common in micro-cap equities.
+
+#### Capital Deployment Framework: M&A vs. Organic Pivot
+Legacy Education is undergoing a strategic shift in capital allocation:
+1. **Accretive M&A (Historical Growth Driver):** M&A accounts for ~37% of LGCY’s current student enrollment. The landmark **$8.0M acquisition of Contra Costa Medical Career College (CCMCC)** in December 2024 added over 1,200 annual graduates and 16 allied health programs.
+2. **Organic Branch Expansion (Current Focus):** Management is shifting focus toward organic expansion, utilizing its cash balance to open new program branches and secure accreditation approvals outside California. Active LOIs and selective M&A remain in the pipeline, but targets must meet strict financial criteria (immediately accretive, high-demand healthcare programs).
+
+---
+
+### Section 4: Capital Structure & Institutional Ownership Real-Time Snapshot
+
+#### Balance Sheet Health & Debt Profile
+Legacy Education operates a conservative balance sheet with no burdensome bank debt or high-yield notes. Total debt stands at **$15.52M**, consisting primarily of GAAP operating lease liabilities associated with long-term campus facility leases, while traditional funded debt/notes payable remain minimal at **~$0.70M**.
+
+<div class="metrics-grid">
+  <div class="metric-card">
+    <div class="metric-label">Cash &amp; Equivalents</div>
+    <div class="metric-value">$21.68M</div>
+    <div class="metric-delta pos">High Liquidity</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-label">Total Debt &amp; Leases</div>
+    <div class="metric-value">$15.52M</div>
+    <div class="metric-delta pos">Minimal Funded Debt</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-label">Net Cash Position</div>
+    <div class="metric-value">$6.16M</div>
+    <div class="metric-delta pos">Solvent Foundation</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-label">Stockholders' Equity</div>
+    <div class="metric-value">$49.50M</div>
+    <div class="metric-delta pos">+20.6% YoY</div>
+  </div>
+</div>
+#### Net Interest Income Dynamics
+Because LGCY maintains a strong cash position ($21.68M) and low traditional debt (~$0.70M), the business generates positive **Net Interest Income**:
+* **Quarterly Interest Income:** **~$0.32M** earned on treasury/cash yields.
+* **Quarterly Interest Expense:** **~$0.01M** paid on minor equipment financing and debt obligations.
+* **Economic Benefit:** Net interest income adds **~$0.31M per quarter** directly to pre-tax income, shielding earnings from high interest rate environments.
+
+#### Capital Structure & Financial Overview
+The table below contrasts Legacy Education's capital structure and key cash flow metrics:
+
+<div class="table-scroll-wrap"><table>
+  <thead>
+    <tr>
+      <th>Financial &amp; Capital Metric</th>
+      <th>9M FY26 / Q3 FY26 Value</th>
+      <th>9M FY25 / Prior Period</th>
+      <th>Economic Interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>GAAP Net Income</strong></td>
+      <td>$7.26M</td>
+      <td>$6.31M</td>
+      <td>+15.1% YoY net earnings expansion</td>
+    </tr>
+    <tr>
+      <td><strong>Cash Flow from Operations (LTM)</strong></td>
+      <td>$7.77M</td>
+      <td>$7.80M</td>
+      <td>Strong >100% earnings-to-cash conversion</td>
+    </tr>
+    <tr>
+      <td><strong>Cash &amp; Equivalents</strong></td>
+      <td>$21.68M</td>
+      <td>$11.40M</td>
+      <td>Liquidity up significantly post-IPO &amp; earnings retention</td>
+    </tr>
+    <tr>
+      <td><strong>Traditional Debt (Notes Payable)</strong></td>
+      <td>$0.70M</td>
+      <td>$0.95M</td>
+      <td>Minimal funded debt load; low default risk</td>
+    </tr>
+    <tr>
+      <td><strong>Operating Lease Liabilities (GAAP)</strong></td>
+      <td>$14.82M</td>
+      <td>$12.10M</td>
+      <td>Campus facility leases (Wildomar, Lancaster, Temecula)</td>
+    </tr>
+    <tr>
+      <td><strong>Net Cash (Total Cash - Total Obligations)</strong></td>
+      <td>$6.16M</td>
+      <td>-$1.65M</td>
+      <td>Positive net liquidity stance</td>
+    </tr>
+    <tr>
+      <td><strong>Basic Common Share Count</strong></td>
+      <td>12.62M shares</td>
+      <td>11.31M shares</td>
+      <td>Reflects September 2024 IPO share issuance</td>
+    </tr>
+    <tr>
+      <td><strong>Fully Diluted Share Count</strong></td>
+      <td>14.06M shares</td>
+      <td>12.46M shares</td>
+      <td>11.4% dilution overhang from equity plans/warrants</td>
+    </tr>
+  </tbody>
+</table></div>
+
+#### Institutional Ownership & Wall Street Sponsorship
+Official SEC 13F filings confirm institutional interest in LGCY, driven by investment banks and micro-cap growth funds:
+
+* **Key Institutional Holders & Underwriters:** 
+  * **Ladenburg Thalmann & Co.:** Active institutional market maker and banking partner.
+  * **Northland Capital Markets:** Institutional coverage (Analyst Mike Grondahl) maintaining growth targets.
+  * **Argus Research & Micro-Cap Funds:** Specialized institutional equity research and small-cap value asset managers holding long positions.
+* **Institutional Concentration:** Top institutional holders control a combined **~64.3%** of the public float, limiting retail volatility but resulting in relatively light average daily trading volume (~73.6K shares).
+
+#### Insider Alignment & CEO Holdings
+Management incentives are aligned with public equity holders:
+
+* **Founder & CEO LeeAnn Rohmann:**
+  * **Beneficial Ownership:** Holds **~10.6%** of basic outstanding shares (~883,123 shares) primarily through *The LeeAnn Rollings Rohmann Trust U/A DTD 03/24/2025*.
+  * **Rule 10b5-1 Trading Plan:** CEO Rohmann established a pre-arranged 10b5-1 trading plan on March 6, 2026, authorizing the structured sale of up to 60,000 shares through June 2027 (~6.8% of her total position). Minor open-market sales (e.g., 5,000 shares at ~$11.50 in July 2026) under this plan reflect routine liquidity management rather than a shift in fundamental conviction.
+* **Executive Management & Board:** Total insider ownership exceeds **15%**, ensuring executive compensation remains tied to long-term return on invested capital (ROIC) and disciplined campus expansion.
+
+### Section 5: Back-of-the-Napkin Intrinsic Valuation Framework
+
+To value **Legacy Education Inc. (NYSE American: LGCY)** without anchoring to prevailing market sentiment, we deploy a clean, unanchored **Owner Earnings / Post-SBC Free Cash Flow Framework** grounded in the company's latest SEC filings (Form 10-Q for Q3 FY2026 ended March 31, 2026). 
+
+#### Baseline Financials & Owner Earnings Baseline
+- **TTM Revenue:** ~$75.6M (extrapolated from $60.0M in 9M FY26)
+- **TTM Net Income:** ~$8.5M
+- **TTM Adjusted EBITDA:** ~$11.8M
+- **Normalized Post-SBC Owner Earnings (FCF):** **$8.2M** (reflecting cash flow from operations minus routine maintenance CapEx and fully deducting stock-based compensation as a real cash dilutive expense).
+- **Diluted Share Count:** **14.06M shares**.
+
+<div class="metrics-grid">
+  <div class="metric-card">
+    <div class="metric-label">TTM Net Income</div>
+    <div class="metric-value">$8.50M</div>
+    <div class="metric-delta pos">+15.1% YoY</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-label">TTM Adjusted EBITDA</div>
+    <div class="metric-value">$11.80M</div>
+    <div class="metric-delta pos">+22.3% YoY</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-label">Normalized Owner Earnings</div>
+    <div class="metric-value">$8.20M</div>
+    <div class="metric-delta pos">Post-SBC Cash Baseline</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-label">Net Cash Bridge</div>
+    <div class="metric-value">+$0.44 / share</div>
+    <div class="metric-delta pos">$6.16M Net Cash</div>
+  </div>
+</div>
+
+#### Net Cash Balance Sheet Bridge
+- **Cash & Cash Equivalents:** $21.68M
+- **Total Interest-Bearing Obligations / Capital Debt:** ~$15.52M total liabilities (with minimal ~$1.1M direct long-term debt)
+- **Net Cash Position:** **$6.16M**
+- **Net Cash Per Diluted Share:** `$6.16M / 14.06M shares =` **+$0.44 per share**.
+
+#### 3-5 Year Valuation Scenario Modeling
+
+We model Legacy Education’s 3-5 year compounding profile across three sensible operating outcomes. Valuation targets combine the capitalized 5-year forward Owner Earnings per share with the **+$0.44 net cash bridge**.
+
+<div class="table-scroll-wrap"><table>
+  <thead>
+    <tr>
+      <th>Valuation Scenario</th>
+      <th>3-5 Yr FCF Growth</th>
+      <th>Terminal Multiple</th>
+      <th>Intrinsic Fair Value</th>
+      <th>Implied Return vs. $11.50 Ref</th>
+      <th>Core Operational Assumptions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Bear Case</strong></td>
+      <td>5.0% CAGR</td>
+      <td>9.0x Owner Earnings</td>
+      <td><strong>$9.50 / share</strong></td>
+      <td>-17.4%</td>
+      <td>Campus expansion stalls; California healthcare regulatory friction slows program launches; enrollment growth moderates below 5%.</td>
+    </tr>
+    <tr>
+      <td><strong>Base Case</strong></td>
+      <td>12.0% CAGR</td>
+      <td>12.0x Owner Earnings</td>
+      <td><strong>$15.00 / share</strong></td>
+      <td>+30.4%</td>
+      <td>Steady capacity utilization at expanded Lancaster and Temecula campuses; addition of 200–400 students/campus over 1–2 years; successful launch of new MRI/Sonography programs.</td>
+    </tr>
+    <tr>
+      <td><strong>Bull Case</strong></td>
+      <td>18.0% CAGR</td>
+      <td>15.0x Owner Earnings</td>
+      <td><strong>$19.50 / share</strong></td>
+      <td>+69.6%</td>
+      <td>Seamless execution on out-of-state branch expansion (600–800 student capacity); accretive healthcare education M&A; EBITDA margins expanding past 20%.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+---
+
+### Section 6: Thesis Confidence, Execution Risks & Invalidation Triggers
+
+<div class="callout">
+  <strong>Thesis Conviction Level: ASYMMETRIC UPSIDE</strong><br/>
+  Legacy Education presents a compelling risk/reward setup backed by structural demand for essential healthcare workers (nursing, ultrasound, medical assisting). The company trades at reasonable post-SBC Owner Earnings multiples while generating double-digit top-line and earnings growth. However, the path to realizing the target valuation requires flawless execution in complex regional labor markets, strict regulatory compliance, and tight cost discipline.
+</div>
+
+#### Execution & Operational Complexity Risks
+1. **Clinical Externship Placements:** Healthcare career programs (such as Vocational Nursing and Diagnostic Medical Sonography) rely on securing and maintaining third-party hospital and clinic externship slots. Inability to scale clinical partnerships in expanded geographies creates enrollment bottlenecks.
+2. **Faculty Hiring & Retention:** Tight labor supply for qualified nursing and medical instructors in California places upward pressure on salary expenses, threatening to compress EBITDA margins.
+3. **Out-of-State Branch Rollout:** Opening new branch locations outside California introduces multi-state accreditation and licensing hurdles that may delay revenue ramp-up.
+
+#### Regulatory & Macro Risk Matrix
+- **Title IV 90/10 Rule Compliance:** As a for-profit institution, LGCY must ensure no more than 90% of its revenue derives from federal student aid programs. Non-compliance triggers immediate loss of Title IV eligibility.
+- **Accreditation Requirements:** Maintenance of national institutional accreditation (ACCET, ABHES) and state licensing (e.g., California BPPE) is critical. Programmatic probationary status or audit findings represent catastrophic operational tail-risks.
+- **Federal Student Loan Regulatory Shifts:** Potential changes in federal borrowing caps, gainful employment metrics, or financial responsibility standards could alter student affordability profiles.
+
+<div class="callout">
+  <strong>Falsification Triggers (Pre-Mortem Thesis Invalidation Rules):</strong>
+  <ul>
+    <li><strong>Student Start Deterioration:</strong> Quarterly new student starts fall below 800 for two consecutive quarters (indicating market saturation or clinical placement bottlenecks).</li>
+    <li><strong>Margin Erosion:</strong> Adjusted EBITDA margin compresses below 15.0% due to unhedged G&A or instructor wage inflation.</li>
+    <li><strong>Regulatory Audit Violation:</strong> Any material Title IV non-compliance finding or loss of institutional accreditation at a core campus (e.g., High Desert Medical College).</li>
+  </ul>
+</div>
+
+#### Dynamic Surveillance & Price Alert Corridors
+
+The automated monitoring system maintains active price surveillance around two strategic valuation thresholds:
+
+- **Upper Alert Threshold ($14.50 / share):** *Trim / Fair Value Realization Trigger.* Approaches the Base Case intrinsic value target ($15.00). Crossing above this level triggers an automatic review to evaluate whether top-line compounding warrants upgrading to Bull Case assumptions or systematically taking profits.
+- **Lower Alert Threshold ($9.80 / share):** *Margin-of-Safety Test Trigger.* Nears the Bear Case floor ($9.50). Crossing below $9.80 prompts an immediate thesis audit to determine whether the pull-back is an irrational macro dip offering deep value or an early signal of fundamental thesis breakdown (e.g., enrollment drop or Title IV inquiry).
+            </article>
+        </div>
+
+        <!-- History Content -->
+        <div id="tab-history" class="tab-content">
+            
+        <div class="empty-state-box" style="background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px; padding: 75px 24px;">
+            <div class="empty-state-title">Initial Baseline Active</div>
+            <div class="empty-state-sub">Version 1 represents the initial underwriting thesis. Future revisions, price trigger reviews, and catalyst audits will be logged here</div>
+        </div>
+        
+        </div>
+    </main>
+
+    <script>
+        function showTab(id) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            if (id === 'memo') {
+                document.querySelectorAll('.tab-btn')[0].classList.add('active');
+                document.getElementById('tab-memo').classList.add('active');
+            } else {
+                document.querySelectorAll('.tab-btn')[1].classList.add('active');
+                document.getElementById('tab-history').classList.add('active');
+            }
+        }
+
+        function toggleSnapshot(ver) {
+            const el = document.getElementById('snapshot-' + ver);
+            el.style.display = (el.style.display === 'none' ? 'block' : 'none');
+        }
+    </script>
+</body>
+</html>
