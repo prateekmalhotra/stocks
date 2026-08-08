@@ -747,6 +747,74 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             border-radius: 4px;
         }}
 
+        /* FINANCIAL METRIC CARDS & STAT GRIDS */
+        .metrics-grid, .stats-grid, .grid-3, .grid-4, .grid-2, .metric-grid {{
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+            gap: 16px !important;
+            margin: 28px 0 !important;
+        }}
+        .metric-card, .stat-card, div[class*="metric-box"], div[class*="stat-box"], div[class*="kpi-card"] {{
+            background: var(--bg-subpanel) !important;
+            background-color: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-radius: 10px !important;
+            padding: 18px 20px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            box-sizing: border-box !important;
+        }}
+        .metric-label, .stat-label, .kpi-label {{
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            color: var(--text-secondary) !important;
+            margin-bottom: 6px !important;
+        }}
+        .metric-value, .stat-value, .kpi-value {{
+            font-family: var(--font-mono) !important;
+            font-size: 1.4rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            letter-spacing: -0.02em !important;
+            line-height: 1.2 !important;
+            margin-bottom: 4px !important;
+        }}
+        .metric-delta, .metric-sub, .stat-sub, .kpi-sub {{
+            font-family: var(--font-mono) !important;
+            font-size: 0.82rem !important;
+            color: var(--accent-warm) !important;
+        }}
+
+        /* EMBEDDED IMAGES, CHARTS & VISUAL INFOGRAPHICS */
+        .figure-container, figure {{
+            margin: 32px 0 !important;
+            text-align: center !important;
+            background: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-radius: 12px !important;
+            padding: 16px !important;
+            overflow: hidden !important;
+        }}
+        .memo-container img {{
+            max-width: 100% !important;
+            height: auto !important;
+            border-radius: 8px !important;
+            display: block !important;
+            margin: 0 auto !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+        }}
+        .figure-caption, figcaption {{
+            font-family: var(--font-sans) !important;
+            font-size: 0.8rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 10px !important;
+            text-align: center !important;
+        }}
+
         /* Evolution Update Highlight Banner at top of Memo */
         .update-banner-box {{
             background: #1C1B18 !important;

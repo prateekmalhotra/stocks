@@ -199,12 +199,20 @@ CORE PRINCIPLES & GUIDELINES:
    - Assess how confident you are in the fair value estimate and how easy, safe, complex, or fragile the path to reaching it is.
    - Explicitly evaluate execution risk: How much can bad management execution, credit losses, or adverse macro kill this thesis, and how wide is the true margin of safety?
 
-4. Dynamic Labels (First Label is ALWAYS Primary Confidence / Risk Profile):
+4. Premium Editorial Aesthetics & Zero Ugly Formatting:
+   - NEVER output ugly raw lines of text for financial figures or KPIs.
+   - Present quarterly financial performance and metrics using EITHER:
+     1. Metric Stat Cards: `<div class="metrics-grid"><div class="metric-card"><div class="metric-label">Q1 Revenue</div><div class="metric-value">R$ 3.58B</div><div class="metric-delta pos">+6.5% YoY</div></div>...</div>`
+     2. Structured HTML Tables: `<table><thead><tr><th>Metric</th><th>Q1 2026</th><th>YoY Growth</th></tr></thead><tbody>...</tbody></table>`
+   - Use Callout boxes (`<div class="callout">...</div>`) for key insights, management quotes, and pre-mortem falsification triggers.
+   - You may search and embed relevant official product photos, diagrams, or company assets via `<img>` or `<div class="figure-container"><img src="url" alt="description" /><div class="figure-caption">Caption</div></div>`.
+
+5. Dynamic Labels (First Label is ALWAYS Primary Confidence / Risk Profile):
    - Label #1 (MANDATORY PRIMARY PILL): Must tell the investor in MAX 2 WORDS the thesis confidence, execution risk, and reliability of the opportunity (e.g., "High Conviction", "Safe Compounder", "Turnaround Risk", "Speculative Bet", "Deep Value", "High Risk", "Asymmetric Upside", "Execution Heavy", "Defensive Quality").
    - Labels #2 & #3 (OPTIONAL DRIVERS): Specific economic play nature or key catalyst driver (e.g., "Buyback Cannibal", "Operating Leverage", "Moat Expansion", "Deleveraging Play").
    - NEVER use generic industry/sector names (avoid tags like "Latam Fintech" or "Payments Credit").
 
-5. Down-to-Earth Ballpark Valuation:
+6. Down-to-Earth Ballpark Valuation:
    - Keep valuations simple, realistic, and level-headed (e.g. a clear Bear / Base / Bull scenario range with expected 3-year annualized returns).
 """
 
@@ -223,6 +231,10 @@ Key Areas to Investigate via Real-Time Filings, Earnings Calls & Announcements:
 - Real Cash Flow, SBC & Capital Structure: Real cash generation (treating SBC as a cash charge), dilution vs. buybacks, Net Cash/Debt, and capital allocation.
 - Ownership & Catalysts: Verified active 13F whale positions from latest official filings (exclude exited investors), management alignment, and upcoming catalysts.
 - Thesis Confidence, Execution Risk & Ballpark Valuation: Down-to-earth Bear / Base / Bull scenario range (using localized risk-free/discount rates if international), how confident we are in reaching fair value, how much bad execution can hurt the thesis, and explicit falsification triggers.
+
+Editorial Aesthetics Mandate:
+- Format all financial KPIs and quarterly numbers into `<div class="metrics-grid"><div class="metric-card">...</div></div>` or structured HTML tables. Zero raw text dumps.
+- Sub-agents can include relevant official product images or diagrams via `<div class="figure-container"><img src="..." alt="..." /><div class="figure-caption">...</div></div>`.
 
 Labels Directive:
 - Label #1 (MANDATORY PRIMARY PILL): Must state in max 2 words the confidence, execution complexity, and risk/safety profile (e.g. "High Conviction", "Safe Compounder", "Turnaround Risk", "Speculative Bet", "Deep Value", "High Risk", "Asymmetric Upside", "Execution Heavy", "Defensive Quality").
@@ -251,11 +263,11 @@ Return your plan strictly as a JSON object in ```json ... ```:
   "sub_agents": [
     {{
       "role": "<Sub-Agent 1 Role Name, e.g. Business Model & Moat Specialist>",
-      "prompt": "<Detailed prompt instructing Sub-Agent 1 to search latest earnings release/transcript, news & filings and output Section 1 & 2 in clean Semantic HTML>"
+      "prompt": "<Detailed prompt instructing Sub-Agent 1 to search latest earnings release/transcript, news & filings and output Section 1 & 2 in clean Semantic HTML using metrics-grid, tables, callout boxes, and optional product figures>"
     }},
     {{
       "role": "<Sub-Agent 2 Role Name, e.g. Cash Flow, SBC Dilution & Balance Sheet Auditor>",
-      "prompt": "<Detailed prompt instructing Sub-Agent 2 to search latest earnings release/transcript, news & filings and output Section 3 & 4 in clean Semantic HTML>"
+      "prompt": "<Detailed prompt instructing Sub-Agent 2 to search latest earnings release/transcript, news & filings and output Section 3 & 4 in clean Semantic HTML using metrics-grid, tables, and callout boxes>"
     }},
     {{
       "role": "<Sub-Agent 3 Role Name, e.g. Ballpark Valuation, Confidence & Invalidation Specialist>",
