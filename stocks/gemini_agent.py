@@ -1,4 +1,4 @@
-"""Independent Fundamental Equity Due Diligence & Valuation Engine."""
+"""Autonomous Multi-Agent Fundamental Equity Due Diligence & Ballpark Valuation Engine."""
 
 import os
 import json
@@ -18,22 +18,22 @@ def get_api_key() -> str:
 
 
 def clean_grounding_artifacts(text: str) -> str:
-    """Strips internal search grounding artifacts, inline white background styles, and meta references."""
+    """Strips internal search grounding artifacts, rogue inline styles, and meta references."""
+    if not text:
+        return ""
     cleaned = re.sub(r"\[(?:PerQueryResult|cite|source|citation)[^\]]*\]", "", text, flags=re.IGNORECASE)
     cleaned = re.sub(r"\[\s*\d+(?:\.\d+)*(?:\s*,\s*\d+(?:\.\d+)*)*\s*\]", "", cleaned)
     
-    # Strip any accidental meta references to templates/historical analogies
+    # Strip any accidental meta references to historical analogies
     cleaned = re.sub(r"\b(?:Norbert\s+Lou(?:'s)?(?:\s+NVR)?|NVR\s+thesis|Columbia\s+(?:Business\s+School\s+)?(?:thesis|memo|paper))\b", "", cleaned, flags=re.IGNORECASE)
     
-    # Strip inline style, bgcolor, and border attributes from table tags
-    cleaned = re.sub(r'<(table|thead|tbody|tr|th|td)\b([^>]*?)(style="[^"]*")([^>]*?)>', r'<\1\2\4>', cleaned, flags=re.IGNORECASE)
+    # Strip ALL inline style, bgcolor, and border attributes to enforce 100% theme consistency
+    cleaned = re.sub(r'\s*style\s*=\s*"[^"]*"', '', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\s*style\s*=\s*'[^']*'", '', cleaned, flags=re.IGNORECASE)
     cleaned = re.sub(r'<(table|thead|tbody|tr|th|td)\b([^>]*?)(bgcolor="[^"]*")([^>]*?)>', r'<\1\2\4>', cleaned, flags=re.IGNORECASE)
     cleaned = re.sub(r'<(table|thead|tbody|tr|th|td)\b([^>]*?)(border="[^"]*")([^>]*?)>', r'<\1\2\4>', cleaned, flags=re.IGNORECASE)
     cleaned = re.sub(r'<(table|thead|tbody|tr|th|td)\b([^>]*?)(cellpadding="[^"]*")([^>]*?)>', r'<\1\2\4>', cleaned, flags=re.IGNORECASE)
     cleaned = re.sub(r'<(table|thead|tbody|tr|th|td)\b([^>]*?)(cellspacing="[^"]*")([^>]*?)>', r'<\1\2\4>', cleaned, flags=re.IGNORECASE)
-    
-    # Strip any stray inline white styles or classes
-    cleaned = re.sub(r'style="[^"]*background(?:-color)?:\s*(?:#fff|#ffffff|white|rgb\s*\(\s*255\s*,\s*255\s*,\s*255\s*\))[^"]*"', '', cleaned, flags=re.IGNORECASE)
     cleaned = re.sub(r'class="[^"]*bg-white[^"]*"', '', cleaned, flags=re.IGNORECASE)
     cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
     return cleaned.strip()
@@ -130,6 +130,7 @@ def extract_json_block(text: str) -> Dict[str, Any]:
         except Exception:
             pass
     
+    # Fallback to finding outermost JSON braces
     start = text.find("{")
     end = text.rfind("}")
     if start != -1 and end != -1 and end > start:
@@ -137,242 +138,7 @@ def extract_json_block(text: str) -> Dict[str, Any]:
             return json.loads(text[start:end+1])
         except Exception:
             pass
-            
     return {}
-
-
-# ==============================================================================
-# INDEPENDENT INSTITUTIONAL PHILOSOPHY & MODULAR PROMPTS
-# ==============================================================================
-
-INSTITUTIONAL_SYSTEM_PHILOSOPHY = """You are a Principal Investment Analyst at an unconstrained fundamental equity fund.
-Your mandate is to conduct independent, intellectually honest, level-headed, and mathematically airtight research.
-
-AUTONOMY & GUIDING PRINCIPLE:
-Everything outlined in these instructions and prompts is strictly a GUIDE and an IDEA. You have FULL FREEDOM, creative autonomy, and unconstrained authority to take action on how to best accomplish your analysis. Adapt your frameworks, metrics, valuation depth, and presentation in whatever way best uncovers the economic truth of the specific target company.
-
-CORE PRINCIPLES:
-1. INTELLECTUAL INDEPENDENCE & LEVEL-HEADED VALUATION:
-   - Price is what you pay; value is what you get.
-   - Never reverse-engineer or tweak numbers to match the current market stock price.
-   - Arrive at your own sober intrinsic fair value based on fundamental cash flow realities.
-2. STOCK-BASED COMPENSATION (SBC) IS A 100% ECONOMIC CASH CHARGE:
-   - Always treat SBC as a real cash drain and shareholder dilution against True Owner Earnings and Free Cash Flow.
-3. CONCRETE, STEP-BY-STEP VALUATION:
-   - Build explicit valuation models (e.g. 5-Year Unlevered DCF, normalized cash flow yield, EPV reproduction value) with clear WACC, CapEx separation, and sensitivity tables.
-4. SIMPLICITY & HIGH-IMPACT SCANNING:
-   - Keep the presentation clean, punchy, and readable. Avoid unnecessary walls of fluff.
-   - Highlight critical numbers, pivotal risks, and variant perceptions using <mark class="highlight">...</mark> so a scanning reader grasps key takeaways immediately.
-   - Never reference prompt templates, historical analogies from other companies, or meta instructions in your output. Tailor all content directly and authentically to the target company.
-"""
-
-STAGE_1_FINANCIALS_PROMPT = """Target: {ticker} ({company_name}) | Current Stock Price: ${current_price:.2f}
-
-[AUTONOMY NOTE: Everything below is a guide and starting idea. You have full freedom to analyze the capital structure and forensics in whatever manner best fits this business.]
-
-Perform a forensic accounting and balance sheet audit using Google Search across latest 10-K and 10-Q filings:
-1. CAPITAL STRUCTURE & NET DEBT SCHEDULE (Complete Table):
-   - Cash & Short-Term Marketable Securities ($M).
-   - Debt Breakdown: Term loans, Revolvers, Senior Notes, Convertible bonds (with exact interest coupons and maturity dates).
-   - Total Debt ($M), Net Debt ($M), Operating Lease Liabilities ($M), and Interest Coverage ratio (EBIT / Interest Expense).
-2. TRUE OWNER EARNINGS & SBC AUDIT (Complete Table):
-   - TTM Operating Cash Flow ($M).
-   - Maintenance CapEx (distinguished from Growth CapEx) ($M).
-   - Stock-Based Compensation (SBC) ($M): Treat as 100% real cash charge and dilution.
-   - Working Capital drag / float ($M).
-   - True Owner Earnings = OCF - Maintenance CapEx - SBC - Working Capital changes.
-3. SHARE COUNT & BUYBACK TRAJECTORY (Complete Table):
-   - 5-Year diluted share count trajectory year-by-year.
-   - Total dollars spent on buybacks vs net shares retired (Accretive vs merely offsetting dilution).
-
-Synthesize in structured tables with bold metrics and key highlights.
-"""
-
-STAGE_2_MOAT_INDUSTRY_PROMPT = """Target: {ticker} ({company_name}) | Current Stock Price: ${current_price:.2f}
-
-[AUTONOMY NOTE: Everything below is a guide and starting idea. You have full freedom to evaluate the business model and competitive landscape however you see fit.]
-
-Investigate business model anatomy, competitive moat, and operating cash conversion using Google Search:
-1. OPERATING MODEL ANATOMY & CASH CYCLE:
-   - What unique structural mechanics allow this business to operate with superior capital velocity and lower risk than peers?
-   - Working capital mechanics: Does growth generate free operational cash upfront or tie up heavy capital?
-2. COMPETITIVE MOAT & PRICING POWER:
-   - Moat width: Scale advantages, network effects, customer switching costs, brand loyalty, or geographic density.
-   - Pricing power: Have they successfully passed through cost inflation over past 5-10 years without customer churn?
-3. COMPETITOR BENCHMARK MATRIX (Complete Table):
-   - Compare {ticker} directly against top 2-3 competitors on: market share, gross margins, EBITDA margins, ROIC, leverage (Net Debt/EBITDA), and unit economics.
-4. CYCLE & DOWNTURN RESILIENCE:
-   - In a severe industry downturn or recession, how does this model protect against asset writedowns while weaker levered competitors struggle?
-
-Output complete comparison tables and concise highlighted takeaways.
-"""
-
-STAGE_3_MANAGEMENT_OWNERSHIP_PROMPT = """Target: {ticker} ({company_name}) | Current Stock Price: ${current_price:.2f}
-
-[AUTONOMY NOTE: Everything below is a guide. You have full freedom to investigate governance, insider transactions, and 13F whale positioning.]
-
-[CRITICAL FACT-CHECKING DIRECTIVE: You MUST verify all ownership tables, 13F whale positions, and institutional stakes against the LATEST official SEC filings (SEC 13F-HR, Form 4, 10-K, 20-F). Do NOT use stale pre-2024 memory or outdated stakes. For example, if a famous investor (like Berkshire Hathaway in StoneCo) completely sold out/exited, you MUST state they exited or exclude them from current active holders. Only list active, verified shareholders based on the latest available 13F filings.]
-
-Investigate governance, management track record, insider activity, and institutional accumulation using Google Search:
-1. MANAGEMENT INTEGRITY & CAPITAL ALLOCATION:
-   - Historical capital allocation discipline: Historical Return on Invested Capital (ROIC) vs Cost of Capital (WACC).
-   - Did management deliver on historical guidance in recent earnings calls?
-   - Executive compensation alignment (Are bonuses tied to ROIC/FCF-per-share or vanity revenue growth?).
-2. FORM 4 INSIDER TRANSACTIONS:
-   - Form 4 insider trading audit over the past 12-18 months. Are executives buying with personal cash or systematically selling?
-3. OWNERSHIP BREAKDOWN & LATEST OFFICIAL 13F WHALE TRACKING:
-   - % Institutional, % Insiders, % Retail Float based on latest official filings.
-   - Top active 13F institutional holders (who is actively accumulating vs who is trimming vs who has completely exited).
-   - Public Commentary: Summarize the core thesis from recent respected fund manager quarterly letters and investor presentations.
-
-Output exact, verified names, share counts, and clear takeaways based on official filings.
-"""
-
-STAGE_4_VALUATION_PROMPT = """Target: {ticker} ({company_name}) | Current Stock Price: ${current_price:.2f}
-
-[AUTONOMY NOTE: Everything below is a guide. You have full freedom to pick the valuation methodologies (DCF, EPV, SOTP, Cash Flow Yield) and assumptions that best match this company's economic reality. Never reverse-engineer to match the stock price.]
-
-Construct a RIGOROUS, AIRTIGHT 5-YEAR DISCOUNTED CASH FLOW (DCF) & EARNINGS POWER VALUE (EPV) INTRINSIC VALUATION MODEL:
-
-1. 5-YEAR UNLEVERED DISCOUNTED CASH FLOW (DCF) MODEL (Complete Table):
-   - Forecast FY1 through FY5:
-     - Revenue ($M) and Growth Rate (%)
-     - Normalized EBIT ($M) and Operating Margin (%)
-     - Less: Cash Taxes (NOPAT) ($M) (Effective tax rate 23-25%)
-     - Plus: D&A ($M)
-     - LESS: Stock-Based Compensation (SBC) ($M) as 100% REAL CASH CHARGE
-     - Less: Maintenance CapEx ($M)
-     - Less/Plus: Changes in Working Capital ($M)
-     - = Unlevered Free Cash Flow (UFCF) ($M)
-2. WACC COST OF CAPITAL SPECIFICATION:
-   - Currency & Sovereign Risk Matching Principle:
-     * For US-domestic equities: Risk-Free Rate = US 10-Year Treasury Yield (~4.2%–4.5%).
-     * For International & Emerging Market equities (e.g. Brazil/LatAm/Asia/Europe):
-       - If modeling in Local Currency (e.g. BRL): Use the domestic benchmark sovereign rate (e.g. Brazil Selic / NTN-F 10-Year yield at ~14.0%–15.0%), producing a local BRL WACC of ~17.0%–20.0%.
-       - If modeling in USD-adjusted terms: Risk-Free Rate = US 10-Yr UST (~4.3%) + Country Risk Premium (CRP ~2.5%–3.0%) + FX inflation differential (~3.2%) = ~10.0%–10.5% adjusted USD base rate, producing a blended USD WACC of ~14.5%–15.5%.
-     * Explicitly detail: Risk-Free Rate, Beta, Equity Risk Premium (ERP), Pre-Tax Cost of Debt, Marginal Tax Rate, Capital Structure Weights (Debt/Equity), and final WACC (%).
-3. TERMINAL VALUE & EQUITY BRIDGE:
-   - Cumulative PV of 5-Yr Discrete Cash Flows ($M)
-   - Terminal Growth Rate ($g = 2.0\% - 2.5\%$) -> Gordon Growth Terminal Value ($M) -> PV of Terminal Value ($M)
-   - Total Enterprise Value (TEV) ($M)
-   - Less: Net Debt ($M) & Lease Liabilities ($M)
-   - Implied Equity Value ($M) / Diluted Shares (M) -> DCF Fair Value Per Share ($)
-4. DCF SENSITIVITY MATRIX (Complete Table):
-   - WACC (rows: 8.0%, 9.0%, 10.0%, 11.0%) vs Terminal Growth Rate (columns: 1.5%, 2.0%, 2.5%, 3.0%) showing implied per share fair values.
-5. ZERO-GROWTH EARNINGS POWER VALUE (EPV):
-   - Normalized EBIT -> NOPAT / WACC -> Enterprise EPV - Net Debt -> Equity EPV Per Share ($).
-6. SCENARIO MATRIX (BEAR / BASE / BULL) WITH 3-YEAR IRRs (Complete Table):
-   - Bear, Base, Bull with explicit assumptions, price targets, upside/downside %, and annualized 3-Year IRRs.
-
-Financial Forensics Data:
-{stage1_data}
-
-Moat & Competitor Data:
-{stage2_data}
-
-Management & Ownership Data:
-{stage3_data}
-
-Output complete mathematical and tabular calculations.
-"""
-
-STAGE_5A_SYNTHESIS_PART1_PROMPT = """You are the Chief Investment Officer compiling Part 1 (Sections 1 to 4) of the Investment Due Diligence Memo on {ticker} ({company_name}).
-Current Stock Price: ${current_price:.2f}
-
-[AUTONOMY NOTE: Treat the outline below as a guide. You have full freedom to format, structure, and emphasize what is most essential.]
-
-Part 1: A JSON metadata block in ```json ... ```:
-{{
-  "ticker": "{ticker}",
-  "company_name": "{company_name}",
-  "labels": ["<Max 2-Word Label 1>", "<Max 2-Word Label 2>", "<Max 2-Word Label 3>"],
-  "fair_value_estimate": "$<DCF Fair Value>",
-  "bear_target": "$<Bear Price> (<Downside %>)",
-  "base_target": "$<Base Price> (<Upside %>)",
-  "bull_target": "$<Bull Price> (<Upside %>)",
-  "upper_alert_threshold": <Float upper trigger price>,
-  "lower_alert_threshold": <Float lower trigger price>,
-  "upper_trigger_reason": "<Why wake up on upside>",
-  "lower_trigger_reason": "<Why wake up on downside>",
-  "next_catalyst_date": "<Upcoming Date>",
-  "next_catalyst_event": "<Upcoming Event max 4 words>",
-  "executive_summary": "<2-3 sentence punchy summary of variant perception>"
-}}
-
-Part 2: Semantic HTML for Sections 1 to 4 (DO NOT TRUNCATE, KEEP ALL TABLES FULLY CLOSED):
-1. Executive Summary & Variant Perception (Consensus vs What We Believe with <mark class="highlight">key takeaways</mark>)
-2. Enterprise Value (TEV) & Normalized Cash Flow Multiples (Complete Table)
-3. Internal Forecast vs. Wall Street Consensus (3-Year Forecast Comparison Table)
-4. Business Model Anatomy & Cash Conversion Cycle Mechanics
-
-Use clean semantic HTML (<div class="section">, <h2>, <h3>, <table>, <ul>, <p>, <blockquote>, <div class="callout">, <mark class="highlight">). Do NOT output outer <html> or <body> tags.
-
-Analyst Inputs:
-Financial Forensics: {stage1_data}
-Moat & Industry: {stage2_data}
-Management & Ownership: {stage3_data}
-Valuation & DCF: {stage4_data}
-"""
-
-STAGE_5B_SYNTHESIS_PART2_PROMPT = """You are the Chief Investment Officer compiling Part 2 (Sections 5 to 8) of the Investment Due Diligence Memo on {ticker} ({company_name}).
-Current Stock Price: ${current_price:.2f}
-
-[AUTONOMY NOTE: Treat the outline below as a guide. You have full freedom to present the analysis with complete analytical discretion.]
-
-Generate complete, beautiful Semantic HTML for Sections 5 to 8 (DO NOT TRUNCATE, KEEP ALL TABLES COMPLETE):
-5. Competitive Advantage, Unit Economics & Competitor Benchmark Matrix (Complete Table)
-6. Capital Allocation Track Record, ROIC & Share Buyback History (Complete Table)
-7. Management Track Record, Compensation Alignment & Verified Latest Official 13F Ownership (Verify all holders against latest official SEC filings; do NOT list exited/historical investors as current active holders)
-8. Capital Structure & Complete Net Debt Schedule (Maturities & Interest Coverage Complete Table)
-
-Use clean semantic HTML (<div class="section">, <h2>, <h3>, <table>, <ul>, <p>, <blockquote>, <div class="callout">, <mark class="highlight">). Do NOT output outer <html> or <body> tags.
-
-Analyst Inputs:
-Financial Forensics: {stage1_data}
-Moat & Industry: {stage2_data}
-Management & Ownership: {stage3_data}
-Valuation & DCF: {stage4_data}
-"""
-
-STAGE_5C_SYNTHESIS_PART3_PROMPT = """You are the Chief Investment Officer compiling Part 3 (Sections 9 to 12) of the Investment Due Diligence Memo on {ticker} ({company_name}).
-Current Stock Price: ${current_price:.2f}
-
-[AUTONOMY NOTE: Treat the outline below as a guide. You have full freedom to present the valuation and risk analysis with complete analytical discretion.]
-
-Generate complete, beautiful Semantic HTML for Sections 9 to 12 (DO NOT TRUNCATE, FINISH ALL TABLES AND SECTIONS TO THE END):
-9. True Owner Earnings & SBC 100% Cash Equivalent Charge Audit (Complete Table)
-10. Rigorous 5-Year Unlevered DCF Model, WACC Specification, Sensitivity Matrix & Zero-Growth EPV (Complete Tables)
-11. Triangulated Scenario Matrix (Bear / Base / Bull + 3-Yr Annualized IRRs Complete Table)
-12. Invalidation Catalysts & Risk Pre-Mortem
-
-Use clean semantic HTML (<div class="section">, <h2>, <h3>, <table>, <ul>, <p>, <blockquote>, <div class="callout">, <mark class="highlight">). Ensure all table rows are completely closed with all calculations intact. Do NOT output outer <html> or <body> tags.
-
-Analyst Inputs:
-Financial Forensics: {stage1_data}
-Moat & Industry: {stage2_data}
-Management & Ownership: {stage3_data}
-Valuation & DCF: {stage4_data}
-"""
-
-STAGE_6_QA_VERIFICATION_PROMPT = """You are the Managing Editor & Chief Compliance Officer conducting the final quality verification, formatting audit, and polish pass on the Investment Due Diligence Memo on {ticker} ({company_name}).
-Current Stock Price: ${current_price:.2f}
-
-Below is the assembled draft of the research memo:
-{draft_html}
-
-Your Quality Assurance Directives:
-1. Completeness Audit:
-   - Ensure all 12 sections (from 1. Executive Summary to 12. Invalidation Catalysts & Risk Pre-Mortem) are present, fully written, and completely fleshed out.
-   - If Section 12 (Invalidation Catalysts & Risk Pre-Mortem) is truncated or missing, write a complete, rigorous pre-mortem analysis with specific falsification triggers.
-2. Table & Calculation Integrity:
-   - Ensure EVERY table is fully closed with all columns and rows intact (all <table>, <tbody>, <tr>, <td> properly closed).
-   - Ensure no half-finished rows or empty metrics exist.
-3. Aesthetic Polish & Highlights:
-   - Ensure key qualitative conclusions are highlighted using <mark class="highlight">...</mark>.
-   - Remove any markdown artifacts, code fence tags, or stray notes.
-
-Output ONLY the verified, polished, 100% complete Semantic HTML. Do not output outer <html> or <body> tags.
-"""
 
 
 def verify_and_repair_html_structure(html: str) -> str:
@@ -386,6 +152,12 @@ def verify_and_repair_html_structure(html: str) -> str:
     # Strip ALL rogue inline style attributes to enforce 100% color consistency
     cleaned = re.sub(r'\s*style\s*=\s*"[^"]*"', '', cleaned, flags=re.IGNORECASE)
     cleaned = re.sub(r"\s*style\s*=\s*'[^']*'", '', cleaned, flags=re.IGNORECASE)
+
+    # Auto-close unclosed table rows
+    open_tr = len(re.findall(r"<tr\b", cleaned, re.IGNORECASE))
+    close_tr = len(re.findall(r"</tr>", cleaned, re.IGNORECASE))
+    if open_tr > close_tr:
+        cleaned += "</tr>" * (open_tr - close_tr)
 
     # Auto-close unclosed tables
     open_tables = len(re.findall(r"<table\b", cleaned, re.IGNORECASE))
@@ -404,100 +176,209 @@ def verify_and_repair_html_structure(html: str) -> str:
     return clean_grounding_artifacts(cleaned)
 
 
-def generate_genesis_thesis(ticker: str, company_name: str, current_price: float, initial_notes: str = "") -> Tuple[Dict[str, Any], str]:
-    """Generates an authentic, independent institutional investment memo via modular multi-agent synthesis."""
-    ticker_clean = ticker.upper().strip()
-    print(f"  [Pipeline 1/7] Running Forensic Accounting & Capital Structure Audit for {ticker_clean}...")
-    stage1_prompt = STAGE_1_FINANCIALS_PROMPT.format(ticker=ticker_clean, company_name=company_name, current_price=current_price)
-    stage1_out = call_gemini_with_search(stage1_prompt, system_instruction=INSTITUTIONAL_SYSTEM_PHILOSOPHY)
+# =====================================================================
+# AUTONOMOUS LEVEL-HEADED MULTI-AGENT PROMPT ARCHITECTURE
+# =====================================================================
 
-    print(f"  [Pipeline 2/7] Investigating Operating Model Anatomy, Cash Conversion & Moat for {ticker_clean}...")
-    stage2_prompt = STAGE_2_MOAT_INDUSTRY_PROMPT.format(ticker=ticker_clean, company_name=company_name, current_price=current_price)
-    stage2_out = call_gemini_with_search(stage2_prompt, system_instruction=INSTITUTIONAL_SYSTEM_PHILOSOPHY)
+LEVEL_HEADED_INVESTOR_PHILOSOPHY = """You are a seasoned, down-to-earth fundamental value investor and research strategist.
 
-    print(f"  [Pipeline 3/7] Auditing Capital Allocation (ROIC/Buybacks) & 13F Whales for {ticker_clean}...")
-    stage3_prompt = STAGE_3_MANAGEMENT_OWNERSHIP_PROMPT.format(ticker=ticker_clean, company_name=company_name, current_price=current_price)
-    stage3_out = call_gemini_with_search(stage3_prompt, system_instruction=INSTITUTIONAL_SYSTEM_PHILOSOPHY)
-
-    print(f"  [Pipeline 4/7] Executing 5-Year Unlevered DCF, EPV & Sensitivity Model for {ticker_clean}...")
-    stage4_prompt = STAGE_4_VALUATION_PROMPT.format(
-        ticker=ticker_clean, company_name=company_name, current_price=current_price,
-        stage1_data=stage1_out[:3500], stage2_data=stage2_out[:3500], stage3_data=stage3_out[:3500]
-    )
-    stage4_out = call_gemini_with_search(stage4_prompt, system_instruction=INSTITUTIONAL_SYSTEM_PHILOSOPHY)
-
-    print(f"  [Pipeline 5a/7] Synthesizing Strategic & Operating Memo Sections (1-4) for {ticker_clean}...")
-    stage5a_prompt = STAGE_5A_SYNTHESIS_PART1_PROMPT.format(
-        ticker=ticker_clean, company_name=company_name, current_price=current_price,
-        stage1_data=stage1_out[:2200], stage2_data=stage2_out[:2200],
-        stage3_data=stage3_out[:2200], stage4_data=stage4_out[:3000]
-    )
-    res_part1 = call_gemini_with_search(stage5a_prompt, system_instruction=INSTITUTIONAL_SYSTEM_PHILOSOPHY)
-
-    metadata = extract_json_block(res_part1)
-    html_part1 = re.sub(r"```(?:json)?\s*\{.*?\}\s*```", "", res_part1, flags=re.DOTALL).strip()
-    if html_part1.startswith("```html"):
-        html_part1 = html_part1[7:]
-    if html_part1.endswith("```"):
-        html_part1 = html_part1[:-3]
-    html_part1 = clean_grounding_artifacts(html_part1.strip())
-
-    print(f"  [Pipeline 5b/7] Synthesizing Moat, Capital Allocation & Debt Sections (5-8) for {ticker_clean}...")
-    stage5b_prompt = STAGE_5B_SYNTHESIS_PART2_PROMPT.format(
-        ticker=ticker_clean, company_name=company_name, current_price=current_price,
-        stage1_data=stage1_out[:2200], stage2_data=stage2_out[:2200],
-        stage3_data=stage3_out[:2200], stage4_data=stage4_out[:3000]
-    )
-    res_part2 = call_gemini_with_search(stage5b_prompt, system_instruction=INSTITUTIONAL_SYSTEM_PHILOSOPHY)
-
-    html_part2 = re.sub(r"```(?:json)?\s*\{.*?\}\s*```", "", res_part2, flags=re.DOTALL).strip()
-    if html_part2.startswith("```html"):
-        html_part2 = html_part2[7:]
-    if html_part2.endswith("```"):
-        html_part2 = html_part2[:-3]
-    html_part2 = clean_grounding_artifacts(html_part2.strip())
-
-    print(f"  [Pipeline 5c/7] Synthesizing Valuation, DCF, Scenarios & Risks Sections (9-12) for {ticker_clean}...")
-    stage5c_prompt = STAGE_5C_SYNTHESIS_PART3_PROMPT.format(
-        ticker=ticker_clean, company_name=company_name, current_price=current_price,
-        stage1_data=stage1_out[:2200], stage2_data=stage2_out[:2200],
-        stage3_data=stage3_out[:2200], stage4_data=stage4_out[:3000]
-    )
-    res_part3 = call_gemini_with_search(stage5c_prompt, system_instruction=INSTITUTIONAL_SYSTEM_PHILOSOPHY)
-
-    html_part3 = re.sub(r"```(?:json)?\s*\{.*?\}\s*```", "", res_part3, flags=re.DOTALL).strip()
-    if html_part3.startswith("```html"):
-        html_part3 = html_part3[7:]
-    if html_part3.endswith("```"):
-        html_part3 = html_part3[:-3]
-    p1 = verify_and_repair_html_structure(html_part1)
-    p2 = verify_and_repair_html_structure(html_part2)
-    p3 = verify_and_repair_html_structure(html_part3)
-    raw_html = f"{p1}\n\n{p2}\n\n{p3}".strip()
-
-    print(f"  [Pipeline 6/6] Executing Final QA Verification & Structural Integrity Filter for {ticker_clean}...")
-    # Check if Section 12 (Invalidation Catalysts & Risk Pre-Mortem) is present
-    if "Invalidation" not in raw_html and "Pre-Mortem" not in raw_html:
-        print(f"  ⚡ Synthesizing Section 12 (Invalidation Catalysts & Risk Pre-Mortem) for {ticker_clean}...")
-        sec12_prompt = f"""You are the Chief Investment Officer compiling Section 12 (Invalidation Catalysts & Risk Pre-Mortem) for {ticker_clean} ({company_name}).
-Stock Price: ${current_price:.2f}
-
-Write a comprehensive, rigorous Section 12 in clean Semantic HTML:
-<div class="section">
-  <h2>12. Invalidation Catalysts & Risk Pre-Mortem</h2>
-  <h3>12.1 Specific Falsification Triggers</h3>
-  <p>Detail clear metric thresholds that would break the fundamental thesis.</p>
-  <h3>12.2 Macro, Regulatory & Execution Headwinds</h3>
-  <p>Detail severe downside risks and probability weighting.</p>
-</div>
-
-Do NOT output code fences, markdown blocks, or outer <html> or <body> tags. Ensure all tags are closed.
+CORE ANALYTICAL PRINCIPLES:
+1. Simplicity & Real-World Reality:
+   - Avoid excessive financial jargon, false academic precision, and 50-variable DCFs.
+   - Deliver clear, realistic, level-headed, and common-sense economic analysis that any intelligent business owner would appreciate.
+2. Honest Financial Accounting & Cash Drag:
+   - Stock-Based Compensation (SBC) must ALWAYS be treated as a 100% real economic cash charge and shareholder dilution factor.
+   - Track real organic growth, share dilution vs buyback pace, and true Net Cash (Cash minus Total Debt/Obligations).
+   - Always verify facts, financial numbers, and 13F whale positions against the LATEST official SEC filings (do not use outdated historical memory or list exited investors as current holders).
+3. Realistic Ballpark Valuation:
+   - Provide a sensible, realistic ballpark valuation range (Bear / Base / Bull) with straightforward 3-Year expected annualized returns (IRRs).
+4. Analytical Autonomy:
+   - You have complete freedom to structure the research, formulate sub-agent tasks, and emphasize what is most essential for this specific company. You can override any default guidance if a different approach better fits the economic reality of the business.
 """
-        sec12_html = call_gemini_with_search(sec12_prompt, system_instruction=INSTITUTIONAL_SYSTEM_PHILOSOPHY)
-        sec12_clean = verify_and_repair_html_structure(sec12_html)
-        raw_html = f"{raw_html}\n\n{sec12_clean}".strip()
 
-    full_html = verify_and_repair_html_structure(raw_html)
+MASTER_PLANNER_PROMPT = """Target: {ticker} ({company_name}) | Current Stock Price: ${current_price:.2f}
+User Focus / Research Notes: {notes}
+
+You are the Lead Investment Strategist. Your objective is to formulate a customized, dynamic research plan to evaluate {ticker} in a level-headed, down-to-earth, and thorough manner.
+
+Divide the investigation into 3 to 4 specialized research sub-agents that you will dispatch. For each sub-agent, define its specific investigative role and write the exact search prompt it should execute.
+
+Key Focus Areas to Cover Across Sub-Agents:
+1. Business Model Reality & Moat (How it actually makes money, customer retention, pricing power in plain English).
+2. Honest Financials, Dilution & Balance Sheet (Revenue trajectory, real cash flow treating SBC as a 100% cash charge, share count growth vs buybacks, Net Cash or Net Debt).
+3. Governance, Latest 13F Institutional Positioning & Catalysts (Verify active holders via latest official SEC filings, management capital allocation track record, upcoming earnings/catalysts).
+4. Realistic Ballpark Valuation (Owner earnings yield, realistic multiples, straightforward Bear/Base/Bull scenario analysis).
+
+Return your plan strictly as a valid JSON object in ```json ... ```:
+```json
+{{
+  "research_objective": "<Short summary of the core thesis questions for {ticker}>",
+  "sub_agents": [
+    {{
+      "role": "<e.g. Business Model & Moat Auditor>",
+      "prompt": "<Specific, detailed search and analysis prompt for Sub-Agent 1>"
+    }},
+    {{
+      "role": "<e.g. Cash Flow, SBC Dilution & Balance Sheet Auditor>",
+      "prompt": "<Specific, detailed search and analysis prompt for Sub-Agent 2>"
+    }},
+    {{
+      "role": "<e.g. Ownership, Whale Verification & Catalysts>",
+      "prompt": "<Specific, detailed search and analysis prompt for Sub-Agent 3>"
+    }}
+  ]
+}}
+```
+"""
+
+MEMO_SYNTHESIS_PROMPT = """Target: {ticker} ({company_name}) | Current Stock Price: ${current_price:.2f}
+
+You are the Chief Investment Officer compiling the final Investment Due Diligence Memo for {ticker}.
+
+Below are the aggregated findings from your specialized research sub-agents:
+{aggregated_findings}
+
+[ANALYTICAL AUTONOMY: You have complete freedom to format and organize this memo however you think is most effective, readable, and clear. You are not bound by any rigid template. Focus on plain English, economic reality, honest numbers, and level-headed ballpark valuation.]
+
+Generate the output in two parts:
+
+Part 1: A JSON metadata block in ```json ... ```:
+```json
+{{
+  "ticker": "{ticker}",
+  "company_name": "{company_name}",
+  "labels": ["<Max 2-Word Dynamic Label 1>", "<Max 2-Word Dynamic Label 2>", "<Max 2-Word Dynamic Label 3>"],
+  "fair_value_estimate": "$<Estimated Fair Value>",
+  "bear_target": "$<Price> (<% Upside/Downside>)",
+  "base_target": "$<Price> (<% Upside/Downside>)",
+  "bull_target": "$<Price> (<% Upside/Downside>)",
+  "upper_alert_threshold": <Float price to alert on upside breakout>,
+  "lower_alert_threshold": <Float price to alert on downside break>,
+  "upper_trigger_reason": "<Short reason>",
+  "lower_trigger_reason": "<Short reason>",
+  "next_catalyst_date": "<YYYY-MM-DD or Month Year>",
+  "next_catalyst_event": "<Short description of catalyst, max 4 words>",
+  "executive_summary": "<2-3 sentence crisp executive summary>"
+}}
+```
+
+Part 2: Clean, beautiful Semantic HTML for the Investment Memo.
+Suggested Structure:
+1. Executive Summary & Core Variant Perception (Why is the market mispricing it?)
+2. Business Model Reality & Moat in Plain English (Unit economics, customer stickiness, pricing power)
+3. Honest Cash Flow, SBC Dilution & Capital Structure (Real cash flow deducting SBC, buybacks vs dilution, Net Cash/Debt)
+4. Ownership & Governance Check (Verified 13F whales from official filings, management alignment)
+5. Down-to-Earth Ballpark Valuation (Clear Bear / Base / Bull scenario table + 3-Yr expected IRRs)
+6. What Breaks the Thesis (Specific falsification triggers and pre-mortem risks)
+
+Formatting Rules:
+- Use clean semantic HTML (<div class="section">, <h2>, <h3>, <table>, <ul>, <p>, <blockquote>, <div class="callout">, <mark class="highlight">).
+- DO NOT output inline style attributes (no style='...').
+- Ensure all tables, rows, and tags are fully closed.
+- Keep prose clear, grounded, and free of unnecessary academic jargon.
+"""
+
+EDITORIAL_QA_PROMPT = """You are the Managing Editor conducting the final quality verification and polish pass on the Investment Due Diligence Memo for {ticker} ({company_name}).
+
+Draft Memo HTML:
+{draft_html}
+
+Your Quality Directives:
+1. Verify that the memo is complete, easy to read, down-to-earth, and beautifully formatted with no abrupt cut-offs.
+2. Ensure every financial table is intact and all tags (<table>, <tbody>, <tr>, <td>, <div>) are properly closed.
+3. Ensure key qualitative insights are highlighted with <mark class="highlight">.
+4. Remove any markdown code fences or rogue inline style attributes.
+
+Output ONLY the clean, polished Semantic HTML. Do not include outer <html> or <body> tags.
+"""
+
+
+def generate_genesis_thesis(ticker: str, company_name: str, current_price: float, initial_notes: str = "") -> Tuple[Dict[str, Any], str]:
+    """Generates a level-headed, honest institutional investment memo via dynamic autonomous multi-agent orchestration."""
+    ticker_clean = ticker.upper().strip()
+    
+    # ------------------------------------------------------------------
+    # Step 1: Autonomous Master Planner dynamically devises the sub-agent plan
+    # ------------------------------------------------------------------
+    print(f"  [Planner] Formulating customized multi-agent research strategy for {ticker_clean}...")
+    planner_prompt = MASTER_PLANNER_PROMPT.format(
+        ticker=ticker_clean,
+        company_name=company_name,
+        current_price=current_price,
+        notes=initial_notes or "Evaluate fundamental moat, true cash generation deducting SBC, dilution, balance sheet, and level-headed ballpark valuation."
+    )
+    planner_res = call_gemini_with_search(planner_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
+    plan_json = extract_json_block(planner_res)
+    
+    sub_agents = plan_json.get("sub_agents", [])
+    if not sub_agents or not isinstance(sub_agents, list):
+        # Fallback default specialized agents if planner did not format list
+        sub_agents = [
+            {
+                "role": "Business Model & Competitive Moat",
+                "prompt": f"Investigate {ticker_clean} ({company_name}) at ${current_price:.2f}. Explain in plain English how the company makes money, unit economics, customer stickiness, and competitive advantages using latest official filings."
+            },
+            {
+                "role": "True Cash Generation, SBC Dilution & Balance Sheet",
+                "prompt": f"Investigate {ticker_clean} ({company_name}) financials. Audit revenue growth, real cash flow deducting Stock-Based Compensation (SBC 100% real cash charge), share count dilution vs buybacks, and Net Cash / Net Debt position."
+            },
+            {
+                "role": "Ownership, 13F Whales & Valuation Triangulation",
+                "prompt": f"Investigate {ticker_clean} ({company_name}) ownership and valuation. Verify latest official 13F whale positions (exclude exited investors), management alignment, upcoming catalyst dates, and realistic Bear/Base/Bull ballpark valuation."
+            }
+        ]
+
+    # ------------------------------------------------------------------
+    # Step 2: Execute Dynamic Sub-Agents with Real-Time Search Grounding
+    # ------------------------------------------------------------------
+    aggregated_findings_list = []
+    for idx, agent in enumerate(sub_agents, 1):
+        role_name = agent.get("role", f"Sub-Agent {idx}")
+        agent_prompt = agent.get("prompt", "")
+        print(f"  [Agent {idx}/{len(sub_agents)}] Executing: {role_name} for {ticker_clean}...")
+        agent_out = call_gemini_with_search(agent_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
+        aggregated_findings_list.append(f"### Findings from {role_name}:\n{agent_out}\n")
+
+    aggregated_findings = "\n".join(aggregated_findings_list)
+
+    # ------------------------------------------------------------------
+    # Step 3: Level-Headed Investment Memo Synthesis
+    # ------------------------------------------------------------------
+    print(f"  [Synthesis] Compiling level-headed Investment Memo for {ticker_clean}...")
+    synthesis_prompt = MEMO_SYNTHESIS_PROMPT.format(
+        ticker=ticker_clean,
+        company_name=company_name,
+        current_price=current_price,
+        aggregated_findings=aggregated_findings
+    )
+    synthesis_res = call_gemini_with_search(synthesis_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
+    
+    metadata = extract_json_block(synthesis_res)
+    draft_html = re.sub(r"```(?:json)?\s*\{.*?\}\s*```", "", synthesis_res, flags=re.DOTALL).strip()
+    if draft_html.startswith("```html"):
+        draft_html = draft_html[7:]
+    if draft_html.endswith("```"):
+        draft_html = draft_html[:-3]
+    draft_html = clean_grounding_artifacts(draft_html.strip())
+
+    # ------------------------------------------------------------------
+    # Step 4: Managing Editor QA & Polish Filter
+    # ------------------------------------------------------------------
+    print(f"  [QA Filter] Conducting editorial review and structural polish for {ticker_clean}...")
+    qa_prompt = EDITORIAL_QA_PROMPT.format(
+        ticker=ticker_clean,
+        company_name=company_name,
+        draft_html=draft_html
+    )
+    try:
+        qa_out = call_gemini_with_search(qa_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
+        qa_html = re.sub(r"```(?:html)?\s*", "", qa_out).strip()
+        if qa_html.endswith("```"):
+            qa_html = qa_html[:-3].strip()
+        full_html = verify_and_repair_html_structure(qa_html) if len(qa_html) > 1500 else verify_and_repair_html_structure(draft_html)
+    except Exception as e:
+        print(f"  ⚠️ QA filter fallback to deterministic repair: {e}")
+        full_html = verify_and_repair_html_structure(draft_html)
 
     if not metadata:
         metadata = {
@@ -514,7 +395,7 @@ Do NOT output code fences, markdown blocks, or outer <html> or <body> tags. Ensu
             "lower_trigger_reason": "Downside margin of safety test",
             "next_catalyst_date": "Next Earnings",
             "next_catalyst_event": "Scheduled quarterly report",
-            "executive_summary": f"Full independent fundamental due diligence established for {ticker_clean}."
+            "executive_summary": f"Level-headed fundamental investment memo established for {ticker_clean}."
         }
 
     metadata["labels"] = sanitize_labels(metadata.get("labels") or metadata.get("status_label"))
@@ -543,15 +424,15 @@ Current Price: ${current_price:.2f} (Change: {price_change_pct:+.2f}%)
 Previous Stance: {previous_status}
 Previous Thesis Summary: {previous_thesis_summary}
 
-[AUTONOMY & THESIS INFLECTION GUIDANCE]:
-Everything below is a conceptual guide. You have full analytical freedom to evaluate the situation and determine the updated thesis:
+[ANALYTICAL AUTONOMY & THESIS INFLECTION GUIDANCE]:
+You have full analytical freedom to evaluate the situation and determine the updated thesis:
 - Did the core fundamental thesis hold, improve, or break?
 - Conviction & Stance Changes:
   - If the valuation or fundamentals change to a Buy, Strong Buy, Screaming Buy, Hold, Trim, Sell, or Screaming Sell, explicitly state this conviction in the alert headline, the "what_changes_now" summary, and the updated research memo.
 - Dynamic 3-Label Updates:
   - Update the 1 to 3 dynamic labels (max 2 words each) to reflect the new reality (e.g. ["Screaming Buy", "Moat Expanding", "Deleveraged"] or ["Screaming Sell", "Thesis Broken", "Multiple Compression"]).
-- Level-Headed DCF Valuation:
-  - Update the 5-year DCF valuation, fair value, scenario matrix, and alert corridors. Never force numbers to match the stock price. Treat SBC as a 100% real cash charge.
+- Level-Headed Ballpark Valuation:
+  - Update the ballpark valuation, fair value, scenario matrix, and alert corridors. Never force numbers to match the stock price. Treat SBC as a 100% real cash charge.
 
 Output in TWO parts:
 Part 1: JSON metadata in ```json ... ```:
@@ -561,7 +442,7 @@ Part 1: JSON metadata in ```json ... ```:
   "labels": ["<Label 1>", "<Label 2>", "<Label 3>"],
   "what_was_before": "<Summary of previous thesis>",
   "what_changes_now": "<What changed, why conviction shifted, and our new forward stance>",
-  "new_fair_value": "$<Updated DCF Fair Value>",
+  "new_fair_value": "$<Updated Fair Value>",
   "new_bear_target": "$<Updated Bear>",
   "new_base_target": "$<Updated Base>",
   "new_bull_target": "$<Updated Bull>",
@@ -574,7 +455,7 @@ Part 1: JSON metadata in ```json ... ```:
 Part 2: Updated HTML memo content reflecting the evolution of the thesis.
 """
 
-    response_text = call_gemini_with_search(prompt, system_instruction=INSTITUTIONAL_SYSTEM_PHILOSOPHY)
+    response_text = call_gemini_with_search(prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
     metadata = extract_json_block(response_text)
     
     html_content = re.sub(r"```(?:json)?\s*\{.*?\}\s*```", "", response_text, flags=re.DOTALL).strip()
@@ -582,7 +463,7 @@ Part 2: Updated HTML memo content reflecting the evolution of the thesis.
         html_content = html_content[7:]
     if html_content.endswith("```"):
         html_content = html_content[:-3]
-    html_content = clean_grounding_artifacts(html_content.strip())
+    html_content = verify_and_repair_html_structure(clean_grounding_artifacts(html_content.strip()))
 
     if not metadata:
         metadata = {
