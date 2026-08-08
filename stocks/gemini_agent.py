@@ -269,16 +269,27 @@ CORE PRINCIPLES & GUIDELINES:
    - Lower Threshold: Set at a crucial margin-of-safety test or thesis invalidation floor (e.g., testing bear case support).
    - When market price crosses either threshold, the system automatically triggers an urgent thesis review and publishes a new alert.
 
-7. Clean Ballpark Intrinsic Valuation (Simple, Grounded & Unanchored):
-   - NEVER anchor your fair value to today's stock price, but keep your valuation SIMPLE, PRACTICAL, and DOWN-TO-EARTH. Avoid over-complicated spreadsheet models or hyper-sensitive assumption bloat. "It is better to be roughly right than precisely wrong."
-   - The Clean Back-of-the-Napkin Cash Flow Framework:
-     1. Real Cash Baseline: Start with normalized Owner Earnings / Free Cash Flow (Cash from Ops minus maintenance CapEx, deducting Stock-Based Compensation as a real cash charge).
-     2. Sensible 3-5 Year Compounding: Apply a simple, realistic cash growth rate based on business unit economics and reinvestment reality.
-     3. Grounded Discount Hurdle: Apply a standard, sensible discount rate (e.g. 10-12% hurdle, adjusted for local sovereign rates if international) and a reasonable exit multiple reflecting moat durability.
-     4. Share Buybacks & Cannibal Dynamics: Explicitly factor in active share repurchase programs. If management is retiring shares with excess cash flow (e.g. 3-8% annual share count reduction), model this shrinking share count into the forward per-share Free Cash Flow and intrinsic value targets (especially in Base and Bull cases).
-     5. Balance Sheet Reality: Add Cash & short-term investments, subtract Total Debt to arrive at Equity Value, and divide by the diluted share count.
-   - Present a clean, simple Bear / Base / Bull scenario table in Section 5 with clear, transparent ballpark assumptions.
-   - Analytical Autonomy: For banks, financial institutions, or asset plays where DCF is unsuitable, use simple Tangible Book / ROE or dividend yield frameworks.
+7. Warren Buffett Owner Earnings & Intrinsic Value Framework:
+   - Root your valuation entirely in Warren Buffett's intrinsic value philosophy (from his Berkshire Shareholder Letters and Essays). NEVER rely on arbitrary exit multiples (which Charlie Munger dismissed as "relying on a greater fool in Year 5").
+   - The 5-Step Warren Buffett Valuation Method:
+     1. Calculate Normalized Owner Earnings:
+        Owner Earnings = Operating Cash Flow - Maintenance CapEx - Stock-Based Compensation (SBC).
+        * Strictly distinguish maintenance CapEx (capital required to maintain the company's unit volume and competitive moat) from discretionary growth CapEx.
+        * Strictly treat SBC as a 100% real economic cash charge.
+     2. The "Equity as an Expanding Bond" Cash Yield:
+        * Calculate the initial Owner Earnings Cash Yield: (Owner Earnings per Share / Current Stock Price).
+        * Evaluate pricing power and Return on Invested Capital (ROIC): Is this a capital-light compounder that throws off cash, or a capital-heavy business that consumes cash just to grow?
+     3. Share Buyback Cannibal Compounding:
+        * If management uses excess cash to aggressively repurchase shares at attractive prices, factor in the annual reduction in share count (e.g., 3-7% per year). This shrinks the denominator and directly compounds per-share Owner Earnings (especially in Base and Bull cases).
+     4. Discounting via Sovereign Treasury Benchmark (Zero Exit Multiples):
+        * Discount the projected cash flows using the long-term sovereign risk-free rate (e.g. 10Y US Treasury, local sovereign rate if international) + standard equity hurdle (e.g. 9-10% discount rate).
+        * For terminal value, use perpetual steady-state growth capped at long-term GDP (2.0%-2.5%) or Earnings Power Value (EPV), rather than arbitrary exit multiples.
+     5. Balance Sheet Reality & Margin of Safety:
+        * Intrinsic Equity Value = PV of 5-10Y Owner Earnings + PV of Terminal Cash Stream + Cash & Short-Term Investments - Total Debt.
+        * Divide by diluted share count to arrive at Intrinsic Fair Value per Share.
+        * Apply the 5-Year Exchange Closure Test: Demand a clear Margin of Safety so that even if the stock market were closed for 5 years, the investor earns a great return purely from cash generation and capital return.
+   - Present a clean, transparent Bear / Base / Bull scenario table in Section 5 detailing Owner Earnings, growth assumptions, and per-share intrinsic values.
+   - Analytical Autonomy: For banks, financial institutions, or asset plays where Owner Earnings DCF is unsuitable, use simple Tangible Book Value / ROE or dividend yield frameworks.
 """
 
 MASTER_PLANNER_PROMPT = """Target: {ticker} ({company_name}) | Current Stock Price: ${current_price:.2f}
@@ -295,7 +306,7 @@ Key Areas to Investigate via Real-Time Filings, Earnings Calls & Announcements:
 - Business Model Reality & Moat: How the company makes money, customer retention, pricing power, and competitive advantages in plain English.
 - Real Cash Flow, SBC & Capital Structure: Real cash generation (treating SBC as a cash charge), dilution vs. buybacks, Net Cash/Debt, and capital allocation.
 - Ownership & Catalysts: Verified active 13F whale positions from latest official filings (exclude exited investors), management alignment, and upcoming catalysts.
-- Clean Ballpark Intrinsic Valuation: Back-of-the-napkin DCF / Owner Earnings without market price anchoring. Calculate a simple Bear / Base / Bull scenario range (Post-SBC cash flow, 3-5 year compounding, Net Cash/Debt bridge), assess confidence, execution risk, and explicit falsification triggers.
+- Warren Buffett Owner Earnings & Intrinsic Value Matrix: Calculate normalized Owner Earnings (Post-SBC cash flow minus maintenance CapEx), project 3-5 year compounding, factor in share count reduction from buybacks, and discount via the 10Y Treasury benchmark with zero exit multiples. Build a clean Bear / Base / Bull scenario table in Section 5, assess confidence, execution risk, and explicit falsification triggers.
 - Dynamic Alert Corridors: Establish exact `upper_alert_threshold` (upside breakout / trim level) and `lower_alert_threshold` (downside margin-of-safety floor) based on your valuation targets.
 
 Editorial Aesthetics Mandate:
@@ -481,8 +492,8 @@ You have full analytical freedom to evaluate the new facts and determine the evo
    - Formulate a clear 2-3 sentence executive evolution summary for "what_changes_now".
 3. Dynamic Labels:
    - Update Label #1 (MANDATORY PRIMARY PILL) to reflect the new confidence and risk profile (e.g. "High Conviction", "Safe Compounder", "Turnaround Risk", "High Risk", "Asymmetric Upside", "Thesis Broken").
-4. True Intrinsic Valuation & DCF North Star:
-   - Update fair value and Bear / Base / Bull scenario targets using first-principles DCF / cash-flow fundamentals without anchoring to current market stock price. Treat SBC as a 100% real cash charge, bridge Enterprise Value to Equity Value via Net Cash/Debt, and recalculate intrinsic per-share value.
+4. Warren Buffett Owner Earnings & Intrinsic Value Framework:
+   - Update fair value and Bear / Base / Bull scenario targets using Warren Buffett's Owner Earnings methodology (Post-SBC cash flow minus maintenance CapEx, share count reduction from buybacks, 10Y Treasury benchmark discounting, zero exit multiples). Bridge via Net Cash/Debt to arrive at per-share intrinsic value.
 5. Self-Healing Catalyst Date Update Rule:
    - "next_catalyst_date" MUST ALWAYS BE IN STRICT "YYYY-MM-DD" FORMAT (e.g. 2026-11-18).
    - If on the trigger date after market close no earnings release or event has occurred (or the event was rescheduled), search investor relations for the newly confirmed or estimated date, set "next_catalyst_date" to the new YYYY-MM-DD, and explain in "what_changes_now" that the calendar date has been refreshed.
