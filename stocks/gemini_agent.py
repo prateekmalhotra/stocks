@@ -336,30 +336,75 @@ Management & Ownership: {stage3_data}
 Valuation & DCF: {stage4_data}
 """
 
+STAGE_6_QA_VERIFICATION_PROMPT = """You are the Managing Editor & Chief Compliance Officer conducting the final quality verification, formatting audit, and polish pass on the Investment Due Diligence Memo on {ticker} ({company_name}).
+Current Stock Price: ${current_price:.2f}
+
+Below is the assembled draft of the research memo:
+{draft_html}
+
+Your Quality Assurance Directives:
+1. Completeness Audit:
+   - Ensure all 12 sections (from 1. Executive Summary to 12. Invalidation Catalysts & Risk Pre-Mortem) are present, fully written, and completely fleshed out.
+   - If Section 12 (Invalidation Catalysts & Risk Pre-Mortem) is truncated or missing, write a complete, rigorous pre-mortem analysis with specific falsification triggers.
+2. Table & Calculation Integrity:
+   - Ensure EVERY table is fully closed with all columns and rows intact (all <table>, <tbody>, <tr>, <td> properly closed).
+   - Ensure no half-finished rows or empty metrics exist.
+3. Aesthetic Polish & Highlights:
+   - Ensure key qualitative conclusions are highlighted using <mark class="highlight">...</mark>.
+   - Remove any markdown artifacts, code fence tags, or stray notes.
+
+Output ONLY the verified, polished, 100% complete Semantic HTML. Do not output outer <html> or <body> tags.
+"""
+
+
+def verify_and_repair_html_structure(html: str) -> str:
+    """Deterministic structural cleanup and tag balancing."""
+    if not html:
+        return ""
+    
+    cleaned = re.sub(r"^```(?:html)?\s*", "", html, flags=re.MULTILINE)
+    cleaned = re.sub(r"\s*```$", "", cleaned, flags=re.MULTILINE).strip()
+    
+    # Auto-close unclosed tables
+    open_tables = len(re.findall(r"<table\b", cleaned, re.IGNORECASE))
+    close_tables = len(re.findall(r"</table>", cleaned, re.IGNORECASE))
+    if open_tables > close_tables:
+        diff = open_tables - close_tables
+        cleaned += "\n" + ("</tbody></table>" * diff)
+        
+    # Auto-close unclosed divs
+    open_divs = len(re.findall(r"<div\b", cleaned, re.IGNORECASE))
+    close_divs = len(re.findall(r"</div>", cleaned, re.IGNORECASE))
+    if open_divs > close_divs:
+        diff = open_divs - close_divs
+        cleaned += "\n" + ("</div>" * diff)
+
+    return clean_grounding_artifacts(cleaned)
+
 
 def generate_genesis_thesis(ticker: str, company_name: str, current_price: float, initial_notes: str = "") -> Tuple[Dict[str, Any], str]:
     """Generates an authentic, independent institutional investment memo via modular multi-agent synthesis."""
     ticker_clean = ticker.upper().strip()
-    print(f"  [Pipeline 1/6] Running Forensic Accounting & Capital Structure Audit for {ticker_clean}...")
+    print(f"  [Pipeline 1/7] Running Forensic Accounting & Capital Structure Audit for {ticker_clean}...")
     stage1_prompt = STAGE_1_FINANCIALS_PROMPT.format(ticker=ticker_clean, company_name=company_name, current_price=current_price)
     stage1_out = call_gemini_with_search(stage1_prompt, system_instruction=INSTITUTIONAL_SYSTEM_PHILOSOPHY)
 
-    print(f"  [Pipeline 2/6] Investigating Operating Model Anatomy, Cash Conversion & Moat for {ticker_clean}...")
+    print(f"  [Pipeline 2/7] Investigating Operating Model Anatomy, Cash Conversion & Moat for {ticker_clean}...")
     stage2_prompt = STAGE_2_MOAT_INDUSTRY_PROMPT.format(ticker=ticker_clean, company_name=company_name, current_price=current_price)
     stage2_out = call_gemini_with_search(stage2_prompt, system_instruction=INSTITUTIONAL_SYSTEM_PHILOSOPHY)
 
-    print(f"  [Pipeline 3/6] Auditing Capital Allocation (ROIC/Buybacks) & 13F Whales for {ticker_clean}...")
+    print(f"  [Pipeline 3/7] Auditing Capital Allocation (ROIC/Buybacks) & 13F Whales for {ticker_clean}...")
     stage3_prompt = STAGE_3_MANAGEMENT_OWNERSHIP_PROMPT.format(ticker=ticker_clean, company_name=company_name, current_price=current_price)
     stage3_out = call_gemini_with_search(stage3_prompt, system_instruction=INSTITUTIONAL_SYSTEM_PHILOSOPHY)
 
-    print(f"  [Pipeline 4/6] Executing 5-Year Unlevered DCF, EPV & Sensitivity Model for {ticker_clean}...")
+    print(f"  [Pipeline 4/7] Executing 5-Year Unlevered DCF, EPV & Sensitivity Model for {ticker_clean}...")
     stage4_prompt = STAGE_4_VALUATION_PROMPT.format(
         ticker=ticker_clean, company_name=company_name, current_price=current_price,
         stage1_data=stage1_out[:3500], stage2_data=stage2_out[:3500], stage3_data=stage3_out[:3500]
     )
     stage4_out = call_gemini_with_search(stage4_prompt, system_instruction=INSTITUTIONAL_SYSTEM_PHILOSOPHY)
 
-    print(f"  [Pipeline 5a/6] Synthesizing Strategic & Operating Memo Sections (1-4) for {ticker_clean}...")
+    print(f"  [Pipeline 5a/7] Synthesizing Strategic & Operating Memo Sections (1-4) for {ticker_clean}...")
     stage5a_prompt = STAGE_5A_SYNTHESIS_PART1_PROMPT.format(
         ticker=ticker_clean, company_name=company_name, current_price=current_price,
         stage1_data=stage1_out[:2200], stage2_data=stage2_out[:2200],
@@ -375,7 +420,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         html_part1 = html_part1[:-3]
     html_part1 = clean_grounding_artifacts(html_part1.strip())
 
-    print(f"  [Pipeline 5b/6] Synthesizing Moat, Capital Allocation & Debt Sections (5-8) for {ticker_clean}...")
+    print(f"  [Pipeline 5b/7] Synthesizing Moat, Capital Allocation & Debt Sections (5-8) for {ticker_clean}...")
     stage5b_prompt = STAGE_5B_SYNTHESIS_PART2_PROMPT.format(
         ticker=ticker_clean, company_name=company_name, current_price=current_price,
         stage1_data=stage1_out[:2200], stage2_data=stage2_out[:2200],
@@ -390,7 +435,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         html_part2 = html_part2[:-3]
     html_part2 = clean_grounding_artifacts(html_part2.strip())
 
-    print(f"  [Pipeline 5c/6] Synthesizing Valuation, DCF, Scenarios & Risks Sections (9-12) for {ticker_clean}...")
+    print(f"  [Pipeline 5c/7] Synthesizing Valuation, DCF, Scenarios & Risks Sections (9-12) for {ticker_clean}...")
     stage5c_prompt = STAGE_5C_SYNTHESIS_PART3_PROMPT.format(
         ticker=ticker_clean, company_name=company_name, current_price=current_price,
         stage1_data=stage1_out[:2200], stage2_data=stage2_out[:2200],
@@ -405,7 +450,24 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         html_part3 = html_part3[:-3]
     html_part3 = clean_grounding_artifacts(html_part3.strip())
 
-    full_html = f"{html_part1}\n\n{html_part2}\n\n{html_part3}".strip()
+    raw_html = f"{html_part1}\n\n{html_part2}\n\n{html_part3}".strip()
+
+    print(f"  [Pipeline 6/7] Running Managing Editor QA Verification & Polish Filter for {ticker_clean}...")
+    qa_prompt = STAGE_6_QA_VERIFICATION_PROMPT.format(
+        ticker=ticker_clean,
+        company_name=company_name,
+        current_price=current_price,
+        draft_html=raw_html
+    )
+    try:
+        qa_out = call_gemini_with_search(qa_prompt, system_instruction=INSTITUTIONAL_SYSTEM_PHILOSOPHY)
+        qa_html = re.sub(r"```(?:html)?\s*", "", qa_out).strip()
+        if qa_html.endswith("```"):
+            qa_html = qa_html[:-3].strip()
+        full_html = verify_and_repair_html_structure(qa_html) if len(qa_html) > 5000 else verify_and_repair_html_structure(raw_html)
+    except Exception as e:
+        print(f"  ⚠️ QA filter fallback to deterministic repair: {e}")
+        full_html = verify_and_repair_html_structure(raw_html)
 
     if not metadata:
         metadata = {
