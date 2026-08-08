@@ -1,6 +1,7 @@
 """CLI Entry point for Equity Living Thesis & 24/7 Surveillance Engine."""
 
 import sys
+import re
 import argparse
 from datetime import datetime
 from typing import List
