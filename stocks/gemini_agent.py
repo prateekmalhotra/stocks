@@ -188,7 +188,8 @@ CORE PRINCIPLES & GUIDELINES:
    - You have complete freedom to analyze and value the business however you prefer. Choose whatever framework, metrics, and valuation methods best reflect the economic reality of the company.
    - You can override any default suggestions whenever you deem appropriate.
 
-2. Simple Economic Ground Rules (Avoid Silly Accounting Traps):
+2. Simple Economic Ground Rules & Mandatory Primary Sources:
+   - Latest Earnings Release & Earnings Call Transcript: You MUST search for and review the company's LATEST quarterly earnings statement (shareholder letter / financial results press release) and LATEST earnings call transcript (management remarks + analyst Q&A). Use these to extract latest guidance, operational metrics, and management commentary.
    - Stock-Based Compensation (SBC): Always treat SBC as a real cash expense and shareholder dilution factor.
    - Capital Structure: Properly account for Net Cash or Net Debt (Cash & equivalents minus total debt/obligations) in the valuation.
    - Localized International Valuation: If analyzing an international or cross-border company, use the appropriate country-specific risk-free and discount rates (e.g. SELIC for Brazil, local sovereign bond yields) and sensible, balanced currency conversions—neither overly optimistic nor overly pessimistic.
@@ -205,9 +206,10 @@ You are the Lead Investment Strategist. Your broad goal is to formulate an hones
 
 [AUTONOMY & BROAD OBJECTIVE DIRECTIVE]:
 You have full freedom to decide what matters most for this business and how to evaluate it.
-You will divide the research memo into 3 to 4 specialized sub-agents. Each sub-agent will research its assigned area using real-time search and directly output its dedicated section in clean Semantic HTML (<div class="section"> ... </div>).
+You will divide the research memo into 3 to 4 specialized sub-agents. Each sub-agent will research its assigned area using real-time search (including the latest earnings release and latest earnings call transcript) and directly output its dedicated section in clean Semantic HTML (<div class="section"> ... </div>).
 
-Broad Areas to Consider (adapt, expand, or adjust as you see fit):
+Key Areas to Investigate via Real-Time Filings & Earnings Calls:
+- Latest Earnings Statement & Call Transcript: What did management state regarding current quarter performance, forward guidance, capital allocation, and industry headwinds?
 - Business Model Reality & Moat: How the company makes money, customer retention, pricing power, and competitive advantages in plain English.
 - Real Cash Flow, SBC & Capital Structure: Real cash generation (treating SBC as a cash charge), dilution vs. buybacks, Net Cash/Debt, and capital allocation.
 - Ownership & Catalysts: Verified active 13F whale positions from latest official filings (exclude exited investors), management alignment, and upcoming catalysts.
@@ -236,15 +238,15 @@ Return your plan strictly as a JSON object in ```json ... ```:
   "sub_agents": [
     {{
       "role": "<Sub-Agent 1 Role Name, e.g. Business Model & Moat Specialist>",
-      "prompt": "<Detailed prompt instructing Sub-Agent 1 to search real-time filings and output Section 1 & 2 in clean Semantic HTML>"
+      "prompt": "<Detailed prompt instructing Sub-Agent 1 to search latest earnings release/transcript + filings and output Section 1 & 2 in clean Semantic HTML>"
     }},
     {{
       "role": "<Sub-Agent 2 Role Name, e.g. Cash Flow, SBC Dilution & Balance Sheet Auditor>",
-      "prompt": "<Detailed prompt instructing Sub-Agent 2 to search real-time filings and output Section 3 & 4 in clean Semantic HTML>"
+      "prompt": "<Detailed prompt instructing Sub-Agent 2 to search latest earnings release/transcript + filings and output Section 3 & 4 in clean Semantic HTML>"
     }},
     {{
       "role": "<Sub-Agent 3 Role Name, e.g. Ballpark Valuation & Invalidation Specialist>",
-      "prompt": "<Detailed prompt instructing Sub-Agent 3 to search real-time filings and output Section 5 & 6 with complete Bear/Base/Bull tables in clean Semantic HTML>"
+      "prompt": "<Detailed prompt instructing Sub-Agent 3 to search latest earnings release/transcript + filings and output Section 5 & 6 with complete Bear/Base/Bull tables in clean Semantic HTML>"
     }}
   ]
 }}

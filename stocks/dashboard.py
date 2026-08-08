@@ -546,44 +546,72 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         .tab-content {{ display: none; }}
         .tab-content.active {{ display: block; }}
 
-        /* Memo Content */
+        /* Memo Content & Premium Editorial Typography */
         .memo-container {{
             background: var(--bg-panel);
             border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 48px 52px;
         }}
-        .memo-container h2 {{
-            font-family: var(--font-serif);
-            font-size: 1.55rem;
-            font-weight: 500;
-            color: var(--text-title);
-            margin: 40px 0 16px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border-color);
-            letter-spacing: -0.02em;
+        .memo-container * {{
+            box-sizing: border-box;
         }}
-        .memo-container h2:first-of-type {{ margin-top: 0; }}
+        .memo-container a {{
+            color: var(--accent-warm) !important;
+            text-decoration: none !important;
+            transition: color 0.15s ease !important;
+            border-bottom: 1px dotted rgba(201, 154, 117, 0.4) !important;
+        }}
+        .memo-container a:hover {{
+            color: #E2DDD5 !important;
+            border-bottom-color: var(--accent-warm) !important;
+        }}
+        .memo-container h1, .memo-container h2 {{
+            font-family: var(--font-serif) !important;
+            font-size: 1.55rem !important;
+            font-weight: 500 !important;
+            color: var(--text-title) !important;
+            margin: 44px 0 18px !important;
+            padding-bottom: 10px !important;
+            border-bottom: 1px solid var(--border-color) !important;
+            letter-spacing: -0.02em !important;
+            line-height: 1.35 !important;
+        }}
+        .memo-container h1:first-child, .memo-container h2:first-of-type {{ margin-top: 0 !important; }}
         .memo-container h3 {{
-            font-family: var(--font-serif);
-            font-size: 1.25rem;
-            font-weight: 500;
-            color: var(--accent-warm);
-            margin: 28px 0 12px;
+            font-family: var(--font-serif) !important;
+            font-size: 1.28rem !important;
+            font-weight: 500 !important;
+            color: var(--accent-warm) !important;
+            margin: 32px 0 14px !important;
+            line-height: 1.4 !important;
+        }}
+        .memo-container h4, .memo-container h5, .memo-container h6 {{
+            font-family: var(--font-serif) !important;
+            font-size: 1.12rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            margin: 24px 0 10px !important;
         }}
         .memo-container p {{
-            font-size: 1.15rem;
-            line-height: 1.9;
-            color: var(--text-body);
-            margin-bottom: 20px;
+            font-family: var(--font-serif) !important;
+            font-size: 1.15rem !important;
+            line-height: 1.9 !important;
+            color: var(--text-body) !important;
+            margin-bottom: 22px !important;
         }}
         .memo-container ul, .memo-container ol {{
-            font-size: 1.12rem;
-            line-height: 1.9;
-            color: var(--text-body);
-            margin: 0 0 24px 30px;
+            font-family: var(--font-serif) !important;
+            font-size: 1.12rem !important;
+            line-height: 1.9 !important;
+            color: var(--text-body) !important;
+            margin: 0 0 26px 30px !important;
         }}
-        .memo-container li {{ margin-bottom: 8px; }}
+        .memo-container li {{ margin-bottom: 10px !important; color: var(--text-body) !important; }}
+        .memo-container strong, .memo-container b {{
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }}
 
         /* STUNNING CONSISTENT TABLES - SOOTHING WARM TONES & ZERO OVERFLOW */
         .table-scroll-wrap {{
@@ -648,27 +676,49 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             font-weight: 500 !important;
         }}
 
-        .memo-container blockquote {{
+        /* UNIVERSAL CALLOUT & BOX STYLING - NEVER WHITE OR PINK, STRICT DARK OBSIDIAN */
+        .memo-container blockquote,
+        .memo-container .callout,
+        .memo-container .falsification-box,
+        .memo-container .institutional-box,
+        .memo-container div[class*="box"],
+        .memo-container div[class*="card"],
+        .memo-container div[class*="alert"],
+        .memo-container div[class*="warning"],
+        .memo-container div[class*="highlight-box"] {{
             background: var(--bg-subpanel) !important;
             background-color: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
             border-left: 3px solid var(--accent-warm) !important;
-            padding: 18px 24px !important;
-            border-radius: 0 8px 8px 0 !important;
+            padding: 22px 26px !important;
+            border-radius: 8px !important;
             margin: 28px 0 !important;
-            font-style: italic !important;
-            font-size: 1.15rem !important;
-            color: var(--text-title) !important;
+            color: var(--text-body) !important;
             line-height: 1.8 !important;
         }}
-        .memo-container .callout {{
-            background: var(--bg-subpanel) !important;
-            background-color: var(--bg-subpanel) !important;
-            border: 1px solid var(--border-color) !important;
-            border-left: 3px solid var(--accent-warm) !important;
-            border-radius: 8px !important;
-            padding: 18px 22px !important;
-            margin: 24px 0 !important;
+        .memo-container blockquote *,
+        .memo-container .callout *,
+        .memo-container .falsification-box *,
+        .memo-container .institutional-box *,
+        .memo-container div[class*="box"] *,
+        .memo-container div[class*="card"] *,
+        .memo-container div[class*="alert"] * {{
+            background: transparent !important;
+            background-color: transparent !important;
             color: var(--text-body) !important;
+        }}
+        .memo-container blockquote h3,
+        .memo-container blockquote h4,
+        .memo-container .callout h3,
+        .memo-container .callout h4,
+        .memo-container .falsification-box h4,
+        .memo-container .falsification-box strong,
+        .memo-container .institutional-box h4,
+        .memo-container .institutional-box strong,
+        .memo-container div[class*="box"] h4,
+        .memo-container div[class*="box"] strong,
+        .memo-container div[class*="card"] strong {{
+            color: var(--text-title) !important;
         }}
         .highlight, mark {{
             background: rgba(201, 154, 117, 0.16) !important;
