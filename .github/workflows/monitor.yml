@@ -2,10 +2,10 @@ name: 24/7 Equity Surveillance & Living Thesis Engine
 
 on:
   schedule:
-    # 10:30 AM EST (14:30 UTC) - 1 hour after market open (Mon-Fri)
+    # 10:30 AM EST (14:30 UTC) - Morning Market Hours (Price corridor checks)
     - cron: '30 14 * * 1-5'
-    # 5:00 PM EST (21:00 UTC) - 1 hour after market close (Mon-Fri)
-    - cron: '0 21 * * 1-5'
+    # 6:00 PM EST (22:00 UTC) - Post-Market Close (Earnings calls, transcripts & filings review)
+    - cron: '0 22 * * 1-5'
   workflow_dispatch:
     inputs:
       action:
