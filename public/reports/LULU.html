@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LULU — Investment Memo</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="apple-touch-icon" href="../favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-canvas: #141312;
+            --bg-panel: #1A1917;
+            --bg-subpanel: #21201D;
+            --bg-hover: #282623;
+            --text-title: #D8D2C6;
+            --text-body: #BDB7AA;
+            --text-secondary: #8E887D;
+            --text-dim: #666157;
+            --accent-warm: #C99A75;
+            --accent-green: #7D9D81;
+            --accent-red: #C4726C;
+            --border-color: rgba(215, 205, 190, 0.07);
+            --border-focus: rgba(215, 205, 190, 0.14);
+            --font-serif: 'Newsreader', Garamond, Georgia, serif;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--bg-canvas);
+            color: var(--text-body);
+            font-family: var(--font-serif);
+            line-height: 1.85;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 120px;
+        }
+
+        .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+        /* Top Nav */
+        nav.nav-bar {
+            background: rgba(20, 19, 18, 0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 16px 0;
+        }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .nav-back {
+            color: var(--accent-warm);
+            text-decoration: none;
+            font-family: var(--font-sans);
+            font-size: 0.88rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.15s;
+        }
+        .nav-back:hover { color: #DDB495; }
+
+        /* Hero Deck */
+        .hero-deck {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 36px 40px;
+            margin: 32px 0 28px;
+        }
+
+        .hero-top-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px; }
+        .ticker-symbol {
+            font-family: var(--font-serif);
+            font-size: 2.8rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: var(--text-title);
+        }
+        .company-meta { color: var(--text-secondary); font-size: 1.05rem; font-style: italic; margin-top: 2px; }
+
+        .price-callout { text-align: right; }
+        .price-number { font-size: 2.6rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }
+        .price-sub { font-size: 0.88rem; font-family: var(--font-mono); margin-top: 2px; }
+
+        /* Native SVG Area Chart */
+        .native-chart-wrap {
+            margin-top: 28px;
+            background: #171614;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px 20px 12px;
+            position: relative;
+            user-select: none;
+        }
+        .chart-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            min-height: 28px;
+        }
+        .chart-live-val {
+            font-size: 0.88rem;
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .chart-range-pills {
+            display: flex;
+            gap: 4px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 2px;
+        }
+        .range-pill {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.72rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .range-pill:hover { color: var(--text-title); }
+        .range-pill.active {
+            background: var(--accent-warm);
+            color: #141312;
+            font-weight: 600;
+        }
+        .chart-svg { width: 100%; height: 220px; display: block; overflow: visible; }
+        .chart-tooltip {
+            position: absolute;
+            top: 14px;
+            left: 20px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-focus);
+            color: var(--text-title);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            padding: 5px 12px;
+            border-radius: 6px;
+            pointer-events: none;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            font-family: var(--font-sans);
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Key Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin-top: 24px;
+        }
+        .metric-cell {
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px 16px;
+        }
+        .metric-label { font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); letter-spacing: 0.05em; }
+        .metric-value { font-size: 1.15rem; font-weight: 500; color: var(--text-title); font-family: var(--font-mono); margin-top: 3px; }
+
+        /* Tabs */
+        .tabs-header {
+            display: flex;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-color);
+            margin: 32px 0 28px;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-family: var(--font-serif);
+            padding: 12px 18px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.15s;
+        }
+        .tab-btn:hover { color: var(--text-title); }
+        .tab-btn.active { color: var(--accent-warm); }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0; right: 0;
+            height: 2px;
+            background: var(--accent-warm);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Memo Content & Premium Editorial Typography */
+        .memo-container {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 48px 52px;
+        }
+        .memo-container * {
+            box-sizing: border-box;
+        }
+        .memo-container a {
+            color: var(--accent-warm) !important;
+            text-decoration: none !important;
+            transition: color 0.15s ease !important;
+            border-bottom: 1px dotted rgba(201, 154, 117, 0.4) !important;
+        }
+        .memo-container a:hover {
+            color: #E2DDD5 !important;
+            border-bottom-color: var(--accent-warm) !important;
+        }
+        .memo-container h1, .memo-container h2 {
+            font-family: var(--font-serif) !important;
+            font-size: 1.55rem !important;
+            font-weight: 500 !important;
+            color: var(--text-title) !important;
+            margin: 44px 0 18px !important;
+            padding-bottom: 10px !important;
+            border-bottom: 1px solid var(--border-color) !important;
+            letter-spacing: -0.02em !important;
+            line-height: 1.35 !important;
+        }
+        .memo-container h1:first-child, .memo-container h2:first-of-type { margin-top: 0 !important; }
+        .memo-container h3 {
+            font-family: var(--font-serif) !important;
+            font-size: 1.28rem !important;
+            font-weight: 500 !important;
+            color: var(--accent-warm) !important;
+            margin: 32px 0 14px !important;
+            line-height: 1.4 !important;
+        }
+        .memo-container h4, .memo-container h5, .memo-container h6 {
+            font-family: var(--font-serif) !important;
+            font-size: 1.12rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            margin: 24px 0 10px !important;
+        }
+        .memo-container p {
+            font-family: var(--font-serif) !important;
+            font-size: 1.15rem !important;
+            line-height: 1.9 !important;
+            color: var(--text-body) !important;
+            margin-bottom: 22px !important;
+        }
+        .memo-container ul, .memo-container ol {
+            font-family: var(--font-serif) !important;
+            font-size: 1.12rem !important;
+            line-height: 1.9 !important;
+            color: var(--text-body) !important;
+            margin: 0 0 26px 30px !important;
+        }
+        .memo-container li { margin-bottom: 10px !important; color: var(--text-body) !important; }
+        .memo-container strong, .memo-container b {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+
+        /* STUNNING CONSISTENT TABLES - SOOTHING WARM TONES & ZERO OVERFLOW */
+        .table-scroll-wrap {
+            width: 100% !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            margin: 32px 0 !important;
+            background: #171614 !important;
+            background-color: #171614 !important;
+            border-radius: 12px !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            box-sizing: border-box !important;
+        }
+        .memo-container table {
+            width: 100% !important;
+            min-width: 600px !important;
+            border-collapse: separate !important;
+            border-spacing: 0 !important;
+            margin: 0 !important;
+            background: transparent !important;
+            background-color: transparent !important;
+            border: none !important;
+        }
+        .memo-container tr, .memo-container td, .memo-container th {
+            background: transparent !important;
+            background-color: transparent !important;
+        }
+        .memo-container th {
+            background: #1E1D1A !important;
+            background-color: #1E1D1A !important;
+            color: #C99A75 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            padding: 14px 18px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
+            text-align: left !important;
+        }
+        .memo-container td {
+            padding: 14px 18px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.05) !important;
+            font-size: 0.92rem !important;
+            color: #BDB7AA !important;
+            font-family: var(--font-mono) !important;
+            text-align: left !important;
+        }
+        .memo-container tr:last-child td {
+            border-bottom: none !important;
+        }
+        .memo-container tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.012) !important;
+            background-color: rgba(255, 255, 255, 0.012) !important;
+        }
+        .memo-container tr:hover td {
+            background: rgba(201, 154, 117, 0.04) !important;
+            background-color: rgba(201, 154, 117, 0.04) !important;
+        }
+        .memo-container td strong, .memo-container td b {
+            color: #D8D2C6 !important;
+            font-weight: 500 !important;
+        }
+
+        /* UNIVERSAL CALLOUT & BOX STYLING - NEVER WHITE OR PINK, STRICT DARK OBSIDIAN */
+        .memo-container blockquote,
+        .memo-container .callout,
+        .memo-container .falsification-box,
+        .memo-container .institutional-box,
+        .memo-container div[class*="box"],
+        .memo-container div[class*="card"],
+        .memo-container div[class*="alert"],
+        .memo-container div[class*="warning"],
+        .memo-container div[class*="highlight-box"] {
+            background: var(--bg-subpanel) !important;
+            background-color: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-left: 3px solid var(--accent-warm) !important;
+            padding: 22px 26px !important;
+            border-radius: 8px !important;
+            margin: 28px 0 !important;
+            color: var(--text-body) !important;
+            line-height: 1.8 !important;
+        }
+        .memo-container blockquote *,
+        .memo-container .callout *,
+        .memo-container .falsification-box *,
+        .memo-container .institutional-box *,
+        .memo-container div[class*="box"] *,
+        .memo-container div[class*="card"] *,
+        .memo-container div[class*="alert"] * {
+            background: transparent !important;
+            background-color: transparent !important;
+            color: var(--text-body) !important;
+        }
+        .memo-container blockquote h3,
+        .memo-container blockquote h4,
+        .memo-container .callout h3,
+        .memo-container .callout h4,
+        .memo-container .falsification-box h4,
+        .memo-container .falsification-box strong,
+        .memo-container .institutional-box h4,
+        .memo-container .institutional-box strong,
+        .memo-container div[class*="box"] h4,
+        .memo-container div[class*="box"] strong,
+        .memo-container div[class*="card"] strong {
+            color: var(--text-title) !important;
+        }
+        .highlight, mark {
+            background: rgba(201, 154, 117, 0.16) !important;
+            color: #E2DDD5 !important;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* FINANCIAL METRIC CARDS & STAT GRIDS */
+        .metrics-grid, .stats-grid, .grid-3, .grid-4, .grid-2, .metric-grid {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+            gap: 16px !important;
+            margin: 28px 0 !important;
+        }
+        .metric-card, .stat-card, div[class*="metric-box"], div[class*="stat-box"], div[class*="kpi-card"] {
+            background: var(--bg-subpanel) !important;
+            background-color: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-radius: 10px !important;
+            padding: 18px 20px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            box-sizing: border-box !important;
+        }
+        .metric-label, .stat-label, .kpi-label {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            color: var(--text-secondary) !important;
+            margin-bottom: 6px !important;
+        }
+        .metric-value, .stat-value, .kpi-value {
+            font-family: var(--font-mono) !important;
+            font-size: 1.4rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            letter-spacing: -0.02em !important;
+            line-height: 1.2 !important;
+            margin-bottom: 4px !important;
+        }
+        .metric-delta, .metric-sub, .stat-sub, .kpi-sub {
+            font-family: var(--font-mono) !important;
+            font-size: 0.82rem !important;
+            color: var(--accent-warm) !important;
+        }
+
+        /* EMBEDDED IMAGES, CHARTS & VISUAL INFOGRAPHICS */
+        .figure-container, figure {
+            margin: 32px 0 !important;
+            text-align: center !important;
+            background: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-radius: 12px !important;
+            padding: 16px !important;
+            overflow: hidden !important;
+        }
+        .memo-container img {
+            max-width: 100% !important;
+            height: auto !important;
+            border-radius: 8px !important;
+            display: block !important;
+            margin: 0 auto !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+        }
+        .figure-caption, figcaption {
+            font-family: var(--font-sans) !important;
+            font-size: 0.8rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 10px !important;
+            text-align: center !important;
+        }
+
+        /* Evolution Update Highlight Banner at top of Memo */
+        .update-banner-box {
+            background: #1C1B18 !important;
+            border: 1px solid rgba(201, 154, 117, 0.3) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 12px !important;
+            padding: 24px 28px !important;
+            margin-bottom: 36px !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .update-banner-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 14px !important;
+            padding-bottom: 10px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
+        }
+        .update-banner-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.76rem !important;
+            font-weight: 600 !important;
+            color: var(--accent-warm) !important;
+            letter-spacing: 0.04em !important;
+            text-transform: uppercase !important;
+        }
+        .update-trigger-pill {
+            font-family: var(--font-mono) !important;
+            font-size: 0.74rem !important;
+            color: var(--text-secondary) !important;
+            background: var(--bg-subpanel) !important;
+            padding: 3px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid var(--border-color) !important;
+        }
+        .update-banner-title {
+            font-family: var(--font-serif) !important;
+            font-size: 1.22rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            margin-bottom: 8px !important;
+        }
+        .update-banner-desc {
+            font-family: var(--font-serif) !important;
+            font-size: 1.08rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-body) !important;
+        }
+
+        /* History */
+        .history-entry {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 28px 32px;
+            margin-bottom: 20px;
+        }
+        .history-entry-active { border-color: rgba(201, 154, 117, 0.35); }
+        .history-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+        .history-tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .history-time { color: var(--text-secondary); font-size: 0.88rem; font-family: var(--font-sans); }
+        .history-price { font-family: var(--font-mono); font-size: 0.92rem; }
+
+        .diff-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) { .diff-grid { grid-template-columns: 1fr; } }
+        .diff-box {
+            padding: 18px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .diff-prev { background: rgba(196, 114, 108, 0.05); border-color: rgba(196, 114, 108, 0.18); }
+        .diff-now { background: rgba(125, 157, 129, 0.05); border-color: rgba(125, 157, 129, 0.18); }
+        .diff-label { font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+        .diff-prev .diff-label { color: var(--accent-red); }
+        .diff-now .diff-label { color: var(--accent-green); }
+        .diff-text { font-size: 1.02rem; color: var(--text-body); line-height: 1.65; }
+
+        /* Pills */
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 11px;
+            border-radius: 9999px;
+            font-size: 0.72rem;
+            font-family: var(--font-sans);
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+        }
+        .pill-active { background: rgba(201, 154, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.45); font-weight: 600; box-shadow: 0 0 10px rgba(201, 154, 117, 0.06); }
+        .pill-neutral { background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); font-weight: 500; }
+        .pill-alert { background: rgba(191, 160, 117, 0.14); color: var(--accent-warm); border: 1px solid rgba(191, 160, 117, 0.28); }
+
+        .btn-subtle {
+            background: var(--bg-subpanel);
+            color: var(--text-title);
+            border: 1px solid var(--border-color);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            padding: 7px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .btn-subtle:hover { background: var(--bg-hover); }
+
+        .snapshot-drawer { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color); }
+
+        .pos { color: var(--accent-green); }
+        .neg { color: var(--accent-red); }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="container nav-inner">
+            <a href="../index.html" class="nav-back">← AlphaThesis</a>
+            <span style="font-size: 0.82rem; color: var(--text-dim); font-family: var(--font-sans);">LULU RESEARCH</span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Hero Deck -->
+        <section class="hero-deck">
+            <div class="hero-top-row">
+                <div>
+                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                        <span class="ticker-symbol">LULU</span>
+                        <span class="pill pill-active">Deep Value</span> <span class="pill pill-neutral">Buyback Cannibal</span> <span class="pill pill-neutral">China Expansion</span>
+                    </div>
+                    <div class="company-meta">lululemon athletica inc.</div>
+                </div>
+                <div class="price-callout">
+                    <div class="price-number">$128.58</div>
+                    <div class="price-sub pos">
+                        +0.00% vs Genesis
+                    </div>
+                </div>
+            </div>
+
+            <!-- Native Multi-Range Interactive Area Chart -->
+            
+    <div class="native-chart-wrap" id="chart-container">
+        <div class="chart-top-bar">
+            <div id="chart-live-val" class="chart-live-val">
+                <span id="tooltip-date">Aug 07, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$128.58</strong>
+            </div>
+            <div class="chart-range-pills">
+                <button class="range-pill active" onclick="switchChartRange('1Y')">1Y</button>
+                <button class="range-pill" onclick="switchChartRange('5Y')">5Y</button>
+                <button class="range-pill" onclick="switchChartRange('10Y')">10Y</button>
+                <button class="range-pill" onclick="switchChartRange('MAX')">MAX</button>
+            </div>
+        </div>
+
+        <svg id="interactive-svg" viewBox="0 0 900 260" preserveAspectRatio="none" class="chart-svg">
+            <defs>
+                <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#C99A75" stop-opacity="0.18" />
+                    <stop offset="100%" stop-color="#C99A75" stop-opacity="0.0" />
+                </linearGradient>
+            </defs>
+            
+            <line x1="20" y1="25" x2="880" y2="25" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
+            <line x1="20" y1="130.0" x2="880" y2="130.0" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
+            <line x1="20" y1="235" x2="880" y2="235" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
+
+            <path id="chart-area-path" d="" fill="url(#area-grad)" />
+            <path id="chart-line-path" d="" fill="none" stroke="#C99A75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+            <line id="crosshair-line" x1="0" y1="25" x2="0" y2="235" stroke="rgba(201,154,117,0.35)" stroke-width="1" stroke-dasharray="3 3" style="display: none;" />
+            <circle id="hover-dot" r="4" fill="#C99A75" stroke="#1A1917" stroke-width="2" style="display: none;" />
+        </svg>
+        <div class="chart-labels">
+            <span id="chart-start-lbl">Aug 08, 2025 ($105.43)</span>
+            <span id="chart-range-title">1-Year Historical Range</span>
+            <span id="chart-end-lbl">Aug 07, 2026 ($128.58)</span>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const allDatasets = {"1Y": [{"date": "Aug 08, 2025", "price": 189.43}, {"date": "Aug 11, 2025", "price": 186.44}, {"date": "Aug 12, 2025", "price": 192.93}, {"date": "Aug 13, 2025", "price": 200.49}, {"date": "Aug 14, 2025", "price": 195.19}, {"date": "Aug 15, 2025", "price": 198.46}, {"date": "Aug 18, 2025", "price": 203.62}, {"date": "Aug 19, 2025", "price": 197.66}, {"date": "Aug 20, 2025", "price": 198.12}, {"date": "Aug 21, 2025", "price": 198.18}, {"date": "Aug 22, 2025", "price": 207.59}, {"date": "Aug 25, 2025", "price": 202.44}, {"date": "Aug 26, 2025", "price": 202.53}, {"date": "Aug 27, 2025", "price": 205.57}, {"date": "Aug 28, 2025", "price": 205.08}, {"date": "Aug 29, 2025", "price": 202.2}, {"date": "Sep 02, 2025", "price": 200.21}, {"date": "Sep 03, 2025", "price": 198.53}, {"date": "Sep 04, 2025", "price": 206.09}, {"date": "Sep 05, 2025", "price": 167.8}, {"date": "Sep 08, 2025", "price": 168.1}, {"date": "Sep 09, 2025", "price": 165.69}, {"date": "Sep 10, 2025", "price": 163.9}, {"date": "Sep 11, 2025", "price": 165.78}, {"date": "Sep 12, 2025", "price": 159.87}, {"date": "Sep 15, 2025", "price": 159.98}, {"date": "Sep 16, 2025", "price": 162.34}, {"date": "Sep 17, 2025", "price": 163.48}, {"date": "Sep 18, 2025", "price": 169.76}, {"date": "Sep 19, 2025", "price": 169.62}, {"date": "Sep 22, 2025", "price": 173.41}, {"date": "Sep 23, 2025", "price": 173.33}, {"date": "Sep 24, 2025", "price": 179.22}, {"date": "Sep 25, 2025", "price": 172.01}, {"date": "Sep 26, 2025", "price": 176.3}, {"date": "Sep 29, 2025", "price": 179.11}, {"date": "Sep 30, 2025", "price": 177.93}, {"date": "Oct 01, 2025", "price": 177.57}, {"date": "Oct 02, 2025", "price": 178.2}, {"date": "Oct 03, 2025", "price": 175.59}, {"date": "Oct 06, 2025", "price": 174.12}, {"date": "Oct 07, 2025", "price": 173.17}, {"date": "Oct 08, 2025", "price": 174.82}, {"date": "Oct 09, 2025", "price": 173.48}, {"date": "Oct 10, 2025", "price": 167.51}, {"date": "Oct 13, 2025", "price": 169.85}, {"date": "Oct 14, 2025", "price": 169.13}, {"date": "Oct 15, 2025", "price": 167.1}, {"date": "Oct 16, 2025", "price": 164.62}, {"date": "Oct 17, 2025", "price": 167.41}, {"date": "Oct 20, 2025", "price": 172.43}, {"date": "Oct 21, 2025", "price": 181.39}, {"date": "Oct 22, 2025", "price": 178.29}, {"date": "Oct 23, 2025", "price": 179.06}, {"date": "Oct 24, 2025", "price": 178.17}, {"date": "Oct 27, 2025", "price": 181.39}, {"date": "Oct 28, 2025", "price": 179.98}, {"date": "Oct 29, 2025", "price": 170.3}, {"date": "Oct 30, 2025", "price": 168.02}, {"date": "Oct 31, 2025", "price": 170.54}, {"date": "Nov 03, 2025", "price": 165.47}, {"date": "Nov 04, 2025", "price": 160.66}, {"date": "Nov 05, 2025", "price": 167.59}, {"date": "Nov 06, 2025", "price": 163.55}, {"date": "Nov 07, 2025", "price": 166.13}, {"date": "Nov 10, 2025", "price": 170.35}, {"date": "Nov 11, 2025", "price": 169.81}, {"date": "Nov 12, 2025", "price": 170.9}, {"date": "Nov 13, 2025", "price": 169.66}, {"date": "Nov 14, 2025", "price": 170.68}, {"date": "Nov 17, 2025", "price": 164.16}, {"date": "Nov 18, 2025", "price": 163.97}, {"date": "Nov 19, 2025", "price": 166.06}, {"date": "Nov 20, 2025", "price": 164.69}, {"date": "Nov 21, 2025", "price": 168.18}, {"date": "Nov 24, 2025", "price": 169.67}, {"date": "Nov 25, 2025", "price": 177.51}, {"date": "Nov 26, 2025", "price": 181.94}, {"date": "Nov 28, 2025", "price": 184.18}, {"date": "Dec 01, 2025", "price": 182.41}, {"date": "Dec 02, 2025", "price": 182.4}, {"date": "Dec 03, 2025", "price": 182.3}, {"date": "Dec 04, 2025", "price": 183.6}, {"date": "Dec 05, 2025", "price": 190.01}, {"date": "Dec 08, 2025", "price": 183.04}, {"date": "Dec 09, 2025", "price": 182.28}, {"date": "Dec 10, 2025", "price": 187.62}, {"date": "Dec 11, 2025", "price": 187.01}, {"date": "Dec 12, 2025", "price": 204.97}, {"date": "Dec 15, 2025", "price": 206.29}, {"date": "Dec 16, 2025", "price": 206.74}, {"date": "Dec 17, 2025", "price": 207.87}, {"date": "Dec 18, 2025", "price": 215.11}, {"date": "Dec 19, 2025", "price": 209.45}, {"date": "Dec 22, 2025", "price": 212.37}, {"date": "Dec 23, 2025", "price": 212.68}, {"date": "Dec 24, 2025", "price": 210.4}, {"date": "Dec 26, 2025", "price": 208.97}, {"date": "Dec 29, 2025", "price": 212.54}, {"date": "Dec 30, 2025", "price": 210.67}, {"date": "Dec 31, 2025", "price": 207.81}, {"date": "Jan 02, 2026", "price": 210.81}, {"date": "Jan 05, 2026", "price": 212.4}, {"date": "Jan 06, 2026", "price": 215.88}, {"date": "Jan 07, 2026", "price": 211.72}, {"date": "Jan 08, 2026", "price": 212.17}, {"date": "Jan 09, 2026", "price": 203.9}, {"date": "Jan 12, 2026", "price": 209.04}, {"date": "Jan 13, 2026", "price": 211.9}, {"date": "Jan 14, 2026", "price": 203.14}, {"date": "Jan 15, 2026", "price": 205.01}, {"date": "Jan 16, 2026", "price": 201.87}, {"date": "Jan 20, 2026", "price": 188.76}, {"date": "Jan 21, 2026", "price": 189.84}, {"date": "Jan 22, 2026", "price": 194.66}, {"date": "Jan 23, 2026", "price": 191.07}, {"date": "Jan 26, 2026", "price": 192.79}, {"date": "Jan 27, 2026", "price": 186.39}, {"date": "Jan 28, 2026", "price": 180.35}, {"date": "Jan 29, 2026", "price": 172.54}, {"date": "Jan 30, 2026", "price": 174.5}, {"date": "Feb 02, 2026", "price": 179.08}, {"date": "Feb 03, 2026", "price": 171.57}, {"date": "Feb 04, 2026", "price": 178.0}, {"date": "Feb 05, 2026", "price": 170.09}, {"date": "Feb 06, 2026", "price": 172.85}, {"date": "Feb 09, 2026", "price": 175.68}, {"date": "Feb 10, 2026", "price": 180.62}, {"date": "Feb 11, 2026", "price": 175.86}, {"date": "Feb 12, 2026", "price": 169.53}, {"date": "Feb 13, 2026", "price": 176.42}, {"date": "Feb 17, 2026", "price": 177.72}, {"date": "Feb 18, 2026", "price": 182.13}, {"date": "Feb 19, 2026", "price": 182.88}, {"date": "Feb 20, 2026", "price": 187.3}, {"date": "Feb 23, 2026", "price": 178.11}, {"date": "Feb 24, 2026", "price": 179.49}, {"date": "Feb 25, 2026", "price": 182.55}, {"date": "Feb 26, 2026", "price": 186.1}, {"date": "Feb 27, 2026", "price": 185.17}, {"date": "Mar 02, 2026", "price": 176.17}, {"date": "Mar 03, 2026", "price": 174.27}, {"date": "Mar 04, 2026", "price": 173.21}, {"date": "Mar 05, 2026", "price": 173.18}, {"date": "Mar 06, 2026", "price": 170.13}, {"date": "Mar 09, 2026", "price": 169.76}, {"date": "Mar 10, 2026", "price": 166.43}, {"date": "Mar 11, 2026", "price": 162.79}, {"date": "Mar 12, 2026", "price": 158.19}, {"date": "Mar 13, 2026", "price": 157.78}, {"date": "Mar 16, 2026", "price": 159.91}, {"date": "Mar 17, 2026", "price": 159.27}, {"date": "Mar 18, 2026", "price": 165.39}, {"date": "Mar 19, 2026", "price": 165.57}, {"date": "Mar 20, 2026", "price": 162.82}, {"date": "Mar 23, 2026", "price": 164.38}, {"date": "Mar 24, 2026", "price": 160.95}, {"date": "Mar 25, 2026", "price": 158.72}, {"date": "Mar 26, 2026", "price": 151.39}, {"date": "Mar 27, 2026", "price": 145.85}, {"date": "Mar 30, 2026", "price": 145.83}, {"date": "Mar 31, 2026", "price": 153.1}, {"date": "Apr 01, 2026", "price": 158.81}, {"date": "Apr 02, 2026", "price": 155.72}, {"date": "Apr 06, 2026", "price": 156.18}, {"date": "Apr 07, 2026", "price": 153.67}, {"date": "Apr 08, 2026", "price": 158.86}, {"date": "Apr 09, 2026", "price": 166.51}, {"date": "Apr 10, 2026", "price": 163.86}, {"date": "Apr 13, 2026", "price": 162.56}, {"date": "Apr 14, 2026", "price": 160.6}, {"date": "Apr 15, 2026", "price": 162.74}, {"date": "Apr 16, 2026", "price": 162.92}, {"date": "Apr 17, 2026", "price": 167.28}, {"date": "Apr 20, 2026", "price": 166.81}, {"date": "Apr 21, 2026", "price": 166.7}, {"date": "Apr 22, 2026", "price": 163.45}, {"date": "Apr 23, 2026", "price": 141.66}, {"date": "Apr 24, 2026", "price": 143.8}, {"date": "Apr 27, 2026", "price": 146.94}, {"date": "Apr 28, 2026", "price": 142.39}, {"date": "Apr 29, 2026", "price": 138.16}, {"date": "Apr 30, 2026", "price": 137.7}, {"date": "May 01, 2026", "price": 133.58}, {"date": "May 04, 2026", "price": 128.98}, {"date": "May 05, 2026", "price": 130.21}, {"date": "May 06, 2026", "price": 132.04}, {"date": "May 07, 2026", "price": 133.59}, {"date": "May 08, 2026", "price": 131.18}, {"date": "May 11, 2026", "price": 126.34}, {"date": "May 12, 2026", "price": 125.13}, {"date": "May 13, 2026", "price": 121.21}, {"date": "May 14, 2026", "price": 121.06}, {"date": "May 15, 2026", "price": 119.14}, {"date": "May 18, 2026", "price": 120.26}, {"date": "May 19, 2026", "price": 119.22}, {"date": "May 20, 2026", "price": 125.19}, {"date": "May 21, 2026", "price": 126.76}, {"date": "May 22, 2026", "price": 127.18}, {"date": "May 26, 2026", "price": 127.35}, {"date": "May 27, 2026", "price": 131.04}, {"date": "May 28, 2026", "price": 131.33}, {"date": "May 29, 2026", "price": 131.18}, {"date": "Jun 01, 2026", "price": 132.09}, {"date": "Jun 02, 2026", "price": 126.47}, {"date": "Jun 03, 2026", "price": 126.03}, {"date": "Jun 04, 2026", "price": 124.92}, {"date": "Jun 05, 2026", "price": 114.23}, {"date": "Jun 08, 2026", "price": 117.55}, {"date": "Jun 09, 2026", "price": 121.36}, {"date": "Jun 10, 2026", "price": 118.93}, {"date": "Jun 11, 2026", "price": 121.84}, {"date": "Jun 12, 2026", "price": 118.77}, {"date": "Jun 15, 2026", "price": 116.21}, {"date": "Jun 16, 2026", "price": 115.5}, {"date": "Jun 17, 2026", "price": 111.76}, {"date": "Jun 18, 2026", "price": 111.77}, {"date": "Jun 22, 2026", "price": 105.43}, {"date": "Jun 23, 2026", "price": 108.92}, {"date": "Jun 24, 2026", "price": 113.09}, {"date": "Jun 25, 2026", "price": 112.06}, {"date": "Jun 26, 2026", "price": 117.57}, {"date": "Jun 29, 2026", "price": 114.29}, {"date": "Jun 30, 2026", "price": 114.18}, {"date": "Jul 01, 2026", "price": 116.4}, {"date": "Jul 02, 2026", "price": 118.43}, {"date": "Jul 06, 2026", "price": 115.64}, {"date": "Jul 07, 2026", "price": 115.07}, {"date": "Jul 08, 2026", "price": 113.62}, {"date": "Jul 09, 2026", "price": 116.51}, {"date": "Jul 10, 2026", "price": 119.26}, {"date": "Jul 13, 2026", "price": 120.3}, {"date": "Jul 14, 2026", "price": 117.32}, {"date": "Jul 15, 2026", "price": 117.42}, {"date": "Jul 16, 2026", "price": 118.79}, {"date": "Jul 17, 2026", "price": 116.33}, {"date": "Jul 20, 2026", "price": 116.67}, {"date": "Jul 21, 2026", "price": 116.63}, {"date": "Jul 22, 2026", "price": 113.37}, {"date": "Jul 23, 2026", "price": 110.63}, {"date": "Jul 24, 2026", "price": 114.28}, {"date": "Jul 27, 2026", "price": 117.83}, {"date": "Jul 28, 2026", "price": 120.32}, {"date": "Jul 29, 2026", "price": 119.03}, {"date": "Jul 30, 2026", "price": 119.48}, {"date": "Jul 31, 2026", "price": 118.87}, {"date": "Aug 03, 2026", "price": 123.67}, {"date": "Aug 04, 2026", "price": 123.03}, {"date": "Aug 05, 2026", "price": 123.51}, {"date": "Aug 06, 2026", "price": 124.73}, {"date": "Aug 07, 2026", "price": 128.58}], "5Y": [{"date": "Aug 09, 2021", "price": 408.72}, {"date": "Aug 16, 2021", "price": 397.83}, {"date": "Aug 23, 2021", "price": 405.97}, {"date": "Aug 30, 2021", "price": 388.33}, {"date": "Sep 06, 2021", "price": 425.58}, {"date": "Sep 13, 2021", "price": 426.55}, {"date": "Sep 20, 2021", "price": 432.61}, {"date": "Sep 27, 2021", "price": 401.37}, {"date": "Oct 04, 2021", "price": 397.22}, {"date": "Oct 11, 2021", "price": 403.51}, {"date": "Oct 18, 2021", "price": 421.73}, {"date": "Oct 25, 2021", "price": 466.01}, {"date": "Nov 01, 2021", "price": 467.91}, {"date": "Nov 08, 2021", "price": 452.59}, {"date": "Nov 15, 2021", "price": 473.0}, {"date": "Nov 22, 2021", "price": 456.58}, {"date": "Nov 29, 2021", "price": 435.72}, {"date": "Dec 06, 2021", "price": 409.58}, {"date": "Dec 13, 2021", "price": 384.66}, {"date": "Dec 20, 2021", "price": 391.56}, {"date": "Dec 27, 2021", "price": 391.45}, {"date": "Jan 03, 2022", "price": 355.21}, {"date": "Jan 10, 2022", "price": 328.98}, {"date": "Jan 17, 2022", "price": 313.02}, {"date": "Jan 24, 2022", "price": 315.91}, {"date": "Jan 31, 2022", "price": 336.37}, {"date": "Feb 07, 2022", "price": 316.72}, {"date": "Feb 14, 2022", "price": 308.66}, {"date": "Feb 21, 2022", "price": 317.58}, {"date": "Feb 28, 2022", "price": 320.58}, {"date": "Mar 07, 2022", "price": 291.55}, {"date": "Mar 14, 2022", "price": 316.93}, {"date": "Mar 21, 2022", "price": 321.14}, {"date": "Mar 28, 2022", "price": 367.44}, {"date": "Apr 04, 2022", "price": 369.46}, {"date": "Apr 11, 2022", "price": 390.78}, {"date": "Apr 18, 2022", "price": 363.66}, {"date": "Apr 25, 2022", "price": 354.63}, {"date": "May 02, 2022", "price": 317.05}, {"date": "May 09, 2022", "price": 309.29}, {"date": "May 16, 2022", "price": 274.04}, {"date": "May 23, 2022", "price": 293.65}, {"date": "May 30, 2022", "price": 300.8}, {"date": "Jun 06, 2022", "price": 291.6}, {"date": "Jun 13, 2022", "price": 278.13}, {"date": "Jun 20, 2022", "price": 293.36}, {"date": "Jun 27, 2022", "price": 263.38}, {"date": "Jul 04, 2022", "price": 293.39}, {"date": "Jul 11, 2022", "price": 286.41}, {"date": "Jul 18, 2022", "price": 304.5}, {"date": "Jul 25, 2022", "price": 310.51}, {"date": "Aug 01, 2022", "price": 317.8}, {"date": "Aug 08, 2022", "price": 321.69}, {"date": "Aug 15, 2022", "price": 322.47}, {"date": "Aug 22, 2022", "price": 311.31}, {"date": "Aug 29, 2022", "price": 314.17}, {"date": "Sep 05, 2022", "price": 348.65}, {"date": "Sep 12, 2022", "price": 333.24}, {"date": "Sep 19, 2022", "price": 293.2}, {"date": "Sep 26, 2022", "price": 279.56}, {"date": "Oct 03, 2022", "price": 298.22}, {"date": "Oct 10, 2022", "price": 288.78}, {"date": "Oct 17, 2022", "price": 298.63}, {"date": "Oct 24, 2022", "price": 328.48}, {"date": "Oct 31, 2022", "price": 325.57}, {"date": "Nov 07, 2022", "price": 359.7}, {"date": "Nov 14, 2022", "price": 347.85}, {"date": "Nov 21, 2022", "price": 361.16}, {"date": "Nov 28, 2022", "price": 385.99}, {"date": "Dec 05, 2022", "price": 326.39}, {"date": "Dec 12, 2022", "price": 321.24}, {"date": "Dec 19, 2022", "price": 311.54}, {"date": "Dec 26, 2022", "price": 320.38}, {"date": "Jan 02, 2023", "price": 329.26}, {"date": "Jan 09, 2023", "price": 315.47}, {"date": "Jan 16, 2023", "price": 312.8}, {"date": "Jan 23, 2023", "price": 310.85}, {"date": "Jan 30, 2023", "price": 319.42}, {"date": "Feb 06, 2023", "price": 309.4}, {"date": "Feb 13, 2023", "price": 320.36}, {"date": "Feb 20, 2023", "price": 308.1}, {"date": "Feb 27, 2023", "price": 316.83}, {"date": "Mar 06, 2023", "price": 296.26}, {"date": "Mar 13, 2023", "price": 294.74}, {"date": "Mar 20, 2023", "price": 313.45}, {"date": "Mar 27, 2023", "price": 364.19}, {"date": "Apr 03, 2023", "price": 364.33}, {"date": "Apr 10, 2023", "price": 368.25}, {"date": "Apr 17, 2023", "price": 377.8}, {"date": "Apr 24, 2023", "price": 379.93}, {"date": "May 01, 2023", "price": 386.71}, {"date": "May 08, 2023", "price": 376.2}, {"date": "May 15, 2023", "price": 368.53}, {"date": "May 22, 2023", "price": 340.26}, {"date": "May 29, 2023", "price": 365.44}, {"date": "Jun 05, 2023", "price": 360.4}, {"date": "Jun 12, 2023", "price": 383.02}, {"date": "Jun 19, 2023", "price": 374.25}, {"date": "Jun 26, 2023", "price": 378.5}, {"date": "Jul 03, 2023", "price": 363.74}, {"date": "Jul 10, 2023", "price": 380.41}, {"date": "Jul 17, 2023", "price": 382.96}, {"date": "Jul 24, 2023", "price": 377.96}, {"date": "Jul 31, 2023", "price": 378.2}, {"date": "Aug 07, 2023", "price": 381.13}, {"date": "Aug 14, 2023", "price": 381.29}, {"date": "Aug 21, 2023", "price": 365.59}, {"date": "Aug 28, 2023", "price": 404.19}, {"date": "Sep 04, 2023", "price": 396.36}, {"date": "Sep 11, 2023", "price": 389.93}, {"date": "Sep 18, 2023", "price": 388.05}, {"date": "Sep 25, 2023", "price": 385.61}, {"date": "Oct 02, 2023", "price": 367.22}, {"date": "Oct 09, 2023", "price": 377.69}, {"date": "Oct 16, 2023", "price": 395.82}, {"date": "Oct 23, 2023", "price": 386.82}, {"date": "Oct 30, 2023", "price": 407.93}, {"date": "Nov 06, 2023", "price": 413.67}, {"date": "Nov 13, 2023", "price": 422.44}, {"date": "Nov 20, 2023", "price": 431.76}, {"date": "Nov 27, 2023", "price": 466.61}, {"date": "Dec 04, 2023", "price": 489.64}, {"date": "Dec 11, 2023", "price": 491.46}, {"date": "Dec 18, 2023", "price": 510.0}, {"date": "Dec 25, 2023", "price": 511.29}, {"date": "Jan 01, 2024", "price": 491.1}, {"date": "Jan 08, 2024", "price": 479.94}, {"date": "Jan 15, 2024", "price": 484.02}, {"date": "Jan 22, 2024", "price": 478.03}, {"date": "Jan 29, 2024", "price": 462.4}, {"date": "Feb 05, 2024", "price": 470.24}, {"date": "Feb 12, 2024", "price": 449.6}, {"date": "Feb 19, 2024", "price": 457.89}, {"date": "Feb 26, 2024", "price": 458.5}, {"date": "Mar 04, 2024", "price": 460.39}, {"date": "Mar 11, 2024", "price": 464.94}, {"date": "Mar 18, 2024", "price": 403.19}, {"date": "Mar 25, 2024", "price": 390.65}, {"date": "Apr 01, 2024", "price": 356.87}, {"date": "Apr 08, 2024", "price": 336.13}, {"date": "Apr 15, 2024", "price": 352.47}, {"date": "Apr 22, 2024", "price": 364.7}, {"date": "Apr 29, 2024", "price": 355.15}, {"date": "May 06, 2024", "price": 352.96}, {"date": "May 13, 2024", "price": 334.95}, {"date": "May 20, 2024", "price": 303.01}, {"date": "May 27, 2024", "price": 311.99}, {"date": "Jun 03, 2024", "price": 317.86}, {"date": "Jun 10, 2024", "price": 306.01}, {"date": "Jun 17, 2024", "price": 311.82}, {"date": "Jun 24, 2024", "price": 298.7}, {"date": "Jul 01, 2024", "price": 298.14}, {"date": "Jul 08, 2024", "price": 291.06}, {"date": "Jul 15, 2024", "price": 280.24}, {"date": "Jul 22, 2024", "price": 253.5}, {"date": "Jul 29, 2024", "price": 236.0}, {"date": "Aug 05, 2024", "price": 238.72}, {"date": "Aug 12, 2024", "price": 258.1}, {"date": "Aug 19, 2024", "price": 268.55}, {"date": "Aug 26, 2024", "price": 259.47}, {"date": "Sep 02, 2024", "price": 253.84}, {"date": "Sep 09, 2024", "price": 266.76}, {"date": "Sep 16, 2024", "price": 262.61}, {"date": "Sep 23, 2024", "price": 280.01}, {"date": "Sep 30, 2024", "price": 270.38}, {"date": "Oct 07, 2024", "price": 278.25}, {"date": "Oct 14, 2024", "price": 291.63}, {"date": "Oct 21, 2024", "price": 304.15}, {"date": "Oct 28, 2024", "price": 321.17}, {"date": "Nov 04, 2024", "price": 308.53}, {"date": "Nov 11, 2024", "price": 320.01}, {"date": "Nov 18, 2024", "price": 317.11}, {"date": "Nov 25, 2024", "price": 320.66}, {"date": "Dec 02, 2024", "price": 399.6}, {"date": "Dec 09, 2024", "price": 391.63}, {"date": "Dec 16, 2024", "price": 379.42}, {"date": "Dec 23, 2024", "price": 386.67}, {"date": "Dec 30, 2024", "price": 378.18}, {"date": "Jan 06, 2025", "price": 395.47}, {"date": "Jan 13, 2025", "price": 373.7}, {"date": "Jan 20, 2025", "price": 400.03}, {"date": "Jan 27, 2025", "price": 414.2}, {"date": "Feb 03, 2025", "price": 398.1}, {"date": "Feb 10, 2025", "price": 366.68}, {"date": "Feb 17, 2025", "price": 358.97}, {"date": "Feb 24, 2025", "price": 365.61}, {"date": "Mar 03, 2025", "price": 344.36}, {"date": "Mar 10, 2025", "price": 311.03}, {"date": "Mar 17, 2025", "price": 322.62}, {"date": "Mar 24, 2025", "price": 293.06}, {"date": "Mar 31, 2025", "price": 263.7}, {"date": "Apr 07, 2025", "price": 261.03}, {"date": "Apr 14, 2025", "price": 251.08}, {"date": "Apr 21, 2025", "price": 267.9}, {"date": "Apr 28, 2025", "price": 277.36}, {"date": "May 05, 2025", "price": 279.77}, {"date": "May 12, 2025", "price": 321.44}, {"date": "May 19, 2025", "price": 310.76}, {"date": "May 26, 2025", "price": 316.67}, {"date": "Jun 02, 2025", "price": 265.27}, {"date": "Jun 09, 2025", "price": 239.11}, {"date": "Jun 16, 2025", "price": 227.47}, {"date": "Jun 23, 2025", "price": 235.02}, {"date": "Jun 30, 2025", "price": 247.68}, {"date": "Jul 07, 2025", "price": 236.51}, {"date": "Jul 14, 2025", "price": 229.77}, {"date": "Jul 21, 2025", "price": 219.43}, {"date": "Jul 28, 2025", "price": 193.33}, {"date": "Aug 04, 2025", "price": 189.43}, {"date": "Aug 11, 2025", "price": 198.46}, {"date": "Aug 18, 2025", "price": 207.59}, {"date": "Aug 25, 2025", "price": 202.2}, {"date": "Sep 01, 2025", "price": 167.8}, {"date": "Sep 08, 2025", "price": 159.87}, {"date": "Sep 15, 2025", "price": 169.62}, {"date": "Sep 22, 2025", "price": 176.3}, {"date": "Sep 29, 2025", "price": 175.59}, {"date": "Oct 06, 2025", "price": 167.51}, {"date": "Oct 13, 2025", "price": 167.41}, {"date": "Oct 20, 2025", "price": 178.17}, {"date": "Oct 27, 2025", "price": 170.54}, {"date": "Nov 03, 2025", "price": 166.13}, {"date": "Nov 10, 2025", "price": 170.68}, {"date": "Nov 17, 2025", "price": 168.18}, {"date": "Nov 24, 2025", "price": 184.18}, {"date": "Dec 01, 2025", "price": 190.01}, {"date": "Dec 08, 2025", "price": 204.97}, {"date": "Dec 15, 2025", "price": 209.45}, {"date": "Dec 22, 2025", "price": 208.97}, {"date": "Dec 29, 2025", "price": 210.81}, {"date": "Jan 05, 2026", "price": 203.9}, {"date": "Jan 12, 2026", "price": 201.87}, {"date": "Jan 19, 2026", "price": 191.07}, {"date": "Jan 26, 2026", "price": 174.5}, {"date": "Feb 02, 2026", "price": 172.85}, {"date": "Feb 09, 2026", "price": 176.42}, {"date": "Feb 16, 2026", "price": 187.3}, {"date": "Feb 23, 2026", "price": 185.17}, {"date": "Mar 02, 2026", "price": 170.13}, {"date": "Mar 09, 2026", "price": 157.78}, {"date": "Mar 16, 2026", "price": 162.82}, {"date": "Mar 23, 2026", "price": 145.85}, {"date": "Mar 30, 2026", "price": 155.72}, {"date": "Apr 06, 2026", "price": 163.86}, {"date": "Apr 13, 2026", "price": 167.28}, {"date": "Apr 20, 2026", "price": 143.8}, {"date": "Apr 27, 2026", "price": 133.58}, {"date": "May 04, 2026", "price": 131.18}, {"date": "May 11, 2026", "price": 119.14}, {"date": "May 18, 2026", "price": 127.18}, {"date": "May 25, 2026", "price": 131.18}, {"date": "Jun 01, 2026", "price": 114.23}, {"date": "Jun 08, 2026", "price": 118.77}, {"date": "Jun 15, 2026", "price": 111.77}, {"date": "Jun 22, 2026", "price": 117.57}, {"date": "Jun 29, 2026", "price": 118.43}, {"date": "Jul 06, 2026", "price": 119.26}, {"date": "Jul 13, 2026", "price": 116.33}, {"date": "Jul 20, 2026", "price": 114.28}, {"date": "Jul 27, 2026", "price": 118.87}, {"date": "Aug 03, 2026", "price": 128.58}, {"date": "Aug 07, 2026", "price": 128.58}], "10Y": [{"date": "Sep 01, 2016", "price": 60.98}, {"date": "Oct 01, 2016", "price": 57.25}, {"date": "Nov 01, 2016", "price": 56.99}, {"date": "Dec 01, 2016", "price": 64.99}, {"date": "Jan 01, 2017", "price": 67.51}, {"date": "Feb 01, 2017", "price": 65.26}, {"date": "Mar 01, 2017", "price": 51.87}, {"date": "Apr 01, 2017", "price": 52.0}, {"date": "May 01, 2017", "price": 48.27}, {"date": "Jun 01, 2017", "price": 59.67}, {"date": "Jul 01, 2017", "price": 61.64}, {"date": "Aug 01, 2017", "price": 57.55}, {"date": "Sep 01, 2017", "price": 62.25}, {"date": "Oct 01, 2017", "price": 61.51}, {"date": "Nov 01, 2017", "price": 66.96}, {"date": "Dec 01, 2017", "price": 78.59}, {"date": "Jan 01, 2018", "price": 78.21}, {"date": "Feb 01, 2018", "price": 81.1}, {"date": "Mar 01, 2018", "price": 89.12}, {"date": "Apr 01, 2018", "price": 99.8}, {"date": "May 01, 2018", "price": 105.05}, {"date": "Jun 01, 2018", "price": 124.85}, {"date": "Jul 01, 2018", "price": 119.95}, {"date": "Aug 01, 2018", "price": 154.93}, {"date": "Sep 01, 2018", "price": 162.49}, {"date": "Oct 01, 2018", "price": 140.73}, {"date": "Nov 01, 2018", "price": 132.55}, {"date": "Dec 01, 2018", "price": 121.61}, {"date": "Jan 01, 2019", "price": 147.81}, {"date": "Feb 01, 2019", "price": 150.42}, {"date": "Mar 01, 2019", "price": 163.87}, {"date": "Apr 01, 2019", "price": 176.35}, {"date": "May 01, 2019", "price": 165.59}, {"date": "Jun 01, 2019", "price": 180.21}, {"date": "Jul 01, 2019", "price": 191.09}, {"date": "Aug 01, 2019", "price": 184.67}, {"date": "Sep 01, 2019", "price": 192.53}, {"date": "Oct 01, 2019", "price": 204.27}, {"date": "Nov 01, 2019", "price": 225.69}, {"date": "Dec 01, 2019", "price": 231.67}, {"date": "Jan 01, 2020", "price": 239.39}, {"date": "Feb 01, 2020", "price": 217.41}, {"date": "Mar 01, 2020", "price": 189.55}, {"date": "Apr 01, 2020", "price": 223.48}, {"date": "May 01, 2020", "price": 300.1}, {"date": "Jun 01, 2020", "price": 312.01}, {"date": "Jul 01, 2020", "price": 325.59}, {"date": "Aug 01, 2020", "price": 375.67}, {"date": "Sep 01, 2020", "price": 329.37}, {"date": "Oct 01, 2020", "price": 319.29}, {"date": "Nov 01, 2020", "price": 370.22}, {"date": "Dec 01, 2020", "price": 348.03}, {"date": "Jan 01, 2021", "price": 328.68}, {"date": "Feb 01, 2021", "price": 311.68}, {"date": "Mar 01, 2021", "price": 306.71}, {"date": "Apr 01, 2021", "price": 335.27}, {"date": "May 01, 2021", "price": 323.13}, {"date": "Jun 01, 2021", "price": 364.97}, {"date": "Jul 01, 2021", "price": 400.17}, {"date": "Aug 01, 2021", "price": 400.17}, {"date": "Sep 01, 2021", "price": 404.7}, {"date": "Oct 01, 2021", "price": 466.01}, {"date": "Nov 01, 2021", "price": 454.41}, {"date": "Dec 01, 2021", "price": 391.45}, {"date": "Jan 01, 2022", "price": 333.76}, {"date": "Feb 01, 2022", "price": 319.94}, {"date": "Mar 01, 2022", "price": 365.23}, {"date": "Apr 01, 2022", "price": 354.63}, {"date": "May 01, 2022", "price": 292.69}, {"date": "Jun 01, 2022", "price": 272.61}, {"date": "Jul 01, 2022", "price": 310.51}, {"date": "Aug 01, 2022", "price": 299.96}, {"date": "Sep 01, 2022", "price": 279.56}, {"date": "Oct 01, 2022", "price": 329.04}, {"date": "Nov 01, 2022", "price": 380.31}, {"date": "Dec 01, 2022", "price": 320.38}, {"date": "Jan 01, 2023", "price": 306.88}, {"date": "Feb 01, 2023", "price": 309.2}, {"date": "Mar 01, 2023", "price": 364.19}, {"date": "Apr 01, 2023", "price": 379.93}, {"date": "May 01, 2023", "price": 331.93}, {"date": "Jun 01, 2023", "price": 378.5}, {"date": "Jul 01, 2023", "price": 378.53}, {"date": "Aug 01, 2023", "price": 381.26}, {"date": "Sep 01, 2023", "price": 385.61}, {"date": "Oct 01, 2023", "price": 393.48}, {"date": "Nov 01, 2023", "price": 446.8}, {"date": "Dec 01, 2023", "price": 511.29}, {"date": "Jan 01, 2024", "price": 453.82}, {"date": "Feb 01, 2024", "price": 467.09}, {"date": "Mar 01, 2024", "price": 390.65}, {"date": "Apr 01, 2024", "price": 360.6}, {"date": "May 01, 2024", "price": 311.99}, {"date": "Jun 01, 2024", "price": 298.7}, {"date": "Jul 01, 2024", "price": 258.66}, {"date": "Aug 01, 2024", "price": 259.47}, {"date": "Sep 01, 2024", "price": 271.35}, {"date": "Oct 01, 2024", "price": 297.9}, {"date": "Nov 01, 2024", "price": 320.66}, {"date": "Dec 01, 2024", "price": 382.41}, {"date": "Jan 01, 2025", "price": 414.2}, {"date": "Feb 01, 2025", "price": 365.61}, {"date": "Mar 01, 2025", "price": 283.06}, {"date": "Apr 01, 2025", "price": 270.77}, {"date": "May 01, 2025", "price": 316.67}, {"date": "Jun 01, 2025", "price": 237.58}, {"date": "Jul 01, 2025", "price": 200.53}, {"date": "Aug 01, 2025", "price": 202.2}, {"date": "Sep 01, 2025", "price": 177.93}, {"date": "Oct 01, 2025", "price": 170.54}, {"date": "Nov 01, 2025", "price": 184.18}, {"date": "Dec 01, 2025", "price": 207.81}, {"date": "Jan 01, 2026", "price": 174.5}, {"date": "Feb 01, 2026", "price": 185.17}, {"date": "Mar 01, 2026", "price": 153.1}, {"date": "Apr 01, 2026", "price": 137.7}, {"date": "May 01, 2026", "price": 131.18}, {"date": "Jun 01, 2026", "price": 114.18}, {"date": "Jul 01, 2026", "price": 118.87}, {"date": "Aug 01, 2026", "price": 128.58}, {"date": "Aug 07, 2026", "price": 128.58}], "MAX": [{"date": "Aug 01, 2007", "price": 17.03}, {"date": "Sep 01, 2007", "price": 21.01}, {"date": "Oct 01, 2007", "price": 26.61}, {"date": "Nov 01, 2007", "price": 18.33}, {"date": "Dec 01, 2007", "price": 23.68}, {"date": "Jan 01, 2008", "price": 16.94}, {"date": "Feb 01, 2008", "price": 13.45}, {"date": "Mar 01, 2008", "price": 14.22}, {"date": "Apr 01, 2008", "price": 15.48}, {"date": "May 01, 2008", "price": 15.99}, {"date": "Jun 01, 2008", "price": 14.53}, {"date": "Jul 01, 2008", "price": 11.1}, {"date": "Aug 01, 2008", "price": 9.69}, {"date": "Sep 01, 2008", "price": 11.52}, {"date": "Oct 01, 2008", "price": 7.09}, {"date": "Nov 01, 2008", "price": 4.91}, {"date": "Dec 01, 2008", "price": 3.96}, {"date": "Jan 01, 2009", "price": 3.4}, {"date": "Feb 01, 2009", "price": 2.86}, {"date": "Mar 01, 2009", "price": 4.33}, {"date": "Apr 01, 2009", "price": 6.97}, {"date": "May 01, 2009", "price": 6.32}, {"date": "Jun 01, 2009", "price": 6.51}, {"date": "Jul 01, 2009", "price": 8.86}, {"date": "Aug 01, 2009", "price": 10.03}, {"date": "Sep 01, 2009", "price": 11.38}, {"date": "Oct 01, 2009", "price": 12.56}, {"date": "Nov 01, 2009", "price": 13.09}, {"date": "Dec 01, 2009", "price": 15.05}, {"date": "Jan 01, 2010", "price": 14.12}, {"date": "Feb 01, 2010", "price": 14.32}, {"date": "Mar 01, 2010", "price": 20.74}, {"date": "Apr 01, 2010", "price": 18.81}, {"date": "May 01, 2010", "price": 20.43}, {"date": "Jun 01, 2010", "price": 18.61}, {"date": "Jul 01, 2010", "price": 20.74}, {"date": "Aug 01, 2010", "price": 16.43}, {"date": "Sep 01, 2010", "price": 22.36}, {"date": "Oct 01, 2010", "price": 22.16}, {"date": "Nov 01, 2010", "price": 26.81}, {"date": "Dec 01, 2010", "price": 34.21}, {"date": "Jan 01, 2011", "price": 34.34}, {"date": "Feb 01, 2011", "price": 38.79}, {"date": "Mar 01, 2011", "price": 44.53}, {"date": "Apr 01, 2011", "price": 50.03}, {"date": "May 01, 2011", "price": 45.4}, {"date": "Jun 01, 2011", "price": 55.91}, {"date": "Jul 01, 2011", "price": 60.54}, {"date": "Aug 01, 2011", "price": 54.73}, {"date": "Sep 01, 2011", "price": 48.69}, {"date": "Oct 01, 2011", "price": 56.48}, {"date": "Nov 01, 2011", "price": 49.7}, {"date": "Dec 01, 2011", "price": 46.66}, {"date": "Jan 01, 2012", "price": 63.13}, {"date": "Feb 01, 2012", "price": 67.02}, {"date": "Mar 01, 2012", "price": 74.73}, {"date": "Apr 01, 2012", "price": 74.14}, {"date": "May 01, 2012", "price": 72.64}, {"date": "Jun 01, 2012", "price": 59.63}, {"date": "Jul 01, 2012", "price": 56.48}, {"date": "Aug 01, 2012", "price": 65.19}, {"date": "Sep 01, 2012", "price": 73.94}, {"date": "Oct 01, 2012", "price": 68.84}, {"date": "Nov 01, 2012", "price": 71.78}, {"date": "Dec 01, 2012", "price": 76.23}, {"date": "Jan 01, 2013", "price": 69.0}, {"date": "Feb 01, 2013", "price": 67.05}, {"date": "Mar 01, 2013", "price": 62.35}, {"date": "Apr 01, 2013", "price": 76.13}, {"date": "May 01, 2013", "price": 77.81}, {"date": "Jun 01, 2013", "price": 65.5}, {"date": "Jul 01, 2013", "price": 69.57}, {"date": "Aug 01, 2013", "price": 70.84}, {"date": "Sep 01, 2013", "price": 73.13}, {"date": "Oct 01, 2013", "price": 69.09}, {"date": "Nov 01, 2013", "price": 69.72}, {"date": "Dec 01, 2013", "price": 59.03}, {"date": "Jan 01, 2014", "price": 45.69}, {"date": "Feb 01, 2014", "price": 50.31}, {"date": "Mar 01, 2014", "price": 52.59}, {"date": "Apr 01, 2014", "price": 45.93}, {"date": "May 01, 2014", "price": 44.63}, {"date": "Jun 01, 2014", "price": 40.48}, {"date": "Jul 01, 2014", "price": 38.47}, {"date": "Aug 01, 2014", "price": 39.93}, {"date": "Sep 01, 2014", "price": 42.01}, {"date": "Oct 01, 2014", "price": 41.65}, {"date": "Nov 01, 2014", "price": 48.19}, {"date": "Dec 01, 2014", "price": 55.79}, {"date": "Jan 01, 2015", "price": 66.24}, {"date": "Feb 01, 2015", "price": 68.44}, {"date": "Mar 01, 2015", "price": 64.02}, {"date": "Apr 01, 2015", "price": 63.64}, {"date": "May 01, 2015", "price": 59.79}, {"date": "Jun 01, 2015", "price": 65.3}, {"date": "Jul 01, 2015", "price": 62.86}, {"date": "Aug 01, 2015", "price": 64.01}, {"date": "Sep 01, 2015", "price": 50.65}, {"date": "Oct 01, 2015", "price": 49.17}, {"date": "Nov 01, 2015", "price": 47.82}, {"date": "Dec 01, 2015", "price": 52.47}, {"date": "Jan 01, 2016", "price": 62.07}, {"date": "Feb 01, 2016", "price": 62.73}, {"date": "Mar 01, 2016", "price": 67.71}, {"date": "Apr 01, 2016", "price": 65.55}, {"date": "May 01, 2016", "price": 65.03}, {"date": "Jun 01, 2016", "price": 73.86}, {"date": "Jul 01, 2016", "price": 77.65}, {"date": "Aug 01, 2016", "price": 76.51}, {"date": "Sep 01, 2016", "price": 60.98}, {"date": "Oct 01, 2016", "price": 57.25}, {"date": "Nov 01, 2016", "price": 56.99}, {"date": "Dec 01, 2016", "price": 64.99}, {"date": "Jan 01, 2017", "price": 67.51}, {"date": "Feb 01, 2017", "price": 65.26}, {"date": "Mar 01, 2017", "price": 51.87}, {"date": "Apr 01, 2017", "price": 52.0}, {"date": "May 01, 2017", "price": 48.27}, {"date": "Jun 01, 2017", "price": 59.67}, {"date": "Jul 01, 2017", "price": 61.64}, {"date": "Aug 01, 2017", "price": 57.55}, {"date": "Sep 01, 2017", "price": 62.25}, {"date": "Oct 01, 2017", "price": 61.51}, {"date": "Nov 01, 2017", "price": 66.96}, {"date": "Dec 01, 2017", "price": 78.59}, {"date": "Jan 01, 2018", "price": 78.21}, {"date": "Feb 01, 2018", "price": 81.1}, {"date": "Mar 01, 2018", "price": 89.12}, {"date": "Apr 01, 2018", "price": 99.8}, {"date": "May 01, 2018", "price": 105.05}, {"date": "Jun 01, 2018", "price": 124.85}, {"date": "Jul 01, 2018", "price": 119.95}, {"date": "Aug 01, 2018", "price": 154.93}, {"date": "Sep 01, 2018", "price": 162.49}, {"date": "Oct 01, 2018", "price": 140.73}, {"date": "Nov 01, 2018", "price": 132.55}, {"date": "Dec 01, 2018", "price": 121.61}, {"date": "Jan 01, 2019", "price": 147.81}, {"date": "Feb 01, 2019", "price": 150.42}, {"date": "Mar 01, 2019", "price": 163.87}, {"date": "Apr 01, 2019", "price": 176.35}, {"date": "May 01, 2019", "price": 165.59}, {"date": "Jun 01, 2019", "price": 180.21}, {"date": "Jul 01, 2019", "price": 191.09}, {"date": "Aug 01, 2019", "price": 184.67}, {"date": "Sep 01, 2019", "price": 192.53}, {"date": "Oct 01, 2019", "price": 204.27}, {"date": "Nov 01, 2019", "price": 225.69}, {"date": "Dec 01, 2019", "price": 231.67}, {"date": "Jan 01, 2020", "price": 239.39}, {"date": "Feb 01, 2020", "price": 217.41}, {"date": "Mar 01, 2020", "price": 189.55}, {"date": "Apr 01, 2020", "price": 223.48}, {"date": "May 01, 2020", "price": 300.1}, {"date": "Jun 01, 2020", "price": 312.01}, {"date": "Jul 01, 2020", "price": 325.59}, {"date": "Aug 01, 2020", "price": 375.67}, {"date": "Sep 01, 2020", "price": 329.37}, {"date": "Oct 01, 2020", "price": 319.29}, {"date": "Nov 01, 2020", "price": 370.22}, {"date": "Dec 01, 2020", "price": 348.03}, {"date": "Jan 01, 2021", "price": 328.68}, {"date": "Feb 01, 2021", "price": 311.68}, {"date": "Mar 01, 2021", "price": 306.71}, {"date": "Apr 01, 2021", "price": 335.27}, {"date": "May 01, 2021", "price": 323.13}, {"date": "Jun 01, 2021", "price": 364.97}, {"date": "Jul 01, 2021", "price": 400.17}, {"date": "Aug 01, 2021", "price": 400.17}, {"date": "Sep 01, 2021", "price": 404.7}, {"date": "Oct 01, 2021", "price": 466.01}, {"date": "Nov 01, 2021", "price": 454.41}, {"date": "Dec 01, 2021", "price": 391.45}, {"date": "Jan 01, 2022", "price": 333.76}, {"date": "Feb 01, 2022", "price": 319.94}, {"date": "Mar 01, 2022", "price": 365.23}, {"date": "Apr 01, 2022", "price": 354.63}, {"date": "May 01, 2022", "price": 292.69}, {"date": "Jun 01, 2022", "price": 272.61}, {"date": "Jul 01, 2022", "price": 310.51}, {"date": "Aug 01, 2022", "price": 299.96}, {"date": "Sep 01, 2022", "price": 279.56}, {"date": "Oct 01, 2022", "price": 329.04}, {"date": "Nov 01, 2022", "price": 380.31}, {"date": "Dec 01, 2022", "price": 320.38}, {"date": "Jan 01, 2023", "price": 306.88}, {"date": "Feb 01, 2023", "price": 309.2}, {"date": "Mar 01, 2023", "price": 364.19}, {"date": "Apr 01, 2023", "price": 379.93}, {"date": "May 01, 2023", "price": 331.93}, {"date": "Jun 01, 2023", "price": 378.5}, {"date": "Jul 01, 2023", "price": 378.53}, {"date": "Aug 01, 2023", "price": 381.26}, {"date": "Sep 01, 2023", "price": 385.61}, {"date": "Oct 01, 2023", "price": 393.48}, {"date": "Nov 01, 2023", "price": 446.8}, {"date": "Dec 01, 2023", "price": 511.29}, {"date": "Jan 01, 2024", "price": 453.82}, {"date": "Feb 01, 2024", "price": 467.09}, {"date": "Mar 01, 2024", "price": 390.65}, {"date": "Apr 01, 2024", "price": 360.6}, {"date": "May 01, 2024", "price": 311.99}, {"date": "Jun 01, 2024", "price": 298.7}, {"date": "Jul 01, 2024", "price": 258.66}, {"date": "Aug 01, 2024", "price": 259.47}, {"date": "Sep 01, 2024", "price": 271.35}, {"date": "Oct 01, 2024", "price": 297.9}, {"date": "Nov 01, 2024", "price": 320.66}, {"date": "Dec 01, 2024", "price": 382.41}, {"date": "Jan 01, 2025", "price": 414.2}, {"date": "Feb 01, 2025", "price": 365.61}, {"date": "Mar 01, 2025", "price": 283.06}, {"date": "Apr 01, 2025", "price": 270.77}, {"date": "May 01, 2025", "price": 316.67}, {"date": "Jun 01, 2025", "price": 237.58}, {"date": "Jul 01, 2025", "price": 200.53}, {"date": "Aug 01, 2025", "price": 202.2}, {"date": "Sep 01, 2025", "price": 177.93}, {"date": "Oct 01, 2025", "price": 170.54}, {"date": "Nov 01, 2025", "price": 184.18}, {"date": "Dec 01, 2025", "price": 207.81}, {"date": "Jan 01, 2026", "price": 174.5}, {"date": "Feb 01, 2026", "price": 185.17}, {"date": "Mar 01, 2026", "price": 153.1}, {"date": "Apr 01, 2026", "price": 137.7}, {"date": "May 01, 2026", "price": 131.18}, {"date": "Jun 01, 2026", "price": 114.18}, {"date": "Jul 01, 2026", "price": 118.87}, {"date": "Aug 01, 2026", "price": 128.58}, {"date": "Aug 07, 2026", "price": 128.58}]};
+        let currentRangeKey = '1Y';
+        let currentPoints = allDatasets[currentRangeKey] || [];
+        let currentSvgCoords = [];
+
+        const width = 900;
+        const height = 260;
+        const padX = 20;
+        const padY = 25;
+
+        const container = document.getElementById('chart-container');
+        const svg = document.getElementById('interactive-svg');
+        const linePath = document.getElementById('chart-line-path');
+        const areaPath = document.getElementById('chart-area-path');
+        const tooltipDate = document.getElementById('tooltip-date');
+        const tooltipPrice = document.getElementById('tooltip-price');
+        const crosshair = document.getElementById('crosshair-line');
+        const dot = document.getElementById('hover-dot');
+        const startLbl = document.getElementById('chart-start-lbl');
+        const endLbl = document.getElementById('chart-end-lbl');
+        const rangeTitle = document.getElementById('chart-range-title');
+
+        function recalculatePaths(points) {
+            if (!points || points.length < 2) return;
+            const prices = points.map(p => p.price);
+            const minP = Math.min(...prices);
+            const maxP = Math.max(...prices);
+            const pRange = Math.max(maxP - minP, 0.01);
+            const n = points.length;
+
+            currentSvgCoords = [];
+            for (let i = 0; i < n; i++) {
+                const x = padX + (i / (n - 1)) * (width - 2 * padX);
+                const y = height - padY - ((points[i].price - minP) / pRange) * (height - 2 * padY);
+                currentSvgCoords.push([Math.round(x * 10) / 10, Math.round(y * 10) / 10]);
+            }
+
+            const lineD = 'M ' + currentSvgCoords.map(c => c[0] + ',' + c[1]).join(' L ');
+            const firstC = currentSvgCoords[0];
+            const lastC = currentSvgCoords[currentSvgCoords.length - 1];
+            const areaD = lineD + ' L ' + lastC[0] + ',' + height + ' L ' + firstC[0] + ',' + height + ' Z';
+
+            linePath.setAttribute('d', lineD);
+            areaPath.setAttribute('d', areaD);
+
+            startLbl.innerText = points[0].date + ' ($' + minP.toFixed(2) + ')';
+            endLbl.innerText = points[n - 1].date + ' ($' + points[n - 1].price.toFixed(2) + ')';
+            
+            tooltipDate.innerText = points[n - 1].date;
+            tooltipPrice.innerText = '$' + points[n - 1].price.toFixed(2);
+
+            const titles = { '1Y': '1-Year Range', '5Y': '5-Year Range', '10Y': '10-Year Range', 'MAX': 'All-Time Historical Range' };
+            rangeTitle.innerText = titles[currentRangeKey] || currentRangeKey + ' Range';
+        }
+
+        window.switchChartRange = function(rangeKey) {
+            if (!allDatasets[rangeKey]) return;
+            currentRangeKey = rangeKey;
+            currentPoints = allDatasets[rangeKey];
+            
+            document.querySelectorAll('.range-pill').forEach(btn => {
+                if (btn.innerText.trim() === rangeKey) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            recalculatePaths(currentPoints);
+            hideHover();
+        };
+
+        function updateHover(e) {
+            if (!currentPoints.length || !currentSvgCoords.length) return;
+            const rect = svg.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const pct = Math.max(0, Math.min(1, mouseX / rect.width));
+            const idx = Math.round(pct * (currentPoints.length - 1));
+            
+            const pt = currentPoints[idx];
+            const coord = currentSvgCoords[idx];
+            if (!pt || !coord) return;
+
+            crosshair.setAttribute('x1', coord[0]);
+            crosshair.setAttribute('x2', coord[0]);
+            crosshair.style.display = 'block';
+
+            dot.setAttribute('cx', coord[0]);
+            dot.setAttribute('cy', coord[1]);
+            dot.style.display = 'block';
+
+            tooltipDate.innerText = pt.date;
+            tooltipPrice.innerText = '$' + pt.price.toFixed(2);
+        }
+
+        function hideHover() {
+            crosshair.style.display = 'none';
+            dot.style.display = 'none';
+            if (currentPoints.length) {
+                tooltipDate.innerText = currentPoints[currentPoints.length - 1].date;
+                tooltipPrice.innerText = '$' + currentPoints[currentPoints.length - 1].price.toFixed(2);
+            }
+        }
+
+        container.addEventListener('mousemove', updateHover);
+        container.addEventListener('mouseleave', hideHover);
+        container.addEventListener('touchstart', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
+        container.addEventListener('touchmove', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
+        container.addEventListener('touchend', hideHover);
+
+        recalculatePaths(currentPoints);
+    })();
+    </script>
+    
+
+            <!-- Key Metrics Grid -->
+            <div class="metrics-grid" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));">
+                <div class="metric-cell">
+                    <div class="metric-label">Fair Value</div>
+                    <div class="metric-value" style="color: var(--accent-warm);">$165.00</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Bear Target</div>
+                    <div class="metric-value" style="color: var(--accent-red);">$95.00 (-26.1%)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Base Target</div>
+                    <div class="metric-value">$165.00 (+28.3%)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Bull Target</div>
+                    <div class="metric-value" style="color: var(--accent-green);">$215.00 (+67.2%)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Alert Corridor</div>
+                    <div class="metric-value" style="font-size: 1.05rem; font-family: var(--font-mono); color: var(--text-title);">$105.00 ⇄ $150.00</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Next Catalyst</div>
+                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">September 2026</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation Tabs -->
+        <div class="tabs-header">
+            <button class="tab-btn active" onclick="showTab('memo')">Investment Thesis</button>
+            <button class="tab-btn" onclick="showTab('history')">Evolution (0)</button>
+        </div>
+
+        <!-- Memo Content -->
+        <div id="tab-memo" class="tab-content active">
+            <article class="memo-container">
+                <div class="section">
+    <h2>Executive Summary & Thesis Overview</h2>
+    <p>Lululemon Athletica Inc. (NASDAQ: LULU) stands at a pivotal inflection point as it confronts a multi-front operational, governance, and competitive resetting. Once the undisputed compounder of the athletic apparel sector, the company is experiencing a distinct operational divergence: severe top-line deceleration and margin erosion in North America contrasted against rapid expansion in China Mainland and international markets.</p>
+    
+    <p>The settlement of a months-long proxy contest with founder Chip Wilson—resulting in the addition of seasoned board members Laura Gentile and Marc Maurer—clears a major governance overhang. Concurrently, incoming CEO Heidi O'Neill (taking helm September 8, 2026) faces the urgent mandate of reigniting product innovation, trimming store SKU complexity, and restoring full-price momentum in the Americas. While Lululemon retains a robust balance sheet with a pristine Net Cash position and high absolute gross margins (54.2%), the emergence of hyper-focused lifestyle competitors like Alo Yoga and Vuori tests the boundaries of LULU's historical pricing power and brand exclusivity.</p>
+
+    <h2>Q1 2026 Financial Breakdown &amp; Geographic Growth Divergence</h2>
+    <p>In Q1 fiscal 2026 (ended May 3, 2026), Lululemon generated $2.5 billion in top-line net revenue, representing a +4% YoY growth (+2% in constant currency). However, headline figures mask a sharp geographic bifurcation between a mature, macro-contracting Americas segment and hyper-growth international territories.</p>
+
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <div class="metric-label">Q1 2026 Net Revenue</div>
+            <div class="metric-value">$2.50B</div>
+            <div class="metric-delta pos">+4.0% YoY (+2% CC)</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">Gross Margin</div>
+            <div class="metric-value">54.2%</div>
+            <div class="metric-delta neg">-410 bps YoY</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">Operating Margin</div>
+            <div class="metric-value">11.2%</div>
+            <div class="metric-delta neg">-730 bps YoY</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">Diluted EPS</div>
+            <div class="metric-value">$1.69</div>
+            <div class="metric-delta neg">-35.0% YoY ($2.60 prior)</div>
+        </div>
+    </div>
+
+    <h3>Geographic Segment Performance Table</h3>
+    <div class="table-scroll-wrap"><table>
+        <thead>
+            <tr>
+                <th>Geographic Segment</th>
+                <th>Q1 2026 Net Revenue</th>
+                <th>YoY Growth (Reported)</th>
+                <th>YoY Growth (Constant Currency)</th>
+                <th>Comparable Sales YoY</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Americas (North America)</strong></td>
+                <td>$1.72 Billion</td>
+                <td>-3.0%</td>
+                <td>-4.0%</td>
+                <td>-6.0% (US -4%, CAN -6% CC)</td>
+            </tr>
+            <tr>
+                <td><strong>China Mainland</strong></td>
+                <td>~$340 Million</td>
+                <td>+30.0%</td>
+                <td>+23.0%</td>
+                <td>+13.0% (CNY shift +800 bps)</td>
+            </tr>
+            <tr>
+                <td><strong>Rest of World (ROW)</strong></td>
+                <td>~$440 Million</td>
+                <td>+13.0%</td>
+                <td>+9.0%</td>
+                <td>+1.0%</td>
+            </tr>
+            <tr>
+                <td><strong>Total Consolidated</strong></td>
+                <td><strong>$2.50 Billion</strong></td>
+                <td><strong>+4.0%</strong></td>
+                <td><strong>+2.0%</strong></td>
+                <td><strong>+1.0% (-2.0% CC)</strong></td>
+            </tr>
+        </tbody>
+    </table></div>
+
+    <p>Profitability contracted significantly during the quarter. Gross profit came in at $1.34 billion, representing a 54.2% gross margin (-410 bps YoY). The primary drags on gross margin were high U.S. import tariffs (280 bps headwind), fixed cost deleverage from softer store traffic (140 bps), and minor product margin compression (33 bps), partially offset by enterprise efficiency initiatives (+100 bps). Operating income plummeted 37% YoY to $277 million (11.2% margin vs. 18.5% prior year) due to higher store labor, front-loaded brand activation spend, and expenses associated with the proxy contest. Full-year guidance was subsequently revised down to $11.0B–$11.15B in net revenue and $10.95–$11.15 in EPS.</p>
+
+    <h2>Leadership Governance Shift &amp; Settlement with Chip Wilson</h2>
+    <p>Following the departure of former CEO Calvin McDonald in January 2026, interim co-CEOs Meghan Frank (CFO) and André Maestrini (CCO) steered the enterprise through a contentious corporate governance battle. In April 2026, the board selected former Nike veteran executive <strong>Heidi O'Neill</strong> as incoming Chief Executive Officer, effective September 8, 2026. O'Neill brings nearly 30 years of scaling athletic retail and global consumer strategy.</p>
+
+    <p>In late May 2026, Lululemon reached a formal cooperation agreement with founder Chip Wilson (who holds ~8.7% of common shares), concluding a high-profile proxy contest:</p>
+    <ul>
+        <li><strong>Board Seat Expansion:</strong> Lululemon appointed two of Wilson's nominees—<strong>Laura Gentile</strong> (former ESPN CMO) and <strong>Marc Maurer</strong> (former On Holding co-CEO)—to the Board of Directors, while retaining former Levi Strauss CEO <strong>Chip Bergh</strong>. A third director with apparel product expertise will be added by October 2026.</li>
+        <li><strong>Standstill Agreement:</strong> Wilson agreed to an 18-month public non-disparagement and standstill commitment lasting through 30 days prior to the 2028 annual meeting.</li>
+        <li><strong>Settlement Terms:</strong> Rather than cash reimbursement for proxy fees, Wilson agreed to have Lululemon make a community donation toward public athletics and arts in Vancouver's Kitsilano Beach.</li>
+    </ul>
+
+    <h2>Brand Health, Pricing Power &amp; Competitive Dynamics (Alo &amp; Vuori)</h2>
+    <p>Lululemon's core core product engine in North America faces growing friction. While the brand historically generated enviable pricing power with price points above $118 for core leggings, consumer fatigue and intense competition from fast-growing challengers have pressured transaction frequency.</p>
+
+    <ul>
+        <li><strong>Competitor Siphon (Alo Yoga &amp; Vuori):</strong> Alo Yoga has captured mindshare among Gen Z and millennial demographics through high-fashion, studio-to-street aesthetic marketing and celebrity endorsements. Vuori has aggressively encroached on Lululemon's premium comfort and menswear strongholds with proprietary soft fabrics (e.g., DreamKnit).</li>
+        <li><strong>SKU Rationalization &amp; Full-Price Strategy:</strong> In response to visual clutter in stores and over-indexing on seasonal colors rather than core black silhouettes, management reduced store-level SKU density by 15%. Notably, Q1 markdowns actually decreased by 10 bps YoY, confirming that Lululemon retains pricing power on core lines and refuses to resort to brand-damaging promotional clearance.</li>
+        <li><strong>China Brand Sentiment Watch:</strong> While China remains a 30% growth engine, brand sensitivity was tested following a late-May 2026 Great Wall event involving improper cultural instruments (a taiko-style drum), prompting a corporate apology in mid-June. Monitoring post-apology store traffic in Tier-1 Chinese cities is vital.</li>
+    </ul>
+
+    <div class="callout">
+        <h3>Management Commentary &amp; Core Pre-Mortem Risk Triggers</h3>
+        <p><em>"We experienced a solid start to 2026... Our work to drive improvements in North America resulted in some positive signals, including sequential improvement in full-price sales. More recently, we have been navigating headwinds that led us to adjust our outlook. We are taking actions to reposition where needed and further strengthen our product engine."</em> — <strong>Meghan Frank, Interim Co-CEO &amp; CFO</strong></p>
+        
+        <hr />
+        <p><strong>Thesis Falsification Triggers (Pre-Mortem Risk Assessment):</strong></p>
+        <ol>
+            <li><strong>Americas Comps Contraction Below -8%:</strong> If SKU density reductions and new product drops (e.g., No Line Align, BeCalm) fail to stabilize North American comp sales, signaling permanent market share loss to Alo/Vuori.</li>
+            <li><strong>Tariff-Driven Gross Margin Collapse Below 52%:</strong> Inability to offset import tariffs via supply chain re-sourcing or modest price adjustments, leading to persistent operating deleverage.</li>
+            <li><strong>China Backlash &amp; Growth Deceleration Below 15%:</strong> If public missteps or rising domestic nationalist preference in China derail international growth before Heidi O'Neill's product transformation takes effect.</li>
+        </ol>
+    </div>
+
+    <h2>Capital Structure &amp; Level-Headed Ballpark Valuation</h2>
+    <p>Lululemon maintains an outstanding balance sheet with no major net debt risk. The company closed Q1 with ~$1.2B in cash and cash equivalents, generating strong operating cash flow and selectively repurchasing 2.2 million shares in Q1. Stock-based compensation (SBC) remains manageable at ~1.5%–2.0% of revenues and is fully treated as a cash dilution factor in our models.</p>
+
+    <h3>3-Year Valuation Scenario Matrix (FY2026–FY2028)</h3>
+    <div class="table-scroll-wrap"><table>
+        <thead>
+            <tr>
+                <th>Scenario</th>
+                <th>Revenue CAGR</th>
+                <th>FY28 Operating Margin</th>
+                <th>Target Exit P/E Multiple</th>
+                <th>Estimated Fair Value</th>
+                <th>3-Year Expected IRR</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Bear Case</strong></td>
+                <td>1.5%</td>
+                <td>12.5%</td>
+                <td>13.0x</td>
+                <td>$105.00</td>
+                <td>-2.0% p.a.</td>
+            </tr>
+            <tr>
+                <td><strong>Base Case</strong></td>
+                <td>5.5%</td>
+                <td>16.0%</td>
+                <td>18.0x</td>
+                <td>$155.00</td>
+                <td>+11.5% p.a.</td>
+            </tr>
+            <tr>
+                <td><strong>Bull Case</strong></td>
+                <td>9.0%</td>
+                <td>19.0%</td>
+                <td>22.0x</td>
+                <td>$210.00</td>
+                <td>+23.0% p.a.</td>
+            </tr>
+        </tbody>
+    </table></div>
+
+    <h2>Dynamic Price Alert Corridors &amp; Surveillance Triggers</h2>
+    <p>To ensure real-time risk management as Heidi O'Neill takes over leadership and Q2/Q3 operational updates arrive, surveillance thresholds are set as follows:</p>
+    <ul>
+        <li><strong>Upper Alert Threshold ($150.00):</strong> Triggers a thesis re-evaluation to trim or reallocate capital as the stock approaches fair value. Reaching this target requires proof of North American comp stabilization (0% to +2%) and sustained >20% international growth.</li>
+        <li><strong>Lower Alert Threshold ($100.00):</strong> Triggers an urgent pre-mortem review. Crossing below $100 tests the margin of safety, signaling further Americas sales decay or severe gross margin degradation toward 50%.</li>
+    </ul>
+</div>
+
+<div class="section">
+  <h2>Executive Summary: Down-to-Earth Fundamental Audit</h2>
+  <p>
+    Lululemon Athletica (NASDAQ: LULU) enters fiscal 2026 undergoing a structural transformation. While its core North American market faces cyclical saturation, consumer softness, and elevated promotional pressure (Americas revenue down 3% YoY with comp sales down 5%), international expansion—led by China Mainland (+30% YoY revenue growth)—continues to serve as a high-margin growth engine. 
+  </p>
+  <p>
+    At a current valuation of ~10.4x TTM P/E ($12.39 EPS) and ~11.2x FY26 Guidance midpoint ($10.95–$11.15 EPS), LULU is priced as a broken retail story rather than a highly cash-generative, unleveraged premium brand. This fundamental audit evaluates LULU's true cash flow generation, balance sheet solvency, inventory health, and capital allocation strategy following its Q1 2026 earnings report.
+  </p>
+
+  <!-- Metric Stat Cards -->
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Q1 2026 Net Revenue</div>
+      <div class="metric-value">$2.47 Billion</div>
+      <div class="metric-delta pos">+4.2% YoY (+2% CC)</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Q1 GAAP Operating Cash Flow</div>
+      <div class="metric-value">$214.4 Million</div>
+      <div class="metric-delta pos">Rebounded vs $(119.0)M Q1 2025</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Q1 True Free Cash Flow</div>
+      <div class="metric-value">$58.5 Million</div>
+      <div class="metric-delta neg">Deducts $28.9M SBC & $127M CapEx</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Net Cash Position</div>
+      <div class="metric-value">$1.515 Billion</div>
+      <div class="metric-delta pos">Zero Long-Term Debt</div>
+    </div>
+  </div>
+
+  <h2>1. True Cash Flow Generation Audit (Q1 2026)</h2>
+  <p>
+    Standard GAAP definitions of Free Cash Flow (Operating Cash Flow minus CapEx) routinely add back Stock-Based Compensation (SBC) as a non-cash expense. However, because SBC represents direct economic dilution to existing equity holders, fundamental investors must treat SBC as a real, recurring cash operational charge. 
+  </p>
+  <p>
+    In Q1 2026 (ended May 3, 2026), Lululemon generated $214.44M in Operating Cash Flow. Capital Expenditures were $127.00M, spent primarily on new store buildouts, store optimizations (opening 5 net new locations to reach 816 stores globally), multi-year distribution center automation, and core technology systems. SBC charged to income stood at $28.90M.
+  </p>
+
+  <!-- Structured Financial Audit Table -->
+  <div>
+    <div class="table-scroll-wrap"><table>
+      <thead>
+        <tr>
+          <th>Cash Flow Component</th>
+          <th>Q1 2026 ($ Millions)</th>
+          <th>Q1 2025 ($ Millions)</th>
+          <th>Economic Commentary</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Net Income (GAAP)</td>
+          <td>$195.05</td>
+          <td>$314.57</td>
+          <td>Down 38% YoY due to 410 bps gross margin drag & tariffs</td>
+        </tr>
+        <tr>
+          <td>(+) Depreciation & Amortization</td>
+          <td>~$130.00</td>
+          <td>$111.60</td>
+          <td>Non-cash store and supply-chain depreciation</td>
+        </tr>
+        <tr>
+          <td>(+) Stock-Based Compensation (SBC)</td>
+          <td>$28.90</td>
+          <td>$23.00</td>
+          <td>Non-cash charge added back in GAAP OCF</td>
+        </tr>
+        <tr>
+          <td>(+/-) Working Capital & Other Adjustments</td>
+          <td>$(139.51)</td>
+          <td>$(568.12)</td>
+          <td>Tax timing, inventory payout, and accrued expenses</td>
+        </tr>
+        <tr>
+          <td>GAAP Operating Cash Flow</td>
+          <td>$214.44</td>
+          <td>$(118.95)</td>
+          <td>Normalized operational inflows in Q1</td>
+        </tr>
+        <tr>
+          <td>(-) Capital Expenditures (CapEx)</td>
+          <td>$127.00</td>
+          <td>$152.00</td>
+          <td>Full-year CapEx guided to $700M–$720M</td>
+        </tr>
+        <tr>
+          <td>Standard Free Cash Flow (GAAP OCF - CapEx)</td>
+          <td>$87.44</td>
+          <td>$(270.95)</td>
+          <td>Conventional Wall Street metric</td>
+        </tr>
+        <tr>
+          <td>(-) Real Cash Operational Deduction (SBC)</td>
+          <td>$28.90</td>
+          <td>$23.00</td>
+          <td>Treating SBC as real employee compensation</td>
+        </tr>
+        <tr>
+          <td>True Cash Flow Generation</td>
+          <td>$58.54</td>
+          <td>$(293.95)</td>
+          <td>Realistic owner cash yield available for repurchase</td>
+        </tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <h2>2. Balance Sheet Fortification & Inventory Quality Analysis</h2>
+  <p>
+    Lululemon maintains an fortress balance sheet with net liquidity. As of May 3, 2026:
+  </p>
+  <ul>
+    <li><strong>Cash & Cash Equivalents:</strong> $1.515 Billion ($1,514.7M). Down slightly from $1.807B at FY25 year-end due to aggressive open-market share buybacks.</li>
+    <li><strong>Debt & Credit Facilities:</strong> Zero long-term funded debt. Available credit capacity under its committed revolving facility stands at $593.6M, providing $2.1B+ in total liquidity. Non-current operating lease obligations total $1.78B, reflecting retail store real estate footprint.</li>
+    <li><strong>Inventory Assessment:</strong> Inventories ended Q1 2026 at $1.687 Billion. On a dollar basis, inventory grew 2% YoY ($1.687B vs $1.652B). Crucially, on a <em>unit basis</em>, inventory <strong>decreased 4% YoY</strong>. The divergence between dollar and unit inventory is driven almost entirely by elevated tariff rates (280 bps negative impact on gross margin) and foreign exchange translation.</li>
+  </ul>
+  <p>
+    Management's disciplined ~4% unit inventory reduction confirms that LULU is not suffering from extreme inventory bloat or liquidation risk. The company is implementing a "chase" strategy, testing less-dense store layouts (~15% fewer SKUs) and shortening mainline product development cycles to 15–16 months to protect full-price sell-through.
+  </p>
+
+  <h2>3. Capital Allocation & Buyback Accretion Analysis</h2>
+  <p>
+    Lululemon's strategic priority for excess capital is share repurchases. In Q1 2026, LULU repurchased <strong>2.2 million shares</strong> for a total cash cost of $358.3 million ($361.8 million including commissions and excise taxes), at an average price of ~$165 per share.
+  </p>
+
+  <!-- Dilution vs Cannibalization Callout Box -->
+  <div class="callout">
+    <h4>Capital Allocation Insight: Dilution vs. Cannibalization Rate</h4>
+    <p>
+      <strong>Shareholder Dilution:</strong> In Q1 2026, stock-based compensation added $28.9M in equity value, while 80,000 shares were withheld for net share settlements. Total diluted weighted-average shares outstanding dropped from 120.84 million in Q1 2025 to 115.48 million in Q1 2026—a net reduction of <strong>5.36 million shares (-4.43% YoY)</strong>.
+    </p>
+    <p>
+      <strong>Buyback Accretion at ~10x P/E:</strong> With the stock trading around ~$120–$128, LULU offers a ~9.0%–10.0% net earnings yield based on TTM EPS of $12.39 and FY26 guidance of ~$11.05. Retaining $1.0 Billion in remaining buyback authorization allows management to repurchase ~8.0 million additional shares (~7.0% of total shares outstanding). Executing buybacks at ~10x P/E is highly accretive to long-term owner value, vastly outstripping corporate cash yield alternatives.
+    </p>
+  </div>
+
+  <h2>4. Pre-Mortem, Falsification Triggers & Surveillance Corridors</h2>
+  <p>
+    While international expansion and net cash protect downside solvency, execution risks remain centered around North American brand cooling, persistent tariffs, and leadership transitions.
+  </p>
+
+  <!-- Pre-Mortem Callout Box -->
+  <div class="callout">
+    <h4>Thesis Falsification Triggers (Pre-Mortem Analysis)</h4>
+    <ul>
+      <li><strong>North American Revenue Contraction Acceleration:</strong> Low double-digit declines in North America during Q2 2026 exceeding guidance, signaling permanent market share loss to competitors rather than cyclical headwinds.</li>
+      <li><strong>International Gross Margin Compression:</strong> Gross margin falling below 52.0% due to unmitigated tariff costs or required promotional liquidations in China.</li>
+      <li><strong>Capital Allocation Inefficiency:</strong> Pausing share repurchases despite having $1.5B in cash and $1.0B in buyback capacity.</li>
+    </ul>
+  </div>
+
+  <!-- Ballpark Valuation Summary Table -->
+  <h3>3-Year Ballpark Valuation Scenarios</h3>
+  <div>
+    <div class="table-scroll-wrap"><table>
+      <thead>
+        <tr>
+          <th>Scenario</th>
+          <th>FY28 Revenue / EPS Assumptions</th>
+          <th>Target Exit P/E</th>
+          <th>Estimated Stock Price</th>
+          <th>3-Yr Annualized Return (IRR)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Bear Case</td>
+          <td>US comp decline continues; EPS drops to $9.50</td>
+          <td>9.0x</td>
+          <td>$85.50</td>
+          <td>-12.2%</td>
+        </tr>
+        <tr>
+          <td>Base Case</td>
+          <td>NA stabilizes; China grows +20%; EPS recovers to $12.50</td>
+          <td>14.0x</td>
+          <td>$175.00</td>
+          <td>+11.2%</td>
+        </tr>
+        <tr>
+          <td>Bull Case</td>
+          <td>NA re-accelerates; tariffs mitigated; EPS reaches $15.50</td>
+          <td>18.0x</td>
+          <td>$279.00</td>
+          <td>+29.4%</td>
+        </tr>
+      </tbody>
+    </table></div>
+  </div>
+</div>
+
+<div class="section">
+
+  <!-- Dynamic Badge Bar -->
+  <div class="badge-container">
+    <span class="badge">Turnaround Risk</span>
+    <span class="badge">China Expansion</span>
+    <span class="badge">Buyback Support</span>
+  </div>
+
+  <h2>1. Executive Summary &amp; Institutional Thesis</h2>
+  <p>
+    Lululemon Athletica (NASDAQ: LULU) is navigating its most challenging operational stretch in over a decade. The company is grappling with a severe deceleration in North America, structural tariff headwinds originating from Asian sourcing hubs, product execution missteps (such as the underperforming "Look of..." product launch), and corporate governance friction following a proxy contest with founder Chip Wilson and an executive leadership transition.
+  </p>
+  <p>
+    However, at a current share price of <strong>$123.51</strong>, the stock trades at approximately <strong>11.2x FY2026 guided EPS ($10.95–$11.15)</strong>—a valuation multiple historically reserved for legacy brick-and-mortar apparel retailers rather than a high-margin global lifestyle brand with 54%+ gross margins and an unencumbered balance sheet holding <strong>$1.515 billion in cash</strong> and zero funded net debt. While North America comparable sales contracted 5% in Q1 FY2026, Greater China surged 30% (+23% in constant currency), demonstrating that Lululemon's core brand resonance remains intact globally.
+  </p>
+
+  <!-- Q1 FY2026 Financial Stat Cards -->
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Q1 Revenue</div>
+      <div class="metric-value">$2.50B</div>
+      <div class="metric-delta pos">+4.0% YoY (+2% CC)</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Gross Margin</div>
+      <div class="metric-value">54.2%</div>
+      <div class="metric-delta neg">-410 bps YoY (Tariffs -280bps)</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Americas Comps</div>
+      <div class="metric-value">-5.0%</div>
+      <div class="metric-delta neg">-6.0% Constant Currency</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">China Mainland Growth</div>
+      <div class="metric-value">+30.0%</div>
+      <div class="metric-delta pos">+13.0% Comps (+23% CC)</div>
+    </div>
+  </div>
+
+  <h2>2. FY2026 Guidance Baseline &amp; Capital Structure</h2>
+  <p>
+    Management revised full-year FY2026 guidance downward to reflect ongoing softness in North American foot traffic and elevated gross tariff expenses:
+  </p>
+  <ul>
+    <li><strong>Full-Year FY2026 Revenue Guidance:</strong> $10.95 billion to $11.15 billion.</li>
+    <li><strong>Full-Year FY2026 Diluted EPS Guidance:</strong> $10.95 to $11.15 (down from $13.26 in FY2025).</li>
+    <li><strong>Balance Sheet &amp; Liquidity:</strong> $1.515 billion in cash and cash equivalents, zero long-term funded debt, and $593.6 million in available credit facility capacity.</li>
+    <li><strong>Capital Return Engine:</strong> Repurchased 2.2 million shares in Q1 FY2026 alone for $358.3 million at an average price of ~$162.86. Current share count reduction provides a meaningful tailwind to diluted EPS.</li>
+  </ul>
+
+  <div class="callout">
+    <p>Management Commentary — Interim Co-CEO &amp; CFO Meghan Frank:</p>
+    <p>
+      "Our work to drive improvements in North America resulted in some positive signals in the quarter... More recently, we have been navigating headwinds that have led us to adjust our outlook for the full year. We are taking additional actions to reposition where needed and further strengthen our product engine."
+    </p>
+  </div>
+
+  <h2>3. Three-Scenario Valuation Model (FY2026–FY2029)</h2>
+  <p>
+    We evaluate Lululemon across a 3-year investment horizon (FY2026 to FY2029) from a baseline stock price of <strong>$123.51</strong> and base FY2026 EPS of <strong>$11.00</strong>.
+  </p>
+
+  <div>
+    <div class="table-scroll-wrap"><table>
+      <thead>
+        <tr>
+          <th>Valuation Metric</th>
+          <th>Bear Case (Structural Stagnation)</th>
+          <th>Base Case (Steady Recovery)</th>
+          <th>Bull Case (Full Brand Re-acceleration)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>FY2029 Revenue Target</td>
+          <td>$10.50 Billion</td>
+          <td>$12.80 Billion</td>
+          <td>$14.80 Billion</td>
+        </tr>
+        <tr>
+          <td>North America Comps</td>
+          <td>-2% to -4% per year</td>
+          <td>+2% to +4% recovery</td>
+          <td>+5% to +7% re-acceleration</td>
+        </tr>
+        <tr>
+          <td>China &amp; International CAGR</td>
+          <td>+8% YoY</td>
+          <td>+16% YoY</td>
+          <td>+22% YoY</td>
+        </tr>
+        <tr>
+          <td>Operating Margin Target</td>
+          <td>11.5% (Persistent tariff drag)</td>
+          <td>15.0% (Efficiency recovery)</td>
+          <td>17.5% (Full operating leverage)</td>
+        </tr>
+        <tr>
+          <td>FY2029 EPS Target</td>
+          <td>$9.50</td>
+          <td>$13.50</td>
+          <td>$16.50</td>
+        </tr>
+        <tr>
+          <td>Exit P/E Multiple</td>
+          <td>10.0x</td>
+          <td>14.0x</td>
+          <td>18.0x</td>
+        </tr>
+        <tr>
+          <td>FY2029 Target Price</td>
+          <td>$95.00</td>
+          <td>$189.00</td>
+          <td>$297.00</td>
+        </tr>
+        <tr>
+          <td>3-Year Expected CAGR</td>
+          <td>-8.4% p.a. (-23.1% Total)</td>
+          <td>+15.2% p.a. (+53.0% Total)</td>
+          <td>+34.0% p.a. (+140.5% Total)</td>
+        </tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <h2>4. Core Execution Risks &amp; Headwinds</h2>
+  <ul>
+    <li>
+      <strong>Tariff Pressure &amp; Gross Margin Contraction:</strong> In Q1 FY2026, tariffs knocked 280 basis points off gross margin. Management projects full-year FY2026 gross tariff impacts to hit $380 million. While $160 million in internal cost efficiencies offset part of this burden, supply chain concentration in Southeast Asia (Vietnam/Cambodia) remains a structural vulnerability under current U.S. trade policy.
+    </li>
+    <li>
+      <strong>North American Promotional Intensity &amp; Competition:</strong> Americas net revenue fell 3% and comparable sales contracted 5% (down 6% constant currency). Challenger brands like Vuori and Alo Yoga continue to capture market share among premium consumer demographics, forcing Lululemon to increase markdown activity and promotional clearances.
+    </li>
+    <li>
+      <strong>Leadership Transition &amp; Governance Friction:</strong> Operating under interim Co-CEOs (CFO Meghan Frank and Chief Commercial Officer André Maestrini) following a high-profile 5-month proxy contest with founder Chip Wilson has created organizational friction. Product execution missteps in core women's apparel lines require swift correction by the incoming permanent Chief Executive.
+    </li>
+  </ul>
+
+  <h2>5. Institutional 13F Whale Positioning</h2>
+  <p>
+    Institutional ownership stands at approximately <strong>70.9% of shares outstanding</strong> across 1,266 institutional holders. Recent 13F filings reflect a stark split between index/passive rebalancing and fundamental value buyers:
+  </p>
+  <ul>
+    <li><strong>Top Active Holders:</strong> BlackRock Inc., Vanguard Group, State Street Corp, and FMR LLC (Fidelity) hold core structural positions.</li>
+    <li><strong>Notable Hedge Fund Buys:</strong> Ole Andreas Halvorsen’s <em>Viking Global Investors</em> initiated a brand-new position in LULU during the recent quarter, identifying deep value at sub-12x earnings multiples.</li>
+    <li><strong>Net Flows:</strong> While overall institutional net dollar value decreased due to post-guidance earnings cuts, 731 institutions increased holdings versus 604 reducers, signaling that long-term fundamental capital is selectively building positions near cyclical valuation troughs.</li>
+  </ul>
+
+  <h2>6. Dynamic Price Alert Corridors &amp; Thesis Falsification</h2>
+
+  <div class="callout">
+    <h3>Upper Surveillance Corridor: $155.00 (+25.5% Upside Target)</h3>
+    <p>
+      <strong>Trigger Action:</strong> Partial Profit-Taking &amp; Fundamental Re-evaluation.<br />
+      <strong>Validation Milestones:</strong> A rally to $155.00 re-rates LULU to ~14x FY26 EPS. Reaching this target requires North American comparable sales to stabilize back to 0% to +2%, combined with new CEO product line launches driving full-price conversion in Q3/Q4.
+    </p>
+  </div>
+
+  <div class="callout">
+    <h3>Lower Surveillance Corridor: $105.00 (-15.0% Margin of Safety Test)</h3>
+    <p>
+      <strong>Trigger Action:</strong> Urgent Pre-Mortem Review &amp; Allocation Re-assessment.<br />
+      <strong>Falsification Triggers:</strong> A breakdown toward $105.00 puts LULU near its 52-week low ($104.44) at under 9.5x forward EPS. The thesis is invalid if:
+    </p>
+    <ul>
+      <li>North American comps decelerate past -8% for two consecutive quarters, indicating permanent brand equity erosion to Alo/Vuori.</li>
+      <li>Gross margins contract below 51.0% due to unmitigated tariff escalations and persistent promotional liquidations.</li>
+      <li>China Mainland revenue growth decelerates under +10% constant currency.</li>
+    </ul>
+  </div>
+
+</div>
+            </article>
+        </div>
+
+        <!-- History Content -->
+        <div id="tab-history" class="tab-content">
+            
+        <div class="empty-state-box" style="background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px; padding: 75px 24px;">
+            <div class="empty-state-title">Initial Baseline Active</div>
+            <div class="empty-state-sub">Version 1 represents the initial underwriting thesis. Future revisions, price trigger reviews, and catalyst audits will be logged here</div>
+        </div>
+        
+        </div>
+    </main>
+
+    <script>
+        function showTab(id) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            if (id === 'memo') {
+                document.querySelectorAll('.tab-btn')[0].classList.add('active');
+                document.getElementById('tab-memo').classList.add('active');
+            } else {
+                document.querySelectorAll('.tab-btn')[1].classList.add('active');
+                document.getElementById('tab-history').classList.add('active');
+            }
+        }
+
+        function toggleSnapshot(ver) {
+            const el = document.getElementById('snapshot-' + ver);
+            el.style.display = (el.style.display === 'none' ? 'block' : 'none');
+        }
+    </script>
+</body>
+</html>

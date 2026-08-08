@@ -284,5 +284,101 @@
     "last_updated": "2026-08-08",
     "total_versions": 1,
     "report_path": "reports/LGCY.html"
+  },
+  "GCT": {
+    "ticker": "GCT",
+    "company_name": "GigaCloud Technology Inc",
+    "baseline_price": 53.25,
+    "current_price": 53.25,
+    "return_pct": 0.0,
+    "status_label": "Asymmetric Upside",
+    "labels": [
+      "Asymmetric Upside",
+      "Buyback Cannibal",
+      "Operating Leverage"
+    ],
+    "fair_value_estimate": "$68.00",
+    "bear_target": "$40.00 (-24.9%)",
+    "base_target": "$68.00 (+27.7%)",
+    "bull_target": "$85.00 (+59.6%)",
+    "upper_alert_threshold": 65.0,
+    "lower_alert_threshold": 42.0,
+    "next_catalyst_date": "November 2026",
+    "next_catalyst_event": "Q3 2026 Earnings Release",
+    "last_updated": "2026-08-08",
+    "total_versions": 1,
+    "report_path": "reports/GCT.html"
+  },
+  "CROX": {
+    "ticker": "CROX",
+    "company_name": "Crocs, Inc.",
+    "baseline_price": 136.62,
+    "current_price": 136.62,
+    "return_pct": 0.0,
+    "status_label": "Deep Value",
+    "labels": [
+      "Deep Value",
+      "Buyback Cannibal",
+      "Operating Leverage"
+    ],
+    "fair_value_estimate": "$170.00",
+    "bear_target": "$105.00 (-23.1%)",
+    "base_target": "$170.00 (+24.4%)",
+    "bull_target": "$215.00 (+57.4%)",
+    "upper_alert_threshold": 165.0,
+    "lower_alert_threshold": 115.0,
+    "next_catalyst_date": "October 2026",
+    "next_catalyst_event": "Q3 2026 Earnings Release",
+    "last_updated": "2026-08-08",
+    "total_versions": 1,
+    "report_path": "reports/CROX.html"
+  },
+  "MTCH": {
+    "ticker": "MTCH",
+    "company_name": "Match Group, Inc.",
+    "baseline_price": 37.26,
+    "current_price": 37.26,
+    "return_pct": 0.0,
+    "status_label": "Deep Value",
+    "labels": [
+      "Deep Value",
+      "Buyback Cannibal",
+      "Operating Leverage"
+    ],
+    "fair_value_estimate": "$52.00",
+    "bear_target": "$28.00 (-24.9%)",
+    "base_target": "$52.00 (+39.6%)",
+    "bull_target": "$70.00 (+87.9%)",
+    "upper_alert_threshold": 48.0,
+    "lower_alert_threshold": 31.0,
+    "next_catalyst_date": "November 2026",
+    "next_catalyst_event": "Q3 2026 Earnings Release",
+    "last_updated": "2026-08-08",
+    "total_versions": 1,
+    "report_path": "reports/MTCH.html"
+  },
+  "LULU": {
+    "ticker": "LULU",
+    "company_name": "lululemon athletica inc.",
+    "baseline_price": 128.58,
+    "current_price": 128.58,
+    "return_pct": 0.0,
+    "status_label": "Deep Value",
+    "labels": [
+      "Deep Value",
+      "Buyback Cannibal",
+      "China Expansion"
+    ],
+    "fair_value_estimate": "$165.00",
+    "bear_target": "$95.00 (-26.1%)",
+    "base_target": "$165.00 (+28.3%)",
+    "bull_target": "$215.00 (+67.2%)",
+    "upper_alert_threshold": 150.0,
+    "lower_alert_threshold": 105.0,
+    "next_catalyst_date": "September 2026",
+    "next_catalyst_event": "Q2 2026 Earnings Release",
+    "last_updated": "2026-08-08",
+    "total_versions": 1,
+    "report_path": "reports/LULU.html"
   }
 }
