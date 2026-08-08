@@ -245,9 +245,12 @@ Construct a RIGOROUS, AIRTIGHT 5-YEAR DISCOUNTED CASH FLOW (DCF) & EARNINGS POWE
      - Less/Plus: Changes in Working Capital ($M)
      - = Unlevered Free Cash Flow (UFCF) ($M)
 2. WACC COST OF CAPITAL SPECIFICATION:
-   - Risk-Free Rate (10-Yr UST), Beta, Equity Risk Premium (ERP) -> Cost of Equity ($K_e$)
-   - Pre-Tax Cost of Debt, Marginal Tax Rate -> After-Tax Cost of Debt ($K_d$)
-   - Debt/Equity Weighting -> Implied WACC (%)
+   - Currency & Sovereign Risk Matching Principle:
+     * For US-domestic equities: Risk-Free Rate = US 10-Year Treasury Yield (~4.2%–4.5%).
+     * For International & Emerging Market equities (e.g. Brazil/LatAm/Asia/Europe):
+       - If modeling in Local Currency (e.g. BRL): Use the domestic benchmark sovereign rate (e.g. Brazil Selic / NTN-F 10-Year yield at ~14.0%–15.0%), producing a local BRL WACC of ~17.0%–20.0%.
+       - If modeling in USD-adjusted terms: Risk-Free Rate = US 10-Yr UST (~4.3%) + Country Risk Premium (CRP ~2.5%–3.0%) + FX inflation differential (~3.2%) = ~10.0%–10.5% adjusted USD base rate, producing a blended USD WACC of ~14.5%–15.5%.
+     * Explicitly detail: Risk-Free Rate, Beta, Equity Risk Premium (ERP), Pre-Tax Cost of Debt, Marginal Tax Rate, Capital Structure Weights (Debt/Equity), and final WACC (%).
 3. TERMINAL VALUE & EQUITY BRIDGE:
    - Cumulative PV of 5-Yr Discrete Cash Flows ($M)
    - Terminal Growth Rate ($g = 2.0\% - 2.5\%$) -> Gordon Growth Terminal Value ($M) -> PV of Terminal Value ($M)
