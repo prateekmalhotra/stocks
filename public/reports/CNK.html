@@ -6,25 +6,22 @@
     <title>CNK — Investment Memo | AlphaThesis</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-canvas: #181816;         /* Claude warm obsidian espresso */
-            --bg-panel: #22211D;          /* Warm dark card */
-            --bg-subpanel: #2A2924;       /* Subtle inner container */
-            --bg-hover: #32302A;
-            --text-title: #FAF7F2;        /* Claude warm alabaster */
-            --text-body: #DCD6CD;         /* Soothing warm cream text */
-            --text-secondary: #A39D93;    /* Muted warm stone */
-            --text-dim: #706B62;          /* Subtle label */
-            --accent-terracotta: #D97757; /* Claude signature starburst terracotta */
-            --accent-terracotta-tint: rgba(217, 119, 87, 0.12);
-            --accent-sage: #86A789;       /* Muted warm sage green */
-            --accent-rose: #D4736E;       /* Muted warm brick rose */
-            --accent-warm: #C4A482;       /* Warm parchment gold */
-            --border-color: rgba(240, 235, 225, 0.08);
-            --border-focus: rgba(240, 235, 225, 0.16);
+            --bg-canvas: #161514;         /* Deep soothing warm espresso */
+            --bg-panel: #1E1D1B;          /* Soft card tone */
+            --bg-subpanel: #262522;       /* Subtle subcontainer */
+            --bg-hover: #2C2A26;
+            --text-title: #E8E3DA;        /* Soothing warm cream */
+            --text-body: #C9C4BA;         /* Warm readable parchment */
+            --text-secondary: #948F85;    /* Muted stone */
+            --text-dim: #6B665E;          /* Subtle label */
+            --accent-warm: #C99A75;       /* Warm subtle amber-gold */
+            --accent-green: #7D9D81;      /* Muted sage */
+            --accent-red: #C4726C;        /* Muted brick */
+            --border-color: rgba(230, 220, 205, 0.07);
+            --border-focus: rgba(230, 220, 205, 0.14);
             --font-serif: 'Newsreader', Garamond, Georgia, serif;
             --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
@@ -37,293 +34,311 @@
             font-family: var(--font-serif);
             line-height: 1.85;
             -webkit-font-smoothing: antialiased;
-            padding-bottom: 140px;
+            padding-bottom: 120px;
         }
 
-        .container { max-width: 1040px; margin: 0 auto; padding: 0 28px; }
+        .container { max-width: 980px; margin: 0 auto; padding: 0 24px; }
 
-        /* Top Navigation */
+        /* Top Nav */
         nav.nav-bar {
-            background: rgba(24, 24, 22, 0.88);
-            backdrop-filter: blur(20px);
+            background: rgba(22, 21, 20, 0.9);
+            backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
             z-index: 100;
-            padding: 18px 0;
+            padding: 16px 0;
         }
         .nav-inner { display: flex; justify-content: space-between; align-items: center; }
         .nav-back {
-            color: var(--accent-terracotta);
+            color: var(--accent-warm);
             text-decoration: none;
             font-family: var(--font-sans);
-            font-size: 0.9rem;
-            font-weight: 600;
+            font-size: 0.88rem;
+            font-weight: 500;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             transition: all 0.15s;
         }
-        .nav-back:hover { transform: translateX(-3px); color: #E89073; }
-        .nav-meta { font-size: 0.76rem; color: var(--text-dim); font-family: var(--font-sans); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+        .nav-back:hover { color: #DDB495; }
 
         /* Hero Deck */
         .hero-deck {
             background: var(--bg-panel);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 44px 48px;
-            margin: 40px 0 36px;
-            position: relative;
+            border-radius: 16px;
+            padding: 36px 40px;
+            margin: 32px 0 28px;
         }
 
-        .hero-top-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 24px; }
-        .ticker-headline { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+        .hero-top-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px; }
         .ticker-symbol {
             font-family: var(--font-serif);
-            font-size: 3.2rem;
+            font-size: 2.8rem;
             font-weight: 500;
-            letter-spacing: -0.03em;
+            letter-spacing: -0.02em;
             color: var(--text-title);
         }
-        .company-meta { color: var(--text-secondary); font-size: 1.15rem; font-style: italic; margin-top: 4px; }
+        .company-meta { color: var(--text-secondary); font-size: 1.05rem; font-style: italic; margin-top: 2px; }
 
         .price-callout { text-align: right; }
-        .price-number { font-size: 3rem; font-weight: 600; font-family: var(--font-mono); color: var(--text-title); letter-spacing: -0.03em; }
-        .price-sub { font-size: 0.92rem; font-weight: 500; font-family: var(--font-mono); margin-top: 4px; }
+        .price-number { font-size: 2.6rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }
+        .price-sub { font-size: 0.88rem; font-family: var(--font-mono); margin-top: 2px; }
 
-        /* Embedded Chart Section */
-        .chart-section {
-            margin-top: 32px;
-            background: #1C1B18;
+        /* Native SVG Area Chart */
+        .native-chart-wrap {
+            margin-top: 28px;
+            background: #191816;
             border: 1px solid var(--border-color);
-            border-radius: 14px;
-            overflow: hidden;
-            height: 380px;
+            border-radius: 12px;
+            padding: 16px 20px 12px;
+            position: relative;
+            user-select: none;
+        }
+        .chart-svg { width: 100%; height: 220px; display: block; overflow: visible; }
+        .chart-tooltip {
+            position: absolute;
+            top: 14px;
+            left: 20px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-focus);
+            color: var(--text-title);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            padding: 5px 12px;
+            border-radius: 6px;
+            pointer-events: none;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            font-family: var(--font-sans);
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1px solid var(--border-color);
         }
 
-        /* Corridor Slider */
+        /* Corridor */
         .corridor-container {
-            margin-top: 32px;
-            padding-top: 24px;
+            margin-top: 28px;
+            padding-top: 20px;
             border-top: 1px solid var(--border-color);
         }
         .corridor-header {
             display: flex;
             justify-content: space-between;
-            font-size: 0.78rem;
+            font-size: 0.75rem;
             color: var(--text-dim);
             text-transform: uppercase;
             font-family: var(--font-sans);
-            font-weight: 600;
             letter-spacing: 0.05em;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .corridor-track {
-            height: 6px;
+            height: 5px;
             background: var(--bg-subpanel);
             border-radius: 9999px;
             position: relative;
         }
         .corridor-fill {
             height: 100%;
-            background: linear-gradient(90deg, #A85854, #C4A482, #789A7A, #D97757);
+            background: linear-gradient(90deg, #9C5852, #BFA075, #7D9D81, #C99A75);
             border-radius: 9999px;
-            opacity: 0.7;
+            opacity: 0.65;
             width: 100%;
         }
         .corridor-marker {
             position: absolute;
-            top: -6px;
-            width: 18px;
-            height: 18px;
+            top: -5px;
+            width: 15px;
+            height: 15px;
             background: var(--text-title);
-            border: 3px solid var(--accent-terracotta);
+            border: 2px solid var(--accent-warm);
             border-radius: 50%;
             transform: translateX(-50%);
-            box-shadow: 0 0 10px rgba(217, 119, 87, 0.4);
         }
 
-        /* Metrics Ribbon */
+        /* Metrics */
         .metrics-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 12px;
-            margin-top: 28px;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 24px;
         }
         .metric-cell {
             background: var(--bg-subpanel);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 16px 18px;
+            border-radius: 10px;
+            padding: 14px 16px;
         }
-        .metric-label { font-size: 0.7rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); font-weight: 600; letter-spacing: 0.05em; }
-        .metric-value { font-size: 1.25rem; font-weight: 600; color: var(--text-title); font-family: var(--font-mono); margin-top: 4px; }
+        .metric-label { font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); letter-spacing: 0.05em; }
+        .metric-value { font-size: 1.15rem; font-weight: 500; color: var(--text-title); font-family: var(--font-mono); margin-top: 3px; }
 
-        /* Tabs Header */
+        /* Tabs */
         .tabs-header {
             display: flex;
             gap: 12px;
             border-bottom: 1px solid var(--border-color);
-            margin: 40px 0 32px;
+            margin: 32px 0 28px;
         }
         .tab-btn {
             background: none;
             border: none;
             color: var(--text-secondary);
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             font-family: var(--font-serif);
-            padding: 14px 22px;
+            padding: 12px 18px;
             cursor: pointer;
             position: relative;
             transition: all 0.15s;
         }
         .tab-btn:hover { color: var(--text-title); }
-        .tab-btn.active { color: var(--accent-terracotta); }
+        .tab-btn.active { color: var(--accent-warm); }
         .tab-btn.active::after {
             content: '';
             position: absolute;
             bottom: -1px;
             left: 0; right: 0;
             height: 2px;
-            background: var(--accent-terracotta);
+            background: var(--accent-warm);
         }
 
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
-        /* Due Diligence Memo Styling */
+        /* Memo Content */
         .memo-container {
             background: var(--bg-panel);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 56px 64px;
+            border-radius: 16px;
+            padding: 48px 52px;
         }
         .memo-container h2 {
             font-family: var(--font-serif);
-            font-size: 1.65rem;
+            font-size: 1.55rem;
             font-weight: 500;
             color: var(--text-title);
-            margin: 48px 0 20px;
-            padding-bottom: 12px;
+            margin: 40px 0 16px;
+            padding-bottom: 10px;
             border-bottom: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            gap: 12px;
             letter-spacing: -0.02em;
         }
         .memo-container h2:first-of-type { margin-top: 0; }
         .memo-container h3 {
             font-family: var(--font-serif);
-            font-size: 1.35rem;
+            font-size: 1.25rem;
             font-weight: 500;
             color: var(--accent-warm);
-            margin: 32px 0 14px;
+            margin: 28px 0 12px;
         }
         .memo-container p {
-            font-size: 1.25rem;
-            line-height: 1.95;
+            font-size: 1.18rem;
+            line-height: 1.9;
             color: var(--text-body);
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
         .memo-container ul, .memo-container ol {
-            font-size: 1.2rem;
-            line-height: 1.95;
+            font-size: 1.15rem;
+            line-height: 1.9;
             color: var(--text-body);
-            margin: 0 0 28px 36px;
+            margin: 0 0 24px 30px;
         }
-        .memo-container li { margin-bottom: 10px; }
+        .memo-container li { margin-bottom: 8px; }
 
         .memo-container table {
             width: 100%;
             border-collapse: collapse;
-            margin: 32px 0;
+            margin: 28px 0;
             background: var(--bg-subpanel);
-            border-radius: 10px;
+            border-radius: 8px;
             overflow: hidden;
             border: 1px solid var(--border-color);
         }
         .memo-container th, .memo-container td {
-            padding: 14px 20px;
+            padding: 12px 18px;
             text-align: left;
             border-bottom: 1px solid var(--border-color);
-            font-size: 0.95rem;
+            font-size: 0.92rem;
         }
         .memo-container th {
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.25);
             color: var(--text-title);
             font-family: var(--font-sans);
-            font-weight: 600;
-            font-size: 0.76rem;
+            font-size: 0.72rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
         .memo-container blockquote {
             background: var(--bg-subpanel);
-            border-left: 3px solid var(--accent-terracotta);
-            padding: 22px 30px;
-            border-radius: 0 10px 10px 0;
-            margin: 32px 0;
+            border-left: 3px solid var(--accent-warm);
+            padding: 18px 24px;
+            border-radius: 0 8px 8px 0;
+            margin: 28px 0;
             font-style: italic;
-            font-size: 1.22rem;
+            font-size: 1.15rem;
             color: var(--text-title);
-            line-height: 1.85;
+            line-height: 1.8;
         }
         .memo-container .callout {
             background: var(--bg-subpanel);
             border: 1px solid var(--border-color);
             border-left: 3px solid var(--accent-warm);
-            border-radius: 10px;
-            padding: 22px 26px;
-            margin: 28px 0;
+            border-radius: 8px;
+            padding: 18px 22px;
+            margin: 24px 0;
         }
 
-        /* History Entry */
+        /* History */
         .history-entry {
             background: var(--bg-panel);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 32px 36px;
-            margin-bottom: 24px;
+            border-radius: 14px;
+            padding: 28px 32px;
+            margin-bottom: 20px;
         }
-        .history-entry-active { border-color: rgba(217, 119, 87, 0.4); }
-        .history-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 18px; }
-        .history-tags { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-        .history-time { color: var(--text-secondary); font-size: 0.92rem; font-family: var(--font-sans); }
-        .history-price { font-family: var(--font-mono); font-size: 0.96rem; }
+        .history-entry-active { border-color: rgba(201, 154, 117, 0.35); }
+        .history-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+        .history-tags { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .history-time { color: var(--text-secondary); font-size: 0.88rem; font-family: var(--font-sans); }
+        .history-price { font-family: var(--font-mono); font-size: 0.92rem; }
 
         .diff-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 18px;
-            margin: 24px 0;
+            gap: 16px;
+            margin: 20px 0;
         }
         @media (max-width: 768px) { .diff-grid { grid-template-columns: 1fr; } }
         .diff-box {
-            padding: 22px;
-            border-radius: 10px;
+            padding: 18px;
+            border-radius: 8px;
             border: 1px solid var(--border-color);
         }
-        .diff-prev { background: rgba(212, 115, 110, 0.06); border-color: rgba(212, 115, 110, 0.2); }
-        .diff-now { background: rgba(134, 167, 137, 0.06); border-color: rgba(134, 167, 137, 0.2); }
-        .diff-label { font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
-        .diff-prev .diff-label { color: var(--accent-rose); }
-        .diff-now .diff-label { color: var(--accent-sage); }
-        .diff-text { font-size: 1.1rem; color: var(--text-body); line-height: 1.7; }
+        .diff-prev { background: rgba(196, 114, 108, 0.05); border-color: rgba(196, 114, 108, 0.18); }
+        .diff-now { background: rgba(125, 157, 129, 0.05); border-color: rgba(125, 157, 129, 0.18); }
+        .diff-label { font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+        .diff-prev .diff-label { color: var(--accent-red); }
+        .diff-now .diff-label { color: var(--accent-green); }
+        .diff-text { font-size: 1.05rem; color: var(--text-body); line-height: 1.65; }
 
-        /* Pills & Badges */
+        /* Pills */
         .pill {
             display: inline-flex;
             align-items: center;
-            padding: 4px 14px;
+            padding: 3px 12px;
             border-radius: 9999px;
-            font-size: 0.74rem;
+            font-size: 0.72rem;
             font-family: var(--font-sans);
-            font-weight: 600;
+            font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.04em;
         }
-        .pill-terracotta { background: var(--accent-terracotta-tint); color: var(--accent-terracotta); border: 1px solid rgba(217, 119, 87, 0.3); }
+        .pill-active { background: rgba(201, 154, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.25); }
         .pill-neutral { background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); }
         .pill-muted { background: var(--bg-subpanel); color: var(--text-dim); }
 
@@ -332,26 +347,25 @@
             color: var(--text-title);
             border: 1px solid var(--border-color);
             font-family: var(--font-sans);
-            font-size: 0.82rem;
-            font-weight: 600;
-            padding: 8px 16px;
-            border-radius: 8px;
+            font-size: 0.8rem;
+            padding: 7px 14px;
+            border-radius: 6px;
             cursor: pointer;
             transition: all 0.15s;
         }
         .btn-subtle:hover { background: var(--bg-hover); }
 
-        .snapshot-drawer { margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--border-color); }
+        .snapshot-drawer { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color); }
 
-        .pos { color: var(--accent-sage); }
-        .neg { color: var(--accent-rose); }
+        .pos { color: var(--accent-green); }
+        .neg { color: var(--accent-red); }
     </style>
 </head>
 <body>
     <nav class="nav-bar">
         <div class="container nav-inner">
-            <a href="../index.html" class="nav-back">← Master Ledger</a>
-            <span class="nav-meta">RESEARCH DOSSIER // CNK</span>
+            <a href="../index.html" class="nav-back">← Portfolio</a>
+            <span style="font-size: 0.82rem; color: var(--text-dim); font-family: var(--font-sans);">CNK DUE DILIGENCE</span>
         </div>
     </nav>
 
@@ -360,47 +374,116 @@
         <section class="hero-deck">
             <div class="hero-top-row">
                 <div>
-                    <div class="ticker-headline">
+                    <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
                         <span class="ticker-symbol">CNK</span>
-                        <span class="pill pill-terracotta">Cyclical Peak & Structural Overvaluation</span>
+                        <span class="pill pill-active">Cyclical Peak & Structural Overvaluation</span>
                     </div>
-                    <div class="company-meta">Cinemark Holdings Inc Cinemark  • Last Evaluated: 2026-08-07</div>
+                    <div class="company-meta">Cinemark Holdings Inc Cinemark </div>
                 </div>
                 <div class="price-callout">
                     <div class="price-number">$37.24</div>
                     <div class="price-sub pos">
-                        +0.00% vs Genesis ($37.24)
+                        +0.00% vs Genesis
                     </div>
                 </div>
             </div>
 
-            <!-- Embedded Live Chart -->
-            <div class="chart-section">
-                <div id="tradingview_chart_container" style="height: 100%; width: 100%;"></div>
-                <script type="text/javascript">
-                new TradingView.widget({
-                    "autosize": true,
-                    "symbol": "CNK",
-                    "interval": "D",
-                    "timezone": "America/New_York",
-                    "theme": "dark",
-                    "style": "3",
-                    "locale": "en",
-                    "toolbar_bg": "#1C1B18",
-                    "enable_publishing": false,
-                    "hide_top_toolbar": false,
-                    "hide_legend": false,
-                    "save_image": false,
-                    "container_id": "tradingview_chart_container"
-                });
-                </script>
-            </div>
+            <!-- Native Interactive Area Chart -->
+            
+    <div class="native-chart-wrap" id="chart-container">
+        <div id="chart-tooltip" class="chart-tooltip">
+            <span id="tooltip-date">---</span> • <strong id="tooltip-price">$0.00</strong>
+        </div>
+        <svg id="interactive-svg" viewBox="0 0 900 280" preserveAspectRatio="none" class="chart-svg">
+            <defs>
+                <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#C99A75" stop-opacity="0.22" />
+                    <stop offset="100%" stop-color="#C99A75" stop-opacity="0.0" />
+                </linearGradient>
+            </defs>
+            
+            <!-- Horizontal grid lines -->
+            <line x1="20" y1="25" x2="880" y2="25" stroke="rgba(230,220,205,0.05)" stroke-width="1" />
+            <line x1="20" y1="140.0" x2="880" y2="140.0" stroke="rgba(230,220,205,0.05)" stroke-width="1" />
+            <line x1="20" y1="255" x2="880" y2="255" stroke="rgba(230,220,205,0.05)" stroke-width="1" />
+
+            <!-- Area Fill & Stroke Line -->
+            <path d="M 20.0,214.0 L 23.4,207.0 L 26.9,205.7 L 30.3,197.3 L 33.8,206.5 L 37.2,202.4 L 40.6,195.7 L 44.1,190.3 L 47.5,188.7 L 51.0,194.4 L 54.4,189.2 L 57.8,194.7 L 61.3,198.7 L 64.7,198.0 L 68.2,204.3 L 71.6,199.9 L 75.0,202.6 L 78.5,205.7 L 81.9,205.4 L 85.4,198.7 L 88.8,176.2 L 92.2,182.6 L 95.7,180.5 L 99.1,166.1 L 102.6,164.9 L 106.0,161.1 L 109.4,160.5 L 112.9,164.9 L 116.3,170.2 L 119.8,174.1 L 123.2,168.5 L 126.6,154.4 L 130.1,160.4 L 133.5,162.9 L 137.0,160.0 L 140.4,174.8 L 143.8,168.2 L 147.3,168.2 L 150.7,171.1 L 154.2,165.2 L 157.6,183.9 L 161.0,192.6 L 164.5,200.8 L 167.9,188.5 L 171.4,200.6 L 174.8,210.0 L 178.2,194.7 L 181.7,182.8 L 185.1,189.9 L 188.6,190.4 L 192.0,187.0 L 195.4,178.9 L 198.9,192.6 L 202.3,190.7 L 205.8,191.3 L 209.2,182.2 L 212.6,187.7 L 216.1,178.6 L 219.5,194.6 L 223.0,182.6 L 226.4,186.5 L 229.8,186.3 L 233.3,157.2 L 236.7,154.4 L 240.2,160.2 L 243.6,138.7 L 247.0,134.2 L 250.5,139.7 L 253.9,140.7 L 257.4,141.7 L 260.8,145.8 L 264.2,137.4 L 267.7,138.6 L 271.1,153.4 L 274.6,147.3 L 278.0,168.9 L 281.4,168.6 L 284.9,175.6 L 288.3,177.3 L 291.8,184.5 L 295.2,207.7 L 298.6,241.3 L 302.1,227.5 L 305.5,254.7 L 309.0,232.6 L 312.4,218.1 L 315.8,209.4 L 319.3,210.5 L 322.7,216.2 L 326.2,227.9 L 329.6,228.2 L 333.0,232.8 L 336.5,255.0 L 339.9,250.2 L 343.4,247.6 L 346.8,243.7 L 350.2,244.0 L 353.7,241.7 L 357.1,238.2 L 360.6,236.8 L 364.0,236.3 L 367.4,232.2 L 370.9,240.2 L 374.3,243.2 L 377.8,246.2 L 381.2,243.5 L 384.6,247.3 L 388.1,227.6 L 391.5,238.5 L 395.0,224.4 L 398.4,218.9 L 401.8,226.5 L 405.3,217.7 L 408.7,222.9 L 412.2,223.8 L 415.6,225.4 L 419.0,230.3 L 422.5,238.0 L 425.9,232.3 L 429.4,236.5 L 432.8,230.1 L 436.2,216.0 L 439.7,215.8 L 443.1,208.4 L 446.6,206.0 L 450.0,200.3 L 453.4,199.6 L 456.9,200.6 L 460.3,196.4 L 463.8,213.2 L 467.2,213.0 L 470.6,206.1 L 474.1,191.2 L 477.5,191.9 L 481.0,190.0 L 484.4,198.4 L 487.8,201.8 L 491.3,197.0 L 494.7,186.7 L 498.2,165.1 L 501.6,160.7 L 505.0,158.8 L 508.5,159.8 L 511.9,164.9 L 515.4,173.5 L 518.8,181.8 L 522.2,187.6 L 525.7,196.9 L 529.1,203.7 L 532.6,200.1 L 536.0,191.4 L 539.4,186.2 L 542.9,188.0 L 546.3,191.7 L 549.8,190.9 L 553.2,171.2 L 556.6,166.4 L 560.1,173.2 L 563.5,166.9 L 567.0,167.6 L 570.4,171.4 L 573.8,161.1 L 577.3,160.8 L 580.7,150.8 L 584.2,138.1 L 587.6,141.7 L 591.0,144.0 L 594.5,127.6 L 597.9,134.7 L 601.4,134.7 L 604.8,133.4 L 608.2,141.4 L 611.7,140.0 L 615.1,139.9 L 618.6,136.3 L 622.0,156.1 L 625.4,160.9 L 628.9,160.0 L 632.3,161.7 L 635.8,148.0 L 639.2,150.7 L 642.6,154.1 L 646.1,146.8 L 649.5,173.9 L 653.0,179.0 L 656.4,182.8 L 659.8,172.3 L 663.3,176.1 L 666.7,181.9 L 670.2,186.2 L 673.6,193.0 L 677.0,192.9 L 680.5,191.9 L 683.9,197.6 L 687.4,185.2 L 690.8,192.7 L 694.2,191.2 L 697.7,188.5 L 701.1,190.9 L 704.6,178.5 L 708.0,180.2 L 711.4,179.3 L 714.9,168.5 L 718.3,125.3 L 721.8,131.4 L 725.2,143.7 L 728.6,128.5 L 732.1,122.5 L 735.5,119.3 L 739.0,111.2 L 742.4,96.5 L 745.8,82.9 L 749.3,85.8 L 752.7,109.1 L 756.2,97.0 L 759.6,95.7 L 763.0,86.4 L 766.5,88.6 L 769.9,85.7 L 773.4,95.0 L 776.8,106.2 L 780.2,91.0 L 783.7,101.5 L 787.1,115.3 L 790.6,115.8 L 794.0,118.2 L 797.4,140.7 L 800.9,148.3 L 804.3,143.6 L 807.8,145.6 L 811.2,153.7 L 814.6,152.1 L 818.1,149.0 L 821.5,142.4 L 825.0,142.1 L 828.4,134.0 L 831.8,112.4 L 835.3,118.9 L 838.7,107.9 L 842.2,101.7 L 845.6,101.4 L 849.0,87.8 L 852.5,67.9 L 855.9,70.3 L 859.4,52.4 L 862.8,46.1 L 866.2,27.9 L 869.7,25.0 L 873.1,29.3 L 876.6,26.7 L 880.0,36.8 L 880.0,280 L 20.0,280 Z" fill="url(#area-grad)" />
+            <path d="M 20.0,214.0 L 23.4,207.0 L 26.9,205.7 L 30.3,197.3 L 33.8,206.5 L 37.2,202.4 L 40.6,195.7 L 44.1,190.3 L 47.5,188.7 L 51.0,194.4 L 54.4,189.2 L 57.8,194.7 L 61.3,198.7 L 64.7,198.0 L 68.2,204.3 L 71.6,199.9 L 75.0,202.6 L 78.5,205.7 L 81.9,205.4 L 85.4,198.7 L 88.8,176.2 L 92.2,182.6 L 95.7,180.5 L 99.1,166.1 L 102.6,164.9 L 106.0,161.1 L 109.4,160.5 L 112.9,164.9 L 116.3,170.2 L 119.8,174.1 L 123.2,168.5 L 126.6,154.4 L 130.1,160.4 L 133.5,162.9 L 137.0,160.0 L 140.4,174.8 L 143.8,168.2 L 147.3,168.2 L 150.7,171.1 L 154.2,165.2 L 157.6,183.9 L 161.0,192.6 L 164.5,200.8 L 167.9,188.5 L 171.4,200.6 L 174.8,210.0 L 178.2,194.7 L 181.7,182.8 L 185.1,189.9 L 188.6,190.4 L 192.0,187.0 L 195.4,178.9 L 198.9,192.6 L 202.3,190.7 L 205.8,191.3 L 209.2,182.2 L 212.6,187.7 L 216.1,178.6 L 219.5,194.6 L 223.0,182.6 L 226.4,186.5 L 229.8,186.3 L 233.3,157.2 L 236.7,154.4 L 240.2,160.2 L 243.6,138.7 L 247.0,134.2 L 250.5,139.7 L 253.9,140.7 L 257.4,141.7 L 260.8,145.8 L 264.2,137.4 L 267.7,138.6 L 271.1,153.4 L 274.6,147.3 L 278.0,168.9 L 281.4,168.6 L 284.9,175.6 L 288.3,177.3 L 291.8,184.5 L 295.2,207.7 L 298.6,241.3 L 302.1,227.5 L 305.5,254.7 L 309.0,232.6 L 312.4,218.1 L 315.8,209.4 L 319.3,210.5 L 322.7,216.2 L 326.2,227.9 L 329.6,228.2 L 333.0,232.8 L 336.5,255.0 L 339.9,250.2 L 343.4,247.6 L 346.8,243.7 L 350.2,244.0 L 353.7,241.7 L 357.1,238.2 L 360.6,236.8 L 364.0,236.3 L 367.4,232.2 L 370.9,240.2 L 374.3,243.2 L 377.8,246.2 L 381.2,243.5 L 384.6,247.3 L 388.1,227.6 L 391.5,238.5 L 395.0,224.4 L 398.4,218.9 L 401.8,226.5 L 405.3,217.7 L 408.7,222.9 L 412.2,223.8 L 415.6,225.4 L 419.0,230.3 L 422.5,238.0 L 425.9,232.3 L 429.4,236.5 L 432.8,230.1 L 436.2,216.0 L 439.7,215.8 L 443.1,208.4 L 446.6,206.0 L 450.0,200.3 L 453.4,199.6 L 456.9,200.6 L 460.3,196.4 L 463.8,213.2 L 467.2,213.0 L 470.6,206.1 L 474.1,191.2 L 477.5,191.9 L 481.0,190.0 L 484.4,198.4 L 487.8,201.8 L 491.3,197.0 L 494.7,186.7 L 498.2,165.1 L 501.6,160.7 L 505.0,158.8 L 508.5,159.8 L 511.9,164.9 L 515.4,173.5 L 518.8,181.8 L 522.2,187.6 L 525.7,196.9 L 529.1,203.7 L 532.6,200.1 L 536.0,191.4 L 539.4,186.2 L 542.9,188.0 L 546.3,191.7 L 549.8,190.9 L 553.2,171.2 L 556.6,166.4 L 560.1,173.2 L 563.5,166.9 L 567.0,167.6 L 570.4,171.4 L 573.8,161.1 L 577.3,160.8 L 580.7,150.8 L 584.2,138.1 L 587.6,141.7 L 591.0,144.0 L 594.5,127.6 L 597.9,134.7 L 601.4,134.7 L 604.8,133.4 L 608.2,141.4 L 611.7,140.0 L 615.1,139.9 L 618.6,136.3 L 622.0,156.1 L 625.4,160.9 L 628.9,160.0 L 632.3,161.7 L 635.8,148.0 L 639.2,150.7 L 642.6,154.1 L 646.1,146.8 L 649.5,173.9 L 653.0,179.0 L 656.4,182.8 L 659.8,172.3 L 663.3,176.1 L 666.7,181.9 L 670.2,186.2 L 673.6,193.0 L 677.0,192.9 L 680.5,191.9 L 683.9,197.6 L 687.4,185.2 L 690.8,192.7 L 694.2,191.2 L 697.7,188.5 L 701.1,190.9 L 704.6,178.5 L 708.0,180.2 L 711.4,179.3 L 714.9,168.5 L 718.3,125.3 L 721.8,131.4 L 725.2,143.7 L 728.6,128.5 L 732.1,122.5 L 735.5,119.3 L 739.0,111.2 L 742.4,96.5 L 745.8,82.9 L 749.3,85.8 L 752.7,109.1 L 756.2,97.0 L 759.6,95.7 L 763.0,86.4 L 766.5,88.6 L 769.9,85.7 L 773.4,95.0 L 776.8,106.2 L 780.2,91.0 L 783.7,101.5 L 787.1,115.3 L 790.6,115.8 L 794.0,118.2 L 797.4,140.7 L 800.9,148.3 L 804.3,143.6 L 807.8,145.6 L 811.2,153.7 L 814.6,152.1 L 818.1,149.0 L 821.5,142.4 L 825.0,142.1 L 828.4,134.0 L 831.8,112.4 L 835.3,118.9 L 838.7,107.9 L 842.2,101.7 L 845.6,101.4 L 849.0,87.8 L 852.5,67.9 L 855.9,70.3 L 859.4,52.4 L 862.8,46.1 L 866.2,27.9 L 869.7,25.0 L 873.1,29.3 L 876.6,26.7 L 880.0,36.8" fill="none" stroke="#C99A75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+            <!-- Hover crosshair and active dot -->
+            <line id="crosshair-line" x1="0" y1="25" x2="0" y2="255" stroke="rgba(201,154,117,0.4)" stroke-width="1" stroke-dasharray="3 3" style="display: none;" />
+            <circle id="hover-dot" r="4" fill="#C99A75" stroke="#1E1D1B" stroke-width="2" style="display: none;" />
+        </svg>
+        <div class="chart-labels">
+            <span>Aug 08, 2025 ($21.93)</span>
+            <span>1-Year Performance Range</span>
+            <span>Aug 07, 2026 ($37.24)</span>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const rawPoints = [{"date": "Aug 08, 2025", "price": 24.81}, {"date": "Aug 11, 2025", "price": 25.3}, {"date": "Aug 12, 2025", "price": 25.39}, {"date": "Aug 13, 2025", "price": 25.98}, {"date": "Aug 14, 2025", "price": 25.33}, {"date": "Aug 15, 2025", "price": 25.62}, {"date": "Aug 18, 2025", "price": 26.09}, {"date": "Aug 19, 2025", "price": 26.47}, {"date": "Aug 20, 2025", "price": 26.58}, {"date": "Aug 21, 2025", "price": 26.18}, {"date": "Aug 22, 2025", "price": 26.55}, {"date": "Aug 25, 2025", "price": 26.16}, {"date": "Aug 26, 2025", "price": 25.88}, {"date": "Aug 27, 2025", "price": 25.93}, {"date": "Aug 28, 2025", "price": 25.49}, {"date": "Aug 29, 2025", "price": 25.8}, {"date": "Sep 02, 2025", "price": 25.61}, {"date": "Sep 03, 2025", "price": 25.39}, {"date": "Sep 04, 2025", "price": 25.41}, {"date": "Sep 05, 2025", "price": 25.88}, {"date": "Sep 08, 2025", "price": 27.46}, {"date": "Sep 09, 2025", "price": 27.01}, {"date": "Sep 10, 2025", "price": 27.16}, {"date": "Sep 11, 2025", "price": 28.17}, {"date": "Sep 12, 2025", "price": 28.25}, {"date": "Sep 15, 2025", "price": 28.52}, {"date": "Sep 16, 2025", "price": 28.56}, {"date": "Sep 17, 2025", "price": 28.25}, {"date": "Sep 18, 2025", "price": 27.88}, {"date": "Sep 19, 2025", "price": 27.61}, {"date": "Sep 22, 2025", "price": 28.0}, {"date": "Sep 23, 2025", "price": 28.99}, {"date": "Sep 24, 2025", "price": 28.57}, {"date": "Sep 25, 2025", "price": 28.39}, {"date": "Sep 26, 2025", "price": 28.6}, {"date": "Sep 29, 2025", "price": 27.56}, {"date": "Sep 30, 2025", "price": 28.02}, {"date": "Oct 01, 2025", "price": 28.02}, {"date": "Oct 02, 2025", "price": 27.82}, {"date": "Oct 03, 2025", "price": 28.23}, {"date": "Oct 06, 2025", "price": 26.92}, {"date": "Oct 07, 2025", "price": 26.31}, {"date": "Oct 08, 2025", "price": 25.73}, {"date": "Oct 09, 2025", "price": 26.6}, {"date": "Oct 10, 2025", "price": 25.75}, {"date": "Oct 13, 2025", "price": 25.09}, {"date": "Oct 14, 2025", "price": 26.16}, {"date": "Oct 15, 2025", "price": 27.0}, {"date": "Oct 16, 2025", "price": 26.5}, {"date": "Oct 17, 2025", "price": 26.46}, {"date": "Oct 20, 2025", "price": 26.7}, {"date": "Oct 21, 2025", "price": 27.27}, {"date": "Oct 22, 2025", "price": 26.31}, {"date": "Oct 23, 2025", "price": 26.44}, {"date": "Oct 24, 2025", "price": 26.4}, {"date": "Oct 27, 2025", "price": 27.04}, {"date": "Oct 28, 2025", "price": 26.65}, {"date": "Oct 29, 2025", "price": 27.29}, {"date": "Oct 30, 2025", "price": 26.17}, {"date": "Oct 31, 2025", "price": 27.01}, {"date": "Nov 03, 2025", "price": 26.74}, {"date": "Nov 04, 2025", "price": 26.75}, {"date": "Nov 05, 2025", "price": 28.79}, {"date": "Nov 06, 2025", "price": 28.99}, {"date": "Nov 07, 2025", "price": 28.58}, {"date": "Nov 10, 2025", "price": 30.09}, {"date": "Nov 11, 2025", "price": 30.41}, {"date": "Nov 12, 2025", "price": 30.02}, {"date": "Nov 13, 2025", "price": 29.95}, {"date": "Nov 14, 2025", "price": 29.88}, {"date": "Nov 17, 2025", "price": 29.59}, {"date": "Nov 18, 2025", "price": 30.18}, {"date": "Nov 19, 2025", "price": 30.1}, {"date": "Nov 20, 2025", "price": 29.06}, {"date": "Nov 21, 2025", "price": 29.49}, {"date": "Nov 24, 2025", "price": 27.97}, {"date": "Nov 25, 2025", "price": 27.99}, {"date": "Nov 26, 2025", "price": 27.5}, {"date": "Nov 28, 2025", "price": 27.38}, {"date": "Dec 01, 2025", "price": 26.88}, {"date": "Dec 02, 2025", "price": 25.25}, {"date": "Dec 03, 2025", "price": 22.89}, {"date": "Dec 04, 2025", "price": 23.86}, {"date": "Dec 05, 2025", "price": 21.95}, {"date": "Dec 08, 2025", "price": 23.5}, {"date": "Dec 09, 2025", "price": 24.52}, {"date": "Dec 10, 2025", "price": 25.13}, {"date": "Dec 11, 2025", "price": 25.05}, {"date": "Dec 12, 2025", "price": 24.65}, {"date": "Dec 15, 2025", "price": 23.83}, {"date": "Dec 16, 2025", "price": 23.81}, {"date": "Dec 17, 2025", "price": 23.49}, {"date": "Dec 18, 2025", "price": 21.93}, {"date": "Dec 19, 2025", "price": 22.27}, {"date": "Dec 22, 2025", "price": 22.45}, {"date": "Dec 23, 2025", "price": 22.72}, {"date": "Dec 24, 2025", "price": 22.7}, {"date": "Dec 26, 2025", "price": 22.86}, {"date": "Dec 29, 2025", "price": 23.11}, {"date": "Dec 30, 2025", "price": 23.21}, {"date": "Dec 31, 2025", "price": 23.24}, {"date": "Jan 02, 2026", "price": 23.53}, {"date": "Jan 05, 2026", "price": 22.97}, {"date": "Jan 06, 2026", "price": 22.76}, {"date": "Jan 07, 2026", "price": 22.55}, {"date": "Jan 08, 2026", "price": 22.74}, {"date": "Jan 09, 2026", "price": 22.47}, {"date": "Jan 12, 2026", "price": 23.85}, {"date": "Jan 13, 2026", "price": 23.09}, {"date": "Jan 14, 2026", "price": 24.08}, {"date": "Jan 15, 2026", "price": 24.46}, {"date": "Jan 16, 2026", "price": 23.93}, {"date": "Jan 20, 2026", "price": 24.55}, {"date": "Jan 21, 2026", "price": 24.18}, {"date": "Jan 22, 2026", "price": 24.12}, {"date": "Jan 23, 2026", "price": 24.01}, {"date": "Jan 26, 2026", "price": 23.66}, {"date": "Jan 27, 2026", "price": 23.12}, {"date": "Jan 28, 2026", "price": 23.52}, {"date": "Jan 29, 2026", "price": 23.23}, {"date": "Jan 30, 2026", "price": 23.68}, {"date": "Feb 02, 2026", "price": 24.67}, {"date": "Feb 03, 2026", "price": 24.68}, {"date": "Feb 04, 2026", "price": 25.2}, {"date": "Feb 05, 2026", "price": 25.37}, {"date": "Feb 06, 2026", "price": 25.77}, {"date": "Feb 09, 2026", "price": 25.82}, {"date": "Feb 10, 2026", "price": 25.75}, {"date": "Feb 11, 2026", "price": 26.04}, {"date": "Feb 12, 2026", "price": 24.86}, {"date": "Feb 13, 2026", "price": 24.88}, {"date": "Feb 17, 2026", "price": 25.36}, {"date": "Feb 18, 2026", "price": 26.41}, {"date": "Feb 19, 2026", "price": 26.36}, {"date": "Feb 20, 2026", "price": 26.49}, {"date": "Feb 23, 2026", "price": 25.9}, {"date": "Feb 24, 2026", "price": 25.66}, {"date": "Feb 25, 2026", "price": 26.0}, {"date": "Feb 26, 2026", "price": 26.72}, {"date": "Feb 27, 2026", "price": 28.24}, {"date": "Mar 02, 2026", "price": 28.55}, {"date": "Mar 03, 2026", "price": 28.68}, {"date": "Mar 04, 2026", "price": 28.61}, {"date": "Mar 05, 2026", "price": 28.25}, {"date": "Mar 06, 2026", "price": 27.65}, {"date": "Mar 09, 2026", "price": 27.07}, {"date": "Mar 10, 2026", "price": 26.66}, {"date": "Mar 11, 2026", "price": 26.01}, {"date": "Mar 12, 2026", "price": 25.53}, {"date": "Mar 13, 2026", "price": 25.78}, {"date": "Mar 16, 2026", "price": 26.39}, {"date": "Mar 17, 2026", "price": 26.76}, {"date": "Mar 18, 2026", "price": 26.63}, {"date": "Mar 19, 2026", "price": 26.37}, {"date": "Mar 20, 2026", "price": 26.43}, {"date": "Mar 23, 2026", "price": 27.81}, {"date": "Mar 24, 2026", "price": 28.15}, {"date": "Mar 25, 2026", "price": 27.67}, {"date": "Mar 26, 2026", "price": 28.11}, {"date": "Mar 27, 2026", "price": 28.06}, {"date": "Mar 30, 2026", "price": 27.8}, {"date": "Mar 31, 2026", "price": 28.52}, {"date": "Apr 01, 2026", "price": 28.54}, {"date": "Apr 02, 2026", "price": 29.24}, {"date": "Apr 06, 2026", "price": 30.13}, {"date": "Apr 07, 2026", "price": 29.88}, {"date": "Apr 08, 2026", "price": 29.72}, {"date": "Apr 09, 2026", "price": 30.87}, {"date": "Apr 10, 2026", "price": 30.37}, {"date": "Apr 13, 2026", "price": 30.37}, {"date": "Apr 14, 2026", "price": 30.46}, {"date": "Apr 15, 2026", "price": 29.9}, {"date": "Apr 16, 2026", "price": 30.0}, {"date": "Apr 17, 2026", "price": 30.01}, {"date": "Apr 20, 2026", "price": 30.26}, {"date": "Apr 21, 2026", "price": 28.87}, {"date": "Apr 22, 2026", "price": 28.53}, {"date": "Apr 23, 2026", "price": 28.6}, {"date": "Apr 24, 2026", "price": 28.48}, {"date": "Apr 27, 2026", "price": 29.44}, {"date": "Apr 28, 2026", "price": 29.25}, {"date": "Apr 29, 2026", "price": 29.01}, {"date": "Apr 30, 2026", "price": 29.52}, {"date": "May 01, 2026", "price": 27.62}, {"date": "May 04, 2026", "price": 27.26}, {"date": "May 05, 2026", "price": 27.0}, {"date": "May 06, 2026", "price": 27.73}, {"date": "May 07, 2026", "price": 27.47}, {"date": "May 08, 2026", "price": 27.06}, {"date": "May 11, 2026", "price": 26.76}, {"date": "May 12, 2026", "price": 26.28}, {"date": "May 13, 2026", "price": 26.29}, {"date": "May 14, 2026", "price": 26.36}, {"date": "May 15, 2026", "price": 25.96}, {"date": "May 18, 2026", "price": 26.83}, {"date": "May 19, 2026", "price": 26.3}, {"date": "May 20, 2026", "price": 26.41}, {"date": "May 21, 2026", "price": 26.6}, {"date": "May 22, 2026", "price": 26.43}, {"date": "May 26, 2026", "price": 27.3}, {"date": "May 27, 2026", "price": 27.18}, {"date": "May 28, 2026", "price": 27.24}, {"date": "May 29, 2026", "price": 28.0}, {"date": "Jun 01, 2026", "price": 31.03}, {"date": "Jun 02, 2026", "price": 30.6}, {"date": "Jun 03, 2026", "price": 29.74}, {"date": "Jun 04, 2026", "price": 30.81}, {"date": "Jun 05, 2026", "price": 31.23}, {"date": "Jun 08, 2026", "price": 31.45}, {"date": "Jun 09, 2026", "price": 32.02}, {"date": "Jun 10, 2026", "price": 33.05}, {"date": "Jun 11, 2026", "price": 34.01}, {"date": "Jun 12, 2026", "price": 33.8}, {"date": "Jun 15, 2026", "price": 32.17}, {"date": "Jun 16, 2026", "price": 33.02}, {"date": "Jun 17, 2026", "price": 33.11}, {"date": "Jun 18, 2026", "price": 33.76}, {"date": "Jun 22, 2026", "price": 33.61}, {"date": "Jun 23, 2026", "price": 33.81}, {"date": "Jun 24, 2026", "price": 33.16}, {"date": "Jun 25, 2026", "price": 32.37}, {"date": "Jun 26, 2026", "price": 33.44}, {"date": "Jun 29, 2026", "price": 32.7}, {"date": "Jun 30, 2026", "price": 31.73}, {"date": "Jul 01, 2026", "price": 31.7}, {"date": "Jul 02, 2026", "price": 31.53}, {"date": "Jul 06, 2026", "price": 29.95}, {"date": "Jul 07, 2026", "price": 29.42}, {"date": "Jul 08, 2026", "price": 29.75}, {"date": "Jul 09, 2026", "price": 29.61}, {"date": "Jul 10, 2026", "price": 29.04}, {"date": "Jul 13, 2026", "price": 29.15}, {"date": "Jul 14, 2026", "price": 29.37}, {"date": "Jul 15, 2026", "price": 29.83}, {"date": "Jul 16, 2026", "price": 29.85}, {"date": "Jul 17, 2026", "price": 30.42}, {"date": "Jul 20, 2026", "price": 31.94}, {"date": "Jul 21, 2026", "price": 31.48}, {"date": "Jul 22, 2026", "price": 32.25}, {"date": "Jul 23, 2026", "price": 32.69}, {"date": "Jul 24, 2026", "price": 32.71}, {"date": "Jul 27, 2026", "price": 33.66}, {"date": "Jul 28, 2026", "price": 35.06}, {"date": "Jul 29, 2026", "price": 34.89}, {"date": "Jul 30, 2026", "price": 36.15}, {"date": "Jul 31, 2026", "price": 36.59}, {"date": "Aug 03, 2026", "price": 37.87}, {"date": "Aug 04, 2026", "price": 38.07}, {"date": "Aug 05, 2026", "price": 37.77}, {"date": "Aug 06, 2026", "price": 37.95}, {"date": "Aug 07, 2026", "price": 37.24}];
+        const svgCoords = [[20.0, 214.0], [23.4, 207.0], [26.9, 205.7], [30.3, 197.3], [33.8, 206.5], [37.2, 202.4], [40.6, 195.7], [44.1, 190.3], [47.5, 188.7], [51.0, 194.4], [54.4, 189.2], [57.8, 194.7], [61.3, 198.7], [64.7, 198.0], [68.2, 204.3], [71.6, 199.9], [75.0, 202.6], [78.5, 205.7], [81.9, 205.4], [85.4, 198.7], [88.8, 176.2], [92.2, 182.6], [95.7, 180.5], [99.1, 166.1], [102.6, 164.9], [106.0, 161.1], [109.4, 160.5], [112.9, 164.9], [116.3, 170.2], [119.8, 174.1], [123.2, 168.5], [126.6, 154.4], [130.1, 160.4], [133.5, 162.9], [137.0, 160.0], [140.4, 174.8], [143.8, 168.2], [147.3, 168.2], [150.7, 171.1], [154.2, 165.2], [157.6, 183.9], [161.0, 192.6], [164.5, 200.8], [167.9, 188.5], [171.4, 200.6], [174.8, 210.0], [178.2, 194.7], [181.7, 182.8], [185.1, 189.9], [188.6, 190.4], [192.0, 187.0], [195.4, 178.9], [198.9, 192.6], [202.3, 190.7], [205.8, 191.3], [209.2, 182.2], [212.6, 187.7], [216.1, 178.6], [219.5, 194.6], [223.0, 182.6], [226.4, 186.5], [229.8, 186.3], [233.3, 157.2], [236.7, 154.4], [240.2, 160.2], [243.6, 138.7], [247.0, 134.2], [250.5, 139.7], [253.9, 140.7], [257.4, 141.7], [260.8, 145.8], [264.2, 137.4], [267.7, 138.6], [271.1, 153.4], [274.6, 147.3], [278.0, 168.9], [281.4, 168.6], [284.9, 175.6], [288.3, 177.3], [291.8, 184.5], [295.2, 207.7], [298.6, 241.3], [302.1, 227.5], [305.5, 254.7], [309.0, 232.6], [312.4, 218.1], [315.8, 209.4], [319.3, 210.5], [322.7, 216.2], [326.2, 227.9], [329.6, 228.2], [333.0, 232.8], [336.5, 255.0], [339.9, 250.2], [343.4, 247.6], [346.8, 243.7], [350.2, 244.0], [353.7, 241.7], [357.1, 238.2], [360.6, 236.8], [364.0, 236.3], [367.4, 232.2], [370.9, 240.2], [374.3, 243.2], [377.8, 246.2], [381.2, 243.5], [384.6, 247.3], [388.1, 227.6], [391.5, 238.5], [395.0, 224.4], [398.4, 218.9], [401.8, 226.5], [405.3, 217.7], [408.7, 222.9], [412.2, 223.8], [415.6, 225.4], [419.0, 230.3], [422.5, 238.0], [425.9, 232.3], [429.4, 236.5], [432.8, 230.1], [436.2, 216.0], [439.7, 215.8], [443.1, 208.4], [446.6, 206.0], [450.0, 200.3], [453.4, 199.6], [456.9, 200.6], [460.3, 196.4], [463.8, 213.2], [467.2, 213.0], [470.6, 206.1], [474.1, 191.2], [477.5, 191.9], [481.0, 190.0], [484.4, 198.4], [487.8, 201.8], [491.3, 197.0], [494.7, 186.7], [498.2, 165.1], [501.6, 160.7], [505.0, 158.8], [508.5, 159.8], [511.9, 164.9], [515.4, 173.5], [518.8, 181.8], [522.2, 187.6], [525.7, 196.9], [529.1, 203.7], [532.6, 200.1], [536.0, 191.4], [539.4, 186.2], [542.9, 188.0], [546.3, 191.7], [549.8, 190.9], [553.2, 171.2], [556.6, 166.4], [560.1, 173.2], [563.5, 166.9], [567.0, 167.6], [570.4, 171.4], [573.8, 161.1], [577.3, 160.8], [580.7, 150.8], [584.2, 138.1], [587.6, 141.7], [591.0, 144.0], [594.5, 127.6], [597.9, 134.7], [601.4, 134.7], [604.8, 133.4], [608.2, 141.4], [611.7, 140.0], [615.1, 139.9], [618.6, 136.3], [622.0, 156.1], [625.4, 160.9], [628.9, 160.0], [632.3, 161.7], [635.8, 148.0], [639.2, 150.7], [642.6, 154.1], [646.1, 146.8], [649.5, 173.9], [653.0, 179.0], [656.4, 182.8], [659.8, 172.3], [663.3, 176.1], [666.7, 181.9], [670.2, 186.2], [673.6, 193.0], [677.0, 192.9], [680.5, 191.9], [683.9, 197.6], [687.4, 185.2], [690.8, 192.7], [694.2, 191.2], [697.7, 188.5], [701.1, 190.9], [704.6, 178.5], [708.0, 180.2], [711.4, 179.3], [714.9, 168.5], [718.3, 125.3], [721.8, 131.4], [725.2, 143.7], [728.6, 128.5], [732.1, 122.5], [735.5, 119.3], [739.0, 111.2], [742.4, 96.5], [745.8, 82.9], [749.3, 85.8], [752.7, 109.1], [756.2, 97.0], [759.6, 95.7], [763.0, 86.4], [766.5, 88.6], [769.9, 85.7], [773.4, 95.0], [776.8, 106.2], [780.2, 91.0], [783.7, 101.5], [787.1, 115.3], [790.6, 115.8], [794.0, 118.2], [797.4, 140.7], [800.9, 148.3], [804.3, 143.6], [807.8, 145.6], [811.2, 153.7], [814.6, 152.1], [818.1, 149.0], [821.5, 142.4], [825.0, 142.1], [828.4, 134.0], [831.8, 112.4], [835.3, 118.9], [838.7, 107.9], [842.2, 101.7], [845.6, 101.4], [849.0, 87.8], [852.5, 67.9], [855.9, 70.3], [859.4, 52.4], [862.8, 46.1], [866.2, 27.9], [869.7, 25.0], [873.1, 29.3], [876.6, 26.7], [880.0, 36.8]];
+        const container = document.getElementById('chart-container');
+        const svg = document.getElementById('interactive-svg');
+        const tooltip = document.getElementById('chart-tooltip');
+        const tooltipDate = document.getElementById('tooltip-date');
+        const tooltipPrice = document.getElementById('tooltip-price');
+        const crosshair = document.getElementById('crosshair-line');
+        const dot = document.getElementById('hover-dot');
+
+        if (!container || !rawPoints.length) return;
+
+        function updateHover(e) {
+            const rect = svg.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const pct = Math.max(0, Math.min(1, mouseX / rect.width));
+            const idx = Math.round(pct * (rawPoints.length - 1));
+            
+            const pt = rawPoints[idx];
+            const coord = svgCoords[idx];
+            if (!pt || !coord) return;
+
+            // Position crosshair & dot
+            crosshair.setAttribute('x1', coord[0]);
+            crosshair.setAttribute('x2', coord[0]);
+            crosshair.style.display = 'block';
+
+            dot.setAttribute('cx', coord[0]);
+            dot.setAttribute('cy', coord[1]);
+            dot.style.display = 'block';
+
+            // Position tooltip
+            tooltipDate.innerText = pt.date;
+            tooltipPrice.innerText = '$' + pt.price.toFixed(2);
+            tooltip.style.display = 'block';
+            
+            const tooltipX = (coord[0] / 900) * rect.width;
+            tooltip.style.left = Math.max(10, Math.min(rect.width - 150, tooltipX - 70)) + 'px';
+        }
+
+        function hideHover() {
+            crosshair.style.display = 'none';
+            dot.style.display = 'none';
+            tooltip.style.display = 'none';
+        }
+
+        container.addEventListener('mousemove', updateHover);
+        container.addEventListener('mouseleave', hideHover);
+        container.addEventListener('touchstart', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
+        container.addEventListener('touchmove', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
+        container.addEventListener('touchend', hideHover);
+    })();
+    </script>
+    
 
             <!-- Corridor -->
             <div class="corridor-container">
                 <div class="corridor-header">
                     <span>Bear Floor ($18.50)</span>
-                    <span>Current Market: $37.24</span>
+                    <span>Market: $37.24</span>
                     <span>Bull Target ($42.00)</span>
                 </div>
                 <div class="corridor-track">
@@ -412,40 +495,40 @@
             <!-- Key Metrics Grid -->
             <div class="metrics-grid">
                 <div class="metric-cell">
-                    <div class="metric-label">Fair Value Target</div>
-                    <div class="metric-value" style="color: var(--accent-terracotta);">$23.50</div>
+                    <div class="metric-label">Fair Value</div>
+                    <div class="metric-value" style="color: var(--accent-warm);">$23.50</div>
                 </div>
                 <div class="metric-cell">
-                    <div class="metric-label">Bear Case</div>
-                    <div class="metric-value" style="color: var(--accent-rose);">$14.00 (-62.4%)</div>
+                    <div class="metric-label">Bear Target</div>
+                    <div class="metric-value" style="color: var(--accent-red);">$14.00 (-62.4%)</div>
                 </div>
                 <div class="metric-cell">
-                    <div class="metric-label">Base Case</div>
+                    <div class="metric-label">Base Target</div>
                     <div class="metric-value">$23.50 (-36.9%)</div>
                 </div>
                 <div class="metric-cell">
-                    <div class="metric-label">Bull Case</div>
-                    <div class="metric-value" style="color: var(--accent-sage);">$34.00 (-8.7%)</div>
+                    <div class="metric-label">Bull Target</div>
+                    <div class="metric-value" style="color: var(--accent-green);">$34.00 (-8.7%)</div>
                 </div>
                 <div class="metric-cell">
-                    <div class="metric-label">Upper Trigger</div>
+                    <div class="metric-label">Upper Alert</div>
                     <div class="metric-value">$42.00</div>
                 </div>
                 <div class="metric-cell">
-                    <div class="metric-label">Lower Trigger</div>
+                    <div class="metric-label">Lower Alert</div>
                     <div class="metric-value">$18.50</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Next Catalyst</div>
-                    <div class="metric-value" style="font-size: 0.95rem; font-family: var(--font-sans);">November 2026</div>
+                    <div class="metric-value" style="font-size: 0.9rem; font-family: var(--font-sans);">November 2026</div>
                 </div>
             </div>
         </section>
 
         <!-- Navigation Tabs -->
         <div class="tabs-header">
-            <button class="tab-btn active" onclick="showTab('memo')">Active Investment Thesis</button>
-            <button class="tab-btn" onclick="showTab('history')">Evolution & Snapshots (1)</button>
+            <button class="tab-btn active" onclick="showTab('memo')">Investment Thesis</button>
+            <button class="tab-btn" onclick="showTab('history')">Evolution (1)</button>
         </div>
 
         <!-- Memo Content -->
@@ -453,22 +536,22 @@
             <article class="memo-container">
                 <div class="section">
   <h2>1. Executive Summary &amp; Variant Perception</h2>
-  <p>Cinemark Holdings, Inc. (NYSE: CNK) presents a textbook study in market sentiment swinging from post-pandemic existential fear to cyclical euphoria [PerQueryResult(index="1.2.9", index="1.3.4", index="2.1.7")]. Following the total elimination of its $460M convertible note overhang in August 2025 and record Q2 2026 quarterly results ($1.09B revenue, $294M Adjusted EBITDA) [PerQueryResult(index="1.2.7", index="1.3.8", index="1.4.5")], the equity market has priced CNK at **$37.24 per share** [PerQueryResult(index="1.2.9")], valuing the firm at near-record Enterprise Value multiples [PerQueryResult(index="1.4.1")].</p>
+  <p>Cinemark Holdings, Inc. (NYSE: CNK) presents a textbook study in market sentiment swinging from post-pandemic existential fear to cyclical euphoria . Following the total elimination of its $460M convertible note overhang in August 2025 and record Q2 2026 quarterly results ($1.09B revenue, $294M Adjusted EBITDA) , the equity market has priced CNK at **$37.24 per share** , valuing the firm at near-record Enterprise Value multiples .</p>
 
-  <p>From a strict Graham &amp; Dodd value discipline, our fund rejects this linear extrapolation [PerQueryResult(index="1.4.1")]. Price is what you pay; value is what you get. The market is pricing Cinemark as a growth compounder, ignoring the cyclical, hit-driven reality of theatrical exhibition, structural headwinds in consumer discretionary spending, and heavy non-discretionary capital expenditures required to maintain aging theater assets [PerQueryResult(index="1.4.1", index="1.4.5", index="2.1.7")].</p>
+  <p>From a strict Graham &amp; Dodd value discipline, our fund rejects this linear extrapolation . Price is what you pay; value is what you get. The market is pricing Cinemark as a growth compounder, ignoring the cyclical, hit-driven reality of theatrical exhibition, structural headwinds in consumer discretionary spending, and heavy non-discretionary capital expenditures required to maintain aging theater assets .</p>
 
   <div class="callout">
     <h3>The Fund's Core Variant Perception</h3>
     <ul>
-      <li><strong>Consensus View:</strong> Wall Street views CNK as an unassailable industry leader benefiting from peer distress (AMC equity dilution, Regal/Cineworld bankruptcy) [PerQueryResult(index="2.2.3", index="2.4.5")], expecting steady margin expansion, rising Concession Spend Per Patron (CPPC) [PerQueryResult(index="1.1.1", index="1.4.1")], and an uninterrupted box office recovery into 2027–2028 [PerQueryResult(index="1.4.1")].</li>
-      <li><strong>Fund Reality:</strong> CPPC ($6.80 in Q2 2026) [PerQueryResult(index="1.2.7")] is experiencing cyclical fatigue as lower-tier consumer balance sheets fray [PerQueryResult(index="1.4.1")]. Furthermore, consensus non-GAAP "Adjusted EBITDA" ignores $25M–$30M of annual Stock-Based Compensation (SBC) cash dilution [PerQueryResult(index="1.4.1")] and misclassifies mandatory seat/laser maintenance capex as "growth" [PerQueryResult(index="1.4.5")]. Normalizing True Owner Earnings reveals an Intrinsic Fair Value of <strong>$23.50 per share (-36.9% downside)</strong> [PerQueryResult(index="1.4.1")].</li>
+      <li><strong>Consensus View:</strong> Wall Street views CNK as an unassailable industry leader benefiting from peer distress (AMC equity dilution, Regal/Cineworld bankruptcy) , expecting steady margin expansion, rising Concession Spend Per Patron (CPPC) , and an uninterrupted box office recovery into 2027–2028 .</li>
+      <li><strong>Fund Reality:</strong> CPPC ($6.80 in Q2 2026)  is experiencing cyclical fatigue as lower-tier consumer balance sheets fray . Furthermore, consensus non-GAAP "Adjusted EBITDA" ignores $25M–$30M of annual Stock-Based Compensation (SBC) cash dilution  and misclassifies mandatory seat/laser maintenance capex as "growth" . Normalizing True Owner Earnings reveals an Intrinsic Fair Value of <strong>$23.50 per share (-36.9% downside)</strong> .</li>
     </ul>
   </div>
 </div>
 
 <div class="section">
   <h2>2. Comparison vs. Street Guidance</h2>
-  <p>Sell-side analysts extrapolate peak Q2 2026 summer box office performance into multi-year run rates [PerQueryResult(index="1.2.9", index="1.4.1")]. Our forensic model haircut estimates to reflect slate lumpiness, CPPC fatigue, and strict SBC inclusion [PerQueryResult(index="1.4.1", index="2.1.7")].</p>
+  <p>Sell-side analysts extrapolate peak Q2 2026 summer box office performance into multi-year run rates . Our forensic model haircut estimates to reflect slate lumpiness, CPPC fatigue, and strict SBC inclusion .</p>
 
   <table>
     <thead>
@@ -530,27 +613,27 @@
       </tr>
     </tbody>
   </table>
-  <p><em>Key Divergence Driver: Our fund models a mean-reversion in concession spend (-4% to -6% adjust) and penalizes cash flows for annual SBC (~$28M) and higher capitalized lease interest costs [PerQueryResult(index="1.4.1")].</em></p>
+  <p><em>Key Divergence Driver: Our fund models a mean-reversion in concession spend (-4% to -6% adjust) and penalizes cash flows for annual SBC (~$28M) and higher capitalized lease interest costs .</em></p>
 </div>
 
 <div class="section">
   <h2>3. Business Anatomy, Origin &amp; Secular Industry Shifts</h2>
-  <p>Founded in 1984 by Lee Roy Mitchell, Cinemark built its initial footprint by expanding into mid-sized suburban markets across North America, later pioneering Latin American theatrical exhibition in the early 1990s [PerQueryResult(index="2.1.7")]. Today, the company operates 457 theaters and 5,600+ screens globally across 42 U.S. states and 13 Latin American nations [PerQueryResult(index="1.2.4", index="2.1.7")].</p>
+  <p>Founded in 1984 by Lee Roy Mitchell, Cinemark built its initial footprint by expanding into mid-sized suburban markets across North America, later pioneering Latin American theatrical exhibition in the early 1990s . Today, the company operates 457 theaters and 5,600+ screens globally across 42 U.S. states and 13 Latin American nations .</p>
 
   <h3>Revenue Anatomy &amp; Operational Dynamics</h3>
   <ul>
-    <li><strong>Admissions (50%–52% Mix):</strong> Revenue driven by global attendance x Average Ticket Price (ATP: $8.48 in Q2 2026) [PerQueryResult(index="1.2.7", index="2.1.7")]. Admissions operate on a variable cost-share with Hollywood studios (film rental fees average 53%–55% of gross box office) [PerQueryResult(index="2.1.7")].</li>
-    <li><strong>Concessions (40% Mix):</strong> High-margin revenue (80%+ gross margin) driven by Concession Spend Per Patron (CPPC: $6.80) [PerQueryResult(index="1.2.7", index="2.1.7")]. Represents the primary operational profit engine of the enterprise [PerQueryResult(index="2.1.7")].</li>
-    <li><strong>Other / Ancillary (8%–10% Mix):</strong> Screen advertising (via NCM joint venture), transaction fees, and theater rental events [PerQueryResult(index="1.1.8", index="2.1.7")].</li>
+    <li><strong>Admissions (50%–52% Mix):</strong> Revenue driven by global attendance x Average Ticket Price (ATP: $8.48 in Q2 2026) . Admissions operate on a variable cost-share with Hollywood studios (film rental fees average 53%–55% of gross box office) .</li>
+    <li><strong>Concessions (40% Mix):</strong> High-margin revenue (80%+ gross margin) driven by Concession Spend Per Patron (CPPC: $6.80) . Represents the primary operational profit engine of the enterprise .</li>
+    <li><strong>Other / Ancillary (8%–10% Mix):</strong> Screen advertising (via NCM joint venture), transaction fees, and theater rental events .</li>
   </ul>
 
   <h3>Secular Industry Shifts</h3>
-  <p>While the collapse of pandemic-era shortened theatrical windows (from 90 days down to 45 days or hybrid streaming releases) has stabilized, the overall industry volume of wide-release films remains 15%–20% below 2019 levels [PerQueryResult(index="2.1.7")]. Direct-to-streaming cannibalization for mid-tier dramas and comedies has permanently compressed total global admissions, concentrating box office heat onto fewer, massively capitalized tentpole franchise titles [PerQueryResult(index="2.1.7")].</p>
+  <p>While the collapse of pandemic-era shortened theatrical windows (from 90 days down to 45 days or hybrid streaming releases) has stabilized, the overall industry volume of wide-release films remains 15%–20% below 2019 levels . Direct-to-streaming cannibalization for mid-tier dramas and comedies has permanently compressed total global admissions, concentrating box office heat onto fewer, massively capitalized tentpole franchise titles .</p>
 </div>
 
 <div class="section">
   <h2>4. Competitive Moat, Unit Economics &amp; Competitor Benchmark Matrix</h2>
-  <p>Cinemark possesses an operational scale moat in site selection, lean box-office staffing, and theater-level labor optimization [PerQueryResult(index="2.1.7", index="2.2.3")]. Unlike AMC, Cinemark did not over-leverage to buy unprofitable urban multiplexes or engage in extreme dilution [PerQueryResult(index="2.2.3")]. However, exhibition moats are fundamentally narrow due to absolute dependence on third-party studio content slates [PerQueryResult(index="2.1.7")].</p>
+  <p>Cinemark possesses an operational scale moat in site selection, lean box-office staffing, and theater-level labor optimization . Unlike AMC, Cinemark did not over-leverage to buy unprofitable urban multiplexes or engage in extreme dilution . However, exhibition moats are fundamentally narrow due to absolute dependence on third-party studio content slates .</p>
 
   <h3>Competitor Benchmark Matrix</h3>
   <table>
@@ -605,14 +688,14 @@
 
 <div class="section">
   <h2>5. Management Track Record, Earnings Call Integrity &amp; Capital Allocation (ROIC)</h2>
-  <p>CEO Sean Gamble and CFO Melissa Thomas have demonstrated prudent operational execution relative to peers [PerQueryResult(index="1.1.1", index="2.2.3")]. They successfully eliminated emergency debt without destroying equity value [PerQueryResult(index="1.3.8", index="1.4.5", index="2.2.3")]. However, a forensic audit of proxy statements (DEF 14A) and earnings call statements reveals key governance friction points [PerQueryResult(index="1.4.1", index="2.2.3")].</p>
+  <p>CEO Sean Gamble and CFO Melissa Thomas have demonstrated prudent operational execution relative to peers . They successfully eliminated emergency debt without destroying equity value . However, a forensic audit of proxy statements (DEF 14A) and earnings call statements reveals key governance friction points .</p>
 
   <h3>Non-GAAP Distortion &amp; Executive Compensation</h3>
-  <p>Executive annual incentive bonuses (STIP) are <strong>100% tied to Worldwide Adjusted EBITDA targets</strong> ($577.9M target in 2025) [PerQueryResult(index="2.2.3")]. This creates an incentive structure that favors short-term EBITDA optimization while ignoring:</p>
+  <p>Executive annual incentive bonuses (STIP) are <strong>100% tied to Worldwide Adjusted EBITDA targets</strong> ($577.9M target in 2025) . This creates an incentive structure that favors short-term EBITDA optimization while ignoring:</p>
   <ul>
-    <li>Stock-Based Compensation dilution (~$25M–$30M annually) [PerQueryResult(index="1.4.1")].</li>
-    <li>Capitalized lease interest and long-term lease liabilities (~$1.1B+) [PerQueryResult(index="1.4.1", index="1.4.5")].</li>
-    <li>Non-discretionary maintenance capex required to replace seats, projectors, and HVAC units [PerQueryResult(index="1.4.5")].</li>
+    <li>Stock-Based Compensation dilution (~$25M–$30M annually) .</li>
+    <li>Capitalized lease interest and long-term lease liabilities (~$1.1B+) .</li>
+    <li>Non-discretionary maintenance capex required to replace seats, projectors, and HVAC units .</li>
   </ul>
 
   <h3>Return on Invested Capital (ROIC) Audit</h3>
@@ -621,16 +704,16 @@
 
 <div class="section">
   <h2>6. Ownership Structure, Form 4 Insiders &amp; 13F Whale Commentary</h2>
-  <p>Institutional ownership remains high at ~75% [PerQueryResult(index="1.3.1")], led by index aggregators (BlackRock, Vanguard, State Street) and traditional value funds (Orbis Allan Gray) [PerQueryResult(index="1.3.1")]. However, recent Form 4 insider trading indicates aggressive cash-out behavior near current price levels [PerQueryResult(index="1.2.7")].</p>
+  <p>Institutional ownership remains high at ~75% , led by index aggregators (BlackRock, Vanguard, State Street) and traditional value funds (Orbis Allan Gray) . However, recent Form 4 insider trading indicates aggressive cash-out behavior near current price levels .</p>
 
   <blockquote>
-    <p><strong>Form 4 Forensic Audit:</strong> Over the past 90 days, senior management and directors (including CMO/EVP Wanda Gierhart) executed sequential multi-million dollar open-market stock sales under Rule 10b5-1 plans [PerQueryResult(index="1.2.7")]. Crucially, there has been <strong>zero Form 4 open-market insider buying with personal cash</strong> above $25.00 per share [PerQueryResult(index="1.2.7", index="2.2.3")]. Management is taking real cash off the table while recommending the stock to retail investors on earnings calls [PerQueryResult(index="1.2.7", index="2.2.3")].</p>
+    <p><strong>Form 4 Forensic Audit:</strong> Over the past 90 days, senior management and directors (including CMO/EVP Wanda Gierhart) executed sequential multi-million dollar open-market stock sales under Rule 10b5-1 plans . Crucially, there has been <strong>zero Form 4 open-market insider buying with personal cash</strong> above $25.00 per share . Management is taking real cash off the table while recommending the stock to retail investors on earnings calls .</p>
   </blockquote>
 </div>
 
 <div class="section">
   <h2>7. Capital Structure &amp; Net Debt Bridge</h2>
-  <p>Following the redemption of its 4.50% convertible notes in August 2025 ($460M settled) [PerQueryResult(index="1.3.8", index="1.4.5")], Cinemark's funded debt maturity profile has been de-risked [PerQueryResult(index="1.4.5")]. However, adjusting for long-term lease obligations presents a complete picture of total leverage [PerQueryResult(index="1.4.1", index="1.4.5")].</p>
+  <p>Following the redemption of its 4.50% convertible notes in August 2025 ($460M settled) , Cinemark's funded debt maturity profile has been de-risked . However, adjusting for long-term lease obligations presents a complete picture of total leverage .</p>
 
   <h3>Detailed Debt Schedule (as of Q2 2026)</h3>
   <table>
@@ -713,7 +796,7 @@
 
 <div class="section">
   <h2>8. True Owner Earnings &amp; SBC Cash Audit</h2>
-  <p>Wall Street's reliance on Adjusted EBITDA hides real economic costs [PerQueryResult(index="1.4.1")]. To derive True Owner Earnings, we adjust Cash Flow from Operations for real Stock-Based Compensation dilution and non-discretionary maintenance capital expenditures [PerQueryResult(index="1.4.1", index="1.4.5")].</p>
+  <p>Wall Street's reliance on Adjusted EBITDA hides real economic costs . To derive True Owner Earnings, we adjust Cash Flow from Operations for real Stock-Based Compensation dilution and non-discretionary maintenance capital expenditures .</p>
 
   <h3>Owner Earnings Bridge (2026 Normalization Baseline)</h3>
   <table>
@@ -758,12 +841,12 @@
       </tr>
     </tbody>
   </table>
-  <p><em>Conclusion: True Owner Earnings ($147M) represent a modest 3.4% Owner Yield on the current Market Cap of $4.35B ($37.24 per share), leaving zero margin of safety against cyclical down-years [PerQueryResult(index="1.4.1")].</em></p>
+  <p><em>Conclusion: True Owner Earnings ($147M) represent a modest 3.4% Owner Yield on the current Market Cap of $4.35B ($37.24 per share), leaving zero margin of safety against cyclical down-years .</em></p>
 </div>
 
 <div class="section">
   <h2>9. Valuation Triangulation &amp; Scenario Asymmetry</h2>
-  <p>We evaluate Cinemark across three comprehensive scenarios [PerQueryResult(index="1.4.1")]. Values are derived using normalized EV/EBITDA, Earnings Power Value (EPV), and a 10-year Free Cash Flow to Firm (FCFF) Discounted Cash Flow model [PerQueryResult(index="1.4.1")].</p>
+  <p>We evaluate Cinemark across three comprehensive scenarios . Values are derived using normalized EV/EBITDA, Earnings Power Value (EPV), and a 10-year Free Cash Flow to Firm (FCFF) Discounted Cash Flow model .</p>
 
   <h3>Scenario Probability Matrix</h3>
   <table>
@@ -869,23 +952,23 @@
         <div class="history-entry history-entry-active">
             <div class="history-top">
                 <div class="history-tags">
-                    <span class="pill pill-terracotta">Active Thesis</span>
+                    <span class="pill pill-active">Active Thesis</span>
                     <span class="history-time">2026-08-07</span>
-                    <span class="history-price">Price: <strong>$37.24</strong></span>
+                    <span class="history-price">$37.24</span>
                     <span class="pill pill-neutral">Cyclical Peak & Structural Overvaluation</span>
                 </div>
                 <button class="btn btn-subtle" onclick="toggleSnapshot(1)">Read Snapshot ▾</button>
             </div>
             <div class="history-content">
-                <p class="history-shift-desc"><strong>Thesis Shift:</strong> Cinemark's balance sheet de-risking and market share gains are fully priced in following record Q2 2026 results. At $37.24, Wall Street extrapolates transient summer box office peaks while ignoring real Stock-Based Compensation cash dilution and high maintenance capex, offering a severe negative margin of safety against an Intrinsic Value of $23.50.</p>
+                <p class="history-shift-desc">Cinemark's balance sheet de-risking and market share gains are fully priced in following record Q2 2026 results. At $37.24, Wall Street extrapolates transient summer box office peaks while ignoring real Stock-Based Compensation cash dilution and high maintenance capex, offering a severe negative margin of safety against an Intrinsic Value of $23.50.</p>
                 
             <div class="diff-grid">
                 <div class="diff-box diff-prev">
-                    <div class="diff-label">PREVIOUS THESIS STANCE</div>
+                    <div class="diff-label">PREVIOUS THESIS</div>
                     <div class="diff-text">Initial Genesis baseline.</div>
                 </div>
                 <div class="diff-box diff-now">
-                    <div class="diff-label">CATALYST & THESIS EVOLUTION</div>
+                    <div class="diff-label">THESIS EVOLUTION</div>
                     <div class="diff-text">Cinemark's balance sheet de-risking and market share gains are fully priced in following record Q2 2026 results. At $37.24, Wall Street extrapolates transient summer box office peaks while ignoring real Stock-Based Compensation cash dilution and high maintenance capex, offering a severe negative margin of safety against an Intrinsic Value of $23.50.</div>
                 </div>
             </div>
@@ -894,22 +977,22 @@
                     <div class="snapshot-body">
                         <div class="section">
   <h2>1. Executive Summary &amp; Variant Perception</h2>
-  <p>Cinemark Holdings, Inc. (NYSE: CNK) presents a textbook study in market sentiment swinging from post-pandemic existential fear to cyclical euphoria [PerQueryResult(index="1.2.9", index="1.3.4", index="2.1.7")]. Following the total elimination of its $460M convertible note overhang in August 2025 and record Q2 2026 quarterly results ($1.09B revenue, $294M Adjusted EBITDA) [PerQueryResult(index="1.2.7", index="1.3.8", index="1.4.5")], the equity market has priced CNK at **$37.24 per share** [PerQueryResult(index="1.2.9")], valuing the firm at near-record Enterprise Value multiples [PerQueryResult(index="1.4.1")].</p>
+  <p>Cinemark Holdings, Inc. (NYSE: CNK) presents a textbook study in market sentiment swinging from post-pandemic existential fear to cyclical euphoria . Following the total elimination of its $460M convertible note overhang in August 2025 and record Q2 2026 quarterly results ($1.09B revenue, $294M Adjusted EBITDA) , the equity market has priced CNK at **$37.24 per share** , valuing the firm at near-record Enterprise Value multiples .</p>
 
-  <p>From a strict Graham &amp; Dodd value discipline, our fund rejects this linear extrapolation [PerQueryResult(index="1.4.1")]. Price is what you pay; value is what you get. The market is pricing Cinemark as a growth compounder, ignoring the cyclical, hit-driven reality of theatrical exhibition, structural headwinds in consumer discretionary spending, and heavy non-discretionary capital expenditures required to maintain aging theater assets [PerQueryResult(index="1.4.1", index="1.4.5", index="2.1.7")].</p>
+  <p>From a strict Graham &amp; Dodd value discipline, our fund rejects this linear extrapolation . Price is what you pay; value is what you get. The market is pricing Cinemark as a growth compounder, ignoring the cyclical, hit-driven reality of theatrical exhibition, structural headwinds in consumer discretionary spending, and heavy non-discretionary capital expenditures required to maintain aging theater assets .</p>
 
   <div class="callout">
     <h3>The Fund's Core Variant Perception</h3>
     <ul>
-      <li><strong>Consensus View:</strong> Wall Street views CNK as an unassailable industry leader benefiting from peer distress (AMC equity dilution, Regal/Cineworld bankruptcy) [PerQueryResult(index="2.2.3", index="2.4.5")], expecting steady margin expansion, rising Concession Spend Per Patron (CPPC) [PerQueryResult(index="1.1.1", index="1.4.1")], and an uninterrupted box office recovery into 2027–2028 [PerQueryResult(index="1.4.1")].</li>
-      <li><strong>Fund Reality:</strong> CPPC ($6.80 in Q2 2026) [PerQueryResult(index="1.2.7")] is experiencing cyclical fatigue as lower-tier consumer balance sheets fray [PerQueryResult(index="1.4.1")]. Furthermore, consensus non-GAAP "Adjusted EBITDA" ignores $25M–$30M of annual Stock-Based Compensation (SBC) cash dilution [PerQueryResult(index="1.4.1")] and misclassifies mandatory seat/laser maintenance capex as "growth" [PerQueryResult(index="1.4.5")]. Normalizing True Owner Earnings reveals an Intrinsic Fair Value of <strong>$23.50 per share (-36.9% downside)</strong> [PerQueryResult(index="1.4.1")].</li>
+      <li><strong>Consensus View:</strong> Wall Street views CNK as an unassailable industry leader benefiting from peer distress (AMC equity dilution, Regal/Cineworld bankruptcy) , expecting steady margin expansion, rising Concession Spend Per Patron (CPPC) , and an uninterrupted box office recovery into 2027–2028 .</li>
+      <li><strong>Fund Reality:</strong> CPPC ($6.80 in Q2 2026)  is experiencing cyclical fatigue as lower-tier consumer balance sheets fray . Furthermore, consensus non-GAAP "Adjusted EBITDA" ignores $25M–$30M of annual Stock-Based Compensation (SBC) cash dilution  and misclassifies mandatory seat/laser maintenance capex as "growth" . Normalizing True Owner Earnings reveals an Intrinsic Fair Value of <strong>$23.50 per share (-36.9% downside)</strong> .</li>
     </ul>
   </div>
 </div>
 
 <div class="section">
   <h2>2. Comparison vs. Street Guidance</h2>
-  <p>Sell-side analysts extrapolate peak Q2 2026 summer box office performance into multi-year run rates [PerQueryResult(index="1.2.9", index="1.4.1")]. Our forensic model haircut estimates to reflect slate lumpiness, CPPC fatigue, and strict SBC inclusion [PerQueryResult(index="1.4.1", index="2.1.7")].</p>
+  <p>Sell-side analysts extrapolate peak Q2 2026 summer box office performance into multi-year run rates . Our forensic model haircut estimates to reflect slate lumpiness, CPPC fatigue, and strict SBC inclusion .</p>
 
   <table>
     <thead>
@@ -971,27 +1054,27 @@
       </tr>
     </tbody>
   </table>
-  <p><em>Key Divergence Driver: Our fund models a mean-reversion in concession spend (-4% to -6% adjust) and penalizes cash flows for annual SBC (~$28M) and higher capitalized lease interest costs [PerQueryResult(index="1.4.1")].</em></p>
+  <p><em>Key Divergence Driver: Our fund models a mean-reversion in concession spend (-4% to -6% adjust) and penalizes cash flows for annual SBC (~$28M) and higher capitalized lease interest costs .</em></p>
 </div>
 
 <div class="section">
   <h2>3. Business Anatomy, Origin &amp; Secular Industry Shifts</h2>
-  <p>Founded in 1984 by Lee Roy Mitchell, Cinemark built its initial footprint by expanding into mid-sized suburban markets across North America, later pioneering Latin American theatrical exhibition in the early 1990s [PerQueryResult(index="2.1.7")]. Today, the company operates 457 theaters and 5,600+ screens globally across 42 U.S. states and 13 Latin American nations [PerQueryResult(index="1.2.4", index="2.1.7")].</p>
+  <p>Founded in 1984 by Lee Roy Mitchell, Cinemark built its initial footprint by expanding into mid-sized suburban markets across North America, later pioneering Latin American theatrical exhibition in the early 1990s . Today, the company operates 457 theaters and 5,600+ screens globally across 42 U.S. states and 13 Latin American nations .</p>
 
   <h3>Revenue Anatomy &amp; Operational Dynamics</h3>
   <ul>
-    <li><strong>Admissions (50%–52% Mix):</strong> Revenue driven by global attendance x Average Ticket Price (ATP: $8.48 in Q2 2026) [PerQueryResult(index="1.2.7", index="2.1.7")]. Admissions operate on a variable cost-share with Hollywood studios (film rental fees average 53%–55% of gross box office) [PerQueryResult(index="2.1.7")].</li>
-    <li><strong>Concessions (40% Mix):</strong> High-margin revenue (80%+ gross margin) driven by Concession Spend Per Patron (CPPC: $6.80) [PerQueryResult(index="1.2.7", index="2.1.7")]. Represents the primary operational profit engine of the enterprise [PerQueryResult(index="2.1.7")].</li>
-    <li><strong>Other / Ancillary (8%–10% Mix):</strong> Screen advertising (via NCM joint venture), transaction fees, and theater rental events [PerQueryResult(index="1.1.8", index="2.1.7")].</li>
+    <li><strong>Admissions (50%–52% Mix):</strong> Revenue driven by global attendance x Average Ticket Price (ATP: $8.48 in Q2 2026) . Admissions operate on a variable cost-share with Hollywood studios (film rental fees average 53%–55% of gross box office) .</li>
+    <li><strong>Concessions (40% Mix):</strong> High-margin revenue (80%+ gross margin) driven by Concession Spend Per Patron (CPPC: $6.80) . Represents the primary operational profit engine of the enterprise .</li>
+    <li><strong>Other / Ancillary (8%–10% Mix):</strong> Screen advertising (via NCM joint venture), transaction fees, and theater rental events .</li>
   </ul>
 
   <h3>Secular Industry Shifts</h3>
-  <p>While the collapse of pandemic-era shortened theatrical windows (from 90 days down to 45 days or hybrid streaming releases) has stabilized, the overall industry volume of wide-release films remains 15%–20% below 2019 levels [PerQueryResult(index="2.1.7")]. Direct-to-streaming cannibalization for mid-tier dramas and comedies has permanently compressed total global admissions, concentrating box office heat onto fewer, massively capitalized tentpole franchise titles [PerQueryResult(index="2.1.7")].</p>
+  <p>While the collapse of pandemic-era shortened theatrical windows (from 90 days down to 45 days or hybrid streaming releases) has stabilized, the overall industry volume of wide-release films remains 15%–20% below 2019 levels . Direct-to-streaming cannibalization for mid-tier dramas and comedies has permanently compressed total global admissions, concentrating box office heat onto fewer, massively capitalized tentpole franchise titles .</p>
 </div>
 
 <div class="section">
   <h2>4. Competitive Moat, Unit Economics &amp; Competitor Benchmark Matrix</h2>
-  <p>Cinemark possesses an operational scale moat in site selection, lean box-office staffing, and theater-level labor optimization [PerQueryResult(index="2.1.7", index="2.2.3")]. Unlike AMC, Cinemark did not over-leverage to buy unprofitable urban multiplexes or engage in extreme dilution [PerQueryResult(index="2.2.3")]. However, exhibition moats are fundamentally narrow due to absolute dependence on third-party studio content slates [PerQueryResult(index="2.1.7")].</p>
+  <p>Cinemark possesses an operational scale moat in site selection, lean box-office staffing, and theater-level labor optimization . Unlike AMC, Cinemark did not over-leverage to buy unprofitable urban multiplexes or engage in extreme dilution . However, exhibition moats are fundamentally narrow due to absolute dependence on third-party studio content slates .</p>
 
   <h3>Competitor Benchmark Matrix</h3>
   <table>
@@ -1046,14 +1129,14 @@
 
 <div class="section">
   <h2>5. Management Track Record, Earnings Call Integrity &amp; Capital Allocation (ROIC)</h2>
-  <p>CEO Sean Gamble and CFO Melissa Thomas have demonstrated prudent operational execution relative to peers [PerQueryResult(index="1.1.1", index="2.2.3")]. They successfully eliminated emergency debt without destroying equity value [PerQueryResult(index="1.3.8", index="1.4.5", index="2.2.3")]. However, a forensic audit of proxy statements (DEF 14A) and earnings call statements reveals key governance friction points [PerQueryResult(index="1.4.1", index="2.2.3")].</p>
+  <p>CEO Sean Gamble and CFO Melissa Thomas have demonstrated prudent operational execution relative to peers . They successfully eliminated emergency debt without destroying equity value . However, a forensic audit of proxy statements (DEF 14A) and earnings call statements reveals key governance friction points .</p>
 
   <h3>Non-GAAP Distortion &amp; Executive Compensation</h3>
-  <p>Executive annual incentive bonuses (STIP) are <strong>100% tied to Worldwide Adjusted EBITDA targets</strong> ($577.9M target in 2025) [PerQueryResult(index="2.2.3")]. This creates an incentive structure that favors short-term EBITDA optimization while ignoring:</p>
+  <p>Executive annual incentive bonuses (STIP) are <strong>100% tied to Worldwide Adjusted EBITDA targets</strong> ($577.9M target in 2025) . This creates an incentive structure that favors short-term EBITDA optimization while ignoring:</p>
   <ul>
-    <li>Stock-Based Compensation dilution (~$25M–$30M annually) [PerQueryResult(index="1.4.1")].</li>
-    <li>Capitalized lease interest and long-term lease liabilities (~$1.1B+) [PerQueryResult(index="1.4.1", index="1.4.5")].</li>
-    <li>Non-discretionary maintenance capex required to replace seats, projectors, and HVAC units [PerQueryResult(index="1.4.5")].</li>
+    <li>Stock-Based Compensation dilution (~$25M–$30M annually) .</li>
+    <li>Capitalized lease interest and long-term lease liabilities (~$1.1B+) .</li>
+    <li>Non-discretionary maintenance capex required to replace seats, projectors, and HVAC units .</li>
   </ul>
 
   <h3>Return on Invested Capital (ROIC) Audit</h3>
@@ -1062,16 +1145,16 @@
 
 <div class="section">
   <h2>6. Ownership Structure, Form 4 Insiders &amp; 13F Whale Commentary</h2>
-  <p>Institutional ownership remains high at ~75% [PerQueryResult(index="1.3.1")], led by index aggregators (BlackRock, Vanguard, State Street) and traditional value funds (Orbis Allan Gray) [PerQueryResult(index="1.3.1")]. However, recent Form 4 insider trading indicates aggressive cash-out behavior near current price levels [PerQueryResult(index="1.2.7")].</p>
+  <p>Institutional ownership remains high at ~75% , led by index aggregators (BlackRock, Vanguard, State Street) and traditional value funds (Orbis Allan Gray) . However, recent Form 4 insider trading indicates aggressive cash-out behavior near current price levels .</p>
 
   <blockquote>
-    <p><strong>Form 4 Forensic Audit:</strong> Over the past 90 days, senior management and directors (including CMO/EVP Wanda Gierhart) executed sequential multi-million dollar open-market stock sales under Rule 10b5-1 plans [PerQueryResult(index="1.2.7")]. Crucially, there has been <strong>zero Form 4 open-market insider buying with personal cash</strong> above $25.00 per share [PerQueryResult(index="1.2.7", index="2.2.3")]. Management is taking real cash off the table while recommending the stock to retail investors on earnings calls [PerQueryResult(index="1.2.7", index="2.2.3")].</p>
+    <p><strong>Form 4 Forensic Audit:</strong> Over the past 90 days, senior management and directors (including CMO/EVP Wanda Gierhart) executed sequential multi-million dollar open-market stock sales under Rule 10b5-1 plans . Crucially, there has been <strong>zero Form 4 open-market insider buying with personal cash</strong> above $25.00 per share . Management is taking real cash off the table while recommending the stock to retail investors on earnings calls .</p>
   </blockquote>
 </div>
 
 <div class="section">
   <h2>7. Capital Structure &amp; Net Debt Bridge</h2>
-  <p>Following the redemption of its 4.50% convertible notes in August 2025 ($460M settled) [PerQueryResult(index="1.3.8", index="1.4.5")], Cinemark's funded debt maturity profile has been de-risked [PerQueryResult(index="1.4.5")]. However, adjusting for long-term lease obligations presents a complete picture of total leverage [PerQueryResult(index="1.4.1", index="1.4.5")].</p>
+  <p>Following the redemption of its 4.50% convertible notes in August 2025 ($460M settled) , Cinemark's funded debt maturity profile has been de-risked . However, adjusting for long-term lease obligations presents a complete picture of total leverage .</p>
 
   <h3>Detailed Debt Schedule (as of Q2 2026)</h3>
   <table>
@@ -1154,7 +1237,7 @@
 
 <div class="section">
   <h2>8. True Owner Earnings &amp; SBC Cash Audit</h2>
-  <p>Wall Street's reliance on Adjusted EBITDA hides real economic costs [PerQueryResult(index="1.4.1")]. To derive True Owner Earnings, we adjust Cash Flow from Operations for real Stock-Based Compensation dilution and non-discretionary maintenance capital expenditures [PerQueryResult(index="1.4.1", index="1.4.5")].</p>
+  <p>Wall Street's reliance on Adjusted EBITDA hides real economic costs . To derive True Owner Earnings, we adjust Cash Flow from Operations for real Stock-Based Compensation dilution and non-discretionary maintenance capital expenditures .</p>
 
   <h3>Owner Earnings Bridge (2026 Normalization Baseline)</h3>
   <table>
@@ -1199,12 +1282,12 @@
       </tr>
     </tbody>
   </table>
-  <p><em>Conclusion: True Owner Earnings ($147M) represent a modest 3.4% Owner Yield on the current Market Cap of $4.35B ($37.24 per share), leaving zero margin of safety against cyclical down-years [PerQueryResult(index="1.4.1")].</em></p>
+  <p><em>Conclusion: True Owner Earnings ($147M) represent a modest 3.4% Owner Yield on the current Market Cap of $4.35B ($37.24 per share), leaving zero margin of safety against cyclical down-years .</em></p>
 </div>
 
 <div class="section">
   <h2>9. Valuation Triangulation &amp; Scenario Asymmetry</h2>
-  <p>We evaluate Cinemark across three comprehensive scenarios [PerQueryResult(index="1.4.1")]. Values are derived using normalized EV/EBITDA, Earnings Power Value (EPV), and a 10-year Free Cash Flow to Firm (FCFF) Discounted Cash Flow model [PerQueryResult(index="1.4.1")].</p>
+  <p>We evaluate Cinemark across three comprehensive scenarios . Values are derived using normalized EV/EBITDA, Earnings Power Value (EPV), and a 10-year Free Cash Flow to Firm (FCFF) Discounted Cash Flow model .</p>
 
   <h3>Scenario Probability Matrix</h3>
   <table>

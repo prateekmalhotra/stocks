@@ -17,7 +17,18 @@ def get_api_key() -> str:
     return key
 
 
-def call_gemini_with_search(prompt: str, system_instruction: str = "", temperature: float = 0.55) -> str:
+def clean_grounding_artifacts(text: str) -> str:
+    """Strips internal search grounding artifacts like [PerQueryResult(...)] and raw tokens."""
+    # Remove PerQueryResult, cite, source tags
+    cleaned = re.sub(r"\[(?:PerQueryResult|cite|source|citation)[^\]]*\]", "", text, flags=re.IGNORECASE)
+    # Remove raw query index citations like [1.3.8] or [1.4.5, 2.2.3]
+    cleaned = re.sub(r"\[\s*\d+(?:\.\d+)*(?:\s*,\s*\d+(?:\.\d+)*)*\s*\]", "", cleaned)
+    # Remove excessive blank lines
+    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
+    return cleaned.strip()
+
+
+def call_gemini_with_search(prompt: str, system_instruction: str = "", temperature: float = 0.5) -> str:
     """Calls Gemini 3.6 Flash via REST API with Google Search Grounding and safety fallback handling."""
     api_key = get_api_key()
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key={api_key}"
@@ -45,11 +56,10 @@ def call_gemini_with_search(prompt: str, system_instruction: str = "", temperatu
         candidate = res_json.get("candidates", [{}])[0]
         parts = candidate.get("content", {}).get("parts", [])
         if parts and "text" in parts[0]:
-            return parts[0]["text"]
+            return clean_grounding_artifacts(parts[0]["text"])
         
-        # If filtered by recitation, retry once with explicit rephrasing instruction
         if candidate.get("finishReason") == "RECITATION":
-            fallback_prompt = prompt + "\n\nCRITICAL: Paraphrase all information in your own original analytical synthesis. Do NOT quote long verbatim passages."
+            fallback_prompt = prompt + "\n\nCRITICAL: Paraphrase all data in your own original words. Do NOT quote verbatim text."
             payload["contents"] = [{"parts": [{"text": fallback_prompt}]}]
             payload["generationConfig"]["temperature"] = 0.7
             retry_res = requests.post(url, json=payload, timeout=120)
@@ -57,9 +67,9 @@ def call_gemini_with_search(prompt: str, system_instruction: str = "", temperatu
                 retry_json = retry_res.json()
                 retry_parts = retry_json.get("candidates", [{}])[0].get("content", {}).get("parts", [])
                 if retry_parts and "text" in retry_parts[0]:
-                    return retry_parts[0]["text"]
+                    return clean_grounding_artifacts(retry_parts[0]["text"])
                     
-        return "Analysis completed. Detailed metrics integrated into valuation model."
+        return "Analysis completed."
     except Exception as e:
         raise RuntimeError(f"Unexpected response structure from Gemini API: {res_json}") from e
 
@@ -84,10 +94,6 @@ def extract_json_block(text: str) -> Dict[str, Any]:
     return {}
 
 
-# ==============================================================================
-# RIGOROUS MULTI-AGENT PROMPTS (COLUMBIA VALUE INVESTING STANDARD)
-# ==============================================================================
-
 COLUMBIA_SYSTEM_PHILOSOPHY = """You are a Principal Investment Partner at an elite Graham & Dodd / Columbia Business School value fund.
 
 CRITICAL INTELLECTUAL MANDATES:
@@ -100,9 +106,9 @@ CRITICAL INTELLECTUAL MANDATES:
    - Always treat SBC as an unavoidable economic drain and dilution against True Owner Earnings.
 3. FORENSIC NET DEBT & CAPITAL STRUCTURE:
    - Account for funded debt, revolvers, convertible notes, finance leases, and interest coverage.
-4. MANAGEMENT TRUTH & GOVERNANCE TEST:
-   - Check if management makes misleading promises on earnings calls vs actual execution.
-   - Audit Form 4 insider buying (real personal cash vs automated selling).
+4. HIGHLIGHT CRITICAL NUMBERS & TAKEAWAYS:
+   - Avoid dense walls of text. Use structured data comparison tables, bold key metrics, and clean highlighted callout blocks (<div class="callout">).
+   - Never output internal search citations like [PerQueryResult(...)] or [1.3.4].
 """
 
 STAGE_1_FINANCIALS_PROMPT = """Target: {ticker} ({company_name}) | Current Stock Price: ${current_price:.2f}
@@ -121,7 +127,7 @@ Perform a forensic accounting and capital structure audit using Google Search fo
    - 3-5 Year Diluted share count trajectory.
    - Total dollars spent on share repurchases vs net shares retired (Accretive vs merely offsetting dilution).
 
-Synthesize in your own analytical words. Output structured tables.
+Synthesize in structured tables with bold metrics.
 """
 
 STAGE_2_MOAT_INDUSTRY_PROMPT = """Target: {ticker} ({company_name}) | Current Stock Price: ${current_price:.2f}
@@ -137,7 +143,7 @@ Investigate business model anatomy, competitive moat, and unit economics using G
 4. GROWTH ANATOMY:
    - Where does future growth come from? Organic vs inorganic, price vs volume, and industry secular trends.
 
-Synthesize in your own original analytical assessment.
+Use clean comparison tables and concise takeaways.
 """
 
 STAGE_3_MANAGEMENT_OWNERSHIP_PROMPT = """Target: {ticker} ({company_name}) | Current Stock Price: ${current_price:.2f}
@@ -154,7 +160,7 @@ Investigate governance, management credibility, insider activity, and 13F whale 
    - Top 13F institutional holders (accumulating vs trimming).
    - Public Commentary: Summarize the core thesis from respected fund manager quarterly letters and investor conferences.
 
-Synthesize all findings in your own words.
+Output exact names, numbers, and clear takeaways.
 """
 
 STAGE_4_VALUATION_PROMPT = """Target: {ticker} ({company_name}) | Current Stock Price: ${current_price:.2f}
@@ -192,11 +198,16 @@ Current Stock Price: ${current_price:.2f}
 
 Synthesize all 4 analyst reports into a cohesive, beautifully structured investment memo.
 
+CRITICAL PRESENTATION RULES:
+1. NO DENSE WALLS OF TEXT: Break up thoughts into clear sections with bolded figures, comparison tables, and highlight callout boxes (<div class="callout">...</div>).
+2. NO INTERNAL TOKENS: Never output tokens like [PerQueryResult(...)] or [1.3.8].
+3. SOOTHING EYES: Format data cleanly.
+
 Part 1: A JSON metadata block in ```json ... ```:
 {{
   "ticker": "{ticker}",
   "company_name": "{company_name}",
-  "status_label": "<Fluid status, e.g. High-Conviction Value Compounder, Cyclical Turnaround, Deep Value Mispricing>",
+  "status_label": "<Fluid status, e.g. High-Conviction Compounder, Deep Value Re-rating, Cyclical Inflection, Overvalued Momentum>",
   "fair_value_estimate": "$<Fair Value>",
   "bear_target": "$<Bear Price> (<Downside %>)",
   "base_target": "$<Base Price> (<Upside %>)",
@@ -269,7 +280,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         html_content = html_content[7:]
     if html_content.endswith("```"):
         html_content = html_content[:-3]
-    html_content = html_content.strip()
+    html_content = clean_grounding_artifacts(html_content.strip())
 
     if not metadata:
         metadata = {
@@ -317,6 +328,7 @@ Search real-time news, filings, 10-Q updates, earnings releases, and market comm
 - Did the fundamental thesis hold, inflect positively, or break?
 - Update the valuation, fair value, scenario matrix, and alert corridors.
 - CRITICAL: Never force the valuation to match the current price. Keep it level-headed and grounded in reality.
+- CRITICAL: Never output search artifacts like [PerQueryResult(...)].
 
 Output in TWO parts:
 Part 1: JSON metadata in ```json ... ```:
@@ -347,7 +359,7 @@ Part 2: Updated HTML memo content reflecting the evolution of the thesis.
         html_content = html_content[7:]
     if html_content.endswith("```"):
         html_content = html_content[:-3]
-    html_content = html_content.strip()
+    html_content = clean_grounding_artifacts(html_content.strip())
 
     if not metadata:
         metadata = {

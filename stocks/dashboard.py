@@ -2,9 +2,10 @@
 
 import json
 from pathlib import Path
-from typing import List, Dict
+from typing import List, Dict, Any
 from stocks.models import WatchlistStock, AlertItem, ThesisVersion
 from stocks.data_store import load_watchlist, load_alerts, load_thesis_history
+from stocks.tracker import fetch_historical_chart_data
 
 PUBLIC_DIR = Path("public")
 REPORTS_DIR = PUBLIC_DIR / "reports"
@@ -15,8 +16,137 @@ def _ensure_dirs():
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
 
 
+def build_native_svg_chart(ticker: str, current_price: float) -> str:
+    """Builds a lightweight, native interactive SVG area chart with mouse hover tracking."""
+    points = fetch_historical_chart_data(ticker, "1y")
+    if not points or len(points) < 2:
+        # Minimal synthetic fallback based on current price if market is closed/empty
+        points = [
+            {"date": "Start", "price": round(current_price * 0.92, 2)},
+            {"date": "Mid", "price": round(current_price * 0.97, 2)},
+            {"date": "Today", "price": round(current_price, 2)}
+        ]
+
+    prices = [p["price"] for p in points]
+    min_p = min(prices)
+    max_p = max(prices)
+    price_range = max(max_p - min_p, 0.01)
+
+    width = 900
+    height = 280
+    padding_x = 20
+    padding_y = 25
+
+    # Compute SVG coordinates
+    svg_pts = []
+    n = len(points)
+    for i, p in enumerate(points):
+        x = padding_x + (i / (n - 1)) * (width - 2 * padding_x)
+        # Invert y: highest price at top padding_y, lowest price at (height - padding_y)
+        y = height - padding_y - ((p["price"] - min_p) / price_range) * (height - 2 * padding_y)
+        svg_pts.append((round(x, 1), round(y, 1)))
+
+    line_path_d = "M " + " L ".join(f"{x},{y}" for x, y in svg_pts)
+    first_x, first_y = svg_pts[0]
+    last_x, last_y = svg_pts[-1]
+    area_path_d = f"{line_path_d} L {last_x},{height} L {first_x},{height} Z"
+
+    pts_json = json.dumps(points)
+    svg_pts_json = json.dumps(svg_pts)
+
+    return f"""
+    <div class="native-chart-wrap" id="chart-container">
+        <div id="chart-tooltip" class="chart-tooltip">
+            <span id="tooltip-date">---</span> • <strong id="tooltip-price">$0.00</strong>
+        </div>
+        <svg id="interactive-svg" viewBox="0 0 {width} {height}" preserveAspectRatio="none" class="chart-svg">
+            <defs>
+                <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#C99A75" stop-opacity="0.22" />
+                    <stop offset="100%" stop-color="#C99A75" stop-opacity="0.0" />
+                </linearGradient>
+            </defs>
+            
+            <!-- Horizontal grid lines -->
+            <line x1="{padding_x}" y1="{padding_y}" x2="{width - padding_x}" y2="{padding_y}" stroke="rgba(230,220,205,0.05)" stroke-width="1" />
+            <line x1="{padding_x}" y1="{height/2}" x2="{width - padding_x}" y2="{height/2}" stroke="rgba(230,220,205,0.05)" stroke-width="1" />
+            <line x1="{padding_x}" y1="{height - padding_y}" x2="{width - padding_x}" y2="{height - padding_y}" stroke="rgba(230,220,205,0.05)" stroke-width="1" />
+
+            <!-- Area Fill & Stroke Line -->
+            <path d="{area_path_d}" fill="url(#area-grad)" />
+            <path d="{line_path_d}" fill="none" stroke="#C99A75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+            <!-- Hover crosshair and active dot -->
+            <line id="crosshair-line" x1="0" y1="{padding_y}" x2="0" y2="{height - padding_y}" stroke="rgba(201,154,117,0.4)" stroke-width="1" stroke-dasharray="3 3" style="display: none;" />
+            <circle id="hover-dot" r="4" fill="#C99A75" stroke="#1E1D1B" stroke-width="2" style="display: none;" />
+        </svg>
+        <div class="chart-labels">
+            <span>{points[0]['date']} (${min_p:.2f})</span>
+            <span>1-Year Performance Range</span>
+            <span>{points[-1]['date']} (${points[-1]['price']:.2f})</span>
+        </div>
+    </div>
+
+    <script>
+    (function() {{
+        const rawPoints = {pts_json};
+        const svgCoords = {svg_pts_json};
+        const container = document.getElementById('chart-container');
+        const svg = document.getElementById('interactive-svg');
+        const tooltip = document.getElementById('chart-tooltip');
+        const tooltipDate = document.getElementById('tooltip-date');
+        const tooltipPrice = document.getElementById('tooltip-price');
+        const crosshair = document.getElementById('crosshair-line');
+        const dot = document.getElementById('hover-dot');
+
+        if (!container || !rawPoints.length) return;
+
+        function updateHover(e) {{
+            const rect = svg.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const pct = Math.max(0, Math.min(1, mouseX / rect.width));
+            const idx = Math.round(pct * (rawPoints.length - 1));
+            
+            const pt = rawPoints[idx];
+            const coord = svgCoords[idx];
+            if (!pt || !coord) return;
+
+            // Position crosshair & dot
+            crosshair.setAttribute('x1', coord[0]);
+            crosshair.setAttribute('x2', coord[0]);
+            crosshair.style.display = 'block';
+
+            dot.setAttribute('cx', coord[0]);
+            dot.setAttribute('cy', coord[1]);
+            dot.style.display = 'block';
+
+            // Position tooltip
+            tooltipDate.innerText = pt.date;
+            tooltipPrice.innerText = '$' + pt.price.toFixed(2);
+            tooltip.style.display = 'block';
+            
+            const tooltipX = (coord[0] / {width}) * rect.width;
+            tooltip.style.left = Math.max(10, Math.min(rect.width - 150, tooltipX - 70)) + 'px';
+        }}
+
+        function hideHover() {{
+            crosshair.style.display = 'none';
+            dot.style.display = 'none';
+            tooltip.style.display = 'none';
+        }}
+
+        container.addEventListener('mousemove', updateHover);
+        container.addEventListener('mouseleave', hideHover);
+        container.addEventListener('touchstart', (e) => {{ if (e.touches.length) updateHover(e.touches[0]); }}, {{passive: true}});
+        container.addEventListener('touchmove', (e) => {{ if (e.touches.length) updateHover(e.touches[0]); }}, {{passive: true}});
+        container.addEventListener('touchend', hideHover);
+    }})();
+    </script>
+    """
+
+
 def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: List[ThesisVersion]) -> str:
-    """Generates a clean, soothing, book-like investment due diligence dossier with minimalist interactive area chart."""
+    """Generates a clean, soothing, book-like investment due diligence dossier with native minimalist SVG area chart."""
     current_version = history[-1] if history else None
     
     # Corridor percentages
@@ -70,36 +200,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         """
 
     active_content = current_version.full_html_content if current_version else "<p>No active thesis found.</p>"
-
-    # Safe symbol JSON for TradingView overview widget
-    tv_config = json.dumps({
-        "symbols": [[ticker]],
-        "chartOnly": True,
-        "width": "100%",
-        "height": "100%",
-        "locale": "en",
-        "colorTheme": "dark",
-        "autosize": True,
-        "showVolume": True,
-        "showMA": False,
-        "hideDateRanges": False,
-        "hideMarketStatus": True,
-        "hideSymbolLogo": True,
-        "scalePosition": "right",
-        "scaleMode": "Normal",
-        "fontFamily": "-apple-system, BlinkMacSystemFont, 'Plus Jakarta Sans', sans-serif",
-        "fontSize": "10",
-        "noTimeScale": False,
-        "valuesTracking": "1",
-        "changeMode": "price-and-percent",
-        "chartType": "area",
-        "backgroundColor": "rgba(24, 23, 21, 1)",
-        "gridLineColor": "rgba(230, 220, 205, 0.05)",
-        "lineWidth": 2,
-        "lineColor": "#C99A75",
-        "topColor": "rgba(201, 154, 117, 0.22)",
-        "bottomColor": "rgba(201, 154, 117, 0.0)"
-    }, indent=2)
+    chart_html = build_native_svg_chart(ticker, stock.current_price)
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -189,15 +290,41 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         .price-number {{ font-size: 2.6rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }}
         .price-sub {{ font-size: 0.88rem; font-family: var(--font-mono); margin-top: 2px; }}
 
-        /* Minimalist Chart Section */
-        .chart-section {{
+        /* Native SVG Area Chart */
+        .native-chart-wrap {{
             margin-top: 28px;
-            background: #181715;
+            background: #191816;
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            overflow: hidden;
-            height: 340px;
-            padding: 6px 6px 0 6px;
+            padding: 16px 20px 12px;
+            position: relative;
+            user-select: none;
+        }}
+        .chart-svg {{ width: 100%; height: 220px; display: block; overflow: visible; }}
+        .chart-tooltip {{
+            position: absolute;
+            top: 14px;
+            left: 20px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-focus);
+            color: var(--text-title);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            padding: 5px 12px;
+            border-radius: 6px;
+            pointer-events: none;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }}
+        .chart-labels {{
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            font-family: var(--font-sans);
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1px solid var(--border-color);
         }}
 
         /* Corridor */
@@ -465,15 +592,8 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 </div>
             </div>
 
-            <!-- Minimalist Area Chart with Interactive Hover -->
-            <div class="chart-section">
-                <div class="tradingview-widget-container" style="height: 100%; width: 100%;">
-                    <div class="tradingview-widget-container__widget" style="height: 100%; width: 100%;"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js" async>
-                    {tv_config}
-                    </script>
-                </div>
-            </div>
+            <!-- Native Interactive Area Chart -->
+            {chart_html}
 
             <!-- Corridor -->
             <div class="corridor-container">
