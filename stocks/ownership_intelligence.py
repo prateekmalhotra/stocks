@@ -313,34 +313,34 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
         for t in oi_trades[:40]:  # Show up to 40 most recent detailed Form 4 trades
             ttype = t.get("trade_type", "")
             if "P - Purchase" in ttype or "Purchase" in ttype:
-                t_badge = '<span style="color: var(--accent-green); font-weight: 600;">🟢 Open Market Purchase</span>'
+                t_badge = '<span style="color: var(--accent-green); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🟢 Purchase</span>'
             elif "S - Sale" in ttype or "Sale" in ttype:
-                t_badge = '<span style="color: var(--accent-red); font-weight: 600;">🔴 Open Market Sale</span>'
+                t_badge = '<span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span>'
             elif "Option" in ttype or "M - " in ttype:
-                t_badge = '<span style="color: var(--accent-warm); font-weight: 600;">🟡 Option Exercise</span>'
+                t_badge = '<span style="color: var(--accent-warm); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🟡 Option Ex</span>'
             elif "D - " in ttype or "Tax" in ttype:
-                t_badge = '<span style="color: var(--text-dim); font-weight: 500;">⚪ Tax Withholding (D)</span>'
+                t_badge = '<span style="color: var(--text-dim); font-weight: 500; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">⚪ Tax (D)</span>'
             else:
-                t_badge = f'<span style="color: var(--text-dim);">{ttype}</span>'
+                t_badge = f'<span style="color: var(--text-dim); white-space: nowrap;">{ttype}</span>'
                 
             val = t.get("value", "")
             val_color = "var(--accent-green)" if val.startswith("+") else ("var(--accent-red)" if val.startswith("-") else "var(--text-title)")
             
             insider_rows += f"""
             <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">{t.get('filing_date', '')}</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">{t.get('trade_date', '')}</td>
-                <td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">{t.get('filing_date', '')}</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">{t.get('trade_date', '')}</td>
+                <td style="white-space: nowrap;">
                     <div style="font-weight: 500; color: var(--text-title);">{t.get('name', '')}</div>
                 </td>
-                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">{t.get('title', '')}</span></td>
-                <td>{t_badge}</td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">{t.get('price', '')}</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem;">{t.get('qty', '')}</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">{t.get('owned', '')} ({t.get('delta_own', '')})</td>
-                <td style="font-family: var(--font-mono); color: {val_color}; font-weight: 500;">{val}</td>
-                <td>
-                    <a href="http://openinsider.com/search?q={clean_t}" target="_blank" rel="noopener noreferrer" class="link-out">
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">{t.get('title', '')}</span></td>
+                <td style="white-space: nowrap;">{t_badge}</td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">{t.get('price', '')}</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">{t.get('qty', '')}</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">{t.get('owned', '')} ({t.get('delta_own', '')})</td>
+                <td style="font-family: var(--font-mono); color: {val_color}; font-weight: 500; white-space: nowrap;">{val}</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q={clean_t}" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
                         Form 4 ↗
                     </a>
                 </td>

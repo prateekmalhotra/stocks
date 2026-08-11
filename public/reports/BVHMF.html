@@ -297,26 +297,38 @@
             margin: 0 0 20px;
             line-height: 1.4;
         }
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-subpanel);
+            margin-top: 14px;
+        }
         .ownership-table {
             width: 100%;
+            min-width: 980px;
             border-collapse: collapse;
-            font-size: 0.88rem;
+            font-size: 0.86rem;
         }
         .ownership-table th {
             text-align: left;
-            padding: 12px 14px;
-            font-size: 0.72rem;
+            padding: 13px 16px;
+            font-size: 0.70rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             color: var(--text-dim);
             border-bottom: 1px solid var(--border-color);
-            background: var(--bg-subpanel);
+            background: #1E1D1A;
             font-family: var(--font-sans);
+            white-space: nowrap;
         }
         .ownership-table td {
-            padding: 14px 14px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.035);
             vertical-align: middle;
+            white-space: nowrap;
         }
         .ownership-table tr:last-child td {
             border-bottom: none;
