@@ -1,5 +1,24 @@
 [
   {
+    "id": "alert-byd-1786481340",
+    "ticker": "BYD",
+    "timestamp": "2026-08-11 15:49",
+    "title": "Boyd Gaming Thesis Reaffirmed: False Alert Triggered by BYDDY Ticker Collision",
+    "severity": "High Conviction",
+    "labels": [
+      "High Conviction",
+      "Buyback Cannibal",
+      "Regional Casino"
+    ],
+    "action_signal": "HOLD",
+    "trigger_reason": "Lower Alert Threshold Breached ($11.30 <= $72.00)",
+    "what_was_before": "Boyd Gaming Corporation presents an attractive risk-reward profile backed by a resilient regional casino moat, high property operating margins (~40%), and aggressive share repurchases ($150M/quarter). While destination Las Vegas properties face transient visitation softness and construction friction, Midwest & South operations, online casino expansion, and managed fee growth (Sky River) provide steady cash flow. Deducting maintenance CapEx ($250M) and SBC yields normalized Owner Earnings of ~$7.85/share, supporting an intrinsic value of $98.50.",
+    "what_changes_now": "A primary source audit confirms that the $11.30 alert breach was a false automated alert caused by an external data feed cross-contamination with Chinese EV maker BYD Co., Ltd. (OTC: BYDDY). Boyd Gaming Corporation (NYSE: BYD) trades at $83.42, delivering resilient Q2 2026 results with $1.03B revenue, $1.93 EPS, 40% operating margins, and $650M+ in planned 2026 shareholder returns. Normalized Owner Earnings of $8.36/share support our $98.50 fair value estimate, maintaining a solid margin of safety.",
+    "price_at_alert": 11.3,
+    "price_change_pct": -86.45,
+    "report_url": "reports/BYD.html"
+  },
+  {
     "id": "alert-upwk-1786463234",
     "ticker": "UPWK",
     "timestamp": "2026-08-11 10:47",

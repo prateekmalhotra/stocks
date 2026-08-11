@@ -12,7 +12,6 @@ from stocks.data_store import load_watchlist, save_watchlist, get_stock
 TICKER_ALIASES = {
     "CSU": ["CNSWF", "CSU.TO", "CSU"],
     "CSU.TO": ["CNSWF", "CSU.TO", "CSU"],
-    "BYD": ["BYDDY", "BYDDF", "1211.HK", "BYD"],
     "BVHMF": ["BVHMF", "BVHM.PA"],
 }
 
@@ -20,10 +19,9 @@ TICKER_ALIASES = {
 def get_ticker_candidates(ticker: str) -> List[str]:
     """Returns candidate ticker variations prioritizing USD OTC/ADRs."""
     clean = ticker.upper().strip()
-    candidates = TICKER_ALIASES.get(clean, [])
-    if clean not in candidates:
-        candidates = [clean] + candidates
-    return candidates
+    if clean in TICKER_ALIASES:
+        return TICKER_ALIASES[clean]
+    return [clean]
 
 
 def fetch_live_stock_info(ticker: str) -> Tuple[str, float]:
@@ -202,5 +200,13 @@ def check_watchlist_triggers() -> int:
                 notes=trigger_reason
             ))
             triggered_count += 1
+
+    # 2. Free SEC EDGAR 8-K & Material Corporate Event Trigger Check
+    try:
+        from stocks.sec_edgar import check_sec_filing_triggers
+        sec_triggered = check_sec_filing_triggers()
+        triggered_count += sec_triggered
+    except Exception as e:
+        print(f"⚠️ SEC surveillance check warning: {e}")
 
     return triggered_count
