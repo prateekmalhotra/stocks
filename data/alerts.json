@@ -1,19 +1,36 @@
 [
   {
-    "id": "alert-csu-1786461794",
+    "id": "alert-upwk-1786461870",
+    "ticker": "UPWK",
+    "timestamp": "2026-08-11 10:24",
+    "title": "UPWK Review at $8.76",
+    "severity": "Review",
+    "labels": [
+      "Review"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Catalyst Date Reached (2026-08-10: Q2 2026 Earnings Release)",
+    "what_was_before": "Upwork presents a compelling asymmetric setup, trading at under 10x post-SBC Owner Earnings with $204M in net cash (~17% of market cap) and an aggressive buyback program that repurchased 8.1M shares ($108M) in Q1 2026 alone. While near-term revenue growth remains muted (+1% YoY in Q1 2026) due to macro hiring headwinds, a sweeping 24% workforce reduction and target 35% EBITDA margins establish massive operating leverage as AI-related services scale past $300M annualized.",
+    "what_changes_now": "Stock moved to $8.76 (-9.4%).",
+    "price_at_alert": 8.76,
+    "price_change_pct": -9.41,
+    "report_url": "reports/UPWK.html"
+  },
+  {
+    "id": "alert-csu-1786461810",
     "ticker": "CSU",
-    "timestamp": "2026-08-11 15:23",
-    "title": "Threshold Breach Trigger: Serial Acquisition Engine Re-Ignites at Scale",
+    "timestamp": "2026-08-11 10:23",
+    "title": "CSU Lower Threshold Triggered via Data Anomaly; Fundamentals Accelerate into Q2 Earnings",
     "severity": "High Conviction",
     "labels": [
       "High Conviction",
-      "Capital Allocator",
-      "Saas Float"
+      "Quality Compounder",
+      "M A"
     ],
     "action_signal": "BUY",
     "trigger_reason": "Lower Alert Threshold Breached ($100.00 <= $2600.00)",
-    "what_was_before": "Constellation Software (CSU) remained the gold standard in decentralized capital allocation, proving in Q1 2026 that AI disruption fears were overblown as organic recurring maintenance revenue grew 9% YoY while FCFA2S surged 44% to $733M. Taking advantage of depressed software multiples, management deployed a record $1.6B in total capital ($809M completed in Q1 plus $786M committed for Q2), reigniting the serial acquisition compounding engine.",
-    "what_changes_now": "The lower alert threshold breach ($100.00) presents an extraordinary entry window into the premier software compounder. Primary source verification confirms rock-solid operational health: Topicus Q2 2026 reported 6% organic growth in recurring maintenance revenue and a 6-fold surge in Asseco dividend/interest income to \u20ac59M, while Constellation's Q1 2026 FCFA2S jumped 44% to $733M on $1.6B of H1 2026 M&A deployment. With Q2 2026 results releasing today (Aug 11, 2026 after close) and call on Aug 12, the next major catalyst date is refreshed to Q3 earnings on Nov 10, 2026.",
+    "what_was_before": "Constellation Software (CSU) remains the gold standard in decentralized capital allocation, proving in Q1 2026 that AI disruption fears were overblown as organic recurring maintenance revenue grew 9% YoY while FCFA2S surged 44% to $733M. Taking advantage of depressed software multiples, management deployed a record $1.6B in total capital ($809M completed in Q1 plus $786M committed for Q2), reigniting the serial acquisition compounding engine. Grounded in Warren Buffett's Owner Earnings methodology, CSU offers an attractive asymmetric opportunity with high pricing power, negative working capital float, and sub-1% dilution.",
+    "what_changes_now": "The lower alert threshold breach ($100.00) reflects an automated ticker exchange currency feed glitch rather than any fundamental operational decay\u2014CSU actively trades at ~$2,315 USD (~C$3,200 CAD). Fundamental operational health is accelerating into the Q2 2026 conference call scheduled for August 12, 2026. Primary source review confirms Q1 FCFA2S surged 44% YoY to $733M alongside a record $1.6B in H1 2026 capital deployment. Meanwhile, subsidiary Topicus.com posted Q2 2026 revenue growth of 18% with positive free cash flow. Our High Conviction thesis and BUY forward status are decisively reaffirmed.",
     "price_at_alert": 100.0,
     "price_change_pct": 0.0,
     "report_url": "reports/CSU.html"

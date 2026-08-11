@@ -135,16 +135,28 @@ def check_watchlist_triggers() -> int:
         if stock.lower_alert_threshold and current_price <= stock.lower_alert_threshold:
             reasons.append(f"Lower Alert Threshold Breached (${current_price:.2f} <= ${stock.lower_alert_threshold:.2f})")
         
-        # Catalyst Date Trigger: Ensure same-day earnings/catalyst reviews execute post-market close (>= 21:00 UTC / 5:00 PM EST)
-        # so that after-hours earnings releases, press releases, and earnings call transcripts are fully published.
+        # Catalyst Date Trigger: Ensure earnings/catalyst reviews execute once the date has arrived/passed.
+        # If it is today, execute post-market close (>= 21:00 UTC / 5:00 PM EST) so that after-hours earnings
+        # releases and earnings call transcripts are fully published.
         current_utc_hour = datetime.utcnow().hour
         is_post_market = (current_utc_hour >= 21 or current_utc_hour < 12)
         
         cat_date_clean = (stock.next_catalyst_date or "").strip().lower()
         if cat_date_clean:
-            is_today = (cat_date_clean in today_iso or cat_date_clean in today_month or cat_date_clean in today_short_month)
-            if is_today and is_post_market:
-                reasons.append(f"Catalyst Date Reached Post-Market Close ({stock.next_catalyst_date}: {stock.next_catalyst_event})")
+            is_past_or_today = False
+            try:
+                cat_dt = datetime.strptime(cat_date_clean[:10], "%Y-%m-%d").date()
+                today_dt = datetime.now().date()
+                if cat_dt < today_dt:
+                    is_past_or_today = True
+                elif cat_dt == today_dt and is_post_market:
+                    is_past_or_today = True
+            except ValueError:
+                if (cat_date_clean in today_iso or cat_date_clean in today_month or cat_date_clean in today_short_month) and is_post_market:
+                    is_past_or_today = True
+
+            if is_past_or_today:
+                reasons.append(f"Catalyst Date Reached ({stock.next_catalyst_date}: {stock.next_catalyst_event})")
 
         if reasons:
             trigger_reason = "; ".join(reasons)
