@@ -385,77 +385,71 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
         pillar = h.get("pillar", "A")
         pillar_badge = ""
         if pillar == "A":
-            pillar_badge = '<span class="pill pill-active" style="font-size:0.7rem; background:rgba(201,154,117,0.18); border-color:var(--accent-warm);">Pillar A • Fortress Anchor</span>'
+            pillar_badge = '<span class="pill pill-active" style="font-size:0.68rem; padding:2px 8px; background:rgba(201,154,117,0.14); border-color:var(--accent-warm);">Pillar A • Fortress Anchor</span>'
         elif pillar == "B":
-            pillar_badge = '<span class="pill pill-active" style="font-size:0.7rem; background:rgba(125,157,129,0.18); border-color:var(--accent-green); color:var(--accent-green);">Pillar B • Mispriced Cannibal</span>'
+            pillar_badge = '<span class="pill pill-active" style="font-size:0.68rem; padding:2px 8px; background:rgba(125,157,129,0.14); border-color:var(--accent-green); color:var(--accent-green);">Pillar B • Cannibal</span>'
         else:
-            pillar_badge = '<span class="pill pill-neutral" style="font-size:0.7rem; background:rgba(140,137,130,0.15); color:var(--text-title);">Cash Buffer (4.5% Yield)</span>'
+            pillar_badge = '<span class="pill pill-neutral" style="font-size:0.68rem; padding:2px 8px; background:rgba(140,137,130,0.12); color:var(--text-title);">Cash Buffer (4.5%)</span>'
             
-        ticker_cell = ""
         if h["ticker"] == "USD_CASH":
-            ticker_cell = f"""
-            <div>
-                <strong style="font-family:var(--font-serif); font-size:1.15rem; color:var(--text-title);">💵 USD Cash Buffer</strong>
-                <div style="font-size:0.8rem; color:var(--text-dim);">US Treasury 3-Month Bills</div>
+            holding_cell = f"""
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <strong style="font-family:var(--font-serif); font-size:1.2rem; color:var(--text-title);">💵 USD Cash</strong>
+                    {pillar_badge}
+                </div>
+                <span style="font-size:0.82rem; color:var(--text-secondary);">US Treasury 3-Month Bills</span>
+            </div>
+            """
+            price_fv_cell = '<div style="font-family:var(--font-mono); font-size:0.92rem; color:var(--text-title);">$1.00 <span style="color:var(--text-dim); font-size:0.78rem;">(Par)</span></div>'
+            engine_cell = f"""
+            <div style="font-family:var(--font-mono); font-size:0.90rem; color:var(--text-title);">
+                4.5% Risk-Free
+                <div style="font-size:0.78rem; color:var(--accent-warm);">${h['annual_owner_earnings']:,.0f}/yr</div>
             </div>
             """
         else:
-            ticker_cell = f"""
-            <a href="{h['report_url']}" style="text-decoration:none; display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-serif); font-size:1.18rem; font-weight:500; color:var(--accent-warm); display:flex; align-items:center; gap:6px;">
-                    {h['ticker']} <span style="font-size:0.75rem; color:var(--text-dim);">↗</span>
-                </span>
+            holding_cell = f"""
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <a href="{h['report_url']}" style="font-family:var(--font-serif); font-size:1.25rem; font-weight:500; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+                        {h['ticker']} <span style="font-size:0.72rem; color:var(--text-dim);">↗</span>
+                    </a>
+                    {pillar_badge}
+                </div>
                 <span style="font-size:0.82rem; color:var(--text-secondary);">{h['company_name']}</span>
-            </a>
+            </div>
             """
-            
-        price_fv_cell = ""
-        if h["ticker"] == "USD_CASH":
-            price_fv_cell = '<div style="font-family:var(--font-mono); font-size:0.92rem; color:var(--text-title);">$1.00 <span style="color:var(--text-dim); font-size:0.75rem;">(Par)</span></div>'
-        else:
             price_fv_cell = f"""
             <div style="font-family:var(--font-mono); font-size:0.92rem; color:var(--text-title); font-weight:500;">
                 ${h['current_price']:.2f}
-                <div style="font-size:0.78rem; color:var(--text-dim);">FV: ${h['fair_value']:.2f} (<span style="color:var(--accent-green);">+{h['margin_of_safety_pct']}% MoS</span>)</div>
+                <div style="font-size:0.78rem; color:var(--text-dim);">FV: ${h['fair_value']:.2f} <span style="color:var(--accent-green); font-weight:500;">(+{h['margin_of_safety_pct']}% MoS)</span></div>
+            </div>
+            """
+            engine_cell = f"""
+            <div style="font-family:var(--font-mono); font-size:0.90rem; color:var(--text-title);">
+                {h['look_through_fcf_yield']}% FCF Yield
+                <div style="font-size:0.78rem; color:var(--accent-warm);">${h['annual_owner_earnings']:,.0f}/yr <span style="color:var(--accent-green);">({h['cannibal_rate_pct']}% Buyback)</span></div>
             </div>
             """
             
         alloc_cell = f"""
         <div style="font-family:var(--font-mono); font-size:0.95rem; font-weight:600; color:var(--text-title);">
             {h['target_weight']*100:.1f}%
-            <div style="font-size:0.8rem; font-weight:400; color:var(--accent-warm);">${h['allocated_dollars']:,.2f}</div>
-            <div style="font-size:0.75rem; font-weight:400; color:var(--text-dim);">{h['shares_to_buy']} shares</div>
+            <div style="font-size:0.78rem; font-weight:400; color:var(--accent-warm);">${h['allocated_dollars']:,.0f} <span style="color:var(--text-dim);">({h['shares_to_buy']} shs)</span></div>
         </div>
         """
         
-        engine_cell = ""
-        if h["ticker"] == "USD_CASH":
-            engine_cell = f"""
-            <div style="font-family:var(--font-mono); font-size:0.88rem; color:var(--text-title);">
-                4.5% Risk-Free
-                <div style="font-size:0.78rem; color:var(--accent-warm);">${h['annual_owner_earnings']:,.0f}/yr</div>
-            </div>
-            """
-        else:
-            engine_cell = f"""
-            <div style="font-family:var(--font-mono); font-size:0.88rem; color:var(--text-title);">
-                {h['look_through_fcf_yield']}% FCF Yield
-                <div style="font-size:0.78rem; color:var(--accent-warm);">${h['annual_owner_earnings']:,.0f}/yr</div>
-                <div style="font-size:0.75rem; color:var(--accent-green);">{h['cannibal_rate_pct']}% Buyback/yr</div>
-            </div>
-            """
-            
         defense_cell = f"""
         <div style="font-size:0.84rem; color:var(--text-secondary); line-height:1.45;">
-            <div style="font-weight:500; color:var(--text-title); margin-bottom:2px;">{h['defense_moat']}</div>
-            <div style="color:var(--text-dim); font-size:0.78rem;">Solvency: <span style="color:var(--accent-warm);">{h['net_cash_solvency']}</span></div>
+            <div style="color:var(--text-title); margin-bottom:2px;">{h['defense_moat']}</div>
+            <div style="font-size:0.78rem; color:var(--text-dim);">Solvency: <span style="color:var(--accent-warm); font-weight:500;">{h['net_cash_solvency']}</span></div>
         </div>
         """
         
         rows_html += f"""
         <tr class="table-row">
-            <td style="vertical-align:top; padding:16px 14px;">{pillar_badge}</td>
-            <td style="vertical-align:top; padding:16px 14px;">{ticker_cell}</td>
+            <td style="vertical-align:top; padding:16px 14px;">{holding_cell}</td>
             <td style="vertical-align:top; padding:16px 14px;">{alloc_cell}</td>
             <td style="vertical-align:top; padding:16px 14px;">{price_fv_cell}</td>
             <td style="vertical-align:top; padding:16px 14px;">{engine_cell}</td>
@@ -483,70 +477,47 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
 
     return f"""
     <!-- AlphaThesis Concentrated Portfolio Tab -->
-    <div id="portfolio-interactive-hub" style="display:flex; flex-direction:column; gap:32px;">
+    <div id="portfolio-interactive-hub" style="display:flex; flex-direction:column; gap:28px;">
         
         <!-- Top Stats Cards -->
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px;">
-            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:20px 22px; display:flex; flex-direction:column; gap:4px;">
-                <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); font-weight:600;">Look-Through FCF Yield</div>
-                <div style="font-family:var(--font-serif); font-size:2rem; font-weight:500; color:var(--accent-warm);">{stats['look_through_fcf_yield_pct']}%</div>
-                <div style="font-size:0.82rem; color:var(--text-secondary);">${stats['annual_look_through_dollars']:,.0f} / yr on $100k Base</div>
+            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:20px 22px; display:flex; flex-direction:column;">
+                <div style="font-family:var(--font-sans); font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:6px;">Look-Through FCF Yield</div>
+                <div style="font-family:var(--font-mono); font-size:2.1rem; font-weight:500; color:var(--accent-warm); line-height:1.1; margin-bottom:6px;">{stats['look_through_fcf_yield_pct']}%</div>
+                <div style="font-family:var(--font-sans); font-size:0.82rem; color:var(--text-secondary);">${stats['annual_look_through_dollars']:,.0f} / yr on $100k Base</div>
             </div>
 
-            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:20px 22px; display:flex; flex-direction:column; gap:4px;">
-                <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); font-weight:600;">Share Cannibalization</div>
-                <div style="font-family:var(--font-serif); font-size:2rem; font-weight:500; color:var(--accent-green);">+{stats['weighted_cannibal_rate_pct']}%</div>
-                <div style="font-size:0.82rem; color:var(--text-secondary);">Annual share count reduction</div>
+            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:20px 22px; display:flex; flex-direction:column;">
+                <div style="font-family:var(--font-sans); font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:6px;">Share Cannibalization</div>
+                <div style="font-family:var(--font-mono); font-size:2.1rem; font-weight:500; color:var(--accent-green); line-height:1.1; margin-bottom:6px;">+{stats['weighted_cannibal_rate_pct']}%</div>
+                <div style="font-family:var(--font-sans); font-size:0.82rem; color:var(--text-secondary);">Annual share count reduction</div>
             </div>
 
-            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:20px 22px; display:flex; flex-direction:column; gap:4px;">
-                <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); font-weight:600;">Treasury Cash Cushion</div>
-                <div style="font-family:var(--font-serif); font-size:2rem; font-weight:500; color:var(--text-title);">{stats['cash_weight_pct']}%</div>
-                <div style="font-size:0.82rem; color:var(--text-secondary);">Yielding 4.5% • Ready for Dips</div>
+            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:20px 22px; display:flex; flex-direction:column;">
+                <div style="font-family:var(--font-sans); font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:6px;">Treasury Cash Cushion</div>
+                <div style="font-family:var(--font-mono); font-size:2.1rem; font-weight:500; color:var(--text-title); line-height:1.1; margin-bottom:6px;">{stats['cash_weight_pct']}%</div>
+                <div style="font-family:var(--font-sans); font-size:0.82rem; color:var(--text-secondary);">Yielding 4.5% Risk-Free Dry Powder</div>
             </div>
 
-            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:20px 22px; display:flex; flex-direction:column; gap:4px;">
-                <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); font-weight:600;">Daily Rebalance Status</div>
-                <div style="font-family:var(--font-serif); font-size:1.6rem; font-weight:500; color:var(--accent-green); display:flex; align-items:center; gap:8px;">
+            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:20px 22px; display:flex; flex-direction:column;">
+                <div style="font-family:var(--font-sans); font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:6px;">Daily Rebalance Status</div>
+                <div style="font-family:var(--font-sans); font-size:1.7rem; font-weight:500; color:var(--accent-green); display:flex; align-items:center; gap:8px; line-height:1.1; margin-bottom:6px;">
                     <span class="status-beacon beacon-buy" style="margin-left:0;"><span class="beacon-dot"></span><span class="beacon-ping"></span></span>
                     Optimal
                 </div>
-                <div style="font-size:0.82rem; color:var(--text-dim);">Min. Material Threshold $\ge 5\%$</div>
+                <div style="font-family:var(--font-sans); font-size:0.82rem; color:var(--text-dim);">Min. material trade delta ≥ 5%</div>
             </div>
         </div>
 
-        <!-- Interactive Capital Sizing Calculator -->
-        <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:24px 28px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; margin-bottom:16px;">
-                <div>
-                    <h3 style="font-family:var(--font-serif); font-size:1.35rem; color:var(--text-title); margin:0 0 4px; font-weight:500;">
-                        💰 Live Capital Allocation Calculator
-                    </h3>
-                    <p style="color:var(--text-dim); font-size:0.86rem; margin:0;">
-                        Enter your portfolio size to calculate exact dollar amounts and share counts per holding.
-                    </p>
-                </div>
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <div style="position:relative; display:flex; align-items:center;">
-                        <span style="position:absolute; left:12px; font-family:var(--font-mono); color:var(--text-dim);">$</span>
-                        <input type="number" id="portfolio-capital-input" value="{total_capital:.0f}" step="1000" min="1000" style="background:var(--bg-subpanel); border:1px solid var(--border-color); border-radius:8px; padding:9px 14px 9px 28px; color:var(--text-title); font-family:var(--font-mono); font-size:0.95rem; width:150px; outline:none;" oninput="updatePortfolioCalculations()" />
-                    </div>
-                    <button class="btn-outline" onclick="setCapitalPreset(100000)" style="padding:8px 12px; font-size:0.82rem;">$100k</button>
-                    <button class="btn-outline" onclick="setCapitalPreset(250000)" style="padding:8px 12px; font-size:0.82rem;">$250k</button>
-                    <button class="btn-outline" onclick="setCapitalPreset(500000)" style="padding:8px 12px; font-size:0.82rem;">$500k</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Performance & Look-Through Owner Earnings Chart -->
+        <!-- Performance & Look-Through Owner Earnings Chart ($100k Base) -->
         <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:24px 28px;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:12px;">
                 <div>
                     <h3 style="font-family:var(--font-serif); font-size:1.35rem; color:var(--text-title); margin:0 0 4px; font-weight:500;">
-                        📈 Portfolio USD Value & Look-Through Owner Earnings Growth
+                        📈 Portfolio Growth & Look-Through Owner Earnings ($100k Base)
                     </h3>
                     <p style="color:var(--text-dim); font-size:0.86rem; margin:0;">
-                        Tracking market price appreciation alongside fundamental Owner Earnings ($ USD run-rate).
+                        Tracking market price compounding alongside fundamental Owner Earnings ($ USD/yr run-rate).
                     </p>
                 </div>
                 <div style="display:flex; align-items:center; gap:16px; font-size:0.82rem;">
@@ -574,10 +545,10 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:12px;">
                 <div>
                     <h3 style="font-family:var(--font-serif); font-size:1.35rem; color:var(--text-title); margin:0 0 4px; font-weight:500;">
-                        🏛️ Master Allocation & Downside Defense Matrix
+                        🏛️ Core Holdings & Downside Defense Matrix
                     </h3>
                     <p style="color:var(--text-dim); font-size:0.86rem; margin:0;">
-                        Curated 8-holding fortress portfolio across Pillar A (Anchors) and Pillar B (Cannibals).
+                        Concentrated 8-holding fortress allocation across Pillar A (Moat Anchors), Pillar B (Cannibals), and Treasury Cash.
                     </p>
                 </div>
                 <div style="display:flex; align-items:center; gap:8px;">
@@ -588,14 +559,20 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
             </div>
 
             <table class="fin-table" style="width:100%; border-collapse:collapse;">
+                <colgroup>
+                    <col style="width:25%;">
+                    <col style="width:16%;">
+                    <col style="width:18%;">
+                    <col style="width:18%;">
+                    <col style="width:23%;">
+                </colgroup>
                 <thead>
                     <tr style="border-bottom:1px solid var(--border-color); text-align:left; font-size:0.76rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim);">
-                        <th style="padding:10px 14px;">Pillar</th>
                         <th style="padding:10px 14px;">Holding</th>
-                        <th style="padding:10px 14px;">Allocation</th>
-                        <th style="padding:10px 14px;">Price & Intrinsic Value</th>
+                        <th style="padding:10px 14px;">Weight ($100k Base)</th>
+                        <th style="padding:10px 14px;">Price vs Fair Value</th>
                         <th style="padding:10px 14px;">Owner Earnings Engine</th>
-                        <th style="padding:10px 14px;">Moat & Downside Defense</th>
+                        <th style="padding:10px 14px;">Moat & Solvency Defense</th>
                     </tr>
                 </thead>
                 <tbody id="portfolio-holdings-tbody">
@@ -604,51 +581,17 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
             </table>
         </div>
 
-        <!-- Discipline Charter & Automated Rebalance Audit -->
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(360px, 1fr)); gap:20px;">
-            
-            <!-- Rebalance Charter -->
-            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:22px 24px; display:flex; flex-direction:column; gap:14px;">
+        <!-- Rebalance Log & Audit Trail -->
+        <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:22px 24px; display:flex; flex-direction:column; gap:14px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
                 <h4 style="font-family:var(--font-serif); font-size:1.15rem; color:var(--text-title); margin:0; font-weight:500;">
-                    📜 Autonomous Rebalance & Protection Charter
+                    📋 Rebalancing Log & Verification History
                 </h4>
-                <div style="font-size:0.86rem; color:var(--text-secondary); line-height:1.55; display:flex; flex-direction:column; gap:10px;">
-                    <div>
-                        <strong style="color:var(--text-title);">1. Minimum Material Trade Threshold ($\ge 5\%$):</strong>
-                        <div style="color:var(--text-dim);">Zero micro-churn or 1-2% rebalancing. Positions are held through standard quarterly fluctuations.</div>
-                    </div>
-                    <div>
-                        <strong style="color:var(--accent-red);">2. 🚨 100% Exit on Moat Break (AVOID):</strong>
-                        <div style="color:var(--text-dim);">If an SEC filing or 10-K audit triggers an AVOID signal, position is liquidated entirely into Treasury cash.</div>
-                    </div>
-                    <div>
-                        <strong style="color:var(--accent-warm);">3. ✂️ Trim Froth ($P > 1.35 \times \text{{Fair Value}}$):</strong>
-                        <div style="color:var(--text-dim);">Trim 5-7% of position when overvaluation exceeds +35% above conservative Owner Earnings fair value.</div>
-                    </div>
-                    <div>
-                        <strong style="color:var(--accent-green);">4. 💰 Deploy Cash Buffer ($P < 0.65 \times \text{{Fair Value}}$):</strong>
-                        <div style="color:var(--text-dim);">Deploy 5% cash reserves into Pillar A anchors when macro panic creates deep $35\%+$ discounts.</div>
-                    </div>
-                    <div>
-                        <strong style="color:var(--text-title);">5. 🛡️ N=3 Consensus Verification Council:</strong>
-                        <div style="color:var(--text-dim);">Any major trade proposal triggers 3 independent subagent audits against primary SEC EDGAR filings before execution.</div>
-                    </div>
-                </div>
+                <span style="font-size:0.75rem; color:var(--text-dim);">Daily 4:30 PM ET Audit • Min. Threshold ≥ 5%</span>
             </div>
-
-            <!-- Audit Trail -->
-            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:22px 24px; display:flex; flex-direction:column; gap:14px;">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <h4 style="font-family:var(--font-serif); font-size:1.15rem; color:var(--text-title); margin:0; font-weight:500;">
-                        📋 Rebalancing Log & Verification History
-                    </h4>
-                    <span style="font-size:0.75rem; color:var(--text-dim);">Daily 4:30 PM ET Audit</span>
-                </div>
-                <div style="display:flex; flex-direction:column; gap:10px;">
-                    {log_rows_html}
-                </div>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+                {log_rows_html}
             </div>
-
         </div>
 
     </div>
@@ -766,30 +709,6 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                         }}
                     }}
                 }}
-            }});
-        }}
-
-        function setCapitalPreset(amt) {{
-            const inp = document.getElementById('portfolio-capital-input');
-            if (inp) {{
-                inp.value = amt;
-                updatePortfolioCalculations();
-            }}
-        }}
-
-        function updatePortfolioCalculations() {{
-            const inp = document.getElementById('portfolio-capital-input');
-            if (!inp) return;
-            const cap = parseFloat(inp.value) || 100000.0;
-            
-            // Scaled holdings
-            const baseCap = 100000.0;
-            const ratio = cap / baseCap;
-            
-            // We can reload or dynamically scale visible values
-            // For instantaneous snappy UI:
-            document.querySelectorAll('#portfolio-holdings-tbody tr').forEach(row => {{
-                // Updates are handled cleanly via quick DOM traversal
             }});
         }}
 

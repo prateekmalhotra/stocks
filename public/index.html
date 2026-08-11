@@ -526,8 +526,8 @@
         <div class="hub-controls">
             <div class="hub-tabs">
                 <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage (41)</button>
-                <button class="hub-tab-btn" onclick="switchTab('portfolio')">🏛️ Portfolio (8 Core)</button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts (6)</span></button>
+                <button class="hub-tab-btn" onclick="switchTab('portfolio')">Portfolio (8 Core)</button>
             </div>
             <div class="view-toggle" id="view-toggle-bar">
                 <button class="view-btn active" onclick="setView('table')">Table</button>
@@ -3356,74 +3356,159 @@
             </div>
         </section>
 
+        <!-- ALERTS SECTION -->
+        <section id="pane-alerts" class="tab-panel">
+            <div class="alerts-feed">
+                
+        <div class="alert-item" data-alert-id="BVHMF_2026-08-11_1600" onclick='openAlertModal({&quot;id&quot;: &quot;BVHMF_2026-08-11_1600&quot;, &quot;ticker&quot;: &quot;BVHMF&quot;, &quot;title&quot;: &quot;Vistry Swings to H1 Loss as Inventory Liquidation Spikes Daily Debt; Strategic Review & September SAHP Grants Mark High-Stakes Pivot&quot;, &quot;timestamp&quot;: &quot;2026-08-11 16:00&quot;, &quot;severity&quot;: &quot;Cautious Stance&quot;, &quot;price&quot;: 3.43, &quot;change&quot;: -8.53, &quot;trigger_reason&quot;: &quot;International Corporate Wire (Thu, 09 Jul 2026 17:01:40 +0000): Vistry Group Q2 Earnings Call Highlights&quot;, &quot;what_was_before&quot;: &quot;Vistry Group is undergoing a critical operational repositioning away from traditional private speculative housebuilding toward a capital-light Partnerships housing model. While heavy tactical discounting on unsold open-market stock pushed H1 2026 into a \u00a330M pre-tax loss, aggressive land de-stocking and partner-funded completions under the UK&#39;s \u00a339B Social and Affordable Housing Programme are targeted to restore net cash by year-end. Trading at a steep discount to tangible book value, BVHMF offers asymmetric turnaround upside, provided management executes on H2 debt reduction and operational simplification&quot;, &quot;what_changes_now&quot;: &quot;Vistry&#39;s H1 2026 trading update revealed an expected statutory loss before tax of ~$39M USD (\u00a330M) following a ~$65M USD (\u00a350M) adverse impact from heavy private sales discounting (7.1% vs 1.4% YoY) and site write-downs. Average daily net debt expanded to ~$1.04B USD (\u00a3799M) as land creditors were cleared and suppliers paid faster, while CFO Tim Lawlor unexpectedly resigned ahead of the pivotal September 24 strategic review. Although aggressive inventory clearance (halving unsold WIP from $780M to <$390M USD) and $32.5M USD in annualized cost cuts maintain full-year guidance for >$130M USD net cash, heightened execution friction and credit insurer scrutiny warrant a cautious stance until SAHP grant flows and CEO review details are released&quot;, &quot;report_url&quot;: &quot;reports/BVHMF.html&quot;})'>
+            <div class="alert-left">
+                <div class="alert-badges">
+                    <strong class="alert-ticker">BVHMF<span class="status-beacon beacon-caution" title="Action Signal: Caution (Facing Headwinds / Trim Zone)"><span class="beacon-ping"></span><span class="beacon-dot"></span></span></strong>
+                    <span class="pill pill-active">Cautious Stance</span> <span class="pill pill-neutral">Deep Value</span> <span class="pill pill-neutral">De Leveraging</span>
+                    <span class="alert-time">2026-08-11 16:00</span>
+                </div>
+                <div class="alert-title">Vistry Swings to H1 Loss as Inventory Liquidation Spikes Daily Debt; Strategic Review & September SAHP Grants Mark High-Stakes Pivot</div>
+                <div class="alert-blurb">Vistry's H1 2026 trading update revealed an expected statutory loss before tax of ~$39M USD (£30M) following a ~$65M USD (£50M) adverse impact from heavy private sales discounting (7.1% vs 1.4% YoY) and site write-downs</div>
+            </div>
+            <div class="alert-right">
+                <div class="alert-price-val">$3.43</div>
+                <div class="alert-price-pct neg">-8.53%</div>
+            </div>
+        </div>
+        
+        <div class="alert-item" data-alert-id="BYD_2026-08-11_1549" onclick='openAlertModal({&quot;id&quot;: &quot;BYD_2026-08-11_1549&quot;, &quot;ticker&quot;: &quot;BYD&quot;, &quot;title&quot;: &quot;Boyd Gaming Thesis Reaffirmed: False Alert Triggered by BYDDY Ticker Collision&quot;, &quot;timestamp&quot;: &quot;2026-08-11 15:49&quot;, &quot;severity&quot;: &quot;High Conviction&quot;, &quot;price&quot;: 11.3, &quot;change&quot;: -86.45, &quot;trigger_reason&quot;: &quot;Lower Alert Threshold Breached ($11.30 <= $72.00)&quot;, &quot;what_was_before&quot;: &quot;Boyd Gaming Corporation presents an attractive risk-reward profile backed by a resilient regional casino moat, high property operating margins (~40%), and aggressive share repurchases ($150M/quarter). While destination Las Vegas properties face transient visitation softness and construction friction, Midwest & South operations, online casino expansion, and managed fee growth (Sky River) provide steady cash flow. Deducting maintenance CapEx ($250M) and SBC yields normalized Owner Earnings of ~$7.85/share, supporting an intrinsic value of $98.50&quot;, &quot;what_changes_now&quot;: &quot;A primary source audit confirms that the $11.30 alert breach was a false automated alert caused by an external data feed cross-contamination with Chinese EV maker BYD Co., Ltd. (OTC: BYDDY). Boyd Gaming Corporation (NYSE: BYD) trades at $83.42, delivering resilient Q2 2026 results with $1.03B revenue, $1.93 EPS, 40% operating margins, and $650M+ in planned 2026 shareholder returns. Normalized Owner Earnings of $8.36/share support our $98.50 fair value estimate, maintaining a solid margin of safety&quot;, &quot;report_url&quot;: &quot;reports/BYD.html&quot;})'>
+            <div class="alert-left">
+                <div class="alert-badges">
+                    <strong class="alert-ticker">BYD<span class="status-beacon beacon-hold" title="Action Signal: Wait / Hold (Wait & Do Nothing for Now)"><span class="beacon-ping"></span><span class="beacon-dot"></span></span></strong>
+                    <span class="pill pill-active">High Conviction</span> <span class="pill pill-neutral">Buyback Cannibal</span> <span class="pill pill-neutral">Regional Casino</span>
+                    <span class="alert-time">2026-08-11 15:49</span>
+                </div>
+                <div class="alert-title">Boyd Gaming Thesis Reaffirmed: False Alert Triggered by BYDDY Ticker Collision</div>
+                <div class="alert-blurb">A primary source audit confirms that the $11.30 alert breach was a false automated alert caused by an external data feed cross-contamination with Chinese EV maker BYD Co., Ltd. (OTC: BYDDY). Boyd Gaming Corporation (NYSE</div>
+            </div>
+            <div class="alert-right">
+                <div class="alert-price-val">$11.30</div>
+                <div class="alert-price-pct neg">-86.45%</div>
+            </div>
+        </div>
+        
+        <div class="alert-item" data-alert-id="UPWK_2026-08-11_1047" onclick='openAlertModal({&quot;id&quot;: &quot;UPWK_2026-08-11_1047&quot;, &quot;ticker&quot;: &quot;UPWK&quot;, &quot;title&quot;: &quot;UPWK Q2 2026 Audit: Revenue Guidance Trim Triggers Deep Value Buy Opportunity at $8.61&quot;, &quot;timestamp&quot;: &quot;2026-08-11 10:47&quot;, &quot;severity&quot;: &quot;Solid Conviction&quot;, &quot;price&quot;: 8.61, &quot;change&quot;: -10.96, &quot;trigger_reason&quot;: &quot;Q2 2026 Post-Market Earnings Audit: Full Operational & Guidance Review&quot;, &quot;what_was_before&quot;: &quot;Upwork reported Q2 2026 revenue of $191.7M (-2% YoY) and record Adjusted EBITDA of $64.1M (33.4% margin), but trimmed full-year revenue guidance to $730M-$750M due to Google SEO search disruption and low-complexity task erosion from AI automation. However, aggressive share repurchases ($109.7M deployed in H1 2026) and a pristine $253.5M net cash balance ($1.95/share) provide strong downside protection. We maintain a Cautious Stance as top-line friction plays out, while anchoring our Base Case fair value at $13.50 based on expanding Owner Earnings yield&quot;, &quot;what_changes_now&quot;: &quot;Upwork&#39;s Q2 2026 earnings report confirmed a top-line guidance trim to $730M-$750M (down from $760M-$790M) due to headwinds from Google SEO search updates and AI automation of lower-complexity tasks. However, the market&#39;s post-earnings drop to $8.61 creates an asymmetric deep-value buy zone. Operating profitability hit record highs with Q2 Adjusted EBITDA of $64.1M (33.4% margin), supported by a 20%+ workforce restructuring that will generate $70M in annualized OpEx savings. Management continues to aggressively retire shares\u2014deploying $109.7M in H1 2026 alone\u2014backed by $241.2M in net cash ($1.83/share). We upgrade our action signal to BUY with an updated Base Case Intrinsic Fair Value of $12.50 per share&quot;, &quot;report_url&quot;: &quot;reports/UPWK.html&quot;})'>
+            <div class="alert-left">
+                <div class="alert-badges">
+                    <strong class="alert-ticker">UPWK<span class="status-beacon beacon-buy" title="Action Signal: Strong Buy (Get in NOW / Thesis Accelerating)"><span class="beacon-ping"></span><span class="beacon-dot"></span></span></strong>
+                    <span class="pill pill-active">Solid Conviction</span> <span class="pill pill-neutral">Buyback Cannibal</span> <span class="pill pill-neutral">Deep Value</span>
+                    <span class="alert-time">2026-08-11 10:47</span>
+                </div>
+                <div class="alert-title">UPWK Q2 2026 Audit: Revenue Guidance Trim Triggers Deep Value Buy Opportunity at $8.61</div>
+                <div class="alert-blurb">Upwork's Q2 2026 earnings report confirmed a top-line guidance trim to $730M-$750M (down from $760M-$790M) due to headwinds from Google SEO search updates and AI automation of lower-complexity tasks. However, the market'</div>
+            </div>
+            <div class="alert-right">
+                <div class="alert-price-val">$8.61</div>
+                <div class="alert-price-pct neg">-10.96%</div>
+            </div>
+        </div>
+        
+        <div class="alert-item" data-alert-id="UPWK_2026-08-11_1035" onclick='openAlertModal({&quot;id&quot;: &quot;UPWK_2026-08-11_1035&quot;, &quot;ticker&quot;: &quot;UPWK&quot;, &quot;title&quot;: &quot;UPWK Q2 Earnings Audit: Revenue Guidance Trimmed on SEO/AI Friction; EBITDA Margins Hit 33.4% & Buybacks Accelerate&quot;, &quot;timestamp&quot;: &quot;2026-08-11 10:35&quot;, &quot;severity&quot;: &quot;Cautious Stance&quot;, &quot;price&quot;: 8.76, &quot;change&quot;: -9.41, &quot;trigger_reason&quot;: &quot;Catalyst Date Reached: Q2 2026 Earnings Release & Call Audit&quot;, &quot;what_was_before&quot;: &quot;Initial Genesis Baseline: Upwork presented a compelling setup at under 10x Owner Earnings with M net cash, assuming top-line stabilization and workforce cost savings&quot;, &quot;what_changes_now&quot;: &quot;Upwork reported Q2 2026 revenue of $191.7M (-2% YoY) and record Adjusted EBITDA of .1M (33.4% margin), but trimmed full-year revenue guidance to M-M due to Google SEO disruption and low-complexity task erosion from AI automation. However, aggressive share repurchases (.7M deployed in H1 2026) and a pristine .5M net cash balance (.95/share) provide strong downside protection. We shift to a Cautious Stance while anchoring our Base Case fair value at .50&quot;, &quot;report_url&quot;: &quot;reports/UPWK.html&quot;})'>
+            <div class="alert-left">
+                <div class="alert-badges">
+                    <strong class="alert-ticker">UPWK<span class="status-beacon beacon-caution" title="Action Signal: Caution (Facing Headwinds / Trim Zone)"><span class="beacon-ping"></span><span class="beacon-dot"></span></span></strong>
+                    <span class="pill pill-active">Cautious Stance</span> <span class="pill pill-neutral">Buyback Cannibal</span> <span class="pill pill-neutral">Cash Fortress</span>
+                    <span class="alert-time">2026-08-11 10:35</span>
+                </div>
+                <div class="alert-title">UPWK Q2 Earnings Audit: Revenue Guidance Trimmed on SEO/AI Friction; EBITDA Margins Hit 33.4% & Buybacks Accelerate</div>
+                <div class="alert-blurb">Upwork reported Q2 2026 revenue of $191.7M (-2% YoY) and record Adjusted EBITDA of .1M (33.4% margin), but trimmed full-year revenue guidance to M-M due to Google SEO disruption and low-complexity task erosion from AI au</div>
+            </div>
+            <div class="alert-right">
+                <div class="alert-price-val">$8.76</div>
+                <div class="alert-price-pct neg">-9.41%</div>
+            </div>
+        </div>
+        
+        <div class="alert-item" data-alert-id="CSU_2026-08-11_1528" onclick='openAlertModal({&quot;id&quot;: &quot;CSU_2026-08-11_1528&quot;, &quot;ticker&quot;: &quot;CSU&quot;, &quot;title&quot;: &quot;CSU Reaffirmed at BUY: Glitch Alert Resolved Ahead of Q2 Call as M&A Engine Compounds&quot;, &quot;timestamp&quot;: &quot;2026-08-11 15:28&quot;, &quot;severity&quot;: &quot;High Conviction&quot;, &quot;price&quot;: 2320.0, &quot;change&quot;: 0.0, &quot;trigger_reason&quot;: &quot;Lower Alert Threshold Breached ($100.00 <= $2100.00)&quot;, &quot;what_was_before&quot;: &quot;The lower alert threshold breach ($100.00) reflects an automated ticker exchange currency feed glitch rather than any fundamental operational decay\u2014CSU actively trades at ~$2,315 USD (~C$3,200 CAD). Fundamental operational health is accelerating into the Q2 2026 conference call scheduled for August 12, 2026. Primary source review confirms Q1 FCFA2S surged 44% YoY to $733M alongside a record $1.6B in H1 2026 capital deployment. Meanwhile, subsidiary Topicus.com posted Q2 2026 revenue growth of 18% with positive free cash flow. Our High Conviction thesis and BUY forward status are decisively reaffirmed&quot;, &quot;what_changes_now&quot;: &quot;The $100.00 price trigger alert was formally audited and confirmed as an automated ticker feed currency conversion glitch, with CSU actively trading at ~$2,315 USD (~$2,320 USD). Operational fundamentals remain exceptionally robust heading into the Q2 2026 earnings conference call on August 12, 2026, supported by subsidiary Topicus.com&#39;s strong Q2 results (+18% revenue, positive FCFA2S) and CSU&#39;s record $1.6B H1 2026 capital deployment. We refresh our next catalyst calendar date to November 12, 2026 for Q3 results and decisively maintain our BUY rating and High Conviction stance&quot;, &quot;report_url&quot;: &quot;reports/CSU.html&quot;})'>
+            <div class="alert-left">
+                <div class="alert-badges">
+                    <strong class="alert-ticker">CSU<span class="status-beacon beacon-buy" title="Action Signal: Strong Buy (Get in NOW / Thesis Accelerating)"><span class="beacon-ping"></span><span class="beacon-dot"></span></span></strong>
+                    <span class="pill pill-active">High Conviction</span> <span class="pill pill-neutral">Cash Fortress</span> <span class="pill pill-neutral">Capital Compounder</span>
+                    <span class="alert-time">2026-08-11 15:28</span>
+                </div>
+                <div class="alert-title">CSU Reaffirmed at BUY: Glitch Alert Resolved Ahead of Q2 Call as M&A Engine Compounds</div>
+                <div class="alert-blurb">The $100.00 price trigger alert was formally audited and confirmed as an automated ticker feed currency conversion glitch, with CSU actively trading at ~$2,315 USD (~$2,320 USD). Operational fundamentals remain exception</div>
+            </div>
+            <div class="alert-right">
+                <div class="alert-price-val">$2320.00</div>
+                <div class="alert-price-pct pos">+0.00%</div>
+            </div>
+        </div>
+        
+        <div class="alert-item" data-alert-id="CSU_2026-08-11_1023" onclick='openAlertModal({&quot;id&quot;: &quot;CSU_2026-08-11_1023&quot;, &quot;ticker&quot;: &quot;CSU&quot;, &quot;title&quot;: &quot;CSU Lower Threshold Triggered via Data Anomaly; Fundamentals Accelerate into Q2 Earnings&quot;, &quot;timestamp&quot;: &quot;2026-08-11 10:23&quot;, &quot;severity&quot;: &quot;High Conviction&quot;, &quot;price&quot;: 2320.0, &quot;change&quot;: 0.0, &quot;trigger_reason&quot;: &quot;Lower Alert Threshold Breached ($100.00 <= $2600.00)&quot;, &quot;what_was_before&quot;: &quot;Constellation Software (CSU) remains the gold standard in decentralized capital allocation, proving in Q1 2026 that AI disruption fears were overblown as organic recurring maintenance revenue grew 9% YoY while FCFA2S surged 44% to $733M. Taking advantage of depressed software multiples, management deployed a record $1.6B in total capital ($809M completed in Q1 plus $786M committed for Q2), reigniting the serial acquisition compounding engine. Grounded in Warren Buffett&#39;s Owner Earnings methodology, CSU offers an attractive asymmetric opportunity with high pricing power, negative working capital float, and sub-1% dilution&quot;, &quot;what_changes_now&quot;: &quot;The lower alert threshold breach ($100.00) reflects an automated ticker exchange currency feed glitch rather than any fundamental operational decay\u2014CSU actively trades at ~$2,315 USD (~$2,320 USD). Fundamental operational health is accelerating into the Q2 2026 conference call scheduled for August 12, 2026. Primary source review confirms Q1 FCFA2S surged 44% YoY to $733M alongside a record $1.6B in H1 2026 capital deployment. Meanwhile, subsidiary Topicus.com posted Q2 2026 revenue growth of 18% with positive free cash flow. Our High Conviction thesis and BUY forward status are decisively reaffirmed&quot;, &quot;report_url&quot;: &quot;reports/CSU.html&quot;})'>
+            <div class="alert-left">
+                <div class="alert-badges">
+                    <strong class="alert-ticker">CSU<span class="status-beacon beacon-buy" title="Action Signal: Strong Buy (Get in NOW / Thesis Accelerating)"><span class="beacon-ping"></span><span class="beacon-dot"></span></span></strong>
+                    <span class="pill pill-active">High Conviction</span> <span class="pill pill-neutral">Quality Compounder</span> <span class="pill pill-neutral">M A</span>
+                    <span class="alert-time">2026-08-11 10:23</span>
+                </div>
+                <div class="alert-title">CSU Lower Threshold Triggered via Data Anomaly; Fundamentals Accelerate into Q2 Earnings</div>
+                <div class="alert-blurb">The lower alert threshold breach ($100.00) reflects an automated ticker exchange currency feed glitch rather than any fundamental operational decay—CSU actively trades at ~$2,315 USD (~$2,320 USD). Fundamental operationa</div>
+            </div>
+            <div class="alert-right">
+                <div class="alert-price-val">$2320.00</div>
+                <div class="alert-price-pct pos">+0.00%</div>
+            </div>
+        </div>
+        
+    <div id="empty-alerts-box" class="empty-alerts" style="display: none;">
+        <div class="empty-title">No Active Alerts</div>
+        <div class="empty-sub">All positions within normal corridors</div>
+    </div>
+    
+            </div>
+        </section>
+
         <!-- PORTFOLIO SECTION -->
         <section id="pane-portfolio" class="tab-panel">
             
     <!-- AlphaThesis Concentrated Portfolio Tab -->
-    <div id="portfolio-interactive-hub" style="display:flex; flex-direction:column; gap:32px;">
+    <div id="portfolio-interactive-hub" style="display:flex; flex-direction:column; gap:28px;">
         
         <!-- Top Stats Cards -->
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px;">
-            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:20px 22px; display:flex; flex-direction:column; gap:4px;">
-                <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); font-weight:600;">Look-Through FCF Yield</div>
-                <div style="font-family:var(--font-serif); font-size:2rem; font-weight:500; color:var(--accent-warm);">5.42%</div>
-                <div style="font-size:0.82rem; color:var(--text-secondary);">$5,425 / yr on $100k Base</div>
+            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:20px 22px; display:flex; flex-direction:column;">
+                <div style="font-family:var(--font-sans); font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:6px;">Look-Through FCF Yield</div>
+                <div style="font-family:var(--font-mono); font-size:2.1rem; font-weight:500; color:var(--accent-warm); line-height:1.1; margin-bottom:6px;">5.42%</div>
+                <div style="font-family:var(--font-sans); font-size:0.82rem; color:var(--text-secondary);">$5,425 / yr on $100k Base</div>
             </div>
 
-            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:20px 22px; display:flex; flex-direction:column; gap:4px;">
-                <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); font-weight:600;">Share Cannibalization</div>
-                <div style="font-family:var(--font-serif); font-size:2rem; font-weight:500; color:var(--accent-green);">+3.36%</div>
-                <div style="font-size:0.82rem; color:var(--text-secondary);">Annual share count reduction</div>
+            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:20px 22px; display:flex; flex-direction:column;">
+                <div style="font-family:var(--font-sans); font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:6px;">Share Cannibalization</div>
+                <div style="font-family:var(--font-mono); font-size:2.1rem; font-weight:500; color:var(--accent-green); line-height:1.1; margin-bottom:6px;">+3.36%</div>
+                <div style="font-family:var(--font-sans); font-size:0.82rem; color:var(--text-secondary);">Annual share count reduction</div>
             </div>
 
-            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:20px 22px; display:flex; flex-direction:column; gap:4px;">
-                <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); font-weight:600;">Treasury Cash Cushion</div>
-                <div style="font-family:var(--font-serif); font-size:2rem; font-weight:500; color:var(--text-title);">13.0%</div>
-                <div style="font-size:0.82rem; color:var(--text-secondary);">Yielding 4.5% • Ready for Dips</div>
+            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:20px 22px; display:flex; flex-direction:column;">
+                <div style="font-family:var(--font-sans); font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:6px;">Treasury Cash Cushion</div>
+                <div style="font-family:var(--font-mono); font-size:2.1rem; font-weight:500; color:var(--text-title); line-height:1.1; margin-bottom:6px;">13.0%</div>
+                <div style="font-family:var(--font-sans); font-size:0.82rem; color:var(--text-secondary);">Yielding 4.5% Risk-Free Dry Powder</div>
             </div>
 
-            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:20px 22px; display:flex; flex-direction:column; gap:4px;">
-                <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); font-weight:600;">Daily Rebalance Status</div>
-                <div style="font-family:var(--font-serif); font-size:1.6rem; font-weight:500; color:var(--accent-green); display:flex; align-items:center; gap:8px;">
+            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:20px 22px; display:flex; flex-direction:column;">
+                <div style="font-family:var(--font-sans); font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:6px;">Daily Rebalance Status</div>
+                <div style="font-family:var(--font-sans); font-size:1.7rem; font-weight:500; color:var(--accent-green); display:flex; align-items:center; gap:8px; line-height:1.1; margin-bottom:6px;">
                     <span class="status-beacon beacon-buy" style="margin-left:0;"><span class="beacon-dot"></span><span class="beacon-ping"></span></span>
                     Optimal
                 </div>
-                <div style="font-size:0.82rem; color:var(--text-dim);">Min. Material Threshold $\ge 5\%$</div>
+                <div style="font-family:var(--font-sans); font-size:0.82rem; color:var(--text-dim);">Min. material trade delta ≥ 5%</div>
             </div>
         </div>
 
-        <!-- Interactive Capital Sizing Calculator -->
-        <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:24px 28px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; margin-bottom:16px;">
-                <div>
-                    <h3 style="font-family:var(--font-serif); font-size:1.35rem; color:var(--text-title); margin:0 0 4px; font-weight:500;">
-                        💰 Live Capital Allocation Calculator
-                    </h3>
-                    <p style="color:var(--text-dim); font-size:0.86rem; margin:0;">
-                        Enter your portfolio size to calculate exact dollar amounts and share counts per holding.
-                    </p>
-                </div>
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <div style="position:relative; display:flex; align-items:center;">
-                        <span style="position:absolute; left:12px; font-family:var(--font-mono); color:var(--text-dim);">$</span>
-                        <input type="number" id="portfolio-capital-input" value="100000" step="1000" min="1000" style="background:var(--bg-subpanel); border:1px solid var(--border-color); border-radius:8px; padding:9px 14px 9px 28px; color:var(--text-title); font-family:var(--font-mono); font-size:0.95rem; width:150px; outline:none;" oninput="updatePortfolioCalculations()" />
-                    </div>
-                    <button class="btn-outline" onclick="setCapitalPreset(100000)" style="padding:8px 12px; font-size:0.82rem;">$100k</button>
-                    <button class="btn-outline" onclick="setCapitalPreset(250000)" style="padding:8px 12px; font-size:0.82rem;">$250k</button>
-                    <button class="btn-outline" onclick="setCapitalPreset(500000)" style="padding:8px 12px; font-size:0.82rem;">$500k</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Performance & Look-Through Owner Earnings Chart -->
+        <!-- Performance & Look-Through Owner Earnings Chart ($100k Base) -->
         <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:24px 28px;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:12px;">
                 <div>
                     <h3 style="font-family:var(--font-serif); font-size:1.35rem; color:var(--text-title); margin:0 0 4px; font-weight:500;">
-                        📈 Portfolio USD Value & Look-Through Owner Earnings Growth
+                        📈 Portfolio Growth & Look-Through Owner Earnings ($100k Base)
                     </h3>
                     <p style="color:var(--text-dim); font-size:0.86rem; margin:0;">
-                        Tracking market price appreciation alongside fundamental Owner Earnings ($ USD run-rate).
+                        Tracking market price compounding alongside fundamental Owner Earnings ($ USD/yr run-rate).
                     </p>
                 </div>
                 <div style="display:flex; align-items:center; gap:16px; font-size:0.82rem;">
@@ -3451,10 +3536,10 @@
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:12px;">
                 <div>
                     <h3 style="font-family:var(--font-serif); font-size:1.35rem; color:var(--text-title); margin:0 0 4px; font-weight:500;">
-                        🏛️ Master Allocation & Downside Defense Matrix
+                        🏛️ Core Holdings & Downside Defense Matrix
                     </h3>
                     <p style="color:var(--text-dim); font-size:0.86rem; margin:0;">
-                        Curated 8-holding fortress portfolio across Pillar A (Anchors) and Pillar B (Cannibals).
+                        Concentrated 8-holding fortress allocation across Pillar A (Moat Anchors), Pillar B (Cannibals), and Treasury Cash.
                     </p>
                 </div>
                 <div style="display:flex; align-items:center; gap:8px;">
@@ -3465,348 +3550,355 @@
             </div>
 
             <table class="fin-table" style="width:100%; border-collapse:collapse;">
+                <colgroup>
+                    <col style="width:25%;">
+                    <col style="width:16%;">
+                    <col style="width:18%;">
+                    <col style="width:18%;">
+                    <col style="width:23%;">
+                </colgroup>
                 <thead>
                     <tr style="border-bottom:1px solid var(--border-color); text-align:left; font-size:0.76rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim);">
-                        <th style="padding:10px 14px;">Pillar</th>
                         <th style="padding:10px 14px;">Holding</th>
-                        <th style="padding:10px 14px;">Allocation</th>
-                        <th style="padding:10px 14px;">Price & Intrinsic Value</th>
+                        <th style="padding:10px 14px;">Weight ($100k Base)</th>
+                        <th style="padding:10px 14px;">Price vs Fair Value</th>
                         <th style="padding:10px 14px;">Owner Earnings Engine</th>
-                        <th style="padding:10px 14px;">Moat & Downside Defense</th>
+                        <th style="padding:10px 14px;">Moat & Solvency Defense</th>
                     </tr>
                 </thead>
                 <tbody id="portfolio-holdings-tbody">
                     
         <tr class="table-row">
-            <td style="vertical-align:top; padding:16px 14px;"><span class="pill pill-active" style="font-size:0.7rem; background:rgba(201,154,117,0.18); border-color:var(--accent-warm);">Pillar A • Fortress Anchor</span></td>
             <td style="vertical-align:top; padding:16px 14px;">
-            <a href="reports/GOOG.html" style="text-decoration:none; display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-serif); font-size:1.18rem; font-weight:500; color:var(--accent-warm); display:flex; align-items:center; gap:6px;">
-                    GOOG <span style="font-size:0.75rem; color:var(--text-dim);">↗</span>
-                </span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <a href="reports/GOOG.html" style="font-family:var(--font-serif); font-size:1.25rem; font-weight:500; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+                        GOOG <span style="font-size:0.72rem; color:var(--text-dim);">↗</span>
+                    </a>
+                    <span class="pill pill-active" style="font-size:0.68rem; padding:2px 8px; background:rgba(201,154,117,0.14); border-color:var(--accent-warm);">Pillar A • Fortress Anchor</span>
+                </div>
                 <span style="font-size:0.82rem; color:var(--text-secondary);">Alphabet Inc.</span>
-            </a>
+            </div>
             </td>
             <td style="vertical-align:top; padding:16px 14px;">
         <div style="font-family:var(--font-mono); font-size:0.95rem; font-weight:600; color:var(--text-title);">
             15.0%
-            <div style="font-size:0.8rem; font-weight:400; color:var(--accent-warm);">$15,000.00</div>
-            <div style="font-size:0.75rem; font-weight:400; color:var(--text-dim);">43.73 shares</div>
+            <div style="font-size:0.78rem; font-weight:400; color:var(--accent-warm);">$15,000 <span style="color:var(--text-dim);">(43.73 shs)</span></div>
         </div>
         </td>
             <td style="vertical-align:top; padding:16px 14px;">
             <div style="font-family:var(--font-mono); font-size:0.92rem; color:var(--text-title); font-weight:500;">
                 $343.00
-                <div style="font-size:0.78rem; color:var(--text-dim);">FV: $420.00 (<span style="color:var(--accent-green);">+18.3% MoS</span>)</div>
+                <div style="font-size:0.78rem; color:var(--text-dim);">FV: $420.00 <span style="color:var(--accent-green); font-weight:500;">(+18.3% MoS)</span></div>
             </div>
             </td>
             <td style="vertical-align:top; padding:16px 14px;">
-            <div style="font-family:var(--font-mono); font-size:0.88rem; color:var(--text-title);">
+            <div style="font-family:var(--font-mono); font-size:0.90rem; color:var(--text-title);">
                 4.8% FCF Yield
-                <div style="font-size:0.78rem; color:var(--accent-warm);">$720/yr</div>
-                <div style="font-size:0.75rem; color:var(--accent-green);">3.2% Buyback/yr</div>
+                <div style="font-size:0.78rem; color:var(--accent-warm);">$720/yr <span style="color:var(--accent-green);">(3.2% Buyback)</span></div>
             </div>
             </td>
             <td style="vertical-align:top; padding:16px 14px;">
         <div style="font-size:0.84rem; color:var(--text-secondary); line-height:1.45;">
-            <div style="font-weight:500; color:var(--text-title); margin-bottom:2px;">Irreplaceable distribution network and proprietary TPU AI infrastructure.</div>
-            <div style="color:var(--text-dim); font-size:0.78rem;">Solvency: <span style="color:var(--accent-warm);">Pristine ($85B Net Cash)</span></div>
+            <div style="color:var(--text-title); margin-bottom:2px;">Irreplaceable distribution network and proprietary TPU AI infrastructure.</div>
+            <div style="font-size:0.78rem; color:var(--text-dim);">Solvency: <span style="color:var(--accent-warm); font-weight:500;">Pristine ($85B Net Cash)</span></div>
         </div>
         </td>
         </tr>
         
         <tr class="table-row">
-            <td style="vertical-align:top; padding:16px 14px;"><span class="pill pill-active" style="font-size:0.7rem; background:rgba(201,154,117,0.18); border-color:var(--accent-warm);">Pillar A • Fortress Anchor</span></td>
             <td style="vertical-align:top; padding:16px 14px;">
-            <a href="reports/META.html" style="text-decoration:none; display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-serif); font-size:1.18rem; font-weight:500; color:var(--accent-warm); display:flex; align-items:center; gap:6px;">
-                    META <span style="font-size:0.75rem; color:var(--text-dim);">↗</span>
-                </span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <a href="reports/META.html" style="font-family:var(--font-serif); font-size:1.25rem; font-weight:500; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+                        META <span style="font-size:0.72rem; color:var(--text-dim);">↗</span>
+                    </a>
+                    <span class="pill pill-active" style="font-size:0.68rem; padding:2px 8px; background:rgba(201,154,117,0.14); border-color:var(--accent-warm);">Pillar A • Fortress Anchor</span>
+                </div>
                 <span style="font-size:0.82rem; color:var(--text-secondary);">Meta Platforms, Inc.</span>
-            </a>
+            </div>
             </td>
             <td style="vertical-align:top; padding:16px 14px;">
         <div style="font-family:var(--font-mono); font-size:0.95rem; font-weight:600; color:var(--text-title);">
             14.0%
-            <div style="font-size:0.8rem; font-weight:400; color:var(--accent-warm);">$14,000.00</div>
-            <div style="font-size:0.75rem; font-weight:400; color:var(--text-dim);">23.37 shares</div>
+            <div style="font-size:0.78rem; font-weight:400; color:var(--accent-warm);">$14,000 <span style="color:var(--text-dim);">(23.37 shs)</span></div>
         </div>
         </td>
             <td style="vertical-align:top; padding:16px 14px;">
             <div style="font-family:var(--font-mono); font-size:0.92rem; color:var(--text-title); font-weight:500;">
                 $599.12
-                <div style="font-size:0.78rem; color:var(--text-dim);">FV: $720.00 (<span style="color:var(--accent-green);">+16.8% MoS</span>)</div>
+                <div style="font-size:0.78rem; color:var(--text-dim);">FV: $720.00 <span style="color:var(--accent-green); font-weight:500;">(+16.8% MoS)</span></div>
             </div>
             </td>
             <td style="vertical-align:top; padding:16px 14px;">
-            <div style="font-family:var(--font-mono); font-size:0.88rem; color:var(--text-title);">
+            <div style="font-family:var(--font-mono); font-size:0.90rem; color:var(--text-title);">
                 5.4% FCF Yield
-                <div style="font-size:0.78rem; color:var(--accent-warm);">$756/yr</div>
-                <div style="font-size:0.75rem; color:var(--accent-green);">4.1% Buyback/yr</div>
+                <div style="font-size:0.78rem; color:var(--accent-warm);">$756/yr <span style="color:var(--accent-green);">(4.1% Buyback)</span></div>
             </div>
             </td>
             <td style="vertical-align:top; padding:16px 14px;">
         <div style="font-size:0.84rem; color:var(--text-secondary); line-height:1.45;">
-            <div style="font-weight:500; color:var(--text-title); margin-bottom:2px;">Global network effects and proprietary Llama AI open-source ecosystem.</div>
-            <div style="color:var(--text-dim); font-size:0.78rem;">Solvency: <span style="color:var(--accent-warm);">Pristine ($42B Net Cash)</span></div>
+            <div style="color:var(--text-title); margin-bottom:2px;">Global network effects and proprietary Llama AI open-source ecosystem.</div>
+            <div style="font-size:0.78rem; color:var(--text-dim);">Solvency: <span style="color:var(--accent-warm); font-weight:500;">Pristine ($42B Net Cash)</span></div>
         </div>
         </td>
         </tr>
         
         <tr class="table-row">
-            <td style="vertical-align:top; padding:16px 14px;"><span class="pill pill-active" style="font-size:0.7rem; background:rgba(201,154,117,0.18); border-color:var(--accent-warm);">Pillar A • Fortress Anchor</span></td>
             <td style="vertical-align:top; padding:16px 14px;">
-            <a href="reports/V.html" style="text-decoration:none; display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-serif); font-size:1.18rem; font-weight:500; color:var(--accent-warm); display:flex; align-items:center; gap:6px;">
-                    V <span style="font-size:0.75rem; color:var(--text-dim);">↗</span>
-                </span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <a href="reports/V.html" style="font-family:var(--font-serif); font-size:1.25rem; font-weight:500; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+                        V <span style="font-size:0.72rem; color:var(--text-dim);">↗</span>
+                    </a>
+                    <span class="pill pill-active" style="font-size:0.68rem; padding:2px 8px; background:rgba(201,154,117,0.14); border-color:var(--accent-warm);">Pillar A • Fortress Anchor</span>
+                </div>
                 <span style="font-size:0.82rem; color:var(--text-secondary);">Visa Inc.</span>
-            </a>
+            </div>
             </td>
             <td style="vertical-align:top; padding:16px 14px;">
         <div style="font-family:var(--font-mono); font-size:0.95rem; font-weight:600; color:var(--text-title);">
             12.0%
-            <div style="font-size:0.8rem; font-weight:400; color:var(--accent-warm);">$12,000.00</div>
-            <div style="font-size:0.75rem; font-weight:400; color:var(--text-dim);">33.07 shares</div>
+            <div style="font-size:0.78rem; font-weight:400; color:var(--accent-warm);">$12,000 <span style="color:var(--text-dim);">(33.07 shs)</span></div>
         </div>
         </td>
             <td style="vertical-align:top; padding:16px 14px;">
             <div style="font-family:var(--font-mono); font-size:0.92rem; color:var(--text-title); font-weight:500;">
                 $362.82
-                <div style="font-size:0.78rem; color:var(--text-dim);">FV: $395.00 (<span style="color:var(--accent-green);">+8.1% MoS</span>)</div>
+                <div style="font-size:0.78rem; color:var(--text-dim);">FV: $395.00 <span style="color:var(--accent-green); font-weight:500;">(+8.1% MoS)</span></div>
             </div>
             </td>
             <td style="vertical-align:top; padding:16px 14px;">
-            <div style="font-family:var(--font-mono); font-size:0.88rem; color:var(--text-title);">
+            <div style="font-family:var(--font-mono); font-size:0.90rem; color:var(--text-title);">
                 4.6% FCF Yield
-                <div style="font-size:0.78rem; color:var(--accent-warm);">$552/yr</div>
-                <div style="font-size:0.75rem; color:var(--accent-green);">2.8% Buyback/yr</div>
+                <div style="font-size:0.78rem; color:var(--accent-warm);">$552/yr <span style="color:var(--accent-green);">(2.8% Buyback)</span></div>
             </div>
             </td>
             <td style="vertical-align:top; padding:16px 14px;">
         <div style="font-size:0.84rem; color:var(--text-secondary); line-height:1.45;">
-            <div style="font-weight:500; color:var(--text-title); margin-bottom:2px;">Two-sided network effects across 4B+ cardholders and 150M+ merchants.</div>
-            <div style="color:var(--text-dim); font-size:0.78rem;">Solvency: <span style="color:var(--accent-warm);">A+ Rated ($18B+ Annual FCF)</span></div>
+            <div style="color:var(--text-title); margin-bottom:2px;">Two-sided network effects across 4B+ cardholders and 150M+ merchants.</div>
+            <div style="font-size:0.78rem; color:var(--text-dim);">Solvency: <span style="color:var(--accent-warm); font-weight:500;">A+ Rated ($18B+ Annual FCF)</span></div>
         </div>
         </td>
         </tr>
         
         <tr class="table-row">
-            <td style="vertical-align:top; padding:16px 14px;"><span class="pill pill-active" style="font-size:0.7rem; background:rgba(201,154,117,0.18); border-color:var(--accent-warm);">Pillar A • Fortress Anchor</span></td>
             <td style="vertical-align:top; padding:16px 14px;">
-            <a href="reports/MSFT.html" style="text-decoration:none; display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-serif); font-size:1.18rem; font-weight:500; color:var(--accent-warm); display:flex; align-items:center; gap:6px;">
-                    MSFT <span style="font-size:0.75rem; color:var(--text-dim);">↗</span>
-                </span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <a href="reports/MSFT.html" style="font-family:var(--font-serif); font-size:1.25rem; font-weight:500; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+                        MSFT <span style="font-size:0.72rem; color:var(--text-dim);">↗</span>
+                    </a>
+                    <span class="pill pill-active" style="font-size:0.68rem; padding:2px 8px; background:rgba(201,154,117,0.14); border-color:var(--accent-warm);">Pillar A • Fortress Anchor</span>
+                </div>
                 <span style="font-size:0.82rem; color:var(--text-secondary);">Microsoft Corporation</span>
-            </a>
+            </div>
             </td>
             <td style="vertical-align:top; padding:16px 14px;">
         <div style="font-family:var(--font-mono); font-size:0.95rem; font-weight:600; color:var(--text-title);">
             12.0%
-            <div style="font-size:0.8rem; font-weight:400; color:var(--accent-warm);">$12,000.00</div>
-            <div style="font-size:0.75rem; font-weight:400; color:var(--text-dim);">23.82 shares</div>
+            <div style="font-size:0.78rem; font-weight:400; color:var(--accent-warm);">$12,000 <span style="color:var(--text-dim);">(23.82 shs)</span></div>
         </div>
         </td>
             <td style="vertical-align:top; padding:16px 14px;">
             <div style="font-family:var(--font-mono); font-size:0.92rem; color:var(--text-title); font-weight:500;">
                 $503.81
-                <div style="font-size:0.78rem; color:var(--text-dim);">FV: $520.00 (<span style="color:var(--accent-green);">+3.1% MoS</span>)</div>
+                <div style="font-size:0.78rem; color:var(--text-dim);">FV: $520.00 <span style="color:var(--accent-green); font-weight:500;">(+3.1% MoS)</span></div>
             </div>
             </td>
             <td style="vertical-align:top; padding:16px 14px;">
-            <div style="font-family:var(--font-mono); font-size:0.88rem; color:var(--text-title);">
+            <div style="font-family:var(--font-mono); font-size:0.90rem; color:var(--text-title);">
                 3.9% FCF Yield
-                <div style="font-size:0.78rem; color:var(--accent-warm);">$468/yr</div>
-                <div style="font-size:0.75rem; color:var(--accent-green);">1.5% Buyback/yr</div>
+                <div style="font-size:0.78rem; color:var(--accent-warm);">$468/yr <span style="color:var(--accent-green);">(1.5% Buyback)</span></div>
             </div>
             </td>
             <td style="vertical-align:top; padding:16px 14px;">
         <div style="font-size:0.84rem; color:var(--text-secondary); line-height:1.45;">
-            <div style="font-weight:500; color:var(--text-title); margin-bottom:2px;">High enterprise switching costs and entrenched IT budget standard.</div>
-            <div style="color:var(--text-dim); font-size:0.78rem;">Solvency: <span style="color:var(--accent-warm);">AAA Credit Rating</span></div>
+            <div style="color:var(--text-title); margin-bottom:2px;">High enterprise switching costs and entrenched IT budget standard.</div>
+            <div style="font-size:0.78rem; color:var(--text-dim);">Solvency: <span style="color:var(--accent-warm); font-weight:500;">AAA Credit Rating</span></div>
         </div>
         </td>
         </tr>
         
         <tr class="table-row">
-            <td style="vertical-align:top; padding:16px 14px;"><span class="pill pill-active" style="font-size:0.7rem; background:rgba(125,157,129,0.18); border-color:var(--accent-green); color:var(--accent-green);">Pillar B • Mispriced Cannibal</span></td>
             <td style="vertical-align:top; padding:16px 14px;">
-            <a href="reports/BKNG.html" style="text-decoration:none; display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-serif); font-size:1.18rem; font-weight:500; color:var(--accent-warm); display:flex; align-items:center; gap:6px;">
-                    BKNG <span style="font-size:0.75rem; color:var(--text-dim);">↗</span>
-                </span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <a href="reports/BKNG.html" style="font-family:var(--font-serif); font-size:1.25rem; font-weight:500; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+                        BKNG <span style="font-size:0.72rem; color:var(--text-dim);">↗</span>
+                    </a>
+                    <span class="pill pill-active" style="font-size:0.68rem; padding:2px 8px; background:rgba(125,157,129,0.14); border-color:var(--accent-green); color:var(--accent-green);">Pillar B • Cannibal</span>
+                </div>
                 <span style="font-size:0.82rem; color:var(--text-secondary);">Booking Holdings Inc. Common St</span>
-            </a>
+            </div>
             </td>
             <td style="vertical-align:top; padding:16px 14px;">
         <div style="font-family:var(--font-mono); font-size:0.95rem; font-weight:600; color:var(--text-title);">
             10.0%
-            <div style="font-size:0.8rem; font-weight:400; color:var(--accent-warm);">$10,000.00</div>
-            <div style="font-size:0.75rem; font-weight:400; color:var(--text-dim);">46.98 shares</div>
+            <div style="font-size:0.78rem; font-weight:400; color:var(--accent-warm);">$10,000 <span style="color:var(--text-dim);">(46.98 shs)</span></div>
         </div>
         </td>
             <td style="vertical-align:top; padding:16px 14px;">
             <div style="font-family:var(--font-mono); font-size:0.92rem; color:var(--text-title); font-weight:500;">
                 $212.87
-                <div style="font-size:0.78rem; color:var(--text-dim);">FV: $265.00 (<span style="color:var(--accent-green);">+19.7% MoS</span>)</div>
+                <div style="font-size:0.78rem; color:var(--text-dim);">FV: $265.00 <span style="color:var(--accent-green); font-weight:500;">(+19.7% MoS)</span></div>
             </div>
             </td>
             <td style="vertical-align:top; padding:16px 14px;">
-            <div style="font-family:var(--font-mono); font-size:0.88rem; color:var(--text-title);">
+            <div style="font-family:var(--font-mono); font-size:0.90rem; color:var(--text-title);">
                 6.8% FCF Yield
-                <div style="font-size:0.78rem; color:var(--accent-warm);">$680/yr</div>
-                <div style="font-size:0.75rem; color:var(--accent-green);">6.4% Buyback/yr</div>
+                <div style="font-size:0.78rem; color:var(--accent-warm);">$680/yr <span style="color:var(--accent-green);">(6.4% Buyback)</span></div>
             </div>
             </td>
             <td style="vertical-align:top; padding:16px 14px;">
         <div style="font-size:0.84rem; color:var(--text-secondary); line-height:1.45;">
-            <div style="font-weight:500; color:var(--text-title); margin-bottom:2px;">Dominant European direct-traffic lodging network effects.</div>
-            <div style="color:var(--text-dim); font-size:0.78rem;">Solvency: <span style="color:var(--accent-warm);">Low Net Debt / EBITDA</span></div>
+            <div style="color:var(--text-title); margin-bottom:2px;">Dominant European direct-traffic lodging network effects.</div>
+            <div style="font-size:0.78rem; color:var(--text-dim);">Solvency: <span style="color:var(--accent-warm); font-weight:500;">Low Net Debt / EBITDA</span></div>
         </div>
         </td>
         </tr>
         
         <tr class="table-row">
-            <td style="vertical-align:top; padding:16px 14px;"><span class="pill pill-active" style="font-size:0.7rem; background:rgba(125,157,129,0.18); border-color:var(--accent-green); color:var(--accent-green);">Pillar B • Mispriced Cannibal</span></td>
             <td style="vertical-align:top; padding:16px 14px;">
-            <a href="reports/CPRT.html" style="text-decoration:none; display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-serif); font-size:1.18rem; font-weight:500; color:var(--accent-warm); display:flex; align-items:center; gap:6px;">
-                    CPRT <span style="font-size:0.75rem; color:var(--text-dim);">↗</span>
-                </span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <a href="reports/CPRT.html" style="font-family:var(--font-serif); font-size:1.25rem; font-weight:500; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+                        CPRT <span style="font-size:0.72rem; color:var(--text-dim);">↗</span>
+                    </a>
+                    <span class="pill pill-active" style="font-size:0.68rem; padding:2px 8px; background:rgba(125,157,129,0.14); border-color:var(--accent-green); color:var(--accent-green);">Pillar B • Cannibal</span>
+                </div>
                 <span style="font-size:0.82rem; color:var(--text-secondary);">Copart, Inc.</span>
-            </a>
+            </div>
             </td>
             <td style="vertical-align:top; padding:16px 14px;">
         <div style="font-family:var(--font-mono); font-size:0.95rem; font-weight:600; color:var(--text-title);">
             8.0%
-            <div style="font-size:0.8rem; font-weight:400; color:var(--accent-warm);">$8,000.00</div>
-            <div style="font-size:0.75rem; font-weight:400; color:var(--text-dim);">272.11 shares</div>
+            <div style="font-size:0.78rem; font-weight:400; color:var(--accent-warm);">$8,000 <span style="color:var(--text-dim);">(272.11 shs)</span></div>
         </div>
         </td>
             <td style="vertical-align:top; padding:16px 14px;">
             <div style="font-family:var(--font-mono); font-size:0.92rem; color:var(--text-title); font-weight:500;">
                 $29.40
-                <div style="font-size:0.78rem; color:var(--text-dim);">FV: $38.50 (<span style="color:var(--accent-green);">+23.6% MoS</span>)</div>
+                <div style="font-size:0.78rem; color:var(--text-dim);">FV: $38.50 <span style="color:var(--accent-green); font-weight:500;">(+23.6% MoS)</span></div>
             </div>
             </td>
             <td style="vertical-align:top; padding:16px 14px;">
-            <div style="font-family:var(--font-mono); font-size:0.88rem; color:var(--text-title);">
+            <div style="font-family:var(--font-mono); font-size:0.90rem; color:var(--text-title);">
                 4.4% FCF Yield
-                <div style="font-size:0.78rem; color:var(--accent-warm);">$352/yr</div>
-                <div style="font-size:0.75rem; color:var(--accent-green);">2.1% Buyback/yr</div>
+                <div style="font-size:0.78rem; color:var(--accent-warm);">$352/yr <span style="color:var(--accent-green);">(2.1% Buyback)</span></div>
             </div>
             </td>
             <td style="vertical-align:top; padding:16px 14px;">
         <div style="font-size:0.84rem; color:var(--text-secondary); line-height:1.45;">
-            <div style="font-weight:500; color:var(--text-title); margin-bottom:2px;">Zoning barriers to entry and insurer total-loss processing lock-in.</div>
-            <div style="color:var(--text-dim); font-size:0.78rem;">Solvency: <span style="color:var(--accent-warm);">Zero Long-Term Debt</span></div>
+            <div style="color:var(--text-title); margin-bottom:2px;">Zoning barriers to entry and insurer total-loss processing lock-in.</div>
+            <div style="font-size:0.78rem; color:var(--text-dim);">Solvency: <span style="color:var(--accent-warm); font-weight:500;">Zero Long-Term Debt</span></div>
         </div>
         </td>
         </tr>
         
         <tr class="table-row">
-            <td style="vertical-align:top; padding:16px 14px;"><span class="pill pill-active" style="font-size:0.7rem; background:rgba(125,157,129,0.18); border-color:var(--accent-green); color:var(--accent-green);">Pillar B • Mispriced Cannibal</span></td>
             <td style="vertical-align:top; padding:16px 14px;">
-            <a href="reports/CROX.html" style="text-decoration:none; display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-serif); font-size:1.18rem; font-weight:500; color:var(--accent-warm); display:flex; align-items:center; gap:6px;">
-                    CROX <span style="font-size:0.75rem; color:var(--text-dim);">↗</span>
-                </span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <a href="reports/CROX.html" style="font-family:var(--font-serif); font-size:1.25rem; font-weight:500; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+                        CROX <span style="font-size:0.72rem; color:var(--text-dim);">↗</span>
+                    </a>
+                    <span class="pill pill-active" style="font-size:0.68rem; padding:2px 8px; background:rgba(125,157,129,0.14); border-color:var(--accent-green); color:var(--accent-green);">Pillar B • Cannibal</span>
+                </div>
                 <span style="font-size:0.82rem; color:var(--text-secondary);">Crocs, Inc.</span>
-            </a>
+            </div>
             </td>
             <td style="vertical-align:top; padding:16px 14px;">
         <div style="font-family:var(--font-mono); font-size:0.95rem; font-weight:600; color:var(--text-title);">
             8.0%
-            <div style="font-size:0.8rem; font-weight:400; color:var(--accent-warm);">$8,000.00</div>
-            <div style="font-size:0.75rem; font-weight:400; color:var(--text-dim);">60.74 shares</div>
+            <div style="font-size:0.78rem; font-weight:400; color:var(--accent-warm);">$8,000 <span style="color:var(--text-dim);">(60.74 shs)</span></div>
         </div>
         </td>
             <td style="vertical-align:top; padding:16px 14px;">
             <div style="font-family:var(--font-mono); font-size:0.92rem; color:var(--text-title); font-weight:500;">
                 $131.71
-                <div style="font-size:0.78rem; color:var(--text-dim);">FV: $175.00 (<span style="color:var(--accent-green);">+24.7% MoS</span>)</div>
+                <div style="font-size:0.78rem; color:var(--text-dim);">FV: $175.00 <span style="color:var(--accent-green); font-weight:500;">(+24.7% MoS)</span></div>
             </div>
             </td>
             <td style="vertical-align:top; padding:16px 14px;">
-            <div style="font-family:var(--font-mono); font-size:0.88rem; color:var(--text-title);">
+            <div style="font-family:var(--font-mono); font-size:0.90rem; color:var(--text-title);">
                 11.2% FCF Yield
-                <div style="font-size:0.78rem; color:var(--accent-warm);">$896/yr</div>
-                <div style="font-size:0.75rem; color:var(--accent-green);">8.5% Buyback/yr</div>
+                <div style="font-size:0.78rem; color:var(--accent-warm);">$896/yr <span style="color:var(--accent-green);">(8.5% Buyback)</span></div>
             </div>
             </td>
             <td style="vertical-align:top; padding:16px 14px;">
         <div style="font-size:0.84rem; color:var(--text-secondary); line-height:1.45;">
-            <div style="font-weight:500; color:var(--text-title); margin-bottom:2px;">Proprietary Croslite resin manufacturing with 55%+ gross margins.</div>
-            <div style="color:var(--text-dim); font-size:0.78rem;">Solvency: <span style="color:var(--accent-warm);">Rapid Deleveraging (<1.3x Debt)</span></div>
+            <div style="color:var(--text-title); margin-bottom:2px;">Proprietary Croslite resin manufacturing with 55%+ gross margins.</div>
+            <div style="font-size:0.78rem; color:var(--text-dim);">Solvency: <span style="color:var(--accent-warm); font-weight:500;">Rapid Deleveraging (<1.3x Debt)</span></div>
         </div>
         </td>
         </tr>
         
         <tr class="table-row">
-            <td style="vertical-align:top; padding:16px 14px;"><span class="pill pill-active" style="font-size:0.7rem; background:rgba(125,157,129,0.18); border-color:var(--accent-green); color:var(--accent-green);">Pillar B • Mispriced Cannibal</span></td>
             <td style="vertical-align:top; padding:16px 14px;">
-            <a href="reports/DECK.html" style="text-decoration:none; display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-serif); font-size:1.18rem; font-weight:500; color:var(--accent-warm); display:flex; align-items:center; gap:6px;">
-                    DECK <span style="font-size:0.75rem; color:var(--text-dim);">↗</span>
-                </span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <a href="reports/DECK.html" style="font-family:var(--font-serif); font-size:1.25rem; font-weight:500; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+                        DECK <span style="font-size:0.72rem; color:var(--text-dim);">↗</span>
+                    </a>
+                    <span class="pill pill-active" style="font-size:0.68rem; padding:2px 8px; background:rgba(125,157,129,0.14); border-color:var(--accent-green); color:var(--accent-green);">Pillar B • Cannibal</span>
+                </div>
                 <span style="font-size:0.82rem; color:var(--text-secondary);">Deckers Outdoor Corporation</span>
-            </a>
+            </div>
             </td>
             <td style="vertical-align:top; padding:16px 14px;">
         <div style="font-family:var(--font-mono); font-size:0.95rem; font-weight:600; color:var(--text-title);">
             8.0%
-            <div style="font-size:0.8rem; font-weight:400; color:var(--accent-warm);">$8,000.00</div>
-            <div style="font-size:0.75rem; font-weight:400; color:var(--text-dim);">85.25 shares</div>
+            <div style="font-size:0.78rem; font-weight:400; color:var(--accent-warm);">$8,000 <span style="color:var(--text-dim);">(85.25 shs)</span></div>
         </div>
         </td>
             <td style="vertical-align:top; padding:16px 14px;">
             <div style="font-family:var(--font-mono); font-size:0.92rem; color:var(--text-title); font-weight:500;">
                 $93.84
-                <div style="font-size:0.78rem; color:var(--text-dim);">FV: $118.00 (<span style="color:var(--accent-green);">+20.5% MoS</span>)</div>
+                <div style="font-size:0.78rem; color:var(--text-dim);">FV: $118.00 <span style="color:var(--accent-green); font-weight:500;">(+20.5% MoS)</span></div>
             </div>
             </td>
             <td style="vertical-align:top; padding:16px 14px;">
-            <div style="font-family:var(--font-mono); font-size:0.88rem; color:var(--text-title);">
+            <div style="font-family:var(--font-mono); font-size:0.90rem; color:var(--text-title);">
                 5.2% FCF Yield
-                <div style="font-size:0.78rem; color:var(--accent-warm);">$416/yr</div>
-                <div style="font-size:0.75rem; color:var(--accent-green);">3.8% Buyback/yr</div>
+                <div style="font-size:0.78rem; color:var(--accent-warm);">$416/yr <span style="color:var(--accent-green);">(3.8% Buyback)</span></div>
             </div>
             </td>
             <td style="vertical-align:top; padding:16px 14px;">
         <div style="font-size:0.84rem; color:var(--text-secondary); line-height:1.45;">
-            <div style="font-weight:500; color:var(--text-title); margin-bottom:2px;">Authentic brand loyalty and cushioned running biomechanics patents.</div>
-            <div style="color:var(--text-dim); font-size:0.78rem;">Solvency: <span style="color:var(--accent-warm);">Pristine ($1.5B Net Cash)</span></div>
+            <div style="color:var(--text-title); margin-bottom:2px;">Authentic brand loyalty and cushioned running biomechanics patents.</div>
+            <div style="font-size:0.78rem; color:var(--text-dim);">Solvency: <span style="color:var(--accent-warm); font-weight:500;">Pristine ($1.5B Net Cash)</span></div>
         </div>
         </td>
         </tr>
         
         <tr class="table-row">
-            <td style="vertical-align:top; padding:16px 14px;"><span class="pill pill-neutral" style="font-size:0.7rem; background:rgba(140,137,130,0.15); color:var(--text-title);">Cash Buffer (4.5% Yield)</span></td>
             <td style="vertical-align:top; padding:16px 14px;">
-            <div>
-                <strong style="font-family:var(--font-serif); font-size:1.15rem; color:var(--text-title);">💵 USD Cash Buffer</strong>
-                <div style="font-size:0.8rem; color:var(--text-dim);">US Treasury 3-Month Bills</div>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <strong style="font-family:var(--font-serif); font-size:1.2rem; color:var(--text-title);">💵 USD Cash</strong>
+                    <span class="pill pill-neutral" style="font-size:0.68rem; padding:2px 8px; background:rgba(140,137,130,0.12); color:var(--text-title);">Cash Buffer (4.5%)</span>
+                </div>
+                <span style="font-size:0.82rem; color:var(--text-secondary);">US Treasury 3-Month Bills</span>
             </div>
             </td>
             <td style="vertical-align:top; padding:16px 14px;">
         <div style="font-family:var(--font-mono); font-size:0.95rem; font-weight:600; color:var(--text-title);">
             13.0%
-            <div style="font-size:0.8rem; font-weight:400; color:var(--accent-warm);">$13,000.00</div>
-            <div style="font-size:0.75rem; font-weight:400; color:var(--text-dim);">13000.0 shares</div>
+            <div style="font-size:0.78rem; font-weight:400; color:var(--accent-warm);">$13,000 <span style="color:var(--text-dim);">(13000.0 shs)</span></div>
         </div>
         </td>
-            <td style="vertical-align:top; padding:16px 14px;"><div style="font-family:var(--font-mono); font-size:0.92rem; color:var(--text-title);">$1.00 <span style="color:var(--text-dim); font-size:0.75rem;">(Par)</span></div></td>
+            <td style="vertical-align:top; padding:16px 14px;"><div style="font-family:var(--font-mono); font-size:0.92rem; color:var(--text-title);">$1.00 <span style="color:var(--text-dim); font-size:0.78rem;">(Par)</span></div></td>
             <td style="vertical-align:top; padding:16px 14px;">
-            <div style="font-family:var(--font-mono); font-size:0.88rem; color:var(--text-title);">
+            <div style="font-family:var(--font-mono); font-size:0.90rem; color:var(--text-title);">
                 4.5% Risk-Free
                 <div style="font-size:0.78rem; color:var(--accent-warm);">$585/yr</div>
             </div>
             </td>
             <td style="vertical-align:top; padding:16px 14px;">
         <div style="font-size:0.84rem; color:var(--text-secondary); line-height:1.45;">
-            <div style="font-weight:500; color:var(--text-title); margin-bottom:2px;">Absolute liquidity and non-correlated downside protection.</div>
-            <div style="color:var(--text-dim); font-size:0.78rem;">Solvency: <span style="color:var(--accent-warm);">100% US Treasury Backed</span></div>
+            <div style="color:var(--text-title); margin-bottom:2px;">Absolute liquidity and non-correlated downside protection.</div>
+            <div style="font-size:0.78rem; color:var(--text-dim);">Solvency: <span style="color:var(--accent-warm); font-weight:500;">100% US Treasury Backed</span></div>
         </div>
         </td>
         </tr>
@@ -3815,48 +3907,16 @@
             </table>
         </div>
 
-        <!-- Discipline Charter & Automated Rebalance Audit -->
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(360px, 1fr)); gap:20px;">
-            
-            <!-- Rebalance Charter -->
-            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:22px 24px; display:flex; flex-direction:column; gap:14px;">
+        <!-- Rebalance Log & Audit Trail -->
+        <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:22px 24px; display:flex; flex-direction:column; gap:14px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
                 <h4 style="font-family:var(--font-serif); font-size:1.15rem; color:var(--text-title); margin:0; font-weight:500;">
-                    📜 Autonomous Rebalance & Protection Charter
+                    📋 Rebalancing Log & Verification History
                 </h4>
-                <div style="font-size:0.86rem; color:var(--text-secondary); line-height:1.55; display:flex; flex-direction:column; gap:10px;">
-                    <div>
-                        <strong style="color:var(--text-title);">1. Minimum Material Trade Threshold ($\ge 5\%$):</strong>
-                        <div style="color:var(--text-dim);">Zero micro-churn or 1-2% rebalancing. Positions are held through standard quarterly fluctuations.</div>
-                    </div>
-                    <div>
-                        <strong style="color:var(--accent-red);">2. 🚨 100% Exit on Moat Break (AVOID):</strong>
-                        <div style="color:var(--text-dim);">If an SEC filing or 10-K audit triggers an AVOID signal, position is liquidated entirely into Treasury cash.</div>
-                    </div>
-                    <div>
-                        <strong style="color:var(--accent-warm);">3. ✂️ Trim Froth ($P > 1.35 	imes 	ext{Fair Value}$):</strong>
-                        <div style="color:var(--text-dim);">Trim 5-7% of position when overvaluation exceeds +35% above conservative Owner Earnings fair value.</div>
-                    </div>
-                    <div>
-                        <strong style="color:var(--accent-green);">4. 💰 Deploy Cash Buffer ($P < 0.65 	imes 	ext{Fair Value}$):</strong>
-                        <div style="color:var(--text-dim);">Deploy 5% cash reserves into Pillar A anchors when macro panic creates deep $35\%+$ discounts.</div>
-                    </div>
-                    <div>
-                        <strong style="color:var(--text-title);">5. 🛡️ N=3 Consensus Verification Council:</strong>
-                        <div style="color:var(--text-dim);">Any major trade proposal triggers 3 independent subagent audits against primary SEC EDGAR filings before execution.</div>
-                    </div>
-                </div>
+                <span style="font-size:0.75rem; color:var(--text-dim);">Daily 4:30 PM ET Audit • Min. Threshold ≥ 5%</span>
             </div>
-
-            <!-- Audit Trail -->
-            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:22px 24px; display:flex; flex-direction:column; gap:14px;">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <h4 style="font-family:var(--font-serif); font-size:1.15rem; color:var(--text-title); margin:0; font-weight:500;">
-                        📋 Rebalancing Log & Verification History
-                    </h4>
-                    <span style="font-size:0.75rem; color:var(--text-dim);">Daily 4:30 PM ET Audit</span>
-                </div>
-                <div style="display:flex; flex-direction:column; gap:10px;">
-                    
+            <div style="display:flex; flex-direction:column; gap:10px;">
+                
         <div style="background:var(--bg-subpanel); border:1px solid var(--border-color); border-radius:10px; padding:14px 18px; display:flex; flex-direction:column; gap:6px;">
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
                 <div style="display:flex; align-items:center; gap:8px;">
@@ -3870,9 +3930,7 @@
             </div>
         </div>
         
-                </div>
             </div>
-
         </div>
 
     </div>
@@ -3993,143 +4051,11 @@
             });
         }
 
-        function setCapitalPreset(amt) {
-            const inp = document.getElementById('portfolio-capital-input');
-            if (inp) {
-                inp.value = amt;
-                updatePortfolioCalculations();
-            }
-        }
-
-        function updatePortfolioCalculations() {
-            const inp = document.getElementById('portfolio-capital-input');
-            if (!inp) return;
-            const cap = parseFloat(inp.value) || 100000.0;
-            
-            // Scaled holdings
-            const baseCap = 100000.0;
-            const ratio = cap / baseCap;
-            
-            // We can reload or dynamically scale visible values
-            // For instantaneous snappy UI:
-            document.querySelectorAll('#portfolio-holdings-tbody tr').forEach(row => {
-                // Updates are handled cleanly via quick DOM traversal
-            });
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
             setTimeout(initPortfolioChart, 100);
         });
     </script>
     
-        </section>
-
-        <!-- ALERTS SECTION -->
-        <section id="pane-alerts" class="tab-panel">
-            <div class="alerts-feed">
-                
-        <div class="alert-item" data-alert-id="BVHMF_2026-08-11_1600" onclick='openAlertModal({&quot;id&quot;: &quot;BVHMF_2026-08-11_1600&quot;, &quot;ticker&quot;: &quot;BVHMF&quot;, &quot;title&quot;: &quot;Vistry Swings to H1 Loss as Inventory Liquidation Spikes Daily Debt; Strategic Review & September SAHP Grants Mark High-Stakes Pivot&quot;, &quot;timestamp&quot;: &quot;2026-08-11 16:00&quot;, &quot;severity&quot;: &quot;Cautious Stance&quot;, &quot;price&quot;: 3.43, &quot;change&quot;: -8.53, &quot;trigger_reason&quot;: &quot;International Corporate Wire (Thu, 09 Jul 2026 17:01:40 +0000): Vistry Group Q2 Earnings Call Highlights&quot;, &quot;what_was_before&quot;: &quot;Vistry Group is undergoing a critical operational repositioning away from traditional private speculative housebuilding toward a capital-light Partnerships housing model. While heavy tactical discounting on unsold open-market stock pushed H1 2026 into a \u00a330M pre-tax loss, aggressive land de-stocking and partner-funded completions under the UK&#39;s \u00a339B Social and Affordable Housing Programme are targeted to restore net cash by year-end. Trading at a steep discount to tangible book value, BVHMF offers asymmetric turnaround upside, provided management executes on H2 debt reduction and operational simplification&quot;, &quot;what_changes_now&quot;: &quot;Vistry&#39;s H1 2026 trading update revealed an expected statutory loss before tax of ~$39M USD (\u00a330M) following a ~$65M USD (\u00a350M) adverse impact from heavy private sales discounting (7.1% vs 1.4% YoY) and site write-downs. Average daily net debt expanded to ~$1.04B USD (\u00a3799M) as land creditors were cleared and suppliers paid faster, while CFO Tim Lawlor unexpectedly resigned ahead of the pivotal September 24 strategic review. Although aggressive inventory clearance (halving unsold WIP from $780M to <$390M USD) and $32.5M USD in annualized cost cuts maintain full-year guidance for >$130M USD net cash, heightened execution friction and credit insurer scrutiny warrant a cautious stance until SAHP grant flows and CEO review details are released&quot;, &quot;report_url&quot;: &quot;reports/BVHMF.html&quot;})'>
-            <div class="alert-left">
-                <div class="alert-badges">
-                    <strong class="alert-ticker">BVHMF<span class="status-beacon beacon-caution" title="Action Signal: Caution (Facing Headwinds / Trim Zone)"><span class="beacon-ping"></span><span class="beacon-dot"></span></span></strong>
-                    <span class="pill pill-active">Cautious Stance</span> <span class="pill pill-neutral">Deep Value</span> <span class="pill pill-neutral">De Leveraging</span>
-                    <span class="alert-time">2026-08-11 16:00</span>
-                </div>
-                <div class="alert-title">Vistry Swings to H1 Loss as Inventory Liquidation Spikes Daily Debt; Strategic Review & September SAHP Grants Mark High-Stakes Pivot</div>
-                <div class="alert-blurb">Vistry's H1 2026 trading update revealed an expected statutory loss before tax of ~$39M USD (£30M) following a ~$65M USD (£50M) adverse impact from heavy private sales discounting (7.1% vs 1.4% YoY) and site write-downs</div>
-            </div>
-            <div class="alert-right">
-                <div class="alert-price-val">$3.43</div>
-                <div class="alert-price-pct neg">-8.53%</div>
-            </div>
-        </div>
-        
-        <div class="alert-item" data-alert-id="BYD_2026-08-11_1549" onclick='openAlertModal({&quot;id&quot;: &quot;BYD_2026-08-11_1549&quot;, &quot;ticker&quot;: &quot;BYD&quot;, &quot;title&quot;: &quot;Boyd Gaming Thesis Reaffirmed: False Alert Triggered by BYDDY Ticker Collision&quot;, &quot;timestamp&quot;: &quot;2026-08-11 15:49&quot;, &quot;severity&quot;: &quot;High Conviction&quot;, &quot;price&quot;: 11.3, &quot;change&quot;: -86.45, &quot;trigger_reason&quot;: &quot;Lower Alert Threshold Breached ($11.30 <= $72.00)&quot;, &quot;what_was_before&quot;: &quot;Boyd Gaming Corporation presents an attractive risk-reward profile backed by a resilient regional casino moat, high property operating margins (~40%), and aggressive share repurchases ($150M/quarter). While destination Las Vegas properties face transient visitation softness and construction friction, Midwest & South operations, online casino expansion, and managed fee growth (Sky River) provide steady cash flow. Deducting maintenance CapEx ($250M) and SBC yields normalized Owner Earnings of ~$7.85/share, supporting an intrinsic value of $98.50&quot;, &quot;what_changes_now&quot;: &quot;A primary source audit confirms that the $11.30 alert breach was a false automated alert caused by an external data feed cross-contamination with Chinese EV maker BYD Co., Ltd. (OTC: BYDDY). Boyd Gaming Corporation (NYSE: BYD) trades at $83.42, delivering resilient Q2 2026 results with $1.03B revenue, $1.93 EPS, 40% operating margins, and $650M+ in planned 2026 shareholder returns. Normalized Owner Earnings of $8.36/share support our $98.50 fair value estimate, maintaining a solid margin of safety&quot;, &quot;report_url&quot;: &quot;reports/BYD.html&quot;})'>
-            <div class="alert-left">
-                <div class="alert-badges">
-                    <strong class="alert-ticker">BYD<span class="status-beacon beacon-hold" title="Action Signal: Wait / Hold (Wait & Do Nothing for Now)"><span class="beacon-ping"></span><span class="beacon-dot"></span></span></strong>
-                    <span class="pill pill-active">High Conviction</span> <span class="pill pill-neutral">Buyback Cannibal</span> <span class="pill pill-neutral">Regional Casino</span>
-                    <span class="alert-time">2026-08-11 15:49</span>
-                </div>
-                <div class="alert-title">Boyd Gaming Thesis Reaffirmed: False Alert Triggered by BYDDY Ticker Collision</div>
-                <div class="alert-blurb">A primary source audit confirms that the $11.30 alert breach was a false automated alert caused by an external data feed cross-contamination with Chinese EV maker BYD Co., Ltd. (OTC: BYDDY). Boyd Gaming Corporation (NYSE</div>
-            </div>
-            <div class="alert-right">
-                <div class="alert-price-val">$11.30</div>
-                <div class="alert-price-pct neg">-86.45%</div>
-            </div>
-        </div>
-        
-        <div class="alert-item" data-alert-id="UPWK_2026-08-11_1047" onclick='openAlertModal({&quot;id&quot;: &quot;UPWK_2026-08-11_1047&quot;, &quot;ticker&quot;: &quot;UPWK&quot;, &quot;title&quot;: &quot;UPWK Q2 2026 Audit: Revenue Guidance Trim Triggers Deep Value Buy Opportunity at $8.61&quot;, &quot;timestamp&quot;: &quot;2026-08-11 10:47&quot;, &quot;severity&quot;: &quot;Solid Conviction&quot;, &quot;price&quot;: 8.61, &quot;change&quot;: -10.96, &quot;trigger_reason&quot;: &quot;Q2 2026 Post-Market Earnings Audit: Full Operational & Guidance Review&quot;, &quot;what_was_before&quot;: &quot;Upwork reported Q2 2026 revenue of $191.7M (-2% YoY) and record Adjusted EBITDA of $64.1M (33.4% margin), but trimmed full-year revenue guidance to $730M-$750M due to Google SEO search disruption and low-complexity task erosion from AI automation. However, aggressive share repurchases ($109.7M deployed in H1 2026) and a pristine $253.5M net cash balance ($1.95/share) provide strong downside protection. We maintain a Cautious Stance as top-line friction plays out, while anchoring our Base Case fair value at $13.50 based on expanding Owner Earnings yield&quot;, &quot;what_changes_now&quot;: &quot;Upwork&#39;s Q2 2026 earnings report confirmed a top-line guidance trim to $730M-$750M (down from $760M-$790M) due to headwinds from Google SEO search updates and AI automation of lower-complexity tasks. However, the market&#39;s post-earnings drop to $8.61 creates an asymmetric deep-value buy zone. Operating profitability hit record highs with Q2 Adjusted EBITDA of $64.1M (33.4% margin), supported by a 20%+ workforce restructuring that will generate $70M in annualized OpEx savings. Management continues to aggressively retire shares\u2014deploying $109.7M in H1 2026 alone\u2014backed by $241.2M in net cash ($1.83/share). We upgrade our action signal to BUY with an updated Base Case Intrinsic Fair Value of $12.50 per share&quot;, &quot;report_url&quot;: &quot;reports/UPWK.html&quot;})'>
-            <div class="alert-left">
-                <div class="alert-badges">
-                    <strong class="alert-ticker">UPWK<span class="status-beacon beacon-buy" title="Action Signal: Strong Buy (Get in NOW / Thesis Accelerating)"><span class="beacon-ping"></span><span class="beacon-dot"></span></span></strong>
-                    <span class="pill pill-active">Solid Conviction</span> <span class="pill pill-neutral">Buyback Cannibal</span> <span class="pill pill-neutral">Deep Value</span>
-                    <span class="alert-time">2026-08-11 10:47</span>
-                </div>
-                <div class="alert-title">UPWK Q2 2026 Audit: Revenue Guidance Trim Triggers Deep Value Buy Opportunity at $8.61</div>
-                <div class="alert-blurb">Upwork's Q2 2026 earnings report confirmed a top-line guidance trim to $730M-$750M (down from $760M-$790M) due to headwinds from Google SEO search updates and AI automation of lower-complexity tasks. However, the market'</div>
-            </div>
-            <div class="alert-right">
-                <div class="alert-price-val">$8.61</div>
-                <div class="alert-price-pct neg">-10.96%</div>
-            </div>
-        </div>
-        
-        <div class="alert-item" data-alert-id="UPWK_2026-08-11_1035" onclick='openAlertModal({&quot;id&quot;: &quot;UPWK_2026-08-11_1035&quot;, &quot;ticker&quot;: &quot;UPWK&quot;, &quot;title&quot;: &quot;UPWK Q2 Earnings Audit: Revenue Guidance Trimmed on SEO/AI Friction; EBITDA Margins Hit 33.4% & Buybacks Accelerate&quot;, &quot;timestamp&quot;: &quot;2026-08-11 10:35&quot;, &quot;severity&quot;: &quot;Cautious Stance&quot;, &quot;price&quot;: 8.76, &quot;change&quot;: -9.41, &quot;trigger_reason&quot;: &quot;Catalyst Date Reached: Q2 2026 Earnings Release & Call Audit&quot;, &quot;what_was_before&quot;: &quot;Initial Genesis Baseline: Upwork presented a compelling setup at under 10x Owner Earnings with M net cash, assuming top-line stabilization and workforce cost savings&quot;, &quot;what_changes_now&quot;: &quot;Upwork reported Q2 2026 revenue of $191.7M (-2% YoY) and record Adjusted EBITDA of .1M (33.4% margin), but trimmed full-year revenue guidance to M-M due to Google SEO disruption and low-complexity task erosion from AI automation. However, aggressive share repurchases (.7M deployed in H1 2026) and a pristine .5M net cash balance (.95/share) provide strong downside protection. We shift to a Cautious Stance while anchoring our Base Case fair value at .50&quot;, &quot;report_url&quot;: &quot;reports/UPWK.html&quot;})'>
-            <div class="alert-left">
-                <div class="alert-badges">
-                    <strong class="alert-ticker">UPWK<span class="status-beacon beacon-caution" title="Action Signal: Caution (Facing Headwinds / Trim Zone)"><span class="beacon-ping"></span><span class="beacon-dot"></span></span></strong>
-                    <span class="pill pill-active">Cautious Stance</span> <span class="pill pill-neutral">Buyback Cannibal</span> <span class="pill pill-neutral">Cash Fortress</span>
-                    <span class="alert-time">2026-08-11 10:35</span>
-                </div>
-                <div class="alert-title">UPWK Q2 Earnings Audit: Revenue Guidance Trimmed on SEO/AI Friction; EBITDA Margins Hit 33.4% & Buybacks Accelerate</div>
-                <div class="alert-blurb">Upwork reported Q2 2026 revenue of $191.7M (-2% YoY) and record Adjusted EBITDA of .1M (33.4% margin), but trimmed full-year revenue guidance to M-M due to Google SEO disruption and low-complexity task erosion from AI au</div>
-            </div>
-            <div class="alert-right">
-                <div class="alert-price-val">$8.76</div>
-                <div class="alert-price-pct neg">-9.41%</div>
-            </div>
-        </div>
-        
-        <div class="alert-item" data-alert-id="CSU_2026-08-11_1528" onclick='openAlertModal({&quot;id&quot;: &quot;CSU_2026-08-11_1528&quot;, &quot;ticker&quot;: &quot;CSU&quot;, &quot;title&quot;: &quot;CSU Reaffirmed at BUY: Glitch Alert Resolved Ahead of Q2 Call as M&A Engine Compounds&quot;, &quot;timestamp&quot;: &quot;2026-08-11 15:28&quot;, &quot;severity&quot;: &quot;High Conviction&quot;, &quot;price&quot;: 2320.0, &quot;change&quot;: 0.0, &quot;trigger_reason&quot;: &quot;Lower Alert Threshold Breached ($100.00 <= $2100.00)&quot;, &quot;what_was_before&quot;: &quot;The lower alert threshold breach ($100.00) reflects an automated ticker exchange currency feed glitch rather than any fundamental operational decay\u2014CSU actively trades at ~$2,315 USD (~C$3,200 CAD). Fundamental operational health is accelerating into the Q2 2026 conference call scheduled for August 12, 2026. Primary source review confirms Q1 FCFA2S surged 44% YoY to $733M alongside a record $1.6B in H1 2026 capital deployment. Meanwhile, subsidiary Topicus.com posted Q2 2026 revenue growth of 18% with positive free cash flow. Our High Conviction thesis and BUY forward status are decisively reaffirmed&quot;, &quot;what_changes_now&quot;: &quot;The $100.00 price trigger alert was formally audited and confirmed as an automated ticker feed currency conversion glitch, with CSU actively trading at ~$2,315 USD (~$2,320 USD). Operational fundamentals remain exceptionally robust heading into the Q2 2026 earnings conference call on August 12, 2026, supported by subsidiary Topicus.com&#39;s strong Q2 results (+18% revenue, positive FCFA2S) and CSU&#39;s record $1.6B H1 2026 capital deployment. We refresh our next catalyst calendar date to November 12, 2026 for Q3 results and decisively maintain our BUY rating and High Conviction stance&quot;, &quot;report_url&quot;: &quot;reports/CSU.html&quot;})'>
-            <div class="alert-left">
-                <div class="alert-badges">
-                    <strong class="alert-ticker">CSU<span class="status-beacon beacon-buy" title="Action Signal: Strong Buy (Get in NOW / Thesis Accelerating)"><span class="beacon-ping"></span><span class="beacon-dot"></span></span></strong>
-                    <span class="pill pill-active">High Conviction</span> <span class="pill pill-neutral">Cash Fortress</span> <span class="pill pill-neutral">Capital Compounder</span>
-                    <span class="alert-time">2026-08-11 15:28</span>
-                </div>
-                <div class="alert-title">CSU Reaffirmed at BUY: Glitch Alert Resolved Ahead of Q2 Call as M&A Engine Compounds</div>
-                <div class="alert-blurb">The $100.00 price trigger alert was formally audited and confirmed as an automated ticker feed currency conversion glitch, with CSU actively trading at ~$2,315 USD (~$2,320 USD). Operational fundamentals remain exception</div>
-            </div>
-            <div class="alert-right">
-                <div class="alert-price-val">$2320.00</div>
-                <div class="alert-price-pct pos">+0.00%</div>
-            </div>
-        </div>
-        
-        <div class="alert-item" data-alert-id="CSU_2026-08-11_1023" onclick='openAlertModal({&quot;id&quot;: &quot;CSU_2026-08-11_1023&quot;, &quot;ticker&quot;: &quot;CSU&quot;, &quot;title&quot;: &quot;CSU Lower Threshold Triggered via Data Anomaly; Fundamentals Accelerate into Q2 Earnings&quot;, &quot;timestamp&quot;: &quot;2026-08-11 10:23&quot;, &quot;severity&quot;: &quot;High Conviction&quot;, &quot;price&quot;: 2320.0, &quot;change&quot;: 0.0, &quot;trigger_reason&quot;: &quot;Lower Alert Threshold Breached ($100.00 <= $2600.00)&quot;, &quot;what_was_before&quot;: &quot;Constellation Software (CSU) remains the gold standard in decentralized capital allocation, proving in Q1 2026 that AI disruption fears were overblown as organic recurring maintenance revenue grew 9% YoY while FCFA2S surged 44% to $733M. Taking advantage of depressed software multiples, management deployed a record $1.6B in total capital ($809M completed in Q1 plus $786M committed for Q2), reigniting the serial acquisition compounding engine. Grounded in Warren Buffett&#39;s Owner Earnings methodology, CSU offers an attractive asymmetric opportunity with high pricing power, negative working capital float, and sub-1% dilution&quot;, &quot;what_changes_now&quot;: &quot;The lower alert threshold breach ($100.00) reflects an automated ticker exchange currency feed glitch rather than any fundamental operational decay\u2014CSU actively trades at ~$2,315 USD (~$2,320 USD). Fundamental operational health is accelerating into the Q2 2026 conference call scheduled for August 12, 2026. Primary source review confirms Q1 FCFA2S surged 44% YoY to $733M alongside a record $1.6B in H1 2026 capital deployment. Meanwhile, subsidiary Topicus.com posted Q2 2026 revenue growth of 18% with positive free cash flow. Our High Conviction thesis and BUY forward status are decisively reaffirmed&quot;, &quot;report_url&quot;: &quot;reports/CSU.html&quot;})'>
-            <div class="alert-left">
-                <div class="alert-badges">
-                    <strong class="alert-ticker">CSU<span class="status-beacon beacon-buy" title="Action Signal: Strong Buy (Get in NOW / Thesis Accelerating)"><span class="beacon-ping"></span><span class="beacon-dot"></span></span></strong>
-                    <span class="pill pill-active">High Conviction</span> <span class="pill pill-neutral">Quality Compounder</span> <span class="pill pill-neutral">M A</span>
-                    <span class="alert-time">2026-08-11 10:23</span>
-                </div>
-                <div class="alert-title">CSU Lower Threshold Triggered via Data Anomaly; Fundamentals Accelerate into Q2 Earnings</div>
-                <div class="alert-blurb">The lower alert threshold breach ($100.00) reflects an automated ticker exchange currency feed glitch rather than any fundamental operational decay—CSU actively trades at ~$2,315 USD (~$2,320 USD). Fundamental operationa</div>
-            </div>
-            <div class="alert-right">
-                <div class="alert-price-val">$2320.00</div>
-                <div class="alert-price-pct pos">+0.00%</div>
-            </div>
-        </div>
-        
-    <div id="empty-alerts-box" class="empty-alerts" style="display: none;">
-        <div class="empty-title">No Active Alerts</div>
-        <div class="empty-sub">All positions within normal corridors</div>
-    </div>
-    
-            </div>
         </section>
     </main>
 
@@ -4218,17 +4144,17 @@
                 document.querySelectorAll('.hub-tab-btn')[0].classList.add('active');
                 document.getElementById('pane-stocks').classList.add('active');
                 document.getElementById('view-toggle-bar').style.display = 'flex';
-            } else if (tab === 'portfolio') {
+            } else if (tab === 'alerts') {
                 document.querySelectorAll('.hub-tab-btn')[1].classList.add('active');
+                document.getElementById('pane-alerts').classList.add('active');
+                document.getElementById('view-toggle-bar').style.display = 'none';
+            } else if (tab === 'portfolio') {
+                document.querySelectorAll('.hub-tab-btn')[2].classList.add('active');
                 document.getElementById('pane-portfolio').classList.add('active');
                 document.getElementById('view-toggle-bar').style.display = 'none';
                 if (typeof initPortfolioChart === 'function') {
                     setTimeout(initPortfolioChart, 50);
                 }
-            } else {
-                document.querySelectorAll('.hub-tab-btn')[2].classList.add('active');
-                document.getElementById('pane-alerts').classList.add('active');
-                document.getElementById('view-toggle-bar').style.display = 'none';
             }
         }
 
