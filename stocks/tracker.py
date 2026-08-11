@@ -12,7 +12,7 @@ from stocks.data_store import load_watchlist, save_watchlist, get_stock
 TICKER_ALIASES = {
     "CSU": ["CNSWF", "CSU.TO", "CSU"],
     "CSU.TO": ["CNSWF", "CSU.TO", "CSU"],
-    "BVHMF": ["BVHMF", "BVHM.PA"],
+    "BVHMF": ["BVHMF", "VTY.L"],
 }
 
 
