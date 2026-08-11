@@ -102,6 +102,140 @@ def format_action_beacon(signal: Optional[str] = None) -> str:
     return f'<span class="status-beacon {css}" title="{tooltip}"><span class="beacon-ping"></span><span class="beacon-dot"></span></span>'
 
 
+def build_labels_legend_modal_html() -> str:
+    """Builds the clean, interactive modal explaining investment taxonomy, conviction tiers, beacons, and play drivers."""
+    return """
+    <!-- Labels & Taxonomy Legend Modal -->
+    <div id="labels-legend-modal" class="modal-shade" onclick="closeLegendModalOutside(event)">
+        <div class="modal-body-card" style="max-width: 780px;">
+            <button class="modal-x" onclick="closeLabelsLegendModal()">✕</button>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+                <span style="font-size: 1.3rem;">🏷️</span>
+                <h2 style="font-family: var(--font-serif); font-size: 1.55rem; color: var(--text-title); margin: 0; letter-spacing: -0.02em;">Investment Taxonomy & Labels Legend</h2>
+            </div>
+            <p style="color: var(--text-dim); font-size: 0.88rem; margin: 0 0 24px; line-height: 1.4;">
+                Autonomous multi-tier categorization system evaluating long-term conviction, live surveillance action signals, and strategic play drivers.
+            </p>
+
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                <!-- Section 1: Conviction Tiers -->
+                <div style="background: var(--bg-subpanel); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px;">
+                    <div style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-warm); margin-bottom: 12px;">
+                        Tier 1: Forward Conviction & Risk Stance (Slot 1 Primary Pill)
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
+                        <div style="display: flex; flex-direction: column; gap: 3px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span class="pill pill-active" style="font-size: 0.75rem;">High Conviction</span>
+                            </div>
+                            <span style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">Exceptional asymmetric risk/reward, dominant economic moat, fortress balance sheet, and deep margin of safety.</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 3px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span class="pill pill-active" style="font-size: 0.75rem;">Solid Conviction</span>
+                            </div>
+                            <span style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">Proven recurring cash generation, structural advantages, and clear compounding runway with standard execution risk.</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 3px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span class="pill pill-active" style="font-size: 0.75rem;">Moderate Conviction</span>
+                            </div>
+                            <span style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">Attractive upside balanced by cyclical exposure, customer concentration, or competitive transition.</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 3px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span class="pill pill-active" style="font-size: 0.75rem;">Cautious Stance</span>
+                            </div>
+                            <span style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">Thesis structurally intact but facing temporary execution headwinds, margin compression, or macro friction.</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 3px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span class="pill pill-active" style="font-size: 0.75rem;">Turnaround Play</span>
+                            </div>
+                            <span style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">High upside anchored in management operational reset, debt paydown, cost cuts, or real estate asset backing.</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 3px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span class="pill pill-active" style="font-size: 0.75rem;">Speculative Risk</span>
+                            </div>
+                            <span style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">High asymmetry paired with balance sheet leverage, regulatory hurdles, or binary product adoption.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Action Signals -->
+                <div style="background: var(--bg-subpanel); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px;">
+                    <div style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-warm); margin-bottom: 12px;">
+                        Live Surveillance Action Signals (Pulsing Beacons)
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
+                        <div style="display: flex; gap: 10px; align-items: flex-start;">
+                            <span class="status-beacon beacon-buy" style="margin-top: 5px;"><span class="beacon-dot"></span><span class="beacon-ping"></span></span>
+                            <div>
+                                <strong style="color: #10b981; font-size: 0.85rem;">BUY (Green Pulse):</strong>
+                                <div style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">Thesis accelerating, fundamentals compounding, deep value buy zone -> High priority entry.</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px; align-items: flex-start;">
+                            <span class="status-beacon beacon-hold" style="margin-top: 5px;"><span class="beacon-dot"></span><span class="beacon-ping"></span></span>
+                            <div>
+                                <strong style="color: #f59e0b; font-size: 0.85rem;">HOLD (Yellow Pulse):</strong>
+                                <div style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">Thesis steady, fairly valued -> Wait and do nothing for now while awaiting next catalyst.</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px; align-items: flex-start;">
+                            <span class="status-beacon beacon-caution" style="margin-top: 5px;"><span class="beacon-dot"></span><span class="beacon-ping"></span></span>
+                            <div>
+                                <strong style="color: #f97316; font-size: 0.85rem;">CAUTION (Orange Pulse):</strong>
+                                <div style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">Thesis encountering execution friction, margin pressure, or guidance cuts -> Caution / trim zone.</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px; align-items: flex-start;">
+                            <span class="status-beacon beacon-avoid" style="margin-top: 5px;"><span class="beacon-dot"></span><span class="beacon-ping"></span></span>
+                            <div>
+                                <strong style="color: #ef4444; font-size: 0.85rem;">AVOID (Red Pulse):</strong>
+                                <div style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">Thesis broken, structural moat decay, or fatal hurdle breakdown -> Do NOT buy / exit.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Play Drivers -->
+                <div style="background: var(--bg-subpanel); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px;">
+                    <div style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-warm); margin-bottom: 12px;">
+                        Tier 2: Key Play Drivers & Strategic Catalysts (Slots 2 & 3 Secondary Pills)
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px;">
+                        <div style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">
+                            <strong style="color: var(--text-title);">💰 Buyback Cannibal:</strong> Aggressive share retirement concentrating per-share cash flow.
+                        </div>
+                        <div style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">
+                            <strong style="color: var(--text-title);">🏰 Cash Fortress:</strong> Massive net cash balance (>15-20% market cap) eliminating solvency risk.
+                        </div>
+                        <div style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">
+                            <strong style="color: var(--text-title);">📈 Margin Expansion:</strong> Operating leverage and fixed cost efficiency expanding margins.
+                        </div>
+                        <div style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">
+                            <strong style="color: var(--text-title);">🏷️ Deep Value:</strong> High normalized Owner Earnings yield at extreme market discount.
+                        </div>
+                        <div style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">
+                            <strong style="color: var(--text-title);">🔁 Quality Compounder:</strong> High ROIC with durable, high-velocity cash reinvestment.
+                        </div>
+                        <div style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">
+                            <strong style="color: var(--text-title);">🤝 M&A Engine:</strong> Disciplined serial acquirer compounding free cash flow.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; margin-top: 24px;">
+                <button class="btn-primary" onclick="closeLabelsLegendModal()">Got it</button>
+            </div>
+        </div>
+    </div>
+    """
+
+
 def build_native_svg_chart(ticker: str, current_price: float) -> str:
     """Builds a lightweight, native interactive SVG area chart with 1Y, 5Y, 10Y, MAX ranges."""
     all_ranges_data = fetch_all_chart_ranges(ticker, current_price)
@@ -335,6 +469,29 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             is_current = (v.version == len(history))
             v_labels_html = format_labels_pills(v.labels or [v.status_label])
 
+            # Check if labels evolved in this version
+            v_idx = history.index(v)
+            v_prev = history[v_idx - 1] if v_idx > 0 else None
+            v_label_diff = ""
+            if v_prev:
+                p_lbls = v_prev.labels or [v_prev.status_label]
+                c_lbls = v.labels or [v.status_label]
+                if p_lbls != c_lbls:
+                    p_pills = " ".join([f'<span class="pill pill-neutral" style="font-size:0.75rem;">{l}</span>' for l in p_lbls])
+                    c_pills = " ".join([f'<span class="pill pill-active" style="font-size:0.75rem;">{l}</span>' for l in c_lbls])
+                    v_label_diff = f"""
+                    <div style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border-color); font-size: 0.84rem;">
+                        <div style="font-weight: 500; color: var(--text-title); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                            <span style="color: var(--accent-warm);">🏷️ Label & Conviction Evolution:</span>
+                            <div style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                                {p_pills}
+                                <span style="color: var(--text-dim);">→</span>
+                                {c_pills}
+                            </div>
+                        </div>
+                    </div>
+                    """
+
             diff_box = ""
             if v.what_was_before or v.what_changes_now:
                 diff_box = f"""
@@ -345,7 +502,10 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                     </div>
                     <div class="diff-box diff-now">
                         <div class="diff-label">THESIS EVOLUTION</div>
-                        <div class="diff-text">{v.what_changes_now or v.summary_of_change}</div>
+                        <div class="diff-text">
+                            {v.what_changes_now or v.summary_of_change}
+                            {v_label_diff}
+                        </div>
                     </div>
                 </div>
                 """
@@ -382,6 +542,29 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     if current_version and current_version.version > 1:
         v_diff = current_version.what_changes_now or current_version.summary_of_change
         v_trigger = getattr(current_version, "trigger_reason", "") or "Surveillance Review"
+        
+        # Check if labels changed from previous version
+        label_change_html = ""
+        prev_version = history[-2] if len(history) >= 2 else None
+        if prev_version:
+            prev_labels = prev_version.labels or [prev_version.status_label]
+            curr_labels = current_version.labels or [current_version.status_label]
+            if prev_labels != curr_labels:
+                prev_pills = " ".join([f'<span class="pill pill-neutral" style="font-size:0.75rem;">{l}</span>' for l in prev_labels])
+                curr_pills = " ".join([f'<span class="pill pill-active" style="font-size:0.75rem;">{l}</span>' for l in curr_labels])
+                label_change_html = f"""
+                <div class="label-evolution-divider" style="margin-top: 18px; padding-top: 14px; border-top: 1px dashed var(--border-color); font-size: 0.88rem;">
+                    <div style="font-weight: 500; color: var(--text-title); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                        <span style="color: var(--accent-warm);">🏷️ Label & Conviction Evolution:</span>
+                        <div style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                            {prev_pills}
+                            <span style="color: var(--text-dim);">→</span>
+                            {curr_pills}
+                        </div>
+                    </div>
+                </div>
+                """
+
         evolution_banner_html = f"""
         <div class="update-banner-box">
             <div class="update-banner-header">
@@ -390,7 +573,10 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             </div>
             <div class="update-banner-body">
                 <div class="update-banner-title">What Changed & Forward Thesis Impact</div>
-                <div class="update-banner-desc">{v_diff}</div>
+                <div class="update-banner-desc">
+                    {v_diff}
+                    {label_change_html}
+                </div>
             </div>
         </div>
         """
@@ -1025,6 +1211,73 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 
         .pos {{ color: var(--accent-green); }}
         .neg {{ color: var(--accent-red); }}
+
+        /* Info Circle Button */
+        .btn-info-circle {{
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            color: var(--text-dim);
+            font-size: 0.72rem;
+            font-family: var(--font-mono);
+            cursor: pointer;
+            margin-left: 6px;
+            vertical-align: middle;
+            transition: all 0.15s ease;
+            padding: 0;
+            line-height: 1;
+        }}
+        .btn-info-circle:hover {{
+            background: var(--bg-hover);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            transform: scale(1.1);
+        }}
+
+        /* Modal */
+        .modal-shade {{
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(10, 10, 9, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+        }}
+        .modal-body-card {{
+            background: var(--bg-panel);
+            border: 1px solid var(--border-focus);
+            border-radius: 16px;
+            max-width: 720px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 36px;
+            position: relative;
+        }}
+        .modal-x {{
+            position: absolute;
+            top: 20px; right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-size: 1.4rem;
+            cursor: pointer;
+        }}
+        .modal-x:hover {{ color: var(--text-title); }}
+        .btn-primary {{
+            background: var(--accent-warm); color: #141312; font-family: var(--font-sans); font-weight: 500;
+            padding: 10px 20px; border-radius: 6px; text-decoration: none; display: inline-flex; align-items: center; border: none; cursor: pointer;
+            transition: all 0.15s;
+        }}
+        .btn-primary:hover {{ background: #DDB495; }}
     </style>
 </head>
 <body>
@@ -1043,6 +1296,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                     <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
                         <span class="ticker-symbol">{stock.ticker}{dossier_beacon}</span>
                         {labels_html}
+                        <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="View Investment Taxonomy & Labels Legend">ⓘ</button>
                     </div>
                     <div class="company-meta">{stock.company_name}</div>
                 </div>
@@ -1105,6 +1359,8 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         </div>
     </main>
 
+    {build_labels_legend_modal_html()}
+
     <script>
         function showTab(id) {{
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -1122,6 +1378,26 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         function toggleSnapshot(ver) {{
             const el = document.getElementById('snapshot-' + ver);
             el.style.display = (el.style.display === 'none' ? 'block' : 'none');
+        }}
+
+        function openLabelsLegendModal(event) {{
+            if (event) {{
+                event.stopPropagation();
+                event.preventDefault();
+            }}
+            const modal = document.getElementById('labels-legend-modal');
+            if (modal) modal.style.display = 'flex';
+        }}
+
+        function closeLabelsLegendModal() {{
+            const modal = document.getElementById('labels-legend-modal');
+            if (modal) modal.style.display = 'none';
+        }}
+
+        function closeLegendModalOutside(event) {{
+            if (event.target.id === 'labels-legend-modal') {{
+                closeLabelsLegendModal();
+            }}
         }}
     </script>
 </body>
@@ -1772,6 +2048,33 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             font-family: var(--font-sans); font-weight: 500; padding: 10px 18px; border-radius: 6px; cursor: pointer;
         }}
         .btn-outline:hover {{ background: var(--bg-hover); }}
+
+        /* Info Circle Button */
+        .btn-info-circle {{
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            color: var(--text-dim);
+            font-size: 0.72rem;
+            font-family: var(--font-mono);
+            cursor: pointer;
+            margin-left: 6px;
+            vertical-align: middle;
+            transition: all 0.15s ease;
+            padding: 0;
+            line-height: 1;
+        }}
+        .btn-info-circle:hover {{
+            background: var(--bg-hover);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            transform: scale(1.1);
+        }}
     </style>
 </head>
 <body>
@@ -1816,7 +2119,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                         <tr>
                             <th>Ticker</th>
                             <th>Market Price</th>
-                            <th>Labels</th>
+                            <th>Labels <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="View Investment Taxonomy & Labels Legend">ⓘ</button></th>
                             <th>Fair Value</th>
                             <th>Catalyst Horizon</th>
                         </tr>
@@ -1977,9 +2280,30 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             }}
         }}
 
+        function openLabelsLegendModal(event) {{
+            if (event) {{
+                event.stopPropagation();
+                event.preventDefault();
+            }}
+            const modal = document.getElementById('labels-legend-modal');
+            if (modal) modal.style.display = 'flex';
+        }}
+
+        function closeLabelsLegendModal() {{
+            const modal = document.getElementById('labels-legend-modal');
+            if (modal) modal.style.display = 'none';
+        }}
+
+        function closeLegendModalOutside(event) {{
+            if (event.target.id === 'labels-legend-modal') {{
+                closeLabelsLegendModal();
+            }}
+        }}
+
         document.addEventListener('DOMContentLoaded', refreshAlertsUI);
         refreshAlertsUI();
     </script>
+    {build_labels_legend_modal_html()}
 </body>
 </html>
 """
