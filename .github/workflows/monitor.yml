@@ -31,8 +31,8 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  NODE_OPTIONS: "--use-system-ca"
   ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: "true"
+  NODE_TLS_REJECT_UNAUTHORIZED: "0"
 
 jobs:
   surveillance_and_deploy:
