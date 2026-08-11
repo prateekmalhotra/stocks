@@ -198,8 +198,8 @@ def extract_json_block(text: str) -> Dict[str, Any]:
     if not text:
         return {}
 
-    # 1. Search for JSON markdown code blocks
-    matches = re.findall(r"```(?:json)?\s*(\{.*?\})\s*```", text, re.DOTALL)
+    # 1. Search for JSON markdown code blocks (arrays or objects)
+    matches = re.findall(r"```(?:json)?\s*([\[\{].*?[\]\}])\s*```", text, re.DOTALL)
     for raw_json in matches:
         cleaned_json = re.sub(r",\s*([\]}])", r"\1", raw_json)
         try:
@@ -207,9 +207,17 @@ def extract_json_block(text: str) -> Dict[str, Any]:
         except Exception:
             pass
 
-    # 2. Search for the first balanced { ... } block before HTML content begins
-    first_brace = text.find("{")
+    # 2. Search for the first balanced { ... } or [ ... ] block
+    first_brace = -1
+    brace_type = None
+    for i, ch in enumerate(text):
+        if ch in ('{', '['):
+            first_brace = i
+            brace_type = ch
+            break
+
     if first_brace != -1:
+        closing_type = '}' if brace_type == '{' else ']'
         depth = 0
         end_idx = -1
         in_string = False
@@ -219,9 +227,9 @@ def extract_json_block(text: str) -> Dict[str, Any]:
             if ch == '"' and not escape:
                 in_string = not in_string
             elif not in_string:
-                if ch == '{':
+                if ch == brace_type:
                     depth += 1
-                elif ch == '}':
+                elif ch == closing_type:
                     depth -= 1
                     if depth == 0:
                         end_idx = idx
@@ -682,3 +690,121 @@ Part 2: Updated HTML memo content reflecting the evolution of the thesis.
     metadata["next_catalyst_event"] = metadata.get("next_catalyst_event") or "Upcoming Earnings Report"
 
     return metadata, html_content
+
+
+# ==============================================================================
+# SPECIALIZED OWNERSHIP & FUND INTELLIGENCE SUBAGENT PROMPTS
+# ==============================================================================
+
+def research_ownership_writeups(ticker: str, company_name: str) -> List[Dict[str, Any]]:
+    """Specialized Subagent Prompt: Searches live web for real investor letters, VIC write-ups, Substack memos, and Reddit DDs with direct working URLs."""
+    prompt = f"""You are an elite deep-value investment research analyst.
+Search the live web thoroughly for real long-form investment write-ups, hedge fund shareholder letters, Value Investors Club (VIC) pitches, Substack due diligence memos, and high-quality Reddit in-depth DDs (r/ValueInvesting, r/SecurityAnalysis, r/stocks) for {company_name} ({ticker}).
+
+Find 3 to 4 distinct, real, high-conviction write-ups or investor letters.
+For each one, provide:
+- "title": Exact title of the write-up, letter, VIC pitch, or Reddit DD post
+- "fund": Author / Fund / Subreddit / Publication (e.g. "Pershing Square (Bill Ackman)", "Value Investors Club / VIC", "r/ValueInvesting", "Substack / Scuttlebutt", "Greenlight Capital")
+- "date": Publication Date / Period (e.g. "Q1 2026 Letter", "2026 Valuation Memo", "May 2025", "Q4 2024")
+- "summary": 2-3 sentence rigorous summary of the author's thesis, unit economics, valuation math, and key operational catalysts.
+- "url": The exact direct working URL to the article, Reddit thread, Substack post, or VIC page. Must be a direct working link, NOT a generic homepage or search query.
+
+Output ONLY a JSON array of objects:
+```json
+[
+  {{
+    "title": "...",
+    "fund": "...",
+    "date": "...",
+    "summary": "...",
+    "url": "..."
+  }}
+]
+```
+"""
+    try:
+        res = call_gemini_with_search(prompt, temperature=0.2)
+        parsed = extract_json_block(res)
+        if isinstance(parsed, list) and len(parsed) > 0:
+            return parsed
+    except Exception as e:
+        print(f"Error researching writeups for {ticker}: {e}")
+    return []
+
+
+def research_institutional_funds(ticker: str, company_name: str) -> Dict[str, Any]:
+    """Specialized Subagent Prompt: Searches live web for 13F whale positions, Dataroma superinvestor allocations, and activist stakes."""
+    prompt = f"""You are an elite institutional equity ownership auditor.
+Search Dataroma, WhaleWisdom, SEC Form 13F/13D filings, and shareholder registries for {company_name} ({ticker}).
+
+Identify:
+1. Aggregate institutional float percentage.
+2. Top 5-10 specific superinvestors / hedge funds / asset managers holding the stock with:
+   - "manager": Fund or Investor Name (e.g. "David Tepper - Appaloosa", "Li Lu - Himalaya", "Vanguard", "Warren Buffett - Berkshire")
+   - "pct_of_portfolio": Portfolio weight % if known
+   - "recent_activity": Recent action ("Buy", "Added +15%", "Reduce 5%", "Held Firm", "New Position")
+   - "shares": Reported share count
+   - "value_usd": Reported position value in USD
+   - "source_url": Direct URL to the filing or fund profile
+
+Output ONLY a JSON object:
+```json
+{{
+  "institutional_ownership_pct": "<e.g. 78.5%>",
+  "holders": [
+    {{
+      "manager": "...",
+      "pct_of_portfolio": "...",
+      "recent_activity": "...",
+      "shares": "...",
+      "value_usd": "...",
+      "source_url": "..."
+    }}
+  ]
+}}
+```
+"""
+    try:
+        res = call_gemini_with_search(prompt, temperature=0.2)
+        parsed = extract_json_block(res)
+        if isinstance(parsed, dict):
+            return parsed
+    except Exception as e:
+        print(f"Error researching institutional funds for {ticker}: {e}")
+    return {}
+
+
+def research_insider_intel(ticker: str, company_name: str) -> Dict[str, Any]:
+    """Specialized Subagent Prompt: Searches live web and OpenInsider for Form 4 filings and executive trading behavior."""
+    prompt = f"""You are an SEC Form 4 insider trading forensic specialist.
+Search OpenInsider (http://openinsider.com/search?q={ticker}) and SEC Form 4 filings for {company_name} ({ticker}).
+
+Analyze all recent officer and director transactions over the trailing 12 months:
+1. Identify all open-market purchases (P) vs open-market sales (S) vs option exercises (M) vs tax withholdings (D).
+2. Calculate total buy volume vs sell volume and identify key executive names.
+3. Classify overall insider sentiment into one of:
+   - "Cluster Buying" (Multiple officers making open market purchases)
+   - "Net Buying" (Purchases exceed sales)
+   - "Net Selling" (Persistent open market sales with zero buying)
+   - "Neutral (10b5-1)" (Routine pre-scheduled tax/RSU transactions)
+   - "No Activity" (Zero Form 4 filings)
+4. Provide a crisp 1-line summary of executive flow.
+
+Output ONLY a JSON object:
+```json
+{{
+  "insider_signal": "<Cluster Buying | Net Buying | Net Selling | Neutral (10b5-1) | No Activity>",
+  "insider_summary": "<Crisp 1-line summary with executive names and dollar values, max 12 words>",
+  "key_executives_tracked": ["<Name 1 (Title)>", "<Name 2 (Title)>"]
+}}
+```
+"""
+    try:
+        res = call_gemini_with_search(prompt, temperature=0.2)
+        parsed = extract_json_block(res)
+        if isinstance(parsed, dict):
+            return parsed
+    except Exception as e:
+        print(f"Error researching insider intel for {ticker}: {e}")
+    return {}
+

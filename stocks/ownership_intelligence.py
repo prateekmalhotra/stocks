@@ -198,8 +198,11 @@ def calculate_insider_sentiment_and_flow(oi_trades: List[Dict[str, Any]], stock_
     }
 
 
-def get_curated_writeups(ticker: str, stock: Any) -> List[Dict[str, Any]]:
-    """Retrieves high-quality curated memos or builds deep value research links."""
+def get_curated_writeups(ticker: str, stock: Any, cached_writeups: Optional[List[Dict[str, Any]]] = None) -> List[Dict[str, Any]]:
+    """Retrieves high-quality researched memos from cache, curated repository, or deep value research links."""
+    if cached_writeups and isinstance(cached_writeups, list) and len(cached_writeups) > 0:
+        return cached_writeups
+
     clean_t = ticker.upper().strip()
     if clean_t in CURATED_MEMOS:
         return CURATED_MEMOS[clean_t]
@@ -229,6 +232,7 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
     
     oi_trades = cached.get("openinsider_trades", [])
     dr_holders = cached.get("dataroma_holders", [])
+    researched_writeups = cached.get("researched_writeups", [])
     
     # Compute real mathematical insider signal & flow
     insider_intel = calculate_insider_sentiment_and_flow(oi_trades, getattr(stock, "insider_signal", ""))
@@ -367,9 +371,23 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
         """
 
     # 3. Build Curated Write-ups Cards
-    writeups = get_curated_writeups(clean_t, stock)
+    writeups = get_curated_writeups(clean_t, stock, researched_writeups)
     writeup_cards = ""
     for w in writeups:
+        fund_lower = (w.get("fund", "") + " " + w.get("title", "")).lower()
+        if "reddit" in fund_lower:
+            btn_lbl = "Reddit DD ↗"
+        elif "substack" in fund_lower:
+            btn_lbl = "Substack Memo ↗"
+        elif "vic" in fund_lower or "value investors club" in fund_lower:
+            btn_lbl = "VIC Pitch ↗"
+        elif "letter" in fund_lower or "pershing" in fund_lower:
+            btn_lbl = "Investor Letter ↗"
+        elif "presentation" in fund_lower or "activist" in fund_lower:
+            btn_lbl = "Activist Deck ↗"
+        else:
+            btn_lbl = "Read Source ↗"
+
         writeup_cards += f"""
         <div class="writeup-card">
             <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
@@ -377,7 +395,7 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
                     {w['fund']} · <span style="color: var(--text-dim);">{w['date']}</span>
                 </div>
                 <a href="{w['url']}" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Read Source ↗
+                    {btn_lbl}
                 </a>
             </div>
             <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
