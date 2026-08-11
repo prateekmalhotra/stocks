@@ -7,7 +7,7 @@ from typing import List, Dict, Any, Optional
 from stocks.models import WatchlistStock, AlertItem, ThesisVersion
 from stocks.data_store import load_watchlist, load_alerts, load_thesis_history
 from stocks.tracker import fetch_all_chart_ranges
-from stocks.ownership_intelligence import build_ownership_tab_html
+from stocks.ownership_intelligence import build_ownership_tab_html, calculate_insider_sentiment_and_flow, load_cached_ownership
 
 PUBLIC_DIR = Path("public")
 REPORTS_DIR = PUBLIC_DIR / "reports"
@@ -135,38 +135,19 @@ def format_top_funds_card_html(stock: WatchlistStock) -> str:
 
 
 def format_insider_activity_card_html(stock: WatchlistStock) -> str:
-    """Renders a clean, high-density insider sentiment card."""
-    raw_signal = getattr(stock, "insider_signal", None) or "Neutral"
-    summary = getattr(stock, "insider_summary", None) or "Routine management alignment"
+    """Renders a clean, high-density insider sentiment card computed deterministically from Form 4 ledger."""
+    cached = load_cached_ownership(stock.ticker)
+    oi_trades = cached.get("openinsider_trades", [])
+    raw_signal = getattr(stock, "insider_signal", None) or ""
+    intel = calculate_insider_sentiment_and_flow(oi_trades, raw_signal)
     
-    sig_upper = raw_signal.upper()
-    if "CLUSTER" in sig_upper:
-        color = "var(--accent-green)"
-        badge_text = "🟢 Cluster Buy"
-        default_sub = "Multi-insider accumulation"
-    elif any(k in sig_upper for k in ["BUY", "ACCUMULAT"]):
-        color = "var(--accent-green)"
-        badge_text = "🟢 Net Buying"
-        default_sub = "Open market purchases"
-    elif any(k in sig_upper for k in ["SELL", "DISPOS"]):
-        color = "var(--accent-red)"
-        badge_text = "🔴 Net Selling"
-        default_sub = "Executive stock sales"
-    elif any(k in sig_upper for k in ["NEUTRAL", "10B5-1", "HOLD"]):
-        color = "var(--accent-warm)"
-        badge_text = "🟡 Neutral"
-        default_sub = "10b5-1 pre-scheduled plans"
-    else:
-        color = "var(--text-dim)"
-        badge_text = "⚪ Inactive"
-        default_sub = "No recent Form 4 changes"
-        
-    subtext = summary if len(summary) <= 34 else default_sub
+    summary = intel["summary"]
+    subtext = summary if len(summary) <= 34 else "Executive alignment"
 
     return f"""
     <div class="metric-cell">
         <div class="metric-label">Insider Sentiment</div>
-        <div class="metric-value" style="font-family: var(--font-sans); color: {color}; font-size: 1.05rem; font-weight: 600;">{badge_text}</div>
+        <div class="metric-value" style="font-family: var(--font-sans); color: {intel['color']}; font-size: 1.05rem; font-weight: 600;">{intel['badge_html']}</div>
         <div class="metric-subtext" style="color: var(--text-dim);" title="{summary}">{subtext}</div>
     </div>
     """

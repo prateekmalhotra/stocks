@@ -110,6 +110,94 @@ def load_cached_ownership(ticker: str) -> Dict[str, Any]:
     return {"ticker": clean_t, "openinsider_trades": [], "dataroma_holders": []}
 
 
+def parse_trade_value(val_str: str) -> float:
+    """Parses numeric dollar value from string like '$1,461,102' or '-$863,044'."""
+    if not val_str:
+        return 0.0
+    clean = val_str.replace("$", "").replace(",", "").replace("+", "").strip()
+    try:
+        return float(clean)
+    except Exception:
+        return 0.0
+
+
+def calculate_insider_sentiment_and_flow(oi_trades: List[Dict[str, Any]], stock_signal_hint: str = "") -> Dict[str, Any]:
+    """Deterministically computes insider buying/selling signal from real Form 4 ledger."""
+    if not oi_trades:
+        sig = stock_signal_hint or "Neutral (10b5-1)"
+        return {
+            "signal": sig,
+            "badge_html": f"🟡 {sig}",
+            "color": "var(--accent-warm)",
+            "summary": "Routine management alignment",
+            "total_buy_usd": 0.0,
+            "total_sell_usd": 0.0,
+            "net_flow_usd": 0.0
+        }
+
+    total_buy = 0.0
+    total_sell = 0.0
+    buyers = set()
+    sellers = set()
+
+    for t in oi_trades:
+        ttype = t.get("trade_type", "")
+        v_num = parse_trade_value(t.get("value", ""))
+        name = t.get("name", "")
+
+        # Check for open market purchases
+        if "Purchase" in ttype or "P -" in ttype:
+            total_buy += abs(v_num)
+            buyers.add(name)
+        elif "Sale" in ttype or "S -" in ttype:
+            total_sell += abs(v_num)
+            sellers.add(name)
+
+    net_flow = total_buy - total_sell
+
+    # Classification rules
+    if len(buyers) >= 2 and total_buy >= 500000:
+        sig = "Cluster Buying"
+        badge_html = "🟢 Cluster Buy"
+        color = "var(--accent-green)"
+        summary = f"{len(buyers)} Insiders +${total_buy/1e6:.1f}M Open Market Buys" if total_buy >= 1e6 else f"{len(buyers)} Insiders +${total_buy/1e3:.0f}K Buys"
+    elif total_buy > 0 and net_flow > 0:
+        sig = "Net Buying"
+        badge_html = "🟢 Net Buying"
+        color = "var(--accent-green)"
+        summary = f"+${net_flow/1e6:.1f}M Net Open Market Buys" if net_flow >= 1e6 else f"+${net_flow/1e3:.0f}K Net Buys"
+    elif total_sell >= 500000 and total_buy == 0:
+        sig = "Net Selling"
+        badge_html = "🔴 Net Selling"
+        color = "var(--accent-red)"
+        summary = f"{len(sellers)} Officers Sold -${total_sell/1e6:.1f}M (Zero Buys)" if total_sell >= 1e6 else f"{len(sellers)} Officers Sold -${total_sell/1e3:.0f}K"
+    elif total_sell > 0 and total_buy == 0:
+        sig = "Net Selling"
+        badge_html = "🔴 Net Selling"
+        color = "var(--accent-red)"
+        summary = f"Executive sales -${total_sell/1e6:.1f}M" if total_sell >= 1e6 else f"Executive sales -${total_sell/1e3:.0f}K"
+    elif total_buy == 0 and total_sell == 0:
+        sig = "No Activity"
+        badge_html = "⚪ Inactive"
+        color = "var(--text-dim)"
+        summary = "Zero Form 4 open market transactions"
+    else:
+        sig = "Neutral (10b5-1)"
+        badge_html = "🟡 Neutral"
+        color = "var(--accent-warm)"
+        summary = "10b5-1 pre-scheduled plans"
+
+    return {
+        "signal": sig,
+        "badge_html": badge_html,
+        "color": color,
+        "summary": summary,
+        "total_buy_usd": total_buy,
+        "total_sell_usd": total_sell,
+        "net_flow_usd": net_flow
+    }
+
+
 def get_curated_writeups(ticker: str, stock: Any) -> List[Dict[str, Any]]:
     """Retrieves high-quality curated memos or builds deep value research links."""
     clean_t = ticker.upper().strip()
@@ -142,15 +230,15 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
     oi_trades = cached.get("openinsider_trades", [])
     dr_holders = cached.get("dataroma_holders", [])
     
+    # Compute real mathematical insider signal & flow
+    insider_intel = calculate_insider_sentiment_and_flow(oi_trades, getattr(stock, "insider_signal", ""))
+    
     inst_pct = getattr(stock, "institutional_ownership_pct", None) or "75.0%"
-    insider_sig = getattr(stock, "insider_signal", None) or "Neutral (10b5-1)"
-    insider_sum = getattr(stock, "insider_summary", None) or "Routine executive management alignment"
     raw_funds = getattr(stock, "top_funds", None) or []
     
     # 1. Build Combined Institutional Funds List
     combined_holders = []
     
-    # Add Dataroma superinvestors first
     for dr in dr_holders:
         act = dr.get("recent_activity", "Held Firm")
         act_color = "var(--accent-green)" if any(k in act.upper() for k in ["BUY", "ADD", "NEW"]) else ("var(--accent-red)" if any(k in act.upper() for k in ["REDUCE", "SELL"]) else "var(--text-dim)")
@@ -165,10 +253,8 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
             "url": f"https://www.dataroma.com/m/stock.php?sym={clean_t}"
         })
         
-    # Add top index & asset managers
     for f in raw_funds:
         clean_name = re.sub(r"\(.*?\)", "", f).strip()
-        # Avoid duplicate if already in dataroma
         if not any(clean_name.lower() in h["name"].lower() for h in combined_holders):
             combined_holders.append({
                 "name": f,
@@ -224,14 +310,16 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
     # 2. Build OpenInsider Form 4 Rows
     insider_rows = ""
     if oi_trades:
-        for t in oi_trades[:35]:  # Show up to 35 most recent detailed Form 4 trades
+        for t in oi_trades[:40]:  # Show up to 40 most recent detailed Form 4 trades
             ttype = t.get("trade_type", "")
             if "P - Purchase" in ttype or "Purchase" in ttype:
-                t_badge = '<span style="color: var(--accent-green); font-weight: 600;">🟢 Purchase</span>'
+                t_badge = '<span style="color: var(--accent-green); font-weight: 600;">🟢 Open Market Purchase</span>'
             elif "S - Sale" in ttype or "Sale" in ttype:
-                t_badge = '<span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span>'
+                t_badge = '<span style="color: var(--accent-red); font-weight: 600;">🔴 Open Market Sale</span>'
             elif "Option" in ttype or "M - " in ttype:
-                t_badge = '<span style="color: var(--accent-warm); font-weight: 600;">🟡 Option Ex</span>'
+                t_badge = '<span style="color: var(--accent-warm); font-weight: 600;">🟡 Option Exercise</span>'
+            elif "D - " in ttype or "Tax" in ttype:
+                t_badge = '<span style="color: var(--text-dim); font-weight: 500;">⚪ Tax Withholding (D)</span>'
             else:
                 t_badge = f'<span style="color: var(--text-dim);">{ttype}</span>'
                 
@@ -259,18 +347,17 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
             </tr>
             """
     else:
-        # Fallback entry if foreign private issuer without OpenInsider coverage
         insider_rows = f"""
         <tr>
             <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">Recent Audit</td>
             <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">Current</td>
             <td><div style="font-weight: 500; color: var(--text-title);">Executive Management</div></td>
             <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Key Officers & Directors</span></td>
-            <td><span style="color: var(--accent-warm); font-weight: 600;">🟡 {insider_sig}</span></td>
+            <td><span style="color: {insider_intel['color']}; font-weight: 600;">{insider_intel['badge_html']}</span></td>
             <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">${stock.current_price:.2f}</td>
             <td style="font-family: var(--font-mono); font-size: 0.84rem;">Scheduled</td>
             <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">Aligned</td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">{insider_sum}</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">{insider_intel['summary']}</td>
             <td>
                 <a href="http://openinsider.com/search?q={clean_t}" target="_blank" rel="noopener noreferrer" class="link-out">
                     OpenInsider ↗
@@ -317,8 +404,8 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
                 </div>
                 <div class="stat-box">
                     <span class="stat-label">Insider Trading Sentiment</span>
-                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.25rem;">{insider_sig}</span>
-                    <span class="stat-note">{insider_sum}</span>
+                    <span class="stat-num" style="color: {insider_intel['color']}; font-family: var(--font-sans); font-size: 1.25rem;">{insider_intel['badge_html']}</span>
+                    <span class="stat-note">{insider_intel['summary']}</span>
                 </div>
                 <div class="stat-box">
                     <span class="stat-label">Whale & Superinvestor Tracking</span>
