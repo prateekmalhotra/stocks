@@ -134,10 +134,10 @@ def normalize_action_signal(signal: Any, default: str = "BUY") -> str:
 
 
 def call_gemini_with_search(prompt: str, system_instruction: str = "", temperature: float = 0.4) -> str:
-    """Calls Gemini 3.6 Flash via REST API with Google Search Grounding, exponential retry, and safety fallback."""
+    """Calls Gemini Flash via REST API with Google Search Grounding, exponential retry, and safety fallback."""
     import time
     api_key = get_api_key()
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key={api_key}"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
     
     payload: Dict[str, Any] = {
         "contents": [{"parts": [{"text": prompt}]}],

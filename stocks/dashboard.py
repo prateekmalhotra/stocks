@@ -1836,6 +1836,9 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
     disp_style = "display: flex;" if not alerts else "display: none;"
     alerts_feed_html = alerts_feed_html + empty_alerts_html.format(display_style=disp_style)
 
+    from stocks.portfolio import build_portfolio_tab_html
+    portfolio_tab_html = build_portfolio_tab_html(100000.0)
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2364,6 +2367,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         <div class="hub-controls">
             <div class="hub-tabs">
                 <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage ({len(watchlist)})</button>
+                <button class="hub-tab-btn" onclick="switchTab('portfolio')">🏛️ Portfolio (8 Core)</button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts ({len(alerts)})</span></button>
             </div>
             <div class="view-toggle" id="view-toggle-bar">
@@ -2403,6 +2407,11 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             <div id="stocks-grid-view" class="grid-cards-wrap" style="display: none;">
                 {grid_cards_html}
             </div>
+        </section>
+
+        <!-- PORTFOLIO SECTION -->
+        <section id="pane-portfolio" class="tab-panel">
+            {portfolio_tab_html}
         </section>
 
         <!-- ALERTS SECTION -->
@@ -2498,8 +2507,15 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                 document.querySelectorAll('.hub-tab-btn')[0].classList.add('active');
                 document.getElementById('pane-stocks').classList.add('active');
                 document.getElementById('view-toggle-bar').style.display = 'flex';
-            }} else {{
+            }} else if (tab === 'portfolio') {{
                 document.querySelectorAll('.hub-tab-btn')[1].classList.add('active');
+                document.getElementById('pane-portfolio').classList.add('active');
+                document.getElementById('view-toggle-bar').style.display = 'none';
+                if (typeof initPortfolioChart === 'function') {{
+                    setTimeout(initPortfolioChart, 50);
+                }}
+            }} else {{
+                document.querySelectorAll('.hub-tab-btn')[2].classList.add('active');
                 document.getElementById('pane-alerts').classList.add('active');
                 document.getElementById('view-toggle-bar').style.display = 'none';
             }}

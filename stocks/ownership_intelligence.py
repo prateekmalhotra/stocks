@@ -97,6 +97,102 @@ CURATED_MEMOS: Dict[str, List[Dict[str, Any]]] = {
 }
 
 
+import requests
+from bs4 import BeautifulSoup
+
+def fetch_openinsider_live(ticker: str) -> List[Dict[str, Any]]:
+    """Scrapes up to 100 recent SEC Form 4 insider transactions from OpenInsider."""
+    url = f"http://openinsider.com/search?q={ticker}"
+    headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"}
+    trades = []
+    try:
+        r = requests.get(url, headers=headers, timeout=15)
+        if r.status_code == 200:
+            soup = BeautifulSoup(r.text, "html.parser")
+            table = soup.find("table", class_="tinytable")
+            if table:
+                rows = table.find("tbody").find_all("tr") if table.find("tbody") else table.find_all("tr")[1:]
+                for row in rows:
+                    cols = [td.text.strip() for td in row.find_all("td")]
+                    if len(cols) >= 13:
+                        trades.append({
+                            "filing_date": cols[1].split()[0] if cols[1] else "",
+                            "trade_date": cols[2].split()[0] if cols[2] else "",
+                            "name": cols[4],
+                            "title": cols[5],
+                            "trade_type": cols[6],
+                            "price": cols[7],
+                            "qty": cols[8],
+                            "owned": cols[9],
+                            "delta_own": cols[10],
+                            "value": cols[11]
+                        })
+    except Exception as e:
+        print(f"Error fetching OpenInsider for {ticker}: {e}")
+    return trades
+
+
+def fetch_dataroma_live(ticker: str) -> List[Dict[str, Any]]:
+    """Scrapes all Dataroma superinvestor 13F whale positions."""
+    url = f"https://www.dataroma.com/m/stock.php?sym={ticker}"
+    headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"}
+    holders = []
+    try:
+        r = requests.get(url, headers=headers, timeout=15)
+        if r.status_code == 200:
+            soup = BeautifulSoup(r.text, "html.parser")
+            table = soup.find("table", id="grid")
+            if table:
+                rows = table.find_all("tr")[1:]
+                for row in rows:
+                    cols = [td.text.strip() for td in row.find_all("td")]
+                    if len(cols) >= 6:
+                        holders.append({
+                            "manager": cols[1],
+                            "pct_of_portfolio": cols[2],
+                            "recent_activity": cols[3],
+                            "shares": cols[4],
+                            "value_usd": cols[5],
+                            "source_url": url
+                        })
+    except Exception as e:
+        print(f"Error fetching Dataroma for {ticker}: {e}")
+    return holders
+
+
+def fetch_and_cache_complete_ownership(ticker: str, company_name: str) -> Dict[str, Any]:
+    """Unified Pipeline: Scrapes OpenInsider, Dataroma, runs Gemini Reddit/Substack/VIC write-up research, and caches."""
+    from stocks.gemini_agent import research_ownership_writeups
+    import time
+    
+    clean_t = ticker.upper().strip()
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    cache_file = CACHE_DIR / f"{clean_t}.json"
+    
+    # 1. Fetch live OpenInsider Form 4 transactions
+    oi_trades = fetch_openinsider_live(clean_t)
+    
+    # 2. Fetch live Dataroma Superinvestors
+    dr_holders = fetch_dataroma_live(clean_t)
+    
+    # 3. Research real Reddit/Substack/VIC/letters with direct URLs
+    writeups = research_ownership_writeups(clean_t, company_name)
+    
+    # 4. Save cache
+    cached_data = {
+        "ticker": clean_t,
+        "openinsider_trades": oi_trades,
+        "dataroma_holders": dr_holders,
+        "researched_writeups": writeups,
+        "updated_at": time.strftime("%Y-%m-%d %H:%M:%S")
+    }
+    
+    with open(cache_file, "w") as f:
+        json.dump(cached_data, f, indent=2)
+        
+    return cached_data
+
+
 def load_cached_ownership(ticker: str) -> Dict[str, Any]:
     """Loads cached OpenInsider and Dataroma data for a ticker."""
     clean_t = ticker.upper().strip()
