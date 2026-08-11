@@ -86,6 +86,7 @@ def _handle_genesis_task(ticker: str, notes: str):
         lower_alert_threshold=safe_float(meta.get("lower_alert_threshold"), current_price * 0.88),
         next_catalyst_date=normalize_catalyst_date(meta.get("next_catalyst_date", "")),
         next_catalyst_event=meta.get("next_catalyst_event", ""),
+        trigger_reason="Genesis Initial Underwriting",
         full_html_content=html_content
     )
     save_thesis_version(ticker, version_1)
@@ -166,6 +167,7 @@ def _handle_review_task(ticker: str, trigger_reason: str):
         lower_alert_threshold=safe_float(meta.get("new_lower_alert_threshold"), current_price * 0.88),
         next_catalyst_date=normalize_catalyst_date(meta.get("next_catalyst_date", stock.next_catalyst_date)),
         next_catalyst_event=meta.get("next_catalyst_event", stock.next_catalyst_event),
+        trigger_reason=trigger_reason,
         full_html_content=html_content
     )
     save_thesis_version(ticker, new_version)

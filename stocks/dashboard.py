@@ -362,7 +362,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     evolution_banner_html = ""
     if current_version and current_version.version > 1:
         v_diff = current_version.what_changes_now or current_version.summary_of_change
-        v_trigger = current_version.trigger_reason or "Surveillance Review"
+        v_trigger = getattr(current_version, "trigger_reason", "") or "Surveillance Review"
         evolution_banner_html = f"""
         <div class="update-banner-box">
             <div class="update-banner-header">

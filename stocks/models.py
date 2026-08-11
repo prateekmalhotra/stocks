@@ -25,6 +25,7 @@ class ThesisVersion(BaseModel):
     lower_alert_threshold: Optional[float] = None
     next_catalyst_date: Optional[str] = ""
     next_catalyst_event: Optional[str] = ""
+    trigger_reason: Optional[str] = ""
     full_html_content: str = ""
 
 
