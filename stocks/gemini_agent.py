@@ -443,13 +443,13 @@ Return your plan strictly as a JSON object in ```json ... ```:
     "lower_trigger_reason": "<Short reason>",
     "next_catalyst_date": "<YYYY-MM-DD (Strict ISO date, e.g. 2026-08-13; if unconfirmed, estimate exact calendar day based on historical reporting cadence)>",
     "next_catalyst_event": "<Short description of catalyst, max 4 words>",
-    "top_funds": ["<Top Fund 1 (e.g. Vanguard 8.4%)>", "<Top Fund 2 (e.g. BlackRock 7.1%)>", "<Whale/Superinvestor 3>"],
+    "top_funds": ["<Top Fund 1 (e.g. Vanguard 8.4%)>", "<Top Fund 2 (e.g. BlackRock 7.1%)>", "<Whale/Superinvestor 3 from Dataroma/WhaleWisdom>"],
     "institutional_ownership_pct": "<e.g. 78.4%>",
     "insider_signal": "<Net Buying | Cluster Buying | Neutral (10b5-1) | Net Selling | No Activity>",
-    "insider_summary": "<Crisp 1-line summary of recent Form 4 insider purchases/sales or management alignment, max 10 words>",
+    "insider_summary": "<Crisp 1-line summary of recent Form 4 insider purchases/sales audited from OpenInsider, max 10 words>",
     "executive_summary": "<2-3 sentence crisp executive summary>"
   }},
-  "research_objective": "<Your custom summary of the core thesis questions for {ticker}>",
+  "research_objective": "<Your custom summary of the core thesis questions for {ticker}. Search OpenInsider (http://openinsider.com/search?q={ticker}) and Dataroma for insider trades and whale ownership>",
   "sub_agents": [
     {{
       "role": "<Sub-Agent 1 Role Name, e.g. Business Model & Moat Specialist>",
@@ -636,10 +636,10 @@ Part 1: JSON metadata in ```json ... ```:
   "new_lower_alert_threshold": <New lower price trigger>,
   "next_catalyst_date": "<YYYY-MM-DD (Strict ISO date for next catalyst, e.g. 2026-11-18)>",
   "next_catalyst_event": "<Upcoming Event max 4 words>",
-  "top_funds": ["<Top Fund 1 (e.g. Vanguard 8.4%)>", "<Top Fund 2 (e.g. BlackRock 7.1%)>", "<Whale/Superinvestor 3>"],
+  "top_funds": ["<Top Fund 1 (e.g. Vanguard 8.4%)>", "<Top Fund 2 (e.g. BlackRock 7.1%)>", "<Whale/Superinvestor 3 from Dataroma/WhaleWisdom>"],
   "institutional_ownership_pct": "<e.g. 78.4%>",
   "insider_signal": "<Net Buying | Cluster Buying | Neutral (10b5-1) | Net Selling | No Activity>",
-  "insider_summary": "<Crisp 1-line summary of recent Form 4 insider purchases/sales or management alignment, max 10 words>"
+  "insider_summary": "<Crisp 1-line summary of recent Form 4 insider purchases/sales audited from OpenInsider, max 10 words>"
 }}
 
 Part 2: Updated HTML memo content reflecting the evolution of the thesis.

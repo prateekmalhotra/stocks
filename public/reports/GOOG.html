@@ -372,6 +372,42 @@
             color: #fcd34d;
         }
 
+        /* Quick Portals Bar */
+        .quick-portals-bar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+        .portal-links-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .portal-link {
+            background: var(--bg-subpanel);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        .portal-link:hover {
+            background: rgba(201, 154, 117, 0.14);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            transform: translateY(-1px);
+        }
+
         /* Memo Content & Premium Editorial Typography */
         .memo-container {
             background: var(--bg-panel);
@@ -1895,33 +1931,47 @@ json
                     <span class="stat-note">Tracked across SEC 13F Filings</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Insider Sentiment</span>
-                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.22rem;">Neutral (10b5-1 Pre-Scheduled)</span>
-                    <span class="stat-note">Routine 10b5-1 Diversification</span>
+                    <span class="stat-label">Insider Trading Sentiment</span>
+                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.25rem;">Neutral (10b5-1)</span>
+                    <span class="stat-note">Pichai & Brin routine 10b5-1 pre-scheduled diversification</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Whale & Superinvestor Interest</span>
-                    <span class="stat-num" style="color: var(--accent-warm);">12 Funds</span>
-                    <span class="stat-note">Active 13F High-Conviction Stakes</span>
+                    <span class="stat-label">Whale & Superinvestor Tracking</span>
+                    <span class="stat-num" style="color: var(--accent-warm);">38 Funds Tracked</span>
+                    <span class="stat-note">100 Recent Form 4 Transactions Audited</span>
+                </div>
+            </div>
+
+            <!-- Quick Research Portal Bar -->
+            <div class="quick-portals-bar">
+                <span style="font-size: 0.76rem; text-transform: uppercase; color: var(--text-dim); font-weight: 600; letter-spacing: 0.05em;">Direct Research Portals:</span>
+                <div class="portal-links-group">
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="portal-link">📊 OpenInsider Form 4s ↗</a>
+                    <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ Dataroma Superinvestors ↗</a>
+                    <a href="https://whalewisdom.com/stock/GOOG" target="_blank" rel="noopener noreferrer" class="portal-link">🐋 WhaleWisdom 13F ↗</a>
+                    <a href="https://valueinvestorsclub.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="portal-link">📑 Value Investors Club (VIC) ↗</a>
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GOOG" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ SEC EDGAR Filings ↗</a>
                 </div>
             </div>
         </div>
 
-        <!-- Section 1: Institutional Whales -->
+        <!-- Section 1: All Institutional Holders & 13F Whales -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">🏛️</span>
-                <h3 class="section-heading">Top Institutional Holders & 13F Superinvestors</h3>
+                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (38)</h3>
             </div>
-            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, 13D/G activist disclosures, and regulatory ownership registries.</p>
+            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, Dataroma superinvestor portfolios, and regulatory ownership registries.</p>
             <div class="table-responsive">
                 <table class="ownership-table">
                     <thead>
                         <tr>
-                            <th>Institutional Investor / Whale</th>
-                            <th>Category</th>
-                            <th>Reported Stake / Float</th>
+                            <th>Fund / Portfolio Manager</th>
+                            <th>Classification</th>
+                            <th>Portfolio Weight / Stake</th>
+                            <th>Reported Shares</th>
                             <th>Recent 13F Action</th>
+                            <th>Position Value</th>
                             <th>Filing Source</th>
                         </tr>
                     </thead>
@@ -1929,56 +1979,608 @@ json
                         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Vanguard Group</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">7.8% of Float (~970M shares)</td>
-            <td><span style="font-size: 0.82rem;">⚪ Index Rebalancing</span></td>
-            <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">BlackRock Inc.</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">6.8% of Float (~850M shares)</td>
-            <td><span style="font-size: 0.82rem;">⚪ Index Rebalancing</span></td>
-            <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">State Street Corp</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">3.5% of Float (~440M shares)</td>
-            <td><span style="font-size: 0.82rem;">⚪ Custodial Holding</span></td>
-            <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Berkshire Hathaway (Buffett)</div>
+                <div style="font-weight: 500; color: var(--text-title);">Li Lu - Himalaya Capital Management</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Equity Holding</td>
-            <td><span style="font-size: 0.82rem;">⚪ Core Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">21.97%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">2,451,300</td>
+            <td><span style="color: var(--text-dim); font-weight: 500;">Held Firm</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$703,180,000</td>
             <td>
-                <a href="https://www.dataroma.com/m/holdings.php?m=BRK" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Bryan Lawrence - Oakcliff Capital</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">14.96%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">118,161</td>
+            <td><span style="color: var(--text-dim); font-weight: 500;">Held Firm</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$33,896,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Steven Check - Check Capital Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">13.60%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">667,772</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 3.28%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$235,944,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Thomas Russo - Gardner Russo & Quinn</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">11.31%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">3,350,337</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 14.78%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$961,078,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">John Armitage - Egerton Capital</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">11.24%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">3,291,594</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 4.86%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$1,163,019,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Triple Frond Partners</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">10.53%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">353,459</td>
+            <td><span style="color: var(--text-dim); font-weight: 500;">Held Firm</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$101,393,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Francis Chou - Chou Associates</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">9.99%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">72,390</td>
+            <td><span style="color: var(--text-dim); font-weight: 500;">Held Firm</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$20,766,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">David Tepper - Appaloosa Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">8.38%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">1,732,700</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 3.03%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$497,042,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Thomas Gayner - Markel Group</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">7.40%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">2,749,860</td>
+            <td><span style="color: var(--text-dim); font-weight: 500;">Held Firm</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$971,608,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Seth Klarman - Baupost Group</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">6.62%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">1,181,131</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 8.64%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$338,819,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Polen Capital Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">6.59%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">2,165,218</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 26.52%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$765,036,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Wallace Weitz - Weitz Investment Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">6.54%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">326,750</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 6.08%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$93,732,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Francois Rochon - Giverny Capital</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">6.52%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">620,909</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 2.91%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$178,114,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Kahn Brothers Group</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">6.21%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">122,029</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 9.89%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$35,005,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Vulcan Value Partners</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">5.80%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">539,472</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 20.26%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$190,612,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Chris Hohn - TCI Fund Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">5.62%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">8,854,019</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 16.55%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$2,539,864,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">First Pacific Advisors</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">5.46%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">1,333,157</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 1.22%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$382,429,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Duan Yongping - H&H International Investment</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">5.31%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">3,706,000</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 99.74%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$1,063,103,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Yacktman Asset Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">4.93%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">1,129,129</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 0.23%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$398,955,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Mairs & Power Funds</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">4.72%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">1,611,610</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 5.09%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$462,307,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Ruane Cunniff LP</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">4.52%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">950,394</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 16.80%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$272,630,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">First Eagle Investment Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">4.32%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">7,316,252</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 1.19%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$2,585,052,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">David Katz - Matrix Asset Advisors</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">3.90%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">135,829</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 5.59%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$47,992,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Arnold Van Den Berg - Century Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">3.05%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">46,423</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 19.64%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$13,317,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Lee Ainslie - Maverick Capital</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">2.91%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">872,697</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 23.55%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$250,342,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Dodge & Cox Funds</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.93%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">12,228,518</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 5.03%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$3,507,873,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Sarah Ketterer - Causeway Capital Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.19%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">337,298</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 8.84%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$96,757,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Christopher Davis - Davis Advisors</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.86%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">564,274</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 16.73%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$199,395,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Bill Ackman - Pershing Square Capital Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.65%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">311,726</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 94.94%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$89,422,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Warren Buffett - Berkshire Hathaway</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.39%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">3,585,215</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Buy</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$1,028,455,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Bill Nygren - Oakmark Funds</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.34%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">887,164</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 7.74%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$254,492,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Torray Funds</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.32%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">6,019</td>
+            <td><span style="color: var(--text-dim); font-weight: 500;">Held Firm</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$2,127,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Hillman Capital Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.22%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">1,127</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 1.83%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$323,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Christopher Bloomstran - Semper Augustus</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.08%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">2,432</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Buy</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$698,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Glenn Greenberg - Brave Warrior Advisors</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.03%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">3,790</td>
+            <td><span style="color: var(--text-dim); font-weight: 500;">Held Firm</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$1,087,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Vanguard (7.8%)</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
+            <td>
+                <a href="https://whalewisdom.com/stock/GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">BlackRock (6.8%)</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
+            <td>
+                <a href="https://whalewisdom.com/stock/GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">State Street (3.5%)</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
+            <td>
+                <a href="https://whalewisdom.com/stock/GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
@@ -1988,76 +2590,724 @@ json
             </div>
         </div>
 
-        <!-- Section 2: Insider Transactions -->
+        <!-- Section 2: SEC Form 4 Detailed Insider Trading Ledger -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">💼</span>
-                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger</h3>
+                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger (100)</h3>
             </div>
-            <p class="section-desc">Audited officer and director transactions to gauge executive alignment, skin-in-the-game, and open-market conviction.</p>
+            <p class="section-desc">Detailed officer and director transaction ledger audited directly via OpenInsider & SEC Form 4 filings to track management buying, sales, and option exercises.</p>
             <div class="table-responsive">
                 <table class="ownership-table">
                     <thead>
                         <tr>
                             <th>Filing Date</th>
+                            <th>Trade Date</th>
                             <th>Reporting Insider</th>
-                            <th>Transaction</th>
-                            <th>Shares & Execution Price</th>
-                            <th>Total Value / Impact</th>
+                            <th>Title / Role</th>
+                            <th>Type</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Owned After (ΔOwn)</th>
+                            <th>Total Value</th>
+                            <th>Source</th>
                         </tr>
                     </thead>
                     <tbody>
                         
-        <tr>
-            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-02</td>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Sundar Pichai</div>
-                <div style="font-size: 0.72rem; color: var(--text-dim);">Chief Executive Officer</div>
-            </td>
-            <td><span style="color: var(--accent-warm); font-weight: 600; font-size: 0.82rem;">🟡 Rule 10b5-1 Plan Sale</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.85rem;">22,500 Class C @ $182.50</td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$4,106,250 USD</td>
-        </tr>
-        
-        <tr>
-            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-15</td>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Sergey Brin</div>
-                <div style="font-size: 0.72rem; color: var(--text-dim);">Co-Founder & Director</div>
-            </td>
-            <td><span style="color: var(--accent-warm); font-weight: 600; font-size: 0.82rem;">🟡 Rule 10b5-1 Plan Sale</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.85rem;">33,333 Class C @ $180.10</td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$6,003,273 USD</td>
-        </tr>
-        
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-30</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-30</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Arnold Frances</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$333.39</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-82</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,949 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$27,338</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-29</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-29</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Saraci Marsida</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">VP, Chief Accounting Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$333.20</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-449</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">46,983 (-1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$149,607</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-01</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-29</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Walker John Kent</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Pres, Global Affairs, CLO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$349.29</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-8,998</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">228,786 (-4%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$3,142,916</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-30</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-30</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Arnold Frances</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$351.28</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-112</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,050 (-1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$39,343</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-29</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-26</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Saraci Marsida</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">VP, Chief Accounting Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$341.72</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-449</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">32,075 (-1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$153,432</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-18</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-15</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Hennessy John L.</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$368.63</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,050</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">25,530 (-4%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$387,063</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-01</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-29</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Arnold Frances</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$381.00</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-102</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,160 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$38,862</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-19</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-15</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Hennessy John L.</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$393.26</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,050</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">29,252 (-3%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$412,920</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-01</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-30</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Arnold Frances</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$371.00</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-102</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,263 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$37,842</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-17</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-15</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Hennessy John L.</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$331.65</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,050</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">30,302 (-3%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$348,232</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-03</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-01</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">O'Toole Amie Thuener</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">VP, Chief Accounting Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$289.63</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-617</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">51,726 (-1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$178,702</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-31</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-27</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Walker John Kent</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Pres, Global Affairs, CLO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$275.89</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-8,993</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">172,707 (-5%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$2,481,117</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-31</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-30</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Arnold Frances</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$275.19</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-102</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,362 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$28,069</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-06</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-04</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Pichai Sundar</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$303.38</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-32,500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">3,278,585 (-1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$9,859,694</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-04</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-02</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Arnold Frances</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$302.99</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-112</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,464 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$33,935</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-04</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-03</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">O'Toole Amie Thuener</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">VP, Chief Accounting Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$298.00</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-955</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">40,500 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$284,590</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-20</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-18</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Pichai Sundar</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$303.92</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-32,500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">3,046,084 (-1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$9,877,262</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-19</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-17</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Walker John Kent</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Pres, Global Affairs, CLO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$301.46</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-47,574</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">143,562 (-25%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$14,341,414</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-17</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-13</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Hennessy John L.</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$306.73</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-600</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">32,398 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$184,037</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-06</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-04</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Pichai Sundar</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$335.18</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-32,500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">3,078,584 (-1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$10,893,259</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-03</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-02</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">O'Toole Amie Thuener</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">VP, Chief Accounting Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$336.55</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-933</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">42,420 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$314,001</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-01-30</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-01-29</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Arnold Frances</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$340.00</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-102</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,575 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$34,680</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-01-23</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-01-21</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Pichai Sundar</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$327.30</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-32,500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">2,439,432 (-1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$10,637,368</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-01-15</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-01-13</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Hennessy John L.</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$337.52</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-600</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">32,998 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$202,514</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-01-08</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-01-07</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Pichai Sundar</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$321.22</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-32,500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">2,471,932 (-1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$10,439,486</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-31</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-31</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Arnold Frances</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$313.45</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-102</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,678 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$31,972</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-30</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-30</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Walker John Kent</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Pres, Global Affairs, CLO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$314.89</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-17,829</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">152,626 (-10%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$5,614,095</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-17</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-15</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Pichai Sundar</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$299.80</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-32,500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">2,542,104 (-1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$9,743,373</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-17</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-15</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Hennessy John L.</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$308.19</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-600</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">29,501 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$184,915</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-17</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-15</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">O'Toole Amie Thuener</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">VP, Chief Accounting Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$312.30</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,778</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">33,072 (-8%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$867,569</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-05</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-03</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Pichai Sundar</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$319.50</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-32,500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">2,574,553 (-1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$10,383,861</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-02</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-02</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">O'Toole Amie Thuener</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">VP, Chief Accounting Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$317.00</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-954</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">48,067 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$302,418</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-02</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-01</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Arnold Frances</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$317.66</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-102</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,776 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$32,401</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-21</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-19</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Pichai Sundar</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$296.64</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-32,500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">2,607,053 (-1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$9,640,679</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-19</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-17</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">O'Toole Amie Thuener</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">VP, Chief Accounting Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$288.26</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,778</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">49,986 (-5%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$800,777</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=GOOG" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <!-- Section 3: Fund Letters & Write-ups -->
+        <!-- Section 3: Curated Memos & Fund Letters -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">📑</span>
                 <h3 class="section-heading">Fund Letters, VIC Write-ups & Superinvestor Memos</h3>
             </div>
-            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable funds and deep-value analysts.</p>
+            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable hedge funds and deep-value analysts with direct reading links.</p>
             <div class="writeups-grid">
                 
         <div class="writeup-card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
                     Pershing Square / Bill Ackman Thesis · <span style="color: var(--text-dim);">2026 Investment Presentation</span>
                 </div>
-                <a href="https://www.dataroma.com" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                <a href="https://www.dataroma.com/m/stock.php?sym=GOOG" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
                     Read Source ↗
                 </a>
             </div>
-            <h4 style="font-family: var(--font-serif); font-size: 1.15rem; color: var(--text-title); margin: 0 0 8px; line-height: 1.35;">
+            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
                 Alphabet: Cloud Acceleration, Custom Silicon Moat & Search Defense
             </h4>
-            <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.5; margin: 0;">
-                Details Alphabet's AI stack integration across Search, YouTube, and Google Cloud, demonstrating that AI Overviews enhance user engagement while custom TPU infrastructure yields huge cost advantages.
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Details Alphabet's AI stack integration across Search, YouTube, and Google Cloud, demonstrating that AI Overviews enhance user engagement while custom TPU infrastructure yields massive structural cost advantages.
             </p>
         </div>
         

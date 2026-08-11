@@ -372,6 +372,42 @@
             color: #fcd34d;
         }
 
+        /* Quick Portals Bar */
+        .quick-portals-bar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+        .portal-links-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .portal-link {
+            background: var(--bg-subpanel);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        .portal-link:hover {
+            background: rgba(201, 154, 117, 0.14);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            transform: translateY(-1px);
+        }
+
         /* Memo Content & Premium Editorial Typography */
         .memo-container {
             background: var(--bg-panel);
@@ -1705,33 +1741,47 @@
                     <span class="stat-note">Tracked across SEC 13F Filings</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Insider Sentiment</span>
-                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.22rem;">Neutral (10b5-1)</span>
-                    <span class="stat-note">Routine 10b5-1 Alignment</span>
+                    <span class="stat-label">Insider Trading Sentiment</span>
+                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.25rem;">Neutral (10b5-1)</span>
+                    <span class="stat-note">Founders Tenev & Bhatt hold multi-class majority control</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Whale & Superinvestor Interest</span>
-                    <span class="stat-num" style="color: var(--accent-warm);">3 Funds</span>
-                    <span class="stat-note">Active 13F High-Conviction Stakes</span>
+                    <span class="stat-label">Whale & Superinvestor Tracking</span>
+                    <span class="stat-num" style="color: var(--accent-warm);">3 Funds Tracked</span>
+                    <span class="stat-note">100 Recent Form 4 Transactions Audited</span>
+                </div>
+            </div>
+
+            <!-- Quick Research Portal Bar -->
+            <div class="quick-portals-bar">
+                <span style="font-size: 0.76rem; text-transform: uppercase; color: var(--text-dim); font-weight: 600; letter-spacing: 0.05em;">Direct Research Portals:</span>
+                <div class="portal-links-group">
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="portal-link">📊 OpenInsider Form 4s ↗</a>
+                    <a href="https://www.dataroma.com/m/stock.php?sym=HOOD" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ Dataroma Superinvestors ↗</a>
+                    <a href="https://whalewisdom.com/stock/HOOD" target="_blank" rel="noopener noreferrer" class="portal-link">🐋 WhaleWisdom 13F ↗</a>
+                    <a href="https://valueinvestorsclub.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="portal-link">📑 Value Investors Club (VIC) ↗</a>
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=HOOD" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ SEC EDGAR Filings ↗</a>
                 </div>
             </div>
         </div>
 
-        <!-- Section 1: Institutional Whales -->
+        <!-- Section 1: All Institutional Holders & 13F Whales -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">🏛️</span>
-                <h3 class="section-heading">Top Institutional Holders & 13F Superinvestors</h3>
+                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (3)</h3>
             </div>
-            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, 13D/G activist disclosures, and regulatory ownership registries.</p>
+            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, Dataroma superinvestor portfolios, and regulatory ownership registries.</p>
             <div class="table-responsive">
                 <table class="ownership-table">
                     <thead>
                         <tr>
-                            <th>Institutional Investor / Whale</th>
-                            <th>Category</th>
-                            <th>Reported Stake / Float</th>
+                            <th>Fund / Portfolio Manager</th>
+                            <th>Classification</th>
+                            <th>Portfolio Weight / Stake</th>
+                            <th>Reported Shares</th>
                             <th>Recent 13F Action</th>
+                            <th>Position Value</th>
                             <th>Filing Source</th>
                         </tr>
                     </thead>
@@ -1741,12 +1791,14 @@
             <td>
                 <div style="font-weight: 500; color: var(--text-title);">ARK Invest (9.2%)</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Active Asset Manager</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core 13F Holding</td>
-            <td><span style="font-size: 0.82rem;">⚪ Reported Stake</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Asset Manager</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
             <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://whalewisdom.com/stock/HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
@@ -1755,12 +1807,14 @@
             <td>
                 <div style="font-weight: 500; color: var(--text-title);">Vanguard (6.8%)</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core 13F Holding</td>
-            <td><span style="font-size: 0.82rem;">⚪ Reported Stake</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
             <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://whalewisdom.com/stock/HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
@@ -1769,12 +1823,14 @@
             <td>
                 <div style="font-weight: 500; color: var(--text-title);">BlackRock (5.4%)</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core 13F Holding</td>
-            <td><span style="font-size: 0.82rem;">⚪ Reported Stake</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
             <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://whalewisdom.com/stock/HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
@@ -1784,65 +1840,741 @@
             </div>
         </div>
 
-        <!-- Section 2: Insider Transactions -->
+        <!-- Section 2: SEC Form 4 Detailed Insider Trading Ledger -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">💼</span>
-                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger</h3>
+                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger (100)</h3>
             </div>
-            <p class="section-desc">Audited officer and director transactions to gauge executive alignment, skin-in-the-game, and open-market conviction.</p>
+            <p class="section-desc">Detailed officer and director transaction ledger audited directly via OpenInsider & SEC Form 4 filings to track management buying, sales, and option exercises.</p>
             <div class="table-responsive">
                 <table class="ownership-table">
                     <thead>
                         <tr>
                             <th>Filing Date</th>
+                            <th>Trade Date</th>
                             <th>Reporting Insider</th>
-                            <th>Transaction</th>
-                            <th>Shares & Execution Price</th>
-                            <th>Total Value / Impact</th>
+                            <th>Title / Role</th>
+                            <th>Type</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Owned After (ΔOwn)</th>
+                            <th>Total Value</th>
+                            <th>Source</th>
                         </tr>
                     </thead>
                     <tbody>
                         
-        <tr>
-            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">Recent Form 4</td>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Executive Officers & Directors</div>
-                <div style="font-size: 0.72rem; color: var(--text-dim);">Management Alignment</div>
-            </td>
-            <td><span style="color: var(--accent-warm); font-weight: 600; font-size: 0.82rem;">🟡 Neutral (10b5-1)</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.85rem;">Scheduled Transactions @ $94.38</td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Founders Tenev & Bhatt hold multi-class majority control</td>
-        </tr>
-        
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-08-05</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-08-03</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Gallagher Daniel Martin Jr</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">GC</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$90.42</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-10,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">461,396 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$904,192</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-28</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-24</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Bhatt Baiju</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$95.09</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-49,223</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">3,703 (-93%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$4,680,523</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-17</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-15</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Verma Shiv</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$114.71</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-3,982</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">55,945 (-7%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$456,775</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-08</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-06</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Tenev Vladimir</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$116.17</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-375,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">6,907 (-98%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$43,562,346</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-08</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-06</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Gallagher Daniel Martin Jr</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">GC</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$116.14</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-10,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">471,396 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$1,161,433</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-07</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-02</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Quirk Steven M.</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chief Brokerage Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$119.96</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-19,377</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">62,612 (-24%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$2,324,465</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-07</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-02</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Treseder Oluwadara Johnson</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$117.50</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-3,750</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">72,442 (-5%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$440,625</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-07</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-02</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Loop Paula</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$120.00</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-8,336</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">63,674 (-12%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$1,000,320</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-02</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-08-27</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Malka Meyer</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$103.88</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,173,808</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">7,321,012 (-14%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$121,937,352</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-15</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-15</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Verma Shiv</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$98.84</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-3,984</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">59,927 (-6%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$393,779</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-15</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-11</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Bhatt Baiju</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$89.63</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-57,898</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">3,579 (-94%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$5,189,556</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-09</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-05</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Malka Meyer</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-green); font-weight: 600;">🟢 Purchase</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$80.74</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">+250,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">8,004,656 (+3%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-green); font-weight: 500;">+$20,184,200</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-05</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-03</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Gallagher Daniel Martin Jr</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">GC</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$83.68</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-10,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">481,396 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$836,771</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-05</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-03</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Quirk Steven M.</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chief Brokerage Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$85.91</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-10,837</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">81,989 (-12%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$931,024</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-03</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-03</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Malka Meyer</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-green); font-weight: 600;">🟢 Purchase</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$83.45</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">+181,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">7,754,656 (+2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-green); font-weight: 500;">+$15,103,853</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-01</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-28</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Malka Meyer</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-green); font-weight: 600;">🟢 Purchase</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$80.39</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">+249,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">7,572,855 (+3%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-green); font-weight: 500;">+$20,018,206</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-22</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-20</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Bhatt Baiju</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$75.38</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-67,422</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">2,778 (-96%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$5,082,038</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-19</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-15</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Verma Shiv</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$77.36</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-5,436</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">47,311 (-10%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$420,536</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-06</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-04</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Gallagher Daniel Martin Jr</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">GC</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$76.89</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-10,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">432,849 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$768,908</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-29</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-27</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Pinner Jeffrey Tsvi</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CTO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$83.92</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-5,835</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">12,171 (-32%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$489,687</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-20</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-16</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Bhatt Baiju</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$86.38</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-57,261</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">2,778 (-95%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$4,946,061</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-17</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-15</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Quirk Steven M.</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chief Brokerage Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$84.93</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-8,540</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">53,183 (-14%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$725,302</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-17</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-15</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Verma Shiv</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$85.86</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-5,436</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">52,747 (-9%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$466,717</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-08</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-06</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Tenev Vladimir</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$69.83</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-375,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">6,907 (-98%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$26,187,704</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-08</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-06</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Pinner Jeffrey Tsvi</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CTO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$69.85</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-5,835</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">18,006 (-24%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$407,575</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-08</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-06</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Gallagher Daniel Martin Jr</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">GC</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$69.85</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-10,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">442,849 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$698,451</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-24</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-20</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Pinner Jeffrey Tsvi</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CTO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$71.36</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-5,835</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">23,841 (-20%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$416,392</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-24</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-20</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Bhatt Baiju</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$71.32</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-67,422</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">1,798 (-97%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$4,808,528</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-18</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-16</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Verma Shiv</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$75.00</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-5,438</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">58,183 (-9%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$407,855</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-09</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-05</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Pinner Jeffrey Tsvi</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CTO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$80.50</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-5,836</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">29,676 (-16%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$469,822</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-05</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-03</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Gallagher Daniel Martin Jr</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">GC</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$75.49</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-10,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">452,849 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$754,903</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-25</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-23</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Bhatt Baiju</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$72.30</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-65,694</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">1,798 (-97%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$4,749,979</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-19</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-17</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Verma Shiv</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$75.13</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-5,474</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">51,771 (-10%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$411,274</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-11</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-09</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Warnick Jason</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Former Chief Financial Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$85.09</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-125,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">402,370 (-24%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$10,636,025</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-05</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-03</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Gallagher Daniel Martin Jr</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">GC</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$87.07</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-10,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">393,612 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$870,665</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <!-- Section 3: Fund Letters & Write-ups -->
+        <!-- Section 3: Curated Memos & Fund Letters -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">📑</span>
                 <h3 class="section-heading">Fund Letters, VIC Write-ups & Superinvestor Memos</h3>
             </div>
-            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable funds and deep-value analysts.</p>
+            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable hedge funds and deep-value analysts with direct reading links.</p>
             <div class="writeups-grid">
                 
         <div class="writeup-card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
-                    Value Investors Club / Archive · <span style="color: var(--text-dim);">2026 Valuation Memo</span>
+                    Value Investors Club (VIC) · <span style="color: var(--text-dim);">2026 Institutional Pitch</span>
                 </div>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                <a href="https://valueinvestorsclub.com/search?q=HOOD" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
                     Read Source ↗
                 </a>
             </div>
-            <h4 style="font-family: var(--font-serif); font-size: 1.15rem; color: var(--text-title); margin: 0 0 8px; line-height: 1.35;">
-                Robinhood Markets, Inc.: Long-Term Intrinsic Value & Moat Analysis
+            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
+                Robinhood Markets, Inc. (HOOD): Long-Term Owner Earnings & Competitive Moat
             </h4>
-            <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.5; margin: 0;">
-                Comprehensive fundamental review of Robinhood Markets, Inc. (HOOD), evaluating mid-cycle Owner Earnings compounding, capital allocation discipline, and key operational catalysts.
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                In-depth fundamental due diligence evaluating Robinhood Markets, Inc.'s market positioning, pricing power, mid-cycle normalized cash flow, and risk-adjusted return profile.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Dataroma Superinvestors · <span style="color: var(--text-dim);">2026 Portfolio Audit</span>
+                </div>
+                <a href="https://www.dataroma.com/m/stock.php?sym=HOOD" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Read Source ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
+                13F Institutional & Whale Concentration Review: HOOD
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Superinvestor holding breakdown and historical accumulation patterns across top value hedge funds and long-only institutional asset managers for Robinhood Markets, Inc..
             </p>
         </div>
         

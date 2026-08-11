@@ -372,6 +372,42 @@
             color: #fcd34d;
         }
 
+        /* Quick Portals Bar */
+        .quick-portals-bar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+        .portal-links-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .portal-link {
+            background: var(--bg-subpanel);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        .portal-link:hover {
+            background: rgba(201, 154, 117, 0.14);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            transform: translateY(-1px);
+        }
+
         /* Memo Content & Premium Editorial Typography */
         .memo-container {
             background: var(--bg-panel);
@@ -1786,33 +1822,47 @@
                     <span class="stat-note">Tracked across SEC 13F Filings</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Insider Sentiment</span>
-                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.22rem;">Neutral (10b5-1)</span>
-                    <span class="stat-note">Routine 10b5-1 Alignment</span>
+                    <span class="stat-label">Insider Trading Sentiment</span>
+                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.25rem;">Neutral (10b5-1)</span>
+                    <span class="stat-note">Zero insider open-market sales registered</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Whale & Superinvestor Interest</span>
-                    <span class="stat-num" style="color: var(--accent-warm);">3 Funds</span>
-                    <span class="stat-note">Active 13F High-Conviction Stakes</span>
+                    <span class="stat-label">Whale & Superinvestor Tracking</span>
+                    <span class="stat-num" style="color: var(--accent-warm);">9 Funds Tracked</span>
+                    <span class="stat-note">2 Recent Form 4 Transactions Audited</span>
+                </div>
+            </div>
+
+            <!-- Quick Research Portal Bar -->
+            <div class="quick-portals-bar">
+                <span style="font-size: 0.76rem; text-transform: uppercase; color: var(--text-dim); font-weight: 600; letter-spacing: 0.05em;">Direct Research Portals:</span>
+                <div class="portal-links-group">
+                    <a href="http://openinsider.com/search?q=PDD" target="_blank" rel="noopener noreferrer" class="portal-link">📊 OpenInsider Form 4s ↗</a>
+                    <a href="https://www.dataroma.com/m/stock.php?sym=PDD" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ Dataroma Superinvestors ↗</a>
+                    <a href="https://whalewisdom.com/stock/PDD" target="_blank" rel="noopener noreferrer" class="portal-link">🐋 WhaleWisdom 13F ↗</a>
+                    <a href="https://valueinvestorsclub.com/search?q=PDD" target="_blank" rel="noopener noreferrer" class="portal-link">📑 Value Investors Club (VIC) ↗</a>
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=PDD" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ SEC EDGAR Filings ↗</a>
                 </div>
             </div>
         </div>
 
-        <!-- Section 1: Institutional Whales -->
+        <!-- Section 1: All Institutional Holders & 13F Whales -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">🏛️</span>
-                <h3 class="section-heading">Top Institutional Holders & 13F Superinvestors</h3>
+                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (9)</h3>
             </div>
-            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, 13D/G activist disclosures, and regulatory ownership registries.</p>
+            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, Dataroma superinvestor portfolios, and regulatory ownership registries.</p>
             <div class="table-responsive">
                 <table class="ownership-table">
                     <thead>
                         <tr>
-                            <th>Institutional Investor / Whale</th>
-                            <th>Category</th>
-                            <th>Reported Stake / Float</th>
+                            <th>Fund / Portfolio Manager</th>
+                            <th>Classification</th>
+                            <th>Portfolio Weight / Stake</th>
+                            <th>Reported Shares</th>
                             <th>Recent 13F Action</th>
+                            <th>Position Value</th>
                             <th>Filing Source</th>
                         </tr>
                     </thead>
@@ -1820,28 +1870,128 @@
                         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Baillie Gifford (4.2%)</div>
+                <div style="font-weight: 500; color: var(--text-title);">Norbert Lou - Punch Card Management</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Active Asset Manager</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core 13F Holding</td>
-            <td><span style="font-size: 0.82rem;">⚪ Reported Stake</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">15.67%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">415,004</td>
+            <td><span style="color: var(--text-dim); font-weight: 500;">Held Firm</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$42,405,000</td>
             <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://www.dataroma.com/m/stock.php?sym=PDD" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Appaloosa (Tepper)</div>
+                <div style="font-weight: 500; color: var(--text-title);">Li Lu - Himalaya Capital Management</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Active Asset Manager</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core 13F Holding</td>
-            <td><span style="font-size: 0.82rem;">⚪ Reported Stake</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">14.71%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">4,608,000</td>
+            <td><span style="color: var(--text-dim); font-weight: 500;">Held Firm</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$470,845,000</td>
             <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://www.dataroma.com/m/stock.php?sym=PDD" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Duan Yongping - H&H International Investment</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">10.09%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">19,748,294</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 71.18%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$2,017,881,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=PDD" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">David Tepper - Appaloosa Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.55%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">900,000</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 49.30%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$91,962,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=PDD" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Sarah Ketterer - Causeway Capital Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.30%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">237,010</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 36.16%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$24,218,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=PDD" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Dodge & Cox Funds</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.26%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">4,537,600</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 2.20%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$463,652,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=PDD" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Howard Marks - Oaktree Capital Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.01%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">4,823</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Buy</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$493,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=PDD" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Baillie Gifford (4.2%)</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Asset Manager</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
+            <td>
+                <a href="https://whalewisdom.com/stock/PDD" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
@@ -1850,12 +2000,14 @@
             <td>
                 <div style="font-weight: 500; color: var(--text-title);">BlackRock (3.8%)</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core 13F Holding</td>
-            <td><span style="font-size: 0.82rem;">⚪ Reported Stake</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
             <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://whalewisdom.com/stock/PDD" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
@@ -1865,65 +2017,114 @@
             </div>
         </div>
 
-        <!-- Section 2: Insider Transactions -->
+        <!-- Section 2: SEC Form 4 Detailed Insider Trading Ledger -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">💼</span>
-                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger</h3>
+                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger (2)</h3>
             </div>
-            <p class="section-desc">Audited officer and director transactions to gauge executive alignment, skin-in-the-game, and open-market conviction.</p>
+            <p class="section-desc">Detailed officer and director transaction ledger audited directly via OpenInsider & SEC Form 4 filings to track management buying, sales, and option exercises.</p>
             <div class="table-responsive">
                 <table class="ownership-table">
                     <thead>
                         <tr>
                             <th>Filing Date</th>
+                            <th>Trade Date</th>
                             <th>Reporting Insider</th>
-                            <th>Transaction</th>
-                            <th>Shares & Execution Price</th>
-                            <th>Total Value / Impact</th>
+                            <th>Title / Role</th>
+                            <th>Type</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Owned After (ΔOwn)</th>
+                            <th>Total Value</th>
+                            <th>Source</th>
                         </tr>
                     </thead>
                     <tbody>
                         
-        <tr>
-            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">Recent Form 4</td>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Executive Officers & Directors</div>
-                <div style="font-size: 0.72rem; color: var(--text-dim);">Management Alignment</div>
-            </td>
-            <td><span style="color: var(--accent-warm); font-weight: 600; font-size: 0.82rem;">🟡 Neutral (10b5-1)</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.85rem;">Scheduled Transactions @ $90.50</td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Zero insider open-market sales registered</td>
-        </tr>
-        
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-01</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-30</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Rietjens Ivonne McM</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$99.59</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-560</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">0 (-100%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$55,772</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=PDD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-01</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-30</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Kam Anthony Ping Leung</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$99.43</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,533</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">0 (-100%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$152,424</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=PDD" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <!-- Section 3: Fund Letters & Write-ups -->
+        <!-- Section 3: Curated Memos & Fund Letters -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">📑</span>
                 <h3 class="section-heading">Fund Letters, VIC Write-ups & Superinvestor Memos</h3>
             </div>
-            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable funds and deep-value analysts.</p>
+            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable hedge funds and deep-value analysts with direct reading links.</p>
             <div class="writeups-grid">
                 
         <div class="writeup-card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
-                    Value Investors Club / Archive · <span style="color: var(--text-dim);">2026 Valuation Memo</span>
+                    Value Investors Club (VIC) · <span style="color: var(--text-dim);">2026 Institutional Pitch</span>
                 </div>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                <a href="https://valueinvestorsclub.com/search?q=PDD" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
                     Read Source ↗
                 </a>
             </div>
-            <h4 style="font-family: var(--font-serif); font-size: 1.15rem; color: var(--text-title); margin: 0 0 8px; line-height: 1.35;">
-                PDD Holdings Inc.: Long-Term Intrinsic Value & Moat Analysis
+            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
+                PDD Holdings Inc. (PDD): Long-Term Owner Earnings & Competitive Moat
             </h4>
-            <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.5; margin: 0;">
-                Comprehensive fundamental review of PDD Holdings Inc. (PDD), evaluating mid-cycle Owner Earnings compounding, capital allocation discipline, and key operational catalysts.
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                In-depth fundamental due diligence evaluating PDD Holdings Inc.'s market positioning, pricing power, mid-cycle normalized cash flow, and risk-adjusted return profile.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Dataroma Superinvestors · <span style="color: var(--text-dim);">2026 Portfolio Audit</span>
+                </div>
+                <a href="https://www.dataroma.com/m/stock.php?sym=PDD" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Read Source ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
+                13F Institutional & Whale Concentration Review: PDD
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Superinvestor holding breakdown and historical accumulation patterns across top value hedge funds and long-only institutional asset managers for PDD Holdings Inc..
             </p>
         </div>
         

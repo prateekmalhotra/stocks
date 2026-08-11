@@ -372,6 +372,42 @@
             color: #fcd34d;
         }
 
+        /* Quick Portals Bar */
+        .quick-portals-bar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+        .portal-links-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .portal-link {
+            background: var(--bg-subpanel);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        .portal-link:hover {
+            background: rgba(201, 154, 117, 0.14);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            transform: translateY(-1px);
+        }
+
         /* Memo Content & Premium Editorial Typography */
         .memo-container {
             background: var(--bg-panel);
@@ -1667,33 +1703,47 @@
                     <span class="stat-note">Tracked across SEC 13F Filings</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Insider Sentiment</span>
-                    <span class="stat-num" style="color: var(--accent-green); font-family: var(--font-sans); font-size: 1.22rem;">Cluster Buying</span>
-                    <span class="stat-note">Routine 10b5-1 Alignment</span>
+                    <span class="stat-label">Insider Trading Sentiment</span>
+                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.25rem;">Cluster Buying</span>
+                    <span class="stat-note">Founder Willis Johnson & CEO Adair own >9% of company</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Whale & Superinvestor Interest</span>
-                    <span class="stat-num" style="color: var(--accent-warm);">3 Funds</span>
-                    <span class="stat-note">Active 13F High-Conviction Stakes</span>
+                    <span class="stat-label">Whale & Superinvestor Tracking</span>
+                    <span class="stat-num" style="color: var(--accent-warm);">9 Funds Tracked</span>
+                    <span class="stat-note">16 Recent Form 4 Transactions Audited</span>
+                </div>
+            </div>
+
+            <!-- Quick Research Portal Bar -->
+            <div class="quick-portals-bar">
+                <span style="font-size: 0.76rem; text-transform: uppercase; color: var(--text-dim); font-weight: 600; letter-spacing: 0.05em;">Direct Research Portals:</span>
+                <div class="portal-links-group">
+                    <a href="http://openinsider.com/search?q=CPRT" target="_blank" rel="noopener noreferrer" class="portal-link">📊 OpenInsider Form 4s ↗</a>
+                    <a href="https://www.dataroma.com/m/stock.php?sym=CPRT" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ Dataroma Superinvestors ↗</a>
+                    <a href="https://whalewisdom.com/stock/CPRT" target="_blank" rel="noopener noreferrer" class="portal-link">🐋 WhaleWisdom 13F ↗</a>
+                    <a href="https://valueinvestorsclub.com/search?q=CPRT" target="_blank" rel="noopener noreferrer" class="portal-link">📑 Value Investors Club (VIC) ↗</a>
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=CPRT" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ SEC EDGAR Filings ↗</a>
                 </div>
             </div>
         </div>
 
-        <!-- Section 1: Institutional Whales -->
+        <!-- Section 1: All Institutional Holders & 13F Whales -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">🏛️</span>
-                <h3 class="section-heading">Top Institutional Holders & 13F Superinvestors</h3>
+                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (9)</h3>
             </div>
-            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, 13D/G activist disclosures, and regulatory ownership registries.</p>
+            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, Dataroma superinvestor portfolios, and regulatory ownership registries.</p>
             <div class="table-responsive">
                 <table class="ownership-table">
                     <thead>
                         <tr>
-                            <th>Institutional Investor / Whale</th>
-                            <th>Category</th>
-                            <th>Reported Stake / Float</th>
+                            <th>Fund / Portfolio Manager</th>
+                            <th>Classification</th>
+                            <th>Portfolio Weight / Stake</th>
+                            <th>Reported Shares</th>
                             <th>Recent 13F Action</th>
+                            <th>Position Value</th>
                             <th>Filing Source</th>
                         </tr>
                     </thead>
@@ -1701,14 +1751,112 @@
                         
         <tr>
             <td>
+                <div style="font-weight: 500; color: var(--text-title);">Chuck Akre - Akre Capital Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">4.34%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">7,998,938</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 1.66%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$265,565,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=CPRT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">David Rolfe - Wedgewood Partners</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">3.17%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">462,749</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 4.80%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$15,363,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=CPRT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Jensen Investment Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.85%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">1,243,675</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 22.44%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$35,059,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=CPRT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">AKO Capital</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.18%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">274,058</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 95.44%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$9,099,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=CPRT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Yacktman Asset Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.05%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">136,675</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 23.97%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$3,853,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=CPRT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Francois Rochon - Giverny Capital</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.03%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">27,484</td>
+            <td><span style="color: var(--text-dim); font-weight: 500;">Held Firm</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$912,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=CPRT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
                 <div style="font-weight: 500; color: var(--text-title);">Vanguard (9.8%)</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core 13F Holding</td>
-            <td><span style="font-size: 0.82rem;">⚪ Reported Stake</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
             <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://whalewisdom.com/stock/CPRT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
@@ -1717,12 +1865,14 @@
             <td>
                 <div style="font-weight: 500; color: var(--text-title);">BlackRock (8.4%)</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core 13F Holding</td>
-            <td><span style="font-size: 0.82rem;">⚪ Reported Stake</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
             <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://whalewisdom.com/stock/CPRT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
@@ -1731,12 +1881,14 @@
             <td>
                 <div style="font-weight: 500; color: var(--text-title);">State Street (4.6%)</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core 13F Holding</td>
-            <td><span style="font-size: 0.82rem;">⚪ Reported Stake</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
             <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://whalewisdom.com/stock/CPRT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
@@ -1746,65 +1898,380 @@
             </div>
         </div>
 
-        <!-- Section 2: Insider Transactions -->
+        <!-- Section 2: SEC Form 4 Detailed Insider Trading Ledger -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">💼</span>
-                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger</h3>
+                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger (16)</h3>
             </div>
-            <p class="section-desc">Audited officer and director transactions to gauge executive alignment, skin-in-the-game, and open-market conviction.</p>
+            <p class="section-desc">Detailed officer and director transaction ledger audited directly via OpenInsider & SEC Form 4 filings to track management buying, sales, and option exercises.</p>
             <div class="table-responsive">
                 <table class="ownership-table">
                     <thead>
                         <tr>
                             <th>Filing Date</th>
+                            <th>Trade Date</th>
                             <th>Reporting Insider</th>
-                            <th>Transaction</th>
-                            <th>Shares & Execution Price</th>
-                            <th>Total Value / Impact</th>
+                            <th>Title / Role</th>
+                            <th>Type</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Owned After (ΔOwn)</th>
+                            <th>Total Value</th>
+                            <th>Source</th>
                         </tr>
                     </thead>
                     <tbody>
                         
-        <tr>
-            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">Recent Form 4</td>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Executive Officers & Directors</div>
-                <div style="font-size: 0.72rem; color: var(--text-dim);">Management Alignment</div>
-            </td>
-            <td><span style="color: var(--accent-green); font-weight: 600; font-size: 0.82rem;">🟡 Cluster Buying</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.85rem;">Scheduled Transactions @ $29.40</td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Founder Willis Johnson & CEO Adair own >9% of company</td>
-        </tr>
-        
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-30</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-28</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Liaw Jeffrey</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$30.49</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-27,745</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">99,641 (-22%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$845,945</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CPRT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-15</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-13</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Englander Daniel J</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$27.55</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-80,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">510,704 (-14%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$2,204,000</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CPRT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-17</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-15</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Liaw Jeffrey</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$33.18</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-26,213</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">79,532 (-25%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$869,724</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CPRT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-01-16</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-01-15</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Liaw Jeffrey</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$40.17</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-25,137</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">55,970 (-31%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$1,009,753</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CPRT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-25</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-25</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Tryforos Thomas N</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$39.07</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-100,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">0 (-100%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$3,907,000</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CPRT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-17</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-15</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Liaw Jeffrey</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$44.79</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-24,283</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">31,332 (-44%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$1,087,668</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CPRT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-09-17</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-09-15</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Tryforos Thomas N</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$47.54</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-228,840</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">0 (-100%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$10,879,054</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CPRT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-07-16</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-07-15</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Liaw Jeffrey</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$46.43</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-24,088</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">31,527 (-43%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$1,118,419</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CPRT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-04-15</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-04-11</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Cohan Steven D</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$60.01</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-100,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">0 (-100%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$6,001,000</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CPRT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-03-21</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-03-19</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Meeks James E</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$54.00</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-100,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">0 (-100%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$5,400,000</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CPRT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-01-07</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-01-03</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Englander Daniel J</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$56.91</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-320,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">0 (-100%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$18,210,775</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CPRT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-01-06</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-01-02</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Blunt Matt</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$57.66</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-50,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">0 (-100%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$2,883,000</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CPRT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-12-26</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-12-23</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Morefield Diane M</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$58.01</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-30,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">20,000 (-60%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$1,740,300</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CPRT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-12-09</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-12-05</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Tryforos Thomas N</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$61.86</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-83,310</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">0 (-100%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$5,153,557</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CPRT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-11-29</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-11-26</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Adair A Jayson</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Exec COB</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$63.71</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-500,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">26,609,492 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$31,855,228</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CPRT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-10-16</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-10-14</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Adair A Jayson</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Exec COB</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$0.00</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-4,995,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">5,000 (-100%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$0</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CPRT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <!-- Section 3: Fund Letters & Write-ups -->
+        <!-- Section 3: Curated Memos & Fund Letters -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">📑</span>
                 <h3 class="section-heading">Fund Letters, VIC Write-ups & Superinvestor Memos</h3>
             </div>
-            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable funds and deep-value analysts.</p>
+            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable hedge funds and deep-value analysts with direct reading links.</p>
             <div class="writeups-grid">
                 
         <div class="writeup-card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
-                    Value Investors Club / Archive · <span style="color: var(--text-dim);">2026 Valuation Memo</span>
+                    Value Investors Club (VIC) · <span style="color: var(--text-dim);">2026 Institutional Pitch</span>
                 </div>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                <a href="https://valueinvestorsclub.com/search?q=CPRT" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
                     Read Source ↗
                 </a>
             </div>
-            <h4 style="font-family: var(--font-serif); font-size: 1.15rem; color: var(--text-title); margin: 0 0 8px; line-height: 1.35;">
-                Copart, Inc.: Long-Term Intrinsic Value & Moat Analysis
+            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
+                Copart, Inc. (CPRT): Long-Term Owner Earnings & Competitive Moat
             </h4>
-            <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.5; margin: 0;">
-                Comprehensive fundamental review of Copart, Inc. (CPRT), evaluating mid-cycle Owner Earnings compounding, capital allocation discipline, and key operational catalysts.
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                In-depth fundamental due diligence evaluating Copart, Inc.'s market positioning, pricing power, mid-cycle normalized cash flow, and risk-adjusted return profile.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Dataroma Superinvestors · <span style="color: var(--text-dim);">2026 Portfolio Audit</span>
+                </div>
+                <a href="https://www.dataroma.com/m/stock.php?sym=CPRT" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Read Source ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
+                13F Institutional & Whale Concentration Review: CPRT
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Superinvestor holding breakdown and historical accumulation patterns across top value hedge funds and long-only institutional asset managers for Copart, Inc..
             </p>
         </div>
         

@@ -372,6 +372,42 @@
             color: #fcd34d;
         }
 
+        /* Quick Portals Bar */
+        .quick-portals-bar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+        .portal-links-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .portal-link {
+            background: var(--bg-subpanel);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        .portal-link:hover {
+            background: rgba(201, 154, 117, 0.14);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            transform: translateY(-1px);
+        }
+
         /* Memo Content & Premium Editorial Typography */
         .memo-container {
             background: var(--bg-panel);
@@ -1470,33 +1506,47 @@ During H1 2026, Upwork deployed $109.7M to repurchase 8.3M shares, reducing tota
                     <span class="stat-note">Tracked across SEC 13F Filings</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Insider Sentiment</span>
-                    <span class="stat-num" style="color: var(--accent-green); font-family: var(--font-sans); font-size: 1.22rem;">Activist Cluster Buying</span>
-                    <span class="stat-note">+$25M+ Activist Accumulation</span>
+                    <span class="stat-label">Insider Trading Sentiment</span>
+                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.25rem;">Cluster Buying</span>
+                    <span class="stat-note">Activist Engine Capital accumulating shares & demanding cost discipline</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Whale & Superinvestor Interest</span>
-                    <span class="stat-num" style="color: var(--accent-warm);">6 Funds</span>
-                    <span class="stat-note">Active 13F High-Conviction Stakes</span>
+                    <span class="stat-label">Whale & Superinvestor Tracking</span>
+                    <span class="stat-num" style="color: var(--accent-warm);">4 Funds Tracked</span>
+                    <span class="stat-note">85 Recent Form 4 Transactions Audited</span>
+                </div>
+            </div>
+
+            <!-- Quick Research Portal Bar -->
+            <div class="quick-portals-bar">
+                <span style="font-size: 0.76rem; text-transform: uppercase; color: var(--text-dim); font-weight: 600; letter-spacing: 0.05em;">Direct Research Portals:</span>
+                <div class="portal-links-group">
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="portal-link">📊 OpenInsider Form 4s ↗</a>
+                    <a href="https://www.dataroma.com/m/stock.php?sym=UPWK" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ Dataroma Superinvestors ↗</a>
+                    <a href="https://whalewisdom.com/stock/UPWK" target="_blank" rel="noopener noreferrer" class="portal-link">🐋 WhaleWisdom 13F ↗</a>
+                    <a href="https://valueinvestorsclub.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="portal-link">📑 Value Investors Club (VIC) ↗</a>
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=UPWK" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ SEC EDGAR Filings ↗</a>
                 </div>
             </div>
         </div>
 
-        <!-- Section 1: Institutional Whales -->
+        <!-- Section 1: All Institutional Holders & 13F Whales -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">🏛️</span>
-                <h3 class="section-heading">Top Institutional Holders & 13F Superinvestors</h3>
+                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (4)</h3>
             </div>
-            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, 13D/G activist disclosures, and regulatory ownership registries.</p>
+            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, Dataroma superinvestor portfolios, and regulatory ownership registries.</p>
             <div class="table-responsive">
                 <table class="ownership-table">
                     <thead>
                         <tr>
-                            <th>Institutional Investor / Whale</th>
-                            <th>Category</th>
-                            <th>Reported Stake / Float</th>
+                            <th>Fund / Portfolio Manager</th>
+                            <th>Classification</th>
+                            <th>Portfolio Weight / Stake</th>
+                            <th>Reported Shares</th>
                             <th>Recent 13F Action</th>
+                            <th>Position Value</th>
                             <th>Filing Source</th>
                         </tr>
                     </thead>
@@ -1504,56 +1554,64 @@ During H1 2026, Upwork deployed $109.7M to repurchase 8.3M shares, reducing tota
                         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Engine Capital LP</div>
+                <div style="font-weight: 500; color: var(--text-title);">First Pacific Advisors</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Activist Hedge Fund</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">4.1% of Float (~5.6M shares)</td>
-            <td><span style="font-size: 0.82rem;">🟢 Active Campaign / Board Demand</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.01%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">57,081</td>
+            <td><span style="color: var(--text-dim); font-weight: 500;">Held Firm</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$626,000</td>
             <td>
-                <a href="https://whalewisdom.com/filer/engine-capital-l-p" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://www.dataroma.com/m/stock.php?sym=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">First Manhattan Co.</div>
+                <div style="font-weight: 500; color: var(--text-title);">Vanguard (9.4%)</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Value Asset Manager</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">4.8% of Float (~6.5M shares)</td>
-            <td><span style="font-size: 0.82rem;">⚪ Held Firm</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
             <td>
-                <a href="https://whalewisdom.com/filer/first-manhattan-co" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://whalewisdom.com/stock/UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Vanguard Group</div>
+                <div style="font-weight: 500; color: var(--text-title);">BlackRock (7.8%)</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">9.4% of Float (~12.8M shares)</td>
-            <td><span style="font-size: 0.82rem;">⚪ Rebalancing</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
             <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://whalewisdom.com/stock/UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">BlackRock Inc.</div>
+                <div style="font-weight: 500; color: var(--text-title);">Engine Capital (4.1% Activist)</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">7.8% of Float (~10.6M shares)</td>
-            <td><span style="font-size: 0.82rem;">⚪ Rebalancing</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Asset Manager</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
             <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://whalewisdom.com/stock/UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
@@ -1563,76 +1621,724 @@ During H1 2026, Upwork deployed $109.7M to repurchase 8.3M shares, reducing tota
             </div>
         </div>
 
-        <!-- Section 2: Insider Transactions -->
+        <!-- Section 2: SEC Form 4 Detailed Insider Trading Ledger -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">💼</span>
-                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger</h3>
+                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger (85)</h3>
             </div>
-            <p class="section-desc">Audited officer and director transactions to gauge executive alignment, skin-in-the-game, and open-market conviction.</p>
+            <p class="section-desc">Detailed officer and director transaction ledger audited directly via OpenInsider & SEC Form 4 filings to track management buying, sales, and option exercises.</p>
             <div class="table-responsive">
                 <table class="ownership-table">
                     <thead>
                         <tr>
                             <th>Filing Date</th>
+                            <th>Trade Date</th>
                             <th>Reporting Insider</th>
-                            <th>Transaction</th>
-                            <th>Shares & Execution Price</th>
-                            <th>Total Value / Impact</th>
+                            <th>Title / Role</th>
+                            <th>Type</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Owned After (ΔOwn)</th>
+                            <th>Total Value</th>
+                            <th>Source</th>
                         </tr>
                     </thead>
                     <tbody>
                         
-        <tr>
-            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-18</td>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Hayden Brown</div>
-                <div style="font-size: 0.72rem; color: var(--text-dim);">Chief Executive Officer</div>
-            </td>
-            <td><span style="color: var(--accent-warm); font-weight: 600; font-size: 0.82rem;">🟡 10b5-1 Tax Withholding</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.85rem;">28,000 Shares @ $10.20</td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$285,600 USD</td>
-        </tr>
-        
-        <tr>
-            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-02</td>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Arnaud Erulin</div>
-                <div style="font-size: 0.72rem; color: var(--text-dim);">Chief Financial Officer</div>
-            </td>
-            <td><span style="color: var(--accent-green); font-weight: 600; font-size: 0.82rem;">🟢 Open Market Purchase</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.85rem;">15,000 Shares @ $9.10</td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$136,500 USD</td>
-        </tr>
-        
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-21</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-18</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Kappus Anthony Ray</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">GM, COO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$9.06</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-558</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">4,063 (-12%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$5,053</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-23</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-18</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Gessert Erica</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$8.15</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-9,169</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">341,609 (-3%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$74,734</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-23</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-18</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Mekhalfa Sabrina</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chief Accounting Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$8.15</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,276</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">4,396 (-22%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$10,401</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-23</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-18</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Brown Hayden</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Pres, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$8.15</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-23,468</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">797,495 (-3%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$191,281</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-20</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-18</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Kappus Anthony Ray</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">GM, COO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$8.66</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,905</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">3,209 (-37%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$16,504</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-20</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-18</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Gessert Erica</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$8.66</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-22,162</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">332,646 (-6%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$191,998</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-20</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-18</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Brown Hayden</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Pres, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$8.60</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-72,546</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">774,552 (-9%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$623,800</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-20</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-18</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Mekhalfa Sabrina</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chief Accounting Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$12.31</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,482</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">2,095 (-41%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$18,247</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-20</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-18</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Gessert Erica</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$12.31</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-9,278</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">307,240 (-3%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$114,231</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-20</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-18</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Brown Hayden</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Pres, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$12.31</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-23,745</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">798,732 (-3%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$292,344</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-20</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-18</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Bottoms Dave</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">GM, Marketplace</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$12.00</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-18,575</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">2,678 (-87%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$222,957</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-19</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-18</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Gessert Erica</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$13.80</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-26,292</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">298,386 (-8%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$362,887</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-19</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-18</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Bottoms Dave</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">GM, Marketplace</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$13.66</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-32,662</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">345 (-99%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$446,255</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-19</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-18</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Brown Hayden</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Pres, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$13.80</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-123,152</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">776,067 (-14%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$1,698,959</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-22</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-18</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Gessert Erica</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$20.59</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-9,044</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">246,701 (-4%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$186,187</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-22</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-18</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Brown Hayden</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Pres, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$20.59</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-23,147</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">721,158 (-3%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$476,550</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-22</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-18</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Bottoms Dave</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">GM, Marketplace</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$20.62</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-20,907</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">345 (-98%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$431,143</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-28</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-25</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Brown Hayden</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Pres, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$19.51</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-350,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">697,894 (-33%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$6,827,478</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-25</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-21</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Brown Hayden</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Pres, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$18.20</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-60,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">1,047,894 (-5%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$1,092,114</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-25</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-21</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Steele Gary</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$17.51</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-12,500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">85,129 (-13%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$218,849</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-20</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-18</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Brown Hayden</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Pres, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$16.70</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-24,846</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">1,107,894 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$415,008</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-20</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-18</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Gessert Erica</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$16.70</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-18,493</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">237,612 (-7%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$308,840</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-19</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-17</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Bottoms Dave</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">GM, Marketplace</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$17.25</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-4,311</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">345 (-93%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$74,384</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-09-22</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-09-18</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Gessert Erica</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$19.16</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-8,730</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">218,605 (-4%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$167,303</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-09-22</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-09-18</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Bottoms Dave</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">GM, Marketplace</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$19.55</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-20,908</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">345 (-98%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$408,647</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-09-19</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-09-17</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Brown Hayden</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Pres, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$19.04</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-82,344</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">1,082,358 (-7%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$1,568,198</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-09-03</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-08-29</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Bottoms Dave</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">GM, Marketplace</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$14.95</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,690</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">345 (-83%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$25,266</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-08-21</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-08-19</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Marie Olivier</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chief Accounting Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$13.88</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,686</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">748 (-69%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$23,405</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-08-20</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-08-18</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Gessert Erica</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$13.84</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-19,036</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">209,202 (-8%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$263,367</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-08-20</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-08-18</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Bottoms Dave</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">GM, Marketplace</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$13.84</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,060</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">2,035 (-50%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$28,504</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-08-19</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-08-15</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Brown Hayden</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Pres, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$13.78</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-85,577</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">1,118,291 (-7%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$1,179,313</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-08-18</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-08-14</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Marie Olivier</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chief Accounting Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$13.93</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,235</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">2,434 (-48%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$31,136</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-08-12</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-08-08</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Bottoms Dave</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">GM, Marketplace</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$12.88</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-9,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">345 (-96%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$115,937</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-06-24</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-06-20</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Marie Olivier</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chief Accounting Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$13.24</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,590</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">2,042 (-56%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$34,297</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-06-23</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-06-18</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Marie Olivier</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chief Accounting Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$13.50</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,879</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">4,632 (-29%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$25,376</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <!-- Section 3: Fund Letters & Write-ups -->
+        <!-- Section 3: Curated Memos & Fund Letters -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">📑</span>
                 <h3 class="section-heading">Fund Letters, VIC Write-ups & Superinvestor Memos</h3>
             </div>
-            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable funds and deep-value analysts.</p>
+            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable hedge funds and deep-value analysts with direct reading links.</p>
             <div class="writeups-grid">
                 
         <div class="writeup-card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
-                    Engine Capital LP · <span style="color: var(--text-dim);">2026 Shareholder Letter</span>
+                    Engine Capital LP (Arnaud Ajdler) · <span style="color: var(--text-dim);">2026 Shareholder Activist Letter</span>
                 </div>
-                <a href="https://www.prnewswire.com" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                <a href="https://valueinvestorsclub.com/search?q=UPWK" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
                     Read Source ↗
                 </a>
             </div>
-            <h4 style="font-family: var(--font-serif); font-size: 1.15rem; color: var(--text-title); margin: 0 0 8px; line-height: 1.35;">
+            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
                 Engine Capital Letter to Upwork Board of Directors
             </h4>
-            <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.5; margin: 0;">
-                Activist investor Arnaud Ajdler urges Upwork to streamline operational overhead, accelerate enterprise client monetization, expand share repurchases, and target $175M+ in EBITDA.
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Activist investor Arnaud Ajdler urges Upwork to streamline operational overhead, accelerate enterprise client monetization, expand share repurchases, and target $175M+ in adjusted EBITDA.
             </p>
         </div>
         

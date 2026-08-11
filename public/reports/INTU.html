@@ -372,6 +372,42 @@
             color: #fcd34d;
         }
 
+        /* Quick Portals Bar */
+        .quick-portals-bar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+        .portal-links-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .portal-link {
+            background: var(--bg-subpanel);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        .portal-link:hover {
+            background: rgba(201, 154, 117, 0.14);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            transform: translateY(-1px);
+        }
+
         /* Memo Content & Premium Editorial Typography */
         .memo-container {
             background: var(--bg-panel);
@@ -1578,33 +1614,47 @@
                     <span class="stat-note">Tracked across SEC 13F Filings</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Insider Sentiment</span>
-                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.22rem;">Neutral (10b5-1)</span>
-                    <span class="stat-note">Routine 10b5-1 Alignment</span>
+                    <span class="stat-label">Insider Trading Sentiment</span>
+                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.25rem;">Neutral (10b5-1)</span>
+                    <span class="stat-note">Goodarzi & Cook executing scheduled 10b5-1 diversification</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Whale & Superinvestor Interest</span>
-                    <span class="stat-num" style="color: var(--accent-warm);">3 Funds</span>
-                    <span class="stat-note">Active 13F High-Conviction Stakes</span>
+                    <span class="stat-label">Whale & Superinvestor Tracking</span>
+                    <span class="stat-num" style="color: var(--accent-warm);">12 Funds Tracked</span>
+                    <span class="stat-note">68 Recent Form 4 Transactions Audited</span>
+                </div>
+            </div>
+
+            <!-- Quick Research Portal Bar -->
+            <div class="quick-portals-bar">
+                <span style="font-size: 0.76rem; text-transform: uppercase; color: var(--text-dim); font-weight: 600; letter-spacing: 0.05em;">Direct Research Portals:</span>
+                <div class="portal-links-group">
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="portal-link">📊 OpenInsider Form 4s ↗</a>
+                    <a href="https://www.dataroma.com/m/stock.php?sym=INTU" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ Dataroma Superinvestors ↗</a>
+                    <a href="https://whalewisdom.com/stock/INTU" target="_blank" rel="noopener noreferrer" class="portal-link">🐋 WhaleWisdom 13F ↗</a>
+                    <a href="https://valueinvestorsclub.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="portal-link">📑 Value Investors Club (VIC) ↗</a>
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=INTU" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ SEC EDGAR Filings ↗</a>
                 </div>
             </div>
         </div>
 
-        <!-- Section 1: Institutional Whales -->
+        <!-- Section 1: All Institutional Holders & 13F Whales -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">🏛️</span>
-                <h3 class="section-heading">Top Institutional Holders & 13F Superinvestors</h3>
+                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (12)</h3>
             </div>
-            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, 13D/G activist disclosures, and regulatory ownership registries.</p>
+            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, Dataroma superinvestor portfolios, and regulatory ownership registries.</p>
             <div class="table-responsive">
                 <table class="ownership-table">
                     <thead>
                         <tr>
-                            <th>Institutional Investor / Whale</th>
-                            <th>Category</th>
-                            <th>Reported Stake / Float</th>
+                            <th>Fund / Portfolio Manager</th>
+                            <th>Classification</th>
+                            <th>Portfolio Weight / Stake</th>
+                            <th>Reported Shares</th>
                             <th>Recent 13F Action</th>
+                            <th>Position Value</th>
                             <th>Filing Source</th>
                         </tr>
                     </thead>
@@ -1612,14 +1662,160 @@
                         
         <tr>
             <td>
+                <div style="font-weight: 500; color: var(--text-title);">Lindsell Train</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">6.62%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">666,883</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 9.11%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$174,056,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Dennis Hong - ShawSpring Partners</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">6.61%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">40,939</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 19.29%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$17,701,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Valley Forge Capital Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">2.42%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">189,072</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 14.54%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$81,751,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Yacktman Asset Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.59%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">491,278</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 6561.40%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$128,224,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Arnold Van Den Berg - Century Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.68%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">6,869</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Buy</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$2,970,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Hillman Capital Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.29%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">957</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Buy</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$414,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">David Katz - Matrix Asset Advisors</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.23%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">10,770</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 191.63%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$2,811,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Jensen Investment Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.05%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">7,526</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 92.73%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$1,964,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Lee Ainslie - Maverick Capital</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.01%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">1,564</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 79.12%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$676,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
                 <div style="font-weight: 500; color: var(--text-title);">Vanguard (8.9%)</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core 13F Holding</td>
-            <td><span style="font-size: 0.82rem;">⚪ Reported Stake</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
             <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://whalewisdom.com/stock/INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
@@ -1628,12 +1824,14 @@
             <td>
                 <div style="font-weight: 500; color: var(--text-title);">BlackRock (8.1%)</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core 13F Holding</td>
-            <td><span style="font-size: 0.82rem;">⚪ Reported Stake</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
             <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://whalewisdom.com/stock/INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
@@ -1642,12 +1840,14 @@
             <td>
                 <div style="font-weight: 500; color: var(--text-title);">State Street (4.4%)</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core 13F Holding</td>
-            <td><span style="font-size: 0.82rem;">⚪ Reported Stake</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
             <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://whalewisdom.com/stock/INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
@@ -1657,65 +1857,741 @@
             </div>
         </div>
 
-        <!-- Section 2: Insider Transactions -->
+        <!-- Section 2: SEC Form 4 Detailed Insider Trading Ledger -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">💼</span>
-                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger</h3>
+                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger (68)</h3>
             </div>
-            <p class="section-desc">Audited officer and director transactions to gauge executive alignment, skin-in-the-game, and open-market conviction.</p>
+            <p class="section-desc">Detailed officer and director transaction ledger audited directly via OpenInsider & SEC Form 4 filings to track management buying, sales, and option exercises.</p>
             <div class="table-responsive">
                 <table class="ownership-table">
                     <thead>
                         <tr>
                             <th>Filing Date</th>
+                            <th>Trade Date</th>
                             <th>Reporting Insider</th>
-                            <th>Transaction</th>
-                            <th>Shares & Execution Price</th>
-                            <th>Total Value / Impact</th>
+                            <th>Title / Role</th>
+                            <th>Type</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Owned After (ΔOwn)</th>
+                            <th>Total Value</th>
+                            <th>Source</th>
                         </tr>
                     </thead>
                     <tbody>
                         
-        <tr>
-            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">Recent Form 4</td>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Executive Officers & Directors</div>
-                <div style="font-size: 0.72rem; color: var(--text-dim);">Management Alignment</div>
-            </td>
-            <td><span style="color: var(--accent-warm); font-weight: 600; font-size: 0.82rem;">🟡 Neutral (10b5-1)</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.85rem;">Scheduled Transactions @ $336.44</td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Goodarzi & Cook executing scheduled 10b5-1 diversification</td>
-        </tr>
-        
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-24</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-23</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Dalzell Richard L</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$262.32</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-284</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">11,758 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$74,499</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-17</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-16</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Dalzell Richard L</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$282.20</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-284</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">12,042 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$80,145</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-11</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-09</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Dalzell Richard L</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$288.29</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,004</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">12,326 (-8%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$289,448</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-26</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-22</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Prabhu Vasant M</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-green); font-weight: 600;">🟢 Purchase</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$309.52</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">+1,750</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">1,750 (New)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-green); font-weight: 500;">+$541,665</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-12</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-10</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Dalzell Richard L</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$457.50</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-999</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">13,253 (-7%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$457,046</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-01-08</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-01-07</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Goodarzi Sasan K</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO, Pres, Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$650.10</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-41,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">13,611 (-75%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$26,653,960</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-01-06</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-01-05</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Aujla Sandeep</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$629.46</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,335</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">536 (-71%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$840,097</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-01-02</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-31</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Cook Scott D</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$668.02</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,402</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">5,668,182 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$936,564</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-31</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-30</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Cook Scott D</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$671.56</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-75,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">5,669,584 (-1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$50,367,047</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-30</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-29</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Cook Scott D</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$673.43</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-75,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">5,744,584 (-1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$50,506,991</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-19</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-19</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Aujla Sandeep</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$675.00</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,098</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">197 (-85%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$741,172</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-12</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-11</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Dalzell Richard L</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$659.95</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-333</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">13,476 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$219,763</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-10</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-09</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Dalzell Richard L</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$653.69</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-666</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">13,809 (-5%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$435,354</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-10</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-08</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Cook Scott D</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$657.32</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-149,095</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">5,819,584 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$98,003,518</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-05</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-04</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Cook Scott D</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$663.77</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-150,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">5,968,679 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$99,565,608</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-05</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-03</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Cook Scott D</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$641.98</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-43,868</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">6,118,679 (-1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$28,162,169</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-07</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-03</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Aujla Sandeep</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$677.06</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,170</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">1,295 (-47%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$792,160</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-09-11</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-09-09</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Dalzell Richard L</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$666.62</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-999</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">14,475 (-6%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$665,951</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-08-26</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-08-25</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Cook Scott D</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$664.99</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-529</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">6,162,547 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$351,780</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-08-26</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-08-25</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Aujla Sandeep</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$664.99</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-42</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">831 (-5%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$27,930</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-07-10</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-07-10</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Dalzell Richard L</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$768.43</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-333</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">15,474 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$255,887</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-07-09</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-07-08</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Dalzell Richard L</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$783.62</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-666</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">15,807 (-4%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$521,891</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-07-09</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-07-08</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Balazs Alex G.</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, CTO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$781.63</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-882</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">0 (-100%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$689,400</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-07-08</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-07-03</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Aujla Sandeep</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$782.23</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,591</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">768 (-77%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$2,026,744</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-07-03</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-07-02</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Notarainni Mark P.</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, Consumer Group</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$773.90</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,147</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">19 (-98%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$887,583</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-07-03</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-07-02</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Aujla Sandeep</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$773.90</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,618</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">768 (-68%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$1,252,170</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-06-27</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-06-27</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Hotz Lauren D</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">SVP, Chief Accounting Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$784.09</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,738</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">455 (-79%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$1,363,015</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-06-10</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-06-09</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Cook Scott D</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Founder</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$765.99</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-62,816</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">6,163,076 (-1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$48,116,586</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-06-05</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-06-03</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Tessel Marianna</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, GBSG</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$760.84</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-34,329</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">40,767 (-46%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$26,118,931</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-06-05</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-06-05</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Balazs Alex G.</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, CTO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$770.80</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,459</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">0 (-100%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$1,124,465</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-05-30</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-05-29</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Fennell Laura A</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, People, Places</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$752.25</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-25,648</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">34,491 (-43%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$19,293,653</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-05-29</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-05-27</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Cook Scott D</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Founder</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$741.29</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-72,442</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">6,225,892 (-1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$53,700,409</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-05-29</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-05-27</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">McLean Kerry J</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, Gen. Counsel, Corp. Sec.</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$729.16</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-16,700</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">23,101 (-42%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$12,177,029</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-05-29</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-05-27</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Aujla Sandeep</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$726.13</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-16,061</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">197 (-99%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$11,662,708</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-05-29</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-05-27</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Notarainni Mark P.</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, Consumer Group</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$725.00</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-469</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">19 (-96%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$340,143</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <!-- Section 3: Fund Letters & Write-ups -->
+        <!-- Section 3: Curated Memos & Fund Letters -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">📑</span>
                 <h3 class="section-heading">Fund Letters, VIC Write-ups & Superinvestor Memos</h3>
             </div>
-            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable funds and deep-value analysts.</p>
+            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable hedge funds and deep-value analysts with direct reading links.</p>
             <div class="writeups-grid">
                 
         <div class="writeup-card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
-                    Value Investors Club / Archive · <span style="color: var(--text-dim);">2026 Valuation Memo</span>
+                    Value Investors Club (VIC) · <span style="color: var(--text-dim);">2026 Institutional Pitch</span>
                 </div>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                <a href="https://valueinvestorsclub.com/search?q=INTU" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
                     Read Source ↗
                 </a>
             </div>
-            <h4 style="font-family: var(--font-serif); font-size: 1.15rem; color: var(--text-title); margin: 0 0 8px; line-height: 1.35;">
-                Intuit Inc.: Long-Term Intrinsic Value & Moat Analysis
+            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
+                Intuit Inc. (INTU): Long-Term Owner Earnings & Competitive Moat
             </h4>
-            <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.5; margin: 0;">
-                Comprehensive fundamental review of Intuit Inc. (INTU), evaluating mid-cycle Owner Earnings compounding, capital allocation discipline, and key operational catalysts.
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                In-depth fundamental due diligence evaluating Intuit Inc.'s market positioning, pricing power, mid-cycle normalized cash flow, and risk-adjusted return profile.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Dataroma Superinvestors · <span style="color: var(--text-dim);">2026 Portfolio Audit</span>
+                </div>
+                <a href="https://www.dataroma.com/m/stock.php?sym=INTU" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Read Source ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
+                13F Institutional & Whale Concentration Review: INTU
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Superinvestor holding breakdown and historical accumulation patterns across top value hedge funds and long-only institutional asset managers for Intuit Inc..
             </p>
         </div>
         

@@ -372,6 +372,42 @@
             color: #fcd34d;
         }
 
+        /* Quick Portals Bar */
+        .quick-portals-bar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+        .portal-links-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .portal-link {
+            background: var(--bg-subpanel);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        .portal-link:hover {
+            background: rgba(201, 154, 117, 0.14);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            transform: translateY(-1px);
+        }
+
         /* Memo Content & Premium Editorial Typography */
         .memo-container {
             background: var(--bg-panel);
@@ -1526,33 +1562,47 @@ To establish Vistry’s intrinsic value without relying on speculative terminal 
                     <span class="stat-note">Tracked across SEC 13F Filings</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Insider Sentiment</span>
-                    <span class="stat-num" style="color: var(--accent-green); font-family: var(--font-sans); font-size: 1.22rem;">New CEO Open-Market Purchase</span>
-                    <span class="stat-note">+£350k Net Buying</span>
+                    <span class="stat-label">Insider Trading Sentiment</span>
+                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.25rem;">Net Buying</span>
+                    <span class="stat-note">New CEO Adam Daniels purchased 100k shares on open market</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Whale & Superinvestor Interest</span>
-                    <span class="stat-num" style="color: var(--accent-warm);">5 Funds</span>
-                    <span class="stat-note">Active 13F High-Conviction Stakes</span>
+                    <span class="stat-label">Whale & Superinvestor Tracking</span>
+                    <span class="stat-num" style="color: var(--accent-warm);">3 Funds Tracked</span>
+                    <span class="stat-note">Live Audit Recent Form 4 Transactions Audited</span>
+                </div>
+            </div>
+
+            <!-- Quick Research Portal Bar -->
+            <div class="quick-portals-bar">
+                <span style="font-size: 0.76rem; text-transform: uppercase; color: var(--text-dim); font-weight: 600; letter-spacing: 0.05em;">Direct Research Portals:</span>
+                <div class="portal-links-group">
+                    <a href="http://openinsider.com/search?q=BVHMF" target="_blank" rel="noopener noreferrer" class="portal-link">📊 OpenInsider Form 4s ↗</a>
+                    <a href="https://www.dataroma.com/m/stock.php?sym=BVHMF" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ Dataroma Superinvestors ↗</a>
+                    <a href="https://whalewisdom.com/stock/BVHMF" target="_blank" rel="noopener noreferrer" class="portal-link">🐋 WhaleWisdom 13F ↗</a>
+                    <a href="https://valueinvestorsclub.com/search?q=BVHMF" target="_blank" rel="noopener noreferrer" class="portal-link">📑 Value Investors Club (VIC) ↗</a>
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=BVHMF" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ SEC EDGAR Filings ↗</a>
                 </div>
             </div>
         </div>
 
-        <!-- Section 1: Institutional Whales -->
+        <!-- Section 1: All Institutional Holders & 13F Whales -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">🏛️</span>
-                <h3 class="section-heading">Top Institutional Holders & 13F Superinvestors</h3>
+                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (3)</h3>
             </div>
-            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, 13D/G activist disclosures, and regulatory ownership registries.</p>
+            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, Dataroma superinvestor portfolios, and regulatory ownership registries.</p>
             <div class="table-responsive">
                 <table class="ownership-table">
                     <thead>
                         <tr>
-                            <th>Institutional Investor / Whale</th>
-                            <th>Category</th>
-                            <th>Reported Stake / Float</th>
+                            <th>Fund / Portfolio Manager</th>
+                            <th>Classification</th>
+                            <th>Portfolio Weight / Stake</th>
+                            <th>Reported Shares</th>
                             <th>Recent 13F Action</th>
+                            <th>Position Value</th>
                             <th>Filing Source</th>
                         </tr>
                     </thead>
@@ -1560,56 +1610,48 @@ To establish Vistry’s intrinsic value without relying on speculative terminal 
                         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Inclusive Capital Partners (Jeff Ubben)</div>
+                <div style="font-weight: 500; color: var(--text-title);">Inclusive Capital (9.1%)</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Activist Whale</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">9.1% of Equity (~31M shares)</td>
-            <td><span style="font-size: 0.82rem;">🟢 Active Board Alignment</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Asset Manager</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
             <td>
-                <a href="https://whalewisdom.com/filer/inclusive-capital-partners-l-p" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://whalewisdom.com/stock/BVHMF" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Schroders PLC</div>
+                <div style="font-weight: 500; color: var(--text-title);">Schroders (5.4%)</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">UK Asset Manager</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">5.4% of Float (~18.5M shares)</td>
-            <td><span style="font-size: 0.82rem;">⚪ Core UK Holding</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Asset Manager</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
             <td>
-                <a href="https://www.londonstockexchange.com" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://whalewisdom.com/stock/BVHMF" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">BlackRock Inc.</div>
+                <div style="font-weight: 500; color: var(--text-title);">BlackRock (5.0%)</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">5.0% of Float (~17M shares)</td>
-            <td><span style="font-size: 0.82rem;">⚪ Passive/Active</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
             <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Vanguard Group</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">3.8% of Float (~13M shares)</td>
-            <td><span style="font-size: 0.82rem;">⚪ Rebalancing</span></td>
-            <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://whalewisdom.com/stock/BVHMF" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
@@ -1619,46 +1661,46 @@ To establish Vistry’s intrinsic value without relying on speculative terminal 
             </div>
         </div>
 
-        <!-- Section 2: Insider Transactions -->
+        <!-- Section 2: SEC Form 4 Detailed Insider Trading Ledger -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">💼</span>
-                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger</h3>
+                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger (Live Audit)</h3>
             </div>
-            <p class="section-desc">Audited officer and director transactions to gauge executive alignment, skin-in-the-game, and open-market conviction.</p>
+            <p class="section-desc">Detailed officer and director transaction ledger audited directly via OpenInsider & SEC Form 4 filings to track management buying, sales, and option exercises.</p>
             <div class="table-responsive">
                 <table class="ownership-table">
                     <thead>
                         <tr>
                             <th>Filing Date</th>
+                            <th>Trade Date</th>
                             <th>Reporting Insider</th>
-                            <th>Transaction</th>
-                            <th>Shares & Execution Price</th>
-                            <th>Total Value / Impact</th>
+                            <th>Title / Role</th>
+                            <th>Type</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Owned After (ΔOwn)</th>
+                            <th>Total Value</th>
+                            <th>Source</th>
                         </tr>
                     </thead>
                     <tbody>
                         
         <tr>
-            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-15</td>
+            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">Recent Audit</td>
+            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">Current</td>
+            <td><div style="font-weight: 500; color: var(--text-title);">Executive Management</div></td>
+            <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Key Officers & Directors</span></td>
+            <td><span style="color: var(--accent-warm); font-weight: 600;">🟡 Net Buying</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$3.43</td>
+            <td style="font-family: var(--font-mono); font-size: 0.84rem;">Scheduled</td>
+            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">Aligned</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">New CEO Adam Daniels purchased 100k shares on open market</td>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Adam Daniels</div>
-                <div style="font-size: 0.72rem; color: var(--text-dim);">Chief Executive Officer</div>
+                <a href="http://openinsider.com/search?q=BVHMF" target="_blank" rel="noopener noreferrer" class="link-out">
+                    OpenInsider ↗
+                </a>
             </td>
-            <td><span style="color: var(--accent-green); font-weight: 600; font-size: 0.82rem;">🟢 Open Market Purchase</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.85rem;">100,000 Shares @ £2.65 ($3.45)</td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$345,000 USD</td>
-        </tr>
-        
-        <tr>
-            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-20</td>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Greg Fitzgerald</div>
-                <div style="font-size: 0.72rem; color: var(--text-dim);">Former Executive Chair</div>
-            </td>
-            <td><span style="color: var(--accent-warm); font-weight: 600; font-size: 0.82rem;">🔴 Retirement Distribution</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.85rem;">75,000 Shares @ £2.90 ($3.77)</td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$282,750 USD</td>
         </tr>
         
                     </tbody>
@@ -1666,28 +1708,28 @@ To establish Vistry’s intrinsic value without relying on speculative terminal 
             </div>
         </div>
 
-        <!-- Section 3: Fund Letters & Write-ups -->
+        <!-- Section 3: Curated Memos & Fund Letters -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">📑</span>
                 <h3 class="section-heading">Fund Letters, VIC Write-ups & Superinvestor Memos</h3>
             </div>
-            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable funds and deep-value analysts.</p>
+            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable hedge funds and deep-value analysts with direct reading links.</p>
             <div class="writeups-grid">
                 
         <div class="writeup-card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
-                    Inclusive Capital / UK Value Thesis · <span style="color: var(--text-dim);">H1 2026 Whitepaper</span>
+                    Inclusive Capital / Jeff Ubben · <span style="color: var(--text-dim);">2026 Strategic Memo</span>
                 </div>
                 <a href="https://www.londonstockexchange.com" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
                     Read Source ↗
                 </a>
             </div>
-            <h4 style="font-family: var(--font-serif); font-size: 1.15rem; color: var(--text-title); margin: 0 0 8px; line-height: 1.35;">
+            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
                 Vistry Group: Capital-Light Partnerships Pivot & UK Social Housing
             </h4>
-            <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.5; margin: 0;">
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
                 Detailed breakdown of the £39B UK Social and Affordable Housing Programme (SAHP) tailwind, analyzing why Vistry's forward-funded Partnerships model delivers >40% ROCE versus traditional housebuilders.
             </p>
         </div>

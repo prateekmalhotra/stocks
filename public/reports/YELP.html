@@ -372,6 +372,42 @@
             color: #fcd34d;
         }
 
+        /* Quick Portals Bar */
+        .quick-portals-bar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+        .portal-links-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .portal-link {
+            background: var(--bg-subpanel);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        .portal-link:hover {
+            background: rgba(201, 154, 117, 0.14);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            transform: translateY(-1px);
+        }
+
         /* Memo Content & Premium Editorial Typography */
         .memo-container {
             background: var(--bg-panel);
@@ -1701,33 +1737,47 @@
                     <span class="stat-note">Tracked across SEC 13F Filings</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Insider Sentiment</span>
-                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.22rem;">Neutral (10b5-1)</span>
-                    <span class="stat-note">Routine 10b5-1 Alignment</span>
+                    <span class="stat-label">Insider Trading Sentiment</span>
+                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.25rem;">Neutral (10b5-1)</span>
+                    <span class="stat-note">Jeremy Stoppelman routine 10b5-1; board expanding $500M buyback</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Whale & Superinvestor Interest</span>
-                    <span class="stat-num" style="color: var(--accent-warm);">3 Funds</span>
-                    <span class="stat-note">Active 13F High-Conviction Stakes</span>
+                    <span class="stat-label">Whale & Superinvestor Tracking</span>
+                    <span class="stat-num" style="color: var(--accent-warm);">3 Funds Tracked</span>
+                    <span class="stat-note">87 Recent Form 4 Transactions Audited</span>
+                </div>
+            </div>
+
+            <!-- Quick Research Portal Bar -->
+            <div class="quick-portals-bar">
+                <span style="font-size: 0.76rem; text-transform: uppercase; color: var(--text-dim); font-weight: 600; letter-spacing: 0.05em;">Direct Research Portals:</span>
+                <div class="portal-links-group">
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="portal-link">📊 OpenInsider Form 4s ↗</a>
+                    <a href="https://www.dataroma.com/m/stock.php?sym=YELP" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ Dataroma Superinvestors ↗</a>
+                    <a href="https://whalewisdom.com/stock/YELP" target="_blank" rel="noopener noreferrer" class="portal-link">🐋 WhaleWisdom 13F ↗</a>
+                    <a href="https://valueinvestorsclub.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="portal-link">📑 Value Investors Club (VIC) ↗</a>
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=YELP" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ SEC EDGAR Filings ↗</a>
                 </div>
             </div>
         </div>
 
-        <!-- Section 1: Institutional Whales -->
+        <!-- Section 1: All Institutional Holders & 13F Whales -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">🏛️</span>
-                <h3 class="section-heading">Top Institutional Holders & 13F Superinvestors</h3>
+                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (3)</h3>
             </div>
-            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, 13D/G activist disclosures, and regulatory ownership registries.</p>
+            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, Dataroma superinvestor portfolios, and regulatory ownership registries.</p>
             <div class="table-responsive">
                 <table class="ownership-table">
                     <thead>
                         <tr>
-                            <th>Institutional Investor / Whale</th>
-                            <th>Category</th>
-                            <th>Reported Stake / Float</th>
+                            <th>Fund / Portfolio Manager</th>
+                            <th>Classification</th>
+                            <th>Portfolio Weight / Stake</th>
+                            <th>Reported Shares</th>
                             <th>Recent 13F Action</th>
+                            <th>Position Value</th>
                             <th>Filing Source</th>
                         </tr>
                     </thead>
@@ -1737,12 +1787,14 @@
             <td>
                 <div style="font-weight: 500; color: var(--text-title);">BlackRock (14.2%)</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core 13F Holding</td>
-            <td><span style="font-size: 0.82rem;">⚪ Reported Stake</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
             <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://whalewisdom.com/stock/YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
@@ -1751,12 +1803,14 @@
             <td>
                 <div style="font-weight: 500; color: var(--text-title);">Vanguard (11.8%)</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core 13F Holding</td>
-            <td><span style="font-size: 0.82rem;">⚪ Reported Stake</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
             <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://whalewisdom.com/stock/YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
@@ -1765,12 +1819,14 @@
             <td>
                 <div style="font-weight: 500; color: var(--text-title);">TCS Capital (4.8% Activist)</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Active Asset Manager</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core 13F Holding</td>
-            <td><span style="font-size: 0.82rem;">⚪ Reported Stake</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Asset Manager</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
             <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://whalewisdom.com/stock/YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
@@ -1780,65 +1836,741 @@
             </div>
         </div>
 
-        <!-- Section 2: Insider Transactions -->
+        <!-- Section 2: SEC Form 4 Detailed Insider Trading Ledger -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">💼</span>
-                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger</h3>
+                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger (87)</h3>
             </div>
-            <p class="section-desc">Audited officer and director transactions to gauge executive alignment, skin-in-the-game, and open-market conviction.</p>
+            <p class="section-desc">Detailed officer and director transaction ledger audited directly via OpenInsider & SEC Form 4 filings to track management buying, sales, and option exercises.</p>
             <div class="table-responsive">
                 <table class="ownership-table">
                     <thead>
                         <tr>
                             <th>Filing Date</th>
+                            <th>Trade Date</th>
                             <th>Reporting Insider</th>
-                            <th>Transaction</th>
-                            <th>Shares & Execution Price</th>
-                            <th>Total Value / Impact</th>
+                            <th>Title / Role</th>
+                            <th>Type</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Owned After (ΔOwn)</th>
+                            <th>Total Value</th>
+                            <th>Source</th>
                         </tr>
                     </thead>
                     <tbody>
                         
-        <tr>
-            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">Recent Form 4</td>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Executive Officers & Directors</div>
-                <div style="font-size: 0.72rem; color: var(--text-dim);">Management Alignment</div>
-            </td>
-            <td><span style="color: var(--accent-warm); font-weight: 600; font-size: 0.82rem;">🟡 Neutral (10b5-1)</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.85rem;">Scheduled Transactions @ $23.61</td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Jeremy Stoppelman routine 10b5-1; board expanding $500M buyback</td>
-        </tr>
-        
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-08-05</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-08-03</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Nachman Joseph R</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">COO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$26.91</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-4,500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">261,326 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$121,095</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-06</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-01</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Amara Carmen</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chief People Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$26.88</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-24,733</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">105,991 (-19%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$664,716</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-02</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-30</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Nachman Joseph R</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">COO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$25.00</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-13,500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">265,826 (-5%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$337,500</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-09</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-05</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Amara Carmen</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chief People Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$24.00</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">130,724 (-1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$24,000</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-03</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-01</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Barone Christine</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$22.95</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-15,507</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">15,928 (-49%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$355,841</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-03</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-01</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Amara Carmen</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chief People Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$22.84</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">131,724 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$11,420</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-22</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-21</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Amara Carmen</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chief People Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$22.35</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">132,224 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$11,175</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-05</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-01</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Saldanha Craig</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chief Product Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$28.17</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,200</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">266,635 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$33,804</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-17</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-15</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Schwarzbach David A</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$26.60</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-7,500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">209,300 (-3%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$199,472</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-03</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-01</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Saldanha Craig</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chief Product Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$24.72</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,200</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">267,835 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$29,664</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-25</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-23</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Schwarzbach David A</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$25.00</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-7,500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">216,800 (-3%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$187,500</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-17</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-12</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Schwarzbach David A</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$25.00</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-10,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">224,300 (-4%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$250,000</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-06</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-06</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Nachman Joseph R</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">COO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$24.19</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,499</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">292,742 (-1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$60,451</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-03</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-02</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Saldanha Craig</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chief Product Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$21.78</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,200</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">253,134 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$26,136</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-25</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-23</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Jedda Dan</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$21.02</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,464</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">17,100 (-8%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$30,773</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-10</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-06</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Nachman Joseph R</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">COO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$24.34</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-7,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">287,561 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$170,400</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-05</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-03</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Stoppelman Jeremy</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$25.36</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-66,200</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">964,827 (-6%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$1,678,961</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-04</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-02</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Saldanha Craig</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chief Product Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$27.40</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,200</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">190,879 (-1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$32,880</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-02</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-01-29</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Stoppelman Jeremy</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$27.38</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-90,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">756,458 (-11%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$2,464,350</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-01-28</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-01-26</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Stoppelman Jeremy</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$27.86</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-90,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">756,458 (-11%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$2,507,234</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-01-23</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-01-21</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Stoppelman Jeremy</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$28.78</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-90,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">756,458 (-11%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$2,590,043</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-01-20</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-01-15</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Stoppelman Jeremy</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$28.51</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-90,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">756,458 (-11%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$2,565,531</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-01-06</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-01-06</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Nachman Joseph R</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">COO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$33.34</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-7,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">188,880 (-4%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$233,360</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-01-02</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-01-02</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Saldanha Craig</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chief Product Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$30.43</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,200</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">192,079 (-1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$36,516</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-29</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-26</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Amara Carmen</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chief People Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$30.69</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">74,378 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$46,035</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-16</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-16</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Schwarzbach David A</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$30.41</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-13,500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">127,627 (-10%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$410,522</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-08</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-05</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Nachman Joseph R</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">COO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$30.10</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-20,325</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">195,880 (-9%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$611,846</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-03</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-03</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Barone Christine</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$30.00</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-15,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">31,435 (-32%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$450,000</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-03</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-03</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Amara Carmen</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chief People Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$30.00</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">75,878 (-1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$30,000</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-02</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-02</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Eaton Sam</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CTO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$28.85</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-195</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">122,880 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$5,626</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-01</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-01</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Saldanha Craig</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chief Product Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$28.62</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,200</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">193,279 (-1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$34,344</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-26</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-26</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Schwarzbach David A</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$29.31</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-9,611</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">141,127 (-6%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$281,678</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-25</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-25</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Amara Carmen</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chief People Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$28.82</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">76,878 (-1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$14,410</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-07</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-06</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Nachman Joseph R</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">COO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$32.16</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-7,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">212,668 (-3%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$225,086</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-03</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-03</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Saldanha Craig</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chief Product Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$32.98</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,200</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">201,300 (-1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$39,576</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <!-- Section 3: Fund Letters & Write-ups -->
+        <!-- Section 3: Curated Memos & Fund Letters -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">📑</span>
                 <h3 class="section-heading">Fund Letters, VIC Write-ups & Superinvestor Memos</h3>
             </div>
-            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable funds and deep-value analysts.</p>
+            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable hedge funds and deep-value analysts with direct reading links.</p>
             <div class="writeups-grid">
                 
         <div class="writeup-card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
-                    Value Investors Club / Archive · <span style="color: var(--text-dim);">2026 Valuation Memo</span>
+                    Value Investors Club (VIC) · <span style="color: var(--text-dim);">2026 Institutional Pitch</span>
                 </div>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                <a href="https://valueinvestorsclub.com/search?q=YELP" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
                     Read Source ↗
                 </a>
             </div>
-            <h4 style="font-family: var(--font-serif); font-size: 1.15rem; color: var(--text-title); margin: 0 0 8px; line-height: 1.35;">
-                Yelp Inc.: Long-Term Intrinsic Value & Moat Analysis
+            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
+                Yelp Inc. (YELP): Long-Term Owner Earnings & Competitive Moat
             </h4>
-            <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.5; margin: 0;">
-                Comprehensive fundamental review of Yelp Inc. (YELP), evaluating mid-cycle Owner Earnings compounding, capital allocation discipline, and key operational catalysts.
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                In-depth fundamental due diligence evaluating Yelp Inc.'s market positioning, pricing power, mid-cycle normalized cash flow, and risk-adjusted return profile.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Dataroma Superinvestors · <span style="color: var(--text-dim);">2026 Portfolio Audit</span>
+                </div>
+                <a href="https://www.dataroma.com/m/stock.php?sym=YELP" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Read Source ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
+                13F Institutional & Whale Concentration Review: YELP
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Superinvestor holding breakdown and historical accumulation patterns across top value hedge funds and long-only institutional asset managers for Yelp Inc..
             </p>
         </div>
         

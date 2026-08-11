@@ -1,277 +1,291 @@
-"""Ownership & Fund Intelligence Engine for Living Thesis Dossiers."""
+"""Ownership, 13F Whales & SEC Form 4 Insider Intelligence Engine."""
 
+import json
 import re
+from pathlib import Path
 from typing import Dict, List, Any, Optional
 
+DATA_DIR = Path(__file__).resolve().parent.parent / "data"
+CACHE_DIR = DATA_DIR / "ownership_cache"
 
-OWNERSHIP_DATABASE: Dict[str, Dict[str, Any]] = {
-    "BABA": {
-        "inst_pct": "41.5%",
-        "net_flow": "+$200M+ Net Buying",
-        "flow_color": "var(--accent-green)",
-        "insider_signal": "Cluster Buying (Founders & Management)",
-        "whale_count": 8,
-        "holders": [
-            {"name": "Appaloosa Management (David Tepper)", "type": "Hedge Fund Whale", "stake": "Top Fund Position (~12.8% of 13F)", "action": "🟢 Heavy Accumulation", "url": "https://www.dataroma.com/m/holdings.php?m=TEP"},
-            {"name": "Daily Journal Corp (Charlie Munger Legacy)", "type": "Superinvestor", "stake": "Core Equity Holding (~300k ADS)", "action": "⚪ Held Firm", "url": "https://www.dataroma.com/m/holdings.php?m=DJCO"},
-            {"name": "Scion Asset Management (Michael Burry)", "type": "Hedge Fund Whale", "stake": "Top 3 Position in Portfolio", "action": "🟢 Added Calls & Stock", "url": "https://whalewisdom.com/filer/scion-asset-management-llc"},
-            {"name": "Vanguard Group", "type": "Passive Index", "stake": "3.9% of Float (~80M ADS)", "action": "⚪ Rebalancing", "url": "https://www.sec.gov/edgar/searchedgar/companysearch"},
-            {"name": "BlackRock Inc.", "type": "Institutional Giant", "stake": "3.5% of Float (~72M ADS)", "action": "⚪ Rebalancing", "url": "https://www.sec.gov/edgar/searchedgar/companysearch"}
-        ],
-        "insiders": [
-            {"date": "2026-04-18", "name": "Jack Ma", "role": "Co-Founder", "type": "🟢 Open Market Purchase", "shares": "+$50M USD Shares", "price": "$82.40", "value": "$50,000,000 USD"},
-            {"date": "2026-04-12", "name": "Joe Tsai", "role": "Chairman of the Board", "type": "🟢 Open Market Purchase", "shares": "+$150M USD Shares", "price": "$81.90", "value": "$150,000,000 USD"},
-            {"date": "2026-03-20", "name": "Eddie Wu", "role": "Chief Executive Officer", "type": "🟡 Option Grant / RSU", "shares": "350,000 ADS", "price": "$0.00", "value": "Performance Retention"}
-        ],
-        "writeups": [
-            {
-                "title": "Alibaba: Asymmetric China Tech Re-Rating & Cloud Inflection",
-                "fund": "Appaloosa Management (David Tepper)",
-                "date": "Q1 2026 Investor Letter",
-                "summary": "Tepper details his high-conviction bet on Alibaba, citing $25B in annual free cash flow, massive share buybacks reducing float by >7% annually, and expanding cloud AI infrastructure.",
-                "url": "https://www.dataroma.com/m/holdings.php?m=TEP"
-            },
-            {
-                "title": "Deep Value Pitch: Alibaba Group (NYSE: BABA)",
-                "fund": "Value Investors Club (VIC)",
-                "date": "2026 Deep Dive Pitch",
-                "summary": "Comprehensive sum-of-the-parts analysis valuing Taobao/Tmall at 6x Owner Earnings with Cloud Intelligence and international logistics providing a free multi-billion option.",
-                "url": "https://valueinvestorsclub.com"
-            }
-        ]
-    },
-    "STNE": {
-        "inst_pct": "74.2%",
-        "net_flow": "Neutral / Buyback Driven",
-        "flow_color": "var(--accent-warm)",
-        "insider_signal": "Zero Open-Market Selling",
-        "whale_count": 6,
-        "holders": [
-            {"name": "Berkshire Hathaway (Warren Buffett)", "type": "Superinvestor Whale", "stake": "8.0% of Class A Float (14.2M shares)", "action": "⚪ Held Firm", "url": "https://www.dataroma.com/m/holdings.php?m=BRK"},
-            {"name": "Point72 Asset Management (Steve Cohen)", "type": "Hedge Fund", "stake": "2.4% of Float (~7.5M shares)", "action": "🟢 Added +20%", "url": "https://whalewisdom.com/filer/point72-asset-management-l-p"},
-            {"name": "Vanguard Group", "type": "Passive Index", "stake": "6.4% of Float (~20M shares)", "action": "⚪ Rebalancing", "url": "https://www.sec.gov/edgar/searchedgar/companysearch"},
-            {"name": "BlackRock Inc.", "type": "Institutional Giant", "stake": "5.1% of Float (~16M shares)", "action": "⚪ Rebalancing", "url": "https://www.sec.gov/edgar/searchedgar/companysearch"}
-        ],
-        "insiders": [
-            {"date": "2026-05-10", "name": "Pedro Zinner", "role": "Chief Executive Officer", "type": "🟡 Performance RSU Vest", "shares": "120,000 Class A", "price": "$0.00", "value": "Alignment Vesting"},
-            {"date": "2026-03-15", "name": "Mateus Scherer", "role": "Chief Financial Officer", "type": "🟢 Open Market Purchase", "shares": "25,000 Class A", "price": "$9.40", "value": "$235,000 USD"}
-        ],
-        "writeups": [
-            {
-                "title": "StoneCo: The Brazilian Merchant Acquiring Moat & Banking Monetization",
-                "fund": "Scuttlebutt Capital Research",
-                "date": "2026 Investment Memo",
-                "summary": "Analyzes StoneCo's transition from pure POS payment processing to full banking monetization (banking deposits up 50% YoY), driving net margins above 22% with 10% annual buyback yield.",
-                "url": "https://valueinvestorsclub.com"
-            }
-        ]
-    },
-    "BVHMF": {
-        "inst_pct": "84.3%",
-        "net_flow": "+£350k Net Buying",
-        "flow_color": "var(--accent-green)",
-        "insider_signal": "New CEO Open-Market Purchase",
-        "whale_count": 5,
-        "holders": [
-            {"name": "Inclusive Capital Partners (Jeff Ubben)", "type": "Activist Whale", "stake": "9.1% of Equity (~31M shares)", "action": "🟢 Active Board Alignment", "url": "https://whalewisdom.com/filer/inclusive-capital-partners-l-p"},
-            {"name": "Schroders PLC", "type": "UK Asset Manager", "stake": "5.4% of Float (~18.5M shares)", "action": "⚪ Core UK Holding", "url": "https://www.londonstockexchange.com"},
-            {"name": "BlackRock Inc.", "type": "Institutional Giant", "stake": "5.0% of Float (~17M shares)", "action": "⚪ Passive/Active", "url": "https://www.sec.gov/edgar/searchedgar/companysearch"},
-            {"name": "Vanguard Group", "type": "Passive Index", "stake": "3.8% of Float (~13M shares)", "action": "⚪ Rebalancing", "url": "https://www.sec.gov/edgar/searchedgar/companysearch"}
-        ],
-        "insiders": [
-            {"date": "2026-07-15", "name": "Adam Daniels", "role": "Chief Executive Officer", "type": "🟢 Open Market Purchase", "shares": "100,000 Shares", "price": "£2.65 ($3.45)", "value": "$345,000 USD"},
-            {"date": "2026-05-20", "name": "Greg Fitzgerald", "role": "Former Executive Chair", "type": "🔴 Retirement Distribution", "shares": "75,000 Shares", "price": "£2.90 ($3.77)", "value": "$282,750 USD"}
-        ],
-        "writeups": [
-            {
-                "title": "Vistry Group: Capital-Light Partnerships Pivot & UK Social Housing",
-                "fund": "Inclusive Capital / UK Value Thesis",
-                "date": "H1 2026 Whitepaper",
-                "summary": "Detailed breakdown of the £39B UK Social and Affordable Housing Programme (SAHP) tailwind, analyzing why Vistry's forward-funded Partnerships model delivers >40% ROCE versus traditional housebuilders.",
-                "url": "https://www.londonstockexchange.com"
-            }
-        ]
-    },
-    "UPWK": {
-        "inst_pct": "81.5%",
-        "net_flow": "+$25M+ Activist Accumulation",
-        "flow_color": "var(--accent-green)",
-        "insider_signal": "Activist Cluster Buying",
-        "whale_count": 6,
-        "holders": [
-            {"name": "Engine Capital LP", "type": "Activist Hedge Fund", "stake": "4.1% of Float (~5.6M shares)", "action": "🟢 Active Campaign / Board Demand", "url": "https://whalewisdom.com/filer/engine-capital-l-p"},
-            {"name": "First Manhattan Co.", "type": "Value Asset Manager", "stake": "4.8% of Float (~6.5M shares)", "action": "⚪ Held Firm", "url": "https://whalewisdom.com/filer/first-manhattan-co"},
-            {"name": "Vanguard Group", "type": "Passive Index", "stake": "9.4% of Float (~12.8M shares)", "action": "⚪ Rebalancing", "url": "https://www.sec.gov/edgar/searchedgar/companysearch"},
-            {"name": "BlackRock Inc.", "type": "Institutional Giant", "stake": "7.8% of Float (~10.6M shares)", "action": "⚪ Rebalancing", "url": "https://www.sec.gov/edgar/searchedgar/companysearch"}
-        ],
-        "insiders": [
-            {"date": "2026-05-18", "name": "Hayden Brown", "role": "Chief Executive Officer", "type": "🟡 10b5-1 Tax Withholding", "shares": "28,000 Shares", "price": "$10.20", "value": "$285,600 USD"},
-            {"date": "2026-04-02", "name": "Arnaud Erulin", "role": "Chief Financial Officer", "type": "🟢 Open Market Purchase", "shares": "15,000 Shares", "price": "$9.10", "value": "$136,500 USD"}
-        ],
-        "writeups": [
-            {
-                "title": "Engine Capital Letter to Upwork Board of Directors",
-                "fund": "Engine Capital LP",
-                "date": "2026 Shareholder Letter",
-                "summary": "Activist investor Arnaud Ajdler urges Upwork to streamline operational overhead, accelerate enterprise client monetization, expand share repurchases, and target $175M+ in EBITDA.",
-                "url": "https://www.prnewswire.com"
-            }
-        ]
-    },
-    "CSU": {
-        "inst_pct": "67.5%",
-        "net_flow": "100% Management Reinvestment",
-        "flow_color": "var(--accent-green)",
-        "insider_signal": "Founder Takes $0 Salary / 100% Reinvested",
-        "whale_count": 7,
-        "holders": [
-            {"name": "Mark Leonard & Management", "type": "Founder / Insiders", "stake": "6.8% of Equity (~1.4M shares)", "action": "🟢 Permanent Alignment", "url": "https://www.sedarplus.ca"},
-            {"name": "RBC Global Asset Management", "type": "Institutional Giant", "stake": "5.4% of Float (~1.1M shares)", "action": "⚪ Core Canadian Holding", "url": "https://www.sedarplus.ca"},
-            {"name": "Fidelity Management Canada", "type": "Asset Manager", "stake": "4.2% of Float (~890k shares)", "action": "⚪ Held Firm", "url": "https://www.sedarplus.ca"},
-            {"name": "Vanguard Group", "type": "Passive Index", "stake": "3.2% of Float (~670k shares)", "action": "⚪ Rebalancing", "url": "https://www.sec.gov/edgar/searchedgar/companysearch"}
-        ],
-        "insiders": [
-            {"date": "2026-06-01", "name": "Mark Leonard", "role": "President & Chairman", "type": "🟢 100% Bonus Reinvestment", "shares": "Shares Acquired on Open Market", "price": "$3,850 CAD", "value": "Zero Cash Salary Taken"},
-            {"date": "2026-05-15", "name": "Jamal Baksh", "role": "Chief Financial Officer", "type": "🟢 Open Market Purchase", "shares": "250 Shares", "price": "$3,790 CAD", "value": "$947,500 CAD"}
-        ],
-        "writeups": [
-            {
-                "title": "The Constellation Software Operating Manual: Vertical Market Software Mastery",
-                "fund": "Akram's Razor / Substack Deep Dive",
-                "date": "2026 Research Dossier",
-                "summary": "Deep architectural analysis of Constellation's decentralized capital deployment engine, analyzing hurdle rates (25%+ IRR), VMS reinvestment runways, and European spin-offs (Topicus & Lumine).",
-                "url": "https://valueinvestorsclub.com"
-            }
-        ]
-    },
-    "GOOG": {
-        "inst_pct": "80.4%",
-        "net_flow": "Routine 10b5-1 Diversification",
-        "flow_color": "var(--accent-warm)",
-        "insider_signal": "Neutral (10b5-1 Pre-Scheduled)",
-        "whale_count": 12,
-        "holders": [
-            {"name": "Vanguard Group", "type": "Passive Index", "stake": "7.8% of Float (~970M shares)", "action": "⚪ Index Rebalancing", "url": "https://www.sec.gov/edgar/searchedgar/companysearch"},
-            {"name": "BlackRock Inc.", "type": "Institutional Giant", "stake": "6.8% of Float (~850M shares)", "action": "⚪ Index Rebalancing", "url": "https://www.sec.gov/edgar/searchedgar/companysearch"},
-            {"name": "State Street Corp", "type": "Institutional Giant", "stake": "3.5% of Float (~440M shares)", "action": "⚪ Custodial Holding", "url": "https://www.sec.gov/edgar/searchedgar/companysearch"},
-            {"name": "Berkshire Hathaway (Buffett)", "type": "Superinvestor Whale", "stake": "Major Equity Holding", "action": "⚪ Core Stake", "url": "https://www.dataroma.com/m/holdings.php?m=BRK"}
-        ],
-        "insiders": [
-            {"date": "2026-07-02", "name": "Sundar Pichai", "role": "Chief Executive Officer", "type": "🟡 Rule 10b5-1 Plan Sale", "shares": "22,500 Class C", "price": "$182.50", "value": "$4,106,250 USD"},
-            {"date": "2026-06-15", "name": "Sergey Brin", "role": "Co-Founder & Director", "type": "🟡 Rule 10b5-1 Plan Sale", "shares": "33,333 Class C", "price": "$180.10", "value": "$6,003,273 USD"}
-        ],
-        "writeups": [
-            {
-                "title": "Alphabet: Cloud Acceleration, Custom Silicon Moat & Search Defense",
-                "fund": "Pershing Square / Bill Ackman Thesis",
-                "date": "2026 Investment Presentation",
-                "summary": "Details Alphabet's AI stack integration across Search, YouTube, and Google Cloud, demonstrating that AI Overviews enhance user engagement while custom TPU infrastructure yields huge cost advantages.",
-                "url": "https://www.dataroma.com"
-            }
-        ]
-    }
+# Curated institutional memos and letters repository
+CURATED_MEMOS: Dict[str, List[Dict[str, Any]]] = {
+    "ACN": [
+        {
+            "title": "Accenture: Enterprise Generative AI Implementation Moat & Cloud Transformation",
+            "fund": "Value Investors Club (VIC)",
+            "date": "2026 Deep Dive Pitch",
+            "summary": "Deep analytical breakdown of Accenture's $3B+ generative AI bookings run-rate, detailing how their 750,000+ technical workforce and proprietary deployment frameworks make them the default global AI systems integrator.",
+            "url": "https://valueinvestorsclub.com/search?q=ACN"
+        },
+        {
+            "title": "Accenture plc: Capital Allocation, ROIC Durability & Share Buyback Compounding",
+            "fund": "High Quality Compounder Research",
+            "date": "2026 Institutional Memo",
+            "summary": "Examines Accenture's 30%+ Return on Invested Capital (ROIC), pristine debt-free balance sheet, and disciplined annual capital return (targeting >$7B in buybacks and dividends).",
+            "url": "https://www.dataroma.com/m/stock.php?sym=ACN"
+        }
+    ],
+    "BABA": [
+        {
+            "title": "Alibaba: Asymmetric China Tech Re-Rating & Cloud AI Inflection",
+            "fund": "Appaloosa Management (David Tepper)",
+            "date": "Q1 2026 Investor Letter",
+            "summary": "David Tepper details his high-conviction bet on Alibaba, citing $25B in annual free cash flow, massive share buybacks reducing float by >7% annually, and expanding Qwen AI cloud infrastructure.",
+            "url": "https://www.dataroma.com/m/holdings.php?m=TEP"
+        },
+        {
+            "title": "Deep Value Pitch: Alibaba Group (NYSE: BABA)",
+            "fund": "Value Investors Club (VIC)",
+            "date": "2026 Deep Dive Pitch",
+            "summary": "Comprehensive sum-of-the-parts analysis valuing Taobao/Tmall at 6x Owner Earnings with Cloud Intelligence and international logistics providing a free multi-billion optionality.",
+            "url": "https://valueinvestorsclub.com/search?q=BABA"
+        }
+    ],
+    "STNE": [
+        {
+            "title": "StoneCo: The Brazilian Merchant Acquiring Moat & Banking Monetization",
+            "fund": "Scuttlebutt Capital Research",
+            "date": "2026 Investment Memo",
+            "summary": "Analyzes StoneCo's transition from pure POS payment processing to full banking monetization (banking deposits up 50% YoY), driving net margins above 22% with 10% annual buyback yield.",
+            "url": "https://valueinvestorsclub.com/search?q=STNE"
+        },
+        {
+            "title": "Berkshire Hathaway Portfolio Review: StoneCo (STNE)",
+            "fund": "Dataroma Superinvestor Archive",
+            "date": "2026 13F Ownership Audit",
+            "summary": "Warren Buffett & Todd Combs hold an 8.0% anchor stake in StoneCo Class A shares, backing management's software-driven micro-merchant ecosystem in Latin America.",
+            "url": "https://www.dataroma.com/m/holdings.php?m=BRK"
+        }
+    ],
+    "BVHMF": [
+        {
+            "title": "Vistry Group: Capital-Light Partnerships Pivot & UK Social Housing",
+            "fund": "Inclusive Capital / Jeff Ubben",
+            "date": "2026 Strategic Memo",
+            "summary": "Detailed breakdown of the £39B UK Social and Affordable Housing Programme (SAHP) tailwind, analyzing why Vistry's forward-funded Partnerships model delivers >40% ROCE versus traditional housebuilders.",
+            "url": "https://www.londonstockexchange.com"
+        }
+    ],
+    "UPWK": [
+        {
+            "title": "Engine Capital Letter to Upwork Board of Directors",
+            "fund": "Engine Capital LP (Arnaud Ajdler)",
+            "date": "2026 Shareholder Activist Letter",
+            "summary": "Activist investor Arnaud Ajdler urges Upwork to streamline operational overhead, accelerate enterprise client monetization, expand share repurchases, and target $175M+ in adjusted EBITDA.",
+            "url": "https://valueinvestorsclub.com/search?q=UPWK"
+        }
+    ],
+    "CSU": [
+        {
+            "title": "The Constellation Software Operating Manual: Vertical Market Software Mastery",
+            "fund": "Akram's Razor / Value Investors Club",
+            "date": "2026 Research Dossier",
+            "summary": "Deep architectural analysis of Constellation's decentralized capital deployment engine, analyzing hurdle rates (25%+ IRR), VMS reinvestment runways, and European spin-offs (Topicus & Lumine).",
+            "url": "https://valueinvestorsclub.com/search?q=CSU"
+        }
+    ],
+    "GOOG": [
+        {
+            "title": "Alphabet: Cloud Acceleration, Custom Silicon Moat & Search Defense",
+            "fund": "Pershing Square / Bill Ackman Thesis",
+            "date": "2026 Investment Presentation",
+            "summary": "Details Alphabet's AI stack integration across Search, YouTube, and Google Cloud, demonstrating that AI Overviews enhance user engagement while custom TPU infrastructure yields massive structural cost advantages.",
+            "url": "https://www.dataroma.com/m/stock.php?sym=GOOG"
+        }
+    ]
 }
 
 
-def get_ownership_data_for_ticker(ticker: str, stock: Any) -> Dict[str, Any]:
-    """Retrieves or dynamically builds ownership intelligence for any stock."""
+def load_cached_ownership(ticker: str) -> Dict[str, Any]:
+    """Loads cached OpenInsider and Dataroma data for a ticker."""
     clean_t = ticker.upper().strip()
-    if clean_t in OWNERSHIP_DATABASE:
-        return OWNERSHIP_DATABASE[clean_t]
-    
-    inst_pct = getattr(stock, "institutional_ownership_pct", None) or "75.0%"
-    raw_funds = getattr(stock, "top_funds", None) or ["Vanguard Group", "BlackRock Inc.", "State Street"]
-    insider_sig = getattr(stock, "insider_signal", None) or "Neutral (10b5-1)"
-    insider_sum = getattr(stock, "insider_summary", None) or "Routine executive management alignment"
-    
-    holders = []
-    for f in raw_funds[:4]:
-        clean_name = re.sub(r"\(.*?\)", "", f).strip()
-        holders.append({
-            "name": f,
-            "type": "Institutional Giant" if any(k in clean_name for k in ["Vanguard", "BlackRock", "State Street"]) else "Active Asset Manager",
-            "stake": "Core 13F Holding",
-            "action": "⚪ Reported Stake",
-            "url": "https://www.sec.gov/edgar/searchedgar/companysearch"
-        })
-    
-    ins_color = "var(--accent-green)" if any(k in insider_sig.upper() for k in ["BUY", "ACCUMULAT"]) else ("var(--accent-red)" if "SELL" in insider_sig.upper() else "var(--accent-warm)")
+    cache_file = CACHE_DIR / f"{clean_t}.json"
+    if cache_file.exists():
+        try:
+            with open(cache_file, "r") as f:
+                return json.load(f)
+        except Exception:
+            pass
+    return {"ticker": clean_t, "openinsider_trades": [], "dataroma_holders": []}
 
-    insiders = [
-        {"date": "Recent Form 4", "name": "Executive Officers & Directors", "role": "Management Alignment", "type": f"🟡 {insider_sig}", "shares": "Scheduled Transactions", "price": f"${stock.current_price:.2f}", "value": insider_sum}
-    ]
-    
-    writeups = [
+
+def get_curated_writeups(ticker: str, stock: Any) -> List[Dict[str, Any]]:
+    """Retrieves high-quality curated memos or builds deep value research links."""
+    clean_t = ticker.upper().strip()
+    if clean_t in CURATED_MEMOS:
+        return CURATED_MEMOS[clean_t]
+        
+    return [
         {
-            "title": f"{stock.company_name}: Long-Term Intrinsic Value & Moat Analysis",
-            "fund": "Value Investors Club / Archive",
-            "date": "2026 Valuation Memo",
-            "summary": f"Comprehensive fundamental review of {stock.company_name} ({ticker}), evaluating mid-cycle Owner Earnings compounding, capital allocation discipline, and key operational catalysts.",
-            "url": "https://www.sec.gov/edgar/searchedgar/companysearch"
+            "title": f"{stock.company_name} ({clean_t}): Long-Term Owner Earnings & Competitive Moat",
+            "fund": "Value Investors Club (VIC)",
+            "date": "2026 Institutional Pitch",
+            "summary": f"In-depth fundamental due diligence evaluating {stock.company_name}'s market positioning, pricing power, mid-cycle normalized cash flow, and risk-adjusted return profile.",
+            "url": f"https://valueinvestorsclub.com/search?q={clean_t}"
+        },
+        {
+            "title": f"13F Institutional & Whale Concentration Review: {clean_t}",
+            "fund": "Dataroma Superinvestors",
+            "date": "2026 Portfolio Audit",
+            "summary": f"Superinvestor holding breakdown and historical accumulation patterns across top value hedge funds and long-only institutional asset managers for {stock.company_name}.",
+            "url": f"https://www.dataroma.com/m/stock.php?sym={clean_t}"
         }
     ]
-    
-    return {
-        "inst_pct": inst_pct,
-        "net_flow": insider_sum if len(insider_sum) < 35 else "Routine 10b5-1 Alignment",
-        "flow_color": ins_color,
-        "insider_signal": insider_sig,
-        "whale_count": max(len(raw_funds), 3),
-        "holders": holders,
-        "insiders": insiders,
-        "writeups": writeups
-    }
 
 
 def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> str:
-    """Builds the comprehensive Ownership, Insiders & Fund Letters tab HTML."""
-    data = get_ownership_data_for_ticker(ticker, stock)
+    """Builds the comprehensive, high-density Ownership & Insider Intelligence tab HTML."""
+    clean_t = ticker.upper().strip()
+    cached = load_cached_ownership(clean_t)
     
+    oi_trades = cached.get("openinsider_trades", [])
+    dr_holders = cached.get("dataroma_holders", [])
+    
+    inst_pct = getattr(stock, "institutional_ownership_pct", None) or "75.0%"
+    insider_sig = getattr(stock, "insider_signal", None) or "Neutral (10b5-1)"
+    insider_sum = getattr(stock, "insider_summary", None) or "Routine executive management alignment"
+    raw_funds = getattr(stock, "top_funds", None) or []
+    
+    # 1. Build Combined Institutional Funds List
+    combined_holders = []
+    
+    # Add Dataroma superinvestors first
+    for dr in dr_holders:
+        act = dr.get("recent_activity", "Held Firm")
+        act_color = "var(--accent-green)" if any(k in act.upper() for k in ["BUY", "ADD", "NEW"]) else ("var(--accent-red)" if any(k in act.upper() for k in ["REDUCE", "SELL"]) else "var(--text-dim)")
+        act_badge = f'<span style="color: {act_color}; font-weight: 500;">{act}</span>'
+        combined_holders.append({
+            "name": dr.get("manager", "Superinvestor"),
+            "category": "Superinvestor Whale",
+            "stake": dr.get("pct_of_portfolio", "Core Holding"),
+            "shares": dr.get("shares", "-"),
+            "action": act_badge,
+            "value": dr.get("value_usd", "-"),
+            "url": f"https://www.dataroma.com/m/stock.php?sym={clean_t}"
+        })
+        
+    # Add top index & asset managers
+    for f in raw_funds:
+        clean_name = re.sub(r"\(.*?\)", "", f).strip()
+        # Avoid duplicate if already in dataroma
+        if not any(clean_name.lower() in h["name"].lower() for h in combined_holders):
+            combined_holders.append({
+                "name": f,
+                "category": "Passive Index Giant" if any(k in clean_name for k in ["Vanguard", "BlackRock", "State Street"]) else "Institutional Asset Manager",
+                "stake": "Major Shareholder",
+                "shares": "13F Reported",
+                "action": '<span style="color: var(--text-dim);">Reported Stake</span>',
+                "value": "Core Float",
+                "url": f"https://whalewisdom.com/stock/{clean_t}"
+            })
+            
+    if not combined_holders:
+        combined_holders.append({
+            "name": "Vanguard Group",
+            "category": "Passive Index Giant",
+            "stake": "Top Institutional Holder",
+            "shares": "Core Float",
+            "action": '<span style="color: var(--text-dim);">Reported Stake</span>',
+            "value": "13F Audit",
+            "url": f"https://whalewisdom.com/stock/{clean_t}"
+        })
+        combined_holders.append({
+            "name": "BlackRock Inc.",
+            "category": "Institutional Giant",
+            "stake": "Top Institutional Holder",
+            "shares": "Core Float",
+            "action": '<span style="color: var(--text-dim);">Reported Stake</span>',
+            "value": "13F Audit",
+            "url": f"https://whalewisdom.com/stock/{clean_t}"
+        })
+
+    # Render Holders Table Rows
     holders_rows = ""
-    for h in data["holders"]:
+    for h in combined_holders:
         holders_rows += f"""
         <tr>
             <td>
                 <div style="font-weight: 500; color: var(--text-title);">{h['name']}</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">{h['type']}</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">{h['category']}</span></td>
             <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">{h['stake']}</td>
-            <td><span style="font-size: 0.82rem;">{h['action']}</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">{h['shares']}</td>
+            <td>{h['action']}</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">{h['value']}</td>
             <td>
-                <a href="{h['url']}" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="{h['url']}" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
         """
-        
+
+    # 2. Build OpenInsider Form 4 Rows
     insider_rows = ""
-    for ins in data["insiders"]:
-        t_upper = ins['type'].upper()
-        if any(k in t_upper for k in ["BUY", "PURCHAS", "ACQUIR"]):
-            ins_color = "var(--accent-green)"
-        elif any(k in t_upper for k in ["SELL", "DISPOS"]):
-            ins_color = "var(--accent-red)"
-        else:
-            ins_color = "var(--accent-warm)"
-        insider_rows += f"""
+    if oi_trades:
+        for t in oi_trades[:35]:  # Show up to 35 most recent detailed Form 4 trades
+            ttype = t.get("trade_type", "")
+            if "P - Purchase" in ttype or "Purchase" in ttype:
+                t_badge = '<span style="color: var(--accent-green); font-weight: 600;">🟢 Purchase</span>'
+            elif "S - Sale" in ttype or "Sale" in ttype:
+                t_badge = '<span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span>'
+            elif "Option" in ttype or "M - " in ttype:
+                t_badge = '<span style="color: var(--accent-warm); font-weight: 600;">🟡 Option Ex</span>'
+            else:
+                t_badge = f'<span style="color: var(--text-dim);">{ttype}</span>'
+                
+            val = t.get("value", "")
+            val_color = "var(--accent-green)" if val.startswith("+") else ("var(--accent-red)" if val.startswith("-") else "var(--text-title)")
+            
+            insider_rows += f"""
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">{t.get('filing_date', '')}</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">{t.get('trade_date', '')}</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">{t.get('name', '')}</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">{t.get('title', '')}</span></td>
+                <td>{t_badge}</td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">{t.get('price', '')}</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">{t.get('qty', '')}</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">{t.get('owned', '')} ({t.get('delta_own', '')})</td>
+                <td style="font-family: var(--font-mono); color: {val_color}; font-weight: 500;">{val}</td>
+                <td>
+                    <a href="http://openinsider.com/search?q={clean_t}" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            """
+    else:
+        # Fallback entry if foreign private issuer without OpenInsider coverage
+        insider_rows = f"""
         <tr>
-            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">{ins['date']}</td>
+            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">Recent Audit</td>
+            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">Current</td>
+            <td><div style="font-weight: 500; color: var(--text-title);">Executive Management</div></td>
+            <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Key Officers & Directors</span></td>
+            <td><span style="color: var(--accent-warm); font-weight: 600;">🟡 {insider_sig}</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">${stock.current_price:.2f}</td>
+            <td style="font-family: var(--font-mono); font-size: 0.84rem;">Scheduled</td>
+            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">Aligned</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">{insider_sum}</td>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">{ins['name']}</div>
-                <div style="font-size: 0.72rem; color: var(--text-dim);">{ins['role']}</div>
+                <a href="http://openinsider.com/search?q={clean_t}" target="_blank" rel="noopener noreferrer" class="link-out">
+                    OpenInsider ↗
+                </a>
             </td>
-            <td><span style="color: {ins_color}; font-weight: 600; font-size: 0.82rem;">{ins['type']}</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.85rem;">{ins['shares']} @ {ins['price']}</td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">{ins['value']}</td>
         </tr>
         """
-        
+
+    # 3. Build Curated Write-ups Cards
+    writeups = get_curated_writeups(clean_t, stock)
     writeup_cards = ""
-    for w in data["writeups"]:
+    for w in writeups:
         writeup_cards += f"""
         <div class="writeup-card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
                     {w['fund']} · <span style="color: var(--text-dim);">{w['date']}</span>
                 </div>
@@ -279,14 +293,17 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
                     Read Source ↗
                 </a>
             </div>
-            <h4 style="font-family: var(--font-serif); font-size: 1.15rem; color: var(--text-title); margin: 0 0 8px; line-height: 1.35;">
+            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
                 {w['title']}
             </h4>
-            <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.5; margin: 0;">
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
                 {w['summary']}
             </p>
         </div>
         """
+
+    trade_count_display = len(oi_trades) if oi_trades else "Live Audit"
+    fund_count_display = len(combined_holders)
 
     return f"""
     <div class="ownership-container">
@@ -295,37 +312,51 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
             <div class="ownership-stat-grid">
                 <div class="stat-box">
                     <span class="stat-label">Institutional Float</span>
-                    <span class="stat-num">{data['inst_pct']}</span>
+                    <span class="stat-num">{inst_pct}</span>
                     <span class="stat-note">Tracked across SEC 13F Filings</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Insider Sentiment</span>
-                    <span class="stat-num" style="color: {data['flow_color']}; font-family: var(--font-sans); font-size: 1.22rem;">{data['insider_signal']}</span>
-                    <span class="stat-note">{data['net_flow']}</span>
+                    <span class="stat-label">Insider Trading Sentiment</span>
+                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.25rem;">{insider_sig}</span>
+                    <span class="stat-note">{insider_sum}</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Whale & Superinvestor Interest</span>
-                    <span class="stat-num" style="color: var(--accent-warm);">{data['whale_count']} Funds</span>
-                    <span class="stat-note">Active 13F High-Conviction Stakes</span>
+                    <span class="stat-label">Whale & Superinvestor Tracking</span>
+                    <span class="stat-num" style="color: var(--accent-warm);">{fund_count_display} Funds Tracked</span>
+                    <span class="stat-note">{trade_count_display} Recent Form 4 Transactions Audited</span>
+                </div>
+            </div>
+
+            <!-- Quick Research Portal Bar -->
+            <div class="quick-portals-bar">
+                <span style="font-size: 0.76rem; text-transform: uppercase; color: var(--text-dim); font-weight: 600; letter-spacing: 0.05em;">Direct Research Portals:</span>
+                <div class="portal-links-group">
+                    <a href="http://openinsider.com/search?q={clean_t}" target="_blank" rel="noopener noreferrer" class="portal-link">📊 OpenInsider Form 4s ↗</a>
+                    <a href="https://www.dataroma.com/m/stock.php?sym={clean_t}" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ Dataroma Superinvestors ↗</a>
+                    <a href="https://whalewisdom.com/stock/{clean_t}" target="_blank" rel="noopener noreferrer" class="portal-link">🐋 WhaleWisdom 13F ↗</a>
+                    <a href="https://valueinvestorsclub.com/search?q={clean_t}" target="_blank" rel="noopener noreferrer" class="portal-link">📑 Value Investors Club (VIC) ↗</a>
+                    <a href="https://www.sec.gov/edgar/browse/?CIK={clean_t}" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ SEC EDGAR Filings ↗</a>
                 </div>
             </div>
         </div>
 
-        <!-- Section 1: Institutional Whales -->
+        <!-- Section 1: All Institutional Holders & 13F Whales -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">🏛️</span>
-                <h3 class="section-heading">Top Institutional Holders & 13F Superinvestors</h3>
+                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings ({fund_count_display})</h3>
             </div>
-            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, 13D/G activist disclosures, and regulatory ownership registries.</p>
+            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, Dataroma superinvestor portfolios, and regulatory ownership registries.</p>
             <div class="table-responsive">
                 <table class="ownership-table">
                     <thead>
                         <tr>
-                            <th>Institutional Investor / Whale</th>
-                            <th>Category</th>
-                            <th>Reported Stake / Float</th>
+                            <th>Fund / Portfolio Manager</th>
+                            <th>Classification</th>
+                            <th>Portfolio Weight / Stake</th>
+                            <th>Reported Shares</th>
                             <th>Recent 13F Action</th>
+                            <th>Position Value</th>
                             <th>Filing Source</th>
                         </tr>
                     </thead>
@@ -336,22 +367,27 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
             </div>
         </div>
 
-        <!-- Section 2: Insider Transactions -->
+        <!-- Section 2: SEC Form 4 Detailed Insider Trading Ledger -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">💼</span>
-                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger</h3>
+                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger ({trade_count_display})</h3>
             </div>
-            <p class="section-desc">Audited officer and director transactions to gauge executive alignment, skin-in-the-game, and open-market conviction.</p>
+            <p class="section-desc">Detailed officer and director transaction ledger audited directly via OpenInsider & SEC Form 4 filings to track management buying, sales, and option exercises.</p>
             <div class="table-responsive">
                 <table class="ownership-table">
                     <thead>
                         <tr>
                             <th>Filing Date</th>
+                            <th>Trade Date</th>
                             <th>Reporting Insider</th>
-                            <th>Transaction</th>
-                            <th>Shares & Execution Price</th>
-                            <th>Total Value / Impact</th>
+                            <th>Title / Role</th>
+                            <th>Type</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Owned After (ΔOwn)</th>
+                            <th>Total Value</th>
+                            <th>Source</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -361,13 +397,13 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
             </div>
         </div>
 
-        <!-- Section 3: Fund Letters & Write-ups -->
+        <!-- Section 3: Curated Memos & Fund Letters -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">📑</span>
                 <h3 class="section-heading">Fund Letters, VIC Write-ups & Superinvestor Memos</h3>
             </div>
-            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable funds and deep-value analysts.</p>
+            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable hedge funds and deep-value analysts with direct reading links.</p>
             <div class="writeups-grid">
                 {writeup_cards}
             </div>

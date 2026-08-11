@@ -372,6 +372,42 @@
             color: #fcd34d;
         }
 
+        /* Quick Portals Bar */
+        .quick-portals-bar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+        .portal-links-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .portal-link {
+            background: var(--bg-subpanel);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        .portal-link:hover {
+            background: rgba(201, 154, 117, 0.14);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            transform: translateY(-1px);
+        }
+
         /* Memo Content & Premium Editorial Typography */
         .memo-container {
             background: var(--bg-panel);
@@ -1697,33 +1733,47 @@ The reported alert trigger is a data mapping anomaly, while CSU's business model
                     <span class="stat-note">Tracked across SEC 13F Filings</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Insider Sentiment</span>
-                    <span class="stat-num" style="color: var(--accent-green); font-family: var(--font-sans); font-size: 1.22rem;">Founder Takes $0 Salary / 100% Reinvested</span>
-                    <span class="stat-note">100% Management Reinvestment</span>
+                    <span class="stat-label">Insider Trading Sentiment</span>
+                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.25rem;">Cluster Buying</span>
+                    <span class="stat-note">Mark Leonard takes $0 salary, invests all personal capital in CSU stock</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Whale & Superinvestor Interest</span>
-                    <span class="stat-num" style="color: var(--accent-warm);">7 Funds</span>
-                    <span class="stat-note">Active 13F High-Conviction Stakes</span>
+                    <span class="stat-label">Whale & Superinvestor Tracking</span>
+                    <span class="stat-num" style="color: var(--accent-warm);">3 Funds Tracked</span>
+                    <span class="stat-note">14 Recent Form 4 Transactions Audited</span>
+                </div>
+            </div>
+
+            <!-- Quick Research Portal Bar -->
+            <div class="quick-portals-bar">
+                <span style="font-size: 0.76rem; text-transform: uppercase; color: var(--text-dim); font-weight: 600; letter-spacing: 0.05em;">Direct Research Portals:</span>
+                <div class="portal-links-group">
+                    <a href="http://openinsider.com/search?q=CSU" target="_blank" rel="noopener noreferrer" class="portal-link">📊 OpenInsider Form 4s ↗</a>
+                    <a href="https://www.dataroma.com/m/stock.php?sym=CSU" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ Dataroma Superinvestors ↗</a>
+                    <a href="https://whalewisdom.com/stock/CSU" target="_blank" rel="noopener noreferrer" class="portal-link">🐋 WhaleWisdom 13F ↗</a>
+                    <a href="https://valueinvestorsclub.com/search?q=CSU" target="_blank" rel="noopener noreferrer" class="portal-link">📑 Value Investors Club (VIC) ↗</a>
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=CSU" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ SEC EDGAR Filings ↗</a>
                 </div>
             </div>
         </div>
 
-        <!-- Section 1: Institutional Whales -->
+        <!-- Section 1: All Institutional Holders & 13F Whales -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">🏛️</span>
-                <h3 class="section-heading">Top Institutional Holders & 13F Superinvestors</h3>
+                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (3)</h3>
             </div>
-            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, 13D/G activist disclosures, and regulatory ownership registries.</p>
+            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, Dataroma superinvestor portfolios, and regulatory ownership registries.</p>
             <div class="table-responsive">
                 <table class="ownership-table">
                     <thead>
                         <tr>
-                            <th>Institutional Investor / Whale</th>
-                            <th>Category</th>
-                            <th>Reported Stake / Float</th>
+                            <th>Fund / Portfolio Manager</th>
+                            <th>Classification</th>
+                            <th>Portfolio Weight / Stake</th>
+                            <th>Reported Shares</th>
                             <th>Recent 13F Action</th>
+                            <th>Position Value</th>
                             <th>Filing Source</th>
                         </tr>
                     </thead>
@@ -1731,56 +1781,48 @@ The reported alert trigger is a data mapping anomaly, while CSU's business model
                         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Mark Leonard & Management</div>
+                <div style="font-weight: 500; color: var(--text-title);">Mark Leonard / Mgmt (6.8%)</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Founder / Insiders</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">6.8% of Equity (~1.4M shares)</td>
-            <td><span style="font-size: 0.82rem;">🟢 Permanent Alignment</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Asset Manager</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
             <td>
-                <a href="https://www.sedarplus.ca" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://whalewisdom.com/stock/CSU" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">RBC Global Asset Management</div>
+                <div style="font-weight: 500; color: var(--text-title);">RBC Global (5.4%)</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">5.4% of Float (~1.1M shares)</td>
-            <td><span style="font-size: 0.82rem;">⚪ Core Canadian Holding</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Asset Manager</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
             <td>
-                <a href="https://www.sedarplus.ca" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://whalewisdom.com/stock/CSU" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Fidelity Management Canada</div>
+                <div style="font-weight: 500; color: var(--text-title);">Fidelity Canada (4.2%)</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Asset Manager</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">4.2% of Float (~890k shares)</td>
-            <td><span style="font-size: 0.82rem;">⚪ Held Firm</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Asset Manager</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
             <td>
-                <a href="https://www.sedarplus.ca" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Vanguard Group</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">3.2% of Float (~670k shares)</td>
-            <td><span style="font-size: 0.82rem;">⚪ Rebalancing</span></td>
-            <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://whalewisdom.com/stock/CSU" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
@@ -1790,75 +1832,324 @@ The reported alert trigger is a data mapping anomaly, while CSU's business model
             </div>
         </div>
 
-        <!-- Section 2: Insider Transactions -->
+        <!-- Section 2: SEC Form 4 Detailed Insider Trading Ledger -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">💼</span>
-                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger</h3>
+                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger (14)</h3>
             </div>
-            <p class="section-desc">Audited officer and director transactions to gauge executive alignment, skin-in-the-game, and open-market conviction.</p>
+            <p class="section-desc">Detailed officer and director transaction ledger audited directly via OpenInsider & SEC Form 4 filings to track management buying, sales, and option exercises.</p>
             <div class="table-responsive">
                 <table class="ownership-table">
                     <thead>
                         <tr>
                             <th>Filing Date</th>
+                            <th>Trade Date</th>
                             <th>Reporting Insider</th>
-                            <th>Transaction</th>
-                            <th>Shares & Execution Price</th>
-                            <th>Total Value / Impact</th>
+                            <th>Title / Role</th>
+                            <th>Type</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Owned After (ΔOwn)</th>
+                            <th>Total Value</th>
+                            <th>Source</th>
                         </tr>
                     </thead>
                     <tbody>
                         
-        <tr>
-            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-01</td>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Mark Leonard</div>
-                <div style="font-size: 0.72rem; color: var(--text-dim);">President & Chairman</div>
-            </td>
-            <td><span style="color: var(--accent-warm); font-weight: 600; font-size: 0.82rem;">🟢 100% Bonus Reinvestment</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.85rem;">Shares Acquired on Open Market @ $3,850 CAD</td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Zero Cash Salary Taken</td>
-        </tr>
-        
-        <tr>
-            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-15</td>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Jamal Baksh</div>
-                <div style="font-size: 0.72rem; color: var(--text-dim);">Chief Financial Officer</div>
-            </td>
-            <td><span style="color: var(--accent-green); font-weight: 600; font-size: 0.82rem;">🟢 Open Market Purchase</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.85rem;">250 Shares @ $3,790 CAD</td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$947,500 CAD</td>
-        </tr>
-        
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-15</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-13</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Harris Benjamin P</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$37.46</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">9,182 (-21%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$93,655</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CSU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-13</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-11</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Simanovsky Michael</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir, 10%</span></td>
+                <td><span style="color: var(--accent-green); font-weight: 600;">🟢 Purchase</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$26.74</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">+3,739,716</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">2,488,273 (-299%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-green); font-weight: 500;">+$100,000,006</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CSU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-05-23</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-05-21</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Ribar Brandon</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Pres, CEO</span></td>
+                <td><span style="color: var(--accent-green); font-weight: 600;">🟢 Purchase</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$24.67</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">+4,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">327,176 (+1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-green); font-weight: 500;">+$98,668</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CSU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-01-13</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-01-08</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Simanovsky Michael</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir, 10%</span></td>
+                <td><span style="color: var(--accent-green); font-weight: 600;">🟢 Purchase</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$21.32</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">+42,111</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">9,264,653 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-green); font-weight: 500;">+$897,835</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CSU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-12-09</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-12-06</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Harris Benjamin P</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$24.00</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-3,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">8,697 (-26%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$72,000</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CSU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-11-19</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-11-15</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Ribar Brandon</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Pres, CEO</span></td>
+                <td><span style="color: var(--accent-green); font-weight: 600;">🟢 Purchase</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$22.68</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">+4,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">315,469 (+1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-green); font-weight: 500;">+$90,720</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CSU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-11-19</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-11-15</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Karicher Michael</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">See Remarks</span></td>
+                <td><span style="color: var(--accent-green); font-weight: 600;">🟢 Purchase</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$22.00</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">+2,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">46,965 (+4%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-green); font-weight: 500;">+$44,000</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CSU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-11-19</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-11-15</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Beren Noah</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-green); font-weight: 600;">🟢 Purchase</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$22.13</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">+5,500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,186 (+33%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-green); font-weight: 500;">+$121,725</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CSU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-11-19</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-11-15</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Cober Timothy</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">VP, Chief Accounting Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$22.74</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-5,227</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">40,791 (-11%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$118,853</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CSU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-11-19</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-11-15</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Detz Kevin</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, CFO</span></td>
+                <td><span style="color: var(--accent-green); font-weight: 600;">🟢 Purchase</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$21.70</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">+4,336</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">192,878 (+2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-green); font-weight: 500;">+$94,073</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CSU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-10-25</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-10-23</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Simanovsky Michael</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir, 10%</span></td>
+                <td><span style="color: var(--accent-green); font-weight: 600;">🟢 Purchase</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$24.75</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">+127,218</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">9,222,542 (+1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-green); font-weight: 500;">+$3,148,646</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CSU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-10-16</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-10-14</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Simanovsky Michael</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir, 10%</span></td>
+                <td><span style="color: var(--accent-green); font-weight: 600;">🟢 Purchase</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$24.07</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">+34,448</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">7,736,668 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-green); font-weight: 500;">+$829,086</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CSU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-08-19</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-08-15</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Levinson Sam</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td><span style="color: var(--accent-green); font-weight: 600;">🟢 Purchase</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$27.00</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">+250,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">2,699,593 (+10%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-green); font-weight: 500;">+$6,750,000</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CSU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-08-19</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-08-15</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Beren Noah</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-green); font-weight: 600;">🟢 Purchase</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$27.00</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">+3,700</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">16,686 (+28%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-green); font-weight: 500;">+$99,900</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CSU" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <!-- Section 3: Fund Letters & Write-ups -->
+        <!-- Section 3: Curated Memos & Fund Letters -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">📑</span>
                 <h3 class="section-heading">Fund Letters, VIC Write-ups & Superinvestor Memos</h3>
             </div>
-            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable funds and deep-value analysts.</p>
+            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable hedge funds and deep-value analysts with direct reading links.</p>
             <div class="writeups-grid">
                 
         <div class="writeup-card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
-                    Akram's Razor / Substack Deep Dive · <span style="color: var(--text-dim);">2026 Research Dossier</span>
+                    Akram's Razor / Value Investors Club · <span style="color: var(--text-dim);">2026 Research Dossier</span>
                 </div>
-                <a href="https://valueinvestorsclub.com" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                <a href="https://valueinvestorsclub.com/search?q=CSU" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
                     Read Source ↗
                 </a>
             </div>
-            <h4 style="font-family: var(--font-serif); font-size: 1.15rem; color: var(--text-title); margin: 0 0 8px; line-height: 1.35;">
+            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
                 The Constellation Software Operating Manual: Vertical Market Software Mastery
             </h4>
-            <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.5; margin: 0;">
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
                 Deep architectural analysis of Constellation's decentralized capital deployment engine, analyzing hurdle rates (25%+ IRR), VMS reinvestment runways, and European spin-offs (Topicus & Lumine).
             </p>
         </div>

@@ -372,6 +372,42 @@
             color: #fcd34d;
         }
 
+        /* Quick Portals Bar */
+        .quick-portals-bar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+        .portal-links-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .portal-link {
+            background: var(--bg-subpanel);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        .portal-link:hover {
+            background: rgba(201, 154, 117, 0.14);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            transform: translateY(-1px);
+        }
+
         /* Memo Content & Premium Editorial Typography */
         .memo-container {
             background: var(--bg-panel);
@@ -1804,33 +1840,47 @@
                     <span class="stat-note">Tracked across SEC 13F Filings</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Insider Sentiment</span>
-                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.22rem;">Neutral (10b5-1)</span>
-                    <span class="stat-note">Routine 10b5-1 Alignment</span>
+                    <span class="stat-label">Insider Trading Sentiment</span>
+                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.25rem;">Neutral (10b5-1)</span>
+                    <span class="stat-note">Nadella & executives executing standard 10b5-1 diversification</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Whale & Superinvestor Interest</span>
-                    <span class="stat-num" style="color: var(--accent-warm);">3 Funds</span>
-                    <span class="stat-note">Active 13F High-Conviction Stakes</span>
+                    <span class="stat-label">Whale & Superinvestor Tracking</span>
+                    <span class="stat-num" style="color: var(--accent-warm);">41 Funds Tracked</span>
+                    <span class="stat-note">33 Recent Form 4 Transactions Audited</span>
+                </div>
+            </div>
+
+            <!-- Quick Research Portal Bar -->
+            <div class="quick-portals-bar">
+                <span style="font-size: 0.76rem; text-transform: uppercase; color: var(--text-dim); font-weight: 600; letter-spacing: 0.05em;">Direct Research Portals:</span>
+                <div class="portal-links-group">
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="portal-link">📊 OpenInsider Form 4s ↗</a>
+                    <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ Dataroma Superinvestors ↗</a>
+                    <a href="https://whalewisdom.com/stock/MSFT" target="_blank" rel="noopener noreferrer" class="portal-link">🐋 WhaleWisdom 13F ↗</a>
+                    <a href="https://valueinvestorsclub.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="portal-link">📑 Value Investors Club (VIC) ↗</a>
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=MSFT" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ SEC EDGAR Filings ↗</a>
                 </div>
             </div>
         </div>
 
-        <!-- Section 1: Institutional Whales -->
+        <!-- Section 1: All Institutional Holders & 13F Whales -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">🏛️</span>
-                <h3 class="section-heading">Top Institutional Holders & 13F Superinvestors</h3>
+                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (41)</h3>
             </div>
-            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, 13D/G activist disclosures, and regulatory ownership registries.</p>
+            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, Dataroma superinvestor portfolios, and regulatory ownership registries.</p>
             <div class="table-responsive">
                 <table class="ownership-table">
                     <thead>
                         <tr>
-                            <th>Institutional Investor / Whale</th>
-                            <th>Category</th>
-                            <th>Reported Stake / Float</th>
+                            <th>Fund / Portfolio Manager</th>
+                            <th>Classification</th>
+                            <th>Portfolio Weight / Stake</th>
+                            <th>Reported Shares</th>
                             <th>Recent 13F Action</th>
+                            <th>Position Value</th>
                             <th>Filing Source</th>
                         </tr>
                     </thead>
@@ -1838,14 +1888,624 @@
                         
         <tr>
             <td>
+                <div style="font-weight: 500; color: var(--text-title);">AltaRock Partners</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">16.75%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">1,867,537</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 10.32%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$691,306,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Bill Ackman - Pershing Square Capital Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">15.26%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">5,654,078</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Buy</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$2,092,970,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Triple Frond Partners</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">13.55%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">352,504</td>
+            <td><span style="color: var(--text-dim); font-weight: 500;">Held Firm</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$130,486,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Vulcan Value Partners</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">11.21%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">986,905</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 11.01%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$368,135,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Mairs & Power Funds</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">7.35%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">1,942,391</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 1.54%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$719,015,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Polen Capital Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">6.74%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">2,098,613</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 26.26%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$782,824,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Jensen Investment Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">6.67%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">737,144</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 37.05%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$274,969,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Terry Smith - Fundsmith</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">6.00%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">2,079,737</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 0.01%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$769,856,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">David Rolfe - Wedgewood Partners</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">5.65%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">73,919</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 4.62%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$27,363,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">AKO Capital</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">5.33%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">735,214</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 27.97%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$272,154,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">David Katz - Matrix Asset Advisors</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">5.24%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">172,878</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 0.89%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$64,487,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Yacktman Asset Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">4.65%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">1,009,284</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 1.65%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$376,483,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Wallace Weitz - Weitz Investment Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">4.38%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">169,450</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 16.08%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$62,725,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Chase Coleman - Tiger Global Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">4.05%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">2,500,000</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 54.36%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$925,425,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">William Von Mueffling - Cantillon Capital Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">3.86%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">68,901</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 93.81%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$25,701,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Muhlenkamp</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">3.21%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">32,937</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 0.21%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$12,192,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Lee Ainslie - Maverick Capital</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">3.12%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">725,649</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 36.93%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$268,613,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Hillman Capital Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">2.78%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">10,828</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 2.30%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$4,008,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Robert Vinall - RV Capital GmbH</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">2.46%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">25,220</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 119.30%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$9,408,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Dodge & Cox Funds</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">2.43%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">11,959,935</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 60.71%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$4,427,209,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Viking Global Investors</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">2.39%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">2,309,446</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 28.23%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$854,888,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Arnold Van Den Berg - Century Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">2.33%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">27,496</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 58.76%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$10,178,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Chris Hohn - TCI Fund Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">2.24%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">2,728,412</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 83.74%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$1,009,976,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Torray Funds</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">2.00%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">36,160</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 53.48%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$13,488,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Duan Yongping - H&H International Investment</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.88%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">1,016,000</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 18.28%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$376,093,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Thomas Gayner - Markel Group</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.53%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">537,630</td>
+            <td><span style="color: var(--text-dim); font-weight: 500;">Held Firm</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$200,546,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">First Eagle Investment Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.21%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">1,940,215</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 46.42%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$723,739,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">David Tepper - Appaloosa Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.56%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">90,000</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 82.00%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$33,315,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">John Rogers - Ariel Investments</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.26%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">62,192</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 63.94%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$23,022,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Christopher Davis - Davis Advisors</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.15%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">92,973</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 18.45%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$34,705,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Kahn Brothers Group</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.14%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">2,092</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 12.54%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$774,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Francois Rochon - Giverny Capital</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.03%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">1,910</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 12.09%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$707,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Glenn Greenberg - Brave Warrior Advisors</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.02%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">2,025</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 285.71%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$750,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Thomas Russo - Gardner Russo & Quinn</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.02%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">3,544</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 4.35%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$1,312,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Richard Pzena - Pzena Investment Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.00%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">755</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 0.92%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$282,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Bill Nygren - Oakmark Funds</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.00%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">6,757</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 1.42%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$2,501,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Sarah Ketterer - Causeway Capital Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.00%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">772</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 20.00%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$286,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Ruane Cunniff LP</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.00%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">737</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 6.97%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$273,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
                 <div style="font-weight: 500; color: var(--text-title);">Vanguard (8.9%)</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core 13F Holding</td>
-            <td><span style="font-size: 0.82rem;">⚪ Reported Stake</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
             <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://whalewisdom.com/stock/MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
@@ -1854,12 +2514,14 @@
             <td>
                 <div style="font-weight: 500; color: var(--text-title);">BlackRock (7.4%)</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core 13F Holding</td>
-            <td><span style="font-size: 0.82rem;">⚪ Reported Stake</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
             <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://whalewisdom.com/stock/MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
@@ -1868,12 +2530,14 @@
             <td>
                 <div style="font-weight: 500; color: var(--text-title);">State Street (4.4%)</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core 13F Holding</td>
-            <td><span style="font-size: 0.82rem;">⚪ Reported Stake</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
             <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://whalewisdom.com/stock/MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
@@ -1883,65 +2547,703 @@
             </div>
         </div>
 
-        <!-- Section 2: Insider Transactions -->
+        <!-- Section 2: SEC Form 4 Detailed Insider Trading Ledger -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">💼</span>
-                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger</h3>
+                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger (33)</h3>
             </div>
-            <p class="section-desc">Audited officer and director transactions to gauge executive alignment, skin-in-the-game, and open-market conviction.</p>
+            <p class="section-desc">Detailed officer and director transaction ledger audited directly via OpenInsider & SEC Form 4 filings to track management buying, sales, and option exercises.</p>
             <div class="table-responsive">
                 <table class="ownership-table">
                     <thead>
                         <tr>
                             <th>Filing Date</th>
+                            <th>Trade Date</th>
                             <th>Reporting Insider</th>
-                            <th>Transaction</th>
-                            <th>Shares & Execution Price</th>
-                            <th>Total Value / Impact</th>
+                            <th>Title / Role</th>
+                            <th>Type</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Owned After (ΔOwn)</th>
+                            <th>Total Value</th>
+                            <th>Source</th>
                         </tr>
                     </thead>
                     <tbody>
                         
-        <tr>
-            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">Recent Form 4</td>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Executive Officers & Directors</div>
-                <div style="font-size: 0.72rem; color: var(--text-dim);">Management Alignment</div>
-            </td>
-            <td><span style="color: var(--accent-warm); font-weight: 600; font-size: 0.82rem;">🟡 Neutral (10b5-1)</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.85rem;">Scheduled Transactions @ $503.81</td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Nadella & executives executing standard 10b5-1 diversification</td>
-        </tr>
-        
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-08-06</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-08-05</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Althoff Judson</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO Microsoft Commercial</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$487.89</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-10,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">100,447 (-9%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$4,878,930</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-08-05</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-08-04</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Numoto Takeshi</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, CMO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$496.48</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-4,810</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">42,677 (-10%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$2,388,244</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-12</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-10</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Numoto Takeshi</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, CMO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$402.84</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-4,500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">47,468 (-9%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$1,812,780</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-10</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-08</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Numoto Takeshi</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, CMO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$412.45</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">51,968 (-5%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$1,031,125</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-02</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-01</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Althoff Judson</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO Microsoft Commercial</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$460.99</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-15,500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">110,477 (-12%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$7,145,314</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-18</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-05-14</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Coleman Amy</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, Chief HR Off</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$411.34</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,262</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">45,915 (-3%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$519,242</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-09</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-06</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Hogan Kathleen T</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, Strategy</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$409.52</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-12,321</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">137,933 (-8%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$5,045,643</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-18</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-02-18</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Stanton John W</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-green); font-weight: 600;">🟢 Purchase</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$397.35</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">+5,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">87,527 (+6%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-green); font-weight: 500;">+$1,986,750</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-12</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-04-23</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Smith Bradford L</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Vice Chair, Pres</span></td>
+                <td><span style="color: var(--accent-green); font-weight: 600;">🟢 Purchase</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$377.47</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">+3,842</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">451,597 (+1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-green); font-weight: 500;">+$1,450,221</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-12</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-04-30</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Smith Bradford L</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Vice Chair, Pres</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$438.44</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-3,842</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">451,597 (-1%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$1,684,498</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-05</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-04</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Numoto Takeshi</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, CMO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$478.72</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,850</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">55,782 (-5%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$1,364,352</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-03</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-02</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Althoff Judson</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO Microsoft Commercial</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$491.52</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-12,750</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">129,349 (-9%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$6,266,829</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-04</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-03</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Smith Bradford L</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Vice Chair, Pres</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$518.64</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-38,500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">461,597 (-8%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$19,967,707</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-09-04</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-09-03</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Nadella Satya</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$504.78</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-149,205</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">900,572 (-14%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$75,315,121</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-08-13</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-08-12</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Numoto Takeshi</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, CMO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$527.32</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-4,850</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">39,111 (-11%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$2,557,506</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-06-04</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-06-03</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Numoto Takeshi</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, CMO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$463.00</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-3,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">43,930 (-6%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$1,389,000</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-06-02</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-05-30</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Numoto Takeshi</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, CMO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$460.01</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">46,930 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$460,008</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-05-22</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-05-21</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Hogan Kathleen T</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, Strategy</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$453.78</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-21,500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">134,888 (-14%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$9,756,152</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-05-20</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-05-19</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Althoff Judson</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, Chief Commercial Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$458.18</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-16,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">98,010 (-14%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$7,330,817</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-05-16</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-05-15</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Coleman Amy</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, Chief HR Off</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$452.01</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-13,243</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">43,100 (-24%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$5,985,886</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-05-06</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-05-02</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Smith Bradford L</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Vice Chair, Pres</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$435.84</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-81,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">471,036 (-15%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$35,302,945</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-12-10</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-12-09</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Numoto Takeshi</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, CMO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$447.41</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">49,352 (-5%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$1,118,530</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-12-05</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-12-04</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Numoto Takeshi</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, CMO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$437.32</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">51,852 (-4%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$874,634</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-12-02</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-11-27</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Numoto Takeshi</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, CMO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$428.76</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-3,500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">53,852 (-6%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$1,500,663</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-11-25</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-11-22</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Numoto Takeshi</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, CMO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$414.72</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-1,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">57,511 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$414,720</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-11-25</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-11-22</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Althoff Judson</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, Chief Commercial Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$417.00</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-25,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">117,294 (-18%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$10,425,000</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-11-12</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-11-12</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Young Christopher David</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, Business Development</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$423.66</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-7,200</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">104,866 (-6%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$3,050,340</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-09-11</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-09-10</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Numoto Takeshi</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, CMO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$411.04</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">50,000 (-5%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$1,027,608</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-09-11</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-09-10</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Hogan Kathleen T</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, Chief HR Off</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$411.85</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-17,378</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">150,161 (-10%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$7,156,892</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-09-11</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-09-09</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Smith Bradford L</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Vice Chair, Pres</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$402.59</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-40,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">532,347 (-7%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$16,103,553</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-09-06</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-09-05</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Hood Amy</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$410.55</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-38,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">496,369 (-7%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$15,600,794</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-09-05</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-09-04</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Nadella Satya</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$408.63</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-78,353</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">864,327 (-8%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$32,017,224</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-08-26</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2024-08-23</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Nadella Satya</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$417.41</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-14,398</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">786,933 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$6,009,898</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <!-- Section 3: Fund Letters & Write-ups -->
+        <!-- Section 3: Curated Memos & Fund Letters -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">📑</span>
                 <h3 class="section-heading">Fund Letters, VIC Write-ups & Superinvestor Memos</h3>
             </div>
-            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable funds and deep-value analysts.</p>
+            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable hedge funds and deep-value analysts with direct reading links.</p>
             <div class="writeups-grid">
                 
         <div class="writeup-card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
-                    Value Investors Club / Archive · <span style="color: var(--text-dim);">2026 Valuation Memo</span>
+                    Value Investors Club (VIC) · <span style="color: var(--text-dim);">2026 Institutional Pitch</span>
                 </div>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                <a href="https://valueinvestorsclub.com/search?q=MSFT" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
                     Read Source ↗
                 </a>
             </div>
-            <h4 style="font-family: var(--font-serif); font-size: 1.15rem; color: var(--text-title); margin: 0 0 8px; line-height: 1.35;">
-                Microsoft Corporation: Long-Term Intrinsic Value & Moat Analysis
+            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
+                Microsoft Corporation (MSFT): Long-Term Owner Earnings & Competitive Moat
             </h4>
-            <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.5; margin: 0;">
-                Comprehensive fundamental review of Microsoft Corporation (MSFT), evaluating mid-cycle Owner Earnings compounding, capital allocation discipline, and key operational catalysts.
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                In-depth fundamental due diligence evaluating Microsoft Corporation's market positioning, pricing power, mid-cycle normalized cash flow, and risk-adjusted return profile.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Dataroma Superinvestors · <span style="color: var(--text-dim);">2026 Portfolio Audit</span>
+                </div>
+                <a href="https://www.dataroma.com/m/stock.php?sym=MSFT" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Read Source ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
+                13F Institutional & Whale Concentration Review: MSFT
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Superinvestor holding breakdown and historical accumulation patterns across top value hedge funds and long-only institutional asset managers for Microsoft Corporation.
             </p>
         </div>
         

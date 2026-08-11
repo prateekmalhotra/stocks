@@ -372,6 +372,42 @@
             color: #fcd34d;
         }
 
+        /* Quick Portals Bar */
+        .quick-portals-bar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+        .portal-links-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .portal-link {
+            background: var(--bg-subpanel);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        .portal-link:hover {
+            background: rgba(201, 154, 117, 0.14);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            transform: translateY(-1px);
+        }
+
         /* Memo Content & Premium Editorial Typography */
         .memo-container {
             background: var(--bg-panel);
@@ -1700,33 +1736,47 @@
                     <span class="stat-note">Tracked across SEC 13F Filings</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Insider Sentiment</span>
-                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.22rem;">Neutral (10b5-1)</span>
-                    <span class="stat-note">Routine 10b5-1 Alignment</span>
+                    <span class="stat-label">Insider Trading Sentiment</span>
+                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.25rem;">Neutral (10b5-1)</span>
+                    <span class="stat-note">Benioff standard 10b5-1 sales; record $30B buyback authorized</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Whale & Superinvestor Interest</span>
-                    <span class="stat-num" style="color: var(--accent-warm);">3 Funds</span>
-                    <span class="stat-note">Active 13F High-Conviction Stakes</span>
+                    <span class="stat-label">Whale & Superinvestor Tracking</span>
+                    <span class="stat-num" style="color: var(--accent-warm);">13 Funds Tracked</span>
+                    <span class="stat-note">100 Recent Form 4 Transactions Audited</span>
+                </div>
+            </div>
+
+            <!-- Quick Research Portal Bar -->
+            <div class="quick-portals-bar">
+                <span style="font-size: 0.76rem; text-transform: uppercase; color: var(--text-dim); font-weight: 600; letter-spacing: 0.05em;">Direct Research Portals:</span>
+                <div class="portal-links-group">
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="portal-link">📊 OpenInsider Form 4s ↗</a>
+                    <a href="https://www.dataroma.com/m/stock.php?sym=CRM" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ Dataroma Superinvestors ↗</a>
+                    <a href="https://whalewisdom.com/stock/CRM" target="_blank" rel="noopener noreferrer" class="portal-link">🐋 WhaleWisdom 13F ↗</a>
+                    <a href="https://valueinvestorsclub.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="portal-link">📑 Value Investors Club (VIC) ↗</a>
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=CRM" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ SEC EDGAR Filings ↗</a>
                 </div>
             </div>
         </div>
 
-        <!-- Section 1: Institutional Whales -->
+        <!-- Section 1: All Institutional Holders & 13F Whales -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">🏛️</span>
-                <h3 class="section-heading">Top Institutional Holders & 13F Superinvestors</h3>
+                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (13)</h3>
             </div>
-            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, 13D/G activist disclosures, and regulatory ownership registries.</p>
+            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, Dataroma superinvestor portfolios, and regulatory ownership registries.</p>
             <div class="table-responsive">
                 <table class="ownership-table">
                     <thead>
                         <tr>
-                            <th>Institutional Investor / Whale</th>
-                            <th>Category</th>
-                            <th>Reported Stake / Float</th>
+                            <th>Fund / Portfolio Manager</th>
+                            <th>Classification</th>
+                            <th>Portfolio Weight / Stake</th>
+                            <th>Reported Shares</th>
                             <th>Recent 13F Action</th>
+                            <th>Position Value</th>
                             <th>Filing Source</th>
                         </tr>
                     </thead>
@@ -1734,14 +1784,192 @@
                         
         <tr>
             <td>
+                <div style="font-weight: 500; color: var(--text-title);">ValueAct Capital</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">9.79%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">2,994,509</td>
+            <td><span style="color: var(--text-dim); font-weight: 500;">Held Firm</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$558,985,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Bill Nygren - Oakmark Funds</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">3.72%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">14,917,993</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 52.36%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$2,784,742,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Chuck Akre - Akre Capital Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">2.19%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">717,799</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Buy</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$133,992,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">First Eagle Investment Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.91%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">7,306,034</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 19.14%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$1,144,563,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Hillman Capital Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.42%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">10,956</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 5.38%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$2,045,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">AKO Capital</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.30%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">354,805</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 13.50%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$66,231,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Wallace Weitz - Weitz Investment Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.06%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">81,500</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 6.86%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$15,214,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Vulcan Value Partners</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.78%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">164,013</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 16.66%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$25,694,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Robert Vinall - RV Capital GmbH</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.76%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">15,511</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 41.27%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$2,895,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Mairs & Power Funds</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.10%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">49,996</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 83.11%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$9,333,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Richard Pzena - Pzena Investment Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.00%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">1,502</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Buy</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$235,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
                 <div style="font-weight: 500; color: var(--text-title);">Vanguard (8.4%)</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core 13F Holding</td>
-            <td><span style="font-size: 0.82rem;">⚪ Reported Stake</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
             <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://whalewisdom.com/stock/CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
@@ -1750,26 +1978,14 @@
             <td>
                 <div style="font-weight: 500; color: var(--text-title);">BlackRock (7.5%)</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core 13F Holding</td>
-            <td><span style="font-size: 0.82rem;">⚪ Reported Stake</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
             <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">ValueAct Capital</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Active Asset Manager</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core 13F Holding</td>
-            <td><span style="font-size: 0.82rem;">⚪ Reported Stake</span></td>
-            <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://whalewisdom.com/stock/CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
@@ -1779,65 +1995,741 @@
             </div>
         </div>
 
-        <!-- Section 2: Insider Transactions -->
+        <!-- Section 2: SEC Form 4 Detailed Insider Trading Ledger -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">💼</span>
-                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger</h3>
+                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger (100)</h3>
             </div>
-            <p class="section-desc">Audited officer and director transactions to gauge executive alignment, skin-in-the-game, and open-market conviction.</p>
+            <p class="section-desc">Detailed officer and director transaction ledger audited directly via OpenInsider & SEC Form 4 filings to track management buying, sales, and option exercises.</p>
             <div class="table-responsive">
                 <table class="ownership-table">
                     <thead>
                         <tr>
                             <th>Filing Date</th>
+                            <th>Trade Date</th>
                             <th>Reporting Insider</th>
-                            <th>Transaction</th>
-                            <th>Shares & Execution Price</th>
-                            <th>Total Value / Impact</th>
+                            <th>Title / Role</th>
+                            <th>Type</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Owned After (ΔOwn)</th>
+                            <th>Total Value</th>
+                            <th>Source</th>
                         </tr>
                     </thead>
                     <tbody>
                         
-        <tr>
-            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">Recent Form 4</td>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Executive Officers & Directors</div>
-                <div style="font-size: 0.72rem; color: var(--text-dim);">Management Alignment</div>
-            </td>
-            <td><span style="color: var(--accent-warm); font-weight: 600; font-size: 0.82rem;">🟡 Neutral (10b5-1)</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.85rem;">Scheduled Transactions @ $197.47</td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Benioff standard 10b5-1 sales; record $30B buyback authorized</td>
-        </tr>
-        
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-19</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-19</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Alber Laura</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-green); font-weight: 600;">🟢 Purchase</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$194.58</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">+2,571</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">9,530 (+37%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-green); font-weight: 500;">+$500,266</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-01-15</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-01-14</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Kroes Neelie</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$238.70</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-3,893</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">7,299 (-35%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$929,276</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-18</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-17</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Kirk David Blair</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td><span style="color: var(--accent-green); font-weight: 600;">🟢 Purchase</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$258.64</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">+1,936</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">10,677 (+22%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-green); font-weight: 500;">+$500,722</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-08</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-05</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Morfit G Mason</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">See Remarks</span></td>
+                <td><span style="color: var(--accent-green); font-weight: 600;">🟢 Purchase</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$260.58</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">+96,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">2,994,509 (+3%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-green); font-weight: 500;">+$25,015,680</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-03</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-12-02</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Harris Parker</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Co-Founder, CTO, Slack</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$234.70</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-134,662</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">1,932,245 (-7%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$31,605,031</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-04</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-03</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$259.00</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-122</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$31,598</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-11-03</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-31</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$258.20</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,250</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$580,940</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-31</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-30</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$256.82</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,250</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$577,848</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-30</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-29</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$252.04</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,250</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$567,080</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-29</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-28</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$257.07</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,250</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$578,396</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-28</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-27</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$256.13</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,250</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$576,295</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-27</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-24</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$255.56</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,250</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$575,006</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-24</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-23</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$255.62</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,250</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$575,140</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-23</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-22</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$259.01</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,250</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$582,763</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-22</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-21</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$262.27</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,250</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$590,102</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-21</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-20</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$252.28</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,250</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$567,631</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-20</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-17</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$244.64</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,250</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$550,430</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-17</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-16</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$248.36</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,250</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$558,810</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-16</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-15</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$238.37</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,250</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$536,322</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-15</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-14</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$243.91</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,250</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$548,796</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-14</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-10</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$244.76</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-4,500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$1,101,397</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-10</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-09</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$243.26</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,250</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$547,344</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-09</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-08</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$239.79</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,250</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$539,533</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-08</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-07</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$240.22</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,250</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$540,486</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-07</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-06</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$241.32</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,250</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$542,974</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-06</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-03</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$240.76</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,250</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$541,719</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-03</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-02</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$237.64</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,250</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$534,687</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-02</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-01</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$236.38</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,250</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$531,860</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-10-01</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-09-30</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$238.17</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,250</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$535,884</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-09-30</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-09-29</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$244.53</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,250</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$550,183</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-09-29</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-09-26</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$242.91</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,250</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$546,547</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-09-26</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-09-25</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$241.54</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,250</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$543,472</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-09-25</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-09-24</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$245.85</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,250</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$553,163</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-09-24</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-09-23</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$246.67</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,250</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$555,001</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-09-23</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2025-09-22</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Benioff Marc</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chair, CEO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$248.20</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-2,250</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">22,018,571 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$558,438</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <!-- Section 3: Fund Letters & Write-ups -->
+        <!-- Section 3: Curated Memos & Fund Letters -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">📑</span>
                 <h3 class="section-heading">Fund Letters, VIC Write-ups & Superinvestor Memos</h3>
             </div>
-            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable funds and deep-value analysts.</p>
+            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable hedge funds and deep-value analysts with direct reading links.</p>
             <div class="writeups-grid">
                 
         <div class="writeup-card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
-                    Value Investors Club / Archive · <span style="color: var(--text-dim);">2026 Valuation Memo</span>
+                    Value Investors Club (VIC) · <span style="color: var(--text-dim);">2026 Institutional Pitch</span>
                 </div>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                <a href="https://valueinvestorsclub.com/search?q=CRM" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
                     Read Source ↗
                 </a>
             </div>
-            <h4 style="font-family: var(--font-serif); font-size: 1.15rem; color: var(--text-title); margin: 0 0 8px; line-height: 1.35;">
-                Salesforce, Inc.: Long-Term Intrinsic Value & Moat Analysis
+            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
+                Salesforce, Inc. (CRM): Long-Term Owner Earnings & Competitive Moat
             </h4>
-            <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.5; margin: 0;">
-                Comprehensive fundamental review of Salesforce, Inc. (CRM), evaluating mid-cycle Owner Earnings compounding, capital allocation discipline, and key operational catalysts.
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                In-depth fundamental due diligence evaluating Salesforce, Inc.'s market positioning, pricing power, mid-cycle normalized cash flow, and risk-adjusted return profile.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Dataroma Superinvestors · <span style="color: var(--text-dim);">2026 Portfolio Audit</span>
+                </div>
+                <a href="https://www.dataroma.com/m/stock.php?sym=CRM" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Read Source ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
+                13F Institutional & Whale Concentration Review: CRM
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Superinvestor holding breakdown and historical accumulation patterns across top value hedge funds and long-only institutional asset managers for Salesforce, Inc..
             </p>
         </div>
         

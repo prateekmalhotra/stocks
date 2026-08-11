@@ -372,6 +372,42 @@
             color: #fcd34d;
         }
 
+        /* Quick Portals Bar */
+        .quick-portals-bar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+        .portal-links-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .portal-link {
+            background: var(--bg-subpanel);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        .portal-link:hover {
+            background: rgba(201, 154, 117, 0.14);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            transform: translateY(-1px);
+        }
+
         /* Memo Content & Premium Editorial Typography */
         .memo-container {
             background: var(--bg-panel);
@@ -1714,33 +1750,47 @@ Over the past two fiscal years, Alibaba retired 3.5%–5.0% of its diluted share
                     <span class="stat-note">Tracked across SEC 13F Filings</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Insider Sentiment</span>
-                    <span class="stat-num" style="color: var(--accent-green); font-family: var(--font-sans); font-size: 1.22rem;">Cluster Buying (Founders & Management)</span>
-                    <span class="stat-note">+$200M+ Net Buying</span>
+                    <span class="stat-label">Insider Trading Sentiment</span>
+                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.25rem;">Cluster Buying</span>
+                    <span class="stat-note">Jack Ma & Chairman Joe Tsai acquired >$200M in shares</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Whale & Superinvestor Interest</span>
-                    <span class="stat-num" style="color: var(--accent-warm);">8 Funds</span>
-                    <span class="stat-note">Active 13F High-Conviction Stakes</span>
+                    <span class="stat-label">Whale & Superinvestor Tracking</span>
+                    <span class="stat-num" style="color: var(--accent-warm);">10 Funds Tracked</span>
+                    <span class="stat-note">8 Recent Form 4 Transactions Audited</span>
+                </div>
+            </div>
+
+            <!-- Quick Research Portal Bar -->
+            <div class="quick-portals-bar">
+                <span style="font-size: 0.76rem; text-transform: uppercase; color: var(--text-dim); font-weight: 600; letter-spacing: 0.05em;">Direct Research Portals:</span>
+                <div class="portal-links-group">
+                    <a href="http://openinsider.com/search?q=BABA" target="_blank" rel="noopener noreferrer" class="portal-link">📊 OpenInsider Form 4s ↗</a>
+                    <a href="https://www.dataroma.com/m/stock.php?sym=BABA" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ Dataroma Superinvestors ↗</a>
+                    <a href="https://whalewisdom.com/stock/BABA" target="_blank" rel="noopener noreferrer" class="portal-link">🐋 WhaleWisdom 13F ↗</a>
+                    <a href="https://valueinvestorsclub.com/search?q=BABA" target="_blank" rel="noopener noreferrer" class="portal-link">📑 Value Investors Club (VIC) ↗</a>
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=BABA" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ SEC EDGAR Filings ↗</a>
                 </div>
             </div>
         </div>
 
-        <!-- Section 1: Institutional Whales -->
+        <!-- Section 1: All Institutional Holders & 13F Whales -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">🏛️</span>
-                <h3 class="section-heading">Top Institutional Holders & 13F Superinvestors</h3>
+                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (10)</h3>
             </div>
-            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, 13D/G activist disclosures, and regulatory ownership registries.</p>
+            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, Dataroma superinvestor portfolios, and regulatory ownership registries.</p>
             <div class="table-responsive">
                 <table class="ownership-table">
                     <thead>
                         <tr>
-                            <th>Institutional Investor / Whale</th>
-                            <th>Category</th>
-                            <th>Reported Stake / Float</th>
+                            <th>Fund / Portfolio Manager</th>
+                            <th>Classification</th>
+                            <th>Portfolio Weight / Stake</th>
+                            <th>Reported Shares</th>
                             <th>Recent 13F Action</th>
+                            <th>Position Value</th>
                             <th>Filing Source</th>
                         </tr>
                     </thead>
@@ -1748,70 +1798,160 @@ Over the past two fiscal years, Alibaba retired 3.5%–5.0% of its diluted share
                         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Appaloosa Management (David Tepper)</div>
+                <div style="font-weight: 500; color: var(--text-title);">Dennis Hong - ShawSpring Partners</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Hedge Fund Whale</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Top Fund Position (~12.8% of 13F)</td>
-            <td><span style="font-size: 0.82rem;">🟢 Heavy Accumulation</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">13.61%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">290,261</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 23.24%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$36,416,000</td>
             <td>
-                <a href="https://www.dataroma.com/m/holdings.php?m=TEP" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://www.dataroma.com/m/stock.php?sym=BABA" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Daily Journal Corp (Charlie Munger Legacy)</div>
+                <div style="font-weight: 500; color: var(--text-title);">David Tepper - Appaloosa Management</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Equity Holding (~300k ADS)</td>
-            <td><span style="font-size: 0.82rem;">⚪ Held Firm</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">7.33%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">3,465,000</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 32.56%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$434,719,000</td>
             <td>
-                <a href="https://www.dataroma.com/m/holdings.php?m=DJCO" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://www.dataroma.com/m/stock.php?sym=BABA" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Scion Asset Management (Michael Burry)</div>
+                <div style="font-weight: 500; color: var(--text-title);">Francis Chou - Chou Associates</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Hedge Fund Whale</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Top 3 Position in Portfolio</td>
-            <td><span style="font-size: 0.82rem;">🟢 Added Calls & Stock</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">2.53%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">41,900</td>
+            <td><span style="color: var(--text-dim); font-weight: 500;">Held Firm</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$5,257,000</td>
             <td>
-                <a href="https://whalewisdom.com/filer/scion-asset-management-llc" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://www.dataroma.com/m/stock.php?sym=BABA" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Vanguard Group</div>
+                <div style="font-weight: 500; color: var(--text-title);">Sarah Ketterer - Causeway Capital Management</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">3.9% of Float (~80M ADS)</td>
-            <td><span style="font-size: 0.82rem;">⚪ Rebalancing</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.65%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">1,068,890</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 11.15%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$134,103,000</td>
             <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://www.dataroma.com/m/stock.php?sym=BABA" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">BlackRock Inc.</div>
+                <div style="font-weight: 500; color: var(--text-title);">Dodge & Cox Funds</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">3.5% of Float (~72M ADS)</td>
-            <td><span style="font-size: 0.82rem;">⚪ Rebalancing</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.68%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">9,917,770</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 0.99%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$1,244,283,000</td>
             <td>
-                <a href="https://www.sec.gov/edgar/searchedgar/companysearch" target="_blank" rel="noopener noreferrer" style="color: var(--accent-warm); text-decoration: none; font-size: 0.82rem; font-weight: 500;">
-                    Filing Source ↗
+                <a href="https://www.dataroma.com/m/stock.php?sym=BABA" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Tweedy Browne</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.03%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">3,960</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 2.46%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$380,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=BABA" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Richard Pzena - Pzena Investment Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.01%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">26,761</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 5.89%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$2,569,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=BABA" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Bill Nygren - Oakmark Funds</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.00%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13,441</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 40.17%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$1,686,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=BABA" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Vanguard (3.9%)</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
+            <td>
+                <a href="https://whalewisdom.com/stock/BABA" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Daily Journal</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Asset Manager</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
+            <td>
+                <a href="https://whalewisdom.com/stock/BABA" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
                 </a>
             </td>
         </tr>
@@ -1821,75 +1961,199 @@ Over the past two fiscal years, Alibaba retired 3.5%–5.0% of its diluted share
             </div>
         </div>
 
-        <!-- Section 2: Insider Transactions -->
+        <!-- Section 2: SEC Form 4 Detailed Insider Trading Ledger -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">💼</span>
-                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger</h3>
+                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger (8)</h3>
             </div>
-            <p class="section-desc">Audited officer and director transactions to gauge executive alignment, skin-in-the-game, and open-market conviction.</p>
+            <p class="section-desc">Detailed officer and director transaction ledger audited directly via OpenInsider & SEC Form 4 filings to track management buying, sales, and option exercises.</p>
             <div class="table-responsive">
                 <table class="ownership-table">
                     <thead>
                         <tr>
                             <th>Filing Date</th>
+                            <th>Trade Date</th>
                             <th>Reporting Insider</th>
-                            <th>Transaction</th>
-                            <th>Shares & Execution Price</th>
-                            <th>Total Value / Impact</th>
+                            <th>Title / Role</th>
+                            <th>Type</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Owned After (ΔOwn)</th>
+                            <th>Total Value</th>
+                            <th>Source</th>
                         </tr>
                     </thead>
                     <tbody>
                         
-        <tr>
-            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-18</td>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Jack Ma</div>
-                <div style="font-size: 0.72rem; color: var(--text-dim);">Co-Founder</div>
-            </td>
-            <td><span style="color: var(--accent-green); font-weight: 600; font-size: 0.82rem;">🟢 Open Market Purchase</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.85rem;">+$50M USD Shares @ $82.40</td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$50,000,000 USD</td>
-        </tr>
-        
-        <tr>
-            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-04-12</td>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Joe Tsai</div>
-                <div style="font-size: 0.72rem; color: var(--text-dim);">Chairman of the Board</div>
-            </td>
-            <td><span style="color: var(--accent-green); font-weight: 600; font-size: 0.82rem;">🟢 Open Market Purchase</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.85rem;">+$150M USD Shares @ $81.90</td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$150,000,000 USD</td>
-        </tr>
-        
-        <tr>
-            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-20</td>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Eddie Wu</div>
-                <div style="font-size: 0.72rem; color: var(--text-dim);">Chief Executive Officer</div>
-            </td>
-            <td><span style="color: var(--accent-warm); font-weight: 600; font-size: 0.82rem;">🟡 Option Grant / RSU</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.85rem;">350,000 ADS @ $0.00</td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Performance Retention</td>
-        </tr>
-        
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-07-01</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-29</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Evans J. Michael</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Pres</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$94.95</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-720,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">28,000 (-96%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$68,360,495</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=BABA" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-29</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-25</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Jiang Fan (Fj)</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO of Business Group</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$12.10</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-13,579</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">556,617 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$164,306</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=BABA" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-29</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-25</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Xu Hong</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$12.15</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-175,054</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">938,066 (-16%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$2,126,906</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=BABA" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-29</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-25</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Yu Siying</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">GC</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$12.10</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-6,772</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">4,416,898 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$81,941</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=BABA" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-29</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-06-25</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Jiang Fang</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chief People Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$12.09</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-4,898</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">28,676,375 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$59,217</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=BABA" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-26</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-25</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Jiang Fang</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Chief People Officer</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$16.10</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-16,848</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">28,671,517 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$271,253</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=BABA" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-26</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-25</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Xu Hong</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">CFO</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$16.07</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-54,450</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">724,120 (-7%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$875,012</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=BABA" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-26</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">2026-03-25</td>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">Yu Siying</div>
+                </td>
+                <td><span style="font-size: 0.82rem; color: var(--text-secondary);">GC</span></td>
+                <td><span style="color: var(--accent-red); font-weight: 600;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$16.06</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem;">-21,472</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">4,410,167 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500;">-$344,840</td>
+                <td>
+                    <a href="http://openinsider.com/search?q=BABA" target="_blank" rel="noopener noreferrer" class="link-out">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <!-- Section 3: Fund Letters & Write-ups -->
+        <!-- Section 3: Curated Memos & Fund Letters -->
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">📑</span>
                 <h3 class="section-heading">Fund Letters, VIC Write-ups & Superinvestor Memos</h3>
             </div>
-            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable funds and deep-value analysts.</p>
+            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable hedge funds and deep-value analysts with direct reading links.</p>
             <div class="writeups-grid">
                 
         <div class="writeup-card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
                     Appaloosa Management (David Tepper) · <span style="color: var(--text-dim);">Q1 2026 Investor Letter</span>
                 </div>
@@ -1897,28 +2161,28 @@ Over the past two fiscal years, Alibaba retired 3.5%–5.0% of its diluted share
                     Read Source ↗
                 </a>
             </div>
-            <h4 style="font-family: var(--font-serif); font-size: 1.15rem; color: var(--text-title); margin: 0 0 8px; line-height: 1.35;">
-                Alibaba: Asymmetric China Tech Re-Rating & Cloud Inflection
+            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
+                Alibaba: Asymmetric China Tech Re-Rating & Cloud AI Inflection
             </h4>
-            <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.5; margin: 0;">
-                Tepper details his high-conviction bet on Alibaba, citing $25B in annual free cash flow, massive share buybacks reducing float by >7% annually, and expanding cloud AI infrastructure.
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                David Tepper details his high-conviction bet on Alibaba, citing $25B in annual free cash flow, massive share buybacks reducing float by >7% annually, and expanding Qwen AI cloud infrastructure.
             </p>
         </div>
         
         <div class="writeup-card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
                     Value Investors Club (VIC) · <span style="color: var(--text-dim);">2026 Deep Dive Pitch</span>
                 </div>
-                <a href="https://valueinvestorsclub.com" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                <a href="https://valueinvestorsclub.com/search?q=BABA" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
                     Read Source ↗
                 </a>
             </div>
-            <h4 style="font-family: var(--font-serif); font-size: 1.15rem; color: var(--text-title); margin: 0 0 8px; line-height: 1.35;">
+            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
                 Deep Value Pitch: Alibaba Group (NYSE: BABA)
             </h4>
-            <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.5; margin: 0;">
-                Comprehensive sum-of-the-parts analysis valuing Taobao/Tmall at 6x Owner Earnings with Cloud Intelligence and international logistics providing a free multi-billion option.
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Comprehensive sum-of-the-parts analysis valuing Taobao/Tmall at 6x Owner Earnings with Cloud Intelligence and international logistics providing a free multi-billion optionality.
             </p>
         </div>
         

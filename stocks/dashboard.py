@@ -1030,6 +1030,42 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             color: #fcd34d;
         }}
 
+        /* Quick Portals Bar */
+        .quick-portals-bar {{
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }}
+        .portal-links-group {{
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }}
+        .portal-link {{
+            background: var(--bg-subpanel);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+        }}
+        .portal-link:hover {{
+            background: rgba(201, 154, 117, 0.14);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            transform: translateY(-1px);
+        }}
+
         /* Memo Content & Premium Editorial Typography */
         .memo-container {{
             background: var(--bg-panel);
