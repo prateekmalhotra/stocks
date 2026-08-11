@@ -33,6 +33,25 @@ def format_labels_pills(labels: List[str]) -> str:
     return html.strip() or '<span class="pill pill-neutral">Active</span>'
 
 
+def format_usd_target(val: Any) -> str:
+    """Guarantees any price or target string is formatted strictly in clean USD ($X,XXX.XX),
+    stripping foreign currency prefixes like C$, CAD, HK$, EUR, etc."""
+    if val is None or val == "":
+        return "$0.00"
+    if isinstance(val, (int, float)):
+        return f"${val:,.2f}"
+    
+    val_str = str(val).strip()
+    m = re.search(r"[-+]?\d[\d,]*(?:\.\d+)?", val_str)
+    if m:
+        try:
+            num = float(m.group(0).replace(",", ""))
+            return f"${num:,.2f}"
+        except Exception:
+            pass
+    return val_str.replace("C$", "$").replace("CAD", "").replace("USD", "").strip()
+
+
 def extract_pct_delta(base_target: str, current_price: float, fair_value_str: str) -> str:
     """Extracts clean percentage difference without repeating the dollar value."""
     match = re.search(r"\(([-+]?\d+(?:\.\d+)?%)\)", base_target)
@@ -1042,7 +1061,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             <div class="metrics-grid" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));">
                 <div class="metric-cell">
                     <div class="metric-label">Fair Value</div>
-                    <div class="metric-value" style="color: var(--accent-warm);">{stock.fair_value_estimate}</div>
+                    <div class="metric-value" style="color: var(--accent-warm);">{format_usd_target(stock.fair_value_estimate)}</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bear Target</div>
@@ -1172,7 +1191,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             </td>
             <td>
                 <div class="tbl-val-cell">
-                    <span class="tbl-fv" style="color: var(--accent-warm);">{stock.fair_value_estimate}</span>
+                    <span class="tbl-fv" style="color: var(--accent-warm);">{format_usd_target(stock.fair_value_estimate)}</span>
                     {f'<span class="tbl-base">{pct_delta_str}</span>' if pct_delta_str else ''}
                 </div>
             </td>
@@ -1204,7 +1223,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Fair Value</span>
-                    <span class="grid-stat-val" style="color: var(--accent-warm);">{stock.fair_value_estimate}</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">{format_usd_target(stock.fair_value_estimate)}</span>
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Base Target</span>

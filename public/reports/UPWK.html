@@ -640,15 +640,15 @@
             <div class="hero-top-row">
                 <div>
                     <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-                        <span class="ticker-symbol">UPWK<span class="status-beacon beacon-caution" title="Action Signal: Caution (Facing Headwinds / Trim Zone)"><span class="beacon-ping"></span><span class="beacon-dot"></span></span></span>
-                        <span class="pill pill-active">Cautious Stance</span> <span class="pill pill-neutral">Buyback Cannibal</span> <span class="pill pill-neutral">Cash Fortress</span>
+                        <span class="ticker-symbol">UPWK<span class="status-beacon beacon-buy" title="Action Signal: Strong Buy (Get in NOW / Thesis Accelerating)"><span class="beacon-ping"></span><span class="beacon-dot"></span></span></span>
+                        <span class="pill pill-active">Solid Conviction</span> <span class="pill pill-neutral">Buyback Cannibal</span> <span class="pill pill-neutral">Deep Value</span>
                     </div>
                     <div class="company-meta">Upwork Inc.</div>
                 </div>
                 <div class="price-callout">
-                    <div class="price-number">$8.76</div>
+                    <div class="price-number">$8.61</div>
                     <div class="price-sub neg">
-                        -9.41% vs Genesis
+                        -10.96% vs Genesis
                     </div>
                 </div>
             </div>
@@ -658,7 +658,7 @@
     <div class="native-chart-wrap" id="chart-container">
         <div class="chart-top-bar">
             <div id="chart-live-val" class="chart-live-val">
-                <span id="tooltip-date">Aug 11, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$8.71</strong>
+                <span id="tooltip-date">Aug 11, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$8.55</strong>
             </div>
             <div class="chart-range-pills">
                 <button class="range-pill active" onclick="switchChartRange('1Y')">1Y</button>
@@ -689,13 +689,13 @@
         <div class="chart-labels">
             <span id="chart-start-lbl">Aug 11, 2025 ($7.84)</span>
             <span id="chart-range-title">1-Year Historical Range</span>
-            <span id="chart-end-lbl">Aug 11, 2026 ($8.71)</span>
+            <span id="chart-end-lbl">Aug 11, 2026 ($8.55)</span>
         </div>
     </div>
 
     <script>
     (function() {
-        const allDatasets = {"1Y": [{"date": "Aug 11, 2025", "price": 13.41}, {"date": "Aug 12, 2025", "price": 13.67}, {"date": "Aug 13, 2025", "price": 14.09}, {"date": "Aug 14, 2025", "price": 13.7}, {"date": "Aug 15, 2025", "price": 13.8}, {"date": "Aug 18, 2025", "price": 13.99}, {"date": "Aug 19, 2025", "price": 13.86}, {"date": "Aug 20, 2025", "price": 14.21}, {"date": "Aug 21, 2025", "price": 14.79}, {"date": "Aug 22, 2025", "price": 14.92}, {"date": "Aug 25, 2025", "price": 14.91}, {"date": "Aug 26, 2025", "price": 15.09}, {"date": "Aug 27, 2025", "price": 14.8}, {"date": "Aug 28, 2025", "price": 14.91}, {"date": "Aug 29, 2025", "price": 15.39}, {"date": "Sep 02, 2025", "price": 15.96}, {"date": "Sep 03, 2025", "price": 16.45}, {"date": "Sep 04, 2025", "price": 16.78}, {"date": "Sep 05, 2025", "price": 16.19}, {"date": "Sep 08, 2025", "price": 15.96}, {"date": "Sep 09, 2025", "price": 16.0}, {"date": "Sep 10, 2025", "price": 15.91}, {"date": "Sep 11, 2025", "price": 16.37}, {"date": "Sep 12, 2025", "price": 16.86}, {"date": "Sep 15, 2025", "price": 16.79}, {"date": "Sep 16, 2025", "price": 17.1}, {"date": "Sep 17, 2025", "price": 18.14}, {"date": "Sep 18, 2025", "price": 19.6}, {"date": "Sep 19, 2025", "price": 20.07}, {"date": "Sep 22, 2025", "price": 19.33}, {"date": "Sep 23, 2025", "price": 19.66}, {"date": "Sep 24, 2025", "price": 19.92}, {"date": "Sep 25, 2025", "price": 19.3}, {"date": "Sep 26, 2025", "price": 19.15}, {"date": "Sep 29, 2025", "price": 19.01}, {"date": "Sep 30, 2025", "price": 18.57}, {"date": "Oct 01, 2025", "price": 17.71}, {"date": "Oct 02, 2025", "price": 18.16}, {"date": "Oct 03, 2025", "price": 17.27}, {"date": "Oct 06, 2025", "price": 17.4}, {"date": "Oct 07, 2025", "price": 17.09}, {"date": "Oct 08, 2025", "price": 17.86}, {"date": "Oct 09, 2025", "price": 17.43}, {"date": "Oct 10, 2025", "price": 16.8}, {"date": "Oct 13, 2025", "price": 17.1}, {"date": "Oct 14, 2025", "price": 16.94}, {"date": "Oct 15, 2025", "price": 16.81}, {"date": "Oct 16, 2025", "price": 16.74}, {"date": "Oct 17, 2025", "price": 16.2}, {"date": "Oct 20, 2025", "price": 16.67}, {"date": "Oct 21, 2025", "price": 16.66}, {"date": "Oct 22, 2025", "price": 16.01}, {"date": "Oct 23, 2025", "price": 16.12}, {"date": "Oct 24, 2025", "price": 16.0}, {"date": "Oct 27, 2025", "price": 16.12}, {"date": "Oct 28, 2025", "price": 17.37}, {"date": "Oct 29, 2025", "price": 16.88}, {"date": "Oct 30, 2025", "price": 16.31}, {"date": "Oct 31, 2025", "price": 15.94}, {"date": "Nov 03, 2025", "price": 15.63}, {"date": "Nov 04, 2025", "price": 17.7}, {"date": "Nov 05, 2025", "price": 16.38}, {"date": "Nov 06, 2025", "price": 16.15}, {"date": "Nov 07, 2025", "price": 17.45}, {"date": "Nov 10, 2025", "price": 17.6}, {"date": "Nov 11, 2025", "price": 17.95}, {"date": "Nov 12, 2025", "price": 17.04}, {"date": "Nov 13, 2025", "price": 17.05}, {"date": "Nov 14, 2025", "price": 16.48}, {"date": "Nov 17, 2025", "price": 16.19}, {"date": "Nov 18, 2025", "price": 17.08}, {"date": "Nov 19, 2025", "price": 18.16}, {"date": "Nov 20, 2025", "price": 17.16}, {"date": "Nov 21, 2025", "price": 17.87}, {"date": "Nov 24, 2025", "price": 18.55}, {"date": "Nov 25, 2025", "price": 19.69}, {"date": "Nov 26, 2025", "price": 19.58}, {"date": "Nov 28, 2025", "price": 19.74}, {"date": "Dec 01, 2025", "price": 19.88}, {"date": "Dec 02, 2025", "price": 20.53}, {"date": "Dec 03, 2025", "price": 19.73}, {"date": "Dec 04, 2025", "price": 19.58}, {"date": "Dec 05, 2025", "price": 20.08}, {"date": "Dec 08, 2025", "price": 19.88}, {"date": "Dec 09, 2025", "price": 20.98}, {"date": "Dec 10, 2025", "price": 20.48}, {"date": "Dec 11, 2025", "price": 21.92}, {"date": "Dec 12, 2025", "price": 21.95}, {"date": "Dec 15, 2025", "price": 21.38}, {"date": "Dec 16, 2025", "price": 21.44}, {"date": "Dec 17, 2025", "price": 20.19}, {"date": "Dec 18, 2025", "price": 20.47}, {"date": "Dec 19, 2025", "price": 20.6}, {"date": "Dec 22, 2025", "price": 21.29}, {"date": "Dec 23, 2025", "price": 20.82}, {"date": "Dec 24, 2025", "price": 20.97}, {"date": "Dec 26, 2025", "price": 20.85}, {"date": "Dec 29, 2025", "price": 20.3}, {"date": "Dec 30, 2025", "price": 19.55}, {"date": "Dec 31, 2025", "price": 19.82}, {"date": "Jan 02, 2026", "price": 19.84}, {"date": "Jan 05, 2026", "price": 20.62}, {"date": "Jan 06, 2026", "price": 20.27}, {"date": "Jan 07, 2026", "price": 20.86}, {"date": "Jan 08, 2026", "price": 20.42}, {"date": "Jan 09, 2026", "price": 20.05}, {"date": "Jan 12, 2026", "price": 20.4}, {"date": "Jan 13, 2026", "price": 20.25}, {"date": "Jan 14, 2026", "price": 20.1}, {"date": "Jan 15, 2026", "price": 20.15}, {"date": "Jan 16, 2026", "price": 19.87}, {"date": "Jan 20, 2026", "price": 19.49}, {"date": "Jan 21, 2026", "price": 19.69}, {"date": "Jan 22, 2026", "price": 21.13}, {"date": "Jan 23, 2026", "price": 22.11}, {"date": "Jan 26, 2026", "price": 21.87}, {"date": "Jan 27, 2026", "price": 21.3}, {"date": "Jan 28, 2026", "price": 20.51}, {"date": "Jan 29, 2026", "price": 21.02}, {"date": "Jan 30, 2026", "price": 20.03}, {"date": "Feb 02, 2026", "price": 19.95}, {"date": "Feb 03, 2026", "price": 18.25}, {"date": "Feb 04, 2026", "price": 17.05}, {"date": "Feb 05, 2026", "price": 17.82}, {"date": "Feb 06, 2026", "price": 18.93}, {"date": "Feb 09, 2026", "price": 18.79}, {"date": "Feb 10, 2026", "price": 15.21}, {"date": "Feb 11, 2026", "price": 14.5}, {"date": "Feb 12, 2026", "price": 13.11}, {"date": "Feb 13, 2026", "price": 13.23}, {"date": "Feb 17, 2026", "price": 12.76}, {"date": "Feb 18, 2026", "price": 13.73}, {"date": "Feb 19, 2026", "price": 13.32}, {"date": "Feb 20, 2026", "price": 13.17}, {"date": "Feb 23, 2026", "price": 12.51}, {"date": "Feb 24, 2026", "price": 13.02}, {"date": "Feb 25, 2026", "price": 12.98}, {"date": "Feb 26, 2026", "price": 13.85}, {"date": "Feb 27, 2026", "price": 13.42}, {"date": "Mar 02, 2026", "price": 13.12}, {"date": "Mar 03, 2026", "price": 13.13}, {"date": "Mar 04, 2026", "price": 13.43}, {"date": "Mar 05, 2026", "price": 13.31}, {"date": "Mar 06, 2026", "price": 13.25}, {"date": "Mar 09, 2026", "price": 13.33}, {"date": "Mar 10, 2026", "price": 12.38}, {"date": "Mar 11, 2026", "price": 12.41}, {"date": "Mar 12, 2026", "price": 11.86}, {"date": "Mar 13, 2026", "price": 12.21}, {"date": "Mar 16, 2026", "price": 11.95}, {"date": "Mar 17, 2026", "price": 12.35}, {"date": "Mar 18, 2026", "price": 12.09}, {"date": "Mar 19, 2026", "price": 11.35}, {"date": "Mar 20, 2026", "price": 11.28}, {"date": "Mar 23, 2026", "price": 11.42}, {"date": "Mar 24, 2026", "price": 11.15}, {"date": "Mar 25, 2026", "price": 11.32}, {"date": "Mar 26, 2026", "price": 11.19}, {"date": "Mar 27, 2026", "price": 10.87}, {"date": "Mar 30, 2026", "price": 10.57}, {"date": "Mar 31, 2026", "price": 10.96}, {"date": "Apr 01, 2026", "price": 11.18}, {"date": "Apr 02, 2026", "price": 10.94}, {"date": "Apr 06, 2026", "price": 11.33}, {"date": "Apr 07, 2026", "price": 10.97}, {"date": "Apr 08, 2026", "price": 11.06}, {"date": "Apr 09, 2026", "price": 10.44}, {"date": "Apr 10, 2026", "price": 10.66}, {"date": "Apr 13, 2026", "price": 11.01}, {"date": "Apr 14, 2026", "price": 11.06}, {"date": "Apr 15, 2026", "price": 11.3}, {"date": "Apr 16, 2026", "price": 11.06}, {"date": "Apr 17, 2026", "price": 11.27}, {"date": "Apr 20, 2026", "price": 11.09}, {"date": "Apr 21, 2026", "price": 11.08}, {"date": "Apr 22, 2026", "price": 11.34}, {"date": "Apr 23, 2026", "price": 10.48}, {"date": "Apr 24, 2026", "price": 10.63}, {"date": "Apr 27, 2026", "price": 10.65}, {"date": "Apr 28, 2026", "price": 10.38}, {"date": "Apr 29, 2026", "price": 10.35}, {"date": "Apr 30, 2026", "price": 10.35}, {"date": "May 01, 2026", "price": 10.49}, {"date": "May 04, 2026", "price": 10.52}, {"date": "May 05, 2026", "price": 10.31}, {"date": "May 06, 2026", "price": 10.08}, {"date": "May 07, 2026", "price": 10.61}, {"date": "May 08, 2026", "price": 8.82}, {"date": "May 11, 2026", "price": 8.81}, {"date": "May 12, 2026", "price": 8.35}, {"date": "May 13, 2026", "price": 8.39}, {"date": "May 14, 2026", "price": 8.08}, {"date": "May 15, 2026", "price": 8.17}, {"date": "May 18, 2026", "price": 8.75}, {"date": "May 19, 2026", "price": 8.45}, {"date": "May 20, 2026", "price": 8.66}, {"date": "May 21, 2026", "price": 8.44}, {"date": "May 22, 2026", "price": 8.8}, {"date": "May 26, 2026", "price": 8.59}, {"date": "May 27, 2026", "price": 8.64}, {"date": "May 28, 2026", "price": 8.59}, {"date": "May 29, 2026", "price": 8.82}, {"date": "Jun 01, 2026", "price": 9.37}, {"date": "Jun 02, 2026", "price": 8.98}, {"date": "Jun 03, 2026", "price": 8.56}, {"date": "Jun 04, 2026", "price": 8.74}, {"date": "Jun 05, 2026", "price": 8.76}, {"date": "Jun 08, 2026", "price": 8.87}, {"date": "Jun 09, 2026", "price": 8.82}, {"date": "Jun 10, 2026", "price": 8.57}, {"date": "Jun 11, 2026", "price": 8.46}, {"date": "Jun 12, 2026", "price": 8.49}, {"date": "Jun 15, 2026", "price": 8.48}, {"date": "Jun 16, 2026", "price": 8.43}, {"date": "Jun 17, 2026", "price": 8.07}, {"date": "Jun 18, 2026", "price": 8.05}, {"date": "Jun 22, 2026", "price": 7.84}, {"date": "Jun 23, 2026", "price": 8.21}, {"date": "Jun 24, 2026", "price": 8.22}, {"date": "Jun 25, 2026", "price": 7.86}, {"date": "Jun 26, 2026", "price": 8.33}, {"date": "Jun 29, 2026", "price": 8.31}, {"date": "Jun 30, 2026", "price": 8.36}, {"date": "Jul 01, 2026", "price": 9.02}, {"date": "Jul 02, 2026", "price": 9.16}, {"date": "Jul 06, 2026", "price": 8.86}, {"date": "Jul 07, 2026", "price": 8.87}, {"date": "Jul 08, 2026", "price": 8.56}, {"date": "Jul 09, 2026", "price": 8.68}, {"date": "Jul 10, 2026", "price": 8.82}, {"date": "Jul 13, 2026", "price": 9.12}, {"date": "Jul 14, 2026", "price": 9.03}, {"date": "Jul 15, 2026", "price": 9.24}, {"date": "Jul 16, 2026", "price": 9.59}, {"date": "Jul 17, 2026", "price": 9.06}, {"date": "Jul 20, 2026", "price": 9.33}, {"date": "Jul 21, 2026", "price": 9.19}, {"date": "Jul 22, 2026", "price": 8.96}, {"date": "Jul 23, 2026", "price": 8.72}, {"date": "Jul 24, 2026", "price": 8.83}, {"date": "Jul 27, 2026", "price": 9.26}, {"date": "Jul 28, 2026", "price": 9.81}, {"date": "Jul 29, 2026", "price": 9.53}, {"date": "Jul 30, 2026", "price": 9.25}, {"date": "Jul 31, 2026", "price": 9.16}, {"date": "Aug 03, 2026", "price": 9.54}, {"date": "Aug 04, 2026", "price": 9.68}, {"date": "Aug 05, 2026", "price": 9.59}, {"date": "Aug 06, 2026", "price": 9.42}, {"date": "Aug 07, 2026", "price": 9.67}, {"date": "Aug 10, 2026", "price": 9.83}, {"date": "Aug 11, 2026", "price": 8.71}], "5Y": [{"date": "Aug 08, 2021", "price": 42.57}, {"date": "Aug 15, 2021", "price": 41.82}, {"date": "Aug 22, 2021", "price": 44.24}, {"date": "Aug 29, 2021", "price": 44.75}, {"date": "Sep 05, 2021", "price": 45.17}, {"date": "Sep 12, 2021", "price": 49.7}, {"date": "Sep 19, 2021", "price": 50.52}, {"date": "Sep 26, 2021", "price": 48.03}, {"date": "Oct 03, 2021", "price": 54.1}, {"date": "Oct 10, 2021", "price": 59.21}, {"date": "Oct 17, 2021", "price": 58.7}, {"date": "Oct 24, 2021", "price": 47.12}, {"date": "Oct 31, 2021", "price": 49.04}, {"date": "Nov 07, 2021", "price": 47.51}, {"date": "Nov 14, 2021", "price": 40.96}, {"date": "Nov 21, 2021", "price": 37.61}, {"date": "Nov 28, 2021", "price": 35.45}, {"date": "Dec 05, 2021", "price": 34.03}, {"date": "Dec 12, 2021", "price": 34.19}, {"date": "Dec 19, 2021", "price": 33.64}, {"date": "Dec 26, 2021", "price": 34.16}, {"date": "Jan 02, 2022", "price": 29.51}, {"date": "Jan 09, 2022", "price": 28.25}, {"date": "Jan 16, 2022", "price": 25.17}, {"date": "Jan 23, 2022", "price": 24.55}, {"date": "Jan 30, 2022", "price": 27.56}, {"date": "Feb 06, 2022", "price": 25.59}, {"date": "Feb 13, 2022", "price": 24.49}, {"date": "Feb 20, 2022", "price": 24.54}, {"date": "Feb 27, 2022", "price": 21.76}, {"date": "Mar 06, 2022", "price": 18.79}, {"date": "Mar 13, 2022", "price": 22.32}, {"date": "Mar 20, 2022", "price": 23.07}, {"date": "Mar 27, 2022", "price": 23.65}, {"date": "Apr 03, 2022", "price": 21.52}, {"date": "Apr 10, 2022", "price": 20.86}, {"date": "Apr 17, 2022", "price": 19.44}, {"date": "Apr 24, 2022", "price": 20.97}, {"date": "May 01, 2022", "price": 19.94}, {"date": "May 08, 2022", "price": 18.21}, {"date": "May 15, 2022", "price": 18.33}, {"date": "May 22, 2022", "price": 18.99}, {"date": "May 29, 2022", "price": 18.54}, {"date": "Jun 05, 2022", "price": 18.02}, {"date": "Jun 12, 2022", "price": 18.86}, {"date": "Jun 19, 2022", "price": 22.2}, {"date": "Jun 26, 2022", "price": 22.19}, {"date": "Jul 03, 2022", "price": 24.25}, {"date": "Jul 10, 2022", "price": 20.62}, {"date": "Jul 17, 2022", "price": 22.62}, {"date": "Jul 24, 2022", "price": 18.56}, {"date": "Jul 31, 2022", "price": 20.64}, {"date": "Aug 07, 2022", "price": 19.33}, {"date": "Aug 14, 2022", "price": 18.05}, {"date": "Aug 21, 2022", "price": 17.5}, {"date": "Aug 28, 2022", "price": 17.09}, {"date": "Sep 04, 2022", "price": 17.91}, {"date": "Sep 11, 2022", "price": 16.0}, {"date": "Sep 18, 2022", "price": 13.72}, {"date": "Sep 25, 2022", "price": 13.62}, {"date": "Oct 02, 2022", "price": 14.11}, {"date": "Oct 09, 2022", "price": 12.34}, {"date": "Oct 16, 2022", "price": 12.41}, {"date": "Oct 23, 2022", "price": 13.4}, {"date": "Oct 30, 2022", "price": 12.24}, {"date": "Nov 06, 2022", "price": 14.85}, {"date": "Nov 13, 2022", "price": 12.16}, {"date": "Nov 20, 2022", "price": 11.79}, {"date": "Nov 27, 2022", "price": 12.38}, {"date": "Dec 04, 2022", "price": 11.25}, {"date": "Dec 11, 2022", "price": 10.89}, {"date": "Dec 18, 2022", "price": 10.43}, {"date": "Dec 25, 2022", "price": 10.44}, {"date": "Jan 01, 2023", "price": 11.4}, {"date": "Jan 08, 2023", "price": 12.6}, {"date": "Jan 15, 2023", "price": 12.52}, {"date": "Jan 22, 2023", "price": 13.1}, {"date": "Jan 29, 2023", "price": 13.76}, {"date": "Feb 05, 2023", "price": 12.5}, {"date": "Feb 12, 2023", "price": 11.72}, {"date": "Feb 19, 2023", "price": 11.02}, {"date": "Feb 26, 2023", "price": 12.21}, {"date": "Mar 05, 2023", "price": 10.62}, {"date": "Mar 12, 2023", "price": 10.04}, {"date": "Mar 19, 2023", "price": 11.47}, {"date": "Mar 26, 2023", "price": 11.32}, {"date": "Apr 02, 2023", "price": 10.33}, {"date": "Apr 09, 2023", "price": 10.33}, {"date": "Apr 16, 2023", "price": 10.6}, {"date": "Apr 23, 2023", "price": 9.57}, {"date": "Apr 30, 2023", "price": 8.0}, {"date": "May 07, 2023", "price": 8.0}, {"date": "May 14, 2023", "price": 8.02}, {"date": "May 21, 2023", "price": 7.85}, {"date": "May 28, 2023", "price": 8.78}, {"date": "Jun 04, 2023", "price": 8.5}, {"date": "Jun 11, 2023", "price": 9.36}, {"date": "Jun 18, 2023", "price": 8.93}, {"date": "Jun 25, 2023", "price": 9.34}, {"date": "Jul 02, 2023", "price": 9.12}, {"date": "Jul 09, 2023", "price": 10.75}, {"date": "Jul 16, 2023", "price": 10.07}, {"date": "Jul 23, 2023", "price": 10.36}, {"date": "Jul 30, 2023", "price": 14.8}, {"date": "Aug 06, 2023", "price": 14.33}, {"date": "Aug 13, 2023", "price": 13.9}, {"date": "Aug 20, 2023", "price": 14.75}, {"date": "Aug 27, 2023", "price": 14.96}, {"date": "Sep 03, 2023", "price": 14.31}, {"date": "Sep 10, 2023", "price": 13.21}, {"date": "Sep 17, 2023", "price": 11.44}, {"date": "Sep 24, 2023", "price": 11.36}, {"date": "Oct 01, 2023", "price": 11.11}, {"date": "Oct 08, 2023", "price": 11.12}, {"date": "Oct 15, 2023", "price": 10.92}, {"date": "Oct 22, 2023", "price": 10.31}, {"date": "Oct 29, 2023", "price": 11.27}, {"date": "Nov 05, 2023", "price": 13.8}, {"date": "Nov 12, 2023", "price": 14.32}, {"date": "Nov 19, 2023", "price": 14.25}, {"date": "Nov 26, 2023", "price": 14.28}, {"date": "Dec 03, 2023", "price": 14.06}, {"date": "Dec 10, 2023", "price": 14.8}, {"date": "Dec 17, 2023", "price": 14.63}, {"date": "Dec 24, 2023", "price": 14.87}, {"date": "Dec 31, 2023", "price": 14.05}, {"date": "Jan 07, 2024", "price": 14.87}, {"date": "Jan 14, 2024", "price": 14.52}, {"date": "Jan 21, 2024", "price": 14.07}, {"date": "Jan 28, 2024", "price": 14.15}, {"date": "Feb 04, 2024", "price": 14.46}, {"date": "Feb 11, 2024", "price": 13.73}, {"date": "Feb 18, 2024", "price": 13.2}, {"date": "Feb 25, 2024", "price": 13.5}, {"date": "Mar 03, 2024", "price": 12.93}, {"date": "Mar 10, 2024", "price": 11.96}, {"date": "Mar 17, 2024", "price": 12.3}, {"date": "Mar 24, 2024", "price": 12.26}, {"date": "Mar 31, 2024", "price": 11.91}, {"date": "Apr 07, 2024", "price": 11.63}, {"date": "Apr 14, 2024", "price": 11.13}, {"date": "Apr 21, 2024", "price": 11.56}, {"date": "Apr 28, 2024", "price": 12.89}, {"date": "May 05, 2024", "price": 11.92}, {"date": "May 12, 2024", "price": 11.91}, {"date": "May 19, 2024", "price": 11.14}, {"date": "May 26, 2024", "price": 10.57}, {"date": "Jun 02, 2024", "price": 10.72}, {"date": "Jun 09, 2024", "price": 10.39}, {"date": "Jun 16, 2024", "price": 10.48}, {"date": "Jun 23, 2024", "price": 10.75}, {"date": "Jun 30, 2024", "price": 10.91}, {"date": "Jul 07, 2024", "price": 11.39}, {"date": "Jul 14, 2024", "price": 11.44}, {"date": "Jul 21, 2024", "price": 11.35}, {"date": "Jul 28, 2024", "price": 10.7}, {"date": "Aug 04, 2024", "price": 9.33}, {"date": "Aug 11, 2024", "price": 9.78}, {"date": "Aug 18, 2024", "price": 10.02}, {"date": "Aug 25, 2024", "price": 9.64}, {"date": "Sep 01, 2024", "price": 9.51}, {"date": "Sep 08, 2024", "price": 10.24}, {"date": "Sep 15, 2024", "price": 10.71}, {"date": "Sep 22, 2024", "price": 10.55}, {"date": "Sep 29, 2024", "price": 10.84}, {"date": "Oct 06, 2024", "price": 10.44}, {"date": "Oct 13, 2024", "price": 10.29}, {"date": "Oct 20, 2024", "price": 12.36}, {"date": "Oct 27, 2024", "price": 13.98}, {"date": "Nov 03, 2024", "price": 15.93}, {"date": "Nov 10, 2024", "price": 14.91}, {"date": "Nov 17, 2024", "price": 16.02}, {"date": "Nov 24, 2024", "price": 16.97}, {"date": "Dec 01, 2024", "price": 16.96}, {"date": "Dec 08, 2024", "price": 16.89}, {"date": "Dec 15, 2024", "price": 16.44}, {"date": "Dec 22, 2024", "price": 16.94}, {"date": "Dec 29, 2024", "price": 16.11}, {"date": "Jan 05, 2025", "price": 15.64}, {"date": "Jan 12, 2025", "price": 16.89}, {"date": "Jan 19, 2025", "price": 16.27}, {"date": "Jan 26, 2025", "price": 15.76}, {"date": "Feb 02, 2025", "price": 15.77}, {"date": "Feb 09, 2025", "price": 16.14}, {"date": "Feb 16, 2025", "price": 15.63}, {"date": "Feb 23, 2025", "price": 15.93}, {"date": "Mar 02, 2025", "price": 14.17}, {"date": "Mar 09, 2025", "price": 12.6}, {"date": "Mar 16, 2025", "price": 13.57}, {"date": "Mar 23, 2025", "price": 13.21}, {"date": "Mar 30, 2025", "price": 11.87}, {"date": "Apr 06, 2025", "price": 12.9}, {"date": "Apr 13, 2025", "price": 12.74}, {"date": "Apr 20, 2025", "price": 13.54}, {"date": "Apr 27, 2025", "price": 13.48}, {"date": "May 04, 2025", "price": 16.88}, {"date": "May 11, 2025", "price": 17.24}, {"date": "May 18, 2025", "price": 15.75}, {"date": "May 25, 2025", "price": 15.49}, {"date": "Jun 01, 2025", "price": 15.4}, {"date": "Jun 08, 2025", "price": 13.83}, {"date": "Jun 15, 2025", "price": 13.14}, {"date": "Jun 22, 2025", "price": 13.63}, {"date": "Jun 29, 2025", "price": 13.64}, {"date": "Jul 06, 2025", "price": 12.92}, {"date": "Jul 13, 2025", "price": 13.23}, {"date": "Jul 20, 2025", "price": 13.11}, {"date": "Jul 27, 2025", "price": 11.75}, {"date": "Aug 03, 2025", "price": 13.17}, {"date": "Aug 10, 2025", "price": 13.8}, {"date": "Aug 17, 2025", "price": 14.92}, {"date": "Aug 24, 2025", "price": 15.39}, {"date": "Aug 31, 2025", "price": 16.19}, {"date": "Sep 07, 2025", "price": 16.86}, {"date": "Sep 14, 2025", "price": 20.07}, {"date": "Sep 21, 2025", "price": 19.15}, {"date": "Sep 28, 2025", "price": 17.27}, {"date": "Oct 05, 2025", "price": 16.8}, {"date": "Oct 12, 2025", "price": 16.2}, {"date": "Oct 19, 2025", "price": 16.0}, {"date": "Oct 26, 2025", "price": 15.94}, {"date": "Nov 02, 2025", "price": 17.45}, {"date": "Nov 09, 2025", "price": 16.48}, {"date": "Nov 16, 2025", "price": 17.87}, {"date": "Nov 23, 2025", "price": 19.74}, {"date": "Nov 30, 2025", "price": 20.08}, {"date": "Dec 07, 2025", "price": 21.95}, {"date": "Dec 14, 2025", "price": 20.6}, {"date": "Dec 21, 2025", "price": 20.85}, {"date": "Dec 28, 2025", "price": 19.84}, {"date": "Jan 04, 2026", "price": 20.05}, {"date": "Jan 11, 2026", "price": 19.87}, {"date": "Jan 18, 2026", "price": 22.11}, {"date": "Jan 25, 2026", "price": 20.03}, {"date": "Feb 01, 2026", "price": 18.93}, {"date": "Feb 08, 2026", "price": 13.23}, {"date": "Feb 15, 2026", "price": 13.17}, {"date": "Feb 22, 2026", "price": 13.42}, {"date": "Mar 01, 2026", "price": 13.25}, {"date": "Mar 08, 2026", "price": 12.21}, {"date": "Mar 15, 2026", "price": 11.28}, {"date": "Mar 22, 2026", "price": 10.87}, {"date": "Mar 29, 2026", "price": 10.94}, {"date": "Apr 05, 2026", "price": 10.66}, {"date": "Apr 12, 2026", "price": 11.27}, {"date": "Apr 19, 2026", "price": 10.63}, {"date": "Apr 26, 2026", "price": 10.49}, {"date": "May 03, 2026", "price": 8.82}, {"date": "May 10, 2026", "price": 8.17}, {"date": "May 17, 2026", "price": 8.8}, {"date": "May 24, 2026", "price": 8.82}, {"date": "May 31, 2026", "price": 8.76}, {"date": "Jun 07, 2026", "price": 8.49}, {"date": "Jun 14, 2026", "price": 8.05}, {"date": "Jun 21, 2026", "price": 8.33}, {"date": "Jun 28, 2026", "price": 9.16}, {"date": "Jul 05, 2026", "price": 8.82}, {"date": "Jul 12, 2026", "price": 9.06}, {"date": "Jul 19, 2026", "price": 8.83}, {"date": "Jul 26, 2026", "price": 9.16}, {"date": "Aug 02, 2026", "price": 9.67}, {"date": "Aug 09, 2026", "price": 9.83}, {"date": "Aug 11, 2026", "price": 8.71}], "10Y": [{"date": "Oct 31, 2018", "price": 18.63}, {"date": "Nov 30, 2018", "price": 18.11}, {"date": "Dec 31, 2018", "price": 19.31}, {"date": "Jan 31, 2019", "price": 23.69}, {"date": "Feb 28, 2019", "price": 19.14}, {"date": "Mar 31, 2019", "price": 19.99}, {"date": "Apr 30, 2019", "price": 14.98}, {"date": "May 31, 2019", "price": 16.08}, {"date": "Jun 30, 2019", "price": 16.44}, {"date": "Jul 31, 2019", "price": 14.46}, {"date": "Aug 31, 2019", "price": 13.31}, {"date": "Sep 30, 2019", "price": 15.04}, {"date": "Oct 31, 2019", "price": 11.65}, {"date": "Nov 30, 2019", "price": 10.67}, {"date": "Dec 31, 2019", "price": 9.18}, {"date": "Jan 31, 2020", "price": 8.66}, {"date": "Feb 29, 2020", "price": 6.45}, {"date": "Mar 31, 2020", "price": 8.33}, {"date": "Apr 30, 2020", "price": 12.44}, {"date": "May 31, 2020", "price": 14.44}, {"date": "Jun 30, 2020", "price": 15.02}, {"date": "Jul 31, 2020", "price": 15.23}, {"date": "Aug 31, 2020", "price": 17.44}, {"date": "Sep 30, 2020", "price": 18.45}, {"date": "Oct 31, 2020", "price": 32.72}, {"date": "Nov 30, 2020", "price": 34.52}, {"date": "Dec 31, 2020", "price": 41.45}, {"date": "Jan 31, 2021", "price": 53.88}, {"date": "Feb 28, 2021", "price": 44.77}, {"date": "Mar 31, 2021", "price": 46.06}, {"date": "Apr 30, 2021", "price": 47.07}, {"date": "May 31, 2021", "price": 58.29}, {"date": "Jun 30, 2021", "price": 51.79}, {"date": "Jul 31, 2021", "price": 44.71}, {"date": "Aug 31, 2021", "price": 45.03}, {"date": "Sep 30, 2021", "price": 47.12}, {"date": "Oct 31, 2021", "price": 37.26}, {"date": "Nov 30, 2021", "price": 34.16}, {"date": "Dec 31, 2021", "price": 27.2}, {"date": "Jan 31, 2022", "price": 25.28}, {"date": "Feb 28, 2022", "price": 23.24}, {"date": "Mar 31, 2022", "price": 20.97}, {"date": "Apr 30, 2022", "price": 18.25}, {"date": "May 31, 2022", "price": 20.68}, {"date": "Jun 30, 2022", "price": 18.56}, {"date": "Jul 31, 2022", "price": 17.4}, {"date": "Aug 31, 2022", "price": 13.62}, {"date": "Sep 30, 2022", "price": 13.45}, {"date": "Oct 31, 2022", "price": 12.25}, {"date": "Nov 30, 2022", "price": 10.44}, {"date": "Dec 31, 2022", "price": 12.96}, {"date": "Jan 31, 2023", "price": 11.34}, {"date": "Feb 28, 2023", "price": 11.32}, {"date": "Mar 31, 2023", "price": 9.57}, {"date": "Apr 30, 2023", "price": 8.2}, {"date": "May 31, 2023", "price": 9.34}, {"date": "Jun 30, 2023", "price": 10.43}, {"date": "Jul 31, 2023", "price": 14.81}, {"date": "Aug 31, 2023", "price": 11.36}, {"date": "Sep 30, 2023", "price": 10.45}, {"date": "Oct 31, 2023", "price": 14.09}, {"date": "Nov 30, 2023", "price": 14.87}, {"date": "Dec 31, 2023", "price": 13.71}, {"date": "Jan 31, 2024", "price": 13.1}, {"date": "Feb 29, 2024", "price": 12.26}, {"date": "Mar 31, 2024", "price": 11.7}, {"date": "Apr 30, 2024", "price": 10.57}, {"date": "May 31, 2024", "price": 10.75}, {"date": "Jun 30, 2024", "price": 12.12}, {"date": "Jul 31, 2024", "price": 9.64}, {"date": "Aug 31, 2024", "price": 10.45}, {"date": "Sep 30, 2024", "price": 13.56}, {"date": "Oct 31, 2024", "price": 16.97}, {"date": "Nov 30, 2024", "price": 16.35}, {"date": "Dec 31, 2024", "price": 15.76}, {"date": "Jan 31, 2025", "price": 15.93}, {"date": "Feb 28, 2025", "price": 13.05}, {"date": "Mar 31, 2025", "price": 13.15}, {"date": "Apr 30, 2025", "price": 15.49}, {"date": "May 31, 2025", "price": 13.44}, {"date": "Jun 30, 2025", "price": 11.96}, {"date": "Jul 31, 2025", "price": 15.39}, {"date": "Aug 31, 2025", "price": 18.57}, {"date": "Sep 30, 2025", "price": 15.94}, {"date": "Oct 31, 2025", "price": 19.74}, {"date": "Nov 30, 2025", "price": 19.82}, {"date": "Dec 31, 2025", "price": 20.03}, {"date": "Jan 31, 2026", "price": 13.42}, {"date": "Feb 28, 2026", "price": 10.96}, {"date": "Mar 31, 2026", "price": 10.35}, {"date": "Apr 30, 2026", "price": 8.82}, {"date": "May 31, 2026", "price": 8.36}, {"date": "Jun 30, 2026", "price": 9.16}, {"date": "Jul 31, 2026", "price": 9.67}, {"date": "Aug 11, 2026", "price": 8.71}], "MAX": [{"date": "Sep 30, 2018", "price": 20.99}, {"date": "Oct 07, 2018", "price": 19.21}, {"date": "Oct 14, 2018", "price": 19.44}, {"date": "Oct 21, 2018", "price": 18.69}, {"date": "Oct 28, 2018", "price": 20.26}, {"date": "Nov 04, 2018", "price": 17.68}, {"date": "Nov 11, 2018", "price": 19.2}, {"date": "Nov 18, 2018", "price": 16.89}, {"date": "Nov 25, 2018", "price": 18.63}, {"date": "Dec 02, 2018", "price": 17.09}, {"date": "Dec 09, 2018", "price": 17.39}, {"date": "Dec 16, 2018", "price": 19.56}, {"date": "Dec 23, 2018", "price": 17.86}, {"date": "Dec 30, 2018", "price": 18.59}, {"date": "Jan 06, 2019", "price": 18.99}, {"date": "Jan 13, 2019", "price": 18.94}, {"date": "Jan 20, 2019", "price": 18.98}, {"date": "Jan 27, 2019", "price": 18.58}, {"date": "Feb 03, 2019", "price": 20.57}, {"date": "Feb 10, 2019", "price": 22.06}, {"date": "Feb 17, 2019", "price": 22.72}, {"date": "Feb 24, 2019", "price": 22.45}, {"date": "Mar 03, 2019", "price": 21.48}, {"date": "Mar 10, 2019", "price": 20.31}, {"date": "Mar 17, 2019", "price": 19.9}, {"date": "Mar 24, 2019", "price": 19.14}, {"date": "Mar 31, 2019", "price": 20.01}, {"date": "Apr 07, 2019", "price": 19.71}, {"date": "Apr 14, 2019", "price": 18.76}, {"date": "Apr 21, 2019", "price": 19.02}, {"date": "Apr 28, 2019", "price": 20.7}, {"date": "May 05, 2019", "price": 16.75}, {"date": "May 12, 2019", "price": 15.78}, {"date": "May 19, 2019", "price": 15.65}, {"date": "May 26, 2019", "price": 14.98}, {"date": "Jun 02, 2019", "price": 14.39}, {"date": "Jun 09, 2019", "price": 15.26}, {"date": "Jun 16, 2019", "price": 15.51}, {"date": "Jun 23, 2019", "price": 16.08}, {"date": "Jun 30, 2019", "price": 15.81}, {"date": "Jul 07, 2019", "price": 16.62}, {"date": "Jul 14, 2019", "price": 17.04}, {"date": "Jul 21, 2019", "price": 16.99}, {"date": "Jul 28, 2019", "price": 15.88}, {"date": "Aug 04, 2019", "price": 15.15}, {"date": "Aug 11, 2019", "price": 15.0}, {"date": "Aug 18, 2019", "price": 14.4}, {"date": "Aug 25, 2019", "price": 14.46}, {"date": "Sep 01, 2019", "price": 14.07}, {"date": "Sep 08, 2019", "price": 14.97}, {"date": "Sep 15, 2019", "price": 13.71}, {"date": "Sep 22, 2019", "price": 13.26}, {"date": "Sep 29, 2019", "price": 14.06}, {"date": "Oct 06, 2019", "price": 14.3}, {"date": "Oct 13, 2019", "price": 14.42}, {"date": "Oct 20, 2019", "price": 14.82}, {"date": "Oct 27, 2019", "price": 15.21}, {"date": "Nov 03, 2019", "price": 12.77}, {"date": "Nov 10, 2019", "price": 11.85}, {"date": "Nov 17, 2019", "price": 11.24}, {"date": "Nov 24, 2019", "price": 11.65}, {"date": "Dec 01, 2019", "price": 11.32}, {"date": "Dec 08, 2019", "price": 10.42}, {"date": "Dec 15, 2019", "price": 10.6}, {"date": "Dec 22, 2019", "price": 10.42}, {"date": "Dec 29, 2019", "price": 10.09}, {"date": "Jan 05, 2020", "price": 10.03}, {"date": "Jan 12, 2020", "price": 10.05}, {"date": "Jan 19, 2020", "price": 9.22}, {"date": "Jan 26, 2020", "price": 9.18}, {"date": "Feb 02, 2020", "price": 9.07}, {"date": "Feb 09, 2020", "price": 9.22}, {"date": "Feb 16, 2020", "price": 9.09}, {"date": "Feb 23, 2020", "price": 8.66}, {"date": "Mar 01, 2020", "price": 7.98}, {"date": "Mar 08, 2020", "price": 7.17}, {"date": "Mar 15, 2020", "price": 6.19}, {"date": "Mar 22, 2020", "price": 6.5}, {"date": "Mar 29, 2020", "price": 5.4}, {"date": "Apr 05, 2020", "price": 7.27}, {"date": "Apr 12, 2020", "price": 7.4}, {"date": "Apr 19, 2020", "price": 7.89}, {"date": "Apr 26, 2020", "price": 8.53}, {"date": "May 03, 2020", "price": 9.85}, {"date": "May 10, 2020", "price": 13.72}, {"date": "May 17, 2020", "price": 12.3}, {"date": "May 24, 2020", "price": 12.44}, {"date": "May 31, 2020", "price": 12.33}, {"date": "Jun 07, 2020", "price": 11.84}, {"date": "Jun 14, 2020", "price": 12.24}, {"date": "Jun 21, 2020", "price": 14.11}, {"date": "Jun 28, 2020", "price": 14.37}, {"date": "Jul 05, 2020", "price": 16.08}, {"date": "Jul 12, 2020", "price": 13.94}, {"date": "Jul 19, 2020", "price": 13.4}, {"date": "Jul 26, 2020", "price": 15.02}, {"date": "Aug 02, 2020", "price": 14.86}, {"date": "Aug 09, 2020", "price": 14.79}, {"date": "Aug 16, 2020", "price": 14.75}, {"date": "Aug 23, 2020", "price": 15.05}, {"date": "Aug 30, 2020", "price": 13.95}, {"date": "Sep 06, 2020", "price": 15.09}, {"date": "Sep 13, 2020", "price": 15.35}, {"date": "Sep 20, 2020", "price": 16.7}, {"date": "Sep 27, 2020", "price": 18.84}, {"date": "Oct 04, 2020", "price": 20.21}, {"date": "Oct 11, 2020", "price": 20.08}, {"date": "Oct 18, 2020", "price": 19.72}, {"date": "Oct 25, 2020", "price": 18.45}, {"date": "Nov 01, 2020", "price": 29.26}, {"date": "Nov 08, 2020", "price": 30.84}, {"date": "Nov 15, 2020", "price": 35.53}, {"date": "Nov 22, 2020", "price": 34.86}, {"date": "Nov 29, 2020", "price": 31.97}, {"date": "Dec 06, 2020", "price": 34.97}, {"date": "Dec 13, 2020", "price": 40.21}, {"date": "Dec 20, 2020", "price": 37.8}, {"date": "Dec 27, 2020", "price": 34.52}, {"date": "Jan 03, 2021", "price": 38.01}, {"date": "Jan 10, 2021", "price": 38.8}, {"date": "Jan 17, 2021", "price": 41.35}, {"date": "Jan 24, 2021", "price": 41.45}, {"date": "Jan 31, 2021", "price": 51.59}, {"date": "Feb 07, 2021", "price": 56.77}, {"date": "Feb 14, 2021", "price": 56.01}, {"date": "Feb 21, 2021", "price": 53.88}, {"date": "Feb 28, 2021", "price": 44.25}, {"date": "Mar 07, 2021", "price": 49.32}, {"date": "Mar 14, 2021", "price": 45.47}, {"date": "Mar 21, 2021", "price": 44.23}, {"date": "Mar 28, 2021", "price": 46.53}, {"date": "Apr 04, 2021", "price": 47.96}, {"date": "Apr 11, 2021", "price": 49.01}, {"date": "Apr 18, 2021", "price": 48.12}, {"date": "Apr 25, 2021", "price": 46.06}, {"date": "May 02, 2021", "price": 42.04}, {"date": "May 09, 2021", "price": 39.99}, {"date": "May 16, 2021", "price": 40.92}, {"date": "May 23, 2021", "price": 47.07}, {"date": "May 30, 2021", "price": 46.35}, {"date": "Jun 06, 2021", "price": 50.6}, {"date": "Jun 13, 2021", "price": 47.75}, {"date": "Jun 20, 2021", "price": 55.98}, {"date": "Jun 27, 2021", "price": 58.45}, {"date": "Jul 04, 2021", "price": 57.83}, {"date": "Jul 11, 2021", "price": 47.7}, {"date": "Jul 18, 2021", "price": 55.73}, {"date": "Jul 25, 2021", "price": 51.79}, {"date": "Aug 01, 2021", "price": 44.87}, {"date": "Aug 08, 2021", "price": 42.57}, {"date": "Aug 15, 2021", "price": 41.82}, {"date": "Aug 22, 2021", "price": 44.24}, {"date": "Aug 29, 2021", "price": 44.75}, {"date": "Sep 05, 2021", "price": 45.17}, {"date": "Sep 12, 2021", "price": 49.7}, {"date": "Sep 19, 2021", "price": 50.52}, {"date": "Sep 26, 2021", "price": 48.03}, {"date": "Oct 03, 2021", "price": 54.1}, {"date": "Oct 10, 2021", "price": 59.21}, {"date": "Oct 17, 2021", "price": 58.7}, {"date": "Oct 24, 2021", "price": 47.12}, {"date": "Oct 31, 2021", "price": 49.04}, {"date": "Nov 07, 2021", "price": 47.51}, {"date": "Nov 14, 2021", "price": 40.96}, {"date": "Nov 21, 2021", "price": 37.61}, {"date": "Nov 28, 2021", "price": 35.45}, {"date": "Dec 05, 2021", "price": 34.03}, {"date": "Dec 12, 2021", "price": 34.19}, {"date": "Dec 19, 2021", "price": 33.64}, {"date": "Dec 26, 2021", "price": 34.16}, {"date": "Jan 02, 2022", "price": 29.51}, {"date": "Jan 09, 2022", "price": 28.25}, {"date": "Jan 16, 2022", "price": 25.17}, {"date": "Jan 23, 2022", "price": 24.55}, {"date": "Jan 30, 2022", "price": 27.56}, {"date": "Feb 06, 2022", "price": 25.59}, {"date": "Feb 13, 2022", "price": 24.49}, {"date": "Feb 20, 2022", "price": 24.54}, {"date": "Feb 27, 2022", "price": 21.76}, {"date": "Mar 06, 2022", "price": 18.79}, {"date": "Mar 13, 2022", "price": 22.32}, {"date": "Mar 20, 2022", "price": 23.07}, {"date": "Mar 27, 2022", "price": 23.65}, {"date": "Apr 03, 2022", "price": 21.52}, {"date": "Apr 10, 2022", "price": 20.86}, {"date": "Apr 17, 2022", "price": 19.44}, {"date": "Apr 24, 2022", "price": 20.97}, {"date": "May 01, 2022", "price": 19.94}, {"date": "May 08, 2022", "price": 18.21}, {"date": "May 15, 2022", "price": 18.33}, {"date": "May 22, 2022", "price": 18.99}, {"date": "May 29, 2022", "price": 18.54}, {"date": "Jun 05, 2022", "price": 18.02}, {"date": "Jun 12, 2022", "price": 18.86}, {"date": "Jun 19, 2022", "price": 22.2}, {"date": "Jun 26, 2022", "price": 22.19}, {"date": "Jul 03, 2022", "price": 24.25}, {"date": "Jul 10, 2022", "price": 20.62}, {"date": "Jul 17, 2022", "price": 22.62}, {"date": "Jul 24, 2022", "price": 18.56}, {"date": "Jul 31, 2022", "price": 20.64}, {"date": "Aug 07, 2022", "price": 19.33}, {"date": "Aug 14, 2022", "price": 18.05}, {"date": "Aug 21, 2022", "price": 17.5}, {"date": "Aug 28, 2022", "price": 17.09}, {"date": "Sep 04, 2022", "price": 17.91}, {"date": "Sep 11, 2022", "price": 16.0}, {"date": "Sep 18, 2022", "price": 13.72}, {"date": "Sep 25, 2022", "price": 13.62}, {"date": "Oct 02, 2022", "price": 14.11}, {"date": "Oct 09, 2022", "price": 12.34}, {"date": "Oct 16, 2022", "price": 12.41}, {"date": "Oct 23, 2022", "price": 13.4}, {"date": "Oct 30, 2022", "price": 12.24}, {"date": "Nov 06, 2022", "price": 14.85}, {"date": "Nov 13, 2022", "price": 12.16}, {"date": "Nov 20, 2022", "price": 11.79}, {"date": "Nov 27, 2022", "price": 12.38}, {"date": "Dec 04, 2022", "price": 11.25}, {"date": "Dec 11, 2022", "price": 10.89}, {"date": "Dec 18, 2022", "price": 10.43}, {"date": "Dec 25, 2022", "price": 10.44}, {"date": "Jan 01, 2023", "price": 11.4}, {"date": "Jan 08, 2023", "price": 12.6}, {"date": "Jan 15, 2023", "price": 12.52}, {"date": "Jan 22, 2023", "price": 13.1}, {"date": "Jan 29, 2023", "price": 13.76}, {"date": "Feb 05, 2023", "price": 12.5}, {"date": "Feb 12, 2023", "price": 11.72}, {"date": "Feb 19, 2023", "price": 11.02}, {"date": "Feb 26, 2023", "price": 12.21}, {"date": "Mar 05, 2023", "price": 10.62}, {"date": "Mar 12, 2023", "price": 10.04}, {"date": "Mar 19, 2023", "price": 11.47}, {"date": "Mar 26, 2023", "price": 11.32}, {"date": "Apr 02, 2023", "price": 10.33}, {"date": "Apr 09, 2023", "price": 10.33}, {"date": "Apr 16, 2023", "price": 10.6}, {"date": "Apr 23, 2023", "price": 9.57}, {"date": "Apr 30, 2023", "price": 8.0}, {"date": "May 07, 2023", "price": 8.0}, {"date": "May 14, 2023", "price": 8.02}, {"date": "May 21, 2023", "price": 7.85}, {"date": "May 28, 2023", "price": 8.78}, {"date": "Jun 04, 2023", "price": 8.5}, {"date": "Jun 11, 2023", "price": 9.36}, {"date": "Jun 18, 2023", "price": 8.93}, {"date": "Jun 25, 2023", "price": 9.34}, {"date": "Jul 02, 2023", "price": 9.12}, {"date": "Jul 09, 2023", "price": 10.75}, {"date": "Jul 16, 2023", "price": 10.07}, {"date": "Jul 23, 2023", "price": 10.36}, {"date": "Jul 30, 2023", "price": 14.8}, {"date": "Aug 06, 2023", "price": 14.33}, {"date": "Aug 13, 2023", "price": 13.9}, {"date": "Aug 20, 2023", "price": 14.75}, {"date": "Aug 27, 2023", "price": 14.96}, {"date": "Sep 03, 2023", "price": 14.31}, {"date": "Sep 10, 2023", "price": 13.21}, {"date": "Sep 17, 2023", "price": 11.44}, {"date": "Sep 24, 2023", "price": 11.36}, {"date": "Oct 01, 2023", "price": 11.11}, {"date": "Oct 08, 2023", "price": 11.12}, {"date": "Oct 15, 2023", "price": 10.92}, {"date": "Oct 22, 2023", "price": 10.31}, {"date": "Oct 29, 2023", "price": 11.27}, {"date": "Nov 05, 2023", "price": 13.8}, {"date": "Nov 12, 2023", "price": 14.32}, {"date": "Nov 19, 2023", "price": 14.25}, {"date": "Nov 26, 2023", "price": 14.28}, {"date": "Dec 03, 2023", "price": 14.06}, {"date": "Dec 10, 2023", "price": 14.8}, {"date": "Dec 17, 2023", "price": 14.63}, {"date": "Dec 24, 2023", "price": 14.87}, {"date": "Dec 31, 2023", "price": 14.05}, {"date": "Jan 07, 2024", "price": 14.87}, {"date": "Jan 14, 2024", "price": 14.52}, {"date": "Jan 21, 2024", "price": 14.07}, {"date": "Jan 28, 2024", "price": 14.15}, {"date": "Feb 04, 2024", "price": 14.46}, {"date": "Feb 11, 2024", "price": 13.73}, {"date": "Feb 18, 2024", "price": 13.2}, {"date": "Feb 25, 2024", "price": 13.5}, {"date": "Mar 03, 2024", "price": 12.93}, {"date": "Mar 10, 2024", "price": 11.96}, {"date": "Mar 17, 2024", "price": 12.3}, {"date": "Mar 24, 2024", "price": 12.26}, {"date": "Mar 31, 2024", "price": 11.91}, {"date": "Apr 07, 2024", "price": 11.63}, {"date": "Apr 14, 2024", "price": 11.13}, {"date": "Apr 21, 2024", "price": 11.56}, {"date": "Apr 28, 2024", "price": 12.89}, {"date": "May 05, 2024", "price": 11.92}, {"date": "May 12, 2024", "price": 11.91}, {"date": "May 19, 2024", "price": 11.14}, {"date": "May 26, 2024", "price": 10.57}, {"date": "Jun 02, 2024", "price": 10.72}, {"date": "Jun 09, 2024", "price": 10.39}, {"date": "Jun 16, 2024", "price": 10.48}, {"date": "Jun 23, 2024", "price": 10.75}, {"date": "Jun 30, 2024", "price": 10.91}, {"date": "Jul 07, 2024", "price": 11.39}, {"date": "Jul 14, 2024", "price": 11.44}, {"date": "Jul 21, 2024", "price": 11.35}, {"date": "Jul 28, 2024", "price": 10.7}, {"date": "Aug 04, 2024", "price": 9.33}, {"date": "Aug 11, 2024", "price": 9.78}, {"date": "Aug 18, 2024", "price": 10.02}, {"date": "Aug 25, 2024", "price": 9.64}, {"date": "Sep 01, 2024", "price": 9.51}, {"date": "Sep 08, 2024", "price": 10.24}, {"date": "Sep 15, 2024", "price": 10.71}, {"date": "Sep 22, 2024", "price": 10.55}, {"date": "Sep 29, 2024", "price": 10.84}, {"date": "Oct 06, 2024", "price": 10.44}, {"date": "Oct 13, 2024", "price": 10.29}, {"date": "Oct 20, 2024", "price": 12.36}, {"date": "Oct 27, 2024", "price": 13.98}, {"date": "Nov 03, 2024", "price": 15.93}, {"date": "Nov 10, 2024", "price": 14.91}, {"date": "Nov 17, 2024", "price": 16.02}, {"date": "Nov 24, 2024", "price": 16.97}, {"date": "Dec 01, 2024", "price": 16.96}, {"date": "Dec 08, 2024", "price": 16.89}, {"date": "Dec 15, 2024", "price": 16.44}, {"date": "Dec 22, 2024", "price": 16.94}, {"date": "Dec 29, 2024", "price": 16.11}, {"date": "Jan 05, 2025", "price": 15.64}, {"date": "Jan 12, 2025", "price": 16.89}, {"date": "Jan 19, 2025", "price": 16.27}, {"date": "Jan 26, 2025", "price": 15.76}, {"date": "Feb 02, 2025", "price": 15.77}, {"date": "Feb 09, 2025", "price": 16.14}, {"date": "Feb 16, 2025", "price": 15.63}, {"date": "Feb 23, 2025", "price": 15.93}, {"date": "Mar 02, 2025", "price": 14.17}, {"date": "Mar 09, 2025", "price": 12.6}, {"date": "Mar 16, 2025", "price": 13.57}, {"date": "Mar 23, 2025", "price": 13.21}, {"date": "Mar 30, 2025", "price": 11.87}, {"date": "Apr 06, 2025", "price": 12.9}, {"date": "Apr 13, 2025", "price": 12.74}, {"date": "Apr 20, 2025", "price": 13.54}, {"date": "Apr 27, 2025", "price": 13.48}, {"date": "May 04, 2025", "price": 16.88}, {"date": "May 11, 2025", "price": 17.24}, {"date": "May 18, 2025", "price": 15.75}, {"date": "May 25, 2025", "price": 15.49}, {"date": "Jun 01, 2025", "price": 15.4}, {"date": "Jun 08, 2025", "price": 13.83}, {"date": "Jun 15, 2025", "price": 13.14}, {"date": "Jun 22, 2025", "price": 13.63}, {"date": "Jun 29, 2025", "price": 13.64}, {"date": "Jul 06, 2025", "price": 12.92}, {"date": "Jul 13, 2025", "price": 13.23}, {"date": "Jul 20, 2025", "price": 13.11}, {"date": "Jul 27, 2025", "price": 11.75}, {"date": "Aug 03, 2025", "price": 13.17}, {"date": "Aug 10, 2025", "price": 13.8}, {"date": "Aug 17, 2025", "price": 14.92}, {"date": "Aug 24, 2025", "price": 15.39}, {"date": "Aug 31, 2025", "price": 16.19}, {"date": "Sep 07, 2025", "price": 16.86}, {"date": "Sep 14, 2025", "price": 20.07}, {"date": "Sep 21, 2025", "price": 19.15}, {"date": "Sep 28, 2025", "price": 17.27}, {"date": "Oct 05, 2025", "price": 16.8}, {"date": "Oct 12, 2025", "price": 16.2}, {"date": "Oct 19, 2025", "price": 16.0}, {"date": "Oct 26, 2025", "price": 15.94}, {"date": "Nov 02, 2025", "price": 17.45}, {"date": "Nov 09, 2025", "price": 16.48}, {"date": "Nov 16, 2025", "price": 17.87}, {"date": "Nov 23, 2025", "price": 19.74}, {"date": "Nov 30, 2025", "price": 20.08}, {"date": "Dec 07, 2025", "price": 21.95}, {"date": "Dec 14, 2025", "price": 20.6}, {"date": "Dec 21, 2025", "price": 20.85}, {"date": "Dec 28, 2025", "price": 19.84}, {"date": "Jan 04, 2026", "price": 20.05}, {"date": "Jan 11, 2026", "price": 19.87}, {"date": "Jan 18, 2026", "price": 22.11}, {"date": "Jan 25, 2026", "price": 20.03}, {"date": "Feb 01, 2026", "price": 18.93}, {"date": "Feb 08, 2026", "price": 13.23}, {"date": "Feb 15, 2026", "price": 13.17}, {"date": "Feb 22, 2026", "price": 13.42}, {"date": "Mar 01, 2026", "price": 13.25}, {"date": "Mar 08, 2026", "price": 12.21}, {"date": "Mar 15, 2026", "price": 11.28}, {"date": "Mar 22, 2026", "price": 10.87}, {"date": "Mar 29, 2026", "price": 10.94}, {"date": "Apr 05, 2026", "price": 10.66}, {"date": "Apr 12, 2026", "price": 11.27}, {"date": "Apr 19, 2026", "price": 10.63}, {"date": "Apr 26, 2026", "price": 10.49}, {"date": "May 03, 2026", "price": 8.82}, {"date": "May 10, 2026", "price": 8.17}, {"date": "May 17, 2026", "price": 8.8}, {"date": "May 24, 2026", "price": 8.82}, {"date": "May 31, 2026", "price": 8.76}, {"date": "Jun 07, 2026", "price": 8.49}, {"date": "Jun 14, 2026", "price": 8.05}, {"date": "Jun 21, 2026", "price": 8.33}, {"date": "Jun 28, 2026", "price": 9.16}, {"date": "Jul 05, 2026", "price": 8.82}, {"date": "Jul 12, 2026", "price": 9.06}, {"date": "Jul 19, 2026", "price": 8.83}, {"date": "Jul 26, 2026", "price": 9.16}, {"date": "Aug 02, 2026", "price": 9.67}, {"date": "Aug 09, 2026", "price": 9.83}, {"date": "Aug 11, 2026", "price": 8.71}]};
+        const allDatasets = {"1Y": [{"date": "Aug 11, 2025", "price": 13.41}, {"date": "Aug 12, 2025", "price": 13.67}, {"date": "Aug 13, 2025", "price": 14.09}, {"date": "Aug 14, 2025", "price": 13.7}, {"date": "Aug 15, 2025", "price": 13.8}, {"date": "Aug 18, 2025", "price": 13.99}, {"date": "Aug 19, 2025", "price": 13.86}, {"date": "Aug 20, 2025", "price": 14.21}, {"date": "Aug 21, 2025", "price": 14.79}, {"date": "Aug 22, 2025", "price": 14.92}, {"date": "Aug 25, 2025", "price": 14.91}, {"date": "Aug 26, 2025", "price": 15.09}, {"date": "Aug 27, 2025", "price": 14.8}, {"date": "Aug 28, 2025", "price": 14.91}, {"date": "Aug 29, 2025", "price": 15.39}, {"date": "Sep 02, 2025", "price": 15.96}, {"date": "Sep 03, 2025", "price": 16.45}, {"date": "Sep 04, 2025", "price": 16.78}, {"date": "Sep 05, 2025", "price": 16.19}, {"date": "Sep 08, 2025", "price": 15.96}, {"date": "Sep 09, 2025", "price": 16.0}, {"date": "Sep 10, 2025", "price": 15.91}, {"date": "Sep 11, 2025", "price": 16.37}, {"date": "Sep 12, 2025", "price": 16.86}, {"date": "Sep 15, 2025", "price": 16.79}, {"date": "Sep 16, 2025", "price": 17.1}, {"date": "Sep 17, 2025", "price": 18.14}, {"date": "Sep 18, 2025", "price": 19.6}, {"date": "Sep 19, 2025", "price": 20.07}, {"date": "Sep 22, 2025", "price": 19.33}, {"date": "Sep 23, 2025", "price": 19.66}, {"date": "Sep 24, 2025", "price": 19.92}, {"date": "Sep 25, 2025", "price": 19.3}, {"date": "Sep 26, 2025", "price": 19.15}, {"date": "Sep 29, 2025", "price": 19.01}, {"date": "Sep 30, 2025", "price": 18.57}, {"date": "Oct 01, 2025", "price": 17.71}, {"date": "Oct 02, 2025", "price": 18.16}, {"date": "Oct 03, 2025", "price": 17.27}, {"date": "Oct 06, 2025", "price": 17.4}, {"date": "Oct 07, 2025", "price": 17.09}, {"date": "Oct 08, 2025", "price": 17.86}, {"date": "Oct 09, 2025", "price": 17.43}, {"date": "Oct 10, 2025", "price": 16.8}, {"date": "Oct 13, 2025", "price": 17.1}, {"date": "Oct 14, 2025", "price": 16.94}, {"date": "Oct 15, 2025", "price": 16.81}, {"date": "Oct 16, 2025", "price": 16.74}, {"date": "Oct 17, 2025", "price": 16.2}, {"date": "Oct 20, 2025", "price": 16.67}, {"date": "Oct 21, 2025", "price": 16.66}, {"date": "Oct 22, 2025", "price": 16.01}, {"date": "Oct 23, 2025", "price": 16.12}, {"date": "Oct 24, 2025", "price": 16.0}, {"date": "Oct 27, 2025", "price": 16.12}, {"date": "Oct 28, 2025", "price": 17.37}, {"date": "Oct 29, 2025", "price": 16.88}, {"date": "Oct 30, 2025", "price": 16.31}, {"date": "Oct 31, 2025", "price": 15.94}, {"date": "Nov 03, 2025", "price": 15.63}, {"date": "Nov 04, 2025", "price": 17.7}, {"date": "Nov 05, 2025", "price": 16.38}, {"date": "Nov 06, 2025", "price": 16.15}, {"date": "Nov 07, 2025", "price": 17.45}, {"date": "Nov 10, 2025", "price": 17.6}, {"date": "Nov 11, 2025", "price": 17.95}, {"date": "Nov 12, 2025", "price": 17.04}, {"date": "Nov 13, 2025", "price": 17.05}, {"date": "Nov 14, 2025", "price": 16.48}, {"date": "Nov 17, 2025", "price": 16.19}, {"date": "Nov 18, 2025", "price": 17.08}, {"date": "Nov 19, 2025", "price": 18.16}, {"date": "Nov 20, 2025", "price": 17.16}, {"date": "Nov 21, 2025", "price": 17.87}, {"date": "Nov 24, 2025", "price": 18.55}, {"date": "Nov 25, 2025", "price": 19.69}, {"date": "Nov 26, 2025", "price": 19.58}, {"date": "Nov 28, 2025", "price": 19.74}, {"date": "Dec 01, 2025", "price": 19.88}, {"date": "Dec 02, 2025", "price": 20.53}, {"date": "Dec 03, 2025", "price": 19.73}, {"date": "Dec 04, 2025", "price": 19.58}, {"date": "Dec 05, 2025", "price": 20.08}, {"date": "Dec 08, 2025", "price": 19.88}, {"date": "Dec 09, 2025", "price": 20.98}, {"date": "Dec 10, 2025", "price": 20.48}, {"date": "Dec 11, 2025", "price": 21.92}, {"date": "Dec 12, 2025", "price": 21.95}, {"date": "Dec 15, 2025", "price": 21.38}, {"date": "Dec 16, 2025", "price": 21.44}, {"date": "Dec 17, 2025", "price": 20.19}, {"date": "Dec 18, 2025", "price": 20.47}, {"date": "Dec 19, 2025", "price": 20.6}, {"date": "Dec 22, 2025", "price": 21.29}, {"date": "Dec 23, 2025", "price": 20.82}, {"date": "Dec 24, 2025", "price": 20.97}, {"date": "Dec 26, 2025", "price": 20.85}, {"date": "Dec 29, 2025", "price": 20.3}, {"date": "Dec 30, 2025", "price": 19.55}, {"date": "Dec 31, 2025", "price": 19.82}, {"date": "Jan 02, 2026", "price": 19.84}, {"date": "Jan 05, 2026", "price": 20.62}, {"date": "Jan 06, 2026", "price": 20.27}, {"date": "Jan 07, 2026", "price": 20.86}, {"date": "Jan 08, 2026", "price": 20.42}, {"date": "Jan 09, 2026", "price": 20.05}, {"date": "Jan 12, 2026", "price": 20.4}, {"date": "Jan 13, 2026", "price": 20.25}, {"date": "Jan 14, 2026", "price": 20.1}, {"date": "Jan 15, 2026", "price": 20.15}, {"date": "Jan 16, 2026", "price": 19.87}, {"date": "Jan 20, 2026", "price": 19.49}, {"date": "Jan 21, 2026", "price": 19.69}, {"date": "Jan 22, 2026", "price": 21.13}, {"date": "Jan 23, 2026", "price": 22.11}, {"date": "Jan 26, 2026", "price": 21.87}, {"date": "Jan 27, 2026", "price": 21.3}, {"date": "Jan 28, 2026", "price": 20.51}, {"date": "Jan 29, 2026", "price": 21.02}, {"date": "Jan 30, 2026", "price": 20.03}, {"date": "Feb 02, 2026", "price": 19.95}, {"date": "Feb 03, 2026", "price": 18.25}, {"date": "Feb 04, 2026", "price": 17.05}, {"date": "Feb 05, 2026", "price": 17.82}, {"date": "Feb 06, 2026", "price": 18.93}, {"date": "Feb 09, 2026", "price": 18.79}, {"date": "Feb 10, 2026", "price": 15.21}, {"date": "Feb 11, 2026", "price": 14.5}, {"date": "Feb 12, 2026", "price": 13.11}, {"date": "Feb 13, 2026", "price": 13.23}, {"date": "Feb 17, 2026", "price": 12.76}, {"date": "Feb 18, 2026", "price": 13.73}, {"date": "Feb 19, 2026", "price": 13.32}, {"date": "Feb 20, 2026", "price": 13.17}, {"date": "Feb 23, 2026", "price": 12.51}, {"date": "Feb 24, 2026", "price": 13.02}, {"date": "Feb 25, 2026", "price": 12.98}, {"date": "Feb 26, 2026", "price": 13.85}, {"date": "Feb 27, 2026", "price": 13.42}, {"date": "Mar 02, 2026", "price": 13.12}, {"date": "Mar 03, 2026", "price": 13.13}, {"date": "Mar 04, 2026", "price": 13.43}, {"date": "Mar 05, 2026", "price": 13.31}, {"date": "Mar 06, 2026", "price": 13.25}, {"date": "Mar 09, 2026", "price": 13.33}, {"date": "Mar 10, 2026", "price": 12.38}, {"date": "Mar 11, 2026", "price": 12.41}, {"date": "Mar 12, 2026", "price": 11.86}, {"date": "Mar 13, 2026", "price": 12.21}, {"date": "Mar 16, 2026", "price": 11.95}, {"date": "Mar 17, 2026", "price": 12.35}, {"date": "Mar 18, 2026", "price": 12.09}, {"date": "Mar 19, 2026", "price": 11.35}, {"date": "Mar 20, 2026", "price": 11.28}, {"date": "Mar 23, 2026", "price": 11.42}, {"date": "Mar 24, 2026", "price": 11.15}, {"date": "Mar 25, 2026", "price": 11.32}, {"date": "Mar 26, 2026", "price": 11.19}, {"date": "Mar 27, 2026", "price": 10.87}, {"date": "Mar 30, 2026", "price": 10.57}, {"date": "Mar 31, 2026", "price": 10.96}, {"date": "Apr 01, 2026", "price": 11.18}, {"date": "Apr 02, 2026", "price": 10.94}, {"date": "Apr 06, 2026", "price": 11.33}, {"date": "Apr 07, 2026", "price": 10.97}, {"date": "Apr 08, 2026", "price": 11.06}, {"date": "Apr 09, 2026", "price": 10.44}, {"date": "Apr 10, 2026", "price": 10.66}, {"date": "Apr 13, 2026", "price": 11.01}, {"date": "Apr 14, 2026", "price": 11.06}, {"date": "Apr 15, 2026", "price": 11.3}, {"date": "Apr 16, 2026", "price": 11.06}, {"date": "Apr 17, 2026", "price": 11.27}, {"date": "Apr 20, 2026", "price": 11.09}, {"date": "Apr 21, 2026", "price": 11.08}, {"date": "Apr 22, 2026", "price": 11.34}, {"date": "Apr 23, 2026", "price": 10.48}, {"date": "Apr 24, 2026", "price": 10.63}, {"date": "Apr 27, 2026", "price": 10.65}, {"date": "Apr 28, 2026", "price": 10.38}, {"date": "Apr 29, 2026", "price": 10.35}, {"date": "Apr 30, 2026", "price": 10.35}, {"date": "May 01, 2026", "price": 10.49}, {"date": "May 04, 2026", "price": 10.52}, {"date": "May 05, 2026", "price": 10.31}, {"date": "May 06, 2026", "price": 10.08}, {"date": "May 07, 2026", "price": 10.61}, {"date": "May 08, 2026", "price": 8.82}, {"date": "May 11, 2026", "price": 8.81}, {"date": "May 12, 2026", "price": 8.35}, {"date": "May 13, 2026", "price": 8.39}, {"date": "May 14, 2026", "price": 8.08}, {"date": "May 15, 2026", "price": 8.17}, {"date": "May 18, 2026", "price": 8.75}, {"date": "May 19, 2026", "price": 8.45}, {"date": "May 20, 2026", "price": 8.66}, {"date": "May 21, 2026", "price": 8.44}, {"date": "May 22, 2026", "price": 8.8}, {"date": "May 26, 2026", "price": 8.59}, {"date": "May 27, 2026", "price": 8.64}, {"date": "May 28, 2026", "price": 8.59}, {"date": "May 29, 2026", "price": 8.82}, {"date": "Jun 01, 2026", "price": 9.37}, {"date": "Jun 02, 2026", "price": 8.98}, {"date": "Jun 03, 2026", "price": 8.56}, {"date": "Jun 04, 2026", "price": 8.74}, {"date": "Jun 05, 2026", "price": 8.76}, {"date": "Jun 08, 2026", "price": 8.87}, {"date": "Jun 09, 2026", "price": 8.82}, {"date": "Jun 10, 2026", "price": 8.57}, {"date": "Jun 11, 2026", "price": 8.46}, {"date": "Jun 12, 2026", "price": 8.49}, {"date": "Jun 15, 2026", "price": 8.48}, {"date": "Jun 16, 2026", "price": 8.43}, {"date": "Jun 17, 2026", "price": 8.07}, {"date": "Jun 18, 2026", "price": 8.05}, {"date": "Jun 22, 2026", "price": 7.84}, {"date": "Jun 23, 2026", "price": 8.21}, {"date": "Jun 24, 2026", "price": 8.22}, {"date": "Jun 25, 2026", "price": 7.86}, {"date": "Jun 26, 2026", "price": 8.33}, {"date": "Jun 29, 2026", "price": 8.31}, {"date": "Jun 30, 2026", "price": 8.36}, {"date": "Jul 01, 2026", "price": 9.02}, {"date": "Jul 02, 2026", "price": 9.16}, {"date": "Jul 06, 2026", "price": 8.86}, {"date": "Jul 07, 2026", "price": 8.87}, {"date": "Jul 08, 2026", "price": 8.56}, {"date": "Jul 09, 2026", "price": 8.68}, {"date": "Jul 10, 2026", "price": 8.82}, {"date": "Jul 13, 2026", "price": 9.12}, {"date": "Jul 14, 2026", "price": 9.03}, {"date": "Jul 15, 2026", "price": 9.24}, {"date": "Jul 16, 2026", "price": 9.59}, {"date": "Jul 17, 2026", "price": 9.06}, {"date": "Jul 20, 2026", "price": 9.33}, {"date": "Jul 21, 2026", "price": 9.19}, {"date": "Jul 22, 2026", "price": 8.96}, {"date": "Jul 23, 2026", "price": 8.72}, {"date": "Jul 24, 2026", "price": 8.83}, {"date": "Jul 27, 2026", "price": 9.26}, {"date": "Jul 28, 2026", "price": 9.81}, {"date": "Jul 29, 2026", "price": 9.53}, {"date": "Jul 30, 2026", "price": 9.25}, {"date": "Jul 31, 2026", "price": 9.16}, {"date": "Aug 03, 2026", "price": 9.54}, {"date": "Aug 04, 2026", "price": 9.68}, {"date": "Aug 05, 2026", "price": 9.59}, {"date": "Aug 06, 2026", "price": 9.42}, {"date": "Aug 07, 2026", "price": 9.67}, {"date": "Aug 10, 2026", "price": 9.83}, {"date": "Aug 11, 2026", "price": 8.55}], "5Y": [{"date": "Aug 08, 2021", "price": 42.57}, {"date": "Aug 15, 2021", "price": 41.82}, {"date": "Aug 22, 2021", "price": 44.24}, {"date": "Aug 29, 2021", "price": 44.75}, {"date": "Sep 05, 2021", "price": 45.17}, {"date": "Sep 12, 2021", "price": 49.7}, {"date": "Sep 19, 2021", "price": 50.52}, {"date": "Sep 26, 2021", "price": 48.03}, {"date": "Oct 03, 2021", "price": 54.1}, {"date": "Oct 10, 2021", "price": 59.21}, {"date": "Oct 17, 2021", "price": 58.7}, {"date": "Oct 24, 2021", "price": 47.12}, {"date": "Oct 31, 2021", "price": 49.04}, {"date": "Nov 07, 2021", "price": 47.51}, {"date": "Nov 14, 2021", "price": 40.96}, {"date": "Nov 21, 2021", "price": 37.61}, {"date": "Nov 28, 2021", "price": 35.45}, {"date": "Dec 05, 2021", "price": 34.03}, {"date": "Dec 12, 2021", "price": 34.19}, {"date": "Dec 19, 2021", "price": 33.64}, {"date": "Dec 26, 2021", "price": 34.16}, {"date": "Jan 02, 2022", "price": 29.51}, {"date": "Jan 09, 2022", "price": 28.25}, {"date": "Jan 16, 2022", "price": 25.17}, {"date": "Jan 23, 2022", "price": 24.55}, {"date": "Jan 30, 2022", "price": 27.56}, {"date": "Feb 06, 2022", "price": 25.59}, {"date": "Feb 13, 2022", "price": 24.49}, {"date": "Feb 20, 2022", "price": 24.54}, {"date": "Feb 27, 2022", "price": 21.76}, {"date": "Mar 06, 2022", "price": 18.79}, {"date": "Mar 13, 2022", "price": 22.32}, {"date": "Mar 20, 2022", "price": 23.07}, {"date": "Mar 27, 2022", "price": 23.65}, {"date": "Apr 03, 2022", "price": 21.52}, {"date": "Apr 10, 2022", "price": 20.86}, {"date": "Apr 17, 2022", "price": 19.44}, {"date": "Apr 24, 2022", "price": 20.97}, {"date": "May 01, 2022", "price": 19.94}, {"date": "May 08, 2022", "price": 18.21}, {"date": "May 15, 2022", "price": 18.33}, {"date": "May 22, 2022", "price": 18.99}, {"date": "May 29, 2022", "price": 18.54}, {"date": "Jun 05, 2022", "price": 18.02}, {"date": "Jun 12, 2022", "price": 18.86}, {"date": "Jun 19, 2022", "price": 22.2}, {"date": "Jun 26, 2022", "price": 22.19}, {"date": "Jul 03, 2022", "price": 24.25}, {"date": "Jul 10, 2022", "price": 20.62}, {"date": "Jul 17, 2022", "price": 22.62}, {"date": "Jul 24, 2022", "price": 18.56}, {"date": "Jul 31, 2022", "price": 20.64}, {"date": "Aug 07, 2022", "price": 19.33}, {"date": "Aug 14, 2022", "price": 18.05}, {"date": "Aug 21, 2022", "price": 17.5}, {"date": "Aug 28, 2022", "price": 17.09}, {"date": "Sep 04, 2022", "price": 17.91}, {"date": "Sep 11, 2022", "price": 16.0}, {"date": "Sep 18, 2022", "price": 13.72}, {"date": "Sep 25, 2022", "price": 13.62}, {"date": "Oct 02, 2022", "price": 14.11}, {"date": "Oct 09, 2022", "price": 12.34}, {"date": "Oct 16, 2022", "price": 12.41}, {"date": "Oct 23, 2022", "price": 13.4}, {"date": "Oct 30, 2022", "price": 12.24}, {"date": "Nov 06, 2022", "price": 14.85}, {"date": "Nov 13, 2022", "price": 12.16}, {"date": "Nov 20, 2022", "price": 11.79}, {"date": "Nov 27, 2022", "price": 12.38}, {"date": "Dec 04, 2022", "price": 11.25}, {"date": "Dec 11, 2022", "price": 10.89}, {"date": "Dec 18, 2022", "price": 10.43}, {"date": "Dec 25, 2022", "price": 10.44}, {"date": "Jan 01, 2023", "price": 11.4}, {"date": "Jan 08, 2023", "price": 12.6}, {"date": "Jan 15, 2023", "price": 12.52}, {"date": "Jan 22, 2023", "price": 13.1}, {"date": "Jan 29, 2023", "price": 13.76}, {"date": "Feb 05, 2023", "price": 12.5}, {"date": "Feb 12, 2023", "price": 11.72}, {"date": "Feb 19, 2023", "price": 11.02}, {"date": "Feb 26, 2023", "price": 12.21}, {"date": "Mar 05, 2023", "price": 10.62}, {"date": "Mar 12, 2023", "price": 10.04}, {"date": "Mar 19, 2023", "price": 11.47}, {"date": "Mar 26, 2023", "price": 11.32}, {"date": "Apr 02, 2023", "price": 10.33}, {"date": "Apr 09, 2023", "price": 10.33}, {"date": "Apr 16, 2023", "price": 10.6}, {"date": "Apr 23, 2023", "price": 9.57}, {"date": "Apr 30, 2023", "price": 8.0}, {"date": "May 07, 2023", "price": 8.0}, {"date": "May 14, 2023", "price": 8.02}, {"date": "May 21, 2023", "price": 7.85}, {"date": "May 28, 2023", "price": 8.78}, {"date": "Jun 04, 2023", "price": 8.5}, {"date": "Jun 11, 2023", "price": 9.36}, {"date": "Jun 18, 2023", "price": 8.93}, {"date": "Jun 25, 2023", "price": 9.34}, {"date": "Jul 02, 2023", "price": 9.12}, {"date": "Jul 09, 2023", "price": 10.75}, {"date": "Jul 16, 2023", "price": 10.07}, {"date": "Jul 23, 2023", "price": 10.36}, {"date": "Jul 30, 2023", "price": 14.8}, {"date": "Aug 06, 2023", "price": 14.33}, {"date": "Aug 13, 2023", "price": 13.9}, {"date": "Aug 20, 2023", "price": 14.75}, {"date": "Aug 27, 2023", "price": 14.96}, {"date": "Sep 03, 2023", "price": 14.31}, {"date": "Sep 10, 2023", "price": 13.21}, {"date": "Sep 17, 2023", "price": 11.44}, {"date": "Sep 24, 2023", "price": 11.36}, {"date": "Oct 01, 2023", "price": 11.11}, {"date": "Oct 08, 2023", "price": 11.12}, {"date": "Oct 15, 2023", "price": 10.92}, {"date": "Oct 22, 2023", "price": 10.31}, {"date": "Oct 29, 2023", "price": 11.27}, {"date": "Nov 05, 2023", "price": 13.8}, {"date": "Nov 12, 2023", "price": 14.32}, {"date": "Nov 19, 2023", "price": 14.25}, {"date": "Nov 26, 2023", "price": 14.28}, {"date": "Dec 03, 2023", "price": 14.06}, {"date": "Dec 10, 2023", "price": 14.8}, {"date": "Dec 17, 2023", "price": 14.63}, {"date": "Dec 24, 2023", "price": 14.87}, {"date": "Dec 31, 2023", "price": 14.05}, {"date": "Jan 07, 2024", "price": 14.87}, {"date": "Jan 14, 2024", "price": 14.52}, {"date": "Jan 21, 2024", "price": 14.07}, {"date": "Jan 28, 2024", "price": 14.15}, {"date": "Feb 04, 2024", "price": 14.46}, {"date": "Feb 11, 2024", "price": 13.73}, {"date": "Feb 18, 2024", "price": 13.2}, {"date": "Feb 25, 2024", "price": 13.5}, {"date": "Mar 03, 2024", "price": 12.93}, {"date": "Mar 10, 2024", "price": 11.96}, {"date": "Mar 17, 2024", "price": 12.3}, {"date": "Mar 24, 2024", "price": 12.26}, {"date": "Mar 31, 2024", "price": 11.91}, {"date": "Apr 07, 2024", "price": 11.63}, {"date": "Apr 14, 2024", "price": 11.13}, {"date": "Apr 21, 2024", "price": 11.56}, {"date": "Apr 28, 2024", "price": 12.89}, {"date": "May 05, 2024", "price": 11.92}, {"date": "May 12, 2024", "price": 11.91}, {"date": "May 19, 2024", "price": 11.14}, {"date": "May 26, 2024", "price": 10.57}, {"date": "Jun 02, 2024", "price": 10.72}, {"date": "Jun 09, 2024", "price": 10.39}, {"date": "Jun 16, 2024", "price": 10.48}, {"date": "Jun 23, 2024", "price": 10.75}, {"date": "Jun 30, 2024", "price": 10.91}, {"date": "Jul 07, 2024", "price": 11.39}, {"date": "Jul 14, 2024", "price": 11.44}, {"date": "Jul 21, 2024", "price": 11.35}, {"date": "Jul 28, 2024", "price": 10.7}, {"date": "Aug 04, 2024", "price": 9.33}, {"date": "Aug 11, 2024", "price": 9.78}, {"date": "Aug 18, 2024", "price": 10.02}, {"date": "Aug 25, 2024", "price": 9.64}, {"date": "Sep 01, 2024", "price": 9.51}, {"date": "Sep 08, 2024", "price": 10.24}, {"date": "Sep 15, 2024", "price": 10.71}, {"date": "Sep 22, 2024", "price": 10.55}, {"date": "Sep 29, 2024", "price": 10.84}, {"date": "Oct 06, 2024", "price": 10.44}, {"date": "Oct 13, 2024", "price": 10.29}, {"date": "Oct 20, 2024", "price": 12.36}, {"date": "Oct 27, 2024", "price": 13.98}, {"date": "Nov 03, 2024", "price": 15.93}, {"date": "Nov 10, 2024", "price": 14.91}, {"date": "Nov 17, 2024", "price": 16.02}, {"date": "Nov 24, 2024", "price": 16.97}, {"date": "Dec 01, 2024", "price": 16.96}, {"date": "Dec 08, 2024", "price": 16.89}, {"date": "Dec 15, 2024", "price": 16.44}, {"date": "Dec 22, 2024", "price": 16.94}, {"date": "Dec 29, 2024", "price": 16.11}, {"date": "Jan 05, 2025", "price": 15.64}, {"date": "Jan 12, 2025", "price": 16.89}, {"date": "Jan 19, 2025", "price": 16.27}, {"date": "Jan 26, 2025", "price": 15.76}, {"date": "Feb 02, 2025", "price": 15.77}, {"date": "Feb 09, 2025", "price": 16.14}, {"date": "Feb 16, 2025", "price": 15.63}, {"date": "Feb 23, 2025", "price": 15.93}, {"date": "Mar 02, 2025", "price": 14.17}, {"date": "Mar 09, 2025", "price": 12.6}, {"date": "Mar 16, 2025", "price": 13.57}, {"date": "Mar 23, 2025", "price": 13.21}, {"date": "Mar 30, 2025", "price": 11.87}, {"date": "Apr 06, 2025", "price": 12.9}, {"date": "Apr 13, 2025", "price": 12.74}, {"date": "Apr 20, 2025", "price": 13.54}, {"date": "Apr 27, 2025", "price": 13.48}, {"date": "May 04, 2025", "price": 16.88}, {"date": "May 11, 2025", "price": 17.24}, {"date": "May 18, 2025", "price": 15.75}, {"date": "May 25, 2025", "price": 15.49}, {"date": "Jun 01, 2025", "price": 15.4}, {"date": "Jun 08, 2025", "price": 13.83}, {"date": "Jun 15, 2025", "price": 13.14}, {"date": "Jun 22, 2025", "price": 13.63}, {"date": "Jun 29, 2025", "price": 13.64}, {"date": "Jul 06, 2025", "price": 12.92}, {"date": "Jul 13, 2025", "price": 13.23}, {"date": "Jul 20, 2025", "price": 13.11}, {"date": "Jul 27, 2025", "price": 11.75}, {"date": "Aug 03, 2025", "price": 13.17}, {"date": "Aug 10, 2025", "price": 13.8}, {"date": "Aug 17, 2025", "price": 14.92}, {"date": "Aug 24, 2025", "price": 15.39}, {"date": "Aug 31, 2025", "price": 16.19}, {"date": "Sep 07, 2025", "price": 16.86}, {"date": "Sep 14, 2025", "price": 20.07}, {"date": "Sep 21, 2025", "price": 19.15}, {"date": "Sep 28, 2025", "price": 17.27}, {"date": "Oct 05, 2025", "price": 16.8}, {"date": "Oct 12, 2025", "price": 16.2}, {"date": "Oct 19, 2025", "price": 16.0}, {"date": "Oct 26, 2025", "price": 15.94}, {"date": "Nov 02, 2025", "price": 17.45}, {"date": "Nov 09, 2025", "price": 16.48}, {"date": "Nov 16, 2025", "price": 17.87}, {"date": "Nov 23, 2025", "price": 19.74}, {"date": "Nov 30, 2025", "price": 20.08}, {"date": "Dec 07, 2025", "price": 21.95}, {"date": "Dec 14, 2025", "price": 20.6}, {"date": "Dec 21, 2025", "price": 20.85}, {"date": "Dec 28, 2025", "price": 19.84}, {"date": "Jan 04, 2026", "price": 20.05}, {"date": "Jan 11, 2026", "price": 19.87}, {"date": "Jan 18, 2026", "price": 22.11}, {"date": "Jan 25, 2026", "price": 20.03}, {"date": "Feb 01, 2026", "price": 18.93}, {"date": "Feb 08, 2026", "price": 13.23}, {"date": "Feb 15, 2026", "price": 13.17}, {"date": "Feb 22, 2026", "price": 13.42}, {"date": "Mar 01, 2026", "price": 13.25}, {"date": "Mar 08, 2026", "price": 12.21}, {"date": "Mar 15, 2026", "price": 11.28}, {"date": "Mar 22, 2026", "price": 10.87}, {"date": "Mar 29, 2026", "price": 10.94}, {"date": "Apr 05, 2026", "price": 10.66}, {"date": "Apr 12, 2026", "price": 11.27}, {"date": "Apr 19, 2026", "price": 10.63}, {"date": "Apr 26, 2026", "price": 10.49}, {"date": "May 03, 2026", "price": 8.82}, {"date": "May 10, 2026", "price": 8.17}, {"date": "May 17, 2026", "price": 8.8}, {"date": "May 24, 2026", "price": 8.82}, {"date": "May 31, 2026", "price": 8.76}, {"date": "Jun 07, 2026", "price": 8.49}, {"date": "Jun 14, 2026", "price": 8.05}, {"date": "Jun 21, 2026", "price": 8.33}, {"date": "Jun 28, 2026", "price": 9.16}, {"date": "Jul 05, 2026", "price": 8.82}, {"date": "Jul 12, 2026", "price": 9.06}, {"date": "Jul 19, 2026", "price": 8.83}, {"date": "Jul 26, 2026", "price": 9.16}, {"date": "Aug 02, 2026", "price": 9.67}, {"date": "Aug 09, 2026", "price": 9.83}, {"date": "Aug 11, 2026", "price": 8.55}], "10Y": [{"date": "Oct 31, 2018", "price": 18.63}, {"date": "Nov 30, 2018", "price": 18.11}, {"date": "Dec 31, 2018", "price": 19.31}, {"date": "Jan 31, 2019", "price": 23.69}, {"date": "Feb 28, 2019", "price": 19.14}, {"date": "Mar 31, 2019", "price": 19.99}, {"date": "Apr 30, 2019", "price": 14.98}, {"date": "May 31, 2019", "price": 16.08}, {"date": "Jun 30, 2019", "price": 16.44}, {"date": "Jul 31, 2019", "price": 14.46}, {"date": "Aug 31, 2019", "price": 13.31}, {"date": "Sep 30, 2019", "price": 15.04}, {"date": "Oct 31, 2019", "price": 11.65}, {"date": "Nov 30, 2019", "price": 10.67}, {"date": "Dec 31, 2019", "price": 9.18}, {"date": "Jan 31, 2020", "price": 8.66}, {"date": "Feb 29, 2020", "price": 6.45}, {"date": "Mar 31, 2020", "price": 8.33}, {"date": "Apr 30, 2020", "price": 12.44}, {"date": "May 31, 2020", "price": 14.44}, {"date": "Jun 30, 2020", "price": 15.02}, {"date": "Jul 31, 2020", "price": 15.23}, {"date": "Aug 31, 2020", "price": 17.44}, {"date": "Sep 30, 2020", "price": 18.45}, {"date": "Oct 31, 2020", "price": 32.72}, {"date": "Nov 30, 2020", "price": 34.52}, {"date": "Dec 31, 2020", "price": 41.45}, {"date": "Jan 31, 2021", "price": 53.88}, {"date": "Feb 28, 2021", "price": 44.77}, {"date": "Mar 31, 2021", "price": 46.06}, {"date": "Apr 30, 2021", "price": 47.07}, {"date": "May 31, 2021", "price": 58.29}, {"date": "Jun 30, 2021", "price": 51.79}, {"date": "Jul 31, 2021", "price": 44.71}, {"date": "Aug 31, 2021", "price": 45.03}, {"date": "Sep 30, 2021", "price": 47.12}, {"date": "Oct 31, 2021", "price": 37.26}, {"date": "Nov 30, 2021", "price": 34.16}, {"date": "Dec 31, 2021", "price": 27.2}, {"date": "Jan 31, 2022", "price": 25.28}, {"date": "Feb 28, 2022", "price": 23.24}, {"date": "Mar 31, 2022", "price": 20.97}, {"date": "Apr 30, 2022", "price": 18.25}, {"date": "May 31, 2022", "price": 20.68}, {"date": "Jun 30, 2022", "price": 18.56}, {"date": "Jul 31, 2022", "price": 17.4}, {"date": "Aug 31, 2022", "price": 13.62}, {"date": "Sep 30, 2022", "price": 13.45}, {"date": "Oct 31, 2022", "price": 12.25}, {"date": "Nov 30, 2022", "price": 10.44}, {"date": "Dec 31, 2022", "price": 12.96}, {"date": "Jan 31, 2023", "price": 11.34}, {"date": "Feb 28, 2023", "price": 11.32}, {"date": "Mar 31, 2023", "price": 9.57}, {"date": "Apr 30, 2023", "price": 8.2}, {"date": "May 31, 2023", "price": 9.34}, {"date": "Jun 30, 2023", "price": 10.43}, {"date": "Jul 31, 2023", "price": 14.81}, {"date": "Aug 31, 2023", "price": 11.36}, {"date": "Sep 30, 2023", "price": 10.45}, {"date": "Oct 31, 2023", "price": 14.09}, {"date": "Nov 30, 2023", "price": 14.87}, {"date": "Dec 31, 2023", "price": 13.71}, {"date": "Jan 31, 2024", "price": 13.1}, {"date": "Feb 29, 2024", "price": 12.26}, {"date": "Mar 31, 2024", "price": 11.7}, {"date": "Apr 30, 2024", "price": 10.57}, {"date": "May 31, 2024", "price": 10.75}, {"date": "Jun 30, 2024", "price": 12.12}, {"date": "Jul 31, 2024", "price": 9.64}, {"date": "Aug 31, 2024", "price": 10.45}, {"date": "Sep 30, 2024", "price": 13.56}, {"date": "Oct 31, 2024", "price": 16.97}, {"date": "Nov 30, 2024", "price": 16.35}, {"date": "Dec 31, 2024", "price": 15.76}, {"date": "Jan 31, 2025", "price": 15.93}, {"date": "Feb 28, 2025", "price": 13.05}, {"date": "Mar 31, 2025", "price": 13.15}, {"date": "Apr 30, 2025", "price": 15.49}, {"date": "May 31, 2025", "price": 13.44}, {"date": "Jun 30, 2025", "price": 11.96}, {"date": "Jul 31, 2025", "price": 15.39}, {"date": "Aug 31, 2025", "price": 18.57}, {"date": "Sep 30, 2025", "price": 15.94}, {"date": "Oct 31, 2025", "price": 19.74}, {"date": "Nov 30, 2025", "price": 19.82}, {"date": "Dec 31, 2025", "price": 20.03}, {"date": "Jan 31, 2026", "price": 13.42}, {"date": "Feb 28, 2026", "price": 10.96}, {"date": "Mar 31, 2026", "price": 10.35}, {"date": "Apr 30, 2026", "price": 8.82}, {"date": "May 31, 2026", "price": 8.36}, {"date": "Jun 30, 2026", "price": 9.16}, {"date": "Jul 31, 2026", "price": 9.67}, {"date": "Aug 11, 2026", "price": 8.55}], "MAX": [{"date": "Sep 30, 2018", "price": 20.99}, {"date": "Oct 07, 2018", "price": 19.21}, {"date": "Oct 14, 2018", "price": 19.44}, {"date": "Oct 21, 2018", "price": 18.69}, {"date": "Oct 28, 2018", "price": 20.26}, {"date": "Nov 04, 2018", "price": 17.68}, {"date": "Nov 11, 2018", "price": 19.2}, {"date": "Nov 18, 2018", "price": 16.89}, {"date": "Nov 25, 2018", "price": 18.63}, {"date": "Dec 02, 2018", "price": 17.09}, {"date": "Dec 09, 2018", "price": 17.39}, {"date": "Dec 16, 2018", "price": 19.56}, {"date": "Dec 23, 2018", "price": 17.86}, {"date": "Dec 30, 2018", "price": 18.59}, {"date": "Jan 06, 2019", "price": 18.99}, {"date": "Jan 13, 2019", "price": 18.94}, {"date": "Jan 20, 2019", "price": 18.98}, {"date": "Jan 27, 2019", "price": 18.58}, {"date": "Feb 03, 2019", "price": 20.57}, {"date": "Feb 10, 2019", "price": 22.06}, {"date": "Feb 17, 2019", "price": 22.72}, {"date": "Feb 24, 2019", "price": 22.45}, {"date": "Mar 03, 2019", "price": 21.48}, {"date": "Mar 10, 2019", "price": 20.31}, {"date": "Mar 17, 2019", "price": 19.9}, {"date": "Mar 24, 2019", "price": 19.14}, {"date": "Mar 31, 2019", "price": 20.01}, {"date": "Apr 07, 2019", "price": 19.71}, {"date": "Apr 14, 2019", "price": 18.76}, {"date": "Apr 21, 2019", "price": 19.02}, {"date": "Apr 28, 2019", "price": 20.7}, {"date": "May 05, 2019", "price": 16.75}, {"date": "May 12, 2019", "price": 15.78}, {"date": "May 19, 2019", "price": 15.65}, {"date": "May 26, 2019", "price": 14.98}, {"date": "Jun 02, 2019", "price": 14.39}, {"date": "Jun 09, 2019", "price": 15.26}, {"date": "Jun 16, 2019", "price": 15.51}, {"date": "Jun 23, 2019", "price": 16.08}, {"date": "Jun 30, 2019", "price": 15.81}, {"date": "Jul 07, 2019", "price": 16.62}, {"date": "Jul 14, 2019", "price": 17.04}, {"date": "Jul 21, 2019", "price": 16.99}, {"date": "Jul 28, 2019", "price": 15.88}, {"date": "Aug 04, 2019", "price": 15.15}, {"date": "Aug 11, 2019", "price": 15.0}, {"date": "Aug 18, 2019", "price": 14.4}, {"date": "Aug 25, 2019", "price": 14.46}, {"date": "Sep 01, 2019", "price": 14.07}, {"date": "Sep 08, 2019", "price": 14.97}, {"date": "Sep 15, 2019", "price": 13.71}, {"date": "Sep 22, 2019", "price": 13.26}, {"date": "Sep 29, 2019", "price": 14.06}, {"date": "Oct 06, 2019", "price": 14.3}, {"date": "Oct 13, 2019", "price": 14.42}, {"date": "Oct 20, 2019", "price": 14.82}, {"date": "Oct 27, 2019", "price": 15.21}, {"date": "Nov 03, 2019", "price": 12.77}, {"date": "Nov 10, 2019", "price": 11.85}, {"date": "Nov 17, 2019", "price": 11.24}, {"date": "Nov 24, 2019", "price": 11.65}, {"date": "Dec 01, 2019", "price": 11.32}, {"date": "Dec 08, 2019", "price": 10.42}, {"date": "Dec 15, 2019", "price": 10.6}, {"date": "Dec 22, 2019", "price": 10.42}, {"date": "Dec 29, 2019", "price": 10.09}, {"date": "Jan 05, 2020", "price": 10.03}, {"date": "Jan 12, 2020", "price": 10.05}, {"date": "Jan 19, 2020", "price": 9.22}, {"date": "Jan 26, 2020", "price": 9.18}, {"date": "Feb 02, 2020", "price": 9.07}, {"date": "Feb 09, 2020", "price": 9.22}, {"date": "Feb 16, 2020", "price": 9.09}, {"date": "Feb 23, 2020", "price": 8.66}, {"date": "Mar 01, 2020", "price": 7.98}, {"date": "Mar 08, 2020", "price": 7.17}, {"date": "Mar 15, 2020", "price": 6.19}, {"date": "Mar 22, 2020", "price": 6.5}, {"date": "Mar 29, 2020", "price": 5.4}, {"date": "Apr 05, 2020", "price": 7.27}, {"date": "Apr 12, 2020", "price": 7.4}, {"date": "Apr 19, 2020", "price": 7.89}, {"date": "Apr 26, 2020", "price": 8.53}, {"date": "May 03, 2020", "price": 9.85}, {"date": "May 10, 2020", "price": 13.72}, {"date": "May 17, 2020", "price": 12.3}, {"date": "May 24, 2020", "price": 12.44}, {"date": "May 31, 2020", "price": 12.33}, {"date": "Jun 07, 2020", "price": 11.84}, {"date": "Jun 14, 2020", "price": 12.24}, {"date": "Jun 21, 2020", "price": 14.11}, {"date": "Jun 28, 2020", "price": 14.37}, {"date": "Jul 05, 2020", "price": 16.08}, {"date": "Jul 12, 2020", "price": 13.94}, {"date": "Jul 19, 2020", "price": 13.4}, {"date": "Jul 26, 2020", "price": 15.02}, {"date": "Aug 02, 2020", "price": 14.86}, {"date": "Aug 09, 2020", "price": 14.79}, {"date": "Aug 16, 2020", "price": 14.75}, {"date": "Aug 23, 2020", "price": 15.05}, {"date": "Aug 30, 2020", "price": 13.95}, {"date": "Sep 06, 2020", "price": 15.09}, {"date": "Sep 13, 2020", "price": 15.35}, {"date": "Sep 20, 2020", "price": 16.7}, {"date": "Sep 27, 2020", "price": 18.84}, {"date": "Oct 04, 2020", "price": 20.21}, {"date": "Oct 11, 2020", "price": 20.08}, {"date": "Oct 18, 2020", "price": 19.72}, {"date": "Oct 25, 2020", "price": 18.45}, {"date": "Nov 01, 2020", "price": 29.26}, {"date": "Nov 08, 2020", "price": 30.84}, {"date": "Nov 15, 2020", "price": 35.53}, {"date": "Nov 22, 2020", "price": 34.86}, {"date": "Nov 29, 2020", "price": 31.97}, {"date": "Dec 06, 2020", "price": 34.97}, {"date": "Dec 13, 2020", "price": 40.21}, {"date": "Dec 20, 2020", "price": 37.8}, {"date": "Dec 27, 2020", "price": 34.52}, {"date": "Jan 03, 2021", "price": 38.01}, {"date": "Jan 10, 2021", "price": 38.8}, {"date": "Jan 17, 2021", "price": 41.35}, {"date": "Jan 24, 2021", "price": 41.45}, {"date": "Jan 31, 2021", "price": 51.59}, {"date": "Feb 07, 2021", "price": 56.77}, {"date": "Feb 14, 2021", "price": 56.01}, {"date": "Feb 21, 2021", "price": 53.88}, {"date": "Feb 28, 2021", "price": 44.25}, {"date": "Mar 07, 2021", "price": 49.32}, {"date": "Mar 14, 2021", "price": 45.47}, {"date": "Mar 21, 2021", "price": 44.23}, {"date": "Mar 28, 2021", "price": 46.53}, {"date": "Apr 04, 2021", "price": 47.96}, {"date": "Apr 11, 2021", "price": 49.01}, {"date": "Apr 18, 2021", "price": 48.12}, {"date": "Apr 25, 2021", "price": 46.06}, {"date": "May 02, 2021", "price": 42.04}, {"date": "May 09, 2021", "price": 39.99}, {"date": "May 16, 2021", "price": 40.92}, {"date": "May 23, 2021", "price": 47.07}, {"date": "May 30, 2021", "price": 46.35}, {"date": "Jun 06, 2021", "price": 50.6}, {"date": "Jun 13, 2021", "price": 47.75}, {"date": "Jun 20, 2021", "price": 55.98}, {"date": "Jun 27, 2021", "price": 58.45}, {"date": "Jul 04, 2021", "price": 57.83}, {"date": "Jul 11, 2021", "price": 47.7}, {"date": "Jul 18, 2021", "price": 55.73}, {"date": "Jul 25, 2021", "price": 51.79}, {"date": "Aug 01, 2021", "price": 44.87}, {"date": "Aug 08, 2021", "price": 42.57}, {"date": "Aug 15, 2021", "price": 41.82}, {"date": "Aug 22, 2021", "price": 44.24}, {"date": "Aug 29, 2021", "price": 44.75}, {"date": "Sep 05, 2021", "price": 45.17}, {"date": "Sep 12, 2021", "price": 49.7}, {"date": "Sep 19, 2021", "price": 50.52}, {"date": "Sep 26, 2021", "price": 48.03}, {"date": "Oct 03, 2021", "price": 54.1}, {"date": "Oct 10, 2021", "price": 59.21}, {"date": "Oct 17, 2021", "price": 58.7}, {"date": "Oct 24, 2021", "price": 47.12}, {"date": "Oct 31, 2021", "price": 49.04}, {"date": "Nov 07, 2021", "price": 47.51}, {"date": "Nov 14, 2021", "price": 40.96}, {"date": "Nov 21, 2021", "price": 37.61}, {"date": "Nov 28, 2021", "price": 35.45}, {"date": "Dec 05, 2021", "price": 34.03}, {"date": "Dec 12, 2021", "price": 34.19}, {"date": "Dec 19, 2021", "price": 33.64}, {"date": "Dec 26, 2021", "price": 34.16}, {"date": "Jan 02, 2022", "price": 29.51}, {"date": "Jan 09, 2022", "price": 28.25}, {"date": "Jan 16, 2022", "price": 25.17}, {"date": "Jan 23, 2022", "price": 24.55}, {"date": "Jan 30, 2022", "price": 27.56}, {"date": "Feb 06, 2022", "price": 25.59}, {"date": "Feb 13, 2022", "price": 24.49}, {"date": "Feb 20, 2022", "price": 24.54}, {"date": "Feb 27, 2022", "price": 21.76}, {"date": "Mar 06, 2022", "price": 18.79}, {"date": "Mar 13, 2022", "price": 22.32}, {"date": "Mar 20, 2022", "price": 23.07}, {"date": "Mar 27, 2022", "price": 23.65}, {"date": "Apr 03, 2022", "price": 21.52}, {"date": "Apr 10, 2022", "price": 20.86}, {"date": "Apr 17, 2022", "price": 19.44}, {"date": "Apr 24, 2022", "price": 20.97}, {"date": "May 01, 2022", "price": 19.94}, {"date": "May 08, 2022", "price": 18.21}, {"date": "May 15, 2022", "price": 18.33}, {"date": "May 22, 2022", "price": 18.99}, {"date": "May 29, 2022", "price": 18.54}, {"date": "Jun 05, 2022", "price": 18.02}, {"date": "Jun 12, 2022", "price": 18.86}, {"date": "Jun 19, 2022", "price": 22.2}, {"date": "Jun 26, 2022", "price": 22.19}, {"date": "Jul 03, 2022", "price": 24.25}, {"date": "Jul 10, 2022", "price": 20.62}, {"date": "Jul 17, 2022", "price": 22.62}, {"date": "Jul 24, 2022", "price": 18.56}, {"date": "Jul 31, 2022", "price": 20.64}, {"date": "Aug 07, 2022", "price": 19.33}, {"date": "Aug 14, 2022", "price": 18.05}, {"date": "Aug 21, 2022", "price": 17.5}, {"date": "Aug 28, 2022", "price": 17.09}, {"date": "Sep 04, 2022", "price": 17.91}, {"date": "Sep 11, 2022", "price": 16.0}, {"date": "Sep 18, 2022", "price": 13.72}, {"date": "Sep 25, 2022", "price": 13.62}, {"date": "Oct 02, 2022", "price": 14.11}, {"date": "Oct 09, 2022", "price": 12.34}, {"date": "Oct 16, 2022", "price": 12.41}, {"date": "Oct 23, 2022", "price": 13.4}, {"date": "Oct 30, 2022", "price": 12.24}, {"date": "Nov 06, 2022", "price": 14.85}, {"date": "Nov 13, 2022", "price": 12.16}, {"date": "Nov 20, 2022", "price": 11.79}, {"date": "Nov 27, 2022", "price": 12.38}, {"date": "Dec 04, 2022", "price": 11.25}, {"date": "Dec 11, 2022", "price": 10.89}, {"date": "Dec 18, 2022", "price": 10.43}, {"date": "Dec 25, 2022", "price": 10.44}, {"date": "Jan 01, 2023", "price": 11.4}, {"date": "Jan 08, 2023", "price": 12.6}, {"date": "Jan 15, 2023", "price": 12.52}, {"date": "Jan 22, 2023", "price": 13.1}, {"date": "Jan 29, 2023", "price": 13.76}, {"date": "Feb 05, 2023", "price": 12.5}, {"date": "Feb 12, 2023", "price": 11.72}, {"date": "Feb 19, 2023", "price": 11.02}, {"date": "Feb 26, 2023", "price": 12.21}, {"date": "Mar 05, 2023", "price": 10.62}, {"date": "Mar 12, 2023", "price": 10.04}, {"date": "Mar 19, 2023", "price": 11.47}, {"date": "Mar 26, 2023", "price": 11.32}, {"date": "Apr 02, 2023", "price": 10.33}, {"date": "Apr 09, 2023", "price": 10.33}, {"date": "Apr 16, 2023", "price": 10.6}, {"date": "Apr 23, 2023", "price": 9.57}, {"date": "Apr 30, 2023", "price": 8.0}, {"date": "May 07, 2023", "price": 8.0}, {"date": "May 14, 2023", "price": 8.02}, {"date": "May 21, 2023", "price": 7.85}, {"date": "May 28, 2023", "price": 8.78}, {"date": "Jun 04, 2023", "price": 8.5}, {"date": "Jun 11, 2023", "price": 9.36}, {"date": "Jun 18, 2023", "price": 8.93}, {"date": "Jun 25, 2023", "price": 9.34}, {"date": "Jul 02, 2023", "price": 9.12}, {"date": "Jul 09, 2023", "price": 10.75}, {"date": "Jul 16, 2023", "price": 10.07}, {"date": "Jul 23, 2023", "price": 10.36}, {"date": "Jul 30, 2023", "price": 14.8}, {"date": "Aug 06, 2023", "price": 14.33}, {"date": "Aug 13, 2023", "price": 13.9}, {"date": "Aug 20, 2023", "price": 14.75}, {"date": "Aug 27, 2023", "price": 14.96}, {"date": "Sep 03, 2023", "price": 14.31}, {"date": "Sep 10, 2023", "price": 13.21}, {"date": "Sep 17, 2023", "price": 11.44}, {"date": "Sep 24, 2023", "price": 11.36}, {"date": "Oct 01, 2023", "price": 11.11}, {"date": "Oct 08, 2023", "price": 11.12}, {"date": "Oct 15, 2023", "price": 10.92}, {"date": "Oct 22, 2023", "price": 10.31}, {"date": "Oct 29, 2023", "price": 11.27}, {"date": "Nov 05, 2023", "price": 13.8}, {"date": "Nov 12, 2023", "price": 14.32}, {"date": "Nov 19, 2023", "price": 14.25}, {"date": "Nov 26, 2023", "price": 14.28}, {"date": "Dec 03, 2023", "price": 14.06}, {"date": "Dec 10, 2023", "price": 14.8}, {"date": "Dec 17, 2023", "price": 14.63}, {"date": "Dec 24, 2023", "price": 14.87}, {"date": "Dec 31, 2023", "price": 14.05}, {"date": "Jan 07, 2024", "price": 14.87}, {"date": "Jan 14, 2024", "price": 14.52}, {"date": "Jan 21, 2024", "price": 14.07}, {"date": "Jan 28, 2024", "price": 14.15}, {"date": "Feb 04, 2024", "price": 14.46}, {"date": "Feb 11, 2024", "price": 13.73}, {"date": "Feb 18, 2024", "price": 13.2}, {"date": "Feb 25, 2024", "price": 13.5}, {"date": "Mar 03, 2024", "price": 12.93}, {"date": "Mar 10, 2024", "price": 11.96}, {"date": "Mar 17, 2024", "price": 12.3}, {"date": "Mar 24, 2024", "price": 12.26}, {"date": "Mar 31, 2024", "price": 11.91}, {"date": "Apr 07, 2024", "price": 11.63}, {"date": "Apr 14, 2024", "price": 11.13}, {"date": "Apr 21, 2024", "price": 11.56}, {"date": "Apr 28, 2024", "price": 12.89}, {"date": "May 05, 2024", "price": 11.92}, {"date": "May 12, 2024", "price": 11.91}, {"date": "May 19, 2024", "price": 11.14}, {"date": "May 26, 2024", "price": 10.57}, {"date": "Jun 02, 2024", "price": 10.72}, {"date": "Jun 09, 2024", "price": 10.39}, {"date": "Jun 16, 2024", "price": 10.48}, {"date": "Jun 23, 2024", "price": 10.75}, {"date": "Jun 30, 2024", "price": 10.91}, {"date": "Jul 07, 2024", "price": 11.39}, {"date": "Jul 14, 2024", "price": 11.44}, {"date": "Jul 21, 2024", "price": 11.35}, {"date": "Jul 28, 2024", "price": 10.7}, {"date": "Aug 04, 2024", "price": 9.33}, {"date": "Aug 11, 2024", "price": 9.78}, {"date": "Aug 18, 2024", "price": 10.02}, {"date": "Aug 25, 2024", "price": 9.64}, {"date": "Sep 01, 2024", "price": 9.51}, {"date": "Sep 08, 2024", "price": 10.24}, {"date": "Sep 15, 2024", "price": 10.71}, {"date": "Sep 22, 2024", "price": 10.55}, {"date": "Sep 29, 2024", "price": 10.84}, {"date": "Oct 06, 2024", "price": 10.44}, {"date": "Oct 13, 2024", "price": 10.29}, {"date": "Oct 20, 2024", "price": 12.36}, {"date": "Oct 27, 2024", "price": 13.98}, {"date": "Nov 03, 2024", "price": 15.93}, {"date": "Nov 10, 2024", "price": 14.91}, {"date": "Nov 17, 2024", "price": 16.02}, {"date": "Nov 24, 2024", "price": 16.97}, {"date": "Dec 01, 2024", "price": 16.96}, {"date": "Dec 08, 2024", "price": 16.89}, {"date": "Dec 15, 2024", "price": 16.44}, {"date": "Dec 22, 2024", "price": 16.94}, {"date": "Dec 29, 2024", "price": 16.11}, {"date": "Jan 05, 2025", "price": 15.64}, {"date": "Jan 12, 2025", "price": 16.89}, {"date": "Jan 19, 2025", "price": 16.27}, {"date": "Jan 26, 2025", "price": 15.76}, {"date": "Feb 02, 2025", "price": 15.77}, {"date": "Feb 09, 2025", "price": 16.14}, {"date": "Feb 16, 2025", "price": 15.63}, {"date": "Feb 23, 2025", "price": 15.93}, {"date": "Mar 02, 2025", "price": 14.17}, {"date": "Mar 09, 2025", "price": 12.6}, {"date": "Mar 16, 2025", "price": 13.57}, {"date": "Mar 23, 2025", "price": 13.21}, {"date": "Mar 30, 2025", "price": 11.87}, {"date": "Apr 06, 2025", "price": 12.9}, {"date": "Apr 13, 2025", "price": 12.74}, {"date": "Apr 20, 2025", "price": 13.54}, {"date": "Apr 27, 2025", "price": 13.48}, {"date": "May 04, 2025", "price": 16.88}, {"date": "May 11, 2025", "price": 17.24}, {"date": "May 18, 2025", "price": 15.75}, {"date": "May 25, 2025", "price": 15.49}, {"date": "Jun 01, 2025", "price": 15.4}, {"date": "Jun 08, 2025", "price": 13.83}, {"date": "Jun 15, 2025", "price": 13.14}, {"date": "Jun 22, 2025", "price": 13.63}, {"date": "Jun 29, 2025", "price": 13.64}, {"date": "Jul 06, 2025", "price": 12.92}, {"date": "Jul 13, 2025", "price": 13.23}, {"date": "Jul 20, 2025", "price": 13.11}, {"date": "Jul 27, 2025", "price": 11.75}, {"date": "Aug 03, 2025", "price": 13.17}, {"date": "Aug 10, 2025", "price": 13.8}, {"date": "Aug 17, 2025", "price": 14.92}, {"date": "Aug 24, 2025", "price": 15.39}, {"date": "Aug 31, 2025", "price": 16.19}, {"date": "Sep 07, 2025", "price": 16.86}, {"date": "Sep 14, 2025", "price": 20.07}, {"date": "Sep 21, 2025", "price": 19.15}, {"date": "Sep 28, 2025", "price": 17.27}, {"date": "Oct 05, 2025", "price": 16.8}, {"date": "Oct 12, 2025", "price": 16.2}, {"date": "Oct 19, 2025", "price": 16.0}, {"date": "Oct 26, 2025", "price": 15.94}, {"date": "Nov 02, 2025", "price": 17.45}, {"date": "Nov 09, 2025", "price": 16.48}, {"date": "Nov 16, 2025", "price": 17.87}, {"date": "Nov 23, 2025", "price": 19.74}, {"date": "Nov 30, 2025", "price": 20.08}, {"date": "Dec 07, 2025", "price": 21.95}, {"date": "Dec 14, 2025", "price": 20.6}, {"date": "Dec 21, 2025", "price": 20.85}, {"date": "Dec 28, 2025", "price": 19.84}, {"date": "Jan 04, 2026", "price": 20.05}, {"date": "Jan 11, 2026", "price": 19.87}, {"date": "Jan 18, 2026", "price": 22.11}, {"date": "Jan 25, 2026", "price": 20.03}, {"date": "Feb 01, 2026", "price": 18.93}, {"date": "Feb 08, 2026", "price": 13.23}, {"date": "Feb 15, 2026", "price": 13.17}, {"date": "Feb 22, 2026", "price": 13.42}, {"date": "Mar 01, 2026", "price": 13.25}, {"date": "Mar 08, 2026", "price": 12.21}, {"date": "Mar 15, 2026", "price": 11.28}, {"date": "Mar 22, 2026", "price": 10.87}, {"date": "Mar 29, 2026", "price": 10.94}, {"date": "Apr 05, 2026", "price": 10.66}, {"date": "Apr 12, 2026", "price": 11.27}, {"date": "Apr 19, 2026", "price": 10.63}, {"date": "Apr 26, 2026", "price": 10.49}, {"date": "May 03, 2026", "price": 8.82}, {"date": "May 10, 2026", "price": 8.17}, {"date": "May 17, 2026", "price": 8.8}, {"date": "May 24, 2026", "price": 8.82}, {"date": "May 31, 2026", "price": 8.76}, {"date": "Jun 07, 2026", "price": 8.49}, {"date": "Jun 14, 2026", "price": 8.05}, {"date": "Jun 21, 2026", "price": 8.33}, {"date": "Jun 28, 2026", "price": 9.16}, {"date": "Jul 05, 2026", "price": 8.82}, {"date": "Jul 12, 2026", "price": 9.06}, {"date": "Jul 19, 2026", "price": 8.83}, {"date": "Jul 26, 2026", "price": 9.16}, {"date": "Aug 02, 2026", "price": 9.67}, {"date": "Aug 09, 2026", "price": 9.83}, {"date": "Aug 11, 2026", "price": 8.55}]};
         let currentRangeKey = '1Y';
         let currentPoints = allDatasets[currentRangeKey] || [];
         let currentSvgCoords = [];
@@ -814,19 +814,19 @@
             <div class="metrics-grid" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));">
                 <div class="metric-cell">
                     <div class="metric-label">Fair Value</div>
-                    <div class="metric-value" style="color: var(--accent-warm);">.50</div>
+                    <div class="metric-value" style="color: var(--accent-warm);">$12.50</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bear Target</div>
-                    <div class="metric-value" style="color: var(--accent-red);">.50 (-3.0%)</div>
+                    <div class="metric-value" style="color: var(--accent-red);">$7.50 (-12.9%)</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Base Target</div>
-                    <div class="metric-value">.50 (+54.1%)</div>
+                    <div class="metric-value">$12.50 (+45.2%)</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bull Target</div>
-                    <div class="metric-value" style="color: var(--accent-green);">.50 (+111.2%)</div>
+                    <div class="metric-value" style="color: var(--accent-green);">$17.50 (+103.3%)</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Alert Corridor</div>
@@ -834,7 +834,7 @@
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Next Catalyst</div>
-                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">2026-11-03</div>
+                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">2026-11-04</div>
                 </div>
             </div>
         </section>
@@ -852,174 +852,156 @@
         <div class="update-banner-box">
             <div class="update-banner-header">
                 <span class="update-banner-badge">⚡ Version 2 Thesis Evolution • 2026-08-11</span>
-                <span class="update-trigger-pill">Trigger: Q2 2026 Earnings Release & Call Audit: Post-Market Results Analysis</span>
+                <span class="update-trigger-pill">Trigger: Q2 2026 Post-Market Earnings Audit: Full Operational & Guidance Review</span>
             </div>
             <div class="update-banner-body">
                 <div class="update-banner-title">What Changed & Forward Thesis Impact</div>
-                <div class="update-banner-desc">Upwork reported Q2 2026 revenue of $191.7M (-2% YoY) and record Adjusted EBITDA of $64.1M (33.4% margin), but trimmed full-year revenue guidance to $730M-$750M due to Google SEO search disruption and low-complexity task erosion from AI automation. However, aggressive share repurchases ($109.7M deployed in H1 2026) and a pristine $253.5M net cash balance ($1.95/share) provide strong downside protection. We maintain a Cautious Stance as top-line friction plays out, while anchoring our Base Case fair value at $13.50 based on expanding Owner Earnings yield.</div>
+                <div class="update-banner-desc">Upwork's Q2 2026 earnings report confirmed a top-line guidance trim to $730M-$750M (down from $760M-$790M) due to headwinds from Google SEO search updates and AI automation of lower-complexity tasks. However, the market's post-earnings drop to $8.61 creates an asymmetric deep-value buy zone. Operating profitability hit record highs with Q2 Adjusted EBITDA of $64.1M (33.4% margin), supported by a 20%+ workforce restructuring that will generate $70M in annualized OpEx savings. Management continues to aggressively retire shares—deploying $109.7M in H1 2026 alone—backed by $241.2M in net cash ($1.83/share). We upgrade our action signal to BUY with an updated Base Case Intrinsic Fair Value of $12.50 per share.</div>
             </div>
         </div>
-        <div class="memo-container">
+        ### Executive Evolution & Actionable Thesis Summary
 
-<h3>Executive Summary & Post-Earnings Assessment</h3>
+The market’s post-earnings reaction—driving Upwork Inc. (NASDAQ: UPWK) down 11% to $8.61—presents a high-conviction deep value opportunity. While management trimmed full-year 2026 revenue guidance to $730M–$750M (down from $760M–$790M) due to Google SEO search changes and AI automation eroding low-complexity freelance tasks, the underlying cash flow machine and balance sheet floor remain structurally intact. 
 
-<p>Following Upwork's (NASDAQ: UPWK) Q2 2026 earnings release and conference call, the equity experienced a -9.41% sell-off, pulling the stock down to $8.76. A deep audit of primary financial filings and executive commentary reveals a dual-speed business model: while top-line revenue is undergoing cyclical and structural pressures from Google search engine optimization (SEO) changes and entry-level task automation, management's operating cost overhaul has expanded profit margins to record levels.</p>
+At $8.61 per share, Upwork carries an Enterprise Value of approximately $887M after deducting $241.2M in net cash ($1.83 per share). With full-year 2026 Adjusted EBITDA guided at $225M–$235M (a 31%+ margin) and normalized Owner Earnings hovering at $100M ($0.76 per share), the stock offers a pure Owner Earnings yield of 8.8% on equity and 11.3% on Enterprise Value. Management is using this free cash flow to cannibalize its share count, retiring 8.3M shares ($109.7M) in the first half of 2026 alone. We upgrade our actionable beacon to **BUY** and establish an updated Base Case Intrinsic Fair Value of **$12.50 per share**.
 
-<p>Revenue of $191.7M (-2.0% YoY) landed at the high end of internal quarterly guidance, while Adjusted EBITDA surged 12% YoY to $64.1M—achieving a 33.4% margin (up 415 bps YoY). However, management reduced FY 2026 top-line guidance to $730M–$750M (down from $760M–$790M), citing accelerated disruption in organic acquisition and automated displacement of low-complexity freelance categories.</p>
+---
 
-<div class="callout">
-<strong>Key Insight:</strong> Upwork is evolving into a higher-value, enterprise-oriented cash yield machine. Despite active client counts falling 4% YoY to 763,000, spend per active client reached an all-time high of $5,230 (+5% YoY), driven by rapid scaling in higher-complexity AI services (+22% YoY, $330M annualized run rate) and Business Plus SMB offerings (+174% YoY).
-</div>
-
-<h3>Q2 2026 Financial Performance & Operating Metrics</h3>
+### Q2 2026 Operational & Financial Audit
 
 <div class="metrics-grid">
   <div class="metric-card">
-    <div class="metric-label">Q2 2026 Revenue</div>
+    <div class="metric-label">Q2 Revenue</div>
     <div class="metric-value">$191.7M</div>
     <div class="metric-delta neg">-2.0% YoY</div>
   </div>
   <div class="metric-card">
     <div class="metric-label">Adjusted EBITDA</div>
     <div class="metric-value">$64.1M</div>
-    <div class="metric-delta pos">+12.0% YoY (33.4% Margin)</div>
+    <div class="metric-delta pos">+12.3% YoY</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-label">Adj. EBITDA Margin</div>
+    <div class="metric-value">33.4%</div>
+    <div class="metric-delta pos">+440 bps YoY</div>
   </div>
   <div class="metric-card">
     <div class="metric-label">GSV Per Active Client</div>
     <div class="metric-value">$5,230</div>
-    <div class="metric-delta pos">+5.0% YoY (Record High)</div>
-  </div>
-  <div class="metric-card">
-    <div class="metric-label">Marketplace Take Rate</div>
-    <div class="metric-value">19.8%</div>
-    <div class="metric-delta pos">+40 bps YoY</div>
+    <div class="metric-delta pos">+5.0% YoY</div>
   </div>
 </div>
 
 <div class="table-scroll-wrap"><table>
   <thead>
     <tr>
-      <th>Financial / Operational Metric</th>
-      <th>Q2 2026 Actual</th>
-      <th>Q2 2025 Actual</th>
-      <th>YoY Change / Trailing Trend</th>
+      <th>Financial / Operating Metric</th>
+      <th>Q2 2025</th>
+      <th>Q2 2026</th>
+      <th>YoY Change</th>
+      <th>Management Guidance / Notes</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Gross Service Volume (GSV)</td>
+      <td><strong>Gross Services Volume (GSV)</strong></td>
+      <td>$1,002.5M</td>
       <td>$966.4M</td>
-      <td>$1,002.3M</td>
-      <td>-3.6% YoY</td>
+      <td>-3.6%</td>
+      <td>Impacted by low-complexity task churn</td>
     </tr>
     <tr>
-      <td>GAAP Net Income</td>
-      <td>$25.4M</td>
-      <td>$32.6M</td>
-      <td>-22.1% YoY (Diluted EPS $0.20)</td>
+      <td><strong>Marketplace Take Rate</strong></td>
+      <td>19.4%</td>
+      <td>19.8%</td>
+      <td>+40 bps</td>
+      <td>Driven by higher monetization, ads & Connects</td>
     </tr>
     <tr>
-      <td>Non-GAAP Net Income per Share</td>
-      <td>$0.41</td>
-      <td>$0.35</td>
-      <td>+17.1% YoY (Beat consensus $0.34)</td>
-    </tr>
-    <tr>
-      <td>Free Cash Flow (FCF)</td>
-      <td>$35.9M</td>
-      <td>$65.6M</td>
-      <td>-45.2% YoY (Reflects $13.8M cash restructuring)</td>
-    </tr>
-    <tr>
-      <td>Active Client Count</td>
-      <td>763,000</td>
+      <td><strong>Active Clients</strong></td>
       <td>796,000</td>
-      <td>-4.1% YoY (Down from 784,000 in Q1 2026)</td>
+      <td>763,000</td>
+      <td>-4.1%</td>
+      <td>SEO headwinds & top-of-funnel customer drop</td>
     </tr>
     <tr>
-      <td>AI-Related Work GSV Run-Rate</td>
-      <td>~$330M</td>
-      <td>~$270M</td>
-      <td>+22.0% YoY (+5.0% QoQ)</td>
+      <td><strong>GAAP Net Income</strong></td>
+      <td>$32.7M</td>
+      <td>$25.4M</td>
+      <td>-22.3%</td>
+      <td>Includes $13.8M pre-tax restructuring costs</td>
+    </tr>
+    <tr>
+      <td><strong>Free Cash Flow (FCF)</strong></td>
+      <td>$65.6M</td>
+      <td>$35.9M</td>
+      <td>-45.3%</td>
+      <td>Restructuring cash payouts reduced Q2 cash conversion</td>
+    </tr>
+    <tr>
+      <td><strong>FY 2026 Revenue Guidance</strong></td>
+      <td>$760M - $790M</td>
+      <td>$730M - $750M</td>
+      <td>-4.5% (mid)</td>
+      <td>Cut due to SEO updates & macro/AI task shift</td>
+    </tr>
+    <tr>
+      <td><strong>FY 2026 Adj. EBITDA Guidance</strong></td>
+      <td>$210M - $225M</td>
+      <td>$225M - $235M</td>
+      <td>+5.7% (mid)</td>
+      <td>Raised profitability target via $70M OpEx savings</td>
     </tr>
   </tbody>
 </table></div>
-
-<h3>Balance Sheet Strength & Capital Allocation Cannibalization</h3>
-
-<p>A core anchor of our valuation is Upwork's balance sheet structure. As of June 30, 2026, the company held $476.0M in cash and cash equivalents alongside $138.2M in marketable securities, providing total liquid reserves of $614.2M. Set against $360.7M in 0.25% convertible notes due late 2026, Upwork possesses a net cash balance of $253.5M—equivalent to approximately $1.95 per share, or 22% of the current market capitalization.</p>
-
-<p>Management is utilizing this cash generation to cannibalize share count at depressed valuations:</p>
-<ul>
-  <li><strong>H1 2026 Repurchases:</strong> Repurchased 8.3 million shares for $109.7M in the first six months of 2026 alone.</li>
-  <li><strong>Remaining Authorization:</strong> $254.3M remains open under the $300M share repurchase program authorized in February 2026.</li>
-  <li><strong>Capital Flexibility:</strong> Secured a new $150M revolving credit facility (+ $50M accordion) in Q2 to ensure ample liquidity for ongoing repurchases.</li>
-</ul>
-
-<h3>Warren Buffett Owner Earnings & Intrinsic Valuation</h3>
-
-<p>Applying Warren Buffett's 7-Pillar Owner Earnings framework, we evaluate organic cash generation after accounting for Stock-Based Compensation (SBC) as a real cash expense:</p>
-
-<ol>
-  <li><strong>Normalized Owner Earnings Calculation:</strong>
-    <ul>
-      <li>Normalized Annual Operating Cash Flow: ~$165.0M (reflecting $70M annualized cost savings post-20% workforce restructuring).</li>
-      <li>Less Maintenance CapEx (incl. capitalized software): -$25.0M.</li>
-      <li>Less Stock-Based Compensation (100% deduction): -$58.0M.</li>
-      <li><strong>Normalized Annual Owner Earnings:</strong> ~$82.0M (~$0.64 per share on ~128M diluted shares).</li>
-    </ul>
-  </li>
-  <li><strong>Discounting Framework:</strong> Grounded in the US 10-Year Treasury Yield (~4.25%) plus a 5.0% equity hurdle rate, yielding a 9.25% discount rate. Terminal growth rate is capped at 2.0% (below long-term GDP).</li>
-</ol>
 
 <div class="callout">
-<strong>The 5-Year Exchange Closure Test:</strong> At the current market cap of ~$1.14B ($8.76/share), the market is pricing EV at ~$885.5M (Market Cap minus Net Cash). An EV / Owner Earnings multiple of ~10.8x provides a substantial margin of safety, even if top-line growth remains stagnant over the medium term.
+<strong>Key Operational Insight:</strong> Upwork is undergoing a bifurcation in its platform dynamics. While basic transactional tasks (copywriting, basic coding, entry-level translation) are being automated by LLMs, spend per client is rising rapidly. GSV per active client hit a record high of $5,230 (+5% YoY, 8th consecutive quarter of growth), and AI-related work GSV expanded over 22% YoY, with AI Strategy & Consulting up 51% YoY. Upwork is transforming into an enterprise-grade platform for high-complexity contingent labor.
 </div>
 
-<h3>3-Scenario Fundamental Valuation Matrix</h3>
+---
 
-<div class="table-scroll-wrap"><table>
-  <thead>
-    <tr>
-      <th>Valuation Scenario</th>
-      <th>Revenue Growth & Margin Profile</th>
-      <th>Annual Owner Earnings</th>
-      <th>Intrinsic Value Per Share</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>Bear Case</strong></td>
-      <td>SEO headwinds worsen; AI task decay shrinks revenue to $700M; EBITDA margin drops to 25%.</td>
-      <td>$50.0M ($0.40/sh)</td>
-      <td><strong>$8.50</strong></td>
-    </tr>
-    <tr>
-      <td><strong>Base Case (Target)</strong></td>
-      <td>Revenue stabilizes at $740M-$750M; EBITDA margins hold at 32-34%; aggressive buybacks reduce shares to 118M.</td>
-      <td>$85.0M ($0.72/sh)</td>
-      <td><strong>$13.50</strong></td>
-    </tr>
-    <tr>
-      <td><strong>Bull Case</strong></td>
-      <td>AI work ($330M+ run rate) and Business Plus SMB scale rapidly; revenue re-accelerates to $800M+; EBITDA margin hits 35%.</td>
-      <td>$120.0M ($1.05/sh)</td>
-      <td><strong>$18.50</strong></td>
-    </tr>
-  </tbody>
-</table></div>
+### Strategic Disruption vs. Re-Acceleration Vectors
 
-<h3>Pre-Mortem Thesis Falsification Triggers & Surveillance Corridors</h3>
+#### Headwinds Driving Top-Line Friction
+1. **Google SEO Referral Deterioration:** Changes in Google's search algorithms have reduced organic traffic referrals for top-of-funnel freelancer searches, raising customer acquisition costs.
+2. **AI Task Automation Churn:** Low-complexity digital tasks are being replaced directly by end-user AI tools, reducing overall active client counts to 763,000 (-4% YoY).
 
-<p>To guard against value-trap dynamics, we maintain strict surveillance over the following operational triggers:</p>
+#### Strategic Growth Drivers & Moat Defense
+* **Enterprise & Lifted Platform Momentum:** GSV from the Employer of Record (EOR) offering inside Enterprise Solutions surged 29% YoY, while Enterprise GSV per account rose 7%. Management reiterated its target for ~25% Enterprise GSV growth in 2026.
+* **AI Tool Integration & Model Context Protocol (MCP):** Upwork launched its Model Context Protocol (MCP) server, integrating talent sourcing directly into Anthropic’s Claude and OpenAI’s ChatGPT. This allows AI agents and human users to hire and deploy freelance talent natively inside third-party AI interfaces.
+* **Aggressive Cost Restructuring:** Upwork executed a 20%+ workforce reduction in Q2 2026 (targeting 24% total reduction), driving $70M in annualized OpEx savings and pushing Adjusted EBITDA margins to 33.4%.
 
-<ul>
-  <li><strong>Lower Alert Threshold ($7.50):</strong> Triggered if organic active client erosion accelerates below 730,000 or if EBITDA margins degrade back below 25% due to inefficient paid customer acquisition spend.</li>
-  <li><strong>Upper Alert Threshold ($11.50):</strong> Triggered if GSV stabilizes YoY, organic traffic re-accelerates, or AI-related category growth exceeds $400M annualized run rate, initiating a fair-value convergence review.</li>
-  <li><strong>Next Catalyst Date:</strong> Q3 2026 Financial Results release, confirmed for November 3, 2026.</li>
-</ul>
+---
 
-</div>
+### Warren Buffett Owner Earnings & Intrinsic Valuation
+
+To value Upwork with zero reliance on speculative exit multiples, we calculate normalized **Owner Earnings** (Operating Cash Flow minus Maintenance CapEx minus 100% Stock-Based Compensation) as defined in Warren Buffett’s 1986 Berkshire Hathaway Shareholder Letter.
+
+FY 2026 Owner Earnings Bridge (Midpoint Guidance):
+   Guided FY 2026 Adjusted EBITDA:                    $230.0M
+   (-) Cash Taxes & Interest Income Net:             ($12.0M)
+   (-) Working Capital Changes & Restructuring:      ($35.0M)
+   ===========================================================
+   Estimated Operating Cash Flow:                     $183.0M
+   (-) Maintenance CapEx (Software & Dev):           ($17.5M)
+   (-) Stock-Based Compensation (100% Cash Cost):     ($62.5M)
+   ===========================================================
+   Normalized FY 2026 Owner Earnings:                 $103.0M
+   Diluted Shares Outstanding:                        132.0M
+   -----------------------------------------------------------
+   Owner Earnings Per Share:                          $0.78
+#### Balance Sheet Reality & Net Cash Bridge
+* **Cash & Equivalents:** $476.0M
+* **Marketable Securities:** $138.2M
+* **Total Gross Cash & Investments:** $614.2M
+* **Convertible Notes (0.25% due late 2026):** $361.0M
+* **Operating Lease Liabilities:** ~$12.0M
+* **Net Cash Position:** **$241.2M** ($1.83 per share on 132M shares).
+* *Note:* Upwork also established a new, undrawn $150M revolving credit facility to backstop the 2026 convertible note maturity if needed.
+
+#### Share Buyback Cannibal Compounding
+During H1 2026, Upwork deployed $109.7M to repurchase 8.3M shares, reducing total diluted shares toward 132M. With $254.3M remaining under its board authorization
             </article>
         </div>
 
@@ -1030,189 +1012,171 @@
                 <div class="history-top">
                     <div class="history-tags">
                         <span class="history-time">2026-08-11</span>
-                        <span class="history-price">$8.76</span>
-                        <span class="status-beacon beacon-caution" title="Action Signal: Caution (Facing Headwinds / Trim Zone)"><span class="beacon-ping"></span><span class="beacon-dot"></span></span>
-                        <span class="pill pill-active">Cautious Stance</span> <span class="pill pill-neutral">Buyback Cannibal</span> <span class="pill pill-neutral">Cash Fortress</span>
+                        <span class="history-price">$8.61</span>
+                        <span class="status-beacon beacon-buy" title="Action Signal: Strong Buy (Get in NOW / Thesis Accelerating)"><span class="beacon-ping"></span><span class="beacon-dot"></span></span>
+                        <span class="pill pill-active">Solid Conviction</span> <span class="pill pill-neutral">Buyback Cannibal</span> <span class="pill pill-neutral">Deep Value</span>
                     </div>
                     <button class="btn btn-subtle" onclick="toggleSnapshot(2)">Read Snapshot ▾</button>
                 </div>
                 <div class="history-content">
-                    <p class="history-shift-desc">Upwork reported Q2 2026 revenue of $191.7M (-2% YoY) and record Adjusted EBITDA of $64.1M (33.4% margin), but trimmed full-year revenue guidance to $730M-$750M due to Google SEO search disruption and low-complexity task erosion from AI automation. However, aggressive share repurchases ($109.7M deployed in H1 2026) and a pristine $253.5M net cash balance ($1.95/share) provide strong downside protection. We maintain a Cautious Stance as top-line friction plays out, while anchoring our Base Case fair value at $13.50 based on expanding Owner Earnings yield.</p>
+                    <p class="history-shift-desc">Upwork's Q2 2026 earnings report confirmed a top-line guidance trim to $730M-$750M (down from $760M-$790M) due to headwinds from Google SEO search updates and AI automation of lower-complexity tasks. However, the market's post-earnings drop to $8.61 creates an asymmetric deep-value buy zone. Operating profitability hit record highs with Q2 Adjusted EBITDA of $64.1M (33.4% margin), supported by a 20%+ workforce restructuring that will generate $70M in annualized OpEx savings. Management continues to aggressively retire shares—deploying $109.7M in H1 2026 alone—backed by $241.2M in net cash ($1.83/share). We upgrade our action signal to BUY with an updated Base Case Intrinsic Fair Value of $12.50 per share.</p>
                     
                 <div class="diff-grid">
                     <div class="diff-box diff-prev">
                         <div class="diff-label">PREVIOUS THESIS</div>
-                        <div class="diff-text">Stance was under review following post-market price reaction down to $8.76 (-9.41%). Evaluating Q2 2026 earnings, guidance adjustments, and long-term execution risks.</div>
+                        <div class="diff-text">Upwork reported Q2 2026 revenue of $191.7M (-2% YoY) and record Adjusted EBITDA of $64.1M (33.4% margin), but trimmed full-year revenue guidance to $730M-$750M due to Google SEO search disruption and low-complexity task erosion from AI automation. However, aggressive share repurchases ($109.7M deployed in H1 2026) and a pristine $253.5M net cash balance ($1.95/share) provide strong downside protection. We maintain a Cautious Stance as top-line friction plays out, while anchoring our Base Case fair value at $13.50 based on expanding Owner Earnings yield.</div>
                     </div>
                     <div class="diff-box diff-now">
                         <div class="diff-label">THESIS EVOLUTION</div>
-                        <div class="diff-text">Upwork reported Q2 2026 revenue of $191.7M (-2% YoY) and record Adjusted EBITDA of $64.1M (33.4% margin), but trimmed full-year revenue guidance to $730M-$750M due to Google SEO search disruption and low-complexity task erosion from AI automation. However, aggressive share repurchases ($109.7M deployed in H1 2026) and a pristine $253.5M net cash balance ($1.95/share) provide strong downside protection. We maintain a Cautious Stance as top-line friction plays out, while anchoring our Base Case fair value at $13.50 based on expanding Owner Earnings yield.</div>
+                        <div class="diff-text">Upwork's Q2 2026 earnings report confirmed a top-line guidance trim to $730M-$750M (down from $760M-$790M) due to headwinds from Google SEO search updates and AI automation of lower-complexity tasks. However, the market's post-earnings drop to $8.61 creates an asymmetric deep-value buy zone. Operating profitability hit record highs with Q2 Adjusted EBITDA of $64.1M (33.4% margin), supported by a 20%+ workforce restructuring that will generate $70M in annualized OpEx savings. Management continues to aggressively retire shares—deploying $109.7M in H1 2026 alone—backed by $241.2M in net cash ($1.83/share). We upgrade our action signal to BUY with an updated Base Case Intrinsic Fair Value of $12.50 per share.</div>
                     </div>
                 </div>
                 
                     <div id="snapshot-2" class="snapshot-drawer" style="display: none;">
                         <div class="snapshot-body">
-                            <div class="memo-container">
+                            ### Executive Evolution & Actionable Thesis Summary
 
-<h3>Executive Summary & Post-Earnings Assessment</h3>
+The market’s post-earnings reaction—driving Upwork Inc. (NASDAQ: UPWK) down 11% to $8.61—presents a high-conviction deep value opportunity. While management trimmed full-year 2026 revenue guidance to $730M–$750M (down from $760M–$790M) due to Google SEO search changes and AI automation eroding low-complexity freelance tasks, the underlying cash flow machine and balance sheet floor remain structurally intact. 
 
-<p>Following Upwork's (NASDAQ: UPWK) Q2 2026 earnings release and conference call, the equity experienced a -9.41% sell-off, pulling the stock down to $8.76. A deep audit of primary financial filings and executive commentary reveals a dual-speed business model: while top-line revenue is undergoing cyclical and structural pressures from Google search engine optimization (SEO) changes and entry-level task automation, management's operating cost overhaul has expanded profit margins to record levels.</p>
+At $8.61 per share, Upwork carries an Enterprise Value of approximately $887M after deducting $241.2M in net cash ($1.83 per share). With full-year 2026 Adjusted EBITDA guided at $225M–$235M (a 31%+ margin) and normalized Owner Earnings hovering at $100M ($0.76 per share), the stock offers a pure Owner Earnings yield of 8.8% on equity and 11.3% on Enterprise Value. Management is using this free cash flow to cannibalize its share count, retiring 8.3M shares ($109.7M) in the first half of 2026 alone. We upgrade our actionable beacon to **BUY** and establish an updated Base Case Intrinsic Fair Value of **$12.50 per share**.
 
-<p>Revenue of $191.7M (-2.0% YoY) landed at the high end of internal quarterly guidance, while Adjusted EBITDA surged 12% YoY to $64.1M—achieving a 33.4% margin (up 415 bps YoY). However, management reduced FY 2026 top-line guidance to $730M–$750M (down from $760M–$790M), citing accelerated disruption in organic acquisition and automated displacement of low-complexity freelance categories.</p>
+---
 
-<div class="callout">
-<strong>Key Insight:</strong> Upwork is evolving into a higher-value, enterprise-oriented cash yield machine. Despite active client counts falling 4% YoY to 763,000, spend per active client reached an all-time high of $5,230 (+5% YoY), driven by rapid scaling in higher-complexity AI services (+22% YoY, $330M annualized run rate) and Business Plus SMB offerings (+174% YoY).
-</div>
-
-<h3>Q2 2026 Financial Performance & Operating Metrics</h3>
+### Q2 2026 Operational & Financial Audit
 
 <div class="metrics-grid">
   <div class="metric-card">
-    <div class="metric-label">Q2 2026 Revenue</div>
+    <div class="metric-label">Q2 Revenue</div>
     <div class="metric-value">$191.7M</div>
     <div class="metric-delta neg">-2.0% YoY</div>
   </div>
   <div class="metric-card">
     <div class="metric-label">Adjusted EBITDA</div>
     <div class="metric-value">$64.1M</div>
-    <div class="metric-delta pos">+12.0% YoY (33.4% Margin)</div>
+    <div class="metric-delta pos">+12.3% YoY</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-label">Adj. EBITDA Margin</div>
+    <div class="metric-value">33.4%</div>
+    <div class="metric-delta pos">+440 bps YoY</div>
   </div>
   <div class="metric-card">
     <div class="metric-label">GSV Per Active Client</div>
     <div class="metric-value">$5,230</div>
-    <div class="metric-delta pos">+5.0% YoY (Record High)</div>
-  </div>
-  <div class="metric-card">
-    <div class="metric-label">Marketplace Take Rate</div>
-    <div class="metric-value">19.8%</div>
-    <div class="metric-delta pos">+40 bps YoY</div>
+    <div class="metric-delta pos">+5.0% YoY</div>
   </div>
 </div>
 
 <div class="table-scroll-wrap"><table>
   <thead>
     <tr>
-      <th>Financial / Operational Metric</th>
-      <th>Q2 2026 Actual</th>
-      <th>Q2 2025 Actual</th>
-      <th>YoY Change / Trailing Trend</th>
+      <th>Financial / Operating Metric</th>
+      <th>Q2 2025</th>
+      <th>Q2 2026</th>
+      <th>YoY Change</th>
+      <th>Management Guidance / Notes</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Gross Service Volume (GSV)</td>
+      <td><strong>Gross Services Volume (GSV)</strong></td>
+      <td>$1,002.5M</td>
       <td>$966.4M</td>
-      <td>$1,002.3M</td>
-      <td>-3.6% YoY</td>
+      <td>-3.6%</td>
+      <td>Impacted by low-complexity task churn</td>
     </tr>
     <tr>
-      <td>GAAP Net Income</td>
-      <td>$25.4M</td>
-      <td>$32.6M</td>
-      <td>-22.1% YoY (Diluted EPS $0.20)</td>
+      <td><strong>Marketplace Take Rate</strong></td>
+      <td>19.4%</td>
+      <td>19.8%</td>
+      <td>+40 bps</td>
+      <td>Driven by higher monetization, ads & Connects</td>
     </tr>
     <tr>
-      <td>Non-GAAP Net Income per Share</td>
-      <td>$0.41</td>
-      <td>$0.35</td>
-      <td>+17.1% YoY (Beat consensus $0.34)</td>
-    </tr>
-    <tr>
-      <td>Free Cash Flow (FCF)</td>
-      <td>$35.9M</td>
-      <td>$65.6M</td>
-      <td>-45.2% YoY (Reflects $13.8M cash restructuring)</td>
-    </tr>
-    <tr>
-      <td>Active Client Count</td>
-      <td>763,000</td>
+      <td><strong>Active Clients</strong></td>
       <td>796,000</td>
-      <td>-4.1% YoY (Down from 784,000 in Q1 2026)</td>
+      <td>763,000</td>
+      <td>-4.1%</td>
+      <td>SEO headwinds & top-of-funnel customer drop</td>
     </tr>
     <tr>
-      <td>AI-Related Work GSV Run-Rate</td>
-      <td>~$330M</td>
-      <td>~$270M</td>
-      <td>+22.0% YoY (+5.0% QoQ)</td>
+      <td><strong>GAAP Net Income</strong></td>
+      <td>$32.7M</td>
+      <td>$25.4M</td>
+      <td>-22.3%</td>
+      <td>Includes $13.8M pre-tax restructuring costs</td>
+    </tr>
+    <tr>
+      <td><strong>Free Cash Flow (FCF)</strong></td>
+      <td>$65.6M</td>
+      <td>$35.9M</td>
+      <td>-45.3%</td>
+      <td>Restructuring cash payouts reduced Q2 cash conversion</td>
+    </tr>
+    <tr>
+      <td><strong>FY 2026 Revenue Guidance</strong></td>
+      <td>$760M - $790M</td>
+      <td>$730M - $750M</td>
+      <td>-4.5% (mid)</td>
+      <td>Cut due to SEO updates & macro/AI task shift</td>
+    </tr>
+    <tr>
+      <td><strong>FY 2026 Adj. EBITDA Guidance</strong></td>
+      <td>$210M - $225M</td>
+      <td>$225M - $235M</td>
+      <td>+5.7% (mid)</td>
+      <td>Raised profitability target via $70M OpEx savings</td>
     </tr>
   </tbody>
 </table></div>
-
-<h3>Balance Sheet Strength & Capital Allocation Cannibalization</h3>
-
-<p>A core anchor of our valuation is Upwork's balance sheet structure. As of June 30, 2026, the company held $476.0M in cash and cash equivalents alongside $138.2M in marketable securities, providing total liquid reserves of $614.2M. Set against $360.7M in 0.25% convertible notes due late 2026, Upwork possesses a net cash balance of $253.5M—equivalent to approximately $1.95 per share, or 22% of the current market capitalization.</p>
-
-<p>Management is utilizing this cash generation to cannibalize share count at depressed valuations:</p>
-<ul>
-  <li><strong>H1 2026 Repurchases:</strong> Repurchased 8.3 million shares for $109.7M in the first six months of 2026 alone.</li>
-  <li><strong>Remaining Authorization:</strong> $254.3M remains open under the $300M share repurchase program authorized in February 2026.</li>
-  <li><strong>Capital Flexibility:</strong> Secured a new $150M revolving credit facility (+ $50M accordion) in Q2 to ensure ample liquidity for ongoing repurchases.</li>
-</ul>
-
-<h3>Warren Buffett Owner Earnings & Intrinsic Valuation</h3>
-
-<p>Applying Warren Buffett's 7-Pillar Owner Earnings framework, we evaluate organic cash generation after accounting for Stock-Based Compensation (SBC) as a real cash expense:</p>
-
-<ol>
-  <li><strong>Normalized Owner Earnings Calculation:</strong>
-    <ul>
-      <li>Normalized Annual Operating Cash Flow: ~$165.0M (reflecting $70M annualized cost savings post-20% workforce restructuring).</li>
-      <li>Less Maintenance CapEx (incl. capitalized software): -$25.0M.</li>
-      <li>Less Stock-Based Compensation (100% deduction): -$58.0M.</li>
-      <li><strong>Normalized Annual Owner Earnings:</strong> ~$82.0M (~$0.64 per share on ~128M diluted shares).</li>
-    </ul>
-  </li>
-  <li><strong>Discounting Framework:</strong> Grounded in the US 10-Year Treasury Yield (~4.25%) plus a 5.0% equity hurdle rate, yielding a 9.25% discount rate. Terminal growth rate is capped at 2.0% (below long-term GDP).</li>
-</ol>
 
 <div class="callout">
-<strong>The 5-Year Exchange Closure Test:</strong> At the current market cap of ~$1.14B ($8.76/share), the market is pricing EV at ~$885.5M (Market Cap minus Net Cash). An EV / Owner Earnings multiple of ~10.8x provides a substantial margin of safety, even if top-line growth remains stagnant over the medium term.
+<strong>Key Operational Insight:</strong> Upwork is undergoing a bifurcation in its platform dynamics. While basic transactional tasks (copywriting, basic coding, entry-level translation) are being automated by LLMs, spend per client is rising rapidly. GSV per active client hit a record high of $5,230 (+5% YoY, 8th consecutive quarter of growth), and AI-related work GSV expanded over 22% YoY, with AI Strategy & Consulting up 51% YoY. Upwork is transforming into an enterprise-grade platform for high-complexity contingent labor.
 </div>
 
-<h3>3-Scenario Fundamental Valuation Matrix</h3>
+---
 
-<div class="table-scroll-wrap"><table>
-  <thead>
-    <tr>
-      <th>Valuation Scenario</th>
-      <th>Revenue Growth & Margin Profile</th>
-      <th>Annual Owner Earnings</th>
-      <th>Intrinsic Value Per Share</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>Bear Case</strong></td>
-      <td>SEO headwinds worsen; AI task decay shrinks revenue to $700M; EBITDA margin drops to 25%.</td>
-      <td>$50.0M ($0.40/sh)</td>
-      <td><strong>$8.50</strong></td>
-    </tr>
-    <tr>
-      <td><strong>Base Case (Target)</strong></td>
-      <td>Revenue stabilizes at $740M-$750M; EBITDA margins hold at 32-34%; aggressive buybacks reduce shares to 118M.</td>
-      <td>$85.0M ($0.72/sh)</td>
-      <td><strong>$13.50</strong></td>
-    </tr>
-    <tr>
-      <td><strong>Bull Case</strong></td>
-      <td>AI work ($330M+ run rate) and Business Plus SMB scale rapidly; revenue re-accelerates to $800M+; EBITDA margin hits 35%.</td>
-      <td>$120.0M ($1.05/sh)</td>
-      <td><strong>$18.50</strong></td>
-    </tr>
-  </tbody>
-</table></div>
+### Strategic Disruption vs. Re-Acceleration Vectors
 
-<h3>Pre-Mortem Thesis Falsification Triggers & Surveillance Corridors</h3>
+#### Headwinds Driving Top-Line Friction
+1. **Google SEO Referral Deterioration:** Changes in Google's search algorithms have reduced organic traffic referrals for top-of-funnel freelancer searches, raising customer acquisition costs.
+2. **AI Task Automation Churn:** Low-complexity digital tasks are being replaced directly by end-user AI tools, reducing overall active client counts to 763,000 (-4% YoY).
 
-<p>To guard against value-trap dynamics, we maintain strict surveillance over the following operational triggers:</p>
+#### Strategic Growth Drivers & Moat Defense
+* **Enterprise & Lifted Platform Momentum:** GSV from the Employer of Record (EOR) offering inside Enterprise Solutions surged 29% YoY, while Enterprise GSV per account rose 7%. Management reiterated its target for ~25% Enterprise GSV growth in 2026.
+* **AI Tool Integration & Model Context Protocol (MCP):** Upwork launched its Model Context Protocol (MCP) server, integrating talent sourcing directly into Anthropic’s Claude and OpenAI’s ChatGPT. This allows AI agents and human users to hire and deploy freelance talent natively inside third-party AI interfaces.
+* **Aggressive Cost Restructuring:** Upwork executed a 20%+ workforce reduction in Q2 2026 (targeting 24% total reduction), driving $70M in annualized OpEx savings and pushing Adjusted EBITDA margins to 33.4%.
 
-<ul>
-  <li><strong>Lower Alert Threshold ($7.50):</strong> Triggered if organic active client erosion accelerates below 730,000 or if EBITDA margins degrade back below 25% due to inefficient paid customer acquisition spend.</li>
-  <li><strong>Upper Alert Threshold ($11.50):</strong> Triggered if GSV stabilizes YoY, organic traffic re-accelerates, or AI-related category growth exceeds $400M annualized run rate, initiating a fair-value convergence review.</li>
-  <li><strong>Next Catalyst Date:</strong> Q3 2026 Financial Results release, confirmed for November 3, 2026.</li>
-</ul>
+---
 
-</div>
+### Warren Buffett Owner Earnings & Intrinsic Valuation
+
+To value Upwork with zero reliance on speculative exit multiples, we calculate normalized **Owner Earnings** (Operating Cash Flow minus Maintenance CapEx minus 100% Stock-Based Compensation) as defined in Warren Buffett’s 1986 Berkshire Hathaway Shareholder Letter.
+
+FY 2026 Owner Earnings Bridge (Midpoint Guidance):
+   Guided FY 2026 Adjusted EBITDA:                    $230.0M
+   (-) Cash Taxes & Interest Income Net:             ($12.0M)
+   (-) Working Capital Changes & Restructuring:      ($35.0M)
+   ===========================================================
+   Estimated Operating Cash Flow:                     $183.0M
+   (-) Maintenance CapEx (Software & Dev):           ($17.5M)
+   (-) Stock-Based Compensation (100% Cash Cost):     ($62.5M)
+   ===========================================================
+   Normalized FY 2026 Owner Earnings:                 $103.0M
+   Diluted Shares Outstanding:                        132.0M
+   -----------------------------------------------------------
+   Owner Earnings Per Share:                          $0.78
+#### Balance Sheet Reality & Net Cash Bridge
+* **Cash & Equivalents:** $476.0M
+* **Marketable Securities:** $138.2M
+* **Total Gross Cash & Investments:** $614.2M
+* **Convertible Notes (0.25% due late 2026):** $361.0M
+* **Operating Lease Liabilities:** ~$12.0M
+* **Net Cash Position:** **$241.2M** ($1.83 per share on 132M shares).
+* *Note:* Upwork also established a new, undrawn $150M revolving credit facility to backstop the 2026 convertible note maturity if needed.
+
+#### Share Buyback Cannibal Compounding
+During H1 2026, Upwork deployed $109.7M to repurchase 8.3M shares, reducing total diluted shares toward 132M. With $254.3M remaining under its board authorization
                         </div>
                     </div>
                 </div>

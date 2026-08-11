@@ -10,15 +10,15 @@ from stocks.data_store import load_watchlist, save_watchlist, get_stock
 
 
 TICKER_ALIASES = {
-    "CSU": ["CSU.TO", "CNSWF", "CSU"],
-    "CSU.TO": ["CSU.TO", "CNSWF", "CSU"],
+    "CSU": ["CNSWF", "CSU.TO", "CSU"],
+    "CSU.TO": ["CNSWF", "CSU.TO", "CSU"],
     "BYD": ["BYDDY", "BYDDF", "1211.HK", "BYD"],
     "BVHMF": ["BVHMF", "BVHM.PA"],
 }
 
 
 def get_ticker_candidates(ticker: str) -> List[str]:
-    """Returns candidate ticker variations (e.g. TSX, OTC, HK, Paris suffixes)."""
+    """Returns candidate ticker variations prioritizing USD OTC/ADRs."""
     clean = ticker.upper().strip()
     candidates = TICKER_ALIASES.get(clean, [])
     if clean not in candidates:

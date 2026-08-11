@@ -599,6 +599,7 @@ You have full analytical freedom to evaluate the new facts and determine the evo
    - Formulate a clear 2-3 sentence executive evolution summary for "what_changes_now".
 5. Warren Buffett Owner Earnings & Intrinsic Value Framework:
    - Update fair value and Bear / Base / Bull scenario targets using Warren Buffett's 7-pillar Owner Earnings methodology (Post-SBC cash flow minus maintenance CapEx, lease debt/float bridge, share count reduction from buybacks, strictly discounting via local sovereign bond yields, zero arbitrary exit multiples).
+   - [MANDATORY CURRENCY DIRECTIVE]: ALL financial figures, share prices, intrinsic fair values, scenario targets (Bear/Base/Bull), and price corridors MUST ALWAYS BE CONVERTED TO AND PRESENTED IN US DOLLARS (USD / $) with a leading '$' symbol (e.g. '$2,320.00', '$2,950.00'). NEVER output 'C$', 'CAD', 'HK$', 'EUR', or other non-USD currency prefixes.
 6. Self-Healing Catalyst Date Update Rule:
    - "next_catalyst_date" MUST ALWAYS BE IN STRICT "YYYY-MM-DD" FORMAT (e.g. 2026-11-18).
    - If on the trigger date after market close no earnings release or event has occurred (or the event was rescheduled), search investor relations for the newly confirmed or estimated date, set "next_catalyst_date" to the new YYYY-MM-DD, and explain in "what_changes_now" that the calendar date has been refreshed.
