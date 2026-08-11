@@ -1,5 +1,24 @@
 [
   {
+    "id": "alert-upwk-q2-2026-audit",
+    "ticker": "UPWK",
+    "timestamp": "2026-08-11 10:35",
+    "title": "UPWK Q2 Earnings Audit: Revenue Guidance Trimmed on SEO/AI Friction; EBITDA Margins Hit 33.4% & Buybacks Accelerate",
+    "severity": "Cautious Stance",
+    "labels": [
+      "Cautious Stance",
+      "Buyback Cannibal",
+      "Cash Fortress"
+    ],
+    "action_signal": "CAUTION",
+    "trigger_reason": "Catalyst Date Reached: Q2 2026 Earnings Release & Call Audit",
+    "what_was_before": "Initial Genesis Baseline: Upwork presented a compelling setup at under 10x Owner Earnings with M net cash, assuming top-line stabilization and workforce cost savings.",
+    "what_changes_now": "Upwork reported Q2 2026 revenue of .7M (-2% YoY) and record Adjusted EBITDA of .1M (33.4% margin), but trimmed full-year revenue guidance to M-M due to Google SEO disruption and low-complexity task erosion from AI automation. However, aggressive share repurchases (.7M deployed in H1 2026) and a pristine .5M net cash balance (.95/share) provide strong downside protection. We shift to a Cautious Stance while anchoring our Base Case fair value at .50.",
+    "price_at_alert": 8.76,
+    "price_change_pct": -9.41,
+    "report_url": "reports/UPWK.html"
+  },
+  {
     "id": "alert-csu-1786462090",
     "ticker": "CSU",
     "timestamp": "2026-08-11 15:28",
@@ -17,23 +36,6 @@
     "price_at_alert": 100.0,
     "price_change_pct": 0.0,
     "report_url": "reports/CSU.html"
-  },
-  {
-    "id": "alert-upwk-1786461870",
-    "ticker": "UPWK",
-    "timestamp": "2026-08-11 10:24",
-    "title": "UPWK Review at $8.76",
-    "severity": "Review",
-    "labels": [
-      "Review"
-    ],
-    "action_signal": "BUY",
-    "trigger_reason": "Catalyst Date Reached (2026-08-10: Q2 2026 Earnings Release)",
-    "what_was_before": "Upwork presents a compelling asymmetric setup, trading at under 10x post-SBC Owner Earnings with $204M in net cash (~17% of market cap) and an aggressive buyback program that repurchased 8.1M shares ($108M) in Q1 2026 alone. While near-term revenue growth remains muted (+1% YoY in Q1 2026) due to macro hiring headwinds, a sweeping 24% workforce reduction and target 35% EBITDA margins establish massive operating leverage as AI-related services scale past $300M annualized.",
-    "what_changes_now": "Stock moved to $8.76 (-9.4%).",
-    "price_at_alert": 8.76,
-    "price_change_pct": -9.41,
-    "report_url": "reports/UPWK.html"
   },
   {
     "id": "alert-csu-1786461810",

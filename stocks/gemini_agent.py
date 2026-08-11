@@ -192,23 +192,84 @@ def call_gemini_with_search(prompt: str, system_instruction: str = "", temperatu
 
 
 def extract_json_block(text: str) -> Dict[str, Any]:
-    """Extracts a JSON object from markdown code fences or raw text."""
-    match = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", text, re.DOTALL)
-    if match:
+    """Robustly extracts a JSON object from markdown code fences or raw text,
+    with trailing comma cleanup, bracket counting, and regex field-level fallback."""
+    if not text:
+        return {}
+
+    # 1. Search for JSON markdown code blocks
+    matches = re.findall(r"```(?:json)?\s*(\{.*?\})\s*```", text, re.DOTALL)
+    for raw_json in matches:
+        cleaned_json = re.sub(r",\s*([\]}])", r"\1", raw_json)
         try:
-            return json.loads(match.group(1))
+            return json.loads(cleaned_json)
         except Exception:
             pass
-    
-    # Fallback to finding outermost JSON braces
-    start = text.find("{")
-    end = text.rfind("}")
-    if start != -1 and end != -1 and end > start:
-        try:
-            return json.loads(text[start:end+1])
-        except Exception:
-            pass
-    return {}
+
+    # 2. Search for the first balanced { ... } block before HTML content begins
+    first_brace = text.find("{")
+    if first_brace != -1:
+        depth = 0
+        end_idx = -1
+        in_string = False
+        escape = False
+        for idx in range(first_brace, len(text)):
+            ch = text[idx]
+            if ch == '"' and not escape:
+                in_string = not in_string
+            elif not in_string:
+                if ch == '{':
+                    depth += 1
+                elif ch == '}':
+                    depth -= 1
+                    if depth == 0:
+                        end_idx = idx
+                        break
+            escape = (ch == '\\' and not escape)
+
+        if end_idx != -1:
+            candidate = text[first_brace:end_idx+1]
+            cleaned_candidate = re.sub(r",\s*([\]}])", r"\1", candidate)
+            try:
+                return json.loads(cleaned_candidate)
+            except Exception:
+                pass
+
+    # 3. Resilient regex field extraction fallback
+    data = {}
+    patterns = {
+        "alert_title": r'"alert_title"\s*:\s*"([^"]+)"',
+        "alert_severity": r'"alert_severity"\s*:\s*"([^"]+)"',
+        "action_signal": r'"action_signal"\s*:\s*"([^"]+)"',
+        "what_was_before": r'"what_was_before"\s*:\s*"([^"]+)"',
+        "what_changes_now": r'"what_changes_now"\s*:\s*"([^"]+)"',
+        "executive_summary": r'"executive_summary"\s*:\s*"([^"]+)"',
+        "fair_value_estimate": r'"(?:fair_value_estimate|new_fair_value)"\s*:\s*"([^"]+)"',
+        "bear_target": r'"(?:bear_target|new_bear_target)"\s*:\s*"([^"]+)"',
+        "base_target": r'"(?:base_target|new_base_target)"\s*:\s*"([^"]+)"',
+        "bull_target": r'"(?:bull_target|new_bull_target)"\s*:\s*"([^"]+)"',
+        "next_catalyst_date": r'"next_catalyst_date"\s*:\s*"([^"]+)"',
+        "next_catalyst_event": r'"next_catalyst_event"\s*:\s*"([^"]+)"',
+    }
+    for key, pat in patterns.items():
+        m = re.search(pat, text, re.IGNORECASE)
+        if m:
+            data[key] = m.group(1).strip()
+
+    labels_match = re.search(r'"labels"\s*:\s*\[(.*?)\]', text, re.DOTALL)
+    if labels_match:
+        raw_labels = re.findall(r'"([^"]+)"', labels_match.group(1))
+        if raw_labels:
+            data["labels"] = raw_labels
+
+    upper_m = re.search(r'"(?:upper_alert_threshold|new_upper_alert_threshold)"\s*:\s*([0-9.]+)', text)
+    if upper_m:
+        data["upper_alert_threshold"] = float(upper_m.group(1))
+    lower_m = re.search(r'"(?:lower_alert_threshold|new_lower_alert_threshold)"\s*:\s*([0-9.]+)', text)
+    if lower_m:
+        data["lower_alert_threshold"] = float(lower_m.group(1))
+
+    return data
 
 
 def verify_and_repair_html_structure(html: str) -> str:
@@ -574,24 +635,29 @@ Part 2: Updated HTML memo content reflecting the evolution of the thesis.
     html_content = verify_and_repair_html_structure(clean_grounding_artifacts(html_content.strip()))
 
     if not metadata:
-        metadata = {
-            "alert_title": f"{ticker.upper()} Review at ${current_price:.2f}",
-            "alert_severity": "Review",
-            "labels": ["Review"],
-            "what_was_before": previous_thesis_summary,
-            "what_changes_now": f"Stock moved to ${current_price:.2f} ({price_change_pct:+.1f}%).",
-            "new_fair_value": f"${current_price * 1.15:.2f}",
-            "new_bear_target": f"${current_price * 0.8:.2f}",
-            "new_base_target": f"${current_price * 1.15:.2f}",
-            "new_bull_target": f"${current_price * 1.45:.2f}",
-            "new_upper_alert_threshold": round(current_price * 1.15, 2),
-            "lower_alert_threshold": round(current_price * 0.88, 2),
-            "next_catalyst_date": "Next Earnings",
-            "next_catalyst_event": "Scheduled report"
-        }
+        metadata = {}
 
-    metadata["labels"] = sanitize_labels(metadata.get("labels") or metadata.get("alert_severity"))
-    metadata["alert_severity"] = metadata["labels"][0] if metadata["labels"] else "Review"
+    # Extract first paragraph/callout from HTML if what_changes_now is missing
+    what_changes = metadata.get("what_changes_now", "").strip()
+    if not what_changes or len(what_changes) < 25:
+        callout_m = re.search(r'<div class="callout"[^>]*>(.*?)</div>', html_content, re.DOTALL | re.IGNORECASE)
+        if callout_m:
+            raw_c = re.sub(r'<[^>]+>', ' ', callout_m.group(1)).strip()
+            what_changes = " ".join(raw_c.split()[:45])
+        else:
+            first_p = re.search(r'<p[^>]*>(.*?)</p>', html_content, re.DOTALL | re.IGNORECASE)
+            if first_p:
+                raw_p = re.sub(r'<[^>]+>', ' ', first_p.group(1)).strip()
+                what_changes = " ".join(raw_p.split()[:45])
+            else:
+                what_changes = f"Comprehensive surveillance review completed following {trigger_reason}. Living thesis, intrinsic fair value, and operating scenarios updated."
+
+    metadata["what_changes_now"] = what_changes
+    metadata["what_was_before"] = metadata.get("what_was_before") or previous_thesis_summary
+    metadata["action_signal"] = normalize_action_signal(metadata.get("action_signal", "BUY"))
+    metadata["labels"] = sanitize_labels(metadata.get("labels") or metadata.get("alert_severity") or [previous_status])
+    metadata["alert_title"] = metadata.get("alert_title") or f"{ticker.upper()}: Thesis Evolved Following {trigger_reason}"
     metadata["next_catalyst_date"] = normalize_catalyst_date(metadata.get("next_catalyst_date"))
+    metadata["next_catalyst_event"] = metadata.get("next_catalyst_event") or "Upcoming Earnings Report"
 
     return metadata, html_content

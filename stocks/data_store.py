@@ -63,13 +63,17 @@ def load_alerts() -> List[AlertItem]:
         return []
 
 
+def save_alerts(alerts: List[AlertItem]):
+    _ensure_dirs()
+    with open(ALERTS_FILE, "w", encoding="utf-8") as f:
+        json.dump([a.model_dump() for a in alerts[:200]], f, indent=2)
+
+
 def add_alert(alert: AlertItem):
     _ensure_dirs()
     alerts = load_alerts()
     alerts.insert(0, alert)  # Newest first
-    alerts = alerts[:200]
-    with open(ALERTS_FILE, "w", encoding="utf-8") as f:
-        json.dump([a.model_dump() for a in alerts], f, indent=2)
+    save_alerts(alerts)
 
 
 # ==================== THESIS HISTORY ====================
@@ -91,16 +95,21 @@ def load_thesis_history(ticker: str) -> List[ThesisVersion]:
         return []
 
 
-def save_thesis_version(ticker: str, version: ThesisVersion, reset: bool = False):
+def save_thesis_history(ticker: str, history: List[ThesisVersion]):
     _ensure_dirs()
     file_path = get_thesis_file(ticker)
+    with open(file_path, "w", encoding="utf-8") as f:
+        json.dump([v.model_dump() for v in history], f, indent=2)
+
+
+def save_thesis_version(ticker: str, version: ThesisVersion, reset: bool = False):
+    _ensure_dirs()
     if reset or version.version == 1:
         history = [version]
     else:
         history = load_thesis_history(ticker)
         history.append(version)
-    with open(file_path, "w", encoding="utf-8") as f:
-        json.dump([v.model_dump() for v in history], f, indent=2)
+    save_thesis_history(ticker, history)
 
 
 # ==================== TASK QUEUE ====================
