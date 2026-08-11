@@ -96,6 +96,7 @@ def sanitize_labels(labels: Any) -> List[str]:
         else:
             labels = []
     
+    GENERIC_BLACKLIST = {"REVIEW", "ALERT", "UPDATE", "TASK", "STOCK", "STATUS", "NEW", "NONE", "PRICE"}
     clean_list = []
     for lbl in labels:
         if not isinstance(lbl, str):
@@ -103,7 +104,7 @@ def sanitize_labels(labels: Any) -> List[str]:
         words = [w for w in lbl.replace("/", " ").replace("-", " ").replace("&", " ").split() if w.strip()]
         if words:
             short_lbl = " ".join(words[:2]).title()
-            if short_lbl not in clean_list:
+            if short_lbl.upper() not in GENERIC_BLACKLIST and short_lbl not in clean_list:
                 clean_list.append(short_lbl)
         if len(clean_list) >= 3:
             break
