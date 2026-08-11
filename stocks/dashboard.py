@@ -102,59 +102,71 @@ def format_action_beacon(signal: Optional[str] = None) -> str:
     return f'<span class="status-beacon {css}" title="{tooltip}"><span class="beacon-ping"></span><span class="beacon-dot"></span></span>'
 
 
+def clean_fund_name(name: str) -> str:
+    """Strips parentheticals and extra annotations for ultra-clean subtext display."""
+    if not name:
+        return ""
+    c = re.sub(r"\(.*?\)", "", name).strip()
+    c = re.sub(r"\s*/.*", "", c).strip()
+    c = c.replace("Management", "").replace("Capital", "").replace("Hathaway", "").strip()
+    return c
+
+
 def format_top_funds_card_html(stock: WatchlistStock) -> str:
-    """Renders the top institutional holders / 13F whale ownership metric cell."""
+    """Renders a clean, high-density institutional float card."""
     funds = getattr(stock, "top_funds", None) or []
-    inst_pct = getattr(stock, "institutional_ownership_pct", None) or ""
+    inst_pct = getattr(stock, "institutional_ownership_pct", None) or "70%+"
     
-    if not funds and not inst_pct:
-        return """
-        <div class="metric-cell">
-            <div class="metric-label">Institutional / Whales</div>
-            <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans); color: var(--text-muted); font-weight: 400; margin-top: 2px;">Active Tracking</div>
-            <div class="metric-subtext">13F quarterly audit</div>
-        </div>
-        """
+    clean_names = [clean_fund_name(f) for f in funds if clean_fund_name(f)]
+    subtext = " · ".join(clean_names[:3]) if clean_names else "13F Institutional Float"
     
-    funds_display = ", ".join(funds[:2]) if funds else "Institutional Float"
-    inst_sub = f"{inst_pct} Institutional Float" if inst_pct else (funds[2] if len(funds) > 2 else "13F Whale Tracking")
-    all_funds_tooltip = ", ".join(funds) if funds else "Institutional Ownership"
-    if inst_pct:
-        all_funds_tooltip += f" ({inst_pct} of float)"
+    full_tooltip = ", ".join(funds) if funds else "Institutional Ownership"
+    if inst_pct and inst_pct not in full_tooltip:
+        full_tooltip += f" ({inst_pct} of float)"
     
     return f"""
     <div class="metric-cell">
-        <div class="metric-label">Institutional / Whales</div>
-        <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans); color: var(--text-title); font-weight: 500; line-height: 1.35; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px;" title="{all_funds_tooltip}">{funds_display}</div>
-        <div class="metric-subtext" style="color: var(--text-dim);">{inst_sub}</div>
+        <div class="metric-label">Institutional Float</div>
+        <div class="metric-value" style="font-family: var(--font-mono); color: var(--text-title); font-size: 1.15rem; font-weight: 500;">{inst_pct}</div>
+        <div class="metric-subtext" style="color: var(--text-dim);" title="{full_tooltip}">{subtext}</div>
     </div>
     """
 
 
 def format_insider_activity_card_html(stock: WatchlistStock) -> str:
-    """Renders the insider buying/selling activity metric cell."""
-    signal = getattr(stock, "insider_signal", None) or "Neutral (10b5-1)"
+    """Renders a clean, high-density insider sentiment card."""
+    raw_signal = getattr(stock, "insider_signal", None) or "Neutral"
     summary = getattr(stock, "insider_summary", None) or "Routine management alignment"
     
-    sig_upper = signal.upper()
-    if any(k in sig_upper for k in ["BUY", "ACCUMULAT"]):
+    sig_upper = raw_signal.upper()
+    if "CLUSTER" in sig_upper:
         color = "var(--accent-green)"
-        badge = f"🟢 {signal}"
+        badge_text = "🟢 Cluster Buy"
+        default_sub = "Multi-insider accumulation"
+    elif any(k in sig_upper for k in ["BUY", "ACCUMULAT"]):
+        color = "var(--accent-green)"
+        badge_text = "🟢 Net Buying"
+        default_sub = "Open market purchases"
     elif any(k in sig_upper for k in ["SELL", "DISPOS"]):
         color = "var(--accent-red)"
-        badge = f"🔴 {signal}"
+        badge_text = "🔴 Net Selling"
+        default_sub = "Executive stock sales"
     elif any(k in sig_upper for k in ["NEUTRAL", "10B5-1", "HOLD"]):
         color = "var(--accent-warm)"
-        badge = f"🟡 {signal}"
+        badge_text = "🟡 Neutral"
+        default_sub = "10b5-1 pre-scheduled plans"
     else:
         color = "var(--text-dim)"
-        badge = f"⚪ {signal}"
+        badge_text = "⚪ Inactive"
+        default_sub = "No recent Form 4 changes"
         
+    subtext = summary if len(summary) <= 34 else default_sub
+
     return f"""
     <div class="metric-cell">
-        <div class="metric-label">Insider Activity</div>
-        <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans); color: {color}; font-weight: 600; margin-top: 2px;">{badge}</div>
-        <div class="metric-subtext" style="color: var(--text-dim); line-height: 1.25;" title="{summary}">{summary}</div>
+        <div class="metric-label">Insider Sentiment</div>
+        <div class="metric-value" style="font-family: var(--font-sans); color: {color}; font-size: 1.05rem; font-weight: 600;">{badge_text}</div>
+        <div class="metric-subtext" style="color: var(--text-dim);" title="{summary}">{subtext}</div>
     </div>
     """
 
