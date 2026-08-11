@@ -213,14 +213,29 @@ def fetch_and_cache_complete_ownership(ticker: str, company_name: str) -> Dict[s
                 "summary": f"Complete regulatory audit of insider Form 4 transactions and institutional 13F/13D filings for {company_name}.",
                 "url": f"https://whalewisdom.com/stock/{clean_t}"
             }
-        ]
-    
-    # 4. Save cache
+    # 4. Rigorously test and sanitize every URL before caching (Zero-404 Guarantee)
+    sanitized_writeups = []
+    for w in writeups:
+        raw_url = w.get("url", "")
+        link_info = verify_and_sanitize_url(
+            raw_url,
+            clean_t,
+            company_name,
+            w.get("fund", ""),
+            w.get("title", "")
+        )
+        sanitized_writeups.append({
+            **w,
+            "url": link_info["url"],
+            "btn_label": link_info["label"]
+        })
+
+    # 5. Save verified cache
     cached_data = {
         "ticker": clean_t,
         "openinsider_trades": oi_trades,
         "dataroma_holders": dr_holders,
-        "researched_writeups": writeups,
+        "researched_writeups": sanitized_writeups,
         "updated_at": time.strftime("%Y-%m-%d %H:%M:%S")
     }
     
