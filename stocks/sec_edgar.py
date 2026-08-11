@@ -167,8 +167,9 @@ def check_sec_filing_triggers() -> int:
             if acc in cached_accs:
                 continue
 
-            # We care about 8-K (Material events), 10-Q (Quarterly report), 10-K (Annual report)
-            if form in ["8-K", "8-K/A", "10-Q", "10-K"]:
+            # We care about 8-K (US Material events), 6-K (Foreign Private Issuer Material events), 
+            # 10-Q/10-K (US Quarterly/Annual reports), 20-F/40-F (Foreign Annual reports)
+            if form in ["8-K", "8-K/A", "6-K", "6-K/A", "10-Q", "10-K", "20-F", "40-F"]:
                 # Parse Item labels
                 item_meanings = []
                 if raw_items:
@@ -179,7 +180,7 @@ def check_sec_filing_triggers() -> int:
                         elif itm_clean:
                             item_meanings.append(f"Item {itm_clean}")
 
-                item_summary = "; ".join(item_meanings) if item_meanings else (desc or "Material Corporate Event")
+                item_summary = "; ".join(item_meanings) if item_meanings else (desc or "Foreign/Domestic Material Corporate Filing")
                 trigger_reason = f"SEC {form} Filing ({f_date}): {item_summary} [Accession #{acc}]"
 
                 print(f"🚨 [SEC FILING TRIGGER] {ticker}: {trigger_reason}")
@@ -196,6 +197,52 @@ def check_sec_filing_triggers() -> int:
                 cached_accs.add(acc)
                 triggered_count += 1
                 updated_cache = True
+
+    # Check international / OTC tickers without SEC CIKs via Free Corporate News Wire
+    for ticker, stock in watchlist.items():
+        if get_cik_for_ticker(ticker, cik_map):
+            continue  # Already monitored via SEC EDGAR
+
+        # Fetch free RSS headline feed
+        try:
+            from stocks.tracker import TICKER_ALIASES
+            search_sym = TICKER_ALIASES.get(ticker, [ticker])[0]
+            rss_url = f"https://feeds.finance.yahoo.com/rss/2.0/headline?s={search_sym}"
+            r = requests.get(rss_url, headers={"User-Agent": "Mozilla/5.0"}, timeout=6)
+            if r.status_code == 200:
+                root = ET.fromstring(r.content)
+                items = root.findall("./channel/item")
+                cached_news = set(filings_cache.get(ticker, []))
+                
+                if ticker not in filings_cache:
+                    filings_cache[ticker] = [it.find("link").text for it in items[:10] if it.find("link") is not None]
+                    updated_cache = True
+                    continue
+
+                for it in items[:3]:
+                    link = it.find("link").text if it.find("link") is not None else ""
+                    title = it.find("title").text if it.find("title") is not None else ""
+                    pub_date = it.find("pubDate").text if it.find("pubDate") is not None else ""
+
+                    if link and link not in cached_news:
+                        # Check if title indicates material corporate news (earnings, results, acquisition, guidance)
+                        title_lower = title.lower()
+                        if any(kw in title_lower for kw in ["earnings", "results", "revenue", "guidance", "acquires", "acquisition", "quarter", "dividend", "financial report"]):
+                            trigger_reason = f"International Corporate Wire ({pub_date}): {title}"
+                            print(f"🚨 [INTL NEWS TRIGGER] {ticker}: {trigger_reason}")
+                            enqueue_task(TaskItem(
+                                id=f"news_{ticker}_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
+                                task_type="REVIEW",
+                                ticker=ticker,
+                                notes=trigger_reason
+                            ))
+                            triggered_count += 1
+
+                        filings_cache.setdefault(ticker, []).append(link)
+                        cached_news.add(link)
+                        updated_cache = True
+        except Exception:
+            continue
 
     if updated_cache:
         save_filings_cache(filings_cache)
