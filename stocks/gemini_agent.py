@@ -252,6 +252,9 @@ def extract_json_block(text: str) -> Dict[str, Any]:
         "bull_target": r'"(?:bull_target|new_bull_target)"\s*:\s*"([^"]+)"',
         "next_catalyst_date": r'"next_catalyst_date"\s*:\s*"([^"]+)"',
         "next_catalyst_event": r'"next_catalyst_event"\s*:\s*"([^"]+)"',
+        "institutional_ownership_pct": r'"institutional_ownership_pct"\s*:\s*"([^"]+)"',
+        "insider_signal": r'"insider_signal"\s*:\s*"([^"]+)"',
+        "insider_summary": r'"insider_summary"\s*:\s*"([^"]+)"',
     }
     for key, pat in patterns.items():
         m = re.search(pat, text, re.IGNORECASE)
@@ -263,6 +266,12 @@ def extract_json_block(text: str) -> Dict[str, Any]:
         raw_labels = re.findall(r'"([^"]+)"', labels_match.group(1))
         if raw_labels:
             data["labels"] = raw_labels
+
+    funds_match = re.search(r'"top_funds"\s*:\s*\[(.*?)\]', text, re.DOTALL)
+    if funds_match:
+        raw_funds = re.findall(r'"([^"]+)"', funds_match.group(1))
+        if raw_funds:
+            data["top_funds"] = raw_funds
 
     upper_m = re.search(r'"(?:upper_alert_threshold|new_upper_alert_threshold)"\s*:\s*([0-9.]+)', text)
     if upper_m:
@@ -434,6 +443,10 @@ Return your plan strictly as a JSON object in ```json ... ```:
     "lower_trigger_reason": "<Short reason>",
     "next_catalyst_date": "<YYYY-MM-DD (Strict ISO date, e.g. 2026-08-13; if unconfirmed, estimate exact calendar day based on historical reporting cadence)>",
     "next_catalyst_event": "<Short description of catalyst, max 4 words>",
+    "top_funds": ["<Top Fund 1 (e.g. Vanguard 8.4%)>", "<Top Fund 2 (e.g. BlackRock 7.1%)>", "<Whale/Superinvestor 3>"],
+    "institutional_ownership_pct": "<e.g. 78.4%>",
+    "insider_signal": "<Net Buying | Cluster Buying | Neutral (10b5-1) | Net Selling | No Activity>",
+    "insider_summary": "<Crisp 1-line summary of recent Form 4 insider purchases/sales or management alignment, max 10 words>",
     "executive_summary": "<2-3 sentence crisp executive summary>"
   }},
   "research_objective": "<Your custom summary of the core thesis questions for {ticker}>",
@@ -622,7 +635,11 @@ Part 1: JSON metadata in ```json ... ```:
   "new_upper_alert_threshold": <New upper price trigger>,
   "new_lower_alert_threshold": <New lower price trigger>,
   "next_catalyst_date": "<YYYY-MM-DD (Strict ISO date for next catalyst, e.g. 2026-11-18)>",
-  "next_catalyst_event": "<Upcoming Event max 4 words>"
+  "next_catalyst_event": "<Upcoming Event max 4 words>",
+  "top_funds": ["<Top Fund 1 (e.g. Vanguard 8.4%)>", "<Top Fund 2 (e.g. BlackRock 7.1%)>", "<Whale/Superinvestor 3>"],
+  "institutional_ownership_pct": "<e.g. 78.4%>",
+  "insider_signal": "<Net Buying | Cluster Buying | Neutral (10b5-1) | Net Selling | No Activity>",
+  "insider_summary": "<Crisp 1-line summary of recent Form 4 insider purchases/sales or management alignment, max 10 words>"
 }}
 
 Part 2: Updated HTML memo content reflecting the evolution of the thesis.

@@ -102,6 +102,63 @@ def format_action_beacon(signal: Optional[str] = None) -> str:
     return f'<span class="status-beacon {css}" title="{tooltip}"><span class="beacon-ping"></span><span class="beacon-dot"></span></span>'
 
 
+def format_top_funds_card_html(stock: WatchlistStock) -> str:
+    """Renders the top institutional holders / 13F whale ownership metric cell."""
+    funds = getattr(stock, "top_funds", None) or []
+    inst_pct = getattr(stock, "institutional_ownership_pct", None) or ""
+    
+    if not funds and not inst_pct:
+        return """
+        <div class="metric-cell">
+            <div class="metric-label">Institutional / Whales</div>
+            <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans); color: var(--text-muted); font-weight: 400; margin-top: 2px;">Active Tracking</div>
+            <div class="metric-subtext">13F quarterly audit</div>
+        </div>
+        """
+    
+    funds_display = ", ".join(funds[:2]) if funds else "Institutional Float"
+    inst_sub = f"{inst_pct} Institutional Float" if inst_pct else (funds[2] if len(funds) > 2 else "13F Whale Tracking")
+    all_funds_tooltip = ", ".join(funds) if funds else "Institutional Ownership"
+    if inst_pct:
+        all_funds_tooltip += f" ({inst_pct} of float)"
+    
+    return f"""
+    <div class="metric-cell">
+        <div class="metric-label">Institutional / Whales</div>
+        <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans); color: var(--text-title); font-weight: 500; line-height: 1.35; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px;" title="{all_funds_tooltip}">{funds_display}</div>
+        <div class="metric-subtext" style="color: var(--text-dim);">{inst_sub}</div>
+    </div>
+    """
+
+
+def format_insider_activity_card_html(stock: WatchlistStock) -> str:
+    """Renders the insider buying/selling activity metric cell."""
+    signal = getattr(stock, "insider_signal", None) or "Neutral (10b5-1)"
+    summary = getattr(stock, "insider_summary", None) or "Routine management alignment"
+    
+    sig_upper = signal.upper()
+    if any(k in sig_upper for k in ["BUY", "ACCUMULAT"]):
+        color = "var(--accent-green)"
+        badge = f"🟢 {signal}"
+    elif any(k in sig_upper for k in ["SELL", "DISPOS"]):
+        color = "var(--accent-red)"
+        badge = f"🔴 {signal}"
+    elif any(k in sig_upper for k in ["NEUTRAL", "10B5-1", "HOLD"]):
+        color = "var(--accent-warm)"
+        badge = f"🟡 {signal}"
+    else:
+        color = "var(--text-dim)"
+        badge = f"⚪ {signal}"
+        
+    return f"""
+    <div class="metric-cell">
+        <div class="metric-label">Insider Activity</div>
+        <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans); color: {color}; font-weight: 600; margin-top: 2px;">{badge}</div>
+        <div class="metric-subtext" style="color: var(--text-dim); line-height: 1.25;" title="{summary}">{summary}</div>
+    </div>
+    """
+
+
 def build_labels_legend_modal_html() -> str:
     """Builds the clean, interactive modal explaining investment taxonomy, conviction tiers, beacons, and play drivers."""
     return """
@@ -758,18 +815,30 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         /* Key Metrics Grid */
         .metrics-grid {{
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 10px;
             margin-top: 24px;
+        }}
+        @media (max-width: 960px) {{
+            .metrics-grid {{ grid-template-columns: repeat(2, 1fr); }}
+        }}
+        @media (max-width: 520px) {{
+            .metrics-grid {{ grid-template-columns: 1fr; }}
         }}
         .metric-cell {{
             background: var(--bg-subpanel);
             border: 1px solid var(--border-color);
             border-radius: 10px;
             padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            min-height: 80px;
+            box-sizing: border-box;
         }}
-        .metric-label {{ font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); letter-spacing: 0.05em; }}
-        .metric-value {{ font-size: 1.15rem; font-weight: 500; color: var(--text-title); font-family: var(--font-mono); margin-top: 3px; }}
+        .metric-label {{ font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); letter-spacing: 0.05em; margin-bottom: 3px; }}
+        .metric-value {{ font-size: 1.15rem; font-weight: 500; color: var(--text-title); font-family: var(--font-mono); }}
+        .metric-subtext {{ font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-sans); margin-top: 4px; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
 
         /* Tabs */
         .tabs-header {{
@@ -1312,31 +1381,39 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             {chart_html}
 
             <!-- Key Metrics Grid -->
-            <div class="metrics-grid" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));">
+            <div class="metrics-grid">
                 <div class="metric-cell">
                     <div class="metric-label">Fair Value</div>
                     <div class="metric-value" style="color: var(--accent-warm);">{format_usd_target(stock.fair_value_estimate)}</div>
+                    <div class="metric-subtext" style="color: var(--text-dim);">Intrinsic baseline</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bear Target</div>
                     <div class="metric-value" style="color: var(--accent-red);">{stock.bear_target}</div>
+                    <div class="metric-subtext" style="color: var(--text-dim);">Downside floor</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Base Target</div>
                     <div class="metric-value">{stock.base_target}</div>
+                    <div class="metric-subtext" style="color: var(--text-dim);">Mid-cycle value</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bull Target</div>
                     <div class="metric-value" style="color: var(--accent-green);">{stock.bull_target}</div>
+                    <div class="metric-subtext" style="color: var(--text-dim);">Asymmetric upside</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Alert Corridor</div>
                     <div class="metric-value" style="font-size: 1.05rem; font-family: var(--font-mono); color: var(--text-title);">${stock.lower_alert_threshold:.2f} ⇄ ${stock.upper_alert_threshold:.2f}</div>
+                    <div class="metric-subtext" style="color: var(--text-dim);">Surveillance triggers</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Next Catalyst</div>
                     <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">{stock.next_catalyst_date or 'TBD'}</div>
+                    <div class="metric-subtext" style="color: var(--text-dim);">{stock.next_catalyst_event or 'Calendar review'}</div>
                 </div>
+                {format_top_funds_card_html(stock)}
+                {format_insider_activity_card_html(stock)}
             </div>
         </section>
 

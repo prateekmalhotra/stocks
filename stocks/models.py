@@ -26,6 +26,10 @@ class ThesisVersion(BaseModel):
     next_catalyst_date: Optional[str] = ""
     next_catalyst_event: Optional[str] = ""
     trigger_reason: Optional[str] = ""
+    top_funds: List[str] = Field(default_factory=list)  # Top institutional holders / 13F whales
+    institutional_ownership_pct: Optional[str] = ""  # e.g. "78.4%"
+    insider_signal: Optional[str] = "Neutral (10b5-1)"  # Net Buying, Cluster Buying, Neutral (10b5-1), Net Selling, No Activity
+    insider_summary: Optional[str] = ""  # 1-line summary of recent Form 4 insider transactions
     full_html_content: str = ""
 
 
@@ -64,6 +68,10 @@ class WatchlistStock(BaseModel):
     lower_alert_threshold: Optional[float] = None
     next_catalyst_date: Optional[str] = ""
     next_catalyst_event: Optional[str] = ""
+    top_funds: List[str] = Field(default_factory=list)
+    institutional_ownership_pct: Optional[str] = ""
+    insider_signal: Optional[str] = "Neutral (10b5-1)"
+    insider_summary: Optional[str] = ""
     last_updated: str
     total_versions: int = 1
     report_path: str

@@ -68,6 +68,11 @@ def _handle_genesis_task(ticker: str, notes: str):
 
     # 1. Create Initial Thesis Version
     today_str = datetime.now().strftime("%Y-%m-%d")
+    top_funds = meta.get("top_funds") or []
+    inst_pct = meta.get("institutional_ownership_pct") or ""
+    insider_signal = meta.get("insider_signal") or "Neutral (10b5-1)"
+    insider_summary = meta.get("insider_summary") or ""
+
     version_1 = ThesisVersion(
         version=1,
         date=today_str,
@@ -86,6 +91,10 @@ def _handle_genesis_task(ticker: str, notes: str):
         lower_alert_threshold=safe_float(meta.get("lower_alert_threshold"), current_price * 0.88),
         next_catalyst_date=normalize_catalyst_date(meta.get("next_catalyst_date", "")),
         next_catalyst_event=meta.get("next_catalyst_event", ""),
+        top_funds=top_funds,
+        institutional_ownership_pct=inst_pct,
+        insider_signal=insider_signal,
+        insider_summary=insider_summary,
         trigger_reason="Genesis Initial Underwriting",
         full_html_content=html_content
     )
@@ -109,6 +118,10 @@ def _handle_genesis_task(ticker: str, notes: str):
         lower_alert_threshold=version_1.lower_alert_threshold,
         next_catalyst_date=version_1.next_catalyst_date,
         next_catalyst_event=version_1.next_catalyst_event,
+        top_funds=top_funds,
+        institutional_ownership_pct=inst_pct,
+        insider_signal=insider_signal,
+        insider_summary=insider_summary,
         last_updated=today_str,
         total_versions=1,
         report_path=f"reports/{ticker}.html"
@@ -149,6 +162,11 @@ def _handle_review_task(ticker: str, trigger_reason: str):
     today_str = datetime.now().strftime("%Y-%m-%d")
 
     # 1. Create New Thesis Version
+    top_funds = meta.get("top_funds") or stock.top_funds or []
+    inst_pct = meta.get("institutional_ownership_pct") or stock.institutional_ownership_pct or ""
+    insider_signal = meta.get("insider_signal") or stock.insider_signal or "Neutral (10b5-1)"
+    insider_summary = meta.get("insider_summary") or stock.insider_summary or ""
+
     new_version = ThesisVersion(
         version=new_version_num,
         date=today_str,
@@ -167,6 +185,10 @@ def _handle_review_task(ticker: str, trigger_reason: str):
         lower_alert_threshold=safe_float(meta.get("new_lower_alert_threshold"), current_price * 0.88),
         next_catalyst_date=normalize_catalyst_date(meta.get("next_catalyst_date", stock.next_catalyst_date)),
         next_catalyst_event=meta.get("next_catalyst_event", stock.next_catalyst_event),
+        top_funds=top_funds,
+        institutional_ownership_pct=inst_pct,
+        insider_signal=insider_signal,
+        insider_summary=insider_summary,
         trigger_reason=trigger_reason,
         full_html_content=html_content
     )
@@ -186,6 +208,10 @@ def _handle_review_task(ticker: str, trigger_reason: str):
     stock.lower_alert_threshold = new_version.lower_alert_threshold
     stock.next_catalyst_date = new_version.next_catalyst_date
     stock.next_catalyst_event = new_version.next_catalyst_event
+    stock.top_funds = top_funds
+    stock.institutional_ownership_pct = inst_pct
+    stock.insider_signal = insider_signal
+    stock.insider_summary = insider_summary
     stock.last_updated = today_str
     stock.total_versions = new_version_num
     save_stock(stock)

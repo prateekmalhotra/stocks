@@ -171,18 +171,30 @@
         /* Key Metrics Grid */
         .metrics-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 10px;
             margin-top: 24px;
+        }
+        @media (max-width: 960px) {
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 520px) {
+            .metrics-grid { grid-template-columns: 1fr; }
         }
         .metric-cell {
             background: var(--bg-subpanel);
             border: 1px solid var(--border-color);
             border-radius: 10px;
             padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            min-height: 80px;
+            box-sizing: border-box;
         }
-        .metric-label { font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); letter-spacing: 0.05em; }
-        .metric-value { font-size: 1.15rem; font-weight: 500; color: var(--text-title); font-family: var(--font-mono); margin-top: 3px; }
+        .metric-label { font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); letter-spacing: 0.05em; margin-bottom: 3px; }
+        .metric-value { font-size: 1.15rem; font-weight: 500; color: var(--text-title); font-family: var(--font-mono); }
+        .metric-subtext { font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-sans); margin-top: 4px; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
         /* Tabs */
         .tabs-header {
@@ -879,31 +891,51 @@
     
 
             <!-- Key Metrics Grid -->
-            <div class="metrics-grid" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));">
+            <div class="metrics-grid">
                 <div class="metric-cell">
                     <div class="metric-label">Fair Value</div>
                     <div class="metric-value" style="color: var(--accent-warm);">$22.20</div>
+                    <div class="metric-subtext" style="color: var(--text-dim);">Intrinsic baseline</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bear Target</div>
                     <div class="metric-value" style="color: var(--accent-red);">$14.48 (-21.6%)</div>
+                    <div class="metric-subtext" style="color: var(--text-dim);">Downside floor</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Base Target</div>
                     <div class="metric-value">$22.20 (+20.2%)</div>
+                    <div class="metric-subtext" style="color: var(--text-dim);">Mid-cycle value</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bull Target</div>
                     <div class="metric-value" style="color: var(--accent-green);">$28.95 (+56.7%)</div>
+                    <div class="metric-subtext" style="color: var(--text-dim);">Asymmetric upside</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Alert Corridor</div>
                     <div class="metric-value" style="font-size: 1.05rem; font-family: var(--font-mono); color: var(--text-title);">$16.98 ⇄ $22.20</div>
+                    <div class="metric-subtext" style="color: var(--text-dim);">Surveillance triggers</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Next Catalyst</div>
                     <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">2026-11-06</div>
+                    <div class="metric-subtext" style="color: var(--text-dim);">Scheduled quarterly report</div>
                 </div>
+                
+    <div class="metric-cell">
+        <div class="metric-label">Institutional / Whales</div>
+        <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans); color: var(--text-title); font-weight: 500; line-height: 1.35; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px;" title="BlackRock (14.8%), Vanguard (12.4%), Macellum (Activist) (98.4% of float)">BlackRock (14.8%), Vanguard (12.4%)</div>
+        <div class="metric-subtext" style="color: var(--text-dim);">98.4% Institutional Float</div>
+    </div>
+    
+                
+    <div class="metric-cell">
+        <div class="metric-label">Insider Activity</div>
+        <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans); color: var(--accent-green); font-weight: 600; margin-top: 2px;">🟢 Net Buying</div>
+        <div class="metric-subtext" style="color: var(--text-dim); line-height: 1.25;" title="Directors & CEO purchased shares on open market">Directors & CEO purchased shares on open market</div>
+    </div>
+    
             </div>
         </section>
 
