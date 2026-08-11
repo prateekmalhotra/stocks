@@ -9,35 +9,63 @@ from stocks.models import WatchlistStock, TaskItem
 from stocks.data_store import load_watchlist, save_watchlist, get_stock
 
 
+TICKER_ALIASES = {
+    "CSU": ["CSU.TO", "CNSWF", "CSU"],
+    "CSU.TO": ["CSU.TO", "CNSWF", "CSU"],
+    "BYD": ["BYDDY", "BYDDF", "1211.HK", "BYD"],
+    "BVHMF": ["BVHMF", "BVHM.PA"],
+}
+
+
+def get_ticker_candidates(ticker: str) -> List[str]:
+    """Returns candidate ticker variations (e.g. TSX, OTC, HK, Paris suffixes)."""
+    clean = ticker.upper().strip()
+    candidates = TICKER_ALIASES.get(clean, [])
+    if clean not in candidates:
+        candidates = [clean] + candidates
+    return candidates
+
+
 def fetch_live_stock_info(ticker: str) -> Tuple[str, float]:
     """Fetches real-time market price and verified corporate name via Yahoo Finance API."""
     ticker_clean = ticker.upper().strip()
-    try:
-        headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"}
-        url = f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker_clean}?interval=1d&range=1d"
-        res = requests.get(url, headers=headers, timeout=6)
-        if res.status_code == 200:
-            data = res.json()
-            meta = data["chart"]["result"][0]["meta"]
-            price = float(meta.get("regularMarketPrice", 0.0))
-            name = meta.get("shortName") or meta.get("longName") or ticker_clean
-            if price > 0:
-                return name, round(price, 2)
-    except Exception:
-        pass
+    headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"}
+    candidates = get_ticker_candidates(ticker_clean)
+
+    for sym in candidates:
+        try:
+            url = f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}?interval=1d&range=1d"
+            res = requests.get(url, headers=headers, timeout=6)
+            if res.status_code == 200:
+                data = res.json()
+                results = data.get("chart", {}).get("result")
+                if results:
+                    meta = results[0]["meta"]
+                    price = float(meta.get("regularMarketPrice", 0.0))
+                    name = meta.get("shortName") or meta.get("longName") or ticker_clean
+                    if price > 0:
+                        return name, round(price, 2)
+        except Exception:
+            continue
 
     # Fallback to yfinance
-    try:
-        t = yf.Ticker(ticker_clean)
-        info = t.info
-        name = info.get("shortName") or info.get("longName") or ticker_clean
-        price = info.get("regularMarketPrice") or info.get("currentPrice")
-        if price:
-            return name, round(float(price), 2)
-    except Exception:
-        pass
+    for sym in candidates:
+        try:
+            t = yf.Ticker(sym)
+            info = t.info
+            name = info.get("shortName") or info.get("longName") or ticker_clean
+            price = info.get("regularMarketPrice") or info.get("currentPrice")
+            if price and float(price) > 0:
+                return name, round(float(price), 2)
+        except Exception:
+            continue
 
-    return ticker_clean, 100.00
+    # Safe fallback: return existing stored price from watchlist (do NOT return fake 100.00)
+    existing = get_stock(ticker_clean)
+    if existing and existing.current_price > 0:
+        return existing.company_name or ticker_clean, existing.current_price
+
+    return ticker_clean, 0.0
 
 
 def fetch_historical_chart_data(ticker: str, range_str: str = "1y") -> List[Dict[str, Any]]:
@@ -50,39 +78,45 @@ def fetch_historical_chart_data(ticker: str, range_str: str = "1y") -> List[Dict
         "max": ("1mo", "max")
     }
     interval, rng = range_map.get(range_str.lower(), ("1d", range_str.lower()))
+    headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"}
+    candidates = get_ticker_candidates(ticker_clean)
 
-    try:
-        headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"}
-        url = f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker_clean}?interval={interval}&range={rng}"
-        res = requests.get(url, headers=headers, timeout=8)
-        if res.status_code == 200:
-            data = res.json()
-            result = data["chart"]["result"][0]
-            timestamps = result.get("timestamp", [])
-            quotes = result.get("indicators", {}).get("quote", [{}])[0].get("close", [])
-            points = []
-            for ts, close in zip(timestamps, quotes):
-                if close is not None and close > 0:
-                    d_str = datetime.fromtimestamp(ts).strftime("%b %d, %Y")
-                    points.append({"date": d_str, "price": round(float(close), 2)})
-            if points:
-                return points
-    except Exception:
-        pass
+    for sym in candidates:
+        try:
+            url = f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}?interval={interval}&range={rng}"
+            res = requests.get(url, headers=headers, timeout=8)
+            if res.status_code == 200:
+                data = res.json()
+                results = data.get("chart", {}).get("result")
+                if not results:
+                    continue
+                result = results[0]
+                timestamps = result.get("timestamp", [])
+                quotes = result.get("indicators", {}).get("quote", [{}])[0].get("close", [])
+                points = []
+                for ts, close in zip(timestamps, quotes):
+                    if close is not None and close > 0:
+                        d_str = datetime.fromtimestamp(ts).strftime("%b %d, %Y")
+                        points.append({"date": d_str, "price": round(float(close), 2)})
+                if points:
+                    return points
+        except Exception:
+            continue
 
     # Fallback to yfinance history
-    try:
-        t = yf.Ticker(ticker_clean)
-        hist = t.history(period=rng, interval=interval)
-        points = []
-        for dt, row in hist.iterrows():
-            close = row.get("Close")
-            if close and close > 0:
-                points.append({"date": dt.strftime("%b %d, %Y"), "price": round(float(close), 2)})
-        if points:
-            return points
-    except Exception:
-        pass
+    for sym in candidates:
+        try:
+            t = yf.Ticker(sym)
+            hist = t.history(period=rng, interval=interval)
+            points = []
+            for dt, row in hist.iterrows():
+                close = row.get("Close")
+                if close and close > 0:
+                    points.append({"date": dt.strftime("%b %d, %Y"), "price": round(float(close), 2)})
+            if points:
+                return points
+        except Exception:
+            continue
 
     return []
 
