@@ -1286,5 +1286,71 @@
     "last_updated": "2026-08-11",
     "total_versions": 1,
     "report_path": "reports/NKE.html"
+  },
+  "V": {
+    "ticker": "V",
+    "company_name": "Visa Inc.",
+    "baseline_price": 362.82,
+    "current_price": 362.82,
+    "return_pct": 0.0,
+    "status_label": "High Conviction",
+    "labels": [
+      "High Conviction",
+      "Safe Compounder",
+      "Buyback Cannibal"
+    ],
+    "action_signal": "HOLD",
+    "fair_value_estimate": "$395.00",
+    "bear_target": "$310.00 (-14.6%)",
+    "base_target": "$395.00 (+8.9%)",
+    "bull_target": "$450.00 (+24.0%)",
+    "upper_alert_threshold": 375.0,
+    "lower_alert_threshold": 320.0,
+    "next_catalyst_date": "2026-10-27",
+    "next_catalyst_event": "Q4 FY2026 Earnings Release",
+    "top_funds": [
+      "TCI Fund Management (Chris Hohn) 20.4%",
+      "Vanguard Group 9.5%",
+      "Egerton Capital (John Armitage) 14.1%"
+    ],
+    "institutional_ownership_pct": "73.2%",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Routine 10b5-1 option exercise sales by CEO Ryan McInerney; no open-market cluster purchases.",
+    "last_updated": "2026-08-11",
+    "total_versions": 1,
+    "report_path": "reports/V.html"
+  },
+  "MA": {
+    "ticker": "MA",
+    "company_name": "Mastercard Incorporated",
+    "baseline_price": 561.44,
+    "current_price": 561.44,
+    "return_pct": 0.0,
+    "status_label": "High Conviction",
+    "labels": [
+      "High Conviction",
+      "Safe Compounder",
+      "Buyback Cannibal"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$595.00",
+    "bear_target": "$470.00 (-16.3%)",
+    "base_target": "$595.00 (+6.0%)",
+    "bull_target": "$680.00 (+21.1%)",
+    "upper_alert_threshold": 605.0,
+    "lower_alert_threshold": 485.0,
+    "next_catalyst_date": "2026-10-29",
+    "next_catalyst_event": "Q3 2026 Earnings Release",
+    "top_funds": [
+      "Vanguard Group (8.8%)",
+      "BlackRock (7.5%)",
+      "Akre Capital / AltaRock (13F Whales)"
+    ],
+    "institutional_ownership_pct": "78.5%",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Routine 10b5-1 executive sales by CFO Sachin Mehra and regional leadership.",
+    "last_updated": "2026-08-11",
+    "total_versions": 1,
+    "report_path": "reports/MA.html"
   }
 }
