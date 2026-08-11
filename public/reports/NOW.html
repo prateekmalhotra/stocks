@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOW — Investment Memo</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="apple-touch-icon" href="../favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-canvas: #141312;
+            --bg-panel: #1A1917;
+            --bg-subpanel: #21201D;
+            --bg-hover: #282623;
+            --text-title: #D8D2C6;
+            --text-body: #BDB7AA;
+            --text-secondary: #8E887D;
+            --text-dim: #666157;
+            --accent-warm: #C99A75;
+            --accent-green: #7D9D81;
+            --accent-red: #C4726C;
+            --border-color: rgba(215, 205, 190, 0.07);
+            --border-focus: rgba(215, 205, 190, 0.14);
+            --font-serif: 'Newsreader', Garamond, Georgia, serif;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--bg-canvas);
+            color: var(--text-body);
+            font-family: var(--font-serif);
+            line-height: 1.85;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 120px;
+        }
+
+        .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+        /* Top Nav */
+        nav.nav-bar {
+            background: rgba(20, 19, 18, 0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 16px 0;
+        }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .nav-back {
+            color: var(--accent-warm);
+            text-decoration: none;
+            font-family: var(--font-sans);
+            font-size: 0.88rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.15s;
+        }
+        .nav-back:hover { color: #DDB495; }
+
+        /* Hero Deck */
+        .hero-deck {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 36px 40px;
+            margin: 32px 0 28px;
+        }
+
+        .hero-top-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px; }
+        .ticker-symbol {
+            font-family: var(--font-serif);
+            font-size: 2.8rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: var(--text-title);
+        }
+        .company-meta { color: var(--text-secondary); font-size: 1.05rem; font-style: italic; margin-top: 2px; }
+
+        .price-callout { text-align: right; }
+        .price-number { font-size: 2.6rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }
+        .price-sub { font-size: 0.88rem; font-family: var(--font-mono); margin-top: 2px; }
+
+        /* Native SVG Area Chart */
+        .native-chart-wrap {
+            margin-top: 28px;
+            background: #171614;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px 20px 12px;
+            position: relative;
+            user-select: none;
+        }
+        .chart-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            min-height: 28px;
+        }
+        .chart-live-val {
+            font-size: 0.88rem;
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .chart-range-pills {
+            display: flex;
+            gap: 4px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 2px;
+        }
+        .range-pill {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.72rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .range-pill:hover { color: var(--text-title); }
+        .range-pill.active {
+            background: var(--accent-warm);
+            color: #141312;
+            font-weight: 600;
+        }
+        .chart-svg { width: 100%; height: 220px; display: block; overflow: visible; }
+        .chart-tooltip {
+            position: absolute;
+            top: 14px;
+            left: 20px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-focus);
+            color: var(--text-title);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            padding: 5px 12px;
+            border-radius: 6px;
+            pointer-events: none;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            font-family: var(--font-sans);
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Key Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin-top: 24px;
+        }
+        .metric-cell {
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px 16px;
+        }
+        .metric-label { font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); letter-spacing: 0.05em; }
+        .metric-value { font-size: 1.15rem; font-weight: 500; color: var(--text-title); font-family: var(--font-mono); margin-top: 3px; }
+
+        /* Tabs */
+        .tabs-header {
+            display: flex;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-color);
+            margin: 32px 0 28px;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-family: var(--font-serif);
+            padding: 12px 18px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.15s;
+        }
+        .tab-btn:hover { color: var(--text-title); }
+        .tab-btn.active { color: var(--accent-warm); }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0; right: 0;
+            height: 2px;
+            background: var(--accent-warm);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Memo Content & Premium Editorial Typography */
+        .memo-container {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 48px 52px;
+        }
+        .memo-container * {
+            box-sizing: border-box;
+        }
+        .memo-container a {
+            color: var(--accent-warm) !important;
+            text-decoration: none !important;
+            transition: color 0.15s ease !important;
+            border-bottom: 1px dotted rgba(201, 154, 117, 0.4) !important;
+        }
+        .memo-container a:hover {
+            color: #E2DDD5 !important;
+            border-bottom-color: var(--accent-warm) !important;
+        }
+        .memo-container h1, .memo-container h2 {
+            font-family: var(--font-serif) !important;
+            font-size: 1.55rem !important;
+            font-weight: 500 !important;
+            color: var(--text-title) !important;
+            margin: 44px 0 18px !important;
+            padding-bottom: 10px !important;
+            border-bottom: 1px solid var(--border-color) !important;
+            letter-spacing: -0.02em !important;
+            line-height: 1.35 !important;
+        }
+        .memo-container h1:first-child, .memo-container h2:first-of-type { margin-top: 0 !important; }
+        .memo-container h3 {
+            font-family: var(--font-serif) !important;
+            font-size: 1.28rem !important;
+            font-weight: 500 !important;
+            color: var(--accent-warm) !important;
+            margin: 32px 0 14px !important;
+            line-height: 1.4 !important;
+        }
+        .memo-container h4, .memo-container h5, .memo-container h6 {
+            font-family: var(--font-serif) !important;
+            font-size: 1.12rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            margin: 24px 0 10px !important;
+        }
+        .memo-container p {
+            font-family: var(--font-serif) !important;
+            font-size: 1.15rem !important;
+            line-height: 1.9 !important;
+            color: var(--text-body) !important;
+            margin-bottom: 22px !important;
+        }
+        .memo-container ul, .memo-container ol {
+            font-family: var(--font-serif) !important;
+            font-size: 1.12rem !important;
+            line-height: 1.9 !important;
+            color: var(--text-body) !important;
+            margin: 0 0 26px 30px !important;
+        }
+        .memo-container li { margin-bottom: 10px !important; color: var(--text-body) !important; }
+        .memo-container strong, .memo-container b {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+
+        /* STUNNING CONSISTENT TABLES - SOOTHING WARM TONES & ZERO OVERFLOW */
+        .table-scroll-wrap {
+            width: 100% !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            margin: 32px 0 !important;
+            background: #171614 !important;
+            background-color: #171614 !important;
+            border-radius: 12px !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            box-sizing: border-box !important;
+        }
+        .memo-container table {
+            width: 100% !important;
+            min-width: 600px !important;
+            border-collapse: separate !important;
+            border-spacing: 0 !important;
+            margin: 0 !important;
+            background: transparent !important;
+            background-color: transparent !important;
+            border: none !important;
+        }
+        .memo-container tr, .memo-container td, .memo-container th {
+            background: transparent !important;
+            background-color: transparent !important;
+        }
+        .memo-container th {
+            background: #1E1D1A !important;
+            background-color: #1E1D1A !important;
+            color: #C99A75 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            padding: 14px 18px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
+            text-align: left !important;
+        }
+        .memo-container td {
+            padding: 14px 18px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.05) !important;
+            font-size: 0.92rem !important;
+            color: #BDB7AA !important;
+            font-family: var(--font-mono) !important;
+            text-align: left !important;
+        }
+        .memo-container tr:last-child td {
+            border-bottom: none !important;
+        }
+        .memo-container tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.012) !important;
+            background-color: rgba(255, 255, 255, 0.012) !important;
+        }
+        .memo-container tr:hover td {
+            background: rgba(201, 154, 117, 0.04) !important;
+            background-color: rgba(201, 154, 117, 0.04) !important;
+        }
+        .memo-container td strong, .memo-container td b {
+            color: #D8D2C6 !important;
+            font-weight: 500 !important;
+        }
+
+        /* UNIVERSAL CALLOUT & BOX STYLING - NEVER WHITE OR PINK, STRICT DARK OBSIDIAN */
+        .memo-container blockquote,
+        .memo-container .callout,
+        .memo-container .falsification-box,
+        .memo-container .institutional-box,
+        .memo-container div[class*="box"],
+        .memo-container div[class*="card"],
+        .memo-container div[class*="alert"],
+        .memo-container div[class*="warning"],
+        .memo-container div[class*="highlight-box"] {
+            background: var(--bg-subpanel) !important;
+            background-color: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-left: 3px solid var(--accent-warm) !important;
+            padding: 22px 26px !important;
+            border-radius: 8px !important;
+            margin: 28px 0 !important;
+            color: var(--text-body) !important;
+            line-height: 1.8 !important;
+        }
+        .memo-container blockquote *,
+        .memo-container .callout *,
+        .memo-container .falsification-box *,
+        .memo-container .institutional-box *,
+        .memo-container div[class*="box"] *,
+        .memo-container div[class*="card"] *,
+        .memo-container div[class*="alert"] * {
+            background: transparent !important;
+            background-color: transparent !important;
+            color: var(--text-body) !important;
+        }
+        .memo-container blockquote h3,
+        .memo-container blockquote h4,
+        .memo-container .callout h3,
+        .memo-container .callout h4,
+        .memo-container .falsification-box h4,
+        .memo-container .falsification-box strong,
+        .memo-container .institutional-box h4,
+        .memo-container .institutional-box strong,
+        .memo-container div[class*="box"] h4,
+        .memo-container div[class*="box"] strong,
+        .memo-container div[class*="card"] strong {
+            color: var(--text-title) !important;
+        }
+        .highlight, mark {
+            background: rgba(201, 154, 117, 0.16) !important;
+            color: #E2DDD5 !important;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* FINANCIAL METRIC CARDS & STAT GRIDS */
+        .metrics-grid, .stats-grid, .grid-3, .grid-4, .grid-2, .metric-grid {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+            gap: 16px !important;
+            margin: 28px 0 !important;
+        }
+        .metric-card, .stat-card, div[class*="metric-box"], div[class*="stat-box"], div[class*="kpi-card"] {
+            background: var(--bg-subpanel) !important;
+            background-color: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-radius: 10px !important;
+            padding: 18px 20px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            box-sizing: border-box !important;
+        }
+        .metric-label, .stat-label, .kpi-label {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            color: var(--text-secondary) !important;
+            margin-bottom: 6px !important;
+        }
+        .metric-value, .stat-value, .kpi-value {
+            font-family: var(--font-mono) !important;
+            font-size: 1.4rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            letter-spacing: -0.02em !important;
+            line-height: 1.2 !important;
+            margin-bottom: 4px !important;
+        }
+        .metric-delta, .metric-sub, .stat-sub, .kpi-sub {
+            font-family: var(--font-mono) !important;
+            font-size: 0.82rem !important;
+            color: var(--accent-warm) !important;
+        }
+
+        /* EMBEDDED IMAGES, CHARTS & VISUAL INFOGRAPHICS */
+        .figure-container, figure {
+            margin: 32px 0 !important;
+            text-align: center !important;
+            background: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-radius: 12px !important;
+            padding: 16px !important;
+            overflow: hidden !important;
+        }
+        .memo-container img {
+            max-width: 100% !important;
+            height: auto !important;
+            border-radius: 8px !important;
+            display: block !important;
+            margin: 0 auto !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+        }
+        .figure-caption, figcaption {
+            font-family: var(--font-sans) !important;
+            font-size: 0.8rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 10px !important;
+            text-align: center !important;
+        }
+
+        /* Evolution Update Highlight Banner at top of Memo */
+        .update-banner-box {
+            background: #1C1B18 !important;
+            border: 1px solid rgba(201, 154, 117, 0.3) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 12px !important;
+            padding: 24px 28px !important;
+            margin-bottom: 36px !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .update-banner-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 14px !important;
+            padding-bottom: 10px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
+        }
+        .update-banner-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.76rem !important;
+            font-weight: 600 !important;
+            color: var(--accent-warm) !important;
+            letter-spacing: 0.04em !important;
+            text-transform: uppercase !important;
+        }
+        .update-trigger-pill {
+            font-family: var(--font-mono) !important;
+            font-size: 0.74rem !important;
+            color: var(--text-secondary) !important;
+            background: var(--bg-subpanel) !important;
+            padding: 3px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid var(--border-color) !important;
+        }
+        .update-banner-title {
+            font-family: var(--font-serif) !important;
+            font-size: 1.22rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            margin-bottom: 8px !important;
+        }
+        .update-banner-desc {
+            font-family: var(--font-serif) !important;
+            font-size: 1.08rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-body) !important;
+        }
+
+        /* History */
+        .history-entry {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 28px 32px;
+            margin-bottom: 20px;
+        }
+        .history-entry-active { border-color: rgba(201, 154, 117, 0.35); }
+        .history-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+        .history-tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .history-time { color: var(--text-secondary); font-size: 0.88rem; font-family: var(--font-sans); }
+        .history-price { font-family: var(--font-mono); font-size: 0.92rem; }
+
+        .diff-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) { .diff-grid { grid-template-columns: 1fr; } }
+        .diff-box {
+            padding: 18px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .diff-prev { background: rgba(196, 114, 108, 0.05); border-color: rgba(196, 114, 108, 0.18); }
+        .diff-now { background: rgba(125, 157, 129, 0.05); border-color: rgba(125, 157, 129, 0.18); }
+        .diff-label { font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+        .diff-prev .diff-label { color: var(--accent-red); }
+        .diff-now .diff-label { color: var(--accent-green); }
+        .diff-text { font-size: 1.02rem; color: var(--text-body); line-height: 1.65; }
+
+        /* Pills */
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 11px;
+            border-radius: 9999px;
+            font-size: 0.72rem;
+            font-family: var(--font-sans);
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+        }
+        .pill-active { background: rgba(201, 154, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.45); font-weight: 600; box-shadow: 0 0 10px rgba(201, 154, 117, 0.06); }
+        .pill-neutral { background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); font-weight: 500; }
+        .pill-alert { background: rgba(191, 160, 117, 0.14); color: var(--accent-warm); border: 1px solid rgba(191, 160, 117, 0.28); }
+
+        .btn-subtle {
+            background: var(--bg-subpanel);
+            color: var(--text-title);
+            border: 1px solid var(--border-color);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            padding: 7px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .btn-subtle:hover { background: var(--bg-hover); }
+
+        .snapshot-drawer { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color); }
+
+        /* Subtle Hinge-style Status Pulse Beacon */
+        .status-beacon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 9px;
+            height: 9px;
+            margin-left: 7px;
+            vertical-align: middle;
+            cursor: help;
+        }
+        .beacon-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            position: relative;
+            z-index: 2;
+        }
+        .beacon-ping {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            animation: beacon-ripple 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+            z-index: 1;
+        }
+        .beacon-buy .beacon-dot { background-color: #10b981; box-shadow: 0 0 6px rgba(16, 185, 129, 0.7); }
+        .beacon-buy .beacon-ping { background-color: rgba(16, 185, 129, 0.45); }
+        .beacon-hold .beacon-dot { background-color: #f59e0b; box-shadow: 0 0 6px rgba(245, 158, 11, 0.7); }
+        .beacon-hold .beacon-ping { background-color: rgba(245, 158, 11, 0.45); }
+        .beacon-caution .beacon-dot { background-color: #f97316; box-shadow: 0 0 6px rgba(249, 115, 22, 0.7); }
+        .beacon-caution .beacon-ping { background-color: rgba(249, 115, 22, 0.45); }
+        .beacon-avoid .beacon-dot { background-color: #ef4444; box-shadow: 0 0 6px rgba(239, 68, 68, 0.7); }
+        .beacon-avoid .beacon-ping { background-color: rgba(239, 68, 68, 0.45); }
+        @keyframes beacon-ripple {
+            0% { transform: scale(0.9); opacity: 0.85; }
+            70% { transform: scale(2.5); opacity: 0; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+
+        .pos { color: var(--accent-green); }
+        .neg { color: var(--accent-red); }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="container nav-inner">
+            <a href="../index.html" class="nav-back">← AlphaThesis</a>
+            <span style="font-size: 0.82rem; color: var(--text-dim); font-family: var(--font-sans);">NOW RESEARCH</span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Hero Deck -->
+        <section class="hero-deck">
+            <div class="hero-top-row">
+                <div>
+                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                        <span class="ticker-symbol">NOW</span>
+                        <span class="pill pill-active">Solid Conviction</span> <span class="pill pill-neutral">Safe Compounder</span> <span class="pill pill-neutral">Agentic Ai</span>
+                    </div>
+                    <div class="company-meta">ServiceNow, Inc.</div>
+                </div>
+                <div class="price-callout">
+                    <div class="price-number">$128.38</div>
+                    <div class="price-sub pos">
+                        +0.00% vs Genesis
+                    </div>
+                </div>
+            </div>
+
+            <!-- Native Multi-Range Interactive Area Chart -->
+            
+    <div class="native-chart-wrap" id="chart-container">
+        <div class="chart-top-bar">
+            <div id="chart-live-val" class="chart-live-val">
+                <span id="tooltip-date">Aug 11, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$127.57</strong>
+            </div>
+            <div class="chart-range-pills">
+                <button class="range-pill active" onclick="switchChartRange('1Y')">1Y</button>
+                <button class="range-pill" onclick="switchChartRange('5Y')">5Y</button>
+                <button class="range-pill" onclick="switchChartRange('10Y')">10Y</button>
+                <button class="range-pill" onclick="switchChartRange('MAX')">MAX</button>
+            </div>
+        </div>
+
+        <svg id="interactive-svg" viewBox="0 0 900 260" preserveAspectRatio="none" class="chart-svg">
+            <defs>
+                <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#C99A75" stop-opacity="0.18" />
+                    <stop offset="100%" stop-color="#C99A75" stop-opacity="0.0" />
+                </linearGradient>
+            </defs>
+            
+            <line x1="20" y1="25" x2="880" y2="25" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
+            <line x1="20" y1="130.0" x2="880" y2="130.0" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
+            <line x1="20" y1="235" x2="880" y2="235" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
+
+            <path id="chart-area-path" d="" fill="url(#area-grad)" />
+            <path id="chart-line-path" d="" fill="none" stroke="#C99A75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+            <line id="crosshair-line" x1="0" y1="25" x2="0" y2="235" stroke="rgba(201,154,117,0.35)" stroke-width="1" stroke-dasharray="3 3" style="display: none;" />
+            <circle id="hover-dot" r="4" fill="#C99A75" stroke="#1A1917" stroke-width="2" style="display: none;" />
+        </svg>
+        <div class="chart-labels">
+            <span id="chart-start-lbl">Aug 11, 2025 ($83.00)</span>
+            <span id="chart-range-title">1-Year Historical Range</span>
+            <span id="chart-end-lbl">Aug 11, 2026 ($127.57)</span>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const allDatasets = {"1Y": [{"date": "Aug 11, 2025", "price": 171.27}, {"date": "Aug 12, 2025", "price": 170.69}, {"date": "Aug 13, 2025", "price": 172.66}, {"date": "Aug 14, 2025", "price": 170.17}, {"date": "Aug 15, 2025", "price": 173.45}, {"date": "Aug 18, 2025", "price": 178.41}, {"date": "Aug 19, 2025", "price": 177.36}, {"date": "Aug 20, 2025", "price": 178.05}, {"date": "Aug 21, 2025", "price": 175.39}, {"date": "Aug 22, 2025", "price": 177.35}, {"date": "Aug 25, 2025", "price": 175.99}, {"date": "Aug 26, 2025", "price": 172.93}, {"date": "Aug 27, 2025", "price": 177.6}, {"date": "Aug 28, 2025", "price": 185.72}, {"date": "Aug 29, 2025", "price": 183.49}, {"date": "Sep 02, 2025", "price": 182.28}, {"date": "Sep 03, 2025", "price": 183.88}, {"date": "Sep 04, 2025", "price": 179.71}, {"date": "Sep 05, 2025", "price": 182.76}, {"date": "Sep 08, 2025", "price": 187.87}, {"date": "Sep 09, 2025", "price": 186.73}, {"date": "Sep 10, 2025", "price": 184.71}, {"date": "Sep 11, 2025", "price": 187.66}, {"date": "Sep 12, 2025", "price": 185.79}, {"date": "Sep 15, 2025", "price": 189.48}, {"date": "Sep 16, 2025", "price": 186.4}, {"date": "Sep 17, 2025", "price": 190.07}, {"date": "Sep 18, 2025", "price": 189.55}, {"date": "Sep 19, 2025", "price": 192.23}, {"date": "Sep 22, 2025", "price": 189.56}, {"date": "Sep 23, 2025", "price": 185.53}, {"date": "Sep 24, 2025", "price": 186.67}, {"date": "Sep 25, 2025", "price": 183.72}, {"date": "Sep 26, 2025", "price": 187.2}, {"date": "Sep 29, 2025", "price": 188.17}, {"date": "Sep 30, 2025", "price": 184.06}, {"date": "Oct 01, 2025", "price": 182.49}, {"date": "Oct 02, 2025", "price": 182.02}, {"date": "Oct 03, 2025", "price": 182.47}, {"date": "Oct 06, 2025", "price": 182.57}, {"date": "Oct 07, 2025", "price": 180.85}, {"date": "Oct 08, 2025", "price": 182.86}, {"date": "Oct 09, 2025", "price": 183.59}, {"date": "Oct 10, 2025", "price": 177.74}, {"date": "Oct 13, 2025", "price": 184.74}, {"date": "Oct 14, 2025", "price": 182.25}, {"date": "Oct 15, 2025", "price": 180.61}, {"date": "Oct 16, 2025", "price": 178.9}, {"date": "Oct 17, 2025", "price": 180.72}, {"date": "Oct 20, 2025", "price": 183.51}, {"date": "Oct 21, 2025", "price": 188.3}, {"date": "Oct 22, 2025", "price": 187.13}, {"date": "Oct 23, 2025", "price": 187.83}, {"date": "Oct 24, 2025", "price": 186.03}, {"date": "Oct 27, 2025", "price": 189.26}, {"date": "Oct 28, 2025", "price": 187.58}, {"date": "Oct 29, 2025", "price": 182.34}, {"date": "Oct 30, 2025", "price": 186.94}, {"date": "Oct 31, 2025", "price": 183.86}, {"date": "Nov 03, 2025", "price": 182.77}, {"date": "Nov 04, 2025", "price": 177.51}, {"date": "Nov 05, 2025", "price": 175.93}, {"date": "Nov 06, 2025", "price": 171.75}, {"date": "Nov 07, 2025", "price": 172.37}, {"date": "Nov 10, 2025", "price": 173.26}, {"date": "Nov 11, 2025", "price": 172.13}, {"date": "Nov 12, 2025", "price": 172.81}, {"date": "Nov 13, 2025", "price": 169.94}, {"date": "Nov 14, 2025", "price": 170.09}, {"date": "Nov 17, 2025", "price": 167.16}, {"date": "Nov 18, 2025", "price": 163.59}, {"date": "Nov 19, 2025", "price": 163.29}, {"date": "Nov 20, 2025", "price": 160.09}, {"date": "Nov 21, 2025", "price": 162.69}, {"date": "Nov 24, 2025", "price": 163.17}, {"date": "Nov 25, 2025", "price": 165.06}, {"date": "Nov 26, 2025", "price": 160.54}, {"date": "Nov 28, 2025", "price": 162.48}, {"date": "Dec 01, 2025", "price": 164.41}, {"date": "Dec 02, 2025", "price": 164.88}, {"date": "Dec 03, 2025", "price": 166.58}, {"date": "Dec 04, 2025", "price": 167.77}, {"date": "Dec 05, 2025", "price": 170.87}, {"date": "Dec 08, 2025", "price": 170.7}, {"date": "Dec 09, 2025", "price": 170.98}, {"date": "Dec 10, 2025", "price": 170.71}, {"date": "Dec 11, 2025", "price": 173.5}, {"date": "Dec 12, 2025", "price": 173.01}, {"date": "Dec 15, 2025", "price": 153.04}, {"date": "Dec 16, 2025", "price": 156.22}, {"date": "Dec 17, 2025", "price": 156.48}, {"date": "Dec 18, 2025", "price": 153.38}, {"date": "Dec 19, 2025", "price": 155.31}, {"date": "Dec 22, 2025", "price": 156.68}, {"date": "Dec 23, 2025", "price": 154.36}, {"date": "Dec 24, 2025", "price": 152.59}, {"date": "Dec 26, 2025", "price": 153.89}, {"date": "Dec 29, 2025", "price": 154.58}, {"date": "Dec 30, 2025", "price": 154.23}, {"date": "Dec 31, 2025", "price": 153.19}, {"date": "Jan 02, 2026", "price": 147.45}, {"date": "Jan 05, 2026", "price": 147.6}, {"date": "Jan 06, 2026", "price": 148.81}, {"date": "Jan 07, 2026", "price": 150.9}, {"date": "Jan 08, 2026", "price": 146.19}, {"date": "Jan 09, 2026", "price": 141.8}, {"date": "Jan 12, 2026", "price": 142.64}, {"date": "Jan 13, 2026", "price": 138.19}, {"date": "Jan 14, 2026", "price": 134.61}, {"date": "Jan 15, 2026", "price": 131.17}, {"date": "Jan 16, 2026", "price": 127.31}, {"date": "Jan 20, 2026", "price": 125.4}, {"date": "Jan 21, 2026", "price": 125.3}, {"date": "Jan 22, 2026", "price": 128.56}, {"date": "Jan 23, 2026", "price": 133.11}, {"date": "Jan 26, 2026", "price": 136.34}, {"date": "Jan 27, 2026", "price": 131.8}, {"date": "Jan 28, 2026", "price": 129.62}, {"date": "Jan 29, 2026", "price": 116.73}, {"date": "Jan 30, 2026", "price": 117.01}, {"date": "Feb 02, 2026", "price": 118.0}, {"date": "Feb 03, 2026", "price": 109.77}, {"date": "Feb 04, 2026", "price": 111.07}, {"date": "Feb 05, 2026", "price": 102.63}, {"date": "Feb 06, 2026", "price": 100.74}, {"date": "Feb 09, 2026", "price": 103.87}, {"date": "Feb 10, 2026", "price": 106.48}, {"date": "Feb 11, 2026", "price": 100.58}, {"date": "Feb 12, 2026", "price": 103.29}, {"date": "Feb 13, 2026", "price": 107.08}, {"date": "Feb 17, 2026", "price": 105.91}, {"date": "Feb 18, 2026", "price": 107.81}, {"date": "Feb 19, 2026", "price": 107.37}, {"date": "Feb 20, 2026", "price": 104.27}, {"date": "Feb 23, 2026", "price": 100.8}, {"date": "Feb 24, 2026", "price": 102.49}, {"date": "Feb 25, 2026", "price": 104.23}, {"date": "Feb 26, 2026", "price": 109.3}, {"date": "Feb 27, 2026", "price": 108.01}, {"date": "Mar 02, 2026", "price": 109.42}, {"date": "Mar 03, 2026", "price": 113.19}, {"date": "Mar 04, 2026", "price": 113.86}, {"date": "Mar 05, 2026", "price": 120.38}, {"date": "Mar 06, 2026", "price": 124.34}, {"date": "Mar 09, 2026", "price": 121.93}, {"date": "Mar 10, 2026", "price": 116.61}, {"date": "Mar 11, 2026", "price": 115.63}, {"date": "Mar 12, 2026", "price": 112.97}, {"date": "Mar 13, 2026", "price": 113.62}, {"date": "Mar 16, 2026", "price": 114.88}, {"date": "Mar 17, 2026", "price": 116.72}, {"date": "Mar 18, 2026", "price": 113.71}, {"date": "Mar 19, 2026", "price": 113.27}, {"date": "Mar 20, 2026", "price": 110.38}, {"date": "Mar 23, 2026", "price": 110.95}, {"date": "Mar 24, 2026", "price": 104.65}, {"date": "Mar 25, 2026", "price": 103.06}, {"date": "Mar 26, 2026", "price": 103.64}, {"date": "Mar 27, 2026", "price": 99.41}, {"date": "Mar 30, 2026", "price": 104.97}, {"date": "Mar 31, 2026", "price": 104.55}, {"date": "Apr 01, 2026", "price": 104.04}, {"date": "Apr 02, 2026", "price": 102.0}, {"date": "Apr 06, 2026", "price": 102.42}, {"date": "Apr 07, 2026", "price": 100.55}, {"date": "Apr 08, 2026", "price": 97.47}, {"date": "Apr 09, 2026", "price": 89.81}, {"date": "Apr 10, 2026", "price": 83.0}, {"date": "Apr 13, 2026", "price": 89.06}, {"date": "Apr 14, 2026", "price": 87.79}, {"date": "Apr 15, 2026", "price": 94.19}, {"date": "Apr 16, 2026", "price": 96.44}, {"date": "Apr 17, 2026", "price": 96.66}, {"date": "Apr 20, 2026", "price": 99.72}, {"date": "Apr 21, 2026", "price": 100.14}, {"date": "Apr 22, 2026", "price": 103.07}, {"date": "Apr 23, 2026", "price": 84.78}, {"date": "Apr 24, 2026", "price": 90.17}, {"date": "Apr 27, 2026", "price": 90.45}, {"date": "Apr 28, 2026", "price": 90.49}, {"date": "Apr 29, 2026", "price": 88.89}, {"date": "Apr 30, 2026", "price": 88.31}, {"date": "May 01, 2026", "price": 91.16}, {"date": "May 04, 2026", "price": 91.97}, {"date": "May 05, 2026", "price": 92.01}, {"date": "May 06, 2026", "price": 89.05}, {"date": "May 07, 2026", "price": 93.59}, {"date": "May 08, 2026", "price": 91.18}, {"date": "May 11, 2026", "price": 91.49}, {"date": "May 12, 2026", "price": 89.0}, {"date": "May 13, 2026", "price": 87.05}, {"date": "May 14, 2026", "price": 90.5}, {"date": "May 15, 2026", "price": 95.07}, {"date": "May 18, 2026", "price": 103.42}, {"date": "May 19, 2026", "price": 101.83}, {"date": "May 20, 2026", "price": 103.3}, {"date": "May 21, 2026", "price": 99.69}, {"date": "May 22, 2026", "price": 102.13}, {"date": "May 26, 2026", "price": 99.92}, {"date": "May 27, 2026", "price": 102.12}, {"date": "May 28, 2026", "price": 108.73}, {"date": "May 29, 2026", "price": 124.37}, {"date": "Jun 01, 2026", "price": 135.86}, {"date": "Jun 02, 2026", "price": 127.65}, {"date": "Jun 03, 2026", "price": 117.9}, {"date": "Jun 04, 2026", "price": 119.36}, {"date": "Jun 05, 2026", "price": 112.45}, {"date": "Jun 08, 2026", "price": 114.19}, {"date": "Jun 09, 2026", "price": 106.97}, {"date": "Jun 10, 2026", "price": 106.06}, {"date": "Jun 11, 2026", "price": 103.08}, {"date": "Jun 12, 2026", "price": 102.15}, {"date": "Jun 15, 2026", "price": 104.15}, {"date": "Jun 16, 2026", "price": 101.33}, {"date": "Jun 17, 2026", "price": 95.48}, {"date": "Jun 18, 2026", "price": 95.04}, {"date": "Jun 22, 2026", "price": 93.01}, {"date": "Jun 23, 2026", "price": 95.94}, {"date": "Jun 24, 2026", "price": 93.8}, {"date": "Jun 25, 2026", "price": 89.52}, {"date": "Jun 26, 2026", "price": 98.34}, {"date": "Jun 29, 2026", "price": 99.97}, {"date": "Jun 30, 2026", "price": 99.28}, {"date": "Jul 01, 2026", "price": 105.8}, {"date": "Jul 02, 2026", "price": 106.32}, {"date": "Jul 06, 2026", "price": 107.93}, {"date": "Jul 07, 2026", "price": 110.73}, {"date": "Jul 08, 2026", "price": 107.78}, {"date": "Jul 09, 2026", "price": 108.84}, {"date": "Jul 10, 2026", "price": 107.71}, {"date": "Jul 13, 2026", "price": 111.26}, {"date": "Jul 14, 2026", "price": 104.85}, {"date": "Jul 15, 2026", "price": 104.73}, {"date": "Jul 16, 2026", "price": 104.01}, {"date": "Jul 17, 2026", "price": 103.24}, {"date": "Jul 20, 2026", "price": 104.7}, {"date": "Jul 21, 2026", "price": 102.06}, {"date": "Jul 22, 2026", "price": 95.46}, {"date": "Jul 23, 2026", "price": 91.94}, {"date": "Jul 24, 2026", "price": 98.78}, {"date": "Jul 27, 2026", "price": 105.56}, {"date": "Jul 28, 2026", "price": 110.62}, {"date": "Jul 29, 2026", "price": 115.76}, {"date": "Jul 30, 2026", "price": 110.07}, {"date": "Jul 31, 2026", "price": 111.23}, {"date": "Aug 03, 2026", "price": 114.19}, {"date": "Aug 04, 2026", "price": 118.14}, {"date": "Aug 05, 2026", "price": 117.22}, {"date": "Aug 06, 2026", "price": 117.35}, {"date": "Aug 07, 2026", "price": 124.88}, {"date": "Aug 10, 2026", "price": 127.44}, {"date": "Aug 11, 2026", "price": 127.57}], "5Y": [{"date": "Aug 09, 2021", "price": 117.57}, {"date": "Aug 16, 2021", "price": 120.1}, {"date": "Aug 23, 2021", "price": 126.48}, {"date": "Aug 30, 2021", "price": 135.73}, {"date": "Sep 06, 2021", "price": 129.6}, {"date": "Sep 13, 2021", "price": 130.21}, {"date": "Sep 20, 2021", "price": 133.26}, {"date": "Sep 27, 2021", "price": 126.56}, {"date": "Oct 04, 2021", "price": 123.52}, {"date": "Oct 11, 2021", "price": 132.64}, {"date": "Oct 18, 2021", "price": 137.33}, {"date": "Oct 25, 2021", "price": 139.55}, {"date": "Nov 01, 2021", "price": 138.4}, {"date": "Nov 08, 2021", "price": 138.28}, {"date": "Nov 15, 2021", "price": 135.19}, {"date": "Nov 22, 2021", "price": 129.91}, {"date": "Nov 29, 2021", "price": 122.62}, {"date": "Dec 06, 2021", "price": 129.4}, {"date": "Dec 13, 2021", "price": 123.13}, {"date": "Dec 20, 2021", "price": 129.71}, {"date": "Dec 27, 2021", "price": 129.82}, {"date": "Jan 03, 2022", "price": 113.28}, {"date": "Jan 10, 2022", "price": 106.2}, {"date": "Jan 17, 2022", "price": 101.55}, {"date": "Jan 24, 2022", "price": 112.22}, {"date": "Jan 31, 2022", "price": 115.5}, {"date": "Feb 07, 2022", "price": 116.74}, {"date": "Feb 14, 2022", "price": 111.2}, {"date": "Feb 21, 2022", "price": 116.05}, {"date": "Feb 28, 2022", "price": 109.41}, {"date": "Mar 07, 2022", "price": 102.43}, {"date": "Mar 14, 2022", "price": 115.98}, {"date": "Mar 21, 2022", "price": 112.37}, {"date": "Mar 28, 2022", "price": 109.74}, {"date": "Apr 04, 2022", "price": 103.12}, {"date": "Apr 11, 2022", "price": 101.47}, {"date": "Apr 18, 2022", "price": 94.28}, {"date": "Apr 25, 2022", "price": 95.62}, {"date": "May 02, 2022", "price": 91.35}, {"date": "May 09, 2022", "price": 90.53}, {"date": "May 16, 2022", "price": 86.61}, {"date": "May 23, 2022", "price": 95.26}, {"date": "May 30, 2022", "price": 98.5}, {"date": "Jun 06, 2022", "price": 94.63}, {"date": "Jun 13, 2022", "price": 88.76}, {"date": "Jun 20, 2022", "price": 100.82}, {"date": "Jun 27, 2022", "price": 96.87}, {"date": "Jul 04, 2022", "price": 98.83}, {"date": "Jul 11, 2022", "price": 87.12}, {"date": "Jul 18, 2022", "price": 89.35}, {"date": "Jul 25, 2022", "price": 89.33}, {"date": "Aug 01, 2022", "price": 98.97}, {"date": "Aug 08, 2022", "price": 101.3}, {"date": "Aug 15, 2022", "price": 95.25}, {"date": "Aug 22, 2022", "price": 88.94}, {"date": "Aug 29, 2022", "price": 86.9}, {"date": "Sep 05, 2022", "price": 94.01}, {"date": "Sep 12, 2022", "price": 85.16}, {"date": "Sep 19, 2022", "price": 75.41}, {"date": "Sep 26, 2022", "price": 75.52}, {"date": "Oct 03, 2022", "price": 80.24}, {"date": "Oct 10, 2022", "price": 68.35}, {"date": "Oct 17, 2022", "price": 72.13}, {"date": "Oct 24, 2022", "price": 84.08}, {"date": "Oct 31, 2022", "price": 72.35}, {"date": "Nov 07, 2022", "price": 81.98}, {"date": "Nov 14, 2022", "price": 79.88}, {"date": "Nov 21, 2022", "price": 81.44}, {"date": "Nov 28, 2022", "price": 82.57}, {"date": "Dec 05, 2022", "price": 78.72}, {"date": "Dec 12, 2022", "price": 78.87}, {"date": "Dec 19, 2022", "price": 76.37}, {"date": "Dec 26, 2022", "price": 77.65}, {"date": "Jan 02, 2023", "price": 73.31}, {"date": "Jan 09, 2023", "price": 82.98}, {"date": "Jan 16, 2023", "price": 88.37}, {"date": "Jan 23, 2023", "price": 91.77}, {"date": "Jan 30, 2023", "price": 94.44}, {"date": "Feb 06, 2023", "price": 91.67}, {"date": "Feb 13, 2023", "price": 87.8}, {"date": "Feb 20, 2023", "price": 85.12}, {"date": "Feb 27, 2023", "price": 88.8}, {"date": "Mar 06, 2023", "price": 83.02}, {"date": "Mar 13, 2023", "price": 88.2}, {"date": "Mar 20, 2023", "price": 86.58}, {"date": "Mar 27, 2023", "price": 92.94}, {"date": "Apr 03, 2023", "price": 94.63}, {"date": "Apr 10, 2023", "price": 92.61}, {"date": "Apr 17, 2023", "price": 94.66}, {"date": "Apr 24, 2023", "price": 91.88}, {"date": "May 01, 2023", "price": 86.96}, {"date": "May 08, 2023", "price": 91.04}, {"date": "May 15, 2023", "price": 102.06}, {"date": "May 22, 2023", "price": 107.49}, {"date": "May 29, 2023", "price": 109.64}, {"date": "Jun 05, 2023", "price": 106.81}, {"date": "Jun 12, 2023", "price": 113.1}, {"date": "Jun 19, 2023", "price": 108.6}, {"date": "Jun 26, 2023", "price": 112.39}, {"date": "Jul 03, 2023", "price": 110.6}, {"date": "Jul 10, 2023", "price": 116.08}, {"date": "Jul 17, 2023", "price": 116.4}, {"date": "Jul 24, 2023", "price": 113.91}, {"date": "Jul 31, 2023", "price": 110.33}, {"date": "Aug 07, 2023", "price": 111.49}, {"date": "Aug 14, 2023", "price": 108.3}, {"date": "Aug 21, 2023", "price": 112.73}, {"date": "Aug 28, 2023", "price": 118.18}, {"date": "Sep 04, 2023", "price": 120.01}, {"date": "Sep 11, 2023", "price": 115.92}, {"date": "Sep 18, 2023", "price": 110.82}, {"date": "Sep 25, 2023", "price": 111.79}, {"date": "Oct 02, 2023", "price": 112.14}, {"date": "Oct 09, 2023", "price": 109.93}, {"date": "Oct 16, 2023", "price": 108.5}, {"date": "Oct 23, 2023", "price": 110.8}, {"date": "Oct 30, 2023", "price": 121.35}, {"date": "Nov 06, 2023", "price": 126.95}, {"date": "Nov 13, 2023", "price": 130.87}, {"date": "Nov 20, 2023", "price": 134.78}, {"date": "Nov 27, 2023", "price": 138.16}, {"date": "Dec 04, 2023", "price": 139.82}, {"date": "Dec 11, 2023", "price": 139.65}, {"date": "Dec 18, 2023", "price": 139.51}, {"date": "Dec 25, 2023", "price": 141.3}, {"date": "Jan 01, 2024", "price": 135.23}, {"date": "Jan 08, 2024", "price": 145.84}, {"date": "Jan 15, 2024", "price": 149.82}, {"date": "Jan 22, 2024", "price": 153.89}, {"date": "Jan 29, 2024", "price": 156.26}, {"date": "Feb 05, 2024", "price": 162.59}, {"date": "Feb 12, 2024", "price": 153.0}, {"date": "Feb 19, 2024", "price": 154.19}, {"date": "Feb 26, 2024", "price": 154.73}, {"date": "Mar 04, 2024", "price": 151.54}, {"date": "Mar 11, 2024", "price": 148.78}, {"date": "Mar 18, 2024", "price": 154.83}, {"date": "Mar 25, 2024", "price": 152.48}, {"date": "Apr 01, 2024", "price": 156.7}, {"date": "Apr 08, 2024", "price": 153.74}, {"date": "Apr 15, 2024", "price": 142.78}, {"date": "Apr 22, 2024", "price": 144.71}, {"date": "Apr 29, 2024", "price": 143.33}, {"date": "May 06, 2024", "price": 145.96}, {"date": "May 13, 2024", "price": 153.01}, {"date": "May 20, 2024", "price": 147.7}, {"date": "May 27, 2024", "price": 131.39}, {"date": "Jun 03, 2024", "price": 139.76}, {"date": "Jun 10, 2024", "price": 145.72}, {"date": "Jun 17, 2024", "price": 149.87}, {"date": "Jun 24, 2024", "price": 157.33}, {"date": "Jul 01, 2024", "price": 161.29}, {"date": "Jul 08, 2024", "price": 151.7}, {"date": "Jul 15, 2024", "price": 150.24}, {"date": "Jul 22, 2024", "price": 165.52}, {"date": "Jul 29, 2024", "price": 158.13}, {"date": "Aug 05, 2024", "price": 162.22}, {"date": "Aug 12, 2024", "price": 165.51}, {"date": "Aug 19, 2024", "price": 165.65}, {"date": "Aug 26, 2024", "price": 171.0}, {"date": "Sep 02, 2024", "price": 165.01}, {"date": "Sep 09, 2024", "price": 175.79}, {"date": "Sep 16, 2024", "price": 187.47}, {"date": "Sep 23, 2024", "price": 176.36}, {"date": "Sep 30, 2024", "price": 183.54}, {"date": "Oct 07, 2024", "price": 187.72}, {"date": "Oct 14, 2024", "price": 184.35}, {"date": "Oct 21, 2024", "price": 190.17}, {"date": "Oct 28, 2024", "price": 188.68}, {"date": "Nov 04, 2024", "price": 201.62}, {"date": "Nov 11, 2024", "price": 202.28}, {"date": "Nov 18, 2024", "price": 212.12}, {"date": "Nov 25, 2024", "price": 209.89}, {"date": "Dec 02, 2024", "price": 224.87}, {"date": "Dec 09, 2024", "price": 224.22}, {"date": "Dec 16, 2024", "price": 218.25}, {"date": "Dec 23, 2024", "price": 216.29}, {"date": "Dec 30, 2024", "price": 214.75}, {"date": "Jan 06, 2025", "price": 204.91}, {"date": "Jan 13, 2025", "price": 214.3}, {"date": "Jan 20, 2025", "price": 225.0}, {"date": "Jan 27, 2025", "price": 203.68}, {"date": "Feb 03, 2025", "price": 201.66}, {"date": "Feb 10, 2025", "price": 197.33}, {"date": "Feb 17, 2025", "price": 187.68}, {"date": "Feb 24, 2025", "price": 185.95}, {"date": "Mar 03, 2025", "price": 170.13}, {"date": "Mar 10, 2025", "price": 168.87}, {"date": "Mar 17, 2025", "price": 165.55}, {"date": "Mar 24, 2025", "price": 159.55}, {"date": "Mar 31, 2025", "price": 144.33}, {"date": "Apr 07, 2025", "price": 157.13}, {"date": "Apr 14, 2025", "price": 154.43}, {"date": "Apr 21, 2025", "price": 189.05}, {"date": "Apr 28, 2025", "price": 195.47}, {"date": "May 05, 2025", "price": 196.01}, {"date": "May 12, 2025", "price": 208.04}, {"date": "May 19, 2025", "price": 200.87}, {"date": "May 26, 2025", "price": 202.22}, {"date": "Jun 02, 2025", "price": 206.04}, {"date": "Jun 09, 2025", "price": 197.73}, {"date": "Jun 16, 2025", "price": 194.28}, {"date": "Jun 23, 2025", "price": 204.48}, {"date": "Jun 30, 2025", "price": 208.94}, {"date": "Jul 07, 2025", "price": 187.76}, {"date": "Jul 14, 2025", "price": 192.68}, {"date": "Jul 21, 2025", "price": 193.76}, {"date": "Jul 28, 2025", "price": 182.87}, {"date": "Aug 04, 2025", "price": 174.5}, {"date": "Aug 11, 2025", "price": 173.45}, {"date": "Aug 18, 2025", "price": 177.35}, {"date": "Aug 25, 2025", "price": 183.49}, {"date": "Sep 01, 2025", "price": 182.76}, {"date": "Sep 08, 2025", "price": 185.79}, {"date": "Sep 15, 2025", "price": 192.23}, {"date": "Sep 22, 2025", "price": 187.2}, {"date": "Sep 29, 2025", "price": 182.47}, {"date": "Oct 06, 2025", "price": 177.74}, {"date": "Oct 13, 2025", "price": 180.72}, {"date": "Oct 20, 2025", "price": 186.03}, {"date": "Oct 27, 2025", "price": 183.86}, {"date": "Nov 03, 2025", "price": 172.37}, {"date": "Nov 10, 2025", "price": 170.09}, {"date": "Nov 17, 2025", "price": 162.69}, {"date": "Nov 24, 2025", "price": 162.48}, {"date": "Dec 01, 2025", "price": 170.87}, {"date": "Dec 08, 2025", "price": 173.01}, {"date": "Dec 15, 2025", "price": 155.31}, {"date": "Dec 22, 2025", "price": 153.89}, {"date": "Dec 29, 2025", "price": 147.45}, {"date": "Jan 05, 2026", "price": 141.8}, {"date": "Jan 12, 2026", "price": 127.31}, {"date": "Jan 19, 2026", "price": 133.11}, {"date": "Jan 26, 2026", "price": 117.01}, {"date": "Feb 02, 2026", "price": 100.74}, {"date": "Feb 09, 2026", "price": 107.08}, {"date": "Feb 16, 2026", "price": 104.27}, {"date": "Feb 23, 2026", "price": 108.01}, {"date": "Mar 02, 2026", "price": 124.34}, {"date": "Mar 09, 2026", "price": 113.62}, {"date": "Mar 16, 2026", "price": 110.38}, {"date": "Mar 23, 2026", "price": 99.41}, {"date": "Mar 30, 2026", "price": 102.0}, {"date": "Apr 06, 2026", "price": 83.0}, {"date": "Apr 13, 2026", "price": 96.66}, {"date": "Apr 20, 2026", "price": 90.17}, {"date": "Apr 27, 2026", "price": 91.16}, {"date": "May 04, 2026", "price": 91.18}, {"date": "May 11, 2026", "price": 95.07}, {"date": "May 18, 2026", "price": 102.13}, {"date": "May 25, 2026", "price": 124.37}, {"date": "Jun 01, 2026", "price": 112.45}, {"date": "Jun 08, 2026", "price": 102.15}, {"date": "Jun 15, 2026", "price": 95.04}, {"date": "Jun 22, 2026", "price": 98.34}, {"date": "Jun 29, 2026", "price": 106.32}, {"date": "Jul 06, 2026", "price": 107.71}, {"date": "Jul 13, 2026", "price": 103.24}, {"date": "Jul 20, 2026", "price": 98.78}, {"date": "Jul 27, 2026", "price": 111.23}, {"date": "Aug 03, 2026", "price": 124.88}, {"date": "Aug 10, 2026", "price": 127.44}, {"date": "Aug 11, 2026", "price": 127.57}], "10Y": [{"date": "Sep 01, 2016", "price": 15.83}, {"date": "Oct 01, 2016", "price": 17.58}, {"date": "Nov 01, 2016", "price": 16.63}, {"date": "Dec 01, 2016", "price": 14.87}, {"date": "Jan 01, 2017", "price": 18.12}, {"date": "Feb 01, 2017", "price": 17.38}, {"date": "Mar 01, 2017", "price": 17.49}, {"date": "Apr 01, 2017", "price": 18.9}, {"date": "May 01, 2017", "price": 20.93}, {"date": "Jun 01, 2017", "price": 21.2}, {"date": "Jul 01, 2017", "price": 22.09}, {"date": "Aug 01, 2017", "price": 23.24}, {"date": "Sep 01, 2017", "price": 23.51}, {"date": "Oct 01, 2017", "price": 25.27}, {"date": "Nov 01, 2017", "price": 24.6}, {"date": "Dec 01, 2017", "price": 26.08}, {"date": "Jan 01, 2018", "price": 29.77}, {"date": "Feb 01, 2018", "price": 32.2}, {"date": "Mar 01, 2018", "price": 33.09}, {"date": "Apr 01, 2018", "price": 33.23}, {"date": "May 01, 2018", "price": 35.52}, {"date": "Jun 01, 2018", "price": 34.49}, {"date": "Jul 01, 2018", "price": 35.19}, {"date": "Aug 01, 2018", "price": 39.27}, {"date": "Sep 01, 2018", "price": 39.13}, {"date": "Oct 01, 2018", "price": 36.21}, {"date": "Nov 01, 2018", "price": 37.05}, {"date": "Dec 01, 2018", "price": 35.61}, {"date": "Jan 01, 2019", "price": 44.0}, {"date": "Feb 01, 2019", "price": 47.89}, {"date": "Mar 01, 2019", "price": 49.3}, {"date": "Apr 01, 2019", "price": 54.3}, {"date": "May 01, 2019", "price": 52.39}, {"date": "Jun 01, 2019", "price": 54.91}, {"date": "Jul 01, 2019", "price": 55.48}, {"date": "Aug 01, 2019", "price": 52.37}, {"date": "Sep 01, 2019", "price": 50.77}, {"date": "Oct 01, 2019", "price": 49.45}, {"date": "Nov 01, 2019", "price": 56.61}, {"date": "Dec 01, 2019", "price": 56.46}, {"date": "Jan 01, 2020", "price": 67.65}, {"date": "Feb 01, 2020", "price": 65.22}, {"date": "Mar 01, 2020", "price": 57.32}, {"date": "Apr 01, 2020", "price": 70.31}, {"date": "May 01, 2020", "price": 77.59}, {"date": "Jun 01, 2020", "price": 81.01}, {"date": "Jul 01, 2020", "price": 87.84}, {"date": "Aug 01, 2020", "price": 96.4}, {"date": "Sep 01, 2020", "price": 97.0}, {"date": "Oct 01, 2020", "price": 99.51}, {"date": "Nov 01, 2020", "price": 106.91}, {"date": "Dec 01, 2020", "price": 110.09}, {"date": "Jan 01, 2021", "price": 108.63}, {"date": "Feb 01, 2021", "price": 106.69}, {"date": "Mar 01, 2021", "price": 100.02}, {"date": "Apr 01, 2021", "price": 101.27}, {"date": "May 01, 2021", "price": 94.78}, {"date": "Jun 01, 2021", "price": 109.91}, {"date": "Jul 01, 2021", "price": 117.58}, {"date": "Aug 01, 2021", "price": 128.73}, {"date": "Sep 01, 2021", "price": 124.45}, {"date": "Oct 01, 2021", "price": 139.55}, {"date": "Nov 01, 2021", "price": 129.54}, {"date": "Dec 01, 2021", "price": 129.82}, {"date": "Jan 01, 2022", "price": 117.16}, {"date": "Feb 01, 2022", "price": 115.98}, {"date": "Mar 01, 2022", "price": 111.38}, {"date": "Apr 01, 2022", "price": 95.62}, {"date": "May 01, 2022", "price": 93.49}, {"date": "Jun 01, 2022", "price": 95.1}, {"date": "Jul 01, 2022", "price": 89.33}, {"date": "Aug 01, 2022", "price": 86.92}, {"date": "Sep 01, 2022", "price": 75.52}, {"date": "Oct 01, 2022", "price": 84.15}, {"date": "Nov 01, 2022", "price": 83.26}, {"date": "Dec 01, 2022", "price": 77.65}, {"date": "Jan 01, 2023", "price": 91.03}, {"date": "Feb 01, 2023", "price": 86.43}, {"date": "Mar 01, 2023", "price": 92.94}, {"date": "Apr 01, 2023", "price": 91.88}, {"date": "May 01, 2023", "price": 108.96}, {"date": "Jun 01, 2023", "price": 112.39}, {"date": "Jul 01, 2023", "price": 116.6}, {"date": "Aug 01, 2023", "price": 117.77}, {"date": "Sep 01, 2023", "price": 111.79}, {"date": "Oct 01, 2023", "price": 116.37}, {"date": "Nov 01, 2023", "price": 137.15}, {"date": "Dec 01, 2023", "price": 141.3}, {"date": "Jan 01, 2024", "price": 153.08}, {"date": "Feb 01, 2024", "price": 154.27}, {"date": "Mar 01, 2024", "price": 152.48}, {"date": "Apr 01, 2024", "price": 138.67}, {"date": "May 01, 2024", "price": 131.39}, {"date": "Jun 01, 2024", "price": 157.33}, {"date": "Jul 01, 2024", "price": 162.88}, {"date": "Aug 01, 2024", "price": 171.0}, {"date": "Sep 01, 2024", "price": 178.88}, {"date": "Oct 01, 2024", "price": 186.6}, {"date": "Nov 01, 2024", "price": 209.89}, {"date": "Dec 01, 2024", "price": 212.02}, {"date": "Jan 01, 2025", "price": 203.68}, {"date": "Feb 01, 2025", "price": 185.95}, {"date": "Mar 01, 2025", "price": 159.23}, {"date": "Apr 01, 2025", "price": 191.0}, {"date": "May 01, 2025", "price": 202.22}, {"date": "Jun 01, 2025", "price": 205.62}, {"date": "Jul 01, 2025", "price": 188.62}, {"date": "Aug 01, 2025", "price": 183.49}, {"date": "Sep 01, 2025", "price": 184.06}, {"date": "Oct 01, 2025", "price": 183.86}, {"date": "Nov 01, 2025", "price": 162.48}, {"date": "Dec 01, 2025", "price": 153.19}, {"date": "Jan 01, 2026", "price": 117.01}, {"date": "Feb 01, 2026", "price": 108.01}, {"date": "Mar 01, 2026", "price": 104.55}, {"date": "Apr 01, 2026", "price": 88.31}, {"date": "May 01, 2026", "price": 124.37}, {"date": "Jun 01, 2026", "price": 99.28}, {"date": "Jul 01, 2026", "price": 111.23}, {"date": "Aug 01, 2026", "price": 124.88}, {"date": "Aug 11, 2026", "price": 127.59}], "MAX": [{"date": "Jul 01, 2012", "price": 5.4}, {"date": "Aug 01, 2012", "price": 6.22}, {"date": "Sep 01, 2012", "price": 7.74}, {"date": "Oct 01, 2012", "price": 6.13}, {"date": "Nov 01, 2012", "price": 6.53}, {"date": "Dec 01, 2012", "price": 6.01}, {"date": "Jan 01, 2013", "price": 5.54}, {"date": "Feb 01, 2013", "price": 6.49}, {"date": "Mar 01, 2013", "price": 7.24}, {"date": "Apr 01, 2013", "price": 8.19}, {"date": "May 01, 2013", "price": 7.35}, {"date": "Jun 01, 2013", "price": 8.08}, {"date": "Jul 01, 2013", "price": 8.72}, {"date": "Aug 01, 2013", "price": 9.38}, {"date": "Sep 01, 2013", "price": 10.39}, {"date": "Oct 01, 2013", "price": 10.92}, {"date": "Nov 01, 2013", "price": 10.62}, {"date": "Dec 01, 2013", "price": 11.2}, {"date": "Jan 01, 2014", "price": 12.69}, {"date": "Feb 01, 2014", "price": 13.61}, {"date": "Mar 01, 2014", "price": 11.98}, {"date": "Apr 01, 2014", "price": 9.94}, {"date": "May 01, 2014", "price": 10.46}, {"date": "Jun 01, 2014", "price": 12.39}, {"date": "Jul 01, 2014", "price": 11.76}, {"date": "Aug 01, 2014", "price": 12.23}, {"date": "Sep 01, 2014", "price": 11.76}, {"date": "Oct 01, 2014", "price": 13.59}, {"date": "Nov 01, 2014", "price": 12.79}, {"date": "Dec 01, 2014", "price": 13.57}, {"date": "Jan 01, 2015", "price": 14.58}, {"date": "Feb 01, 2015", "price": 15.25}, {"date": "Mar 01, 2015", "price": 15.76}, {"date": "Apr 01, 2015", "price": 14.97}, {"date": "May 01, 2015", "price": 15.32}, {"date": "Jun 01, 2015", "price": 14.86}, {"date": "Jul 01, 2015", "price": 16.1}, {"date": "Aug 01, 2015", "price": 14.19}, {"date": "Sep 01, 2015", "price": 13.89}, {"date": "Oct 01, 2015", "price": 16.33}, {"date": "Nov 01, 2015", "price": 17.4}, {"date": "Dec 01, 2015", "price": 17.31}, {"date": "Jan 01, 2016", "price": 12.44}, {"date": "Feb 01, 2016", "price": 11.0}, {"date": "Mar 01, 2016", "price": 12.24}, {"date": "Apr 01, 2016", "price": 14.3}, {"date": "May 01, 2016", "price": 14.33}, {"date": "Jun 01, 2016", "price": 13.28}, {"date": "Jul 01, 2016", "price": 14.98}, {"date": "Aug 01, 2016", "price": 14.53}, {"date": "Sep 01, 2016", "price": 15.83}, {"date": "Oct 01, 2016", "price": 17.58}, {"date": "Nov 01, 2016", "price": 16.63}, {"date": "Dec 01, 2016", "price": 14.87}, {"date": "Jan 01, 2017", "price": 18.12}, {"date": "Feb 01, 2017", "price": 17.38}, {"date": "Mar 01, 2017", "price": 17.49}, {"date": "Apr 01, 2017", "price": 18.9}, {"date": "May 01, 2017", "price": 20.93}, {"date": "Jun 01, 2017", "price": 21.2}, {"date": "Jul 01, 2017", "price": 22.09}, {"date": "Aug 01, 2017", "price": 23.24}, {"date": "Sep 01, 2017", "price": 23.51}, {"date": "Oct 01, 2017", "price": 25.27}, {"date": "Nov 01, 2017", "price": 24.6}, {"date": "Dec 01, 2017", "price": 26.08}, {"date": "Jan 01, 2018", "price": 29.77}, {"date": "Feb 01, 2018", "price": 32.2}, {"date": "Mar 01, 2018", "price": 33.09}, {"date": "Apr 01, 2018", "price": 33.23}, {"date": "May 01, 2018", "price": 35.52}, {"date": "Jun 01, 2018", "price": 34.49}, {"date": "Jul 01, 2018", "price": 35.19}, {"date": "Aug 01, 2018", "price": 39.27}, {"date": "Sep 01, 2018", "price": 39.13}, {"date": "Oct 01, 2018", "price": 36.21}, {"date": "Nov 01, 2018", "price": 37.05}, {"date": "Dec 01, 2018", "price": 35.61}, {"date": "Jan 01, 2019", "price": 44.0}, {"date": "Feb 01, 2019", "price": 47.89}, {"date": "Mar 01, 2019", "price": 49.3}, {"date": "Apr 01, 2019", "price": 54.3}, {"date": "May 01, 2019", "price": 52.39}, {"date": "Jun 01, 2019", "price": 54.91}, {"date": "Jul 01, 2019", "price": 55.48}, {"date": "Aug 01, 2019", "price": 52.37}, {"date": "Sep 01, 2019", "price": 50.77}, {"date": "Oct 01, 2019", "price": 49.45}, {"date": "Nov 01, 2019", "price": 56.61}, {"date": "Dec 01, 2019", "price": 56.46}, {"date": "Jan 01, 2020", "price": 67.65}, {"date": "Feb 01, 2020", "price": 65.22}, {"date": "Mar 01, 2020", "price": 57.32}, {"date": "Apr 01, 2020", "price": 70.31}, {"date": "May 01, 2020", "price": 77.59}, {"date": "Jun 01, 2020", "price": 81.01}, {"date": "Jul 01, 2020", "price": 87.84}, {"date": "Aug 01, 2020", "price": 96.4}, {"date": "Sep 01, 2020", "price": 97.0}, {"date": "Oct 01, 2020", "price": 99.51}, {"date": "Nov 01, 2020", "price": 106.91}, {"date": "Dec 01, 2020", "price": 110.09}, {"date": "Jan 01, 2021", "price": 108.63}, {"date": "Feb 01, 2021", "price": 106.69}, {"date": "Mar 01, 2021", "price": 100.02}, {"date": "Apr 01, 2021", "price": 101.27}, {"date": "May 01, 2021", "price": 94.78}, {"date": "Jun 01, 2021", "price": 109.91}, {"date": "Jul 01, 2021", "price": 117.58}, {"date": "Aug 01, 2021", "price": 128.73}, {"date": "Sep 01, 2021", "price": 124.45}, {"date": "Oct 01, 2021", "price": 139.55}, {"date": "Nov 01, 2021", "price": 129.54}, {"date": "Dec 01, 2021", "price": 129.82}, {"date": "Jan 01, 2022", "price": 117.16}, {"date": "Feb 01, 2022", "price": 115.98}, {"date": "Mar 01, 2022", "price": 111.38}, {"date": "Apr 01, 2022", "price": 95.62}, {"date": "May 01, 2022", "price": 93.49}, {"date": "Jun 01, 2022", "price": 95.1}, {"date": "Jul 01, 2022", "price": 89.33}, {"date": "Aug 01, 2022", "price": 86.92}, {"date": "Sep 01, 2022", "price": 75.52}, {"date": "Oct 01, 2022", "price": 84.15}, {"date": "Nov 01, 2022", "price": 83.26}, {"date": "Dec 01, 2022", "price": 77.65}, {"date": "Jan 01, 2023", "price": 91.03}, {"date": "Feb 01, 2023", "price": 86.43}, {"date": "Mar 01, 2023", "price": 92.94}, {"date": "Apr 01, 2023", "price": 91.88}, {"date": "May 01, 2023", "price": 108.96}, {"date": "Jun 01, 2023", "price": 112.39}, {"date": "Jul 01, 2023", "price": 116.6}, {"date": "Aug 01, 2023", "price": 117.77}, {"date": "Sep 01, 2023", "price": 111.79}, {"date": "Oct 01, 2023", "price": 116.37}, {"date": "Nov 01, 2023", "price": 137.15}, {"date": "Dec 01, 2023", "price": 141.3}, {"date": "Jan 01, 2024", "price": 153.08}, {"date": "Feb 01, 2024", "price": 154.27}, {"date": "Mar 01, 2024", "price": 152.48}, {"date": "Apr 01, 2024", "price": 138.67}, {"date": "May 01, 2024", "price": 131.39}, {"date": "Jun 01, 2024", "price": 157.33}, {"date": "Jul 01, 2024", "price": 162.88}, {"date": "Aug 01, 2024", "price": 171.0}, {"date": "Sep 01, 2024", "price": 178.88}, {"date": "Oct 01, 2024", "price": 186.6}, {"date": "Nov 01, 2024", "price": 209.89}, {"date": "Dec 01, 2024", "price": 212.02}, {"date": "Jan 01, 2025", "price": 203.68}, {"date": "Feb 01, 2025", "price": 185.95}, {"date": "Mar 01, 2025", "price": 159.23}, {"date": "Apr 01, 2025", "price": 191.0}, {"date": "May 01, 2025", "price": 202.22}, {"date": "Jun 01, 2025", "price": 205.62}, {"date": "Jul 01, 2025", "price": 188.62}, {"date": "Aug 01, 2025", "price": 183.49}, {"date": "Sep 01, 2025", "price": 184.06}, {"date": "Oct 01, 2025", "price": 183.86}, {"date": "Nov 01, 2025", "price": 162.48}, {"date": "Dec 01, 2025", "price": 153.19}, {"date": "Jan 01, 2026", "price": 117.01}, {"date": "Feb 01, 2026", "price": 108.01}, {"date": "Mar 01, 2026", "price": 104.55}, {"date": "Apr 01, 2026", "price": 88.31}, {"date": "May 01, 2026", "price": 124.37}, {"date": "Jun 01, 2026", "price": 99.28}, {"date": "Jul 01, 2026", "price": 111.23}, {"date": "Aug 01, 2026", "price": 124.88}, {"date": "Aug 11, 2026", "price": 127.57}]};
+        let currentRangeKey = '1Y';
+        let currentPoints = allDatasets[currentRangeKey] || [];
+        let currentSvgCoords = [];
+
+        const width = 900;
+        const height = 260;
+        const padX = 20;
+        const padY = 25;
+
+        const container = document.getElementById('chart-container');
+        const svg = document.getElementById('interactive-svg');
+        const linePath = document.getElementById('chart-line-path');
+        const areaPath = document.getElementById('chart-area-path');
+        const tooltipDate = document.getElementById('tooltip-date');
+        const tooltipPrice = document.getElementById('tooltip-price');
+        const crosshair = document.getElementById('crosshair-line');
+        const dot = document.getElementById('hover-dot');
+        const startLbl = document.getElementById('chart-start-lbl');
+        const endLbl = document.getElementById('chart-end-lbl');
+        const rangeTitle = document.getElementById('chart-range-title');
+
+        function recalculatePaths(points) {
+            if (!points || points.length < 2) return;
+            const prices = points.map(p => p.price);
+            const minP = Math.min(...prices);
+            const maxP = Math.max(...prices);
+            const pRange = Math.max(maxP - minP, 0.01);
+            const n = points.length;
+
+            currentSvgCoords = [];
+            for (let i = 0; i < n; i++) {
+                const x = padX + (i / (n - 1)) * (width - 2 * padX);
+                const y = height - padY - ((points[i].price - minP) / pRange) * (height - 2 * padY);
+                currentSvgCoords.push([Math.round(x * 10) / 10, Math.round(y * 10) / 10]);
+            }
+
+            const lineD = 'M ' + currentSvgCoords.map(c => c[0] + ',' + c[1]).join(' L ');
+            const firstC = currentSvgCoords[0];
+            const lastC = currentSvgCoords[currentSvgCoords.length - 1];
+            const areaD = lineD + ' L ' + lastC[0] + ',' + height + ' L ' + firstC[0] + ',' + height + ' Z';
+
+            linePath.setAttribute('d', lineD);
+            areaPath.setAttribute('d', areaD);
+
+            startLbl.innerText = points[0].date + ' ($' + minP.toFixed(2) + ')';
+            endLbl.innerText = points[n - 1].date + ' ($' + points[n - 1].price.toFixed(2) + ')';
+            
+            tooltipDate.innerText = points[n - 1].date;
+            tooltipPrice.innerText = '$' + points[n - 1].price.toFixed(2);
+
+            const titles = { '1Y': '1-Year Range', '5Y': '5-Year Range', '10Y': '10-Year Range', 'MAX': 'All-Time Historical Range' };
+            rangeTitle.innerText = titles[currentRangeKey] || currentRangeKey + ' Range';
+        }
+
+        window.switchChartRange = function(rangeKey) {
+            if (!allDatasets[rangeKey]) return;
+            currentRangeKey = rangeKey;
+            currentPoints = allDatasets[rangeKey];
+            
+            document.querySelectorAll('.range-pill').forEach(btn => {
+                if (btn.innerText.trim() === rangeKey) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            recalculatePaths(currentPoints);
+            hideHover();
+        };
+
+        function updateHover(e) {
+            if (!currentPoints.length || !currentSvgCoords.length) return;
+            const rect = svg.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const pct = Math.max(0, Math.min(1, mouseX / rect.width));
+            const idx = Math.round(pct * (currentPoints.length - 1));
+            
+            const pt = currentPoints[idx];
+            const coord = currentSvgCoords[idx];
+            if (!pt || !coord) return;
+
+            crosshair.setAttribute('x1', coord[0]);
+            crosshair.setAttribute('x2', coord[0]);
+            crosshair.style.display = 'block';
+
+            dot.setAttribute('cx', coord[0]);
+            dot.setAttribute('cy', coord[1]);
+            dot.style.display = 'block';
+
+            tooltipDate.innerText = pt.date;
+            tooltipPrice.innerText = '$' + pt.price.toFixed(2);
+        }
+
+        function hideHover() {
+            crosshair.style.display = 'none';
+            dot.style.display = 'none';
+            if (currentPoints.length) {
+                tooltipDate.innerText = currentPoints[currentPoints.length - 1].date;
+                tooltipPrice.innerText = '$' + currentPoints[currentPoints.length - 1].price.toFixed(2);
+            }
+        }
+
+        container.addEventListener('mousemove', updateHover);
+        container.addEventListener('mouseleave', hideHover);
+        container.addEventListener('touchstart', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
+        container.addEventListener('touchmove', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
+        container.addEventListener('touchend', hideHover);
+
+        recalculatePaths(currentPoints);
+    })();
+    </script>
+    
+
+            <!-- Key Metrics Grid -->
+            <div class="metrics-grid" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));">
+                <div class="metric-cell">
+                    <div class="metric-label">Fair Value</div>
+                    <div class="metric-value" style="color: var(--accent-warm);">$158.00</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Bear Target</div>
+                    <div class="metric-value" style="color: var(--accent-red);">$105.00 (-18.2%)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Base Target</div>
+                    <div class="metric-value">$158.00 (+23.1%)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Bull Target</div>
+                    <div class="metric-value" style="color: var(--accent-green);">$195.00 (+51.9%)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Alert Corridor</div>
+                    <div class="metric-value" style="font-size: 1.05rem; font-family: var(--font-mono); color: var(--text-title);">$108.00 ⇄ $155.00</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Next Catalyst</div>
+                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">2026-10-21</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation Tabs -->
+        <div class="tabs-header">
+            <button class="tab-btn active" onclick="showTab('memo')">Investment Thesis</button>
+            <button class="tab-btn" onclick="showTab('history')">Evolution (0)</button>
+        </div>
+
+        <!-- Memo Content -->
+        <div id="tab-memo" class="tab-content active">
+            <article class="memo-container">
+                <div class="section">
+  <h2>Section 1: Business Model, Moat &amp; Ecosystem Dominance</h2>
+
+  <h3>1. The Enterprise Control Tower: System of Action Architecture</h3>
+  <p>
+    ServiceNow, Inc. (NYSE: NOW) has established itself as the indispensable <strong>System of Action</strong> across global enterprise infrastructure. While traditional legacy vendors act as fragmented "systems of record" (e.g., SAP for ERP, Salesforce for CRM, Workday for HCM), ServiceNow operates one layer above. The <strong>Now Platform</strong> orchestrates complex, cross-functional workflows by binding disparate applications, cloud platforms, and enterprise databases into a single, automated operational pipeline.
+  </p>
+  <p>
+    The platform's core architecture spans several core enterprise growth engines:
+  </p>
+  <ul>
+    <li><strong>IT Service &amp; Operations Management (ITSM/ITOM):</strong> The historical core engine, enabling automated incident resolution, IT infrastructure mapping, and service delivery across multi-cloud environments.</li>
+    <li><strong>Customer Service Management (CSM) &amp; CRM:</strong> Modernizing front-office resolution workflows, connecting customer inquiries directly to middle- and back-office execution systems, driving over $2 billion in annual contract value (ACV).</li>
+    <li><strong>Employee Workflow Solutions (HRSD):</strong> Streamlining human resources service delivery, onboarding, and internal service inquiries through centralized enterprise portals.</li>
+    <li><strong>Security Operations &amp; Risk (SecOps/GRC):</strong> Integrating threat intelligence and vulnerability management with immediate, automated remediation workflows.</li>
+    <li><strong>Creator Workflows &amp; Low-Code Automation:</strong> Empowering enterprise developers to build custom workflow applications directly on the unified Now Platform database structure.</li>
+  </ul>
+
+  <div class="callout">
+    <h4>Strategic Insight: Why Agentic AI Amplifies ServiceNow's Control Tower</h4>
+    <p>
+      Market anxiety regarding "SaaS displacement"—the fear that autonomous AI agents will destroy seat-based pricing models—misinterprets the structural mechanics of enterprise software. Autonomous agents do not eliminate the need for workflow orchestration; they dramatically increase the complexity and volume of tasks. 
+    </p>
+    <p>
+      Through its <strong>AI Control Tower</strong> and <strong>ServiceNow Otto</strong> (its unified AI experience), ServiceNow provides the mandatory discovery, permissioning, auditability, and governance layer for multi-agent ecosystems. Whether an agent originates from OpenAI, Anthropic, or internal custom LLMs, it must act within strict enterprise compliance guardrails. ServiceNow captures the orchestration fee and execution tax, turning agentic proliferation from a structural threat into a powerful tailwind.
+    </p>
+  </div>
+
+  <h3>2. Structural Moat Analysis &amp; High Switching Costs</h3>
+  <p>
+    ServiceNow possesses one of the widest economic moats in enterprise technology, driven primarily by extreme switching costs and multi-departmental workflow integration:
+  </p>
+  <ul>
+    <li><strong>98% Renewal Rate Industry Benchmark:</strong> ServiceNow consistently achieves a 98% renewal rate, underscoring that once enterprise business processes are mapped to the Now Platform's single data model, ripping out the platform risks systemic operational disruption.</li>
+    <li><strong>Deep Process Integration &amp; Customization:</strong> Global Fortune 500 enterprises have spent decades hardcoding proprietary business logic, approval hierarchies, and IT security protocols into ServiceNow. Replacing this control plane requires multi-year migration roadmaps and tens of millions in professional services costs.</li>
+    <li><strong>Data-Layer Network Effects:</strong> With over 100 billion annual workflows executing on its platform, ServiceNow leverages vast operational data to train domain-specific generative models, creating a virtuous cycle where automated workflow accuracy expands with scale.</li>
+  </ul>
+
+  <h3>3. Strategic Perimeter Expansion: The $7.75B Armis Acquisition</h3>
+  <p>
+    In April 2026, ServiceNow completed its transformative $7.75 billion all-cash acquisition of <strong>Armis Security</strong>, marking the largest strategic transaction in the company's history. Armis specializes in agentless cyber exposure management and asset visibility across IT, Operational Technology (OT), IoT, and critical medical devices.
+  </p>
+  <p>
+    This acquisition fundamentally bridges the gap between <em>cyber visibility</em> and <em>automated action</em>. Armis monitors over 4 billion connected assets without software agents, providing continuous threat assessment. By directly embedding Armis Centrix™ into the Now Platform, ServiceNow enables enterprise security teams to automatically trigger remediation workflows the instant an unmanaged device displays exposure—solidifying ServiceNow's expansion into mission-critical cybersecurity and OT infrastructure management.
+  </p>
+</div>
+
+<div class="section">
+  <h2>Section 2: Latest Financial Results &amp; Management Guidance</h2>
+
+  <h3>1. Q2 2026 Financial Highlights &amp; Operating Momentum</h3>
+  <p>
+    ServiceNow delivered strong Q2 2026 financial results, beating guidance across all top-line and profitability metrics. Subscription revenue accelerated to $3.88 billion (+24.5% YoY), while total revenue reached $3.99 billion. Demonstrating clear monetization of its generative AI suite, <strong>ServiceNow AI crossed $1.0 billion in Annual Contract Value (ACV)</strong> during the quarter.
+  </p>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Q2 Subscription Revenue</div>
+      <div class="metric-value">$3.88B</div>
+      <div class="metric-delta pos">+24.5% YoY (+23% CC)</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Total Revenue</div>
+      <div class="metric-value">$3.99B</div>
+      <div class="metric-delta pos">+24.0% YoY (+22.5% CC)</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Current RPO (cRPO)</div>
+      <div class="metric-value">$13.20B</div>
+      <div class="metric-delta pos">+21.0% YoY (+21.5% CC)</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Total RPO</div>
+      <div class="metric-value">$29.0B</div>
+      <div class="metric-delta pos">+21.0% YoY (+22% CC)</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Non-GAAP Operating Margin</div>
+      <div class="metric-value">29.5%</div>
+      <div class="metric-delta pos">Rule of 56 Operating Profile</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Now Assist AI ACV</div>
+      <div class="metric-value">$1.00B+</div>
+      <div class="metric-delta pos">Agentic Deployments 9x in 9 Mos</div>
+    </div>
+  </div>
+
+  <h3>2. Detailed Financial &amp; Operational Metrics Table</h3>
+  <p>
+    The following structured table summarizes ServiceNow's consolidated operational performance for Q2 2026 compared to Q2 2025:
+  </p>
+
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Metric / KPI</th>
+        <th>Q2 2025</th>
+        <th>Q2 2026</th>
+        <th>YoY Growth / Change</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Subscription Revenue</strong></td>
+        <td>$3,114M</td>
+        <td>$3,877M</td>
+        <td>+24.5% (+23.0% CC)</td>
+      </tr>
+      <tr>
+        <td><strong>Total Revenue</strong></td>
+        <td>$3,218M</td>
+        <td>$3,987M</td>
+        <td>+23.9% (+22.5% CC)</td>
+      </tr>
+      <tr>
+        <td><strong>Current Remaining Performance Obligations (cRPO)</strong></td>
+        <td>$10,910M</td>
+        <td>$13,200M</td>
+        <td>+21.0% (+21.5% CC)</td>
+      </tr>
+      <tr>
+        <td><strong>Total Remaining Performance Obligations (RPO)</strong></td>
+        <td>$23,970M</td>
+        <td>$29,000M</td>
+        <td>+21.0% (+22.0% CC)</td>
+      </tr>
+      <tr>
+        <td><strong>GAAP Gross Margin</strong></td>
+        <td>78.5%</td>
+        <td>70.5%</td>
+        <td>-800 bps (Armis deal impact)</td>
+      </tr>
+      <tr>
+        <td><strong>Non-GAAP Operating Margin</strong></td>
+        <td>27.0%</td>
+        <td>29.5%</td>
+        <td>+250 bps expansion</td>
+      </tr>
+      <tr>
+        <td><strong>Non-GAAP Diluted Net Income Per Share</strong></td>
+        <td>$0.82</td>
+        <td>$0.90</td>
+        <td>+9.8% YoY</td>
+      </tr>
+      <tr>
+        <td><strong>Transactions &gt;$1M Net New ACV</strong></td>
+        <td>88</td>
+        <td>123</td>
+        <td>+39.8% YoY</td>
+      </tr>
+      <tr>
+        <td><strong>Customers &gt;$5M Annual Contract Value (ACV)</strong></td>
+        <td>535</td>
+        <td>658</td>
+        <td>+23.0% YoY</td>
+      </tr>
+      <tr>
+        <td><strong>Renewal Rate</strong></td>
+        <td>98%</td>
+        <td>98%</td>
+        <td>Stable Industry Gold Standard</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <h3>3. Forward Management Guidance &amp; Long-Term 2030 Roadmap</h3>
+  <p>
+    Backed by robust net-new deal momentum and federal market strength, management raised full-year 2026 outlook across subscription revenue and operating profitability:
+  </p>
+  <ul>
+    <li><strong>Q3 2026 Guidance:</strong> Subscription revenue guided to $3.975B–$3.980B (~20.5% YoY growth, 20.0% CC). Current RPO growth expected at 19.5% YoY (20.0% CC) with Non-GAAP operating margin guided at 31.0%.</li>
+    <li><strong>Full-Year 2026 Outlook:</strong> Subscription revenue raised to $15.760B–$15.780B (~22.5% YoY, 21.0% CC). Non-GAAP subscription gross margin projected at 81.0%, with full-year Non-GAAP operating margin expanded to 31.5%.</li>
+    <li><strong>Vision 2030 Strategic Targets:</strong> Targets established at Financial Analyst Day outline scaling past <strong>$30 billion in annual subscription revenue by 2030</strong>, generating 30%+ of ACV from generative AI/agentic products, and driving a consolidated <strong>Rule of 60+</strong> operating profile.</li>
+  </ul>
+
+  <div class="callout">
+    <h4>Executive Leadership Quotes</h4>
+    <p>
+      <strong>Bill McDermott, Chairman and CEO:</strong><br />
+      <em>"ServiceNow's exceptional Q2 results solidify our position as the fastest-growing major enterprise software and cybersecurity company. The company's sterling fundamentals have us operating to the Rule of 56, well on our way to the Rule of 60. With our AI Control Tower as the market standard, agentic deployments of ServiceNow AI increased ninefold in just nine months. Our $29 billion in remaining performance obligations is fueled by longer customer commitments and skyrocketing demand across our ecosystem."</em>
+    </p>
+    <p>
+      <strong>Gina Mastantuono, President and CFO:</strong><br />
+      <em>"AI net-new annual contract value continues to outpace our ambitious expectations, with Pro Plus pricing uplifts proving the immediate ROI customers receive from Now Assist. The integration of Armis into our AI Control Tower is accelerating our security and risk business, allowing us to raise full-year profitability and subscription revenue guidance with confidence."</em>
+    </p>
+  </div>
+</div>
+
+<div class="section" id="true-cash-generation-sbc-audit">
+  <h2>3. True Cash Generation & SBC Dilution Audit</h2>
+
+  <p>
+    ServiceNow, Inc. (NOW) is widely recognized as a free cash flow compounding powerhouse in the enterprise software sector, boasting Non-GAAP Free Cash Flow margins frequently exceeding 30% to 34%. However, a rigorous fundamental audit requires tearing back management's adjusted reporting layer to evaluate the underlying economic cash reality. In accordance with Warren Buffett’s Owner Earnings framework, Stock-Based Compensation (SBC) is not an abstract non-cash paper item that can be added back indefinitely—it is a tangible labor cost paid in equity dilution rather than dollars. When employees are compensated with stock, shareholders suffer incremental ownership economic erosion unless that equity is bought back using real cash from operations.
+  </p>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">FY2025 Non-GAAP FCF</div>
+      <div class="metric-value">$3,420M</div>
+      <div class="metric-delta pos">31.4% Margin</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">FY2025 Stock-Based Comp</div>
+      <div class="metric-value">$1,635M</div>
+      <div class="metric-delta neg">15.0% of Rev</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">FY2025 True Owner Cash Flow</div>
+      <div class="metric-value">$1,335M</div>
+      <div class="metric-delta neg">12.2% True Margin</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Q1 2026 Share Repurchase</div>
+      <div class="metric-value">$2.225B</div>
+      <div class="metric-delta neutral">20.1M Shares Ret.</div>
+    </div>
+  </div>
+
+  <h3>3.1 Unadjusted Free Cash Flow vs. Buffett "True Owner Cash Flow"</h3>
+  <p>
+    Management's non-GAAP Free Cash Flow definition adds back 100% of SBC to Operating Cash Flow before deducting capital expenditures. While this provides a picture of raw gross cash accumulation before payroll settlement, it heavily overstates recurring economic owner returns. In FY2025, ServiceNow reported $3,870M in Operating Cash Flow and spent $450M in property, plant, and equipment purchases (CapEx), yielding a headline Non-GAAP FCF of $3,420M.
+  </p>
+  <p>
+    To calculate <strong>True Owner Cash Flow</strong>, we deduct 100% of SBC ($1,635M in FY2025) as an unavoidable operating expense, along with baseline maintenance CapEx. The result shows that ServiceNow's true economic cash generation is $1,335M—less than 40% of the non-GAAP figure touted in investor presentations. As revenue scales toward $13.5B+ in FY2026, True Owner Cash Flow expands to $1,970M, but the structural gap created by SBC remains the dominant accounting divergence.
+  </p>
+
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Cash Flow Audit Metric ($M)</th>
+        <th>FY2024</th>
+        <th>FY2025</th>
+        <th>FY2026E</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>GAAP Net Cash from Operations</td>
+        <td>$3,380</td>
+        <td>$3,870</td>
+        <td>$4,650</td>
+      </tr>
+      <tr>
+        <td>Less: Capital Expenditures (Property &amp; Equipment)</td>
+        <td>($410)</td>
+        <td>($450)</td>
+        <td>($530)</td>
+      </tr>
+      <tr>
+        <td><strong>Reported Non-GAAP Free Cash Flow</strong></td>
+        <td><strong>$2,970</strong></td>
+        <td><strong>$3,420</strong></td>
+        <td><strong>$4,120</strong></td>
+      </tr>
+      <tr>
+        <td>Non-GAAP FCF Margin (%)</td>
+        <td>31.0%</td>
+        <td>31.4%</td>
+        <td>30.5%</td>
+      </tr>
+      <tr>
+        <td>Less: Stock-Based Compensation (SBC) Expense</td>
+        <td>($1,420)</td>
+        <td>($1,635)</td>
+        <td>($1,820)</td>
+      </tr>
+      <tr>
+        <td><strong>True Owner Cash Flow (Buffett Methodology)</strong></td>
+        <td><strong>$1,140</strong></td>
+        <td><strong>$1,335</strong></td>
+        <td><strong>$1,970</strong></td>
+      </tr>
+      <tr>
+        <td><strong>True Owner Cash Flow Margin (%)</strong></td>
+        <td><strong>11.9%</strong></td>
+        <td><strong>12.2%</strong></td>
+        <td><strong>14.6%</strong></td>
+      </tr>
+      <tr>
+        <td>True Owner Cash Flow Per Share (Post 5-for-1 Split)</td>
+        <td>$1.10</td>
+        <td>$1.28</td>
+        <td>$1.89</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout">
+    <strong>Accounting Nuance &amp; Management Commitment:</strong> SBC consumed approximately 15.0% of total revenue in FY2025. In response to investor pressure regarding stock dilution, management announced a formal commitment to bring SBC down to <em>less than 10% of revenue by 2029</em>. While this trajectory is structurally favorable, current Owner Cash Flow yields remain compressed compared to software peers that pay higher cash compensation relative to equity grants.
+  </div>
+
+  <h3>3.2 Dilution Management & Share Repurchase Discipline</h3>
+  <p>
+    Following shareholder approval of a 5-for-1 stock split effective December 18, 2025, ServiceNow’s diluted weighted-average share count adjusted to approximately 1,040M shares (~1.04B). To counter the steady influx of new shares issued under employee incentive programs, the Board authorized an additional $5.0 Billion share repurchase program in early 2026.
+  </p>
+  <p>
+    In Q1 2026, ServiceNow aggressively utilized its authorization, spending $2.225 Billion to repurchase roughly 20.1 million post-split shares. However, a multi-year audit reveals that these repurchases act primarily as an <strong>SBC Dilution Absorber</strong> rather than an aggressive share cannibalization mechanism. Annual equity grants issue between 15M and 20M post-split shares to employees each year. Consequently, multi-billion-dollar buyback programs serve chiefly to neutralize share count creep, preventing meaningful per-share denominator contraction unless executed in even larger volumes.
+  </p>
+
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Capital Return &amp; Share Count Trajectory</th>
+        <th>FY2024</th>
+        <th>FY2025</th>
+        <th>Q1 2026 / LTM</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Diluted Shares Outstanding (Post-Split Adjusted, M)</td>
+        <td>1,035</td>
+        <td>1,045</td>
+        <td>1,040</td>
+      </tr>
+      <tr>
+        <td>Annual Share Buyback Outflows ($M)</td>
+        <td>$750</td>
+        <td>$1,220</td>
+        <td>$2,225 (Q1 Only)</td>
+      </tr>
+      <tr>
+        <td>SBC Shares Issued / Granted (Post-Split, M)</td>
+        <td>18.2</td>
+        <td>19.5</td>
+        <td>4.8 (Q1 Only)</td>
+      </tr>
+      <tr>
+        <td>Net Share Count Change YoY (%)</td>
+        <td>+0.8%</td>
+        <td>+1.0%</td>
+        <td>-0.5%</td>
+      </tr>
+    </tbody>
+  </table></div>
+</div>
+
+<div class="section" id="balance-sheet-integrity-repurchase-discipline">
+  <h2>4. Balance Sheet Integrity &amp; Share Repurchase Discipline</h2>
+
+  <p>
+    ServiceNow historically operated with a pristine cash fortress, maintaining multi-billion-dollar net cash positions that provided complete operational independence. However, the corporate finance landscape shifted dramatically in late 2025 and early 2026 as management transitioned toward an aggressive inorganic expansion strategy, culminating in the $7.75 Billion acquisition of cybersecurity asset exposure leader Armis (closed April 20, 2026), alongside Moveworks ($2.9B) and Veza.
+  </p>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Cash &amp; Short-Term Inv.</div>
+      <div class="metric-value">$5,182M</div>
+      <div class="metric-delta neg">-46.5% vs Pre-M&amp;A</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Total Debt Obligations</div>
+      <div class="metric-value">$5,490M</div>
+      <div class="metric-delta neg">+$4.0B Bond Sale</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Net Debt Position</div>
+      <div class="metric-value">($308M)</div>
+      <div class="metric-delta neg">Shift from Net Cash</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Operating Lease Commitments</div>
+      <div class="metric-value">$875M</div>
+      <div class="metric-delta neutral">Contractual Oblig.</div>
+    </div>
+  </div>
+
+  <h3>4.1 Post-Armis Balance Sheet Audit &amp; Capital Structure Transformation</h3>
+  <p>
+    Prior to the acquisition spree, ServiceNow held $9.68B in cash, cash equivalents, and marketable securities against $1.49B of senior notes, establishing an $8.19B Net Cash cushion (Q3 2025). To complete the $7.75B all-cash acquisition of Armis in April 2026, ServiceNow drew down cash reserves and utilized a $4.0B short-term unsecured term loan facility.
+  </p>
+  <p>
+    In May 2026, ServiceNow successfully replaced the short-dated term loan by issuing $4.0 Billion in high-grade investment-class corporate bonds arranged by JPMorgan, Wells Fargo, Barclays, and Citigroup. This debt issuance extended ServiceNow's debt maturity structure and locked in long-term fixed interest rates, but it fundamentally altered the capital structure. Total funded debt rose from $1.49B to $5.49B, shifting the company into a slight Net Debt position of $308M (excluding $875M in operating leases).
+  </p>
+
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Balance Sheet Component ($M)</th>
+        <th>Pre-Acquisitions (Q3 2025)</th>
+        <th>Post-Armis (Q2 2026)</th>
+        <th>Variance ($M)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Cash &amp; Cash Equivalents</td>
+        <td>$4,120</td>
+        <td>$2,702</td>
+        <td>($1,418)</td>
+      </tr>
+      <tr>
+        <td>Short-Term Marketable Securities</td>
+        <td>$5,560</td>
+        <td>$2,480</td>
+        <td>($3,080)</td>
+      </tr>
+      <tr>
+        <td><strong>Total Cash &amp; Liquid Investments</strong></td>
+        <td><strong>$9,680</strong></td>
+        <td><strong>$5,182</strong></td>
+        <td><strong>($4,498)</strong></td>
+      </tr>
+      <tr>
+        <td>Short-Term / Senior Notes Due 2030</td>
+        <td>$1,490</td>
+        <td>$1,490</td>
+        <td>$0</td>
+      </tr>
+      <tr>
+        <td>Newly Issued Senior Term Bonds (Armis Refinancing)</td>
+        <td>$0</td>
+        <td>$4,000</td>
+        <td>+$4,000</td>
+      </tr>
+      <tr>
+        <td><strong>Total Funded Debt Liabilities</strong></td>
+        <td><strong>$1,490</strong></td>
+        <td><strong>$5,490</strong></td>
+        <td><strong>+$4,000</strong></td>
+      </tr>
+      <tr>
+        <td>Operating Lease Liabilities (Contractual)</td>
+        <td>$820</td>
+        <td>$875</td>
+        <td>+$55</td>
+      </tr>
+      <tr>
+        <td><strong>Net Cash / (Net Debt) Position</strong></td>
+        <td><strong>+$8,190</strong></td>
+        <td><strong>($308)</strong></td>
+        <td><strong>($8,498)</strong></td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <h3>4.2 Capital Allocation Strategy: Mega M&amp;A vs. Organic R&amp;D &amp; Buybacks</h3>
+  <p>
+    The acquisition of Armis at a reported 23x Annual Recurring Revenue (ARR) multiple ($7.75B for ~$340M ARR growing at ~50% YoY) marks a strategic pivot. Management is leveraging its balance sheet to consolidate cybersecurity asset management and agentic AI security control layers (AI Control Tower).
+  </p>
+  <p>
+    While Armis, Moveworks, and Veza bolster ServiceNow’s Total Addressable Market (TAM) and accelerate subscription revenue growth toward guidance of $15.76B–$15.78B for FY2026, they absorb nearly all historical net cash reserves. Consequently, future share repurchases must be funded directly out of annual organic Operating Cash Flow rather than excess balance sheet cash.
+  </p>
+
+  <div class="callout">
+    <strong>Strategic Balance Sheet Assessment:</strong> Despite the debt issuance and loss of net cash status, ServiceNow maintains an <strong>investment-grade balance sheet fortress</strong>. With annualized Operating Cash Flow approaching $4.65B in FY2026 and interest coverage exceeding 15x, the $5.49B total debt load poses minimal financial distress risk. However, investors should anticipate that share repurchase velocity will moderate in H2 2026 as management prioritizes debt paydown and integration of Armis.
+  </div>
+</div>
+
+<div class="section">
+  <h2>Section 5: Warren Buffett Owner Earnings & Intrinsic Value Matrix</h2>
+
+  <h3>5.1 First-Principles Owner Earnings Derivation (1986 Shareholder Letter)</h3>
+  <p>
+    In his seminal 1986 Berkshire Hathaway Shareholder Letter, Warren Buffett introduced <strong>Owner Earnings</strong> as the true measure of a business's net economic cash generation: <em>"Operating Cash Flow plus/minus non-cash adjustments, minus the average annual amount of capitalized expenditures for plant and equipment, etc., that the business requires to fully maintain its long-term competitive position and unit volume."</em>
+  </p>
+  <p>
+    To evaluate ServiceNow (NOW) with uncompromising financial realism, we apply two strict economic adjustments to standard Wall Street Non-GAAP Free Cash Flow metrics:
+  </p>
+  <ol>
+    <li>
+      <strong>100% Stock-Based Compensation (SBC) Deduction:</strong> Wall Street routinely adds back SBC to FCF, treating dilutive equity grants as non-cash charges. In accordance with Buffett and Munger's core principles, stock issued to employees is a genuine cash economic cost. If the company did not pay employees in stock, it would be forced to pay them in cash. Therefore, 100% of SBC (~$1.95B LTM) is treated as a real cash operating expense.
+    </li>
+    <li>
+      <strong>Maintenance vs. Growth CapEx Bifurcation:</strong> Total capital expenditure for ServiceNow over the LTM period reached ~$868 million. We isolate essential platform maintenance CapEx (~$380 million required for server infrastructure, datacenter leases, and core network maintenance) from discretionary growth CapEx (~$488 million allocated to international office expansion and specialized AI cluster infrastructure).
+    </li>
+    <li>
+      <strong>Working Capital & Unearned Revenue Float Analysis:</strong> ServiceNow operates with a powerful enterprise cash float. Operating cash flow is structurally bolstered by current deferred revenues of $6.80 billion—upfront annual and multi-year subscription payments collected from enterprise customers prior to service delivery. Like Berkshire's insurance float, this interest-free capital funds R&D and platform innovation well before revenue recognition.
+    </li>
+  </ol>
+
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Owner Earnings Component</th>
+        <th>LTM Value ($ Millions)</th>
+        <th>Per Share (1.04B Shares)</th>
+        <th>Economic Logic &amp; Buffett Adjustment</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>GAAP Operating Cash Flow (OCF)</strong></td>
+        <td>$5,400</td>
+        <td>$5.19</td>
+        <td>Baseline organic cash generated from subscription billing and float.</td>
+      </tr>
+      <tr>
+        <td><strong>Less: Maintenance CapEx</strong></td>
+        <td>($380)</td>
+        <td>($0.37)</td>
+        <td>Excludes ~$488M growth CapEx; retains cash needed to preserve moat.</td>
+      </tr>
+      <tr>
+        <td><strong>Less: 100% Stock-Based Compensation</strong></td>
+        <td>($1,950)</td>
+        <td>($1.87)</td>
+        <td>Full deduction of employee equity awards as real cash expense.</td>
+      </tr>
+      <tr>
+        <td><strong>Normalized Post-SBC Owner Earnings</strong></td>
+        <td><strong>$3,070</strong></td>
+        <td><strong>$2.95</strong></td>
+        <td><strong>True unencumbered economic cash yield flowing to long-term owners.</strong></td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout">
+    <strong>Owner Earnings Yield Analysis:</strong> At the current post 5-for-1 split market price of <strong>$128.38</strong> (on ~1.04B diluted shares), ServiceNow's normalized post-SBC Owner Earnings of <strong>$2.95 per share</strong> equates to an initial economic cash yield of <strong>2.30%</strong>. While standard Wall Street "FCF Yield" presents NOW at ~4.2%, deducting full SBC reveals that ServiceNow's intrinsic cash yield relies on compounding its high-ROIC enterprise footprint rather than current cash distributions.
+  </div>
+
+  <h3>5.2 Discount Rate & 10-Year Cash Compounding Model (No Exit Multiples)</h3>
+  <p>
+    Charlie Munger famously warned against relying on terminal exit multiples: <em>"If you buy a stock that trades at 30x earnings and assume someone will buy it from you in Year 10 at 30x earnings, you aren't investing—you're relying on a greater fool."</em>
+  </p>
+  <p>
+    To eliminate terminal multiple expansion bias, our 10-year discounted Owner Earnings model calculates intrinsic value strictly from cumulative discounted cash flows plus a terminal cash yield capitalized at long-term macroeconomic GDP growth.
+  </p>
+
+  <ul>
+    <li>
+      <strong>Discount Rate / Hurdle Rate Derivation:</strong> Grounded strictly in the local US sovereign rate structure. We combine the US 10-Year Treasury yield (~4.20%) with an Equity Risk Premium (ERP) of 4.60% for a quality software monopoly, establishing a strict hurdle rate of <strong>8.80%</strong>.
+    </li>
+    <li>
+      <strong>Terminal Growth Rate Cap:</strong> Capped at <strong>2.50%</strong>, strictly matching long-term US real GDP growth plus baseline inflation, preventing perpetual growth mathematical distortions.
+    </li>
+    <li>
+      <strong>Buyback Cannibal Dynamics:</strong> Management's newly authorized $5.0 billion share repurchase program (including an imminent $2.0 billion Accelerated Share Repurchase) and explicit commitment to reduce SBC to &lt;10% of revenue by 2029 will systematically reduce share count by 1.5% to 2.5% annually. This share reduction directly compounds per-share Owner Earnings above top-line growth.
+    </li>
+  </ul>
+
+  <h3>5.3 Bear / Base / Bull Valuation Scenario Matrix</h3>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Current Stock Price</div>
+      <div class="metric-value">$128.38</div>
+      <div class="metric-delta">Post 5-for-1 Split</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Base Case Intrinsic Target</div>
+      <div class="metric-value">$188.50</div>
+      <div class="metric-delta pos">+46.8% Upside</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Bull Case Intrinsic Target</div>
+      <div class="metric-value">$258.00</div>
+      <div class="metric-delta pos">+100.9% Upside</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Bear Case Intrinsic Target</div>
+      <div class="metric-value">$96.50</div>
+      <div class="metric-delta neg">-24.8% Downside</div>
+    </div>
+  </div>
+
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Valuation Scenario</th>
+        <th>10-Yr Revenue CAGR</th>
+        <th>Initial Post-SBC OE / Share</th>
+        <th>10-Yr OE CAGR (Per Share)</th>
+        <th>Hurdle Rate (Discount)</th>
+        <th>Terminal Growth</th>
+        <th>Intrinsic Value / Share</th>
+        <th>Implied Upside / Downside</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Bear Case</strong> (Disruption / M&amp;A Friction)</td>
+        <td>11.0%</td>
+        <td>$2.50</td>
+        <td>8.5%</td>
+        <td>9.00%</td>
+        <td>2.00%</td>
+        <td><strong>$96.50</strong></td>
+        <td><span class="metric-delta neg">-24.8%</span></td>
+      </tr>
+      <tr>
+        <td><strong>Base Case</strong> (Agentic AI Expansion)</td>
+        <td>16.5%</td>
+        <td>$2.95</td>
+        <td>16.0%</td>
+        <td>8.80%</td>
+        <td>2.50%</td>
+        <td><strong>$188.50</strong></td>
+        <td><span class="metric-delta pos">+46.8%</span></td>
+      </tr>
+      <tr>
+        <td><strong>Bull Case</strong> (AI Control Tower Dominance)</td>
+        <td>20.5%</td>
+        <td>$3.25</td>
+        <td>22.5%</td>
+        <td>8.50%</td>
+        <td>2.50%</td>
+        <td><strong>$258.00</strong></td>
+        <td><span class="metric-delta pos">+100.9%</span></td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout">
+    <strong>Balance Sheet Bridge &amp; Intrinsic Value Derivation (Base Case):</strong>
+    <br>
+    • PV of 10-Year Post-SBC Owner Earnings Streams: <strong>$58.20 per share</strong>
+    <br>
+    • PV of Terminal Value Stream (2.5% Terminal Growth / 8.8% Discount Rate): <strong>$129.03 per share</strong>
+    <br>
+    • Net Cash &amp; Short-Term Investments Balance ($3.73B Cash - $1.49B Debt - $0.92B Operating Leases): <strong>+$1.27 per share</strong>
+    <br>
+    • <strong>Total Base Case Intrinsic Fair Value: $188.50 per share</strong>. At $128.38, the market offers a <strong>31.9% discount to intrinsic value</strong>.
+  </div>
+</div>
+
+<div class="section">
+  <h2>Section 6: Execution Risk, Margin of Safety &amp; Falsification Triggers</h2>
+
+  <h3>6.1 Execution Risk &amp; Moat Fragility Assessment</h3>
+  <p>
+    While ServiceNow possesses an outstanding competitive moat rooted in high switching costs (97%+ renewal rates across enterprise IT, HR, and Customer Workflows), a rigorous fundamental thesis must stress-test key operational vulnerabilities:
+  </p>
+
+  <ol>
+    <li>
+      <strong>Seat-Based Cannibalization vs. Token Consumption Pivot:</strong> ServiceNow's legacy business model relies on seat-based licensing. As enterprise customers deploy Agentic AI (Now Assist, AI Experience) to automate employee tasks, overall workforce headcount and seat counts could contract. To offset seat cannibalization, management must rapidly ramp consumption-based token monetization and agentic transaction pricing. If seat reductions outpace token monetization, top-line growth will decelerate sharply.
+    </li>
+    <li>
+      <strong>M&amp;A Integration Risk &amp; Goodwill Overhead:</strong> The recent $7.0 billion acquisition of Armis Security and $2.4 billion acquisition of Moveworks expand ServiceNow's TAM in cybersecurity and virtual agent technology, but introduce near-term margin headwinds and execution complexity. Integrating heterogeneous technology stacks without impairing Non-GAAP operating margins (temporarily reduced to 31.5%) represents a key execution test.
+    </li>
+    <li>
+      <strong>SBC Dilution &amp; Executive Compensation Friction:</strong> Stock-based compensation consumes ~15% of total revenues ($1.95B LTM). Although management committed to reducing SBC to &lt;10% of revenue by 2029, failure to discipline equity grants during software market downcycles will erode per-share Owner Earnings compounding.
+    </li>
+  </ol>
+
+  <h3>6.2 The 5-Year Exchange Closure Test &amp; Margin of Safety Evaluation</h3>
+  <p>
+    Warren Buffett's ultimate test for any business is simple: <em>"If the stock exchange were to close down for five years, would you be comfortable holding this investment based strictly on its organic cash generation?"</em>
+  </p>
+  <p>
+    At $128.38 per share, ServiceNow generates $2.95 in post-SBC Owner Earnings, compounding at ~16% per share annually under our Base Case. Over a 5-year market closure, cumulative post-SBC Owner Earnings produced per share would equal <strong>~$20.20</strong>, representing ~15.7% of the initial capital outlay returned in pure unencumbered economic cash. Combined with a fortress balance sheet carrying $3.73B in cash and cash equivalents, ServiceNow passes the 5-Year Exchange Closure Test with a comfortable safety cushion.
+  </p>
+
+  <h3>6.3 Pre-Mortem Thesis Falsification Triggers &amp; Surveillance Corridors</h3>
+
+  <div class="callout">
+    <strong>Pre-Mortem Thesis Falsification Triggers (Hard Sell / Re-evaluation Events):</strong>
+    <br><br>
+    <strong>1. cRPO Growth Breakdown:</strong> Current Remaining Performance Obligations (cRPO) constant-currency growth falling below <strong>15.0% YoY</strong> for two consecutive quarters, signaling enterprise software saturation or loss of market share.
+    <br><br>
+    <strong>2. SBC Dilution Non-Compliance:</strong> SBC expense remaining above <strong>14.5% of revenue</strong> by FY2027, breaching management's stated glidepath toward &lt;10% by 2029.
+    <br><br>
+    <strong>3. Disruption Invert:</strong> Net-New Annual Contract Value (ACV) from Now Assist and agentic consumption failing to offset seat-based contract reductions, driving enterprise subscription gross margins below <strong>75.0% GAAP</strong>.
+    <br><br>
+    <strong>4. M&amp;A Capital Destruction:</strong> Impairment charges or goodwill write-downs on the $7.0B Armis Security acquisition exceeding <strong>$1.0 billion</strong>, indicating failed product integration.
+  </div>
+
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Surveillance Corridor</th>
+        <th>Price Threshold</th>
+        <th>System Action Triggered</th>
+        <th>Strategic &amp; Portfolio Rationale</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Upper Alert Threshold</strong></td>
+        <td><strong>$185.00</strong></td>
+        <td>Thesis Valuation Review &amp; Systematic Trim</td>
+        <td>Stock approaches Base Case Intrinsic Fair Value ($188.50). Margin of safety compresses below 5%; reallocate capital to higher-yield opportunities.</td>
+      </tr>
+      <tr>
+        <td><strong>Lower Alert Threshold</strong></td>
+        <td><strong>$95.00</strong></td>
+        <td>Urgent Invalidation &amp; Deep-Value Aggression</td>
+        <td>Stock tests Bear Case Intrinsic Floor ($96.50). If falsification triggers are clean, triggers aggressive capital deployment into a generational compounder.</td>
+      </tr>
+    </tbody>
+  </table></div>
+</div>
+            </article>
+        </div>
+
+        <!-- History Content -->
+        <div id="tab-history" class="tab-content">
+            
+        <div class="empty-state-box" style="background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px; padding: 75px 24px;">
+            <div class="empty-state-title">Initial Baseline Active</div>
+            <div class="empty-state-sub">Version 1 represents the initial underwriting thesis. Future revisions, price trigger reviews, and catalyst audits will be logged here</div>
+        </div>
+        
+        </div>
+    </main>
+
+    <script>
+        function showTab(id) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            if (id === 'memo') {
+                document.querySelectorAll('.tab-btn')[0].classList.add('active');
+                document.getElementById('tab-memo').classList.add('active');
+            } else {
+                document.querySelectorAll('.tab-btn')[1].classList.add('active');
+                document.getElementById('tab-history').classList.add('active');
+            }
+        }
+
+        function toggleSnapshot(ver) {
+            const el = document.getElementById('snapshot-' + ver);
+            el.style.display = (el.style.display === 'none' ? 'block' : 'none');
+        }
+    </script>
+</body>
+</html>
