@@ -40,6 +40,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -73,7 +75,9 @@ jobs:
             echo "No changes in data or public reports."
           else
             git commit -m "Auto-update: Living theses & surveillance hub [skip ci]"
-            git push origin main
+            for i in 1 2 3 4 5; do
+              git pull --rebase -X theirs origin main && git push origin main && break || sleep 3
+            done
           fi
 
       - name: Setup GitHub Pages
