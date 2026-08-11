@@ -7,6 +7,7 @@ from typing import List, Dict, Any, Optional
 from stocks.models import WatchlistStock, AlertItem, ThesisVersion
 from stocks.data_store import load_watchlist, load_alerts, load_thesis_history
 from stocks.tracker import fetch_all_chart_ranges
+from stocks.ownership_intelligence import build_ownership_tab_html
 
 PUBLIC_DIR = Path("public")
 REPORTS_DIR = PUBLIC_DIR / "reports"
@@ -521,6 +522,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         return cleaned
 
     evolution_count = max(0, len(history) - 1)
+    ownership_tab_html = build_ownership_tab_html(ticker, stock, current_version)
     history_cards_html = ""
     
     if evolution_count == 0:
@@ -883,6 +885,150 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 
         .tab-content {{ display: none; }}
         .tab-content.active {{ display: block; }}
+
+        /* Ownership, Insiders & Fund Intelligence Tab */
+        .ownership-container {{
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }}
+        .ownership-header-card {{
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 24px 28px;
+        }}
+        .ownership-stat-grid {{
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }}
+        @media (max-width: 768px) {{
+            .ownership-stat-grid {{ grid-template-columns: 1fr; }}
+        }}
+        .stat-box {{
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }}
+        .stat-label {{
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-dim);
+            font-family: var(--font-sans);
+        }}
+        .stat-num {{
+            font-size: 1.45rem;
+            font-weight: 500;
+            font-family: var(--font-mono);
+            color: var(--text-title);
+        }}
+        .stat-note {{
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            font-family: var(--font-sans);
+        }}
+        .ownership-section {{
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 28px 32px;
+        }}
+        .section-title-row {{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+        }}
+        .section-icon {{ font-size: 1.35rem; }}
+        .section-heading {{
+            font-family: var(--font-serif);
+            font-size: 1.35rem;
+            color: var(--text-title);
+            margin: 0;
+            letter-spacing: -0.01em;
+        }}
+        .section-desc {{
+            color: var(--text-dim);
+            font-size: 0.86rem;
+            margin: 0 0 20px;
+            line-height: 1.4;
+        }}
+        .ownership-table {{
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+        }}
+        .ownership-table th {{
+            text-align: left;
+            padding: 12px 14px;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-dim);
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-subpanel);
+            font-family: var(--font-sans);
+        }}
+        .ownership-table td {{
+            padding: 14px 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            vertical-align: middle;
+        }}
+        .ownership-table tr:last-child td {{
+            border-bottom: none;
+        }}
+        .ownership-table tr:hover td {{
+            background: rgba(255, 255, 255, 0.02);
+        }}
+        .link-out {{
+            color: var(--accent-warm);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 500;
+            transition: color 0.15s ease;
+        }}
+        .link-out:hover {{
+            color: #fcd34d;
+            text-decoration: underline;
+        }}
+        .writeups-grid {{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 16px;
+        }}
+        .writeup-card {{
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 22px 24px;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.15s ease;
+        }}
+        .writeup-card:hover {{
+            border-color: rgba(217, 119, 6, 0.4);
+        }}
+        .btn-read-letter {{
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(217, 119, 6, 0.12);
+            color: var(--accent-warm);
+            border: 1px solid rgba(217, 119, 6, 0.25);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.76rem;
+            font-weight: 500;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: all 0.15s ease;
+        }}
+        .btn-read-letter:hover {{
+            background: rgba(217, 119, 6, 0.25);
+            color: #fcd34d;
+        }}
 
         /* Memo Content & Premium Editorial Typography */
         .memo-container {{
@@ -1431,8 +1577,9 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 
         <!-- Navigation Tabs -->
         <div class="tabs-header">
-            <button class="tab-btn active" onclick="showTab('memo')">Investment Thesis</button>
-            <button class="tab-btn" onclick="showTab('history')">Evolution ({evolution_count})</button>
+            <button id="btn-tab-memo" class="tab-btn active" onclick="showTab('memo')">Investment Thesis</button>
+            <button id="btn-tab-history" class="tab-btn" onclick="showTab('history')">Evolution ({evolution_count})</button>
+            <button id="btn-tab-ownership" class="tab-btn" onclick="showTab('ownership')">Ownership & Fund Intel</button>
         </div>
 
         <!-- Memo Content -->
@@ -1446,6 +1593,11 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         <div id="tab-history" class="tab-content">
             {history_cards_html}
         </div>
+
+        <!-- Ownership & Fund Intel Content -->
+        <div id="tab-ownership" class="tab-content">
+            {ownership_tab_html}
+        </div>
     </main>
 
     {build_labels_legend_modal_html()}
@@ -1455,12 +1607,11 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             
-            if (id === 'memo') {{
-                document.querySelectorAll('.tab-btn')[0].classList.add('active');
-                document.getElementById('tab-memo').classList.add('active');
-            }} else {{
-                document.querySelectorAll('.tab-btn')[1].classList.add('active');
-                document.getElementById('tab-history').classList.add('active');
+            const btn = document.getElementById('btn-tab-' + id);
+            const content = document.getElementById('tab-' + id);
+            if (btn && content) {{
+                btn.classList.add('active');
+                content.classList.add('active');
             }}
         }}
 
