@@ -5961,11 +5961,11 @@
                 </span>
             </div>
             <div style="text-align:right;">
-                <div style="display:flex; align-items:center; justify-content:flex-end; gap:6px; margin-bottom:2px;">
-                    <span style="display:inline-block; width:6px; height:6px; border-radius:50%; background:#6FA882;"></span>
-                    <span id="live-stream-status-defensive" style="font-size:0.70rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim);">Live Portfolio Value</span>
+                <div style="display:flex; align-items:center; justify-content:flex-end; gap:6px; margin-bottom:4px;">
+                    <span class="live-pulse-dot" style="display:inline-block; width:7px; height:7px; border-radius:50%; background:#6FA882;"></span>
+                    <span id="live-stream-status-defensive" style="font-size:0.70rem; font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim);">Live Stream Active</span>
                 </div>
-                <div id="live-port-val-defensive" style="font-family:var(--font-mono); font-size:2.0rem; font-weight:600; color:var(--text-title); letter-spacing:-0.02em; line-height:1.1;">
+                <div id="live-port-val-defensive" style="font-family:var(--font-mono); font-size:2.1rem; font-weight:600; color:var(--text-title); letter-spacing:-0.02em; line-height:1.1;">
                     $196,280.01
                 </div>
             </div>
@@ -6538,13 +6538,14 @@
             // Real-Time Quote Streaming with Smooth Bloomberg-Style Rolling Number Animation
             const portType = 'defensive';
             const cashAlloc = 42420.0;
-            let currentDisplayVal = null;
+            let currentDisplayVal = 200000.0;
+            let lastSyncTime = Date.now();
 
-            function animateRollingNumber(targetVal) {
+            function animateRollingNumber(targetVal, startOverride) {
                 const valElem = document.getElementById(`live-port-val-${portType}`);
                 if (!valElem || isNaN(targetVal)) return;
 
-                const startVal = currentDisplayVal !== null ? currentDisplayVal : (parseFloat(valElem.textContent.replace(/[^0-9.]/g, '')) || targetVal);
+                const startVal = (startOverride !== undefined) ? startOverride : (currentDisplayVal !== null ? currentDisplayVal : targetVal);
                 currentDisplayVal = targetVal;
 
                 if (Math.abs(startVal - targetVal) < 0.01) {
@@ -6563,7 +6564,7 @@
                     setTimeout(() => { valElem.style.color = 'var(--text-title)'; }, 1200);
                 }
 
-                const duration = 1000;
+                const duration = 1200;
                 const startTime = performance.now();
 
                 function stepRoll(now) {
@@ -6583,13 +6584,27 @@
                 requestAnimationFrame(stepRoll);
             }
 
+            // Active live stream second counter ticker
+            setInterval(function() {
+                const statusElem = document.getElementById(`live-stream-status-${portType}`);
+                if (!statusElem) return;
+                const elapsedSec = Math.floor((Date.now() - lastSyncTime) / 1000);
+                if (elapsedSec <= 1) {
+                    statusElem.textContent = 'Live Stream • Synced Just Now';
+                    statusElem.style.color = 'var(--accent-green)';
+                } else {
+                    statusElem.textContent = `Live Stream • Synced ${elapsedSec}s ago`;
+                    statusElem.style.color = 'var(--text-dim)';
+                }
+            }, 1000);
+
             async function streamLiveQuotes() {
                 try {
                     const rows = document.querySelectorAll(`tr[data-port="${portType}"]`);
                     let liveEquityTotal = 0;
                     let updatedCount = 0;
                     
-                    // 1. Fetch latest high-speed live quotes batch
+                    // Fetch latest high-speed live quotes batch
                     let batchQuotes = {};
                     try {
                         const batchRes = await fetch('data/live_quotes.json?_t=' + Date.now());
@@ -6607,7 +6622,6 @@
 
                         let livePrice = batchQuotes[ticker]?.price || 0;
 
-                        // 2. Direct real-time ticker stream query if available
                         if (!livePrice) {
                             try {
                                 const directUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1m`;
@@ -6660,18 +6674,19 @@
                     if (totalLive > 0) {
                         animateRollingNumber(totalLive);
                     }
-                    const statusElem = document.getElementById(`live-stream-status-${portType}`);
-                    if (statusElem && updatedCount > 0) {
-                        statusElem.textContent = 'Live Market Stream (Real-Time)';
-                    }
+                    lastSyncTime = Date.now();
                 } catch (err) {
                     console.warn('Live streamer sync:', err);
                 }
             }
 
-            // Poll real-time stream every 6 seconds while tab is open
-            setInterval(streamLiveQuotes, 6000);
-            setTimeout(streamLiveQuotes, 800);
+            // Initial rolling counter on tab load from $200k inception
+            setTimeout(() => {
+                streamLiveQuotes();
+            }, 300);
+
+            // High-frequency live polling every 4 seconds
+            setInterval(streamLiveQuotes, 4000);
         })();
     </script>
     
@@ -6693,11 +6708,11 @@
                 </span>
             </div>
             <div style="text-align:right;">
-                <div style="display:flex; align-items:center; justify-content:flex-end; gap:6px; margin-bottom:2px;">
-                    <span style="display:inline-block; width:6px; height:6px; border-radius:50%; background:#6FA882;"></span>
-                    <span id="live-stream-status-aggressive" style="font-size:0.70rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim);">Live Portfolio Value</span>
+                <div style="display:flex; align-items:center; justify-content:flex-end; gap:6px; margin-bottom:4px;">
+                    <span class="live-pulse-dot" style="display:inline-block; width:7px; height:7px; border-radius:50%; background:#6FA882;"></span>
+                    <span id="live-stream-status-aggressive" style="font-size:0.70rem; font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim);">Live Stream Active</span>
                 </div>
-                <div id="live-port-val-aggressive" style="font-family:var(--font-mono); font-size:2.0rem; font-weight:600; color:var(--text-title); letter-spacing:-0.02em; line-height:1.1;">
+                <div id="live-port-val-aggressive" style="font-family:var(--font-mono); font-size:2.1rem; font-weight:600; color:var(--text-title); letter-spacing:-0.02em; line-height:1.1;">
                     $196,463.83
                 </div>
             </div>
@@ -7446,13 +7461,14 @@
             // Real-Time Quote Streaming with Smooth Bloomberg-Style Rolling Number Animation
             const portType = 'aggressive';
             const cashAlloc = 34740.0;
-            let currentDisplayVal = null;
+            let currentDisplayVal = 200000.0;
+            let lastSyncTime = Date.now();
 
-            function animateRollingNumber(targetVal) {
+            function animateRollingNumber(targetVal, startOverride) {
                 const valElem = document.getElementById(`live-port-val-${portType}`);
                 if (!valElem || isNaN(targetVal)) return;
 
-                const startVal = currentDisplayVal !== null ? currentDisplayVal : (parseFloat(valElem.textContent.replace(/[^0-9.]/g, '')) || targetVal);
+                const startVal = (startOverride !== undefined) ? startOverride : (currentDisplayVal !== null ? currentDisplayVal : targetVal);
                 currentDisplayVal = targetVal;
 
                 if (Math.abs(startVal - targetVal) < 0.01) {
@@ -7471,7 +7487,7 @@
                     setTimeout(() => { valElem.style.color = 'var(--text-title)'; }, 1200);
                 }
 
-                const duration = 1000;
+                const duration = 1200;
                 const startTime = performance.now();
 
                 function stepRoll(now) {
@@ -7491,13 +7507,27 @@
                 requestAnimationFrame(stepRoll);
             }
 
+            // Active live stream second counter ticker
+            setInterval(function() {
+                const statusElem = document.getElementById(`live-stream-status-${portType}`);
+                if (!statusElem) return;
+                const elapsedSec = Math.floor((Date.now() - lastSyncTime) / 1000);
+                if (elapsedSec <= 1) {
+                    statusElem.textContent = 'Live Stream • Synced Just Now';
+                    statusElem.style.color = 'var(--accent-green)';
+                } else {
+                    statusElem.textContent = `Live Stream • Synced ${elapsedSec}s ago`;
+                    statusElem.style.color = 'var(--text-dim)';
+                }
+            }, 1000);
+
             async function streamLiveQuotes() {
                 try {
                     const rows = document.querySelectorAll(`tr[data-port="${portType}"]`);
                     let liveEquityTotal = 0;
                     let updatedCount = 0;
                     
-                    // 1. Fetch latest high-speed live quotes batch
+                    // Fetch latest high-speed live quotes batch
                     let batchQuotes = {};
                     try {
                         const batchRes = await fetch('data/live_quotes.json?_t=' + Date.now());
@@ -7515,7 +7545,6 @@
 
                         let livePrice = batchQuotes[ticker]?.price || 0;
 
-                        // 2. Direct real-time ticker stream query if available
                         if (!livePrice) {
                             try {
                                 const directUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1m`;
@@ -7568,18 +7597,19 @@
                     if (totalLive > 0) {
                         animateRollingNumber(totalLive);
                     }
-                    const statusElem = document.getElementById(`live-stream-status-${portType}`);
-                    if (statusElem && updatedCount > 0) {
-                        statusElem.textContent = 'Live Market Stream (Real-Time)';
-                    }
+                    lastSyncTime = Date.now();
                 } catch (err) {
                     console.warn('Live streamer sync:', err);
                 }
             }
 
-            // Poll real-time stream every 6 seconds while tab is open
-            setInterval(streamLiveQuotes, 6000);
-            setTimeout(streamLiveQuotes, 800);
+            // Initial rolling counter on tab load from $200k inception
+            setTimeout(() => {
+                streamLiveQuotes();
+            }, 300);
+
+            // High-frequency live polling every 4 seconds
+            setInterval(streamLiveQuotes, 4000);
         })();
     </script>
     
