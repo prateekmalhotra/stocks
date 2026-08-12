@@ -1,34 +1,34 @@
 {
   "portfolio_type": "defensive",
   "portfolio_label": "Fidelity (Defensive Fortress)",
-  "last_run_date": "2026-08-11",
-  "last_run_timestamp": "2026-08-11T23:37:51.709790",
+  "last_run_date": "2026-08-12",
+  "last_run_timestamp": "2026-08-12T00:04:57.425164",
   "status": "ACTION_REQUIRED",
-  "status_display": "REBALANCE PROPOSAL PENDING (13 ACTIONS)",
+  "status_display": "REBALANCE PROPOSAL PENDING (11 ACTIONS)",
   "action_required": true,
-  "verdict_summary": "Council flagged 13 position(s) exceeding materiality rebalance hurdles.",
+  "verdict_summary": "Council flagged 11 position(s) exceeding materiality rebalance hurdles.",
   "total_universe_scanned": 72,
   "active_holdings_verified": 13,
   "shiller_cape": 35.5,
   "buffett_indicator_pct": 198.5,
   "treasury_3m_yield_pct": 5.0,
-  "portfolio_average_mos_pct": 29.72,
-  "cash_cushion_pct": 18.67,
+  "portfolio_average_mos_pct": 30.31,
+  "cash_cushion_pct": 18.55,
   "macro_cash_audit": {
     "shiller_cape": 35.5,
     "historical_cape_median": 18.0,
     "buffett_indicator_pct": 198.5,
     "treasury_3m_yield_pct": 5.0,
-    "portfolio_weighted_mos_pct": 29.72,
+    "portfolio_weighted_mos_pct": 30.31,
     "mandate_structural_floor_pct": 5.0,
-    "calculated_target_cash_pct": 18.67,
-    "current_actual_cash_pct": 18.64,
+    "calculated_target_cash_pct": 18.55,
+    "current_actual_cash_pct": 18.490000000000002,
     "cash_status": "OPTIMAL_DRY_POWDER_MAINTAINED",
     "strike_trigger_threshold": "MoS > 45.0% on Tier-1 Compounder or Flash Crash Dislocation",
     "cash_directive": "Maintain 3M US Treasury float yielding 5.00% risk-free. Stand ready for fat pitch market dislocations.",
-    "formula_description": "Senior US Treasury Buffer (18.67%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +29.72% weighted Margin of Safety."
+    "formula_description": "Senior US Treasury Buffer (18.55%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +30.31% weighted Margin of Safety."
   },
-  "next_scheduled_run": "2026-08-18",
+  "next_scheduled_run": "2026-08-19",
   "holdings_health": [
     {
       "ticker": "ADBE",
@@ -57,30 +57,30 @@
       "thesis_core": "Global travel OTA network effects duopoly + 35%+ FCF conversion and aggressive buybacks."
     },
     {
-      "ticker": "CPRT",
-      "company_name": "Copart, Inc.",
-      "price": 29.4,
-      "fair_value": 38.5,
-      "mos_pct": 30.95,
+      "ticker": "MA",
+      "company_name": "Mastercard Incorporated",
+      "price": 561.44,
+      "fair_value": 710.0,
+      "mos_pct": 26.46,
       "signal": "BUY",
-      "moat_score": 9.7,
-      "expected_irr": 22.1,
-      "kelly_edge": 37.58,
+      "moat_score": 9.8,
+      "expected_irr": 22.6,
+      "kelly_edge": 40.5,
       "health_status": "PRISTINE",
-      "thesis_core": "Zoning-protected salvage yard land monopoly + pristine zero-debt balance sheet fortress."
+      "thesis_core": "Global payment rail duopoly; 57% operating margin, secular cashless conversion."
     },
     {
-      "ticker": "CSU",
-      "company_name": "Constellation Software, Inc.",
-      "price": 2308.0,
-      "fair_value": 2850.0,
-      "mos_pct": 23.48,
+      "ticker": "SPGI",
+      "company_name": "S&P Global Inc.",
+      "price": 408.69,
+      "fair_value": 518.1,
+      "mos_pct": 26.77,
       "signal": "BUY",
-      "moat_score": 9.9,
-      "expected_irr": 23.2,
-      "kelly_edge": 51.69,
+      "moat_score": 9.8,
+      "expected_irr": 20.8,
+      "kelly_edge": 37.03,
       "health_status": "PRISTINE",
-      "thesis_core": "Mission-critical vertical market software acquirer; 25%+ ROIC, negative working capital float, zero churn."
+      "thesis_core": "Sovereign/corporate debt rating duopoly + S&P 500 benchmark index licensing."
     },
     {
       "ticker": "UNH",
@@ -177,12 +177,12 @@
       "ticker": "ACN",
       "company_name": "Accenture plc",
       "price": 179.82,
-      "fair_value": 225.0,
-      "mos_pct": 25.13,
+      "fair_value": 245.0,
+      "mos_pct": 36.25,
       "signal": "BUY",
       "moat_score": 8.9,
-      "expected_irr": 18.3,
-      "kelly_edge": 2.42,
+      "expected_irr": 20.5,
+      "kelly_edge": 9.25,
       "health_status": "PRISTINE",
       "thesis_core": "Global systems integrator and enterprise AI implementation partner."
     },
@@ -245,11 +245,6 @@
     },
     {
       "action": "SWAP_PROPOSAL",
-      "ticker": "MSFT",
-      "reason": "Dislocation arbitrage: MSFT offers Edge 25.95 vs 0.29 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
       "ticker": "RDDT",
       "reason": "Dislocation arbitrage: RDDT offers Edge 9.51 vs 0.29 min active."
     },
@@ -260,13 +255,18 @@
     },
     {
       "action": "SWAP_PROPOSAL",
+      "ticker": "UPWK",
+      "reason": "Dislocation arbitrage: UPWK offers Edge 10.88 vs 0.29 min active."
+    },
+    {
+      "action": "SWAP_PROPOSAL",
       "ticker": "NOW",
       "reason": "Dislocation arbitrage: NOW offers Edge 25.31 vs 0.29 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
-      "ticker": "MA",
-      "reason": "Dislocation arbitrage: MA offers Edge 35.24 vs 0.29 min active."
+      "ticker": "CSU",
+      "reason": "Dislocation arbitrage: CSU offers Edge 48.74 vs 0.29 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
@@ -275,23 +275,13 @@
     },
     {
       "action": "SWAP_PROPOSAL",
-      "ticker": "MSCI",
-      "reason": "Dislocation arbitrage: MSCI offers Edge 24.45 vs 0.29 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
       "ticker": "QCOM",
       "reason": "Dislocation arbitrage: QCOM offers Edge 10.86 vs 0.29 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
-      "ticker": "SPGI",
-      "reason": "Dislocation arbitrage: SPGI offers Edge 31.57 vs 0.29 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
       "ticker": "TSM",
-      "reason": "Dislocation arbitrage: TSM offers Edge 34.64 vs 0.29 min active."
+      "reason": "Dislocation arbitrage: TSM offers Edge 35.6 vs 0.29 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
