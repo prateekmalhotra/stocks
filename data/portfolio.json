@@ -1,14 +1,14 @@
 {
-  "portfolio_name": "Fidelity Defensive Fortress",
+  "portfolio_name": "Fidelity",
   "portfolio_type": "defensive",
-  "target_audience": "Stability & Compounding Consistency (50s-60s Horizon)",
+  "target_audience": "Defensive Fortresses & Consistent Cash Compounding",
   "inception_date": "2026-08-11",
   "last_rebalance_date": "2026-08-11",
   "base_capital_usd": 200000.0,
   "holdings": [
     {
       "ticker": "CSU",
-      "company_name": "Constellation Software Inc.",
+      "company_name": "Constellation Software",
       "target_weight": 0.133,
       "pillar": "A",
       "cost_basis": 2308.0,
@@ -17,10 +17,26 @@
       "margin_of_safety_pct": 23.5,
       "look_through_fcf_yield": 4.5,
       "cannibal_rate_pct": 0.0,
-      "thesis_core": "Vertical market software serial acquirer; 25%+ ROIC, zero customer churn, negative working capital float.",
+      "thesis_core": "Mission-critical vertical market software serial acquirer; 25%+ ROIC, zero customer churn, negative working capital float.",
       "report_url": "reports/CSU.html",
       "allocated_dollars": 26600.0,
       "shares_to_buy": 11.53
+    },
+    {
+      "ticker": "V",
+      "company_name": "Visa Inc.",
+      "target_weight": 0.0939,
+      "pillar": "A",
+      "cost_basis": 362.82,
+      "current_price": 362.82,
+      "fair_value": 395.0,
+      "margin_of_safety_pct": 8.9,
+      "look_through_fcf_yield": 4.6,
+      "cannibal_rate_pct": 2.2,
+      "thesis_core": "World's largest consumer payment network; unmatched network effects, brand ubiquity, and non-cyclical cash conversion.",
+      "report_url": "reports/V.html",
+      "allocated_dollars": 18780.0,
+      "shares_to_buy": 51.76
     },
     {
       "ticker": "MA",
@@ -39,22 +55,6 @@
       "shares_to_buy": 32.31
     },
     {
-      "ticker": "V",
-      "company_name": "Visa Inc.",
-      "target_weight": 0.0939,
-      "pillar": "A",
-      "cost_basis": 362.82,
-      "current_price": 362.82,
-      "fair_value": 395.0,
-      "margin_of_safety_pct": 8.9,
-      "look_through_fcf_yield": 4.6,
-      "cannibal_rate_pct": 2.2,
-      "thesis_core": "World's largest payments network; unmatched network effects, brand ubiquity, and non-cyclical cash conversion.",
-      "report_url": "reports/V.html",
-      "allocated_dollars": 18780.0,
-      "shares_to_buy": 51.76
-    },
-    {
       "ticker": "CPRT",
       "company_name": "Copart, Inc.",
       "target_weight": 0.0967,
@@ -71,20 +71,36 @@
       "shares_to_buy": 657.82
     },
     {
-      "ticker": "BKNG",
-      "company_name": "Booking Holdings Inc.",
-      "target_weight": 0.0629,
+      "ticker": "SPGI",
+      "company_name": "S&P Global Inc.",
+      "target_weight": 0.0813,
       "pillar": "A",
-      "cost_basis": 212.87,
-      "current_price": 212.87,
-      "fair_value": 265.0,
-      "margin_of_safety_pct": 24.5,
-      "look_through_fcf_yield": 6.8,
-      "cannibal_rate_pct": 4.5,
-      "thesis_core": "Global travel OTA network effects duopoly + 35%+ FCF conversion and aggressive share cannibalization.",
-      "report_url": "reports/BKNG.html",
-      "allocated_dollars": 12580.0,
-      "shares_to_buy": 59.1
+      "cost_basis": 408.69,
+      "current_price": 408.69,
+      "fair_value": 469.99,
+      "margin_of_safety_pct": 15.0,
+      "look_through_fcf_yield": 4.1,
+      "cannibal_rate_pct": 1.8,
+      "thesis_core": "Global credit ratings duopoly & benchmark financial market indices; essential sovereign capital infrastructure.",
+      "report_url": "reports/SPGI.html",
+      "allocated_dollars": 16260.0,
+      "shares_to_buy": 39.79
+    },
+    {
+      "ticker": "ADBE",
+      "company_name": "Adobe Inc.",
+      "target_weight": 0.09,
+      "pillar": "A",
+      "cost_basis": 263.71,
+      "current_price": 263.71,
+      "fair_value": 340.0,
+      "margin_of_safety_pct": 28.9,
+      "look_through_fcf_yield": 5.5,
+      "cannibal_rate_pct": 3.2,
+      "thesis_core": "Creative Cloud monopoly & enterprise digital media workflow; 85%+ gross margins and $3.5B+ annual share repurchases.",
+      "report_url": "reports/ADBE.html",
+      "allocated_dollars": 18000.0,
+      "shares_to_buy": 68.26
     },
     {
       "ticker": "INTU",
@@ -104,7 +120,7 @@
     },
     {
       "ticker": "UNH",
-      "company_name": "UnitedHealth Group Inc.",
+      "company_name": "UnitedHealth Group",
       "target_weight": 0.0659,
       "pillar": "A",
       "cost_basis": 402.19,
@@ -117,22 +133,6 @@
       "report_url": "reports/UNH.html",
       "allocated_dollars": 13180.0,
       "shares_to_buy": 32.77
-    },
-    {
-      "ticker": "SPGI",
-      "company_name": "S&P Global Inc.",
-      "target_weight": 0.0813,
-      "pillar": "A",
-      "cost_basis": 408.69,
-      "current_price": 408.69,
-      "fair_value": 469.99,
-      "margin_of_safety_pct": 15.0,
-      "look_through_fcf_yield": 4.1,
-      "cannibal_rate_pct": 1.8,
-      "thesis_core": "Global credit ratings duopoly & benchmark financial market indices; essential sovereign capital infrastructure.",
-      "report_url": "reports/SPGI.html",
-      "allocated_dollars": 16260.0,
-      "shares_to_buy": 39.79
     },
     {
       "ticker": "MSFT",
@@ -151,20 +151,20 @@
       "shares_to_buy": 26.52
     },
     {
-      "ticker": "ADBE",
-      "company_name": "Adobe Inc.",
-      "target_weight": 0.09,
+      "ticker": "BKNG",
+      "company_name": "Booking Holdings",
+      "target_weight": 0.0629,
       "pillar": "A",
-      "cost_basis": 263.71,
-      "current_price": 263.71,
-      "fair_value": 340.0,
-      "margin_of_safety_pct": 28.9,
-      "look_through_fcf_yield": 5.5,
-      "cannibal_rate_pct": 3.2,
-      "thesis_core": "Creative Cloud monopoly & enterprise digital media workflow; 85%+ gross margins and $3.5B+ annual share repurchases.",
-      "report_url": "reports/ADBE.html",
-      "allocated_dollars": 18000.0,
-      "shares_to_buy": 68.26
+      "cost_basis": 212.87,
+      "current_price": 212.87,
+      "fair_value": 265.0,
+      "margin_of_safety_pct": 24.5,
+      "look_through_fcf_yield": 6.8,
+      "cannibal_rate_pct": 4.5,
+      "thesis_core": "Global travel OTA network effects duopoly + 35%+ FCF conversion and aggressive share cannibalization.",
+      "report_url": "reports/BKNG.html",
+      "allocated_dollars": 12580.0,
+      "shares_to_buy": 59.1
     },
     {
       "ticker": "USD_CASH",
@@ -186,8 +186,8 @@
   "rebalance_log": [
     {
       "date": "2026-08-11",
-      "action": "PORTFOLIO RESTRUCTURE (NO DEFENSE / NO CONFLICT)",
-      "reason": "Replaced LMT with ADBE (Creative Cloud monopoly, +28.9% MoS). 100% mathematically optimized via Modified Kelly Criterion with 15.0% Senior US Treasury Cash Floor.",
+      "action": "PORTFOLIO RESTRUCTURE (CLEAN TOLLBOOTHS)",
+      "reason": "Constructed 100% from non-cyclical tollbooth monopolies with impenetrable pricing power. Zero defense exposure (No LMT), zero employer conflict (No GOOG). 15.0% US Treasury Floor.",
       "verification_status": "Verified 3/3 Autonomous Council"
     }
   ],

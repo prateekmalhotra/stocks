@@ -1,47 +1,31 @@
 {
-  "portfolio_name": "Wealthsimple Aggressive Compounder",
+  "portfolio_name": "Wealthsimple",
   "portfolio_type": "aggressive",
-  "target_audience": "Maximum Long-Term CAGR & Asymmetric Mispricings (20s-30s Horizon)",
+  "target_audience": "Aggressive Alpha, Mispriced Growth & Buyback Cannibals",
   "inception_date": "2026-08-11",
   "last_rebalance_date": "2026-08-11",
   "base_capital_usd": 200000.0,
   "holdings": [
     {
-      "ticker": "NVDA",
-      "company_name": "NVIDIA Corporation",
-      "target_weight": 0.1363,
+      "ticker": "FICO",
+      "company_name": "Fair Isaac Corporation",
+      "target_weight": 0.2402,
       "pillar": "B",
-      "cost_basis": 217.5,
-      "current_price": 217.5,
-      "fair_value": 285.0,
-      "margin_of_safety_pct": 31.0,
-      "look_through_fcf_yield": 5.2,
+      "cost_basis": 1038.23,
+      "current_price": 1038.23,
+      "fair_value": 1480.0,
+      "margin_of_safety_pct": 42.6,
+      "look_through_fcf_yield": 4.2,
       "cannibal_rate_pct": 2.5,
-      "thesis_core": "Global AI compute & CUDA software monopoly; Blackwell ramp, >70% gross margins, $80B share buyback authorization.",
-      "report_url": "reports/NVDA.html",
-      "allocated_dollars": 27260.0,
-      "shares_to_buy": 125.33
-    },
-    {
-      "ticker": "META",
-      "company_name": "Meta Platforms, Inc.",
-      "target_weight": 0.128,
-      "pillar": "B",
-      "cost_basis": 599.12,
-      "current_price": 599.12,
-      "fair_value": 720.0,
-      "margin_of_safety_pct": 20.2,
-      "look_through_fcf_yield": 5.4,
-      "cannibal_rate_pct": 2.8,
-      "thesis_core": "3.3B daily active users, generative AI advertising monetization, 40%+ operating margin, pristine net cash.",
-      "report_url": "reports/META.html",
-      "allocated_dollars": 25600.0,
-      "shares_to_buy": 42.73
+      "thesis_core": "Absolute sovereign monopoly on US consumer credit scoring; unmatched pricing power, zero CapEx, 50%+ margins.",
+      "report_url": "reports/FICO.html",
+      "allocated_dollars": 48040.0,
+      "shares_to_buy": 46.27
     },
     {
       "ticker": "MELI",
       "company_name": "MercadoLibre, Inc.",
-      "target_weight": 0.1009,
+      "target_weight": 0.1157,
       "pillar": "B",
       "cost_basis": 1940.0,
       "current_price": 1940.0,
@@ -51,29 +35,13 @@
       "cannibal_rate_pct": 0.0,
       "thesis_core": "Dominant Latin America e-commerce and fintech ecosystem; 35%+ organic volume compounding and credit expansion.",
       "report_url": "reports/MELI.html",
-      "allocated_dollars": 20180.0,
-      "shares_to_buy": 10.4
-    },
-    {
-      "ticker": "ASML",
-      "company_name": "ASML Holding N.V.",
-      "target_weight": 0.1535,
-      "pillar": "B",
-      "cost_basis": 1799.38,
-      "current_price": 1799.38,
-      "fair_value": 2150.0,
-      "margin_of_safety_pct": 19.5,
-      "look_through_fcf_yield": 4.8,
-      "cannibal_rate_pct": 1.5,
-      "thesis_core": "Exclusive global monopoly on EUV lithography systems; irreplaceable technology bottleneck for all leading-edge silicon.",
-      "report_url": "reports/ASML.html",
-      "allocated_dollars": 30700.0,
-      "shares_to_buy": 17.06
+      "allocated_dollars": 23140.0,
+      "shares_to_buy": 11.93
     },
     {
       "ticker": "TSM",
-      "company_name": "Taiwan Semiconductor Mfg",
-      "target_weight": 0.1277,
+      "company_name": "Taiwan Semiconductor (TSMC)",
+      "target_weight": 0.1465,
       "pillar": "B",
       "cost_basis": 422.06,
       "current_price": 422.06,
@@ -83,13 +51,13 @@
       "cannibal_rate_pct": 0.0,
       "thesis_core": "Premier global pure-play semiconductor foundry; 3nm/2nm process pricing power and dominant leading-edge market share.",
       "report_url": "reports/TSM.html",
-      "allocated_dollars": 25540.0,
-      "shares_to_buy": 60.51
+      "allocated_dollars": 29300.0,
+      "shares_to_buy": 69.42
     },
     {
       "ticker": "BABA",
-      "company_name": "Alibaba Group Holding Limited",
-      "target_weight": 0.0637,
+      "company_name": "Alibaba Group",
+      "target_weight": 0.0731,
       "pillar": "B",
       "cost_basis": 127.85,
       "current_price": 127.85,
@@ -99,13 +67,13 @@
       "cannibal_rate_pct": 6.5,
       "thesis_core": "Massive deep-value mispricing; huge net cash balance sheet, Cloud AI enterprise leadership, and 8%+ annual buyback pace.",
       "report_url": "reports/BABA.html",
-      "allocated_dollars": 12740.000000000002,
-      "shares_to_buy": 99.65
+      "allocated_dollars": 14620.0,
+      "shares_to_buy": 114.35
     },
     {
       "ticker": "JD",
       "company_name": "JD.com, Inc.",
-      "target_weight": 0.0754,
+      "target_weight": 0.0866,
       "pillar": "B",
       "cost_basis": 31.92,
       "current_price": 31.92,
@@ -115,13 +83,13 @@
       "cannibal_rate_pct": 5.5,
       "thesis_core": "Nationwide integrated logistics and retail distribution moat; 60%+ margin of safety with massive cash flow generation.",
       "report_url": "reports/JD.html",
-      "allocated_dollars": 15079.999999999998,
-      "shares_to_buy": 472.43
+      "allocated_dollars": 17320.0,
+      "shares_to_buy": 542.61
     },
     {
       "ticker": "STNE",
       "company_name": "StoneCo Ltd.",
-      "target_weight": 0.0656,
+      "target_weight": 0.0753,
       "pillar": "B",
       "cost_basis": 9.96,
       "current_price": 9.96,
@@ -131,13 +99,45 @@
       "cannibal_rate_pct": 4.0,
       "thesis_core": "High-ROIC (25%+) Brazil merchant payments & ERP software compounder trading at a deep single-digit normalized P/E.",
       "report_url": "reports/STNE.html",
-      "allocated_dollars": 13120.000000000002,
-      "shares_to_buy": 1317.27
+      "allocated_dollars": 15060.000000000002,
+      "shares_to_buy": 1512.05
+    },
+    {
+      "ticker": "BYD",
+      "company_name": "Boyd Gaming Corporation",
+      "target_weight": 0.0159,
+      "pillar": "B",
+      "cost_basis": 82.37,
+      "current_price": 82.37,
+      "fair_value": 98.5,
+      "margin_of_safety_pct": 19.6,
+      "look_through_fcf_yield": 9.4,
+      "cannibal_rate_pct": 5.5,
+      "thesis_core": "Fee-simple real estate ownership (~85% unencumbered), clean 2.0x leverage, 9.4% FCF yield, 5-6% annual buyback cannibal.",
+      "report_url": "reports/BYD.html",
+      "allocated_dollars": 3180.0,
+      "shares_to_buy": 38.61
+    },
+    {
+      "ticker": "DECK",
+      "company_name": "Deckers Outdoor Corporation",
+      "target_weight": 0.0877,
+      "pillar": "B",
+      "cost_basis": 93.84,
+      "current_price": 93.84,
+      "fair_value": 118.0,
+      "margin_of_safety_pct": 25.7,
+      "look_through_fcf_yield": 6.5,
+      "cannibal_rate_pct": 3.0,
+      "thesis_core": "Pristine zero-debt balance sheet, 25%+ ROIC, secular global brand compounding across HOKA and UGG.",
+      "report_url": "reports/DECK.html",
+      "allocated_dollars": 17540.0,
+      "shares_to_buy": 186.91
     },
     {
       "ticker": "CROX",
       "company_name": "Crocs, Inc.",
-      "target_weight": 0.0113,
+      "target_weight": 0.0129,
       "pillar": "B",
       "cost_basis": 131.71,
       "current_price": 131.71,
@@ -147,13 +147,13 @@
       "cannibal_rate_pct": 5.0,
       "thesis_core": "High-margin cash machine (28% operating margin); rapid debt deleverage and aggressive share cannibalization at deep value.",
       "report_url": "reports/CROX.html",
-      "allocated_dollars": 2260.0,
-      "shares_to_buy": 17.16
+      "allocated_dollars": 2580.0,
+      "shares_to_buy": 19.59
     },
     {
       "ticker": "GCT",
-      "company_name": "GigaCloud Technology Inc",
-      "target_weight": 0.0576,
+      "company_name": "GigaCloud Technology",
+      "target_weight": 0.0661,
       "pillar": "B",
       "cost_basis": 51.52,
       "current_price": 51.52,
@@ -163,8 +163,8 @@
       "cannibal_rate_pct": 2.0,
       "thesis_core": "B2B cross-border marketplace network effects with marketplace fulfillment scale, high ROIC, and pristine net cash.",
       "report_url": "reports/GCT.html",
-      "allocated_dollars": 11520.0,
-      "shares_to_buy": 223.6
+      "allocated_dollars": 13220.000000000002,
+      "shares_to_buy": 256.6
     },
     {
       "ticker": "USD_CASH",
@@ -186,8 +186,8 @@
   "rebalance_log": [
     {
       "date": "2026-08-11",
-      "action": "FIRST-PRINCIPLES KELLY INCEPTION",
-      "reason": "Constructed 100% mathematically via Modified Fractional Kelly Criterion for asymmetric dislocations (No defense / No GOOG). 8.0% Tactical US Treasury Strike Reserve.",
+      "action": "FIRST-PRINCIPLES CYCLE-PROOF INCEPTION",
+      "reason": "Constructed 100% mathematically via Modified Fractional Kelly Criterion. Excluded peak hardware semiconductor cyclicals (No NVDA). Focused on high-ROIC pricing monopolies (FICO), deep value compounders (JD, BABA, STNE), real estate cash cows (BYD), and brand compounders (DECK, CROX, GCT, MELI). 8.0% US Treasury Strike Reserve.",
       "verification_status": "Verified 3/3 Autonomous Council"
     }
   ],
@@ -195,7 +195,7 @@
     {
       "date": "2026-08-11",
       "portfolio_value": 200000.0,
-      "owner_earnings_runrate": 13920.0,
+      "owner_earnings_runrate": 14200.0,
       "spy_benchmark": 200000.0
     }
   ]

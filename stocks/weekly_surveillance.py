@@ -39,14 +39,14 @@ UNIVERSE_PROFILES = {
     "ADBE":  {"name": "Adobe Inc.",                   "oe_yield": 5.5, "cannibal": 3.2, "growth": 10.5, "moat": 9.5, "bs": 9.0, "pool": "defensive"},
 
     # Aggressive Alpha Candidates (Wealthsimple)
-    "NVDA":  {"name": "NVIDIA Corporation",            "oe_yield": 5.2, "cannibal": 2.5, "growth": 18.0, "moat": 9.8, "bs": 10.0, "pool": "aggressive"},
-    "META":  {"name": "Meta Platforms, Inc.",         "oe_yield": 5.4, "cannibal": 2.8, "growth": 12.0, "moat": 9.5, "bs": 9.5, "pool": "aggressive"},
+    "FICO":  {"name": "Fair Isaac Corporation",        "oe_yield": 4.2, "cannibal": 2.5, "growth": 15.0, "moat": 9.9, "bs": 9.0, "pool": "aggressive"},
     "MELI":  {"name": "MercadoLibre, Inc.",           "oe_yield": 6.1, "cannibal": 0.0, "growth": 19.0, "moat": 9.5, "bs": 9.0, "pool": "aggressive"},
-    "ASML":  {"name": "ASML Holding N.V.",            "oe_yield": 4.8, "cannibal": 1.5, "growth": 14.0, "moat": 9.9, "bs": 9.5, "pool": "aggressive"},
     "TSM":   {"name": "Taiwan Semiconductor Mfg",     "oe_yield": 5.9, "cannibal": 0.0, "growth": 15.0, "moat": 9.8, "bs": 9.5, "pool": "aggressive"},
     "BABA":  {"name": "Alibaba Group Holding Limited", "oe_yield": 8.5, "cannibal": 6.5, "growth": 6.0,  "moat": 9.5, "bs": 10.0, "pool": "aggressive"},
     "JD":    {"name": "JD.com, Inc.",                 "oe_yield": 9.2, "cannibal": 5.5, "growth": 6.0,  "moat": 9.0, "bs": 9.5, "pool": "aggressive"},
     "STNE":  {"name": "StoneCo Ltd.",                 "oe_yield": 11.5,"cannibal": 4.0, "growth": 12.0, "moat": 8.5, "bs": 8.5, "pool": "aggressive"},
+    "BYD":   {"name": "Boyd Gaming Corporation",      "oe_yield": 9.4, "cannibal": 5.5, "growth": 4.5,  "moat": 8.8, "bs": 9.0, "pool": "aggressive"},
+    "DECK":  {"name": "Deckers Outdoor Corporation",  "oe_yield": 6.5, "cannibal": 3.0, "growth": 12.0, "moat": 9.0, "bs": 10.0, "pool": "aggressive"},
     "CROX":  {"name": "Crocs, Inc.",                  "oe_yield": 8.8, "cannibal": 5.0, "growth": 6.0,  "moat": 8.6, "bs": 8.5, "pool": "aggressive"},
     "GCT":   {"name": "GigaCloud Technology Inc",     "oe_yield": 9.5, "cannibal": 2.0, "growth": 18.0, "moat": 8.8, "bs": 9.5, "pool": "aggressive"}
 }
