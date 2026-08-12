@@ -23,88 +23,106 @@ HISTORY_FILE = DATA_DIR / "thesis_history.json"
 def get_default_alphathesis_holdings() -> List[Dict[str, Any]]:
     """Defines the curated AlphaThesis concentrated core universe across Pillar A and Pillar B at Day 1 Inception."""
     return [
-        # Pillar A: Fortress Moat Anchors (50-60% Target)
+        # Pillar A: Monopolistic Platform Fortresses (60-70% Target)
         {
-            "ticker": "GOOG",
+            "ticker": "CSU",
             "pillar": "A",
-            "pillar_name": "Fortress Anchor",
-            "target_weight": 0.15,
-            "cost_basis": 343.00,
-            "look_through_fcf_yield": 4.8,
+            "pillar_name": "VMS Compounding Engine",
+            "target_weight": 0.10,
+            "cost_basis": 2308.00,
+            "look_through_fcf_yield": 4.2,
+            "cannibal_rate_pct": 0.0
+        },
+        {
+            "ticker": "BKNG",
+            "pillar": "A",
+            "pillar_name": "Travel Network Duopoly",
+            "target_weight": 0.093,
+            "cost_basis": 212.87,
+            "look_through_fcf_yield": 6.8,
+            "cannibal_rate_pct": 4.5
+        },
+        {
+            "ticker": "ADBE",
+            "pillar": "A",
+            "pillar_name": "Creative Software Monopoly",
+            "target_weight": 0.093,
+            "cost_basis": 263.71,
+            "look_through_fcf_yield": 5.5,
             "cannibal_rate_pct": 3.2
         },
         {
             "ticker": "META",
             "pillar": "A",
-            "pillar_name": "Fortress Anchor",
-            "target_weight": 0.14,
+            "pillar_name": "Social & AI Ads Sovereign",
+            "target_weight": 0.092,
             "cost_basis": 599.12,
             "look_through_fcf_yield": 5.4,
-            "cannibal_rate_pct": 4.1
-        },
-        {
-            "ticker": "V",
-            "pillar": "A",
-            "pillar_name": "Fortress Anchor",
-            "target_weight": 0.12,
-            "cost_basis": 362.82,
-            "look_through_fcf_yield": 4.6,
             "cannibal_rate_pct": 2.8
         },
         {
-            "ticker": "MSFT",
-            "pillar": "A",
-            "pillar_name": "Fortress Anchor",
-            "target_weight": 0.12,
-            "cost_basis": 503.81,
-            "look_through_fcf_yield": 3.9,
-            "cannibal_rate_pct": 1.5
-        },
-        
-        # Pillar B: Mispriced Compounders & Cannibals (25-35% Target)
-        {
-            "ticker": "BKNG",
-            "pillar": "B",
-            "pillar_name": "Mispriced Cannibal",
-            "target_weight": 0.10,
-            "cost_basis": 212.87,
-            "look_through_fcf_yield": 6.8,
-            "cannibal_rate_pct": 6.4
-        },
-        {
             "ticker": "CPRT",
-            "pillar": "B",
-            "pillar_name": "Fortress Cannibal",
-            "target_weight": 0.08,
+            "pillar": "A",
+            "pillar_name": "Salvage Land Monopoly",
+            "target_weight": 0.088,
             "cost_basis": 29.40,
             "look_through_fcf_yield": 4.4,
-            "cannibal_rate_pct": 2.1
+            "cannibal_rate_pct": 0.5
         },
+        {
+            "ticker": "CRM",
+            "pillar": "A",
+            "pillar_name": "Enterprise CRM Anchor",
+            "target_weight": 0.087,
+            "cost_basis": 197.47,
+            "look_through_fcf_yield": 5.8,
+            "cannibal_rate_pct": 3.0
+        },
+        {
+            "ticker": "MA",
+            "pillar": "A",
+            "pillar_name": "Global Payment Rail",
+            "target_weight": 0.083,
+            "cost_basis": 561.44,
+            "look_through_fcf_yield": 3.8,
+            "cannibal_rate_pct": 2.0
+        },
+        
+        # Pillar B: High-Velocity Mispriced Compounders (20-30% Target)
         {
             "ticker": "CROX",
             "pillar": "B",
-            "pillar_name": "Deep Cannibal",
-            "target_weight": 0.08,
+            "pillar_name": "Cash Cow Cannibal",
+            "target_weight": 0.090,
             "cost_basis": 131.71,
             "look_through_fcf_yield": 11.2,
-            "cannibal_rate_pct": 8.5
+            "cannibal_rate_pct": 5.5
         },
         {
-            "ticker": "DECK",
+            "ticker": "LULU",
             "pillar": "B",
-            "pillar_name": "Mispriced Compounder",
-            "target_weight": 0.08,
-            "cost_basis": 93.84,
-            "look_through_fcf_yield": 5.2,
-            "cannibal_rate_pct": 3.8
+            "pillar_name": "Premium Brand Dislocation",
+            "target_weight": 0.088,
+            "cost_basis": 125.61,
+            "look_through_fcf_yield": 6.2,
+            "cannibal_rate_pct": 3.5
+        },
+        {
+            "ticker": "UBER",
+            "pillar": "B",
+            "pillar_name": "Mobility Scale Platform",
+            "target_weight": 0.086,
+            "cost_basis": 78.54,
+            "look_through_fcf_yield": 5.0,
+            "cannibal_rate_pct": 2.0
         },
         
-        # Cash Cushion
+        # Cash Cushion (10% Target)
         {
             "ticker": "USD_CASH",
             "pillar": "CASH",
-            "pillar_name": "Fortress Cash Buffer",
-            "target_weight": 0.13,
+            "pillar_name": "Treasury Cash Buffer",
+            "target_weight": 0.10,
             "cost_basis": 1.00,
             "look_through_fcf_yield": 4.5,
             "cannibal_rate_pct": 0.0

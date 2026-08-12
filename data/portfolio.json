@@ -5,102 +5,162 @@
   "base_capital_usd": 100000.0,
   "holdings": [
     {
-      "ticker": "GOOG",
+      "ticker": "CSU",
+      "company_name": "Constellation Software Inc.",
+      "target_weight": 0.1,
+      "allocated_dollars": 10000.0,
+      "shares_to_buy": 4.33,
+      "cost_basis": 2308.0,
+      "current_price": 2308.0,
+      "fair_value": 2950.0,
       "pillar": "A",
-      "pillar_name": "Fortress Anchor",
-      "target_weight": 0.15,
-      "cost_basis": 343.0,
-      "look_through_fcf_yield": 4.8,
-      "cannibal_rate_pct": 3.2
-    },
-    {
-      "ticker": "META",
-      "pillar": "A",
-      "pillar_name": "Fortress Anchor",
-      "target_weight": 0.14,
-      "cost_basis": 599.12,
-      "look_through_fcf_yield": 5.4,
-      "cannibal_rate_pct": 4.1
-    },
-    {
-      "ticker": "V",
-      "pillar": "A",
-      "pillar_name": "Fortress Anchor",
-      "target_weight": 0.12,
-      "cost_basis": 362.82,
-      "look_through_fcf_yield": 4.6,
-      "cannibal_rate_pct": 2.8
-    },
-    {
-      "ticker": "MSFT",
-      "pillar": "A",
-      "pillar_name": "Fortress Anchor",
-      "target_weight": 0.12,
-      "cost_basis": 503.81,
-      "look_through_fcf_yield": 3.9,
-      "cannibal_rate_pct": 1.5
+      "thesis_core": "World's premier VMS serial acquirer; 25%+ ROIC compounding engine.",
+      "report_url": "reports/CSU.html"
     },
     {
       "ticker": "BKNG",
-      "pillar": "B",
-      "pillar_name": "Mispriced Cannibal",
-      "target_weight": 0.1,
+      "company_name": "Booking Holdings Inc.",
+      "target_weight": 0.093,
+      "allocated_dollars": 9300.0,
+      "shares_to_buy": 43.69,
       "cost_basis": 212.87,
-      "look_through_fcf_yield": 6.8,
-      "cannibal_rate_pct": 6.4
+      "current_price": 212.87,
+      "fair_value": 265.0,
+      "pillar": "A",
+      "thesis_core": "Global travel network effects + aggressive buyback share cannibalization.",
+      "report_url": "reports/BKNG.html"
     },
     {
-      "ticker": "CPRT",
-      "pillar": "B",
-      "pillar_name": "Fortress Cannibal",
-      "target_weight": 0.08,
-      "cost_basis": 29.4,
-      "look_through_fcf_yield": 4.4,
-      "cannibal_rate_pct": 2.1
+      "ticker": "ADBE",
+      "company_name": "Adobe Inc.",
+      "target_weight": 0.093,
+      "allocated_dollars": 9300.0,
+      "shares_to_buy": 35.27,
+      "cost_basis": 263.71,
+      "current_price": 263.71,
+      "fair_value": 340.0,
+      "pillar": "A",
+      "thesis_core": "Creative Cloud enterprise monopoly + 85%+ gross margin.",
+      "report_url": "reports/ADBE.html"
+    },
+    {
+      "ticker": "META",
+      "company_name": "Meta Platforms, Inc.",
+      "target_weight": 0.092,
+      "allocated_dollars": 9200.0,
+      "shares_to_buy": 15.36,
+      "cost_basis": 599.12,
+      "current_price": 599.12,
+      "fair_value": 720.0,
+      "pillar": "A",
+      "thesis_core": "3.3B daily active users + AI open-source ecosystem monetization.",
+      "report_url": "reports/META.html"
     },
     {
       "ticker": "CROX",
-      "pillar": "B",
-      "pillar_name": "Deep Cannibal",
-      "target_weight": 0.08,
+      "company_name": "Crocs, Inc.",
+      "target_weight": 0.09,
+      "allocated_dollars": 9000.0,
+      "shares_to_buy": 68.33,
       "cost_basis": 131.71,
-      "look_through_fcf_yield": 11.2,
-      "cannibal_rate_pct": 8.5
+      "current_price": 131.71,
+      "fair_value": 175.0,
+      "pillar": "B",
+      "thesis_core": "11.2% Owner Earnings cash cow + 5.5%/yr share cannibalization.",
+      "report_url": "reports/CROX.html"
     },
     {
-      "ticker": "DECK",
+      "ticker": "LULU",
+      "company_name": "lululemon athletica inc.",
+      "target_weight": 0.088,
+      "allocated_dollars": 8800.0,
+      "shares_to_buy": 70.06,
+      "cost_basis": 125.61,
+      "current_price": 125.61,
+      "fair_value": 195.0,
       "pillar": "B",
-      "pillar_name": "Mispriced Compounder",
-      "target_weight": 0.08,
-      "cost_basis": 93.84,
-      "look_through_fcf_yield": 5.2,
-      "cannibal_rate_pct": 3.8
+      "thesis_core": "Premium athletic apparel leader trading at deep 35.6% margin of safety.",
+      "report_url": "reports/LULU.html"
+    },
+    {
+      "ticker": "CPRT",
+      "company_name": "Copart, Inc.",
+      "target_weight": 0.088,
+      "allocated_dollars": 8800.0,
+      "shares_to_buy": 299.32,
+      "cost_basis": 29.4,
+      "current_price": 29.4,
+      "fair_value": 38.5,
+      "pillar": "A",
+      "thesis_core": "Zoning-protected salvage yard monopoly + zero debt fortress.",
+      "report_url": "reports/CPRT.html"
+    },
+    {
+      "ticker": "CRM",
+      "company_name": "Salesforce, Inc.",
+      "target_weight": 0.087,
+      "allocated_dollars": 8700.0,
+      "shares_to_buy": 44.06,
+      "cost_basis": 197.47,
+      "current_price": 197.47,
+      "fair_value": 255.0,
+      "pillar": "A",
+      "thesis_core": "Mission-critical CRM workflow stickiness (92%+ retention).",
+      "report_url": "reports/CRM.html"
+    },
+    {
+      "ticker": "UBER",
+      "company_name": "Uber Technologies, Inc.",
+      "target_weight": 0.086,
+      "allocated_dollars": 8600.0,
+      "shares_to_buy": 109.5,
+      "cost_basis": 78.54,
+      "current_price": 78.54,
+      "fair_value": 95.0,
+      "pillar": "B",
+      "thesis_core": "Global scale monopoly in mobility/delivery with surge operating leverage.",
+      "report_url": "reports/UBER.html"
+    },
+    {
+      "ticker": "MA",
+      "company_name": "Mastercard Incorporated",
+      "target_weight": 0.083,
+      "allocated_dollars": 8300.0,
+      "shares_to_buy": 14.78,
+      "cost_basis": 561.44,
+      "current_price": 561.44,
+      "fair_value": 635.0,
+      "pillar": "A",
+      "thesis_core": "Global duopoly payment rail with Visa; 56% operating margin.",
+      "report_url": "reports/MA.html"
     },
     {
       "ticker": "USD_CASH",
-      "pillar": "CASH",
-      "pillar_name": "Fortress Cash Buffer",
-      "target_weight": 0.13,
+      "company_name": "USD Cash Reserve",
+      "target_weight": 0.1,
+      "allocated_dollars": 10000.0,
+      "shares_to_buy": 10000.0,
       "cost_basis": 1.0,
-      "look_through_fcf_yield": 4.5,
-      "cannibal_rate_pct": 0.0
+      "current_price": 1.0,
+      "fair_value": 1.0,
+      "pillar": "CASH",
+      "thesis_core": "Yielding 4.5% risk-free dry powder in US Treasury 3M Bills.",
+      "report_url": "#"
     }
   ],
   "rebalance_log": [
     {
       "date": "2026-08-11",
       "action": "PORTFOLIO INCEPTION (DAY 1)",
-      "ticker": "ALL",
-      "reason": "Official inception of AlphaThesis Concentrated Fortress with $100,000 baseline across 8 core compounders & 13% Treasury cash buffer at Aug 11, 2026 market close.",
-      "weight_delta": "+100%",
-      "verification_status": "Verified 3/3 Autonomous Verification Council"
+      "reason": "Official launch of AlphaThesis Concentrated Fortress with $100,000.00 baseline across 10 Council-Verified Compounders (excluding GOOG to eliminate single-employer concentration) + 10% Treasury Cash Cushion at Aug 11, 2026 market close.",
+      "verification_status": "Verified 3/3 Autonomous Council"
     }
   ],
   "historical_performance": [
     {
       "date": "2026-08-11",
-      "portfolio_value": 100000.63,
-      "owner_earnings_runrate": 5425.0,
+      "portfolio_value": 100000.0,
+      "owner_earnings_runrate": 5701.5,
       "spy_benchmark": 100000.0
     }
   ]
