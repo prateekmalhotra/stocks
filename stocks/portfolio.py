@@ -745,9 +745,10 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                             type: 'linear',
                             display: true,
                             position: 'left',
+                            min: 95000,
                             grid: {{ color: 'rgba(255,255,255,0.04)' }},
                             ticks: {{
-                                color: '#C99A75',
+                                color: '#CC785C',
                                 font: {{ family: 'var(--font-mono)', size: 11 }},
                                 callback: function(value) {{ return '$' + (value/1000).toFixed(0) + 'k'; }}
                             }}
@@ -756,9 +757,10 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                             type: 'linear',
                             display: true,
                             position: 'right',
+                            min: 4400,
                             grid: {{ drawOnChartArea: false }},
                             ticks: {{
-                                color: '#7D9D81',
+                                color: '#6FA882',
                                 font: {{ family: 'var(--font-mono)', size: 11 }},
                                 callback: function(value) {{ return '$' + value.toLocaleString() + '/yr'; }}
                             }}
