@@ -548,6 +548,57 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             if not (tbl.parent and "table-scroll-wrap" in tbl.parent.get("class", [])):
                 wrapper = soup.new_tag("div", attrs={"class": "table-scroll-wrap"})
                 tbl.wrap(wrapper)
+
+        # 1h. Transform executive quotes and callout commentary into elegant executive cards
+        for callout in soup.find_all("div", class_="callout"):
+            text = callout.get_text()
+            has_quote = bool(callout.find("em") or re.search(r'["“][^"”]{20,}["”]', text))
+            has_attribution = bool(re.search(r'[—–-]\s*.*?(?:CEO|CFO|President|COO|CTO|Director|Founder|Chair|Executive)', text, re.IGNORECASE))
+            is_commentary_header = bool(re.search(r'(?:Executive Commentary|Earnings Call|CEO on|CFO on|Management on|Strategic Takeaway|Strategic Insights)', text, re.IGNORECASE))
+            
+            if (has_quote and has_attribution) or is_commentary_header:
+                callout["class"] = ["executive-callout"]
+                
+                # Find and clean up headers
+                first_p = callout.find("p")
+                if first_p and first_p.find("strong") and not first_p.find("em"):
+                    header_text = first_p.get_text().strip()
+                    if any(k in header_text.lower() for k in ["executive commentary", "earnings call", "ceo on", "cfo on", "management", "strategic", "leadership"]):
+                        header_div = soup.new_tag("div", attrs={"class": "exec-header"})
+                        header_icon = soup.new_tag("span", attrs={"class": "exec-badge"})
+                        
+                        if "earnings call" in header_text.lower() or "commentary" in header_text.lower():
+                            header_icon.string = "Executive Commentary"
+                        elif "strategic" in header_text.lower():
+                            header_icon.string = "Strategic Insights"
+                        else:
+                            header_icon.string = "Leadership Perspective"
+                        
+                        sub_match = re.search(r'[—–-]\s*(.*)$', header_text)
+                        if sub_match:
+                            header_sub = soup.new_tag("span", attrs={"class": "exec-sub"})
+                            header_sub.string = sub_match.group(1).strip()
+                            header_div.append(header_icon)
+                            header_div.append(header_sub)
+                        else:
+                            header_div.append(header_icon)
+                        first_p.replace_with(header_div)
+
+                # Replace raw <hr/> with subtle clean divider
+                for hr in callout.find_all("hr"):
+                    hr_div = soup.new_tag("div", attrs={"class": "exec-divider"})
+                    hr.replace_with(hr_div)
+                    
+                # Clean and style attribution paragraphs
+                for p in callout.find_all("p"):
+                    p_text = p.get_text().strip()
+                    if p_text.startswith("—") or p_text.startswith("–") or p_text.startswith("- "):
+                        p["class"] = ["exec-attribution"]
+                        for s in list(p.strings):
+                            if s.strip().startswith("—") or s.strip().startswith("–") or s.strip().startswith("-"):
+                                new_s = re.sub(r'^[—–-]\s*', '', s.strip())
+                                s.replace_with(new_s)
+                                break
                 
         return str(soup)
 
@@ -1323,6 +1374,85 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         .memo-container div[class*="box"] strong,
         .memo-container div[class*="card"] strong {{
             color: var(--text-title) !important;
+        }}
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {{
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }}
+        .memo-container .exec-header {{
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }}
+        .memo-container .exec-badge {{
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }}
+        .memo-container .exec-sub {{
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }}
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {{
+            font-family: var(--font-serif) !important;
+            font-style: italic !important;
+            font-size: 1.05rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }}
+        .memo-container .exec-attribution {{
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }}
+        .memo-container .exec-attribution::before {{
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }}
+        .memo-container .exec-attribution strong {{
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }}
+        .memo-container .exec-divider {{
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }}
+        .memo-container hr {{
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
         }}
         .highlight, mark {{
             background: rgba(201, 154, 117, 0.16) !important;

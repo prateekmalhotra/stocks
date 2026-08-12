@@ -636,6 +636,85 @@
         .memo-container div[class*="card"] strong {
             color: var(--text-title) !important;
         }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-serif) !important;
+            font-style: italic !important;
+            font-size: 1.05rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
         .highlight, mark {
             background: rgba(201, 154, 117, 0.16) !important;
             color: #E2DDD5 !important;
@@ -1270,7 +1349,7 @@
 <td><strong>Net Income $62.6B (incl. $53.4B pre-tax Anthropic valuation gain)</strong></td>
 </tr>
 </tbody>
-</table></div><h3>Detailed Operational Analysis</h3><h4>1. Amazon Web Services (AWS)</h4><p>AWS growth accelerated to 36.7% YoY—its fastest quarterly growth rate in 18 quarters—reaching an annualized revenue run rate of $169 billion. Operating income rose to $16.6 billion, representing an operating margin of 39.4%. Margin expansion was driven by server capacity optimizations, cost disciplines, and high-margin software services. AWS’s total backlog (Remaining Performance Obligations) expanded to $496 billion. Demand for generative AI workloads remains supply-constrained, prompting Amazon to increase its full-year 2026 capital expenditure target to approximately $220 billion to scale data centers and power capacity.</p><h4>2. North America Stores</h4><p>North America net sales reached $116.2 billion (+16.0% YoY), with operating income surging to $9.1 billion and operating margin expanding to 7.9%. Operational efficiency gains stem from lower transportation costs, optimized inventory placement across regional hubs, and higher ad monetization on product search pages. Perishables and everyday essentials grew faster than the broader business, supported by the expansion of same-day grocery delivery across 80 additional metro areas.</p><h4>3. International Stores</h4><p>International net sales grew 15.0% YoY (ex-FX) to $42.2 billion, while operating income reached $1.7 billion (4.1% operating margin). Profitability in mature markets like the UK, Germany, and Japan continues to trend upward toward North American levels, while newer international markets (such as Latin America, India, and the Middle East) are making steady progress toward break-even.</p><h4>4. Advertising Engine</h4><p>Advertising revenue generated $19.8 billion (+26.0% YoY), driven by machine learning model improvements in conversion attribution and the rollout of ad-supported tiers on Prime Video. As higher-margin ad revenue flows directly through the retail segment, it provides structural uplift to consolidated store operating margins.</p><div class="callout">
+</table></div><h3>Detailed Operational Analysis</h3><h4>1. Amazon Web Services (AWS)</h4><p>AWS growth accelerated to 36.7% YoY—its fastest quarterly growth rate in 18 quarters—reaching an annualized revenue run rate of $169 billion. Operating income rose to $16.6 billion, representing an operating margin of 39.4%. Margin expansion was driven by server capacity optimizations, cost disciplines, and high-margin software services. AWS’s total backlog (Remaining Performance Obligations) expanded to $496 billion. Demand for generative AI workloads remains supply-constrained, prompting Amazon to increase its full-year 2026 capital expenditure target to approximately $220 billion to scale data centers and power capacity.</p><h4>2. North America Stores</h4><p>North America net sales reached $116.2 billion (+16.0% YoY), with operating income surging to $9.1 billion and operating margin expanding to 7.9%. Operational efficiency gains stem from lower transportation costs, optimized inventory placement across regional hubs, and higher ad monetization on product search pages. Perishables and everyday essentials grew faster than the broader business, supported by the expansion of same-day grocery delivery across 80 additional metro areas.</p><h4>3. International Stores</h4><p>International net sales grew 15.0% YoY (ex-FX) to $42.2 billion, while operating income reached $1.7 billion (4.1% operating margin). Profitability in mature markets like the UK, Germany, and Japan continues to trend upward toward North American levels, while newer international markets (such as Latin America, India, and the Middle East) are making steady progress toward break-even.</p><h4>4. Advertising Engine</h4><p>Advertising revenue generated $19.8 billion (+26.0% YoY), driven by machine learning model improvements in conversion attribution and the rollout of ad-supported tiers on Prime Video. As higher-margin ad revenue flows directly through the retail segment, it provides structural uplift to consolidated store operating margins.</p><div class="executive-callout">
 <strong>Executive Commentary &amp; Guidance:</strong> CEO Andy Jassy highlighted that AWS's AI and custom chip divisions have both crossed $25 billion run rates, noting that "AI is pulling along core cloud migrations" as enterprises build end-to-end data pipelines. For Q3 2026, management guides net sales between $197.0 billion and $202.0 billion and operating income between $22.5 billion and $26.5 billion.
   </div></div>
 <section id="section-3">
@@ -1459,7 +1538,7 @@
 </tr>
 </tbody>
 </table></div>
-<div class="callout">
+<div class="executive-callout">
 <strong>Capital Spending Efficiency &amp; Contracted Demand:</strong>
     Despite TTM Free Cash Flow swinging to a $(7.6) billion outflow, CEO Andy Jassy highlighted during the earnings call that demand for AWS generative AI infrastructure significantly outstrips available capacity. With 2026/2027 server capacity fully booked and AWS backlog expanding to $496 billion, this growth CapEx represents high-return reinvestment rather than speculative overbuilding.
   </div>

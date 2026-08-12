@@ -636,6 +636,85 @@
         .memo-container div[class*="card"] strong {
             color: var(--text-title) !important;
         }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-serif) !important;
+            font-style: italic !important;
+            font-size: 1.05rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
         .highlight, mark {
             background: rgba(201, 154, 117, 0.16) !important;
             color: #E2DDD5 !important;
@@ -1208,7 +1287,7 @@
 <td>Perpetual OEM device licensing, subscription gaming, transactional software/hardware sales, and CPC/CPM digital ad revenue. Serves as a defensive cash-flow generator funding high-growth cloud investments.</td>
 </tr>
 </tbody>
-</table></div><h3>Economic Moat Architecture &amp; Competitive Advantages</h3><p>Microsoft possesses a Wide Economic Moat underpinned by four key strategic pillars:</p><ul><li><strong>Near-Insurmountable Enterprise Switching Costs:</strong> The core IT infrastructure of over 95% of Fortune 500 enterprises is built upon Microsoft’s identity management (Active Directory/Entra ID), productivity suites (Microsoft 365), and database platforms (SQL Server). Replacing these deeply embedded systems would require hundreds of millions of dollars in migration expenditure, business disruption risk, and security reconfiguration, creating structural lock-in.</li><li><strong>Pricing Power &amp; ARPU Uplift:</strong> Because Microsoft's software is mission-critical to enterprise productivity, the company commands significant pricing power. The launch and scaling of generative AI agents—most notably Microsoft 365 Copilot priced as a $30 per-user/month add-on—allows Microsoft to extract substantial incremental economic value from its existing 460M+ commercial seat installation base without acquiring new logos.</li><li><strong>Ecosystem Network Effects &amp; Multi-Product Cross-Sell:</strong> The integration between Microsoft 365, Dynamics 365, LinkedIn, and Azure creates powerful cross-product synergies. Data generated in enterprise workflows flows seamlessly into Azure AI models and Power Platform automation, making the ecosystem exponentially more valuable as additional modules are adopted.</li><li><strong>AI Infrastructure Scale &amp; Model-Agnostic Platform Advantages:</strong> Rather than anchoring its enterprise AI strategy to a single proprietary large language model (LLM), Microsoft has built a multi-model infrastructure layer via Azure AI, offering access to over 11,000 models including OpenAI, Anthropic, Mistral, xAI, and its proprietary MAI family. By decoupling the runtime harness, enterprise context, security layer, and memory from any specific model, Azure acts as the neutral, high-performance compute platform for enterprise AI deployment. Combined with custom silicon efforts (Maya 100/Cobalt) and global datacenter scale, Microsoft maintains a structural unit-cost advantage in serving AI workloads.</li></ul><div class="callout">
+</table></div><h3>Economic Moat Architecture &amp; Competitive Advantages</h3><p>Microsoft possesses a Wide Economic Moat underpinned by four key strategic pillars:</p><ul><li><strong>Near-Insurmountable Enterprise Switching Costs:</strong> The core IT infrastructure of over 95% of Fortune 500 enterprises is built upon Microsoft’s identity management (Active Directory/Entra ID), productivity suites (Microsoft 365), and database platforms (SQL Server). Replacing these deeply embedded systems would require hundreds of millions of dollars in migration expenditure, business disruption risk, and security reconfiguration, creating structural lock-in.</li><li><strong>Pricing Power &amp; ARPU Uplift:</strong> Because Microsoft's software is mission-critical to enterprise productivity, the company commands significant pricing power. The launch and scaling of generative AI agents—most notably Microsoft 365 Copilot priced as a $30 per-user/month add-on—allows Microsoft to extract substantial incremental economic value from its existing 460M+ commercial seat installation base without acquiring new logos.</li><li><strong>Ecosystem Network Effects &amp; Multi-Product Cross-Sell:</strong> The integration between Microsoft 365, Dynamics 365, LinkedIn, and Azure creates powerful cross-product synergies. Data generated in enterprise workflows flows seamlessly into Azure AI models and Power Platform automation, making the ecosystem exponentially more valuable as additional modules are adopted.</li><li><strong>AI Infrastructure Scale &amp; Model-Agnostic Platform Advantages:</strong> Rather than anchoring its enterprise AI strategy to a single proprietary large language model (LLM), Microsoft has built a multi-model infrastructure layer via Azure AI, offering access to over 11,000 models including OpenAI, Anthropic, Mistral, xAI, and its proprietary MAI family. By decoupling the runtime harness, enterprise context, security layer, and memory from any specific model, Azure acts as the neutral, high-performance compute platform for enterprise AI deployment. Combined with custom silicon efforts (Maya 100/Cobalt) and global datacenter scale, Microsoft maintains a structural unit-cost advantage in serving AI workloads.</li></ul><div class="executive-callout">
 <strong>Strategic Takeaway — The Multi-Model Harness Advantage:</strong> Microsoft's AI strategy extends beyond model ownership. On the Q4 FY26 earnings call, management emphasized that enterprise customers are increasingly building with multi-model architectures (a 5x increase year-to-date). Microsoft captures value through compute consumption, enterprise governance, and agent orchestration regardless of which underlying model wins a specific benchmark.
   </div></div>
 <div class="section"><h2>Section 2: Latest Operational Highlights &amp; Segment Performance</h2><p>For the fiscal year 2026 (ended June 30, 2026) and its fourth quarter, Microsoft delivered record-setting financial and operational results, fueled by continuous enterprise migration to Microsoft Cloud and rapid deployment of enterprise AI infrastructure.</p><h3>FY26 Key Financial &amp; Operational Milestones</h3><div class="metrics-grid">
@@ -1303,10 +1382,10 @@
 <td>Console sales deceleration and impairment charges partially offset by Game Pass recurring subscription cash flows.</td>
 </tr>
 </tbody>
-</table></div><h3>RPO Backlog Expansion &amp; AI Reinvestment Pace</h3><p>Microsoft’s Commercial Remaining Performance Obligation (RPO) experienced unprecedented growth in FY26, surging 84% year-over-year to $678 billion. While a substantial portion of this total backlog reflects multi-year strategic commitments from large-scale partners (including OpenAI), organic non-OpenAI commercial RPO still expanded at a robust 25% YoY pace, underscoring broad-based corporate commitments to Microsoft Cloud infrastructure.</p><p>To support this burgeoning multi-year demand, Microsoft accelerated its capital investment program. Capital expenditures (including finance leases) reached $41.0 billion in Q4 FY26 alone. Crucially, roughly two-thirds of this outlay was directed toward short-lived assets—specifically high-performance GPUs, CPUs, and networking equipment—directly tied to immediate customer demand for generative AI training and inference workloads. Microsoft added 88 new datacenters across five continents in FY26 (including 31 in Q4), expanding its globally distributed infrastructure advantage.</p><div class="callout">
+</table></div><h3>RPO Backlog Expansion &amp; AI Reinvestment Pace</h3><p>Microsoft’s Commercial Remaining Performance Obligation (RPO) experienced unprecedented growth in FY26, surging 84% year-over-year to $678 billion. While a substantial portion of this total backlog reflects multi-year strategic commitments from large-scale partners (including OpenAI), organic non-OpenAI commercial RPO still expanded at a robust 25% YoY pace, underscoring broad-based corporate commitments to Microsoft Cloud infrastructure.</p><p>To support this burgeoning multi-year demand, Microsoft accelerated its capital investment program. Capital expenditures (including finance leases) reached $41.0 billion in Q4 FY26 alone. Crucially, roughly two-thirds of this outlay was directed toward short-lived assets—specifically high-performance GPUs, CPUs, and networking equipment—directly tied to immediate customer demand for generative AI training and inference workloads. Microsoft added 88 new datacenters across five continents in FY26 (including 31 in Q4), expanding its globally distributed infrastructure advantage.</p><div class="executive-callout">
 <strong>Executive Commentary — Satya Nadella, Chairman &amp; CEO:</strong><br/>
 <em>“We are advancing the frontier on the cost-to-outcome curve, ensuring every customer can turn tokens into business results. This year, Azure revenue surpassed $100 billion for the first time, and Microsoft 365 Copilot reached over 30 million paid seats, reflecting the confidence customers are placing in us to power their AI transformation.”</em>
-</div><div class="callout">
+</div><div class="executive-callout">
 <strong>Executive Commentary — Amy Hood, Executive VP &amp; CFO:</strong><br/>
 <em>“We delivered a strong quarter to close out the fiscal year, highlighted by Microsoft Cloud revenue of $59.3 billion, up 27% year-over-year. Microsoft Cloud gross margin percentage came in better than expected at 65%, demonstrating strong operational efficiency even as we scale our AI datacenter footprint.”</em>
 </div></div>

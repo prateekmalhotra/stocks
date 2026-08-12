@@ -636,6 +636,85 @@
         .memo-container div[class*="card"] strong {
             color: var(--text-title) !important;
         }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-serif) !important;
+            font-style: italic !important;
+            font-size: 1.05rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
         .highlight, mark {
             background: rgba(201, 154, 117, 0.16) !important;
             color: #E2DDD5 !important;
@@ -1206,7 +1285,7 @@ By housing workforce planning, payroll, general ledger, accounts payable/receiva
 Workday’s economic moat relies on four primary structural pillars:
 
 <ul><li><strong>Extreme Switching Costs:</strong> Replacing a core enterprise HCM or Financial system requires an intensive 18- to 36-month migration process, multi-million-dollar implementation costs, and severe operational operational disruption risk. Once implemented, Workday becomes deeply embedded in daily payroll, compliance reporting, and financial accounting workflows.</li><li><strong>Resilient Gross Retention:</strong> Workday maintained a <strong>97% Gross Revenue Retention (GRR)</strong> rate in Q1 FY27. This demonstrates that enterprise clients do not churn out of Workday’s system of record, even during macro corporate cost optimization cycles.</li><li><strong>Data Advantage for Enterprise AI:</strong> Proprietary AI models require high-fidelity, clean corporate data. Workday processes trillions of HR and financial transactions annually across its 80M+ user base. Because all data shares a common data model, Workday can deploy zero-shot contextual AI without complex ETL pipelines or data clean-room integrations.</li><li><strong>Pricing Power &amp; Bundle Expansion:</strong> Workday continues to expand Net Revenue Retention (NRR) through land-and-expand strategies. Expanding into Financial Management, Spend Management (Scout RFP), Workforce Planning (Adaptive), and native AI agents generates cross-sell tailwinds. Customer expansion deals that include native AI solutions average <strong>over 50% larger in total contract value</strong>.</li></ul>
-<div class="callout">
+<div class="executive-callout">
 <strong>Strategic Management Takeaway — Customer Base Expansion &amp; AI Lift:</strong><br/>
 <em>"Over 25% of new ACV in customer base expansions came from AI, with AI-included expansion deals averaging over 50% larger in size... We reported our best first quarter of new ACV growth in five years, driven by strong core business and AI traction."</em><br/>
 — <strong>Aneel Bhusri, CEO &amp; Rob Enslin, CCO</strong> (Q1 FY27 Earnings Call)
@@ -1255,7 +1334,7 @@ Rather than wrapping third-party LLMs with superficial chat interfaces, Workday 
 <h3>Product Innovations: Sana Superintelligence &amp; Workday Agent System of Record</h3>
 Workday has augmented its organic product engine with target technology integrations:
 <ul><li><strong>Sana Integration:</strong> Following the acquisition of Sana, Workday released <em>Sana from Workday</em> globally—providing enterprise workers with proactive contextual search, cross-application reasoning, and personalized productivity tools across the enterprise stack.</li><li><strong>Workday Agent System of Record (GA):</strong> As enterprises deploy hundreds of autonomous agents from various software vendors, Workday introduced a centralized governance framework. The <em>Agent System of Record</em> gives IT executives complete auditing, security governance, role-based access control, and performance visibility across all deployed enterprise AI agents.</li></ul>
-<div class="callout">
+<div class="executive-callout">
 <strong>Product Strategy — Autonomous Agentic Integration:</strong><br/>
 <em>"The number of customers using Workday's organically developed agents has more than doubled quarter-over-quarter, with over 4,000 customers using at least one agent... Workday Agent System of Record is now generally available, giving enterprise leaders full visibility, governance, and security over their evolving AI worker fleets."</em><br/>
 — <strong>Gerrit Kazmaier, President of Product &amp; Technology</strong>

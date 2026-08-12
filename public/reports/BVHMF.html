@@ -636,6 +636,85 @@
         .memo-container div[class*="card"] strong {
             color: var(--text-title) !important;
         }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-serif) !important;
+            font-style: italic !important;
+            font-size: 1.05rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
         .highlight, mark {
             background: rgba(201, 154, 117, 0.16) !important;
             color: #E2DDD5 !important;
@@ -1204,10 +1283,10 @@
 <div class="metric-delta pos">+113.3% YoY</div>
 </div>
 </div>
-<div class="callout">
-<p><strong>Executive Leadership Commentary &amp; Capital Allocation Directive:</strong></p>
+<div class="executive-callout">
+<div class="exec-header"><span class="exec-badge">Executive Commentary</span></div>
 <p><em>"In the three months I have been in the role, we are taking the necessary decisions to position Vistry for future success... We are treating 2026 as a transition year to reposition the business to operate with significantly and sustainably lower financial leverage and healthy profitability. Our H1 initiatives included pricing actions on slower-moving stock, reducing exposure to higher ASPs, and targeted reductions in our landbank. We continue to expect to deliver a substantial reduction in average net debt levels in H2 2026 and continue to forecast a net cash position in excess of £100m at the end of 2026."</em></p>
-<p>— <strong>Adam Daniels</strong>, Chief Executive Officer (H1 2026 Strategic Trading Update)</p>
+<p class="exec-attribution"><strong>Adam Daniels</strong>, Chief Executive Officer (H1 2026 Strategic Trading Update)</p>
 <p><strong>Capital Allocation Reset:</strong> Management paused active share repurchases after completing £101M of the £130M authorization. Dividends remain suspended to route all operational cash flow directly toward net debt paydown and funding cash requirements for fire safety liabilities.</p>
 </div>
 <h2>Section 2: Business Model Reality &amp; Competitive Moat</h2>
@@ -1262,7 +1341,7 @@
 </tr>
 </tbody>
 </table></div>
-<div class="callout">
+<div class="executive-callout">
 <p><strong>Structural Macro Drivers vs. Operational &amp; Legal Disruption Risks:</strong></p>
 <ul><li><strong>Structural Demand Drivers (Long-Term Tailwinds):</strong> </li></ul>
 <ul>

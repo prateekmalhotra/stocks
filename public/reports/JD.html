@@ -636,6 +636,85 @@
         .memo-container div[class*="card"] strong {
             color: var(--text-title) !important;
         }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-serif) !important;
+            font-style: italic !important;
+            font-size: 1.05rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
         .highlight, mark {
             background: rgba(201, 154, 117, 0.16) !important;
             color: #E2DDD5 !important;
@@ -1306,7 +1385,7 @@
 </table></div>
 <h3>Operational Execution Highlights</h3>
 <ul><li><strong>Core Retail Margin Expansion:</strong> JD Retail demonstrated robust operating leverage, generating RMB 15.0 billion in operating income on sales of RMB 268.59 billion. Operating margin expanded to a historic high of 5.6% (up from 4.9% in Q1 2025), underpinned by favorable product mix shifts toward high-margin general merchandise and 3P advertising revenues.</li><li><strong>Supermarket &amp; FMCG Momentum:</strong> Supermarket and general merchandise revenues surged 14.9% YoY to RMB 109.8 billion. This double-digit expansion effectively counterbalanced temporary headwinds in consumer electronics.</li><li><strong>User Growth &amp; Shopping Frequency:</strong> Annual active customer accounts surged to a record high of over 740 million. Quarterly active users registered double-digit year-on-year growth for the 10th consecutive quarter, while user shopping frequency across the platform jumped 37% YoY, confirming deepening engagement.</li><li><strong>New Businesses Loss Narrowing:</strong> Losses in the New Businesses segment (which includes instant retail and food delivery initiatives) narrowed sequentially by over 30%. Commission and advertising revenues from food delivery grew nearly two-fold quarter-over-quarter, signalling disciplined spend management and reduced subsidy intensity.</li><li><strong>Shareholder Returns:</strong> During Q1 2026, JD executed $631 million in share buybacks (repurchasing 44.5 million ADSs) and distributed an annual cash dividend of approximately $1.4 billion, demonstrating capital allocation discipline and strong balance sheet backing.</li></ul>
-<div class="callout">
+<div class="executive-callout">
 <strong>Executive Commentary — Sandy Xu, Chief Executive Officer:</strong><br/>
 <em>"We're pleased to report a solid first quarter to kick off 2026. Our user base and shopping frequency continued to expand robustly, with annual active customers hitting a new record, a clear testament to the deepening synergies across our business ecosystem. JD Retail demonstrated remarkable resilience throughout the quarter, with profitability reaching record levels. Meanwhile, our New Businesses advanced steadily with meaningful bottom-line improvements over the prior quarter. With this solid foundation in place, we enter 2026 on firm ground."</em>
 </div>

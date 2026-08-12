@@ -636,6 +636,85 @@
         .memo-container div[class*="card"] strong {
             color: var(--text-title) !important;
         }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-serif) !important;
+            font-style: italic !important;
+            font-size: 1.05rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
         .highlight, mark {
             background: rgba(201, 154, 117, 0.16) !important;
             color: #E2DDD5 !important;
@@ -1322,7 +1401,7 @@
 <li><strong>Shop Pay (E-Commerce Platform Lock-In):</strong> Shopify’s native checkout, Shop Pay, offers hyper-frictionless 1-click checkout for hundreds of thousands of digital storefronts. By storing buyer credentials directly across the Shopify network, Shop Pay captures high-intent merchant traffic that historically defaulted to PayPal.</li>
 <li><strong>Adyen (Enterprise Processing Benchmark):</strong> In unbranded merchant acquiring, Adyen’s single platform architecture delivers superior authorization rates, global settlement efficiency, and granular data analytics for enterprise clients. This forces PayPal's Braintree to compete aggressively on price, diluting transaction margin percentages to retain enterprise volume.
     </li>
-</ul><div class="callout">
+</ul><div class="executive-callout">
 <div class="callout-title">Strategic Takeaway: Monetization Pivot &amp; Multi-Product ARPA Multiplier</div>
 <div class="callout-body">
       PayPal's growth engine relies on transforming Venmo from a fee-less P2P utility into an integrated financial hub. In Q2 2026, users who utilized both the Venmo Debit Card and "Pay with Venmo" generated <strong>over 9 times higher Average Revenue Per Account (ARPA)</strong> compared to peer-to-peer-only users. The size of this multi-product user cohort roughly doubled year-over-year, providing the economic foundation for non-GAAP earnings resilience.
@@ -1418,7 +1497,7 @@
 <td>Accelerated from 11% in Q1; mid-teens Braintree growth drives scale but dilutes overall take rate.</td>
 </tr>
 </tbody>
-</table></div><div class="callout">
+</table></div><div class="executive-callout">
 <div class="callout-title">Executive Commentary: Leadership Guidance &amp; Capital Allocation</div>
 <div class="callout-body">
 <p>

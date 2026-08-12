@@ -636,6 +636,85 @@
         .memo-container div[class*="card"] strong {
             color: var(--text-title) !important;
         }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-serif) !important;
+            font-style: italic !important;
+            font-size: 1.05rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
         .highlight, mark {
             background: rgba(201, 154, 117, 0.16) !important;
             color: #E2DDD5 !important;
@@ -1483,7 +1562,7 @@
     The investment thesis for Crocs hinges on three primary forward economic catalysts and execution milestones over the next 12 to 24 months:
   </p><ol><li><strong>Crocs Brand $4B+ Revenue Milestone &amp; International Expansion:</strong> The core Crocs brand crossed $1.0B in quarterly revenue for the first time in Q2 2026. Constant-currency growth in international markets (+6.6% in Q2, led by double-digit expansion in China, Japan, and India) provides a massive TAM runway that offsets domestic wholesale rebalancing.</li><li><strong>HEYDUDE Stabilization &amp; Channel Cleansing:</strong> While HEYDUDE brand revenues fell 5.8% constant currency to $179M in Q2, performance exceeded internal management guidance. Inventories across the retail channel are down high single digits YoY. Complete inventory rightsizing and DTC margin recovery (+7.1% DTC growth) serve as the key re-rating trigger for enterprise gross margins.
   <strong>Accelerated Buyback Execution under $2.0B Authorization:</strong> With $2.0B in buyback capacity and full-year 2026 Adjusted EPS guidance raised to $13.85 at the midpoint, management has the authorization and cash flow to retire 3% to 6% of shares annually, driving double-digit per-share owner earnings growth even under flat top-line macro conditions.</li></ol></div>
-<div class="section"><h2>Section 5: Owner Earnings Valuation &amp; Scenario Matrix</h2><p>To evaluate Crocs, Inc. (NASDAQ: CROX) through Warren Buffett's intrinsic value lens, we reject short-term earnings multiples and Wall Street consensus EPS estimates. Per the 1986 Berkshire Hathaway Shareholder Letter, true economic value rests entirely on <strong>Owner Earnings</strong>—the actual cash flow attributable to owners after accounting for maintenance capital expenditures, working capital changes, and stock-based compensation.</p><div class="callout">
+<div class="section"><h2>Section 5: Owner Earnings Valuation &amp; Scenario Matrix</h2><p>To evaluate Crocs, Inc. (NASDAQ: CROX) through Warren Buffett's intrinsic value lens, we reject short-term earnings multiples and Wall Street consensus EPS estimates. Per the 1986 Berkshire Hathaway Shareholder Letter, true economic value rests entirely on <strong>Owner Earnings</strong>—the actual cash flow attributable to owners after accounting for maintenance capital expenditures, working capital changes, and stock-based compensation.</p><div class="executive-callout">
 <strong>Warren Buffett's Owner Earnings Equation:</strong><br/>
 <em>Owner Earnings = Operating Cash Flow − Maintenance CapEx − Stock-Based Compensation (SBC)</em><br/><br/>
     Crocs demonstrates superior cash conversion because its core EVA (ethylene vinyl acetate) molding process requires minimal heavy machinery reinvestment. Stock-based compensation is treated as an inescapable cash expense and dilution factor, while operating lease obligations are consolidated directly into total balance sheet liabilities.

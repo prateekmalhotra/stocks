@@ -636,6 +636,85 @@
         .memo-container div[class*="card"] strong {
             color: var(--text-title) !important;
         }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-serif) !important;
+            font-style: italic !important;
+            font-size: 1.05rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
         .highlight, mark {
             background: rgba(201, 154, 117, 0.16) !important;
             color: #E2DDD5 !important;
@@ -1205,7 +1284,7 @@
 <div class="metric-value">43.0%</div>
 <div class="metric-delta pos">+106% EBITDA YoY</div>
 </div>
-</div><h3>Advertising Revenue ($762 Million, +64% YoY)</h3><p>Advertising forms the vast majority (94.7%) of Reddit’s revenue engine. Growth during the quarter was fueled by a combination of strong ad pricing realization, impression expansion, and accelerated customer acquisition across mid-market and performance-focused channels:</p><ul><li><strong>Ad Pricing &amp; Auction Mechanics:</strong> Effective ad pricing grew approximately <strong>40% YoY</strong>, demonstrating expanding pricing power as advertisers place higher monetary value on high-intent user communities. Ad impressions simultaneously grew <strong>17% YoY</strong>.</li><li><strong>Advertiser Base Scaling:</strong> Active advertisers increased by <strong>more than 70% YoY</strong>, propelled by the adoption of automated campaign management tools. Scaled channel revenues doubled year-over-year as small and mid-sized businesses (SMBs) utilized self-service ad toolkits.</li><li><strong>Performance &amp; Commerce Ad Formats:</strong> Product releases such as <i>Reddit Max</i> (automated campaign optimization), <i>Dynamic Product Ads</i> (DPA), and deep platform integration with Shopify have moved Reddit down the marketing funnel from brand awareness to direct-response commerce conversion.</li></ul><h3>Data Licensing &amp; Other Revenue ($43 Million, +24% YoY)</h3><p>Data Licensing and non-advertising revenue totaled $43 million, representing 5.3% of total revenue. While small relative to digital advertising, this higher-margin stream captures the strategic value of Reddit's structured conversational data. Major AI developers pay recurring licensing fees to access Reddit's Data API for real-time model training, post-training alignment, and RAG (Retrieval-Augmented Generation) search grounding.</p><div class="callout">
+</div><h3>Advertising Revenue ($762 Million, +64% YoY)</h3><p>Advertising forms the vast majority (94.7%) of Reddit’s revenue engine. Growth during the quarter was fueled by a combination of strong ad pricing realization, impression expansion, and accelerated customer acquisition across mid-market and performance-focused channels:</p><ul><li><strong>Ad Pricing &amp; Auction Mechanics:</strong> Effective ad pricing grew approximately <strong>40% YoY</strong>, demonstrating expanding pricing power as advertisers place higher monetary value on high-intent user communities. Ad impressions simultaneously grew <strong>17% YoY</strong>.</li><li><strong>Advertiser Base Scaling:</strong> Active advertisers increased by <strong>more than 70% YoY</strong>, propelled by the adoption of automated campaign management tools. Scaled channel revenues doubled year-over-year as small and mid-sized businesses (SMBs) utilized self-service ad toolkits.</li><li><strong>Performance &amp; Commerce Ad Formats:</strong> Product releases such as <i>Reddit Max</i> (automated campaign optimization), <i>Dynamic Product Ads</i> (DPA), and deep platform integration with Shopify have moved Reddit down the marketing funnel from brand awareness to direct-response commerce conversion.</li></ul><h3>Data Licensing &amp; Other Revenue ($43 Million, +24% YoY)</h3><p>Data Licensing and non-advertising revenue totaled $43 million, representing 5.3% of total revenue. While small relative to digital advertising, this higher-margin stream captures the strategic value of Reddit's structured conversational data. Major AI developers pay recurring licensing fees to access Reddit's Data API for real-time model training, post-training alignment, and RAG (Retrieval-Augmented Generation) search grounding.</p><div class="executive-callout">
 <strong>Executive Commentary — CEO Steven Huffman on Platform Positioning:</strong><br/>
 <em>"In an increasingly automated web, the value of real human perspective has never been higher... AI compresses the Internet into summaries. Reddit delivers the opposite: deep discussions, passionate debates, and lived experiences. People do not want a summary of Reddit. They want Reddit."</em>
 </div><div class="table-scroll-wrap"><table>
@@ -1264,7 +1343,7 @@
 <div class="metric-delta pos">+28% YoY</div>
 </div>
 </div><ul><li><strong>Global Scale:</strong> Quarterly Daily Active Uniques (DAUq) reached <strong>130.3 million (+18% YoY)</strong>, while Weekly Active Uniques (WAUq) crossed the half-billion mark to <strong>514.6 million (+24% YoY)</strong>. The higher growth rate in WAUq vs. DAUq underscores an opportunity to convert casual weekly visitors into daily active users.</li><li><strong>US vs. International Divergence:</strong> US DAUq grew 6% YoY to 53.2 million (nudging down slightly from 53.5 million in Q1 2026), reflecting mature saturation in logged-in domestic users. In contrast, International DAUq surged 28% YoY to 77.1 million, propelled by real-time machine translation rollouts in key non-English geographies.
-  <strong>Search Volatility &amp; The "Drive-By" Traffic Pivot:</strong> Shifts in external search engine algorithms (e.g., Google AI Overviews and search ranking updates) introduce volatility to top-of-funnel web referral traffic. Management has explicitly addressed this by re-orienting product investments toward direct app engagement and retention rather than relying on search referrals.</li></ul><div class="callout">
+  <strong>Search Volatility &amp; The "Drive-By" Traffic Pivot:</strong> Shifts in external search engine algorithms (e.g., Google AI Overviews and search ranking updates) introduce volatility to top-of-funnel web referral traffic. Management has explicitly addressed this by re-orienting product investments toward direct app engagement and retention rather than relying on search referrals.</li></ul><div class="executive-callout">
 <strong>Management Strategic Directives — Search Referral Volatility &amp; Native Retention:</strong><br/>
 <em>"While our visibility in referral traffic remains low, we're not building for drive-by traffic. We're building a daily destination... The direct users, the app users are worth multiples more than search referral traffic."</em> — CEO Steven Huffman<br/><br/>
 <em>Key Operational Execution:</em> New app-user 1-day and 7-day retention rates improved by ~50% YoY relative to baseline, confirming that direct app onboarding converts low-margin drive-by web traffic into high-margin daily active users.

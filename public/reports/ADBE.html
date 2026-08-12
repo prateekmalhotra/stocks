@@ -636,6 +636,85 @@
         .memo-container div[class*="card"] strong {
             color: var(--text-title) !important;
         }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-serif) !important;
+            font-style: italic !important;
+            font-size: 1.05rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
         .highlight, mark {
             background: rgba(201, 154, 117, 0.16) !important;
             color: #E2DDD5 !important;
@@ -1211,7 +1290,7 @@
 <div class="metric-delta pos">+20.0% YoY</div>
 </div>
 </div><h4>Monetization Engine Across Three Core Clouds</h4><p>Adobe's business model rests on three distinct yet interconnected SaaS pillars, augmented by strategic enterprise acquisitions:</p><ul><li><strong>Creative Cloud ($4.54B Subscription Revenue, +13% YoY):</strong> The foundational bedrock of professional design, video editing, and digital creation. Adobe monetizes Photoshop, Illustrator, Premiere Pro, and After Effects through single-app and All Apps monthly/annual subscriptions. Growth is increasingly augmented by generative AI credit consumption packs for heavy Firefly usage.
-  <strong>Document Cloud ($1.85B Subscription Revenue, +16% YoY):</strong> The productivity flywheel encompassing Acrobat, Adobe Sign, and mobile Reader apps. The key driver here is the rapid adoption of the</li><li><strong>Acrobat AI Assistant</strong>, which turns static PDF documents into conversational knowledge bases, doubling monetization per user.</li><li><strong>Experience Cloud &amp; Semrush Acquisition:</strong> The enterprise marketing, customer experience orchestration (CXO), and digital analytics engine. In April 2026, Adobe formally completed its <strong>$1.87 billion all-cash acquisition of Semrush</strong> ($12.00/share). Semrush contributed ~$480 million in total ARR and $40 million in Q2 subscription revenue. This strategic move expands Experience Cloud into</li><li><strong>Generative Engine Optimization (GEO)</strong> and</li><li><strong>Agentic Search Optimization (ASO)</strong>, allowing enterprise CMOs to monitor, optimize, and control how their brand is cited across LLM discovery channels (ChatGPT, Gemini, Perplexity) alongside traditional search.</li></ul><h4>The Freemium AI Funnel &amp; TAM Expansion Strategy</h4><p>Under management's strategic evolution, Adobe is executing a deliberate pivot from locked paywalls toward a <strong>frictionless, freemium AI-first onboarding funnel</strong>. By offering zero-barrier access to Firefly web apps, Adobe Express, and Acrobat Reader AI, Adobe is aggressively widening its top-of-funnel customer acquisition.</p><p>Creative freemium Monthly Active Users (MAUs) expanded from 50 million to over 90 million year-over-year, while combined Acrobat and Express MAUs crossed 850 million. Once users establish habitual usage within Express or Acrobat, Adobe monetizes them via two mechanisms: (1) high-margin micro-transactions via monthly Firefly generative credit refills, and (2) upsell migration into full individual and team Creative Cloud subscriptions as their workflow complexity escalates. Management explicitly views habit formation among students, freelancers, and business communicators as vital for multi-year customer lifetime value (LTV) maximization.</p><div class="callout">
+  <strong>Document Cloud ($1.85B Subscription Revenue, +16% YoY):</strong> The productivity flywheel encompassing Acrobat, Adobe Sign, and mobile Reader apps. The key driver here is the rapid adoption of the</li><li><strong>Acrobat AI Assistant</strong>, which turns static PDF documents into conversational knowledge bases, doubling monetization per user.</li><li><strong>Experience Cloud &amp; Semrush Acquisition:</strong> The enterprise marketing, customer experience orchestration (CXO), and digital analytics engine. In April 2026, Adobe formally completed its <strong>$1.87 billion all-cash acquisition of Semrush</strong> ($12.00/share). Semrush contributed ~$480 million in total ARR and $40 million in Q2 subscription revenue. This strategic move expands Experience Cloud into</li><li><strong>Generative Engine Optimization (GEO)</strong> and</li><li><strong>Agentic Search Optimization (ASO)</strong>, allowing enterprise CMOs to monitor, optimize, and control how their brand is cited across LLM discovery channels (ChatGPT, Gemini, Perplexity) alongside traditional search.</li></ul><h4>The Freemium AI Funnel &amp; TAM Expansion Strategy</h4><p>Under management's strategic evolution, Adobe is executing a deliberate pivot from locked paywalls toward a <strong>frictionless, freemium AI-first onboarding funnel</strong>. By offering zero-barrier access to Firefly web apps, Adobe Express, and Acrobat Reader AI, Adobe is aggressively widening its top-of-funnel customer acquisition.</p><p>Creative freemium Monthly Active Users (MAUs) expanded from 50 million to over 90 million year-over-year, while combined Acrobat and Express MAUs crossed 850 million. Once users establish habitual usage within Express or Acrobat, Adobe monetizes them via two mechanisms: (1) high-margin micro-transactions via monthly Firefly generative credit refills, and (2) upsell migration into full individual and team Creative Cloud subscriptions as their workflow complexity escalates. Management explicitly views habit formation among students, freelancers, and business communicators as vital for multi-year customer lifetime value (LTV) maximization.</p><div class="executive-callout">
 <strong>Executive Commentary &amp; Strategic Pivot Takeaways:</strong>
 <p><em>"AI is accelerating customer behavior at an unprecedented speed... the immediate opportunity for Adobe is to accelerate new user acquisition and lifetime value through a freemium offering. We believe this traffic is better served through a customized, friction-free onboarding experience without immediate paywalls."</em> — <strong>Shantanu Narayen, Chair &amp; CEO</strong></p>
 <ul><li><strong>Pricing Optimization Deferral:</strong> To prioritize top-of-funnel conversion into free Firefly and Express funnels, management made the strategic decision to</li><li><strong>defer previously planned H2 FY2026 Creative Cloud individual price increases</strong>. While this temporarily lowered second-half individual ARR growth guidance by ~$480M, top-line revenue guidance was raised to $26.5B–$26.6B due to strong enterprise software conversions.</li><li><strong>C-Suite Transition Context:</strong> Adobe is undergoing a major leadership transition. CEO Shantanu Narayen announced his retirement/transition to Board Chair, while CFO Dan Durn departed on June 15, 2026. Longtime finance executive Steve Day took over as Interim CFO. Despite market nervousness around leadership timing, operational discipline remains intact with non-GAAP operating margins holding strong at ~44.5%.</li></ul>

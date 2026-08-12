@@ -636,6 +636,85 @@
         .memo-container div[class*="card"] strong {
             color: var(--text-title) !important;
         }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-serif) !important;
+            font-style: italic !important;
+            font-size: 1.05rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
         .highlight, mark {
             background: rgba(201, 154, 117, 0.16) !important;
             color: #E2DDD5 !important;
@@ -1204,7 +1283,7 @@
 <div class="metric-value">-RMB 138M</div>
 <div class="metric-delta pos">+96% YoY Efficiency Gain</div>
 </div>
-</div><p>Alibaba Group Holding Limited entered a strategic inflection point in Q4 FY2026 (ended March 31, 2026). Management's deliberate, high-intensity investment cycle—spending approximately RMB 380 billion ($53 billion) over three years in full-stack AI infrastructure, quick commerce, and core marketplace user experience—is beginning to yield measurable top-line acceleration. While consolidated GAAP revenue rose 3% reported to RMB 243.38 billion ($35.28 billion), like-for-like organic revenue (excluding the divestments of Sun Art Retail and Intime) expanded 11% YoY. The quarter demonstrated a sharp divergence between top-line commercial momentum and near-term GAAP profitability: Adjusted EBITA contracted 84% YoY to RMB 5.10 billion ($740 million) as aggressive AI compute buildouts and instant delivery subsidies weighed on margins, driving free cash flow into a seasonal outflow of RMB 17.3 billion. However, GAAP net income jumped 96% YoY to RMB 25.48 billion ($3.69 billion), bolstered by mark-to-market equity investment gains. Anchored by a rock-solid net cash fortress of $38 billion (or $59 billion excluding long-term debt), Alibaba remains uniquely equipped to absorb heavy capital outlay to secure sovereign leadership in Chinese enterprise AI and next-generation commerce.</p><div class="callout">
+</div><p>Alibaba Group Holding Limited entered a strategic inflection point in Q4 FY2026 (ended March 31, 2026). Management's deliberate, high-intensity investment cycle—spending approximately RMB 380 billion ($53 billion) over three years in full-stack AI infrastructure, quick commerce, and core marketplace user experience—is beginning to yield measurable top-line acceleration. While consolidated GAAP revenue rose 3% reported to RMB 243.38 billion ($35.28 billion), like-for-like organic revenue (excluding the divestments of Sun Art Retail and Intime) expanded 11% YoY. The quarter demonstrated a sharp divergence between top-line commercial momentum and near-term GAAP profitability: Adjusted EBITA contracted 84% YoY to RMB 5.10 billion ($740 million) as aggressive AI compute buildouts and instant delivery subsidies weighed on margins, driving free cash flow into a seasonal outflow of RMB 17.3 billion. However, GAAP net income jumped 96% YoY to RMB 25.48 billion ($3.69 billion), bolstered by mark-to-market equity investment gains. Anchored by a rock-solid net cash fortress of $38 billion (or $59 billion excluding long-term debt), Alibaba remains uniquely equipped to absorb heavy capital outlay to secure sovereign leadership in Chinese enterprise AI and next-generation commerce.</p><div class="executive-callout">
 <strong>Strategic Leadership Perspective:</strong><br/>
 <em>"Alibaba's full-stack AI investments have progressed from incubation to commercialization at scale. This quarter, Cloud Intelligence Group's external revenue growth accelerated to 40%, with AI-related products accounting for 30% of this revenue... We are at a pivotal inflection point in the evolution from conversational chatbots to autonomous AI agents, which is directly driving explosive growth across training, inference, and agent orchestration."</em><br/>
     — <strong>Eddie Wu</strong>, Chief Executive Officer of Alibaba Group
