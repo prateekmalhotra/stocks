@@ -796,6 +796,20 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
             beacon.style.display = 'none';
         }}
 
+        function formatChartDate(dStr) {{
+            if (!dStr) return '';
+            if (dStr.includes('(')) return dStr;
+            const parts = dStr.split('-');
+            if (parts.length === 3) {{
+                const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+                const mIdx = parseInt(parts[1], 10) - 1;
+                const mName = months[mIdx] || parts[1];
+                const day = parseInt(parts[2], 10);
+                return mName + ' ' + day;
+            }}
+            return dStr;
+        }}
+
         function initPortfolioChart() {{
             const ctx = document.getElementById('alphathesis-perf-chart');
             if (!ctx) return;
@@ -804,11 +818,18 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                 chartInstance.destroy();
             }}
 
-            const isSinglePoint = (perfData.dates && perfData.dates.length <= 1);
-            const chartLabels = isSinglePoint ? ['Aug 11 (Inception)', 'Aug 12', 'Aug 13', 'Aug 14', 'Aug 15'] : perfData.dates;
+            const rawDates = perfData.dates || [];
+            const isSinglePoint = (rawDates.length <= 1);
+            
+            // Format labels cleanly as 'Aug 11', 'Aug 12'
+            const formattedDates = rawDates.map(formatChartDate);
+            const chartLabels = isSinglePoint ? ['Aug 11', 'Aug 12', 'Aug 13', 'Aug 14', 'Aug 15'] : formattedDates;
             const portfolioSeries = isSinglePoint ? [perfData.portfolio[0], null, null, null, null] : perfData.portfolio;
             const earningsSeries = isSinglePoint ? [perfData.earnings[0], null, null, null, null] : perfData.earnings;
             const spySeries = isSinglePoint ? [perfData.spy[0], null, null, null, null] : perfData.spy;
+
+            const pointCount = rawDates.length;
+            const dynamicRadius = isSinglePoint ? 0 : (pointCount > 40 ? 0 : (pointCount > 15 ? 2 : 3.5));
 
             chartInstance = new Chart(ctx, {{
                 type: 'line',
@@ -821,8 +842,8 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                             borderColor: '#CC785C',
                             backgroundColor: 'rgba(204, 120, 92, 0.10)',
                             borderWidth: 2.2,
-                            pointRadius: isSinglePoint ? 0 : 4,
-                            pointHoverRadius: isSinglePoint ? 6 : 6,
+                            pointRadius: dynamicRadius,
+                            pointHoverRadius: 6,
                             pointBackgroundColor: '#CC785C',
                             pointBorderColor: 'transparent',
                             pointBorderWidth: 0,
@@ -839,8 +860,8 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                             borderWidth: 1.8,
                             borderDash: [5, 5],
                             pointStyle: isSinglePoint ? 'rectRot' : 'circle',
-                            pointRadius: isSinglePoint ? 5 : 3,
-                            pointHoverRadius: isSinglePoint ? 8 : 5,
+                            pointRadius: isSinglePoint ? 4 : (pointCount > 40 ? 0 : 2.5),
+                            pointHoverRadius: 6,
                             pointBackgroundColor: '#6FA882',
                             pointBorderColor: 'transparent',
                             pointBorderWidth: 0,
@@ -856,8 +877,8 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                             backgroundColor: 'transparent',
                             borderWidth: 1.4,
                             pointStyle: isSinglePoint ? 'triangle' : 'circle',
-                            pointRadius: isSinglePoint ? 4 : 0,
-                            pointHoverRadius: isSinglePoint ? 7 : 4,
+                            pointRadius: isSinglePoint ? 3 : 0,
+                            pointHoverRadius: 5,
                             pointBackgroundColor: '#8C8982',
                             pointBorderColor: 'transparent',
                             pointBorderWidth: 0,
@@ -888,6 +909,12 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                             boxPadding: 6,
                             usePointStyle: true,
                             callbacks: {{
+                                title: function(items) {{
+                                    if (!items || !items.length) return '';
+                                    const idx = items[0].dataIndex;
+                                    const rawD = (rawDates && rawDates[idx]) ? rawDates[idx] : items[0].label;
+                                    return rawD;
+                                }},
                                 label: function(context) {{
                                     let label = context.dataset.label || '';
                                     if (label) label += ': ';
@@ -908,15 +935,20 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                             grid: {{ color: 'rgba(255,255,255,0.04)' }},
                             ticks: {{
                                 color: '#A09D95',
-                                font: {{ family: 'var(--font-mono)', size: 11 }}
+                                font: {{ family: 'var(--font-mono)', size: 11 }},
+                                autoSkip: true,
+                                maxTicksLimit: 7,
+                                maxRotation: 0,
+                                minRotation: 0
                             }}
                         }},
                         y: {{
                             type: 'linear',
                             display: true,
                             position: 'left',
-                            min: isSinglePoint ? 90000 : 90000,
+                            min: isSinglePoint ? 90000 : undefined,
                             max: isSinglePoint ? 110000 : undefined,
+                            grace: isSinglePoint ? 0 : '8%',
                             grid: {{ color: 'rgba(255,255,255,0.04)' }},
                             ticks: {{
                                 color: '#CC785C',
@@ -929,8 +961,9 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                             type: 'linear',
                             display: true,
                             position: 'right',
-                            min: isSinglePoint ? 4500 : 4400,
+                            min: isSinglePoint ? 4500 : undefined,
                             max: isSinglePoint ? 6500 : undefined,
+                            grace: isSinglePoint ? 0 : '8%',
                             grid: {{ drawOnChartArea: false }},
                             ticks: {{
                                 color: '#6FA882',
