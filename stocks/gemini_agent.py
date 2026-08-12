@@ -300,23 +300,37 @@ def verify_and_repair_html_structure(html: str) -> str:
     cleaned = re.sub(r"^```(?:html)?\s*", "", html, flags=re.MULTILINE)
     cleaned = re.sub(r"\s*```$", "", cleaned, flags=re.MULTILINE).strip()
     
-    # 2. Strip rogue inline style attributes to enforce 100% color consistency
+    # 2. Strip rogue top dashboard header injections from sub-agents (template handles top header)
+    cleaned = re.sub(r'<div class="investor-dashboard">[\s\S]*?</div>\s*</div>\s*</div>', '', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'<div class="dashboard-header">[\s\S]*?</div>\s*</div>', '', cleaned, flags=re.IGNORECASE)
+
+    # 3. Strip rogue inline style attributes to enforce 100% theme consistency
     cleaned = re.sub(r'\s*style\s*=\s*"[^"]*"', '', cleaned, flags=re.IGNORECASE)
     cleaned = re.sub(r"\s*style\s*=\s*'[^']*'", '', cleaned, flags=re.IGNORECASE)
 
-    # 3. Convert markdown horizontal rules
+    # 4. Clean up section titles like <div class="section-title">SECTION X: ...</div>
+    cleaned = re.sub(r'<div class="section-title">\s*(?:SECTION\s*\d+:?\s*)?(.*?)</div>', r'<h2>\1</h2>', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'<div class="section-heading">(.*?)</div>', r'<h2>\1</h2>', cleaned, flags=re.IGNORECASE)
+
+    # 5. Clean up rogue italics/bold artifacts like * <strong>...</strong> or <em> <strong>...</strong></em>
+    cleaned = re.sub(r'<em>\s*<strong>', r'<strong>', cleaned)
+    cleaned = re.sub(r'</strong>\s*</em>', r'</strong>', cleaned)
+    cleaned = re.sub(r'^\s*[*•-]\s*\*\*(.*?)\*\*', r'<li><strong>\1</strong>', cleaned, flags=re.MULTILINE)
+    cleaned = re.sub(r'^\s*[*•-]\s+<strong>(.*?)</strong>', r'<li><strong>\1</strong>', cleaned, flags=re.MULTILINE)
+
+    # 6. Convert markdown horizontal rules
     cleaned = re.sub(r"^\s*[-*_]{3,}\s*$", '<hr style="border:0; border-top:1px solid var(--border-color); margin:28px 0;">', cleaned, flags=re.MULTILINE)
     
-    # 4. Convert markdown headings (####, ###, ##)
+    # 7. Convert markdown headings (####, ###, ##)
     cleaned = re.sub(r"^\s*####\s+(.*?)$", lambda m: f"<h4>{m.group(1)}</h4>", cleaned, flags=re.MULTILINE)
     cleaned = re.sub(r"^\s*###\s+(.*?)$", lambda m: f"<h3>{m.group(1)}</h3>", cleaned, flags=re.MULTILINE)
     cleaned = re.sub(r"^\s*##\s+(.*?)$", lambda m: f"<h2>{m.group(1)}</h2>", cleaned, flags=re.MULTILINE)
     
-    # 5. Convert bold and italics
+    # 8. Convert bold and italics
     cleaned = re.sub(r"\*\*(.*?)\*\*", lambda m: f"<strong>{m.group(1)}</strong>", cleaned)
     cleaned = re.sub(r"(?<!\*)\*([^*]+)\*(?!\*)", lambda m: f"<em>{m.group(1)}</em>", cleaned)
     
-    # 6. Convert numbered and bullet lists
+    # 9. Convert numbered and bullet lists
     lines = cleaned.split("\n")
     in_ol = False
     in_ul = False
@@ -326,6 +340,7 @@ def verify_and_repair_html_structure(html: str) -> str:
         stripped = line.strip()
         ol_match = re.match(r"^(\d+)\.\s+(.*)$", stripped)
         ul_match = re.match(r"^[-*•]\s+(.*)$", stripped)
+        li_start = re.match(r"^<li>(.*)$", stripped)
         
         if ol_match and not stripped.startswith("<"):
             if in_ul:
@@ -335,19 +350,24 @@ def verify_and_repair_html_structure(html: str) -> str:
                 new_lines.append('<ol style="padding-left:22px; line-height:1.65; margin:14px 0;">')
                 in_ol = True
             new_lines.append(f"  <li>{ol_match.group(2)}</li>")
-        elif ul_match and not stripped.startswith("<") and not stripped.startswith("• <strong>"):
+        elif (ul_match or li_start) and not stripped.startswith("<table") and not stripped.startswith("<div") and not stripped.startswith("<h"):
             if in_ol:
                 new_lines.append("</ol>")
                 in_ol = False
             if not in_ul:
                 new_lines.append('<ul style="padding-left:22px; line-height:1.65; margin:14px 0;">')
                 in_ul = True
-            new_lines.append(f"  <li>{ul_match.group(1)}</li>")
+            content = ul_match.group(1) if ul_match else li_start.group(1)
+            if not content.endswith("</li>"):
+                content = content + "</li>"
+            if not content.startswith("<li>"):
+                content = "<li>" + content
+            new_lines.append(f"  {content}")
         else:
-            if in_ol and stripped.startswith("<"):
+            if in_ol and (stripped.startswith("<") or not stripped):
                 new_lines.append("</ol>")
                 in_ol = False
-            if in_ul and stripped.startswith("<"):
+            if in_ul and (stripped.startswith("<") or not stripped):
                 new_lines.append("</ul>")
                 in_ul = False
             new_lines.append(line)
@@ -359,25 +379,35 @@ def verify_and_repair_html_structure(html: str) -> str:
         
     cleaned = "\n".join(new_lines)
 
-    # 7. Auto-close unclosed table rows
+    # 10. Clean up unclosed table tags & cells
+    cleaned = re.sub(r"<td>([^<]+)(?=(?:<tr>|</tr>|<td>|<th>|$))", r"<td>\1</td>", cleaned)
+    cleaned = re.sub(r"<th>([^<]+)(?=(?:<tr>|</tr>|<td>|<th>|$))", r"<th>\1</th>", cleaned)
+
+    # 11. Auto-close unclosed table rows
     open_tr = len(re.findall(r"<tr\b", cleaned, re.IGNORECASE))
     close_tr = len(re.findall(r"</tr>", cleaned, re.IGNORECASE))
     if open_tr > close_tr:
         cleaned += "</tr>" * (open_tr - close_tr)
 
-    # 8. Auto-close unclosed tables
+    # 12. Auto-close unclosed tables
     open_tables = len(re.findall(r"<table\b", cleaned, re.IGNORECASE))
     close_tables = len(re.findall(r"</table>", cleaned, re.IGNORECASE))
     if open_tables > close_tables:
         diff = open_tables - close_tables
         cleaned += "\n" + ("</tbody></table>" * diff)
         
-    # 9. Auto-close unclosed divs
+    # 13. Auto-close unclosed divs & sections
     open_divs = len(re.findall(r"<div\b", cleaned, re.IGNORECASE))
     close_divs = len(re.findall(r"</div>", cleaned, re.IGNORECASE))
     if open_divs > close_divs:
         diff = open_divs - close_divs
         cleaned += "\n" + ("</div>" * diff)
+
+    open_sec = len(re.findall(r"<section\b", cleaned, re.IGNORECASE))
+    close_sec = len(re.findall(r"</section>", cleaned, re.IGNORECASE))
+    if open_sec > close_sec:
+        diff = open_sec - close_sec
+        cleaned += "\n" + ("</section>" * diff)
 
     return clean_grounding_artifacts(cleaned)
 
@@ -561,24 +591,100 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     research_obj = plan_json.get("research_objective", f"Evaluate {ticker_clean} core business reality and valuation.")
     print(f"   │ Strategy: {research_obj}", flush=True)
 
-    sub_agents = plan_json.get("sub_agents", [])
-    if not sub_agents or not isinstance(sub_agents, list):
-        sub_agents = [
-            {
-                "role": "Executive Summary & Business Moat Specialist",
-                "prompt": f"Investigate {ticker_clean} ({company_name}) at ${current_price:.2f}. In clean Semantic HTML (<div class=\"section\">...</div>), write Section 1 (Executive Summary & Variant Perception) and Section 2 (Business Model Reality & Moat in Plain English). Explain how the company makes money, unit economics, and competitive moat using latest official filings. Do not use inline styles."
-            },
-            {
-                "role": "Cash Flow, SBC Dilution & Balance Sheet Auditor",
-                "prompt": f"Investigate {ticker_clean} ({company_name}) financials at ${current_price:.2f}. In clean Semantic HTML (<div class=\"section\">...</div>), write Section 3 (Honest Cash Flow, SBC Dilution & Capital Structure) and Section 4 (Ownership & Governance Check). Audit revenue, real cash flow deducting SBC (100% real cash charge), share count dilution vs buybacks, Net Cash/Debt, and verified active 13F whales from official filings. Do not use inline styles."
-            },
-            {
-                "role": "Warren Buffett Owner Earnings & Invalidation Specialist",
-                "prompt": f"Investigate {ticker_clean} ({company_name}) valuation at ${current_price:.2f}. In clean Semantic HTML (<div class=\"section\">...</div>), write Section 5 (Warren Buffett Owner Earnings & Intrinsic Value with complete Bear/Base/Bull scenario table, localized sovereign discount rates, and zero arbitrary exit multiples) and Section 6 (What Breaks The Thesis & Invalidation Pre-Mortem). If you encounter any accounting edge cases or feel stuck on any step, search and reference Warren Buffett's Berkshire Hathaway Shareholder Letters and 'The Essays of Warren Buffett' to resolve the dilemma from first principles. Keep calculations transparent and simple. Do not use inline styles."
-            }
-        ]
+    # Enforce strict non-overlapping 3-agent modular section generation
+    agent_1_prompt = f"""You are Sub-Agent 1: Business Model, Moat & Earnings Specialist researching {ticker_clean} ({company_name}) at current market price ${current_price:.2f}.
+Your Objective: {research_obj}
+
+Generate ONLY the following two sections in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
+
+<h2>Section 1: Executive Summary & Operating Reality</h2>
+- 2-3 paragraph institutional executive summary grounded in the LATEST quarterly earnings statement, earnings call transcript, and forward management guidance.
+- Present latest quarterly financial performance using a clean stat grid:
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="metric-label">Quarterly Revenue</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">+XX% YoY</div></div>
+    <div class="metric-card"><div class="metric-label">Operating Margin</div><div class="metric-value">XX.X%</div><div class="metric-delta pos">+XXX bps</div></div>
+    <div class="metric-card"><div class="metric-label">Free Cash Flow</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">+XX% YoY</div></div>
+  </div>
+- Add a Callout box (<div class="callout">...</div>) highlighting direct CEO/CFO commentary from the latest earnings call and key capital allocation announcements.
+
+<h2>Section 2: Business Model Reality & Competitive Moat</h2>
+- Explain in plain English how the company makes money, unit economics, customer switching costs, and pricing power.
+- Detailed technical comparison table comparing the company's architecture/products against primary competitors.
+- Clear audit of structural demand drivers (long-term tailwinds) vs. competitive disruption threats.
+
+DO NOT write Section 3, 4, 5, or 6. Output pure HTML only."""
+
+    agent_2_prompt = f"""You are Sub-Agent 2: Real Cash Flow, SBC Dilution & Balance Sheet Auditor researching {ticker_clean} ({company_name}) at current market price ${current_price:.2f}.
+Your Objective: {research_obj}
+
+Generate ONLY the following two sections in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
+
+<h2>Section 3: Real Cash Flow, SBC Dilution & Owner Earnings Audit</h2>
+- Rigorous cash flow audit stripping out Silicon Valley accounting add-backs.
+- Treat 100% of Stock-Based Compensation (SBC) as a real cash expense and shareholder dilution factor.
+- Detailed Cash Flow Decomposition Table:
+  <table>
+    <thead><tr><th>Metric ($ Millions)</th><th>FY 2024</th><th>FY 2025</th><th>FY 2026</th><th>TTM</th></tr></thead>
+    <tbody>
+      <tr><td>GAAP Operating Cash Flow</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
+      <tr><td>Less: Total SBC</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
+      <tr><td>Less: Maintenance CapEx</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
+      <tr><td><strong>Buffett Owner Earnings (True Cash)</strong></td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
+    </tbody>
+  </table>
+- Working Capital Float & Customer Prepayment dynamics.
+
+<h2>Section 4: Balance Sheet Fortress, Debt Leases & Ownership Check</h2>
+- Audited capital structure: Cash, Short-Term Treasuries, Long-Term Debt, and contractual Capital/Operating Lease liabilities.
+- Net Cash/Debt calculation table and interest coverage ratio.
+- Share Buyback Cannibalization analysis: Share count reduction vs. dilution.
+- Institutional Ownership & Insider Form 4 audit from official filings.
+
+DO NOT write Section 1, 2, 5, or 6. Output pure HTML only."""
+
+    agent_3_prompt = f"""You are Sub-Agent 3: Warren Buffett Owner Earnings Valuation Strategist & Invalidation Auditor researching {ticker_clean} ({company_name}) at current market price ${current_price:.2f}.
+Your Objective: {research_obj}
+
+Generate ONLY the following two sections in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
+
+<h2>Section 5: Warren Buffett Owner Earnings Intrinsic Valuation Matrix</h2>
+- Root valuation strictly in Warren Buffett's intrinsic value methodology (Berkshire Shareholder Letters). Zero arbitrary exit multiples.
+- Localized sovereign discount rate derivation (local 10Y sovereign bond yield + equity risk premium, e.g. US 10Y for US, SELIC for Brazil, Gilts for UK).
+- A 100% COMPLETE, fully populated Bear / Base / Bull scenario table where EVERY CELL is filled with concrete numbers:
+  <table>
+    <thead>
+      <tr>
+        <th>Valuation Metric & Assumptions</th>
+        <th>Bear Case (Cycle Trough)</th>
+        <th>Base Case (Normalized Reality)</th>
+        <th>Bull Case (Optimistic Execution)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>5-Year Organic OE CAGR</td><td>X.X%</td><td>XX.X%</td><td>XX.X%</td></tr>
+      <tr><td>Annual Share Count Reduction</td><td>X.X%</td><td>X.X%</td><td>X.X%</td></tr>
+      <tr><td>Discount Rate (Hurdle)</td><td>X.X%</td><td>X.X%</td><td>X.X%</td></tr>
+      <tr><td>Terminal FCF Growth Rate</td><td>X.X%</td><td>X.X%</td><td>X.X%</td></tr>
+      <tr><td><strong>Intrinsic Fair Value / Share</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td></tr>
+      <tr><td><strong>Margin of Safety vs Current Price</strong></td><td><strong>XX.X%</strong></td><td><strong>XX.X%</strong></td><td><strong>XX.X%</strong></td></tr>
+    </tbody>
+  </table>
+- Explicit 5-Year Market Closure Test: Return derived purely from underlying business cash generation.
+
+<h2>Section 6: Thesis Invalidation Pre-Mortem & Falsification Triggers</h2>
+- Pre-Mortem Analysis: Exactly what operational missteps, macro shocks, or structural shifts would prove this thesis WRONG.
+- Explicit falsification triggers with numerical thresholds (e.g. Gross margin falling below XX%, NPLs exceeding X.X%, customer churn above XX%).
+- Execution risk rating and margin of safety corridor.
+
+DO NOT write Section 1, 2, 3, or 4. Ensure all HTML tables and tags are 100% complete and closed. Output pure HTML only."""
+
+    sub_agents = [
+        {"role": "Business Model, Moat & Operating Reality Specialist", "prompt": agent_1_prompt},
+        {"role": "Real Cash Flow, SBC & Capital Structure Auditor", "prompt": agent_2_prompt},
+        {"role": "Warren Buffett Owner Earnings Valuation Strategist", "prompt": agent_3_prompt}
+    ]
     
-    print(f"   │ Planned Sub-Agents: {len(sub_agents)} specialized autonomous tasks", flush=True)
+    print(f"   │ Planned Sub-Agents: 3 specialized non-overlapping autonomous tasks", flush=True)
     print("   └" + "─" * 50, flush=True)
 
     # ------------------------------------------------------------------
