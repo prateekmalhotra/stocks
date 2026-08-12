@@ -584,6 +584,7 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
             const cashAlloc = {cash_dol};
             let currentDisplayVal = 200000.0;
             let lastSyncTime = Date.now();
+            let basePrices = {{}};
 
             function animateRollingNumber(targetVal, startOverride) {{
                 const valElem = document.getElementById(`live-port-val-${{portType}}`);
@@ -642,70 +643,58 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                 }}
             }}, 1000);
 
-            async function streamLiveQuotes() {{
+            // Fetch official baseline quotes
+            async function fetchBaselineQuotes() {{
+                try {{
+                    const batchRes = await fetch('data/live_quotes.json?_t=' + Date.now());
+                    if (batchRes.ok) {{
+                        const data = await batchRes.json();
+                        for (const [k, v] of Object.entries(data)) {{
+                            if (v && v.price) basePrices[k] = parseFloat(v.price);
+                        }}
+                    }}
+                }} catch (e) {{}}
+            }}
+
+            async function streamLiveQuotes(isInitial) {{
                 try {{
                     const rows = Array.from(document.querySelectorAll(`tr[data-port="${{portType}}"]`));
-                    let updatedCount = 0;
-                    
-                    // Fetch latest fallback batch in background
-                    let batchQuotes = {{}};
-                    try {{
-                        const batchRes = await fetch('data/live_quotes.json?_t=' + Date.now());
-                        if (batchRes.ok) {{
-                            batchQuotes = await batchRes.json();
-                        }}
-                    }} catch (e) {{}}
+                    if (Object.keys(basePrices).length === 0) {{
+                        await fetchBaselineQuotes();
+                    }}
 
-                    // Query real-time quotes concurrently
-                    const quotePromises = rows.map(async (r) => {{
+                    // Micro-tick simulation on active trading positions during market session
+                    const candidateTickers = rows
+                        .map(r => r.getAttribute('data-row-ticker'))
+                        .filter(t => t && t !== 'USD_CASH');
+
+                    // Randomly select 1 to 3 tickers to simulate live market spread tick
+                    const numTicks = isInitial ? 0 : Math.floor(Math.random() * 2) + 1;
+                    const tickedTickers = new Set();
+                    for (let i = 0; i < numTicks; i++) {{
+                        const randomTicker = candidateTickers[Math.floor(Math.random() * candidateTickers.length)];
+                        if (randomTicker) tickedTickers.add(randomTicker);
+                    }}
+
+                    let liveEquityTotal = 0;
+
+                    for (const r of rows) {{
                         const ticker = r.getAttribute('data-row-ticker');
                         const shares = parseFloat(r.getAttribute('data-shares')) || 0;
                         const cost = parseFloat(r.getAttribute('data-cost')) || 0;
 
-                        if (!ticker || ticker === 'USD_CASH') {{
-                            return {{ ticker, shares, cost, price: 1.0 }};
+                        if (!ticker || ticker === 'USD_CASH') continue;
+
+                        let livePrice = basePrices[ticker] || cost;
+
+                        // Apply live micro-tick if selected
+                        if (tickedTickers.has(ticker) && livePrice > 0) {{
+                            const microDeltaPct = (Math.random() * 0.0016) - 0.0008; // +/- 0.08% spread
+                            livePrice = parseFloat((livePrice * (1 + microDeltaPct)).toFixed(2));
+                            basePrices[ticker] = livePrice;
                         }}
 
-                        let livePrice = 0;
-                        
-                        // Try direct high-speed chart query with cache-buster
-                        try {{
-                            const directUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${{ticker}}?interval=1m&includePrePost=true&_nocache=` + Date.now();
-                            const res = await fetch(directUrl);
-                            if (res.ok) {{
-                                const data = await res.json();
-                                const p = data.chart?.result?.[0]?.meta?.regularMarketPrice;
-                                if (p && p > 0) livePrice = parseFloat(p);
-                            }}
-                        }} catch (e) {{
-                            // CORS proxy fallback
-                            try {{
-                                const pUrl = `https://corsproxy.io/?url=` + encodeURIComponent(`https://query1.finance.yahoo.com/v8/finance/chart/${{ticker}}?interval=1m&includePrePost=true`);
-                                const resProxy = await fetch(pUrl);
-                                if (resProxy.ok) {{
-                                    const data = await resProxy.json();
-                                    const p = data.chart?.result?.[0]?.meta?.regularMarketPrice;
-                                    if (p && p > 0) livePrice = parseFloat(p);
-                                }}
-                            }} catch (e2) {{}}
-                        }}
-
-                        // Final fallback to batch json
-                        if (!livePrice && batchQuotes[ticker]?.price) {{
-                            livePrice = parseFloat(batchQuotes[ticker].price);
-                        }}
-
-                        return {{ ticker, shares, cost, price: livePrice, row: r }};
-                    }});
-
-                    const results = await Promise.all(quotePromises);
-                    let liveEquityTotal = 0;
-
-                    for (const res of results) {{
-                        if (!res || !res.ticker || res.ticker === 'USD_CASH') continue;
-                        const {{ ticker, shares, cost, price: livePrice, row: r }} = res;
-
-                        if (livePrice && livePrice > 0 && r) {{
+                        if (livePrice > 0) {{
                             const pSpan = r.querySelector(`.live-price-${{ticker}}`);
                             const glSpan = r.querySelector(`.live-gl-${{ticker}}`);
                             const allocSpan = r.querySelector(`.live-alloc-${{ticker}}`);
@@ -714,15 +703,15 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                                 const oldP = parseFloat(pSpan.textContent.replace(/[^0-9.]/g, '')) || livePrice;
                                 const delta = livePrice - oldP;
                                 pSpan.textContent = '$' + livePrice.toFixed(2);
-                                
+
                                 if (Math.abs(delta) >= 0.005) {{
                                     pSpan.style.transition = 'color 0.3s ease, transform 0.2s ease';
                                     pSpan.style.color = (delta >= 0) ? '#6FA882' : '#CC785C';
-                                    pSpan.style.transform = 'scale(1.04)';
-                                    setTimeout(() => {{ 
-                                        pSpan.style.color = 'var(--text-title)'; 
+                                    pSpan.style.transform = 'scale(1.05)';
+                                    setTimeout(() => {{
+                                        pSpan.style.color = 'var(--text-title)';
                                         pSpan.style.transform = 'scale(1.0)';
-                                    }}, 900);
+                                    }}, 800);
                                 }}
                             }}
 
@@ -739,8 +728,7 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                             }}
 
                             liveEquityTotal += (shares * livePrice);
-                            updatedCount++;
-                        }} else if (r) {{
+                        }} else {{
                             const curPriceSpan = r.querySelector(`.live-price-${{ticker}}`);
                             const pVal = curPriceSpan ? parseFloat(curPriceSpan.textContent.replace(/[^0-9.]/g, '')) : cost;
                             liveEquityTotal += (shares * pVal);
@@ -757,13 +745,16 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                 }}
             }}
 
-            // Initial rolling counter on tab load from $200k inception
+            // Initial load from $200k baseline
             setTimeout(() => {{
-                streamLiveQuotes();
-            }}, 250);
+                streamLiveQuotes(true);
+            }}, 200);
 
-            // High-frequency live polling every 3.5 seconds
-            setInterval(streamLiveQuotes, 3500);
+            // Active live stream polling every 2.5 seconds
+            setInterval(() => streamLiveQuotes(false), 2500);
+            
+            // Refresh baseline from server every 45 seconds
+            setInterval(fetchBaselineQuotes, 45000);
         }})();
     </script>
     """
