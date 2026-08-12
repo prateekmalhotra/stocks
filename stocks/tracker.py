@@ -46,7 +46,7 @@ def fetch_live_stock_info(ticker: str) -> Tuple[str, float]:
         except Exception:
             continue
 
-    # Fallback to yfinance
+    # Fallback 2: yfinance
     for sym in candidates:
         try:
             t = yf.Ticker(sym)
@@ -57,6 +57,20 @@ def fetch_live_stock_info(ticker: str) -> Tuple[str, float]:
                 return name, round(float(price), 2)
         except Exception:
             continue
+
+    # Fallback 3: Real-Time Gemini Google Search Grounding
+    try:
+        from stocks.gemini_agent import call_gemini_with_search
+        import re
+        prompt = f"What is the exact current market stock price in USD for ticker {ticker_clean}? Return ONLY the numerical price in USD (e.g. 142.50) without currency symbols or explanation."
+        resp = call_gemini_with_search(prompt, temperature=0.0)
+        match = re.search(r"(\d+\.?\d*)", resp)
+        if match:
+            val = float(match.group(1))
+            if val > 0:
+                return ticker_clean, round(val, 2)
+    except Exception:
+        pass
 
     # Safe fallback: return existing stored price from watchlist (do NOT return fake 100.00)
     existing = get_stock(ticker_clean)
