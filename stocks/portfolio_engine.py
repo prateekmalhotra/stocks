@@ -189,41 +189,50 @@ def score_fidelity_defensive(
     sig: str
 ) -> Dict[str, Any]:
     """
-    Fidelity Mandate: Institutional Multi-Pillar Fortress Architecture.
-    Dimensions:
-    - Moat Durability (30 pts): (moat / 10.0) * 30.0
-    - Pricing Power / Gross Margin Retention (20 pts): min(20.0, (p / 0.90) * 20.0)
-    - Reinvestment ROIC / Capital Allocation (15 pts): min(15.0, (roic / 30.0) * 15.0)
-    - Lindy Effect & AI Obsolescence Resilience (10 pts): (lindy_ai_res / 10.0) * 10.0
-    - Negative Working Capital Float (8 pts): (float_gen / 10.0) * 8.0
-    - Founder / Insider Skin in the Game (7 pts): (insider_align / 10.0) * 7.0
-    - Scale Economics Shared Flywheel (5 pts): (scale_shared / 10.0) * 5.0
-    - Customer Concentration Penalty (-5 pts): -(cust_conc * 1.5)
-    - Downside Risk Penalty & Cushion (20 pts): (bear_ret + 20.0) * 0.40
-    - Base Return Margin of Safety (20 pts): min(20.0, max(-10.0, base_ret * 0.40))
-    - Balance Sheet Fortress (15 pts): (bs / 10.0) * 15.0
-    - Share Cannibalization (5 pts): min(5.0, cannibal * 1.0)
+    Fidelity Mandate: Margin of Safety & Downside Risk Paramount.
+    Pillars:
+    - Base Margin of Safety (30 pts): min(30.0, max(-15.0, base_ret * 0.60))
+    - Downside Bear Cushion (25 pts): min(25.0, max(-15.0, (bear_ret + 15.0) * 0.80))
+    - Moat Durability (15 pts): (moat / 10.0) * 15.0
+    - Pricing Power (10 pts): min(10.0, (p / 0.90) * 10.0)
+    - Balance Sheet Fortress (10 pts): (bs / 10.0) * 10.0
+    - Capital Allocation ROIC (4 pts): min(4.0, (roic / 30.0) * 4.0)
+    - Working Capital Float (2 pts): (float_gen / 10.0) * 2.0
+    - Founder / Insider Alignment (2 pts): (insider_align / 10.0) * 2.0
+    - Lindy & AI Resilience (2 pts): (lindy_ai_res / 10.0) * 2.0
+    - Share Cannibalization (3 pts): min(3.0, cannibal * 0.60)
+    - Zero Margin of Safety Penalty: -20 pts if MoS < 5%, -8 pts if MoS < 15%
     """
     bear_ret = ((bear_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
     base_ret = ((base_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
     bull_ret = ((bull_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
     
-    moat_pts = (meta.get("moat", 8.0) / 10.0) * 30.0
+    mos_pts = min(30.0, max(-15.0, base_ret * 0.60))
+    downside_pts = min(25.0, max(-15.0, (bear_ret + 15.0) * 0.80))
+    moat_pts = (meta.get("moat", 8.0) / 10.0) * 15.0
     pricing_power = meta.get("p", 0.85)
-    pricing_power_pts = min(20.0, (pricing_power / 0.90) * 20.0)
-    roic_pts = min(15.0, (meta.get("roic", 18.0) / 30.0) * 15.0)
-    lindy_pts = (meta.get("lindy_ai_res", 8.5) / 10.0) * 10.0
-    float_pts = (meta.get("float_gen", 6.0) / 10.0) * 8.0
-    insider_pts = (meta.get("insider_align", 7.0) / 10.0) * 7.0
-    scale_pts = (meta.get("scale_shared", 5.0) / 10.0) * 5.0
-    cust_pen = -(meta.get("cust_conc", 0.5) * 1.5)
-    downside_pts = (bear_ret + 20.0) * 0.40
-    mos_pts = min(20.0, max(-10.0, base_ret * 0.40))
-    bs_pts = (meta.get("bs", 8.0) / 10.0) * 15.0
-    cannibal_pts = min(5.0, meta.get("cannibal", 1.0) * 1.0)
+    pricing_power_pts = min(10.0, (pricing_power / 0.90) * 10.0)
+    bs_pts = (meta.get("bs", 8.0) / 10.0) * 10.0
     
-    total_score = round(max(5.0, moat_pts + pricing_power_pts + roic_pts + lindy_pts + float_pts + insider_pts + scale_pts + cust_pen + downside_pts + mos_pts + bs_pts + cannibal_pts), 2)
-    fid_k = max(0.001, (total_score / 100.0) ** 2 * ((meta.get("moat", 8.0) / 10.0) ** 1.2) * ((pricing_power / 0.85) ** 1.2) * ((meta.get("roic", 18.0) / 25.0) ** 0.5) * ((meta.get("insider_align", 7.0) / 8.0) ** 0.5))
+    roic_pts = min(4.0, (meta.get("roic", 18.0) / 30.0) * 4.0)
+    float_pts = (meta.get("float_gen", 6.0) / 10.0) * 2.0
+    insider_pts = (meta.get("insider_align", 7.0) / 10.0) * 2.0
+    lindy_pts = (meta.get("lindy_ai_res", 8.5) / 10.0) * 2.0
+    cannibal_pts = min(3.0, meta.get("cannibal", 1.0) * 0.60)
+    cust_pen = -(meta.get("cust_conc", 0.5) * 1.5)
+    
+    # Severe penalty for buying at full price (0% MoS)
+    if base_ret < 5.0:
+        mos_penalty = -20.0
+    elif base_ret < 15.0:
+        mos_penalty = -8.0
+    else:
+        mos_penalty = 0.0
+        
+    total_score = round(max(5.0, mos_pts + downside_pts + moat_pts + pricing_power_pts + bs_pts + roic_pts + float_pts + insider_pts + lindy_pts + cannibal_pts + cust_pen + mos_penalty), 2)
+    mos_factor = max(0.20, (base_ret / 40.0))
+    downside_factor = max(0.20, 1.0 + (bear_ret / 50.0))
+    fid_k = max(0.001, (total_score / 100.0) ** 2 * mos_factor * downside_factor * (meta.get("moat", 8.0) / 10.0) * (pricing_power / 0.85))
     
     return {
         "ticker": ticker, "sector": meta["sector"], "industry": meta["industry"],
@@ -250,20 +259,19 @@ def score_wealthsimple_aggressive(
     sig: str
 ) -> Dict[str, Any]:
     """
-    Wealthsimple Mandate: High-Velocity Growth, High ROIC & Asymmetric Multi-Baggers.
-    Dimensions:
+    Wealthsimple Mandate: Growth, Asymmetry & Risk-Adjusted Quality.
+    Pillars:
     - Organic Growth CAGR (25 pts): min(25.0, (growth / 20.0) * 25.0)
     - Bull Case Asymmetric Upside (25 pts): min(25.0, (bull_ret / 100.0) * 25.0)
-    - Reinvestment ROIC / High Capital Velocity (18 pts): min(18.0, (roic / 35.0) * 18.0)
-    - Pricing Power (15 pts): min(15.0, (p / 0.90) * 15.0)
+    - Base Margin of Safety (15 pts): min(15.0, (base_ret / 50.0) * 15.0)
+    - Downside Risk Protection (10 pts): min(10.0, (bear_ret + 30.0) * 0.25)
     - Economic Moat Defense (15 pts): (moat / 10.0) * 15.0
-    - Founder-Led / Insider Skin in the Game (10 pts): (insider_align / 10.0) * 10.0
-    - Negative Working Capital Float (8 pts): (float_gen / 10.0) * 8.0
-    - Scale Economics Shared Flywheel (7 pts): (scale_shared / 10.0) * 7.0
-    - Lindy & AI Obsolescence Resilience (7 pts): (lindy_ai_res / 10.0) * 7.0
+    - Pricing Power (10 pts): min(10.0, (p / 0.90) * 10.0)
+    - Reinvestment ROIC (4 pts): min(4.0, (roic / 35.0) * 4.0)
+    - Founder / Insider Alignment (3 pts): (insider_align / 10.0) * 3.0
+    - Negative Working Capital Float (2 pts): (float_gen / 10.0) * 2.0
+    - Lindy & AI Obsolescence Resilience (1 pt): (lindy_ai_res / 10.0) * 1.0
     - Customer Concentration Penalty (-5 pts): -(cust_conc * 1.5)
-    - Base Return Margin of Safety (10 pts): min(10.0, (base_ret / 50.0) * 10.0)
-    - Downside Risk Penalty (10 pts): (bear_ret + 30.0) * 0.25
     """
     bear_ret = ((bear_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
     base_ret = ((base_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
@@ -272,20 +280,19 @@ def score_wealthsimple_aggressive(
     asym_ratio = bull_ret / max(10.0, abs(bear_ret)) if bear_ret < 0 else (bull_ret / 5.0)
     growth_pts = min(25.0, max(0.0, (meta.get("growth", 5.0) / 20.0) * 25.0))
     bull_pts = min(25.0, max(0.0, (bull_ret / 100.0) * 25.0))
-    roic_pts = min(18.0, (meta.get("roic", 18.0) / 35.0) * 18.0)
+    ws_mos_pts = min(15.0, (base_ret / 50.0) * 15.0)
+    downside_pts_ws = min(10.0, (bear_ret + 30.0) * 0.25)
+    ws_moat_pts = (meta.get("moat", 8.0) / 10.0) * 15.0
     pricing_power = meta.get("p", 0.85)
-    pricing_power_pts = min(15.0, (pricing_power / 0.90) * 15.0)
-    moat_pts = (meta.get("moat", 8.0) / 10.0) * 15.0
-    insider_pts = (meta.get("insider_align", 7.0) / 10.0) * 10.0
-    float_pts = (meta.get("float_gen", 6.0) / 10.0) * 8.0
-    scale_pts = (meta.get("scale_shared", 5.0) / 10.0) * 7.0
-    lindy_pts = (meta.get("lindy_ai_res", 8.5) / 10.0) * 7.0
-    cust_pen = -(meta.get("cust_conc", 0.5) * 1.5)
-    base_pts = min(10.0, max(0.0, (base_ret / 50.0) * 10.0))
-    downside_pts = (bear_ret + 30.0) * 0.25
+    ws_pp_pts = min(10.0, (pricing_power / 0.90) * 10.0)
+    ws_roic_pts = min(4.0, (meta.get("roic", 18.0) / 35.0) * 4.0)
+    ws_insider_pts = (meta.get("insider_align", 7.0) / 10.0) * 3.0
+    ws_float_pts = (meta.get("float_gen", 6.0) / 10.0) * 2.0
+    ws_lindy_pts = (meta.get("lindy_ai_res", 8.5) / 10.0) * 1.0
+    ws_cust_pen = -(meta.get("cust_conc", 0.5) * 1.5)
     
-    total_score = round(max(5.0, growth_pts + bull_pts + roic_pts + pricing_power_pts + moat_pts + insider_pts + float_pts + scale_pts + lindy_pts + cust_pen + base_pts + downside_pts), 2)
-    ws_k = max(0.001, (total_score / 100.0) ** 2 * (1.0 + min(1.5, asym_ratio / 4.0)) * (meta.get("moat", 8.0) / 10.0) * (pricing_power / 0.85) * ((meta.get("roic", 18.0) / 25.0) ** 0.5) * ((meta.get("insider_align", 7.0) / 8.0) ** 0.5))
+    total_score = round(max(5.0, growth_pts + bull_pts + ws_mos_pts + downside_pts_ws + ws_moat_pts + ws_pp_pts + ws_roic_pts + ws_insider_pts + ws_float_pts + ws_lindy_pts + ws_cust_pen), 2)
+    ws_k = max(0.001, (total_score / 100.0) ** 2 * (1.0 + min(1.5, asym_ratio / 4.0)) * (meta.get("moat", 8.0) / 10.0) * (pricing_power / 0.85))
     
     return {
         "ticker": ticker, "sector": meta["sector"], "industry": meta["industry"],
