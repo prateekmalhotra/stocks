@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import List, Optional, Dict, Any
 from stocks.models import WatchlistStock, AlertItem, ThesisVersion, TaskItem
 
-DATA_DIR = Path("data")
+DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 THESES_DIR = DATA_DIR / "theses"
 WATCHLIST_FILE = DATA_DIR / "watchlist.json"
 ALERTS_FILE = DATA_DIR / "alerts.json"
