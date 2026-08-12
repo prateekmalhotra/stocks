@@ -2,11 +2,11 @@
   "portfolio_type": "defensive",
   "portfolio_label": "Fidelity (Defensive Fortress)",
   "last_run_date": "2026-08-11",
-  "last_run_timestamp": "2026-08-11T23:15:51.354659",
+  "last_run_timestamp": "2026-08-11T23:19:26.368132",
   "status": "ACTION_REQUIRED",
-  "status_display": "REBALANCE PROPOSAL PENDING (11 ACTIONS)",
+  "status_display": "REBALANCE PROPOSAL PENDING (2 ACTIONS)",
   "action_required": true,
-  "verdict_summary": "Council flagged 11 position(s) exceeding materiality rebalance hurdles.",
+  "verdict_summary": "Council flagged 2 position(s) exceeding materiality rebalance hurdles.",
   "total_universe_scanned": 72,
   "active_holdings_verified": 18,
   "shiller_cape": 35.5,
@@ -267,47 +267,37 @@
   ],
   "top_watchlist_on_radar": [
     {
-      "ticker": "META",
-      "company_name": "Meta Platforms, Inc.",
-      "price": 599.12,
-      "fair_value": 720.0,
-      "mos_pct": 20.18,
-      "expected_irr": 25.6,
-      "kelly_edge": 42.83,
-      "moat_score": 9.7
+      "ticker": "UPWK",
+      "company_name": "Upwork Inc.",
+      "price": 8.36,
+      "fair_value": 12.5,
+      "mos_pct": 49.52,
+      "expected_irr": 32.4,
+      "kelly_edge": 7.44,
+      "moat_score": 8.4
     },
     {
-      "ticker": "NOW",
-      "company_name": "ServiceNow, Inc.",
-      "price": 127.54,
-      "fair_value": 158.0,
-      "mos_pct": 23.88,
-      "expected_irr": 25.4,
-      "kelly_edge": 25.31,
-      "moat_score": 9.3
+      "ticker": "YELP",
+      "company_name": "Yelp Inc.",
+      "price": 23.61,
+      "fair_value": 34.0,
+      "mos_pct": 44.01,
+      "expected_irr": 30.3,
+      "kelly_edge": 3.98,
+      "moat_score": 8.2
     },
     {
-      "ticker": "DECK",
-      "company_name": "Deckers Outdoor Corporation",
-      "price": 93.84,
-      "fair_value": 118.0,
-      "mos_pct": 25.75,
-      "expected_irr": 26.6,
-      "kelly_edge": 20.72,
-      "moat_score": 9.0
+      "ticker": "LGCY",
+      "company_name": "Legacy Education Inc.",
+      "price": 10.65,
+      "fair_value": 15.5,
+      "mos_pct": 45.54,
+      "expected_irr": 32.6,
+      "kelly_edge": 1.71,
+      "moat_score": 8.2
     }
   ],
   "rebalance_proposals": [
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "META",
-      "reason": "Dislocation arbitrage: META offers Edge 42.83 vs 0.29 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "AMZN",
-      "reason": "Dislocation arbitrage: AMZN offers Edge 35.87 vs 0.29 min active."
-    },
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "MSFT",
@@ -315,43 +305,8 @@
     },
     {
       "action": "SWAP_PROPOSAL",
-      "ticker": "DECK",
-      "reason": "Dislocation arbitrage: DECK offers Edge 20.72 vs 0.29 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "RDDT",
-      "reason": "Dislocation arbitrage: RDDT offers Edge 9.51 vs 0.29 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "UBER",
-      "reason": "Dislocation arbitrage: UBER offers Edge 17.46 vs 0.29 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "NOW",
-      "reason": "Dislocation arbitrage: NOW offers Edge 25.31 vs 0.29 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
       "ticker": "MSCI",
       "reason": "Dislocation arbitrage: MSCI offers Edge 24.45 vs 0.29 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "QCOM",
-      "reason": "Dislocation arbitrage: QCOM offers Edge 10.86 vs 0.29 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "TSM",
-      "reason": "Dislocation arbitrage: TSM offers Edge 34.64 vs 0.29 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "VRT",
-      "reason": "Dislocation arbitrage: VRT offers Edge 19.19 vs 0.29 min active."
     }
   ]
 }

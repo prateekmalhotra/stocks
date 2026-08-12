@@ -3,16 +3,17 @@ stocks.portfolio_engine
 ~~~~~~~~~~~~~~~~~~~~~~~
 Dynamic Full-Universe Institutional Portfolio Construction Engine.
 
-MANDATE ARCHITECTURE:
+MANDATE PRINCIPLES:
 1. FIDELITY (Defensive Fortress & Capital Preservation):
-   - Primary Pillar: Moat Durability (35%) & Balance Sheet Fortress (25%).
-   - Goal: Near-zero risk of permanent capital loss, pricing power, and steady compounding.
+   - Primary Anchor: Moat Durability (35%) & Balance Sheet Fortress (25%).
+   - Zero structural business risk, irreplaceable pricing power, steady compounding.
    - Sizing: Moat-anchored Fractional Kelly with downside resilience multiplier.
 
-2. WEALTHSIMPLE (Aggressive Alpha & Asymmetric Undervaluation):
-   - Primary Pillar: Margin of Safety (35%) & Expected 5-Year IRR (25%).
-   - Goal: Maximizing long-term annualized CAGR on deeply mispriced quality compounders.
-   - Sizing: Alpha-anchored Fractional Kelly scaling exponentially with Margin of Safety & IRR.
+2. WEALTHSIMPLE (Aggressive Alpha & Asymmetric Growth Compounders):
+   - Primary Anchor: High-Velocity Growth & Asymmetric Undervaluation.
+   - STRICT INVARIANT: ZERO VALUE TRAPS / ZERO DISTRESSED TURNAROUNDS.
+   - Requires Minimum Moat >= 8.5/10.0 and Organic Growth >= 6.0%/yr.
+   - Sizing: Exponential Kelly scaling on Expected 5-Year IRR & Margin of Safety.
 
 COMMON INVARIANTS:
 - Non-negotiable compliance exclusions only (GOOG employer, LMT weapons).
@@ -193,7 +194,6 @@ def score_fidelity_defensive(ticker: str, meta: dict, cur_p: float, fv: float, s
     
     total_score = round(max(10.0, moat_pts + bs_pts + mos_pts + oe_pts + growth_pts - cyc_penalty), 2)
     
-    # Kelly Sizing: Moat Durability anchored
     payoff_b = (mos_pct / 100.0) + (meta["oe_yield"] / 20.0)
     p = meta["p"]
     q = 1.0 - p
@@ -212,33 +212,33 @@ def score_fidelity_defensive(ticker: str, meta: dict, cur_p: float, fv: float, s
 
 def score_wealthsimple_aggressive(ticker: str, meta: dict, cur_p: float, fv: float, sig: str) -> Dict[str, Any]:
     """
-    Wealthsimple Mandate: Asymmetric Undervaluation & Margin of Safety First.
-    Weights: Margin of Safety (35%), Expected 5Y IRR (25%), Growth/Cannibal (20%), Moat (15%), BS (5%).
+    Wealthsimple Mandate: Quality Growth Compounders (NO TURNAROUNDS).
+    Requires Moat >= 8.5/10.0 and Growth >= 6.0%/yr.
+    Weights: Moat (25%), Margin of Safety (25%), Expected 5Y IRR (25%), Velocity (20%), BS (5%).
     """
     mos_pct = max(0.0, ((fv - cur_p) / cur_p) * 100.0) if cur_p > 0 else 0.0
+    effective_mos = min(50.0, mos_pct) # Sane cap to prevent 95% distressed drops from distorting
     oe_y = meta.get("oe_yield", 5.0)
     cannibal = meta["cannibal"]
     growth = meta["growth"]
     
-    expected_irr_5y = oe_y + cannibal + growth + (mos_pct / 5.0)
+    expected_irr_5y = oe_y + cannibal + growth + (effective_mos / 5.0)
     
-    mos_pts = min(35.0, (mos_pct / 50.0) * 35.0)
+    moat_pts = (meta["moat"] / 10.0) * 25.0
+    mos_pts = (effective_mos / 50.0) * 25.0
     irr_pts = min(25.0, (expected_irr_5y / 25.0) * 25.0)
     velocity_pts = min(20.0, ((cannibal * 1.5 + growth) / 20.0) * 20.0)
-    moat_pts = (meta["moat"] / 10.0) * 15.0
     bs_pts = (meta["bs"] / 10.0) * 5.0
     cyc_penalty = max(0.0, (meta.get("cyc", 1.5) - 2.0) * 1.0)
     
-    total_score = round(max(10.0, mos_pts + irr_pts + velocity_pts + moat_pts + bs_pts - cyc_penalty), 2)
+    total_score = round(max(10.0, moat_pts + mos_pts + irr_pts + velocity_pts + bs_pts - cyc_penalty), 2)
     
-    # Kelly Sizing: Exponential scaling on Margin of Safety and Asymmetric Expected IRR
     payoff_b = (expected_irr_5y / 15.0)
     p = meta["p"]
     q = 1.0 - p
     raw_k = (p * payoff_b - q) / payoff_b if payoff_b > 0 else 0.0
-    # MoS directly scales the position size in aggressive alpha mandate
-    alpha_mult = (meta["moat"] / 10.0) * ((1.0 + (mos_pct / 50.0)) ** 1.5)
-    k_score = max(0.001, raw_k * alpha_mult)
+    # Moat is the anchor, MoS is the booster
+    k_score = max(0.001, raw_k * ((meta["moat"] / 10.0) ** 1.5) * (1.0 + (effective_mos / 50.0)))
     
     return {
         "ticker": ticker, "sector": meta["sector"], "industry": meta["industry"],
@@ -331,6 +331,10 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
             if scored["total_score"] >= 65.0:
                 fidelity_candidates.append(scored)
         else:
+            # NO TURNAROUNDS / NO VALUE TRAPS IN WEALTHSIMPLE:
+            # Must possess a durable moat (Moat >= 8.5) and organic growth (Growth >= 6.0%)
+            if meta.get("moat", 0) < 8.5 or meta.get("growth", 0) < 6.0:
+                continue
             scored = score_wealthsimple_aggressive(ticker, meta, cur_p, fv, sig)
             if scored["total_score"] >= 65.0:
                 wealthsimple_candidates.append(scored)
@@ -344,7 +348,7 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
             fid_selected.append(item)
             used_def_ind.add(item["industry"])
 
-    # 2. Wealthsimple Selection (Max 1 per industry, sorted by MoS-weighted score)
+    # 2. Wealthsimple Selection (Max 1 per industry, sorted by Compounder score)
     wealthsimple_candidates.sort(key=lambda x: x["total_score"], reverse=True)
     used_agg_ind = set()
     ws_selected = []
@@ -481,7 +485,7 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
         "rebalance_log": [
             {
                 "date": "2026-08-11",
-                "action": "MANDATE-TAILORED CALIBRATION",
+                "action": "QUALITY COMPOUNDER INCEPTION",
                 "reason": fid_desc,
                 "verification_status": "Verified 3/3 Autonomous Council"
             }
@@ -499,7 +503,7 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
     agg_state = {
         "portfolio_name": "Wealthsimple",
         "portfolio_type": "aggressive",
-        "target_audience": "Aggressive Alpha, Mispriced Growth & Buyback Cannibals",
+        "target_audience": "Aggressive Alpha, High-Velocity Quality Compounders (No Value Traps)",
         "inception_date": "2026-08-11",
         "last_rebalance_date": "2026-08-11",
         "base_capital_usd": total_capital,
@@ -507,7 +511,7 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
         "rebalance_log": [
             {
                 "date": "2026-08-11",
-                "action": "MANDATE-TAILORED CALIBRATION",
+                "action": "QUALITY COMPOUNDER INCEPTION",
                 "reason": ws_desc,
                 "verification_status": "Verified 3/3 Autonomous Council"
             }
