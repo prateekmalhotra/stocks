@@ -26,29 +26,29 @@ RISK_FREE_TREASURY_RATE = 0.045 # 3-Month US Treasury Bill Yield (4.50%)
 
 # Universal Quality Matrix
 UNIVERSE_PROFILES = {
-    # Defensive Fortress Candidates
-    "CSU":   {"name": "Constellation Software Inc.", "oe_yield": 4.2, "cannibal": 0.0, "growth": 14.0, "moat": 9.8, "bs": 8.5, "pool": "defensive"},
+    # Defensive Fortress Candidates (Fidelity)
+    "CSU":   {"name": "Constellation Software Inc.", "oe_yield": 4.5, "cannibal": 0.0, "growth": 14.0, "moat": 9.8, "bs": 8.5, "pool": "defensive"},
     "MA":    {"name": "Mastercard Incorporated",      "oe_yield": 3.8, "cannibal": 2.0, "growth": 11.0, "moat": 9.7, "bs": 8.5, "pool": "defensive"},
     "V":     {"name": "Visa Inc.",                    "oe_yield": 4.6, "cannibal": 2.2, "growth": 9.5,  "moat": 9.7, "bs": 8.5, "pool": "defensive"},
-    "MSFT":  {"name": "Microsoft Corporation",        "oe_yield": 3.9, "cannibal": 0.8, "growth": 11.0, "moat": 9.7, "bs": 9.0, "pool": "defensive"},
     "CPRT":  {"name": "Copart, Inc.",                 "oe_yield": 4.4, "cannibal": 0.5, "growth": 11.0, "moat": 9.6, "bs": 10.0, "pool": "defensive"},
-    "ADBE":  {"name": "Adobe Inc.",                   "oe_yield": 5.5, "cannibal": 3.2, "growth": 10.0, "moat": 9.5, "bs": 9.0, "pool": "defensive"},
     "BKNG":  {"name": "Booking Holdings Inc.",        "oe_yield": 6.8, "cannibal": 4.5, "growth": 8.5,  "moat": 9.4, "bs": 8.5, "pool": "defensive"},
     "INTU":  {"name": "Intuit Inc.",                  "oe_yield": 4.5, "cannibal": 1.5, "growth": 10.0, "moat": 9.4, "bs": 8.5, "pool": "defensive"},
-    "META":  {"name": "Meta Platforms, Inc.",         "oe_yield": 5.4, "cannibal": 2.8, "growth": 11.5, "moat": 9.4, "bs": 9.5, "pool": "defensive"},
-    "AMZN":  {"name": "Amazon.com, Inc.",             "oe_yield": 4.2, "cannibal": 0.0, "growth": 12.0, "moat": 9.4, "bs": 8.5, "pool": "defensive"},
+    "UNH":   {"name": "UnitedHealth Group Inc.",      "oe_yield": 5.8, "cannibal": 1.2, "growth": 9.0,  "moat": 9.6, "bs": 8.5, "pool": "defensive"},
+    "SPGI":  {"name": "S&P Global Inc.",              "oe_yield": 4.1, "cannibal": 1.8, "growth": 9.5,  "moat": 9.8, "bs": 8.5, "pool": "defensive"},
+    "MSFT":  {"name": "Microsoft Corporation",        "oe_yield": 3.9, "cannibal": 0.8, "growth": 11.0, "moat": 9.7, "bs": 9.0, "pool": "defensive"},
+    "LMT":   {"name": "Lockheed Martin Corporation",  "oe_yield": 6.2, "cannibal": 3.0, "growth": 6.5,  "moat": 9.5, "bs": 8.5, "pool": "defensive"},
 
-    # Aggressive Alpha Candidates
-    "PDD":   {"name": "PDD Holdings Inc.",            "oe_yield": 8.5,  "cannibal": 2.0, "growth": 16.0, "moat": 9.6, "bs": 10.0, "pool": "aggressive"},
-    "BABA":  {"name": "Alibaba Group Holding Limited", "oe_yield": 9.5,  "cannibal": 6.0, "growth": 6.0,  "moat": 9.5, "bs": 10.0, "pool": "aggressive"},
-    "STNE":  {"name": "StoneCo Ltd.",                 "oe_yield": 9.0,  "cannibal": 4.0, "growth": 12.0, "moat": 8.5, "bs": 8.5,  "pool": "aggressive"},
-    "JD":    {"name": "JD.com, Inc.",                 "oe_yield": 8.0,  "cannibal": 4.5, "growth": 6.0,  "moat": 9.0, "bs": 9.5,  "pool": "aggressive"},
-    "LULU":  {"name": "Lululemon Athletica Inc.",     "oe_yield": 6.2,  "cannibal": 3.5, "growth": 9.0,  "moat": 8.8, "bs": 9.5,  "pool": "aggressive"},
-    "CROX":  {"name": "Crocs, Inc.",                  "oe_yield": 11.2, "cannibal": 5.5, "growth": 6.0,  "moat": 8.6, "bs": 8.5,  "pool": "aggressive"},
-    "CRM":   {"name": "Salesforce, Inc.",             "oe_yield": 5.8,  "cannibal": 3.0, "growth": 9.5,  "moat": 9.2, "bs": 8.5,  "pool": "aggressive"},
-    "UBER":  {"name": "Uber Technologies, Inc.",      "oe_yield": 5.0,  "cannibal": 2.0, "growth": 13.0, "moat": 9.0, "bs": 8.0,  "pool": "aggressive"},
-    "DECK":  {"name": "Deckers Outdoor Corporation",  "oe_yield": 5.2,  "cannibal": 2.1, "growth": 10.0, "moat": 8.9, "bs": 9.5,  "pool": "aggressive"},
-    "CMG":   {"name": "Chipotle Mexican Grill, Inc.", "oe_yield": 4.1,  "cannibal": 2.0, "growth": 10.5, "moat": 9.0, "bs": 9.0,  "pool": "aggressive"}
+    # Aggressive Alpha Candidates (Wealthsimple)
+    "NVDA":  {"name": "NVIDIA Corporation",            "oe_yield": 5.2, "cannibal": 2.5, "growth": 18.0, "moat": 9.8, "bs": 10.0, "pool": "aggressive"},
+    "META":  {"name": "Meta Platforms, Inc.",         "oe_yield": 5.4, "cannibal": 2.8, "growth": 12.0, "moat": 9.5, "bs": 9.5, "pool": "aggressive"},
+    "MELI":  {"name": "MercadoLibre, Inc.",           "oe_yield": 6.1, "cannibal": 0.0, "growth": 19.0, "moat": 9.5, "bs": 9.0, "pool": "aggressive"},
+    "ASML":  {"name": "ASML Holding N.V.",            "oe_yield": 4.8, "cannibal": 1.5, "growth": 14.0, "moat": 9.9, "bs": 9.5, "pool": "aggressive"},
+    "TSM":   {"name": "Taiwan Semiconductor Mfg",     "oe_yield": 5.9, "cannibal": 0.0, "growth": 15.0, "moat": 9.8, "bs": 9.5, "pool": "aggressive"},
+    "BABA":  {"name": "Alibaba Group Holding Limited", "oe_yield": 8.5, "cannibal": 6.5, "growth": 6.0,  "moat": 9.5, "bs": 10.0, "pool": "aggressive"},
+    "JD":    {"name": "JD.com, Inc.",                 "oe_yield": 9.2, "cannibal": 5.5, "growth": 6.0,  "moat": 9.0, "bs": 9.5, "pool": "aggressive"},
+    "STNE":  {"name": "StoneCo Ltd.",                 "oe_yield": 11.5,"cannibal": 4.0, "growth": 12.0, "moat": 8.5, "bs": 8.5, "pool": "aggressive"},
+    "CROX":  {"name": "Crocs, Inc.",                  "oe_yield": 8.8, "cannibal": 5.0, "growth": 6.0,  "moat": 8.6, "bs": 8.5, "pool": "aggressive"},
+    "GCT":   {"name": "GigaCloud Technology Inc",     "oe_yield": 9.5, "cannibal": 2.0, "growth": 18.0, "moat": 8.8, "bs": 9.5, "pool": "aggressive"}
 }
 
 
