@@ -259,11 +259,12 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
         t = h["ticker"]
         w_pct = h["target_weight"] * 100.0
         alloc_dol = h["allocated_dollars"]
-        cur_p = h["current_price"]
-        fv = h["fair_value"]
-        mos = h["margin_of_safety_pct"]
-        oe_yr = h["annual_owner_earnings"]
-        fcf_y = h["look_through_fcf_yield"]
+        cur_p = float(h["current_price"])
+        cost_b = float(h.get("cost_basis", cur_p))
+        fv = float(h["fair_value"])
+        mos = float(h["margin_of_safety_pct"])
+        oe_yr = float(h["annual_owner_earnings"])
+        fcf_y = float(h["look_through_fcf_yield"])
         display_name = CLEAN_NAMES.get(t, h.get("company_name", t))
         
         if t == "USD_CASH":
@@ -279,7 +280,7 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                 <span class="pill pill-neutral" style="font-size:0.72rem; padding:2px 7px;">{w_pct:.1f}%</span>
             </div>
             """
-            price_col = '<span style="font-family:var(--font-mono); font-size:0.90rem; color:var(--text-dim);">$1.00</span>'
+            price_col = '<span style="font-family:var(--font-mono); font-size:0.90rem; color:var(--text-dim);">$1.00 ($1.00)</span>'
             fv_col = '<span style="font-family:var(--font-mono); font-size:0.90rem; color:var(--text-dim);">$1.00 (Par)</span>'
             yield_col = f"""
             <div style="display:flex; flex-direction:column; gap:4px;">
