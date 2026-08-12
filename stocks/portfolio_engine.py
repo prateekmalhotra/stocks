@@ -177,77 +177,111 @@ def calculate_shiller_macro_cash(is_defensive: bool, weighted_mos: float) -> Tup
     return exact_cash, equity_budget, rationale
 
 # =============================================================================
-# 4. MANDATE-TAILORED SCORING & SIZING ENGINES
+# 4. MANDATE-TAILORED SCORING & SIZING ENGINES (SCENARIO ASYMMETRY)
 # =============================================================================
 
-def score_fidelity_defensive(ticker: str, meta: dict, cur_p: float, fv: float, sig: str) -> Dict[str, Any]:
+def parse_target_price(raw_val: Any, cur_p: float) -> float:
+    """Safely extracts pure USD float price from raw target value string."""
+    if raw_val is None:
+        return cur_p
+    m = re.search(r"\$([\d,]+\.?\d*)", str(raw_val))
+    if m:
+        return float(m.group(1).replace(",", ""))
+    try:
+        return float(re.sub(r"[^\d.]", "", str(raw_val)))
+    except Exception:
+        return cur_p
+
+def score_fidelity_defensive(
+    ticker: str,
+    meta: dict,
+    cur_p: float,
+    bear_p: float,
+    base_p: float,
+    bull_p: float,
+    sig: str
+) -> Dict[str, Any]:
     """
     Fidelity Mandate: Moat Durability & Fortress Capital Preservation.
-    Weights: Moat (30%), Balance Sheet (25%), Margin of Safety (20%), Buybacks (15%), OE Yield (10%).
+    - Moat >= 8.5/10.0
+    - Downside Floor: Bear Case Drawdown <= 25.0% (Bear Return >= -25.0%)
+    - Upside Floor: Base Case Gain >= +25.0%
+    Weights: Base Return MoS (35%), Moat (30%), Balance Sheet (25%), Bear Cushion (10%).
     """
-    mos_pct = max(0.0, ((fv - cur_p) / cur_p) * 100.0) if cur_p > 0 else 0.0
-    effective_mos = min(50.0, mos_pct)
+    bear_ret = ((bear_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
+    base_ret = ((base_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
+    bull_ret = ((bull_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
     
+    mos_pts = min(40.0, (base_ret / 50.0) * 35.0)
     moat_pts = (meta["moat"] / 10.0) * 30.0
     bs_pts = (meta["bs"] / 10.0) * 25.0
-    mos_pts = (effective_mos / 50.0) * 20.0
-    cannibal_pts = min(15.0, (meta["cannibal"] / 5.0) * 15.0)
-    oe_pts = min(10.0, (meta.get("oe_yield", 5.0) / 8.0) * 10.0)
-    cyc_penalty = max(0.0, (meta.get("cyc", 1.5) - 1.5) * 1.5)
+    bear_cushion_pts = max(0.0, min(10.0, (bear_ret + 25.0) / 35.0 * 10.0))
     
-    total_score = round(max(10.0, moat_pts + bs_pts + mos_pts + cannibal_pts + oe_pts - cyc_penalty), 2)
+    total_score = round(max(10.0, mos_pts + moat_pts + bs_pts + bear_cushion_pts), 2)
     
-    payoff_b = (effective_mos / 100.0) + (meta["oe_yield"] / 20.0) + (meta["cannibal"] / 20.0)
-    p = meta["p"]
+    p = meta.get("p", 0.88)
     q = 1.0 - p
+    payoff_b = (base_ret / 100.0) + (max(0.0, bear_ret + 25.0) / 100.0)
     raw_k = (p * payoff_b - q) / payoff_b if payoff_b > 0 else 0.0
     quality_mult = ((meta["moat"] * 0.60 + meta["bs"] * 0.40) / 10.0) ** 2
-    k_score = max(0.001, raw_k * quality_mult * (1.0 + (meta["cannibal"] / 20.0)))
+    k_score = max(0.001, raw_k * quality_mult)
     
     return {
         "ticker": ticker, "sector": meta["sector"], "industry": meta["industry"],
-        "mandate_pref": "defensive", "price": cur_p, "fair_value": fv,
-        "margin_of_safety_pct": round(mos_pct, 2), "oe_yield": meta["oe_yield"],
+        "mandate_pref": "defensive", "price": cur_p, "fair_value": base_p,
+        "bear_target": bear_p, "base_target": base_p, "bull_target": bull_p,
+        "bear_ret": round(bear_ret, 2), "base_ret": round(base_ret, 2), "bull_ret": round(bull_ret, 2),
+        "margin_of_safety_pct": round(base_ret, 2), "oe_yield": meta.get("oe_yield", 5.0),
         "growth": meta["growth"], "cannibal": meta["cannibal"],
+        "moat": meta["moat"], "bs": meta["bs"],
         "total_score": total_score, "kelly_score": k_score,
         "thesis": meta.get("thesis", ""), "action_signal": sig
     }
 
-def score_wealthsimple_aggressive(ticker: str, meta: dict, cur_p: float, fv: float, sig: str) -> Dict[str, Any]:
+def score_wealthsimple_aggressive(
+    ticker: str,
+    meta: dict,
+    cur_p: float,
+    bear_p: float,
+    base_p: float,
+    bull_p: float,
+    sig: str
+) -> Dict[str, Any]:
     """
-    Wealthsimple Mandate: Asymmetric Cannibal Compounders (NO TURNAROUNDS).
-    Requires MoS >= 25.0%, Moat >= 8.5/10.0, and Growth >= 6.0%/yr.
-    Weights: Margin of Safety (30%), Share Cannibalization (20%), Moat (20%), Balance Sheet (15%), Growth (15%).
+    Wealthsimple Mandate: Asymmetric Growth & Quality Compounders (NO VALUE TRAPS).
+    - Moat >= 7.5/10.0
+    - Organic Growth >= 6.0%/yr (eliminates declining/distressed businesses)
+    - Bull Case Return >= +50.0% (High Asymmetric Upside)
+    - Bear Case Return >= -30.0% (Controlled Downside Floor)
+    Weights: Bull Return (40%), Base Return (25%), Organic Growth (20%), Moat (15%).
     """
-    mos_pct = max(0.0, ((fv - cur_p) / cur_p) * 100.0) if cur_p > 0 else 0.0
-    effective_mos = min(60.0, mos_pct)
-    oe_y = meta.get("oe_yield", 5.0)
-    cannibal = meta["cannibal"]
-    growth = meta["growth"]
+    bear_ret = ((bear_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
+    base_ret = ((base_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
+    bull_ret = ((bull_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
     
-    expected_irr_5y = oe_y + cannibal + growth + (effective_mos / 5.0)
+    asym_ratio = bull_ret / max(10.0, abs(bear_ret)) if bear_ret < 0 else (bull_ret / 5.0)
+    bull_pts = min(40.0, (bull_ret / 100.0) * 40.0)
+    base_pts = min(25.0, (base_ret / 50.0) * 25.0)
+    growth_pts = min(20.0, (meta["growth"] / 18.0) * 20.0)
+    moat_pts = (meta["moat"] / 10.0) * 15.0
     
-    mos_pts = (effective_mos / 60.0) * 30.0
-    cannibal_pts = min(20.0, (cannibal / 6.0) * 20.0)
-    moat_pts = (meta["moat"] / 10.0) * 20.0
-    bs_pts = (meta["bs"] / 10.0) * 15.0
-    growth_pts = min(15.0, (growth / 18.0) * 15.0)
-    cyc_penalty = max(0.0, (meta.get("cyc", 1.5) - 2.0) * 1.0)
+    total_score = round(max(10.0, bull_pts + base_pts + growth_pts + moat_pts), 2)
     
-    total_score = round(max(10.0, mos_pts + cannibal_pts + moat_pts + bs_pts + growth_pts - cyc_penalty), 2)
-    
-    payoff_b = (expected_irr_5y / 15.0)
-    p = meta["p"]
+    p = meta.get("p", 0.82)
     q = 1.0 - p
+    payoff_b = (bull_ret / 100.0)
     raw_k = (p * payoff_b - q) / payoff_b if payoff_b > 0 else 0.0
-    mult = ((meta["moat"] * 0.50 + meta["bs"] * 0.50) / 10.0) * (1.0 + (effective_mos / 50.0)) * (1.0 + (cannibal / 15.0))
+    mult = ((meta["moat"] * 0.50 + meta["bs"] * 0.50) / 10.0) * (1.0 + min(2.0, asym_ratio / 3.0))
     k_score = max(0.001, raw_k * mult)
     
     return {
         "ticker": ticker, "sector": meta["sector"], "industry": meta["industry"],
-        "mandate_pref": "aggressive", "price": cur_p, "fair_value": fv,
-        "margin_of_safety_pct": round(mos_pct, 2), "expected_irr_5y": round(expected_irr_5y, 1),
-        "oe_yield": oe_y, "growth": growth, "cannibal": cannibal,
+        "mandate_pref": "aggressive", "price": cur_p, "fair_value": base_p,
+        "bear_target": bear_p, "base_target": base_p, "bull_target": bull_p,
+        "bear_ret": round(bear_ret, 2), "base_ret": round(base_ret, 2), "bull_ret": round(bull_ret, 2),
+        "asym_ratio": round(asym_ratio, 2), "margin_of_safety_pct": round(base_ret, 2),
+        "oe_yield": meta.get("oe_yield", 5.0), "growth": meta["growth"], "cannibal": meta["cannibal"],
+        "moat": meta["moat"], "bs": meta["bs"],
         "total_score": total_score, "kelly_score": k_score,
         "thesis": meta.get("thesis", ""), "action_signal": sig
     }
@@ -317,29 +351,39 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
             
         sig = w_item.get("action_signal", "HOLD")
         cur_p = float(w_item.get("current_price", 100.0))
-        raw_fv = str(w_item.get("fair_value_estimate", cur_p))
-        try: fv = float(re.sub(r"[^\d.]", "", raw_fv))
-        except Exception: fv = cur_p
+        bear_p = parse_target_price(w_item.get("bear_target"), cur_p)
+        base_p = parse_target_price(w_item.get("base_target") or w_item.get("fair_value_estimate"), cur_p)
+        bull_p = parse_target_price(w_item.get("bull_target"), cur_p)
         
-        mos = ((fv - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
+        bear_ret = ((bear_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
+        base_ret = ((base_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
+        bull_ret = ((bull_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
+        
         meta = get_asset_metadata(ticker, w_item)
+        moat = meta.get("moat", 8.0)
+        growth = meta.get("growth", 5.0)
+        bs = meta.get("bs", 8.0)
         
         if sig != "BUY":
             continue
             
-        mandate = meta.get("mandate", "defensive")
-        if mandate == "defensive":
-            # Fidelity: MoS >= 20.0%, Moat >= 8.8
-            if mos >= 20.0 and meta.get("moat", 0) >= 8.8:
-                scored = score_fidelity_defensive(ticker, meta, cur_p, fv, sig)
-                if scored["total_score"] >= 65.0:
-                    fidelity_candidates.append(scored)
-        else:
-            # Wealthsimple: MoS >= 25.0%, Moat >= 8.5, Growth >= 6.0% (Zero value traps)
-            if mos >= 25.0 and meta.get("moat", 0) >= 8.5 and meta.get("growth", 0) >= 6.0:
-                scored = score_wealthsimple_aggressive(ticker, meta, cur_p, fv, sig)
-                if scored["total_score"] >= 60.0:
-                    wealthsimple_candidates.append(scored)
+        # 1. Fidelity Candidate Check:
+        # - Moat >= 8.5
+        # - Downside limited: Bear Drawdown <= 25% (bear_ret >= -25.0%)
+        # - Base Return >= +25.0%
+        # - Balance Sheet >= 7.5
+        if moat >= 8.5 and bear_ret >= -25.0 and base_ret >= 25.0 and bs >= 7.5:
+            scored_fid = score_fidelity_defensive(ticker, meta, cur_p, bear_p, base_p, bull_p, sig)
+            fidelity_candidates.append(scored_fid)
+                
+        # 2. Wealthsimple Candidate Check:
+        # - Moat >= 7.5
+        # - Growth >= 6.0% (Zero value traps / declining businesses)
+        # - Bull Return >= +50.0% (High Asymmetry)
+        # - Bear Return >= -30.0% (Controlled Downside)
+        if moat >= 7.5 and growth >= 6.0 and bull_ret >= 50.0 and bear_ret >= -30.0:
+            scored_ws = score_wealthsimple_aggressive(ticker, meta, cur_p, bear_p, base_p, bull_p, sig)
+            wealthsimple_candidates.append(scored_ws)
 
     # 1. Fidelity Selection (Max 1 per industry, sorted by score)
     fidelity_candidates.sort(key=lambda x: x["total_score"], reverse=True)

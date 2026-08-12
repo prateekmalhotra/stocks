@@ -797,7 +797,7 @@ You have full analytical freedom to evaluate the new facts and determine the evo
    Slots 2 & 3 = Key Play Drivers & Catalysts (e.g. "Buyback Cannibal", "Margin Expansion", "Deep Value", "Cash Fortress").
    (Note: You choose both the action_signal color and labels independently based on your forward evaluation).
 4. What Changed & Thesis Impact:
-   - Detail what new information has arrived.
+   - Detail what new information has arrived from latest earnings or market filings.
    - Explain whether this reinforces our thesis (making the opportunity safer / higher confidence) or breaks/weakens it (increasing execution risk / lowering fair value).
    - Formulate a clear 2-3 sentence executive evolution summary for "what_changes_now".
 5. Warren Buffett Owner Earnings & Intrinsic Value Framework:
@@ -817,10 +817,10 @@ Part 1: JSON metadata in ```json ... ```:
   "label_change_rationale": "<If labels or conviction changed from previous version, 1-2 sentence explanation of what changed and why. If unchanged, write 'Conviction and play drivers reaffirmed.'>",
   "what_was_before": "<Summary of previous thesis>",
   "what_changes_now": "<Comprehensive summary of what new information arrived, how it impacts risk/safety, and our updated forward conviction>",
-  "new_fair_value": "$<Updated Fair Value>",
-  "new_bear_target": "$<Updated Bear>",
-  "new_base_target": "$<Updated Base>",
-  "new_bull_target": "$<Updated Bull>",
+  "new_fair_value": "$<Updated Fair Value matching Section 5 Base DCF>",
+  "new_bear_target": "$<Updated Bear Target matching Section 5 Bear DCF>",
+  "new_base_target": "$<Updated Base Target matching Section 5 Base DCF>",
+  "new_bull_target": "$<Updated Bull Target matching Section 5 Bull DCF>",
   "new_upper_alert_threshold": <New upper price trigger>,
   "new_lower_alert_threshold": <New lower price trigger>,
   "next_catalyst_date": "<YYYY-MM-DD (Strict ISO date for next catalyst, e.g. 2026-11-18)>",
@@ -831,7 +831,14 @@ Part 1: JSON metadata in ```json ... ```:
   "insider_summary": "<Crisp 1-line summary of recent Form 4 insider purchases/sales audited from OpenInsider, max 10 words>"
 }}
 
-Part 2: Updated HTML memo content reflecting the evolution of the thesis.
+Part 2: COMPLETE Living HTML Memo (All 6 Sections Updated):
+You MUST provide the full, comprehensive HTML memo updating all 6 sections with the new quarter's data, revenue, margins, cash flow, and revised DCF table:
+<div class="section"><h2>Section 1: Business Model, Scale Moat & GenAI Transition</h2>...</div>
+<div class="section"><h2>Section 2: Quarterly Operational Breakdown & Segment Performance</h2>...</div>
+<div class="section"><h2>Section 3: Real Cash Flow & Stock-Based Compensation (SBC) Audit</h2>...</div>
+<div class="section"><h2>Section 4: Capital Allocation & Balance Sheet Discipline</h2>...</div>
+<div class="section"><h2>Section 5: Owner Earnings Intrinsic Value Matrix</h2>... (Full DCF calculation table with Bear, Base, and Bull per-share values)</div>
+<div class="section"><h2>Section 6: Thesis Confidence, Execution Risk & Invalidation Corridors</h2>...</div>
 """
 
     response_text = call_gemini_with_search(prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
@@ -846,6 +853,36 @@ Part 2: Updated HTML memo content reflecting the evolution of the thesis.
 
     if not metadata:
         metadata = {}
+
+    # Extract Section 5 DCF Intrinsic Value table to guarantee 100% mathematical reconciliation
+    rows = re.findall(r"<tr[^>]*>(.*?)</tr>", html_content, re.DOTALL | re.IGNORECASE)
+    target_row = None
+    for r in rows:
+        r_clean = re.sub(r"<[^>]+>", " ", r).strip()
+        if any(k in r_clean.lower() for k in ["intrinsic fair value", "intrinsic value per", "intrinsic value /", "base intrinsic value", "implied intrinsic value"]):
+            target_row = r
+            break
+            
+    if target_row:
+        tds = re.findall(r"<td[^>]*>(.*?)</td>", target_row, re.DOTALL)
+        extracted_nums = []
+        for td in tds:
+            cleaned = re.sub(r"<[^>]+>", "", td).strip()
+            num_match = re.search(r"\$?\s*([\d,]+(?:\.\d+)?)", cleaned)
+            if num_match:
+                try: extracted_nums.append(float(num_match.group(1).replace(",", "")))
+                except ValueError: pass
+                
+        if len(extracted_nums) >= 3:
+            bear_val, base_val, bull_val = extracted_nums[0], extracted_nums[1], extracted_nums[2]
+            bear_ret = ((bear_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
+            base_ret = ((base_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
+            bull_ret = ((bull_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
+            
+            metadata["new_fair_value"] = f"${base_val:.2f}"
+            metadata["new_base_target"] = f"${base_val:.2f} ({base_ret:+.1f}%)"
+            metadata["new_bear_target"] = f"${bear_val:.2f} ({bear_ret:+.1f}%)"
+            metadata["new_bull_target"] = f"${bull_val:.2f} ({bull_ret:+.1f}%)"
 
     # Extract first paragraph/callout from HTML if what_changes_now is missing
     what_changes = metadata.get("what_changes_now", "").strip()
