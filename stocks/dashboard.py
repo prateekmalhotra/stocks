@@ -2167,6 +2167,47 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             line-height: 1.2;
         }}
 
+        /* Strict Stacked 2-Line Table Cells */
+        .tbl-cell-stacked {{
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 3px !important;
+            align-items: flex-start !important;
+            justify-content: center !important;
+            line-height: 1.25 !important;
+        }}
+        .tbl-cell-stacked .cell-primary {{
+            font-family: var(--font-mono) !important;
+            font-size: 0.95rem !important;
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+            line-height: 1.2 !important;
+            display: block !important;
+            white-space: nowrap !important;
+        }}
+        .tbl-cell-stacked .cell-primary.cell-warm {{
+            color: var(--accent-warm) !important;
+        }}
+        .tbl-cell-stacked .cell-sub {{
+            font-family: var(--font-mono) !important;
+            font-size: 0.80rem !important;
+            line-height: 1.2 !important;
+            display: block !important;
+            white-space: nowrap !important;
+        }}
+        .tbl-cell-stacked .cell-sub-green {{
+            color: var(--accent-green) !important;
+            font-weight: 500 !important;
+        }}
+        .tbl-cell-stacked .cell-sub-dim {{
+            color: var(--text-dim) !important;
+            font-weight: 400 !important;
+        }}
+        .tbl-cell-stacked .cell-sub-secondary {{
+            color: var(--text-secondary) !important;
+            font-weight: 400 !important;
+        }}
+
         /* Catalyst Column: Max 4 Words, Clean Line Wrap, No Truncation */
         .tbl-catalyst-cell {{
             display: flex;

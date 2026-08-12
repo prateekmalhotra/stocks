@@ -395,63 +395,63 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
         
         if h["ticker"] == "USD_CASH":
             ticker_cell = f"""
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <strong style="font-family:var(--font-serif); font-size:1.18rem; color:var(--text-title);">💵 USD Cash</strong>
-                <span style="font-size:0.78rem; color:var(--text-dim);">US Treasury 3M Bills</span>
+            <div class="tbl-cell-stacked">
+                <strong style="font-family:var(--font-serif); font-size:1.18rem; color:var(--text-title); display:block;">💵 USD Cash</strong>
+                <div class="cell-sub cell-sub-dim">US Treasury 3M Bills</div>
             </div>
             """
             price_cell = """
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--text-title); font-weight:600;">$1.00</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-dim); font-weight:400;">($1.00)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary">$1.00</div>
+                <div class="cell-sub cell-sub-dim">($1.00)</div>
             </div>
             """
             fv_cell = """
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--text-title); font-weight:600;">$1.00</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-dim); font-weight:400;">(Par)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary">$1.00</div>
+                <div class="cell-sub cell-sub-dim">(Par)</div>
             </div>
             """
             yield_cell = f"""
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--accent-warm); font-weight:600;">${h["annual_owner_earnings"]:,.0f}/yr</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-secondary); font-weight:400;">(4.50%)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary cell-warm">${h["annual_owner_earnings"]:,.0f}/yr</div>
+                <div class="cell-sub cell-sub-secondary">(4.50%)</div>
             </div>
             """
         else:
             ticker_cell = f"""
-            <div style="display:flex; flex-direction:column; gap:2px;">
+            <div class="tbl-cell-stacked">
                 <a href="{h['report_url']}" style="font-family:var(--font-serif); font-size:1.24rem; font-weight:500; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
                     {h['ticker']} <span style="font-size:0.72rem; color:var(--text-dim);">↗</span>
                 </a>
-                <span style="font-size:0.78rem; color:var(--text-secondary);">{h['company_name']}</span>
+                <div class="cell-sub cell-sub-secondary" style="font-family:var(--font-sans);">{h['company_name']}</div>
             </div>
             """
             price_cell = f"""
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--text-title); font-weight:600;">${h["current_price"]:.2f}</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-dim); font-weight:400;">(${cost_b:.2f})</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary">${h["current_price"]:.2f}</div>
+                <div class="cell-sub cell-sub-dim">(${cost_b:.2f})</div>
             </div>
             """
             fv_cell = f"""
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--text-title); font-weight:600;">${h["fair_value"]:.2f}</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--accent-green); font-weight:500;">(+{h["margin_of_safety_pct"]}%)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary">${h["fair_value"]:.2f}</div>
+                <div class="cell-sub cell-sub-green">(+{h["margin_of_safety_pct"]}%)</div>
             </div>
             """
             yield_cell = f"""
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--accent-warm); font-weight:600;">${h["annual_owner_earnings"]:,.0f}/yr</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-secondary); font-weight:400;">({h["look_through_fcf_yield"]}%)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary cell-warm">${h["annual_owner_earnings"]:,.0f}/yr</div>
+                <div class="cell-sub cell-sub-secondary">({h["look_through_fcf_yield"]}%)</div>
             </div>
             """
             
         alloc_cell = f"""
-        <div style="display:flex; flex-direction:column; gap:2px;">
-            <div style="font-family:var(--font-mono); font-size:0.95rem; font-weight:600; color:var(--text-title);">
+        <div class="tbl-cell-stacked">
+            <div class="cell-primary">
                 ${h['allocated_dollars']:,.0f} <span style="font-size:0.80rem; font-weight:400; color:var(--accent-warm);">({h['target_weight']*100:.1f}%)</span>
             </div>
-            <div style="font-family:var(--font-mono); font-size:0.78rem; font-weight:400; color:var(--text-dim);">{h['shares_to_buy']} shares</div>
+            <div class="cell-sub cell-sub-dim">{h['shares_to_buy']} shares</div>
         </div>
         """
         
@@ -484,6 +484,46 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
         """
 
     return f"""
+    <style>
+        .tbl-cell-stacked {{
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 3px !important;
+            align-items: flex-start !important;
+            justify-content: center !important;
+        }}
+        .tbl-cell-stacked .cell-primary {{
+            font-family: var(--font-mono) !important;
+            font-size: 0.95rem !important;
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+            line-height: 1.2 !important;
+            display: block !important;
+            white-space: nowrap !important;
+        }}
+        .tbl-cell-stacked .cell-primary.cell-warm {{
+            color: var(--accent-warm) !important;
+        }}
+        .tbl-cell-stacked .cell-sub {{
+            font-family: var(--font-mono) !important;
+            font-size: 0.80rem !important;
+            line-height: 1.2 !important;
+            display: block !important;
+            white-space: nowrap !important;
+        }}
+        .tbl-cell-stacked .cell-sub-green {{
+            color: var(--accent-green) !important;
+            font-weight: 500 !important;
+        }}
+        .tbl-cell-stacked .cell-sub-dim {{
+            color: var(--text-dim) !important;
+            font-weight: 400 !important;
+        }}
+        .tbl-cell-stacked .cell-sub-secondary {{
+            color: var(--text-secondary) !important;
+            font-weight: 400 !important;
+        }}
+    </style>
     <!-- AlphaThesis Concentrated Portfolio Tab -->
     <div id="portfolio-interactive-hub" style="display:flex; flex-direction:column; gap:28px;">
         
