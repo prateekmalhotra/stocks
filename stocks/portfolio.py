@@ -171,7 +171,7 @@ def get_enriched_portfolio(total_capital: float = 200000.0, portfolio_type: str 
                 "spy_benchmark": hist_perf[-1].get("spy_benchmark", total_capital)
             }
             
-    default_name = "Defensive Fortress" if portfolio_type == "defensive" else "Aggressive Alpha Compounder"
+    default_name = "Fidelity Portfolio" if portfolio_type == "defensive" else "Wealthsimple Portfolio"
     
     return {
         "portfolio_name": state.get("portfolio_name", default_name),
@@ -218,8 +218,8 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
     })
     
     is_defensive = (portfolio_type == "defensive")
-    port_title = "Defensive Fortress" if is_defensive else "Aggressive Alpha Compounder"
-    port_subtitle = "Stability & Earnings Predictability • 50s–60s Horizon • $200,000 Base" if is_defensive else "High-Velocity Mispriced Growth & Buyback Cannibals • 20s–30s Horizon • $200,000 Base"
+    port_title = "Fidelity Portfolio" if is_defensive else "Wealthsimple Portfolio"
+    port_subtitle = "Defensive Fortresses & Consistent Cash Compounding • 50s–60s Horizon • $200k Base" if is_defensive else "Aggressive Alpha, Mispriced Growth & Buyback Cannibals • 20s–30s Horizon • $200k Base"
     cash_badge_label = "18.0% US Treasury Floor" if is_defensive else "12.0% US Treasury Strike Reserve"
     surveillance_cadence = "Every Sunday at 2:00 PM EST" if is_defensive else "Every Saturday at 2:00 PM EST"
     

@@ -2520,8 +2520,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             <div class="hub-tabs">
                 <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage ({len(watchlist)})</button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts ({len(alerts)})</span></button>
-                <button class="hub-tab-btn" onclick="switchTab('portfolio-defensive')">🛡️ Defensive Fortress ($200k)</button>
-                <button class="hub-tab-btn" onclick="switchTab('portfolio-aggressive')">🚀 Aggressive Alpha ($200k)</button>
+                <button class="hub-tab-btn" onclick="switchTab('portfolio-defensive')">Fidelity</button>
+                <button class="hub-tab-btn" onclick="switchTab('portfolio-aggressive')">Wealthsimple</button>
             </div>
             <div style="display: flex; align-items: center; gap: 10px;" id="stocks-view-controls">
                 <div class="search-input-wrap" id="hub-search-wrap">

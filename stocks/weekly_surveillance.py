@@ -89,7 +89,7 @@ def get_portfolio_filepath(portfolio_type: str = "defensive") -> Path:
 def run_weekly_deep_surveillance(portfolio_type: str = "defensive") -> Dict[str, Any]:
     """Executes surveillance audit for either the Defensive (Sunday) or Aggressive (Saturday) portfolio."""
     is_defensive = (portfolio_type == "defensive")
-    port_label = "Defensive Fortress ($200k)" if is_defensive else "Aggressive Alpha Compounder ($200k)"
+    port_label = "Fidelity Portfolio ($200k)" if is_defensive else "Wealthsimple Portfolio ($200k)"
     day_target = 6 if is_defensive else 5 # Sunday = 6, Saturday = 5
     day_name = "Sunday" if is_defensive else "Saturday"
 
