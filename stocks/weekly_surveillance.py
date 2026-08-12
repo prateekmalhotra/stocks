@@ -20,7 +20,7 @@ from stocks.portfolio_engine import (
     BUFFETT_INDICATOR,
     TREASURY_BILL_YIELD,
     TAXONOMY_MAP,
-    EXCLUDED_TICKERS
+    COMPLIANCE_EXCLUSIONS
 )
 
 DATA_DIR = Path("/Users/pmlhtra/Documents/software/stocks/data")
@@ -173,7 +173,7 @@ def run_portfolio_surveillance(portfolio_type: str = "defensive") -> Dict[str, A
     # Scan Watchlist for Dislocation Opportunities
     watchlist_candidates = []
     active_tickers = {h.get("ticker") for h in holdings}
-    active_tickers.update(EXCLUDED_TICKERS.keys())
+    active_tickers.update(COMPLIANCE_EXCLUSIONS.keys())
     
     # Exclude sibling holdings
     sibling_type = "aggressive" if is_defensive else "defensive"
@@ -190,7 +190,7 @@ def run_portfolio_surveillance(portfolio_type: str = "defensive") -> Dict[str, A
     min_active_edge = min(active_edge_scores) if active_edge_scores else 15.0
 
     for ticker, s in watchlist.items():
-        if ticker in active_tickers or ticker in EXCLUDED_TICKERS:
+        if ticker in active_tickers or ticker in COMPLIANCE_EXCLUSIONS:
             continue
 
         cur_p = float(s.get("current_price", 0.0))

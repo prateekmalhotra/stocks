@@ -2,34 +2,47 @@
   "portfolio_type": "defensive",
   "portfolio_label": "Fidelity (Defensive Fortress)",
   "last_run_date": "2026-08-11",
-  "last_run_timestamp": "2026-08-11T22:34:22.177922",
+  "last_run_timestamp": "2026-08-11T22:46:54.741440",
   "status": "ACTION_REQUIRED",
-  "status_display": "REBALANCE PROPOSAL PENDING (3 ACTIONS)",
+  "status_display": "REBALANCE PROPOSAL PENDING (6 ACTIONS)",
   "action_required": true,
-  "verdict_summary": "Council flagged 3 position(s) exceeding materiality rebalance hurdles.",
+  "verdict_summary": "Council flagged 6 position(s) exceeding materiality rebalance hurdles.",
   "total_universe_scanned": 72,
   "active_holdings_verified": 10,
   "shiller_cape": 35.5,
   "buffett_indicator_pct": 198.5,
   "treasury_3m_yield_pct": 5.0,
-  "portfolio_average_mos_pct": 21.65,
-  "cash_cushion_pct": 20.24,
+  "portfolio_average_mos_pct": 23.34,
+  "cash_cushion_pct": 19.91,
   "macro_cash_audit": {
     "shiller_cape": 35.5,
     "historical_cape_median": 18.0,
     "buffett_indicator_pct": 198.5,
     "treasury_3m_yield_pct": 5.0,
-    "portfolio_weighted_mos_pct": 21.65,
+    "portfolio_weighted_mos_pct": 23.34,
     "mandate_structural_floor_pct": 5.0,
-    "calculated_target_cash_pct": 20.24,
-    "current_actual_cash_pct": 20.16,
+    "calculated_target_cash_pct": 19.91,
+    "current_actual_cash_pct": 19.900000000000002,
     "cash_status": "OPTIMAL_DRY_POWDER_MAINTAINED",
     "strike_trigger_threshold": "MoS > 45.0% on Tier-1 Compounder or Flash Crash Dislocation",
     "cash_directive": "Maintain 3M US Treasury float yielding 5.00% risk-free. Stand ready for fat pitch market dislocations.",
-    "formula_description": "Senior US Treasury Buffer (20.24%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +21.65% weighted Margin of Safety."
+    "formula_description": "Senior US Treasury Buffer (19.91%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +23.34% weighted Margin of Safety."
   },
   "next_scheduled_run": "2026-08-18",
   "holdings_health": [
+    {
+      "ticker": "ADBE",
+      "company_name": "Adobe Inc.",
+      "price": 263.71,
+      "fair_value": 340.0,
+      "mos_pct": 28.93,
+      "signal": "BUY",
+      "moat_score": 9.5,
+      "expected_irr": 25.0,
+      "kelly_edge": 34.95,
+      "health_status": "PRISTINE",
+      "thesis_core": "Creative Cloud monopoly; 85%+ gross margins, $3.5B+ annual share buybacks."
+    },
     {
       "ticker": "BKNG",
       "company_name": "Booking Holdings Inc.",
@@ -42,32 +55,6 @@
       "kelly_edge": 24.44,
       "health_status": "PRISTINE",
       "thesis_core": "Global travel OTA network effects duopoly + 35%+ FCF conversion and aggressive buybacks."
-    },
-    {
-      "ticker": "ADBE",
-      "company_name": "Adobe Inc.",
-      "price": 263.71,
-      "fair_value": 340.0,
-      "mos_pct": 28.93,
-      "signal": "BUY",
-      "moat_score": 9.5,
-      "expected_irr": 25.0,
-      "kelly_edge": 34.95,
-      "health_status": "PRISTINE",
-      "thesis_core": "Creative Cloud standard monopoly; 85%+ gross margins, $3.5B+ annual share buybacks."
-    },
-    {
-      "ticker": "CRM",
-      "company_name": "Salesforce, Inc.",
-      "price": 197.47,
-      "fair_value": 255.0,
-      "mos_pct": 29.13,
-      "signal": "BUY",
-      "moat_score": 9.2,
-      "expected_irr": 23.0,
-      "kelly_edge": 16.05,
-      "health_status": "PRISTINE",
-      "thesis_core": "Enterprise CRM standard; multi-cloud suite cross-selling and aggressive share repurchases."
     },
     {
       "ticker": "CPRT",
@@ -83,6 +70,19 @@
       "thesis_core": "Zoning-protected salvage yard land monopoly + pristine zero-debt balance sheet fortress."
     },
     {
+      "ticker": "CRM",
+      "company_name": "Salesforce, Inc.",
+      "price": 197.47,
+      "fair_value": 255.0,
+      "mos_pct": 29.13,
+      "signal": "BUY",
+      "moat_score": 9.2,
+      "expected_irr": 23.0,
+      "kelly_edge": 16.05,
+      "health_status": "PRISTINE",
+      "thesis_core": "Enterprise CRM platform standard; multi-cloud cross-selling and margin expansion."
+    },
+    {
       "ticker": "UNH",
       "company_name": "UnitedHealth Group Incorporated",
       "price": 402.19,
@@ -93,7 +93,7 @@
       "expected_irr": 20.6,
       "kelly_edge": 25.6,
       "health_status": "PRISTINE",
-      "thesis_core": "Integrated Optum healthcare platform + insurance scale; defensive demographic cash engine."
+      "thesis_core": "Integrated Optum healthcare platform + UnitedHealthcare insurance scale."
     },
     {
       "ticker": "INTU",
@@ -106,7 +106,7 @@
       "expected_irr": 21.3,
       "kelly_edge": 26.72,
       "health_status": "PRISTINE",
-      "thesis_core": "QuickBooks & TurboTax SMB accounting software monopoly; high regulatory lock-in."
+      "thesis_core": "QuickBooks & TurboTax SMB accounting monopoly; high regulatory switching costs."
     },
     {
       "ticker": "CSU",
@@ -119,20 +119,7 @@
       "expected_irr": 23.2,
       "kelly_edge": 51.69,
       "health_status": "PRISTINE",
-      "thesis_core": "Mission-critical vertical software roll-up; 25%+ ROIC, negative working capital float, zero customer churn."
-    },
-    {
-      "ticker": "SPGI",
-      "company_name": "S&P Global Inc.",
-      "price": 408.69,
-      "fair_value": 469.99,
-      "mos_pct": 15.0,
-      "signal": "BUY",
-      "moat_score": 9.8,
-      "expected_irr": 18.4,
-      "kelly_edge": 31.57,
-      "health_status": "PRISTINE",
-      "thesis_core": "Sovereign & corporate credit ratings duopoly + S&P 500 benchmark index licensing."
+      "thesis_core": "Mission-critical vertical market software acquirer; 25%+ ROIC, negative working capital float, zero churn."
     },
     {
       "ticker": "MA",
@@ -145,55 +132,78 @@
       "expected_irr": 19.9,
       "kelly_edge": 35.24,
       "health_status": "PRISTINE",
-      "thesis_core": "Global payment rail duopoly; 57% operating margin, secular non-cyclical transaction toll."
+      "thesis_core": "Global payment rail duopoly; 57% operating margin, secular cashless conversion."
     },
     {
-      "ticker": "ISRG",
-      "company_name": "Intuitive Surgical, Inc.",
-      "price": 401.23,
-      "fair_value": 425.0,
-      "mos_pct": 5.92,
-      "signal": "HOLD",
+      "ticker": "SPGI",
+      "company_name": "S&P Global Inc.",
+      "price": 408.69,
+      "fair_value": 469.99,
+      "mos_pct": 15.0,
+      "signal": "BUY",
       "moat_score": 9.8,
-      "expected_irr": 18.3,
-      "kelly_edge": 34.33,
+      "expected_irr": 18.4,
+      "kelly_edge": 31.57,
       "health_status": "PRISTINE",
-      "thesis_core": "Global da Vinci robotic surgery monopoly; 80%+ recurring instruments & services, zero debt."
+      "thesis_core": "Sovereign/corporate debt rating duopoly + S&P 500 benchmark index licensing."
+    },
+    {
+      "ticker": "ASML",
+      "company_name": "ASML Holding N.V. - New York Re",
+      "price": 1799.38,
+      "fair_value": 2150.0,
+      "mos_pct": 19.49,
+      "signal": "BUY",
+      "moat_score": 9.9,
+      "expected_irr": 20.1,
+      "kelly_edge": 26.24,
+      "health_status": "PRISTINE",
+      "thesis_core": "100% global monopoly on EUV lithography machines; evaluated against semi capex ordering cycles."
     }
   ],
   "top_watchlist_on_radar": [
     {
-      "ticker": "NOW",
-      "company_name": "ServiceNow, Inc.",
-      "price": 127.54,
-      "fair_value": 158.0,
-      "mos_pct": 23.88,
-      "expected_irr": 25.4,
-      "kelly_edge": 25.31,
-      "moat_score": 9.3
+      "ticker": "META",
+      "company_name": "Meta Platforms, Inc.",
+      "price": 599.12,
+      "fair_value": 720.0,
+      "mos_pct": 20.18,
+      "expected_irr": 25.6,
+      "kelly_edge": 42.83,
+      "moat_score": 9.7
     },
     {
-      "ticker": "PDD",
-      "company_name": "PDD Holdings Inc.",
-      "price": 90.5,
-      "fair_value": 145.0,
-      "mos_pct": 60.22,
-      "expected_irr": 28.0,
-      "kelly_edge": 22.77,
+      "ticker": "BMBL",
+      "company_name": "Bumble Inc.",
+      "price": 2.78,
+      "fair_value": 5.5,
+      "mos_pct": 97.84,
+      "expected_irr": 35.6,
+      "kelly_edge": 30.94,
       "moat_score": 8.5
     },
     {
-      "ticker": "LULU",
-      "company_name": "Lululemon Athletica Inc.",
-      "price": 125.61,
-      "fair_value": 195.0,
-      "mos_pct": 55.24,
-      "expected_irr": 27.0,
-      "kelly_edge": 21.35,
-      "moat_score": 8.5
+      "ticker": "NVDA",
+      "company_name": "NVIDIA Corporation",
+      "price": 217.5,
+      "fair_value": 285.0,
+      "mos_pct": 31.03,
+      "expected_irr": 29.5,
+      "kelly_edge": 27.27,
+      "moat_score": 9.6
     }
   ],
   "rebalance_proposals": [
+    {
+      "action": "SWAP_PROPOSAL",
+      "ticker": "BMBL",
+      "reason": "Dislocation arbitrage: BMBL offers Edge 30.94 vs 16.05 min active."
+    },
+    {
+      "action": "SWAP_PROPOSAL",
+      "ticker": "META",
+      "reason": "Dislocation arbitrage: META offers Edge 42.83 vs 16.05 min active."
+    },
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "MSFT",
@@ -203,6 +213,11 @@
       "action": "SWAP_PROPOSAL",
       "ticker": "NOW",
       "reason": "Dislocation arbitrage: NOW offers Edge 25.31 vs 16.05 min active."
+    },
+    {
+      "action": "SWAP_PROPOSAL",
+      "ticker": "NVDA",
+      "reason": "Dislocation arbitrage: NVDA offers Edge 27.27 vs 16.05 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
