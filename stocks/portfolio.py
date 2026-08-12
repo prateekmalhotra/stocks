@@ -564,11 +564,11 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
         
         rows_html += f"""
         <tr class="table-row">
-            <td style="padding:14px 16px; vertical-align:middle;">{ticker_cell}</td>
-            <td style="padding:14px 16px; vertical-align:middle;">{alloc_cell}</td>
-            <td style="padding:14px 16px; vertical-align:middle;">{price_cell}</td>
-            <td style="padding:14px 16px; vertical-align:middle;">{fv_cell}</td>
-            <td style="padding:14px 16px; vertical-align:middle;">{yield_cell}</td>
+            <td style="padding:14px 18px; vertical-align:middle; width:28%; max-width:260px; overflow:hidden;">{ticker_cell}</td>
+            <td style="padding:14px 18px; vertical-align:middle; width:18%;">{alloc_cell}</td>
+            <td style="padding:14px 18px; vertical-align:middle; width:18%;">{price_cell}</td>
+            <td style="padding:14px 18px; vertical-align:middle; width:18%;">{fv_cell}</td>
+            <td style="padding:14px 18px; vertical-align:middle; width:18%;">{yield_cell}</td>
         </tr>
         """
 
@@ -598,6 +598,8 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
             gap: 3px !important;
             align-items: flex-start !important;
             justify-content: center !important;
+            min-width: 0 !important;
+            max-width: 100% !important;
         }}
         .tbl-cell-stacked .cell-primary {{
             font-family: var(--font-mono) !important;
@@ -628,11 +630,13 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
         }}
         .tbl-cell-stacked .cell-sub-secondary {{
             color: var(--text-secondary) !important;
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
             font-weight: 400 !important;
-            max-width: 210px !important;
-            overflow: hidden !important;
-            text-overflow: ellipsis !important;
-            white-space: nowrap !important;
+            white-space: normal !important;
+            word-break: break-word !important;
+            line-height: 1.3 !important;
+            max-width: 240px !important;
         }}
 
         /* Subtle Pulse Beacon */

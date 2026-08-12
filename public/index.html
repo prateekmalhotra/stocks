@@ -787,7 +787,7 @@
             <td>
                 <div class="tbl-ticker-cell">
                     <span class="tbl-symbol">BKNG</span>
-                    <span class="tbl-company-hover">Booking Holdings Inc. Common St</span>
+                    <span class="tbl-company-hover">Booking Holdings Inc</span>
                 </div>
             </td>
             <td>
@@ -2159,7 +2159,7 @@
             <div class="grid-labels-row" style="margin: 6px 0 14px;">
                 <span class="pill pill-active">Solid Conviction</span> <span class="pill pill-neutral">Buyback Cannibal</span> <span class="pill pill-neutral">Margin Expansion</span>
             </div>
-            <div class="grid-company">Booking Holdings Inc. Common St</div>
+            <div class="grid-company">Booking Holdings Inc</div>
             
             <div class="grid-metrics-box">
                 <div class="grid-stat">
@@ -3598,6 +3598,10 @@
         .tbl-cell-stacked .cell-sub-secondary {
             color: var(--text-secondary) !important;
             font-weight: 400 !important;
+            max-width: 210px !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            white-space: nowrap !important;
         }
 
         /* Subtle Pulse Beacon */
@@ -3745,11 +3749,11 @@
                 </div>
             </div>
 
-            <table class="fin-table" style="width:100%; border-collapse:collapse;">
+            <table class="fin-table" style="width:100%; min-width:820px; table-layout:fixed; border-collapse:collapse;">
                 <colgroup>
-                    <col style="width:24%;">
-                    <col style="width:20%;">
-                    <col style="width:20%;">
+                    <col style="width:28%;">
+                    <col style="width:18%;">
+                    <col style="width:18%;">
                     <col style="width:18%;">
                     <col style="width:18%;">
                 </colgroup>
@@ -3807,7 +3811,7 @@
                 <a href="reports/BKNG.html" style="font-family:var(--font-serif); font-size:1.24rem; font-weight:500; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
                     BKNG <span style="font-size:0.72rem; color:var(--text-dim);">↗</span>
                 </a>
-                <div class="cell-sub cell-sub-secondary" style="font-family:var(--font-sans);">Booking Holdings Inc. Common St</div>
+                <div class="cell-sub cell-sub-secondary" style="font-family:var(--font-sans);">Booking Holdings Inc.</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
