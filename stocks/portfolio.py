@@ -629,6 +629,10 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
         .tbl-cell-stacked .cell-sub-secondary {{
             color: var(--text-secondary) !important;
             font-weight: 400 !important;
+            max-width: 210px !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            white-space: nowrap !important;
         }}
 
         /* Subtle Pulse Beacon */
@@ -776,11 +780,11 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                 </div>
             </div>
 
-            <table class="fin-table" style="width:100%; border-collapse:collapse;">
+            <table class="fin-table" style="width:100%; min-width:820px; table-layout:fixed; border-collapse:collapse;">
                 <colgroup>
-                    <col style="width:24%;">
-                    <col style="width:20%;">
-                    <col style="width:20%;">
+                    <col style="width:28%;">
+                    <col style="width:18%;">
+                    <col style="width:18%;">
                     <col style="width:18%;">
                     <col style="width:18%;">
                 </colgroup>
