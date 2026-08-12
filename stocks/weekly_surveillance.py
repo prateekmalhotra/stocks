@@ -290,6 +290,17 @@ def run_portfolio_surveillance(portfolio_type: str = "defensive") -> Dict[str, A
     print(f"✅ Surveillance audit completed for {port_label} (Target Cash: {target_cash_pct:.2f}% | Actual: {actual_cash_pct:.2f}% | Status: {cash_status})")
     return surveillance_report
 
+def get_surveillance_summary(portfolio_type: str = "defensive") -> Dict[str, Any]:
+    """Retrieves or executes surveillance report for the specified portfolio."""
+    s_file = get_surveillance_filepath(portfolio_type)
+    if s_file.exists():
+        try:
+            with open(s_file, "r") as f:
+                return json.load(f)
+        except Exception:
+            pass
+    return run_portfolio_surveillance(portfolio_type)
+
 def run_dual_surveillance():
     print("=== RUNNING WEEKLY AUTONOMOUS DUAL SURVEILLANCE ===")
     run_portfolio_surveillance("defensive")
@@ -297,3 +308,4 @@ def run_dual_surveillance():
 
 if __name__ == "__main__":
     run_dual_surveillance()
+
