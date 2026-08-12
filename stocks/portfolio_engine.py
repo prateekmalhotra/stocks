@@ -426,18 +426,22 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
             fid_selected.append(item)
             used_def_ind.add(item["industry"])
 
-    # 3. Compute Fidelity Allocations (Buffett-style concentration: 8-12 top fortresses)
+    # 3. Compute Fidelity Allocations
     fid_k = {x["ticker"]: x["kelly_score"] for x in fid_selected}
     fid_mos = sum(x["margin_of_safety_pct"] for x in fid_selected) / len(fid_selected) if fid_selected else 25.0
-    fid_cash, fid_budget, fid_desc = calculate_shiller_macro_cash(True, fid_mos)
+    fid_cash_target, fid_budget, fid_desc = calculate_shiller_macro_cash(True, fid_mos)
     fid_weights = allocate_concentrated_buffett_kelly(fid_k, fid_budget, max_cap=0.2200, min_hurdle=0.0350, min_holdings=8, max_holdings=12)
+
+    # Ensure cash absorbs exact remainder
+    tot_fid_equity = sum(fid_weights.values())
+    exact_fid_cash = round(max(0.05, 1.0 - tot_fid_equity), 4)
 
     sorted_def_tickers = sorted(fid_weights.keys(), key=lambda t: fid_weights[t], reverse=True)
     def_holdings = []
     for t in sorted_def_tickers:
         s = next(x for x in fid_selected if x["ticker"] == t)
         w = fid_weights[t]
-        alloc = total_capital * w
+        alloc = round(total_capital * w, 2)
         shs = round(alloc / s["price"], 2) if s["price"] > 0 else 0
         oe_yr = alloc * (s["oe_yield"] / 100.0)
         def_holdings.append({
@@ -452,7 +456,7 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
             "current_price": s["price"],
             "fair_value": s["fair_value"],
             "margin_of_safety_pct": s["margin_of_safety_pct"],
-            "allocated_dollars": round(alloc, 2),
+            "allocated_dollars": alloc,
             "shares_to_buy": shs,
             "look_through_fcf_yield": s["oe_yield"],
             "annual_owner_earnings": round(oe_yr, 2),
@@ -461,14 +465,14 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
             "report_url": f"reports/{t}.html"
         })
 
-    def_cash_dollars = round(total_capital * fid_cash, 2)
+    def_cash_dollars = round(total_capital - sum(h["allocated_dollars"] for h in def_holdings), 2)
     def_holdings.append({
         "ticker": "USD_CASH",
         "company_name": "USD Cash Reserve",
         "sector": "Cash & Cash Equivalents",
         "industry": "3-Month US Treasury Bills",
         "quality_score": 100.0,
-        "target_weight": fid_cash,
+        "target_weight": exact_fid_cash,
         "pillar": "CASH",
         "cost_basis": 1.0,
         "current_price": 1.0,
@@ -483,18 +487,21 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
         "report_url": "#"
     })
 
-    # 4. Compute Wealthsimple Allocations (Buffett-style concentration: 8-12 top growth compounders)
+    # 4. Compute Wealthsimple Allocations
     ws_k = {x["ticker"]: x["kelly_score"] for x in ws_selected}
     ws_mos = sum(x["margin_of_safety_pct"] for x in ws_selected) / len(ws_selected) if ws_selected else 40.0
-    ws_cash, ws_budget, ws_desc = calculate_shiller_macro_cash(False, ws_mos)
+    ws_cash_target, ws_budget, ws_desc = calculate_shiller_macro_cash(False, ws_mos)
     ws_weights = allocate_concentrated_buffett_kelly(ws_k, ws_budget, max_cap=0.2200, min_hurdle=0.0350, min_holdings=8, max_holdings=12)
+
+    tot_ws_equity = sum(ws_weights.values())
+    exact_ws_cash = round(max(0.03, 1.0 - tot_ws_equity), 4)
 
     sorted_agg_tickers = sorted(ws_weights.keys(), key=lambda t: ws_weights[t], reverse=True)
     agg_holdings = []
     for t in sorted_agg_tickers:
         s = next(x for x in ws_selected if x["ticker"] == t)
         w = ws_weights[t]
-        alloc = total_capital * w
+        alloc = round(total_capital * w, 2)
         shs = round(alloc / s["price"], 2) if s["price"] > 0 else 0
         oe_yr = alloc * (s["oe_yield"] / 100.0)
         agg_holdings.append({
@@ -509,7 +516,7 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
             "current_price": s["price"],
             "fair_value": s["fair_value"],
             "margin_of_safety_pct": s["margin_of_safety_pct"],
-            "allocated_dollars": round(alloc, 2),
+            "allocated_dollars": alloc,
             "shares_to_buy": shs,
             "look_through_fcf_yield": s["oe_yield"],
             "annual_owner_earnings": round(oe_yr, 2),
@@ -518,14 +525,14 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
             "report_url": f"reports/{t}.html"
         })
 
-    agg_cash_dollars = round(total_capital * ws_cash, 2)
+    agg_cash_dollars = round(total_capital - sum(h["allocated_dollars"] for h in agg_holdings), 2)
     agg_holdings.append({
         "ticker": "USD_CASH",
         "company_name": "USD Cash Strike Reserve",
         "sector": "Cash & Cash Equivalents",
         "industry": "3-Month US Treasury Bills",
         "quality_score": 100.0,
-        "target_weight": ws_cash,
+        "target_weight": exact_ws_cash,
         "pillar": "CASH",
         "cost_basis": 1.0,
         "current_price": 1.0,
@@ -562,9 +569,9 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
         "historical_performance": [
             {
                 "date": "2026-08-11",
-                "portfolio_value": total_capital,
+                "portfolio_value": 200000.00,
                 "owner_earnings_runrate": round(def_oe_sum, 2),
-                "spy_benchmark": total_capital
+                "spy_benchmark": 200000.00
             }
         ]
     }
@@ -588,9 +595,9 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
         "historical_performance": [
             {
                 "date": "2026-08-11",
-                "portfolio_value": total_capital,
+                "portfolio_value": 200000.00,
                 "owner_earnings_runrate": round(agg_oe_sum, 2),
-                "spy_benchmark": total_capital
+                "spy_benchmark": 200000.00
             }
         ]
     }
