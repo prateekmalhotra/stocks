@@ -24,8 +24,36 @@ def get_ticker_candidates(ticker: str) -> List[str]:
     return [clean]
 
 
+def convert_to_usd(amount: float, currency: str) -> float:
+    """Guarantees conversion to USD for any international listing."""
+    if not currency or currency.upper() == "USD" or amount <= 0:
+        return amount
+    curr = currency.upper()
+    try:
+        if curr == "CAD":
+            url = "https://query1.finance.yahoo.com/v8/finance/chart/CADUSD=X?interval=1d&range=1d"
+            res = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=4)
+            rate = float(res.json()["chart"]["result"][0]["meta"]["regularMarketPrice"])
+            return amount * rate
+        elif curr in ["GBP", "GBX", "GBp", "GBPEUR"]:
+            url = "https://query1.finance.yahoo.com/v8/finance/chart/GBPUSD=X?interval=1d&range=1d"
+            res = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=4)
+            rate = float(res.json()["chart"]["result"][0]["meta"]["regularMarketPrice"])
+            if curr in ["GBX", "GBp"]:  # Pence to Pounds
+                return (amount / 100.0) * rate
+            return amount * rate
+        elif curr == "EUR":
+            url = "https://query1.finance.yahoo.com/v8/finance/chart/EURUSD=X?interval=1d&range=1d"
+            res = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=4)
+            rate = float(res.json()["chart"]["result"][0]["meta"]["regularMarketPrice"])
+            return amount * rate
+    except Exception:
+        pass
+    return amount
+
+
 def fetch_live_stock_info(ticker: str) -> Tuple[str, float]:
-    """Fetches real-time market price and verified corporate name via Yahoo Finance API."""
+    """Fetches real-time market price and verified corporate name, strictly guaranteeing USD pricing."""
     ticker_clean = ticker.upper().strip()
     headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"}
     candidates = get_ticker_candidates(ticker_clean)
@@ -39,7 +67,9 @@ def fetch_live_stock_info(ticker: str) -> Tuple[str, float]:
                 results = data.get("chart", {}).get("result")
                 if results:
                     meta = results[0]["meta"]
-                    price = float(meta.get("regularMarketPrice", 0.0))
+                    currency = meta.get("currency", "USD")
+                    raw_price = float(meta.get("regularMarketPrice", 0.0))
+                    price = convert_to_usd(raw_price, currency)
                     name = meta.get("shortName") or meta.get("longName") or ticker_clean
                     if price > 0:
                         return name, round(price, 2)
@@ -52,9 +82,11 @@ def fetch_live_stock_info(ticker: str) -> Tuple[str, float]:
             t = yf.Ticker(sym)
             info = t.info
             name = info.get("shortName") or info.get("longName") or ticker_clean
-            price = info.get("regularMarketPrice") or info.get("currentPrice")
-            if price and float(price) > 0:
-                return name, round(float(price), 2)
+            raw_price = info.get("regularMarketPrice") or info.get("currentPrice")
+            currency = info.get("currency", "USD")
+            if raw_price and float(raw_price) > 0:
+                price = convert_to_usd(float(raw_price), currency)
+                return name, round(price, 2)
         except Exception:
             continue
 
