@@ -5,22 +5,22 @@ Dynamic Full-Universe Institutional Portfolio Construction Engine.
 
 MANDATE PRINCIPLES:
 1. FIDELITY (Defensive Fortress & Capital Preservation):
-   - Primary Anchor: Moat Durability (35%) & Balance Sheet Fortress (25%).
+   - Primary Anchor: Moat Durability (30%) & Balance Sheet Fortress (25%).
+   - Factors: MoS >= 20% (20%), Share Cannibalization (15%), Owner Earnings Yield (10%).
    - Zero structural business risk, irreplaceable pricing power, steady compounding.
-   - Sizing: Moat-anchored Fractional Kelly with downside resilience multiplier.
+   - Sizing: Moat & Balance Sheet anchored Fractional Kelly.
 
-2. WEALTHSIMPLE (Aggressive Alpha & Asymmetric Growth Compounders):
-   - Primary Anchor: High-Velocity Growth & Asymmetric Undervaluation.
+2. WEALTHSIMPLE (Aggressive Alpha & Buyback Cannibal Compounders):
+   - Primary Anchor: Deep Margin of Safety (30%) & Share Cannibalization (20%).
+   - Factors: Moat Durability (20%), Balance Sheet Fortress (15%), Organic Growth (15%).
    - STRICT INVARIANT: ZERO VALUE TRAPS / ZERO DISTRESSED TURNAROUNDS.
-   - Requires Minimum Moat >= 8.5/10.0 and Organic Growth >= 6.0%/yr.
-   - Sizing: Exponential Kelly scaling on Expected 5-Year IRR & Margin of Safety.
+   - Requires Minimum Moat >= 8.5/10.0, Organic Growth >= 6.0%/yr, MoS >= 25.0%.
+   - Sizing: Exponential Kelly scaling on Margin of Safety Asymmetry & Expected 5-Year IRR.
 
-COMMON INVARIANTS:
-- Non-negotiable compliance exclusions only (GOOG employer, LMT weapons).
-- 100% dynamic universe ingestion (all 72 covered dossiers).
-- S&P 500 Shiller CAPE Macro Cash Sizing.
-- Granular Industry De-Duplication (Max 1 per distinct sub-industry).
-- Sorted strictly from highest capital allocation to lowest.
+COMPLIANCE & ETHICAL INVARIANTS:
+- GOOG / GOOGL: Direct Employer Affiliation.
+- LMT: Weapons & Defense Manufacturing.
+- BTI: Tobacco & Nicotine Manufacturing.
 """
 
 import json
@@ -44,7 +44,8 @@ MAX_SINGLE_EQUITY_CAP = 0.1500  # Single-asset prudence ceiling
 COMPLIANCE_EXCLUSIONS = {
     "GOOG": "Regulatory/Compliance Constraint: Direct Employer Affiliation",
     "GOOGL": "Regulatory/Compliance Constraint: Direct Employer Affiliation",
-    "LMT": "Ethical Invariant: Weapons & Defense Manufacturing"
+    "LMT": "Ethical Invariant: Weapons & Defense Manufacturing",
+    "BTI": "Ethical Invariant: Tobacco & Nicotine Manufacturing"
 }
 
 # =============================================================================
@@ -181,25 +182,27 @@ def calculate_shiller_macro_cash(is_defensive: bool, weighted_mos: float) -> Tup
 
 def score_fidelity_defensive(ticker: str, meta: dict, cur_p: float, fv: float, sig: str) -> Dict[str, Any]:
     """
-    Fidelity Mandate: Moat Durability & Fortress Capital Preservation First.
-    Weights: Moat (35%), Balance Sheet (25%), Margin of Safety (20%), OE Yield (15%), Growth (5%).
+    Fidelity Mandate: Moat Durability & Fortress Capital Preservation.
+    Weights: Moat (30%), Balance Sheet (25%), Margin of Safety (20%), Buybacks (15%), OE Yield (10%).
     """
     mos_pct = max(0.0, ((fv - cur_p) / cur_p) * 100.0) if cur_p > 0 else 0.0
-    moat_pts = (meta["moat"] / 10.0) * 35.0
+    effective_mos = min(50.0, mos_pct)
+    
+    moat_pts = (meta["moat"] / 10.0) * 30.0
     bs_pts = (meta["bs"] / 10.0) * 25.0
-    mos_pts = min(20.0, (mos_pct / 40.0) * 20.0)
-    oe_pts = min(15.0, (meta.get("oe_yield", 5.0) / 8.0) * 15.0)
-    growth_pts = min(5.0, (meta["growth"] / 15.0) * 5.0)
+    mos_pts = (effective_mos / 50.0) * 20.0
+    cannibal_pts = min(15.0, (meta["cannibal"] / 5.0) * 15.0)
+    oe_pts = min(10.0, (meta.get("oe_yield", 5.0) / 8.0) * 10.0)
     cyc_penalty = max(0.0, (meta.get("cyc", 1.5) - 1.5) * 1.5)
     
-    total_score = round(max(10.0, moat_pts + bs_pts + mos_pts + oe_pts + growth_pts - cyc_penalty), 2)
+    total_score = round(max(10.0, moat_pts + bs_pts + mos_pts + cannibal_pts + oe_pts - cyc_penalty), 2)
     
-    payoff_b = (mos_pct / 100.0) + (meta["oe_yield"] / 20.0)
+    payoff_b = (effective_mos / 100.0) + (meta["oe_yield"] / 20.0) + (meta["cannibal"] / 20.0)
     p = meta["p"]
     q = 1.0 - p
     raw_k = (p * payoff_b - q) / payoff_b if payoff_b > 0 else 0.0
-    quality_mult = ((meta["moat"] * 0.70 + meta["bs"] * 0.30) / 10.0) ** 2
-    k_score = max(0.001, raw_k * quality_mult)
+    quality_mult = ((meta["moat"] * 0.60 + meta["bs"] * 0.40) / 10.0) ** 2
+    k_score = max(0.001, raw_k * quality_mult * (1.0 + (meta["cannibal"] / 20.0)))
     
     return {
         "ticker": ticker, "sector": meta["sector"], "industry": meta["industry"],
@@ -212,33 +215,33 @@ def score_fidelity_defensive(ticker: str, meta: dict, cur_p: float, fv: float, s
 
 def score_wealthsimple_aggressive(ticker: str, meta: dict, cur_p: float, fv: float, sig: str) -> Dict[str, Any]:
     """
-    Wealthsimple Mandate: Quality Growth Compounders (NO TURNAROUNDS).
-    Requires Moat >= 8.5/10.0 and Growth >= 6.0%/yr.
-    Weights: Moat (25%), Margin of Safety (25%), Expected 5Y IRR (25%), Velocity (20%), BS (5%).
+    Wealthsimple Mandate: Asymmetric Cannibal Compounders (NO TURNAROUNDS).
+    Requires MoS >= 25.0%, Moat >= 8.5/10.0, and Growth >= 6.0%/yr.
+    Weights: Margin of Safety (30%), Share Cannibalization (20%), Moat (20%), Balance Sheet (15%), Growth (15%).
     """
     mos_pct = max(0.0, ((fv - cur_p) / cur_p) * 100.0) if cur_p > 0 else 0.0
-    effective_mos = min(50.0, mos_pct) # Sane cap to prevent 95% distressed drops from distorting
+    effective_mos = min(60.0, mos_pct)
     oe_y = meta.get("oe_yield", 5.0)
     cannibal = meta["cannibal"]
     growth = meta["growth"]
     
     expected_irr_5y = oe_y + cannibal + growth + (effective_mos / 5.0)
     
-    moat_pts = (meta["moat"] / 10.0) * 25.0
-    mos_pts = (effective_mos / 50.0) * 25.0
-    irr_pts = min(25.0, (expected_irr_5y / 25.0) * 25.0)
-    velocity_pts = min(20.0, ((cannibal * 1.5 + growth) / 20.0) * 20.0)
-    bs_pts = (meta["bs"] / 10.0) * 5.0
+    mos_pts = (effective_mos / 60.0) * 30.0
+    cannibal_pts = min(20.0, (cannibal / 6.0) * 20.0)
+    moat_pts = (meta["moat"] / 10.0) * 20.0
+    bs_pts = (meta["bs"] / 10.0) * 15.0
+    growth_pts = min(15.0, (growth / 18.0) * 15.0)
     cyc_penalty = max(0.0, (meta.get("cyc", 1.5) - 2.0) * 1.0)
     
-    total_score = round(max(10.0, moat_pts + mos_pts + irr_pts + velocity_pts + bs_pts - cyc_penalty), 2)
+    total_score = round(max(10.0, mos_pts + cannibal_pts + moat_pts + bs_pts + growth_pts - cyc_penalty), 2)
     
     payoff_b = (expected_irr_5y / 15.0)
     p = meta["p"]
     q = 1.0 - p
     raw_k = (p * payoff_b - q) / payoff_b if payoff_b > 0 else 0.0
-    # Moat is the anchor, MoS is the booster
-    k_score = max(0.001, raw_k * ((meta["moat"] / 10.0) ** 1.5) * (1.0 + (effective_mos / 50.0)))
+    mult = ((meta["moat"] * 0.50 + meta["bs"] * 0.50) / 10.0) * (1.0 + (effective_mos / 50.0)) * (1.0 + (cannibal / 15.0))
+    k_score = max(0.001, raw_k * mult)
     
     return {
         "ticker": ticker, "sector": meta["sector"], "industry": meta["industry"],
@@ -257,7 +260,7 @@ def allocate_fractional_kelly_capped(
     k_scores: Dict[str, float],
     budget: float,
     max_cap: float = 0.1500,
-    min_hurdle: float = 0.0250
+    min_hurdle: float = 0.0300
 ) -> Dict[str, float]:
     active_tickers = list(k_scores.keys())
     
@@ -321,25 +324,24 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
         mos = ((fv - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
         meta = get_asset_metadata(ticker, w_item)
         
-        # Strict Rule: Must be active BUY and have at least 12.0% Margin of Safety
-        if sig != "BUY" or mos < 12.0:
+        if sig != "BUY":
             continue
             
         mandate = meta.get("mandate", "defensive")
         if mandate == "defensive":
-            scored = score_fidelity_defensive(ticker, meta, cur_p, fv, sig)
-            if scored["total_score"] >= 65.0:
-                fidelity_candidates.append(scored)
+            # Fidelity: MoS >= 20.0%, Moat >= 8.8
+            if mos >= 20.0 and meta.get("moat", 0) >= 8.8:
+                scored = score_fidelity_defensive(ticker, meta, cur_p, fv, sig)
+                if scored["total_score"] >= 65.0:
+                    fidelity_candidates.append(scored)
         else:
-            # NO TURNAROUNDS / NO VALUE TRAPS IN WEALTHSIMPLE:
-            # Must possess a durable moat (Moat >= 8.5) and organic growth (Growth >= 6.0%)
-            if meta.get("moat", 0) < 8.5 or meta.get("growth", 0) < 6.0:
-                continue
-            scored = score_wealthsimple_aggressive(ticker, meta, cur_p, fv, sig)
-            if scored["total_score"] >= 65.0:
-                wealthsimple_candidates.append(scored)
+            # Wealthsimple: MoS >= 25.0%, Moat >= 8.5, Growth >= 6.0% (Zero value traps)
+            if mos >= 25.0 and meta.get("moat", 0) >= 8.5 and meta.get("growth", 0) >= 6.0:
+                scored = score_wealthsimple_aggressive(ticker, meta, cur_p, fv, sig)
+                if scored["total_score"] >= 60.0:
+                    wealthsimple_candidates.append(scored)
 
-    # 1. Fidelity Selection (Max 1 per industry, sorted by Moat-weighted score)
+    # 1. Fidelity Selection (Max 1 per industry, sorted by score)
     fidelity_candidates.sort(key=lambda x: x["total_score"], reverse=True)
     used_def_ind = set()
     fid_selected = []
@@ -348,7 +350,7 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
             fid_selected.append(item)
             used_def_ind.add(item["industry"])
 
-    # 2. Wealthsimple Selection (Max 1 per industry, sorted by Compounder score)
+    # 2. Wealthsimple Selection (Max 1 per industry, sorted by score)
     wealthsimple_candidates.sort(key=lambda x: x["total_score"], reverse=True)
     used_agg_ind = set()
     ws_selected = []
@@ -359,7 +361,7 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
 
     # 3. Compute Fidelity Allocations
     fid_k = {x["ticker"]: x["kelly_score"] for x in fid_selected}
-    fid_mos = sum(x["margin_of_safety_pct"] for x in fid_selected) / len(fid_selected) if fid_selected else 20.0
+    fid_mos = sum(x["margin_of_safety_pct"] for x in fid_selected) / len(fid_selected) if fid_selected else 25.0
     fid_cash, fid_budget, fid_desc = calculate_shiller_macro_cash(True, fid_mos)
     fid_weights = allocate_fractional_kelly_capped(fid_k, fid_budget, MAX_SINGLE_EQUITY_CAP, 0.0300) # Min 3.0%
 
@@ -416,9 +418,9 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
 
     # 4. Compute Wealthsimple Allocations
     ws_k = {x["ticker"]: x["kelly_score"] for x in ws_selected}
-    ws_mos = sum(x["margin_of_safety_pct"] for x in ws_selected) / len(ws_selected) if ws_selected else 35.0
+    ws_mos = sum(x["margin_of_safety_pct"] for x in ws_selected) / len(ws_selected) if ws_selected else 40.0
     ws_cash, ws_budget, ws_desc = calculate_shiller_macro_cash(False, ws_mos)
-    ws_weights = allocate_fractional_kelly_capped(ws_k, ws_budget, MAX_SINGLE_EQUITY_CAP, 0.0250) # Min 2.5%
+    ws_weights = allocate_fractional_kelly_capped(ws_k, ws_budget, MAX_SINGLE_EQUITY_CAP, 0.0300) # Min 3.0%
 
     sorted_agg_tickers = sorted(ws_weights.keys(), key=lambda t: ws_weights[t], reverse=True)
     agg_holdings = []
@@ -485,7 +487,7 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
         "rebalance_log": [
             {
                 "date": "2026-08-11",
-                "action": "QUALITY COMPOUNDER INCEPTION",
+                "action": "CANNIBAL FORTRESS CALIBRATION",
                 "reason": fid_desc,
                 "verification_status": "Verified 3/3 Autonomous Council"
             }
@@ -503,7 +505,7 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
     agg_state = {
         "portfolio_name": "Wealthsimple",
         "portfolio_type": "aggressive",
-        "target_audience": "Aggressive Alpha, High-Velocity Quality Compounders (No Value Traps)",
+        "target_audience": "Aggressive Alpha, High-Velocity Cannibal Compounders (No Value Traps)",
         "inception_date": "2026-08-11",
         "last_rebalance_date": "2026-08-11",
         "base_capital_usd": total_capital,
@@ -511,7 +513,7 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
         "rebalance_log": [
             {
                 "date": "2026-08-11",
-                "action": "QUALITY COMPOUNDER INCEPTION",
+                "action": "CANNIBAL FORTRESS CALIBRATION",
                 "reason": ws_desc,
                 "verification_status": "Verified 3/3 Autonomous Council"
             }

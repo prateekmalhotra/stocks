@@ -2,60 +2,34 @@
   "portfolio_type": "defensive",
   "portfolio_label": "Fidelity (Defensive Fortress)",
   "last_run_date": "2026-08-11",
-  "last_run_timestamp": "2026-08-11T23:19:26.368132",
+  "last_run_timestamp": "2026-08-11T23:37:51.709790",
   "status": "ACTION_REQUIRED",
-  "status_display": "REBALANCE PROPOSAL PENDING (2 ACTIONS)",
+  "status_display": "REBALANCE PROPOSAL PENDING (13 ACTIONS)",
   "action_required": true,
-  "verdict_summary": "Council flagged 2 position(s) exceeding materiality rebalance hurdles.",
+  "verdict_summary": "Council flagged 13 position(s) exceeding materiality rebalance hurdles.",
   "total_universe_scanned": 72,
-  "active_holdings_verified": 18,
+  "active_holdings_verified": 13,
   "shiller_cape": 35.5,
   "buffett_indicator_pct": 198.5,
   "treasury_3m_yield_pct": 5.0,
-  "portfolio_average_mos_pct": 26.34,
-  "cash_cushion_pct": 19.32,
+  "portfolio_average_mos_pct": 29.72,
+  "cash_cushion_pct": 18.67,
   "macro_cash_audit": {
     "shiller_cape": 35.5,
     "historical_cape_median": 18.0,
     "buffett_indicator_pct": 198.5,
     "treasury_3m_yield_pct": 5.0,
-    "portfolio_weighted_mos_pct": 26.34,
+    "portfolio_weighted_mos_pct": 29.72,
     "mandate_structural_floor_pct": 5.0,
-    "calculated_target_cash_pct": 19.32,
-    "current_actual_cash_pct": 19.29,
+    "calculated_target_cash_pct": 18.67,
+    "current_actual_cash_pct": 18.64,
     "cash_status": "OPTIMAL_DRY_POWDER_MAINTAINED",
     "strike_trigger_threshold": "MoS > 45.0% on Tier-1 Compounder or Flash Crash Dislocation",
     "cash_directive": "Maintain 3M US Treasury float yielding 5.00% risk-free. Stand ready for fat pitch market dislocations.",
-    "formula_description": "Senior US Treasury Buffer (19.32%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +26.34% weighted Margin of Safety."
+    "formula_description": "Senior US Treasury Buffer (18.67%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +29.72% weighted Margin of Safety."
   },
   "next_scheduled_run": "2026-08-18",
   "holdings_health": [
-    {
-      "ticker": "CSU",
-      "company_name": "Constellation Software, Inc.",
-      "price": 2308.0,
-      "fair_value": 2850.0,
-      "mos_pct": 23.48,
-      "signal": "BUY",
-      "moat_score": 9.9,
-      "expected_irr": 23.2,
-      "kelly_edge": 51.69,
-      "health_status": "PRISTINE",
-      "thesis_core": "Mission-critical vertical market software acquirer; 25%+ ROIC, negative working capital float, zero churn."
-    },
-    {
-      "ticker": "CPRT",
-      "company_name": "Copart, Inc.",
-      "price": 29.4,
-      "fair_value": 38.5,
-      "mos_pct": 30.95,
-      "signal": "BUY",
-      "moat_score": 9.7,
-      "expected_irr": 22.1,
-      "kelly_edge": 37.58,
-      "health_status": "PRISTINE",
-      "thesis_core": "Zoning-protected salvage yard land monopoly + pristine zero-debt balance sheet fortress."
-    },
     {
       "ticker": "ADBE",
       "company_name": "Adobe Inc.",
@@ -68,71 +42,6 @@
       "kelly_edge": 34.95,
       "health_status": "PRISTINE",
       "thesis_core": "Creative Cloud monopoly; 85%+ gross margins, $3.5B+ annual share buybacks."
-    },
-    {
-      "ticker": "UNH",
-      "company_name": "UnitedHealth Group Incorporated",
-      "price": 402.19,
-      "fair_value": 495.0,
-      "mos_pct": 23.08,
-      "signal": "BUY",
-      "moat_score": 9.6,
-      "expected_irr": 20.6,
-      "kelly_edge": 25.6,
-      "health_status": "PRISTINE",
-      "thesis_core": "Integrated Optum healthcare platform + UnitedHealthcare insurance scale."
-    },
-    {
-      "ticker": "SPGI",
-      "company_name": "S&P Global Inc.",
-      "price": 408.69,
-      "fair_value": 469.99,
-      "mos_pct": 15.0,
-      "signal": "BUY",
-      "moat_score": 9.8,
-      "expected_irr": 18.4,
-      "kelly_edge": 31.57,
-      "health_status": "PRISTINE",
-      "thesis_core": "Sovereign/corporate debt rating duopoly + S&P 500 benchmark index licensing."
-    },
-    {
-      "ticker": "INTU",
-      "company_name": "Intuit Inc.",
-      "price": 336.44,
-      "fair_value": 425.0,
-      "mos_pct": 26.32,
-      "signal": "BUY",
-      "moat_score": 9.5,
-      "expected_irr": 21.3,
-      "kelly_edge": 26.72,
-      "health_status": "PRISTINE",
-      "thesis_core": "QuickBooks & TurboTax SMB accounting monopoly; high regulatory switching costs."
-    },
-    {
-      "ticker": "CMG",
-      "company_name": "Chipotle Mexican Grill, Inc.",
-      "price": 32.0,
-      "fair_value": 42.5,
-      "mos_pct": 32.81,
-      "signal": "BUY",
-      "moat_score": 9.1,
-      "expected_irr": 23.4,
-      "kelly_edge": 30.14,
-      "health_status": "PRISTINE",
-      "thesis_core": "High unit-economics restaurant chain expanding drive-thru Chipotlanes across North America."
-    },
-    {
-      "ticker": "MA",
-      "company_name": "Mastercard Incorporated",
-      "price": 561.44,
-      "fair_value": 635.0,
-      "mos_pct": 13.1,
-      "signal": "BUY",
-      "moat_score": 9.8,
-      "expected_irr": 19.9,
-      "kelly_edge": 35.24,
-      "health_status": "PRISTINE",
-      "thesis_core": "Global payment rail duopoly; 57% operating margin, secular cashless conversion."
     },
     {
       "ticker": "BKNG",
@@ -148,17 +57,69 @@
       "thesis_core": "Global travel OTA network effects duopoly + 35%+ FCF conversion and aggressive buybacks."
     },
     {
-      "ticker": "ASML",
-      "company_name": "ASML Holding N.V. - New York Re",
-      "price": 1799.38,
-      "fair_value": 2150.0,
-      "mos_pct": 19.49,
+      "ticker": "CPRT",
+      "company_name": "Copart, Inc.",
+      "price": 29.4,
+      "fair_value": 38.5,
+      "mos_pct": 30.95,
+      "signal": "BUY",
+      "moat_score": 9.7,
+      "expected_irr": 22.1,
+      "kelly_edge": 37.58,
+      "health_status": "PRISTINE",
+      "thesis_core": "Zoning-protected salvage yard land monopoly + pristine zero-debt balance sheet fortress."
+    },
+    {
+      "ticker": "CSU",
+      "company_name": "Constellation Software, Inc.",
+      "price": 2308.0,
+      "fair_value": 2850.0,
+      "mos_pct": 23.48,
       "signal": "BUY",
       "moat_score": 9.9,
-      "expected_irr": 20.1,
-      "kelly_edge": 26.24,
+      "expected_irr": 23.2,
+      "kelly_edge": 51.69,
       "health_status": "PRISTINE",
-      "thesis_core": "100% global monopoly on EUV lithography machines; evaluated against semi capex ordering cycles."
+      "thesis_core": "Mission-critical vertical market software acquirer; 25%+ ROIC, negative working capital float, zero churn."
+    },
+    {
+      "ticker": "UNH",
+      "company_name": "UnitedHealth Group Incorporated",
+      "price": 402.19,
+      "fair_value": 495.0,
+      "mos_pct": 23.08,
+      "signal": "BUY",
+      "moat_score": 9.6,
+      "expected_irr": 20.6,
+      "kelly_edge": 25.6,
+      "health_status": "PRISTINE",
+      "thesis_core": "Integrated Optum healthcare platform + UnitedHealthcare insurance scale."
+    },
+    {
+      "ticker": "CMCSA",
+      "company_name": "Comcast Corporation",
+      "price": 25.65,
+      "fair_value": 38.0,
+      "mos_pct": 48.15,
+      "signal": "BUY",
+      "moat_score": 8.8,
+      "expected_irr": 28.1,
+      "kelly_edge": 12.74,
+      "health_status": "PRISTINE",
+      "thesis_core": "Broadband last-mile infrastructure with heavy share cannibalization."
+    },
+    {
+      "ticker": "INTU",
+      "company_name": "Intuit Inc.",
+      "price": 336.44,
+      "fair_value": 425.0,
+      "mos_pct": 26.32,
+      "signal": "BUY",
+      "moat_score": 9.5,
+      "expected_irr": 21.3,
+      "kelly_edge": 26.72,
+      "health_status": "PRISTINE",
+      "thesis_core": "QuickBooks & TurboTax SMB accounting monopoly; high regulatory switching costs."
     },
     {
       "ticker": "SONY",
@@ -187,6 +148,19 @@
       "thesis_core": "Enterprise CRM platform standard; multi-cloud cross-selling and margin expansion."
     },
     {
+      "ticker": "CMG",
+      "company_name": "Chipotle Mexican Grill, Inc.",
+      "price": 32.0,
+      "fair_value": 42.5,
+      "mos_pct": 32.81,
+      "signal": "BUY",
+      "moat_score": 9.1,
+      "expected_irr": 23.4,
+      "kelly_edge": 30.14,
+      "health_status": "PRISTINE",
+      "thesis_core": "High unit-economics restaurant chain expanding drive-thru Chipotlanes across North America."
+    },
+    {
       "ticker": "NKE",
       "company_name": "Nike, Inc.",
       "price": 41.32,
@@ -200,58 +174,6 @@
       "thesis_core": "Unmatched global athlete endorsement roster and sports culture scale turnaround."
     },
     {
-      "ticker": "DIS",
-      "company_name": "Walt Disney Company (The)",
-      "price": 103.53,
-      "fair_value": 135.0,
-      "mos_pct": 30.4,
-      "signal": "BUY",
-      "moat_score": 9.2,
-      "expected_irr": 18.9,
-      "kelly_edge": 4.19,
-      "health_status": "PRISTINE",
-      "thesis_core": "Unmatched timeless family entertainment IP, theme park pricing power, streaming profitability."
-    },
-    {
-      "ticker": "UL",
-      "company_name": "Unilever PLC",
-      "price": 62.37,
-      "fair_value": 72.0,
-      "mos_pct": 15.44,
-      "signal": "BUY",
-      "moat_score": 9.0,
-      "expected_irr": 14.3,
-      "kelly_edge": 3.04,
-      "health_status": "PRISTINE",
-      "thesis_core": "Global footprint in emerging market staples with steady pricing power."
-    },
-    {
-      "ticker": "BTI",
-      "company_name": "British American Tobacco  Indus",
-      "price": 56.81,
-      "fair_value": 72.0,
-      "mos_pct": 26.74,
-      "signal": "BUY",
-      "moat_score": 8.8,
-      "expected_irr": 19.8,
-      "kelly_edge": 2.39,
-      "health_status": "PRISTINE",
-      "thesis_core": "High-dividend cash generator transitioning into modern oral and vaping categories."
-    },
-    {
-      "ticker": "CMCSA",
-      "company_name": "Comcast Corporation",
-      "price": 25.65,
-      "fair_value": 38.0,
-      "mos_pct": 48.15,
-      "signal": "BUY",
-      "moat_score": 8.8,
-      "expected_irr": 28.1,
-      "kelly_edge": 12.74,
-      "health_status": "PRISTINE",
-      "thesis_core": "Broadband last-mile infrastructure with heavy share cannibalization."
-    },
-    {
       "ticker": "ACN",
       "company_name": "Accenture plc",
       "price": 179.82,
@@ -263,41 +185,64 @@
       "kelly_edge": 2.42,
       "health_status": "PRISTINE",
       "thesis_core": "Global systems integrator and enterprise AI implementation partner."
+    },
+    {
+      "ticker": "DIS",
+      "company_name": "Walt Disney Company (The)",
+      "price": 103.53,
+      "fair_value": 135.0,
+      "mos_pct": 30.4,
+      "signal": "BUY",
+      "moat_score": 9.2,
+      "expected_irr": 18.9,
+      "kelly_edge": 4.19,
+      "health_status": "PRISTINE",
+      "thesis_core": "Unmatched timeless family entertainment IP, theme park pricing power, streaming profitability."
     }
   ],
   "top_watchlist_on_radar": [
     {
-      "ticker": "UPWK",
-      "company_name": "Upwork Inc.",
-      "price": 8.36,
-      "fair_value": 12.5,
-      "mos_pct": 49.52,
-      "expected_irr": 32.4,
-      "kelly_edge": 7.44,
-      "moat_score": 8.4
+      "ticker": "META",
+      "company_name": "Meta Platforms, Inc.",
+      "price": 599.12,
+      "fair_value": 720.0,
+      "mos_pct": 20.18,
+      "expected_irr": 25.6,
+      "kelly_edge": 42.83,
+      "moat_score": 9.7
     },
     {
-      "ticker": "YELP",
-      "company_name": "Yelp Inc.",
-      "price": 23.61,
-      "fair_value": 34.0,
-      "mos_pct": 44.01,
-      "expected_irr": 30.3,
-      "kelly_edge": 3.98,
-      "moat_score": 8.2
+      "ticker": "NOW",
+      "company_name": "ServiceNow, Inc.",
+      "price": 127.54,
+      "fair_value": 158.0,
+      "mos_pct": 23.88,
+      "expected_irr": 25.4,
+      "kelly_edge": 25.31,
+      "moat_score": 9.3
     },
     {
-      "ticker": "LGCY",
-      "company_name": "Legacy Education Inc.",
-      "price": 10.65,
-      "fair_value": 15.5,
-      "mos_pct": 45.54,
-      "expected_irr": 32.6,
-      "kelly_edge": 1.71,
-      "moat_score": 8.2
+      "ticker": "VRT",
+      "company_name": "Vertiv Holdings, LLC",
+      "price": 281.81,
+      "fair_value": 345.0,
+      "mos_pct": 22.42,
+      "expected_irr": 29.3,
+      "kelly_edge": 19.19,
+      "moat_score": 9.1
     }
   ],
   "rebalance_proposals": [
+    {
+      "action": "SWAP_PROPOSAL",
+      "ticker": "META",
+      "reason": "Dislocation arbitrage: META offers Edge 42.83 vs 0.29 min active."
+    },
+    {
+      "action": "SWAP_PROPOSAL",
+      "ticker": "AMZN",
+      "reason": "Dislocation arbitrage: AMZN offers Edge 35.87 vs 0.29 min active."
+    },
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "MSFT",
@@ -305,8 +250,53 @@
     },
     {
       "action": "SWAP_PROPOSAL",
+      "ticker": "RDDT",
+      "reason": "Dislocation arbitrage: RDDT offers Edge 9.51 vs 0.29 min active."
+    },
+    {
+      "action": "SWAP_PROPOSAL",
+      "ticker": "UBER",
+      "reason": "Dislocation arbitrage: UBER offers Edge 17.46 vs 0.29 min active."
+    },
+    {
+      "action": "SWAP_PROPOSAL",
+      "ticker": "NOW",
+      "reason": "Dislocation arbitrage: NOW offers Edge 25.31 vs 0.29 min active."
+    },
+    {
+      "action": "SWAP_PROPOSAL",
+      "ticker": "MA",
+      "reason": "Dislocation arbitrage: MA offers Edge 35.24 vs 0.29 min active."
+    },
+    {
+      "action": "SWAP_PROPOSAL",
+      "ticker": "ASML",
+      "reason": "Dislocation arbitrage: ASML offers Edge 26.24 vs 0.29 min active."
+    },
+    {
+      "action": "SWAP_PROPOSAL",
       "ticker": "MSCI",
       "reason": "Dislocation arbitrage: MSCI offers Edge 24.45 vs 0.29 min active."
+    },
+    {
+      "action": "SWAP_PROPOSAL",
+      "ticker": "QCOM",
+      "reason": "Dislocation arbitrage: QCOM offers Edge 10.86 vs 0.29 min active."
+    },
+    {
+      "action": "SWAP_PROPOSAL",
+      "ticker": "SPGI",
+      "reason": "Dislocation arbitrage: SPGI offers Edge 31.57 vs 0.29 min active."
+    },
+    {
+      "action": "SWAP_PROPOSAL",
+      "ticker": "TSM",
+      "reason": "Dislocation arbitrage: TSM offers Edge 34.64 vs 0.29 min active."
+    },
+    {
+      "action": "SWAP_PROPOSAL",
+      "ticker": "VRT",
+      "reason": "Dislocation arbitrage: VRT offers Edge 19.19 vs 0.29 min active."
     }
   ]
 }
