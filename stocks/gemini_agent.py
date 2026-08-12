@@ -330,7 +330,12 @@ def verify_and_repair_html_structure(html: str) -> str:
     cleaned = re.sub(r"\*\*(.*?)\*\*", lambda m: f"<strong>{m.group(1)}</strong>", cleaned)
     cleaned = re.sub(r"(?<!\*)\*([^*]+)\*(?!\*)", lambda m: f"<em>{m.group(1)}</em>", cleaned)
     
-    # 9. Convert numbered and bullet lists
+    # 9. Clean and convert bullet and numbered lists with zero nesting
+    cleaned = re.sub(r"<ul>\s*<ul>+", "<ul>", cleaned)
+    cleaned = re.sub(r"</ul>\s*</ul>+", "</ul>", cleaned)
+    cleaned = re.sub(r"<ol>\s*<ol>+", "<ol>", cleaned)
+    cleaned = re.sub(r"</ol>\s*</ol>+", "</ol>", cleaned)
+
     lines = cleaned.split("\n")
     in_ol = False
     in_ul = False
@@ -350,14 +355,14 @@ def verify_and_repair_html_structure(html: str) -> str:
                 new_lines.append('<ol style="padding-left:22px; line-height:1.65; margin:14px 0;">')
                 in_ol = True
             new_lines.append(f"  <li>{ol_match.group(2)}</li>")
-        elif (ul_match or li_start) and not stripped.startswith("<table") and not stripped.startswith("<div") and not stripped.startswith("<h"):
+        elif ul_match and not stripped.startswith("<table") and not stripped.startswith("<div") and not stripped.startswith("<h"):
             if in_ol:
                 new_lines.append("</ol>")
                 in_ol = False
             if not in_ul:
                 new_lines.append('<ul style="padding-left:22px; line-height:1.65; margin:14px 0;">')
                 in_ul = True
-            content = ul_match.group(1) if ul_match else li_start.group(1)
+            content = ul_match.group(1)
             if not content.endswith("</li>"):
                 content = content + "</li>"
             if not content.startswith("<li>"):
@@ -378,6 +383,8 @@ def verify_and_repair_html_structure(html: str) -> str:
         new_lines.append("</ul>")
         
     cleaned = "\n".join(new_lines)
+    cleaned = re.sub(r"<ul>\s*<ul>+", "<ul>", cleaned)
+    cleaned = re.sub(r"</ul>\s*</ul>+", "</ul>", cleaned)
 
     # 10. Clean up unclosed table tags & cells
     cleaned = re.sub(r"<td>([^<]+)(?=(?:<tr>|</tr>|<td>|<th>|$))", r"<td>\1</td>", cleaned)
