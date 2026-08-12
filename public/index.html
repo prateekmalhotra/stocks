@@ -444,9 +444,30 @@
         .alert-title { font-family: var(--font-serif); font-size: 1.2rem; font-weight: 500; color: var(--text-title); margin-bottom: 4px; }
         .alert-blurb { font-size: 1.02rem; color: var(--text-secondary); line-height: 1.55; }
 
-        .alert-right { text-align: right; min-width: 140px; }
+        .alert-right { text-align: right; }
         .alert-price-val { font-size: 1.45rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }
         .alert-price-pct { font-size: 0.9rem; font-family: var(--font-mono); }
+        .alert-dismiss-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            color: var(--text-dim);
+            border-radius: 8px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.15s ease;
+            flex-shrink: 0;
+        }
+        .alert-dismiss-btn:hover {
+            background: rgba(204, 120, 92, 0.16) !important;
+            color: var(--accent-warm) !important;
+            border-color: var(--accent-warm) !important;
+            transform: scale(1.08);
+        }
 
         /* Pills */
         .pill {
@@ -5819,9 +5840,12 @@
                 <div class="alert-title">Q2 2026 Cash Flow Surge & Record $1.7B M&A Deployment Confirm Anti-Mr. Market Buy Signal</div>
                 <div class="alert-blurb">Post-earnings transcript audit and financial review confirm that the organic deceleration (1% FX-adjusted) was driven by transient accounting comps (Altera $17M upfront 2025 revenue, TDC comp, and South American customer</div>
             </div>
-            <div class="alert-right">
-                <div class="alert-price-val">$2171.01</div>
-                <div class="alert-price-pct neg">-5.94%</div>
+            <div class="alert-right" style="display:flex; align-items:center; gap:16px;">
+                <div style="text-align:right;">
+                    <div class="alert-price-val">$2171.01</div>
+                    <div class="alert-price-pct neg">-5.94%</div>
+                </div>
+                <button class="alert-dismiss-btn" title="Dismiss this alert" onclick="event.stopPropagation(); dismissAlert('CSU_2026-08-12_1531')">✕</button>
             </div>
         </div>
         
@@ -5835,9 +5859,12 @@
                 <div class="alert-title">Vistry Swings to H1 Loss as Inventory Liquidation Spikes Daily Debt; Strategic Review & September SAHP Grants Mark High-Stakes Pivot</div>
                 <div class="alert-blurb">Vistry's H1 2026 trading update revealed an expected statutory loss before tax of ~$39M USD (£30M) following a ~$65M USD (£50M) adverse impact from heavy private sales discounting (7.1% vs 1.4% YoY) and site write-downs</div>
             </div>
-            <div class="alert-right">
-                <div class="alert-price-val">$3.43</div>
-                <div class="alert-price-pct neg">-8.53%</div>
+            <div class="alert-right" style="display:flex; align-items:center; gap:16px;">
+                <div style="text-align:right;">
+                    <div class="alert-price-val">$3.43</div>
+                    <div class="alert-price-pct neg">-8.53%</div>
+                </div>
+                <button class="alert-dismiss-btn" title="Dismiss this alert" onclick="event.stopPropagation(); dismissAlert('BVHMF_2026-08-11_1600')">✕</button>
             </div>
         </div>
         
@@ -5851,9 +5878,12 @@
                 <div class="alert-title">UPWK Q2 2026 Audit: Revenue Guidance Trim Triggers Deep Value Buy Opportunity at $8.61</div>
                 <div class="alert-blurb">Upwork's Q2 2026 earnings report confirmed a top-line guidance trim to $730M-$750M due to headwinds from Google SEO search updates and AI automation of lower-complexity tasks. However, the market's post-earnings drop to </div>
             </div>
-            <div class="alert-right">
-                <div class="alert-price-val">$8.61</div>
-                <div class="alert-price-pct neg">-10.96%</div>
+            <div class="alert-right" style="display:flex; align-items:center; gap:16px;">
+                <div style="text-align:right;">
+                    <div class="alert-price-val">$8.61</div>
+                    <div class="alert-price-pct neg">-10.96%</div>
+                </div>
+                <button class="alert-dismiss-btn" title="Dismiss this alert" onclick="event.stopPropagation(); dismissAlert('UPWK_2026-08-11_1047')">✕</button>
             </div>
         </div>
         
@@ -7645,12 +7675,20 @@
 
         function dismissAlert(alertId) {
             if (!alertId) return;
-            const dismissed = getDismissedAlertIds();
-            if (!dismissed.includes(alertId)) {
-                dismissed.push(alertId);
-                localStorage.setItem('alphathesis_dismissed_alerts', JSON.stringify(dismissed));
+            const item = document.querySelector(`.alert-item[data-alert-id="${alertId}"]`);
+            if (item) {
+                item.style.transition = 'opacity 0.22s ease, transform 0.22s ease';
+                item.style.opacity = '0';
+                item.style.transform = 'scale(0.96)';
             }
-            refreshAlertsUI();
+            setTimeout(() => {
+                const dismissed = getDismissedAlertIds();
+                if (!dismissed.includes(alertId)) {
+                    dismissed.push(alertId);
+                    localStorage.setItem('alphathesis_dismissed_alerts', JSON.stringify(dismissed));
+                }
+                refreshAlertsUI();
+            }, 200);
         }
 
         function refreshAlertsUI() {

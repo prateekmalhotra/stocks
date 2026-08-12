@@ -2062,9 +2062,12 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                 <div class="alert-title">{a.title.rstrip(".")}</div>
                 <div class="alert-blurb">{clean_blurb}</div>
             </div>
-            <div class="alert-right">
-                <div class="alert-price-val">${a.price_at_alert:.2f}</div>
-                <div class="alert-price-pct {ret_class}">{a.price_change_pct:+.2f}%</div>
+            <div class="alert-right" style="display:flex; align-items:center; gap:16px;">
+                <div style="text-align:right;">
+                    <div class="alert-price-val">${a.price_at_alert:.2f}</div>
+                    <div class="alert-price-pct {ret_class}">{a.price_change_pct:+.2f}%</div>
+                </div>
+                <button class="alert-dismiss-btn" title="Dismiss this alert" onclick="event.stopPropagation(); dismissAlert('{alert_id}')">✕</button>
             </div>
         </div>
         """
@@ -2528,9 +2531,30 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         .alert-title {{ font-family: var(--font-serif); font-size: 1.2rem; font-weight: 500; color: var(--text-title); margin-bottom: 4px; }}
         .alert-blurb {{ font-size: 1.02rem; color: var(--text-secondary); line-height: 1.55; }}
 
-        .alert-right {{ text-align: right; min-width: 140px; }}
+        .alert-right {{ text-align: right; }}
         .alert-price-val {{ font-size: 1.45rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }}
         .alert-price-pct {{ font-size: 0.9rem; font-family: var(--font-mono); }}
+        .alert-dismiss-btn {{
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            color: var(--text-dim);
+            border-radius: 8px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.15s ease;
+            flex-shrink: 0;
+        }}
+        .alert-dismiss-btn:hover {{
+            background: rgba(204, 120, 92, 0.16) !important;
+            color: var(--accent-warm) !important;
+            border-color: var(--accent-warm) !important;
+            transform: scale(1.08);
+        }}
 
         /* Pills */
         .pill {{
@@ -2852,12 +2876,20 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
 
         function dismissAlert(alertId) {{
             if (!alertId) return;
-            const dismissed = getDismissedAlertIds();
-            if (!dismissed.includes(alertId)) {{
-                dismissed.push(alertId);
-                localStorage.setItem('alphathesis_dismissed_alerts', JSON.stringify(dismissed));
+            const item = document.querySelector(`.alert-item[data-alert-id="${{alertId}}"]`);
+            if (item) {{
+                item.style.transition = 'opacity 0.22s ease, transform 0.22s ease';
+                item.style.opacity = '0';
+                item.style.transform = 'scale(0.96)';
             }}
-            refreshAlertsUI();
+            setTimeout(() => {{
+                const dismissed = getDismissedAlertIds();
+                if (!dismissed.includes(alertId)) {{
+                    dismissed.push(alertId);
+                    localStorage.setItem('alphathesis_dismissed_alerts', JSON.stringify(dismissed));
+                }}
+                refreshAlertsUI();
+            }}, 200);
         }}
 
         function refreshAlertsUI() {{
