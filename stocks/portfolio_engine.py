@@ -204,27 +204,27 @@ def score_fidelity_defensive(
     """
     Fidelity Mandate: Moat Durability, Pricing Power & Fortress Capital Preservation.
     Scoring weights:
-    - Downside Risk Penalty & Cushion: (bear_ret + 20.0) * 0.50
-    - Base Return Margin of Safety: min(30.0, base_ret * 0.60)
-    - Moat Durability: (moat / 10.0) * 20.0
-    - Pricing Power (Gross Margin Retention): (p / 0.90) * 10.0
-    - Balance Sheet Fortress: (bs / 10.0) * 20.0
-    - Share Cannibalization: min(10.0, cannibal * 2.0)
+    - Moat Durability (30% weight): (moat / 10.0) * 30.0
+    - Pricing Power (Gross Margin Retention & Inflation Pass-Through - 20% weight): min(20.0, (p / 0.90) * 20.0)
+    - Downside Risk Penalty & Cushion: (bear_ret + 20.0) * 0.40
+    - Base Return Margin of Safety: min(20.0, max(-10.0, base_ret * 0.40))
+    - Balance Sheet Fortress: (bs / 10.0) * 15.0
+    - Share Cannibalization: min(5.0, cannibal * 1.0)
     """
     bear_ret = ((bear_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
     base_ret = ((base_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
     bull_ret = ((bull_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
     
-    downside_pts = (bear_ret + 20.0) * 0.50
-    mos_pts = min(30.0, max(-10.0, base_ret * 0.60))
-    moat_pts = (meta.get("moat", 8.0) / 10.0) * 20.0
+    moat_pts = (meta.get("moat", 8.0) / 10.0) * 30.0
     pricing_power = meta.get("p", 0.85)
-    pricing_power_pts = min(10.0, (pricing_power / 0.90) * 10.0)
-    bs_pts = (meta.get("bs", 8.0) / 10.0) * 20.0
-    cannibal_pts = min(10.0, meta.get("cannibal", 1.0) * 2.0)
+    pricing_power_pts = min(20.0, (pricing_power / 0.90) * 20.0)
+    downside_pts = (bear_ret + 20.0) * 0.40
+    mos_pts = min(20.0, max(-10.0, base_ret * 0.40))
+    bs_pts = (meta.get("bs", 8.0) / 10.0) * 15.0
+    cannibal_pts = min(5.0, meta.get("cannibal", 1.0) * 1.0)
     
-    total_score = round(max(5.0, downside_pts + mos_pts + moat_pts + pricing_power_pts + bs_pts + cannibal_pts), 2)
-    k_score = max(0.001, (total_score / 100.0) ** 2 * (meta.get("moat", 8.0) / 10.0) * (pricing_power / 0.85))
+    total_score = round(max(5.0, moat_pts + pricing_power_pts + downside_pts + mos_pts + bs_pts + cannibal_pts), 2)
+    fid_k = max(0.001, (total_score / 100.0) ** 2 * ((meta.get("moat", 8.0) / 10.0) ** 1.5) * ((pricing_power / 0.85) ** 1.5))
     
     return {
         "ticker": ticker, "sector": meta["sector"], "industry": meta["industry"],
@@ -234,7 +234,7 @@ def score_fidelity_defensive(
         "margin_of_safety_pct": round(base_ret, 2), "oe_yield": meta.get("oe_yield", 5.0),
         "growth": meta["growth"], "cannibal": meta["cannibal"],
         "moat": meta["moat"], "bs": meta["bs"], "pricing_power": pricing_power,
-        "total_score": total_score, "kelly_score": k_score,
+        "total_score": total_score, "kelly_score": fid_k,
         "thesis": meta.get("thesis", ""), "action_signal": sig
     }
 
@@ -250,28 +250,28 @@ def score_wealthsimple_aggressive(
     """
     Wealthsimple Mandate: Asymmetric Growth, Pricing Power & Quality Compounders.
     Scoring weights:
-    - Bull Case Asymmetric Upside: (bull_ret / 100.0) * 35.0
-    - Base Return Margin of Safety: (base_ret / 50.0) * 15.0
-    - Organic Growth CAGR: (growth / 20.0) * 25.0
-    - Pricing Power (Gross Margin Retention): (p / 0.90) * 10.0
-    - Moat Floor: (moat / 10.0) * 10.0
-    - Downside Risk Penalty: (bear_ret + 30.0) * 0.30
+    - Organic Growth CAGR: min(25.0, (growth / 20.0) * 25.0)
+    - Bull Case Asymmetric Upside: min(25.0, (bull_ret / 100.0) * 25.0)
+    - Pricing Power (Gross Margin Retention): min(18.0, (p / 0.90) * 18.0)
+    - Economic Moat Defense: (moat / 10.0) * 18.0
+    - Base Return Margin of Safety: min(10.0, (base_ret / 50.0) * 10.0)
+    - Downside Risk Penalty: (bear_ret + 30.0) * 0.25
     """
     bear_ret = ((bear_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
     base_ret = ((base_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
     bull_ret = ((bull_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
     
     asym_ratio = bull_ret / max(10.0, abs(bear_ret)) if bear_ret < 0 else (bull_ret / 5.0)
-    bull_pts = min(35.0, max(0.0, (bull_ret / 100.0) * 35.0))
-    base_pts = min(15.0, max(0.0, (base_ret / 50.0) * 15.0))
     growth_pts = min(25.0, max(0.0, (meta.get("growth", 5.0) / 20.0) * 25.0))
+    bull_pts = min(25.0, max(0.0, (bull_ret / 100.0) * 25.0))
     pricing_power = meta.get("p", 0.85)
-    pricing_power_pts = min(10.0, (pricing_power / 0.90) * 10.0)
-    moat_pts = (meta.get("moat", 8.0) / 10.0) * 10.0
-    downside_pts = (bear_ret + 30.0) * 0.30
+    pricing_power_pts = min(18.0, (pricing_power / 0.90) * 18.0)
+    moat_pts = (meta.get("moat", 8.0) / 10.0) * 18.0
+    base_pts = min(10.0, max(0.0, (base_ret / 50.0) * 10.0))
+    downside_pts = (bear_ret + 30.0) * 0.25
     
-    total_score = round(max(5.0, bull_pts + base_pts + growth_pts + pricing_power_pts + moat_pts + downside_pts), 2)
-    k_score = max(0.001, (total_score / 100.0) ** 2 * (1.0 + min(1.5, asym_ratio / 4.0)) * (pricing_power / 0.85))
+    total_score = round(max(5.0, growth_pts + bull_pts + pricing_power_pts + moat_pts + base_pts + downside_pts), 2)
+    ws_k = max(0.001, (total_score / 100.0) ** 2 * (1.0 + min(1.5, asym_ratio / 4.0)) * (meta.get("moat", 8.0) / 10.0) * (pricing_power / 0.85))
     
     return {
         "ticker": ticker, "sector": meta["sector"], "industry": meta["industry"],
@@ -281,7 +281,7 @@ def score_wealthsimple_aggressive(
         "asym_ratio": round(asym_ratio, 2), "margin_of_safety_pct": round(base_ret, 2),
         "oe_yield": meta.get("oe_yield", 5.0), "growth": meta["growth"], "cannibal": meta["cannibal"],
         "moat": meta["moat"], "bs": meta["bs"], "pricing_power": pricing_power,
-        "total_score": total_score, "kelly_score": k_score,
+        "total_score": total_score, "kelly_score": ws_k,
         "thesis": meta.get("thesis", ""), "action_signal": sig
     }
 
