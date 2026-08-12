@@ -167,7 +167,7 @@ def get_enriched_portfolio(total_capital: float = 200000.0, portfolio_type: str 
         else:
             hist_perf.append(entry)
             
-    default_name = "Fidelity Defensive Fortress" if portfolio_type == "defensive" else "Wealthsimple Aggressive Compounder"
+    default_name = "Fidelity" if portfolio_type == "defensive" else "Wealthsimple"
     
     return {
         "portfolio_name": state.get("portfolio_name", default_name),
@@ -192,18 +192,16 @@ def get_enriched_portfolio(total_capital: float = 200000.0, portfolio_type: str 
 
 
 def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: float = 200000.0) -> str:
-    """Generates the clean, minimalist, and beautiful HTML view for either Fidelity or Wealthsimple."""
+    """Generates the ultra-clean, minimalist, high-end portfolio UI."""
     p_data = get_enriched_portfolio(total_capital, portfolio_type)
     stats = p_data["stats"]
     holdings = p_data["holdings"]
     rebalance_log = p_data["rebalance_log"]
     hist_perf = p_data["historical_performance"]
-    surveillance = get_surveillance_summary(portfolio_type)
     
     is_defensive = (portfolio_type == "defensive")
-    port_title = "Fidelity Portfolio" if is_defensive else "Wealthsimple Portfolio"
-    port_subtitle = "Defensive Fortresses & Consistent Compounding • 50s–60s Horizon" if is_defensive else "Aggressive Alpha, Mispriced Growth & Buyback Cannibals • 20s–30s Horizon"
-    cash_desc = "$30,000 in 3M US Treasuries (@ 5.00% Risk-Free)" if is_defensive else "$16,000 in 3M US Treasuries (@ 5.00% Risk-Free)"
+    port_title = "Fidelity" if is_defensive else "Wealthsimple"
+    cash_desc = "$30,000 in 3M Treasuries (5.00%)" if is_defensive else "$16,000 in 3M Treasuries (5.00%)"
     
     # Table rows
     rows_html = ""
@@ -212,7 +210,6 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
         w_pct = h["target_weight"] * 100.0
         alloc_dol = h["allocated_dollars"]
         cur_p = h["current_price"]
-        cost_b = h["cost_basis"]
         fv = h["fair_value"]
         mos = h["margin_of_safety_pct"]
         oe_yr = h["annual_owner_earnings"]
@@ -220,71 +217,68 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
         
         if t == "USD_CASH":
             ticker_col = """
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-weight:600; font-size:0.96rem; color:var(--text-title);">USD Cash Reserve</span>
-                <span style="font-size:0.75rem; color:var(--text-dim);">3M US Treasury Bills (5.00% Yield)</span>
+            <div style="display:flex; flex-direction:column; gap:1px;">
+                <span style="font-weight:600; font-size:0.92rem; color:var(--text-title);">USD Cash Reserve</span>
+                <span style="font-size:0.75rem; color:var(--text-dim);">3M US Treasury Bills (5.00%)</span>
             </div>
             """
             alloc_col = f"""
-            <div style="display:flex; align-items:center; gap:8px;">
-                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.92rem; color:var(--text-title);">${alloc_dol:,.0f}</span>
-                <span class="pill pill-neutral" style="font-size:0.70rem; padding:2px 6px;">{w_pct:.1f}%</span>
+            <div style="display:flex; align-items:center; gap:6px;">
+                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.90rem; color:var(--text-title);">${alloc_dol:,.0f}</span>
+                <span class="pill pill-neutral" style="font-size:0.68rem; padding:1px 5px;">{w_pct:.1f}%</span>
             </div>
             """
-            price_col = '<span style="font-family:var(--font-mono); font-size:0.88rem; color:var(--text-dim);">$1.00</span>'
-            fv_col = '<span style="font-family:var(--font-mono); font-size:0.88rem; color:var(--text-dim);">$1.00 (Par)</span>'
+            price_col = '<span style="font-family:var(--font-mono); font-size:0.86rem; color:var(--text-dim);">$1.00</span>'
+            fv_col = '<span style="font-family:var(--font-mono); font-size:0.86rem; color:var(--text-dim);">$1.00 (Par)</span>'
             yield_col = f"""
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.90rem; color:var(--accent-warm);">${oe_yr:,.0f}/yr</span>
-                <span style="font-size:0.75rem; color:var(--text-dim);">(5.00% Risk-Free)</span>
+            <div style="display:flex; flex-direction:column; gap:1px;">
+                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.88rem; color:var(--accent-warm);">${oe_yr:,.0f}/yr</span>
+                <span style="font-size:0.72rem; color:var(--text-dim); font-family:var(--font-mono);">5.00% Risk-Free</span>
             </div>
             """
         else:
             ticker_col = f"""
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <a href="{h['report_url']}" style="font-family:var(--font-mono); font-weight:700; font-size:1.02rem; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
-                    {t} <span style="font-size:0.70rem; opacity:0.6;">↗</span>
+            <div style="display:flex; flex-direction:column; gap:1px;">
+                <a href="{h['report_url']}" style="font-family:var(--font-mono); font-weight:700; font-size:0.96rem; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:3px;">
+                    {t} <span style="font-size:0.65rem; opacity:0.6;">↗</span>
                 </a>
-                <span style="font-size:0.78rem; color:var(--text-secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:210px;">{h['company_name']}</span>
+                <span style="font-size:0.75rem; color:var(--text-secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:200px;">{h['company_name']}</span>
             </div>
             """
             alloc_col = f"""
-            <div style="display:flex; flex-direction:column; gap:2px;">
+            <div style="display:flex; flex-direction:column; gap:1px;">
                 <div style="display:flex; align-items:center; gap:6px;">
-                    <span style="font-family:var(--font-mono); font-weight:600; font-size:0.92rem; color:var(--text-title);">${alloc_dol:,.0f}</span>
-                    <span class="pill pill-neutral" style="font-size:0.70rem; padding:2px 6px;">{w_pct:.1f}%</span>
+                    <span style="font-family:var(--font-mono); font-weight:600; font-size:0.90rem; color:var(--text-title);">${alloc_dol:,.0f}</span>
+                    <span class="pill pill-neutral" style="font-size:0.68rem; padding:1px 5px;">{w_pct:.1f}%</span>
                 </div>
-                <span style="font-size:0.75rem; color:var(--text-dim); font-family:var(--font-mono);">{h['shares_to_buy']:,.2f} shares</span>
+                <span style="font-size:0.72rem; color:var(--text-dim); font-family:var(--font-mono);">{h['shares_to_buy']:,.2f} shs</span>
             </div>
             """
             price_col = f"""
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-weight:500; font-size:0.90rem; color:var(--text-title);">${cur_p:,.2f}</span>
-                <span style="font-size:0.75rem; color:var(--text-dim); font-family:var(--font-mono);">Cost: ${cost_b:,.2f}</span>
-            </div>
+            <span style="font-family:var(--font-mono); font-weight:500; font-size:0.88rem; color:var(--text-title);">${cur_p:,.2f}</span>
             """
             mos_color = "var(--accent-green)" if mos > 0 else "var(--signal-avoid)"
             mos_sign = "+" if mos > 0 else ""
             fv_col = f"""
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.90rem; color:var(--text-title);">${fv:,.2f}</span>
-                <span style="font-size:0.75rem; font-family:var(--font-mono); color:{mos_color}; font-weight:500;">{mos_sign}{mos:.1f}% MoS</span>
+            <div style="display:flex; flex-direction:column; gap:1px;">
+                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.88rem; color:var(--text-title);">${fv:,.2f}</span>
+                <span style="font-size:0.72rem; font-family:var(--font-mono); color:{mos_color}; font-weight:500;">{mos_sign}{mos:.1f}% MoS</span>
             </div>
             """
             yield_col = f"""
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.90rem; color:var(--accent-warm);">${oe_yr:,.0f}/yr</span>
-                <span style="font-size:0.75rem; color:var(--text-secondary); font-family:var(--font-mono);">({fcf_y:.1f}% Yield)</span>
+            <div style="display:flex; flex-direction:column; gap:1px;">
+                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.88rem; color:var(--accent-warm);">${oe_yr:,.0f}/yr</span>
+                <span style="font-size:0.72rem; color:var(--text-secondary); font-family:var(--font-mono);">{fcf_y:.1f}% Yield</span>
             </div>
             """
 
         rows_html += f"""
         <tr style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
-            <td style="padding:14px 16px; vertical-align:middle;">{ticker_col}</td>
-            <td style="padding:14px 16px; vertical-align:middle;">{alloc_col}</td>
-            <td style="padding:14px 16px; vertical-align:middle;">{price_col}</td>
-            <td style="padding:14px 16px; vertical-align:middle;">{fv_col}</td>
-            <td style="padding:14px 16px; vertical-align:middle;">{yield_col}</td>
+            <td style="padding:10px 14px; vertical-align:middle;">{ticker_col}</td>
+            <td style="padding:10px 14px; vertical-align:middle;">{alloc_col}</td>
+            <td style="padding:10px 14px; vertical-align:middle;">{price_col}</td>
+            <td style="padding:10px 14px; vertical-align:middle;">{fv_col}</td>
+            <td style="padding:10px 14px; vertical-align:middle;">{yield_col}</td>
         </tr>
         """
 
@@ -292,15 +286,15 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
     log_rows_html = ""
     for entry in rebalance_log:
         log_rows_html += f"""
-        <div style="background:var(--bg-subpanel); border:1px solid var(--border-color); border-radius:8px; padding:14px 18px; display:flex; flex-direction:column; gap:6px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-                <div style="display:flex; align-items:center; gap:8px;">
-                    <span class="pill pill-active" style="font-size:0.70rem;">{entry.get('action')}</span>
-                    <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-dim);">{entry.get('date')}</span>
+        <div style="background:var(--bg-subpanel); border:1px solid var(--border-color); border-radius:6px; padding:10px 14px; display:flex; flex-direction:column; gap:4px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <span class="pill pill-active" style="font-size:0.68rem; padding:1px 6px;">{entry.get('action')}</span>
+                    <span style="font-family:var(--font-mono); font-size:0.76rem; color:var(--text-dim);">{entry.get('date')}</span>
                 </div>
-                <span style="font-size:0.75rem; color:var(--accent-green);">{entry.get('verification_status')}</span>
+                <span style="font-size:0.72rem; color:var(--accent-green);">{entry.get('verification_status')}</span>
             </div>
-            <div style="font-size:0.84rem; color:var(--text-secondary); line-height:1.45;">
+            <div style="font-size:0.80rem; color:var(--text-secondary); line-height:1.4;">
                 {entry.get('reason')}
             </div>
         </div>
@@ -310,92 +304,68 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
     chart_payload = json.dumps({
         "dates": [x["date"] for x in hist_perf],
         "portfolio": [x["portfolio_value"] for x in hist_perf],
-        "spy": [x["spy_benchmark"] for x in hist_perf],
-        "earnings": [x["owner_earnings_runrate"] for x in hist_perf]
+        "spy": [x["spy_benchmark"] for x in hist_perf]
     })
 
     return f"""
-    <div style="display:flex; flex-direction:column; gap:20px;">
+    <div style="display:flex; flex-direction:column; gap:16px;">
         
-        <!-- Header Banner -->
-        <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:12px; padding:22px 26px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
-            <div>
-                <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
-                    <h2 style="font-family:var(--font-serif); font-size:1.70rem; color:var(--text-title); margin:0; font-weight:400;">
-                        {port_title}
-                    </h2>
-                    <span class="pill pill-active" style="font-size:0.72rem;">$200,000 Base</span>
-                    <span class="pill pill-neutral" style="font-size:0.72rem;">{stats['core_positions_count']} Monopolies</span>
-                </div>
-                <p style="color:var(--text-secondary); margin:0; font-size:0.86rem;">
-                    {port_subtitle}
-                </p>
+        <!-- Clean Minimalist Header Bar -->
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; padding:2px 0 14px 0; border-bottom:1px solid var(--border-color); flex-wrap:wrap; gap:12px;">
+            <div style="display:flex; align-items:center; gap:10px;">
+                <h2 style="font-family:var(--font-serif); font-size:1.85rem; color:var(--text-title); margin:0; font-weight:400; letter-spacing:-0.02em;">
+                    {port_title}
+                </h2>
+                <span style="display:inline-flex; align-items:center; gap:5px; font-size:0.72rem; color:var(--accent-green); font-family:var(--font-mono); background:rgba(111,168,130,0.08); border:1px solid rgba(111,168,130,0.22); border-radius:12px; padding:2px 8px;">
+                    <span style="width:6px; height:6px; border-radius:50%; background:var(--accent-green);"></span> Council Audited
+                </span>
             </div>
             <div style="text-align:right;">
-                <div style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim);">Live Portfolio Value</div>
-                <div style="font-family:var(--font-mono); font-size:1.70rem; font-weight:600; color:var(--accent-warm);">
+                <div style="font-size:0.68rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim);">Portfolio Value</div>
+                <div style="font-family:var(--font-mono); font-size:1.75rem; font-weight:600; color:var(--text-title); letter-spacing:-0.02em;">
                     ${stats['total_value_usd']:,.2f}
                 </div>
             </div>
         </div>
 
-        <!-- 4 Clean KPI Cards -->
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:14px;">
-            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:18px 20px;">
-                <div style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim); margin-bottom:6px;">Look-Through Owner Earnings</div>
-                <div style="font-family:var(--font-mono); font-size:1.60rem; font-weight:600; color:var(--accent-warm);">
-                    ${stats['total_owner_earnings_usd']:,.0f}<span style="font-size:0.85rem; font-weight:400; color:var(--text-dim);">/yr</span>
+        <!-- 4 Minimalist KPI Cards -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:10px;">
+            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:8px; padding:12px 16px;">
+                <div style="font-size:0.68rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim);">Cash Flow Yield</div>
+                <div style="font-family:var(--font-mono); font-size:1.45rem; font-weight:600; color:var(--accent-warm); margin-top:2px;">
+                    {stats['look_through_fcf_yield_pct']:.2f}%
                 </div>
-                <div style="font-size:0.78rem; color:var(--accent-green); margin-top:4px; font-weight:500;">
-                    {stats['look_through_fcf_yield_pct']:.2f}% Real Cash Yield
-                </div>
+                <div style="font-size:0.74rem; color:var(--text-secondary); font-family:var(--font-mono);">${stats['total_owner_earnings_usd']:,.0f} / yr</div>
             </div>
 
-            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:18px 20px;">
-                <div style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim); margin-bottom:6px;">Share Cannibalization</div>
-                <div style="font-family:var(--font-mono); font-size:1.60rem; font-weight:600; color:var(--text-title);">
-                    +{stats['share_cannibalization_rate_pct']:.2f}%<span style="font-size:0.85rem; font-weight:400; color:var(--text-dim);">/yr</span>
-                </div>
-                <div style="font-size:0.78rem; color:var(--text-secondary); margin-top:4px;">
-                    Organic EPS Expansion via Buybacks
-                </div>
-            </div>
-
-            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:18px 20px;">
-                <div style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim); margin-bottom:6px;">Treasury Cash Buffer</div>
-                <div style="font-family:var(--font-mono); font-size:1.60rem; font-weight:600; color:var(--accent-green);">
+            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:8px; padding:12px 16px;">
+                <div style="font-size:0.68rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim);">Treasury Cash</div>
+                <div style="font-family:var(--font-mono); font-size:1.45rem; font-weight:600; color:var(--accent-green); margin-top:2px;">
                     {stats['cash_weight_pct']:.1f}%
                 </div>
-                <div style="font-size:0.78rem; color:var(--text-secondary); margin-top:4px;">
-                    {cash_desc}
-                </div>
+                <div style="font-size:0.74rem; color:var(--text-secondary); font-family:var(--font-mono);">{cash_desc}</div>
             </div>
 
-            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:18px 20px;">
-                <div style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim); margin-bottom:6px;">Portfolio Margin of Safety</div>
-                <div style="font-family:var(--font-mono); font-size:1.60rem; font-weight:600; color:var(--accent-green);">
+            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:8px; padding:12px 16px;">
+                <div style="font-size:0.68rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim);">Margin of Safety</div>
+                <div style="font-family:var(--font-mono); font-size:1.45rem; font-weight:600; color:var(--accent-green); margin-top:2px;">
                     +{stats['portfolio_margin_of_safety_pct']:.1f}%
                 </div>
-                <div style="font-size:0.78rem; color:var(--text-secondary); margin-top:4px;">
-                    Weighted Undervaluation vs DCF
+                <div style="font-size:0.74rem; color:var(--text-secondary);">Weighted Undervaluation</div>
+            </div>
+
+            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:8px; padding:12px 16px;">
+                <div style="font-size:0.68rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim);">Share Cannibalization</div>
+                <div style="font-family:var(--font-mono); font-size:1.45rem; font-weight:600; color:var(--text-title); margin-top:2px;">
+                    +{stats['share_cannibalization_rate_pct']:.2f}%
                 </div>
+                <div style="font-size:0.74rem; color:var(--text-secondary);">Annual Buyback Pace</div>
             </div>
         </div>
 
         <!-- Master Holdings Table -->
-        <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:12px; padding:20px 22px; overflow-x:auto;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:8px;">
-                <div>
-                    <h3 style="font-family:var(--font-serif); font-size:1.20rem; color:var(--text-title); margin:0; font-weight:400;">
-                        Active Portfolio Holdings ({stats['core_positions_count']} Equities + Cash)
-                    </h3>
-                </div>
-                <div style="font-size:0.76rem; color:var(--text-dim);">
-                    Rebalancing Discipline: &ge; 15% Valuation Friction Floor
-                </div>
-            </div>
-
-            <table class="fin-table" style="width:100%; min-width:780px; table-layout:fixed; border-collapse:collapse;">
+        <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:16px 18px; overflow-x:auto;">
+            <table class="fin-table" style="width:100%; min-width:720px; table-layout:fixed; border-collapse:collapse;">
                 <colgroup>
                     <col style="width:28%;">
                     <col style="width:20%;">
@@ -404,12 +374,12 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                     <col style="width:16%;">
                 </colgroup>
                 <thead>
-                    <tr style="border-bottom:1px solid var(--border-color); text-align:left; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim);">
-                        <th style="padding:10px 16px;">Holding</th>
-                        <th style="padding:10px 16px;">Allocation ($200k Base)</th>
-                        <th style="padding:10px 16px;">Market Price (Cost)</th>
-                        <th style="padding:10px 16px;">Fair Value &amp; MoS</th>
-                        <th style="padding:10px 16px;">Cash Flow Yield</th>
+                    <tr style="border-bottom:1px solid var(--border-color); text-align:left; font-size:0.70rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim);">
+                        <th style="padding:8px 14px;">Holding</th>
+                        <th style="padding:8px 14px;">Allocation</th>
+                        <th style="padding:8px 14px;">Price</th>
+                        <th style="padding:8px 14px;">Fair Value &amp; MoS</th>
+                        <th style="padding:8px 14px;">Cash Yield</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -418,48 +388,40 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
             </table>
         </div>
 
-        <!-- Visualizer Card (Single Clear Scaled Chart) -->
-        <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:12px; padding:20px 24px; display:flex; flex-direction:column; gap:14px;">
+        <!-- Clean Scaled Performance Visualizer -->
+        <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:16px 20px; display:flex; flex-direction:column; gap:10px;">
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-                <div>
-                    <h3 style="font-family:var(--font-serif); font-size:1.15rem; color:var(--text-title); margin:0; font-weight:400;">
-                        Portfolio Compounding &amp; Benchmark Performance
-                    </h3>
-                    <p style="color:var(--text-dim); font-size:0.78rem; margin:2px 0 0;">
-                        Tracking live portfolio equity value ($) vs. $200,000.00 S&amp;P 500 benchmark.
-                    </p>
+                <div style="font-family:var(--font-serif); font-size:1.05rem; color:var(--text-title); font-weight:400;">
+                    Performance vs S&amp;P 500 Baseline
                 </div>
-                <div style="display:flex; align-items:center; gap:16px; font-size:0.76rem; font-family:var(--font-mono);">
-                    <span style="display:flex; align-items:center; gap:6px; color:var(--accent-warm);">
-                        <span style="display:inline-block; width:12px; height:3px; background:#CC785C; border-radius:2px;"></span> {port_title}
+                <div style="display:flex; align-items:center; gap:14px; font-size:0.72rem; font-family:var(--font-mono);">
+                    <span style="display:flex; align-items:center; gap:5px; color:var(--accent-warm);">
+                        <span style="display:inline-block; width:10px; height:2.5px; background:#CC785C; border-radius:2px;"></span> {port_title}
                     </span>
-                    <span style="display:flex; align-items:center; gap:6px; color:var(--text-dim);">
-                        <span style="display:inline-block; width:12px; height:2px; background:#8C8982;"></span> S&amp;P 500 Baseline
+                    <span style="display:flex; align-items:center; gap:5px; color:var(--text-dim);">
+                        <span style="display:inline-block; width:10px; height:2px; background:#8C8982;"></span> S&amp;P 500
                     </span>
                 </div>
             </div>
 
-            <div style="position:relative; width:100%; height:260px; border-radius:6px; padding:8px 12px; background:rgba(0,0,0,0.12);">
+            <div style="position:relative; width:100%; height:220px; border-radius:6px; padding:6px 10px; background:rgba(0,0,0,0.10);">
                 <canvas id="{canvas_id}"></canvas>
             </div>
         </div>
 
-        <!-- Rebalance Log & Surveillance Audit -->
-        <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:12px; padding:20px 22px; display:flex; flex-direction:column; gap:12px;">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <h4 style="font-family:var(--font-serif); font-size:1.05rem; color:var(--text-title); margin:0; font-weight:400;">
-                    Weekly Council Audit Log &amp; Rebalance Trail
-                </h4>
-                <span style="font-size:0.72rem; color:var(--text-dim);">Weekly Friday Close Audit • Verified 3/3 Autonomous Council</span>
+        <!-- Audit Log -->
+        <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:16px 18px; display:flex; flex-direction:column; gap:10px;">
+            <div style="font-family:var(--font-serif); font-size:1.00rem; color:var(--text-title); font-weight:400;">
+                Council Audit Log
             </div>
-            <div style="display:flex; flex-direction:column; gap:8px;">
+            <div style="display:flex; flex-direction:column; gap:6px;">
                 {log_rows_html}
             </div>
         </div>
 
     </div>
 
-    <!-- Chart.js Single Clean Scaled Visualizer Script -->
+    <!-- Chart Script -->
     <script>
         (function() {{
             const pData = {chart_payload};
@@ -479,20 +441,20 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                             label: '{port_title}',
                             data: portfolioVals,
                             borderColor: '#CC785C',
-                            backgroundColor: 'rgba(204, 120, 92, 0.08)',
+                            backgroundColor: 'rgba(204, 120, 92, 0.06)',
                             borderWidth: 2,
-                            pointRadius: dates.length === 1 ? 4 : (dates.length > 30 ? 0 : 2.5),
+                            pointRadius: dates.length === 1 ? 4 : (dates.length > 30 ? 0 : 2),
                             pointHoverRadius: 5,
                             pointBackgroundColor: '#CC785C',
                             tension: 0.2,
                             fill: true
                         }},
                         {{
-                            label: 'S&P 500 Benchmark',
+                            label: 'S&P 500',
                             data: spyVals,
                             borderColor: '#605C55',
                             borderDash: [4, 4],
-                            borderWidth: 1.5,
+                            borderWidth: 1.4,
                             pointRadius: 0,
                             pointHoverRadius: 4,
                             pointBackgroundColor: '#8C8982',
@@ -513,7 +475,7 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                             bodyColor: '#D4CDC3',
                             borderColor: '#3D3A35',
                             borderWidth: 1,
-                            padding: 10,
+                            padding: 8,
                             callbacks: {{
                                 label: (c) => c.dataset.label + ': $' + Math.round(c.parsed.y).toLocaleString()
                             }}
@@ -521,7 +483,7 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                     }},
                     scales: {{
                         x: {{
-                            grid: {{ color: 'rgba(255,255,255,0.03)' }},
+                            grid: {{ color: 'rgba(255,255,255,0.02)' }},
                             ticks: {{
                                 color: '#8C8982',
                                 font: {{ family: "'JetBrains Mono', monospace", size: 10 }}
@@ -530,7 +492,7 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                         y: {{
                             suggestedMin: 180000,
                             suggestedMax: 220000,
-                            grid: {{ color: 'rgba(255,255,255,0.04)' }},
+                            grid: {{ color: 'rgba(255,255,255,0.03)' }},
                             ticks: {{
                                 stepSize: 10000,
                                 color: '#8C8982',
