@@ -1,13 +1,16 @@
 {
   "last_run_date": "2026-08-11",
-  "last_run_timestamp": "2026-08-11T20:24:33.158675",
+  "last_run_timestamp": "2026-08-11T20:37:16.011414",
   "status": "OPTIMAL",
   "status_display": "COUNCIL AUDIT ACTIVE \u2022 ALL HOLDINGS INTACT",
   "action_required": false,
-  "verdict_summary": "Scanned 41 coverage universe stocks across Buffett-Munger quality filters. All 10 core compounders maintain unassailable moats and >19% expected 5-year IRRs. Zero thesis impairments or valuation dislocations detected. Dry powder buffer maintained at 10.0%.",
+  "verdict_summary": "Scanned 41 coverage universe stocks using Buffett-Munger Kelly Risk-Adjusted Edge filters. All 10 core compounders maintain pristine economic moats and >20% expected 5-year IRRs. Zero thesis impairments or valuation dislocations detected. Macro cash buffer calibrated at 16.0% ($16,000 in 3M T-Bills @ 4.50% yield) reflecting Shiller CAPE 35.5x.",
   "total_universe_scanned": 41,
   "active_holdings_verified": 10,
-  "cash_cushion_pct": 10.0,
+  "shiller_cape": 35.5,
+  "treasury_3m_yield_pct": 4.5,
+  "portfolio_average_mos_pct": 26.8,
+  "cash_cushion_pct": 16.0,
   "next_scheduled_run": "Sunday, Aug 16, 2026 at 2:00 PM EST",
   "holdings_health": [
     {
@@ -17,7 +20,9 @@
       "fair_value": 145.0,
       "mos_pct": 37.6,
       "signal": "BUY",
-      "moat_score": 8.5,
+      "moat_score": 9.6,
+      "expected_irr": 34.02,
+      "kelly_edge": 32.14,
       "health_status": "PRISTINE",
       "thesis_core": "Cost-leadership scale monopoly; >30% ROIC, $38B net cash, Temu global hyper-growth."
     },
@@ -28,7 +33,9 @@
       "fair_value": 175.0,
       "mos_pct": 26.9,
       "signal": "BUY",
-      "moat_score": 8.0,
+      "moat_score": 9.5,
+      "expected_irr": 26.89,
+      "kelly_edge": 25.04,
       "health_status": "PRISTINE",
       "thesis_core": "Cloud AI leader + e-commerce cash engine + $60B net cash + 6%/yr share cannibalization."
     },
@@ -39,7 +46,9 @@
       "fair_value": 52.5,
       "mos_pct": 39.2,
       "signal": "BUY",
-      "moat_score": 7.9,
+      "moat_score": 9.0,
+      "expected_irr": 26.34,
+      "kelly_edge": 22.05,
       "health_status": "PRISTINE",
       "thesis_core": "Unrivaled self-owned logistics/supply-chain moat; $28B net cash + buybacks."
     },
@@ -50,7 +59,9 @@
       "fair_value": 195.0,
       "mos_pct": 35.6,
       "signal": "BUY",
-      "moat_score": 8.6,
+      "moat_score": 8.8,
+      "expected_irr": 25.82,
+      "kelly_edge": 20.96,
       "health_status": "PRISTINE",
       "thesis_core": "Premium athletic apparel leader trading at 35.6% MoS ($125 vs FV $195)."
     },
@@ -61,7 +72,9 @@
       "fair_value": 720.0,
       "mos_pct": 16.8,
       "signal": "BUY",
-      "moat_score": 9.3,
+      "moat_score": 9.4,
+      "expected_irr": 23.06,
+      "kelly_edge": 20.5,
       "health_status": "PRISTINE",
       "thesis_core": "3.3B daily active users + AI ads monetization + pristine cash fortress."
     },
@@ -72,7 +85,9 @@
       "fair_value": 175.0,
       "mos_pct": 24.7,
       "signal": "BUY",
-      "moat_score": 8.4,
+      "moat_score": 8.6,
+      "expected_irr": 27.65,
+      "kelly_edge": 20.31,
       "health_status": "PRISTINE",
       "thesis_core": "Ultra-cash cow (11.2% OE yield), aggressive 5.5%/yr share cannibalization."
     },
@@ -83,7 +98,9 @@
       "fair_value": 340.0,
       "mos_pct": 22.4,
       "signal": "BUY",
-      "moat_score": 9.3,
+      "moat_score": 9.5,
+      "expected_irr": 23.19,
+      "kelly_edge": 20.27,
       "health_status": "PRISTINE",
       "thesis_core": "Creative Cloud monopoly, Firefly generative AI, 85%+ gross margin."
     },
@@ -95,6 +112,8 @@
       "mos_pct": 21.8,
       "signal": "BUY",
       "moat_score": 9.8,
+      "expected_irr": 22.55,
+      "kelly_edge": 19.97,
       "health_status": "PRISTINE",
       "thesis_core": "Premier VMS serial acquirer; 25%+ ROIC capital allocation machine."
     },
@@ -105,7 +124,9 @@
       "fair_value": 265.0,
       "mos_pct": 19.7,
       "signal": "BUY",
-      "moat_score": 9.2,
+      "moat_score": 9.4,
+      "expected_irr": 23.73,
+      "kelly_edge": 19.78,
       "health_status": "PRISTINE",
       "thesis_core": "Global travel network effects duopoly + massive share buybacks."
     },
@@ -117,34 +138,42 @@
       "mos_pct": 23.6,
       "signal": "BUY",
       "moat_score": 9.6,
+      "expected_irr": 20.63,
+      "kelly_edge": 19.49,
       "health_status": "PRISTINE",
       "thesis_core": "Zoning-protected salvage yard land monopoly + zero debt fortress."
     }
   ],
   "top_watchlist_on_radar": [
     {
-      "ticker": "CMG",
-      "company_name": "Chipotle Mexican Grill, Inc.",
-      "price": 32.0,
-      "fair_value": 42.5,
-      "mos_pct": 24.7,
-      "moat_score": 9.0
-    },
-    {
       "ticker": "CRM",
       "company_name": "Salesforce, Inc.",
       "price": 197.47,
       "fair_value": 255.0,
       "mos_pct": 22.6,
-      "moat_score": 9.1
+      "expected_irr": 22.81,
+      "kelly_edge": 18.44,
+      "moat_score": 9.2
     },
     {
-      "ticker": "INTU",
-      "company_name": "Intuit Inc.",
-      "price": 336.44,
-      "fair_value": 425.0,
-      "mos_pct": 20.8,
-      "moat_score": 9.4
+      "ticker": "UBER",
+      "company_name": "Uber Technologies, Inc.",
+      "price": 78.54,
+      "fair_value": 95.0,
+      "mos_pct": 17.3,
+      "expected_irr": 23.47,
+      "kelly_edge": 17.76,
+      "moat_score": 9.0
+    },
+    {
+      "ticker": "DECK",
+      "company_name": "Deckers Outdoor Corporation",
+      "price": 93.84,
+      "fair_value": 118.0,
+      "mos_pct": 20.5,
+      "expected_irr": 21.39,
+      "kelly_edge": 17.64,
+      "moat_score": 8.9
     }
   ],
   "rebalance_proposals": []

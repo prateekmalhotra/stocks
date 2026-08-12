@@ -7,9 +7,9 @@
     {
       "ticker": "PDD",
       "company_name": "PDD Holdings Inc.",
-      "target_weight": 0.134,
-      "allocated_dollars": 13410.0,
-      "shares_to_buy": 148.18,
+      "target_weight": 0.122,
+      "allocated_dollars": 12240.0,
+      "shares_to_buy": 135.25,
       "cost_basis": 90.5,
       "current_price": 90.5,
       "fair_value": 145.0,
@@ -22,9 +22,9 @@
     {
       "ticker": "BABA",
       "company_name": "Alibaba Group Holding Limited",
-      "target_weight": 0.104,
-      "allocated_dollars": 10440.0,
-      "shares_to_buy": 81.66,
+      "target_weight": 0.095,
+      "allocated_dollars": 9540.0,
+      "shares_to_buy": 74.62,
       "cost_basis": 127.85,
       "current_price": 127.85,
       "fair_value": 175.0,
@@ -37,9 +37,9 @@
     {
       "ticker": "JD",
       "company_name": "JD.com, Inc.",
-      "target_weight": 0.092,
-      "allocated_dollars": 9200.0,
-      "shares_to_buy": 288.22,
+      "target_weight": 0.084,
+      "allocated_dollars": 8400.0,
+      "shares_to_buy": 263.16,
       "cost_basis": 31.92,
       "current_price": 31.92,
       "fair_value": 52.5,
@@ -52,9 +52,9 @@
     {
       "ticker": "LULU",
       "company_name": "Lululemon Athletica Inc.",
-      "target_weight": 0.087,
-      "allocated_dollars": 8750.0,
-      "shares_to_buy": 69.66,
+      "target_weight": 0.08,
+      "allocated_dollars": 7980.0,
+      "shares_to_buy": 63.53,
       "cost_basis": 125.61,
       "current_price": 125.61,
       "fair_value": 195.0,
@@ -67,9 +67,9 @@
     {
       "ticker": "META",
       "company_name": "Meta Platforms, Inc.",
-      "target_weight": 0.086,
-      "allocated_dollars": 8560.0,
-      "shares_to_buy": 14.29,
+      "target_weight": 0.078,
+      "allocated_dollars": 7810.0,
+      "shares_to_buy": 13.04,
       "cost_basis": 599.12,
       "current_price": 599.12,
       "fair_value": 720.0,
@@ -82,9 +82,9 @@
     {
       "ticker": "CROX",
       "company_name": "Crocs, Inc.",
-      "target_weight": 0.085,
-      "allocated_dollars": 8470.0,
-      "shares_to_buy": 64.31,
+      "target_weight": 0.077,
+      "allocated_dollars": 7730.0,
+      "shares_to_buy": 58.69,
       "cost_basis": 131.71,
       "current_price": 131.71,
       "fair_value": 175.0,
@@ -97,9 +97,9 @@
     {
       "ticker": "ADBE",
       "company_name": "Adobe Inc.",
-      "target_weight": 0.085,
-      "allocated_dollars": 8450.0,
-      "shares_to_buy": 32.04,
+      "target_weight": 0.077,
+      "allocated_dollars": 7720.0,
+      "shares_to_buy": 29.27,
       "cost_basis": 263.71,
       "current_price": 263.71,
       "fair_value": 340.0,
@@ -112,9 +112,9 @@
     {
       "ticker": "CSU",
       "company_name": "Constellation Software Inc.",
-      "target_weight": 0.083,
-      "allocated_dollars": 8340.0,
-      "shares_to_buy": 3.61,
+      "target_weight": 0.076,
+      "allocated_dollars": 7610.0,
+      "shares_to_buy": 3.3,
       "cost_basis": 2308.0,
       "current_price": 2308.0,
       "fair_value": 2950.0,
@@ -127,9 +127,9 @@
     {
       "ticker": "BKNG",
       "company_name": "Booking Holdings Inc.",
-      "target_weight": 0.083,
-      "allocated_dollars": 8260.0,
-      "shares_to_buy": 38.8,
+      "target_weight": 0.075,
+      "allocated_dollars": 7540.0,
+      "shares_to_buy": 35.42,
       "cost_basis": 212.87,
       "current_price": 212.87,
       "fair_value": 265.0,
@@ -142,9 +142,9 @@
     {
       "ticker": "CPRT",
       "company_name": "Copart, Inc.",
-      "target_weight": 0.081,
-      "allocated_dollars": 8120.0,
-      "shares_to_buy": 276.19,
+      "target_weight": 0.076,
+      "allocated_dollars": 7430.0,
+      "shares_to_buy": 252.72,
       "cost_basis": 29.4,
       "current_price": 29.4,
       "fair_value": 38.5,
@@ -157,16 +157,16 @@
     {
       "ticker": "USD_CASH",
       "company_name": "USD Cash Reserve",
-      "target_weight": 0.08,
-      "allocated_dollars": 8000.0,
-      "shares_to_buy": 8000.0,
+      "target_weight": 0.16,
+      "allocated_dollars": 16000.0,
+      "shares_to_buy": 16000.0,
       "cost_basis": 1.0,
       "current_price": 1.0,
       "fair_value": 1.0,
       "pillar": "CASH",
       "look_through_fcf_yield": 4.5,
       "cannibal_rate_pct": 0.0,
-      "thesis_core": "Yielding 4.5% risk-free dry powder in US Treasury 3M Bills.",
+      "thesis_core": "Strategic macro dry powder buffer in US Treasury 3M Bills calibrated against S&P 500 Shiller CAPE (35.5x).",
       "report_url": "#"
     }
   ],
@@ -174,7 +174,7 @@
     {
       "date": "2026-08-11",
       "action": "PORTFOLIO INCEPTION (DAY 1)",
-      "reason": "Official launch of AlphaThesis Concentrated Fortress with $100,000.00 baseline across 10 First-Principles Kelly Risk-Adjusted Compounders + 8% Treasury Cash Cushion at Aug 11, 2026 market close.",
+      "reason": "Official inception of Buffett Macro-Calibrated Fortress with $100,000.00 baseline across 10 First-Principles Kelly Compounders + 16.0% Shiller CAPE Strategic Cash Buffer at Aug 11, 2026 market close.",
       "verification_status": "Verified 3/3 Autonomous Council"
     }
   ],
@@ -182,7 +182,7 @@
     {
       "date": "2026-08-11",
       "portfolio_value": 100000.0,
-      "owner_earnings_runrate": 6915.15,
+      "owner_earnings_runrate": 6704.82,
       "spy_benchmark": 100000.0
     }
   ]
