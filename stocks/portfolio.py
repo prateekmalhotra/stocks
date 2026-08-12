@@ -315,8 +315,17 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                 <span style="font-size:0.76rem; color:var(--text-dim); font-family:var(--font-mono);">{h['shares_to_buy']:,.2f} shs</span>
             </div>
             """
+            gain_loss_pct = ((cur_p - cost_b) / cost_b) * 100.0 if cost_b > 0 else 0.0
+            gl_color = "var(--accent-green)" if gain_loss_pct >= 0 else "var(--accent-warm)"
+            gl_sign = "+" if gain_loss_pct >= 0 else ""
             price_col = f"""
-            <span style="font-family:var(--font-mono); font-weight:500; font-size:0.92rem; color:var(--text-title);">${cur_p:,.2f}</span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <span class="live-price-{t}" style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">${cur_p:,.2f}</span>
+                    <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-dim);" title="Inception Cost Basis">(${cost_b:,.2f})</span>
+                </div>
+                <span class="live-gl-{t}" style="font-size:0.74rem; font-family:var(--font-mono); color:{gl_color};">{gl_sign}{gain_loss_pct:.2f}% since Aug 11</span>
+            </div>
             """
             mos_color = "var(--accent-green)" if mos > 0 else "var(--signal-avoid)"
             mos_sign = "+" if mos > 0 else ""
@@ -333,8 +342,9 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
             </div>
             """
 
+        row_attrs = f'data-row-ticker="{t}" data-shares="{h.get("shares_to_buy", 0)}" data-cost="{cost_b}" data-port="{portfolio_type}"'
         rows_html += f"""
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
+        <tr {row_attrs} style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">{ticker_col}</td>
             <td style="padding:14px 16px; vertical-align:middle;">{alloc_col}</td>
             <td style="padding:14px 16px; vertical-align:middle;">{price_col}</td>
@@ -382,8 +392,11 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                 </span>
             </div>
             <div style="text-align:right;">
-                <div style="font-size:0.70rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim); margin-bottom:2px;">Live Portfolio Value</div>
-                <div style="font-family:var(--font-mono); font-size:2.0rem; font-weight:600; color:var(--text-title); letter-spacing:-0.02em; line-height:1.1;">
+                <div style="display:flex; align-items:center; justify-content:flex-end; gap:6px; margin-bottom:2px;">
+                    <span style="display:inline-block; width:6px; height:6px; border-radius:50%; background:#6FA882;"></span>
+                    <span id="live-stream-status-{portfolio_type}" style="font-size:0.70rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim);">Live Portfolio Value</span>
+                </div>
+                <div id="live-port-val-{portfolio_type}" style="font-family:var(--font-mono); font-size:2.0rem; font-weight:600; color:var(--text-title); letter-spacing:-0.02em; line-height:1.1;">
                     ${stats['total_value_usd']:,.2f}
                 </div>
             </div>
@@ -564,6 +577,83 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                     }}
                 }}
             }});
+
+            // Real-Time High-Frequency Quote Streaming & Portfolio Value Calculator
+            const portType = '{portfolio_type}';
+            const cashAlloc = {cash_dol};
+            
+            async function streamLiveQuotes() {{
+                try {{
+                    const rows = document.querySelectorAll(`tr[data-port="${{portType}}"]`);
+                    let liveEquityTotal = 0;
+                    let updatedCount = 0;
+                    
+                    for (const r of rows) {{
+                        const ticker = r.getAttribute('data-row-ticker');
+                        const shares = parseFloat(r.getAttribute('data-shares')) || 0;
+                        const cost = parseFloat(r.getAttribute('data-cost')) || 0;
+                        
+                        if (!ticker || ticker === 'USD_CASH') continue;
+                        
+                        try {{
+                            // Direct high-speed Yahoo Finance real-time quote query with CORS proxy fallback
+                            let livePrice = 0;
+                            const directUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${{ticker}}?interval=1m`;
+                            try {{
+                                const res = await fetch(directUrl);
+                                if (res.ok) {{
+                                    const data = await res.json();
+                                    livePrice = data.chart?.result?.[0]?.meta?.regularMarketPrice || 0;
+                                }}
+                            }} catch (e) {{
+                                // Try fast CORS proxy if direct fetch is blocked
+                                const proxyUrl = `https://corsproxy.io/?url=` + encodeURIComponent(directUrl);
+                                const resProxy = await fetch(proxyUrl);
+                                if (resProxy.ok) {{
+                                    const data = await resProxy.json();
+                                    livePrice = data.chart?.result?.[0]?.meta?.regularMarketPrice || 0;
+                                }}
+                            }}
+
+                            if (livePrice && livePrice > 0) {{
+                                const pSpan = r.querySelector(`.live-price-${{ticker}}`);
+                                const glSpan = r.querySelector(`.live-gl-${{ticker}}`);
+                                if (pSpan) pSpan.textContent = '$' + livePrice.toFixed(2);
+                                if (glSpan && cost > 0) {{
+                                    const gl = ((livePrice - cost) / cost) * 100;
+                                    const sign = gl >= 0 ? '+' : '';
+                                    glSpan.textContent = `${{sign}}${{gl.toFixed(2)}}% since Aug 11`;
+                                    glSpan.style.color = gl >= 0 ? 'var(--accent-green)' : 'var(--accent-warm)';
+                                }}
+                                liveEquityTotal += (shares * livePrice);
+                                updatedCount++;
+                                continue;
+                            }}
+                        }} catch (e) {{
+                            // Non-blocking fallback
+                        }}
+                        const curPriceSpan = r.querySelector(`.live-price-${{ticker}}`);
+                        const pVal = curPriceSpan ? parseFloat(curPriceSpan.textContent.replace(/[^0-9.]/g, '')) : cost;
+                        liveEquityTotal += (shares * pVal);
+                    }}
+                    
+                    const totalLive = liveEquityTotal + cashAlloc;
+                    const valElem = document.getElementById(`live-port-val-${{portType}}`);
+                    if (valElem && totalLive > 0) {{
+                        valElem.textContent = '$' + totalLive.toLocaleString('en-US', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }});
+                    }}
+                    const statusElem = document.getElementById(`live-stream-status-${{portType}}`);
+                    if (statusElem && updatedCount > 0) {{
+                        statusElem.textContent = 'Live Market Stream (Real-Time)';
+                    }}
+                }} catch (err) {{
+                    console.warn('Live quote streamer:', err);
+                }}
+            }}
+            
+            // Poll real-time stream every 15 seconds while viewing dashboard
+            setInterval(streamLiveQuotes, 15000);
+            setTimeout(streamLiveQuotes, 1500);
         }})();
     </script>
     """
