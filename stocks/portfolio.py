@@ -683,61 +683,23 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
 
         <!-- Performance & Look-Through Owner Earnings Chart ($100k Base) -->
         <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:24px 28px;">
-            
-            <!-- Institutional Day 1 Inception Monitor Header -->
-            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:14px; margin-bottom:22px;">
-                <div style="background:linear-gradient(135deg, rgba(204,120,92,0.09) 0%, rgba(204,120,92,0.02) 100%); border:1px solid rgba(204,120,92,0.25); border-radius:12px; padding:16px 18px; display:flex; align-items:center; gap:16px;">
-                    <span class="status-beacon beacon-warm" style="width:14px; height:14px;"><span class="beacon-ping"></span><span class="beacon-dot" style="width:8px; height:8px;"></span></span>
-                    <div>
-                        <div style="font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--accent-warm); margin-bottom:2px;">
-                            Portfolio Inception • Day 1 Active
-                        </div>
-                        <div style="font-family:var(--font-mono); font-size:1.25rem; font-weight:600; color:var(--text-title);">
-                            $100,000.00 <span style="font-size:0.82rem; font-weight:400; color:var(--text-dim); font-family:var(--font-sans);">Base Locked</span>
-                        </div>
-                        <div style="font-size:0.78rem; color:var(--text-secondary); margin-top:2px;">
-                            Aug 11, 2026 Market Close Baseline • 8 Core Compounders + T-Bills
-                        </div>
-                    </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:12px;">
+                <div>
+                    <h3 style="font-family:var(--font-serif); font-size:1.35rem; color:var(--text-title); margin:0 0 4px; font-weight:500;">
+                        Portfolio Growth & Look-Through Owner Earnings ($100k Base)
+                    </h3>
+                    <p style="color:var(--text-dim); font-size:0.86rem; margin:0;">
+                        Inception baseline $100,000.00 • Aug 11, 2026 market close • Updated daily at 3:00 PM EST
+                    </p>
                 </div>
-
-                <div style="background:var(--bg-subpanel); border:1px solid var(--border-color); border-radius:12px; padding:16px 18px; display:flex; flex-direction:column; justify-content:center; gap:6px;">
-                    <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <span style="font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim);">Compounding Roadmap</span>
-                        <span class="pill pill-active" style="font-size:0.70rem;">Daily 3:00 PM EST</span>
-                    </div>
-                    <div style="display:flex; align-items:center; gap:8px; margin-top:2px;">
-                        <div style="display:flex; align-items:center; gap:6px;">
-                            <span style="width:8px; height:8px; border-radius:50%; background:var(--accent-warm);"></span>
-                            <span style="font-family:var(--font-mono); font-size:0.80rem; font-weight:600; color:var(--text-title);">Day 1 (Aug 11)</span>
-                        </div>
-                        <span style="color:var(--text-dim); font-size:0.75rem;">──────▶</span>
-                        <div style="display:flex; align-items:center; gap:6px; opacity:0.6;">
-                            <span style="width:8px; height:8px; border-radius:50%; background:var(--border-color); border:1px solid var(--text-dim);"></span>
-                            <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-dim);">Day 2 (Aug 12)</span>
-                        </div>
-                        <span style="color:var(--text-dim); font-size:0.75rem;">──▶</span>
-                        <span style="font-family:var(--font-mono); font-size:0.78rem; color:var(--text-dim); opacity:0.4;">Day 3+</span>
-                    </div>
-                    <div style="font-size:0.76rem; color:var(--text-dim);">
-                        The line graph automatically connects and extends daily at 3:00 PM EST.
-                    </div>
-                </div>
-            </div>
-
-            <!-- Legend and Canvas -->
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:12px;">
-                <div style="font-family:var(--font-sans); font-size:0.86rem; color:var(--text-secondary);">
-                    Market Price Compounding vs. Fundamental Owner Earnings ($/yr)
-                </div>
-                <div style="display:flex; align-items:center; gap:16px; font-size:0.80rem;">
+                <div style="display:flex; align-items:center; gap:16px; font-size:0.82rem;">
                     <div style="display:flex; align-items:center; gap:6px;">
                         <span style="width:10px; height:10px; border-radius:50%; background:#CC785C; display:inline-block;"></span>
                         <span style="color:var(--text-title);">AlphaThesis Portfolio ($)</span>
                     </div>
                     <div style="display:flex; align-items:center; gap:6px;">
                         <span style="width:8px; height:8px; transform:rotate(45deg); background:#6FA882; display:inline-block;"></span>
-                        <span style="color:var(--accent-green);">Look-Through Owner Earnings ($)</span>
+                        <span style="color:var(--accent-green);">Look-Through Earnings ($)</span>
                     </div>
                     <div style="display:flex; align-items:center; gap:6px;">
                         <span style="width:10px; height:2px; background:#8C8982; display:inline-block;"></span>
@@ -746,7 +708,13 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                 </div>
             </div>
 
-            <div style="height:300px; position:relative;">
+            <div style="height:320px; position:relative;" id="chart-wrapper">
+                <div id="chart-beacon-pulse" style="position:absolute; pointer-events:none; z-index:10; transform:translate(-50%, -50%); display:none;">
+                    <span class="status-beacon beacon-warm" style="width:24px; height:24px;">
+                        <span class="beacon-ping" style="background-color:rgba(204,120,92,0.55); animation-duration:1.8s;"></span>
+                        <span class="beacon-dot" style="width:8px; height:8px; background-color:#CC785C; box-shadow:0 0 10px rgba(204,120,92,0.9);"></span>
+                    </span>
+                </div>
                 <canvas id="alphathesis-perf-chart"></canvas>
             </div>
         </div>
@@ -807,11 +775,26 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
 
     </div>
 
-    <!-- Chart.js Engine for Dual-Axis Portfolio Visualization with 60fps Radar Ping Plugin -->
+    <!-- Chart.js Engine for Dual-Axis Portfolio Visualization -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const perfData = {perf_payload};
         let chartInstance = null;
+
+        function updateChartBeacon() {{
+            const beacon = document.getElementById('chart-beacon-pulse');
+            if (!beacon || !chartInstance) return;
+            if (perfData.dates && perfData.dates.length <= 1) {{
+                const meta = chartInstance.getDatasetMeta(0);
+                if (meta && meta.data && meta.data[0]) {{
+                    beacon.style.left = meta.data[0].x + 'px';
+                    beacon.style.top = meta.data[0].y + 'px';
+                    beacon.style.display = 'block';
+                    return;
+                }}
+            }}
+            beacon.style.display = 'none';
+        }}
 
         function initPortfolioChart() {{
             const ctx = document.getElementById('alphathesis-perf-chart');
@@ -823,67 +806,21 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
 
             const isSinglePoint = (perfData.dates && perfData.dates.length <= 1);
 
-            // Custom 60fps Canvas Radar Ping Plugin
-            const radarPingPlugin = {{
-                id: 'radarPingPlugin',
-                afterDatasetsDraw: function(chart) {{
-                    if (!isSinglePoint) return;
-                    const meta = chart.getDatasetMeta(0);
-                    if (!meta || !meta.data || !meta.data.length) return;
-                    const pt = meta.data[0];
-                    if (!pt || pt.x === undefined || pt.y === undefined) return;
-
-                    const c = chart.ctx;
-                    const now = Date.now();
-                    const progress = (now % 2200) / 2200; // 0.0 to 1.0
-
-                    // Wave 1
-                    const r1 = 6 + progress * 26;
-                    const a1 = Math.max(0, 0.7 * (1 - progress));
-                    c.save();
-                    c.beginPath();
-                    c.arc(pt.x, pt.y, r1, 0, 2 * Math.PI);
-                    c.strokeStyle = 'rgba(204, 120, 92, ' + a1 + ')';
-                    c.lineWidth = 1.6;
-                    c.stroke();
-
-                    // Wave 2 (offset)
-                    const p2 = ((now + 1100) % 2200) / 2200;
-                    const r2 = 6 + p2 * 26;
-                    const a2 = Math.max(0, 0.7 * (1 - p2));
-                    c.beginPath();
-                    c.arc(pt.x, pt.y, r2, 0, 2 * Math.PI);
-                    c.strokeStyle = 'rgba(204, 120, 92, ' + a2 + ')';
-                    c.lineWidth = 1.2;
-                    c.stroke();
-
-                    // Center Solid Core Node
-                    c.beginPath();
-                    c.arc(pt.x, pt.y, 6, 0, 2 * Math.PI);
-                    c.fillStyle = '#CC785C';
-                    c.shadowColor = 'rgba(204, 120, 92, 0.9)';
-                    c.shadowBlur = 10;
-                    c.fill();
-                    c.restore();
-                }}
-            }};
-
             chartInstance = new Chart(ctx, {{
                 type: 'line',
-                plugins: [radarPingPlugin],
                 data: {{
-                    labels: isSinglePoint ? ['Day 1 Inception (Aug 11, 2026)'] : perfData.dates,
+                    labels: perfData.dates,
                     datasets: [
                         {{
                             label: 'AlphaThesis Portfolio ($)',
                             data: perfData.portfolio,
                             borderColor: '#CC785C',
-                            backgroundColor: 'rgba(204, 120, 92, 0.12)',
+                            backgroundColor: 'rgba(204, 120, 92, 0.10)',
                             borderWidth: 2.2,
-                            pointRadius: isSinglePoint ? 6 : 4,
-                            pointHoverRadius: isSinglePoint ? 9 : 6,
+                            pointRadius: isSinglePoint ? 0 : 4,
+                            pointHoverRadius: isSinglePoint ? 6 : 6,
                             pointBackgroundColor: '#CC785C',
-                            pointBorderColor: '#CC785C',
+                            pointBorderColor: 'transparent',
                             pointBorderWidth: 0,
                             tension: 0.25,
                             showLine: true,
@@ -897,10 +834,10 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                             borderWidth: 1.8,
                             borderDash: [5, 5],
                             pointStyle: isSinglePoint ? 'rectRot' : 'circle',
-                            pointRadius: isSinglePoint ? 6 : 3,
-                            pointHoverRadius: isSinglePoint ? 9 : 5,
+                            pointRadius: isSinglePoint ? 5 : 3,
+                            pointHoverRadius: isSinglePoint ? 8 : 5,
                             pointBackgroundColor: '#6FA882',
-                            pointBorderColor: '#6FA882',
+                            pointBorderColor: 'transparent',
                             pointBorderWidth: 0,
                             tension: 0.2,
                             showLine: true,
@@ -913,10 +850,10 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                             backgroundColor: 'transparent',
                             borderWidth: 1.4,
                             pointStyle: isSinglePoint ? 'triangle' : 'circle',
-                            pointRadius: isSinglePoint ? 5 : 0,
-                            pointHoverRadius: isSinglePoint ? 8 : 4,
+                            pointRadius: isSinglePoint ? 4 : 0,
+                            pointHoverRadius: isSinglePoint ? 7 : 4,
                             pointBackgroundColor: '#8C8982',
-                            pointBorderColor: '#8C8982',
+                            pointBorderColor: 'transparent',
                             pointBorderWidth: 0,
                             tension: 0.2,
                             showLine: true,
@@ -928,14 +865,6 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                     responsive: true,
                     maintainAspectRatio: false,
                     animation: false,
-                    layout: {{
-                        padding: {{
-                            left: isSinglePoint ? 40 : 10,
-                            right: isSinglePoint ? 40 : 10,
-                            top: 15,
-                            bottom: 10
-                        }}
-                    }},
                     interaction: {{
                         mode: 'index',
                         intersect: false
@@ -969,11 +898,10 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                     }},
                     scales: {{
                         x: {{
-                            offset: true,
                             grid: {{ color: 'rgba(255,255,255,0.04)' }},
                             ticks: {{
                                 color: '#A09D95',
-                                font: {{ family: 'var(--font-mono)', size: 12, weight: '500' }}
+                                font: {{ family: 'var(--font-mono)', size: 11 }}
                             }}
                         }},
                         y: {{
@@ -1008,20 +936,13 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                 }}
             }});
 
-            // 60fps Radar Pulse Animation Loop on Day 1
-            if (isSinglePoint) {{
-                function radarLoop() {{
-                    if (chartInstance) {{
-                        chartInstance.draw();
-                        requestAnimationFrame(radarLoop);
-                    }}
-                }}
-                requestAnimationFrame(radarLoop);
-            }}
+            updateChartBeacon();
         }}
 
+        window.addEventListener('resize', updateChartBeacon);
+
         document.addEventListener('DOMContentLoaded', () => {{
-            setTimeout(initPortfolioChart, 100);
+            setTimeout(initPortfolioChart, 80);
         }});
     </script>
     """
