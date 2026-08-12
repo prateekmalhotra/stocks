@@ -400,9 +400,24 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                 <span style="font-size:0.78rem; color:var(--text-dim);">US Treasury 3M Bills</span>
             </div>
             """
-            price_cell = '<div style="font-family:var(--font-mono); font-size:0.94rem; color:var(--text-title); font-weight:500;">$1.00 <span style="font-size:0.80rem; color:var(--text-dim); font-weight:400;">($1.00)</span></div>'
-            fv_cell = '<div style="font-family:var(--font-mono); font-size:0.94rem; color:var(--text-title); font-weight:500;">$1.00 <span style="font-size:0.78rem; color:var(--text-dim); font-weight:400;">(Par)</span></div>'
-            yield_cell = f'<div style="font-family:var(--font-mono); font-size:0.94rem; color:var(--accent-warm); font-weight:500;">${h["annual_owner_earnings"]:,.0f}/yr <span style="font-size:0.80rem; color:var(--text-secondary); font-weight:400;">(4.5%)</span></div>'
+            price_cell = """
+            <div style="display:flex; flex-direction:column; gap:2px;">
+                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--text-title); font-weight:600;">$1.00</span>
+                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-dim); font-weight:400;">($1.00)</span>
+            </div>
+            """
+            fv_cell = """
+            <div style="display:flex; flex-direction:column; gap:2px;">
+                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--text-title); font-weight:600;">$1.00</span>
+                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-dim); font-weight:400;">(Par)</span>
+            </div>
+            """
+            yield_cell = f"""
+            <div style="display:flex; flex-direction:column; gap:2px;">
+                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--accent-warm); font-weight:600;">${h["annual_owner_earnings"]:,.0f}/yr</span>
+                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-secondary); font-weight:400;">(4.50%)</span>
+            </div>
+            """
         else:
             ticker_cell = f"""
             <div style="display:flex; flex-direction:column; gap:2px;">
@@ -412,14 +427,31 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                 <span style="font-size:0.78rem; color:var(--text-secondary);">{h['company_name']}</span>
             </div>
             """
-            price_cell = f'<div style="font-family:var(--font-mono); font-size:0.94rem; color:var(--text-title); font-weight:500;">${h["current_price"]:.2f} <span style="font-size:0.80rem; color:var(--text-dim); font-weight:400;">(${cost_b:.2f})</span></div>'
-            fv_cell = f'<div style="font-family:var(--font-mono); font-size:0.94rem; color:var(--text-title); font-weight:500;">${h["fair_value"]:.2f} <span style="font-size:0.80rem; color:var(--accent-green); font-weight:500;">(+{h["margin_of_safety_pct"]}%)</span></div>'
-            yield_cell = f'<div style="font-family:var(--font-mono); font-size:0.94rem; color:var(--accent-warm); font-weight:500;">${h["annual_owner_earnings"]:,.0f}/yr <span style="font-size:0.80rem; color:var(--text-secondary); font-weight:400;">({h["look_through_fcf_yield"]}%)</span></div>'
+            price_cell = f"""
+            <div style="display:flex; flex-direction:column; gap:2px;">
+                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--text-title); font-weight:600;">${h["current_price"]:.2f}</span>
+                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-dim); font-weight:400;">(${cost_b:.2f})</span>
+            </div>
+            """
+            fv_cell = f"""
+            <div style="display:flex; flex-direction:column; gap:2px;">
+                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--text-title); font-weight:600;">${h["fair_value"]:.2f}</span>
+                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--accent-green); font-weight:500;">(+{h["margin_of_safety_pct"]}%)</span>
+            </div>
+            """
+            yield_cell = f"""
+            <div style="display:flex; flex-direction:column; gap:2px;">
+                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--accent-warm); font-weight:600;">${h["annual_owner_earnings"]:,.0f}/yr</span>
+                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-secondary); font-weight:400;">({h["look_through_fcf_yield"]}%)</span>
+            </div>
+            """
             
         alloc_cell = f"""
-        <div style="font-family:var(--font-mono); font-size:0.95rem; font-weight:600; color:var(--text-title);">
-            ${h['allocated_dollars']:,.0f} <span style="font-size:0.80rem; font-weight:400; color:var(--accent-warm);">({h['target_weight']*100:.1f}%)</span>
-            <div style="font-size:0.75rem; font-weight:400; color:var(--text-dim); margin-top:1px;">{h['shares_to_buy']} shares</div>
+        <div style="display:flex; flex-direction:column; gap:2px;">
+            <div style="font-family:var(--font-mono); font-size:0.95rem; font-weight:600; color:var(--text-title);">
+                ${h['allocated_dollars']:,.0f} <span style="font-size:0.80rem; font-weight:400; color:var(--accent-warm);">({h['target_weight']*100:.1f}%)</span>
+            </div>
+            <div style="font-family:var(--font-mono); font-size:0.78rem; font-weight:400; color:var(--text-dim);">{h['shares_to_buy']} shares</div>
         </div>
         """
         
