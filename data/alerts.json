@@ -1,22 +1,98 @@
 [
   {
-    "id": "alert-csu-1786548668",
+    "id": "alert-csu-1786575106",
     "ticker": "CSU",
-    "timestamp": "2026-08-12 15:31",
-    "title": "Q2 2026 Cash Flow Surge & Record $1.7B M&A Deployment Confirm Anti-Mr. Market Buy Signal",
+    "timestamp": "2026-08-12 22:51",
+    "title": "Constellation Software Q2 Audit: Transient Accounting Comps Disguise Record $1.7B M&A Deployment; Reaffirming High Conviction BUY",
     "severity": "High Conviction",
     "labels": [
       "High Conviction",
       "Quality Compounder",
-      "Capital Allocation"
+      "M A"
     ],
     "action_signal": "BUY",
-    "trigger_reason": "International Corporate Wire: Constellation Software Inc. Announces Results for Q2 2026 and Record M&A Deployment",
-    "what_was_before": "Q2 2026 pre-call preview highlighted FCFA2S up 57% YoY to $345M and OCF up 10% to $477M, offset by organic growth slowing to 3% due to Altera comp distortions. Intrinsic fair value was $2,880.00.",
-    "what_changes_now": "Post-earnings transcript audit and financial review confirm that the organic deceleration (1% FX-adjusted) was driven by transient accounting comps (Altera $17M upfront 2025 revenue, TDC comp, and South American customer exit) rather than GenAI disintermediation. FCFA2S surged 57% YoY to $345M and M&A deployment reached a record $1.7B YTD ($893M in Q2 + $818M post-quarter). We raise Intrinsic Fair Value to $2,950.00 and maintain High Conviction BUY.",
-    "price_at_alert": 2171.01,
-    "price_change_pct": -5.94,
+    "trigger_reason": "International Corporate Wire (Wed, 12 Aug 2026 20:04:40 +0000): Constellation Software Q2 Earnings Call Highlights",
+    "what_was_before": "Post-earnings transcript audit and financial review confirm that the organic deceleration (1% FX-adjusted) was driven by transient accounting comps (Altera $17M upfront 2025 revenue, TDC comp, and South American customer exit) rather than GenAI disintermediation. FCFA2S surged 57% YoY to $345M and M&A deployment reached a record $1.7B YTD ($893M in Q2 + $818M post-quarter). We raise Intrinsic Fair Value to $2,950.00 and maintain High Conviction BUY.",
+    "what_changes_now": "Primary transcript audit of Q2 2026 results confirms headline organic growth deceleration (1% constant currency) was driven by one-off accounting comps ($17M Altera upfront contract revenue in Q2 2025 and Lumine acquisition timing), with CFO Jamal Baksh confirming normalized recurring organic growth remains ~5%. Crucially, capital deployment surged to a record $1.71B YTD ($893M in Q2 + $818M post-quarter) with 2026 deal cohort margins already hitting +16%. Market panic (-3.81% drop to $2,220.00) offers an ideal Anti-Mr. Market entry point well below our $2,950.00 intrinsic value.",
+    "price_at_alert": 2220.0,
+    "price_change_pct": -3.81,
     "report_url": "reports/CSU.html"
+  },
+  {
+    "id": "alert-intc-1786574990",
+    "ticker": "INTC",
+    "timestamp": "2026-08-12 22:49",
+    "title": "Intel Closes $20B Upsized Stock Offering as CEO Lip-Bu Tan Buys $12M; Turnaround Execution Accelerates",
+    "severity": "Turnaround Risk",
+    "labels": [
+      "Turnaround Risk",
+      "Foundry Turnaround",
+      "Ai Compute"
+    ],
+    "action_signal": "HOLD",
+    "trigger_reason": "SEC 8-K Filing (2026-08-12): Item 7.01: Regulation FD Disclosure (Investor Presentation / Guidance Update); Item 8.01: Other Material Events; Item 9.01: Financial Statements and Exhibits [Accession #0001193125-26-346806]",
+    "what_was_before": "Intel reported strong Q2 2026 revenue growth (+25% YoY to $16.13B) driven by AI server processors and Client PC strength under CEO Lip-Bu Tan. However, aggressive CapEx requirements for Intel 18A/14A foundry nodes, persistent foundry operating losses, and a massive $20B common stock offering constrain near-term per-share intrinsic value. Investors should maintain caution until foundry yield metrics and free cash flow generation normalize.",
+    "what_changes_now": "On August 12, 2026, Intel formally closed its upsized $20B public common stock offering at $95/share (issuing ~242.11M total shares including full underwriter option exercise), securing ~$19.7B in net proceeds to fund growth CapEx and insulate the balance sheet. CEO Lip-Bu Tan personally invested $12M at the $95 offering price, signaling strong insider confidence. While the 5% equity dilution modestly trims immediate per-share Owner Earnings, the operational momentum\u2014highlighted by 18A yield progress, 90% EMIB-T packaging yields, and DCAI revenue (+59% YoY)\u2014substantially reduces solvency risk and supports our Base Intrinsic Fair Value of $118.00 per share.",
+    "price_at_alert": 100.95,
+    "price_change_pct": 3.32,
+    "report_url": "reports/INTC.html"
+  },
+  {
+    "id": "alert-chtr-1786574882",
+    "ticker": "CHTR",
+    "timestamp": "2026-08-12 22:48",
+    "title": "CHTR 8-K Debt Offering for Cox Deal Sinks Shares As Subscriber Erosion Persists",
+    "severity": "Turnaround Risk",
+    "labels": [
+      "Turnaround Risk",
+      "Buyback Cannibal",
+      "Debt Paydown"
+    ],
+    "action_signal": "CAUTION",
+    "trigger_reason": "SEC 8-K Filing (2026-08-12): Item 1.01: Entry into a Material Definitive Agreement (M&A / Commercial Contract); Item 2.03; Item 9.01: Financial Statements and Exhibits [Accession #0001104659-26-094863]",
+    "what_was_before": "Charter Communications trades at depressed earnings and cash multiples as persistent broadband subscriber losses (-172K in Q2 2026) and Fixed Wireless/Fiber competition weigh on core revenues, compounded by an immense debt burden exceeding $90B. However, rapid Spectrum Mobile adoption (+406K lines added in Q2 2026) and the pending acquisition of Cox Communications ($800M-$1B target synergies) offer a potential long-term free cash flow inflection as high capex spending winds down through 2028. While long-term buyback optionality is potent, execution risk and high balance sheet leverage mandate a cautious stance with close monitoring of subscriber metrics.",
+    "what_changes_now": "The SEC 8-K filing on August 12, 2026 confirms the terms of Charter's $4.75 billion senior secured debt issuance across four tranches (coupons 6.050% to 7.850%) to fund the cash component ($4.2 billion) of its $34.5 billion acquisition of Cox Communications. While regulatory hurdles clear\u2014highlighted by the Supreme Court's reversal of Cox's $1.0B legacy copyright judgment and the upcoming CPUC vote on August 13, 2026\u2014the additional leverage increases total debt past $98 billion. Q2 2026 financial results showed revenue of $13.53 billion (-1.7% YoY) and Adjusted EBITDA of $5.45 billion (-4.3% YoY), driven by broadband customer declines (-172,000) partially offset by strong mobile line additions (+406,000). Although capex normalization past 2027 and $800M+ in Cox synergies provide medium-term free cash flow upside, near-term leverage elevated at 4.18x Net Debt/EBITDA limits aggressive share repurchases and increases execution risk.",
+    "price_at_alert": 150.22,
+    "price_change_pct": -2.49,
+    "report_url": "reports/CHTR.html"
+  },
+  {
+    "id": "alert-rddt-1786574778",
+    "ticker": "RDDT",
+    "timestamp": "2026-08-12 22:46",
+    "title": "CLO Transition 8-K Creates Market Noise; Record $262M Operating Cash Flow Reaffirms $185.00 Intrinsic Value",
+    "severity": "Solid Conviction",
+    "labels": [
+      "Solid Conviction",
+      "Cash Fortress",
+      "Margin Expansion"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "SEC 8-K Filing (2026-08-12): Item 5.02: Departure/Election of Directors or Principal Officers (CEO/CFO/Executive Change); Item 9.01: Financial Statements and Exhibits [Accession #0001713445-26-000107]",
+    "what_was_before": "Reddit delivered explosive 61% YoY revenue growth to $805M in Q2 2026, generating $262M in operating cash flow with 91.3% gross margins and a $2.76B net cash fortress. Despite temporary search referral traffic volatility and flat US DAUq causing post-earnings stock weakness, RDDT's capital-light model, scaling performance ad engine (Reddit Max), and AI data licensing moat offer a compelling fundamental setup compounding toward a $185.00 base intrinsic fair value.",
+    "what_changes_now": "The August 12, 2026 Form 8-K confirms an orderly Chief Legal Officer transition (Benjamin Lee stepping down, Paul Cappuccio appointed) with zero operational or financial disagreements. With Mr. Market discounting RDDT to $153.45 on routine legal C-suite turnover and search referral noise, the stock offers a wider Margin of Safety against Q2 revenue surging 61% YoY to $805M, $261M in quarterly FCF, and a $2.8B net cash fortress. We maintain our $185.00 Base Intrinsic Fair Value and confirm a green BUY signal.",
+    "price_at_alert": 153.45,
+    "price_change_pct": -5.1,
+    "report_url": "reports/RDDT.html"
+  },
+  {
+    "id": "alert-hood-1786574665",
+    "ticker": "HOOD",
+    "timestamp": "2026-08-12 22:44",
+    "title": "HOOD Thesis Review: July Net Deposits Hit $5.6B as Platform Assets Reach $355B; Super-App Moat Intact",
+    "severity": "Solid Conviction",
+    "labels": [
+      "Solid Conviction",
+      "Moat Expansion",
+      "Buyback Cannibal"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "Catalyst Date Reached (2026-08-12: July Monthly Metrics Release)",
+    "what_was_before": "Robinhood transformed into a 13-cylinder platform generating record Q2 2026 revenue of $1.31B (+32% YoY) and 57% Adjusted EBITDA margins, with 4.84M Gold subscribers, $369B in platform assets, prediction market scale, and $5.6B in cash.",
+    "what_changes_now": "July 2026 monthly metrics confirm ongoing platform compounding with $5.6B in Net Deposits (18% annualized rate) and LTM net deposits reaching $74.9B (+25% YoY). While crypto (-33% M/M) and equity trading (-15% M/M) experienced standard mid-summer seasonality, options contracts grew +2% M/M (+66% YoY to 324M) and prediction market event contracts held strong at 6.1B (+20x YoY). Supported by $5.6B in corporate cash, disciplined buybacks, and custody expansion via Trump Accounts, Robinhood's intrinsic compounding thesis remains firmly intact.",
+    "price_at_alert": 94.91,
+    "price_change_pct": 1.74,
+    "report_url": "reports/HOOD.html"
   },
   {
     "id": "alert-bvhmf-1786482022",
