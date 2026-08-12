@@ -286,31 +286,23 @@ def score_wealthsimple_aggressive(
 def allocate_fractional_kelly_capped(
     k_scores: Dict[str, float],
     budget: float,
-    max_cap: float = 0.1200,
-    min_hurdle: float = 0.0200,
-    top_n: int = 16
+    max_cap: float = 0.1000,
+    min_hurdle: float = 0.0200
 ) -> Dict[str, float]:
     """
-    Allocates budget across top N candidates proportional to Kelly score,
-    subject to individual position caps and min hurdle.
+    Allocates budget across all eligible candidates proportional to Kelly score,
+    subject to max single position cap and minimum meaningful position hurdle.
     """
-    sorted_items = sorted(k_scores.items(), key=lambda x: x[1], reverse=True)[:top_n]
-    if not sorted_items:
-        return {}
-        
-    active_tickers = [t for t, k in sorted_items]
+    active_tickers = list(k_scores.keys())
     allocated = {t: 0.0 for t in active_tickers}
     remaining_budget = budget
     remaining_tickers = list(active_tickers)
     
-    for _ in range(10):
+    for _ in range(15):
         if not remaining_tickers or remaining_budget <= 0.0001:
             break
         tot_k = sum(k_scores[t] for t in remaining_tickers)
         if tot_k <= 0:
-            even = remaining_budget / len(remaining_tickers)
-            for t in remaining_tickers:
-                allocated[t] = min(max_cap, allocated[t] + even)
             break
             
         newly_capped = []
@@ -349,12 +341,14 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
         base_p = parse_target_price(w_item.get("base_target") or w_item.get("fair_value_estimate"), cur_p)
         bull_p = parse_target_price(w_item.get("bull_target"), cur_p)
         
-        meta = get_asset_metadata(ticker, w_item)
-        
-        if sig != "BUY":
+        # Mathematical hurdle: must offer positive expected base DCF return
+        base_ret = ((base_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
+        if base_ret <= 0.0:
             continue
             
-        # Continuous composite scoring for all active buy candidates
+        meta = get_asset_metadata(ticker, w_item)
+        
+        # Continuous composite scoring for all mathematically qualifying candidates
         scored_fid = score_fidelity_defensive(ticker, meta, cur_p, bear_p, base_p, bull_p, sig)
         fidelity_candidates.append(scored_fid)
             
@@ -362,33 +356,31 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
         wealthsimple_candidates.append(scored_ws)
 
     # STRICT ZERO OVERLAP (MUTUAL EXCLUSIVITY) BIPARTITE SELECTION
-    # 1. Wealthsimple selects high-growth asymmetric alpha champions (Growth >= 8%, high bull upside)
+    # 1. Wealthsimple selects high-growth asymmetric alpha champions (Growth >= 8%, max 1 per industry)
     wealthsimple_candidates.sort(key=lambda x: (x["total_score"], x["growth"], x["bull_ret"]), reverse=True)
     used_agg_ind = set()
     ws_selected = []
     ws_selected_tickers = set()
     for item in wealthsimple_candidates:
         if item["growth"] >= 8.0 and item["industry"] not in used_agg_ind:
-            if len(ws_selected) < 14:
-                ws_selected.append(item)
-                ws_selected_tickers.add(item["ticker"])
-                used_agg_ind.add(item["industry"])
+            ws_selected.append(item)
+            ws_selected_tickers.add(item["ticker"])
+            used_agg_ind.add(item["industry"])
 
-    # 2. Fidelity selects fortress moat & defensive preservation compounders (strictly excluding any Wealthsimple holdings)
+    # 2. Fidelity selects fortress moat & defensive preservation compounders (strictly excluding any Wealthsimple holdings, max 1 per industry)
     fidelity_candidates.sort(key=lambda x: (x["total_score"], x["moat"], x["bs"]), reverse=True)
     used_def_ind = set()
     fid_selected = []
     for item in fidelity_candidates:
         if item["ticker"] not in ws_selected_tickers and item["industry"] not in used_def_ind:
-            if len(fid_selected) < 16:
-                fid_selected.append(item)
-                used_def_ind.add(item["industry"])
+            fid_selected.append(item)
+            used_def_ind.add(item["industry"])
 
     # 3. Compute Fidelity Allocations
     fid_k = {x["ticker"]: x["kelly_score"] for x in fid_selected}
     fid_mos = sum(x["margin_of_safety_pct"] for x in fid_selected) / len(fid_selected) if fid_selected else 25.0
     fid_cash, fid_budget, fid_desc = calculate_shiller_macro_cash(True, fid_mos)
-    fid_weights = allocate_fractional_kelly_capped(fid_k, fid_budget, max_cap=0.1000, min_hurdle=0.0200, top_n=16)
+    fid_weights = allocate_fractional_kelly_capped(fid_k, fid_budget, max_cap=0.1000, min_hurdle=0.0200)
 
     sorted_def_tickers = sorted(fid_weights.keys(), key=lambda t: fid_weights[t], reverse=True)
     def_holdings = []
@@ -445,7 +437,7 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
     ws_k = {x["ticker"]: x["kelly_score"] for x in ws_selected}
     ws_mos = sum(x["margin_of_safety_pct"] for x in ws_selected) / len(ws_selected) if ws_selected else 40.0
     ws_cash, ws_budget, ws_desc = calculate_shiller_macro_cash(False, ws_mos)
-    ws_weights = allocate_fractional_kelly_capped(ws_k, ws_budget, max_cap=0.1200, min_hurdle=0.0200, top_n=14)
+    ws_weights = allocate_fractional_kelly_capped(ws_k, ws_budget, max_cap=0.1000, min_hurdle=0.0200)
 
     sorted_agg_tickers = sorted(ws_weights.keys(), key=lambda t: ws_weights[t], reverse=True)
     agg_holdings = []
