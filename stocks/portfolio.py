@@ -219,9 +219,16 @@ def get_enriched_portfolio(total_capital: float = 100000.0) -> Dict[str, Any]:
             elif h.get("pillar") == "B":
                 pillar_b_weight += target_w
                 
-        fcf_yield = float(h.get("look_through_fcf_yield", 5.0))
+        base_fcf_yield = float(h.get("look_through_fcf_yield", 5.0))
         cannibal_rate = float(h.get("cannibal_rate_pct", 0.0))
-        annual_owner_earnings = alloc_dollars * (fcf_yield / 100.0)
+        
+        # Real-time price-adjusted Owner Earnings yield at market
+        if ticker != "USD_CASH" and cur_price > 0 and cost_b > 0:
+            live_fcf_yield = base_fcf_yield * (cost_b / cur_price)
+        else:
+            live_fcf_yield = base_fcf_yield
+            
+        annual_owner_earnings = alloc_dollars * (live_fcf_yield / 100.0)
         total_owner_earnings_usd += annual_owner_earnings
         total_cannibal_weight += (cannibal_rate * target_w)
         
@@ -234,12 +241,30 @@ def get_enriched_portfolio(total_capital: float = 100000.0) -> Dict[str, Any]:
             "margin_of_safety_pct": round(mos_pct, 1),
             "allocated_dollars": round(alloc_dollars, 2),
             "shares_to_buy": shares,
+            "look_through_fcf_yield": round(live_fcf_yield, 2),
             "annual_owner_earnings": round(annual_owner_earnings, 2),
             "action_signal": action_signal,
             "report_url": f"reports/{ticker}.html" if ticker != "USD_CASH" else None
         })
         
     weighted_fcf_yield = (total_owner_earnings_usd / total_capital) * 100.0 if total_capital > 0 else 0.0
+    
+    # Compute live portfolio value from current market prices
+    live_portfolio_val = 0.0
+    for eh in enriched_holdings:
+        if eh["ticker"] == "USD_CASH":
+            live_portfolio_val += eh["allocated_dollars"]
+        else:
+            live_portfolio_val += (eh["shares_to_buy"] * eh["current_price"])
+            
+    hist_perf = list(state.get("historical_performance", []))
+    if hist_perf:
+        hist_perf[-1] = {
+            "date": datetime.now().strftime("%Y-%m-%d"),
+            "portfolio_value": round(live_portfolio_val, 2),
+            "owner_earnings_runrate": round(total_owner_earnings_usd, 2),
+            "spy_benchmark": hist_perf[-1].get("spy_benchmark", 116800.0)
+        }
     
     return {
         "portfolio_name": state.get("portfolio_name", "AlphaThesis Concentrated Fortress"),
@@ -248,7 +273,7 @@ def get_enriched_portfolio(total_capital: float = 100000.0) -> Dict[str, Any]:
         "base_capital_usd": total_capital,
         "holdings": enriched_holdings,
         "rebalance_log": state.get("rebalance_log", []),
-        "historical_performance": state.get("historical_performance", []),
+        "historical_performance": hist_perf,
         "stats": {
             "total_holdings_count": len([h for h in enriched_holdings if h["ticker"] != "USD_CASH"]),
             "pillar_a_weight_pct": round(pillar_a_weight * 100.0, 1),
