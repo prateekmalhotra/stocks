@@ -1,0 +1,53 @@
+{
+  "macro": {
+    "shiller_cape": 35.5,
+    "cape_historical_median": 18.0,
+    "buffett_indicator": 198.5,
+    "treasury_bill_yield": 0.05,
+    "max_single_equity_cap": 0.15
+  },
+  "compliance_exclusions": {
+    "GOOG": "Regulatory/Compliance Constraint: Direct Employer Affiliation",
+    "GOOGL": "Regulatory/Compliance Constraint: Direct Employer Affiliation",
+    "LMT": "Ethical Invariant: Weapons & Defense Manufacturing",
+    "BTI": "Ethical Invariant: Tobacco & Nicotine Manufacturing"
+  },
+  "mandates": {
+    "fidelity": {
+      "name": "Fidelity",
+      "display_type": "defensive",
+      "target_audience": "Defensive Fortresses & Consistent Cash Compounding",
+      "min_mos_pct": 20.0,
+      "min_moat": 8.8,
+      "min_growth_pct": 0.0,
+      "min_score": 65.0,
+      "min_position_weight": 0.03,
+      "cash_floor": 0.05,
+      "weights": {
+        "moat": 0.3,
+        "balance_sheet": 0.25,
+        "margin_of_safety": 0.2,
+        "cannibal": 0.15,
+        "oe_yield": 0.1
+      }
+    },
+    "wealthsimple": {
+      "name": "Wealthsimple",
+      "display_type": "aggressive",
+      "target_audience": "Aggressive Alpha, High-Velocity Cannibal Compounders (No Value Traps)",
+      "min_mos_pct": 25.0,
+      "min_moat": 8.5,
+      "min_growth_pct": 6.0,
+      "min_score": 60.0,
+      "min_position_weight": 0.03,
+      "cash_floor": 0.03,
+      "weights": {
+        "margin_of_safety": 0.3,
+        "cannibal": 0.2,
+        "moat": 0.2,
+        "balance_sheet": 0.15,
+        "growth": 0.15
+      }
+    }
+  }
+}

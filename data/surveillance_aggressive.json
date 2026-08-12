@@ -2,31 +2,31 @@
   "portfolio_type": "aggressive",
   "portfolio_label": "Wealthsimple (Aggressive Alpha)",
   "last_run_date": "2026-08-12",
-  "last_run_timestamp": "2026-08-12T00:04:57.427248",
+  "last_run_timestamp": "2026-08-12T00:16:56.198586",
   "status": "ACTION_REQUIRED",
-  "status_display": "REBALANCE PROPOSAL PENDING (8 ACTIONS)",
+  "status_display": "REBALANCE PROPOSAL PENDING (7 ACTIONS)",
   "action_required": true,
-  "verdict_summary": "Council flagged 8 position(s) exceeding materiality rebalance hurdles.",
+  "verdict_summary": "Council flagged 7 position(s) exceeding materiality rebalance hurdles.",
   "total_universe_scanned": 72,
-  "active_holdings_verified": 12,
+  "active_holdings_verified": 16,
   "shiller_cape": 35.5,
   "buffett_indicator_pct": 198.5,
   "treasury_3m_yield_pct": 5.0,
-  "portfolio_average_mos_pct": 44.92,
-  "cash_cushion_pct": 13.71,
+  "portfolio_average_mos_pct": 41.41,
+  "cash_cushion_pct": 14.39,
   "macro_cash_audit": {
     "shiller_cape": 35.5,
     "historical_cape_median": 18.0,
     "buffett_indicator_pct": 198.5,
     "treasury_3m_yield_pct": 5.0,
-    "portfolio_weighted_mos_pct": 44.92,
+    "portfolio_weighted_mos_pct": 41.41,
     "mandate_structural_floor_pct": 3.0,
-    "calculated_target_cash_pct": 13.71,
-    "current_actual_cash_pct": 14.08,
+    "calculated_target_cash_pct": 14.39,
+    "current_actual_cash_pct": 14.75,
     "cash_status": "OPTIMAL_DRY_POWDER_MAINTAINED",
     "strike_trigger_threshold": "MoS > 45.0% on Tier-1 Compounder or Flash Crash Dislocation",
     "cash_directive": "Maintain 3M US Treasury float yielding 5.00% risk-free. Stand ready for fat pitch market dislocations.",
-    "formula_description": "Tactical Strike Reserve (13.71%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +44.92% weighted Margin of Safety."
+    "formula_description": "Tactical Strike Reserve (14.39%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +41.41% weighted Margin of Safety."
   },
   "next_scheduled_run": "2026-08-19",
   "holdings_health": [
@@ -122,6 +122,32 @@
       "thesis_core": "Global checkout network with $1.5T volume; accelerating Braintree margins and buybacks."
     },
     {
+      "ticker": "ADBE",
+      "company_name": "Adobe Inc.",
+      "price": 263.71,
+      "fair_value": 340.0,
+      "mos_pct": 28.93,
+      "signal": "BUY",
+      "moat_score": 9.5,
+      "expected_irr": 25.0,
+      "kelly_edge": 34.95,
+      "health_status": "PRISTINE",
+      "thesis_core": "Creative Cloud monopoly; 85%+ gross margins, $3.5B+ annual share buybacks."
+    },
+    {
+      "ticker": "MA",
+      "company_name": "Mastercard Incorporated",
+      "price": 561.44,
+      "fair_value": 710.0,
+      "mos_pct": 26.46,
+      "signal": "BUY",
+      "moat_score": 9.8,
+      "expected_irr": 22.6,
+      "kelly_edge": 40.5,
+      "health_status": "PRISTINE",
+      "thesis_core": "Global payment rail duopoly; 57% operating margin, secular cashless conversion."
+    },
+    {
       "ticker": "MTCH",
       "company_name": "Match Group, Inc.",
       "price": 36.8,
@@ -174,6 +200,32 @@
       "thesis_core": "B2B cross-border marketplace network effects with fulfillment scale, high ROIC, and net cash."
     },
     {
+      "ticker": "CMG",
+      "company_name": "Chipotle Mexican Grill, Inc.",
+      "price": 32.0,
+      "fair_value": 42.5,
+      "mos_pct": 32.81,
+      "signal": "BUY",
+      "moat_score": 9.1,
+      "expected_irr": 23.4,
+      "kelly_edge": 30.14,
+      "health_status": "PRISTINE",
+      "thesis_core": "High unit-economics restaurant chain expanding drive-thru Chipotlanes across North America."
+    },
+    {
+      "ticker": "CRM",
+      "company_name": "Salesforce, Inc.",
+      "price": 197.47,
+      "fair_value": 255.0,
+      "mos_pct": 29.13,
+      "signal": "BUY",
+      "moat_score": 9.2,
+      "expected_irr": 23.0,
+      "kelly_edge": 16.05,
+      "health_status": "PRISTINE",
+      "thesis_core": "Enterprise CRM platform standard; multi-cloud cross-selling and margin expansion."
+    },
+    {
       "ticker": "MELI",
       "company_name": "MercadoLibre, Inc.",
       "price": 1940.0,
@@ -188,16 +240,6 @@
     }
   ],
   "top_watchlist_on_radar": [
-    {
-      "ticker": "META",
-      "company_name": "Meta Platforms, Inc.",
-      "price": 599.12,
-      "fair_value": 720.0,
-      "mos_pct": 20.18,
-      "expected_irr": 25.6,
-      "kelly_edge": 42.83,
-      "moat_score": 9.7
-    },
     {
       "ticker": "NOW",
       "company_name": "ServiceNow, Inc.",
@@ -217,14 +259,19 @@
       "expected_irr": 29.3,
       "kelly_edge": 19.19,
       "moat_score": 9.1
+    },
+    {
+      "ticker": "UBER",
+      "company_name": "Uber Technologies, Inc.",
+      "price": 78.54,
+      "fair_value": 95.0,
+      "mos_pct": 20.96,
+      "expected_irr": 27.7,
+      "kelly_edge": 17.46,
+      "moat_score": 9.2
     }
   ],
   "rebalance_proposals": [
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "META",
-      "reason": "Dislocation arbitrage: META offers Edge 42.83 vs 3.06 min active."
-    },
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "AMZN",
