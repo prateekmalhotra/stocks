@@ -3596,6 +3596,21 @@
             color: var(--text-secondary) !important;
             font-weight: 400 !important;
         }
+
+        /* Day 1 Flashing Beacon Animation */
+        @keyframes beacon-pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(204, 120, 92, 0.8); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(204, 120, 92, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(204, 120, 92, 0); }
+        }
+        .flashing-beacon-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-warm);
+            display: inline-block;
+            animation: beacon-pulse 1.8s infinite;
+        }
     </style>
     <!-- AlphaThesis Concentrated Portfolio Tab -->
     <div id="portfolio-interactive-hub" style="display:flex; flex-direction:column; gap:28px;">
@@ -3604,8 +3619,8 @@
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px;">
             <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:20px 22px; display:flex; flex-direction:column;">
                 <div style="font-family:var(--font-sans); font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:6px;">Look-Through FCF Yield</div>
-                <div style="font-family:var(--font-mono); font-size:2.1rem; font-weight:500; color:var(--accent-warm); line-height:1.1; margin-bottom:6px;">4.94%</div>
-                <div style="font-family:var(--font-sans); font-size:0.82rem; color:var(--text-secondary);">$4,939 / yr on $100k Base</div>
+                <div style="font-family:var(--font-mono); font-size:2.1rem; font-weight:500; color:var(--accent-warm); line-height:1.1; margin-bottom:6px;">5.42%</div>
+                <div style="font-family:var(--font-sans); font-size:0.82rem; color:var(--text-secondary);">$5,425 / yr on $100k Base</div>
             </div>
 
             <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:20px 22px; display:flex; flex-direction:column;">
@@ -3634,20 +3649,25 @@
         <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:24px 28px;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:12px;">
                 <div>
-                    <h3 style="font-family:var(--font-serif); font-size:1.35rem; color:var(--text-title); margin:0 0 4px; font-weight:500;">
-                        📈 Portfolio Growth & Look-Through Owner Earnings ($100k Base)
-                    </h3>
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px; flex-wrap:wrap;">
+                        <h3 style="font-family:var(--font-serif); font-size:1.35rem; color:var(--text-title); margin:0; font-weight:500;">
+                            📈 Portfolio Growth & Look-Through Owner Earnings ($100k Base)
+                        </h3>
+                        <span class="pill pill-active" style="font-size:0.75rem; display:inline-flex; align-items:center; gap:6px;">
+                            <span class="flashing-beacon-dot"></span> Day 1 Inception (Aug 11, 2026)
+                        </span>
+                    </div>
                     <p style="color:var(--text-dim); font-size:0.86rem; margin:0;">
-                        Tracking market price compounding alongside fundamental Owner Earnings ($ USD/yr run-rate).
+                        Day 1 Portfolio Inception • Tracking daily market close compounding alongside S&P 500 benchmark. Updated daily at 3:00 PM EST.
                     </p>
                 </div>
                 <div style="display:flex; align-items:center; gap:16px; font-size:0.82rem;">
                     <div style="display:flex; align-items:center; gap:6px;">
-                        <span style="width:12px; height:3px; background:#C99A75; border-radius:2px;"></span>
+                        <span style="width:12px; height:3px; background:#CC785C; border-radius:2px;"></span>
                         <span style="color:var(--text-title);">AlphaThesis Portfolio ($)</span>
                     </div>
                     <div style="display:flex; align-items:center; gap:6px;">
-                        <span style="width:12px; height:3px; background:#7D9D81; border-radius:2px;"></span>
+                        <span style="width:12px; height:3px; background:#6FA882; border-radius:2px;"></span>
                         <span style="color:var(--accent-green);">Look-Through Earnings ($)</span>
                     </div>
                     <div style="display:flex; align-items:center; gap:6px;">
@@ -3669,7 +3689,7 @@
                         🏛️ Portfolio Holdings ($100k Base)
                     </h3>
                     <p style="color:var(--text-dim); font-size:0.86rem; margin:0;">
-                        Concentrated 8-core allocation and Treasury cash buffer.
+                        Concentrated 8-core allocation and Treasury cash buffer at Day 1 Inception cost basis.
                     </p>
                 </div>
                 <div style="display:flex; align-items:center; gap:8px;">
@@ -3712,13 +3732,13 @@
             <div class="cell-primary">
                 $15,000 <span style="font-size:0.80rem; font-weight:400; color:var(--accent-warm);">(15.0%)</span>
             </div>
-            <div class="cell-sub cell-sub-dim">48.39 shares</div>
+            <div class="cell-sub cell-sub-dim">43.73 shares</div>
         </div>
         </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div class="tbl-cell-stacked">
                 <div class="cell-primary">$343.00</div>
-                <div class="cell-sub cell-sub-dim">($310.00)</div>
+                <div class="cell-sub cell-sub-dim">($343.00)</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
@@ -3729,8 +3749,8 @@
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div class="tbl-cell-stacked">
-                <div class="cell-primary cell-warm">$651/yr</div>
-                <div class="cell-sub cell-sub-secondary">(4.34%)</div>
+                <div class="cell-primary cell-warm">$720/yr</div>
+                <div class="cell-sub cell-sub-secondary">(4.8%)</div>
             </div>
             </td>
         </tr>
@@ -3749,13 +3769,13 @@
             <div class="cell-primary">
                 $14,000 <span style="font-size:0.80rem; font-weight:400; color:var(--accent-warm);">(14.0%)</span>
             </div>
-            <div class="cell-sub cell-sub-dim">25.0 shares</div>
+            <div class="cell-sub cell-sub-dim">23.37 shares</div>
         </div>
         </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div class="tbl-cell-stacked">
                 <div class="cell-primary">$599.12</div>
-                <div class="cell-sub cell-sub-dim">($560.00)</div>
+                <div class="cell-sub cell-sub-dim">($599.12)</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
@@ -3766,8 +3786,8 @@
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div class="tbl-cell-stacked">
-                <div class="cell-primary cell-warm">$707/yr</div>
-                <div class="cell-sub cell-sub-secondary">(5.05%)</div>
+                <div class="cell-primary cell-warm">$756/yr</div>
+                <div class="cell-sub cell-sub-secondary">(5.4%)</div>
             </div>
             </td>
         </tr>
@@ -3786,13 +3806,13 @@
             <div class="cell-primary">
                 $12,000 <span style="font-size:0.80rem; font-weight:400; color:var(--accent-warm);">(12.0%)</span>
             </div>
-            <div class="cell-sub cell-sub-dim">34.78 shares</div>
+            <div class="cell-sub cell-sub-dim">33.07 shares</div>
         </div>
         </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div class="tbl-cell-stacked">
                 <div class="cell-primary">$362.82</div>
-                <div class="cell-sub cell-sub-dim">($345.00)</div>
+                <div class="cell-sub cell-sub-dim">($362.82)</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
@@ -3803,8 +3823,8 @@
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div class="tbl-cell-stacked">
-                <div class="cell-primary cell-warm">$525/yr</div>
-                <div class="cell-sub cell-sub-secondary">(4.37%)</div>
+                <div class="cell-primary cell-warm">$552/yr</div>
+                <div class="cell-sub cell-sub-secondary">(4.6%)</div>
             </div>
             </td>
         </tr>
@@ -3823,13 +3843,13 @@
             <div class="cell-primary">
                 $12,000 <span style="font-size:0.80rem; font-weight:400; color:var(--accent-warm);">(12.0%)</span>
             </div>
-            <div class="cell-sub cell-sub-dim">30.0 shares</div>
+            <div class="cell-sub cell-sub-dim">23.82 shares</div>
         </div>
         </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div class="tbl-cell-stacked">
                 <div class="cell-primary">$503.81</div>
-                <div class="cell-sub cell-sub-dim">($400.00)</div>
+                <div class="cell-sub cell-sub-dim">($503.81)</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
@@ -3840,8 +3860,8 @@
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div class="tbl-cell-stacked">
-                <div class="cell-primary cell-warm">$372/yr</div>
-                <div class="cell-sub cell-sub-secondary">(3.1%)</div>
+                <div class="cell-primary cell-warm">$468/yr</div>
+                <div class="cell-sub cell-sub-secondary">(3.9%)</div>
             </div>
             </td>
         </tr>
@@ -3860,13 +3880,13 @@
             <div class="cell-primary">
                 $10,000 <span style="font-size:0.80rem; font-weight:400; color:var(--accent-warm);">(10.0%)</span>
             </div>
-            <div class="cell-sub cell-sub-dim">51.28 shares</div>
+            <div class="cell-sub cell-sub-dim">46.98 shares</div>
         </div>
         </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div class="tbl-cell-stacked">
                 <div class="cell-primary">$212.87</div>
-                <div class="cell-sub cell-sub-dim">($195.00)</div>
+                <div class="cell-sub cell-sub-dim">($212.87)</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
@@ -3877,8 +3897,8 @@
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div class="tbl-cell-stacked">
-                <div class="cell-primary cell-warm">$623/yr</div>
-                <div class="cell-sub cell-sub-secondary">(6.23%)</div>
+                <div class="cell-primary cell-warm">$680/yr</div>
+                <div class="cell-sub cell-sub-secondary">(6.8%)</div>
             </div>
             </td>
         </tr>
@@ -3897,13 +3917,13 @@
             <div class="cell-primary">
                 $8,000 <span style="font-size:0.80rem; font-weight:400; color:var(--accent-warm);">(8.0%)</span>
             </div>
-            <div class="cell-sub cell-sub-dim">307.69 shares</div>
+            <div class="cell-sub cell-sub-dim">272.11 shares</div>
         </div>
         </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div class="tbl-cell-stacked">
                 <div class="cell-primary">$29.40</div>
-                <div class="cell-sub cell-sub-dim">($26.00)</div>
+                <div class="cell-sub cell-sub-dim">($29.40)</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
@@ -3914,8 +3934,8 @@
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div class="tbl-cell-stacked">
-                <div class="cell-primary cell-warm">$311/yr</div>
-                <div class="cell-sub cell-sub-secondary">(3.89%)</div>
+                <div class="cell-primary cell-warm">$352/yr</div>
+                <div class="cell-sub cell-sub-secondary">(4.4%)</div>
             </div>
             </td>
         </tr>
@@ -3934,13 +3954,13 @@
             <div class="cell-primary">
                 $8,000 <span style="font-size:0.80rem; font-weight:400; color:var(--accent-warm);">(8.0%)</span>
             </div>
-            <div class="cell-sub cell-sub-dim">67.8 shares</div>
+            <div class="cell-sub cell-sub-dim">60.74 shares</div>
         </div>
         </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div class="tbl-cell-stacked">
                 <div class="cell-primary">$131.71</div>
-                <div class="cell-sub cell-sub-dim">($118.00)</div>
+                <div class="cell-sub cell-sub-dim">($131.71)</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
@@ -3951,8 +3971,8 @@
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div class="tbl-cell-stacked">
-                <div class="cell-primary cell-warm">$803/yr</div>
-                <div class="cell-sub cell-sub-secondary">(10.03%)</div>
+                <div class="cell-primary cell-warm">$896/yr</div>
+                <div class="cell-sub cell-sub-secondary">(11.2%)</div>
             </div>
             </td>
         </tr>
@@ -3971,13 +3991,13 @@
             <div class="cell-primary">
                 $8,000 <span style="font-size:0.80rem; font-weight:400; color:var(--accent-warm);">(8.0%)</span>
             </div>
-            <div class="cell-sub cell-sub-dim">97.56 shares</div>
+            <div class="cell-sub cell-sub-dim">85.25 shares</div>
         </div>
         </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div class="tbl-cell-stacked">
                 <div class="cell-primary">$93.84</div>
-                <div class="cell-sub cell-sub-dim">($82.00)</div>
+                <div class="cell-sub cell-sub-dim">($93.84)</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
@@ -3988,8 +4008,8 @@
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div class="tbl-cell-stacked">
-                <div class="cell-primary cell-warm">$364/yr</div>
-                <div class="cell-sub cell-sub-secondary">(4.54%)</div>
+                <div class="cell-primary cell-warm">$416/yr</div>
+                <div class="cell-sub cell-sub-secondary">(5.2%)</div>
             </div>
             </td>
         </tr>
@@ -4039,20 +4059,20 @@
                 <h4 style="font-family:var(--font-serif); font-size:1.15rem; color:var(--text-title); margin:0; font-weight:500;">
                     📋 Rebalancing Log & Verification History
                 </h4>
-                <span style="font-size:0.75rem; color:var(--text-dim);">Daily 4:30 PM ET Audit • Min. Threshold ≥ 5%</span>
+                <span style="font-size:0.75rem; color:var(--text-dim);">Daily 3:00 PM EST Surveillance • Min. Threshold ≥ 5%</span>
             </div>
             <div style="display:flex; flex-direction:column; gap:10px;">
                 
         <div style="background:var(--bg-subpanel); border:1px solid var(--border-color); border-radius:10px; padding:14px 18px; display:flex; flex-direction:column; gap:6px;">
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
                 <div style="display:flex; align-items:center; gap:8px;">
-                    <span class="pill pill-active" style="font-size:0.72rem;">INITIATION</span>
-                    <strong style="font-family:var(--font-mono); font-size:0.85rem; color:var(--text-title);">2026-01-01</strong>
+                    <span class="pill pill-active" style="font-size:0.72rem;">PORTFOLIO INCEPTION (DAY 1)</span>
+                    <strong style="font-family:var(--font-mono); font-size:0.85rem; color:var(--text-title);">2026-08-11</strong>
                 </div>
-                <span style="font-size:0.78rem; color:var(--accent-green); font-family:var(--font-sans);">Passed 3/3 Autonomous Verification Council</span>
+                <span style="font-size:0.78rem; color:var(--accent-green); font-family:var(--font-sans);">Verified 3/3 Autonomous Verification Council</span>
             </div>
             <div style="font-size:0.88rem; color:var(--text-secondary); line-height:1.45;">
-                Initial capital allocation into 8 Fortress Anchor & Mispriced Cannibal compounders plus 13% Treasury cash buffer.
+                Official inception of AlphaThesis Concentrated Fortress with $100,000 baseline across 8 core compounders & 13% Treasury cash buffer at Aug 11, 2026 market close.
             </div>
         </div>
         
@@ -4064,7 +4084,7 @@
     <!-- Chart.js Engine for Dual-Axis Portfolio Visualization -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        const perfData = {"dates": ["2026-01-01", "2026-02-01", "2026-03-01", "2026-04-01", "2026-05-01", "2026-06-01", "2026-07-01", "2026-08-01", "2026-08-11"], "portfolio": [100000.0, 101490.43, 102879.31, 104232.29, 105562.47, 106875.94, 108176.25, 109465.72, 110745.98], "spy": [100000.0, 100943.13, 101822.01, 102678.17, 103519.9, 104351.06, 105173.89, 105989.86, 106800.0], "earnings": [4700.0, 4733.19, 4764.11, 4794.24, 4823.86, 4853.1, 4882.06, 4910.77, 4939.28]};
+        const perfData = {"dates": ["2026-08-11"], "portfolio": [100000.63], "spy": [100000.0], "earnings": [5425.0]};
         let chartInstance = null;
 
         function initPortfolioChart() {
@@ -4075,6 +4095,8 @@
                 chartInstance.destroy();
             }
 
+            const isSinglePoint = (perfData.dates && perfData.dates.length <= 1);
+
             chartInstance = new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -4084,11 +4106,15 @@
                             label: 'AlphaThesis Portfolio ($)',
                             data: perfData.portfolio,
                             borderColor: '#CC785C',
-                            backgroundColor: 'rgba(204, 120, 92, 0.08)',
+                            backgroundColor: 'rgba(204, 120, 92, 0.12)',
                             borderWidth: 2.4,
-                            pointRadius: 4,
+                            pointRadius: isSinglePoint ? 8 : 4,
+                            pointHoverRadius: isSinglePoint ? 12 : 7,
                             pointBackgroundColor: '#CC785C',
+                            pointBorderColor: '#FFFFFF',
+                            pointBorderWidth: isSinglePoint ? 2 : 1,
                             tension: 0.25,
+                            showLine: true,
                             yAxisID: 'y'
                         },
                         {
@@ -4098,9 +4124,13 @@
                             backgroundColor: 'transparent',
                             borderWidth: 2,
                             borderDash: [5, 5],
-                            pointRadius: 3,
+                            pointRadius: isSinglePoint ? 7 : 3,
+                            pointHoverRadius: isSinglePoint ? 10 : 6,
                             pointBackgroundColor: '#6FA882',
+                            pointBorderColor: '#FFFFFF',
+                            pointBorderWidth: isSinglePoint ? 2 : 1,
                             tension: 0.2,
+                            showLine: true,
                             yAxisID: 'y1'
                         },
                         {
@@ -4109,8 +4139,13 @@
                             borderColor: '#9E9689',
                             backgroundColor: 'transparent',
                             borderWidth: 1.5,
-                            pointRadius: 0,
+                            pointRadius: isSinglePoint ? 6 : 0,
+                            pointHoverRadius: isSinglePoint ? 9 : 5,
+                            pointBackgroundColor: '#9E9689',
+                            pointBorderColor: '#FFFFFF',
+                            pointBorderWidth: isSinglePoint ? 2 : 1,
                             tension: 0.2,
+                            showLine: true,
                             yAxisID: 'y'
                         }
                     ]
@@ -4154,11 +4189,13 @@
                             type: 'linear',
                             display: true,
                             position: 'left',
-                            min: 95000,
+                            min: isSinglePoint ? 90000 : 90000,
+                            max: isSinglePoint ? 110000 : undefined,
                             grid: { color: 'rgba(255,255,255,0.04)' },
                             ticks: {
                                 color: '#CC785C',
                                 font: { family: 'var(--font-mono)', size: 11 },
+                                stepSize: isSinglePoint ? 5000 : undefined,
                                 callback: function(value) { return '$' + (value/1000).toFixed(0) + 'k'; }
                             }
                         },
@@ -4166,11 +4203,13 @@
                             type: 'linear',
                             display: true,
                             position: 'right',
-                            min: 4400,
+                            min: isSinglePoint ? 4500 : 4400,
+                            max: isSinglePoint ? 6500 : undefined,
                             grid: { drawOnChartArea: false },
                             ticks: {
                                 color: '#6FA882',
                                 font: { family: 'var(--font-mono)', size: 11 },
+                                stepSize: isSinglePoint ? 500 : undefined,
                                 callback: function(value) { return '$' + value.toLocaleString() + '/yr'; }
                             }
                         }
