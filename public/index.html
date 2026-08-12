@@ -5961,8 +5961,11 @@
                 </span>
             </div>
             <div style="text-align:right;">
-                <div style="font-size:0.70rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim); margin-bottom:2px;">Live Portfolio Value</div>
-                <div style="font-family:var(--font-mono); font-size:2.0rem; font-weight:600; color:var(--text-title); letter-spacing:-0.02em; line-height:1.1;">
+                <div style="display:flex; align-items:center; justify-content:flex-end; gap:6px; margin-bottom:2px;">
+                    <span style="display:inline-block; width:6px; height:6px; border-radius:50%; background:#6FA882;"></span>
+                    <span id="live-stream-status-defensive" style="font-size:0.70rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim);">Live Portfolio Value</span>
+                </div>
+                <div id="live-port-val-defensive" style="font-family:var(--font-mono); font-size:2.0rem; font-weight:600; color:var(--text-title); letter-spacing:-0.02em; line-height:1.1;">
                     $196,280.01
                 </div>
             </div>
@@ -5973,9 +5976,9 @@
             <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:20px 22px; display:flex; flex-direction:column; justify-content:space-between;">
                 <div style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim); margin-bottom:8px; font-weight:500;">Cash Flow Yield</div>
                 <div style="font-family:var(--font-mono); font-size:1.85rem; font-weight:600; color:var(--accent-warm); margin-bottom:6px; line-height:1.1; letter-spacing:-0.02em;">
-                    7.57%
+                    7.73%
                 </div>
-                <div style="font-size:0.80rem; color:var(--text-secondary); font-family:var(--font-mono); line-height:1.3;">$15,140 / yr (Net Cash)</div>
+                <div style="font-size:0.80rem; color:var(--text-secondary); font-family:var(--font-mono); line-height:1.3;">$15,468 / yr (Net Cash)</div>
             </div>
 
             <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:20px 22px; display:flex; flex-direction:column; justify-content:space-between;">
@@ -5989,7 +5992,7 @@
             <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:20px 22px; display:flex; flex-direction:column; justify-content:space-between;">
                 <div style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim); margin-bottom:8px; font-weight:500;">Margin of Safety</div>
                 <div style="font-family:var(--font-mono); font-size:1.85rem; font-weight:600; color:var(--accent-green); margin-bottom:6px; line-height:1.1; letter-spacing:-0.02em;">
-                    +36.4%
+                    +39.2%
                 </div>
                 <div style="font-size:0.80rem; color:var(--text-secondary); line-height:1.3;">Weighted Undervaluation vs DCF</div>
             </div>
@@ -6024,7 +6027,7 @@
                 </thead>
                 <tbody>
                     
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
+        <tr data-row-ticker="JD" data-shares="1378.4461" data-cost="31.92" data-port="defensive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
                 <div style="display:flex; align-items:center; gap:6px;">
@@ -6046,7 +6049,13 @@
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <span style="font-family:var(--font-mono); font-weight:500; font-size:0.92rem; color:var(--text-title);">$31.14</span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <span class="live-price-JD" style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">$31.14</span>
+                    <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-dim);" title="Inception Cost Basis">($31.92)</span>
+                </div>
+                <span class="live-gl-JD" style="font-size:0.74rem; font-family:var(--font-mono); color:var(--accent-warm);">-2.44% since Aug 11</span>
+            </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
@@ -6062,7 +6071,7 @@
             </td>
         </tr>
         
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
+        <tr data-row-ticker="YELP" data-shares="1328.2507" data-cost="23.61" data-port="defensive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
                 <div style="display:flex; align-items:center; gap:6px;">
@@ -6084,7 +6093,13 @@
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <span style="font-family:var(--font-mono); font-weight:500; font-size:0.92rem; color:var(--text-title);">$22.64</span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <span class="live-price-YELP" style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">$22.64</span>
+                    <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-dim);" title="Inception Cost Basis">($23.61)</span>
+                </div>
+                <span class="live-gl-YELP" style="font-size:0.74rem; font-family:var(--font-mono); color:var(--accent-warm);">-4.11% since Aug 11</span>
+            </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
@@ -6094,13 +6109,13 @@
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
-                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.92rem; color:var(--accent-warm);">$2,979/yr</span>
-                <span style="font-size:0.76rem; color:var(--text-secondary); font-family:var(--font-mono);">9.5% Yield</span>
+                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.92rem; color:var(--accent-warm);">$3,107/yr</span>
+                <span style="font-size:0.76rem; color:var(--text-secondary); font-family:var(--font-mono);">9.9% Yield</span>
             </div>
             </td>
         </tr>
         
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
+        <tr data-row-ticker="ACN" data-shares="118.1181" data-cost="179.82" data-port="defensive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
                 <div style="display:flex; align-items:center; gap:6px;">
@@ -6122,7 +6137,13 @@
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <span style="font-family:var(--font-mono); font-weight:500; font-size:0.92rem; color:var(--text-title);">$176.74</span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <span class="live-price-ACN" style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">$176.74</span>
+                    <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-dim);" title="Inception Cost Basis">($179.82)</span>
+                </div>
+                <span class="live-gl-ACN" style="font-size:0.74rem; font-family:var(--font-mono); color:var(--accent-warm);">-1.71% since Aug 11</span>
+            </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
@@ -6132,13 +6153,13 @@
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
-                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.92rem; color:var(--accent-warm);">$1,020/yr</span>
-                <span style="font-size:0.76rem; color:var(--text-secondary); font-family:var(--font-mono);">4.8% Yield</span>
+                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.92rem; color:var(--accent-warm);">$1,037/yr</span>
+                <span style="font-size:0.76rem; color:var(--text-secondary); font-family:var(--font-mono);">4.9% Yield</span>
             </div>
             </td>
         </tr>
         
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
+        <tr data-row-ticker="MTCH" data-shares="494.5652" data-cost="36.8" data-port="defensive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
                 <div style="display:flex; align-items:center; gap:6px;">
@@ -6160,7 +6181,13 @@
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <span style="font-family:var(--font-mono); font-weight:500; font-size:0.92rem; color:var(--text-title);">$36.50</span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <span class="live-price-MTCH" style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">$36.50</span>
+                    <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-dim);" title="Inception Cost Basis">($36.80)</span>
+                </div>
+                <span class="live-gl-MTCH" style="font-size:0.74rem; font-family:var(--font-mono); color:var(--accent-warm);">-0.82% since Aug 11</span>
+            </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
@@ -6170,13 +6197,13 @@
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
-                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.92rem; color:var(--accent-warm);">$1,602/yr</span>
-                <span style="font-size:0.76rem; color:var(--text-secondary); font-family:var(--font-mono);">8.8% Yield</span>
+                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.92rem; color:var(--accent-warm);">$1,615/yr</span>
+                <span style="font-size:0.76rem; color:var(--text-secondary); font-family:var(--font-mono);">8.9% Yield</span>
             </div>
             </td>
         </tr>
         
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
+        <tr data-row-ticker="BABA" data-shares="98.3966" data-cost="127.85" data-port="defensive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
                 <div style="display:flex; align-items:center; gap:6px;">
@@ -6198,7 +6225,13 @@
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <span style="font-family:var(--font-mono); font-weight:500; font-size:0.92rem; color:var(--text-title);">$123.78</span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <span class="live-price-BABA" style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">$123.78</span>
+                    <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-dim);" title="Inception Cost Basis">($127.85)</span>
+                </div>
+                <span class="live-gl-BABA" style="font-size:0.74rem; font-family:var(--font-mono); color:var(--accent-warm);">-3.18% since Aug 11</span>
+            </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
@@ -6208,13 +6241,13 @@
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
-                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.92rem; color:var(--accent-warm);">$1,069/yr</span>
-                <span style="font-size:0.76rem; color:var(--text-secondary); font-family:var(--font-mono);">8.5% Yield</span>
+                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.92rem; color:var(--accent-warm);">$1,104/yr</span>
+                <span style="font-size:0.76rem; color:var(--text-secondary); font-family:var(--font-mono);">8.8% Yield</span>
             </div>
             </td>
         </tr>
         
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
+        <tr data-row-ticker="CMCSA" data-shares="473.2943" data-cost="25.65" data-port="defensive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
                 <div style="display:flex; align-items:center; gap:6px;">
@@ -6236,7 +6269,13 @@
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <span style="font-family:var(--font-mono); font-weight:500; font-size:0.92rem; color:var(--text-title);">$25.29</span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <span class="live-price-CMCSA" style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">$25.29</span>
+                    <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-dim);" title="Inception Cost Basis">($25.65)</span>
+                </div>
+                <span class="live-gl-CMCSA" style="font-size:0.74rem; font-family:var(--font-mono); color:var(--accent-warm);">-1.40% since Aug 11</span>
+            </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
@@ -6246,13 +6285,13 @@
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
-                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.92rem; color:var(--accent-warm);">$1,032/yr</span>
-                <span style="font-size:0.76rem; color:var(--text-secondary); font-family:var(--font-mono);">8.5% Yield</span>
+                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.92rem; color:var(--accent-warm);">$1,047/yr</span>
+                <span style="font-size:0.76rem; color:var(--text-secondary); font-family:var(--font-mono);">8.6% Yield</span>
             </div>
             </td>
         </tr>
         
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
+        <tr data-row-ticker="NKE" data-shares="234.7531" data-cost="41.32" data-port="defensive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
                 <div style="display:flex; align-items:center; gap:6px;">
@@ -6274,7 +6313,13 @@
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <span style="font-family:var(--font-mono); font-weight:500; font-size:0.92rem; color:var(--text-title);">$40.58</span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <span class="live-price-NKE" style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">$40.58</span>
+                    <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-dim);" title="Inception Cost Basis">($41.32)</span>
+                </div>
+                <span class="live-gl-NKE" style="font-size:0.74rem; font-family:var(--font-mono); color:var(--accent-warm);">-1.79% since Aug 11</span>
+            </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
@@ -6284,13 +6329,13 @@
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
-                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.92rem; color:var(--accent-warm);">$534/yr</span>
-                <span style="font-size:0.76rem; color:var(--text-secondary); font-family:var(--font-mono);">5.5% Yield</span>
+                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.92rem; color:var(--accent-warm);">$543/yr</span>
+                <span style="font-size:0.76rem; color:var(--text-secondary); font-family:var(--font-mono);">5.6% Yield</span>
             </div>
             </td>
         </tr>
         
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
+        <tr data-row-ticker="CROX" data-shares="63.4728" data-cost="131.71" data-port="defensive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
                 <div style="display:flex; align-items:center; gap:6px;">
@@ -6312,7 +6357,13 @@
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <span style="font-family:var(--font-mono); font-weight:500; font-size:0.92rem; color:var(--text-title);">$130.14</span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <span class="live-price-CROX" style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">$130.14</span>
+                    <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-dim);" title="Inception Cost Basis">($131.71)</span>
+                </div>
+                <span class="live-gl-CROX" style="font-size:0.74rem; font-family:var(--font-mono); color:var(--accent-warm);">-1.19% since Aug 11</span>
+            </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
@@ -6322,13 +6373,13 @@
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
-                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.92rem; color:var(--accent-warm);">$736/yr</span>
-                <span style="font-size:0.76rem; color:var(--text-secondary); font-family:var(--font-mono);">8.8% Yield</span>
+                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.92rem; color:var(--accent-warm);">$745/yr</span>
+                <span style="font-size:0.76rem; color:var(--text-secondary); font-family:var(--font-mono);">8.9% Yield</span>
             </div>
             </td>
         </tr>
         
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
+        <tr data-row-ticker="USD_CASH" data-shares="42420.0" data-cost="1.0" data-port="defensive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
                 <span style="font-weight:600; font-size:0.96rem; color:var(--text-title);">USD Cash Reserve</span>
@@ -6341,7 +6392,7 @@
                 <span class="pill pill-neutral" style="font-size:0.72rem; padding:2px 7px;">21.2%</span>
             </div>
             </td>
-            <td style="padding:14px 16px; vertical-align:middle;"><span style="font-family:var(--font-mono); font-size:0.90rem; color:var(--text-dim);">$1.00</span></td>
+            <td style="padding:14px 16px; vertical-align:middle;"><span style="font-family:var(--font-mono); font-size:0.90rem; color:var(--text-dim);">$1.00 ($1.00)</span></td>
             <td style="padding:14px 16px; vertical-align:middle;"><span style="font-family:var(--font-mono); font-size:0.90rem; color:var(--text-dim);">$1.00 (Par)</span></td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
@@ -6483,6 +6534,83 @@
                     }
                 }
             });
+
+            // Real-Time High-Frequency Quote Streaming & Portfolio Value Calculator
+            const portType = 'defensive';
+            const cashAlloc = 42420.0;
+            
+            async function streamLiveQuotes() {
+                try {
+                    const rows = document.querySelectorAll(`tr[data-port="${portType}"]`);
+                    let liveEquityTotal = 0;
+                    let updatedCount = 0;
+                    
+                    for (const r of rows) {
+                        const ticker = r.getAttribute('data-row-ticker');
+                        const shares = parseFloat(r.getAttribute('data-shares')) || 0;
+                        const cost = parseFloat(r.getAttribute('data-cost')) || 0;
+                        
+                        if (!ticker || ticker === 'USD_CASH') continue;
+                        
+                        try {
+                            // Direct high-speed Yahoo Finance real-time quote query with CORS proxy fallback
+                            let livePrice = 0;
+                            const directUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1m`;
+                            try {
+                                const res = await fetch(directUrl);
+                                if (res.ok) {
+                                    const data = await res.json();
+                                    livePrice = data.chart?.result?.[0]?.meta?.regularMarketPrice || 0;
+                                }
+                            } catch (e) {
+                                // Try fast CORS proxy if direct fetch is blocked
+                                const proxyUrl = `https://corsproxy.io/?url=` + encodeURIComponent(directUrl);
+                                const resProxy = await fetch(proxyUrl);
+                                if (resProxy.ok) {
+                                    const data = await resProxy.json();
+                                    livePrice = data.chart?.result?.[0]?.meta?.regularMarketPrice || 0;
+                                }
+                            }
+
+                            if (livePrice && livePrice > 0) {
+                                const pSpan = r.querySelector(`.live-price-${ticker}`);
+                                const glSpan = r.querySelector(`.live-gl-${ticker}`);
+                                if (pSpan) pSpan.textContent = '$' + livePrice.toFixed(2);
+                                if (glSpan && cost > 0) {
+                                    const gl = ((livePrice - cost) / cost) * 100;
+                                    const sign = gl >= 0 ? '+' : '';
+                                    glSpan.textContent = `${sign}${gl.toFixed(2)}% since Aug 11`;
+                                    glSpan.style.color = gl >= 0 ? 'var(--accent-green)' : 'var(--accent-warm)';
+                                }
+                                liveEquityTotal += (shares * livePrice);
+                                updatedCount++;
+                                continue;
+                            }
+                        } catch (e) {
+                            // Non-blocking fallback
+                        }
+                        const curPriceSpan = r.querySelector(`.live-price-${ticker}`);
+                        const pVal = curPriceSpan ? parseFloat(curPriceSpan.textContent.replace(/[^0-9.]/g, '')) : cost;
+                        liveEquityTotal += (shares * pVal);
+                    }
+                    
+                    const totalLive = liveEquityTotal + cashAlloc;
+                    const valElem = document.getElementById(`live-port-val-${portType}`);
+                    if (valElem && totalLive > 0) {
+                        valElem.textContent = '$' + totalLive.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    }
+                    const statusElem = document.getElementById(`live-stream-status-${portType}`);
+                    if (statusElem && updatedCount > 0) {
+                        statusElem.textContent = 'Live Market Stream (Real-Time)';
+                    }
+                } catch (err) {
+                    console.warn('Live quote streamer:', err);
+                }
+            }
+            
+            // Poll real-time stream every 15 seconds while viewing dashboard
+            setInterval(streamLiveQuotes, 15000);
+            setTimeout(streamLiveQuotes, 1500);
         })();
     </script>
     
@@ -6504,8 +6632,11 @@
                 </span>
             </div>
             <div style="text-align:right;">
-                <div style="font-size:0.70rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim); margin-bottom:2px;">Live Portfolio Value</div>
-                <div style="font-family:var(--font-mono); font-size:2.0rem; font-weight:600; color:var(--text-title); letter-spacing:-0.02em; line-height:1.1;">
+                <div style="display:flex; align-items:center; justify-content:flex-end; gap:6px; margin-bottom:2px;">
+                    <span style="display:inline-block; width:6px; height:6px; border-radius:50%; background:#6FA882;"></span>
+                    <span id="live-stream-status-aggressive" style="font-size:0.70rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim);">Live Portfolio Value</span>
+                </div>
+                <div id="live-port-val-aggressive" style="font-family:var(--font-mono); font-size:2.0rem; font-weight:600; color:var(--text-title); letter-spacing:-0.02em; line-height:1.1;">
                     $196,463.83
                 </div>
             </div>
@@ -6567,7 +6698,7 @@
                 </thead>
                 <tbody>
                     
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
+        <tr data-row-ticker="PDD" data-shares="199.337" data-cost="90.5" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
                 <div style="display:flex; align-items:center; gap:6px;">
@@ -6589,7 +6720,13 @@
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <span style="font-family:var(--font-mono); font-weight:500; font-size:0.92rem; color:var(--text-title);">$88.04</span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <span class="live-price-PDD" style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">$88.04</span>
+                    <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-dim);" title="Inception Cost Basis">($90.50)</span>
+                </div>
+                <span class="live-gl-PDD" style="font-size:0.74rem; font-family:var(--font-mono); color:var(--accent-warm);">-2.72% since Aug 11</span>
+            </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
@@ -6605,7 +6742,7 @@
             </td>
         </tr>
         
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
+        <tr data-row-ticker="LULU" data-shares="138.6832" data-cost="125.61" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
                 <div style="display:flex; align-items:center; gap:6px;">
@@ -6627,7 +6764,13 @@
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <span style="font-family:var(--font-mono); font-weight:500; font-size:0.92rem; color:var(--text-title);">$122.06</span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <span class="live-price-LULU" style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">$122.06</span>
+                    <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-dim);" title="Inception Cost Basis">($125.61)</span>
+                </div>
+                <span class="live-gl-LULU" style="font-size:0.74rem; font-family:var(--font-mono); color:var(--accent-warm);">-2.83% since Aug 11</span>
+            </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
@@ -6643,7 +6786,7 @@
             </td>
         </tr>
         
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
+        <tr data-row-ticker="EDU" data-shares="296.3096" data-cost="55.55" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
                 <div style="display:flex; align-items:center; gap:6px;">
@@ -6665,7 +6808,13 @@
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <span style="font-family:var(--font-mono); font-weight:500; font-size:0.92rem; color:var(--text-title);">$53.20</span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <span class="live-price-EDU" style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">$53.20</span>
+                    <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-dim);" title="Inception Cost Basis">($55.55)</span>
+                </div>
+                <span class="live-gl-EDU" style="font-size:0.74rem; font-family:var(--font-mono); color:var(--accent-warm);">-4.23% since Aug 11</span>
+            </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
@@ -6681,7 +6830,7 @@
             </td>
         </tr>
         
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
+        <tr data-row-ticker="SOFI" data-shares="909.8999" data-cost="17.98" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
                 <div style="display:flex; align-items:center; gap:6px;">
@@ -6703,7 +6852,13 @@
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <span style="font-family:var(--font-mono); font-weight:500; font-size:0.92rem; color:var(--text-title);">$17.73</span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <span class="live-price-SOFI" style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">$17.73</span>
+                    <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-dim);" title="Inception Cost Basis">($17.98)</span>
+                </div>
+                <span class="live-gl-SOFI" style="font-size:0.74rem; font-family:var(--font-mono); color:var(--accent-warm);">-1.39% since Aug 11</span>
+            </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
@@ -6719,7 +6874,7 @@
             </td>
         </tr>
         
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
+        <tr data-row-ticker="STNE" data-shares="1520.0803" data-cost="9.96" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
                 <div style="display:flex; align-items:center; gap:6px;">
@@ -6741,7 +6896,13 @@
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <span style="font-family:var(--font-mono); font-weight:500; font-size:0.92rem; color:var(--text-title);">$9.85</span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <span class="live-price-STNE" style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">$9.85</span>
+                    <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-dim);" title="Inception Cost Basis">($9.96)</span>
+                </div>
+                <span class="live-gl-STNE" style="font-size:0.74rem; font-family:var(--font-mono); color:var(--accent-warm);">-1.10% since Aug 11</span>
+            </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
@@ -6757,7 +6918,7 @@
             </td>
         </tr>
         
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
+        <tr data-row-ticker="MA" data-shares="24.4015" data-cost="561.44" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
                 <div style="display:flex; align-items:center; gap:6px;">
@@ -6779,7 +6940,13 @@
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <span style="font-family:var(--font-mono); font-weight:500; font-size:0.92rem; color:var(--text-title);">$557.73</span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <span class="live-price-MA" style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">$557.73</span>
+                    <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-dim);" title="Inception Cost Basis">($561.44)</span>
+                </div>
+                <span class="live-gl-MA" style="font-size:0.74rem; font-family:var(--font-mono); color:var(--accent-warm);">-0.66% since Aug 11</span>
+            </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
@@ -6795,7 +6962,7 @@
             </td>
         </tr>
         
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
+        <tr data-row-ticker="NOW" data-shares="99.5766" data-cost="127.54" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
                 <div style="display:flex; align-items:center; gap:6px;">
@@ -6817,7 +6984,13 @@
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <span style="font-family:var(--font-mono); font-weight:500; font-size:0.92rem; color:var(--text-title);">$123.09</span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <span class="live-price-NOW" style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">$123.09</span>
+                    <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-dim);" title="Inception Cost Basis">($127.54)</span>
+                </div>
+                <span class="live-gl-NOW" style="font-size:0.74rem; font-family:var(--font-mono); color:var(--accent-warm);">-3.49% since Aug 11</span>
+            </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
@@ -6833,7 +7006,7 @@
             </td>
         </tr>
         
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
+        <tr data-row-ticker="UPWK" data-shares="1478.4689" data-cost="8.36" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
                 <div style="display:flex; align-items:center; gap:6px;">
@@ -6855,7 +7028,13 @@
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <span style="font-family:var(--font-mono); font-weight:500; font-size:0.92rem; color:var(--text-title);">$8.24</span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <span class="live-price-UPWK" style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">$8.24</span>
+                    <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-dim);" title="Inception Cost Basis">($8.36)</span>
+                </div>
+                <span class="live-gl-UPWK" style="font-size:0.74rem; font-family:var(--font-mono); color:var(--accent-warm);">-1.44% since Aug 11</span>
+            </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
@@ -6871,7 +7050,7 @@
             </td>
         </tr>
         
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
+        <tr data-row-ticker="INTU" data-shares="34.4192" data-cost="336.44" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
                 <div style="display:flex; align-items:center; gap:6px;">
@@ -6893,7 +7072,13 @@
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <span style="font-family:var(--font-mono); font-weight:500; font-size:0.92rem; color:var(--text-title);">$330.09</span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <span class="live-price-INTU" style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">$330.09</span>
+                    <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-dim);" title="Inception Cost Basis">($336.44)</span>
+                </div>
+                <span class="live-gl-INTU" style="font-size:0.74rem; font-family:var(--font-mono); color:var(--accent-warm);">-1.89% since Aug 11</span>
+            </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
@@ -6909,7 +7094,7 @@
             </td>
         </tr>
         
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
+        <tr data-row-ticker="UBER" data-shares="139.5467" data-cost="78.54" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
                 <div style="display:flex; align-items:center; gap:6px;">
@@ -6931,7 +7116,13 @@
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <span style="font-family:var(--font-mono); font-weight:500; font-size:0.92rem; color:var(--text-title);">$75.94</span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <span class="live-price-UBER" style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">$75.94</span>
+                    <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-dim);" title="Inception Cost Basis">($78.54)</span>
+                </div>
+                <span class="live-gl-UBER" style="font-size:0.74rem; font-family:var(--font-mono); color:var(--accent-warm);">-3.31% since Aug 11</span>
+            </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
@@ -6947,7 +7138,7 @@
             </td>
         </tr>
         
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
+        <tr data-row-ticker="MELI" data-shares="5.3711" data-cost="1940.0" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
                 <div style="display:flex; align-items:center; gap:6px;">
@@ -6969,7 +7160,13 @@
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <span style="font-family:var(--font-mono); font-weight:500; font-size:0.92rem; color:var(--text-title);">$1,893.00</span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <span class="live-price-MELI" style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">$1,893.00</span>
+                    <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-dim);" title="Inception Cost Basis">($1,940.00)</span>
+                </div>
+                <span class="live-gl-MELI" style="font-size:0.74rem; font-family:var(--font-mono); color:var(--accent-warm);">-2.42% since Aug 11</span>
+            </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
@@ -6985,7 +7182,7 @@
             </td>
         </tr>
         
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
+        <tr data-row-ticker="ASML" data-shares="5.6242" data-cost="1799.38" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
                 <div style="display:flex; align-items:center; gap:6px;">
@@ -7007,7 +7204,13 @@
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <span style="font-family:var(--font-mono); font-weight:500; font-size:0.92rem; color:var(--text-title);">$1,814.04</span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <span class="live-price-ASML" style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">$1,814.04</span>
+                    <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-dim);" title="Inception Cost Basis">($1,799.38)</span>
+                </div>
+                <span class="live-gl-ASML" style="font-size:0.74rem; font-family:var(--font-mono); color:var(--accent-green);">+0.81% since Aug 11</span>
+            </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
@@ -7023,7 +7226,7 @@
             </td>
         </tr>
         
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
+        <tr data-row-ticker="USD_CASH" data-shares="34740.0" data-cost="1.0" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
                 <span style="font-weight:600; font-size:0.96rem; color:var(--text-title);">USD Cash Reserve</span>
@@ -7036,7 +7239,7 @@
                 <span class="pill pill-neutral" style="font-size:0.72rem; padding:2px 7px;">17.4%</span>
             </div>
             </td>
-            <td style="padding:14px 16px; vertical-align:middle;"><span style="font-family:var(--font-mono); font-size:0.90rem; color:var(--text-dim);">$1.00</span></td>
+            <td style="padding:14px 16px; vertical-align:middle;"><span style="font-family:var(--font-mono); font-size:0.90rem; color:var(--text-dim);">$1.00 ($1.00)</span></td>
             <td style="padding:14px 16px; vertical-align:middle;"><span style="font-family:var(--font-mono); font-size:0.90rem; color:var(--text-dim);">$1.00 (Par)</span></td>
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:4px;">
@@ -7178,6 +7381,83 @@
                     }
                 }
             });
+
+            // Real-Time High-Frequency Quote Streaming & Portfolio Value Calculator
+            const portType = 'aggressive';
+            const cashAlloc = 34740.0;
+            
+            async function streamLiveQuotes() {
+                try {
+                    const rows = document.querySelectorAll(`tr[data-port="${portType}"]`);
+                    let liveEquityTotal = 0;
+                    let updatedCount = 0;
+                    
+                    for (const r of rows) {
+                        const ticker = r.getAttribute('data-row-ticker');
+                        const shares = parseFloat(r.getAttribute('data-shares')) || 0;
+                        const cost = parseFloat(r.getAttribute('data-cost')) || 0;
+                        
+                        if (!ticker || ticker === 'USD_CASH') continue;
+                        
+                        try {
+                            // Direct high-speed Yahoo Finance real-time quote query with CORS proxy fallback
+                            let livePrice = 0;
+                            const directUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1m`;
+                            try {
+                                const res = await fetch(directUrl);
+                                if (res.ok) {
+                                    const data = await res.json();
+                                    livePrice = data.chart?.result?.[0]?.meta?.regularMarketPrice || 0;
+                                }
+                            } catch (e) {
+                                // Try fast CORS proxy if direct fetch is blocked
+                                const proxyUrl = `https://corsproxy.io/?url=` + encodeURIComponent(directUrl);
+                                const resProxy = await fetch(proxyUrl);
+                                if (resProxy.ok) {
+                                    const data = await resProxy.json();
+                                    livePrice = data.chart?.result?.[0]?.meta?.regularMarketPrice || 0;
+                                }
+                            }
+
+                            if (livePrice && livePrice > 0) {
+                                const pSpan = r.querySelector(`.live-price-${ticker}`);
+                                const glSpan = r.querySelector(`.live-gl-${ticker}`);
+                                if (pSpan) pSpan.textContent = '$' + livePrice.toFixed(2);
+                                if (glSpan && cost > 0) {
+                                    const gl = ((livePrice - cost) / cost) * 100;
+                                    const sign = gl >= 0 ? '+' : '';
+                                    glSpan.textContent = `${sign}${gl.toFixed(2)}% since Aug 11`;
+                                    glSpan.style.color = gl >= 0 ? 'var(--accent-green)' : 'var(--accent-warm)';
+                                }
+                                liveEquityTotal += (shares * livePrice);
+                                updatedCount++;
+                                continue;
+                            }
+                        } catch (e) {
+                            // Non-blocking fallback
+                        }
+                        const curPriceSpan = r.querySelector(`.live-price-${ticker}`);
+                        const pVal = curPriceSpan ? parseFloat(curPriceSpan.textContent.replace(/[^0-9.]/g, '')) : cost;
+                        liveEquityTotal += (shares * pVal);
+                    }
+                    
+                    const totalLive = liveEquityTotal + cashAlloc;
+                    const valElem = document.getElementById(`live-port-val-${portType}`);
+                    if (valElem && totalLive > 0) {
+                        valElem.textContent = '$' + totalLive.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    }
+                    const statusElem = document.getElementById(`live-stream-status-${portType}`);
+                    if (statusElem && updatedCount > 0) {
+                        statusElem.textContent = 'Live Market Stream (Real-Time)';
+                    }
+                } catch (err) {
+                    console.warn('Live quote streamer:', err);
+                }
+            }
+            
+            // Poll real-time stream every 15 seconds while viewing dashboard
+            setInterval(streamLiveQuotes, 15000);
+            setTimeout(streamLiveQuotes, 1500);
         })();
     </script>
     
