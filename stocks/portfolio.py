@@ -18,6 +18,8 @@ from stocks.weekly_surveillance import get_surveillance_summary
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 WATCHLIST_FILE = DATA_DIR / "watchlist.json"
+PUBLIC_DIR = Path(__file__).resolve().parent.parent / "public"
+LIVE_QUOTES_FILE = PUBLIC_DIR / "data" / "live_quotes.json"
 
 
 def get_portfolio_filepath(portfolio_type: str = "defensive") -> Path:
@@ -72,6 +74,14 @@ def get_enriched_portfolio(total_capital: float = 200000.0, portfolio_type: str 
         except Exception:
             pass
             
+    live_quotes = {}
+    if LIVE_QUOTES_FILE.exists():
+        try:
+            with open(LIVE_QUOTES_FILE, "r") as f:
+                live_quotes = json.load(f)
+        except Exception:
+            pass
+            
     enriched_holdings = []
     total_owner_earnings_usd = 0.0
     total_cannibal_product = 0.0
@@ -99,7 +109,7 @@ def get_enriched_portfolio(total_capital: float = 200000.0, portfolio_type: str 
         else:
             w_item = watchlist_data.get(ticker, {})
             company_name = w_item.get("company_name", h.get("company_name", ticker))
-            cur_price = float(w_item.get("current_price", h.get("current_price", 100.0)))
+            cur_price = float(live_quotes.get(ticker, {}).get("price", w_item.get("current_price", h.get("current_price", 100.0))))
             cost_b = float(h.get("cost_basis", cur_price))
             
             raw_fv = str(w_item.get("fair_value_estimate", h.get("fair_value", cur_price)))
@@ -307,10 +317,11 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                 {tag_html}
             </div>
             """
+            cur_pos_val = h['shares_to_buy'] * cur_p
             alloc_col = f"""
             <div style="display:flex; flex-direction:column; gap:4px;">
                 <div style="display:flex; align-items:center; gap:8px;">
-                    <span class="live-alloc-{t}" style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">${alloc_dol:,.0f}</span>
+                    <span class="live-alloc-{t}" style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">${cur_pos_val:,.0f}</span>
                     <span class="pill pill-neutral" style="font-size:0.72rem; padding:2px 7px;">{w_pct:.1f}%</span>
                 </div>
                 <span style="font-size:0.76rem; color:var(--text-dim); font-family:var(--font-mono);">{h['shares_to_buy']:,.2f} shs</span>
