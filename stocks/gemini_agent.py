@@ -830,44 +830,50 @@ def research_ownership_writeups(ticker: str, company_name: str) -> List[Dict[str
 
 
 def research_institutional_funds(ticker: str, company_name: str) -> Dict[str, Any]:
-    """Specialized Subagent Prompt: Searches live web for 13F whale positions, Dataroma superinvestor allocations, and activist stakes."""
-    prompt = f"""You are an elite institutional equity ownership auditor.
-Search Dataroma, WhaleWisdom, SEC Form 13F/13D filings, and shareholder registries for {company_name} ({ticker}).
+    """Specialized Subagent Prompt: Searches live web for comprehensive 13F institutional shareholders and WhaleWisdom holdings."""
+    api_key = get_api_key()
+    clean_t = ticker.upper().strip()
+    
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
+    headers = {"Content-Type": "application/json"}
+    
+    prompt = f"""You are an elite SEC Form 13F institutional equity ownership auditor.
+Search the live web for the top institutional shareholders and 13F fund holdings of {clean_t} ({company_name}) from WhaleWisdom, SEC Form 13F filings, Nasdaq, Fintel, or Morningstar.
 
-Identify:
-1. Aggregate institutional float percentage.
-2. Top 5-10 specific superinvestors / hedge funds / asset managers holding the stock with:
-   - "manager": Fund or Investor Name (e.g. "David Tepper - Appaloosa", "Li Lu - Himalaya", "Vanguard", "Warren Buffett - Berkshire")
-   - "pct_of_portfolio": Portfolio weight % if known
-   - "recent_activity": Recent action ("Buy", "Added +15%", "Reduce 5%", "Held Firm", "New Position")
-   - "shares": Reported share count
-   - "value_usd": Reported position value in USD
-   - "source_url": Direct URL to the filing or fund profile
+Extract and return a JSON object with:
+"institutional_ownership_pct": "<e.g. 78.4%>",
+"institutional_holders": [
+  {{
+    "name": "<e.g. Blackstone Inc. | Vanguard Group | BlackRock | Price (T.Rowe) | Fidelity | etc.>",
+    "category": "<e.g. Private Equity Sponsor | Passive Index Giant | Asset Manager | Hedge Fund | Mutual Fund>",
+    "stake": "<e.g. 28.4% or 8.2%>",
+    "shares": "<e.g. 35,420,000>",
+    "action": "<e.g. <span style='color: var(--accent-green);'>Increased +3.1%</span> | <span style='color: var(--text-dim);'>Held Firm</span> | <span style='color: var(--accent-red);'>Decreased -4.5%</span>>",
+    "value": "<e.g. $166.5M>",
+    "url": "https://whalewisdom.com/stock/{clean_t.lower()}"
+  }}
+]
 
-Output ONLY a JSON object:
-```json
-{{
-  "institutional_ownership_pct": "<e.g. 78.5%>",
-  "holders": [
-    {{
-      "manager": "...",
-      "pct_of_portfolio": "...",
-      "recent_activity": "...",
-      "shares": "...",
-      "value_usd": "...",
-      "source_url": "..."
-    }}
-  ]
-}}
-```
+Provide 8 to 12 top institutional holders with realistic/exact 13F share amounts, stake percentages, and dollar values.
+Respond ONLY with the JSON object enclosed in ```json ```.
 """
+
+    payload = {
+        "contents": [{"parts": [{"text": prompt}]}],
+        "tools": [{"google_search": {}}],
+        "generationConfig": {"temperature": 0.1}
+    }
+    
     try:
-        res = call_gemini_with_search(prompt, temperature=0.2)
-        parsed = extract_json_block(res)
-        if isinstance(parsed, dict):
-            return parsed
+        resp = requests.post(url, headers=headers, json=payload, timeout=60)
+        if resp.status_code == 200:
+            data = resp.json()
+            text = data["candidates"][0]["content"]["parts"][0]["text"]
+            m = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", text, re.DOTALL)
+            if m:
+                return json.loads(m.group(1))
     except Exception as e:
-        print(f"Error researching institutional funds for {ticker}: {e}")
+        print(f"Error researching institutional funds for {clean_t}: {e}")
     return {}
 
 

@@ -471,8 +471,10 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     def clean_and_sanitize_html(content: str) -> str:
         if not content:
             return ""
-        # 1. Strip code fences or markdown blocks wrapping prose
-        cleaned = re.sub(r"^```(?:html)?\s*", "", content, flags=re.MULTILINE)
+        # 1. Strip code fences, markdown blocks, and leaked json metadata blocks
+        cleaned = re.sub(r"```(?:json)?\s*\{.*?\}\s*```", "", content, flags=re.DOTALL)
+        cleaned = re.sub(r"(?:\n|^)\s*json\s*\{.*?\}\s*(?=\n|<div|$)", "", cleaned, flags=re.DOTALL)
+        cleaned = re.sub(r"^```(?:html)?\s*", "", cleaned, flags=re.MULTILINE)
         cleaned = re.sub(r"\s*```$", "", cleaned, flags=re.MULTILINE).strip()
         cleaned = re.sub(r'\s*style\s*=\s*"[^"]*"', '', cleaned, flags=re.IGNORECASE)
         cleaned = re.sub(r"\s*style\s*=\s*'[^']*'", '', cleaned, flags=re.IGNORECASE)
