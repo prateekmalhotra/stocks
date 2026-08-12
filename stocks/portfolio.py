@@ -750,11 +750,11 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                 streamLiveQuotes(true);
             }}, 200);
 
-            // Active live stream polling every 2.5 seconds
-            setInterval(() => streamLiveQuotes(false), 2500);
-            
-            // Refresh baseline from server every 45 seconds
-            setInterval(fetchBaselineQuotes, 45000);
+            // Smooth client-side micro-ticks every 4 seconds (zero API network cost)
+            setInterval(() => streamLiveQuotes(false), 4000);
+
+            // Refresh official quotes from CDN every 60 seconds (1 minute)
+            setInterval(fetchBaselineQuotes, 60000);
         }})();
     </script>
     """
