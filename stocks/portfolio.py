@@ -805,15 +805,19 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
             }}
 
             const isSinglePoint = (perfData.dates && perfData.dates.length <= 1);
+            const chartLabels = isSinglePoint ? ['Aug 11 (Inception)', 'Aug 12', 'Aug 13', 'Aug 14', 'Aug 15'] : perfData.dates;
+            const portfolioSeries = isSinglePoint ? [perfData.portfolio[0], null, null, null, null] : perfData.portfolio;
+            const earningsSeries = isSinglePoint ? [perfData.earnings[0], null, null, null, null] : perfData.earnings;
+            const spySeries = isSinglePoint ? [perfData.spy[0], null, null, null, null] : perfData.spy;
 
             chartInstance = new Chart(ctx, {{
                 type: 'line',
                 data: {{
-                    labels: perfData.dates,
+                    labels: chartLabels,
                     datasets: [
                         {{
                             label: 'AlphaThesis Portfolio ($)',
-                            data: perfData.portfolio,
+                            data: portfolioSeries,
                             borderColor: '#CC785C',
                             backgroundColor: 'rgba(204, 120, 92, 0.10)',
                             borderWidth: 2.2,
@@ -824,11 +828,12 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                             pointBorderWidth: 0,
                             tension: 0.25,
                             showLine: true,
+                            spanGaps: false,
                             yAxisID: 'y'
                         }},
                         {{
                             label: 'Look-Through Owner Earnings ($/yr)',
-                            data: perfData.earnings,
+                            data: earningsSeries,
                             borderColor: '#6FA882',
                             backgroundColor: 'transparent',
                             borderWidth: 1.8,
@@ -841,11 +846,12 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                             pointBorderWidth: 0,
                             tension: 0.2,
                             showLine: true,
+                            spanGaps: false,
                             yAxisID: 'y1'
                         }},
                         {{
                             label: 'S&P 500 Benchmark ($)',
-                            data: perfData.spy,
+                            data: spySeries,
                             borderColor: '#8C8982',
                             backgroundColor: 'transparent',
                             borderWidth: 1.4,
@@ -857,6 +863,7 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                             pointBorderWidth: 0,
                             tension: 0.2,
                             showLine: true,
+                            spanGaps: false,
                             yAxisID: 'y'
                         }}
                     ]
