@@ -2520,5 +2520,75 @@
     "last_updated": "2026-08-12",
     "total_versions": 1,
     "report_path": "reports/TTD.html"
+  },
+  "NFLX": {
+    "ticker": "NFLX",
+    "company_name": "Netflix, Inc.",
+    "baseline_price": 74.79,
+    "current_price": 74.79,
+    "return_pct": 0.0,
+    "status_label": "Solid Conviction",
+    "labels": [
+      "Solid Conviction",
+      "Quality Compounder",
+      "Ad Tier"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$90.00",
+    "bear_target": "$62.00 (-17.1%)",
+    "base_target": "$90.00 (+20.3%)",
+    "bull_target": "$112.00 (+49.8%)",
+    "upper_alert_threshold": 92.0,
+    "lower_alert_threshold": 65.0,
+    "next_catalyst_date": "2026-10-20",
+    "next_catalyst_event": "Q3 2026 Earnings Release",
+    "top_funds": [
+      "Josh Tarasoff - Greenlea Lane Capital (7.80)",
+      "Thomas Russo - Gardner Russo & Quinn (6.35)",
+      "Bill Nygren - Oakmark Funds (1.27)",
+      "Chase Coleman - Tiger Global Management (1.03)",
+      "Polen Capital Management (0.04)",
+      "Christopher Bloomstran - Semper Augustus (0.03)",
+      "Thomas Gayner - Markel Group (0.02)",
+      "First Pacific Advisors (0.02)",
+      "Ruane Cunniff LP (0.01)"
+    ],
+    "institutional_ownership_pct": "78.4%",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Standard executive equity incentive exercises and routine holding maintenance.",
+    "last_updated": "2026-08-12",
+    "total_versions": 1,
+    "report_path": "reports/NFLX.html"
+  },
+  "ADSK": {
+    "ticker": "ADSK",
+    "company_name": "Autodesk, Inc.",
+    "baseline_price": 251.59,
+    "current_price": 251.59,
+    "return_pct": 0.0,
+    "status_label": "High Conviction",
+    "labels": [
+      "High Conviction",
+      "Safe Compounder",
+      "Moat Expansion"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$315.00",
+    "bear_target": "$215.00 (-14.5%)",
+    "base_target": "$315.00 (+25.2%)",
+    "bull_target": "$375.00 (+49.1%)",
+    "upper_alert_threshold": 310.0,
+    "lower_alert_threshold": 210.0,
+    "next_catalyst_date": "2026-08-27",
+    "next_catalyst_event": "Q2 FY27 Earnings Release",
+    "top_funds": [
+      "Richard Pzena - Pzena Investment Management (0.00)"
+    ],
+    "institutional_ownership_pct": "86.5%",
+    "insider_signal": "Cluster Buying",
+    "insider_summary": "Aggressive insider open-market purchases totaling $2,708,201 across executive leadership.",
+    "last_updated": "2026-08-12",
+    "total_versions": 1,
+    "report_path": "reports/ADSK.html"
   }
 }
