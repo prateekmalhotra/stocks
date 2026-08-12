@@ -192,7 +192,7 @@ def get_enriched_portfolio(total_capital: float = 200000.0, portfolio_type: str 
 
 
 def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: float = 200000.0) -> str:
-    """Generates the ultra-clean, minimalist, high-end portfolio UI."""
+    """Generates the ultra-clean, spacious, minimalist high-end portfolio UI."""
     p_data = get_enriched_portfolio(total_capital, portfolio_type)
     stats = p_data["stats"]
     holdings = p_data["holdings"]
@@ -202,6 +202,30 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
     is_defensive = (portfolio_type == "defensive")
     port_title = "Fidelity" if is_defensive else "Wealthsimple"
     cash_desc = "$30,000 in 3M Treasuries (5.00%)" if is_defensive else "$16,000 in 3M Treasuries (5.00%)"
+    
+    # Clean concise names
+    CLEAN_NAMES = {
+        "ASML": "ASML Holding N.V.",
+        "TSM": "Taiwan Semiconductor (TSMC)",
+        "BABA": "Alibaba Group",
+        "JD": "JD.com, Inc.",
+        "STNE": "StoneCo Ltd.",
+        "CROX": "Crocs, Inc.",
+        "GCT": "GigaCloud Technology",
+        "NVDA": "NVIDIA Corporation",
+        "META": "Meta Platforms, Inc.",
+        "MELI": "MercadoLibre, Inc.",
+        "CSU": "Constellation Software",
+        "CPRT": "Copart, Inc.",
+        "V": "Visa Inc.",
+        "MA": "Mastercard Incorporated",
+        "ADBE": "Adobe Inc.",
+        "SPGI": "S&P Global Inc.",
+        "INTU": "Intuit Inc.",
+        "MSFT": "Microsoft Corporation",
+        "UNH": "UnitedHealth Group",
+        "BKNG": "Booking Holdings"
+    }
     
     # Table rows
     rows_html = ""
@@ -214,95 +238,72 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
         mos = h["margin_of_safety_pct"]
         oe_yr = h["annual_owner_earnings"]
         fcf_y = h["look_through_fcf_yield"]
-        
-        CLEAN_NAMES = {
-            "ASML": "ASML Holding N.V.",
-            "TSM": "Taiwan Semiconductor (TSMC)",
-            "BABA": "Alibaba Group",
-            "JD": "JD.com, Inc.",
-            "STNE": "StoneCo Ltd.",
-            "CROX": "Crocs, Inc.",
-            "GCT": "GigaCloud Technology",
-            "NVDA": "NVIDIA Corporation",
-            "META": "Meta Platforms, Inc.",
-            "MELI": "MercadoLibre, Inc.",
-            "CSU": "Constellation Software",
-            "CPRT": "Copart, Inc.",
-            "V": "Visa Inc.",
-            "MA": "Mastercard Incorporated",
-            "ADBE": "Adobe Inc.",
-            "SPGI": "S&P Global Inc.",
-            "INTU": "Intuit Inc.",
-            "MSFT": "Microsoft Corporation",
-            "UNH": "UnitedHealth Group",
-            "BKNG": "Booking Holdings"
-        }
         display_name = CLEAN_NAMES.get(t, h.get("company_name", t))
         
         if t == "USD_CASH":
             ticker_col = """
-            <div style="display:flex; flex-direction:column; gap:1px;">
-                <span style="font-weight:600; font-size:0.92rem; color:var(--text-title);">USD Cash Reserve</span>
-                <span style="font-size:0.75rem; color:var(--text-dim);">3M US Treasury Bills (5.00%)</span>
+            <div style="display:flex; flex-direction:column; gap:4px;">
+                <span style="font-weight:600; font-size:0.96rem; color:var(--text-title);">USD Cash Reserve</span>
+                <span style="font-size:0.78rem; color:var(--text-dim);">3M US Treasury Bills (5.00%)</span>
             </div>
             """
             alloc_col = f"""
-            <div style="display:flex; align-items:center; gap:6px;">
-                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.90rem; color:var(--text-title);">${alloc_dol:,.0f}</span>
-                <span class="pill pill-neutral" style="font-size:0.68rem; padding:1px 5px;">{w_pct:.1f}%</span>
+            <div style="display:flex; align-items:center; gap:8px;">
+                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">${alloc_dol:,.0f}</span>
+                <span class="pill pill-neutral" style="font-size:0.72rem; padding:2px 7px;">{w_pct:.1f}%</span>
             </div>
             """
-            price_col = '<span style="font-family:var(--font-mono); font-size:0.86rem; color:var(--text-dim);">$1.00</span>'
-            fv_col = '<span style="font-family:var(--font-mono); font-size:0.86rem; color:var(--text-dim);">$1.00 (Par)</span>'
+            price_col = '<span style="font-family:var(--font-mono); font-size:0.90rem; color:var(--text-dim);">$1.00</span>'
+            fv_col = '<span style="font-family:var(--font-mono); font-size:0.90rem; color:var(--text-dim);">$1.00 (Par)</span>'
             yield_col = f"""
-            <div style="display:flex; flex-direction:column; gap:1px;">
-                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.88rem; color:var(--accent-warm);">${oe_yr:,.0f}/yr</span>
-                <span style="font-size:0.72rem; color:var(--text-dim); font-family:var(--font-mono);">5.00% Risk-Free</span>
+            <div style="display:flex; flex-direction:column; gap:4px;">
+                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.92rem; color:var(--accent-warm);">${oe_yr:,.0f}/yr</span>
+                <span style="font-size:0.76rem; color:var(--text-dim); font-family:var(--font-mono);">5.00% Risk-Free</span>
             </div>
             """
         else:
             ticker_col = f"""
-            <div style="display:flex; flex-direction:column; gap:1px; min-width:0;">
-                <a href="{h['report_url']}" style="font-family:var(--font-mono); font-weight:700; font-size:0.96rem; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:3px;">
-                    {t} <span style="font-size:0.65rem; opacity:0.6;">↗</span>
+            <div style="display:flex; flex-direction:column; gap:4px; min-width:0;">
+                <a href="{h['report_url']}" style="font-family:var(--font-mono); font-weight:700; font-size:1.02rem; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+                    {t} <span style="font-size:0.70rem; opacity:0.6;">↗</span>
                 </a>
-                <span style="font-size:0.75rem; color:var(--text-secondary); display:block; max-width:210px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="{display_name}">{display_name}</span>
+                <span style="font-size:0.78rem; color:var(--text-secondary); display:block; max-width:220px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="{display_name}">{display_name}</span>
             </div>
             """
             alloc_col = f"""
-            <div style="display:flex; flex-direction:column; gap:1px;">
-                <div style="display:flex; align-items:center; gap:6px;">
-                    <span style="font-family:var(--font-mono); font-weight:600; font-size:0.90rem; color:var(--text-title);">${alloc_dol:,.0f}</span>
-                    <span class="pill pill-neutral" style="font-size:0.68rem; padding:1px 5px;">{w_pct:.1f}%</span>
+            <div style="display:flex; flex-direction:column; gap:4px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <span style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">${alloc_dol:,.0f}</span>
+                    <span class="pill pill-neutral" style="font-size:0.72rem; padding:2px 7px;">{w_pct:.1f}%</span>
                 </div>
-                <span style="font-size:0.72rem; color:var(--text-dim); font-family:var(--font-mono);">{h['shares_to_buy']:,.2f} shs</span>
+                <span style="font-size:0.76rem; color:var(--text-dim); font-family:var(--font-mono);">{h['shares_to_buy']:,.2f} shs</span>
             </div>
             """
             price_col = f"""
-            <span style="font-family:var(--font-mono); font-weight:500; font-size:0.88rem; color:var(--text-title);">${cur_p:,.2f}</span>
+            <span style="font-family:var(--font-mono); font-weight:500; font-size:0.92rem; color:var(--text-title);">${cur_p:,.2f}</span>
             """
             mos_color = "var(--accent-green)" if mos > 0 else "var(--signal-avoid)"
             mos_sign = "+" if mos > 0 else ""
             fv_col = f"""
-            <div style="display:flex; flex-direction:column; gap:1px;">
-                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.88rem; color:var(--text-title);">${fv:,.2f}</span>
-                <span style="font-size:0.72rem; font-family:var(--font-mono); color:{mos_color}; font-weight:500;">{mos_sign}{mos:.1f}% MoS</span>
+            <div style="display:flex; flex-direction:column; gap:4px;">
+                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.92rem; color:var(--text-title);">${fv:,.2f}</span>
+                <span style="font-size:0.76rem; font-family:var(--font-mono); color:{mos_color}; font-weight:500;">{mos_sign}{mos:.1f}% MoS</span>
             </div>
             """
             yield_col = f"""
-            <div style="display:flex; flex-direction:column; gap:1px;">
-                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.88rem; color:var(--accent-warm);">${oe_yr:,.0f}/yr</span>
-                <span style="font-size:0.72rem; color:var(--text-secondary); font-family:var(--font-mono);">{fcf_y:.1f}% Yield</span>
+            <div style="display:flex; flex-direction:column; gap:4px;">
+                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.92rem; color:var(--accent-warm);">${oe_yr:,.0f}/yr</span>
+                <span style="font-size:0.76rem; color:var(--text-secondary); font-family:var(--font-mono);">{fcf_y:.1f}% Yield</span>
             </div>
             """
 
         rows_html += f"""
         <tr style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
-            <td style="padding:10px 14px; vertical-align:middle;">{ticker_col}</td>
-            <td style="padding:10px 14px; vertical-align:middle;">{alloc_col}</td>
-            <td style="padding:10px 14px; vertical-align:middle;">{price_col}</td>
-            <td style="padding:10px 14px; vertical-align:middle;">{fv_col}</td>
-            <td style="padding:10px 14px; vertical-align:middle;">{yield_col}</td>
+            <td style="padding:14px 16px; vertical-align:middle;">{ticker_col}</td>
+            <td style="padding:14px 16px; vertical-align:middle;">{alloc_col}</td>
+            <td style="padding:14px 16px; vertical-align:middle;">{price_col}</td>
+            <td style="padding:14px 16px; vertical-align:middle;">{fv_col}</td>
+            <td style="padding:14px 16px; vertical-align:middle;">{yield_col}</td>
         </tr>
         """
 
@@ -310,15 +311,15 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
     log_rows_html = ""
     for entry in rebalance_log:
         log_rows_html += f"""
-        <div style="background:var(--bg-subpanel); border:1px solid var(--border-color); border-radius:6px; padding:10px 14px; display:flex; flex-direction:column; gap:4px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
-                <div style="display:flex; align-items:center; gap:6px;">
-                    <span class="pill pill-active" style="font-size:0.68rem; padding:1px 6px;">{entry.get('action')}</span>
-                    <span style="font-family:var(--font-mono); font-size:0.76rem; color:var(--text-dim);">{entry.get('date')}</span>
+        <div style="background:var(--bg-subpanel); border:1px solid var(--border-color); border-radius:8px; padding:14px 18px; display:flex; flex-direction:column; gap:6px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <span class="pill pill-active" style="font-size:0.72rem; padding:2px 7px;">{entry.get('action')}</span>
+                    <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-dim);">{entry.get('date')}</span>
                 </div>
-                <span style="font-size:0.72rem; color:var(--accent-green);">{entry.get('verification_status')}</span>
+                <span style="font-size:0.76rem; color:var(--accent-green);">{entry.get('verification_status')}</span>
             </div>
-            <div style="font-size:0.80rem; color:var(--text-secondary); line-height:1.4;">
+            <div style="font-size:0.84rem; color:var(--text-secondary); line-height:1.45;">
                 {entry.get('reason')}
             </div>
         </div>
@@ -332,64 +333,64 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
     })
 
     return f"""
-    <div style="display:flex; flex-direction:column; gap:16px;">
+    <div style="display:flex; flex-direction:column; gap:24px; padding-top:4px;">
         
         <!-- Clean Minimalist Header Bar -->
-        <div style="display:flex; justify-content:space-between; align-items:flex-end; padding:2px 0 14px 0; border-bottom:1px solid var(--border-color); flex-wrap:wrap; gap:12px;">
-            <div style="display:flex; align-items:center; gap:10px;">
-                <h2 style="font-family:var(--font-serif); font-size:1.85rem; color:var(--text-title); margin:0; font-weight:400; letter-spacing:-0.02em;">
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 0 20px 0; border-bottom:1px solid var(--border-color); flex-wrap:wrap; gap:16px;">
+            <div style="display:flex; align-items:center; gap:12px;">
+                <h1 style="font-family:var(--font-serif); font-size:2.2rem; color:var(--text-title); margin:0; font-weight:400; letter-spacing:-0.02em;">
                     {port_title}
-                </h2>
-                <span style="display:inline-flex; align-items:center; gap:5px; font-size:0.72rem; color:var(--accent-green); font-family:var(--font-mono); background:rgba(111,168,130,0.08); border:1px solid rgba(111,168,130,0.22); border-radius:12px; padding:2px 8px;">
+                </h1>
+                <span style="display:inline-flex; align-items:center; gap:6px; font-size:0.76rem; color:var(--accent-green); font-family:var(--font-mono); background:rgba(111,168,130,0.08); border:1px solid rgba(111,168,130,0.24); border-radius:20px; padding:3px 10px;">
                     <span style="width:6px; height:6px; border-radius:50%; background:var(--accent-green);"></span> Council Audited
                 </span>
             </div>
             <div style="text-align:right;">
-                <div style="font-size:0.68rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim);">Portfolio Value</div>
-                <div style="font-family:var(--font-mono); font-size:1.75rem; font-weight:600; color:var(--text-title); letter-spacing:-0.02em;">
+                <div style="font-size:0.70rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim); margin-bottom:2px;">Live Portfolio Value</div>
+                <div style="font-family:var(--font-mono); font-size:2.0rem; font-weight:600; color:var(--text-title); letter-spacing:-0.02em; line-height:1.1;">
                     ${stats['total_value_usd']:,.2f}
                 </div>
             </div>
         </div>
 
-        <!-- 4 Minimalist KPI Cards -->
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:10px;">
-            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:8px; padding:12px 16px;">
-                <div style="font-size:0.68rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim);">Cash Flow Yield</div>
-                <div style="font-family:var(--font-mono); font-size:1.45rem; font-weight:600; color:var(--accent-warm); margin-top:2px;">
+        <!-- 4 Spacious KPI Cards -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:16px;">
+            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:20px 22px; display:flex; flex-direction:column; justify-content:space-between;">
+                <div style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim); margin-bottom:8px; font-weight:500;">Cash Flow Yield</div>
+                <div style="font-family:var(--font-mono); font-size:1.85rem; font-weight:600; color:var(--accent-warm); margin-bottom:6px; line-height:1.1; letter-spacing:-0.02em;">
                     {stats['look_through_fcf_yield_pct']:.2f}%
                 </div>
-                <div style="font-size:0.74rem; color:var(--text-secondary); font-family:var(--font-mono);">${stats['total_owner_earnings_usd']:,.0f} / yr</div>
+                <div style="font-size:0.80rem; color:var(--text-secondary); font-family:var(--font-mono); line-height:1.3;">${stats['total_owner_earnings_usd']:,.0f} / yr (Net Cash)</div>
             </div>
 
-            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:8px; padding:12px 16px;">
-                <div style="font-size:0.68rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim);">Treasury Cash</div>
-                <div style="font-family:var(--font-mono); font-size:1.45rem; font-weight:600; color:var(--accent-green); margin-top:2px;">
+            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:20px 22px; display:flex; flex-direction:column; justify-content:space-between;">
+                <div style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim); margin-bottom:8px; font-weight:500;">Treasury Cash</div>
+                <div style="font-family:var(--font-mono); font-size:1.85rem; font-weight:600; color:var(--accent-green); margin-bottom:6px; line-height:1.1; letter-spacing:-0.02em;">
                     {stats['cash_weight_pct']:.1f}%
                 </div>
-                <div style="font-size:0.74rem; color:var(--text-secondary); font-family:var(--font-mono);">{cash_desc}</div>
+                <div style="font-size:0.80rem; color:var(--text-secondary); font-family:var(--font-mono); line-height:1.3;">{cash_desc}</div>
             </div>
 
-            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:8px; padding:12px 16px;">
-                <div style="font-size:0.68rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim);">Margin of Safety</div>
-                <div style="font-family:var(--font-mono); font-size:1.45rem; font-weight:600; color:var(--accent-green); margin-top:2px;">
+            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:20px 22px; display:flex; flex-direction:column; justify-content:space-between;">
+                <div style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim); margin-bottom:8px; font-weight:500;">Margin of Safety</div>
+                <div style="font-family:var(--font-mono); font-size:1.85rem; font-weight:600; color:var(--accent-green); margin-bottom:6px; line-height:1.1; letter-spacing:-0.02em;">
                     +{stats['portfolio_margin_of_safety_pct']:.1f}%
                 </div>
-                <div style="font-size:0.74rem; color:var(--text-secondary);">Weighted Undervaluation</div>
+                <div style="font-size:0.80rem; color:var(--text-secondary); line-height:1.3;">Weighted Undervaluation vs DCF</div>
             </div>
 
-            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:8px; padding:12px 16px;">
-                <div style="font-size:0.68rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim);">Share Cannibalization</div>
-                <div style="font-family:var(--font-mono); font-size:1.45rem; font-weight:600; color:var(--text-title); margin-top:2px;">
+            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:20px 22px; display:flex; flex-direction:column; justify-content:space-between;">
+                <div style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim); margin-bottom:8px; font-weight:500;">Share Cannibalization</div>
+                <div style="font-family:var(--font-mono); font-size:1.85rem; font-weight:600; color:var(--text-title); margin-bottom:6px; line-height:1.1; letter-spacing:-0.02em;">
                     +{stats['share_cannibalization_rate_pct']:.2f}%
                 </div>
-                <div style="font-size:0.74rem; color:var(--text-secondary);">Annual Buyback Pace</div>
+                <div style="font-size:0.80rem; color:var(--text-secondary); line-height:1.3;">Annual Share Buyback Rate</div>
             </div>
         </div>
 
         <!-- Master Holdings Table -->
-        <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:16px 18px; overflow-x:auto;">
-            <table class="fin-table" style="width:100%; min-width:720px; table-layout:fixed; border-collapse:collapse;">
+        <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:12px; padding:20px 22px; overflow-x:auto;">
+            <table class="fin-table" style="width:100%; min-width:750px; table-layout:fixed; border-collapse:collapse;">
                 <colgroup>
                     <col style="width:28%;">
                     <col style="width:20%;">
@@ -398,12 +399,12 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                     <col style="width:16%;">
                 </colgroup>
                 <thead>
-                    <tr style="border-bottom:1px solid var(--border-color); text-align:left; font-size:0.70rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim);">
-                        <th style="padding:8px 14px;">Holding</th>
-                        <th style="padding:8px 14px;">Allocation</th>
-                        <th style="padding:8px 14px;">Price</th>
-                        <th style="padding:8px 14px;">Fair Value &amp; MoS</th>
-                        <th style="padding:8px 14px;">Cash Yield</th>
+                    <tr style="border-bottom:1px solid var(--border-color); text-align:left; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim);">
+                        <th style="padding:12px 16px;">Holding</th>
+                        <th style="padding:12px 16px;">Allocation</th>
+                        <th style="padding:12px 16px;">Market Price</th>
+                        <th style="padding:12px 16px;">Fair Value &amp; MoS</th>
+                        <th style="padding:12px 16px;">Cash Flow Yield</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -413,32 +414,32 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
         </div>
 
         <!-- Clean Scaled Performance Visualizer -->
-        <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:16px 20px; display:flex; flex-direction:column; gap:10px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-                <div style="font-family:var(--font-serif); font-size:1.05rem; color:var(--text-title); font-weight:400;">
+        <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:12px; padding:20px 24px; display:flex; flex-direction:column; gap:14px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                <div style="font-family:var(--font-serif); font-size:1.15rem; color:var(--text-title); font-weight:400;">
                     Performance vs S&amp;P 500 Baseline
                 </div>
-                <div style="display:flex; align-items:center; gap:14px; font-size:0.72rem; font-family:var(--font-mono);">
-                    <span style="display:flex; align-items:center; gap:5px; color:var(--accent-warm);">
-                        <span style="display:inline-block; width:10px; height:2.5px; background:#CC785C; border-radius:2px;"></span> {port_title}
+                <div style="display:flex; align-items:center; gap:16px; font-size:0.75rem; font-family:var(--font-mono);">
+                    <span style="display:flex; align-items:center; gap:6px; color:var(--accent-warm);">
+                        <span style="display:inline-block; width:12px; height:3px; background:#CC785C; border-radius:2px;"></span> {port_title}
                     </span>
-                    <span style="display:flex; align-items:center; gap:5px; color:var(--text-dim);">
-                        <span style="display:inline-block; width:10px; height:2px; background:#8C8982;"></span> S&amp;P 500
+                    <span style="display:flex; align-items:center; gap:6px; color:var(--text-dim);">
+                        <span style="display:inline-block; width:12px; height:2px; background:#8C8982;"></span> S&amp;P 500
                     </span>
                 </div>
             </div>
 
-            <div style="position:relative; width:100%; height:220px; border-radius:6px; padding:6px 10px; background:rgba(0,0,0,0.10);">
+            <div style="position:relative; width:100%; height:240px; border-radius:8px; padding:8px 12px; background:rgba(0,0,0,0.10);">
                 <canvas id="{canvas_id}"></canvas>
             </div>
         </div>
 
         <!-- Audit Log -->
-        <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:16px 18px; display:flex; flex-direction:column; gap:10px;">
-            <div style="font-family:var(--font-serif); font-size:1.00rem; color:var(--text-title); font-weight:400;">
+        <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:12px; padding:20px 22px; display:flex; flex-direction:column; gap:12px;">
+            <div style="font-family:var(--font-serif); font-size:1.10rem; color:var(--text-title); font-weight:400;">
                 Council Audit Log
             </div>
-            <div style="display:flex; flex-direction:column; gap:6px;">
+            <div style="display:flex; flex-direction:column; gap:8px;">
                 {log_rows_html}
             </div>
         </div>
@@ -499,7 +500,7 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                             bodyColor: '#D4CDC3',
                             borderColor: '#3D3A35',
                             borderWidth: 1,
-                            padding: 8,
+                            padding: 10,
                             callbacks: {{
                                 label: (c) => c.dataset.label + ': $' + Math.round(c.parsed.y).toLocaleString()
                             }}
