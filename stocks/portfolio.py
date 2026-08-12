@@ -323,9 +323,9 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
             <div style="display:flex; flex-direction:column; gap:3px;">
                 <div style="display:flex; align-items:center; gap:6px;">
                     <span class="live-price-{t}" style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">${cur_p:,.2f}</span>
-                    <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-dim);" title="Inception Cost Basis">(${cost_b:,.2f})</span>
+                    <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-dim);" title="Cost Basis">(${cost_b:,.2f})</span>
                 </div>
-                <span class="live-gl-{t}" style="font-size:0.74rem; font-family:var(--font-mono); color:{gl_color};">{gl_sign}{gain_loss_pct:.2f}% since Aug 11</span>
+                <span class="live-gl-{t}" style="font-size:0.74rem; font-family:var(--font-mono); color:{gl_color}; font-weight:500;">{gl_sign}{gain_loss_pct:.2f}%</span>
             </div>
             """
             mos_color = "var(--accent-green)" if mos > 0 else "var(--signal-avoid)"
@@ -579,25 +579,69 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                 }}
             }});
 
-            // Real-Time High-Frequency Quote Streaming & Portfolio Value Calculator
+            // Real-Time Quote Streaming with Smooth Bloomberg-Style Rolling Number Animation
             const portType = '{portfolio_type}';
             const cashAlloc = {cash_dol};
-            
+            let currentDisplayVal = null;
+
+            function animateRollingNumber(targetVal) {{
+                const valElem = document.getElementById(`live-port-val-${{portType}}`);
+                if (!valElem || isNaN(targetVal)) return;
+
+                const startVal = currentDisplayVal !== null ? currentDisplayVal : (parseFloat(valElem.textContent.replace(/[^0-9.]/g, '')) || targetVal);
+                currentDisplayVal = targetVal;
+
+                if (Math.abs(startVal - targetVal) < 0.01) {{
+                    valElem.textContent = '$' + targetVal.toLocaleString('en-US', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }});
+                    return;
+                }}
+
+                // Dynamic Flash Color Cue
+                if (targetVal > startVal) {{
+                    valElem.style.transition = 'color 0.4s ease';
+                    valElem.style.color = '#6FA882';
+                    setTimeout(() => {{ valElem.style.color = 'var(--text-title)'; }}, 1200);
+                }} else if (targetVal < startVal) {{
+                    valElem.style.transition = 'color 0.4s ease';
+                    valElem.style.color = '#CC785C';
+                    setTimeout(() => {{ valElem.style.color = 'var(--text-title)'; }}, 1200);
+                }}
+
+                const duration = 1000;
+                const startTime = performance.now();
+
+                function stepRoll(now) {{
+                    const elapsed = now - startTime;
+                    const progress = Math.min(elapsed / duration, 1.0);
+                    // Smooth Quartic ease-out
+                    const ease = 1 - Math.pow(1 - progress, 4);
+                    const current = startVal + (targetVal - startVal) * ease;
+
+                    valElem.textContent = '$' + current.toLocaleString('en-US', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }});
+
+                    if (progress < 1.0) {{
+                        requestAnimationFrame(stepRoll);
+                    }} else {{
+                        valElem.textContent = '$' + targetVal.toLocaleString('en-US', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }});
+                    }}
+                }}
+                requestAnimationFrame(stepRoll);
+            }}
+
             async function streamLiveQuotes() {{
                 try {{
                     const rows = document.querySelectorAll(`tr[data-port="${{portType}}"]`);
                     let liveEquityTotal = 0;
                     let updatedCount = 0;
-                    
+
                     for (const r of rows) {{
                         const ticker = r.getAttribute('data-row-ticker');
                         const shares = parseFloat(r.getAttribute('data-shares')) || 0;
                         const cost = parseFloat(r.getAttribute('data-cost')) || 0;
-                        
+
                         if (!ticker || ticker === 'USD_CASH') continue;
-                        
+
                         try {{
-                            // Direct high-speed Yahoo Finance real-time quote query with CORS proxy fallback
                             let livePrice = 0;
                             const directUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${{ticker}}?interval=1m`;
                             try {{
@@ -607,7 +651,6 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                                     livePrice = data.chart?.result?.[0]?.meta?.regularMarketPrice || 0;
                                 }}
                             }} catch (e) {{
-                                // Try fast CORS proxy if direct fetch is blocked
                                 const proxyUrl = `https://corsproxy.io/?url=` + encodeURIComponent(directUrl);
                                 const resProxy = await fetch(proxyUrl);
                                 if (resProxy.ok) {{
@@ -623,7 +666,7 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                                 if (glSpan && cost > 0) {{
                                     const gl = ((livePrice - cost) / cost) * 100;
                                     const sign = gl >= 0 ? '+' : '';
-                                    glSpan.textContent = `${{sign}}${{gl.toFixed(2)}}% since Aug 11`;
+                                    glSpan.textContent = `${{sign}}${{gl.toFixed(2)}}%`;
                                     glSpan.style.color = gl >= 0 ? 'var(--accent-green)' : 'var(--accent-warm)';
                                 }}
                                 liveEquityTotal += (shares * livePrice);
@@ -631,30 +674,29 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                                 continue;
                             }}
                         }} catch (e) {{
-                            // Non-blocking fallback
+                            // fallback
                         }}
                         const curPriceSpan = r.querySelector(`.live-price-${{ticker}}`);
                         const pVal = curPriceSpan ? parseFloat(curPriceSpan.textContent.replace(/[^0-9.]/g, '')) : cost;
                         liveEquityTotal += (shares * pVal);
                     }}
-                    
+
                     const totalLive = liveEquityTotal + cashAlloc;
-                    const valElem = document.getElementById(`live-port-val-${{portType}}`);
-                    if (valElem && totalLive > 0) {{
-                        valElem.textContent = '$' + totalLive.toLocaleString('en-US', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }});
+                    if (totalLive > 0) {{
+                        animateRollingNumber(totalLive);
                     }}
                     const statusElem = document.getElementById(`live-stream-status-${{portType}}`);
                     if (statusElem && updatedCount > 0) {{
                         statusElem.textContent = 'Live Market Stream (Real-Time)';
                     }}
                 }} catch (err) {{
-                    console.warn('Live quote streamer:', err);
+                    console.warn('Live streamer sync:', err);
                 }}
             }}
-            
-            // Poll real-time stream every 15 seconds while viewing dashboard
-            setInterval(streamLiveQuotes, 15000);
-            setTimeout(streamLiveQuotes, 1500);
+
+            // Poll real-time stream every 6 seconds while tab is open
+            setInterval(streamLiveQuotes, 6000);
+            setTimeout(streamLiveQuotes, 1000);
         }})();
     </script>
     """
