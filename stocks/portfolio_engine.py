@@ -361,23 +361,28 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
         scored_ws = score_wealthsimple_aggressive(ticker, meta, cur_p, bear_p, base_p, bull_p, sig)
         wealthsimple_candidates.append(scored_ws)
 
-    # 1. Fidelity Selection (Max 1 per industry, sorted by score)
-    fidelity_candidates.sort(key=lambda x: x["total_score"], reverse=True)
+    # STRICT ZERO OVERLAP (MUTUAL EXCLUSIVITY) BIPARTITE SELECTION
+    # 1. Wealthsimple selects high-growth asymmetric alpha champions (Growth >= 8%, high bull upside)
+    wealthsimple_candidates.sort(key=lambda x: (x["total_score"], x["growth"], x["bull_ret"]), reverse=True)
+    used_agg_ind = set()
+    ws_selected = []
+    ws_selected_tickers = set()
+    for item in wealthsimple_candidates:
+        if item["growth"] >= 8.0 and item["industry"] not in used_agg_ind:
+            if len(ws_selected) < 14:
+                ws_selected.append(item)
+                ws_selected_tickers.add(item["ticker"])
+                used_agg_ind.add(item["industry"])
+
+    # 2. Fidelity selects fortress moat & defensive preservation compounders (strictly excluding any Wealthsimple holdings)
+    fidelity_candidates.sort(key=lambda x: (x["total_score"], x["moat"], x["bs"]), reverse=True)
     used_def_ind = set()
     fid_selected = []
     for item in fidelity_candidates:
-        if item["industry"] not in used_def_ind:
-            fid_selected.append(item)
-            used_def_ind.add(item["industry"])
-
-    # 2. Wealthsimple Selection (Max 1 per industry, sorted by score)
-    wealthsimple_candidates.sort(key=lambda x: x["total_score"], reverse=True)
-    used_agg_ind = set()
-    ws_selected = []
-    for item in wealthsimple_candidates:
-        if item["industry"] not in used_agg_ind:
-            ws_selected.append(item)
-            used_agg_ind.add(item["industry"])
+        if item["ticker"] not in ws_selected_tickers and item["industry"] not in used_def_ind:
+            if len(fid_selected) < 16:
+                fid_selected.append(item)
+                used_def_ind.add(item["industry"])
 
     # 3. Compute Fidelity Allocations
     fid_k = {x["ticker"]: x["kelly_score"] for x in fid_selected}
