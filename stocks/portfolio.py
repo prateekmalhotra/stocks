@@ -29,44 +29,36 @@ def get_default_alphathesis_holdings() -> List[Dict[str, Any]]:
             "pillar": "A",
             "pillar_name": "Fortress Anchor",
             "target_weight": 0.15,
-            "rationale": "Global search monopoly, YouTube streaming dominance, and GCP enterprise cloud with >$80B net cash and high ROIC.",
-            "defense_moat": "Irreplaceable distribution network and proprietary TPU AI infrastructure.",
+            "cost_basis": 310.00,
             "look_through_fcf_yield": 4.8,
-            "cannibal_rate_pct": 3.2,
-            "net_cash_solvency": "Pristine ($85B Net Cash)"
+            "cannibal_rate_pct": 3.2
         },
         {
             "ticker": "META",
             "pillar": "A",
             "pillar_name": "Fortress Anchor",
             "target_weight": 0.14,
-            "rationale": "Unrivaled 3.3B daily active user digital attention monopoly with massive high-margin digital ad cash generation and aggressive share repurchases.",
-            "defense_moat": "Global network effects and proprietary Llama AI open-source ecosystem.",
+            "cost_basis": 560.00,
             "look_through_fcf_yield": 5.4,
-            "cannibal_rate_pct": 4.1,
-            "net_cash_solvency": "Pristine ($42B Net Cash)"
+            "cannibal_rate_pct": 4.1
         },
         {
             "ticker": "V",
             "pillar": "A",
             "pillar_name": "Fortress Anchor",
             "target_weight": 0.12,
-            "rationale": "Global payment network toll-booth duopoly with >50% operating margins, inflation-protected ad-valorem take rate, and zero balance sheet credit risk.",
-            "defense_moat": "Two-sided network effects across 4B+ cardholders and 150M+ merchants.",
+            "cost_basis": 345.00,
             "look_through_fcf_yield": 4.6,
-            "cannibal_rate_pct": 2.8,
-            "net_cash_solvency": "A+ Rated ($18B+ Annual FCF)"
+            "cannibal_rate_pct": 2.8
         },
         {
             "ticker": "MSFT",
             "pillar": "A",
             "pillar_name": "Fortress Anchor",
             "target_weight": 0.12,
-            "rationale": "Mission-critical commercial cloud operating system, Windows/Office software monopoly, and enterprise AI leadership with Azure.",
-            "defense_moat": "High enterprise switching costs and entrenched IT budget standard.",
+            "cost_basis": 400.00,
             "look_through_fcf_yield": 3.9,
-            "cannibal_rate_pct": 1.5,
-            "net_cash_solvency": "AAA Credit Rating"
+            "cannibal_rate_pct": 1.5
         },
         
         # Pillar B: Mispriced Compounders & Cannibals (25-35% Target)
@@ -75,44 +67,36 @@ def get_default_alphathesis_holdings() -> List[Dict[str, Any]]:
             "pillar": "B",
             "pillar_name": "Mispriced Cannibal",
             "target_weight": 0.10,
-            "rationale": "Global European accommodation travel monopoly with >35% ROIC, converting >95% of net income to FCF and aggressively retiring >6% of shares annually.",
-            "defense_moat": "Dominant European direct-traffic lodging network effects.",
+            "cost_basis": 4600.00,
             "look_through_fcf_yield": 6.8,
-            "cannibal_rate_pct": 6.4,
-            "net_cash_solvency": "Low Net Debt / EBITDA"
+            "cannibal_rate_pct": 6.4
         },
         {
             "ticker": "CPRT",
             "pillar": "B",
             "pillar_name": "Fortress Cannibal",
             "target_weight": 0.08,
-            "rationale": "Dominant vehicle salvage auction duopoly with >200M sq ft of irreplaceable permitted land yards and zero long-term debt.",
-            "defense_moat": "Zoning barriers to entry and insurer total-loss processing lock-in.",
+            "cost_basis": 41.50,
             "look_through_fcf_yield": 4.4,
-            "cannibal_rate_pct": 2.1,
-            "net_cash_solvency": "Zero Long-Term Debt"
+            "cannibal_rate_pct": 2.1
         },
         {
             "ticker": "CROX",
             "pillar": "B",
             "pillar_name": "Deep Cannibal",
             "target_weight": 0.08,
-            "rationale": "Clog category monopoly generating >$900M FCF, trading at single-digit earnings multiple and retiring >8% of outstanding shares annually.",
-            "defense_moat": "Proprietary Croslite resin manufacturing with 55%+ gross margins.",
+            "cost_basis": 125.00,
             "look_through_fcf_yield": 11.2,
-            "cannibal_rate_pct": 8.5,
-            "net_cash_solvency": "Rapid Deleveraging (<1.3x Debt)"
+            "cannibal_rate_pct": 8.5
         },
         {
             "ticker": "DECK",
             "pillar": "B",
             "pillar_name": "Mispriced Compounder",
             "target_weight": 0.08,
-            "rationale": "Category-defining footwear powerhouses (Hoka & Ugg) delivering >30% ROIC and zero debt, expanding direct-to-consumer margins globally.",
-            "defense_moat": "Authentic brand loyalty and cushioned running biomechanics patents.",
+            "cost_basis": 88.00,
             "look_through_fcf_yield": 5.2,
-            "cannibal_rate_pct": 3.8,
-            "net_cash_solvency": "Pristine ($1.5B Net Cash)"
+            "cannibal_rate_pct": 3.8
         },
         
         # Cash Cushion
@@ -121,11 +105,9 @@ def get_default_alphathesis_holdings() -> List[Dict[str, Any]]:
             "pillar": "CASH",
             "pillar_name": "Fortress Cash Buffer",
             "target_weight": 0.13,
-            "rationale": "Permanent dry powder held in US T-Bills yielding ~4.5% risk-free rate, reserved strictly to deploy on Pillar A dislocations (P < 0.65x Fair Value).",
-            "defense_moat": "Absolute liquidity and non-correlated downside protection.",
+            "cost_basis": 1.00,
             "look_through_fcf_yield": 4.5,
-            "cannibal_rate_pct": 0.0,
-            "net_cash_solvency": "100% US Treasury Backed"
+            "cannibal_rate_pct": 0.0
         }
     ]
 
@@ -219,6 +201,7 @@ def get_enriched_portfolio(total_capital: float = 100000.0) -> Dict[str, Any]:
             w_stock = watchlist_data.get(ticker, {})
             company_name = w_stock.get("company_name", ticker)
             cur_price = float(w_stock.get("current_price", 100.0))
+            cost_b = float(w_stock.get("baseline_price", h.get("cost_basis", cur_price)))
             fair_val_str = w_stock.get("fair_value_estimate", f"${cur_price:.2f}")
             
             try:
@@ -246,6 +229,7 @@ def get_enriched_portfolio(total_capital: float = 100000.0) -> Dict[str, Any]:
             **h,
             "company_name": company_name,
             "current_price": cur_price,
+            "cost_basis": cost_b if ticker != "USD_CASH" else 1.0,
             "fair_value": fair_val_num,
             "margin_of_safety_pct": round(mos_pct, 1),
             "allocated_dollars": round(alloc_dollars, 2),
@@ -382,78 +366,45 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
     # Build holdings table rows
     rows_html = ""
     for h in holdings:
-        pillar = h.get("pillar", "A")
-        pillar_badge = ""
-        if pillar == "A":
-            pillar_badge = '<span class="pill pill-active" style="font-size:0.68rem; padding:2px 8px; background:rgba(201,154,117,0.14); border-color:var(--accent-warm);">Pillar A • Fortress Anchor</span>'
-        elif pillar == "B":
-            pillar_badge = '<span class="pill pill-active" style="font-size:0.68rem; padding:2px 8px; background:rgba(125,157,129,0.14); border-color:var(--accent-green); color:var(--accent-green);">Pillar B • Cannibal</span>'
-        else:
-            pillar_badge = '<span class="pill pill-neutral" style="font-size:0.68rem; padding:2px 8px; background:rgba(140,137,130,0.12); color:var(--text-title);">Cash Buffer (4.5%)</span>'
-            
+        cost_b = float(h.get("cost_basis", h.get("current_price", 100.0)))
+        
         if h["ticker"] == "USD_CASH":
-            holding_cell = f"""
-            <div style="display:flex; flex-direction:column; gap:3px;">
-                <div style="display:flex; align-items:center; gap:8px;">
-                    <strong style="font-family:var(--font-serif); font-size:1.2rem; color:var(--text-title);">💵 USD Cash</strong>
-                    {pillar_badge}
-                </div>
-                <span style="font-size:0.82rem; color:var(--text-secondary);">US Treasury 3-Month Bills</span>
+            ticker_cell = f"""
+            <div style="display:flex; flex-direction:column; gap:2px;">
+                <strong style="font-family:var(--font-serif); font-size:1.18rem; color:var(--text-title);">💵 USD Cash</strong>
+                <span style="font-size:0.78rem; color:var(--text-dim);">US Treasury 3M Bills</span>
             </div>
             """
-            price_fv_cell = '<div style="font-family:var(--font-mono); font-size:0.92rem; color:var(--text-title);">$1.00 <span style="color:var(--text-dim); font-size:0.78rem;">(Par)</span></div>'
-            engine_cell = f"""
-            <div style="font-family:var(--font-mono); font-size:0.90rem; color:var(--text-title);">
-                4.5% Risk-Free
-                <div style="font-size:0.78rem; color:var(--accent-warm);">${h['annual_owner_earnings']:,.0f}/yr</div>
-            </div>
-            """
+            price_cell = '<div style="font-family:var(--font-mono); font-size:0.94rem; color:var(--text-title); font-weight:500;">$1.00 <span style="font-size:0.80rem; color:var(--text-dim); font-weight:400;">($1.00)</span></div>'
+            fv_cell = '<div style="font-family:var(--font-mono); font-size:0.94rem; color:var(--text-title); font-weight:500;">$1.00 <span style="font-size:0.78rem; color:var(--text-dim); font-weight:400;">(Par)</span></div>'
+            yield_cell = f'<div style="font-family:var(--font-mono); font-size:0.94rem; color:var(--accent-warm); font-weight:500;">${h["annual_owner_earnings"]:,.0f}/yr <span style="font-size:0.80rem; color:var(--text-secondary); font-weight:400;">(4.5%)</span></div>'
         else:
-            holding_cell = f"""
-            <div style="display:flex; flex-direction:column; gap:3px;">
-                <div style="display:flex; align-items:center; gap:8px;">
-                    <a href="{h['report_url']}" style="font-family:var(--font-serif); font-size:1.25rem; font-weight:500; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
-                        {h['ticker']} <span style="font-size:0.72rem; color:var(--text-dim);">↗</span>
-                    </a>
-                    {pillar_badge}
-                </div>
-                <span style="font-size:0.82rem; color:var(--text-secondary);">{h['company_name']}</span>
+            ticker_cell = f"""
+            <div style="display:flex; flex-direction:column; gap:2px;">
+                <a href="{h['report_url']}" style="font-family:var(--font-serif); font-size:1.24rem; font-weight:500; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+                    {h['ticker']} <span style="font-size:0.72rem; color:var(--text-dim);">↗</span>
+                </a>
+                <span style="font-size:0.78rem; color:var(--text-secondary);">{h['company_name']}</span>
             </div>
             """
-            price_fv_cell = f"""
-            <div style="font-family:var(--font-mono); font-size:0.92rem; color:var(--text-title); font-weight:500;">
-                ${h['current_price']:.2f}
-                <div style="font-size:0.78rem; color:var(--text-dim);">FV: ${h['fair_value']:.2f} <span style="color:var(--accent-green); font-weight:500;">(+{h['margin_of_safety_pct']}% MoS)</span></div>
-            </div>
-            """
-            engine_cell = f"""
-            <div style="font-family:var(--font-mono); font-size:0.90rem; color:var(--text-title);">
-                {h['look_through_fcf_yield']}% FCF Yield
-                <div style="font-size:0.78rem; color:var(--accent-warm);">${h['annual_owner_earnings']:,.0f}/yr <span style="color:var(--accent-green);">({h['cannibal_rate_pct']}% Buyback)</span></div>
-            </div>
-            """
+            price_cell = f'<div style="font-family:var(--font-mono); font-size:0.94rem; color:var(--text-title); font-weight:500;">${h["current_price"]:.2f} <span style="font-size:0.80rem; color:var(--text-dim); font-weight:400;">(${cost_b:.2f})</span></div>'
+            fv_cell = f'<div style="font-family:var(--font-mono); font-size:0.94rem; color:var(--text-title); font-weight:500;">${h["fair_value"]:.2f} <span style="font-size:0.80rem; color:var(--accent-green); font-weight:500;">(+{h["margin_of_safety_pct"]}%)</span></div>'
+            yield_cell = f'<div style="font-family:var(--font-mono); font-size:0.94rem; color:var(--accent-warm); font-weight:500;">${h["annual_owner_earnings"]:,.0f}/yr <span style="font-size:0.80rem; color:var(--text-secondary); font-weight:400;">({h["look_through_fcf_yield"]}%)</span></div>'
             
         alloc_cell = f"""
         <div style="font-family:var(--font-mono); font-size:0.95rem; font-weight:600; color:var(--text-title);">
-            {h['target_weight']*100:.1f}%
-            <div style="font-size:0.78rem; font-weight:400; color:var(--accent-warm);">${h['allocated_dollars']:,.0f} <span style="color:var(--text-dim);">({h['shares_to_buy']} shs)</span></div>
-        </div>
-        """
-        
-        defense_cell = f"""
-        <div style="font-size:0.84rem; color:var(--text-secondary); line-height:1.45;">
-            <div style="color:var(--text-title); margin-bottom:2px;">{h['defense_moat']}</div>
-            <div style="font-size:0.78rem; color:var(--text-dim);">Solvency: <span style="color:var(--accent-warm); font-weight:500;">{h['net_cash_solvency']}</span></div>
+            ${h['allocated_dollars']:,.0f} <span style="font-size:0.80rem; font-weight:400; color:var(--accent-warm);">({h['target_weight']*100:.1f}%)</span>
+            <div style="font-size:0.75rem; font-weight:400; color:var(--text-dim); margin-top:1px;">{h['shares_to_buy']} shares</div>
         </div>
         """
         
         rows_html += f"""
         <tr class="table-row">
-            <td style="vertical-align:top; padding:16px 14px;">{holding_cell}</td>
-            <td style="vertical-align:top; padding:16px 14px;">{alloc_cell}</td>
-            <td style="vertical-align:top; padding:16px 14px;">{price_fv_cell}</td>
-            <td style="vertical-align:top; padding:16px 14px;">{engine_cell}</td>
-            <td style="vertical-align:top; padding:16px 14px;">{defense_cell}</td>
+            <td style="padding:14px 16px; vertical-align:middle;">{ticker_cell}</td>
+            <td style="padding:14px 16px; vertical-align:middle;">{alloc_cell}</td>
+            <td style="padding:14px 16px; vertical-align:middle;">{price_cell}</td>
+            <td style="padding:14px 16px; vertical-align:middle;">{fv_cell}</td>
+            <td style="padding:14px 16px; vertical-align:middle;">{yield_cell}</td>
         </tr>
         """
 
@@ -545,10 +496,10 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:12px;">
                 <div>
                     <h3 style="font-family:var(--font-serif); font-size:1.35rem; color:var(--text-title); margin:0 0 4px; font-weight:500;">
-                        🏛️ Core Holdings & Downside Defense Matrix
+                        🏛️ Portfolio Holdings ($100k Base)
                     </h3>
                     <p style="color:var(--text-dim); font-size:0.86rem; margin:0;">
-                        Concentrated 8-holding fortress allocation across Pillar A (Moat Anchors), Pillar B (Cannibals), and Treasury Cash.
+                        Concentrated 8-core allocation and Treasury cash buffer.
                     </p>
                 </div>
                 <div style="display:flex; align-items:center; gap:8px;">
@@ -560,19 +511,19 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
 
             <table class="fin-table" style="width:100%; border-collapse:collapse;">
                 <colgroup>
-                    <col style="width:25%;">
-                    <col style="width:16%;">
+                    <col style="width:24%;">
+                    <col style="width:20%;">
+                    <col style="width:20%;">
                     <col style="width:18%;">
                     <col style="width:18%;">
-                    <col style="width:23%;">
                 </colgroup>
                 <thead>
-                    <tr style="border-bottom:1px solid var(--border-color); text-align:left; font-size:0.76rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim);">
-                        <th style="padding:10px 14px;">Holding</th>
-                        <th style="padding:10px 14px;">Weight ($100k Base)</th>
-                        <th style="padding:10px 14px;">Price vs Fair Value</th>
-                        <th style="padding:10px 14px;">Owner Earnings Engine</th>
-                        <th style="padding:10px 14px;">Moat & Solvency Defense</th>
+                    <tr style="border-bottom:1px solid var(--border-color); text-align:left; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim);">
+                        <th style="padding:12px 16px;">Holding</th>
+                        <th style="padding:12px 16px;">Allocation ($100k Base)</th>
+                        <th style="padding:12px 16px;">Price Today (Cost Basis)</th>
+                        <th style="padding:12px 16px;">Fair Value (MoS)</th>
+                        <th style="padding:12px 16px;">Owner Earnings Yield</th>
                     </tr>
                 </thead>
                 <tbody id="portfolio-holdings-tbody">
