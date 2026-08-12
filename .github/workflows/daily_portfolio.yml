@@ -1,0 +1,77 @@
+name: Daily 3:00 PM EST Portfolio Snapshot & Compounding Sync
+
+on:
+  schedule:
+    # 3:00 PM EST (19:00 UTC) - Afternoon Portfolio Valuation
+    - cron: '0 19 * * 1-5'
+    # 5:00 PM EST (21:00 UTC) - Post-Market Close Final Snapshot
+    - cron: '0 21 * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  snapshot_and_deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Poetry & Dependencies
+        run: |
+          pip install poetry
+          poetry install --no-root
+
+      - name: Record Market Close Portfolio Snapshot
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PYTHONUNBUFFERED: "1"
+        run: |
+          echo "📊 Recording Daily Market Close Snapshot..."
+          poetry run python -c "from stocks.portfolio import record_daily_market_close_snapshot; record_daily_market_close_snapshot()"
+          echo "🎨 Re-rendering master dashboard and stock research pages..."
+          poetry run python -c "from stocks.dashboard import render_all; render_all()"
+
+      - name: Commit and Push Daily Snapshot
+        run: |
+          git config --global user.name "Prateek Malhotra"
+          git config --global user.email "prateekmalhotra@g.ucla.edu"
+          git add data/portfolio.json public/
+          if git diff --staged --quiet; then
+            echo "No portfolio delta to commit."
+          else
+            git commit -m "Auto-record: Daily 3:00 PM EST market close portfolio snapshot [skip ci]"
+            for i in 1 2 3 4 5; do
+              git pull --rebase -X theirs origin main && git push origin main && break || sleep 3
+            done
+          fi
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'public'
+
+      - name: Deploy Live to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

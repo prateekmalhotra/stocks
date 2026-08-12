@@ -1,6 +1,6 @@
 {
   "portfolio_name": "AlphaThesis Concentrated Fortress",
-  "inception_date": "2026-01-01",
+  "inception_date": "2026-08-11",
   "last_rebalance_date": "2026-08-11",
   "base_capital_usd": 100000.0,
   "holdings": [
@@ -9,7 +9,7 @@
       "pillar": "A",
       "pillar_name": "Fortress Anchor",
       "target_weight": 0.15,
-      "cost_basis": 310.0,
+      "cost_basis": 343.0,
       "look_through_fcf_yield": 4.8,
       "cannibal_rate_pct": 3.2
     },
@@ -18,7 +18,7 @@
       "pillar": "A",
       "pillar_name": "Fortress Anchor",
       "target_weight": 0.14,
-      "cost_basis": 560.0,
+      "cost_basis": 599.12,
       "look_through_fcf_yield": 5.4,
       "cannibal_rate_pct": 4.1
     },
@@ -27,7 +27,7 @@
       "pillar": "A",
       "pillar_name": "Fortress Anchor",
       "target_weight": 0.12,
-      "cost_basis": 345.0,
+      "cost_basis": 362.82,
       "look_through_fcf_yield": 4.6,
       "cannibal_rate_pct": 2.8
     },
@@ -36,7 +36,7 @@
       "pillar": "A",
       "pillar_name": "Fortress Anchor",
       "target_weight": 0.12,
-      "cost_basis": 400.0,
+      "cost_basis": 503.81,
       "look_through_fcf_yield": 3.9,
       "cannibal_rate_pct": 1.5
     },
@@ -45,7 +45,7 @@
       "pillar": "B",
       "pillar_name": "Mispriced Cannibal",
       "target_weight": 0.1,
-      "cost_basis": 195.0,
+      "cost_basis": 212.87,
       "look_through_fcf_yield": 6.8,
       "cannibal_rate_pct": 6.4
     },
@@ -54,7 +54,7 @@
       "pillar": "B",
       "pillar_name": "Fortress Cannibal",
       "target_weight": 0.08,
-      "cost_basis": 26.0,
+      "cost_basis": 29.4,
       "look_through_fcf_yield": 4.4,
       "cannibal_rate_pct": 2.1
     },
@@ -63,7 +63,7 @@
       "pillar": "B",
       "pillar_name": "Deep Cannibal",
       "target_weight": 0.08,
-      "cost_basis": 118.0,
+      "cost_basis": 131.71,
       "look_through_fcf_yield": 11.2,
       "cannibal_rate_pct": 8.5
     },
@@ -72,7 +72,7 @@
       "pillar": "B",
       "pillar_name": "Mispriced Compounder",
       "target_weight": 0.08,
-      "cost_basis": 82.0,
+      "cost_basis": 93.84,
       "look_through_fcf_yield": 5.2,
       "cannibal_rate_pct": 3.8
     },
@@ -88,68 +88,20 @@
   ],
   "rebalance_log": [
     {
-      "date": "2026-01-01",
-      "action": "INITIATION",
+      "date": "2026-08-11",
+      "action": "PORTFOLIO INCEPTION (DAY 1)",
       "ticker": "ALL",
-      "reason": "Initial capital allocation into 8 Fortress Anchor & Mispriced Cannibal compounders plus 13% Treasury cash buffer.",
+      "reason": "Official inception of AlphaThesis Concentrated Fortress with $100,000 baseline across 8 core compounders & 13% Treasury cash buffer at Aug 11, 2026 market close.",
       "weight_delta": "+100%",
-      "verification_status": "Passed 3/3 Autonomous Verification Council"
+      "verification_status": "Verified 3/3 Autonomous Verification Council"
     }
   ],
   "historical_performance": [
     {
-      "date": "2026-01-01",
-      "portfolio_value": 100000.0,
-      "owner_earnings_runrate": 4700.0,
-      "spy_benchmark": 100000.0
-    },
-    {
-      "date": "2026-02-01",
-      "portfolio_value": 101450.0,
-      "owner_earnings_runrate": 4730.0,
-      "spy_benchmark": 100900.0
-    },
-    {
-      "date": "2026-03-01",
-      "portfolio_value": 102800.0,
-      "owner_earnings_runrate": 4765.0,
-      "spy_benchmark": 101800.0
-    },
-    {
-      "date": "2026-04-01",
-      "portfolio_value": 104200.0,
-      "owner_earnings_runrate": 4800.0,
-      "spy_benchmark": 102700.0
-    },
-    {
-      "date": "2026-05-01",
-      "portfolio_value": 105900.0,
-      "owner_earnings_runrate": 4835.0,
-      "spy_benchmark": 103900.0
-    },
-    {
-      "date": "2026-06-01",
-      "portfolio_value": 107350.0,
-      "owner_earnings_runrate": 4870.0,
-      "spy_benchmark": 104800.0
-    },
-    {
-      "date": "2026-07-01",
-      "portfolio_value": 108900.0,
-      "owner_earnings_runrate": 4905.0,
-      "spy_benchmark": 105900.0
-    },
-    {
-      "date": "2026-08-01",
-      "portfolio_value": 110100.0,
-      "owner_earnings_runrate": 4925.0,
-      "spy_benchmark": 106500.0
-    },
-    {
       "date": "2026-08-11",
-      "portfolio_value": 110746.0,
-      "owner_earnings_runrate": 4939.0,
-      "spy_benchmark": 106800.0
+      "portfolio_value": 100000.0,
+      "owner_earnings_runrate": 5425.0,
+      "spy_benchmark": 100000.0
     }
   ]
 }
