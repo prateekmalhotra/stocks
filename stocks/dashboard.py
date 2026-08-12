@@ -323,20 +323,20 @@ def build_native_svg_chart(ticker: str, current_price: float) -> str:
         <svg id="interactive-svg" viewBox="0 0 {width} {height}" preserveAspectRatio="none" class="chart-svg">
             <defs>
                 <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#C99A75" stop-opacity="0.18" />
-                    <stop offset="100%" stop-color="#C99A75" stop-opacity="0.0" />
+                    <stop offset="0%" stop-color="#CC785C" stop-opacity="0.20" />
+                    <stop offset="100%" stop-color="#CC785C" stop-opacity="0.0" />
                 </linearGradient>
             </defs>
             
-            <line x1="{padding_x}" y1="{padding_y}" x2="{width - padding_x}" y2="{padding_y}" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
-            <line x1="{padding_x}" y1="{height/2}" x2="{width - padding_x}" y2="{height/2}" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
-            <line x1="{padding_x}" y1="{height - padding_y}" x2="{width - padding_x}" y2="{height - padding_y}" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
+            <line x1="{padding_x}" y1="{padding_y}" x2="{width - padding_x}" y2="{padding_y}" stroke="rgba(235,225,210,0.04)" stroke-width="1" />
+            <line x1="{padding_x}" y1="{height/2}" x2="{width - padding_x}" y2="{height/2}" stroke="rgba(235,225,210,0.04)" stroke-width="1" />
+            <line x1="{padding_x}" y1="{height - padding_y}" x2="{width - padding_x}" y2="{height - padding_y}" stroke="rgba(235,225,210,0.04)" stroke-width="1" />
 
             <path id="chart-area-path" d="" fill="url(#area-grad)" />
-            <path id="chart-line-path" d="" fill="none" stroke="#C99A75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path id="chart-line-path" d="" fill="none" stroke="#CC785C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
 
-            <line id="crosshair-line" x1="0" y1="{padding_y}" x2="0" y2="{height - padding_y}" stroke="rgba(201,154,117,0.35)" stroke-width="1" stroke-dasharray="3 3" style="display: none;" />
-            <circle id="hover-dot" r="4" fill="#C99A75" stroke="#1A1917" stroke-width="2" style="display: none;" />
+            <line id="crosshair-line" x1="0" y1="{padding_y}" x2="0" y2="{height - padding_y}" stroke="rgba(204,120,92,0.4)" stroke-width="1" stroke-dasharray="3 3" style="display: none;" />
+            <circle id="hover-dot" r="4.5" fill="#CC785C" stroke="#1E1C19" stroke-width="2" style="display: none;" />
         </svg>
         <div class="chart-labels">
             <span id="chart-start-lbl">{first_date} (${min_p:.2f})</span>
@@ -705,19 +705,21 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {{
-            --bg-canvas: #141312;
-            --bg-panel: #1A1917;
-            --bg-subpanel: #21201D;
-            --bg-hover: #282623;
-            --text-title: #D8D2C6;
-            --text-body: #BDB7AA;
-            --text-secondary: #8E887D;
-            --text-dim: #666157;
-            --accent-warm: #C99A75;
-            --accent-green: #7D9D81;
-            --accent-red: #C4726C;
-            --border-color: rgba(215, 205, 190, 0.07);
-            --border-focus: rgba(215, 205, 190, 0.14);
+            --bg-canvas: #161513;
+            --bg-panel: #1E1C19;
+            --bg-subpanel: #252320;
+            --bg-hover: #2D2A25;
+            --text-title: #F5EFEB;
+            --text-body: #D4CDC3;
+            --text-secondary: #9E9689;
+            --text-dim: #736C61;
+            --accent-warm: #CC785C;
+            --accent-warm-hover: #E08A6E;
+            --accent-warm-subtle: rgba(204, 120, 92, 0.14);
+            --accent-green: #6FA882;
+            --accent-red: #D46E65;
+            --border-color: rgba(235, 225, 210, 0.08);
+            --border-focus: rgba(204, 120, 92, 0.38);
             --font-serif: 'Newsreader', Garamond, Georgia, serif;
             --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
@@ -1909,19 +1911,21 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {{
-            --bg-canvas: #141312;
-            --bg-panel: #1A1917;
-            --bg-subpanel: #21201D;
-            --bg-hover: #282623;
-            --text-title: #D8D2C6;
-            --text-body: #BDB7AA;
-            --text-secondary: #8E887D;
-            --text-dim: #666157;
-            --accent-warm: #C99A75;
-            --accent-green: #7D9D81;
-            --accent-red: #C4726C;
-            --border-color: rgba(215, 205, 190, 0.07);
-            --border-focus: rgba(215, 205, 190, 0.14);
+            --bg-canvas: #161513;
+            --bg-panel: #1E1C19;
+            --bg-subpanel: #252320;
+            --bg-hover: #2D2A25;
+            --text-title: #F5EFEB;
+            --text-body: #D4CDC3;
+            --text-secondary: #9E9689;
+            --text-dim: #736C61;
+            --accent-warm: #CC785C;
+            --accent-warm-hover: #E08A6E;
+            --accent-warm-subtle: rgba(204, 120, 92, 0.14);
+            --accent-green: #6FA882;
+            --accent-red: #D46E65;
+            --border-color: rgba(235, 225, 210, 0.08);
+            --border-focus: rgba(204, 120, 92, 0.38);
             --font-serif: 'Newsreader', Garamond, Georgia, serif;
             --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
@@ -2437,8 +2441,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         <div class="container header-content">
             <a href="#" class="brand-logo" style="display: inline-flex; align-items: center; gap: 10px;">
                 <svg width="22" height="22" viewBox="0 0 32 32" style="display: block;">
-                    <rect width="32" height="32" rx="8" fill="#1E1D1A" stroke="#C99A75" stroke-opacity="0.35" stroke-width="1.2" />
-                    <path d="M 9 22 C 7.5 19 7 16 9 13.5 C 11 11 14.5 11 17 13 C 19.5 15 20.5 18 20 21 C 19.5 22.5 17.8 23 16 22.5 C 13.5 21.8 11.5 19 12 16 C 12.5 13 15 10 18.5 9 C 21.5 8.2 24 10 24.5 13 C 25 16 23.5 19.5 23 22" fill="none" stroke="#C99A75" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                    <rect width="32" height="32" rx="8" fill="#1E1C19" stroke="#CC785C" stroke-opacity="0.35" stroke-width="1.2" />
+                    <path d="M 9 22 C 7.5 19 7 16 9 13.5 C 11 11 14.5 11 17 13 C 19.5 15 20.5 18 20 21 C 19.5 22.5 17.8 23 16 22.5 C 13.5 21.8 11.5 19 12 16 C 12.5 13 15 10 18.5 9 C 21.5 8.2 24 10 24.5 13 C 25 16 23.5 19.5 23 22" fill="none" stroke="#CC785C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
                 <span>AlphaThesis</span>
             </a>
