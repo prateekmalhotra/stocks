@@ -636,6 +636,85 @@
         .memo-container div[class*="card"] strong {
             color: var(--text-title) !important;
         }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-serif) !important;
+            font-style: italic !important;
+            font-size: 1.05rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
         .highlight, mark {
             background: rgba(201, 154, 117, 0.16) !important;
             color: #E2DDD5 !important;
@@ -1215,7 +1294,7 @@
 <div class="metric-delta pos">&gt;10x YoY (13.6B Traded)</div>
 </div>
 </div><p>Robinhood’s customer lock-in mechanism is designed around economic incentives that make account transfers structurally disadvantageous for users. The Gold membership program acts as a centralized moat aggregator by bundling:</p><ul><li><strong>3% Retirement Match:</strong> A 3% match on IRA contributions and qualified rollover transfers, subject to a 5-year holding period requirement that effectively locks in long-term retirement Assets Under Custody (AUC).
-  <strong>1% Uncapped Deposit Boost:</strong> An immediate 1% direct match on all incoming net cash deposits for Gold members, driving massive liquidity inflows from legacy brokerages.</li><li><strong>High-Yield Cash Sweep:</strong> Industry-leading cash yields (3.35%+ APY) backed by multi-bank FDIC insurance up to $2.5 million, converting idle customer cash into sticky net interest earnings.</li><li><strong>Robinhood Gold Credit Card:</strong> Premium cash-back credit card (3% back on all categories for Gold members) that captures daily payment flow and deepens consumer wallet share.</li></ul><div class="callout">
+  <strong>1% Uncapped Deposit Boost:</strong> An immediate 1% direct match on all incoming net cash deposits for Gold members, driving massive liquidity inflows from legacy brokerages.</li><li><strong>High-Yield Cash Sweep:</strong> Industry-leading cash yields (3.35%+ APY) backed by multi-bank FDIC insurance up to $2.5 million, converting idle customer cash into sticky net interest earnings.</li><li><strong>Robinhood Gold Credit Card:</strong> Premium cash-back credit card (3% back on all categories for Gold members) that captures daily payment flow and deepens consumer wallet share.</li></ul><div class="executive-callout">
 <strong>Strategic Takeaway on Ecosystem Flywheel:</strong> Management's aggressive reinvestment into Gold member rewards operates as a customer acquisition engine with structural retention. The 5-year vesting requirement on IRA matches converts promotional spend into locked, long-duration custody assets, allowing Robinhood to monetize users across margin lending, derivative order routing, and interest sweep yields over a multi-year horizon.
   </div><h2>Section 2: Product Velocity &amp; Revenue Diversification</h2><p>The defining operational achievement of Robinhood's management team is its explosive product velocity. In Q2 2026, CFO Shiv Verma confirmed that Robinhood operates <strong>13 distinct business lines that have scaled past $100 million in annualized revenues</strong>. This rapid diversification has insulated the firm's income statement from traditional retail equity volume shocks.</p><p>The 13 business units operating above the $100M+ annualized revenue run-rate threshold include:</p><ol><li><strong>Equities Trading:</strong> Monetized via PFOF and rebate execution, delivering $129M in Q2 (+95% YoY).</li><li><strong>Options Trading:</strong> Highly cash-generative derivative order routing, contributing $342M in Q2 (+29% YoY).</li><li><strong>Event Contracts &amp; Prediction Markets:</strong> The fastest-growing engine on the platform, producing $156M in Q2 (up &gt;10x YoY across 13.6 billion contracts traded), accelerated by institutional infrastructure integration via Rothera and MIAXdx.</li><li><strong>Cryptocurrency Trading:</strong> Scaled globally through institutional order depth and token coverage following the Bitstamp (Europe) and WonderFi (Canada) acquisitions, generating $100M in Q2.</li><li><strong>Margin Lending:</strong> Capitalized on aggressive interest rate offerings, expanding the active margin loan book by 127% YoY to $21.6 billion.</li><li><strong>Robinhood Gold Subscriptions:</strong> Recurring subscription revenue from 4.84 million members paying $5/month or $50/year.</li><li><strong>Cash Sweep &amp; Net Interest:</strong> Interest revenue derived from total uninvested customer sweep balances and corporate cash reserves, driving $389M in Net Interest Revenue.</li><li><strong>Robinhood Gold Card:</strong> Interchange fees and credit revenues from over 1 million active cardholders.</li><li><strong>Robinhood Legend:</strong> Advanced desktop trading platform catering to high-volume active traders, driving institutional-level order flow and contract volume.</li><li><strong>Retirement AUC Monetization:</strong> Long-term asset management and cash administration across IRA and Roth IRA balances.</li><li><strong>TradePMR RIA Custody Platform:</strong> Wealth management platform facilitating registered investment advisors, expanding Robinhood into high-net-worth custodial solutions.</li><li><strong>International Brokerage:</strong> Cross-border operational expansion spanning UK equities, European crypto, and Asia-Pacific operations under a newly granted Singapore Capital Markets Services (CMS) license from MAS.</li><li><strong>Trump Accounts &amp; Service Revenues:</strong> Specialized policy-linked consumer accounts and dedicated customer administration services generating supplemental fee streams.</li></ol><h3>Q2 2026 Revenue Composition &amp; Segment Breakdown</h3><div class="table-scroll-wrap"><table>
 <thead>
