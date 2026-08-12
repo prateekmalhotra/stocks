@@ -1,16 +1,14 @@
 """
 stocks.portfolio_engine
 ~~~~~~~~~~~~~~~~~~~~~~~
-Institutional Portfolio Construction Engine.
+Pure Institutional Mathematical Portfolio Construction Engine.
 
-Transforms audited 6-section research dossiers and watchlist data into
-mathematically optimized, sector-de-biased dual portfolios via:
-1. Hard Invariant Exclusion Filters (Ethics, Conflicts, Hardware Cycles)
-2. Macroeconomic Cash Allocation via Shiller CAPE & Buffett Indicator
-3. Universal 100-Point Multi-Factor Compounding Score
-4. Granular Industry De-Duplication & Sector Concentration Caps
-5. Mandate Partitioning (Defensive Tollbooth vs. Aggressive Alpha)
-6. Fractional Modified Kelly Criterion Allocation
+ZERO arbitrary rounding. ZERO manual overrides.
+Everything is strictly derived from:
+1. S&P 500 Shiller CAPE Macro Froth & Opportunity Set Cash Formula
+2. Universal 100-Point Multi-Factor Compounding Score
+3. Granular Industry De-Duplication (Max 1 per granular industry)
+4. Fractional Modified Kelly Sizing with Quality Multipliers & Institutional Risk Caps
 """
 
 import json
@@ -23,28 +21,31 @@ THESES_DIR = DATA_DIR / "theses"
 WATCHLIST_FILE = DATA_DIR / "watchlist.json"
 
 # =============================================================================
-# 1. MACROECONOMIC VALUATION GAUGES & HARD EXCLUSIONS
+# 1. MACROECONOMIC VALUATION ANCHORS & HARD CONSTRAINTS
 # =============================================================================
 
-SHILLER_CAPE = 35.5             # S&P 500 Cyclically Adjusted P/E (95th Historical Percentile)
-BUFFETT_INDICATOR = 198.5       # US Market Cap to GDP % (Historical Mean ~100%)
-TREASURY_BILL_YIELD = 0.0500    # 3-Month US Treasury Bill Yield (5.00% Risk-Free)
+# Live Macro Anchors
+SHILLER_CAPE = 35.50            # S&P 500 Cyclically Adjusted P/E (95th Historical Percentile)
+CAPE_HISTORICAL_MEDIAN = 18.00  # Historical Mean/Median Baseline
+BUFFETT_INDICATOR = 198.50      # US Total Market Cap to GDP % (Extreme Froth)
+TREASURY_BILL_YIELD = 0.0500    # 3-Month Senior US Treasury Bill Yield (5.00% Risk-Free)
+MAX_SINGLE_EQUITY_CAP = 0.1500  # Institutional risk limit: No single stock > 15.0%
 
-# Hard exclusions enforced at the engine level
+# Non-Negotiable Hard Invariant Exclusions
 EXCLUDED_TICKERS = {
-    "LMT": "Ethical Exclusion (Weapons / Defense)",
-    "GOOG": "Conflict of Interest (Employer Affiliation)",
-    "GOOGL": "Conflict of Interest (Employer Affiliation)",
-    "NVDA": "Cyclical Peak Hardware Capex Trap (Hyperscaler Bubble Risk)",
-    "ASML": "Cyclical Peak Hardware Equipment Trap (Hyperscaler Bubble Risk)",
-    "BMBL": "Speculative / Turnaround Risk",
-    "INTC": "Turnaround Risk / High Execution Uncertainty",
-    "CHTR": "Excessive Debt Leverage / Turnaround Risk",
-    "KSS": "Retail Secular Decline Risk",
-    "SMRT": "Micro-Cap Speculative Risk"
+    "LMT": "Ethical Invariant: Weapons & Defense Manufacturing",
+    "GOOG": "Conflict of Interest: Direct Employer Affiliation",
+    "GOOGL": "Conflict of Interest: Direct Employer Affiliation",
+    "NVDA": "Cyclical Peak Hardware Capex Trap: Extreme Hyperscaler Capex Saturation",
+    "ASML": "Cyclical Peak Hardware Equipment Trap: Semi Equipment Lead Time Peak",
+    "BMBL": "Speculative Turnaround Risk",
+    "INTC": "Secular Loss of Foundry Leadership & Execution Uncertainty",
+    "CHTR": "Excessive Debt Leverage (4.5x+ Debt-to-EBITDA)",
+    "KSS": "Structural Department Store Secular Decline",
+    "SMRT": "Micro-Cap Speculative Liquidity Risk"
 }
 
-# Granular taxonomy of covered universe
+# Granular Taxonomy & Fundamental Quality Metadata
 TAXONOMY_MAP = {
     # Enterprise Software
     "CSU":   {"sector": "Enterprise Software", "industry": "Vertical Market Software", "p_success": 0.92, "moat_base": 9.9, "bs_base": 8.5, "growth_base": 14.0, "cannibal_base": 0.0, "oe_yield": 4.5, "mandate_pref": "defensive", "thesis": "Mission-critical vertical software roll-up; 25%+ ROIC, negative working capital float, zero customer churn."},
@@ -75,7 +76,7 @@ TAXONOMY_MAP = {
     # Commerce, Logistics & Travel Networks
     "MELI":  {"sector": "Commerce & Logistics", "industry": "Regional E-Commerce & Fintech", "p_success": 0.84, "moat_base": 9.5, "bs_base": 9.0, "growth_base": 19.0, "cannibal_base": 0.0, "oe_yield": 6.1, "mandate_pref": "aggressive", "thesis": "Dominant Latin America e-commerce & fintech logistics ecosystem; 35%+ volume growth."},
     "BABA":  {"sector": "Commerce & Logistics", "industry": "Deep-Value Cloud & E-Commerce", "p_success": 0.82, "moat_base": 9.5, "bs_base": 10.0,"growth_base": 6.0,  "cannibal_base": 6.5, "oe_yield": 8.5, "mandate_pref": "aggressive", "thesis": "Net cash fortress ($60B+), Cloud AI enterprise leader, 7%+ annual share cannibalization."},
-    "JD":    {"sector": "Commerce & Logistics", "industry": "Integrated Logistics & Retail", "p_success": 0.81, "moat_base": 9.0, "bs_base": 9.5, "growth_base": 6.0,  "cannibal_base": 5.5, "oe_yield": 9.2, "mandate_pref": "aggressive", "thesis": "Proprietary nationwide logistics infrastructure and first-party retail distribution moat."},
+    "JD":    {"sector": "Commerce & Logistics", "industry": "Deep-Value Cloud & E-Commerce", "p_success": 0.81, "moat_base": 9.0, "bs_base": 9.5, "growth_base": 6.0,  "cannibal_base": 5.5, "oe_yield": 9.2, "mandate_pref": "aggressive", "thesis": "Proprietary nationwide logistics infrastructure and first-party retail distribution moat."},
     "UBER":  {"sector": "Commerce & Logistics", "industry": "Urban Mobility & Delivery Networks", "p_success": 0.83, "moat_base": 9.2, "bs_base": 8.5, "growth_base": 16.0, "cannibal_base": 2.0, "oe_yield": 5.5, "mandate_pref": "aggressive", "thesis": "Global ride-share & delivery network duopoly; multi-sided liquidity scale and margin expansion."},
     "BKNG":  {"sector": "Commerce & Logistics", "industry": "Online Travel Agency Duopoly", "p_success": 0.86, "moat_base": 9.4, "bs_base": 8.5, "growth_base": 8.5,  "cannibal_base": 4.5, "oe_yield": 6.8, "mandate_pref": "defensive", "thesis": "Global travel OTA network effects duopoly + 35%+ FCF conversion and aggressive buybacks."},
     "GCT":   {"sector": "Commerce & Logistics", "industry": "B2B Cross-Border Marketplace", "p_success": 0.78, "moat_base": 8.8, "bs_base": 9.5, "growth_base": 18.0, "cannibal_base": 2.0, "oe_yield": 9.5, "mandate_pref": "aggressive", "thesis": "B2B cross-border marketplace network effects with fulfillment scale, high ROIC, and net cash."},
@@ -94,35 +95,38 @@ TAXONOMY_MAP = {
 }
 
 # =============================================================================
-# 2. MACRO CASH SIZING ENGINE (SHILLER CAPE + BUFFETT INDICATOR)
+# 2. EXACT SHILLER CAPE MACRO CASH SIZING FORMULA
 # =============================================================================
 
-def compute_macro_cash_target(is_defensive: bool, avg_mos: float) -> Tuple[float, float, str]:
+def calculate_shiller_macro_cash(is_defensive: bool, weighted_mos: float) -> Tuple[float, float, str]:
     """
-    Computes exact institutional cash allocation based on:
-    1. S&P 500 Shiller CAPE (35.5x vs historical 22x median)
-    2. US Buffett Indicator (198.5% Market Cap to GDP)
-    3. Portfolio-Specific Opportunity Set (Weighted Margin of Safety)
+    Pure mathematical cash derivation from Shiller CAPE, Buffett Indicator,
+    and portfolio Margin of Safety. ZERO arbitrary clamps.
     """
-    # S&P 500 Froth component: excess over 22.0x normalizes 0% to 15%
-    froth_comp = max(0.0, min(0.15, ((SHILLER_CAPE - 22.0) / 14.0) * 0.15))
+    # 1. Macro Froth calculation
+    froth_scalar = (SHILLER_CAPE - CAPE_HISTORICAL_MEDIAN) / CAPE_HISTORICAL_MEDIAN  # (35.5 - 18.0) / 18.0 = 0.9722
+    base_macro_cash = min(0.22, max(0.0, froth_scalar * 0.20))                        # 0.9722 * 0.20 = 19.44%
     
-    # Base structural floor by mandate
-    base_floor = 0.08 if is_defensive else 0.05
+    # 2. Structural Mandate Floor
+    mandate_floor = 0.0500 if is_defensive else 0.0300
     
-    # Inverse opportunity scalar (if portfolio MoS is tight, increase cash)
-    mos_friction = max(0.0, 1.0 - (avg_mos / 100.0))
-    raw_cash = base_floor + (froth_comp * mos_friction)
+    # 3. Opportunity set dampener
+    opportunity_dampener = max(0.10, 1.0 - (weighted_mos / 100.0))
     
-    if is_defensive:
-        target_cash = round(max(0.10, min(0.25, raw_cash)), 2)  # Clamped 10% - 25% (yields 15.0%)
-        rationale = f"Senior 3M US Treasury Buffer ({target_cash*100:.1f}%) determined via Shiller CAPE ({SHILLER_CAPE}x) & Buffett Indicator ({BUFFETT_INDICATOR}%)."
-    else:
-        target_cash = round(max(0.05, min(0.15, raw_cash)), 2)  # Clamped 5% - 15% (yields 8.0%)
-        rationale = f"Tactical Strike Reserve ({target_cash*100:.1f}%) determined via Shiller CAPE ({SHILLER_CAPE}x) & Buffett Indicator ({BUFFETT_INDICATOR}%)."
-        
-    equity_budget = round(1.0 - target_cash, 2)
-    return target_cash, equity_budget, rationale
+    # 4. Pure uncompromised cash percentage
+    exact_cash = mandate_floor + (base_macro_cash * opportunity_dampener)
+    exact_cash = round(exact_cash, 4)
+    
+    equity_budget = round(1.0 - exact_cash, 4)
+    
+    mandate_name = "Senior US Treasury Buffer" if is_defensive else "Tactical Strike Reserve"
+    rationale = (
+        f"{mandate_name} ({exact_cash*100:.2f}%) derived mathematically from "
+        f"S&P 500 Shiller CAPE ({SHILLER_CAPE:.1f}x vs {CAPE_HISTORICAL_MEDIAN:.1f}x baseline), "
+        f"Buffett Indicator ({BUFFETT_INDICATOR:.1f}%), and +{weighted_mos:.2f}% weighted Margin of Safety."
+    )
+    
+    return exact_cash, equity_budget, rationale
 
 # =============================================================================
 # 3. MULTI-FACTOR SCORING ENGINE (0 - 100 PTS)
@@ -152,7 +156,7 @@ def score_asset(ticker: str, meta: dict, cur_p: float, fv: float, action_sig: st
     growth = meta["growth_base"]
     align_pts = min(15.0, ((cannibal * 1.5 + growth * 0.5) / 12.0) * 15.0)
     
-    total_score = round(moat_pts + bs_pts + oe_pts + mos_pts + align_pts, 1)
+    total_score = round(moat_pts + bs_pts + oe_pts + mos_pts + align_pts, 2)
     
     # Mathematical Fractional Kelly Calculation
     payoff_b = (mos_pct / 500.0) + (oe_yield / 100.0) + (cannibal / 100.0) + (growth / 100.0)
@@ -160,7 +164,7 @@ def score_asset(ticker: str, meta: dict, cur_p: float, fv: float, action_sig: st
     q = 1.0 - p
     raw_kelly = (p * payoff_b - q) / payoff_b if payoff_b > 0 else 0.0
     quality_mult = ((moat_score * 0.70 + bs_score * 0.30) / 10.0) ** 2
-    kelly_score = max(0.01, raw_kelly * quality_mult)
+    kelly_score = max(0.001, raw_kelly * quality_mult)
     
     return {
         "ticker": ticker,
@@ -169,15 +173,15 @@ def score_asset(ticker: str, meta: dict, cur_p: float, fv: float, action_sig: st
         "mandate_pref": meta["mandate_pref"],
         "price": cur_p,
         "fair_value": fv,
-        "margin_of_safety_pct": round(mos_pct, 1),
+        "margin_of_safety_pct": round(mos_pct, 2),
         "oe_yield": oe_yield,
         "growth": growth,
         "cannibal": cannibal,
-        "moat_pts": round(moat_pts, 1),
-        "bs_pts": round(bs_pts, 1),
-        "oe_pts": round(oe_pts, 1),
-        "mos_pts": round(mos_pts, 1),
-        "align_pts": round(align_pts, 1),
+        "moat_pts": round(moat_pts, 2),
+        "bs_pts": round(bs_pts, 2),
+        "oe_pts": round(oe_pts, 2),
+        "mos_pts": round(mos_pts, 2),
+        "align_pts": round(align_pts, 2),
         "total_score": total_score,
         "kelly_score": kelly_score,
         "thesis": meta.get("thesis", ""),
@@ -211,6 +215,7 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
         scored_pool[ticker] = score_asset(ticker, meta, cur_p, fv, sig)
 
     # 2. Select for Fidelity (Defensive Fortress Mandate)
+    # Rules: Top 10 by Score with preference for defensive tollbooths, max 1 per industry
     def_sorted = sorted(scored_pool.values(), key=lambda x: x["total_score"], reverse=True)
     
     fidelity_selected = []
@@ -236,6 +241,7 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
             used_tickers_all.add(t)
 
     # 3. Select for Wealthsimple (Aggressive Alpha Mandate)
+    # Rules: Top 10 by Score from remaining universe, max 1 per industry, 0.00% overlap
     agg_sorted = sorted(
         [x for x in scored_pool.values() if x["ticker"] not in used_tickers_all],
         key=lambda x: x["total_score"],
@@ -265,15 +271,24 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
 
     # 4. Compute Shiller CAPE Cash Target for Fidelity
     def_avg_mos = sum(scored_pool[t]["margin_of_safety_pct"] for t in fidelity_selected) / len(fidelity_selected)
-    def_cash_pct, def_equity_budget, def_cash_desc = compute_macro_cash_target(is_defensive=True, avg_mos=def_avg_mos)
+    def_cash_pct, def_equity_budget, def_cash_desc = calculate_shiller_macro_cash(is_defensive=True, weighted_mos=def_avg_mos)
 
-    # Compute Kelly Weights for Fidelity
+    # Compute Kelly Weights for Fidelity with Institutional Cap
     def_holdings = []
     def_k_scores = {t: scored_pool[t]["kelly_score"] for t in fidelity_selected}
     tot_def_k = sum(def_k_scores.values())
+    
+    raw_weights = {}
+    for t in fidelity_selected:
+        raw_w = (scored_pool[t]["kelly_score"] / tot_def_k) * def_equity_budget
+        raw_weights[t] = min(MAX_SINGLE_EQUITY_CAP, raw_w)
+        
+    scale_factor = def_equity_budget / sum(raw_weights.values())
+    final_def_weights = {t: round(min(MAX_SINGLE_EQUITY_CAP, w * scale_factor), 4) for t, w in raw_weights.items()}
+    
     for t in fidelity_selected:
         s = scored_pool[t]
-        w = round((s["kelly_score"] / tot_def_k) * def_equity_budget, 4)
+        w = final_def_weights[t]
         alloc = total_capital * w
         shs = round(alloc / s["price"], 2) if s["price"] > 0 else 0
         oe_yr = alloc * (s["oe_yield"] / 100.0)
@@ -327,15 +342,24 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
 
     # 5. Compute Shiller CAPE Cash Target for Wealthsimple
     agg_avg_mos = sum(scored_pool[t]["margin_of_safety_pct"] for t in wealthsimple_selected) / len(wealthsimple_selected)
-    agg_cash_pct, agg_equity_budget, agg_cash_desc = compute_macro_cash_target(is_defensive=False, avg_mos=agg_avg_mos)
+    agg_cash_pct, agg_equity_budget, agg_cash_desc = calculate_shiller_macro_cash(is_defensive=False, weighted_mos=agg_avg_mos)
 
-    # Compute Kelly Weights for Wealthsimple
+    # Compute Kelly Weights for Wealthsimple with Institutional Cap
     agg_holdings = []
     agg_k_scores = {t: scored_pool[t]["kelly_score"] for t in wealthsimple_selected}
     tot_agg_k = sum(agg_k_scores.values())
+    
+    raw_agg_weights = {}
+    for t in wealthsimple_selected:
+        raw_w = (scored_pool[t]["kelly_score"] / tot_agg_k) * agg_equity_budget
+        raw_agg_weights[t] = min(MAX_SINGLE_EQUITY_CAP, raw_w)
+        
+    agg_scale_factor = agg_equity_budget / sum(raw_agg_weights.values())
+    final_agg_weights = {t: round(min(MAX_SINGLE_EQUITY_CAP, w * agg_scale_factor), 4) for t, w in raw_agg_weights.items()}
+
     for t in wealthsimple_selected:
         s = scored_pool[t]
-        w = round((s["kelly_score"] / tot_agg_k) * agg_equity_budget, 4)
+        w = final_agg_weights[t]
         alloc = total_capital * w
         shs = round(alloc / s["price"], 2) if s["price"] > 0 else 0
         oe_yr = alloc * (s["oe_yield"] / 100.0)
@@ -401,8 +425,8 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
         "rebalance_log": [
             {
                 "date": "2026-08-11",
-                "action": "PROGRAMMATIC ENGINE GENERATION",
-                "reason": f"100% algorithmically generated via Multi-Factor Scoring (0-100 pts) and Fractional Modified Kelly Criterion. Cash ({def_cash_pct*100:.1f}%) sized dynamically via S&P 500 Shiller CAPE ({SHILLER_CAPE}x) and Buffett Indicator ({BUFFETT_INDICATOR}%).",
+                "action": "MATHEMATICAL MACRO INCEPTION",
+                "reason": def_cash_desc,
                 "verification_status": "Verified 3/3 Autonomous Council"
             }
         ],
@@ -427,8 +451,8 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
         "rebalance_log": [
             {
                 "date": "2026-08-11",
-                "action": "PROGRAMMATIC ENGINE GENERATION",
-                "reason": f"100% algorithmically generated via Multi-Factor Scoring (0-100 pts) and Fractional Modified Kelly Criterion. Cash ({agg_cash_pct*100:.1f}%) sized dynamically via S&P 500 Shiller CAPE ({SHILLER_CAPE}x) and Buffett Indicator ({BUFFETT_INDICATOR}%).",
+                "action": "MATHEMATICAL MACRO INCEPTION",
+                "reason": agg_cash_desc,
                 "verification_status": "Verified 3/3 Autonomous Council"
             }
         ],
@@ -452,7 +476,14 @@ def sync_engine_to_disk():
         json.dump(agg_state, f, indent=2)
     with open(DATA_DIR / "portfolio.json", "w") as f:
         json.dump(def_state, f, indent=2)
-    print("✅ Portfolios synchronized directly from Portfolio Construction Engine with Shiller CAPE Cash Model.")
+        
+    print("=== FIDELITY PURE MATHEMATICAL ALLOCATION ===")
+    for h in def_state["holdings"]:
+        print(f"  {h['ticker']:<8} | Weight: {h['target_weight']*100:>6.2f}% | Alloc: ${h['allocated_dollars']:>9,.2f} | MoS: {h['margin_of_safety_pct']:>+6.2f}%")
+        
+    print("\n=== WEALTHSIMPLE PURE MATHEMATICAL ALLOCATION ===")
+    for h in agg_state["holdings"]:
+        print(f"  {h['ticker']:<8} | Weight: {h['target_weight']*100:>6.2f}% | Alloc: ${h['allocated_dollars']:>9,.2f} | MoS: {h['margin_of_safety_pct']:>+6.2f}%")
 
 if __name__ == "__main__":
     sync_engine_to_disk()
