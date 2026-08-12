@@ -215,6 +215,30 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
         oe_yr = h["annual_owner_earnings"]
         fcf_y = h["look_through_fcf_yield"]
         
+        CLEAN_NAMES = {
+            "ASML": "ASML Holding N.V.",
+            "TSM": "Taiwan Semiconductor (TSMC)",
+            "BABA": "Alibaba Group",
+            "JD": "JD.com, Inc.",
+            "STNE": "StoneCo Ltd.",
+            "CROX": "Crocs, Inc.",
+            "GCT": "GigaCloud Technology",
+            "NVDA": "NVIDIA Corporation",
+            "META": "Meta Platforms, Inc.",
+            "MELI": "MercadoLibre, Inc.",
+            "CSU": "Constellation Software",
+            "CPRT": "Copart, Inc.",
+            "V": "Visa Inc.",
+            "MA": "Mastercard Incorporated",
+            "ADBE": "Adobe Inc.",
+            "SPGI": "S&P Global Inc.",
+            "INTU": "Intuit Inc.",
+            "MSFT": "Microsoft Corporation",
+            "UNH": "UnitedHealth Group",
+            "BKNG": "Booking Holdings"
+        }
+        display_name = CLEAN_NAMES.get(t, h.get("company_name", t))
+        
         if t == "USD_CASH":
             ticker_col = """
             <div style="display:flex; flex-direction:column; gap:1px;">
@@ -238,11 +262,11 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
             """
         else:
             ticker_col = f"""
-            <div style="display:flex; flex-direction:column; gap:1px;">
+            <div style="display:flex; flex-direction:column; gap:1px; min-width:0;">
                 <a href="{h['report_url']}" style="font-family:var(--font-mono); font-weight:700; font-size:0.96rem; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:3px;">
                     {t} <span style="font-size:0.65rem; opacity:0.6;">↗</span>
                 </a>
-                <span style="font-size:0.75rem; color:var(--text-secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:200px;">{h['company_name']}</span>
+                <span style="font-size:0.75rem; color:var(--text-secondary); display:block; max-width:210px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="{display_name}">{display_name}</span>
             </div>
             """
             alloc_col = f"""
