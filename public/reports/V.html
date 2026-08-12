@@ -636,6 +636,85 @@
         .memo-container div[class*="card"] strong {
             color: var(--text-title) !important;
         }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-serif) !important;
+            font-style: italic !important;
+            font-size: 1.05rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
         .highlight, mark {
             background: rgba(201, 154, 117, 0.16) !important;
             color: #E2DDD5 !important;
@@ -1286,7 +1365,7 @@
 <td>Excludes special items; highlights underlying operating efficiency</td>
 </tr>
 </tbody>
-</table></div><h3>Management Guidance &amp; Transcript Highlights</h3><p>During the Q3 FY2026 earnings call, Chief Executive Officer Ryan McInerney and executive leadership outlined several critical operational milestones and forward-looking guidance points:</p><ul><li><strong>The "Hyperscaler of Payments" Vision:</strong> CEO Ryan McInerney emphasized Visa's role as a primary software hyperscaler for global payments, leveraging AI to accelerate code delivery and increase product release velocity.</li><li><strong>Efficiency Restructuring &amp; Reallocation:</strong> Visa recorded a $563 million severance expense following a 7% workforce reduction (~2,600 positions, mostly tech/product roles). Savings are being redeployed into AI automation, agentic commerce, and stablecoin payment pipelines.</li><li><strong>Upward Outlook Adjustment:</strong> Management raised its full-year guidance, now projecting net revenue growth at the low end of low-teens and Non-GAAP EPS growth at the low end of mid-teens.</li><li><strong>Capital Allocation:</strong> Visa returned $6.2 billion to shareholders in Q3 alone ($4.9 billion in share buybacks at an average price of $330.71/share plus $1.3 billion in dividends). Over $28.4 billion remains under active buyback authorization.</li></ul><div class="callout">
+</table></div><h3>Management Guidance &amp; Transcript Highlights</h3><p>During the Q3 FY2026 earnings call, Chief Executive Officer Ryan McInerney and executive leadership outlined several critical operational milestones and forward-looking guidance points:</p><ul><li><strong>The "Hyperscaler of Payments" Vision:</strong> CEO Ryan McInerney emphasized Visa's role as a primary software hyperscaler for global payments, leveraging AI to accelerate code delivery and increase product release velocity.</li><li><strong>Efficiency Restructuring &amp; Reallocation:</strong> Visa recorded a $563 million severance expense following a 7% workforce reduction (~2,600 positions, mostly tech/product roles). Savings are being redeployed into AI automation, agentic commerce, and stablecoin payment pipelines.</li><li><strong>Upward Outlook Adjustment:</strong> Management raised its full-year guidance, now projecting net revenue growth at the low end of low-teens and Non-GAAP EPS growth at the low end of mid-teens.</li><li><strong>Capital Allocation:</strong> Visa returned $6.2 billion to shareholders in Q3 alone ($4.9 billion in share buybacks at an average price of $330.71/share plus $1.3 billion in dividends). Over $28.4 billion remains under active buyback authorization.</li></ul><div class="executive-callout">
 <strong>Executive Commentary — CEO Ryan McInerney:</strong><br/>
 <em>"Visa delivered a strong fiscal third quarter, with net revenue up 14% year-over-year... Quarterly payments volume crossed $4 trillion for the first time in Visa's history. As the leading hyperscaler of payments globally, we are designing, building, and shipping products at an increased velocity, positioning Visa, our clients, and the ecosystem to capture the opportunities ahead and drive growth."</em>
 </div></div>

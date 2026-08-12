@@ -636,6 +636,85 @@
         .memo-container div[class*="card"] strong {
             color: var(--text-title) !important;
         }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-serif) !important;
+            font-style: italic !important;
+            font-size: 1.05rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
         .highlight, mark {
             background: rgba(201, 154, 117, 0.16) !important;
             color: #E2DDD5 !important;
@@ -1225,7 +1304,7 @@
 <div class="metric-delta pos">+38.0% YoY</div>
 </div>
 </div></div>
-<div class="section"><h2>Section 2: Management Restructuring &amp; AI-Driven Monetization</h2><h3>17% Full-Time Workforce Restructuring &amp; Organizational Velocity</h3><p>In May 2026, alongside its Q3 earnings release, CEO Sasan Goodarzi announced a sweeping organizational restructuring involving a 17% reduction in full-time headcount, impacting approximately 3,000 employees globally across engineering, product development, customer support, and administration. The company estimates incurring $300 million to $340 million in GAAP restructuring charges, primarily recognized in Q4 FY2026. As part of this consolidation, Intuit is closing facilities in Reno, Nevada, and Woodland Hills, California.</p><p>Management emphasized that this reduction is not a reaction to weak financial performance or pure cost-cutting, but a strategic reallocation of capital designed to eliminate coordination layers, mid-level management bureaucracy, and redundant roles. By streamlining management structures, Intuit aims to accelerate operational velocity, increase the ratio of front-line builders to managers, rightsizing lower-return investments (such as legacy Mailchimp functions), and redirect savings into generative AI engineering, mid-market sales expansion, and automated customer support capabilities.</p><h3>GenAI Agent Deployment &amp; Frictionless User Adoption</h3><p>Intuit is deploying Generative AI across its ecosystem through proprietary financial domain models (Intuit Assist) and strategic partnerships with leading AI model developers, including OpenAI and Anthropic. By combining domain-specific accounting/tax code training with real-time customer data, Intuit’s AI agents operate directly within user workflows:</p><ul><li><strong>QuickBooks AI Agents:</strong> Over 3 million business customers actively engage with AI agents across QuickBooks. These autonomous agents automate invoice generation, categorize bank transactions, predict short-term cash flow crunches, and auto-draft marketing campaigns. By eliminating manual ledger entries, Intuit increases product engagement and reduces churn.</li><li><strong>TurboTax &amp; Credit Karma Intelligence:</strong> AI models analyze complex tax documents (W-2s, 1099-MISC/NEC, brokerage statements) in seconds, auto-filling filings and matching filers with high-yield refund strategies. In Credit Karma, AI agents continuously scan credit profiles to surface pre-approved loan and credit card refinancing opportunities.</li></ul><h3>Upmarket Expansion &amp; Disrupting Mid-Market Enterprise ERP</h3><p>The convergence of generative AI automation and upper-tier software products is driving Intuit's expansion into the mid-market space. Businesses with 10 to 100+ employees represent an attractive market, as their operational workflows are too complex for basic software but too small to justify traditional enterprise ERP implementations that carry high consulting and maintenance fees.</p><p>Intuit Enterprise Suite (IES) combines multi-entity accounting, advanced reporting, automated payment collection, spend management, and AI-driven human experts on demand. Delivered as a unified cloud platform, IES delivers enterprise-grade intelligence at a lower cost than legacy ERP vendors. Mid-market business solutions (QBO Advanced and IES) grew 38% YoY in Q3 FY2026, serving as a long-term engine for durable revenue and margin expansion.</p><div class="callout">
+<div class="section"><h2>Section 2: Management Restructuring &amp; AI-Driven Monetization</h2><h3>17% Full-Time Workforce Restructuring &amp; Organizational Velocity</h3><p>In May 2026, alongside its Q3 earnings release, CEO Sasan Goodarzi announced a sweeping organizational restructuring involving a 17% reduction in full-time headcount, impacting approximately 3,000 employees globally across engineering, product development, customer support, and administration. The company estimates incurring $300 million to $340 million in GAAP restructuring charges, primarily recognized in Q4 FY2026. As part of this consolidation, Intuit is closing facilities in Reno, Nevada, and Woodland Hills, California.</p><p>Management emphasized that this reduction is not a reaction to weak financial performance or pure cost-cutting, but a strategic reallocation of capital designed to eliminate coordination layers, mid-level management bureaucracy, and redundant roles. By streamlining management structures, Intuit aims to accelerate operational velocity, increase the ratio of front-line builders to managers, rightsizing lower-return investments (such as legacy Mailchimp functions), and redirect savings into generative AI engineering, mid-market sales expansion, and automated customer support capabilities.</p><h3>GenAI Agent Deployment &amp; Frictionless User Adoption</h3><p>Intuit is deploying Generative AI across its ecosystem through proprietary financial domain models (Intuit Assist) and strategic partnerships with leading AI model developers, including OpenAI and Anthropic. By combining domain-specific accounting/tax code training with real-time customer data, Intuit’s AI agents operate directly within user workflows:</p><ul><li><strong>QuickBooks AI Agents:</strong> Over 3 million business customers actively engage with AI agents across QuickBooks. These autonomous agents automate invoice generation, categorize bank transactions, predict short-term cash flow crunches, and auto-draft marketing campaigns. By eliminating manual ledger entries, Intuit increases product engagement and reduces churn.</li><li><strong>TurboTax &amp; Credit Karma Intelligence:</strong> AI models analyze complex tax documents (W-2s, 1099-MISC/NEC, brokerage statements) in seconds, auto-filling filings and matching filers with high-yield refund strategies. In Credit Karma, AI agents continuously scan credit profiles to surface pre-approved loan and credit card refinancing opportunities.</li></ul><h3>Upmarket Expansion &amp; Disrupting Mid-Market Enterprise ERP</h3><p>The convergence of generative AI automation and upper-tier software products is driving Intuit's expansion into the mid-market space. Businesses with 10 to 100+ employees represent an attractive market, as their operational workflows are too complex for basic software but too small to justify traditional enterprise ERP implementations that carry high consulting and maintenance fees.</p><p>Intuit Enterprise Suite (IES) combines multi-entity accounting, advanced reporting, automated payment collection, spend management, and AI-driven human experts on demand. Delivered as a unified cloud platform, IES delivers enterprise-grade intelligence at a lower cost than legacy ERP vendors. Mid-market business solutions (QBO Advanced and IES) grew 38% YoY in Q3 FY2026, serving as a long-term engine for durable revenue and margin expansion.</p><div class="executive-callout">
 <strong>Strategic Execution &amp; Operating Thesis:</strong> "Our 17% workforce reduction is designed to simplify our organizational structure, eliminate middle-management coordination layers, and accelerate operational velocity. We are reallocating capital into three core priorities: scaling our GenAI native platform, expanding our center-of-money offerings, and accelerating our mid-market disruption through Intuit Enterprise Suite. By combining proprietary financial data, domain-specific AI models, and human expertise, Intuit is establishing an operating structure that drives margin expansion and durable long-term growth." — <em>Sasan Goodarzi, CEO &amp; Sandeep Aujla, CFO (Q3 FY2026 Earnings Call)</em>
 </div></div>
 <div class="section"><h2>Section 3: Real Cash Generation, SBC &amp; Shareholder Dilution</h2><p>

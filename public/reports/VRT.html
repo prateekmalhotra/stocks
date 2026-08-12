@@ -636,6 +636,85 @@
         .memo-container div[class*="card"] strong {
             color: var(--text-title) !important;
         }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-serif) !important;
+            font-style: italic !important;
+            font-size: 1.05rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
         .highlight, mark {
             background: rgba(201, 154, 117, 0.16) !important;
             color: #E2DDD5 !important;
@@ -1191,7 +1270,7 @@
 <li><strong>Critical Power (UPS, Switchgear, Busbar &amp; DC Power):</strong> To prevent power interruption and optimize line-side electrical conversion, Vertiv designs high-efficiency Uninterruptible Power Supply (UPS) systems, dynamic power transfer switches, high-density power distribution units (rPDUs), busway systems, and energy storage systems (BESS). As the industry transitions toward next-generation power architectures, Vertiv is pioneering the transition from conventional AC power distribution to medium-voltage AC to 800V DC architecture at the rack, pod, and data hall level. This structural shift drastically reduces conversion losses, copper weight, and footprint while unlocking maximum thermal headroom for AI accelerators.</li>
 <li><strong>Integrated Modular Solutions (SmartRun, OneCore &amp; Vertiv 360AI):</strong> Vertiv synthesizes its thermal and power capabilities into prefabricated, factory-tested modular units. Frameworks like <em>Vertiv 360AI</em>, <em>SmartRun</em>, and <em>OneCore</em> integrate power skid systems, cooling loops, containment, and IT racks into standardized, plug-and-play micro-modules. These solutions drastically condense site construction timelines, mitigate field installation errors, and accelerate time-to-first-token for hyperscale operators facing tight commissioning deadlines.
     </li>
-</ul><div class="callout">
+</ul><div class="executive-callout">
 <strong>Strategic Takeaway — Moat &amp; Partner Ecosystem Expansion:</strong>
     Vertiv’s competitive moat relies on deep co-engineering partnerships with top silicon designers and server OEMs. Vertiv was selected to supply the complete power, liquid cooling, rack infrastructure, and commissioning package for Taiwan’s first AI data center featuring NVIDIA GB300 technology at VisionBay.ai’s Kaohsiung site. Concurrently, Vertiv is collaborating on validation protocols for 800V DC pod architectures tailored for upcoming NVIDIA Vera Rubin deployments, cementing its position as a primary reference design standard in high-density computing.
   </div><h3>2. Structural Competitive Advantage &amp; Switching Costs</h3><p>
@@ -1265,7 +1344,7 @@
 <td>Expanded +380 bps YoY</td>
 </tr>
 </tbody>
-</table></div><div class="callout">
+</table></div><div class="executive-callout">
 <strong>Management Commentary — Executive Insights:</strong><br/>
 <em>“A strong quarter, EPS, margin, profit, and cash convincingly strong... Pleased with what we see in July and full confidence in H2 execution and backlog. As a result, we have raised our full year outlook.”</em><br/>
     — <strong>Giordano Albertazzi</strong>, Chief Executive Officer &amp; Director<br/><br/>

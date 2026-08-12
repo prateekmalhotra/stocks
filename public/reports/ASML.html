@@ -636,6 +636,85 @@
         .memo-container div[class*="card"] strong {
             color: var(--text-title) !important;
         }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-serif) !important;
+            font-style: italic !important;
+            font-size: 1.05rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
         .highlight, mark {
             background: rgba(201, 154, 117, 0.16) !important;
             color: #E2DDD5 !important;
@@ -1204,12 +1283,12 @@
 <div class="metric-value">€43B – €45B</div>
 <div class="metric-delta pos">Up from €36B–€40B Previous</div>
 </div>
-</div><div class="callout">
+</div><div class="executive-callout">
 <strong>Management Commentary — Q2 2026 Earnings Call:</strong><br/>
 <em>"Ongoing AI investments continue to strengthen semiconductor demand across both logic and memory segments. Customer commitments across our portfolio provide increased visibility into long-term growth, supporting our decision to raise our 2026 outlook and expand production capacity for both EUV and immersion DUV platforms."</em><br/>
     — <strong>Christophe Fouquet, President &amp; CEO</strong>
 </div><h3>Monopolistic Moat &amp; Technology Defensibility</h3><p>ASML's competitive advantage rests on three primary pillars:</p><ul><li><strong>EUV Technological Lock-In (13.5nm Wavelength):</strong> Generating EUV light requires firing 50,000 molten tin droplets per second through a vacuum chamber and striking each droplet twice with high-power CO2 industrial lasers to create high-temperature plasma. Replicating this physics platform requires custom Bragg mirrors composed of dozens of alternating molybdenum and silicon layers with sub-nanometer flatness tolerances. No competitor (including Canon or Nikon) possesses commercial EUV capabilities.</li><li><strong>Value-Based Pricing &amp; Economic Surplus Extraction:</strong> ASML prices its systems based on the economic value created for foundries and memory makers. By improving wafer throughput (wafers per hour, or wph) and overlay precision, ASML enables customers to eliminate costly multi-patterning steps. This gives ASML tremendous pricing power: Low-NA systems command Average Selling Prices (ASPs) between €180M and €220M, while High-NA tools (EXE platform) reach €350M–€400M+ per unit.</li><li><strong>High-Margin Installed Base Management (IBM):</strong> With thousands of TWINSCAN systems deployed globally, ASML generates resilient, non-cyclical cash flows from maintenance, software productivity updates, and hardware field upgrades. In Q2 2026, Installed Base Management generated approximately €2.4B, beating internal guidance by ~€300M due to urgent customer demands for software-driven yield optimization.</li></ul><h3>Customer Concentration &amp; Capital Allocation Discipline</h3><p>While ASML's customer base is inherently concentrated among the "Big Three" semiconductor manufacturers—TSMC, Samsung, and Intel—alongside leading memory producers (SK Hynix, Micron), this concentration is mitigated by deep balance-sheet co-investments and long lead times. In Q2 2026, ASML returned €1.1B to shareholders via share buybacks (0.8M shares repurchased) and declared an interim dividend of €1.88 per share, maintaining strict alignment with shareholder capital return policies. Stock-Based Compensation (SBC) remains tightly controlled at under 1.5% of operating cash flow, ensuring that per-share compounding reflects organic economic cash flow.</p></div>
-<div class="section" id="operational-benchmarking"><h2>Section 2: Operational Benchmarking &amp; Industry Dynamics</h2><p>ASML's operational momentum in 2026 is driven by the simultaneous ramp of its flagship Low-NA EUV system (TWINSCAN NXE:3800E), commercial validation of High-NA EUV in high-volume manufacturing (HVM), and strategic capacity expansions planned through 2028.</p><h3>Product Roadmap Execution: NXE:3800E &amp; High-NA Deployment</h3><p>The transition from legacy NXE:3400C/3600D tools to the <strong>TWINSCAN NXE:3800E</strong> represents a step-function increase in foundry productivity. Featuring a 37% improvement in throughput to over 220 wafers per hour (wph) alongside sub-1.1nm overlay accuracy, the NXE:3800E allows chipmakers to lower effective cost per good die. As management noted during the Q2 call, the product mix shift toward the NXE:3800E and upcoming NXE:3800F is driving higher average ASPs and structural gross margin expansion toward the 55%–57% target range guided for Q3 2026.</p><p>In High-NA EUV (0.55 Numerical Aperture), ASML achieved a pivotal commercial milestone in mid-2026: <strong>Intel Corporation officially integrated the TWINSCAN EXE High-NA platform into active production for its Intel 18A process node</strong>. This marks the official transition of High-NA from pilot line validation to revenue-generating high-volume manufacturing, proving tool maturity and silencing bear cases regarding 0.55 NA anamorphic lens integration.</p><div class="callout">
+<div class="section" id="operational-benchmarking"><h2>Section 2: Operational Benchmarking &amp; Industry Dynamics</h2><p>ASML's operational momentum in 2026 is driven by the simultaneous ramp of its flagship Low-NA EUV system (TWINSCAN NXE:3800E), commercial validation of High-NA EUV in high-volume manufacturing (HVM), and strategic capacity expansions planned through 2028.</p><h3>Product Roadmap Execution: NXE:3800E &amp; High-NA Deployment</h3><p>The transition from legacy NXE:3400C/3600D tools to the <strong>TWINSCAN NXE:3800E</strong> represents a step-function increase in foundry productivity. Featuring a 37% improvement in throughput to over 220 wafers per hour (wph) alongside sub-1.1nm overlay accuracy, the NXE:3800E allows chipmakers to lower effective cost per good die. As management noted during the Q2 call, the product mix shift toward the NXE:3800E and upcoming NXE:3800F is driving higher average ASPs and structural gross margin expansion toward the 55%–57% target range guided for Q3 2026.</p><p>In High-NA EUV (0.55 Numerical Aperture), ASML achieved a pivotal commercial milestone in mid-2026: <strong>Intel Corporation officially integrated the TWINSCAN EXE High-NA platform into active production for its Intel 18A process node</strong>. This marks the official transition of High-NA from pilot line validation to revenue-generating high-volume manufacturing, proving tool maturity and silencing bear cases regarding 0.55 NA anamorphic lens integration.</p><div class="executive-callout">
 <strong>CFO Insight — EUV Wafer Capacity Multiplier:</strong><br/>
 <em>"A 30% increase in low-NA EUV tool unit shipments in 2027 translates into roughly a 45% increase in effective wafer capacity for our customers. This operating leverage is created because the 2027 EUV product mix shifts predominantly toward our higher-productivity NXE:3800E and 3800F systems."</em><br/>
     — <strong>Roger Dassen, CFO</strong>
@@ -1481,7 +1560,7 @@
 <ol><li><strong>Active Debt De-Leveraging:</strong> In H1 2026, management actively paid down <strong>€693.2 million</strong> in maturing debt and finance lease obligations, successfully lowering long-term debt from €2,709.0 million at year-end 2025 to €1,984.4 million as of Q2 2026. Net Cash sits at a healthy <strong>€5,278.3 million</strong>.<br/></li><li><strong>Share Buyback Cannibal Mechanics:</strong> Under the 2026–2028 share buyback program, ASML repurchased <strong>€1,077.5 million</strong> worth of shares in Q2 2026 alone, bringing total H1 2026 repurchases to <strong>€2,077.5 million</strong>. This capital deployment outpaces SBC dilution by over 23x, driving EPS growth (€7.59 in Q2 2026 vs. €5.90 in Q2 2025).<br/></li><li><strong>Dividend Execution:</strong> In Q2 2026, ASML distributed the final 2025 dividend of €2.70 per share (completing the FY2025 total distribution of €7.50 per share). On July 15, 2026, management declared an interim FY2026 dividend of <strong>€1.88 per ordinary share</strong>, payable on August 5, 2026. Dividend growth is well-supported by 54.0% gross margins and accelerating Installed Base Management sales (€2.76 billion in Q2 2026).</li></ol>
 </p>
 </div></div>
-<div class="section"><h2>Section 5: Buffett Intrinsic Valuation Matrix &amp; Scenario Modeling</h2><p>To evaluate ASML Holding N.V. through Warren Buffett's fundamental ownership framework, we reject Wall Street's reliance on arbitrary exit multiples—which Charlie Munger famously warned depends on "relying on a greater fool in Year 5." Instead, we calculate ASML's true <strong>Normalized Owner Earnings</strong> and discount its cash flows back to the present using a strict, localized cost of capital anchored in European sovereign yields.</p><div class="callout">
+<div class="section"><h2>Section 5: Buffett Intrinsic Valuation Matrix &amp; Scenario Modeling</h2><p>To evaluate ASML Holding N.V. through Warren Buffett's fundamental ownership framework, we reject Wall Street's reliance on arbitrary exit multiples—which Charlie Munger famously warned depends on "relying on a greater fool in Year 5." Instead, we calculate ASML's true <strong>Normalized Owner Earnings</strong> and discount its cash flows back to the present using a strict, localized cost of capital anchored in European sovereign yields.</p><div class="executive-callout">
 <strong>Warren Buffett's Owner Earnings Equation (1986 Shareholder Letter):</strong><br/>
 <em>Owner Earnings = Operating Cash Flow – Maintenance CapEx – Stock-Based Compensation (SBC) ± Working Capital Float Adjustment</em><br/><br/>
     For ASML, we strictly distinguish between discretionary growth CapEx (expanding High-NA assembly halls in Veldhoven and Eindhoven) and true maintenance CapEx required to protect its EUV/DUV monopoly. Stock-Based Compensation is deducted at 100% as a real economic cash cost and shareholder dilution factor.

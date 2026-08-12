@@ -636,6 +636,85 @@
         .memo-container div[class*="card"] strong {
             color: var(--text-title) !important;
         }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-serif) !important;
+            font-style: italic !important;
+            font-size: 1.05rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
         .highlight, mark {
             background: rgba(201, 154, 117, 0.16) !important;
             color: #E2DDD5 !important;
@@ -1187,7 +1266,7 @@
     Intel Corporation (NASDAQ: INTC) is executing one of the most critical structural transformations in semiconductor history. Under the leadership of Chief Executive Officer <strong>Lip-Bu Tan</strong>, the legacy integrated device manufacturer (IDM) is pivoting to a disciplined dual-engine framework: a high-margin, fabless chip design organization coupled with a commercial, Western-anchored pure-play foundry operating as <strong>Intel Foundry</strong>. 
   </p><p>
     For nearly a decade, Intel suffered from manufacturing execution missteps, allowing Taiwan Semiconductor Manufacturing Co. (TSMC) to capture process node supremacy and enabling Advanced Micro Devices (AMD) to make substantial inroads across client and server CPU market share. However, Intel’s Q2 2026 operational performance confirms that the company’s capital investments, aggressive process node roadmap (notably Intel 18A and 14A), and operational overhaul are delivering tangible financial results. Intel reported its fastest year-over-year revenue growth in over fifteen years, driven by a powerful rebound in server CPU demand, expanding AI inference workloads, and accelerating client PC upgrades.
-  </p><div class="callout">
+  </p><div class="executive-callout">
 <strong>Strategic Takeaway:</strong> Intel’s dual-track evolution decouples fabless chip innovation from capital-heavy manufacturing. By offering domestic advanced packaging and wafer fabrication, Intel is uniquely positioned as the sole Western provider capable of serving sovereign supply chain requirements while benefiting from global AI compute expansion.
   </div><h3>1.2 Core Segment Moat Evaluation</h3><p>
     Intel’s business operations are organized around three primary operating engines, each exhibiting distinct competitive characteristics, economics, and moat trajectories:

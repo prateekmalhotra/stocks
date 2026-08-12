@@ -636,6 +636,85 @@
         .memo-container div[class*="card"] strong {
             color: var(--text-title) !important;
         }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-serif) !important;
+            font-style: italic !important;
+            font-size: 1.05rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
         .highlight, mark {
             background: rgba(201, 154, 117, 0.16) !important;
             color: #E2DDD5 !important;
@@ -1293,7 +1372,7 @@
 <td>N/A</td>
 </tr>
 </tbody>
-</table></div><div class="callout">
+</table></div><div class="executive-callout">
 <strong>Executive Commentary — CEO Michael Miebach:</strong>
 <p><em>“We delivered above expectations with net revenue growth at 14% year-over-year, or 12% on a currency-neutral basis in the second quarter. These results reflect our role in powering more ways to shop, pay and do business. From new partnerships in Mexico and the UAE to our market-first Agentic Payment capability, we're unlocking opportunities unique to Mastercard and shaping what's next in commerce.”</em></p>
 </div><h3>Geographic Performance &amp; Capital Allocation Insights</h3><ul><li><strong>Geographic Volume Breakdown:</strong> Worldwide GDV reached $2.88 trillion (+8% local currency). United States GDV grew 6% to $858 billion (credit +10%, debit +1%), while Rest of World GDV surged 9% to $2.02 trillion. Non-U.S. expansion provides a natural yield tailwind due to higher international cross-border transactions.</li><li><strong>Ecosystem Penetration:</strong> Contactless payments reached 80% of in-person switched purchase transactions (+5 percentage points YoY), while security tokenization penetrated over 40% of all switched transactions globally.</li><li><strong>Aggressive Share Buybacks:</strong> Mastercard returned $5.67 billion to shareholders in Q2 2026 alone, repurchasing 9.8 million shares for $4.9 billion and disbursing $771 million in cash dividends. As of June 30, 2026, $7.8 billion remained under current buyback authorizations.</li></ul></div>

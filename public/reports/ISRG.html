@@ -636,6 +636,85 @@
         .memo-container div[class*="card"] strong {
             color: var(--text-title) !important;
         }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-serif) !important;
+            font-style: italic !important;
+            font-size: 1.05rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
         .highlight, mark {
             background: rgba(201, 154, 117, 0.16) !important;
             color: #E2DDD5 !important;
@@ -1184,7 +1263,7 @@
         <div id="tab-memo" class="tab-content active">
             <article class="memo-container">
                 <div class="section"><h2>Section 1: Business Model Reality &amp; Economic Moat</h2><p>Intuitive Surgical, Inc. (NASDAQ: ISRG) operates one of the most powerful, self-reinforcing economic engines in the global medical technology sector. At its core, the company monetizes an expanding ecosystem of robotic-assisted surgery platforms—led by the multi-port <strong>da Vinci Surgical System</strong>, the single-port <strong>da Vinci SP</strong>, and the <strong>Ion endoluminal lung biopsy system</strong>—through a highly lucrative "razor-and-blade" commercial model.</p><h3>1. The Razor-and-Blade Ecosystem &amp; Recurring Revenue Dominance</h3><p>While high-profile system capital sales (priced between $1.2 million and $2.5 million per unit) capture headlines, the true economic strength of Intuitive Surgical lies in its sticky, highly visible recurring revenue streams. Recurring revenue currently represents approximately <strong>85% of total company revenue</strong>, composed of three compounding elements:</p><ul><li><strong>Instruments &amp; Accessories (~60% of total revenue):</strong> Wristed endovascular and surgical instruments (e.g., EndoWrist staplers, scalpels, electrocautery tools, force-sensing instruments) possess built-in operational lifespans (typically 10 to 18 uses) enforced by internal system software. Every procedure performed generates immediate, high-margin consumable sales.
-  <strong>Services (~15% of total revenue):</strong> High-margin long-term annual service, maintenance, and software updates agreements secured with hospital systems, yielding predictable cash flows across the system's 7–10 year operational lifecycle.</li><li><strong>System Leases &amp; Operating Usage Agreements:</strong> An increasing proportion of placements (~40–50% of annual placements) are structured as operating leases, usage-based contracts, or trade-in programs, converting capital expenditures for hospitals into operating expenses and deepening recurring revenue visibility.</li></ul><div class="callout">
+  <strong>Services (~15% of total revenue):</strong> High-margin long-term annual service, maintenance, and software updates agreements secured with hospital systems, yielding predictable cash flows across the system's 7–10 year operational lifecycle.</li><li><strong>System Leases &amp; Operating Usage Agreements:</strong> An increasing proportion of placements (~40–50% of annual placements) are structured as operating leases, usage-based contracts, or trade-in programs, converting capital expenditures for hospitals into operating expenses and deepening recurring revenue visibility.</li></ul><div class="executive-callout">
 <strong>Strategic Takeaway:</strong> The capital sale of a da Vinci console is not the endpoint; it is an entry ticket to a perpetual tollbooth. Once a system is installed in an operating room, it converts routine surgical volume into compound recurring cash flow.
   </div><h3>2. Customer Switching Costs &amp; Surgeon Habituation</h3><p>Intuitive’s competitive moat is protected by extreme switching costs rooted in clinical habituation and hospital integration:</p><ul><li><strong>Surgeon Muscle Memory &amp; Training Depths:</strong> Surgeons undergo hundreds of hours of simulation, residency/fellowship training, and live surgical proctoring on da Vinci consoles. Transitioning away from Intuitive to a rival platform requires unlearning deeply ingrained kinetic habits, hand-eye coordination dynamics, and control interfaces.</li><li><strong>Digital &amp; Operational Integration:</strong> Platforms like <em>My Intuitive</em>, <em>Intuitive Hub</em>, and cloud-connected telemetry analyze motion, surgical efficiency, and procedural outcomes. This digital layer embeds Intuitive into hospital workflows and quality assurance benchmarks.</li><li><strong>Hospital System ROI Alignment:</strong> Hospitals invest millions in robotic operating rooms, specialized staff training, and marketing to attract top surgical talent and patients. Reconfiguring operating suites for competing systems introduces friction, retraining costs, and potential downtime.</li></ul><h3>3. Intellectual Property, Regulatory Clearance &amp; Clinical Moat</h3><p>Intuitive maintains a deep patent portfolio spanning force-feedback haptics, multi-jointed wristed instrumentation, advanced 3D stereoscopic vision, and autonomous camera positioning. Furthermore, the company possesses over 25 years of prospective clinical trial data and peer-reviewed studies proving superior surgical outcomes, reduced length of stay, lower readmission rates, and lower complication rates across urology, gynecology, thoracic, and general surgery procedures. Rival platforms (such as Medtronic's Hugo or Johnson &amp; Johnson's Ottava) face steep regulatory barriers, lagging clinical documentation, and high cost barriers when attempting to displace installed units.</p></div>
 <div class="section"><h2>Section 2: Latest Earnings, Operational Metrics &amp; Guidance Analysis</h2><p>Intuitive Surgical delivered strong top-line and bottom-line expansion in its <strong>Q2 2026 financial performance</strong> (quarter ended June 30, 2026), driven by elevated procedure velocity and demand for the newly launched <strong>da Vinci 5 (dV5)</strong> system. However, macro procedure nuances in the United States created a selective moderation in deferrable surgical cases.</p><h3>1. Key Q2 2026 Financial &amp; Operational Highlights</h3><div class="metrics-grid">
@@ -1253,7 +1332,7 @@
 <td>+61% procedure growth</td>
 </tr>
 </tbody>
-</table></div><div class="callout">
+</table></div><div class="executive-callout">
 <strong>Management Commentary — CEO David Rosa on US Procedure Mix &amp; Policy Shifts:</strong><br/>
 <em>"Growth in the U.S. moderated from recent trends and our expectations at the start of the year, predominantly in procedures that can be deferred... In our customer conversations, some have said that changes in patient coverage and premium dynamics may be affecting when patients seek care and move forward with treatment."</em>
 </div><h3>3. Key Nuances: US Moderation, ACA Subsidies, GLP-1s, and Regional Dynamics</h3><ul><li><strong>US Procedure Softening (12% YoY Growth):</strong> U.S. da Vinci procedure growth moderated to 12% YoY, down from historical mid-to-high teens rates. Management explicitly attributed this to the expiration of enhanced Affordable Care Act (ACA) premium subsidies at year-end 2025. The resulting transition of insured individuals into higher-deductible plans or altered coverage caused patients to defer elective, benign soft-tissue surgical procedures (such as elective hernia repairs or benign gynecology).

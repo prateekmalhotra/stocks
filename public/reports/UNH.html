@@ -636,6 +636,85 @@
         .memo-container div[class*="card"] strong {
             color: var(--text-title) !important;
         }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-serif) !important;
+            font-style: italic !important;
+            font-size: 1.05rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
         .highlight, mark {
             background: rgba(201, 154, 117, 0.16) !important;
             color: #E2DDD5 !important;
@@ -1242,7 +1321,7 @@
 <td>Provides AI-driven payment integrity and data solutions across UHC and external health systems.</td>
 </tr>
 </tbody>
-</table></div><div class="callout">
+</table></div><div class="executive-callout">
 <strong>Executive Commentary — CEO Stephen Hemsley on Integrated Flywheel Execution:</strong>
 <p>
 <em>"Our second quarter results and updated full year 2026 outlook demonstrate continuing progress in our work to simplify how we operate, improve both affordability and the healthcare experience for patients and care providers... At Optum, we're seeing building momentum from Optum Health as the business re-centers back to its integrated value-based care delivery model."</em>
@@ -1315,7 +1394,7 @@
 </table></div><p>
 <strong>AI Integration &amp; Administrative Modernization ($1.5B Commitment):</strong><br/>
     UNH is executing a multi-year $1.5 billion technology reinvestment program focused on embedding generative AI across care delivery, prior authorization, and administrative workflows. Key initiatives include:
-  </p><ul><li><strong>Prior Authorization Reduction:</strong> Using AI tooling (such as <em>Pre-Check MyScript</em>), UNH aims to eliminate <strong>30% of total prior authorization volume</strong> by end-of-year 2026, while streamlining approval times for pediatric and routine care.</li><li><strong>Targeted Cost Reductions:</strong> Operating cost ratio rose slightly to 12.7% (reflecting active AI buildout), but management targets over <strong>$1.0 billion in annualized run-rate cost savings</strong> driven by AI clinical coding and automated claims processing.</li></ul><div class="callout">
+  </p><ul><li><strong>Prior Authorization Reduction:</strong> Using AI tooling (such as <em>Pre-Check MyScript</em>), UNH aims to eliminate <strong>30% of total prior authorization volume</strong> by end-of-year 2026, while streamlining approval times for pediatric and routine care.</li><li><strong>Targeted Cost Reductions:</strong> Operating cost ratio rose slightly to 12.7% (reflecting active AI buildout), but management targets over <strong>$1.0 billion in annualized run-rate cost savings</strong> driven by AI clinical coding and automated claims processing.</li></ul><div class="executive-callout">
 <strong>Executive Commentary — UnitedHealthcare CEO Tim Noel on Commercial Trends &amp; IDR Pressures:</strong>
 <p>
 <em>"Overall performance in the second quarter exceeded expectations, driven by better results in Medicare Advantage, while commercial benefits remain pressured... Within our commercial offerings, medical cost trends are running modestly above 11%, driven by pressure from the independent dispute resolution process under the No Surprises Act and aggressive billing practices. Full margin recovery will extend past 2027."</em>

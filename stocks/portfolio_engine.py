@@ -203,28 +203,25 @@ def score_fidelity_defensive(
 ) -> Dict[str, Any]:
     """
     Fidelity Mandate: Moat Durability & Fortress Capital Preservation.
-    - Moat >= 8.5/10.0
-    - Downside Floor: Bear Case Drawdown <= 25.0% (Bear Return >= -25.0%)
-    - Upside Floor: Base Case Gain >= +25.0%
-    Weights: Base Return MoS (35%), Moat (30%), Balance Sheet (25%), Bear Cushion (10%).
+    Scoring weights:
+    - Downside Risk Penalty & Cushion: (bear_ret + 20.0) * 0.60
+    - Base Return Margin of Safety: min(35.0, base_ret * 0.70)
+    - Moat Durability: (moat / 10.0) * 30.0
+    - Balance Sheet Fortress: (bs / 10.0) * 20.0
+    - Share Cannibalization: min(10.0, cannibal * 2.0)
     """
     bear_ret = ((bear_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
     base_ret = ((base_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
     bull_ret = ((bull_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
     
-    mos_pts = min(40.0, (base_ret / 50.0) * 35.0)
-    moat_pts = (meta["moat"] / 10.0) * 30.0
-    bs_pts = (meta["bs"] / 10.0) * 25.0
-    bear_cushion_pts = max(0.0, min(10.0, (bear_ret + 25.0) / 35.0 * 10.0))
+    downside_pts = (bear_ret + 20.0) * 0.60
+    mos_pts = min(35.0, max(-10.0, base_ret * 0.70))
+    moat_pts = (meta.get("moat", 8.0) / 10.0) * 30.0
+    bs_pts = (meta.get("bs", 8.0) / 10.0) * 20.0
+    cannibal_pts = min(10.0, meta.get("cannibal", 1.0) * 2.0)
     
-    total_score = round(max(10.0, mos_pts + moat_pts + bs_pts + bear_cushion_pts), 2)
-    
-    p = meta.get("p", 0.88)
-    q = 1.0 - p
-    payoff_b = (base_ret / 100.0) + (max(0.0, bear_ret + 25.0) / 100.0)
-    raw_k = (p * payoff_b - q) / payoff_b if payoff_b > 0 else 0.0
-    quality_mult = ((meta["moat"] * 0.60 + meta["bs"] * 0.40) / 10.0) ** 2
-    k_score = max(0.001, raw_k * quality_mult)
+    total_score = round(max(5.0, downside_pts + mos_pts + moat_pts + bs_pts + cannibal_pts), 2)
+    k_score = max(0.001, (total_score / 100.0) ** 2 * (meta.get("moat", 8.0) / 10.0))
     
     return {
         "ticker": ticker, "sector": meta["sector"], "industry": meta["industry"],
@@ -248,31 +245,27 @@ def score_wealthsimple_aggressive(
     sig: str
 ) -> Dict[str, Any]:
     """
-    Wealthsimple Mandate: Asymmetric Growth & Quality Compounders (NO VALUE TRAPS).
-    - Moat >= 7.5/10.0
-    - Organic Growth >= 6.0%/yr (eliminates declining/distressed businesses)
-    - Bull Case Return >= +50.0% (High Asymmetric Upside)
-    - Bear Case Return >= -30.0% (Controlled Downside Floor)
-    Weights: Bull Return (40%), Base Return (25%), Organic Growth (20%), Moat (15%).
+    Wealthsimple Mandate: Asymmetric Growth & Quality Compounders.
+    Scoring weights:
+    - Bull Case Asymmetric Upside: (bull_ret / 100.0) * 40.0
+    - Base Return Margin of Safety: (base_ret / 50.0) * 20.0
+    - Organic Growth CAGR: (growth / 20.0) * 25.0
+    - Moat Floor: (moat / 10.0) * 15.0
+    - Downside Risk Penalty: (bear_ret + 30.0) * 0.35
     """
     bear_ret = ((bear_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
     base_ret = ((base_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
     bull_ret = ((bull_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
     
     asym_ratio = bull_ret / max(10.0, abs(bear_ret)) if bear_ret < 0 else (bull_ret / 5.0)
-    bull_pts = min(40.0, (bull_ret / 100.0) * 40.0)
-    base_pts = min(25.0, (base_ret / 50.0) * 25.0)
-    growth_pts = min(20.0, (meta["growth"] / 18.0) * 20.0)
-    moat_pts = (meta["moat"] / 10.0) * 15.0
+    bull_pts = min(40.0, max(0.0, (bull_ret / 100.0) * 40.0))
+    base_pts = min(20.0, max(0.0, (base_ret / 50.0) * 20.0))
+    growth_pts = min(25.0, max(0.0, (meta.get("growth", 5.0) / 20.0) * 25.0))
+    moat_pts = (meta.get("moat", 8.0) / 10.0) * 15.0
+    downside_pts = (bear_ret + 30.0) * 0.35
     
-    total_score = round(max(10.0, bull_pts + base_pts + growth_pts + moat_pts), 2)
-    
-    p = meta.get("p", 0.82)
-    q = 1.0 - p
-    payoff_b = (bull_ret / 100.0)
-    raw_k = (p * payoff_b - q) / payoff_b if payoff_b > 0 else 0.0
-    mult = ((meta["moat"] * 0.50 + meta["bs"] * 0.50) / 10.0) * (1.0 + min(2.0, asym_ratio / 3.0))
-    k_score = max(0.001, raw_k * mult)
+    total_score = round(max(5.0, bull_pts + base_pts + growth_pts + moat_pts + downside_pts), 2)
+    k_score = max(0.001, (total_score / 100.0) ** 2 * (1.0 + min(1.5, asym_ratio / 4.0)))
     
     return {
         "ticker": ticker, "sector": meta["sector"], "industry": meta["industry"],
@@ -293,30 +286,31 @@ def score_wealthsimple_aggressive(
 def allocate_fractional_kelly_capped(
     k_scores: Dict[str, float],
     budget: float,
-    max_cap: float = 0.1500,
-    min_hurdle: float = 0.0300
+    max_cap: float = 0.1200,
+    min_hurdle: float = 0.0200,
+    top_n: int = 16
 ) -> Dict[str, float]:
-    active_tickers = list(k_scores.keys())
-    
-    for _ in range(3):
-        tot_k = sum(k_scores[t] for t in active_tickers)
-        if tot_k <= 0: break
-        raw_shares = {t: (k_scores[t] / tot_k) * budget for t in active_tickers}
-        filtered = [t for t in active_tickers if raw_shares[t] >= min_hurdle]
-        if len(filtered) == len(active_tickers): break
-        active_tickers = filtered
-
-    remaining_tickers = list(active_tickers)
-    allocated = {t: 0.0 for t in remaining_tickers}
+    """
+    Allocates budget across top N candidates proportional to Kelly score,
+    subject to individual position caps and min hurdle.
+    """
+    sorted_items = sorted(k_scores.items(), key=lambda x: x[1], reverse=True)[:top_n]
+    if not sorted_items:
+        return {}
+        
+    active_tickers = [t for t, k in sorted_items]
+    allocated = {t: 0.0 for t in active_tickers}
     remaining_budget = budget
+    remaining_tickers = list(active_tickers)
     
-    for _ in range(8):
-        if not remaining_tickers or remaining_budget <= 0.0001: break
+    for _ in range(10):
+        if not remaining_tickers or remaining_budget <= 0.0001:
+            break
         tot_k = sum(k_scores[t] for t in remaining_tickers)
         if tot_k <= 0:
-            even_share = remaining_budget / len(remaining_tickers)
+            even = remaining_budget / len(remaining_tickers)
             for t in remaining_tickers:
-                allocated[t] = min(max_cap, allocated[t] + even_share)
+                allocated[t] = min(max_cap, allocated[t] + even)
             break
             
         newly_capped = []
@@ -330,7 +324,7 @@ def allocate_fractional_kelly_capped(
                 
         for t in newly_capped:
             remaining_tickers.remove(t)
-        remaining_budget = round(budget - sum(allocated.values()), 4)
+        remaining_budget = max(0.0, round(budget - sum(allocated.values()), 6))
         
     return {t: round(w, 4) for t, w in allocated.items() if w >= min_hurdle}
 
@@ -355,35 +349,17 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
         base_p = parse_target_price(w_item.get("base_target") or w_item.get("fair_value_estimate"), cur_p)
         bull_p = parse_target_price(w_item.get("bull_target"), cur_p)
         
-        bear_ret = ((bear_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
-        base_ret = ((base_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
-        bull_ret = ((bull_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
-        
         meta = get_asset_metadata(ticker, w_item)
-        moat = meta.get("moat", 8.0)
-        growth = meta.get("growth", 5.0)
-        bs = meta.get("bs", 8.0)
         
         if sig != "BUY":
             continue
             
-        # 1. Fidelity Candidate Check:
-        # - Moat >= 8.5
-        # - Downside limited: Bear Drawdown <= 25% (bear_ret >= -25.0%)
-        # - Base Return >= +25.0%
-        # - Balance Sheet >= 7.5
-        if moat >= 8.5 and bear_ret >= -25.0 and base_ret >= 25.0 and bs >= 7.5:
-            scored_fid = score_fidelity_defensive(ticker, meta, cur_p, bear_p, base_p, bull_p, sig)
-            fidelity_candidates.append(scored_fid)
-                
-        # 2. Wealthsimple Candidate Check:
-        # - Moat >= 7.5
-        # - Growth >= 6.0% (Zero value traps / declining businesses)
-        # - Bull Return >= +50.0% (High Asymmetry)
-        # - Bear Return >= -30.0% (Controlled Downside)
-        if moat >= 7.5 and growth >= 6.0 and bull_ret >= 50.0 and bear_ret >= -30.0:
-            scored_ws = score_wealthsimple_aggressive(ticker, meta, cur_p, bear_p, base_p, bull_p, sig)
-            wealthsimple_candidates.append(scored_ws)
+        # Continuous composite scoring for all active buy candidates
+        scored_fid = score_fidelity_defensive(ticker, meta, cur_p, bear_p, base_p, bull_p, sig)
+        fidelity_candidates.append(scored_fid)
+            
+        scored_ws = score_wealthsimple_aggressive(ticker, meta, cur_p, bear_p, base_p, bull_p, sig)
+        wealthsimple_candidates.append(scored_ws)
 
     # 1. Fidelity Selection (Max 1 per industry, sorted by score)
     fidelity_candidates.sort(key=lambda x: x["total_score"], reverse=True)
@@ -407,7 +383,7 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
     fid_k = {x["ticker"]: x["kelly_score"] for x in fid_selected}
     fid_mos = sum(x["margin_of_safety_pct"] for x in fid_selected) / len(fid_selected) if fid_selected else 25.0
     fid_cash, fid_budget, fid_desc = calculate_shiller_macro_cash(True, fid_mos)
-    fid_weights = allocate_fractional_kelly_capped(fid_k, fid_budget, MAX_SINGLE_EQUITY_CAP, 0.0300) # Min 3.0%
+    fid_weights = allocate_fractional_kelly_capped(fid_k, fid_budget, max_cap=0.1000, min_hurdle=0.0200, top_n=16)
 
     sorted_def_tickers = sorted(fid_weights.keys(), key=lambda t: fid_weights[t], reverse=True)
     def_holdings = []
@@ -464,7 +440,7 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
     ws_k = {x["ticker"]: x["kelly_score"] for x in ws_selected}
     ws_mos = sum(x["margin_of_safety_pct"] for x in ws_selected) / len(ws_selected) if ws_selected else 40.0
     ws_cash, ws_budget, ws_desc = calculate_shiller_macro_cash(False, ws_mos)
-    ws_weights = allocate_fractional_kelly_capped(ws_k, ws_budget, MAX_SINGLE_EQUITY_CAP, 0.0300) # Min 3.0%
+    ws_weights = allocate_fractional_kelly_capped(ws_k, ws_budget, max_cap=0.1200, min_hurdle=0.0200, top_n=14)
 
     sorted_agg_tickers = sorted(ws_weights.keys(), key=lambda t: ws_weights[t], reverse=True)
     agg_holdings = []

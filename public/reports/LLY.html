@@ -636,6 +636,85 @@
         .memo-container div[class*="card"] strong {
             color: var(--text-title) !important;
         }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-serif) !important;
+            font-style: italic !important;
+            font-size: 1.05rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
         .highlight, mark {
             background: rgba(201, 154, 117, 0.16) !important;
             color: #E2DDD5 !important;
@@ -1183,7 +1262,7 @@
         <!-- Memo Content -->
         <div id="tab-memo" class="tab-content active">
             <article class="memo-container">
-                <div class="section"><h2>Section 1: Business Model &amp; Incretin Ecosystem Moat</h2><p>Eli Lilly and Company (NYSE: LLY) has executed one of the most remarkable commercial and scientific pivots in biopharmaceutical history, transforming itself into the undisputed global category leader in cardiometabolic disease. At the center of Lilly's long-term competitive moat is an expansive, multi-tiered <strong>Incretin Ecosystem Framework</strong>—a multi-modality franchise designed to capture every segment of the metabolic care continuum across global markets. Rather than relying on a single blockbuster molecule, Lilly has engineered a multi-product paradigm that locks in patients, prescribers, and health systems across injectable dual agonists, oral small molecules, and next-generation triple agonists.</p><div class="callout">
+                <div class="section"><h2>Section 1: Business Model &amp; Incretin Ecosystem Moat</h2><p>Eli Lilly and Company (NYSE: LLY) has executed one of the most remarkable commercial and scientific pivots in biopharmaceutical history, transforming itself into the undisputed global category leader in cardiometabolic disease. At the center of Lilly's long-term competitive moat is an expansive, multi-tiered <strong>Incretin Ecosystem Framework</strong>—a multi-modality franchise designed to capture every segment of the metabolic care continuum across global markets. Rather than relying on a single blockbuster molecule, Lilly has engineered a multi-product paradigm that locks in patients, prescribers, and health systems across injectable dual agonists, oral small molecules, and next-generation triple agonists.</p><div class="executive-callout">
 <strong>Strategic Takeaway on Ecosystem Dominance:</strong> Lilly’s incretin strategy is built to prevent mono-therapy reliance. By transitioning from dual GIP/GLP-1 injectables (tirzepatide) to daily oral non-peptide GLP-1s (orforglipron) and high-efficacy triple agonists (retatrutide), Lilly creates an escalating ladder of efficacy and convenience. This broad portfolio shields the company from single-asset patent cliffs, pricing compression, and localized supply disruptions.
   </div><h3>The Three-Tiered Incretin Moat Architecture</h3><p><strong>Tier 1: Dual GIP/GLP-1 Injectable Anchor (Tirzepatide — Mounjaro &amp; Zepbound):</strong>
       Tirzepatide serves as the immediate foundation of Lilly's commercial revenue engine. Marketed as Mounjaro for Type 2 Diabetes (T2D) and Zepbound for chronic weight management, tirzepatide delivers dual receptor agonism that outperforms legacy mono GLP-1 agents in both glycemic control and weight reduction. In Q2 2026, tirzepatide captured approximately <strong>55% of the global incretin market share</strong>, commanding nearly 6 out of 10 total prescriptions and 7 out of 10 new injectable starts in the U.S. obesity sector.
@@ -1264,7 +1343,7 @@
 <td><span class="metric-delta pos">Initial Launch Quarter</span></td>
 </tr>
 </tbody>
-</table></div><h3>Pricing vs. Volume Dynamics &amp; Market Penetration</h3><p>A critical fundamental driver of Lilly's commercial performance is the balance between volume acceleration and net price realizations. In the U.S. market, realized prices declined by approximately 3% to 9% (and 13% globally) due to higher statutory and commercial rebates, channel discounts, and price adjustments on direct-to-consumer cash-pay channels. However, this price adjustment was heavily eclipsed by explosive worldwide volume growth of <strong>+60% YoY</strong>.</p><div class="callout">
+</table></div><h3>Pricing vs. Volume Dynamics &amp; Market Penetration</h3><p>A critical fundamental driver of Lilly's commercial performance is the balance between volume acceleration and net price realizations. In the U.S. market, realized prices declined by approximately 3% to 9% (and 13% globally) due to higher statutory and commercial rebates, channel discounts, and price adjustments on direct-to-consumer cash-pay channels. However, this price adjustment was heavily eclipsed by explosive worldwide volume growth of <strong>+60% YoY</strong>.</p><div class="executive-callout">
 <strong>Strategic Takeaway on Commercial Pricing Strategy:</strong> Lilly’s willingness to grant modest price concessions through commercial rebates and cash-pay programs (e.g., Zepbound single-dose vials) is a deliberate strategy to expand insurance coverage and capture volume. Self-pay channels accounted for ~45% of total Zepbound scripts and ~55% of new U.S. prescriptions in Q2. By lowering upfront economic barriers, Lilly rapidly expands total addressable patient lives, establishing a recurring commercial moat that offsets mid-single-digit price headwinds.
   </div><h3>Pipeline Breakthroughs &amp; Major Regulatory Catalysts</h3><div class="metrics-grid">
 <div class="metric-card">

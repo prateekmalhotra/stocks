@@ -636,6 +636,85 @@
         .memo-container div[class*="card"] strong {
             color: var(--text-title) !important;
         }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-serif) !important;
+            font-style: italic !important;
+            font-size: 1.05rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
         .highlight, mark {
             background: rgba(201, 154, 117, 0.16) !important;
             color: #E2DDD5 !important;
@@ -1265,10 +1344,10 @@
 <td>Pushes total franchise box office over $4B, boosting retail &amp; DTC intake.</td>
 </tr>
 </tbody>
-</table></div><h3>3. Sports (ESPN) Leadership &amp; Digital Transition</h3><p>The Sports segment maintained solid financial stability while preparing for its flagship direct-to-consumer transition. ESPN achieved record viewership across ABC and linear ESPN broadcasts, driven by live event programming. Additionally, management finalized a strategic capital restructuring for ESPN associated with its NFL partnership (establishing a 72%/18%/10% strategic equity structure), laying the foundation for the upcoming launch of the standalone ESPN DTC platform.</p><div class="callout">
-<p><strong>Executive Commentary — Q3 FY26 Earnings Call:</strong></p>
+</table></div><h3>3. Sports (ESPN) Leadership &amp; Digital Transition</h3><p>The Sports segment maintained solid financial stability while preparing for its flagship direct-to-consumer transition. ESPN achieved record viewership across ABC and linear ESPN broadcasts, driven by live event programming. Additionally, management finalized a strategic capital restructuring for ESPN associated with its NFL partnership (establishing a 72%/18%/10% strategic equity structure), laying the foundation for the upcoming launch of the standalone ESPN DTC platform.</p><div class="executive-callout">
+<div class="exec-header"><span class="exec-badge">Executive Commentary</span><span class="exec-sub">Q3 FY26 Earnings Call:</span></div>
 <p><em>"This was an excellent quarter for us, and our Q3 results and reiterated full-year outlook show we're operating from a real position of strength. Total segment operating income came in ahead of our prior guidance, up 21%, with total company revenue growth of 7%. And Disney Experiences delivered record fiscal Q3 revenue and segment OI... We believe we are uniquely positioned in the global entertainment industry. We have clear growth drivers in Experiences and streaming, and unmatched breadth and depth of IP. In an increasingly fragmented attention economy, consumers are choosing to spend their time with us across our core platforms, Experiences, Disney+ and ESPN."</em></p>
-<p>— <strong>Josh D'Amaro, Chief Executive Officer</strong></p>
+<p class="exec-attribution"><strong>Josh D'Amaro, Chief Executive Officer</strong></p>
 </div></div>
 <div class="section"><h2>Section 3: Real Cash Flow &amp; Capital Structure (Forensic Audit)</h2><p>
     A rigorous financial forensic evaluation of The Walt Disney Company (NYSE: DIS) requires looking beyond headline GAAP net income to analyze true organic cash generation, capital intensity, lease obligations, and share dilutive costs. For Q3 FY26, Disney delivered strong operational momentum driven by acceleration in Direct-to-Consumer (DTC) streaming profitability, resilient theme park pricing, and domestic theatrical releases.

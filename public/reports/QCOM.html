@@ -636,6 +636,85 @@
         .memo-container div[class*="card"] strong {
             color: var(--text-title) !important;
         }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-serif) !important;
+            font-style: italic !important;
+            font-size: 1.05rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
         .highlight, mark {
             background: rgba(201, 154, 117, 0.16) !important;
             color: #E2DDD5 !important;
@@ -1257,7 +1336,7 @@
 <td>Resilient patent licensing stream; delivered solid EBT margins within historical 68–72% target range.</td>
 </tr>
 </tbody>
-</table></div><div class="callout">
+</table></div><div class="executive-callout">
 <strong>Executive Commentary — CEO Cristiano Amon:</strong><br/>
 <em>"Despite a challenging memory and supply environment, our third quarter results reflect solid execution of our growth strategy, with quarterly revenues at the high end of guidance. We are well positioned to execute on the vision we outlined at our recent Investor Day, with total non-handset revenues growing to $40 billion by fiscal 2029—nearly double the target we shared in November 2024. In the near term, we expect year-over-year growth in non-handset revenues, including Data Center, to accelerate from 24% in fiscal 2026 to greater than 60% in fiscal 2027—a significant inflection point in the execution of our growth strategy."</em>
 </div><h3>Gross Margin Dynamics &amp; Input Cost Pressures</h3><p>QCT Earnings Before Taxes (EBT) margin contracted by 4 percentage points year-over-year to 26%. Operating margins were impacted by industry-wide input cost increases across silicon wafers, assembly, testing, advanced packaging, and memory modules. Management has initiated targeted product price increases across its chipset portfolio to pass higher input costs to customers, which is expected to progressively restore QCT gross margins back to the target 48%–50% range over coming quarters.</p><h3>Outlook &amp; Guidance</h3><p>For the fourth quarter of fiscal 2026 (ending September 2026), Qualcomm provided the following guidance ranges:</p><ul><li><strong>Total Revenues:</strong> $9.7 billion to $10.5 billion.</li><li><strong>Non-GAAP EPS:</strong> $2.05 to $2.25.</li><li><strong>QCT Revenue:</strong> $8.4 billion to $9.0 billion (with expected QCT EBT margin of 23% to 25%). Handset revenues are projected at ~$5.2 billion as sequential Android OEM recovery offsets lower Apple volumes. Automotive revenues are projected to maintain ~60% YoY growth.</li><li><strong>QTL Revenue:</strong> $1.2 billion to $1.4 billion (with EBT margins of 68% to 72%).</li></ul><p><strong>Long-Term Non-Handset Roadmap:</strong> Qualcomm expects non-handset revenues to fully absorb and replace the anticipated fiscal 2027 Apple modem headwind (estimated at slightly over $2 billion annually). Non-handset revenue growth is projected to accelerate from 24% in FY26 to &gt;60% in FY27, unlocking a path to $40 billion in non-handset sales by FY29 ($24B+ from Auto &amp; IoT and $15B+ from Data Center).</p></div>

@@ -636,6 +636,85 @@
         .memo-container div[class*="card"] strong {
             color: var(--text-title) !important;
         }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-serif) !important;
+            font-style: italic !important;
+            font-size: 1.05rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
         .highlight, mark {
             background: rgba(201, 154, 117, 0.16) !important;
             color: #E2DDD5 !important;
@@ -1344,7 +1423,7 @@
     In Q3 FY2026 (ended May 31, 2026), Accenture generated <strong>$3.79 billion</strong> in GAAP operating cash flow, compared to $3.68 billion in Q3 FY2025. Deducting property and equipment additions (CapEx) of <strong>$186 million</strong> (up from $170 million in Q3 FY2025) yields reported Free Cash Flow of <strong>$3.60 billion</strong>. On a trailing twelve-month (TTM) basis, operating cash flow stands at approximately <strong>$11.8 billion</strong>, underscoring the business's low fixed-capital drag (CapEx routinely accounts for less than 1.0%–1.5% of total revenues).
   </p><p>
     For full-year FY2026, management reiterated its robust Free Cash Flow guidance range of <strong>$10.8 billion to $11.5 billion</strong>, supported by expected operating cash flows between $11.5 billion and $12.2 billion and property/equipment additions of approximately $700 million. This implies an exceptionally healthy FCF-to-Net Income conversion ratio of roughly 1.3x, driven by favorable non-cash working capital dynamics and strong collection efficiency across enterprise client accounts.
-  </p><div class="callout">
+  </p><div class="executive-callout">
 <strong>Auditor's Cash Flow Reality Check:</strong> While Accenture's reported Free Cash Flow ($3.60B in Q3) appears pristine, investors must account for Stock-Based Compensation as a real cash expense. Because share grants represent executive and employee compensation that must be offset via open-market buybacks to avoid share count inflation, deducting SBC from reported FCF provides the true <em>Owner Earnings Cash Yield</em> available to long-term equity holders.
   </div><h3>Stock-Based Compensation (SBC) &amp; Real Share Dilution Audit</h3><p>
     Accenture utilizes share-based incentives extensively across its senior partner and leadership tiers to align executive compensation with long-term shareholder value creation. From an economic perspective, SBC is not a "non-cash expense to be added back," but rather a direct labor cost paid in equity. 

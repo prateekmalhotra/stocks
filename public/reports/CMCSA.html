@@ -636,6 +636,85 @@
         .memo-container div[class*="card"] strong {
             color: var(--text-title) !important;
         }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-serif) !important;
+            font-style: italic !important;
+            font-size: 1.05rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
         .highlight, mark {
             background: rgba(201, 154, 117, 0.16) !important;
             color: #E2DDD5 !important;
@@ -1224,7 +1303,7 @@
 <li><strong>Convergence &amp; Wireless Arbitrage (Widening Moat):</strong> Comcast's MVNO arrangement with Verizon enables Xfinity Mobile to offer competitive multi-line pricing with minimal capital expenditure. Mobile bundling serves as an essential churn-reduction vehicle for high-margin broadband lines, driving domestic convergence Average Revenue per Account (ARPA) up 1.5%.</li>
 <li><strong>Business Services B2B Fortress (Wide Moat):</strong> Delivering enterprise fiber, cybersecurity, managed WiFi, and mobile solutions to commercial clients generated $2.67 billion in Q2 revenue at an industry-leading 56.7% EBITDA margin. High switching costs and sticky enterprise contracts insulate this high-return segment.
     </li>
-</ul><div class="callout">
+</ul><div class="executive-callout">
 <strong>Management Commentary on Strategic Realignment:</strong><br/>
 <em>"In Connectivity &amp; Platforms, our strategic pivot in broadband is gaining traction, and we are seeing that progress extend across the broader connectivity portfolio. We delivered our best wireless quarter ever, surpassing 10 million total lines, while penetration remains below 7% of addressable wireless lines in our footprint... Across the company, we generated $4.6 billion of free cash flow and announced our intention to separate NBCUniversal and Sky—an important step toward creating two focused companies with the financial strength and flexibility to pursue their respective growth strategies."</em><br/>
     — <strong>Brian L. Roberts &amp; Mike Cavanagh</strong>, Co-CEOs of Comcast Corporation (Q2 2026 Earnings Call)
