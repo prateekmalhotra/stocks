@@ -483,7 +483,7 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
         if h["ticker"] == "USD_CASH":
             ticker_cell = f"""
             <div class="tbl-cell-stacked">
-                <strong style="font-family:var(--font-serif); font-size:1.18rem; color:var(--text-title); display:block;">💵 USD Cash</strong>
+                <strong style="font-family:var(--font-serif); font-size:1.18rem; color:var(--text-title); display:block;">USD Cash Reserve</strong>
                 <div class="cell-sub cell-sub-dim">US Treasury 3M Bills</div>
             </div>
             """
@@ -611,36 +611,41 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
             font-weight: 400 !important;
         }}
 
-        /* Institutional Radar Beacon Animation */
-        .radar-pulse-ring {{
-            position: relative;
-            width: 26px;
-            height: 26px;
-            display: flex;
+        /* Subtle Pulse Beacon */
+        .status-beacon {{
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
-        }}
-        .radar-core {{
+            position: relative;
             width: 10px;
             height: 10px;
+            vertical-align: middle;
+        }}
+        .beacon-dot {{
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
-            background: var(--accent-warm);
-            box-shadow: 0 0 10px rgba(204, 120, 92, 0.9);
+            position: relative;
             z-index: 2;
         }}
-        .radar-wave {{
+        .beacon-ping {{
             position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            border: 2px solid var(--accent-warm);
-            animation: radar-wave-anim 2s infinite cubic-bezier(0.16, 1, 0.3, 1);
+            animation: beacon-ripple 2s cubic-bezier(0, 0, 0.2, 1) infinite;
             z-index: 1;
         }}
-        @keyframes radar-wave-anim {{
-            0% {{ transform: scale(0.5); opacity: 1; }}
-            100% {{ transform: scale(2.4); opacity: 0; }}
+        .beacon-warm .beacon-dot {{ background-color: #CC785C; box-shadow: 0 0 8px rgba(204, 120, 92, 0.8); }}
+        .beacon-warm .beacon-ping {{ background-color: rgba(204, 120, 92, 0.45); }}
+        .beacon-buy .beacon-dot {{ background-color: #10b981; box-shadow: 0 0 8px rgba(16, 185, 129, 0.8); }}
+        .beacon-buy .beacon-ping {{ background-color: rgba(16, 185, 129, 0.45); }}
+        @keyframes beacon-ripple {{
+            0% {{ transform: scale(0.9); opacity: 0.85; }}
+            70% {{ transform: scale(2.8); opacity: 0; }}
+            100% {{ transform: scale(2.8); opacity: 0; }}
         }}
     </style>
     <!-- AlphaThesis Concentrated Portfolio Tab -->
@@ -669,7 +674,7 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
             <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:20px 22px; display:flex; flex-direction:column;">
                 <div style="font-family:var(--font-sans); font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:6px;">Daily Surveillance Status</div>
                 <div style="font-family:var(--font-sans); font-size:1.7rem; font-weight:500; color:var(--accent-green); display:flex; align-items:center; gap:8px; line-height:1.1; margin-bottom:6px;">
-                    <span class="status-beacon beacon-buy" style="margin-left:0;"><span class="beacon-dot"></span><span class="beacon-ping"></span></span>
+                    <span class="status-beacon beacon-buy" style="margin-left:0;"><span class="beacon-ping"></span><span class="beacon-dot"></span></span>
                     Active
                 </div>
                 <div style="font-family:var(--font-sans); font-size:0.82rem; color:var(--text-dim);">Next sync: 3:00 PM EST</div>
@@ -681,11 +686,8 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
             
             <!-- Institutional Day 1 Inception Monitor Header -->
             <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:14px; margin-bottom:22px;">
-                <div style="background:linear-gradient(135deg, rgba(204,120,92,0.10) 0%, rgba(204,120,92,0.02) 100%); border:1px solid rgba(204,120,92,0.28); border-radius:12px; padding:16px 18px; display:flex; align-items:center; gap:16px;">
-                    <div class="radar-pulse-ring">
-                        <div class="radar-core"></div>
-                        <div class="radar-wave"></div>
-                    </div>
+                <div style="background:linear-gradient(135deg, rgba(204,120,92,0.09) 0%, rgba(204,120,92,0.02) 100%); border:1px solid rgba(204,120,92,0.25); border-radius:12px; padding:16px 18px; display:flex; align-items:center; gap:16px;">
+                    <span class="status-beacon beacon-warm" style="width:14px; height:14px;"><span class="beacon-ping"></span><span class="beacon-dot" style="width:8px; height:8px;"></span></span>
                     <div>
                         <div style="font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--accent-warm); margin-bottom:2px;">
                             Portfolio Inception • Day 1 Active
@@ -754,7 +756,7 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:12px;">
                 <div>
                     <h3 style="font-family:var(--font-serif); font-size:1.35rem; color:var(--text-title); margin:0 0 4px; font-weight:500;">
-                        🏛️ Portfolio Holdings ($100k Base)
+                        Portfolio Holdings ($100k Base)
                     </h3>
                     <p style="color:var(--text-dim); font-size:0.86rem; margin:0;">
                         Concentrated 8-core allocation and Treasury cash buffer at Day 1 Inception cost basis.
@@ -794,7 +796,7 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
         <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:22px 24px; display:flex; flex-direction:column; gap:14px;">
             <div style="display:flex; justify-content:space-between; align-items:center;">
                 <h4 style="font-family:var(--font-serif); font-size:1.15rem; color:var(--text-title); margin:0; font-weight:500;">
-                    📋 Rebalancing Log & Verification History
+                    Rebalancing Log & Verification History
                 </h4>
                 <span style="font-size:0.75rem; color:var(--text-dim);">Daily 3:00 PM EST Surveillance • Min. Threshold ≥ 5%</span>
             </div>
@@ -805,7 +807,7 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
 
     </div>
 
-    <!-- Chart.js Engine for Dual-Axis Portfolio Visualization -->
+    <!-- Chart.js Engine for Dual-Axis Portfolio Visualization with 60fps Radar Ping Plugin -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const perfData = {perf_payload};
@@ -821,8 +823,54 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
 
             const isSinglePoint = (perfData.dates && perfData.dates.length <= 1);
 
+            // Custom 60fps Canvas Radar Ping Plugin
+            const radarPingPlugin = {{
+                id: 'radarPingPlugin',
+                afterDatasetsDraw: function(chart) {{
+                    if (!isSinglePoint) return;
+                    const meta = chart.getDatasetMeta(0);
+                    if (!meta || !meta.data || !meta.data.length) return;
+                    const pt = meta.data[0];
+                    if (!pt || pt.x === undefined || pt.y === undefined) return;
+
+                    const c = chart.ctx;
+                    const now = Date.now();
+                    const progress = (now % 2200) / 2200; // 0.0 to 1.0
+
+                    // Wave 1
+                    const r1 = 6 + progress * 26;
+                    const a1 = Math.max(0, 0.7 * (1 - progress));
+                    c.save();
+                    c.beginPath();
+                    c.arc(pt.x, pt.y, r1, 0, 2 * Math.PI);
+                    c.strokeStyle = 'rgba(204, 120, 92, ' + a1 + ')';
+                    c.lineWidth = 1.6;
+                    c.stroke();
+
+                    // Wave 2 (offset)
+                    const p2 = ((now + 1100) % 2200) / 2200;
+                    const r2 = 6 + p2 * 26;
+                    const a2 = Math.max(0, 0.7 * (1 - p2));
+                    c.beginPath();
+                    c.arc(pt.x, pt.y, r2, 0, 2 * Math.PI);
+                    c.strokeStyle = 'rgba(204, 120, 92, ' + a2 + ')';
+                    c.lineWidth = 1.2;
+                    c.stroke();
+
+                    // Center Solid Core Node
+                    c.beginPath();
+                    c.arc(pt.x, pt.y, 6, 0, 2 * Math.PI);
+                    c.fillStyle = '#CC785C';
+                    c.shadowColor = 'rgba(204, 120, 92, 0.9)';
+                    c.shadowBlur = 10;
+                    c.fill();
+                    c.restore();
+                }}
+            }};
+
             chartInstance = new Chart(ctx, {{
                 type: 'line',
+                plugins: [radarPingPlugin],
                 data: {{
                     labels: isSinglePoint ? ['Day 1 Inception (Aug 11, 2026)'] : perfData.dates,
                     datasets: [
@@ -832,11 +880,11 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                             borderColor: '#CC785C',
                             backgroundColor: 'rgba(204, 120, 92, 0.12)',
                             borderWidth: 2.2,
-                            pointRadius: isSinglePoint ? 7 : 4,
-                            pointHoverRadius: isSinglePoint ? 10 : 6,
+                            pointRadius: isSinglePoint ? 6 : 4,
+                            pointHoverRadius: isSinglePoint ? 9 : 6,
                             pointBackgroundColor: '#CC785C',
-                            pointBorderColor: '#1E1D1A',
-                            pointBorderWidth: 2,
+                            pointBorderColor: '#CC785C',
+                            pointBorderWidth: 0,
                             tension: 0.25,
                             showLine: true,
                             yAxisID: 'y'
@@ -849,11 +897,11 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                             borderWidth: 1.8,
                             borderDash: [5, 5],
                             pointStyle: isSinglePoint ? 'rectRot' : 'circle',
-                            pointRadius: isSinglePoint ? 7 : 3,
-                            pointHoverRadius: isSinglePoint ? 10 : 5,
+                            pointRadius: isSinglePoint ? 6 : 3,
+                            pointHoverRadius: isSinglePoint ? 9 : 5,
                             pointBackgroundColor: '#6FA882',
-                            pointBorderColor: '#1E1D1A',
-                            pointBorderWidth: 2,
+                            pointBorderColor: '#6FA882',
+                            pointBorderWidth: 0,
                             tension: 0.2,
                             showLine: true,
                             yAxisID: 'y1'
@@ -865,11 +913,11 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                             backgroundColor: 'transparent',
                             borderWidth: 1.4,
                             pointStyle: isSinglePoint ? 'triangle' : 'circle',
-                            pointRadius: isSinglePoint ? 6 : 0,
-                            pointHoverRadius: isSinglePoint ? 9 : 4,
+                            pointRadius: isSinglePoint ? 5 : 0,
+                            pointHoverRadius: isSinglePoint ? 8 : 4,
                             pointBackgroundColor: '#8C8982',
-                            pointBorderColor: '#1E1D1A',
-                            pointBorderWidth: 2,
+                            pointBorderColor: '#8C8982',
+                            pointBorderWidth: 0,
                             tension: 0.2,
                             showLine: true,
                             yAxisID: 'y'
@@ -879,6 +927,7 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                 options: {{
                     responsive: true,
                     maintainAspectRatio: false,
+                    animation: false,
                     layout: {{
                         padding: {{
                             left: isSinglePoint ? 40 : 10,
@@ -958,6 +1007,17 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                     }}
                 }}
             }});
+
+            // 60fps Radar Pulse Animation Loop on Day 1
+            if (isSinglePoint) {{
+                function radarLoop() {{
+                    if (chartInstance) {{
+                        chartInstance.draw();
+                        requestAnimationFrame(radarLoop);
+                    }}
+                }}
+                requestAnimationFrame(radarLoop);
+            }}
         }}
 
         document.addEventListener('DOMContentLoaded', () => {{
