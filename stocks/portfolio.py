@@ -679,8 +679,8 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                         .map(r => r.getAttribute('data-row-ticker'))
                         .filter(t => t && t !== 'USD_CASH');
 
-                    // Randomly select 1 to 3 tickers to simulate live market spread tick
-                    const numTicks = isInitial ? 0 : Math.floor(Math.random() * 2) + 1;
+                    // Select 2 to 3 tickers to simulate live market spread tick on every cycle
+                    const numTicks = isInitial ? 0 : Math.floor(Math.random() * 2) + 2;
                     const tickedTickers = new Set();
                     for (let i = 0; i < numTicks; i++) {{
                         const randomTicker = candidateTickers[Math.floor(Math.random() * candidateTickers.length)];
@@ -699,10 +699,17 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                         let livePrice = basePrices[ticker] || cost;
 
                         // Apply live micro-tick if selected
+                        let didTick = false;
+                        let tickDelta = 0;
                         if (tickedTickers.has(ticker) && livePrice > 0) {{
-                            const microDeltaPct = (Math.random() * 0.0016) - 0.0008; // +/- 0.08% spread
-                            livePrice = parseFloat((livePrice * (1 + microDeltaPct)).toFixed(2));
-                            basePrices[ticker] = livePrice;
+                            const microDeltaPct = (Math.random() * 0.0024) - 0.0012; // +/- 0.12% active spread
+                            const newPrice = parseFloat((livePrice * (1 + microDeltaPct)).toFixed(2));
+                            if (newPrice !== livePrice) {{
+                                tickDelta = newPrice - livePrice;
+                                livePrice = newPrice;
+                                basePrices[ticker] = livePrice;
+                                didTick = true;
+                            }}
                         }}
 
                         if (livePrice > 0) {{
@@ -711,18 +718,19 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                             const allocSpan = r.querySelector(`.live-alloc-${{ticker}}`);
 
                             if (pSpan) {{
-                                const oldP = parseFloat(pSpan.textContent.replace(/[^0-9.]/g, '')) || livePrice;
-                                const delta = livePrice - oldP;
                                 pSpan.textContent = '$' + livePrice.toFixed(2);
 
-                                if (Math.abs(delta) >= 0.005) {{
+                                if (didTick) {{
+                                    r.style.transition = 'background-color 0.4s ease';
+                                    r.style.backgroundColor = (tickDelta >= 0) ? 'rgba(111, 168, 130, 0.12)' : 'rgba(204, 120, 92, 0.12)';
                                     pSpan.style.transition = 'color 0.3s ease, transform 0.2s ease';
-                                    pSpan.style.color = (delta >= 0) ? '#6FA882' : '#CC785C';
-                                    pSpan.style.transform = 'scale(1.05)';
+                                    pSpan.style.color = (tickDelta >= 0) ? '#6FA882' : '#CC785C';
+                                    pSpan.style.transform = 'scale(1.06)';
                                     setTimeout(() => {{
+                                        r.style.backgroundColor = 'transparent';
                                         pSpan.style.color = 'var(--text-title)';
                                         pSpan.style.transform = 'scale(1.0)';
-                                    }}, 800);
+                                    }}, 900);
                                 }}
                             }}
 
@@ -761,8 +769,8 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                 streamLiveQuotes(true);
             }}, 200);
 
-            // Smooth client-side micro-ticks every 4 seconds (zero API network cost)
-            setInterval(() => streamLiveQuotes(false), 4000);
+            // Active live stream micro-ticks every 3 seconds
+            setInterval(() => streamLiveQuotes(false), 3000);
 
             // Refresh official quotes from CDN every 60 seconds (1 minute)
             setInterval(fetchBaselineQuotes, 60000);
