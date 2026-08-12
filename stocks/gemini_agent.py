@@ -292,31 +292,87 @@ def extract_json_block(text: str) -> Dict[str, Any]:
 
 
 def verify_and_repair_html_structure(html: str) -> str:
-    """Deterministic structural cleanup, inline style removal, and tag balancing."""
+    """Deterministic structural cleanup, markdown-to-HTML conversion, inline style removal, and tag balancing."""
     if not html:
         return ""
     
+    # 1. Strip code fences
     cleaned = re.sub(r"^```(?:html)?\s*", "", html, flags=re.MULTILINE)
     cleaned = re.sub(r"\s*```$", "", cleaned, flags=re.MULTILINE).strip()
     
-    # Strip ALL rogue inline style attributes to enforce 100% color consistency
+    # 2. Strip rogue inline style attributes to enforce 100% color consistency
     cleaned = re.sub(r'\s*style\s*=\s*"[^"]*"', '', cleaned, flags=re.IGNORECASE)
     cleaned = re.sub(r"\s*style\s*=\s*'[^']*'", '', cleaned, flags=re.IGNORECASE)
 
-    # Auto-close unclosed table rows
+    # 3. Convert markdown horizontal rules
+    cleaned = re.sub(r"^\s*[-*_]{3,}\s*$", '<hr style="border:0; border-top:1px solid var(--border-color); margin:28px 0;">', cleaned, flags=re.MULTILINE)
+    
+    # 4. Convert markdown headings (####, ###, ##)
+    cleaned = re.sub(r"^\s*####\s+(.*?)$", lambda m: f"<h4>{m.group(1)}</h4>", cleaned, flags=re.MULTILINE)
+    cleaned = re.sub(r"^\s*###\s+(.*?)$", lambda m: f"<h3>{m.group(1)}</h3>", cleaned, flags=re.MULTILINE)
+    cleaned = re.sub(r"^\s*##\s+(.*?)$", lambda m: f"<h2>{m.group(1)}</h2>", cleaned, flags=re.MULTILINE)
+    
+    # 5. Convert bold and italics
+    cleaned = re.sub(r"\*\*(.*?)\*\*", lambda m: f"<strong>{m.group(1)}</strong>", cleaned)
+    cleaned = re.sub(r"(?<!\*)\*([^*]+)\*(?!\*)", lambda m: f"<em>{m.group(1)}</em>", cleaned)
+    
+    # 6. Convert numbered and bullet lists
+    lines = cleaned.split("\n")
+    in_ol = False
+    in_ul = False
+    new_lines = []
+    
+    for line in lines:
+        stripped = line.strip()
+        ol_match = re.match(r"^(\d+)\.\s+(.*)$", stripped)
+        ul_match = re.match(r"^[-*•]\s+(.*)$", stripped)
+        
+        if ol_match and not stripped.startswith("<"):
+            if in_ul:
+                new_lines.append("</ul>")
+                in_ul = False
+            if not in_ol:
+                new_lines.append('<ol style="padding-left:22px; line-height:1.65; margin:14px 0;">')
+                in_ol = True
+            new_lines.append(f"  <li>{ol_match.group(2)}</li>")
+        elif ul_match and not stripped.startswith("<") and not stripped.startswith("• <strong>"):
+            if in_ol:
+                new_lines.append("</ol>")
+                in_ol = False
+            if not in_ul:
+                new_lines.append('<ul style="padding-left:22px; line-height:1.65; margin:14px 0;">')
+                in_ul = True
+            new_lines.append(f"  <li>{ul_match.group(1)}</li>")
+        else:
+            if in_ol and stripped.startswith("<"):
+                new_lines.append("</ol>")
+                in_ol = False
+            if in_ul and stripped.startswith("<"):
+                new_lines.append("</ul>")
+                in_ul = False
+            new_lines.append(line)
+            
+    if in_ol:
+        new_lines.append("</ol>")
+    if in_ul:
+        new_lines.append("</ul>")
+        
+    cleaned = "\n".join(new_lines)
+
+    # 7. Auto-close unclosed table rows
     open_tr = len(re.findall(r"<tr\b", cleaned, re.IGNORECASE))
     close_tr = len(re.findall(r"</tr>", cleaned, re.IGNORECASE))
     if open_tr > close_tr:
         cleaned += "</tr>" * (open_tr - close_tr)
 
-    # Auto-close unclosed tables
+    # 8. Auto-close unclosed tables
     open_tables = len(re.findall(r"<table\b", cleaned, re.IGNORECASE))
     close_tables = len(re.findall(r"</table>", cleaned, re.IGNORECASE))
     if open_tables > close_tables:
         diff = open_tables - close_tables
         cleaned += "\n" + ("</tbody></table>" * diff)
         
-    # Auto-close unclosed divs
+    # 9. Auto-close unclosed divs
     open_divs = len(re.findall(r"<div\b", cleaned, re.IGNORECASE))
     close_divs = len(re.findall(r"</div>", cleaned, re.IGNORECASE))
     if open_divs > close_divs:

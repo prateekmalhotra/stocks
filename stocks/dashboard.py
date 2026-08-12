@@ -482,6 +482,61 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         cleaned = re.sub(r'<figure\b[^>]*>.*?</figure>', '', cleaned, flags=re.DOTALL | re.IGNORECASE)
         cleaned = re.sub(r'<img\b[^>]*>', '', cleaned, flags=re.IGNORECASE)
         
+        # 1c. Convert markdown horizontal rules
+        cleaned = re.sub(r"^\s*[-*_]{3,}\s*$", '<hr style="border:0; border-top:1px solid var(--border-color); margin:28px 0;">', cleaned, flags=re.MULTILINE)
+        
+        # 1d. Convert markdown headings (####, ###, ##)
+        cleaned = re.sub(r"^\s*####\s+(.*?)$", lambda m: f"<h4>{m.group(1)}</h4>", cleaned, flags=re.MULTILINE)
+        cleaned = re.sub(r"^\s*###\s+(.*?)$", lambda m: f"<h3>{m.group(1)}</h3>", cleaned, flags=re.MULTILINE)
+        cleaned = re.sub(r"^\s*##\s+(.*?)$", lambda m: f"<h2>{m.group(1)}</h2>", cleaned, flags=re.MULTILINE)
+        
+        # 1e. Convert bold and italics
+        cleaned = re.sub(r"\*\*(.*?)\*\*", lambda m: f"<strong>{m.group(1)}</strong>", cleaned)
+        cleaned = re.sub(r"(?<!\*)\*([^*]+)\*(?!\*)", lambda m: f"<em>{m.group(1)}</em>", cleaned)
+        
+        # 1f. Convert numbered and bullet lists
+        lines = cleaned.split("\n")
+        in_ol = False
+        in_ul = False
+        new_lines = []
+        
+        for line in lines:
+            stripped = line.strip()
+            ol_match = re.match(r"^(\d+)\.\s+(.*)$", stripped)
+            ul_match = re.match(r"^[-*•]\s+(.*)$", stripped)
+            
+            if ol_match and not stripped.startswith("<"):
+                if in_ul:
+                    new_lines.append("</ul>")
+                    in_ul = False
+                if not in_ol:
+                    new_lines.append('<ol style="padding-left:22px; line-height:1.65; margin:14px 0;">')
+                    in_ol = True
+                new_lines.append(f"  <li>{ol_match.group(2)}</li>")
+            elif ul_match and not stripped.startswith("<") and not stripped.startswith("• <strong>"):
+                if in_ol:
+                    new_lines.append("</ol>")
+                    in_ol = False
+                if not in_ul:
+                    new_lines.append('<ul style="padding-left:22px; line-height:1.65; margin:14px 0;">')
+                    in_ul = True
+                new_lines.append(f"  <li>{ul_match.group(1)}</li>")
+            else:
+                if in_ol and stripped.startswith("<"):
+                    new_lines.append("</ol>")
+                    in_ol = False
+                if in_ul and stripped.startswith("<"):
+                    new_lines.append("</ul>")
+                    in_ul = False
+                new_lines.append(line)
+                
+        if in_ol:
+            new_lines.append("</ol>")
+        if in_ul:
+            new_lines.append("</ul>")
+            
+        cleaned = "\n".join(new_lines)
+        
         # 2. Auto-close any unclosed tables and divs before rendering
         open_tr = len(re.findall(r"<tr\b", cleaned, re.IGNORECASE))
         close_tr = len(re.findall(r"</tr>", cleaned, re.IGNORECASE))
