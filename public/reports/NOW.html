@@ -486,11 +486,21 @@
         .memo-container ul, .memo-container ol {
             font-family: var(--font-serif) !important;
             font-size: 1.12rem !important;
-            line-height: 1.9 !important;
+            line-height: 1.85 !important;
             color: var(--text-body) !important;
-            margin: 0 0 26px 30px !important;
+            margin: 16px 0 24px 24px !important;
+            padding-left: 12px !important;
         }
-        .memo-container li { margin-bottom: 10px !important; color: var(--text-body) !important; }
+        .memo-container ul { list-style-type: disc !important; }
+        .memo-container ol { list-style-type: decimal !important; }
+        .memo-container li {
+            margin-bottom: 12px !important;
+            color: var(--text-body) !important;
+            line-height: 1.85 !important;
+        }
+        .memo-container li::marker {
+            color: var(--accent-warm) !important;
+        }
         .memo-container strong, .memo-container b {
             color: var(--text-title) !important;
             font-weight: 600 !important;
@@ -1150,17 +1160,11 @@
         <!-- Memo Content -->
         <div id="tab-memo" class="tab-content active">
             <article class="memo-container">
-                <div class="section">
-<h2>Section 1: Business Model, Moat &amp; Ecosystem Dominance</h2>
-<h3>1. The Enterprise Control Tower: System of Action Architecture</h3>
-<p>
+                <div class="section"><h2>Section 1: Business Model, Moat &amp; Ecosystem Dominance</h2><h3>1. The Enterprise Control Tower: System of Action Architecture</h3><p>
     ServiceNow, Inc. (NYSE: NOW) has established itself as the indispensable <strong>System of Action</strong> across global enterprise infrastructure. While traditional legacy vendors act as fragmented "systems of record" (e.g., SAP for ERP, Salesforce for CRM, Workday for HCM), ServiceNow operates one layer above. The <strong>Now Platform</strong> orchestrates complex, cross-functional workflows by binding disparate applications, cloud platforms, and enterprise databases into a single, automated operational pipeline.
-  </p>
-<p>
+  </p><p>
     The platform's core architecture spans several core enterprise growth engines:
-  </p>
-<ul><li><strong>IT Service &amp; Operations Management (ITSM/ITOM):</strong> The historical core engine, enabling automated incident resolution, IT infrastructure mapping, and service delivery across multi-cloud environments.</li><li><strong>Customer Service Management (CSM) &amp; CRM:</strong> Modernizing front-office resolution workflows, connecting customer inquiries directly to middle- and back-office execution systems, driving over $2 billion in annual contract value (ACV).</li><li><strong>Employee Workflow Solutions (HRSD):</strong> Streamlining human resources service delivery, onboarding, and internal service inquiries through centralized enterprise portals.</li><li><strong>Security Operations &amp; Risk (SecOps/GRC):</strong> Integrating threat intelligence and vulnerability management with immediate, automated remediation workflows.</li><li><strong>Creator Workflows &amp; Low-Code Automation:</strong> Empowering enterprise developers to build custom workflow applications directly on the unified Now Platform database structure.</li></ul>
-<div class="callout">
+  </p><ul><li><strong>IT Service &amp; Operations Management (ITSM/ITOM):</strong> The historical core engine, enabling automated incident resolution, IT infrastructure mapping, and service delivery across multi-cloud environments.</li><li><strong>Customer Service Management (CSM) &amp; CRM:</strong> Modernizing front-office resolution workflows, connecting customer inquiries directly to middle- and back-office execution systems, driving over $2 billion in annual contract value (ACV).</li><li><strong>Employee Workflow Solutions (HRSD):</strong> Streamlining human resources service delivery, onboarding, and internal service inquiries through centralized enterprise portals.</li><li><strong>Security Operations &amp; Risk (SecOps/GRC):</strong> Integrating threat intelligence and vulnerability management with immediate, automated remediation workflows.</li><li><strong>Creator Workflows &amp; Low-Code Automation:</strong> Empowering enterprise developers to build custom workflow applications directly on the unified Now Platform database structure.</li></ul><div class="callout">
 <h4>Strategic Insight: Why Agentic AI Amplifies ServiceNow's Control Tower</h4>
 <p>
       Market anxiety regarding "SaaS displacement"—the fear that autonomous AI agents will destroy seat-based pricing models—misinterprets the structural mechanics of enterprise software. Autonomous agents do not eliminate the need for workflow orchestration; they dramatically increase the complexity and volume of tasks. 
@@ -1168,27 +1172,16 @@
 <p>
       Through its <strong>AI Control Tower</strong> and <strong>ServiceNow Otto</strong> (its unified AI experience), ServiceNow provides the mandatory discovery, permissioning, auditability, and governance layer for multi-agent ecosystems. Whether an agent originates from OpenAI, Anthropic, or internal custom LLMs, it must act within strict enterprise compliance guardrails. ServiceNow captures the orchestration fee and execution tax, turning agentic proliferation from a structural threat into a powerful tailwind.
     </p>
-</div>
-<h3>2. Structural Moat Analysis &amp; High Switching Costs</h3>
-<p>
+</div><h3>2. Structural Moat Analysis &amp; High Switching Costs</h3><p>
     ServiceNow possesses one of the widest economic moats in enterprise technology, driven primarily by extreme switching costs and multi-departmental workflow integration:
-  </p>
-<ul><li><strong>98% Renewal Rate Industry Benchmark:</strong> ServiceNow consistently achieves a 98% renewal rate, underscoring that once enterprise business processes are mapped to the Now Platform's single data model, ripping out the platform risks systemic operational disruption.</li><li><strong>Deep Process Integration &amp; Customization:</strong> Global Fortune 500 enterprises have spent decades hardcoding proprietary business logic, approval hierarchies, and IT security protocols into ServiceNow. Replacing this control plane requires multi-year migration roadmaps and tens of millions in professional services costs.</li><li><strong>Data-Layer Network Effects:</strong> With over 100 billion annual workflows executing on its platform, ServiceNow leverages vast operational data to train domain-specific generative models, creating a virtuous cycle where automated workflow accuracy expands with scale.</li></ul>
-<h3>3. Strategic Perimeter Expansion: The $7.75B Armis Acquisition</h3>
-<p>
+  </p><ul><li><strong>98% Renewal Rate Industry Benchmark:</strong> ServiceNow consistently achieves a 98% renewal rate, underscoring that once enterprise business processes are mapped to the Now Platform's single data model, ripping out the platform risks systemic operational disruption.</li><li><strong>Deep Process Integration &amp; Customization:</strong> Global Fortune 500 enterprises have spent decades hardcoding proprietary business logic, approval hierarchies, and IT security protocols into ServiceNow. Replacing this control plane requires multi-year migration roadmaps and tens of millions in professional services costs.</li><li><strong>Data-Layer Network Effects:</strong> With over 100 billion annual workflows executing on its platform, ServiceNow leverages vast operational data to train domain-specific generative models, creating a virtuous cycle where automated workflow accuracy expands with scale.</li></ul><h3>3. Strategic Perimeter Expansion: The $7.75B Armis Acquisition</h3><p>
     In April 2026, ServiceNow completed its transformative $7.75 billion all-cash acquisition of <strong>Armis Security</strong>, marking the largest strategic transaction in the company's history. Armis specializes in agentless cyber exposure management and asset visibility across IT, Operational Technology (OT), IoT, and critical medical devices.
-  </p>
-<p>
+  </p><p>
     This acquisition fundamentally bridges the gap between <em>cyber visibility</em> and <em>automated action</em>. Armis monitors over 4 billion connected assets without software agents, providing continuous threat assessment. By directly embedding Armis Centrix™ into the Now Platform, ServiceNow enables enterprise security teams to automatically trigger remediation workflows the instant an unmanaged device displays exposure—solidifying ServiceNow's expansion into mission-critical cybersecurity and OT infrastructure management.
-  </p>
-</div>
-<div class="section">
-<h2>Section 2: Latest Financial Results &amp; Management Guidance</h2>
-<h3>1. Q2 2026 Financial Highlights &amp; Operating Momentum</h3>
-<p>
+  </p></div>
+<div class="section"><h2>Section 2: Latest Financial Results &amp; Management Guidance</h2><h3>1. Q2 2026 Financial Highlights &amp; Operating Momentum</h3><p>
     ServiceNow delivered strong Q2 2026 financial results, beating guidance across all top-line and profitability metrics. Subscription revenue accelerated to $3.88 billion (+24.5% YoY), while total revenue reached $3.99 billion. Demonstrating clear monetization of its generative AI suite, <strong>ServiceNow AI crossed $1.0 billion in Annual Contract Value (ACV)</strong> during the quarter.
-  </p>
-<div class="metrics-grid">
+  </p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Q2 Subscription Revenue</div>
 <div class="metric-value">$3.88B</div>
@@ -1219,12 +1212,9 @@
 <div class="metric-value">$1.00B+</div>
 <div class="metric-delta pos">Agentic Deployments 9x in 9 Mos</div>
 </div>
-</div>
-<h3>2. Detailed Financial &amp; Operational Metrics Table</h3>
-<p>
+</div><h3>2. Detailed Financial &amp; Operational Metrics Table</h3><p>
     The following structured table summarizes ServiceNow's consolidated operational performance for Q2 2026 compared to Q2 2025:
-  </p>
-<div class="table-scroll-wrap"><table>
+  </p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Metric / KPI</th>
@@ -1295,13 +1285,9 @@
 <td>Stable Industry Gold Standard</td>
 </tr>
 </tbody>
-</table></div>
-<h3>3. Forward Management Guidance &amp; Long-Term 2030 Roadmap</h3>
-<p>
+</table></div><h3>3. Forward Management Guidance &amp; Long-Term 2030 Roadmap</h3><p>
     Backed by robust net-new deal momentum and federal market strength, management raised full-year 2026 outlook across subscription revenue and operating profitability:
-  </p>
-<ul><li><strong>Q3 2026 Guidance:</strong> Subscription revenue guided to $3.975B–$3.980B (~20.5% YoY growth, 20.0% CC). Current RPO growth expected at 19.5% YoY (20.0% CC) with Non-GAAP operating margin guided at 31.0%.</li><li><strong>Full-Year 2026 Outlook:</strong> Subscription revenue raised to $15.760B–$15.780B (~22.5% YoY, 21.0% CC). Non-GAAP subscription gross margin projected at 81.0%, with full-year Non-GAAP operating margin expanded to 31.5%.</li><li><strong>Vision 2030 Strategic Targets:</strong> Targets established at Financial Analyst Day outline scaling past <strong>$30 billion in annual subscription revenue by 2030</strong>, generating 30%+ of ACV from generative AI/agentic products, and driving a consolidated <strong>Rule of 60+</strong> operating profile.</li></ul>
-<div class="callout">
+  </p><ul><li><strong>Q3 2026 Guidance:</strong> Subscription revenue guided to $3.975B–$3.980B (~20.5% YoY growth, 20.0% CC). Current RPO growth expected at 19.5% YoY (20.0% CC) with Non-GAAP operating margin guided at 31.0%.</li><li><strong>Full-Year 2026 Outlook:</strong> Subscription revenue raised to $15.760B–$15.780B (~22.5% YoY, 21.0% CC). Non-GAAP subscription gross margin projected at 81.0%, with full-year Non-GAAP operating margin expanded to 31.5%.</li><li><strong>Vision 2030 Strategic Targets:</strong> Targets established at Financial Analyst Day outline scaling past <strong>$30 billion in annual subscription revenue by 2030</strong>, generating 30%+ of ACV from generative AI/agentic products, and driving a consolidated <strong>Rule of 60+</strong> operating profile.</li></ul><div class="callout">
 <h4>Executive Leadership Quotes</h4>
 <p>
 <strong>Bill McDermott, Chairman and CEO:</strong><br/>
@@ -1311,14 +1297,10 @@
 <strong>Gina Mastantuono, President and CFO:</strong><br/>
 <em>"AI net-new annual contract value continues to outpace our ambitious expectations, with Pro Plus pricing uplifts proving the immediate ROI customers receive from Now Assist. The integration of Armis into our AI Control Tower is accelerating our security and risk business, allowing us to raise full-year profitability and subscription revenue guidance with confidence."</em>
 </p>
-</div>
-</div>
-<div class="section" id="true-cash-generation-sbc-audit">
-<h2>3. True Cash Generation &amp; SBC Dilution Audit</h2>
-<p>
+</div></div>
+<div class="section" id="true-cash-generation-sbc-audit"><h2>3. True Cash Generation &amp; SBC Dilution Audit</h2><p>
     ServiceNow, Inc. (NOW) is widely recognized as a free cash flow compounding powerhouse in the enterprise software sector, boasting Non-GAAP Free Cash Flow margins frequently exceeding 30% to 34%. However, a rigorous fundamental audit requires tearing back management's adjusted reporting layer to evaluate the underlying economic cash reality. In accordance with Warren Buffett’s Owner Earnings framework, Stock-Based Compensation (SBC) is not an abstract non-cash paper item that can be added back indefinitely—it is a tangible labor cost paid in equity dilution rather than dollars. When employees are compensated with stock, shareholders suffer incremental ownership economic erosion unless that equity is bought back using real cash from operations.
-  </p>
-<div class="metrics-grid">
+  </p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">FY2025 Non-GAAP FCF</div>
 <div class="metric-value">$3,420M</div>
@@ -1339,15 +1321,11 @@
 <div class="metric-value">$2.225B</div>
 <div class="metric-delta neutral">20.1M Shares Ret.</div>
 </div>
-</div>
-<h3>3.1 Unadjusted Free Cash Flow vs. Buffett "True Owner Cash Flow"</h3>
-<p>
+</div><h3>3.1 Unadjusted Free Cash Flow vs. Buffett "True Owner Cash Flow"</h3><p>
     Management's non-GAAP Free Cash Flow definition adds back 100% of SBC to Operating Cash Flow before deducting capital expenditures. While this provides a picture of raw gross cash accumulation before payroll settlement, it heavily overstates recurring economic owner returns. In FY2025, ServiceNow reported $3,870M in Operating Cash Flow and spent $450M in property, plant, and equipment purchases (CapEx), yielding a headline Non-GAAP FCF of $3,420M.
-  </p>
-<p>
+  </p><p>
     To calculate <strong>True Owner Cash Flow</strong>, we deduct 100% of SBC ($1,635M in FY2025) as an unavoidable operating expense, along with baseline maintenance CapEx. The result shows that ServiceNow's true economic cash generation is $1,335M—less than 40% of the non-GAAP figure touted in investor presentations. As revenue scales toward $13.5B+ in FY2026, True Owner Cash Flow expands to $1,970M, but the structural gap created by SBC remains the dominant accounting divergence.
-  </p>
-<div class="table-scroll-wrap"><table>
+  </p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Cash Flow Audit Metric ($M)</th>
@@ -1406,18 +1384,13 @@
 <td>$1.89</td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <strong>Accounting Nuance &amp; Management Commitment:</strong> SBC consumed approximately 15.0% of total revenue in FY2025. In response to investor pressure regarding stock dilution, management announced a formal commitment to bring SBC down to <em>less than 10% of revenue by 2029</em>. While this trajectory is structurally favorable, current Owner Cash Flow yields remain compressed compared to software peers that pay higher cash compensation relative to equity grants.
-  </div>
-<h3>3.2 Dilution Management &amp; Share Repurchase Discipline</h3>
-<p>
+  </div><h3>3.2 Dilution Management &amp; Share Repurchase Discipline</h3><p>
     Following shareholder approval of a 5-for-1 stock split effective December 18, 2025, ServiceNow’s diluted weighted-average share count adjusted to approximately 1,040M shares (~1.04B). To counter the steady influx of new shares issued under employee incentive programs, the Board authorized an additional $5.0 Billion share repurchase program in early 2026.
-  </p>
-<p>
+  </p><p>
     In Q1 2026, ServiceNow aggressively utilized its authorization, spending $2.225 Billion to repurchase roughly 20.1 million post-split shares. However, a multi-year audit reveals that these repurchases act primarily as an <strong>SBC Dilution Absorber</strong> rather than an aggressive share cannibalization mechanism. Annual equity grants issue between 15M and 20M post-split shares to employees each year. Consequently, multi-billion-dollar buyback programs serve chiefly to neutralize share count creep, preventing meaningful per-share denominator contraction unless executed in even larger volumes.
-  </p>
-<div class="table-scroll-wrap"><table>
+  </p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Capital Return &amp; Share Count Trajectory</th>
@@ -1452,14 +1425,10 @@
 <td>-0.5%</td>
 </tr>
 </tbody>
-</table></div>
-</div>
-<div class="section" id="balance-sheet-integrity-repurchase-discipline">
-<h2>4. Balance Sheet Integrity &amp; Share Repurchase Discipline</h2>
-<p>
+</table></div></div>
+<div class="section" id="balance-sheet-integrity-repurchase-discipline"><h2>4. Balance Sheet Integrity &amp; Share Repurchase Discipline</h2><p>
     ServiceNow historically operated with a pristine cash fortress, maintaining multi-billion-dollar net cash positions that provided complete operational independence. However, the corporate finance landscape shifted dramatically in late 2025 and early 2026 as management transitioned toward an aggressive inorganic expansion strategy, culminating in the $7.75 Billion acquisition of cybersecurity asset exposure leader Armis (closed April 20, 2026), alongside Moveworks ($2.9B) and Veza.
-  </p>
-<div class="metrics-grid">
+  </p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Cash &amp; Short-Term Inv.</div>
 <div class="metric-value">$5,182M</div>
@@ -1480,15 +1449,11 @@
 <div class="metric-value">$875M</div>
 <div class="metric-delta neutral">Contractual Oblig.</div>
 </div>
-</div>
-<h3>4.1 Post-Armis Balance Sheet Audit &amp; Capital Structure Transformation</h3>
-<p>
+</div><h3>4.1 Post-Armis Balance Sheet Audit &amp; Capital Structure Transformation</h3><p>
     Prior to the acquisition spree, ServiceNow held $9.68B in cash, cash equivalents, and marketable securities against $1.49B of senior notes, establishing an $8.19B Net Cash cushion (Q3 2025). To complete the $7.75B all-cash acquisition of Armis in April 2026, ServiceNow drew down cash reserves and utilized a $4.0B short-term unsecured term loan facility.
-  </p>
-<p>
+  </p><p>
     In May 2026, ServiceNow successfully replaced the short-dated term loan by issuing $4.0 Billion in high-grade investment-class corporate bonds arranged by JPMorgan, Wells Fargo, Barclays, and Citigroup. This debt issuance extended ServiceNow's debt maturity structure and locked in long-term fixed interest rates, but it fundamentally altered the capital structure. Total funded debt rose from $1.49B to $5.49B, shifting the company into a slight Net Debt position of $308M (excluding $875M in operating leases).
-  </p>
-<div class="table-scroll-wrap"><table>
+  </p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Balance Sheet Component ($M)</th>
@@ -1547,29 +1512,18 @@
 <td><strong>($8,498)</strong></td>
 </tr>
 </tbody>
-</table></div>
-<h3>4.2 Capital Allocation Strategy: Mega M&amp;A vs. Organic R&amp;D &amp; Buybacks</h3>
-<p>
+</table></div><h3>4.2 Capital Allocation Strategy: Mega M&amp;A vs. Organic R&amp;D &amp; Buybacks</h3><p>
     The acquisition of Armis at a reported 23x Annual Recurring Revenue (ARR) multiple ($7.75B for ~$340M ARR growing at ~50% YoY) marks a strategic pivot. Management is leveraging its balance sheet to consolidate cybersecurity asset management and agentic AI security control layers (AI Control Tower).
-  </p>
-<p>
+  </p><p>
     While Armis, Moveworks, and Veza bolster ServiceNow’s Total Addressable Market (TAM) and accelerate subscription revenue growth toward guidance of $15.76B–$15.78B for FY2026, they absorb nearly all historical net cash reserves. Consequently, future share repurchases must be funded directly out of annual organic Operating Cash Flow rather than excess balance sheet cash.
-  </p>
-<div class="callout">
+  </p><div class="callout">
 <strong>Strategic Balance Sheet Assessment:</strong> Despite the debt issuance and loss of net cash status, ServiceNow maintains an <strong>investment-grade balance sheet fortress</strong>. With annualized Operating Cash Flow approaching $4.65B in FY2026 and interest coverage exceeding 15x, the $5.49B total debt load poses minimal financial distress risk. However, investors should anticipate that share repurchase velocity will moderate in H2 2026 as management prioritizes debt paydown and integration of Armis.
-  </div>
-</div>
-<div class="section">
-<h2>Section 5: Warren Buffett Owner Earnings &amp; Intrinsic Value Matrix</h2>
-<h3>5.1 First-Principles Owner Earnings Derivation (1986 Shareholder Letter)</h3>
-<p>
+  </div></div>
+<div class="section"><h2>Section 5: Warren Buffett Owner Earnings &amp; Intrinsic Value Matrix</h2><h3>5.1 First-Principles Owner Earnings Derivation (1986 Shareholder Letter)</h3><p>
     In his seminal 1986 Berkshire Hathaway Shareholder Letter, Warren Buffett introduced <strong>Owner Earnings</strong> as the true measure of a business's net economic cash generation: <em>"Operating Cash Flow plus/minus non-cash adjustments, minus the average annual amount of capitalized expenditures for plant and equipment, etc., that the business requires to fully maintain its long-term competitive position and unit volume."</em>
-</p>
-<p>
+</p><p>
     To evaluate ServiceNow (NOW) with uncompromising financial realism, we apply two strict economic adjustments to standard Wall Street Non-GAAP Free Cash Flow metrics:
-  </p>
-<ol><li><strong>100% Stock-Based Compensation (SBC) Deduction:</strong> Wall Street routinely adds back SBC to FCF, treating dilutive equity grants as non-cash charges. In accordance with Buffett and Munger's core principles, stock issued to employees is a genuine cash economic cost. If the company did not pay employees in stock, it would be forced to pay them in cash. Therefore, 100% of SBC (~$1.95B LTM) is treated as a real cash operating expense.</li><li><strong>Maintenance vs. Growth CapEx Bifurcation:</strong> Total capital expenditure for ServiceNow over the LTM period reached ~$868 million. We isolate essential platform maintenance CapEx (~$380 million required for server infrastructure, datacenter leases, and core network maintenance) from discretionary growth CapEx (~$488 million allocated to international office expansion and specialized AI cluster infrastructure).</li><li><strong>Working Capital &amp; Unearned Revenue Float Analysis:</strong> ServiceNow operates with a powerful enterprise cash float. Operating cash flow is structurally bolstered by current deferred revenues of $6.80 billion—upfront annual and multi-year subscription payments collected from enterprise customers prior to service delivery. Like Berkshire's insurance float, this interest-free capital funds R&amp;D and platform innovation well before revenue recognition.</li></ol>
-<div class="table-scroll-wrap"><table>
+  </p><ol><li><strong>100% Stock-Based Compensation (SBC) Deduction:</strong> Wall Street routinely adds back SBC to FCF, treating dilutive equity grants as non-cash charges. In accordance with Buffett and Munger's core principles, stock issued to employees is a genuine cash economic cost. If the company did not pay employees in stock, it would be forced to pay them in cash. Therefore, 100% of SBC (~$1.95B LTM) is treated as a real cash operating expense.</li><li><strong>Maintenance vs. Growth CapEx Bifurcation:</strong> Total capital expenditure for ServiceNow over the LTM period reached ~$868 million. We isolate essential platform maintenance CapEx (~$380 million required for server infrastructure, datacenter leases, and core network maintenance) from discretionary growth CapEx (~$488 million allocated to international office expansion and specialized AI cluster infrastructure).</li><li><strong>Working Capital &amp; Unearned Revenue Float Analysis:</strong> ServiceNow operates with a powerful enterprise cash float. Operating cash flow is structurally bolstered by current deferred revenues of $6.80 billion—upfront annual and multi-year subscription payments collected from enterprise customers prior to service delivery. Like Berkshire's insurance float, this interest-free capital funds R&amp;D and platform innovation well before revenue recognition.</li></ol><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Owner Earnings Component</th>
@@ -1604,25 +1558,17 @@
 <td><strong>True unencumbered economic cash yield flowing to long-term owners.</strong></td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <strong>Owner Earnings Yield Analysis:</strong> At the current post 5-for-1 split market price of <strong>$128.38</strong> (on ~1.04B diluted shares), ServiceNow's normalized post-SBC Owner Earnings of <strong>$2.95 per share</strong> equates to an initial economic cash yield of <strong>2.30%</strong>. While standard Wall Street "FCF Yield" presents NOW at ~4.2%, deducting full SBC reveals that ServiceNow's intrinsic cash yield relies on compounding its high-ROIC enterprise footprint rather than current cash distributions.
-  </div>
-<h3>5.2 Discount Rate &amp; 10-Year Cash Compounding Model (No Exit Multiples)</h3>
-<p>
+  </div><h3>5.2 Discount Rate &amp; 10-Year Cash Compounding Model (No Exit Multiples)</h3><p>
     Charlie Munger famously warned against relying on terminal exit multiples: <em>"If you buy a stock that trades at 30x earnings and assume someone will buy it from you in Year 10 at 30x earnings, you aren't investing—you're relying on a greater fool."</em>
-</p>
-<p>
+</p><p>
     To eliminate terminal multiple expansion bias, our 10-year discounted Owner Earnings model calculates intrinsic value strictly from cumulative discounted cash flows plus a terminal cash yield capitalized at long-term macroeconomic GDP growth.
-  </p>
-<ul><li><strong>Discount Rate / Hurdle Rate Derivation:</strong> Grounded strictly in the local US sovereign rate structure. We combine the US 10-Year Treasury yield (~4.20%) with an Equity Risk Premium (ERP) of 4.60% for a quality software monopoly, establishing a strict hurdle rate of <strong>8.80%</strong>.
-    <li><strong>Terminal Growth Rate Cap:</strong> Capped at <strong>2.50%</strong>, strictly matching long-term US real GDP growth plus baseline inflation, preventing perpetual growth mathematical distortions.
-    <li><strong>Buyback Cannibal Dynamics:</strong> Management's newly authorized $5.0 billion share repurchase program (including an imminent $2.0 billion Accelerated Share Repurchase) and explicit commitment to reduce SBC to &lt;10% of revenue by 2029 will systematically reduce share count by 1.5% to 2.5% annually. This share reduction directly compounds per-share Owner Earnings above top-line growth.
+  </p><ul><li><strong>Discount Rate / Hurdle Rate Derivation:</strong> Grounded strictly in the local US sovereign rate structure. We combine the US 10-Year Treasury yield (~4.20%) with an Equity Risk Premium (ERP) of 4.60% for a quality software monopoly, establishing a strict hurdle rate of <strong>8.80%</strong>.</li>
+<li><strong>Terminal Growth Rate Cap:</strong> Capped at <strong>2.50%</strong>, strictly matching long-term US real GDP growth plus baseline inflation, preventing perpetual growth mathematical distortions.</li>
+<li><strong>Buyback Cannibal Dynamics:</strong> Management's newly authorized $5.0 billion share repurchase program (including an imminent $2.0 billion Accelerated Share Repurchase) and explicit commitment to reduce SBC to &lt;10% of revenue by 2029 will systematically reduce share count by 1.5% to 2.5% annually. This share reduction directly compounds per-share Owner Earnings above top-line growth.
     </li>
-</li>
-</li></ul>
-<h3>5.3 Bear / Base / Bull Valuation Scenario Matrix</h3>
-<div class="metrics-grid">
+</ul><h3>5.3 Bear / Base / Bull Valuation Scenario Matrix</h3><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Current Stock Price</div>
 <div class="metric-value">$128.38</div>
@@ -1643,8 +1589,7 @@
 <div class="metric-value">$96.50</div>
 <div class="metric-delta neg">-24.8% Downside</div>
 </div>
-</div>
-<div class="table-scroll-wrap"><table>
+</div><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Valuation Scenario</th>
@@ -1689,8 +1634,7 @@
 <td><span class="metric-delta pos">+100.9%</span></td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <strong>Balance Sheet Bridge &amp; Intrinsic Value Derivation (Base Case):</strong>
 <br/>
 <ul><li>PV of 10-Year Post-SBC Owner Earnings Streams: <strong>$58.20 per share</strong></li></ul>
@@ -1700,24 +1644,14 @@
 <ul><li>Net Cash &amp; Short-Term Investments Balance ($3.73B Cash - $1.49B Debt - $0.92B Operating Leases): <strong>+$1.27 per share</strong></li></ul>
 <br/>
 <ul><li><strong>Total Base Case Intrinsic Fair Value: $188.50 per share</strong>. At $128.38, the market offers a <strong>31.9% discount to intrinsic value</strong>.</li></ul>
-</div>
-</div>
-<div class="section">
-<h2>Section 6: Execution Risk, Margin of Safety &amp; Falsification Triggers</h2>
-<h3>6.1 Execution Risk &amp; Moat Fragility Assessment</h3>
-<p>
+</div></div>
+<div class="section"><h2>Section 6: Execution Risk, Margin of Safety &amp; Falsification Triggers</h2><h3>6.1 Execution Risk &amp; Moat Fragility Assessment</h3><p>
     While ServiceNow possesses an outstanding competitive moat rooted in high switching costs (97%+ renewal rates across enterprise IT, HR, and Customer Workflows), a rigorous fundamental thesis must stress-test key operational vulnerabilities:
-  </p>
-<ol><li><strong>Seat-Based Cannibalization vs. Token Consumption Pivot:</strong> ServiceNow's legacy business model relies on seat-based licensing. As enterprise customers deploy Agentic AI (Now Assist, AI Experience) to automate employee tasks, overall workforce headcount and seat counts could contract. To offset seat cannibalization, management must rapidly ramp consumption-based token monetization and agentic transaction pricing. If seat reductions outpace token monetization, top-line growth will decelerate sharply.</li><li><strong>M&amp;A Integration Risk &amp; Goodwill Overhead:</strong> The recent $7.0 billion acquisition of Armis Security and $2.4 billion acquisition of Moveworks expand ServiceNow's TAM in cybersecurity and virtual agent technology, but introduce near-term margin headwinds and execution complexity. Integrating heterogeneous technology stacks without impairing Non-GAAP operating margins (temporarily reduced to 31.5%) represents a key execution test.</li><li><strong>SBC Dilution &amp; Executive Compensation Friction:</strong> Stock-based compensation consumes ~15% of total revenues ($1.95B LTM). Although management committed to reducing SBC to &lt;10% of revenue by 2029, failure to discipline equity grants during software market downcycles will erode per-share Owner Earnings compounding.</li></ol>
-<h3>6.2 The 5-Year Exchange Closure Test &amp; Margin of Safety Evaluation</h3>
-<p>
+  </p><ol><li><strong>Seat-Based Cannibalization vs. Token Consumption Pivot:</strong> ServiceNow's legacy business model relies on seat-based licensing. As enterprise customers deploy Agentic AI (Now Assist, AI Experience) to automate employee tasks, overall workforce headcount and seat counts could contract. To offset seat cannibalization, management must rapidly ramp consumption-based token monetization and agentic transaction pricing. If seat reductions outpace token monetization, top-line growth will decelerate sharply.</li><li><strong>M&amp;A Integration Risk &amp; Goodwill Overhead:</strong> The recent $7.0 billion acquisition of Armis Security and $2.4 billion acquisition of Moveworks expand ServiceNow's TAM in cybersecurity and virtual agent technology, but introduce near-term margin headwinds and execution complexity. Integrating heterogeneous technology stacks without impairing Non-GAAP operating margins (temporarily reduced to 31.5%) represents a key execution test.</li><li><strong>SBC Dilution &amp; Executive Compensation Friction:</strong> Stock-based compensation consumes ~15% of total revenues ($1.95B LTM). Although management committed to reducing SBC to &lt;10% of revenue by 2029, failure to discipline equity grants during software market downcycles will erode per-share Owner Earnings compounding.</li></ol><h3>6.2 The 5-Year Exchange Closure Test &amp; Margin of Safety Evaluation</h3><p>
     Warren Buffett's ultimate test for any business is simple: <em>"If the stock exchange were to close down for five years, would you be comfortable holding this investment based strictly on its organic cash generation?"</em>
-</p>
-<p>
+</p><p>
     At $128.38 per share, ServiceNow generates $2.95 in post-SBC Owner Earnings, compounding at ~16% per share annually under our Base Case. Over a 5-year market closure, cumulative post-SBC Owner Earnings produced per share would equal <strong>~$20.20</strong>, representing ~15.7% of the initial capital outlay returned in pure unencumbered economic cash. Combined with a fortress balance sheet carrying $3.73B in cash and cash equivalents, ServiceNow passes the 5-Year Exchange Closure Test with a comfortable safety cushion.
-  </p>
-<h3>6.3 Pre-Mortem Thesis Falsification Triggers &amp; Surveillance Corridors</h3>
-<div class="callout">
+  </p><h3>6.3 Pre-Mortem Thesis Falsification Triggers &amp; Surveillance Corridors</h3><div class="callout">
 <strong>Pre-Mortem Thesis Falsification Triggers (Hard Sell / Re-evaluation Events):</strong>
 <br/><br/>
 <strong>1. cRPO Growth Breakdown:</strong> Current Remaining Performance Obligations (cRPO) constant-currency growth falling below <strong>15.0% YoY</strong> for two consecutive quarters, signaling enterprise software saturation or loss of market share.
@@ -1727,8 +1661,7 @@
 <strong>3. Disruption Invert:</strong> Net-New Annual Contract Value (ACV) from Now Assist and agentic consumption failing to offset seat-based contract reductions, driving enterprise subscription gross margins below <strong>75.0% GAAP</strong>.
     <br/><br/>
 <strong>4. M&amp;A Capital Destruction:</strong> Impairment charges or goodwill write-downs on the $7.0B Armis Security acquisition exceeding <strong>$1.0 billion</strong>, indicating failed product integration.
-  </div>
-<div class="table-scroll-wrap"><table>
+  </div><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Surveillance Corridor</th>
@@ -1751,8 +1684,7 @@
 <td>Stock tests Bear Case Intrinsic Floor ($96.50). If falsification triggers are clean, triggers aggressive capital deployment into a generational compounder.</td>
 </tr>
 </tbody>
-</table></div>
-</div>
+</table></div></div>
             </article>
         </div>
 

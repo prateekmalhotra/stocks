@@ -486,11 +486,21 @@
         .memo-container ul, .memo-container ol {
             font-family: var(--font-serif) !important;
             font-size: 1.12rem !important;
-            line-height: 1.9 !important;
+            line-height: 1.85 !important;
             color: var(--text-body) !important;
-            margin: 0 0 26px 30px !important;
+            margin: 16px 0 24px 24px !important;
+            padding-left: 12px !important;
         }
-        .memo-container li { margin-bottom: 10px !important; color: var(--text-body) !important; }
+        .memo-container ul { list-style-type: disc !important; }
+        .memo-container ol { list-style-type: decimal !important; }
+        .memo-container li {
+            margin-bottom: 12px !important;
+            color: var(--text-body) !important;
+            line-height: 1.85 !important;
+        }
+        .memo-container li::marker {
+            color: var(--accent-warm) !important;
+        }
         .memo-container strong, .memo-container b {
             color: var(--text-title) !important;
             font-weight: 600 !important;
@@ -1150,53 +1160,35 @@
         <!-- Memo Content -->
         <div id="tab-memo" class="tab-content active">
             <article class="memo-container">
-                <div class="section">
-<h2>Section 1: Business Model &amp; Competitive Moat</h2>
-<h3>1. Core Portfolio Architecture &amp; Strategic Monetization</h3>
-<p>
+                <div class="section"><h2>Section 1: Business Model &amp; Competitive Moat</h2><h3>1. Core Portfolio Architecture &amp; Strategic Monetization</h3><p>
     Deckers Outdoor Corporation (NYSE: DECK) operates an elite, capital-light brand management and footwear innovation engine centered around two hyper-growth powerhouses: <strong>HOKA®</strong> and <strong>UGG®</strong>. Over the past five fiscal years, Deckers has successfully transformed from a seasonal footwear company reliant on UGG winter boots into a diversified, year-round global performance and lifestyle powerhouse.
-  </p>
-<p>
+  </p><p>
     In Full-Year FY2026, Deckers generated a record $5.47 billion in net sales (+9.8% YoY). The monetization engine is structured across distinct brand segments:
-  </p>
-<strong>HOKA ($2.59B FY26 Revenue, +16% YoY):</strong> The primary growth vector of the company. Built on proprietary maximalist cushioning, meta-rocker geometry, and premium active performance design, HOKA has captured significant market share in running, trail, walking, and lifestyle footwear. In Q1 FY2027, HOKA delivered $703.5 million in revenue (+7.7% YoY).
+  </p><p><strong>HOKA ($2.59B FY26 Revenue, +16% YoY):</strong> The primary growth vector of the company. Built on proprietary maximalist cushioning, meta-rocker geometry, and premium active performance design, HOKA has captured significant market share in running, trail, walking, and lifestyle footwear. In Q1 FY2027, HOKA delivered $703.5 million in revenue (+7.7% YoY).
     
 <strong>UGG ($2.74B FY26 Revenue, +8% YoY):</strong> The foundational cash-cow franchise offering high-margin premium lifestyle footwear, loungewear, and casual fashion. Driven by its successful "365-day" year-round strategy, UGG expanded beyond sheepskin boots into casual sneakers, platform fashion, sandals, and men's footwear (Golden Collection, Lowmel, and Minimel franchises). UGG generated $278.0 million in Q1 FY2027 (+4.9% YoY).
     
 <strong>Teva &amp; Brand Portfolio Rationalization ($37.9M Q1 FY27 Revenue, -18.1% YoY):</strong> Teva serves as an outdoor sandals brand. To eliminate low-margin friction and direct 100% of executive bandwidth and capital toward Tier-1 assets, management executed a decisive portfolio rationalization: divesting the <em>Sanuk</em> brand and initiating the formal phase-out of <em>Koolaburra by UGG</em>.
     
 
-
-<div class="callout">
+</p><div class="callout">
 <strong>CEO Perspective on Portfolio Focus:</strong><br/>
 <em>"Deckers delivered a solid start to the fiscal year, surpassing $1 billion of first quarter revenue for the first time... This performance reflects the continued strength of HOKA and UGG, with growing global demand as both brands extend their reach through compelling product innovation. As we build deeper connections with consumers across geographies and channels, we remain focused on advancing our premium brands and executing with discipline against our long term strategies."</em>
 <br/>— <strong>Stefano Caroti</strong>, President &amp; Chief Executive Officer
-  </div>
-<h3>2. Economic Moat: Pricing Power, Brand Equity &amp; Channel Control</h3>
-<p>
+  </div><h3>2. Economic Moat: Pricing Power, Brand Equity &amp; Channel Control</h3><p>
     Deckers’ competitive advantage is rooted in a robust <strong>Brand Equity and Pricing Power Moat</strong>, reinforced by strict supply-chain discipline and direct-to-consumer (DTC) channel control. 
-  </p>
-<ul><li><strong>Full-Price Sell-Through &amp; Margin Protection:</strong> Unlike peers who rely on promotional markdown cycles to push inventory, Deckers maintains tight allocation across wholesale partners. By intentionally limiting wholesale supply, management preserves premium pricing, sustaining Gross Margins above 56%.
-    <li><strong>Customer Retention &amp; Franchise Segmentation:</strong> HOKA enjoys high customer retention driven by biomechanical performance, while UGG retains multi-generational brand loyalty. Innovation segmentation—such as HOKA's <em>Fly</em> (speed/race) versus <em>Glide</em> (everyday cushioning/Clifton/Bondi) franchises—allows Deckers to cross-sell into broader usage occasions.
-    <li><strong>Controlled Channel Shift (DTC Focus):</strong> Deckers actively leans into higher-margin DTC sales (ecommerce and brand retail) relative to wholesale. In Q1 FY2027, DTC sales surged 13.0% YoY to $352.8 million (with DTC comparable sales up 6.8%), while wholesale expanded at a disciplined 2.2% rate to $666.7 million.
+  </p><ul><li><strong>Full-Price Sell-Through &amp; Margin Protection:</strong> Unlike peers who rely on promotional markdown cycles to push inventory, Deckers maintains tight allocation across wholesale partners. By intentionally limiting wholesale supply, management preserves premium pricing, sustaining Gross Margins above 56%.</li>
+<li><strong>Customer Retention &amp; Franchise Segmentation:</strong> HOKA enjoys high customer retention driven by biomechanical performance, while UGG retains multi-generational brand loyalty. Innovation segmentation—such as HOKA's <em>Fly</em> (speed/race) versus <em>Glide</em> (everyday cushioning/Clifton/Bondi) franchises—allows Deckers to cross-sell into broader usage occasions.</li>
+<li><strong>Controlled Channel Shift (DTC Focus):</strong> Deckers actively leans into higher-margin DTC sales (ecommerce and brand retail) relative to wholesale. In Q1 FY2027, DTC sales surged 13.0% YoY to $352.8 million (with DTC comparable sales up 6.8%), while wholesale expanded at a disciplined 2.2% rate to $666.7 million.
     </li>
-</li>
-</li></ul>
-<h3>3. Geographic Expansion Runway &amp; Total Addressable Market</h3>
-<p>
+</ul><h3>3. Geographic Expansion Runway &amp; Total Addressable Market</h3><p>
     While domestic growth remains stable, international markets represent a massive structural growth runway. HOKA brand awareness in the United States stands at approximately <strong>60%</strong>, whereas international brand awareness is at just <strong>40%</strong>.
-  </p>
-<p>
+  </p><p>
     International net sales reached $502.1 million in Q1 FY2027 (+8.4% YoY; +25.5% YoY in Q4 FY2026), fast approaching domestic sales of $517.4 million (+3.2% YoY). Expansion across EMEA (Greater China, Japan, UK, France) provides multi-year top-line momentum as store openings and localized brand campaigns scale global awareness.
-  </p>
-</div>
-<div class="section">
-<h2>Section 2: Latest Financial Performance &amp; Operations</h2>
-<h3>1. Q1 FY2027 Financial Summary: Exceeding $1 Billion Revenue Milestone</h3>
-<p>
+  </p></div>
+<div class="section"><h2>Section 2: Latest Financial Performance &amp; Operations</h2><h3>1. Q1 FY2027 Financial Summary: Exceeding $1 Billion Revenue Milestone</h3><p>
     In Q1 FY2027 (quarter ended June 30, 2026), Deckers surpassed $1.0 billion in first-quarter revenue for the first time in company history, delivering net sales of $1.020 billion (+5.7% YoY; +4.8% on a constant currency basis). Diluted EPS rose to $0.94 (+1.1% YoY), beating Street consensus estimates of $0.88.
-  </p>
-<div class="metrics-grid">
+  </p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Q1 FY27 Net Sales</div>
 <div class="metric-value">$1,020.0M</div>
@@ -1217,9 +1209,7 @@
 <div class="metric-value">$352.8M</div>
 <div class="metric-delta pos">+13.0% YoY</div>
 </div>
-</div>
-<h3>2. Brand, Channel &amp; Geographic Revenue Breakdown</h3>
-<div class="table-scroll-wrap"><table>
+</div><h3>2. Brand, Channel &amp; Geographic Revenue Breakdown</h3><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Segment / Metric</th>
@@ -1287,24 +1277,16 @@
 <td><strong>$5,470.0</strong></td>
 </tr>
 </tbody>
-</table></div>
-<h3>3. Operational Efficiency, Tariffs &amp; Operating Margins</h3>
-<p>
+</table></div><h3>3. Operational Efficiency, Tariffs &amp; Operating Margins</h3><p>
     Gross margin expanded 60 basis points YoY to <strong>56.4%</strong> in Q1 FY2027 (versus 55.8% in Q1 FY2026), benefiting from favorable full-price selling mix and lower freight costs. However, operating income declined slightly from $165.3 million to $155.3 million as SG&amp;A expenses expanded to $419.9 million (31.5% increase) due to strategic investments in global retail store footprint, DTC marketing, and talent acquisition.
-  </p>
-<div class="callout">
+  </p><div class="callout">
 <strong>CFO Commentary on Guidance &amp; Supply Chain Dynamics:</strong><br/>
 <em>"Gross margin for the quarter was 56.4%... Total company revenue was $1.02 billion, up 5.7% versus the prior year... We have been disciplined in how we're managing supply, protecting brand heat and avoiding unnecessary promotional pressure."</em><br/>
     Management raised its conservative tariff assumption to <strong>12.5%</strong> within its full-year modeling while reaffirming net sales outlook and boosting EPS expectations.
     <br/>— <strong>Steve Fasching</strong>, Chief Financial Officer
-  </div>
-<h3>4. Balance Sheet Fortress &amp; Share Buyback Execution</h3>
-<p>
+  </div><h3>4. Balance Sheet Fortress &amp; Share Buyback Execution</h3><p>
     Deckers maintains a zero-debt balance sheet. As of June 30, 2026:
-  </p>
-<ul><li><strong>Cash &amp; Cash Equivalents:</strong> $1.603 billion (down from $1.907B at March 31, 2026, following aggressive share repurchases).</li><li><strong>Total Debt:</strong> $0 outstanding borrowings.</li><li><strong>Inventories:</strong> $807.6 million (down from $849.4 million a year prior), reflecting pristine inventory health.</li><li><strong>Share Buyback Cannibalization:</strong> During Q1 FY2027, Deckers repurchased approximately</li><li><strong>3.3 million shares</strong> of common stock for <strong>$338.2 million</strong> at an average price of $103.79 per share. Deckers retains approximately <strong>$4.7 billion</strong> under its authorized share repurchase program.</li></ul>
-<h3>5. Full-Year FY2027 Guidance Outlook</h3>
-<div class="table-scroll-wrap"><table>
+  </p><ul><li><strong>Cash &amp; Cash Equivalents:</strong> $1.603 billion (down from $1.907B at March 31, 2026, following aggressive share repurchases).</li><li><strong>Total Debt:</strong> $0 outstanding borrowings.</li><li><strong>Inventories:</strong> $807.6 million (down from $849.4 million a year prior), reflecting pristine inventory health.</li><li><strong>Share Buyback Cannibalization:</strong> During Q1 FY2027, Deckers repurchased approximately</li><li><strong>3.3 million shares</strong> of common stock for <strong>$338.2 million</strong> at an average price of $103.79 per share. Deckers retains approximately <strong>$4.7 billion</strong> under its authorized share repurchase program.</li></ul><h3>5. Full-Year FY2027 Guidance Outlook</h3><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Metric</th>
@@ -1351,14 +1333,10 @@
 <td>Boosted by lower share count &amp; operational rigor</td>
 </tr>
 </tbody>
-</table></div>
-</div>
-<div class="section">
-<h2>Section 3: Real Cash Flow &amp; SBC Dilution Audit</h2>
-<p>
+</table></div></div>
+<div class="section"><h2>Section 3: Real Cash Flow &amp; SBC Dilution Audit</h2><p>
     A rigorous audit of Deckers Outdoor Corporation’s (NYSE: DECK) cash generation requires peeling back GAAP Net Income to evaluate true economic cash generation. In accordance with Warren Buffett’s Owner Earnings framework, Stock-Based Compensation (SBC) is treated not as a harmless non-cash accounting adjustment, but as a real economic expense that dilute existing equity owners if uncountered.
-  </p>
-<div class="metrics-grid">
+  </p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Operating Cash Flow (FY26)</div>
 <div class="metric-value">$1,181.96M</div>
@@ -1379,12 +1357,9 @@
 <div class="metric-value">$1,052.50M</div>
 <div class="metric-delta pos">+14.1% YoY</div>
 </div>
-</div>
-<h3>FY26 Cash Flow &amp; Owner Earnings Reconciliation</h3>
-<p>
+</div><h3>FY26 Cash Flow &amp; Owner Earnings Reconciliation</h3><p>
     Deckers demonstrates world-class cash flow conversion, delivering $1.182 billion in operating cash flow against GAAP Net Income of $1.024 billion (a 115% cash conversion ratio). Because Deckers relies on an asset-light, third-party contract manufacturing model, capital expenditures remain exceptionally lean at $84.62 million (1.5% of sales). Deducting maintenance CapEx and fully expensing $44.84 million in SBC reveals true Post-SBC Owner Cash Flow of <strong>$1.052 billion</strong>.
-  </p>
-<div class="table-scroll-wrap"><table>
+  </p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Cash Flow Waterfall Component</th>
@@ -1459,19 +1434,14 @@
 <td><strong>19.2%</strong></td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <p>
 <strong>SBC Dilution vs. Share Cannibalism Audit:</strong> Stock-based compensation of $44.84 million represents a modest 0.8% of net sales and 3.8% of operating cash flow. Rather than using buybacks merely to mop up dilution, Deckers deployed <strong>$1.075 billion</strong> into repurchasing common stock in FY26—overcoming SBC dilution by <strong>24x</strong>. This aggressive, organic cannibalization reduced outstanding common shares from ~150.2 million to ~140.0 million, driving real, persistent per-share compounding.
     </p>
-</div>
-</div>
-<div class="section">
-<h2>Section 4: Balance Sheet Fortress &amp; Capital Allocation</h2>
-<p>
+</div></div>
+<div class="section"><h2>Section 4: Balance Sheet Fortress &amp; Capital Allocation</h2><p>
     Deckers operates one of the most pristine, unencumbered balance sheets in the global consumer retail industry. Free from funded debt and financial leverage, the balance sheet serves as both an offensive weapon for shareholder returns and an impenetrable defensive buffer during macroeconomic downturns.
-  </p>
-<div class="metrics-grid">
+  </p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Cash &amp; Equivalents</div>
 <div class="metric-value">$1,907.25M</div>
@@ -1492,12 +1462,9 @@
 <div class="metric-value">&gt; 30.0%</div>
 <div class="metric-delta pos">Top Tier Decile</div>
 </div>
-</div>
-<h3>Capital Structure &amp; Enterprise Net Cash Breakdown</h3>
-<p>
+</div><h3>Capital Structure &amp; Enterprise Net Cash Breakdown</h3><p>
     As of the close of FY26, Deckers held <strong>$1.907 billion</strong> in cash and cash equivalents with <strong>$0 funded financial debt</strong>. Incorporating contractual operating lease obligations ($83.93 million current and $291.26 million non-current liabilities), the true enterprise Net Cash position stands at <strong>$1.532 billion</strong>, or approximately <strong>$10.90 per diluted share</strong>.
-  </p>
-<div class="table-scroll-wrap"><table>
+  </p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Balance Sheet Component</th>
@@ -1551,29 +1518,21 @@
 <td><strong>Net Cash backing equity value ($10.90/sh)</strong></td>
 </tr>
 </tbody>
-</table></div>
-<h3>Working Capital Efficiency &amp; Capital Allocation Strategy</h3>
-<p>
+</table></div><h3>Working Capital Efficiency &amp; Capital Allocation Strategy</h3><p>
     Management’s operational execution is reflected in its working capital discipline. Despite achieving a 10% net revenue surge to $5.47 billion in FY26, year-end inventory declined 1.7% to <strong>$487.0 million</strong> (down from $495.2 million). This inventory contraction during a period of robust top-line growth highlights high product velocity, minimal clearance exposure, and optimized supply chain turns.
-  </p>
-<div class="callout">
+  </p><div class="callout">
 <p>
 <strong>Capital Allocation &amp; $5.0B Buyback War Chest:</strong> Return on Invested Capital (ROIC) comfortably exceeds <strong>30%</strong>, sustained by outsourcing physical manufacturing and focusing capital on brand marketing, R&amp;D, and DTC channel optimization. With zero debt and high cash flow generation, management’s capital allocation priority is direct share buybacks. 
     </p>
 <p>
       Following the deployment of $1.075 billion in share repurchases in FY26, the Board of Directors authorized an additional <strong>$3.5 billion</strong> repurchase capacity on May 20, 2026. This expansion elevates Deckers' total authorized buyback pipeline to approximately <strong>$4.84 billion to $5.0 billion</strong>—providing management with capacity to repurchase over 15% of the total outstanding share count at current market valuations.
     </p>
-</div>
-</div>
-<div class="section">
-<h2>Section 5: Warren Buffett Owner Earnings &amp; Intrinsic Value Matrix</h2>
-<p>
+</div></div>
+<div class="section"><h2>Section 5: Warren Buffett Owner Earnings &amp; Intrinsic Value Matrix</h2><p>
     Rooted in Warren Buffett's 1986 Berkshire Hathaway Shareholder Letter framework, evaluating Deckers Outdoor Corporation (NYSE: DECK) requires looking past short-term accounting noise and focusing strictly on <strong>True Owner Earnings</strong>—the actual cash generated that can be extracted from the enterprise without impairing its competitive moat.
-  </p>
-<p>
+  </p><p>
     Deckers presents a textbook capital-light footwear compounder. Unlike capital-intensive manufacturing industrials, Deckers outsources primary footwear production to third-party manufacturing partners in Asia, requiring minimal maintenance capital expenditures (~1.2% to 1.5% of net revenues). This asset-light model enables Deckers to convert over 90% of GAAP net income into free cash flow while delivering an extraordinary Return on Invested Capital (ROIC) exceeding 40%.
-  </p>
-<div class="metrics-grid">
+  </p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Current Stock Price</div>
 <div class="metric-value">$97.46</div>
@@ -1594,22 +1553,14 @@
 <div class="metric-value">+$10.90 / sh</div>
 <div class="metric-delta pos">Zero Funded Debt</div>
 </div>
-</div>
-<h3>Buffett Owner Earnings Calculation &amp; Adjustments</h3>
-<p>
+</div><h3>Buffett Owner Earnings Calculation &amp; Adjustments</h3><p>
     To derive Normalized Owner Earnings per share of <strong>$7.60</strong>, we begin with reported TTM Cash Flow from Operations ($1.12B) and apply strict economic deductions:
-  </p>
-<ul><li><strong>Maintenance CapEx Deduction (-$85M / ~$0.62 per share):</strong> We strictly separate growth CapEx (new flagship DTC stores and distribution center expansions) from baseline maintenance CapEx (IT infrastructure, store refreshes, tooling re-orders). Maintenance CapEx is estimated at ~1.5% of net revenues.
-  <strong>Stock-Based Compensation (SBC) Deduction (-$48M / ~$0.35 per share):</strong> In accordance with Buffett's principle that "if stock compensation is not expense, what is it?", 100% of SBC is treated as a real economic cash drain and dilution factor.</li><li><strong>Working Capital Normalization:</strong> Operating cash flow is adjusted for quarterly inventory build timing ahead of peak winter/holiday UGG shipping seasons to reflect smooth multi-year organic generation.</li></ul>
-<h3>Discount Rate &amp; Capital Structure Bridge</h3>
-<p>
+  </p><ul><li><strong>Maintenance CapEx Deduction (-$85M / ~$0.62 per share):</strong> We strictly separate growth CapEx (new flagship DTC stores and distribution center expansions) from baseline maintenance CapEx (IT infrastructure, store refreshes, tooling re-orders). Maintenance CapEx is estimated at ~1.5% of net revenues.
+  <strong>Stock-Based Compensation (SBC) Deduction (-$48M / ~$0.35 per share):</strong> In accordance with Buffett's principle that "if stock compensation is not expense, what is it?", 100% of SBC is treated as a real economic cash drain and dilution factor.</li><li><strong>Working Capital Normalization:</strong> Operating cash flow is adjusted for quarterly inventory build timing ahead of peak winter/holiday UGG shipping seasons to reflect smooth multi-year organic generation.</li></ul><h3>Discount Rate &amp; Capital Structure Bridge</h3><p>
     We discount future Owner Earnings streams at a strict <strong>10.0% hurdle rate</strong>, consisting of the US 10-Year Treasury yield (~4.20%) plus an Equity Risk Premium of 5.80%. Furthermore, Deckers operates with a pristine balance sheet holding zero funded debt and approximately $1.50B in cash and cash equivalents ($10.90 per share across 136.7M diluted shares). Subtracting this net cash balance from the $97.46 stock price yields an Enterprise Value per share of just <strong>$86.56</strong>—implying an ex-cash Base EV/Owner Earnings multiple of only <strong>11.3x</strong>.
-  </p>
-<div class="callout">
+  </p><div class="callout">
 <strong>The Buyback Cannibal Driver:</strong> Management consistently deploys excess organic cash into repurchasing common stock (repurchasing over $338M in Q1 alone). At an ~11x EV/OE multiple, share buybacks are highly accretive, shrinking outstanding shares by 3.5% annually in our Base Case and continuously compounding per-share Owner Earnings even during macro slowdowns.
-  </div>
-<h3>3-Scenario Intrinsic Value Matrix</h3>
-<div class="table-scroll-wrap"><table>
+  </div><h3>3-Scenario Intrinsic Value Matrix</h3><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Valuation Metric / Assumption</th>
@@ -1680,37 +1631,23 @@
 <td>14.2x</td>
 </tr>
 </tbody>
-</table></div>
-<p>
+</table></div><p>
     Under our Base Case, Deckers generates a <strong>+21.07% upside to $118.00 per share</strong>, driven by steady mid-single-digit HOKA category expansion, stable UGG seasonal cash flows, and aggressive share buybacks. In the Bull Case, international direct-to-consumer (DTC) acceleration propels intrinsic value to <strong>$148.00 (+51.86%)</strong>. Even in a severe recessional Bear Case ($78.00), the firm's $10.90 per share cash fortress provides a massive margin of safety.
-  </p>
-</div>
-<div class="section">
-<h2>Section 6: Thesis Confidence, Execution Risks &amp; Falsification Triggers</h2>
-<p>
+  </p></div>
+<div class="section"><h2>Section 6: Thesis Confidence, Execution Risks &amp; Falsification Triggers</h2><p>
 <strong>PRIMARY PILL: High Conviction</strong><br/>
 <strong>ECONOMIC PLAY &amp; CATALYST DRIVERS: Deep Value | Buyback Cannibal | Brand Compounder</strong>
-</p>
-<p>
+</p><p>
     Our <strong>High Conviction</strong> stance is anchored by the stark disconnect between Deckers' operational quality (40%+ ROIC, zero debt, 56%+ gross margins) and its depressed market valuation (~11.3x EV/OE). The market is currently pricing DECK as a melting ice cube cyclical footwear brand, severely underestimating HOKA's structural market share gains against incumbents like Nike and Adidas, as well as the defensive cash generation of UGG.
-  </p>
-<h3>Key Execution &amp; Macro Risks</h3>
-<strong>Tariff Policy &amp; Gross Margin Headwinds (~12.5% Effective Rate):</strong> The primary narrative overhang stems from prospective or enacted US import tariffs on footwear manufactured in Asia. Deckers has accumulated over $120M in IEEPA tariff expenses. While Deckers' high gross margin buffer (56.4%) allows it to absorb moderate tariffs better than low-margin peers, unmitigated duty increases of 10–25% could compress gross margins by 150–250 bps if pricing power falters.
-    <li><strong>HOKA Brand Deceleration &amp; Running Saturation:</strong> HOKA's growth slowed from historical 25%+ rates to ~11% YoY in recent quarters as wholesale distribution reached maturity. If HOKA fails to maintain innovation momentum in core performance running, or experiences fashion fatigue, top-line growth could compress toward low single digits.
-    <li><strong>Freight Costs &amp; Supply Chain Disruption:</strong> Geopolitical tensions and ocean freight rate spikes directly impact inbound shipping costs, pressuring short-term SG&amp;A and gross margins.
-    <li><strong>Consumer Discretionary Pullback:</strong> A broader North American or European recession could lead consumers to defer premium footwear purchases ($140–$200 price points), driving promotional discounting across wholesale channels.
-    </li>
-</li>
-
-<div class="callout">
+  </p><h3>Key Execution &amp; Macro Risks</h3><p><strong>Tariff Policy &amp; Gross Margin Headwinds (~12.5% Effective Rate):</strong> The primary narrative overhang stems from prospective or enacted US import tariffs on footwear manufactured in Asia. Deckers has accumulated over $120M in IEEPA tariff expenses. While Deckers' high gross margin buffer (56.4%) allows it to absorb moderate tariffs better than low-margin peers, unmitigated duty increases of 10–25% could compress gross margins by 150–250 bps if pricing power falters.
+    </p><li><strong>HOKA Brand Deceleration &amp; Running Saturation:</strong> HOKA's growth slowed from historical 25%+ rates to ~11% YoY in recent quarters as wholesale distribution reached maturity. If HOKA fails to maintain innovation momentum in core performance running, or experiences fashion fatigue, top-line growth could compress toward low single digits.</li><li><strong>Freight Costs &amp; Supply Chain Disruption:</strong> Geopolitical tensions and ocean freight rate spikes directly impact inbound shipping costs, pressuring short-term SG&amp;A and gross margins.</li><li><strong>Consumer Discretionary Pullback:</strong> A broader North American or European recession could lead consumers to defer premium footwear purchases ($140–$200 price points), driving promotional discounting across wholesale channels.
+    </li><div class="callout">
 <h3>Dynamic Price Alert Corridors &amp; Surveillance Triggers</h3>
 <strong>Upper Surveillance Threshold ($135.00 / Trim Trigger):</strong> Nearing full Base/Bull intrinsic valuation. Reaching this corridor triggers a disciplined review to lock in gains and reduce position size unless HOKA international DTC growth accelerates beyond 25% YoY.
-      </div></li>
-<strong>Lower Surveillance Threshold ($82.00 / Margin-of-Safety Test):</strong> Approaching our Bear Case floor ($78.00). Price action below $82.00 triggers an immediate thesis review to verify whether the price drop is driven by macro tariff rhetoric or permanent structural damage to brand pricing power.
+      </div><p><strong>Lower Surveillance Threshold ($82.00 / Margin-of-Safety Test):</strong> Approaching our Bear Case floor ($78.00). Price action below $82.00 triggers an immediate thesis review to verify whether the price drop is driven by macro tariff rhetoric or permanent structural damage to brand pricing power.
       
 
-
-</div>
+</p></div>
 <div class="callout">
 <h3>Pre-Mortem Falsification Triggers (Thesis Invalidation Criteria)</h3>
 <p>

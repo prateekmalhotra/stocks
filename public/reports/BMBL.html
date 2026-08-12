@@ -486,11 +486,21 @@
         .memo-container ul, .memo-container ol {
             font-family: var(--font-serif) !important;
             font-size: 1.12rem !important;
-            line-height: 1.9 !important;
+            line-height: 1.85 !important;
             color: var(--text-body) !important;
-            margin: 0 0 26px 30px !important;
+            margin: 16px 0 24px 24px !important;
+            padding-left: 12px !important;
         }
-        .memo-container li { margin-bottom: 10px !important; color: var(--text-body) !important; }
+        .memo-container ul { list-style-type: disc !important; }
+        .memo-container ol { list-style-type: decimal !important; }
+        .memo-container li {
+            margin-bottom: 12px !important;
+            color: var(--text-body) !important;
+            line-height: 1.85 !important;
+        }
+        .memo-container li::marker {
+            color: var(--accent-warm) !important;
+        }
         .memo-container strong, .memo-container b {
             color: var(--text-title) !important;
             font-weight: 600 !important;
@@ -1150,10 +1160,7 @@
         <!-- Memo Content -->
         <div id="tab-memo" class="tab-content active">
             <article class="memo-container">
-                <div class="section">
-<h2>Section 1: Operational Performance &amp; Financial Baseline (Q2 2026)</h2>
-<p>Bumble Inc. (NASDAQ: BMBL) presented its Q2 2026 financial results on August 5, 2026, outlining the financial impact of Founder &amp; CEO Whitney Wolfe Herd’s structural "quality over quantity" platform reset. Consolidated total revenue fell 15.2% year-over-year to $210.5 million, reflecting a contraction in the overall paying user base as management intentionally purged low-intent accounts and discontinued promotional discount tactics. Despite top-line contraction, profitability was buoyed by strict cost discipline and alternative billing adoption. However, GAAP net loss stood at $127.9 million due to a $169.3 million non-cash goodwill and brand impairment charge triggered by the prolonged contraction in equity market capitalization.</p>
-<div class="metrics-grid">
+                <div class="section"><h2>Section 1: Operational Performance &amp; Financial Baseline (Q2 2026)</h2><p>Bumble Inc. (NASDAQ: BMBL) presented its Q2 2026 financial results on August 5, 2026, outlining the financial impact of Founder &amp; CEO Whitney Wolfe Herd’s structural "quality over quantity" platform reset. Consolidated total revenue fell 15.2% year-over-year to $210.5 million, reflecting a contraction in the overall paying user base as management intentionally purged low-intent accounts and discontinued promotional discount tactics. Despite top-line contraction, profitability was buoyed by strict cost discipline and alternative billing adoption. However, GAAP net loss stood at $127.9 million due to a $169.3 million non-cash goodwill and brand impairment charge triggered by the prolonged contraction in equity market capitalization.</p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Q2 2026 Total Revenue</div>
 <div class="metric-value">$210.5M</div>
@@ -1184,10 +1191,7 @@
 <div class="metric-value">$124.9M</div>
 <div class="metric-delta pos">+15.0% YoY</div>
 </div>
-</div>
-<h3>Segment Decomposition &amp; Unit Economics</h3>
-<p>The operational divide between Bumble’s flagship application and its legacy Badoo asset highlights two distinct economic vectors. Bumble App revenue declined 14.7% YoY to $171.7 million, while Badoo App &amp; Other revenue contracted 17.1% YoY to $38.8 million. While top-line contraction across both platforms was sharp, sequential trends suggest the most acute phase of member attrition on the flagship app may be stabilizing. Flagship paying users declined by only 5,000 sequentially in Q2 2026 to 2.077 million—a material deceleration from sequential losses of 103,000 in Q1 2026 and 159,000 in Q4 2025.</p>
-<div class="table-scroll-wrap"><table>
+</div><h3>Segment Decomposition &amp; Unit Economics</h3><p>The operational divide between Bumble’s flagship application and its legacy Badoo asset highlights two distinct economic vectors. Bumble App revenue declined 14.7% YoY to $171.7 million, while Badoo App &amp; Other revenue contracted 17.1% YoY to $38.8 million. While top-line contraction across both platforms was sharp, sequential trends suggest the most acute phase of member attrition on the flagship app may be stabilizing. Flagship paying users declined by only 5,000 sequentially in Q2 2026 to 2.077 million—a material deceleration from sequential losses of 103,000 in Q1 2026 and 159,000 in Q4 2025.</p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Financial &amp; Operational Metric</th>
@@ -1283,22 +1287,11 @@
 <td>Refinanced $475M Term Loan extends debt maturity to 2030</td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <strong>Strategic Management Insight — Q3 2026 Guidance Squeeze:</strong>
 <p>While Bumble generated $124.9 million in Free Cash Flow during the first half of 2026 (an 80.3% conversion rate of Adjusted EBITDA), management alerted analysts during the Q2 call that margin compression will escalate in H2 2026. Third-quarter guidance pegs revenue between $205M and $213M with Adjusted EBITDA dropping to $56M–$60M (~27.5% margin at midpoint). This margin reset is driven by deliberate re-investments into free tier member experience, subscription simplification, and brand marketing to support the upcoming platform overhaul.</p>
-</div>
-</div>
-<div class="section">
-<h2>Section 2: Strategic Platform Reset, Technology Overhaul &amp; Moat Analysis</h2>
-<h3>1. Product Modernization &amp; The 2027 Relaunch Delay</h3>
-<p>Bumble is in the middle of a comprehensive platform overhaul designed to transition the company away from legacy, transactional swipe models toward algorithmic, intent-driven matchmaking. Key structural changes executed during Q2 2026 include:</p>
-<ul><li><strong>Abolishing Strict "Women Message First" Constraints:</strong> Bumble expanded its matching protocol globally to allow <em>any member</em> to send a single opening message. The conversation remains paused until the recipient explicitly responds, preserving member control while reducing drop-off. Furthermore, the reply response window was extended from 24 to 72 hours.</li><li><strong>Relaunch Timeline Delay (Q2 Earnings Call Revelation):</strong> During the August 5, 2026 conference call, CEO Whitney Wolfe Herd revealed that while platform modernization and cloud-native migration are progressing, the complex data schema re-architecting has pushed the rollout of the fully reimagined interaction model (the replacement for the swipe mechanism) from late 2026 into</li><li><strong>early 2027</strong>. This operational delay extends the duration of top-line friction, requiring investors to underwrite two additional quarters of revenue weakness before the new user experience hits the market.</li></ul>
-<h3>2. AI Assistant Strategy: 'Bee' as the Intelligence Engine</h3>
-<p>Rather than positioning artificial intelligence as a substitute for human relationships, Bumble's proprietary AI assistant, <strong>'Bee'</strong>, functions as an underlying intelligence layer. Deployed during onboarding and profile setup, 'Bee' captures rich conversational signals regarding user values, relationship intent, and lifestyle preferences. Management emphasized on the Q2 call that 'Bee' will not eliminate or automate dating, but rather surface high-compatibility matches to elevate real-world meetup conversion rates.</p>
-<h3>3. Economic Moat Evaluation &amp; Competitive Landscape</h3>
-<p>Bumble’s historical economic moat was predicated on brand equity and network effects built around its "women-first" positioning. However, secular shifts and competitive actions have tested this moat:</p>
-<div class="metrics-grid">
+</div></div>
+<div class="section"><h2>Section 2: Strategic Platform Reset, Technology Overhaul &amp; Moat Analysis</h2><h3>1. Product Modernization &amp; The 2027 Relaunch Delay</h3><p>Bumble is in the middle of a comprehensive platform overhaul designed to transition the company away from legacy, transactional swipe models toward algorithmic, intent-driven matchmaking. Key structural changes executed during Q2 2026 include:</p><ul><li><strong>Abolishing Strict "Women Message First" Constraints:</strong> Bumble expanded its matching protocol globally to allow <em>any member</em> to send a single opening message. The conversation remains paused until the recipient explicitly responds, preserving member control while reducing drop-off. Furthermore, the reply response window was extended from 24 to 72 hours.</li><li><strong>Relaunch Timeline Delay (Q2 Earnings Call Revelation):</strong> During the August 5, 2026 conference call, CEO Whitney Wolfe Herd revealed that while platform modernization and cloud-native migration are progressing, the complex data schema re-architecting has pushed the rollout of the fully reimagined interaction model (the replacement for the swipe mechanism) from late 2026 into</li><li><strong>early 2027</strong>. This operational delay extends the duration of top-line friction, requiring investors to underwrite two additional quarters of revenue weakness before the new user experience hits the market.</li></ul><h3>2. AI Assistant Strategy: 'Bee' as the Intelligence Engine</h3><p>Rather than positioning artificial intelligence as a substitute for human relationships, Bumble's proprietary AI assistant, <strong>'Bee'</strong>, functions as an underlying intelligence layer. Deployed during onboarding and profile setup, 'Bee' captures rich conversational signals regarding user values, relationship intent, and lifestyle preferences. Management emphasized on the Q2 call that 'Bee' will not eliminate or automate dating, but rather surface high-compatibility matches to elevate real-world meetup conversion rates.</p><h3>3. Economic Moat Evaluation &amp; Competitive Landscape</h3><p>Bumble’s historical economic moat was predicated on brand equity and network effects built around its "women-first" positioning. However, secular shifts and competitive actions have tested this moat:</p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Core Differentiator</div>
 <div class="metric-value">Brand Equity</div>
@@ -1314,17 +1307,12 @@
 <div class="metric-value">BFF &amp; Plans</div>
 <div class="metric-delta pos">IRL &amp; Social Focus</div>
 </div>
-</div>
-<ul><li><strong>Erosion of Differentiator Supremacy:</strong> By removing the strict requirement for women to send the first message, Bumble's core product functionality now aligns closely with traditional dating apps. The moat must now shift toward algorithm superior match quality and trust/safety infrastructure rather than a simple rules-based UI gate.</li><li><strong>Match Group (Hinge / Tinder) Dynamics:</strong> While Match Group’s Tinder battles similar swipe fatigue, Match’s Hinge platform continues to capture high-intent Gen Z relationship seekers, posing a persistent threat to Bumble’s core demographic.</li><li><strong>Gen Z Fatigue &amp; The IRL Shift:</strong> Gen Z users are increasingly dissatisfied with gamified swiping, leading to lower conversion from download to paying subscription. Bumble is attempting to counter this via</li><li><strong>Bumble For Friends (BFF)</strong>, the acquisition of community app Geneva, and testing a standalone in-person events platform ("Plans") to capture real-world social discovery.</li></ul>
-<div class="callout">
+</div><ul><li><strong>Erosion of Differentiator Supremacy:</strong> By removing the strict requirement for women to send the first message, Bumble's core product functionality now aligns closely with traditional dating apps. The moat must now shift toward algorithm superior match quality and trust/safety infrastructure rather than a simple rules-based UI gate.</li><li><strong>Match Group (Hinge / Tinder) Dynamics:</strong> While Match Group’s Tinder battles similar swipe fatigue, Match’s Hinge platform continues to capture high-intent Gen Z relationship seekers, posing a persistent threat to Bumble’s core demographic.</li><li><strong>Gen Z Fatigue &amp; The IRL Shift:</strong> Gen Z users are increasingly dissatisfied with gamified swiping, leading to lower conversion from download to paying subscription. Bumble is attempting to counter this via</li><li><strong>Bumble For Friends (BFF)</strong>, the acquisition of community app Geneva, and testing a standalone in-person events platform ("Plans") to capture real-world social discovery.</li></ul><div class="callout">
 <strong>Thesis Pre-Mortem &amp; Falsification Triggers:</strong>
 <p>The investment thesis hinges on Bumble successfully stabilizing its active user base and monetizing its early 2027 product relaunch. The thesis will be invalidated if:</p>
 <ol><li><strong>Sequential User Bleed Accelerates:</strong> Sequential Bumble App paying user losses exceed 50,000 per quarter in Q3 or Q4 2026, demonstrating that the "quality reset" has failed to establish an active user floor.</li><li><strong>Execution Delays Compound:</strong> The 2027 platform relaunch experiences further engineering slippage past Q1 2027, burning cash on tech migration while revenue continues to decline.</li><li><strong>Adjusted EBITDA Margin Collapses:</strong> H2 2026 growth investments fail to drive top-line stabilization, dragging Adjusted EBITDA margins persistently below 25% without restoring user growth.</li></ol>
-</div>
-</div>
-<div class="section">
-<h2>Section 3: Forensic Cash Flow &amp; SBC Dilution Audit</h2>
-<div class="metrics-grid">
+</div></div>
+<div class="section"><h2>Section 3: Forensic Cash Flow &amp; SBC Dilution Audit</h2><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">H1 2026 Operating Cash Flow</div>
 <div class="metric-value">$130.9M</div>
@@ -1350,23 +1338,15 @@
 <div class="metric-value">$104.6M</div>
 <div class="metric-delta pos">~$190M-$200M Ann.</div>
 </div>
-</div>
-<h3>GAAP Net Loss vs. Real Economic Cash Generation</h3>
-<p>
+</div><h3>GAAP Net Loss vs. Real Economic Cash Generation</h3><p>
     A surface-level review of Bumble Inc.’s Q2 2026 income statement presents an alarming headline GAAP Net Loss of <strong>-$127.9M</strong> (and a cumulative H1 2026 GAAP Net Loss of -$75.3M). However, a rigorous forensic accounting audit reveals that this paper deficit is overwhelmingly driven by a non-cash accounting impairment. Specifically, during Q2 2026, management recorded a <strong>$169.3M non-cash goodwill and indefinite-lived brand intangible impairment charge</strong>, triggered by the sustained contraction in Bumble’s market capitalization. 
-  </p>
-<p>
+  </p><p>
     Excluding this non-cash accounting write-down, Bumble’s core operations remain robustly cash-generative. In Q2 2026 alone, operating cash flow reached <strong>$53.6M</strong>, yielding <strong>$51.1M in Free Cash Flow (FCF)</strong> after modest capital expenditures of $2.5M. For the first half of 2026 (H1), Bumble generated <strong>$130.9M in Operating Cash Flow</strong> and <strong>$124.9M in Free Cash Flow</strong>, representing an exceptional <strong>80.3% FCF conversion rate</strong> relative to H1 Adjusted EBITDA of $155.5M. The app network operates with virtually no inventory and minimal working capital intensity, allowing gross cash from subscribers to immediately convert into balance sheet liquidity.
-  </p>
-<h3>Stock-Based Compensation (SBC) &amp; Buffett Owner Earnings Adjustment</h3>
-<p>
+  </p><h3>Stock-Based Compensation (SBC) &amp; Buffett Owner Earnings Adjustment</h3><p>
     Under standard non-GAAP practices, management adds back Stock-Based Compensation (SBC) to calculate Adjusted EBITDA ($72.9M in Q2, $155.5M in H1). Following fundamental investment principles, SBC must be audited as a real cash expense—it represents ongoing shareholder dilution that must either be offset via share buybacks or subtracted directly from owner cash flows.
-  </p>
-<p>
+  </p><p>
     In H1 2026, Bumble recognized <strong>$20.3M in total SBC</strong> ($9.5M in Q2 and $10.8M in Q1). Deducting SBC and maintenance CapEx (~$6.0M in H1) from GAAP Operating Cash Flow yields normalized <strong>Post-SBC Owner Earnings of $104.6M for H1 2026</strong>. On an annualized basis, Bumble is producing <strong>~$190M to $200M in true Post-SBC Owner Earnings</strong>, proving that despite top-line user compression, the platform retains a highly capital-light, cash-rich economic engine.
-  </p>
-<h3>Cash Flow Reconciliation Table (H1 &amp; Q2 2026)</h3>
-<div class="table-scroll-wrap"><table>
+  </p><h3>Cash Flow Reconciliation Table (H1 &amp; Q2 2026)</h3><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Cash Flow Metric ($ Millions)</th>
@@ -1437,14 +1417,10 @@
 <td><strong>True residual cash flow accruing to common shareholders.</strong></td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <strong>Auditor's Cash Flow Verdict:</strong> While reported GAAP profits are negative due to non-cash brand impairments, Bumble’s underlying cash generation remains structurally sound. Converting &gt;80% of Adjusted EBITDA into Free Cash Flow provides management with ~$190M-$200M in annual post-SBC discretionary cash flow, giving the company significant runway to fund its ongoing IT migration and platform redesign without relying on capital markets.
-  </div>
-</div>
-<div class="section">
-<h2>Section 4: Capital Structure, Credit Refinancing &amp; Institutional Ownership</h2>
-<div class="metrics-grid">
+  </div></div>
+<div class="section"><h2>Section 4: Capital Structure, Credit Refinancing &amp; Institutional Ownership</h2><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Cash &amp; Cash Equivalents</div>
 <div class="metric-value">$154.0M</div>
@@ -1470,17 +1446,11 @@
 <div class="metric-value">17.2%</div>
 <div class="metric-delta neg">22.4M Shares Held</div>
 </div>
-</div>
-<h3>Comprehensive Balance Sheet Audit &amp; April 2026 Debt Refinancing</h3>
-<p>
+</div><h3>Comprehensive Balance Sheet Audit &amp; April 2026 Debt Refinancing</h3><p>
     A critical milestone in Bumble’s capital structure de-risking occurred in April 2026, when management successfully completed a major credit facility overhaul. Bumble executed a new <strong>$475M Senior Secured Term Loan due 2030</strong> (generating $456.0M in net proceeds) and completely repaid $589.1M in outstanding borrowings under its legacy term loan facility. 
-  </p>
-<p>
+  </p><p>
     This refinancing achieved three pivotal strategic outcomes:
-  </p>
-<ul><li><strong>Extended Debt Maturity Runway:</strong> Pushed principal maturities out to 2030, eliminating near-term debt wall risks while terminating the prior restrictive credit agreement.</li><li><strong>Absolute Debt Reduction:</strong> Reduced gross long-term debt from <strong>$588.5M at year-end 2025 to $451.0M as of June 30, 2026</strong>, utilizing ~$133M of balance sheet cash to extinguish debt.</li><li><strong>Leverage Reduction:</strong> As of June 30, 2026, Bumble held <strong>$154.0M in cash and cash equivalents</strong> against $451.0M in gross debt, resulting in a net debt position of <strong>~$297.0M</strong> (down from $412.7M at FYE 2025). Net Debt to Annualized Adjusted EBITDA sits at a manageable <strong>~0.95x</strong>.</li></ul>
-<h3>Balance Sheet &amp; Debt Structure Breakdown</h3>
-<div class="table-scroll-wrap"><table>
+  </p><ul><li><strong>Extended Debt Maturity Runway:</strong> Pushed principal maturities out to 2030, eliminating near-term debt wall risks while terminating the prior restrictive credit agreement.</li><li><strong>Absolute Debt Reduction:</strong> Reduced gross long-term debt from <strong>$588.5M at year-end 2025 to $451.0M as of June 30, 2026</strong>, utilizing ~$133M of balance sheet cash to extinguish debt.</li><li><strong>Leverage Reduction:</strong> As of June 30, 2026, Bumble held <strong>$154.0M in cash and cash equivalents</strong> against $451.0M in gross debt, resulting in a net debt position of <strong>~$297.0M</strong> (down from $412.7M at FYE 2025). Net Debt to Annualized Adjusted EBITDA sits at a manageable <strong>~0.95x</strong>.</li></ul><h3>Balance Sheet &amp; Debt Structure Breakdown</h3><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Balance Sheet Line Item ($ Millions)</th>
@@ -1527,29 +1497,18 @@
 <td>Impacted by non-cash goodwill write-downs.</td>
 </tr>
 </tbody>
-</table></div>
-<h3>Institutional Ownership Analysis &amp; Blackstone Forward Derivatives</h3>
-<p>
+</table></div><h3>Institutional Ownership Analysis &amp; Blackstone Forward Derivatives</h3><p>
     Bumble’s equity structure remains closely held by private equity and institutional whales:
-  </p>
-<ul><li><strong>Blackstone Inc. (Sponsor):</strong> Blackstone remains Bumble’s largest single shareholder, controlling <strong>22,432,496 Class A shares (17.2% of the class)</strong>. When combined with founder Whitney Wolfe Herd and her affiliates, the core control group holds 44,800,163 shares, representing <strong>29.5% beneficial ownership</strong>. 
-    <li><strong>June 2026 Forward Derivative Settlement:</strong> On June 16, 2026, Blackstone-affiliated entities settled a pre-arranged post-paid forward transaction with an unaffiliated financial institution, delivering <strong>7,477,500 Class A shares at $3.7751 per share</strong> ($28.2M total transaction value). SEC filings confirm this was the contractual settlement of a derivative hedge set up in prior quarters rather than a new discretionary open-market dump. However, 22.4M of Blackstone's remaining shares remain pledged under a margin loan facility securing $28.9M of principal.
-    <li><strong>Institutional Base:</strong> Key institutional holders include passive managers <strong>BlackRock Inc. (~7-8%)</strong> and <strong>Vanguard Group (~6-7%)</strong>, along with activist/value-oriented funds like <strong>Saba Capital Management</strong> and early sponsor remnant positions from <strong>Accel Partners</strong>.
+  </p><ul><li><strong>Blackstone Inc. (Sponsor):</strong> Blackstone remains Bumble’s largest single shareholder, controlling <strong>22,432,496 Class A shares (17.2% of the class)</strong>. When combined with founder Whitney Wolfe Herd and her affiliates, the core control group holds 44,800,163 shares, representing <strong>29.5% beneficial ownership</strong>.</li>
+<li><strong>June 2026 Forward Derivative Settlement:</strong> On June 16, 2026, Blackstone-affiliated entities settled a pre-arranged post-paid forward transaction with an unaffiliated financial institution, delivering <strong>7,477,500 Class A shares at $3.7751 per share</strong> ($28.2M total transaction value). SEC filings confirm this was the contractual settlement of a derivative hedge set up in prior quarters rather than a new discretionary open-market dump. However, 22.4M of Blackstone's remaining shares remain pledged under a margin loan facility securing $28.9M of principal.</li>
+<li><strong>Institutional Base:</strong> Key institutional holders include passive managers <strong>BlackRock Inc. (~7-8%)</strong> and <strong>Vanguard Group (~6-7%)</strong>, along with activist/value-oriented funds like <strong>Saba Capital Management</strong> and early sponsor remnant positions from <strong>Accel Partners</strong>.
     </li>
-</li>
-</li></ul>
-<h3>Capital Allocation Audit: Debt Paydown vs. Buybacks</h3>
-<p>
+</ul><h3>Capital Allocation Audit: Debt Paydown vs. Buybacks</h3><p>
     Management’s recent capital allocation decisions reflect strict conservatism. In H1 2026, Bumble prioritized balance sheet de-risking over aggressive share buybacks, deploying over $114M of net cash to shrink its debt burden during the term loan refinancing. With $154.0M in cash and ~$190M+ in annual owner earnings, management retains full optionality to resume opportunistic share repurchases once the platform modernization and product overhaul complete in late 2026 / early 2027.
-  </p>
-<div class="callout">
+  </p><div class="callout">
 <strong>Pre-Mortem Thesis Invalidation Trigger:</strong> The debt refinancing into a 2030 maturity eliminates immediate liquidity risk. However, the primary structural risk centers on operational execution: if paying users continue to decline (down 16.4% YoY to 3.16M in Q2) and cause Post-SBC Owner Earnings to fall below $120M annually, Bumble’s net debt paydown capacity will stall, forcing management to trim growth investments and jeopardizing the turnaround timeline.
-  </div>
-</div>
-<div class="section">
-<h2>Section 5: Warren Buffett Intrinsic Valuation Framework &amp; Scenario Matrix</h2>
-<p>To value Bumble Inc. (NASDAQ: BMBL) from the perspective of an owner-operator, we reject wall street exit multiples—which rely on selling to a "greater fool" in Year 5—and instead anchor our analysis strictly in Warren Buffett’s <strong>Owner Earnings</strong> framework. In accordance with the 1986 Berkshire Hathaway Shareholder Letter, true economic earnings equal reported cash flow from operations minus maintenance capital expenditures and 100% of stock-based compensation (SBC), treating equity compensation as a real cash expense and dilution factor.</p>
-<div class="metrics-grid">
+  </div></div>
+<div class="section"><h2>Section 5: Warren Buffett Intrinsic Valuation Framework &amp; Scenario Matrix</h2><p>To value Bumble Inc. (NASDAQ: BMBL) from the perspective of an owner-operator, we reject wall street exit multiples—which rely on selling to a "greater fool" in Year 5—and instead anchor our analysis strictly in Warren Buffett’s <strong>Owner Earnings</strong> framework. In accordance with the 1986 Berkshire Hathaway Shareholder Letter, true economic earnings equal reported cash flow from operations minus maintenance capital expenditures and 100% of stock-based compensation (SBC), treating equity compensation as a real cash expense and dilution factor.</p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">H1 2026 Operating Cash Flow</div>
 <div class="metric-value">$130.9M</div>
@@ -1570,15 +1529,11 @@
 <div class="metric-value">10.0%</div>
 <div class="metric-delta neutral">4.2% UST + 5.8% ERP</div>
 </div>
-</div>
-<p>Bumble operates a capital-light software model requiring minimal physical reinvestment (maintenance CapEx runs at ~2–3% of revenue). However, GAAP net losses ($127.9M in Q2 2026, driven by non-cash impairment charges of $169.3M) distort GAAP earnings, making cash conversion and Owner Earnings the true intrinsic anchors. Discounting is calculated using a 10.0% equity hurdle rate (grounded in the 10-Year US Treasury yield of ~4.2% plus a 5.8% equity risk premium) and a conservative 2.0% terminal growth rate, strictly capped at long-term US GDP growth.</p>
-<div class="callout">
+</div><p>Bumble operates a capital-light software model requiring minimal physical reinvestment (maintenance CapEx runs at ~2–3% of revenue). However, GAAP net losses ($127.9M in Q2 2026, driven by non-cash impairment charges of $169.3M) distort GAAP earnings, making cash conversion and Owner Earnings the true intrinsic anchors. Discounting is calculated using a 10.0% equity hurdle rate (grounded in the 10-Year US Treasury yield of ~4.2% plus a 5.8% equity risk premium) and a conservative 2.0% terminal growth rate, strictly capped at long-term US GDP growth.</p><div class="callout">
 <strong>Warren Buffett Owner Earnings Equation for BMBL:</strong><br/>
 <code>Owner Earnings = Operating Cash Flow - Maintenance CapEx ($10M–$15M) - Stock-Based Compensation ($45M–$55M)</code><br/>
 <em>Net Balance Sheet Bridge:</em> Intrinsic Equity Value equals the Present Value (PV) of 10-Year Discounted Owner Earnings plus Terminal Cash Stream, minus Net Debt of $297.0M ($451.0M 2030 Term Loan minus $154.0M Cash). Divided by ~126M diluted shares outstanding.
-  </div>
-<h3>Bear / Base / Bull Valuation Matrix</h3>
-<div class="table-scroll-wrap"><table>
+  </div><h3>Bear / Base / Bull Valuation Matrix</h3><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Valuation Metric / Driver</th>
@@ -1643,25 +1598,17 @@
 <td><strong>$9.50</strong></td>
 </tr>
 </tbody>
-</table></div>
-<p>At the current market price of ~$2.90–$3.00, Bumble trades at a discount to its Base Case intrinsic value of $5.50 per share, offering a nominal margin of safety. However, the economic path to realizing this fair value is gated by significant execution friction and operational transition risks.</p>
-</div>
-<div class="section">
-<h2>Section 6: Thesis Confidence, Execution Risks &amp; Pre-Mortem Falsification Triggers</h2>
-<div class="callout">
+</table></div><p>At the current market price of ~$2.90–$3.00, Bumble trades at a discount to its Base Case intrinsic value of $5.50 per share, offering a nominal margin of safety. However, the economic path to realizing this fair value is gated by significant execution friction and operational transition risks.</p></div>
+<div class="section"><h2>Section 6: Thesis Confidence, Execution Risks &amp; Pre-Mortem Falsification Triggers</h2><div class="callout">
 <strong>Thesis Conviction Rating: Turnaround Risk / Speculative Risk</strong><br/>
     While Bumble generates resilient near-term free cash flow ($124.9M in H1 2026), the equity thesis carries substantial execution risk due to a multi-quarter contraction in paying users, platform migration delays, and shifting Gen Z dating behaviors. The risk-reward is asymmetric but highly fragile until user count metrics demonstrate structural stabilization.
-  </div>
-<h3>Key Execution &amp; Structural Risks</h3>
-<ul><li><strong>Platform Migration ("Tech 2.0") Delays:</strong> Management’s deliberate platform modernization and backend data migration have been delayed by several months, pushing the release of the reimagined interaction model and AI agent ("Bee") into early 2027. Continued execution slippage risks prolonging user churn and delaying monetization recovery.</li><li><strong>Gen Z Dating App Fatigue &amp; Paid Subscription Resistance:</strong> Younger cohorts are increasingly resistant to high monthly subscription paywalls, relying more on organic social meetups and free tiers. If Bumble's new free features fail to drive conversion into paid tiers, ARPPU growth will cap out.</li><li><strong>Competitive Pressure from Match Group &amp; Niche Players:</strong> Match Group's Hinge continues to capture market share among Gen Z and millennial demographics in key Western markets, while specialized apps (e.g., Grindr, Raya) insulate specific niches.</li><li><strong>Debt Capital Structure &amp; Refinancing Overhead:</strong> Bumble carries $451.0M in long-term debt (refinanced in April 2026 into a 2030 senior term loan). While liquidity is supported by $154.0M in cash, debt service consumes mandatory cash flow that could otherwise be deployed toward aggressive share repurchases at historical low share valuations.</li></ul>
-<div class="callout">
+  </div><h3>Key Execution &amp; Structural Risks</h3><ul><li><strong>Platform Migration ("Tech 2.0") Delays:</strong> Management’s deliberate platform modernization and backend data migration have been delayed by several months, pushing the release of the reimagined interaction model and AI agent ("Bee") into early 2027. Continued execution slippage risks prolonging user churn and delaying monetization recovery.</li><li><strong>Gen Z Dating App Fatigue &amp; Paid Subscription Resistance:</strong> Younger cohorts are increasingly resistant to high monthly subscription paywalls, relying more on organic social meetups and free tiers. If Bumble's new free features fail to drive conversion into paid tiers, ARPPU growth will cap out.</li><li><strong>Competitive Pressure from Match Group &amp; Niche Players:</strong> Match Group's Hinge continues to capture market share among Gen Z and millennial demographics in key Western markets, while specialized apps (e.g., Grindr, Raya) insulate specific niches.</li><li><strong>Debt Capital Structure &amp; Refinancing Overhead:</strong> Bumble carries $451.0M in long-term debt (refinanced in April 2026 into a 2030 senior term loan). While liquidity is supported by $154.0M in cash, debt service consumes mandatory cash flow that could otherwise be deployed toward aggressive share repurchases at historical low share valuations.</li></ul><div class="callout">
 <strong>Pre-Mortem Falsification Triggers (Thesis Invalidation Criteria):</strong>
 <p>The Base Case intrinsic valuation ($5.50) and turnaround thesis will be formally invalidated if any of the following operational or financial thresholds are breached over the next 12 to 18 months:</p>
 <ol><li><strong>Total Paying User Floor Breach (&lt;2.80M):</strong> Total paying users fall below 2.80 million across Bumble and Badoo (down from 3.16M in Q2 2026), signaling structural product obsolescence rather than a temporary "quality reset".
   <strong>Free Cash Flow Conversion Breakdown (&lt;60%):</strong> Free cash flow conversion relative to Adjusted EBITDA drops below 60% (currently ~80%), caused by expanding working capital drag or uncontained capex spend during the Tech 2.0 rollout.
   <strong>Post-SBC Owner Earnings Collapse (&lt;$100M/yr):</strong> Normalized annual post-SBC Owner Earnings fall below $100M for two consecutive quarters, destroying the fundamental cash yield supporting the balance sheet.</li><li><strong>Credit Agreement &amp; Debt Covenant Distress:</strong> Leverage ratios under the new 2030 $475M Term Loan facility test restrictive debt covenant thresholds due to sustained EBITDA contraction (Q2 2026 Adjusted EBITDA down 22.9% YoY to $72.9M).</li></ol>
-</div>
-</div>
+</div></div>
             </article>
         </div>
 

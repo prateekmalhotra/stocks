@@ -486,11 +486,21 @@
         .memo-container ul, .memo-container ol {
             font-family: var(--font-serif) !important;
             font-size: 1.12rem !important;
-            line-height: 1.9 !important;
+            line-height: 1.85 !important;
             color: var(--text-body) !important;
-            margin: 0 0 26px 30px !important;
+            margin: 16px 0 24px 24px !important;
+            padding-left: 12px !important;
         }
-        .memo-container li { margin-bottom: 10px !important; color: var(--text-body) !important; }
+        .memo-container ul { list-style-type: disc !important; }
+        .memo-container ol { list-style-type: decimal !important; }
+        .memo-container li {
+            margin-bottom: 12px !important;
+            color: var(--text-body) !important;
+            line-height: 1.85 !important;
+        }
+        .memo-container li::marker {
+            color: var(--accent-warm) !important;
+        }
         .memo-container strong, .memo-container b {
             color: var(--text-title) !important;
             font-weight: 600 !important;
@@ -1095,22 +1105,22 @@
             <div class="metrics-grid">
                 <div class="metric-cell">
                     <div class="metric-label">Fair Value</div>
-                    <div class="metric-value" style="color: var(--accent-warm);">$285.00</div>
+                    <div class="metric-value" style="color: var(--accent-warm);">$228.00</div>
                     <div class="metric-subtext" style="color: var(--text-dim);">Intrinsic baseline</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bear Target</div>
-                    <div class="metric-value" style="color: var(--accent-red);">$175.00 (-19.5%)</div>
+                    <div class="metric-value" style="color: var(--accent-red);">$102.00 (-53.1%)</div>
                     <div class="metric-subtext" style="color: var(--text-dim);">Downside floor</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Base Target</div>
-                    <div class="metric-value">$285.00 (+31.0%)</div>
+                    <div class="metric-value">$228.00 (+4.8%)</div>
                     <div class="metric-subtext" style="color: var(--text-dim);">Mid-cycle value</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bull Target</div>
-                    <div class="metric-value" style="color: var(--accent-green);">$360.00 (+65.5%)</div>
+                    <div class="metric-value" style="color: var(--accent-green);">$418.00 (+92.2%)</div>
                     <div class="metric-subtext" style="color: var(--text-dim);">Asymmetric upside</div>
                 </div>
                 <div class="metric-cell">
@@ -1179,8 +1189,6 @@
 <p>NVIDIA’s business model has transformed from selling discrete graphics accelerator chips to deploying fully integrated, rack-scale computing platforms ("AI Factories"). The company monetizes every layer of the compute stack: silicon GPUs (Blackwell/Rubin), ARM-based CPUs (Grace/Vera), interconnect networks (NVLink 5/6), high-speed networking switches (Spectrum-X and Quantum InfiniBand), and enterprise software stacks (NVIDIA AI Enterprise). Unit economics are extraordinarily lucrative: a single Blackwell B200 GPU costs approximately $6,400 to manufacture (with 45% attributable to HBM3e memory) but commands ASPs between $30,000 and $40,000. At the rack level, a complete Oberon NVL72 system sells for over $3.0 million, capturing 75%+ gross margins by monetizing system-level integration rather than commodity silicon.</p>
 <p>The company’s competitive moat relies on three self-reinforcing mechanisms that create formidable switching costs and pricing power:</p>
 <ul><li><strong>The CUDA Ecosystem Lock-In:</strong> Built over 20 years with cumulative R&amp;D investments exceeding $35 billion, CUDA hosts over 6 million developers and 300+ accelerated libraries (cuDNN, cuBLAS, TensorRT). Deep learning frameworks (PyTorch, TensorFlow) run natively on CUDA. Migrating a enterprise codebase to rival software stacks (such as AMD ROCm) requires manual kernel debugging, introduces latency risks, and increases developer labor costs far beyond any initial hardware price discount.</li><li><strong>NVLink Scale-Up Dominance:</strong> High-bandwidth inference and training require hundreds of GPUs to behave as a single giant GPU. NVIDIA's proprietary NVLink 5/6 switches offer up to 260 TB/s all-to-all bandwidth across 72 GPUs in a single rack, a transfer speed unmatched by open PCIe or Ethernet alternatives. Competitors selling individual GPUs cannot replicate this scale-up cluster density without suffering severe communication bottlenecks.</li><li><strong>CoWoS Packaging &amp; Supply Chain Monopolization:</strong> NVIDIA secures over 50% of TSMC’s advanced Chip-on-Wafer-on-Substrate (CoWoS) packaging capacity and long-term supply agreements for HBM4 memory with SK Hynix and Micron. This supply chain lockup prevents competitors from scaling hardware deliveries even when customer demand exists.</li></ul>
-
-
 <h3>Technical Architecture Comparison: NVIDIA vs. Primary Competitors</h3>
 <div class="table-scroll-wrap"><table>
 <thead>
@@ -1398,13 +1406,9 @@
 <h3>Share Buyback Cannibalization &amp; Dilution Offset</h3>
 <p>To combat SBC dilution, management relies on share repurchases funded entirely through organic free cash flow. In Q1 FY27, NVIDIA returned $20.0B to shareholders via share buybacks and dividends, while the Board of Directors authorized an additional $80.0B share repurchase expansion on top of existing remaining balances ($119B total cumulative authorization). Furthermore, the quarterly dividend was increased 25-fold from $0.01 to $0.25 per share.</p>
 <ul><li><strong>Gross Dilution Rate:</strong> Stock-based compensation grants add approximately 0.5%–0.8% to the diluted share count annually.</li><li><strong>Net Cannibalization Rate:</strong> Active share buybacks of $50B–$80B annually offset this dilution and reduce total diluted shares outstanding by 1.5% to 2.2% per year at current market valuations.</li></ul>
-
-
 <h3>Institutional Ownership &amp; Insider Form 4 Audit</h3>
 <p>An audit of official SEC filings (Form 13F and Form 4) confirms stable institutional backing and executive alignment:</p>
 <ul><li><strong>Institutional Whales (13F Filings):</strong> Institutional ownership stands at 67%–70%. The largest institutional shareholders are Vanguard Group (~8.8%), BlackRock Inc. (~7.9%), State Street Corp (~4.1%), and Fidelity / FMR LLC (~4.1%). No major multi-billion-dollar fund exits or institutional flight have occurred.</li><li><strong>Insider Holdings &amp; CEO Alignment:</strong> Founder and CEO Jensen Huang maintains ownership of approximately 812 Million shares (~3.3% of total diluted share count), representing a personal net worth stake in NVIDIA exceeding $175B at the current $217.50 market price.</li><li><strong>Form 4 Audit &amp; Transaction Codes:</strong> Audit of recent SEC Form 4 filings indicates that executive transactions are predominantly pre-arranged Rule 10b5-1 trading plans or tax withholding disposals (Transaction Code F) triggered automatically upon RSU vesting. Open-market sales by insiders remain small relative to total holdings (e.g., Director Mark Stevens selling $186M of stock while retaining over 31.7 Million shares worth $6.6B+).</li></ul>
-
-
 <div class="callout">
 <strong>Balance Sheet &amp; Ownership Summary:</strong> NVIDIA operates with an unassailable financial structure containing $49.7B in net cash. Insider sales are dominated by pre-scheduled 10b5-1 plans and tax withholdings, while CEO Jensen Huang retains an active $175B+ stake. Buyback authorizations ($119B cumulative) provide a structural bid that more than offsets annual SBC equity dilution.
 </div>
@@ -1439,13 +1443,9 @@
 </div>
 </div>
 <ul><li><strong>Fabless Capital Lightness (Maintenance vs. Growth CapEx):</strong> Unlike integrated device manufacturers (IDMs) like Intel or TSMC, NVIDIA is completely fabless. Total trailing physical CapEx is minimal relative to revenues (~$3.5B-$4.5B annually). We isolate pure <em>Maintenance CapEx</em> (required to maintain enterprise IT infrastructure, mask sets, and data center testing facilities) at $2.2B annually. Discretionary expansion CapEx is treated as cash retained for growth.</li><li><strong>Stock-Based Compensation (SBC) Discipline:</strong> In alignment with Berkshire principles, SBC is not an accounting phantom; it represents real economic dilution. We deduct 100% of annualized SBC ($8.5B) directly from cash flow.</li><li><strong>Working Capital / Customer Float:</strong> NVIDIA collects cash rapidly from tier-1 hyperscalers while maintaining supplier payment terms with foundry and packaging partners. Operating cash flow reflects organic underlying earnings rather than temporary working capital windfalls.</li></ul>
-
-
 <h3>2. Localized Country-Specific Discount Rate Derivation</h3>
 <p>Because NVIDIA operates primarily in USD with global revenue streams, we derive the hurdle rate strictly from the US sovereign risk-free rate plus a business-specific Equity Risk Premium (ERP):</p>
 <ul><li><strong>Risk-Free Rate (Rf):</strong> US 10-Year Treasury Yield of <strong>4.70%</strong> (as of August 2026).</li><li><strong>Equity Risk Premium (ERP):</strong> 4.80% in Base Case, reflecting NVIDIA’s unmatched CUDA software lock-in, mid-70s gross margin floor, and pristine net cash position (~$40B net cash).</li><li><strong>Base Case Hurdle Rate:</strong> 4.70% + 4.80% = <strong>9.50%</strong> (Bear Case hurdle raised to 10.50% to account for cyclical semiconductor digestion risk).</li></ul>
-
-
 <h3>3. Intrinsic Value Scenario Matrix</h3>
 <div class="table-scroll-wrap"><table>
 <thead>
@@ -1499,8 +1499,6 @@
 <ul><li><strong>Base Case ($228.00 / share):</strong> Models a realistic post-buildout AI moderation. After massive 2024-2026 hyperscaler CapEx acceleration ($725B+ global spend), Data Center growth normalizes to 14.5% organic CAGR as enterprise migration (ACIE) and sovereign AI cloud deployments offset temporary hyperscaler digestion cycles. Active buybacks under the $80B authorization shrink share count by 2.5% annually, driving per-share Owner Earnings CAGR to 17.0%. At current price ($217.50), the stock trades at a mild 4.6% discount to Base Case intrinsic value.
   <strong>Bear Case ($102.00 / share):</strong> Assumes a major hyperscaler CapEx pause in FY28-FY29 driven by AI monetization lag, paired with custom ASIC disintermediation (Google TPU v6/v7, AWS Trainium 3, Meta MTIA). Gross margins compress from 74.9% to 62.0% due to HBM memory pricing leverage from SK Hynix/Micron. Organic OE grows at just 2.0% CAGR over 5 years.
   <strong>Bull Case ($418.00 / share):</strong> Accelerates organic OE growth to 24.0% CAGR driven by Vera CPU market dominance (Jensen Huang’s guidance targeting world’s largest CPU supplier in 2026), GB300 Ultra / Vera Rubin rack scale architectures, and agentic AI enterprise compute demand. Aggressive share cannibalization (3.5% annual count reduction) compounds per-share cash yield.</li></ul>
-
-
 <div class="callout">
 <strong>The 5-Year Exchange Closure Test:</strong><br/>
   If the stock market were to close for 5 full years, an investor buying NVDA at $217.50 would see the underlying business generate approximately <strong>$1.15 Trillion to $1.35 Trillion in cumulative net Owner Earnings</strong>. Through share buybacks and rising quarterly cash dividends ($0.25/share), the company would return $50.00 to $65.00 per share directly in owner cash back to shareholders while expanding its balance sheet net cash position, demonstrating that intrinsic investment returns are fully backed by business cash output rather than market multiple expansion.
@@ -1509,8 +1507,6 @@
 <h3>1. Structural Pre-Mortem Analysis</h3>
 <p>To guard against confirmation bias, we evaluate the precise structural shifts, operational failures, and competitive threats that would break NVIDIA’s economic moat and invalidate this valuation thesis:</p>
 <ul><li><strong>Hyperscaler Custom ASIC Disintermediation:</strong> Big 5 hyperscalers (Microsoft, Amazon, Alphabet, Meta, Oracle) represent ~50% of Data Center compute revenue ($38B in Q1 FY27). If internal accelerators (AWS Trainium/Inferentia, Google TPU, Meta MTIA, Microsoft Maia) achieve performance parity in training and inference workflows, hyperscalers will shift workloads internally to capture silicon margins, capping NVIDIA’s pricing power.</li><li><strong>Gross Margin Squeeze via Memory &amp; Packaging Component Dominance:</strong> High Bandwidth Memory (HBM3e / HBM4) and advanced packaging (CoWoS) account for a surging proportion of Vera Rubin NVL72 rack bill-of-materials (~$2M+ in memory costs per rack). If SK Hynix, Samsung, and Micron exercise oligopolistic pricing power, NVIDIA's gross margins will compress below management’s ~75% target corridor.</li><li><strong>CUDA Moat Abstraction via Open-Source AI Frameworks:</strong> Software frameworks like PyTorch 2.0, OpenAI Triton, vLLM, and ONNX create hardware-agnostic compilation layers. If developer reliance on native CUDA libraries decays, switching costs from NVIDIA GPUs to AMD Instinct (MI350/MI400) or custom ASICs drop significantly.</li><li><strong>Hyperscaler CapEx Digestion Trough:</strong> Global tech giants are expanding CapEx toward $725B+ annually. If enterprise end-users fail to generate adequate ROI on generative and agentic AI applications, hyperscalers will freeze infrastructure builds, triggering a multi-quarter GPU inventory overhang similar to prior crypto/gaming cycles.</li></ul>
-
-
 <h3>2. Explicit Falsification Triggers (Numerical Thresholds)</h3>
 <p>The thesis is objectively invalidated if any of the following quantitative operational thresholds are breached:</p>
 <div class="metrics-grid">
@@ -1536,8 +1532,6 @@
 </div>
 </div>
 <ul><li><strong>Gross Margin Degradation Trigger:</strong> GAAP Gross Margin falling below <strong>68.0%</strong> for two consecutive quarters (down from 74.9% in Q1 FY27). This would signal severe component cost inflation or loss of silicon pricing power.</li><li><strong>CapEx Digestion Contraction Trigger:</strong> Data Center revenue exhibiting negative year-over-year growth (&lt; 0.0% YoY) or sequential quarterly revenue declines exceeding 15.0% outside seasonality.</li><li><strong>Market Share Erosion Trigger:</strong> NVIDIA's share of world tier-1 AI training accelerators dropping below <strong>70.0%</strong> (currently ~85-90%), indicating structural ASIC adoption or AMD market share gains.</li><li><strong>Enterprise Migration Failure Trigger:</strong> ACIE (AI Cloud, Industrial, Enterprise, Sovereign) revenue growth decelerating below 15.0% QoQ, demonstrating that non-hyperscaler enterprise migration is failing to absorb hyperscaler capacity fluctuations.</li></ul>
-
-
 <h3>3. Execution Risk Rating &amp; Margin of Safety Corridor</h3>
 <p><strong>Execution Risk Rating: MEDIUM-HIGH.</strong> While NVIDIA maintains an extraordinary technical moat in hardware-software codesign (CUDA, NVLink, Grace/Vera CPUs, Blackwell/Rubin GPUs), execution complexity is extreme. The company must seamlessly execute annual platform architecture rollouts (GB200 -&gt; GB300 Ultra -&gt; Vera Rubin) while navigating TSMC CoWoS capacity bottlenecks and geopolitical export restrictions.</p>
 <div class="callout">
@@ -1545,8 +1539,6 @@
   With current trading at <strong>$217.50</strong> against a Base Case Intrinsic Value of <strong>$228.00</strong>, NVDA offers a tight <strong>4.6% Margin of Safety</strong>. To satisfy strict Buffett-style capital preservation criteria (demanding a 20%+ discount to intrinsic value):
   <ul><li><strong>Upper Surveillance / Trim Alert Threshold ($280.00):</strong> Nearing Bull Case intrinsic boundaries; trigger partial profit taking / thesis risk adjustment.
   <strong>Lower Accumulation / Alert Threshold ($175.00):</strong> Represents a 23.2% discount to Base Case intrinsic value ($228.00), offering an institutional, high-conviction margin of safety.</li></ul>
-
-
 </div>
             </article>
         </div>

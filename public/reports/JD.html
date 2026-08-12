@@ -486,11 +486,21 @@
         .memo-container ul, .memo-container ol {
             font-family: var(--font-serif) !important;
             font-size: 1.12rem !important;
-            line-height: 1.9 !important;
+            line-height: 1.85 !important;
             color: var(--text-body) !important;
-            margin: 0 0 26px 30px !important;
+            margin: 16px 0 24px 24px !important;
+            padding-left: 12px !important;
         }
-        .memo-container li { margin-bottom: 10px !important; color: var(--text-body) !important; }
+        .memo-container ul { list-style-type: disc !important; }
+        .memo-container ol { list-style-type: decimal !important; }
+        .memo-container li {
+            margin-bottom: 12px !important;
+            color: var(--text-body) !important;
+            line-height: 1.85 !important;
+        }
+        .memo-container li::marker {
+            color: var(--accent-warm) !important;
+        }
         .memo-container strong, .memo-container b {
             color: var(--text-title) !important;
             font-weight: 600 !important;
@@ -1494,13 +1504,12 @@
 <p>
     To establish a clean baseline, we analyze JD.com’s trailing cash generation, separating capital required to protect its existing logistical moat from growth capital, while treating equity compensation as a real cash expense:
   </p>
-<ul><li><strong>Operating Cash Flow (OCF):</strong> Standardized trailing OCF stands at approximately <strong>RMB 58.5 Billion (~$8.13 Billion USD)</strong>. We verify that OCF reflects sustainable organic customer demand rather than temporary working capital swings, benefiting from JD’s negative operating working capital cycle (collecting upfront from consumers while paying suppliers on standard terms).
-    <li><strong>Maintenance CapEx vs. Growth CapEx:</strong> JD’s total annual CapEx averages ~$2.50–$2.90 Billion USD. However, a substantial portion is dedicated to discretionary land acquisition, building automated fulfillment centers, and expanding international hubs. We isolate maintenance CapEx—the capital strictly required to repair existing warehouses, delivery fleets, and core tech infrastructure—at <strong>~$1.25 Billion USD (RMB 9.0 Billion)</strong>.
+<ul><li><strong>Operating Cash Flow (OCF):</strong> Standardized trailing OCF stands at approximately <strong>RMB 58.5 Billion (~$8.13 Billion USD)</strong>. We verify that OCF reflects sustainable organic customer demand rather than temporary working capital swings, benefiting from JD’s negative operating working capital cycle (collecting upfront from consumers while paying suppliers on standard terms).</li>
+<li><strong>Maintenance CapEx vs. Growth CapEx:</strong> JD’s total annual CapEx averages ~$2.50–$2.90 Billion USD. However, a substantial portion is dedicated to discretionary land acquisition, building automated fulfillment centers, and expanding international hubs. We isolate maintenance CapEx—the capital strictly required to repair existing warehouses, delivery fleets, and core tech infrastructure—at <strong>~$1.25 Billion USD (RMB 9.0 Billion)</strong>.
     </li>
 <strong>100% SBC Deduction:</strong> Stock-based compensation is a real operating expense that dilutes shareholder equity. We deduct 100% of annual SBC, amounting to <strong>~$0.68 Billion USD (RMB 4.9 Billion)</strong>.
     <li><strong>Normalized Group Owner Earnings:</strong> $8.13B (OCF) − $1.25B (Maintenance CapEx) − $0.68B (SBC) = <strong>~$6.20 Billion USD (~RMB 44.6 Billion)</strong>. On a normalized base of ~1.48 Billion diluted ADSs (accounting for 1 ADS = 2 Class A ordinary shares), baseline Owner Earnings equal approximately <strong>$4.18 per ADS</strong>.
-    </li>
-</li></ul>
+    </li></ul>
 <h3>2. Country-Specific Sovereign Discount Rate &amp; Capital Structure</h3>
 <p>
     In accordance with Buffett’s international investing discipline (as demonstrated in his PetroChina, Iscar, and Japanese trading company allocations), we strictly avoid using U.S. Treasury rates to discount foreign cash flows. Cash flows generated in Renminbi are discounted using the local sovereign risk structure:
@@ -1618,12 +1627,11 @@
 <p>
     While the margin of safety is wide, several specific execution risks could impede or delay intrinsic value realization:
   </p>
-<ul><li><strong>New Business &amp; Food Delivery Cash Drain:</strong> Management’s expansion into instant commerce and food delivery has generated short-term margin compression and lower free cash flow. If these investments fail to reach scale or operating breakeven, cash flows will remain impaired.
-    <li><strong>Domestic E-Commerce Competition:</strong> Aggressive subsidized pricing from PDD (Pinduoduo) and live-streaming e-commerce (Douyin) poses persistent challenges in lower-tier cities, forcing JD to defend its market share through profit-sacrificing trade-in initiatives.
-    <li><strong>Geopolitical &amp; FX Volatility:</strong> As a US-listed ADR holding Chinese assets, unexpected swings in the USD/RMB exchange rate or heightened US-China political friction could impact Western institutional capital flows regardless of domestic business fundamentals.
+<ul><li><strong>New Business &amp; Food Delivery Cash Drain:</strong> Management’s expansion into instant commerce and food delivery has generated short-term margin compression and lower free cash flow. If these investments fail to reach scale or operating breakeven, cash flows will remain impaired.</li>
+<li><strong>Domestic E-Commerce Competition:</strong> Aggressive subsidized pricing from PDD (Pinduoduo) and live-streaming e-commerce (Douyin) poses persistent challenges in lower-tier cities, forcing JD to defend its market share through profit-sacrificing trade-in initiatives.</li>
+<li><strong>Geopolitical &amp; FX Volatility:</strong> As a US-listed ADR holding Chinese assets, unexpected swings in the USD/RMB exchange rate or heightened US-China political friction could impact Western institutional capital flows regardless of domestic business fundamentals.
     </li>
-</li>
-</li></ul>
+</ul>
 <h3>3. Dynamic Price Alert Corridors &amp; Falsification Triggers</h3>
 <div class="callout">
 <h4>Upper Alert Threshold: $42.00 / ADS</h4>

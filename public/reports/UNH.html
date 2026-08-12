@@ -486,11 +486,21 @@
         .memo-container ul, .memo-container ol {
             font-family: var(--font-serif) !important;
             font-size: 1.12rem !important;
-            line-height: 1.9 !important;
+            line-height: 1.85 !important;
             color: var(--text-body) !important;
-            margin: 0 0 26px 30px !important;
+            margin: 16px 0 24px 24px !important;
+            padding-left: 12px !important;
         }
-        .memo-container li { margin-bottom: 10px !important; color: var(--text-body) !important; }
+        .memo-container ul { list-style-type: disc !important; }
+        .memo-container ol { list-style-type: decimal !important; }
+        .memo-container li {
+            margin-bottom: 12px !important;
+            color: var(--text-body) !important;
+            line-height: 1.85 !important;
+        }
+        .memo-container li::marker {
+            color: var(--accent-warm) !important;
+        }
         .memo-container strong, .memo-container b {
             color: var(--text-title) !important;
             font-weight: 600 !important;
@@ -1150,12 +1160,9 @@
         <!-- Memo Content -->
         <div id="tab-memo" class="tab-content active">
             <article class="memo-container">
-                <div class="section">
-<h2>Section 1: Business Model &amp; Moat Reality — The Dual-Engine &amp; Float Closed Loop</h2>
-<p>
+                <div class="section"><h2>Section 1: Business Model &amp; Moat Reality — The Dual-Engine &amp; Float Closed Loop</h2><p>
     UnitedHealth Group (UNH) operates the most structurally privileged architecture in global healthcare. By combining <strong>UnitedHealthcare</strong> (the nation’s largest health insurer) with <strong>Optum</strong> (a vertically integrated ecosystem spanning clinical care delivery, pharmacy benefit management, and healthcare data/software), UNH has created a self-reinforcing flywheel that captures value at nearly every friction point of the $4.5+ trillion U.S. healthcare delivery system.
-  </p>
-<div class="metrics-grid">
+  </p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Q2 2026 Consolidated Revenue</div>
 <div class="metric-value">$112.0B</div>
@@ -1176,20 +1183,13 @@
 <div class="metric-value">$19.50 - $20.00</div>
 <div class="metric-delta pos">Raised from $17.75</div>
 </div>
-</div>
-<h3>1. Dual-Engine Architecture: UnitedHealthcare &amp; Optum Integration</h3>
-<p>
+</div><h3>1. Dual-Engine Architecture: UnitedHealthcare &amp; Optum Integration</h3><p>
     The cornerstone of UNH's economic moat is its unique business symmetry. UnitedHealthcare underwrites risk and collects commercial, Medicare Advantage, and Medicaid premiums. Rather than allowing medical claims dollars to leak out entirely to third-party hospital networks and independent physician groups, UNH recycles a massive portion of these claim expenditures directly back into its wholly owned <strong>Optum</strong> segments:
-  </p>
-<ul><li><strong>Optum Health:</strong> Directly delivers value-based and ambulatory care through ~90,000 affiliated/employed physicians and 2,000+ care locations.</li><li><strong>Optum Rx:</strong> Acts as a top-3 Pharmacy Benefit Manager (PBM) managing over 1.5 billion annualized adjusted scripts, controlling specialty pharmacy distribution and drug rebate negotiation.</li><li><strong>Optum Insight:</strong> Supplies clinical decision software, payment integrity tools, revenue cycle management (RCM), and electronic clearinghouse architecture across the provider landscape.</li></ul>
-<h3>2. Internal Float Capture &amp; Cross-Selling Efficiency</h3>
-<p>
+  </p><ul><li><strong>Optum Health:</strong> Directly delivers value-based and ambulatory care through ~90,000 affiliated/employed physicians and 2,000+ care locations.</li><li><strong>Optum Rx:</strong> Acts as a top-3 Pharmacy Benefit Manager (PBM) managing over 1.5 billion annualized adjusted scripts, controlling specialty pharmacy distribution and drug rebate negotiation.</li><li><strong>Optum Insight:</strong> Supplies clinical decision software, payment integrity tools, revenue cycle management (RCM), and electronic clearinghouse architecture across the provider landscape.</li></ul><h3>2. Internal Float Capture &amp; Cross-Selling Efficiency</h3><p>
     When a UnitedHealthcare member receives medical care at an Optum care clinic, fills a prescription via Optum Rx, or has their claim processed through Optum Insight software, <strong>UNH captures both the underwriting margin and the provider service margin</strong>. Furthermore, UnitedHealthcare collects premium dollars months in advance of claim settlements. This generates billions in zero-cost internal cash float (evidenced by <strong>$11.1 billion in Q2 2026 operating cash flow</strong>, or 1.9x net income).
-  </p>
-<p>
+  </p><p>
     This internal closed loop allows UNH to underwrite coverage more competitively than pure-play health insurers (e.g., Humana, Centene) while earning higher aggregate returns on invested capital (ROIC) than standalone care provider networks.
-  </p>
-<div class="table-scroll-wrap"><table>
+  </p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Segment</th>
@@ -1219,20 +1219,15 @@
 <td>Provides AI-driven payment integrity and data solutions across UHC and external health systems.</td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <strong>Executive Commentary — CEO Stephen Hemsley on Integrated Flywheel Execution:</strong>
 <p>
 <em>"Our second quarter results and updated full year 2026 outlook demonstrate continuing progress in our work to simplify how we operate, improve both affordability and the healthcare experience for patients and care providers... At Optum, we're seeing building momentum from Optum Health as the business re-centers back to its integrated value-based care delivery model."</em>
 </p>
-</div>
-</div>
-<div class="section">
-<h2>Section 2: Operational &amp; Industry Performance — MCR Dynamics, Optum Recovery &amp; AI Scale</h2>
-<p>
+</div></div>
+<div class="section"><h2>Section 2: Operational &amp; Industry Performance — MCR Dynamics, Optum Recovery &amp; AI Scale</h2><p>
     Following a challenging 2025 characterized by elevated post-pandemic medical utilization and regulatory adjustments, UnitedHealth Group executed an operational turnaround in Q2 2026. By aggressively repricing benefit plans, shedding unprofitable risk cohorts, and enforcing strict underwriting discipline, UNH restored operating margins despite flat top-line revenues.
-  </p>
-<div class="metrics-grid">
+  </p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Medical Care Ratio (MCR)</div>
 <div class="metric-value">86.7%</div>
@@ -1253,25 +1248,15 @@
 <div class="metric-value">5.1%</div>
 <div class="metric-delta pos">+340 bps YoY</div>
 </div>
-</div>
-<h3>1. Medical Care Ratio (MCR) Trends &amp; Prior Period Development (PYD)</h3>
-<p>
+</div><h3>1. Medical Care Ratio (MCR) Trends &amp; Prior Period Development (PYD)</h3><p>
     The consolidated Medical Care Ratio (MCR) fell dramatically to <strong>86.7% in Q2 2026</strong> from 89.4% in Q2 2025. This 270 basis point improvement reflects disciplined re-pricing, benefit redesign, and lower-than-projected utilization in Medicare Advantage. However, quality of earnings scrutiny is warranted: MCR benefited from <strong>$860 million in net favorable prior period development (PYD)</strong>. Excluding this reserve release, baseline current-period medical cost trends remain sticky, particularly in commercial lines.
-  </p>
-<h3>2. Member Mix Dynamics &amp; Medicare Advantage Pricing Adjustments</h3>
-<p>
+  </p><h3>2. Member Mix Dynamics &amp; Medicare Advantage Pricing Adjustments</h3><p>
     Total UnitedHealthcare medical enrollment contracted to <strong>48.5 million lives</strong> (down 525k sequentially and 1.6M YoY) as UNH prioritized pricing power and profitability over raw volume:
-  </p>
-<ul><li><strong>Medicare Advantage (7.6M lives):</strong> Full-year MA enrollment is expected to decline by ~1.1 million lives due to strategic benefit reductions and plan exits. However, management expects Medicare margins to finish 2026 comfortably <strong>above 3.0%</strong> as medical cost trends (~10%) came in below initial pessimistic estimates.</li><li><strong>Medicaid (6.8M lives):</strong> Contracted by 380k in Q2 due to post-redetermination state eligibility adjustments and state contract exits (e.g., Louisiana). Segment margins remain compressed between -1.0% and -1.7%.</li><li><strong>Commercial Benefits (29.9M lives):</strong> Facing persistent underlying medical cost trends running <strong>modestly above 11%</strong>. Commercial margin recovery is now projected to extend past 2027.</li></ul>
-<h3>3. Commercial Cost Pressures &amp; Independent Dispute Resolution (IDR)</h3>
-<p>
+  </p><ul><li><strong>Medicare Advantage (7.6M lives):</strong> Full-year MA enrollment is expected to decline by ~1.1 million lives due to strategic benefit reductions and plan exits. However, management expects Medicare margins to finish 2026 comfortably <strong>above 3.0%</strong> as medical cost trends (~10%) came in below initial pessimistic estimates.</li><li><strong>Medicaid (6.8M lives):</strong> Contracted by 380k in Q2 due to post-redetermination state eligibility adjustments and state contract exits (e.g., Louisiana). Segment margins remain compressed between -1.0% and -1.7%.</li><li><strong>Commercial Benefits (29.9M lives):</strong> Facing persistent underlying medical cost trends running <strong>modestly above 11%</strong>. Commercial margin recovery is now projected to extend past 2027.</li></ul><h3>3. Commercial Cost Pressures &amp; Independent Dispute Resolution (IDR)</h3><p>
     Commercial benefit cost trends remain heavily elevated due to arbitration outcomes under the <strong>No Surprises Act's Independent Dispute Resolution (IDR)</strong> process and aggressive provider coding intensity. Independent emergency and specialty provider groups have leveraged IDR arbitration to demand inflated out-of-network reimbursement rates, driving commercial cost trend inflation above industry baselines.
-  </p>
-<h3>4. Optum Segment Operational Breakdown &amp; AI Integration ($1.5B Commitment)</h3>
-<p>
+  </p><h3>4. Optum Segment Operational Breakdown &amp; AI Integration ($1.5B Commitment)</h3><p>
     Optum generated $65.7 billion in quarterly revenue and <strong>$4.0 billion in operating income (+29% YoY)</strong>, proving that operational restructuring is delivering tangible margin expansion:
-  </p>
-<div class="table-scroll-wrap"><table>
+  </p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Optum Segment</th>
@@ -1304,19 +1289,15 @@
 <td>Rebound in software/data contracts; driving AI-assisted autonomous coding and clinical workflow tools.</td>
 </tr>
 </tbody>
-</table></div>
-<p>
+</table></div><p>
 <strong>AI Integration &amp; Administrative Modernization ($1.5B Commitment):</strong><br/>
     UNH is executing a multi-year $1.5 billion technology reinvestment program focused on embedding generative AI across care delivery, prior authorization, and administrative workflows. Key initiatives include:
-  </p>
-<ul><li><strong>Prior Authorization Reduction:</strong> Using AI tooling (such as <em>Pre-Check MyScript</em>), UNH aims to eliminate <strong>30% of total prior authorization volume</strong> by end-of-year 2026, while streamlining approval times for pediatric and routine care.</li><li><strong>Targeted Cost Reductions:</strong> Operating cost ratio rose slightly to 12.7% (reflecting active AI buildout), but management targets over <strong>$1.0 billion in annualized run-rate cost savings</strong> driven by AI clinical coding and automated claims processing.</li></ul>
-<div class="callout">
+  </p><ul><li><strong>Prior Authorization Reduction:</strong> Using AI tooling (such as <em>Pre-Check MyScript</em>), UNH aims to eliminate <strong>30% of total prior authorization volume</strong> by end-of-year 2026, while streamlining approval times for pediatric and routine care.</li><li><strong>Targeted Cost Reductions:</strong> Operating cost ratio rose slightly to 12.7% (reflecting active AI buildout), but management targets over <strong>$1.0 billion in annualized run-rate cost savings</strong> driven by AI clinical coding and automated claims processing.</li></ul><div class="callout">
 <strong>Executive Commentary — UnitedHealthcare CEO Tim Noel on Commercial Trends &amp; IDR Pressures:</strong>
 <p>
 <em>"Overall performance in the second quarter exceeded expectations, driven by better results in Medicare Advantage, while commercial benefits remain pressured... Within our commercial offerings, medical cost trends are running modestly above 11%, driven by pressure from the independent dispute resolution process under the No Surprises Act and aggressive billing practices. Full margin recovery will extend past 2027."</em>
 </p>
-</div>
-</div>
+</div></div>
 <h3>Executive Summary &amp; Metadata</h3>
 <strong>Primary Conviction Pill</strong>: <strong>Solid Conviction</strong> <strong>Economic Play Tags</strong>: <strong>Quality Compounder</strong> | <strong>Cash Fortress</strong> | <strong>Buyback Cannibal</strong>
 <strong>Surveillance Price Corridors</strong>: 
@@ -1335,7 +1316,7 @@ The core thesis rests on UNH’s compounding engine, capital-light cash flow pro
 
 UNH operates two synergistic segments that feed one another in a closed-loop flywheel:
 
-<ol><li><strong>UnitedHealthcare (UHC)</strong>: Provides health benefit coverage to</li><li><strong>48.5 million members</strong> across Employer &amp; Individual, Medicare &amp; Retirement, and Community &amp; State (Medicaid) plans. UHC generates massive upfront premium collections (interest-free customer float) while maintaining disciplined underwriting.</li><li><strong>Optum</strong>: Divided into</li><li><strong>Optum Health</strong> (integrated value-based care delivery),</li><li><strong>Optum Insight</strong> (data analytics, AI, and healthcare IT), and</li><li><strong>Optum Rx</strong> (pharmacy benefit management). Optum captures non-regulated health service fee revenues and service margins while optimizing care delivery for UHC members.
+<ol><li><strong>UnitedHealthcare (UHC)</strong>: Provides health benefit coverage to 48.5 million members across Employer &amp; Individual, Medicare &amp; Retirement, and Community &amp; State (Medicaid) plans. UHC generates massive upfront premium collections (interest-free customer float) while maintaining disciplined underwriting.</li><li><strong>Optum</strong>: Divided into Optum Health (integrated value-based care delivery),</li><li><strong>Optum Insight</strong> (data analytics, AI, and healthcare IT), and</li><li><strong>Optum Rx</strong> (pharmacy benefit management). Optum captures non-regulated health service fee revenues and service margins while optimizing care delivery for UHC members.
   
 
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -1355,8 +1336,7 @@ UNH operates two synergistic segments that feed one another in a closed-loop fly
 This structural moat creates cost advantages and switching costs. When a member receives care through Optum’s value-based clinics or fills a prescription via Optum Rx, the profit remains within the consolidated entity, buffering UNH against medical cost inflation.</li></ol>
 <hr/>
 <h3>3. Real Cash Flow &amp; SBC Reality</h3>
-<div class="section">
-<div class="metrics-grid">
+<div class="section"><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Q2 2026 Operating Cash Flow</div>
 <div class="metric-value">$11.10B</div>
@@ -1377,9 +1357,7 @@ This structural moat creates cost advantages and switching costs. When a member 
 <div class="metric-value">~$24.00B</div>
 <div class="metric-delta pos">Upgraded Target</div>
 </div>
-</div>
-<p>To establish Warren Buffett's <strong>True Owner Earnings</strong>, reported Operating Cash Flow must be adjusted for physical moat maintenance (Maintenance CapEx) and share dilution (Stock-Based Compensation). SBC is treated as a real cash expense because it dilutes existing shareholders or necessitates cash-funded share repurchases to offset dilution.</p>
-<div class="table-scroll-wrap"><table>
+</div><p>To establish Warren Buffett's <strong>True Owner Earnings</strong>, reported Operating Cash Flow must be adjusted for physical moat maintenance (Maintenance CapEx) and share dilution (Stock-Based Compensation). SBC is treated as a real cash expense because it dilutes existing shareholders or necessitates cash-funded share repurchases to offset dilution.</p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Cash Flow Audit Component</th>
@@ -1419,15 +1397,12 @@ This structural moat creates cost advantages and switching costs. When a member 
 <td><strong>Normalized Owner Cash Flow available for dividends, buybacks &amp; M&amp;A.</strong></td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <strong>Buffett Cash Conversion Audit:</strong> UNH generated $19.96 billion in operating cash flow during H1 2026 compared to $11.76 billion in net earnings. This 1.70x OCF-to-Net Income ratio reflects favorable claim reserve dynamics ($38.93 billion claims reserves) and upfront government/commercial premium collections. Deducting $1.70 billion in CapEx and $0.75 billion in SBC leaves $17.51 billion in clean, unencumbered Owner Cash Flow.
-  </div>
-</div>
+  </div></div>
 <hr/>
 <h3>4. Capital Structure &amp; Balance Sheet Fortress</h3>
-<div class="section">
-<div class="metrics-grid">
+<div class="section"><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Cash &amp; Cash Equivalents</div>
 <div class="metric-value">$28.59B</div>
@@ -1448,8 +1423,7 @@ This structural moat creates cost advantages and switching costs. When a member 
 <div class="metric-value">$5.00B</div>
 <div class="metric-delta pos">Doubled from $2.5B</div>
 </div>
-</div>
-<div class="table-scroll-wrap"><table>
+</div><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Balance Sheet Metric</th>
@@ -1508,12 +1482,10 @@ This structural moat creates cost advantages and switching costs. When a member 
 <td>Retained earnings expanded to $100.96 billion.</td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <strong>Capital Allocation Breakdown (Q2 / H1 2026):</strong>
 <ul><li><strong>Accelerated Share Buybacks:</strong> Management expanded FY26 buyback targets to at least <strong>$5.0 billion</strong> (up from $2.5 billion initially). $4.0 billion was deployed through mid-July 2026 to repurchase 11.4 million shares at an average price of ~$350.88, demonstrating opportunistic execution.</li><li><strong>Dividend Expansion:</strong> The Board raised the quarterly dividend by 5% to <strong>$2.32 per share ($9.28 annualized)</strong>, representing an annual cash payout of ~$8.3 billion (~43% True FCF payout ratio).</li><li><strong>Strategic M&amp;A:</strong> Following portfolio optimization (net gains of $191 million on divestitures), UNH announced plans for a <strong>$3.0 billion healthcare acquisition</strong> to expand Optum's value-based care footprint.</li></ul>
-</div>
-</div>
+</div></div>
 <hr/>
 <h3>5. Warren Buffett Owner Earnings &amp; Intrinsic Value Valuation</h3>
 
@@ -1537,7 +1509,7 @@ Relying on arbitrary exit multiples risks assuming a "greater fool" in Year 10. 
 │ 10-Yr PV of Cash Streams ($B) │ $158.40                │ $188.75       │ $224.60       │
 │ PV of Terminal Value ($B)     │ $162.10                │ $218.40       │ $285.20       │
 │ PV of Enterprise Value ($B)   │ $320.50                │ $407.15       │ $509.80       │
-│ Less: Net Debt & Leases ($B)  │ ($48.59)               │ ($48.59)      │ ($48.59)      │
+│ Less: Net Debt &amp; Leases ($B)  │ ($48.59)               │ ($48.59)      │ ($48.59)      │
 │ Plus: Liquid Investments ($B) │ $57.72                 │ $57.72        │ $57.72        │
 │ Total Intrinsic Equity Value  │ $329.63B               │ $441.28B      │ $518.93B      │
 │ Diluted Shares (End Period)   │ 853M                   │ 771M          │ 698M          │
@@ -1576,10 +1548,7 @@ While UNH possesses a strong financial profile, fundamental investors must accou
 <strong>Upper Surveillance Alert ($480.00)</strong>: Set near Intrinsic Fair Value ($492.00). Crossing this threshold will trigger an immediate review of capital allocation choices, dividend yields, and competitive growth rates to determine whether to trim or hold.
  <strong>Lower Surveillance Alert ($350.00)</strong>: Matches management's opportunistic repurchase execution floor. Crossing this boundary tests the true margin of safety, requiring a mandatory balance sheet audit of medical loss reserves and IRS litigation disclosures.
 
-<div class="section">
-<h2>Section 5: Warren Buffett Owner Earnings &amp; Intrinsic Value Matrix</h2>
-<p>To value UnitedHealth Group (UNH) with true institutional rigor, we abandon wall-street exit multiples—which Charlie Munger famously critiqued as "relying on a greater fool in Year 5"—and ground our model strictly in Warren Buffett’s 7-Pillar Owner Earnings framework from Berkshire Hathaway Shareholder Letters (1986, 1995, and 2018).</p>
-<div class="metrics-grid">
+<div class="section"><h2>Section 5: Warren Buffett Owner Earnings &amp; Intrinsic Value Matrix</h2><p>To value UnitedHealth Group (UNH) with true institutional rigor, we abandon wall-street exit multiples—which Charlie Munger famously critiqued as "relying on a greater fool in Year 5"—and ground our model strictly in Warren Buffett’s 7-Pillar Owner Earnings framework from Berkshire Hathaway Shareholder Letters (1986, 1995, and 2018).</p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">FY26 Normalized Operating Cash Flow</div>
 <div class="metric-value">$25.80B</div>
@@ -1600,10 +1569,7 @@ While UNH possesses a strong financial profile, fundamental investors must accou
 <div class="metric-value">$22.02B</div>
 <div class="metric-delta pos">$24.20 / Diluted Share</div>
 </div>
-</div>
-<h3>1. Normalized Owner Earnings Derivation &amp; Mid-Cycle Normalization</h3>
-<p>Under Buffett's 1986 formulation, <em>Owner Earnings = Operating Cash Flow − Maintenance CapEx − 100% Stock-Based Compensation (SBC)</em>. For a enterprise of UNH's scale, we isolate maintenance CapEx (IT infrastructure, clinic upkeep, cybersecurity fortification post-Change Healthcare) from discretionary growth CapEx (new Optum care center acquisitions, value-based clinic buildouts).</p>
-<div class="table-scroll-wrap"><table>
+</div><h3>1. Normalized Owner Earnings Derivation &amp; Mid-Cycle Normalization</h3><p>Under Buffett's 1986 formulation, <em>Owner Earnings = Operating Cash Flow − Maintenance CapEx − 100% Stock-Based Compensation (SBC)</em>. For a enterprise of UNH's scale, we isolate maintenance CapEx (IT infrastructure, clinic upkeep, cybersecurity fortification post-Change Healthcare) from discretionary growth CapEx (new Optum care center acquisitions, value-based clinic buildouts).</p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Financial Metric ($ Millions, except Per Share)</th>
@@ -1664,16 +1630,9 @@ While UNH possesses a strong financial profile, fundamental investors must accou
 <td><strong>$23.21</strong></td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <strong>Buffett Float Discipline &amp; Working Capital Mechanics:</strong> UNH's health insurance premiums collected upfront generate an interest-bearing insurance float ($30B+ in medical claims reserves and unearned premiums). Because claims payment cycles run ~47-48 days, Operating Cash Flow reflects organic cash generation rather than temporary timing spikes. By treating SBC as a direct cash outflow and isolating maintenance CapEx, we ensure zero cash inflation in our baseline intrinsic yield.
-  </div>
-<h3>2. Sovereign Discount Rate &amp; Share Cannibal Compounding</h3>
-<p>Consistent with Berkshire's international/domestic discounting principles (The PetroChina &amp; Capital Cities Rule), the discount rate is strictly tied to the benchmark risk-free rate plus an equity hurdle rate, with zero dependency on terminal market multiples:</p>
-<ul><li><strong>Sovereign Base Rate:</strong> US 10-Year Treasury Yield (~4.25%).</li><li><strong>Equity Hurdle Premium:</strong> +4.75% to reflect managed care regulatory volatility, medical cost ratio (MCR) fluctuations, and policy shifts.</li><li><strong>Effective Discount Rate (Hurdle Rate):</strong> <strong>9.00%</strong> (Base Case).</li><li><strong>Share Cannibal Compounding:</strong> UNH's management systematically deploys free cash into share repurchases, reducing common float by <strong>1.5% to 2.5% annually</strong> (repurchasing ~15–22M shares/year). This share denominator shrinkage directly compounds per-share Owner Earnings without requiring incremental unit capital.</li></ul>
-<h3>3. Intrinsic Value Scenario Matrix (Bear / Base / Bull)</h3>
-<p>The matrix below models a 10-year discounted Owner Earnings stream plus a Gordon Growth terminal value (capped strictly at long-term US GDP growth rates of 1.5%–2.5%). Total Enterprise Value is bridged to Equity Value by adding Cash &amp; Short-Term Investments ($28.5B) and subtracting Total Debt &amp; Capital/Operating Lease Liabilities ($72.4B).</p>
-<div class="table-scroll-wrap"><table>
+  </div><h3>2. Sovereign Discount Rate &amp; Share Cannibal Compounding</h3><p>Consistent with Berkshire's international/domestic discounting principles (The PetroChina &amp; Capital Cities Rule), the discount rate is strictly tied to the benchmark risk-free rate plus an equity hurdle rate, with zero dependency on terminal market multiples:</p><ul><li><strong>Sovereign Base Rate:</strong> US 10-Year Treasury Yield (~4.25%).</li><li><strong>Equity Hurdle Premium:</strong> +4.75% to reflect managed care regulatory volatility, medical cost ratio (MCR) fluctuations, and policy shifts.</li><li><strong>Effective Discount Rate (Hurdle Rate):</strong> <strong>9.00%</strong> (Base Case).</li><li><strong>Share Cannibal Compounding:</strong> UNH's management systematically deploys free cash into share repurchases, reducing common float by <strong>1.5% to 2.5% annually</strong> (repurchasing ~15–22M shares/year). This share denominator shrinkage directly compounds per-share Owner Earnings without requiring incremental unit capital.</li></ul><h3>3. Intrinsic Value Scenario Matrix (Bear / Base / Bull)</h3><p>The matrix below models a 10-year discounted Owner Earnings stream plus a Gordon Growth terminal value (capped strictly at long-term US GDP growth rates of 1.5%–2.5%). Total Enterprise Value is bridged to Equity Value by adding Cash &amp; Short-Term Investments ($28.5B) and subtracting Total Debt &amp; Capital/Operating Lease Liabilities ($72.4B).</p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Valuation Parameter / Metric</th>
@@ -1756,11 +1715,8 @@ While UNH possesses a strong financial profile, fundamental investors must accou
 <td>4.96%</td>
 </tr>
 </tbody>
-</table></div>
-</div>
-<div class="section">
-<h2>Section 6: Execution Risk, Margin of Safety &amp; Action Plan</h2>
-<div class="metrics-grid">
+</table></div></div>
+<div class="section"><h2>Section 6: Execution Risk, Margin of Safety &amp; Action Plan</h2><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Thesis Conviction</div>
 <div class="metric-value">High Conviction</div>
@@ -1781,19 +1737,10 @@ While UNH possesses a strong financial profile, fundamental investors must accou
 <div class="metric-value">$480.00</div>
 <div class="metric-delta neutral">Fair Value Trim Zone</div>
 </div>
-</div>
-<h3>1. Execution Risk &amp; Thesis Fragility Evaluation</h3>
-<p>While UnitedHealth Group benefits from unmatched scale across UnitedHealthcare (48.5M lives) and Optum ($230B+ revenue engine), reaching the $495 Base Fair Value entails specific operational hazards:</p>
-<ul><li><strong>Medical Inflation &amp; Outpatient Cost Spikes:</strong> Commercial medical cost trends running above 11% driven by physician fee arbitration under the No Surprises Act, outpatient surgery volume expansion, and high-cost GLP-1/specialty drug utilization threaten near-term underwriting margins.</li><li><strong>Medicaid Redetermination &amp; Rate Lags:</strong> State Medicaid rate updates lag real-time acuity increases following post-pandemic redeterminations. High-acuity members remaining in state pools require price adjustments that take 12 to 24 months to fully filter into premium structures.</li><li><strong>Medicare Advantage (MA) Regulatory Pressure:</strong> CMS V28 risk-adjustment code model changes and tighter Star Ratings benchmarks create structural headwinds, requiring UnitedHealthcare to redesign benefits and sacrifice lower-margin membership to preserve profitability.</li><li><strong>Change Healthcare Operational Liabilities:</strong> Persistent remediation, cyber-resiliency investments, and lingering customer transaction delays require continuous capital deployment, dampening near-term Optum Insight margins.</li></ul>
-<h3>2. Pre-Mortem Falsification Triggers (Thesis Invalidation)</h3>
-<p>If any of the following quantitative milestones occur, the Base Case thesis is invalidated, triggering an immediate fair value downgrade toward the $370 Bear floor:</p>
-<div class="callout">
+</div><h3>1. Execution Risk &amp; Thesis Fragility Evaluation</h3><p>While UnitedHealth Group benefits from unmatched scale across UnitedHealthcare (48.5M lives) and Optum ($230B+ revenue engine), reaching the $495 Base Fair Value entails specific operational hazards:</p><ul><li><strong>Medical Inflation &amp; Outpatient Cost Spikes:</strong> Commercial medical cost trends running above 11% driven by physician fee arbitration under the No Surprises Act, outpatient surgery volume expansion, and high-cost GLP-1/specialty drug utilization threaten near-term underwriting margins.</li><li><strong>Medicaid Redetermination &amp; Rate Lags:</strong> State Medicaid rate updates lag real-time acuity increases following post-pandemic redeterminations. High-acuity members remaining in state pools require price adjustments that take 12 to 24 months to fully filter into premium structures.</li><li><strong>Medicare Advantage (MA) Regulatory Pressure:</strong> CMS V28 risk-adjustment code model changes and tighter Star Ratings benchmarks create structural headwinds, requiring UnitedHealthcare to redesign benefits and sacrifice lower-margin membership to preserve profitability.</li><li><strong>Change Healthcare Operational Liabilities:</strong> Persistent remediation, cyber-resiliency investments, and lingering customer transaction delays require continuous capital deployment, dampening near-term Optum Insight margins.</li></ul><h3>2. Pre-Mortem Falsification Triggers (Thesis Invalidation)</h3><p>If any of the following quantitative milestones occur, the Base Case thesis is invalidated, triggering an immediate fair value downgrade toward the $370 Bear floor:</p><div class="callout">
 <strong>Mandatory Thesis Exit &amp; Re-evaluation Triggers:</strong>
 <ol><li><strong>MCR Breach:</strong> Consolidated Medical Care Ratio exceeds <strong>88.0%</strong> for two consecutive quarters without a clear seasonal or reserve adjustment explanation.</li><li><strong>Cash Conversion Failure:</strong> GAAP Operating Cash Flow to Net Income conversion drops below</li><li><strong>0.85x</strong> on a rolling 4-quarter basis (indicating deterioration in claims reserve quality or float leakage).</li><li><strong>Medicare Advantage Star Drop:</strong> More than <strong>20%</strong> of UnitedHealthcare Medicare Advantage members fall below 4-Star rated plans, impairing CMS quality bonus payments.</li><li><strong>Optum Health Margin Erosion:</strong> Optum Health operating margin contracts below <strong>4.5%</strong> (reflecting structural failure in value-based care patient capitation).</li></ol>
-</div>
-<h3>3. Dynamic Price Alert Corridor &amp; Capital Allocation Plan</h3>
-<p>The system maintains active surveillance over market price movements relative to intrinsic value anchors:</p>
-<div class="table-scroll-wrap"><table>
+</div><h3>3. Dynamic Price Alert Corridor &amp; Capital Allocation Plan</h3><p>The system maintains active surveillance over market price movements relative to intrinsic value anchors:</p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Price Level</th>
@@ -1828,10 +1775,7 @@ While UNH possesses a strong financial profile, fundamental investors must accou
 <td>Stock approaches Base Fair Value ($495) and Bull Target ($580). Margin of safety disappears; capital reallocated to higher intrinsic yield opportunities.</td>
 </tr>
 </tbody>
-</table></div>
-<h3>4. The 5-Year Exchange Closure Test</h3>
-<p>If the stock market were to close for 5 full years starting today, UNH passes the test with high conviction. Driven by its dual engines—UnitedHealthcare’s essential health coverage scale and Optum’s light-capital health services, pharmacy care, and data analytics platform—the enterprise will generate over <strong>$125 Billion in cumulative Owner Earnings</strong> over the next 5 years. By deploying this cash into 2% annual share repurchases, organic technology enhancements, and debt reduction, UNH compounds per-share intrinsic value independently of stock market sentiment.</p>
-</div>
+</table></div><h3>4. The 5-Year Exchange Closure Test</h3><p>If the stock market were to close for 5 full years starting today, UNH passes the test with high conviction. Driven by its dual engines—UnitedHealthcare’s essential health coverage scale and Optum’s light-capital health services, pharmacy care, and data analytics platform—the enterprise will generate over <strong>$125 Billion in cumulative Owner Earnings</strong> over the next 5 years. By deploying this cash into 2% annual share repurchases, organic technology enhancements, and debt reduction, UNH compounds per-share intrinsic value independently of stock market sentiment.</p></div>
             </article>
         </div>
 

@@ -486,11 +486,21 @@
         .memo-container ul, .memo-container ol {
             font-family: var(--font-serif) !important;
             font-size: 1.12rem !important;
-            line-height: 1.9 !important;
+            line-height: 1.85 !important;
             color: var(--text-body) !important;
-            margin: 0 0 26px 30px !important;
+            margin: 16px 0 24px 24px !important;
+            padding-left: 12px !important;
         }
-        .memo-container li { margin-bottom: 10px !important; color: var(--text-body) !important; }
+        .memo-container ul { list-style-type: disc !important; }
+        .memo-container ol { list-style-type: decimal !important; }
+        .memo-container li {
+            margin-bottom: 12px !important;
+            color: var(--text-body) !important;
+            line-height: 1.85 !important;
+        }
+        .memo-container li::marker {
+            color: var(--accent-warm) !important;
+        }
         .memo-container strong, .memo-container b {
             color: var(--text-title) !important;
             font-weight: 600 !important;
@@ -1251,14 +1261,10 @@
     background-color: #f8fafc;
   }
 </style>
- SECTION 1: BUSINESS MODEL & COMPETITIVE MOAT DYNAMICS 
-<div class="section">
-<h2>Business Model &amp; Competitive Moat Dynamics</h2>
-<p>
+ SECTION 1: BUSINESS MODEL &amp; COMPETITIVE MOAT DYNAMICS 
+<div class="section"><h2>Business Model &amp; Competitive Moat Dynamics</h2><p>
     PayPal Holdings, Inc. (PYPL) is executing a structural transformation under President and CEO Enrique Lores and CFO/COO Jamie Miller. The strategy reorganizes the enterprise around three distinct business lines—Checkout Solutions, Consumer Financial Services, and Payment Services—designed to shift PayPal from a transaction-volume aggregator into a high-margin value extractor. Management has aligned operational execution around driving net Transaction Margin Dollars ($15.6 billion full-year 2026 guidance target) while extracting at least $1.5 billion in gross run-rate cost savings over the next 2–3 years through organizational simplification and AI adoption.
-  </p>
-<div class="subsection-title">1. Economic Mechanics of PayPal's Three Core Reporting Lines</div>
-<div class="table-scroll-wrap"><table class="styled-table">
+  </p><div class="subsection-title">1. Economic Mechanics of PayPal's Three Core Reporting Lines</div><div class="table-scroll-wrap"><table class="styled-table">
 <thead>
 <tr>
 <th>Reporting Business Line</th>
@@ -1287,32 +1293,22 @@
 <td>Unbranded PSP volume growth accelerated to +13% YoY, anchored by mid-teens Braintree TPV expansion. Focus on attaching risk, payouts, and auth tools.</td>
 </tr>
 </tbody>
-</table></div>
-<div class="subsection-title">2. Moat Evaluation: Two-Sided Network, Friction, and Competitive Headwinds</div>
-<p>
+</table></div><div class="subsection-title">2. Moat Evaluation: Two-Sided Network, Friction, and Competitive Headwinds</div><p>
     PayPal's core competitive advantage stems from its legacy two-sided network linking 439 million active accounts with tens of millions of enterprise and SMB merchants. This creates bilateral network effects: consumers look for the PayPal button for security and vaulting trust, while merchants implement PayPal to capture higher checkout conversion rates. However, the moat has suffered structural erosion due to integration friction and aggressive platform competitors:
-  </p>
-<ul><li><strong>Apple Pay (OS-Level Native Dominance):</strong> Apple Pay leverages hardware and operating-system-level integration (iOS FaceID/TouchID double-click), bypassing browser redirects entirely. This eliminates purchase friction on mobile web and native apps, pressuring PayPal’s share of mobile checkout on Apple devices.
-    <li><strong>Shop Pay (E-Commerce Platform Lock-In):</strong> Shopify’s native checkout, Shop Pay, offers hyper-frictionless 1-click checkout for hundreds of thousands of digital storefronts. By storing buyer credentials directly across the Shopify network, Shop Pay captures high-intent merchant traffic that historically defaulted to PayPal.
-    <li><strong>Adyen (Enterprise Processing Benchmark):</strong> In unbranded merchant acquiring, Adyen’s single platform architecture delivers superior authorization rates, global settlement efficiency, and granular data analytics for enterprise clients. This forces PayPal's Braintree to compete aggressively on price, diluting transaction margin percentages to retain enterprise volume.
+  </p><ul><li><strong>Apple Pay (OS-Level Native Dominance):</strong> Apple Pay leverages hardware and operating-system-level integration (iOS FaceID/TouchID double-click), bypassing browser redirects entirely. This eliminates purchase friction on mobile web and native apps, pressuring PayPal’s share of mobile checkout on Apple devices.</li>
+<li><strong>Shop Pay (E-Commerce Platform Lock-In):</strong> Shopify’s native checkout, Shop Pay, offers hyper-frictionless 1-click checkout for hundreds of thousands of digital storefronts. By storing buyer credentials directly across the Shopify network, Shop Pay captures high-intent merchant traffic that historically defaulted to PayPal.</li>
+<li><strong>Adyen (Enterprise Processing Benchmark):</strong> In unbranded merchant acquiring, Adyen’s single platform architecture delivers superior authorization rates, global settlement efficiency, and granular data analytics for enterprise clients. This forces PayPal's Braintree to compete aggressively on price, diluting transaction margin percentages to retain enterprise volume.
     </li>
-</li>
-</li></ul>
-<div class="callout">
+</ul><div class="callout">
 <div class="callout-title">Strategic Takeaway: Monetization Pivot &amp; Multi-Product ARPA Multiplier</div>
 <div class="callout-body">
       PayPal's growth engine relies on transforming Venmo from a fee-less P2P utility into an integrated financial hub. In Q2 2026, users who utilized both the Venmo Debit Card and "Pay with Venmo" generated <strong>over 9 times higher Average Revenue Per Account (ARPA)</strong> compared to peer-to-peer-only users. The size of this multi-product user cohort roughly doubled year-over-year, providing the economic foundation for non-GAAP earnings resilience.
     </div>
-</div>
-</div>
- SECTION 2: QUARTERLY OPERATING PERFORMANCE & UNIT ECONOMICS 
-<div class="section">
-<h2>Quarterly Operating Performance &amp; Unit Economics (Q2 2026)</h2>
-<p>
+</div></div>
+ SECTION 2: QUARTERLY OPERATING PERFORMANCE &amp; UNIT ECONOMICS 
+<div class="section"><h2>Quarterly Operating Performance &amp; Unit Economics (Q2 2026)</h2><p>
     In Q2 2026, PayPal delivered financial results that exceeded top-and-bottom-line Wall Street consensus estimates. Net revenue expanded +5% YoY (+3% FX-neutral) to $8.68 billion, while Non-GAAP EPS reached $1.38, beating guidance. Total Payment Volume (TPV) increased +10% YoY (+9% FX-neutral) to $486.4 billion, demonstrating robust transaction throughput across Venmo, Braintree, and Buy Now Pay Later (BNPL).
-  </p>
-<!-- HTML METRIC STAT CARDS GRID -->
-<div class="metrics-grid">
+  </p><p> HTML METRIC STAT CARDS GRID </p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Q2 2026 Net Revenue</div>
 <div class="metric-value">$8.68B</div>
@@ -1353,18 +1349,13 @@
 <div class="metric-value">$1.78B</div>
 <div class="metric-delta pos">$2.0B Operating Cash Flow</div>
 </div>
-</div>
-<div class="subsection-title">1. Take Rate Trends &amp; Unit Economics Breakdown</div>
-<p>
+</div><div class="subsection-title">1. Take Rate Trends &amp; Unit Economics Breakdown</div><p>
     PayPal's transaction take rate contracted by 7 basis points YoY to 1.61% in Q2 2026. This decline reflects structural product mix shifts within TPV rather than broad merchant fee discounting:
-  </p>
-<ul><li><strong>Unbranded Volume Compression:</strong> Braintree and enterprise PSP processing—which operate at lower average take rates (~0.90%–1.10%)—grew TPV at +13% YoY, outpacing high-margin Branded Checkout growth (+2% FX-neutral).
-    <li><strong>Co-Marketing &amp; Product Re-investment:</strong> Take rate expansion in branded checkout was temporarily offset by strategic co-marketing investments alongside enterprise merchants to scale Fastlane and BNPL adoption.
-    <li><strong>Value-Added Services (VAS) Dynamic:</strong> VAS revenue remained flat at $850 million. Solid expansion in consumer credit and merchant lending was offset by lower interest income generated on customer balances due to global interest rate cuts.
+  </p><ul><li><strong>Unbranded Volume Compression:</strong> Braintree and enterprise PSP processing—which operate at lower average take rates (~0.90%–1.10%)—grew TPV at +13% YoY, outpacing high-margin Branded Checkout growth (+2% FX-neutral).</li>
+<li><strong>Co-Marketing &amp; Product Re-investment:</strong> Take rate expansion in branded checkout was temporarily offset by strategic co-marketing investments alongside enterprise merchants to scale Fastlane and BNPL adoption.</li>
+<li><strong>Value-Added Services (VAS) Dynamic:</strong> VAS revenue remained flat at $850 million. Solid expansion in consumer credit and merchant lending was offset by lower interest income generated on customer balances due to global interest rate cuts.
     </li>
-</li>
-</li></ul>
-<div class="table-scroll-wrap"><table class="styled-table">
+</ul><div class="table-scroll-wrap"><table class="styled-table">
 <thead>
 <tr>
 <th>Sub-Segment / Volume Vector</th>
@@ -1404,8 +1395,7 @@
 <td>Accelerated from 11% in Q1; mid-teens Braintree growth drives scale but dilutes overall take rate.</td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <div class="callout-title">Executive Commentary: Leadership Guidance &amp; Capital Allocation</div>
 <div class="callout-body">
 <p>
@@ -1415,12 +1405,8 @@
 <strong>CFO &amp; COO Jamie Miller:</strong> Management raised full-year 2026 Non-GAAP EPS guidance to ~$5.38 and projected full-year Transaction Margin Dollars to reach ~$15.6 billion. Capital deployment in Q2 2026 returned $1.5 billion through the repurchase of ~33 million shares, alongside the declaration of a $0.14 per share quarterly dividend.
       </p>
 </div>
-</div>
-</div>
-<div class="section">
-<h3>Section 3: True Post-SBC Cash Flow &amp; Capital Structure Audit</h3>
-<p>To establish PayPal’s true economic earnings power, we must look beyond standard non-GAAP metrics that routinely add back Stock-Based Compensation (SBC). In accordance with Warren Buffett’s owner earnings framework, SBC is not an accounting phantom—it is a real economic expense that dilutes existing equity holders or requires cash buybacks to sterilize. Below is our rigorous audit of PayPal’s reported cash flows, CapEx breakdown, SBC charges, balance sheet leverage, and buyback cannibal execution based on official SEC filings through <strong>Q2 2026 (ended June 30, 2026)</strong>.</p>
-<div class="metrics-grid">
+</div></div>
+<div class="section"><h3>Section 3: True Post-SBC Cash Flow &amp; Capital Structure Audit</h3><p>To establish PayPal’s true economic earnings power, we must look beyond standard non-GAAP metrics that routinely add back Stock-Based Compensation (SBC). In accordance with Warren Buffett’s owner earnings framework, SBC is not an accounting phantom—it is a real economic expense that dilutes existing equity holders or requires cash buybacks to sterilize. Below is our rigorous audit of PayPal’s reported cash flows, CapEx breakdown, SBC charges, balance sheet leverage, and buyback cannibal execution based on official SEC filings through <strong>Q2 2026 (ended June 30, 2026)</strong>.</p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Q2 2026 Operating Cash Flow</div>
 <div class="metric-value">$2,010M</div>
@@ -1441,10 +1427,7 @@
 <div class="metric-value">$6,000M</div>
 <div class="metric-delta neg">-9.7% Diluted Shares YoY</div>
 </div>
-</div>
-<h4>1. True Owner Cash Flow Audit (GAAP OCF vs. Post-SBC FCF)</h4>
-<p>In Q2 2026, PayPal reported GAAP Operating Cash Flow of $2,010 million. After subtracting $235 million in purchases of property and equipment (CapEx), reported Free Cash Flow stood at $1,775 million. However, PayPal recognized $275 million in Stock-Based Compensation during the quarter. Deducting 100% of SBC yields a <strong>True Post-SBC Owner Cash Flow of $1,500 million</strong>. On a first-half (H1 2026) basis, operating cash flow reached $3,117 million, and after deducting $439 million in CapEx and $534 million in H1 SBC, PayPal generated <strong>$2,144 million in True Owner Cash Flow</strong>.</p>
-<div class="table-scroll-wrap"><table>
+</div><h4>1. True Owner Cash Flow Audit (GAAP OCF vs. Post-SBC FCF)</h4><p>In Q2 2026, PayPal reported GAAP Operating Cash Flow of $2,010 million. After subtracting $235 million in purchases of property and equipment (CapEx), reported Free Cash Flow stood at $1,775 million. However, PayPal recognized $275 million in Stock-Based Compensation during the quarter. Deducting 100% of SBC yields a <strong>True Post-SBC Owner Cash Flow of $1,500 million</strong>. On a first-half (H1 2026) basis, operating cash flow reached $3,117 million, and after deducting $439 million in CapEx and $534 million in H1 SBC, PayPal generated <strong>$2,144 million in True Owner Cash Flow</strong>.</p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Cash Flow Component ($ Millions)</th>
@@ -1497,13 +1480,9 @@
 <td><strong>~$4,900M–$5,000M</strong></td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <strong>Maintenance vs. Growth CapEx Distinction:</strong> Of PayPal's ~$900M–$1.0B annual CapEx, approximately 65% ($600M–$650M) represents maintenance CapEx required for core server architecture, cloud migration, data security, and regulatory compliance infrastructure. The remaining 35% ($300M–$350M) represents discretionary growth CapEx directed toward AI developer tooling, Venmo Debit monetization features, and Braintree processing speed optimizations.
-  </div>
-<h4>2. Balance Sheet Capital Structure &amp; Customer Float Audit</h4>
-<p>As of June 30, 2026, PayPal maintained an exceptionally liquid balance sheet with total assets of $82,737 million. Evaluating liquid corporate cash versus total term debt reveals a pristine balance sheet structure:</p>
-<div class="table-scroll-wrap"><table>
+  </div><h4>2. Balance Sheet Capital Structure &amp; Customer Float Audit</h4><p>As of June 30, 2026, PayPal maintained an exceptionally liquid balance sheet with total assets of $82,737 million. Evaluating liquid corporate cash versus total term debt reveals a pristine balance sheet structure:</p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Balance Sheet Component</th>
@@ -1563,10 +1542,7 @@
 <td><strong>Net Cash of +$1.87B</strong> including LT investments; or <strong>-$2.14B Net Debt</strong> using Cash + ST Investments only.</td>
 </tr>
 </tbody>
-</table></div>
-<h4>3. The 'Buyback Cannibal' Mechanics &amp; Share Count Trajectory</h4>
-<p>PayPal’s primary engine of per-share value creation is its aggressive, self-funded share repurchase program. Over the trailing twelve months ended June 30, 2026, PayPal repurchased <strong>$6.0 billion of its own stock</strong> (~111 million shares). For FY 2026, management reaffirmed its commitment to execute <strong>~$6.0 billion in total buybacks</strong>, having already completed $3.05 billion in repurchases during H1 2026.</p>
-<div class="metrics-grid">
+</table></div><h4>3. The 'Buyback Cannibal' Mechanics &amp; Share Count Trajectory</h4><p>PayPal’s primary engine of per-share value creation is its aggressive, self-funded share repurchase program. Over the trailing twelve months ended June 30, 2026, PayPal repurchased <strong>$6.0 billion of its own stock</strong> (~111 million shares). For FY 2026, management reaffirmed its commitment to execute <strong>~$6.0 billion in total buybacks</strong>, having already completed $3.05 billion in repurchases during H1 2026.</p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Q2 2025 Diluted Shares</div>
 <div class="metric-value">977 Million</div>
@@ -1587,16 +1563,10 @@
 <div class="metric-value">~7.5%–8.5% / Year</div>
 <div class="metric-delta pos">After SBC Dilution</div>
 </div>
-</div>
-<div class="callout">
+</div><div class="callout">
 <strong>SBC Sterilization &amp; True Net Share Shrinkage:</strong> Annual SBC issuances dilute shareholders by approximately 15 million to 18 million shares per year (~1.8% gross dilution). However, by deploying $6.0B annually at current trading valuations (~$58–$65/share), PayPal repurchases ~95M to 100M shares per year. This completely neutralizes SBC dilution and achieves a <strong>net annual share count reduction of ~8%</strong>. If PayPal maintains a stock price below intrinsic value, this buyback cannibal mechanism compounds per-share Owner Earnings at a double-digit clip even with zero top-line revenue growth.
-  </div>
-</div>
-<div class="section">
-<h3>Section 4: Institutional Ownership &amp; Whale Accumulation Audit</h3>
-<p>An audit of official SEC Form 13F filings and Schedule 13G disclosures confirms that major value-oriented fund managers ("13F Whales") and mega-institutional asset managers maintain large active stakes in PayPal. The company's massive cash generation and low valuation multiples have attracted disciplined value investors who view the share repurchase program as an ideal capital allocation strategy.</p>
-<h4>1. Verified Active Institutional &amp; Whale Holdings</h4>
-<div class="table-scroll-wrap"><table>
+  </div></div>
+<div class="section"><h3>Section 4: Institutional Ownership &amp; Whale Accumulation Audit</h3><p>An audit of official SEC Form 13F filings and Schedule 13G disclosures confirms that major value-oriented fund managers ("13F Whales") and mega-institutional asset managers maintain large active stakes in PayPal. The company's massive cash generation and low valuation multiples have attracted disciplined value investors who view the share repurchase program as an ideal capital allocation strategy.</p><h4>1. Verified Active Institutional &amp; Whale Holdings</h4><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Institutional Investor / Whale Fund</th>
@@ -1649,20 +1619,10 @@
 <td><strong>Active / 13G/A Filed</strong> (Re-confirmed active major holder on July 29, 2026).</td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <strong>Factual Verification &amp; Exited Holder Audit:</strong> Our institutional audit re-confirmed that zero exited or liquidated funds are misclassified as active holders.  Punch Card Management retains PayPal as its 5th largest position (~10.5% of AUM), while veteran deep value manager Francis Chou expanded his fund's stake by over 300% in recent reporting periods.
-  </div>
-<h4>2. Institutional Capital Allocation Summary</h4>
-<p>The institutional thesis among active value managers centers on PayPal’s status as a high-margin, capital-light financial tollbooth generating over $5.0B in annual True Post-SBC Owner Cash Flow. With management committing 100%+ of free cash flow to share buybacks, institutional whales are benefiting from significant per-share cannibalization while the balance sheet remains protected by $15.3B in total liquid funds.</p>
-</div>
-<div class="section">
-<h3>Section 5: Warren Buffett Intrinsic Valuation Matrix</h3>
-<p>To establish a durable intrinsic value for PayPal Holdings, Inc. (PYPL), we reject Wall Street’s reliance on arbitrary Year 5 exit multiples—a practice Charlie Munger famously warned was akin to "relying on a greater fool." Instead, our valuation is grounded entirely in Warren Buffett’s <strong>Owner Earnings Framework</strong> as outlined in his 1986 Berkshire Hathaway Shareholder Letter.</p>
-<p>Owner Earnings reflect the true cash an owner could extract from the business annually in perpetuity without diminishing its competitive moat or operational volume. We apply a strict <strong>100% deduction for Stock-Based Compensation (SBC)</strong>, recognizing it as a direct cash equivalent expense that dilutes shareholder equity if uncompensated by open-market repurchases. Furthermore, we differentiate Maintenance CapEx (technology infrastructure, regulatory compliance, and security updates required to preserve transaction volume) from discretionary Growth CapEx.</p>
-<h4>Baseline Owner Earnings Derivation (FY2026 Run-Rate)</h4>
-<p>Based on PayPal's Q2 2026 reported results and updated full-year guidance (targeting ~$15.6B in transaction margin dollars and ~$6.0B in operating cash flow), the baseline post-SBC Owner Earnings bridge is established as follows:</p>
-<div class="metrics-grid">
+  </div><h4>2. Institutional Capital Allocation Summary</h4><p>The institutional thesis among active value managers centers on PayPal’s status as a high-margin, capital-light financial tollbooth generating over $5.0B in annual True Post-SBC Owner Cash Flow. With management committing 100%+ of free cash flow to share buybacks, institutional whales are benefiting from significant per-share cannibalization while the balance sheet remains protected by $15.3B in total liquid funds.</p></div>
+<div class="section"><h3>Section 5: Warren Buffett Intrinsic Valuation Matrix</h3><p>To establish a durable intrinsic value for PayPal Holdings, Inc. (PYPL), we reject Wall Street’s reliance on arbitrary Year 5 exit multiples—a practice Charlie Munger famously warned was akin to "relying on a greater fool." Instead, our valuation is grounded entirely in Warren Buffett’s <strong>Owner Earnings Framework</strong> as outlined in his 1986 Berkshire Hathaway Shareholder Letter.</p><p>Owner Earnings reflect the true cash an owner could extract from the business annually in perpetuity without diminishing its competitive moat or operational volume. We apply a strict <strong>100% deduction for Stock-Based Compensation (SBC)</strong>, recognizing it as a direct cash equivalent expense that dilutes shareholder equity if uncompensated by open-market repurchases. Furthermore, we differentiate Maintenance CapEx (technology infrastructure, regulatory compliance, and security updates required to preserve transaction volume) from discretionary Growth CapEx.</p><h4>Baseline Owner Earnings Derivation (FY2026 Run-Rate)</h4><p>Based on PayPal's Q2 2026 reported results and updated full-year guidance (targeting ~$15.6B in transaction margin dollars and ~$6.0B in operating cash flow), the baseline post-SBC Owner Earnings bridge is established as follows:</p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Operating Cash Flow (FY26E)</div>
 <div class="metric-value">$6.80B</div>
@@ -1683,14 +1643,10 @@
 <div class="metric-value">$5.00B</div>
 <div class="metric-delta pos">$5.15 / Share Base</div>
 </div>
-</div>
-<div class="callout">
+</div><div class="callout">
 <strong>The Sovereign Discount Rate &amp; Float Reality:</strong>
     Because PayPal generates over 55% of its cash flows within the United States and trades on US exchanges, we discount future cash flows using a strictly localized US hurdle rate. Anchored in the 10-Year US Treasury yield (~4.20%) plus a 5.30% Equity Risk Premium, our discount rate is set at <strong>9.50%</strong>. Additionally, PayPal holds ~$13.5B in cash, cash equivalents, and investments against ~$11.6B in total debt, representing a clean <strong>Net Cash position of $1.90B (~$1.96/share)</strong>. We also recognize customer balance float (~$15B generating ~$1.1B in yield) as interest-free funding that expands operating cash flow, provided interest rates remain elevated.
-  </div>
-<h4>Five-Year Intrinsic Valuation Scenarios</h4>
-<p>The table below details our intrinsic valuation matrix across Bear, Base, and Bull operational trajectories. All scenarios assume the US hurdle rate of 9.50% and explicitly incorporate "Cannibal Compounding"—the systematic reduction of diluted shares through PayPal's $6.0B annual buyback program.</p>
-<div class="table-scroll-wrap"><table>
+  </div><h4>Five-Year Intrinsic Valuation Scenarios</h4><p>The table below details our intrinsic valuation matrix across Bear, Base, and Bull operational trajectories. All scenarios assume the US hurdle rate of 9.50% and explicitly incorporate "Cannibal Compounding"—the systematic reduction of diluted shares through PayPal's $6.0B annual buyback program.</p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Valuation Metric / Assumption</th>
@@ -1773,20 +1729,11 @@
 <td><span>+75.38%</span></td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <strong>The 5-Year Exchange Closure Test:</strong>
     If the stock market were to close for five years, an investor purchasing PYPL at $59.07 would capture an initial post-SBC Owner Earnings cash yield of 8.72% ($5.15 / $59.07). Under our Base Case, management's repurchases will reduce the share count to ~751M, expanding per-share Owner Earnings to $8.45 by Year 5. This yields a 14.3% cash return on initial investment purely from organic operations, passing Buffett's margin-of-safety test.
-  </div>
-</div>
-<div class="section">
-<h3>Section 6: Execution Risk, Invalidation Triggers &amp; Alert Corridors</h3>
-<p>While PayPal presents compelling cash flow productivity, fundamental investors must evaluate execution vulnerabilities that could erode transaction margins and impair long-term owner returns.</p>
-<h4>Primary Thesis Execution Risks</h4>
-<ul><li><strong>Braintree Margin Compression &amp; Unbundled PSP Competition:</strong> Braintree continues to drive robust Total Payment Volume (TPV) growth in the mid-teens, but unbundled unbranded processing operates at significantly lower gross margins than branded checkout. Price competition from Adyen and Stripe poses an ongoing risk of take-rate dilution.</li><li><strong>Branded Checkout Share Loss:</strong> Branded checkout volume growth has stabilized at 2% YoY. However, frictionless solutions like Apple Pay, Google Pay, and Shop Pay threaten PayPal’s online button dominance. If branded checkout volume turns negative, transaction margin dollars will contract sharply.</li><li><strong>Float Yield &amp; Interest Rate Headwinds:</strong> PayPal currently earns ~$1.1B annually in interest on customer balances. Global central bank rate cuts would reduce this high-margin yield, creating an immediate headwind for transaction margin dollars excluding processing revenue.</li></ul>
-<h4>Pre-Mortem Falsification Triggers</h4>
-<p>To prevent thesis creep and behavioral bias, we set explicit quantitative invalidation rules. If any of the following triggers occur, the bull/base thesis is falsified, requiring an immediate downgrade to Bear Case valuation or full position exit:</p>
-<div class="table-scroll-wrap"><table>
+  </div></div>
+<div class="section"><h3>Section 6: Execution Risk, Invalidation Triggers &amp; Alert Corridors</h3><p>While PayPal presents compelling cash flow productivity, fundamental investors must evaluate execution vulnerabilities that could erode transaction margins and impair long-term owner returns.</p><h4>Primary Thesis Execution Risks</h4><ul><li><strong>Braintree Margin Compression &amp; Unbundled PSP Competition:</strong> Braintree continues to drive robust Total Payment Volume (TPV) growth in the mid-teens, but unbundled unbranded processing operates at significantly lower gross margins than branded checkout. Price competition from Adyen and Stripe poses an ongoing risk of take-rate dilution.</li><li><strong>Branded Checkout Share Loss:</strong> Branded checkout volume growth has stabilized at 2% YoY. However, frictionless solutions like Apple Pay, Google Pay, and Shop Pay threaten PayPal’s online button dominance. If branded checkout volume turns negative, transaction margin dollars will contract sharply.</li><li><strong>Float Yield &amp; Interest Rate Headwinds:</strong> PayPal currently earns ~$1.1B annually in interest on customer balances. Global central bank rate cuts would reduce this high-margin yield, creating an immediate headwind for transaction margin dollars excluding processing revenue.</li></ul><h4>Pre-Mortem Falsification Triggers</h4><p>To prevent thesis creep and behavioral bias, we set explicit quantitative invalidation rules. If any of the following triggers occur, the bull/base thesis is falsified, requiring an immediate downgrade to Bear Case valuation or full position exit:</p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Falsification Trigger</th>
@@ -1816,9 +1763,7 @@
 <td>Failure to execute cannibal compounding at discounted multiples invalidates per-share growth math.</td>
 </tr>
 </tbody>
-</table></div>
-<h4>Dynamic Price Alert Corridors &amp; Surveillance Rationale</h4>
-<div class="metrics-grid">
+</table></div><h4>Dynamic Price Alert Corridors &amp; Surveillance Rationale</h4><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Lower Alert Threshold</div>
 <div class="metric-value">$49.00</div>
@@ -1834,13 +1779,11 @@
 <div class="metric-value">$75.00</div>
 <div class="metric-delta pos">Re-Rating Trim (+27.0%)</div>
 </div>
-</div>
-<div class="callout">
+</div><div class="callout">
 <strong>Alert Corridor Rationale &amp; Operational Directives:</strong>
 <ul><li><strong>Upper Alert Threshold ($75.00):</strong> Triggers an automated thesis review to evaluate re-rating progress. At $75.00, PYPL approaches ~94% of Base Case Intrinsic Value ($79.48), yielding an Owner Earnings yield of ~6.8%. The operational directive is to <em>trim allocations or tighten stop-losses</em> unless transaction margin growth accelerates toward Bull Case parameters ($19.2B TM$).
   <strong>Lower Alert Threshold ($49.00):</strong> Represents our Bear Case intrinsic valuation floor ($49.69). A breach below $49.00 indicates either severe market dislocation or underlying fundamental deterioration. The operational directive is to <em>audit pre-mortem falsification triggers</em>: if transaction margin dollars hold above $15.0B, $49.00 presents a generationally wide margin of safety warranting aggressive position scaling.</li></ul>
-</div>
-</div>
+</div></div>
             </article>
         </div>
 

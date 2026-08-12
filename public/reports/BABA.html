@@ -486,11 +486,21 @@
         .memo-container ul, .memo-container ol {
             font-family: var(--font-serif) !important;
             font-size: 1.12rem !important;
-            line-height: 1.9 !important;
+            line-height: 1.85 !important;
             color: var(--text-body) !important;
-            margin: 0 0 26px 30px !important;
+            margin: 16px 0 24px 24px !important;
+            padding-left: 12px !important;
         }
-        .memo-container li { margin-bottom: 10px !important; color: var(--text-body) !important; }
+        .memo-container ul { list-style-type: disc !important; }
+        .memo-container ol { list-style-type: decimal !important; }
+        .memo-container li {
+            margin-bottom: 12px !important;
+            color: var(--text-body) !important;
+            line-height: 1.85 !important;
+        }
+        .memo-container li::marker {
+            color: var(--accent-warm) !important;
+        }
         .memo-container strong, .memo-container b {
             color: var(--text-title) !important;
             font-weight: 600 !important;
@@ -1150,9 +1160,7 @@
         <!-- Memo Content -->
         <div id="tab-memo" class="tab-content active">
             <article class="memo-container">
-                <div class="section">
-<h2>Section 1: Executive Summary &amp; Moat Reality</h2>
-<div class="metrics-grid">
+                <div class="section"><h2>Section 1: Executive Summary &amp; Moat Reality</h2><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Q4 FY2026 Consolidated Revenue</div>
 <div class="metric-value">RMB 243.38B</div>
@@ -1173,21 +1181,12 @@
 <div class="metric-value">-RMB 138M</div>
 <div class="metric-delta pos">+96% YoY Efficiency Gain</div>
 </div>
-</div>
-<p>Alibaba Group Holding Limited entered a strategic inflection point in Q4 FY2026 (ended March 31, 2026). Management's deliberate, high-intensity investment cycle—spending approximately RMB 380 billion ($53 billion) over three years in full-stack AI infrastructure, quick commerce, and core marketplace user experience—is beginning to yield measurable top-line acceleration. While consolidated GAAP revenue rose 3% reported to RMB 243.38 billion ($35.28 billion), like-for-like organic revenue (excluding the divestments of Sun Art Retail and Intime) expanded 11% YoY. The quarter demonstrated a sharp divergence between top-line commercial momentum and near-term GAAP profitability: Adjusted EBITA contracted 84% YoY to RMB 5.10 billion ($740 million) as aggressive AI compute buildouts and instant delivery subsidies weighed on margins, driving free cash flow into a seasonal outflow of RMB 17.3 billion. However, GAAP net income jumped 96% YoY to RMB 25.48 billion ($3.69 billion), bolstered by mark-to-market equity investment gains. Anchored by a rock-solid net cash fortress of $38 billion (or $59 billion excluding long-term debt), Alibaba remains uniquely equipped to absorb heavy capital outlay to secure sovereign leadership in Chinese enterprise AI and next-generation commerce.</p>
-<div class="callout">
+</div><p>Alibaba Group Holding Limited entered a strategic inflection point in Q4 FY2026 (ended March 31, 2026). Management's deliberate, high-intensity investment cycle—spending approximately RMB 380 billion ($53 billion) over three years in full-stack AI infrastructure, quick commerce, and core marketplace user experience—is beginning to yield measurable top-line acceleration. While consolidated GAAP revenue rose 3% reported to RMB 243.38 billion ($35.28 billion), like-for-like organic revenue (excluding the divestments of Sun Art Retail and Intime) expanded 11% YoY. The quarter demonstrated a sharp divergence between top-line commercial momentum and near-term GAAP profitability: Adjusted EBITA contracted 84% YoY to RMB 5.10 billion ($740 million) as aggressive AI compute buildouts and instant delivery subsidies weighed on margins, driving free cash flow into a seasonal outflow of RMB 17.3 billion. However, GAAP net income jumped 96% YoY to RMB 25.48 billion ($3.69 billion), bolstered by mark-to-market equity investment gains. Anchored by a rock-solid net cash fortress of $38 billion (or $59 billion excluding long-term debt), Alibaba remains uniquely equipped to absorb heavy capital outlay to secure sovereign leadership in Chinese enterprise AI and next-generation commerce.</p><div class="callout">
 <strong>Strategic Leadership Perspective:</strong><br/>
 <em>"Alibaba's full-stack AI investments have progressed from incubation to commercialization at scale. This quarter, Cloud Intelligence Group's external revenue growth accelerated to 40%, with AI-related products accounting for 30% of this revenue... We are at a pivotal inflection point in the evolution from conversational chatbots to autonomous AI agents, which is directly driving explosive growth across training, inference, and agent orchestration."</em><br/>
     — <strong>Eddie Wu</strong>, Chief Executive Officer of Alibaba Group
-  </div>
-<h3>Economic Moat Analysis &amp; Strategic Trajectory</h3>
-<p>Alibaba’s economic moat operates as an interconnected, multi-layered ecosystem spanning domestic marketplace network effects, full-stack cloud sovereignty, and cross-border logistics infrastructure:</p>
-<ul><li><strong>Taobao &amp; Tmall Network &amp; Liquidity Moat:</strong> Despite aggressive competition from discount platforms, Taobao and Tmall remain China's undisputed dominant commerce platforms by Gross Merchandise Value (GMV). The platform's moat is anchored by its highest-spending consumer demographic—88VIP membership expanded by double digits YoY to surpass 62 million subscribers. This high-intent buyer base creates an irreplaceable demand pool for enterprise merchants. The integration of the AI-native agentic framework <em>Wukong</em> for merchants and the <em>Qwen Shopping Assistant</em> for buyers is raising switching costs by converting Taobao from a passive search catalog into an interactive, agentic purchasing layer.</li><li><strong>Cloud Intelligence &amp; Open-Source LLM Sovereignty:</strong> Alibaba Cloud holds a ~36% market share in Chinese enterprise cloud infrastructure. By pairing proprietary T-Head silicon (where over 60% of capacity is deployed to external enterprise workloads across autonomous driving, finance, and internet verticals) with the open-source flagship model family <em>Qwen</em> (including Qwen3.5 and the 2.4-trillion-parameter Qwen3.8 Max), Alibaba has established an infrastructure lock-in. Qwen’s cumulative downloads on Hugging Face crossed 1 billion, making it the world's most widely adopted open-source foundation model family. This open-source distribution converts global AI developers directly into paid compute customers on Alibaba Cloud’s Model Studio (Bailian) platform.</li><li><strong>International Cross-Border Supply Chain Scale:</strong> Alibaba International Digital Commerce (AIDC) and Cainiao logistics provide global fulfillment architecture. Cainiao's cross-border 5-day delivery solutions and optimized air-freight corridors allow AliExpress Choice and Trendyol to reduce per-order handling costs, driving AIDC adjusted EBITA losses down by 96% YoY to near breakeven (-RMB 138M).</li></ul>
-</div>
-<div class="section">
-<h2>Section 2: Operational Benchmarks &amp; Business Segment Deep-Dive</h2>
-<h3>Comprehensive Segment Financial Benchmarks (Q4 FY2026)</h3>
-<div class="table-scroll-wrap"><table>
+  </div><h3>Economic Moat Analysis &amp; Strategic Trajectory</h3><p>Alibaba’s economic moat operates as an interconnected, multi-layered ecosystem spanning domestic marketplace network effects, full-stack cloud sovereignty, and cross-border logistics infrastructure:</p><ul><li><strong>Taobao &amp; Tmall Network &amp; Liquidity Moat:</strong> Despite aggressive competition from discount platforms, Taobao and Tmall remain China's undisputed dominant commerce platforms by Gross Merchandise Value (GMV). The platform's moat is anchored by its highest-spending consumer demographic—88VIP membership expanded by double digits YoY to surpass 62 million subscribers. This high-intent buyer base creates an irreplaceable demand pool for enterprise merchants. The integration of the AI-native agentic framework <em>Wukong</em> for merchants and the <em>Qwen Shopping Assistant</em> for buyers is raising switching costs by converting Taobao from a passive search catalog into an interactive, agentic purchasing layer.</li><li><strong>Cloud Intelligence &amp; Open-Source LLM Sovereignty:</strong> Alibaba Cloud holds a ~36% market share in Chinese enterprise cloud infrastructure. By pairing proprietary T-Head silicon (where over 60% of capacity is deployed to external enterprise workloads across autonomous driving, finance, and internet verticals) with the open-source flagship model family <em>Qwen</em> (including Qwen3.5 and the 2.4-trillion-parameter Qwen3.8 Max), Alibaba has established an infrastructure lock-in. Qwen’s cumulative downloads on Hugging Face crossed 1 billion, making it the world's most widely adopted open-source foundation model family. This open-source distribution converts global AI developers directly into paid compute customers on Alibaba Cloud’s Model Studio (Bailian) platform.</li><li><strong>International Cross-Border Supply Chain Scale:</strong> Alibaba International Digital Commerce (AIDC) and Cainiao logistics provide global fulfillment architecture. Cainiao's cross-border 5-day delivery solutions and optimized air-freight corridors allow AliExpress Choice and Trendyol to reduce per-order handling costs, driving AIDC adjusted EBITA losses down by 96% YoY to near breakeven (-RMB 138M).</li></ul></div>
+<div class="section"><h2>Section 2: Operational Benchmarks &amp; Business Segment Deep-Dive</h2><h3>Comprehensive Segment Financial Benchmarks (Q4 FY2026)</h3><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Business Segment</th>
@@ -1227,14 +1226,7 @@
 <td>Impacted by Sun Art/Intime divestments; Freshippo and Amap order volume grew solidly with expanding logistics scale.</td>
 </tr>
 </tbody>
-</table></div>
-<p><small><em></em>Note: China E-Commerce Group EBITA reflects investments in quick commerce and user retention. Consolidated Group Adjusted EBITA totaled RMB 5.10B.</small></p>
-<h3>Segment Deep-Dive #1: Taobao &amp; Tmall Group (ACEG) &amp; Instant Commerce</h3>
-<p>During Q4 FY2026, China E-Commerce generated RMB 122.22 billion ($17.70 billion), representing 50.2% of consolidated Group revenues. Customer Management Revenue (CMR)—the core gauge of seller ad spend and take-rates—grew 8% YoY on a like-for-like basis (adjusting for contra-revenue impacts of new merchant development initiatives).</p>
-<ul><li><strong>Take-Rate &amp; Merchant Monetization:</strong> Monetization rates stabilized as software service fee rollouts and enhanced AI ad bidding tools (like <em>Quanzhantui</em>) increased return-on-ad-spend (ROAS) for small and medium enterprises.</li><li><strong>Quick Commerce Expansion:</strong> Taobao Instant Commerce and Ele.me delivered 57% YoY revenue growth to RMB 19.99 billion. Order volumes expanded 2.7x YoY, while non-food orders tripled. Per-order unit economics (UE) improved significantly, cutting per-order fulfillment losses nearly in half through route optimization and denser order batching. Management projects quick commerce to approach positive cash flow at scale by FY2028.</li></ul>
-<h3>Segment Deep-Dive #2: Cloud Intelligence Group &amp; Qwen LLM Commercialization</h3>
-<p>Alibaba Cloud delivered its 8th consecutive quarter of accelerating growth, with overall segment revenue surging 38% YoY to RMB 41.63 billion ($6.04 billion) and external commercial revenue accelerating to 40% YoY. Segment adjusted EBITA rose 57% YoY to RMB 3.80 billion ($550 million), demonstrating operational leverage despite elevated chip procurement costs.</p>
-<div class="metrics-grid">
+</table></div><p><small><em></em>Note: China E-Commerce Group EBITA reflects investments in quick commerce and user retention. Consolidated Group Adjusted EBITA totaled RMB 5.10B.</small></p><h3>Segment Deep-Dive #1: Taobao &amp; Tmall Group (ACEG) &amp; Instant Commerce</h3><p>During Q4 FY2026, China E-Commerce generated RMB 122.22 billion ($17.70 billion), representing 50.2% of consolidated Group revenues. Customer Management Revenue (CMR)—the core gauge of seller ad spend and take-rates—grew 8% YoY on a like-for-like basis (adjusting for contra-revenue impacts of new merchant development initiatives).</p><ul><li><strong>Take-Rate &amp; Merchant Monetization:</strong> Monetization rates stabilized as software service fee rollouts and enhanced AI ad bidding tools (like <em>Quanzhantui</em>) increased return-on-ad-spend (ROAS) for small and medium enterprises.</li><li><strong>Quick Commerce Expansion:</strong> Taobao Instant Commerce and Ele.me delivered 57% YoY revenue growth to RMB 19.99 billion. Order volumes expanded 2.7x YoY, while non-food orders tripled. Per-order unit economics (UE) improved significantly, cutting per-order fulfillment losses nearly in half through route optimization and denser order batching. Management projects quick commerce to approach positive cash flow at scale by FY2028.</li></ul><h3>Segment Deep-Dive #2: Cloud Intelligence Group &amp; Qwen LLM Commercialization</h3><p>Alibaba Cloud delivered its 8th consecutive quarter of accelerating growth, with overall segment revenue surging 38% YoY to RMB 41.63 billion ($6.04 billion) and external commercial revenue accelerating to 40% YoY. Segment adjusted EBITA rose 57% YoY to RMB 3.80 billion ($550 million), demonstrating operational leverage despite elevated chip procurement costs.</p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">AI Product External Cloud Share</div>
 <div class="metric-value">30.0%</div>
@@ -1245,20 +1237,12 @@
 <div class="metric-value">&gt;RMB 8.0B</div>
 <div class="metric-delta pos">Path to &gt;RMB 30B by Year-End</div>
 </div>
-</div>
-<ul><li><strong>Triple-Digit AI Expansion:</strong> Revenue from AI-related products registered triple-digit YoY growth for the 11th consecutive quarter. Annualized AI product revenue run-rate surpassed RMB 35.8 billion ($5.3 billion). AI now represents 30% of total external cloud sales, with CEO Eddie Wu targeting AI products to cross the 50% threshold within 12 months.</li><li><strong>Model-as-a-Service (MaaS) Traction:</strong> Annualized Recurring Revenue (ARR) for the Bailian (Model Studio) platform passed RMB 8 billion, with management expressing near-certainty of crossing RMB 10 billion in the June quarter and targeting RMB 30 billion by calendar year-end 2026. Enterprise adoption is driven by <em>Qwen3.8 Max</em> (2.4T parameters), which matches top-tier Western foundation models across coding, reasoning, and multimodal benchmark tasks.</li></ul>
-<h3>Segment Deep-Dive #3: AIDC &amp; Cainiao Logistics Synergy</h3>
-<p>Alibaba International Digital Commerce (AIDC) posted Q4 revenue of RMB 35.43 billion ($5.22 billion), up 6% YoY. International commerce wholesale grew 9% to RMB 6.51 billion, driven by cross-border trade assurance and supply chain value-added services. The standout operational highlight was the massive bottom-line turnaround: AIDC adjusted EBITA loss narrowed dramatically from -RMB 3.57 billion in Q4 FY25 to just -RMB 138 million (-$20 million) in Q4 FY26.</p>
-<p>This operational milestone was achieved via logistics optimization between AliExpress Choice and Cainiao. By leveraging unified cross-border sorting hubs and direct airline charters, Cainiao cut average shipping transit times while lowering delivery cost per package. With AIDC nearing profitability and quick commerce losses narrowing rapidly, Alibaba’s secondary operating segments are transitioning from capital drains into self-sustaining cash flow contributors.</p>
-<div class="callout">
+</div><ul><li><strong>Triple-Digit AI Expansion:</strong> Revenue from AI-related products registered triple-digit YoY growth for the 11th consecutive quarter. Annualized AI product revenue run-rate surpassed RMB 35.8 billion ($5.3 billion). AI now represents 30% of total external cloud sales, with CEO Eddie Wu targeting AI products to cross the 50% threshold within 12 months.</li><li><strong>Model-as-a-Service (MaaS) Traction:</strong> Annualized Recurring Revenue (ARR) for the Bailian (Model Studio) platform passed RMB 8 billion, with management expressing near-certainty of crossing RMB 10 billion in the June quarter and targeting RMB 30 billion by calendar year-end 2026. Enterprise adoption is driven by <em>Qwen3.8 Max</em> (2.4T parameters), which matches top-tier Western foundation models across coding, reasoning, and multimodal benchmark tasks.</li></ul><h3>Segment Deep-Dive #3: AIDC &amp; Cainiao Logistics Synergy</h3><p>Alibaba International Digital Commerce (AIDC) posted Q4 revenue of RMB 35.43 billion ($5.22 billion), up 6% YoY. International commerce wholesale grew 9% to RMB 6.51 billion, driven by cross-border trade assurance and supply chain value-added services. The standout operational highlight was the massive bottom-line turnaround: AIDC adjusted EBITA loss narrowed dramatically from -RMB 3.57 billion in Q4 FY25 to just -RMB 138 million (-$20 million) in Q4 FY26.</p><p>This operational milestone was achieved via logistics optimization between AliExpress Choice and Cainiao. By leveraging unified cross-border sorting hubs and direct airline charters, Cainiao cut average shipping transit times while lowering delivery cost per package. With AIDC nearing profitability and quick commerce losses narrowing rapidly, Alibaba’s secondary operating segments are transitioning from capital drains into self-sustaining cash flow contributors.</p><div class="callout">
 <strong>Pre-Mortem Thesis Falsification Triggers:</strong><br/>
     Monitored risks that could invalidate the fundamental thesis:
     <ul><li><strong>AI Infrastructure CapEx vs. Yield Lag:</strong> Free cash flow deteriorated to an outflow of RMB 17.3 billion in Q4. If cloud gross margins fail to expand above 15–20% as enterprise AI workloads shift from initial training to lower-margin inference, high CapEx outlays could permanently reduce return on invested capital (ROIC).</li><li><strong>Quick Commerce Price Wars:</strong> Subsidies in instant retail depressed China E-Commerce EBITA by 40%+ YoY. Prolonged price competition against Meituan or JD.com could delay segment margin recovery beyond FY2028.</li><li><strong>Geopolitical &amp; Export Hardware Controls:</strong> US restrictions on advanced GPU shipments could constrain the long-term compute scale of Alibaba Cloud, requiring higher reliance on proprietary T-Head chip designs.</li></ul>
-</div>
-</div>
-<div class="section">
-<h2>Section 3: Real Cash Flow &amp; Dilution Audit</h2>
-<div class="metrics-grid">
+</div></div>
+<div class="section"><h2>Section 3: Real Cash Flow &amp; Dilution Audit</h2><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Q4 FY26 Revenue</div>
 <div class="metric-value">RMB 243.38B</div>
@@ -1279,15 +1263,11 @@
 <div class="metric-value">-5.10% Net</div>
 <div class="metric-delta pos">Cannibal Buyback Active</div>
 </div>
-</div>
-<h3>1. True Cash Generation &amp; SBC Deduction Audit</h3>
-<p>
+</div><h3>1. True Cash Generation &amp; SBC Deduction Audit</h3><p>
     An uncompromised forensic audit of Alibaba’s Q4 FY2026 and full-year FY2026 financials reveals a business in the middle of a massive structural capital shift. While headline revenue reached <strong>RMB 1,023.67B ($148.40B)</strong> for the full year (+11% YoY on a like-for-like basis excluding Sun Art and Intime divestitures), cash flow was distorted by heavy capital expenditures in AI infrastructure.
-  </p>
-<p>
+  </p><p>
     Treating Stock-Based Compensation (SBC) as a mandatory cash-equivalent expense—as required by strict fundamental owner earnings principles—shows that operating cash flow of <strong>RMB 9.40B ($1.36B)</strong> in Q4 FY2026 was fully absorbed by hardware deployment. Alibaba spent <strong>RMB 26.89B ($3.90B)</strong> in CapEx during the quarter, driving conventional Free Cash Flow to <strong>-RMB 17.30B (-$2.50B)</strong>. Deducting 100% of quarterly SBC (<strong>RMB 0.47B / $65.9M</strong>) brings true <strong>Normalized Free Cash Flow to -RMB 17.77B (-$2.57B)</strong>.
-  </p>
-<div class="table-scroll-wrap"><table>
+  </p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Cash Flow Component (RMB Millions)</th>
@@ -1334,16 +1314,12 @@
 <td><strong>True Economic Cash Flow post-SBC &amp; Heavy CapEx</strong></td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <strong>Auditor’s Insight on AI Infrastructure CapEx:</strong> 
     The cash outflow is directly driving commercial acceleration in Cloud Intelligence Group. External cloud revenue growth hit <strong>+40% YoY</strong> in Q4, with AI-related products achieving triple-digit growth for the 11th consecutive quarter and now comprising 30% of external cloud sales (projected to cross 50% within 12 months). Annualized AI product revenue crossed <strong>RMB 35.8B ($5.3B)</strong>, confirming that CapEx spending is backing monetizable platform demand rather than idle capacity.
-  </div>
-<h3>2. Shareholder Yield vs. SBC Dilution</h3>
-<p>
+  </div><h3>2. Shareholder Yield vs. SBC Dilution</h3><p>
     Despite cash flow compression, management executed a buyback campaign that outpaced SBC share issuance. During FY2026, Alibaba deployed <strong>$12.5B</strong> in share repurchases, reducing outstanding ADSs to approximately <strong>2.415B</strong> (~19.17B ordinary shares), delivering a <strong>5.1% net share reduction YoY</strong>.
-  </p>
-<div class="table-scroll-wrap"><table>
+  </p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Capital Return Metric</th>
@@ -1373,11 +1349,8 @@
 <td>SBC issuance dilution (&lt;0.2%) fully neutralized by buybacks</td>
 </tr>
 </tbody>
-</table></div>
-</div>
-<div class="section">
-<h2>Section 4: Balance Sheet Fortress &amp; Institutional Sponsorship</h2>
-<div class="metrics-grid">
+</table></div></div>
+<div class="section"><h2>Section 4: Balance Sheet Fortress &amp; Institutional Sponsorship</h2><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Liquid Cash Reserve</div>
 <div class="metric-value">RMB 316.89B</div>
@@ -1398,15 +1371,11 @@
 <div class="metric-value">RMB 437.31B</div>
 <div class="metric-delta pos">Interest-Free Working Capital</div>
 </div>
-</div>
-<h3>1. Balance Sheet Liquidity &amp; Capital Structure Realities</h3>
-<p>
+</div><h3>1. Balance Sheet Liquidity &amp; Capital Structure Realities</h3><p>
     Alibaba maintains one of the strongest balance sheets in the global technology space. As of March 31, 2026, total unrestricted cash, short-term investments, and treasury assets totaled <strong>RMB 316.89B ($43.8B)</strong>, with broader total liquid reserves reaching <strong>$75.5B</strong>.
-  </p>
-<p>
+  </p><p>
     Factoring in all short-term debt (<strong>RMB 28.22B</strong>), senior notes and long-term debt (<strong>RMB 249.18B</strong>), and lease liabilities (<strong>RMB 11.26B</strong>), Alibaba holds a net cash balance of <strong>RMB 260.82B ($37.8B–$42.5B)</strong>. Excluding long-dated debt obligations that mature past 2029, net cash exceeds <strong>$60B</strong>.
-  </p>
-<div class="table-scroll-wrap"><table>
+  </p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Balance Sheet Account (As of March 31, 2026)</th>
@@ -1465,20 +1434,14 @@
 <td>Includes 33% Ant Group, Cainiao, &amp; Public Equities</td>
 </tr>
 </tbody>
-</table></div>
-<h3>2. Customer Float &amp; Working Capital Dynamics</h3>
-<p>
+</table></div><h3>2. Customer Float &amp; Working Capital Dynamics</h3><p>
     Alibaba operates with negative working capital, driven by its e-commerce payment cycles and upfront annual cloud subscription collections. 
-  </p>
-<ul><li><strong>Accounts Payable &amp; Merchant Payables:</strong> RMB 359.89B ($49.7B) held as interest-free merchant settlement balances before escrow payout.</li><li><strong>Unearned &amp; Deferred Revenue:</strong> RMB 77.42B ($10.7B) collected upfront for Tmall merchant software services and prepaid Cloud contracts.</li></ul>
-<p>
+  </p><ul><li><strong>Accounts Payable &amp; Merchant Payables:</strong> RMB 359.89B ($49.7B) held as interest-free merchant settlement balances before escrow payout.</li><li><strong>Unearned &amp; Deferred Revenue:</strong> RMB 77.42B ($10.7B) collected upfront for Tmall merchant software services and prepaid Cloud contracts.</li></ul><p>
     Combined, Alibaba controls over <strong>RMB 437.31B (~$60.4B)</strong> in interest-free working capital float, allowing the company to fund operational expansion without taking on high-cost short-term commercial paper.
-  </p>
-<div class="callout">
+  </p><div class="callout">
 <strong>Institutional Whale Tracking (13F Filings Audit):</strong>
 <ul><li><strong>Michael Burry (Scion Asset Management):</strong> Confirmed re-entry and expansion in BABA equity/call options, viewing the deep discount relative to net cash and cloud growth as an asymmetric value entry point.</li><li><strong>David Tepper (Appaloosa Management):</strong> Maintained BABA as a top position holding 3.465M ADSs (~$435M market value). Tactical trims in recent quarters reflected portfolio rebalancing into AI hardware (Micron/AMZN) rather than fundamental thesis breakdown.</li></ul>
-</div>
-</div>
+</div></div>
 <h3>Strategic Metadata &amp; Surveillance Corridors</h3>
 <ul><li><strong>Thesis Conviction &amp; Confidence Rating</strong>: `Solid Conviction`</li><li><strong>Economic Play &amp; Catalyst Drivers</strong>: `Deep Value` | `Buyback Cannibal`</li><li><strong>Dynamic Surveillance Corridors</strong>:</li><li><strong>Upper Alert Threshold</strong>: `$165.00` <em>(Nearing Base-Case Intrinsic Value; re-evaluate AI monetization payback and capital allocation efficiency)</em></li><li><strong>Lower Alert Threshold</strong>: `$95.00` <em>(Testing severe distress valuation; test margin of safety against Net Cash floor and core e-commerce cash generation)</em></li></ul>
 <hr/>
@@ -1547,15 +1510,15 @@ Buffett's valuation approach integrates balance sheet cash fortresses and look-t
 
 Balance Sheet Bridge (Per ADS Calculation):
 
-  (+) Cash, Short-Term Investments & Liquid Treasuries: RMB 520.8B ($74.40B USD)
-  (-) Total Debt & Operating Lease Liabilities:         RMB 260.0B ($37.14B USD)
+  (+) Cash, Short-Term Investments &amp; Liquid Treasuries: RMB 520.8B ($74.40B USD)
+  (-) Total Debt &amp; Operating Lease Liabilities:         RMB 260.0B ($37.14B USD)
 <hr/>
   (=) Net Liquid Cash Engine:                          RMB 260.8B ($37.26B USD)
-      -> Per ADS Net Cash Contribution:                           $15.65 / ADS
+      -&gt; Per ADS Net Cash Contribution:                           $15.65 / ADS
 
   (+) Strategic Look-Through Equity Stakes:                        $32.00B USD
       (33% Ant Group Stake + Amap/Cainiao/Media Stakes)
-      -> Per ADS Equity Stakes Contribution:                      $13.45 / ADS
+      -&gt; Per ADS Equity Stakes Contribution:                      $13.45 / ADS
 <hr/>
   (=) Total Net Balance Sheet Bridge Value:                        $29.10 / ADS
 <hr/>
@@ -1565,10 +1528,7 @@ Management continues to deploy excess cash into share repurchases. Shrinking the
 
 Over the past two fiscal years, Alibaba retired 3.5%–5.0% of its diluted share count annually. Modeling a <strong>4.0% annual share retirement</strong> over the next 10 years reduces diluted ADS count from 2.38 Billion to ~1.58 Billion, accelerating per-share cash flow compounding.
 <hr/>
-<div class="section">
-<h3>Section 5: Intrinsic Value DCF Projections &amp; Scenario Matrix</h3>
-<p>The valuation uses a 10-year Owner Earnings Cash Flow model without relying on terminal exit multiples. Terminal Value is derived using the Gordon Growth Model, capped strictly at long-term GDP growth (2.25%), and combined with the Net Asset Bridge.</p>
-<div class="table-scroll-wrap"><table>
+<div class="section"><h3>Section 5: Intrinsic Value DCF Projections &amp; Scenario Matrix</h3><p>The valuation uses a 10-year Owner Earnings Cash Flow model without relying on terminal exit multiples. Terminal Value is derived using the Gordon Growth Model, capped strictly at long-term GDP growth (2.25%), and combined with the Net Asset Bridge.</p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Valuation Metric / Parameter</th>
@@ -1645,26 +1605,15 @@ Over the past two fiscal years, Alibaba retired 3.5%–5.0% of its diluted share
 <td><span>-43.4% Discount</span></td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <strong>Probability-Weighted Expected Value:</strong> Weighing the Bear Case (20%), Base Case (60%), and Bull Scenario (20%) yields an Expected Intrinsic Fair Value of <strong>$169.50 per ADS</strong>. At the current price of ~$127.30, $BABA offers an attractive <strong>24.9% Margin of Safety</strong> under conservative cash generation assumptions.
-  </div>
-</div>
+  </div></div>
 <hr/>
-<div class="section">
-<h3>Section 6: Thesis Confidence, Execution Risk Assessment &amp; Pre-Mortem</h3>
-<h4>1. Thesis Confidence &amp; Margin of Safety Evaluation</h4>
-<p>Confidence in this thesis is rated as <strong>Solid Conviction</strong>. The margin of safety is anchored by $29.10 per ADS in net cash and strategic holdings (~23% of current market cap), which limits permanent downside risk even if AI monetization experiences multi-year delays.</p>
-<h4>2. Key Execution &amp; Macro Risks</h4>
-<ul><li><strong>Domestic E-Commerce Competition:</strong> Market share erosion from Pinduoduo (PDD) and Douyin live-streaming commerce could pressure Taobao/Tmall Take Rates and require persistent, margin-dilutive merchant subsidies.</li><li><strong>AI CapEx Payback Risk:</strong> Capital commitments to AI servers and data centers could impair near-term FCF if external cloud revenue growth decelerates below +20%.</li><li><strong>Geopolitical &amp; Export Controls:</strong> Restrictions on advanced GPU imports (e.g., Nvidia chips) may force reliance on domestic hardware, slowing high-performance training speed relative to US cloud peers.</li></ul>
-<h4>3. Pre-Mortem Falsification Triggers (Thesis Invalidation Rules)</h4>
-<p>The thesis is invalidated and triggers an immediate liquidation or downgrade under the following conditions:</p>
-<div class="callout">
+<div class="section"><h3>Section 6: Thesis Confidence, Execution Risk Assessment &amp; Pre-Mortem</h3><h4>1. Thesis Confidence &amp; Margin of Safety Evaluation</h4><p>Confidence in this thesis is rated as <strong>Solid Conviction</strong>. The margin of safety is anchored by $29.10 per ADS in net cash and strategic holdings (~23% of current market cap), which limits permanent downside risk even if AI monetization experiences multi-year delays.</p><h4>2. Key Execution &amp; Macro Risks</h4><ul><li><strong>Domestic E-Commerce Competition:</strong> Market share erosion from Pinduoduo (PDD) and Douyin live-streaming commerce could pressure Taobao/Tmall Take Rates and require persistent, margin-dilutive merchant subsidies.</li><li><strong>AI CapEx Payback Risk:</strong> Capital commitments to AI servers and data centers could impair near-term FCF if external cloud revenue growth decelerates below +20%.</li><li><strong>Geopolitical &amp; Export Controls:</strong> Restrictions on advanced GPU imports (e.g., Nvidia chips) may force reliance on domestic hardware, slowing high-performance training speed relative to US cloud peers.</li></ul><h4>3. Pre-Mortem Falsification Triggers (Thesis Invalidation Rules)</h4><p>The thesis is invalidated and triggers an immediate liquidation or downgrade under the following conditions:</p><div class="callout">
 <ul><li><strong>Falsification Trigger #1 — Buyback Suspension:</strong> Share repurchases drop below 2.0% annually, indicating capital is diverted to non-accretive ventures or trapped by capital controls.
   <strong>Falsification Trigger #2 — Cloud Growth Collapse:</strong> Cloud Intelligence external revenue growth falls below +12% YoY for two consecutive quarters, signaling failure in AI infrastructure monetization.
   <strong>Falsification Trigger #3 — Core Margin Erosion:</strong> Adjusted EBITA margin in Taobao &amp; Tmall Group contracts by more than 400 bps YoY due to competitive price wars, permanently diminishing core cash generation.</li></ul>
-</div>
-</div>
+</div></div>
             </article>
         </div>
 

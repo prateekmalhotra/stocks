@@ -486,11 +486,21 @@
         .memo-container ul, .memo-container ol {
             font-family: var(--font-serif) !important;
             font-size: 1.12rem !important;
-            line-height: 1.9 !important;
+            line-height: 1.85 !important;
             color: var(--text-body) !important;
-            margin: 0 0 26px 30px !important;
+            margin: 16px 0 24px 24px !important;
+            padding-left: 12px !important;
         }
-        .memo-container li { margin-bottom: 10px !important; color: var(--text-body) !important; }
+        .memo-container ul { list-style-type: disc !important; }
+        .memo-container ol { list-style-type: decimal !important; }
+        .memo-container li {
+            margin-bottom: 12px !important;
+            color: var(--text-body) !important;
+            line-height: 1.85 !important;
+        }
+        .memo-container li::marker {
+            color: var(--accent-warm) !important;
+        }
         .memo-container strong, .memo-container b {
             color: var(--text-title) !important;
             font-weight: 600 !important;
@@ -1150,12 +1160,7 @@
         <!-- Memo Content -->
         <div id="tab-memo" class="tab-content active">
             <article class="memo-container">
-                <div class="section">
-<h2>Section 1: Business Model Reality &amp; Core IP Moat Architecture</h2>
-<p>The Walt Disney Company (NYSE: DIS) operates a unique, closed-loop media and entertainment ecosystem. Under Chief Executive Officer Josh D'Amaro, the corporate strategy has converged on the <strong>'One Disney' execution framework</strong>—an operational philosophy designed to eliminate structural friction across Studios, Direct-to-Consumer (DTC) streaming, Linear Networks, and Experiences. Rather than treating content creation, streaming distribution, and physical theme parks as siloed profit centers, 'One Disney' treats IP creation as the primary catalyst that triggers a compounding cash-generation flywheel.</p>
-<p>The fundamental economic engine of Disney rests upon its IP moat architecture. When a flagship franchise like Pixar's <em>Toy Story 5</em> achieves global theatrical success (crossing $1.0 billion in global box office during Q3 FY26), it immediately cascades across the entire corporate capital structure:</p>
-<ul><li><strong>Theatrical &amp; Distribution Monetization:</strong> High-margin box office receipts drive initial cash inflows and validate brand relevance.</li><li><strong>Consumer Products &amp; Retail Licensing:</strong> The <em>Toy Story</em> franchise generates over $1.0 billion in annual global retail sales across third-party retailers, providing stable licensing income with near-zero working capital requirements.</li><li><strong>DTC Platform Engagement &amp; Retention:</strong> The catalog serves as a primary retention tool for Disney+, reducing churn and supporting pricing power across SVOD tiers.</li><li><strong>Physical Experiences Reinvestment:</strong> Franchise affinity directly powers high-yield capital projects across parks (e.g., Toy Story Land extensions) and cruise lines, driving elevated guest spending and ticket yields.</li></ul>
-<div class="metrics-grid">
+                <div class="section"><h2>Section 1: Business Model Reality &amp; Core IP Moat Architecture</h2><p>The Walt Disney Company (NYSE: DIS) operates a unique, closed-loop media and entertainment ecosystem. Under Chief Executive Officer Josh D'Amaro, the corporate strategy has converged on the <strong>'One Disney' execution framework</strong>—an operational philosophy designed to eliminate structural friction across Studios, Direct-to-Consumer (DTC) streaming, Linear Networks, and Experiences. Rather than treating content creation, streaming distribution, and physical theme parks as siloed profit centers, 'One Disney' treats IP creation as the primary catalyst that triggers a compounding cash-generation flywheel.</p><p>The fundamental economic engine of Disney rests upon its IP moat architecture. When a flagship franchise like Pixar's <em>Toy Story 5</em> achieves global theatrical success (crossing $1.0 billion in global box office during Q3 FY26), it immediately cascades across the entire corporate capital structure:</p><ul><li><strong>Theatrical &amp; Distribution Monetization:</strong> High-margin box office receipts drive initial cash inflows and validate brand relevance.</li><li><strong>Consumer Products &amp; Retail Licensing:</strong> The <em>Toy Story</em> franchise generates over $1.0 billion in annual global retail sales across third-party retailers, providing stable licensing income with near-zero working capital requirements.</li><li><strong>DTC Platform Engagement &amp; Retention:</strong> The catalog serves as a primary retention tool for Disney+, reducing churn and supporting pricing power across SVOD tiers.</li><li><strong>Physical Experiences Reinvestment:</strong> Franchise affinity directly powers high-yield capital projects across parks (e.g., Toy Story Land extensions) and cruise lines, driving elevated guest spending and ticket yields.</li></ul><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Q3 FY26 Revenue</div>
 <div class="metric-value">$25.25B</div>
@@ -1176,15 +1181,8 @@
 <div class="metric-value">≥$9.0B</div>
 <div class="metric-delta pos">$7.25B YTD</div>
 </div>
-</div>
-<p>From a capital allocation perspective, management is using cash flow from operations (reiterated at $\ge \$19.0$ billion for FY26) to execute a dual-track program: aggressive capital expenditure into long-duration, high-ROIC physical experiences ($\sim\$9.0$ billion FY26 CapEx) alongside significant capital return via expanded share repurchases (target increased to at least $9.0 billion for the full fiscal year). This capital discipline underscores the company's transition from an investment-heavy streaming buildout phase into a cash-harvesting and share-cannibalization phase.</p>
-</div>
-<div class="section">
-<h2>Section 2: Segment Operational Performance &amp; Leadership Execution Analysis</h2>
-<h3>1. Disney Experiences: Record Revenue &amp; High-Yield Fleet Expansion</h3>
-<p>The Experiences segment delivered its best Q3 performance in company history, generating $10.0 billion in revenue (+10% YoY) and segment operating income growth that landed at the high end of executive guidance. Operational momentum was anchored by domestic parks guest spending (+4% per-capita spending) and 3% domestic attendance growth, proving the pricing resilience of the domestic park network despite broader macroeconomic uncertainties.</p>
-<p>Crucially, the Disney Cruise Line expanded its effective capacity by +50% YoY, driving superior yield growth and elevated booking load factors. The multi-year $60 billion capital expansion plan across parks and resorts—including major developments like Villains Land, Monsters, Inc., Tropical Americas, and Cars at Walt Disney World, alongside international developments like The Lion King area at Disneyland Paris—is designed to drive structural capacity expansion while sustaining high return on invested capital (ROIC).</p>
-<div class="table-scroll-wrap"><table>
+</div><p>From a capital allocation perspective, management is using cash flow from operations (reiterated at $\ge \$19.0$ billion for FY26) to execute a dual-track program: aggressive capital expenditure into long-duration, high-ROIC physical experiences ($\sim\$9.0$ billion FY26 CapEx) alongside significant capital return via expanded share repurchases (target increased to at least $9.0 billion for the full fiscal year). This capital discipline underscores the company's transition from an investment-heavy streaming buildout phase into a cash-harvesting and share-cannibalization phase.</p></div>
+<div class="section"><h2>Section 2: Segment Operational Performance &amp; Leadership Execution Analysis</h2><h3>1. Disney Experiences: Record Revenue &amp; High-Yield Fleet Expansion</h3><p>The Experiences segment delivered its best Q3 performance in company history, generating $10.0 billion in revenue (+10% YoY) and segment operating income growth that landed at the high end of executive guidance. Operational momentum was anchored by domestic parks guest spending (+4% per-capita spending) and 3% domestic attendance growth, proving the pricing resilience of the domestic park network despite broader macroeconomic uncertainties.</p><p>Crucially, the Disney Cruise Line expanded its effective capacity by +50% YoY, driving superior yield growth and elevated booking load factors. The multi-year $60 billion capital expansion plan across parks and resorts—including major developments like Villains Land, Monsters, Inc., Tropical Americas, and Cars at Walt Disney World, alongside international developments like The Lion King area at Disneyland Paris—is designed to drive structural capacity expansion while sustaining high return on invested capital (ROIC).</p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Experiences Operating Metric</th>
@@ -1214,12 +1212,7 @@
 <td>Fleet expansion capturing high-margin premium family cruise demand.</td>
 </tr>
 </tbody>
-</table></div>
-<h3>2. Entertainment &amp; DTC Streaming: Margin Expansion &amp; Ecosystem Centricity</h3>
-<p>Disney's Direct-to-Consumer (DTC) streaming segment reached a pivotal profitability milestone. Direct-to-Consumer streaming revenue increased 11% to $5.5 billion, while SVOD operating income surged to $712 million (a 2.16x increase YoY), yielding an SVOD operating margin of 12.9% (~13%). This performance demonstrates that Disney's streaming business has successfully overtaken its legacy linear business in revenue contribution.</p>
-<p>Strategic initiatives under Josh D'Amaro are transforming Disney+ into the central digital distribution hub:</p>
-<ul><li><strong>Disney+ &amp; Hulu App Unification:</strong> Full technical and content integration into a single standalone application by year-end FY26 to improve user engagement and reduce churn.</li><li><strong>Creator &amp; Social Distribution Deals:</strong> A strategic agreement with TikTok allowing creators to license Disney IP clips, funneling viral social media attention directly back to Disney+ subscription channels.</li><li><strong>Digital Centerpiece &amp; Ecosystem Pass:</strong> Planned launch in spring 2027 of an integrated membership ecosystem utilizing first-party guest data from parks, commerce, and streaming to personalize offers and drive platform stickiness.</li><li><strong>Box Office Engine:</strong> Driven by <em>Toy Story 5</em> ($1B+ worldwide), cementing Pixar and Disney Animation's box office dominance and supplying immediate high-performing windowed content to SVOD.</li></ul>
-<div class="table-scroll-wrap"><table>
+</table></div><h3>2. Entertainment &amp; DTC Streaming: Margin Expansion &amp; Ecosystem Centricity</h3><p>Disney's Direct-to-Consumer (DTC) streaming segment reached a pivotal profitability milestone. Direct-to-Consumer streaming revenue increased 11% to $5.5 billion, while SVOD operating income surged to $712 million (a 2.16x increase YoY), yielding an SVOD operating margin of 12.9% (~13%). This performance demonstrates that Disney's streaming business has successfully overtaken its legacy linear business in revenue contribution.</p><p>Strategic initiatives under Josh D'Amaro are transforming Disney+ into the central digital distribution hub:</p><ul><li><strong>Disney+ &amp; Hulu App Unification:</strong> Full technical and content integration into a single standalone application by year-end FY26 to improve user engagement and reduce churn.</li><li><strong>Creator &amp; Social Distribution Deals:</strong> A strategic agreement with TikTok allowing creators to license Disney IP clips, funneling viral social media attention directly back to Disney+ subscription channels.</li><li><strong>Digital Centerpiece &amp; Ecosystem Pass:</strong> Planned launch in spring 2027 of an integrated membership ecosystem utilizing first-party guest data from parks, commerce, and streaming to personalize offers and drive platform stickiness.</li><li><strong>Box Office Engine:</strong> Driven by <em>Toy Story 5</em> ($1B+ worldwide), cementing Pixar and Disney Animation's box office dominance and supplying immediate high-performing windowed content to SVOD.</li></ul><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Entertainment &amp; DTC Metric</th>
@@ -1249,22 +1242,14 @@
 <td>Pushes total franchise box office over $4B, boosting retail &amp; DTC intake.</td>
 </tr>
 </tbody>
-</table></div>
-<h3>3. Sports (ESPN) Leadership &amp; Digital Transition</h3>
-<p>The Sports segment maintained solid financial stability while preparing for its flagship direct-to-consumer transition. ESPN achieved record viewership across ABC and linear ESPN broadcasts, driven by live event programming. Additionally, management finalized a strategic capital restructuring for ESPN associated with its NFL partnership (establishing a 72%/18%/10% strategic equity structure), laying the foundation for the upcoming launch of the standalone ESPN DTC platform.</p>
-<div class="callout">
+</table></div><h3>3. Sports (ESPN) Leadership &amp; Digital Transition</h3><p>The Sports segment maintained solid financial stability while preparing for its flagship direct-to-consumer transition. ESPN achieved record viewership across ABC and linear ESPN broadcasts, driven by live event programming. Additionally, management finalized a strategic capital restructuring for ESPN associated with its NFL partnership (establishing a 72%/18%/10% strategic equity structure), laying the foundation for the upcoming launch of the standalone ESPN DTC platform.</p><div class="callout">
 <p><strong>Executive Commentary — Q3 FY26 Earnings Call:</strong></p>
 <p><em>"This was an excellent quarter for us, and our Q3 results and reiterated full-year outlook show we're operating from a real position of strength. Total segment operating income came in ahead of our prior guidance, up 21%, with total company revenue growth of 7%. And Disney Experiences delivered record fiscal Q3 revenue and segment OI... We believe we are uniquely positioned in the global entertainment industry. We have clear growth drivers in Experiences and streaming, and unmatched breadth and depth of IP. In an increasingly fragmented attention economy, consumers are choosing to spend their time with us across our core platforms, Experiences, Disney+ and ESPN."</em></p>
 <p>— <strong>Josh D'Amaro, Chief Executive Officer</strong></p>
-</div>
-</div>
-<div class="section">
-<h2>Section 3: Real Cash Flow &amp; Capital Structure (Forensic Audit)</h2>
-<p>
+</div></div>
+<div class="section"><h2>Section 3: Real Cash Flow &amp; Capital Structure (Forensic Audit)</h2><p>
     A rigorous financial forensic evaluation of The Walt Disney Company (NYSE: DIS) requires looking beyond headline GAAP net income to analyze true organic cash generation, capital intensity, lease obligations, and share dilutive costs. For Q3 FY26, Disney delivered strong operational momentum driven by acceleration in Direct-to-Consumer (DTC) streaming profitability, resilient theme park pricing, and domestic theatrical releases.
-  </p>
-<!-- Metric Stat Cards -->
-<div class="metrics-grid">
+  </p><p> Metric Stat Cards </p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Q3 FY26 Revenue</div>
 <div class="metric-value">$25.25B</div>
@@ -1285,12 +1270,9 @@
 <div class="metric-value">$3.07B</div>
 <div class="metric-delta pos">+62.6% YoY</div>
 </div>
-</div>
-<h3>1. Cash Flow Quality &amp; Stock-Based Compensation (SBC) Audit</h3>
-<p>
+</div><h3>1. Cash Flow Quality &amp; Stock-Based Compensation (SBC) Audit</h3><p>
     In accordance with fundamental owner-earnings principles, Stock-Based Compensation (SBC) is not a non-cash expense to be ignored; it represents real economic shareholder dilution and must be deducted directly from reported operating cash flows to determine true <strong>Normalized Owner Earnings</strong>. 
-  </p>
-<div class="table-scroll-wrap"><table>
+  </p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Cash Flow Component (Q3 FY26)</th>
@@ -1331,15 +1313,11 @@
 <td><strong>$2.76B</strong></td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <strong>Forensic Insight — Owner Earnings Realism:</strong> While management reports Free Cash Flow of $3.07B for Q3 FY26 (+62.6% YoY), deducting $310M in quarterly Stock-Based Compensation brings true Normalized Owner Earnings to $2.76B. Disney's cash conversion ratio remains exceptional, supported by DTC profitability inflection and multi-year working capital discipline. Operating cash flow is on track to hit ~$19.2B for full-year FY26.
-  </div>
-<h3>2. Balance Sheet Debt Structure &amp; Lease Liabilities</h3>
-<p>
+  </div><h3>2. Balance Sheet Debt Structure &amp; Lease Liabilities</h3><p>
     Evaluating Disney's solvency requires factoring in all debt obligations, including short-term commercial paper, long-term bonds, and operating lease liabilities under ASC 842 (crucial for retail stores, international studio spaces, and leased park grounds).
-  </p>
-<div class="table-scroll-wrap"><table>
+  </p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Capital Structure Obligation</th>
@@ -1384,26 +1362,17 @@
 <td><strong>Total Adjusted Debt minus Cash Reserves</strong></td>
 </tr>
 </tbody>
-</table></div>
-<h3>3. Capital Return Program: Share Buyback &amp; Dividend Audit</h3>
-<p>
+</table></div><h3>3. Capital Return Program: Share Buyback &amp; Dividend Audit</h3><p>
     Backed by robust organic cash flow generation, executive management updated its FY26 capital return guidance, raising target share repurchases to <strong>AT LEAST $9.0 billion</strong> (up from prior $3.0B–$5.0B targets), alongside an annual dividend payout of ~$2.7B (~$1.50 per share).
-  </p>
-<div class="callout">
+  </p><div class="callout">
 <strong>Capital Allocation &amp; Share Buyback Cannibal Dynamics:</strong> 
     With a total market capitalization of ~$181 billion, a $9.0B annual buyback program represents an aggressive ~5.0% annual reduction in outstanding share count. Funding this return alongside $1.75B+ in quarterly CapEx requires $11.7B in annual cash distribution. Because full-year FY26 cash flow from operations is forecasted at $19.0B+, the capital return plan is fully covered by organic cash generation without leveraging the balance sheet.
-  </div>
-</div>
-<div class="section">
-<h2>Section 4: Institutional Whale Tracking &amp; Insider Signals</h2>
-<p>
+  </div></div>
+<div class="section"><h2>Section 4: Institutional Whale Tracking &amp; Insider Signals</h2><p>
     An audit of official SEC filings (Form 13F and Form 4) confirms strong institutional retention and passive index accumulation, alongside controlled executive insider activity following the Q3 FY26 earnings beat.
-  </p>
-<h3>1. Institutional Whale Ownership Distribution (13F Filings)</h3>
-<p>
+  </p><h3>1. Institutional Whale Ownership Distribution (13F Filings)</h3><p>
     Disney's institutional base remains heavily anchored by core asset managers and passive index giants, providing structural price support.
-  </p>
-<div class="table-scroll-wrap"><table>
+  </p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Institutional Holder</th>
@@ -1450,12 +1419,9 @@
 <td><strong>Net Accumulation</strong></td>
 </tr>
 </tbody>
-</table></div>
-<h3>2. OpenInsider Form 4 Audit &amp; Executive Action</h3>
-<p>
+</table></div><h3>2. OpenInsider Form 4 Audit &amp; Executive Action</h3><p>
     Recent SEC Form 4 filings indicate routine executive stock activity primarily tied to scheduled equity vesting, performance-based award tax withholding, and minor portfolio rebalancing.
-  </p>
-<div class="table-scroll-wrap"><table>
+  </p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Insider Name / Title</th>
@@ -1492,21 +1458,15 @@
 <td>$890,800</td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <strong>Insider &amp; Whale Sentiment Synthesis:</strong> 
     Institutional whales hold a commanding 64% ownership stake in Disney, with Vanguard and BlackRock continuing steady accumulation. OpenInsider Form 4 records display zero emergency insider liquidations; CFO Hugh Johnston's open-market purchase signals executive confidence in the $9.0B buyback plan, DTC streaming margin expansion, and multi-year cash flow execution.
-  </div>
-</div>
-<div class="section">
-<h2>Section 5: Intrinsic Value Matrix &amp; Scenario Analysis</h2>
-<p>
+  </div></div>
+<div class="section"><h2>Section 5: Intrinsic Value Matrix &amp; Scenario Analysis</h2><p>
     Rooted in Warren Buffett’s landmark 1986 Berkshire Hathaway Shareholder Letter, true intrinsic value is determined strictly by discounting the net cash that can be extracted from a business over its remaining life, rather than relying on speculative market exit multiples. For The Walt Disney Company (NYSE: DIS), we define <strong>Normalized Owner Earnings</strong> as Operating Cash Flow minus Maintenance Capital Expenditures minus 100% of Stock-Based Compensation (SBC).
-  </p>
-<p>
+  </p><p>
     Distinguishing <em>Maintenance CapEx</em> from <em>Growth CapEx</em> is essential for Disney. While total trailing-twelve-month (TTM) CapEx reached ~$8.68B, over $3.2B represents discretionary, return-generating expansion—specifically constructing new Disney Cruise Line vessels (e.g., <em>Disney Destiny</em> and <em>Disney Adventure</em>) and land expansions. Maintenance CapEx required to preserve existing theme park unit volume, resort infrastructure, and broadcast facility quality is calculated at ~$5.30B. Stock-based compensation is treated as an explicit cash dilution cost ($1.45B TTM).
-  </p>
-<div class="metrics-grid">
+  </p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">TTM Operating Cash Flow</div>
 <div class="metric-value">$18.10B</div>
@@ -1527,15 +1487,11 @@
 <div class="metric-value">$11.35B</div>
 <div class="metric-delta pos">$6.38 / Share</div>
 </div>
-</div>
-<p>
+</div><p>
     In accordance with localized country risk rules, our valuation uses a <strong>9.50% discount rate</strong>, derived from the US 10-Year Treasury yield (~4.20%) plus an equity risk hurdle rate of 5.30%. Zero terminal exit multiples are applied; terminal value is strictly calculated via Gordon Growth capped at 2.25% (matching long-term US GDP growth).
-  </p>
-<p>
+  </p><p>
     Furthermore, management’s accelerated buyback program—targeting at least <strong>$9.0 billion in fiscal 2026 share repurchases</strong>—acts as a share cannibal engine. At current trading levels (~$98/share), this retires ~2.8% of outstanding diluted shares annually, shrinking the denominator from 1.78 billion to ~1.54 billion over five years.
-  </p>
-<h3>Intrinsic Valuation Scenario Matrix</h3>
-<div class="table-scroll-wrap"><table>
+  </p><h3>Intrinsic Valuation Scenario Matrix</h3><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Valuation Variable</th>
@@ -1594,35 +1550,23 @@
 <td><strong>+68.4% (Substantial Upside)</strong></td>
 </tr>
 </tbody>
-</table></div>
-<h3>Dynamic Surveillance &amp; Price Alert Corridors</h3>
-<div class="callout">
+</table></div><h3>Dynamic Surveillance &amp; Price Alert Corridors</h3><div class="callout">
 <p><strong>Upper Alert Threshold ($125.00):</strong> Triggered when market price approaches ~92% of Base Case intrinsic value ($135.00). Action: Systematically review streaming margin expansion sustainability, analyze theme park per-capita yield trends, and execute disciplined rebalancing/position trimming.</p>
 <p><strong>Lower Alert Threshold ($90.00):</strong> Triggered if macro weakness or short-term noise pushes price down to test Bear Case valuation floor ($85.00). Action: Re-verify balance sheet debt liquidity, confirm $9B+ buyback execution pace, and evaluate aggressive capital allocation scale-in (expanding margin of safety above 33%).</p>
-</div>
-</div>
-<div class="section">
-<h2>Section 6: Execution Risk, Margin of Safety &amp; Pre-Mortem Falsification</h2>
-<p>
+</div></div>
+<div class="section"><h2>Section 6: Execution Risk, Margin of Safety &amp; Pre-Mortem Falsification</h2><p>
     While the underlying cash flow engines in Experiences and Direct-to-Consumer (DTC) streaming show structural momentum, a prudent fundamental investor must test the thesis against operational fragility, macro sensitivity, and capital allocation missteps.
-  </p>
-<h3>Quantitative Execution Risk Assessment</h3>
-<p>
+  </p><h3>Quantitative Execution Risk Assessment</h3><p>
 <strong>1. Capital Reinvestment Lead Times vs. Returns:</strong> Disney’s multi-year $60B expansion plan across Parks, Experiences, and Products relies on heavy multi-year upfront capital deployment. If new cruise ship capacity or theme park additions experience delayed ramp-up or lower-than-projected Return on Invested Capital (ROIC &lt; 10%), high fixed-cost structures will compress segment operating margins.
-  </p>
-<p>
+  </p><p>
 <strong>2. Debt Service &amp; Lease Commitments:</strong> Total debt and operating leases stand at ~$45B. While Net Debt to EBITDA is manageable (~2.1x), sudden cash flow interruption across domestic parks would restrict management's ability to maintain both $9B annual buybacks and critical infrastructure investments simultaneously.
-  </p>
-<h3>The 5-Year Exchange Closure Test</h3>
-<p>
+  </p><h3>The 5-Year Exchange Closure Test</h3><p>
     If the stock market were to close for five years, an investor buying at $98.00 would receive an initial Owner Earnings cash yield of <strong>6.51% ($6.38 / $98.00)</strong>. Combined with management retiring ~13% of total shares outstanding over the next 5 years through buybacks, per-share Owner Earnings are projected to compound to $11.01 by Year 5 in our Base Case. This organic cash generation alone delivers a ~12.2% annual internal rate of return (IRR) without requiring any multiple expansion, providing a robust true margin of safety.
-  </p>
-<div class="callout">
+  </p><div class="callout">
 <h3>Pre-Mortem Falsification Triggers (Thesis Invalidation Criteria)</h3>
 <p>If any of the following quantitative operational metrics are breached over a trailing 2-quarter period, the fundamental bullish thesis is invalidated and immediate thesis re-evaluation is mandated:</p>
 <ul><li><strong>Streaming Ad Pricing &amp; ARPU Collapse:</strong> Ad-supported SVOD ARPU drops by &gt;8% YoY or DTC streaming operating margins fall back below 5% (reversing current double-digit margin trajectory).</li><li><strong>International &amp; Asian Park Softness:</strong> Operating income across Shanghai, Hong Kong, or Tokyo licensed resorts declines by &gt;15% YoY due to geopolitical friction, currency devaluation, or localized consumer pullbacks.</li><li><strong>Domestic Consumer Recession:</strong> Domestic theme park attendance drops by &gt;6% or per-capita spending declines for 2 consecutive quarters, driving Experiences segment operating margins below 20%.</li><li><strong>Sports Rights Cost Inflation:</strong> Domestic ESPN programming and production costs outpace linear/digital revenue growth by &gt;500 bps, compressing Sports segment operating income below $3.5B annually.</li></ul>
-</div>
-</div>
+</div></div>
             </article>
         </div>
 

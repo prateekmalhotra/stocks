@@ -486,11 +486,21 @@
         .memo-container ul, .memo-container ol {
             font-family: var(--font-serif) !important;
             font-size: 1.12rem !important;
-            line-height: 1.9 !important;
+            line-height: 1.85 !important;
             color: var(--text-body) !important;
-            margin: 0 0 26px 30px !important;
+            margin: 16px 0 24px 24px !important;
+            padding-left: 12px !important;
         }
-        .memo-container li { margin-bottom: 10px !important; color: var(--text-body) !important; }
+        .memo-container ul { list-style-type: disc !important; }
+        .memo-container ol { list-style-type: decimal !important; }
+        .memo-container li {
+            margin-bottom: 12px !important;
+            color: var(--text-body) !important;
+            line-height: 1.85 !important;
+        }
+        .memo-container li::marker {
+            color: var(--accent-warm) !important;
+        }
         .memo-container strong, .memo-container b {
             color: var(--text-title) !important;
             font-weight: 600 !important;
@@ -1150,16 +1160,11 @@
         <!-- Memo Content -->
         <div id="tab-memo" class="tab-content active">
             <article class="memo-container">
-                <div class="section">
-<h2>Section 1: Executive Summary &amp; Q2 2026 Financial Highlights</h2>
-<p>
+                <div class="section"><h2>Section 1: Executive Summary &amp; Q2 2026 Financial Highlights</h2><p>
     The Coca-Cola Company (NYSE: KO) delivered an exceptional second quarter for FY2026, outperforming consensus estimates across all key top-line and operating profit metrics. Driven by a re-acceleration in global unit case volume growth (+5%), aggressive marketing execution around the FIFA World Cup 2026, and sustained momentum in zero-sugar innovations, Coca-Cola generated net revenue of $13.38 billion (+7% YoY) and organic revenue growth of 6%. Operating profitability expanded significantly, with reported operating margin reaching 34.9% and comparable operating margin widening by 90 basis points to 35.6%. 
-  </p>
-<p>
+  </p><p>
     Reflecting robust operational cash flows and market share gains across both developed and emerging markets, executive leadership under newly appointed CEO Henrique Braun raised full-year 2026 guidance. Full-year comparable EPS growth expectations were lifted to 9%–10% (up from 7%–8% previously), with organic revenue growth targeted at ~5% (the high end of the long-term algorithm) and free cash flow projected at approximately $12.4 billion.
-  </p>
-<!-- Metric Stat Cards Grid -->
-<div class="metrics-grid">
+  </p><p> Metric Stat Cards Grid </p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Q2 Net Revenue</div>
 <div class="metric-value">$13.38B</div>
@@ -1200,27 +1205,18 @@
 <div class="metric-value">~$12.4B</div>
 <div class="metric-delta pos">Guidance Raised</div>
 </div>
-</div>
-<h3>Product Category &amp; Brand Performance Breakdown</h3>
-<p>
+</div><h3>Product Category &amp; Brand Performance Breakdown</h3><p>
     Volume performance in Q2 2026 was marked by broad-based expansion across key beverage categories, led by Trademark Coca-Cola and health-conscious zero-sugar extensions:
-  </p>
-<ul><li><strong>Trademark Coca-Cola (+5% Volume):</strong> Achieved its highest quarterly growth rate in 17 years (excluding pandemic base effects), propelled by global FIFA World Cup activations and localized marketing campaigns.
+  </p><ul><li><strong>Trademark Coca-Cola (+5% Volume):</strong> Achieved its highest quarterly growth rate in 17 years (excluding pandemic base effects), propelled by global FIFA World Cup activations and localized marketing campaigns.
   <strong>Coca-Cola Zero Sugar (+16% Volume):</strong> Continued its multi-year hyper-growth trajectory. Strong global consumer adoption, enhanced visual identity rollouts across 18 key markets, and packaging innovation drove mid-to-high teens surge across all operating segments.
-  <strong>Powerade &amp; Sports Drinks (+8% Volume):</strong> Re-accelerated behind Powerade's prominent role as the official hydration partner of the 2026 FIFA World Cup, capturing market share in North America and Latin America.</li><li><strong>Diet Coke &amp; Sparkling Flavors:</strong> Diet Coke demonstrated resilient demand with mid-single digit volume gains, while sparkling flavors (Sprite, Fanta) expanded +4%, supported by zero-sugar line extensions.</li></ul>
-<!-- CEO Quote Callout Box -->
-<div class="callout">
+  <strong>Powerade &amp; Sports Drinks (+8% Volume):</strong> Re-accelerated behind Powerade's prominent role as the official hydration partner of the 2026 FIFA World Cup, capturing market share in North America and Latin America.</li><li><strong>Diet Coke &amp; Sparkling Flavors:</strong> Diet Coke demonstrated resilient demand with mid-single digit volume gains, while sparkling flavors (Sprite, Fanta) expanded +4%, supported by zero-sugar line extensions.</li></ul><p> CEO Quote Callout Box </p><div class="callout">
 <p><strong>CEO Henrique Braun on Q2 Performance &amp; Execution:</strong></p>
 <p>
 <em>"We delivered another strong quarter by staying close to the changing needs of our consumers and customers. While we continue to see a dynamic consumer landscape, we leveraged our powerful brands and system to gain value share, delivering revenue, profit and earnings growth while also investing for the long term. Activating around global platforms like the FIFA World Cup allowed us to engage billions of fans, demonstrating the unique strength of our global network and localized execution."</em>
 </p>
-</div>
-<h3>Geographic Performance &amp; Pricing/Mix Dynamics</h3>
-<p>
+</div><h3>Geographic Performance &amp; Pricing/Mix Dynamics</h3><p>
     Coca-Cola's Revenue Growth Management (RGM) framework successfully balanced price realization with consumer affordability across geographic operating segments:
-  </p>
-<!-- Regional Performance Table -->
-<div class="table-scroll-wrap"><table>
+  </p><p> Regional Performance Table </p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Operating Segment</th>
@@ -1255,30 +1251,18 @@
 <td>India delivered industry-leading double-digit volume growth as Coca-Cola's primary "dual-engine" market. Strong volume gains in Southeast Asia were partially offset by consumer selectivity in Greater China and deliberate trade timing investments.</td>
 </tr>
 </tbody>
-</table></div>
-</div>
-<div class="section">
-<h2>Section 2: Business Model, Global Moat &amp; Pricing Power</h2>
-<h3>1. Asset-Light Concentrate Model &amp; Bottler Refranchising Strategy</h3>
-<p>
+</table></div></div>
+<div class="section"><h2>Section 2: Business Model, Global Moat &amp; Pricing Power</h2><h3>1. Asset-Light Concentrate Model &amp; Bottler Refranchising Strategy</h3><p>
     At the core of Coca-Cola’s financial model is its system architecture: Coca-Cola produces and sells highly profitable beverage concentrates and syrups to independent bottling partners (such as Coca-Cola Europacific Partners, Arca Continental, Coca-Cola FEMSA, and local partners). The bottling partners handle heavy capital expenditures—including physical manufacturing plants, fleet distribution trucks, warehousing, and localized trade execution.
-  </p>
-<p>
+  </p><p>
     This structural separation yields gross margins exceeding ~62.9% and comparable operating margins of 35.6%. Through its continuous refranchising strategy—such as the pending divestiture of Coca-Cola Beverages Africa (CCBA) expected to close in late Q3 or Q4 FY2026—the company sheds low-margin bottling assets to focus purely on brand ownership, concentrate formulation, global marketing, and consumer innovation. This generates an ultra-high Return on Invested Capital (ROIC) and insulates Coca-Cola's balance sheet from physical asset depreciation and industrial capital intensity.
-  </p>
-<h3>2. Pricing Power &amp; Revenue Growth Management (RGM)</h3>
-<p>
+  </p><h3>2. Pricing Power &amp; Revenue Growth Management (RGM)</h3><p>
     Coca-Cola possesses exceptional pricing power rooted in brand equity, consumer habituation, and sophisticated Revenue Growth Management (RGM). Rather than relying on simple across-the-board price hikes, RGM utilizes advanced price-pack architecture:
-  </p>
-<ul><li><strong>Premium Packaging &amp; Margin Expansion:</strong> Scaling higher-margin single-serve formats (e.g., 7.5 oz mini-cans, glass bottles) that command higher price-per-ounce realization while catering to consumer portion control preferences.</li><li><strong>Affordability Options in Volatile Macros:</strong> Deploying refillable glass containers, value multi-packs, and entry-level price points in emerging markets (Latin America, India, Africa) to keep brand entry barriers low for lower-income demographics.</li></ul>
-<p>
+  </p><ul><li><strong>Premium Packaging &amp; Margin Expansion:</strong> Scaling higher-margin single-serve formats (e.g., 7.5 oz mini-cans, glass bottles) that command higher price-per-ounce realization while catering to consumer portion control preferences.</li><li><strong>Affordability Options in Volatile Macros:</strong> Deploying refillable glass containers, value multi-packs, and entry-level price points in emerging markets (Latin America, India, Africa) to keep brand entry barriers low for lower-income demographics.</li></ul><p>
     This dual-track strategy allowed Coca-Cola to expand net margins to ~33.1% in Q2 2026 and capture overall beverage value share even amidst global macroeconomic fragmentation.
-  </p>
-<h3>3. The Structural Competitive Moat</h3>
-<p>
+  </p><h3>3. The Structural Competitive Moat</h3><p>
     Coca-Cola’s economic moat is virtually unassailable, composed of three compounding advantages:
-  </p>
-<div class="metrics-grid">
+  </p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Global Footprint</div>
 <div class="metric-value">200+</div>
@@ -1299,25 +1283,15 @@
 <div class="metric-value">62.9%</div>
 <div class="metric-delta pos">Concentrate Advantage</div>
 </div>
-</div>
-<p>
+</div><p>
     The primary components of this structural moat include:
-  </p>
-<ul><li><strong>Ubiquitous Distribution Network:</strong> Over 30 million customer retail outlets served worldwide. The red cold-drink equipment (vending machines and coolers) installed globally creates a physical "real estate" barrier that competitors cannot easily replicate.</li><li><strong>Intangible Brand Power &amp; Cultural Relevance:</strong> Globally recognized brand franchises (Coca-Cola, Sprite, Fanta, Powerade) combined with hyper-local engagement strategies. Under CEO Henrique Braun, Coca-Cola has pioneered generative AI marketing campaigns at scale (e.g., "Create Magic", cricket-linked digital engagement in India, and 360° FIFA World Cup platforms) to maintain brand cultural relevance among younger demographic cohorts.</li><li><strong>Scale &amp; Reinvestment Velocity:</strong> Massive operating cash flows ($5.52B operating cash flow generated in 1H 2026) enable Coca-Cola to fund top-tier marketing spends ($4B+ annually) that lock up global sports sponsorships (FIFA World Cup, Olympic Games), outspending competitors while maintaining structural margin expansion.</li></ul>
-<!-- Strategic Strategy Callout Box -->
-<div class="callout">
+  </p><ul><li><strong>Ubiquitous Distribution Network:</strong> Over 30 million customer retail outlets served worldwide. The red cold-drink equipment (vending machines and coolers) installed globally creates a physical "real estate" barrier that competitors cannot easily replicate.</li><li><strong>Intangible Brand Power &amp; Cultural Relevance:</strong> Globally recognized brand franchises (Coca-Cola, Sprite, Fanta, Powerade) combined with hyper-local engagement strategies. Under CEO Henrique Braun, Coca-Cola has pioneered generative AI marketing campaigns at scale (e.g., "Create Magic", cricket-linked digital engagement in India, and 360° FIFA World Cup platforms) to maintain brand cultural relevance among younger demographic cohorts.</li><li><strong>Scale &amp; Reinvestment Velocity:</strong> Massive operating cash flows ($5.52B operating cash flow generated in 1H 2026) enable Coca-Cola to fund top-tier marketing spends ($4B+ annually) that lock up global sports sponsorships (FIFA World Cup, Olympic Games), outspending competitors while maintaining structural margin expansion.</li></ul><p> Strategic Strategy Callout Box </p><div class="callout">
 <p><strong>CEO Henrique Braun on India &amp; AI Digital Strategy:</strong></p>
 <p>
 <em>"India sits at the heart of our long-term growth blueprint—a dual-engine, all-weather market powered by demographic tailwinds, rapid infrastructure buildout, and digital engagement. By integrating generative AI into 360° personalized marketing and scaling localized flagship brands like Thumbs Up, Sprite, and Coke Studio, we are establishing a playbook for emerging market leadership that compounds across our entire global system."</em>
 </p>
-</div>
-</div>
-<div class="section">
-<h2>Section 3: Real Cash Flow, SBC &amp; Capital Structure</h2>
-<p>An institutional fundamental audit of The Coca-Cola Company (NYSE: KO) requires stripping away non-cash accounting adjustments to analyze true owner cash flow generation, balance sheet leverage, capital allocation priorities, and stock-based compensation (SBC) dilution. While reported earnings often benefit from tax timing adjustments and currency translation maneuvers, cash flow from operations and normalized free cash flow (FCF) reveal the true economic underlying performance.</p>
-<h3>Normalized Cash Flow &amp; Owner Earnings Audit</h3>
-<p>In the first half of 2026, Coca-Cola demonstrated a major operational cash recovery, generating <strong>$7.54 billion in Operating Cash Flow (OCF)</strong>, compared to negative operational cash flows in prior-year periods that were distorted by a <strong>$6.1 billion fairlife contingent consideration payment</strong> and a <strong>$6.0 billion IRS tax litigation deposit</strong> made to the U.S. Treasury. Management's updated full-year 2026 guidance targets <strong>~$14.4 billion in Operating Cash Flow</strong> and <strong>~$12.4 billion in Free Cash Flow</strong>, supported by full-year capital expenditure (CapEx) discipline of <strong>~$2.2 billion</strong>.</p>
-<div class="metrics-grid">
+</div></div>
+<div class="section"><h2>Section 3: Real Cash Flow, SBC &amp; Capital Structure</h2><p>An institutional fundamental audit of The Coca-Cola Company (NYSE: KO) requires stripping away non-cash accounting adjustments to analyze true owner cash flow generation, balance sheet leverage, capital allocation priorities, and stock-based compensation (SBC) dilution. While reported earnings often benefit from tax timing adjustments and currency translation maneuvers, cash flow from operations and normalized free cash flow (FCF) reveal the true economic underlying performance.</p><h3>Normalized Cash Flow &amp; Owner Earnings Audit</h3><p>In the first half of 2026, Coca-Cola demonstrated a major operational cash recovery, generating <strong>$7.54 billion in Operating Cash Flow (OCF)</strong>, compared to negative operational cash flows in prior-year periods that were distorted by a <strong>$6.1 billion fairlife contingent consideration payment</strong> and a <strong>$6.0 billion IRS tax litigation deposit</strong> made to the U.S. Treasury. Management's updated full-year 2026 guidance targets <strong>~$14.4 billion in Operating Cash Flow</strong> and <strong>~$12.4 billion in Free Cash Flow</strong>, supported by full-year capital expenditure (CapEx) discipline of <strong>~$2.2 billion</strong>.</p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">H1 2026 Operating Cash Flow</div>
 <div class="metric-value">$7.54B</div>
@@ -1338,16 +1312,9 @@
 <div class="metric-value">1.4x</div>
 <div class="metric-delta pos">Below 2.0x–2.5x Target</div>
 </div>
-</div>
-<p>To establish Warren Buffett's <em>Normalized Owner Earnings</em>, we adjust Operating Cash Flow by subtracting total CapEx, deducting Stock-Based Compensation (SBC) as a mandatory cash expense, and isolating Maintenance CapEx from Growth CapEx:</p>
-<ul><li><strong>Maintenance CapEx (~$1.35 Billion / Year):</strong> Capital required to preserve global bottling infrastructure, replace fleet transport, maintain concentrate plants, and refresh cold-drink equipment (vending/coolers) across global markets.
+</div><p>To establish Warren Buffett's <em>Normalized Owner Earnings</em>, we adjust Operating Cash Flow by subtracting total CapEx, deducting Stock-Based Compensation (SBC) as a mandatory cash expense, and isolating Maintenance CapEx from Growth CapEx:</p><ul><li><strong>Maintenance CapEx (~$1.35 Billion / Year):</strong> Capital required to preserve global bottling infrastructure, replace fleet transport, maintain concentrate plants, and refresh cold-drink equipment (vending/coolers) across global markets.
   <strong>Discretionary Growth CapEx (~$0.85 Billion / Year):</strong> Strategic capital earmarked for expanding fairlife ultra-filtered milk manufacturing facilities, digital fountain dispenser rollouts, and supply-chain automation.
-  <strong>SBC Cash Deduction (~$270 Million - $280 Million / Year):</strong> Equity compensation awarded to executives under the 2024 Equity Plan. Rather than treating SBC as a non-cash addition to cash flow, we treat it as an operating cash drain or a future dilution obligation.</li><li><strong>Working Capital &amp; Factoring Programs:</strong> Coca-Cola utilizes international trade accounts receivable factoring programs ($7.01 billion factored in H1 2026 at a cost of $27 million). While factoring accelerates cash collection, normalized cash flow reflects organic working capital neutrality over multi-year cycles.</li></ul>
-<h3>Capital Structure, Lease Liabilities &amp; Leverage Capacity</h3>
-<p>As of mid-2026, Coca-Cola maintains a total gross debt balance of <strong>~$45.5 billion</strong>, offset by cash, cash equivalents, short-term investments, and marketable securities of <strong>~$15.8 billion</strong>, yielding a <strong>Net Debt balance of ~$29.7 billion to $33.0 billion</strong>. Including operating lease liabilities of approximately <strong>$1.2 billion</strong>, enterprise net debt stays firmly anchored.</p>
-<p>With trailing Comparable EBITDA running at <strong>~$18.1 billion</strong>, Coca-Cola's Net Debt to EBITDA ratio sits at <strong>1.4x to 1.6x</strong>—significantly below management's long-term target leverage corridor of <strong>2.0x to 2.5x</strong>. This under-levered balance sheet provides the company with approximately <strong>$15.6 billion in unused debt capacity</strong> up to the 2.5x threshold, affording substantial liquidity for strategic M&amp;A or extraordinary legal settlement buffers.</p>
-<h4>Debt Maturity Profile</h4>
-<div class="table-scroll-wrap"><table>
+  <strong>SBC Cash Deduction (~$270 Million - $280 Million / Year):</strong> Equity compensation awarded to executives under the 2024 Equity Plan. Rather than treating SBC as a non-cash addition to cash flow, we treat it as an operating cash drain or a future dilution obligation.</li><li><strong>Working Capital &amp; Factoring Programs:</strong> Coca-Cola utilizes international trade accounts receivable factoring programs ($7.01 billion factored in H1 2026 at a cost of $27 million). While factoring accelerates cash collection, normalized cash flow reflects organic working capital neutrality over multi-year cycles.</li></ul><h3>Capital Structure, Lease Liabilities &amp; Leverage Capacity</h3><p>As of mid-2026, Coca-Cola maintains a total gross debt balance of <strong>~$45.5 billion</strong>, offset by cash, cash equivalents, short-term investments, and marketable securities of <strong>~$15.8 billion</strong>, yielding a <strong>Net Debt balance of ~$29.7 billion to $33.0 billion</strong>. Including operating lease liabilities of approximately <strong>$1.2 billion</strong>, enterprise net debt stays firmly anchored.</p><p>With trailing Comparable EBITDA running at <strong>~$18.1 billion</strong>, Coca-Cola's Net Debt to EBITDA ratio sits at <strong>1.4x to 1.6x</strong>—significantly below management's long-term target leverage corridor of <strong>2.0x to 2.5x</strong>. This under-levered balance sheet provides the company with approximately <strong>$15.6 billion in unused debt capacity</strong> up to the 2.5x threshold, affording substantial liquidity for strategic M&amp;A or extraordinary legal settlement buffers.</p><h4>Debt Maturity Profile</h4><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Maturity Horizon</th>
@@ -1394,12 +1361,7 @@
 <th>Fixed-Rate Long-Term Debt Structure (&gt;88% Fixed)</th>
 </tr>
 </tbody>
-</table></div>
-<h3>Dividend Sustainability &amp; Capital Allocation Strategy</h3>
-<p>Coca-Cola stands as a <strong>62-year Dividend Aristocrat / Dividend King</strong>. In 2026, the Board maintained its trajectory by declaring a quarterly dividend of <strong>$0.53 per share</strong> ($2.12 annualized), translating to an aggregate annual cash outlay of <strong>~$8.8 billion</strong>.</p>
-<p>On expected full-year 2026 Free Cash Flow of <strong>$12.4 billion</strong>, the dividend cash payout coverage ratio is <strong>1.41x (or ~71% of FCF)</strong>. While accounting Net Income dividend payout ratios hover around 66–68%, cash coverage confirms that organic FCF fully funds the dividend, leaving <strong>~$3.6 billion in retained FCF</strong> for share buybacks and bolt-on investments.</p>
-<h4>Capital Allocation &amp; Cash Flow Usage Breakdown</h4>
-<div class="table-scroll-wrap"><table>
+</table></div><h3>Dividend Sustainability &amp; Capital Allocation Strategy</h3><p>Coca-Cola stands as a <strong>62-year Dividend Aristocrat / Dividend King</strong>. In 2026, the Board maintained its trajectory by declaring a quarterly dividend of <strong>$0.53 per share</strong> ($2.12 annualized), translating to an aggregate annual cash outlay of <strong>~$8.8 billion</strong>.</p><p>On expected full-year 2026 Free Cash Flow of <strong>$12.4 billion</strong>, the dividend cash payout coverage ratio is <strong>1.41x (or ~71% of FCF)</strong>. While accounting Net Income dividend payout ratios hover around 66–68%, cash coverage confirms that organic FCF fully funds the dividend, leaving <strong>~$3.6 billion in retained FCF</strong> for share buybacks and bolt-on investments.</p><h4>Capital Allocation &amp; Cash Flow Usage Breakdown</h4><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Capital Allocation Priority</th>
@@ -1440,41 +1402,19 @@
 <td>De-leveraging and building cash liquidity for tax litigation reserves.</td>
 </tr>
 </tbody>
-</table></div>
-</div>
-<div class="section">
-<h2>Section 4: Institutional Ownership, Insider Activity &amp; Macro/Legal Risks</h2>
-<p>Understanding Coca-Cola's equity profile requires analyzing its whale institutional backers, routine executive insider sales, ongoing legal battles with the Internal Revenue Service (IRS), and active foreign exchange risk mitigation.</p>
-<h3>Institutional Whales &amp; Berkshire Hathaway Anchor Stake</h3>
-<p>Institutional investors hold approximately <strong>70.2% of total shares outstanding</strong>. The bedrock of this ownership structure is Warren Buffett's <strong>Berkshire Hathaway</strong>, which has maintained an unchanged position in KO for decades.</p>
-<div class="callout">
+</table></div></div>
+<div class="section"><h2>Section 4: Institutional Ownership, Insider Activity &amp; Macro/Legal Risks</h2><p>Understanding Coca-Cola's equity profile requires analyzing its whale institutional backers, routine executive insider sales, ongoing legal battles with the Internal Revenue Service (IRS), and active foreign exchange risk mitigation.</p><h3>Institutional Whales &amp; Berkshire Hathaway Anchor Stake</h3><p>Institutional investors hold approximately <strong>70.2% of total shares outstanding</strong>. The bedrock of this ownership structure is Warren Buffett's <strong>Berkshire Hathaway</strong>, which has maintained an unchanged position in KO for decades.</p><div class="callout">
 <strong>13F Whale Sentiment: Berkshire Hathaway's 400M Share Fortress</strong>
 <p>Berkshire Hathaway remains Coca-Cola's largest single shareholder, holding exactly <strong>400,000,000 shares</strong> (representing a <strong>~9.3% equity ownership stake</strong>) valued at over <strong>$28 billion</strong>. Accumulated between 1988 and 1994 for a total purchase price of <strong>$1.3 billion</strong>, this investment produces <strong>$848 million in annual dividend income</strong> for Berkshire in 2026. This translates to an astounding <strong>~65.2% yield on original cost basis</strong> purely from dividends—emblematizing Buffett's thesis on capital-light, dominant brand moats with pricing power.</p>
-</div>
-<p>Behind Berkshire, institutional indexing giants Vanguard Group (~8.8%), BlackRock (~7.2%), and State Street (~4.1%) hold major stakes, establishing a stable shareholder register that dampens equity volatility.</p>
-<h3>Insider Trading Patterns &amp; Executive Incentive Compensation</h3>
-<p>Insider transaction tracking shows consistent net insider selling by C-suite executives over the past 18 months, with aggregate sales exceeding <strong>$228.9 million</strong> against under <strong>$1.0 million in open-market purchases</strong>.</p>
-<div class="callout">
+</div><p>Behind Berkshire, institutional indexing giants Vanguard Group (~8.8%), BlackRock (~7.2%), and State Street (~4.1%) hold major stakes, establishing a stable shareholder register that dampens equity volatility.</p><h3>Insider Trading Patterns &amp; Executive Incentive Compensation</h3><p>Insider transaction tracking shows consistent net insider selling by C-suite executives over the past 18 months, with aggregate sales exceeding <strong>$228.9 million</strong> against under <strong>$1.0 million in open-market purchases</strong>.</p><div class="callout">
 <strong>Insider Trading Audit: Pre-Scheduled 10b5-1 Program Structure</strong>
 <p>A granular review of SEC Form 4 filings indicates that executive sales (including transactions by CEO James Quincey and key EVPs) are almost entirely structured through pre-arranged <strong>Rule 10b5-1 trading plans</strong>. These transactions represent automatic option exercises (exercising legacy stock options near expiration) paired with mandatory "sell-to-cover" share liquidations to satisfy executive tax withholding obligations. There is no evidence of opportunistic or panic open-market insider selling.</p>
-</div>
-<h3>Macro &amp; Legal Headwinds: The $14B+ IRS Tax Litigation Audit</h3>
-<p>The single largest fundamental tail-risk hanging over The Coca-Cola Company is its long-running transfer pricing dispute with the U.S. Internal Revenue Service (IRS) covering tax years 2007 through 2009, with cascading effects through tax year 2025.</p>
-<ul><li><strong>Core Legal Dispute:</strong> The IRS challenged Coca-Cola's long-standing "10-50-50" profit-split methodology (agreed upon in a 1996 closing agreement), which allowed foreign concentrate manufacturing affiliates ("supply points") to retain significant profits in lower-tax foreign jurisdictions. The IRS retroactively reallocated over $9 billion of foreign affiliate income back to the U.S. parent using the Comparable Profits Method (CPM).
+</div><h3>Macro &amp; Legal Headwinds: The $14B+ IRS Tax Litigation Audit</h3><p>The single largest fundamental tail-risk hanging over The Coca-Cola Company is its long-running transfer pricing dispute with the U.S. Internal Revenue Service (IRS) covering tax years 2007 through 2009, with cascading effects through tax year 2025.</p><ul><li><strong>Core Legal Dispute:</strong> The IRS challenged Coca-Cola's long-standing "10-50-50" profit-split methodology (agreed upon in a 1996 closing agreement), which allowed foreign concentrate manufacturing affiliates ("supply points") to retain significant profits in lower-tax foreign jurisdictions. The IRS retroactively reallocated over $9 billion of foreign affiliate income back to the U.S. parent using the Comparable Profits Method (CPM).
   <strong>Tax Court Rulings &amp; $6B Deposit:</strong> In November 2020 and August 2024, U.S. Tax Court Judge Albert Lauber issued decisions predominantly siding with the IRS. In September 2024, Coca-Cola paid a <strong>$6.0 billion tax litigation deposit</strong> to the U.S. Treasury to stop the accrual of market-rate statutory interest while pursuing an appeal.
-  <strong>Total Potential Exposure ($14B - $18B):</strong> If the IRS methodology is fully sustained across subsequent tax years (2010–2025), management estimates total potential aggregate tax and interest exposure could range between <strong>$14.0 billion and $18.0 billion</strong>. Coca-Cola currently maintains a tax reserve of $493 million under ASC 740 ("More-Likely-Than-Not" standard), reflecting management's belief that it will ultimately prevail on appeal.</li><li><strong>11th Circuit Appeal &amp; Administrative Law Shifts:</strong> The case is currently before the U.S. Court of Appeals for the 11th Circuit. Coca-Cola's appellate strategy hinges on two major legal developments:</li></ul>
-<ol><li><em>Loper Bright v. Raimondo (Supreme Court 2024):</em> The overturning of <em>Chevron</em> deference eliminates judicial deference to IRS administrative interpretations, enabling appellate judges to independently evaluate the 1996 closing agreement.
-  <em>3M Co. v. Commissioner (8th Circuit Precedent):</em> Recent 8th Circuit rulings regarding "blocked income" (where foreign laws, such as Brazilian royalty caps, restrict payments back to U.S. parents) support Coca-Cola's arguments regarding foreign cash transfer restrictions.</li></ol>
+  <strong>Total Potential Exposure ($14B - $18B):</strong> If the IRS methodology is fully sustained across subsequent tax years (2010–2025), management estimates total potential aggregate tax and interest exposure could range between <strong>$14.0 billion and $18.0 billion</strong>. Coca-Cola currently maintains a tax reserve of $493 million under ASC 740 ("More-Likely-Than-Not" standard), reflecting management's belief that it will ultimately prevail on appeal.</li><li><strong>11th Circuit Appeal &amp; Administrative Law Shifts:</strong> The case is currently before the U.S. Court of Appeals for the 11th Circuit. Coca-Cola's appellate strategy hinges on two major legal developments:</li></ul><ol><li><em>Loper Bright v. Raimondo (Supreme Court 2024):</em> The overturning of <em>Chevron</em> deference eliminates judicial deference to IRS administrative interpretations, enabling appellate judges to independently evaluate the 1996 closing agreement.
+  <em>3M Co. v. Commissioner (8th Circuit Precedent):</em> Recent 8th Circuit rulings regarding "blocked income" (where foreign laws, such as Brazilian royalty caps, restrict payments back to U.S. parents) support Coca-Cola's arguments regarding foreign cash transfer restrictions.</li></ol><h3>Foreign Exchange (FX) Exposure &amp; Inflation Hedging Mechanics</h3><p>With over <strong>60% of consolidated net revenues</strong> and operating income generated outside the United States, Coca-Cola faces recurring currency translation volatility.</p><p>In 2026, management estimates that currency fluctuations present a <strong>5% to 6% headwind to comparable EPS</strong> and a <strong>1% headwind to net revenues</strong>. To insulate cash flows from severe foreign exchange shocks, Coca-Cola executes a structured hedging strategy:</p><ul><li><strong>Derivative Cash Flow Hedges:</strong> Utilizing derivative financial instruments (forward contracts and currency options) to hedge anticipated cross-border concentrate sales and foreign subsidiary dividend distributions over 12-to-36-month rolling horizons.</li><li><strong>Revenue Growth Management (RGM) &amp; Local Bottling Insulation:</strong> In hyperinflationary markets (e.g., Argentina, Turkey, Egypt, Nigeria), Coca-Cola utilizes its localized bottling franchise model. Local bottlers bear local operating expenses, while Coca-Cola adjusts concentrate pricing dynamically to match inflation, protecting organic gross margins.</li></ul></div>
 
-
-
-<h3>Foreign Exchange (FX) Exposure &amp; Inflation Hedging Mechanics</h3>
-<p>With over <strong>60% of consolidated net revenues</strong> and operating income generated outside the United States, Coca-Cola faces recurring currency translation volatility.</p>
-<p>In 2026, management estimates that currency fluctuations present a <strong>5% to 6% headwind to comparable EPS</strong> and a <strong>1% headwind to net revenues</strong>. To insulate cash flows from severe foreign exchange shocks, Coca-Cola executes a structured hedging strategy:</p>
-<ul><li><strong>Derivative Cash Flow Hedges:</strong> Utilizing derivative financial instruments (forward contracts and currency options) to hedge anticipated cross-border concentrate sales and foreign subsidiary dividend distributions over 12-to-36-month rolling horizons.</li><li><strong>Revenue Growth Management (RGM) &amp; Local Bottling Insulation:</strong> In hyperinflationary markets (e.g., Argentina, Turkey, Egypt, Nigeria), Coca-Cola utilizes its localized bottling franchise model. Local bottlers bear local operating expenses, while Coca-Cola adjusts concentrate pricing dynamically to match inflation, protecting organic gross margins.</li></ul>
-</div>
-
-# Coca-Cola (NYSE: KO) — Warren Buffett Owner Earnings Intrinsic Value Evaluation & Research Strategy
+# Coca-Cola (NYSE: KO) — Warren Buffett Owner Earnings Intrinsic Value Evaluation &amp; Research Strategy
 <hr/>
 <h2>1. Executive Summary &amp; Dynamic Dashboard</h2>
 
@@ -1515,16 +1455,18 @@ While macroeconomic volatility and currency headwinds remain persistent global v
 
 In its Q2 2026 earnings statement (released July 28, 2026), Coca-Cola delivered solid top-line and bottom-line momentum, demonstrating resilient volume growth across key international and domestic channels:
 
-<ol><li><strong>Top-Line Momentum &amp; Volume Acceleration:</strong> </ol>
+<ol><li><strong>Top-Line Momentum &amp; Volume Acceleration:</strong> </li></ol>
 <strong>Net Revenues:</strong> Grew +6.7% YoY to $13.38 billion, underpinned by +6.0% organic revenue growth.
     <strong>Global Unit Case Volume:</strong> Expanded <strong>+5.0% YoY</strong>. Growth was broad-based across Sparkling Soft Drinks (+5%), led by Trademark Coca-Cola, Coca-Cola Zero Sugar, and strong momentum in Latin America, Europe, and Asia-Pacific bottling hubs (e.g., Coca-Cola HBC organic volume +7.5%).
    <strong>Price/Mix:</strong> Contributed +1.0% to +2.0% across major regions, indicating that Coca-Cola continues to pass through selective localized inflation without destroying consumer demand.
 
-<ol><li><strong>Operating Margins &amp; Cash Flow Recovery:</strong> </ol>
- <strong>Operating Income:</strong> Comparable operating margin expanded YoY, benefiting from supply chain efficiencies, disciplined marketing spend, and structural re-franchising leverage.
+<ol>
+<li><strong>Operating Margins &amp; Cash Flow Recovery:</strong> </li></ol>
+<strong>Operating Income:</strong> Comparable operating margin expanded YoY, benefiting from supply chain efficiencies, disciplined marketing spend, and structural re-franchising leverage.
    <strong>Operating Cash Flow:</strong> First half (H1) 2026 Operating Cash Flow reached <strong>$7.54 billion</strong>. This represents a complete normalization compared to FY2025, which experienced working capital timing distortions and a $6.0 billion contingent payout associated with the fairlife acquisition.
 
-<ol><li><strong>Management Full-Year Guidance Update:</strong> </ol>
+<ol>
+<li><strong>Management Full-Year Guidance Update:</strong> </li></ol>
  Management raised full-year 2026 guidance, now projecting <strong>organic revenue growth of 6% to 7%</strong> and <strong>comparable EPS growth of 5% to 6%</strong>, absorbing an anticipated 4% to 5% foreign exchange (FX) currency translation headwind.
 <hr/>
 <h2>3. Capital Structure &amp; Baseline Owner Earnings Calculation</h2>
@@ -1553,17 +1495,18 @@ $$Owner\ Earnings = Operating\ Cash\ Flow - Maintenance\ CapEx - Stock\text{-}Ba
 <h2>4. The 7-Pillar Warren Buffett Moat &amp; Reinvestment Framework</h2>
 
 ┌─────────────────────────────────────────┐
-                       │    GLOBAL BRAND & CONCENTRATE MOAT      │
+                       │    GLOBAL BRAND &amp; CONCENTRATE MOAT      │
                        └────────────────────┬────────────────────┘
                                             │
                ┌────────────────────────────┼────────────────────────────┐
                ▼                            ▼                            ▼
 ┌───────────────────────────┐┌───────────────────────────┐┌───────────────────────────┐
 │ Asset-Light Re-Franchising││ High Pricing Power Moat   ││ Share Buyback Cannibal    │
-│  • System ROIC > 20%      ││  • Pass-through price/mix ││  • Retires 0.5-1.0% shares│
+│  • System ROIC &gt; 20%      ││  • Pass-through price/mix ││  • Retires 0.5-1.0% shares│
 │  • Offloaded bottling cap ││  • Inelastic global demand││  • Compounds EPS yield    │
 └───────────────────────────┘└───────────────────────────┘└───────────────────────────┘
-<ol><li><strong>Expanding Owner Earnings Cash Yield:</strong>
+<ol>
+<li><strong>Expanding Owner Earnings Cash Yield:</strong>
   At a market price of $82.25, the baseline Owner Earnings of $2.54 per share yields an <strong>initial cash yield of 3.09%</strong>. While modestly lower than short-term Treasury yields, this yield expands exponentially over time due to organic cash compounding.</li><li><strong>Capital-Light Moat &amp; High ROIC:</strong>
   By re-franchising bottling operations, Coca-Cola converted its business model into an asset-light concentrate engine. Return on Invested Capital (ROIC) stands at <strong>&gt;20%</strong>, allowing the business to fund internal growth without heavy debt issuance.</li><li><strong>Inelastic Demand &amp; Brand Equity:</strong>
   Coca-Cola's trademark brands possess elite pricing power. When input costs rise, the company routinely achieves +2% to +4% price/mix expansion while maintaining unit case volume growth.</li><li><strong>Share Repurchase Cannibal Compounding:</strong>
@@ -1640,7 +1583,7 @@ We avoid arbitrary exit multiples (which rely on speculative future market senti
 <h2>6. Thesis Confidence, Execution Risk &amp; Falsification Framework</h2>
 <div class="callout">
 <strong>Key Execution Risks &amp; Structural Headwinds:</strong>
-<ol><li><strong>IRS Transfer Pricing Litigation (Major Overhang):</strong> The US Department of Justice and IRS claim Coca-Cola underreported foreign concentrate profits between 2007 and 2025. Following oral arguments before the 11th Circuit Court of Appeals on June 25, 2026, total potential exposure (back taxes plus accumulated interest) stands at <strong>$14.0B to $20.0B</strong>. An outright loss without structured settlement terms would represent a ~$3.25 to $4.65 per share cash drain.</li><li><strong>Consumer Trade-Down &amp; Inelasticity Limits:</strong> </ol></div>
+<ol><li><strong>IRS Transfer Pricing Litigation (Major Overhang):</strong> The US Department of Justice and IRS claim Coca-Cola underreported foreign concentrate profits between 2007 and 2025. Following oral arguments before the 11th Circuit Court of Appeals on June 25, 2026, total potential exposure (back taxes plus accumulated interest) stands at <strong>$14.0B to $20.0B</strong>. An outright loss without structured settlement terms would represent a ~$3.25 to $4.65 per share cash drain.</li><li><strong>Consumer Trade-Down &amp; Inelasticity Limits:</strong> </li></ol></div>
             </article>
         </div>
 

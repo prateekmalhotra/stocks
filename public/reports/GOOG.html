@@ -486,11 +486,21 @@
         .memo-container ul, .memo-container ol {
             font-family: var(--font-serif) !important;
             font-size: 1.12rem !important;
-            line-height: 1.9 !important;
+            line-height: 1.85 !important;
             color: var(--text-body) !important;
-            margin: 0 0 26px 30px !important;
+            margin: 16px 0 24px 24px !important;
+            padding-left: 12px !important;
         }
-        .memo-container li { margin-bottom: 10px !important; color: var(--text-body) !important; }
+        .memo-container ul { list-style-type: disc !important; }
+        .memo-container ol { list-style-type: decimal !important; }
+        .memo-container li {
+            margin-bottom: 12px !important;
+            color: var(--text-body) !important;
+            line-height: 1.85 !important;
+        }
+        .memo-container li::marker {
+            color: var(--accent-warm) !important;
+        }
         .memo-container strong, .memo-container b {
             color: var(--text-title) !important;
             font-weight: 600 !important;
@@ -1237,18 +1247,12 @@
 </tbody>
 </table></div>
 <h3>Audit of Structural Demand Drivers vs. Disruption Threats</h3>
-<ul><li><strong>Structural Demand Drivers (Long-Term Secular Tailwinds):</strong> </ul>
-<ul><li><strong>Hyper-Scaling Enterprise AI Backlog:</strong> Google Cloud's backlog reaching $514B proves that enterprise clients are standardizing core operational workflows on Gemini Enterprise and Vertex AI, providing multi-year top-line visibility.</li><li><strong>Vertically Integrated Silicon Cost Leadership:</strong> Proprietary TPU chips deliver structural unit-cost advantages for LLM training and inference, enabling higher cloud gross margins and competitive pricing against GPU-only cloud rivals.</li><li><strong>Search Query Volume Expansion via AI Overviews:</strong> Integration of AI Overviews and multimodal search (AI Mode) is increasing total query frequency, user retention, and ad intent density rather than degrading ad monetization.</li><li><strong>Subscription Engine Monetization:</strong> Crossing 350 million paid subscriptions across YouTube and Google One creates a stable, high-margin consumer cash stream that cushions cyclical ad revenue fluctuations.</li></ul>
-
-
-
-<ul><li><strong>Competitive Disruption Threats &amp; Execution Risks:</strong> </ul>
-<ul><li><strong>Capital Expenditure Intensity &amp; Cash Flow Compression:</strong> FY2026 CapEx scaling to $195B–$205B has turned Free Cash Flow negative (-$5.86B in Q2 2026). Failure to monetize compute capacity at high return on invested capital (ROIC) will permanently depress Owner Earnings.</li><li><strong>Equity Dilution &amp; Capital Structure Expansion:</strong> The ~$85B total equity capital raise and $40B authorized ATM program dilute existing shareholders, increasing the hurdle rate required for per-share intrinsic value growth.</li><li><strong>Data Center Power &amp; Supply Chain Bottlenecks:</strong> Electricity grid constraints, high-bandwidth memory (HBM) shortages, and specialized server packaging delays limit the speed at which CapEx can be converted into revenue-generating cloud compute.</li><li><strong>Antitrust Remedies &amp; Distribution Risk:</strong> Ongoing regulatory actions targeting Google's default Search agreements on Apple iOS and Android devices pose persistent long-term structural risks to traffic acquisition costs (TAC) and search query market share.</li></ul>
-
-
-
-
-
+<ul><li><strong>Structural Demand Drivers (Long-Term Secular Tailwinds):</strong> </li></ul>
+<ul>
+<li><strong>Hyper-Scaling Enterprise AI Backlog:</strong> Google Cloud's backlog reaching $514B proves that enterprise clients are standardizing core operational workflows on Gemini Enterprise and Vertex AI, providing multi-year top-line visibility.</li><li><strong>Vertically Integrated Silicon Cost Leadership:</strong> Proprietary TPU chips deliver structural unit-cost advantages for LLM training and inference, enabling higher cloud gross margins and competitive pricing against GPU-only cloud rivals.</li><li><strong>Search Query Volume Expansion via AI Overviews:</strong> Integration of AI Overviews and multimodal search (AI Mode) is increasing total query frequency, user retention, and ad intent density rather than degrading ad monetization.</li><li><strong>Subscription Engine Monetization:</strong> Crossing 350 million paid subscriptions across YouTube and Google One creates a stable, high-margin consumer cash stream that cushions cyclical ad revenue fluctuations.</li></ul>
+<ul><li><strong>Competitive Disruption Threats &amp; Execution Risks:</strong> </li></ul>
+<ul>
+<li><strong>Capital Expenditure Intensity &amp; Cash Flow Compression:</strong> FY2026 CapEx scaling to $195B–$205B has turned Free Cash Flow negative (-$5.86B in Q2 2026). Failure to monetize compute capacity at high return on invested capital (ROIC) will permanently depress Owner Earnings.</li><li><strong>Equity Dilution &amp; Capital Structure Expansion:</strong> The ~$85B total equity capital raise and $40B authorized ATM program dilute existing shareholders, increasing the hurdle rate required for per-share intrinsic value growth.</li><li><strong>Data Center Power &amp; Supply Chain Bottlenecks:</strong> Electricity grid constraints, high-bandwidth memory (HBM) shortages, and specialized server packaging delays limit the speed at which CapEx can be converted into revenue-generating cloud compute.</li><li><strong>Antitrust Remedies &amp; Distribution Risk:</strong> Ongoing regulatory actions targeting Google's default Search agreements on Apple iOS and Android devices pose persistent long-term structural risks to traffic acquisition costs (TAC) and search query market share.</li></ul>
 <h2>Section 3: Real Cash Flow, SBC Dilution &amp; Owner Earnings Audit</h2>
 <p>Silicon Valley GAAP accounting routinely treats Stock-Based Compensation (SBC) as a non-cash add-back, artificially inflating Operating Cash Flow (OCF) while masking the real cost of equity dilution. To evaluate Alphabet under Warren Buffett's intrinsic value principles, SBC must be audited as a mandatory cash-equivalent expense. When an enterprise issues shares to compensate engineers and executives, it either dilutes existing owners or forces the company to spend billions in share repurchases to neutralize the rising share count. In TTM Q2 2026, Alphabet added back $28.15 billion of SBC into its $185.68 billion OCF, representing 15.2% of total reported operating cash.</p>
 <div class="metrics-grid">
@@ -1373,8 +1377,6 @@
 </div>
 <p>An audit of official SEC filings reveals heavy institutional commitment and structured insider execution:</p>
 <ul><li><strong>Institutional Concentration:</strong> Institutional investors hold 71.3% of Class A and Class C shares across 6,000+ reporting entities. The largest institutional holders remain index powerhouses Vanguard Group (~8.5% total equity), BlackRock (~7.2%), and State Street (~3.8%).</li><li><strong>Whale Conviction:</strong> Berkshire Hathaway’s $10 billion direct participation in the June 2026 equity capital raise marks a significant vote of confidence in Alphabet's balance sheet durability and AI infrastructure moat. Long-term fundamental funds, including Li Lu’s Himalaya Capital, maintain core positions in Class A and Class C shares.</li><li><strong>Insider Form 4 Trading Audit:</strong> Form 4 filings via OpenInsider show routine execution under pre-established Rule 10b5-1 trading plans. CEO Sundar Pichai and President Ruth Porat continue systematic monthly disposals tied to vested Restricted Stock Units (RSUs) to satisfy tax liabilities and personal diversification. There is an absence of opportunistic or non-scheduled insider open-market selling, reflecting stability across senior executive ranks.</li></ul>
-
-
 <h2>Section 5: Warren Buffett Owner Earnings Intrinsic Valuation Matrix</h2>
 <p>To evaluate Alphabet Inc. (GOOG) at the current trading price of $343.00, we discard Wall Street's ubiquitous exit multiples—which Charlie Munger famously characterized as relying on a "greater fool in Year 5"—and ground our assessment entirely in Warren Buffett's Owner Earnings framework set forth in Berkshire Hathaway's 1986 Shareholder Letter. Intrinsic value is the discounted present value of all net cash that can be extracted from the business over its remaining economic life.</p>
 <p>Alphabet is undergoing a generational capital transformation from a high-margin, capital-light advertising monopoly into an enterprise AI compute and cloud utility. Evaluating this transition requires a rigorous decomposition of reported operating cash flows, capital expenditures, and stock-based compensation, alongside a localized sovereign discount rate derivation.</p>
@@ -1405,8 +1407,6 @@
 <p><strong>Owner Earnings = Reported Operating Cash Flow - Maintenance CapEx - Stock-Based Compensation (SBC) +/- Working Capital Adjustments</strong></p>
 <p>Applying this formula to Alphabet's current financial profile reveals the critical dichotomy between peak GAAP cash flow distortion and underlying normalized earning power:</p>
 <ul><li><strong>Stock-Based Compensation (SBC) Discipline:</strong> Stock-based compensation ($26.0 billion TTM) is treated as a 100% real cash expense. Issuing equity to employees dilutes existing shareholders or consumes cash via stock buybacks required to sterilize dilution. It must be fully deducted from cash from operations.</li><li><strong>Maintenance CapEx vs. Discretionary Growth CapEx:</strong> Alphabet's updated 2026 CapEx guidance of $195.0B–$205.0B (up from $91.5B in 2025) represents an unprecedented infrastructure expansion. Management disclosures indicate that 40% of CapEx is directed toward long-duration land, data center shells, and power interconnects, while 60% funds shorter-cycle technical infrastructure (NVIDIA H100/B200 clusters and custom Trillium TPUs). We calculate baseline Maintenance CapEx—the capital strictly required to maintain Google Search's unit query volume, YouTube infrastructure, and core legacy Cloud operations—at $38.0 billion. The remaining ~$162.0 billion represents hyper-aggressive discretionary Growth CapEx designed to capture the enterprise AI cloud land grab and service Google Cloud's $460+ billion commercial backlog.</li><li><strong>Normalized Owner Earnings Calculation:</strong> Deducting $38.0B in Maintenance CapEx and $26.0B in SBC from $185.0B in Operating Cash Flow yields <strong>$121.0 billion in Normalized Mid-Cycle Owner Earnings</strong> ($9.85 per diluted share across 12.28 billion shares). At the $343.00 stock price, Alphabet offers an initial normalized Owner Earnings yield of 2.87%.</li></ul>
-
-
 <h3>2. Localized US Sovereign Discount Rate Derivation</h3>
 <p>Per Berkshire's sovereign discounting methodology, international hurdle rates must be rooted in the risk-free rate of the local operating currency plus a business-specific equity risk premium:</p>
 <div class="table-scroll-wrap"><table>
@@ -1438,8 +1438,6 @@
 <h3>3. Balance Sheet Reality Bridge</h3>
 <p>To bridge operating intrinsic value to equity value, we incorporate net cash and look-through non-consolidated assets:</p>
 <ul><li><strong>Cash &amp; Short-Term Investments:</strong> $110.0 billion.</li><li><strong>Total Debt &amp; Lease Liabilities:</strong> $65.0 billion (including capital and operating leases).</li><li><strong>Net Cash Position:</strong> +$45.0 billion (+$3.66 per share).</li><li><strong>Look-Through Investment Equity Stakes:</strong> ~$98.0 billion in paper gains across non-marketable equity stakes including SpaceX and Anthropic (+$7.98 per share).</li></ul>
-
-
 <h3>4. Scenario Valuation Matrix</h3>
 <p>The following fully populated matrix models 5-year discounted cash flow scenarios under Warren Buffett's framework, capping long-term terminal growth at 2.5% (US GDP ceiling):</p>
 <div class="table-scroll-wrap"><table>
@@ -1521,8 +1519,6 @@
 <ul><li><strong>Failure Mode 1: AI Compute Depreciation Trap &amp; Hyper-Obsolescence:</strong> If the economic useful life of custom TPU v5e/v6 and GPU servers compresses from 4–5 years down to 2–3 years due to rapid silicon architecture shifts, Alphabet's depreciation expenses will surge, destroying operating margins. CapEx would become permanent maintenance spending rather than return-generating growth spending.
   <strong>Failure Mode 2: Search Unit Economics Destruction via Generative AI Summaries:</strong> Generative AI Search queries carry 3x–5x higher compute/inference costs than traditional algorithmic search indexing. If cost-per-query reductions slow down and Traffic Acquisition Costs (TAC) rise due to distribution shifts (e.g. Apple Siri default integration losses or DOJ remedies), core advertising gross margins will collapse.
   <strong>Failure Mode 3: Capital Misallocation &amp; Shareholder Dilution:</strong> If management continues expanding CapEx beyond $200B while issuing new equity/debt and reducing share repurchase volume, per-share Owner Earnings compounding will stall, transforming Alphabet into a capital-heavy low-ROIC utility.</li></ul>
-
-
 <h3>2. Falsification Triggers &amp; Thresholds</h3>
 <p>The thesis is explicitly invalidated if any two of the following operational or financial thresholds are breached over a trailing 12-month period:</p>
 <div class="table-scroll-wrap"><table>
@@ -1571,8 +1567,6 @@
 <p>An audit of recent Form 4 filings via OpenInsider reveals systematic insider selling by key C-suite executives:</p>
 <ul><li><strong>CEO Sundar Pichai:</strong> Executed recurring pre-planned Rule 10b5-1 sales totaling over $40 million in early 2026 (including 32,500 shares at ~$303.38 on March 4, 2026, and 32,500 shares at ~$335.18 on Feb 4, 2026).</li><li><strong>CLO &amp; President John Kent Walker:</strong> Sold 47,574 shares at $301.46 ($14.3M) on Feb 17, 2026, and 8,993 shares at $275.89 on March 27, 2026.
   <strong>CAO Amie Thuener O'Toole &amp; Director Frances Arnold:</strong> Executed systematic 10b5-1 monthly sales across Q1 and Q2 2026.</li></ul>
-
-
 <div class="callout">
 <strong>Insider Audit Takeaway:</strong> 100% of executive selling over the past 12 months was executed under pre-scheduled Rule 10b5-1 trading plans adopted in mid-2025. Notably, there have been zero open-market executive insider purchases. While not indicative of immediate panic, executive lack of open-market buying confirms that leadership views current market pricing as fully reflective of near-term fundamental value given the ongoing CapEx ramp.
 </div>

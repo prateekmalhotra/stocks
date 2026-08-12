@@ -486,11 +486,21 @@
         .memo-container ul, .memo-container ol {
             font-family: var(--font-serif) !important;
             font-size: 1.12rem !important;
-            line-height: 1.9 !important;
+            line-height: 1.85 !important;
             color: var(--text-body) !important;
-            margin: 0 0 26px 30px !important;
+            margin: 16px 0 24px 24px !important;
+            padding-left: 12px !important;
         }
-        .memo-container li { margin-bottom: 10px !important; color: var(--text-body) !important; }
+        .memo-container ul { list-style-type: disc !important; }
+        .memo-container ol { list-style-type: decimal !important; }
+        .memo-container li {
+            margin-bottom: 12px !important;
+            color: var(--text-body) !important;
+            line-height: 1.85 !important;
+        }
+        .memo-container li::marker {
+            color: var(--accent-warm) !important;
+        }
         .memo-container strong, .memo-container b {
             color: var(--text-title) !important;
             font-weight: 600 !important;
@@ -1150,11 +1160,7 @@
         <!-- Memo Content -->
         <div id="tab-memo" class="tab-content active">
             <article class="memo-container">
-                <div class="section">
-<h2>Section 1: Executive Summary &amp; Moat Reality</h2>
-<p>Robinhood Markets, Inc. (NASDAQ: HOOD) has executed one of the most significant fundamental transformations in modern fintech. Once viewed primarily as a monoline, retail equity broker reliant on Payment for Order Flow (PFOF) during the 2020–2021 trading boom, Robinhood has systematically engineered an institutional-grade financial ecosystem. In Q2 2026, the company posted record total net revenues of <strong>$1.31 billion</strong> (+32% YoY) and net income of <strong>$573 million</strong> (+48% YoY), proving that its multi-product compounding engine can drive extraordinary profitability even through shifting macroeconomic cycles.</p>
-<p>The core of Robinhood's expanding economic moat lies in customer asset consolidation and high switching costs created by its high-yield ecosystem. Total Platform Assets surged to <strong>$369 billion</strong> (+32% YoY), propelled by a record <strong>$22 billion in organic Net Deposits</strong> in Q2 alone (representing an annualized deposit growth rate of 28%). Rather than acting as a temporary trading portal, Robinhood has become the primary financial hub for the next generation of wealth. This sticky balance sheet accumulation is anchored by Robinhood Gold, which reached a record <strong>4.84 million subscribers</strong> (+39% YoY), representing approximately 17% of total funded accounts.</p>
-<div class="metrics-grid">
+                <div class="section"><h2>Section 1: Executive Summary &amp; Moat Reality</h2><p>Robinhood Markets, Inc. (NASDAQ: HOOD) has executed one of the most significant fundamental transformations in modern fintech. Once viewed primarily as a monoline, retail equity broker reliant on Payment for Order Flow (PFOF) during the 2020–2021 trading boom, Robinhood has systematically engineered an institutional-grade financial ecosystem. In Q2 2026, the company posted record total net revenues of <strong>$1.31 billion</strong> (+32% YoY) and net income of <strong>$573 million</strong> (+48% YoY), proving that its multi-product compounding engine can drive extraordinary profitability even through shifting macroeconomic cycles.</p><p>The core of Robinhood's expanding economic moat lies in customer asset consolidation and high switching costs created by its high-yield ecosystem. Total Platform Assets surged to <strong>$369 billion</strong> (+32% YoY), propelled by a record <strong>$22 billion in organic Net Deposits</strong> in Q2 alone (representing an annualized deposit growth rate of 28%). Rather than acting as a temporary trading portal, Robinhood has become the primary financial hub for the next generation of wealth. This sticky balance sheet accumulation is anchored by Robinhood Gold, which reached a record <strong>4.84 million subscribers</strong> (+39% YoY), representing approximately 17% of total funded accounts.</p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Q2 2026 Total Revenue</div>
 <div class="metric-value">$1.31B</div>
@@ -1185,19 +1191,10 @@
 <div class="metric-value">$156M</div>
 <div class="metric-delta pos">&gt;10x YoY (13.6B Traded)</div>
 </div>
-</div>
-<p>Robinhood’s customer lock-in mechanism is designed around economic incentives that make account transfers structurally disadvantageous for users. The Gold membership program acts as a centralized moat aggregator by bundling:</p>
-<ul><li><strong>3% Retirement Match:</strong> A 3% match on IRA contributions and qualified rollover transfers, subject to a 5-year holding period requirement that effectively locks in long-term retirement Assets Under Custody (AUC).
-  <strong>1% Uncapped Deposit Boost:</strong> An immediate 1% direct match on all incoming net cash deposits for Gold members, driving massive liquidity inflows from legacy brokerages.</li><li><strong>High-Yield Cash Sweep:</strong> Industry-leading cash yields (3.35%+ APY) backed by multi-bank FDIC insurance up to $2.5 million, converting idle customer cash into sticky net interest earnings.</li><li><strong>Robinhood Gold Credit Card:</strong> Premium cash-back credit card (3% back on all categories for Gold members) that captures daily payment flow and deepens consumer wallet share.</li></ul>
-<div class="callout">
+</div><p>Robinhood’s customer lock-in mechanism is designed around economic incentives that make account transfers structurally disadvantageous for users. The Gold membership program acts as a centralized moat aggregator by bundling:</p><ul><li><strong>3% Retirement Match:</strong> A 3% match on IRA contributions and qualified rollover transfers, subject to a 5-year holding period requirement that effectively locks in long-term retirement Assets Under Custody (AUC).
+  <strong>1% Uncapped Deposit Boost:</strong> An immediate 1% direct match on all incoming net cash deposits for Gold members, driving massive liquidity inflows from legacy brokerages.</li><li><strong>High-Yield Cash Sweep:</strong> Industry-leading cash yields (3.35%+ APY) backed by multi-bank FDIC insurance up to $2.5 million, converting idle customer cash into sticky net interest earnings.</li><li><strong>Robinhood Gold Credit Card:</strong> Premium cash-back credit card (3% back on all categories for Gold members) that captures daily payment flow and deepens consumer wallet share.</li></ul><div class="callout">
 <strong>Strategic Takeaway on Ecosystem Flywheel:</strong> Management's aggressive reinvestment into Gold member rewards operates as a customer acquisition engine with structural retention. The 5-year vesting requirement on IRA matches converts promotional spend into locked, long-duration custody assets, allowing Robinhood to monetize users across margin lending, derivative order routing, and interest sweep yields over a multi-year horizon.
-  </div>
-<h2>Section 2: Product Velocity &amp; Revenue Diversification</h2>
-<p>The defining operational achievement of Robinhood's management team is its explosive product velocity. In Q2 2026, CFO Shiv Verma confirmed that Robinhood operates <strong>13 distinct business lines that have scaled past $100 million in annualized revenues</strong>. This rapid diversification has insulated the firm's income statement from traditional retail equity volume shocks.</p>
-<p>The 13 business units operating above the $100M+ annualized revenue run-rate threshold include:</p>
-<ol><li><strong>Equities Trading:</strong> Monetized via PFOF and rebate execution, delivering $129M in Q2 (+95% YoY).</li><li><strong>Options Trading:</strong> Highly cash-generative derivative order routing, contributing $342M in Q2 (+29% YoY).</li><li><strong>Event Contracts &amp; Prediction Markets:</strong> The fastest-growing engine on the platform, producing $156M in Q2 (up &gt;10x YoY across 13.6 billion contracts traded), accelerated by institutional infrastructure integration via Rothera and MIAXdx.</li><li><strong>Cryptocurrency Trading:</strong> Scaled globally through institutional order depth and token coverage following the Bitstamp (Europe) and WonderFi (Canada) acquisitions, generating $100M in Q2.</li><li><strong>Margin Lending:</strong> Capitalized on aggressive interest rate offerings, expanding the active margin loan book by 127% YoY to $21.6 billion.</li><li><strong>Robinhood Gold Subscriptions:</strong> Recurring subscription revenue from 4.84 million members paying $5/month or $50/year.</li><li><strong>Cash Sweep &amp; Net Interest:</strong> Interest revenue derived from total uninvested customer sweep balances and corporate cash reserves, driving $389M in Net Interest Revenue.</li><li><strong>Robinhood Gold Card:</strong> Interchange fees and credit revenues from over 1 million active cardholders.</li><li><strong>Robinhood Legend:</strong> Advanced desktop trading platform catering to high-volume active traders, driving institutional-level order flow and contract volume.</li><li><strong>Retirement AUC Monetization:</strong> Long-term asset management and cash administration across IRA and Roth IRA balances.</li><li><strong>TradePMR RIA Custody Platform:</strong> Wealth management platform facilitating registered investment advisors, expanding Robinhood into high-net-worth custodial solutions.</li><li><strong>International Brokerage:</strong> Cross-border operational expansion spanning UK equities, European crypto, and Asia-Pacific operations under a newly granted Singapore Capital Markets Services (CMS) license from MAS.</li><li><strong>Trump Accounts &amp; Service Revenues:</strong> Specialized policy-linked consumer accounts and dedicated customer administration services generating supplemental fee streams.</li></ol>
-<h3>Q2 2026 Revenue Composition &amp; Segment Breakdown</h3>
-<div class="table-scroll-wrap"><table>
+  </div><h2>Section 2: Product Velocity &amp; Revenue Diversification</h2><p>The defining operational achievement of Robinhood's management team is its explosive product velocity. In Q2 2026, CFO Shiv Verma confirmed that Robinhood operates <strong>13 distinct business lines that have scaled past $100 million in annualized revenues</strong>. This rapid diversification has insulated the firm's income statement from traditional retail equity volume shocks.</p><p>The 13 business units operating above the $100M+ annualized revenue run-rate threshold include:</p><ol><li><strong>Equities Trading:</strong> Monetized via PFOF and rebate execution, delivering $129M in Q2 (+95% YoY).</li><li><strong>Options Trading:</strong> Highly cash-generative derivative order routing, contributing $342M in Q2 (+29% YoY).</li><li><strong>Event Contracts &amp; Prediction Markets:</strong> The fastest-growing engine on the platform, producing $156M in Q2 (up &gt;10x YoY across 13.6 billion contracts traded), accelerated by institutional infrastructure integration via Rothera and MIAXdx.</li><li><strong>Cryptocurrency Trading:</strong> Scaled globally through institutional order depth and token coverage following the Bitstamp (Europe) and WonderFi (Canada) acquisitions, generating $100M in Q2.</li><li><strong>Margin Lending:</strong> Capitalized on aggressive interest rate offerings, expanding the active margin loan book by 127% YoY to $21.6 billion.</li><li><strong>Robinhood Gold Subscriptions:</strong> Recurring subscription revenue from 4.84 million members paying $5/month or $50/year.</li><li><strong>Cash Sweep &amp; Net Interest:</strong> Interest revenue derived from total uninvested customer sweep balances and corporate cash reserves, driving $389M in Net Interest Revenue.</li><li><strong>Robinhood Gold Card:</strong> Interchange fees and credit revenues from over 1 million active cardholders.</li><li><strong>Robinhood Legend:</strong> Advanced desktop trading platform catering to high-volume active traders, driving institutional-level order flow and contract volume.</li><li><strong>Retirement AUC Monetization:</strong> Long-term asset management and cash administration across IRA and Roth IRA balances.</li><li><strong>TradePMR RIA Custody Platform:</strong> Wealth management platform facilitating registered investment advisors, expanding Robinhood into high-net-worth custodial solutions.</li><li><strong>International Brokerage:</strong> Cross-border operational expansion spanning UK equities, European crypto, and Asia-Pacific operations under a newly granted Singapore Capital Markets Services (CMS) license from MAS.</li><li><strong>Trump Accounts &amp; Service Revenues:</strong> Specialized policy-linked consumer accounts and dedicated customer administration services generating supplemental fee streams.</li></ol><h3>Q2 2026 Revenue Composition &amp; Segment Breakdown</h3><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Revenue Stream</th>
@@ -1256,17 +1253,12 @@
 <td><strong>All-time quarterly revenue record for Robinhood Markets, Inc.</strong></td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <strong>Global Regulatory &amp; M&amp;A Moat:</strong> By acquiring Bitstamp in Europe and WonderFi in Canada, alongside securing its Capital Markets Services (CMS) license in Singapore, Robinhood has bypassed years of international regulatory friction. Coupled with the integration of TradePMR for RIA custody, Robinhood is capturing asset transfers across the full demographic spectrum—from Gen-Z retail traders to high-net-worth advisory clients.
-  </div>
-</div>
-<div class="section">
-<h2>Section 3: Real Cash Flow, SBC &amp; Float Analysis</h2>
-<p>
+  </div></div>
+<div class="section"><h2>Section 3: Real Cash Flow, SBC &amp; Float Analysis</h2><p>
     Evaluating Robinhood Markets, Inc. (HOOD) through a rigorous owner earnings lens requires looking past standard non-GAAP presentations and treating stock-based compensation (SBC) as an indisputable cash expense and direct economic dilution to existing shareholders. In Q2 2026, Robinhood demonstrated exceptional operating leverage, expanding its Adjusted EBITDA margin to 57% on record quarterly revenue of $1.31 billion (+32% YoY). However, full financial integrity demands reconciling GAAP Operating Cash Flow down to true post-SBC Owner Earnings while auditing the expanding, self-funding customer float mechanism that powers Robinhood's high-margin credit and margin lending engine.
-  </p>
-<div class="metrics-grid">
+  </p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Q2 2026 Net Revenue</div>
 <div class="metric-value">$1.31B</div>
@@ -1287,12 +1279,9 @@
 <div class="metric-value">$18.7B</div>
 <div class="metric-delta pos">+34.0% YoY</div>
 </div>
-</div>
-<h3>Post-SBC Owner Earnings &amp; Operating Expense Discipline</h3>
-<p>
+</div><h3>Post-SBC Owner Earnings &amp; Operating Expense Discipline</h3><p>
     To calculate true cash profitability, we start with GAAP Operating Cash Flow and deduct discretionary capital expenditures and 100% of Stock-Based Compensation. Robinhood's management demonstrated strong operational discipline in Q2 2026 by revising down its full-year 2026 Adjusted Operating Expense plus SBC outlook to a range of $2.675 billion to $2.775 billion (from $2.700 billion to $2.825 billion previously). This expense tightening, coupled with top-line acceleration across equities (+95% YoY), options (+29% YoY), and prediction event contracts (+10x YoY), generated an unprecedented cash flow profile.
-  </p>
-<div class="table-scroll-wrap"><table>
+  </p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Cash Flow Component (Q2 2026)</th>
@@ -1333,18 +1322,14 @@
 <td>True organic cash yield available for discretionary reinvestment/buybacks.</td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <div class="callout-title">Capital Allocation Insight: Operational Leverage &amp; SBC Containment</div>
 <p>
       By lowering full-year Adjusted OpEx + SBC guidance by $25M–$50M while growing revenue 32% YoY, Robinhood achieved a peak 57% Adjusted EBITDA margin. Crucially, SBC as a percentage of revenue declined from over 15% in prior cycles to 9.0% in Q2 2026, allowing post-SBC Owner Earnings to reach $579 million for the quarter. Management's self-funding strategy allows new business lines (such as Rothera, WonderFi, and Robinhood Credit Card) to scale without inflating corporate overhead.
     </p>
-</div>
-<h3>Customer Float &amp; Cash Sweep Dynamics ("The Fintech Insurance Float")</h3>
-<p>
+</div><h3>Customer Float &amp; Cash Sweep Dynamics ("The Fintech Insurance Float")</h3><p>
     Similar to Warren Buffett’s insurance float, Robinhood operates a powerful customer cash sweep and deposit engine that acts as a low-cost, flexible funding channel. In February 2026, Robinhood strategically updated its brokerage High-Yield Cash program to fund rapid expansion in margin lending. Over $6 billion in Cash Sweep balances were shifted into customer free credit balances (classified under Cash and Deposits).
-  </p>
-<div class="table-scroll-wrap"><table>
+  </p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Customer Float Metric</th>
@@ -1379,17 +1364,12 @@
 <td>Generates robust cash yields across interest-earning assets.</td>
 </tr>
 </tbody>
-</table></div>
-<p>
+</table></div><p>
     This operational shift allows Robinhood to earn significant net interest spreads by capturing the difference between the yield on its $21.6 billion margin lending book (+127% YoY) and the interest paid on customer free credit balances. The internal float eliminates reliance on expensive short-term bank credit lines, creating an expanding, self-sustaining financial engine.
-  </p>
-</div>
-<div class="section">
-<h2>Section 4: Capital Structure &amp; Institutional Ownership</h2>
-<p>
+  </p></div>
+<div class="section"><h2>Section 4: Capital Structure &amp; Institutional Ownership</h2><p>
     Robinhood maintains a fortress balance sheet characterized by substantial net cash, non-dilutive long-term capital structures, and multi-billion-dollar available liquidity buffers. Management actively utilizes opportunistic capital raises paired with aggressive share repurchases to systematically offset stock compensation dilution while maintaining complete strategic flexibility.
-  </p>
-<div class="metrics-grid">
+  </p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Corporate Cash &amp; Stablecoins</div>
 <div class="metric-value">$5.6B</div>
@@ -1410,12 +1390,9 @@
 <div class="metric-value">$414M</div>
 <div class="metric-delta pos">4.4M Shares</div>
 </div>
-</div>
-<h3>Capital Structure &amp; Convertible Debt Architecture</h3>
-<p>
+</div><h3>Capital Structure &amp; Convertible Debt Architecture</h3><p>
     In June 2026, Robinhood executed a sophisticated private offering of $2.2 billion in 0.00% convertible senior notes due October 1, 2029. The offering carries no regular cash interest expense and was structured alongside strategic capped call options and concurrent share buybacks to ensure complete immunity from equity dilution across major upside price corridors.
-  </p>
-<div class="table-scroll-wrap"><table>
+  </p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Capital Component</th>
@@ -1462,18 +1439,14 @@
 <td>Includes $5.6B cash + $4.9B credit lines less $2.2B convertibles.</td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <div class="callout-title">Structural Masterclass: The $303.95 Anti-Dilution Threshold</div>
 <p>
       Robinhood's June 2026 convertible transaction demonstrates financial engineering tailored for existing shareholders. By raising $2.2 billion at a 0.00% coupon and allocating $123.2 million to capped calls and $290 million to immediate buybacks, Robinhood secured $1.757 billion in net cash proceeds without creating net share dilution until the stock price exceeds $303.95 per share—representing an 188% premium to the offering reference price.
     </p>
-</div>
-<h3>Share Buybacks vs. SBC Dilution Execution</h3>
-<p>
+</div><h3>Share Buybacks vs. SBC Dilution Execution</h3><p>
     Management actively defends per-share owner economics through systematic stock repurchases. Following a refreshed $1.5 billion share buyback authorization approved by the Board in March 2026, Robinhood repurchased $414 million worth of Class A common stock (4.4 million shares at an average price of ~$94/share) in Q2 2026 alone.
-  </p>
-<div class="table-scroll-wrap"><table>
+  </p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Capital Allocation Horizon</th>
@@ -1502,12 +1475,9 @@
 <td>Authorization designed to execute over 3-year horizon.</td>
 </tr>
 </tbody>
-</table></div>
-<h3>Institutional Ownership &amp; 13F Whale Filings</h3>
-<p>
+</table></div><h3>Institutional Ownership &amp; 13F Whale Filings</h3><p>
     An audit of SEC Form 13F filings reveals high institutional conviction among premier technology growth managers, venture sponsors, and global index managers. Active position adjustments reflect strong institutional interest in Robinhood's market leadership across active trading, crypto custody, and international brokerage expansion.
-  </p>
-<div class="table-scroll-wrap"><table>
+  </p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Institutional Holder / Whale Fund</th>
@@ -1554,19 +1524,11 @@
 <td>Core iShares ETF holding providing steady structural demand for Class A equity.</td>
 </tr>
 </tbody>
-</table></div>
-</div>
-<div class="section">
-<h2>Section 5: Warren Buffett Owner Earnings &amp; Intrinsic Value Matrix</h2>
-<p>To establish the true intrinsic value of Robinhood Markets, Inc. (HOOD), we strictly apply Warren Buffett’s 1986 Shareholder Letter framework. Rather than relying on speculative exit multiples—which treat valuation as a greater-fool auction—we ground our model entirely in the owner’s cash yield and discounted future net cash flows.</p>
-<p>Our owner earnings formula treats Stock-Based Compensation (SBC) as an indisputable cash-equivalent expense and factors in maintenance capital expenditure required to keep the platform operational and compliant:</p>
-<div class="callout">
+</table></div></div>
+<div class="section"><h2>Section 5: Warren Buffett Owner Earnings &amp; Intrinsic Value Matrix</h2><p>To establish the true intrinsic value of Robinhood Markets, Inc. (HOOD), we strictly apply Warren Buffett’s 1986 Shareholder Letter framework. Rather than relying on speculative exit multiples—which treat valuation as a greater-fool auction—we ground our model entirely in the owner’s cash yield and discounted future net cash flows.</p><p>Our owner earnings formula treats Stock-Based Compensation (SBC) as an indisputable cash-equivalent expense and factors in maintenance capital expenditure required to keep the platform operational and compliant:</p><div class="callout">
 <strong>Warren Buffett Owner Earnings Formula:</strong><br/>
 <code>Owner Earnings = Operating Cash Flow - Maintenance CapEx - 100% Stock-Based Compensation (SBC)</code>
-</div>
-<h3>Baseline Owner Earnings Power</h3>
-<p>Over the trailing twelve months, Robinhood generated between $2.1B and $2.3B in post-SBC cash flow across approximately 899M diluted shares. This establishes a normalized baseline Owner Earnings power of <strong>$2.35 to $2.55 per share</strong>.</p>
-<div class="metrics-grid">
+</div><h3>Baseline Owner Earnings Power</h3><p>Over the trailing twelve months, Robinhood generated between $2.1B and $2.3B in post-SBC cash flow across approximately 899M diluted shares. This establishes a normalized baseline Owner Earnings power of <strong>$2.35 to $2.55 per share</strong>.</p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Normalized Owner Earnings</div>
 <div class="metric-value">$2.45 / share</div>
@@ -1587,10 +1549,7 @@
 <div class="metric-value">899M</div>
 <div class="metric-delta neg">-2.5% p.a. via buybacks</div>
 </div>
-</div>
-<h3>5-Year Compounding Scenario Analysis</h3>
-<p>We evaluate three distinct operational trajectories over a 5-year forecast horizon, discounting cash flows back to the present at a strict 10.0% hurdle rate (grounded in the US 10-Year Treasury rate of ~4.25% plus a 5.75% equity risk premium).</p>
-<div class="table-scroll-wrap"><table>
+</div><h3>5-Year Compounding Scenario Analysis</h3><p>We evaluate three distinct operational trajectories over a 5-year forecast horizon, discounting cash flows back to the present at a strict 10.0% hurdle rate (grounded in the US 10-Year Treasury rate of ~4.25% plus a 5.75% equity risk premium).</p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Valuation Metric / Parameter</th>
@@ -1649,22 +1608,12 @@
 <td><span class="metric-delta pos">+60.8%</span></td>
 </tr>
 </tbody>
-</table></div>
-<p>Under our Base Case, Robinhood scales per-share owner cash flows at a 16.5% CAGR, supported by capital-light operational leverage and share count reduction. At $110.00 per share, the stock offers an attractive yield on normalized cash generation while embedding a conservative margin of safety against potential cyclical downturns.</p>
-</div>
-<div class="section">
-<h2>Section 6: Execution Risk, Margin of Safety &amp; Falsification Triggers</h2>
-<p>While Robinhood possesses an exceptionally capital-light business model and a fortress balance sheet, realizing our intrinsic value target requires navigating three critical execution risks.</p>
-<h3>Key Execution &amp; Macro Risks</h3>
-<ul><li><strong>Margin Book Credit Exposure:</strong> Robinhood’s margin loan balance sits at approximately $21.6 billion. While loans are collateralized by liquid equities and crypto assets, extreme gap-down market volatility or flash crashes pose tail risk for uncollectible credit losses if liquidation algorithms experience execution lag.</li><li><strong>CFTC &amp; State Regulatory Pressure in Prediction Markets:</strong> The rapid rollout of prediction markets and event contracts (e.g., via Rothera) faces complex, evolving scrutiny from state gaming commissions and the Commodity Futures Trading Commission (CFTC). Adverse administrative bans or costly litigation could stunt a key high-margin growth pillar.</li><li><strong>Macro Sensitivity to Trading Volumes &amp; Net Interest Yields:</strong> A dual macro headwind—extended periods of low market volatility suppressing retail option/equity turnover combined with aggressive Federal Reserve rate cuts compressing net interest margin on customer cash balances—could temporarily depress cash flow generation.</li></ul>
-<h3>Margin of Safety Assessment</h3>
-<p>With an estimated thesis conviction level of <strong>Solid Conviction</strong>, Robinhood's downside is bounded by its growing net cash reserves, non-interest fee revenues (Gold subscriptions, securities lending), and high platform retention. A purchase below $93.30 provides a meaningful margin of safety against the Bear Case intrinsic value of $65.00.</p>
-<div class="callout">
+</table></div><p>Under our Base Case, Robinhood scales per-share owner cash flows at a 16.5% CAGR, supported by capital-light operational leverage and share count reduction. At $110.00 per share, the stock offers an attractive yield on normalized cash generation while embedding a conservative margin of safety against potential cyclical downturns.</p></div>
+<div class="section"><h2>Section 6: Execution Risk, Margin of Safety &amp; Falsification Triggers</h2><p>While Robinhood possesses an exceptionally capital-light business model and a fortress balance sheet, realizing our intrinsic value target requires navigating three critical execution risks.</p><h3>Key Execution &amp; Macro Risks</h3><ul><li><strong>Margin Book Credit Exposure:</strong> Robinhood’s margin loan balance sits at approximately $21.6 billion. While loans are collateralized by liquid equities and crypto assets, extreme gap-down market volatility or flash crashes pose tail risk for uncollectible credit losses if liquidation algorithms experience execution lag.</li><li><strong>CFTC &amp; State Regulatory Pressure in Prediction Markets:</strong> The rapid rollout of prediction markets and event contracts (e.g., via Rothera) faces complex, evolving scrutiny from state gaming commissions and the Commodity Futures Trading Commission (CFTC). Adverse administrative bans or costly litigation could stunt a key high-margin growth pillar.</li><li><strong>Macro Sensitivity to Trading Volumes &amp; Net Interest Yields:</strong> A dual macro headwind—extended periods of low market volatility suppressing retail option/equity turnover combined with aggressive Federal Reserve rate cuts compressing net interest margin on customer cash balances—could temporarily depress cash flow generation.</li></ul><h3>Margin of Safety Assessment</h3><p>With an estimated thesis conviction level of <strong>Solid Conviction</strong>, Robinhood's downside is bounded by its growing net cash reserves, non-interest fee revenues (Gold subscriptions, securities lending), and high platform retention. A purchase below $93.30 provides a meaningful margin of safety against the Bear Case intrinsic value of $65.00.</p><div class="callout">
 <strong>Pre-Mortem Thesis Invalidation &amp; Falsification Triggers:</strong>
 <p>If any of the following operational or structural failures occur, the fundamental bull thesis is formally invalidated, triggering an immediate downgrade and position liquidation:</p>
 <ul><li><strong>Gold Subscriber Churn:</strong> Robinhood Gold membership growth turns negative or stalls below 10% of total active funded accounts for two consecutive quarters, signaling erosion of platform loyalty.</li><li><strong>Regulatory Ban on Event Contracts:</strong> Federal courts or the CFTC enact an explicit prohibition on retail prediction markets and event contracts, eliminating a primary growth catalyst.</li><li><strong>Margin Book Default Spike:</strong> Credit losses or default write-offs on the $21.6B margin lending book exceed 1.5% of total outstanding balances during a market drawdown.</li><li><strong>SBC Dilution Re-acceleration:</strong> Stock-Based Compensation rises above 20% of net revenues, invalidating our capital discipline assumption and diluting per-share Owner Earnings growth below 8% per annum.</li></ul>
-</div>
-</div>
+</div></div>
             </article>
         </div>
 

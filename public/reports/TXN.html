@@ -486,11 +486,21 @@
         .memo-container ul, .memo-container ol {
             font-family: var(--font-serif) !important;
             font-size: 1.12rem !important;
-            line-height: 1.9 !important;
+            line-height: 1.85 !important;
             color: var(--text-body) !important;
-            margin: 0 0 26px 30px !important;
+            margin: 16px 0 24px 24px !important;
+            padding-left: 12px !important;
         }
-        .memo-container li { margin-bottom: 10px !important; color: var(--text-body) !important; }
+        .memo-container ul { list-style-type: disc !important; }
+        .memo-container ol { list-style-type: decimal !important; }
+        .memo-container li {
+            margin-bottom: 12px !important;
+            color: var(--text-body) !important;
+            line-height: 1.85 !important;
+        }
+        .memo-container li::marker {
+            color: var(--accent-warm) !important;
+        }
         .memo-container strong, .memo-container b {
             color: var(--text-title) !important;
             font-weight: 600 !important;
@@ -1150,10 +1160,7 @@
         <!-- Memo Content -->
         <div id="tab-memo" class="tab-content active">
             <article class="memo-container">
-                <div class="section">
-<h2>Section 1: Business Model Reality &amp; Moat</h2>
-<p>Texas Instruments (TI) operates as the world's premier producer of analog and embedded processing semiconductors. Unlike high-node digital processors (e.g., AI accelerators or cutting-edge smartphone APs) that face rapid design obsolescence every 18 to 24 months, TI's core catalog focuses on processing real-world signals—temperature, voltage, pressure, sound, and speed—into digital data. These analog chips are characterized by extremely long product lifecycles (often 10 to 20+ years), low capital intensity per unit once capacity is installed, and zero threat of leading-edge process node obsolescence.</p>
-<div class="metrics-grid">
+                <div class="section"><h2>Section 1: Business Model Reality &amp; Moat</h2><p>Texas Instruments (TI) operates as the world's premier producer of analog and embedded processing semiconductors. Unlike high-node digital processors (e.g., AI accelerators or cutting-edge smartphone APs) that face rapid design obsolescence every 18 to 24 months, TI's core catalog focuses on processing real-world signals—temperature, voltage, pressure, sound, and speed—into digital data. These analog chips are characterized by extremely long product lifecycles (often 10 to 20+ years), low capital intensity per unit once capacity is installed, and zero threat of leading-edge process node obsolescence.</p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Q2 2026 Revenue</div>
 <div class="metric-value">$5.46B</div>
@@ -1174,10 +1181,7 @@
 <div class="metric-value">$6.53B</div>
 <div class="metric-delta pos">33.6% FCF Margin</div>
 </div>
-</div>
-<h3>1. Core Segments &amp; Catalog Product Moat</h3>
-<p>TI's operational architecture is divided into two primary segments, anchored by a vast product catalog of over 80,000 products serving more than 100,000 global customers across industrial, automotive, data center, and personal electronics end-markets:</p>
-<div class="table-scroll-wrap"><table>
+</div><h3>1. Core Segments &amp; Catalog Product Moat</h3><p>TI's operational architecture is divided into two primary segments, anchored by a vast product catalog of over 80,000 products serving more than 100,000 global customers across industrial, automotive, data center, and personal electronics end-markets:</p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Segment</th>
@@ -1210,26 +1214,11 @@
 <td>Legacy educational calculators and select specialized application-specific integrated circuits (ASICs).</td>
 </tr>
 </tbody>
-</table></div>
-<p>Because analog chips represent a tiny fraction of a customer’s total Bill of Materials (BOM)—often costing anywhere from $0.20 to $5.00—yet are fundamental to preventing system failure, customers face immense switching costs. Redesigning a printed circuit board (PCB) to replace a proven TI power management IC introduces multi-million-dollar re-certification costs and field-failure risks, yielding durable, multi-decade cash flow yields.</p>
-<h3>2. The 300mm Wafer Manufacturing Cost Fortress</h3>
-<p>TI’s primary competitive moat rests on its aggressive, multi-year internal manufacturing transformation to 300mm (12-inch) wafer fabrication facilities, including its mega-fab footprints in Richardson, Texas (RFAB1 &amp; RFAB2), Lehi, Utah (LFAB1 &amp; LFAB2), and Sherman, Texas (SM1 &amp; SM2). While the vast majority of analog competitors (such as Analog Devices, NXP, Microchip, and STMicroelectronics) rely heavily on older 200mm (8-inch) internal fabs or third-party foundries (e.g., TSMC, UMC), TI controls its own destiny and cost structure.</p>
-<div class="callout">
+</table></div><p>Because analog chips represent a tiny fraction of a customer’s total Bill of Materials (BOM)—often costing anywhere from $0.20 to $5.00—yet are fundamental to preventing system failure, customers face immense switching costs. Redesigning a printed circuit board (PCB) to replace a proven TI power management IC introduces multi-million-dollar re-certification costs and field-failure risks, yielding durable, multi-decade cash flow yields.</p><h3>2. The 300mm Wafer Manufacturing Cost Fortress</h3><p>TI’s primary competitive moat rests on its aggressive, multi-year internal manufacturing transformation to 300mm (12-inch) wafer fabrication facilities, including its mega-fab footprints in Richardson, Texas (RFAB1 &amp; RFAB2), Lehi, Utah (LFAB1 &amp; LFAB2), and Sherman, Texas (SM1 &amp; SM2). While the vast majority of analog competitors (such as Analog Devices, NXP, Microchip, and STMicroelectronics) rely heavily on older 200mm (8-inch) internal fabs or third-party foundries (e.g., TSMC, UMC), TI controls its own destiny and cost structure.</p><div class="callout">
 <strong>The Economics of 300mm vs. 200mm Wafer Production:</strong>
 <p>A 300mm wafer yields approximately <strong>2.3 times more unpackaged die</strong> than a standard 200mm wafer. After accounting for capital depreciation and factory overhead, an unpackaged analog chip manufactured on an internal 300mm line yields a structural <strong>~40% cost reduction per die</strong> compared to a 200mm facility, and up to <strong>~50% cost advantage</strong> over third-party outsourced foundries. Additionally, internal assembly and testing operations slash external margin markups by another ~20%.</p>
-</div>
-<p>TI's capital strategy ensures that as these multi-billion-dollar 300mm fabs fully ramp, fixed-cost absorption improves dramatically, creating a cost floor that legacy 200mm operators cannot match without incurring catastrophic asset write-downs and CapEx cycles of their own.</p>
-<h3>3. Direct Channel Disintermediation (ti.com) &amp; Pricing Power</h3>
-<p>Over the past seven years, TI fundamentally restructured its go-to-market model by disintermediating legacy distributor networks (canceling distribution relationships with Arrow and Avnet) in favor of direct customer engagements via <strong>ti.com</strong>. Direct sales now represent over 70–80% of total revenue.</p>
-<ul><li><strong>Direct Price &amp; Margin Capture:</strong> Eliminates distributor margin markups, allowing TI to capture full economic rents while offering localized, dynamic pricing.</li><li><strong>Inventory &amp; Demand Visibility:</strong> Direct customer ordering provides real-time sell-through data, dramatically reducing the "bullwhip effect" that historically plagued chipmakers during inventory destocking cycles.</li><li><strong>Design-In Friction Elimination:</strong> Engineers can order sample chips, access reference designs, and integrate TI hardware directly through ti.com, binding customer engineering teams to TI's proprietary architecture.</li></ul>
-<h3>4. Executive Leadership Continuity &amp; Strategic M&amp;A</h3>
-<p>Effective August 1, 2026, long-time company insider <strong>Julie Knecht</strong> (former Chief Accounting Officer) stepped into the Chief Financial Officer role, succeeding Rafael Lizardi following his 25-year career at TI. Knecht’s appointment signals zero deviation from TI's capital allocation playbook: maximizing long-term Free Cash Flow per share growth, prioritizing internal 300mm CapEx, maintaining dividend compounding (22 consecutive years of dividend increases), and executing disciplined share repurchases.</p>
-<p>In parallel, TI announced an agreement to acquire <strong>Silicon Labs for $7.5 billion in cash</strong>, backed by a $5 billion delayed-draw facility. This strategic transaction directly expands TI’s Embedded Processing segment with high-margin wireless connectivity protocols (Bluetooth, Zigbee, Thread, Wi-SUN), further embedding TI hardware into smart industrial, utility, and IoT networks.</p>
-</div>
-<div class="section">
-<h2>Section 2: End-Market Cyclical Recovery &amp; Demand Dynamics</h2>
-<p>Following a prolonged, multi-quarter post-pandemic inventory destocking cycle across broad industrial and automotive supply chains, TI’s Q2 2026 operational performance confirmed a cyclical inflection point. Sequential revenue accelerated +13% QoQ, while year-over-year growth surged +23% to $5.46 billion, driven by demand re-acceleration across Industrial, Automotive, and Data Center end-markets.</p>
-<div class="metrics-grid">
+</div><p>TI's capital strategy ensures that as these multi-billion-dollar 300mm fabs fully ramp, fixed-cost absorption improves dramatically, creating a cost floor that legacy 200mm operators cannot match without incurring catastrophic asset write-downs and CapEx cycles of their own.</p><h3>3. Direct Channel Disintermediation (ti.com) &amp; Pricing Power</h3><p>Over the past seven years, TI fundamentally restructured its go-to-market model by disintermediating legacy distributor networks (canceling distribution relationships with Arrow and Avnet) in favor of direct customer engagements via <strong>ti.com</strong>. Direct sales now represent over 70–80% of total revenue.</p><ul><li><strong>Direct Price &amp; Margin Capture:</strong> Eliminates distributor margin markups, allowing TI to capture full economic rents while offering localized, dynamic pricing.</li><li><strong>Inventory &amp; Demand Visibility:</strong> Direct customer ordering provides real-time sell-through data, dramatically reducing the "bullwhip effect" that historically plagued chipmakers during inventory destocking cycles.</li><li><strong>Design-In Friction Elimination:</strong> Engineers can order sample chips, access reference designs, and integrate TI hardware directly through ti.com, binding customer engineering teams to TI's proprietary architecture.</li></ul><h3>4. Executive Leadership Continuity &amp; Strategic M&amp;A</h3><p>Effective August 1, 2026, long-time company insider <strong>Julie Knecht</strong> (former Chief Accounting Officer) stepped into the Chief Financial Officer role, succeeding Rafael Lizardi following his 25-year career at TI. Knecht’s appointment signals zero deviation from TI's capital allocation playbook: maximizing long-term Free Cash Flow per share growth, prioritizing internal 300mm CapEx, maintaining dividend compounding (22 consecutive years of dividend increases), and executing disciplined share repurchases.</p><p>In parallel, TI announced an agreement to acquire <strong>Silicon Labs for $7.5 billion in cash</strong>, backed by a $5 billion delayed-draw facility. This strategic transaction directly expands TI’s Embedded Processing segment with high-margin wireless connectivity protocols (Bluetooth, Zigbee, Thread, Wi-SUN), further embedding TI hardware into smart industrial, utility, and IoT networks.</p></div>
+<div class="section"><h2>Section 2: End-Market Cyclical Recovery &amp; Demand Dynamics</h2><p>Following a prolonged, multi-quarter post-pandemic inventory destocking cycle across broad industrial and automotive supply chains, TI’s Q2 2026 operational performance confirmed a cyclical inflection point. Sequential revenue accelerated +13% QoQ, while year-over-year growth surged +23% to $5.46 billion, driven by demand re-acceleration across Industrial, Automotive, and Data Center end-markets.</p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Industrial Revenue</div>
 <div class="metric-value">+30.0% YoY</div>
@@ -1250,9 +1239,7 @@
 <div class="metric-value">$5.65B - $6.15B</div>
 <div class="metric-delta pos">Midpoint EPS $2.40</div>
 </div>
-</div>
-<h3>1. End-Market Breakdown &amp; Re-Acceleration Vectors</h3>
-<div class="table-scroll-wrap"><table>
+</div><h3>1. End-Market Breakdown &amp; Re-Acceleration Vectors</h3><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>End Market</th>
@@ -1287,27 +1274,16 @@
 <td><strong>Stabilizing Floor:</strong> Telecom carrier infrastructure spending remains constrained, but high-performance enterprise networking builds are showing initial signs of bottoming.</td>
 </tr>
 </tbody>
-</table></div>
-<h3>2. The AI Power Physics Breakthrough: Data Center Acceleration</h3>
-<div class="callout">
+</table></div><h3>2. The AI Power Physics Breakthrough: Data Center Acceleration</h3><div class="callout">
 <strong>Why AI Accelerators Rely on TI's Analog Dominance:</strong>
 <p>While Nvidia, AMD, and Broadcom capture headlines for digital compute GPUs, massive AI clusters (such as 132kW GB200 NVL72 racks progressing toward 600kW–1MW next-gen architectures) face severe physical constraints rooted in Ohm’s Law. High currents cause massive resistive power losses ($P_{loss} = I^2R$). Delivering megawatts of power directly to silicon requires stepping down 415V/54V AC/DC architectures directly down to 0.8V–1.2V core voltages right at the compute tray.</p>
 <p>TI supplies the critical, specialized hardware: <strong>GaN (Gallium Nitride) power stages, smart eFuses, multiphase buck converters, and high-side gate drivers</strong>. As power density escalates, TI's dollar content per rack multiplies exponentially.</p>
-</div>
-<h3>3. CapEx Inflection &amp; Cash Flow Harvesting Phase</h3>
-<p>Between 2022 and 2025, TI underwent an unprecedented capital expenditure cycle (peaking at $3.5B–$4.5B annually) to construct its 300mm fab shells. In Q2 2026, TTM Capital Expenditures totaled $3.31 billion, supported by significant cash inflows from U.S. CHIPS Act incentives and investment tax credits.</p>
-<p>Management confirmed that CapEx intensity is beginning its anticipated transition from heavy structural civil engineering toward flexible tool installation. Trailing 12-month Operating Cash Flow reached <strong>$8.67 billion</strong>, while TTM Free Cash Flow surged to <strong>$6.53 billion (33.6% of revenue)</strong>, demonstrating the massive cash-harvesting capability of TI's business model as factory utilization scales into the nascent analog demand upcycle.</p>
-</div>
-<div class="section">
-<h2>Section 3: Real Cash Flow Generation, SBC &amp; Dividend Health</h2>
-<p>
+</div><h3>3. CapEx Inflection &amp; Cash Flow Harvesting Phase</h3><p>Between 2022 and 2025, TI underwent an unprecedented capital expenditure cycle (peaking at $3.5B–$4.5B annually) to construct its 300mm fab shells. In Q2 2026, TTM Capital Expenditures totaled $3.31 billion, supported by significant cash inflows from U.S. CHIPS Act incentives and investment tax credits.</p><p>Management confirmed that CapEx intensity is beginning its anticipated transition from heavy structural civil engineering toward flexible tool installation. Trailing 12-month Operating Cash Flow reached <strong>$8.67 billion</strong>, while TTM Free Cash Flow surged to <strong>$6.53 billion (33.6% of revenue)</strong>, demonstrating the massive cash-harvesting capability of TI's business model as factory utilization scales into the nascent analog demand upcycle.</p></div>
+<div class="section"><h2>Section 3: Real Cash Flow Generation, SBC &amp; Dividend Health</h2><p>
     Texas Instruments (TI) operates one of the most powerful cash-generative models in the global semiconductor industry. Grounded in long-product life cycles, low capital obsolescence, and high-margin analog architecture, the business generates substantial cash across economic cycles. However, evaluating TI's operational liquidity requires strict capital allocation auditing to parse non-recurring government subsidies, heavy 300mm fab infrastructure CapEx, and stock-based compensation (SBC) dilution.
-  </p>
-<h3>1. Operating Cash Flow &amp; Free Cash Flow Realized Breakdown</h3>
-<p>
+  </p><h3>1. Operating Cash Flow &amp; Free Cash Flow Realized Breakdown</h3><p>
     For the trailing twelve months (TTM) ended June 30, 2026 (Q2 2026), TI delivered <strong>$8.67 billion in Operating Cash Flow (OCF)</strong>, representing a 35% year-over-year surge from $6.44 billion in TTM Q2 2025. Management's non-GAAP <strong>Free Cash Flow (FCF) reached $6.53 billion</strong> (33.6% of revenue), up 271% YoY. This metric incorporates gross capital expenditures of $3.31 billion offset by <strong>$1.60 billion in U.S. CHIPS and Science Act incentives</strong> (including direct grants and 25% Investment Tax Credit cash refunds).
-  </p>
-<div class="metrics-grid">
+  </p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">TTM Operating Cash Flow</div>
 <div class="metric-value">$8.67B</div>
@@ -1328,12 +1304,9 @@
 <div class="metric-value">$6.53B</div>
 <div class="metric-delta pos">+270.6% YoY</div>
 </div>
-</div>
-<h3>2. Stock-Based Compensation (SBC) Audit &amp; True "Owner Earnings"</h3>
-<p>
+</div><h3>2. Stock-Based Compensation (SBC) Audit &amp; True "Owner Earnings"</h3><p>
     Treating Stock-Based Compensation (SBC) as an essential cash operating expense—rather than an accounting non-cash add-back—reveals the true organic cash production of the enterprise. Over the TTM period, TI issued <strong>$350 million in stock-based compensation</strong>. Additionally, while U.S. CHIPS Act incentives provide genuine cash inflows ($1.60B TTM), sound fundamental auditing requires separating permanent operational cash flow from temporary sovereign stimulus.
-  </p>
-<div class="table-scroll-wrap"><table>
+  </p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Cash Flow Line Item (TTM Q2 2026)</th>
@@ -1374,27 +1347,17 @@
 <td><strong>True recurring cash production: $5.01B organic ($6.61B including CHIPS Act cash).</strong></td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <strong>Auditor's Cash Flow Verdict: Organic Dividend Coverage Secured</strong><br/>
     TI's organic TTM Owner Cash Flow of <strong>$5.01 billion</strong> (excluding CHIPS Act grants and deducting 100% SBC) fully covers its annual dividend commitment of <strong>$5.11 billion</strong> ($1.42/quarter per share). When factoring in the $1.60 billion in realized CHIPS Act cash subsidies, total TTM Owner Free Cash Flow rises to <strong>$6.61 billion</strong>, yielding an excess cash margin of <strong>$1.50 billion</strong> above total dividend payments. Dividend safety is well-fortified as CapEx moderates from $4.1B toward the $2.0B–$3.0B normalized range.
-  </div>
-<h3>3. Capital Allocation &amp; Dividend Safety Dynamics</h3>
-<p>
+  </div><h3>3. Capital Allocation &amp; Dividend Safety Dynamics</h3><p>
     Capital allocation priority at Texas Instruments follows a strict hierarchy: 1) Organic R&amp;D and SG&amp;A investments ($3.9B TTM), 2) Capital expenditures for internal 300mm manufacturing, 3) Sustainable dividend growth, and 4) Opportunistic share repurchases. 
-  </p>
-<ul><li><strong>Dividend Commitment:</strong> TI declared a Q3 2026 quarterly dividend of $1.42 per share ($5.68 annualized), marking 22 consecutive years of dividend increases (2004–2025). TTM dividend payments totaled $5.11 billion.</li><li><strong>Buyback Cannibal Dynamics:</strong> Over the TTM Q2 2026 period, TI repurchased $707 million of common stock (down 61% YoY from $1.81B) as management preserved liquidity during peak fab construction. Long-term buyback execution has reduced total diluted share count by <strong>47% since 2004</strong>.</li><li><strong>Total Capital Return:</strong> Total cash returned to shareholders in TTM Q2 2026 reached <strong>$5.82 billion</strong> ($5.11B dividends + $0.71B buybacks).</li></ul>
-</div>
-<div class="section">
-<h2>Section 4: Capital Structure, CapEx Intensity &amp; Share Count Dynamics</h2>
-<p>
+  </p><ul><li><strong>Dividend Commitment:</strong> TI declared a Q3 2026 quarterly dividend of $1.42 per share ($5.68 annualized), marking 22 consecutive years of dividend increases (2004–2025). TTM dividend payments totaled $5.11 billion.</li><li><strong>Buyback Cannibal Dynamics:</strong> Over the TTM Q2 2026 period, TI repurchased $707 million of common stock (down 61% YoY from $1.81B) as management preserved liquidity during peak fab construction. Long-term buyback execution has reduced total diluted share count by <strong>47% since 2004</strong>.</li><li><strong>Total Capital Return:</strong> Total cash returned to shareholders in TTM Q2 2026 reached <strong>$5.82 billion</strong> ($5.11B dividends + $0.71B buybacks).</li></ul></div>
+<div class="section"><h2>Section 4: Capital Structure, CapEx Intensity &amp; Share Count Dynamics</h2><p>
     Texas Instruments maintains an exceptionally robust balance sheet structured to withstand severe semiconductor downcycles while funding multi-year, capital-intensive 300mm wafer fab construction.
-  </p>
-<h3>1. Balance Sheet Liquidity, Debt Profile &amp; M&amp;A Capacity</h3>
-<p>
+  </p><h3>1. Balance Sheet Liquidity, Debt Profile &amp; M&amp;A Capacity</h3><p>
     As of June 30, 2026, TI held <strong>$7.00 billion in total liquidity</strong> ($3.66B cash and cash equivalents + $3.34B short-term investments) against <strong>$14.05 billion in total debt</strong> ($1.15B current debt + $12.90B long-term debt). This results in a manageable <strong>Net Debt position of $7.05 billion</strong>. The debt structure carries an enviable weighted average coupon of approximately <strong>4.0%</strong> with staggered maturities extending out 30 years.
-  </p>
-<div class="table-scroll-wrap"><table>
+  </p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Balance Sheet Metric (Q2 2026)</th>
@@ -1439,13 +1402,9 @@
 <td><strong>Net Debt / TTM EBITDA sits at a conservative ~0.85x ratio.</strong></td>
 </tr>
 </tbody>
-</table></div>
-<h3>2. 300mm Fab Expansion Cycle &amp; Structural Cost Advantage</h3>
-<p>
+</table></div><h3>2. 300mm Fab Expansion Cycle &amp; Structural Cost Advantage</h3><p>
     TI's multi-billion dollar capital investment strategy centers on transitioning manufacturing from legacy 200mm wafers to advanced <strong>300mm wafer fabrication</strong> at its Sherman, Texas and Lehi, Utah manufacturing sites. 
-  </p>
-<ul><li><strong>Structural Cost Advantage:</strong> Unpackaged chips manufactured on 300mm wafers cost approximately <strong>40% less</strong> than those produced on standard 200mm wafers. In addition, owning internal fab capacity isolates TI from foundry margin stacking and supply chain bottlenecks.</li><li><strong>CapEx Moderation:</strong> Capital expenditures peaked in 2024–2025 at ~$4.1 billion annually and have begun moderating to $3.31 billion TTM. Management reiterated forward CapEx guidance of $2.0B–$3.0B annually, which will drive cash conversion higher as revenue expands.</li><li><strong>Silicon Labs Acquisition Financing:</strong> TI announced an agreement to acquire <strong>Silicon Labs (SLAB) for ~$7.5 billion in cash</strong> to broaden its embedded wireless connectivity portfolio. The acquisition is backed by a new <strong>$5.0 billion delayed-draw term loan facility</strong>. As of June 30, 2026, zero dollars had been drawn under this facility.</li></ul>
-<div class="metrics-grid">
+  </p><ul><li><strong>Structural Cost Advantage:</strong> Unpackaged chips manufactured on 300mm wafers cost approximately <strong>40% less</strong> than those produced on standard 200mm wafers. In addition, owning internal fab capacity isolates TI from foundry margin stacking and supply chain bottlenecks.</li><li><strong>CapEx Moderation:</strong> Capital expenditures peaked in 2024–2025 at ~$4.1 billion annually and have begun moderating to $3.31 billion TTM. Management reiterated forward CapEx guidance of $2.0B–$3.0B annually, which will drive cash conversion higher as revenue expands.</li><li><strong>Silicon Labs Acquisition Financing:</strong> TI announced an agreement to acquire <strong>Silicon Labs (SLAB) for ~$7.5 billion in cash</strong> to broaden its embedded wireless connectivity portfolio. The acquisition is backed by a new <strong>$5.0 billion delayed-draw term loan facility</strong>. As of June 30, 2026, zero dollars had been drawn under this facility.</li></ul><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Liquidity Fortress</div>
 <div class="metric-value">$7.00B</div>
@@ -1466,28 +1425,16 @@
 <div class="metric-value">86.1%</div>
 <div class="metric-delta pos">Anchored by Whales</div>
 </div>
-</div>
-<h3>3. Corporate Governance, Institutional Ownership &amp; Insider Activity</h3>
-<p>
+</div><h3>3. Corporate Governance, Institutional Ownership &amp; Insider Activity</h3><p>
     Texas Instruments maintains top-tier institutional backing, reflecting its status as a core holding among global asset managers. Total institutional ownership stands at <strong>86.1%</strong> of total outstanding common stock (~913 million shares).
-  </p>
-<div class="callout">
+  </p><div class="callout">
 <strong>Institutional Whales &amp; Executive 10b5-1 Trading Audit</strong><br/>
 <ul><li><strong>Top Institutional Shareholders:</strong> The Vanguard Group holds 96.03 million shares (~10.6% stake), followed by BlackRock Institutional Trust with 81.52 million shares (~8.9%), State Street Corp with 43.56 million shares (~4.8%), Charles Schwab with 25.93 million shares (~2.8%), and Geode Capital with 23.59 million shares (~2.6%).</li><li><strong>Insider Activity Audit:</strong> Recent Form 4 SEC filings indicate routine insider transactions executed under pre-established</li><li><strong>Rule 10b5-1 trading plans</strong>. Executive officers (including CFO Rafael Lizardi, VP Ahmad Bahai, and Board Directors) regularly exercise option grants and execute programmed liquidity sales. No opportunistic open-market insider dumping has occurred, indicating executive alignment with long-term capital management goals.</li></ul>
-</div>
-</div>
-<div class="section">
-<h2>Section 5: Warren Buffett Owner Earnings &amp; Intrinsic Value Matrix</h2>
-<p>To value Texas Instruments (TXN) strictly through the lens of Warren Buffett’s 1986 and 1995 Shareholder Letters, we must strip away GAAP accounting distortions, ignore speculative terminal exit multiples, and isolate true organic cash generation. In semiconductor manufacturing, conventional Free Cash Flow (Operating Cash Flow minus Total CapEx) penalizes a business during massive multi-year fab expansion cycles. Conversely, GAAP Net Income fails to capture real cash expenditures and ignores the ongoing economic cost of stock-based compensation.</p>
-<p>Buffett’s 1986 Owner Earnings formula provides the exact economic framework needed to bridge this gap:</p>
-<div class="callout">
+</div></div>
+<div class="section"><h2>Section 5: Warren Buffett Owner Earnings &amp; Intrinsic Value Matrix</h2><p>To value Texas Instruments (TXN) strictly through the lens of Warren Buffett’s 1986 and 1995 Shareholder Letters, we must strip away GAAP accounting distortions, ignore speculative terminal exit multiples, and isolate true organic cash generation. In semiconductor manufacturing, conventional Free Cash Flow (Operating Cash Flow minus Total CapEx) penalizes a business during massive multi-year fab expansion cycles. Conversely, GAAP Net Income fails to capture real cash expenditures and ignores the ongoing economic cost of stock-based compensation.</p><p>Buffett’s 1986 Owner Earnings formula provides the exact economic framework needed to bridge this gap:</p><div class="callout">
 <strong>Warren Buffett Owner Earnings Formula (1986 Berkshire Hathaway Shareholder Letter):</strong><br/>
 <em>Owner Earnings = Operating Cash Flow − Maintenance CapEx − Stock-Based Compensation (SBC) +/− Working Capital Adjustments</em>
-</div>
-<h3>1. Deconstructing TXN's Normalized Owner Earnings (TTM Q2 2026)</h3>
-<p>Texas Instruments reported Trailing 12-Month (TTM) Cash Flow from Operations of <strong>$8.67 Billion</strong>. To determine true Owner Earnings, we must isolate discretionary growth CapEx from essential maintenance CapEx and treat Stock-Based Compensation as a real cash expense:</p>
-<ul><li><strong>TTM Operating Cash Flow:</strong> <strong>$8.67 Billion</strong> (supported by high-margin analog/embedded cash generation across industrial, automotive, and data center markets).</li><li><strong>Maintenance CapEx (Moat Preservation):</strong> <strong>-$1.35 Billion</strong>. While total TTM CapEx reached $3.31 Billion due to the $60 Billion multi-year buildout of 300mm wafer mega-fabs in Sherman, Texas and Lehi, Utah, maintenance CapEx required to protect existing unit throughput, maintain fab machinery, and sustain cleanrooms runs at ~6.5%–7.5% of total revenue (~$1.35B). The remaining ~$1.96 Billion represents discretionary growth CapEx designed to expand internal 300mm capacity.</li><li><strong>Stock-Based Compensation (SBC) Deduction:</strong> <strong>-$0.40 Billion</strong>. Per Buffett’s primary directive, SBC is treated as 100% real cash expense due to its dilutive impact on existing owners.</li><li><strong>Working Capital Normalization:</strong> <strong>$0.00</strong>. Operating cash flow reflects organic cash conversion without unsustainable timing spikes.</li></ul>
-<div class="metrics-grid">
+</div><h3>1. Deconstructing TXN's Normalized Owner Earnings (TTM Q2 2026)</h3><p>Texas Instruments reported Trailing 12-Month (TTM) Cash Flow from Operations of <strong>$8.67 Billion</strong>. To determine true Owner Earnings, we must isolate discretionary growth CapEx from essential maintenance CapEx and treat Stock-Based Compensation as a real cash expense:</p><ul><li><strong>TTM Operating Cash Flow:</strong> <strong>$8.67 Billion</strong> (supported by high-margin analog/embedded cash generation across industrial, automotive, and data center markets).</li><li><strong>Maintenance CapEx (Moat Preservation):</strong> <strong>-$1.35 Billion</strong>. While total TTM CapEx reached $3.31 Billion due to the $60 Billion multi-year buildout of 300mm wafer mega-fabs in Sherman, Texas and Lehi, Utah, maintenance CapEx required to protect existing unit throughput, maintain fab machinery, and sustain cleanrooms runs at ~6.5%–7.5% of total revenue (~$1.35B). The remaining ~$1.96 Billion represents discretionary growth CapEx designed to expand internal 300mm capacity.</li><li><strong>Stock-Based Compensation (SBC) Deduction:</strong> <strong>-$0.40 Billion</strong>. Per Buffett’s primary directive, SBC is treated as 100% real cash expense due to its dilutive impact on existing owners.</li><li><strong>Working Capital Normalization:</strong> <strong>$0.00</strong>. Operating cash flow reflects organic cash conversion without unsustainable timing spikes.</li></ul><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">TTM Operating Cash Flow</div>
 <div class="metric-value">$8.67B</div>
@@ -1508,13 +1455,7 @@
 <div class="metric-value">$6.92B</div>
 <div class="metric-delta pos">$7.56 / Share</div>
 </div>
-</div>
-<h3>2. Sovereign Discount Rate &amp; Terminal Growth Discipline</h3>
-<p>In accordance with Buffett’s PetroChina and Iscar discounting principles, cash flows are discounted using a local sovereign benchmark plus an equity risk hurdle, avoiding speculative terminal exit multiples (which Charlie Munger characterized as <em>"relying on a greater fool in Year 5"</em>):</p>
-<ul><li><strong>Risk-Free Benchmark:</strong> US 10-Year Treasury Yield = <strong>4.20%</strong>.</li><li><strong>Equity Risk Premium (Hurdle Rate):</strong> <strong>4.50%</strong> (reflecting capital intensity risk and tech cyclicality).</li><li><strong>Discount Rate (WACC / Hurdle Rate):</strong> <strong>8.70%</strong> (4.20% + 4.50%).</li><li><strong>Terminal Perpetuity Growth Rate:</strong> Capped strictly at <strong>2.50%</strong> (matching long-term US GDP expansion, ensuring no perpetual outperformance assumptions).</li></ul>
-<h3>3. Bear / Base / Bull Valuation Matrix</h3>
-<p>The table below summarizes the intrinsic value output across three fundamental operating scenarios relative to Texas Instruments' current market price of <strong>$281.24 per share</strong>:</p>
-<div class="table-scroll-wrap"><table>
+</div><h3>2. Sovereign Discount Rate &amp; Terminal Growth Discipline</h3><p>In accordance with Buffett’s PetroChina and Iscar discounting principles, cash flows are discounted using a local sovereign benchmark plus an equity risk hurdle, avoiding speculative terminal exit multiples (which Charlie Munger characterized as <em>"relying on a greater fool in Year 5"</em>):</p><ul><li><strong>Risk-Free Benchmark:</strong> US 10-Year Treasury Yield = <strong>4.20%</strong>.</li><li><strong>Equity Risk Premium (Hurdle Rate):</strong> <strong>4.50%</strong> (reflecting capital intensity risk and tech cyclicality).</li><li><strong>Discount Rate (WACC / Hurdle Rate):</strong> <strong>8.70%</strong> (4.20% + 4.50%).</li><li><strong>Terminal Perpetuity Growth Rate:</strong> Capped strictly at <strong>2.50%</strong> (matching long-term US GDP expansion, ensuring no perpetual outperformance assumptions).</li></ul><h3>3. Bear / Base / Bull Valuation Matrix</h3><p>The table below summarizes the intrinsic value output across three fundamental operating scenarios relative to Texas Instruments' current market price of <strong>$281.24 per share</strong>:</p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Valuation Scenario</th>
@@ -1551,19 +1492,10 @@
 <td><span>+22.7%</span></td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <strong>Intrinsic Value Takeaway:</strong> At the current market price of $281.24, Texas Instruments trades essentially at its <strong>Base Case Intrinsic Value ($275.00)</strong>. The market is fully pricing in a smooth recovery in industrial and automotive analog demand, alongside successful margin expansion from internal 300mm manufacturing. Investors buying at current levels receive a initial Owner Earnings Yield of ~2.7% ($7.56 / $281.24), requiring steady long-term compounding to deliver hurdle returns.
-  </div>
-</div>
-<div class="section">
-<h2>Section 6: Execution Risk Assessment, Thesis Confidence &amp; Pre-Mortem Falsification Triggers</h2>
-<p>While Texas Instruments possesses unmatched scale, high customer switching costs, and proprietary 300mm structural cost advantages, reaching the Bull Case intrinsic valuation of $345.00 entails significant execution risks across capital allocation, geopolitical headwinds, and cyclical inventory dynamics.</p>
-<h3>1. Core Execution &amp; Structural Thesis Risks</h3>
-<ul><li><strong>CapEx Heavy Load &amp; Fixed Depreciation Risk:</strong> TXN’s $60 Billion multi-year investment in 300mm fab mega-sites (Sherman &amp; Lehi) creates massive non-cash depreciation drag. If global analog chip demand experiences a prolonged cyclical slowdown, low fab utilization rates will severely compress gross margins below management's historical 60%–65% target.</li><li><strong>China Legacy Analog &amp; Mature-Node Competition:</strong> Chinese domestic semiconductor manufacturers (backed by state subsidies) are rapidly building out mature-node (28nm–90nm) analog capacity. While high-performance automotive and industrial sockets remain stickier, commodity analog lines face pricing pressure in China, risking market share loss in TXN's Asian supply chain channels.</li><li><strong>M&amp;A Integration Risk (Silicon Labs Acquisition):</strong> The announced $7.5 Billion enterprise value all-cash acquisition of Silicon Labs adds inorganic growth in IoT wireless microcontrollers but increases balance sheet leverage and debt service requirements prior to its expected H1 2027 closing.</li></ul>
-<h3>2. Pre-Mortem Falsification Triggers (Thesis Invalidation Corridor)</h3>
-<p>To ensure rigorous risk monitoring, the bull thesis for TXN will be considered broken if any of the following operational or financial pre-mortem triggers are breached over a trailing 12-month period:</p>
-<div class="callout">
+  </div></div>
+<div class="section"><h2>Section 6: Execution Risk Assessment, Thesis Confidence &amp; Pre-Mortem Falsification Triggers</h2><p>While Texas Instruments possesses unmatched scale, high customer switching costs, and proprietary 300mm structural cost advantages, reaching the Bull Case intrinsic valuation of $345.00 entails significant execution risks across capital allocation, geopolitical headwinds, and cyclical inventory dynamics.</p><h3>1. Core Execution &amp; Structural Thesis Risks</h3><ul><li><strong>CapEx Heavy Load &amp; Fixed Depreciation Risk:</strong> TXN’s $60 Billion multi-year investment in 300mm fab mega-sites (Sherman &amp; Lehi) creates massive non-cash depreciation drag. If global analog chip demand experiences a prolonged cyclical slowdown, low fab utilization rates will severely compress gross margins below management's historical 60%–65% target.</li><li><strong>China Legacy Analog &amp; Mature-Node Competition:</strong> Chinese domestic semiconductor manufacturers (backed by state subsidies) are rapidly building out mature-node (28nm–90nm) analog capacity. While high-performance automotive and industrial sockets remain stickier, commodity analog lines face pricing pressure in China, risking market share loss in TXN's Asian supply chain channels.</li><li><strong>M&amp;A Integration Risk (Silicon Labs Acquisition):</strong> The announced $7.5 Billion enterprise value all-cash acquisition of Silicon Labs adds inorganic growth in IoT wireless microcontrollers but increases balance sheet leverage and debt service requirements prior to its expected H1 2027 closing.</li></ul><h3>2. Pre-Mortem Falsification Triggers (Thesis Invalidation Corridor)</h3><p>To ensure rigorous risk monitoring, the bull thesis for TXN will be considered broken if any of the following operational or financial pre-mortem triggers are breached over a trailing 12-month period:</p><div class="callout">
 <strong>CRITICAL PRE-MORTEM FALSIFICATION TRIGGERS:</strong><br/><br/>
 <strong>1. Gross Margin Breakdown (&lt; 55.0% TTM):</strong><br/>
 <em>Trigger:</em> Gross margin falls below 55.0% for two consecutive quarters.<br/>
@@ -1577,8 +1509,7 @@
 <strong>4. Owner Earnings Yield Compression (&lt; 2.5%):</strong><br/>
 <em>Trigger:</em> Per-share Owner Earnings yield drops below 2.5% while stock price remains elevated, creating an unacceptable margin-of-safety floor.<br/>
 <em>Impact:</em> Mandates an immediate position trim or reallocation to higher cash-yielding compounders.
-  </div>
-</div>
+  </div></div>
             </article>
         </div>
 

@@ -486,11 +486,21 @@
         .memo-container ul, .memo-container ol {
             font-family: var(--font-serif) !important;
             font-size: 1.12rem !important;
-            line-height: 1.9 !important;
+            line-height: 1.85 !important;
             color: var(--text-body) !important;
-            margin: 0 0 26px 30px !important;
+            margin: 16px 0 24px 24px !important;
+            padding-left: 12px !important;
         }
-        .memo-container li { margin-bottom: 10px !important; color: var(--text-body) !important; }
+        .memo-container ul { list-style-type: disc !important; }
+        .memo-container ol { list-style-type: decimal !important; }
+        .memo-container li {
+            margin-bottom: 12px !important;
+            color: var(--text-body) !important;
+            line-height: 1.85 !important;
+        }
+        .memo-container li::marker {
+            color: var(--accent-warm) !important;
+        }
         .memo-container strong, .memo-container b {
             color: var(--text-title) !important;
             font-weight: 600 !important;
@@ -1151,10 +1161,7 @@
         <div id="tab-memo" class="tab-content active">
             <article class="memo-container">
                 <h2>Section 1: Executive Summary &amp; Operating Reality</h2>
-<div class="section">
-<h2>1. Core Economic Engine &amp; Revenue Growth Breakdown</h2>
-<p>Reddit, Inc. (NYSE: RDDT) operates as an internet forum platform organized around community-driven discussions across specialized subreddits. In an online environment increasingly saturated with synthetic and automated AI-generated content, Reddit’s core value proposition rests on providing unfiltered, authentic human conversation and contextual intent. In Q2 2026, Reddit generated <strong>$805 million in total revenue</strong>, marking a <strong>61% YoY increase</strong> and its eighth consecutive quarter of 60%+ top-line growth. Adjusted EBITDA reached $343 million (a 43% margin, up 106% YoY), net income surged to $253 million (a 31% net margin), and quarterly free cash flow hit $261 million (+135% YoY).</p>
-<div class="metrics-grid">
+<div class="section"><h2>1. Core Economic Engine &amp; Revenue Growth Breakdown</h2><p>Reddit, Inc. (NYSE: RDDT) operates as an internet forum platform organized around community-driven discussions across specialized subreddits. In an online environment increasingly saturated with synthetic and automated AI-generated content, Reddit’s core value proposition rests on providing unfiltered, authentic human conversation and contextual intent. In Q2 2026, Reddit generated <strong>$805 million in total revenue</strong>, marking a <strong>61% YoY increase</strong> and its eighth consecutive quarter of 60%+ top-line growth. Adjusted EBITDA reached $343 million (a 43% margin, up 106% YoY), net income surged to $253 million (a 31% net margin), and quarterly free cash flow hit $261 million (+135% YoY).</p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Q2 2026 Total Revenue</div>
 <div class="metric-value">$805M</div>
@@ -1175,17 +1182,10 @@
 <div class="metric-value">43.0%</div>
 <div class="metric-delta pos">+106% EBITDA YoY</div>
 </div>
-</div>
-<h3>Advertising Revenue ($762 Million, +64% YoY)</h3>
-<p>Advertising forms the vast majority (94.7%) of Reddit’s revenue engine. Growth during the quarter was fueled by a combination of strong ad pricing realization, impression expansion, and accelerated customer acquisition across mid-market and performance-focused channels:</p>
-<ul><li><strong>Ad Pricing &amp; Auction Mechanics:</strong> Effective ad pricing grew approximately <strong>40% YoY</strong>, demonstrating expanding pricing power as advertisers place higher monetary value on high-intent user communities. Ad impressions simultaneously grew <strong>17% YoY</strong>.</li><li><strong>Advertiser Base Scaling:</strong> Active advertisers increased by <strong>more than 70% YoY</strong>, propelled by the adoption of automated campaign management tools. Scaled channel revenues doubled year-over-year as small and mid-sized businesses (SMBs) utilized self-service ad toolkits.</li><li><strong>Performance &amp; Commerce Ad Formats:</strong> Product releases such as <i>Reddit Max</i> (automated campaign optimization), <i>Dynamic Product Ads</i> (DPA), and deep platform integration with Shopify have moved Reddit down the marketing funnel from brand awareness to direct-response commerce conversion.</li></ul>
-<h3>Data Licensing &amp; Other Revenue ($43 Million, +24% YoY)</h3>
-<p>Data Licensing and non-advertising revenue totaled $43 million, representing 5.3% of total revenue. While small relative to digital advertising, this higher-margin stream captures the strategic value of Reddit's structured conversational data. Major AI developers pay recurring licensing fees to access Reddit's Data API for real-time model training, post-training alignment, and RAG (Retrieval-Augmented Generation) search grounding.</p>
-<div class="callout">
+</div><h3>Advertising Revenue ($762 Million, +64% YoY)</h3><p>Advertising forms the vast majority (94.7%) of Reddit’s revenue engine. Growth during the quarter was fueled by a combination of strong ad pricing realization, impression expansion, and accelerated customer acquisition across mid-market and performance-focused channels:</p><ul><li><strong>Ad Pricing &amp; Auction Mechanics:</strong> Effective ad pricing grew approximately <strong>40% YoY</strong>, demonstrating expanding pricing power as advertisers place higher monetary value on high-intent user communities. Ad impressions simultaneously grew <strong>17% YoY</strong>.</li><li><strong>Advertiser Base Scaling:</strong> Active advertisers increased by <strong>more than 70% YoY</strong>, propelled by the adoption of automated campaign management tools. Scaled channel revenues doubled year-over-year as small and mid-sized businesses (SMBs) utilized self-service ad toolkits.</li><li><strong>Performance &amp; Commerce Ad Formats:</strong> Product releases such as <i>Reddit Max</i> (automated campaign optimization), <i>Dynamic Product Ads</i> (DPA), and deep platform integration with Shopify have moved Reddit down the marketing funnel from brand awareness to direct-response commerce conversion.</li></ul><h3>Data Licensing &amp; Other Revenue ($43 Million, +24% YoY)</h3><p>Data Licensing and non-advertising revenue totaled $43 million, representing 5.3% of total revenue. While small relative to digital advertising, this higher-margin stream captures the strategic value of Reddit's structured conversational data. Major AI developers pay recurring licensing fees to access Reddit's Data API for real-time model training, post-training alignment, and RAG (Retrieval-Augmented Generation) search grounding.</p><div class="callout">
 <strong>Executive Commentary — CEO Steven Huffman on Platform Positioning:</strong><br/>
 <em>"In an increasingly automated web, the value of real human perspective has never been higher... AI compresses the Internet into summaries. Reddit delivers the opposite: deep discussions, passionate debates, and lived experiences. People do not want a summary of Reddit. They want Reddit."</em>
-</div>
-<div class="table-scroll-wrap"><table>
+</div><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Revenue Stream</th>
@@ -1218,13 +1218,8 @@
 <td><strong>8th consecutive quarter of &gt;60% top-line growth</strong></td>
 </tr>
 </tbody>
-</table></div>
-</div>
-<div class="section">
-<h2>2. Engagement Dynamics, Monetization Ramp &amp; AI Data Moat</h2>
-<h3>User Dynamics &amp; Engagement Trajectory</h3>
-<p>Reddit delivered solid engagement expansion globally in Q2 2026, though user growth demonstrated a structural split between mature domestic cohorts and rapidly scaling international markets:</p>
-<div class="metrics-grid">
+</table></div></div>
+<div class="section"><h2>2. Engagement Dynamics, Monetization Ramp &amp; AI Data Moat</h2><h3>User Dynamics &amp; Engagement Trajectory</h3><p>Reddit delivered solid engagement expansion globally in Q2 2026, though user growth demonstrated a structural split between mature domestic cohorts and rapidly scaling international markets:</p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Global DAUq</div>
 <div class="metric-value">130.3M</div>
@@ -1245,17 +1240,12 @@
 <div class="metric-value">77.1M</div>
 <div class="metric-delta pos">+28% YoY</div>
 </div>
-</div>
-<ul><li><strong>Global Scale:</strong> Quarterly Daily Active Uniques (DAUq) reached <strong>130.3 million (+18% YoY)</strong>, while Weekly Active Uniques (WAUq) crossed the half-billion mark to <strong>514.6 million (+24% YoY)</strong>. The higher growth rate in WAUq vs. DAUq underscores an opportunity to convert casual weekly visitors into daily active users.</li><li><strong>US vs. International Divergence:</strong> US DAUq grew 6% YoY to 53.2 million (nudging down slightly from 53.5 million in Q1 2026), reflecting mature saturation in logged-in domestic users. In contrast, International DAUq surged 28% YoY to 77.1 million, propelled by real-time machine translation rollouts in key non-English geographies.
-  <strong>Search Volatility &amp; The "Drive-By" Traffic Pivot:</strong> Shifts in external search engine algorithms (e.g., Google AI Overviews and search ranking updates) introduce volatility to top-of-funnel web referral traffic. Management has explicitly addressed this by re-orienting product investments toward direct app engagement and retention rather than relying on search referrals.</li></ul>
-<div class="callout">
+</div><ul><li><strong>Global Scale:</strong> Quarterly Daily Active Uniques (DAUq) reached <strong>130.3 million (+18% YoY)</strong>, while Weekly Active Uniques (WAUq) crossed the half-billion mark to <strong>514.6 million (+24% YoY)</strong>. The higher growth rate in WAUq vs. DAUq underscores an opportunity to convert casual weekly visitors into daily active users.</li><li><strong>US vs. International Divergence:</strong> US DAUq grew 6% YoY to 53.2 million (nudging down slightly from 53.5 million in Q1 2026), reflecting mature saturation in logged-in domestic users. In contrast, International DAUq surged 28% YoY to 77.1 million, propelled by real-time machine translation rollouts in key non-English geographies.
+  <strong>Search Volatility &amp; The "Drive-By" Traffic Pivot:</strong> Shifts in external search engine algorithms (e.g., Google AI Overviews and search ranking updates) introduce volatility to top-of-funnel web referral traffic. Management has explicitly addressed this by re-orienting product investments toward direct app engagement and retention rather than relying on search referrals.</li></ul><div class="callout">
 <strong>Management Strategic Directives — Search Referral Volatility &amp; Native Retention:</strong><br/>
 <em>"While our visibility in referral traffic remains low, we're not building for drive-by traffic. We're building a daily destination... The direct users, the app users are worth multiples more than search referral traffic."</em> — CEO Steven Huffman<br/><br/>
 <em>Key Operational Execution:</em> New app-user 1-day and 7-day retention rates improved by ~50% YoY relative to baseline, confirming that direct app onboarding converts low-margin drive-by web traffic into high-margin daily active users.
-  </div>
-<h3>Monetization Ramp: ARPU Dynamics &amp; Ad Load Expansion</h3>
-<p>Monetization efficiency accelerated across all geographies, with Global Average Revenue Per User (ARPU) reaching <strong>$6.18 (+36% YoY)</strong>. Growth was driven by substantial expansion in high-yielding US inventory:</p>
-<div class="table-scroll-wrap"><table>
+  </div><h3>Monetization Ramp: ARPU Dynamics &amp; Ad Load Expansion</h3><p>Monetization efficiency accelerated across all geographies, with Global Average Revenue Per User (ARPU) reaching <strong>$6.18 (+36% YoY)</strong>. Growth was driven by substantial expansion in high-yielding US inventory:</p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Cohort</th>
@@ -1288,12 +1278,7 @@
 <td><strong>Combined benefit of higher yield per ad unit and localized inventory expansion</strong></td>
 </tr>
 </tbody>
-</table></div>
-<p>Reddit’s monetization strategy rests on two structural vectors:</p>
-<ol><li><strong>Ad Load Expansion:</strong> Relative to peer social platforms (e.g., Meta's Instagram serving ads every ~3 posts continuously), Reddit maintains lower feed ad density (serving ads approximately every 5–6 posts). This provides substantial organic headroom to increase ad impression volume without harming user experience.</li><li><strong>International ARPU Convergence:</strong> International users represent 59.2% of DAUq but only 20.7% ($167M) of quarterly revenue. Closing the monetization yield gap through machine translation and localized ad networks represents a key medium-term growth driver.</li></ol>
-<h3>Strategic AI Data Licensing Moat</h3>
-<p>Reddit's content repository forms an intellectual property moat within the generative AI ecosystem. Public data licensing agreements with <strong>Google</strong> (valued at ~$60 million annually) and <strong>OpenAI</strong> allow these AI models to train on, index, and reference real-time human discussions.</p>
-<div class="metrics-grid">
+</table></div><p>Reddit’s monetization strategy rests on two structural vectors:</p><ol><li><strong>Ad Load Expansion:</strong> Relative to peer social platforms (e.g., Meta's Instagram serving ads every ~3 posts continuously), Reddit maintains lower feed ad density (serving ads approximately every 5–6 posts). This provides substantial organic headroom to increase ad impression volume without harming user experience.</li><li><strong>International ARPU Convergence:</strong> International users represent 59.2% of DAUq but only 20.7% ($167M) of quarterly revenue. Closing the monetization yield gap through machine translation and localized ad networks represents a key medium-term growth driver.</li></ol><h3>Strategic AI Data Licensing Moat</h3><p>Reddit's content repository forms an intellectual property moat within the generative AI ecosystem. Public data licensing agreements with <strong>Google</strong> (valued at ~$60 million annually) and <strong>OpenAI</strong> allow these AI models to train on, index, and reference real-time human discussions.</p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Key AI Partners</div>
 <div class="metric-value">Google / OpenAI</div>
@@ -1304,9 +1289,7 @@
 <div class="metric-value">91.3%</div>
 <div class="metric-delta pos">+50 bps YoY</div>
 </div>
-</div>
-<ul><li><strong>Training &amp; Post-Training Grounding:</strong> As LLMs risk output contamination from synthetic web content, human conversation, community moderation, and consensus upvoting serve as essential inputs for model reinforcement learning (RLHF) and RAG applications.</li><li><strong>Non-Commodity Data Rights:</strong> Management treats data licensing not as a commodity sale, but as ongoing infrastructure relationships for model training, post-training alignment, and search indexing. This structure establishes high-margin recurring cash flow (91.3% gross margins) while supporting core performance advertising growth.</li></ul>
-</div>
+</div><ul><li><strong>Training &amp; Post-Training Grounding:</strong> As LLMs risk output contamination from synthetic web content, human conversation, community moderation, and consensus upvoting serve as essential inputs for model reinforcement learning (RLHF) and RAG applications.</li><li><strong>Non-Commodity Data Rights:</strong> Management treats data licensing not as a commodity sale, but as ongoing infrastructure relationships for model training, post-training alignment, and search indexing. This structure establishes high-margin recurring cash flow (91.3% gross margins) while supporting core performance advertising growth.</li></ul></div>
 <h3><strong>1. True Cash Flow Generation &amp; Capital Efficiency Audit</strong></h3>
 
 Reddit’s Q2 2026 financial results demonstrate a cash-generation engine driven by high gross margins and minimal physical capital requirements. Because the company relies on third-party cloud infrastructure (primarily Amazon Web Services) rather than owning physical data centers, capital expenditures remain nominal compared to operating cash flow.
@@ -1387,10 +1370,7 @@ Under the Warren Buffett Owner Earnings framework, Stock-Based Compensation (SBC
 <h4><strong>Owner Cash Flow &amp; Buyback Sterilization</strong></h4>
 <ul><li><strong>True Owner Cash Flow:</strong> Subtracting Q2 SBC ($106.8M) and physical CapEx ($1.3M) from Operating Cash Flow ($262.0M) yields an adjusted <strong>Owner Cash Flow of $153.9M</strong> for the quarter (~$615M annualized).</li><li><strong>Dilution Sterilization:</strong> Reddit deployed <strong>$235M</strong> in cash during Q2 to retire 1.5 million Class A shares at an average price of $157.57. Because buyback cash deployment matched SBC expense, total diluted share count remained flat YoY (&lt;1% net dilution), neutralizing shareholder dilution.</li><li><strong>SBC Trajectory:</strong> SBC as a percentage of revenue declined to 13.3% in Q2, down significantly from post-IPO peak levels, aligning with management's goal of scaling revenue faster than equity compensation.</li></ul>
 <hr/>
-<div class="section">
-<h3>3. Capital Structure, Balance Sheet Fortress &amp; Liquidity Bridge</h3>
-<p>Reddit maintains a clean balance sheet featuring zero structural long-term debt and substantial cash reserves.</p>
-<div class="metrics-grid">
+<div class="section"><h3>3. Capital Structure, Balance Sheet Fortress &amp; Liquidity Bridge</h3><p>Reddit maintains a clean balance sheet featuring zero structural long-term debt and substantial cash reserves.</p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Cash &amp; Cash Equivalents</div>
 <div class="metric-value">$2,786.0M</div>
@@ -1411,8 +1391,7 @@ Under the Warren Buffett Owner Earnings framework, Stock-Based Compensation (SBC
 <div class="metric-value">$494.4M</div>
 <div class="metric-delta pos">Available Credit Capacity</div>
 </div>
-</div>
-<div class="table-scroll-wrap"><table>
+</div><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Balance Sheet Component</th>
@@ -1447,13 +1426,9 @@ Under the Warren Buffett Owner Earnings framework, Stock-Based Compensation (SBC
 <td>AWS multi-year cloud contract (2026–2029 commitment).</td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <strong>Balance Sheet Assessment:</strong> Holding $2.76B in net cash (~10-12% of Reddit's total market capitalization), the company faces no bankruptcy or refinancing risk. This liquidity allows management to fund its primary capital allocation goals: organic product development, opportunistic M&amp;A, and systematic share buybacks.
-  </div>
-<h3>4. Institutional 13F Whale Ownership &amp; Management Alignment</h3>
-<p>Institutional filings (13F/13G) and corporate proxy disclosures reveal strong backing from major technology investors, strategic partners, and index funds.</p>
-<div class="table-scroll-wrap"><table>
+  </div><h3>4. Institutional 13F Whale Ownership &amp; Management Alignment</h3><p>Institutional filings (13F/13G) and corporate proxy disclosures reveal strong backing from major technology investors, strategic partners, and index funds.</p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Whale / Institutional Holder</th>
@@ -1488,8 +1463,7 @@ Under the Warren Buffett Owner Earnings framework, Stock-Based Compensation (SBC
 <td>Substantial equity stake; incentives tied to operational milestones, DAUq growth, and cash flow execution.</td>
 </tr>
 </tbody>
-</table></div>
-</div>
+</table></div></div>
 <hr/>
 <h3><strong>5. Warren Buffett Owner Earnings Valuation Framework</strong></h3>
 
@@ -1534,12 +1508,7 @@ To value Reddit without relying on arbitrary exit multiples, we utilize Warren B
 <strong>Thesis Falsification Triggers (Pre-Mortem Risk Warning):</strong>
 <ul><li><strong>Search Referral Dependency:</strong> Sudden changes in Google search algorithms or AI-generated answers reducing logged-out traffic before app onboarding improves.</li><li><strong>SBC Re-acceleration:</strong> Stock-based compensation exceeding 20% of revenue or failure to maintain share buybacks to offset dilution.</li><li><strong>Cloud Obligation Margin Compression:</strong> Infrastructure costs outpacing revenue growth if hosting efficiency drops under the $880M AWS contract.</li></ul>
 </div>
-<div class="section">
-<h2>Section 5: Intrinsic Valuation &amp; Warren Buffett Owner Earnings Analysis</h2>
-<p>To establish a realistic, level-headed valuation of Reddit, Inc. (RDDT), we apply Warren Buffett’s intrinsic value framework as articulated throughout his Berkshire Hathaway shareholder letters. Rather than relying on arbitrary exit multiples—which Charlie Munger famously dismissed as assuming a "greater fool" in Year 5—we value the business strictly on the present value of its future net cash flows, treating Stock-Based Compensation (SBC) as an inescapable cash-equivalent cost and strictly isolating maintenance capital expenditures from discretionary expansion.</p>
-<h3>1. Derivation of Normalized Owner Earnings</h3>
-<p>Buffett’s 1986 letter defines Owner Earnings as Operating Cash Flow minus Maintenance CapEx, adjusted for real dilution. In Reddit’s high-margin, capital-light digital architecture, physical CapEx requirements are negligible (~0.27% of total revenue). However, stock-based compensation represents a major structural drag on existing shareholders and must be deducted in full.</p>
-<div class="metrics-grid">
+<div class="section"><h2>Section 5: Intrinsic Valuation &amp; Warren Buffett Owner Earnings Analysis</h2><p>To establish a realistic, level-headed valuation of Reddit, Inc. (RDDT), we apply Warren Buffett’s intrinsic value framework as articulated throughout his Berkshire Hathaway shareholder letters. Rather than relying on arbitrary exit multiples—which Charlie Munger famously dismissed as assuming a "greater fool" in Year 5—we value the business strictly on the present value of its future net cash flows, treating Stock-Based Compensation (SBC) as an inescapable cash-equivalent cost and strictly isolating maintenance capital expenditures from discretionary expansion.</p><h3>1. Derivation of Normalized Owner Earnings</h3><p>Buffett’s 1986 letter defines Owner Earnings as Operating Cash Flow minus Maintenance CapEx, adjusted for real dilution. In Reddit’s high-margin, capital-light digital architecture, physical CapEx requirements are negligible (~0.27% of total revenue). However, stock-based compensation represents a major structural drag on existing shareholders and must be deducted in full.</p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">TTM Operating Cash Flow</div>
 <div class="metric-value">$1,026.0M</div>
@@ -1560,14 +1529,9 @@ To value Reddit without relying on arbitrary exit multiples, we utilize Warren B
 <div class="metric-value">$680.5M</div>
 <div class="metric-delta pos">$3.30 / Share</div>
 </div>
-</div>
-<div class="callout">
+</div><div class="callout">
 <strong>Buffett Owner Earnings Takeaway:</strong> On a trailing twelve-month basis, Reddit generated $1,026 million in operating cash flow. Subtracting $338 million in SBC dilution and $7.5 million in maintenance CapEx yields a <strong>Normalized Post-SBC Owner Earnings of $680.5 million</strong>. At a market valuation of $30.8 billion (206.4 million diluted shares), Reddit trades at an initial post-SBC Owner Earnings cash yield of <strong>2.21%</strong> (or <strong>2.43% on Enterprise Value</strong> after accounting for its $2.8 billion net cash balance).
-  </div>
-<h3>2. 3-to-5 Year Compounding Trajectory &amp; Capital Allocation Framework</h3>
-<ul><li><strong>Discount Rate Grounding:</strong> Applying local US sovereign discounting, we utilize the US 10-Year Treasury rate of ~4.20% plus a 5.80% equity risk hurdle, establishing a rigorous <strong>10.0% discount rate</strong>.</li><li><strong>Capital-Light Moat &amp; Working Capital Float:</strong> Reddit operates with a 91.5% GAAP gross margin and virtually zero physical reinvestment requirements. Incremental revenue drops directly to cash flow, creating an "expanding bond" effect as digital ad density improves via Reddit Max.</li><li><strong>Share Buyback Cannibalization:</strong> Management authorized a $1.0 billion stock buyback program, executing $235 million in repurchases in Q2. Modeling net share reduction of 1.5% to 2.0% annually, repurchases effectively offset equity grant vestings and shrink the denominator, accelerating per-share cash compounding.</li><li><strong>Balance Sheet Net Cash Bridge:</strong> Reddit carries approximately $2.80 billion in unencumbered cash, equivalents, and short-term Treasuries with zero funded debt obligations. This $13.57 per-share liquidity cushion is added to the discounted present value of future cash flows.</li></ul>
-<h3>3. Intrinsic Valuation Scenario Matrix</h3>
-<div class="table-scroll-wrap"><table>
+  </div><h3>2. 3-to-5 Year Compounding Trajectory &amp; Capital Allocation Framework</h3><ul><li><strong>Discount Rate Grounding:</strong> Applying local US sovereign discounting, we utilize the US 10-Year Treasury rate of ~4.20% plus a 5.80% equity risk hurdle, establishing a rigorous <strong>10.0% discount rate</strong>.</li><li><strong>Capital-Light Moat &amp; Working Capital Float:</strong> Reddit operates with a 91.5% GAAP gross margin and virtually zero physical reinvestment requirements. Incremental revenue drops directly to cash flow, creating an "expanding bond" effect as digital ad density improves via Reddit Max.</li><li><strong>Share Buyback Cannibalization:</strong> Management authorized a $1.0 billion stock buyback program, executing $235 million in repurchases in Q2. Modeling net share reduction of 1.5% to 2.0% annually, repurchases effectively offset equity grant vestings and shrink the denominator, accelerating per-share cash compounding.</li><li><strong>Balance Sheet Net Cash Bridge:</strong> Reddit carries approximately $2.80 billion in unencumbered cash, equivalents, and short-term Treasuries with zero funded debt obligations. This $13.57 per-share liquidity cushion is added to the discounted present value of future cash flows.</li></ul><h3>3. Intrinsic Valuation Scenario Matrix</h3><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Valuation Metric / Assumption</th>
@@ -1638,17 +1602,11 @@ To value Reddit without relying on arbitrary exit multiples, we utilize Warren B
 <td><strong>$245.00</strong></td>
 </tr>
 </tbody>
-</table></div>
-<h2>Section 6: Thesis Confidence, Execution Risk &amp; Pre-Mortem Framework</h2>
-<p>While Reddit’s unit economics reflect world-class operational leverage (crossing $1 million revenue per employee with a Rule of 40 score exceeding 100%), realizing our $185.00 Base Case target requires careful monitoring of structural execution risks and algorithmic headwinds.</p>
-<h3>1. Execution Risk Assessment</h3>
-<ul><li><strong>Search Engine Referral Volatility:</strong> A significant portion of Reddit’s top-of-funnel logged-out traffic relies on Google search algorithm indexing. Changes to Google’s SGE (Search Generative Experience) or core updates introduce traffic choppiness, creating volatility in total Daily Active Uniques (DAUq).</li><li><strong>US User Stagnation Risk:</strong> While overall DAUq expanded 18% YoY to 130.3 million driven by international adoption, domestic US DAUq stagnated sequentially in recent quarters. Because US users generate higher Average Revenue Per User (ARPU) than international users, re-accelerating US engagement is vital to sustain ad yield expansion.</li><li><strong>AI Data Licensing Renewal Friction:</strong> Data licensing agreements with OpenAI and Google represent high-margin non-ad revenue (~$60M–$65M annually). As contracts approach renewal, any partner pushback or pricing compression poses a potential headwind to incremental operating margins.</li></ul>
-<div class="callout">
+</table></div><h2>Section 6: Thesis Confidence, Execution Risk &amp; Pre-Mortem Framework</h2><p>While Reddit’s unit economics reflect world-class operational leverage (crossing $1 million revenue per employee with a Rule of 40 score exceeding 100%), realizing our $185.00 Base Case target requires careful monitoring of structural execution risks and algorithmic headwinds.</p><h3>1. Execution Risk Assessment</h3><ul><li><strong>Search Engine Referral Volatility:</strong> A significant portion of Reddit’s top-of-funnel logged-out traffic relies on Google search algorithm indexing. Changes to Google’s SGE (Search Generative Experience) or core updates introduce traffic choppiness, creating volatility in total Daily Active Uniques (DAUq).</li><li><strong>US User Stagnation Risk:</strong> While overall DAUq expanded 18% YoY to 130.3 million driven by international adoption, domestic US DAUq stagnated sequentially in recent quarters. Because US users generate higher Average Revenue Per User (ARPU) than international users, re-accelerating US engagement is vital to sustain ad yield expansion.</li><li><strong>AI Data Licensing Renewal Friction:</strong> Data licensing agreements with OpenAI and Google represent high-margin non-ad revenue (~$60M–$65M annually). As contracts approach renewal, any partner pushback or pricing compression poses a potential headwind to incremental operating margins.</li></ul><div class="callout">
 <strong>Pre-Mortem Falsification Triggers (Automatic Thesis Invalidation):</strong>
 <p>We will immediately lower our intrinsic valuation estimate or exit the position if any of the following three falsification triggers occur:</p>
 <ol><li><strong>US Engagement Contraction:</strong> US Daily Active Uniques (DAUq) contract by more than 5.0% year-over-year for two consecutive quarters, signaling core saturation or algorithmic displacement.</li><li><strong>SBC Expense Erosion:</strong> Stock-based compensation re-accelerates above 35% of revenue, eroding post-SBC Owner Earnings margins below 20.0%.</li><li><strong>AI Licensing Impairment:</strong> Tier-1 AI data licensing renewals occur at haircuts greater than 25.0% relative to initial contract run-rates, or key partners fail to renew.</li></ol>
-</div>
-</div>
+</div></div>
             </article>
         </div>
 

@@ -486,11 +486,21 @@
         .memo-container ul, .memo-container ol {
             font-family: var(--font-serif) !important;
             font-size: 1.12rem !important;
-            line-height: 1.9 !important;
+            line-height: 1.85 !important;
             color: var(--text-body) !important;
-            margin: 0 0 26px 30px !important;
+            margin: 16px 0 24px 24px !important;
+            padding-left: 12px !important;
         }
-        .memo-container li { margin-bottom: 10px !important; color: var(--text-body) !important; }
+        .memo-container ul { list-style-type: disc !important; }
+        .memo-container ol { list-style-type: decimal !important; }
+        .memo-container li {
+            margin-bottom: 12px !important;
+            color: var(--text-body) !important;
+            line-height: 1.85 !important;
+        }
+        .memo-container li::marker {
+            color: var(--accent-warm) !important;
+        }
         .memo-container strong, .memo-container b {
             color: var(--text-title) !important;
             font-weight: 600 !important;
@@ -1150,15 +1160,11 @@
         <!-- Memo Content -->
         <div id="tab-memo" class="tab-content active">
             <article class="memo-container">
-                <div class="section">
-<h2>Section 1: Executive Summary &amp; Moat Reality</h2>
-<p>
+                <div class="section"><h2>Section 1: Executive Summary &amp; Moat Reality</h2><p>
     Comcast Corporation (NASDAQ: CMCSA) is executing one of the most significant corporate transformations in modern telecommunications and media history. Following the January 2026 completion of its cable channel spin-off into <strong>Versant Media Group</strong> (NASDAQ: VSNT), Comcast announced a definitive plan in late June 2026 to execute a tax-free spin-off of <strong>NBCUniversal</strong> and <strong>Sky</strong>. This strategic separation effectively splits the conglomerate into two focused, independent leaders: a high-margin, capital-disciplined broadband and connectivity provider ("RemainCo") and a premier global content and experiences media titan.
-  </p>
-<p>
+  </p><p>
     The second-quarter 2026 financial results demonstrate the diverging fundamentals driving this strategic pivot. While core broadband residential relationships faced headwind pressure—shedding 167,000 domestic subscribers amid 5G fixed-wireless and overbuild fiber competition—the connectivity engine achieved significant operational breakthroughs. Wireless additions set an all-time record with 448,000 net new lines, pushing total mobile connections past 10.2 million. Concurrently, Peacock achieved its first-ever profitable quarter, generating $189 million in Adjusted EBITDA on $1.9 billion in revenue with 48 million paid subscribers.
-  </p>
-<div class="metrics-grid">
+  </p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Q2 Consolidated Revenue</div>
 <div class="metric-value">$29.94B</div>
@@ -1189,30 +1195,20 @@
 <div class="metric-value">$2.67B</div>
 <div class="metric-delta pos">+3.7% YoY (56.7% EBITDA Margin)</div>
 </div>
-</div>
-<h3>Economic Moat Analysis: Moat Shift in Progress</h3>
-<p>
+</div><h3>Economic Moat Analysis: Moat Shift in Progress</h3><p>
     Comcast's historical economic moat was built on a localized last-mile infrastructure monopoly/duopoly. As market dynamics evolve, the source and durability of its competitive advantages are undergoing a structural shift:
-  </p>
-<ul><li><strong>Broadband Last-Mile Network (Narrowing Moat):</strong> Hybrid Fiber-Coaxial (HFC) and DOCSIS 4.0 network passing 65 million+ homes and businesses provides substantial scale. However, fixed wireless access (FWA) from telecom carriers and aggressive municipal/private equity fiber overbuilders have eroded legacy pricing power, forcing simplified lower-tier pricing models and driving domestic residential broadband losses.
-    <li><strong>Convergence &amp; Wireless Arbitrage (Widening Moat):</strong> Comcast's MVNO arrangement with Verizon enables Xfinity Mobile to offer competitive multi-line pricing with minimal capital expenditure. Mobile bundling serves as an essential churn-reduction vehicle for high-margin broadband lines, driving domestic convergence Average Revenue per Account (ARPA) up 1.5%.
-    <li><strong>Business Services B2B Fortress (Wide Moat):</strong> Delivering enterprise fiber, cybersecurity, managed WiFi, and mobile solutions to commercial clients generated $2.67 billion in Q2 revenue at an industry-leading 56.7% EBITDA margin. High switching costs and sticky enterprise contracts insulate this high-return segment.
+  </p><ul><li><strong>Broadband Last-Mile Network (Narrowing Moat):</strong> Hybrid Fiber-Coaxial (HFC) and DOCSIS 4.0 network passing 65 million+ homes and businesses provides substantial scale. However, fixed wireless access (FWA) from telecom carriers and aggressive municipal/private equity fiber overbuilders have eroded legacy pricing power, forcing simplified lower-tier pricing models and driving domestic residential broadband losses.</li>
+<li><strong>Convergence &amp; Wireless Arbitrage (Widening Moat):</strong> Comcast's MVNO arrangement with Verizon enables Xfinity Mobile to offer competitive multi-line pricing with minimal capital expenditure. Mobile bundling serves as an essential churn-reduction vehicle for high-margin broadband lines, driving domestic convergence Average Revenue per Account (ARPA) up 1.5%.</li>
+<li><strong>Business Services B2B Fortress (Wide Moat):</strong> Delivering enterprise fiber, cybersecurity, managed WiFi, and mobile solutions to commercial clients generated $2.67 billion in Q2 revenue at an industry-leading 56.7% EBITDA margin. High switching costs and sticky enterprise contracts insulate this high-return segment.
     </li>
-</li>
-</li></ul>
-<div class="callout">
+</ul><div class="callout">
 <strong>Management Commentary on Strategic Realignment:</strong><br/>
 <em>"In Connectivity &amp; Platforms, our strategic pivot in broadband is gaining traction, and we are seeing that progress extend across the broader connectivity portfolio. We delivered our best wireless quarter ever, surpassing 10 million total lines, while penetration remains below 7% of addressable wireless lines in our footprint... Across the company, we generated $4.6 billion of free cash flow and announced our intention to separate NBCUniversal and Sky—an important step toward creating two focused companies with the financial strength and flexibility to pursue their respective growth strategies."</em><br/>
     — <strong>Brian L. Roberts &amp; Mike Cavanagh</strong>, Co-CEOs of Comcast Corporation (Q2 2026 Earnings Call)
-  </div>
-</div>
-<div class="section">
-<h2>Section 2: Segment Dynamics &amp; Spin-off Catalysts</h2>
-<p>
+  </div></div>
+<div class="section"><h2>Section 2: Segment Dynamics &amp; Spin-off Catalysts</h2><p>
     Comcast’s underlying operational performance reflects divergent trajectories between its core connectivity platforms and media/entertainment assets. The corporate restructuring is designed to decouple these economic drivers.
-  </p>
-<h3>Detailed Segment Performance Breakdown (Q2 2026)</h3>
-<div class="table-scroll-wrap"><table>
+  </p><h3>Detailed Segment Performance Breakdown (Q2 2026)</h3><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Segment</th>
@@ -1273,38 +1269,26 @@
 <td>Near-term attendance and margin softness prior to the full operational ramp of Epic Universe in Orlando.</td>
 </tr>
 </tbody>
-</table></div>
-<h3>Operational Deep Dive: Broadband Reset vs. Wireless &amp; Business Growth</h3>
-<p>
+</table></div><h3>Operational Deep Dive: Broadband Reset vs. Wireless &amp; Business Growth</h3><p>
     The core debate surrounding Comcast’s connectivity business centers on broadband customer retention versus Average Revenue per User (ARPU). Management's strategic decision to simplify pricing tiers and introduce promotional free wireless lines temporarily compressed domestic broadband ARPU by 3.8% in Q2. However, this strategy successfully slowed broadband subscriber churn, reducing net losses from 201,000 in Q2 2025 to 167,000 in Q2 2026.
-  </p>
-<p>
+  </p><p>
     Concurrently, mobile convergence is proving out. With 10.2 million wireless lines representing under 7% penetration of Comcast's addressable footprint, mobile provides a multi-year growth runway. As promotional free lines begin converting to paid tiers, management guides for sequential ARPA and EBITDA improvement starting in Q3 2026.
-  </p>
-<h3>Spin-off Catalysts: Unlocking Two Distinct Investment Stories</h3>
-<p>
+  </p><h3>Spin-off Catalysts: Unlocking Two Distinct Investment Stories</h3><p>
     The structural separation unfolds across two primary phases:
-  </p>
-<strong>Phase 1 — Versant Media Group Spin-off (Completed Jan 2026):</strong> Separation of linear cable networks (USA Network, CNBC, MS NOW, E!, Syfy, Oxygen, Golf Channel) and digital assets (Fandango, Rotten Tomatoes) into an independent entity (NASDAQ: VSNT). This eliminated linear ad-decline drag from NBCUniversal's core balance sheet.
+  </p><p><strong>Phase 1 — Versant Media Group Spin-off (Completed Jan 2026):</strong> Separation of linear cable networks (USA Network, CNBC, MS NOW, E!, Syfy, Oxygen, Golf Channel) and digital assets (Fandango, Rotten Tomatoes) into an independent entity (NASDAQ: VSNT). This eliminated linear ad-decline drag from NBCUniversal's core balance sheet.
     
 <strong>Phase 2 — NBCUniversal &amp; Sky Spin-off (Announced June 2026, Target Completion Mid-2027):</strong> Tax-free distribution of NBCUniversal (Universal Film/TV Studios, Peacock, Universal Destinations &amp; Experiences, NBC/Telemundo) and Europe's Sky to shareholders. Mike Cavanagh will serve as CEO of standalone NBCUniversal, while Michael Angelakis assumes CEO of Comcast RemainCo, with Brian Roberts maintaining Chairman leadership.
     
 
-
-<div class="callout">
+</p><div class="callout">
 <strong>Strategic Unlocking of Financial Flexibility:</strong><br/>
     The separation isolates capital-intensive media CapEx (theme park developments like Epic Universe, live sports rights bidding wars) from Comcast's core infrastructure cash flows. RemainCo emerges as a high-margin connectivity utility generating sustainable free cash flow ($4.6B in Q2 alone). Share repurchases have been temporarily paused during separation execution to maintain pristine investment-grade balance sheets for both standalone entities.
-  </div>
-</div>
-<div class="section">
-<h2>Section 3: Real Cash Flow &amp; Capital Allocation Audit</h2>
-<p>
+  </div></div>
+<div class="section"><h2>Section 3: Real Cash Flow &amp; Capital Allocation Audit</h2><p>
     Evaluating Comcast Corporation through a strict owner-earnings framework requires stripping away accounting conventions to expose true corporate cash productivity. Management defines reported Free Cash Flow (FCF) as net cash provided by operating activities minus capital expenditures and cash paid for intangible assets. In Q2 2026, Comcast reported robust performance, generating $8.09 billion in operating cash flow and $4.60 billion in reported Free Cash Flow.
-  </p>
-<p>
+  </p><p>
     However, conventional FCF metrics fail to recognize Stock-Based Compensation (SBC) as an explicit cash equivalent expense. SBC dilutes existing equity owners or forces cash buybacks to maintain constant share count. To establish true <strong>Warren Buffett Owner Cash Generation</strong>, 100% of SBC must be deducted directly from Operating Cash Flow alongside all physical and software capital investments.
-  </p>
-<div class="metrics-grid">
+  </p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Q2 2026 Operating Cash Flow</div>
 <div class="metric-value">$8.09B</div>
@@ -1325,12 +1309,9 @@
 <div class="metric-value">$4.29B</div>
 <div class="metric-delta pos">Post 100% SBC Deduction</div>
 </div>
-</div>
-<h3>Cash Flow Bridge &amp; Owner Cash Generation Reconciliation</h3>
-<p>
+</div><h3>Cash Flow Bridge &amp; Owner Cash Generation Reconciliation</h3><p>
     In Q2 2026, consolidated capital expenditures rose 5.3% to $3.49 billion (comprising $2.89 billion in property and equipment CapEx and $600 million in capitalized software and intangibles). Deducting $310 million in quarter-specific SBC yields a normalized Q2 Owner Cash Generation of $4.29 billion (~$17.16 billion annualized rate).
-  </p>
-<div class="table-scroll-wrap"><table>
+  </p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Cash Flow Line Item</th>
@@ -1395,24 +1376,16 @@
 <td>Excess retained cash allocated directly to net debt reduction.</td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <strong>Capital Allocation Integrity &amp; Owner Earnings Safety:</strong> 
     Comcast generated $4.60 billion in reported FCF and returned $2.1 billion to shareholders ($1.2B dividends + $0.9B buybacks) in Q2 2026. After accounting for $310M in SBC, Comcast retains $2.19 billion in quarterly unencumbered surplus cash flow. This provides a 3.3x dividend coverage ratio on normalized Owner Cash Generation, ensuring that dividend commitments remain secure even under adverse macro conditions.
-  </div>
-<h3>Maintenance vs. Growth CapEx Requirements</h3>
-<p>
+  </div><h3>Maintenance vs. Growth CapEx Requirements</h3><p>
     Comcast’s annual capital investment of ~$14.0 billion is split between baseline network maintenance and high-return growth initiatives:
-  </p>
-<ul><li><strong>Maintenance CapEx (~$8.0B – $8.5B Annualized):</strong> Mandatory capital required to maintain broadband node capacity, replace aging customer premises equipment (CPE), fulfill maintenance contracts for Theme Parks, and support media transmission facilities.
-  <strong>Growth &amp; Strategic CapEx (~$5.5B – $6.0B Annualized):</strong> Discretionary deployment targeting DOCSIS 4.0 mid-split and high-split upgrades across broadband footprints, fiber-to-the-home (FTTH) expansion into new commercial zones, and major attraction expansions like Orlando's Epic Universe.</li></ul>
-</div>
-<div class="section">
-<h2>Section 4: Balance Sheet &amp; Lease-Adjusted Debt Structure</h2>
-<p>
+  </p><ul><li><strong>Maintenance CapEx (~$8.0B – $8.5B Annualized):</strong> Mandatory capital required to maintain broadband node capacity, replace aging customer premises equipment (CPE), fulfill maintenance contracts for Theme Parks, and support media transmission facilities.
+  <strong>Growth &amp; Strategic CapEx (~$5.5B – $6.0B Annualized):</strong> Discretionary deployment targeting DOCSIS 4.0 mid-split and high-split upgrades across broadband footprints, fiber-to-the-home (FTTH) expansion into new commercial zones, and major attraction expansions like Orlando's Epic Universe.</li></ul></div>
+<div class="section"><h2>Section 4: Balance Sheet &amp; Lease-Adjusted Debt Structure</h2><p>
     Comcast’s capital structure has undergone structural de-leveraging over the past 12 months. Driven by strong owner cash generation, management reduced carrying debt from a peak of $98.9 billion down to $90.4 billion as of Q2 2026. This $8.5 billion balance sheet reduction significantly lowers interest drag and reinforces investment-grade credit metrics.
-  </p>
-<div class="metrics-grid">
+  </p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Carrying Total Debt</div>
 <div class="metric-value">$90.40B</div>
@@ -1433,12 +1406,9 @@
 <div class="metric-value">2.48x</div>
 <div class="metric-delta pos">Within 2.4x-2.5x Target</div>
 </div>
-</div>
-<h3>Lease-Adjusted Capital Structure Breakdown</h3>
-<p>
+</div><h3>Lease-Adjusted Capital Structure Breakdown</h3><p>
     To evaluate total contractual obligations, capitalized operating and finance lease liabilities (primarily for wireless towers, store networks, real estate, and satellite transponders) must be added back to reported debt balances.
-  </p>
-<div class="table-scroll-wrap"><table>
+  </p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Capital Structure Component</th>
@@ -1503,12 +1473,9 @@
 <td><strong>Solidly inside target investment-grade threshold (&lt;2.50x).</strong></td>
 </tr>
 </tbody>
-</table></div>
-<h3>Debt Maturity Ladder &amp; Refinancing Profile</h3>
-<p>
+</table></div><h3>Debt Maturity Ladder &amp; Refinancing Profile</h3><p>
     Comcast maintains a highly conservative debt structure designed to insulate the business from short-term interest rate spikes. Over 90% of total debt is locked into fixed-rate obligations with a weighted average maturity exceeding 11 years.
-  </p>
-<div class="table-scroll-wrap"><table>
+  </p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Maturity Window</th>
@@ -1549,18 +1516,11 @@
 <td><strong>Weighted Average Maturity &gt; 11 Years; ~90%+ Fixed Rate.</strong></td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <strong>Balance Sheet De-risking Mechanics:</strong> 
     By lowering carrying debt from $98.9 billion to $90.4 billion, Comcast has removed over $360 million in annualized interest expense. Because the company generates ~$17.1 billion in annual Owner Cash Flow against ~$4.8 billion in net dividend obligations, Comcast retains over $12.3 billion in annual discretionary cash. Management can allocate this cash to continue paydown of senior notes or execute opportunistic buybacks without compromising its balance sheet fortress.
-  </div>
-</div>
-<div class="section">
-<h2>Section 5: Warren Buffett Intrinsic Valuation &amp; Scenario Matrix</h2>
-<p>To value Comcast Corporation (CMCSA), we apply Warren Buffett's 1986 Owner Earnings framework. Arbitrary exit multiples—which rely on finding a "greater fool" in Year 5—are discarded in favor of calculating cash returned to shareholders over a full operating cycle.</p>
-<h3>1. Normalized Owner Earnings Derivation</h3>
-<p>Buffett defines Owner Earnings as <strong>Net Cash Provided by Operating Activities minus Maintenance Capital Expenditures minus 100% Stock-Based Compensation (SBC)</strong>, adjusted for sustainable working capital. SBC is treated as a real cash dilutive expense.</p>
-<div class="metrics-grid">
+  </div></div>
+<div class="section"><h2>Section 5: Warren Buffett Intrinsic Valuation &amp; Scenario Matrix</h2><p>To value Comcast Corporation (CMCSA), we apply Warren Buffett's 1986 Owner Earnings framework. Arbitrary exit multiples—which rely on finding a "greater fool" in Year 5—are discarded in favor of calculating cash returned to shareholders over a full operating cycle.</p><h3>1. Normalized Owner Earnings Derivation</h3><p>Buffett defines Owner Earnings as <strong>Net Cash Provided by Operating Activities minus Maintenance Capital Expenditures minus 100% Stock-Based Compensation (SBC)</strong>, adjusted for sustainable working capital. SBC is treated as a real cash dilutive expense.</p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Operating Cash Flow (LTM)</div>
 <div class="metric-value">$33.64B</div>
@@ -1581,17 +1541,10 @@
 <div class="metric-value">$20.61B</div>
 <div class="metric-delta pos">$5.39 per share</div>
 </div>
-</div>
-<div class="callout">
+</div><div class="callout">
 <div class="callout-title">CapEx Dissection: Maintenance vs. Growth</div>
     Comcast reported total capital expenditures of $11.75B plus $2.66B in capitalized software ($14.41B total). Approximately 30% ($4.31B) represents discretionary growth CapEx—primarily Epic Universe theme park construction and new fiber/DOCSIS 4.0 passings. The remaining 70% ($10.10B) represents maintenance CapEx necessary to maintain node density, core network routing, and park maintenance. Deducting $10.10B in maintenance CapEx and $1.29B in SBC yields <strong>$20.61B in Initial Owner Earnings</strong> ($5.39/share). At a current share price of ~$25.00, Comcast trades at an initial Owner Earnings Yield of <strong>21.6%</strong>.
-  </div>
-<h3>2. Capital Structure &amp; Discount Rate Inputs</h3>
-<p>Per Buffett's discipline, cash flows are discounted using the <strong>US 10-Year Treasury Yield (~4.2%)</strong> plus an equity hurdle rate reflecting operational leverage, eliminating reliance on market sentiment multiples:</p>
-<ul><li><strong>Risk-Free Benchmark Rate:</strong> US 10-Year Treasury = <strong>4.20%</strong> <strong>Equity Risk Premium (Hurdle Rate):</strong> 4.80% – 6.30% depending on scenario risk</li><li><strong>Discount Rate Range:</strong> 9.0% (Bull) / 9.2% (Base) / 10.5% (Bear)</li><li><strong>Total Debt (incl. Operating Leases):</strong> $94.61B debt + $8.22B lease liabilities = $102.83B</li><li><strong>Cash &amp; Liquid Investments:</strong> $7.66B</li><li><strong>Net Debt Bridge Deduction:</strong> $86.95B ($22.76 per share on 3.82B diluted shares)</li></ul>
-<h3>3. Valuation Scenario Matrix (Bear / Base / Bull)</h3>
-<p>The 5-year DCF models cash flow compounding, aggressive share cannibalization (3.5%–5.5% annual float reduction), and a terminal Gordon Growth rate capped strictly at 2.0% (long-term US GDP ceiling):</p>
-<div class="table-scroll-wrap"><table>
+  </div><h3>2. Capital Structure &amp; Discount Rate Inputs</h3><p>Per Buffett's discipline, cash flows are discounted using the <strong>US 10-Year Treasury Yield (~4.2%)</strong> plus an equity hurdle rate reflecting operational leverage, eliminating reliance on market sentiment multiples:</p><ul><li><strong>Risk-Free Benchmark Rate:</strong> US 10-Year Treasury = <strong>4.20%</strong> <strong>Equity Risk Premium (Hurdle Rate):</strong> 4.80% – 6.30% depending on scenario risk</li><li><strong>Discount Rate Range:</strong> 9.0% (Bull) / 9.2% (Base) / 10.5% (Bear)</li><li><strong>Total Debt (incl. Operating Leases):</strong> $94.61B debt + $8.22B lease liabilities = $102.83B</li><li><strong>Cash &amp; Liquid Investments:</strong> $7.66B</li><li><strong>Net Debt Bridge Deduction:</strong> $86.95B ($22.76 per share on 3.82B diluted shares)</li></ul><h3>3. Valuation Scenario Matrix (Bear / Base / Bull)</h3><p>The 5-year DCF models cash flow compounding, aggressive share cannibalization (3.5%–5.5% annual float reduction), and a terminal Gordon Growth rate capped strictly at 2.0% (long-term US GDP ceiling):</p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Valuation Metric / Model Inputs</th>
@@ -1674,11 +1627,8 @@
 <td><strong>$188.60B</strong></td>
 </tr>
 </tbody>
-</table></div>
-</div>
-<div class="section">
-<h2>Section 6: Thesis Confidence, Execution Risk &amp; Pre-Mortem Falsification Triggers</h2>
-<div class="metrics-grid">
+</table></div></div>
+<div class="section"><h2>Section 6: Thesis Confidence, Execution Risk &amp; Pre-Mortem Falsification Triggers</h2><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Thesis Conviction</div>
 <div class="metric-value">Solid Conviction</div>
@@ -1699,18 +1649,11 @@
 <div class="metric-value">13.8% p.a.</div>
 <div class="metric-delta pos">Organic Cash Generation</div>
 </div>
-</div>
-<h3>1. Execution Risk Evaluation</h3>
-<p>While Comcast's cash generation provides an asymmetrical cushion, three primary risks could impede reaching the $38.00 Base Case Fair Value:</p>
-<ul><li><strong>Broadband Subscriber Disintermediation:</strong> Fixed Wireless Access (FWA) from T-Mobile/Verizon and aggressive fiber overbuilding (AT&amp;T) continue to erode residential broadband accounts. Broadband loss must stabilize below 100k net losses/quarter to prevent structural ARPU collapse.</li><li><strong>Convergence Execution Friction:</strong> The pivot to bundling mobile lines (Xfinity Mobile) with home broadband compresses near-term ARPU. Management must successfully convert free promo wireless lines into recurring revenue accounts in H2 2026.</li><li><strong>Linear TV Cord-Cutting &amp; Sports Rights Inflation:</strong> Content &amp; Experiences face headwinds from linear distribution decline and heavy sports programming outlays (NBA rights agreement beginning 2025/2026).</li></ul>
-<div class="callout">
+</div><h3>1. Execution Risk Evaluation</h3><p>While Comcast's cash generation provides an asymmetrical cushion, three primary risks could impede reaching the $38.00 Base Case Fair Value:</p><ul><li><strong>Broadband Subscriber Disintermediation:</strong> Fixed Wireless Access (FWA) from T-Mobile/Verizon and aggressive fiber overbuilding (AT&amp;T) continue to erode residential broadband accounts. Broadband loss must stabilize below 100k net losses/quarter to prevent structural ARPU collapse.</li><li><strong>Convergence Execution Friction:</strong> The pivot to bundling mobile lines (Xfinity Mobile) with home broadband compresses near-term ARPU. Management must successfully convert free promo wireless lines into recurring revenue accounts in H2 2026.</li><li><strong>Linear TV Cord-Cutting &amp; Sports Rights Inflation:</strong> Content &amp; Experiences face headwinds from linear distribution decline and heavy sports programming outlays (NBA rights agreement beginning 2025/2026).</li></ul><div class="callout">
 <div class="callout-title">Pre-Mortem Thesis Falsification Triggers</div>
 <p>To guard against value-trap dynamics, the investment thesis is strictly invalidated if any of the following three conditions occur:</p>
 <ol><li><strong>Owner Earnings Floor Breakdown:</strong> Normalized annual Owner Earnings drop below <strong>$15.0 billion</strong> for two consecutive quarters, signaling permanent competitive impairment in cable network infrastructure.</li><li><strong>Broadband Churn Acceleration:</strong> Domestic broadband net subscriber losses exceed</li><li><strong>350,000 per quarter</strong> over a trailing 6-month period, demonstrating that fiber/FWA overbuilders are permanently breaking Comcast's pricing power.</li><li><strong>Capital Allocation Invalidation:</strong> Management halts share repurchases while the stock trades below $28.00, or expands Net Debt/EBITDA above</li><li><strong>3.0x</strong> to fund non-synergistic M&amp;A rather than retiring undervalued equity.</li></ol>
-</div>
-<h3>2. The 5-Year Exchange Closure Test</h3>
-<p>If the stock market closed for 5 years, an investor buying Comcast at ~$25.00 would collect $1.32 in annual dividends (~5.3% yield) while the business repurchases 18–22% of its total shares out of internal cash flow. With organic Owner Earnings expanding at a modest 2.5% CAGR, per-share Owner Earnings will increase from $5.39 to $7.15 by Year 5. The intrinsic cash generation alone secures a double-digit annual return independent of market sentiment or multiple expansion.</p>
-</div>
+</div><h3>2. The 5-Year Exchange Closure Test</h3><p>If the stock market closed for 5 years, an investor buying Comcast at ~$25.00 would collect $1.32 in annual dividends (~5.3% yield) while the business repurchases 18–22% of its total shares out of internal cash flow. With organic Owner Earnings expanding at a modest 2.5% CAGR, per-share Owner Earnings will increase from $5.39 to $7.15 by Year 5. The intrinsic cash generation alone secures a double-digit annual return independent of market sentiment or multiple expansion.</p></div>
             </article>
         </div>
 

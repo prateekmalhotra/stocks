@@ -8,6 +8,7 @@ from stocks.models import WatchlistStock, AlertItem, ThesisVersion
 from stocks.data_store import load_watchlist, load_alerts, load_thesis_history
 from stocks.tracker import fetch_all_chart_ranges
 from stocks.ownership_intelligence import build_ownership_tab_html, calculate_insider_sentiment_and_flow, load_cached_ownership
+from bs4 import BeautifulSoup, NavigableString, Tag
 
 PUBLIC_DIR = Path("public")
 REPORTS_DIR = PUBLIC_DIR / "reports"
@@ -484,10 +485,20 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         cleaned = re.sub(r'<figure\b[^>]*>.*?</figure>', '', cleaned, flags=re.DOTALL | re.IGNORECASE)
         cleaned = re.sub(r'<img\b[^>]*>', '', cleaned, flags=re.IGNORECASE)
         
-        # 1c. Convert markdown horizontal rules
-        cleaned = re.sub(r"^\s*[-*_]{3,}\s*$", '<hr style="border:0; border-top:1px solid var(--border-color); margin:28px 0;">', cleaned, flags=re.MULTILINE)
+        # 1c. Fix unclosed <li> followed by another <li> before BeautifulSoup parses
+        prev_pass = ""
+        while prev_pass != cleaned:
+            prev_pass = cleaned
+            cleaned = re.sub(
+                r"(<li>(?:(?!</li>|<ul>|<ol>).)*?)(?=\s*<li>)",
+                r"\1</li>\n",
+                cleaned,
+                flags=re.DOTALL | re.IGNORECASE
+            )
+            
+        cleaned = re.sub(r"</li>\s*</li>\s*(</(?:ul|ol)>)", r"</li>\n\1", cleaned, flags=re.IGNORECASE)
         
-        # 1d. Convert markdown headings (####, ###, ##)
+        # 1d. Convert markdown headings
         cleaned = re.sub(r"^\s*####\s+(.*?)$", lambda m: f"<h4>{m.group(1)}</h4>", cleaned, flags=re.MULTILINE)
         cleaned = re.sub(r"^\s*###\s+(.*?)$", lambda m: f"<h3>{m.group(1)}</h3>", cleaned, flags=re.MULTILINE)
         cleaned = re.sub(r"^\s*##\s+(.*?)$", lambda m: f"<h2>{m.group(1)}</h2>", cleaned, flags=re.MULTILINE)
@@ -496,68 +507,40 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         cleaned = re.sub(r"\*\*(.*?)\*\*", lambda m: f"<strong>{m.group(1)}</strong>", cleaned)
         cleaned = re.sub(r"(?<!\*)\*([^*]+)\*(?!\*)", lambda m: f"<em>{m.group(1)}</em>", cleaned)
         
-        # 1f. Convert numbered and bullet lists
-        lines = cleaned.split("\n")
-        in_ol = False
-        in_ul = False
-        new_lines = []
+        # 1f. Use BeautifulSoup for perfect DOM normalization
+        soup = BeautifulSoup(cleaned, "html.parser")
         
-        for line in lines:
-            stripped = line.strip()
-            ol_match = re.match(r"^(\d+)\.\s+(.*)$", stripped)
-            ul_match = re.match(r"^[-*•]\s+(.*)$", stripped)
-            
-            if ol_match and not stripped.startswith("<"):
-                if in_ul:
-                    new_lines.append("</ul>")
-                    in_ul = False
-                if not in_ol:
-                    new_lines.append('<ol style="padding-left:22px; line-height:1.65; margin:14px 0;">')
-                    in_ol = True
-                new_lines.append(f"  <li>{ol_match.group(2)}</li>")
-            elif ul_match and not stripped.startswith("<") and not stripped.startswith("• <strong>"):
-                if in_ol:
-                    new_lines.append("</ol>")
-                    in_ol = False
-                if not in_ul:
-                    new_lines.append('<ul style="padding-left:22px; line-height:1.65; margin:14px 0;">')
-                    in_ul = True
-                new_lines.append(f"  <li>{ul_match.group(1)}</li>")
-            else:
-                if in_ol and stripped.startswith("<"):
-                    new_lines.append("</ol>")
-                    in_ol = False
-                if in_ul and stripped.startswith("<"):
-                    new_lines.append("</ul>")
-                    in_ul = False
-                new_lines.append(line)
+        # Flatten improperly nested <li> tags
+        for outer_li in soup.find_all("li"):
+            nested_lis = outer_li.find_all("li")
+            for inner_li in nested_lis:
+                parent_list = outer_li.parent
+                if parent_list and parent_list.name in ["ul", "ol"]:
+                    outer_li.insert_after(inner_li.extract())
+                    
+        # Remove empty list items
+        for li in soup.find_all("li"):
+            text = li.get_text(strip=True)
+            if not text or text in ["-", "•", "。", "◦", "○"]:
+                li.decompose()
                 
-        if in_ol:
-            new_lines.append("</ol>")
-        if in_ul:
-            new_lines.append("</ul>")
-            
-        cleaned = "\n".join(new_lines)
-        
-        # 2. Auto-close any unclosed tables and divs before rendering
-        open_tr = len(re.findall(r"<tr\b", cleaned, re.IGNORECASE))
-        close_tr = len(re.findall(r"</tr>", cleaned, re.IGNORECASE))
-        if open_tr > close_tr:
-            cleaned += "</tr>" * (open_tr - close_tr)
-
-        open_tables = len(re.findall(r"<table\b", cleaned, re.IGNORECASE))
-        close_tables = len(re.findall(r"</table>", cleaned, re.IGNORECASE))
-        if open_tables > close_tables:
-            cleaned += "\n" + ("</tbody></table>" * (open_tables - close_tables))
-            
-        open_divs = len(re.findall(r"<div\b", cleaned, re.IGNORECASE))
-        close_divs = len(re.findall(r"</div>", cleaned, re.IGNORECASE))
-        if open_divs > close_divs:
-            cleaned += "\n" + ("</div>" * (open_divs - close_divs))
-
-        # 3. Wrap all tables in table-scroll-wrap
-        cleaned = re.sub(r'(?<!<div class="table-scroll-wrap">)(<table\b[^>]*>.*?</table>)', r'<div class="table-scroll-wrap">\1</div>', cleaned, flags=re.DOTALL)
-        return cleaned
+        # Remove empty lists
+        for lst in soup.find_all(["ul", "ol"]):
+            if not lst.find_all("li") and not lst.get_text(strip=True):
+                lst.decompose()
+                
+        # Remove empty paragraphs
+        for p in soup.find_all("p"):
+            if not p.get_text(strip=True) and not p.find_all(["table", "svg", "button"]):
+                p.decompose()
+                
+        # Wrap tables in table-scroll-wrap
+        for tbl in soup.find_all("table"):
+            if not (tbl.parent and "table-scroll-wrap" in tbl.parent.get("class", [])):
+                wrapper = soup.new_tag("div", attrs={"class": "table-scroll-wrap"})
+                tbl.wrap(wrapper)
+                
+        return str(soup)
 
     evolution_count = max(0, len(history) - 1)
     ownership_tab_html = build_ownership_tab_html(ticker, stock, current_version)
@@ -1182,11 +1165,21 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         .memo-container ul, .memo-container ol {{
             font-family: var(--font-serif) !important;
             font-size: 1.12rem !important;
-            line-height: 1.9 !important;
+            line-height: 1.85 !important;
             color: var(--text-body) !important;
-            margin: 0 0 26px 30px !important;
+            margin: 16px 0 24px 24px !important;
+            padding-left: 12px !important;
         }}
-        .memo-container li {{ margin-bottom: 10px !important; color: var(--text-body) !important; }}
+        .memo-container ul {{ list-style-type: disc !important; }}
+        .memo-container ol {{ list-style-type: decimal !important; }}
+        .memo-container li {{
+            margin-bottom: 12px !important;
+            color: var(--text-body) !important;
+            line-height: 1.85 !important;
+        }}
+        .memo-container li::marker {{
+            color: var(--accent-warm) !important;
+        }}
         .memo-container strong, .memo-container b {{
             color: var(--text-title) !important;
             font-weight: 600 !important;

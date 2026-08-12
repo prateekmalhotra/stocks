@@ -486,11 +486,21 @@
         .memo-container ul, .memo-container ol {
             font-family: var(--font-serif) !important;
             font-size: 1.12rem !important;
-            line-height: 1.9 !important;
+            line-height: 1.85 !important;
             color: var(--text-body) !important;
-            margin: 0 0 26px 30px !important;
+            margin: 16px 0 24px 24px !important;
+            padding-left: 12px !important;
         }
-        .memo-container li { margin-bottom: 10px !important; color: var(--text-body) !important; }
+        .memo-container ul { list-style-type: disc !important; }
+        .memo-container ol { list-style-type: decimal !important; }
+        .memo-container li {
+            margin-bottom: 12px !important;
+            color: var(--text-body) !important;
+            line-height: 1.85 !important;
+        }
+        .memo-container li::marker {
+            color: var(--accent-warm) !important;
+        }
         .memo-container strong, .memo-container b {
             color: var(--text-title) !important;
             font-weight: 600 !important;
@@ -1150,11 +1160,7 @@
         <!-- Memo Content -->
         <div id="tab-memo" class="tab-content active">
             <article class="memo-container">
-                <div class="section" id="executive-summary">
-<h2>Section 1: Executive Summary &amp; Moat Reality</h2>
-<p>ASML Holding N.V. occupies one of the most impenetrable competitive monopolies in modern industrial technology. As the sole global manufacturer of Extreme Ultraviolet (EUV) lithography systems and the dominant provider of Deep Ultraviolet (DUV) immersion equipment, ASML acts as the absolute tollbooth for advanced semiconductor manufacturing. The company's economic moat is not merely defined by intellectual property or capital intensity; it is anchored in deep multi-decade joint R&amp;D partnerships, proprietary optomechanical engineering, and an interconnected global supplier ecosystem—most notably its exclusive relationship with Carl Zeiss SMT for high-precision optics.</p>
-<p>During Q2 2026, ASML demonstrated the extraordinary leverage inherent in its business model, posting financial results that comfortably surpassed management's prior guidance across top-line sales, gross margins, and net income. Accelerated deployment of advanced AI infrastructure across global cloud hyperscalers has catalyzed structural demand for High-Bandwidth Memory (HBM) DRAM and sub-3nm logic nodes, directly accelerating lithography intensity and triggering a material upward revision in full-year 2026 financial targets.</p>
-<div class="metrics-grid">
+                <div class="section" id="executive-summary"><h2>Section 1: Executive Summary &amp; Moat Reality</h2><p>ASML Holding N.V. occupies one of the most impenetrable competitive monopolies in modern industrial technology. As the sole global manufacturer of Extreme Ultraviolet (EUV) lithography systems and the dominant provider of Deep Ultraviolet (DUV) immersion equipment, ASML acts as the absolute tollbooth for advanced semiconductor manufacturing. The company's economic moat is not merely defined by intellectual property or capital intensity; it is anchored in deep multi-decade joint R&amp;D partnerships, proprietary optomechanical engineering, and an interconnected global supplier ecosystem—most notably its exclusive relationship with Carl Zeiss SMT for high-precision optics.</p><p>During Q2 2026, ASML demonstrated the extraordinary leverage inherent in its business model, posting financial results that comfortably surpassed management's prior guidance across top-line sales, gross margins, and net income. Accelerated deployment of advanced AI infrastructure across global cloud hyperscalers has catalyzed structural demand for High-Bandwidth Memory (HBM) DRAM and sub-3nm logic nodes, directly accelerating lithography intensity and triggering a material upward revision in full-year 2026 financial targets.</p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Q2 2026 Total Net Sales</div>
 <div class="metric-value">€9.33B</div>
@@ -1175,34 +1181,16 @@
 <div class="metric-value">€43B – €45B</div>
 <div class="metric-delta pos">Up from €36B–€40B Previous</div>
 </div>
-</div>
-<div class="callout">
+</div><div class="callout">
 <strong>Management Commentary — Q2 2026 Earnings Call:</strong><br/>
 <em>"Ongoing AI investments continue to strengthen semiconductor demand across both logic and memory segments. Customer commitments across our portfolio provide increased visibility into long-term growth, supporting our decision to raise our 2026 outlook and expand production capacity for both EUV and immersion DUV platforms."</em><br/>
     — <strong>Christophe Fouquet, President &amp; CEO</strong>
-</div>
-<h3>Monopolistic Moat &amp; Technology Defensibility</h3>
-<p>ASML's competitive advantage rests on three primary pillars:</p>
-<ul><li><strong>EUV Technological Lock-In (13.5nm Wavelength):</strong> Generating EUV light requires firing 50,000 molten tin droplets per second through a vacuum chamber and striking each droplet twice with high-power CO2 industrial lasers to create high-temperature plasma. Replicating this physics platform requires custom Bragg mirrors composed of dozens of alternating molybdenum and silicon layers with sub-nanometer flatness tolerances. No competitor (including Canon or Nikon) possesses commercial EUV capabilities.</li><li><strong>Value-Based Pricing &amp; Economic Surplus Extraction:</strong> ASML prices its systems based on the economic value created for foundries and memory makers. By improving wafer throughput (wafers per hour, or wph) and overlay precision, ASML enables customers to eliminate costly multi-patterning steps. This gives ASML tremendous pricing power: Low-NA systems command Average Selling Prices (ASPs) between €180M and €220M, while High-NA tools (EXE platform) reach €350M–€400M+ per unit.</li><li><strong>High-Margin Installed Base Management (IBM):</strong> With thousands of TWINSCAN systems deployed globally, ASML generates resilient, non-cyclical cash flows from maintenance, software productivity updates, and hardware field upgrades. In Q2 2026, Installed Base Management generated approximately €2.4B, beating internal guidance by ~€300M due to urgent customer demands for software-driven yield optimization.</li></ul>
-<h3>Customer Concentration &amp; Capital Allocation Discipline</h3>
-<p>While ASML's customer base is inherently concentrated among the "Big Three" semiconductor manufacturers—TSMC, Samsung, and Intel—alongside leading memory producers (SK Hynix, Micron), this concentration is mitigated by deep balance-sheet co-investments and long lead times. In Q2 2026, ASML returned €1.1B to shareholders via share buybacks (0.8M shares repurchased) and declared an interim dividend of €1.88 per share, maintaining strict alignment with shareholder capital return policies. Stock-Based Compensation (SBC) remains tightly controlled at under 1.5% of operating cash flow, ensuring that per-share compounding reflects organic economic cash flow.</p>
-</div>
-<div class="section" id="operational-benchmarking">
-<h2>Section 2: Operational Benchmarking &amp; Industry Dynamics</h2>
-<p>ASML's operational momentum in 2026 is driven by the simultaneous ramp of its flagship Low-NA EUV system (TWINSCAN NXE:3800E), commercial validation of High-NA EUV in high-volume manufacturing (HVM), and strategic capacity expansions planned through 2028.</p>
-<h3>Product Roadmap Execution: NXE:3800E &amp; High-NA Deployment</h3>
-<p>The transition from legacy NXE:3400C/3600D tools to the <strong>TWINSCAN NXE:3800E</strong> represents a step-function increase in foundry productivity. Featuring a 37% improvement in throughput to over 220 wafers per hour (wph) alongside sub-1.1nm overlay accuracy, the NXE:3800E allows chipmakers to lower effective cost per good die. As management noted during the Q2 call, the product mix shift toward the NXE:3800E and upcoming NXE:3800F is driving higher average ASPs and structural gross margin expansion toward the 55%–57% target range guided for Q3 2026.</p>
-<p>In High-NA EUV (0.55 Numerical Aperture), ASML achieved a pivotal commercial milestone in mid-2026: <strong>Intel Corporation officially integrated the TWINSCAN EXE High-NA platform into active production for its Intel 18A process node</strong>. This marks the official transition of High-NA from pilot line validation to revenue-generating high-volume manufacturing, proving tool maturity and silencing bear cases regarding 0.55 NA anamorphic lens integration.</p>
-<div class="callout">
+</div><h3>Monopolistic Moat &amp; Technology Defensibility</h3><p>ASML's competitive advantage rests on three primary pillars:</p><ul><li><strong>EUV Technological Lock-In (13.5nm Wavelength):</strong> Generating EUV light requires firing 50,000 molten tin droplets per second through a vacuum chamber and striking each droplet twice with high-power CO2 industrial lasers to create high-temperature plasma. Replicating this physics platform requires custom Bragg mirrors composed of dozens of alternating molybdenum and silicon layers with sub-nanometer flatness tolerances. No competitor (including Canon or Nikon) possesses commercial EUV capabilities.</li><li><strong>Value-Based Pricing &amp; Economic Surplus Extraction:</strong> ASML prices its systems based on the economic value created for foundries and memory makers. By improving wafer throughput (wafers per hour, or wph) and overlay precision, ASML enables customers to eliminate costly multi-patterning steps. This gives ASML tremendous pricing power: Low-NA systems command Average Selling Prices (ASPs) between €180M and €220M, while High-NA tools (EXE platform) reach €350M–€400M+ per unit.</li><li><strong>High-Margin Installed Base Management (IBM):</strong> With thousands of TWINSCAN systems deployed globally, ASML generates resilient, non-cyclical cash flows from maintenance, software productivity updates, and hardware field upgrades. In Q2 2026, Installed Base Management generated approximately €2.4B, beating internal guidance by ~€300M due to urgent customer demands for software-driven yield optimization.</li></ul><h3>Customer Concentration &amp; Capital Allocation Discipline</h3><p>While ASML's customer base is inherently concentrated among the "Big Three" semiconductor manufacturers—TSMC, Samsung, and Intel—alongside leading memory producers (SK Hynix, Micron), this concentration is mitigated by deep balance-sheet co-investments and long lead times. In Q2 2026, ASML returned €1.1B to shareholders via share buybacks (0.8M shares repurchased) and declared an interim dividend of €1.88 per share, maintaining strict alignment with shareholder capital return policies. Stock-Based Compensation (SBC) remains tightly controlled at under 1.5% of operating cash flow, ensuring that per-share compounding reflects organic economic cash flow.</p></div>
+<div class="section" id="operational-benchmarking"><h2>Section 2: Operational Benchmarking &amp; Industry Dynamics</h2><p>ASML's operational momentum in 2026 is driven by the simultaneous ramp of its flagship Low-NA EUV system (TWINSCAN NXE:3800E), commercial validation of High-NA EUV in high-volume manufacturing (HVM), and strategic capacity expansions planned through 2028.</p><h3>Product Roadmap Execution: NXE:3800E &amp; High-NA Deployment</h3><p>The transition from legacy NXE:3400C/3600D tools to the <strong>TWINSCAN NXE:3800E</strong> represents a step-function increase in foundry productivity. Featuring a 37% improvement in throughput to over 220 wafers per hour (wph) alongside sub-1.1nm overlay accuracy, the NXE:3800E allows chipmakers to lower effective cost per good die. As management noted during the Q2 call, the product mix shift toward the NXE:3800E and upcoming NXE:3800F is driving higher average ASPs and structural gross margin expansion toward the 55%–57% target range guided for Q3 2026.</p><p>In High-NA EUV (0.55 Numerical Aperture), ASML achieved a pivotal commercial milestone in mid-2026: <strong>Intel Corporation officially integrated the TWINSCAN EXE High-NA platform into active production for its Intel 18A process node</strong>. This marks the official transition of High-NA from pilot line validation to revenue-generating high-volume manufacturing, proving tool maturity and silencing bear cases regarding 0.55 NA anamorphic lens integration.</p><div class="callout">
 <strong>CFO Insight — EUV Wafer Capacity Multiplier:</strong><br/>
 <em>"A 30% increase in low-NA EUV tool unit shipments in 2027 translates into roughly a 45% increase in effective wafer capacity for our customers. This operating leverage is created because the 2027 EUV product mix shifts predominantly toward our higher-productivity NXE:3800E and 3800F systems."</em><br/>
     — <strong>Roger Dassen, CFO</strong>
-</div>
-<h3>2027/2028 Capacity Expansion Plan</h3>
-<p>To meet compounding demand driven by generative AI accelerators, custom ASIC foundries, and HBM4 DRAM packaging, ASML has formally initiated a supply chain scale-up:</p>
-<ul><li><strong>Low-NA EUV &amp; Immersion DUV:</strong> Target capacity build-out to support a <strong>30% unit increase in 2027</strong> relative to 2026 baseline levels, with an additional 30% expansion phase under active supply-chain evaluation for 2028.</li><li><strong>Memory Lithography Intensity:</strong> Net system sales to memory customers are guided to grow over 75% in FY26. The move to 1b/1c nm DRAM nodes requires expanding EUV exposures to 5–6 layers per wafer, replacing double/triple patterning DUV with single-exposure Low-NA EUV.</li></ul>
-<h3>Benchmarking Financial Performance &amp; Guidance</h3>
-<div class="table-scroll-wrap"><table>
+</div><h3>2027/2028 Capacity Expansion Plan</h3><p>To meet compounding demand driven by generative AI accelerators, custom ASIC foundries, and HBM4 DRAM packaging, ASML has formally initiated a supply chain scale-up:</p><ul><li><strong>Low-NA EUV &amp; Immersion DUV:</strong> Target capacity build-out to support a <strong>30% unit increase in 2027</strong> relative to 2026 baseline levels, with an additional 30% expansion phase under active supply-chain evaluation for 2028.</li><li><strong>Memory Lithography Intensity:</strong> Net system sales to memory customers are guided to grow over 75% in FY26. The move to 1b/1c nm DRAM nodes requires expanding EUV exposures to 5–6 layers per wafer, replacing double/triple patterning DUV with single-exposure Low-NA EUV.</li></ul><h3>Benchmarking Financial Performance &amp; Guidance</h3><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Financial Metric</th>
@@ -1249,24 +1237,15 @@
 <td>Normalized ~20% Level</td>
 </tr>
 </tbody>
-</table></div>
-<h3>Address Market Headlines: Chinese Domestic DUV Immersion Noise</h3>
-<p>In late July 2026, financial media reported that a Chinese state-backed entity (Shanghai Aishengna Electronic Technology Group, integrating Huawei/Yuliangsheng engineers) commenced low-volume production of domestic immersion DUV lithography tools. This headline triggered a transient ~6% pullback in ASML shares. A rigorous engineering and economic evaluation reveals this market reaction to be highly exaggerated:</p>
-<ol><li><strong>Manufacturing Scale Disparity:</strong> Chinese domestic targets call for approximately 5 units in 2026 and scaling to ~20 units in 2027. In contrast, ASML ships</li><li><strong>130 to 169 immersion DUV systems annually</strong> and is expanding this base by 30% in 2027. Domestic Chinese production accounts for less than 11% of ASML's annual DUV output.</li><li><strong>Resolution &amp; Yield Penalties (28nm vs. Sub-7nm):</strong> The domestic Chinese immersion tool operates natively at 28nm resolution under single exposure. While multipatterning (SAQP/LELE) can theoretically stretch 193nm immersion to 7nm features, doing so requires 4x to 8x sequential masking passes. This dramatically increases overlay alignment errors, compounding wafer defect density and reducing yield to commercially unviable levels for leading-edge logic.</li><li><strong>Critical Sub-Component Dependencies:</strong> Dissection of the Chinese supply chain indicates continued reliance on Japanese optical components and specialized laser mirrors. Local supplier delays continue to bottleneck domestic assembly.</li><li><strong>Revenue Normalization Already Priced In:</strong> China's share of ASML net sales has already normalized from an unsustainable peak of 33% in 2025 (driven by legacy node pre-builds) to ~20% in 2026. ASML's raised FY26 guidance (€43B–€45B) fully incorporates strict US/Dutch export controls and assumes zero high-end DUV immersion sales to restricted Chinese fabs.</li></ol>
-<div class="callout">
+</table></div><h3>Address Market Headlines: Chinese Domestic DUV Immersion Noise</h3><p>In late July 2026, financial media reported that a Chinese state-backed entity (Shanghai Aishengna Electronic Technology Group, integrating Huawei/Yuliangsheng engineers) commenced low-volume production of domestic immersion DUV lithography tools. This headline triggered a transient ~6% pullback in ASML shares. A rigorous engineering and economic evaluation reveals this market reaction to be highly exaggerated:</p><ol><li><strong>Manufacturing Scale Disparity:</strong> Chinese domestic targets call for approximately 5 units in 2026 and scaling to ~20 units in 2027. In contrast, ASML ships</li><li><strong>130 to 169 immersion DUV systems annually</strong> and is expanding this base by 30% in 2027. Domestic Chinese production accounts for less than 11% of ASML's annual DUV output.</li><li><strong>Resolution &amp; Yield Penalties (28nm vs. Sub-7nm):</strong> The domestic Chinese immersion tool operates natively at 28nm resolution under single exposure. While multipatterning (SAQP/LELE) can theoretically stretch 193nm immersion to 7nm features, doing so requires 4x to 8x sequential masking passes. This dramatically increases overlay alignment errors, compounding wafer defect density and reducing yield to commercially unviable levels for leading-edge logic.</li><li><strong>Critical Sub-Component Dependencies:</strong> Dissection of the Chinese supply chain indicates continued reliance on Japanese optical components and specialized laser mirrors. Local supplier delays continue to bottleneck domestic assembly.</li><li><strong>Revenue Normalization Already Priced In:</strong> China's share of ASML net sales has already normalized from an unsustainable peak of 33% in 2025 (driven by legacy node pre-builds) to ~20% in 2026. ASML's raised FY26 guidance (€43B–€45B) fully incorporates strict US/Dutch export controls and assumes zero high-end DUV immersion sales to restricted Chinese fabs.</li></ol><div class="callout">
 <strong>Strategic Pre-Mortem Assessment — Chinese DUV Headlines:</strong><br/>
     The emergence of domestic Chinese 28nm immersion tools serves as a sovereign import-substitution attempt for mature nodes under sanctions, rather than a threat to ASML's global commercial leadership. ASML's revenue engine has shifted decisively toward advanced Low-NA EUV (NXE:3800E) and High-NA (EXE:5200B) deployments across Taiwan, South Korea, North America, and Europe.
-  </div>
-</div>
-<div class="section" id="owner-cash-flow">
-<h3>Section 3: Owner Cash Flow, SBC &amp; Reinvestment Rate Mechanics</h3>
-<p>
+  </div></div>
+<div class="section" id="owner-cash-flow"><h3>Section 3: Owner Cash Flow, SBC &amp; Reinvestment Rate Mechanics</h3><p>
     A rigorous financial audit of ASML Holding N.V. requires stripping away GAAP non-cash accounting adjustments and isolating the true cash generated by the monopoly's core lithography operations. In Q2 2026, ASML generated <strong>€1,703.0 million</strong> in Net Cash Provided by Operating Activities, representing a powerful sequential rebound from Q1 2026 (which was negatively impacted by timing-related working capital inventory builds). 
-  </p>
-<p>
+  </p><p>
     Applying Warren Buffett’s 1986 Owner Earnings framework—where <em>Owner Earnings = Operating Cash Flow – Stock-Based Compensation – Maintenance CapEx</em>—demonstrates ASML's high capital efficiency and true cash conversion capabilities.
-  </p>
-<div class="metrics-grid">
+  </p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Q2 2026 Operating Cash Flow</div>
 <div class="metric-value">€1,703.0M</div>
@@ -1292,9 +1271,7 @@
 <div class="metric-value">€1,317.0M</div>
 <div class="metric-delta pos">77.3% FCF Conversion</div>
 </div>
-</div>
-<h4>Cash Flow Reconciliation &amp; Owner Earnings Bridge</h4>
-<div class="table-scroll-wrap"><table>
+</div><h4>Cash Flow Reconciliation &amp; Owner Earnings Bridge</h4><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Financial Metric (€ in Millions)</th>
@@ -1376,20 +1353,15 @@
 <td><strong>(€1,380.5)</strong></td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <strong>Owner Earnings Audit &amp; Reinvestment Dynamics:</strong>
 <p>
 <ol><li><strong>SBC Reality Check:</strong> Unlike Big Tech peers that issue SBC equal to 15–30% of OCF, ASML’s Stock-Based Compensation of <strong>€58.5 million</strong> in Q2 2026 represents just 3.4% of operating cash flow and 2.0% of net income. It is fully deducted as a real economic cash cost.<br/></li><li><strong>Growth vs. Maintenance CapEx:</strong> Total Q2 CapEx was €386.0 million (€299.4M PPE + €86.6M intangibles). Approximately 35% (€135.1M) represents pure maintenance CapEx to upkeep cleanroom facilities and field tooling across thousands of operational systems. The remaining 65% (€250.9M) is growth CapEx, deployed to expand Low-NA EUV assembly capacity by 30% (~65 units in 2027) and DUV immersion capacity by 30% (~130 units in 2027), alongside High-NA EUV (EXE:5000/5200) manufacturing in Veldhoven.<br/></li><li><strong>Working Capital &amp; Customer Float:</strong> Quarter-to-quarter cash flow fluctuates significantly based on customer advance prepayments and inventory staging. ASML's customer advance prepayments serve as an interest-free customer float that funds raw material procurement for EUV/DUV systems, reducing long-term capital intensity.</li></ol>
 </p>
-</div>
-</div>
-<div class="section" id="capital-structure">
-<h3>Section 4: Capital Structure &amp; Balance Sheet Fortification</h3>
-<p>
+</div></div>
+<div class="section" id="capital-structure"><h3>Section 4: Capital Structure &amp; Balance Sheet Fortification</h3><p>
     ASML maintains a fortified, net-cash balance sheet designed to withstand semiconductor downcycles while financing massive long-term R&amp;D (€1.28 billion in Q2 2026) and capacity growth. As of June 28, 2026, ASML held <strong>€7,581.9 million</strong> in total cash reserves and short-term investments, against <strong>€1,984.4 million</strong> in long-term debt obligations.
-  </p>
-<div class="metrics-grid">
+  </p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Cash &amp; Short-Term Investments</div>
 <div class="metric-value">€7,581.9M</div>
@@ -1415,9 +1387,7 @@
 <div class="metric-value">€1.88 / share</div>
 <div class="metric-delta pos">Payable August 5, 2026</div>
 </div>
-</div>
-<h4>Capital Structure &amp; Liquidity Breakdown</h4>
-<div class="table-scroll-wrap"><table>
+</div><h4>Capital Structure &amp; Liquidity Breakdown</h4><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Balance Sheet &amp; Capital Structure Item (€ in Millions)</th>
@@ -1482,23 +1452,17 @@
 <td><strong>+€2,213.2 (+11.3%)</strong></td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <strong>Shareholder Return Dynamics &amp; Debt De-Leveraging:</strong>
 <p>
 <ol><li><strong>Active Debt De-Leveraging:</strong> In H1 2026, management actively paid down <strong>€693.2 million</strong> in maturing debt and finance lease obligations, successfully lowering long-term debt from €2,709.0 million at year-end 2025 to €1,984.4 million as of Q2 2026. Net Cash sits at a healthy <strong>€5,278.3 million</strong>.<br/></li><li><strong>Share Buyback Cannibal Mechanics:</strong> Under the 2026–2028 share buyback program, ASML repurchased <strong>€1,077.5 million</strong> worth of shares in Q2 2026 alone, bringing total H1 2026 repurchases to <strong>€2,077.5 million</strong>. This capital deployment outpaces SBC dilution by over 23x, driving EPS growth (€7.59 in Q2 2026 vs. €5.90 in Q2 2025).<br/></li><li><strong>Dividend Execution:</strong> In Q2 2026, ASML distributed the final 2025 dividend of €2.70 per share (completing the FY2025 total distribution of €7.50 per share). On July 15, 2026, management declared an interim FY2026 dividend of <strong>€1.88 per ordinary share</strong>, payable on August 5, 2026. Dividend growth is well-supported by 54.0% gross margins and accelerating Installed Base Management sales (€2.76 billion in Q2 2026).</li></ol>
 </p>
-</div>
-</div>
-<div class="section">
-<h2>Section 5: Buffett Intrinsic Valuation Matrix &amp; Scenario Modeling</h2>
-<p>To evaluate ASML Holding N.V. through Warren Buffett's fundamental ownership framework, we reject Wall Street's reliance on arbitrary exit multiples—which Charlie Munger famously warned depends on "relying on a greater fool in Year 5." Instead, we calculate ASML's true <strong>Normalized Owner Earnings</strong> and discount its cash flows back to the present using a strict, localized cost of capital anchored in European sovereign yields.</p>
-<div class="callout">
+</div></div>
+<div class="section"><h2>Section 5: Buffett Intrinsic Valuation Matrix &amp; Scenario Modeling</h2><p>To evaluate ASML Holding N.V. through Warren Buffett's fundamental ownership framework, we reject Wall Street's reliance on arbitrary exit multiples—which Charlie Munger famously warned depends on "relying on a greater fool in Year 5." Instead, we calculate ASML's true <strong>Normalized Owner Earnings</strong> and discount its cash flows back to the present using a strict, localized cost of capital anchored in European sovereign yields.</p><div class="callout">
 <strong>Warren Buffett's Owner Earnings Equation (1986 Shareholder Letter):</strong><br/>
 <em>Owner Earnings = Operating Cash Flow – Maintenance CapEx – Stock-Based Compensation (SBC) ± Working Capital Float Adjustment</em><br/><br/>
     For ASML, we strictly distinguish between discretionary growth CapEx (expanding High-NA assembly halls in Veldhoven and Eindhoven) and true maintenance CapEx required to protect its EUV/DUV monopoly. Stock-Based Compensation is deducted at 100% as a real economic cash cost and shareholder dilution factor.
-  </div>
-<div class="metrics-grid">
+  </div><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">FY2026E Operating Cash Flow</div>
 <div class="metric-value">€14.20B</div>
@@ -1519,13 +1483,7 @@
 <div class="metric-value">€11.68B</div>
 <div class="metric-delta pos">~$13.08B USD</div>
 </div>
-</div>
-<h3>1. Localized Sovereign Discount Rate &amp; Capital Structure Bridge</h3>
-<p>Per Buffett's international valuation directive, we never use US 10-Year Treasuries to discount a European entity. Cash flows are generated and held primarily in Euros before ADR conversion.</p>
-<ul><li><strong>Risk-Free Rate ($R_f$):</strong> Localized Netherlands 10-Year Government Bond Yield (Dutch State Loan / DSL) at <strong>2.50%</strong> (with recent trading ranges between 2.5% and 3.2%).</li><li><strong>Equity Risk Hurdle Premium:</strong> 6.00% to 6.50%, reflecting ASML's single-source monopoly moat in EUV lithography offset by geopolitical export friction.</li><li><strong>Discount Rate (WACC Hurdle):</strong> <strong>8.50% – 9.00%</strong> total hurdle rate.</li><li><strong>Cannibal Buyback Compounding:</strong> Modeling a <strong>3.0% – 5.0% annual share count reduction</strong> driven by ASML's €12.0B capital return program through 2028 and ongoing free cash flow repurchases, shrinking diluted shares from ~393M down to ~295M–315M over the 10-year period.</li><li><strong>Balance Sheet Net Cash Bridge:</strong> Net Cash position of ~€6.8B ($7.62B USD) added to the discounted capitalized cash stream.</li></ul>
-<h3>2. Bear / Base / Bull Scenario Matrix</h3>
-<p>The table below models ASML's 10-year discounted Owner Earnings cash streams across three distinct operational trajectories. Values are converted to USD at a EUR/USD FX rate of 1.12. Exit multiples are strictly prohibited; terminal value is capped at a conservative 2.25% long-term GDP perpetuity growth rate.</p>
-<div class="table-scroll-wrap"><table>
+</div><h3>1. Localized Sovereign Discount Rate &amp; Capital Structure Bridge</h3><p>Per Buffett's international valuation directive, we never use US 10-Year Treasuries to discount a European entity. Cash flows are generated and held primarily in Euros before ADR conversion.</p><ul><li><strong>Risk-Free Rate ($R_f$):</strong> Localized Netherlands 10-Year Government Bond Yield (Dutch State Loan / DSL) at <strong>2.50%</strong> (with recent trading ranges between 2.5% and 3.2%).</li><li><strong>Equity Risk Hurdle Premium:</strong> 6.00% to 6.50%, reflecting ASML's single-source monopoly moat in EUV lithography offset by geopolitical export friction.</li><li><strong>Discount Rate (WACC Hurdle):</strong> <strong>8.50% – 9.00%</strong> total hurdle rate.</li><li><strong>Cannibal Buyback Compounding:</strong> Modeling a <strong>3.0% – 5.0% annual share count reduction</strong> driven by ASML's €12.0B capital return program through 2028 and ongoing free cash flow repurchases, shrinking diluted shares from ~393M down to ~295M–315M over the 10-year period.</li><li><strong>Balance Sheet Net Cash Bridge:</strong> Net Cash position of ~€6.8B ($7.62B USD) added to the discounted capitalized cash stream.</li></ul><h3>2. Bear / Base / Bull Scenario Matrix</h3><p>The table below models ASML's 10-year discounted Owner Earnings cash streams across three distinct operational trajectories. Values are converted to USD at a EUR/USD FX rate of 1.12. Exit multiples are strictly prohibited; terminal value is capped at a conservative 2.25% long-term GDP perpetuity growth rate.</p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Valuation Metric / Drivers</th>
@@ -1602,23 +1560,15 @@
 <td><strong>$2,600.00</strong></td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <strong>Intrinsic Owner Earnings Yield Assessment:</strong><br/>
     At our Base Case intrinsic valuation of <strong>$2,150 per share</strong>, ASML offers an initial Owner Earnings cash yield of ~3.8%, compounding at double-digit rates driven by EUV/High-NA unit pricing power and a 4% annual share cannibal reduction. If market volatility pushes the stock down toward our lower corridor ($1,550), the initial Owner Earnings yield expands to over 5.2%—providing a classic Warren Buffett margin of safety.
-  </div>
-</div>
-<div class="section">
-<h2>Section 6: Execution Risk, Margin of Safety &amp; Pre-Mortem Falsification</h2>
-<p>No investment thesis is bulletproof. A rigorous fundamental analysis requires mapping the structural fragilities that could kill this thesis, establishing explicit margin-of-safety parameters, and monitoring automated price alert corridors.</p>
-<h3>1. Surveillance Corridors &amp; Trigger Thresholds</h3>
-<div class="callout">
+  </div></div>
+<div class="section"><h2>Section 6: Execution Risk, Margin of Safety &amp; Pre-Mortem Falsification</h2><p>No investment thesis is bulletproof. A rigorous fundamental analysis requires mapping the structural fragilities that could kill this thesis, establishing explicit margin-of-safety parameters, and monitoring automated price alert corridors.</p><h3>1. Surveillance Corridors &amp; Trigger Thresholds</h3><div class="callout">
 <strong>Dynamic Price Alert Corridor:</strong>
 <ul><li><strong>Upper Alert Threshold ($2,150.00):</strong> Corresponds directly to our Base Case Intrinsic Value. Crossing this threshold signals that the market has fully priced in the AI infrastructure ramp. Trigger review for trim/re-allocation into higher Owner Earnings yield opportunities.
   <strong>Lower Alert Threshold ($1,550.00):</strong> Tests the lower boundary of our Bear Case margin of safety. Reaching this level triggers an aggressive capital deployment protocol, provided primary operational thesis drivers remain intact.</li></ul>
-</div>
-<h3>2. Key Execution Risk Parameters</h3>
-<div class="table-scroll-wrap"><table>
+</div><h3>2. Key Execution Risk Parameters</h3><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Risk Vector</th>
@@ -1648,10 +1598,7 @@
 <td>Disruptive technologies such as Direct-Write Electron Beam, Nanoimprint Lithography (NIL), or advanced 3D chiplet stacking bypassing sub-2nm front-end shrink could reduce long-term EUV layer count growth. Currently mitigated by cost-per-transistor economics favoring optical EUV shrink.</td>
 </tr>
 </tbody>
-</table></div>
-<h3>3. Pre-Mortem Falsification Triggers (Thesis Invalidation Criteria)</h3>
-<p>If any of the following operational conditions occur, the original thesis is officially invalidated, and fair value must be immediately downgraded to the Bear Case ($1,450):</p>
-<div class="metrics-grid">
+</table></div><h3>3. Pre-Mortem Falsification Triggers (Thesis Invalidation Criteria)</h3><p>If any of the following operational conditions occur, the original thesis is officially invalidated, and fair value must be immediately downgraded to the Bear Case ($1,450):</p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Trigger 1: GM Contraction</div>
 <div class="metric-value">&lt; 50.0%</div>
@@ -1672,12 +1619,10 @@
 <div class="metric-value">0% Cannibal Rate</div>
 <div class="metric-delta neg">Capital Misallocation</div>
 </div>
-</div>
-<div class="callout">
+</div><div class="callout">
 <strong>Pre-Mortem Summary &amp; Final Margin of Safety Verdict:</strong><br/>
     ASML possesses an exceptionally wide economic moat—a near-pure technological monopoly over the single most critical manufacturing step in human civilization. At current price levels, the margin of safety is directly tied to customer CapEx execution in advanced AI logic and DRAM. So long as Owner Earnings compound above 12% annually and share repurchases continue to cannibalize diluted share count by &gt;3% per year, holding ASML represents an asymmetric, high-probability compounding investment anchored in first-principles economics.
-  </div>
-</div>
+  </div></div>
             </article>
         </div>
 

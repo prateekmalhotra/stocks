@@ -486,11 +486,21 @@
         .memo-container ul, .memo-container ol {
             font-family: var(--font-serif) !important;
             font-size: 1.12rem !important;
-            line-height: 1.9 !important;
+            line-height: 1.85 !important;
             color: var(--text-body) !important;
-            margin: 0 0 26px 30px !important;
+            margin: 16px 0 24px 24px !important;
+            padding-left: 12px !important;
         }
-        .memo-container li { margin-bottom: 10px !important; color: var(--text-body) !important; }
+        .memo-container ul { list-style-type: disc !important; }
+        .memo-container ol { list-style-type: decimal !important; }
+        .memo-container li {
+            margin-bottom: 12px !important;
+            color: var(--text-body) !important;
+            line-height: 1.85 !important;
+        }
+        .memo-container li::marker {
+            color: var(--accent-warm) !important;
+        }
         .memo-container strong, .memo-container b {
             color: var(--text-title) !important;
             font-weight: 600 !important;
@@ -1150,26 +1160,17 @@
         <!-- Memo Content -->
         <div id="tab-memo" class="tab-content active">
             <article class="memo-container">
-                <div class="section">
-<h2>Section 1: Business Model &amp; Portfolio Transformation</h2>
-<h3>1.1 Strategic Platform Evolution: Single-Brand Disruption to Multi-Brand Category Powerhouse</h3>
-<p>
+                <div class="section"><h2>Section 1: Business Model &amp; Portfolio Transformation</h2><h3>1.1 Strategic Platform Evolution: Single-Brand Disruption to Multi-Brand Category Powerhouse</h3><p>
     Celsius Holdings, Inc. (NASDAQ: CELH) has undergone a fundamental structural pivot, evolving from an agile, single-brand functional drink challenger into a consolidated, multi-brand modern energy platform. Historically anchored by its namesake thermogenic functional beverage, the company has strategically expanded its reach across distinct consumer demographics, consumption occasions, and retail channels through targeted brand acquisitions and strategic distribution integrations. Today, the company operates a unified platform controlling approximately 20.1% dollar share of the U.S. ready-to-drink (RTD) energy drink category, with two independent $1 billion-plus annualized retail brands—CELSIUS and Alani Nu—plus the integrated Rockstar Energy brand.
-  </p>
-<p>
+  </p><p>
     The corporate architecture rests on three complementary pillars designed to capture incremental market share without self-cannibalization:
-  </p>
-<ul><li><strong>CELSIUS Core (Fitness &amp; Functional Active Lifestyle):</strong> The legacy flagship brand featuring a proprietary MetaPlus® blend, zero sugar, and thermogenic properties. It primarily targets fitness enthusiasts, active-lifestyle consumers, and everyday functional energy seekers across a 12 oz standard format, 16 oz CELSIUS Essentials, and non-carbonated Fizz-Free lines.
-    <li><strong>Alani Nu (Modern Lifestyle, Health &amp; Female Wellness):</strong> Acquired to capture historically underserved female demographics, wellness-minded Gen Z/Millennial consumers, and lifestyle beverage occasions. Alani Nu offers vibrant flavor profiles, zero-sugar formulations, and targeted supplement lines, generating explosive velocity across mass, grocery, and target convenience channels.
-    <li><strong>Rockstar Energy (Classic Energy &amp; Mass-Market Value):</strong> Acquired in North America via the strategic partnership with PepsiCo, Inc., providing immediate access to traditional energy drink consumers, heavy-user demographics, and value-oriented retail segments that complement CELSIUS’s premium positioning.
+  </p><ul><li><strong>CELSIUS Core (Fitness &amp; Functional Active Lifestyle):</strong> The legacy flagship brand featuring a proprietary MetaPlus® blend, zero sugar, and thermogenic properties. It primarily targets fitness enthusiasts, active-lifestyle consumers, and everyday functional energy seekers across a 12 oz standard format, 16 oz CELSIUS Essentials, and non-carbonated Fizz-Free lines.</li>
+<li><strong>Alani Nu (Modern Lifestyle, Health &amp; Female Wellness):</strong> Acquired to capture historically underserved female demographics, wellness-minded Gen Z/Millennial consumers, and lifestyle beverage occasions. Alani Nu offers vibrant flavor profiles, zero-sugar formulations, and targeted supplement lines, generating explosive velocity across mass, grocery, and target convenience channels.</li>
+<li><strong>Rockstar Energy (Classic Energy &amp; Mass-Market Value):</strong> Acquired in North America via the strategic partnership with PepsiCo, Inc., providing immediate access to traditional energy drink consumers, heavy-user demographics, and value-oriented retail segments that complement CELSIUS’s premium positioning.
     </li>
-</li>
-</li></ul>
-<h3>1.2 Q2 2026 Financial Results Breakdown &amp; Segment Analysis</h3>
-<p>
+</ul><h3>1.2 Q2 2026 Financial Results Breakdown &amp; Segment Analysis</h3><p>
     For the second quarter of 2026 (ended June 30, 2026), Celsius Holdings reported record top-line consolidated revenue of $817.9 million, representing an 10.6% year-over-year increase compared to $739.3 million in Q2 2025. Top-line expansion was spearheaded by the full-quarter consolidation and DSD transition of Alani Nu alongside incremental revenue from Rockstar Energy, which effectively offset a temporary contraction in core CELSIUS brand shipments.
-  </p>
-<div class="metrics-grid">
+  </p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Consolidated Q2 Revenue</div>
 <div class="metric-value">$817.9M</div>
@@ -1200,11 +1201,9 @@
 <div class="metric-value">20.1%</div>
 <div class="metric-delta pos">+30% Zero-Sugar Growth</div>
 </div>
-</div>
-<p>
+</div><p>
     The consolidated results reflect a complex transitional quarter characterized by revenue divergence across portfolio brands, elevated trade promotional reinvestments, and one-time distributor termination charges associated with network alignment.
-  </p>
-<div class="table-scroll-wrap"><table>
+  </p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Brand / Segment</th>
@@ -1245,50 +1244,33 @@
 <td><strong>Multi-brand platform delivery representing ~1 in 5 energy drinks sold across U.S. retail channels.</strong></td>
 </tr>
 </tbody>
-</table></div>
-<h3>1.3 Portfolio Segment Deep-Dive: Core CELSIUS, Alani Nu &amp; Rockstar Dynamics</h3>
-<p>
+</table></div><h3>1.3 Portfolio Segment Deep-Dive: Core CELSIUS, Alani Nu &amp; Rockstar Dynamics</h3><p>
 <strong>Core CELSIUS Rebalancing &amp; SKU Optimization Over-Correction:</strong> Flagship CELSIUS revenue contracted 11.7% YoY to $387.0 million (compared to $438.4 million in Q2 2025). While off-premise scanner data in tracked retail channels showed a milder decline of ~2.0%, reported net revenue was penalized by three distinct friction points:
-  </p>
-<ol><li><em>Inventory Rightsizing &amp; Distribution Timing:</em> Wholesalers and retail partners reduced safety stock following the rapid acceleration of the PepsiCo network rollout.
+  </p><ol><li><em>Inventory Rightsizing &amp; Distribution Timing:</em> Wholesalers and retail partners reduced safety stock following the rapid acceleration of the PepsiCo network rollout.
   <em>Heightened Trade &amp; Promotional Spend:</em> Gross-to-net promotional allowances, billbacks, and shelf-placement slotting fees increased to support major summer retail resets.
-  <em>Excessive SKU Rationalization:</em> In preparing retail schematics for the 2026 spring resets, management aggressively pruned low-performing SKUs to streamline supply chain complexity. However, this cut too deeply into core high-velocity flavors and regional favorites.</li></ol>
-<div class="callout">
+  <em>Excessive SKU Rationalization:</em> In preparing retail schematics for the 2026 spring resets, management aggressively pruned low-performing SKUs to streamline supply chain complexity. However, this cut too deeply into core high-velocity flavors and regional favorites.</li></ol><div class="callout">
 <strong>Management Retrospective on Brand CELSIUS Execution:</strong><br/>
 <em>"We went too deep on the CELSIUS rationalization... Looking back, I definitely would not have cut as many SKUs within the organization through the commercial plans. We have established greater stability in the portfolio, with Fizz-Free now positioned as a core sub-line alongside VIBE products and core flavors. Q3 for brand CELSIUS will look similar to Q2 before returning to growth as we exit 2026."</em><br/>
     — <strong>John Fieldly, CEO &amp; Chairman</strong> (Q2 2026 Earnings Call, August 6, 2026)
-  </div>
-<p>
+  </div><p>
 <strong>Alani Nu Synergy Realization:</strong> Alani Nu proved to be the primary top-line growth vector, generating $364.4 million in net revenue (+21.0% YoY) while tracked-channel retail sales surged 56% YoY. The brand benefited from high consumer velocity, the viral launch of its limited-time "Purple Cotton Candy" flavor, and initial inventory load-ins as distribution transitioned into PepsiCo’s system. However, operating margins absorbed $80.9 million in GAAP distributor termination fees during Q2 2026 to buy out legacy independent distribution routes for Alani Nu and transfer them onto Pepsi trucks.
-  </p>
-<p>
+  </p><p>
 <strong>Rockstar Integration Completion:</strong> Rockstar Energy contributed $66.5 million in net revenue for Q2. Management successfully completed the operating platform integration during the quarter, stabilizing retail shelf space while reconfiguring the SKU line to focus on low-sugar, modern flavor profiles that fit seamlessly within Celsius’s broader category management framework.
-  </p>
-</div>
-<div class="section">
-<h2>Section 2: Moat Evaluation, Distribution Dynamics &amp; Competitive Landscape</h2>
-<h3>2.1 The PepsiCo Direct-to-Store Delivery (DSD) Engine &amp; Network Economic Moat</h3>
-<p>
+  </p></div>
+<div class="section"><h2>Section 2: Moat Evaluation, Distribution Dynamics &amp; Competitive Landscape</h2><h3>2.1 The PepsiCo Direct-to-Store Delivery (DSD) Engine &amp; Network Economic Moat</h3><p>
     Celsius Holdings’ primary competitive moat stems from its strategic partnership and distribution alliance with PepsiCo, Inc. (PEP). Originally forged in August 2022 and expanded through the acquisition of Rockstar rights and Alani Nu DSD transition agreements, PepsiCo acts as the exclusive master distributor in the United States and Canada, holding an ~11% equity ownership stake via convertible preferred stock. In Q2 2026, PepsiCo accounted for approximately 60% of Celsius Holdings' total net revenue and over half of outstanding receivables.
-  </p>
-<p>
+  </p><p>
     The economic advantages generated by this DSD network architecture include:
-  </p>
-<ul><li><strong>Ubiquitous Shelf Presence &amp; Cold-Tier Placement:</strong> Direct-to-Store Delivery circumvents centralized retailer warehouses. PepsiCo drivers deliver directly to store doors, stock shelves, organize end-cap displays, and manage front-of-store cooler placement, driving impulse purchase conversion.
-    <li><strong>Route-to-Market Scale Efficiency:</strong> Delivering CELSIUS, Alani Nu, and Rockstar together on a single PepsiCo truck dramatically improves dropship density and logistics economics, enabling Celsius to negotiate aggressive shelf placements against traditional category giants.
-    <li><strong>Capital-Light Infrastructure:</strong> Celsius operates a lean co-packing manufacturing model. By outsourcing heavy capital expenditure in warehousing, fleet maintenance, and long-haul trucking to PepsiCo, Celsius converts fixed logistics overhead into variable distribution expenses.
+  </p><ul><li><strong>Ubiquitous Shelf Presence &amp; Cold-Tier Placement:</strong> Direct-to-Store Delivery circumvents centralized retailer warehouses. PepsiCo drivers deliver directly to store doors, stock shelves, organize end-cap displays, and manage front-of-store cooler placement, driving impulse purchase conversion.</li>
+<li><strong>Route-to-Market Scale Efficiency:</strong> Delivering CELSIUS, Alani Nu, and Rockstar together on a single PepsiCo truck dramatically improves dropship density and logistics economics, enabling Celsius to negotiate aggressive shelf placements against traditional category giants.</li>
+<li><strong>Capital-Light Infrastructure:</strong> Celsius operates a lean co-packing manufacturing model. By outsourcing heavy capital expenditure in warehousing, fleet maintenance, and long-haul trucking to PepsiCo, Celsius converts fixed logistics overhead into variable distribution expenses.
     </li>
-</li>
-</li></ul>
-<div class="callout">
+</ul><div class="callout">
 <strong>Structural Risk &amp; Channel Concentration:</strong><br/>
     While the PepsiCo partnership provides distribution scale, it creates customer concentration risk. Reliance on PepsiCo for ~60% of revenue exposes Celsius to inventory rebalancing decisions, trade rebate structures, and operational prioritization within PepsiCo’s broader beverage portfolio (which includes Gatorade, Mountain Dew, and Pepsi zero-sugar lines).
-  </div>
-<h3>2.2 2026 Retail Shelf Space Resets &amp; Assortment Productivity Realignment</h3>
-<p>
+  </div><h3>2.2 2026 Retail Shelf Space Resets &amp; Assortment Productivity Realignment</h3><p>
     During the spring and early summer 2026 retail shelf resets, Celsius Holdings utilized its expanded multi-brand portfolio to command significantly enlarged retail footprints across mass, grocery, convenience, and drug channels.
-  </p>
-<div class="metrics-grid">
+  </p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">CELSIUS Core Space Gain</div>
 <div class="metric-value">+17%</div>
@@ -1309,15 +1291,11 @@
 <div class="metric-value">+11%</div>
 <div class="metric-delta pos">Convenience Velocity</div>
 </div>
-</div>
-<p>
+</div><p>
     The space gains reflect retailer enthusiasm for zero-sugar, modern energy offerings. The +100% space expansion for Alani Nu was directly unlocked by moving the brand onto Pepsi trucks, allowing retailers to consolidate delivery schedules. Within convenience stores, top-performing core 12 oz CELSIUS single cans grew velocity by +11% YoY, proving that top SKUs maintain high shelf productivity when adequately stocked. Management is addressing the over-rationalization of core SKUs by restoring key flavor varieties and stabilizing the Fizz-Free and VIBE sub-lines heading into 2027.
-  </p>
-<h3>2.3 Competitive Landscape &amp; Category Share Dynamics</h3>
-<p>
+  </p><h3>2.3 Competitive Landscape &amp; Category Share Dynamics</h3><p>
     The U.S. ready-to-drink energy drink category represents an estimated $28.5 billion market. Historically dominated by Monster Beverage Corporation (MNST) and Red Bull, the landscape has been reshaped by the growth of functional, zero-sugar, and fitness-oriented modern energy drinks.
-  </p>
-<div class="table-scroll-wrap"><table>
+  </p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Market Participant</th>
@@ -1352,28 +1330,18 @@
 <td>Fragmented challengers competing for niche lifestyle, gaming, and pre-workout segments.</td>
 </tr>
 </tbody>
-</table></div>
-<p>
+</table></div><p>
     By controlling three distinct brands targeting different consumer occasions, Celsius Holdings acts as a primary category growth engine. In Q2 2026, the company’s brand umbrella contributed approximately 30% of the entire U.S. zero-sugar energy category’s $640 million dollar growth.
-  </p>
-<h3>2.4 International Expansion Playbook &amp; Long-Term Horizon</h3>
-<p>
+  </p><h3>2.4 International Expansion Playbook &amp; Long-Term Horizon</h3><p>
     International markets represent Celsius Holdings' primary long-term growth opportunity. In Q2 2026, international sales reached $27.2 million, up 9.7% YoY, accounting for just ~3.3% of total revenue. Management has set a strategic objective to expand international sales to <strong>15%+ of total corporate revenue by 2031</strong>.
-  </p>
-<p>
+  </p><p>
     The international rollout strategy utilizes a phased market entry framework:
-  </p>
-<ul><li><strong>Established Anchor Markets:</strong> Nordic countries (Sweden and Finland), where Celsius has operated a direct distribution footprint and commands leading market share in functional wellness categories.
-    <li><strong>Active Expansion Territories:</strong> United Kingdom, Ireland, France, Australia, New Zealand, Iberia (Spain/Portugal), and Benelux. Expansion in these territories is fueled by co-investments with local PepsiCo bottling partners and commercial distributors.
-    <li><strong>Localized Assortment &amp; Compliance:</strong> Modifying caffeine dosages, packaging formats, and localized ingredient formulations to satisfy regional food safety regulations (e.g., EFSA requirements in Europe and TGA standards in Australia) while preserving brand equity.
+  </p><ul><li><strong>Established Anchor Markets:</strong> Nordic countries (Sweden and Finland), where Celsius has operated a direct distribution footprint and commands leading market share in functional wellness categories.</li>
+<li><strong>Active Expansion Territories:</strong> United Kingdom, Ireland, France, Australia, New Zealand, Iberia (Spain/Portugal), and Benelux. Expansion in these territories is fueled by co-investments with local PepsiCo bottling partners and commercial distributors.</li>
+<li><strong>Localized Assortment &amp; Compliance:</strong> Modifying caffeine dosages, packaging formats, and localized ingredient formulations to satisfy regional food safety regulations (e.g., EFSA requirements in Europe and TGA standards in Australia) while preserving brand equity.
     </li>
-</li>
-</li></ul>
-</div>
-<div class="section">
-<h2>Section 3: Earnings Quality &amp; Cash Flow Audit</h2>
-<p>Evaluating Celsius Holdings, Inc. (CELH) requires looking beyond headline figures to examine the reconciliation between reported GAAP profitability and Non-GAAP financial measures. In Q2 2026, the company posted a sharp divergence between GAAP Net Income of $55.3M ($36.4M attributable to common shareholders, or $0.14 per diluted share) and Non-GAAP Adjusted EBITDA of $184.2M (with Adjusted Diluted EPS of $0.36). The driver of this gap was $80.9M in distributor termination fees incurred as Celsius consolidated the distribution rights for newly acquired Alani Nu and Rockstar Energy into PepsiCo’s Direct-Store-Delivery (DSD) network.</p>
-<div class="metrics-grid">
+</ul></div>
+<div class="section"><h2>Section 3: Earnings Quality &amp; Cash Flow Audit</h2><p>Evaluating Celsius Holdings, Inc. (CELH) requires looking beyond headline figures to examine the reconciliation between reported GAAP profitability and Non-GAAP financial measures. In Q2 2026, the company posted a sharp divergence between GAAP Net Income of $55.3M ($36.4M attributable to common shareholders, or $0.14 per diluted share) and Non-GAAP Adjusted EBITDA of $184.2M (with Adjusted Diluted EPS of $0.36). The driver of this gap was $80.9M in distributor termination fees incurred as Celsius consolidated the distribution rights for newly acquired Alani Nu and Rockstar Energy into PepsiCo’s Direct-Store-Delivery (DSD) network.</p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Q2 2026 Net Income (GAAP)</div>
 <div class="metric-value">$55.3M</div>
@@ -1394,10 +1362,7 @@
 <div class="metric-value">$296.3M</div>
 <div class="metric-delta pos">+126.2% YoY</div>
 </div>
-</div>
-<h3>GAAP Net Income to Non-GAAP Adjusted EBITDA Reconciliation</h3>
-<p>Management utilizes Adjusted EBITDA and Adjusted Diluted EPS to strip out non-operating expenses, transaction-related friction, and non-cash charges. However, a disciplined investor must determine which add-backs represent true non-recurring items and which constitute ongoing operational costs.</p>
-<div class="table-scroll-wrap"><table>
+</div><h3>GAAP Net Income to Non-GAAP Adjusted EBITDA Reconciliation</h3><p>Management utilizes Adjusted EBITDA and Adjusted Diluted EPS to strip out non-operating expenses, transaction-related friction, and non-cash charges. However, a disciplined investor must determine which add-backs represent true non-recurring items and which constitute ongoing operational costs.</p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Financial Metric / Reconciliation Line Item</th>
@@ -1493,15 +1458,10 @@
 <td>26.2%</td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <strong>Earnings Quality Callout — The Distributor Transition Fee Cycle:</strong><br/>
     While management treats the $80.9M distributor termination fees as a non-GAAP add-back to show core operating performance, these cash and accrued outlays represent real economic friction required to move acquired brands (Alani Nu and Rockstar) into PepsiCo’s DSD network. Investors should treat distributor termination charges as capital expenditures for distribution rights rather than structural operating costs, but they still consume tangible balance sheet resources.
-  </div>
-<h3>Cash Flow Audit &amp; Stock-Based Compensation (SBC) Dissection</h3>
-<p>Celsius generated strong operating cash flow during the first six months of 2026, reaching $296.3M—more than double the $131.0M generated in 1H 2025. The primary driver behind cash conversion was working capital efficiency in inventory and trade collections following the consolidation of co-packing arrangements.</p>
-<p>Under a strict Owner Earnings framework, Stock-Based Compensation is treated as a direct cash-equivalent cost because it dilutes existing equity owners or forces cash buybacks to offset dilution. Deducting $16.8M in 1H 2026 SBC ($6.8M in Q2 2026) from Operating Cash Flow reveals the business's underlying cash generation capacity. Furthermore, because Celsius operates an asset-light, outsourced co-packing model, physical Maintenance CapEx remains minimal—averaging under 1.5% of total sales ($11.2M in 1H 2026).</p>
-<div class="table-scroll-wrap"><table>
+  </div><h3>Cash Flow Audit &amp; Stock-Based Compensation (SBC) Dissection</h3><p>Celsius generated strong operating cash flow during the first six months of 2026, reaching $296.3M—more than double the $131.0M generated in 1H 2025. The primary driver behind cash conversion was working capital efficiency in inventory and trade collections following the consolidation of co-packing arrangements.</p><p>Under a strict Owner Earnings framework, Stock-Based Compensation is treated as a direct cash-equivalent cost because it dilutes existing equity owners or forces cash buybacks to offset dilution. Deducting $16.8M in 1H 2026 SBC ($6.8M in Q2 2026) from Operating Cash Flow reveals the business's underlying cash generation capacity. Furthermore, because Celsius operates an asset-light, outsourced co-packing model, physical Maintenance CapEx remains minimal—averaging under 1.5% of total sales ($11.2M in 1H 2026).</p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Cash Flow &amp; Owner Earnings Audit Line Item</th>
@@ -1542,19 +1502,11 @@
 <td>Exemplifies high capital efficiency of asset-light beverage distribution.</td>
 </tr>
 </tbody>
-</table></div>
-<h3>Working Capital, Trade Spend &amp; Inventory Velocity</h3>
-<p>A central topic in Q2 2026 earnings was the divergence between Celsius brand net sales (-11.7% YoY to $387.0M) and tracked retail scan data (which showed scan volume down only ~2% YoY). This gap was driven by distributor inventory rebalancing, increased trade promotional allowances, and channel mix adjustments.</p>
-<p>With PepsiCo representing approximately 60% of total revenue and more than half of accounts receivable, working capital trends remain heavily tied to PepsiCo's ordering cycles. The reduction in channel inventory, combined with management's acknowledgment that past SKU rationalization cut too deep, indicates that brand-level revenue in Q3 2026 will track similarly to Q2 before returning to growth late in the year.</p>
-<div class="callout">
+</table></div><h3>Working Capital, Trade Spend &amp; Inventory Velocity</h3><p>A central topic in Q2 2026 earnings was the divergence between Celsius brand net sales (-11.7% YoY to $387.0M) and tracked retail scan data (which showed scan volume down only ~2% YoY). This gap was driven by distributor inventory rebalancing, increased trade promotional allowances, and channel mix adjustments.</p><p>With PepsiCo representing approximately 60% of total revenue and more than half of accounts receivable, working capital trends remain heavily tied to PepsiCo's ordering cycles. The reduction in channel inventory, combined with management's acknowledgment that past SKU rationalization cut too deep, indicates that brand-level revenue in Q3 2026 will track similarly to Q2 before returning to growth late in the year.</p><div class="callout">
 <strong>Working Capital Alert — Revenue Recognition vs. Scan Volume:</strong><br/>
     The ~9.7% disconnect between reported brand CELSIUS net shipments (-11.7%) and retail sell-through (-2.0%) indicates distributor destocking and higher promotional trade spend rather than end-consumer demand collapse. Working capital receivables remain clean, but cash realization depends on PepsiCo maintaining baseline safety stock across its regional distribution centers.
-  </div>
-</div>
-<div class="section">
-<h2>Section 4: Balance Sheet Structure, Dilution &amp; Capital Allocation</h2>
-<p>Celsius Holdings entered the second half of 2026 with a liquid balance sheet, holding $631.2M in cash and cash equivalents. However, analyzing the company's enterprise value requires careful accounting for its long-term debt structure and its convertible preferred stock issues held in mezzanine equity.</p>
-<div class="metrics-grid">
+  </div></div>
+<div class="section"><h2>Section 4: Balance Sheet Structure, Dilution &amp; Capital Allocation</h2><p>Celsius Holdings entered the second half of 2026 with a liquid balance sheet, holding $631.2M in cash and cash equivalents. However, analyzing the company's enterprise value requires careful accounting for its long-term debt structure and its convertible preferred stock issues held in mezzanine equity.</p><div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">Cash &amp; Equivalents</div>
 <div class="metric-value">$631.2M</div>
@@ -1575,10 +1527,7 @@
 <div class="metric-value">253.34M</div>
 <div class="metric-delta pos">-1.4% vs FY25</div>
 </div>
-</div>
-<h3>Capital Structure &amp; Net Debt Bridge</h3>
-<p>As of June 30, 2026, Celsius carried $694.8M in principal debt ($675.9M net book value after unamortized debt issuance costs) via its senior secured term loan facility. In July 2026, management lowered the effective interest rate on this term loan by 25 basis points (to ~6.56%), with provisions for an additional 25 bps reduction based on leverage targets. On a simple debt-versus-cash basis, Celsius maintains a net debt position of $44.7M (or $63.6M on principal terms).</p>
-<div class="table-scroll-wrap"><table>
+</div><h3>Capital Structure &amp; Net Debt Bridge</h3><p>As of June 30, 2026, Celsius carried $694.8M in principal debt ($675.9M net book value after unamortized debt issuance costs) via its senior secured term loan facility. In July 2026, management lowered the effective interest rate on this term loan by 25 basis points (to ~6.56%), with provisions for an additional 25 bps reduction based on leverage targets. On a simple debt-versus-cash basis, Celsius maintains a net debt position of $44.7M (or $63.6M on principal terms).</p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Capital Structure Component</th>
@@ -1625,14 +1574,10 @@
 <td><strong>Priority liquidation claims above common equity holders.</strong></td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <strong>Dilution &amp; Mezzanine Preference Audit:</strong><br/>
     The $1.76B in Series A and Series B Convertible Preferred Stock sits senior to common stock in the capital structure. PepsiCo's Series B preference carries conversion rights into ~29 common shares per preferred share, along with board representation rights (2 designated directors). Additionally, cumulative preferred dividend allocations reduced Q2 GAAP common net income by $18.9M ($44.0M in 1H 2026), creating a hurdle between enterprise net income and common shareholder cash flows.
-  </div>
-<h3>Capital Allocation Audit: Buybacks vs. Organic Growth</h3>
-<p>Management deployed $100.4M during Q2 2026 to repurchase common stock ($124.5M across 1H 2026) under its active $300M share repurchase program. These repurchases successfully reduced diluted common shares outstanding to 253.34M as of June 30, 2026, down from 256.91M at year-end 2025.</p>
-<div class="table-scroll-wrap"><table>
+  </div><h3>Capital Allocation Audit: Buybacks vs. Organic Growth</h3><p>Management deployed $100.4M during Q2 2026 to repurchase common stock ($124.5M across 1H 2026) under its active $300M share repurchase program. These repurchases successfully reduced diluted common shares outstanding to 253.34M as of June 30, 2026, down from 256.91M at year-end 2025.</p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Capital Allocation Bucket</th>
@@ -1667,30 +1612,17 @@
 <td>Routine debt service lowering annual net interest expense.</td>
 </tr>
 </tbody>
-</table></div>
-<p>Celsius’s capital allocation strategy balances returning capital to common shareholders via repurchases against absorbing the integration costs of the Alani Nu and Rockstar transactions. With cash flow from operations reaching $296.3M in the first half of the year, the business is capable of funding remaining distributor termination obligations and executing share buybacks without stretching its balance sheet.</p>
-</div>
-<div class="section">
-<h2>Section 5: Warren Buffett Owner Earnings &amp; Intrinsic Valuation Matrix</h2>
-<p>To value <strong>Celsius Holdings, Inc. (CELH)</strong> with absolute economic reality, we bypass Wall Street's preferred non-GAAP metrics—such as Adjusted EBITDA, which routinely ignores stock-based compensation and capital maintenance—and ground our assessment entirely in Warren Buffett's 1986 Shareholder Letter methodology. Intrinsic value is the discounted value of the cash that can be taken out of a business during its remaining life. For a high-growth consumer beverage entity navigating complex distribution adjustments and brand acquisitions, calculating true mid-cycle Owner Earnings is essential.</p>
-<h3>1. The 7-Pillar Owner Earnings Calculation Framework</h3>
-<p>We evaluate Celsius Holdings across the seven core pillars of the Berkshire valuation framework:</p>
-<ul><li><strong>Pillar 1: Normalized Owner Earnings Derivation:</strong> Operating cash flow for the trailing twelve months reached approximately $330.0 million. To isolate organic operating cash, we deduct maintenance capital expenditures—estimated at $24.0 million (representing ~65% of total CapEx of $37.0 million, as the remaining $13.0 million funds discretionary retail cold-vault placement expansion). Furthermore, we deduct 100% of Stock-Based Compensation ($30.7 million TTM) as a real, non-negotiable cash expense. This yields a baseline <strong>TTM Owner Earnings of $275.3 million</strong>, or <strong>$1.09 per common share</strong> based on 253.3 million diluted common shares outstanding as of Q2 2026.
+</table></div><p>Celsius’s capital allocation strategy balances returning capital to common shareholders via repurchases against absorbing the integration costs of the Alani Nu and Rockstar transactions. With cash flow from operations reaching $296.3M in the first half of the year, the business is capable of funding remaining distributor termination obligations and executing share buybacks without stretching its balance sheet.</p></div>
+<div class="section"><h2>Section 5: Warren Buffett Owner Earnings &amp; Intrinsic Valuation Matrix</h2><p>To value <strong>Celsius Holdings, Inc. (CELH)</strong> with absolute economic reality, we bypass Wall Street's preferred non-GAAP metrics—such as Adjusted EBITDA, which routinely ignores stock-based compensation and capital maintenance—and ground our assessment entirely in Warren Buffett's 1986 Shareholder Letter methodology. Intrinsic value is the discounted value of the cash that can be taken out of a business during its remaining life. For a high-growth consumer beverage entity navigating complex distribution adjustments and brand acquisitions, calculating true mid-cycle Owner Earnings is essential.</p><h3>1. The 7-Pillar Owner Earnings Calculation Framework</h3><p>We evaluate Celsius Holdings across the seven core pillars of the Berkshire valuation framework:</p><ul><li><strong>Pillar 1: Normalized Owner Earnings Derivation:</strong> Operating cash flow for the trailing twelve months reached approximately $330.0 million. To isolate organic operating cash, we deduct maintenance capital expenditures—estimated at $24.0 million (representing ~65% of total CapEx of $37.0 million, as the remaining $13.0 million funds discretionary retail cold-vault placement expansion). Furthermore, we deduct 100% of Stock-Based Compensation ($30.7 million TTM) as a real, non-negotiable cash expense. This yields a baseline <strong>TTM Owner Earnings of $275.3 million</strong>, or <strong>$1.09 per common share</strong> based on 253.3 million diluted common shares outstanding as of Q2 2026.
   <strong>Pillar 2: Mid-Cycle Normalization &amp; Distribution Noise:</strong> Recent financial reports reflect substantial noise from the integration of Alani Nu ($364.4 million Q2 revenue) and Rockstar Energy ($66.5 million Q2 revenue), offset by distributor termination charges of $80.9 million and a temporary 11.7% contraction in core CELSIUS brand net sales due to PepsiCo channel inventory rebalancing and SKU rationalization. Normalizing through these one-time distributor transition expenses elevates baseline mid-cycle Owner Earnings to <strong>$296.0 million ($1.17 per share)</strong>.
   <strong>Pillar 3: Localized Sovereign Discounting:</strong> Operating entirely in USD, Celsius is evaluated using a discount rate grounded in the US 10-Year Treasury yield (~4.20%) plus a standard equity risk premium (~5.30%), establishing an exact <strong>9.50% hurdle rate / discount rate</strong>. In strict adherence to sound intrinsic value rules, long-term terminal cash growth is capped at <strong>2.25%</strong>, matching long-term US real GDP expectations. Exit multiples are completely excluded.
   <strong>Pillar 4: Capital-Light Asset Moat &amp; Cash Yield:</strong> Celsius operates a co-packing, asset-light manufacturing model. The business generates an initial Owner Earnings cash yield of <strong>4.21%</strong> on the current share price of $27.77 ($1.17 / $27.77). Because co-packers bear the heavy fixed-asset CapEx, Celsius delivers returns on invested capital (ROIC) exceeding 25%, allowing incremental capital to compound efficiently.
   <strong>Pillar 5: Buyback Cannibal Compounding:</strong> Management has authorized a $300 million share buyback program, executing $100.4 million in repurchases during Q2 2026 alone and reducing the common share count from 256.9 million to 253.3 million. We model an ongoing 1.5% to 2.5% annual share shrink, compounding per-share cash streams over time.
-  <strong>Pillar 6: Balance Sheet &amp; Preferred Structure Bridge:</strong></li></ul>
-<ul><li>Cash &amp; Cash Equivalents: <strong>+$631.2 million</strong>.
+  <strong>Pillar 6: Balance Sheet &amp; Preferred Structure Bridge:</strong></li></ul><ul><li>Cash &amp; Cash Equivalents: <strong>+$631.2 million</strong>.
   Term Loan Debt (Maturing 2032 @ 6.56%): <strong>-$694.8 million</strong>.
   Operating Lease Liabilities: <strong>-$35.0 million</strong>.
   Net Balance Sheet Adjustment: <strong>-$98.6 million (-$0.39 per share)</strong>.
-  <em>Mezzanine Preferred Equity Note:</em> PepsiCo holds 1,467 Series A and 390 Series B convertible preferred shares. While these preferred shares carry senior liquidation rights ($1.76 billion book value), their conversion rights translate into potential equity dilution or strategic partnership capital. Our per-share intrinsic model explicitly incorporates this capital stack burden.</li></ul>
-
-<ul><li><strong>Pillar 7: Multi-Brand Portfolio Dynamics:</strong> The combined platform (CELSIUS, Alani Nu, and Rockstar) commands a 20.1% dollar share of the US ready-to-drink energy category and drives ~30% of total zero-sugar energy growth. This scale secures immense shelf-space bargaining power across convenience and grocery channels.</li></ul>
-<h3>2. Intrinsic Value Scenario Matrix (Bear / Base / Bull)</h3>
-<p>Evaluating intrinsic equity value per share across three distinct multi-year execution paths against the current market price of <strong>$27.77</strong>:</p>
-<div class="table-scroll-wrap"><table>
+  <em>Mezzanine Preferred Equity Note:</em> PepsiCo holds 1,467 Series A and 390 Series B convertible preferred shares. While these preferred shares carry senior liquidation rights ($1.76 billion book value), their conversion rights translate into potential equity dilution or strategic partnership capital. Our per-share intrinsic model explicitly incorporates this capital stack burden.</li></ul><ul><li><strong>Pillar 7: Multi-Brand Portfolio Dynamics:</strong> The combined platform (CELSIUS, Alani Nu, and Rockstar) commands a 20.1% dollar share of the US ready-to-drink energy category and drives ~30% of total zero-sugar energy growth. This scale secures immense shelf-space bargaining power across convenience and grocery channels.</li></ul><h3>2. Intrinsic Value Scenario Matrix (Bear / Base / Bull)</h3><p>Evaluating intrinsic equity value per share across three distinct multi-year execution paths against the current market price of <strong>$27.77</strong>:</p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Valuation Metric / Input</th>
@@ -1749,29 +1681,16 @@
 <td><span>+58.4% Upside</span></td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
+</table></div><div class="callout">
 <h4>The 5-Year Exchange Closure Test</h4>
 <p>If the stock market were to close for five years, an investor purchasing CELH at $27.77 would earn an attractive fundamental return. Driven by an initial 4.2% Owner Earnings cash yield, 12.5% organic cash flow compounding as Alani Nu scales through PepsiCo's global system, and a ~2.0% annual share reduction from buybacks, per-share Owner Earnings will expand from $1.17 to ~$2.10 by 2031. This organic cash accumulation validates a strong margin of safety independent of Wall Street sentiment.</p>
-</div>
-<h2>Section 6: Thesis Confidence, Execution Risk &amp; Falsification Corridors</h2>
-<h3>1. Comprehensive Execution Risk Assessment</h3>
-<p>While the long-term compounding thesis remains intact, reaching our Base ($34.00) and Bull ($44.00) fair values requires navigating several critical operational risks:</p>
-<ul><li><strong>PepsiCo Distribution Inventory Friction:</strong> PepsiCo accounts for ~60% of total revenue. Inventory rebalancing, distributor territory shifts, and SKU rationalization within Pepsi's system caused an 11.7% YoY decline in core CELSIUS brand sales in Q2 2026. Prolonged inventory Destocking or channel misalignment could delay top-line recovery into late 2027.</li><li><strong>Promotional Spending &amp; Gross Margin Squeeze:</strong> Gross margin contracted 340 basis points YoY to 48.1% in Q2 2026. Heightened promotional activity required to defend shelf space against Monster Beverage (Reign, Monster Ultra) and Red Bull, alongside raw material inflation, threatens target gross margins (&gt;50%).</li><li><strong>Alani Nu &amp; Rockstar Integration Execution:</strong> Integrating Alani Nu ($732.4M 1H revenue) and Rockstar Energy ($133.1M 1H revenue) required $80.9 million in distributor termination fees during Q2 2026. Managing a multi-brand portfolio risks brand overlap, internal cannibalization, and complex supply chain execution.</li><li><strong>Mezzanine Dilution &amp; Credit Obligations:</strong> Celsius carries $694.8 million in term debt and $1.76 billion in combined Series A/B preferred stock balances. Any misstep in cash flow generation could increase debt servicing stress and trigger equity conversion dilution.</li></ul>
-<h3>2. Dynamic Price Alert Corridors &amp; Surveillance Triggers</h3>
-<p>We establish real-time surveillance corridors around key operational and valuation thresholds:</p>
-<p><strong>Upper Alert Threshold: $33.50</strong> (Nearing Base Case Fair Value of $34.00)</p>
-<ul><li><em>Surveillance Trigger:</em> Stock price appreciation to $33.50 signals market pricing of full Base Case recovery.
-  <em>Actionable Thesis Response:</em> Initiate a structured trimming program. Require evidence that gross margins have rebounded above 50.5% and core CELSIUS brand growth has re-accelerated to &gt;10% YoY before maintaining full position sizing into Bull Case territory ($44.00).</li></ul>
-<p><strong>Lower Alert Threshold: $22.00</strong> (Testing Bear Case Floor of $21.00)</p>
-<ul><li><em>Surveillance Trigger:</em> Stock price drop to $22.00 tests the fundamental margin-of-safety floor.
-  <em>Actionable Thesis Response:</em> Trigger an immediate mandatory thesis re-evaluation. Assess whether the drop is driven by temporary Pepsi inventory adjustments or permanent structural erosion. If baseline Owner Earnings remain above $260 million, treat $22.00 as an asymmetric buying opportunity.</li></ul>
-<div class="callout">
+</div><h2>Section 6: Thesis Confidence, Execution Risk &amp; Falsification Corridors</h2><h3>1. Comprehensive Execution Risk Assessment</h3><p>While the long-term compounding thesis remains intact, reaching our Base ($34.00) and Bull ($44.00) fair values requires navigating several critical operational risks:</p><ul><li><strong>PepsiCo Distribution Inventory Friction:</strong> PepsiCo accounts for ~60% of total revenue. Inventory rebalancing, distributor territory shifts, and SKU rationalization within Pepsi's system caused an 11.7% YoY decline in core CELSIUS brand sales in Q2 2026. Prolonged inventory Destocking or channel misalignment could delay top-line recovery into late 2027.</li><li><strong>Promotional Spending &amp; Gross Margin Squeeze:</strong> Gross margin contracted 340 basis points YoY to 48.1% in Q2 2026. Heightened promotional activity required to defend shelf space against Monster Beverage (Reign, Monster Ultra) and Red Bull, alongside raw material inflation, threatens target gross margins (&gt;50%).</li><li><strong>Alani Nu &amp; Rockstar Integration Execution:</strong> Integrating Alani Nu ($732.4M 1H revenue) and Rockstar Energy ($133.1M 1H revenue) required $80.9 million in distributor termination fees during Q2 2026. Managing a multi-brand portfolio risks brand overlap, internal cannibalization, and complex supply chain execution.</li><li><strong>Mezzanine Dilution &amp; Credit Obligations:</strong> Celsius carries $694.8 million in term debt and $1.76 billion in combined Series A/B preferred stock balances. Any misstep in cash flow generation could increase debt servicing stress and trigger equity conversion dilution.</li></ul><h3>2. Dynamic Price Alert Corridors &amp; Surveillance Triggers</h3><p>We establish real-time surveillance corridors around key operational and valuation thresholds:</p><p><strong>Upper Alert Threshold: $33.50</strong> (Nearing Base Case Fair Value of $34.00)</p><ul><li><em>Surveillance Trigger:</em> Stock price appreciation to $33.50 signals market pricing of full Base Case recovery.
+  <em>Actionable Thesis Response:</em> Initiate a structured trimming program. Require evidence that gross margins have rebounded above 50.5% and core CELSIUS brand growth has re-accelerated to &gt;10% YoY before maintaining full position sizing into Bull Case territory ($44.00).</li></ul><p><strong>Lower Alert Threshold: $22.00</strong> (Testing Bear Case Floor of $21.00)</p><ul><li><em>Surveillance Trigger:</em> Stock price drop to $22.00 tests the fundamental margin-of-safety floor.
+  <em>Actionable Thesis Response:</em> Trigger an immediate mandatory thesis re-evaluation. Assess whether the drop is driven by temporary Pepsi inventory adjustments or permanent structural erosion. If baseline Owner Earnings remain above $260 million, treat $22.00 as an asymmetric buying opportunity.</li></ul><div class="callout">
 <h4>Pre-Mortem Thesis Falsification Triggers</h4>
 <p>The investment thesis will be considered structurally broken, mandating an immediate exit or rating downgrade, if any of the following three criteria occur:</p>
 <ol><li><strong>Core Brand Collapse:</strong> Core CELSIUS brand net sales contract by more than 15% YoY for two consecutive quarters, proving that market share loss to Monster/Red Bull is structural rather than inventory-related.</li><li><strong>Gross Margin Deterioration:</strong> Gross margin drops below 44.0% on a trailing twelve-month basis, indicating permanent loss of pricing power and uncontrollable promotional costs.</li><li><strong>PepsiCo Relationship Rupture:</strong> PepsiCo alters or terminates its master distribution and captaincy agreements, or fails to convert preferred stakes, forcing Celsius back onto fragmented independent distribution networks.</li></ol>
-</div>
-</div>
+</div></div>
             </article>
         </div>
 
