@@ -704,6 +704,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     <link rel="apple-touch-icon" href="../favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {{
@@ -1902,9 +1903,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
     alerts_feed_html = alerts_feed_html + empty_alerts_html.format(display_style=disp_style)
 
     from stocks.portfolio import build_portfolio_tab_html, get_enriched_portfolio
-    portfolio_tab_html = build_portfolio_tab_html(100000.0)
-    port_data = get_enriched_portfolio(100000.0)
-    core_count = len(port_data.get("holdings", []))
+    portfolio_defensive_html = build_portfolio_tab_html("defensive", 200000.0)
+    portfolio_aggressive_html = build_portfolio_tab_html("aggressive", 200000.0)
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -1919,6 +1919,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
     <link rel="apple-touch-icon" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {{
@@ -2519,7 +2520,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             <div class="hub-tabs">
                 <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage ({len(watchlist)})</button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts ({len(alerts)})</span></button>
-                <button class="hub-tab-btn" onclick="switchTab('portfolio')">Portfolio ({core_count} Core)</button>
+                <button class="hub-tab-btn" onclick="switchTab('portfolio-defensive')">🛡️ Defensive Fortress ($200k)</button>
+                <button class="hub-tab-btn" onclick="switchTab('portfolio-aggressive')">🚀 Aggressive Alpha ($200k)</button>
             </div>
             <div style="display: flex; align-items: center; gap: 10px;" id="stocks-view-controls">
                 <div class="search-input-wrap" id="hub-search-wrap">
@@ -2576,9 +2578,14 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             </div>
         </section>
 
-        <!-- PORTFOLIO SECTION -->
-        <section id="pane-portfolio" class="tab-panel">
-            {portfolio_tab_html}
+        <!-- DEFENSIVE PORTFOLIO SECTION -->
+        <section id="pane-portfolio-defensive" class="tab-panel">
+            {portfolio_defensive_html}
+        </section>
+
+        <!-- AGGRESSIVE PORTFOLIO SECTION -->
+        <section id="pane-portfolio-aggressive" class="tab-panel">
+            {portfolio_aggressive_html}
         </section>
     </main>
 
@@ -2680,21 +2687,27 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             document.querySelectorAll('.tab-panel').forEach(sec => sec.classList.remove('active'));
             const viewCtrl = document.getElementById('stocks-view-controls');
             
-            if (tab === 'stocks') {{
-                document.querySelectorAll('.hub-tab-btn')[0].classList.add('active');
-                document.getElementById('pane-stocks').classList.add('active');
-                if (viewCtrl) viewCtrl.style.display = 'flex';
-            }} else if (tab === 'alerts') {{
-                document.querySelectorAll('.hub-tab-btn')[1].classList.add('active');
-                document.getElementById('pane-alerts').classList.add('active');
-                if (viewCtrl) viewCtrl.style.display = 'none';
-            }} else if (tab === 'portfolio') {{
-                document.querySelectorAll('.hub-tab-btn')[2].classList.add('active');
-                document.getElementById('pane-portfolio').classList.add('active');
-                if (viewCtrl) viewCtrl.style.display = 'none';
-                if (typeof initPortfolioChart === 'function') {{
-                    setTimeout(initPortfolioChart, 50);
-                }}
+            const btnIdxMap = {{
+                'stocks': 0,
+                'alerts': 1,
+                'portfolio-defensive': 2,
+                'portfolio-aggressive': 3
+            }};
+            const idx = btnIdxMap[tab] !== undefined ? btnIdxMap[tab] : 0;
+            const btns = document.querySelectorAll('.hub-tab-btn');
+            if (btns[idx]) btns[idx].classList.add('active');
+
+            const targetPane = document.getElementById('pane-' + tab);
+            if (targetPane) targetPane.classList.add('active');
+
+            if (viewCtrl) {{
+                viewCtrl.style.display = (tab === 'stocks') ? 'flex' : 'none';
+            }}
+
+            if (tab === 'portfolio-defensive' && typeof initPortfolioChart_defensive === 'function') {{
+                setTimeout(initPortfolioChart_defensive, 50);
+            }} else if (tab === 'portfolio-aggressive' && typeof initPortfolioChart_aggressive === 'function') {{
+                setTimeout(initPortfolioChart_aggressive, 50);
             }}
         }}
 

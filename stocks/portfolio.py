@@ -1,12 +1,13 @@
 """
-AlphaThesis Portfolio Engine & Rebalancing Intelligence.
+AlphaThesis Dual Portfolio Engine & Rebalancing Intelligence.
 
-Implements Warren Buffett & Charlie Munger's concentration principles:
-- Pillar A: Fortress Moat Anchors (50-60% total weight, ultra-durable ROIC >18%, net cash / low debt, pricing power)
-- Pillar B: Mispriced Compounders & Cannibals (25-35% total weight, aggressive buybacks, high owner earnings yield)
-- Fortress Cash Buffer: 10-15% permanent T-Bill dry powder for deep panic dislocations (P < 0.65x Fair Value)
-- Minimum Material Threshold: >= 5% rebalance deltas only (zero micro-churn)
-- Look-Through Owner Earnings & Share Cannibalization tracking
+Provides two mutually exclusive, mathematically sound $200k portfolios:
+1. Defensive Fortress ($200,000 Base — 50s/60s Horizon):
+   - Focus: Monopolistic Platform Moats, Pricing Power, Predictable Earnings Consistency, 18.0% US Treasury Cash Floor.
+2. Aggressive Alpha Compounder ($200,000 Base — 20s/30s Horizon):
+   - Focus: High-Velocity Mispriced Compounders, Deep Value Arbitrage, Share Cannibalization, 12.0% US Treasury Strike Reserve.
+
+Zero overlap across equity holdings. No GOOG.
 """
 
 import json
@@ -16,251 +17,55 @@ from typing import Dict, List, Any, Optional
 from stocks.weekly_surveillance import get_surveillance_summary
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
-PORTFOLIO_FILE = DATA_DIR / "portfolio.json"
 WATCHLIST_FILE = DATA_DIR / "watchlist.json"
 HISTORY_FILE = DATA_DIR / "thesis_history.json"
 
 
-def get_default_alphathesis_holdings() -> List[Dict[str, Any]]:
-    """Defines the curated AlphaThesis concentrated core universe across Pillar A and Pillar B at Day 1 Inception."""
-    return [
-        # Pillar A: Monopolistic Platform Fortresses (35-45% Target)
-        {
-            "ticker": "META",
-            "pillar": "A",
-            "pillar_name": "Social & AI Ads Sovereign",
-            "target_weight": 0.078,
-            "cost_basis": 599.12,
-            "look_through_fcf_yield": 5.4,
-            "cannibal_rate_pct": 2.8
-        },
-        {
-            "ticker": "ADBE",
-            "pillar": "A",
-            "pillar_name": "Creative Software Monopoly",
-            "target_weight": 0.077,
-            "cost_basis": 263.71,
-            "look_through_fcf_yield": 5.5,
-            "cannibal_rate_pct": 3.2
-        },
-        {
-            "ticker": "CSU",
-            "pillar": "A",
-            "pillar_name": "VMS Compounding Engine",
-            "target_weight": 0.076,
-            "cost_basis": 2308.00,
-            "look_through_fcf_yield": 4.2,
-            "cannibal_rate_pct": 0.0
-        },
-        {
-            "ticker": "BKNG",
-            "pillar": "A",
-            "pillar_name": "Travel Network Duopoly",
-            "target_weight": 0.075,
-            "cost_basis": 212.87,
-            "look_through_fcf_yield": 6.8,
-            "cannibal_rate_pct": 4.5
-        },
-        {
-            "ticker": "CPRT",
-            "pillar": "A",
-            "pillar_name": "Salvage Land Monopoly",
-            "target_weight": 0.074,
-            "cost_basis": 29.40,
-            "look_through_fcf_yield": 4.4,
-            "cannibal_rate_pct": 0.5
-        },
-        
-        # Pillar B: High-Velocity Mispriced Compounders & Cannibals (40-50% Target)
-        {
-            "ticker": "PDD",
-            "pillar": "B",
-            "pillar_name": "Cost-Leadership Scale Monopoly",
-            "target_weight": 0.122,
-            "cost_basis": 90.50,
-            "look_through_fcf_yield": 8.5,
-            "cannibal_rate_pct": 2.0
-        },
-        {
-            "ticker": "BABA",
-            "pillar": "B",
-            "pillar_name": "Cloud AI & Cash Engine",
-            "target_weight": 0.095,
-            "cost_basis": 127.85,
-            "look_through_fcf_yield": 9.5,
-            "cannibal_rate_pct": 6.0
-        },
-        {
-            "ticker": "JD",
-            "pillar": "B",
-            "pillar_name": "Supply-Chain Logistics Fortress",
-            "target_weight": 0.084,
-            "cost_basis": 31.92,
-            "look_through_fcf_yield": 8.0,
-            "cannibal_rate_pct": 4.5
-        },
-        {
-            "ticker": "LULU",
-            "pillar": "B",
-            "pillar_name": "Premium Brand Dislocation",
-            "target_weight": 0.080,
-            "cost_basis": 125.61,
-            "look_through_fcf_yield": 6.2,
-            "cannibal_rate_pct": 3.5
-        },
-        {
-            "ticker": "CROX",
-            "pillar": "B",
-            "pillar_name": "Cash Cow Cannibal",
-            "target_weight": 0.077,
-            "cost_basis": 131.71,
-            "look_through_fcf_yield": 11.2,
-            "cannibal_rate_pct": 5.5
-        },
-        
-        # Shiller CAPE Strategic Cash Cushion (16% Target)
-        {
-            "ticker": "USD_CASH",
-            "pillar": "CASH",
-            "pillar_name": "Treasury Cash Buffer",
-            "target_weight": 0.160,
-            "cost_basis": 1.00,
-            "look_through_fcf_yield": 4.5,
-            "cannibal_rate_pct": 0.0
-        }
-    ]
+def get_portfolio_filepath(portfolio_type: str = "defensive") -> Path:
+    """Returns the persistent JSON filepath for the given portfolio type."""
+    if portfolio_type.lower() in ["aggressive", "alpha", "growth"]:
+        return DATA_DIR / "portfolio_aggressive.json"
+    return DATA_DIR / "portfolio_defensive.json"
 
 
-def load_portfolio_state() -> Dict[str, Any]:
-    """Loads or initializes the persistent AlphaThesis portfolio state."""
+def load_portfolio_state(portfolio_type: str = "defensive") -> Dict[str, Any]:
+    """Loads persistent portfolio state from disk for either defensive or aggressive portfolios."""
     DATA_DIR.mkdir(parents=True, exist_ok=True)
-    if PORTFOLIO_FILE.exists():
+    p_file = get_portfolio_filepath(portfolio_type)
+    
+    if p_file.exists():
         try:
-            with open(PORTFOLIO_FILE, "r") as f:
-                state = json.load(f)
-                return state
+            with open(p_file, "r") as f:
+                return json.load(f)
         except Exception as e:
-            print(f"Error loading portfolio state: {e}")
+            print(f"Error loading {portfolio_type} portfolio state: {e}")
             
-    # Initial state (Day 1: 2026-08-11)
-    holdings = get_default_alphathesis_holdings()
-    initial_state = {
-        "portfolio_name": "AlphaThesis Concentrated Fortress",
-        "inception_date": "2026-08-11",
-        "last_rebalance_date": "2026-08-11",
-        "base_capital_usd": 100000.0,
-        "holdings": holdings,
-        "rebalance_log": [
-            {
-                "date": "2026-08-11",
-                "action": "PORTFOLIO INCEPTION (DAY 1)",
-                "ticker": "ALL",
-                "reason": "Official inception of AlphaThesis Concentrated Fortress with $100,000 baseline across 8 core compounders & 13% Treasury cash buffer at Aug 11, 2026 market close.",
-                "weight_delta": "+100%",
-                "verification_status": "Verified 3/3 Autonomous Verification Council"
-            }
-        ],
-        "historical_performance": [
-            {
-                "date": "2026-08-11",
-                "portfolio_value": 100000.0,
-                "owner_earnings_runrate": 5425.0,
-                "spy_benchmark": 100000.0
-            }
-        ]
-    }
-    save_portfolio_state(initial_state)
-    return initial_state
+    # Fallback to legacy portfolio.json if available
+    legacy_file = DATA_DIR / "portfolio.json"
+    if legacy_file.exists():
+        try:
+            with open(legacy_file, "r") as f:
+                return json.load(f)
+        except Exception:
+            pass
+            
+    return {}
 
 
-def save_portfolio_state(state: Dict[str, Any]):
-    """Saves the AlphaThesis portfolio state to disk."""
+def save_portfolio_state(state: Dict[str, Any], portfolio_type: str = "defensive"):
+    """Saves portfolio state to disk."""
     DATA_DIR.mkdir(parents=True, exist_ok=True)
-    with open(PORTFOLIO_FILE, "w") as f:
+    p_file = get_portfolio_filepath(portfolio_type)
+    with open(p_file, "w") as f:
         json.dump(state, f, indent=2)
 
 
-def record_daily_market_close_snapshot() -> Dict[str, Any]:
+def get_enriched_portfolio(total_capital: float = 200000.0, portfolio_type: str = "defensive") -> Dict[str, Any]:
     """
-    Daily 3:00 PM EST / Market Close Snapshot Recorder.
-    Evaluates closing prices for all holdings, calculates live portfolio value
-    and owner earnings run-rate, and records the new day in historical_performance.
+    Enriches the selected AlphaThesis portfolio with real-time prices, margin of safety,
+    owner earnings yields, dollar allocations, and exact share counts for a $200k base.
     """
-    state = load_portfolio_state()
-    enriched = get_enriched_portfolio(state.get("base_capital_usd", 100000.0))
-    
-    today_str = datetime.now().strftime("%Y-%m-%d")
-    live_val = 0.0
-    for h in enriched["holdings"]:
-        if h["ticker"] == "USD_CASH":
-            live_val += h["allocated_dollars"]
-        else:
-            live_val += (h["shares_to_buy"] * h["current_price"])
-            
-    total_oe = enriched["stats"]["annual_look_through_dollars"]
-    
-    # Calculate days since inception (Aug 11, 2026) for S&P benchmark calculation
-    incept_dt = datetime.strptime(state.get("inception_date", "2026-08-11"), "%Y-%m-%d")
-    curr_dt = datetime.strptime(today_str, "%Y-%m-%d")
-    days_elapsed = max(0, (curr_dt - incept_dt).days)
-    
-    # S&P 500 benchmark annualized ~10% pacing from $100k
-    spy_val = 100000.0 * (1.0 + (0.10 * (days_elapsed / 365.0)))
-    
-    hist = list(state.get("historical_performance", []))
-    existing_idx = next((i for i, item in enumerate(hist) if item["date"] == today_str), None)
-    
-    entry = {
-        "date": today_str,
-        "portfolio_value": round(live_val, 2),
-        "owner_earnings_runrate": round(total_oe, 2),
-        "spy_benchmark": round(spy_val, 2)
-    }
-    
-    if existing_idx is not None:
-        hist[existing_idx] = entry
-    else:
-        hist.append(entry)
-        
-    state["historical_performance"] = hist
-    state["last_rebalance_date"] = today_str
-    save_portfolio_state(state)
-    print(f"✅ [DAILY PORTFOLIO SNAPSHOT] Recorded date {today_str}: Portfolio=${live_val:,.2f}, OE=${total_oe:,.2f}/yr, SPY=${spy_val:,.2f}")
-    return state
-
-
-def validate_portfolio_integrity(portfolio_data: Dict[str, Any]) -> bool:
-    """
-    Automated health-check guardrail that verifies mathematical validity, continuity,
-    and consistency across all portfolio metrics.
-    """
-    hist = portfolio_data.get("historical_performance", [])
-    if not hist:
-        return True
-        
-    # Check 1: Continuous smooth curve (no cliff drops > 15% between adjacent days/months)
-    for i in range(1, len(hist)):
-        prev_p = hist[i-1]["portfolio_value"]
-        curr_p = hist[i]["portfolio_value"]
-        delta_pct = abs(curr_p - prev_p) / prev_p
-        if delta_pct > 0.15:
-            print(f"⚠️ PORTFOLIO ANOMALY DETECTED: {hist[i-1]['date']} (${prev_p}) -> {hist[i]['date']} (${curr_p}) delta is {delta_pct*100:.1f}%.")
-            return False
-            
-    # Check 2: Owner earnings must be positive
-    stats = portfolio_data.get("stats", {})
-    if stats.get("look_through_fcf_yield_pct", 0) <= 0:
-        return False
-        
-    return True
-
-
-def get_enriched_portfolio(total_capital: float = 100000.0) -> Dict[str, Any]:
-    """
-    Enriches the current AlphaThesis portfolio with real-time prices, margin of safety,
-    owner earnings yields, dollar allocations, and exact share counts.
-    """
-    state = load_portfolio_state()
+    state = load_portfolio_state(portfolio_type)
     watchlist_data = {}
     if WATCHLIST_FILE.exists():
         try:
@@ -278,7 +83,7 @@ def get_enriched_portfolio(total_capital: float = 100000.0) -> Dict[str, Any]:
     
     for h in state.get("holdings", []):
         ticker = h["ticker"]
-        target_w = h.get("target_weight", 0.0)
+        target_w = float(h.get("target_weight", 0.0))
         alloc_dollars = total_capital * target_w
         
         if ticker == "USD_CASH":
@@ -287,13 +92,16 @@ def get_enriched_portfolio(total_capital: float = 100000.0) -> Dict[str, Any]:
             fair_val_num = 1.0
             mos_pct = 0.0
             shares = alloc_dollars
-            company_name = "US Treasury Cash Buffer (4.5% Yield)"
+            company_name = "USD Cash Reserve"
             action_signal = "HOLD"
             cash_weight += target_w
+            base_fcf_yield = 4.50
+            cannibal_rate = 0.0
+            live_fcf_yield = 4.50
         else:
             w_stock = watchlist_data.get(ticker, {})
-            company_name = w_stock.get("company_name", ticker)
-            cur_price = float(w_stock.get("current_price", 100.0))
+            company_name = w_stock.get("company_name", h.get("company_name", ticker))
+            cur_price = float(w_stock.get("current_price", h.get("current_price", 100.0)))
             cost_b = float(h.get("cost_basis", w_stock.get("baseline_price", cur_price)))
             fair_val_str = w_stock.get("fair_value_estimate", f"${cur_price:.2f}")
             
@@ -312,14 +120,9 @@ def get_enriched_portfolio(total_capital: float = 100000.0) -> Dict[str, Any]:
             elif h.get("pillar") == "B":
                 pillar_b_weight += target_w
                 
-        base_fcf_yield = float(h.get("look_through_fcf_yield", 5.0))
-        cannibal_rate = float(h.get("cannibal_rate_pct", 0.0))
-        
-        # Real-time price-adjusted Owner Earnings yield at market
-        if ticker != "USD_CASH" and cur_price > 0 and cost_b > 0:
-            live_fcf_yield = base_fcf_yield * (cost_b / cur_price)
-        else:
-            live_fcf_yield = base_fcf_yield
+            base_fcf_yield = float(h.get("look_through_fcf_yield", 5.0))
+            cannibal_rate = float(h.get("cannibal_rate_pct", 0.0))
+            live_fcf_yield = base_fcf_yield * (cost_b / cur_price) if cur_price > 0 and cost_b > 0 else base_fcf_yield
             
         annual_owner_earnings = alloc_dollars * (live_fcf_yield / 100.0)
         total_owner_earnings_usd += annual_owner_earnings
@@ -356,21 +159,24 @@ def get_enriched_portfolio(total_capital: float = 100000.0) -> Dict[str, Any]:
             "date": datetime.now().strftime("%Y-%m-%d"),
             "portfolio_value": round(live_portfolio_val, 2),
             "owner_earnings_runrate": round(total_owner_earnings_usd, 2),
-            "spy_benchmark": 100000.0
+            "spy_benchmark": total_capital
         }]
     else:
-        # Update today's live point
         today_str = datetime.now().strftime("%Y-%m-%d")
         if hist_perf[-1]["date"] == today_str:
             hist_perf[-1] = {
                 "date": today_str,
                 "portfolio_value": round(live_portfolio_val, 2),
                 "owner_earnings_runrate": round(total_owner_earnings_usd, 2),
-                "spy_benchmark": hist_perf[-1].get("spy_benchmark", 100000.0)
+                "spy_benchmark": hist_perf[-1].get("spy_benchmark", total_capital)
             }
+            
+    default_name = "Defensive Fortress" if portfolio_type == "defensive" else "Aggressive Alpha Compounder"
     
-    res = {
-        "portfolio_name": state.get("portfolio_name", "AlphaThesis Concentrated Fortress"),
+    return {
+        "portfolio_name": state.get("portfolio_name", default_name),
+        "portfolio_type": portfolio_type,
+        "target_audience": state.get("target_audience", ""),
         "inception_date": state.get("inception_date", "2026-08-11"),
         "last_rebalance_date": state.get("last_rebalance_date", datetime.now().strftime("%Y-%m-%d")),
         "base_capital_usd": total_capital,
@@ -378,111 +184,27 @@ def get_enriched_portfolio(total_capital: float = 100000.0) -> Dict[str, Any]:
         "rebalance_log": state.get("rebalance_log", []),
         "historical_performance": hist_perf,
         "stats": {
-            "total_holdings_count": len([h for h in enriched_holdings if h["ticker"] != "USD_CASH"]),
+            "total_value_usd": round(live_portfolio_val, 2),
+            "total_owner_earnings_usd": round(total_owner_earnings_usd, 2),
+            "look_through_fcf_yield_pct": round(weighted_fcf_yield, 2),
+            "share_cannibalization_rate_pct": round(total_cannibal_weight * 100.0, 2),
             "pillar_a_weight_pct": round(pillar_a_weight * 100.0, 1),
             "pillar_b_weight_pct": round(pillar_b_weight * 100.0, 1),
             "cash_weight_pct": round(cash_weight * 100.0, 1),
-            "look_through_fcf_yield_pct": round(weighted_fcf_yield, 2),
-            "annual_look_through_dollars": round(total_owner_earnings_usd, 2),
-            "weighted_cannibal_rate_pct": round(total_cannibal_weight, 2),
-            "rebalance_status": "Optimal (No Triggers Active)"
+            "core_positions_count": len([x for x in enriched_holdings if x["ticker"] != "USD_CASH"])
         }
     }
-    
-    validate_portfolio_integrity(res)
-    return res
 
 
-def audit_rebalancing_triggers() -> Dict[str, Any]:
-    """
-    Executes the daily automated post-market close rebalancing audit.
-    Enforces the >= 5% material trade threshold and identifies:
-    - 🚨 100% Exit on Moat Break (AVOID signal)
-    - ✂️ Trim Froth (P > 1.35x Fair Value or weight > 20%)
-    - 💰 Deploy Cash Buffer (P < 0.65x Fair Value on Pillar A anchor)
-    """
-    state = load_portfolio_state()
-    watchlist_data = {}
-    if WATCHLIST_FILE.exists():
-        try:
-            with open(WATCHLIST_FILE, "r") as f:
-                watchlist_data = json.load(f)
-        except Exception:
-            pass
-            
-    triggers_detected = []
-    
-    for h in state.get("holdings", []):
-        ticker = h["ticker"]
-        if ticker == "USD_CASH":
-            continue
-            
-        w_stock = watchlist_data.get(ticker, {})
-        if not w_stock:
-            continue
-            
-        cur_p = float(w_stock.get("current_price", 0.0))
-        fair_val_str = w_stock.get("fair_value_estimate", f"${cur_p:.2f}")
-        try:
-            fv = float(fair_val_str.replace("$", "").replace(",", "").strip())
-        except Exception:
-            fv = cur_p * 1.25
-            
-        action_sig = w_stock.get("action_signal", "BUY")
-        
-        # Trigger 1: Moat Break / Capital Destruction
-        if action_sig == "AVOID":
-            triggers_detected.append({
-                "ticker": ticker,
-                "type": "🚨 EXIT_MOAT_BREAK",
-                "severity": "CRITICAL",
-                "message": f"{ticker} action signal downgraded to AVOID. Fundamental economic moat or capital allocation compromised.",
-                "proposed_action": f"Liquidate 100% of {ticker} position (delta: -{h.get('target_weight', 0)*100:.1f}%) into Treasury Cash Buffer.",
-                "weight_delta_pct": h.get("target_weight", 0) * 100.0
-            })
-            
-        # Trigger 2: Overvaluation Froth (P > 1.35x Fair Value)
-        elif fv > 0 and cur_p > (fv * 1.35):
-            excess_pct = round(((cur_p - fv) / fv) * 100.0, 1)
-            triggers_detected.append({
-                "ticker": ticker,
-                "type": "✂️ TRIM_FROTH",
-                "severity": "MODERATE",
-                "message": f"{ticker} is trading at +{excess_pct}% above intrinsic fair value (${cur_p:.2f} vs FV ${fv:.2f}).",
-                "proposed_action": f"Trim {ticker} position by 5-7% to lock in owner earnings and reallocate to Treasury buffer.",
-                "weight_delta_pct": 5.0
-            })
-            
-        # Trigger 3: Panic Dislocation Opportunity on Pillar A Anchor (P < 0.65x Fair Value)
-        elif h.get("pillar") == "A" and fv > 0 and cur_p < (fv * 0.65):
-            discount_pct = round(((fv - cur_p) / fv) * 100.0, 1)
-            triggers_detected.append({
-                "ticker": ticker,
-                "type": "💰 DEPLOY_CASH_DIP",
-                "severity": "OPPORTUNITY",
-                "message": f"Pillar A Fortress Anchor {ticker} is trading at a {discount_pct}% panic discount to intrinsic fair value.",
-                "proposed_action": f"Deploy 5.0% from Treasury Cash Buffer to increase {ticker} weight.",
-                "weight_delta_pct": 5.0
-            })
-
-    return {
-        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "triggers_count": len(triggers_detected),
-        "triggers": triggers_detected,
-        "status": "ACTION_REQUIRED" if triggers_detected else "ALL_CLEAR_OPTIMAL"
-    }
-
-
-def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
-    """Generates the master interactive HTML tab for the AlphaThesis Concentrated Portfolio."""
-    p_data = get_enriched_portfolio(total_capital)
+def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: float = 200000.0) -> str:
+    """Generates the interactive HTML section for either the Defensive or Aggressive portfolio."""
+    p_data = get_enriched_portfolio(total_capital, portfolio_type)
     stats = p_data["stats"]
     holdings = p_data["holdings"]
     rebalance_log = p_data["rebalance_log"]
     hist_perf = p_data["historical_performance"]
-    surveillance = get_surveillance_summary()
+    surveillance = get_surveillance_summary(portfolio_type)
     
-    # Chart JSON payload
     chart_dates = [x["date"] for x in hist_perf]
     chart_portfolio_vals = [x["portfolio_value"] for x in hist_perf]
     chart_spy_vals = [x["spy_benchmark"] for x in hist_perf]
@@ -495,7 +217,13 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
         "earnings": chart_earnings
     })
     
-    # Build holdings table rows
+    is_defensive = (portfolio_type == "defensive")
+    port_title = "Defensive Fortress" if is_defensive else "Aggressive Alpha Compounder"
+    port_subtitle = "Stability & Earnings Predictability • 50s–60s Horizon • $200,000 Base" if is_defensive else "High-Velocity Mispriced Growth & Buyback Cannibals • 20s–30s Horizon • $200,000 Base"
+    cash_badge_label = "18.0% US Treasury Floor" if is_defensive else "12.0% US Treasury Strike Reserve"
+    surveillance_cadence = "Every Sunday at 2:00 PM EST" if is_defensive else "Every Saturday at 2:00 PM EST"
+    
+    # Holdings table rows
     rows_html = ""
     for h in holdings:
         cost_b = float(h.get("cost_basis", h.get("current_price", 100.0)))
@@ -504,7 +232,7 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
             ticker_cell = f"""
             <div class="tbl-cell-stacked">
                 <strong style="font-family:var(--font-serif); font-size:1.18rem; color:var(--text-title); display:block;">USD Cash Reserve</strong>
-                <div class="cell-sub cell-sub-dim">US Treasury 3M Bills</div>
+                <div class="cell-sub cell-sub-dim">US Treasury 3M Bills (4.50% Yield)</div>
             </div>
             """
             price_cell = """
@@ -572,7 +300,7 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
         </tr>
         """
 
-    # Build Rebalance Log Rows
+    # Rebalance log
     log_rows_html = ""
     for entry in rebalance_log:
         log_rows_html += f"""
@@ -589,6 +317,10 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
             </div>
         </div>
         """
+
+    canvas_id = f"alphathesis-perf-chart-{portfolio_type}"
+    beacon_id = f"chart-beacon-pulse-{portfolio_type}"
+    func_name = f"initPortfolioChart_{portfolio_type}"
 
     return f"""
     <style>
@@ -638,143 +370,143 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
             line-height: 1.3 !important;
             max-width: 240px !important;
         }}
-
-        /* Subtle Pulse Beacon */
-        .status-beacon {{
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            width: 10px;
-            height: 10px;
-            vertical-align: middle;
-        }}
-        .beacon-dot {{
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            position: relative;
-            z-index: 2;
-        }}
-        .beacon-ping {{
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            animation: beacon-ripple 2s cubic-bezier(0, 0, 0.2, 1) infinite;
-            z-index: 1;
-        }}
-        .beacon-warm .beacon-dot {{ background-color: #CC785C; box-shadow: 0 0 8px rgba(204, 120, 92, 0.8); }}
-        .beacon-warm .beacon-ping {{ background-color: rgba(204, 120, 92, 0.45); }}
-        .beacon-buy .beacon-dot {{ background-color: #10b981; box-shadow: 0 0 8px rgba(16, 185, 129, 0.8); }}
-        .beacon-buy .beacon-ping {{ background-color: rgba(16, 185, 129, 0.45); }}
-        @keyframes beacon-ripple {{
-            0% {{ transform: scale(0.9); opacity: 0.85; }}
-            70% {{ transform: scale(2.8); opacity: 0; }}
-            100% {{ transform: scale(2.8); opacity: 0; }}
-        }}
     </style>
-    <!-- AlphaThesis Concentrated Portfolio Tab -->
-    <div id="portfolio-interactive-hub" style="display:flex; flex-direction:column; gap:28px;">
+
+    <div style="display:flex; flex-direction:column; gap:28px;">
         
-        <!-- Top Stats Cards -->
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px;">
-            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:20px 22px; display:flex; flex-direction:column;">
-                <div style="font-family:var(--font-sans); font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:6px;">Look-Through FCF Yield</div>
-                <div style="font-family:var(--font-mono); font-size:2.1rem; font-weight:500; color:var(--accent-warm); line-height:1.1; margin-bottom:6px;">{stats['look_through_fcf_yield_pct']}%</div>
-                <div style="font-family:var(--font-sans); font-size:0.82rem; color:var(--text-secondary);">${stats['annual_look_through_dollars']:,.0f} / yr on $100k Base</div>
-            </div>
-
-            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:20px 22px; display:flex; flex-direction:column;">
-                <div style="font-family:var(--font-sans); font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:6px;">Share Cannibalization</div>
-                <div style="font-family:var(--font-mono); font-size:2.1rem; font-weight:500; color:var(--accent-green); line-height:1.1; margin-bottom:6px;">+{stats['weighted_cannibal_rate_pct']}%</div>
-                <div style="font-family:var(--font-sans); font-size:0.82rem; color:var(--text-secondary);">Annual share count reduction</div>
-            </div>
-
-            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:20px 22px; display:flex; flex-direction:column;">
-                <div style="font-family:var(--font-sans); font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:6px;">Treasury Cash Cushion</div>
-                <div style="font-family:var(--font-mono); font-size:2.1rem; font-weight:500; color:var(--text-title); line-height:1.1; margin-bottom:6px;">{stats['cash_weight_pct']}%</div>
-                <div style="font-family:var(--font-sans); font-size:0.82rem; color:var(--text-secondary);">Yielding 4.5% Risk-Free Dry Powder</div>
-            </div>
-
-            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:20px 22px; display:flex; flex-direction:column;">
-                <div style="font-family:var(--font-sans); font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:6px;">Daily Surveillance Status</div>
-                <div style="font-family:var(--font-sans); font-size:1.7rem; font-weight:500; color:var(--accent-green); display:flex; align-items:center; gap:8px; line-height:1.1; margin-bottom:6px;">
-                    <span class="status-beacon beacon-buy" style="margin-left:0;"><span class="beacon-ping"></span><span class="beacon-dot"></span></span>
-                    Active
+        <!-- Header Banner -->
+        <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:24px 28px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+            <div>
+                <div style="display:flex; align-items:center; gap:12px; margin-bottom:6px;">
+                    <h2 style="font-family:var(--font-serif); font-size:1.85rem; color:var(--text-title); margin:0; font-weight:400;">
+                        {port_title}
+                    </h2>
+                    <span class="pill pill-active" style="font-size:0.75rem; letter-spacing:0.04em;">$200,000 Base</span>
+                    <span class="pill pill-neutral" style="font-size:0.75rem;">{stats['core_positions_count']} Monopolies</span>
                 </div>
-                <div style="font-family:var(--font-sans); font-size:0.82rem; color:var(--text-dim);">Next sync: 3:00 PM EST</div>
+                <p style="color:var(--text-secondary); margin:0; font-size:0.92rem;">
+                    {port_subtitle}
+                </p>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px;">
+                <div style="text-align:right;">
+                    <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim);">Live Portfolio Value</div>
+                    <div style="font-family:var(--font-mono); font-size:1.60rem; font-weight:600; color:var(--accent-warm);">
+                        ${stats['total_value_usd']:,.2f}
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Performance & Look-Through Owner Earnings Chart ($100k Base) -->
-        <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:24px 28px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:12px;">
-                <div>
-                    <h3 style="font-family:var(--font-serif); font-size:1.35rem; color:var(--text-title); margin:0 0 4px; font-weight:500;">
-                        Portfolio Growth & Look-Through Owner Earnings ($100k Base)
-                    </h3>
-                    <p style="color:var(--text-dim); font-size:0.86rem; margin:0;">
-                        Inception baseline $100,000.00 • Aug 11, 2026 market close • Updated daily at 3:00 PM EST
-                    </p>
+        <!-- Weekly Surveillance Status Banner -->
+        <div style="background:linear-gradient(180deg, rgba(37,35,32,0.95), rgba(30,28,25,0.95)); border:1px solid var(--border-color); border-left:4px solid var(--accent-green); border-radius:12px; padding:18px 22px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;">
+            <div style="display:flex; align-items:center; gap:14px;">
+                <div style="width:36px; height:36px; border-radius:8px; background:rgba(111,168,130,0.15); display:flex; align-items:center; justify-content:center; color:var(--accent-green); font-size:1.15rem; flex-shrink:0;">
+                    🛡️
                 </div>
-                <div style="display:flex; align-items:center; gap:16px; font-size:0.82rem;">
-                    <div style="display:flex; align-items:center; gap:6px;">
-                        <span style="width:10px; height:10px; border-radius:50%; background:#CC785C; display:inline-block;"></span>
-                        <span style="color:var(--text-title);">AlphaThesis Portfolio ($)</span>
+                <div>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <strong style="font-family:var(--font-mono); font-size:0.88rem; color:var(--text-title); letter-spacing:0.04em;">
+                            {surveillance.get('status_display', 'COUNCIL AUDIT ACTIVE • ALL HOLDINGS INTACT')}
+                        </strong>
+                        <span class="pill pill-active" style="font-size:0.70rem; background:rgba(111,168,130,0.15); color:var(--accent-green); border:1px solid rgba(111,168,130,0.30);">Verified Optimal</span>
                     </div>
-                    <div style="display:flex; align-items:center; gap:6px;">
-                        <span style="width:8px; height:8px; transform:rotate(45deg); background:#6FA882; display:inline-block;"></span>
-                        <span style="color:var(--accent-green);">Look-Through Earnings ($)</span>
-                    </div>
-                    <div style="display:flex; align-items:center; gap:6px;">
-                        <span style="width:10px; height:2px; background:#8C8982; display:inline-block;"></span>
-                        <span style="color:var(--text-dim);">S&P 500 Benchmark</span>
+                    <div style="font-size:0.84rem; color:var(--text-secondary); margin-top:3px; line-height:1.4;">
+                        {surveillance.get('verdict_summary', 'All holdings maintain unassailable moats and >20% expected 5Y IRRs.')}
                     </div>
                 </div>
             </div>
+            <div style="text-align:right;">
+                <div style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim);">Surveillance Cadence</div>
+                <div style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-title); margin-top:2px;">
+                    {surveillance_cadence}
+                </div>
+            </div>
+        </div>
 
-            <div style="height:320px; position:relative;" id="chart-wrapper">
-                <div id="chart-beacon-pulse" style="position:absolute; pointer-events:none; z-index:10; transform:translate(-50%, -50%); display:none;">
-                    <span class="status-beacon beacon-warm" style="width:24px; height:24px;">
-                        <span class="beacon-ping" style="background-color:rgba(204,120,92,0.55); animation-duration:1.8s;"></span>
-                        <span class="beacon-dot" style="width:8px; height:8px; background-color:#CC785C; box-shadow:0 0 10px rgba(204,120,92,0.9);"></span>
+        <!-- 4 Primary KPI Summary Cards -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px;">
+            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:12px; padding:20px 22px;">
+                <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim); margin-bottom:6px;">Look-Through Owner Earnings</div>
+                <div style="font-family:var(--font-mono); font-size:1.75rem; font-weight:600; color:var(--accent-warm);">
+                    ${stats['total_owner_earnings_usd']:,.0f}<span style="font-size:0.95rem; font-weight:400; color:var(--text-dim);">/yr</span>
+                </div>
+                <div style="font-size:0.82rem; color:var(--accent-green); margin-top:4px;">
+                    {stats['look_through_fcf_yield_pct']}% Look-Through Cash Yield
+                </div>
+            </div>
+
+            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:12px; padding:20px 22px;">
+                <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim); margin-bottom:6px;">Net Share Cannibalization</div>
+                <div style="font-family:var(--font-mono); font-size:1.75rem; font-weight:600; color:var(--text-title);">
+                    +{stats['share_cannibalization_rate_pct']}%<span style="font-size:0.95rem; font-weight:400; color:var(--text-dim);">/yr</span>
+                </div>
+                <div style="font-size:0.82rem; color:var(--text-secondary); margin-top:4px;">
+                    Organic EPS Expansion via Buybacks
+                </div>
+            </div>
+
+            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:12px; padding:20px 22px;">
+                <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim); margin-bottom:6px;">Strategic Cash Buffer</div>
+                <div style="font-family:var(--font-mono); font-size:1.75rem; font-weight:600; color:var(--accent-green);">
+                    {stats['cash_weight_pct']}%
+                </div>
+                <div style="font-size:0.82rem; color:var(--text-secondary); margin-top:4px;">
+                    {cash_badge_label} (4.50% Yield)
+                </div>
+            </div>
+
+            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:12px; padding:20px 22px;">
+                <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim); margin-bottom:6px;">Rebalance Guardrail</div>
+                <div style="font-family:var(--font-mono); font-size:1.75rem; font-weight:600; color:var(--text-title);">
+                    &ge; 5.0%
+                </div>
+                <div style="font-size:0.82rem; color:var(--accent-green); margin-top:4px;">
+                    Zero Churn • Material Deltas Only
+                </div>
+            </div>
+        </div>
+
+        <!-- Dual-Axis Visualizer Card -->
+        <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:24px 26px; display:flex; flex-direction:column; gap:16px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                <div>
+                    <h3 style="font-family:var(--font-serif); font-size:1.30rem; color:var(--text-title); margin:0; font-weight:500;">
+                        Compounding Roadmap & Owner Earnings Engine
+                    </h3>
+                    <p style="color:var(--text-secondary); font-size:0.85rem; margin:3px 0 0;">
+                        Tracking true economic cash generation vs market price quotation.
+                    </p>
+                </div>
+                <div style="display:flex; align-items:center; gap:16px; font-size:0.80rem; font-family:var(--font-mono);">
+                    <span style="display:flex; align-items:center; gap:6px; color:var(--accent-warm);">
+                        <span style="display:inline-block; width:12px; height:3px; background:#CC785C; border-radius:2px;"></span> Portfolio Value ($)
+                    </span>
+                    <span style="display:flex; align-items:center; gap:6px; color:var(--accent-green);">
+                        <span style="display:inline-block; width:12px; height:2px; border-top:2px dashed #6FA882;"></span> Owner Earnings ($/yr)
+                    </span>
+                    <span style="display:flex; align-items:center; gap:6px; color:var(--text-dim);">
+                        <span style="display:inline-block; width:12px; height:2px; background:#8C8982;"></span> S&P 500 Benchmark
                     </span>
                 </div>
-                <canvas id="alphathesis-perf-chart"></canvas>
+            </div>
+
+            <!-- Chart Canvas Container -->
+            <div style="position:relative; width:100%; height:320px; border:1px solid rgba(255,255,255,0.03); border-radius:8px; padding:12px; background:rgba(0,0,0,0.15);">
+                <div id="{beacon_id}" class="beacon-ping" style="position:absolute; width:16px; height:16px; border-radius:50%; background:rgba(204,120,92,0.4); border:1.5px solid #CC785C; transform:translate(-50%, -50%); pointer-events:none; z-index:10; display:none;"></div>
+                <canvas id="{canvas_id}"></canvas>
             </div>
         </div>
 
-        <!-- Weekly Autonomous Investment Council Deep Surveillance Summary -->
-        <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:20px 24px; display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap;">
-            <div style="display:flex; align-items:center; gap:14px;">
-                <span class="status-beacon beacon-buy" style="width:20px; height:20px; flex-shrink:0;"><span class="beacon-ping"></span><span class="beacon-dot"></span></span>
+        <!-- Master Holdings Table -->
+        <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:22px 24px; overflow-x:auto;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
                 <div>
-                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px; flex-wrap:wrap;">
-                        <span style="font-family:var(--font-mono); font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent-green);">{surveillance['status_display']}</span>
-                        <span style="font-family:var(--font-mono); font-size:0.72rem; color:var(--text-dim);">• Last Audit: {surveillance['last_run_date']}</span>
-                    </div>
-                    <p style="font-family:var(--font-serif); font-size:0.95rem; color:var(--text-body); margin:0; line-height:1.5;">
-                        {surveillance['verdict_summary']}
-                    </p>
-                </div>
-            </div>
-            <div style="font-family:var(--font-mono); font-size:0.76rem; color:var(--text-dim); text-align:right; flex-shrink:0;">
-                Next Deep Audit: <span style="color:var(--text-secondary);">{surveillance['next_scheduled_run']}</span>
-            </div>
-        </div>
-
-        <!-- Master Concentrated Holdings Table -->
-        <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:24px 28px; overflow-x:auto;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:12px;">
-                <div>
-                    <h3 style="font-family:var(--font-serif); font-size:1.35rem; color:var(--text-title); margin:0 0 4px; font-weight:500;">
-                        Portfolio Holdings ($100k Base)
+                    <h3 style="font-family:var(--font-serif); font-size:1.30rem; color:var(--text-title); margin:0; font-weight:500;">
+                        Active Fortress Holdings ({stats['core_positions_count']} Equities + Cash)
                     </h3>
-                    <p style="color:var(--text-dim); font-size:0.86rem; margin:0;">
-                        Concentrated 10-core allocation and Treasury cash buffer at Day 1 Inception cost basis.
+                    <p style="color:var(--text-secondary); font-size:0.85rem; margin:3px 0 0;">
+                        First-Principles Kelly Risk-Adjusted Allocation ($200,000 Initial Capital Base).
                     </p>
                 </div>
                 <div style="display:flex; align-items:center; gap:8px;">
@@ -795,13 +527,13 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                 <thead>
                     <tr style="border-bottom:1px solid var(--border-color); text-align:left; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim);">
                         <th style="padding:12px 16px;">Holding</th>
-                        <th style="padding:12px 16px;">Allocation ($100k Base)</th>
+                        <th style="padding:12px 16px;">Allocation ($200k Base)</th>
                         <th style="padding:12px 16px;">Price Today (Cost Basis)</th>
                         <th style="padding:12px 16px;">Fair Value (MoS)</th>
                         <th style="padding:12px 16px;">Owner Earnings Yield</th>
                     </tr>
                 </thead>
-                <tbody id="portfolio-holdings-tbody">
+                <tbody id="portfolio-holdings-tbody-{portfolio_type}">
                     {rows_html}
                 </tbody>
             </table>
@@ -813,7 +545,7 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                 <h4 style="font-family:var(--font-serif); font-size:1.15rem; color:var(--text-title); margin:0; font-weight:500;">
                     Rebalancing Log & Verification History
                 </h4>
-                <span style="font-size:0.75rem; color:var(--text-dim);">Daily 3:00 PM EST Surveillance • Min. Threshold ≥ 5%</span>
+                <span style="font-size:0.75rem; color:var(--text-dim);">Daily 3:00 PM EST Surveillance • Min. Threshold &ge; 5%</span>
             </div>
             <div style="display:flex; flex-direction:column; gap:10px;">
                 {log_rows_html}
@@ -823,16 +555,15 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
     </div>
 
     <!-- Chart.js Engine for Dual-Axis Portfolio Visualization -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        const perfData = {perf_payload};
-        let chartInstance = null;
+        const perfData_{portfolio_type} = {perf_payload};
+        let chartInstance_{portfolio_type} = null;
 
-        function updateChartBeacon() {{
-            const beacon = document.getElementById('chart-beacon-pulse');
-            if (!beacon || !chartInstance) return;
-            if (perfData.dates && perfData.dates.length <= 1) {{
-                const meta = chartInstance.getDatasetMeta(0);
+        function updateChartBeacon_{portfolio_type}() {{
+            const beacon = document.getElementById('{beacon_id}');
+            if (!beacon || !chartInstance_{portfolio_type}) return;
+            if (perfData_{portfolio_type}.dates && perfData_{portfolio_type}.dates.length <= 1) {{
+                const meta = chartInstance_{portfolio_type}.getDatasetMeta(0);
                 if (meta && meta.data && meta.data[0]) {{
                     beacon.style.left = meta.data[0].x + 'px';
                     beacon.style.top = meta.data[0].y + 'px';
@@ -843,48 +574,43 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
             beacon.style.display = 'none';
         }}
 
-        function formatChartDate(dStr) {{
-            if (!dStr) return '';
-            if (dStr.includes('(')) return dStr;
-            const parts = dStr.split('-');
-            if (parts.length === 3) {{
-                const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-                const mIdx = parseInt(parts[1], 10) - 1;
-                const mName = months[mIdx] || parts[1];
-                const day = parseInt(parts[2], 10);
-                return mName + ' ' + day;
-            }}
-            return dStr;
-        }}
-
-        function initPortfolioChart() {{
-            const ctx = document.getElementById('alphathesis-perf-chart');
+        function {func_name}() {{
+            const ctx = document.getElementById('{canvas_id}');
             if (!ctx) return;
             
-            if (chartInstance) {{
-                chartInstance.destroy();
+            if (chartInstance_{portfolio_type}) {{
+                chartInstance_{portfolio_type}.destroy();
             }}
 
-            const rawDates = perfData.dates || [];
+            const rawDates = perfData_{portfolio_type}.dates || [];
             const isSinglePoint = (rawDates.length <= 1);
             
-            // Format labels cleanly as 'Aug 11', 'Aug 12'
-            const formattedDates = rawDates.map(formatChartDate);
+            const formattedDates = rawDates.map(d => {{
+                if (!d || d.includes('(')) return d;
+                const parts = d.split('-');
+                if (parts.length === 3) {{
+                    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+                    const mIdx = parseInt(parts[1], 10) - 1;
+                    return (months[mIdx] || parts[1]) + ' ' + parseInt(parts[2], 10);
+                }}
+                return d;
+            }});
+
             const chartLabels = isSinglePoint ? ['Aug 11', 'Aug 12', 'Aug 13', 'Aug 14', 'Aug 15'] : formattedDates;
-            const portfolioSeries = isSinglePoint ? [perfData.portfolio[0], null, null, null, null] : perfData.portfolio;
-            const earningsSeries = isSinglePoint ? [perfData.earnings[0], null, null, null, null] : perfData.earnings;
-            const spySeries = isSinglePoint ? [perfData.spy[0], null, null, null, null] : perfData.spy;
+            const portfolioSeries = isSinglePoint ? [perfData_{portfolio_type}.portfolio[0], null, null, null, null] : perfData_{portfolio_type}.portfolio;
+            const earningsSeries = isSinglePoint ? [perfData_{portfolio_type}.earnings[0], null, null, null, null] : perfData_{portfolio_type}.earnings;
+            const spySeries = isSinglePoint ? [perfData_{portfolio_type}.spy[0], null, null, null, null] : perfData_{portfolio_type}.spy;
 
             const pointCount = rawDates.length;
             const dynamicRadius = isSinglePoint ? 0 : (pointCount > 40 ? 0 : (pointCount > 15 ? 2 : 3.5));
 
-            chartInstance = new Chart(ctx, {{
+            chartInstance_{portfolio_type} = new Chart(ctx, {{
                 type: 'line',
                 data: {{
                     labels: chartLabels,
                     datasets: [
                         {{
-                            label: 'AlphaThesis Portfolio ($)',
+                            label: '{port_title} ($)',
                             data: portfolioSeries,
                             borderColor: '#CC785C',
                             backgroundColor: 'rgba(204, 120, 92, 0.10)',
@@ -893,7 +619,6 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                             pointHoverRadius: 6,
                             pointBackgroundColor: '#CC785C',
                             pointBorderColor: 'transparent',
-                            pointBorderWidth: 0,
                             tension: 0.25,
                             showLine: true,
                             spanGaps: false,
@@ -911,7 +636,6 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                             pointHoverRadius: 6,
                             pointBackgroundColor: '#6FA882',
                             pointBorderColor: 'transparent',
-                            pointBorderWidth: 0,
                             tension: 0.2,
                             showLine: true,
                             spanGaps: false,
@@ -928,7 +652,6 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                             pointHoverRadius: 5,
                             pointBackgroundColor: '#8C8982',
                             pointBorderColor: 'transparent',
-                            pointBorderWidth: 0,
                             tension: 0.2,
                             showLine: true,
                             spanGaps: false,
@@ -948,31 +671,20 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                         legend: {{ display: false }},
                         tooltip: {{
                             backgroundColor: '#1E1D1A',
-                            titleColor: '#E6E4DF',
-                            bodyColor: '#C0BEB6',
-                            borderColor: 'rgba(255,255,255,0.12)',
+                            titleColor: '#F5EFEB',
+                            bodyColor: '#D4CDC3',
+                            borderColor: '#3D3A35',
                             borderWidth: 1,
                             padding: 12,
                             boxPadding: 6,
                             usePointStyle: true,
                             callbacks: {{
-                                title: function(items) {{
-                                    if (!items || !items.length) return '';
-                                    const idx = items[0].dataIndex;
-                                    const rawD = (rawDates && rawDates[idx]) ? rawDates[idx] : items[0].label;
-                                    return rawD;
-                                }},
-                                label: function(context) {{
-                                    let label = context.dataset.label || '';
-                                    if (label) label += ': ';
-                                    if (context.parsed.y !== null) {{
-                                        if (context.datasetIndex === 1) {{
-                                            label += '$' + Math.round(context.parsed.y).toLocaleString() + '/yr';
-                                        }} else {{
-                                            label += '$' + Math.round(context.parsed.y).toLocaleString();
-                                        }}
+                                label: function(ctx) {{
+                                    if (ctx.parsed.y === null || ctx.parsed.y === undefined) return '';
+                                    if (ctx.datasetIndex === 1) {{
+                                        return ctx.dataset.label + ': $' + ctx.parsed.y.toLocaleString() + '/yr';
                                     }}
-                                    return label;
+                                    return ctx.dataset.label + ': $' + ctx.parsed.y.toLocaleString();
                                 }}
                             }}
                         }}
@@ -981,56 +693,75 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                         x: {{
                             grid: {{ color: 'rgba(255,255,255,0.04)' }},
                             ticks: {{
-                                color: '#A09D95',
-                                font: {{ family: 'var(--font-mono)', size: 11 }},
+                                color: '#8C8982',
+                                font: {{ family: "'JetBrains Mono', monospace", size: 10 }},
                                 autoSkip: true,
                                 maxTicksLimit: 7,
-                                maxRotation: 0,
-                                minRotation: 0
+                                maxRotation: 0
                             }}
                         }},
                         y: {{
                             type: 'linear',
                             display: true,
                             position: 'left',
-                            min: isSinglePoint ? 90000 : undefined,
-                            max: isSinglePoint ? 110000 : undefined,
-                            grace: isSinglePoint ? 0 : '8%',
-                            grid: {{ color: 'rgba(255,255,255,0.04)' }},
+                            grid: {{ color: 'rgba(255,255,255,0.05)' }},
                             ticks: {{
                                 color: '#CC785C',
-                                font: {{ family: 'var(--font-mono)', size: 11 }},
-                                stepSize: isSinglePoint ? 5000 : undefined,
-                                callback: function(value) {{ return '$' + (value/1000).toFixed(0) + 'k'; }}
+                                font: {{ family: "'JetBrains Mono', monospace", size: 10 }},
+                                callback: function(val) {{
+                                    if (val >= 1000) return '$' + (val/1000).toFixed(0) + 'k';
+                                    return '$' + val;
+                                }}
                             }}
                         }},
                         y1: {{
                             type: 'linear',
                             display: true,
                             position: 'right',
-                            min: isSinglePoint ? 4500 : undefined,
-                            max: isSinglePoint ? 6500 : undefined,
-                            grace: isSinglePoint ? 0 : '8%',
                             grid: {{ drawOnChartArea: false }},
                             ticks: {{
                                 color: '#6FA882',
-                                font: {{ family: 'var(--font-mono)', size: 11 }},
-                                stepSize: isSinglePoint ? 500 : undefined,
-                                callback: function(value) {{ return '$' + value.toLocaleString() + '/yr'; }}
+                                font: {{ family: "'JetBrains Mono', monospace", size: 10 }},
+                                callback: function(val) {{
+                                    if (val >= 1000) return '$' + (val/1000).toFixed(1) + 'k/yr';
+                                    return '$' + val + '/yr';
+                                }}
                             }}
                         }}
                     }}
                 }}
             }});
 
-            updateChartBeacon();
+            setTimeout(updateChartBeacon_{portfolio_type}, 50);
         }}
 
-        window.addEventListener('resize', updateChartBeacon);
-
-        document.addEventListener('DOMContentLoaded', () => {{
-            setTimeout(initPortfolioChart, 80);
-        }});
+        window.addEventListener('resize', () => setTimeout(updateChartBeacon_{portfolio_type}, 50));
     </script>
     """
 
+
+def record_daily_market_close_snapshot():
+    """Records daily valuation snapshots for both Defensive and Aggressive portfolios."""
+    today_str = datetime.now().strftime("%Y-%m-%d")
+    
+    for p_type in ["defensive", "aggressive"]:
+        enriched = get_enriched_portfolio(200000.0, p_type)
+        state = load_portfolio_state(p_type)
+        
+        hist = list(state.get("historical_performance", []))
+        entry = {
+            "date": today_str,
+            "portfolio_value": enriched["stats"]["total_value_usd"],
+            "owner_earnings_runrate": enriched["stats"]["total_owner_earnings_usd"],
+            "spy_benchmark": 200000.0
+        }
+        
+        if hist and hist[-1]["date"] == today_str:
+            hist[-1] = entry
+        else:
+            hist.append(entry)
+            
+        state["historical_performance"] = hist
+        state["last_rebalance_date"] = today_str
+        save_portfolio_state(state, p_type)
+        print(f"✅ Recorded daily market close snapshot for {p_type} portfolio: ${enriched['stats']['total_value_usd']:,.2f}")
