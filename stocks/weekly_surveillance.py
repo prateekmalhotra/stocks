@@ -36,7 +36,7 @@ UNIVERSE_PROFILES = {
     "UNH":   {"name": "UnitedHealth Group Inc.",      "oe_yield": 5.8, "cannibal": 1.2, "growth": 9.0,  "moat": 9.6, "bs": 8.5, "pool": "defensive"},
     "SPGI":  {"name": "S&P Global Inc.",              "oe_yield": 4.1, "cannibal": 1.8, "growth": 9.5,  "moat": 9.8, "bs": 8.5, "pool": "defensive"},
     "MSFT":  {"name": "Microsoft Corporation",        "oe_yield": 3.9, "cannibal": 0.8, "growth": 11.0, "moat": 9.7, "bs": 9.0, "pool": "defensive"},
-    "LMT":   {"name": "Lockheed Martin Corporation",  "oe_yield": 6.2, "cannibal": 3.0, "growth": 6.5,  "moat": 9.5, "bs": 8.5, "pool": "defensive"},
+    "ADBE":  {"name": "Adobe Inc.",                   "oe_yield": 5.5, "cannibal": 3.2, "growth": 10.5, "moat": 9.5, "bs": 9.0, "pool": "defensive"},
 
     # Aggressive Alpha Candidates (Wealthsimple)
     "NVDA":  {"name": "NVIDIA Corporation",            "oe_yield": 5.2, "cannibal": 2.5, "growth": 18.0, "moat": 9.8, "bs": 10.0, "pool": "aggressive"},
