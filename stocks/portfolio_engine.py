@@ -1,16 +1,15 @@
 """
 stocks.portfolio_engine
 ~~~~~~~~~~~~~~~~~~~~~~~
-Principled Institutional Portfolio Construction Engine.
+Dynamic Full-Universe Institutional Portfolio Construction Engine.
 
-NO SYCOPHANCY. NO ARBITRARY BLACKLISTS.
-Evaluates the entire coverage universe objectively using:
-1. Non-Negotiable Compliance/Ethical Filters (GOOG employer conflict, LMT weapons)
-2. Normalized Mid-Cycle Owner Earnings & Cyclicality Risk Adjustments
-3. Pure 100-Point Multi-Factor Compounding Score
-4. Real Multi-Industry Taxonomy (e.g., BABA vs JD vs EDU separated correctly)
-5. S&P 500 Shiller CAPE Macro Cash Sizing
-6. Fractional Modified Kelly Allocation with 15% Single-Asset Prudence Cap
+1. Dynamically ingests and scores ALL 72 stocks in data/watchlist.json.
+2. ZERO ARBITRARY BLACKLISTS. Only true compliance/ethical invariants (GOOG employer, LMT weapons).
+3. ZERO ARBITRARY 10-STOCK CAP. Allocates dynamically across all high-quality compounders.
+4. Enforces 1.50% minimum position threshold to eliminate portfolio noise.
+5. Granular Industry De-Duplication (Max 1 per specific industry per portfolio).
+6. S&P 500 Shiller CAPE Macro Cash Sizing.
+7. Fractional Modified Kelly Allocation with strict 15.0% single-asset cap.
 """
 
 import json
@@ -19,7 +18,6 @@ from pathlib import Path
 from typing import Dict, List, Any, Tuple
 
 DATA_DIR = Path("/Users/pmlhtra/Documents/software/stocks/data")
-THESES_DIR = DATA_DIR / "theses"
 WATCHLIST_FILE = DATA_DIR / "watchlist.json"
 
 # =============================================================================
@@ -31,8 +29,9 @@ CAPE_HISTORICAL_MEDIAN = 18.00  # Historical Mean/Median Baseline
 BUFFETT_INDICATOR = 198.50      # US Total Market Cap to GDP % (Extreme Froth)
 TREASURY_BILL_YIELD = 0.0500    # 3-Month Senior US Treasury Bill Yield (5.00% Risk-Free)
 MAX_SINGLE_EQUITY_CAP = 0.1500  # Institutional single-asset prudence ceiling
+MIN_POSITION_WEIGHT = 0.0150    # Minimum meaningful position hurdle (1.50% / $3,000)
+MIN_QUALITY_SCORE_HURDLE = 65.0 # Quality score hurdle for candidate inclusion
 
-# Only genuine non-financial constraints (compliance / personal ethics)
 COMPLIANCE_EXCLUSIONS = {
     "GOOG": "Regulatory/Compliance Constraint: Direct Employer Affiliation",
     "GOOGL": "Regulatory/Compliance Constraint: Direct Employer Affiliation",
@@ -40,206 +39,112 @@ COMPLIANCE_EXCLUSIONS = {
 }
 
 # =============================================================================
-# 2. COMPLETE COVERAGE UNIVERSE TAXONOMY & MID-CYCLE NORMALIZATION
+# 2. COMPLETE COVERAGE UNIVERSE METADATA & REPOSITORY (72 COVERED STOCKS)
 # =============================================================================
 
-TAXONOMY_MAP = {
-    # Enterprise & Vertical Software
-    "CSU": {
-        "sector": "Enterprise Software", "industry": "Vertical Market Software (VMS)",
-        "p_success": 0.92, "moat_base": 9.9, "bs_base": 8.5, "cyclicality_risk": 1.0,
-        "oe_yield": 4.5, "growth_base": 14.0, "cannibal_base": 0.0, "mandate_pref": "defensive",
-        "thesis": "Mission-critical vertical market software acquirer; 25%+ ROIC, negative working capital float, zero churn."
-    },
-    "MSFT": {
-        "sector": "Enterprise Software", "industry": "Enterprise Cloud & OS Backbone",
-        "p_success": 0.90, "moat_base": 9.7, "bs_base": 9.0, "cyclicality_risk": 1.5,
-        "oe_yield": 3.9, "growth_base": 11.0, "cannibal_base": 0.8, "mandate_pref": "defensive",
-        "thesis": "Commercial enterprise software backbone, Azure infrastructure, Office 365 seat monetization."
-    },
-    "ADBE": {
-        "sector": "Enterprise Software", "industry": "Digital Media & Creative Cloud",
-        "p_success": 0.88, "moat_base": 9.5, "bs_base": 9.0, "cyclicality_risk": 1.5,
-        "oe_yield": 5.5, "growth_base": 10.5, "cannibal_base": 3.2, "mandate_pref": "defensive",
-        "thesis": "Creative Cloud monopoly; 85%+ gross margins, $3.5B+ annual share buybacks."
-    },
-    "INTU": {
-        "sector": "Enterprise Software", "industry": "Financial & Tax Software",
-        "p_success": 0.88, "moat_base": 9.5, "bs_base": 8.5, "cyclicality_risk": 1.2,
-        "oe_yield": 4.5, "growth_base": 10.0, "cannibal_base": 1.5, "mandate_pref": "defensive",
-        "thesis": "QuickBooks & TurboTax SMB accounting monopoly; high regulatory switching costs."
-    },
-    "CRM": {
-        "sector": "Enterprise Software", "industry": "Customer CRM & Cloud Enterprise",
-        "p_success": 0.85, "moat_base": 9.2, "bs_base": 8.5, "cyclicality_risk": 1.8,
-        "oe_yield": 5.2, "growth_base": 9.0, "cannibal_base": 3.0, "mandate_pref": "defensive",
-        "thesis": "Enterprise CRM platform standard; multi-cloud cross-selling and margin expansion."
-    },
-    "NOW": {
-        "sector": "Enterprise Software", "industry": "IT Workflow Automation",
-        "p_success": 0.86, "moat_base": 9.3, "bs_base": 8.5, "cyclicality_risk": 1.5,
-        "oe_yield": 4.1, "growth_base": 16.0, "cannibal_base": 0.5, "mandate_pref": "aggressive",
-        "thesis": "Global 2000 digital workflow platform; 98%+ renewal rate, expanding ACV."
-    },
+STOCK_METADATA: Dict[str, Dict[str, Any]] = {
+    # Software & Cloud Platforms
+    "CSU": {"sector": "Enterprise Software", "industry": "Vertical Market Software", "moat": 9.9, "bs": 8.5, "growth": 14.0, "cannibal": 0.0, "oe_yield": 4.5, "cyc": 1.0, "mandate": "defensive", "p": 0.92, "thesis": "Mission-critical vertical market software acquirer; 25%+ ROIC, negative working capital float."},
+    "MSFT": {"sector": "Enterprise Software", "industry": "Enterprise Cloud & OS", "moat": 9.7, "bs": 9.0, "growth": 11.0, "cannibal": 0.8, "oe_yield": 3.9, "cyc": 1.5, "mandate": "defensive", "p": 0.90, "thesis": "Commercial enterprise cloud backbone, Azure infrastructure, Office 365 seat monetization."},
+    "ADBE": {"sector": "Enterprise Software", "industry": "Digital Media & Creative Cloud", "moat": 9.5, "bs": 9.0, "growth": 10.5, "cannibal": 3.2, "oe_yield": 5.5, "cyc": 1.5, "mandate": "defensive", "p": 0.88, "thesis": "Creative Cloud monopoly; 85%+ gross margins, $3.5B+ annual share buybacks."},
+    "INTU": {"sector": "Enterprise Software", "industry": "Financial & Tax Software", "moat": 9.5, "bs": 8.5, "growth": 10.0, "cannibal": 1.5, "oe_yield": 4.5, "cyc": 1.2, "mandate": "defensive", "p": 0.88, "thesis": "QuickBooks & TurboTax SMB accounting monopoly; high regulatory switching costs."},
+    "CRM": {"sector": "Enterprise Software", "industry": "Customer CRM & Cloud Enterprise", "moat": 9.2, "bs": 8.5, "growth": 9.0, "cannibal": 3.0, "oe_yield": 5.2, "cyc": 1.8, "mandate": "defensive", "p": 0.85, "thesis": "Enterprise CRM platform standard; multi-cloud cross-selling and margin expansion."},
+    "NOW": {"sector": "Enterprise Software", "industry": "IT Workflow Automation", "moat": 9.3, "bs": 8.5, "growth": 16.0, "cannibal": 0.5, "oe_yield": 4.1, "cyc": 1.5, "mandate": "aggressive", "p": 0.86, "thesis": "Global 2000 digital workflow platform; 98%+ renewal rate, expanding ACV."},
+    "ADSK": {"sector": "Enterprise Software", "industry": "Architecture & Engineering CAD", "moat": 9.4, "bs": 8.5, "growth": 10.0, "cannibal": 1.5, "oe_yield": 4.2, "cyc": 1.8, "mandate": "defensive", "p": 0.87, "thesis": "AutoCAD and Revit industry-standard CAD monopoly with entrenched workflows."},
+    "PAYC": {"sector": "Enterprise Software", "industry": "Cloud Payroll & HCM Software", "moat": 8.8, "bs": 9.0, "growth": 12.0, "cannibal": 2.5, "oe_yield": 6.2, "cyc": 2.0, "mandate": "aggressive", "p": 0.82, "thesis": "Beti self-service payroll platform with 90%+ recurring revenue and high ROIC."},
+    "WDAY": {"sector": "Enterprise Software", "industry": "Enterprise HCM & Financials", "moat": 8.9, "bs": 8.5, "growth": 13.0, "cannibal": 0.5, "oe_yield": 4.0, "cyc": 1.8, "mandate": "aggressive", "p": 0.82, "thesis": "Core enterprise HR and financial management software for Fortune 500."},
 
-    # Financial Infrastructure, Payments & Credit
-    "V": {
-        "sector": "Financial Infrastructure", "industry": "Global Consumer Payment Networks",
-        "p_success": 0.91, "moat_base": 9.8, "bs_base": 8.5, "cyclicality_risk": 1.2,
-        "oe_yield": 4.6, "growth_base": 9.5, "cannibal_base": 2.2, "mandate_pref": "defensive",
-        "thesis": "World's premier payment network rail; 55%+ operating margin, GDP+ cash conversion."
-    },
-    "MA": {
-        "sector": "Financial Infrastructure", "industry": "Global Consumer Payment Networks",
-        "p_success": 0.90, "moat_base": 9.8, "bs_base": 8.5, "cyclicality_risk": 1.2,
-        "oe_yield": 3.8, "growth_base": 11.5, "cannibal_base": 2.0, "mandate_pref": "defensive",
-        "thesis": "Global payment rail duopoly; 57% operating margin, secular cashless conversion."
-    },
-    "SPGI": {
-        "sector": "Financial Infrastructure", "industry": "Credit Ratings & Market Benchmarks",
-        "p_success": 0.90, "moat_base": 9.8, "bs_base": 8.5, "cyclicality_risk": 2.2,
-        "oe_yield": 4.1, "growth_base": 9.5, "cannibal_base": 1.8, "mandate_pref": "defensive",
-        "thesis": "Sovereign/corporate debt rating duopoly + S&P 500 benchmark index licensing."
-    },
-    "FICO": {
-        "sector": "Financial Infrastructure", "industry": "Credit Scoring & Decision Analytics",
-        "p_success": 0.91, "moat_base": 9.9, "bs_base": 9.0, "cyclicality_risk": 1.0,
-        "oe_yield": 4.2, "growth_base": 15.0, "cannibal_base": 2.5, "mandate_pref": "aggressive",
-        "thesis": "Sovereign monopoly on US consumer credit scoring; extreme pricing power, zero CapEx."
-    },
-    "STNE": {
-        "sector": "Financial Infrastructure", "industry": "Emerging Market Merchant Fintech",
-        "p_success": 0.79, "moat_base": 8.5, "bs_base": 8.5, "cyclicality_risk": 3.0,
-        "oe_yield": 11.5, "growth_base": 12.0, "cannibal_base": 4.0, "mandate_pref": "aggressive",
-        "thesis": "High-ROIC (25%+) Brazil merchant payments & ERP software compounder at single-digit P/E."
-    },
-    "PYPL": {
-        "sector": "Financial Infrastructure", "industry": "Digital Wallet & Global Checkout",
-        "p_success": 0.80, "moat_base": 8.5, "bs_base": 9.0, "cyclicality_risk": 2.0,
-        "oe_yield": 7.2, "growth_base": 7.0, "cannibal_base": 6.5, "mandate_pref": "aggressive",
-        "thesis": "Global checkout network with $1.5T volume; accelerating Braintree margins and buybacks."
-    },
+    # Financial Infrastructure & Payments
+    "V": {"sector": "Financial Infrastructure", "industry": "Global Consumer Payment Networks", "moat": 9.8, "bs": 8.5, "growth": 9.5, "cannibal": 2.2, "oe_yield": 4.6, "cyc": 1.2, "mandate": "defensive", "p": 0.91, "thesis": "World's premier payment network rail; 55%+ operating margin, GDP+ cash conversion."},
+    "MA": {"sector": "Financial Infrastructure", "industry": "Global Consumer Payment Networks", "moat": 9.8, "bs": 8.5, "growth": 11.5, "cannibal": 2.0, "oe_yield": 3.8, "cyc": 1.2, "mandate": "defensive", "p": 0.90, "thesis": "Global payment rail duopoly; 57% operating margin, secular cashless conversion."},
+    "SPGI": {"sector": "Financial Infrastructure", "industry": "Credit Ratings & Market Benchmarks", "moat": 9.8, "bs": 8.5, "growth": 9.5, "cannibal": 1.8, "oe_yield": 4.1, "cyc": 2.2, "mandate": "defensive", "p": 0.90, "thesis": "Sovereign/corporate debt rating duopoly + S&P 500 benchmark index licensing."},
+    "MSCI": {"sector": "Financial Infrastructure", "industry": "Index Benchmarks & Analytics", "moat": 9.6, "bs": 8.0, "growth": 10.5, "cannibal": 1.5, "oe_yield": 4.2, "cyc": 2.0, "mandate": "defensive", "p": 0.89, "thesis": "Global emerging markets and ESG benchmark monopoly with 95%+ retention."},
+    "FICO": {"sector": "Financial Infrastructure", "industry": "Credit Scoring & Decision Analytics", "moat": 9.9, "bs": 9.0, "growth": 15.0, "cannibal": 2.5, "oe_yield": 4.2, "cyc": 1.0, "mandate": "aggressive", "p": 0.91, "thesis": "Sovereign monopoly on US consumer credit scoring; extreme pricing power, zero CapEx."},
+    "STNE": {"sector": "Financial Infrastructure", "industry": "Emerging Market Merchant Fintech", "moat": 8.5, "bs": 8.5, "growth": 12.0, "cannibal": 4.0, "oe_yield": 11.5, "cyc": 3.0, "mandate": "aggressive", "p": 0.79, "thesis": "High-ROIC (25%+) Brazil merchant payments & ERP software compounder at single-digit P/E."},
+    "PYPL": {"sector": "Financial Infrastructure", "industry": "Digital Wallet & Global Checkout", "moat": 8.5, "bs": 9.0, "growth": 7.0, "cannibal": 6.5, "oe_yield": 7.2, "cyc": 2.0, "mandate": "aggressive", "p": 0.80, "thesis": "Global checkout network with $1.5T volume; accelerating Braintree margins and buybacks."},
+    "SOFI": {"sector": "Financial Infrastructure", "industry": "Digital Consumer Neo-Banking", "moat": 8.0, "bs": 8.0, "growth": 20.0, "cannibal": 0.0, "oe_yield": 5.5, "cyc": 2.8, "mandate": "aggressive", "p": 0.76, "thesis": "Full-stack digital bank with Galileo technology infrastructure and expanding deposits."},
+    "HOOD": {"sector": "Financial Infrastructure", "industry": "Retail Brokerage & Prediction Markets", "moat": 8.2, "bs": 8.5, "growth": 18.0, "cannibal": 0.0, "oe_yield": 6.0, "cyc": 3.5, "mandate": "aggressive", "p": 0.75, "thesis": "Dominant Gen-Z retail trading platform with expanding Gold subscriptions and net interest margin."},
 
-    # Healthcare & Medical Technology
-    "ISRG": {
-        "sector": "Healthcare & Medical Technology", "industry": "Robotic Surgical Systems",
-        "p_success": 0.90, "moat_base": 9.8, "bs_base": 10.0, "cyclicality_risk": 1.0,
-        "oe_yield": 3.6, "growth_base": 13.0, "cannibal_base": 0.5, "mandate_pref": "defensive",
-        "thesis": "Global da Vinci robotic surgery monopoly; 80%+ recurring instruments & services, zero debt."
-    },
-    "UNH": {
-        "sector": "Healthcare & Medical Technology", "industry": "Managed Care & Healthcare Services",
-        "p_success": 0.88, "moat_base": 9.6, "bs_base": 8.5, "cyclicality_risk": 1.2,
-        "oe_yield": 5.8, "growth_base": 9.0, "cannibal_base": 1.2, "mandate_pref": "defensive",
-        "thesis": "Integrated Optum healthcare platform + UnitedHealthcare insurance scale."
-    },
+    # Healthcare & Medical Devices
+    "ISRG": {"sector": "Healthcare & Medical Technology", "industry": "Robotic Surgical Systems", "moat": 9.8, "bs": 10.0, "growth": 13.0, "cannibal": 0.5, "oe_yield": 3.6, "cyc": 1.0, "mandate": "defensive", "p": 0.90, "thesis": "Global da Vinci robotic surgery monopoly; 80%+ recurring instruments & services, zero debt."},
+    "UNH": {"sector": "Healthcare & Medical Technology", "industry": "Managed Care & Healthcare Services", "moat": 9.6, "bs": 8.5, "growth": 9.0, "cannibal": 1.2, "oe_yield": 5.8, "cyc": 1.2, "mandate": "defensive", "p": 0.88, "thesis": "Integrated Optum healthcare platform + UnitedHealthcare insurance scale."},
+    "MEDP": {"sector": "Healthcare & Medical Technology", "industry": "Contract Research Clinical CRO", "moat": 9.2, "bs": 10.0, "growth": 13.0, "cannibal": 3.5, "oe_yield": 5.5, "cyc": 2.2, "mandate": "aggressive", "p": 0.86, "thesis": "Founder-led biotech CRO; pristine net cash balance sheet and heavy buybacks."},
+    "LLY": {"sector": "Healthcare & Medical Technology", "industry": "Pharmaceuticals & Incretin Therapeutics", "moat": 9.5, "bs": 8.0, "growth": 18.0, "cannibal": 0.0, "oe_yield": 3.0, "cyc": 1.5, "mandate": "defensive", "p": 0.87, "thesis": "Dominant global leader in incretin/GLP-1 metabolic therapeutics and Alzheimer's pipeline."},
+    "ABT": {"sector": "Healthcare & Medical Technology", "industry": "Diversified Medical Devices & Diagnostics", "moat": 9.3, "bs": 8.5, "growth": 8.5, "cannibal": 1.0, "oe_yield": 4.5, "cyc": 1.2, "mandate": "defensive", "p": 0.89, "thesis": "Continuous glucose monitoring (FreeStyle Libre) leadership and diversified medical diagnostics."},
+    "PFE": {"sector": "Healthcare & Medical Technology", "industry": "Pharmaceutical Commercialization", "moat": 8.0, "bs": 7.5, "growth": 4.0, "cannibal": 0.0, "oe_yield": 8.5, "cyc": 2.0, "mandate": "defensive", "p": 0.78, "thesis": "Deep value post-Covid pharmaceutical turnaround with high dividend yield."},
 
-    # Interactive Media, Consumer Tech & Education
-    "META": {
-        "sector": "Interactive Media & Consumer Tech", "industry": "Digital Advertising & Social Graph",
-        "p_success": 0.89, "moat_base": 9.7, "bs_base": 9.5, "cyclicality_risk": 2.0,
-        "oe_yield": 5.4, "growth_base": 13.0, "cannibal_base": 3.2, "mandate_pref": "aggressive",
-        "thesis": "3.60B Daily Active People social graph monopoly; AI-powered advertising, WhatsApp monetization."
-    },
-    "EDU": {
-        "sector": "Consumer Services & Education", "industry": "Enrichment Education & Float Cash Fortress",
-        "p_success": 0.85, "moat_base": 9.2, "bs_base": 10.0, "cyclicality_risk": 1.8,
-        "oe_yield": 7.3, "growth_base": 14.0, "cannibal_base": 4.0, "mandate_pref": "aggressive",
-        "thesis": "Negative working capital float ($2.24B deferred tuition), $5.56B gross cash ($0 debt), $500M annual shareholder capital return."
-    },
+    # Interactive Media & Social Graphs
+    "META": {"sector": "Interactive Media & Consumer Tech", "industry": "Digital Advertising & Social Graph", "moat": 9.7, "bs": 9.5, "growth": 13.0, "cannibal": 3.2, "oe_yield": 5.4, "cyc": 2.0, "mandate": "aggressive", "p": 0.89, "thesis": "3.60B Daily Active People social graph monopoly; AI-powered advertising, WhatsApp monetization."},
+    "RDDT": {"sector": "Interactive Media & Consumer Tech", "industry": "Community Social & AI Training Corpus", "moat": 8.8, "bs": 9.5, "growth": 25.0, "cannibal": 0.0, "oe_yield": 4.5, "cyc": 2.5, "mandate": "aggressive", "p": 0.78, "thesis": "Irreplaceable human conversational data corpus licensing to AI hyperscalers."},
+    "MTCH": {"sector": "Interactive Media & Consumer Tech", "industry": "Online Dating Apps", "moat": 8.5, "bs": 8.0, "growth": 6.0, "cannibal": 5.0, "oe_yield": 8.8, "cyc": 2.0, "mandate": "aggressive", "p": 0.80, "thesis": "Hinge growth flywheel and deep value cash generation with aggressive buybacks."},
+    "YELP": {"sector": "Interactive Media & Consumer Tech", "industry": "Local Business Review & Ads", "moat": 8.2, "bs": 9.5, "growth": 5.0, "cannibal": 7.0, "oe_yield": 9.5, "cyc": 2.5, "mandate": "aggressive", "p": 0.78, "thesis": "Extreme cash cow (zero debt, $400M cash) repurchasing 7%+ shares annually."},
 
-    # Commerce, Logistics, Travel & Direct Retail (Distinct Models)
-    "MELI": {
-        "sector": "Commerce & Logistics", "industry": "Latin America E-Commerce & Fintech Ecosystem",
-        "p_success": 0.84, "moat_base": 9.5, "bs_base": 9.0, "cyclicality_risk": 2.5,
-        "oe_yield": 6.1, "growth_base": 19.0, "cannibal_base": 0.0, "mandate_pref": "aggressive",
-        "thesis": "Dominant Latin America e-commerce & fintech logistics ecosystem; 35%+ organic volume growth."
-    },
-    "BABA": {
-        "sector": "Commerce & Cloud Infrastructure", "industry": "Cloud Infrastructure & 3P Digital Marketplaces",
-        "p_success": 0.82, "moat_base": 9.5, "bs_base": 10.0, "cyclicality_risk": 2.5,
-        "oe_yield": 8.5, "growth_base": 6.0, "cannibal_base": 6.5, "mandate_pref": "aggressive",
-        "thesis": "Massive deep-value cash fortress ($60B+ net cash), Cloud AI enterprise leader, 7%+ buybacks."
-    },
-    "JD": {
-        "sector": "Commerce & Logistics", "industry": "Direct 1P Supply Chain & Fulfillment Logistics",
-        "p_success": 0.81, "moat_base": 9.0, "bs_base": 9.5, "cyclicality_risk": 2.5,
-        "oe_yield": 9.2, "growth_base": 6.0, "cannibal_base": 5.5, "mandate_pref": "aggressive",
-        "thesis": "Nationwide direct 1P logistics infrastructure, refrigerated supply chain, heavy asset turnover."
-    },
-    "UBER": {
-        "sector": "Commerce & Mobility", "industry": "Urban Mobility & Delivery Networks",
-        "p_success": 0.83, "moat_base": 9.2, "bs_base": 8.5, "cyclicality_risk": 2.2,
-        "oe_yield": 5.5, "growth_base": 16.0, "cannibal_base": 2.0, "mandate_pref": "aggressive",
-        "thesis": "Global ride-share & delivery network duopoly; multi-sided liquidity scale and margin expansion."
-    },
-    "BKNG": {
-        "sector": "Commerce & Travel", "industry": "Online Travel Agency Duopoly",
-        "p_success": 0.86, "moat_base": 9.4, "bs_base": 8.5, "cyclicality_risk": 3.0,
-        "oe_yield": 6.8, "growth_base": 8.5, "cannibal_base": 4.5, "mandate_pref": "defensive",
-        "thesis": "Global travel OTA network effects duopoly + 35%+ FCF conversion and aggressive buybacks."
-    },
-    "GCT": {
-        "sector": "Commerce & Logistics", "industry": "B2B Cross-Border Marketplace",
-        "p_success": 0.78, "moat_base": 8.8, "bs_base": 9.5, "cyclicality_risk": 3.5,
-        "oe_yield": 9.5, "growth_base": 18.0, "cannibal_base": 2.0, "mandate_pref": "aggressive",
-        "thesis": "B2B cross-border marketplace network effects with fulfillment scale, high ROIC, and net cash."
-    },
+    # Education & Negative Working Capital Float
+    "EDU": {"sector": "Consumer Services & Education", "industry": "Enrichment Education & Float Fortress", "moat": 9.2, "bs": 10.0, "growth": 14.0, "cannibal": 4.0, "oe_yield": 7.3, "cyc": 1.8, "mandate": "aggressive", "p": 0.85, "thesis": "Negative working capital float ($2.24B deferred tuition), $5.56B gross cash ($0 debt), $500M shareholder return."},
+    "LGCY": {"sector": "Consumer Services & Education", "industry": "Vocational Healthcare Education", "moat": 8.2, "bs": 9.0, "growth": 15.0, "cannibal": 0.0, "oe_yield": 8.5, "cyc": 2.0, "mandate": "aggressive", "p": 0.76, "thesis": "Accredited practical nursing and allied health training with high placement rates."},
 
-    # Specialty Real Estate & Monopolistic Infrastructure
-    "CPRT": {
-        "sector": "Industrial & Physical Moats", "industry": "Salvage Vehicle Real Estate Auctions",
-        "p_success": 0.89, "moat_base": 9.7, "bs_base": 10.0, "cyclicality_risk": 1.2,
-        "oe_yield": 4.4, "growth_base": 11.0, "cannibal_base": 0.5, "mandate_pref": "defensive",
-        "thesis": "Zoning-protected salvage yard land monopoly + pristine zero-debt balance sheet fortress."
-    },
-    "BYD": {
-        "sector": "Industrial & Physical Moats", "industry": "Fee-Simple Regional Real Estate Gaming",
-        "p_success": 0.82, "moat_base": 8.8, "bs_base": 9.0, "cyclicality_risk": 2.8,
-        "oe_yield": 9.4, "growth_base": 4.5, "cannibal_base": 5.5, "mandate_pref": "aggressive",
-        "thesis": "Fee-simple real estate ownership (~85% owned land), 2.0x leverage, 9.4% FCF yield, 5-6% buybacks."
-    },
+    # Global Commerce, Logistics & Travel
+    "MELI": {"sector": "Commerce & Logistics", "industry": "Latin America E-Commerce & Fintech", "moat": 9.5, "bs": 9.0, "growth": 19.0, "cannibal": 0.0, "oe_yield": 6.1, "cyc": 2.5, "mandate": "aggressive", "p": 0.84, "thesis": "Dominant Latin America e-commerce & fintech logistics ecosystem; 35%+ organic volume growth."},
+    "BABA": {"sector": "Commerce & Cloud Infrastructure", "industry": "Cloud Infrastructure & 3P Digital Marketplaces", "moat": 9.5, "bs": 10.0, "growth": 6.0, "cannibal": 6.5, "oe_yield": 8.5, "cyc": 2.5, "mandate": "aggressive", "p": 0.82, "thesis": "Massive deep-value cash fortress ($60B+ net cash), Cloud AI enterprise leader, 7%+ buybacks."},
+    "JD": {"sector": "Commerce & Logistics", "industry": "Direct 1P Supply Chain & Fulfillment Logistics", "moat": 9.0, "bs": 9.5, "growth": 6.0, "cannibal": 5.5, "oe_yield": 9.2, "cyc": 2.5, "mandate": "aggressive", "p": 0.81, "thesis": "Nationwide direct 1P logistics infrastructure, refrigerated supply chain, heavy asset turnover."},
+    "PDD": {"sector": "Commerce & Logistics", "industry": "Social Value Commerce & Global Temu", "moat": 9.2, "bs": 10.0, "growth": 20.0, "cannibal": 0.0, "oe_yield": 9.8, "cyc": 3.0, "mandate": "aggressive", "p": 0.80, "thesis": "Social group buying scale + global cross-border Temu with $35B+ net cash."},
+    "UBER": {"sector": "Commerce & Mobility", "industry": "Urban Mobility & Delivery Networks", "moat": 9.2, "bs": 8.5, "growth": 16.0, "cannibal": 2.0, "oe_yield": 5.5, "cyc": 2.2, "mandate": "aggressive", "p": 0.83, "thesis": "Global ride-share & delivery network duopoly; multi-sided liquidity scale and margin expansion."},
+    "BKNG": {"sector": "Commerce & Travel", "industry": "Online Travel Agency Duopoly", "moat": 9.4, "bs": 8.5, "growth": 8.5, "cannibal": 4.5, "oe_yield": 6.8, "cyc": 3.0, "mandate": "defensive", "p": 0.86, "thesis": "Global travel OTA network effects duopoly + 35%+ FCF conversion and aggressive buybacks."},
+    "GCT": {"sector": "Commerce & Logistics", "industry": "B2B Cross-Border Marketplace", "moat": 8.8, "bs": 9.5, "growth": 18.0, "cannibal": 2.0, "oe_yield": 9.5, "cyc": 3.5, "mandate": "aggressive", "p": 0.78, "thesis": "B2B cross-border marketplace network effects with fulfillment scale, high ROIC, and net cash."},
+    "UPWK": {"sector": "Commerce & Marketplaces", "industry": "Freelance Talent Platform", "moat": 8.4, "bs": 9.0, "growth": 11.0, "cannibal": 3.0, "oe_yield": 8.5, "cyc": 2.8, "mandate": "aggressive", "p": 0.78, "thesis": "Online knowledge-work marketplace expanding take rates and EBITDA margins."},
 
-    # Semiconductors & Hardware (Objective Mid-Cycle Evaluation)
-    "TSM": {
-        "sector": "Semiconductor Infrastructure", "industry": "Pure-Play Silicon Foundry Utility",
-        "p_success": 0.88, "moat_base": 9.8, "bs_base": 9.5, "cyclicality_risk": 3.0,
-        "oe_yield": 5.9, "growth_base": 15.0, "cannibal_base": 0.0, "mandate_pref": "aggressive",
-        "thesis": "Sole global pure-play foundry utility for all silicon (CPUs, smartphones, autos, industrial)."
-    },
-    "NVDA": {
-        "sector": "Semiconductor Infrastructure", "industry": "Accelerated Compute & GPU Architecture",
-        "p_success": 0.84, "moat_base": 9.6, "bs_base": 9.5, "cyclicality_risk": 4.5,
-        "oe_yield": 3.8, "growth_base": 18.0, "cannibal_base": 1.5, "mandate_pref": "aggressive",
-        "thesis": "CUDA software ecosystem lock-in and AI compute platform; evaluated against mid-cycle margin digestion."
-    },
-    "ASML": {
-        "sector": "Semiconductor Infrastructure", "industry": "EUV Photolithography Monopoly",
-        "p_success": 0.88, "moat_base": 9.9, "bs_base": 9.0, "cyclicality_risk": 4.0,
-        "oe_yield": 3.2, "growth_base": 12.0, "cannibal_base": 1.0, "mandate_pref": "defensive",
-        "thesis": "100% global monopoly on EUV lithography machines; evaluated against semi capex ordering cycles."
-    },
+    # Monopolistic Physical Assets & Real Estate
+    "CPRT": {"sector": "Industrial & Physical Moats", "industry": "Salvage Vehicle Real Estate Auctions", "moat": 9.7, "bs": 10.0, "growth": 11.0, "cannibal": 0.5, "oe_yield": 4.4, "cyc": 1.2, "mandate": "defensive", "p": 0.89, "thesis": "Zoning-protected salvage yard land monopoly + pristine zero-debt balance sheet fortress."},
+    "BYD": {"sector": "Industrial & Physical Moats", "industry": "Fee-Simple Regional Real Estate Gaming", "moat": 8.8, "bs": 9.0, "growth": 4.5, "cannibal": 5.5, "oe_yield": 9.4, "cyc": 2.8, "mandate": "aggressive", "p": 0.82, "thesis": "Fee-simple real estate ownership (~85% owned land), 2.0x leverage, 9.4% FCF yield, 5-6% buybacks."},
+    "FAST": {"sector": "Industrial & Physical Moats", "industry": "Industrial Supply & Onsite Fasteners", "moat": 9.2, "bs": 9.5, "growth": 7.5, "cannibal": 0.5, "oe_yield": 3.5, "cyc": 2.5, "mandate": "defensive", "p": 0.88, "thesis": "Onsite vending machine moat embedded inside customer factories with high ROIC."},
+    "VRT": {"sector": "Industrial & Physical Moats", "industry": "Datacenter Liquid Cooling & Power", "moat": 9.1, "bs": 8.0, "growth": 20.0, "cannibal": 0.0, "oe_yield": 4.8, "cyc": 3.2, "mandate": "aggressive", "p": 0.83, "thesis": "Essential liquid cooling and thermal management infrastructure for high-density AI clusters."},
+
+    # Semiconductors & Hardware Equipment
+    "TSM": {"sector": "Semiconductor Infrastructure", "industry": "Pure-Play Silicon Foundry Utility", "moat": 9.8, "bs": 9.5, "growth": 15.0, "cannibal": 0.0, "oe_yield": 5.9, "cyc": 3.0, "mandate": "aggressive", "p": 0.88, "thesis": "Sole global pure-play foundry utility for all advanced silicon (CPUs, smartphones, autos, industrial)."},
+    "NVDA": {"sector": "Semiconductor Infrastructure", "industry": "Accelerated Compute & GPU Architecture", "moat": 9.6, "bs": 9.5, "growth": 18.0, "cannibal": 1.5, "oe_yield": 3.8, "cyc": 4.5, "mandate": "aggressive", "p": 0.84, "thesis": "CUDA software ecosystem lock-in and AI compute platform; evaluated against mid-cycle digestion."},
+    "ASML": {"sector": "Semiconductor Infrastructure", "industry": "EUV Photolithography Monopoly", "moat": 9.9, "bs": 9.0, "growth": 12.0, "cannibal": 1.0, "oe_yield": 3.2, "cyc": 4.0, "mandate": "defensive", "p": 0.88, "thesis": "100% global monopoly on EUV lithography machines; evaluated against semi capex ordering cycles."},
+    "QCOM": {"sector": "Semiconductor Infrastructure", "industry": "Wireless IP Licensing & Snapdragon SoC", "moat": 9.2, "bs": 8.5, "growth": 9.0, "cannibal": 3.5, "oe_yield": 6.2, "cyc": 3.0, "mandate": "aggressive", "p": 0.84, "thesis": "Cellular standard essential patent licensing cash cow + premium mobile/auto silicon."},
+    "TXN": {"sector": "Semiconductor Infrastructure", "industry": "Analog & Embedded Processing", "moat": 9.4, "bs": 8.5, "growth": 7.0, "cannibal": 1.5, "oe_yield": 3.8, "cyc": 3.0, "mandate": "defensive", "p": 0.87, "thesis": "300mm analog manufacturing cost advantage with 80,000+ catalog products."},
+    "ARM": {"sector": "Semiconductor Infrastructure", "industry": "Semiconductor IP Architecture", "moat": 9.7, "bs": 9.5, "growth": 18.0, "cannibal": 0.0, "oe_yield": 2.2, "cyc": 2.0, "mandate": "aggressive", "p": 0.86, "thesis": "Ubiquitous compute architecture across 99% of smartphones, expanding into data center."},
 
     # Consumer Brands & Retail
-    "DECK": {
-        "sector": "Consumer Brands & Retail", "industry": "High-ROIC Footwear & Lifestyle",
-        "p_success": 0.84, "moat_base": 9.0, "bs_base": 10.0, "cyclicality_risk": 2.0,
-        "oe_yield": 6.5, "growth_base": 12.0, "cannibal_base": 3.0, "mandate_pref": "aggressive",
-        "thesis": "Pristine zero-debt balance sheet; 25%+ ROIC, global HOKA/UGG brand compounding."
-    },
-    "CROX": {
-        "sector": "Consumer Brands & Retail", "industry": "High-ROIC Footwear & Lifestyle",
-        "p_success": 0.80, "moat_base": 8.6, "bs_base": 8.5, "cyclicality_risk": 2.5,
-        "oe_yield": 8.8, "growth_base": 6.0, "cannibal_base": 5.0, "mandate_pref": "aggressive",
-        "thesis": "High-margin cash machine (28% operating margin); rapid debt paydown and deep-value buybacks."
-    },
-    "COST": {
-        "sector": "Consumer Brands & Retail", "industry": "Membership Subscription Warehouse",
-        "p_success": 0.92, "moat_base": 9.8, "bs_base": 9.0, "cyclicality_risk": 1.0,
-        "oe_yield": 3.2, "growth_base": 9.0, "cannibal_base": 0.5, "mandate_pref": "defensive",
-        "thesis": "Unrivaled membership warehouse moat; negative working capital float, 93%+ renewal rate."
-    }
+    "LULU": {"sector": "Consumer Brands & Retail", "industry": "Technical Athletic Apparel", "moat": 9.2, "bs": 10.0, "growth": 10.0, "cannibal": 4.0, "oe_yield": 7.8, "cyc": 2.2, "mandate": "aggressive", "p": 0.84, "thesis": "Pristine zero-debt balance sheet; dominant premium activewear brand with international runway."},
+    "DECK": {"sector": "Consumer Brands & Retail", "industry": "High-ROIC Footwear & Lifestyle", "moat": 9.0, "bs": 10.0, "growth": 12.0, "cannibal": 3.0, "oe_yield": 6.5, "cyc": 2.0, "mandate": "aggressive", "p": 0.84, "thesis": "Pristine zero-debt balance sheet; 25%+ ROIC, global HOKA/UGG brand compounding."},
+    "CROX": {"sector": "Consumer Brands & Retail", "industry": "High-ROIC Footwear & Lifestyle", "moat": 8.6, "bs": 8.5, "growth": 6.0, "cannibal": 5.0, "oe_yield": 8.8, "cyc": 2.5, "mandate": "aggressive", "p": 0.80, "thesis": "High-margin cash machine (28% operating margin); rapid debt paydown and deep-value buybacks."},
+    "NKE": {"sector": "Consumer Brands & Retail", "industry": "Global Athletic Footwear & Apparel", "moat": 9.1, "bs": 8.5, "growth": 5.0, "cannibal": 2.0, "oe_yield": 5.5, "cyc": 2.2, "mandate": "defensive", "p": 0.83, "thesis": "Unmatched global athlete endorsement roster and sports culture scale turnaround."},
+    "ELF": {"sector": "Consumer Brands & Retail", "industry": "Mass Cosmetics & Skincare", "moat": 8.7, "bs": 9.0, "growth": 16.0, "cannibal": 0.0, "oe_yield": 5.2, "cyc": 2.2, "mandate": "aggressive", "p": 0.81, "thesis": "High-velocity digital marketing and prestige duplication in mass beauty."},
+    "COST": {"sector": "Consumer Brands & Retail", "industry": "Membership Subscription Warehouse", "moat": 9.8, "bs": 9.0, "growth": 9.0, "cannibal": 0.5, "oe_yield": 3.2, "cyc": 1.0, "mandate": "defensive", "p": 0.92, "thesis": "Unrivaled membership warehouse moat; negative working capital float, 93%+ renewal rate."},
+    "KO": {"sector": "Consumer Brands & Retail", "industry": "Global Non-Alcoholic Beverages", "moat": 9.6, "bs": 8.0, "growth": 5.5, "cannibal": 0.5, "oe_yield": 4.5, "cyc": 1.0, "mandate": "defensive", "p": 0.91, "thesis": "Worldwide bottling distribution network and irreplaceable beverage brand portfolio."},
+    "UL": {"sector": "Consumer Brands & Retail", "industry": "Consumer Staples & Personal Care", "moat": 9.0, "bs": 8.0, "growth": 5.0, "cannibal": 1.0, "oe_yield": 5.2, "cyc": 1.2, "mandate": "defensive", "p": 0.88, "thesis": "Global footprint in emerging market staples with steady pricing power."},
+    "SONY": {"sector": "Consumer Brands & Media", "industry": "Gaming, Music & Image Sensors", "moat": 9.2, "bs": 8.5, "growth": 8.0, "cannibal": 2.5, "oe_yield": 6.2, "cyc": 2.2, "mandate": "defensive", "p": 0.86, "thesis": "PlayStation gaming network, global music publishing oligopoly, and CMOS sensor monopoly."},
+    "CMCSA": {"sector": "Media & Telecom Infrastructure", "industry": "Broadband Cable & Media Networks", "moat": 8.8, "bs": 7.5, "growth": 4.0, "cannibal": 6.0, "oe_yield": 8.5, "cyc": 2.0, "mandate": "defensive", "p": 0.82, "thesis": "Broadband last-mile infrastructure with heavy share cannibalization."}
 }
+
+TAXONOMY_MAP = STOCK_METADATA
+
+def get_asset_metadata(ticker: str, wl_item: dict) -> Dict[str, Any]:
+    """Retrieves full fundamental metadata for any ticker in coverage universe."""
+    if ticker in STOCK_METADATA:
+        return STOCK_METADATA[ticker]
+        
+    labels = wl_item.get("labels", [])
+    status = wl_item.get("status_label", "Moderate Conviction")
+    
+    mandate = "defensive" if "Safe Compounder" in labels or "Quality Compounder" in labels else "aggressive"
+    
+    return {
+        "sector": "Covered Equities",
+        "industry": f"{ticker} Sector",
+        "moat": 8.5 if "High Conviction" in status else 7.5,
+        "bs": 8.5 if "Cash Fortress" in labels else 7.5,
+        "growth": 12.0 if "Growth" in str(labels) else 8.0,
+        "cannibal": 4.0 if "Buyback Cannibal" in labels else 1.0,
+        "oe_yield": 6.5 if "Deep Value" in labels else 4.5,
+        "cyc": 2.5,
+        "mandate": mandate,
+        "p": 0.82 if "High Conviction" in status else 0.75,
+        "thesis": f"Active covered thesis: {', '.join(labels)}."
+    }
 
 # =============================================================================
 # 3. SHILLER CAPE MACRO CASH DERIVATION
@@ -278,11 +183,11 @@ def score_asset(ticker: str, meta: dict, cur_p: float, fv: float, action_sig: st
     mos_pct = max(0.0, ((fv - cur_p) / cur_p) * 100.0) if cur_p > 0 else 0.0
     
     # 1. Economic Moat Durability (0 - 25 pts)
-    moat_score = meta["moat_base"]
+    moat_score = meta["moat"]
     moat_pts = (moat_score / 10.0) * 25.0
     
     # 2. Balance Sheet Fortress (0 - 20 pts)
-    bs_score = meta["bs_base"]
+    bs_score = meta["bs"]
     bs_pts = (bs_score / 10.0) * 20.0
     
     # 3. Normalized Owner Earnings Yield (0 - 20 pts)
@@ -293,19 +198,19 @@ def score_asset(ticker: str, meta: dict, cur_p: float, fv: float, action_sig: st
     mos_pts = min(20.0, (mos_pct / 40.0) * 20.0)
     
     # 5. Shareholder Alignment & Growth (0 - 15 pts)
-    cannibal = meta["cannibal_base"]
-    growth = meta["growth_base"]
+    cannibal = meta["cannibal"]
+    growth = meta["growth"]
     align_pts = min(15.0, ((cannibal * 1.5 + growth * 0.5) / 12.0) * 15.0)
     
     # Cyclicality Penalty (0 to -5 pts for high peak-cycle OEM risk)
-    cyc_risk = meta.get("cyclicality_risk", 1.5)
+    cyc_risk = meta.get("cyc", 1.5)
     cyc_penalty = max(0.0, (cyc_risk - 1.5) * 1.5)
     
     total_score = round(max(10.0, moat_pts + bs_pts + oe_pts + mos_pts + align_pts - cyc_penalty), 2)
     
     # Mathematical Fractional Kelly Calculation with Cyclicality-Adjusted Quality Multiplier
     payoff_b = (mos_pct / 500.0) + (oe_yield / 100.0) + (cannibal / 100.0) + (growth / 100.0)
-    p = meta["p_success"]
+    p = meta["p"]
     q = 1.0 - p
     raw_kelly = (p * payoff_b - q) / payoff_b if payoff_b > 0 else 0.0
     
@@ -316,7 +221,7 @@ def score_asset(ticker: str, meta: dict, cur_p: float, fv: float, action_sig: st
         "ticker": ticker,
         "sector": meta["sector"],
         "industry": meta["industry"],
-        "mandate_pref": meta["mandate_pref"],
+        "mandate_pref": meta["mandate"],
         "price": cur_p,
         "fair_value": fv,
         "margin_of_safety_pct": round(mos_pct, 2),
@@ -337,12 +242,33 @@ def score_asset(ticker: str, meta: dict, cur_p: float, fv: float, action_sig: st
     }
 
 # =============================================================================
-# 5. FRACTIONAL KELLY PROPORTIONAL CAPPING HELPER
+# 5. FRACTIONAL KELLY PROPORTIONAL CAPPING HELPER (WITH MIN HURDLE)
 # =============================================================================
 
-def allocate_fractional_kelly_capped(k_scores: Dict[str, float], budget: float, max_cap: float = 0.1500) -> Dict[str, float]:
-    """Iteratively distributes budget proportional to Kelly scores while strictly enforcing max_cap."""
-    remaining_tickers = list(k_scores.keys())
+def allocate_fractional_kelly_capped(
+    k_scores: Dict[str, float],
+    budget: float,
+    max_cap: float = 0.1500,
+    min_hurdle: float = 0.0150
+) -> Dict[str, float]:
+    """
+    Iteratively distributes budget proportional to Kelly scores while strictly enforcing
+    max_cap (15.0%) and filtering out sub-hurdle positions (< 1.5%) to avoid portfolio noise.
+    """
+    active_tickers = list(k_scores.keys())
+    
+    # Filter passes to remove tiny fractional noise
+    for _ in range(3):
+        tot_k = sum(k_scores[t] for t in active_tickers)
+        if tot_k <= 0:
+            break
+        raw_shares = {t: (k_scores[t] / tot_k) * budget for t in active_tickers}
+        filtered = [t for t in active_tickers if raw_shares[t] >= min_hurdle]
+        if len(filtered) == len(active_tickers):
+            break
+        active_tickers = filtered
+
+    remaining_tickers = list(active_tickers)
     allocated = {t: 0.0 for t in remaining_tickers}
     remaining_budget = budget
     
@@ -369,23 +295,24 @@ def allocate_fractional_kelly_capped(k_scores: Dict[str, float], budget: float, 
             remaining_tickers.remove(t)
         remaining_budget = round(budget - sum(allocated.values()), 4)
         
-    return {t: round(w, 4) for t, w in allocated.items()}
+    return {t: round(w, 4) for t, w in allocated.items() if w >= min_hurdle}
 
 # =============================================================================
-# 6. PORTFOLIO COMPILATION & SELECTION ENGINE
+# 6. DYNAMIC FULL-UNIVERSE PORTFOLIO COMPILATION ENGINE
 # =============================================================================
 
 def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str, Any], Dict[str, Any]]:
-    """Builds 100% rule-based, audited, de-duplicated portfolios."""
+    """Builds 100% rule-based, full-universe audited portfolios without arbitrary size caps."""
     with open(WATCHLIST_FILE, "r") as f:
         wl = json.load(f)
         
     scored_pool: Dict[str, Dict[str, Any]] = {}
-    for ticker, meta in TAXONOMY_MAP.items():
+    
+    # 1. Ingest and score ALL 72 stocks in coverage universe
+    for ticker, w_item in wl.items():
         if ticker in COMPLIANCE_EXCLUSIONS:
             continue
             
-        w_item = wl.get(ticker, {})
         cur_p = float(w_item.get("current_price", 100.0))
         raw_fv = str(w_item.get("fair_value_estimate", cur_p))
         try:
@@ -394,33 +321,34 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
             fv = cur_p * 1.2
             
         sig = w_item.get("action_signal", "BUY")
-        scored_pool[ticker] = score_asset(ticker, meta, cur_p, fv, sig)
+        meta = get_asset_metadata(ticker, w_item)
+        scored = score_asset(ticker, meta, cur_p, fv, sig)
+        
+        # Only companies passing quality hurdle & positive Margin of Safety are candidates
+        if scored["total_score"] >= MIN_QUALITY_SCORE_HURDLE and scored["margin_of_safety_pct"] > 0 and sig != "AVOID":
+            scored_pool[ticker] = scored
 
-    # 1. Fidelity (Defensive Fortress Mandate): Top 10 by Score, max 1 per industry
-    def_sorted = sorted(scored_pool.values(), key=lambda x: x["total_score"], reverse=True)
+    # 2. Fidelity (Defensive Fortress Mandate): Top qualifying by score, max 1 per industry
+    def_candidates = sorted(
+        [x for x in scored_pool.values() if x["mandate_pref"] == "defensive"],
+        key=lambda x: x["total_score"],
+        reverse=True
+    )
     
     fidelity_selected = []
     used_industries_def = set()
     used_tickers_all = set()
     
-    for item in def_sorted:
+    for item in def_candidates:
         t = item["ticker"]
         ind = item["industry"]
-        if item["mandate_pref"] == "defensive" and ind not in used_industries_def and len(fidelity_selected) < 10:
-            fidelity_selected.append(t)
-            used_industries_def.add(ind)
-            used_tickers_all.add(t)
-            
-    for item in def_sorted:
-        t = item["ticker"]
-        ind = item["industry"]
-        if t not in used_tickers_all and ind not in used_industries_def and len(fidelity_selected) < 10:
+        if ind not in used_industries_def:
             fidelity_selected.append(t)
             used_industries_def.add(ind)
             used_tickers_all.add(t)
 
-    # 2. Wealthsimple (Aggressive Alpha Mandate): Top 10 by Score from remaining universe, max 1 per industry
-    agg_sorted = sorted(
+    # 3. Wealthsimple (Aggressive Alpha Mandate): Top qualifying from remaining universe, max 1 per industry
+    agg_candidates = sorted(
         [x for x in scored_pool.values() if x["ticker"] not in used_tickers_all],
         key=lambda x: x["total_score"],
         reverse=True
@@ -429,31 +357,37 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
     wealthsimple_selected = []
     used_industries_agg = set()
     
-    for item in agg_sorted:
+    for item in agg_candidates:
         t = item["ticker"]
         ind = item["industry"]
-        if item["mandate_pref"] == "aggressive" and ind not in used_industries_agg and len(wealthsimple_selected) < 10:
-            wealthsimple_selected.append(t)
-            used_industries_agg.add(ind)
-            used_tickers_all.add(t)
-            
-    for item in agg_sorted:
-        t = item["ticker"]
-        ind = item["industry"]
-        if t not in used_tickers_all and ind not in used_industries_agg and len(wealthsimple_selected) < 10:
+        if ind not in used_industries_agg:
             wealthsimple_selected.append(t)
             used_industries_agg.add(ind)
             used_tickers_all.add(t)
 
-    # 3. Compute Fidelity Allocations
-    def_avg_mos = sum(scored_pool[t]["margin_of_safety_pct"] for t in fidelity_selected) / len(fidelity_selected)
-    def_cash_pct, def_equity_budget, def_cash_desc = calculate_shiller_macro_cash(is_defensive=True, weighted_mos=def_avg_mos)
-
+    # 4. Compute Fidelity Allocations
     def_k_scores = {t: scored_pool[t]["kelly_score"] for t in fidelity_selected}
-    final_def_weights = allocate_fractional_kelly_capped(def_k_scores, def_equity_budget, MAX_SINGLE_EQUITY_CAP)
+    
+    # Calculate prelim cash
+    prelim_mos = sum(scored_pool[t]["margin_of_safety_pct"] for t in fidelity_selected) / len(fidelity_selected) if fidelity_selected else 20.0
+    def_cash_pct, def_equity_budget, def_cash_desc = calculate_shiller_macro_cash(is_defensive=True, weighted_mos=prelim_mos)
+    
+    final_def_weights = allocate_fractional_kelly_capped(def_k_scores, def_equity_budget, MAX_SINGLE_EQUITY_CAP, MIN_POSITION_WEIGHT)
+    
+    # Recalculate exact cash based on final active holdings
+    active_def_tickers = list(final_def_weights.keys())
+    active_def_mos = sum(scored_pool[t]["margin_of_safety_pct"] for t in active_def_tickers) / len(active_def_tickers) if active_def_tickers else prelim_mos
+    def_cash_pct, def_equity_budget, def_cash_desc = calculate_shiller_macro_cash(is_defensive=True, weighted_mos=active_def_mos)
+    
+    final_def_weights = allocate_fractional_kelly_capped(
+        {t: def_k_scores[t] for t in active_def_tickers},
+        def_equity_budget,
+        MAX_SINGLE_EQUITY_CAP,
+        MIN_POSITION_WEIGHT
+    )
     
     def_holdings = []
-    for t in fidelity_selected:
+    for t in active_def_tickers:
         s = scored_pool[t]
         w = final_def_weights[t]
         alloc = total_capital * w
@@ -502,15 +436,26 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
         "report_url": "#"
     })
 
-    # 4. Compute Wealthsimple Allocations
-    agg_avg_mos = sum(scored_pool[t]["margin_of_safety_pct"] for t in wealthsimple_selected) / len(wealthsimple_selected)
-    agg_cash_pct, agg_equity_budget, agg_cash_desc = calculate_shiller_macro_cash(is_defensive=False, weighted_mos=agg_avg_mos)
-
+    # 5. Compute Wealthsimple Allocations
     agg_k_scores = {t: scored_pool[t]["kelly_score"] for t in wealthsimple_selected}
-    final_agg_weights = allocate_fractional_kelly_capped(agg_k_scores, agg_equity_budget, MAX_SINGLE_EQUITY_CAP)
+    prelim_agg_mos = sum(scored_pool[t]["margin_of_safety_pct"] for t in wealthsimple_selected) / len(wealthsimple_selected) if wealthsimple_selected else 25.0
+    agg_cash_pct, agg_equity_budget, agg_cash_desc = calculate_shiller_macro_cash(is_defensive=False, weighted_mos=prelim_agg_mos)
+
+    final_agg_weights = allocate_fractional_kelly_capped(agg_k_scores, agg_equity_budget, MAX_SINGLE_EQUITY_CAP, MIN_POSITION_WEIGHT)
+    
+    active_agg_tickers = list(final_agg_weights.keys())
+    active_agg_mos = sum(scored_pool[t]["margin_of_safety_pct"] for t in active_agg_tickers) / len(active_agg_tickers) if active_agg_tickers else prelim_agg_mos
+    agg_cash_pct, agg_equity_budget, agg_cash_desc = calculate_shiller_macro_cash(is_defensive=False, weighted_mos=active_agg_mos)
+
+    final_agg_weights = allocate_fractional_kelly_capped(
+        {t: agg_k_scores[t] for t in active_agg_tickers},
+        agg_equity_budget,
+        MAX_SINGLE_EQUITY_CAP,
+        MIN_POSITION_WEIGHT
+    )
 
     agg_holdings = []
-    for t in wealthsimple_selected:
+    for t in active_agg_tickers:
         s = scored_pool[t]
         w = final_agg_weights[t]
         alloc = total_capital * w
@@ -573,7 +518,7 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
         "rebalance_log": [
             {
                 "date": "2026-08-11",
-                "action": "PRINCIPLED ENGINE INCEPTION",
+                "action": "FULL UNIVERSE DYNAMIC INCEPTION",
                 "reason": def_cash_desc,
                 "verification_status": "Verified 3/3 Autonomous Council"
             }
@@ -599,7 +544,7 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
         "rebalance_log": [
             {
                 "date": "2026-08-11",
-                "action": "PRINCIPLED ENGINE INCEPTION",
+                "action": "FULL UNIVERSE DYNAMIC INCEPTION",
                 "reason": agg_cash_desc,
                 "verification_status": "Verified 3/3 Autonomous Council"
             }
@@ -625,11 +570,11 @@ def sync_engine_to_disk():
     with open(DATA_DIR / "portfolio.json", "w") as f:
         json.dump(def_state, f, indent=2)
         
-    print("=== FIDELITY PRINCIPLED ALLOCATION ===")
+    print(f"=== FIDELITY ALLOCATION ({len(def_state['holdings'])-1} Equities + Cash) ===")
     for h in def_state["holdings"]:
         print(f"  {h['ticker']:<8} | Weight: {h['target_weight']*100:>6.2f}% | Alloc: ${h['allocated_dollars']:>9,.2f} | MoS: {h['margin_of_safety_pct']:>+6.2f}% | Score: {h.get('quality_score', 0):>5.1f}")
         
-    print("\n=== WEALTHSIMPLE PRINCIPLED ALLOCATION ===")
+    print(f"\n=== WEALTHSIMPLE ALLOCATION ({len(agg_state['holdings'])-1} Equities + Cash) ===")
     for h in agg_state["holdings"]:
         print(f"  {h['ticker']:<8} | Weight: {h['target_weight']*100:>6.2f}% | Alloc: ${h['allocated_dollars']:>9,.2f} | MoS: {h['margin_of_safety_pct']:>+6.2f}% | Score: {h.get('quality_score', 0):>5.1f}")
 

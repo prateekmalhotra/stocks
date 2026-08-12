@@ -2,34 +2,47 @@
   "portfolio_type": "defensive",
   "portfolio_label": "Fidelity (Defensive Fortress)",
   "last_run_date": "2026-08-11",
-  "last_run_timestamp": "2026-08-11T22:46:54.741440",
+  "last_run_timestamp": "2026-08-11T22:51:25.801777",
   "status": "ACTION_REQUIRED",
-  "status_display": "REBALANCE PROPOSAL PENDING (6 ACTIONS)",
+  "status_display": "REBALANCE PROPOSAL PENDING (4 ACTIONS)",
   "action_required": true,
-  "verdict_summary": "Council flagged 6 position(s) exceeding materiality rebalance hurdles.",
+  "verdict_summary": "Council flagged 4 position(s) exceeding materiality rebalance hurdles.",
   "total_universe_scanned": 72,
-  "active_holdings_verified": 10,
+  "active_holdings_verified": 13,
   "shiller_cape": 35.5,
   "buffett_indicator_pct": 198.5,
   "treasury_3m_yield_pct": 5.0,
-  "portfolio_average_mos_pct": 23.34,
-  "cash_cushion_pct": 19.91,
+  "portfolio_average_mos_pct": 22.56,
+  "cash_cushion_pct": 20.06,
   "macro_cash_audit": {
     "shiller_cape": 35.5,
     "historical_cape_median": 18.0,
     "buffett_indicator_pct": 198.5,
     "treasury_3m_yield_pct": 5.0,
-    "portfolio_weighted_mos_pct": 23.34,
+    "portfolio_weighted_mos_pct": 22.56,
     "mandate_structural_floor_pct": 5.0,
-    "calculated_target_cash_pct": 19.91,
-    "current_actual_cash_pct": 19.900000000000002,
+    "calculated_target_cash_pct": 20.06,
+    "current_actual_cash_pct": 19.759999999999998,
     "cash_status": "OPTIMAL_DRY_POWDER_MAINTAINED",
     "strike_trigger_threshold": "MoS > 45.0% on Tier-1 Compounder or Flash Crash Dislocation",
     "cash_directive": "Maintain 3M US Treasury float yielding 5.00% risk-free. Stand ready for fat pitch market dislocations.",
-    "formula_description": "Senior US Treasury Buffer (19.91%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +23.34% weighted Margin of Safety."
+    "formula_description": "Senior US Treasury Buffer (20.06%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +22.56% weighted Margin of Safety."
   },
   "next_scheduled_run": "2026-08-18",
   "holdings_health": [
+    {
+      "ticker": "CMCSA",
+      "company_name": "Comcast Corporation",
+      "price": 25.65,
+      "fair_value": 38.0,
+      "mos_pct": 48.15,
+      "signal": "BUY",
+      "moat_score": 8.8,
+      "expected_irr": 28.1,
+      "kelly_edge": 12.74,
+      "health_status": "PRISTINE",
+      "thesis_core": "Broadband last-mile infrastructure with heavy share cannibalization."
+    },
     {
       "ticker": "ADBE",
       "company_name": "Adobe Inc.",
@@ -83,6 +96,19 @@
       "thesis_core": "Enterprise CRM platform standard; multi-cloud cross-selling and margin expansion."
     },
     {
+      "ticker": "SONY",
+      "company_name": "Sony Group Corporation",
+      "price": 23.61,
+      "fair_value": 29.5,
+      "mos_pct": 24.95,
+      "signal": "BUY",
+      "moat_score": 9.2,
+      "expected_irr": 21.7,
+      "kelly_edge": 17.34,
+      "health_status": "PRISTINE",
+      "thesis_core": "PlayStation gaming network, global music publishing oligopoly, and CMOS sensor monopoly."
+    },
+    {
       "ticker": "UNH",
       "company_name": "UnitedHealth Group Incorporated",
       "price": 402.19,
@@ -119,7 +145,7 @@
       "expected_irr": 23.2,
       "kelly_edge": 51.69,
       "health_status": "PRISTINE",
-      "thesis_core": "Mission-critical vertical market software acquirer; 25%+ ROIC, negative working capital float, zero churn."
+      "thesis_core": "Mission-critical vertical market software acquirer; 25%+ ROIC, negative working capital float."
     },
     {
       "ticker": "MA",
@@ -159,19 +185,22 @@
       "kelly_edge": 26.24,
       "health_status": "PRISTINE",
       "thesis_core": "100% global monopoly on EUV lithography machines; evaluated against semi capex ordering cycles."
+    },
+    {
+      "ticker": "ISRG",
+      "company_name": "Intuitive Surgical, Inc.",
+      "price": 401.23,
+      "fair_value": 425.0,
+      "mos_pct": 5.92,
+      "signal": "HOLD",
+      "moat_score": 9.8,
+      "expected_irr": 18.3,
+      "kelly_edge": 34.33,
+      "health_status": "PRISTINE",
+      "thesis_core": "Global da Vinci robotic surgery monopoly; 80%+ recurring instruments & services, zero debt."
     }
   ],
   "top_watchlist_on_radar": [
-    {
-      "ticker": "META",
-      "company_name": "Meta Platforms, Inc.",
-      "price": 599.12,
-      "fair_value": 720.0,
-      "mos_pct": 20.18,
-      "expected_irr": 25.6,
-      "kelly_edge": 42.83,
-      "moat_score": 9.7
-    },
     {
       "ticker": "BMBL",
       "company_name": "Bumble Inc.",
@@ -183,46 +212,46 @@
       "moat_score": 8.5
     },
     {
-      "ticker": "NVDA",
-      "company_name": "NVIDIA Corporation",
-      "price": 217.5,
-      "fair_value": 285.0,
-      "mos_pct": 31.03,
-      "expected_irr": 29.5,
-      "kelly_edge": 27.27,
-      "moat_score": 9.6
+      "ticker": "SMRT",
+      "company_name": "SmartRent, Inc.",
+      "price": 1.41,
+      "fair_value": 2.2,
+      "mos_pct": 56.03,
+      "expected_irr": 27.2,
+      "kelly_edge": 21.58,
+      "moat_score": 8.5
+    },
+    {
+      "ticker": "DECK",
+      "company_name": "Deckers Outdoor Corporation",
+      "price": 93.84,
+      "fair_value": 118.0,
+      "mos_pct": 25.75,
+      "expected_irr": 26.6,
+      "kelly_edge": 20.72,
+      "moat_score": 9.0
     }
   ],
   "rebalance_proposals": [
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "BMBL",
-      "reason": "Dislocation arbitrage: BMBL offers Edge 30.94 vs 16.05 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "META",
-      "reason": "Dislocation arbitrage: META offers Edge 42.83 vs 16.05 min active."
+      "reason": "Dislocation arbitrage: BMBL offers Edge 30.94 vs 12.74 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "MSFT",
-      "reason": "Dislocation arbitrage: MSFT offers Edge 25.95 vs 16.05 min active."
+      "reason": "Dislocation arbitrage: MSFT offers Edge 25.95 vs 12.74 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
-      "ticker": "NOW",
-      "reason": "Dislocation arbitrage: NOW offers Edge 25.31 vs 16.05 min active."
+      "ticker": "MSCI",
+      "reason": "Dislocation arbitrage: MSCI offers Edge 24.45 vs 12.74 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
-      "ticker": "NVDA",
-      "reason": "Dislocation arbitrage: NVDA offers Edge 27.27 vs 16.05 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "TSM",
-      "reason": "Dislocation arbitrage: TSM offers Edge 34.64 vs 16.05 min active."
+      "ticker": "SMRT",
+      "reason": "Dislocation arbitrage: SMRT offers Edge 21.58 vs 12.74 min active."
     }
   ]
 }

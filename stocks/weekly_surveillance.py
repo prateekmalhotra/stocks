@@ -39,28 +39,30 @@ def get_surveillance_filepath(portfolio_type: str) -> Path:
 def calculate_kelly_edge(ticker: str, current_price: float, fair_value: float) -> Dict[str, float]:
     """Calculates Expected 5-Year IRR and Quality-Adjusted Kelly Edge."""
     meta = TAXONOMY_MAP.get(ticker, {
-        "moat_base": 8.5, "bs_base": 8.5, "growth_base": 10.0, "cannibal_base": 1.5, "oe_yield": 4.5, "p_success": 0.85
+        "moat": 8.5, "bs": 8.5, "growth": 10.0, "cannibal": 1.5, "oe_yield": 4.5, "p": 0.85
     })
     
-    mos_pct = max(0.0, ((fair_value - current_price) / current_price) * 100.0) if current_price > 0 else 0.0
+    moat = meta.get("moat", meta.get("moat_base", 8.5))
+    bs = meta.get("bs", meta.get("bs_base", 8.5))
     oe_y = meta.get("oe_yield", 4.5)
-    cannibal = meta.get("cannibal_base", 1.5)
-    growth = meta.get("growth_base", 10.0)
+    cannibal = meta.get("cannibal", meta.get("cannibal_base", 1.5))
+    growth = meta.get("growth", meta.get("growth_base", 10.0))
+    p = meta.get("p", meta.get("p_success", 0.85))
     
+    mos_pct = max(0.0, ((fair_value - current_price) / current_price) * 100.0) if current_price > 0 else 0.0
     irr_5y = oe_y + cannibal + growth + (mos_pct / 5.0)
     
     payoff_b = (mos_pct / 500.0) + (oe_y / 100.0) + (cannibal / 100.0) + (growth / 100.0)
-    p = meta.get("p_success", 0.85)
     q = 1.0 - p
     raw_kelly = (p * payoff_b - q) / payoff_b if payoff_b > 0 else 0.0
-    quality_mult = ((meta["moat_base"] * 0.70 + meta["bs_base"] * 0.30) / 10.0) ** 2
+    quality_mult = ((moat * 0.70 + bs * 0.30) / 10.0) ** 2
     kelly_score = max(0.001, raw_kelly * quality_mult)
     
     return {
         "expected_irr": round(irr_5y, 1),
         "kelly_edge": round(kelly_score * 100.0, 2),
-        "moat": meta["moat_base"],
-        "bs": meta["bs_base"]
+        "moat": moat,
+        "bs": bs
     }
 
 def run_portfolio_surveillance(portfolio_type: str = "defensive") -> Dict[str, Any]:
