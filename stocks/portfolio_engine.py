@@ -3,9 +3,9 @@ stocks.portfolio_engine
 ~~~~~~~~~~~~~~~~~~~~~~~
 Dynamic Full-Universe Institutional Portfolio Construction Engine.
 
-1. Dynamically ingests and scores ALL 72 stocks in data/watchlist.json.
+1. Ingests and scores ALL 72 stocks in data/watchlist.json with explicit granular industry labels.
 2. ZERO ARBITRARY BLACKLISTS. Only true compliance/ethical invariants (GOOG employer, LMT weapons).
-3. ZERO ARBITRARY 10-STOCK CAP. Allocates dynamically across all high-quality compounders.
+3. ZERO ARBITRARY 10-STOCK CAP. Allocates dynamically across all qualifying compounders.
 4. Enforces 1.50% minimum position threshold to eliminate portfolio noise.
 5. Granular Industry De-Duplication (Max 1 per specific industry per portfolio).
 6. S&P 500 Shiller CAPE Macro Cash Sizing.
@@ -39,85 +39,485 @@ COMPLIANCE_EXCLUSIONS = {
 }
 
 # =============================================================================
-# 2. COMPLETE COVERAGE UNIVERSE METADATA & REPOSITORY (72 COVERED STOCKS)
+# 2. COMPLETE COVERAGE UNIVERSE METADATA (EXACT TAXONOMY FOR ALL 72 STOCKS)
 # =============================================================================
 
 STOCK_METADATA: Dict[str, Dict[str, Any]] = {
-    # Software & Cloud Platforms
-    "CSU": {"sector": "Enterprise Software", "industry": "Vertical Market Software", "moat": 9.9, "bs": 8.5, "growth": 14.0, "cannibal": 0.0, "oe_yield": 4.5, "cyc": 1.0, "mandate": "defensive", "p": 0.92, "thesis": "Mission-critical vertical market software acquirer; 25%+ ROIC, negative working capital float."},
-    "MSFT": {"sector": "Enterprise Software", "industry": "Enterprise Cloud & OS", "moat": 9.7, "bs": 9.0, "growth": 11.0, "cannibal": 0.8, "oe_yield": 3.9, "cyc": 1.5, "mandate": "defensive", "p": 0.90, "thesis": "Commercial enterprise cloud backbone, Azure infrastructure, Office 365 seat monetization."},
-    "ADBE": {"sector": "Enterprise Software", "industry": "Digital Media & Creative Cloud", "moat": 9.5, "bs": 9.0, "growth": 10.5, "cannibal": 3.2, "oe_yield": 5.5, "cyc": 1.5, "mandate": "defensive", "p": 0.88, "thesis": "Creative Cloud monopoly; 85%+ gross margins, $3.5B+ annual share buybacks."},
-    "INTU": {"sector": "Enterprise Software", "industry": "Financial & Tax Software", "moat": 9.5, "bs": 8.5, "growth": 10.0, "cannibal": 1.5, "oe_yield": 4.5, "cyc": 1.2, "mandate": "defensive", "p": 0.88, "thesis": "QuickBooks & TurboTax SMB accounting monopoly; high regulatory switching costs."},
-    "CRM": {"sector": "Enterprise Software", "industry": "Customer CRM & Cloud Enterprise", "moat": 9.2, "bs": 8.5, "growth": 9.0, "cannibal": 3.0, "oe_yield": 5.2, "cyc": 1.8, "mandate": "defensive", "p": 0.85, "thesis": "Enterprise CRM platform standard; multi-cloud cross-selling and margin expansion."},
-    "NOW": {"sector": "Enterprise Software", "industry": "IT Workflow Automation", "moat": 9.3, "bs": 8.5, "growth": 16.0, "cannibal": 0.5, "oe_yield": 4.1, "cyc": 1.5, "mandate": "aggressive", "p": 0.86, "thesis": "Global 2000 digital workflow platform; 98%+ renewal rate, expanding ACV."},
-    "ADSK": {"sector": "Enterprise Software", "industry": "Architecture & Engineering CAD", "moat": 9.4, "bs": 8.5, "growth": 10.0, "cannibal": 1.5, "oe_yield": 4.2, "cyc": 1.8, "mandate": "defensive", "p": 0.87, "thesis": "AutoCAD and Revit industry-standard CAD monopoly with entrenched workflows."},
-    "PAYC": {"sector": "Enterprise Software", "industry": "Cloud Payroll & HCM Software", "moat": 8.8, "bs": 9.0, "growth": 12.0, "cannibal": 2.5, "oe_yield": 6.2, "cyc": 2.0, "mandate": "aggressive", "p": 0.82, "thesis": "Beti self-service payroll platform with 90%+ recurring revenue and high ROIC."},
-    "WDAY": {"sector": "Enterprise Software", "industry": "Enterprise HCM & Financials", "moat": 8.9, "bs": 8.5, "growth": 13.0, "cannibal": 0.5, "oe_yield": 4.0, "cyc": 1.8, "mandate": "aggressive", "p": 0.82, "thesis": "Core enterprise HR and financial management software for Fortune 500."},
+    # -------------------------------------------------------------------------
+    # ENTERPRISE & VERTICAL SOFTWARE (6 STOCKS)
+    # -------------------------------------------------------------------------
+    "CSU": {
+        "sector": "Enterprise Software", "industry": "Vertical Market Software (VMS)",
+        "moat": 9.9, "bs": 8.5, "growth": 14.0, "cannibal": 0.0, "oe_yield": 4.5, "cyc": 1.0,
+        "mandate": "defensive", "p": 0.92,
+        "thesis": "Mission-critical vertical market software acquirer; 25%+ ROIC, negative working capital float, zero churn."
+    },
+    "MSFT": {
+        "sector": "Enterprise Software", "industry": "Enterprise Cloud & OS Infrastructure",
+        "moat": 9.7, "bs": 9.0, "growth": 11.0, "cannibal": 0.8, "oe_yield": 3.9, "cyc": 1.5,
+        "mandate": "defensive", "p": 0.90,
+        "thesis": "Commercial enterprise cloud backbone, Azure infrastructure, Office 365 seat monetization."
+    },
+    "ADBE": {
+        "sector": "Enterprise Software", "industry": "Digital Media & Creative Cloud",
+        "moat": 9.5, "bs": 9.0, "growth": 10.5, "cannibal": 3.2, "oe_yield": 5.5, "cyc": 1.5,
+        "mandate": "defensive", "p": 0.88,
+        "thesis": "Creative Cloud monopoly; 85%+ gross margins, $3.5B+ annual share buybacks."
+    },
+    "INTU": {
+        "sector": "Enterprise Software", "industry": "Small Business Financial & Tax Software",
+        "moat": 9.5, "bs": 8.5, "growth": 10.0, "cannibal": 1.5, "oe_yield": 4.5, "cyc": 1.2,
+        "mandate": "defensive", "p": 0.88,
+        "thesis": "QuickBooks & TurboTax SMB accounting monopoly; high regulatory switching costs."
+    },
+    "CRM": {
+        "sector": "Enterprise Software", "industry": "Enterprise CRM & Agentic Cloud",
+        "moat": 9.2, "bs": 8.5, "growth": 9.0, "cannibal": 3.0, "oe_yield": 5.2, "cyc": 1.8,
+        "mandate": "defensive", "p": 0.85,
+        "thesis": "Enterprise CRM platform standard; multi-cloud cross-selling and margin expansion."
+    },
+    "NOW": {
+        "sector": "Enterprise Software", "industry": "IT Digital Workflow Automation",
+        "moat": 9.3, "bs": 8.5, "growth": 16.0, "cannibal": 0.5, "oe_yield": 4.1, "cyc": 1.5,
+        "mandate": "aggressive", "p": 0.86,
+        "thesis": "Global 2000 digital workflow platform; 98%+ renewal rate, expanding ACV."
+    },
+    "ADSK": {
+        "sector": "Enterprise Software", "industry": "Architecture & Engineering CAD Software",
+        "moat": 9.4, "bs": 8.5, "growth": 10.0, "cannibal": 1.5, "oe_yield": 4.2, "cyc": 1.8,
+        "mandate": "defensive", "p": 0.87,
+        "thesis": "AutoCAD and Revit industry-standard CAD monopoly with entrenched engineer workflows."
+    },
+    "PAYC": {
+        "sector": "Enterprise Software", "industry": "Automated Payroll & HCM Software",
+        "moat": 8.8, "bs": 9.0, "growth": 12.0, "cannibal": 2.5, "oe_yield": 6.2, "cyc": 2.0,
+        "mandate": "aggressive", "p": 0.82,
+        "thesis": "Beti self-service payroll platform with 90%+ recurring revenue and high ROIC."
+    },
+    "WDAY": {
+        "sector": "Enterprise Software", "industry": "Enterprise Human Capital & Financial Management",
+        "moat": 8.9, "bs": 8.5, "growth": 13.0, "cannibal": 0.5, "oe_yield": 4.0, "cyc": 1.8,
+        "mandate": "aggressive", "p": 0.82,
+        "thesis": "Core enterprise HR and financial management software for Fortune 500."
+    },
+    "SMRT": {
+        "sector": "Enterprise Software", "industry": "Multifamily IoT & Smart Property Automation",
+        "moat": 7.5, "bs": 7.5, "growth": 15.0, "cannibal": 0.0, "oe_yield": 6.5, "cyc": 3.0,
+        "mandate": "aggressive", "p": 0.70,
+        "thesis": "Enterprise smart home automation for multifamily apartment operators."
+    },
+    "ACN": {
+        "sector": "Enterprise Software", "industry": "Enterprise IT Consulting & Digital Transformation",
+        "moat": 8.9, "bs": 8.5, "growth": 7.0, "cannibal": 1.5, "oe_yield": 4.8, "cyc": 2.0,
+        "mandate": "defensive", "p": 0.85,
+        "thesis": "Global systems integrator and enterprise AI implementation partner with pristine cash flows."
+    },
 
-    # Financial Infrastructure & Payments
-    "V": {"sector": "Financial Infrastructure", "industry": "Global Consumer Payment Networks", "moat": 9.8, "bs": 8.5, "growth": 9.5, "cannibal": 2.2, "oe_yield": 4.6, "cyc": 1.2, "mandate": "defensive", "p": 0.91, "thesis": "World's premier payment network rail; 55%+ operating margin, GDP+ cash conversion."},
-    "MA": {"sector": "Financial Infrastructure", "industry": "Global Consumer Payment Networks", "moat": 9.8, "bs": 8.5, "growth": 11.5, "cannibal": 2.0, "oe_yield": 3.8, "cyc": 1.2, "mandate": "defensive", "p": 0.90, "thesis": "Global payment rail duopoly; 57% operating margin, secular cashless conversion."},
-    "SPGI": {"sector": "Financial Infrastructure", "industry": "Credit Ratings & Market Benchmarks", "moat": 9.8, "bs": 8.5, "growth": 9.5, "cannibal": 1.8, "oe_yield": 4.1, "cyc": 2.2, "mandate": "defensive", "p": 0.90, "thesis": "Sovereign/corporate debt rating duopoly + S&P 500 benchmark index licensing."},
-    "MSCI": {"sector": "Financial Infrastructure", "industry": "Index Benchmarks & Analytics", "moat": 9.6, "bs": 8.0, "growth": 10.5, "cannibal": 1.5, "oe_yield": 4.2, "cyc": 2.0, "mandate": "defensive", "p": 0.89, "thesis": "Global emerging markets and ESG benchmark monopoly with 95%+ retention."},
-    "FICO": {"sector": "Financial Infrastructure", "industry": "Credit Scoring & Decision Analytics", "moat": 9.9, "bs": 9.0, "growth": 15.0, "cannibal": 2.5, "oe_yield": 4.2, "cyc": 1.0, "mandate": "aggressive", "p": 0.91, "thesis": "Sovereign monopoly on US consumer credit scoring; extreme pricing power, zero CapEx."},
-    "STNE": {"sector": "Financial Infrastructure", "industry": "Emerging Market Merchant Fintech", "moat": 8.5, "bs": 8.5, "growth": 12.0, "cannibal": 4.0, "oe_yield": 11.5, "cyc": 3.0, "mandate": "aggressive", "p": 0.79, "thesis": "High-ROIC (25%+) Brazil merchant payments & ERP software compounder at single-digit P/E."},
-    "PYPL": {"sector": "Financial Infrastructure", "industry": "Digital Wallet & Global Checkout", "moat": 8.5, "bs": 9.0, "growth": 7.0, "cannibal": 6.5, "oe_yield": 7.2, "cyc": 2.0, "mandate": "aggressive", "p": 0.80, "thesis": "Global checkout network with $1.5T volume; accelerating Braintree margins and buybacks."},
-    "SOFI": {"sector": "Financial Infrastructure", "industry": "Digital Consumer Neo-Banking", "moat": 8.0, "bs": 8.0, "growth": 20.0, "cannibal": 0.0, "oe_yield": 5.5, "cyc": 2.8, "mandate": "aggressive", "p": 0.76, "thesis": "Full-stack digital bank with Galileo technology infrastructure and expanding deposits."},
-    "HOOD": {"sector": "Financial Infrastructure", "industry": "Retail Brokerage & Prediction Markets", "moat": 8.2, "bs": 8.5, "growth": 18.0, "cannibal": 0.0, "oe_yield": 6.0, "cyc": 3.5, "mandate": "aggressive", "p": 0.75, "thesis": "Dominant Gen-Z retail trading platform with expanding Gold subscriptions and net interest margin."},
+    # -------------------------------------------------------------------------
+    # FINANCIAL INFRASTRUCTURE & PAYMENTS (8 STOCKS)
+    # -------------------------------------------------------------------------
+    "V": {
+        "sector": "Financial Infrastructure", "industry": "Global Consumer Payment Networks",
+        "moat": 9.8, "bs": 8.5, "growth": 9.5, "cannibal": 2.2, "oe_yield": 4.6, "cyc": 1.2,
+        "mandate": "defensive", "p": 0.91,
+        "thesis": "World's premier payment network rail; 55%+ operating margin, GDP+ cash conversion."
+    },
+    "MA": {
+        "sector": "Financial Infrastructure", "industry": "Global Consumer Payment Networks",
+        "moat": 9.8, "bs": 8.5, "growth": 11.5, "cannibal": 2.0, "oe_yield": 3.8, "cyc": 1.2,
+        "mandate": "defensive", "p": 0.90,
+        "thesis": "Global payment rail duopoly; 57% operating margin, secular cashless conversion."
+    },
+    "SPGI": {
+        "sector": "Financial Infrastructure", "industry": "Credit Ratings & Market Benchmarks",
+        "moat": 9.8, "bs": 8.5, "growth": 9.5, "cannibal": 1.8, "oe_yield": 4.1, "cyc": 2.2,
+        "mandate": "defensive", "p": 0.90,
+        "thesis": "Sovereign/corporate debt rating duopoly + S&P 500 benchmark index licensing."
+    },
+    "MSCI": {
+        "sector": "Financial Infrastructure", "industry": "Global Index Benchmarks & ESG Analytics",
+        "moat": 9.6, "bs": 8.0, "growth": 10.5, "cannibal": 1.5, "oe_yield": 4.2, "cyc": 2.0,
+        "mandate": "defensive", "p": 0.89,
+        "thesis": "Global emerging markets and ESG benchmark monopoly with 95%+ subscription retention."
+    },
+    "FICO": {
+        "sector": "Financial Infrastructure", "industry": "Credit Scoring & Decision Analytics",
+        "moat": 9.9, "bs": 9.0, "growth": 15.0, "cannibal": 2.5, "oe_yield": 4.2, "cyc": 1.0,
+        "mandate": "aggressive", "p": 0.91,
+        "thesis": "Sovereign monopoly on US consumer credit scoring; extreme pricing power, zero CapEx."
+    },
+    "STNE": {
+        "sector": "Financial Infrastructure", "industry": "Emerging Market Merchant Fintech",
+        "moat": 8.5, "bs": 8.5, "growth": 12.0, "cannibal": 4.0, "oe_yield": 11.5, "cyc": 3.0,
+        "mandate": "aggressive", "p": 0.79,
+        "thesis": "High-ROIC (25%+) Brazil merchant payments & ERP software compounder at single-digit P/E."
+    },
+    "PYPL": {
+        "sector": "Financial Infrastructure", "industry": "Digital Wallet & Global Online Checkout",
+        "moat": 8.5, "bs": 9.0, "growth": 7.0, "cannibal": 6.5, "oe_yield": 7.2, "cyc": 2.0,
+        "mandate": "aggressive", "p": 0.80,
+        "thesis": "Global checkout network with $1.5T volume; accelerating Braintree margins and buybacks."
+    },
+    "SOFI": {
+        "sector": "Financial Infrastructure", "industry": "Digital Consumer Neo-Banking & Lending",
+        "moat": 8.0, "bs": 8.0, "growth": 20.0, "cannibal": 0.0, "oe_yield": 5.5, "cyc": 2.8,
+        "mandate": "aggressive", "p": 0.76,
+        "thesis": "Full-stack digital bank with Galileo technology infrastructure and expanding deposits."
+    },
+    "HOOD": {
+        "sector": "Financial Infrastructure", "industry": "Retail Trading Platform & Prediction Markets",
+        "moat": 8.2, "bs": 8.5, "growth": 18.0, "cannibal": 0.0, "oe_yield": 6.0, "cyc": 3.5,
+        "mandate": "aggressive", "p": 0.75,
+        "thesis": "Dominant Gen-Z retail trading platform with expanding Gold subscriptions and net interest margin."
+    },
 
-    # Healthcare & Medical Devices
-    "ISRG": {"sector": "Healthcare & Medical Technology", "industry": "Robotic Surgical Systems", "moat": 9.8, "bs": 10.0, "growth": 13.0, "cannibal": 0.5, "oe_yield": 3.6, "cyc": 1.0, "mandate": "defensive", "p": 0.90, "thesis": "Global da Vinci robotic surgery monopoly; 80%+ recurring instruments & services, zero debt."},
-    "UNH": {"sector": "Healthcare & Medical Technology", "industry": "Managed Care & Healthcare Services", "moat": 9.6, "bs": 8.5, "growth": 9.0, "cannibal": 1.2, "oe_yield": 5.8, "cyc": 1.2, "mandate": "defensive", "p": 0.88, "thesis": "Integrated Optum healthcare platform + UnitedHealthcare insurance scale."},
-    "MEDP": {"sector": "Healthcare & Medical Technology", "industry": "Contract Research Clinical CRO", "moat": 9.2, "bs": 10.0, "growth": 13.0, "cannibal": 3.5, "oe_yield": 5.5, "cyc": 2.2, "mandate": "aggressive", "p": 0.86, "thesis": "Founder-led biotech CRO; pristine net cash balance sheet and heavy buybacks."},
-    "LLY": {"sector": "Healthcare & Medical Technology", "industry": "Pharmaceuticals & Incretin Therapeutics", "moat": 9.5, "bs": 8.0, "growth": 18.0, "cannibal": 0.0, "oe_yield": 3.0, "cyc": 1.5, "mandate": "defensive", "p": 0.87, "thesis": "Dominant global leader in incretin/GLP-1 metabolic therapeutics and Alzheimer's pipeline."},
-    "ABT": {"sector": "Healthcare & Medical Technology", "industry": "Diversified Medical Devices & Diagnostics", "moat": 9.3, "bs": 8.5, "growth": 8.5, "cannibal": 1.0, "oe_yield": 4.5, "cyc": 1.2, "mandate": "defensive", "p": 0.89, "thesis": "Continuous glucose monitoring (FreeStyle Libre) leadership and diversified medical diagnostics."},
-    "PFE": {"sector": "Healthcare & Medical Technology", "industry": "Pharmaceutical Commercialization", "moat": 8.0, "bs": 7.5, "growth": 4.0, "cannibal": 0.0, "oe_yield": 8.5, "cyc": 2.0, "mandate": "defensive", "p": 0.78, "thesis": "Deep value post-Covid pharmaceutical turnaround with high dividend yield."},
+    # -------------------------------------------------------------------------
+    # HEALTHCARE & LIFE SCIENCES (6 STOCKS)
+    # -------------------------------------------------------------------------
+    "ISRG": {
+        "sector": "Healthcare & Medical Technology", "industry": "Robotic Surgical Systems",
+        "moat": 9.8, "bs": 10.0, "growth": 13.0, "cannibal": 0.5, "oe_yield": 3.6, "cyc": 1.0,
+        "mandate": "defensive", "p": 0.90,
+        "thesis": "Global da Vinci robotic surgery monopoly; 80%+ recurring instruments & services, zero debt."
+    },
+    "UNH": {
+        "sector": "Healthcare & Medical Technology", "industry": "Managed Care & Integrated Health Services",
+        "moat": 9.6, "bs": 8.5, "growth": 9.0, "cannibal": 1.2, "oe_yield": 5.8, "cyc": 1.2,
+        "mandate": "defensive", "p": 0.88,
+        "thesis": "Integrated Optum healthcare platform + UnitedHealthcare insurance scale."
+    },
+    "MEDP": {
+        "sector": "Healthcare & Medical Technology", "industry": "Biotech Contract Research (CRO)",
+        "moat": 9.2, "bs": 10.0, "growth": 13.0, "cannibal": 3.5, "oe_yield": 5.5, "cyc": 2.2,
+        "mandate": "aggressive", "p": 0.86,
+        "thesis": "Founder-led biotech CRO; pristine net cash balance sheet and heavy buybacks."
+    },
+    "LLY": {
+        "sector": "Healthcare & Medical Technology", "industry": "Incretin Therapeutics & Biopharmaceuticals",
+        "moat": 9.5, "bs": 8.0, "growth": 18.0, "cannibal": 0.0, "oe_yield": 3.0, "cyc": 1.5,
+        "mandate": "defensive", "p": 0.87,
+        "thesis": "Dominant global leader in incretin/GLP-1 metabolic therapeutics and Alzheimer's pipeline."
+    },
+    "ABT": {
+        "sector": "Healthcare & Medical Technology", "industry": "Continuous Glucose & Cardiovascular Devices",
+        "moat": 9.3, "bs": 8.5, "growth": 8.5, "cannibal": 1.0, "oe_yield": 4.5, "cyc": 1.2,
+        "mandate": "defensive", "p": 0.89,
+        "thesis": "Continuous glucose monitoring (FreeStyle Libre) leadership and diversified medical diagnostics."
+    },
+    "PFE": {
+        "sector": "Healthcare & Medical Technology", "industry": "Diversified Commercial Pharmaceuticals",
+        "moat": 8.0, "bs": 7.5, "growth": 4.0, "cannibal": 0.0, "oe_yield": 8.5, "cyc": 2.0,
+        "mandate": "defensive", "p": 0.78,
+        "thesis": "Deep value post-Covid pharmaceutical turnaround with high dividend yield."
+    },
 
-    # Interactive Media & Social Graphs
-    "META": {"sector": "Interactive Media & Consumer Tech", "industry": "Digital Advertising & Social Graph", "moat": 9.7, "bs": 9.5, "growth": 13.0, "cannibal": 3.2, "oe_yield": 5.4, "cyc": 2.0, "mandate": "aggressive", "p": 0.89, "thesis": "3.60B Daily Active People social graph monopoly; AI-powered advertising, WhatsApp monetization."},
-    "RDDT": {"sector": "Interactive Media & Consumer Tech", "industry": "Community Social & AI Training Corpus", "moat": 8.8, "bs": 9.5, "growth": 25.0, "cannibal": 0.0, "oe_yield": 4.5, "cyc": 2.5, "mandate": "aggressive", "p": 0.78, "thesis": "Irreplaceable human conversational data corpus licensing to AI hyperscalers."},
-    "MTCH": {"sector": "Interactive Media & Consumer Tech", "industry": "Online Dating Apps", "moat": 8.5, "bs": 8.0, "growth": 6.0, "cannibal": 5.0, "oe_yield": 8.8, "cyc": 2.0, "mandate": "aggressive", "p": 0.80, "thesis": "Hinge growth flywheel and deep value cash generation with aggressive buybacks."},
-    "YELP": {"sector": "Interactive Media & Consumer Tech", "industry": "Local Business Review & Ads", "moat": 8.2, "bs": 9.5, "growth": 5.0, "cannibal": 7.0, "oe_yield": 9.5, "cyc": 2.5, "mandate": "aggressive", "p": 0.78, "thesis": "Extreme cash cow (zero debt, $400M cash) repurchasing 7%+ shares annually."},
+    # -------------------------------------------------------------------------
+    # INTERACTIVE MEDIA, CONSUMER TECH & EDUCATION (6 STOCKS)
+    # -------------------------------------------------------------------------
+    "META": {
+        "sector": "Interactive Media & Consumer Tech", "industry": "Global Social Graph & Digital Advertising",
+        "moat": 9.7, "bs": 9.5, "growth": 13.0, "cannibal": 3.2, "oe_yield": 5.4, "cyc": 2.0,
+        "mandate": "aggressive", "p": 0.89,
+        "thesis": "3.60B Daily Active People social graph monopoly; AI-powered advertising, WhatsApp monetization."
+    },
+    "RDDT": {
+        "sector": "Interactive Media & Consumer Tech", "industry": "Community Social Corpus & Ad Platform",
+        "moat": 8.8, "bs": 9.5, "growth": 25.0, "cannibal": 0.0, "oe_yield": 4.5, "cyc": 2.5,
+        "mandate": "aggressive", "p": 0.78,
+        "thesis": "Irreplaceable human conversational data corpus licensing to AI hyperscalers."
+    },
+    "MTCH": {
+        "sector": "Interactive Media & Consumer Tech", "industry": "Mobile Dating Platforms (Hinge/Tinder)",
+        "moat": 8.5, "bs": 8.0, "growth": 6.0, "cannibal": 5.0, "oe_yield": 8.8, "cyc": 2.0,
+        "mandate": "aggressive", "p": 0.80,
+        "thesis": "Hinge growth flywheel and deep value cash generation with aggressive buybacks."
+    },
+    "BMBL": {
+        "sector": "Interactive Media & Consumer Tech", "industry": "Female-Centric Dating & Friendship Apps",
+        "moat": 7.5, "bs": 7.5, "growth": 5.0, "cannibal": 0.0, "oe_yield": 9.0, "cyc": 2.5,
+        "mandate": "aggressive", "p": 0.70,
+        "thesis": "Turnaround play on female-first dating app optimization and subscription tiers."
+    },
+    "YELP": {
+        "sector": "Interactive Media & Consumer Tech", "industry": "Local Merchant Discovery & Ad Services",
+        "moat": 8.2, "bs": 9.5, "growth": 5.0, "cannibal": 7.0, "oe_yield": 9.5, "cyc": 2.5,
+        "mandate": "aggressive", "p": 0.78,
+        "thesis": "Extreme cash cow (zero debt, $400M cash) repurchasing 7%+ shares annually."
+    },
+    "DIS": {
+        "sector": "Media & Entertainment", "industry": "Theme Parks, Studio IP & Streaming Media",
+        "moat": 9.2, "bs": 7.5, "growth": 6.5, "cannibal": 0.5, "oe_yield": 5.8, "cyc": 2.2,
+        "mandate": "defensive", "p": 0.85,
+        "thesis": "Unmatched timeless family entertainment IP, theme park pricing power, streaming profitability."
+    },
+    "EDU": {
+        "sector": "Consumer Services & Education", "industry": "Enrichment Education & Negative Working Float",
+        "moat": 9.2, "bs": 10.0, "growth": 14.0, "cannibal": 4.0, "oe_yield": 7.3, "cyc": 1.8,
+        "mandate": "aggressive", "p": 0.85,
+        "thesis": "Negative working capital float ($2.24B deferred tuition), $5.56B gross cash ($0 debt), $500M shareholder return."
+    },
+    "DUOL": {
+        "sector": "Consumer Services & Education", "industry": "Gamified Mobile Language & Literacy Learning",
+        "moat": 8.8, "bs": 9.5, "growth": 25.0, "cannibal": 0.0, "oe_yield": 3.8, "cyc": 2.0,
+        "mandate": "aggressive", "p": 0.82,
+        "thesis": "Viral organic acquisition loop and gamified subscription monetization in digital learning."
+    },
+    "LGCY": {
+        "sector": "Consumer Services & Education", "industry": "Accredited Vocational Allied Healthcare Training",
+        "moat": 8.2, "bs": 9.0, "growth": 15.0, "cannibal": 0.0, "oe_yield": 8.5, "cyc": 2.0,
+        "mandate": "aggressive", "p": 0.76,
+        "thesis": "Accredited practical nursing and allied health training with high placement rates."
+    },
 
-    # Education & Negative Working Capital Float
-    "EDU": {"sector": "Consumer Services & Education", "industry": "Enrichment Education & Float Fortress", "moat": 9.2, "bs": 10.0, "growth": 14.0, "cannibal": 4.0, "oe_yield": 7.3, "cyc": 1.8, "mandate": "aggressive", "p": 0.85, "thesis": "Negative working capital float ($2.24B deferred tuition), $5.56B gross cash ($0 debt), $500M shareholder return."},
-    "LGCY": {"sector": "Consumer Services & Education", "industry": "Vocational Healthcare Education", "moat": 8.2, "bs": 9.0, "growth": 15.0, "cannibal": 0.0, "oe_yield": 8.5, "cyc": 2.0, "mandate": "aggressive", "p": 0.76, "thesis": "Accredited practical nursing and allied health training with high placement rates."},
+    # -------------------------------------------------------------------------
+    # COMMERCE, LOGISTICS, MOBILITY & TRAVEL (8 STOCKS)
+    # -------------------------------------------------------------------------
+    "AMZN": {
+        "sector": "Commerce & Cloud Infrastructure", "industry": "Global Hyperscaler Cloud & Retail Prime",
+        "moat": 9.8, "bs": 8.5, "growth": 11.5, "cannibal": 0.0, "oe_yield": 5.2, "cyc": 1.8,
+        "mandate": "aggressive", "p": 0.90,
+        "thesis": "AWS cloud hyperscaler monopoly + Prime retail advertising & logistics flywheel."
+    },
+    "MELI": {
+        "sector": "Commerce & Logistics", "industry": "Latin America E-Commerce & Fintech Platform",
+        "moat": 9.5, "bs": 9.0, "growth": 19.0, "cannibal": 0.0, "oe_yield": 6.1, "cyc": 2.5,
+        "mandate": "aggressive", "p": 0.84,
+        "thesis": "Dominant Latin America e-commerce & fintech logistics ecosystem; 35%+ organic volume growth."
+    },
+    "BABA": {
+        "sector": "Commerce & Cloud Infrastructure", "industry": "Cloud Hyperscaler & 3P Digital Marketplaces",
+        "moat": 9.5, "bs": 10.0, "growth": 6.0, "cannibal": 6.5, "oe_yield": 8.5, "cyc": 2.5,
+        "mandate": "aggressive", "p": 0.82,
+        "thesis": "Massive deep-value cash fortress ($60B+ net cash), Cloud AI enterprise leader, 7%+ buybacks."
+    },
+    "JD": {
+        "sector": "Commerce & Logistics", "industry": "Direct 1P Cold-Chain & Fulfillment Logistics",
+        "moat": 9.0, "bs": 9.5, "growth": 6.0, "cannibal": 5.5, "oe_yield": 9.2, "cyc": 2.5,
+        "mandate": "aggressive", "p": 0.81,
+        "thesis": "Nationwide direct 1P logistics infrastructure, refrigerated supply chain, heavy asset turnover."
+    },
+    "PDD": {
+        "sector": "Commerce & Logistics", "industry": "Value Commerce & Cross-Border Supply Platform",
+        "moat": 9.2, "bs": 10.0, "growth": 20.0, "cannibal": 0.0, "oe_yield": 9.8, "cyc": 3.0,
+        "mandate": "aggressive", "p": 0.80,
+        "thesis": "Social group buying scale + global cross-border Temu with $35B+ net cash."
+    },
+    "UBER": {
+        "sector": "Commerce & Mobility", "industry": "Global Mobility & Local Delivery Networks",
+        "moat": 9.2, "bs": 8.5, "growth": 16.0, "cannibal": 2.0, "oe_yield": 5.5, "cyc": 2.2,
+        "mandate": "aggressive", "p": 0.83,
+        "thesis": "Global ride-share & delivery network duopoly; multi-sided liquidity scale and margin expansion."
+    },
+    "BKNG": {
+        "sector": "Commerce & Travel", "industry": "Online Travel Agency Global Duopoly",
+        "moat": 9.4, "bs": 8.5, "growth": 8.5, "cannibal": 4.5, "oe_yield": 6.8, "cyc": 3.0,
+        "mandate": "defensive", "p": 0.86,
+        "thesis": "Global travel OTA network effects duopoly + 35%+ FCF conversion and aggressive buybacks."
+    },
+    "GCT": {
+        "sector": "Commerce & Logistics", "industry": "B2B Cross-Border Bulky Goods Marketplace",
+        "moat": 8.8, "bs": 9.5, "growth": 18.0, "cannibal": 2.0, "oe_yield": 9.5, "cyc": 3.5,
+        "mandate": "aggressive", "p": 0.78,
+        "thesis": "B2B cross-border marketplace network effects with fulfillment scale, high ROIC, and net cash."
+    },
+    "UPWK": {
+        "sector": "Commerce & Marketplaces", "industry": "Knowledge-Work Freelance Marketplace",
+        "moat": 8.4, "bs": 9.0, "growth": 11.0, "cannibal": 3.0, "oe_yield": 8.5, "cyc": 2.8,
+        "mandate": "aggressive", "p": 0.78,
+        "thesis": "Online knowledge-work marketplace expanding take rates and EBITDA margins."
+    },
 
-    # Global Commerce, Logistics & Travel
-    "MELI": {"sector": "Commerce & Logistics", "industry": "Latin America E-Commerce & Fintech", "moat": 9.5, "bs": 9.0, "growth": 19.0, "cannibal": 0.0, "oe_yield": 6.1, "cyc": 2.5, "mandate": "aggressive", "p": 0.84, "thesis": "Dominant Latin America e-commerce & fintech logistics ecosystem; 35%+ organic volume growth."},
-    "BABA": {"sector": "Commerce & Cloud Infrastructure", "industry": "Cloud Infrastructure & 3P Digital Marketplaces", "moat": 9.5, "bs": 10.0, "growth": 6.0, "cannibal": 6.5, "oe_yield": 8.5, "cyc": 2.5, "mandate": "aggressive", "p": 0.82, "thesis": "Massive deep-value cash fortress ($60B+ net cash), Cloud AI enterprise leader, 7%+ buybacks."},
-    "JD": {"sector": "Commerce & Logistics", "industry": "Direct 1P Supply Chain & Fulfillment Logistics", "moat": 9.0, "bs": 9.5, "growth": 6.0, "cannibal": 5.5, "oe_yield": 9.2, "cyc": 2.5, "mandate": "aggressive", "p": 0.81, "thesis": "Nationwide direct 1P logistics infrastructure, refrigerated supply chain, heavy asset turnover."},
-    "PDD": {"sector": "Commerce & Logistics", "industry": "Social Value Commerce & Global Temu", "moat": 9.2, "bs": 10.0, "growth": 20.0, "cannibal": 0.0, "oe_yield": 9.8, "cyc": 3.0, "mandate": "aggressive", "p": 0.80, "thesis": "Social group buying scale + global cross-border Temu with $35B+ net cash."},
-    "UBER": {"sector": "Commerce & Mobility", "industry": "Urban Mobility & Delivery Networks", "moat": 9.2, "bs": 8.5, "growth": 16.0, "cannibal": 2.0, "oe_yield": 5.5, "cyc": 2.2, "mandate": "aggressive", "p": 0.83, "thesis": "Global ride-share & delivery network duopoly; multi-sided liquidity scale and margin expansion."},
-    "BKNG": {"sector": "Commerce & Travel", "industry": "Online Travel Agency Duopoly", "moat": 9.4, "bs": 8.5, "growth": 8.5, "cannibal": 4.5, "oe_yield": 6.8, "cyc": 3.0, "mandate": "defensive", "p": 0.86, "thesis": "Global travel OTA network effects duopoly + 35%+ FCF conversion and aggressive buybacks."},
-    "GCT": {"sector": "Commerce & Logistics", "industry": "B2B Cross-Border Marketplace", "moat": 8.8, "bs": 9.5, "growth": 18.0, "cannibal": 2.0, "oe_yield": 9.5, "cyc": 3.5, "mandate": "aggressive", "p": 0.78, "thesis": "B2B cross-border marketplace network effects with fulfillment scale, high ROIC, and net cash."},
-    "UPWK": {"sector": "Commerce & Marketplaces", "industry": "Freelance Talent Platform", "moat": 8.4, "bs": 9.0, "growth": 11.0, "cannibal": 3.0, "oe_yield": 8.5, "cyc": 2.8, "mandate": "aggressive", "p": 0.78, "thesis": "Online knowledge-work marketplace expanding take rates and EBITDA margins."},
+    # -------------------------------------------------------------------------
+    # PHYSICAL MONOPOLIES, REAL ESTATE & INFRASTRUCTURE (6 STOCKS)
+    # -------------------------------------------------------------------------
+    "CPRT": {
+        "sector": "Industrial & Physical Moats", "industry": "Salvage Vehicle Real Estate Auctions",
+        "moat": 9.7, "bs": 10.0, "growth": 11.0, "cannibal": 0.5, "oe_yield": 4.4, "cyc": 1.2,
+        "mandate": "defensive", "p": 0.89,
+        "thesis": "Zoning-protected salvage yard land monopoly + pristine zero-debt balance sheet fortress."
+    },
+    "BYD": {
+        "sector": "Industrial & Physical Moats", "industry": "Fee-Simple Regional Real Estate Gaming",
+        "moat": 8.8, "bs": 9.0, "growth": 4.5, "cannibal": 5.5, "oe_yield": 9.4, "cyc": 2.8,
+        "mandate": "aggressive", "p": 0.82,
+        "thesis": "Fee-simple real estate ownership (~85% owned land), 2.0x leverage, 9.4% FCF yield, 5-6% buybacks."
+    },
+    "FAST": {
+        "sector": "Industrial & Physical Moats", "industry": "Industrial Fasteners & Onsite Vending Supply",
+        "moat": 9.2, "bs": 9.5, "growth": 7.5, "cannibal": 0.5, "oe_yield": 3.5, "cyc": 2.5,
+        "mandate": "defensive", "p": 0.88,
+        "thesis": "Onsite vending machine moat embedded inside customer factories with high ROIC."
+    },
+    "VRT": {
+        "sector": "Industrial & Physical Moats", "industry": "Datacenter Liquid Cooling & Power Management",
+        "moat": 9.1, "bs": 8.0, "growth": 20.0, "cannibal": 0.0, "oe_yield": 4.8, "cyc": 3.2,
+        "mandate": "aggressive", "p": 0.83,
+        "thesis": "Essential liquid cooling and thermal management infrastructure for high-density AI clusters."
+    },
+    "BVHMF": {
+        "sector": "Industrial & Physical Moats", "industry": "UK Affordable Partnerships Housebuilding",
+        "moat": 8.0, "bs": 8.0, "growth": 10.0, "cannibal": 2.0, "oe_yield": 8.5, "cyc": 3.2,
+        "mandate": "aggressive", "p": 0.75,
+        "thesis": "Asset-light UK partnership housebuilder with high pre-sold social housing forward order book."
+    },
+    "CMCSA": {
+        "sector": "Media & Telecom Infrastructure", "industry": "Broadband Last-Mile Cable & Media",
+        "moat": 8.8, "bs": 7.5, "growth": 4.0, "cannibal": 6.0, "oe_yield": 8.5, "cyc": 2.0,
+        "mandate": "defensive", "p": 0.82,
+        "thesis": "Broadband last-mile infrastructure with heavy share cannibalization."
+    },
+    "CHTR": {
+        "sector": "Media & Telecom Infrastructure", "industry": "Rural & Suburban Cable Broadband Network",
+        "moat": 8.5, "bs": 6.5, "growth": 3.0, "cannibal": 5.0, "oe_yield": 9.5, "cyc": 2.5,
+        "mandate": "aggressive", "p": 0.72,
+        "thesis": "High-leverage cable free cash flow engine repurchasing shares at steep discount."
+    },
 
-    # Monopolistic Physical Assets & Real Estate
-    "CPRT": {"sector": "Industrial & Physical Moats", "industry": "Salvage Vehicle Real Estate Auctions", "moat": 9.7, "bs": 10.0, "growth": 11.0, "cannibal": 0.5, "oe_yield": 4.4, "cyc": 1.2, "mandate": "defensive", "p": 0.89, "thesis": "Zoning-protected salvage yard land monopoly + pristine zero-debt balance sheet fortress."},
-    "BYD": {"sector": "Industrial & Physical Moats", "industry": "Fee-Simple Regional Real Estate Gaming", "moat": 8.8, "bs": 9.0, "growth": 4.5, "cannibal": 5.5, "oe_yield": 9.4, "cyc": 2.8, "mandate": "aggressive", "p": 0.82, "thesis": "Fee-simple real estate ownership (~85% owned land), 2.0x leverage, 9.4% FCF yield, 5-6% buybacks."},
-    "FAST": {"sector": "Industrial & Physical Moats", "industry": "Industrial Supply & Onsite Fasteners", "moat": 9.2, "bs": 9.5, "growth": 7.5, "cannibal": 0.5, "oe_yield": 3.5, "cyc": 2.5, "mandate": "defensive", "p": 0.88, "thesis": "Onsite vending machine moat embedded inside customer factories with high ROIC."},
-    "VRT": {"sector": "Industrial & Physical Moats", "industry": "Datacenter Liquid Cooling & Power", "moat": 9.1, "bs": 8.0, "growth": 20.0, "cannibal": 0.0, "oe_yield": 4.8, "cyc": 3.2, "mandate": "aggressive", "p": 0.83, "thesis": "Essential liquid cooling and thermal management infrastructure for high-density AI clusters."},
+    # -------------------------------------------------------------------------
+    # SEMICONDUCTORS & HARDWARE ARCHITECTURE (7 STOCKS)
+    # -------------------------------------------------------------------------
+    "TSM": {
+        "sector": "Semiconductor Infrastructure", "industry": "Pure-Play Advanced Silicon Foundry",
+        "moat": 9.8, "bs": 9.5, "growth": 15.0, "cannibal": 0.0, "oe_yield": 5.9, "cyc": 3.0,
+        "mandate": "aggressive", "p": 0.88,
+        "thesis": "Sole global pure-play foundry utility for all advanced silicon (CPUs, smartphones, autos, industrial)."
+    },
+    "NVDA": {
+        "sector": "Semiconductor Infrastructure", "industry": "Accelerated Compute & GPU Architectures",
+        "moat": 9.6, "bs": 9.5, "growth": 18.0, "cannibal": 1.5, "oe_yield": 3.8, "cyc": 4.5,
+        "mandate": "aggressive", "p": 0.84,
+        "thesis": "CUDA software ecosystem lock-in and AI compute platform; evaluated against mid-cycle digestion."
+    },
+    "ASML": {
+        "sector": "Semiconductor Infrastructure", "industry": "EUV Photolithography Semiconductor Monopoly",
+        "moat": 9.9, "bs": 9.0, "growth": 12.0, "cannibal": 1.0, "oe_yield": 3.2, "cyc": 4.0,
+        "mandate": "defensive", "p": 0.88,
+        "thesis": "100% global monopoly on EUV lithography machines; evaluated against semi capex ordering cycles."
+    },
+    "QCOM": {
+        "sector": "Semiconductor Infrastructure", "industry": "Wireless IP Licensing & Mobile SoC",
+        "moat": 9.2, "bs": 8.5, "growth": 9.0, "cannibal": 3.5, "oe_yield": 6.2, "cyc": 3.0,
+        "mandate": "aggressive", "p": 0.84,
+        "thesis": "Cellular standard essential patent licensing cash cow + premium mobile/auto silicon."
+    },
+    "TXN": {
+        "sector": "Semiconductor Infrastructure", "industry": "Analog & Embedded Silicon Processing",
+        "moat": 9.4, "bs": 8.5, "growth": 7.0, "cannibal": 1.5, "oe_yield": 3.8, "cyc": 3.0,
+        "mandate": "defensive", "p": 0.87,
+        "thesis": "300mm analog manufacturing cost advantage with 80,000+ catalog products."
+    },
+    "ARM": {
+        "sector": "Semiconductor Infrastructure", "industry": "RISC Processor Architecture IP",
+        "moat": 9.7, "bs": 9.5, "growth": 18.0, "cannibal": 0.0, "oe_yield": 2.2, "cyc": 2.0,
+        "mandate": "aggressive", "p": 0.86,
+        "thesis": "Ubiquitous compute architecture across 99% of smartphones, expanding into data center."
+    },
+    "INTC": {
+        "sector": "Semiconductor Infrastructure", "industry": "x86 Compute & Commercial Silicon Foundry",
+        "moat": 8.0, "bs": 7.0, "growth": 4.0, "cannibal": 0.0, "oe_yield": 4.0, "cyc": 3.8,
+        "mandate": "aggressive", "p": 0.68,
+        "thesis": "Turnaround play on Intel 18A process node commercialization and foundry ramp."
+    },
 
-    # Semiconductors & Hardware Equipment
-    "TSM": {"sector": "Semiconductor Infrastructure", "industry": "Pure-Play Silicon Foundry Utility", "moat": 9.8, "bs": 9.5, "growth": 15.0, "cannibal": 0.0, "oe_yield": 5.9, "cyc": 3.0, "mandate": "aggressive", "p": 0.88, "thesis": "Sole global pure-play foundry utility for all advanced silicon (CPUs, smartphones, autos, industrial)."},
-    "NVDA": {"sector": "Semiconductor Infrastructure", "industry": "Accelerated Compute & GPU Architecture", "moat": 9.6, "bs": 9.5, "growth": 18.0, "cannibal": 1.5, "oe_yield": 3.8, "cyc": 4.5, "mandate": "aggressive", "p": 0.84, "thesis": "CUDA software ecosystem lock-in and AI compute platform; evaluated against mid-cycle digestion."},
-    "ASML": {"sector": "Semiconductor Infrastructure", "industry": "EUV Photolithography Monopoly", "moat": 9.9, "bs": 9.0, "growth": 12.0, "cannibal": 1.0, "oe_yield": 3.2, "cyc": 4.0, "mandate": "defensive", "p": 0.88, "thesis": "100% global monopoly on EUV lithography machines; evaluated against semi capex ordering cycles."},
-    "QCOM": {"sector": "Semiconductor Infrastructure", "industry": "Wireless IP Licensing & Snapdragon SoC", "moat": 9.2, "bs": 8.5, "growth": 9.0, "cannibal": 3.5, "oe_yield": 6.2, "cyc": 3.0, "mandate": "aggressive", "p": 0.84, "thesis": "Cellular standard essential patent licensing cash cow + premium mobile/auto silicon."},
-    "TXN": {"sector": "Semiconductor Infrastructure", "industry": "Analog & Embedded Processing", "moat": 9.4, "bs": 8.5, "growth": 7.0, "cannibal": 1.5, "oe_yield": 3.8, "cyc": 3.0, "mandate": "defensive", "p": 0.87, "thesis": "300mm analog manufacturing cost advantage with 80,000+ catalog products."},
-    "ARM": {"sector": "Semiconductor Infrastructure", "industry": "Semiconductor IP Architecture", "moat": 9.7, "bs": 9.5, "growth": 18.0, "cannibal": 0.0, "oe_yield": 2.2, "cyc": 2.0, "mandate": "aggressive", "p": 0.86, "thesis": "Ubiquitous compute architecture across 99% of smartphones, expanding into data center."},
-
-    # Consumer Brands & Retail
-    "LULU": {"sector": "Consumer Brands & Retail", "industry": "Technical Athletic Apparel & Athleisure", "moat": 9.2, "bs": 10.0, "growth": 10.0, "cannibal": 4.0, "oe_yield": 7.8, "cyc": 2.2, "mandate": "aggressive", "p": 0.84, "thesis": "Pristine zero-debt balance sheet; dominant premium activewear brand with international runway."},
-    "DECK": {"sector": "Consumer Brands & Retail", "industry": "Performance Running & Premium Footwear", "moat": 9.0, "bs": 10.0, "growth": 12.0, "cannibal": 3.0, "oe_yield": 6.5, "cyc": 2.0, "mandate": "aggressive", "p": 0.84, "thesis": "Pristine zero-debt balance sheet; 25%+ ROIC, global HOKA/UGG brand compounding."},
-    "CROX": {"sector": "Consumer Brands & Retail", "industry": "Molded Foam Clogs & Casual Slip-Ons", "moat": 8.6, "bs": 8.5, "growth": 6.0, "cannibal": 5.0, "oe_yield": 8.8, "cyc": 2.5, "mandate": "aggressive", "p": 0.80, "thesis": "High-margin cash machine (28% operating margin); rapid debt paydown and deep-value buybacks."},
-    "NKE": {"sector": "Consumer Brands & Retail", "industry": "Global Athletic Footwear & Team Sports", "moat": 9.1, "bs": 8.5, "growth": 5.0, "cannibal": 2.0, "oe_yield": 5.5, "cyc": 2.2, "mandate": "defensive", "p": 0.83, "thesis": "Unmatched global athlete endorsement roster and sports culture scale turnaround."},
-    "ELF": {"sector": "Consumer Brands & Retail", "industry": "Mass Cosmetics & Skincare", "moat": 8.7, "bs": 9.0, "growth": 16.0, "cannibal": 0.0, "oe_yield": 5.2, "cyc": 2.2, "mandate": "aggressive", "p": 0.81, "thesis": "High-velocity digital marketing and prestige duplication in mass beauty."},
-    "COST": {"sector": "Consumer Brands & Retail", "industry": "Membership Subscription Warehouse", "moat": 9.8, "bs": 9.0, "growth": 9.0, "cannibal": 0.5, "oe_yield": 3.2, "cyc": 1.0, "mandate": "defensive", "p": 0.92, "thesis": "Unrivaled membership warehouse moat; negative working capital float, 93%+ renewal rate."},
-    "KO": {"sector": "Consumer Brands & Retail", "industry": "Global Non-Alcoholic Beverages", "moat": 9.6, "bs": 8.0, "growth": 5.5, "cannibal": 0.5, "oe_yield": 4.5, "cyc": 1.0, "mandate": "defensive", "p": 0.91, "thesis": "Worldwide bottling distribution network and irreplaceable beverage brand portfolio."},
-    "UL": {"sector": "Consumer Brands & Retail", "industry": "Consumer Staples & Personal Care", "moat": 9.0, "bs": 8.0, "growth": 5.0, "cannibal": 1.0, "oe_yield": 5.2, "cyc": 1.2, "mandate": "defensive", "p": 0.88, "thesis": "Global footprint in emerging market staples with steady pricing power."},
-    "SONY": {"sector": "Consumer Brands & Media", "industry": "Gaming, Music & Image Sensors", "moat": 9.2, "bs": 8.5, "growth": 8.0, "cannibal": 2.5, "oe_yield": 6.2, "cyc": 2.2, "mandate": "defensive", "p": 0.86, "thesis": "PlayStation gaming network, global music publishing oligopoly, and CMOS sensor monopoly."},
-    "CMCSA": {"sector": "Media & Telecom Infrastructure", "industry": "Broadband Cable & Media Networks", "moat": 8.8, "bs": 7.5, "growth": 4.0, "cannibal": 6.0, "oe_yield": 8.5, "cyc": 2.0, "mandate": "defensive", "p": 0.82, "thesis": "Broadband last-mile infrastructure with heavy share cannibalization."}
+    # -------------------------------------------------------------------------
+    # CONSUMER BRANDS, RETAIL & HARDWARE (13 STOCKS)
+    # -------------------------------------------------------------------------
+    "AAPL": {
+        "sector": "Consumer Hardware & Ecosystems", "industry": "Premium Consumer Hardware & iOS Services",
+        "moat": 9.8, "bs": 9.0, "growth": 6.5, "cannibal": 3.0, "oe_yield": 4.1, "cyc": 1.5,
+        "mandate": "defensive", "p": 0.93,
+        "thesis": "Unmatched global hardware ecosystem lock-in, 2B+ active devices, high-margin Services."
+    },
+    "LULU": {
+        "sector": "Consumer Brands & Retail", "industry": "Technical Athletic Apparel & Athleisure",
+        "moat": 9.2, "bs": 10.0, "growth": 10.0, "cannibal": 4.0, "oe_yield": 7.8, "cyc": 2.2,
+        "mandate": "aggressive", "p": 0.84,
+        "thesis": "Pristine zero-debt balance sheet; dominant premium activewear brand with international runway."
+    },
+    "DECK": {
+        "sector": "Consumer Brands & Retail", "industry": "Performance Running & Premium Footwear",
+        "moat": 9.0, "bs": 10.0, "growth": 12.0, "cannibal": 3.0, "oe_yield": 6.5, "cyc": 2.0,
+        "mandate": "aggressive", "p": 0.84,
+        "thesis": "Pristine zero-debt balance sheet; 25%+ ROIC, global HOKA/UGG brand compounding."
+    },
+    "CROX": {
+        "sector": "Consumer Brands & Retail", "industry": "Molded Foam Clogs & Casual Slip-Ons",
+        "moat": 8.6, "bs": 8.5, "growth": 6.0, "cannibal": 5.0, "oe_yield": 8.8, "cyc": 2.5,
+        "mandate": "aggressive", "p": 0.80,
+        "thesis": "High-margin cash machine (28% operating margin); rapid debt paydown and deep-value buybacks."
+    },
+    "NKE": {
+        "sector": "Consumer Brands & Retail", "industry": "Global Athletic Footwear & Team Sports",
+        "moat": 9.1, "bs": 8.5, "growth": 5.0, "cannibal": 2.0, "oe_yield": 5.5, "cyc": 2.2,
+        "mandate": "defensive", "p": 0.83,
+        "thesis": "Unmatched global athlete endorsement roster and sports culture scale turnaround."
+    },
+    "ELF": {
+        "sector": "Consumer Brands & Retail", "industry": "Mass Cosmetics & Skincare Innovation",
+        "moat": 8.7, "bs": 9.0, "growth": 16.0, "cannibal": 0.0, "oe_yield": 5.2, "cyc": 2.2,
+        "mandate": "aggressive", "p": 0.81,
+        "thesis": "High-velocity digital marketing and prestige duplication in mass beauty."
+    },
+    "COST": {
+        "sector": "Consumer Brands & Retail", "industry": "Membership Subscription Wholesale Warehouse",
+        "moat": 9.8, "bs": 9.0, "growth": 9.0, "cannibal": 0.5, "oe_yield": 3.2, "cyc": 1.0,
+        "mandate": "defensive", "p": 0.92,
+        "thesis": "Unrivaled membership warehouse moat; negative working capital float, 93%+ renewal rate."
+    },
+    "KO": {
+        "sector": "Consumer Brands & Retail", "industry": "Global Non-Alcoholic Beverage Distribution",
+        "moat": 9.6, "bs": 8.0, "growth": 5.5, "cannibal": 0.5, "oe_yield": 4.5, "cyc": 1.0,
+        "mandate": "defensive", "p": 0.91,
+        "thesis": "Worldwide bottling distribution network and irreplaceable beverage brand portfolio."
+    },
+    "CELH": {
+        "sector": "Consumer Brands & Retail", "industry": "Functional Fitness & Energy Beverages",
+        "moat": 8.2, "bs": 9.0, "growth": 18.0, "cannibal": 0.0, "oe_yield": 5.0, "cyc": 2.5,
+        "mandate": "aggressive", "p": 0.78,
+        "thesis": "Fitness-focused sugar-free energy drink brand scaling via PepsiCo distribution network."
+    },
+    "UL": {
+        "sector": "Consumer Brands & Retail", "industry": "Global Consumer Staples & Personal Care",
+        "moat": 9.0, "bs": 8.0, "growth": 5.0, "cannibal": 1.0, "oe_yield": 5.2, "cyc": 1.2,
+        "mandate": "defensive", "p": 0.88,
+        "thesis": "Global footprint in emerging market staples with steady pricing power."
+    },
+    "BTI": {
+        "sector": "Consumer Brands & Retail", "industry": "Global Combustible & Smokeless Nicotine",
+        "moat": 8.8, "bs": 7.5, "growth": 3.0, "cannibal": 2.0, "oe_yield": 9.5, "cyc": 1.5,
+        "mandate": "defensive", "p": 0.84,
+        "thesis": "High-dividend cash generator transitioning into modern oral and vaping categories."
+    },
+    "CMG": {
+        "sector": "Consumer Brands & Retail", "industry": "Fast-Casual Dining & Fresh Mexican Grill",
+        "moat": 9.1, "bs": 9.0, "growth": 12.0, "cannibal": 1.0, "oe_yield": 3.8, "cyc": 1.8,
+        "mandate": "defensive", "p": 0.88,
+        "thesis": "High unit-economics restaurant chain expanding drive-thru Chipotlanes across North America."
+    },
+    "SONY": {
+        "sector": "Consumer Brands & Media", "industry": "Gaming Consoles, Music IP & CMOS Sensors",
+        "moat": 9.2, "bs": 8.5, "growth": 8.0, "cannibal": 2.5, "oe_yield": 6.2, "cyc": 2.2,
+        "mandate": "defensive", "p": 0.86,
+        "thesis": "PlayStation gaming network, global music publishing oligopoly, and CMOS sensor monopoly."
+    },
+    "SONO": {
+        "sector": "Consumer Brands & Hardware", "industry": "Premium Multi-Room Smart Home Audio",
+        "moat": 8.0, "bs": 8.5, "growth": 6.0, "cannibal": 4.0, "oe_yield": 7.5, "cyc": 2.8,
+        "mandate": "aggressive", "p": 0.75,
+        "thesis": "Premium multi-room smart audio system with expanding headphones category."
+    },
+    "TSLA": {
+        "sector": "Automotive & Energy Storage", "industry": "Electric Vehicles, Megapack Energy & Autonomy",
+        "moat": 8.8, "bs": 9.0, "growth": 15.0, "cannibal": 0.0, "oe_yield": 2.5, "cyc": 4.0,
+        "mandate": "aggressive", "p": 0.78,
+        "thesis": "Global EV market share leader, utility-scale Megapack energy storage, and FSD autonomous platform."
+    },
+    "KSS": {
+        "sector": "Consumer Brands & Retail", "industry": "Off-Mall Department Stores & Sephora Partnerships",
+        "moat": 7.0, "bs": 6.5, "growth": 1.0, "cannibal": 1.0, "oe_yield": 9.0, "cyc": 3.5,
+        "mandate": "aggressive", "p": 0.65,
+        "thesis": "Deep value retail real estate turnaround with Sephora shop-in-shops."
+    }
 }
 
 TAXONOMY_MAP = STOCK_METADATA
@@ -129,7 +529,6 @@ def get_asset_metadata(ticker: str, wl_item: dict) -> Dict[str, Any]:
         
     labels = wl_item.get("labels", [])
     status = wl_item.get("status_label", "Moderate Conviction")
-    
     mandate = "defensive" if "Safe Compounder" in labels or "Quality Compounder" in labels else "aggressive"
     
     return {
@@ -257,7 +656,6 @@ def allocate_fractional_kelly_capped(
     """
     active_tickers = list(k_scores.keys())
     
-    # Filter passes to remove tiny fractional noise
     for _ in range(3):
         tot_k = sum(k_scores[t] for t in active_tickers)
         if tot_k <= 0:
@@ -367,14 +765,10 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
 
     # 4. Compute Fidelity Allocations
     def_k_scores = {t: scored_pool[t]["kelly_score"] for t in fidelity_selected}
-    
-    # Calculate prelim cash
     prelim_mos = sum(scored_pool[t]["margin_of_safety_pct"] for t in fidelity_selected) / len(fidelity_selected) if fidelity_selected else 20.0
     def_cash_pct, def_equity_budget, def_cash_desc = calculate_shiller_macro_cash(is_defensive=True, weighted_mos=prelim_mos)
     
     final_def_weights = allocate_fractional_kelly_capped(def_k_scores, def_equity_budget, MAX_SINGLE_EQUITY_CAP, MIN_POSITION_WEIGHT)
-    
-    # Recalculate exact cash based on final active holdings
     active_def_tickers = list(final_def_weights.keys())
     active_def_mos = sum(scored_pool[t]["margin_of_safety_pct"] for t in active_def_tickers) / len(active_def_tickers) if active_def_tickers else prelim_mos
     def_cash_pct, def_equity_budget, def_cash_desc = calculate_shiller_macro_cash(is_defensive=True, weighted_mos=active_def_mos)
@@ -442,7 +836,6 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
     agg_cash_pct, agg_equity_budget, agg_cash_desc = calculate_shiller_macro_cash(is_defensive=False, weighted_mos=prelim_agg_mos)
 
     final_agg_weights = allocate_fractional_kelly_capped(agg_k_scores, agg_equity_budget, MAX_SINGLE_EQUITY_CAP, MIN_POSITION_WEIGHT)
-    
     active_agg_tickers = list(final_agg_weights.keys())
     active_agg_mos = sum(scored_pool[t]["margin_of_safety_pct"] for t in active_agg_tickers) / len(active_agg_tickers) if active_agg_tickers else prelim_agg_mos
     agg_cash_pct, agg_equity_budget, agg_cash_desc = calculate_shiller_macro_cash(is_defensive=False, weighted_mos=active_agg_mos)
@@ -518,7 +911,7 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
         "rebalance_log": [
             {
                 "date": "2026-08-11",
-                "action": "FULL UNIVERSE DYNAMIC INCEPTION",
+                "action": "EXPLICIT TAXONOMY INCEPTION",
                 "reason": def_cash_desc,
                 "verification_status": "Verified 3/3 Autonomous Council"
             }
@@ -544,7 +937,7 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
         "rebalance_log": [
             {
                 "date": "2026-08-11",
-                "action": "FULL UNIVERSE DYNAMIC INCEPTION",
+                "action": "EXPLICIT TAXONOMY INCEPTION",
                 "reason": agg_cash_desc,
                 "verification_status": "Verified 3/3 Autonomous Council"
             }
@@ -572,11 +965,11 @@ def sync_engine_to_disk():
         
     print(f"=== FIDELITY ALLOCATION ({len(def_state['holdings'])-1} Equities + Cash) ===")
     for h in def_state["holdings"]:
-        print(f"  {h['ticker']:<8} | Weight: {h['target_weight']*100:>6.2f}% | Alloc: ${h['allocated_dollars']:>9,.2f} | MoS: {h['margin_of_safety_pct']:>+6.2f}% | Score: {h.get('quality_score', 0):>5.1f}")
+        print(f"  {h['ticker']:<8} | Weight: {h['target_weight']*100:>6.2f}% | Alloc: ${h['allocated_dollars']:>9,.2f} | MoS: {h['margin_of_safety_pct']:>+6.2f}% | Score: {h.get('quality_score', 0):>5.1f} | {h.get('industry')}")
         
     print(f"\n=== WEALTHSIMPLE ALLOCATION ({len(agg_state['holdings'])-1} Equities + Cash) ===")
     for h in agg_state["holdings"]:
-        print(f"  {h['ticker']:<8} | Weight: {h['target_weight']*100:>6.2f}% | Alloc: ${h['allocated_dollars']:>9,.2f} | MoS: {h['margin_of_safety_pct']:>+6.2f}% | Score: {h.get('quality_score', 0):>5.1f}")
+        print(f"  {h['ticker']:<8} | Weight: {h['target_weight']*100:>6.2f}% | Alloc: ${h['allocated_dollars']:>9,.2f} | MoS: {h['margin_of_safety_pct']:>+6.2f}% | Score: {h.get('quality_score', 0):>5.1f} | {h.get('industry')}")
 
 if __name__ == "__main__":
     sync_engine_to_disk()
