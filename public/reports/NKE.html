@@ -10,6 +10,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
     <style>
         :root {
             --bg-canvas: #161513;
@@ -30,6 +34,25 @@
             --font-serif: 'Newsreader', Garamond, Georgia, serif;
             --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        /* KaTeX Math Styling & Dark Theme Alignment */
+        .katex-display {
+            margin: 20px 0 !important;
+            overflow-x: auto !important;
+            overflow-y: hidden !important;
+            padding: 12px 16px !important;
+            background: rgba(0, 0, 0, 0.18) !important;
+            border-radius: 8px !important;
+            border: 1px solid var(--border-color) !important;
+        }
+        .katex {
+            font-size: 1.08em !important;
+            color: var(--text-title) !important;
+        }
+        .katex .mord.text {
+            color: var(--text-body) !important;
+            font-family: var(--font-serif) !important;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -1584,7 +1607,7 @@
     $$\text{Owner Earnings} = \text{Normalized Operating Cash Flow} - \text{Maintenance CapEx} - \text{Stock-Based Compensation (SBC)}$$
     $$\text{FY26 Normalized Baseline} = \$5,450\text{M} - \$480\text{M} - \$555\text{M} = \$4,415\text{M} \quad (\mathbf{\$2.96\text{ per share}})$$
     <ul><li><strong>Maintenance vs. Growth CapEx:</strong> Total FY2026 CapEx was $684 million. We isolate $480 million as essential maintenance CapEx required to maintain global store footprints, logistics automation, and digital platforms. The remaining $204 million represents discretionary growth CapEx.</li><li><strong>Stock-Based Compensation (SBC):</strong> In accordance with Buffett's core principles, SBC ($555 million in FY2026) is treated as a 100% real cash expense and shareholder dilution factor, fully deducted from cash generation.</li></ul>
-</div><h3>2. Capital Structure &amp; Discount Rate Parameters</h3><p>Valuation inputs are strictly anchored in localized sovereign risk dynamics and Nike's net obligation profile:</p><ul><li><strong>Sovereign Risk-Free Rate:</strong> 4.20% (US 10-Year Treasury Yield).</li><li><strong>Equity Risk Premium (ERP):</strong> 5.30%, reflecting consumer discretionary execution risk and China geopolitical exposure.</li><li><strong>Hurdle / Discount Rate:</strong> $4.20\% + 5.30\% = \mathbf{9.50\%}$.</li><li><strong>Balance Sheet Net Obligation Bridge:</strong> Cash &amp; Short-Term Investments of $9.03 billion, offset by $9.47 billion in Total Debt and $2.85 billion in Operating Lease Liabilities, yielding a net debt burden of $3.29 billion (~$2.21 per share).</li><li><strong>Share Count Compression:</strong> Modeled at -1.5% per annum in the Base Case as opportunistic share buybacks resume post-turnaround (shrinking share count from 1.49 billion to 1.38 billion by Year 5).</li></ul><h3>3. Intrinsic Value Scenario Matrix</h3><p>The matrix below models Nike's intrinsic equity value across three distinct operational trajectories over a 5-year discrete projection period, discounted back to present value at 9.50%.</p><div class="table-scroll-wrap"><table>
+</div><h3>2. Capital Structure &amp; Discount Rate Parameters</h3><p>Valuation inputs are strictly anchored in localized sovereign risk dynamics and Nike's net obligation profile:</p><ul><li><strong>Sovereign Risk-Free Rate:</strong> 4.20% (US 10-Year Treasury Yield).</li><li><strong>Equity Risk Premium (ERP):</strong> 5.30%, reflecting consumer discretionary execution risk and China geopolitical exposure.</li><li><strong>Hurdle / Discount Rate:</strong> \(4.20\% + 5.30\% = \mathbf{9.50\%}\).</li><li><strong>Balance Sheet Net Obligation Bridge:</strong> Cash &amp; Short-Term Investments of $9.03 billion, offset by $9.47 billion in Total Debt and $2.85 billion in Operating Lease Liabilities, yielding a net debt burden of $3.29 billion (~$2.21 per share).</li><li><strong>Share Count Compression:</strong> Modeled at -1.5% per annum in the Base Case as opportunistic share buybacks resume post-turnaround (shrinking share count from 1.49 billion to 1.38 billion by Year 5).</li></ul><h3>3. Intrinsic Value Scenario Matrix</h3><p>The matrix below models Nike's intrinsic equity value across three distinct operational trajectories over a 5-year discrete projection period, discounted back to present value at 9.50%.</p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Valuation Metric / Assumption</th>
@@ -2936,12 +2959,16 @@
             if (btn && content) {
                 btn.classList.add('active');
                 content.classList.add('active');
+                setTimeout(renderLatexEquations, 20);
             }
         }
 
         function toggleSnapshot(ver) {
             const el = document.getElementById('snapshot-' + ver);
             el.style.display = (el.style.display === 'none' ? 'block' : 'none');
+            if (el.style.display === 'block') {
+                setTimeout(renderLatexEquations, 20);
+            }
         }
 
         function openLabelsLegendModal(event) {
@@ -2963,6 +2990,23 @@
                 closeLabelsLegendModal();
             }
         }
+
+        function renderLatexEquations() {
+            if (typeof renderMathInElement === 'function') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '\\[', right: '\\]', display: true},
+                        {left: '\\(', right: '\\)', display: false}
+                    ],
+                    ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'option'],
+                    throwOnError: false
+                });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", renderLatexEquations);
+        window.addEventListener("load", renderLatexEquations);
     </script>
 </body>
 </html>

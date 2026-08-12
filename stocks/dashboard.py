@@ -507,7 +507,16 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         cleaned = re.sub(r"\*\*(.*?)\*\*", lambda m: f"<strong>{m.group(1)}</strong>", cleaned)
         cleaned = re.sub(r"(?<!\*)\*([^*]+)\*(?!\*)", lambda m: f"<em>{m.group(1)}</em>", cleaned)
         
-        # 1f. Use BeautifulSoup for perfect DOM normalization
+        # 1f. Math syntax normalizer (ensure LaTeX formulas render properly)
+        def fix_single_dollar_math(match):
+            inner = match.group(1)
+            if any(cmd in inner for cmd in [r"\text", r"\mathbf", r"\math", r"\frac", r"\times", r"\ge", r"\le", r"\quad", r"\%", r"\cdot", r"\approx", r"\pm"]):
+                return f"\\({inner}\\)"
+            return match.group(0)
+
+        cleaned = re.sub(r"(?<![\$\\])\$(?!\$)([^\$\n]+?)(?<![\$\\])\$(?!\$)", fix_single_dollar_math, cleaned)
+        
+        # 1g. Use BeautifulSoup for perfect DOM normalization
         soup = BeautifulSoup(cleaned, "html.parser")
         
         # Flatten improperly nested <li> tags
@@ -689,6 +698,10 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
     <style>
         :root {{
             --bg-canvas: #161513;
@@ -709,6 +722,25 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             --font-serif: 'Newsreader', Garamond, Georgia, serif;
             --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
+        }}
+
+        /* KaTeX Math Styling & Dark Theme Alignment */
+        .katex-display {{
+            margin: 20px 0 !important;
+            overflow-x: auto !important;
+            overflow-y: hidden !important;
+            padding: 12px 16px !important;
+            background: rgba(0, 0, 0, 0.18) !important;
+            border-radius: 8px !important;
+            border: 1px solid var(--border-color) !important;
+        }}
+        .katex {{
+            font-size: 1.08em !important;
+            color: var(--text-title) !important;
+        }}
+        .katex .mord.text {{
+            color: var(--text-body) !important;
+            font-family: var(--font-serif) !important;
         }}
 
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
@@ -1700,12 +1732,16 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             if (btn && content) {{
                 btn.classList.add('active');
                 content.classList.add('active');
+                setTimeout(renderLatexEquations, 20);
             }}
         }}
 
         function toggleSnapshot(ver) {{
             const el = document.getElementById('snapshot-' + ver);
             el.style.display = (el.style.display === 'none' ? 'block' : 'none');
+            if (el.style.display === 'block') {{
+                setTimeout(renderLatexEquations, 20);
+            }}
         }}
 
         function openLabelsLegendModal(event) {{
@@ -1727,6 +1763,23 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 closeLabelsLegendModal();
             }}
         }}
+
+        function renderLatexEquations() {{
+            if (typeof renderMathInElement === 'function') {{
+                renderMathInElement(document.body, {{
+                    delimiters: [
+                        {{left: '$$', right: '$$', display: true}},
+                        {{left: '\\\\[', right: '\\\\]', display: true}},
+                        {{left: '\\\\(', right: '\\\\)', display: false}}
+                    ],
+                    ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'option'],
+                    throwOnError: false
+                }});
+            }}
+        }}
+
+        document.addEventListener("DOMContentLoaded", renderLatexEquations);
+        window.addEventListener("load", renderLatexEquations);
     </script>
 </body>
 </html>
@@ -1914,6 +1967,10 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
     <style>
         :root {{
             --bg-canvas: #161513;
@@ -1934,6 +1991,25 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             --font-serif: 'Newsreader', Garamond, Georgia, serif;
             --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
+        }}
+
+        /* KaTeX Math Styling & Dark Theme Alignment */
+        .katex-display {{
+            margin: 20px 0 !important;
+            overflow-x: auto !important;
+            overflow-y: hidden !important;
+            padding: 12px 16px !important;
+            background: rgba(0, 0, 0, 0.18) !important;
+            border-radius: 8px !important;
+            border: 1px solid var(--border-color) !important;
+        }}
+        .katex {{
+            font-size: 1.08em !important;
+            color: var(--text-title) !important;
+        }}
+        .katex .mord.text {{
+            color: var(--text-body) !important;
+            font-family: var(--font-serif) !important;
         }}
 
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
@@ -2787,7 +2863,25 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             }}
         }}
 
-        document.addEventListener('DOMContentLoaded', refreshAlertsUI);
+        function renderLatexEquations() {{
+            if (typeof renderMathInElement === 'function') {{
+                renderMathInElement(document.body, {{
+                    delimiters: [
+                        {{left: '$$', right: '$$', display: true}},
+                        {{left: '\\\\[', right: '\\\\]', display: true}},
+                        {{left: '\\\\(', right: '\\\\)', display: false}}
+                    ],
+                    ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'option'],
+                    throwOnError: false
+                }});
+            }}
+        }}
+
+        document.addEventListener('DOMContentLoaded', () => {{
+            refreshAlertsUI();
+            renderLatexEquations();
+        }});
+        window.addEventListener('load', renderLatexEquations);
         refreshAlertsUI();
     </script>
     {build_labels_legend_modal_html()}
