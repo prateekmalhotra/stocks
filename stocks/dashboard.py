@@ -2015,6 +2015,32 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         }}
         .view-btn.active {{ background: var(--bg-hover); color: var(--text-title); }}
 
+        .search-input-wrap {{
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 4px 10px;
+            transition: border-color 0.15s;
+        }}
+        .search-input-wrap:focus-within {{
+            border-color: var(--accent-warm);
+        }}
+        .search-input {{
+            background: none;
+            border: none;
+            color: var(--text-title);
+            font-family: var(--font-sans);
+            font-size: 0.82rem;
+            outline: none;
+            width: 200px;
+        }}
+        .search-input::placeholder {{
+            color: var(--text-dim);
+        }}
+
         .tab-panel {{ display: none; }}
         .tab-panel.active {{ display: block; }}
 
@@ -2427,9 +2453,18 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts ({len(alerts)})</span></button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio')">Portfolio ({core_count} Core)</button>
             </div>
-            <div class="view-toggle" id="view-toggle-bar">
-                <button class="view-btn active" onclick="setView('table')">Table</button>
-                <button class="view-btn" onclick="setView('grid')">Cards</button>
+            <div style="display: flex; align-items: center; gap: 10px;" id="stocks-view-controls">
+                <div class="search-input-wrap" id="hub-search-wrap">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--text-dim)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="stock-search-input" class="search-input" placeholder="Search {len(watchlist)} stocks..." oninput="filterStocks(this.value)">
+                </div>
+                <div class="view-toggle" id="view-toggle-bar">
+                    <button class="view-btn active" onclick="setView('table')">Table</button>
+                    <button class="view-btn" onclick="setView('grid')">Cards</button>
+                </div>
             </div>
         </div>
 
@@ -2556,22 +2591,39 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             }}
         }}
 
+        function filterStocks(query) {{
+            const q = (query || '').toLowerCase().trim();
+            const rows = document.querySelectorAll('#stocks-table-view tbody tr.table-row');
+            const cards = document.querySelectorAll('#stocks-grid-view .grid-card');
+            
+            rows.forEach(r => {{
+                const text = r.innerText.toLowerCase();
+                r.style.display = (!q || text.includes(q)) ? '' : 'none';
+            }});
+            
+            cards.forEach(c => {{
+                const text = c.innerText.toLowerCase();
+                c.style.display = (!q || text.includes(q)) ? '' : 'none';
+            }});
+        }}
+
         function switchTab(tab) {{
             document.querySelectorAll('.hub-tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-panel').forEach(sec => sec.classList.remove('active'));
+            const viewCtrl = document.getElementById('stocks-view-controls');
             
             if (tab === 'stocks') {{
                 document.querySelectorAll('.hub-tab-btn')[0].classList.add('active');
                 document.getElementById('pane-stocks').classList.add('active');
-                document.getElementById('view-toggle-bar').style.display = 'flex';
+                if (viewCtrl) viewCtrl.style.display = 'flex';
             }} else if (tab === 'alerts') {{
                 document.querySelectorAll('.hub-tab-btn')[1].classList.add('active');
                 document.getElementById('pane-alerts').classList.add('active');
-                document.getElementById('view-toggle-bar').style.display = 'none';
+                if (viewCtrl) viewCtrl.style.display = 'none';
             }} else if (tab === 'portfolio') {{
                 document.querySelectorAll('.hub-tab-btn')[2].classList.add('active');
                 document.getElementById('pane-portfolio').classList.add('active');
-                document.getElementById('view-toggle-bar').style.display = 'none';
+                if (viewCtrl) viewCtrl.style.display = 'none';
                 if (typeof initPortfolioChart === 'function') {{
                     setTimeout(initPortfolioChart, 50);
                 }}
