@@ -783,8 +783,9 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
         MIN_POSITION_WEIGHT
     )
     
+    sorted_def_tickers = sorted(active_def_tickers, key=lambda t: final_def_weights[t], reverse=True)
     def_holdings = []
-    for t in active_def_tickers:
+    for t in sorted_def_tickers:
         s = scored_pool[t]
         w = final_def_weights[t]
         alloc = total_capital * w
@@ -850,8 +851,9 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
         MIN_POSITION_WEIGHT
     )
 
+    sorted_agg_tickers = sorted(active_agg_tickers, key=lambda t: final_agg_weights[t], reverse=True)
     agg_holdings = []
-    for t in active_agg_tickers:
+    for t in sorted_agg_tickers:
         s = scored_pool[t]
         w = final_agg_weights[t]
         alloc = total_capital * w

@@ -229,9 +229,14 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
         "BKNG": "Booking Holdings"
     }
     
-    # Table rows
+    # Table rows: Sort equities from highest allocation to lowest, then append USD Cash Reserve at the bottom
+    equities = [h for h in holdings if h.get("ticker") != "USD_CASH"]
+    cash_holdings = [h for h in holdings if h.get("ticker") == "USD_CASH"]
+    equities_sorted = sorted(equities, key=lambda x: x.get("allocated_dollars", x.get("target_weight", 0)), reverse=True)
+    sorted_holdings = equities_sorted + cash_holdings
+    
     rows_html = ""
-    for h in holdings:
+    for h in sorted_holdings:
         t = h["ticker"]
         w_pct = h["target_weight"] * 100.0
         alloc_dol = h["allocated_dollars"]
