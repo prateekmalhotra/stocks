@@ -2053,13 +2053,32 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             box-shadow: 0 0 0 3px rgba(204, 120, 92, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.02);
         }}
         .search-input {{
-            background: none;
-            border: none;
-            color: var(--text-title);
+            background: transparent !important;
+            background-color: transparent !important;
+            border: none !important;
+            color: var(--text-title) !important;
             font-family: var(--font-sans);
             font-size: 0.82rem;
-            outline: none;
+            outline: none !important;
             width: 200px;
+            box-shadow: none !important;
+        }}
+        .search-input:focus,
+        .search-input:active {{
+            background: transparent !important;
+            background-color: transparent !important;
+            color: var(--text-title) !important;
+            outline: none !important;
+            box-shadow: none !important;
+        }}
+        .search-input:-webkit-autofill,
+        .search-input:-webkit-autofill:hover,
+        .search-input:-webkit-autofill:focus,
+        .search-input:-webkit-autofill:active {{
+            -webkit-box-shadow: 0 0 0 30px #181614 inset !important;
+            -webkit-text-fill-color: #E8E4DF !important;
+            caret-color: #E8E4DF !important;
+            transition: background-color 5000s ease-in-out 0s;
         }}
         .search-input::placeholder {{
             color: var(--text-dim);
@@ -2529,7 +2548,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                         <circle cx="11" cy="11" r="8"></circle>
                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                     </svg>
-                    <input type="text" id="stock-search-input" class="search-input" placeholder="Search {len(watchlist)} stocks..." oninput="filterStocks(this.value)">
+                    <input type="text" id="stock-search-input" class="search-input" placeholder="Search {len(watchlist)} stocks..." oninput="filterStocks(this.value)" spellcheck="false" autocomplete="off" autocapitalize="off">
                 </div>
                 <div class="view-toggle" id="view-toggle-bar">
                     <button class="view-btn active" onclick="setView('table')">Table</button>
