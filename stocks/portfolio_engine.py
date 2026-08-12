@@ -722,8 +722,11 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
         meta = get_asset_metadata(ticker, w_item)
         scored = score_asset(ticker, meta, cur_p, fv, sig)
         
-        # Only companies passing quality hurdle & positive Margin of Safety are candidates
-        if scored["total_score"] >= MIN_QUALITY_SCORE_HURDLE and scored["margin_of_safety_pct"] > 0 and sig != "AVOID":
+        # Candidate Qualification Rule:
+        # 1. Must have an active 'BUY' action signal (no HOLD or CAUTION entries)
+        # 2. Must have at least a 12.0% Margin of Safety to prevent buying fair-value/overpriced stocks
+        # 3. Must meet minimum 65.0 quality score hurdle
+        if sig == "BUY" and scored["margin_of_safety_pct"] >= 12.0 and scored["total_score"] >= MIN_QUALITY_SCORE_HURDLE:
             scored_pool[ticker] = scored
 
     # 2. Fidelity (Defensive Fortress Mandate): Top qualifying by score, max 1 per industry

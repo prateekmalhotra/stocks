@@ -2,31 +2,31 @@
   "portfolio_type": "aggressive",
   "portfolio_label": "Wealthsimple (Aggressive Alpha)",
   "last_run_date": "2026-08-11",
-  "last_run_timestamp": "2026-08-11T22:58:41.703247",
+  "last_run_timestamp": "2026-08-11T23:00:30.749549",
   "status": "ACTION_REQUIRED",
   "status_display": "REBALANCE PROPOSAL PENDING (2 ACTIONS)",
   "action_required": true,
   "verdict_summary": "Council flagged 2 position(s) exceeding materiality rebalance hurdles.",
   "total_universe_scanned": 72,
-  "active_holdings_verified": 19,
+  "active_holdings_verified": 18,
   "shiller_cape": 35.5,
   "buffett_indicator_pct": 198.5,
   "treasury_3m_yield_pct": 5.0,
-  "portfolio_average_mos_pct": 31.35,
-  "cash_cushion_pct": 16.35,
+  "portfolio_average_mos_pct": 34.02,
+  "cash_cushion_pct": 15.83,
   "macro_cash_audit": {
     "shiller_cape": 35.5,
     "historical_cape_median": 18.0,
     "buffett_indicator_pct": 198.5,
     "treasury_3m_yield_pct": 5.0,
-    "portfolio_weighted_mos_pct": 31.35,
+    "portfolio_weighted_mos_pct": 34.02,
     "mandate_structural_floor_pct": 3.0,
-    "calculated_target_cash_pct": 16.35,
-    "current_actual_cash_pct": 16.21,
+    "calculated_target_cash_pct": 15.83,
+    "current_actual_cash_pct": 15.790000000000001,
     "cash_status": "OPTIMAL_DRY_POWDER_MAINTAINED",
     "strike_trigger_threshold": "MoS > 45.0% on Tier-1 Compounder or Flash Crash Dislocation",
     "cash_directive": "Maintain 3M US Treasury float yielding 5.00% risk-free. Stand ready for fat pitch market dislocations.",
-    "formula_description": "Tactical Strike Reserve (16.35%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +31.35% weighted Margin of Safety."
+    "formula_description": "Tactical Strike Reserve (15.83%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +34.02% weighted Margin of Safety."
   },
   "next_scheduled_run": "2026-08-18",
   "holdings_health": [
@@ -200,6 +200,19 @@
       "thesis_core": "Global ride-share & delivery network duopoly; multi-sided liquidity scale and margin expansion."
     },
     {
+      "ticker": "QCOM",
+      "company_name": "QUALCOMM Incorporated",
+      "price": 162.68,
+      "fair_value": 195.0,
+      "mos_pct": 19.87,
+      "signal": "BUY",
+      "moat_score": 9.2,
+      "expected_irr": 22.7,
+      "kelly_edge": 10.86,
+      "health_status": "PRISTINE",
+      "thesis_core": "Cellular standard essential patent licensing cash cow + premium mobile/auto silicon."
+    },
+    {
       "ticker": "NOW",
       "company_name": "ServiceNow, Inc.",
       "price": 127.54,
@@ -250,32 +263,6 @@
       "kelly_edge": 35.87,
       "health_status": "PRISTINE",
       "thesis_core": "AWS cloud hyperscaler monopoly + Prime retail advertising & logistics flywheel."
-    },
-    {
-      "ticker": "V",
-      "company_name": "Visa Inc.",
-      "price": 362.82,
-      "fair_value": 395.0,
-      "mos_pct": 8.87,
-      "signal": "HOLD",
-      "moat_score": 9.8,
-      "expected_irr": 18.1,
-      "kelly_edge": 36.49,
-      "health_status": "PRISTINE",
-      "thesis_core": "World's premier payment network rail; 55%+ operating margin, GDP+ cash conversion."
-    },
-    {
-      "ticker": "DUOL",
-      "company_name": "Duolingo, Inc.",
-      "price": 135.44,
-      "fair_value": 142.0,
-      "mos_pct": 4.84,
-      "signal": "HOLD",
-      "moat_score": 8.8,
-      "expected_irr": 29.8,
-      "kelly_edge": 17.48,
-      "health_status": "PRISTINE",
-      "thesis_core": "Viral organic acquisition loop and gamified subscription monetization in digital learning."
     }
   ],
   "top_watchlist_on_radar": [
@@ -314,12 +301,12 @@
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "MSFT",
-      "reason": "Dislocation arbitrage: MSFT offers Edge 25.95 vs 15.63 min active."
+      "reason": "Dislocation arbitrage: MSFT offers Edge 25.95 vs 10.86 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "MSCI",
-      "reason": "Dislocation arbitrage: MSCI offers Edge 24.45 vs 15.63 min active."
+      "reason": "Dislocation arbitrage: MSCI offers Edge 24.45 vs 10.86 min active."
     }
   ]
 }
