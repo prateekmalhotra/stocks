@@ -2202,5 +2202,42 @@
     "last_updated": "2026-08-11",
     "total_versions": 1,
     "report_path": "reports/SONY.html"
+  },
+  "TSLA": {
+    "ticker": "TSLA",
+    "company_name": "Tesla, Inc.",
+    "baseline_price": 332.81,
+    "current_price": 332.81,
+    "return_pct": 0.0,
+    "status_label": "High Uncertainty",
+    "labels": [
+      "High Uncertainty",
+      "Ai Autonomy",
+      "Capex Supercycle"
+    ],
+    "action_signal": "CAUTION",
+    "fair_value_estimate": "$275.00",
+    "bear_target": "$185.00 (-44.4%)",
+    "base_target": "$275.00 (-17.4%)",
+    "bull_target": "$410.00 (+23.2%)",
+    "upper_alert_threshold": 390.0,
+    "lower_alert_threshold": 250.0,
+    "next_catalyst_date": "2026-10-21",
+    "next_catalyst_event": "Q3 2026 Earnings Release",
+    "top_funds": [
+      "Duan Yongping - H&H International Investment (6.34)",
+      "Josh Tarasoff - Greenlea Lane Capital (5.91)",
+      "Viking Global Investors (2.59)",
+      "Torray Funds (0.08)",
+      "Polen Capital Management (0.03)",
+      "David Katz - Matrix Asset Advisors (0.02)",
+      "First Pacific Advisors (0.02)"
+    ],
+    "institutional_ownership_pct": "48.1%",
+    "insider_signal": "Cluster Buying",
+    "insider_summary": "Aggressive insider open-market purchases totaling $1,000,984,274.",
+    "last_updated": "2026-08-11",
+    "total_versions": 1,
+    "report_path": "reports/TSLA.html"
   }
 }
