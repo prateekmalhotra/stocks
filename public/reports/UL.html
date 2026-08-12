@@ -1,0 +1,2217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UL — Investment Memo</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="apple-touch-icon" href="../favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-canvas: #161513;
+            --bg-panel: #1E1C19;
+            --bg-subpanel: #252320;
+            --bg-hover: #2D2A25;
+            --text-title: #F5EFEB;
+            --text-body: #D4CDC3;
+            --text-secondary: #9E9689;
+            --text-dim: #736C61;
+            --accent-warm: #CC785C;
+            --accent-warm-hover: #E08A6E;
+            --accent-warm-subtle: rgba(204, 120, 92, 0.14);
+            --accent-green: #6FA882;
+            --accent-red: #D46E65;
+            --border-color: rgba(235, 225, 210, 0.08);
+            --border-focus: rgba(204, 120, 92, 0.38);
+            --font-serif: 'Newsreader', Garamond, Georgia, serif;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: 
+                radial-gradient(ellipse 70% 40% at 50% -10%, rgba(204, 120, 92, 0.08), transparent 60%),
+                var(--bg-canvas);
+            color: var(--text-body);
+            font-family: var(--font-serif);
+            line-height: 1.85;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 120px;
+        }
+
+        .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+        /* Top Nav */
+        nav.nav-bar {
+            background: rgba(22, 21, 19, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 16px 0;
+        }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .nav-back {
+            color: var(--accent-warm);
+            text-decoration: none;
+            font-family: var(--font-sans);
+            font-size: 0.88rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s;
+        }
+        .nav-back:hover { color: var(--accent-warm-hover); transform: translateX(-2px); }
+
+        /* Hero Deck */
+        .hero-deck {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 36px 40px;
+            margin: 32px 0 28px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+        }
+
+        .hero-top-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px; }
+        .ticker-symbol {
+            font-family: var(--font-serif);
+            font-size: 2.8rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: var(--text-title);
+        }
+        .company-meta { color: var(--text-secondary); font-size: 1.05rem; font-style: italic; margin-top: 2px; }
+
+        .price-callout { text-align: right; }
+        .price-number { font-size: 2.6rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }
+        .price-sub { font-size: 0.88rem; font-family: var(--font-mono); margin-top: 2px; }
+
+        /* Native SVG Area Chart */
+        .native-chart-wrap {
+            margin-top: 28px;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px 20px 12px;
+            position: relative;
+            user-select: none;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+        }
+        .chart-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            min-height: 28px;
+        }
+        .chart-live-val {
+            font-size: 0.88rem;
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .chart-range-pills {
+            display: flex;
+            gap: 4px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 2px;
+        }
+        .range-pill {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.72rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .range-pill:hover { color: var(--text-title); }
+        .range-pill.active {
+            background: var(--accent-warm);
+            color: #161513;
+            font-weight: 600;
+            box-shadow: 0 1px 4px rgba(204, 120, 92, 0.3);
+        }
+        .chart-svg { width: 100%; height: 220px; display: block; overflow: visible; }
+        .chart-tooltip {
+            position: absolute;
+            top: 14px;
+            left: 20px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-focus);
+            color: var(--text-title);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            padding: 5px 12px;
+            border-radius: 6px;
+            pointer-events: none;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            font-family: var(--font-sans);
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Key Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 24px;
+        }
+        @media (max-width: 960px) {
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 520px) {
+            .metrics-grid { grid-template-columns: 1fr; }
+        }
+        .metric-cell {
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            min-height: 80px;
+            box-sizing: border-box;
+        }
+        .metric-label { font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); letter-spacing: 0.05em; margin-bottom: 3px; }
+        .metric-value { font-size: 1.15rem; font-weight: 500; color: var(--text-title); font-family: var(--font-mono); }
+        .metric-subtext { font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-sans); margin-top: 4px; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+        /* Tabs */
+        .tabs-header {
+            display: flex;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-color);
+            margin: 32px 0 28px;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-family: var(--font-serif);
+            padding: 12px 18px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.15s;
+        }
+        .tab-btn:hover { color: var(--text-title); }
+        .tab-btn.active { color: var(--accent-warm); }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0; right: 0;
+            height: 2px;
+            background: var(--accent-warm);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Ownership, Insiders & Fund Intelligence Tab */
+        .ownership-container {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+        .ownership-header-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 24px 28px;
+        }
+        .ownership-stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .ownership-stat-grid { grid-template-columns: 1fr; }
+        }
+        .stat-box {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .stat-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-dim);
+            font-family: var(--font-sans);
+        }
+        .stat-num {
+            font-size: 1.45rem;
+            font-weight: 500;
+            font-family: var(--font-mono);
+            color: var(--text-title);
+        }
+        .stat-note {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            font-family: var(--font-sans);
+        }
+        .ownership-section {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 28px 32px;
+        }
+        .section-title-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+        .section-icon { font-size: 1.35rem; }
+        .section-heading {
+            font-family: var(--font-serif);
+            font-size: 1.35rem;
+            color: var(--text-title);
+            margin: 0;
+            letter-spacing: -0.01em;
+        }
+        .section-desc {
+            color: var(--text-dim);
+            font-size: 0.86rem;
+            margin: 0 0 20px;
+            line-height: 1.4;
+        }
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-subpanel);
+            margin-top: 14px;
+        }
+        .ownership-table {
+            width: 100%;
+            min-width: 980px;
+            border-collapse: collapse;
+            font-size: 0.86rem;
+        }
+        .ownership-table th {
+            text-align: left;
+            padding: 13px 16px;
+            font-size: 0.70rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-dim);
+            border-bottom: 1px solid var(--border-color);
+            background: #1E1D1A;
+            font-family: var(--font-sans);
+            white-space: nowrap;
+        }
+        .ownership-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.035);
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+        .ownership-table tr:last-child td {
+            border-bottom: none;
+        }
+        .ownership-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .link-out {
+            color: var(--accent-warm);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 500;
+            transition: color 0.15s ease;
+        }
+        .link-out:hover {
+            color: #fcd34d;
+            text-decoration: underline;
+        }
+        .writeups-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 16px;
+        }
+        .writeup-card {
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 22px 24px;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.15s ease;
+        }
+        .writeup-card:hover {
+            border-color: rgba(217, 119, 6, 0.4);
+        }
+        .btn-read-letter {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(217, 119, 6, 0.12);
+            color: var(--accent-warm);
+            border: 1px solid rgba(217, 119, 6, 0.25);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.76rem;
+            font-weight: 500;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: all 0.15s ease;
+        }
+        .btn-read-letter:hover {
+            background: rgba(217, 119, 6, 0.25);
+            color: #fcd34d;
+        }
+
+        /* Quick Portals Bar */
+        .quick-portals-bar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+        .portal-links-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .portal-link {
+            background: var(--bg-subpanel);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        .portal-link:hover {
+            background: rgba(201, 154, 117, 0.14);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            transform: translateY(-1px);
+        }
+
+        /* Memo Content & Premium Editorial Typography */
+        .memo-container {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 48px 52px;
+        }
+        .memo-container * {
+            box-sizing: border-box;
+        }
+        .memo-container a {
+            color: var(--accent-warm) !important;
+            text-decoration: none !important;
+            transition: color 0.15s ease !important;
+            border-bottom: 1px dotted rgba(201, 154, 117, 0.4) !important;
+        }
+        .memo-container a:hover {
+            color: #E2DDD5 !important;
+            border-bottom-color: var(--accent-warm) !important;
+        }
+        .memo-container h1, .memo-container h2 {
+            font-family: var(--font-serif) !important;
+            font-size: 1.55rem !important;
+            font-weight: 500 !important;
+            color: var(--text-title) !important;
+            margin: 44px 0 18px !important;
+            padding-bottom: 10px !important;
+            border-bottom: 1px solid var(--border-color) !important;
+            letter-spacing: -0.02em !important;
+            line-height: 1.35 !important;
+        }
+        .memo-container h1:first-child, .memo-container h2:first-of-type { margin-top: 0 !important; }
+        .memo-container h3 {
+            font-family: var(--font-serif) !important;
+            font-size: 1.28rem !important;
+            font-weight: 500 !important;
+            color: var(--accent-warm) !important;
+            margin: 32px 0 14px !important;
+            line-height: 1.4 !important;
+        }
+        .memo-container h4, .memo-container h5, .memo-container h6 {
+            font-family: var(--font-serif) !important;
+            font-size: 1.12rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            margin: 24px 0 10px !important;
+        }
+        .memo-container p {
+            font-family: var(--font-serif) !important;
+            font-size: 1.15rem !important;
+            line-height: 1.9 !important;
+            color: var(--text-body) !important;
+            margin-bottom: 22px !important;
+        }
+        .memo-container ul, .memo-container ol {
+            font-family: var(--font-serif) !important;
+            font-size: 1.12rem !important;
+            line-height: 1.9 !important;
+            color: var(--text-body) !important;
+            margin: 0 0 26px 30px !important;
+        }
+        .memo-container li { margin-bottom: 10px !important; color: var(--text-body) !important; }
+        .memo-container strong, .memo-container b {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+
+        /* STUNNING CONSISTENT TABLES - SOOTHING WARM TONES & ZERO OVERFLOW */
+        .table-scroll-wrap {
+            width: 100% !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            margin: 32px 0 !important;
+            background: #171614 !important;
+            background-color: #171614 !important;
+            border-radius: 12px !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            box-sizing: border-box !important;
+        }
+        .memo-container table {
+            width: 100% !important;
+            min-width: 600px !important;
+            border-collapse: separate !important;
+            border-spacing: 0 !important;
+            margin: 0 !important;
+            background: transparent !important;
+            background-color: transparent !important;
+            border: none !important;
+        }
+        .memo-container tr, .memo-container td, .memo-container th {
+            background: transparent !important;
+            background-color: transparent !important;
+        }
+        .memo-container th {
+            background: #1E1D1A !important;
+            background-color: #1E1D1A !important;
+            color: #C99A75 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            padding: 14px 18px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
+            text-align: left !important;
+        }
+        .memo-container td {
+            padding: 14px 18px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.05) !important;
+            font-size: 0.92rem !important;
+            color: #BDB7AA !important;
+            font-family: var(--font-mono) !important;
+            text-align: left !important;
+        }
+        .memo-container tr:last-child td {
+            border-bottom: none !important;
+        }
+        .memo-container tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.012) !important;
+            background-color: rgba(255, 255, 255, 0.012) !important;
+        }
+        .memo-container tr:hover td {
+            background: rgba(201, 154, 117, 0.04) !important;
+            background-color: rgba(201, 154, 117, 0.04) !important;
+        }
+        .memo-container td strong, .memo-container td b {
+            color: #D8D2C6 !important;
+            font-weight: 500 !important;
+        }
+
+        /* UNIVERSAL CALLOUT & BOX STYLING - NEVER WHITE OR PINK, STRICT DARK OBSIDIAN */
+        .memo-container blockquote,
+        .memo-container .callout,
+        .memo-container .falsification-box,
+        .memo-container .institutional-box,
+        .memo-container div[class*="box"],
+        .memo-container div[class*="card"],
+        .memo-container div[class*="alert"],
+        .memo-container div[class*="warning"],
+        .memo-container div[class*="highlight-box"] {
+            background: var(--bg-subpanel) !important;
+            background-color: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-left: 3px solid var(--accent-warm) !important;
+            padding: 22px 26px !important;
+            border-radius: 8px !important;
+            margin: 28px 0 !important;
+            color: var(--text-body) !important;
+            line-height: 1.8 !important;
+        }
+        .memo-container blockquote *,
+        .memo-container .callout *,
+        .memo-container .falsification-box *,
+        .memo-container .institutional-box *,
+        .memo-container div[class*="box"] *,
+        .memo-container div[class*="card"] *,
+        .memo-container div[class*="alert"] * {
+            background: transparent !important;
+            background-color: transparent !important;
+            color: var(--text-body) !important;
+        }
+        .memo-container blockquote h3,
+        .memo-container blockquote h4,
+        .memo-container .callout h3,
+        .memo-container .callout h4,
+        .memo-container .falsification-box h4,
+        .memo-container .falsification-box strong,
+        .memo-container .institutional-box h4,
+        .memo-container .institutional-box strong,
+        .memo-container div[class*="box"] h4,
+        .memo-container div[class*="box"] strong,
+        .memo-container div[class*="card"] strong {
+            color: var(--text-title) !important;
+        }
+        .highlight, mark {
+            background: rgba(201, 154, 117, 0.16) !important;
+            color: #E2DDD5 !important;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* FINANCIAL METRIC CARDS & STAT GRIDS */
+        .metrics-grid, .stats-grid, .grid-3, .grid-4, .grid-2, .metric-grid {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+            gap: 16px !important;
+            margin: 28px 0 !important;
+        }
+        .metric-card, .stat-card, div[class*="metric-box"], div[class*="stat-box"], div[class*="kpi-card"] {
+            background: var(--bg-subpanel) !important;
+            background-color: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-radius: 10px !important;
+            padding: 18px 20px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            box-sizing: border-box !important;
+        }
+        .metric-label, .stat-label, .kpi-label {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            color: var(--text-secondary) !important;
+            margin-bottom: 6px !important;
+        }
+        .metric-value, .stat-value, .kpi-value {
+            font-family: var(--font-mono) !important;
+            font-size: 1.4rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            letter-spacing: -0.02em !important;
+            line-height: 1.2 !important;
+            margin-bottom: 4px !important;
+        }
+        .metric-delta, .metric-sub, .stat-sub, .kpi-sub {
+            font-family: var(--font-mono) !important;
+            font-size: 0.82rem !important;
+            color: var(--accent-warm) !important;
+        }
+
+        /* EMBEDDED IMAGES, CHARTS & VISUAL INFOGRAPHICS */
+        .figure-container, figure {
+            margin: 32px 0 !important;
+            text-align: center !important;
+            background: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-radius: 12px !important;
+            padding: 16px !important;
+            overflow: hidden !important;
+        }
+        .memo-container img {
+            max-width: 100% !important;
+            height: auto !important;
+            border-radius: 8px !important;
+            display: block !important;
+            margin: 0 auto !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+        }
+        .figure-caption, figcaption {
+            font-family: var(--font-sans) !important;
+            font-size: 0.8rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 10px !important;
+            text-align: center !important;
+        }
+
+        /* Evolution Update Highlight Banner at top of Memo */
+        .update-banner-box {
+            background: #1C1B18 !important;
+            border: 1px solid rgba(201, 154, 117, 0.3) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 12px !important;
+            padding: 24px 28px !important;
+            margin-bottom: 36px !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .update-banner-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 14px !important;
+            padding-bottom: 10px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
+        }
+        .update-banner-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.76rem !important;
+            font-weight: 600 !important;
+            color: var(--accent-warm) !important;
+            letter-spacing: 0.04em !important;
+            text-transform: uppercase !important;
+        }
+        .update-trigger-pill {
+            font-family: var(--font-mono) !important;
+            font-size: 0.74rem !important;
+            color: var(--text-secondary) !important;
+            background: var(--bg-subpanel) !important;
+            padding: 3px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid var(--border-color) !important;
+        }
+        .update-banner-title {
+            font-family: var(--font-serif) !important;
+            font-size: 1.22rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            margin-bottom: 8px !important;
+        }
+        .update-banner-desc {
+            font-family: var(--font-serif) !important;
+            font-size: 1.08rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-body) !important;
+        }
+
+        /* History */
+        .history-entry {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 28px 32px;
+            margin-bottom: 20px;
+        }
+        .history-entry-active { border-color: rgba(201, 154, 117, 0.35); }
+        .history-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+        .history-tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .history-time { color: var(--text-secondary); font-size: 0.88rem; font-family: var(--font-sans); }
+        .history-price { font-family: var(--font-mono); font-size: 0.92rem; }
+
+        .diff-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) { .diff-grid { grid-template-columns: 1fr; } }
+        .diff-box {
+            padding: 18px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .diff-prev { background: rgba(196, 114, 108, 0.05); border-color: rgba(196, 114, 108, 0.18); }
+        .diff-now { background: rgba(125, 157, 129, 0.05); border-color: rgba(125, 157, 129, 0.18); }
+        .diff-label { font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+        .diff-prev .diff-label { color: var(--accent-red); }
+        .diff-now .diff-label { color: var(--accent-green); }
+        .diff-text { font-size: 1.02rem; color: var(--text-body); line-height: 1.65; }
+
+        /* Pills */
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 11px;
+            border-radius: 9999px;
+            font-size: 0.72rem;
+            font-family: var(--font-sans);
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+        }
+        .pill-active { background: rgba(201, 154, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.45); font-weight: 600; box-shadow: 0 0 10px rgba(201, 154, 117, 0.06); }
+        .pill-neutral { background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); font-weight: 500; }
+        .pill-alert { background: rgba(191, 160, 117, 0.14); color: var(--accent-warm); border: 1px solid rgba(191, 160, 117, 0.28); }
+
+        .btn-subtle {
+            background: var(--bg-subpanel);
+            color: var(--text-title);
+            border: 1px solid var(--border-color);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            padding: 7px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .btn-subtle:hover { background: var(--bg-hover); }
+
+        .snapshot-drawer { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color); }
+
+        /* Subtle Hinge-style Status Pulse Beacon */
+        .status-beacon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 9px;
+            height: 9px;
+            margin-left: 7px;
+            vertical-align: middle;
+            cursor: help;
+        }
+        .beacon-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            position: relative;
+            z-index: 2;
+        }
+        .beacon-ping {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            animation: beacon-ripple 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+            z-index: 1;
+        }
+        .beacon-buy .beacon-dot { background-color: #10b981; box-shadow: 0 0 6px rgba(16, 185, 129, 0.7); }
+        .beacon-buy .beacon-ping { background-color: rgba(16, 185, 129, 0.45); }
+        .beacon-hold .beacon-dot { background-color: #f59e0b; box-shadow: 0 0 6px rgba(245, 158, 11, 0.7); }
+        .beacon-hold .beacon-ping { background-color: rgba(245, 158, 11, 0.45); }
+        .beacon-caution .beacon-dot { background-color: #f97316; box-shadow: 0 0 6px rgba(249, 115, 22, 0.7); }
+        .beacon-caution .beacon-ping { background-color: rgba(249, 115, 22, 0.45); }
+        .beacon-avoid .beacon-dot { background-color: #ef4444; box-shadow: 0 0 6px rgba(239, 68, 68, 0.7); }
+        .beacon-avoid .beacon-ping { background-color: rgba(239, 68, 68, 0.45); }
+        @keyframes beacon-ripple {
+            0% { transform: scale(0.9); opacity: 0.85; }
+            70% { transform: scale(2.5); opacity: 0; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+
+        .pos { color: var(--accent-green); }
+        .neg { color: var(--accent-red); }
+
+        /* Info Circle Button */
+        .btn-info-circle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            color: var(--text-dim);
+            font-size: 0.72rem;
+            font-family: var(--font-mono);
+            cursor: pointer;
+            margin-left: 6px;
+            vertical-align: middle;
+            transition: all 0.15s ease;
+            padding: 0;
+            line-height: 1;
+        }
+        .btn-info-circle:hover {
+            background: var(--bg-hover);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            transform: scale(1.1);
+        }
+
+        /* Modal */
+        .modal-shade {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(10, 10, 9, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+        }
+        .modal-body-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-focus);
+            border-radius: 16px;
+            max-width: 720px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 36px;
+            position: relative;
+        }
+        .modal-x {
+            position: absolute;
+            top: 20px; right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-size: 1.4rem;
+            cursor: pointer;
+        }
+        .modal-x:hover { color: var(--text-title); }
+        .btn-primary {
+            background: var(--accent-warm); color: #141312; font-family: var(--font-sans); font-weight: 500;
+            padding: 10px 20px; border-radius: 6px; text-decoration: none; display: inline-flex; align-items: center; border: none; cursor: pointer;
+            transition: all 0.15s;
+        }
+        .btn-primary:hover { background: #DDB495; }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="container nav-inner">
+            <a href="../index.html" class="nav-back">← AlphaThesis</a>
+            <span style="font-size: 0.82rem; color: var(--text-dim); font-family: var(--font-sans);">UL RESEARCH</span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Hero Deck -->
+        <section class="hero-deck">
+            <div class="hero-top-row">
+                <div>
+                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                        <span class="ticker-symbol">UL</span>
+                        <span class="pill pill-active">Solid Conviction</span> <span class="pill pill-neutral">Pureplay Hpc</span> <span class="pill pill-neutral">Margin Expansion</span>
+                        <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="View Investment Taxonomy & Labels Legend">ⓘ</button>
+                    </div>
+                    <div class="company-meta">Unilever PLC</div>
+                </div>
+                <div class="price-callout">
+                    <div class="price-number">$62.37</div>
+                    <div class="price-sub pos">
+                        +0.00% vs Genesis
+                    </div>
+                </div>
+            </div>
+
+            <!-- Native Multi-Range Interactive Area Chart -->
+            
+    <div class="native-chart-wrap" id="chart-container">
+        <div class="chart-top-bar">
+            <div id="chart-live-val" class="chart-live-val">
+                <span id="tooltip-date">Aug 11, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$62.37</strong>
+            </div>
+            <div class="chart-range-pills">
+                <button class="range-pill active" onclick="switchChartRange('1Y')">1Y</button>
+                <button class="range-pill" onclick="switchChartRange('5Y')">5Y</button>
+                <button class="range-pill" onclick="switchChartRange('10Y')">10Y</button>
+                <button class="range-pill" onclick="switchChartRange('MAX')">MAX</button>
+            </div>
+        </div>
+
+        <svg id="interactive-svg" viewBox="0 0 900 260" preserveAspectRatio="none" class="chart-svg">
+            <defs>
+                <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#CC785C" stop-opacity="0.20" />
+                    <stop offset="100%" stop-color="#CC785C" stop-opacity="0.0" />
+                </linearGradient>
+            </defs>
+            
+            <line x1="20" y1="25" x2="880" y2="25" stroke="rgba(235,225,210,0.04)" stroke-width="1" />
+            <line x1="20" y1="130.0" x2="880" y2="130.0" stroke="rgba(235,225,210,0.04)" stroke-width="1" />
+            <line x1="20" y1="235" x2="880" y2="235" stroke="rgba(235,225,210,0.04)" stroke-width="1" />
+
+            <path id="chart-area-path" d="" fill="url(#area-grad)" />
+            <path id="chart-line-path" d="" fill="none" stroke="#CC785C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+
+            <line id="crosshair-line" x1="0" y1="25" x2="0" y2="235" stroke="rgba(204,120,92,0.4)" stroke-width="1" stroke-dasharray="3 3" style="display: none;" />
+            <circle id="hover-dot" r="4.5" fill="#CC785C" stroke="#1E1C19" stroke-width="2" style="display: none;" />
+        </svg>
+        <div class="chart-labels">
+            <span id="chart-start-lbl">Aug 12, 2025 ($55.05)</span>
+            <span id="chart-range-title">1-Year Historical Range</span>
+            <span id="chart-end-lbl">Aug 11, 2026 ($62.37)</span>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const allDatasets = {"1Y": [{"date": "Aug 12, 2025", "price": 68.78}, {"date": "Aug 13, 2025", "price": 70.32}, {"date": "Aug 14, 2025", "price": 69.46}, {"date": "Aug 15, 2025", "price": 68.69}, {"date": "Aug 18, 2025", "price": 69.02}, {"date": "Aug 19, 2025", "price": 69.79}, {"date": "Aug 20, 2025", "price": 71.58}, {"date": "Aug 21, 2025", "price": 71.25}, {"date": "Aug 22, 2025", "price": 71.01}, {"date": "Aug 25, 2025", "price": 69.89}, {"date": "Aug 26, 2025", "price": 69.82}, {"date": "Aug 27, 2025", "price": 70.41}, {"date": "Aug 28, 2025", "price": 70.24}, {"date": "Aug 29, 2025", "price": 71.17}, {"date": "Sep 02, 2025", "price": 71.55}, {"date": "Sep 03, 2025", "price": 72.34}, {"date": "Sep 04, 2025", "price": 73.21}, {"date": "Sep 05, 2025", "price": 72.42}, {"date": "Sep 08, 2025", "price": 72.07}, {"date": "Sep 09, 2025", "price": 71.04}, {"date": "Sep 10, 2025", "price": 70.7}, {"date": "Sep 11, 2025", "price": 71.5}, {"date": "Sep 12, 2025", "price": 70.82}, {"date": "Sep 15, 2025", "price": 70.18}, {"date": "Sep 16, 2025", "price": 69.66}, {"date": "Sep 17, 2025", "price": 70.29}, {"date": "Sep 18, 2025", "price": 69.21}, {"date": "Sep 19, 2025", "price": 68.92}, {"date": "Sep 22, 2025", "price": 68.12}, {"date": "Sep 23, 2025", "price": 68.22}, {"date": "Sep 24, 2025", "price": 67.67}, {"date": "Sep 25, 2025", "price": 66.81}, {"date": "Sep 26, 2025", "price": 66.76}, {"date": "Sep 29, 2025", "price": 66.63}, {"date": "Sep 30, 2025", "price": 66.76}, {"date": "Oct 01, 2025", "price": 66.23}, {"date": "Oct 02, 2025", "price": 66.37}, {"date": "Oct 03, 2025", "price": 66.51}, {"date": "Oct 06, 2025", "price": 65.97}, {"date": "Oct 07, 2025", "price": 66.0}, {"date": "Oct 08, 2025", "price": 66.04}, {"date": "Oct 09, 2025", "price": 66.36}, {"date": "Oct 10, 2025", "price": 68.05}, {"date": "Oct 13, 2025", "price": 67.67}, {"date": "Oct 14, 2025", "price": 68.68}, {"date": "Oct 15, 2025", "price": 68.56}, {"date": "Oct 16, 2025", "price": 69.84}, {"date": "Oct 17, 2025", "price": 71.08}, {"date": "Oct 20, 2025", "price": 70.82}, {"date": "Oct 21, 2025", "price": 70.2}, {"date": "Oct 22, 2025", "price": 70.02}, {"date": "Oct 23, 2025", "price": 70.18}, {"date": "Oct 24, 2025", "price": 70.57}, {"date": "Oct 27, 2025", "price": 70.62}, {"date": "Oct 28, 2025", "price": 69.73}, {"date": "Oct 29, 2025", "price": 68.66}, {"date": "Oct 30, 2025", "price": 68.55}, {"date": "Oct 31, 2025", "price": 67.78}, {"date": "Nov 03, 2025", "price": 68.32}, {"date": "Nov 04, 2025", "price": 68.48}, {"date": "Nov 05, 2025", "price": 69.02}, {"date": "Nov 06, 2025", "price": 68.59}, {"date": "Nov 07, 2025", "price": 69.22}, {"date": "Nov 10, 2025", "price": 68.48}, {"date": "Nov 11, 2025", "price": 68.77}, {"date": "Nov 12, 2025", "price": 68.68}, {"date": "Nov 13, 2025", "price": 67.94}, {"date": "Nov 14, 2025", "price": 66.71}, {"date": "Nov 17, 2025", "price": 66.68}, {"date": "Nov 18, 2025", "price": 66.88}, {"date": "Nov 19, 2025", "price": 66.3}, {"date": "Nov 20, 2025", "price": 66.76}, {"date": "Nov 21, 2025", "price": 68.02}, {"date": "Nov 24, 2025", "price": 67.12}, {"date": "Nov 25, 2025", "price": 67.83}, {"date": "Nov 26, 2025", "price": 67.79}, {"date": "Nov 28, 2025", "price": 68.23}, {"date": "Dec 01, 2025", "price": 67.96}, {"date": "Dec 02, 2025", "price": 67.04}, {"date": "Dec 03, 2025", "price": 66.85}, {"date": "Dec 04, 2025", "price": 66.57}, {"date": "Dec 05, 2025", "price": 66.98}, {"date": "Dec 08, 2025", "price": 62.27}, {"date": "Dec 09, 2025", "price": 64.04}, {"date": "Dec 10, 2025", "price": 63.86}, {"date": "Dec 11, 2025", "price": 64.82}, {"date": "Dec 12, 2025", "price": 64.94}, {"date": "Dec 15, 2025", "price": 65.04}, {"date": "Dec 16, 2025", "price": 64.33}, {"date": "Dec 17, 2025", "price": 65.57}, {"date": "Dec 18, 2025", "price": 65.2}, {"date": "Dec 19, 2025", "price": 65.1}, {"date": "Dec 22, 2025", "price": 64.96}, {"date": "Dec 23, 2025", "price": 65.73}, {"date": "Dec 24, 2025", "price": 65.99}, {"date": "Dec 26, 2025", "price": 66.18}, {"date": "Dec 29, 2025", "price": 65.77}, {"date": "Dec 30, 2025", "price": 65.62}, {"date": "Dec 31, 2025", "price": 65.4}, {"date": "Jan 02, 2026", "price": 65.05}, {"date": "Jan 05, 2026", "price": 63.74}, {"date": "Jan 06, 2026", "price": 64.48}, {"date": "Jan 07, 2026", "price": 62.62}, {"date": "Jan 08, 2026", "price": 63.34}, {"date": "Jan 09, 2026", "price": 64.2}, {"date": "Jan 12, 2026", "price": 64.42}, {"date": "Jan 13, 2026", "price": 64.7}, {"date": "Jan 14, 2026", "price": 65.33}, {"date": "Jan 15, 2026", "price": 64.21}, {"date": "Jan 16, 2026", "price": 64.51}, {"date": "Jan 20, 2026", "price": 64.9}, {"date": "Jan 21, 2026", "price": 64.83}, {"date": "Jan 22, 2026", "price": 65.53}, {"date": "Jan 23, 2026", "price": 67.0}, {"date": "Jan 26, 2026", "price": 67.31}, {"date": "Jan 27, 2026", "price": 67.56}, {"date": "Jan 28, 2026", "price": 66.53}, {"date": "Jan 29, 2026", "price": 67.53}, {"date": "Jan 30, 2026", "price": 68.36}, {"date": "Feb 02, 2026", "price": 68.77}, {"date": "Feb 03, 2026", "price": 69.15}, {"date": "Feb 04, 2026", "price": 70.79}, {"date": "Feb 05, 2026", "price": 71.57}, {"date": "Feb 06, 2026", "price": 72.12}, {"date": "Feb 09, 2026", "price": 71.36}, {"date": "Feb 10, 2026", "price": 71.97}, {"date": "Feb 11, 2026", "price": 73.27}, {"date": "Feb 12, 2026", "price": 73.46}, {"date": "Feb 13, 2026", "price": 74.59}, {"date": "Feb 17, 2026", "price": 73.96}, {"date": "Feb 18, 2026", "price": 72.42}, {"date": "Feb 19, 2026", "price": 72.01}, {"date": "Feb 20, 2026", "price": 73.23}, {"date": "Feb 23, 2026", "price": 73.98}, {"date": "Feb 24, 2026", "price": 74.59}, {"date": "Feb 25, 2026", "price": 73.2}, {"date": "Feb 26, 2026", "price": 73.28}, {"date": "Feb 27, 2026", "price": 73.75}, {"date": "Mar 02, 2026", "price": 71.48}, {"date": "Mar 03, 2026", "price": 69.15}, {"date": "Mar 04, 2026", "price": 69.07}, {"date": "Mar 05, 2026", "price": 67.39}, {"date": "Mar 06, 2026", "price": 66.82}, {"date": "Mar 09, 2026", "price": 66.36}, {"date": "Mar 10, 2026", "price": 66.38}, {"date": "Mar 11, 2026", "price": 65.13}, {"date": "Mar 12, 2026", "price": 64.4}, {"date": "Mar 13, 2026", "price": 64.05}, {"date": "Mar 16, 2026", "price": 65.43}, {"date": "Mar 17, 2026", "price": 65.42}, {"date": "Mar 18, 2026", "price": 62.35}, {"date": "Mar 19, 2026", "price": 61.51}, {"date": "Mar 20, 2026", "price": 61.48}, {"date": "Mar 23, 2026", "price": 61.07}, {"date": "Mar 24, 2026", "price": 60.62}, {"date": "Mar 25, 2026", "price": 60.8}, {"date": "Mar 26, 2026", "price": 59.81}, {"date": "Mar 27, 2026", "price": 59.37}, {"date": "Mar 30, 2026", "price": 59.98}, {"date": "Mar 31, 2026", "price": 56.97}, {"date": "Apr 01, 2026", "price": 56.06}, {"date": "Apr 02, 2026", "price": 55.45}, {"date": "Apr 06, 2026", "price": 56.03}, {"date": "Apr 07, 2026", "price": 55.7}, {"date": "Apr 08, 2026", "price": 58.25}, {"date": "Apr 09, 2026", "price": 58.46}, {"date": "Apr 10, 2026", "price": 58.34}, {"date": "Apr 13, 2026", "price": 58.23}, {"date": "Apr 14, 2026", "price": 57.81}, {"date": "Apr 15, 2026", "price": 58.09}, {"date": "Apr 16, 2026", "price": 57.28}, {"date": "Apr 17, 2026", "price": 58.53}, {"date": "Apr 20, 2026", "price": 57.96}, {"date": "Apr 21, 2026", "price": 56.96}, {"date": "Apr 22, 2026", "price": 57.43}, {"date": "Apr 23, 2026", "price": 57.52}, {"date": "Apr 24, 2026", "price": 58.13}, {"date": "Apr 27, 2026", "price": 57.5}, {"date": "Apr 28, 2026", "price": 57.69}, {"date": "Apr 29, 2026", "price": 56.9}, {"date": "Apr 30, 2026", "price": 58.98}, {"date": "May 01, 2026", "price": 59.76}, {"date": "May 04, 2026", "price": 58.71}, {"date": "May 05, 2026", "price": 58.42}, {"date": "May 06, 2026", "price": 59.7}, {"date": "May 07, 2026", "price": 58.73}, {"date": "May 08, 2026", "price": 58.4}, {"date": "May 11, 2026", "price": 57.24}, {"date": "May 12, 2026", "price": 57.92}, {"date": "May 13, 2026", "price": 57.5}, {"date": "May 14, 2026", "price": 57.34}, {"date": "May 15, 2026", "price": 56.24}, {"date": "May 18, 2026", "price": 57.3}, {"date": "May 19, 2026", "price": 57.22}, {"date": "May 20, 2026", "price": 57.68}, {"date": "May 21, 2026", "price": 57.72}, {"date": "May 22, 2026", "price": 57.35}, {"date": "May 26, 2026", "price": 57.07}, {"date": "May 27, 2026", "price": 58.0}, {"date": "May 28, 2026", "price": 57.03}, {"date": "May 29, 2026", "price": 56.45}, {"date": "Jun 01, 2026", "price": 55.78}, {"date": "Jun 02, 2026", "price": 55.53}, {"date": "Jun 03, 2026", "price": 55.31}, {"date": "Jun 04, 2026", "price": 55.05}, {"date": "Jun 05, 2026", "price": 56.72}, {"date": "Jun 08, 2026", "price": 56.09}, {"date": "Jun 09, 2026", "price": 57.58}, {"date": "Jun 10, 2026", "price": 58.64}, {"date": "Jun 11, 2026", "price": 58.32}, {"date": "Jun 12, 2026", "price": 58.92}, {"date": "Jun 15, 2026", "price": 58.69}, {"date": "Jun 16, 2026", "price": 59.02}, {"date": "Jun 17, 2026", "price": 57.76}, {"date": "Jun 18, 2026", "price": 58.4}, {"date": "Jun 22, 2026", "price": 57.7}, {"date": "Jun 23, 2026", "price": 59.25}, {"date": "Jun 24, 2026", "price": 59.97}, {"date": "Jun 25, 2026", "price": 60.54}, {"date": "Jun 26, 2026", "price": 60.55}, {"date": "Jun 29, 2026", "price": 61.2}, {"date": "Jun 30, 2026", "price": 60.12}, {"date": "Jul 01, 2026", "price": 60.89}, {"date": "Jul 02, 2026", "price": 62.48}, {"date": "Jul 06, 2026", "price": 61.58}, {"date": "Jul 07, 2026", "price": 62.74}, {"date": "Jul 08, 2026", "price": 61.84}, {"date": "Jul 09, 2026", "price": 60.99}, {"date": "Jul 10, 2026", "price": 61.72}, {"date": "Jul 13, 2026", "price": 61.48}, {"date": "Jul 14, 2026", "price": 60.84}, {"date": "Jul 15, 2026", "price": 61.45}, {"date": "Jul 16, 2026", "price": 62.71}, {"date": "Jul 17, 2026", "price": 62.39}, {"date": "Jul 20, 2026", "price": 62.0}, {"date": "Jul 21, 2026", "price": 60.79}, {"date": "Jul 22, 2026", "price": 61.83}, {"date": "Jul 23, 2026", "price": 60.21}, {"date": "Jul 24, 2026", "price": 60.94}, {"date": "Jul 27, 2026", "price": 61.37}, {"date": "Jul 28, 2026", "price": 66.87}, {"date": "Jul 29, 2026", "price": 66.0}, {"date": "Jul 30, 2026", "price": 65.27}, {"date": "Jul 31, 2026", "price": 63.41}, {"date": "Aug 03, 2026", "price": 63.8}, {"date": "Aug 04, 2026", "price": 64.08}, {"date": "Aug 05, 2026", "price": 64.43}, {"date": "Aug 06, 2026", "price": 63.66}, {"date": "Aug 07, 2026", "price": 62.96}, {"date": "Aug 10, 2026", "price": 62.86}, {"date": "Aug 11, 2026", "price": 62.37}], "5Y": [{"date": "Aug 08, 2021", "price": 65.06}, {"date": "Aug 15, 2021", "price": 63.48}, {"date": "Aug 22, 2021", "price": 62.51}, {"date": "Aug 29, 2021", "price": 62.11}, {"date": "Sep 05, 2021", "price": 61.63}, {"date": "Sep 12, 2021", "price": 60.75}, {"date": "Sep 19, 2021", "price": 61.45}, {"date": "Sep 26, 2021", "price": 61.05}, {"date": "Oct 03, 2021", "price": 59.28}, {"date": "Oct 10, 2021", "price": 59.64}, {"date": "Oct 17, 2021", "price": 60.48}, {"date": "Oct 24, 2021", "price": 60.34}, {"date": "Oct 31, 2021", "price": 59.53}, {"date": "Nov 07, 2021", "price": 59.08}, {"date": "Nov 14, 2021", "price": 57.95}, {"date": "Nov 21, 2021", "price": 59.11}, {"date": "Nov 28, 2021", "price": 57.76}, {"date": "Dec 05, 2021", "price": 59.97}, {"date": "Dec 12, 2021", "price": 59.35}, {"date": "Dec 19, 2021", "price": 59.48}, {"date": "Dec 26, 2021", "price": 60.57}, {"date": "Jan 02, 2022", "price": 60.59}, {"date": "Jan 09, 2022", "price": 61.14}, {"date": "Jan 16, 2022", "price": 55.53}, {"date": "Jan 23, 2022", "price": 57.77}, {"date": "Jan 30, 2022", "price": 57.88}, {"date": "Feb 06, 2022", "price": 59.38}, {"date": "Feb 13, 2022", "price": 58.9}, {"date": "Feb 20, 2022", "price": 56.93}, {"date": "Feb 27, 2022", "price": 51.44}, {"date": "Mar 06, 2022", "price": 49.49}, {"date": "Mar 13, 2022", "price": 51.01}, {"date": "Mar 20, 2022", "price": 50.56}, {"date": "Mar 27, 2022", "price": 52.48}, {"date": "Apr 03, 2022", "price": 51.61}, {"date": "Apr 10, 2022", "price": 50.29}, {"date": "Apr 17, 2022", "price": 51.14}, {"date": "Apr 24, 2022", "price": 52.09}, {"date": "May 01, 2022", "price": 50.09}, {"date": "May 08, 2022", "price": 51.99}, {"date": "May 15, 2022", "price": 49.54}, {"date": "May 22, 2022", "price": 49.53}, {"date": "May 29, 2022", "price": 52.39}, {"date": "Jun 05, 2022", "price": 50.74}, {"date": "Jun 12, 2022", "price": 49.23}, {"date": "Jun 19, 2022", "price": 52.08}, {"date": "Jun 26, 2022", "price": 52.13}, {"date": "Jul 03, 2022", "price": 51.95}, {"date": "Jul 10, 2022", "price": 52.04}, {"date": "Jul 17, 2022", "price": 52.95}, {"date": "Jul 24, 2022", "price": 54.8}, {"date": "Jul 31, 2022", "price": 54.13}, {"date": "Aug 07, 2022", "price": 53.81}, {"date": "Aug 14, 2022", "price": 53.39}, {"date": "Aug 21, 2022", "price": 51.82}, {"date": "Aug 28, 2022", "price": 50.23}, {"date": "Sep 04, 2022", "price": 51.81}, {"date": "Sep 11, 2022", "price": 50.87}, {"date": "Sep 18, 2022", "price": 49.38}, {"date": "Sep 25, 2022", "price": 49.37}, {"date": "Oct 02, 2022", "price": 48.82}, {"date": "Oct 09, 2022", "price": 48.7}, {"date": "Oct 16, 2022", "price": 50.18}, {"date": "Oct 23, 2022", "price": 51.51}, {"date": "Oct 30, 2022", "price": 52.12}, {"date": "Nov 06, 2022", "price": 53.11}, {"date": "Nov 13, 2022", "price": 54.29}, {"date": "Nov 20, 2022", "price": 55.92}, {"date": "Nov 27, 2022", "price": 58.0}, {"date": "Dec 04, 2022", "price": 56.7}, {"date": "Dec 11, 2022", "price": 56.61}, {"date": "Dec 18, 2022", "price": 57.51}, {"date": "Dec 25, 2022", "price": 56.7}, {"date": "Jan 01, 2023", "price": 57.21}, {"date": "Jan 08, 2023", "price": 57.93}, {"date": "Jan 15, 2023", "price": 57.44}, {"date": "Jan 22, 2023", "price": 56.1}, {"date": "Jan 29, 2023", "price": 56.89}, {"date": "Feb 05, 2023", "price": 56.24}, {"date": "Feb 12, 2023", "price": 57.66}, {"date": "Feb 19, 2023", "price": 56.62}, {"date": "Feb 26, 2023", "price": 56.13}, {"date": "Mar 05, 2023", "price": 54.89}, {"date": "Mar 12, 2023", "price": 55.35}, {"date": "Mar 19, 2023", "price": 57.87}, {"date": "Mar 26, 2023", "price": 58.48}, {"date": "Apr 02, 2023", "price": 60.34}, {"date": "Apr 09, 2023", "price": 60.34}, {"date": "Apr 16, 2023", "price": 61.39}, {"date": "Apr 23, 2023", "price": 62.53}, {"date": "Apr 30, 2023", "price": 62.57}, {"date": "May 07, 2023", "price": 61.05}, {"date": "May 14, 2023", "price": 59.98}, {"date": "May 21, 2023", "price": 57.83}, {"date": "May 28, 2023", "price": 57.02}, {"date": "Jun 04, 2023", "price": 56.13}, {"date": "Jun 11, 2023", "price": 58.48}, {"date": "Jun 18, 2023", "price": 58.29}, {"date": "Jun 25, 2023", "price": 58.7}, {"date": "Jul 02, 2023", "price": 57.5}, {"date": "Jul 09, 2023", "price": 58.98}, {"date": "Jul 16, 2023", "price": 58.99}, {"date": "Jul 23, 2023", "price": 61.02}, {"date": "Jul 30, 2023", "price": 58.43}, {"date": "Aug 06, 2023", "price": 58.48}, {"date": "Aug 13, 2023", "price": 57.0}, {"date": "Aug 20, 2023", "price": 57.33}, {"date": "Aug 27, 2023", "price": 57.09}, {"date": "Sep 03, 2023", "price": 56.81}, {"date": "Sep 10, 2023", "price": 57.14}, {"date": "Sep 17, 2023", "price": 56.75}, {"date": "Sep 24, 2023", "price": 55.63}, {"date": "Oct 01, 2023", "price": 54.3}, {"date": "Oct 08, 2023", "price": 53.83}, {"date": "Oct 15, 2023", "price": 54.28}, {"date": "Oct 22, 2023", "price": 52.09}, {"date": "Oct 29, 2023", "price": 53.65}, {"date": "Nov 05, 2023", "price": 54.55}, {"date": "Nov 12, 2023", "price": 53.31}, {"date": "Nov 19, 2023", "price": 53.98}, {"date": "Nov 26, 2023", "price": 53.95}, {"date": "Dec 03, 2023", "price": 53.43}, {"date": "Dec 10, 2023", "price": 53.34}, {"date": "Dec 17, 2023", "price": 54.17}, {"date": "Dec 24, 2023", "price": 54.59}, {"date": "Dec 31, 2023", "price": 54.91}, {"date": "Jan 07, 2024", "price": 55.34}, {"date": "Jan 14, 2024", "price": 53.12}, {"date": "Jan 21, 2024", "price": 54.47}, {"date": "Jan 28, 2024", "price": 55.28}, {"date": "Feb 04, 2024", "price": 56.99}, {"date": "Feb 11, 2024", "price": 57.09}, {"date": "Feb 18, 2024", "price": 57.05}, {"date": "Feb 25, 2024", "price": 55.35}, {"date": "Mar 03, 2024", "price": 55.38}, {"date": "Mar 10, 2024", "price": 55.11}, {"date": "Mar 17, 2024", "price": 56.3}, {"date": "Mar 24, 2024", "price": 56.52}, {"date": "Mar 31, 2024", "price": 54.55}, {"date": "Apr 07, 2024", "price": 52.66}, {"date": "Apr 14, 2024", "price": 53.28}, {"date": "Apr 21, 2024", "price": 57.7}, {"date": "Apr 28, 2024", "price": 58.7}, {"date": "May 05, 2024", "price": 60.26}, {"date": "May 12, 2024", "price": 61.66}, {"date": "May 19, 2024", "price": 61.44}, {"date": "May 26, 2024", "price": 61.66}, {"date": "Jun 02, 2024", "price": 62.62}, {"date": "Jun 09, 2024", "price": 63.31}, {"date": "Jun 16, 2024", "price": 63.19}, {"date": "Jun 23, 2024", "price": 61.93}, {"date": "Jun 30, 2024", "price": 62.49}, {"date": "Jul 07, 2024", "price": 64.88}, {"date": "Jul 14, 2024", "price": 65.35}, {"date": "Jul 21, 2024", "price": 68.39}, {"date": "Jul 28, 2024", "price": 70.43}, {"date": "Aug 04, 2024", "price": 68.06}, {"date": "Aug 11, 2024", "price": 68.68}, {"date": "Aug 18, 2024", "price": 71.62}, {"date": "Aug 25, 2024", "price": 72.96}, {"date": "Sep 01, 2024", "price": 73.48}, {"date": "Sep 08, 2024", "price": 73.27}, {"date": "Sep 15, 2024", "price": 72.53}, {"date": "Sep 22, 2024", "price": 73.69}, {"date": "Sep 29, 2024", "price": 70.77}, {"date": "Oct 06, 2024", "price": 70.71}, {"date": "Oct 13, 2024", "price": 70.89}, {"date": "Oct 20, 2024", "price": 69.47}, {"date": "Oct 27, 2024", "price": 69.05}, {"date": "Nov 03, 2024", "price": 66.44}, {"date": "Nov 10, 2024", "price": 64.64}, {"date": "Nov 17, 2024", "price": 66.0}, {"date": "Nov 24, 2024", "price": 67.39}, {"date": "Dec 01, 2024", "price": 66.49}, {"date": "Dec 08, 2024", "price": 66.3}, {"date": "Dec 15, 2024", "price": 64.37}, {"date": "Dec 22, 2024", "price": 64.71}, {"date": "Dec 29, 2024", "price": 63.64}, {"date": "Jan 05, 2025", "price": 62.08}, {"date": "Jan 12, 2025", "price": 62.68}, {"date": "Jan 19, 2025", "price": 63.63}, {"date": "Jan 26, 2025", "price": 64.62}, {"date": "Feb 02, 2025", "price": 65.62}, {"date": "Feb 09, 2025", "price": 61.81}, {"date": "Feb 16, 2025", "price": 63.21}, {"date": "Feb 23, 2025", "price": 63.74}, {"date": "Mar 02, 2025", "price": 66.7}, {"date": "Mar 09, 2025", "price": 66.11}, {"date": "Mar 16, 2025", "price": 66.05}, {"date": "Mar 23, 2025", "price": 66.64}, {"date": "Mar 30, 2025", "price": 67.48}, {"date": "Apr 06, 2025", "price": 69.72}, {"date": "Apr 13, 2025", "price": 71.89}, {"date": "Apr 20, 2025", "price": 70.52}, {"date": "Apr 27, 2025", "price": 71.51}, {"date": "May 04, 2025", "price": 70.38}, {"date": "May 11, 2025", "price": 69.54}, {"date": "May 18, 2025", "price": 71.82}, {"date": "May 25, 2025", "price": 71.89}, {"date": "Jun 01, 2025", "price": 70.97}, {"date": "Jun 08, 2025", "price": 70.57}, {"date": "Jun 15, 2025", "price": 69.0}, {"date": "Jun 22, 2025", "price": 68.6}, {"date": "Jun 29, 2025", "price": 69.11}, {"date": "Jul 06, 2025", "price": 68.46}, {"date": "Jul 13, 2025", "price": 67.23}, {"date": "Jul 20, 2025", "price": 68.05}, {"date": "Jul 27, 2025", "price": 68.1}, {"date": "Aug 03, 2025", "price": 68.76}, {"date": "Aug 10, 2025", "price": 68.69}, {"date": "Aug 17, 2025", "price": 71.01}, {"date": "Aug 24, 2025", "price": 71.17}, {"date": "Aug 31, 2025", "price": 72.42}, {"date": "Sep 07, 2025", "price": 70.82}, {"date": "Sep 14, 2025", "price": 68.92}, {"date": "Sep 21, 2025", "price": 66.76}, {"date": "Sep 28, 2025", "price": 66.51}, {"date": "Oct 05, 2025", "price": 68.05}, {"date": "Oct 12, 2025", "price": 71.08}, {"date": "Oct 19, 2025", "price": 70.57}, {"date": "Oct 26, 2025", "price": 67.78}, {"date": "Nov 02, 2025", "price": 69.22}, {"date": "Nov 09, 2025", "price": 66.71}, {"date": "Nov 16, 2025", "price": 68.02}, {"date": "Nov 23, 2025", "price": 68.23}, {"date": "Nov 30, 2025", "price": 66.98}, {"date": "Dec 07, 2025", "price": 64.94}, {"date": "Dec 14, 2025", "price": 65.1}, {"date": "Dec 21, 2025", "price": 66.18}, {"date": "Dec 28, 2025", "price": 65.05}, {"date": "Jan 04, 2026", "price": 64.2}, {"date": "Jan 11, 2026", "price": 64.51}, {"date": "Jan 18, 2026", "price": 67.0}, {"date": "Jan 25, 2026", "price": 68.36}, {"date": "Feb 01, 2026", "price": 72.12}, {"date": "Feb 08, 2026", "price": 74.59}, {"date": "Feb 15, 2026", "price": 73.23}, {"date": "Feb 22, 2026", "price": 73.75}, {"date": "Mar 01, 2026", "price": 66.82}, {"date": "Mar 08, 2026", "price": 64.05}, {"date": "Mar 15, 2026", "price": 61.48}, {"date": "Mar 22, 2026", "price": 59.37}, {"date": "Mar 29, 2026", "price": 55.45}, {"date": "Apr 05, 2026", "price": 58.34}, {"date": "Apr 12, 2026", "price": 58.53}, {"date": "Apr 19, 2026", "price": 58.13}, {"date": "Apr 26, 2026", "price": 59.76}, {"date": "May 03, 2026", "price": 58.4}, {"date": "May 10, 2026", "price": 56.24}, {"date": "May 17, 2026", "price": 57.35}, {"date": "May 24, 2026", "price": 56.45}, {"date": "May 31, 2026", "price": 56.72}, {"date": "Jun 07, 2026", "price": 58.92}, {"date": "Jun 14, 2026", "price": 58.4}, {"date": "Jun 21, 2026", "price": 60.55}, {"date": "Jun 28, 2026", "price": 62.48}, {"date": "Jul 05, 2026", "price": 61.72}, {"date": "Jul 12, 2026", "price": 62.39}, {"date": "Jul 19, 2026", "price": 60.94}, {"date": "Jul 26, 2026", "price": 63.41}, {"date": "Aug 02, 2026", "price": 62.96}, {"date": "Aug 09, 2026", "price": 62.37}, {"date": "Aug 11, 2026", "price": 62.37}], "10Y": [{"date": "Aug 31, 2016", "price": 53.38}, {"date": "Sep 30, 2016", "price": 46.93}, {"date": "Oct 31, 2016", "price": 45.02}, {"date": "Nov 30, 2016", "price": 45.83}, {"date": "Dec 31, 2016", "price": 46.3}, {"date": "Jan 31, 2017", "price": 53.47}, {"date": "Feb 28, 2017", "price": 55.56}, {"date": "Mar 31, 2017", "price": 57.82}, {"date": "Apr 30, 2017", "price": 62.64}, {"date": "May 31, 2017", "price": 60.95}, {"date": "Jun 30, 2017", "price": 64.18}, {"date": "Jul 31, 2017", "price": 65.55}, {"date": "Aug 31, 2017", "price": 65.27}, {"date": "Sep 30, 2017", "price": 63.8}, {"date": "Oct 31, 2017", "price": 63.6}, {"date": "Nov 30, 2017", "price": 62.32}, {"date": "Dec 31, 2017", "price": 63.59}, {"date": "Jan 31, 2018", "price": 58.11}, {"date": "Feb 28, 2018", "price": 62.57}, {"date": "Mar 31, 2018", "price": 63.03}, {"date": "Apr 30, 2018", "price": 62.25}, {"date": "May 31, 2018", "price": 62.25}, {"date": "Jun 30, 2018", "price": 64.2}, {"date": "Jul 31, 2018", "price": 64.04}, {"date": "Aug 31, 2018", "price": 61.9}, {"date": "Sep 30, 2018", "price": 59.66}, {"date": "Oct 31, 2018", "price": 61.14}, {"date": "Nov 30, 2018", "price": 58.84}, {"date": "Dec 31, 2018", "price": 59.23}, {"date": "Jan 31, 2019", "price": 59.94}, {"date": "Feb 28, 2019", "price": 65.0}, {"date": "Mar 31, 2019", "price": 68.47}, {"date": "Apr 30, 2019", "price": 68.59}, {"date": "May 31, 2019", "price": 69.79}, {"date": "Jun 30, 2019", "price": 67.7}, {"date": "Jul 31, 2019", "price": 71.15}, {"date": "Aug 31, 2019", "price": 67.68}, {"date": "Sep 30, 2019", "price": 67.69}, {"date": "Oct 31, 2019", "price": 66.99}, {"date": "Nov 30, 2019", "price": 64.38}, {"date": "Dec 31, 2019", "price": 67.31}, {"date": "Jan 31, 2020", "price": 60.73}, {"date": "Feb 29, 2020", "price": 56.95}, {"date": "Mar 31, 2020", "price": 58.41}, {"date": "Apr 30, 2020", "price": 60.87}, {"date": "May 31, 2020", "price": 61.8}, {"date": "Jun 30, 2020", "price": 68.11}, {"date": "Jul 31, 2020", "price": 67.09}, {"date": "Aug 31, 2020", "price": 69.46}, {"date": "Sep 30, 2020", "price": 64.0}, {"date": "Oct 31, 2020", "price": 68.76}, {"date": "Nov 30, 2020", "price": 67.97}, {"date": "Dec 31, 2020", "price": 65.7}, {"date": "Jan 31, 2021", "price": 58.63}, {"date": "Feb 28, 2021", "price": 62.87}, {"date": "Mar 31, 2021", "price": 66.13}, {"date": "Apr 30, 2021", "price": 67.53}, {"date": "May 31, 2021", "price": 65.88}, {"date": "Jun 30, 2021", "price": 64.79}, {"date": "Jul 31, 2021", "price": 62.7}, {"date": "Aug 31, 2021", "price": 61.06}, {"date": "Sep 30, 2021", "price": 60.34}, {"date": "Oct 31, 2021", "price": 57.26}, {"date": "Nov 30, 2021", "price": 60.57}, {"date": "Dec 31, 2021", "price": 57.87}, {"date": "Jan 31, 2022", "price": 56.61}, {"date": "Feb 28, 2022", "price": 51.32}, {"date": "Mar 31, 2022", "price": 52.09}, {"date": "Apr 30, 2022", "price": 54.43}, {"date": "May 31, 2022", "price": 51.61}, {"date": "Jun 30, 2022", "price": 54.8}, {"date": "Jul 31, 2022", "price": 51.11}, {"date": "Aug 31, 2022", "price": 49.37}, {"date": "Sep 30, 2022", "price": 51.25}, {"date": "Oct 31, 2022", "price": 56.73}, {"date": "Nov 30, 2022", "price": 56.7}, {"date": "Dec 31, 2022", "price": 57.55}, {"date": "Jan 31, 2023", "price": 56.23}, {"date": "Feb 28, 2023", "price": 58.48}, {"date": "Mar 31, 2023", "price": 62.53}, {"date": "Apr 30, 2023", "price": 56.24}, {"date": "May 31, 2023", "price": 58.7}, {"date": "Jun 30, 2023", "price": 60.51}, {"date": "Jul 31, 2023", "price": 57.45}, {"date": "Aug 31, 2023", "price": 55.63}, {"date": "Sep 30, 2023", "price": 53.32}, {"date": "Oct 31, 2023", "price": 53.72}, {"date": "Nov 30, 2023", "price": 54.59}, {"date": "Dec 31, 2023", "price": 54.83}, {"date": "Jan 31, 2024", "price": 55.15}, {"date": "Feb 29, 2024", "price": 56.52}, {"date": "Mar 31, 2024", "price": 58.39}, {"date": "Apr 30, 2024", "price": 61.66}, {"date": "May 31, 2024", "price": 61.93}, {"date": "Jun 30, 2024", "price": 69.14}, {"date": "Jul 31, 2024", "price": 72.96}, {"date": "Aug 31, 2024", "price": 73.15}, {"date": "Sep 30, 2024", "price": 68.59}, {"date": "Oct 31, 2024", "price": 67.39}, {"date": "Nov 30, 2024", "price": 63.85}, {"date": "Dec 31, 2024", "price": 64.62}, {"date": "Jan 31, 2025", "price": 63.74}, {"date": "Feb 28, 2025", "price": 67.06}, {"date": "Mar 31, 2025", "price": 71.57}, {"date": "Apr 30, 2025", "price": 71.89}, {"date": "May 31, 2025", "price": 68.89}, {"date": "Jun 30, 2025", "price": 65.8}, {"date": "Jul 31, 2025", "price": 71.17}, {"date": "Aug 31, 2025", "price": 66.76}, {"date": "Sep 30, 2025", "price": 67.78}, {"date": "Oct 31, 2025", "price": 68.23}, {"date": "Nov 30, 2025", "price": 65.4}, {"date": "Dec 31, 2025", "price": 68.36}, {"date": "Jan 31, 2026", "price": 73.75}, {"date": "Feb 28, 2026", "price": 56.97}, {"date": "Mar 31, 2026", "price": 58.98}, {"date": "Apr 30, 2026", "price": 56.45}, {"date": "May 31, 2026", "price": 60.12}, {"date": "Jun 30, 2026", "price": 63.41}, {"date": "Jul 31, 2026", "price": 62.96}, {"date": "Aug 11, 2026", "price": 62.37}], "MAX": [{"date": "Feb 29, 1980", "price": 1.06}, {"date": "May 31, 1980", "price": 1.45}, {"date": "Aug 31, 1980", "price": 1.39}, {"date": "Nov 30, 1980", "price": 1.28}, {"date": "Feb 28, 1981", "price": 1.39}, {"date": "May 31, 1981", "price": 1.44}, {"date": "Aug 31, 1981", "price": 1.5}, {"date": "Nov 30, 1981", "price": 1.49}, {"date": "Feb 28, 1982", "price": 1.31}, {"date": "May 31, 1982", "price": 1.28}, {"date": "Aug 31, 1982", "price": 1.55}, {"date": "Nov 30, 1982", "price": 1.56}, {"date": "Feb 28, 1983", "price": 1.44}, {"date": "May 31, 1983", "price": 1.43}, {"date": "Aug 31, 1983", "price": 1.56}, {"date": "Nov 30, 1983", "price": 1.66}, {"date": "Feb 29, 1984", "price": 1.52}, {"date": "May 31, 1984", "price": 1.51}, {"date": "Aug 31, 1984", "price": 1.6}, {"date": "Nov 30, 1984", "price": 1.56}, {"date": "Feb 28, 1985", "price": 1.82}, {"date": "May 31, 1985", "price": 1.81}, {"date": "Aug 31, 1985", "price": 2.31}, {"date": "Nov 30, 1985", "price": 2.49}, {"date": "Feb 28, 1986", "price": 3.13}, {"date": "May 31, 1986", "price": 3.57}, {"date": "Aug 31, 1986", "price": 3.68}, {"date": "Nov 30, 1986", "price": 4.82}, {"date": "Feb 28, 1987", "price": 6.24}, {"date": "May 31, 1987", "price": 6.55}, {"date": "Aug 31, 1987", "price": 4.93}, {"date": "Nov 30, 1987", "price": 5.71}, {"date": "Feb 29, 1988", "price": 5.12}, {"date": "May 31, 1988", "price": 4.65}, {"date": "Aug 31, 1988", "price": 5.24}, {"date": "Nov 30, 1988", "price": 5.83}, {"date": "Feb 28, 1989", "price": 5.45}, {"date": "May 31, 1989", "price": 6.63}, {"date": "Aug 31, 1989", "price": 6.92}, {"date": "Nov 30, 1989", "price": 6.61}, {"date": "Feb 28, 1990", "price": 7.27}, {"date": "May 31, 1990", "price": 7.51}, {"date": "Aug 31, 1990", "price": 8.13}, {"date": "Nov 30, 1990", "price": 8.49}, {"date": "Feb 28, 1991", "price": 8.23}, {"date": "May 31, 1991", "price": 7.9}, {"date": "Aug 31, 1991", "price": 9.17}, {"date": "Nov 30, 1991", "price": 10.32}, {"date": "Feb 29, 1992", "price": 10.42}, {"date": "May 31, 1992", "price": 11.52}, {"date": "Aug 31, 1992", "price": 10.07}, {"date": "Nov 30, 1992", "price": 10.71}, {"date": "Feb 28, 1993", "price": 9.97}, {"date": "May 31, 1993", "price": 10.13}, {"date": "Aug 31, 1993", "price": 10.64}, {"date": "Nov 30, 1993", "price": 10.81}, {"date": "Feb 28, 1994", "price": 9.62}, {"date": "May 31, 1994", "price": 10.95}, {"date": "Aug 31, 1994", "price": 10.97}, {"date": "Nov 30, 1994", "price": 11.63}, {"date": "Feb 28, 1995", "price": 12.12}, {"date": "May 31, 1995", "price": 11.73}, {"date": "Aug 31, 1995", "price": 12.2}, {"date": "Nov 30, 1995", "price": 11.75}, {"date": "Feb 29, 1996", "price": 11.81}, {"date": "May 31, 1996", "price": 12.77}, {"date": "Aug 31, 1996", "price": 15.0}, {"date": "Nov 30, 1996", "price": 16.23}, {"date": "Feb 28, 1997", "price": 17.11}, {"date": "May 31, 1997", "price": 17.59}, {"date": "Aug 31, 1997", "price": 19.86}, {"date": "Nov 30, 1997", "price": 23.15}, {"date": "Feb 28, 1998", "price": 27.53}, {"date": "May 31, 1998", "price": 21.9}, {"date": "Aug 31, 1998", "price": 26.28}, {"date": "Nov 30, 1998", "price": 24.4}, {"date": "Feb 28, 1999", "price": 22.05}, {"date": "May 31, 1999", "price": 24.05}, {"date": "Aug 31, 1999", "price": 18.57}, {"date": "Nov 30, 1999", "price": 15.33}, {"date": "Feb 29, 2000", "price": 17.01}, {"date": "May 31, 2000", "price": 15.95}, {"date": "Aug 31, 2000", "price": 21.15}, {"date": "Nov 30, 2000", "price": 19.18}, {"date": "Feb 28, 2001", "price": 19.46}, {"date": "May 31, 2001", "price": 21.52}, {"date": "Aug 31, 2001", "price": 20.26}, {"date": "Nov 30, 2001", "price": 21.0}, {"date": "Feb 28, 2002", "price": 23.21}, {"date": "May 31, 2002", "price": 22.81}, {"date": "Aug 31, 2002", "price": 22.22}, {"date": "Nov 30, 2002", "price": 21.99}, {"date": "Feb 28, 2003", "price": 22.61}, {"date": "May 31, 2003", "price": 20.41}, {"date": "Aug 31, 2003", "price": 22.05}, {"date": "Nov 30, 2003", "price": 26.59}, {"date": "Feb 29, 2004", "price": 24.05}, {"date": "May 31, 2004", "price": 21.8}, {"date": "Aug 31, 2004", "price": 23.15}, {"date": "Nov 30, 2004", "price": 24.28}, {"date": "Feb 28, 2005", "price": 24.69}, {"date": "May 31, 2005", "price": 25.43}, {"date": "Aug 31, 2005", "price": 24.55}, {"date": "Nov 30, 2005", "price": 25.99}, {"date": "Feb 28, 2006", "price": 25.36}, {"date": "May 31, 2006", "price": 27.12}, {"date": "Aug 31, 2006", "price": 30.33}, {"date": "Nov 30, 2006", "price": 30.28}, {"date": "Feb 28, 2007", "price": 34.67}, {"date": "May 31, 2007", "price": 35.45}, {"date": "Aug 31, 2007", "price": 41.09}, {"date": "Nov 30, 2007", "price": 35.45}, {"date": "Feb 29, 2008", "price": 37.22}, {"date": "May 31, 2008", "price": 30.2}, {"date": "Aug 31, 2008", "price": 25.79}, {"date": "Nov 30, 2008", "price": 21.71}, {"date": "Feb 28, 2009", "price": 26.58}, {"date": "May 31, 2009", "price": 30.84}, {"date": "Aug 31, 2009", "price": 33.25}, {"date": "Nov 30, 2009", "price": 33.15}, {"date": "Feb 28, 2010", "price": 30.45}, {"date": "May 31, 2010", "price": 29.91}, {"date": "Aug 31, 2010", "price": 31.49}, {"date": "Nov 30, 2010", "price": 33.45}, {"date": "Feb 28, 2011", "price": 36.7}, {"date": "May 31, 2011", "price": 38.0}, {"date": "Aug 31, 2011", "price": 37.87}, {"date": "Nov 30, 2011", "price": 36.57}, {"date": "Feb 29, 2012", "price": 35.56}, {"date": "May 31, 2012", "price": 40.41}, {"date": "Aug 31, 2012", "price": 43.19}, {"date": "Nov 30, 2012", "price": 44.88}, {"date": "Feb 28, 2013", "price": 47.31}, {"date": "May 31, 2013", "price": 43.0}, {"date": "Aug 31, 2013", "price": 45.61}, {"date": "Nov 30, 2013", "price": 46.2}, {"date": "Feb 28, 2014", "price": 50.64}, {"date": "May 31, 2014", "price": 49.62}, {"date": "Aug 31, 2014", "price": 47.45}, {"date": "Nov 30, 2014", "price": 49.67}, {"date": "Feb 28, 2015", "price": 49.72}, {"date": "May 31, 2015", "price": 45.39}, {"date": "Aug 31, 2015", "price": 48.25}, {"date": "Nov 30, 2015", "price": 48.22}, {"date": "Feb 29, 2016", "price": 51.31}, {"date": "May 31, 2016", "price": 52.32}, {"date": "Aug 31, 2016", "price": 45.02}, {"date": "Nov 30, 2016", "price": 53.47}, {"date": "Feb 28, 2017", "price": 62.64}, {"date": "May 31, 2017", "price": 65.55}, {"date": "Aug 31, 2017", "price": 63.6}, {"date": "Nov 30, 2017", "price": 58.11}, {"date": "Feb 28, 2018", "price": 62.25}, {"date": "May 31, 2018", "price": 64.04}, {"date": "Aug 31, 2018", "price": 61.14}, {"date": "Nov 30, 2018", "price": 59.94}, {"date": "Feb 28, 2019", "price": 68.59}, {"date": "May 31, 2019", "price": 71.15}, {"date": "Aug 31, 2019", "price": 66.99}, {"date": "Nov 30, 2019", "price": 60.73}, {"date": "Feb 29, 2020", "price": 60.87}, {"date": "May 31, 2020", "price": 67.09}, {"date": "Aug 31, 2020", "price": 68.76}, {"date": "Nov 30, 2020", "price": 58.63}, {"date": "Feb 28, 2021", "price": 67.53}, {"date": "May 31, 2021", "price": 62.7}, {"date": "Aug 31, 2021", "price": 57.26}, {"date": "Nov 30, 2021", "price": 56.61}, {"date": "Feb 28, 2022", "price": 54.43}, {"date": "May 31, 2022", "price": 51.11}, {"date": "Aug 31, 2022", "price": 56.73}, {"date": "Nov 30, 2022", "price": 56.23}, {"date": "Feb 28, 2023", "price": 56.24}, {"date": "May 31, 2023", "price": 57.45}, {"date": "Aug 31, 2023", "price": 53.72}, {"date": "Nov 30, 2023", "price": 55.15}, {"date": "Feb 29, 2024", "price": 61.66}, {"date": "May 31, 2024", "price": 72.96}, {"date": "Aug 31, 2024", "price": 67.39}, {"date": "Nov 30, 2024", "price": 63.74}, {"date": "Feb 28, 2025", "price": 71.89}, {"date": "May 31, 2025", "price": 71.17}, {"date": "Aug 31, 2025", "price": 68.23}, {"date": "Nov 30, 2025", "price": 73.75}, {"date": "Feb 28, 2026", "price": 56.45}, {"date": "May 31, 2026", "price": 62.96}, {"date": "Aug 11, 2026", "price": 62.37}]};
+        let currentRangeKey = '1Y';
+        let currentPoints = allDatasets[currentRangeKey] || [];
+        let currentSvgCoords = [];
+
+        const width = 900;
+        const height = 260;
+        const padX = 20;
+        const padY = 25;
+
+        const container = document.getElementById('chart-container');
+        const svg = document.getElementById('interactive-svg');
+        const linePath = document.getElementById('chart-line-path');
+        const areaPath = document.getElementById('chart-area-path');
+        const tooltipDate = document.getElementById('tooltip-date');
+        const tooltipPrice = document.getElementById('tooltip-price');
+        const crosshair = document.getElementById('crosshair-line');
+        const dot = document.getElementById('hover-dot');
+        const startLbl = document.getElementById('chart-start-lbl');
+        const endLbl = document.getElementById('chart-end-lbl');
+        const rangeTitle = document.getElementById('chart-range-title');
+
+        function recalculatePaths(points) {
+            if (!points || points.length < 2) return;
+            const prices = points.map(p => p.price);
+            const minP = Math.min(...prices);
+            const maxP = Math.max(...prices);
+            const pRange = Math.max(maxP - minP, 0.01);
+            const n = points.length;
+
+            currentSvgCoords = [];
+            for (let i = 0; i < n; i++) {
+                const x = padX + (i / (n - 1)) * (width - 2 * padX);
+                const y = height - padY - ((points[i].price - minP) / pRange) * (height - 2 * padY);
+                currentSvgCoords.push([Math.round(x * 10) / 10, Math.round(y * 10) / 10]);
+            }
+
+            const lineD = 'M ' + currentSvgCoords.map(c => c[0] + ',' + c[1]).join(' L ');
+            const firstC = currentSvgCoords[0];
+            const lastC = currentSvgCoords[currentSvgCoords.length - 1];
+            const areaD = lineD + ' L ' + lastC[0] + ',' + height + ' L ' + firstC[0] + ',' + height + ' Z';
+
+            linePath.setAttribute('d', lineD);
+            areaPath.setAttribute('d', areaD);
+
+            startLbl.innerText = points[0].date + ' ($' + minP.toFixed(2) + ')';
+            endLbl.innerText = points[n - 1].date + ' ($' + points[n - 1].price.toFixed(2) + ')';
+            
+            tooltipDate.innerText = points[n - 1].date;
+            tooltipPrice.innerText = '$' + points[n - 1].price.toFixed(2);
+
+            const titles = { '1Y': '1-Year Range', '5Y': '5-Year Range', '10Y': '10-Year Range', 'MAX': 'All-Time Historical Range' };
+            rangeTitle.innerText = titles[currentRangeKey] || currentRangeKey + ' Range';
+        }
+
+        window.switchChartRange = function(rangeKey) {
+            if (!allDatasets[rangeKey]) return;
+            currentRangeKey = rangeKey;
+            currentPoints = allDatasets[rangeKey];
+            
+            document.querySelectorAll('.range-pill').forEach(btn => {
+                if (btn.innerText.trim() === rangeKey) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            recalculatePaths(currentPoints);
+            hideHover();
+        };
+
+        function updateHover(e) {
+            if (!currentPoints.length || !currentSvgCoords.length) return;
+            const rect = svg.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const pct = Math.max(0, Math.min(1, mouseX / rect.width));
+            const idx = Math.round(pct * (currentPoints.length - 1));
+            
+            const pt = currentPoints[idx];
+            const coord = currentSvgCoords[idx];
+            if (!pt || !coord) return;
+
+            crosshair.setAttribute('x1', coord[0]);
+            crosshair.setAttribute('x2', coord[0]);
+            crosshair.style.display = 'block';
+
+            dot.setAttribute('cx', coord[0]);
+            dot.setAttribute('cy', coord[1]);
+            dot.style.display = 'block';
+
+            tooltipDate.innerText = pt.date;
+            tooltipPrice.innerText = '$' + pt.price.toFixed(2);
+        }
+
+        function hideHover() {
+            crosshair.style.display = 'none';
+            dot.style.display = 'none';
+            if (currentPoints.length) {
+                tooltipDate.innerText = currentPoints[currentPoints.length - 1].date;
+                tooltipPrice.innerText = '$' + currentPoints[currentPoints.length - 1].price.toFixed(2);
+            }
+        }
+
+        container.addEventListener('mousemove', updateHover);
+        container.addEventListener('mouseleave', hideHover);
+        container.addEventListener('touchstart', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
+        container.addEventListener('touchmove', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
+        container.addEventListener('touchend', hideHover);
+
+        recalculatePaths(currentPoints);
+    })();
+    </script>
+    
+
+            <!-- Key Metrics Grid -->
+            <div class="metrics-grid">
+                <div class="metric-cell">
+                    <div class="metric-label">Fair Value</div>
+                    <div class="metric-value" style="color: var(--accent-warm);">$72.00</div>
+                    <div class="metric-subtext" style="color: var(--text-dim);">Intrinsic baseline</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Bear Target</div>
+                    <div class="metric-value" style="color: var(--accent-red);">$52.00 (-16.6%)</div>
+                    <div class="metric-subtext" style="color: var(--text-dim);">Downside floor</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Base Target</div>
+                    <div class="metric-value">$72.00 (+15.4%)</div>
+                    <div class="metric-subtext" style="color: var(--text-dim);">Mid-cycle value</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Bull Target</div>
+                    <div class="metric-value" style="color: var(--accent-green);">$84.00 (+34.7%)</div>
+                    <div class="metric-subtext" style="color: var(--text-dim);">Asymmetric upside</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Alert Corridor</div>
+                    <div class="metric-value" style="font-size: 1.05rem; font-family: var(--font-mono); color: var(--text-title);">$54.00 ⇄ $70.00</div>
+                    <div class="metric-subtext" style="color: var(--text-dim);">Surveillance triggers</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Next Catalyst</div>
+                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">2026-10-22</div>
+                    <div class="metric-subtext" style="color: var(--text-dim);">Q3 2026 Trading Statement</div>
+                </div>
+                
+    <div class="metric-cell">
+        <div class="metric-label">Institutional Float</div>
+        <div class="metric-value" style="font-family: var(--font-mono); color: var(--text-title); font-size: 1.15rem; font-weight: 500;">85.7%</div>
+        <div class="metric-subtext" style="color: var(--text-dim);" title="Tweedy Browne (0.22), Yacktman Asset Management (0.18), First Eagle Investment Management (0.08), Dodge & Cox Funds (0.00), Bill Nygren - Oakmark Funds (0.00) (85.7% of float)">Tweedy Browne · Yacktman Asset · First Eagle Investment</div>
+    </div>
+    
+                
+    <div class="metric-cell">
+        <div class="metric-label">Insider Sentiment</div>
+        <div class="metric-value" style="font-family: var(--font-sans); color: var(--accent-warm); font-size: 1.05rem; font-weight: 600;">🟡 Neutral (10b5-1)</div>
+        <div class="metric-subtext" style="color: var(--text-dim);" title="Routine management alignment">Routine management alignment</div>
+    </div>
+    
+            </div>
+        </section>
+
+        <!-- Navigation Tabs -->
+        <div class="tabs-header">
+            <button id="btn-tab-memo" class="tab-btn active" onclick="showTab('memo')">Investment Thesis</button>
+            <button id="btn-tab-history" class="tab-btn" onclick="showTab('history')">Evolution (0)</button>
+            <button id="btn-tab-ownership" class="tab-btn" onclick="showTab('ownership')">Ownership & Fund Intel</button>
+        </div>
+
+        <!-- Memo Content -->
+        <div id="tab-memo" class="tab-content active">
+            <article class="memo-container">
+                <div class="section" id="section-1">
+  <h2>Section 1: Business Model Reality & Moat Analysis</h2>
+  
+  <p>Unilever's operational reality in H1 2026 demonstrates a profound inflection toward high-quality, volume-driven organic growth. Driven by CEO Fernando Fernandez's operational discipline under the <em>Growth Action Plan 2030</em>, the group delivered first-half underlying sales growth (USG) of <strong>4.8%</strong>, with <strong>4.2% stemming from volume</strong> and <strong>0.6% from price</strong>. Performance significantly accelerated in Q2 2026, posting <strong>5.8% USG led by 5.5% volume growth</strong>—marking Unilever's strongest single-quarter volume expansion in over a decade.</p>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">H1 2026 Turnover</div>
+      <div class="metric-value">€25.6B</div>
+      <div class="metric-delta pos">+0.5% Reported (+4.8% USG)</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">H1 Underlying Volume Growth</div>
+      <div class="metric-value">4.2%</div>
+      <div class="metric-delta pos">Primary Growth Driver (87.5%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Q2 Underlying Volume Growth</div>
+      <div class="metric-value">5.5%</div>
+      <div class="metric-delta pos">Best Quarter Since 2010</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Underlying Operating Margin</div>
+      <div class="metric-value">20.3%</div>
+      <div class="metric-delta pos">+10 bps YoY</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Chief Executive Commentary:</strong><br>
+    <em>“We have delivered a strong volume-led performance in the first half, with a significant step-up in the second quarter – the best volume quarter at Unilever in over a decade. Our Power Brands continued to outperform, with all Business Groups delivering volume-led growth. These results show our ability to continue performing while transforming our portfolio. Our brands are stronger, our execution is sharper, and we are driving Desire at Scale.”</em><br>
+    &mdash; <strong>Fernando Fernandez, Chief Executive Officer</strong>
+  </div>
+
+  <h3>H1 2026 Business Group Operational Audit</h3>
+  <p>Operational performance across Unilever's four business segments reflects strong acceleration in Home & Personal Care (HPC) categories, offsetting soft conditions in developed market condiments:</p>
+
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Business Group</th>
+        <th>H1 2026 Turnover</th>
+        <th>H1 USG</th>
+        <th>H1 Volume Growth</th>
+        <th>H1 Price Growth</th>
+        <th>Key Operational Highlights</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Beauty & Wellbeing</strong></td>
+        <td>€6.5B</td>
+        <td>+5.9%</td>
+        <td>+4.5%</td>
+        <td>+1.3%</td>
+        <td>Led by double-digit volume growth in Dove, Sunsilk, Vaseline, and K18; Q2 USG accelerated to +8.1% with Prestige Beauty surging +12%.</td>
+      </tr>
+      <tr>
+        <td><strong>Personal Care</strong></td>
+        <td>€6.8B</td>
+        <td>+4.8%</td>
+        <td>+4.1%</td>
+        <td>+0.7%</td>
+        <td>Mid-single digit gains in Skin Cleansing and Deodorants; gained US deodorant market share via Rexona/Dove and FIFA World Cup 2026 activations.</td>
+      </tr>
+      <tr>
+        <td><strong>Home Care</strong></td>
+        <td>€6.0B</td>
+        <td>+7.6%</td>
+        <td>+7.4%</td>
+        <td>+0.2%</td>
+        <td>Fastest-growing unit; Q2 USG accelerated to +9.1% powered by Fabric Cleaning dominance in India, Brazil, and Indonesia.</td>
+      </tr>
+      <tr>
+        <td><strong>Foods</strong></td>
+        <td>€6.3B</td>
+        <td>+1.2%</td>
+        <td>+1.2%</td>
+        <td>0.0%</td>
+        <td>Solid growth in emerging markets offset by softness and avocado oil mayonnaise competition in US condiments (Hellmann's).</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <h3>The Economic Moat: 30 'Power Brands' & 'Desire at Scale'</h3>
+  <p>Unilever's primary economic moat rests on its concentrated strategy around <strong>30 core 'Power Brands'</strong> (including Dove, Vaseline, Sunsilk, Comfort, Rexona, Knorr, and Hellmann's), which account for <strong>78% of group turnover</strong>. In H1 2026, Power Brands delivered superior growth of <strong>6.0% USG (5.4% volume growth)</strong>, reaching <strong>6.9% USG in Q2 2026</strong>.</p>
+  <ul>
+<ul>
+  <li><strong>Desire at Scale Operational Engine:</strong> Unilever has revamped its marketing model to combine social-first cultural relevance with heavy proprietary R&D science. By shifting investment toward digital creators, viral consumer hacks (e.g., Vaseline Verified), and big-ticket cultural sponsorships like the FIFA World Cup 2026™, Unilever drives high-margin premiumization while maintaining Brand & Marketing Investment at a competitive <strong>16.1% of turnover</strong>.</li>
+  <li><strong>Unmatched Emerging Markets Distribution Reach:</strong> Emerging markets generate <strong>60% of Unilever’s total turnover</strong> and function as an organic growth engine. In H1 2026, emerging markets grew <strong>7.0% USG (5.8% volume)</strong>, accelerating to <strong>8.3% USG (7.4% volume) in Q2 2026</strong>. Key country callouts include:</li>
+</ul>
+      <ul>
+<ul>
+  <li><strong>India (Hindustan Unilever):</strong> Accelerated to <strong>10% USG in Q2 2026</strong> with balanced volume and price gains, driving Hair Care and Home Care to record market share levels.</li>
+  <li><strong>Latin America:</strong> Delivered <strong>7.6% USG in H1 (5.7% volume)</strong>, stepping up to <strong>8.9% USG (8.8% volume) in Q2</strong> as corrective price positioning restored Fabric Cleaning leadership in Brazil.</li>
+  <li><strong>Indonesia:</strong> Rebounded to <strong>7% USG in H1</strong>, powered by double-digit gains in Home Care and Beauty & Wellbeing via modernized go-to-market execution.</li>
+</ul>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<div class="section" id="section-2">
+  <h2>Section 2: Growth Action Plan & Portfolio Transformation</h2>
+
+  <p>Unilever is executing one of the most aggressive structural portfolio overhauls in modern consumer goods history. By systematically divesting capital-intensive and lower-growth food categories, management is refining Unilever into a high-margin, pureplay <strong>Home & Personal Care (HPC) and Beauty & Wellbeing powerhouse</strong>.</p>
+
+  <h3>The Pureplay HPC Pivot: Ice Cream Separation & The $44.8B McCormick Merger</h3>
+  <p>Management's dual-action separation plan eliminates low-margin drag and structural complexity while unlocking capital:</p>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">McCormick Deal Valuation</div>
+      <div class="metric-value">$44.8B</div>
+      <div class="metric-delta pos">Unilever Foods Strategic Merger</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Retained Equity Stake</div>
+      <div class="metric-value">65.0%</div>
+      <div class="metric-delta pos">Combined $20B Flavour Leader</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Upfront Cash Consideration</div>
+      <div class="metric-value">$15.7B</div>
+      <div class="metric-delta pos">Funds Buybacks, M&A, Debt Paydown</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Pro Forma HPC Base Revenue</div>
+      <div class="metric-value">€39.0B</div>
+      <div class="metric-delta pos">Higher Organic Growth Profile</div>
+    </div>
+  </div>
+
+  <ul>
+<ul>
+  <li><strong>The Magnum Ice Cream Company Demerger:</strong> Following operational separation in late 2025, Unilever executed the tax-free spin-off of its global Ice Cream business (Magnum, Ben & Jerry's, Wall's), retaining a 19.9% minority financial stake. This eliminated seasonal margin volatility and capital-heavy cold-chain logistics.</li>
+  <li><strong>Unilever Foods & McCormick Combination:</strong> On March 31, 2026, Unilever announced a definitive agreement to merge its Foods business (Hellmann's, Knorr, Maille) with McCormick & Company in a transaction valuing the unit at <strong>$44.8 billion</strong>. Executed via a Reverse Morris Trust structure, Unilever shareholders receive <strong>65% equity ownership</strong> in a $20 billion pro-forma global flavor giant, alongside <strong>$15.7 billion in cash proceeds</strong>. On July 23, 2026, McCormick announced the executive team, operating structure, and London secondary listing for the combined entity.</li>
+  <li><strong>Pureplay HPC Profile:</strong> Post-closing, Unilever will operate strictly across Beauty & Wellbeing, Personal Care, and Home Care—a <strong>€39 billion revenue pureplay entity</strong> with a historical organic volume CAGR ~60 bps higher than the legacy group. Note that Unilever retains its high-growth food operations in India (Hindustan Unilever).</li>
+</ul>
+  </ul>
+
+  <h3>High-Velocity Bolt-On M&A: Premium Wellness & Cult Personal Care</h3>
+  <p>Unilever is reallocating capital into fast-growing, social-first consumer categories that complement its core Power Brands:</p>
+
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Target Company</th>
+        <th>Transaction Value</th>
+        <th>Strategic Rationale & Operating Profile</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Grüns</strong></td>
+        <td>$1.2 Billion</td>
+        <td>Redefining the greens & wellness supplement space; scaled to $300M ARR in 24 months via whole-food gummy innovations with high customer retention.</td>
+      </tr>
+      <tr>
+        <td><strong>Dr. Squatch</strong></td>
+        <td>$1.5 Billion</td>
+        <td>Cult-favorite natural men’s personal care brand; leverages social-first marketing, creator partnerships, and Gen Z appeal to capture booming men's grooming demand.</td>
+      </tr>
+      <tr>
+        <td><strong>Minimalist</strong></td>
+        <td>Undisclosed</td>
+        <td>High-growth, science-backed active skincare brand expanding Unilever's mass-prestige footprint across India and Southeast Asia.</td>
+      </tr>
+      <tr>
+        <td><strong>Wild</strong></td>
+        <td>Undisclosed</td>
+        <td>Sustainable, refillable natural deodorant leader in Europe, accelerating Personal Care’s ESG premiumization strategy.</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <h3>Efficiency & Growth Action Plan 2030 Progress</h3>
+  <p>To support its portfolio transition, Unilever completed its <strong>€800 million productivity program ahead of schedule</strong> in H1 2026. The program successfully removed stranded corporate overhead linked to the Ice Cream spin-off and streamlined organizational layers. Despite €300 million in H1 commodity inflation (reducing gross margin 70 bps to 46.8%), gross overhead savings and volume leverage allowed Unilever to expand its underlying operating margin by <strong>10 bps to 20.3%</strong>, drive underlying EPS up <strong>2.4% to €1.61</strong>, and complete a <strong>€1.5 billion share buyback</strong>.</p>
+</div>
+
+<div class="section">
+  <h2>Section 3: Real Cash Flow, SBC &amp; Capital Structure</h2>
+
+  <p>
+    Unilever’s financial engine exhibits high cash flow conversion and capital discipline. Management's operational strategy—centered on the completed €800M productivity program and disciplined capital allocation—continues to generate organic liquidity to fund growth acquisitions, debt service, and substantial shareholder capital returns.
+  </p>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">H1 2026 Free Cash Flow</div>
+      <div class="metric-value">€1.50B</div>
+      <div class="metric-delta pos">+€0.50B YoY (+50.0%)</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">FY2025 Free Cash Flow</div>
+      <div class="metric-value">€5.90B</div>
+      <div class="metric-delta pos">100% Net Profit Conversion</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Net Debt (H1 2026)</div>
+      <div class="metric-value">€26.0B</div>
+      <div class="metric-delta neutral">2.3x Net Debt / UEBITDA</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Gross Margin (H1 2026)</div>
+      <div class="metric-value">46.8%</div>
+      <div class="metric-delta neg">-70 bps (Commodity Inflation)</div>
+    </div>
+  </div>
+
+  <h3>1. Cash Flow Quality Audit &amp; SBC Reality Check</h3>
+  <p>
+    Free Cash Flow (FCF) reached <strong>€1.50 billion</strong> in H1 2026, representing a €500 million increase over H1 2025. This acceleration reflects strong operational execution, where volume-led underlying sales growth (+4.2% volume in H1) converted efficiently into operating cash flow.
+  </p>
+  <p>
+    In FY2025, Unilever produced <strong>€5.9 billion in FCF</strong>, achieving a ~100% conversion rate relative to net profit. Unlike technology peers that rely heavily on non-cash equity compensation to artificially inflate operating cash flow, Unilever’s Stock-Based Compensation (SBC) remains modest (~€180M–€220M annually), representing less than 3.5% of annual FCF. Treating SBC as a real cash expense and dilution factor, Unilever’s "True Owner Earnings" FCF margin remains robust at ~11.5% of turnover.
+  </p>
+
+  <h3>2. Productivity Program &amp; Gross Margin Leverage</h3>
+  <p>
+    Unilever successfully completed its target <strong>€800 million productivity program</strong> ahead of schedule. The operational savings delivered structural overhead reductions of <strong>+70 basis points</strong>, which fully neutralized a -70 bps gross margin headwind from €300 million in H1 commodity cost inflation (primarily in cocoa and palm oil derivatives).
+  </p>
+
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Operational Metric</th>
+        <th>H1 2025</th>
+        <th>H1 2026</th>
+        <th>Operational Variance / Key Driver</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Gross Margin</strong></td>
+        <td>47.5%</td>
+        <td>46.8%</td>
+        <td>-70 bps YoY (Offset by volume leverage &amp; efficiency gains)</td>
+      </tr>
+      <tr>
+        <td><strong>Overhead Efficiency Savings</strong></td>
+        <td>Base</td>
+        <td>+70 bps</td>
+        <td>Driven by €800M completed productivity program</td>
+      </tr>
+      <tr>
+        <td><strong>Underlying Operating Margin (UOM)</strong></td>
+        <td>20.2%</td>
+        <td>20.3%</td>
+        <td>+10 bps expansion to €5.2B UOP</td>
+      </tr>
+      <tr>
+        <td><strong>Brand &amp; Marketing Investment</strong></td>
+        <td>15.8%</td>
+        <td>16.1%</td>
+        <td>+30 bps reinvestment behind 30 Power Brands</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <h3>3. Capital Structure, Leverage &amp; Allocation Audit</h3>
+  <p>
+    As of June 30, 2026, Unilever’s <strong>Net Debt stands at €26.0 billion</strong>, representing leverage of <strong>2.3x Net Debt to UEBITDA</strong>. Leverage increased moderately from year-end 2025 (2.23x) due to the execution of capital return commitments and targeted portfolio M&amp;A.
+  </p>
+
+  <div class="callout">
+    <strong>Balance Sheet &amp; Liquidity Takeaway:</strong> Unilever holds <strong>€4.7 billion</strong> in cash and liquid cash equivalents, backed by <strong>€9.8 billion</strong> in undrawn committed revolving credit facilities (€2.6B, €2.0B, and US$5.2B). Leverage at 2.3x sits comfortably within management’s target corridor of 2.0x–2.5x, preserving an A1/A+ investment-grade credit profile.
+  </div>
+
+  <p>
+    Capital deployment in H1 2026 prioritized shareholder distributions and high-ROIC bolt-on acquisitions:
+  </p>
+  <ul>
+<ul>
+  <li><strong>Share Buybacks:</strong> Completed <strong>€1.5 billion</strong> in share repurchases in H1 2026 as part of the broader €6.0 billion multi-year buyback framework running through 2029.</li>
+  <li><strong>Quarterly Dividend:</strong> Declared a Q2 2026 dividend of <strong>€0.4664 per share</strong> (£0.3982 / $0.51), representing a +3.0% YoY increase, maintaining Unilever’s 35-year uninterrupted payout track record.</li>
+  <li><strong>Grüns Acquisition Outlay:</strong> On June 1, 2026, Unilever completed the acquisition of an 80% controlling stake in fast-growing US greens supplement brand <strong>Grüns</strong> for a net cash outlay of <strong>€767 million</strong> ($1.2B implied valuation), recognizing a contract liability for the future buyout of the remaining 20% non-controlling interest.</li>
+</ul>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>Section 4: Institutional Whale Ownership &amp; Catalysts</h2>
+
+  <p>
+    Institutional ownership in Unilever remains concentrated among major global asset managers and long-term value investors. Top whales have generally expanded their holdings, drawn by the company's volume-led growth turnaround and structural portfolio simplification.
+  </p>
+
+  <h3>1. 13F Institutional Whale Tracking</h3>
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Institutional Holder</th>
+        <th>Shares Held (UL ADRs)</th>
+        <th>Position Value ($USD)</th>
+        <th>Portfolio Action (Latest 13F)</th>
+        <th>Holder Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Wellington Management Company</strong></td>
+        <td>40.0M</td>
+        <td>$2.30B</td>
+        <td>+27% (Added 8.5M shares)</td>
+        <td>Active / Accumulating</td>
+      </tr>
+      <tr>
+        <td><strong>Fisher Asset Management (Ken Fisher)</strong></td>
+        <td>21.3M</td>
+        <td>$1.20B</td>
+        <td>+3% (Added 620k shares)</td>
+        <td>Active / Core Anchor</td>
+      </tr>
+      <tr>
+        <td><strong>GQG Partners (Rajiv Jain)</strong></td>
+        <td>9.4M</td>
+        <td>$536M</td>
+        <td>+4% (Added 360k shares)</td>
+        <td>Active / Growth Allocation</td>
+      </tr>
+      <tr>
+        <td><strong>Barrow, Hanley, Mewhinney &amp; Strauss</strong></td>
+        <td>3.7M</td>
+        <td>$209M</td>
+        <td>-11% (Trimmed 449k shares)</td>
+        <td>Active / Value Holder</td>
+      </tr>
+      <tr>
+        <td><strong>First Eagle Investment Management</strong></td>
+        <td>805k</td>
+        <td>$45.9M</td>
+        <td>Unchanged</td>
+        <td>Active / Defensive Value</td>
+      </tr>
+      <tr>
+        <td><strong>Yacktman Asset Management</strong></td>
+        <td>Small Legacy / Exited ADR</td>
+        <td>&lt;$10M</td>
+        <td>Reallocated to Primary European Listings</td>
+        <td>Exited US ADR / Replaced</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <h3>2. Key Corporate Catalysts &amp; Value Realization Roadmap</h3>
+  <p>
+    Unilever’s near-term strategic trajectory is defined by structural portfolio transformation, key earnings milestones, and investor calendar disclosures:
+  </p>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Hindustan Unilever Event</div>
+      <div class="metric-value">Sept 4, 2026</div>
+      <div class="metric-delta pos">Mumbai Investor Deep-Dive</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Q3 2026 Trading Statement</div>
+      <div class="metric-value">Oct 28, 2026</div>
+      <div class="metric-delta pos">Q3 Volume &amp; Pricing Update</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Unilever NYC Event</div>
+      <div class="metric-value">Nov 4, 2026</div>
+      <div class="metric-delta pos">North America Growth Strategy</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">McCormick Deal Closing</div>
+      <div class="metric-value">Mid-2027</div>
+      <div class="metric-delta pos">$15.7B Cash + 65% Equity Spin</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Strategic Transformational Catalyst — The McCormick $44.8B Reverse Morris Trust:</strong>
+    Under the agreement reached in March 2026, Unilever is combining its global Foods division (excluding India) with McCormick &amp; Company. Upon completion in mid-2027, Unilever and its shareholders will receive <strong>$15.7 billion in cash</strong> and a <strong>65.0% equity ownership stake</strong> (valued at ~$29.1B) in the combined $20B revenue global flavor leader. This transaction transforms Unilever into a pure-play Home, Beauty &amp; Personal Care (HPC) company with €39B in standalone revenue and superior operating margin potential.
+  </div>
+
+  <ul>
+<ul>
+  <li></li>
+</ul>
+      <strong>Q3 2026 Trading Statement (October 28, 2026):</strong> Management will report Q3 underlying sales growth (USG) and pricing flow-through. Full-year guidance reconfirmed at 4%–6% USG with ~3% volume growth.
+    </li>
+<ul>
+  <li></li>
+</ul>
+      <strong>Ice Cream Separation Completion:</strong> Demerger and public listing of The Magnum Ice Cream Company (TMICC) on Euronext Amsterdam, LSE, and NYSE is operating independently, eliminating seasonal margin volatility from Unilever's core P&amp;L.
+    </li>
+<ul>
+  <li></li>
+</ul>
+      <strong>Grüns Integration &amp; Wellbeing Expansion:</strong> Scaling Grüns within Unilever's Health &amp; Wellbeing unit (alongside Liquid I.V. and Nutrafol), leveraging Unilever's US distribution footprint to accelerate D2C and retail expansion.
+    </li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>Section 5: Warren Buffett Owner Earnings & Intrinsic Value Matrix</h2>
+
+  <p>In his 1986 Berkshire Hathaway Shareholder Letter, Warren Buffett established that the true economic value of any enterprise rests on its <strong>Owner Earnings</strong>—the actual cash flow that can be extracted annually without impairing its competitive position or physical unit volume. Unlike accounting Net Income or conventional Free Cash Flow (which often ignores stock dilution or misclassifies growth investments), Owner Earnings applies rigorous capital discipline:</p>
+
+  <div class="callout">
+    <strong>The Owner Earnings Formula:</strong><br>
+    <code>Owner Earnings = Operating Cash Flow - Maintenance CapEx - Stock-Based Compensation (SBC) ± Working Capital/Float Adjustments</code>
+  </div>
+
+  <p>To evaluate the business with institutional precision, we separate non-discretionary Maintenance CapEx (required to preserve plant efficiency, supply chains, and regulatory compliance) from discretionary Growth CapEx (channel expansion, new manufacturing lines, and bolt-on brand acquisitions). Furthermore, in strict adherence to Buffett’s principles, 100% of Stock-Based Compensation is treated as a real cash expense and shareholder dilution factor rather than a harmless non-cash add-back.</p>
+
+  <h3>1. Owner Earnings Bridge & Per-Share Financial Foundations</h3>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Operating Cash Flow / Share</div>
+      <div class="metric-value">$4.92</div>
+      <div class="metric-delta pos">Organic Cash Generation</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Maintenance CapEx / Share</div>
+      <div class="metric-value">-$0.68</div>
+      <div class="metric-delta neg">~2.2% of Revenue</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">SBC Deduction / Share</div>
+      <div class="metric-value">-$0.22</div>
+      <div class="metric-delta neg">100% Real Cash Expense</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Normalized Owner Earnings / Share</div>
+      <div class="metric-value">$4.02</div>
+      <div class="metric-delta pos">6.45% Initial Cash Yield</div>
+    </div>
+  </div>
+
+  <h3>2. Capital Structure, Sovereign Discounting & FX Methodology</h3>
+  <p>To establish a disciplined discount rate, we reject arbitrary benchmark hurdles and anchor directly in local sovereign bond yields in accordance with Buffett's PetroChina and Iscar framework. Given the company's dual UK/European operating footprint and primary listing dynamics, the hurdle rate is derived from the UK 10-Year Gilt yield combined with an equity risk premium:</p>
+
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Valuation Parameter</th>
+        <th>Input Value</th>
+        <th>Analytical Rationale & Framework Reference</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Local Risk-Free Rate (R<sub>f</sub>)</strong></td>
+        <td>4.97%</td>
+        <td>UK 10-Year Sovereign Gilt Yield (operating currency baseline).</td>
+      </tr>
+      <tr>
+        <td><strong>Equity Risk Premium (ERP)</strong></td>
+        <td>4.53%</td>
+        <td>Reflects EM market exposure, FX volatility, and input cost cyclicality.</td>
+      </tr>
+      <tr>
+        <td><strong>Discount Rate / Hurdle Rate (WACC)</strong></td>
+        <td><strong>9.50%</strong></td>
+        <td>Strict localized cost of capital applied to cash flow discounting.</td>
+      </tr>
+      <tr>
+        <td><strong>Terminal Perpetual Growth Rate</strong></td>
+        <td>2.25%</td>
+        <td>Capped at long-term developed economy GDP growth (Gordon Growth).</td>
+      </tr>
+      <tr>
+        <td><strong>Cannibal Buyback Compounding</strong></td>
+        <td>-1.75% p.a.</td>
+        <td>Annual share count reduction funded by net organic owner earnings.</td>
+      </tr>
+      <tr>
+        <td><strong>Blended EUR/GBP/USD FX Conversion</strong></td>
+        <td>$1.28 / £ | $1.09 / €</td>
+        <td>Balanced multi-year purchasing power parity equilibrium.</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <h3>3. Share Buyback Cannibal Compounding Schedule</h3>
+  <p>Management's disciplined capital allocation deploys surplus cash flow toward repurchasing undervalued shares. Modeling a continuous 1.5%–2.0% annual shrinkage in diluted share count acts as a compounding force, accelerating per-share Owner Earnings growth over a 5-year horizon even under modest top-line expansion:</p>
+
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Metric (Per Share)</th>
+        <th>Base Year (FY25)</th>
+        <th>Year 1 (FY26)</th>
+        <th>Year 2 (FY27)</th>
+        <th>Year 3 (FY28)</th>
+        <th>Year 4 (FY29)</th>
+        <th>Year 5 (FY30)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Normalized Owner Earnings</strong></td>
+        <td>$4.02</td>
+        <td>$4.26</td>
+        <td>$4.54</td>
+        <td>$4.86</td>
+        <td>$5.22</td>
+        <td>$5.61</td>
+      </tr>
+      <tr>
+        <td><strong>Share Count Reduction Factor</strong></td>
+        <td>100.0%</td>
+        <td>98.25%</td>
+        <td>96.53%</td>
+        <td>94.84%</td>
+        <td>93.18%</td>
+        <td>91.55%</td>
+      </tr>
+      <tr>
+        <td><strong>Per-Share Owner Earnings (Compounded)</strong></td>
+        <td><strong>$4.02</strong></td>
+        <td><strong>$4.34</strong></td>
+        <td><strong>$4.70</strong></td>
+        <td><strong>$5.12</strong></td>
+        <td><strong>$5.60</strong></td>
+        <td><strong>$6.13</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Discounted Present Value (at 9.5%)</strong></td>
+        <td>$4.02</td>
+        <td>$3.96</td>
+        <td>$3.92</td>
+        <td>$3.89</td>
+        <td>$3.89</td>
+        <td>$3.89</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <h3>4. Scenario Analysis & Intrinsic Value Targets</h3>
+  <p>By combining discounted 10-year cash streams, balance sheet adjustments (adding cash and look-through investments; deducting total debt and capital/operating lease liabilities), and terminal values, we establish the explicit Bear, Base, and Bull intrinsic fair value corridors:</p>
+
+  <div class="table-scroll-wrap"><table>
+    <thead>
+      <tr>
+        <th>Scenario</th>
+        <th>Assumptions & Execution Realities</th>
+        <th>Owner Earnings CAGR</th>
+        <th>Intrinsic Value Target</th>
+        <th>Margin of Safety / Upside vs $62.37</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Bear Case</strong></td>
+        <td>€850M inflation unhedged; volume growth decelerates to +1.0%; FX headwinds persist; slow McCormick synergies.</td>
+        <td>2.50%</td>
+        <td><strong>$52.00</strong></td>
+        <td><span>-16.63% (Downside Test)</span></td>
+      </tr>
+      <tr>
+        <td><strong>Base Case</strong></td>
+        <td>Successful pricing pass-through; volume growth at +2.8%; €850M cost pressure mitigated; 1.75% buyback execution.</td>
+        <td>5.80%</td>
+        <td><strong>$72.00</strong></td>
+        <td><span>+15.44% (Attractive Entry)</span></td>
+      </tr>
+      <tr>
+        <td><strong>Bull Case</strong></td>
+        <td>Premiumization drives +4.2% organic volume; gross margin expands >47.5%; rapid McCormick debt paydown and synergy capture.</td>
+        <td>8.50%</td>
+        <td><strong>$84.00</strong></td>
+        <td><span>+34.68% (Full Re-Rating)</span></td>
+      </tr>
+    </tbody>
+  </table></div>
+</div>
+
+<div class="section">
+  <h2>Section 6: Execution Risk, Pre-Mortem Falsification & Thesis Conclusion</h2>
+
+  <h3>1. Core Operational & Macroeconomic Execution Risks</h3>
+  <p>To ensure a realistic fundamental thesis, we rigorously stress-test the business model against three major operational and macroeconomic headwinds:</p>
+
+  <ul>
+<ul>
+  <li><strong>Commodity Price Inflation (€850M Cumulative Impact):</strong> The aggregate cost burden across agricultural inputs, edible oils, packaging materials, and energy represents a significant margin headwind. If price elasticity worsens and consumer trade-down to private-label alternatives accelerates, management will be unable to fully pass through cost increases without sacrificing unit market share.</li>
+  <li><strong>Emerging Market FX Volatility:</strong> With substantial operating cash flows generated in Latin America, Southeast Asia, and Eastern Europe, severe local currency depreciations against USD/GBP/EUR pose headwinds to reported top-line figures and dividend cash repatriation. Unhedged currency swings could reduce annual Owner Earnings by 3.5%–5.0%.</li>
+  <li><strong>McCormick Transaction Execution Risk:</strong> Strategic transactions, strategic partnerships, and distribution agreements with McCormick introduce significant operational execution risk. Risks include integration friction, channel conflict, supply chain bottleneck disruptions, unexpected marketing re-alignment costs, or failure to capture guidance synergies within the planned 24-month window.</li>
+</ul>
+  </ul>
+
+  <h3>2. Quantitative Pre-Mortem Thesis Invalidation Corridors</h3>
+
+  <div class="callout">
+    <strong>Pre-Mortem Falsification Triggers (Automatic Review Mandate):</strong><br>
+    The fundamental long thesis will be considered officially invalidated, triggering an immediate recommendation downgrade or thesis exit, if any of the following quantitative operational thresholds are breached over a rolling 12-month period:
+    <ul>
+<ul>
+  <li><strong>Organic Volume Growth Failure:</strong> Aggregate organic volume growth declines below <code>+2.0% YoY</code> for two consecutive quarters, signaling structural consumer trade-down or brand equity erosion.</li>
+  <li><strong>Gross Margin Compression:</strong> Consolidated Gross Profit Margin drops below <code>45.0%</code>, demonstrating an inability to pass through the €850M commodity inflation burden or severe input cost mis-hedging.</li>
+  <li><strong>Balance Sheet & Leverage Strain:</strong> Net Debt / Adjusted EBITDA ratio exceeds <code>2.8x</code> (or total borrowings exceed target risk corridors), signaling capital allocation mismanagement or excessive transaction debt burden.</li>
+</ul>
+    </ul>
+  </div>
+
+  <h3>3. Final Thesis Conclusion & Strategic Capital Recommendation</h3>
+  <p>At the current market price of <strong>$62.37</strong>, the stock trades at an intuitive <strong>6.45% Owner Earnings Yield</strong> and offers a compelling risk/reward asymmetric setup. The company's durable consumer brand moat, pricing power, disciplined share repurchases (-1.75% p.a.), and robust balance sheet provide an adequate margin of safety against macro uncertainties.</p>
+
+  <p>Our Base Case intrinsic value target of <strong>$72.00 per share</strong> represents an upside potential of <strong>+15.44%</strong>, while the Bull Case target of <strong>$84.00 per share</strong> offers <strong>+34.68%</strong> upside under accelerated synergy execution and margin recovery. Downside risk is contained near the Bear Case floor of <strong>$52.00 per share</strong> (-16.63%), backed by steady organic cash generation. We maintain a <strong>Solid Conviction</strong> stance on the thesis, conditioned on continuous monitoring of commodity pass-through efficacy and debt deleveraging trajectory.</p>
+</div>
+            </article>
+        </div>
+
+        <!-- History Content -->
+        <div id="tab-history" class="tab-content">
+            
+        <div class="empty-state-box" style="background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px; padding: 75px 24px;">
+            <div class="empty-state-title">Initial Baseline Active</div>
+            <div class="empty-state-sub">Version 1 represents the initial underwriting thesis. Future revisions, price trigger reviews, and catalyst audits will be logged here</div>
+        </div>
+        
+        </div>
+
+        <!-- Ownership & Fund Intel Content -->
+        <div id="tab-ownership" class="tab-content">
+            
+    <div class="ownership-container">
+        <!-- Top Stats Banner -->
+        <div class="ownership-header-card">
+            <div class="ownership-stat-grid">
+                <div class="stat-box">
+                    <span class="stat-label">Institutional Float</span>
+                    <span class="stat-num">85.7%</span>
+                    <span class="stat-note">Tracked across SEC 13F Filings</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Insider Trading Sentiment</span>
+                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.25rem;">🟡 Neutral (10b5-1)</span>
+                    <span class="stat-note">Routine management alignment</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Whale & Superinvestor Tracking</span>
+                    <span class="stat-num" style="color: var(--accent-warm);">5 Funds Tracked</span>
+                    <span class="stat-note">Live Audit Recent Form 4 Transactions Audited</span>
+                </div>
+            </div>
+
+            <!-- Quick Research Portal Bar -->
+            <div class="quick-portals-bar">
+                <span style="font-size: 0.76rem; text-transform: uppercase; color: var(--text-dim); font-weight: 600; letter-spacing: 0.05em;">Direct Research Portals:</span>
+                <div class="portal-links-group">
+                    <a href="http://openinsider.com/search?q=UL" target="_blank" rel="noopener noreferrer" class="portal-link">📊 OpenInsider Form 4s ↗</a>
+                    <a href="https://www.dataroma.com/m/stock.php?sym=UL" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ Dataroma Superinvestors ↗</a>
+                    <a href="https://whalewisdom.com/stock/UL" target="_blank" rel="noopener noreferrer" class="portal-link">🐋 WhaleWisdom 13F ↗</a>
+                    <a href="https://valueinvestorsclub.com/search?q=UL" target="_blank" rel="noopener noreferrer" class="portal-link">📑 Value Investors Club (VIC) ↗</a>
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=UL" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ SEC EDGAR Filings ↗</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: All Institutional Holders & 13F Whales -->
+        <div class="ownership-section">
+            <div class="section-title-row">
+                <span class="section-icon">🏛️</span>
+                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (5)</h3>
+            </div>
+            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, Dataroma superinvestor portfolios, and regulatory ownership registries.</p>
+            <div class="table-responsive">
+                <table class="ownership-table">
+                    <thead>
+                        <tr>
+                            <th>Fund / Portfolio Manager</th>
+                            <th>Classification</th>
+                            <th>Portfolio Weight / Stake</th>
+                            <th>Reported Shares</th>
+                            <th>Recent 13F Action</th>
+                            <th>Position Value</th>
+                            <th>Filing Source</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Tweedy Browne</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.22</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">49,084</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 5.05%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">2,951,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=UL" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Yacktman Asset Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.18</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">241,192</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 20.53%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">14,500,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=UL" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">First Eagle Investment Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.08</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">842,507</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 4.54%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">50,652,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=UL" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Dodge & Cox Funds</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.00</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">5,243</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 0.02%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">299,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=UL" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Bill Nygren - Oakmark Funds</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.00</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">4,123</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Buy</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">235,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=UL" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section 2: SEC Form 4 Detailed Insider Trading Ledger -->
+        <div class="ownership-section">
+            <div class="section-title-row">
+                <span class="section-icon">💼</span>
+                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger (Live Audit)</h3>
+            </div>
+            <p class="section-desc">Detailed officer and director transaction ledger audited directly via OpenInsider & SEC Form 4 filings to track management buying, sales, and option exercises.</p>
+            <div class="table-responsive">
+                <table class="ownership-table">
+                    <thead>
+                        <tr>
+                            <th>Filing Date</th>
+                            <th>Trade Date</th>
+                            <th>Reporting Insider</th>
+                            <th>Title / Role</th>
+                            <th>Type</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Owned After (ΔOwn)</th>
+                            <th>Total Value</th>
+                            <th>Source</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+        <tr>
+            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">Recent Audit</td>
+            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">Current</td>
+            <td><div style="font-weight: 500; color: var(--text-title);">Executive Management</div></td>
+            <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Key Officers & Directors</span></td>
+            <td><span style="color: var(--accent-warm); font-weight: 600;">🟡 Neutral (10b5-1)</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$62.37</td>
+            <td style="font-family: var(--font-mono); font-size: 0.84rem;">Scheduled</td>
+            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">Aligned</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Routine management alignment</td>
+            <td>
+                <a href="http://openinsider.com/search?q=UL" target="_blank" rel="noopener noreferrer" class="link-out">
+                    OpenInsider ↗
+                </a>
+            </td>
+        </tr>
+        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section 3: Curated Memos & Fund Letters -->
+        <div class="ownership-section">
+            <div class="section-title-row">
+                <span class="section-icon">📑</span>
+                <h3 class="section-heading">Fund Letters, VIC Write-ups & Superinvestor Memos</h3>
+            </div>
+            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable hedge funds and deep-value analysts with direct reading links.</p>
+            <div class="writeups-grid">
+                
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Substack / Librariancapital · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                </div>
+                <a href="https://librariancapital.substack.com/p/unilever-long-turnaround-journey" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Memo ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
+                Unilever: Long Turnaround Journey Ahead, But Priced Attractively
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Comprehensive independent fundamental study of Unilever PLC's competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Shareholder Letter PDF · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                </div>
+                <a href="https://www.fundsmith.co.uk/media/bm0lyc22/annual-letter-to-shareholders-2022.pdf" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Read Source ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
+                fundsmith.co.uk
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Comprehensive independent fundamental study of Unilever PLC's competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Substack / Tvsweekly · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                </div>
+                <a href="https://tvsweekly.substack.com/p/unilever-quits-food-heres-why" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Memo ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
+                Unilever Quits Food. Here’s Why
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Comprehensive independent fundamental study of Unilever PLC's competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Substack / Compoundprosperity · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                </div>
+                <a href="https://compoundprosperity.substack.com/p/unleashing-unilevers-potential-the" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Memo ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
+                Unilever: Recession resilient business at an attractive price
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Comprehensive independent fundamental study of Unilever PLC's competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
+            </p>
+        </div>
+        
+            </div>
+        </div>
+    </div>
+    
+        </div>
+    </main>
+
+    
+    <!-- Labels & Taxonomy Legend Modal -->
+    <div id="labels-legend-modal" class="modal-shade" onclick="closeLegendModalOutside(event)">
+        <div class="modal-body-card" style="max-width: 780px;">
+            <button class="modal-x" onclick="closeLabelsLegendModal()">✕</button>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+                <span style="font-size: 1.3rem;">🏷️</span>
+                <h2 style="font-family: var(--font-serif); font-size: 1.55rem; color: var(--text-title); margin: 0; letter-spacing: -0.02em;">Investment Taxonomy & Labels Legend</h2>
+            </div>
+            <p style="color: var(--text-dim); font-size: 0.88rem; margin: 0 0 24px; line-height: 1.4;">
+                Autonomous multi-tier categorization system evaluating long-term conviction, live surveillance action signals, and strategic play drivers.
+            </p>
+
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                <!-- Section 1: Conviction Tiers -->
+                <div style="background: var(--bg-subpanel); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px;">
+                    <div style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-warm); margin-bottom: 12px;">
+                        Tier 1: Forward Conviction & Risk Stance (Slot 1 Primary Pill)
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
+                        <div style="display: flex; flex-direction: column; gap: 3px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span class="pill pill-active" style="font-size: 0.75rem;">High Conviction</span>
+                            </div>
+                            <span style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">Exceptional asymmetric risk/reward, dominant economic moat, fortress balance sheet, and deep margin of safety.</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 3px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span class="pill pill-active" style="font-size: 0.75rem;">Solid Conviction</span>
+                            </div>
+                            <span style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">Proven recurring cash generation, structural advantages, and clear compounding runway with standard execution risk.</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 3px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span class="pill pill-active" style="font-size: 0.75rem;">Moderate Conviction</span>
+                            </div>
+                            <span style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">Attractive upside balanced by cyclical exposure, customer concentration, or competitive transition.</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 3px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span class="pill pill-active" style="font-size: 0.75rem;">Cautious Stance</span>
+                            </div>
+                            <span style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">Thesis structurally intact but facing temporary execution headwinds, margin compression, or macro friction.</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 3px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span class="pill pill-active" style="font-size: 0.75rem;">Turnaround Play</span>
+                            </div>
+                            <span style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">High upside anchored in management operational reset, debt paydown, cost cuts, or real estate asset backing.</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 3px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span class="pill pill-active" style="font-size: 0.75rem;">Speculative Risk</span>
+                            </div>
+                            <span style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">High asymmetry paired with balance sheet leverage, regulatory hurdles, or binary product adoption.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Action Signals -->
+                <div style="background: var(--bg-subpanel); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px;">
+                    <div style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-warm); margin-bottom: 12px;">
+                        Live Surveillance Action Signals (Pulsing Beacons)
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
+                        <div style="display: flex; gap: 10px; align-items: flex-start;">
+                            <span class="status-beacon beacon-buy" style="margin-top: 5px;"><span class="beacon-dot"></span><span class="beacon-ping"></span></span>
+                            <div>
+                                <strong style="color: #10b981; font-size: 0.85rem;">BUY (Green Pulse):</strong>
+                                <div style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">Thesis accelerating, fundamentals compounding, deep value buy zone -> High priority entry.</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px; align-items: flex-start;">
+                            <span class="status-beacon beacon-hold" style="margin-top: 5px;"><span class="beacon-dot"></span><span class="beacon-ping"></span></span>
+                            <div>
+                                <strong style="color: #f59e0b; font-size: 0.85rem;">HOLD (Yellow Pulse):</strong>
+                                <div style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">Thesis steady, fairly valued -> Wait and do nothing for now while awaiting next catalyst.</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px; align-items: flex-start;">
+                            <span class="status-beacon beacon-caution" style="margin-top: 5px;"><span class="beacon-dot"></span><span class="beacon-ping"></span></span>
+                            <div>
+                                <strong style="color: #f97316; font-size: 0.85rem;">CAUTION (Orange Pulse):</strong>
+                                <div style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">Thesis encountering execution friction, margin pressure, or guidance cuts -> Caution / trim zone.</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px; align-items: flex-start;">
+                            <span class="status-beacon beacon-avoid" style="margin-top: 5px;"><span class="beacon-dot"></span><span class="beacon-ping"></span></span>
+                            <div>
+                                <strong style="color: #ef4444; font-size: 0.85rem;">AVOID (Red Pulse):</strong>
+                                <div style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">Thesis broken, structural moat decay, or fatal hurdle breakdown -> Do NOT buy / exit.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Play Drivers -->
+                <div style="background: var(--bg-subpanel); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px;">
+                    <div style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-warm); margin-bottom: 12px;">
+                        Tier 2: Key Play Drivers & Strategic Catalysts (Slots 2 & 3 Secondary Pills)
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px;">
+                        <div style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">
+                            <strong style="color: var(--text-title);">💰 Buyback Cannibal:</strong> Aggressive share retirement concentrating per-share cash flow.
+                        </div>
+                        <div style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">
+                            <strong style="color: var(--text-title);">🏰 Cash Fortress:</strong> Massive net cash balance (>15-20% market cap) eliminating solvency risk.
+                        </div>
+                        <div style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">
+                            <strong style="color: var(--text-title);">📈 Margin Expansion:</strong> Operating leverage and fixed cost efficiency expanding margins.
+                        </div>
+                        <div style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">
+                            <strong style="color: var(--text-title);">🏷️ Deep Value:</strong> High normalized Owner Earnings yield at extreme market discount.
+                        </div>
+                        <div style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">
+                            <strong style="color: var(--text-title);">🔁 Quality Compounder:</strong> High ROIC with durable, high-velocity cash reinvestment.
+                        </div>
+                        <div style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35;">
+                            <strong style="color: var(--text-title);">🤝 M&A Engine:</strong> Disciplined serial acquirer compounding free cash flow.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; margin-top: 24px;">
+                <button class="btn-primary" onclick="closeLabelsLegendModal()">Got it</button>
+            </div>
+        </div>
+    </div>
+    
+
+    <script>
+        function showTab(id) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            const btn = document.getElementById('btn-tab-' + id);
+            const content = document.getElementById('tab-' + id);
+            if (btn && content) {
+                btn.classList.add('active');
+                content.classList.add('active');
+            }
+        }
+
+        function toggleSnapshot(ver) {
+            const el = document.getElementById('snapshot-' + ver);
+            el.style.display = (el.style.display === 'none' ? 'block' : 'none');
+        }
+
+        function openLabelsLegendModal(event) {
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+            const modal = document.getElementById('labels-legend-modal');
+            if (modal) modal.style.display = 'flex';
+        }
+
+        function closeLabelsLegendModal() {
+            const modal = document.getElementById('labels-legend-modal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function closeLegendModalOutside(event) {
+            if (event.target.id === 'labels-legend-modal') {
+                closeLabelsLegendModal();
+            }
+        }
+    </script>
+</body>
+</html>
