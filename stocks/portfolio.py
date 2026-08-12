@@ -13,6 +13,7 @@ import json
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Any, Optional
+from stocks.weekly_surveillance import get_surveillance_summary
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 PORTFOLIO_FILE = DATA_DIR / "portfolio.json"
@@ -479,6 +480,7 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
     holdings = p_data["holdings"]
     rebalance_log = p_data["rebalance_log"]
     hist_perf = p_data["historical_performance"]
+    surveillance = get_surveillance_summary()
     
     # Chart JSON payload
     chart_dates = [x["date"] for x in hist_perf]
@@ -737,6 +739,25 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
             </div>
         </div>
 
+        <!-- Weekly Autonomous Investment Council Deep Surveillance Summary -->
+        <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:20px 24px; display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap;">
+            <div style="display:flex; align-items:center; gap:14px;">
+                <span class="status-beacon beacon-buy" style="width:20px; height:20px; flex-shrink:0;"><span class="beacon-ping"></span><span class="beacon-dot"></span></span>
+                <div>
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px; flex-wrap:wrap;">
+                        <span style="font-family:var(--font-mono); font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent-green);">{surveillance['status_display']}</span>
+                        <span style="font-family:var(--font-mono); font-size:0.72rem; color:var(--text-dim);">• Last Audit: {surveillance['last_run_date']}</span>
+                    </div>
+                    <p style="font-family:var(--font-serif); font-size:0.95rem; color:var(--text-body); margin:0; line-height:1.5;">
+                        {surveillance['verdict_summary']}
+                    </p>
+                </div>
+            </div>
+            <div style="font-family:var(--font-mono); font-size:0.76rem; color:var(--text-dim); text-align:right; flex-shrink:0;">
+                Next Deep Audit: <span style="color:var(--text-secondary);">{surveillance['next_scheduled_run']}</span>
+            </div>
+        </div>
+
         <!-- Master Concentrated Holdings Table -->
         <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:14px; padding:24px 28px; overflow-x:auto;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:12px;">
@@ -745,7 +766,7 @@ def build_portfolio_tab_html(total_capital: float = 100000.0) -> str:
                         Portfolio Holdings ($100k Base)
                     </h3>
                     <p style="color:var(--text-dim); font-size:0.86rem; margin:0;">
-                        Concentrated 8-core allocation and Treasury cash buffer at Day 1 Inception cost basis.
+                        Concentrated 10-core allocation and Treasury cash buffer at Day 1 Inception cost basis.
                     </p>
                 </div>
                 <div style="display:flex; align-items:center; gap:8px;">
