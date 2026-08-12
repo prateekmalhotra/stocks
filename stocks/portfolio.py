@@ -266,8 +266,10 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
         else:
             industry_tag = h.get("industry", "")
             sector_tag = h.get("sector", "")
-            tag_label = industry_tag if industry_tag else sector_tag
-            tag_html = f'<span style="font-size:0.70rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.03em; margin-top:2px;">{tag_label}</span>' if tag_label else ''
+            raw_label = industry_tag if industry_tag else sector_tag
+            # Format cleanly as title case without uppercase shouting
+            tag_label = raw_label.title() if raw_label.isupper() else raw_label
+            tag_html = f'<span style="display:inline-block; font-size:0.68rem; color:var(--text-muted); background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07); border-radius:4px; padding:1px 6px; margin-top:3px; max-width:fit-content; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; letter-spacing:0.01em;">{tag_label}</span>' if tag_label else ''
 
             ticker_col = f"""
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
