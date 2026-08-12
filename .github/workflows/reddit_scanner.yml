@@ -61,6 +61,10 @@ jobs:
             poetry run python -m stocks.reddit_scanner --max "$MAX_STOCKS"
           fi
 
+      - name: Quality Gatekeeper Audit (Zero-Defect Enforcement)
+        run: |
+          poetry run python -m stocks.quality_gatekeeper
+
       - name: Commit and Push New Stock Coverage Dossiers
         run: |
           git config --global user.name "Prateek Malhotra"

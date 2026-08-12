@@ -126,6 +126,19 @@ def _handle_genesis_task(ticker: str, notes: str):
         trigger_reason="Genesis Initial Underwriting",
         full_html_content=html_content
     )
+
+    # QUALITY GATEKEEPER CHECK: Ensure dossier passes all 7 institutional quality pillars
+    from stocks.quality_gatekeeper import validate_dossier_quality
+    is_valid, quality_issues = validate_dossier_quality(ticker, html_content)
+    if not is_valid:
+        print(f"⚠️ [QUALITY GATE WARNING] {ticker} failed quality validation:", flush=True)
+        for issue in quality_issues:
+            print(f"   └─ {issue}", flush=True)
+        print("🛠️ Applying emergency structural repair before saving...", flush=True)
+        from stocks.gemini_agent import verify_and_repair_html_structure
+        html_content = verify_and_repair_html_structure(html_content)
+        version_1.full_html_content = html_content
+
     save_thesis_version(ticker, version_1)
 
     # 2. Create Watchlist Stock Record

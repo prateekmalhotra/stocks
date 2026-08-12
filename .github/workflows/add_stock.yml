@@ -54,6 +54,10 @@ jobs:
         run: |
           poetry run python -m stocks.main add "${{ github.event.inputs.ticker }}" --notes "${{ github.event.inputs.notes }}"
 
+      - name: Quality Gatekeeper Audit (Zero-Defect Enforcement)
+        run: |
+          poetry run python -m stocks.quality_gatekeeper
+
       - name: Commit and Push Changes to Main
         run: |
           git config --global user.name "Prateek Malhotra"
