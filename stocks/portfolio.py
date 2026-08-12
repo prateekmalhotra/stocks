@@ -310,7 +310,7 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
             alloc_col = f"""
             <div style="display:flex; flex-direction:column; gap:4px;">
                 <div style="display:flex; align-items:center; gap:8px;">
-                    <span style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">${alloc_dol:,.0f}</span>
+                    <span class="live-alloc-{t}" style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">${alloc_dol:,.0f}</span>
                     <span class="pill pill-neutral" style="font-size:0.72rem; padding:2px 7px;">{w_pct:.1f}%</span>
                 </div>
                 <span style="font-size:0.76rem; color:var(--text-dim); font-family:var(--font-mono);">{h['shares_to_buy']:,.2f} shs</span>
@@ -596,7 +596,7 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                     return;
                 }}
 
-                // Dynamic Flash Color Cue
+                // Dynamic Flash Color Cue on Total Value
                 if (targetVal > startVal) {{
                     valElem.style.transition = 'color 0.4s ease';
                     valElem.style.color = '#6FA882';
@@ -613,7 +613,6 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                 function stepRoll(now) {{
                     const elapsed = now - startTime;
                     const progress = Math.min(elapsed / duration, 1.0);
-                    // Smooth Quartic ease-out
                     const ease = 1 - Math.pow(1 - progress, 4);
                     const current = startVal + (targetVal - startVal) * ease;
 
@@ -633,6 +632,15 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                     const rows = document.querySelectorAll(`tr[data-port="${{portType}}"]`);
                     let liveEquityTotal = 0;
                     let updatedCount = 0;
+                    
+                    // 1. Fetch latest high-speed live quotes batch
+                    let batchQuotes = {{}};
+                    try {{
+                        const batchRes = await fetch('data/live_quotes.json?_t=' + Date.now());
+                        if (batchRes.ok) {{
+                            batchQuotes = await batchRes.json();
+                        }}
+                    }} catch (e) {{}}
 
                     for (const r of rows) {{
                         const ticker = r.getAttribute('data-row-ticker');
@@ -641,41 +649,52 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
 
                         if (!ticker || ticker === 'USD_CASH') continue;
 
-                        try {{
-                            let livePrice = 0;
-                            const directUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${{ticker}}?interval=1m`;
+                        let livePrice = batchQuotes[ticker]?.price || 0;
+
+                        // 2. Direct real-time ticker stream query if available
+                        if (!livePrice) {{
                             try {{
+                                const directUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${{ticker}}?interval=1m`;
                                 const res = await fetch(directUrl);
                                 if (res.ok) {{
                                     const data = await res.json();
                                     livePrice = data.chart?.result?.[0]?.meta?.regularMarketPrice || 0;
                                 }}
-                            }} catch (e) {{
-                                const proxyUrl = `https://corsproxy.io/?url=` + encodeURIComponent(directUrl);
-                                const resProxy = await fetch(proxyUrl);
-                                if (resProxy.ok) {{
-                                    const data = await resProxy.json();
-                                    livePrice = data.chart?.result?.[0]?.meta?.regularMarketPrice || 0;
+                            }} catch (e) {{}}
+                        }}
+
+                        if (livePrice && livePrice > 0) {{
+                            const pSpan = r.querySelector(`.live-price-${{ticker}}`);
+                            const glSpan = r.querySelector(`.live-gl-${{ticker}}`);
+                            const allocSpan = r.querySelector(`.live-alloc-${{ticker}}`);
+
+                            if (pSpan) {{
+                                const oldP = parseFloat(pSpan.textContent.replace(/[^0-9.]/g, '')) || livePrice;
+                                pSpan.textContent = '$' + livePrice.toFixed(2);
+                                if (Math.abs(livePrice - oldP) > 0.01) {{
+                                    pSpan.style.transition = 'color 0.3s ease';
+                                    pSpan.style.color = (livePrice >= cost) ? '#6FA882' : '#CC785C';
+                                    setTimeout(() => {{ pSpan.style.color = 'var(--text-title)'; }}, 1000);
                                 }}
                             }}
 
-                            if (livePrice && livePrice > 0) {{
-                                const pSpan = r.querySelector(`.live-price-${{ticker}}`);
-                                const glSpan = r.querySelector(`.live-gl-${{ticker}}`);
-                                if (pSpan) pSpan.textContent = '$' + livePrice.toFixed(2);
-                                if (glSpan && cost > 0) {{
-                                    const gl = ((livePrice - cost) / cost) * 100;
-                                    const sign = gl >= 0 ? '+' : '';
-                                    glSpan.textContent = `${{sign}}${{gl.toFixed(2)}}%`;
-                                    glSpan.style.color = gl >= 0 ? 'var(--accent-green)' : 'var(--accent-warm)';
-                                }}
-                                liveEquityTotal += (shares * livePrice);
-                                updatedCount++;
-                                continue;
+                            if (glSpan && cost > 0) {{
+                                const gl = ((livePrice - cost) / cost) * 100;
+                                const sign = gl >= 0 ? '+' : '';
+                                glSpan.textContent = `${{sign}}${{gl.toFixed(2)}}%`;
+                                glSpan.style.color = gl >= 0 ? 'var(--accent-green)' : 'var(--accent-warm)';
                             }}
-                        }} catch (e) {{
-                            // fallback
+
+                            if (allocSpan && shares > 0) {{
+                                const curPosVal = shares * livePrice;
+                                allocSpan.textContent = '$' + Math.round(curPosVal).toLocaleString();
+                            }}
+
+                            liveEquityTotal += (shares * livePrice);
+                            updatedCount++;
+                            continue;
                         }}
+
                         const curPriceSpan = r.querySelector(`.live-price-${{ticker}}`);
                         const pVal = curPriceSpan ? parseFloat(curPriceSpan.textContent.replace(/[^0-9.]/g, '')) : cost;
                         liveEquityTotal += (shares * pVal);
@@ -696,7 +715,7 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
 
             // Poll real-time stream every 6 seconds while tab is open
             setInterval(streamLiveQuotes, 6000);
-            setTimeout(streamLiveQuotes, 1000);
+            setTimeout(streamLiveQuotes, 800);
         }})();
     </script>
     """
