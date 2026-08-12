@@ -2,31 +2,31 @@
   "portfolio_type": "aggressive",
   "portfolio_label": "Wealthsimple (Aggressive Alpha)",
   "last_run_date": "2026-08-11",
-  "last_run_timestamp": "2026-08-11T22:51:25.802838",
+  "last_run_timestamp": "2026-08-11T22:56:53.215127",
   "status": "ACTION_REQUIRED",
-  "status_display": "REBALANCE PROPOSAL PENDING (6 ACTIONS)",
+  "status_display": "REBALANCE PROPOSAL PENDING (5 ACTIONS)",
   "action_required": true,
-  "verdict_summary": "Council flagged 6 position(s) exceeding materiality rebalance hurdles.",
+  "verdict_summary": "Council flagged 5 position(s) exceeding materiality rebalance hurdles.",
   "total_universe_scanned": 72,
   "active_holdings_verified": 18,
   "shiller_cape": 35.5,
   "buffett_indicator_pct": 198.5,
   "treasury_3m_yield_pct": 5.0,
-  "portfolio_average_mos_pct": 33.25,
-  "cash_cushion_pct": 15.98,
+  "portfolio_average_mos_pct": 33.21,
+  "cash_cushion_pct": 15.99,
   "macro_cash_audit": {
     "shiller_cape": 35.5,
     "historical_cape_median": 18.0,
     "buffett_indicator_pct": 198.5,
     "treasury_3m_yield_pct": 5.0,
-    "portfolio_weighted_mos_pct": 33.25,
+    "portfolio_weighted_mos_pct": 33.21,
     "mandate_structural_floor_pct": 3.0,
-    "calculated_target_cash_pct": 15.98,
-    "current_actual_cash_pct": 15.97,
+    "calculated_target_cash_pct": 15.99,
+    "current_actual_cash_pct": 15.89,
     "cash_status": "OPTIMAL_DRY_POWDER_MAINTAINED",
     "strike_trigger_threshold": "MoS > 45.0% on Tier-1 Compounder or Flash Crash Dislocation",
     "cash_directive": "Maintain 3M US Treasury float yielding 5.00% risk-free. Stand ready for fat pitch market dislocations.",
-    "formula_description": "Tactical Strike Reserve (15.98%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +33.25% weighted Margin of Safety."
+    "formula_description": "Tactical Strike Reserve (15.99%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +33.21% weighted Margin of Safety."
   },
   "next_scheduled_run": "2026-08-18",
   "holdings_health": [
@@ -135,6 +135,19 @@
       "thesis_core": "Sovereign monopoly on US consumer credit scoring; extreme pricing power, zero CapEx."
     },
     {
+      "ticker": "DECK",
+      "company_name": "Deckers Outdoor Corporation",
+      "price": 93.84,
+      "fair_value": 118.0,
+      "mos_pct": 25.75,
+      "signal": "BUY",
+      "moat_score": 9.0,
+      "expected_irr": 26.6,
+      "kelly_edge": 20.72,
+      "health_status": "PRISTINE",
+      "thesis_core": "Pristine zero-debt balance sheet; 25%+ ROIC, global HOKA/UGG brand compounding."
+    },
+    {
       "ticker": "MELI",
       "company_name": "MercadoLibre, Inc.",
       "price": 1940.0,
@@ -198,19 +211,6 @@
       "kelly_edge": 10.86,
       "health_status": "PRISTINE",
       "thesis_core": "Cellular standard essential patent licensing cash cow + premium mobile/auto silicon."
-    },
-    {
-      "ticker": "RDDT",
-      "company_name": "Reddit, Inc.",
-      "price": 156.19,
-      "fair_value": 185.0,
-      "mos_pct": 18.45,
-      "signal": "BUY",
-      "moat_score": 8.8,
-      "expected_irr": 33.2,
-      "kelly_edge": 9.51,
-      "health_status": "PRISTINE",
-      "thesis_core": "Irreplaceable human conversational data corpus licensing to AI hyperscalers."
     },
     {
       "ticker": "NOW",
@@ -287,46 +287,41 @@
       "moat_score": 8.5
     },
     {
-      "ticker": "DECK",
-      "company_name": "Deckers Outdoor Corporation",
-      "price": 93.84,
-      "fair_value": 118.0,
-      "mos_pct": 25.75,
-      "expected_irr": 26.6,
-      "kelly_edge": 20.72,
-      "moat_score": 9.0
+      "ticker": "BVHMF",
+      "company_name": "VISTRY GROUP PLC.",
+      "price": 3.43,
+      "fair_value": 5.15,
+      "mos_pct": 50.15,
+      "expected_irr": 26.0,
+      "kelly_edge": 19.78,
+      "moat_score": 8.5
     }
   ],
   "rebalance_proposals": [
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "BMBL",
-      "reason": "Dislocation arbitrage: BMBL offers Edge 30.94 vs 9.51 min active."
+      "reason": "Dislocation arbitrage: BMBL offers Edge 30.94 vs 10.86 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "BVHMF",
-      "reason": "Dislocation arbitrage: BVHMF offers Edge 19.78 vs 9.51 min active."
+      "reason": "Dislocation arbitrage: BVHMF offers Edge 19.78 vs 10.86 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "MSFT",
-      "reason": "Dislocation arbitrage: MSFT offers Edge 25.95 vs 9.51 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "DECK",
-      "reason": "Dislocation arbitrage: DECK offers Edge 20.72 vs 9.51 min active."
+      "reason": "Dislocation arbitrage: MSFT offers Edge 25.95 vs 10.86 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "MSCI",
-      "reason": "Dislocation arbitrage: MSCI offers Edge 24.45 vs 9.51 min active."
+      "reason": "Dislocation arbitrage: MSCI offers Edge 24.45 vs 10.86 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "SMRT",
-      "reason": "Dislocation arbitrage: SMRT offers Edge 21.58 vs 9.51 min active."
+      "reason": "Dislocation arbitrage: SMRT offers Edge 21.58 vs 10.86 min active."
     }
   ]
 }
