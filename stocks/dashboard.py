@@ -1891,8 +1891,10 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
     disp_style = "display: flex;" if not alerts else "display: none;"
     alerts_feed_html = alerts_feed_html + empty_alerts_html.format(display_style=disp_style)
 
-    from stocks.portfolio import build_portfolio_tab_html
+    from stocks.portfolio import build_portfolio_tab_html, get_enriched_portfolio
     portfolio_tab_html = build_portfolio_tab_html(100000.0)
+    port_data = get_enriched_portfolio(100000.0)
+    core_count = len(port_data.get("holdings", []))
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -2423,7 +2425,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             <div class="hub-tabs">
                 <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage ({len(watchlist)})</button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts ({len(alerts)})</span></button>
-                <button class="hub-tab-btn" onclick="switchTab('portfolio')">Portfolio (8 Core)</button>
+                <button class="hub-tab-btn" onclick="switchTab('portfolio')">Portfolio ({core_count} Core)</button>
             </div>
             <div class="view-toggle" id="view-toggle-bar">
                 <button class="view-btn active" onclick="setView('table')">Table</button>

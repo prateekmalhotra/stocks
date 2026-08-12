@@ -155,8 +155,11 @@ def check_watchlist_triggers() -> int:
         stock.current_price = current_price
         if stock.baseline_price > 0:
             stock.return_pct = round(((current_price - stock.baseline_price) / stock.baseline_price) * 100, 2)
-        save_watchlist(watchlist)
 
+    save_watchlist(watchlist)
+
+    for ticker, stock in watchlist.items():
+        current_price = stock.current_price
         today_iso = datetime.now().strftime("%Y-%m-%d")
         today_month = datetime.now().strftime("%B %Y").lower()
         today_short_month = datetime.now().strftime("%b %Y").lower()
