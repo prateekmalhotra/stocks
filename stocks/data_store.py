@@ -72,8 +72,10 @@ def save_alerts(alerts: List[AlertItem]):
 def add_alert(alert: AlertItem):
     _ensure_dirs()
     alerts = load_alerts()
-    alerts.insert(0, alert)  # Newest first
-    save_alerts(alerts)
+    # Deduplicate: remove older alerts for the same ticker if emitted on the same date or identical event
+    deduped = [a for a in alerts if not (a.ticker == alert.ticker and (a.timestamp[:10] == alert.timestamp[:10] or a.trigger_reason == alert.trigger_reason))]
+    deduped.insert(0, alert)  # Newest first
+    save_alerts(deduped)
 
 
 # ==================== THESIS HISTORY ====================

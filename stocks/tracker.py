@@ -228,7 +228,15 @@ def check_watchlist_triggers() -> int:
             try:
                 cat_dt = datetime.strptime(cat_date_clean[:10], "%Y-%m-%d").date()
                 today_dt = datetime.now().date()
-                if cat_dt < today_dt:
+                last_updated_dt = datetime.strptime(stock.last_updated[:10], "%Y-%m-%d").date() if stock.last_updated else None
+                
+                # Only trigger if the catalyst has NOT already been reviewed in the latest thesis update
+                if last_updated_dt and last_updated_dt >= cat_dt:
+                    # Already reviewed: automatically roll next catalyst date to next quarter (+90 days)
+                    from datetime import timedelta
+                    stock.next_catalyst_date = (cat_dt + timedelta(days=90)).strftime("%Y-%m-%d")
+                    stock.next_catalyst_event = "Next Quarterly Earnings Release"
+                elif cat_dt < today_dt:
                     is_past_or_today = True
                 elif cat_dt == today_dt and is_post_market:
                     is_past_or_today = True
