@@ -185,7 +185,7 @@ def get_enriched_portfolio(total_capital: float = 200000.0, portfolio_type: str 
             "look_through_fcf_yield_pct": round(weighted_fcf_yield, 2),
             "share_cannibalization_rate_pct": round(weighted_cannibal_rate, 2),
             "portfolio_margin_of_safety_pct": round(weighted_mos, 1),
-            "cash_weight_pct": round(cash_weight * 100.0, 1),
+            "cash_weight_pct": round(cash_weight * 100.0, 2),
             "core_positions_count": len([x for x in enriched_holdings if x["ticker"] != "USD_CASH"])
         }
     }
@@ -201,7 +201,9 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
     
     is_defensive = (portfolio_type == "defensive")
     port_title = "Fidelity" if is_defensive else "Wealthsimple"
-    cash_desc = "$30,000 in 3M Treasuries (5.00%)" if is_defensive else "$16,000 in 3M Treasuries (5.00%)"
+    cash_item = next((x for x in holdings if x["ticker"] == "USD_CASH"), None)
+    cash_dol = cash_item["allocated_dollars"] if cash_item else total_capital * 0.15
+    cash_desc = f"${cash_dol:,.0f} in 3M Bills (5.00% Float)"
     
     # Clean concise names
     CLEAN_NAMES = {

@@ -1,158 +1,135 @@
 """
-Weekly Autonomous Investment Council Deep Surveillance Engine.
+stocks.weekly_surveillance
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+Institutional Weekly Autonomous Surveillance & Macro Cash Audit Engine.
 
-Provides dual-cadence autonomous audits:
-- Defensive Fortress ($200k): Evaluated every Sunday at 2:00 PM EST.
-- Aggressive Alpha ($200k): Evaluated every Saturday at 2:00 PM EST.
-
-Uses Shiller CAPE macro cash gauge, Kelly risk-adjusted return ranking,
-and strict >= 5.0% anti-churn hurdles.
+Audits portfolio health, enforces Shiller CAPE macro cash targets,
+monitors company MoS expansions/compressions, and scans for dislocation swaps.
 """
 
 import json
-import os
 import re
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, Any, List
+from typing import Dict, List, Any
 
-DATA_DIR = Path(__file__).resolve().parent.parent / "data"
+from stocks.portfolio_engine import (
+    calculate_shiller_macro_cash,
+    SHILLER_CAPE,
+    CAPE_HISTORICAL_MEDIAN,
+    BUFFETT_INDICATOR,
+    TREASURY_BILL_YIELD,
+    TAXONOMY_MAP,
+    EXCLUDED_TICKERS
+)
+
+DATA_DIR = Path("/Users/pmlhtra/Documents/software/stocks/data")
 WATCHLIST_FILE = DATA_DIR / "watchlist.json"
 
-# Macro & Risk-Free Benchmarks
-SHILLER_CAPE = 35.5             # S&P 500 Cyclically Adjusted P/E (95th percentile)
-HISTORICAL_MEDIAN_CAPE = 18.0   # Long-term historical baseline
-RISK_FREE_TREASURY_RATE = 0.045 # 3-Month US Treasury Bill Yield (4.50%)
-
-# Universal Quality Matrix
-UNIVERSE_PROFILES = {
-    # Defensive Fortress Candidates (Fidelity)
-    "CSU":   {"name": "Constellation Software Inc.", "oe_yield": 4.5, "cannibal": 0.0, "growth": 14.0, "moat": 9.8, "bs": 8.5, "pool": "defensive"},
-    "CPRT":  {"name": "Copart, Inc.",                 "oe_yield": 4.4, "cannibal": 0.5, "growth": 11.0, "moat": 9.6, "bs": 10.0, "pool": "defensive"},
-    "V":     {"name": "Visa Inc.",                    "oe_yield": 4.6, "cannibal": 2.2, "growth": 9.5,  "moat": 9.7, "bs": 8.5, "pool": "defensive"},
-    "ISRG":  {"name": "Intuitive Surgical, Inc.",     "oe_yield": 3.6, "cannibal": 0.5, "growth": 13.0, "moat": 9.8, "bs": 10.0, "pool": "defensive"},
-    "ADBE":  {"name": "Adobe Inc.",                   "oe_yield": 5.5, "cannibal": 3.2, "growth": 10.5, "moat": 9.5, "bs": 9.0, "pool": "defensive"},
-    "SPGI":  {"name": "S&P Global Inc.",              "oe_yield": 4.1, "cannibal": 1.8, "growth": 9.5,  "moat": 9.8, "bs": 8.5, "pool": "defensive"},
-    "INTU":  {"name": "Intuit Inc.",                  "oe_yield": 4.5, "cannibal": 1.5, "growth": 10.0, "moat": 9.4, "bs": 8.5, "pool": "defensive"},
-    "MSFT":  {"name": "Microsoft Corporation",        "oe_yield": 3.9, "cannibal": 0.8, "growth": 11.0, "moat": 9.7, "bs": 9.0, "pool": "defensive"},
-    "UNH":   {"name": "UnitedHealth Group Inc.",      "oe_yield": 5.8, "cannibal": 1.2, "growth": 9.0,  "moat": 9.6, "bs": 8.5, "pool": "defensive"},
-    "BKNG":  {"name": "Booking Holdings Inc.",        "oe_yield": 6.8, "cannibal": 4.5, "growth": 8.5,  "moat": 9.4, "bs": 8.5, "pool": "defensive"},
-
-    # Aggressive Alpha Candidates (Wealthsimple)
-    "META":  {"name": "Meta Platforms, Inc.",         "oe_yield": 5.4, "cannibal": 3.2, "growth": 13.0, "moat": 9.7, "bs": 9.5, "pool": "aggressive"},
-    "FICO":  {"name": "Fair Isaac Corporation",        "oe_yield": 4.2, "cannibal": 2.5, "growth": 15.0, "moat": 9.9, "bs": 9.0, "pool": "aggressive"},
-    "MELI":  {"name": "MercadoLibre, Inc.",           "oe_yield": 6.1, "cannibal": 0.0, "growth": 19.0, "moat": 9.5, "bs": 9.0, "pool": "aggressive"},
-    "TSM":   {"name": "Taiwan Semiconductor Mfg",     "oe_yield": 5.9, "cannibal": 0.0, "growth": 15.0, "moat": 9.8, "bs": 9.5, "pool": "aggressive"},
-    "DECK":  {"name": "Deckers Outdoor Corporation",  "oe_yield": 6.5, "cannibal": 3.0, "growth": 12.0, "moat": 9.0, "bs": 10.0, "pool": "aggressive"},
-    "BABA":  {"name": "Alibaba Group Holding Limited", "oe_yield": 8.5, "cannibal": 6.5, "growth": 6.0,  "moat": 9.5, "bs": 10.0, "pool": "aggressive"},
-    "UBER":  {"name": "Uber Technologies, Inc.",      "oe_yield": 5.5, "cannibal": 2.0, "growth": 16.0, "moat": 9.2, "bs": 8.5, "pool": "aggressive"},
-    "STNE":  {"name": "StoneCo Ltd.",                 "oe_yield": 11.5,"cannibal": 4.0, "growth": 12.0, "moat": 8.5, "bs": 8.5, "pool": "aggressive"},
-    "GCT":   {"name": "GigaCloud Technology Inc",     "oe_yield": 9.5, "cannibal": 2.0, "growth": 18.0, "moat": 8.8, "bs": 9.5, "pool": "aggressive"},
-    "BYD":   {"name": "Boyd Gaming Corporation",      "oe_yield": 9.4, "cannibal": 5.5, "growth": 4.5,  "moat": 8.8, "bs": 9.0, "pool": "aggressive"}
-}
-
-
-def calculate_kelly_edge(ticker: str, current_price: float, fair_value: float) -> Dict[str, float]:
-    """Calculates Expected 5-Year IRR and Quality-Adjusted Kelly Edge."""
-    prof = UNIVERSE_PROFILES.get(ticker, {
-        "oe_yield": 5.0, "cannibal": 1.5, "growth": 8.0, "moat": 8.0, "bs": 8.0
-    })
-    
-    mos = max(0.0, ((fair_value - current_price) / fair_value) * 100.0) if fair_value > 0 else 0.0
-    mos_expansion = mos / 5.0
-    expected_irr = prof["oe_yield"] + prof["cannibal"] + prof["growth"] + mos_expansion
-    
-    q_score = (prof["moat"] * 0.70 + prof["bs"] * 0.30) / 10.0
-    kelly_edge = expected_irr * (q_score ** 2)
-    
-    return {
-        "expected_irr": round(expected_irr, 2),
-        "q_score": round(q_score, 3),
-        "kelly_edge": round(kelly_edge, 2),
-        "moat": prof["moat"],
-        "balance_sheet": prof["bs"]
-    }
-
-
-def get_surveillance_filepath(portfolio_type: str = "defensive") -> Path:
-    if portfolio_type.lower() in ["aggressive", "alpha"]:
-        return DATA_DIR / "surveillance_aggressive.json"
-    return DATA_DIR / "surveillance_defensive.json"
-
-
-def get_portfolio_filepath(portfolio_type: str = "defensive") -> Path:
-    if portfolio_type.lower() in ["aggressive", "alpha"]:
+def get_portfolio_filepath(portfolio_type: str) -> Path:
+    if portfolio_type == "aggressive":
         return DATA_DIR / "portfolio_aggressive.json"
     return DATA_DIR / "portfolio_defensive.json"
 
+def get_surveillance_filepath(portfolio_type: str) -> Path:
+    if portfolio_type == "aggressive":
+        return DATA_DIR / "surveillance_aggressive.json"
+    return DATA_DIR / "surveillance_defensive.json"
 
-def run_weekly_deep_surveillance(portfolio_type: str = "defensive") -> Dict[str, Any]:
-    """Executes surveillance audit for either the Defensive (Sunday) or Aggressive (Saturday) portfolio."""
-    is_defensive = (portfolio_type == "defensive")
-    port_label = "Fidelity Portfolio ($200k)" if is_defensive else "Wealthsimple Portfolio ($200k)"
-    day_target = 6 if is_defensive else 5 # Sunday = 6, Saturday = 5
-    day_name = "Sunday" if is_defensive else "Saturday"
+def calculate_kelly_edge(ticker: str, current_price: float, fair_value: float) -> Dict[str, float]:
+    """Calculates Expected 5-Year IRR and Quality-Adjusted Kelly Edge."""
+    meta = TAXONOMY_MAP.get(ticker, {
+        "moat_base": 8.5, "bs_base": 8.5, "growth_base": 10.0, "cannibal_base": 1.5, "oe_yield": 4.5, "p_success": 0.85
+    })
+    
+    mos_pct = max(0.0, ((fair_value - current_price) / current_price) * 100.0) if current_price > 0 else 0.0
+    oe_y = meta.get("oe_yield", 4.5)
+    cannibal = meta.get("cannibal_base", 1.5)
+    growth = meta.get("growth_base", 10.0)
+    
+    irr_5y = oe_y + cannibal + growth + (mos_pct / 5.0)
+    
+    payoff_b = (mos_pct / 500.0) + (oe_y / 100.0) + (cannibal / 100.0) + (growth / 100.0)
+    p = meta.get("p_success", 0.85)
+    q = 1.0 - p
+    raw_kelly = (p * payoff_b - q) / payoff_b if payoff_b > 0 else 0.0
+    quality_mult = ((meta["moat_base"] * 0.70 + meta["bs_base"] * 0.30) / 10.0) ** 2
+    kelly_score = max(0.001, raw_kelly * quality_mult)
+    
+    return {
+        "expected_irr": round(irr_5y, 1),
+        "kelly_edge": round(kelly_score * 100.0, 2),
+        "moat": meta["moat_base"],
+        "bs": meta["bs_base"]
+    }
 
-    print("=" * 85)
-    print(f"🔍 [COUNCIL SURVEILLANCE] Scanning {port_label}...")
-    print("=" * 85)
-
-    watchlist = {}
-    if WATCHLIST_FILE.exists():
-        with open(WATCHLIST_FILE, "r") as f:
-            watchlist = json.load(f)
-
+def run_portfolio_surveillance(portfolio_type: str = "defensive") -> Dict[str, Any]:
+    """Runs complete weekly audit including Shiller CAPE macro cash gauge."""
     p_file = get_portfolio_filepath(portfolio_type)
-    portfolio_state = {}
-    if p_file.exists():
-        with open(p_file, "r") as f:
-            portfolio_state = json.load(f)
+    if not p_file.exists():
+        p_file = DATA_DIR / "portfolio.json"
 
+    with open(p_file, "r") as f:
+        portfolio_state = json.load(f)
+
+    with open(WATCHLIST_FILE, "r") as f:
+        watchlist = json.load(f)
+
+    is_defensive = (portfolio_type == "defensive")
+    port_label = "Fidelity (Defensive Fortress)" if is_defensive else "Wealthsimple (Aggressive Alpha)"
+    
     holdings = portfolio_state.get("holdings", [])
-    now_dt = datetime.now()
-    today_str = now_dt.strftime("%Y-%m-%d")
-
-    # Next run target
-    days_until = (day_target - now_dt.weekday()) % 7
-    if days_until == 0:
-        days_until = 7
-    next_run_dt = now_dt + timedelta(days=days_until)
-    next_run_str = f"{day_name}, {next_run_dt.strftime('%b %d, %Y')} at 2:00 PM EST"
+    total_active_holdings = len([h for h in holdings if h.get("ticker") != "USD_CASH"])
+    
+    today = datetime.now()
+    today_str = today.strftime("%Y-%m-%d")
+    next_run_str = (today + timedelta(days=7)).strftime("%Y-%m-%d")
 
     holding_audits = []
     rebalance_triggers = []
     active_edge_scores = []
-    total_active_holdings = len([h for h in holdings if h.get("ticker") != "USD_CASH"])
+    actual_cash_pct = 0.0
+    
+    weighted_mos_numerator = 0.0
+    equity_weight_sum = 0.0
 
     for h in holdings:
         ticker = h.get("ticker")
         if ticker == "USD_CASH":
+            actual_cash_pct = float(h.get("target_weight", 0.15)) * 100.0
             continue
 
-        w_data = watchlist.get(ticker, {})
-        cur_p = float(w_data.get("current_price", h.get("current_price", 100.0)))
-        fv_raw = w_data.get("fair_value_estimate", "$0.00")
-        fv_match = re.search(r"[\d\.]+", fv_raw.replace(",", ""))
-        fv = float(fv_match.group(0)) if fv_match else cur_p
+        w_item = watchlist.get(ticker, {})
+        cur_p = float(w_item.get("current_price", h.get("current_price", 100.0)))
+        raw_fv = str(w_item.get("fair_value_estimate", h.get("fair_value", cur_p)))
+        try:
+            fv = float(re.sub(r"[^\d.]", "", raw_fv))
+        except Exception:
+            fv = cur_p * 1.2
+            
+        mos = round(((fv - cur_p) / cur_p) * 100.0, 2) if cur_p > 0 else 0.0
+        signal = w_item.get("action_signal", "BUY")
+        w_tgt = float(h.get("target_weight", 0.10))
         
-        mos = round(((fv - cur_p) / fv) * 100.0, 1) if fv > 0 else 0.0
-        signal = w_data.get("action_signal", "BUY")
-        
+        weighted_mos_numerator += (mos * w_tgt)
+        equity_weight_sum += w_tgt
+
         calc = calculate_kelly_edge(ticker, cur_p, fv)
         active_edge_scores.append(calc["kelly_edge"])
 
-        if signal == "AVOID":
+        # Health checks
+        if signal in ["AVOID", "CAUTION"] and mos < -15.0:
             rebalance_triggers.append({
-                "action": "LIQUIDATE",
+                "action": "SELL",
                 "ticker": ticker,
-                "reason": f"Fundamental thesis impairment detected. Downgraded to AVOID."
+                "reason": f"Thesis impairment / severe negative MoS ({mos:.1f}%)."
             })
             health = "IMPAIRED"
         elif cur_p > 1.35 * fv:
             rebalance_triggers.append({
                 "action": "TRIM",
                 "ticker": ticker,
-                "reason": f"Extreme valuation overextension (${cur_p:.2f} vs FV ${fv:.2f}, MoS: {mos}%)."
+                "reason": f"Valuation overextension (${cur_p:.2f} vs FV ${fv:.2f}, MoS: {mos:.1f}%)."
             })
             health = "FROTHY"
         else:
@@ -172,17 +149,33 @@ def run_weekly_deep_surveillance(portfolio_type: str = "defensive") -> Dict[str,
             "thesis_core": h.get("thesis_core", "")
         })
 
-    avg_mos = sum(x["mos_pct"] for x in holding_audits) / len(holding_audits) if holding_audits else 25.0
-    froth_component = max(0.0, min(0.15, (SHILLER_CAPE - 22.0) / 14.0 * 0.15))
-    base_floor = 0.08 if is_defensive else 0.05
-    target_cash_pct = round(base_floor + (froth_component * (1.0 - (avg_mos / 100.0))), 2) * 100.0
+    portfolio_weighted_mos = (weighted_mos_numerator / equity_weight_sum) if equity_weight_sum > 0 else 20.0
+    
+    # Run exact Shiller Macro Cash Engine
+    calc_cash_pct_float, eq_budget_float, cash_rationale = calculate_shiller_macro_cash(
+        is_defensive=is_defensive,
+        weighted_mos=portfolio_weighted_mos
+    )
+    target_cash_pct = round(calc_cash_pct_float * 100.0, 2)
+    
+    # Assess Cash Health & Status
+    cash_diff = abs(actual_cash_pct - target_cash_pct)
+    if cash_diff <= 1.0:
+        cash_status = "OPTIMAL_DRY_POWDER_MAINTAINED"
+        cash_directive = f"Maintain 3M US Treasury float yielding {TREASURY_BILL_YIELD*100:.2f}% risk-free. Stand ready for fat pitch market dislocations."
+    elif actual_cash_pct < target_cash_pct:
+        cash_status = "ACCUMULATE_DRY_POWDER"
+        cash_directive = f"Market froth (Shiller CAPE {SHILLER_CAPE}x) warrants expanding cash reserves toward {target_cash_pct:.2f}%."
+    else:
+        cash_status = "SURPLUS_STRIKE_READY"
+        cash_directive = f"Cash reserves ({actual_cash_pct:.2f}%) exceed target ({target_cash_pct:.2f}%). Ready for opportunistic deployment."
 
-    # Scan universe (strictly exclude sibling portfolio holdings to maintain mutual exclusivity)
+    # Scan Watchlist for Dislocation Opportunities
     watchlist_candidates = []
     active_tickers = {h.get("ticker") for h in holdings}
-    active_tickers.add("GOOG")
-
-    # Exclude sibling portfolio holdings
+    active_tickers.update(EXCLUDED_TICKERS.keys())
+    
+    # Exclude sibling holdings
     sibling_type = "aggressive" if is_defensive else "defensive"
     sibling_file = get_portfolio_filepath(sibling_type)
     if sibling_file.exists():
@@ -193,30 +186,32 @@ def run_weekly_deep_surveillance(portfolio_type: str = "defensive") -> Dict[str,
                     active_tickers.add(sh.get("ticker"))
         except Exception:
             pass
-    
-    min_active_edge = min(active_edge_scores) if active_edge_scores else 18.0
+            
+    min_active_edge = min(active_edge_scores) if active_edge_scores else 15.0
 
     for ticker, s in watchlist.items():
-        if ticker in active_tickers:
+        if ticker in active_tickers or ticker in EXCLUDED_TICKERS:
             continue
 
         cur_p = float(s.get("current_price", 0.0))
-        fv_raw = s.get("fair_value_estimate", "$0.00")
-        fv_match = re.search(r"[\d\.]+", fv_raw.replace(",", ""))
-        fv = float(fv_match.group(0)) if fv_match else cur_p
-        mos = round(((fv - cur_p) / fv) * 100.0, 1) if fv > 0 else 0.0
+        raw_fv = str(s.get("fair_value_estimate", cur_p))
+        try:
+            fv = float(re.sub(r"[^\d.]", "", raw_fv))
+        except Exception:
+            fv = cur_p * 1.2
+            
+        mos = round(((fv - cur_p) / cur_p) * 100.0, 2) if cur_p > 0 else 0.0
         signal = s.get("action_signal", "HOLD")
-        
         calc = calculate_kelly_edge(ticker, cur_p, fv)
 
-        if signal == "BUY" and calc["kelly_edge"] >= (min_active_edge + 5.0):
+        if signal == "BUY" and calc["kelly_edge"] >= (min_active_edge + 8.0):
             rebalance_triggers.append({
                 "action": "SWAP_PROPOSAL",
                 "ticker": ticker,
                 "reason": f"Dislocation arbitrage: {ticker} offers Edge {calc['kelly_edge']} vs {min_active_edge} min active."
             })
 
-        if signal == "BUY" and mos >= 15.0:
+        if signal == "BUY" and mos >= 20.0:
             watchlist_candidates.append({
                 "ticker": ticker,
                 "company_name": s.get("company_name", ticker),
@@ -235,8 +230,8 @@ def run_weekly_deep_surveillance(portfolio_type: str = "defensive") -> Dict[str,
         status_display = "COUNCIL AUDIT ACTIVE • ALL HOLDINGS INTACT"
         verdict = (
             f"Audited {port_label} across Buffett-Munger Kelly filters. "
-            f"All {total_active_holdings} core holdings maintain pristine moats and >18% expected 5Y IRRs. "
-            f"Zero thesis impairments detected. Strategic cash buffer maintained at {target_cash_pct:.1f}%."
+            f"All {total_active_holdings} core holdings maintain pristine moats and healthy cash compounding. "
+            f"Zero thesis impairments detected. Shiller CAPE macro cash gauge verified at {target_cash_pct:.2f}%."
         )
         action_required = False
     else:
@@ -244,6 +239,21 @@ def run_weekly_deep_surveillance(portfolio_type: str = "defensive") -> Dict[str,
         status_display = f"REBALANCE PROPOSAL PENDING ({len(rebalance_triggers)} ACTIONS)"
         verdict = f"Council flagged {len(rebalance_triggers)} position(s) exceeding materiality rebalance hurdles."
         action_required = True
+
+    macro_cash_audit = {
+        "shiller_cape": SHILLER_CAPE,
+        "historical_cape_median": CAPE_HISTORICAL_MEDIAN,
+        "buffett_indicator_pct": BUFFETT_INDICATOR,
+        "treasury_3m_yield_pct": TREASURY_BILL_YIELD * 100.0,
+        "portfolio_weighted_mos_pct": round(portfolio_weighted_mos, 2),
+        "mandate_structural_floor_pct": 5.0 if is_defensive else 3.0,
+        "calculated_target_cash_pct": target_cash_pct,
+        "current_actual_cash_pct": actual_cash_pct,
+        "cash_status": cash_status,
+        "strike_trigger_threshold": "MoS > 45.0% on Tier-1 Compounder or Flash Crash Dislocation",
+        "cash_directive": cash_directive,
+        "formula_description": cash_rationale
+    }
 
     surveillance_report = {
         "portfolio_type": portfolio_type,
@@ -257,9 +267,11 @@ def run_weekly_deep_surveillance(portfolio_type: str = "defensive") -> Dict[str,
         "total_universe_scanned": len(watchlist),
         "active_holdings_verified": total_active_holdings,
         "shiller_cape": SHILLER_CAPE,
-        "treasury_3m_yield_pct": RISK_FREE_TREASURY_RATE * 100.0,
-        "portfolio_average_mos_pct": round(avg_mos, 1),
+        "buffett_indicator_pct": BUFFETT_INDICATOR,
+        "treasury_3m_yield_pct": TREASURY_BILL_YIELD * 100.0,
+        "portfolio_average_mos_pct": round(portfolio_weighted_mos, 2),
         "cash_cushion_pct": target_cash_pct,
+        "macro_cash_audit": macro_cash_audit,
         "next_scheduled_run": next_run_str,
         "holdings_health": holding_audits,
         "top_watchlist_on_radar": watchlist_candidates[:3],
@@ -271,34 +283,17 @@ def run_weekly_deep_surveillance(portfolio_type: str = "defensive") -> Dict[str,
     with open(s_file, "w") as f:
         json.dump(surveillance_report, f, indent=2)
 
-    # Also sync surveillance.json for backwards compatibility
-    with open(DATA_DIR / "surveillance.json", "w") as f:
-        json.dump(surveillance_report, f, indent=2)
+    if portfolio_type == "defensive":
+        with open(DATA_DIR / "surveillance.json", "w") as f:
+            json.dump(surveillance_report, f, indent=2)
 
-    print(f"✅ [{portfolio_type.upper()} SURVEILLANCE COMPLETE] Status: {status_display}")
-    print(f"📅 Next Run: {next_run_str}")
-    print("=" * 85)
-    
+    print(f"✅ Surveillance audit completed for {port_label} (Target Cash: {target_cash_pct:.2f}% | Actual: {actual_cash_pct:.2f}% | Status: {cash_status})")
     return surveillance_report
 
-
-def get_surveillance_summary(portfolio_type: str = "defensive") -> Dict[str, Any]:
-    """Loads surveillance report for the specified portfolio or runs fresh audit."""
-    s_file = get_surveillance_filepath(portfolio_type)
-    if not s_file.exists():
-        return run_weekly_deep_surveillance(portfolio_type)
-    try:
-        with open(s_file, "r") as f:
-            return json.load(f)
-    except Exception:
-        return run_weekly_deep_surveillance(portfolio_type)
-
+def run_dual_surveillance():
+    print("=== RUNNING WEEKLY AUTONOMOUS DUAL SURVEILLANCE ===")
+    run_portfolio_surveillance("defensive")
+    run_portfolio_surveillance("aggressive")
 
 if __name__ == "__main__":
-    import sys
-    ptype = sys.argv[1] if len(sys.argv) > 1 else "all"
-    if ptype == "all":
-        run_weekly_deep_surveillance("defensive")
-        run_weekly_deep_surveillance("aggressive")
-    else:
-        run_weekly_deep_surveillance(ptype)
+    run_dual_surveillance()
