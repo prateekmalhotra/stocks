@@ -26,7 +26,7 @@ COMPLIANCE & ETHICAL INVARIANTS:
 import json
 import re
 from pathlib import Path
-from typing import Dict, List, Any, Tuple
+from typing import Dict, List, Any, Tuple, Optional, Set
 
 DATA_DIR = Path("/Users/pmlhtra/Documents/software/stocks/data")
 WATCHLIST_FILE = DATA_DIR / "watchlist.json"
@@ -374,6 +374,29 @@ def allocate_concentrated_buffett_kelly(
 # 6. DUAL PORTFOLIO COMPILATION ENGINE
 # =============================================================================
 
+# =============================================================================
+# EXPLICIT DUOPOLY CLUSTERS (DIRECT HEAD-TO-HEAD SUBSTITUTE PAIRS ONLY)
+# =============================================================================
+
+DUOPOLY_CLUSTERS = [
+    {"V", "MA"},        # Global Consumer Payment Network Rails
+    {"CMCSA", "CHTR"},  # US Cable Broadband Infrastructure
+    {"MTCH", "BMBL"},   # Mobile Dating App Networks
+    {"SPGI", "MCO"},    # Sovereign Debt Ratings & S&P Benchmarks
+    {"KO", "PEP"},      # Carbonated Soft Drink Bottling Duopoly
+    {"BKNG", "EXPE"},   # Global Online Travel Agencies
+    {"UBER", "LYFT"},   # North American Rideshare Networks
+    {"HD", "LOW"},      # Big Box Home Improvement
+]
+
+def get_duopoly_partner(ticker: str) -> Optional[str]:
+    """Returns the direct head-to-head duopoly twin if one exists."""
+    for cluster in DUOPOLY_CLUSTERS:
+        if ticker in cluster:
+            partners = cluster - {ticker}
+            return list(partners)[0] if partners else None
+    return None
+
 def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str, Any], Dict[str, Any]]:
     with open(WATCHLIST_FILE, "r") as f:
         wl = json.load(f)
@@ -398,34 +421,51 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
             
         meta = get_asset_metadata(ticker, w_item)
         
-        # Continuous composite scoring for all mathematically qualifying candidates
         scored_fid = score_fidelity_defensive(ticker, meta, cur_p, bear_p, base_p, bull_p, sig)
         fidelity_candidates.append(scored_fid)
             
         scored_ws = score_wealthsimple_aggressive(ticker, meta, cur_p, bear_p, base_p, bull_p, sig)
         wealthsimple_candidates.append(scored_ws)
 
-    # STRICT ZERO OVERLAP (MUTUAL EXCLUSIVITY) BIPARTITE SELECTION
-    # 1. Wealthsimple selects high-growth asymmetric alpha champions (Growth >= 8%, max 1 per industry)
+    # 1. Wealthsimple selects high-growth asymmetric alpha champions (Growth >= 8.0%)
+    # Strict duopoly filter ONLY (e.g. V vs MA) - No arbitrary sector/industry exclusion blocks
     wealthsimple_candidates.sort(key=lambda x: (x["total_score"], x["growth"], x["bull_ret"]), reverse=True)
-    used_agg_ind = set()
     ws_selected = []
     ws_selected_tickers = set()
+    ws_blocked_duopolies = set()
+    
     for item in wealthsimple_candidates:
-        if item["growth"] >= 8.0 and item["industry"] not in used_agg_ind:
-            ws_selected.append(item)
-            ws_selected_tickers.add(item["ticker"])
-            used_agg_ind.add(item["industry"])
+        t = item["ticker"]
+        if item["growth"] < 8.0:
+            continue
+        if t in ws_blocked_duopolies:
+            continue
+            
+        ws_selected.append(item)
+        ws_selected_tickers.add(t)
+        partner = get_duopoly_partner(t)
+        if partner:
+            ws_blocked_duopolies.add(partner)
 
-    # 2. Fidelity selects fortress moat & defensive preservation compounders (strictly excluding any Wealthsimple holdings, max 1 per industry)
-    fidelity_candidates.sort(key=lambda x: (x["total_score"], x["moat"], x["bs"]), reverse=True)
-    used_def_ind = set()
+    # 2. Fidelity selects fortress moat & defensive preservation compounders
+    # Strictly excludes any ticker selected in Wealthsimple (Zero Overlap Invariant) + Duopoly Filter
+    fidelity_candidates.sort(key=lambda x: (x["total_score"], x["base_ret"], x["moat"]), reverse=True)
     fid_selected = []
+    fid_selected_tickers = set()
+    fid_blocked_duopolies = set()
+    
     for item in fidelity_candidates:
-        if item["ticker"] not in ws_selected_tickers and item["industry"] not in used_def_ind:
-            fid_selected.append(item)
-            used_def_ind.add(item["industry"])
-
+        t = item["ticker"]
+        if t in ws_selected_tickers:
+            continue
+        if t in fid_blocked_duopolies:
+            continue
+            
+        fid_selected.append(item)
+        fid_selected_tickers.add(t)
+        partner = get_duopoly_partner(t)
+        if partner:
+            fid_blocked_duopolies.add(partner)
     # 3. Compute Fidelity Allocations
     fid_k = {x["ticker"]: x["kelly_score"] for x in fid_selected}
     fid_mos = sum(x["margin_of_safety_pct"] for x in fid_selected) / len(fid_selected) if fid_selected else 25.0
