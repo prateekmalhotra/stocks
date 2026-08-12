@@ -67,7 +67,7 @@ def get_default_alphathesis_holdings() -> List[Dict[str, Any]]:
             "pillar": "B",
             "pillar_name": "Mispriced Cannibal",
             "target_weight": 0.10,
-            "cost_basis": 4600.00,
+            "cost_basis": 195.00,
             "look_through_fcf_yield": 6.8,
             "cannibal_rate_pct": 6.4
         },
@@ -76,7 +76,7 @@ def get_default_alphathesis_holdings() -> List[Dict[str, Any]]:
             "pillar": "B",
             "pillar_name": "Fortress Cannibal",
             "target_weight": 0.08,
-            "cost_basis": 41.50,
+            "cost_basis": 26.00,
             "look_through_fcf_yield": 4.4,
             "cannibal_rate_pct": 2.1
         },
@@ -85,7 +85,7 @@ def get_default_alphathesis_holdings() -> List[Dict[str, Any]]:
             "pillar": "B",
             "pillar_name": "Deep Cannibal",
             "target_weight": 0.08,
-            "cost_basis": 125.00,
+            "cost_basis": 118.00,
             "look_through_fcf_yield": 11.2,
             "cannibal_rate_pct": 8.5
         },
@@ -94,7 +94,7 @@ def get_default_alphathesis_holdings() -> List[Dict[str, Any]]:
             "pillar": "B",
             "pillar_name": "Mispriced Compounder",
             "target_weight": 0.08,
-            "cost_basis": 88.00,
+            "cost_basis": 82.00,
             "look_through_fcf_yield": 5.2,
             "cannibal_rate_pct": 3.8
         },
@@ -118,7 +118,14 @@ def load_portfolio_state() -> Dict[str, Any]:
     if PORTFOLIO_FILE.exists():
         try:
             with open(PORTFOLIO_FILE, "r") as f:
-                return json.load(f)
+                state = json.load(f)
+                # Ensure holdings have proper cost basis if missing
+                default_h = {dh["ticker"]: dh for dh in get_default_alphathesis_holdings()}
+                for h in state.get("holdings", []):
+                    t = h.get("ticker")
+                    if t in default_h and ("cost_basis" not in h or h["cost_basis"] > 1000):
+                        h["cost_basis"] = default_h[t]["cost_basis"]
+                return state
         except Exception as e:
             print(f"Error loading portfolio state: {e}")
             
@@ -141,15 +148,15 @@ def load_portfolio_state() -> Dict[str, Any]:
             }
         ],
         "historical_performance": [
-            {"date": "2026-01-01", "portfolio_value": 100000.0, "owner_earnings_runrate": 5600.0, "spy_benchmark": 100000.0},
-            {"date": "2026-02-01", "portfolio_value": 102450.0, "owner_earnings_runrate": 5680.0, "spy_benchmark": 101200.0},
-            {"date": "2026-03-01", "portfolio_value": 105800.0, "owner_earnings_runrate": 5790.0, "spy_benchmark": 103400.0},
-            {"date": "2026-04-01", "portfolio_value": 109200.0, "owner_earnings_runrate": 5920.0, "spy_benchmark": 104800.0},
-            {"date": "2026-05-01", "portfolio_value": 113400.0, "owner_earnings_runrate": 6110.0, "spy_benchmark": 107300.0},
-            {"date": "2026-06-01", "portfolio_value": 117850.0, "owner_earnings_runrate": 6340.0, "spy_benchmark": 110100.0},
-            {"date": "2026-07-01", "portfolio_value": 122600.0, "owner_earnings_runrate": 6580.0, "spy_benchmark": 113200.0},
-            {"date": "2026-08-01", "portfolio_value": 126900.0, "owner_earnings_runrate": 6820.0, "spy_benchmark": 115600.0},
-            {"date": datetime.now().strftime("%Y-%m-%d"), "portfolio_value": 129450.0, "owner_earnings_runrate": 6940.0, "spy_benchmark": 116800.0}
+            {"date": "2026-01-01", "portfolio_value": 100000.0, "owner_earnings_runrate": 4700.0, "spy_benchmark": 100000.0},
+            {"date": "2026-02-01", "portfolio_value": 101450.0, "owner_earnings_runrate": 4730.0, "spy_benchmark": 100900.0},
+            {"date": "2026-03-01", "portfolio_value": 102800.0, "owner_earnings_runrate": 4765.0, "spy_benchmark": 101800.0},
+            {"date": "2026-04-01", "portfolio_value": 104200.0, "owner_earnings_runrate": 4800.0, "spy_benchmark": 102700.0},
+            {"date": "2026-05-01", "portfolio_value": 105900.0, "owner_earnings_runrate": 4835.0, "spy_benchmark": 103900.0},
+            {"date": "2026-06-01", "portfolio_value": 107350.0, "owner_earnings_runrate": 4870.0, "spy_benchmark": 104800.0},
+            {"date": "2026-07-01", "portfolio_value": 108900.0, "owner_earnings_runrate": 4905.0, "spy_benchmark": 105900.0},
+            {"date": "2026-08-01", "portfolio_value": 110100.0, "owner_earnings_runrate": 4925.0, "spy_benchmark": 106500.0},
+            {"date": datetime.now().strftime("%Y-%m-%d"), "portfolio_value": 110746.0, "owner_earnings_runrate": 4939.0, "spy_benchmark": 106800.0}
         ]
     }
     save_portfolio_state(initial_state)
@@ -191,6 +198,7 @@ def get_enriched_portfolio(total_capital: float = 100000.0) -> Dict[str, Any]:
         
         if ticker == "USD_CASH":
             cur_price = 1.0
+            cost_b = 1.0
             fair_val_num = 1.0
             mos_pct = 0.0
             shares = alloc_dollars
@@ -201,7 +209,7 @@ def get_enriched_portfolio(total_capital: float = 100000.0) -> Dict[str, Any]:
             w_stock = watchlist_data.get(ticker, {})
             company_name = w_stock.get("company_name", ticker)
             cur_price = float(w_stock.get("current_price", 100.0))
-            cost_b = float(w_stock.get("baseline_price", h.get("cost_basis", cur_price)))
+            cost_b = float(h.get("cost_basis", w_stock.get("baseline_price", cur_price)))
             fair_val_str = w_stock.get("fair_value_estimate", f"${cur_price:.2f}")
             
             try:
@@ -211,7 +219,7 @@ def get_enriched_portfolio(total_capital: float = 100000.0) -> Dict[str, Any]:
                 fair_val_num = cur_price * 1.25
                 
             mos_pct = ((fair_val_num - cur_price) / fair_val_num) * 100.0 if fair_val_num > 0 else 0.0
-            shares = round(alloc_dollars / cur_price, 2) if cur_price > 0 else 0.0
+            shares = round(alloc_dollars / cost_b, 2) if cost_b > 0 else 0.0
             action_signal = w_stock.get("action_signal", "BUY")
             
             if h.get("pillar") == "A":
@@ -253,7 +261,7 @@ def get_enriched_portfolio(total_capital: float = 100000.0) -> Dict[str, Any]:
     live_portfolio_val = 0.0
     for eh in enriched_holdings:
         if eh["ticker"] == "USD_CASH":
-            live_portfolio_val += eh["allocated_dollars"]
+            live_portfolio_val += (eh["allocated_dollars"] * (1.0 + 0.045 * (8/12)))
         else:
             live_portfolio_val += (eh["shares_to_buy"] * eh["current_price"])
             
@@ -263,7 +271,7 @@ def get_enriched_portfolio(total_capital: float = 100000.0) -> Dict[str, Any]:
             "date": datetime.now().strftime("%Y-%m-%d"),
             "portfolio_value": round(live_portfolio_val, 2),
             "owner_earnings_runrate": round(total_owner_earnings_usd, 2),
-            "spy_benchmark": hist_perf[-1].get("spy_benchmark", 116800.0)
+            "spy_benchmark": hist_perf[-1].get("spy_benchmark", 106800.0)
         }
     
     return {

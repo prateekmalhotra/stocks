@@ -259,6 +259,47 @@
             line-height: 1.2;
         }
 
+        /* Strict Stacked 2-Line Table Cells */
+        .tbl-cell-stacked {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 3px !important;
+            align-items: flex-start !important;
+            justify-content: center !important;
+            line-height: 1.25 !important;
+        }
+        .tbl-cell-stacked .cell-primary {
+            font-family: var(--font-mono) !important;
+            font-size: 0.95rem !important;
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+            line-height: 1.2 !important;
+            display: block !important;
+            white-space: nowrap !important;
+        }
+        .tbl-cell-stacked .cell-primary.cell-warm {
+            color: var(--accent-warm) !important;
+        }
+        .tbl-cell-stacked .cell-sub {
+            font-family: var(--font-mono) !important;
+            font-size: 0.80rem !important;
+            line-height: 1.2 !important;
+            display: block !important;
+            white-space: nowrap !important;
+        }
+        .tbl-cell-stacked .cell-sub-green {
+            color: var(--accent-green) !important;
+            font-weight: 500 !important;
+        }
+        .tbl-cell-stacked .cell-sub-dim {
+            color: var(--text-dim) !important;
+            font-weight: 400 !important;
+        }
+        .tbl-cell-stacked .cell-sub-secondary {
+            color: var(--text-secondary) !important;
+            font-weight: 400 !important;
+        }
+
         /* Catalyst Column: Max 4 Words, Clean Line Wrap, No Truncation */
         .tbl-catalyst-cell {
             display: flex;
@@ -3516,6 +3557,46 @@
         <!-- PORTFOLIO SECTION -->
         <section id="pane-portfolio" class="tab-panel">
             
+    <style>
+        .tbl-cell-stacked {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 3px !important;
+            align-items: flex-start !important;
+            justify-content: center !important;
+        }
+        .tbl-cell-stacked .cell-primary {
+            font-family: var(--font-mono) !important;
+            font-size: 0.95rem !important;
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+            line-height: 1.2 !important;
+            display: block !important;
+            white-space: nowrap !important;
+        }
+        .tbl-cell-stacked .cell-primary.cell-warm {
+            color: var(--accent-warm) !important;
+        }
+        .tbl-cell-stacked .cell-sub {
+            font-family: var(--font-mono) !important;
+            font-size: 0.80rem !important;
+            line-height: 1.2 !important;
+            display: block !important;
+            white-space: nowrap !important;
+        }
+        .tbl-cell-stacked .cell-sub-green {
+            color: var(--accent-green) !important;
+            font-weight: 500 !important;
+        }
+        .tbl-cell-stacked .cell-sub-dim {
+            color: var(--text-dim) !important;
+            font-weight: 400 !important;
+        }
+        .tbl-cell-stacked .cell-sub-secondary {
+            color: var(--text-secondary) !important;
+            font-weight: 400 !important;
+        }
+    </style>
     <!-- AlphaThesis Concentrated Portfolio Tab -->
     <div id="portfolio-interactive-hub" style="display:flex; flex-direction:column; gap:28px;">
         
@@ -3619,331 +3700,331 @@
                     
         <tr class="table-row">
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
+            <div class="tbl-cell-stacked">
                 <a href="reports/GOOG.html" style="font-family:var(--font-serif); font-size:1.24rem; font-weight:500; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
                     GOOG <span style="font-size:0.72rem; color:var(--text-dim);">↗</span>
                 </a>
-                <span style="font-size:0.78rem; color:var(--text-secondary);">Alphabet Inc.</span>
+                <div class="cell-sub cell-sub-secondary" style="font-family:var(--font-sans);">Alphabet Inc.</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-        <div style="display:flex; flex-direction:column; gap:2px;">
-            <div style="font-family:var(--font-mono); font-size:0.95rem; font-weight:600; color:var(--text-title);">
+        <div class="tbl-cell-stacked">
+            <div class="cell-primary">
                 $15,000 <span style="font-size:0.80rem; font-weight:400; color:var(--accent-warm);">(15.0%)</span>
             </div>
-            <div style="font-family:var(--font-mono); font-size:0.78rem; font-weight:400; color:var(--text-dim);">43.73 shares</div>
+            <div class="cell-sub cell-sub-dim">43.73 shares</div>
         </div>
         </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--text-title); font-weight:600;">$343.00</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-dim); font-weight:400;">($353.47)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary">$343.00</div>
+                <div class="cell-sub cell-sub-dim">($353.47)</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--text-title); font-weight:600;">$420.00</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--accent-green); font-weight:500;">(+18.3%)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary">$420.00</div>
+                <div class="cell-sub cell-sub-green">(+18.3%)</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--accent-warm); font-weight:600;">$742/yr</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-secondary); font-weight:400;">(4.95%)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary cell-warm">$742/yr</div>
+                <div class="cell-sub cell-sub-secondary">(4.95%)</div>
             </div>
             </td>
         </tr>
         
         <tr class="table-row">
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
+            <div class="tbl-cell-stacked">
                 <a href="reports/META.html" style="font-family:var(--font-serif); font-size:1.24rem; font-weight:500; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
                     META <span style="font-size:0.72rem; color:var(--text-dim);">↗</span>
                 </a>
-                <span style="font-size:0.78rem; color:var(--text-secondary);">Meta Platforms, Inc.</span>
+                <div class="cell-sub cell-sub-secondary" style="font-family:var(--font-sans);">Meta Platforms, Inc.</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-        <div style="display:flex; flex-direction:column; gap:2px;">
-            <div style="font-family:var(--font-mono); font-size:0.95rem; font-weight:600; color:var(--text-title);">
+        <div class="tbl-cell-stacked">
+            <div class="cell-primary">
                 $14,000 <span style="font-size:0.80rem; font-weight:400; color:var(--accent-warm);">(14.0%)</span>
             </div>
-            <div style="font-family:var(--font-mono); font-size:0.78rem; font-weight:400; color:var(--text-dim);">23.37 shares</div>
+            <div class="cell-sub cell-sub-dim">23.37 shares</div>
         </div>
         </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--text-title); font-weight:600;">$599.12</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-dim); font-weight:400;">($592.10)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary">$599.12</div>
+                <div class="cell-sub cell-sub-dim">($592.10)</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--text-title); font-weight:600;">$720.00</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--accent-green); font-weight:500;">(+16.8%)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary">$720.00</div>
+                <div class="cell-sub cell-sub-green">(+16.8%)</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--accent-warm); font-weight:600;">$747/yr</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-secondary); font-weight:400;">(5.34%)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary cell-warm">$747/yr</div>
+                <div class="cell-sub cell-sub-secondary">(5.34%)</div>
             </div>
             </td>
         </tr>
         
         <tr class="table-row">
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
+            <div class="tbl-cell-stacked">
                 <a href="reports/V.html" style="font-family:var(--font-serif); font-size:1.24rem; font-weight:500; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
                     V <span style="font-size:0.72rem; color:var(--text-dim);">↗</span>
                 </a>
-                <span style="font-size:0.78rem; color:var(--text-secondary);">Visa Inc.</span>
+                <div class="cell-sub cell-sub-secondary" style="font-family:var(--font-sans);">Visa Inc.</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-        <div style="display:flex; flex-direction:column; gap:2px;">
-            <div style="font-family:var(--font-mono); font-size:0.95rem; font-weight:600; color:var(--text-title);">
+        <div class="tbl-cell-stacked">
+            <div class="cell-primary">
                 $12,000 <span style="font-size:0.80rem; font-weight:400; color:var(--accent-warm);">(12.0%)</span>
             </div>
-            <div style="font-family:var(--font-mono); font-size:0.78rem; font-weight:400; color:var(--text-dim);">33.07 shares</div>
+            <div class="cell-sub cell-sub-dim">33.07 shares</div>
         </div>
         </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--text-title); font-weight:600;">$362.82</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-dim); font-weight:400;">($362.82)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary">$362.82</div>
+                <div class="cell-sub cell-sub-dim">($362.82)</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--text-title); font-weight:600;">$395.00</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--accent-green); font-weight:500;">(+8.1%)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary">$395.00</div>
+                <div class="cell-sub cell-sub-green">(+8.1%)</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--accent-warm); font-weight:600;">$552/yr</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-secondary); font-weight:400;">(4.6%)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary cell-warm">$552/yr</div>
+                <div class="cell-sub cell-sub-secondary">(4.6%)</div>
             </div>
             </td>
         </tr>
         
         <tr class="table-row">
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
+            <div class="tbl-cell-stacked">
                 <a href="reports/MSFT.html" style="font-family:var(--font-serif); font-size:1.24rem; font-weight:500; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
                     MSFT <span style="font-size:0.72rem; color:var(--text-dim);">↗</span>
                 </a>
-                <span style="font-size:0.78rem; color:var(--text-secondary);">Microsoft Corporation</span>
+                <div class="cell-sub cell-sub-secondary" style="font-family:var(--font-sans);">Microsoft Corporation</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-        <div style="display:flex; flex-direction:column; gap:2px;">
-            <div style="font-family:var(--font-mono); font-size:0.95rem; font-weight:600; color:var(--text-title);">
+        <div class="tbl-cell-stacked">
+            <div class="cell-primary">
                 $12,000 <span style="font-size:0.80rem; font-weight:400; color:var(--accent-warm);">(12.0%)</span>
             </div>
-            <div style="font-family:var(--font-mono); font-size:0.78rem; font-weight:400; color:var(--text-dim);">23.82 shares</div>
+            <div class="cell-sub cell-sub-dim">23.82 shares</div>
         </div>
         </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--text-title); font-weight:600;">$503.81</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-dim); font-weight:400;">($499.99)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary">$503.81</div>
+                <div class="cell-sub cell-sub-dim">($499.99)</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--text-title); font-weight:600;">$520.00</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--accent-green); font-weight:500;">(+3.1%)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary">$520.00</div>
+                <div class="cell-sub cell-sub-green">(+3.1%)</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--accent-warm); font-weight:600;">$464/yr</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-secondary); font-weight:400;">(3.87%)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary cell-warm">$464/yr</div>
+                <div class="cell-sub cell-sub-secondary">(3.87%)</div>
             </div>
             </td>
         </tr>
         
         <tr class="table-row">
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
+            <div class="tbl-cell-stacked">
                 <a href="reports/BKNG.html" style="font-family:var(--font-serif); font-size:1.24rem; font-weight:500; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
                     BKNG <span style="font-size:0.72rem; color:var(--text-dim);">↗</span>
                 </a>
-                <span style="font-size:0.78rem; color:var(--text-secondary);">Booking Holdings Inc. Common St</span>
+                <div class="cell-sub cell-sub-secondary" style="font-family:var(--font-sans);">Booking Holdings Inc. Common St</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-        <div style="display:flex; flex-direction:column; gap:2px;">
-            <div style="font-family:var(--font-mono); font-size:0.95rem; font-weight:600; color:var(--text-title);">
+        <div class="tbl-cell-stacked">
+            <div class="cell-primary">
                 $10,000 <span style="font-size:0.80rem; font-weight:400; color:var(--accent-warm);">(10.0%)</span>
             </div>
-            <div style="font-family:var(--font-mono); font-size:0.78rem; font-weight:400; color:var(--text-dim);">46.98 shares</div>
+            <div class="cell-sub cell-sub-dim">46.98 shares</div>
         </div>
         </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--text-title); font-weight:600;">$212.87</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-dim); font-weight:400;">($214.42)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary">$212.87</div>
+                <div class="cell-sub cell-sub-dim">($214.42)</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--text-title); font-weight:600;">$265.00</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--accent-green); font-weight:500;">(+19.7%)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary">$265.00</div>
+                <div class="cell-sub cell-sub-green">(+19.7%)</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--accent-warm); font-weight:600;">$685/yr</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-secondary); font-weight:400;">(6.85%)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary cell-warm">$685/yr</div>
+                <div class="cell-sub cell-sub-secondary">(6.85%)</div>
             </div>
             </td>
         </tr>
         
         <tr class="table-row">
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
+            <div class="tbl-cell-stacked">
                 <a href="reports/CPRT.html" style="font-family:var(--font-serif); font-size:1.24rem; font-weight:500; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
                     CPRT <span style="font-size:0.72rem; color:var(--text-dim);">↗</span>
                 </a>
-                <span style="font-size:0.78rem; color:var(--text-secondary);">Copart, Inc.</span>
+                <div class="cell-sub cell-sub-secondary" style="font-family:var(--font-sans);">Copart, Inc.</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-        <div style="display:flex; flex-direction:column; gap:2px;">
-            <div style="font-family:var(--font-mono); font-size:0.95rem; font-weight:600; color:var(--text-title);">
+        <div class="tbl-cell-stacked">
+            <div class="cell-primary">
                 $8,000 <span style="font-size:0.80rem; font-weight:400; color:var(--accent-warm);">(8.0%)</span>
             </div>
-            <div style="font-family:var(--font-mono); font-size:0.78rem; font-weight:400; color:var(--text-dim);">272.11 shares</div>
+            <div class="cell-sub cell-sub-dim">272.11 shares</div>
         </div>
         </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--text-title); font-weight:600;">$29.40</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-dim); font-weight:400;">($29.66)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary">$29.40</div>
+                <div class="cell-sub cell-sub-dim">($29.66)</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--text-title); font-weight:600;">$38.50</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--accent-green); font-weight:500;">(+23.6%)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary">$38.50</div>
+                <div class="cell-sub cell-sub-green">(+23.6%)</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--accent-warm); font-weight:600;">$355/yr</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-secondary); font-weight:400;">(4.44%)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary cell-warm">$355/yr</div>
+                <div class="cell-sub cell-sub-secondary">(4.44%)</div>
             </div>
             </td>
         </tr>
         
         <tr class="table-row">
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
+            <div class="tbl-cell-stacked">
                 <a href="reports/CROX.html" style="font-family:var(--font-serif); font-size:1.24rem; font-weight:500; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
                     CROX <span style="font-size:0.72rem; color:var(--text-dim);">↗</span>
                 </a>
-                <span style="font-size:0.78rem; color:var(--text-secondary);">Crocs, Inc.</span>
+                <div class="cell-sub cell-sub-secondary" style="font-family:var(--font-sans);">Crocs, Inc.</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-        <div style="display:flex; flex-direction:column; gap:2px;">
-            <div style="font-family:var(--font-mono); font-size:0.95rem; font-weight:600; color:var(--text-title);">
+        <div class="tbl-cell-stacked">
+            <div class="cell-primary">
                 $8,000 <span style="font-size:0.80rem; font-weight:400; color:var(--accent-warm);">(8.0%)</span>
             </div>
-            <div style="font-family:var(--font-mono); font-size:0.78rem; font-weight:400; color:var(--text-dim);">60.74 shares</div>
+            <div class="cell-sub cell-sub-dim">60.74 shares</div>
         </div>
         </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--text-title); font-weight:600;">$131.71</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-dim); font-weight:400;">($136.62)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary">$131.71</div>
+                <div class="cell-sub cell-sub-dim">($136.62)</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--text-title); font-weight:600;">$175.00</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--accent-green); font-weight:500;">(+24.7%)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary">$175.00</div>
+                <div class="cell-sub cell-sub-green">(+24.7%)</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--accent-warm); font-weight:600;">$929/yr</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-secondary); font-weight:400;">(11.62%)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary cell-warm">$929/yr</div>
+                <div class="cell-sub cell-sub-secondary">(11.62%)</div>
             </div>
             </td>
         </tr>
         
         <tr class="table-row">
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
+            <div class="tbl-cell-stacked">
                 <a href="reports/DECK.html" style="font-family:var(--font-serif); font-size:1.24rem; font-weight:500; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
                     DECK <span style="font-size:0.72rem; color:var(--text-dim);">↗</span>
                 </a>
-                <span style="font-size:0.78rem; color:var(--text-secondary);">Deckers Outdoor Corporation</span>
+                <div class="cell-sub cell-sub-secondary" style="font-family:var(--font-sans);">Deckers Outdoor Corporation</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-        <div style="display:flex; flex-direction:column; gap:2px;">
-            <div style="font-family:var(--font-mono); font-size:0.95rem; font-weight:600; color:var(--text-title);">
+        <div class="tbl-cell-stacked">
+            <div class="cell-primary">
                 $8,000 <span style="font-size:0.80rem; font-weight:400; color:var(--accent-warm);">(8.0%)</span>
             </div>
-            <div style="font-family:var(--font-mono); font-size:0.78rem; font-weight:400; color:var(--text-dim);">85.25 shares</div>
+            <div class="cell-sub cell-sub-dim">85.25 shares</div>
         </div>
         </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--text-title); font-weight:600;">$93.84</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-dim); font-weight:400;">($97.46)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary">$93.84</div>
+                <div class="cell-sub cell-sub-dim">($97.46)</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--text-title); font-weight:600;">$118.00</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--accent-green); font-weight:500;">(+20.5%)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary">$118.00</div>
+                <div class="cell-sub cell-sub-green">(+20.5%)</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--accent-warm); font-weight:600;">$432/yr</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-secondary); font-weight:400;">(5.4%)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary cell-warm">$432/yr</div>
+                <div class="cell-sub cell-sub-secondary">(5.4%)</div>
             </div>
             </td>
         </tr>
         
         <tr class="table-row">
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <strong style="font-family:var(--font-serif); font-size:1.18rem; color:var(--text-title);">💵 USD Cash</strong>
-                <span style="font-size:0.78rem; color:var(--text-dim);">US Treasury 3M Bills</span>
+            <div class="tbl-cell-stacked">
+                <strong style="font-family:var(--font-serif); font-size:1.18rem; color:var(--text-title); display:block;">💵 USD Cash</strong>
+                <div class="cell-sub cell-sub-dim">US Treasury 3M Bills</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-        <div style="display:flex; flex-direction:column; gap:2px;">
-            <div style="font-family:var(--font-mono); font-size:0.95rem; font-weight:600; color:var(--text-title);">
+        <div class="tbl-cell-stacked">
+            <div class="cell-primary">
                 $13,000 <span style="font-size:0.80rem; font-weight:400; color:var(--accent-warm);">(13.0%)</span>
             </div>
-            <div style="font-family:var(--font-mono); font-size:0.78rem; font-weight:400; color:var(--text-dim);">13000.0 shares</div>
+            <div class="cell-sub cell-sub-dim">13000.0 shares</div>
         </div>
         </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--text-title); font-weight:600;">$1.00</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-dim); font-weight:400;">($1.00)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary">$1.00</div>
+                <div class="cell-sub cell-sub-dim">($1.00)</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--text-title); font-weight:600;">$1.00</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-dim); font-weight:400;">(Par)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary">$1.00</div>
+                <div class="cell-sub cell-sub-dim">(Par)</div>
             </div>
             </td>
             <td style="padding:14px 16px; vertical-align:middle;">
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-size:0.95rem; color:var(--accent-warm); font-weight:600;">$585/yr</span>
-                <span style="font-family:var(--font-mono); font-size:0.80rem; color:var(--text-secondary); font-weight:400;">(4.50%)</span>
+            <div class="tbl-cell-stacked">
+                <div class="cell-primary cell-warm">$585/yr</div>
+                <div class="cell-sub cell-sub-secondary">(4.50%)</div>
             </div>
             </td>
         </tr>

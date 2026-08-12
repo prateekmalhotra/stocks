@@ -9,99 +9,81 @@
       "pillar": "A",
       "pillar_name": "Fortress Anchor",
       "target_weight": 0.15,
-      "rationale": "Global search monopoly, YouTube streaming dominance, and GCP enterprise cloud with >$80B net cash and high ROIC.",
-      "defense_moat": "Irreplaceable distribution network and proprietary TPU AI infrastructure.",
+      "cost_basis": 310.0,
       "look_through_fcf_yield": 4.8,
-      "cannibal_rate_pct": 3.2,
-      "net_cash_solvency": "Pristine ($85B Net Cash)"
+      "cannibal_rate_pct": 3.2
     },
     {
       "ticker": "META",
       "pillar": "A",
       "pillar_name": "Fortress Anchor",
       "target_weight": 0.14,
-      "rationale": "Unrivaled 3.3B daily active user digital attention monopoly with massive high-margin digital ad cash generation and aggressive share repurchases.",
-      "defense_moat": "Global network effects and proprietary Llama AI open-source ecosystem.",
+      "cost_basis": 560.0,
       "look_through_fcf_yield": 5.4,
-      "cannibal_rate_pct": 4.1,
-      "net_cash_solvency": "Pristine ($42B Net Cash)"
+      "cannibal_rate_pct": 4.1
     },
     {
       "ticker": "V",
       "pillar": "A",
       "pillar_name": "Fortress Anchor",
       "target_weight": 0.12,
-      "rationale": "Global payment network toll-booth duopoly with >50% operating margins, inflation-protected ad-valorem take rate, and zero balance sheet credit risk.",
-      "defense_moat": "Two-sided network effects across 4B+ cardholders and 150M+ merchants.",
+      "cost_basis": 345.0,
       "look_through_fcf_yield": 4.6,
-      "cannibal_rate_pct": 2.8,
-      "net_cash_solvency": "A+ Rated ($18B+ Annual FCF)"
+      "cannibal_rate_pct": 2.8
     },
     {
       "ticker": "MSFT",
       "pillar": "A",
       "pillar_name": "Fortress Anchor",
       "target_weight": 0.12,
-      "rationale": "Mission-critical commercial cloud operating system, Windows/Office software monopoly, and enterprise AI leadership with Azure.",
-      "defense_moat": "High enterprise switching costs and entrenched IT budget standard.",
+      "cost_basis": 400.0,
       "look_through_fcf_yield": 3.9,
-      "cannibal_rate_pct": 1.5,
-      "net_cash_solvency": "AAA Credit Rating"
+      "cannibal_rate_pct": 1.5
     },
     {
       "ticker": "BKNG",
       "pillar": "B",
       "pillar_name": "Mispriced Cannibal",
       "target_weight": 0.1,
-      "rationale": "Global European accommodation travel monopoly with >35% ROIC, converting >95% of net income to FCF and aggressively retiring >6% of shares annually.",
-      "defense_moat": "Dominant European direct-traffic lodging network effects.",
+      "cost_basis": 195.0,
       "look_through_fcf_yield": 6.8,
-      "cannibal_rate_pct": 6.4,
-      "net_cash_solvency": "Low Net Debt / EBITDA"
+      "cannibal_rate_pct": 6.4
     },
     {
       "ticker": "CPRT",
       "pillar": "B",
       "pillar_name": "Fortress Cannibal",
       "target_weight": 0.08,
-      "rationale": "Dominant vehicle salvage auction duopoly with >200M sq ft of irreplaceable permitted land yards and zero long-term debt.",
-      "defense_moat": "Zoning barriers to entry and insurer total-loss processing lock-in.",
+      "cost_basis": 26.0,
       "look_through_fcf_yield": 4.4,
-      "cannibal_rate_pct": 2.1,
-      "net_cash_solvency": "Zero Long-Term Debt"
+      "cannibal_rate_pct": 2.1
     },
     {
       "ticker": "CROX",
       "pillar": "B",
       "pillar_name": "Deep Cannibal",
       "target_weight": 0.08,
-      "rationale": "Clog category monopoly generating >$900M FCF, trading at single-digit earnings multiple and retiring >8% of outstanding shares annually.",
-      "defense_moat": "Proprietary Croslite resin manufacturing with 55%+ gross margins.",
+      "cost_basis": 118.0,
       "look_through_fcf_yield": 11.2,
-      "cannibal_rate_pct": 8.5,
-      "net_cash_solvency": "Rapid Deleveraging (<1.3x Debt)"
+      "cannibal_rate_pct": 8.5
     },
     {
       "ticker": "DECK",
       "pillar": "B",
       "pillar_name": "Mispriced Compounder",
       "target_weight": 0.08,
-      "rationale": "Category-defining footwear powerhouses (Hoka & Ugg) delivering >30% ROIC and zero debt, expanding direct-to-consumer margins globally.",
-      "defense_moat": "Authentic brand loyalty and cushioned running biomechanics patents.",
+      "cost_basis": 82.0,
       "look_through_fcf_yield": 5.2,
-      "cannibal_rate_pct": 3.8,
-      "net_cash_solvency": "Pristine ($1.5B Net Cash)"
+      "cannibal_rate_pct": 3.8
     },
     {
       "ticker": "USD_CASH",
       "pillar": "CASH",
       "pillar_name": "Fortress Cash Buffer",
       "target_weight": 0.13,
-      "rationale": "Permanent dry powder held in US T-Bills yielding ~4.5% risk-free rate, reserved strictly to deploy on Pillar A dislocations (P < 0.65x Fair Value).",
-      "defense_moat": "Absolute liquidity and non-correlated downside protection.",
+      "cost_basis": 1.0,
       "look_through_fcf_yield": 4.5,
-      "cannibal_rate_pct": 0.0,
-      "net_cash_solvency": "100% US Treasury Backed"
+      "cannibal_rate_pct": 0.0
     }
   ],
   "rebalance_log": [
@@ -118,56 +100,56 @@
     {
       "date": "2026-01-01",
       "portfolio_value": 100000.0,
-      "owner_earnings_runrate": 5600.0,
+      "owner_earnings_runrate": 4700.0,
       "spy_benchmark": 100000.0
     },
     {
       "date": "2026-02-01",
-      "portfolio_value": 102450.0,
-      "owner_earnings_runrate": 5680.0,
-      "spy_benchmark": 101200.0
+      "portfolio_value": 101450.0,
+      "owner_earnings_runrate": 4730.0,
+      "spy_benchmark": 100900.0
     },
     {
       "date": "2026-03-01",
-      "portfolio_value": 105800.0,
-      "owner_earnings_runrate": 5790.0,
-      "spy_benchmark": 103400.0
+      "portfolio_value": 102800.0,
+      "owner_earnings_runrate": 4765.0,
+      "spy_benchmark": 101800.0
     },
     {
       "date": "2026-04-01",
-      "portfolio_value": 109200.0,
-      "owner_earnings_runrate": 5920.0,
-      "spy_benchmark": 104800.0
+      "portfolio_value": 104200.0,
+      "owner_earnings_runrate": 4800.0,
+      "spy_benchmark": 102700.0
     },
     {
       "date": "2026-05-01",
-      "portfolio_value": 113400.0,
-      "owner_earnings_runrate": 6110.0,
-      "spy_benchmark": 107300.0
+      "portfolio_value": 105900.0,
+      "owner_earnings_runrate": 4835.0,
+      "spy_benchmark": 103900.0
     },
     {
       "date": "2026-06-01",
-      "portfolio_value": 117850.0,
-      "owner_earnings_runrate": 6340.0,
-      "spy_benchmark": 110100.0
+      "portfolio_value": 107350.0,
+      "owner_earnings_runrate": 4870.0,
+      "spy_benchmark": 104800.0
     },
     {
       "date": "2026-07-01",
-      "portfolio_value": 122600.0,
-      "owner_earnings_runrate": 6580.0,
-      "spy_benchmark": 113200.0
+      "portfolio_value": 108900.0,
+      "owner_earnings_runrate": 4905.0,
+      "spy_benchmark": 105900.0
     },
     {
       "date": "2026-08-01",
-      "portfolio_value": 126900.0,
-      "owner_earnings_runrate": 6820.0,
-      "spy_benchmark": 115600.0
+      "portfolio_value": 110100.0,
+      "owner_earnings_runrate": 4925.0,
+      "spy_benchmark": 106500.0
     },
     {
       "date": "2026-08-11",
-      "portfolio_value": 129450.0,
-      "owner_earnings_runrate": 6940.0,
-      "spy_benchmark": 116800.0
+      "portfolio_value": 110746.0,
+      "owner_earnings_runrate": 4939.0,
+      "spy_benchmark": 106800.0
     }
   ]
 }
