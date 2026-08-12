@@ -262,12 +262,20 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
             </div>
             """
         else:
+            industry_tag = h.get("industry", "")
+            sector_tag = h.get("sector", "")
+            tag_label = industry_tag if industry_tag else sector_tag
+            tag_html = f'<span style="font-size:0.70rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.03em; margin-top:2px;">{tag_label}</span>' if tag_label else ''
+
             ticker_col = f"""
-            <div style="display:flex; flex-direction:column; gap:4px; min-width:0;">
-                <a href="{h['report_url']}" style="font-family:var(--font-mono); font-weight:700; font-size:1.02rem; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
-                    {t} <span style="font-size:0.70rem; opacity:0.6;">↗</span>
-                </a>
-                <span style="font-size:0.78rem; color:var(--text-secondary); display:block; max-width:220px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="{display_name}">{display_name}</span>
+            <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <a href="{h['report_url']}" style="font-family:var(--font-mono); font-weight:700; font-size:1.00rem; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:3px;">
+                        {t} <span style="font-size:0.68rem; opacity:0.6;">↗</span>
+                    </a>
+                </div>
+                <span style="font-size:0.80rem; color:var(--text-secondary); display:block; max-width:220px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="{display_name}">{display_name}</span>
+                {tag_html}
             </div>
             """
             alloc_col = f"""
