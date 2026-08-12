@@ -283,26 +283,40 @@ def score_wealthsimple_aggressive(
 # 5. FRACTIONAL KELLY PROPORTIONAL CAPPING HELPER
 # =============================================================================
 
-def allocate_fractional_kelly_capped(
+def allocate_concentrated_buffett_kelly(
     k_scores: Dict[str, float],
     budget: float,
-    max_cap: float = 0.1000,
-    min_hurdle: float = 0.0200
+    max_cap: float = 0.2200,
+    min_hurdle: float = 0.0350,
+    min_holdings: int = 8,
+    max_holdings: int = 12
 ) -> Dict[str, float]:
     """
-    Allocates budget across all eligible candidates proportional to Kelly score,
-    subject to max single position cap and minimum meaningful position hurdle.
+    Buffett-Munger Concentrated High-Conviction Allocation Engine:
+    - Eliminates artificial 10% dilution caps: highest-conviction fortresses scale up to 20%-22%.
+    - Concentrates capital on the top 8 to 12 best ideas (no trivial micro-positions < 3.5%).
+    - Automatically balances capital to match the exact macro-equity budget.
     """
-    active_tickers = list(k_scores.keys())
+    sorted_items = sorted(k_scores.items(), key=lambda x: x[1], reverse=True)
+    if not sorted_items:
+        return {}
+        
+    target_count = min(max_holdings, max(min_holdings, len(sorted_items)))
+    selected_items = sorted_items[:target_count]
+    
+    active_tickers = [t for t, k in selected_items]
     allocated = {t: 0.0 for t in active_tickers}
     remaining_budget = budget
     remaining_tickers = list(active_tickers)
     
-    for _ in range(15):
+    for _ in range(20):
         if not remaining_tickers or remaining_budget <= 0.0001:
             break
         tot_k = sum(k_scores[t] for t in remaining_tickers)
         if tot_k <= 0:
+            even = remaining_budget / len(remaining_tickers)
+            for t in remaining_tickers:
+                allocated[t] = min(max_cap, allocated[t] + even)
             break
             
         newly_capped = []
@@ -318,7 +332,13 @@ def allocate_fractional_kelly_capped(
             remaining_tickers.remove(t)
         remaining_budget = max(0.0, round(budget - sum(allocated.values()), 6))
         
-    return {t: round(w, 4) for t, w in allocated.items() if w >= min_hurdle}
+    final_res = {t: round(w, 4) for t, w in allocated.items() if w >= min_hurdle}
+    tot = sum(final_res.values())
+    if tot > 0 and tot < budget:
+        mult = budget / tot
+        final_res = {t: min(max_cap, round(w * mult, 4)) for t, w in final_res.items()}
+        
+    return final_res
 
 # =============================================================================
 # 6. DUAL PORTFOLIO COMPILATION ENGINE
@@ -376,11 +396,11 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
             fid_selected.append(item)
             used_def_ind.add(item["industry"])
 
-    # 3. Compute Fidelity Allocations
+    # 3. Compute Fidelity Allocations (Buffett-style concentration: 8-12 top fortresses)
     fid_k = {x["ticker"]: x["kelly_score"] for x in fid_selected}
     fid_mos = sum(x["margin_of_safety_pct"] for x in fid_selected) / len(fid_selected) if fid_selected else 25.0
     fid_cash, fid_budget, fid_desc = calculate_shiller_macro_cash(True, fid_mos)
-    fid_weights = allocate_fractional_kelly_capped(fid_k, fid_budget, max_cap=0.1000, min_hurdle=0.0200)
+    fid_weights = allocate_concentrated_buffett_kelly(fid_k, fid_budget, max_cap=0.2200, min_hurdle=0.0350, min_holdings=8, max_holdings=12)
 
     sorted_def_tickers = sorted(fid_weights.keys(), key=lambda t: fid_weights[t], reverse=True)
     def_holdings = []
@@ -433,11 +453,11 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
         "report_url": "#"
     })
 
-    # 4. Compute Wealthsimple Allocations
+    # 4. Compute Wealthsimple Allocations (Buffett-style concentration: 8-12 top growth compounders)
     ws_k = {x["ticker"]: x["kelly_score"] for x in ws_selected}
     ws_mos = sum(x["margin_of_safety_pct"] for x in ws_selected) / len(ws_selected) if ws_selected else 40.0
     ws_cash, ws_budget, ws_desc = calculate_shiller_macro_cash(False, ws_mos)
-    ws_weights = allocate_fractional_kelly_capped(ws_k, ws_budget, max_cap=0.1000, min_hurdle=0.0200)
+    ws_weights = allocate_concentrated_buffett_kelly(ws_k, ws_budget, max_cap=0.2200, min_hurdle=0.0350, min_holdings=8, max_holdings=12)
 
     sorted_agg_tickers = sorted(ws_weights.keys(), key=lambda t: ws_weights[t], reverse=True)
     agg_holdings = []
