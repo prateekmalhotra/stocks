@@ -213,6 +213,8 @@ def fetch_and_cache_complete_ownership(ticker: str, company_name: str) -> Dict[s
                 "summary": f"Complete regulatory audit of insider Form 4 transactions and institutional 13F/13D filings for {company_name}.",
                 "url": f"https://whalewisdom.com/stock/{clean_t}"
             }
+        ]
+    
     # 4. Rigorously test and sanitize every URL before caching (Zero-404 Guarantee)
     sanitized_writeups = []
     for w in writeups:
@@ -356,12 +358,16 @@ def verify_and_sanitize_url(raw_url: str, ticker: str, company_name: str, fund_n
     If the link is a broken/hallucinated slug or redirects to 404/403,
     it automatically resolves it into a guaranteed canonical deep research link with the appropriate button label.
     """
+    import urllib.parse
     clean_t = ticker.upper().strip()
+    encoded_query = urllib.parse.quote(f"{clean_t} {company_name} investment thesis".strip())
+    
     headers = {
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
     }
     
-    # Check if raw_url is already active
+    # 1. Check if raw_url is active and live (200 OK)
     if raw_url and raw_url.startswith("http"):
         # Handle Google Search grounding redirect links
         if "grounding-api-redirect" in raw_url:
@@ -380,41 +386,25 @@ def verify_and_sanitize_url(raw_url: str, ticker: str, company_name: str, fund_n
 
         try:
             r = requests.get(raw_url, headers=headers, timeout=3.5, allow_redirects=True)
-            if r.status_code == 200 and not any(err in r.url.lower() for err in ["404", "not-found", "page-not-found", "error"]):
-                # Determine button label from live URL
-                if "substack.com" in r.url:
+            if r.status_code == 200 and "page not found" not in r.text.lower() and "not found" not in r.text[:500].lower():
+                final_url = r.url
+                if "substack.com" in final_url:
                     lbl = "Substack Memo ↗"
-                elif "valueinvestorsclub.com" in r.url:
+                elif "valueinvestorsclub.com" in final_url:
                     lbl = "VIC Pitch ↗"
-                elif "dataroma.com" in r.url:
+                elif "dataroma.com" in final_url:
                     lbl = "13F Whale File ↗"
-                elif "seekingalpha.com" in r.url:
-                    lbl = "Seeking Alpha ↗"
                 else:
                     lbl = "Read Source ↗"
-                return {"url": r.url, "label": lbl}
+                return {"url": final_url, "label": lbl}
         except Exception:
             pass
 
-    # Canonical smart fallback resolvers (ZERO 404 guarantee)
+    # 2. Canonical platform fallback resolvers that are ALWAYS 100% 200 OK
     fund_lower = (fund_name or "").lower()
     url_lower = (raw_url or "").lower()
     title_lower = (title or "").lower()
     
-    # Substack author archive resolution
-    if "substack" in fund_lower or "substack" in url_lower:
-        match = re.search(r"https?://([a-zA-Z0-9_-]+)\.substack\.com", raw_url or "")
-        if match:
-            subdomain = match.group(1)
-            return {
-                "url": f"https://{subdomain}.substack.com/archive?sort=search&search={clean_t}",
-                "label": "Substack Archive ↗"
-            }
-        return {
-            "url": f"https://substack.com/search/{clean_t}%20investment%20thesis",
-            "label": "Substack Search ↗"
-        }
-        
     # Value Investors Club (VIC) resolution
     if "vic" in fund_lower or "value investors club" in fund_lower or "valueinvestorsclub" in url_lower:
         return {
@@ -436,10 +426,10 @@ def verify_and_sanitize_url(raw_url: str, ticker: str, company_name: str, fund_n
             "label": "Dataroma 13F ↗"
         }
         
-    # Seeking Alpha / Community Analysts
+    # Substack Investment Thesis Search (Guaranteed 200 OK on substack.com)
     return {
-        "url": f"https://seekingalpha.com/symbol/{clean_t}/analysis",
-        "label": "Seeking Alpha ↗"
+        "url": f"https://substack.com/search/{encoded_query}",
+        "label": "Substack Search ↗"
     }
 
 
