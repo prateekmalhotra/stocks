@@ -11,19 +11,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-canvas: #141312;
-            --bg-panel: #1A1917;
-            --bg-subpanel: #21201D;
-            --bg-hover: #282623;
-            --text-title: #D8D2C6;
-            --text-body: #BDB7AA;
-            --text-secondary: #8E887D;
-            --text-dim: #666157;
-            --accent-warm: #C99A75;
-            --accent-green: #7D9D81;
-            --accent-red: #C4726C;
-            --border-color: rgba(215, 205, 190, 0.07);
-            --border-focus: rgba(215, 205, 190, 0.14);
+            --bg-canvas: #161513;
+            --bg-panel: #1E1C19;
+            --bg-subpanel: #252320;
+            --bg-hover: #2D2A25;
+            --text-title: #F5EFEB;
+            --text-body: #D4CDC3;
+            --text-secondary: #9E9689;
+            --text-dim: #736C61;
+            --accent-warm: #CC785C;
+            --accent-warm-hover: #E08A6E;
+            --accent-warm-subtle: rgba(204, 120, 92, 0.14);
+            --accent-green: #6FA882;
+            --accent-red: #D46E65;
+            --border-color: rgba(235, 225, 210, 0.08);
+            --border-focus: rgba(204, 120, 92, 0.38);
             --font-serif: 'Newsreader', Garamond, Georgia, serif;
             --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
@@ -943,20 +945,20 @@
         <svg id="interactive-svg" viewBox="0 0 900 260" preserveAspectRatio="none" class="chart-svg">
             <defs>
                 <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#C99A75" stop-opacity="0.18" />
-                    <stop offset="100%" stop-color="#C99A75" stop-opacity="0.0" />
+                    <stop offset="0%" stop-color="#CC785C" stop-opacity="0.20" />
+                    <stop offset="100%" stop-color="#CC785C" stop-opacity="0.0" />
                 </linearGradient>
             </defs>
             
-            <line x1="20" y1="25" x2="880" y2="25" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
-            <line x1="20" y1="130.0" x2="880" y2="130.0" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
-            <line x1="20" y1="235" x2="880" y2="235" stroke="rgba(215,205,190,0.04)" stroke-width="1" />
+            <line x1="20" y1="25" x2="880" y2="25" stroke="rgba(235,225,210,0.04)" stroke-width="1" />
+            <line x1="20" y1="130.0" x2="880" y2="130.0" stroke="rgba(235,225,210,0.04)" stroke-width="1" />
+            <line x1="20" y1="235" x2="880" y2="235" stroke="rgba(235,225,210,0.04)" stroke-width="1" />
 
             <path id="chart-area-path" d="" fill="url(#area-grad)" />
-            <path id="chart-line-path" d="" fill="none" stroke="#C99A75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path id="chart-line-path" d="" fill="none" stroke="#CC785C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
 
-            <line id="crosshair-line" x1="0" y1="25" x2="0" y2="235" stroke="rgba(201,154,117,0.35)" stroke-width="1" stroke-dasharray="3 3" style="display: none;" />
-            <circle id="hover-dot" r="4" fill="#C99A75" stroke="#1A1917" stroke-width="2" style="display: none;" />
+            <line id="crosshair-line" x1="0" y1="25" x2="0" y2="235" stroke="rgba(204,120,92,0.4)" stroke-width="1" stroke-dasharray="3 3" style="display: none;" />
+            <circle id="hover-dot" r="4.5" fill="#CC785C" stroke="#1E1C19" stroke-width="2" style="display: none;" />
         </svg>
         <div class="chart-labels">
             <span id="chart-start-lbl">Aug 12, 2025 ($65.16)</span>

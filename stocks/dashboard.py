@@ -727,7 +727,9 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
         body {{
-            background: var(--bg-canvas);
+            background: 
+                radial-gradient(ellipse 70% 40% at 50% -10%, rgba(204, 120, 92, 0.08), transparent 60%),
+                var(--bg-canvas);
             color: var(--text-body);
             font-family: var(--font-serif);
             line-height: 1.85;
@@ -739,8 +741,9 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 
         /* Top Nav */
         nav.nav-bar {{
-            background: rgba(20, 19, 18, 0.92);
-            backdrop-filter: blur(16px);
+            background: rgba(22, 21, 19, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
@@ -757,9 +760,9 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            transition: color 0.15s;
+            transition: all 0.15s;
         }}
-        .nav-back:hover {{ color: #DDB495; }}
+        .nav-back:hover {{ color: var(--accent-warm-hover); transform: translateX(-2px); }}
 
         /* Hero Deck */
         .hero-deck {{
@@ -768,6 +771,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             border-radius: 16px;
             padding: 36px 40px;
             margin: 32px 0 28px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.02);
         }}
 
         .hero-top-row {{ display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px; }}
@@ -787,12 +791,13 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         /* Native SVG Area Chart */
         .native-chart-wrap {{
             margin-top: 28px;
-            background: #171614;
+            background: var(--bg-panel);
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 16px 20px 12px;
             position: relative;
             user-select: none;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
         }}
         .chart-top-bar {{
             display: flex;
@@ -833,8 +838,9 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         .range-pill:hover {{ color: var(--text-title); }}
         .range-pill.active {{
             background: var(--accent-warm);
-            color: #141312;
+            color: #161513;
             font-weight: 600;
+            box-shadow: 0 1px 4px rgba(204, 120, 92, 0.3);
         }}
         .chart-svg {{ width: 100%; height: 220px; display: block; overflow: visible; }}
         .chart-tooltip {{
@@ -1933,7 +1939,9 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
 
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
         body {{
-            background: var(--bg-canvas);
+            background: 
+                radial-gradient(ellipse 70% 40% at 50% -10%, rgba(204, 120, 92, 0.08), transparent 60%),
+                var(--bg-canvas);
             color: var(--text-body);
             font-family: var(--font-serif);
             min-height: 100vh;
@@ -1945,13 +1953,14 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
 
         /* Header */
         header.nav-header {{
-            background: rgba(20, 19, 18, 0.92);
-            backdrop-filter: blur(16px);
+            background: rgba(22, 21, 19, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
             z-index: 100;
-            padding: 20px 0;
+            padding: 18px 0;
         }}
         .header-content {{ display: flex; justify-content: space-between; align-items: center; }}
         .brand-logo {{
@@ -1961,7 +1970,9 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             letter-spacing: -0.01em;
             color: var(--text-title);
             text-decoration: none;
+            transition: color 0.15s;
         }}
+        .brand-logo:hover {{ color: var(--accent-warm-hover); }}
 
         /* Navigation Controls */
         .hub-controls {{
@@ -1988,7 +1999,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             transition: color 0.15s;
         }}
         .hub-tab-btn:hover {{ color: var(--text-title); }}
-        .hub-tab-btn.active {{ color: var(--accent-warm); }}
+        .hub-tab-btn.active {{ color: var(--accent-warm); font-weight: 500; }}
         .hub-tab-btn.active::after {{
             content: '';
             position: absolute;
@@ -1996,6 +2007,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             left: 0; right: 0;
             height: 2px;
             background: var(--accent-warm);
+            box-shadow: 0 0 8px rgba(204, 120, 92, 0.4);
         }}
 
         .view-toggle {{
@@ -2025,12 +2037,14 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             gap: 8px;
             background: var(--bg-subpanel);
             border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 4px 10px;
-            transition: border-color 0.15s;
+            border-radius: 8px;
+            padding: 5px 12px;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
         }}
         .search-input-wrap:focus-within {{
             border-color: var(--accent-warm);
+            box-shadow: 0 0 0 3px rgba(204, 120, 92, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.02);
         }}
         .search-input {{
             background: none;
@@ -2054,6 +2068,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             border: 1px solid var(--border-color);
             border-radius: 14px;
             overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.02);
         }}
         table.fin-table {{
             width: 100%;
@@ -2068,7 +2083,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.06em;
             padding: 16px 20px;
             border-bottom: 1px solid var(--border-color);
         }}
@@ -2085,8 +2100,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         table.fin-table th:last-child, table.fin-table td:last-child {{
             padding-right: 28px;
         }}
-        .table-row {{ cursor: pointer; transition: background 0.15s; position: relative; }}
-        .table-row:hover {{ background: var(--bg-hover); }}
+        .table-row {{ cursor: pointer; transition: background 0.15s cubic-bezier(0.16, 1, 0.3, 1); position: relative; }}
+        .table-row:hover {{ background: rgba(204, 120, 92, 0.035); }}
         .table-row:last-child td {{ border-bottom: none; }}
 
         /* Spacious Ticker Column with No Overlap */
@@ -2188,11 +2203,14 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             flex-direction: column;
             justify-content: space-between;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.02);
         }}
         .grid-card:hover {{
             background: var(--bg-hover);
-            border-color: var(--border-focus);
+            border-color: rgba(204, 120, 92, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.03);
         }}
         .grid-card-top {{ display: flex; justify-content: space-between; align-items: center; }}
         .grid-symbol {{ font-family: var(--font-serif); font-size: 1.8rem; font-weight: 500; color: var(--text-title); }}
