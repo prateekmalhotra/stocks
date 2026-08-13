@@ -264,4 +264,12 @@ def check_watchlist_triggers() -> int:
     except Exception as e:
         print(f"⚠️ SEC surveillance check warning: {e}")
 
+    # 3. Post-Earnings Beat & Retrace Surveillance (>= 8% Pop, 75% Gain Erosion)
+    try:
+        from stocks.earnings_retrace import check_earnings_retrace_triggers
+        retrace_triggered = check_earnings_retrace_triggers()
+        triggered_count += retrace_triggered
+    except Exception as e:
+        print(f"⚠️ Beat & Retrace surveillance check warning: {e}")
+
     return triggered_count

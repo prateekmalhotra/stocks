@@ -276,7 +276,21 @@ def _handle_review_task(ticker: str, trigger_reason: str):
     )
     add_alert(alert_obj)
 
-    # 4. Re-render HTML Dashboard
+    # 4. If this review was an Earnings Catalyst, register Beat & Retrace Pop Watcher
+    if "earnings" in trigger_reason.lower() or "catalyst" in trigger_reason.lower():
+        try:
+            from stocks.earnings_retrace import register_earnings_pop
+            register_earnings_pop(
+                ticker=ticker,
+                earnings_date=today_str,
+                pre_earnings_price=stock.baseline_price,
+                peak_price=current_price,
+                notes=f"Quarterly Earnings Review ({trigger_reason})"
+            )
+        except Exception as e:
+            print(f"⚠️ Beat & Retrace registration warning: {e}")
+
+    # 5. Re-render HTML Dashboard
     render_all()
 
 
