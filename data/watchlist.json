@@ -2587,5 +2587,39 @@
     "last_updated": "2026-08-12",
     "total_versions": 1,
     "report_path": "reports/ADSK.html"
+  },
+  "CHGG": {
+    "ticker": "CHGG",
+    "company_name": "Chegg, Inc.",
+    "baseline_price": 0.8,
+    "current_price": 0.8,
+    "return_pct": 0.0,
+    "status_label": "Turnaround Risk",
+    "labels": [
+      "Turnaround Risk",
+      "Cash Fortress",
+      "Cost Restructuring"
+    ],
+    "action_signal": "CAUTION",
+    "fair_value_estimate": "$1.15",
+    "bear_target": "$0.45 (-43.8%)",
+    "base_target": "$1.15 (+43.8%)",
+    "bull_target": "$1.85 (+131.3%)",
+    "upper_alert_threshold": 1.4,
+    "lower_alert_threshold": 0.5,
+    "next_catalyst_date": "2026-11-05",
+    "next_catalyst_event": "Q3 2026 Earnings & Soft Launch",
+    "top_funds": [
+      "Vanguard Group (4.0%)",
+      "Acadian Asset Management (3.9%)",
+      "Charles Schwab Investment Management (3.5%)",
+      "Renaissance Technologies (3.0%)"
+    ],
+    "institutional_ownership_pct": "73.6%",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Standard executive equity incentive exercises and routine holding maintenance.",
+    "last_updated": "2026-08-12",
+    "total_versions": 1,
+    "report_path": "reports/CHGG.html"
   }
 }

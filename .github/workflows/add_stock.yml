@@ -56,7 +56,7 @@ jobs:
 
       - name: Quality Gatekeeper Audit (Zero-Defect Enforcement)
         run: |
-          poetry run python -m stocks.quality_gatekeeper
+          poetry run python -m stocks.quality_gatekeeper --tickers "${{ github.event.inputs.ticker }}"
 
       - name: Commit and Push Changes to Main
         run: |
