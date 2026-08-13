@@ -1032,16 +1032,16 @@
             <div class="hero-top-row">
                 <div>
                     <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-                        <span class="ticker-symbol">RDDT<span class="status-beacon beacon-buy" title="Action Signal: Strong Buy (Get in NOW / Thesis Accelerating)"><span class="beacon-ping"></span><span class="beacon-dot"></span></span></span>
-                        <span class="pill pill-active">Solid Conviction</span> <span class="pill pill-neutral">Cash Fortress</span> <span class="pill pill-neutral">Margin Expansion</span>
+                        <span class="ticker-symbol">RDDT</span>
+                        <span class="pill pill-active">Moderate Conviction</span> <span class="pill pill-neutral">Moat Expansion</span> <span class="pill pill-neutral">Data Monetization</span>
                         <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="View Investment Taxonomy & Labels Legend">ⓘ</button>
                     </div>
                     <div class="company-meta">Reddit, Inc.</div>
                 </div>
                 <div class="price-callout">
-                    <div class="price-number">$153.45</div>
-                    <div class="price-sub neg">
-                        -5.10% vs Genesis
+                    <div class="price-number">$156.04</div>
+                    <div class="price-sub pos">
+                        +0.00% vs Genesis
                     </div>
                 </div>
             </div>
@@ -1051,7 +1051,7 @@
     <div class="native-chart-wrap" id="chart-container">
         <div class="chart-top-bar">
             <div id="chart-live-val" class="chart-live-val">
-                <span id="tooltip-date">Aug 12, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$153.45</strong>
+                <span id="tooltip-date">Aug 13, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$155.80</strong>
             </div>
             <div class="chart-range-pills">
                 <button class="range-pill active" onclick="switchChartRange('1Y')">1Y</button>
@@ -1082,13 +1082,13 @@
         <div class="chart-labels">
             <span id="chart-start-lbl">Aug 13, 2025 ($121.84)</span>
             <span id="chart-range-title">1-Year Historical Range</span>
-            <span id="chart-end-lbl">Aug 12, 2026 ($153.45)</span>
+            <span id="chart-end-lbl">Aug 13, 2026 ($155.80)</span>
         </div>
     </div>
 
     <script>
     (function() {
-        const allDatasets = {"1Y": [{"date": "Aug 13, 2025", "price": 234.77}, {"date": "Aug 14, 2025", "price": 243.47}, {"date": "Aug 15, 2025", "price": 246.5}, {"date": "Aug 18, 2025", "price": 241.76}, {"date": "Aug 19, 2025", "price": 228.18}, {"date": "Aug 20, 2025", "price": 218.37}, {"date": "Aug 21, 2025", "price": 218.65}, {"date": "Aug 22, 2025", "price": 217.31}, {"date": "Aug 25, 2025", "price": 219.73}, {"date": "Aug 26, 2025", "price": 219.43}, {"date": "Aug 27, 2025", "price": 211.1}, {"date": "Aug 28, 2025", "price": 225.54}, {"date": "Aug 29, 2025", "price": 225.08}, {"date": "Sep 02, 2025", "price": 220.06}, {"date": "Sep 03, 2025", "price": 223.14}, {"date": "Sep 04, 2025", "price": 232.11}, {"date": "Sep 05, 2025", "price": 240.0}, {"date": "Sep 08, 2025", "price": 229.98}, {"date": "Sep 09, 2025", "price": 240.2}, {"date": "Sep 10, 2025", "price": 259.03}, {"date": "Sep 11, 2025", "price": 260.54}, {"date": "Sep 12, 2025", "price": 254.29}, {"date": "Sep 15, 2025", "price": 263.64}, {"date": "Sep 16, 2025", "price": 266.66}, {"date": "Sep 17, 2025", "price": 266.47}, {"date": "Sep 18, 2025", "price": 270.71}, {"date": "Sep 19, 2025", "price": 264.48}, {"date": "Sep 22, 2025", "price": 257.56}, {"date": "Sep 23, 2025", "price": 237.45}, {"date": "Sep 24, 2025", "price": 235.69}, {"date": "Sep 25, 2025", "price": 232.75}, {"date": "Sep 26, 2025", "price": 240.11}, {"date": "Sep 29, 2025", "price": 241.98}, {"date": "Sep 30, 2025", "price": 229.99}, {"date": "Oct 01, 2025", "price": 202.6}, {"date": "Oct 02, 2025", "price": 200.92}, {"date": "Oct 03, 2025", "price": 207.2}, {"date": "Oct 06, 2025", "price": 203.63}, {"date": "Oct 07, 2025", "price": 205.92}, {"date": "Oct 08, 2025", "price": 202.29}, {"date": "Oct 09, 2025", "price": 211.7}, {"date": "Oct 10, 2025", "price": 198.55}, {"date": "Oct 13, 2025", "price": 203.68}, {"date": "Oct 14, 2025", "price": 196.35}, {"date": "Oct 15, 2025", "price": 200.76}, {"date": "Oct 16, 2025", "price": 198.97}, {"date": "Oct 17, 2025", "price": 194.95}, {"date": "Oct 20, 2025", "price": 202.48}, {"date": "Oct 21, 2025", "price": 205.71}, {"date": "Oct 22, 2025", "price": 197.05}, {"date": "Oct 23, 2025", "price": 200.82}, {"date": "Oct 24, 2025", "price": 214.2}, {"date": "Oct 27, 2025", "price": 219.24}, {"date": "Oct 28, 2025", "price": 212.97}, {"date": "Oct 29, 2025", "price": 210.77}, {"date": "Oct 30, 2025", "price": 194.42}, {"date": "Oct 31, 2025", "price": 208.95}, {"date": "Nov 03, 2025", "price": 204.98}, {"date": "Nov 04, 2025", "price": 187.77}, {"date": "Nov 05, 2025", "price": 196.27}, {"date": "Nov 06, 2025", "price": 183.64}, {"date": "Nov 07, 2025", "price": 194.58}, {"date": "Nov 10, 2025", "price": 204.19}, {"date": "Nov 11, 2025", "price": 208.21}, {"date": "Nov 12, 2025", "price": 202.82}, {"date": "Nov 13, 2025", "price": 189.42}, {"date": "Nov 14, 2025", "price": 193.31}, {"date": "Nov 17, 2025", "price": 187.55}, {"date": "Nov 18, 2025", "price": 185.69}, {"date": "Nov 19, 2025", "price": 187.78}, {"date": "Nov 20, 2025", "price": 181.88}, {"date": "Nov 21, 2025", "price": 183.48}, {"date": "Nov 24, 2025", "price": 195.0}, {"date": "Nov 25, 2025", "price": 218.48}, {"date": "Nov 26, 2025", "price": 207.56}, {"date": "Nov 28, 2025", "price": 216.47}, {"date": "Dec 01, 2025", "price": 223.4}, {"date": "Dec 02, 2025", "price": 222.76}, {"date": "Dec 03, 2025", "price": 220.84}, {"date": "Dec 04, 2025", "price": 222.75}, {"date": "Dec 05, 2025", "price": 234.11}, {"date": "Dec 08, 2025", "price": 236.95}, {"date": "Dec 09, 2025", "price": 236.11}, {"date": "Dec 10, 2025", "price": 238.11}, {"date": "Dec 11, 2025", "price": 233.54}, {"date": "Dec 12, 2025", "price": 224.78}, {"date": "Dec 15, 2025", "price": 218.5}, {"date": "Dec 16, 2025", "price": 224.0}, {"date": "Dec 17, 2025", "price": 227.34}, {"date": "Dec 18, 2025", "price": 231.34}, {"date": "Dec 19, 2025", "price": 233.19}, {"date": "Dec 22, 2025", "price": 233.15}, {"date": "Dec 23, 2025", "price": 225.82}, {"date": "Dec 24, 2025", "price": 225.85}, {"date": "Dec 26, 2025", "price": 225.77}, {"date": "Dec 29, 2025", "price": 234.65}, {"date": "Dec 30, 2025", "price": 233.36}, {"date": "Dec 31, 2025", "price": 229.87}, {"date": "Jan 02, 2026", "price": 241.89}, {"date": "Jan 05, 2026", "price": 244.05}, {"date": "Jan 06, 2026", "price": 253.81}, {"date": "Jan 07, 2026", "price": 255.5}, {"date": "Jan 08, 2026", "price": 253.95}, {"date": "Jan 09, 2026", "price": 244.56}, {"date": "Jan 12, 2026", "price": 244.02}, {"date": "Jan 13, 2026", "price": 258.93}, {"date": "Jan 14, 2026", "price": 252.38}, {"date": "Jan 15, 2026", "price": 228.75}, {"date": "Jan 16, 2026", "price": 231.01}, {"date": "Jan 20, 2026", "price": 225.36}, {"date": "Jan 21, 2026", "price": 210.13}, {"date": "Jan 22, 2026", "price": 214.54}, {"date": "Jan 23, 2026", "price": 218.88}, {"date": "Jan 26, 2026", "price": 213.63}, {"date": "Jan 27, 2026", "price": 196.3}, {"date": "Jan 28, 2026", "price": 193.14}, {"date": "Jan 29, 2026", "price": 190.05}, {"date": "Jan 30, 2026", "price": 180.27}, {"date": "Feb 02, 2026", "price": 177.15}, {"date": "Feb 03, 2026", "price": 165.41}, {"date": "Feb 04, 2026", "price": 152.69}, {"date": "Feb 05, 2026", "price": 151.05}, {"date": "Feb 06, 2026", "price": 139.83}, {"date": "Feb 09, 2026", "price": 141.74}, {"date": "Feb 10, 2026", "price": 149.98}, {"date": "Feb 11, 2026", "price": 139.29}, {"date": "Feb 12, 2026", "price": 131.07}, {"date": "Feb 13, 2026", "price": 139.65}, {"date": "Feb 17, 2026", "price": 139.23}, {"date": "Feb 18, 2026", "price": 147.46}, {"date": "Feb 19, 2026", "price": 146.13}, {"date": "Feb 20, 2026", "price": 150.17}, {"date": "Feb 23, 2026", "price": 142.46}, {"date": "Feb 24, 2026", "price": 142.08}, {"date": "Feb 25, 2026", "price": 149.67}, {"date": "Feb 26, 2026", "price": 151.25}, {"date": "Feb 27, 2026", "price": 145.81}, {"date": "Mar 02, 2026", "price": 147.11}, {"date": "Mar 03, 2026", "price": 145.69}, {"date": "Mar 04, 2026", "price": 147.29}, {"date": "Mar 05, 2026", "price": 144.34}, {"date": "Mar 06, 2026", "price": 139.39}, {"date": "Mar 09, 2026", "price": 138.86}, {"date": "Mar 10, 2026", "price": 134.13}, {"date": "Mar 11, 2026", "price": 137.12}, {"date": "Mar 12, 2026", "price": 132.25}, {"date": "Mar 13, 2026", "price": 132.36}, {"date": "Mar 16, 2026", "price": 140.0}, {"date": "Mar 17, 2026", "price": 144.33}, {"date": "Mar 18, 2026", "price": 142.79}, {"date": "Mar 19, 2026", "price": 138.12}, {"date": "Mar 20, 2026", "price": 139.85}, {"date": "Mar 23, 2026", "price": 140.96}, {"date": "Mar 24, 2026", "price": 136.12}, {"date": "Mar 25, 2026", "price": 139.63}, {"date": "Mar 26, 2026", "price": 127.26}, {"date": "Mar 27, 2026", "price": 121.84}, {"date": "Mar 30, 2026", "price": 124.13}, {"date": "Mar 31, 2026", "price": 134.65}, {"date": "Apr 01, 2026", "price": 136.18}, {"date": "Apr 02, 2026", "price": 136.0}, {"date": "Apr 06, 2026", "price": 138.34}, {"date": "Apr 07, 2026", "price": 141.14}, {"date": "Apr 08, 2026", "price": 145.0}, {"date": "Apr 09, 2026", "price": 138.38}, {"date": "Apr 10, 2026", "price": 139.73}, {"date": "Apr 13, 2026", "price": 149.35}, {"date": "Apr 14, 2026", "price": 154.54}, {"date": "Apr 15, 2026", "price": 158.48}, {"date": "Apr 16, 2026", "price": 162.45}, {"date": "Apr 17, 2026", "price": 163.8}, {"date": "Apr 20, 2026", "price": 166.28}, {"date": "Apr 21, 2026", "price": 156.82}, {"date": "Apr 22, 2026", "price": 164.31}, {"date": "Apr 23, 2026", "price": 152.96}, {"date": "Apr 24, 2026", "price": 154.89}, {"date": "Apr 27, 2026", "price": 160.21}, {"date": "Apr 28, 2026", "price": 147.93}, {"date": "Apr 29, 2026", "price": 147.75}, {"date": "Apr 30, 2026", "price": 147.23}, {"date": "May 01, 2026", "price": 166.48}, {"date": "May 04, 2026", "price": 169.07}, {"date": "May 05, 2026", "price": 171.63}, {"date": "May 06, 2026", "price": 166.56}, {"date": "May 07, 2026", "price": 163.95}, {"date": "May 08, 2026", "price": 155.8}, {"date": "May 11, 2026", "price": 159.51}, {"date": "May 12, 2026", "price": 152.35}, {"date": "May 13, 2026", "price": 154.12}, {"date": "May 14, 2026", "price": 156.31}, {"date": "May 15, 2026", "price": 158.17}, {"date": "May 18, 2026", "price": 159.11}, {"date": "May 19, 2026", "price": 154.88}, {"date": "May 20, 2026", "price": 146.72}, {"date": "May 21, 2026", "price": 150.04}, {"date": "May 22, 2026", "price": 141.67}, {"date": "May 26, 2026", "price": 144.64}, {"date": "May 27, 2026", "price": 154.19}, {"date": "May 28, 2026", "price": 167.69}, {"date": "May 29, 2026", "price": 176.0}, {"date": "Jun 01, 2026", "price": 177.85}, {"date": "Jun 02, 2026", "price": 169.13}, {"date": "Jun 03, 2026", "price": 169.49}, {"date": "Jun 04, 2026", "price": 183.91}, {"date": "Jun 05, 2026", "price": 173.45}, {"date": "Jun 08, 2026", "price": 171.13}, {"date": "Jun 09, 2026", "price": 178.11}, {"date": "Jun 10, 2026", "price": 172.21}, {"date": "Jun 11, 2026", "price": 173.26}, {"date": "Jun 12, 2026", "price": 162.1}, {"date": "Jun 15, 2026", "price": 181.88}, {"date": "Jun 16, 2026", "price": 175.39}, {"date": "Jun 17, 2026", "price": 165.95}, {"date": "Jun 18, 2026", "price": 174.96}, {"date": "Jun 22, 2026", "price": 170.44}, {"date": "Jun 23, 2026", "price": 165.63}, {"date": "Jun 24, 2026", "price": 160.72}, {"date": "Jun 25, 2026", "price": 158.02}, {"date": "Jun 26, 2026", "price": 166.94}, {"date": "Jun 29, 2026", "price": 174.39}, {"date": "Jun 30, 2026", "price": 173.58}, {"date": "Jul 01, 2026", "price": 197.76}, {"date": "Jul 02, 2026", "price": 194.67}, {"date": "Jul 06, 2026", "price": 200.86}, {"date": "Jul 07, 2026", "price": 199.44}, {"date": "Jul 08, 2026", "price": 195.31}, {"date": "Jul 09, 2026", "price": 200.31}, {"date": "Jul 10, 2026", "price": 195.34}, {"date": "Jul 13, 2026", "price": 200.93}, {"date": "Jul 14, 2026", "price": 203.27}, {"date": "Jul 15, 2026", "price": 198.03}, {"date": "Jul 16, 2026", "price": 185.26}, {"date": "Jul 17, 2026", "price": 181.18}, {"date": "Jul 20, 2026", "price": 181.64}, {"date": "Jul 21, 2026", "price": 185.84}, {"date": "Jul 22, 2026", "price": 170.38}, {"date": "Jul 23, 2026", "price": 168.78}, {"date": "Jul 24, 2026", "price": 168.73}, {"date": "Jul 27, 2026", "price": 179.23}, {"date": "Jul 28, 2026", "price": 178.44}, {"date": "Jul 29, 2026", "price": 177.99}, {"date": "Jul 30, 2026", "price": 178.04}, {"date": "Jul 31, 2026", "price": 140.67}, {"date": "Aug 03, 2026", "price": 154.71}, {"date": "Aug 04, 2026", "price": 159.97}, {"date": "Aug 05, 2026", "price": 155.26}, {"date": "Aug 06, 2026", "price": 150.87}, {"date": "Aug 07, 2026", "price": 161.7}, {"date": "Aug 10, 2026", "price": 158.72}, {"date": "Aug 11, 2026", "price": 156.19}, {"date": "Aug 12, 2026", "price": 153.45}], "5Y": [{"date": "Mar 17, 2024", "price": 46.0}, {"date": "Mar 24, 2024", "price": 49.32}, {"date": "Mar 31, 2024", "price": 47.56}, {"date": "Apr 07, 2024", "price": 42.27}, {"date": "Apr 14, 2024", "price": 40.88}, {"date": "Apr 21, 2024", "price": 45.43}, {"date": "Apr 28, 2024", "price": 46.64}, {"date": "May 05, 2024", "price": 53.53}, {"date": "May 12, 2024", "price": 62.04}, {"date": "May 19, 2024", "price": 54.72}, {"date": "May 26, 2024", "price": 54.24}, {"date": "Jun 02, 2024", "price": 59.8}, {"date": "Jun 09, 2024", "price": 60.94}, {"date": "Jun 16, 2024", "price": 57.3}, {"date": "Jun 23, 2024", "price": 63.89}, {"date": "Jun 30, 2024", "price": 72.97}, {"date": "Jul 07, 2024", "price": 73.85}, {"date": "Jul 14, 2024", "price": 64.7}, {"date": "Jul 21, 2024", "price": 62.36}, {"date": "Jul 28, 2024", "price": 57.58}, {"date": "Aug 04, 2024", "price": 52.91}, {"date": "Aug 11, 2024", "price": 54.92}, {"date": "Aug 18, 2024", "price": 59.21}, {"date": "Aug 25, 2024", "price": 60.03}, {"date": "Sep 01, 2024", "price": 56.85}, {"date": "Sep 08, 2024", "price": 59.09}, {"date": "Sep 15, 2024", "price": 66.17}, {"date": "Sep 22, 2024", "price": 67.08}, {"date": "Sep 29, 2024", "price": 72.38}, {"date": "Oct 06, 2024", "price": 73.25}, {"date": "Oct 13, 2024", "price": 80.9}, {"date": "Oct 20, 2024", "price": 81.36}, {"date": "Oct 27, 2024", "price": 112.98}, {"date": "Nov 03, 2024", "price": 134.8}, {"date": "Nov 10, 2024", "price": 124.78}, {"date": "Nov 17, 2024", "price": 146.67}, {"date": "Nov 24, 2024", "price": 140.69}, {"date": "Dec 01, 2024", "price": 162.76}, {"date": "Dec 08, 2024", "price": 172.65}, {"date": "Dec 15, 2024", "price": 170.71}, {"date": "Dec 22, 2024", "price": 173.54}, {"date": "Dec 29, 2024", "price": 177.74}, {"date": "Jan 05, 2025", "price": 167.08}, {"date": "Jan 12, 2025", "price": 175.33}, {"date": "Jan 19, 2025", "price": 182.4}, {"date": "Jan 26, 2025", "price": 199.55}, {"date": "Feb 02, 2025", "price": 225.23}, {"date": "Feb 09, 2025", "price": 196.38}, {"date": "Feb 16, 2025", "price": 166.4}, {"date": "Feb 23, 2025", "price": 161.78}, {"date": "Mar 02, 2025", "price": 133.98}, {"date": "Mar 09, 2025", "price": 128.21}, {"date": "Mar 16, 2025", "price": 115.7}, {"date": "Mar 23, 2025", "price": 107.71}, {"date": "Mar 30, 2025", "price": 86.91}, {"date": "Apr 06, 2025", "price": 101.15}, {"date": "Apr 13, 2025", "price": 96.16}, {"date": "Apr 20, 2025", "price": 118.1}, {"date": "Apr 27, 2025", "price": 113.83}, {"date": "May 04, 2025", "price": 108.46}, {"date": "May 11, 2025", "price": 113.23}, {"date": "May 18, 2025", "price": 100.76}, {"date": "May 25, 2025", "price": 112.35}, {"date": "Jun 01, 2025", "price": 121.29}, {"date": "Jun 08, 2025", "price": 118.18}, {"date": "Jun 15, 2025", "price": 139.15}, {"date": "Jun 22, 2025", "price": 143.01}, {"date": "Jun 29, 2025", "price": 157.03}, {"date": "Jul 06, 2025", "price": 145.59}, {"date": "Jul 13, 2025", "price": 148.24}, {"date": "Jul 20, 2025", "price": 149.66}, {"date": "Jul 27, 2025", "price": 188.64}, {"date": "Aug 03, 2025", "price": 215.44}, {"date": "Aug 10, 2025", "price": 246.5}, {"date": "Aug 17, 2025", "price": 217.31}, {"date": "Aug 24, 2025", "price": 225.08}, {"date": "Aug 31, 2025", "price": 240.0}, {"date": "Sep 07, 2025", "price": 254.29}, {"date": "Sep 14, 2025", "price": 264.48}, {"date": "Sep 21, 2025", "price": 240.11}, {"date": "Sep 28, 2025", "price": 207.2}, {"date": "Oct 05, 2025", "price": 198.55}, {"date": "Oct 12, 2025", "price": 194.95}, {"date": "Oct 19, 2025", "price": 214.2}, {"date": "Oct 26, 2025", "price": 208.95}, {"date": "Nov 02, 2025", "price": 194.58}, {"date": "Nov 09, 2025", "price": 193.31}, {"date": "Nov 16, 2025", "price": 183.48}, {"date": "Nov 23, 2025", "price": 216.47}, {"date": "Nov 30, 2025", "price": 234.11}, {"date": "Dec 07, 2025", "price": 224.78}, {"date": "Dec 14, 2025", "price": 233.19}, {"date": "Dec 21, 2025", "price": 225.77}, {"date": "Dec 28, 2025", "price": 241.89}, {"date": "Jan 04, 2026", "price": 244.56}, {"date": "Jan 11, 2026", "price": 231.01}, {"date": "Jan 18, 2026", "price": 218.88}, {"date": "Jan 25, 2026", "price": 180.27}, {"date": "Feb 01, 2026", "price": 139.83}, {"date": "Feb 08, 2026", "price": 139.65}, {"date": "Feb 15, 2026", "price": 150.17}, {"date": "Feb 22, 2026", "price": 145.81}, {"date": "Mar 01, 2026", "price": 139.39}, {"date": "Mar 08, 2026", "price": 132.36}, {"date": "Mar 15, 2026", "price": 139.85}, {"date": "Mar 22, 2026", "price": 121.84}, {"date": "Mar 29, 2026", "price": 136.0}, {"date": "Apr 05, 2026", "price": 139.73}, {"date": "Apr 12, 2026", "price": 163.8}, {"date": "Apr 19, 2026", "price": 154.89}, {"date": "Apr 26, 2026", "price": 166.48}, {"date": "May 03, 2026", "price": 155.8}, {"date": "May 10, 2026", "price": 158.17}, {"date": "May 17, 2026", "price": 141.67}, {"date": "May 24, 2026", "price": 176.0}, {"date": "May 31, 2026", "price": 173.45}, {"date": "Jun 07, 2026", "price": 162.1}, {"date": "Jun 14, 2026", "price": 174.96}, {"date": "Jun 21, 2026", "price": 166.94}, {"date": "Jun 28, 2026", "price": 194.67}, {"date": "Jul 05, 2026", "price": 195.34}, {"date": "Jul 12, 2026", "price": 181.18}, {"date": "Jul 19, 2026", "price": 168.73}, {"date": "Jul 26, 2026", "price": 140.67}, {"date": "Aug 02, 2026", "price": 161.7}, {"date": "Aug 09, 2026", "price": 153.45}, {"date": "Aug 12, 2026", "price": 153.45}], "10Y": [{"date": "Mar 31, 2024", "price": 44.44}, {"date": "Apr 30, 2024", "price": 54.24}, {"date": "May 31, 2024", "price": 63.89}, {"date": "Jun 30, 2024", "price": 60.85}, {"date": "Jul 31, 2024", "price": 60.03}, {"date": "Aug 31, 2024", "price": 65.92}, {"date": "Sep 30, 2024", "price": 119.3}, {"date": "Oct 31, 2024", "price": 140.69}, {"date": "Nov 30, 2024", "price": 163.44}, {"date": "Dec 31, 2024", "price": 199.55}, {"date": "Jan 31, 2025", "price": 161.78}, {"date": "Feb 28, 2025", "price": 104.9}, {"date": "Mar 31, 2025", "price": 116.57}, {"date": "Apr 30, 2025", "price": 112.35}, {"date": "May 31, 2025", "price": 150.57}, {"date": "Jun 30, 2025", "price": 160.59}, {"date": "Jul 31, 2025", "price": 225.08}, {"date": "Aug 31, 2025", "price": 229.99}, {"date": "Sep 30, 2025", "price": 208.95}, {"date": "Oct 31, 2025", "price": 216.47}, {"date": "Nov 30, 2025", "price": 229.87}, {"date": "Dec 31, 2025", "price": 180.27}, {"date": "Jan 31, 2026", "price": 145.81}, {"date": "Feb 28, 2026", "price": 134.65}, {"date": "Mar 31, 2026", "price": 147.23}, {"date": "Apr 30, 2026", "price": 176.0}, {"date": "May 31, 2026", "price": 173.58}, {"date": "Jun 30, 2026", "price": 140.67}, {"date": "Jul 31, 2026", "price": 156.19}, {"date": "Aug 12, 2026", "price": 153.45}], "MAX": [{"date": "Mar 17, 2024", "price": 46.0}, {"date": "Mar 24, 2024", "price": 49.32}, {"date": "Mar 31, 2024", "price": 47.56}, {"date": "Apr 07, 2024", "price": 42.27}, {"date": "Apr 14, 2024", "price": 40.88}, {"date": "Apr 21, 2024", "price": 45.43}, {"date": "Apr 28, 2024", "price": 46.64}, {"date": "May 05, 2024", "price": 53.53}, {"date": "May 12, 2024", "price": 62.04}, {"date": "May 19, 2024", "price": 54.72}, {"date": "May 26, 2024", "price": 54.24}, {"date": "Jun 02, 2024", "price": 59.8}, {"date": "Jun 09, 2024", "price": 60.94}, {"date": "Jun 16, 2024", "price": 57.3}, {"date": "Jun 23, 2024", "price": 63.89}, {"date": "Jun 30, 2024", "price": 72.97}, {"date": "Jul 07, 2024", "price": 73.85}, {"date": "Jul 14, 2024", "price": 64.7}, {"date": "Jul 21, 2024", "price": 62.36}, {"date": "Jul 28, 2024", "price": 57.58}, {"date": "Aug 04, 2024", "price": 52.91}, {"date": "Aug 11, 2024", "price": 54.92}, {"date": "Aug 18, 2024", "price": 59.21}, {"date": "Aug 25, 2024", "price": 60.03}, {"date": "Sep 01, 2024", "price": 56.85}, {"date": "Sep 08, 2024", "price": 59.09}, {"date": "Sep 15, 2024", "price": 66.17}, {"date": "Sep 22, 2024", "price": 67.08}, {"date": "Sep 29, 2024", "price": 72.38}, {"date": "Oct 06, 2024", "price": 73.25}, {"date": "Oct 13, 2024", "price": 80.9}, {"date": "Oct 20, 2024", "price": 81.36}, {"date": "Oct 27, 2024", "price": 112.98}, {"date": "Nov 03, 2024", "price": 134.8}, {"date": "Nov 10, 2024", "price": 124.78}, {"date": "Nov 17, 2024", "price": 146.67}, {"date": "Nov 24, 2024", "price": 140.69}, {"date": "Dec 01, 2024", "price": 162.76}, {"date": "Dec 08, 2024", "price": 172.65}, {"date": "Dec 15, 2024", "price": 170.71}, {"date": "Dec 22, 2024", "price": 173.54}, {"date": "Dec 29, 2024", "price": 177.74}, {"date": "Jan 05, 2025", "price": 167.08}, {"date": "Jan 12, 2025", "price": 175.33}, {"date": "Jan 19, 2025", "price": 182.4}, {"date": "Jan 26, 2025", "price": 199.55}, {"date": "Feb 02, 2025", "price": 225.23}, {"date": "Feb 09, 2025", "price": 196.38}, {"date": "Feb 16, 2025", "price": 166.4}, {"date": "Feb 23, 2025", "price": 161.78}, {"date": "Mar 02, 2025", "price": 133.98}, {"date": "Mar 09, 2025", "price": 128.21}, {"date": "Mar 16, 2025", "price": 115.7}, {"date": "Mar 23, 2025", "price": 107.71}, {"date": "Mar 30, 2025", "price": 86.91}, {"date": "Apr 06, 2025", "price": 101.15}, {"date": "Apr 13, 2025", "price": 96.16}, {"date": "Apr 20, 2025", "price": 118.1}, {"date": "Apr 27, 2025", "price": 113.83}, {"date": "May 04, 2025", "price": 108.46}, {"date": "May 11, 2025", "price": 113.23}, {"date": "May 18, 2025", "price": 100.76}, {"date": "May 25, 2025", "price": 112.35}, {"date": "Jun 01, 2025", "price": 121.29}, {"date": "Jun 08, 2025", "price": 118.18}, {"date": "Jun 15, 2025", "price": 139.15}, {"date": "Jun 22, 2025", "price": 143.01}, {"date": "Jun 29, 2025", "price": 157.03}, {"date": "Jul 06, 2025", "price": 145.59}, {"date": "Jul 13, 2025", "price": 148.24}, {"date": "Jul 20, 2025", "price": 149.66}, {"date": "Jul 27, 2025", "price": 188.64}, {"date": "Aug 03, 2025", "price": 215.44}, {"date": "Aug 10, 2025", "price": 246.5}, {"date": "Aug 17, 2025", "price": 217.31}, {"date": "Aug 24, 2025", "price": 225.08}, {"date": "Aug 31, 2025", "price": 240.0}, {"date": "Sep 07, 2025", "price": 254.29}, {"date": "Sep 14, 2025", "price": 264.48}, {"date": "Sep 21, 2025", "price": 240.11}, {"date": "Sep 28, 2025", "price": 207.2}, {"date": "Oct 05, 2025", "price": 198.55}, {"date": "Oct 12, 2025", "price": 194.95}, {"date": "Oct 19, 2025", "price": 214.2}, {"date": "Oct 26, 2025", "price": 208.95}, {"date": "Nov 02, 2025", "price": 194.58}, {"date": "Nov 09, 2025", "price": 193.31}, {"date": "Nov 16, 2025", "price": 183.48}, {"date": "Nov 23, 2025", "price": 216.47}, {"date": "Nov 30, 2025", "price": 234.11}, {"date": "Dec 07, 2025", "price": 224.78}, {"date": "Dec 14, 2025", "price": 233.19}, {"date": "Dec 21, 2025", "price": 225.77}, {"date": "Dec 28, 2025", "price": 241.89}, {"date": "Jan 04, 2026", "price": 244.56}, {"date": "Jan 11, 2026", "price": 231.01}, {"date": "Jan 18, 2026", "price": 218.88}, {"date": "Jan 25, 2026", "price": 180.27}, {"date": "Feb 01, 2026", "price": 139.83}, {"date": "Feb 08, 2026", "price": 139.65}, {"date": "Feb 15, 2026", "price": 150.17}, {"date": "Feb 22, 2026", "price": 145.81}, {"date": "Mar 01, 2026", "price": 139.39}, {"date": "Mar 08, 2026", "price": 132.36}, {"date": "Mar 15, 2026", "price": 139.85}, {"date": "Mar 22, 2026", "price": 121.84}, {"date": "Mar 29, 2026", "price": 136.0}, {"date": "Apr 05, 2026", "price": 139.73}, {"date": "Apr 12, 2026", "price": 163.8}, {"date": "Apr 19, 2026", "price": 154.89}, {"date": "Apr 26, 2026", "price": 166.48}, {"date": "May 03, 2026", "price": 155.8}, {"date": "May 10, 2026", "price": 158.17}, {"date": "May 17, 2026", "price": 141.67}, {"date": "May 24, 2026", "price": 176.0}, {"date": "May 31, 2026", "price": 173.45}, {"date": "Jun 07, 2026", "price": 162.1}, {"date": "Jun 14, 2026", "price": 174.96}, {"date": "Jun 21, 2026", "price": 166.94}, {"date": "Jun 28, 2026", "price": 194.67}, {"date": "Jul 05, 2026", "price": 195.34}, {"date": "Jul 12, 2026", "price": 181.18}, {"date": "Jul 19, 2026", "price": 168.73}, {"date": "Jul 26, 2026", "price": 140.67}, {"date": "Aug 02, 2026", "price": 161.7}, {"date": "Aug 09, 2026", "price": 153.45}, {"date": "Aug 12, 2026", "price": 153.45}]};
+        const allDatasets = {"1Y": [{"date": "Aug 13, 2025", "price": 234.77}, {"date": "Aug 14, 2025", "price": 243.47}, {"date": "Aug 15, 2025", "price": 246.5}, {"date": "Aug 18, 2025", "price": 241.76}, {"date": "Aug 19, 2025", "price": 228.18}, {"date": "Aug 20, 2025", "price": 218.37}, {"date": "Aug 21, 2025", "price": 218.65}, {"date": "Aug 22, 2025", "price": 217.31}, {"date": "Aug 25, 2025", "price": 219.73}, {"date": "Aug 26, 2025", "price": 219.43}, {"date": "Aug 27, 2025", "price": 211.1}, {"date": "Aug 28, 2025", "price": 225.54}, {"date": "Aug 29, 2025", "price": 225.08}, {"date": "Sep 02, 2025", "price": 220.06}, {"date": "Sep 03, 2025", "price": 223.14}, {"date": "Sep 04, 2025", "price": 232.11}, {"date": "Sep 05, 2025", "price": 240.0}, {"date": "Sep 08, 2025", "price": 229.98}, {"date": "Sep 09, 2025", "price": 240.2}, {"date": "Sep 10, 2025", "price": 259.03}, {"date": "Sep 11, 2025", "price": 260.54}, {"date": "Sep 12, 2025", "price": 254.29}, {"date": "Sep 15, 2025", "price": 263.64}, {"date": "Sep 16, 2025", "price": 266.66}, {"date": "Sep 17, 2025", "price": 266.47}, {"date": "Sep 18, 2025", "price": 270.71}, {"date": "Sep 19, 2025", "price": 264.48}, {"date": "Sep 22, 2025", "price": 257.56}, {"date": "Sep 23, 2025", "price": 237.45}, {"date": "Sep 24, 2025", "price": 235.69}, {"date": "Sep 25, 2025", "price": 232.75}, {"date": "Sep 26, 2025", "price": 240.11}, {"date": "Sep 29, 2025", "price": 241.98}, {"date": "Sep 30, 2025", "price": 229.99}, {"date": "Oct 01, 2025", "price": 202.6}, {"date": "Oct 02, 2025", "price": 200.92}, {"date": "Oct 03, 2025", "price": 207.2}, {"date": "Oct 06, 2025", "price": 203.63}, {"date": "Oct 07, 2025", "price": 205.92}, {"date": "Oct 08, 2025", "price": 202.29}, {"date": "Oct 09, 2025", "price": 211.7}, {"date": "Oct 10, 2025", "price": 198.55}, {"date": "Oct 13, 2025", "price": 203.68}, {"date": "Oct 14, 2025", "price": 196.35}, {"date": "Oct 15, 2025", "price": 200.76}, {"date": "Oct 16, 2025", "price": 198.97}, {"date": "Oct 17, 2025", "price": 194.95}, {"date": "Oct 20, 2025", "price": 202.48}, {"date": "Oct 21, 2025", "price": 205.71}, {"date": "Oct 22, 2025", "price": 197.05}, {"date": "Oct 23, 2025", "price": 200.82}, {"date": "Oct 24, 2025", "price": 214.2}, {"date": "Oct 27, 2025", "price": 219.24}, {"date": "Oct 28, 2025", "price": 212.97}, {"date": "Oct 29, 2025", "price": 210.77}, {"date": "Oct 30, 2025", "price": 194.42}, {"date": "Oct 31, 2025", "price": 208.95}, {"date": "Nov 03, 2025", "price": 204.98}, {"date": "Nov 04, 2025", "price": 187.77}, {"date": "Nov 05, 2025", "price": 196.27}, {"date": "Nov 06, 2025", "price": 183.64}, {"date": "Nov 07, 2025", "price": 194.58}, {"date": "Nov 10, 2025", "price": 204.19}, {"date": "Nov 11, 2025", "price": 208.21}, {"date": "Nov 12, 2025", "price": 202.82}, {"date": "Nov 13, 2025", "price": 189.42}, {"date": "Nov 14, 2025", "price": 193.31}, {"date": "Nov 17, 2025", "price": 187.55}, {"date": "Nov 18, 2025", "price": 185.69}, {"date": "Nov 19, 2025", "price": 187.78}, {"date": "Nov 20, 2025", "price": 181.88}, {"date": "Nov 21, 2025", "price": 183.48}, {"date": "Nov 24, 2025", "price": 195.0}, {"date": "Nov 25, 2025", "price": 218.48}, {"date": "Nov 26, 2025", "price": 207.56}, {"date": "Nov 28, 2025", "price": 216.47}, {"date": "Dec 01, 2025", "price": 223.4}, {"date": "Dec 02, 2025", "price": 222.76}, {"date": "Dec 03, 2025", "price": 220.84}, {"date": "Dec 04, 2025", "price": 222.75}, {"date": "Dec 05, 2025", "price": 234.11}, {"date": "Dec 08, 2025", "price": 236.95}, {"date": "Dec 09, 2025", "price": 236.11}, {"date": "Dec 10, 2025", "price": 238.11}, {"date": "Dec 11, 2025", "price": 233.54}, {"date": "Dec 12, 2025", "price": 224.78}, {"date": "Dec 15, 2025", "price": 218.5}, {"date": "Dec 16, 2025", "price": 224.0}, {"date": "Dec 17, 2025", "price": 227.34}, {"date": "Dec 18, 2025", "price": 231.34}, {"date": "Dec 19, 2025", "price": 233.19}, {"date": "Dec 22, 2025", "price": 233.15}, {"date": "Dec 23, 2025", "price": 225.82}, {"date": "Dec 24, 2025", "price": 225.85}, {"date": "Dec 26, 2025", "price": 225.77}, {"date": "Dec 29, 2025", "price": 234.65}, {"date": "Dec 30, 2025", "price": 233.36}, {"date": "Dec 31, 2025", "price": 229.87}, {"date": "Jan 02, 2026", "price": 241.89}, {"date": "Jan 05, 2026", "price": 244.05}, {"date": "Jan 06, 2026", "price": 253.81}, {"date": "Jan 07, 2026", "price": 255.5}, {"date": "Jan 08, 2026", "price": 253.95}, {"date": "Jan 09, 2026", "price": 244.56}, {"date": "Jan 12, 2026", "price": 244.02}, {"date": "Jan 13, 2026", "price": 258.93}, {"date": "Jan 14, 2026", "price": 252.38}, {"date": "Jan 15, 2026", "price": 228.75}, {"date": "Jan 16, 2026", "price": 231.01}, {"date": "Jan 20, 2026", "price": 225.36}, {"date": "Jan 21, 2026", "price": 210.13}, {"date": "Jan 22, 2026", "price": 214.54}, {"date": "Jan 23, 2026", "price": 218.88}, {"date": "Jan 26, 2026", "price": 213.63}, {"date": "Jan 27, 2026", "price": 196.3}, {"date": "Jan 28, 2026", "price": 193.14}, {"date": "Jan 29, 2026", "price": 190.05}, {"date": "Jan 30, 2026", "price": 180.27}, {"date": "Feb 02, 2026", "price": 177.15}, {"date": "Feb 03, 2026", "price": 165.41}, {"date": "Feb 04, 2026", "price": 152.69}, {"date": "Feb 05, 2026", "price": 151.05}, {"date": "Feb 06, 2026", "price": 139.83}, {"date": "Feb 09, 2026", "price": 141.74}, {"date": "Feb 10, 2026", "price": 149.98}, {"date": "Feb 11, 2026", "price": 139.29}, {"date": "Feb 12, 2026", "price": 131.07}, {"date": "Feb 13, 2026", "price": 139.65}, {"date": "Feb 17, 2026", "price": 139.23}, {"date": "Feb 18, 2026", "price": 147.46}, {"date": "Feb 19, 2026", "price": 146.13}, {"date": "Feb 20, 2026", "price": 150.17}, {"date": "Feb 23, 2026", "price": 142.46}, {"date": "Feb 24, 2026", "price": 142.08}, {"date": "Feb 25, 2026", "price": 149.67}, {"date": "Feb 26, 2026", "price": 151.25}, {"date": "Feb 27, 2026", "price": 145.81}, {"date": "Mar 02, 2026", "price": 147.11}, {"date": "Mar 03, 2026", "price": 145.69}, {"date": "Mar 04, 2026", "price": 147.29}, {"date": "Mar 05, 2026", "price": 144.34}, {"date": "Mar 06, 2026", "price": 139.39}, {"date": "Mar 09, 2026", "price": 138.86}, {"date": "Mar 10, 2026", "price": 134.13}, {"date": "Mar 11, 2026", "price": 137.12}, {"date": "Mar 12, 2026", "price": 132.25}, {"date": "Mar 13, 2026", "price": 132.36}, {"date": "Mar 16, 2026", "price": 140.0}, {"date": "Mar 17, 2026", "price": 144.33}, {"date": "Mar 18, 2026", "price": 142.79}, {"date": "Mar 19, 2026", "price": 138.12}, {"date": "Mar 20, 2026", "price": 139.85}, {"date": "Mar 23, 2026", "price": 140.96}, {"date": "Mar 24, 2026", "price": 136.12}, {"date": "Mar 25, 2026", "price": 139.63}, {"date": "Mar 26, 2026", "price": 127.26}, {"date": "Mar 27, 2026", "price": 121.84}, {"date": "Mar 30, 2026", "price": 124.13}, {"date": "Mar 31, 2026", "price": 134.65}, {"date": "Apr 01, 2026", "price": 136.18}, {"date": "Apr 02, 2026", "price": 136.0}, {"date": "Apr 06, 2026", "price": 138.34}, {"date": "Apr 07, 2026", "price": 141.14}, {"date": "Apr 08, 2026", "price": 145.0}, {"date": "Apr 09, 2026", "price": 138.38}, {"date": "Apr 10, 2026", "price": 139.73}, {"date": "Apr 13, 2026", "price": 149.35}, {"date": "Apr 14, 2026", "price": 154.54}, {"date": "Apr 15, 2026", "price": 158.48}, {"date": "Apr 16, 2026", "price": 162.45}, {"date": "Apr 17, 2026", "price": 163.8}, {"date": "Apr 20, 2026", "price": 166.28}, {"date": "Apr 21, 2026", "price": 156.82}, {"date": "Apr 22, 2026", "price": 164.31}, {"date": "Apr 23, 2026", "price": 152.96}, {"date": "Apr 24, 2026", "price": 154.89}, {"date": "Apr 27, 2026", "price": 160.21}, {"date": "Apr 28, 2026", "price": 147.93}, {"date": "Apr 29, 2026", "price": 147.75}, {"date": "Apr 30, 2026", "price": 147.23}, {"date": "May 01, 2026", "price": 166.48}, {"date": "May 04, 2026", "price": 169.07}, {"date": "May 05, 2026", "price": 171.63}, {"date": "May 06, 2026", "price": 166.56}, {"date": "May 07, 2026", "price": 163.95}, {"date": "May 08, 2026", "price": 155.8}, {"date": "May 11, 2026", "price": 159.51}, {"date": "May 12, 2026", "price": 152.35}, {"date": "May 13, 2026", "price": 154.12}, {"date": "May 14, 2026", "price": 156.31}, {"date": "May 15, 2026", "price": 158.17}, {"date": "May 18, 2026", "price": 159.11}, {"date": "May 19, 2026", "price": 154.88}, {"date": "May 20, 2026", "price": 146.72}, {"date": "May 21, 2026", "price": 150.04}, {"date": "May 22, 2026", "price": 141.67}, {"date": "May 26, 2026", "price": 144.64}, {"date": "May 27, 2026", "price": 154.19}, {"date": "May 28, 2026", "price": 167.69}, {"date": "May 29, 2026", "price": 176.0}, {"date": "Jun 01, 2026", "price": 177.85}, {"date": "Jun 02, 2026", "price": 169.13}, {"date": "Jun 03, 2026", "price": 169.49}, {"date": "Jun 04, 2026", "price": 183.91}, {"date": "Jun 05, 2026", "price": 173.45}, {"date": "Jun 08, 2026", "price": 171.13}, {"date": "Jun 09, 2026", "price": 178.11}, {"date": "Jun 10, 2026", "price": 172.21}, {"date": "Jun 11, 2026", "price": 173.26}, {"date": "Jun 12, 2026", "price": 162.1}, {"date": "Jun 15, 2026", "price": 181.88}, {"date": "Jun 16, 2026", "price": 175.39}, {"date": "Jun 17, 2026", "price": 165.95}, {"date": "Jun 18, 2026", "price": 174.96}, {"date": "Jun 22, 2026", "price": 170.44}, {"date": "Jun 23, 2026", "price": 165.63}, {"date": "Jun 24, 2026", "price": 160.72}, {"date": "Jun 25, 2026", "price": 158.02}, {"date": "Jun 26, 2026", "price": 166.94}, {"date": "Jun 29, 2026", "price": 174.39}, {"date": "Jun 30, 2026", "price": 173.58}, {"date": "Jul 01, 2026", "price": 197.76}, {"date": "Jul 02, 2026", "price": 194.67}, {"date": "Jul 06, 2026", "price": 200.86}, {"date": "Jul 07, 2026", "price": 199.44}, {"date": "Jul 08, 2026", "price": 195.31}, {"date": "Jul 09, 2026", "price": 200.31}, {"date": "Jul 10, 2026", "price": 195.34}, {"date": "Jul 13, 2026", "price": 200.93}, {"date": "Jul 14, 2026", "price": 203.27}, {"date": "Jul 15, 2026", "price": 198.03}, {"date": "Jul 16, 2026", "price": 185.26}, {"date": "Jul 17, 2026", "price": 181.18}, {"date": "Jul 20, 2026", "price": 181.64}, {"date": "Jul 21, 2026", "price": 185.84}, {"date": "Jul 22, 2026", "price": 170.38}, {"date": "Jul 23, 2026", "price": 168.78}, {"date": "Jul 24, 2026", "price": 168.73}, {"date": "Jul 27, 2026", "price": 179.23}, {"date": "Jul 28, 2026", "price": 178.44}, {"date": "Jul 29, 2026", "price": 177.99}, {"date": "Jul 30, 2026", "price": 178.04}, {"date": "Jul 31, 2026", "price": 140.67}, {"date": "Aug 03, 2026", "price": 154.71}, {"date": "Aug 04, 2026", "price": 159.97}, {"date": "Aug 05, 2026", "price": 155.26}, {"date": "Aug 06, 2026", "price": 150.87}, {"date": "Aug 07, 2026", "price": 161.7}, {"date": "Aug 10, 2026", "price": 158.72}, {"date": "Aug 11, 2026", "price": 156.19}, {"date": "Aug 12, 2026", "price": 153.45}, {"date": "Aug 13, 2026", "price": 155.8}], "5Y": [{"date": "Mar 17, 2024", "price": 46.0}, {"date": "Mar 24, 2024", "price": 49.32}, {"date": "Mar 31, 2024", "price": 47.56}, {"date": "Apr 07, 2024", "price": 42.27}, {"date": "Apr 14, 2024", "price": 40.88}, {"date": "Apr 21, 2024", "price": 45.43}, {"date": "Apr 28, 2024", "price": 46.64}, {"date": "May 05, 2024", "price": 53.53}, {"date": "May 12, 2024", "price": 62.04}, {"date": "May 19, 2024", "price": 54.72}, {"date": "May 26, 2024", "price": 54.24}, {"date": "Jun 02, 2024", "price": 59.8}, {"date": "Jun 09, 2024", "price": 60.94}, {"date": "Jun 16, 2024", "price": 57.3}, {"date": "Jun 23, 2024", "price": 63.89}, {"date": "Jun 30, 2024", "price": 72.97}, {"date": "Jul 07, 2024", "price": 73.85}, {"date": "Jul 14, 2024", "price": 64.7}, {"date": "Jul 21, 2024", "price": 62.36}, {"date": "Jul 28, 2024", "price": 57.58}, {"date": "Aug 04, 2024", "price": 52.91}, {"date": "Aug 11, 2024", "price": 54.92}, {"date": "Aug 18, 2024", "price": 59.21}, {"date": "Aug 25, 2024", "price": 60.03}, {"date": "Sep 01, 2024", "price": 56.85}, {"date": "Sep 08, 2024", "price": 59.09}, {"date": "Sep 15, 2024", "price": 66.17}, {"date": "Sep 22, 2024", "price": 67.08}, {"date": "Sep 29, 2024", "price": 72.38}, {"date": "Oct 06, 2024", "price": 73.25}, {"date": "Oct 13, 2024", "price": 80.9}, {"date": "Oct 20, 2024", "price": 81.36}, {"date": "Oct 27, 2024", "price": 112.98}, {"date": "Nov 03, 2024", "price": 134.8}, {"date": "Nov 10, 2024", "price": 124.78}, {"date": "Nov 17, 2024", "price": 146.67}, {"date": "Nov 24, 2024", "price": 140.69}, {"date": "Dec 01, 2024", "price": 162.76}, {"date": "Dec 08, 2024", "price": 172.65}, {"date": "Dec 15, 2024", "price": 170.71}, {"date": "Dec 22, 2024", "price": 173.54}, {"date": "Dec 29, 2024", "price": 177.74}, {"date": "Jan 05, 2025", "price": 167.08}, {"date": "Jan 12, 2025", "price": 175.33}, {"date": "Jan 19, 2025", "price": 182.4}, {"date": "Jan 26, 2025", "price": 199.55}, {"date": "Feb 02, 2025", "price": 225.23}, {"date": "Feb 09, 2025", "price": 196.38}, {"date": "Feb 16, 2025", "price": 166.4}, {"date": "Feb 23, 2025", "price": 161.78}, {"date": "Mar 02, 2025", "price": 133.98}, {"date": "Mar 09, 2025", "price": 128.21}, {"date": "Mar 16, 2025", "price": 115.7}, {"date": "Mar 23, 2025", "price": 107.71}, {"date": "Mar 30, 2025", "price": 86.91}, {"date": "Apr 06, 2025", "price": 101.15}, {"date": "Apr 13, 2025", "price": 96.16}, {"date": "Apr 20, 2025", "price": 118.1}, {"date": "Apr 27, 2025", "price": 113.83}, {"date": "May 04, 2025", "price": 108.46}, {"date": "May 11, 2025", "price": 113.23}, {"date": "May 18, 2025", "price": 100.76}, {"date": "May 25, 2025", "price": 112.35}, {"date": "Jun 01, 2025", "price": 121.29}, {"date": "Jun 08, 2025", "price": 118.18}, {"date": "Jun 15, 2025", "price": 139.15}, {"date": "Jun 22, 2025", "price": 143.01}, {"date": "Jun 29, 2025", "price": 157.03}, {"date": "Jul 06, 2025", "price": 145.59}, {"date": "Jul 13, 2025", "price": 148.24}, {"date": "Jul 20, 2025", "price": 149.66}, {"date": "Jul 27, 2025", "price": 188.64}, {"date": "Aug 03, 2025", "price": 215.44}, {"date": "Aug 10, 2025", "price": 246.5}, {"date": "Aug 17, 2025", "price": 217.31}, {"date": "Aug 24, 2025", "price": 225.08}, {"date": "Aug 31, 2025", "price": 240.0}, {"date": "Sep 07, 2025", "price": 254.29}, {"date": "Sep 14, 2025", "price": 264.48}, {"date": "Sep 21, 2025", "price": 240.11}, {"date": "Sep 28, 2025", "price": 207.2}, {"date": "Oct 05, 2025", "price": 198.55}, {"date": "Oct 12, 2025", "price": 194.95}, {"date": "Oct 19, 2025", "price": 214.2}, {"date": "Oct 26, 2025", "price": 208.95}, {"date": "Nov 02, 2025", "price": 194.58}, {"date": "Nov 09, 2025", "price": 193.31}, {"date": "Nov 16, 2025", "price": 183.48}, {"date": "Nov 23, 2025", "price": 216.47}, {"date": "Nov 30, 2025", "price": 234.11}, {"date": "Dec 07, 2025", "price": 224.78}, {"date": "Dec 14, 2025", "price": 233.19}, {"date": "Dec 21, 2025", "price": 225.77}, {"date": "Dec 28, 2025", "price": 241.89}, {"date": "Jan 04, 2026", "price": 244.56}, {"date": "Jan 11, 2026", "price": 231.01}, {"date": "Jan 18, 2026", "price": 218.88}, {"date": "Jan 25, 2026", "price": 180.27}, {"date": "Feb 01, 2026", "price": 139.83}, {"date": "Feb 08, 2026", "price": 139.65}, {"date": "Feb 15, 2026", "price": 150.17}, {"date": "Feb 22, 2026", "price": 145.81}, {"date": "Mar 01, 2026", "price": 139.39}, {"date": "Mar 08, 2026", "price": 132.36}, {"date": "Mar 15, 2026", "price": 139.85}, {"date": "Mar 22, 2026", "price": 121.84}, {"date": "Mar 29, 2026", "price": 136.0}, {"date": "Apr 05, 2026", "price": 139.73}, {"date": "Apr 12, 2026", "price": 163.8}, {"date": "Apr 19, 2026", "price": 154.89}, {"date": "Apr 26, 2026", "price": 166.48}, {"date": "May 03, 2026", "price": 155.8}, {"date": "May 10, 2026", "price": 158.17}, {"date": "May 17, 2026", "price": 141.67}, {"date": "May 24, 2026", "price": 176.0}, {"date": "May 31, 2026", "price": 173.45}, {"date": "Jun 07, 2026", "price": 162.1}, {"date": "Jun 14, 2026", "price": 174.96}, {"date": "Jun 21, 2026", "price": 166.94}, {"date": "Jun 28, 2026", "price": 194.67}, {"date": "Jul 05, 2026", "price": 195.34}, {"date": "Jul 12, 2026", "price": 181.18}, {"date": "Jul 19, 2026", "price": 168.73}, {"date": "Jul 26, 2026", "price": 140.67}, {"date": "Aug 02, 2026", "price": 161.7}, {"date": "Aug 09, 2026", "price": 153.45}, {"date": "Aug 13, 2026", "price": 155.8}], "10Y": [{"date": "Mar 31, 2024", "price": 44.44}, {"date": "Apr 30, 2024", "price": 54.24}, {"date": "May 31, 2024", "price": 63.89}, {"date": "Jun 30, 2024", "price": 60.85}, {"date": "Jul 31, 2024", "price": 60.03}, {"date": "Aug 31, 2024", "price": 65.92}, {"date": "Sep 30, 2024", "price": 119.3}, {"date": "Oct 31, 2024", "price": 140.69}, {"date": "Nov 30, 2024", "price": 163.44}, {"date": "Dec 31, 2024", "price": 199.55}, {"date": "Jan 31, 2025", "price": 161.78}, {"date": "Feb 28, 2025", "price": 104.9}, {"date": "Mar 31, 2025", "price": 116.57}, {"date": "Apr 30, 2025", "price": 112.35}, {"date": "May 31, 2025", "price": 150.57}, {"date": "Jun 30, 2025", "price": 160.59}, {"date": "Jul 31, 2025", "price": 225.08}, {"date": "Aug 31, 2025", "price": 229.99}, {"date": "Sep 30, 2025", "price": 208.95}, {"date": "Oct 31, 2025", "price": 216.47}, {"date": "Nov 30, 2025", "price": 229.87}, {"date": "Dec 31, 2025", "price": 180.27}, {"date": "Jan 31, 2026", "price": 145.81}, {"date": "Feb 28, 2026", "price": 134.65}, {"date": "Mar 31, 2026", "price": 147.23}, {"date": "Apr 30, 2026", "price": 176.0}, {"date": "May 31, 2026", "price": 173.58}, {"date": "Jun 30, 2026", "price": 140.67}, {"date": "Jul 31, 2026", "price": 153.45}, {"date": "Aug 13, 2026", "price": 155.8}], "MAX": [{"date": "Mar 17, 2024", "price": 46.0}, {"date": "Mar 24, 2024", "price": 49.32}, {"date": "Mar 31, 2024", "price": 47.56}, {"date": "Apr 07, 2024", "price": 42.27}, {"date": "Apr 14, 2024", "price": 40.88}, {"date": "Apr 21, 2024", "price": 45.43}, {"date": "Apr 28, 2024", "price": 46.64}, {"date": "May 05, 2024", "price": 53.53}, {"date": "May 12, 2024", "price": 62.04}, {"date": "May 19, 2024", "price": 54.72}, {"date": "May 26, 2024", "price": 54.24}, {"date": "Jun 02, 2024", "price": 59.8}, {"date": "Jun 09, 2024", "price": 60.94}, {"date": "Jun 16, 2024", "price": 57.3}, {"date": "Jun 23, 2024", "price": 63.89}, {"date": "Jun 30, 2024", "price": 72.97}, {"date": "Jul 07, 2024", "price": 73.85}, {"date": "Jul 14, 2024", "price": 64.7}, {"date": "Jul 21, 2024", "price": 62.36}, {"date": "Jul 28, 2024", "price": 57.58}, {"date": "Aug 04, 2024", "price": 52.91}, {"date": "Aug 11, 2024", "price": 54.92}, {"date": "Aug 18, 2024", "price": 59.21}, {"date": "Aug 25, 2024", "price": 60.03}, {"date": "Sep 01, 2024", "price": 56.85}, {"date": "Sep 08, 2024", "price": 59.09}, {"date": "Sep 15, 2024", "price": 66.17}, {"date": "Sep 22, 2024", "price": 67.08}, {"date": "Sep 29, 2024", "price": 72.38}, {"date": "Oct 06, 2024", "price": 73.25}, {"date": "Oct 13, 2024", "price": 80.9}, {"date": "Oct 20, 2024", "price": 81.36}, {"date": "Oct 27, 2024", "price": 112.98}, {"date": "Nov 03, 2024", "price": 134.8}, {"date": "Nov 10, 2024", "price": 124.78}, {"date": "Nov 17, 2024", "price": 146.67}, {"date": "Nov 24, 2024", "price": 140.69}, {"date": "Dec 01, 2024", "price": 162.76}, {"date": "Dec 08, 2024", "price": 172.65}, {"date": "Dec 15, 2024", "price": 170.71}, {"date": "Dec 22, 2024", "price": 173.54}, {"date": "Dec 29, 2024", "price": 177.74}, {"date": "Jan 05, 2025", "price": 167.08}, {"date": "Jan 12, 2025", "price": 175.33}, {"date": "Jan 19, 2025", "price": 182.4}, {"date": "Jan 26, 2025", "price": 199.55}, {"date": "Feb 02, 2025", "price": 225.23}, {"date": "Feb 09, 2025", "price": 196.38}, {"date": "Feb 16, 2025", "price": 166.4}, {"date": "Feb 23, 2025", "price": 161.78}, {"date": "Mar 02, 2025", "price": 133.98}, {"date": "Mar 09, 2025", "price": 128.21}, {"date": "Mar 16, 2025", "price": 115.7}, {"date": "Mar 23, 2025", "price": 107.71}, {"date": "Mar 30, 2025", "price": 86.91}, {"date": "Apr 06, 2025", "price": 101.15}, {"date": "Apr 13, 2025", "price": 96.16}, {"date": "Apr 20, 2025", "price": 118.1}, {"date": "Apr 27, 2025", "price": 113.83}, {"date": "May 04, 2025", "price": 108.46}, {"date": "May 11, 2025", "price": 113.23}, {"date": "May 18, 2025", "price": 100.76}, {"date": "May 25, 2025", "price": 112.35}, {"date": "Jun 01, 2025", "price": 121.29}, {"date": "Jun 08, 2025", "price": 118.18}, {"date": "Jun 15, 2025", "price": 139.15}, {"date": "Jun 22, 2025", "price": 143.01}, {"date": "Jun 29, 2025", "price": 157.03}, {"date": "Jul 06, 2025", "price": 145.59}, {"date": "Jul 13, 2025", "price": 148.24}, {"date": "Jul 20, 2025", "price": 149.66}, {"date": "Jul 27, 2025", "price": 188.64}, {"date": "Aug 03, 2025", "price": 215.44}, {"date": "Aug 10, 2025", "price": 246.5}, {"date": "Aug 17, 2025", "price": 217.31}, {"date": "Aug 24, 2025", "price": 225.08}, {"date": "Aug 31, 2025", "price": 240.0}, {"date": "Sep 07, 2025", "price": 254.29}, {"date": "Sep 14, 2025", "price": 264.48}, {"date": "Sep 21, 2025", "price": 240.11}, {"date": "Sep 28, 2025", "price": 207.2}, {"date": "Oct 05, 2025", "price": 198.55}, {"date": "Oct 12, 2025", "price": 194.95}, {"date": "Oct 19, 2025", "price": 214.2}, {"date": "Oct 26, 2025", "price": 208.95}, {"date": "Nov 02, 2025", "price": 194.58}, {"date": "Nov 09, 2025", "price": 193.31}, {"date": "Nov 16, 2025", "price": 183.48}, {"date": "Nov 23, 2025", "price": 216.47}, {"date": "Nov 30, 2025", "price": 234.11}, {"date": "Dec 07, 2025", "price": 224.78}, {"date": "Dec 14, 2025", "price": 233.19}, {"date": "Dec 21, 2025", "price": 225.77}, {"date": "Dec 28, 2025", "price": 241.89}, {"date": "Jan 04, 2026", "price": 244.56}, {"date": "Jan 11, 2026", "price": 231.01}, {"date": "Jan 18, 2026", "price": 218.88}, {"date": "Jan 25, 2026", "price": 180.27}, {"date": "Feb 01, 2026", "price": 139.83}, {"date": "Feb 08, 2026", "price": 139.65}, {"date": "Feb 15, 2026", "price": 150.17}, {"date": "Feb 22, 2026", "price": 145.81}, {"date": "Mar 01, 2026", "price": 139.39}, {"date": "Mar 08, 2026", "price": 132.36}, {"date": "Mar 15, 2026", "price": 139.85}, {"date": "Mar 22, 2026", "price": 121.84}, {"date": "Mar 29, 2026", "price": 136.0}, {"date": "Apr 05, 2026", "price": 139.73}, {"date": "Apr 12, 2026", "price": 163.8}, {"date": "Apr 19, 2026", "price": 154.89}, {"date": "Apr 26, 2026", "price": 166.48}, {"date": "May 03, 2026", "price": 155.8}, {"date": "May 10, 2026", "price": 158.17}, {"date": "May 17, 2026", "price": 141.67}, {"date": "May 24, 2026", "price": 176.0}, {"date": "May 31, 2026", "price": 173.45}, {"date": "Jun 07, 2026", "price": 162.1}, {"date": "Jun 14, 2026", "price": 174.96}, {"date": "Jun 21, 2026", "price": 166.94}, {"date": "Jun 28, 2026", "price": 194.67}, {"date": "Jul 05, 2026", "price": 195.34}, {"date": "Jul 12, 2026", "price": 181.18}, {"date": "Jul 19, 2026", "price": 168.73}, {"date": "Jul 26, 2026", "price": 140.67}, {"date": "Aug 02, 2026", "price": 161.7}, {"date": "Aug 09, 2026", "price": 153.45}, {"date": "Aug 13, 2026", "price": 155.8}]};
         let currentRangeKey = '1Y';
         let currentPoints = allDatasets[currentRangeKey] || [];
         let currentSvgCoords = [];
@@ -1207,27 +1207,27 @@
             <div class="metrics-grid">
                 <div class="metric-cell">
                     <div class="metric-label">Fair Value</div>
-                    <div class="metric-value" style="color: var(--accent-warm);">$185.00</div>
+                    <div class="metric-value" style="color: var(--accent-warm);">$170.00</div>
                     <div class="metric-subtext" style="color: var(--text-dim);">Intrinsic baseline</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bear Target</div>
-                    <div class="metric-value" style="color: var(--accent-red);">$125.00</div>
+                    <div class="metric-value" style="color: var(--accent-red);">$110.00 (-29.5%)</div>
                     <div class="metric-subtext" style="color: var(--text-dim);">Downside floor</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Base Target</div>
-                    <div class="metric-value">$185.00</div>
+                    <div class="metric-value">$170.00 (+8.9%)</div>
                     <div class="metric-subtext" style="color: var(--text-dim);">Mid-cycle value</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bull Target</div>
-                    <div class="metric-value" style="color: var(--accent-green);">$245.00</div>
+                    <div class="metric-value" style="color: var(--accent-green);">$230.00 (+47.4%)</div>
                     <div class="metric-subtext" style="color: var(--text-dim);">Asymmetric upside</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Alert Corridor</div>
-                    <div class="metric-value" style="font-size: 1.05rem; font-family: var(--font-mono); color: var(--text-title);">$135.00 ⇄ $180.00</div>
+                    <div class="metric-value" style="font-size: 1.05rem; font-family: var(--font-mono); color: var(--text-title);">$125.00 ⇄ $185.00</div>
                     <div class="metric-subtext" style="color: var(--text-dim);">Surveillance triggers</div>
                 </div>
                 <div class="metric-cell">
@@ -1239,7 +1239,7 @@
     <div class="metric-cell">
         <div class="metric-label">Institutional Float</div>
         <div class="metric-value" style="font-family: var(--font-mono); color: var(--text-title); font-size: 1.15rem; font-weight: 500;">74.8%</div>
-        <div class="metric-subtext" style="color: var(--text-dim);" title="Advance Publications (30.1%), T. Rowe Price (8.4%), Vanguard Group (7.2%) (74.8% of float)">Advance Publications · T. Rowe Price · Vanguard Group</div>
+        <div class="metric-subtext" style="color: var(--text-dim);" title="Chase Coleman - Tiger Global Management (1.47), Viking Global Investors (0.96) (74.8% of float)">Chase Coleman - Tiger Global · Viking Global Investors</div>
     </div>
     
                 
@@ -1255,383 +1255,412 @@
         <!-- Navigation Tabs -->
         <div class="tabs-header">
             <button id="btn-tab-memo" class="tab-btn active" onclick="showTab('memo')">Investment Thesis</button>
-            <button id="btn-tab-history" class="tab-btn" onclick="showTab('history')">Evolution (1)</button>
+            <button id="btn-tab-history" class="tab-btn" onclick="showTab('history')">Evolution (0)</button>
             <button id="btn-tab-ownership" class="tab-btn" onclick="showTab('ownership')">Ownership & Fund Intel</button>
         </div>
 
         <!-- Memo Content -->
         <div id="tab-memo" class="tab-content active">
             <article class="memo-container">
-                
-        <div class="update-banner-box">
-            <div class="update-banner-header">
-                <span class="update-banner-badge">⚡ Version 2 Thesis Evolution • 2026-08-12</span>
-                <span class="update-trigger-pill">Trigger: SEC 8-K Filing (2026-08-12): Item 5.02: Departure/Election of Directors or Principal Officers (CEO/CFO/Executive Change); Item 9.01: Financial Statements and Exhibits [Accession #0001713445-26-000107]</span>
-            </div>
-            <div class="update-banner-body">
-                <div class="update-banner-title">What Changed & Forward Thesis Impact</div>
-                <div class="update-banner-desc">
-                    The August 12, 2026 Form 8-K confirms an orderly Chief Legal Officer transition (Benjamin Lee stepping down, Paul Cappuccio appointed) with zero operational or financial disagreements. With Mr. Market discounting RDDT to $153.45 on routine legal C-suite turnover and search referral noise, the stock offers a wider Margin of Safety against Q2 revenue surging 61% YoY to $805M, $261M in quarterly FCF, and a $2.8B net cash fortress. We maintain our $185.00 Base Intrinsic Fair Value and confirm a green BUY signal.
-                    
-                <div class="label-evolution-divider" style="margin-top: 18px; padding-top: 14px; border-top: 1px dashed var(--border-color); font-size: 0.88rem;">
-                    <div style="font-weight: 500; color: var(--text-title); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-                        <span style="color: var(--accent-warm);">🏷️ Label & Conviction Evolution:</span>
-                        <div style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
-                            <span class="pill pill-neutral" style="font-size:0.75rem;">Moderate Conviction</span> <span class="pill pill-neutral" style="font-size:0.75rem;">Ad Monetization</span> <span class="pill pill-neutral" style="font-size:0.75rem;">Data Moat</span>
-                            <span style="color: var(--text-dim);">→</span>
-                            <span class="pill pill-active" style="font-size:0.75rem;">Solid Conviction</span> <span class="pill pill-active" style="font-size:0.75rem;">Cash Fortress</span> <span class="pill pill-active" style="font-size:0.75rem;">Margin Expansion</span>
-                        </div>
-                    </div>
-                </div>
-                
-                </div>
-            </div>
-        </div>
-        <div class="section">
-<h2>Section 1: Business Model, Scale Moat &amp; GenAI Transition</h2>
-<p>Reddit, Inc. (NYSE: RDDT) operates one of the world's largest repository of human-curated context, topical discussions, and community consensus. As generative AI models proliferate across the internet with synthetic content, authentic human experience and real-time discourse have transformed into an increasingly scarce economic asset. Reddit monetizes this digital city through two primary engines: an expanding performance digital advertising engine (representing ~95% of total revenue) and high-margin AI data licensing agreements with frontier LLM developers like Google and OpenAI.</p>
-<p>From a first-principles perspective, Reddit exhibits the quintessential characteristics of a capital-light economic moat: zero physical infrastructure inventory, user-generated content creation, self-moderating community governance structures, and extreme Operating Cash Flow conversion. The recent SEC Form 8-K filing on August 12, 2026 (Item 5.02) reported an orderly executive leadership transition in the legal department—Chief Legal Officer Benjamin Lee stepping down effective September 14, 2026, with veteran corporate legal chief Paul Cappuccio appointed to the role. Crucially, the filing confirmed zero disagreements between the departing officer and the board regarding operations, financial reporting, or corporate strategy.</p>
-<div class="callout">
-<strong>Benjamin Graham &amp; Warren Buffett Anti-Mr. Market Check:</strong> Mr. Market has knocked RDDT shares down to $153.45—a 20% decline from recent highs—conflating routine legal executive turnover and temporary Google search referral volatility with structural business impairment. Yet, evaluating Reddit under the 5-Year Market Closure Test reveals an enterprise generating $1.02B in trailing twelve-month operating cash flow, maintaining a $2.8B liquid cash fortress with zero interest-bearing debt, and compounding revenue at 61% YoY with 91.3% gross margins.
-  </div>
-</div>
-<div class="section">
-<h2>Section 2: Quarterly Operational Breakdown &amp; Segment Performance</h2>
-<p>In Q2 2026 (quarter ended June 30, 2026), Reddit delivered its eighth consecutive quarter of 60%+ YoY top-line growth. Financial results exceeded consensus expectations across every core metric, demonstrating powerful operating leverage as advertising automated solutions (Reddit Max) gained rapid adoption among performance advertisers.</p>
+                <h2>Section 1: Executive Summary &amp; Operating Reality</h2>
+<p>Reddit, Inc. (NYSE: RDDT) delivered an exceptional Q2 2026 operational performance, reporting its eighth consecutive quarter of greater than 60% top-line growth. Revenue surged 61.1% year-over-year to $804.9 million, soundly surpassing consensus expectations driven by robust momentum in performance advertising and international ad monetization. GAAP operating income reached $231.7 million, expanding operating margin to 28.8%—a dramatic expansion from near breakeven in the prior-year period—demonstrating the massive operating leverage inherent in Reddit’s ultra-capital-light business model. Net income rose to $252.8 million ($1.25 diluted EPS), while Free Cash Flow doubled year-over-year to $260.7 million at a 32.4% FCF margin. Despite these milestone metrics and Q3 2026 management guidance forecasting revenue of $860 million to $870 million (representing ~48% YoY growth) and Adjusted EBITDA of $385 million to $395 million (~45% margin), the stock pulled back to $156.04 due to Wall Street angst surrounding search referral traffic volatility and US daily active user momentum.</p>
+<p>From a Benjamin Graham and Warren Buffett perspective, Mr. Market’s sharp post-earnings reaction presents a classic divergence between short-term price volatility and fundamental cash generation. While momentum investors panicked over late-quarter search algorithm choppiness from Google, Reddit’s core engine unlocked unprecedented cash yield. Trailing twelve-month operating cash flow crossed $1.0 billion for the first time in corporate history, supported by industry-leading GAAP gross margins of 91.3%. Global Average Revenue Per User (ARPU) expanded 36% year-over-year to $6.18, led by US ARPU rising to $11.85. The company's expansion into automated performance ad suite "Reddit Max" generated a 150% sequential jump in revenue, confirming that advertisers are increasingly utilizing Reddit's high-intent contextual conversation graph for lower-funnel conversion.</p>
+<p>Management’s capital allocation strategy remains exceptionally disciplined, supported by a rock-solid balance sheet containing $2.80 billion in cash, cash equivalents, and short-term marketable securities with zero long-term debt. During Q2 2026, Reddit repurchased 1.5 million Class A shares for $235 million at an average price of ~$157 per share, reducing share count dilution and signaling executive confidence in intrinsic value. However, fundamental investors must weigh this capital deployment against two emerging friction points: management’s decision to discontinue reporting logged-in versus logged-out DAU metrics starting Q3 2026, and a sequential contraction in contracted data-licensing backlog from $121 million to $92 million. Nonetheless, with $760 million remaining under its share repurchase authorization and revenue per employee topping $1.0 million, Reddit's cash-generation model remains elite.</p>
 <div class="metrics-grid">
 <div class="metric-card">
-<div class="metric-label">Q2 2026 Total Revenue</div>
+<div class="metric-label">Quarterly Revenue</div>
 <div class="metric-value">$804.9M</div>
 <div class="metric-delta pos">+61.1% YoY</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">GAAP Gross Margin</div>
-<div class="metric-value">91.3%</div>
-<div class="metric-delta pos">+50 bps YoY</div>
+<div class="metric-label">Operating Margin</div>
+<div class="metric-value">28.8%</div>
+<div class="metric-delta pos">+2,780 bps</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">GAAP Net Income</div>
-<div class="metric-value">$252.8M</div>
-<div class="metric-delta pos">+183.2% YoY</div>
+<div class="metric-label">Free Cash Flow</div>
+<div class="metric-value">$260.7M</div>
+<div class="metric-delta pos">+135.0% YoY</div>
 </div>
+</div>
+<div class="executive-callout">
+<div class="exec-header"><span class="exec-badge">Executive Commentary</span></div>
+<p><em>"In an increasingly automated web, the value of real human perspective has never been higher. Reddit's commercial momentum reflects that... Crossing $1 million in revenue per employee is a milestone that underscores our capital efficiency."</em> — <strong>Steve Huffman, Founder &amp; CEO</strong></p>
+<p><em>"Search referrals were choppy in Q2 with volatile traffic late in the quarter, but lower-funnel ad performance accelerated, with Reddit Max revenue up over 150% quarter-over-quarter. We repurchased $235 million of stock, lowered our stock-based compensation outlook, and retain $760 million in buyback capacity to opportunistically retire shares."</em> — <strong>Andrew Vollero, Chief Financial Officer</strong></p>
+</div>
+<h2>Section 2: Business Model Reality &amp; Competitive Moat</h2>
+<p>Reddit operates a unique, self-sustaining digital media ecosystem centered on 100,000+ active user-generated communities (subreddits). The company’s primary revenue stream is digital advertising (94.7% of Q2 2026 total revenue, generating $762 million, up 64% YoY). Advertisers purchase inventory ranging from high-impact takeover banners to native performance ads. Because users actively search for authentic product recommendations, troubleshooting advice, and niche discussions (frequently appending "reddit" to search queries), Reddit captures exceptionally high commercial intent. The second growth vector is Data Licensing &amp; Other Revenue (5.3% of revenue, generating $43 million, up 24% YoY), where Reddit monetizes its 26+ billion archived posts and comments by licensing real-time conversational data streams to artificial intelligence developers (including Google and OpenAI) for LLM foundational training and retrieval-augmented generation (RAG).</p>
+<p>The unit economics of Reddit's model are extraordinary due to an asymmetrical cost-to-content structure. Unlike legacy media or streaming platforms that spend billions on licensed content, Reddit's content is created, organized, and moderated entirely for free by its community members and volunteer moderators. Operating with third-party cloud infrastructure (AWS), Reddit's physical capital expenditures are virtually non-existent ($1.2 million in Q2 2026, or &lt;0.2% of revenue), allowing 91.3% gross margins to drop straight down into free cash flow. Customer switching costs for users stem from deep network effects, identity karma scores, sub-community moderation norms, and specialized interest feeds that cannot be replicated by algorithmic content-spouting feeds like TikTok or Instagram Reels. Pricing power is expanding, evidenced by ad pricing surging 40% YoY in Q2 as performance tools automate campaign yields.</p>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Architecture / Dimension</th>
+<th>Reddit, Inc. (RDDT)</th>
+<th>Meta Platforms (FB/IG/Threads)</th>
+<th>X Corp. (Formerly Twitter)</th>
+<th>Pinterest, Inc. (PINS)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Content Curation Model</strong></td>
+<td>Interest-graph based; organized by interest communities (subreddits) with user upvoting.</td>
+<td>Social-graph &amp; AI recommendation algorithmic feed (Reels/Main Feed).</td>
+<td>Real-time short-form microblogging and algorithmic timeline.</td>
+<td>Visual discovery engine &amp; pinboards categorized by lifestyle/crafts.</td>
+</tr>
+<tr>
+<td><strong>Content Acquisition Cost</strong></td>
+<td><strong>$0 Direct Cost.</strong> Created &amp; moderated organically by volunteer users.</td>
+<td>$0 Direct Cost for UGC; substantial creator payout incentive pools.</td>
+<td>Creator revenue-sharing program based on premium impression sharing.</td>
+<td>$0 Direct Cost for UGC; creator monetization incentives.</td>
+</tr>
+<tr>
+<td><strong>Gross Margin Profile</strong></td>
+<td><strong>91.3% (Q2 2026)</strong> — Ultra-light cloud hosting structure.</td>
+<td>81.5% — Heavy proprietary data center server infrastructure.</td>
+<td>~65.0% (Estimated) — Cloud infrastructure &amp; heavy moderation costs.</td>
+<td>78.2% — Cloud infrastructure and visual search compute costs.</td>
+</tr>
+<tr>
+<td><strong>AI Data Licensing Moat</strong></td>
+<td><strong>Highest Value.</strong> Unmatched multi-decade archive of human Q&amp;A conversations.</td>
+<td>Closed Ecosystem. Used strictly for internal Llama model training.</td>
+<td>Closed Ecosystem. Exclusive licensing to xAI (Grok).</td>
+<td>Moderate Value. Primarily visual taxonomy and shoppable product data.</td>
+</tr>
+<tr>
+<td><strong>Search Dependency Risk</strong></td>
+<td><strong>High.</strong> Significant logged-out traffic relies on Google Search indexing.</td>
+<td>Low. Direct app traffic driven by social graph push notifications.</td>
+<td>Low. Direct app traffic and embedded real-time media links.</td>
+<td>Moderate. Search traffic relies on image search and Google indexing.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Reddit's economic moat faces powerful structural tailwinds balanced against critical search-dependency vulnerabilities:</p>
+<ul>
+<li><strong>Structural Demand Drivers &amp; Long-Term Moat Tailwinds:</strong>
+
+</li><li><em>High-Margin AI Training Utility:</em> Large Language Models require human-generated conversational data to improve reasoning and nuance. Reddit's multi-year licensing deals with OpenAI and Google represent high-margin recurring cash flow.</li><li><em>Lower-Funnel Ad Monetization &amp; Machine Translation:</em> The expansion of "Reddit Max" performance advertising allows advertisers to capture high-intent users right at the point of research. Concurrently, AI machine translation is driving rapid international expansion (Int'l revenue grew 84% YoY in Q2 2026).</li><li><em>The "Authentic Human Internet" Premium:</em> As generative AI floods the public web with low-quality, synthetic content ("AI slop"), web users increasingly demand human-verified consensus, personal experiences, and authentic reviews. Reddit holds a near-monopoly on searchable human discourse.</li>
+<li><strong>Competitive Disruption Threats &amp; Search Traffic Vulnerabilities:</strong>
+
+</li><li><em>Contract Renewal &amp; AI Backlog Contraction:</em> Reddit's contracted data licensing backlog declined from $121 million to $92 million in Q2 2026, highlighting risk regarding whether AI giants will renew data licensing agreements on equally favorable terms long-term.</li><li><em>User Growth Deceleration &amp; Reporting Opacity:</em> US Daily Active Uniques (DAUs) showed sequential flatlining in Q2 2026. Management’s decision to stop disclosing the logged-in vs. logged-out DAU breakdown starting in Q3 2026 raises transparency concerns regarding organic core retention.</li><li><em>Google AI Overviews &amp; SEO Referral Volatility:</em> Reddit's largest top-of-funnel funnel driver is Google Search. As Google rolls out AI Overviews that answer user queries directly on the search results page without requiring a click-through, logged-out search referral traffic to Reddit experienced severe volatility in Q2 2026.</li>
+</ul>
+<h2>Section 3: Real Cash Flow, SBC Dilution &amp; Owner Earnings Audit</h2>
+<p>Silicon Valley accounting conventions routinely obscure true corporate earning power by classifying Stock-Based Compensation (SBC) as a non-cash adjustment and presenting "Adjusted EBITDA" as proxy for real profitability. In Q2 2026, Wall Street celebrated Reddit’s reported Adjusted EBITDA of $343 million (a 43% margin). However, a cold fundamental audit reveals that this non-GAAP metric systematically adds back <strong>$101.0 million in Q2 stock compensation</strong>, treating real equity dilution as if it were costless money.</p>
+<p>Under the Benjamin Graham and Warren Buffett "Anti-Mr. Market" doctrine, stock-based compensation is 100% a real operating cash expense. If a enterprise issues new equity to retain engineering, sales, and executive talent, it either dilutes existing shareholders or forces the corporation to expend cash repurchasing shares on the open market to hold share count flat. To measure true cash flow, we strip away all non-cash add-backs and calculate <strong>Buffett Owner Earnings</strong>: <em>GAAP Operating Cash Flow minus Total SBC minus Maintenance CapEx</em>.</p>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Metric ($ Millions)</th>
+<th>FY 2024</th>
+<th>FY 2025</th>
+<th>FY 2026E</th>
+<th>TTM (Q2 2026)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GAAP Operating Cash Flow</td>
+<td>$222.1</td>
+<td>$690.9</td>
+<td>$1,220.0</td>
+<td>$1,026.0</td>
+</tr>
+<tr>
+<td>Less: Total Stock-Based Compensation (SBC)</td>
+<td>($801.7)</td>
+<td>($343.2)</td>
+<td>($495.0)</td>
+<td>($338.0)</td>
+</tr>
+<tr>
+<td>Less: Maintenance Capital Expenditures</td>
+<td>($6.3)</td>
+<td>($6.7)</td>
+<td>($10.0)</td>
+<td>($7.5)</td>
+</tr>
+<tr>
+<td><strong>Buffett Owner Earnings (True Free Cash)</strong></td>
+<td><strong>($585.9)</strong></td>
+<td><strong>$341.0</strong></td>
+<td><strong>$715.0</strong></td>
+<td><strong>$680.5</strong></td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout">
+<strong>The SBC Inflection &amp; Owner Earnings Reality:</strong> In FY 2024, Reddit's GAAP Operating Cash Flow of $222.1 million was entirely a financial illusion, driven by an IPO-related SBC spike of $801.7 million. Stripping out equity compensation revealed true Owner Earnings of negative $585.9 million. However, as top-line revenue expanded past $2.8 billion TTM, stock compensation stabilized to ~12%–15% of revenue. Over the trailing twelve months, Reddit generated <strong>$680.5 million in true post-SBC Owner Earnings</strong> ($3.37 per diluted share), proving that the core commercial engine has achieved genuine, self-sustaining economic profitability.
+</div>
+<h3>Working Capital Float &amp; Capital-Light Infrastructure</h3>
+<p>Reddit’s cash generation exhibits structural advantages rooted in its ultra-capital-light distribution model:</p>
+<ul>
+<li><strong>Zero Proprietary Data Center Traps:</strong> Unlike Meta or Google, Reddit does not spend billions on proprietary data center land or server hardware buildouts. Hosting infrastructure is completely outsourced to Amazon Web Services (AWS) and Google Cloud Platform (GCP). Consequently, Maintenance CapEx consumed less than 1.0% of revenue in Q2 2026 ($1.1 million), converting 99.6% of Operating Cash Flow into Free Cash Flow.</li>
+<li><strong>Working Capital Dynamics:</strong> In Q2 2026, working capital created a temporary -$95.2 million cash drag, driven by rapid advertising revenue expansion (+64% YoY to $762 million) which expanded accounts receivable to $650.1 million. As collection cycles settle, working capital normalizes, converting ad bookings directly into cash.</li>
+<li><strong>Data Licensing Upfront Cash Float:</strong> AI data licensing contracts with OpenAI and Google (yielding $43 million in "Other Revenue" in Q2) provide predictable, upfront cash streams with near-100% incremental gross margins, acting as negative working capital float that funds product innovation.</li>
+</ul>
+<h2>Section 4: Balance Sheet Fortress, Debt Leases &amp; Ownership Check</h2>
+<p>A Graham &amp; Munger capital allocation audit requires verifying that a company holds an unassailable financial fortress capable of enduring severe macro downturns, sudden search engine algorithm shifts, or regulatory shocks without requiring external debt or dilutive emergency financing.</p>
+<p>As of Q2 2026 (quarter ended June 30, 2026), Reddit holds a cash-rich, zero-debt balance sheet. The total liquid reserve stands at <strong>$2.80 billion</strong> in cash, cash equivalents, and short-term US Treasury marketable securities. Funded long-term debt is strictly $0.0 million. Factoring in contractual operating lease obligations for office facilities ($45.7 million total across short-term and long-term lease liabilities), Reddit maintains a net liquid fortress of <strong>$2.75 billion</strong> ($13.63 per share).</p>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Balance Sheet Component</th>
+<th>Amount ($ Millions)</th>
+<th>Per Share Value ($)</th>
+<th>Capital Structure Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cash &amp; Cash Equivalents</td>
+<td>$1,486.8</td>
+<td>$7.36</td>
+<td>Liquid operational reserves in tier-1 institutions</td>
+</tr>
+<tr>
+<td>Marketable Securities (US Treasuries)</td>
+<td>$1,313.2</td>
+<td>$6.50</td>
+<td>High-yield short-term government paper</td>
+</tr>
+<tr>
+<td><strong>Total Liquid Cash &amp; Securities</strong></td>
+<td><strong>$2,800.0</strong></td>
+<td><strong>$13.86</strong></td>
+<td><strong>97.4% of total current assets</strong></td>
+</tr>
+<tr>
+<td>Less: Funded Long-Term Debt</td>
+<td>$0.0</td>
+<td>$0.00</td>
+<td>Zero credit lines or convertible bonds</td>
+</tr>
+<tr>
+<td>Less: Total Operating Lease Liabilities</td>
+<td>($45.7)</td>
+<td>($0.23)</td>
+<td>Contractual real estate lease commitments</td>
+</tr>
+<tr>
+<td><strong>Net Cash Fortress (Post-Obligations)</strong></td>
+<td><strong>$2,754.3</strong></td>
+<td><strong>$13.63</strong></td>
+<td><strong>Net liquid cushion supporting enterprise operations</strong></td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout">
+<strong>Solvency &amp; Interest Coverage:</strong> Interest coverage is infinite / non-applicable due to zero funded debt. Rather than paying interest expenses, Reddit generated <strong>$25.1 million in net interest income</strong> in Q2 2026 alone from its $2.8 billion cash and Treasury portfolio, providing an organic profit tailwind independent of core advertising ops.
+</div>
+<h3>Share Buyback Cannibalization vs. Equity Dilution</h3>
+<p>To prevent SBC from diluting per-share intrinsic value, Reddit's board authorized a $1.0 billion share repurchase program. In Q2 2026, management repurchased <strong>1.5 million Class A common shares for $234.6 million</strong> at an average price of $157.57 per share, leaving $760 million in remaining buyback capacity.</p>
+<p>This active repurchasing successfully offset the ~1.2 million RSUs vesting per quarter, keeping diluted weighted-average shares virtually flat year-over-year at 202.03 million shares (compared to 199.52 million in Q2 2025). Management has demonstrated disciplined capital allocation by utilizing organic cash flow to neutralize equity dilution rather than inflating cash balances unnecessarily.</p>
+<h3>Institutional Whale Ownership &amp; Insider Form 4 Filings</h3>
+<p>Auditing official SEC filings (Forms 13F, 13G, and Form 4) reveals strong institutional sponsorship and stable insider ownership alignment:</p>
+<ul>
+<li><strong>Institutional Whales (13F / 13G Audit):</strong>
+
+</li><li><strong>Advance Publications (Newhouse Family):</strong> Controls the core Class B super-voting stock, securing long-term strategic control and shielding management from short-term Wall Street pressure.</li><li><strong>Tencent Holdings Ltd:</strong> Holds 5.91 million shares (3.07% stake via Form 13G/A), down from 12.41 million shares in 2025 as Tencent systematically monetized early pre-IPO stakes without disrupting market orderly trading.</li><li><strong>Baillie Gifford &amp; Co.:</strong> Holds 7.19 million shares (3.74% ownership) as a long-term growth shareholder.</li><li><strong>BlackRock, Inc.:</strong> Holds ~7.66 million shares (3.98% stake in Q1 13F, with 13G disclosures indicating up to 6.74M–7.0M+ across active/passive portfolios).</li><li><strong>Vanguard Group:</strong> Holds an aggregate ~13.45 million shares (~6.99% total ownership) across Total Stock Market and Mid-Cap Index Funds.</li>
+<li><strong>Insider Form 4 Transactions:</strong> Recent Form 4 filings by CEO Steven Huffman and COO Jennifer Wong reflect routine Rule 10b5-1 pre-scheduled sell-to-cover transactions executed exclusively for tax withholding obligations tied to RSU vestings. No panic open-market insider dumping was detected following the post-Q2 earnings stock price volatility.</li>
+</ul>
+<h2>Section 5: Warren Buffett Owner Earnings Intrinsic Valuation Matrix</h2>
+<p>To value Reddit, Inc. (NYSE: RDDT) through the strict lens of Warren Buffett and Charlie Munger, we ignore Wall Street's short-term earnings momentum and price targets. Instead, we evaluate Reddit as an unquoted private enterprise, focusing entirely on its ability to generate durable, post-stock-based-compensation (SBC) cash streams over a multi-year horizon.</p>
+<h3>1. Buffett Owner Earnings Reconciliation (Q2 2026 &amp; TTM)</h3>
+<p>In his 1986 Berkshire Hathaway Shareholder Letter, Warren Buffett defined Owner Earnings as reported net income plus depreciation/amortization, minus required maintenance capital expenditures, plus or minus working capital changes required to maintain competitive positioning. Furthermore, under first-principles accounting, Stock-Based Compensation (SBC) is treated as a real cash expense and direct shareholder dilution factor (100% deduction).</p>
+<div class="metrics-grid">
 <div class="metric-card">
-<div class="metric-label">Operating Cash Flow</div>
+<div class="metric-label">Q2 2026 Operating Cash Flow</div>
 <div class="metric-value">$261.9M</div>
-<div class="metric-delta pos">+135.1% YoY</div>
+<div class="metric-delta pos">+135% YoY</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Q2 Capital Expenditures</div>
+<div class="metric-value">$1.1M</div>
+<div class="metric-delta pos">0.43% of OCF</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Q2 Stock-Based Comp (SBC)</div>
+<div class="metric-value">$101.0M</div>
+<div class="metric-delta neg">12.5% of Revenue</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Normalized Q2 Owner Earnings</div>
+<div class="metric-value">$159.8M</div>
+<div class="metric-delta pos">~$639M Annualized</div>
 </div>
 </div>
-<p>The operational engine saw broad-based expansion across key performance indicators:</p>
+<p>Reddit exhibits an extraordinarily capital-light operating structure. Because the company relies on third-party cloud infrastructure rather than owning physical data centers, CapEx was just $1.1 million in Q2 2026. Subtracting $101.0 million in SBC from Free Cash Flow ($260.7M) yields normalized Q2 Owner Earnings of $159.8 million. On a Trailing Twelve Month (TTM) basis, Reddit generated ~$1.05 billion in Operating Cash Flow and incurred ~$400 million in SBC, producing true post-SBC TTM Owner Earnings of <strong>$640.0 million</strong> (~$3.09 per diluted share on 207 million fully diluted shares).</p>
+<h3>2. Balance Sheet Reality Bridge &amp; Capital Structure</h3>
+<p>Reddit maintains a fortress, debt-free balance sheet:</p>
+<ul>
+<li><strong>Cash, Cash Equivalents &amp; Marketable Securities:</strong> $2,786.0 million ($13.46 per share).</li>
+<li><strong>Total Debt &amp; Capital/Operating Leases:</strong> $0 interest-bearing debt; $112.4 million in lease liabilities.</li>
+<li><strong>Net Cash Fortress Position:</strong> $2,673.6 million ($12.92 per share).</li>
+<li><strong>Capital Return Momentum:</strong> Repurchased 1.5 million shares for $235 million in Q2 2026 ($760 million remaining authorization).</li>
+</ul>
+<h3>3. Localized Sovereign Discount Rate Derivation</h3>
+<p>In accordance with Berkshire Hathaway's international capital allocation doctrine (e.g., PetroChina, Iscar), we ground the discount rate strictly in the sovereign bond yield of Reddit's primary operating currency:</p>
+<ul>
+<li><strong>US 10-Year Treasury Yield (Risk-Free Benchmark):</strong> 4.25%</li>
+<li><strong>Equity Risk Premium (ERP / Business Hurdle Rate):</strong> 4.75% – 5.75% (reflecting high organic growth balanced against search referral volatility and data licensing renewal risks).</li>
+<li><strong>Total Discount Rate (Hurdle Rate):</strong> <strong>9.0% – 10.0%</strong></li>
+</ul>
+<h3>4. Comprehensive 3-Scenario Intrinsic Valuation Matrix</h3>
+<p>The matrix below discounts 5-year projected Owner Earnings plus terminal value (Gordon Growth capped at long-term GDP growth of 2.0%–2.5%) and adds net cash per share ($12.92) to derive intrinsic equity value per share.</p>
 <div class="table-scroll-wrap"><table>
 <thead>
 <tr>
-<th>Operating Metric</th>
-<th>Q2 2026 Performance</th>
-<th>Q2 2025 Performance</th>
-<th>YoY Growth / Change</th>
+<th>Valuation Metric &amp; Assumptions</th>
+<th>Bear Case (Cycle Trough)</th>
+<th>Base Case (Normalized Reality)</th>
+<th>Bull Case (Optimistic Execution)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Advertising Revenue</strong></td>
-<td>$762.0M</td>
-<td>$464.6M</td>
-<td>+64.0% YoY</td>
+<td>5-Year Organic OE CAGR</td>
+<td>8.0%</td>
+<td>22.5%</td>
+<td>35.0%</td>
 </tr>
 <tr>
-<td><strong>Other Revenue (Data Licensing)</strong></td>
-<td>$42.9M</td>
-<td>$34.6M</td>
-<td>+24.0% YoY</td>
+<td>Annual Share Count Reduction</td>
+<td>0.5%</td>
+<td>2.0%</td>
+<td>3.5%</td>
 </tr>
 <tr>
-<td><strong>US Revenue</strong></td>
-<td>$638.1M</td>
-<td>$409.0M</td>
-<td>+56.0% YoY</td>
+<td>Discount Rate (Hurdle)</td>
+<td>10.0%</td>
+<td>9.5%</td>
+<td>9.0%</td>
 </tr>
 <tr>
-<td><strong>International Revenue</strong></td>
-<td>$166.8M</td>
-<td>$90.6M</td>
-<td>+84.0% YoY</td>
+<td>Terminal FCF Growth Rate</td>
+<td>2.0%</td>
+<td>2.5%</td>
+<td>2.5%</td>
 </tr>
 <tr>
-<td><strong>Global DAUq (Daily Uniques)</strong></td>
-<td>130.3M</td>
-<td>110.4M</td>
-<td>+18.0% YoY</td>
+<td><strong>Intrinsic Fair Value / Share</strong></td>
+<td><strong>$95.50</strong></td>
+<td><strong>$182.50</strong></td>
+<td><strong>$285.00</strong></td>
 </tr>
 <tr>
-<td><strong>Global WAUq (Weekly Uniques)</strong></td>
-<td>514.6M</td>
-<td>415.0M</td>
-<td>+24.0% YoY</td>
-</tr>
-<tr>
-<td><strong>Global ARPU</strong></td>
-<td>$6.18</td>
-<td>$4.54</td>
-<td>+36.1% YoY</td>
-</tr>
-<tr>
-<td><strong>US ARPU</strong></td>
-<td>$11.85</td>
-<td>$7.85</td>
-<td>+51.0% YoY</td>
+<td><strong>Margin of Safety vs Current Price ($156.04)</strong></td>
+<td><strong>-38.8%</strong></td>
+<td><strong>+14.5%</strong></td>
+<td><strong>+45.3%</strong></td>
 </tr>
 </tbody>
 </table></div>
-<p>Monetization density continues to surge. US Average Revenue Per User (ARPU) expanded by 51% YoY to $11.85, proving that Reddit's investments in context-based ad matching and automated lower-funnel tools are unlocking advertising budgets previously restricted to Meta and Google. While logged-out search referral traffic experienced volatility from Google AI Overviews updates late in the quarter, weekly active users (WAUq) crossed the 500 million milestone to 514.6 million, indicating a massive pool of addressable users converting into daily active habits over time.</p>
+<div class="callout">
+<strong>The 5-Year Market Closure Test:</strong> If the New York Stock Exchange were to close for 5 years, an investor buying Reddit at $156.04 today would rely entirely on the business generating $5.2 billion in cumulative post-SBC Owner Earnings over the next 5 years. Supported by $2.78B in net cash and a 91.3% gross margin ad stack (Reddit Max), the underlying business cash generation comfortably supports a 10%+ annualized compound return under Base Case assumptions without needing market multiple expansion.
 </div>
-<div class="section">
-<h2>Section 3: Real Cash Flow &amp; Stock-Based Compensation (SBC) Audit</h2>
-<p>To establish Warren Buffett's true <strong>Normalized Owner Earnings</strong>, we strictly treat Stock-Based Compensation (SBC) as a real cash expense and shareholder dilution factor. Unlike standard Wall Street presentations that add back SBC to present inflated Adjusted EBITDA, our Graham &amp; Buffett audit deducts 100% of SBC from Operating Cash Flow.</p>
+<h2>Section 6: Thesis Invalidation Pre-Mortem &amp; Falsification Triggers</h2>
+<h3>1. Pre-Mortem Analysis: How This Investment Thesis Could Fail</h3>
+<p>A rigorous pre-mortem assumes that five years from today, Reddit stock has severely underperformed the risk-free rate. The structural breakdown would stem from three primary vectors:</p>
+<ol>
+<li><strong>Google Search Index Disintermediation &amp; Referral Collapse:</strong> Reddit relies heavily on organic search traffic for user top-of-funnel discovery. If Google's AI Overviews (SGE) or competing AI answer engines answer user queries directly on search results pages without redirecting traffic to Reddit threads, logged-out Daily Active Uniques (DAUq) and top-of-funnel user acquisition will permanently contract.</li>
+<li><strong>Data Licensing Revenue Cliff &amp; Scrape Protection Standoff:</strong> Reddit currently monetizes its corpus of authentic human discussion via licensing deals with AI companies (e.g., Google, OpenAI). If AI developers shift to open-weight synthetic datasets or refuse to renew multi-year data licensing agreements at favorable terms, Reddit's high-margin "Other Revenue" ($43M in Q2) will stall.</li>
+<li><strong>Management SBC Dilution &amp; User Acquisition Cost Escalation:</strong> If Stock-Based Compensation remains elevated above 15% of revenue while paid marketing spend fails to generate durable, retained daily active users, cash conversion efficiency will erode.</li>
+</ol>
+<h3>2. Institutional Whale &amp; OpenInsider Alignment Audit</h3>
+<p>Verification of institutional 13F whale disclosures and OpenInsider SEC Form 4 filings reveals a nuanced picture:</p>
+<ul>
+<li><strong>Whale Position Accumulation:</strong> Top institutional holders maintain significant allocations. Vanguard portfolio management added 1.01M shares (+100%) and BlackRock held 7.02M shares (+636K shares added in recent filings), signaling institutional index and quantitative backing. However, hedge fund positioning showed mixed rebalancing, with Citadel adding while Millennium pruned.</li>
+<li><strong>Insider Sales Log (OpenInsider):</strong> CEO Steve Ladd Huffman and CTO Christopher Slowe have executed ongoing pre-arranged 10b5-1 stock sales. Huffman sold 18,000 shares at prices ranging between $159.78 and $183.18. Crucially, there have been <strong>zero open-market insider purchases</strong> by senior executives following the post-earnings sell-off, indicating management is content relying on equity grant vesting.</li>
+</ul>
+<h3>3. Explicit Falsification Triggers &amp; Operational Thresholds</h3>
+<p>The investment thesis MUST be downgraded to CAUTION / AVOID and capital reallocated if any of the following quantitative triggers are breached for two consecutive quarters:</p>
 <div class="table-scroll-wrap"><table>
 <thead>
 <tr>
-<th>Cash Flow Component</th>
-<th>Q2 2026 Actual</th>
-<th>TTM (Trailing 12 Months)</th>
-<th>Valuation Treatment / Rationale</th>
+<th>Operational &amp; Financial KPI</th>
+<th>Current Baseline (Q2 2026)</th>
+<th>Falsification Threshold (Thesis Breakdown)</th>
+<th>Primary Risk Impact</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Operating Cash Flow (GAAP)</strong></td>
-<td>$261.9M</td>
-<td>$1,020.0M</td>
-<td>Organic cash generated from core advertising operations.</td>
+<td>Gross Profit Margin</td>
+<td>91.3%</td>
+<td><strong>&lt; 88.0%</strong></td>
+<td>Erosion of high-margin ad tech unit economics</td>
 </tr>
 <tr>
-<td><strong>Capital Expenditures (CapEx)</strong></td>
-<td>-$1.1M</td>
-<td>-$10.5M</td>
-<td>Minimal physical infrastructure required; cloud hosted.</td>
+<td>SBC as % of Total Revenue</td>
+<td>12.5% ($101M)</td>
+<td><strong>&gt; 18.0%</strong></td>
+<td>Uncurbed shareholder dilution eroding Owner Earnings</td>
 </tr>
 <tr>
-<td><strong>Free Cash Flow (FCF)</strong></td>
-<td>$260.8M</td>
-<td>$1,009.5M</td>
-<td>Cash conversion exceeds 99.5% of operating cash flow.</td>
+<td>US Daily Active Uniques (DAUq)</td>
+<td>57.4M (Stagnant QoQ)</td>
+<td><strong>Decline &gt; 3.0% QoQ</strong></td>
+<td>Search traffic friction killing core domestic monetization</td>
 </tr>
 <tr>
-<td><strong>Stock-Based Compensation (SBC)</strong></td>
-<td>-$101.0M</td>
-<td>-$420.0M</td>
-<td><strong>100% Cash Deduction</strong> (SBC is a real dilution expense).</td>
+<td>Data Licensing "Other" Revenue Growth</td>
+<td>+24.0% YoY ($43M)</td>
+<td><strong>Contraction &lt; 0.0% YoY</strong></td>
+<td>Non-renewal or severe repricing of AI training data contracts</td>
 </tr>
 <tr>
-<td><strong>Normalized Owner Earnings</strong></td>
-<td><strong>$159.8M</strong></td>
-<td><strong>$589.5M</strong></td>
-<td><strong>True cash available to owners ($3.03 / share TTM)</strong>.</td>
+<td>Adjusted EBITDA Margin</td>
+<td>42.6% ($343M)</td>
+<td><strong>&lt; 32.0%</strong></td>
+<td>Loss of cost discipline and operational leverage</td>
 </tr>
 </tbody>
 </table></div>
-<p>Management lowered its full-year 2026 SBC outlook during the Q2 call, demonstrating improved operating leverage as share-based grants decline as a percentage of total revenue. At an annualized run-rate of ~$640M in Owner Earnings, Reddit is generating $3.28 per share in real cash yields—a powerful fundamental floor for a hyper-growth enterprise.</p>
+<h3>4. Execution Risk Rating &amp; Price Alert Corridors</h3>
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">Thesis Conviction</div>
+<div class="metric-value">Solid Conviction</div>
+<div class="metric-delta pos">High OE Conversion</div>
 </div>
-<div class="section">
-<h2>Section 4: Capital Allocation &amp; Balance Sheet Discipline</h2>
-<p>Reddit maintains an impregnable balance sheet. The company operates with <strong>zero interest-bearing long-term debt</strong> and holds a massive cash fortress
-</p></div>
+<div class="metric-card">
+<div class="metric-label">Economic Play</div>
+<div class="metric-value">Quality Compounder</div>
+<div class="metric-delta pos">Data &amp; Ad Monetization</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Execution Risk Rating</div>
+<div class="metric-value">Moderate-High</div>
+<div class="metric-delta neg">Google Dependence</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Margin of Safety</div>
+<div class="metric-value">+14.5%</div>
+<div class="metric-delta pos">Vs $182.50 Base Value</div>
+</div>
+</div>
+<div class="callout">
+<strong>Dynamic Price Alert Corridors &amp; Surveillance Triggers:</strong>
+<ul>
+<li><strong>Upper Alert Threshold ($182.50):</strong> Reaching the Base Case Intrinsic Value per share. Triggers an immediate disciplined trim protocol to realize gains as the market fully prices in normalized earnings.</li>
+<li><strong>Lower Alert Threshold ($115.00):</strong> Testing 52-week support lows. Triggers an urgent pre-mortem audit to verify whether the decline is caused by temporary search algorithm noise or permanent user/monetization loss. If operational metrics remain intact at $115.00, the Margin of Safety expands to an attractive +37%, creating an aggressive buy opportunity.</li>
+</ul>
+</div>
             </article>
         </div>
 
         <!-- History Content -->
         <div id="tab-history" class="tab-content">
             
-            <div class="history-entry history-entry-active">
-                <div class="history-top">
-                    <div class="history-tags">
-                        <span class="history-time">2026-08-12</span>
-                        <span class="history-price">$153.45</span>
-                        <span class="status-beacon beacon-buy" title="Action Signal: Strong Buy (Get in NOW / Thesis Accelerating)"><span class="beacon-ping"></span><span class="beacon-dot"></span></span>
-                        <span class="pill pill-active">Solid Conviction</span> <span class="pill pill-neutral">Cash Fortress</span> <span class="pill pill-neutral">Margin Expansion</span>
-                    </div>
-                    <button class="btn btn-subtle" onclick="toggleSnapshot(2)">Read Snapshot ▾</button>
-                </div>
-                <div class="history-content">
-                    <p class="history-shift-desc">The August 12, 2026 Form 8-K confirms an orderly Chief Legal Officer transition (Benjamin Lee stepping down, Paul Cappuccio appointed) with zero operational or financial disagreements. With Mr. Market discounting RDDT to $153.45 on routine legal C-suite turnover and search referral noise, the stock offers a wider Margin of Safety against Q2 revenue surging 61% YoY to $805M, $261M in quarterly FCF, and a $2.8B net cash fortress. We maintain our $185.00 Base Intrinsic Fair Value and confirm a green BUY signal.</p>
-                    
-                <div class="diff-grid">
-                    <div class="diff-box diff-prev">
-                        <div class="diff-label">PREVIOUS THESIS</div>
-                        <div class="diff-text">Reddit delivered explosive 61% YoY revenue growth to $805M in Q2 2026, generating $262M in operating cash flow with 91.3% gross margins and a $2.76B net cash fortress. Despite temporary search referral traffic volatility and flat US DAUq causing post-earnings stock weakness, RDDT's capital-light model, scaling performance ad engine (Reddit Max), and AI data licensing moat offer a compelling fundamental setup compounding toward a $185.00 base intrinsic fair value.</div>
-                    </div>
-                    <div class="diff-box diff-now">
-                        <div class="diff-label">THESIS EVOLUTION</div>
-                        <div class="diff-text">
-                            The August 12, 2026 Form 8-K confirms an orderly Chief Legal Officer transition (Benjamin Lee stepping down, Paul Cappuccio appointed) with zero operational or financial disagreements. With Mr. Market discounting RDDT to $153.45 on routine legal C-suite turnover and search referral noise, the stock offers a wider Margin of Safety against Q2 revenue surging 61% YoY to $805M, $261M in quarterly FCF, and a $2.8B net cash fortress. We maintain our $185.00 Base Intrinsic Fair Value and confirm a green BUY signal.
-                            
-                    <div style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border-color); font-size: 0.84rem;">
-                        <div style="font-weight: 500; color: var(--text-title); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-                            <span style="color: var(--accent-warm);">🏷️ Label & Conviction Evolution:</span>
-                            <div style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
-                                <span class="pill pill-neutral" style="font-size:0.75rem;">Moderate Conviction</span> <span class="pill pill-neutral" style="font-size:0.75rem;">Ad Monetization</span> <span class="pill pill-neutral" style="font-size:0.75rem;">Data Moat</span>
-                                <span style="color: var(--text-dim);">→</span>
-                                <span class="pill pill-active" style="font-size:0.75rem;">Solid Conviction</span> <span class="pill pill-active" style="font-size:0.75rem;">Cash Fortress</span> <span class="pill pill-active" style="font-size:0.75rem;">Margin Expansion</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                        </div>
-                    </div>
-                </div>
-                
-                    <div id="snapshot-2" class="snapshot-drawer" style="display: none;">
-                        <div class="snapshot-body">
-                            <div class="section">
-<h2>Section 1: Business Model, Scale Moat &amp; GenAI Transition</h2>
-<p>Reddit, Inc. (NYSE: RDDT) operates one of the world's largest repository of human-curated context, topical discussions, and community consensus. As generative AI models proliferate across the internet with synthetic content, authentic human experience and real-time discourse have transformed into an increasingly scarce economic asset. Reddit monetizes this digital city through two primary engines: an expanding performance digital advertising engine (representing ~95% of total revenue) and high-margin AI data licensing agreements with frontier LLM developers like Google and OpenAI.</p>
-<p>From a first-principles perspective, Reddit exhibits the quintessential characteristics of a capital-light economic moat: zero physical infrastructure inventory, user-generated content creation, self-moderating community governance structures, and extreme Operating Cash Flow conversion. The recent SEC Form 8-K filing on August 12, 2026 (Item 5.02) reported an orderly executive leadership transition in the legal department—Chief Legal Officer Benjamin Lee stepping down effective September 14, 2026, with veteran corporate legal chief Paul Cappuccio appointed to the role. Crucially, the filing confirmed zero disagreements between the departing officer and the board regarding operations, financial reporting, or corporate strategy.</p>
-<div class="callout">
-<strong>Benjamin Graham &amp; Warren Buffett Anti-Mr. Market Check:</strong> Mr. Market has knocked RDDT shares down to $153.45—a 20% decline from recent highs—conflating routine legal executive turnover and temporary Google search referral volatility with structural business impairment. Yet, evaluating Reddit under the 5-Year Market Closure Test reveals an enterprise generating $1.02B in trailing twelve-month operating cash flow, maintaining a $2.8B liquid cash fortress with zero interest-bearing debt, and compounding revenue at 61% YoY with 91.3% gross margins.
-  </div>
-</div>
-<div class="section">
-<h2>Section 2: Quarterly Operational Breakdown &amp; Segment Performance</h2>
-<p>In Q2 2026 (quarter ended June 30, 2026), Reddit delivered its eighth consecutive quarter of 60%+ YoY top-line growth. Financial results exceeded consensus expectations across every core metric, demonstrating powerful operating leverage as advertising automated solutions (Reddit Max) gained rapid adoption among performance advertisers.</p>
-<div class="metrics-grid">
-<div class="metric-card">
-<div class="metric-label">Q2 2026 Total Revenue</div>
-<div class="metric-value">$804.9M</div>
-<div class="metric-delta pos">+61.1% YoY</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">GAAP Gross Margin</div>
-<div class="metric-value">91.3%</div>
-<div class="metric-delta pos">+50 bps YoY</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">GAAP Net Income</div>
-<div class="metric-value">$252.8M</div>
-<div class="metric-delta pos">+183.2% YoY</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Operating Cash Flow</div>
-<div class="metric-value">$261.9M</div>
-<div class="metric-delta pos">+135.1% YoY</div>
-</div>
-</div>
-<p>The operational engine saw broad-based expansion across key performance indicators:</p>
-<div class="table-scroll-wrap"><table>
-<thead>
-<tr>
-<th>Operating Metric</th>
-<th>Q2 2026 Performance</th>
-<th>Q2 2025 Performance</th>
-<th>YoY Growth / Change</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Advertising Revenue</strong></td>
-<td>$762.0M</td>
-<td>$464.6M</td>
-<td>+64.0% YoY</td>
-</tr>
-<tr>
-<td><strong>Other Revenue (Data Licensing)</strong></td>
-<td>$42.9M</td>
-<td>$34.6M</td>
-<td>+24.0% YoY</td>
-</tr>
-<tr>
-<td><strong>US Revenue</strong></td>
-<td>$638.1M</td>
-<td>$409.0M</td>
-<td>+56.0% YoY</td>
-</tr>
-<tr>
-<td><strong>International Revenue</strong></td>
-<td>$166.8M</td>
-<td>$90.6M</td>
-<td>+84.0% YoY</td>
-</tr>
-<tr>
-<td><strong>Global DAUq (Daily Uniques)</strong></td>
-<td>130.3M</td>
-<td>110.4M</td>
-<td>+18.0% YoY</td>
-</tr>
-<tr>
-<td><strong>Global WAUq (Weekly Uniques)</strong></td>
-<td>514.6M</td>
-<td>415.0M</td>
-<td>+24.0% YoY</td>
-</tr>
-<tr>
-<td><strong>Global ARPU</strong></td>
-<td>$6.18</td>
-<td>$4.54</td>
-<td>+36.1% YoY</td>
-</tr>
-<tr>
-<td><strong>US ARPU</strong></td>
-<td>$11.85</td>
-<td>$7.85</td>
-<td>+51.0% YoY</td>
-</tr>
-</tbody>
-</table></div>
-<p>Monetization density continues to surge. US Average Revenue Per User (ARPU) expanded by 51% YoY to $11.85, proving that Reddit's investments in context-based ad matching and automated lower-funnel tools are unlocking advertising budgets previously restricted to Meta and Google. While logged-out search referral traffic experienced volatility from Google AI Overviews updates late in the quarter, weekly active users (WAUq) crossed the 500 million milestone to 514.6 million, indicating a massive pool of addressable users converting into daily active habits over time.</p>
-</div>
-<div class="section">
-<h2>Section 3: Real Cash Flow &amp; Stock-Based Compensation (SBC) Audit</h2>
-<p>To establish Warren Buffett's true <strong>Normalized Owner Earnings</strong>, we strictly treat Stock-Based Compensation (SBC) as a real cash expense and shareholder dilution factor. Unlike standard Wall Street presentations that add back SBC to present inflated Adjusted EBITDA, our Graham &amp; Buffett audit deducts 100% of SBC from Operating Cash Flow.</p>
-<div class="table-scroll-wrap"><table>
-<thead>
-<tr>
-<th>Cash Flow Component</th>
-<th>Q2 2026 Actual</th>
-<th>TTM (Trailing 12 Months)</th>
-<th>Valuation Treatment / Rationale</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Operating Cash Flow (GAAP)</strong></td>
-<td>$261.9M</td>
-<td>$1,020.0M</td>
-<td>Organic cash generated from core advertising operations.</td>
-</tr>
-<tr>
-<td><strong>Capital Expenditures (CapEx)</strong></td>
-<td>-$1.1M</td>
-<td>-$10.5M</td>
-<td>Minimal physical infrastructure required; cloud hosted.</td>
-</tr>
-<tr>
-<td><strong>Free Cash Flow (FCF)</strong></td>
-<td>$260.8M</td>
-<td>$1,009.5M</td>
-<td>Cash conversion exceeds 99.5% of operating cash flow.</td>
-</tr>
-<tr>
-<td><strong>Stock-Based Compensation (SBC)</strong></td>
-<td>-$101.0M</td>
-<td>-$420.0M</td>
-<td><strong>100% Cash Deduction</strong> (SBC is a real dilution expense).</td>
-</tr>
-<tr>
-<td><strong>Normalized Owner Earnings</strong></td>
-<td><strong>$159.8M</strong></td>
-<td><strong>$589.5M</strong></td>
-<td><strong>True cash available to owners ($3.03 / share TTM)</strong>.</td>
-</tr>
-</tbody>
-</table></div>
-<p>Management lowered its full-year 2026 SBC outlook during the Q2 call, demonstrating improved operating leverage as share-based grants decline as a percentage of total revenue. At an annualized run-rate of ~$640M in Owner Earnings, Reddit is generating $3.28 per share in real cash yields—a powerful fundamental floor for a hyper-growth enterprise.</p>
-</div>
-<div class="section">
-<h2>Section 4: Capital Allocation &amp; Balance Sheet Discipline</h2>
-<p>Reddit maintains an impregnable balance sheet. The company operates with <strong>zero interest-bearing long-term debt</strong> and holds a massive cash fortress
-</p></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
+        <div class="empty-state-box" style="background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px; padding: 75px 24px;">
+            <div class="empty-state-title">Initial Baseline Active</div>
+            <div class="empty-state-sub">Version 1 represents the initial underwriting thesis. Future revisions, price trigger reviews, and catalyst audits will be logged here</div>
+        </div>
+        
         </div>
 
         <!-- Ownership & Fund Intel Content -->
@@ -1643,7 +1672,7 @@
             <div class="ownership-stat-grid">
                 <div class="stat-box">
                     <span class="stat-label">Institutional Float</span>
-                    <span class="stat-num">62.5%</span>
+                    <span class="stat-num">74.8%</span>
                     <span class="stat-note">Tracked across SEC 13F Filings</span>
                 </div>
                 <div class="stat-box">
@@ -1653,7 +1682,7 @@
                 </div>
                 <div class="stat-box">
                     <span class="stat-label">Whale & Superinvestor Tracking</span>
-                    <span class="stat-num" style="color: var(--accent-warm);">15 Funds Tracked</span>
+                    <span class="stat-num" style="color: var(--accent-warm);">2 Funds Tracked</span>
                     <span class="stat-note">100 Recent Form 4 Transactions Audited</span>
                 </div>
             </div>
@@ -1675,7 +1704,7 @@
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">🏛️</span>
-                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (15)</h3>
+                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (2)</h3>
             </div>
             <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, Dataroma superinvestor portfolios, and regulatory ownership registries.</p>
             <div class="table-responsive">
@@ -1695,173 +1724,13 @@
                         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">BlackRock, Inc.</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">4.0%</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">7,660,000</td>
-            <td><span style='color: var(--accent-green);'>Increased +12.4%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$1.21B</td>
-            <td>
-                <a href="https://whalewisdom.com/stock/rddt" target="_blank" rel="noopener noreferrer" class="link-out">
-                    View 13F ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Baillie Gifford & Co</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Asset Manager</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">3.8%</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">7,310,000</td>
-            <td><span style='color: var(--accent-green);'>Increased +22.2%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$1.16B</td>
-            <td>
-                <a href="https://whalewisdom.com/stock/rddt" target="_blank" rel="noopener noreferrer" class="link-out">
-                    View 13F ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Vanguard Group Inc.</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">3.5%</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">6,730,000</td>
-            <td><span style='color: var(--accent-green);'>Increased +15.5%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$1.07B</td>
-            <td>
-                <a href="https://whalewisdom.com/stock/rddt" target="_blank" rel="noopener noreferrer" class="link-out">
-                    View 13F ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">AllianceBernstein L.P.</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Asset Manager</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">2.5%</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">4,870,000</td>
-            <td><span style='color: var(--accent-green);'>Increased +56.6%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$773.0M</td>
-            <td>
-                <a href="https://whalewisdom.com/stock/rddt" target="_blank" rel="noopener noreferrer" class="link-out">
-                    View 13F ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Capital World Investors</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Mutual Fund</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">2.3%</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">4,420,000</td>
-            <td><span style='color: var(--accent-red);'>Decreased -21.3%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$701.5M</td>
-            <td>
-                <a href="https://whalewisdom.com/stock/rddt" target="_blank" rel="noopener noreferrer" class="link-out">
-                    View 13F ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">JPMorgan Chase & Co.</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Investment Bank</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">2.3%</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">4,400,000</td>
-            <td><span style='color: var(--accent-green);'>Increased +4.2%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$698.3M</td>
-            <td>
-                <a href="https://whalewisdom.com/stock/rddt" target="_blank" rel="noopener noreferrer" class="link-out">
-                    View 13F ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Goldman Sachs Group Inc.</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Investment Bank</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.7%</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">3,280,000</td>
-            <td><span style='color: var(--accent-green);'>Increased +9.1%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$520.6M</td>
-            <td>
-                <a href="https://whalewisdom.com/stock/rddt" target="_blank" rel="noopener noreferrer" class="link-out">
-                    View 13F ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">FMR LLC (Fidelity)</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Asset Manager</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.5%</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">2,920,000</td>
-            <td><span style='color: var(--accent-red);'>Decreased -70.5%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$463.5M</td>
-            <td>
-                <a href="https://whalewisdom.com/stock/rddt" target="_blank" rel="noopener noreferrer" class="link-out">
-                    View 13F ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Coatue Management LLC</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Hedge Fund</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.5%</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">2,790,000</td>
-            <td><span style='color: var(--accent-red);'>Decreased -74.8%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$442.8M</td>
-            <td>
-                <a href="https://whalewisdom.com/stock/rddt" target="_blank" rel="noopener noreferrer" class="link-out">
-                    View 13F ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Viking Global Investors LP</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Hedge Fund</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.3%</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">2,550,000</td>
-            <td><span style='color: var(--accent-green);'>Increased +18.7%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$404.7M</td>
-            <td>
-                <a href="https://whalewisdom.com/stock/rddt" target="_blank" rel="noopener noreferrer" class="link-out">
-                    View 13F ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
                 <div style="font-weight: 500; color: var(--text-title);">Chase Coleman - Tiger Global Management</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.47%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.47</td>
             <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">2,500,000</td>
             <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 34.96%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$336,625,000</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">336,625,000</td>
             <td>
                 <a href="https://www.dataroma.com/m/stock.php?sym=RDDT" target="_blank" rel="noopener noreferrer" class="link-out">
                     View 13F ↗
@@ -1874,60 +1743,12 @@
                 <div style="font-weight: 500; color: var(--text-title);">Viking Global Investors</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.96%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.96</td>
             <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">2,551,617</td>
             <td><span style="color: var(--accent-green); font-weight: 500;">Buy</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$343,575,000</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">343,575,000</td>
             <td>
                 <a href="https://www.dataroma.com/m/stock.php?sym=RDDT" target="_blank" rel="noopener noreferrer" class="link-out">
-                    View 13F ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Advance Publications (30.1%)</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Asset Manager</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
-            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
-            <td>
-                <a href="https://whalewisdom.com/stock/rddt" target="_blank" rel="noopener noreferrer" class="link-out">
-                    View 13F ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">T. Rowe Price (8.4%)</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Asset Manager</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
-            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
-            <td>
-                <a href="https://whalewisdom.com/stock/rddt" target="_blank" rel="noopener noreferrer" class="link-out">
-                    View 13F ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Vanguard Group (7.2%)</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
-            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
-            <td>
-                <a href="https://whalewisdom.com/stock/rddt" target="_blank" rel="noopener noreferrer" class="link-out">
                     View 13F ↗
                 </a>
             </td>
@@ -2742,8 +2563,8 @@
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
                     Substack / Amitsdeepdives · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://substack.com/search/RDDT%20Reddit%2C%20Inc.%20investment%20thesis" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Substack Search ↗
+                <a href="https://amitsdeepdives.substack.com/p/rddt-the-front-page-of-the-internet" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Memo ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
@@ -2776,12 +2597,12 @@
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
                     Substack / Michaelwigginsdeoliveira · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://www.reddit.com/r/ValueInvesting/search/?q=RDDT&restrict_sr=1&sort=top" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Reddit DDs ↗
+                <a href="https://michaelwigginsdeoliveira.substack.com/p/reddit-is-ready-to-inflect-higher" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Memo ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
-                Reddit: Forget The Noise, 40% Growth + $1B FCF
+                Reddit Is Ready To Inflect Higher — Here&#x27;s Why I&#x27;m Buying
             </h4>
             <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
                 Comprehensive independent fundamental study of Reddit, Inc.'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
@@ -2791,14 +2612,14 @@
         <div class="writeup-card">
             <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
-                    Substack / Optionsoracle · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                    Substack / Growthstockdeepdives · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://www.reddit.com/r/ValueInvesting/search/?q=RDDT&restrict_sr=1&sort=top" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Reddit DDs ↗
+                <a href="https://growthstockdeepdives.substack.com/p/part-2-deep-dive-on-reddit-rddt" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Memo ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
-                Deep Dive RDDT: Reddit’s Sudden Collapse Put It on My Radar
+                Part 2: Deep dive on Reddit (RDDT)
             </h4>
             <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
                 Comprehensive independent fundamental study of Reddit, Inc.'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
