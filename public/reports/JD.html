@@ -1032,16 +1032,16 @@
             <div class="hero-top-row">
                 <div>
                     <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-                        <span class="ticker-symbol">JD</span>
-                        <span class="pill pill-active">High Conviction</span> <span class="pill pill-neutral">Deep Value</span> <span class="pill pill-neutral">Buyback Cannibal</span>
+                        <span class="ticker-symbol">JD<span class="status-beacon beacon-buy" title="Action Signal: Strong Buy (Get in NOW / Thesis Accelerating)"><span class="beacon-ping"></span><span class="beacon-dot"></span></span></span>
+                        <span class="pill pill-active">High Conviction</span> <span class="pill pill-neutral">Buyback Cannibal</span> <span class="pill pill-neutral">Margin Expansion</span>
                         <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="View Investment Taxonomy & Labels Legend">ⓘ</button>
                     </div>
                     <div class="company-meta">JD.com, Inc.</div>
                 </div>
                 <div class="price-callout">
-                    <div class="price-number">$29.13</div>
+                    <div class="price-number">$29.30</div>
                     <div class="price-sub neg">
-                        -11.65% vs Genesis
+                        -11.13% vs Genesis
                     </div>
                 </div>
             </div>
@@ -1051,7 +1051,7 @@
     <div class="native-chart-wrap" id="chart-container">
         <div class="chart-top-bar">
             <div id="chart-live-val" class="chart-live-val">
-                <span id="tooltip-date">Aug 13, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$29.14</strong>
+                <span id="tooltip-date">Aug 13, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$29.30</strong>
             </div>
             <div class="chart-range-pills">
                 <button class="range-pill active" onclick="switchChartRange('1Y')">1Y</button>
@@ -1080,15 +1080,15 @@
             <circle id="hover-dot" r="4.5" fill="#CC785C" stroke="#1E1C19" stroke-width="2" style="display: none;" />
         </svg>
         <div class="chart-labels">
-            <span id="chart-start-lbl">Aug 13, 2025 ($25.19)</span>
+            <span id="chart-start-lbl">Aug 14, 2025 ($25.19)</span>
             <span id="chart-range-title">1-Year Historical Range</span>
-            <span id="chart-end-lbl">Aug 13, 2026 ($29.14)</span>
+            <span id="chart-end-lbl">Aug 13, 2026 ($29.30)</span>
         </div>
     </div>
 
     <script>
     (function() {
-        const allDatasets = {"1Y": [{"date": "Aug 13, 2025", "price": 32.51}, {"date": "Aug 14, 2025", "price": 31.58}, {"date": "Aug 15, 2025", "price": 31.7}, {"date": "Aug 18, 2025", "price": 31.77}, {"date": "Aug 19, 2025", "price": 31.24}, {"date": "Aug 20, 2025", "price": 31.17}, {"date": "Aug 21, 2025", "price": 31.18}, {"date": "Aug 22, 2025", "price": 31.88}, {"date": "Aug 25, 2025", "price": 31.99}, {"date": "Aug 26, 2025", "price": 31.81}, {"date": "Aug 27, 2025", "price": 30.82}, {"date": "Aug 28, 2025", "price": 30.39}, {"date": "Aug 29, 2025", "price": 31.07}, {"date": "Sep 02, 2025", "price": 31.58}, {"date": "Sep 03, 2025", "price": 31.2}, {"date": "Sep 04, 2025", "price": 30.93}, {"date": "Sep 05, 2025", "price": 31.45}, {"date": "Sep 08, 2025", "price": 32.85}, {"date": "Sep 09, 2025", "price": 33.87}, {"date": "Sep 10, 2025", "price": 33.32}, {"date": "Sep 11, 2025", "price": 34.4}, {"date": "Sep 12, 2025", "price": 33.67}, {"date": "Sep 15, 2025", "price": 33.62}, {"date": "Sep 16, 2025", "price": 34.71}, {"date": "Sep 17, 2025", "price": 35.24}, {"date": "Sep 18, 2025", "price": 35.38}, {"date": "Sep 19, 2025", "price": 35.1}, {"date": "Sep 22, 2025", "price": 33.93}, {"date": "Sep 23, 2025", "price": 32.94}, {"date": "Sep 24, 2025", "price": 34.83}, {"date": "Sep 25, 2025", "price": 35.17}, {"date": "Sep 26, 2025", "price": 34.5}, {"date": "Sep 29, 2025", "price": 35.64}, {"date": "Sep 30, 2025", "price": 34.98}, {"date": "Oct 01, 2025", "price": 36.17}, {"date": "Oct 02, 2025", "price": 35.98}, {"date": "Oct 03, 2025", "price": 35.4}, {"date": "Oct 06, 2025", "price": 35.91}, {"date": "Oct 07, 2025", "price": 34.89}, {"date": "Oct 08, 2025", "price": 34.98}, {"date": "Oct 09, 2025", "price": 33.97}, {"date": "Oct 10, 2025", "price": 31.85}, {"date": "Oct 13, 2025", "price": 33.25}, {"date": "Oct 14, 2025", "price": 32.71}, {"date": "Oct 15, 2025", "price": 33.14}, {"date": "Oct 16, 2025", "price": 32.74}, {"date": "Oct 17, 2025", "price": 33.07}, {"date": "Oct 20, 2025", "price": 33.76}, {"date": "Oct 21, 2025", "price": 32.83}, {"date": "Oct 22, 2025", "price": 32.46}, {"date": "Oct 23, 2025", "price": 33.18}, {"date": "Oct 24, 2025", "price": 33.19}, {"date": "Oct 27, 2025", "price": 34.2}, {"date": "Oct 28, 2025", "price": 34.53}, {"date": "Oct 29, 2025", "price": 34.36}, {"date": "Oct 30, 2025", "price": 33.37}, {"date": "Oct 31, 2025", "price": 33.04}, {"date": "Nov 03, 2025", "price": 32.78}, {"date": "Nov 04, 2025", "price": 31.82}, {"date": "Nov 05, 2025", "price": 32.04}, {"date": "Nov 06, 2025", "price": 31.95}, {"date": "Nov 07, 2025", "price": 31.79}, {"date": "Nov 10, 2025", "price": 31.41}, {"date": "Nov 11, 2025", "price": 31.61}, {"date": "Nov 12, 2025", "price": 31.25}, {"date": "Nov 13, 2025", "price": 30.71}, {"date": "Nov 14, 2025", "price": 29.31}, {"date": "Nov 17, 2025", "price": 29.54}, {"date": "Nov 18, 2025", "price": 29.45}, {"date": "Nov 19, 2025", "price": 28.88}, {"date": "Nov 20, 2025", "price": 28.39}, {"date": "Nov 21, 2025", "price": 28.93}, {"date": "Nov 24, 2025", "price": 29.06}, {"date": "Nov 25, 2025", "price": 29.14}, {"date": "Nov 26, 2025", "price": 29.42}, {"date": "Nov 28, 2025", "price": 29.83}, {"date": "Dec 01, 2025", "price": 29.89}, {"date": "Dec 02, 2025", "price": 30.05}, {"date": "Dec 03, 2025", "price": 29.87}, {"date": "Dec 04, 2025", "price": 29.74}, {"date": "Dec 05, 2025", "price": 29.9}, {"date": "Dec 08, 2025", "price": 29.92}, {"date": "Dec 09, 2025", "price": 29.7}, {"date": "Dec 10, 2025", "price": 29.61}, {"date": "Dec 11, 2025", "price": 29.54}, {"date": "Dec 12, 2025", "price": 29.44}, {"date": "Dec 15, 2025", "price": 28.85}, {"date": "Dec 16, 2025", "price": 28.85}, {"date": "Dec 17, 2025", "price": 28.6}, {"date": "Dec 18, 2025", "price": 28.8}, {"date": "Dec 19, 2025", "price": 28.82}, {"date": "Dec 22, 2025", "price": 29.09}, {"date": "Dec 23, 2025", "price": 29.08}, {"date": "Dec 24, 2025", "price": 29.17}, {"date": "Dec 26, 2025", "price": 29.4}, {"date": "Dec 29, 2025", "price": 29.27}, {"date": "Dec 30, 2025", "price": 28.71}, {"date": "Dec 31, 2025", "price": 28.7}, {"date": "Jan 02, 2026", "price": 29.53}, {"date": "Jan 05, 2026", "price": 29.65}, {"date": "Jan 06, 2026", "price": 29.6}, {"date": "Jan 07, 2026", "price": 29.03}, {"date": "Jan 08, 2026", "price": 29.67}, {"date": "Jan 09, 2026", "price": 29.45}, {"date": "Jan 12, 2026", "price": 30.73}, {"date": "Jan 13, 2026", "price": 29.88}, {"date": "Jan 14, 2026", "price": 29.83}, {"date": "Jan 15, 2026", "price": 29.41}, {"date": "Jan 16, 2026", "price": 28.9}, {"date": "Jan 20, 2026", "price": 28.38}, {"date": "Jan 21, 2026", "price": 29.07}, {"date": "Jan 22, 2026", "price": 30.0}, {"date": "Jan 23, 2026", "price": 29.84}, {"date": "Jan 26, 2026", "price": 29.78}, {"date": "Jan 27, 2026", "price": 29.5}, {"date": "Jan 28, 2026", "price": 29.23}, {"date": "Jan 29, 2026", "price": 29.07}, {"date": "Jan 30, 2026", "price": 28.48}, {"date": "Feb 02, 2026", "price": 28.53}, {"date": "Feb 03, 2026", "price": 28.04}, {"date": "Feb 04, 2026", "price": 27.55}, {"date": "Feb 05, 2026", "price": 27.32}, {"date": "Feb 06, 2026", "price": 28.07}, {"date": "Feb 09, 2026", "price": 28.01}, {"date": "Feb 10, 2026", "price": 28.35}, {"date": "Feb 11, 2026", "price": 28.27}, {"date": "Feb 12, 2026", "price": 27.52}, {"date": "Feb 13, 2026", "price": 27.14}, {"date": "Feb 17, 2026", "price": 27.33}, {"date": "Feb 18, 2026", "price": 27.41}, {"date": "Feb 19, 2026", "price": 27.27}, {"date": "Feb 20, 2026", "price": 27.41}, {"date": "Feb 23, 2026", "price": 27.23}, {"date": "Feb 24, 2026", "price": 27.52}, {"date": "Feb 25, 2026", "price": 27.54}, {"date": "Feb 26, 2026", "price": 26.98}, {"date": "Feb 27, 2026", "price": 26.53}, {"date": "Mar 02, 2026", "price": 26.35}, {"date": "Mar 03, 2026", "price": 25.64}, {"date": "Mar 04, 2026", "price": 25.4}, {"date": "Mar 05, 2026", "price": 25.47}, {"date": "Mar 06, 2026", "price": 27.03}, {"date": "Mar 09, 2026", "price": 27.47}, {"date": "Mar 10, 2026", "price": 27.73}, {"date": "Mar 11, 2026", "price": 28.11}, {"date": "Mar 12, 2026", "price": 27.94}, {"date": "Mar 13, 2026", "price": 28.32}, {"date": "Mar 16, 2026", "price": 28.49}, {"date": "Mar 17, 2026", "price": 28.54}, {"date": "Mar 18, 2026", "price": 28.2}, {"date": "Mar 19, 2026", "price": 28.02}, {"date": "Mar 20, 2026", "price": 27.27}, {"date": "Mar 23, 2026", "price": 27.54}, {"date": "Mar 24, 2026", "price": 27.47}, {"date": "Mar 25, 2026", "price": 29.75}, {"date": "Mar 26, 2026", "price": 29.18}, {"date": "Mar 27, 2026", "price": 28.7}, {"date": "Mar 30, 2026", "price": 28.94}, {"date": "Mar 31, 2026", "price": 29.57}, {"date": "Apr 01, 2026", "price": 28.87}, {"date": "Apr 02, 2026", "price": 28.46}, {"date": "Apr 06, 2026", "price": 28.51}, {"date": "Apr 07, 2026", "price": 28.46}, {"date": "Apr 08, 2026", "price": 29.05}, {"date": "Apr 09, 2026", "price": 28.34}, {"date": "Apr 10, 2026", "price": 28.93}, {"date": "Apr 13, 2026", "price": 28.94}, {"date": "Apr 14, 2026", "price": 31.25}, {"date": "Apr 15, 2026", "price": 31.47}, {"date": "Apr 16, 2026", "price": 31.33}, {"date": "Apr 17, 2026", "price": 31.6}, {"date": "Apr 20, 2026", "price": 31.37}, {"date": "Apr 21, 2026", "price": 30.52}, {"date": "Apr 22, 2026", "price": 30.61}, {"date": "Apr 23, 2026", "price": 29.98}, {"date": "Apr 24, 2026", "price": 30.27}, {"date": "Apr 27, 2026", "price": 29.75}, {"date": "Apr 28, 2026", "price": 29.73}, {"date": "Apr 29, 2026", "price": 29.7}, {"date": "Apr 30, 2026", "price": 30.32}, {"date": "May 01, 2026", "price": 29.96}, {"date": "May 04, 2026", "price": 30.04}, {"date": "May 05, 2026", "price": 29.68}, {"date": "May 06, 2026", "price": 30.69}, {"date": "May 07, 2026", "price": 30.21}, {"date": "May 08, 2026", "price": 30.13}, {"date": "May 11, 2026", "price": 30.53}, {"date": "May 12, 2026", "price": 31.49}, {"date": "May 13, 2026", "price": 33.77}, {"date": "May 14, 2026", "price": 32.86}, {"date": "May 15, 2026", "price": 32.01}, {"date": "May 18, 2026", "price": 31.6}, {"date": "May 19, 2026", "price": 32.38}, {"date": "May 20, 2026", "price": 32.46}, {"date": "May 21, 2026", "price": 31.47}, {"date": "May 22, 2026", "price": 30.52}, {"date": "May 26, 2026", "price": 29.99}, {"date": "May 27, 2026", "price": 29.84}, {"date": "May 28, 2026", "price": 29.14}, {"date": "May 29, 2026", "price": 28.83}, {"date": "Jun 01, 2026", "price": 29.09}, {"date": "Jun 02, 2026", "price": 30.15}, {"date": "Jun 03, 2026", "price": 29.41}, {"date": "Jun 04, 2026", "price": 29.19}, {"date": "Jun 05, 2026", "price": 28.88}, {"date": "Jun 08, 2026", "price": 28.59}, {"date": "Jun 09, 2026", "price": 28.73}, {"date": "Jun 10, 2026", "price": 28.45}, {"date": "Jun 11, 2026", "price": 28.06}, {"date": "Jun 12, 2026", "price": 28.56}, {"date": "Jun 15, 2026", "price": 28.68}, {"date": "Jun 16, 2026", "price": 28.38}, {"date": "Jun 17, 2026", "price": 27.91}, {"date": "Jun 18, 2026", "price": 27.57}, {"date": "Jun 22, 2026", "price": 27.02}, {"date": "Jun 23, 2026", "price": 26.12}, {"date": "Jun 24, 2026", "price": 25.48}, {"date": "Jun 25, 2026", "price": 25.19}, {"date": "Jun 26, 2026", "price": 25.39}, {"date": "Jun 29, 2026", "price": 25.25}, {"date": "Jun 30, 2026", "price": 25.48}, {"date": "Jul 01, 2026", "price": 26.31}, {"date": "Jul 02, 2026", "price": 26.62}, {"date": "Jul 06, 2026", "price": 26.78}, {"date": "Jul 07, 2026", "price": 26.49}, {"date": "Jul 08, 2026", "price": 27.63}, {"date": "Jul 09, 2026", "price": 27.74}, {"date": "Jul 10, 2026", "price": 28.2}, {"date": "Jul 13, 2026", "price": 28.88}, {"date": "Jul 14, 2026", "price": 28.84}, {"date": "Jul 15, 2026", "price": 29.28}, {"date": "Jul 16, 2026", "price": 29.68}, {"date": "Jul 17, 2026", "price": 29.62}, {"date": "Jul 20, 2026", "price": 30.6}, {"date": "Jul 21, 2026", "price": 30.43}, {"date": "Jul 22, 2026", "price": 30.15}, {"date": "Jul 23, 2026", "price": 30.09}, {"date": "Jul 24, 2026", "price": 30.19}, {"date": "Jul 27, 2026", "price": 30.95}, {"date": "Jul 28, 2026", "price": 31.79}, {"date": "Jul 29, 2026", "price": 32.2}, {"date": "Jul 30, 2026", "price": 32.31}, {"date": "Jul 31, 2026", "price": 33.01}, {"date": "Aug 03, 2026", "price": 33.02}, {"date": "Aug 04, 2026", "price": 32.97}, {"date": "Aug 05, 2026", "price": 32.54}, {"date": "Aug 06, 2026", "price": 32.81}, {"date": "Aug 07, 2026", "price": 32.97}, {"date": "Aug 10, 2026", "price": 33.47}, {"date": "Aug 11, 2026", "price": 31.92}, {"date": "Aug 12, 2026", "price": 31.61}, {"date": "Aug 13, 2026", "price": 29.14}], "5Y": [{"date": "Aug 08, 2021", "price": 69.86}, {"date": "Aug 15, 2021", "price": 63.62}, {"date": "Aug 22, 2021", "price": 76.43}, {"date": "Aug 29, 2021", "price": 79.86}, {"date": "Sep 05, 2021", "price": 80.64}, {"date": "Sep 12, 2021", "price": 77.69}, {"date": "Sep 19, 2021", "price": 73.98}, {"date": "Sep 26, 2021", "price": 70.02}, {"date": "Oct 03, 2021", "price": 78.61}, {"date": "Oct 10, 2021", "price": 81.42}, {"date": "Oct 17, 2021", "price": 83.07}, {"date": "Oct 24, 2021", "price": 78.28}, {"date": "Oct 31, 2021", "price": 77.57}, {"date": "Nov 07, 2021", "price": 85.95}, {"date": "Nov 14, 2021", "price": 91.55}, {"date": "Nov 21, 2021", "price": 88.67}, {"date": "Nov 28, 2021", "price": 77.95}, {"date": "Dec 05, 2021", "price": 79.71}, {"date": "Dec 12, 2021", "price": 71.04}, {"date": "Dec 19, 2021", "price": 68.65}, {"date": "Dec 26, 2021", "price": 70.07}, {"date": "Jan 02, 2022", "price": 68.24}, {"date": "Jan 09, 2022", "price": 73.72}, {"date": "Jan 16, 2022", "price": 73.46}, {"date": "Jan 23, 2022", "price": 69.34}, {"date": "Jan 30, 2022", "price": 73.77}, {"date": "Feb 06, 2022", "price": 73.98}, {"date": "Feb 13, 2022", "price": 71.86}, {"date": "Feb 20, 2022", "price": 72.5}, {"date": "Feb 27, 2022", "price": 63.59}, {"date": "Mar 06, 2022", "price": 47.99}, {"date": "Mar 13, 2022", "price": 65.13}, {"date": "Mar 20, 2022", "price": 59.92}, {"date": "Mar 27, 2022", "price": 59.09}, {"date": "Apr 03, 2022", "price": 56.54}, {"date": "Apr 10, 2022", "price": 56.56}, {"date": "Apr 17, 2022", "price": 52.04}, {"date": "Apr 24, 2022", "price": 61.66}, {"date": "May 01, 2022", "price": 55.61}, {"date": "May 08, 2022", "price": 51.55}, {"date": "May 15, 2022", "price": 52.17}, {"date": "May 22, 2022", "price": 53.68}, {"date": "May 29, 2022", "price": 56.52}, {"date": "Jun 05, 2022", "price": 61.51}, {"date": "Jun 12, 2022", "price": 65.23}, {"date": "Jun 19, 2022", "price": 64.01}, {"date": "Jun 26, 2022", "price": 65.95}, {"date": "Jul 03, 2022", "price": 62.01}, {"date": "Jul 10, 2022", "price": 60.26}, {"date": "Jul 17, 2022", "price": 61.58}, {"date": "Jul 24, 2022", "price": 59.5}, {"date": "Jul 31, 2022", "price": 61.91}, {"date": "Aug 07, 2022", "price": 57.05}, {"date": "Aug 14, 2022", "price": 54.7}, {"date": "Aug 21, 2022", "price": 63.46}, {"date": "Aug 28, 2022", "price": 61.29}, {"date": "Sep 04, 2022", "price": 60.41}, {"date": "Sep 11, 2022", "price": 55.37}, {"date": "Sep 18, 2022", "price": 52.31}, {"date": "Sep 25, 2022", "price": 50.3}, {"date": "Oct 02, 2022", "price": 49.91}, {"date": "Oct 09, 2022", "price": 42.33}, {"date": "Oct 16, 2022", "price": 42.15}, {"date": "Oct 23, 2022", "price": 37.86}, {"date": "Oct 30, 2022", "price": 44.38}, {"date": "Nov 06, 2022", "price": 48.93}, {"date": "Nov 13, 2022", "price": 56.07}, {"date": "Nov 20, 2022", "price": 49.48}, {"date": "Nov 27, 2022", "price": 58.64}, {"date": "Dec 04, 2022", "price": 58.32}, {"date": "Dec 11, 2022", "price": 56.59}, {"date": "Dec 18, 2022", "price": 56.44}, {"date": "Dec 25, 2022", "price": 56.13}, {"date": "Jan 01, 2023", "price": 64.3}, {"date": "Jan 08, 2023", "price": 63.6}, {"date": "Jan 15, 2023", "price": 60.43}, {"date": "Jan 22, 2023", "price": 63.74}, {"date": "Jan 29, 2023", "price": 57.63}, {"date": "Feb 05, 2023", "price": 52.29}, {"date": "Feb 12, 2023", "price": 53.02}, {"date": "Feb 19, 2023", "price": 44.8}, {"date": "Feb 26, 2023", "price": 47.46}, {"date": "Mar 05, 2023", "price": 40.47}, {"date": "Mar 12, 2023", "price": 38.83}, {"date": "Mar 19, 2023", "price": 40.29}, {"date": "Mar 26, 2023", "price": 43.89}, {"date": "Apr 02, 2023", "price": 40.76}, {"date": "Apr 09, 2023", "price": 36.85}, {"date": "Apr 16, 2023", "price": 35.63}, {"date": "Apr 23, 2023", "price": 35.72}, {"date": "Apr 30, 2023", "price": 35.88}, {"date": "May 07, 2023", "price": 35.3}, {"date": "May 14, 2023", "price": 35.06}, {"date": "May 21, 2023", "price": 33.1}, {"date": "May 28, 2023", "price": 35.43}, {"date": "Jun 04, 2023", "price": 36.58}, {"date": "Jun 11, 2023", "price": 39.85}, {"date": "Jun 18, 2023", "price": 34.87}, {"date": "Jun 25, 2023", "price": 34.13}, {"date": "Jul 02, 2023", "price": 35.76}, {"date": "Jul 09, 2023", "price": 38.14}, {"date": "Jul 16, 2023", "price": 37.07}, {"date": "Jul 23, 2023", "price": 40.53}, {"date": "Jul 30, 2023", "price": 39.09}, {"date": "Aug 06, 2023", "price": 36.46}, {"date": "Aug 13, 2023", "price": 33.11}, {"date": "Aug 20, 2023", "price": 32.96}, {"date": "Aug 27, 2023", "price": 34.1}, {"date": "Sep 03, 2023", "price": 32.4}, {"date": "Sep 10, 2023", "price": 31.57}, {"date": "Sep 17, 2023", "price": 30.41}, {"date": "Sep 24, 2023", "price": 29.13}, {"date": "Oct 01, 2023", "price": 29.61}, {"date": "Oct 08, 2023", "price": 27.05}, {"date": "Oct 15, 2023", "price": 24.38}, {"date": "Oct 22, 2023", "price": 25.65}, {"date": "Oct 29, 2023", "price": 26.94}, {"date": "Nov 05, 2023", "price": 25.76}, {"date": "Nov 12, 2023", "price": 27.61}, {"date": "Nov 19, 2023", "price": 28.76}, {"date": "Nov 26, 2023", "price": 27.16}, {"date": "Dec 03, 2023", "price": 26.45}, {"date": "Dec 10, 2023", "price": 27.41}, {"date": "Dec 17, 2023", "price": 27.59}, {"date": "Dec 24, 2023", "price": 28.89}, {"date": "Dec 31, 2023", "price": 26.68}, {"date": "Jan 07, 2024", "price": 24.7}, {"date": "Jan 14, 2024", "price": 22.29}, {"date": "Jan 21, 2024", "price": 23.86}, {"date": "Jan 28, 2024", "price": 21.78}, {"date": "Feb 04, 2024", "price": 22.38}, {"date": "Feb 11, 2024", "price": 24.22}, {"date": "Feb 18, 2024", "price": 23.9}, {"date": "Feb 25, 2024", "price": 23.0}, {"date": "Mar 03, 2024", "price": 24.75}, {"date": "Mar 10, 2024", "price": 27.45}, {"date": "Mar 17, 2024", "price": 26.5}, {"date": "Mar 24, 2024", "price": 27.39}, {"date": "Mar 31, 2024", "price": 26.02}, {"date": "Apr 07, 2024", "price": 25.39}, {"date": "Apr 14, 2024", "price": 25.51}, {"date": "Apr 21, 2024", "price": 30.34}, {"date": "Apr 28, 2024", "price": 32.87}, {"date": "May 05, 2024", "price": 32.2}, {"date": "May 12, 2024", "price": 35.27}, {"date": "May 19, 2024", "price": 30.27}, {"date": "May 26, 2024", "price": 29.62}, {"date": "Jun 02, 2024", "price": 29.33}, {"date": "Jun 09, 2024", "price": 28.77}, {"date": "Jun 16, 2024", "price": 28.1}, {"date": "Jun 23, 2024", "price": 25.84}, {"date": "Jun 30, 2024", "price": 26.76}, {"date": "Jul 07, 2024", "price": 28.15}, {"date": "Jul 14, 2024", "price": 26.26}, {"date": "Jul 21, 2024", "price": 26.56}, {"date": "Jul 28, 2024", "price": 25.16}, {"date": "Aug 04, 2024", "price": 25.88}, {"date": "Aug 11, 2024", "price": 29.29}, {"date": "Aug 18, 2024", "price": 26.83}, {"date": "Aug 25, 2024", "price": 27.0}, {"date": "Sep 01, 2024", "price": 26.07}, {"date": "Sep 08, 2024", "price": 26.24}, {"date": "Sep 15, 2024", "price": 28.55}, {"date": "Sep 22, 2024", "price": 39.9}, {"date": "Sep 29, 2024", "price": 46.97}, {"date": "Oct 06, 2024", "price": 43.83}, {"date": "Oct 13, 2024", "price": 39.98}, {"date": "Oct 20, 2024", "price": 39.9}, {"date": "Oct 27, 2024", "price": 40.44}, {"date": "Nov 03, 2024", "price": 38.35}, {"date": "Nov 10, 2024", "price": 35.0}, {"date": "Nov 17, 2024", "price": 34.68}, {"date": "Nov 24, 2024", "price": 37.38}, {"date": "Dec 01, 2024", "price": 37.18}, {"date": "Dec 08, 2024", "price": 37.29}, {"date": "Dec 15, 2024", "price": 35.64}, {"date": "Dec 22, 2024", "price": 34.98}, {"date": "Dec 29, 2024", "price": 35.34}, {"date": "Jan 05, 2025", "price": 33.1}, {"date": "Jan 12, 2025", "price": 39.0}, {"date": "Jan 19, 2025", "price": 40.72}, {"date": "Jan 26, 2025", "price": 40.72}, {"date": "Feb 02, 2025", "price": 40.17}, {"date": "Feb 09, 2025", "price": 41.38}, {"date": "Feb 16, 2025", "price": 42.42}, {"date": "Feb 23, 2025", "price": 41.9}, {"date": "Mar 02, 2025", "price": 42.29}, {"date": "Mar 09, 2025", "price": 43.16}, {"date": "Mar 16, 2025", "price": 42.24}, {"date": "Mar 23, 2025", "price": 41.58}, {"date": "Mar 30, 2025", "price": 36.81}, {"date": "Apr 06, 2025", "price": 36.42}, {"date": "Apr 13, 2025", "price": 34.72}, {"date": "Apr 20, 2025", "price": 32.53}, {"date": "Apr 27, 2025", "price": 34.47}, {"date": "May 04, 2025", "price": 33.86}, {"date": "May 11, 2025", "price": 33.55}, {"date": "May 18, 2025", "price": 33.35}, {"date": "May 25, 2025", "price": 32.41}, {"date": "Jun 01, 2025", "price": 33.12}, {"date": "Jun 08, 2025", "price": 32.76}, {"date": "Jun 15, 2025", "price": 31.44}, {"date": "Jun 22, 2025", "price": 33.07}, {"date": "Jun 29, 2025", "price": 32.07}, {"date": "Jul 06, 2025", "price": 31.1}, {"date": "Jul 13, 2025", "price": 33.92}, {"date": "Jul 20, 2025", "price": 33.18}, {"date": "Jul 27, 2025", "price": 30.91}, {"date": "Aug 03, 2025", "price": 31.49}, {"date": "Aug 10, 2025", "price": 31.7}, {"date": "Aug 17, 2025", "price": 31.88}, {"date": "Aug 24, 2025", "price": 31.07}, {"date": "Aug 31, 2025", "price": 31.45}, {"date": "Sep 07, 2025", "price": 33.67}, {"date": "Sep 14, 2025", "price": 35.1}, {"date": "Sep 21, 2025", "price": 34.5}, {"date": "Sep 28, 2025", "price": 35.4}, {"date": "Oct 05, 2025", "price": 31.85}, {"date": "Oct 12, 2025", "price": 33.07}, {"date": "Oct 19, 2025", "price": 33.19}, {"date": "Oct 26, 2025", "price": 33.04}, {"date": "Nov 02, 2025", "price": 31.79}, {"date": "Nov 09, 2025", "price": 29.31}, {"date": "Nov 16, 2025", "price": 28.93}, {"date": "Nov 23, 2025", "price": 29.83}, {"date": "Nov 30, 2025", "price": 29.9}, {"date": "Dec 07, 2025", "price": 29.44}, {"date": "Dec 14, 2025", "price": 28.82}, {"date": "Dec 21, 2025", "price": 29.4}, {"date": "Dec 28, 2025", "price": 29.53}, {"date": "Jan 04, 2026", "price": 29.45}, {"date": "Jan 11, 2026", "price": 28.9}, {"date": "Jan 18, 2026", "price": 29.84}, {"date": "Jan 25, 2026", "price": 28.48}, {"date": "Feb 01, 2026", "price": 28.07}, {"date": "Feb 08, 2026", "price": 27.14}, {"date": "Feb 15, 2026", "price": 27.41}, {"date": "Feb 22, 2026", "price": 26.53}, {"date": "Mar 01, 2026", "price": 27.03}, {"date": "Mar 08, 2026", "price": 28.32}, {"date": "Mar 15, 2026", "price": 27.27}, {"date": "Mar 22, 2026", "price": 28.7}, {"date": "Mar 29, 2026", "price": 28.46}, {"date": "Apr 05, 2026", "price": 28.93}, {"date": "Apr 12, 2026", "price": 31.6}, {"date": "Apr 19, 2026", "price": 30.27}, {"date": "Apr 26, 2026", "price": 29.96}, {"date": "May 03, 2026", "price": 30.13}, {"date": "May 10, 2026", "price": 32.01}, {"date": "May 17, 2026", "price": 30.52}, {"date": "May 24, 2026", "price": 28.83}, {"date": "May 31, 2026", "price": 28.88}, {"date": "Jun 07, 2026", "price": 28.56}, {"date": "Jun 14, 2026", "price": 27.57}, {"date": "Jun 21, 2026", "price": 25.39}, {"date": "Jun 28, 2026", "price": 26.62}, {"date": "Jul 05, 2026", "price": 28.2}, {"date": "Jul 12, 2026", "price": 29.62}, {"date": "Jul 19, 2026", "price": 30.19}, {"date": "Jul 26, 2026", "price": 33.01}, {"date": "Aug 02, 2026", "price": 32.97}, {"date": "Aug 09, 2026", "price": 31.61}, {"date": "Aug 13, 2026", "price": 29.14}], "10Y": [{"date": "Aug 31, 2016", "price": 26.09}, {"date": "Sep 30, 2016", "price": 25.95}, {"date": "Oct 31, 2016", "price": 26.87}, {"date": "Nov 30, 2016", "price": 25.44}, {"date": "Dec 31, 2016", "price": 28.4}, {"date": "Jan 31, 2017", "price": 30.57}, {"date": "Feb 28, 2017", "price": 31.11}, {"date": "Mar 31, 2017", "price": 35.07}, {"date": "Apr 30, 2017", "price": 40.03}, {"date": "May 31, 2017", "price": 39.22}, {"date": "Jun 30, 2017", "price": 45.17}, {"date": "Jul 31, 2017", "price": 41.91}, {"date": "Aug 31, 2017", "price": 38.2}, {"date": "Sep 30, 2017", "price": 37.52}, {"date": "Oct 31, 2017", "price": 37.45}, {"date": "Nov 30, 2017", "price": 41.42}, {"date": "Dec 31, 2017", "price": 49.23}, {"date": "Jan 31, 2018", "price": 47.15}, {"date": "Feb 28, 2018", "price": 40.49}, {"date": "Mar 31, 2018", "price": 36.51}, {"date": "Apr 30, 2018", "price": 35.18}, {"date": "May 31, 2018", "price": 38.95}, {"date": "Jun 30, 2018", "price": 35.86}, {"date": "Jul 31, 2018", "price": 31.3}, {"date": "Aug 31, 2018", "price": 26.09}, {"date": "Sep 30, 2018", "price": 23.52}, {"date": "Oct 31, 2018", "price": 21.23}, {"date": "Nov 30, 2018", "price": 20.93}, {"date": "Dec 31, 2018", "price": 24.85}, {"date": "Jan 31, 2019", "price": 27.71}, {"date": "Feb 28, 2019", "price": 30.15}, {"date": "Mar 31, 2019", "price": 30.27}, {"date": "Apr 30, 2019", "price": 25.76}, {"date": "May 31, 2019", "price": 30.29}, {"date": "Jun 30, 2019", "price": 29.91}, {"date": "Jul 31, 2019", "price": 30.5}, {"date": "Aug 31, 2019", "price": 28.21}, {"date": "Sep 30, 2019", "price": 31.15}, {"date": "Oct 31, 2019", "price": 32.65}, {"date": "Nov 30, 2019", "price": 35.23}, {"date": "Dec 31, 2019", "price": 37.69}, {"date": "Jan 31, 2020", "price": 38.51}, {"date": "Feb 29, 2020", "price": 40.5}, {"date": "Mar 31, 2020", "price": 43.1}, {"date": "Apr 30, 2020", "price": 54.33}, {"date": "May 31, 2020", "price": 60.18}, {"date": "Jun 30, 2020", "price": 63.79}, {"date": "Jul 31, 2020", "price": 78.64}, {"date": "Aug 31, 2020", "price": 77.61}, {"date": "Sep 30, 2020", "price": 81.52}, {"date": "Oct 31, 2020", "price": 85.35}, {"date": "Nov 30, 2020", "price": 87.9}, {"date": "Dec 31, 2020", "price": 88.69}, {"date": "Jan 31, 2021", "price": 93.87}, {"date": "Feb 28, 2021", "price": 84.33}, {"date": "Mar 31, 2021", "price": 77.36}, {"date": "Apr 30, 2021", "price": 73.94}, {"date": "May 31, 2021", "price": 79.81}, {"date": "Jun 30, 2021", "price": 70.88}, {"date": "Jul 31, 2021", "price": 78.56}, {"date": "Aug 31, 2021", "price": 72.24}, {"date": "Sep 30, 2021", "price": 78.28}, {"date": "Oct 31, 2021", "price": 84.11}, {"date": "Nov 30, 2021", "price": 70.07}, {"date": "Dec 31, 2021", "price": 74.88}, {"date": "Jan 31, 2022", "price": 71.63}, {"date": "Feb 28, 2022", "price": 57.87}, {"date": "Mar 31, 2022", "price": 61.66}, {"date": "Apr 30, 2022", "price": 56.12}, {"date": "May 31, 2022", "price": 64.22}, {"date": "Jun 30, 2022", "price": 59.5}, {"date": "Jul 31, 2022", "price": 63.49}, {"date": "Aug 31, 2022", "price": 50.3}, {"date": "Sep 30, 2022", "price": 37.29}, {"date": "Oct 31, 2022", "price": 57.18}, {"date": "Nov 30, 2022", "price": 56.13}, {"date": "Dec 31, 2022", "price": 59.53}, {"date": "Jan 31, 2023", "price": 44.44}, {"date": "Feb 28, 2023", "price": 43.89}, {"date": "Mar 31, 2023", "price": 35.72}, {"date": "Apr 30, 2023", "price": 32.6}, {"date": "May 31, 2023", "price": 34.13}, {"date": "Jun 30, 2023", "price": 41.31}, {"date": "Jul 31, 2023", "price": 33.21}, {"date": "Aug 31, 2023", "price": 29.13}, {"date": "Sep 30, 2023", "price": 25.42}, {"date": "Oct 31, 2023", "price": 27.43}, {"date": "Nov 30, 2023", "price": 28.89}, {"date": "Dec 31, 2023", "price": 22.55}, {"date": "Jan 31, 2024", "price": 22.62}, {"date": "Feb 29, 2024", "price": 27.39}, {"date": "Mar 31, 2024", "price": 28.89}, {"date": "Apr 30, 2024", "price": 29.62}, {"date": "May 31, 2024", "price": 25.84}, {"date": "Jun 30, 2024", "price": 26.39}, {"date": "Jul 31, 2024", "price": 27.0}, {"date": "Aug 31, 2024", "price": 40.0}, {"date": "Sep 30, 2024", "price": 40.62}, {"date": "Oct 31, 2024", "price": 37.38}, {"date": "Nov 30, 2024", "price": 34.67}, {"date": "Dec 31, 2024", "price": 40.72}, {"date": "Jan 31, 2025", "price": 41.9}, {"date": "Feb 28, 2025", "price": 41.12}, {"date": "Mar 31, 2025", "price": 32.62}, {"date": "Apr 30, 2025", "price": 32.41}, {"date": "May 31, 2025", "price": 32.64}, {"date": "Jun 30, 2025", "price": 31.49}, {"date": "Jul 31, 2025", "price": 31.07}, {"date": "Aug 31, 2025", "price": 34.98}, {"date": "Sep 30, 2025", "price": 33.04}, {"date": "Oct 31, 2025", "price": 29.83}, {"date": "Nov 30, 2025", "price": 28.7}, {"date": "Dec 31, 2025", "price": 28.48}, {"date": "Jan 31, 2026", "price": 26.53}, {"date": "Feb 28, 2026", "price": 29.57}, {"date": "Mar 31, 2026", "price": 30.32}, {"date": "Apr 30, 2026", "price": 28.83}, {"date": "May 31, 2026", "price": 25.48}, {"date": "Jun 30, 2026", "price": 33.01}, {"date": "Jul 31, 2026", "price": 31.61}, {"date": "Aug 13, 2026", "price": 29.14}], "MAX": [{"date": "May 31, 2014", "price": 28.51}, {"date": "Jun 30, 2014", "price": 28.58}, {"date": "Jul 31, 2014", "price": 31.92}, {"date": "Aug 31, 2014", "price": 25.82}, {"date": "Sep 30, 2014", "price": 23.89}, {"date": "Oct 31, 2014", "price": 23.52}, {"date": "Nov 30, 2014", "price": 23.14}, {"date": "Dec 31, 2014", "price": 24.84}, {"date": "Jan 31, 2015", "price": 27.67}, {"date": "Feb 28, 2015", "price": 29.38}, {"date": "Mar 31, 2015", "price": 33.56}, {"date": "Apr 30, 2015", "price": 33.68}, {"date": "May 31, 2015", "price": 34.1}, {"date": "Jun 30, 2015", "price": 33.03}, {"date": "Jul 31, 2015", "price": 25.88}, {"date": "Aug 31, 2015", "price": 26.06}, {"date": "Sep 30, 2015", "price": 27.62}, {"date": "Oct 31, 2015", "price": 30.68}, {"date": "Nov 30, 2015", "price": 32.26}, {"date": "Dec 31, 2015", "price": 26.03}, {"date": "Jan 31, 2016", "price": 25.71}, {"date": "Feb 29, 2016", "price": 26.5}, {"date": "Mar 31, 2016", "price": 25.56}, {"date": "Apr 30, 2016", "price": 24.61}, {"date": "May 31, 2016", "price": 21.23}, {"date": "Jun 30, 2016", "price": 21.65}, {"date": "Jul 31, 2016", "price": 25.41}, {"date": "Aug 31, 2016", "price": 26.09}, {"date": "Sep 30, 2016", "price": 25.95}, {"date": "Oct 31, 2016", "price": 26.87}, {"date": "Nov 30, 2016", "price": 25.44}, {"date": "Dec 31, 2016", "price": 28.4}, {"date": "Jan 31, 2017", "price": 30.57}, {"date": "Feb 28, 2017", "price": 31.11}, {"date": "Mar 31, 2017", "price": 35.07}, {"date": "Apr 30, 2017", "price": 40.03}, {"date": "May 31, 2017", "price": 39.22}, {"date": "Jun 30, 2017", "price": 45.17}, {"date": "Jul 31, 2017", "price": 41.91}, {"date": "Aug 31, 2017", "price": 38.2}, {"date": "Sep 30, 2017", "price": 37.52}, {"date": "Oct 31, 2017", "price": 37.45}, {"date": "Nov 30, 2017", "price": 41.42}, {"date": "Dec 31, 2017", "price": 49.23}, {"date": "Jan 31, 2018", "price": 47.15}, {"date": "Feb 28, 2018", "price": 40.49}, {"date": "Mar 31, 2018", "price": 36.51}, {"date": "Apr 30, 2018", "price": 35.18}, {"date": "May 31, 2018", "price": 38.95}, {"date": "Jun 30, 2018", "price": 35.86}, {"date": "Jul 31, 2018", "price": 31.3}, {"date": "Aug 31, 2018", "price": 26.09}, {"date": "Sep 30, 2018", "price": 23.52}, {"date": "Oct 31, 2018", "price": 21.23}, {"date": "Nov 30, 2018", "price": 20.93}, {"date": "Dec 31, 2018", "price": 24.85}, {"date": "Jan 31, 2019", "price": 27.71}, {"date": "Feb 28, 2019", "price": 30.15}, {"date": "Mar 31, 2019", "price": 30.27}, {"date": "Apr 30, 2019", "price": 25.76}, {"date": "May 31, 2019", "price": 30.29}, {"date": "Jun 30, 2019", "price": 29.91}, {"date": "Jul 31, 2019", "price": 30.5}, {"date": "Aug 31, 2019", "price": 28.21}, {"date": "Sep 30, 2019", "price": 31.15}, {"date": "Oct 31, 2019", "price": 32.65}, {"date": "Nov 30, 2019", "price": 35.23}, {"date": "Dec 31, 2019", "price": 37.69}, {"date": "Jan 31, 2020", "price": 38.51}, {"date": "Feb 29, 2020", "price": 40.5}, {"date": "Mar 31, 2020", "price": 43.1}, {"date": "Apr 30, 2020", "price": 54.33}, {"date": "May 31, 2020", "price": 60.18}, {"date": "Jun 30, 2020", "price": 63.79}, {"date": "Jul 31, 2020", "price": 78.64}, {"date": "Aug 31, 2020", "price": 77.61}, {"date": "Sep 30, 2020", "price": 81.52}, {"date": "Oct 31, 2020", "price": 85.35}, {"date": "Nov 30, 2020", "price": 87.9}, {"date": "Dec 31, 2020", "price": 88.69}, {"date": "Jan 31, 2021", "price": 93.87}, {"date": "Feb 28, 2021", "price": 84.33}, {"date": "Mar 31, 2021", "price": 77.36}, {"date": "Apr 30, 2021", "price": 73.94}, {"date": "May 31, 2021", "price": 79.81}, {"date": "Jun 30, 2021", "price": 70.88}, {"date": "Jul 31, 2021", "price": 78.56}, {"date": "Aug 31, 2021", "price": 72.24}, {"date": "Sep 30, 2021", "price": 78.28}, {"date": "Oct 31, 2021", "price": 84.11}, {"date": "Nov 30, 2021", "price": 70.07}, {"date": "Dec 31, 2021", "price": 74.88}, {"date": "Jan 31, 2022", "price": 71.63}, {"date": "Feb 28, 2022", "price": 57.87}, {"date": "Mar 31, 2022", "price": 61.66}, {"date": "Apr 30, 2022", "price": 56.12}, {"date": "May 31, 2022", "price": 64.22}, {"date": "Jun 30, 2022", "price": 59.5}, {"date": "Jul 31, 2022", "price": 63.49}, {"date": "Aug 31, 2022", "price": 50.3}, {"date": "Sep 30, 2022", "price": 37.29}, {"date": "Oct 31, 2022", "price": 57.18}, {"date": "Nov 30, 2022", "price": 56.13}, {"date": "Dec 31, 2022", "price": 59.53}, {"date": "Jan 31, 2023", "price": 44.44}, {"date": "Feb 28, 2023", "price": 43.89}, {"date": "Mar 31, 2023", "price": 35.72}, {"date": "Apr 30, 2023", "price": 32.6}, {"date": "May 31, 2023", "price": 34.13}, {"date": "Jun 30, 2023", "price": 41.31}, {"date": "Jul 31, 2023", "price": 33.21}, {"date": "Aug 31, 2023", "price": 29.13}, {"date": "Sep 30, 2023", "price": 25.42}, {"date": "Oct 31, 2023", "price": 27.43}, {"date": "Nov 30, 2023", "price": 28.89}, {"date": "Dec 31, 2023", "price": 22.55}, {"date": "Jan 31, 2024", "price": 22.62}, {"date": "Feb 29, 2024", "price": 27.39}, {"date": "Mar 31, 2024", "price": 28.89}, {"date": "Apr 30, 2024", "price": 29.62}, {"date": "May 31, 2024", "price": 25.84}, {"date": "Jun 30, 2024", "price": 26.39}, {"date": "Jul 31, 2024", "price": 27.0}, {"date": "Aug 31, 2024", "price": 40.0}, {"date": "Sep 30, 2024", "price": 40.62}, {"date": "Oct 31, 2024", "price": 37.38}, {"date": "Nov 30, 2024", "price": 34.67}, {"date": "Dec 31, 2024", "price": 40.72}, {"date": "Jan 31, 2025", "price": 41.9}, {"date": "Feb 28, 2025", "price": 41.12}, {"date": "Mar 31, 2025", "price": 32.62}, {"date": "Apr 30, 2025", "price": 32.41}, {"date": "May 31, 2025", "price": 32.64}, {"date": "Jun 30, 2025", "price": 31.49}, {"date": "Jul 31, 2025", "price": 31.07}, {"date": "Aug 31, 2025", "price": 34.98}, {"date": "Sep 30, 2025", "price": 33.04}, {"date": "Oct 31, 2025", "price": 29.83}, {"date": "Nov 30, 2025", "price": 28.7}, {"date": "Dec 31, 2025", "price": 28.48}, {"date": "Jan 31, 2026", "price": 26.53}, {"date": "Feb 28, 2026", "price": 29.57}, {"date": "Mar 31, 2026", "price": 30.32}, {"date": "Apr 30, 2026", "price": 28.83}, {"date": "May 31, 2026", "price": 25.48}, {"date": "Jun 30, 2026", "price": 33.01}, {"date": "Jul 31, 2026", "price": 31.61}, {"date": "Aug 13, 2026", "price": 29.14}]};
+        const allDatasets = {"1Y": [{"date": "Aug 14, 2025", "price": 31.58}, {"date": "Aug 15, 2025", "price": 31.7}, {"date": "Aug 18, 2025", "price": 31.77}, {"date": "Aug 19, 2025", "price": 31.24}, {"date": "Aug 20, 2025", "price": 31.17}, {"date": "Aug 21, 2025", "price": 31.18}, {"date": "Aug 22, 2025", "price": 31.88}, {"date": "Aug 25, 2025", "price": 31.99}, {"date": "Aug 26, 2025", "price": 31.81}, {"date": "Aug 27, 2025", "price": 30.82}, {"date": "Aug 28, 2025", "price": 30.39}, {"date": "Aug 29, 2025", "price": 31.07}, {"date": "Sep 02, 2025", "price": 31.58}, {"date": "Sep 03, 2025", "price": 31.2}, {"date": "Sep 04, 2025", "price": 30.93}, {"date": "Sep 05, 2025", "price": 31.45}, {"date": "Sep 08, 2025", "price": 32.85}, {"date": "Sep 09, 2025", "price": 33.87}, {"date": "Sep 10, 2025", "price": 33.32}, {"date": "Sep 11, 2025", "price": 34.4}, {"date": "Sep 12, 2025", "price": 33.67}, {"date": "Sep 15, 2025", "price": 33.62}, {"date": "Sep 16, 2025", "price": 34.71}, {"date": "Sep 17, 2025", "price": 35.24}, {"date": "Sep 18, 2025", "price": 35.38}, {"date": "Sep 19, 2025", "price": 35.1}, {"date": "Sep 22, 2025", "price": 33.93}, {"date": "Sep 23, 2025", "price": 32.94}, {"date": "Sep 24, 2025", "price": 34.83}, {"date": "Sep 25, 2025", "price": 35.17}, {"date": "Sep 26, 2025", "price": 34.5}, {"date": "Sep 29, 2025", "price": 35.64}, {"date": "Sep 30, 2025", "price": 34.98}, {"date": "Oct 01, 2025", "price": 36.17}, {"date": "Oct 02, 2025", "price": 35.98}, {"date": "Oct 03, 2025", "price": 35.4}, {"date": "Oct 06, 2025", "price": 35.91}, {"date": "Oct 07, 2025", "price": 34.89}, {"date": "Oct 08, 2025", "price": 34.98}, {"date": "Oct 09, 2025", "price": 33.97}, {"date": "Oct 10, 2025", "price": 31.85}, {"date": "Oct 13, 2025", "price": 33.25}, {"date": "Oct 14, 2025", "price": 32.71}, {"date": "Oct 15, 2025", "price": 33.14}, {"date": "Oct 16, 2025", "price": 32.74}, {"date": "Oct 17, 2025", "price": 33.07}, {"date": "Oct 20, 2025", "price": 33.76}, {"date": "Oct 21, 2025", "price": 32.83}, {"date": "Oct 22, 2025", "price": 32.46}, {"date": "Oct 23, 2025", "price": 33.18}, {"date": "Oct 24, 2025", "price": 33.19}, {"date": "Oct 27, 2025", "price": 34.2}, {"date": "Oct 28, 2025", "price": 34.53}, {"date": "Oct 29, 2025", "price": 34.36}, {"date": "Oct 30, 2025", "price": 33.37}, {"date": "Oct 31, 2025", "price": 33.04}, {"date": "Nov 03, 2025", "price": 32.78}, {"date": "Nov 04, 2025", "price": 31.82}, {"date": "Nov 05, 2025", "price": 32.04}, {"date": "Nov 06, 2025", "price": 31.95}, {"date": "Nov 07, 2025", "price": 31.79}, {"date": "Nov 10, 2025", "price": 31.41}, {"date": "Nov 11, 2025", "price": 31.61}, {"date": "Nov 12, 2025", "price": 31.25}, {"date": "Nov 13, 2025", "price": 30.71}, {"date": "Nov 14, 2025", "price": 29.31}, {"date": "Nov 17, 2025", "price": 29.54}, {"date": "Nov 18, 2025", "price": 29.45}, {"date": "Nov 19, 2025", "price": 28.88}, {"date": "Nov 20, 2025", "price": 28.39}, {"date": "Nov 21, 2025", "price": 28.93}, {"date": "Nov 24, 2025", "price": 29.06}, {"date": "Nov 25, 2025", "price": 29.14}, {"date": "Nov 26, 2025", "price": 29.42}, {"date": "Nov 28, 2025", "price": 29.83}, {"date": "Dec 01, 2025", "price": 29.89}, {"date": "Dec 02, 2025", "price": 30.05}, {"date": "Dec 03, 2025", "price": 29.87}, {"date": "Dec 04, 2025", "price": 29.74}, {"date": "Dec 05, 2025", "price": 29.9}, {"date": "Dec 08, 2025", "price": 29.92}, {"date": "Dec 09, 2025", "price": 29.7}, {"date": "Dec 10, 2025", "price": 29.61}, {"date": "Dec 11, 2025", "price": 29.54}, {"date": "Dec 12, 2025", "price": 29.44}, {"date": "Dec 15, 2025", "price": 28.85}, {"date": "Dec 16, 2025", "price": 28.85}, {"date": "Dec 17, 2025", "price": 28.6}, {"date": "Dec 18, 2025", "price": 28.8}, {"date": "Dec 19, 2025", "price": 28.82}, {"date": "Dec 22, 2025", "price": 29.09}, {"date": "Dec 23, 2025", "price": 29.08}, {"date": "Dec 24, 2025", "price": 29.17}, {"date": "Dec 26, 2025", "price": 29.4}, {"date": "Dec 29, 2025", "price": 29.27}, {"date": "Dec 30, 2025", "price": 28.71}, {"date": "Dec 31, 2025", "price": 28.7}, {"date": "Jan 02, 2026", "price": 29.53}, {"date": "Jan 05, 2026", "price": 29.65}, {"date": "Jan 06, 2026", "price": 29.6}, {"date": "Jan 07, 2026", "price": 29.03}, {"date": "Jan 08, 2026", "price": 29.67}, {"date": "Jan 09, 2026", "price": 29.45}, {"date": "Jan 12, 2026", "price": 30.73}, {"date": "Jan 13, 2026", "price": 29.88}, {"date": "Jan 14, 2026", "price": 29.83}, {"date": "Jan 15, 2026", "price": 29.41}, {"date": "Jan 16, 2026", "price": 28.9}, {"date": "Jan 20, 2026", "price": 28.38}, {"date": "Jan 21, 2026", "price": 29.07}, {"date": "Jan 22, 2026", "price": 30.0}, {"date": "Jan 23, 2026", "price": 29.84}, {"date": "Jan 26, 2026", "price": 29.78}, {"date": "Jan 27, 2026", "price": 29.5}, {"date": "Jan 28, 2026", "price": 29.23}, {"date": "Jan 29, 2026", "price": 29.07}, {"date": "Jan 30, 2026", "price": 28.48}, {"date": "Feb 02, 2026", "price": 28.53}, {"date": "Feb 03, 2026", "price": 28.04}, {"date": "Feb 04, 2026", "price": 27.55}, {"date": "Feb 05, 2026", "price": 27.32}, {"date": "Feb 06, 2026", "price": 28.07}, {"date": "Feb 09, 2026", "price": 28.01}, {"date": "Feb 10, 2026", "price": 28.35}, {"date": "Feb 11, 2026", "price": 28.27}, {"date": "Feb 12, 2026", "price": 27.52}, {"date": "Feb 13, 2026", "price": 27.14}, {"date": "Feb 17, 2026", "price": 27.33}, {"date": "Feb 18, 2026", "price": 27.41}, {"date": "Feb 19, 2026", "price": 27.27}, {"date": "Feb 20, 2026", "price": 27.41}, {"date": "Feb 23, 2026", "price": 27.23}, {"date": "Feb 24, 2026", "price": 27.52}, {"date": "Feb 25, 2026", "price": 27.54}, {"date": "Feb 26, 2026", "price": 26.98}, {"date": "Feb 27, 2026", "price": 26.53}, {"date": "Mar 02, 2026", "price": 26.35}, {"date": "Mar 03, 2026", "price": 25.64}, {"date": "Mar 04, 2026", "price": 25.4}, {"date": "Mar 05, 2026", "price": 25.47}, {"date": "Mar 06, 2026", "price": 27.03}, {"date": "Mar 09, 2026", "price": 27.47}, {"date": "Mar 10, 2026", "price": 27.73}, {"date": "Mar 11, 2026", "price": 28.11}, {"date": "Mar 12, 2026", "price": 27.94}, {"date": "Mar 13, 2026", "price": 28.32}, {"date": "Mar 16, 2026", "price": 28.49}, {"date": "Mar 17, 2026", "price": 28.54}, {"date": "Mar 18, 2026", "price": 28.2}, {"date": "Mar 19, 2026", "price": 28.02}, {"date": "Mar 20, 2026", "price": 27.27}, {"date": "Mar 23, 2026", "price": 27.54}, {"date": "Mar 24, 2026", "price": 27.47}, {"date": "Mar 25, 2026", "price": 29.75}, {"date": "Mar 26, 2026", "price": 29.18}, {"date": "Mar 27, 2026", "price": 28.7}, {"date": "Mar 30, 2026", "price": 28.94}, {"date": "Mar 31, 2026", "price": 29.57}, {"date": "Apr 01, 2026", "price": 28.87}, {"date": "Apr 02, 2026", "price": 28.46}, {"date": "Apr 06, 2026", "price": 28.51}, {"date": "Apr 07, 2026", "price": 28.46}, {"date": "Apr 08, 2026", "price": 29.05}, {"date": "Apr 09, 2026", "price": 28.34}, {"date": "Apr 10, 2026", "price": 28.93}, {"date": "Apr 13, 2026", "price": 28.94}, {"date": "Apr 14, 2026", "price": 31.25}, {"date": "Apr 15, 2026", "price": 31.47}, {"date": "Apr 16, 2026", "price": 31.33}, {"date": "Apr 17, 2026", "price": 31.6}, {"date": "Apr 20, 2026", "price": 31.37}, {"date": "Apr 21, 2026", "price": 30.52}, {"date": "Apr 22, 2026", "price": 30.61}, {"date": "Apr 23, 2026", "price": 29.98}, {"date": "Apr 24, 2026", "price": 30.27}, {"date": "Apr 27, 2026", "price": 29.75}, {"date": "Apr 28, 2026", "price": 29.73}, {"date": "Apr 29, 2026", "price": 29.7}, {"date": "Apr 30, 2026", "price": 30.32}, {"date": "May 01, 2026", "price": 29.96}, {"date": "May 04, 2026", "price": 30.04}, {"date": "May 05, 2026", "price": 29.68}, {"date": "May 06, 2026", "price": 30.69}, {"date": "May 07, 2026", "price": 30.21}, {"date": "May 08, 2026", "price": 30.13}, {"date": "May 11, 2026", "price": 30.53}, {"date": "May 12, 2026", "price": 31.49}, {"date": "May 13, 2026", "price": 33.77}, {"date": "May 14, 2026", "price": 32.86}, {"date": "May 15, 2026", "price": 32.01}, {"date": "May 18, 2026", "price": 31.6}, {"date": "May 19, 2026", "price": 32.38}, {"date": "May 20, 2026", "price": 32.46}, {"date": "May 21, 2026", "price": 31.47}, {"date": "May 22, 2026", "price": 30.52}, {"date": "May 26, 2026", "price": 29.99}, {"date": "May 27, 2026", "price": 29.84}, {"date": "May 28, 2026", "price": 29.14}, {"date": "May 29, 2026", "price": 28.83}, {"date": "Jun 01, 2026", "price": 29.09}, {"date": "Jun 02, 2026", "price": 30.15}, {"date": "Jun 03, 2026", "price": 29.41}, {"date": "Jun 04, 2026", "price": 29.19}, {"date": "Jun 05, 2026", "price": 28.88}, {"date": "Jun 08, 2026", "price": 28.59}, {"date": "Jun 09, 2026", "price": 28.73}, {"date": "Jun 10, 2026", "price": 28.45}, {"date": "Jun 11, 2026", "price": 28.06}, {"date": "Jun 12, 2026", "price": 28.56}, {"date": "Jun 15, 2026", "price": 28.68}, {"date": "Jun 16, 2026", "price": 28.38}, {"date": "Jun 17, 2026", "price": 27.91}, {"date": "Jun 18, 2026", "price": 27.57}, {"date": "Jun 22, 2026", "price": 27.02}, {"date": "Jun 23, 2026", "price": 26.12}, {"date": "Jun 24, 2026", "price": 25.48}, {"date": "Jun 25, 2026", "price": 25.19}, {"date": "Jun 26, 2026", "price": 25.39}, {"date": "Jun 29, 2026", "price": 25.25}, {"date": "Jun 30, 2026", "price": 25.48}, {"date": "Jul 01, 2026", "price": 26.31}, {"date": "Jul 02, 2026", "price": 26.62}, {"date": "Jul 06, 2026", "price": 26.78}, {"date": "Jul 07, 2026", "price": 26.49}, {"date": "Jul 08, 2026", "price": 27.63}, {"date": "Jul 09, 2026", "price": 27.74}, {"date": "Jul 10, 2026", "price": 28.2}, {"date": "Jul 13, 2026", "price": 28.88}, {"date": "Jul 14, 2026", "price": 28.84}, {"date": "Jul 15, 2026", "price": 29.28}, {"date": "Jul 16, 2026", "price": 29.68}, {"date": "Jul 17, 2026", "price": 29.62}, {"date": "Jul 20, 2026", "price": 30.6}, {"date": "Jul 21, 2026", "price": 30.43}, {"date": "Jul 22, 2026", "price": 30.15}, {"date": "Jul 23, 2026", "price": 30.09}, {"date": "Jul 24, 2026", "price": 30.19}, {"date": "Jul 27, 2026", "price": 30.95}, {"date": "Jul 28, 2026", "price": 31.79}, {"date": "Jul 29, 2026", "price": 32.2}, {"date": "Jul 30, 2026", "price": 32.31}, {"date": "Jul 31, 2026", "price": 33.01}, {"date": "Aug 03, 2026", "price": 33.02}, {"date": "Aug 04, 2026", "price": 32.97}, {"date": "Aug 05, 2026", "price": 32.54}, {"date": "Aug 06, 2026", "price": 32.81}, {"date": "Aug 07, 2026", "price": 32.97}, {"date": "Aug 10, 2026", "price": 33.47}, {"date": "Aug 11, 2026", "price": 31.92}, {"date": "Aug 12, 2026", "price": 31.61}, {"date": "Aug 13, 2026", "price": 29.3}], "5Y": [{"date": "Aug 09, 2021", "price": 69.86}, {"date": "Aug 16, 2021", "price": 63.62}, {"date": "Aug 23, 2021", "price": 76.43}, {"date": "Aug 30, 2021", "price": 79.86}, {"date": "Sep 06, 2021", "price": 80.64}, {"date": "Sep 13, 2021", "price": 77.69}, {"date": "Sep 20, 2021", "price": 73.98}, {"date": "Sep 27, 2021", "price": 70.02}, {"date": "Oct 04, 2021", "price": 78.61}, {"date": "Oct 11, 2021", "price": 81.42}, {"date": "Oct 18, 2021", "price": 83.07}, {"date": "Oct 25, 2021", "price": 78.28}, {"date": "Nov 01, 2021", "price": 77.57}, {"date": "Nov 08, 2021", "price": 85.95}, {"date": "Nov 15, 2021", "price": 91.55}, {"date": "Nov 22, 2021", "price": 88.67}, {"date": "Nov 29, 2021", "price": 77.95}, {"date": "Dec 06, 2021", "price": 79.71}, {"date": "Dec 13, 2021", "price": 71.04}, {"date": "Dec 20, 2021", "price": 68.65}, {"date": "Dec 27, 2021", "price": 70.07}, {"date": "Jan 03, 2022", "price": 68.24}, {"date": "Jan 10, 2022", "price": 73.72}, {"date": "Jan 17, 2022", "price": 73.46}, {"date": "Jan 24, 2022", "price": 69.34}, {"date": "Jan 31, 2022", "price": 73.77}, {"date": "Feb 07, 2022", "price": 73.98}, {"date": "Feb 14, 2022", "price": 71.86}, {"date": "Feb 21, 2022", "price": 72.5}, {"date": "Feb 28, 2022", "price": 63.59}, {"date": "Mar 07, 2022", "price": 47.99}, {"date": "Mar 14, 2022", "price": 65.13}, {"date": "Mar 21, 2022", "price": 59.92}, {"date": "Mar 28, 2022", "price": 59.09}, {"date": "Apr 04, 2022", "price": 56.54}, {"date": "Apr 11, 2022", "price": 56.56}, {"date": "Apr 18, 2022", "price": 52.04}, {"date": "Apr 25, 2022", "price": 61.66}, {"date": "May 02, 2022", "price": 55.61}, {"date": "May 09, 2022", "price": 51.55}, {"date": "May 16, 2022", "price": 52.17}, {"date": "May 23, 2022", "price": 53.68}, {"date": "May 30, 2022", "price": 56.52}, {"date": "Jun 06, 2022", "price": 61.51}, {"date": "Jun 13, 2022", "price": 65.23}, {"date": "Jun 20, 2022", "price": 64.01}, {"date": "Jun 27, 2022", "price": 65.95}, {"date": "Jul 04, 2022", "price": 62.01}, {"date": "Jul 11, 2022", "price": 60.26}, {"date": "Jul 18, 2022", "price": 61.58}, {"date": "Jul 25, 2022", "price": 59.5}, {"date": "Aug 01, 2022", "price": 61.91}, {"date": "Aug 08, 2022", "price": 57.05}, {"date": "Aug 15, 2022", "price": 54.7}, {"date": "Aug 22, 2022", "price": 63.46}, {"date": "Aug 29, 2022", "price": 61.29}, {"date": "Sep 05, 2022", "price": 60.41}, {"date": "Sep 12, 2022", "price": 55.37}, {"date": "Sep 19, 2022", "price": 52.31}, {"date": "Sep 26, 2022", "price": 50.3}, {"date": "Oct 03, 2022", "price": 49.91}, {"date": "Oct 10, 2022", "price": 42.33}, {"date": "Oct 17, 2022", "price": 42.15}, {"date": "Oct 24, 2022", "price": 37.86}, {"date": "Oct 31, 2022", "price": 44.38}, {"date": "Nov 07, 2022", "price": 48.93}, {"date": "Nov 14, 2022", "price": 56.07}, {"date": "Nov 21, 2022", "price": 49.48}, {"date": "Nov 28, 2022", "price": 58.64}, {"date": "Dec 05, 2022", "price": 58.32}, {"date": "Dec 12, 2022", "price": 56.59}, {"date": "Dec 19, 2022", "price": 56.44}, {"date": "Dec 26, 2022", "price": 56.13}, {"date": "Jan 02, 2023", "price": 64.3}, {"date": "Jan 09, 2023", "price": 63.6}, {"date": "Jan 16, 2023", "price": 60.43}, {"date": "Jan 23, 2023", "price": 63.74}, {"date": "Jan 30, 2023", "price": 57.63}, {"date": "Feb 06, 2023", "price": 52.29}, {"date": "Feb 13, 2023", "price": 53.02}, {"date": "Feb 20, 2023", "price": 44.8}, {"date": "Feb 27, 2023", "price": 47.46}, {"date": "Mar 06, 2023", "price": 40.47}, {"date": "Mar 13, 2023", "price": 38.83}, {"date": "Mar 20, 2023", "price": 40.29}, {"date": "Mar 27, 2023", "price": 43.89}, {"date": "Apr 03, 2023", "price": 40.76}, {"date": "Apr 10, 2023", "price": 36.85}, {"date": "Apr 17, 2023", "price": 35.63}, {"date": "Apr 24, 2023", "price": 35.72}, {"date": "May 01, 2023", "price": 35.88}, {"date": "May 08, 2023", "price": 35.3}, {"date": "May 15, 2023", "price": 35.06}, {"date": "May 22, 2023", "price": 33.1}, {"date": "May 29, 2023", "price": 35.43}, {"date": "Jun 05, 2023", "price": 36.58}, {"date": "Jun 12, 2023", "price": 39.85}, {"date": "Jun 19, 2023", "price": 34.87}, {"date": "Jun 26, 2023", "price": 34.13}, {"date": "Jul 03, 2023", "price": 35.76}, {"date": "Jul 10, 2023", "price": 38.14}, {"date": "Jul 17, 2023", "price": 37.07}, {"date": "Jul 24, 2023", "price": 40.53}, {"date": "Jul 31, 2023", "price": 39.09}, {"date": "Aug 07, 2023", "price": 36.46}, {"date": "Aug 14, 2023", "price": 33.11}, {"date": "Aug 21, 2023", "price": 32.96}, {"date": "Aug 28, 2023", "price": 34.1}, {"date": "Sep 04, 2023", "price": 32.4}, {"date": "Sep 11, 2023", "price": 31.57}, {"date": "Sep 18, 2023", "price": 30.41}, {"date": "Sep 25, 2023", "price": 29.13}, {"date": "Oct 02, 2023", "price": 29.61}, {"date": "Oct 09, 2023", "price": 27.05}, {"date": "Oct 16, 2023", "price": 24.38}, {"date": "Oct 23, 2023", "price": 25.65}, {"date": "Oct 30, 2023", "price": 26.94}, {"date": "Nov 06, 2023", "price": 25.76}, {"date": "Nov 13, 2023", "price": 27.61}, {"date": "Nov 20, 2023", "price": 28.76}, {"date": "Nov 27, 2023", "price": 27.16}, {"date": "Dec 04, 2023", "price": 26.45}, {"date": "Dec 11, 2023", "price": 27.41}, {"date": "Dec 18, 2023", "price": 27.59}, {"date": "Dec 25, 2023", "price": 28.89}, {"date": "Jan 01, 2024", "price": 26.68}, {"date": "Jan 08, 2024", "price": 24.7}, {"date": "Jan 15, 2024", "price": 22.29}, {"date": "Jan 22, 2024", "price": 23.86}, {"date": "Jan 29, 2024", "price": 21.78}, {"date": "Feb 05, 2024", "price": 22.38}, {"date": "Feb 12, 2024", "price": 24.22}, {"date": "Feb 19, 2024", "price": 23.9}, {"date": "Feb 26, 2024", "price": 23.0}, {"date": "Mar 04, 2024", "price": 24.75}, {"date": "Mar 11, 2024", "price": 27.45}, {"date": "Mar 18, 2024", "price": 26.5}, {"date": "Mar 25, 2024", "price": 27.39}, {"date": "Apr 01, 2024", "price": 26.02}, {"date": "Apr 08, 2024", "price": 25.39}, {"date": "Apr 15, 2024", "price": 25.51}, {"date": "Apr 22, 2024", "price": 30.34}, {"date": "Apr 29, 2024", "price": 32.87}, {"date": "May 06, 2024", "price": 32.2}, {"date": "May 13, 2024", "price": 35.27}, {"date": "May 20, 2024", "price": 30.27}, {"date": "May 27, 2024", "price": 29.62}, {"date": "Jun 03, 2024", "price": 29.33}, {"date": "Jun 10, 2024", "price": 28.77}, {"date": "Jun 17, 2024", "price": 28.1}, {"date": "Jun 24, 2024", "price": 25.84}, {"date": "Jul 01, 2024", "price": 26.76}, {"date": "Jul 08, 2024", "price": 28.15}, {"date": "Jul 15, 2024", "price": 26.26}, {"date": "Jul 22, 2024", "price": 26.56}, {"date": "Jul 29, 2024", "price": 25.16}, {"date": "Aug 05, 2024", "price": 25.88}, {"date": "Aug 12, 2024", "price": 29.29}, {"date": "Aug 19, 2024", "price": 26.83}, {"date": "Aug 26, 2024", "price": 27.0}, {"date": "Sep 02, 2024", "price": 26.07}, {"date": "Sep 09, 2024", "price": 26.24}, {"date": "Sep 16, 2024", "price": 28.55}, {"date": "Sep 23, 2024", "price": 39.9}, {"date": "Sep 30, 2024", "price": 46.97}, {"date": "Oct 07, 2024", "price": 43.83}, {"date": "Oct 14, 2024", "price": 39.98}, {"date": "Oct 21, 2024", "price": 39.9}, {"date": "Oct 28, 2024", "price": 40.44}, {"date": "Nov 04, 2024", "price": 38.35}, {"date": "Nov 11, 2024", "price": 35.0}, {"date": "Nov 18, 2024", "price": 34.68}, {"date": "Nov 25, 2024", "price": 37.38}, {"date": "Dec 02, 2024", "price": 37.18}, {"date": "Dec 09, 2024", "price": 37.29}, {"date": "Dec 16, 2024", "price": 35.64}, {"date": "Dec 23, 2024", "price": 34.98}, {"date": "Dec 30, 2024", "price": 35.34}, {"date": "Jan 06, 2025", "price": 33.1}, {"date": "Jan 13, 2025", "price": 39.0}, {"date": "Jan 20, 2025", "price": 40.72}, {"date": "Jan 27, 2025", "price": 40.72}, {"date": "Feb 03, 2025", "price": 40.17}, {"date": "Feb 10, 2025", "price": 41.38}, {"date": "Feb 17, 2025", "price": 42.42}, {"date": "Feb 24, 2025", "price": 41.9}, {"date": "Mar 03, 2025", "price": 42.29}, {"date": "Mar 10, 2025", "price": 43.16}, {"date": "Mar 17, 2025", "price": 42.24}, {"date": "Mar 24, 2025", "price": 41.58}, {"date": "Mar 31, 2025", "price": 36.81}, {"date": "Apr 07, 2025", "price": 36.42}, {"date": "Apr 14, 2025", "price": 34.72}, {"date": "Apr 21, 2025", "price": 32.53}, {"date": "Apr 28, 2025", "price": 34.47}, {"date": "May 05, 2025", "price": 33.86}, {"date": "May 12, 2025", "price": 33.55}, {"date": "May 19, 2025", "price": 33.35}, {"date": "May 26, 2025", "price": 32.41}, {"date": "Jun 02, 2025", "price": 33.12}, {"date": "Jun 09, 2025", "price": 32.76}, {"date": "Jun 16, 2025", "price": 31.44}, {"date": "Jun 23, 2025", "price": 33.07}, {"date": "Jun 30, 2025", "price": 32.07}, {"date": "Jul 07, 2025", "price": 31.1}, {"date": "Jul 14, 2025", "price": 33.92}, {"date": "Jul 21, 2025", "price": 33.18}, {"date": "Jul 28, 2025", "price": 30.91}, {"date": "Aug 04, 2025", "price": 31.49}, {"date": "Aug 11, 2025", "price": 31.7}, {"date": "Aug 18, 2025", "price": 31.88}, {"date": "Aug 25, 2025", "price": 31.07}, {"date": "Sep 01, 2025", "price": 31.45}, {"date": "Sep 08, 2025", "price": 33.67}, {"date": "Sep 15, 2025", "price": 35.1}, {"date": "Sep 22, 2025", "price": 34.5}, {"date": "Sep 29, 2025", "price": 35.4}, {"date": "Oct 06, 2025", "price": 31.85}, {"date": "Oct 13, 2025", "price": 33.07}, {"date": "Oct 20, 2025", "price": 33.19}, {"date": "Oct 27, 2025", "price": 33.04}, {"date": "Nov 03, 2025", "price": 31.79}, {"date": "Nov 10, 2025", "price": 29.31}, {"date": "Nov 17, 2025", "price": 28.93}, {"date": "Nov 24, 2025", "price": 29.83}, {"date": "Dec 01, 2025", "price": 29.9}, {"date": "Dec 08, 2025", "price": 29.44}, {"date": "Dec 15, 2025", "price": 28.82}, {"date": "Dec 22, 2025", "price": 29.4}, {"date": "Dec 29, 2025", "price": 29.53}, {"date": "Jan 05, 2026", "price": 29.45}, {"date": "Jan 12, 2026", "price": 28.9}, {"date": "Jan 19, 2026", "price": 29.84}, {"date": "Jan 26, 2026", "price": 28.48}, {"date": "Feb 02, 2026", "price": 28.07}, {"date": "Feb 09, 2026", "price": 27.14}, {"date": "Feb 16, 2026", "price": 27.41}, {"date": "Feb 23, 2026", "price": 26.53}, {"date": "Mar 02, 2026", "price": 27.03}, {"date": "Mar 09, 2026", "price": 28.32}, {"date": "Mar 16, 2026", "price": 27.27}, {"date": "Mar 23, 2026", "price": 28.7}, {"date": "Mar 30, 2026", "price": 28.46}, {"date": "Apr 06, 2026", "price": 28.93}, {"date": "Apr 13, 2026", "price": 31.6}, {"date": "Apr 20, 2026", "price": 30.27}, {"date": "Apr 27, 2026", "price": 29.96}, {"date": "May 04, 2026", "price": 30.13}, {"date": "May 11, 2026", "price": 32.01}, {"date": "May 18, 2026", "price": 30.52}, {"date": "May 25, 2026", "price": 28.83}, {"date": "Jun 01, 2026", "price": 28.88}, {"date": "Jun 08, 2026", "price": 28.56}, {"date": "Jun 15, 2026", "price": 27.57}, {"date": "Jun 22, 2026", "price": 25.39}, {"date": "Jun 29, 2026", "price": 26.62}, {"date": "Jul 06, 2026", "price": 28.2}, {"date": "Jul 13, 2026", "price": 29.62}, {"date": "Jul 20, 2026", "price": 30.19}, {"date": "Jul 27, 2026", "price": 33.01}, {"date": "Aug 03, 2026", "price": 32.97}, {"date": "Aug 10, 2026", "price": 31.61}, {"date": "Aug 13, 2026", "price": 29.3}], "10Y": [{"date": "Sep 01, 2016", "price": 26.09}, {"date": "Oct 01, 2016", "price": 25.95}, {"date": "Nov 01, 2016", "price": 26.87}, {"date": "Dec 01, 2016", "price": 25.44}, {"date": "Jan 01, 2017", "price": 28.4}, {"date": "Feb 01, 2017", "price": 30.57}, {"date": "Mar 01, 2017", "price": 31.11}, {"date": "Apr 01, 2017", "price": 35.07}, {"date": "May 01, 2017", "price": 40.03}, {"date": "Jun 01, 2017", "price": 39.22}, {"date": "Jul 01, 2017", "price": 45.17}, {"date": "Aug 01, 2017", "price": 41.91}, {"date": "Sep 01, 2017", "price": 38.2}, {"date": "Oct 01, 2017", "price": 37.52}, {"date": "Nov 01, 2017", "price": 37.45}, {"date": "Dec 01, 2017", "price": 41.42}, {"date": "Jan 01, 2018", "price": 49.23}, {"date": "Feb 01, 2018", "price": 47.15}, {"date": "Mar 01, 2018", "price": 40.49}, {"date": "Apr 01, 2018", "price": 36.51}, {"date": "May 01, 2018", "price": 35.18}, {"date": "Jun 01, 2018", "price": 38.95}, {"date": "Jul 01, 2018", "price": 35.86}, {"date": "Aug 01, 2018", "price": 31.3}, {"date": "Sep 01, 2018", "price": 26.09}, {"date": "Oct 01, 2018", "price": 23.52}, {"date": "Nov 01, 2018", "price": 21.23}, {"date": "Dec 01, 2018", "price": 20.93}, {"date": "Jan 01, 2019", "price": 24.85}, {"date": "Feb 01, 2019", "price": 27.71}, {"date": "Mar 01, 2019", "price": 30.15}, {"date": "Apr 01, 2019", "price": 30.27}, {"date": "May 01, 2019", "price": 25.76}, {"date": "Jun 01, 2019", "price": 30.29}, {"date": "Jul 01, 2019", "price": 29.91}, {"date": "Aug 01, 2019", "price": 30.5}, {"date": "Sep 01, 2019", "price": 28.21}, {"date": "Oct 01, 2019", "price": 31.15}, {"date": "Nov 01, 2019", "price": 32.65}, {"date": "Dec 01, 2019", "price": 35.23}, {"date": "Jan 01, 2020", "price": 37.69}, {"date": "Feb 01, 2020", "price": 38.51}, {"date": "Mar 01, 2020", "price": 40.5}, {"date": "Apr 01, 2020", "price": 43.1}, {"date": "May 01, 2020", "price": 54.33}, {"date": "Jun 01, 2020", "price": 60.18}, {"date": "Jul 01, 2020", "price": 63.79}, {"date": "Aug 01, 2020", "price": 78.64}, {"date": "Sep 01, 2020", "price": 77.61}, {"date": "Oct 01, 2020", "price": 81.52}, {"date": "Nov 01, 2020", "price": 85.35}, {"date": "Dec 01, 2020", "price": 87.9}, {"date": "Jan 01, 2021", "price": 88.69}, {"date": "Feb 01, 2021", "price": 93.87}, {"date": "Mar 01, 2021", "price": 84.33}, {"date": "Apr 01, 2021", "price": 77.36}, {"date": "May 01, 2021", "price": 73.94}, {"date": "Jun 01, 2021", "price": 79.81}, {"date": "Jul 01, 2021", "price": 70.88}, {"date": "Aug 01, 2021", "price": 78.56}, {"date": "Sep 01, 2021", "price": 72.24}, {"date": "Oct 01, 2021", "price": 78.28}, {"date": "Nov 01, 2021", "price": 84.11}, {"date": "Dec 01, 2021", "price": 70.07}, {"date": "Jan 01, 2022", "price": 74.88}, {"date": "Feb 01, 2022", "price": 71.63}, {"date": "Mar 01, 2022", "price": 57.87}, {"date": "Apr 01, 2022", "price": 61.66}, {"date": "May 01, 2022", "price": 56.12}, {"date": "Jun 01, 2022", "price": 64.22}, {"date": "Jul 01, 2022", "price": 59.5}, {"date": "Aug 01, 2022", "price": 63.49}, {"date": "Sep 01, 2022", "price": 50.3}, {"date": "Oct 01, 2022", "price": 37.29}, {"date": "Nov 01, 2022", "price": 57.18}, {"date": "Dec 01, 2022", "price": 56.13}, {"date": "Jan 01, 2023", "price": 59.53}, {"date": "Feb 01, 2023", "price": 44.44}, {"date": "Mar 01, 2023", "price": 43.89}, {"date": "Apr 01, 2023", "price": 35.72}, {"date": "May 01, 2023", "price": 32.6}, {"date": "Jun 01, 2023", "price": 34.13}, {"date": "Jul 01, 2023", "price": 41.31}, {"date": "Aug 01, 2023", "price": 33.21}, {"date": "Sep 01, 2023", "price": 29.13}, {"date": "Oct 01, 2023", "price": 25.42}, {"date": "Nov 01, 2023", "price": 27.43}, {"date": "Dec 01, 2023", "price": 28.89}, {"date": "Jan 01, 2024", "price": 22.55}, {"date": "Feb 01, 2024", "price": 22.62}, {"date": "Mar 01, 2024", "price": 27.39}, {"date": "Apr 01, 2024", "price": 28.89}, {"date": "May 01, 2024", "price": 29.62}, {"date": "Jun 01, 2024", "price": 25.84}, {"date": "Jul 01, 2024", "price": 26.39}, {"date": "Aug 01, 2024", "price": 27.0}, {"date": "Sep 01, 2024", "price": 40.0}, {"date": "Oct 01, 2024", "price": 40.62}, {"date": "Nov 01, 2024", "price": 37.38}, {"date": "Dec 01, 2024", "price": 34.67}, {"date": "Jan 01, 2025", "price": 40.72}, {"date": "Feb 01, 2025", "price": 41.9}, {"date": "Mar 01, 2025", "price": 41.12}, {"date": "Apr 01, 2025", "price": 32.62}, {"date": "May 01, 2025", "price": 32.41}, {"date": "Jun 01, 2025", "price": 32.64}, {"date": "Jul 01, 2025", "price": 31.49}, {"date": "Aug 01, 2025", "price": 31.07}, {"date": "Sep 01, 2025", "price": 34.98}, {"date": "Oct 01, 2025", "price": 33.04}, {"date": "Nov 01, 2025", "price": 29.83}, {"date": "Dec 01, 2025", "price": 28.7}, {"date": "Jan 01, 2026", "price": 28.48}, {"date": "Feb 01, 2026", "price": 26.53}, {"date": "Mar 01, 2026", "price": 29.57}, {"date": "Apr 01, 2026", "price": 30.32}, {"date": "May 01, 2026", "price": 28.83}, {"date": "Jun 01, 2026", "price": 25.48}, {"date": "Jul 01, 2026", "price": 33.01}, {"date": "Aug 01, 2026", "price": 31.61}, {"date": "Aug 13, 2026", "price": 29.3}], "MAX": [{"date": "Jun 01, 2014", "price": 28.51}, {"date": "Jul 01, 2014", "price": 28.58}, {"date": "Aug 01, 2014", "price": 31.92}, {"date": "Sep 01, 2014", "price": 25.82}, {"date": "Oct 01, 2014", "price": 23.89}, {"date": "Nov 01, 2014", "price": 23.52}, {"date": "Dec 01, 2014", "price": 23.14}, {"date": "Jan 01, 2015", "price": 24.84}, {"date": "Feb 01, 2015", "price": 27.67}, {"date": "Mar 01, 2015", "price": 29.38}, {"date": "Apr 01, 2015", "price": 33.56}, {"date": "May 01, 2015", "price": 33.68}, {"date": "Jun 01, 2015", "price": 34.1}, {"date": "Jul 01, 2015", "price": 33.03}, {"date": "Aug 01, 2015", "price": 25.88}, {"date": "Sep 01, 2015", "price": 26.06}, {"date": "Oct 01, 2015", "price": 27.62}, {"date": "Nov 01, 2015", "price": 30.68}, {"date": "Dec 01, 2015", "price": 32.26}, {"date": "Jan 01, 2016", "price": 26.03}, {"date": "Feb 01, 2016", "price": 25.71}, {"date": "Mar 01, 2016", "price": 26.5}, {"date": "Apr 01, 2016", "price": 25.56}, {"date": "May 01, 2016", "price": 24.61}, {"date": "Jun 01, 2016", "price": 21.23}, {"date": "Jul 01, 2016", "price": 21.65}, {"date": "Aug 01, 2016", "price": 25.41}, {"date": "Sep 01, 2016", "price": 26.09}, {"date": "Oct 01, 2016", "price": 25.95}, {"date": "Nov 01, 2016", "price": 26.87}, {"date": "Dec 01, 2016", "price": 25.44}, {"date": "Jan 01, 2017", "price": 28.4}, {"date": "Feb 01, 2017", "price": 30.57}, {"date": "Mar 01, 2017", "price": 31.11}, {"date": "Apr 01, 2017", "price": 35.07}, {"date": "May 01, 2017", "price": 40.03}, {"date": "Jun 01, 2017", "price": 39.22}, {"date": "Jul 01, 2017", "price": 45.17}, {"date": "Aug 01, 2017", "price": 41.91}, {"date": "Sep 01, 2017", "price": 38.2}, {"date": "Oct 01, 2017", "price": 37.52}, {"date": "Nov 01, 2017", "price": 37.45}, {"date": "Dec 01, 2017", "price": 41.42}, {"date": "Jan 01, 2018", "price": 49.23}, {"date": "Feb 01, 2018", "price": 47.15}, {"date": "Mar 01, 2018", "price": 40.49}, {"date": "Apr 01, 2018", "price": 36.51}, {"date": "May 01, 2018", "price": 35.18}, {"date": "Jun 01, 2018", "price": 38.95}, {"date": "Jul 01, 2018", "price": 35.86}, {"date": "Aug 01, 2018", "price": 31.3}, {"date": "Sep 01, 2018", "price": 26.09}, {"date": "Oct 01, 2018", "price": 23.52}, {"date": "Nov 01, 2018", "price": 21.23}, {"date": "Dec 01, 2018", "price": 20.93}, {"date": "Jan 01, 2019", "price": 24.85}, {"date": "Feb 01, 2019", "price": 27.71}, {"date": "Mar 01, 2019", "price": 30.15}, {"date": "Apr 01, 2019", "price": 30.27}, {"date": "May 01, 2019", "price": 25.76}, {"date": "Jun 01, 2019", "price": 30.29}, {"date": "Jul 01, 2019", "price": 29.91}, {"date": "Aug 01, 2019", "price": 30.5}, {"date": "Sep 01, 2019", "price": 28.21}, {"date": "Oct 01, 2019", "price": 31.15}, {"date": "Nov 01, 2019", "price": 32.65}, {"date": "Dec 01, 2019", "price": 35.23}, {"date": "Jan 01, 2020", "price": 37.69}, {"date": "Feb 01, 2020", "price": 38.51}, {"date": "Mar 01, 2020", "price": 40.5}, {"date": "Apr 01, 2020", "price": 43.1}, {"date": "May 01, 2020", "price": 54.33}, {"date": "Jun 01, 2020", "price": 60.18}, {"date": "Jul 01, 2020", "price": 63.79}, {"date": "Aug 01, 2020", "price": 78.64}, {"date": "Sep 01, 2020", "price": 77.61}, {"date": "Oct 01, 2020", "price": 81.52}, {"date": "Nov 01, 2020", "price": 85.35}, {"date": "Dec 01, 2020", "price": 87.9}, {"date": "Jan 01, 2021", "price": 88.69}, {"date": "Feb 01, 2021", "price": 93.87}, {"date": "Mar 01, 2021", "price": 84.33}, {"date": "Apr 01, 2021", "price": 77.36}, {"date": "May 01, 2021", "price": 73.94}, {"date": "Jun 01, 2021", "price": 79.81}, {"date": "Jul 01, 2021", "price": 70.88}, {"date": "Aug 01, 2021", "price": 78.56}, {"date": "Sep 01, 2021", "price": 72.24}, {"date": "Oct 01, 2021", "price": 78.28}, {"date": "Nov 01, 2021", "price": 84.11}, {"date": "Dec 01, 2021", "price": 70.07}, {"date": "Jan 01, 2022", "price": 74.88}, {"date": "Feb 01, 2022", "price": 71.63}, {"date": "Mar 01, 2022", "price": 57.87}, {"date": "Apr 01, 2022", "price": 61.66}, {"date": "May 01, 2022", "price": 56.12}, {"date": "Jun 01, 2022", "price": 64.22}, {"date": "Jul 01, 2022", "price": 59.5}, {"date": "Aug 01, 2022", "price": 63.49}, {"date": "Sep 01, 2022", "price": 50.3}, {"date": "Oct 01, 2022", "price": 37.29}, {"date": "Nov 01, 2022", "price": 57.18}, {"date": "Dec 01, 2022", "price": 56.13}, {"date": "Jan 01, 2023", "price": 59.53}, {"date": "Feb 01, 2023", "price": 44.44}, {"date": "Mar 01, 2023", "price": 43.89}, {"date": "Apr 01, 2023", "price": 35.72}, {"date": "May 01, 2023", "price": 32.6}, {"date": "Jun 01, 2023", "price": 34.13}, {"date": "Jul 01, 2023", "price": 41.31}, {"date": "Aug 01, 2023", "price": 33.21}, {"date": "Sep 01, 2023", "price": 29.13}, {"date": "Oct 01, 2023", "price": 25.42}, {"date": "Nov 01, 2023", "price": 27.43}, {"date": "Dec 01, 2023", "price": 28.89}, {"date": "Jan 01, 2024", "price": 22.55}, {"date": "Feb 01, 2024", "price": 22.62}, {"date": "Mar 01, 2024", "price": 27.39}, {"date": "Apr 01, 2024", "price": 28.89}, {"date": "May 01, 2024", "price": 29.62}, {"date": "Jun 01, 2024", "price": 25.84}, {"date": "Jul 01, 2024", "price": 26.39}, {"date": "Aug 01, 2024", "price": 27.0}, {"date": "Sep 01, 2024", "price": 40.0}, {"date": "Oct 01, 2024", "price": 40.62}, {"date": "Nov 01, 2024", "price": 37.38}, {"date": "Dec 01, 2024", "price": 34.67}, {"date": "Jan 01, 2025", "price": 40.72}, {"date": "Feb 01, 2025", "price": 41.9}, {"date": "Mar 01, 2025", "price": 41.12}, {"date": "Apr 01, 2025", "price": 32.62}, {"date": "May 01, 2025", "price": 32.41}, {"date": "Jun 01, 2025", "price": 32.64}, {"date": "Jul 01, 2025", "price": 31.49}, {"date": "Aug 01, 2025", "price": 31.07}, {"date": "Sep 01, 2025", "price": 34.98}, {"date": "Oct 01, 2025", "price": 33.04}, {"date": "Nov 01, 2025", "price": 29.83}, {"date": "Dec 01, 2025", "price": 28.7}, {"date": "Jan 01, 2026", "price": 28.48}, {"date": "Feb 01, 2026", "price": 26.53}, {"date": "Mar 01, 2026", "price": 29.57}, {"date": "Apr 01, 2026", "price": 30.32}, {"date": "May 01, 2026", "price": 28.83}, {"date": "Jun 01, 2026", "price": 25.48}, {"date": "Jul 01, 2026", "price": 33.01}, {"date": "Aug 01, 2026", "price": 31.61}, {"date": "Aug 13, 2026", "price": 29.3}]};
         let currentRangeKey = '1Y';
         let currentPoints = allDatasets[currentRangeKey] || [];
         let currentSvgCoords = [];
@@ -1207,45 +1207,45 @@
             <div class="metrics-grid">
                 <div class="metric-cell">
                     <div class="metric-label">Fair Value</div>
-                    <div class="metric-value" style="color: var(--accent-warm);">$52.50</div>
+                    <div class="metric-value" style="color: var(--accent-warm);">$51.80</div>
                     <div class="metric-subtext" style="color: var(--text-dim);">Intrinsic baseline</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bear Target</div>
-                    <div class="metric-value" style="color: var(--accent-red);">$39.38 (+23.4%)</div>
+                    <div class="metric-value" style="color: var(--accent-red);">$34.50</div>
                     <div class="metric-subtext" style="color: var(--text-dim);">Downside floor</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Base Target</div>
-                    <div class="metric-value">$52.50 (+64.5%)</div>
+                    <div class="metric-value">$51.80</div>
                     <div class="metric-subtext" style="color: var(--text-dim);">Mid-cycle value</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bull Target</div>
-                    <div class="metric-value" style="color: var(--accent-green);">$68.25 (+113.8%)</div>
+                    <div class="metric-value" style="color: var(--accent-green);">$72.40</div>
                     <div class="metric-subtext" style="color: var(--text-dim);">Asymmetric upside</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Alert Corridor</div>
-                    <div class="metric-value" style="font-size: 1.05rem; font-family: var(--font-mono); color: var(--text-title);">$27.00 ⇄ $42.00</div>
+                    <div class="metric-value" style="font-size: 1.05rem; font-family: var(--font-mono); color: var(--text-title);">$25.50 ⇄ $42.00</div>
                     <div class="metric-subtext" style="color: var(--text-dim);">Surveillance triggers</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Next Catalyst</div>
-                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">2026-08-13</div>
-                    <div class="metric-subtext" style="color: var(--text-dim);">Q2 2026 Earnings Release</div>
+                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">2026-11-12</div>
+                    <div class="metric-subtext" style="color: var(--text-dim);">Q3 2026 Financial Results</div>
                 </div>
                 
     <div class="metric-cell">
         <div class="metric-label">Institutional Float</div>
-        <div class="metric-value" style="font-family: var(--font-mono); color: var(--text-title); font-size: 1.15rem; font-weight: 500;">46.2%</div>
-        <div class="metric-subtext" style="color: var(--text-dim);" title="Walmart (9.4%), Vanguard (4.2%), Scion / Michael Burry (46.2% of float)">Walmart · Vanguard · Scion</div>
+        <div class="metric-value" style="font-family: var(--font-mono); color: var(--text-title); font-size: 1.15rem; font-weight: 500;">38.5%</div>
+        <div class="metric-subtext" style="color: var(--text-dim);" title="Vanguard Group (8.2%), BlackRock Fund Advisors (6.8%), Scion Asset Management (Michael Burry) (Top 5 Position) (38.5% of float)">Vanguard Group · BlackRock Fund Advisors · Scion Asset</div>
     </div>
     
                 
     <div class="metric-cell">
         <div class="metric-label">Insider Sentiment</div>
-        <div class="metric-value" style="font-family: var(--font-sans); color: var(--accent-warm); font-size: 1.05rem; font-weight: 600;">🟡 Net Buying</div>
+        <div class="metric-value" style="font-family: var(--font-sans); color: var(--accent-warm); font-size: 1.05rem; font-weight: 600;">🟡 Cluster Buying</div>
         <div class="metric-subtext" style="color: var(--text-dim);" title="Routine management alignment">Routine management alignment</div>
     </div>
     
@@ -1255,516 +1255,853 @@
         <!-- Navigation Tabs -->
         <div class="tabs-header">
             <button id="btn-tab-memo" class="tab-btn active" onclick="showTab('memo')">Investment Thesis</button>
-            <button id="btn-tab-history" class="tab-btn" onclick="showTab('history')">Evolution (0)</button>
+            <button id="btn-tab-history" class="tab-btn" onclick="showTab('history')">Evolution (2)</button>
             <button id="btn-tab-ownership" class="tab-btn" onclick="showTab('ownership')">Ownership & Fund Intel</button>
         </div>
 
         <!-- Memo Content -->
         <div id="tab-memo" class="tab-content active">
             <article class="memo-container">
-                <section id="section-1">
-<h2>Section 1: Business Model Reality &amp; Moat</h2>
-<p>JD.com operates a highly distinctive hybrid e-commerce model in China, anchored by a massive <strong>First-Party (1P) Direct-Sales engine</strong> that functions akin to an online combination of Amazon Direct and Costco. Unlike pure-play platform marketplaces like Alibaba’s Taobao or PDD Holdings, JD takes full inventory risk for its 1P business, sourcing products directly from original equipment manufacturers (OEMs) and brand owners, managing inventory in its own smart warehouse network, and delivering through its proprietary logistics arm, <strong>JD Logistics</strong>.</p>
-<h3>1. The 1P Direct-Sales flywheel &amp; Product Authenticity Moat</h3>
-<p>In China’s hyper-competitive e-commerce ecosystem, JD’s primary moat stems from uncompromised product authenticity, customer trust, and speed. In high-ticket consumer electronics, home appliances, and daily fast-moving consumer goods (FMCG), consumer aversion to counterfeit products creates a powerful structural advantage for JD’s direct sourcing model. By owning the entire fulfillment stack—from vendor procurement to last-mile delivery—JD maintains a strict quality-control barrier that third-party platform models cannot easily replicate.</p>
-<h3>2. Logistics Infrastructure (JD Logistics) as an Unassailable Asset</h3>
-<p>JD Logistics is the central operational foundation of the company’s moat. Over nearly two decades of heavy capital expenditure, JD built a comprehensive logistics footprint covering nearly 99% of China’s population. The infrastructure features:</p>
-<ul><li><strong>Nationwide Warehouse Network:</strong> Over 1,600 megawarehouses, including ultra-automated "Asia No. 1" smart logistics parks utilizing AI-driven sorting robotics and automated storage/retrieval systems (ASRS).</li><li><strong>Integrated Supply Chain (ISC):</strong> Deep API integration into supplier factories, enabling JD to optimize vendor inventory levels, reduce turnover days (often keeping inventory turnover under 31 days across millions of SKUs), and execute automated replenishment.
-  <strong>Same-Day / Next-Day Delivery ("211 Program"):</strong> Proprietary last-mile couriers provide direct-to-door delivery and hassle-free return pickups, setting an industry standard for speed and service quality across Tier-1 to Tier-4 cities.</li></ul>
-<h3>3. The 3P Marketplace Expansion &amp; High-Margin Service Monetization</h3>
-<p>To complement its capital-intensive 1P retail engine, JD has aggressively expanded its <strong>Third-Party (3P) Marketplace platform</strong>. By onboarding merchant sellers and offering them access to JD Logistics infrastructure, fulfillment, and digital marketing tools, JD captures high-margin service revenue. This strategic pivot drives operational leverage: 1P sales build top-line scale and purchasing power, while 3P commission fees, advertising revenues, and logistics service fees drive bottom-line margin expansion.</p>
+                
+        <div class="update-banner-box">
+            <div class="update-banner-header">
+                <span class="update-banner-badge">⚡ Version 3 Thesis Evolution • 2026-08-13</span>
+                <span class="update-trigger-pill">Trigger: SEC 6-K Filing (2026-08-13): FORM 6-K [Accession #0001193125-26-347753]</span>
+            </div>
+            <div class="update-banner-body">
+                <div class="update-banner-title">What Changed & Forward Thesis Impact</div>
+                <div class="update-banner-desc">
+                    Primary audit of JD's Q2 2026 6-K filing confirms that top-line contraction (-2.9% YoY to $51.1B / RMB 346.4B) was purely optical due to tough prior-year electronics comps, while underlying earnings quality accelerated sharply. GAAP operating income swung to positive RMB 4.5B ($0.66B) from a RMB 0.9B loss, Non-GAAP net margin expanded 50 bps YoY to 2.6%, and New Business cash burn fell over 50% YoY. With $1.0B repurchased in 1H 2026, annual dividend yielding ~3.4%, and net cash/liquid investments backing over 45% of JD's market cap, the business is compounding intrinsic value while trading at a sub-8x normalized Owner Earnings yield.
+                    
+                </div>
+            </div>
+        </div>
+        <div class="section">
+<h2>Section 1: Business Model, Scale Moat &amp; GenAI Transition</h2>
+<p>JD.com operates China’s most structurally defensible 1P retail and integrated supply-chain logistics empire. Unlike open marketplace aggregators that rely on asset-light third-party merchant networks with minimal fulfillment control, JD built an irreplicable physical infrastructure moat consisting of over 1,600 warehouses spanning more than 32 million square meters of nationwide fulfillment capacity. This heavy infrastructure acts as a self-reinforcing operational flywheel: automated fulfillment density reduces unit handling costs, which unlocks superior delivery speeds (same-day and next-day delivery covering over 95% of China's counties) and guarantees authentic merchandise sourcing. This structural advantage gives JD an unassailable customer trust moat in high-ticket consumer electronics, home appliances, and fast-moving consumer goods (FMCG).</p>
+<p>In response to macroeconomic maturation and shifting consumer behavior across mainland China, JD is executing two fundamental long-term strategic evolutions: a structural mix shift toward high-margin 3P marketplace monetization and service revenues, and enterprise-scale deployment of proprietary generative AI and automated robotics. JD’s enterprise LLM platform, <em>JoyAI</em> (and its embedded <em>JoyInside</em> commerce suite), is now integrated across 200+ major brand partners, automating digital storefront operations, intelligent dynamic inventory dispatch, customer service triage, and programmatic advertising bidding. This AI-driven productivity transformation drove JD Retail's gross margin and peak promotional operating margins to record highs in Q2 2026, proving that JD's unit economics are expanding even during top-line adjustment phases.</p>
 <div class="callout">
-<strong>Moat Analysis Summary:</strong> JD's moat is anchored in physical logistics scale and supplier relationship density. While pure platform models enjoy higher asset-light operating margins, JD's direct supply chain control establishes an moat in high-ticket categories (appliances, 3C) and premium service speed that competitors cannot match without tens of billions of dollars in duplicate CapEx.
+<strong>Warren Buffett 5-Year Exchange Closure Insight:</strong> If the Hong Kong and NASDAQ stock exchanges were shuttered for five continuous years, JD's private economic engine would thrive unencumbered. The enterprise controls its own logistics destiny, generates over $7.5B in annual operating cash flow, maintains a massive net cash fortress representing over 45% of its market capitalization, and holds an entrenched supply chain relationship with hundreds of thousands of tier-1 manufacturers across China.
   </div>
-</section>
-<section id="section-2">
-<h2>Section 2: Q1 2026 Financial Results &amp; Operational Execution</h2>
-<p>JD.com delivered a resilient operational and financial performance in Q1 2026, characterized by stabilizing revenue acceleration, expanding core retail profitability, robust general merchandise momentum, and narrowing strategic cash burn in new initiatives.</p>
-<h3>Key Q1 2026 Financial Highlights</h3>
+</div>
+<div class="section">
+<h2>Section 2: Quarterly Operational Breakdown &amp; Segment Performance</h2>
+<p>For the second quarter of 2026 (ended June 30, 2026), JD generated net revenues of RMB 346.4 billion ($51.10 billion), representing a mild contraction of -2.9% year-over-year. Mr. Market reacted with short-sighted panic, interpreting the top-line contraction as structural market share loss. However, an audit of the underlying segment unit economics reveals that this revenue decline was entirely attributable to a tough, high-base comparison in 1P electronics and home appliances following last year's historic government subsidy-driven replacement cycle. Crucially, underlying earnings power and margin architecture inflected to multi-year highs.</p>
 <div class="metrics-grid">
 <div class="metric-card">
-<div class="metric-label">Q1 Net Revenue</div>
-<div class="metric-value">RMB 315.7B</div>
-<div class="metric-delta pos">+4.9% YoY</div>
+<div class="metric-label">Q2 2026 Net Revenue</div>
+<div class="metric-value">$51.10B</div>
+<div class="metric-delta neg">-2.9% YoY (RMB 346.4B)</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">JD Retail Op Margin</div>
-<div class="metric-value">5.6%</div>
-<div class="metric-delta pos">+70 bps YoY (Record)</div>
+<div class="metric-label">Non-GAAP Operating Income</div>
+<div class="metric-value">$811M</div>
+<div class="metric-delta pos">+511% YoY (RMB 5.5B)</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">Service Revenue Growth</div>
-<div class="metric-value">RMB 70.7B</div>
-<div class="metric-delta pos">+20.6% YoY</div>
+<div class="metric-label">Non-GAAP Net Income</div>
+<div class="metric-value">$1.31B</div>
+<div class="metric-delta pos">+20.3% YoY (RMB 8.9B)</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">General Mdse Growth</div>
-<div class="metric-value">RMB 109.8B</div>
-<div class="metric-delta pos">+14.9% YoY</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Annual Active Users</div>
-<div class="metric-value">&gt; 740 Million</div>
-<div class="metric-delta pos">Record Level</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Q1 Capital Return</div>
-<div class="metric-value">$2.03 Billion</div>
-<div class="metric-delta pos">Buyback + Cash Div</div>
+<div class="metric-label">Non-GAAP Diluted EPS</div>
+<div class="metric-value">$0.93</div>
+<div class="metric-delta pos">+26.5% YoY (RMB 6.29)</div>
 </div>
 </div>
-<h3>Financial Performance Breakdown</h3>
 <div class="table-scroll-wrap"><table>
 <thead>
 <tr>
-<th>Segment / Metric</th>
-<th>Q1 2026 (RMB)</th>
-<th>Q1 2025 (RMB)</th>
-<th>YoY Change</th>
+<th>Segment / Line Item</th>
+<th>Q2 2026 (RMB)</th>
+<th>Q2 2026 (USD)</th>
+<th>YoY Growth</th>
 <th>Key Operational Driver</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Total Net Revenues</strong></td>
-<td><strong>315.7 Billion</strong></td>
-<td>300.8 Billion</td>
-<td><span>+4.9%</span></td>
-<td>Accelerated from +1.5% in Q4 2025; driven by services and FMCG.</td>
+<td>Electronics &amp; Home Appliances</td>
+<td>RMB 157.9B</td>
+<td>$23.29B</td>
+<td>-11.8%</td>
+<td>High base comparison from prior-year national trade-in subsidy launch.</td>
 </tr>
 <tr>
-<td>— Electronics &amp; Home Appliances</td>
-<td>135.2 Billion</td>
-<td>147.6 Billion</td>
-<td><span>-8.4%</span></td>
-<td>Difficult comparison vs. 2025 trade-in subsidies &amp; higher memory costs.</td>
+<td>General Merchandise (Supermarket/FMCG)</td>
+<td>RMB 109.2B</td>
+<td>$16.11B</td>
+<td>+5.6%</td>
+<td>Resilient grocery, personal care, and healthcare volume growth.</td>
 </tr>
 <tr>
-<td>— General Merchandise (Supermarket)</td>
-<td>109.8 Billion</td>
-<td>95.6 Billion</td>
-<td><span>+14.9%</span></td>
-<td>Double-digit gains in daily necessities, supermarket, and apparel.</td>
+<td>Marketplace &amp; Advertising Services</td>
+<td>RMB 30.9B</td>
+<td>$4.56B</td>
+<td>+8.3%</td>
+<td>3P merchant ecosystem expansion and automated AI ad conversion.</td>
 </tr>
 <tr>
-<td>— Marketplace &amp; Marketing Services</td>
-<td>23.1 Billion</td>
-<td>19.4 Billion</td>
-<td><span>+18.8%</span></td>
-<td>Strong 3P merchant base expansion and ad monetization.</td>
+<td>Logistics &amp; Other Services</td>
+<td>RMB 48.4B</td>
+<td>$7.14B</td>
+<td>+5.9%</td>
+<td>External enterprise supply chain contract expansion.</td>
 </tr>
 <tr>
-<td>— Logistics &amp; Other Services</td>
-<td>47.6 Billion</td>
-<td>36.9 Billion</td>
-<td><span>+29.0%</span></td>
-<td>Expansion of external integrated supply chain logistics customers.</td>
+<td>JD Retail Operating Profit</td>
+<td>RMB 13.5B</td>
+<td>$1.99B</td>
+<td>-2.9%</td>
+<td>Operating margin expanded to a record 4.6% during peak 618 promotion.</td>
 </tr>
 <tr>
-<td><strong>JD Retail Operating Profit</strong></td>
-<td><strong>15.0 Billion</strong></td>
-<td>12.8 Billion</td>
-<td><span>+16.5%</span></td>
-<td>Record 5.6% operating margin (+70 bps YoY) via mix shift.</td>
-</tr>
-<tr>
-<td><strong>Non-GAAP Net Profit</strong></td>
-<td><strong>7.4 Billion</strong></td>
-<td>12.8 Billion</td>
-<td><span>-42.2%</span></td>
-<td>Absorbed Q1 food delivery investment &amp; RMB 635M SAMR fine.</td>
-</tr>
-<tr>
-<td><strong>Non-GAAP Diluted EPADS</strong></td>
-<td><strong>RMB 5.12 ($0.74)</strong></td>
-<td>RMB 8.41</td>
-<td><span>-39.1%</span></td>
-<td>Beats consensus estimate of $0.57 / RMB 3.57 handily.</td>
+<td>New Businesses (JD Food Delivery / Joybuy)</td>
+<td>(RMB 9.85B)</td>
+<td>($1.45B)</td>
+<td>+33.4%</td>
+<td>Operating loss narrowed sharply from RMB 14.78B as food delivery burn fell &gt;50%.</td>
 </tr>
 </tbody>
 </table></div>
-<h3>Operational Execution Highlights</h3>
-<ul><li><strong>Core Retail Margin Expansion:</strong> JD Retail demonstrated robust operating leverage, generating RMB 15.0 billion in operating income on sales of RMB 268.59 billion. Operating margin expanded to a historic high of 5.6% (up from 4.9% in Q1 2025), underpinned by favorable product mix shifts toward high-margin general merchandise and 3P advertising revenues.</li><li><strong>Supermarket &amp; FMCG Momentum:</strong> Supermarket and general merchandise revenues surged 14.9% YoY to RMB 109.8 billion. This double-digit expansion effectively counterbalanced temporary headwinds in consumer electronics.</li><li><strong>User Growth &amp; Shopping Frequency:</strong> Annual active customer accounts surged to a record high of over 740 million. Quarterly active users registered double-digit year-on-year growth for the 10th consecutive quarter, while user shopping frequency across the platform jumped 37% YoY, confirming deepening engagement.</li><li><strong>New Businesses Loss Narrowing:</strong> Losses in the New Businesses segment (which includes instant retail and food delivery initiatives) narrowed sequentially by over 30%. Commission and advertising revenues from food delivery grew nearly two-fold quarter-over-quarter, signalling disciplined spend management and reduced subsidy intensity.</li><li><strong>Shareholder Returns:</strong> During Q1 2026, JD executed $631 million in share buybacks (repurchasing 44.5 million ADSs) and distributed an annual cash dividend of approximately $1.4 billion, demonstrating capital allocation discipline and strong balance sheet backing.</li></ul>
-<div class="executive-callout">
-<strong>Executive Commentary — Sandy Xu, Chief Executive Officer:</strong><br/>
-<em>"We're pleased to report a solid first quarter to kick off 2026. Our user base and shopping frequency continued to expand robustly, with annual active customers hitting a new record, a clear testament to the deepening synergies across our business ecosystem. JD Retail demonstrated remarkable resilience throughout the quarter, with profitability reaching record levels. Meanwhile, our New Businesses advanced steadily with meaningful bottom-line improvements over the prior quarter. With this solid foundation in place, we enter 2026 on firm ground."</em>
 </div>
-</section>
-<h3>SECTION 3: OWNER EARNINGS, SBC CASH REALITY &amp; DILUTION ANALYSIS</h3>
-<p>To determine JD.com's true economic cash-generating power, relying on unadjusted GAAP Net Income or superficial Free Cash Flow figures is insufficient. In accordance with Warren Buffett’s 1986 Shareholder Letter methodology, intrinsic business performance must be evaluated through <strong>Owner Earnings</strong>—stripping away non-cash accounting adjustments, fully expensing Stock-Based Compensation (SBC) as an undeniable operating cost, and strictly isolating Maintenance Capital Expenditures from discretionary Growth CapEx.</p>
-<div class="metrics-grid">
-<div class="metric-card">
-<div class="metric-label">TTM Operating Cash Flow</div>
-<div class="metric-value">$5.60B</div>
-<div class="metric-delta pos">Organic Working Capital Float</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Estimated Maintenance CapEx</div>
-<div class="metric-value">$1.15B</div>
-<div class="metric-delta neutral">~40% of Total CapEx</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Stock-Based Compensation (SBC)</div>
-<div class="metric-value">$780M</div>
-<div class="metric-delta neg">-100% Real Cash Outflow</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Normalized Owner Earnings</div>
-<div class="metric-value">$3.67B</div>
-<div class="metric-delta pos">8.1% Owner Yield ($33/ADS)</div>
-</div>
-</div>
-<h4>1. Maintenance CapEx vs. Discretionary Growth Reinvestment</h4>
-<p>Unlike asset-light 3P marketplace peers, JD.com operates a self-owned fulfillment and nationwide logistics infrastructure. A significant portion of reported annual Capital Expenditures (~$2.5B to $2.9B) is allocated to building out self-owned logistics parks, automated fulfillment hubs, and international supply chain corridors. <strong>Maintenance CapEx</strong>—the capital required merely to maintain existing fulfillment capacity, replace aging logistics fleets, and upgrade technology systems—is estimated at 35%–40% of total CapEx (~$1.15B). The remaining ~$1.5B–$1.8B represents discretionary, return-seeking growth capital that can be paused or reallocated at management's discretion.</p>
-<h4>2. Stock-Based Compensation (SBC) Cash Reality</h4>
-<p>In alignment with fundamental accounting discipline, Stock-Based Compensation is treated as a real cash expense. Equity compensation issued to executives and engineers dilutes existing shareholders just as directly as cash payroll expenses. For trailing periods, JD's SBC expense totaled ~$780 million. Rather than ignoring this expense under non-GAAP metric definitions, it is fully subtracted from Operating Cash Flow.</p>
+<div class="section">
+<h2>Section 3: Real Cash Flow &amp; Stock-Based Compensation (SBC) Audit</h2>
+<p>Following Warren Buffett’s principle of treating Stock-Based Compensation (SBC) as a direct cash drain and rigorously evaluating working capital dynamics, JD exhibits exceptional real cash conversion. On a trailing twelve-month (TTM) basis, JD generated RMB 49.4 billion ($7.29 billion) in adjusted operating cash flow and RMB 31.4 billion ($4.63 billion) in organic free cash flow.</p>
 <div class="table-scroll-wrap"><table>
 <thead>
 <tr>
-<th>Financial Metric (USD Equivalents)</th>
-<th>FY 2024</th>
-<th>FY 2025</th>
-<th>TTM Q1 2026</th>
-<th>Economic Valuation Basis</th>
+<th>Cash Flow &amp; SBC Audit Metric (TTM Q2 2026)</th>
+<th>RMB (Billions)</th>
+<th>USD (Billions)</th>
+<th>Economic Commentary</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Operating Cash Flow (GAAP)</strong></td>
-<td>$8.61B</td>
-<td>$2.72B</td>
-<td>$5.60B</td>
-<td>Subject to trade inventory &amp; floating payables cycle</td>
+<td>Reported Operating Cash Flow (OCF)</td>
+<td>RMB 49.4B</td>
+<td>$7.29B</td>
+<td>High cash conversion supported by rapid receivables collections and negative working capital float.</td>
 </tr>
 <tr>
-<td><strong>Less: Total Reported CapEx</strong></td>
-<td>($2.40B)</td>
-<td>($2.49B)</td>
-<td>($2.92B)</td>
-<td>Includes growth infrastructure investments</td>
+<td>Total CapEx (Property, Plant, Tech &amp; Logistics)</td>
+<td>(RMB 18.0B)</td>
+<td>($2.65B)</td>
+<td>Comprises RMB 10.5B Maintenance CapEx and RMB 7.5B Discretionary Growth CapEx.</td>
 </tr>
 <tr>
-<td><strong>Add Back: Growth CapEx (Discretionary)</strong></td>
-<td>+$1.44B</td>
-<td>+$1.49B</td>
-<td>+$1.77B</td>
-<td>Logistics parks &amp; overseas expansion hubs</td>
+<td>Maintenance CapEx (Moat Preservation)</td>
+<td>(RMB 10.5B)</td>
+<td>($1.55B)</td>
+<td>Essential replenishment of warehouse robotics, automated fulfillment centers, and fleet.</td>
 </tr>
 <tr>
-<td><strong>Less: Stock-Based Compensation (SBC)</strong></td>
-<td>($720M)</td>
-<td>($750M)</td>
-<td>($780M)</td>
-<td>100% Real cash dilution adjustment</td>
+<td>Stock-Based Compensation (100% Cash Deduction)</td>
+<td>(RMB 3.2B)</td>
+<td>($0.47B)</td>
+<td>Disciplined SBC represents &lt;1.0% of total revenue, far lower than US big tech peers.</td>
 </tr>
 <tr>
-<td><strong>Normalized Intrinsic Owner Earnings</strong></td>
-<td><strong>$6.93B</strong></td>
-<td><strong>$970M</strong></td>
-<td><strong>$3.67B</strong></td>
-<td><strong>True distributable cash flow to owners</strong></td>
+<td>Normalized TTM Owner Earnings (Buffett Rule)</td>
+<td>RMB 35.7B</td>
+<td>$5.27B</td>
+<td>OCF ($7.29B) - Maint CapEx ($1.55B) - SBC ($0.47B). Initial Cash Yield = ~12.5%.</td>
 </tr>
 </tbody>
 </table></div>
-<div class="callout">
-<strong>Buffett Cash Flow Principle &amp; Anti-Dilution Shield:</strong> While food delivery investments and temporary electronics supply-chain comparisons compressed cash flows in late 2025, normalized TTM Owner Earnings are rebounding toward $3.67 billion. Crucially, JD's aggressive capital return program ($3.0B repurchased in 2025 alone) retired ~6.3% of shares outstanding—overwhelmingly offsetting the annual ~1.2% equity dilution from SBC.
 </div>
-<h3>SECTION 4: BALANCE SHEET FORTRESS, BUYBACK CANNIBALISM &amp; 13F INSTITUTIONAL WHALES</h3>
-<p>JD.com maintains one of the most formidable balance sheets in global retail and e-commerce. At Q1 2026 reporting, the business sits on a massive cash reserve that de-risks the investment thesis and provides an asymmetric margin of safety against macroeconomic cycles.</p>
-<div class="metrics-grid">
-<div class="metric-card">
-<div class="metric-label">Cash &amp; Short-Term Invest.</div>
-<div class="metric-value">$29.80B</div>
-<div class="metric-delta pos">RMB 216 Billion Total</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Net Cash Position</div>
-<div class="metric-value">$23.30B</div>
-<div class="metric-delta pos">Deducting All Debt Obligations</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Net Cash Per ADS</div>
-<div class="metric-value">$15.59</div>
-<div class="metric-delta pos">~47% of Current Market Cap</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">2025 Share Count Reduction</div>
-<div class="metric-value">-6.3%</div>
-<div class="metric-delta pos">183.2M Class A Shares Retired</div>
-</div>
-</div>
-<h4>1. Net Cash &amp; Capital Structure Bridge</h4>
-<p>As of Q1 2026, JD holds RMB 216 billion ($29.8 billion USD) in total cash, cash equivalents, restricted cash, and short-term investments. Total financial debt—including bank borrowings, unsecured senior notes, and contractual operating lease liabilities—stands at approximately $6.5 billion. This yields an unencumbered <strong>Net Cash position of ~$23.3 billion USD</strong>.</p>
-<div class="table-scroll-wrap"><table>
-<thead>
-<tr>
-<th>Balance Sheet Component</th>
-<th>RMB Value (Billions)</th>
-<th>USD Value (Billions)</th>
-<th>Per ADS Value (USD)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Cash &amp; Cash Equivalents</td>
-<td>RMB 82.5B</td>
-<td>$11.38B</td>
-<td>$7.61</td>
-</tr>
-<tr>
-<td>Short-Term Investments &amp; Wealth Management Products</td>
-<td>RMB 133.5B</td>
-<td>$18.42B</td>
-<td>$12.32</td>
-</tr>
-<tr>
-<td><strong>Total Liquid Reserves</strong></td>
-<td><strong>RMB 216.0B</strong></td>
-<td><strong>$29.80B</strong></td>
-<td><strong>$19.93</strong></td>
-</tr>
-<tr>
-<td>Less: Short &amp; Long-Term Debt / Senior Notes</td>
-<td>(RMB 34.1B)</td>
-<td>($4.70B)</td>
-<td>($3.14)</td>
-</tr>
-<tr>
-<td>Less: Lease Liabilities &amp; Financial Obligations</td>
-<td>(RMB 13.0B)</td>
-<td>($1.80B)</td>
-<td>($1.20)</td>
-</tr>
-<tr>
-<td><strong>Net Cash Cushion</strong></td>
-<td><strong>RMB 168.9B</strong></td>
-<td><strong>$23.30B</strong></td>
-<td><strong>$15.59</strong></td>
-</tr>
-</tbody>
-</table></div>
-<h4>2. Buyback Cannibalism &amp; Shareholder Capital Returns</h4>
-<p>Management has aggressively pivoted toward capital return to exploit the dislocation between market price and intrinsic value. 
-<ul><li><strong>FY 2025 Execution:</strong> Repurchased $3.0 billion USD worth of stock, canceling 183.2 million Class A ordinary shares (equivalent to 91.6 million ADSs), reducing total shares outstanding by <strong>~6.3%</strong>.</li><li><strong>Q1 2026 Continuation:</strong> Repurchased an additional <strong>$631 million USD</strong> in shares during Q1 2026. As of March 31, 2026, $1.4 billion USD remains authorized under the current buyback program.</li><li><strong>Dividend Yield Support:</strong> Complemented by an annual cash dividend payout, providing a cash yield floor for equity holders.</li></ul>
-</p>
-<h4>3. 13F Institutional Whales &amp; Ownership Alignment</h4>
-<p>Prominent global value investors and institutional hedge funds maintain substantial equity stakes, validating the deep fundamental asset backing and turnaround potential:</p>
-<div class="table-scroll-wrap"><table>
-<thead>
-<tr>
-<th>13F Institutional Holder</th>
-<th>Investment Style &amp; Portfolio Role</th>
-<th>Thesis Alignment</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Dodge &amp; Cox</strong></td>
-<td>Deep Value / Institutional Anchor</td>
-<td>Core long-term holding anchored by liquid balance sheet and supply-chain moat.</td>
-</tr>
-<tr>
-<td><strong>FIL Ltd (Fidelity International)</strong></td>
-<td>Global Quality &amp; Value Accumulator</td>
-<td>Sustained position riding structural growth in direct retail and logistics services.</td>
-</tr>
-<tr>
-<td><strong>Appaloosa Management (David Tepper)</strong></td>
-<td>Macro Opportunity / High-Beta Value</td>
-<td>Key holding within Tepper's concentrated Chinese equity upside rebalancing strategy.</td>
-</tr>
-<tr>
-<td><strong>Newlands Management</strong></td>
-<td>Fundamental Long/Short Equity</td>
-<td>Focused on capital allocation discipline and massive net cash backing.</td>
-</tr>
-<tr>
-<td><strong>Barrow Hanley Global Investors</strong></td>
-<td>Dividend / High Cash Yield Value</td>
-<td>Attracted by double-digit total shareholder return yield (Buybacks + Dividends).</td>
-</tr>
-<tr>
-<td><strong>Lakewood Capital Management</strong></td>
-<td>Concentrated Fundamental Value</td>
-<td>Exploiting asymmetric valuation with over 45% of share price covered by net cash.</td>
-</tr>
-</tbody>
-</table></div>
-<div class="callout">
-<strong>5-Year Exchange Closure Safety Net:</strong> At $33/ADS, buying JD.com is economically equivalent to buying a high-margin supply-chain network for $17.41/ADS while receiving $15.59/ADS in cold hard cash. Even if equity markets were closed for five years, the combination of $23.3B net cash, ongoing share retirement (-6.3%/year), and solid Owner Earnings ($3.67B TTM) provides an exceptional margin of safety.
-</div>
-<section id="warren-buffett-intrinsic-value">
-<h2>Section 5: Warren Buffett Intrinsic Value &amp; Scenario Matrix</h2>
-<p>
-    Rooted in Warren Buffett’s foundational framework from the 1986 Berkshire Hathaway Shareholder Letter, true intrinsic value is the discounted value of the cash that can be taken out of a business during its remaining life. For <strong>JD.com, Inc. (NASDAQ: JD)</strong>, we reject wall street's reliance on arbitrary forward P/E or EV/EBITDA exit multiples—which Charlie Munger famously characterized as relying on a "greater fool in Year 5"—and instead evaluate the company purely on its ability to generate <strong>Normalized Owner Earnings</strong>.
-  </p>
-<div class="callout">
-<strong>Warren Buffett Owner Earnings Equation:</strong><br/>
-<code>Owner Earnings = Operating Cash Flow − Maintenance CapEx − 100% Stock-Based Compensation (SBC) ± Working Capital Adjustments</code>
-</div>
-<h3>1. Owner Earnings Normalization &amp; Deductions</h3>
-<p>
-    To establish a clean baseline, we analyze JD.com’s trailing cash generation, separating capital required to protect its existing logistical moat from growth capital, while treating equity compensation as a real cash expense:
-  </p>
-<ul><li><strong>Operating Cash Flow (OCF):</strong> Standardized trailing OCF stands at approximately <strong>RMB 58.5 Billion (~$8.13 Billion USD)</strong>. We verify that OCF reflects sustainable organic customer demand rather than temporary working capital swings, benefiting from JD’s negative operating working capital cycle (collecting upfront from consumers while paying suppliers on standard terms).</li>
-<li><strong>Maintenance CapEx vs. Growth CapEx:</strong> JD’s total annual CapEx averages ~$2.50–$2.90 Billion USD. However, a substantial portion is dedicated to discretionary land acquisition, building automated fulfillment centers, and expanding international hubs. We isolate maintenance CapEx—the capital strictly required to repair existing warehouses, delivery fleets, and core tech infrastructure—at <strong>~$1.25 Billion USD (RMB 9.0 Billion)</strong>.
-    </li>
-<strong>100% SBC Deduction:</strong> Stock-based compensation is a real operating expense that dilutes shareholder equity. We deduct 100% of annual SBC, amounting to <strong>~$0.68 Billion USD (RMB 4.9 Billion)</strong>.
-    <li><strong>Normalized Group Owner Earnings:</strong> $8.13B (OCF) − $1.25B (Maintenance CapEx) − $0.68B (SBC) = <strong>~$6.20 Billion USD (~RMB 44.6 Billion)</strong>. On a normalized base of ~1.48 Billion diluted ADSs (accounting for 1 ADS = 2 Class A ordinary shares), baseline Owner Earnings equal approximately <strong>$4.18 per ADS</strong>.
-    </li></ul>
-<h3>2. Country-Specific Sovereign Discount Rate &amp; Capital Structure</h3>
-<p>
-    In accordance with Buffett’s international investing discipline (as demonstrated in his PetroChina, Iscar, and Japanese trading company allocations), we strictly avoid using U.S. Treasury rates to discount foreign cash flows. Cash flows generated in Renminbi are discounted using the local sovereign risk structure:
-  </p>
-<div class="metrics-grid">
-<div class="metric-card">
-<div class="metric-label">China 10Y Sovereign Rate</div>
-<div class="metric-value">2.40%</div>
-<div class="metric-delta pos">Local Risk-Free Anchor</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Equity Risk Premium (ERP)</div>
-<div class="metric-value">6.60%</div>
-<div class="metric-delta neutral">Emerging Market &amp; Geopolitical</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Discount Hurdle Rate</div>
-<div class="metric-value">9.00%</div>
-<div class="metric-delta neg">Applied Discount Rate</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Net Cash Fortress</div>
-<div class="metric-value">~$21.5B</div>
-<div class="metric-delta pos">~$14.50 / ADS Net Bridge</div>
-</div>
-</div>
-<p>
-<strong>Balance Sheet Reality Bridge:</strong> JD operates a balance sheet fortress. Cash, cash equivalents, restricted cash, and short-term investments total ~$30.0 Billion USD, against ~$8.5 Billion in total short- and long-term bank borrowings and operating lease liabilities, yielding a net cash bridge of <strong>~$21.5 Billion USD (~$14.50 per ADS)</strong>.
-  </p>
-<h3>3. Share Buyback Cannibal Compounding &amp; 5-Year Market Closure Test</h3>
-<p>
-    Under its board-approved $5.0 Billion share repurchase program (effective through August 2027), JD repurchased and retired 183.2 million ordinary shares (91.6 million ADSs) in 2025 alone—canceling <strong>~6.3% of its outstanding share count</strong>. At current valuation discounts, aggressive share buybacks serve as a powerful cannibal compounder, steadily boosting per-share Owner Earnings even under modest group revenue growth.
-  </p>
-<p>
-    Under the <strong>5-Year Market Closure Test</strong>, if the stock exchanges in New York and Hong Kong were to close for five consecutive years, an investor buying at market prices would achieve a ~12.5% baseline cash yield purely from organic Owner Earnings plus share count shrink—providing an exceptional margin of safety.
-  </p>
-<h3>4. Intrinsic Value Scenario Matrix</h3>
-<p>
-    The following table outlines our explicit Bear, Base, and Bull valuation models, incorporating 100% SBC and maintenance CapEx deductions, a 9.0% sovereign-anchored hurdle rate, share count shrink, and the net cash bridge per ADS:
-  </p>
-<div class="table-scroll-wrap"><table>
-<thead>
-<tr>
-<th>Valuation Metric / Assumption</th>
-<th>Bear Case (Stagnation)</th>
-<th>Base Case (Core Growth)</th>
-<th>Bull Case (Re-Acceleration)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Core Operational Driver</strong></td>
-<td>Sluggish macro, intense price competition from PDD/Meituan, food delivery drag.</td>
-<td>Core JD Retail grows 4–5% CAGR, logistics margins expand, new biz losses narrow.</td>
-<td>3P marketplace services accelerate, international logistics scales, margins expand.</td>
-</tr>
-<tr>
-<td><strong>5-Year Owner Earnings CAGR</strong></td>
-<td>1.0% per annum</td>
-<td>5.5% per annum</td>
-<td>8.5% per annum</td>
-</tr>
-<tr>
-<td><strong>Normalized Owner Earnings / ADS</strong></td>
-<td>$2.50</td>
-<td>$4.10</td>
-<td>$5.50</td>
-</tr>
-<tr>
-<td><strong>Annual Share Count Reduction</strong></td>
-<td>2.0% p.a. (Conservative)</td>
-<td>4.0% p.a. (Current Pace)</td>
-<td>5.5% p.a. (Aggressive Buybacks)</td>
-</tr>
-<tr>
-<td><strong>Discount Rate (Chinese Bond + ERP)</strong></td>
-<td>9.0%</td>
-<td>9.0%</td>
-<td>9.0%</td>
-</tr>
-<tr>
-<td><strong>Terminal Assumptions</strong></td>
-<td>1.0% Gordon Growth (8.0x Cap Rate)</td>
-<td>2.0% Gordon Growth (12.0x Cap Rate)</td>
-<td>2.5% Gordon Growth (15.0x Cap Rate)</td>
-</tr>
-<tr>
-<td><strong>PV of 5Y Cash Streams + Terminal Value</strong></td>
-<td>$18.00</td>
-<td>$38.00</td>
-<td>$54.00</td>
-</tr>
-<tr>
-<td><strong>Net Cash Bridge / ADS</strong></td>
-<td>+$10.50 (Cautious Deployment)</td>
-<td>+$14.50 (Fortress Balance Sheet)</td>
-<td>+$18.00 (Cash Accumulation)</td>
-</tr>
-<tr>
-<td><strong>Per-Share Intrinsic Target</strong></td>
-<td><strong>$28.50</strong></td>
-<td><strong>$52.50</strong></td>
-<td><strong>$72.00</strong></td>
-</tr>
-</tbody>
-</table></div>
-</section>
-<section id="thesis-confidence-execution-risk">
-<h2>Section 6: Thesis Confidence, Execution Risk &amp; Falsification Corridors</h2>
-<h3>1. Thesis Conviction &amp; Asymmetric Margin of Safety</h3>
-<p>
-    We assign a <strong>Solid Conviction</strong> rating to the thesis. JD.com presents a classic Buffett-style asymmetric setup: a capital-intensive supply chain moat trading at a valuation where the net cash fortress covers nearly 40–45% of the total market capitalization. Because the market price treats JD as a melting ice cube, any operational stabilization or capital return optimization yields significant intrinsic re-rating upside.
-  </p>
-<h3>2. Execution &amp; Macro Risk Assessment</h3>
-<p>
-    While the margin of safety is wide, several specific execution risks could impede or delay intrinsic value realization:
-  </p>
-<ul><li><strong>New Business &amp; Food Delivery Cash Drain:</strong> Management’s expansion into instant commerce and food delivery has generated short-term margin compression and lower free cash flow. If these investments fail to reach scale or operating breakeven, cash flows will remain impaired.</li>
-<li><strong>Domestic E-Commerce Competition:</strong> Aggressive subsidized pricing from PDD (Pinduoduo) and live-streaming e-commerce (Douyin) poses persistent challenges in lower-tier cities, forcing JD to defend its market share through profit-sacrificing trade-in initiatives.</li>
-<li><strong>Geopolitical &amp; FX Volatility:</strong> As a US-listed ADR holding Chinese assets, unexpected swings in the USD/RMB exchange rate or heightened US-China political friction could impact Western institutional capital flows regardless of domestic business fundamentals.
-    </li>
+<div class="section">
+<h2>Section 4: Capital Allocation &amp; Balance Sheet Discipline</h2>
+<p>JD's capital allocation has pivoted decisively from empire-building expansion to aggressive shareholder cannibalization and balance sheet fortress preservation. Management's capital deployment strategy directly reflects Charlie Munger’s playbook of repurchasing deeply undervalued equity while distributing an attractive, fully covered cash dividend.</p>
+<ul>
+<li><strong>Fortress Net Cash Position:</strong> As of June 30, 2026, JD held RMB 208.5 billion ($30.75 billion) in cash, cash equivalents, restricted cash, and short-term investments, against total interest-bearing bank loans, unsecured notes, and operating/capital lease obligations of RMB 72.8 billion ($10.74 billion), yielding an enormous Net Cash buffer of $20.01 billion (approx. $14.15 per ADS, or nearly 50% of the entire current stock price).</li>
+<li><strong>Share Repurchase Cannibalism:</strong> In 1H 2026, JD deployed $1.0 billion to repurchase and cancel approximately 35.2 million ADSs (2.5% of total shares outstanding). Since 2023, JD has retired nearly $13.0 billion in equity and dividends. The company has $1.24 billion remaining on its current authorization.</li>
+<li><strong>Growing Direct Dividend Distributions:</strong> JD paid a cash dividend of $1.00 per ADS in April 2026 ($1.4 billion total payout), delivering a direct ~3.4% cash yield to shareholders while consuming less than 30% of annual Owner Earnings.</li>
 </ul>
-<h3>3. Dynamic Price Alert Corridors &amp; Falsification Triggers</h3>
-<div class="callout">
-<h4>Upper Alert Threshold: $42.00 / ADS</h4>
-<p>
-<strong>Trigger Action: Valuation Trim &amp; Allocation Rebalance</strong><br/>
-      A rally to $42.00 per ADS represents a ~50%+ upside from current levels, approaching ~80% of our Base Case intrinsic value ($52.50). Crossing this threshold requires management to demonstrate sustained margin expansion in core retail (operating margins exceeding 6.0%) and explicit proof that food delivery drag has fully peaked. If these operational milestones fail to materialize, position size should be trimmed to protect capital.
-    </p>
 </div>
-<div class="callout">
-<h4>Lower Alert Threshold: $27.00 / ADS</h4>
-<p>
-<strong>Trigger Action: Urgent Thesis Review &amp; Pre-Mortem Audit</strong><br/>
-      A drop below $27.00 tests the Bear Case floor ($28.50). Crossing this threshold automatically triggers a comprehensive re-evaluation of management's capital allocation and operational execution.
-    </p>
-<p>
-<strong>Explicit Pre-Mortem Falsification Triggers:</strong>
-</p>
-<ol><li><strong>Capital Allocation Abandonment:</strong> Suspension or slowdown of the $5.0B share repurchase program or failure to maintain dividend payouts, indicating a shift away from shareholder return discipline.</li><li><strong>Moat Erosion in Core Retail:</strong> Two consecutive quarters of negative revenue growth in general merchandise or household appliances, signaling structural loss of market share to competitors rather than cyclical weakness.</li><li><strong>Uncontrolled New Business Cash Outflows:</strong> Annual operating losses in New Businesses exceeding RMB 15.0 Billion without a clear path to margin convergence.</li></ol>
+<div class="section">
+<h2>Section 5: Owner Earnings Intrinsic Value Matrix</h2>
+<p>To adhere strictly to Warren Buffett’s localized sovereign discounting rule (The PetroChina / Iscar Doctrine), our DCF framework benchmarks JD against the Chinese 10-Year Government Bond yield (~2.35%) plus an emerging market equity hurdle rate and geopolitical risk premium of 7.15%, setting a rigorous 9.50% discount rate. Cash flows are normalized over a 10-year period, with terminal growth strictly capped at 2.0% (below long-term domestic GDP growth) to eliminate speculative multiple expansion.</p>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Valuation Parameter / Scenario</th>
+<th>Bear Case (Pessimistic)</th>
+<th>Base Case (Intrinsic Fair Value)</th>
+<th>Bull Case (Optimistic)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Normalized Starting Owner Earnings</td>
+<td>$4.50B</td>
+<td>$5.27B</td>
+<td>$5.80B</td>
+</tr>
+<tr>
+<td>5-Year Owner Earnings CAGR (Yr 1-5)</td>
+<td>1.5%</td>
+<td>5.5%</td>
+<td>8.5%</td>
+</tr>
+<tr>
+<td>Annual Share Count Reduction (Buybacks)</td>
+<td>2.0% p.a.</td>
+<td>3.5% p.a.</td>
+<td>5.0% p.a.</td>
+</tr>
+<tr>
+<td>Discount Rate (Local Sovereign + ERP)</td>
+<td>10.5%</td>
+<td>9.5%</td>
+<td>9.0%</td>
+</tr>
+<tr>
+<td>Terminal Growth Rate</td>
+<td>1.0%</td>
+<td>2.0%</td>
+<td>2.5%</td>
+</tr>
+<tr>
+<td>PV of 10-Year Owner Earnings</td>
+<td>$26.10B</td>
+<td>$35.80B</td>
+<td>$44.20B</td>
+</tr>
+<tr>
+<td>PV of Terminal Value (Gordon Growth)</td>
+<td>$17.20B</td>
+<td>$27.50B</td>
+<td>$38.40B</td>
+</tr>
+<tr>
+<td>Net Cash &amp; Strategic Liquid Assets Bridge</td>
+<td>+$16.00B (20% Haircut)</td>
+<td>+$20.01B</td>
+<td>+$20.01B</td>
+</tr>
+<tr>
+<td>Intrinsic Equity Fair Value</td>
+<td>$48.80B</td>
+<td>$73.31B</td>
+<td>$102.61B</td>
+</tr>
+<tr>
+<td>Per ADS Intrinsic Value (USD)</td>
+<td>$34.50</td>
+<td>$51.80</td>
+<td>$72.40</td>
+</tr>
+<tr>
+<td>Implied Margin of Safety @ $29.30</td>
+<td>+17.7% Upside (Floor)</td>
+<td>+76.8% Upside (43.4% Discount)</td>
+<td>+147.1% Upside</td>
+</tr>
+</tbody>
+</table></div>
 </div>
-</section>
+<div class="section">
+<h2>Section 6: Thesis Confidence, Execution Risk &amp; Invalidation Corridors</h2>
+<p>Our thesis conviction remains <strong>High Conviction</strong> with an immediate <strong>BUY</strong> signal. At $29.30, the market is offering JD at an enterprise value of under $22 billion (deducting its $20.0B net cash pile), pricing the private business at less than 4.2x trailing Owner Earnings. This pricing anomaly represents a classic Graham-Buffett margin of safety dislocation.</p>
+<div class="callout">
+<strong>Pre-Mortem Thesis Invalidation Corridors (Falsification Triggers):</strong>
+<ol>
+<li><strong>JD Retail Operating Margin Deterioration:</strong> If core JD Retail operating margins break below 3.0% on a full-year basis due to irrational price wars, signaling permanent loss of supply chain pricing power.</li>
+<li><strong>Capital Allocation Destruction:</strong> If management halts the share repurchase cannibal program and instead pivots to value-destructive mega-acquisitions outside its core supply-chain competencies.</li>
+<li><strong>Working Capital / Float Deterioration:</strong> If annual operating cash flow falls below RMB 30.0 billion due to vendor payment squeeze or chronic customer churn.</li>
+</ol>
+</div>
+<p><strong>Dynamic Price Surveillance Corridors:</strong></p>
+<ul>
+<li><strong>Upper Alert Threshold ($42.00):</strong> Nearing intrinsic fair value realization zone. A crossing above $42.00 triggers an automated thesis reassessment to evaluate whether to trim or let cannibal compounding run.</li>
+<li><strong>Lower Alert Threshold ($25.50):</strong> Breaching deep bear-case floor (equivalent to buying JD's private operations for virtually zero enterprise value ex-cash). A crossing below $25.50 prompts an immediate forensic audit of Chinese consumer liquidity and capital repatriation risks
+</li></ul></div>
             </article>
         </div>
 
         <!-- History Content -->
         <div id="tab-history" class="tab-content">
             
-        <div class="empty-state-box" style="background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px; padding: 75px 24px;">
-            <div class="empty-state-title">Initial Baseline Active</div>
-            <div class="empty-state-sub">Version 1 represents the initial underwriting thesis. Future revisions, price trigger reviews, and catalyst audits will be logged here</div>
-        </div>
-        
+            <div class="history-entry history-entry-active">
+                <div class="history-top">
+                    <div class="history-tags">
+                        <span class="history-time">2026-08-13</span>
+                        <span class="history-price">$29.30</span>
+                        <span class="status-beacon beacon-buy" title="Action Signal: Strong Buy (Get in NOW / Thesis Accelerating)"><span class="beacon-ping"></span><span class="beacon-dot"></span></span>
+                        <span class="pill pill-active">High Conviction</span> <span class="pill pill-neutral">Buyback Cannibal</span> <span class="pill pill-neutral">Margin Expansion</span>
+                    </div>
+                    <button class="btn btn-subtle" onclick="toggleSnapshot(3)">Read Snapshot ▾</button>
+                </div>
+                <div class="history-content">
+                    <p class="history-shift-desc">Primary audit of JD's Q2 2026 6-K filing confirms that top-line contraction (-2.9% YoY to $51.1B / RMB 346.4B) was purely optical due to tough prior-year electronics comps, while underlying earnings quality accelerated sharply. GAAP operating income swung to positive RMB 4.5B ($0.66B) from a RMB 0.9B loss, Non-GAAP net margin expanded 50 bps YoY to 2.6%, and New Business cash burn fell over 50% YoY. With $1.0B repurchased in 1H 2026, annual dividend yielding ~3.4%, and net cash/liquid investments backing over 45% of JD's market cap, the business is compounding intrinsic value while trading at a sub-8x normalized Owner Earnings yield.</p>
+                    
+                <div class="diff-grid">
+                    <div class="diff-box diff-prev">
+                        <div class="diff-label">PREVIOUS THESIS</div>
+                        <div class="diff-text">Mr. Market indiscriminately dumped JD shares by -11.13% to $29.30 following headline revenue contraction of -2.9% YoY (weighed down by high-base consumer electronics comparisons), completely ignoring a +20% YoY surge in Non-GAAP net profit to $1.31B (RMB 8.9B) and an operating turnaround from food-delivery loss reductions (-50% YoY). Trailing twelve-month operating cash flow reached RMB 51.1B ($7.51B), and management retired 2.5% of outstanding shares in 1H 2026 alone. This price dislocation widens our margin of safety significantly, maintaining our base intrinsic fair value at $51.80.</div>
+                    </div>
+                    <div class="diff-box diff-now">
+                        <div class="diff-label">THESIS EVOLUTION</div>
+                        <div class="diff-text">
+                            Primary audit of JD's Q2 2026 6-K filing confirms that top-line contraction (-2.9% YoY to $51.1B / RMB 346.4B) was purely optical due to tough prior-year electronics comps, while underlying earnings quality accelerated sharply. GAAP operating income swung to positive RMB 4.5B ($0.66B) from a RMB 0.9B loss, Non-GAAP net margin expanded 50 bps YoY to 2.6%, and New Business cash burn fell over 50% YoY. With $1.0B repurchased in 1H 2026, annual dividend yielding ~3.4%, and net cash/liquid investments backing over 45% of JD's market cap, the business is compounding intrinsic value while trading at a sub-8x normalized Owner Earnings yield.
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                    <div id="snapshot-3" class="snapshot-drawer" style="display: none;">
+                        <div class="snapshot-body">
+                            <div class="section">
+<h2>Section 1: Business Model, Scale Moat &amp; GenAI Transition</h2>
+<p>JD.com operates China’s most structurally defensible 1P retail and integrated supply-chain logistics empire. Unlike open marketplace aggregators that rely on asset-light third-party merchant networks with minimal fulfillment control, JD built an irreplicable physical infrastructure moat consisting of over 1,600 warehouses spanning more than 32 million square meters of nationwide fulfillment capacity. This heavy infrastructure acts as a self-reinforcing operational flywheel: automated fulfillment density reduces unit handling costs, which unlocks superior delivery speeds (same-day and next-day delivery covering over 95% of China's counties) and guarantees authentic merchandise sourcing. This structural advantage gives JD an unassailable customer trust moat in high-ticket consumer electronics, home appliances, and fast-moving consumer goods (FMCG).</p>
+<p>In response to macroeconomic maturation and shifting consumer behavior across mainland China, JD is executing two fundamental long-term strategic evolutions: a structural mix shift toward high-margin 3P marketplace monetization and service revenues, and enterprise-scale deployment of proprietary generative AI and automated robotics. JD’s enterprise LLM platform, <em>JoyAI</em> (and its embedded <em>JoyInside</em> commerce suite), is now integrated across 200+ major brand partners, automating digital storefront operations, intelligent dynamic inventory dispatch, customer service triage, and programmatic advertising bidding. This AI-driven productivity transformation drove JD Retail's gross margin and peak promotional operating margins to record highs in Q2 2026, proving that JD's unit economics are expanding even during top-line adjustment phases.</p>
+<div class="callout">
+<strong>Warren Buffett 5-Year Exchange Closure Insight:</strong> If the Hong Kong and NASDAQ stock exchanges were shuttered for five continuous years, JD's private economic engine would thrive unencumbered. The enterprise controls its own logistics destiny, generates over $7.5B in annual operating cash flow, maintains a massive net cash fortress representing over 45% of its market capitalization, and holds an entrenched supply chain relationship with hundreds of thousands of tier-1 manufacturers across China.
+  </div>
+</div>
+<div class="section">
+<h2>Section 2: Quarterly Operational Breakdown &amp; Segment Performance</h2>
+<p>For the second quarter of 2026 (ended June 30, 2026), JD generated net revenues of RMB 346.4 billion ($51.10 billion), representing a mild contraction of -2.9% year-over-year. Mr. Market reacted with short-sighted panic, interpreting the top-line contraction as structural market share loss. However, an audit of the underlying segment unit economics reveals that this revenue decline was entirely attributable to a tough, high-base comparison in 1P electronics and home appliances following last year's historic government subsidy-driven replacement cycle. Crucially, underlying earnings power and margin architecture inflected to multi-year highs.</p>
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">Q2 2026 Net Revenue</div>
+<div class="metric-value">$51.10B</div>
+<div class="metric-delta neg">-2.9% YoY (RMB 346.4B)</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Non-GAAP Operating Income</div>
+<div class="metric-value">$811M</div>
+<div class="metric-delta pos">+511% YoY (RMB 5.5B)</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Non-GAAP Net Income</div>
+<div class="metric-value">$1.31B</div>
+<div class="metric-delta pos">+20.3% YoY (RMB 8.9B)</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Non-GAAP Diluted EPS</div>
+<div class="metric-value">$0.93</div>
+<div class="metric-delta pos">+26.5% YoY (RMB 6.29)</div>
+</div>
+</div>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Segment / Line Item</th>
+<th>Q2 2026 (RMB)</th>
+<th>Q2 2026 (USD)</th>
+<th>YoY Growth</th>
+<th>Key Operational Driver</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Electronics &amp; Home Appliances</td>
+<td>RMB 157.9B</td>
+<td>$23.29B</td>
+<td>-11.8%</td>
+<td>High base comparison from prior-year national trade-in subsidy launch.</td>
+</tr>
+<tr>
+<td>General Merchandise (Supermarket/FMCG)</td>
+<td>RMB 109.2B</td>
+<td>$16.11B</td>
+<td>+5.6%</td>
+<td>Resilient grocery, personal care, and healthcare volume growth.</td>
+</tr>
+<tr>
+<td>Marketplace &amp; Advertising Services</td>
+<td>RMB 30.9B</td>
+<td>$4.56B</td>
+<td>+8.3%</td>
+<td>3P merchant ecosystem expansion and automated AI ad conversion.</td>
+</tr>
+<tr>
+<td>Logistics &amp; Other Services</td>
+<td>RMB 48.4B</td>
+<td>$7.14B</td>
+<td>+5.9%</td>
+<td>External enterprise supply chain contract expansion.</td>
+</tr>
+<tr>
+<td>JD Retail Operating Profit</td>
+<td>RMB 13.5B</td>
+<td>$1.99B</td>
+<td>-2.9%</td>
+<td>Operating margin expanded to a record 4.6% during peak 618 promotion.</td>
+</tr>
+<tr>
+<td>New Businesses (JD Food Delivery / Joybuy)</td>
+<td>(RMB 9.85B)</td>
+<td>($1.45B)</td>
+<td>+33.4%</td>
+<td>Operating loss narrowed sharply from RMB 14.78B as food delivery burn fell &gt;50%.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section">
+<h2>Section 3: Real Cash Flow &amp; Stock-Based Compensation (SBC) Audit</h2>
+<p>Following Warren Buffett’s principle of treating Stock-Based Compensation (SBC) as a direct cash drain and rigorously evaluating working capital dynamics, JD exhibits exceptional real cash conversion. On a trailing twelve-month (TTM) basis, JD generated RMB 49.4 billion ($7.29 billion) in adjusted operating cash flow and RMB 31.4 billion ($4.63 billion) in organic free cash flow.</p>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Cash Flow &amp; SBC Audit Metric (TTM Q2 2026)</th>
+<th>RMB (Billions)</th>
+<th>USD (Billions)</th>
+<th>Economic Commentary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reported Operating Cash Flow (OCF)</td>
+<td>RMB 49.4B</td>
+<td>$7.29B</td>
+<td>High cash conversion supported by rapid receivables collections and negative working capital float.</td>
+</tr>
+<tr>
+<td>Total CapEx (Property, Plant, Tech &amp; Logistics)</td>
+<td>(RMB 18.0B)</td>
+<td>($2.65B)</td>
+<td>Comprises RMB 10.5B Maintenance CapEx and RMB 7.5B Discretionary Growth CapEx.</td>
+</tr>
+<tr>
+<td>Maintenance CapEx (Moat Preservation)</td>
+<td>(RMB 10.5B)</td>
+<td>($1.55B)</td>
+<td>Essential replenishment of warehouse robotics, automated fulfillment centers, and fleet.</td>
+</tr>
+<tr>
+<td>Stock-Based Compensation (100% Cash Deduction)</td>
+<td>(RMB 3.2B)</td>
+<td>($0.47B)</td>
+<td>Disciplined SBC represents &lt;1.0% of total revenue, far lower than US big tech peers.</td>
+</tr>
+<tr>
+<td>Normalized TTM Owner Earnings (Buffett Rule)</td>
+<td>RMB 35.7B</td>
+<td>$5.27B</td>
+<td>OCF ($7.29B) - Maint CapEx ($1.55B) - SBC ($0.47B). Initial Cash Yield = ~12.5%.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section">
+<h2>Section 4: Capital Allocation &amp; Balance Sheet Discipline</h2>
+<p>JD's capital allocation has pivoted decisively from empire-building expansion to aggressive shareholder cannibalization and balance sheet fortress preservation. Management's capital deployment strategy directly reflects Charlie Munger’s playbook of repurchasing deeply undervalued equity while distributing an attractive, fully covered cash dividend.</p>
+<ul>
+<li><strong>Fortress Net Cash Position:</strong> As of June 30, 2026, JD held RMB 208.5 billion ($30.75 billion) in cash, cash equivalents, restricted cash, and short-term investments, against total interest-bearing bank loans, unsecured notes, and operating/capital lease obligations of RMB 72.8 billion ($10.74 billion), yielding an enormous Net Cash buffer of $20.01 billion (approx. $14.15 per ADS, or nearly 50% of the entire current stock price).</li>
+<li><strong>Share Repurchase Cannibalism:</strong> In 1H 2026, JD deployed $1.0 billion to repurchase and cancel approximately 35.2 million ADSs (2.5% of total shares outstanding). Since 2023, JD has retired nearly $13.0 billion in equity and dividends. The company has $1.24 billion remaining on its current authorization.</li>
+<li><strong>Growing Direct Dividend Distributions:</strong> JD paid a cash dividend of $1.00 per ADS in April 2026 ($1.4 billion total payout), delivering a direct ~3.4% cash yield to shareholders while consuming less than 30% of annual Owner Earnings.</li>
+</ul>
+</div>
+<div class="section">
+<h2>Section 5: Owner Earnings Intrinsic Value Matrix</h2>
+<p>To adhere strictly to Warren Buffett’s localized sovereign discounting rule (The PetroChina / Iscar Doctrine), our DCF framework benchmarks JD against the Chinese 10-Year Government Bond yield (~2.35%) plus an emerging market equity hurdle rate and geopolitical risk premium of 7.15%, setting a rigorous 9.50% discount rate. Cash flows are normalized over a 10-year period, with terminal growth strictly capped at 2.0% (below long-term domestic GDP growth) to eliminate speculative multiple expansion.</p>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Valuation Parameter / Scenario</th>
+<th>Bear Case (Pessimistic)</th>
+<th>Base Case (Intrinsic Fair Value)</th>
+<th>Bull Case (Optimistic)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Normalized Starting Owner Earnings</td>
+<td>$4.50B</td>
+<td>$5.27B</td>
+<td>$5.80B</td>
+</tr>
+<tr>
+<td>5-Year Owner Earnings CAGR (Yr 1-5)</td>
+<td>1.5%</td>
+<td>5.5%</td>
+<td>8.5%</td>
+</tr>
+<tr>
+<td>Annual Share Count Reduction (Buybacks)</td>
+<td>2.0% p.a.</td>
+<td>3.5% p.a.</td>
+<td>5.0% p.a.</td>
+</tr>
+<tr>
+<td>Discount Rate (Local Sovereign + ERP)</td>
+<td>10.5%</td>
+<td>9.5%</td>
+<td>9.0%</td>
+</tr>
+<tr>
+<td>Terminal Growth Rate</td>
+<td>1.0%</td>
+<td>2.0%</td>
+<td>2.5%</td>
+</tr>
+<tr>
+<td>PV of 10-Year Owner Earnings</td>
+<td>$26.10B</td>
+<td>$35.80B</td>
+<td>$44.20B</td>
+</tr>
+<tr>
+<td>PV of Terminal Value (Gordon Growth)</td>
+<td>$17.20B</td>
+<td>$27.50B</td>
+<td>$38.40B</td>
+</tr>
+<tr>
+<td>Net Cash &amp; Strategic Liquid Assets Bridge</td>
+<td>+$16.00B (20% Haircut)</td>
+<td>+$20.01B</td>
+<td>+$20.01B</td>
+</tr>
+<tr>
+<td>Intrinsic Equity Fair Value</td>
+<td>$48.80B</td>
+<td>$73.31B</td>
+<td>$102.61B</td>
+</tr>
+<tr>
+<td>Per ADS Intrinsic Value (USD)</td>
+<td>$34.50</td>
+<td>$51.80</td>
+<td>$72.40</td>
+</tr>
+<tr>
+<td>Implied Margin of Safety @ $29.30</td>
+<td>+17.7% Upside (Floor)</td>
+<td>+76.8% Upside (43.4% Discount)</td>
+<td>+147.1% Upside</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section">
+<h2>Section 6: Thesis Confidence, Execution Risk &amp; Invalidation Corridors</h2>
+<p>Our thesis conviction remains <strong>High Conviction</strong> with an immediate <strong>BUY</strong> signal. At $29.30, the market is offering JD at an enterprise value of under $22 billion (deducting its $20.0B net cash pile), pricing the private business at less than 4.2x trailing Owner Earnings. This pricing anomaly represents a classic Graham-Buffett margin of safety dislocation.</p>
+<div class="callout">
+<strong>Pre-Mortem Thesis Invalidation Corridors (Falsification Triggers):</strong>
+<ol>
+<li><strong>JD Retail Operating Margin Deterioration:</strong> If core JD Retail operating margins break below 3.0% on a full-year basis due to irrational price wars, signaling permanent loss of supply chain pricing power.</li>
+<li><strong>Capital Allocation Destruction:</strong> If management halts the share repurchase cannibal program and instead pivots to value-destructive mega-acquisitions outside its core supply-chain competencies.</li>
+<li><strong>Working Capital / Float Deterioration:</strong> If annual operating cash flow falls below RMB 30.0 billion due to vendor payment squeeze or chronic customer churn.</li>
+</ol>
+</div>
+<p><strong>Dynamic Price Surveillance Corridors:</strong></p>
+<ul>
+<li><strong>Upper Alert Threshold ($42.00):</strong> Nearing intrinsic fair value realization zone. A crossing above $42.00 triggers an automated thesis reassessment to evaluate whether to trim or let cannibal compounding run.</li>
+<li><strong>Lower Alert Threshold ($25.50):</strong> Breaching deep bear-case floor (equivalent to buying JD's private operations for virtually zero enterprise value ex-cash). A crossing below $25.50 prompts an immediate forensic audit of Chinese consumer liquidity and capital repatriation risks
+</li></ul></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="history-entry ">
+                <div class="history-top">
+                    <div class="history-tags">
+                        <span class="history-time">2026-08-13</span>
+                        <span class="history-price">$29.30</span>
+                        <span class="status-beacon beacon-buy" title="Action Signal: Strong Buy (Get in NOW / Thesis Accelerating)"><span class="beacon-ping"></span><span class="beacon-dot"></span></span>
+                        <span class="pill pill-active">High Conviction</span> <span class="pill pill-neutral">Buyback Cannibal</span> <span class="pill pill-neutral">Margin Expansion</span>
+                    </div>
+                    <button class="btn btn-subtle" onclick="toggleSnapshot(2)">Read Snapshot ▾</button>
+                </div>
+                <div class="history-content">
+                    <p class="history-shift-desc">Mr. Market indiscriminately dumped JD shares by -11.13% to $29.30 following headline revenue contraction of -2.9% YoY (weighed down by high-base consumer electronics comparisons), completely ignoring a +20% YoY surge in Non-GAAP net profit to $1.31B (RMB 8.9B) and an operating turnaround from food-delivery loss reductions (-50% YoY). Trailing twelve-month operating cash flow reached RMB 51.1B ($7.51B), and management retired 2.5% of outstanding shares in 1H 2026 alone. This price dislocation widens our margin of safety significantly, maintaining our base intrinsic fair value at $51.80.</p>
+                    
+                <div class="diff-grid">
+                    <div class="diff-box diff-prev">
+                        <div class="diff-label">PREVIOUS THESIS</div>
+                        <div class="diff-text">JD.com presented a classic Warren Buffett asymmetric deep-value setup, trading at $32.97 backed by $15.59 in net cash per share (~47% of market cap), expanding JD Retail margins, rising service revenues, and a 3-6% annual share count reduction via buybacks, yielding a base intrinsic value of $52.50.</div>
+                    </div>
+                    <div class="diff-box diff-now">
+                        <div class="diff-label">THESIS EVOLUTION</div>
+                        <div class="diff-text">
+                            Mr. Market indiscriminately dumped JD shares by -11.13% to $29.30 following headline revenue contraction of -2.9% YoY (weighed down by high-base consumer electronics comparisons), completely ignoring a +20% YoY surge in Non-GAAP net profit to $1.31B (RMB 8.9B) and an operating turnaround from food-delivery loss reductions (-50% YoY). Trailing twelve-month operating cash flow reached RMB 51.1B ($7.51B), and management retired 2.5% of outstanding shares in 1H 2026 alone. This price dislocation widens our margin of safety significantly, maintaining our base intrinsic fair value at $51.80.
+                            
+                    <div style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border-color); font-size: 0.84rem;">
+                        <div style="font-weight: 500; color: var(--text-title); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                            <span style="color: var(--accent-warm);">🏷️ Label & Conviction Evolution:</span>
+                            <div style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                                <span class="pill pill-neutral" style="font-size:0.75rem;">High Conviction</span> <span class="pill pill-neutral" style="font-size:0.75rem;">Deep Value</span> <span class="pill pill-neutral" style="font-size:0.75rem;">Buyback Cannibal</span>
+                                <span style="color: var(--text-dim);">→</span>
+                                <span class="pill pill-active" style="font-size:0.75rem;">High Conviction</span> <span class="pill pill-active" style="font-size:0.75rem;">Buyback Cannibal</span> <span class="pill pill-active" style="font-size:0.75rem;">Margin Expansion</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                        </div>
+                    </div>
+                </div>
+                
+                    <div id="snapshot-2" class="snapshot-drawer" style="display: none;">
+                        <div class="snapshot-body">
+                            <div class="section">
+<h2>Section 1: Business Model, Scale Moat &amp; GenAI Transition</h2>
+<p>JD.com operates China’s preeminent vertically integrated supply chain and commerce infrastructure. Unlike asset-light aggregator platforms that operate purely as third-party (3P) bulletin boards, JD built an unassailable physical moat consisting of over 1,600 warehouses, proprietary nationwide cold-chain and express fulfillment logistics, and direct tier-1 supplier procurement relationships. This 1P retail backbone creates an enduring consumer trust flywheel: guaranteed authentic merchandise, superior next-day/same-day delivery speed, and industry-leading post-sale customer care.</p>
+<p>The company is executing a deliberate structural pivot toward higher-margin, asset-light monetization while fortifying its core physical retail moat. This involves scaling high-margin 3P marketplace advertising and merchant commission revenues, externalizing JD Logistics to serve third-party enterprise clients, and integrating proprietary supply chain Large Language Models (LLMs) across merchant automated onboarding, dynamic pricing, and warehouse robotics.</p>
+<div class="callout">
+<strong>Warren Buffett 5-Year Market Closure Test:</strong> If the Nasdaq and Hong Kong exchanges closed for 5 years, JD.com would continue generating billions of dollars in free cash flow, protected by an irreplaceable national logistics grid that competitors cannot replicate without decades of physical capital deployment. At current valuations, the enterprise is priced as if terminal growth were negative, providing an exceptional structural cushion.
+  </div>
+</div>
+<div class="section">
+<h2>Section 2: Quarterly Operational Breakdown &amp; Segment Performance</h2>
+<p>In Q2 2026, JD.com delivered a textbook operational inflection that Wall Street mischaracterized. While headline net revenues dipped -2.9% YoY to $51.05B (RMB 346.4B) due to tough prior-year comparisons in consumer electronics and macro-cautious household spending, underlying profitability inflected sharply upward. Non-GAAP net profit attributable to ordinary shareholders surged +20% YoY to $1.31B (RMB 8.9B), and Non-GAAP EPADS of $0.93 beat consensus by $0.10.</p>
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">Q2 Total Net Revenue</div>
+<div class="metric-value">$51.05B</div>
+<div class="metric-delta neg">-2.9% YoY</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Non-GAAP Net Income</div>
+<div class="metric-value">$1.31B</div>
+<div class="metric-delta pos">+20.0% YoY</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">JD Retail Operating Margin</div>
+<div class="metric-value">4.6%</div>
+<div class="metric-delta pos">Record Mid-Year High</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">TTM Operating Cash Flow</div>
+<div class="metric-value">$7.51B</div>
+<div class="metric-delta pos">+35.2% YoY</div>
+</div>
+</div>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Segment / Revenue Line</th>
+<th>Q2 2026 (RMB B)</th>
+<th>Q2 2026 (USD B)</th>
+<th>YoY Growth</th>
+<th>Operational Dynamics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Electronics &amp; Home Appliances</strong></td>
+<td>157.9</td>
+<td>$23.27</td>
+<td>-11.8%</td>
+<td>High-base comparison post-stimulus; stabilized in June with 2H recovery anticipated.</td>
+</tr>
+<tr>
+<td><strong>General Merchandise (Supermarket/FMCG)</strong></td>
+<td>109.2</td>
+<td>$16.10</td>
+<td>+5.6%</td>
+<td>Resilient grocery and healthcare volume growth offsetting big-ticket softness.</td>
+</tr>
+<tr>
+<td><strong>Marketplace &amp; Marketing (3P Ads/Take)</strong></td>
+<td>30.9</td>
+<td>$4.55</td>
+<td>+8.3%</td>
+<td>High-margin platform monetization accelerating as 3P active merchant base deepens.</td>
+</tr>
+<tr>
+<td><strong>JD Logistics &amp; Other Services</strong></td>
+<td>48.4</td>
+<td>$7.14</td>
+<td>+5.9%</td>
+<td>External customer volume expansion and automated hub operating leverage.</td>
+</tr>
+<tr>
+<td><strong>New Businesses (Food Delivery / Joybuy)</strong></td>
+<td>N/A</td>
+<td>N/A</td>
+<td>Losses -50%+</td>
+<td>Aggressive subsidy rationalization drastically reduced the segment cash drain.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section">
+<h2>Section 3: Real Cash Flow &amp; Stock-Based Compensation (SBC) Audit</h2>
+<p>Applying the strict Benjamin Graham &amp; Warren Buffett Owner Earnings methodology, we strip out accounting accruals, deduct 100% of Stock-Based Compensation (SBC) as real shareholder dilution, and isolate maintenance capital expenditures from discretionary expansion property investments.</p>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Cash Flow Component (TTM Period)</th>
+<th>RMB (Billions)</th>
+<th>USD ($ Billions)</th>
+<th>Buffett Accounting Treatment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Reported Operating Cash Flow (TTM)</strong></td>
+<td>51.10</td>
+<td>$7.51</td>
+<td>Audited baseline cash generated from organic operations.</td>
+</tr>
+<tr>
+<td><strong>(-) Maintenance Capital Expenditures</strong></td>
+<td>(8.16)</td>
+<td>($1.20)</td>
+<td>Capital strictly required to maintain fleet, IT systems, and existing hubs.</td>
+</tr>
+<tr>
+<td><strong>(-) Stock-Based Compensation (SBC)</strong></td>
+<td>(5.10)</td>
+<td>($0.75)</td>
+<td>100% expensed as real dilution to common equity owners.</td>
+</tr>
+<tr>
+<td><strong>(=) Normalized True Owner Earnings (TTM)</strong></td>
+<td>37.84</td>
+<td>$5.56</td>
+<td>True distributable net cash generated per year ($3.97 per diluted ADS).</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout">
+<strong>Initial Owner Earnings Yield:</strong> At the current enterprise price of $29.30, JD is generating a <strong>13.5% Normalized Owner Earnings Cash Yield</strong>. This means an investor purchasing the operating enterprise today is receiving an immediate, double-digit cash yield fully backed by tangible operational earnings.
+  </div>
+</div>
+<div class="section">
+<h2>Section 4: Capital Allocation &amp; Balance Sheet Discipline</h2>
+<p>JD.com maintains one of the strongest balance sheets in global commerce. As of Q2 2026, the company held approximately $29.7B (RMB 202.1B) in cash, cash equivalents, restricted cash, and short-term investments, against total interest-bearing debt of ~$14.2B. This provides a net cash fortress of $15.5B (~$11.07 per diluted ADS), representing roughly <strong>37.8% of JD’s entire market capitalization</strong>.</p>
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">Cash &amp; Equivalents</div>
+<div class="metric-value">$29.70B</div>
+<div class="metric-delta pos">Fortress Liquidity</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Net Cash Per Share</div>
+<div class="metric-value">$11.07</div>
+<div class="metric-delta pos">37.8% of Stock Price</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">1H 2026 Share Buyback</div>
+<div class="metric-value">$1.00B</div>
+<div class="metric-delta pos">2.5% Shares Retired</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Annual Dividend Yield</div>
+<div class="metric-value">3.44%</div>
+<div class="metric-delta pos">Fully Cash Covered</div>
+</div>
+</div>
+<p>Management is actively capitalizing on Mr. Market's pessimism by executing an aggressive share buyback cannibal strategy. In the first half of 2026 alone, JD repurchased ~2.5% of its total ordinary shares for $1.0B, with another $1.0B remaining under the active board authorization. Over the last three years, cumulative capital returns (buybacks + dividends) have surpassed $13.0B, compounding per-share Owner Earnings significantly faster than top-line revenue.</p>
+</div>
+<div class="section">
+<h2>Section 5: Owner Earnings Intrinsic Value Matrix</h2>
+<p>We value JD.com using a localized Discounted Owner Earnings framework. In accordance with the Buffett-Munger sovereign discounting rule, we establish our cost of capital using the Chinese 10-Year Government Bond yield (~2.30%) plus an emerging market equity risk premium of 7.70%, setting our base hurdle rate at 10.00%. Terminal growth is capped conservatively at 2.0% in line with long-term GDP.</p>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Valuation Parameter</th>
+<th>Bear Case (Macro Stagnation)</th>
+<th>Base Case (Steady Compounder)</th>
+<th>Bull Case (Cyclical Rebound &amp; AI)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Starting Owner Earnings (USD)</strong></td>
+<td>$5.00B</td>
+<td>$5.56B</td>
+<td>$6.20B</td>
+</tr>
+<tr>
+<td><strong>5-Year Organic OE CAGR</strong></td>
+<td>0.0%</td>
+<td>4.5%</td>
+<td>8.0%</td>
+</tr>
+<tr>
+<td><strong>Annual Share Count Reduction</strong></td>
+<td>-2.5%/yr</td>
+<td>-4.5%/yr</td>
+<td>-5.5%/yr</td>
+</tr>
+<tr>
+<td><strong>Effective Per-Share OE CAGR</strong></td>
+<td>+2.5%</td>
+<td>+9.4%</td>
+<td>+14.3%</td>
+</tr>
+<tr>
+<td><strong>Discount Rate (Localized Hurdle)</strong></td>
+<td>11.5%</td>
+<td>10.0%</td>
+<td>9.5%</td>
+</tr>
+<tr>
+<td><strong>Terminal Growth Rate</strong></td>
+<td>1.0%</td>
+<td>2.0%</td>
+<td>2.5%</td>
+</tr>
+<tr>
+<td><strong>Present Value of 10Y Cash Flows</strong></td>
+<td>$35.60B</td>
+<td>$43.20B</td>
+<td>$58.90B</td>
+</tr>
+<tr>
+<td><strong>Net Cash &amp; Strategic Stakes</strong></td>
+<td>$15.50B</td>
+<td>$15.50B</td>
+<td>$17.00B</td>
+</tr>
+<tr>
+<td><strong>Total Intrinsic Equity Value</strong></td>
+<td>$51.10B</td>
+<td>$72.52B</td>
+<td>$95.90B</td>
+</tr>
+<tr>
+<td><strong>Diluted Shares Outstanding (ADS Eq.)</strong></td>
+<td>1.40B</td>
+<td>1.40B</td>
+<td>1.40B</td>
+</tr>
+<tr>
+<td><strong>Intrinsic Fair Value Per Share</strong></td>
+<td><strong>$36.50</strong></td>
+<td><strong>$51.80</strong></td>
+<td><strong>$68.50</strong></td>
+</tr>
+<tr>
+<td><strong>Margin of Safety vs Current $29.30</strong></td>
+<td><strong>+24.6%</strong></td>
+<td><strong>+76.8%</strong></td>
+<td><strong>+133.8%</strong></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section">
+<h2>Section 6: Thesis Confidence, Execution Risk &amp; Invalidation Corridors</h2>
+<p>Our thesis confidence is rated <strong>High Conviction</strong>. The market is pricing JD.com at an enterprise value of just ~$25.5B (excluding net cash), which is less than 5x normalized Owner Earnings and less than 0.15x annual revenues. The down-market panic provides a classic margin of safety where downside is heavily buffered by hard cash, real estate, and warehouse assets.</p>
+<div class="callout">
+<strong>Pre-Mortem &amp; Invalidation Triggers (Immediate Sell Conditions):</strong>
+<ul>
+<li><strong>Structural Margin Collapse:</strong> If JD Retail operating margin drops sustainably below 2.5% due to irrational, permanent price wars.</li>
+<li><strong>Capital Allocation Mismanagement:</strong> If management halts share repurchases and deploys the $15.5B cash fortress into value-destructive, un-synergistic acquisitions.</li>
+<li><strong>Logistics De-moating:</strong> If 3P logistics margins permanently turn negative and external customers experience massive churn.</li>
+</ul>
+</div>
+<p><strong>Dynamic Price Surveillance Corridors:</strong></p>
+<ul>
+<li><strong>Upper Surveillance Threshold ($42.00):</strong> Triggers an evaluation for capital trimming as the stock approaches ~80% of our Base Intrinsic Fair Value.</li>
+<li><strong>Lower Invalidation Threshold ($24.50):</strong> Represents an extreme distress scenario approaching pure liquidation net cash value; triggers an immediate mandatory governance audit of operating cash burn and regulatory headwinds.</li>
+</ul>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
         </div>
 
         <!-- Ownership & Fund Intel Content -->
@@ -1776,12 +2113,12 @@
             <div class="ownership-stat-grid">
                 <div class="stat-box">
                     <span class="stat-label">Institutional Float</span>
-                    <span class="stat-num">46.2%</span>
+                    <span class="stat-num">38.5%</span>
                     <span class="stat-note">Tracked across SEC 13F Filings</span>
                 </div>
                 <div class="stat-box">
                     <span class="stat-label">Insider Trading Sentiment</span>
-                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.25rem;">🟡 Net Buying</span>
+                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.25rem;">🟡 Cluster Buying</span>
                     <span class="stat-note">Routine management alignment</span>
                 </div>
                 <div class="stat-box">
@@ -1908,23 +2245,7 @@
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Walmart (9.4%)</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Asset Manager</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
-            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
-            <td>
-                <a href="https://whalewisdom.com/stock/jd" target="_blank" rel="noopener noreferrer" class="link-out">
-                    View 13F ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Vanguard (4.2%)</div>
+                <div style="font-weight: 500; color: var(--text-title);">Vanguard Group (8.2%)</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
             <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
@@ -1940,7 +2261,23 @@
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Scion / Michael Burry</div>
+                <div style="font-weight: 500; color: var(--text-title);">BlackRock Fund Advisors (6.8%)</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
+            <td>
+                <a href="https://whalewisdom.com/stock/jd" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Scion Asset Management (Michael Burry) (Top 5 Position)</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Asset Manager</span></td>
             <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
@@ -1989,8 +2326,8 @@
             <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">Current</td>
             <td><div style="font-weight: 500; color: var(--text-title);">Executive Management</div></td>
             <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Key Officers & Directors</span></td>
-            <td><span style="color: var(--accent-warm); font-weight: 600;">🟡 Net Buying</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$29.13</td>
+            <td><span style="color: var(--accent-warm); font-weight: 600;">🟡 Cluster Buying</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$29.30</td>
             <td style="font-family: var(--font-mono); font-size: 0.84rem;">Scheduled</td>
             <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">Aligned</td>
             <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Routine management alignment</td>
@@ -2020,8 +2357,8 @@
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
                     Substack / Elltecanalysis · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://elltecanalysis.substack.com/p/jdcom" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Substack Memo ↗
+                <a href="https://substack.com/search/JD%20JD.com%2C%20Inc.%20investment%20thesis" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Search ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
@@ -2037,8 +2374,8 @@
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
                     Substack / Playingfordoubles · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://playingfordoubles.substack.com/p/jdcom-the-39-billion-company-thats" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Substack Memo ↗
+                <a href="https://substack.com/search/JD%20JD.com%2C%20Inc.%20investment%20thesis" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Search ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
@@ -2054,8 +2391,8 @@
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
                     Substack / Emergingvalue · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://emergingvalue.substack.com/p/jdcom-2025-earnings-update" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Substack Memo ↗
+                <a href="https://substack.com/search/JD%20JD.com%2C%20Inc.%20investment%20thesis" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Search ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">

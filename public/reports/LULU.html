@@ -1032,16 +1032,16 @@
             <div class="hero-top-row">
                 <div>
                     <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-                        <span class="ticker-symbol">LULU</span>
+                        <span class="ticker-symbol">LULU<span class="status-beacon beacon-buy" title="Action Signal: Strong Buy (Get in NOW / Thesis Accelerating)"><span class="beacon-ping"></span><span class="beacon-dot"></span></span></span>
                         <span class="pill pill-active">High Conviction</span> <span class="pill pill-neutral">Deep Value</span> <span class="pill pill-neutral">Buyback Cannibal</span>
                         <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="View Investment Taxonomy & Labels Legend">ⓘ</button>
                     </div>
                     <div class="company-meta">Lululemon Athletica Inc.</div>
                 </div>
                 <div class="price-callout">
-                    <div class="price-number">$119.16</div>
+                    <div class="price-number">$119.56</div>
                     <div class="price-sub neg">
-                        -7.33% vs Genesis
+                        -7.02% vs Genesis
                     </div>
                 </div>
             </div>
@@ -1051,7 +1051,7 @@
     <div class="native-chart-wrap" id="chart-container">
         <div class="chart-top-bar">
             <div id="chart-live-val" class="chart-live-val">
-                <span id="tooltip-date">Aug 13, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$119.22</strong>
+                <span id="tooltip-date">Aug 13, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$119.56</strong>
             </div>
             <div class="chart-range-pills">
                 <button class="range-pill active" onclick="switchChartRange('1Y')">1Y</button>
@@ -1080,15 +1080,15 @@
             <circle id="hover-dot" r="4.5" fill="#CC785C" stroke="#1E1C19" stroke-width="2" style="display: none;" />
         </svg>
         <div class="chart-labels">
-            <span id="chart-start-lbl">Aug 13, 2025 ($105.43)</span>
+            <span id="chart-start-lbl">Aug 14, 2025 ($105.43)</span>
             <span id="chart-range-title">1-Year Historical Range</span>
-            <span id="chart-end-lbl">Aug 13, 2026 ($119.22)</span>
+            <span id="chart-end-lbl">Aug 13, 2026 ($119.56)</span>
         </div>
     </div>
 
     <script>
     (function() {
-        const allDatasets = {"1Y": [{"date": "Aug 13, 2025", "price": 200.49}, {"date": "Aug 14, 2025", "price": 195.19}, {"date": "Aug 15, 2025", "price": 198.46}, {"date": "Aug 18, 2025", "price": 203.62}, {"date": "Aug 19, 2025", "price": 197.66}, {"date": "Aug 20, 2025", "price": 198.12}, {"date": "Aug 21, 2025", "price": 198.18}, {"date": "Aug 22, 2025", "price": 207.59}, {"date": "Aug 25, 2025", "price": 202.44}, {"date": "Aug 26, 2025", "price": 202.53}, {"date": "Aug 27, 2025", "price": 205.57}, {"date": "Aug 28, 2025", "price": 205.08}, {"date": "Aug 29, 2025", "price": 202.2}, {"date": "Sep 02, 2025", "price": 200.21}, {"date": "Sep 03, 2025", "price": 198.53}, {"date": "Sep 04, 2025", "price": 206.09}, {"date": "Sep 05, 2025", "price": 167.8}, {"date": "Sep 08, 2025", "price": 168.1}, {"date": "Sep 09, 2025", "price": 165.69}, {"date": "Sep 10, 2025", "price": 163.9}, {"date": "Sep 11, 2025", "price": 165.78}, {"date": "Sep 12, 2025", "price": 159.87}, {"date": "Sep 15, 2025", "price": 159.98}, {"date": "Sep 16, 2025", "price": 162.34}, {"date": "Sep 17, 2025", "price": 163.48}, {"date": "Sep 18, 2025", "price": 169.76}, {"date": "Sep 19, 2025", "price": 169.62}, {"date": "Sep 22, 2025", "price": 173.41}, {"date": "Sep 23, 2025", "price": 173.33}, {"date": "Sep 24, 2025", "price": 179.22}, {"date": "Sep 25, 2025", "price": 172.01}, {"date": "Sep 26, 2025", "price": 176.3}, {"date": "Sep 29, 2025", "price": 179.11}, {"date": "Sep 30, 2025", "price": 177.93}, {"date": "Oct 01, 2025", "price": 177.57}, {"date": "Oct 02, 2025", "price": 178.2}, {"date": "Oct 03, 2025", "price": 175.59}, {"date": "Oct 06, 2025", "price": 174.12}, {"date": "Oct 07, 2025", "price": 173.17}, {"date": "Oct 08, 2025", "price": 174.82}, {"date": "Oct 09, 2025", "price": 173.48}, {"date": "Oct 10, 2025", "price": 167.51}, {"date": "Oct 13, 2025", "price": 169.85}, {"date": "Oct 14, 2025", "price": 169.13}, {"date": "Oct 15, 2025", "price": 167.1}, {"date": "Oct 16, 2025", "price": 164.62}, {"date": "Oct 17, 2025", "price": 167.41}, {"date": "Oct 20, 2025", "price": 172.43}, {"date": "Oct 21, 2025", "price": 181.39}, {"date": "Oct 22, 2025", "price": 178.29}, {"date": "Oct 23, 2025", "price": 179.06}, {"date": "Oct 24, 2025", "price": 178.17}, {"date": "Oct 27, 2025", "price": 181.39}, {"date": "Oct 28, 2025", "price": 179.98}, {"date": "Oct 29, 2025", "price": 170.3}, {"date": "Oct 30, 2025", "price": 168.02}, {"date": "Oct 31, 2025", "price": 170.54}, {"date": "Nov 03, 2025", "price": 165.47}, {"date": "Nov 04, 2025", "price": 160.66}, {"date": "Nov 05, 2025", "price": 167.59}, {"date": "Nov 06, 2025", "price": 163.55}, {"date": "Nov 07, 2025", "price": 166.13}, {"date": "Nov 10, 2025", "price": 170.35}, {"date": "Nov 11, 2025", "price": 169.81}, {"date": "Nov 12, 2025", "price": 170.9}, {"date": "Nov 13, 2025", "price": 169.66}, {"date": "Nov 14, 2025", "price": 170.68}, {"date": "Nov 17, 2025", "price": 164.16}, {"date": "Nov 18, 2025", "price": 163.97}, {"date": "Nov 19, 2025", "price": 166.06}, {"date": "Nov 20, 2025", "price": 164.69}, {"date": "Nov 21, 2025", "price": 168.18}, {"date": "Nov 24, 2025", "price": 169.67}, {"date": "Nov 25, 2025", "price": 177.51}, {"date": "Nov 26, 2025", "price": 181.94}, {"date": "Nov 28, 2025", "price": 184.18}, {"date": "Dec 01, 2025", "price": 182.41}, {"date": "Dec 02, 2025", "price": 182.4}, {"date": "Dec 03, 2025", "price": 182.3}, {"date": "Dec 04, 2025", "price": 183.6}, {"date": "Dec 05, 2025", "price": 190.01}, {"date": "Dec 08, 2025", "price": 183.04}, {"date": "Dec 09, 2025", "price": 182.28}, {"date": "Dec 10, 2025", "price": 187.62}, {"date": "Dec 11, 2025", "price": 187.01}, {"date": "Dec 12, 2025", "price": 204.97}, {"date": "Dec 15, 2025", "price": 206.29}, {"date": "Dec 16, 2025", "price": 206.74}, {"date": "Dec 17, 2025", "price": 207.87}, {"date": "Dec 18, 2025", "price": 215.11}, {"date": "Dec 19, 2025", "price": 209.45}, {"date": "Dec 22, 2025", "price": 212.37}, {"date": "Dec 23, 2025", "price": 212.68}, {"date": "Dec 24, 2025", "price": 210.4}, {"date": "Dec 26, 2025", "price": 208.97}, {"date": "Dec 29, 2025", "price": 212.54}, {"date": "Dec 30, 2025", "price": 210.67}, {"date": "Dec 31, 2025", "price": 207.81}, {"date": "Jan 02, 2026", "price": 210.81}, {"date": "Jan 05, 2026", "price": 212.4}, {"date": "Jan 06, 2026", "price": 215.88}, {"date": "Jan 07, 2026", "price": 211.72}, {"date": "Jan 08, 2026", "price": 212.17}, {"date": "Jan 09, 2026", "price": 203.9}, {"date": "Jan 12, 2026", "price": 209.04}, {"date": "Jan 13, 2026", "price": 211.9}, {"date": "Jan 14, 2026", "price": 203.14}, {"date": "Jan 15, 2026", "price": 205.01}, {"date": "Jan 16, 2026", "price": 201.87}, {"date": "Jan 20, 2026", "price": 188.76}, {"date": "Jan 21, 2026", "price": 189.84}, {"date": "Jan 22, 2026", "price": 194.66}, {"date": "Jan 23, 2026", "price": 191.07}, {"date": "Jan 26, 2026", "price": 192.79}, {"date": "Jan 27, 2026", "price": 186.39}, {"date": "Jan 28, 2026", "price": 180.35}, {"date": "Jan 29, 2026", "price": 172.54}, {"date": "Jan 30, 2026", "price": 174.5}, {"date": "Feb 02, 2026", "price": 179.08}, {"date": "Feb 03, 2026", "price": 171.57}, {"date": "Feb 04, 2026", "price": 178.0}, {"date": "Feb 05, 2026", "price": 170.09}, {"date": "Feb 06, 2026", "price": 172.85}, {"date": "Feb 09, 2026", "price": 175.68}, {"date": "Feb 10, 2026", "price": 180.62}, {"date": "Feb 11, 2026", "price": 175.86}, {"date": "Feb 12, 2026", "price": 169.53}, {"date": "Feb 13, 2026", "price": 176.42}, {"date": "Feb 17, 2026", "price": 177.72}, {"date": "Feb 18, 2026", "price": 182.13}, {"date": "Feb 19, 2026", "price": 182.88}, {"date": "Feb 20, 2026", "price": 187.3}, {"date": "Feb 23, 2026", "price": 178.11}, {"date": "Feb 24, 2026", "price": 179.49}, {"date": "Feb 25, 2026", "price": 182.55}, {"date": "Feb 26, 2026", "price": 186.1}, {"date": "Feb 27, 2026", "price": 185.17}, {"date": "Mar 02, 2026", "price": 176.17}, {"date": "Mar 03, 2026", "price": 174.27}, {"date": "Mar 04, 2026", "price": 173.21}, {"date": "Mar 05, 2026", "price": 173.18}, {"date": "Mar 06, 2026", "price": 170.13}, {"date": "Mar 09, 2026", "price": 169.76}, {"date": "Mar 10, 2026", "price": 166.43}, {"date": "Mar 11, 2026", "price": 162.79}, {"date": "Mar 12, 2026", "price": 158.19}, {"date": "Mar 13, 2026", "price": 157.78}, {"date": "Mar 16, 2026", "price": 159.91}, {"date": "Mar 17, 2026", "price": 159.27}, {"date": "Mar 18, 2026", "price": 165.39}, {"date": "Mar 19, 2026", "price": 165.57}, {"date": "Mar 20, 2026", "price": 162.82}, {"date": "Mar 23, 2026", "price": 164.38}, {"date": "Mar 24, 2026", "price": 160.95}, {"date": "Mar 25, 2026", "price": 158.72}, {"date": "Mar 26, 2026", "price": 151.39}, {"date": "Mar 27, 2026", "price": 145.85}, {"date": "Mar 30, 2026", "price": 145.83}, {"date": "Mar 31, 2026", "price": 153.1}, {"date": "Apr 01, 2026", "price": 158.81}, {"date": "Apr 02, 2026", "price": 155.72}, {"date": "Apr 06, 2026", "price": 156.18}, {"date": "Apr 07, 2026", "price": 153.67}, {"date": "Apr 08, 2026", "price": 158.86}, {"date": "Apr 09, 2026", "price": 166.51}, {"date": "Apr 10, 2026", "price": 163.86}, {"date": "Apr 13, 2026", "price": 162.56}, {"date": "Apr 14, 2026", "price": 160.6}, {"date": "Apr 15, 2026", "price": 162.74}, {"date": "Apr 16, 2026", "price": 162.92}, {"date": "Apr 17, 2026", "price": 167.28}, {"date": "Apr 20, 2026", "price": 166.81}, {"date": "Apr 21, 2026", "price": 166.7}, {"date": "Apr 22, 2026", "price": 163.45}, {"date": "Apr 23, 2026", "price": 141.66}, {"date": "Apr 24, 2026", "price": 143.8}, {"date": "Apr 27, 2026", "price": 146.94}, {"date": "Apr 28, 2026", "price": 142.39}, {"date": "Apr 29, 2026", "price": 138.16}, {"date": "Apr 30, 2026", "price": 137.7}, {"date": "May 01, 2026", "price": 133.58}, {"date": "May 04, 2026", "price": 128.98}, {"date": "May 05, 2026", "price": 130.21}, {"date": "May 06, 2026", "price": 132.04}, {"date": "May 07, 2026", "price": 133.59}, {"date": "May 08, 2026", "price": 131.18}, {"date": "May 11, 2026", "price": 126.34}, {"date": "May 12, 2026", "price": 125.13}, {"date": "May 13, 2026", "price": 121.21}, {"date": "May 14, 2026", "price": 121.06}, {"date": "May 15, 2026", "price": 119.14}, {"date": "May 18, 2026", "price": 120.26}, {"date": "May 19, 2026", "price": 119.22}, {"date": "May 20, 2026", "price": 125.19}, {"date": "May 21, 2026", "price": 126.76}, {"date": "May 22, 2026", "price": 127.18}, {"date": "May 26, 2026", "price": 127.35}, {"date": "May 27, 2026", "price": 131.04}, {"date": "May 28, 2026", "price": 131.33}, {"date": "May 29, 2026", "price": 131.18}, {"date": "Jun 01, 2026", "price": 132.09}, {"date": "Jun 02, 2026", "price": 126.47}, {"date": "Jun 03, 2026", "price": 126.03}, {"date": "Jun 04, 2026", "price": 124.92}, {"date": "Jun 05, 2026", "price": 114.23}, {"date": "Jun 08, 2026", "price": 117.55}, {"date": "Jun 09, 2026", "price": 121.36}, {"date": "Jun 10, 2026", "price": 118.93}, {"date": "Jun 11, 2026", "price": 121.84}, {"date": "Jun 12, 2026", "price": 118.77}, {"date": "Jun 15, 2026", "price": 116.21}, {"date": "Jun 16, 2026", "price": 115.5}, {"date": "Jun 17, 2026", "price": 111.76}, {"date": "Jun 18, 2026", "price": 111.77}, {"date": "Jun 22, 2026", "price": 105.43}, {"date": "Jun 23, 2026", "price": 108.92}, {"date": "Jun 24, 2026", "price": 113.09}, {"date": "Jun 25, 2026", "price": 112.06}, {"date": "Jun 26, 2026", "price": 117.57}, {"date": "Jun 29, 2026", "price": 114.29}, {"date": "Jun 30, 2026", "price": 114.18}, {"date": "Jul 01, 2026", "price": 116.4}, {"date": "Jul 02, 2026", "price": 118.43}, {"date": "Jul 06, 2026", "price": 115.64}, {"date": "Jul 07, 2026", "price": 115.07}, {"date": "Jul 08, 2026", "price": 113.62}, {"date": "Jul 09, 2026", "price": 116.51}, {"date": "Jul 10, 2026", "price": 119.26}, {"date": "Jul 13, 2026", "price": 120.3}, {"date": "Jul 14, 2026", "price": 117.32}, {"date": "Jul 15, 2026", "price": 117.42}, {"date": "Jul 16, 2026", "price": 118.79}, {"date": "Jul 17, 2026", "price": 116.33}, {"date": "Jul 20, 2026", "price": 116.67}, {"date": "Jul 21, 2026", "price": 116.63}, {"date": "Jul 22, 2026", "price": 113.37}, {"date": "Jul 23, 2026", "price": 110.63}, {"date": "Jul 24, 2026", "price": 114.28}, {"date": "Jul 27, 2026", "price": 117.83}, {"date": "Jul 28, 2026", "price": 120.32}, {"date": "Jul 29, 2026", "price": 119.03}, {"date": "Jul 30, 2026", "price": 119.48}, {"date": "Jul 31, 2026", "price": 118.87}, {"date": "Aug 03, 2026", "price": 123.67}, {"date": "Aug 04, 2026", "price": 123.03}, {"date": "Aug 05, 2026", "price": 123.51}, {"date": "Aug 06, 2026", "price": 124.73}, {"date": "Aug 07, 2026", "price": 128.58}, {"date": "Aug 10, 2026", "price": 127.8}, {"date": "Aug 11, 2026", "price": 125.61}, {"date": "Aug 12, 2026", "price": 120.87}, {"date": "Aug 13, 2026", "price": 119.22}], "5Y": [{"date": "Aug 08, 2021", "price": 408.72}, {"date": "Aug 15, 2021", "price": 397.83}, {"date": "Aug 22, 2021", "price": 405.97}, {"date": "Aug 29, 2021", "price": 388.33}, {"date": "Sep 05, 2021", "price": 425.58}, {"date": "Sep 12, 2021", "price": 426.55}, {"date": "Sep 19, 2021", "price": 432.61}, {"date": "Sep 26, 2021", "price": 401.37}, {"date": "Oct 03, 2021", "price": 397.22}, {"date": "Oct 10, 2021", "price": 403.51}, {"date": "Oct 17, 2021", "price": 421.73}, {"date": "Oct 24, 2021", "price": 466.01}, {"date": "Oct 31, 2021", "price": 467.91}, {"date": "Nov 07, 2021", "price": 452.59}, {"date": "Nov 14, 2021", "price": 473.0}, {"date": "Nov 21, 2021", "price": 456.58}, {"date": "Nov 28, 2021", "price": 435.72}, {"date": "Dec 05, 2021", "price": 409.58}, {"date": "Dec 12, 2021", "price": 384.66}, {"date": "Dec 19, 2021", "price": 391.56}, {"date": "Dec 26, 2021", "price": 391.45}, {"date": "Jan 02, 2022", "price": 355.21}, {"date": "Jan 09, 2022", "price": 328.98}, {"date": "Jan 16, 2022", "price": 313.02}, {"date": "Jan 23, 2022", "price": 315.91}, {"date": "Jan 30, 2022", "price": 336.37}, {"date": "Feb 06, 2022", "price": 316.72}, {"date": "Feb 13, 2022", "price": 308.66}, {"date": "Feb 20, 2022", "price": 317.58}, {"date": "Feb 27, 2022", "price": 320.58}, {"date": "Mar 06, 2022", "price": 291.55}, {"date": "Mar 13, 2022", "price": 316.93}, {"date": "Mar 20, 2022", "price": 321.14}, {"date": "Mar 27, 2022", "price": 367.44}, {"date": "Apr 03, 2022", "price": 369.46}, {"date": "Apr 10, 2022", "price": 390.78}, {"date": "Apr 17, 2022", "price": 363.66}, {"date": "Apr 24, 2022", "price": 354.63}, {"date": "May 01, 2022", "price": 317.05}, {"date": "May 08, 2022", "price": 309.29}, {"date": "May 15, 2022", "price": 274.04}, {"date": "May 22, 2022", "price": 293.65}, {"date": "May 29, 2022", "price": 300.8}, {"date": "Jun 05, 2022", "price": 291.6}, {"date": "Jun 12, 2022", "price": 278.13}, {"date": "Jun 19, 2022", "price": 293.36}, {"date": "Jun 26, 2022", "price": 263.38}, {"date": "Jul 03, 2022", "price": 293.39}, {"date": "Jul 10, 2022", "price": 286.41}, {"date": "Jul 17, 2022", "price": 304.5}, {"date": "Jul 24, 2022", "price": 310.51}, {"date": "Jul 31, 2022", "price": 317.8}, {"date": "Aug 07, 2022", "price": 321.69}, {"date": "Aug 14, 2022", "price": 322.47}, {"date": "Aug 21, 2022", "price": 311.31}, {"date": "Aug 28, 2022", "price": 314.17}, {"date": "Sep 04, 2022", "price": 348.65}, {"date": "Sep 11, 2022", "price": 333.24}, {"date": "Sep 18, 2022", "price": 293.2}, {"date": "Sep 25, 2022", "price": 279.56}, {"date": "Oct 02, 2022", "price": 298.22}, {"date": "Oct 09, 2022", "price": 288.78}, {"date": "Oct 16, 2022", "price": 298.63}, {"date": "Oct 23, 2022", "price": 328.48}, {"date": "Oct 30, 2022", "price": 325.57}, {"date": "Nov 06, 2022", "price": 359.7}, {"date": "Nov 13, 2022", "price": 347.85}, {"date": "Nov 20, 2022", "price": 361.16}, {"date": "Nov 27, 2022", "price": 385.99}, {"date": "Dec 04, 2022", "price": 326.39}, {"date": "Dec 11, 2022", "price": 321.24}, {"date": "Dec 18, 2022", "price": 311.54}, {"date": "Dec 25, 2022", "price": 320.38}, {"date": "Jan 01, 2023", "price": 329.26}, {"date": "Jan 08, 2023", "price": 315.47}, {"date": "Jan 15, 2023", "price": 312.8}, {"date": "Jan 22, 2023", "price": 310.85}, {"date": "Jan 29, 2023", "price": 319.42}, {"date": "Feb 05, 2023", "price": 309.4}, {"date": "Feb 12, 2023", "price": 320.36}, {"date": "Feb 19, 2023", "price": 308.1}, {"date": "Feb 26, 2023", "price": 316.83}, {"date": "Mar 05, 2023", "price": 296.26}, {"date": "Mar 12, 2023", "price": 294.74}, {"date": "Mar 19, 2023", "price": 313.45}, {"date": "Mar 26, 2023", "price": 364.19}, {"date": "Apr 02, 2023", "price": 364.33}, {"date": "Apr 09, 2023", "price": 368.25}, {"date": "Apr 16, 2023", "price": 377.8}, {"date": "Apr 23, 2023", "price": 379.93}, {"date": "Apr 30, 2023", "price": 386.71}, {"date": "May 07, 2023", "price": 376.2}, {"date": "May 14, 2023", "price": 368.53}, {"date": "May 21, 2023", "price": 340.26}, {"date": "May 28, 2023", "price": 365.44}, {"date": "Jun 04, 2023", "price": 360.4}, {"date": "Jun 11, 2023", "price": 383.02}, {"date": "Jun 18, 2023", "price": 374.25}, {"date": "Jun 25, 2023", "price": 378.5}, {"date": "Jul 02, 2023", "price": 363.74}, {"date": "Jul 09, 2023", "price": 380.41}, {"date": "Jul 16, 2023", "price": 382.96}, {"date": "Jul 23, 2023", "price": 377.96}, {"date": "Jul 30, 2023", "price": 378.2}, {"date": "Aug 06, 2023", "price": 381.13}, {"date": "Aug 13, 2023", "price": 381.29}, {"date": "Aug 20, 2023", "price": 365.59}, {"date": "Aug 27, 2023", "price": 404.19}, {"date": "Sep 03, 2023", "price": 396.36}, {"date": "Sep 10, 2023", "price": 389.93}, {"date": "Sep 17, 2023", "price": 388.05}, {"date": "Sep 24, 2023", "price": 385.61}, {"date": "Oct 01, 2023", "price": 367.22}, {"date": "Oct 08, 2023", "price": 377.69}, {"date": "Oct 15, 2023", "price": 395.82}, {"date": "Oct 22, 2023", "price": 386.82}, {"date": "Oct 29, 2023", "price": 407.93}, {"date": "Nov 05, 2023", "price": 413.67}, {"date": "Nov 12, 2023", "price": 422.44}, {"date": "Nov 19, 2023", "price": 431.76}, {"date": "Nov 26, 2023", "price": 466.61}, {"date": "Dec 03, 2023", "price": 489.64}, {"date": "Dec 10, 2023", "price": 491.46}, {"date": "Dec 17, 2023", "price": 510.0}, {"date": "Dec 24, 2023", "price": 511.29}, {"date": "Dec 31, 2023", "price": 491.1}, {"date": "Jan 07, 2024", "price": 479.94}, {"date": "Jan 14, 2024", "price": 484.02}, {"date": "Jan 21, 2024", "price": 478.03}, {"date": "Jan 28, 2024", "price": 462.4}, {"date": "Feb 04, 2024", "price": 470.24}, {"date": "Feb 11, 2024", "price": 449.6}, {"date": "Feb 18, 2024", "price": 457.89}, {"date": "Feb 25, 2024", "price": 458.5}, {"date": "Mar 03, 2024", "price": 460.39}, {"date": "Mar 10, 2024", "price": 464.94}, {"date": "Mar 17, 2024", "price": 403.19}, {"date": "Mar 24, 2024", "price": 390.65}, {"date": "Mar 31, 2024", "price": 356.87}, {"date": "Apr 07, 2024", "price": 336.13}, {"date": "Apr 14, 2024", "price": 352.47}, {"date": "Apr 21, 2024", "price": 364.7}, {"date": "Apr 28, 2024", "price": 355.15}, {"date": "May 05, 2024", "price": 352.96}, {"date": "May 12, 2024", "price": 334.95}, {"date": "May 19, 2024", "price": 303.01}, {"date": "May 26, 2024", "price": 311.99}, {"date": "Jun 02, 2024", "price": 317.86}, {"date": "Jun 09, 2024", "price": 306.01}, {"date": "Jun 16, 2024", "price": 311.82}, {"date": "Jun 23, 2024", "price": 298.7}, {"date": "Jun 30, 2024", "price": 298.14}, {"date": "Jul 07, 2024", "price": 291.06}, {"date": "Jul 14, 2024", "price": 280.24}, {"date": "Jul 21, 2024", "price": 253.5}, {"date": "Jul 28, 2024", "price": 236.0}, {"date": "Aug 04, 2024", "price": 238.72}, {"date": "Aug 11, 2024", "price": 258.1}, {"date": "Aug 18, 2024", "price": 268.55}, {"date": "Aug 25, 2024", "price": 259.47}, {"date": "Sep 01, 2024", "price": 253.84}, {"date": "Sep 08, 2024", "price": 266.76}, {"date": "Sep 15, 2024", "price": 262.61}, {"date": "Sep 22, 2024", "price": 280.01}, {"date": "Sep 29, 2024", "price": 270.38}, {"date": "Oct 06, 2024", "price": 278.25}, {"date": "Oct 13, 2024", "price": 291.63}, {"date": "Oct 20, 2024", "price": 304.15}, {"date": "Oct 27, 2024", "price": 321.17}, {"date": "Nov 03, 2024", "price": 308.53}, {"date": "Nov 10, 2024", "price": 320.01}, {"date": "Nov 17, 2024", "price": 317.11}, {"date": "Nov 24, 2024", "price": 320.66}, {"date": "Dec 01, 2024", "price": 399.6}, {"date": "Dec 08, 2024", "price": 391.63}, {"date": "Dec 15, 2024", "price": 379.42}, {"date": "Dec 22, 2024", "price": 386.67}, {"date": "Dec 29, 2024", "price": 378.18}, {"date": "Jan 05, 2025", "price": 395.47}, {"date": "Jan 12, 2025", "price": 373.7}, {"date": "Jan 19, 2025", "price": 400.03}, {"date": "Jan 26, 2025", "price": 414.2}, {"date": "Feb 02, 2025", "price": 398.1}, {"date": "Feb 09, 2025", "price": 366.68}, {"date": "Feb 16, 2025", "price": 358.97}, {"date": "Feb 23, 2025", "price": 365.61}, {"date": "Mar 02, 2025", "price": 344.36}, {"date": "Mar 09, 2025", "price": 311.03}, {"date": "Mar 16, 2025", "price": 322.62}, {"date": "Mar 23, 2025", "price": 293.06}, {"date": "Mar 30, 2025", "price": 263.7}, {"date": "Apr 06, 2025", "price": 261.03}, {"date": "Apr 13, 2025", "price": 251.08}, {"date": "Apr 20, 2025", "price": 267.9}, {"date": "Apr 27, 2025", "price": 277.36}, {"date": "May 04, 2025", "price": 279.77}, {"date": "May 11, 2025", "price": 321.44}, {"date": "May 18, 2025", "price": 310.76}, {"date": "May 25, 2025", "price": 316.67}, {"date": "Jun 01, 2025", "price": 265.27}, {"date": "Jun 08, 2025", "price": 239.11}, {"date": "Jun 15, 2025", "price": 227.47}, {"date": "Jun 22, 2025", "price": 235.02}, {"date": "Jun 29, 2025", "price": 247.68}, {"date": "Jul 06, 2025", "price": 236.51}, {"date": "Jul 13, 2025", "price": 229.77}, {"date": "Jul 20, 2025", "price": 219.43}, {"date": "Jul 27, 2025", "price": 193.33}, {"date": "Aug 03, 2025", "price": 189.43}, {"date": "Aug 10, 2025", "price": 198.46}, {"date": "Aug 17, 2025", "price": 207.59}, {"date": "Aug 24, 2025", "price": 202.2}, {"date": "Aug 31, 2025", "price": 167.8}, {"date": "Sep 07, 2025", "price": 159.87}, {"date": "Sep 14, 2025", "price": 169.62}, {"date": "Sep 21, 2025", "price": 176.3}, {"date": "Sep 28, 2025", "price": 175.59}, {"date": "Oct 05, 2025", "price": 167.51}, {"date": "Oct 12, 2025", "price": 167.41}, {"date": "Oct 19, 2025", "price": 178.17}, {"date": "Oct 26, 2025", "price": 170.54}, {"date": "Nov 02, 2025", "price": 166.13}, {"date": "Nov 09, 2025", "price": 170.68}, {"date": "Nov 16, 2025", "price": 168.18}, {"date": "Nov 23, 2025", "price": 184.18}, {"date": "Nov 30, 2025", "price": 190.01}, {"date": "Dec 07, 2025", "price": 204.97}, {"date": "Dec 14, 2025", "price": 209.45}, {"date": "Dec 21, 2025", "price": 208.97}, {"date": "Dec 28, 2025", "price": 210.81}, {"date": "Jan 04, 2026", "price": 203.9}, {"date": "Jan 11, 2026", "price": 201.87}, {"date": "Jan 18, 2026", "price": 191.07}, {"date": "Jan 25, 2026", "price": 174.5}, {"date": "Feb 01, 2026", "price": 172.85}, {"date": "Feb 08, 2026", "price": 176.42}, {"date": "Feb 15, 2026", "price": 187.3}, {"date": "Feb 22, 2026", "price": 185.17}, {"date": "Mar 01, 2026", "price": 170.13}, {"date": "Mar 08, 2026", "price": 157.78}, {"date": "Mar 15, 2026", "price": 162.82}, {"date": "Mar 22, 2026", "price": 145.85}, {"date": "Mar 29, 2026", "price": 155.72}, {"date": "Apr 05, 2026", "price": 163.86}, {"date": "Apr 12, 2026", "price": 167.28}, {"date": "Apr 19, 2026", "price": 143.8}, {"date": "Apr 26, 2026", "price": 133.58}, {"date": "May 03, 2026", "price": 131.18}, {"date": "May 10, 2026", "price": 119.14}, {"date": "May 17, 2026", "price": 127.18}, {"date": "May 24, 2026", "price": 131.18}, {"date": "May 31, 2026", "price": 114.23}, {"date": "Jun 07, 2026", "price": 118.77}, {"date": "Jun 14, 2026", "price": 111.77}, {"date": "Jun 21, 2026", "price": 117.57}, {"date": "Jun 28, 2026", "price": 118.43}, {"date": "Jul 05, 2026", "price": 119.26}, {"date": "Jul 12, 2026", "price": 116.33}, {"date": "Jul 19, 2026", "price": 114.28}, {"date": "Jul 26, 2026", "price": 118.87}, {"date": "Aug 02, 2026", "price": 128.58}, {"date": "Aug 09, 2026", "price": 120.87}, {"date": "Aug 13, 2026", "price": 119.22}], "10Y": [{"date": "Aug 31, 2016", "price": 60.98}, {"date": "Sep 30, 2016", "price": 57.25}, {"date": "Oct 31, 2016", "price": 56.99}, {"date": "Nov 30, 2016", "price": 64.99}, {"date": "Dec 31, 2016", "price": 67.51}, {"date": "Jan 31, 2017", "price": 65.26}, {"date": "Feb 28, 2017", "price": 51.87}, {"date": "Mar 31, 2017", "price": 52.0}, {"date": "Apr 30, 2017", "price": 48.27}, {"date": "May 31, 2017", "price": 59.67}, {"date": "Jun 30, 2017", "price": 61.64}, {"date": "Jul 31, 2017", "price": 57.55}, {"date": "Aug 31, 2017", "price": 62.25}, {"date": "Sep 30, 2017", "price": 61.51}, {"date": "Oct 31, 2017", "price": 66.96}, {"date": "Nov 30, 2017", "price": 78.59}, {"date": "Dec 31, 2017", "price": 78.21}, {"date": "Jan 31, 2018", "price": 81.1}, {"date": "Feb 28, 2018", "price": 89.12}, {"date": "Mar 31, 2018", "price": 99.8}, {"date": "Apr 30, 2018", "price": 105.05}, {"date": "May 31, 2018", "price": 124.85}, {"date": "Jun 30, 2018", "price": 119.95}, {"date": "Jul 31, 2018", "price": 154.93}, {"date": "Aug 31, 2018", "price": 162.49}, {"date": "Sep 30, 2018", "price": 140.73}, {"date": "Oct 31, 2018", "price": 132.55}, {"date": "Nov 30, 2018", "price": 121.61}, {"date": "Dec 31, 2018", "price": 147.81}, {"date": "Jan 31, 2019", "price": 150.42}, {"date": "Feb 28, 2019", "price": 163.87}, {"date": "Mar 31, 2019", "price": 176.35}, {"date": "Apr 30, 2019", "price": 165.59}, {"date": "May 31, 2019", "price": 180.21}, {"date": "Jun 30, 2019", "price": 191.09}, {"date": "Jul 31, 2019", "price": 184.67}, {"date": "Aug 31, 2019", "price": 192.53}, {"date": "Sep 30, 2019", "price": 204.27}, {"date": "Oct 31, 2019", "price": 225.69}, {"date": "Nov 30, 2019", "price": 231.67}, {"date": "Dec 31, 2019", "price": 239.39}, {"date": "Jan 31, 2020", "price": 217.41}, {"date": "Feb 29, 2020", "price": 189.55}, {"date": "Mar 31, 2020", "price": 223.48}, {"date": "Apr 30, 2020", "price": 300.1}, {"date": "May 31, 2020", "price": 312.01}, {"date": "Jun 30, 2020", "price": 325.59}, {"date": "Jul 31, 2020", "price": 375.67}, {"date": "Aug 31, 2020", "price": 329.37}, {"date": "Sep 30, 2020", "price": 319.29}, {"date": "Oct 31, 2020", "price": 370.22}, {"date": "Nov 30, 2020", "price": 348.03}, {"date": "Dec 31, 2020", "price": 328.68}, {"date": "Jan 31, 2021", "price": 311.68}, {"date": "Feb 28, 2021", "price": 306.71}, {"date": "Mar 31, 2021", "price": 335.27}, {"date": "Apr 30, 2021", "price": 323.13}, {"date": "May 31, 2021", "price": 364.97}, {"date": "Jun 30, 2021", "price": 400.17}, {"date": "Jul 31, 2021", "price": 400.17}, {"date": "Aug 31, 2021", "price": 404.7}, {"date": "Sep 30, 2021", "price": 466.01}, {"date": "Oct 31, 2021", "price": 454.41}, {"date": "Nov 30, 2021", "price": 391.45}, {"date": "Dec 31, 2021", "price": 333.76}, {"date": "Jan 31, 2022", "price": 319.94}, {"date": "Feb 28, 2022", "price": 365.23}, {"date": "Mar 31, 2022", "price": 354.63}, {"date": "Apr 30, 2022", "price": 292.69}, {"date": "May 31, 2022", "price": 272.61}, {"date": "Jun 30, 2022", "price": 310.51}, {"date": "Jul 31, 2022", "price": 299.96}, {"date": "Aug 31, 2022", "price": 279.56}, {"date": "Sep 30, 2022", "price": 329.04}, {"date": "Oct 31, 2022", "price": 380.31}, {"date": "Nov 30, 2022", "price": 320.38}, {"date": "Dec 31, 2022", "price": 306.88}, {"date": "Jan 31, 2023", "price": 309.2}, {"date": "Feb 28, 2023", "price": 364.19}, {"date": "Mar 31, 2023", "price": 379.93}, {"date": "Apr 30, 2023", "price": 331.93}, {"date": "May 31, 2023", "price": 378.5}, {"date": "Jun 30, 2023", "price": 378.53}, {"date": "Jul 31, 2023", "price": 381.26}, {"date": "Aug 31, 2023", "price": 385.61}, {"date": "Sep 30, 2023", "price": 393.48}, {"date": "Oct 31, 2023", "price": 446.8}, {"date": "Nov 30, 2023", "price": 511.29}, {"date": "Dec 31, 2023", "price": 453.82}, {"date": "Jan 31, 2024", "price": 467.09}, {"date": "Feb 29, 2024", "price": 390.65}, {"date": "Mar 31, 2024", "price": 360.6}, {"date": "Apr 30, 2024", "price": 311.99}, {"date": "May 31, 2024", "price": 298.7}, {"date": "Jun 30, 2024", "price": 258.66}, {"date": "Jul 31, 2024", "price": 259.47}, {"date": "Aug 31, 2024", "price": 271.35}, {"date": "Sep 30, 2024", "price": 297.9}, {"date": "Oct 31, 2024", "price": 320.66}, {"date": "Nov 30, 2024", "price": 382.41}, {"date": "Dec 31, 2024", "price": 414.2}, {"date": "Jan 31, 2025", "price": 365.61}, {"date": "Feb 28, 2025", "price": 283.06}, {"date": "Mar 31, 2025", "price": 270.77}, {"date": "Apr 30, 2025", "price": 316.67}, {"date": "May 31, 2025", "price": 237.58}, {"date": "Jun 30, 2025", "price": 200.53}, {"date": "Jul 31, 2025", "price": 202.2}, {"date": "Aug 31, 2025", "price": 177.93}, {"date": "Sep 30, 2025", "price": 170.54}, {"date": "Oct 31, 2025", "price": 184.18}, {"date": "Nov 30, 2025", "price": 207.81}, {"date": "Dec 31, 2025", "price": 174.5}, {"date": "Jan 31, 2026", "price": 185.17}, {"date": "Feb 28, 2026", "price": 153.1}, {"date": "Mar 31, 2026", "price": 137.7}, {"date": "Apr 30, 2026", "price": 131.18}, {"date": "May 31, 2026", "price": 114.18}, {"date": "Jun 30, 2026", "price": 118.87}, {"date": "Jul 31, 2026", "price": 120.87}, {"date": "Aug 13, 2026", "price": 119.22}], "MAX": [{"date": "Jul 31, 2007", "price": 17.03}, {"date": "Aug 31, 2007", "price": 21.01}, {"date": "Sep 30, 2007", "price": 26.61}, {"date": "Oct 31, 2007", "price": 18.33}, {"date": "Nov 30, 2007", "price": 23.68}, {"date": "Dec 31, 2007", "price": 16.94}, {"date": "Jan 31, 2008", "price": 13.45}, {"date": "Feb 29, 2008", "price": 14.22}, {"date": "Mar 31, 2008", "price": 15.48}, {"date": "Apr 30, 2008", "price": 15.99}, {"date": "May 31, 2008", "price": 14.53}, {"date": "Jun 30, 2008", "price": 11.1}, {"date": "Jul 31, 2008", "price": 9.69}, {"date": "Aug 31, 2008", "price": 11.52}, {"date": "Sep 30, 2008", "price": 7.09}, {"date": "Oct 31, 2008", "price": 4.91}, {"date": "Nov 30, 2008", "price": 3.96}, {"date": "Dec 31, 2008", "price": 3.4}, {"date": "Jan 31, 2009", "price": 2.86}, {"date": "Feb 28, 2009", "price": 4.33}, {"date": "Mar 31, 2009", "price": 6.97}, {"date": "Apr 30, 2009", "price": 6.32}, {"date": "May 31, 2009", "price": 6.51}, {"date": "Jun 30, 2009", "price": 8.86}, {"date": "Jul 31, 2009", "price": 10.03}, {"date": "Aug 31, 2009", "price": 11.38}, {"date": "Sep 30, 2009", "price": 12.56}, {"date": "Oct 31, 2009", "price": 13.09}, {"date": "Nov 30, 2009", "price": 15.05}, {"date": "Dec 31, 2009", "price": 14.12}, {"date": "Jan 31, 2010", "price": 14.32}, {"date": "Feb 28, 2010", "price": 20.74}, {"date": "Mar 31, 2010", "price": 18.81}, {"date": "Apr 30, 2010", "price": 20.43}, {"date": "May 31, 2010", "price": 18.61}, {"date": "Jun 30, 2010", "price": 20.74}, {"date": "Jul 31, 2010", "price": 16.43}, {"date": "Aug 31, 2010", "price": 22.36}, {"date": "Sep 30, 2010", "price": 22.16}, {"date": "Oct 31, 2010", "price": 26.81}, {"date": "Nov 30, 2010", "price": 34.21}, {"date": "Dec 31, 2010", "price": 34.34}, {"date": "Jan 31, 2011", "price": 38.79}, {"date": "Feb 28, 2011", "price": 44.53}, {"date": "Mar 31, 2011", "price": 50.03}, {"date": "Apr 30, 2011", "price": 45.4}, {"date": "May 31, 2011", "price": 55.91}, {"date": "Jun 30, 2011", "price": 60.54}, {"date": "Jul 31, 2011", "price": 54.73}, {"date": "Aug 31, 2011", "price": 48.69}, {"date": "Sep 30, 2011", "price": 56.48}, {"date": "Oct 31, 2011", "price": 49.7}, {"date": "Nov 30, 2011", "price": 46.66}, {"date": "Dec 31, 2011", "price": 63.13}, {"date": "Jan 31, 2012", "price": 67.02}, {"date": "Feb 29, 2012", "price": 74.73}, {"date": "Mar 31, 2012", "price": 74.14}, {"date": "Apr 30, 2012", "price": 72.64}, {"date": "May 31, 2012", "price": 59.63}, {"date": "Jun 30, 2012", "price": 56.48}, {"date": "Jul 31, 2012", "price": 65.19}, {"date": "Aug 31, 2012", "price": 73.94}, {"date": "Sep 30, 2012", "price": 68.84}, {"date": "Oct 31, 2012", "price": 71.78}, {"date": "Nov 30, 2012", "price": 76.23}, {"date": "Dec 31, 2012", "price": 69.0}, {"date": "Jan 31, 2013", "price": 67.05}, {"date": "Feb 28, 2013", "price": 62.35}, {"date": "Mar 31, 2013", "price": 76.13}, {"date": "Apr 30, 2013", "price": 77.81}, {"date": "May 31, 2013", "price": 65.5}, {"date": "Jun 30, 2013", "price": 69.57}, {"date": "Jul 31, 2013", "price": 70.84}, {"date": "Aug 31, 2013", "price": 73.13}, {"date": "Sep 30, 2013", "price": 69.09}, {"date": "Oct 31, 2013", "price": 69.72}, {"date": "Nov 30, 2013", "price": 59.03}, {"date": "Dec 31, 2013", "price": 45.69}, {"date": "Jan 31, 2014", "price": 50.31}, {"date": "Feb 28, 2014", "price": 52.59}, {"date": "Mar 31, 2014", "price": 45.93}, {"date": "Apr 30, 2014", "price": 44.63}, {"date": "May 31, 2014", "price": 40.48}, {"date": "Jun 30, 2014", "price": 38.47}, {"date": "Jul 31, 2014", "price": 39.93}, {"date": "Aug 31, 2014", "price": 42.01}, {"date": "Sep 30, 2014", "price": 41.65}, {"date": "Oct 31, 2014", "price": 48.19}, {"date": "Nov 30, 2014", "price": 55.79}, {"date": "Dec 31, 2014", "price": 66.24}, {"date": "Jan 31, 2015", "price": 68.44}, {"date": "Feb 28, 2015", "price": 64.02}, {"date": "Mar 31, 2015", "price": 63.64}, {"date": "Apr 30, 2015", "price": 59.79}, {"date": "May 31, 2015", "price": 65.3}, {"date": "Jun 30, 2015", "price": 62.86}, {"date": "Jul 31, 2015", "price": 64.01}, {"date": "Aug 31, 2015", "price": 50.65}, {"date": "Sep 30, 2015", "price": 49.17}, {"date": "Oct 31, 2015", "price": 47.82}, {"date": "Nov 30, 2015", "price": 52.47}, {"date": "Dec 31, 2015", "price": 62.07}, {"date": "Jan 31, 2016", "price": 62.73}, {"date": "Feb 29, 2016", "price": 67.71}, {"date": "Mar 31, 2016", "price": 65.55}, {"date": "Apr 30, 2016", "price": 65.03}, {"date": "May 31, 2016", "price": 73.86}, {"date": "Jun 30, 2016", "price": 77.65}, {"date": "Jul 31, 2016", "price": 76.51}, {"date": "Aug 31, 2016", "price": 60.98}, {"date": "Sep 30, 2016", "price": 57.25}, {"date": "Oct 31, 2016", "price": 56.99}, {"date": "Nov 30, 2016", "price": 64.99}, {"date": "Dec 31, 2016", "price": 67.51}, {"date": "Jan 31, 2017", "price": 65.26}, {"date": "Feb 28, 2017", "price": 51.87}, {"date": "Mar 31, 2017", "price": 52.0}, {"date": "Apr 30, 2017", "price": 48.27}, {"date": "May 31, 2017", "price": 59.67}, {"date": "Jun 30, 2017", "price": 61.64}, {"date": "Jul 31, 2017", "price": 57.55}, {"date": "Aug 31, 2017", "price": 62.25}, {"date": "Sep 30, 2017", "price": 61.51}, {"date": "Oct 31, 2017", "price": 66.96}, {"date": "Nov 30, 2017", "price": 78.59}, {"date": "Dec 31, 2017", "price": 78.21}, {"date": "Jan 31, 2018", "price": 81.1}, {"date": "Feb 28, 2018", "price": 89.12}, {"date": "Mar 31, 2018", "price": 99.8}, {"date": "Apr 30, 2018", "price": 105.05}, {"date": "May 31, 2018", "price": 124.85}, {"date": "Jun 30, 2018", "price": 119.95}, {"date": "Jul 31, 2018", "price": 154.93}, {"date": "Aug 31, 2018", "price": 162.49}, {"date": "Sep 30, 2018", "price": 140.73}, {"date": "Oct 31, 2018", "price": 132.55}, {"date": "Nov 30, 2018", "price": 121.61}, {"date": "Dec 31, 2018", "price": 147.81}, {"date": "Jan 31, 2019", "price": 150.42}, {"date": "Feb 28, 2019", "price": 163.87}, {"date": "Mar 31, 2019", "price": 176.35}, {"date": "Apr 30, 2019", "price": 165.59}, {"date": "May 31, 2019", "price": 180.21}, {"date": "Jun 30, 2019", "price": 191.09}, {"date": "Jul 31, 2019", "price": 184.67}, {"date": "Aug 31, 2019", "price": 192.53}, {"date": "Sep 30, 2019", "price": 204.27}, {"date": "Oct 31, 2019", "price": 225.69}, {"date": "Nov 30, 2019", "price": 231.67}, {"date": "Dec 31, 2019", "price": 239.39}, {"date": "Jan 31, 2020", "price": 217.41}, {"date": "Feb 29, 2020", "price": 189.55}, {"date": "Mar 31, 2020", "price": 223.48}, {"date": "Apr 30, 2020", "price": 300.1}, {"date": "May 31, 2020", "price": 312.01}, {"date": "Jun 30, 2020", "price": 325.59}, {"date": "Jul 31, 2020", "price": 375.67}, {"date": "Aug 31, 2020", "price": 329.37}, {"date": "Sep 30, 2020", "price": 319.29}, {"date": "Oct 31, 2020", "price": 370.22}, {"date": "Nov 30, 2020", "price": 348.03}, {"date": "Dec 31, 2020", "price": 328.68}, {"date": "Jan 31, 2021", "price": 311.68}, {"date": "Feb 28, 2021", "price": 306.71}, {"date": "Mar 31, 2021", "price": 335.27}, {"date": "Apr 30, 2021", "price": 323.13}, {"date": "May 31, 2021", "price": 364.97}, {"date": "Jun 30, 2021", "price": 400.17}, {"date": "Jul 31, 2021", "price": 400.17}, {"date": "Aug 31, 2021", "price": 404.7}, {"date": "Sep 30, 2021", "price": 466.01}, {"date": "Oct 31, 2021", "price": 454.41}, {"date": "Nov 30, 2021", "price": 391.45}, {"date": "Dec 31, 2021", "price": 333.76}, {"date": "Jan 31, 2022", "price": 319.94}, {"date": "Feb 28, 2022", "price": 365.23}, {"date": "Mar 31, 2022", "price": 354.63}, {"date": "Apr 30, 2022", "price": 292.69}, {"date": "May 31, 2022", "price": 272.61}, {"date": "Jun 30, 2022", "price": 310.51}, {"date": "Jul 31, 2022", "price": 299.96}, {"date": "Aug 31, 2022", "price": 279.56}, {"date": "Sep 30, 2022", "price": 329.04}, {"date": "Oct 31, 2022", "price": 380.31}, {"date": "Nov 30, 2022", "price": 320.38}, {"date": "Dec 31, 2022", "price": 306.88}, {"date": "Jan 31, 2023", "price": 309.2}, {"date": "Feb 28, 2023", "price": 364.19}, {"date": "Mar 31, 2023", "price": 379.93}, {"date": "Apr 30, 2023", "price": 331.93}, {"date": "May 31, 2023", "price": 378.5}, {"date": "Jun 30, 2023", "price": 378.53}, {"date": "Jul 31, 2023", "price": 381.26}, {"date": "Aug 31, 2023", "price": 385.61}, {"date": "Sep 30, 2023", "price": 393.48}, {"date": "Oct 31, 2023", "price": 446.8}, {"date": "Nov 30, 2023", "price": 511.29}, {"date": "Dec 31, 2023", "price": 453.82}, {"date": "Jan 31, 2024", "price": 467.09}, {"date": "Feb 29, 2024", "price": 390.65}, {"date": "Mar 31, 2024", "price": 360.6}, {"date": "Apr 30, 2024", "price": 311.99}, {"date": "May 31, 2024", "price": 298.7}, {"date": "Jun 30, 2024", "price": 258.66}, {"date": "Jul 31, 2024", "price": 259.47}, {"date": "Aug 31, 2024", "price": 271.35}, {"date": "Sep 30, 2024", "price": 297.9}, {"date": "Oct 31, 2024", "price": 320.66}, {"date": "Nov 30, 2024", "price": 382.41}, {"date": "Dec 31, 2024", "price": 414.2}, {"date": "Jan 31, 2025", "price": 365.61}, {"date": "Feb 28, 2025", "price": 283.06}, {"date": "Mar 31, 2025", "price": 270.77}, {"date": "Apr 30, 2025", "price": 316.67}, {"date": "May 31, 2025", "price": 237.58}, {"date": "Jun 30, 2025", "price": 200.53}, {"date": "Jul 31, 2025", "price": 202.2}, {"date": "Aug 31, 2025", "price": 177.93}, {"date": "Sep 30, 2025", "price": 170.54}, {"date": "Oct 31, 2025", "price": 184.18}, {"date": "Nov 30, 2025", "price": 207.81}, {"date": "Dec 31, 2025", "price": 174.5}, {"date": "Jan 31, 2026", "price": 185.17}, {"date": "Feb 28, 2026", "price": 153.1}, {"date": "Mar 31, 2026", "price": 137.7}, {"date": "Apr 30, 2026", "price": 131.18}, {"date": "May 31, 2026", "price": 114.18}, {"date": "Jun 30, 2026", "price": 118.87}, {"date": "Jul 31, 2026", "price": 120.87}, {"date": "Aug 13, 2026", "price": 119.22}]};
+        const allDatasets = {"1Y": [{"date": "Aug 14, 2025", "price": 195.19}, {"date": "Aug 15, 2025", "price": 198.46}, {"date": "Aug 18, 2025", "price": 203.62}, {"date": "Aug 19, 2025", "price": 197.66}, {"date": "Aug 20, 2025", "price": 198.12}, {"date": "Aug 21, 2025", "price": 198.18}, {"date": "Aug 22, 2025", "price": 207.59}, {"date": "Aug 25, 2025", "price": 202.44}, {"date": "Aug 26, 2025", "price": 202.53}, {"date": "Aug 27, 2025", "price": 205.57}, {"date": "Aug 28, 2025", "price": 205.08}, {"date": "Aug 29, 2025", "price": 202.2}, {"date": "Sep 02, 2025", "price": 200.21}, {"date": "Sep 03, 2025", "price": 198.53}, {"date": "Sep 04, 2025", "price": 206.09}, {"date": "Sep 05, 2025", "price": 167.8}, {"date": "Sep 08, 2025", "price": 168.1}, {"date": "Sep 09, 2025", "price": 165.69}, {"date": "Sep 10, 2025", "price": 163.9}, {"date": "Sep 11, 2025", "price": 165.78}, {"date": "Sep 12, 2025", "price": 159.87}, {"date": "Sep 15, 2025", "price": 159.98}, {"date": "Sep 16, 2025", "price": 162.34}, {"date": "Sep 17, 2025", "price": 163.48}, {"date": "Sep 18, 2025", "price": 169.76}, {"date": "Sep 19, 2025", "price": 169.62}, {"date": "Sep 22, 2025", "price": 173.41}, {"date": "Sep 23, 2025", "price": 173.33}, {"date": "Sep 24, 2025", "price": 179.22}, {"date": "Sep 25, 2025", "price": 172.01}, {"date": "Sep 26, 2025", "price": 176.3}, {"date": "Sep 29, 2025", "price": 179.11}, {"date": "Sep 30, 2025", "price": 177.93}, {"date": "Oct 01, 2025", "price": 177.57}, {"date": "Oct 02, 2025", "price": 178.2}, {"date": "Oct 03, 2025", "price": 175.59}, {"date": "Oct 06, 2025", "price": 174.12}, {"date": "Oct 07, 2025", "price": 173.17}, {"date": "Oct 08, 2025", "price": 174.82}, {"date": "Oct 09, 2025", "price": 173.48}, {"date": "Oct 10, 2025", "price": 167.51}, {"date": "Oct 13, 2025", "price": 169.85}, {"date": "Oct 14, 2025", "price": 169.13}, {"date": "Oct 15, 2025", "price": 167.1}, {"date": "Oct 16, 2025", "price": 164.62}, {"date": "Oct 17, 2025", "price": 167.41}, {"date": "Oct 20, 2025", "price": 172.43}, {"date": "Oct 21, 2025", "price": 181.39}, {"date": "Oct 22, 2025", "price": 178.29}, {"date": "Oct 23, 2025", "price": 179.06}, {"date": "Oct 24, 2025", "price": 178.17}, {"date": "Oct 27, 2025", "price": 181.39}, {"date": "Oct 28, 2025", "price": 179.98}, {"date": "Oct 29, 2025", "price": 170.3}, {"date": "Oct 30, 2025", "price": 168.02}, {"date": "Oct 31, 2025", "price": 170.54}, {"date": "Nov 03, 2025", "price": 165.47}, {"date": "Nov 04, 2025", "price": 160.66}, {"date": "Nov 05, 2025", "price": 167.59}, {"date": "Nov 06, 2025", "price": 163.55}, {"date": "Nov 07, 2025", "price": 166.13}, {"date": "Nov 10, 2025", "price": 170.35}, {"date": "Nov 11, 2025", "price": 169.81}, {"date": "Nov 12, 2025", "price": 170.9}, {"date": "Nov 13, 2025", "price": 169.66}, {"date": "Nov 14, 2025", "price": 170.68}, {"date": "Nov 17, 2025", "price": 164.16}, {"date": "Nov 18, 2025", "price": 163.97}, {"date": "Nov 19, 2025", "price": 166.06}, {"date": "Nov 20, 2025", "price": 164.69}, {"date": "Nov 21, 2025", "price": 168.18}, {"date": "Nov 24, 2025", "price": 169.67}, {"date": "Nov 25, 2025", "price": 177.51}, {"date": "Nov 26, 2025", "price": 181.94}, {"date": "Nov 28, 2025", "price": 184.18}, {"date": "Dec 01, 2025", "price": 182.41}, {"date": "Dec 02, 2025", "price": 182.4}, {"date": "Dec 03, 2025", "price": 182.3}, {"date": "Dec 04, 2025", "price": 183.6}, {"date": "Dec 05, 2025", "price": 190.01}, {"date": "Dec 08, 2025", "price": 183.04}, {"date": "Dec 09, 2025", "price": 182.28}, {"date": "Dec 10, 2025", "price": 187.62}, {"date": "Dec 11, 2025", "price": 187.01}, {"date": "Dec 12, 2025", "price": 204.97}, {"date": "Dec 15, 2025", "price": 206.29}, {"date": "Dec 16, 2025", "price": 206.74}, {"date": "Dec 17, 2025", "price": 207.87}, {"date": "Dec 18, 2025", "price": 215.11}, {"date": "Dec 19, 2025", "price": 209.45}, {"date": "Dec 22, 2025", "price": 212.37}, {"date": "Dec 23, 2025", "price": 212.68}, {"date": "Dec 24, 2025", "price": 210.4}, {"date": "Dec 26, 2025", "price": 208.97}, {"date": "Dec 29, 2025", "price": 212.54}, {"date": "Dec 30, 2025", "price": 210.67}, {"date": "Dec 31, 2025", "price": 207.81}, {"date": "Jan 02, 2026", "price": 210.81}, {"date": "Jan 05, 2026", "price": 212.4}, {"date": "Jan 06, 2026", "price": 215.88}, {"date": "Jan 07, 2026", "price": 211.72}, {"date": "Jan 08, 2026", "price": 212.17}, {"date": "Jan 09, 2026", "price": 203.9}, {"date": "Jan 12, 2026", "price": 209.04}, {"date": "Jan 13, 2026", "price": 211.9}, {"date": "Jan 14, 2026", "price": 203.14}, {"date": "Jan 15, 2026", "price": 205.01}, {"date": "Jan 16, 2026", "price": 201.87}, {"date": "Jan 20, 2026", "price": 188.76}, {"date": "Jan 21, 2026", "price": 189.84}, {"date": "Jan 22, 2026", "price": 194.66}, {"date": "Jan 23, 2026", "price": 191.07}, {"date": "Jan 26, 2026", "price": 192.79}, {"date": "Jan 27, 2026", "price": 186.39}, {"date": "Jan 28, 2026", "price": 180.35}, {"date": "Jan 29, 2026", "price": 172.54}, {"date": "Jan 30, 2026", "price": 174.5}, {"date": "Feb 02, 2026", "price": 179.08}, {"date": "Feb 03, 2026", "price": 171.57}, {"date": "Feb 04, 2026", "price": 178.0}, {"date": "Feb 05, 2026", "price": 170.09}, {"date": "Feb 06, 2026", "price": 172.85}, {"date": "Feb 09, 2026", "price": 175.68}, {"date": "Feb 10, 2026", "price": 180.62}, {"date": "Feb 11, 2026", "price": 175.86}, {"date": "Feb 12, 2026", "price": 169.53}, {"date": "Feb 13, 2026", "price": 176.42}, {"date": "Feb 17, 2026", "price": 177.72}, {"date": "Feb 18, 2026", "price": 182.13}, {"date": "Feb 19, 2026", "price": 182.88}, {"date": "Feb 20, 2026", "price": 187.3}, {"date": "Feb 23, 2026", "price": 178.11}, {"date": "Feb 24, 2026", "price": 179.49}, {"date": "Feb 25, 2026", "price": 182.55}, {"date": "Feb 26, 2026", "price": 186.1}, {"date": "Feb 27, 2026", "price": 185.17}, {"date": "Mar 02, 2026", "price": 176.17}, {"date": "Mar 03, 2026", "price": 174.27}, {"date": "Mar 04, 2026", "price": 173.21}, {"date": "Mar 05, 2026", "price": 173.18}, {"date": "Mar 06, 2026", "price": 170.13}, {"date": "Mar 09, 2026", "price": 169.76}, {"date": "Mar 10, 2026", "price": 166.43}, {"date": "Mar 11, 2026", "price": 162.79}, {"date": "Mar 12, 2026", "price": 158.19}, {"date": "Mar 13, 2026", "price": 157.78}, {"date": "Mar 16, 2026", "price": 159.91}, {"date": "Mar 17, 2026", "price": 159.27}, {"date": "Mar 18, 2026", "price": 165.39}, {"date": "Mar 19, 2026", "price": 165.57}, {"date": "Mar 20, 2026", "price": 162.82}, {"date": "Mar 23, 2026", "price": 164.38}, {"date": "Mar 24, 2026", "price": 160.95}, {"date": "Mar 25, 2026", "price": 158.72}, {"date": "Mar 26, 2026", "price": 151.39}, {"date": "Mar 27, 2026", "price": 145.85}, {"date": "Mar 30, 2026", "price": 145.83}, {"date": "Mar 31, 2026", "price": 153.1}, {"date": "Apr 01, 2026", "price": 158.81}, {"date": "Apr 02, 2026", "price": 155.72}, {"date": "Apr 06, 2026", "price": 156.18}, {"date": "Apr 07, 2026", "price": 153.67}, {"date": "Apr 08, 2026", "price": 158.86}, {"date": "Apr 09, 2026", "price": 166.51}, {"date": "Apr 10, 2026", "price": 163.86}, {"date": "Apr 13, 2026", "price": 162.56}, {"date": "Apr 14, 2026", "price": 160.6}, {"date": "Apr 15, 2026", "price": 162.74}, {"date": "Apr 16, 2026", "price": 162.92}, {"date": "Apr 17, 2026", "price": 167.28}, {"date": "Apr 20, 2026", "price": 166.81}, {"date": "Apr 21, 2026", "price": 166.7}, {"date": "Apr 22, 2026", "price": 163.45}, {"date": "Apr 23, 2026", "price": 141.66}, {"date": "Apr 24, 2026", "price": 143.8}, {"date": "Apr 27, 2026", "price": 146.94}, {"date": "Apr 28, 2026", "price": 142.39}, {"date": "Apr 29, 2026", "price": 138.16}, {"date": "Apr 30, 2026", "price": 137.7}, {"date": "May 01, 2026", "price": 133.58}, {"date": "May 04, 2026", "price": 128.98}, {"date": "May 05, 2026", "price": 130.21}, {"date": "May 06, 2026", "price": 132.04}, {"date": "May 07, 2026", "price": 133.59}, {"date": "May 08, 2026", "price": 131.18}, {"date": "May 11, 2026", "price": 126.34}, {"date": "May 12, 2026", "price": 125.13}, {"date": "May 13, 2026", "price": 121.21}, {"date": "May 14, 2026", "price": 121.06}, {"date": "May 15, 2026", "price": 119.14}, {"date": "May 18, 2026", "price": 120.26}, {"date": "May 19, 2026", "price": 119.22}, {"date": "May 20, 2026", "price": 125.19}, {"date": "May 21, 2026", "price": 126.76}, {"date": "May 22, 2026", "price": 127.18}, {"date": "May 26, 2026", "price": 127.35}, {"date": "May 27, 2026", "price": 131.04}, {"date": "May 28, 2026", "price": 131.33}, {"date": "May 29, 2026", "price": 131.18}, {"date": "Jun 01, 2026", "price": 132.09}, {"date": "Jun 02, 2026", "price": 126.47}, {"date": "Jun 03, 2026", "price": 126.03}, {"date": "Jun 04, 2026", "price": 124.92}, {"date": "Jun 05, 2026", "price": 114.23}, {"date": "Jun 08, 2026", "price": 117.55}, {"date": "Jun 09, 2026", "price": 121.36}, {"date": "Jun 10, 2026", "price": 118.93}, {"date": "Jun 11, 2026", "price": 121.84}, {"date": "Jun 12, 2026", "price": 118.77}, {"date": "Jun 15, 2026", "price": 116.21}, {"date": "Jun 16, 2026", "price": 115.5}, {"date": "Jun 17, 2026", "price": 111.76}, {"date": "Jun 18, 2026", "price": 111.77}, {"date": "Jun 22, 2026", "price": 105.43}, {"date": "Jun 23, 2026", "price": 108.92}, {"date": "Jun 24, 2026", "price": 113.09}, {"date": "Jun 25, 2026", "price": 112.06}, {"date": "Jun 26, 2026", "price": 117.57}, {"date": "Jun 29, 2026", "price": 114.29}, {"date": "Jun 30, 2026", "price": 114.18}, {"date": "Jul 01, 2026", "price": 116.4}, {"date": "Jul 02, 2026", "price": 118.43}, {"date": "Jul 06, 2026", "price": 115.64}, {"date": "Jul 07, 2026", "price": 115.07}, {"date": "Jul 08, 2026", "price": 113.62}, {"date": "Jul 09, 2026", "price": 116.51}, {"date": "Jul 10, 2026", "price": 119.26}, {"date": "Jul 13, 2026", "price": 120.3}, {"date": "Jul 14, 2026", "price": 117.32}, {"date": "Jul 15, 2026", "price": 117.42}, {"date": "Jul 16, 2026", "price": 118.79}, {"date": "Jul 17, 2026", "price": 116.33}, {"date": "Jul 20, 2026", "price": 116.67}, {"date": "Jul 21, 2026", "price": 116.63}, {"date": "Jul 22, 2026", "price": 113.37}, {"date": "Jul 23, 2026", "price": 110.63}, {"date": "Jul 24, 2026", "price": 114.28}, {"date": "Jul 27, 2026", "price": 117.83}, {"date": "Jul 28, 2026", "price": 120.32}, {"date": "Jul 29, 2026", "price": 119.03}, {"date": "Jul 30, 2026", "price": 119.48}, {"date": "Jul 31, 2026", "price": 118.87}, {"date": "Aug 03, 2026", "price": 123.67}, {"date": "Aug 04, 2026", "price": 123.03}, {"date": "Aug 05, 2026", "price": 123.51}, {"date": "Aug 06, 2026", "price": 124.73}, {"date": "Aug 07, 2026", "price": 128.58}, {"date": "Aug 10, 2026", "price": 127.8}, {"date": "Aug 11, 2026", "price": 125.61}, {"date": "Aug 12, 2026", "price": 120.87}, {"date": "Aug 13, 2026", "price": 119.56}], "5Y": [{"date": "Aug 09, 2021", "price": 408.72}, {"date": "Aug 16, 2021", "price": 397.83}, {"date": "Aug 23, 2021", "price": 405.97}, {"date": "Aug 30, 2021", "price": 388.33}, {"date": "Sep 06, 2021", "price": 425.58}, {"date": "Sep 13, 2021", "price": 426.55}, {"date": "Sep 20, 2021", "price": 432.61}, {"date": "Sep 27, 2021", "price": 401.37}, {"date": "Oct 04, 2021", "price": 397.22}, {"date": "Oct 11, 2021", "price": 403.51}, {"date": "Oct 18, 2021", "price": 421.73}, {"date": "Oct 25, 2021", "price": 466.01}, {"date": "Nov 01, 2021", "price": 467.91}, {"date": "Nov 08, 2021", "price": 452.59}, {"date": "Nov 15, 2021", "price": 473.0}, {"date": "Nov 22, 2021", "price": 456.58}, {"date": "Nov 29, 2021", "price": 435.72}, {"date": "Dec 06, 2021", "price": 409.58}, {"date": "Dec 13, 2021", "price": 384.66}, {"date": "Dec 20, 2021", "price": 391.56}, {"date": "Dec 27, 2021", "price": 391.45}, {"date": "Jan 03, 2022", "price": 355.21}, {"date": "Jan 10, 2022", "price": 328.98}, {"date": "Jan 17, 2022", "price": 313.02}, {"date": "Jan 24, 2022", "price": 315.91}, {"date": "Jan 31, 2022", "price": 336.37}, {"date": "Feb 07, 2022", "price": 316.72}, {"date": "Feb 14, 2022", "price": 308.66}, {"date": "Feb 21, 2022", "price": 317.58}, {"date": "Feb 28, 2022", "price": 320.58}, {"date": "Mar 07, 2022", "price": 291.55}, {"date": "Mar 14, 2022", "price": 316.93}, {"date": "Mar 21, 2022", "price": 321.14}, {"date": "Mar 28, 2022", "price": 367.44}, {"date": "Apr 04, 2022", "price": 369.46}, {"date": "Apr 11, 2022", "price": 390.78}, {"date": "Apr 18, 2022", "price": 363.66}, {"date": "Apr 25, 2022", "price": 354.63}, {"date": "May 02, 2022", "price": 317.05}, {"date": "May 09, 2022", "price": 309.29}, {"date": "May 16, 2022", "price": 274.04}, {"date": "May 23, 2022", "price": 293.65}, {"date": "May 30, 2022", "price": 300.8}, {"date": "Jun 06, 2022", "price": 291.6}, {"date": "Jun 13, 2022", "price": 278.13}, {"date": "Jun 20, 2022", "price": 293.36}, {"date": "Jun 27, 2022", "price": 263.38}, {"date": "Jul 04, 2022", "price": 293.39}, {"date": "Jul 11, 2022", "price": 286.41}, {"date": "Jul 18, 2022", "price": 304.5}, {"date": "Jul 25, 2022", "price": 310.51}, {"date": "Aug 01, 2022", "price": 317.8}, {"date": "Aug 08, 2022", "price": 321.69}, {"date": "Aug 15, 2022", "price": 322.47}, {"date": "Aug 22, 2022", "price": 311.31}, {"date": "Aug 29, 2022", "price": 314.17}, {"date": "Sep 05, 2022", "price": 348.65}, {"date": "Sep 12, 2022", "price": 333.24}, {"date": "Sep 19, 2022", "price": 293.2}, {"date": "Sep 26, 2022", "price": 279.56}, {"date": "Oct 03, 2022", "price": 298.22}, {"date": "Oct 10, 2022", "price": 288.78}, {"date": "Oct 17, 2022", "price": 298.63}, {"date": "Oct 24, 2022", "price": 328.48}, {"date": "Oct 31, 2022", "price": 325.57}, {"date": "Nov 07, 2022", "price": 359.7}, {"date": "Nov 14, 2022", "price": 347.85}, {"date": "Nov 21, 2022", "price": 361.16}, {"date": "Nov 28, 2022", "price": 385.99}, {"date": "Dec 05, 2022", "price": 326.39}, {"date": "Dec 12, 2022", "price": 321.24}, {"date": "Dec 19, 2022", "price": 311.54}, {"date": "Dec 26, 2022", "price": 320.38}, {"date": "Jan 02, 2023", "price": 329.26}, {"date": "Jan 09, 2023", "price": 315.47}, {"date": "Jan 16, 2023", "price": 312.8}, {"date": "Jan 23, 2023", "price": 310.85}, {"date": "Jan 30, 2023", "price": 319.42}, {"date": "Feb 06, 2023", "price": 309.4}, {"date": "Feb 13, 2023", "price": 320.36}, {"date": "Feb 20, 2023", "price": 308.1}, {"date": "Feb 27, 2023", "price": 316.83}, {"date": "Mar 06, 2023", "price": 296.26}, {"date": "Mar 13, 2023", "price": 294.74}, {"date": "Mar 20, 2023", "price": 313.45}, {"date": "Mar 27, 2023", "price": 364.19}, {"date": "Apr 03, 2023", "price": 364.33}, {"date": "Apr 10, 2023", "price": 368.25}, {"date": "Apr 17, 2023", "price": 377.8}, {"date": "Apr 24, 2023", "price": 379.93}, {"date": "May 01, 2023", "price": 386.71}, {"date": "May 08, 2023", "price": 376.2}, {"date": "May 15, 2023", "price": 368.53}, {"date": "May 22, 2023", "price": 340.26}, {"date": "May 29, 2023", "price": 365.44}, {"date": "Jun 05, 2023", "price": 360.4}, {"date": "Jun 12, 2023", "price": 383.02}, {"date": "Jun 19, 2023", "price": 374.25}, {"date": "Jun 26, 2023", "price": 378.5}, {"date": "Jul 03, 2023", "price": 363.74}, {"date": "Jul 10, 2023", "price": 380.41}, {"date": "Jul 17, 2023", "price": 382.96}, {"date": "Jul 24, 2023", "price": 377.96}, {"date": "Jul 31, 2023", "price": 378.2}, {"date": "Aug 07, 2023", "price": 381.13}, {"date": "Aug 14, 2023", "price": 381.29}, {"date": "Aug 21, 2023", "price": 365.59}, {"date": "Aug 28, 2023", "price": 404.19}, {"date": "Sep 04, 2023", "price": 396.36}, {"date": "Sep 11, 2023", "price": 389.93}, {"date": "Sep 18, 2023", "price": 388.05}, {"date": "Sep 25, 2023", "price": 385.61}, {"date": "Oct 02, 2023", "price": 367.22}, {"date": "Oct 09, 2023", "price": 377.69}, {"date": "Oct 16, 2023", "price": 395.82}, {"date": "Oct 23, 2023", "price": 386.82}, {"date": "Oct 30, 2023", "price": 407.93}, {"date": "Nov 06, 2023", "price": 413.67}, {"date": "Nov 13, 2023", "price": 422.44}, {"date": "Nov 20, 2023", "price": 431.76}, {"date": "Nov 27, 2023", "price": 466.61}, {"date": "Dec 04, 2023", "price": 489.64}, {"date": "Dec 11, 2023", "price": 491.46}, {"date": "Dec 18, 2023", "price": 510.0}, {"date": "Dec 25, 2023", "price": 511.29}, {"date": "Jan 01, 2024", "price": 491.1}, {"date": "Jan 08, 2024", "price": 479.94}, {"date": "Jan 15, 2024", "price": 484.02}, {"date": "Jan 22, 2024", "price": 478.03}, {"date": "Jan 29, 2024", "price": 462.4}, {"date": "Feb 05, 2024", "price": 470.24}, {"date": "Feb 12, 2024", "price": 449.6}, {"date": "Feb 19, 2024", "price": 457.89}, {"date": "Feb 26, 2024", "price": 458.5}, {"date": "Mar 04, 2024", "price": 460.39}, {"date": "Mar 11, 2024", "price": 464.94}, {"date": "Mar 18, 2024", "price": 403.19}, {"date": "Mar 25, 2024", "price": 390.65}, {"date": "Apr 01, 2024", "price": 356.87}, {"date": "Apr 08, 2024", "price": 336.13}, {"date": "Apr 15, 2024", "price": 352.47}, {"date": "Apr 22, 2024", "price": 364.7}, {"date": "Apr 29, 2024", "price": 355.15}, {"date": "May 06, 2024", "price": 352.96}, {"date": "May 13, 2024", "price": 334.95}, {"date": "May 20, 2024", "price": 303.01}, {"date": "May 27, 2024", "price": 311.99}, {"date": "Jun 03, 2024", "price": 317.86}, {"date": "Jun 10, 2024", "price": 306.01}, {"date": "Jun 17, 2024", "price": 311.82}, {"date": "Jun 24, 2024", "price": 298.7}, {"date": "Jul 01, 2024", "price": 298.14}, {"date": "Jul 08, 2024", "price": 291.06}, {"date": "Jul 15, 2024", "price": 280.24}, {"date": "Jul 22, 2024", "price": 253.5}, {"date": "Jul 29, 2024", "price": 236.0}, {"date": "Aug 05, 2024", "price": 238.72}, {"date": "Aug 12, 2024", "price": 258.1}, {"date": "Aug 19, 2024", "price": 268.55}, {"date": "Aug 26, 2024", "price": 259.47}, {"date": "Sep 02, 2024", "price": 253.84}, {"date": "Sep 09, 2024", "price": 266.76}, {"date": "Sep 16, 2024", "price": 262.61}, {"date": "Sep 23, 2024", "price": 280.01}, {"date": "Sep 30, 2024", "price": 270.38}, {"date": "Oct 07, 2024", "price": 278.25}, {"date": "Oct 14, 2024", "price": 291.63}, {"date": "Oct 21, 2024", "price": 304.15}, {"date": "Oct 28, 2024", "price": 321.17}, {"date": "Nov 04, 2024", "price": 308.53}, {"date": "Nov 11, 2024", "price": 320.01}, {"date": "Nov 18, 2024", "price": 317.11}, {"date": "Nov 25, 2024", "price": 320.66}, {"date": "Dec 02, 2024", "price": 399.6}, {"date": "Dec 09, 2024", "price": 391.63}, {"date": "Dec 16, 2024", "price": 379.42}, {"date": "Dec 23, 2024", "price": 386.67}, {"date": "Dec 30, 2024", "price": 378.18}, {"date": "Jan 06, 2025", "price": 395.47}, {"date": "Jan 13, 2025", "price": 373.7}, {"date": "Jan 20, 2025", "price": 400.03}, {"date": "Jan 27, 2025", "price": 414.2}, {"date": "Feb 03, 2025", "price": 398.1}, {"date": "Feb 10, 2025", "price": 366.68}, {"date": "Feb 17, 2025", "price": 358.97}, {"date": "Feb 24, 2025", "price": 365.61}, {"date": "Mar 03, 2025", "price": 344.36}, {"date": "Mar 10, 2025", "price": 311.03}, {"date": "Mar 17, 2025", "price": 322.62}, {"date": "Mar 24, 2025", "price": 293.06}, {"date": "Mar 31, 2025", "price": 263.7}, {"date": "Apr 07, 2025", "price": 261.03}, {"date": "Apr 14, 2025", "price": 251.08}, {"date": "Apr 21, 2025", "price": 267.9}, {"date": "Apr 28, 2025", "price": 277.36}, {"date": "May 05, 2025", "price": 279.77}, {"date": "May 12, 2025", "price": 321.44}, {"date": "May 19, 2025", "price": 310.76}, {"date": "May 26, 2025", "price": 316.67}, {"date": "Jun 02, 2025", "price": 265.27}, {"date": "Jun 09, 2025", "price": 239.11}, {"date": "Jun 16, 2025", "price": 227.47}, {"date": "Jun 23, 2025", "price": 235.02}, {"date": "Jun 30, 2025", "price": 247.68}, {"date": "Jul 07, 2025", "price": 236.51}, {"date": "Jul 14, 2025", "price": 229.77}, {"date": "Jul 21, 2025", "price": 219.43}, {"date": "Jul 28, 2025", "price": 193.33}, {"date": "Aug 04, 2025", "price": 189.43}, {"date": "Aug 11, 2025", "price": 198.46}, {"date": "Aug 18, 2025", "price": 207.59}, {"date": "Aug 25, 2025", "price": 202.2}, {"date": "Sep 01, 2025", "price": 167.8}, {"date": "Sep 08, 2025", "price": 159.87}, {"date": "Sep 15, 2025", "price": 169.62}, {"date": "Sep 22, 2025", "price": 176.3}, {"date": "Sep 29, 2025", "price": 175.59}, {"date": "Oct 06, 2025", "price": 167.51}, {"date": "Oct 13, 2025", "price": 167.41}, {"date": "Oct 20, 2025", "price": 178.17}, {"date": "Oct 27, 2025", "price": 170.54}, {"date": "Nov 03, 2025", "price": 166.13}, {"date": "Nov 10, 2025", "price": 170.68}, {"date": "Nov 17, 2025", "price": 168.18}, {"date": "Nov 24, 2025", "price": 184.18}, {"date": "Dec 01, 2025", "price": 190.01}, {"date": "Dec 08, 2025", "price": 204.97}, {"date": "Dec 15, 2025", "price": 209.45}, {"date": "Dec 22, 2025", "price": 208.97}, {"date": "Dec 29, 2025", "price": 210.81}, {"date": "Jan 05, 2026", "price": 203.9}, {"date": "Jan 12, 2026", "price": 201.87}, {"date": "Jan 19, 2026", "price": 191.07}, {"date": "Jan 26, 2026", "price": 174.5}, {"date": "Feb 02, 2026", "price": 172.85}, {"date": "Feb 09, 2026", "price": 176.42}, {"date": "Feb 16, 2026", "price": 187.3}, {"date": "Feb 23, 2026", "price": 185.17}, {"date": "Mar 02, 2026", "price": 170.13}, {"date": "Mar 09, 2026", "price": 157.78}, {"date": "Mar 16, 2026", "price": 162.82}, {"date": "Mar 23, 2026", "price": 145.85}, {"date": "Mar 30, 2026", "price": 155.72}, {"date": "Apr 06, 2026", "price": 163.86}, {"date": "Apr 13, 2026", "price": 167.28}, {"date": "Apr 20, 2026", "price": 143.8}, {"date": "Apr 27, 2026", "price": 133.58}, {"date": "May 04, 2026", "price": 131.18}, {"date": "May 11, 2026", "price": 119.14}, {"date": "May 18, 2026", "price": 127.18}, {"date": "May 25, 2026", "price": 131.18}, {"date": "Jun 01, 2026", "price": 114.23}, {"date": "Jun 08, 2026", "price": 118.77}, {"date": "Jun 15, 2026", "price": 111.77}, {"date": "Jun 22, 2026", "price": 117.57}, {"date": "Jun 29, 2026", "price": 118.43}, {"date": "Jul 06, 2026", "price": 119.26}, {"date": "Jul 13, 2026", "price": 116.33}, {"date": "Jul 20, 2026", "price": 114.28}, {"date": "Jul 27, 2026", "price": 118.87}, {"date": "Aug 03, 2026", "price": 128.58}, {"date": "Aug 10, 2026", "price": 120.87}, {"date": "Aug 13, 2026", "price": 119.56}], "10Y": [{"date": "Sep 01, 2016", "price": 60.98}, {"date": "Oct 01, 2016", "price": 57.25}, {"date": "Nov 01, 2016", "price": 56.99}, {"date": "Dec 01, 2016", "price": 64.99}, {"date": "Jan 01, 2017", "price": 67.51}, {"date": "Feb 01, 2017", "price": 65.26}, {"date": "Mar 01, 2017", "price": 51.87}, {"date": "Apr 01, 2017", "price": 52.0}, {"date": "May 01, 2017", "price": 48.27}, {"date": "Jun 01, 2017", "price": 59.67}, {"date": "Jul 01, 2017", "price": 61.64}, {"date": "Aug 01, 2017", "price": 57.55}, {"date": "Sep 01, 2017", "price": 62.25}, {"date": "Oct 01, 2017", "price": 61.51}, {"date": "Nov 01, 2017", "price": 66.96}, {"date": "Dec 01, 2017", "price": 78.59}, {"date": "Jan 01, 2018", "price": 78.21}, {"date": "Feb 01, 2018", "price": 81.1}, {"date": "Mar 01, 2018", "price": 89.12}, {"date": "Apr 01, 2018", "price": 99.8}, {"date": "May 01, 2018", "price": 105.05}, {"date": "Jun 01, 2018", "price": 124.85}, {"date": "Jul 01, 2018", "price": 119.95}, {"date": "Aug 01, 2018", "price": 154.93}, {"date": "Sep 01, 2018", "price": 162.49}, {"date": "Oct 01, 2018", "price": 140.73}, {"date": "Nov 01, 2018", "price": 132.55}, {"date": "Dec 01, 2018", "price": 121.61}, {"date": "Jan 01, 2019", "price": 147.81}, {"date": "Feb 01, 2019", "price": 150.42}, {"date": "Mar 01, 2019", "price": 163.87}, {"date": "Apr 01, 2019", "price": 176.35}, {"date": "May 01, 2019", "price": 165.59}, {"date": "Jun 01, 2019", "price": 180.21}, {"date": "Jul 01, 2019", "price": 191.09}, {"date": "Aug 01, 2019", "price": 184.67}, {"date": "Sep 01, 2019", "price": 192.53}, {"date": "Oct 01, 2019", "price": 204.27}, {"date": "Nov 01, 2019", "price": 225.69}, {"date": "Dec 01, 2019", "price": 231.67}, {"date": "Jan 01, 2020", "price": 239.39}, {"date": "Feb 01, 2020", "price": 217.41}, {"date": "Mar 01, 2020", "price": 189.55}, {"date": "Apr 01, 2020", "price": 223.48}, {"date": "May 01, 2020", "price": 300.1}, {"date": "Jun 01, 2020", "price": 312.01}, {"date": "Jul 01, 2020", "price": 325.59}, {"date": "Aug 01, 2020", "price": 375.67}, {"date": "Sep 01, 2020", "price": 329.37}, {"date": "Oct 01, 2020", "price": 319.29}, {"date": "Nov 01, 2020", "price": 370.22}, {"date": "Dec 01, 2020", "price": 348.03}, {"date": "Jan 01, 2021", "price": 328.68}, {"date": "Feb 01, 2021", "price": 311.68}, {"date": "Mar 01, 2021", "price": 306.71}, {"date": "Apr 01, 2021", "price": 335.27}, {"date": "May 01, 2021", "price": 323.13}, {"date": "Jun 01, 2021", "price": 364.97}, {"date": "Jul 01, 2021", "price": 400.17}, {"date": "Aug 01, 2021", "price": 400.17}, {"date": "Sep 01, 2021", "price": 404.7}, {"date": "Oct 01, 2021", "price": 466.01}, {"date": "Nov 01, 2021", "price": 454.41}, {"date": "Dec 01, 2021", "price": 391.45}, {"date": "Jan 01, 2022", "price": 333.76}, {"date": "Feb 01, 2022", "price": 319.94}, {"date": "Mar 01, 2022", "price": 365.23}, {"date": "Apr 01, 2022", "price": 354.63}, {"date": "May 01, 2022", "price": 292.69}, {"date": "Jun 01, 2022", "price": 272.61}, {"date": "Jul 01, 2022", "price": 310.51}, {"date": "Aug 01, 2022", "price": 299.96}, {"date": "Sep 01, 2022", "price": 279.56}, {"date": "Oct 01, 2022", "price": 329.04}, {"date": "Nov 01, 2022", "price": 380.31}, {"date": "Dec 01, 2022", "price": 320.38}, {"date": "Jan 01, 2023", "price": 306.88}, {"date": "Feb 01, 2023", "price": 309.2}, {"date": "Mar 01, 2023", "price": 364.19}, {"date": "Apr 01, 2023", "price": 379.93}, {"date": "May 01, 2023", "price": 331.93}, {"date": "Jun 01, 2023", "price": 378.5}, {"date": "Jul 01, 2023", "price": 378.53}, {"date": "Aug 01, 2023", "price": 381.26}, {"date": "Sep 01, 2023", "price": 385.61}, {"date": "Oct 01, 2023", "price": 393.48}, {"date": "Nov 01, 2023", "price": 446.8}, {"date": "Dec 01, 2023", "price": 511.29}, {"date": "Jan 01, 2024", "price": 453.82}, {"date": "Feb 01, 2024", "price": 467.09}, {"date": "Mar 01, 2024", "price": 390.65}, {"date": "Apr 01, 2024", "price": 360.6}, {"date": "May 01, 2024", "price": 311.99}, {"date": "Jun 01, 2024", "price": 298.7}, {"date": "Jul 01, 2024", "price": 258.66}, {"date": "Aug 01, 2024", "price": 259.47}, {"date": "Sep 01, 2024", "price": 271.35}, {"date": "Oct 01, 2024", "price": 297.9}, {"date": "Nov 01, 2024", "price": 320.66}, {"date": "Dec 01, 2024", "price": 382.41}, {"date": "Jan 01, 2025", "price": 414.2}, {"date": "Feb 01, 2025", "price": 365.61}, {"date": "Mar 01, 2025", "price": 283.06}, {"date": "Apr 01, 2025", "price": 270.77}, {"date": "May 01, 2025", "price": 316.67}, {"date": "Jun 01, 2025", "price": 237.58}, {"date": "Jul 01, 2025", "price": 200.53}, {"date": "Aug 01, 2025", "price": 202.2}, {"date": "Sep 01, 2025", "price": 177.93}, {"date": "Oct 01, 2025", "price": 170.54}, {"date": "Nov 01, 2025", "price": 184.18}, {"date": "Dec 01, 2025", "price": 207.81}, {"date": "Jan 01, 2026", "price": 174.5}, {"date": "Feb 01, 2026", "price": 185.17}, {"date": "Mar 01, 2026", "price": 153.1}, {"date": "Apr 01, 2026", "price": 137.7}, {"date": "May 01, 2026", "price": 131.18}, {"date": "Jun 01, 2026", "price": 114.18}, {"date": "Jul 01, 2026", "price": 118.87}, {"date": "Aug 01, 2026", "price": 120.87}, {"date": "Aug 13, 2026", "price": 119.56}], "MAX": [{"date": "Aug 01, 2007", "price": 17.03}, {"date": "Sep 01, 2007", "price": 21.01}, {"date": "Oct 01, 2007", "price": 26.61}, {"date": "Nov 01, 2007", "price": 18.33}, {"date": "Dec 01, 2007", "price": 23.68}, {"date": "Jan 01, 2008", "price": 16.94}, {"date": "Feb 01, 2008", "price": 13.45}, {"date": "Mar 01, 2008", "price": 14.22}, {"date": "Apr 01, 2008", "price": 15.48}, {"date": "May 01, 2008", "price": 15.99}, {"date": "Jun 01, 2008", "price": 14.53}, {"date": "Jul 01, 2008", "price": 11.1}, {"date": "Aug 01, 2008", "price": 9.69}, {"date": "Sep 01, 2008", "price": 11.52}, {"date": "Oct 01, 2008", "price": 7.09}, {"date": "Nov 01, 2008", "price": 4.91}, {"date": "Dec 01, 2008", "price": 3.96}, {"date": "Jan 01, 2009", "price": 3.4}, {"date": "Feb 01, 2009", "price": 2.86}, {"date": "Mar 01, 2009", "price": 4.33}, {"date": "Apr 01, 2009", "price": 6.97}, {"date": "May 01, 2009", "price": 6.32}, {"date": "Jun 01, 2009", "price": 6.51}, {"date": "Jul 01, 2009", "price": 8.86}, {"date": "Aug 01, 2009", "price": 10.03}, {"date": "Sep 01, 2009", "price": 11.38}, {"date": "Oct 01, 2009", "price": 12.56}, {"date": "Nov 01, 2009", "price": 13.09}, {"date": "Dec 01, 2009", "price": 15.05}, {"date": "Jan 01, 2010", "price": 14.12}, {"date": "Feb 01, 2010", "price": 14.32}, {"date": "Mar 01, 2010", "price": 20.74}, {"date": "Apr 01, 2010", "price": 18.81}, {"date": "May 01, 2010", "price": 20.43}, {"date": "Jun 01, 2010", "price": 18.61}, {"date": "Jul 01, 2010", "price": 20.74}, {"date": "Aug 01, 2010", "price": 16.43}, {"date": "Sep 01, 2010", "price": 22.36}, {"date": "Oct 01, 2010", "price": 22.16}, {"date": "Nov 01, 2010", "price": 26.81}, {"date": "Dec 01, 2010", "price": 34.21}, {"date": "Jan 01, 2011", "price": 34.34}, {"date": "Feb 01, 2011", "price": 38.79}, {"date": "Mar 01, 2011", "price": 44.53}, {"date": "Apr 01, 2011", "price": 50.03}, {"date": "May 01, 2011", "price": 45.4}, {"date": "Jun 01, 2011", "price": 55.91}, {"date": "Jul 01, 2011", "price": 60.54}, {"date": "Aug 01, 2011", "price": 54.73}, {"date": "Sep 01, 2011", "price": 48.69}, {"date": "Oct 01, 2011", "price": 56.48}, {"date": "Nov 01, 2011", "price": 49.7}, {"date": "Dec 01, 2011", "price": 46.66}, {"date": "Jan 01, 2012", "price": 63.13}, {"date": "Feb 01, 2012", "price": 67.02}, {"date": "Mar 01, 2012", "price": 74.73}, {"date": "Apr 01, 2012", "price": 74.14}, {"date": "May 01, 2012", "price": 72.64}, {"date": "Jun 01, 2012", "price": 59.63}, {"date": "Jul 01, 2012", "price": 56.48}, {"date": "Aug 01, 2012", "price": 65.19}, {"date": "Sep 01, 2012", "price": 73.94}, {"date": "Oct 01, 2012", "price": 68.84}, {"date": "Nov 01, 2012", "price": 71.78}, {"date": "Dec 01, 2012", "price": 76.23}, {"date": "Jan 01, 2013", "price": 69.0}, {"date": "Feb 01, 2013", "price": 67.05}, {"date": "Mar 01, 2013", "price": 62.35}, {"date": "Apr 01, 2013", "price": 76.13}, {"date": "May 01, 2013", "price": 77.81}, {"date": "Jun 01, 2013", "price": 65.5}, {"date": "Jul 01, 2013", "price": 69.57}, {"date": "Aug 01, 2013", "price": 70.84}, {"date": "Sep 01, 2013", "price": 73.13}, {"date": "Oct 01, 2013", "price": 69.09}, {"date": "Nov 01, 2013", "price": 69.72}, {"date": "Dec 01, 2013", "price": 59.03}, {"date": "Jan 01, 2014", "price": 45.69}, {"date": "Feb 01, 2014", "price": 50.31}, {"date": "Mar 01, 2014", "price": 52.59}, {"date": "Apr 01, 2014", "price": 45.93}, {"date": "May 01, 2014", "price": 44.63}, {"date": "Jun 01, 2014", "price": 40.48}, {"date": "Jul 01, 2014", "price": 38.47}, {"date": "Aug 01, 2014", "price": 39.93}, {"date": "Sep 01, 2014", "price": 42.01}, {"date": "Oct 01, 2014", "price": 41.65}, {"date": "Nov 01, 2014", "price": 48.19}, {"date": "Dec 01, 2014", "price": 55.79}, {"date": "Jan 01, 2015", "price": 66.24}, {"date": "Feb 01, 2015", "price": 68.44}, {"date": "Mar 01, 2015", "price": 64.02}, {"date": "Apr 01, 2015", "price": 63.64}, {"date": "May 01, 2015", "price": 59.79}, {"date": "Jun 01, 2015", "price": 65.3}, {"date": "Jul 01, 2015", "price": 62.86}, {"date": "Aug 01, 2015", "price": 64.01}, {"date": "Sep 01, 2015", "price": 50.65}, {"date": "Oct 01, 2015", "price": 49.17}, {"date": "Nov 01, 2015", "price": 47.82}, {"date": "Dec 01, 2015", "price": 52.47}, {"date": "Jan 01, 2016", "price": 62.07}, {"date": "Feb 01, 2016", "price": 62.73}, {"date": "Mar 01, 2016", "price": 67.71}, {"date": "Apr 01, 2016", "price": 65.55}, {"date": "May 01, 2016", "price": 65.03}, {"date": "Jun 01, 2016", "price": 73.86}, {"date": "Jul 01, 2016", "price": 77.65}, {"date": "Aug 01, 2016", "price": 76.51}, {"date": "Sep 01, 2016", "price": 60.98}, {"date": "Oct 01, 2016", "price": 57.25}, {"date": "Nov 01, 2016", "price": 56.99}, {"date": "Dec 01, 2016", "price": 64.99}, {"date": "Jan 01, 2017", "price": 67.51}, {"date": "Feb 01, 2017", "price": 65.26}, {"date": "Mar 01, 2017", "price": 51.87}, {"date": "Apr 01, 2017", "price": 52.0}, {"date": "May 01, 2017", "price": 48.27}, {"date": "Jun 01, 2017", "price": 59.67}, {"date": "Jul 01, 2017", "price": 61.64}, {"date": "Aug 01, 2017", "price": 57.55}, {"date": "Sep 01, 2017", "price": 62.25}, {"date": "Oct 01, 2017", "price": 61.51}, {"date": "Nov 01, 2017", "price": 66.96}, {"date": "Dec 01, 2017", "price": 78.59}, {"date": "Jan 01, 2018", "price": 78.21}, {"date": "Feb 01, 2018", "price": 81.1}, {"date": "Mar 01, 2018", "price": 89.12}, {"date": "Apr 01, 2018", "price": 99.8}, {"date": "May 01, 2018", "price": 105.05}, {"date": "Jun 01, 2018", "price": 124.85}, {"date": "Jul 01, 2018", "price": 119.95}, {"date": "Aug 01, 2018", "price": 154.93}, {"date": "Sep 01, 2018", "price": 162.49}, {"date": "Oct 01, 2018", "price": 140.73}, {"date": "Nov 01, 2018", "price": 132.55}, {"date": "Dec 01, 2018", "price": 121.61}, {"date": "Jan 01, 2019", "price": 147.81}, {"date": "Feb 01, 2019", "price": 150.42}, {"date": "Mar 01, 2019", "price": 163.87}, {"date": "Apr 01, 2019", "price": 176.35}, {"date": "May 01, 2019", "price": 165.59}, {"date": "Jun 01, 2019", "price": 180.21}, {"date": "Jul 01, 2019", "price": 191.09}, {"date": "Aug 01, 2019", "price": 184.67}, {"date": "Sep 01, 2019", "price": 192.53}, {"date": "Oct 01, 2019", "price": 204.27}, {"date": "Nov 01, 2019", "price": 225.69}, {"date": "Dec 01, 2019", "price": 231.67}, {"date": "Jan 01, 2020", "price": 239.39}, {"date": "Feb 01, 2020", "price": 217.41}, {"date": "Mar 01, 2020", "price": 189.55}, {"date": "Apr 01, 2020", "price": 223.48}, {"date": "May 01, 2020", "price": 300.1}, {"date": "Jun 01, 2020", "price": 312.01}, {"date": "Jul 01, 2020", "price": 325.59}, {"date": "Aug 01, 2020", "price": 375.67}, {"date": "Sep 01, 2020", "price": 329.37}, {"date": "Oct 01, 2020", "price": 319.29}, {"date": "Nov 01, 2020", "price": 370.22}, {"date": "Dec 01, 2020", "price": 348.03}, {"date": "Jan 01, 2021", "price": 328.68}, {"date": "Feb 01, 2021", "price": 311.68}, {"date": "Mar 01, 2021", "price": 306.71}, {"date": "Apr 01, 2021", "price": 335.27}, {"date": "May 01, 2021", "price": 323.13}, {"date": "Jun 01, 2021", "price": 364.97}, {"date": "Jul 01, 2021", "price": 400.17}, {"date": "Aug 01, 2021", "price": 400.17}, {"date": "Sep 01, 2021", "price": 404.7}, {"date": "Oct 01, 2021", "price": 466.01}, {"date": "Nov 01, 2021", "price": 454.41}, {"date": "Dec 01, 2021", "price": 391.45}, {"date": "Jan 01, 2022", "price": 333.76}, {"date": "Feb 01, 2022", "price": 319.94}, {"date": "Mar 01, 2022", "price": 365.23}, {"date": "Apr 01, 2022", "price": 354.63}, {"date": "May 01, 2022", "price": 292.69}, {"date": "Jun 01, 2022", "price": 272.61}, {"date": "Jul 01, 2022", "price": 310.51}, {"date": "Aug 01, 2022", "price": 299.96}, {"date": "Sep 01, 2022", "price": 279.56}, {"date": "Oct 01, 2022", "price": 329.04}, {"date": "Nov 01, 2022", "price": 380.31}, {"date": "Dec 01, 2022", "price": 320.38}, {"date": "Jan 01, 2023", "price": 306.88}, {"date": "Feb 01, 2023", "price": 309.2}, {"date": "Mar 01, 2023", "price": 364.19}, {"date": "Apr 01, 2023", "price": 379.93}, {"date": "May 01, 2023", "price": 331.93}, {"date": "Jun 01, 2023", "price": 378.5}, {"date": "Jul 01, 2023", "price": 378.53}, {"date": "Aug 01, 2023", "price": 381.26}, {"date": "Sep 01, 2023", "price": 385.61}, {"date": "Oct 01, 2023", "price": 393.48}, {"date": "Nov 01, 2023", "price": 446.8}, {"date": "Dec 01, 2023", "price": 511.29}, {"date": "Jan 01, 2024", "price": 453.82}, {"date": "Feb 01, 2024", "price": 467.09}, {"date": "Mar 01, 2024", "price": 390.65}, {"date": "Apr 01, 2024", "price": 360.6}, {"date": "May 01, 2024", "price": 311.99}, {"date": "Jun 01, 2024", "price": 298.7}, {"date": "Jul 01, 2024", "price": 258.66}, {"date": "Aug 01, 2024", "price": 259.47}, {"date": "Sep 01, 2024", "price": 271.35}, {"date": "Oct 01, 2024", "price": 297.9}, {"date": "Nov 01, 2024", "price": 320.66}, {"date": "Dec 01, 2024", "price": 382.41}, {"date": "Jan 01, 2025", "price": 414.2}, {"date": "Feb 01, 2025", "price": 365.61}, {"date": "Mar 01, 2025", "price": 283.06}, {"date": "Apr 01, 2025", "price": 270.77}, {"date": "May 01, 2025", "price": 316.67}, {"date": "Jun 01, 2025", "price": 237.58}, {"date": "Jul 01, 2025", "price": 200.53}, {"date": "Aug 01, 2025", "price": 202.2}, {"date": "Sep 01, 2025", "price": 177.93}, {"date": "Oct 01, 2025", "price": 170.54}, {"date": "Nov 01, 2025", "price": 184.18}, {"date": "Dec 01, 2025", "price": 207.81}, {"date": "Jan 01, 2026", "price": 174.5}, {"date": "Feb 01, 2026", "price": 185.17}, {"date": "Mar 01, 2026", "price": 153.1}, {"date": "Apr 01, 2026", "price": 137.7}, {"date": "May 01, 2026", "price": 131.18}, {"date": "Jun 01, 2026", "price": 114.18}, {"date": "Jul 01, 2026", "price": 118.87}, {"date": "Aug 01, 2026", "price": 120.87}, {"date": "Aug 13, 2026", "price": 119.56}]};
         let currentRangeKey = '1Y';
         let currentPoints = allDatasets[currentRangeKey] || [];
         let currentSvgCoords = [];
@@ -1207,39 +1207,39 @@
             <div class="metrics-grid">
                 <div class="metric-cell">
                     <div class="metric-label">Fair Value</div>
-                    <div class="metric-value" style="color: var(--accent-warm);">$195.00</div>
+                    <div class="metric-value" style="color: var(--accent-warm);">$188.50</div>
                     <div class="metric-subtext" style="color: var(--text-dim);">Intrinsic baseline</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bear Target</div>
-                    <div class="metric-value" style="color: var(--accent-red);">$146.25 (+16.4%)</div>
+                    <div class="metric-value" style="color: var(--accent-red);">$128.00</div>
                     <div class="metric-subtext" style="color: var(--text-dim);">Downside floor</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Base Target</div>
-                    <div class="metric-value">$195.00 (+55.2%)</div>
+                    <div class="metric-value">$188.50</div>
                     <div class="metric-subtext" style="color: var(--text-dim);">Mid-cycle value</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bull Target</div>
-                    <div class="metric-value" style="color: var(--accent-green);">$253.50 (+101.8%)</div>
+                    <div class="metric-value" style="color: var(--accent-green);">$248.00</div>
                     <div class="metric-subtext" style="color: var(--text-dim);">Asymmetric upside</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Alert Corridor</div>
-                    <div class="metric-value" style="font-size: 1.05rem; font-family: var(--font-mono); color: var(--text-title);">$110.00 ⇄ $175.00</div>
+                    <div class="metric-value" style="font-size: 1.05rem; font-family: var(--font-mono); color: var(--text-title);">$105.00 ⇄ $165.00</div>
                     <div class="metric-subtext" style="color: var(--text-dim);">Surveillance triggers</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Next Catalyst</div>
                     <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">2026-09-03</div>
-                    <div class="metric-subtext" style="color: var(--text-dim);">Q2 Earnings & CEO Transition</div>
+                    <div class="metric-subtext" style="color: var(--text-dim);">Q2 2026 Earnings Release</div>
                 </div>
                 
     <div class="metric-cell">
         <div class="metric-label">Institutional Float</div>
-        <div class="metric-value" style="font-family: var(--font-mono); color: var(--text-title); font-size: 1.15rem; font-weight: 500;">86.5%</div>
-        <div class="metric-subtext" style="color: var(--text-dim);" title="Fidelity (11.4%), Vanguard (9.2%), BlackRock (7.8%) (86.5% of float)">Fidelity · Vanguard · BlackRock</div>
+        <div class="metric-value" style="font-family: var(--font-mono); color: var(--text-title); font-size: 1.15rem; font-weight: 500;">78.6%</div>
+        <div class="metric-subtext" style="color: var(--text-dim);" title="Fidelity Investments (15.87%), Vanguard Group (6.31%), Jennison Associates (4.14%) (78.6% of float)">Fidelity Investments · Vanguard Group · Jennison Associates</div>
     </div>
     
                 
@@ -1255,495 +1255,427 @@
         <!-- Navigation Tabs -->
         <div class="tabs-header">
             <button id="btn-tab-memo" class="tab-btn active" onclick="showTab('memo')">Investment Thesis</button>
-            <button id="btn-tab-history" class="tab-btn" onclick="showTab('history')">Evolution (0)</button>
+            <button id="btn-tab-history" class="tab-btn" onclick="showTab('history')">Evolution (1)</button>
             <button id="btn-tab-ownership" class="tab-btn" onclick="showTab('ownership')">Ownership & Fund Intel</button>
         </div>
 
         <!-- Memo Content -->
         <div id="tab-memo" class="tab-content active">
             <article class="memo-container">
-                <div class="section"><h2>Section 1: Executive Summary &amp; Real-Time Intelligence Engine</h2><p>
-    Lululemon Athletica Inc. (NASDAQ: LULU) enters a pivotal transformation phase in fiscal 2026. While the business continues to demonstrate robust balance sheet liquidity and hyper-growth across international markets, its core North American engine faces real operational and competitive friction. In Q1 2026, Lululemon reported net revenue of $2.50 billion (up 4% YoY GAAP, +2% constant currency), driven by a strong +22% surge in International sales and +30% growth in China Mainland. However, this global momentum was tempered by a -3% revenue decline in the Americas, where comparable sales fell -5% due to lower store traffic, guest caution, and product assortment missteps in core women’s lines.
-  </p><p>
-    Profitability contracted significantly in Q1 2026. Gross margin fell 410 basis points year-over-year to 54.2%, heavily impacted by a 280 basis point drag from elevated import tariffs, increased promotional markdowns, and fixed cost deleverage. Operating margin compressed to 11.2% from 18.5% in the prior-year period, pushing Q1 diluted EPS down 35% to $1.69. In response to near-term Americas softness and tariff headwinds, interim management revised full-year FY2026 net revenue guidance down to $11.000B–$11.150B and adjusted diluted EPS guidance to $10.95–$11.15.
-  </p><div class="metrics-grid">
+                
+        <div class="update-banner-box">
+            <div class="update-banner-header">
+                <span class="update-banner-badge">⚡ Version 2 Thesis Evolution • 2026-08-13</span>
+                <span class="update-trigger-pill">Trigger: SEC 8-K Filing (2026-08-13): Item 8.01: Other Material Events [Accession #0001397187-26-000120]</span>
+            </div>
+            <div class="update-banner-body">
+                <div class="update-banner-title">What Changed & Forward Thesis Impact</div>
+                <div class="update-banner-desc">
+                    The 8-K filing confirms the finalized transition roadmap for incoming CEO Heidi O'Neill taking the helm on September 8, 2026, alongside corporate governance alignments. While Mr. Market has discounted the stock by an additional 7% to $119.56 on near-term North American consumer caution, underlying international momentum (+22% YoY, China Mainland +30%+) and debt-free cash generation remain stellar. We reaffirm our $188.50 Fair Value, viewing the dip as an extraordinary mispricing yielding a 10.0% normalized Owner Earnings yield.
+                    
+                </div>
+            </div>
+        </div>
+        <div class="section">
+<h2>Section 1: Business Model, Scale Moat &amp; GenAI Transition</h2>
+<p>Lululemon Athletica Inc. operates a premier direct-to-consumer (DTC) and omni-channel technical athletic apparel ecosystem. Built on proprietary fabric innovations (Luon, Nulu, Everlux, Softstreme) and localized grassroots community fitness activations, Lululemon commands gross margins above 54%, a pricing power profile rare in global consumer discretionary. The business engine combines company-operated retail stores (796+ globally) with a high-margin digital channel generating superior cash conversion.</p>
+<p>Rather than relying on wholesale middlemen, Lululemon controls ~90%+ of its distribution directly, capturing full retail markups, real-time consumer telemetry, and brand equity integrity. The company is actively integrating generative AI and predictive machine learning across its demand forecasting, inventory allocation, and personalized digital commerce engines. This AI-driven supply chain optimization compresses inventory lead times, minimizes seasonal markdown risks, and tailors localized regional merchandising across fast-growing Asian and European territories.</p>
+<div class="callout">
+<strong>The First-Principles Moat Test:</strong> Lululemon is not a generic apparel wholesaler subject to distributor shelf squeezes; it is a vertically integrated technical lifestyle brand with an intensely loyal customer cohort and pristine pricing discipline. Even through cyclical macro soft patches in North America, unit economics generate substantial cash returns that are redeployed into international expansion and aggressive share retirement.
+  </div>
+</div>
+<div class="section">
+<h2>Section 2: Quarterly Operational Breakdown &amp; Segment Performance</h2>
+<p>The latest operational results reflect a stark geographic bifurcation: a mature, normalizing Americas market undergoing product line refresh vs. hyper-growth international expansion led by Mainland China.</p>
+<div class="metrics-grid">
 <div class="metric-card">
-<div class="metric-label">Q1 2026 Net Revenue</div>
+<div class="metric-label">Q1 Net Revenue</div>
 <div class="metric-value">$2.50B</div>
-<div class="metric-delta pos">+4.0% YoY</div>
+<div class="metric-delta pos">+4.0% YoY (Constant $ +2%)</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">Americas Comps</div>
-<div class="metric-value">-5.0%</div>
-<div class="metric-delta neg">-500 bps YoY</div>
+<div class="metric-label">International Revenue</div>
+<div class="metric-value">$780M</div>
+<div class="metric-delta pos">+22.0% YoY (+16% Const $)</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">China Mainland Revenue</div>
-<div class="metric-value">$300M+</div>
-<div class="metric-delta pos">+30.0% YoY</div>
+<div class="metric-label">Americas Revenue</div>
+<div class="metric-value">$1.72B</div>
+<div class="metric-delta neg">-3.0% YoY (-4% Const $)</div>
 </div>
 <div class="metric-card">
 <div class="metric-label">Gross Margin</div>
 <div class="metric-value">54.2%</div>
 <div class="metric-delta neg">-410 bps YoY</div>
 </div>
-<div class="metric-card">
-<div class="metric-label">Q1 Diluted EPS</div>
-<div class="metric-value">$1.69</div>
-<div class="metric-delta neg">-35.0% YoY</div>
 </div>
-<div class="metric-card">
-<div class="metric-label">FY26 Revenue Guidance</div>
-<div class="metric-value">$11.00B - $11.15B</div>
-<div class="metric-delta neg">Revised Down</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">FY26 EPS Guidance</div>
-<div class="metric-value">$10.95 - $11.15</div>
-<div class="metric-delta neg">Revised Down</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Global Store Footprint</div>
-<div class="metric-value">816 Stores</div>
-<div class="metric-delta pos">+5 Net Openings</div>
-</div>
-</div><h3>Q1 2026 Financial Results vs. Prior Year Performance</h3><div class="table-scroll-wrap"><table>
-<thead>
-<tr>
-<th>Financial / Operational Metric</th>
-<th>Q1 2025</th>
-<th>Q1 2026</th>
-<th>YoY Change (GAAP)</th>
-<th>FY2026 Full-Year Guidance</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Net Revenue</strong></td>
-<td>$2.40B</td>
-<td>$2.50B</td>
-<td>+4.0% (+2% Constant Currency)</td>
-<td>$11.000B – $11.150B</td>
-</tr>
-<tr>
-<td><strong>Americas Revenue</strong></td>
-<td>$1.68B</td>
-<td>$1.63B</td>
-<td>-3.0% (Comps -5.0%)</td>
-<td>Flat to Low-Single-Digit Decline</td>
-</tr>
-<tr>
-<td><strong>International Revenue</strong></td>
-<td>$718M</td>
-<td>$876M</td>
-<td>+22.0% (+19% Constant Currency)</td>
-<td>+20% to +25% Growth</td>
-</tr>
-<tr>
-<td><strong>China Mainland Revenue</strong></td>
-<td>$231M</td>
-<td>$300M</td>
-<td>+30.0% (+23% Constant Currency)</td>
-<td>+25% to +30% Growth</td>
-</tr>
-<tr>
-<td><strong>Gross Profit / Margin</strong></td>
-<td>$1.40B (58.3%)</td>
-<td>$1.34B (54.2%)</td>
-<td>-410 bps (280 bps Tariff Drag)</td>
-<td>Margin contraction ~110–150 bps</td>
-</tr>
-<tr>
-<td><strong>Operating Income / Margin</strong></td>
-<td>$444M (18.5%)</td>
-<td>$277M (11.2%)</td>
-<td>-730 bps (SG&amp;A Deleverage)</td>
-<td>Operating Margin ~14.5%–15.0%</td>
-</tr>
-<tr>
-<td><strong>Diluted EPS</strong></td>
-<td>$2.60</td>
-<td>$1.69</td>
-<td>-35.0% YoY</td>
-<td>$10.95 – $11.15</td>
-</tr>
-<tr>
-<td><strong>Ending Cash &amp; Short-Term Investments</strong></td>
-<td>$1.90B</td>
-<td>$1.50B</td>
-<td>-21.1% (After $358M Buybacks)</td>
-<td>~$1.0B Share Repurchases Planned</td>
-</tr>
-</tbody>
-</table></div><div class="callout">
-<strong>Leadership Catalyst &amp; C-Suite Transition:</strong> Following the departure of former CEO Calvin McDonald in January 2026 and months of governance pressure from activist investors and founder Chip Wilson, Lululemon announced the appointment of 25-year Nike executive <strong>Heidi O'Neill</strong> as Chief Executive Officer, effective <strong>September 8, 2026</strong>. O'Neill previously served as President of Consumer, Product &amp; Brand at Nike, where she spearheaded global apparel creation and scaled Nike Women’s into a multi-billion-dollar franchise. Interim Co-CEOs Meghan Frank (CFO) and André Maestrini (President &amp; CCO) will continue to lead execution until September 8, when they return to their core officer roles.
-  </div></div>
-<div class="section"><h2>Section 2: Business Model, Revenue Dynamics &amp; Moat Engine</h2><p>
-    Lululemon operates a high-margin Direct-to-Consumer (DTC) and company-operated retail ecosystem in technical athletic apparel, footwear, and accessories. Historically, Lululemon’s business model relied on premium price points, zero wholesale dilution, and an emotional connection with community store ambassadors. By combining high-touch physical stores with a massive e-commerce engine—digital sales represented 40% of total revenue ($1.0 billion) in Q1 2026—Lululemon generates industry-leading gross margins and robust cash flows.
-  </p><h3>1. Dynamic Regional Bifurcation: Americas Drag vs. China Expansion</h3><p>
-    The central dynamic facing Lululemon is a severe geographical divide. In North America, mature store density and macro guest caution have collided with internal product execution issues. The company failed to introduce sufficient color variation and novel silhouettes in its core leggings assortment during late 2025 and early 2026, leading to a -5% comparable sales drop in the Americas in Q1 2026. Conversely, Lululemon’s brand status in Asia remains exceptional: China Mainland revenue surged +30% (+23% in constant currency) as active lifestyle adoption accelerates in tier-1 and tier-2 Chinese cities.
-  </p><div class="table-scroll-wrap"><table>
-<thead>
-<tr>
-<th>Geographic Segment</th>
-<th>Q1 2026 Revenue</th>
-<th>GAAP Growth</th>
-<th>Constant Currency Growth</th>
-<th>Strategic Positioning &amp; Operational Dynamics</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Americas (US &amp; Canada)</strong></td>
-<td>$1.63B</td>
-<td>-3.0%</td>
-<td>-3.0% (Comps -5.0%)</td>
-<td>Mature footprint (380+ stores); product newness deficit; elevated competition from boutique brands; temporary demand stagnation.</td>
-</tr>
-<tr>
-<td><strong>China Mainland</strong></td>
-<td>$300M</td>
-<td>+30.0%</td>
-<td>+23.0% (Comps +13.0%)</td>
-<td>Rapid store network expansion; intense premium brand resonance; strong adoption of community yoga and run clubs.</td>
-</tr>
-<tr>
-<td><strong>Rest of World (EMEA / APAC)</strong></td>
-<td>$576M</td>
-<td>+13.0%</td>
-<td>+9.0% (Comps +1.0%)</td>
-<td>Steady store expansion across Europe, Japan, and Korea; growing e-commerce penetration in localized channels.</td>
-</tr>
-</tbody>
-</table></div><h3>2. Proprietary Fabric Engineering &amp; Product Pipeline</h3><p>
-    Lululemon’s primary competitive moat rests on proprietary technical fabrics, such as <em>Nulu</em> (the ultra-light fabric behind the iconic Align pant), <em>Softstreme</em>, <em>Luxtreme</em>, and recent innovations like <em>ShowZero</em> technology and the <em>Daydrift</em> lifestyle collection. These proprietary material blends allow Lululemon to maintain full-price sell-through rates above industry peers and command $100+ price points for core tights. To address recent North American softness, management accelerated product cycles to restore historical levels of newness in the back half of fiscal 2026, launching expanded colorways and new performance collections like <em>Unrestricted Power</em> and <em>No Line Align</em>.
-  </p><h3>3. Competitive Threat Vectors: The Rise of Alo Yoga &amp; Vuori</h3><p>
-    Lululemon’s historical near-monopoly on premium athleisure is undergoing its most serious challenge to date from two fast-scaling venture-backed competitors:
-  </p><ul><li><strong>Alo Yoga:</strong> Alo has successfully captured significant mindshare among Gen-Z and millennial women by leaning aggressively into fashion-forward streetwear, celebrity endorsements, and wellness lifestyle aesthetics. Alo’s expansion into prime retail locations directly adjacent to Lululemon stores has poached high-LTV female shoppers seeking fresher color palettes and trend-driven silhouettes.</li>
-<li><strong>Vuori:</strong> Backed by SoftBank, Vuori has carved out a dominant position in soft-performance activewear, particularly in men’s apparel (e.g., Kore Short, Strato Tech Tee). Vuori's rapid retail store expansion across suburban North American markets poses a direct headwind to Lululemon’s multi-year initiative to double its men’s business segment.
-    </li></ul><div class="callout">
-<strong>Strategic Imperative for Incoming CEO Heidi O'Neill:</strong> When Heidi O'Neill assumes the CEO role on September 8, 2026, her immediate priorities will center on three fronts: (1) Re-energizing the North American merchandise engine by trimming sluggish SKUs and restoring rapid-response design cadence; (2) Optimizing supply chain logistics to offset multi-million-dollar import tariff liabilities; and (3) Defending core domestic market share against Alo Yoga and Vuori without compromising Lululemon's 54%+ gross margin structure.
-  </div></div>
-<div class="section"><h2>Section 3: Cash Flow Generation, Stock-Based Compensation &amp; Capital Allocation Audit</h2><p>An institutional audit of Lululemon’s cash generation requires stripping away accounting adjustments and evaluating real owner cash flow. While standard GAAP financial reports present a business with robust operating conversion, treating Stock-Based Compensation (SBC) as a non-cash additive overstates true economic cash flow. Under our fundamental audit framework, 100% of SBC is penalized as a real operational cash cost and shareholder dilution factor.</p><div class="metrics-grid">
-<div class="metric-card">
-<div class="metric-label">TTM Operating Cash Flow</div>
-<div class="metric-value">$1.60B</div>
-<div class="metric-delta neg">-19.2% YoY</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">FY2026 CapEx Guidance</div>
-<div class="metric-value">$710M</div>
-<div class="metric-delta neutral">$700M - $720M Range</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Annualized SBC Expense</div>
-<div class="metric-value">$110M</div>
-<div class="metric-delta neg">100% Cash Deducted</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Q1 2026 Buybacks Executed</div>
-<div class="metric-value">$358.3M</div>
-<div class="metric-delta pos">2.2M Shares @ $165</div>
-</div>
-</div><h3>Cash Flow Reconciliations: GAAP FCF vs. Post-SBC True Owner Cash Flow</h3><p>For FY2026, Lululemon projects capital expenditures of $700M to $720M (primarily supporting store footprint expansion across international markets like China Mainland, supply chain distribution optimization, and technology infrastructure). Reconciling reported operating cash flow against capital expenditures and stock compensation yields true post-SBC owner cash flow:</p><div class="table-scroll-wrap"><table>
-<thead>
-<tr>
-<th>Cash Flow Component ($ Millions)</th>
-<th>GAAP Reported (TTM)</th>
-<th>Owner Cash Flow Adjustment</th>
-<th>True Normalized Cash Flow</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Operating Cash Flow (OCF)</strong></td>
-<td>$1,600.0</td>
-<td>$0.0</td>
-<td>$1,600.0</td>
-</tr>
-<tr>
-<td><strong>Less: Capital Expenditures (CapEx)</strong></td>
-<td>($681.0)</td>
-<td>$0.0</td>
-<td>($681.0)</td>
-</tr>
-<tr>
-<td><strong>Standard Free Cash Flow (GAAP)</strong></td>
-<td><strong>$919.0</strong></td>
-<td>—</td>
-<td>—</td>
-</tr>
-<tr>
-<td><strong>Less: Stock-Based Compensation (SBC)</strong></td>
-<td>$0.0 (GAAP Add-Back)</td>
-<td>($110.0)</td>
-<td>($110.0)</td>
-</tr>
-<tr>
-<td><strong>True Post-SBC Owner Cash Flow</strong></td>
-<td>—</td>
-<td>—</td>
-<td><strong>$809.0</strong></td>
-</tr>
-</tbody>
-</table></div><div class="callout">
-<strong>Audit Insight — SBC &amp; Capital Allocation Execution:</strong> 
-    Lululemon generates substantial organic cash, but stock-based compensation (~$110M annually) acts as an ongoing dilutive drain. Management counterbalances this through share repurchases, executing $358.3 million in Q1 2026 alone to acquire 2.2 million shares at an average price of $165 per share. With ~$1.0 billion remaining under its buyback authorization program, Lululemon has consistently retired 3.5% to 5.0% of its diluted share count per year (shrinking total shares outstanding from ~126M to ~113.6M). Executing repurchases at compressed valuation multiples provides a high-yielding cannibal tailwind to per-share intrinsic value.
-  </div></div>
-<div class="section"><h2>Section 4: Balance Sheet Fortress Audit &amp; Institutional Ownership Matrix</h2><p>Lululemon maintains a cash fortress balance sheet with zero funded long-term financial debt. However, a rigorous balance sheet audit requires evaluating operating leases for retail stores as contractually required capital liabilities under GAAP ASC 842.</p><div class="metrics-grid">
-<div class="metric-card">
-<div class="metric-label">Cash &amp; Cash Equivalents</div>
-<div class="metric-value">$1.515B</div>
-<div class="metric-delta pos">+$593.6M Revolver Line</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Funded Long-Term Debt</div>
-<div class="metric-value">$0.00</div>
-<div class="metric-delta pos">Zero Financial Debt</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Total Operating Lease PV</div>
-<div class="metric-value">$2.136B</div>
-<div class="metric-delta neg">Fixed Store Obligations</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Net Liquidity (Ex-Leases)</div>
-<div class="metric-value">+$1.515B</div>
-<div class="metric-delta pos">Unencumbered Cash Base</div>
-</div>
-</div><h3>Capital Structure &amp; Debt-Equivalent Liability Breakdown</h3><p>The sole debt-equivalent obligation on Lululemon’s balance sheet stems from its physical store network leases. Below is the detailed breakdown of cash reserves, credit capacity, and lease commitments from the Q1 2026 Form 10-Q filing:</p><div class="table-scroll-wrap"><table>
-<thead>
-<tr>
-<th>Balance Sheet Component</th>
-<th>Reported Amount ($M)</th>
-<th>Auditor Classification</th>
-<th>Economic Impact &amp; Liquidity Profile</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Cash &amp; Cash Equivalents</strong></td>
-<td>$1,515.2</td>
-<td>Unencumbered Liquid Cash</td>
-<td>Provides immediate liquidity and margin-of-safety buffer</td>
-</tr>
-<tr>
-<td><strong>Committed Revolving Credit Line</strong></td>
-<td>$593.6</td>
-<td>Undrawn Credit Capacity</td>
-<td>Secondary liquidity facility for seasonal inventory needs</td>
-</tr>
-<tr>
-<td><strong>Funded Financial Debt (Bonds/Loans)</strong></td>
-<td>$0.0</td>
-<td>Zero Debt Burden</td>
-<td>No interest expense exposure or refinancing risk</td>
-</tr>
-<tr>
-<td><strong>Current Operating Lease Liabilities</strong></td>
-<td>$357.2</td>
-<td>Short-Term Capital Debt</td>
-<td>Contractual store rent obligations due within 12 months</td>
-</tr>
-<tr>
-<td><strong>Non-Current Operating Lease Liabilities</strong></td>
-<td>$1,778.8</td>
-<td>Long-Term Capital Debt</td>
-<td>Present value of long-term real estate lease commitments</td>
-</tr>
-<tr>
-<td><strong>Total Adjusted Capital Liabilities</strong></td>
-<td><strong>$2,136.0</strong></td>
-<td>Total Contractual Commitments</td>
-<td>Fixed operating leverage commitments required to maintain retail fleet</td>
-</tr>
-</tbody>
-</table></div><div class="callout">
-<strong>Balance Sheet Fortress Audit Conclusion:</strong> 
-    Lululemon's total absence of funded financial debt ($0.00) insulates the company from interest rate shocks and credit stress. While its $2.136 billion in total operating lease liabilities creates an ongoing fixed-cost overhead, this obligation is fully supported by $1.515 billion in cash and $1.60 billion in annual operating cash flow. Net cash excluding leases stands at +$1.515 billion, leaving the business in an exceptionally strong financial position.
-  </div><h3>13F Institutional Whales &amp; Ownership Matrix</h3><p>Verifying holdings via official SEC 13F filings confirms high-conviction institutional backing across major passive index managers and prominent fundamental value managers:</p><div class="table-scroll-wrap"><table>
-<thead>
-<tr>
-<th>Institutional Investor</th>
-<th>Shares Held</th>
-<th>% Outstanding</th>
-<th>Filing Source &amp; Strategy Alignment</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>BlackRock, Inc.</strong></td>
-<td>9,501,548</td>
-<td>~8.36%</td>
-<td>Official 13F / Passive Index &amp; Core Institutional</td>
-</tr>
-<tr>
-<td><strong>Vanguard Group (Capital &amp; Portfolio Mgmt)</strong></td>
-<td>12,101,954</td>
-<td>~10.65%</td>
-<td>Official 13F / Major S&amp;P 500 &amp; Total Market Index Funds</td>
-</tr>
-<tr>
-<td><strong>State Street Corporation</strong></td>
-<td>4,521,326</td>
-<td>~3.98%</td>
-<td>Official 13F / SPDR Trust &amp; Institutional Funds</td>
-</tr>
-<tr>
-<td><strong>FMR LLC (Fidelity Investments)</strong></td>
-<td>4,304,016</td>
-<td>~3.79%</td>
-<td>Official 13F / Active Fundamental Equity Funds</td>
-</tr>
-<tr>
-<td><strong>Geode Capital Management LLC</strong></td>
-<td>3,101,325</td>
-<td>~2.73%</td>
-<td>Official 13F / Systematic Index Strategies</td>
-</tr>
-<tr>
-<td><strong>Flossbach von Storch SE</strong></td>
-<td>1,857,905</td>
-<td>~1.64%</td>
-<td>Official 13F / European Quality Compounder Manager</td>
-</tr>
-<tr>
-<td><strong>Scion Asset Management (Michael Burry)</strong></td>
-<td>~150,000 / Options</td>
-<td>~0.13%</td>
-<td>Official 13F / High-Concentration Value Catalyst Position</td>
-</tr>
-</tbody>
-</table></div></div>
-<div class="section"><h3>Section 5: Warren Buffett Owner Earnings &amp; Intrinsic Valuation Engine</h3><p>In his 1986 Berkshire Hathaway Shareholder Letter, Warren Buffett defined the intrinsic economic value of a enterprise as the discounted net cash flows that can be extracted from the business over its remaining life, after accounting for necessary reinvestments. To determine the true economic earnings power of Lululemon Athletica (NASDAQ: LULU), traditional net income and raw Free Cash Flow must be adjusted into <strong>Normalized Owner Earnings</strong> by isolating essential maintenance capital expenditures from growth initiatives and penalizing Stock-Based Compensation (SBC) as an explicit cash expense.</p><div class="metrics-grid">
-<div class="metric-card">
-<div class="metric-label">TTM Operating Cash Flow</div>
-<div class="metric-value">$2,150.0M</div>
-<div class="metric-delta pos">Organic Cash Generation</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Maintenance CapEx</div>
-<div class="metric-value">-$325.0M</div>
-<div class="metric-delta neg">Refurbishments &amp; Moat Defense</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Stock-Based Comp (100%)</div>
-<div class="metric-value">-$115.0M</div>
-<div class="metric-delta neg">Full Dilution Penalty</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Normalized Owner Earnings</div>
-<div class="metric-value">$1,710.0M</div>
-<div class="metric-delta pos">$14.82 per Share</div>
-</div>
-</div><h4>1. Owner Earnings Reconciliation &amp; Reinvestment Discipline</h4><p>Lululemon generated $2.15 billion in Operating Cash Flow over the trailing twelve months. Total capital expenditures stood at approximately $650.0M; however, a strict fundamental breakdown reveals that $325.0M was dedicated to discretionary international retail store expansion (specifically across Mainland China and Tier-1 European markets). The remaining $325.0M represents true <strong>Maintenance CapEx</strong> required to maintain existing North American store fleet quality, omni-channel e-commerce systems, and supply chain logistics. Deducting $325.0M in Maintenance CapEx and $115.0M in Stock-Based Compensation yields <strong>$1.71 Billion in Normalized Owner Earnings</strong> ($14.82 per share across 115.41 million diluted shares). At the current stock price of $128.58, LULU yields an extraordinary initial <strong>Owner Cash Yield of 11.52%</strong>.</p><h4>2. Discount Rate Rigor &amp; Capital Allocation Engine</h4><p>Avoiding arbitrary exit multiples—which Charlie Munger famously warned rely on finding a "greater fool" in Year 5—our valuation applies strict localized sovereign discounting. Grounded in the US 10-Year Treasury yield of ~4.20% plus a conservative Equity Hurdle Rate of 5.60%, we enforce a <strong>9.80% total discount rate</strong>. Furthermore, Lululemon operates as a classic "Share Cannibal." Management utilizes its $1.515 billion cash reserve and organic Owner Earnings to repurchase shares aggressively. Modeling an annual share count reduction of 3.5% to 4.5% via systematic buybacks directly compounds per-share Owner Earnings and accelerates intrinsic equity value creation.</p><div class="callout">
-<strong>Buffett Owner Earnings Formula:</strong><br/>
-<code>Owner Earnings = Operating Cash Flow ($2,150M) - Maintenance CapEx ($325M) - Stock-Based Comp ($115M) = $1,710M ($14.82/share)</code><br/>
-<em>At $128.58, Lululemon offers a 11.52% initial cash yield backed by a 35%+ Return on Invested Capital (ROIC) and zero funded debt.</em>
-</div><h4>3. Scenario Analysis &amp; Per-Share Intrinsic Valuation Table</h4><p>To evaluate the margin of safety, three distinct operational pathways were modeled over a 5-year discrete projection period, factoring in capital structure adjustments (adding $1.515 billion in cash and subtracting $1.778 billion in contractual operating lease obligations):</p><div class="table-scroll-wrap"><table>
-<thead>
-<tr>
-<th>Valuation Scenario</th>
-<th>Key Operational Assumptions</th>
-<th>Owner Earnings CAGR</th>
-<th>Share Repurchase Rate</th>
-<th>Intrinsic Value / Share</th>
-<th>Upside / (Downside)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Bear Case</strong></td>
-<td>Persistent North American comp stagnation, tariff/markdown margin compression, $10.50 EPS floor.</td>
-<td>1.5%</td>
-<td>3.0% / year</td>
-<td><strong>$135.00</strong></td>
-<td>+5.0%</td>
-</tr>
-<tr>
-<td><strong>Base Case</strong></td>
-<td>Americas stabilization under CEO Heidi O'Neill, 15%+ Int'l CAGR, EPS recovery to $13.50+ by FY28.</td>
-<td>5.5%</td>
-<td>4.0% / year</td>
-<td><strong>$195.00</strong></td>
-<td>+51.7%</td>
-</tr>
-<tr>
-<td><strong>Bull Case</strong></td>
-<td>Full-price reignition in North America, 25%+ China expansion, EPS reaching $16.50+.</td>
-<td>9.5%</td>
-<td>4.5% / year</td>
-<td><strong>$260.00</strong></td>
-<td>+102.2%</td>
-</tr>
-</tbody>
-</table></div></div>
-<div class="section"><h3>Section 6: Falsification Engine, Execution Risks &amp; Strategic Verdict</h3><p>A disciplined value investment requires defining clear pre-mortems—explicit, objective conditions under which the core thesis is invalidated and capital must be reallocated.</p><div class="callout">
-<strong>Pre-Mortem Thesis Invalidation Triggers (Falsification Engine):</strong>
 <div class="table-scroll-wrap"><table>
 <thead>
 <tr>
-<th>Falsification Metric</th>
-<th>Critical Threshold Floor</th>
-<th>Economic Risk &amp; Analytical Impact</th>
+<th>Segment / Metric</th>
+<th>Q1 Fiscal 2026 Performance</th>
+<th>Underlying Operational Driver</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Americas Comparable Sales</strong></td>
-<td>Double-Digit Decline (&lt; -10.0%)</td>
-<td>Signals severe brand fatigue, permanent market share loss to competitors (Alo, Vuori), and loss of core consumer mindshare.</td>
+<td><strong>Americas Direct &amp; Retail</strong></td>
+<td>$1.72B (-3% YoY, Comps -5%)</td>
+<td>Selective consumer spending and transitional product mix; sequential stabilization in full-price sell-through.</td>
 </tr>
 <tr>
-<td><strong>Consolidated Gross Margin</strong></td>
-<td>Breaches Below 50.0%</td>
-<td>Indicates complete breakdown of pricing power, forcing structural promotional markdowns and heavy discounting to clear inventory.</td>
+<td><strong>International (China &amp; EMEA)</strong></td>
+<td>$780M (+22% YoY, Comps +13%)</td>
+<td>Massive brand momentum in Tier 1/2 Chinese cities (+30%+ YoY); European brand awareness expanding rapidly.</td>
 </tr>
 <tr>
-<td><strong>International Revenue Growth</strong></td>
-<td>Slowing Below +10.0% YoY</td>
-<td>Destroys the primary growth driver (Mainland China/Europe), rendering international scale benefits void.</td>
+<td><strong>Operating Margin</strong></td>
+<td>11.1% (Q1 Trough) / ~19.9% Guided FY2026</td>
+<td>De-leveraged fixed store costs during Q1 promotional clearance; guided to normalize to ~20% full-year.</td>
 </tr>
 <tr>
-<td><strong>Capital Allocation Misstep</strong></td>
-<td>Value-Destructive M&amp;A</td>
-<td>Management halts share buybacks below $130 or pursues large, debt-fueled acquisitions outside athletic apparel.</td>
+<td><strong>Full-Year FY2026 Guidance</strong></td>
+<td>$11.35B - $11.50B Rev / $12.10 - $12.30 EPS</td>
+<td>Reaffirmed top-line and bottom-line corridor excluding the accretive benefit of ongoing H2 buybacks.</td>
 </tr>
 </tbody>
 </table></div>
-</div><h4>1. Execution &amp; Macroeconomic Risk Assessment</h4><p>The primary execution risk centers on leadership transition under incoming CEO Heidi O'Neill following operational missteps in North American product color choices and sizing assortments. Additionally, rising competition from premium lifestyle brands like Alo Yoga and Vuori continues to test Lululemon's moat in core leggings and athleisure. Furthermore, potential import tariff adjustments across Vietnam and South East Asian supply chain hubs present short-term margin friction.</p><h4>2. Margin of Safety &amp; Strategic Investment Verdict</h4><p>At $128.58, Lululemon is priced as an impaired, declining retailer at ~10.4x earnings, despite maintaining a pristine balance sheet ($1.515B cash, zero funded net debt) and generating over 35% ROIC. With a Bear Case fair value of $135.00 providing immediate downside protection, and a Base Case target of $195.00 (+51.7% upside), the 5-Year Exchange Closure Test confirms that organic cash generation and aggressive share cannibalization will deliver exceptional long-term risk-adjusted returns.</p><div class="metrics-grid">
-<div class="metric-card">
-<div class="metric-label">Current Stock Price</div>
-<div class="metric-value">$128.58</div>
-<div class="metric-delta neutral">Market Price</div>
 </div>
-<div class="metric-card">
-<div class="metric-label">Base Case Intrinsic Value</div>
-<div class="metric-value">$195.00</div>
-<div class="metric-delta pos">+51.7% Upside</div>
+<div class="section">
+<h2>Section 3: Real Cash Flow &amp; Stock-Based Compensation (SBC) Audit</h2>
+<p>In accordance with Warren Buffett’s 1986 Shareholder Letter, we calculate true Owner Earnings by deducting 100% of Stock-Based Compensation (SBC) as an inescapable dilution cost and isolating maintenance CapEx from store-fleet growth expenditures.</p>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Cash Flow Component</th>
+<th>FY2026 Normalized Estimate</th>
+<th>Analytical Audit &amp; Methodology</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Operating Cash Flow (GAAP)</strong></td>
+<td>$1,750M</td>
+<td>Organic cash flow reflecting normalized working capital after clearance.</td>
+</tr>
+<tr>
+<td><strong>Less: Total Capital Expenditures</strong></td>
+<td>($660M)</td>
+<td>Includes international flagship buildouts, digital IT, and store remodels.</td>
+</tr>
+<tr>
+<td><strong>Add Back: Discretionary Growth CapEx</strong></td>
+<td>+$340M</td>
+<td>Isolated capital spent exclusively on opening 40+ net new international stores.</td>
+</tr>
+<tr>
+<td><strong>Maintenance CapEx (Moat Protection)</strong></td>
+<td>($320M)</td>
+<td>Sustaining CapEx required to maintain existing fleet and e-commerce infrastructure.</td>
+</tr>
+<tr>
+<td><strong>Less: Stock-Based Compensation (SBC)</strong></td>
+<td>($125M)</td>
+<td>Treated as 100% cash deduction to protect against per-share share dilution.</td>
+</tr>
+<tr>
+<td><strong>Normalized Warren Buffett Owner Earnings</strong></td>
+<td><strong>$1,305M</strong></td>
+<td><strong>Sustainable, distributable annual cash flow back to equity owners.</strong></td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout">
+<strong>Initial Owner Earnings Yield:</strong> With a fully diluted share count of ~109.5M shares, normalized Owner Earnings stand at <strong>$11.92 per share</strong>. At the current quotation of $119.56, Lululemon offers an initial <strong>Owner Earnings Cash Yield of 10.0%</strong>, accompanied by an unleveraged balance sheet.
+  </div>
 </div>
-<div class="metric-card">
-<div class="metric-label">Implied Margin of Safety</div>
-<div class="metric-value">34.1%</div>
-<div class="metric-delta pos">Significant Discount</div>
+<div class="section">
+<h2>Section 4: Capital Allocation &amp; Balance Sheet Discipline</h2>
+<p>Lululemon’s fortress balance sheet serves as an impregnable shock absorber against macro volatility:</p>
+<ul>
+<li><strong>Cash &amp; Liquidity Fortress:</strong> The company holds <strong>$1.515 billion in cash and cash equivalents</strong> with <strong>$0 in funded bank or bond debt</strong>. Contractual operating lease liabilities ($2.1B total undiscounted) are fully serviced by four-wall store operating cash flows.</li>
+<li><strong>Aggressive Share Cannibalism:</strong> Over the past 12 months, the Board authorized and executed aggressive share repurchases, shrinking diluted shares from 115.5M to ~109.5M. At current suppressed valuations, the remaining buyback authorization delivers an accretive ~7-8% annual reduction in share count, compounding per-share intrinsic value.</li>
+<li><strong>Incoming Leadership Alignment:</strong> Incoming CEO Heidi O'Neill (joining September 8, 2026) brings 28 years of global product innovation, merchandising, and brand scaling leadership from Nike. Her compensation package is strictly weighted toward performance RSUs and long-term equity appreciation.</li>
+</ul>
 </div>
-<div class="metric-card">
-<div class="metric-label">TTM Owner Cash Yield</div>
-<div class="metric-value">11.52%</div>
-<div class="metric-delta pos">High Organic Flow</div>
+<div class="section">
+<h2>Section 5: Owner Earnings Intrinsic Value Matrix</h2>
+<p>Valuation is conducted via Warren Buffett’s 7-Pillar Intrinsic Value Framework, discounting Owner Earnings over a 10-year horizon using a country-specific US hurdle rate of 9.5% (4.2% US 10-Year Treasury + 5.3% Equity Risk Premium) and a conservative 2.25% terminal growth rate. Arbitrary exit multiples are strictly avoided.</p>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>5-Year OE CAGR</th>
+<th>Terminal Growth</th>
+<th>Normalized Base OE</th>
+<th>Net Cash Bridge</th>
+<th>Intrinsic Value / Share</th>
+<th>Margin of Safety vs $119.56</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bear Case (Stagnation)</strong></td>
+<td>1.0%</td>
+<td>1.50%</td>
+<td>$1,050M ($9.59/sh)</td>
+<td>+$1.515B</td>
+<td><strong>$128.00</strong></td>
+<td><strong>+7.1% (Floor Protected)</strong></td>
+</tr>
+<tr>
+<td><strong>Base Case (Orderly Recovery)</strong></td>
+<td>4.5%</td>
+<td>2.25%</td>
+<td>$1,305M ($11.92/sh)</td>
+<td>+$1.515B</td>
+<td><strong>$188.50</strong></td>
+<td><strong>+57.7% Asymmetric Upside</strong></td>
+</tr>
+<tr>
+<td><strong>Bull Case (Accelerated Expansion)</strong></td>
+<td>8.0%</td>
+<td>2.50%</td>
+<td>$1,550M ($14.15/sh)</td>
+<td>+$1.515B</td>
+<td><strong>$248.00</strong></td>
+<td><strong>+107.4% Multi-Year Return</strong></td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout">
+<strong>The 5-Year Market Closure Test:</strong> If the Nasdaq closed for the next five years, Lululemon’s private enterprise would generate ~$7.5B+ in cumulative Owner Earnings—representing over 58% of its current $13.1B market cap—while retiring ~20-25% of outstanding shares and compounding its debt-free net cash balance.
+  </div>
 </div>
-</div></div>
+<div class="section">
+<h2>Section 6: Thesis Confidence, Execution Risk &amp; Invalidation Corridors</h2>
+<p>Our stance remains <strong>BUY (High Conviction)</strong>. The current price quotation reflects manic-depressive sentiment over cyclical North American apparel spending rather than any impairment to Lululemon’s structural brand equity, international runway, or balance sheet integrity.</p>
+<h3>Dynamic Surveillance &amp; Invalidation Triggers:</h3>
+<ul>
+<li><strong>Upper Surveillance Corridor ($165.00):</strong> Reaching this corridor implies normalized multiple re-rating toward 14x Owner Earnings; triggers an evaluation to trim into intrinsic fair value.</li>
+<li><strong>Lower Invalidation Floor ($105.00):</strong> A sustained breach below $105.00 triggers an emergency pre-mortem review to audit whether international gross margins have permanently deteriorated below 48% or if inventory markdowns reflect permanent brand erosion.</li>
+</ul>
+</div>
             </article>
         </div>
 
         <!-- History Content -->
         <div id="tab-history" class="tab-content">
             
-        <div class="empty-state-box" style="background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px; padding: 75px 24px;">
-            <div class="empty-state-title">Initial Baseline Active</div>
-            <div class="empty-state-sub">Version 1 represents the initial underwriting thesis. Future revisions, price trigger reviews, and catalyst audits will be logged here</div>
-        </div>
-        
+            <div class="history-entry history-entry-active">
+                <div class="history-top">
+                    <div class="history-tags">
+                        <span class="history-time">2026-08-13</span>
+                        <span class="history-price">$119.56</span>
+                        <span class="status-beacon beacon-buy" title="Action Signal: Strong Buy (Get in NOW / Thesis Accelerating)"><span class="beacon-ping"></span><span class="beacon-dot"></span></span>
+                        <span class="pill pill-active">High Conviction</span> <span class="pill pill-neutral">Deep Value</span> <span class="pill pill-neutral">Buyback Cannibal</span>
+                    </div>
+                    <button class="btn btn-subtle" onclick="toggleSnapshot(2)">Read Snapshot ▾</button>
+                </div>
+                <div class="history-content">
+                    <p class="history-shift-desc">The 8-K filing confirms the finalized transition roadmap for incoming CEO Heidi O'Neill taking the helm on September 8, 2026, alongside corporate governance alignments. While Mr. Market has discounted the stock by an additional 7% to $119.56 on near-term North American consumer caution, underlying international momentum (+22% YoY, China Mainland +30%+) and debt-free cash generation remain stellar. We reaffirm our $188.50 Fair Value, viewing the dip as an extraordinary mispricing yielding a 10.0% normalized Owner Earnings yield.</p>
+                    
+                <div class="diff-grid">
+                    <div class="diff-box diff-prev">
+                        <div class="diff-label">PREVIOUS THESIS</div>
+                        <div class="diff-text">Lululemon presented an attractive asymmetric deep-value opportunity at $128.58 (~11.5x FY2026 guided EPS), backed by a debt-free balance sheet holding $1.5B in net cash, high-margin international expansion (+22% YoY), and an 8%+ share cannibalization pace ahead of incoming CEO Heidi O'Neill's September 2026 arrival.</div>
+                    </div>
+                    <div class="diff-box diff-now">
+                        <div class="diff-label">THESIS EVOLUTION</div>
+                        <div class="diff-text">
+                            The 8-K filing confirms the finalized transition roadmap for incoming CEO Heidi O'Neill taking the helm on September 8, 2026, alongside corporate governance alignments. While Mr. Market has discounted the stock by an additional 7% to $119.56 on near-term North American consumer caution, underlying international momentum (+22% YoY, China Mainland +30%+) and debt-free cash generation remain stellar. We reaffirm our $188.50 Fair Value, viewing the dip as an extraordinary mispricing yielding a 10.0% normalized Owner Earnings yield.
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                    <div id="snapshot-2" class="snapshot-drawer" style="display: none;">
+                        <div class="snapshot-body">
+                            <div class="section">
+<h2>Section 1: Business Model, Scale Moat &amp; GenAI Transition</h2>
+<p>Lululemon Athletica Inc. operates a premier direct-to-consumer (DTC) and omni-channel technical athletic apparel ecosystem. Built on proprietary fabric innovations (Luon, Nulu, Everlux, Softstreme) and localized grassroots community fitness activations, Lululemon commands gross margins above 54%, a pricing power profile rare in global consumer discretionary. The business engine combines company-operated retail stores (796+ globally) with a high-margin digital channel generating superior cash conversion.</p>
+<p>Rather than relying on wholesale middlemen, Lululemon controls ~90%+ of its distribution directly, capturing full retail markups, real-time consumer telemetry, and brand equity integrity. The company is actively integrating generative AI and predictive machine learning across its demand forecasting, inventory allocation, and personalized digital commerce engines. This AI-driven supply chain optimization compresses inventory lead times, minimizes seasonal markdown risks, and tailors localized regional merchandising across fast-growing Asian and European territories.</p>
+<div class="callout">
+<strong>The First-Principles Moat Test:</strong> Lululemon is not a generic apparel wholesaler subject to distributor shelf squeezes; it is a vertically integrated technical lifestyle brand with an intensely loyal customer cohort and pristine pricing discipline. Even through cyclical macro soft patches in North America, unit economics generate substantial cash returns that are redeployed into international expansion and aggressive share retirement.
+  </div>
+</div>
+<div class="section">
+<h2>Section 2: Quarterly Operational Breakdown &amp; Segment Performance</h2>
+<p>The latest operational results reflect a stark geographic bifurcation: a mature, normalizing Americas market undergoing product line refresh vs. hyper-growth international expansion led by Mainland China.</p>
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">Q1 Net Revenue</div>
+<div class="metric-value">$2.50B</div>
+<div class="metric-delta pos">+4.0% YoY (Constant $ +2%)</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">International Revenue</div>
+<div class="metric-value">$780M</div>
+<div class="metric-delta pos">+22.0% YoY (+16% Const $)</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Americas Revenue</div>
+<div class="metric-value">$1.72B</div>
+<div class="metric-delta neg">-3.0% YoY (-4% Const $)</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Gross Margin</div>
+<div class="metric-value">54.2%</div>
+<div class="metric-delta neg">-410 bps YoY</div>
+</div>
+</div>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Segment / Metric</th>
+<th>Q1 Fiscal 2026 Performance</th>
+<th>Underlying Operational Driver</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Americas Direct &amp; Retail</strong></td>
+<td>$1.72B (-3% YoY, Comps -5%)</td>
+<td>Selective consumer spending and transitional product mix; sequential stabilization in full-price sell-through.</td>
+</tr>
+<tr>
+<td><strong>International (China &amp; EMEA)</strong></td>
+<td>$780M (+22% YoY, Comps +13%)</td>
+<td>Massive brand momentum in Tier 1/2 Chinese cities (+30%+ YoY); European brand awareness expanding rapidly.</td>
+</tr>
+<tr>
+<td><strong>Operating Margin</strong></td>
+<td>11.1% (Q1 Trough) / ~19.9% Guided FY2026</td>
+<td>De-leveraged fixed store costs during Q1 promotional clearance; guided to normalize to ~20% full-year.</td>
+</tr>
+<tr>
+<td><strong>Full-Year FY2026 Guidance</strong></td>
+<td>$11.35B - $11.50B Rev / $12.10 - $12.30 EPS</td>
+<td>Reaffirmed top-line and bottom-line corridor excluding the accretive benefit of ongoing H2 buybacks.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section">
+<h2>Section 3: Real Cash Flow &amp; Stock-Based Compensation (SBC) Audit</h2>
+<p>In accordance with Warren Buffett’s 1986 Shareholder Letter, we calculate true Owner Earnings by deducting 100% of Stock-Based Compensation (SBC) as an inescapable dilution cost and isolating maintenance CapEx from store-fleet growth expenditures.</p>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Cash Flow Component</th>
+<th>FY2026 Normalized Estimate</th>
+<th>Analytical Audit &amp; Methodology</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Operating Cash Flow (GAAP)</strong></td>
+<td>$1,750M</td>
+<td>Organic cash flow reflecting normalized working capital after clearance.</td>
+</tr>
+<tr>
+<td><strong>Less: Total Capital Expenditures</strong></td>
+<td>($660M)</td>
+<td>Includes international flagship buildouts, digital IT, and store remodels.</td>
+</tr>
+<tr>
+<td><strong>Add Back: Discretionary Growth CapEx</strong></td>
+<td>+$340M</td>
+<td>Isolated capital spent exclusively on opening 40+ net new international stores.</td>
+</tr>
+<tr>
+<td><strong>Maintenance CapEx (Moat Protection)</strong></td>
+<td>($320M)</td>
+<td>Sustaining CapEx required to maintain existing fleet and e-commerce infrastructure.</td>
+</tr>
+<tr>
+<td><strong>Less: Stock-Based Compensation (SBC)</strong></td>
+<td>($125M)</td>
+<td>Treated as 100% cash deduction to protect against per-share share dilution.</td>
+</tr>
+<tr>
+<td><strong>Normalized Warren Buffett Owner Earnings</strong></td>
+<td><strong>$1,305M</strong></td>
+<td><strong>Sustainable, distributable annual cash flow back to equity owners.</strong></td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout">
+<strong>Initial Owner Earnings Yield:</strong> With a fully diluted share count of ~109.5M shares, normalized Owner Earnings stand at <strong>$11.92 per share</strong>. At the current quotation of $119.56, Lululemon offers an initial <strong>Owner Earnings Cash Yield of 10.0%</strong>, accompanied by an unleveraged balance sheet.
+  </div>
+</div>
+<div class="section">
+<h2>Section 4: Capital Allocation &amp; Balance Sheet Discipline</h2>
+<p>Lululemon’s fortress balance sheet serves as an impregnable shock absorber against macro volatility:</p>
+<ul>
+<li><strong>Cash &amp; Liquidity Fortress:</strong> The company holds <strong>$1.515 billion in cash and cash equivalents</strong> with <strong>$0 in funded bank or bond debt</strong>. Contractual operating lease liabilities ($2.1B total undiscounted) are fully serviced by four-wall store operating cash flows.</li>
+<li><strong>Aggressive Share Cannibalism:</strong> Over the past 12 months, the Board authorized and executed aggressive share repurchases, shrinking diluted shares from 115.5M to ~109.5M. At current suppressed valuations, the remaining buyback authorization delivers an accretive ~7-8% annual reduction in share count, compounding per-share intrinsic value.</li>
+<li><strong>Incoming Leadership Alignment:</strong> Incoming CEO Heidi O'Neill (joining September 8, 2026) brings 28 years of global product innovation, merchandising, and brand scaling leadership from Nike. Her compensation package is strictly weighted toward performance RSUs and long-term equity appreciation.</li>
+</ul>
+</div>
+<div class="section">
+<h2>Section 5: Owner Earnings Intrinsic Value Matrix</h2>
+<p>Valuation is conducted via Warren Buffett’s 7-Pillar Intrinsic Value Framework, discounting Owner Earnings over a 10-year horizon using a country-specific US hurdle rate of 9.5% (4.2% US 10-Year Treasury + 5.3% Equity Risk Premium) and a conservative 2.25% terminal growth rate. Arbitrary exit multiples are strictly avoided.</p>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>5-Year OE CAGR</th>
+<th>Terminal Growth</th>
+<th>Normalized Base OE</th>
+<th>Net Cash Bridge</th>
+<th>Intrinsic Value / Share</th>
+<th>Margin of Safety vs $119.56</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bear Case (Stagnation)</strong></td>
+<td>1.0%</td>
+<td>1.50%</td>
+<td>$1,050M ($9.59/sh)</td>
+<td>+$1.515B</td>
+<td><strong>$128.00</strong></td>
+<td><strong>+7.1% (Floor Protected)</strong></td>
+</tr>
+<tr>
+<td><strong>Base Case (Orderly Recovery)</strong></td>
+<td>4.5%</td>
+<td>2.25%</td>
+<td>$1,305M ($11.92/sh)</td>
+<td>+$1.515B</td>
+<td><strong>$188.50</strong></td>
+<td><strong>+57.7% Asymmetric Upside</strong></td>
+</tr>
+<tr>
+<td><strong>Bull Case (Accelerated Expansion)</strong></td>
+<td>8.0%</td>
+<td>2.50%</td>
+<td>$1,550M ($14.15/sh)</td>
+<td>+$1.515B</td>
+<td><strong>$248.00</strong></td>
+<td><strong>+107.4% Multi-Year Return</strong></td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout">
+<strong>The 5-Year Market Closure Test:</strong> If the Nasdaq closed for the next five years, Lululemon’s private enterprise would generate ~$7.5B+ in cumulative Owner Earnings—representing over 58% of its current $13.1B market cap—while retiring ~20-25% of outstanding shares and compounding its debt-free net cash balance.
+  </div>
+</div>
+<div class="section">
+<h2>Section 6: Thesis Confidence, Execution Risk &amp; Invalidation Corridors</h2>
+<p>Our stance remains <strong>BUY (High Conviction)</strong>. The current price quotation reflects manic-depressive sentiment over cyclical North American apparel spending rather than any impairment to Lululemon’s structural brand equity, international runway, or balance sheet integrity.</p>
+<h3>Dynamic Surveillance &amp; Invalidation Triggers:</h3>
+<ul>
+<li><strong>Upper Surveillance Corridor ($165.00):</strong> Reaching this corridor implies normalized multiple re-rating toward 14x Owner Earnings; triggers an evaluation to trim into intrinsic fair value.</li>
+<li><strong>Lower Invalidation Floor ($105.00):</strong> A sustained breach below $105.00 triggers an emergency pre-mortem review to audit whether international gross margins have permanently deteriorated below 48% or if inventory markdowns reflect permanent brand erosion.</li>
+</ul>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
         </div>
 
         <!-- Ownership & Fund Intel Content -->
@@ -1755,7 +1687,7 @@
             <div class="ownership-stat-grid">
                 <div class="stat-box">
                     <span class="stat-label">Institutional Float</span>
-                    <span class="stat-num">86.5%</span>
+                    <span class="stat-num">78.6%</span>
                     <span class="stat-note">Tracked across SEC 13F Filings</span>
                 </div>
                 <div class="stat-box">
@@ -1887,7 +1819,7 @@
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Fidelity (11.4%)</div>
+                <div style="font-weight: 500; color: var(--text-title);">Fidelity Investments (15.87%)</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Asset Manager</span></td>
             <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
@@ -1903,7 +1835,7 @@
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Vanguard (9.2%)</div>
+                <div style="font-weight: 500; color: var(--text-title);">Vanguard Group (6.31%)</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
             <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
@@ -1919,9 +1851,9 @@
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">BlackRock (7.8%)</div>
+                <div style="font-weight: 500; color: var(--text-title);">Jennison Associates (4.14%)</div>
             </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Asset Manager</span></td>
             <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
             <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
             <td><span style="color: var(--text-dim);">Reported Stake</span></td>
@@ -2210,8 +2142,8 @@
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
                     Substack / Reboundcapital · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://reboundcapital.substack.com/p/deep-dive-lululemon-lulu" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Substack Memo ↗
+                <a href="https://substack.com/search/LULU%20Lululemon%20Athletica%20Inc.%20investment%20thesis" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Search ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
@@ -2227,8 +2159,8 @@
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
                     Substack / Rijnberkinvestinsights · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://rijnberkinvestinsights.substack.com/p/lululemon-cheap-for-a-reason" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Substack Memo ↗
+                <a href="https://substack.com/search/LULU%20Lululemon%20Athletica%20Inc.%20investment%20thesis" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Search ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
@@ -2244,8 +2176,8 @@
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
                     Substack / Mistermarket1 · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://mistermarket1.substack.com/p/i-buy-from-pessimists-and-sell-to" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Substack Memo ↗
+                <a href="https://substack.com/search/LULU%20Lululemon%20Athletica%20Inc.%20investment%20thesis" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Search ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
@@ -2261,8 +2193,8 @@
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
                     Substack / Qualitystocks · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://qualitystocks.substack.com/p/lululemon-stock-analysis-revenues" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Substack Memo ↗
+                <a href="https://substack.com/search/LULU%20Lululemon%20Athletica%20Inc.%20investment%20thesis" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Search ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">

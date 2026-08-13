@@ -1032,16 +1032,16 @@
             <div class="hero-top-row">
                 <div>
                     <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-                        <span class="ticker-symbol">BYD</span>
-                        <span class="pill pill-active">High Conviction</span> <span class="pill pill-neutral">Buyback Cannibal</span> <span class="pill pill-neutral">Regional Moat</span>
+                        <span class="ticker-symbol">BYD<span class="status-beacon beacon-buy" title="Action Signal: Strong Buy (Get in NOW / Thesis Accelerating)"><span class="beacon-ping"></span><span class="beacon-dot"></span></span></span>
+                        <span class="pill pill-active">High Conviction</span> <span class="pill pill-neutral">Buyback Cannibal</span> <span class="pill pill-neutral">Moat Expansion</span>
                         <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="View Investment Taxonomy & Labels Legend">ⓘ</button>
                     </div>
                     <div class="company-meta">Boyd Gaming Corporation</div>
                 </div>
                 <div class="price-callout">
-                    <div class="price-number">$82.99</div>
+                    <div class="price-number">$83.26</div>
                     <div class="price-sub neg">
-                        -0.52% vs Genesis
+                        -0.19% vs Genesis
                     </div>
                 </div>
             </div>
@@ -1051,7 +1051,7 @@
     <div class="native-chart-wrap" id="chart-container">
         <div class="chart-top-bar">
             <div id="chart-live-val" class="chart-live-val">
-                <span id="tooltip-date">Aug 13, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$83.04</strong>
+                <span id="tooltip-date">Aug 13, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$83.26</strong>
             </div>
             <div class="chart-range-pills">
                 <button class="range-pill active" onclick="switchChartRange('1Y')">1Y</button>
@@ -1080,15 +1080,15 @@
             <circle id="hover-dot" r="4.5" fill="#CC785C" stroke="#1E1C19" stroke-width="2" style="display: none;" />
         </svg>
         <div class="chart-labels">
-            <span id="chart-start-lbl">Aug 13, 2025 ($76.81)</span>
+            <span id="chart-start-lbl">Aug 14, 2025 ($76.81)</span>
             <span id="chart-range-title">1-Year Historical Range</span>
-            <span id="chart-end-lbl">Aug 13, 2026 ($83.04)</span>
+            <span id="chart-end-lbl">Aug 13, 2026 ($83.26)</span>
         </div>
     </div>
 
     <script>
     (function() {
-        const allDatasets = {"1Y": [{"date": "Aug 13, 2025", "price": 84.33}, {"date": "Aug 14, 2025", "price": 83.95}, {"date": "Aug 15, 2025", "price": 82.72}, {"date": "Aug 18, 2025", "price": 83.09}, {"date": "Aug 19, 2025", "price": 83.89}, {"date": "Aug 20, 2025", "price": 83.57}, {"date": "Aug 21, 2025", "price": 83.3}, {"date": "Aug 22, 2025", "price": 85.66}, {"date": "Aug 25, 2025", "price": 86.25}, {"date": "Aug 26, 2025", "price": 86.81}, {"date": "Aug 27, 2025", "price": 87.28}, {"date": "Aug 28, 2025", "price": 86.86}, {"date": "Aug 29, 2025", "price": 85.86}, {"date": "Sep 02, 2025", "price": 85.63}, {"date": "Sep 03, 2025", "price": 85.34}, {"date": "Sep 04, 2025", "price": 86.47}, {"date": "Sep 05, 2025", "price": 86.46}, {"date": "Sep 08, 2025", "price": 86.34}, {"date": "Sep 09, 2025", "price": 85.34}, {"date": "Sep 10, 2025", "price": 85.27}, {"date": "Sep 11, 2025", "price": 85.99}, {"date": "Sep 12, 2025", "price": 84.68}, {"date": "Sep 15, 2025", "price": 83.47}, {"date": "Sep 16, 2025", "price": 82.15}, {"date": "Sep 17, 2025", "price": 82.84}, {"date": "Sep 18, 2025", "price": 83.3}, {"date": "Sep 19, 2025", "price": 83.3}, {"date": "Sep 22, 2025", "price": 83.46}, {"date": "Sep 23, 2025", "price": 85.1}, {"date": "Sep 24, 2025", "price": 84.41}, {"date": "Sep 25, 2025", "price": 84.49}, {"date": "Sep 26, 2025", "price": 85.94}, {"date": "Sep 29, 2025", "price": 87.38}, {"date": "Sep 30, 2025", "price": 86.45}, {"date": "Oct 01, 2025", "price": 87.03}, {"date": "Oct 02, 2025", "price": 87.01}, {"date": "Oct 03, 2025", "price": 86.48}, {"date": "Oct 06, 2025", "price": 85.49}, {"date": "Oct 07, 2025", "price": 83.57}, {"date": "Oct 08, 2025", "price": 83.6}, {"date": "Oct 09, 2025", "price": 83.38}, {"date": "Oct 10, 2025", "price": 81.54}, {"date": "Oct 13, 2025", "price": 82.11}, {"date": "Oct 14, 2025", "price": 83.36}, {"date": "Oct 15, 2025", "price": 83.24}, {"date": "Oct 16, 2025", "price": 82.1}, {"date": "Oct 17, 2025", "price": 82.37}, {"date": "Oct 20, 2025", "price": 82.71}, {"date": "Oct 21, 2025", "price": 83.38}, {"date": "Oct 22, 2025", "price": 82.99}, {"date": "Oct 23, 2025", "price": 84.98}, {"date": "Oct 24, 2025", "price": 78.77}, {"date": "Oct 27, 2025", "price": 79.6}, {"date": "Oct 28, 2025", "price": 79.0}, {"date": "Oct 29, 2025", "price": 76.81}, {"date": "Oct 30, 2025", "price": 77.4}, {"date": "Oct 31, 2025", "price": 77.87}, {"date": "Nov 03, 2025", "price": 79.45}, {"date": "Nov 04, 2025", "price": 79.38}, {"date": "Nov 05, 2025", "price": 80.24}, {"date": "Nov 06, 2025", "price": 80.04}, {"date": "Nov 07, 2025", "price": 81.27}, {"date": "Nov 10, 2025", "price": 82.59}, {"date": "Nov 11, 2025", "price": 81.33}, {"date": "Nov 12, 2025", "price": 80.89}, {"date": "Nov 13, 2025", "price": 80.81}, {"date": "Nov 14, 2025", "price": 79.78}, {"date": "Nov 17, 2025", "price": 77.51}, {"date": "Nov 18, 2025", "price": 79.03}, {"date": "Nov 19, 2025", "price": 78.63}, {"date": "Nov 20, 2025", "price": 78.0}, {"date": "Nov 21, 2025", "price": 80.72}, {"date": "Nov 24, 2025", "price": 81.14}, {"date": "Nov 25, 2025", "price": 82.72}, {"date": "Nov 26, 2025", "price": 83.38}, {"date": "Nov 28, 2025", "price": 83.3}, {"date": "Dec 01, 2025", "price": 82.24}, {"date": "Dec 02, 2025", "price": 81.66}, {"date": "Dec 03, 2025", "price": 82.55}, {"date": "Dec 04, 2025", "price": 81.37}, {"date": "Dec 05, 2025", "price": 80.88}, {"date": "Dec 08, 2025", "price": 79.67}, {"date": "Dec 09, 2025", "price": 80.2}, {"date": "Dec 10, 2025", "price": 81.97}, {"date": "Dec 11, 2025", "price": 84.39}, {"date": "Dec 12, 2025", "price": 85.1}, {"date": "Dec 15, 2025", "price": 85.11}, {"date": "Dec 16, 2025", "price": 85.01}, {"date": "Dec 17, 2025", "price": 85.24}, {"date": "Dec 18, 2025", "price": 85.64}, {"date": "Dec 19, 2025", "price": 86.37}, {"date": "Dec 22, 2025", "price": 86.7}, {"date": "Dec 23, 2025", "price": 85.69}, {"date": "Dec 24, 2025", "price": 85.41}, {"date": "Dec 26, 2025", "price": 86.6}, {"date": "Dec 29, 2025", "price": 86.13}, {"date": "Dec 30, 2025", "price": 85.86}, {"date": "Dec 31, 2025", "price": 85.24}, {"date": "Jan 02, 2026", "price": 86.19}, {"date": "Jan 05, 2026", "price": 88.4}, {"date": "Jan 06, 2026", "price": 87.81}, {"date": "Jan 07, 2026", "price": 86.07}, {"date": "Jan 08, 2026", "price": 88.33}, {"date": "Jan 09, 2026", "price": 87.92}, {"date": "Jan 12, 2026", "price": 87.79}, {"date": "Jan 13, 2026", "price": 88.03}, {"date": "Jan 14, 2026", "price": 87.47}, {"date": "Jan 15, 2026", "price": 89.56}, {"date": "Jan 16, 2026", "price": 88.65}, {"date": "Jan 20, 2026", "price": 85.69}, {"date": "Jan 21, 2026", "price": 85.16}, {"date": "Jan 22, 2026", "price": 85.09}, {"date": "Jan 23, 2026", "price": 83.89}, {"date": "Jan 26, 2026", "price": 83.48}, {"date": "Jan 27, 2026", "price": 82.23}, {"date": "Jan 28, 2026", "price": 83.5}, {"date": "Jan 29, 2026", "price": 84.18}, {"date": "Jan 30, 2026", "price": 84.54}, {"date": "Feb 02, 2026", "price": 84.57}, {"date": "Feb 03, 2026", "price": 83.0}, {"date": "Feb 04, 2026", "price": 84.78}, {"date": "Feb 05, 2026", "price": 83.64}, {"date": "Feb 06, 2026", "price": 83.24}, {"date": "Feb 09, 2026", "price": 82.81}, {"date": "Feb 10, 2026", "price": 84.43}, {"date": "Feb 11, 2026", "price": 83.41}, {"date": "Feb 12, 2026", "price": 82.17}, {"date": "Feb 13, 2026", "price": 81.99}, {"date": "Feb 17, 2026", "price": 83.22}, {"date": "Feb 18, 2026", "price": 84.75}, {"date": "Feb 19, 2026", "price": 85.06}, {"date": "Feb 20, 2026", "price": 86.2}, {"date": "Feb 23, 2026", "price": 83.62}, {"date": "Feb 24, 2026", "price": 85.2}, {"date": "Feb 25, 2026", "price": 84.93}, {"date": "Feb 26, 2026", "price": 87.71}, {"date": "Feb 27, 2026", "price": 83.23}, {"date": "Mar 02, 2026", "price": 82.49}, {"date": "Mar 03, 2026", "price": 81.38}, {"date": "Mar 04, 2026", "price": 82.2}, {"date": "Mar 05, 2026", "price": 82.03}, {"date": "Mar 06, 2026", "price": 80.13}, {"date": "Mar 09, 2026", "price": 80.5}, {"date": "Mar 10, 2026", "price": 80.23}, {"date": "Mar 11, 2026", "price": 82.71}, {"date": "Mar 12, 2026", "price": 81.3}, {"date": "Mar 13, 2026", "price": 81.64}, {"date": "Mar 16, 2026", "price": 80.04}, {"date": "Mar 17, 2026", "price": 81.83}, {"date": "Mar 18, 2026", "price": 81.73}, {"date": "Mar 19, 2026", "price": 83.06}, {"date": "Mar 20, 2026", "price": 81.06}, {"date": "Mar 23, 2026", "price": 81.94}, {"date": "Mar 24, 2026", "price": 84.47}, {"date": "Mar 25, 2026", "price": 84.87}, {"date": "Mar 26, 2026", "price": 82.94}, {"date": "Mar 27, 2026", "price": 80.16}, {"date": "Mar 30, 2026", "price": 80.17}, {"date": "Mar 31, 2026", "price": 82.18}, {"date": "Apr 01, 2026", "price": 84.31}, {"date": "Apr 02, 2026", "price": 83.74}, {"date": "Apr 06, 2026", "price": 84.29}, {"date": "Apr 07, 2026", "price": 83.39}, {"date": "Apr 08, 2026", "price": 86.21}, {"date": "Apr 09, 2026", "price": 86.83}, {"date": "Apr 10, 2026", "price": 86.5}, {"date": "Apr 13, 2026", "price": 86.16}, {"date": "Apr 14, 2026", "price": 87.75}, {"date": "Apr 15, 2026", "price": 85.98}, {"date": "Apr 16, 2026", "price": 85.25}, {"date": "Apr 17, 2026", "price": 87.52}, {"date": "Apr 20, 2026", "price": 88.12}, {"date": "Apr 21, 2026", "price": 87.4}, {"date": "Apr 22, 2026", "price": 86.15}, {"date": "Apr 23, 2026", "price": 89.15}, {"date": "Apr 24, 2026", "price": 83.88}, {"date": "Apr 27, 2026", "price": 87.53}, {"date": "Apr 28, 2026", "price": 86.86}, {"date": "Apr 29, 2026", "price": 86.29}, {"date": "Apr 30, 2026", "price": 86.95}, {"date": "May 01, 2026", "price": 84.5}, {"date": "May 04, 2026", "price": 82.89}, {"date": "May 05, 2026", "price": 84.07}, {"date": "May 06, 2026", "price": 85.15}, {"date": "May 07, 2026", "price": 85.24}, {"date": "May 08, 2026", "price": 85.64}, {"date": "May 11, 2026", "price": 82.75}, {"date": "May 12, 2026", "price": 82.21}, {"date": "May 13, 2026", "price": 80.57}, {"date": "May 14, 2026", "price": 79.39}, {"date": "May 15, 2026", "price": 79.09}, {"date": "May 18, 2026", "price": 79.09}, {"date": "May 19, 2026", "price": 78.09}, {"date": "May 20, 2026", "price": 79.27}, {"date": "May 21, 2026", "price": 79.65}, {"date": "May 22, 2026", "price": 79.31}, {"date": "May 26, 2026", "price": 80.68}, {"date": "May 27, 2026", "price": 82.22}, {"date": "May 28, 2026", "price": 83.21}, {"date": "May 29, 2026", "price": 82.68}, {"date": "Jun 01, 2026", "price": 86.84}, {"date": "Jun 02, 2026", "price": 84.96}, {"date": "Jun 03, 2026", "price": 86.94}, {"date": "Jun 04, 2026", "price": 88.38}, {"date": "Jun 05, 2026", "price": 87.87}, {"date": "Jun 08, 2026", "price": 86.58}, {"date": "Jun 09, 2026", "price": 87.77}, {"date": "Jun 10, 2026", "price": 86.82}, {"date": "Jun 11, 2026", "price": 86.55}, {"date": "Jun 12, 2026", "price": 87.46}, {"date": "Jun 15, 2026", "price": 87.67}, {"date": "Jun 16, 2026", "price": 86.47}, {"date": "Jun 17, 2026", "price": 83.88}, {"date": "Jun 18, 2026", "price": 84.68}, {"date": "Jun 22, 2026", "price": 86.35}, {"date": "Jun 23, 2026", "price": 86.4}, {"date": "Jun 24, 2026", "price": 86.9}, {"date": "Jun 25, 2026", "price": 88.81}, {"date": "Jun 26, 2026", "price": 89.7}, {"date": "Jun 29, 2026", "price": 89.57}, {"date": "Jun 30, 2026", "price": 88.33}, {"date": "Jul 01, 2026", "price": 87.98}, {"date": "Jul 02, 2026", "price": 87.9}, {"date": "Jul 06, 2026", "price": 88.84}, {"date": "Jul 07, 2026", "price": 88.67}, {"date": "Jul 08, 2026", "price": 86.84}, {"date": "Jul 09, 2026", "price": 87.37}, {"date": "Jul 10, 2026", "price": 86.2}, {"date": "Jul 13, 2026", "price": 85.75}, {"date": "Jul 14, 2026", "price": 86.09}, {"date": "Jul 15, 2026", "price": 87.64}, {"date": "Jul 16, 2026", "price": 89.77}, {"date": "Jul 17, 2026", "price": 87.72}, {"date": "Jul 20, 2026", "price": 88.17}, {"date": "Jul 21, 2026", "price": 87.17}, {"date": "Jul 22, 2026", "price": 86.66}, {"date": "Jul 23, 2026", "price": 86.56}, {"date": "Jul 24, 2026", "price": 87.04}, {"date": "Jul 27, 2026", "price": 89.29}, {"date": "Jul 28, 2026", "price": 91.26}, {"date": "Jul 29, 2026", "price": 90.79}, {"date": "Jul 30, 2026", "price": 87.05}, {"date": "Jul 31, 2026", "price": 85.06}, {"date": "Aug 03, 2026", "price": 84.83}, {"date": "Aug 04, 2026", "price": 86.32}, {"date": "Aug 05, 2026", "price": 84.32}, {"date": "Aug 06, 2026", "price": 84.12}, {"date": "Aug 07, 2026", "price": 83.42}, {"date": "Aug 10, 2026", "price": 81.46}, {"date": "Aug 11, 2026", "price": 82.37}, {"date": "Aug 12, 2026", "price": 82.98}, {"date": "Aug 13, 2026", "price": 83.04}], "5Y": [{"date": "Aug 08, 2021", "price": 60.13}, {"date": "Aug 15, 2021", "price": 56.04}, {"date": "Aug 22, 2021", "price": 63.24}, {"date": "Aug 29, 2021", "price": 60.66}, {"date": "Sep 05, 2021", "price": 59.25}, {"date": "Sep 12, 2021", "price": 61.49}, {"date": "Sep 19, 2021", "price": 64.29}, {"date": "Sep 26, 2021", "price": 66.4}, {"date": "Oct 03, 2021", "price": 64.2}, {"date": "Oct 10, 2021", "price": 66.35}, {"date": "Oct 17, 2021", "price": 66.05}, {"date": "Oct 24, 2021", "price": 63.78}, {"date": "Oct 31, 2021", "price": 67.43}, {"date": "Nov 07, 2021", "price": 62.2}, {"date": "Nov 14, 2021", "price": 59.73}, {"date": "Nov 21, 2021", "price": 61.03}, {"date": "Nov 28, 2021", "price": 59.68}, {"date": "Dec 05, 2021", "price": 62.58}, {"date": "Dec 12, 2021", "price": 60.07}, {"date": "Dec 19, 2021", "price": 64.68}, {"date": "Dec 26, 2021", "price": 65.57}, {"date": "Jan 02, 2022", "price": 63.52}, {"date": "Jan 09, 2022", "price": 60.69}, {"date": "Jan 16, 2022", "price": 56.44}, {"date": "Jan 23, 2022", "price": 58.88}, {"date": "Jan 30, 2022", "price": 63.42}, {"date": "Feb 06, 2022", "price": 69.57}, {"date": "Feb 13, 2022", "price": 68.41}, {"date": "Feb 20, 2022", "price": 70.48}, {"date": "Feb 27, 2022", "price": 67.05}, {"date": "Mar 06, 2022", "price": 64.22}, {"date": "Mar 13, 2022", "price": 68.88}, {"date": "Mar 20, 2022", "price": 69.01}, {"date": "Mar 27, 2022", "price": 65.35}, {"date": "Apr 03, 2022", "price": 61.97}, {"date": "Apr 10, 2022", "price": 62.3}, {"date": "Apr 17, 2022", "price": 62.8}, {"date": "Apr 24, 2022", "price": 60.58}, {"date": "May 01, 2022", "price": 58.35}, {"date": "May 08, 2022", "price": 56.5}, {"date": "May 15, 2022", "price": 55.01}, {"date": "May 22, 2022", "price": 59.33}, {"date": "May 29, 2022", "price": 59.39}, {"date": "Jun 05, 2022", "price": 55.54}, {"date": "Jun 12, 2022", "price": 51.66}, {"date": "Jun 19, 2022", "price": 53.38}, {"date": "Jun 26, 2022", "price": 51.11}, {"date": "Jul 03, 2022", "price": 49.62}, {"date": "Jul 10, 2022", "price": 52.14}, {"date": "Jul 17, 2022", "price": 54.64}, {"date": "Jul 24, 2022", "price": 55.51}, {"date": "Jul 31, 2022", "price": 54.22}, {"date": "Aug 07, 2022", "price": 57.73}, {"date": "Aug 14, 2022", "price": 55.85}, {"date": "Aug 21, 2022", "price": 56.03}, {"date": "Aug 28, 2022", "price": 53.24}, {"date": "Sep 04, 2022", "price": 56.78}, {"date": "Sep 11, 2022", "price": 51.85}, {"date": "Sep 18, 2022", "price": 47.02}, {"date": "Sep 25, 2022", "price": 47.65}, {"date": "Oct 02, 2022", "price": 51.18}, {"date": "Oct 09, 2022", "price": 50.6}, {"date": "Oct 16, 2022", "price": 53.45}, {"date": "Oct 23, 2022", "price": 57.66}, {"date": "Oct 30, 2022", "price": 56.16}, {"date": "Nov 06, 2022", "price": 59.27}, {"date": "Nov 13, 2022", "price": 60.27}, {"date": "Nov 20, 2022", "price": 60.26}, {"date": "Nov 27, 2022", "price": 59.82}, {"date": "Dec 04, 2022", "price": 58.64}, {"date": "Dec 11, 2022", "price": 57.12}, {"date": "Dec 18, 2022", "price": 55.13}, {"date": "Dec 25, 2022", "price": 54.53}, {"date": "Jan 01, 2023", "price": 56.22}, {"date": "Jan 08, 2023", "price": 58.42}, {"date": "Jan 15, 2023", "price": 60.13}, {"date": "Jan 22, 2023", "price": 61.17}, {"date": "Jan 29, 2023", "price": 66.48}, {"date": "Feb 05, 2023", "price": 65.64}, {"date": "Feb 12, 2023", "price": 66.19}, {"date": "Feb 19, 2023", "price": 63.57}, {"date": "Feb 26, 2023", "price": 65.84}, {"date": "Mar 05, 2023", "price": 61.11}, {"date": "Mar 12, 2023", "price": 59.99}, {"date": "Mar 19, 2023", "price": 60.42}, {"date": "Mar 26, 2023", "price": 64.12}, {"date": "Apr 02, 2023", "price": 62.87}, {"date": "Apr 09, 2023", "price": 65.29}, {"date": "Apr 16, 2023", "price": 68.17}, {"date": "Apr 23, 2023", "price": 69.4}, {"date": "Apr 30, 2023", "price": 70.6}, {"date": "May 07, 2023", "price": 68.32}, {"date": "May 14, 2023", "price": 66.79}, {"date": "May 21, 2023", "price": 65.18}, {"date": "May 28, 2023", "price": 66.3}, {"date": "Jun 04, 2023", "price": 68.41}, {"date": "Jun 11, 2023", "price": 68.0}, {"date": "Jun 18, 2023", "price": 65.79}, {"date": "Jun 25, 2023", "price": 69.37}, {"date": "Jul 02, 2023", "price": 67.86}, {"date": "Jul 09, 2023", "price": 71.85}, {"date": "Jul 16, 2023", "price": 72.26}, {"date": "Jul 23, 2023", "price": 67.39}, {"date": "Jul 30, 2023", "price": 66.73}, {"date": "Aug 06, 2023", "price": 67.31}, {"date": "Aug 13, 2023", "price": 64.8}, {"date": "Aug 20, 2023", "price": 65.07}, {"date": "Aug 27, 2023", "price": 67.63}, {"date": "Sep 03, 2023", "price": 64.78}, {"date": "Sep 10, 2023", "price": 64.69}, {"date": "Sep 17, 2023", "price": 60.79}, {"date": "Sep 24, 2023", "price": 60.83}, {"date": "Oct 01, 2023", "price": 58.8}, {"date": "Oct 08, 2023", "price": 59.02}, {"date": "Oct 15, 2023", "price": 59.54}, {"date": "Oct 22, 2023", "price": 54.56}, {"date": "Oct 29, 2023", "price": 57.61}, {"date": "Nov 05, 2023", "price": 57.28}, {"date": "Nov 12, 2023", "price": 58.81}, {"date": "Nov 19, 2023", "price": 59.2}, {"date": "Nov 26, 2023", "price": 61.03}, {"date": "Dec 03, 2023", "price": 59.72}, {"date": "Dec 10, 2023", "price": 61.29}, {"date": "Dec 17, 2023", "price": 62.14}, {"date": "Dec 24, 2023", "price": 62.61}, {"date": "Dec 31, 2023", "price": 62.28}, {"date": "Jan 07, 2024", "price": 62.31}, {"date": "Jan 14, 2024", "price": 64.18}, {"date": "Jan 21, 2024", "price": 64.46}, {"date": "Jan 28, 2024", "price": 64.12}, {"date": "Feb 04, 2024", "price": 66.75}, {"date": "Feb 11, 2024", "price": 63.37}, {"date": "Feb 18, 2024", "price": 64.34}, {"date": "Feb 25, 2024", "price": 64.88}, {"date": "Mar 03, 2024", "price": 63.16}, {"date": "Mar 10, 2024", "price": 61.7}, {"date": "Mar 17, 2024", "price": 63.17}, {"date": "Mar 24, 2024", "price": 67.32}, {"date": "Mar 31, 2024", "price": 66.13}, {"date": "Apr 07, 2024", "price": 64.4}, {"date": "Apr 14, 2024", "price": 62.66}, {"date": "Apr 21, 2024", "price": 53.18}, {"date": "Apr 28, 2024", "price": 54.12}, {"date": "May 05, 2024", "price": 53.9}, {"date": "May 12, 2024", "price": 55.01}, {"date": "May 19, 2024", "price": 51.76}, {"date": "May 26, 2024", "price": 53.32}, {"date": "Jun 02, 2024", "price": 53.01}, {"date": "Jun 09, 2024", "price": 53.67}, {"date": "Jun 16, 2024", "price": 53.83}, {"date": "Jun 23, 2024", "price": 55.1}, {"date": "Jun 30, 2024", "price": 54.05}, {"date": "Jul 07, 2024", "price": 57.32}, {"date": "Jul 14, 2024", "price": 59.12}, {"date": "Jul 21, 2024", "price": 61.05}, {"date": "Jul 28, 2024", "price": 55.29}, {"date": "Aug 04, 2024", "price": 55.93}, {"date": "Aug 11, 2024", "price": 58.15}, {"date": "Aug 18, 2024", "price": 60.03}, {"date": "Aug 25, 2024", "price": 60.02}, {"date": "Sep 01, 2024", "price": 59.72}, {"date": "Sep 08, 2024", "price": 61.26}, {"date": "Sep 15, 2024", "price": 64.03}, {"date": "Sep 22, 2024", "price": 65.35}, {"date": "Sep 29, 2024", "price": 64.8}, {"date": "Oct 06, 2024", "price": 63.33}, {"date": "Oct 13, 2024", "price": 64.97}, {"date": "Oct 20, 2024", "price": 69.36}, {"date": "Oct 27, 2024", "price": 68.66}, {"date": "Nov 03, 2024", "price": 73.67}, {"date": "Nov 10, 2024", "price": 72.43}, {"date": "Nov 17, 2024", "price": 72.33}, {"date": "Nov 24, 2024", "price": 73.85}, {"date": "Dec 01, 2024", "price": 75.55}, {"date": "Dec 08, 2024", "price": 74.95}, {"date": "Dec 15, 2024", "price": 71.2}, {"date": "Dec 22, 2024", "price": 72.41}, {"date": "Dec 29, 2024", "price": 72.92}, {"date": "Jan 05, 2025", "price": 71.08}, {"date": "Jan 12, 2025", "price": 74.89}, {"date": "Jan 19, 2025", "price": 75.43}, {"date": "Jan 26, 2025", "price": 76.65}, {"date": "Feb 02, 2025", "price": 77.22}, {"date": "Feb 09, 2025", "price": 78.53}, {"date": "Feb 16, 2025", "price": 76.86}, {"date": "Feb 23, 2025", "price": 76.26}, {"date": "Mar 02, 2025", "price": 69.02}, {"date": "Mar 09, 2025", "price": 68.49}, {"date": "Mar 16, 2025", "price": 67.96}, {"date": "Mar 23, 2025", "price": 66.25}, {"date": "Mar 30, 2025", "price": 61.77}, {"date": "Apr 06, 2025", "price": 64.58}, {"date": "Apr 13, 2025", "price": 64.68}, {"date": "Apr 20, 2025", "price": 68.87}, {"date": "Apr 27, 2025", "price": 70.88}, {"date": "May 04, 2025", "price": 71.87}, {"date": "May 11, 2025", "price": 75.91}, {"date": "May 18, 2025", "price": 73.04}, {"date": "May 25, 2025", "price": 74.97}, {"date": "Jun 01, 2025", "price": 74.08}, {"date": "Jun 08, 2025", "price": 73.27}, {"date": "Jun 15, 2025", "price": 76.41}, {"date": "Jun 22, 2025", "price": 79.02}, {"date": "Jun 29, 2025", "price": 81.57}, {"date": "Jul 06, 2025", "price": 79.66}, {"date": "Jul 13, 2025", "price": 82.14}, {"date": "Jul 20, 2025", "price": 85.94}, {"date": "Jul 27, 2025", "price": 83.65}, {"date": "Aug 03, 2025", "price": 81.97}, {"date": "Aug 10, 2025", "price": 82.72}, {"date": "Aug 17, 2025", "price": 85.66}, {"date": "Aug 24, 2025", "price": 85.86}, {"date": "Aug 31, 2025", "price": 86.46}, {"date": "Sep 07, 2025", "price": 84.68}, {"date": "Sep 14, 2025", "price": 83.3}, {"date": "Sep 21, 2025", "price": 85.94}, {"date": "Sep 28, 2025", "price": 86.48}, {"date": "Oct 05, 2025", "price": 81.54}, {"date": "Oct 12, 2025", "price": 82.37}, {"date": "Oct 19, 2025", "price": 78.77}, {"date": "Oct 26, 2025", "price": 77.87}, {"date": "Nov 02, 2025", "price": 81.27}, {"date": "Nov 09, 2025", "price": 79.78}, {"date": "Nov 16, 2025", "price": 80.72}, {"date": "Nov 23, 2025", "price": 83.3}, {"date": "Nov 30, 2025", "price": 80.88}, {"date": "Dec 07, 2025", "price": 85.1}, {"date": "Dec 14, 2025", "price": 86.37}, {"date": "Dec 21, 2025", "price": 86.6}, {"date": "Dec 28, 2025", "price": 86.19}, {"date": "Jan 04, 2026", "price": 87.92}, {"date": "Jan 11, 2026", "price": 88.65}, {"date": "Jan 18, 2026", "price": 83.89}, {"date": "Jan 25, 2026", "price": 84.54}, {"date": "Feb 01, 2026", "price": 83.24}, {"date": "Feb 08, 2026", "price": 81.99}, {"date": "Feb 15, 2026", "price": 86.2}, {"date": "Feb 22, 2026", "price": 83.23}, {"date": "Mar 01, 2026", "price": 80.13}, {"date": "Mar 08, 2026", "price": 81.64}, {"date": "Mar 15, 2026", "price": 81.06}, {"date": "Mar 22, 2026", "price": 80.16}, {"date": "Mar 29, 2026", "price": 83.74}, {"date": "Apr 05, 2026", "price": 86.5}, {"date": "Apr 12, 2026", "price": 87.52}, {"date": "Apr 19, 2026", "price": 83.88}, {"date": "Apr 26, 2026", "price": 84.5}, {"date": "May 03, 2026", "price": 85.64}, {"date": "May 10, 2026", "price": 79.09}, {"date": "May 17, 2026", "price": 79.31}, {"date": "May 24, 2026", "price": 82.68}, {"date": "May 31, 2026", "price": 87.87}, {"date": "Jun 07, 2026", "price": 87.46}, {"date": "Jun 14, 2026", "price": 84.68}, {"date": "Jun 21, 2026", "price": 89.7}, {"date": "Jun 28, 2026", "price": 87.9}, {"date": "Jul 05, 2026", "price": 86.2}, {"date": "Jul 12, 2026", "price": 87.72}, {"date": "Jul 19, 2026", "price": 87.04}, {"date": "Jul 26, 2026", "price": 87.05}, {"date": "Aug 02, 2026", "price": 83.42}, {"date": "Aug 09, 2026", "price": 82.98}, {"date": "Aug 13, 2026", "price": 83.04}], "10Y": [{"date": "Aug 31, 2016", "price": 19.78}, {"date": "Sep 30, 2016", "price": 17.86}, {"date": "Oct 31, 2016", "price": 18.84}, {"date": "Nov 30, 2016", "price": 20.17}, {"date": "Dec 31, 2016", "price": 20.32}, {"date": "Jan 31, 2017", "price": 19.67}, {"date": "Feb 28, 2017", "price": 22.01}, {"date": "Mar 31, 2017", "price": 22.68}, {"date": "Apr 30, 2017", "price": 25.41}, {"date": "May 31, 2017", "price": 24.81}, {"date": "Jun 30, 2017", "price": 25.06}, {"date": "Jul 31, 2017", "price": 26.44}, {"date": "Aug 31, 2017", "price": 26.05}, {"date": "Sep 30, 2017", "price": 29.23}, {"date": "Oct 31, 2017", "price": 31.89}, {"date": "Nov 30, 2017", "price": 35.05}, {"date": "Dec 31, 2017", "price": 39.47}, {"date": "Jan 31, 2018", "price": 35.38}, {"date": "Feb 28, 2018", "price": 31.86}, {"date": "Mar 31, 2018", "price": 33.21}, {"date": "Apr 30, 2018", "price": 37.75}, {"date": "May 31, 2018", "price": 34.66}, {"date": "Jun 30, 2018", "price": 37.35}, {"date": "Jul 31, 2018", "price": 36.42}, {"date": "Aug 31, 2018", "price": 33.85}, {"date": "Sep 30, 2018", "price": 26.56}, {"date": "Oct 31, 2018", "price": 24.82}, {"date": "Nov 30, 2018", "price": 20.78}, {"date": "Dec 31, 2018", "price": 27.32}, {"date": "Jan 31, 2019", "price": 29.76}, {"date": "Feb 28, 2019", "price": 27.36}, {"date": "Mar 31, 2019", "price": 28.78}, {"date": "Apr 30, 2019", "price": 23.92}, {"date": "May 31, 2019", "price": 26.94}, {"date": "Jun 30, 2019", "price": 26.49}, {"date": "Jul 31, 2019", "price": 24.04}, {"date": "Aug 31, 2019", "price": 23.95}, {"date": "Sep 30, 2019", "price": 27.25}, {"date": "Oct 31, 2019", "price": 29.41}, {"date": "Nov 30, 2019", "price": 29.94}, {"date": "Dec 31, 2019", "price": 29.85}, {"date": "Jan 31, 2020", "price": 26.71}, {"date": "Feb 29, 2020", "price": 14.42}, {"date": "Mar 31, 2020", "price": 16.69}, {"date": "Apr 30, 2020", "price": 21.38}, {"date": "May 31, 2020", "price": 20.9}, {"date": "Jun 30, 2020", "price": 23.67}, {"date": "Jul 31, 2020", "price": 26.78}, {"date": "Aug 31, 2020", "price": 30.69}, {"date": "Sep 30, 2020", "price": 31.72}, {"date": "Oct 31, 2020", "price": 38.49}, {"date": "Nov 30, 2020", "price": 42.92}, {"date": "Dec 31, 2020", "price": 45.16}, {"date": "Jan 31, 2021", "price": 58.7}, {"date": "Feb 28, 2021", "price": 58.96}, {"date": "Mar 31, 2021", "price": 66.15}, {"date": "Apr 30, 2021", "price": 64.39}, {"date": "May 31, 2021", "price": 61.49}, {"date": "Jun 30, 2021", "price": 57.0}, {"date": "Jul 31, 2021", "price": 61.37}, {"date": "Aug 31, 2021", "price": 63.26}, {"date": "Sep 30, 2021", "price": 63.78}, {"date": "Oct 31, 2021", "price": 58.61}, {"date": "Nov 30, 2021", "price": 65.57}, {"date": "Dec 31, 2021", "price": 59.46}, {"date": "Jan 31, 2022", "price": 70.94}, {"date": "Feb 28, 2022", "price": 65.78}, {"date": "Mar 31, 2022", "price": 60.58}, {"date": "Apr 30, 2022", "price": 58.77}, {"date": "May 31, 2022", "price": 49.75}, {"date": "Jun 30, 2022", "price": 55.51}, {"date": "Jul 31, 2022", "price": 54.43}, {"date": "Aug 31, 2022", "price": 47.65}, {"date": "Sep 30, 2022", "price": 57.76}, {"date": "Oct 31, 2022", "price": 61.33}, {"date": "Nov 30, 2022", "price": 54.53}, {"date": "Dec 31, 2022", "price": 62.31}, {"date": "Jan 31, 2023", "price": 65.13}, {"date": "Feb 28, 2023", "price": 64.12}, {"date": "Mar 31, 2023", "price": 69.4}, {"date": "Apr 30, 2023", "price": 63.73}, {"date": "May 31, 2023", "price": 69.37}, {"date": "Jun 30, 2023", "price": 68.32}, {"date": "Jul 31, 2023", "price": 66.87}, {"date": "Aug 31, 2023", "price": 60.83}, {"date": "Sep 30, 2023", "price": 55.25}, {"date": "Oct 31, 2023", "price": 59.05}, {"date": "Nov 30, 2023", "price": 62.61}, {"date": "Dec 31, 2023", "price": 63.49}, {"date": "Jan 31, 2024", "price": 66.13}, {"date": "Feb 29, 2024", "price": 67.32}, {"date": "Mar 31, 2024", "price": 53.51}, {"date": "Apr 30, 2024", "price": 53.32}, {"date": "May 31, 2024", "price": 55.1}, {"date": "Jun 30, 2024", "price": 60.87}, {"date": "Jul 31, 2024", "price": 60.02}, {"date": "Aug 31, 2024", "price": 64.65}, {"date": "Sep 30, 2024", "price": 69.29}, {"date": "Oct 31, 2024", "price": 73.85}, {"date": "Nov 30, 2024", "price": 72.54}, {"date": "Dec 31, 2024", "price": 76.65}, {"date": "Jan 31, 2025", "price": 76.26}, {"date": "Feb 28, 2025", "price": 65.83}, {"date": "Mar 31, 2025", "price": 69.14}, {"date": "Apr 30, 2025", "price": 74.97}, {"date": "May 31, 2025", "price": 78.23}, {"date": "Jun 30, 2025", "price": 84.9}, {"date": "Jul 31, 2025", "price": 85.86}, {"date": "Aug 31, 2025", "price": 86.45}, {"date": "Sep 30, 2025", "price": 77.87}, {"date": "Oct 31, 2025", "price": 83.3}, {"date": "Nov 30, 2025", "price": 85.24}, {"date": "Dec 31, 2025", "price": 84.54}, {"date": "Jan 31, 2026", "price": 83.23}, {"date": "Feb 28, 2026", "price": 82.18}, {"date": "Mar 31, 2026", "price": 86.95}, {"date": "Apr 30, 2026", "price": 82.68}, {"date": "May 31, 2026", "price": 88.33}, {"date": "Jun 30, 2026", "price": 85.06}, {"date": "Jul 31, 2026", "price": 82.98}, {"date": "Aug 13, 2026", "price": 83.04}], "MAX": [{"date": "Oct 31, 1993", "price": 16.0}, {"date": "Nov 30, 1993", "price": 13.38}, {"date": "Dec 31, 1993", "price": 18.38}, {"date": "Jan 31, 1994", "price": 17.5}, {"date": "Feb 28, 1994", "price": 15.0}, {"date": "Mar 31, 1994", "price": 15.38}, {"date": "Apr 30, 1994", "price": 15.12}, {"date": "May 31, 1994", "price": 14.75}, {"date": "Jun 30, 1994", "price": 13.0}, {"date": "Jul 31, 1994", "price": 12.62}, {"date": "Aug 31, 1994", "price": 12.88}, {"date": "Sep 30, 1994", "price": 14.0}, {"date": "Oct 31, 1994", "price": 11.62}, {"date": "Nov 30, 1994", "price": 10.75}, {"date": "Dec 31, 1994", "price": 11.75}, {"date": "Jan 31, 1995", "price": 14.12}, {"date": "Feb 28, 1995", "price": 13.12}, {"date": "Mar 31, 1995", "price": 13.62}, {"date": "Apr 30, 1995", "price": 14.5}, {"date": "May 31, 1995", "price": 17.0}, {"date": "Jun 30, 1995", "price": 15.12}, {"date": "Jul 31, 1995", "price": 14.5}, {"date": "Aug 31, 1995", "price": 14.88}, {"date": "Sep 30, 1995", "price": 13.5}, {"date": "Oct 31, 1995", "price": 12.0}, {"date": "Nov 30, 1995", "price": 11.62}, {"date": "Dec 31, 1995", "price": 11.0}, {"date": "Jan 31, 1996", "price": 11.25}, {"date": "Feb 29, 1996", "price": 11.12}, {"date": "Mar 31, 1996", "price": 14.0}, {"date": "Apr 30, 1996", "price": 16.75}, {"date": "May 31, 1996", "price": 15.0}, {"date": "Jun 30, 1996", "price": 12.38}, {"date": "Jul 31, 1996", "price": 11.62}, {"date": "Aug 31, 1996", "price": 9.38}, {"date": "Sep 30, 1996", "price": 7.25}, {"date": "Oct 31, 1996", "price": 8.0}, {"date": "Nov 30, 1996", "price": 8.25}, {"date": "Dec 31, 1996", "price": 6.25}, {"date": "Jan 31, 1997", "price": 5.75}, {"date": "Feb 28, 1997", "price": 5.62}, {"date": "Mar 31, 1997", "price": 5.75}, {"date": "Apr 30, 1997", "price": 5.88}, {"date": "May 31, 1997", "price": 5.75}, {"date": "Jun 30, 1997", "price": 5.19}, {"date": "Jul 31, 1997", "price": 8.12}, {"date": "Aug 31, 1997", "price": 8.62}, {"date": "Sep 30, 1997", "price": 8.25}, {"date": "Oct 31, 1997", "price": 7.25}, {"date": "Nov 30, 1997", "price": 6.62}, {"date": "Dec 31, 1997", "price": 7.12}, {"date": "Jan 31, 1998", "price": 7.94}, {"date": "Feb 28, 1998", "price": 7.19}, {"date": "Mar 31, 1998", "price": 7.0}, {"date": "Apr 30, 1998", "price": 6.69}, {"date": "May 31, 1998", "price": 5.75}, {"date": "Jun 30, 1998", "price": 5.56}, {"date": "Jul 31, 1998", "price": 4.0}, {"date": "Aug 31, 1998", "price": 3.62}, {"date": "Sep 30, 1998", "price": 3.0}, {"date": "Oct 31, 1998", "price": 3.62}, {"date": "Nov 30, 1998", "price": 3.31}, {"date": "Dec 31, 1998", "price": 3.5}, {"date": "Jan 31, 1999", "price": 4.12}, {"date": "Feb 28, 1999", "price": 4.25}, {"date": "Mar 31, 1999", "price": 5.38}, {"date": "Apr 30, 1999", "price": 5.94}, {"date": "May 31, 1999", "price": 7.0}, {"date": "Jun 30, 1999", "price": 6.25}, {"date": "Jul 31, 1999", "price": 5.38}, {"date": "Aug 31, 1999", "price": 6.0}, {"date": "Sep 30, 1999", "price": 6.5}, {"date": "Oct 31, 1999", "price": 6.19}, {"date": "Nov 30, 1999", "price": 5.81}, {"date": "Dec 31, 1999", "price": 5.31}, {"date": "Jan 31, 2000", "price": 5.19}, {"date": "Feb 29, 2000", "price": 4.94}, {"date": "Mar 31, 2000", "price": 5.06}, {"date": "Apr 30, 2000", "price": 4.94}, {"date": "May 31, 2000", "price": 5.62}, {"date": "Jun 30, 2000", "price": 4.44}, {"date": "Jul 31, 2000", "price": 4.62}, {"date": "Aug 31, 2000", "price": 4.94}, {"date": "Sep 30, 2000", "price": 3.94}, {"date": "Oct 31, 2000", "price": 3.88}, {"date": "Nov 30, 2000", "price": 3.44}, {"date": "Dec 31, 2000", "price": 4.2}, {"date": "Jan 31, 2001", "price": 3.51}, {"date": "Feb 28, 2001", "price": 3.37}, {"date": "Mar 31, 2001", "price": 4.7}, {"date": "Apr 30, 2001", "price": 5.24}, {"date": "May 31, 2001", "price": 5.75}, {"date": "Jun 30, 2001", "price": 6.02}, {"date": "Jul 31, 2001", "price": 6.0}, {"date": "Aug 31, 2001", "price": 4.45}, {"date": "Sep 30, 2001", "price": 4.3}, {"date": "Oct 31, 2001", "price": 5.23}, {"date": "Nov 30, 2001", "price": 6.5}, {"date": "Dec 31, 2001", "price": 8.23}, {"date": "Jan 31, 2002", "price": 11.1}, {"date": "Feb 28, 2002", "price": 15.04}, {"date": "Mar 31, 2002", "price": 15.3}, {"date": "Apr 30, 2002", "price": 14.61}, {"date": "May 31, 2002", "price": 14.4}, {"date": "Jun 30, 2002", "price": 14.83}, {"date": "Jul 31, 2002", "price": 16.3}, {"date": "Aug 31, 2002", "price": 18.67}, {"date": "Sep 30, 2002", "price": 11.06}, {"date": "Oct 31, 2002", "price": 14.25}, {"date": "Nov 30, 2002", "price": 14.05}, {"date": "Dec 31, 2002", "price": 13.38}, {"date": "Jan 31, 2003", "price": 12.51}, {"date": "Feb 28, 2003", "price": 12.75}, {"date": "Mar 31, 2003", "price": 14.25}, {"date": "Apr 30, 2003", "price": 15.12}, {"date": "May 31, 2003", "price": 17.26}, {"date": "Jun 30, 2003", "price": 15.95}, {"date": "Jul 31, 2003", "price": 15.35}, {"date": "Aug 31, 2003", "price": 15.26}, {"date": "Sep 30, 2003", "price": 15.26}, {"date": "Oct 31, 2003", "price": 16.36}, {"date": "Nov 30, 2003", "price": 16.14}, {"date": "Dec 31, 2003", "price": 16.52}, {"date": "Jan 31, 2004", "price": 20.38}, {"date": "Feb 29, 2004", "price": 22.89}, {"date": "Mar 31, 2004", "price": 23.5}, {"date": "Apr 30, 2004", "price": 23.25}, {"date": "May 31, 2004", "price": 26.57}, {"date": "Jun 30, 2004", "price": 26.29}, {"date": "Jul 31, 2004", "price": 27.15}, {"date": "Aug 31, 2004", "price": 28.15}, {"date": "Sep 30, 2004", "price": 33.49}, {"date": "Oct 31, 2004", "price": 36.76}, {"date": "Nov 30, 2004", "price": 41.65}, {"date": "Dec 31, 2004", "price": 39.8}, {"date": "Jan 31, 2005", "price": 49.01}, {"date": "Feb 28, 2005", "price": 52.15}, {"date": "Mar 31, 2005", "price": 52.78}, {"date": "Apr 30, 2005", "price": 52.86}, {"date": "May 31, 2005", "price": 51.13}, {"date": "Jun 30, 2005", "price": 52.44}, {"date": "Jul 31, 2005", "price": 46.53}, {"date": "Aug 31, 2005", "price": 43.12}, {"date": "Sep 30, 2005", "price": 41.25}, {"date": "Oct 31, 2005", "price": 48.38}, {"date": "Nov 30, 2005", "price": 47.66}, {"date": "Dec 31, 2005", "price": 45.2}, {"date": "Jan 31, 2006", "price": 43.73}, {"date": "Feb 28, 2006", "price": 49.94}, {"date": "Mar 31, 2006", "price": 49.82}, {"date": "Apr 30, 2006", "price": 45.0}, {"date": "May 31, 2006", "price": 40.36}, {"date": "Jun 30, 2006", "price": 33.54}, {"date": "Jul 31, 2006", "price": 36.16}, {"date": "Aug 31, 2006", "price": 38.44}, {"date": "Sep 30, 2006", "price": 39.47}, {"date": "Oct 31, 2006", "price": 42.35}, {"date": "Nov 30, 2006", "price": 45.31}, {"date": "Dec 31, 2006", "price": 47.57}, {"date": "Jan 31, 2007", "price": 46.87}, {"date": "Feb 28, 2007", "price": 47.64}, {"date": "Mar 31, 2007", "price": 45.5}, {"date": "Apr 30, 2007", "price": 50.04}, {"date": "May 31, 2007", "price": 49.19}, {"date": "Jun 30, 2007", "price": 44.1}, {"date": "Jul 31, 2007", "price": 40.85}, {"date": "Aug 31, 2007", "price": 42.85}, {"date": "Sep 30, 2007", "price": 41.82}, {"date": "Oct 31, 2007", "price": 38.72}, {"date": "Nov 30, 2007", "price": 34.07}, {"date": "Dec 31, 2007", "price": 26.69}, {"date": "Jan 31, 2008", "price": 21.09}, {"date": "Feb 29, 2008", "price": 20.0}, {"date": "Mar 31, 2008", "price": 18.75}, {"date": "Apr 30, 2008", "price": 15.95}, {"date": "May 31, 2008", "price": 12.56}, {"date": "Jun 30, 2008", "price": 9.98}, {"date": "Jul 31, 2008", "price": 12.19}, {"date": "Aug 31, 2008", "price": 9.36}, {"date": "Sep 30, 2008", "price": 6.8}, {"date": "Oct 31, 2008", "price": 4.4}, {"date": "Nov 30, 2008", "price": 4.73}, {"date": "Dec 31, 2008", "price": 4.81}, {"date": "Jan 31, 2009", "price": 4.25}, {"date": "Feb 28, 2009", "price": 3.73}, {"date": "Mar 31, 2009", "price": 9.19}, {"date": "Apr 30, 2009", "price": 10.04}, {"date": "May 31, 2009", "price": 8.5}, {"date": "Jun 30, 2009", "price": 9.19}, {"date": "Jul 31, 2009", "price": 10.28}, {"date": "Aug 31, 2009", "price": 10.93}, {"date": "Sep 30, 2009", "price": 7.36}, {"date": "Oct 31, 2009", "price": 8.17}, {"date": "Nov 30, 2009", "price": 8.37}, {"date": "Dec 31, 2009", "price": 7.8}, {"date": "Jan 31, 2010", "price": 7.64}, {"date": "Feb 28, 2010", "price": 9.88}, {"date": "Mar 31, 2010", "price": 12.7}, {"date": "Apr 30, 2010", "price": 13.17}, {"date": "May 31, 2010", "price": 8.49}, {"date": "Jun 30, 2010", "price": 8.46}, {"date": "Jul 31, 2010", "price": 6.94}, {"date": "Aug 31, 2010", "price": 7.25}, {"date": "Sep 30, 2010", "price": 8.31}, {"date": "Oct 31, 2010", "price": 8.94}, {"date": "Nov 30, 2010", "price": 10.6}, {"date": "Dec 31, 2010", "price": 10.84}, {"date": "Jan 31, 2011", "price": 10.69}, {"date": "Feb 28, 2011", "price": 9.37}, {"date": "Mar 31, 2011", "price": 8.94}, {"date": "Apr 30, 2011", "price": 9.44}, {"date": "May 31, 2011", "price": 8.7}, {"date": "Jun 30, 2011", "price": 8.74}, {"date": "Jul 31, 2011", "price": 6.25}, {"date": "Aug 31, 2011", "price": 4.9}, {"date": "Sep 30, 2011", "price": 6.48}, {"date": "Oct 31, 2011", "price": 6.7}, {"date": "Nov 30, 2011", "price": 7.46}, {"date": "Dec 31, 2011", "price": 8.77}, {"date": "Jan 31, 2012", "price": 8.01}, {"date": "Feb 29, 2012", "price": 7.84}, {"date": "Mar 31, 2012", "price": 7.69}, {"date": "Apr 30, 2012", "price": 7.62}, {"date": "May 31, 2012", "price": 7.2}, {"date": "Jun 30, 2012", "price": 5.7}, {"date": "Jul 31, 2012", "price": 6.01}, {"date": "Aug 31, 2012", "price": 7.06}, {"date": "Sep 30, 2012", "price": 6.17}, {"date": "Oct 31, 2012", "price": 5.5}, {"date": "Nov 30, 2012", "price": 6.64}, {"date": "Dec 31, 2012", "price": 7.01}, {"date": "Jan 31, 2013", "price": 6.57}, {"date": "Feb 28, 2013", "price": 8.27}, {"date": "Mar 31, 2013", "price": 12.0}, {"date": "Apr 30, 2013", "price": 13.03}, {"date": "May 31, 2013", "price": 11.3}, {"date": "Jun 30, 2013", "price": 13.31}, {"date": "Jul 31, 2013", "price": 12.12}, {"date": "Aug 31, 2013", "price": 14.15}, {"date": "Sep 30, 2013", "price": 10.56}, {"date": "Oct 31, 2013", "price": 11.45}, {"date": "Nov 30, 2013", "price": 11.26}, {"date": "Dec 31, 2013", "price": 10.56}, {"date": "Jan 31, 2014", "price": 11.62}, {"date": "Feb 28, 2014", "price": 13.2}, {"date": "Mar 31, 2014", "price": 11.82}, {"date": "Apr 30, 2014", "price": 10.95}, {"date": "May 31, 2014", "price": 12.13}, {"date": "Jun 30, 2014", "price": 11.0}, {"date": "Jul 31, 2014", "price": 10.65}, {"date": "Aug 31, 2014", "price": 10.16}, {"date": "Sep 30, 2014", "price": 11.55}, {"date": "Oct 31, 2014", "price": 12.78}, {"date": "Nov 30, 2014", "price": 12.78}, {"date": "Dec 31, 2014", "price": 13.06}, {"date": "Jan 31, 2015", "price": 13.81}, {"date": "Feb 28, 2015", "price": 14.2}, {"date": "Mar 31, 2015", "price": 13.2}, {"date": "Apr 30, 2015", "price": 14.31}, {"date": "May 31, 2015", "price": 14.95}, {"date": "Jun 30, 2015", "price": 17.09}, {"date": "Jul 31, 2015", "price": 16.1}, {"date": "Aug 31, 2015", "price": 16.3}, {"date": "Sep 30, 2015", "price": 19.99}, {"date": "Oct 31, 2015", "price": 19.59}, {"date": "Nov 30, 2015", "price": 19.87}, {"date": "Dec 31, 2015", "price": 17.81}, {"date": "Jan 31, 2016", "price": 17.32}, {"date": "Feb 29, 2016", "price": 20.66}, {"date": "Mar 31, 2016", "price": 18.64}, {"date": "Apr 30, 2016", "price": 18.91}, {"date": "May 31, 2016", "price": 18.4}, {"date": "Jun 30, 2016", "price": 19.61}, {"date": "Jul 31, 2016", "price": 19.5}, {"date": "Aug 31, 2016", "price": 19.78}, {"date": "Sep 30, 2016", "price": 17.86}, {"date": "Oct 31, 2016", "price": 18.84}, {"date": "Nov 30, 2016", "price": 20.17}, {"date": "Dec 31, 2016", "price": 20.32}, {"date": "Jan 31, 2017", "price": 19.67}, {"date": "Feb 28, 2017", "price": 22.01}, {"date": "Mar 31, 2017", "price": 22.68}, {"date": "Apr 30, 2017", "price": 25.41}, {"date": "May 31, 2017", "price": 24.81}, {"date": "Jun 30, 2017", "price": 25.06}, {"date": "Jul 31, 2017", "price": 26.44}, {"date": "Aug 31, 2017", "price": 26.05}, {"date": "Sep 30, 2017", "price": 29.23}, {"date": "Oct 31, 2017", "price": 31.89}, {"date": "Nov 30, 2017", "price": 35.05}, {"date": "Dec 31, 2017", "price": 39.47}, {"date": "Jan 31, 2018", "price": 35.38}, {"date": "Feb 28, 2018", "price": 31.86}, {"date": "Mar 31, 2018", "price": 33.21}, {"date": "Apr 30, 2018", "price": 37.75}, {"date": "May 31, 2018", "price": 34.66}, {"date": "Jun 30, 2018", "price": 37.35}, {"date": "Jul 31, 2018", "price": 36.42}, {"date": "Aug 31, 2018", "price": 33.85}, {"date": "Sep 30, 2018", "price": 26.56}, {"date": "Oct 31, 2018", "price": 24.82}, {"date": "Nov 30, 2018", "price": 20.78}, {"date": "Dec 31, 2018", "price": 27.32}, {"date": "Jan 31, 2019", "price": 29.76}, {"date": "Feb 28, 2019", "price": 27.36}, {"date": "Mar 31, 2019", "price": 28.78}, {"date": "Apr 30, 2019", "price": 23.92}, {"date": "May 31, 2019", "price": 26.94}, {"date": "Jun 30, 2019", "price": 26.49}, {"date": "Jul 31, 2019", "price": 24.04}, {"date": "Aug 31, 2019", "price": 23.95}, {"date": "Sep 30, 2019", "price": 27.25}, {"date": "Oct 31, 2019", "price": 29.41}, {"date": "Nov 30, 2019", "price": 29.94}, {"date": "Dec 31, 2019", "price": 29.85}, {"date": "Jan 31, 2020", "price": 26.71}, {"date": "Feb 29, 2020", "price": 14.42}, {"date": "Mar 31, 2020", "price": 16.69}, {"date": "Apr 30, 2020", "price": 21.38}, {"date": "May 31, 2020", "price": 20.9}, {"date": "Jun 30, 2020", "price": 23.67}, {"date": "Jul 31, 2020", "price": 26.78}, {"date": "Aug 31, 2020", "price": 30.69}, {"date": "Sep 30, 2020", "price": 31.72}, {"date": "Oct 31, 2020", "price": 38.49}, {"date": "Nov 30, 2020", "price": 42.92}, {"date": "Dec 31, 2020", "price": 45.16}, {"date": "Jan 31, 2021", "price": 58.7}, {"date": "Feb 28, 2021", "price": 58.96}, {"date": "Mar 31, 2021", "price": 66.15}, {"date": "Apr 30, 2021", "price": 64.39}, {"date": "May 31, 2021", "price": 61.49}, {"date": "Jun 30, 2021", "price": 57.0}, {"date": "Jul 31, 2021", "price": 61.37}, {"date": "Aug 31, 2021", "price": 63.26}, {"date": "Sep 30, 2021", "price": 63.78}, {"date": "Oct 31, 2021", "price": 58.61}, {"date": "Nov 30, 2021", "price": 65.57}, {"date": "Dec 31, 2021", "price": 59.46}, {"date": "Jan 31, 2022", "price": 70.94}, {"date": "Feb 28, 2022", "price": 65.78}, {"date": "Mar 31, 2022", "price": 60.58}, {"date": "Apr 30, 2022", "price": 58.77}, {"date": "May 31, 2022", "price": 49.75}, {"date": "Jun 30, 2022", "price": 55.51}, {"date": "Jul 31, 2022", "price": 54.43}, {"date": "Aug 31, 2022", "price": 47.65}, {"date": "Sep 30, 2022", "price": 57.76}, {"date": "Oct 31, 2022", "price": 61.33}, {"date": "Nov 30, 2022", "price": 54.53}, {"date": "Dec 31, 2022", "price": 62.31}, {"date": "Jan 31, 2023", "price": 65.13}, {"date": "Feb 28, 2023", "price": 64.12}, {"date": "Mar 31, 2023", "price": 69.4}, {"date": "Apr 30, 2023", "price": 63.73}, {"date": "May 31, 2023", "price": 69.37}, {"date": "Jun 30, 2023", "price": 68.32}, {"date": "Jul 31, 2023", "price": 66.87}, {"date": "Aug 31, 2023", "price": 60.83}, {"date": "Sep 30, 2023", "price": 55.25}, {"date": "Oct 31, 2023", "price": 59.05}, {"date": "Nov 30, 2023", "price": 62.61}, {"date": "Dec 31, 2023", "price": 63.49}, {"date": "Jan 31, 2024", "price": 66.13}, {"date": "Feb 29, 2024", "price": 67.32}, {"date": "Mar 31, 2024", "price": 53.51}, {"date": "Apr 30, 2024", "price": 53.32}, {"date": "May 31, 2024", "price": 55.1}, {"date": "Jun 30, 2024", "price": 60.87}, {"date": "Jul 31, 2024", "price": 60.02}, {"date": "Aug 31, 2024", "price": 64.65}, {"date": "Sep 30, 2024", "price": 69.29}, {"date": "Oct 31, 2024", "price": 73.85}, {"date": "Nov 30, 2024", "price": 72.54}, {"date": "Dec 31, 2024", "price": 76.65}, {"date": "Jan 31, 2025", "price": 76.26}, {"date": "Feb 28, 2025", "price": 65.83}, {"date": "Mar 31, 2025", "price": 69.14}, {"date": "Apr 30, 2025", "price": 74.97}, {"date": "May 31, 2025", "price": 78.23}, {"date": "Jun 30, 2025", "price": 84.9}, {"date": "Jul 31, 2025", "price": 85.86}, {"date": "Aug 31, 2025", "price": 86.45}, {"date": "Sep 30, 2025", "price": 77.87}, {"date": "Oct 31, 2025", "price": 83.3}, {"date": "Nov 30, 2025", "price": 85.24}, {"date": "Dec 31, 2025", "price": 84.54}, {"date": "Jan 31, 2026", "price": 83.23}, {"date": "Feb 28, 2026", "price": 82.18}, {"date": "Mar 31, 2026", "price": 86.95}, {"date": "Apr 30, 2026", "price": 82.68}, {"date": "May 31, 2026", "price": 88.33}, {"date": "Jun 30, 2026", "price": 85.06}, {"date": "Jul 31, 2026", "price": 82.98}, {"date": "Aug 13, 2026", "price": 83.04}]};
+        const allDatasets = {"1Y": [{"date": "Aug 14, 2025", "price": 83.95}, {"date": "Aug 15, 2025", "price": 82.72}, {"date": "Aug 18, 2025", "price": 83.09}, {"date": "Aug 19, 2025", "price": 83.89}, {"date": "Aug 20, 2025", "price": 83.57}, {"date": "Aug 21, 2025", "price": 83.3}, {"date": "Aug 22, 2025", "price": 85.66}, {"date": "Aug 25, 2025", "price": 86.25}, {"date": "Aug 26, 2025", "price": 86.81}, {"date": "Aug 27, 2025", "price": 87.28}, {"date": "Aug 28, 2025", "price": 86.86}, {"date": "Aug 29, 2025", "price": 85.86}, {"date": "Sep 02, 2025", "price": 85.63}, {"date": "Sep 03, 2025", "price": 85.34}, {"date": "Sep 04, 2025", "price": 86.47}, {"date": "Sep 05, 2025", "price": 86.46}, {"date": "Sep 08, 2025", "price": 86.34}, {"date": "Sep 09, 2025", "price": 85.34}, {"date": "Sep 10, 2025", "price": 85.27}, {"date": "Sep 11, 2025", "price": 85.99}, {"date": "Sep 12, 2025", "price": 84.68}, {"date": "Sep 15, 2025", "price": 83.47}, {"date": "Sep 16, 2025", "price": 82.15}, {"date": "Sep 17, 2025", "price": 82.84}, {"date": "Sep 18, 2025", "price": 83.3}, {"date": "Sep 19, 2025", "price": 83.3}, {"date": "Sep 22, 2025", "price": 83.46}, {"date": "Sep 23, 2025", "price": 85.1}, {"date": "Sep 24, 2025", "price": 84.41}, {"date": "Sep 25, 2025", "price": 84.49}, {"date": "Sep 26, 2025", "price": 85.94}, {"date": "Sep 29, 2025", "price": 87.38}, {"date": "Sep 30, 2025", "price": 86.45}, {"date": "Oct 01, 2025", "price": 87.03}, {"date": "Oct 02, 2025", "price": 87.01}, {"date": "Oct 03, 2025", "price": 86.48}, {"date": "Oct 06, 2025", "price": 85.49}, {"date": "Oct 07, 2025", "price": 83.57}, {"date": "Oct 08, 2025", "price": 83.6}, {"date": "Oct 09, 2025", "price": 83.38}, {"date": "Oct 10, 2025", "price": 81.54}, {"date": "Oct 13, 2025", "price": 82.11}, {"date": "Oct 14, 2025", "price": 83.36}, {"date": "Oct 15, 2025", "price": 83.24}, {"date": "Oct 16, 2025", "price": 82.1}, {"date": "Oct 17, 2025", "price": 82.37}, {"date": "Oct 20, 2025", "price": 82.71}, {"date": "Oct 21, 2025", "price": 83.38}, {"date": "Oct 22, 2025", "price": 82.99}, {"date": "Oct 23, 2025", "price": 84.98}, {"date": "Oct 24, 2025", "price": 78.77}, {"date": "Oct 27, 2025", "price": 79.6}, {"date": "Oct 28, 2025", "price": 79.0}, {"date": "Oct 29, 2025", "price": 76.81}, {"date": "Oct 30, 2025", "price": 77.4}, {"date": "Oct 31, 2025", "price": 77.87}, {"date": "Nov 03, 2025", "price": 79.45}, {"date": "Nov 04, 2025", "price": 79.38}, {"date": "Nov 05, 2025", "price": 80.24}, {"date": "Nov 06, 2025", "price": 80.04}, {"date": "Nov 07, 2025", "price": 81.27}, {"date": "Nov 10, 2025", "price": 82.59}, {"date": "Nov 11, 2025", "price": 81.33}, {"date": "Nov 12, 2025", "price": 80.89}, {"date": "Nov 13, 2025", "price": 80.81}, {"date": "Nov 14, 2025", "price": 79.78}, {"date": "Nov 17, 2025", "price": 77.51}, {"date": "Nov 18, 2025", "price": 79.03}, {"date": "Nov 19, 2025", "price": 78.63}, {"date": "Nov 20, 2025", "price": 78.0}, {"date": "Nov 21, 2025", "price": 80.72}, {"date": "Nov 24, 2025", "price": 81.14}, {"date": "Nov 25, 2025", "price": 82.72}, {"date": "Nov 26, 2025", "price": 83.38}, {"date": "Nov 28, 2025", "price": 83.3}, {"date": "Dec 01, 2025", "price": 82.24}, {"date": "Dec 02, 2025", "price": 81.66}, {"date": "Dec 03, 2025", "price": 82.55}, {"date": "Dec 04, 2025", "price": 81.37}, {"date": "Dec 05, 2025", "price": 80.88}, {"date": "Dec 08, 2025", "price": 79.67}, {"date": "Dec 09, 2025", "price": 80.2}, {"date": "Dec 10, 2025", "price": 81.97}, {"date": "Dec 11, 2025", "price": 84.39}, {"date": "Dec 12, 2025", "price": 85.1}, {"date": "Dec 15, 2025", "price": 85.11}, {"date": "Dec 16, 2025", "price": 85.01}, {"date": "Dec 17, 2025", "price": 85.24}, {"date": "Dec 18, 2025", "price": 85.64}, {"date": "Dec 19, 2025", "price": 86.37}, {"date": "Dec 22, 2025", "price": 86.7}, {"date": "Dec 23, 2025", "price": 85.69}, {"date": "Dec 24, 2025", "price": 85.41}, {"date": "Dec 26, 2025", "price": 86.6}, {"date": "Dec 29, 2025", "price": 86.13}, {"date": "Dec 30, 2025", "price": 85.86}, {"date": "Dec 31, 2025", "price": 85.24}, {"date": "Jan 02, 2026", "price": 86.19}, {"date": "Jan 05, 2026", "price": 88.4}, {"date": "Jan 06, 2026", "price": 87.81}, {"date": "Jan 07, 2026", "price": 86.07}, {"date": "Jan 08, 2026", "price": 88.33}, {"date": "Jan 09, 2026", "price": 87.92}, {"date": "Jan 12, 2026", "price": 87.79}, {"date": "Jan 13, 2026", "price": 88.03}, {"date": "Jan 14, 2026", "price": 87.47}, {"date": "Jan 15, 2026", "price": 89.56}, {"date": "Jan 16, 2026", "price": 88.65}, {"date": "Jan 20, 2026", "price": 85.69}, {"date": "Jan 21, 2026", "price": 85.16}, {"date": "Jan 22, 2026", "price": 85.09}, {"date": "Jan 23, 2026", "price": 83.89}, {"date": "Jan 26, 2026", "price": 83.48}, {"date": "Jan 27, 2026", "price": 82.23}, {"date": "Jan 28, 2026", "price": 83.5}, {"date": "Jan 29, 2026", "price": 84.18}, {"date": "Jan 30, 2026", "price": 84.54}, {"date": "Feb 02, 2026", "price": 84.57}, {"date": "Feb 03, 2026", "price": 83.0}, {"date": "Feb 04, 2026", "price": 84.78}, {"date": "Feb 05, 2026", "price": 83.64}, {"date": "Feb 06, 2026", "price": 83.24}, {"date": "Feb 09, 2026", "price": 82.81}, {"date": "Feb 10, 2026", "price": 84.43}, {"date": "Feb 11, 2026", "price": 83.41}, {"date": "Feb 12, 2026", "price": 82.17}, {"date": "Feb 13, 2026", "price": 81.99}, {"date": "Feb 17, 2026", "price": 83.22}, {"date": "Feb 18, 2026", "price": 84.75}, {"date": "Feb 19, 2026", "price": 85.06}, {"date": "Feb 20, 2026", "price": 86.2}, {"date": "Feb 23, 2026", "price": 83.62}, {"date": "Feb 24, 2026", "price": 85.2}, {"date": "Feb 25, 2026", "price": 84.93}, {"date": "Feb 26, 2026", "price": 87.71}, {"date": "Feb 27, 2026", "price": 83.23}, {"date": "Mar 02, 2026", "price": 82.49}, {"date": "Mar 03, 2026", "price": 81.38}, {"date": "Mar 04, 2026", "price": 82.2}, {"date": "Mar 05, 2026", "price": 82.03}, {"date": "Mar 06, 2026", "price": 80.13}, {"date": "Mar 09, 2026", "price": 80.5}, {"date": "Mar 10, 2026", "price": 80.23}, {"date": "Mar 11, 2026", "price": 82.71}, {"date": "Mar 12, 2026", "price": 81.3}, {"date": "Mar 13, 2026", "price": 81.64}, {"date": "Mar 16, 2026", "price": 80.04}, {"date": "Mar 17, 2026", "price": 81.83}, {"date": "Mar 18, 2026", "price": 81.73}, {"date": "Mar 19, 2026", "price": 83.06}, {"date": "Mar 20, 2026", "price": 81.06}, {"date": "Mar 23, 2026", "price": 81.94}, {"date": "Mar 24, 2026", "price": 84.47}, {"date": "Mar 25, 2026", "price": 84.87}, {"date": "Mar 26, 2026", "price": 82.94}, {"date": "Mar 27, 2026", "price": 80.16}, {"date": "Mar 30, 2026", "price": 80.17}, {"date": "Mar 31, 2026", "price": 82.18}, {"date": "Apr 01, 2026", "price": 84.31}, {"date": "Apr 02, 2026", "price": 83.74}, {"date": "Apr 06, 2026", "price": 84.29}, {"date": "Apr 07, 2026", "price": 83.39}, {"date": "Apr 08, 2026", "price": 86.21}, {"date": "Apr 09, 2026", "price": 86.83}, {"date": "Apr 10, 2026", "price": 86.5}, {"date": "Apr 13, 2026", "price": 86.16}, {"date": "Apr 14, 2026", "price": 87.75}, {"date": "Apr 15, 2026", "price": 85.98}, {"date": "Apr 16, 2026", "price": 85.25}, {"date": "Apr 17, 2026", "price": 87.52}, {"date": "Apr 20, 2026", "price": 88.12}, {"date": "Apr 21, 2026", "price": 87.4}, {"date": "Apr 22, 2026", "price": 86.15}, {"date": "Apr 23, 2026", "price": 89.15}, {"date": "Apr 24, 2026", "price": 83.88}, {"date": "Apr 27, 2026", "price": 87.53}, {"date": "Apr 28, 2026", "price": 86.86}, {"date": "Apr 29, 2026", "price": 86.29}, {"date": "Apr 30, 2026", "price": 86.95}, {"date": "May 01, 2026", "price": 84.5}, {"date": "May 04, 2026", "price": 82.89}, {"date": "May 05, 2026", "price": 84.07}, {"date": "May 06, 2026", "price": 85.15}, {"date": "May 07, 2026", "price": 85.24}, {"date": "May 08, 2026", "price": 85.64}, {"date": "May 11, 2026", "price": 82.75}, {"date": "May 12, 2026", "price": 82.21}, {"date": "May 13, 2026", "price": 80.57}, {"date": "May 14, 2026", "price": 79.39}, {"date": "May 15, 2026", "price": 79.09}, {"date": "May 18, 2026", "price": 79.09}, {"date": "May 19, 2026", "price": 78.09}, {"date": "May 20, 2026", "price": 79.27}, {"date": "May 21, 2026", "price": 79.65}, {"date": "May 22, 2026", "price": 79.31}, {"date": "May 26, 2026", "price": 80.68}, {"date": "May 27, 2026", "price": 82.22}, {"date": "May 28, 2026", "price": 83.21}, {"date": "May 29, 2026", "price": 82.68}, {"date": "Jun 01, 2026", "price": 86.84}, {"date": "Jun 02, 2026", "price": 84.96}, {"date": "Jun 03, 2026", "price": 86.94}, {"date": "Jun 04, 2026", "price": 88.38}, {"date": "Jun 05, 2026", "price": 87.87}, {"date": "Jun 08, 2026", "price": 86.58}, {"date": "Jun 09, 2026", "price": 87.77}, {"date": "Jun 10, 2026", "price": 86.82}, {"date": "Jun 11, 2026", "price": 86.55}, {"date": "Jun 12, 2026", "price": 87.46}, {"date": "Jun 15, 2026", "price": 87.67}, {"date": "Jun 16, 2026", "price": 86.47}, {"date": "Jun 17, 2026", "price": 83.88}, {"date": "Jun 18, 2026", "price": 84.68}, {"date": "Jun 22, 2026", "price": 86.35}, {"date": "Jun 23, 2026", "price": 86.4}, {"date": "Jun 24, 2026", "price": 86.9}, {"date": "Jun 25, 2026", "price": 88.81}, {"date": "Jun 26, 2026", "price": 89.7}, {"date": "Jun 29, 2026", "price": 89.57}, {"date": "Jun 30, 2026", "price": 88.33}, {"date": "Jul 01, 2026", "price": 87.98}, {"date": "Jul 02, 2026", "price": 87.9}, {"date": "Jul 06, 2026", "price": 88.84}, {"date": "Jul 07, 2026", "price": 88.67}, {"date": "Jul 08, 2026", "price": 86.84}, {"date": "Jul 09, 2026", "price": 87.37}, {"date": "Jul 10, 2026", "price": 86.2}, {"date": "Jul 13, 2026", "price": 85.75}, {"date": "Jul 14, 2026", "price": 86.09}, {"date": "Jul 15, 2026", "price": 87.64}, {"date": "Jul 16, 2026", "price": 89.77}, {"date": "Jul 17, 2026", "price": 87.72}, {"date": "Jul 20, 2026", "price": 88.17}, {"date": "Jul 23, 2026", "price": 86.56}, {"date": "Jul 24, 2026", "price": 87.04}, {"date": "Jul 27, 2026", "price": 89.29}, {"date": "Jul 28, 2026", "price": 91.26}, {"date": "Jul 29, 2026", "price": 90.79}, {"date": "Jul 30, 2026", "price": 87.05}, {"date": "Aug 03, 2026", "price": 84.83}, {"date": "Aug 04, 2026", "price": 86.32}, {"date": "Aug 05, 2026", "price": 84.32}, {"date": "Aug 06, 2026", "price": 84.12}, {"date": "Aug 07, 2026", "price": 83.42}, {"date": "Aug 10, 2026", "price": 81.46}, {"date": "Aug 11, 2026", "price": 82.37}, {"date": "Aug 12, 2026", "price": 82.98}, {"date": "Aug 13, 2026", "price": 83.26}], "5Y": [{"date": "Aug 09, 2021", "price": 60.13}, {"date": "Aug 16, 2021", "price": 56.04}, {"date": "Aug 23, 2021", "price": 63.24}, {"date": "Aug 30, 2021", "price": 60.66}, {"date": "Sep 06, 2021", "price": 59.25}, {"date": "Sep 13, 2021", "price": 61.49}, {"date": "Sep 20, 2021", "price": 64.29}, {"date": "Sep 27, 2021", "price": 66.4}, {"date": "Oct 04, 2021", "price": 64.2}, {"date": "Oct 11, 2021", "price": 66.35}, {"date": "Oct 18, 2021", "price": 66.05}, {"date": "Oct 25, 2021", "price": 63.78}, {"date": "Nov 01, 2021", "price": 67.43}, {"date": "Nov 08, 2021", "price": 62.2}, {"date": "Nov 15, 2021", "price": 59.73}, {"date": "Nov 22, 2021", "price": 61.03}, {"date": "Nov 29, 2021", "price": 59.68}, {"date": "Dec 06, 2021", "price": 62.58}, {"date": "Dec 13, 2021", "price": 60.07}, {"date": "Dec 20, 2021", "price": 64.68}, {"date": "Dec 27, 2021", "price": 65.57}, {"date": "Jan 03, 2022", "price": 63.52}, {"date": "Jan 10, 2022", "price": 60.69}, {"date": "Jan 17, 2022", "price": 56.44}, {"date": "Jan 24, 2022", "price": 58.88}, {"date": "Jan 31, 2022", "price": 63.42}, {"date": "Feb 07, 2022", "price": 69.57}, {"date": "Feb 14, 2022", "price": 68.41}, {"date": "Feb 21, 2022", "price": 70.48}, {"date": "Feb 28, 2022", "price": 67.05}, {"date": "Mar 07, 2022", "price": 64.22}, {"date": "Mar 14, 2022", "price": 68.88}, {"date": "Mar 21, 2022", "price": 69.01}, {"date": "Mar 28, 2022", "price": 65.35}, {"date": "Apr 04, 2022", "price": 61.97}, {"date": "Apr 11, 2022", "price": 62.3}, {"date": "Apr 18, 2022", "price": 62.8}, {"date": "Apr 25, 2022", "price": 60.58}, {"date": "May 02, 2022", "price": 58.35}, {"date": "May 09, 2022", "price": 56.5}, {"date": "May 16, 2022", "price": 55.01}, {"date": "May 23, 2022", "price": 59.33}, {"date": "May 30, 2022", "price": 59.39}, {"date": "Jun 06, 2022", "price": 55.54}, {"date": "Jun 13, 2022", "price": 51.66}, {"date": "Jun 20, 2022", "price": 53.38}, {"date": "Jun 27, 2022", "price": 51.11}, {"date": "Jul 04, 2022", "price": 49.62}, {"date": "Jul 11, 2022", "price": 52.14}, {"date": "Jul 18, 2022", "price": 54.64}, {"date": "Jul 25, 2022", "price": 55.51}, {"date": "Aug 01, 2022", "price": 54.22}, {"date": "Aug 08, 2022", "price": 57.73}, {"date": "Aug 15, 2022", "price": 55.85}, {"date": "Aug 22, 2022", "price": 56.03}, {"date": "Aug 29, 2022", "price": 53.24}, {"date": "Sep 05, 2022", "price": 56.78}, {"date": "Sep 12, 2022", "price": 51.85}, {"date": "Sep 19, 2022", "price": 47.02}, {"date": "Sep 26, 2022", "price": 47.65}, {"date": "Oct 03, 2022", "price": 51.18}, {"date": "Oct 10, 2022", "price": 50.6}, {"date": "Oct 17, 2022", "price": 53.45}, {"date": "Oct 24, 2022", "price": 57.66}, {"date": "Oct 31, 2022", "price": 56.16}, {"date": "Nov 07, 2022", "price": 59.27}, {"date": "Nov 14, 2022", "price": 60.27}, {"date": "Nov 21, 2022", "price": 60.26}, {"date": "Nov 28, 2022", "price": 59.82}, {"date": "Dec 05, 2022", "price": 58.64}, {"date": "Dec 12, 2022", "price": 57.12}, {"date": "Dec 19, 2022", "price": 55.13}, {"date": "Dec 26, 2022", "price": 54.53}, {"date": "Jan 02, 2023", "price": 56.22}, {"date": "Jan 09, 2023", "price": 58.42}, {"date": "Jan 16, 2023", "price": 60.13}, {"date": "Jan 23, 2023", "price": 61.17}, {"date": "Jan 30, 2023", "price": 66.48}, {"date": "Feb 06, 2023", "price": 65.64}, {"date": "Feb 13, 2023", "price": 66.19}, {"date": "Feb 20, 2023", "price": 63.57}, {"date": "Feb 27, 2023", "price": 65.84}, {"date": "Mar 06, 2023", "price": 61.11}, {"date": "Mar 13, 2023", "price": 59.99}, {"date": "Mar 20, 2023", "price": 60.42}, {"date": "Mar 27, 2023", "price": 64.12}, {"date": "Apr 03, 2023", "price": 62.87}, {"date": "Apr 10, 2023", "price": 65.29}, {"date": "Apr 17, 2023", "price": 68.17}, {"date": "Apr 24, 2023", "price": 69.4}, {"date": "May 01, 2023", "price": 70.6}, {"date": "May 08, 2023", "price": 68.32}, {"date": "May 15, 2023", "price": 66.79}, {"date": "May 22, 2023", "price": 65.18}, {"date": "May 29, 2023", "price": 66.3}, {"date": "Jun 05, 2023", "price": 68.41}, {"date": "Jun 12, 2023", "price": 68.0}, {"date": "Jun 19, 2023", "price": 65.79}, {"date": "Jun 26, 2023", "price": 69.37}, {"date": "Jul 03, 2023", "price": 67.86}, {"date": "Jul 10, 2023", "price": 71.85}, {"date": "Jul 17, 2023", "price": 72.26}, {"date": "Jul 24, 2023", "price": 67.39}, {"date": "Jul 31, 2023", "price": 66.73}, {"date": "Aug 07, 2023", "price": 67.31}, {"date": "Aug 14, 2023", "price": 64.8}, {"date": "Aug 21, 2023", "price": 65.07}, {"date": "Aug 28, 2023", "price": 67.63}, {"date": "Sep 04, 2023", "price": 64.78}, {"date": "Sep 11, 2023", "price": 64.69}, {"date": "Sep 18, 2023", "price": 60.79}, {"date": "Sep 25, 2023", "price": 60.83}, {"date": "Oct 02, 2023", "price": 58.8}, {"date": "Oct 09, 2023", "price": 59.02}, {"date": "Oct 16, 2023", "price": 59.54}, {"date": "Oct 23, 2023", "price": 54.56}, {"date": "Oct 30, 2023", "price": 57.61}, {"date": "Nov 06, 2023", "price": 57.28}, {"date": "Nov 13, 2023", "price": 58.81}, {"date": "Nov 20, 2023", "price": 59.2}, {"date": "Nov 27, 2023", "price": 61.03}, {"date": "Dec 04, 2023", "price": 59.72}, {"date": "Dec 11, 2023", "price": 61.29}, {"date": "Dec 18, 2023", "price": 62.14}, {"date": "Dec 25, 2023", "price": 62.61}, {"date": "Jan 01, 2024", "price": 62.28}, {"date": "Jan 08, 2024", "price": 62.31}, {"date": "Jan 15, 2024", "price": 64.18}, {"date": "Jan 22, 2024", "price": 64.46}, {"date": "Jan 29, 2024", "price": 64.12}, {"date": "Feb 05, 2024", "price": 66.75}, {"date": "Feb 12, 2024", "price": 63.37}, {"date": "Feb 19, 2024", "price": 64.34}, {"date": "Feb 26, 2024", "price": 64.88}, {"date": "Mar 04, 2024", "price": 63.16}, {"date": "Mar 11, 2024", "price": 61.7}, {"date": "Mar 18, 2024", "price": 63.17}, {"date": "Mar 25, 2024", "price": 67.32}, {"date": "Apr 01, 2024", "price": 66.13}, {"date": "Apr 08, 2024", "price": 64.4}, {"date": "Apr 15, 2024", "price": 62.66}, {"date": "Apr 22, 2024", "price": 53.18}, {"date": "Apr 29, 2024", "price": 54.12}, {"date": "May 06, 2024", "price": 53.9}, {"date": "May 13, 2024", "price": 55.01}, {"date": "May 20, 2024", "price": 51.76}, {"date": "May 27, 2024", "price": 53.32}, {"date": "Jun 03, 2024", "price": 53.01}, {"date": "Jun 10, 2024", "price": 53.67}, {"date": "Jun 17, 2024", "price": 53.83}, {"date": "Jun 24, 2024", "price": 55.1}, {"date": "Jul 01, 2024", "price": 54.05}, {"date": "Jul 08, 2024", "price": 57.32}, {"date": "Jul 15, 2024", "price": 59.12}, {"date": "Jul 22, 2024", "price": 61.05}, {"date": "Jul 29, 2024", "price": 55.29}, {"date": "Aug 05, 2024", "price": 55.93}, {"date": "Aug 12, 2024", "price": 58.15}, {"date": "Aug 19, 2024", "price": 60.03}, {"date": "Aug 26, 2024", "price": 60.02}, {"date": "Sep 02, 2024", "price": 59.72}, {"date": "Sep 09, 2024", "price": 61.26}, {"date": "Sep 16, 2024", "price": 64.03}, {"date": "Sep 23, 2024", "price": 65.35}, {"date": "Sep 30, 2024", "price": 64.8}, {"date": "Oct 07, 2024", "price": 63.33}, {"date": "Oct 14, 2024", "price": 64.97}, {"date": "Oct 21, 2024", "price": 69.36}, {"date": "Oct 28, 2024", "price": 68.66}, {"date": "Nov 04, 2024", "price": 73.67}, {"date": "Nov 11, 2024", "price": 72.43}, {"date": "Nov 18, 2024", "price": 72.33}, {"date": "Nov 25, 2024", "price": 73.85}, {"date": "Dec 02, 2024", "price": 75.55}, {"date": "Dec 09, 2024", "price": 74.95}, {"date": "Dec 16, 2024", "price": 71.2}, {"date": "Dec 23, 2024", "price": 72.41}, {"date": "Dec 30, 2024", "price": 72.92}, {"date": "Jan 06, 2025", "price": 71.08}, {"date": "Jan 13, 2025", "price": 74.89}, {"date": "Jan 20, 2025", "price": 75.43}, {"date": "Jan 27, 2025", "price": 76.65}, {"date": "Feb 03, 2025", "price": 77.22}, {"date": "Feb 10, 2025", "price": 78.53}, {"date": "Feb 17, 2025", "price": 76.86}, {"date": "Feb 24, 2025", "price": 76.26}, {"date": "Mar 03, 2025", "price": 69.02}, {"date": "Mar 10, 2025", "price": 68.49}, {"date": "Mar 17, 2025", "price": 67.96}, {"date": "Mar 24, 2025", "price": 66.25}, {"date": "Mar 31, 2025", "price": 61.77}, {"date": "Apr 07, 2025", "price": 64.58}, {"date": "Apr 14, 2025", "price": 64.68}, {"date": "Apr 21, 2025", "price": 68.87}, {"date": "Apr 28, 2025", "price": 70.88}, {"date": "May 05, 2025", "price": 71.87}, {"date": "May 12, 2025", "price": 75.91}, {"date": "May 19, 2025", "price": 73.04}, {"date": "May 26, 2025", "price": 74.97}, {"date": "Jun 02, 2025", "price": 74.08}, {"date": "Jun 09, 2025", "price": 73.27}, {"date": "Jun 16, 2025", "price": 76.41}, {"date": "Jun 23, 2025", "price": 79.02}, {"date": "Jun 30, 2025", "price": 81.57}, {"date": "Jul 07, 2025", "price": 79.66}, {"date": "Jul 14, 2025", "price": 82.14}, {"date": "Jul 21, 2025", "price": 85.94}, {"date": "Jul 28, 2025", "price": 83.65}, {"date": "Aug 04, 2025", "price": 81.97}, {"date": "Aug 11, 2025", "price": 82.72}, {"date": "Aug 18, 2025", "price": 85.66}, {"date": "Aug 25, 2025", "price": 85.86}, {"date": "Sep 01, 2025", "price": 86.46}, {"date": "Sep 08, 2025", "price": 84.68}, {"date": "Sep 15, 2025", "price": 83.3}, {"date": "Sep 22, 2025", "price": 85.94}, {"date": "Sep 29, 2025", "price": 86.48}, {"date": "Oct 06, 2025", "price": 81.54}, {"date": "Oct 13, 2025", "price": 82.37}, {"date": "Oct 20, 2025", "price": 78.77}, {"date": "Oct 27, 2025", "price": 77.87}, {"date": "Nov 03, 2025", "price": 81.27}, {"date": "Nov 10, 2025", "price": 79.78}, {"date": "Nov 17, 2025", "price": 80.72}, {"date": "Nov 24, 2025", "price": 83.3}, {"date": "Dec 01, 2025", "price": 80.88}, {"date": "Dec 08, 2025", "price": 85.1}, {"date": "Dec 15, 2025", "price": 86.37}, {"date": "Dec 22, 2025", "price": 86.6}, {"date": "Dec 29, 2025", "price": 86.19}, {"date": "Jan 05, 2026", "price": 87.92}, {"date": "Jan 12, 2026", "price": 88.65}, {"date": "Jan 19, 2026", "price": 83.89}, {"date": "Jan 26, 2026", "price": 84.54}, {"date": "Feb 02, 2026", "price": 83.24}, {"date": "Feb 09, 2026", "price": 81.99}, {"date": "Feb 16, 2026", "price": 86.2}, {"date": "Feb 23, 2026", "price": 83.23}, {"date": "Mar 02, 2026", "price": 80.13}, {"date": "Mar 09, 2026", "price": 81.64}, {"date": "Mar 16, 2026", "price": 81.06}, {"date": "Mar 23, 2026", "price": 80.16}, {"date": "Mar 30, 2026", "price": 83.74}, {"date": "Apr 06, 2026", "price": 86.5}, {"date": "Apr 13, 2026", "price": 87.52}, {"date": "Apr 20, 2026", "price": 83.88}, {"date": "Apr 27, 2026", "price": 84.5}, {"date": "May 04, 2026", "price": 85.64}, {"date": "May 11, 2026", "price": 79.09}, {"date": "May 18, 2026", "price": 79.31}, {"date": "May 25, 2026", "price": 82.68}, {"date": "Jun 01, 2026", "price": 87.87}, {"date": "Jun 08, 2026", "price": 87.46}, {"date": "Jun 15, 2026", "price": 84.68}, {"date": "Jun 22, 2026", "price": 89.7}, {"date": "Jun 29, 2026", "price": 87.9}, {"date": "Jul 06, 2026", "price": 86.2}, {"date": "Jul 13, 2026", "price": 87.72}, {"date": "Jul 20, 2026", "price": 87.04}, {"date": "Jul 27, 2026", "price": 87.05}, {"date": "Aug 03, 2026", "price": 83.42}, {"date": "Aug 10, 2026", "price": 82.98}, {"date": "Aug 13, 2026", "price": 83.26}], "10Y": [{"date": "Sep 01, 2016", "price": 19.78}, {"date": "Oct 01, 2016", "price": 17.86}, {"date": "Nov 01, 2016", "price": 18.84}, {"date": "Dec 01, 2016", "price": 20.17}, {"date": "Jan 01, 2017", "price": 20.32}, {"date": "Feb 01, 2017", "price": 19.67}, {"date": "Mar 01, 2017", "price": 22.01}, {"date": "Apr 01, 2017", "price": 22.68}, {"date": "May 01, 2017", "price": 25.41}, {"date": "Jun 01, 2017", "price": 24.81}, {"date": "Jul 01, 2017", "price": 25.06}, {"date": "Aug 01, 2017", "price": 26.44}, {"date": "Sep 01, 2017", "price": 26.05}, {"date": "Oct 01, 2017", "price": 29.23}, {"date": "Nov 01, 2017", "price": 31.89}, {"date": "Dec 01, 2017", "price": 35.05}, {"date": "Jan 01, 2018", "price": 39.47}, {"date": "Feb 01, 2018", "price": 35.38}, {"date": "Mar 01, 2018", "price": 31.86}, {"date": "Apr 01, 2018", "price": 33.21}, {"date": "May 01, 2018", "price": 37.75}, {"date": "Jun 01, 2018", "price": 34.66}, {"date": "Jul 01, 2018", "price": 37.35}, {"date": "Aug 01, 2018", "price": 36.42}, {"date": "Sep 01, 2018", "price": 33.85}, {"date": "Oct 01, 2018", "price": 26.56}, {"date": "Nov 01, 2018", "price": 24.82}, {"date": "Dec 01, 2018", "price": 20.78}, {"date": "Jan 01, 2019", "price": 27.32}, {"date": "Feb 01, 2019", "price": 29.76}, {"date": "Mar 01, 2019", "price": 27.36}, {"date": "Apr 01, 2019", "price": 28.78}, {"date": "May 01, 2019", "price": 23.92}, {"date": "Jun 01, 2019", "price": 26.94}, {"date": "Jul 01, 2019", "price": 26.49}, {"date": "Aug 01, 2019", "price": 24.04}, {"date": "Sep 01, 2019", "price": 23.95}, {"date": "Oct 01, 2019", "price": 27.25}, {"date": "Nov 01, 2019", "price": 29.41}, {"date": "Dec 01, 2019", "price": 29.94}, {"date": "Jan 01, 2020", "price": 29.85}, {"date": "Feb 01, 2020", "price": 26.71}, {"date": "Mar 01, 2020", "price": 14.42}, {"date": "Apr 01, 2020", "price": 16.69}, {"date": "May 01, 2020", "price": 21.38}, {"date": "Jun 01, 2020", "price": 20.9}, {"date": "Jul 01, 2020", "price": 23.67}, {"date": "Aug 01, 2020", "price": 26.78}, {"date": "Sep 01, 2020", "price": 30.69}, {"date": "Oct 01, 2020", "price": 31.72}, {"date": "Nov 01, 2020", "price": 38.49}, {"date": "Dec 01, 2020", "price": 42.92}, {"date": "Jan 01, 2021", "price": 45.16}, {"date": "Feb 01, 2021", "price": 58.7}, {"date": "Mar 01, 2021", "price": 58.96}, {"date": "Apr 01, 2021", "price": 66.15}, {"date": "May 01, 2021", "price": 64.39}, {"date": "Jun 01, 2021", "price": 61.49}, {"date": "Jul 01, 2021", "price": 57.0}, {"date": "Aug 01, 2021", "price": 61.37}, {"date": "Sep 01, 2021", "price": 63.26}, {"date": "Oct 01, 2021", "price": 63.78}, {"date": "Nov 01, 2021", "price": 58.61}, {"date": "Dec 01, 2021", "price": 65.57}, {"date": "Jan 01, 2022", "price": 59.46}, {"date": "Feb 01, 2022", "price": 70.94}, {"date": "Mar 01, 2022", "price": 65.78}, {"date": "Apr 01, 2022", "price": 60.58}, {"date": "May 01, 2022", "price": 58.77}, {"date": "Jun 01, 2022", "price": 49.75}, {"date": "Jul 01, 2022", "price": 55.51}, {"date": "Aug 01, 2022", "price": 54.43}, {"date": "Sep 01, 2022", "price": 47.65}, {"date": "Oct 01, 2022", "price": 57.76}, {"date": "Nov 01, 2022", "price": 61.33}, {"date": "Dec 01, 2022", "price": 54.53}, {"date": "Jan 01, 2023", "price": 62.31}, {"date": "Feb 01, 2023", "price": 65.13}, {"date": "Mar 01, 2023", "price": 64.12}, {"date": "Apr 01, 2023", "price": 69.4}, {"date": "May 01, 2023", "price": 63.73}, {"date": "Jun 01, 2023", "price": 69.37}, {"date": "Jul 01, 2023", "price": 68.32}, {"date": "Aug 01, 2023", "price": 66.87}, {"date": "Sep 01, 2023", "price": 60.83}, {"date": "Oct 01, 2023", "price": 55.25}, {"date": "Nov 01, 2023", "price": 59.05}, {"date": "Dec 01, 2023", "price": 62.61}, {"date": "Jan 01, 2024", "price": 63.49}, {"date": "Feb 01, 2024", "price": 66.13}, {"date": "Mar 01, 2024", "price": 67.32}, {"date": "Apr 01, 2024", "price": 53.51}, {"date": "May 01, 2024", "price": 53.32}, {"date": "Jun 01, 2024", "price": 55.1}, {"date": "Jul 01, 2024", "price": 60.87}, {"date": "Aug 01, 2024", "price": 60.02}, {"date": "Sep 01, 2024", "price": 64.65}, {"date": "Oct 01, 2024", "price": 69.29}, {"date": "Nov 01, 2024", "price": 73.85}, {"date": "Dec 01, 2024", "price": 72.54}, {"date": "Jan 01, 2025", "price": 76.65}, {"date": "Feb 01, 2025", "price": 76.26}, {"date": "Mar 01, 2025", "price": 65.83}, {"date": "Apr 01, 2025", "price": 69.14}, {"date": "May 01, 2025", "price": 74.97}, {"date": "Jun 01, 2025", "price": 78.23}, {"date": "Jul 01, 2025", "price": 84.9}, {"date": "Aug 01, 2025", "price": 85.86}, {"date": "Sep 01, 2025", "price": 86.45}, {"date": "Oct 01, 2025", "price": 77.87}, {"date": "Nov 01, 2025", "price": 83.3}, {"date": "Dec 01, 2025", "price": 85.24}, {"date": "Jan 01, 2026", "price": 84.54}, {"date": "Feb 01, 2026", "price": 83.23}, {"date": "Mar 01, 2026", "price": 82.18}, {"date": "Apr 01, 2026", "price": 86.95}, {"date": "May 01, 2026", "price": 82.68}, {"date": "Jun 01, 2026", "price": 88.33}, {"date": "Jul 01, 2026", "price": 85.06}, {"date": "Aug 01, 2026", "price": 82.98}, {"date": "Aug 13, 2026", "price": 83.26}], "MAX": [{"date": "Nov 01, 1993", "price": 16.0}, {"date": "Dec 01, 1993", "price": 13.38}, {"date": "Jan 01, 1994", "price": 18.38}, {"date": "Feb 01, 1994", "price": 17.5}, {"date": "Mar 01, 1994", "price": 15.0}, {"date": "Apr 01, 1994", "price": 15.38}, {"date": "May 01, 1994", "price": 15.12}, {"date": "Jun 01, 1994", "price": 14.75}, {"date": "Jul 01, 1994", "price": 13.0}, {"date": "Aug 01, 1994", "price": 12.62}, {"date": "Sep 01, 1994", "price": 12.88}, {"date": "Oct 01, 1994", "price": 14.0}, {"date": "Nov 01, 1994", "price": 11.62}, {"date": "Dec 01, 1994", "price": 10.75}, {"date": "Jan 01, 1995", "price": 11.75}, {"date": "Feb 01, 1995", "price": 14.12}, {"date": "Mar 01, 1995", "price": 13.12}, {"date": "Apr 01, 1995", "price": 13.62}, {"date": "May 01, 1995", "price": 14.5}, {"date": "Jun 01, 1995", "price": 17.0}, {"date": "Jul 01, 1995", "price": 15.12}, {"date": "Aug 01, 1995", "price": 14.5}, {"date": "Sep 01, 1995", "price": 14.88}, {"date": "Oct 01, 1995", "price": 13.5}, {"date": "Nov 01, 1995", "price": 12.0}, {"date": "Dec 01, 1995", "price": 11.62}, {"date": "Jan 01, 1996", "price": 11.0}, {"date": "Feb 01, 1996", "price": 11.25}, {"date": "Mar 01, 1996", "price": 11.12}, {"date": "Apr 01, 1996", "price": 14.0}, {"date": "May 01, 1996", "price": 16.75}, {"date": "Jun 01, 1996", "price": 15.0}, {"date": "Jul 01, 1996", "price": 12.38}, {"date": "Aug 01, 1996", "price": 11.62}, {"date": "Sep 01, 1996", "price": 9.38}, {"date": "Oct 01, 1996", "price": 7.25}, {"date": "Nov 01, 1996", "price": 8.0}, {"date": "Dec 01, 1996", "price": 8.25}, {"date": "Jan 01, 1997", "price": 6.25}, {"date": "Feb 01, 1997", "price": 5.75}, {"date": "Mar 01, 1997", "price": 5.62}, {"date": "Apr 01, 1997", "price": 5.75}, {"date": "May 01, 1997", "price": 5.88}, {"date": "Jun 01, 1997", "price": 5.75}, {"date": "Jul 01, 1997", "price": 5.19}, {"date": "Aug 01, 1997", "price": 8.12}, {"date": "Sep 01, 1997", "price": 8.62}, {"date": "Oct 01, 1997", "price": 8.25}, {"date": "Nov 01, 1997", "price": 7.25}, {"date": "Dec 01, 1997", "price": 6.62}, {"date": "Jan 01, 1998", "price": 7.12}, {"date": "Feb 01, 1998", "price": 7.94}, {"date": "Mar 01, 1998", "price": 7.19}, {"date": "Apr 01, 1998", "price": 7.0}, {"date": "May 01, 1998", "price": 6.69}, {"date": "Jun 01, 1998", "price": 5.75}, {"date": "Jul 01, 1998", "price": 5.56}, {"date": "Aug 01, 1998", "price": 4.0}, {"date": "Sep 01, 1998", "price": 3.62}, {"date": "Oct 01, 1998", "price": 3.0}, {"date": "Nov 01, 1998", "price": 3.62}, {"date": "Dec 01, 1998", "price": 3.31}, {"date": "Jan 01, 1999", "price": 3.5}, {"date": "Feb 01, 1999", "price": 4.12}, {"date": "Mar 01, 1999", "price": 4.25}, {"date": "Apr 01, 1999", "price": 5.38}, {"date": "May 01, 1999", "price": 5.94}, {"date": "Jun 01, 1999", "price": 7.0}, {"date": "Jul 01, 1999", "price": 6.25}, {"date": "Aug 01, 1999", "price": 5.38}, {"date": "Sep 01, 1999", "price": 6.0}, {"date": "Oct 01, 1999", "price": 6.5}, {"date": "Nov 01, 1999", "price": 6.19}, {"date": "Dec 01, 1999", "price": 5.81}, {"date": "Jan 01, 2000", "price": 5.31}, {"date": "Feb 01, 2000", "price": 5.19}, {"date": "Mar 01, 2000", "price": 4.94}, {"date": "Apr 01, 2000", "price": 5.06}, {"date": "May 01, 2000", "price": 4.94}, {"date": "Jun 01, 2000", "price": 5.62}, {"date": "Jul 01, 2000", "price": 4.44}, {"date": "Aug 01, 2000", "price": 4.62}, {"date": "Sep 01, 2000", "price": 4.94}, {"date": "Oct 01, 2000", "price": 3.94}, {"date": "Nov 01, 2000", "price": 3.88}, {"date": "Dec 01, 2000", "price": 3.44}, {"date": "Jan 01, 2001", "price": 4.2}, {"date": "Feb 01, 2001", "price": 3.51}, {"date": "Mar 01, 2001", "price": 3.37}, {"date": "Apr 01, 2001", "price": 4.7}, {"date": "May 01, 2001", "price": 5.24}, {"date": "Jun 01, 2001", "price": 5.75}, {"date": "Jul 01, 2001", "price": 6.02}, {"date": "Aug 01, 2001", "price": 6.0}, {"date": "Sep 01, 2001", "price": 4.45}, {"date": "Oct 01, 2001", "price": 4.3}, {"date": "Nov 01, 2001", "price": 5.23}, {"date": "Dec 01, 2001", "price": 6.5}, {"date": "Jan 01, 2002", "price": 8.23}, {"date": "Feb 01, 2002", "price": 11.1}, {"date": "Mar 01, 2002", "price": 15.04}, {"date": "Apr 01, 2002", "price": 15.3}, {"date": "May 01, 2002", "price": 14.61}, {"date": "Jun 01, 2002", "price": 14.4}, {"date": "Jul 01, 2002", "price": 14.83}, {"date": "Aug 01, 2002", "price": 16.3}, {"date": "Sep 01, 2002", "price": 18.67}, {"date": "Oct 01, 2002", "price": 11.06}, {"date": "Nov 01, 2002", "price": 14.25}, {"date": "Dec 01, 2002", "price": 14.05}, {"date": "Jan 01, 2003", "price": 13.38}, {"date": "Feb 01, 2003", "price": 12.51}, {"date": "Mar 01, 2003", "price": 12.75}, {"date": "Apr 01, 2003", "price": 14.25}, {"date": "May 01, 2003", "price": 15.12}, {"date": "Jun 01, 2003", "price": 17.26}, {"date": "Jul 01, 2003", "price": 15.95}, {"date": "Aug 01, 2003", "price": 15.35}, {"date": "Sep 01, 2003", "price": 15.26}, {"date": "Oct 01, 2003", "price": 15.26}, {"date": "Nov 01, 2003", "price": 16.36}, {"date": "Dec 01, 2003", "price": 16.14}, {"date": "Jan 01, 2004", "price": 16.52}, {"date": "Feb 01, 2004", "price": 20.38}, {"date": "Mar 01, 2004", "price": 22.89}, {"date": "Apr 01, 2004", "price": 23.5}, {"date": "May 01, 2004", "price": 23.25}, {"date": "Jun 01, 2004", "price": 26.57}, {"date": "Jul 01, 2004", "price": 26.29}, {"date": "Aug 01, 2004", "price": 27.15}, {"date": "Sep 01, 2004", "price": 28.15}, {"date": "Oct 01, 2004", "price": 33.49}, {"date": "Nov 01, 2004", "price": 36.76}, {"date": "Dec 01, 2004", "price": 41.65}, {"date": "Jan 01, 2005", "price": 39.8}, {"date": "Feb 01, 2005", "price": 49.01}, {"date": "Mar 01, 2005", "price": 52.15}, {"date": "Apr 01, 2005", "price": 52.78}, {"date": "May 01, 2005", "price": 52.86}, {"date": "Jun 01, 2005", "price": 51.13}, {"date": "Jul 01, 2005", "price": 52.44}, {"date": "Aug 01, 2005", "price": 46.53}, {"date": "Sep 01, 2005", "price": 43.12}, {"date": "Oct 01, 2005", "price": 41.25}, {"date": "Nov 01, 2005", "price": 48.38}, {"date": "Dec 01, 2005", "price": 47.66}, {"date": "Jan 01, 2006", "price": 45.2}, {"date": "Feb 01, 2006", "price": 43.73}, {"date": "Mar 01, 2006", "price": 49.94}, {"date": "Apr 01, 2006", "price": 49.82}, {"date": "May 01, 2006", "price": 45.0}, {"date": "Jun 01, 2006", "price": 40.36}, {"date": "Jul 01, 2006", "price": 33.54}, {"date": "Aug 01, 2006", "price": 36.16}, {"date": "Sep 01, 2006", "price": 38.44}, {"date": "Oct 01, 2006", "price": 39.47}, {"date": "Nov 01, 2006", "price": 42.35}, {"date": "Dec 01, 2006", "price": 45.31}, {"date": "Jan 01, 2007", "price": 47.57}, {"date": "Feb 01, 2007", "price": 46.87}, {"date": "Mar 01, 2007", "price": 47.64}, {"date": "Apr 01, 2007", "price": 45.5}, {"date": "May 01, 2007", "price": 50.04}, {"date": "Jun 01, 2007", "price": 49.19}, {"date": "Jul 01, 2007", "price": 44.1}, {"date": "Aug 01, 2007", "price": 40.85}, {"date": "Sep 01, 2007", "price": 42.85}, {"date": "Oct 01, 2007", "price": 41.82}, {"date": "Nov 01, 2007", "price": 38.72}, {"date": "Dec 01, 2007", "price": 34.07}, {"date": "Jan 01, 2008", "price": 26.69}, {"date": "Feb 01, 2008", "price": 21.09}, {"date": "Mar 01, 2008", "price": 20.0}, {"date": "Apr 01, 2008", "price": 18.75}, {"date": "May 01, 2008", "price": 15.95}, {"date": "Jun 01, 2008", "price": 12.56}, {"date": "Jul 01, 2008", "price": 9.98}, {"date": "Aug 01, 2008", "price": 12.19}, {"date": "Sep 01, 2008", "price": 9.36}, {"date": "Oct 01, 2008", "price": 6.8}, {"date": "Nov 01, 2008", "price": 4.4}, {"date": "Dec 01, 2008", "price": 4.73}, {"date": "Jan 01, 2009", "price": 4.81}, {"date": "Feb 01, 2009", "price": 4.25}, {"date": "Mar 01, 2009", "price": 3.73}, {"date": "Apr 01, 2009", "price": 9.19}, {"date": "May 01, 2009", "price": 10.04}, {"date": "Jun 01, 2009", "price": 8.5}, {"date": "Jul 01, 2009", "price": 9.19}, {"date": "Aug 01, 2009", "price": 10.28}, {"date": "Sep 01, 2009", "price": 10.93}, {"date": "Oct 01, 2009", "price": 7.36}, {"date": "Nov 01, 2009", "price": 8.17}, {"date": "Dec 01, 2009", "price": 8.37}, {"date": "Jan 01, 2010", "price": 7.8}, {"date": "Feb 01, 2010", "price": 7.64}, {"date": "Mar 01, 2010", "price": 9.88}, {"date": "Apr 01, 2010", "price": 12.7}, {"date": "May 01, 2010", "price": 13.17}, {"date": "Jun 01, 2010", "price": 8.49}, {"date": "Jul 01, 2010", "price": 8.46}, {"date": "Aug 01, 2010", "price": 6.94}, {"date": "Sep 01, 2010", "price": 7.25}, {"date": "Oct 01, 2010", "price": 8.31}, {"date": "Nov 01, 2010", "price": 8.94}, {"date": "Dec 01, 2010", "price": 10.6}, {"date": "Jan 01, 2011", "price": 10.84}, {"date": "Feb 01, 2011", "price": 10.69}, {"date": "Mar 01, 2011", "price": 9.37}, {"date": "Apr 01, 2011", "price": 8.94}, {"date": "May 01, 2011", "price": 9.44}, {"date": "Jun 01, 2011", "price": 8.7}, {"date": "Jul 01, 2011", "price": 8.74}, {"date": "Aug 01, 2011", "price": 6.25}, {"date": "Sep 01, 2011", "price": 4.9}, {"date": "Oct 01, 2011", "price": 6.48}, {"date": "Nov 01, 2011", "price": 6.7}, {"date": "Dec 01, 2011", "price": 7.46}, {"date": "Jan 01, 2012", "price": 8.77}, {"date": "Feb 01, 2012", "price": 8.01}, {"date": "Mar 01, 2012", "price": 7.84}, {"date": "Apr 01, 2012", "price": 7.69}, {"date": "May 01, 2012", "price": 7.62}, {"date": "Jun 01, 2012", "price": 7.2}, {"date": "Jul 01, 2012", "price": 5.7}, {"date": "Aug 01, 2012", "price": 6.01}, {"date": "Sep 01, 2012", "price": 7.06}, {"date": "Oct 01, 2012", "price": 6.17}, {"date": "Nov 01, 2012", "price": 5.5}, {"date": "Dec 01, 2012", "price": 6.64}, {"date": "Jan 01, 2013", "price": 7.01}, {"date": "Feb 01, 2013", "price": 6.57}, {"date": "Mar 01, 2013", "price": 8.27}, {"date": "Apr 01, 2013", "price": 12.0}, {"date": "May 01, 2013", "price": 13.03}, {"date": "Jun 01, 2013", "price": 11.3}, {"date": "Jul 01, 2013", "price": 13.31}, {"date": "Aug 01, 2013", "price": 12.12}, {"date": "Sep 01, 2013", "price": 14.15}, {"date": "Oct 01, 2013", "price": 10.56}, {"date": "Nov 01, 2013", "price": 11.45}, {"date": "Dec 01, 2013", "price": 11.26}, {"date": "Jan 01, 2014", "price": 10.56}, {"date": "Feb 01, 2014", "price": 11.62}, {"date": "Mar 01, 2014", "price": 13.2}, {"date": "Apr 01, 2014", "price": 11.82}, {"date": "May 01, 2014", "price": 10.95}, {"date": "Jun 01, 2014", "price": 12.13}, {"date": "Jul 01, 2014", "price": 11.0}, {"date": "Aug 01, 2014", "price": 10.65}, {"date": "Sep 01, 2014", "price": 10.16}, {"date": "Oct 01, 2014", "price": 11.55}, {"date": "Nov 01, 2014", "price": 12.78}, {"date": "Dec 01, 2014", "price": 12.78}, {"date": "Jan 01, 2015", "price": 13.06}, {"date": "Feb 01, 2015", "price": 13.81}, {"date": "Mar 01, 2015", "price": 14.2}, {"date": "Apr 01, 2015", "price": 13.2}, {"date": "May 01, 2015", "price": 14.31}, {"date": "Jun 01, 2015", "price": 14.95}, {"date": "Jul 01, 2015", "price": 17.09}, {"date": "Aug 01, 2015", "price": 16.1}, {"date": "Sep 01, 2015", "price": 16.3}, {"date": "Oct 01, 2015", "price": 19.99}, {"date": "Nov 01, 2015", "price": 19.59}, {"date": "Dec 01, 2015", "price": 19.87}, {"date": "Jan 01, 2016", "price": 17.81}, {"date": "Feb 01, 2016", "price": 17.32}, {"date": "Mar 01, 2016", "price": 20.66}, {"date": "Apr 01, 2016", "price": 18.64}, {"date": "May 01, 2016", "price": 18.91}, {"date": "Jun 01, 2016", "price": 18.4}, {"date": "Jul 01, 2016", "price": 19.61}, {"date": "Aug 01, 2016", "price": 19.5}, {"date": "Sep 01, 2016", "price": 19.78}, {"date": "Oct 01, 2016", "price": 17.86}, {"date": "Nov 01, 2016", "price": 18.84}, {"date": "Dec 01, 2016", "price": 20.17}, {"date": "Jan 01, 2017", "price": 20.32}, {"date": "Feb 01, 2017", "price": 19.67}, {"date": "Mar 01, 2017", "price": 22.01}, {"date": "Apr 01, 2017", "price": 22.68}, {"date": "May 01, 2017", "price": 25.41}, {"date": "Jun 01, 2017", "price": 24.81}, {"date": "Jul 01, 2017", "price": 25.06}, {"date": "Aug 01, 2017", "price": 26.44}, {"date": "Sep 01, 2017", "price": 26.05}, {"date": "Oct 01, 2017", "price": 29.23}, {"date": "Nov 01, 2017", "price": 31.89}, {"date": "Dec 01, 2017", "price": 35.05}, {"date": "Jan 01, 2018", "price": 39.47}, {"date": "Feb 01, 2018", "price": 35.38}, {"date": "Mar 01, 2018", "price": 31.86}, {"date": "Apr 01, 2018", "price": 33.21}, {"date": "May 01, 2018", "price": 37.75}, {"date": "Jun 01, 2018", "price": 34.66}, {"date": "Jul 01, 2018", "price": 37.35}, {"date": "Aug 01, 2018", "price": 36.42}, {"date": "Sep 01, 2018", "price": 33.85}, {"date": "Oct 01, 2018", "price": 26.56}, {"date": "Nov 01, 2018", "price": 24.82}, {"date": "Dec 01, 2018", "price": 20.78}, {"date": "Jan 01, 2019", "price": 27.32}, {"date": "Feb 01, 2019", "price": 29.76}, {"date": "Mar 01, 2019", "price": 27.36}, {"date": "Apr 01, 2019", "price": 28.78}, {"date": "May 01, 2019", "price": 23.92}, {"date": "Jun 01, 2019", "price": 26.94}, {"date": "Jul 01, 2019", "price": 26.49}, {"date": "Aug 01, 2019", "price": 24.04}, {"date": "Sep 01, 2019", "price": 23.95}, {"date": "Oct 01, 2019", "price": 27.25}, {"date": "Nov 01, 2019", "price": 29.41}, {"date": "Dec 01, 2019", "price": 29.94}, {"date": "Jan 01, 2020", "price": 29.85}, {"date": "Feb 01, 2020", "price": 26.71}, {"date": "Mar 01, 2020", "price": 14.42}, {"date": "Apr 01, 2020", "price": 16.69}, {"date": "May 01, 2020", "price": 21.38}, {"date": "Jun 01, 2020", "price": 20.9}, {"date": "Jul 01, 2020", "price": 23.67}, {"date": "Aug 01, 2020", "price": 26.78}, {"date": "Sep 01, 2020", "price": 30.69}, {"date": "Oct 01, 2020", "price": 31.72}, {"date": "Nov 01, 2020", "price": 38.49}, {"date": "Dec 01, 2020", "price": 42.92}, {"date": "Jan 01, 2021", "price": 45.16}, {"date": "Feb 01, 2021", "price": 58.7}, {"date": "Mar 01, 2021", "price": 58.96}, {"date": "Apr 01, 2021", "price": 66.15}, {"date": "May 01, 2021", "price": 64.39}, {"date": "Jun 01, 2021", "price": 61.49}, {"date": "Jul 01, 2021", "price": 57.0}, {"date": "Aug 01, 2021", "price": 61.37}, {"date": "Sep 01, 2021", "price": 63.26}, {"date": "Oct 01, 2021", "price": 63.78}, {"date": "Nov 01, 2021", "price": 58.61}, {"date": "Dec 01, 2021", "price": 65.57}, {"date": "Jan 01, 2022", "price": 59.46}, {"date": "Feb 01, 2022", "price": 70.94}, {"date": "Mar 01, 2022", "price": 65.78}, {"date": "Apr 01, 2022", "price": 60.58}, {"date": "May 01, 2022", "price": 58.77}, {"date": "Jun 01, 2022", "price": 49.75}, {"date": "Jul 01, 2022", "price": 55.51}, {"date": "Aug 01, 2022", "price": 54.43}, {"date": "Sep 01, 2022", "price": 47.65}, {"date": "Oct 01, 2022", "price": 57.76}, {"date": "Nov 01, 2022", "price": 61.33}, {"date": "Dec 01, 2022", "price": 54.53}, {"date": "Jan 01, 2023", "price": 62.31}, {"date": "Feb 01, 2023", "price": 65.13}, {"date": "Mar 01, 2023", "price": 64.12}, {"date": "Apr 01, 2023", "price": 69.4}, {"date": "May 01, 2023", "price": 63.73}, {"date": "Jun 01, 2023", "price": 69.37}, {"date": "Jul 01, 2023", "price": 68.32}, {"date": "Aug 01, 2023", "price": 66.87}, {"date": "Sep 01, 2023", "price": 60.83}, {"date": "Oct 01, 2023", "price": 55.25}, {"date": "Nov 01, 2023", "price": 59.05}, {"date": "Dec 01, 2023", "price": 62.61}, {"date": "Jan 01, 2024", "price": 63.49}, {"date": "Feb 01, 2024", "price": 66.13}, {"date": "Mar 01, 2024", "price": 67.32}, {"date": "Apr 01, 2024", "price": 53.51}, {"date": "May 01, 2024", "price": 53.32}, {"date": "Jun 01, 2024", "price": 55.1}, {"date": "Jul 01, 2024", "price": 60.87}, {"date": "Aug 01, 2024", "price": 60.02}, {"date": "Sep 01, 2024", "price": 64.65}, {"date": "Oct 01, 2024", "price": 69.29}, {"date": "Nov 01, 2024", "price": 73.85}, {"date": "Dec 01, 2024", "price": 72.54}, {"date": "Jan 01, 2025", "price": 76.65}, {"date": "Feb 01, 2025", "price": 76.26}, {"date": "Mar 01, 2025", "price": 65.83}, {"date": "Apr 01, 2025", "price": 69.14}, {"date": "May 01, 2025", "price": 74.97}, {"date": "Jun 01, 2025", "price": 78.23}, {"date": "Jul 01, 2025", "price": 84.9}, {"date": "Aug 01, 2025", "price": 85.86}, {"date": "Sep 01, 2025", "price": 86.45}, {"date": "Oct 01, 2025", "price": 77.87}, {"date": "Nov 01, 2025", "price": 83.3}, {"date": "Dec 01, 2025", "price": 85.24}, {"date": "Jan 01, 2026", "price": 84.54}, {"date": "Feb 01, 2026", "price": 83.23}, {"date": "Mar 01, 2026", "price": 82.18}, {"date": "Apr 01, 2026", "price": 86.95}, {"date": "May 01, 2026", "price": 82.68}, {"date": "Jun 01, 2026", "price": 88.33}, {"date": "Jul 01, 2026", "price": 85.06}, {"date": "Aug 01, 2026", "price": 82.98}, {"date": "Aug 13, 2026", "price": 83.26}]};
         let currentRangeKey = '1Y';
         let currentPoints = allDatasets[currentRangeKey] || [];
         let currentSvgCoords = [];
@@ -1207,27 +1207,27 @@
             <div class="metrics-grid">
                 <div class="metric-cell">
                     <div class="metric-label">Fair Value</div>
-                    <div class="metric-value" style="color: var(--accent-warm);">$102.00</div>
+                    <div class="metric-value" style="color: var(--accent-warm);">$98.50</div>
                     <div class="metric-subtext" style="color: var(--text-dim);">Intrinsic baseline</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bear Target</div>
-                    <div class="metric-value" style="color: var(--accent-red);">$76.50 (-7.1%)</div>
+                    <div class="metric-value" style="color: var(--accent-red);">$71.50</div>
                     <div class="metric-subtext" style="color: var(--text-dim);">Downside floor</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Base Target</div>
-                    <div class="metric-value">$102.00 (+23.8%)</div>
+                    <div class="metric-value">$98.50</div>
                     <div class="metric-subtext" style="color: var(--text-dim);">Mid-cycle value</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bull Target</div>
-                    <div class="metric-value" style="color: var(--accent-green);">$132.60 (+61.0%)</div>
+                    <div class="metric-value" style="color: var(--accent-green);">$122.00</div>
                     <div class="metric-subtext" style="color: var(--text-dim);">Asymmetric upside</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Alert Corridor</div>
-                    <div class="metric-value" style="font-size: 1.05rem; font-family: var(--font-mono); color: var(--text-title);">$72.00 ⇄ $98.00</div>
+                    <div class="metric-value" style="font-size: 1.05rem; font-family: var(--font-mono); color: var(--text-title);">$74.00 ⇄ $95.00</div>
                     <div class="metric-subtext" style="color: var(--text-dim);">Surveillance triggers</div>
                 </div>
                 <div class="metric-cell">
@@ -1238,8 +1238,8 @@
                 
     <div class="metric-cell">
         <div class="metric-label">Institutional Float</div>
-        <div class="metric-value" style="font-family: var(--font-mono); color: var(--text-title); font-size: 1.15rem; font-weight: 500;">82.6%</div>
-        <div class="metric-subtext" style="color: var(--text-dim);" title="Vanguard (11.8%), BlackRock (9.4%), Dimensional (4.8%) (82.6% of float)">Vanguard · BlackRock · Dimensional</div>
+        <div class="metric-value" style="font-family: var(--font-mono); color: var(--text-title); font-size: 1.15rem; font-weight: 500;">76.8%</div>
+        <div class="metric-subtext" style="color: var(--text-dim);" title="BlackRock, Inc. (7.6%), Vanguard Group (7.6%), Boston Partners (3.8%), Cohen & Steers (3.4%) (76.8% of float)">BlackRock, Inc. · Vanguard Group · Boston Partners</div>
     </div>
     
                 
@@ -1255,352 +1255,529 @@
         <!-- Navigation Tabs -->
         <div class="tabs-header">
             <button id="btn-tab-memo" class="tab-btn active" onclick="showTab('memo')">Investment Thesis</button>
-            <button id="btn-tab-history" class="tab-btn" onclick="showTab('history')">Evolution (0)</button>
+            <button id="btn-tab-history" class="tab-btn" onclick="showTab('history')">Evolution (1)</button>
             <button id="btn-tab-ownership" class="tab-btn" onclick="showTab('ownership')">Ownership & Fund Intel</button>
         </div>
 
         <!-- Memo Content -->
         <div id="tab-memo" class="tab-content active">
             <article class="memo-container">
-                <div class="section"><h2>Section 1: Q2 2026 Operational Performance &amp; Segment Breakdown</h2><p>Boyd Gaming Corporation (NYSE: BYD) delivered a resilient operational quarter for Q2 2026 (ended June 30, 2026), proving the structural durability of its geographically diversified portfolio. Despite macro inflationary headwinds and lingering destination-driven travel softness in select Las Vegas properties, Boyd produced companywide revenue of <strong>$1.034 billion</strong> and consolidated Adjusted EBITDAR of <strong>$350.5 million</strong>. Property-level operating margins held firm at <strong>40.0%</strong>, demonstrating disciplined operational execution and tight labor and marketing cost controls across its 28 gaming properties.</p><div class="metrics-grid">
+                
+        <div class="update-banner-box">
+            <div class="update-banner-header">
+                <span class="update-banner-badge">⚡ Version 2 Thesis Evolution • 2026-08-13</span>
+                <span class="update-trigger-pill">Trigger: SEC 8-K Filing (2026-08-13): Item 8.01: Other Material Events [Accession #0001437749-26-027683]</span>
+            </div>
+            <div class="update-banner-body">
+                <div class="update-banner-title">What Changed & Forward Thesis Impact</div>
+                <div class="update-banner-desc">
+                    The SEC Form 8-K filed August 13, 2026 formalizes the declaration of a regular $0.20 quarterly cash dividend ($0.80 annualized, ~1.0% yield) payable October 15, 2026. This reaffirmation follows a steady Q2 operational performance where comparable revenue grew 3% and property-level operating margins held firm at 40.0%, anchored by Midwest & South strength (EBITDAR +3.6%) and raised guidance across Online (+ $5M) and Managed (+ $3M) businesses. Management repurchased $156M of common stock in Q2 (3.7M shares retired YTD), compounding per-share Owner Earnings to ~$8.30 on a normalized basis, reinforcing our High Conviction BUY stance and $98.50 fair value estimate.
+                    
+                <div class="label-evolution-divider" style="margin-top: 18px; padding-top: 14px; border-top: 1px dashed var(--border-color); font-size: 0.88rem;">
+                    <div style="font-weight: 500; color: var(--text-title); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                        <span style="color: var(--accent-warm);">🏷️ Label & Conviction Evolution:</span>
+                        <div style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                            <span class="pill pill-neutral" style="font-size:0.75rem;">High Conviction</span> <span class="pill pill-neutral" style="font-size:0.75rem;">Buyback Cannibal</span> <span class="pill pill-neutral" style="font-size:0.75rem;">Regional Moat</span>
+                            <span style="color: var(--text-dim);">→</span>
+                            <span class="pill pill-active" style="font-size:0.75rem;">High Conviction</span> <span class="pill pill-active" style="font-size:0.75rem;">Buyback Cannibal</span> <span class="pill pill-active" style="font-size:0.75rem;">Moat Expansion</span>
+                        </div>
+                    </div>
+                </div>
+                
+                </div>
+            </div>
+        </div>
+        <div class="section">
+<h2>Section 1: Business Model, Scale Moat &amp; GenAI Transition</h2>
+<p>
+    Boyd Gaming Corporation (NYSE: BYD) operates as a leading multi-jurisdictional gaming enterprise with 28 gaming properties across 10 states, complemented by an expanding digital interactive gaming presence and high-margin tribal management contracts. Founded on a disciplined regional operating philosophy, Boyd's competitive moat rests upon three self-reinforcing economic pillars: deep local customer entrenchment, industry-leading cost containment yielding sustainable ~40% property EBITDAR margins, and a capital allocation playbook that prioritizes substantial share cannibalism over empire building.
+  </p>
+<p>
+    Unlike destination Strip operators heavily exposed to airline travel volatility and mega-resort overhead, Boyd’s portfolio is insulated by local recurring play. In the Las Vegas Locals market, Boyd caters to residential gamblers with high repeat frequencies, where properties outside of temporary construction disruption achieve margins exceeding 50%. Across the Midwest &amp; South, Boyd benefits from captive drive-in demographic corridors with strict state licensing barriers to entry, shielding properties from new supply shocks. 
+  </p>
+<p>
+    In technological operations, Boyd is utilizing modern algorithmic player-tracking, predictive marketing engines, and automated labor-scheduling platforms to preserve post-pandemic operational efficiencies. By leveraging machine learning models across its B Connected loyalty ecosystem, Boyd targets promotional reinvestment precisely at high-lifetime-value retail and VIP tiers while eliminating low-margin promotional leakage. Additionally, through Boyd Interactive and its B2B game development arm (Design Works Studios), the company captures digital margin upside across expanding North American iGaming markets without bearing the dilutive customer acquisition costs of pure-play digital operators.
+  </p>
+</div>
+<div class="section">
+<h2>Section 2: Quarterly Operational Breakdown &amp; Segment Performance</h2>
+<p>
+    Boyd delivered a steady operational performance in the most recent quarter, highlighting the structural resilience of its geographically diversified model. Total net revenues stood at $1.034 billion, with total Adjusted EBITDAR reaching $350.5 million and overall property margins maintaining their disciplined 40.0% benchmark.
+  </p>
+<div class="metrics-grid">
 <div class="metric-card">
-<div class="metric-label">Q2 2026 Net Revenue</div>
-<div class="metric-value">$1.034B</div>
-<div class="metric-delta pos">+3.0% YoY (Comparable)</div>
+<div class="metric-label">Quarterly Net Revenue</div>
+<div class="metric-value">$1,034.4M</div>
+<div class="metric-delta pos">+3.0% Comp YoY</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">Adjusted EBITDAR</div>
+<div class="metric-label">Total Adjusted EBITDAR</div>
 <div class="metric-value">$350.5M</div>
-<div class="metric-delta neg">-2.1% YoY (Reported)</div>
+<div class="metric-delta neut">40.0% Margin</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">Consolidated Property Margin</div>
-<div class="metric-value">40.0%</div>
-<div class="metric-delta pos">Flat YoY (Historic Highs)</div>
+<div class="metric-label">Midwest &amp; South EBITDAR</div>
+<div class="metric-value">$208.7M</div>
+<div class="metric-delta pos">+3.6% YoY</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">Adjusted EPS</div>
-<div class="metric-value">$1.93</div>
-<div class="metric-delta pos">+3.2% YoY (Beat $1.89 Consensus)</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">GAAP Net Income</div>
-<div class="metric-value">$131.2M</div>
-<div class="metric-delta neg">-13.4% YoY ($1.75 Diluted EPS)</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Q2 Shareholder Capital Return</div>
+<div class="metric-label">Capital Returned (Q2)</div>
 <div class="metric-value">$170M+</div>
-<div class="metric-delta pos">$156M Repurchases + $0.20 Div</div>
+<div class="metric-delta pos">1.9M Shares Retired</div>
 </div>
-</div><h3>Segment-by-Segment Deep Dive &amp; Operational Dynamics</h3><p>The quarter highlighted a clear divergence between regional strength and Las Vegas destination dynamics. Strong play from core and retail customers in the Midwest &amp; South, alongside growing contributions from recent capital investments, successfully offset construction disruptions and destination drag in Southern Nevada.</p><div class="table-scroll-wrap"><table>
+</div>
+<div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Segment</th>
-<th>Q2 2026 Revenue</th>
-<th>Revenue YoY</th>
-<th>Q2 2026 EBITDAR</th>
-<th>EBITDAR Margin</th>
-<th>Primary Operational Drivers</th>
+<th>Revenue ($M)</th>
+<th>EBITDAR ($M)</th>
+<th>Operating Margin</th>
+<th>Key Operational Drivers</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>Midwest &amp; South</strong></td>
-<td>$556.9M</td>
-<td>+3.1%</td>
-<td>$208.7M</td>
-<td>37.5% (~38%)</td>
-<td>Core player strength, spend-closer-to-home trend, growth from Treasure Chest &amp; Ameristar St. Charles capital projects.</td>
+<td>$556.9</td>
+<td>$208.7</td>
+<td>37.5%</td>
+<td>Core play growth, retail spend gains, ROI on food &amp; beverage investments.</td>
 </tr>
 <tr>
 <td><strong>Las Vegas Locals</strong></td>
-<td>$225.9M</td>
-<td>-1.4%</td>
-<td>$106.4M</td>
-<td>47.1% (&gt;50% ex-disruptions)</td>
-<td>Healthy local demographic; offset by $5M destination drag at The Orleans and $3M Suncoast construction disruption.</td>
+<td>$281.4</td>
+<td>$132.8</td>
+<td>47.2%</td>
+<td>50%+ margins on core properties; $5M Orleans destination &amp; $3M Suncoast construction drag.</td>
 </tr>
 <tr>
 <td><strong>Downtown Las Vegas</strong></td>
-<td>$52.1M</td>
-<td>-5.8%</td>
-<td>$18.2M</td>
-<td>34.9%</td>
-<td>Fremont Street pedestrian traffic down ~11%; stable core Hawaiian charter volume offset by tourist slowdown.</td>
+<td>$50.2</td>
+<td>$17.1</td>
+<td>34.1%</td>
+<td>Steady Hawaiian fly-in niche; pedestrian destination traffic softness.</td>
 </tr>
 <tr>
-<td><strong>Online Segment</strong></td>
-<td>$108.4M</td>
-<td>N/A (Accounting Adj.)</td>
-<td>$18.5M</td>
-<td>17.1%</td>
-<td>Boyd Interactive iGaming expansion and 5% equity / market access returns via FanDuel partnership.</td>
+<td><strong>Online &amp; Interactive</strong></td>
+<td>$117.4</td>
+<td>$19.4</td>
+<td>16.5%</td>
+<td>Raised FY guidance to $35–$40M on Boyd Interactive &amp; 3rd-party market access.</td>
 </tr>
 <tr>
 <td><strong>Managed Business</strong></td>
-<td>$30.7M</td>
-<td>+18.2%</td>
-<td>$30.7M</td>
-<td>100.0% (Fee-Based)</td>
-<td>Increased management fees following Phase 1 completion of Sky River Casino expansion in Northern California.</td>
+<td>$28.5</td>
+<td>$28.5</td>
+<td>100.0%</td>
+<td>Raised FY guidance to $113–$117M following Sky River Phase 1 expansion success.</td>
 </tr>
 </tbody>
-</table></div><h4>Key Segment Observations</h4><ul><li><strong>Midwest &amp; South Powerhouse:</strong> Revenue rose 3.1% to $556.9 million while EBITDAR surged 3.6% to $208.7 million. Segment margins expanded to nearly 38%—the highest level in almost two years. Regional guests are choosing to stay and spend closer to home, benefiting Boyd's drive-in assets. Capital investments, including the new land-based Treasure Chest casino in Louisiana and venue upgrades at Ameristar St. Charles, delivered immediate, high-margin returns.</li><li><strong>Las Vegas Locals Resilience (Ex-Disruptions):</strong> On a reported basis, revenue dipped from $229.1 million to $225.9 million due to two distinct drags: a ~$5 million EBITDAR hit from destination tourism softness at The Orleans and a ~$3 million construction disruption drag at Suncoast. Crucially, excluding The Orleans and Suncoast, the remaining Las Vegas Locals portfolio grew revenue by 4% and EBITDAR by 3%, pushing property operating margins above 50%.</li><li><strong>Downtown Las Vegas Headwinds:</strong> Pedestrian foot traffic along Fremont Street dropped 11% during Q2, weighing on drive-by gaming and foot-traffic revenue. However, core Hawaiian customer charter packages and local gaming databases remained remarkably stable.</li><li><strong>Guidance Upgrades in Online &amp; Managed Business:</strong> Management officially raised full-year 2026 guidance for both asset-light growth engines:</li></ul><ul><li><strong>Online Segment:</strong> Raised by $5 million to <strong>$35 million – $40 million</strong> in full-year EBITDAR.</li><li><strong>Managed Business:</strong> Raised by $3 million to <strong>$110 million – $114 million</strong> in full-year EBITDAR, driven by outperformance at the Sky River property.</li></ul><div class="executive-callout">
-<div class="exec-header"><span class="exec-badge">Executive Commentary</span><span class="exec-sub">Q2 2026 Earnings Call (July 23, 2026)</span></div>
-<p><em>"Our second-quarter results demonstrated the benefits of our diversified business model, with strong performances from our Midwest &amp; South operations, Online segment and Managed business... Results reflect both revenue and Adjusted EBITDAR growth, with property operating margins of 40%, a level we have consistently delivered over the last several years. This performance was supported by strength in play from both our core and retail customers across the portfolio, as well as contributions from our recent capital investments."</em></p>
-<p class="exec-attribution"><strong>Keith Smith</strong>, President &amp; CEO</p>
-<div class="exec-divider"></div>
-<p><em>"Regarding Las Vegas destination weakness, our expectation for Q3 is for it to be 'less bad.' Don't expect it to flip, because we don't see any indication of it changing overnight. However, the underlying local customer in Las Vegas remains very healthy, and our regional markets continue to deliver outstanding margin performance."</em></p>
-<p class="exec-attribution"><strong>Josh Hirsberg</strong>, Executive VP &amp; CFO</p>
-</div></div>
-<div class="section"><h2>Section 2: Economic Moat, Regional Barriers &amp; Competitive Dynamics</h2><p>Boyd Gaming operates behind a formidable, multi-layered economic moat built on high regulatory entry barriers, structural real estate ownership, local player loyalty lock-in, and geographical asset protection. Unlike pure-play Las Vegas Strip operators vulnerable to international tourism and airline capacity cycles, Boyd’s moat is engineered for stable cash generation across macro environments.</p><h3>1. Regulatory Barriers to Entry &amp; Supply Protection</h3><p>The primary pillar of Boyd’s regional moat is strict state-level regulatory insulation:</p><ul><li><strong>Nevada SB 208 Limits (Las Vegas Valley):</strong> Passed to protect established neighborhood casinos, Nevada Senate Bill 208 restricts the zoning and construction of new gaming properties off the Las Vegas Strip. New developments must meet onerous requirements, including minimum hotel room counts (300+ rooms) and 24-hour dining facilities, effectively capping new local competition and preserving Boyd's local market share.</li><li><strong>Limited Commercial Licenses (Midwest &amp; South):</strong> In states such as Louisiana, Indiana, Iowa, Illinois, and Mississippi, state gaming commissions strictly limit the total number of casino licenses granted. Potential competitors cannot build adjacent properties regardless of capital availability, creating localized duopolies or monopolies in key drive-in catchments.</li></ul><h3>2. Proprietary Customer Loyalty Engine &amp; Local Lock-In</h3><p>Boyd’s customer retention strategy is driven by its proprietary <strong>Boyd Rewards</strong> loyalty framework (formerly B Connected):</p><ul><li><strong>Local Player Database Primacy:</strong> Over 75% of gaming revenues across Boyd's local and regional properties originate from registered Boyd Rewards members. The core demographic consists of repeat local residents over the age of 50 who visit properties multiple times per month.</li><li><strong>Algorithmic Marketing Precision:</strong> Rather than engaging in destructive price-war promotional spending, Boyd utilizes localized database marketing algorithms. Direct mail, tailored free-play offers, and personalized food &amp; beverage rewards are calibrated to yield exact return-on-investment thresholds, keeping marketing reinvestment rates disciplined and protecting 40%+ operating margins.</li><li><strong>Cross-Property Tier Portability:</strong> Local players in Las Vegas or regional markets earn tier points that are redeemable for luxury stays at Hawaiian charter properties or regional resort destinations, generating cross-portfolio customer retention.</li></ul><h3>3. Geographic Diversification as an Operational Shield</h3><p>Boyd’s operational footprint covers 28 gaming properties across 10 states. This geographic spread acts as a structural shock absorber. When Las Vegas destination tourism softens—as observed in Q2 2026 due to airfare adjustments and international travel shifts—the Midwest &amp; South segment (representing over 50% of total company revenue) generates surplus cash flow to insulate consolidated earnings.</p><h3>4. Real Estate Fee-Simple Ownership Advantage</h3><p>A major structural advantage Boyd holds over regional gaming peers (such as Penn Entertainment or Caesars) is its commitment to <strong>fee-simple real estate ownership</strong>:</p><ul><li><strong>Zero Master Lease Rent Escalations:</strong> Boyd owns the physical real estate underlying approximately 85% of its property portfolio. Unlike competitors bound by long-term triple-net master leases with gaming REITs (VICI Properties, Gaming and Leisure Properties), Boyd carries no contractual annual rent escalators.</li><li><strong>Unencumbered Free Cash Flow Conversion:</strong> Fee-simple ownership eliminates debt-like lease obligations, allowing a significantly higher percentage of property EBITDAR to convert directly into free cash flow for share repurchases and reinvestment.</li><li><strong>Strategic Balance Sheet Flexibility:</strong> Unencumbered real estate provides valuable collateral and asset-sale optionality during severe economic downturns.</li></ul><div class="callout">
-<p><strong>Moat Summary &amp; Competitive Trajectory</strong></p>
-<p>Boyd Gaming's regional competitive moat remains robust. Regulatory caps protect its local markets from new supply, while fee-simple real estate ownership protects operating margins from escalating lease liabilities. Furthermore, ongoing organic growth projects—such as the $100M+ Suncoast casino floor renovation, the Cadence Crossing property development in Henderson, Nevada, and the Norfolk, Virginia resort planned for late 2027—reinforce the company's long-term competitive moat and local gaming dominance.</p>
-</div></div>
-<div class="section"><h3>Section 3: Free Cash Flow Generation, SBC Audit &amp; Capital Allocation Framework</h3><p>A rigorous examination of Boyd Gaming Corporation’s (NYSE: BYD) cash flow dynamics requires stripping away non-cash adjustments and separating defensive maintenance capital from aggressive, wealth-compounding growth capital. In line with disciplined fundamental analysis, Stock-Based Compensation (SBC) is treated as a 100% real cash expense that reduces true owner earnings and dilutes long-term equity holder value.</p><h4>1. Warren Buffett Owner Earnings &amp; FCF Reconciliation</h4><p>Boyd Gaming generates industry-leading property operating margins (~40%) across its 28 gaming entertainment properties. For FY2026, operating cash flow is projected to reach approximately $1,020 million, backed by resilient regional play in the Midwest &amp; South segments and asset-light managed property streams (such as Sky River Casino).</p><p>To calculate true Normalized Owner Earnings, we adjust reported operating cash flow for recurring maintenance capital expenditures and stock-based compensation:</p><div class="table-scroll-wrap"><table>
+</table></div>
+<div class="executive-callout">
+<strong>Executive Commentary &amp; Guidance Revision:</strong> Management raised full-year 2026 guidance for both the Online segment (up $5M to $35M–$40M) and the Managed segment (up $3M to $113M–$117M). Suncoast renovations and the Cadence Crossing transition are slated to conclude by late 2026, removing transient EBITDA headwinds heading into 2027.
+  </div>
+</div>
+<div class="section">
+<h2>Section 3: Real Cash Flow &amp; Stock-Based Compensation (SBC) Audit</h2>
+<p>
+    Under the Warren Buffett cash generation doctrine, true economic Owner Earnings must strip out promotional accounting noise, working capital distortion, and treat Stock-Based Compensation (SBC) as an indisputable 100% cash deduction. 
+  </p>
+<p>
+    While GAAP Operating Cash Flow on a trailing basis was impacted by $341 million in one-off settlement outflows for transferable federal energy tax credits purchased in 2025 (which yield direct cash tax savings across future periods), normalized organic operating cash generation runs at ~$900 million annually.
+  </p>
+<div class="table-scroll-wrap"><table>
 <thead>
 <tr>
-<th>Cash Flow Metric</th>
-<th>FY2024 Actual</th>
-<th>FY2025 Actual</th>
-<th>FY2026 Run-Rate (Est.)</th>
-<th>Methodology &amp; Rationale</th>
+<th>Cash Flow Component</th>
+<th>LTM Normalized ($M)</th>
+<th>Per Diluted Share ($)</th>
+<th>Owner Earnings Treatment &amp; Audit Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Operating Cash Flow (OCF)</strong></td>
-<td>$957.1M</td>
-<td>$1,050.0M</td>
-<td>$1,020.0M</td>
-<td>Base organic operating cash flow before capex investments.</td>
+<td><strong>Normalized Operating Cash Flow</strong></td>
+<td>$900.0</td>
+<td>$12.08</td>
+<td>Excludes one-time energy tax credit purchase timing ($341M).</td>
 </tr>
 <tr>
 <td><strong>Maintenance CapEx</strong></td>
-<td>($225.0M)</td>
-<td>($240.0M)</td>
-<td>($250.0M)</td>
-<td>Management guidance for recurring unit-level maintenance.</td>
+<td>-$250.0</td>
+<td>-$3.36</td>
+<td>Capital required to maintain slot floors, HVAC, and hotel rooms across 28 properties.</td>
 </tr>
 <tr>
 <td><strong>Stock-Based Compensation (SBC)</strong></td>
-<td>($36.1M)</td>
-<td>($30.2M)</td>
-<td>($30.0M)</td>
-<td>Deducted in full as a real cash expense &amp; share dilution factor.</td>
+<td>-$32.0</td>
+<td>-$0.43</td>
+<td>Deducted at 100% cash cost (conservative true owner penalty).</td>
 </tr>
 <tr>
 <td><strong>Normalized Owner Earnings</strong></td>
-<td><strong>$696.0M</strong></td>
-<td><strong>$779.8M</strong></td>
-<td><strong>$740.0M</strong></td>
-<td><strong>True cash generation ($10.12/share on 73.1M shares)</strong>.</td>
-</tr>
-<tr>
-<td>Growth &amp; Development CapEx</td>
-<td>($175.4M)</td>
-<td>($433.2M)</td>
-<td>($425.0M)</td>
-<td>Discretionary growth pipeline (Norfolk, Orleans, Par-A-Dice).</td>
-</tr>
-<tr>
-<td>Reported Free Cash Flow (OCF - Total CapEx)</td>
-<td>$556.7M</td>
-<td>$376.8M</td>
-<td>$345.0M</td>
-<td>Unadjusted FCF heavily depressed by temporary growth investments.</td>
+<td><strong>$618.0</strong></td>
+<td><strong>$8.30</strong></td>
+<td><strong>Organic cash flow freely available for dividends and buybacks.</strong></td>
 </tr>
 </tbody>
-</table></div><h4>2. Capital Expenditure Dissection: Growth vs. Maintenance</h4><p>Management guided total FY2026 capital expenditures of <strong>$650 million to $700 million</strong> ($297 million spent through H1 2026). Understanding the bifurcated nature of this expenditure is essential for cash flow evaluation:</p><ul><li><strong>Maintenance CapEx (~$250 million/year):</strong> Essential re-investment required to maintain physical casino floors, slot machines, hotel rooms, and IT systems, ensuring moat defense across regional gaming markets.
-  <strong>Orleans Hotel &amp; Casino Remodel ($75 million):</strong> Incremental hotel capital targeted at modernizing the Las Vegas Locals flagship property, completing by late 2026.
-  <strong>Norfolk, Virginia Resort Development ($300 million in 2026):</strong> Development expense towards a $750 million commercial casino resort project scheduled to open in late 2027, creating a high-return growth vector in a brand-new regional monopoly market.
-  <strong>Growth &amp; Relocation Projects ($50 million):</strong> Finalization of Cadence Crossing Casino in Henderson, NV (opened March 2026 for $75 million) and preconstruction design for the Par-A-Dice land-based casino relocation in East Peoria, IL (~$160 million total investment).</li></ul><div class="callout">
-<p><strong>SBC Audit &amp; Share Buyback Cannibal Dynamics:</strong></p>
-<p>Boyd Gaming exhibits one of the most aggressive and shareholder-friendly capital return programs in the gaming industry. While stock-based compensation expense (~$30M annually) is small relative to operating cash flow (~3%), management treats share count reduction as a strategic imperative.</p>
-<p>Since initiating its capital return program in late 2021, Boyd Gaming has returned <strong>over $3.0 billion to shareholders</strong> via buybacks and dividends, reducing its share count by <strong>35%</strong> (from ~113 million to 73.1 million actual shares as of Q2 2026). Management maintains a firm commitment to repurchase <strong>~$150 million in stock per quarter</strong> ($155M repurchased in Q1 2026, $156M repurchased in Q2 2026), removing ~5% of outstanding shares annually at current valuation levels. Supported by an additional $500 million buyback authorization approved in April 2026 ($551M remaining capacity), this share cannibalization compounds per-share Owner Earnings by ~8–10% annually.</p>
-</div></div>
-<div class="section"><h3>Section 4: Balance Sheet Health, Capital Structure &amp; 13F Institutional Whales</h3><h4>1. Financial Fortress &amp; Debt Structure Audit</h4><p>Boyd Gaming operates with one of the cleanest balance sheets among multi-jurisdictional casino operators, having strategically transformed its credit profile through the $1.755 billion monetization of its 5% FanDuel equity stake to Flutter Entertainment. In Q1 2026, Boyd refinanced its bank debt with a new $2.65 billion secured credit facility, extending debt maturities and securing flexible terms.</p><div class="metrics-grid">
-<div class="metric-card">
-<div class="metric-label">Total Debt</div>
-<div class="metric-value">$2,600M</div>
-<div class="metric-delta pos">Refinanced Facility</div>
+</table></div>
+<p>
+    At the current quotation of $83.26, Boyd trades at an initial Normalized Owner Earnings Cash Yield of <strong>9.97%</strong> ($8.30 / $83.26), providing an immediate, high-margin cash return backstopped by physical real estate equity.
+  </p>
 </div>
-<div class="metric-card">
-<div class="metric-label">Cash &amp; Equivalents</div>
-<div class="metric-value">$322.7M</div>
-<div class="metric-delta pos">Robust Reserve</div>
+<div class="section">
+<h2>Section 4: Capital Allocation &amp; Balance Sheet Discipline</h2>
+<p>
+    Boyd Gaming continues to exhibit exceptional capital allocation discipline under the "Cannibal Compounder" framework. During Q2 2026, management repurchased $156 million of stock (1.9 million shares retired at an average price of $83.60), bringing six-month repurchases to $311.1 million (3.71 million shares). Total diluted shares outstanding have shrunk to ~74.5 million, down from &gt;110 million five years ago.
+  </p>
+<div class="callout">
+<strong>Dividend Declaration &amp; Authorization:</strong> The Board declared its regular quarterly cash dividend of $0.20 per share on August 13, 2026, payable October 15, 2026 (Item 8.01 8-K). With $551 million remaining under its active share repurchase authorization, the company is on pace to retire an additional ~6-7% of outstanding shares over the next 12 months.
+  </div>
+<p>
+    The balance sheet remains conservative. Boyd closed the quarter with $322.7 million in cash and cash equivalents and $2.614 billion in long-term debt, resulting in net debt of ~$2.29 billion. With an annualized property EBITDAR base of ~$1.40 billion, net leverage sits comfortably at <strong>2.3x</strong>, well below covenants and industry peers. The company also executed an amended and restated $2.65 billion senior secured credit facility with over $1.89 billion in undrawn liquidity, fully funding major growth projects including the $750 million Norfolk Casino Resort development and Sky River Phase 2.
+  </p>
 </div>
-<div class="metric-card">
-<div class="metric-label">Net Debt Position</div>
-<div class="metric-value">$2,277.3M</div>
-<div class="metric-delta pos">Deleveraged</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Traditional Leverage</div>
-<div class="metric-value">1.8x - 2.2x</div>
-<div class="metric-delta pos">Net Debt / EBITDAR</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Lease-Adjusted Leverage</div>
-<div class="metric-value">2.4x - 2.7x</div>
-<div class="metric-delta pos">Below Target Range</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Total Liquidity</div>
-<div class="metric-value">~$1.89B</div>
-<div class="metric-delta pos">Credit + Cash</div>
-</div>
-</div><h4>2. Liquidity, Debt Discipline &amp; Cost of Capital</h4><p>Boyd’s capital structure provides immense operational flexibility. Traditional net debt to EBITDAR stands at 1.8x–2.2x, comfortably below management's long-term target ceiling of 2.5x–3.0x. The weighted average cost of debt remains disciplined at ~5.8%, yielding an estimated Weighted Average Cost of Capital (WACC) of <strong>7.8% - 8.2%</strong> when integrated with a 9.5% required equity return hurdle.</p><p>Annual debt service obligations (interest expense ~$130M–$140M) are covered over 7.5x by operating EBITDAR (~$1.35B–$1.40B annual run-rate). This interest coverage ensures that even during a severe regional economic downturn or prolonged weakness in destination Las Vegas travel, Boyd Gaming’s dividend ($0.20/share quarterly / ~$58M annual outlay) and maintenance CapEx remain completely safe.</p><h4>3. Institutional Ownership &amp; 13F Whale Tracking</h4><p>Institutional investors hold over <strong>88% of Boyd Gaming’s public float</strong>, reflecting institutional confidence in management's disciplined capital allocation strategy. A audit of official 13F filings confirms strong backing from premier institutional asset managers and value-oriented funds:</p><div class="table-scroll-wrap"><table>
-<thead>
-<tr>
-<th>Institutional Whale / Holder</th>
-<th>Share Position</th>
-<th>% of Float</th>
-<th>Recent 13F Activity</th>
-<th>Investment Thesis Alignment</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>The Vanguard Group, Inc.</strong></td>
-<td>11,580,000</td>
-<td>15.8%</td>
-<td>Maintained / Rebalanced</td>
-<td>Core index anchor in mid-cap consumer cyclical portfolio.</td>
-</tr>
-<tr>
-<td><strong>BlackRock, Inc.</strong></td>
-<td>8,420,000</td>
-<td>11.5%</td>
-<td>Maintained</td>
-<td>Passive mid-cap institutional holding.</td>
-</tr>
-<tr>
-<td><strong>Ariel Investments (John W. Rogers Jr.)</strong></td>
-<td>2,300,000</td>
-<td>3.1%</td>
-<td>Trimmed (-2.8%)</td>
-<td>High-conviction value fund attracted to cash generation &amp; buybacks.</td>
-</tr>
-<tr>
-<td><strong>Gotham Asset Management (Joel Greenblatt)</strong></td>
-<td>858,000</td>
-<td>1.2%</td>
-<td>Increased (+25.5%)</td>
-<td>Systematic value strategy backing high ROIC and free cash yield.</td>
-</tr>
-<tr>
-<td><strong>GAMCO Investors (Mario Gabelli)</strong></td>
-<td>183,000</td>
-<td>0.25%</td>
-<td>Trimmed (-28.1%)</td>
-<td>Value-oriented position monitoring asset value &amp; regional consolidation.</td>
-</tr>
-</tbody>
-</table></div><h4>4. Management Executive Alignment</h4><p>Executive leadership, led by CEO Keith Smith and CFO Josh Hirsberg, is directly aligned with long-term per-share value creation. Long-term executive incentive compensation is explicitly tied to Adjusted EBITDAR performance, return on invested capital (ROIC), and total shareholder return (TSR) relative to peer gaming operators. By focusing incentives on per-share growth metrics rather than gross expansion, management is motivated to aggressively buy back stock when shares trade below intrinsic value rather than engaging in value-destructive M&amp;A.</p></div>
-<div class="section"><h2>Section 5: Warren Buffett Owner Earnings &amp; Intrinsic Value Master Framework</h2><p>In accordance with Warren Buffett’s 1986 Shareholder Letter methodology, evaluating Boyd Gaming Corporation (NYSE: BYD) requires peeling back GAAP earnings distortions and growth CapEx outlays to arrive at true, unencumbered residual cash flow—<strong>Owner Earnings</strong>. For a regional casino operator with owned real estate assets, GAAP net income understates cash generation due to accelerated depreciation schedules, while operating cash flow can be temporarily inflated or deflated by working capital swings and non-recurring tax credit payments (such as $341 million in federal energy tax credit purchases in early 2026).</p><h3>1. Normalized Owner Earnings Derivation</h3><p>Buffett defines Owner Earnings as: <em>Operating Cash Flow minus Maintenance CapEx minus 100% Stock-Based Compensation (SBC)</em>. Based on Boyd Gaming's reported operating trends and guidance across Q1 and Q2 2026, normalized annual operating cash flow runs between $850 million and $900 million ($875 million midpoint). Deducting $250 million in recurring maintenance CapEx (required to update slot floors, maintain hotel room quality at flagships like The Orleans, and preserve property competitiveness) and deducting $18 million in annual SBC as a real cash dilutive expense yields a baseline Owner Earnings power of <strong>~$582 million</strong>.</p><div class="metrics-grid">
-<div class="metric-card">
-<div class="metric-label">Normalized Operating Cash Flow</div>
-<div class="metric-value">$875.0M</div>
-<div class="metric-delta pos">Midpoint Run-Rate</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Maintenance CapEx</div>
-<div class="metric-value">($250.0M)</div>
-<div class="metric-delta neutral">Targeted Reinvestment</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Stock-Based Comp (100% Cash)</div>
-<div class="metric-value">($18.0M)</div>
-<div class="metric-delta neg">Fully Deducted</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Normalized Owner Earnings</div>
-<div class="metric-value">$582.0M</div>
-<div class="metric-delta pos">$7.85 / Share (74.2M Shares)</div>
-</div>
-</div><h3>2. Capital Structure &amp; Cost of Capital (Discount Rate Derivation)</h3><p>To establish the intrinsic discount rate without resorting to academic WACC volatility, we ground our hurdle rate strictly in the risk-free US 10-Year Treasury yield (~4.20%) plus an Equity Hurdle Rate of 5.30%, yielding a required hurdle rate of <strong>9.50%</strong>. This discount rate reflects Boyd's owned real estate portfolio, moderate leverage ratio (~2.6x net debt to EBITDAR), and disciplined credit facility execution ($2.65 billion amended facility with $1.89 billion available liquidity).</p><h3>3. Share Cannibalism &amp; Growth Reinvestment Payback</h3><p>A critical engine of Boyd's per-share intrinsic value growth is its aggressive share buyback cannibalism. Management routinely deploys ~$150M to $170M per quarter into repurchasing shares, resulting in an annual share count reduction of 5.0% to 7.0%. Over a 3- to 5-year horizon, this shrinking denominator directly concentrates Owner Earnings into fewer outstanding shares. Simultaneously, growth CapEx (including the $750 million Norfolk, Virginia resort development, Cadence Crossing Casino opening, and expanding tribal management fees from California's Sky River Casino) builds high-ROIC future income streams that will replace near-term construction disruption headwinds.</p><h3>4. Bear / Base / Bull Intrinsic Value Scenario Matrix</h3><p>Below is our 3- to 5-year compounding intrinsic value valuation matrix using the discounted Owner Earnings model, assuming terminal cash flows are capped at a conservative 2.0% GDP rate.</p><div class="table-scroll-wrap"><table>
+<div class="section">
+<h2>Section 5: Owner Earnings Intrinsic Value Matrix</h2>
+<p>
+    To calculate intrinsic fair value under Warren Buffett's 5-Year Market Closure framework, we model discounted normalized Owner Earnings using a strict 9.0% equity hurdle rate (grounded in the US 10-Year Treasury yield of ~4.20% + a 4.80% equity risk premium) with zero reliance on speculative terminal exit multiples.
+  </p>
+<div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Scenario</th>
-<th>Owner Earnings CAGR</th>
-<th>Share Reduction (p.a.)</th>
-<th>Terminal Growth Rate</th>
+<th>Owner Earnings / Share</th>
+<th>5-Year CAGR (inc. Buybacks)</th>
 <th>Discount Rate</th>
+<th>Terminal Growth Rate</th>
+<th>Net Debt / Share</th>
 <th>Intrinsic Value / Share</th>
-<th>Current Price</th>
-<th>Margin of Safety / Upside</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Bear Case</strong></td>
-<td>-2.5%</td>
-<td>-3.0%</td>
+<td><strong>Bear Case (-25%)</strong></td>
+<td>$6.20</td>
+<td>-1.0%</td>
+<td>10.0%</td>
 <td>1.5%</td>
-<td>9.5%</td>
-<td><strong>$68.00</strong></td>
-<td>$83.42</td>
-<td><span class="metric-delta neg">-18.5% (Overvalued)</span></td>
+<td>-$30.70</td>
+<td><strong>$71.50</strong></td>
 </tr>
 <tr>
-<td><strong>Base Case</strong></td>
-<td>+3.5%</td>
-<td>-5.5%</td>
-<td>2.0%</td>
-<td>9.5%</td>
-<td><strong>$102.00</strong></td>
-<td>$83.42</td>
-<td><span class="metric-delta pos">+22.3% Upside</span></td>
+<td><strong>Base Case (Intrinsic Fair Value)</strong></td>
+<td><strong>$8.30</strong></td>
+<td><strong>+3.5%</strong></td>
+<td><strong>9.0%</strong></td>
+<td><strong>2.0%</strong></td>
+<td><strong>-$30.70</strong></td>
+<td><strong>$98.50</strong></td>
 </tr>
 <tr>
-<td><strong>Bull Case</strong></td>
-<td>+7.5%</td>
-<td>-7.0%</td>
-<td>2.0%</td>
-<td>9.5%</td>
-<td><strong>$125.00</strong></td>
-<td>$83.42</td>
-<td><span class="metric-delta pos">+49.8% Upside</span></td>
+<td><strong>Bull Case (+35%)</strong></td>
+<td>$10.20</td>
+<td>+6.0%</td>
+<td>8.5%</td>
+<td>2.5%</td>
+<td>-$28.00</td>
+<td><strong>$122.00</strong></td>
 </tr>
 </tbody>
-</table></div><div class="callout">
-<h4>Warren Buffett’s 5-Year Exchange Closure Test</h4>
-<p>"If the stock market closed for 5 years starting tomorrow, would an owner of Boyd Gaming be content?" With an initial Owner Earnings yield of <strong>9.41%</strong> ($7.85 OE / $83.42 market price) plus a share cannibalism engine retiring ~5-6% of outstanding shares annually, an investor captures an organic enterprise yield near 15% without needing any speculative market multiple expansion.</p>
-</div></div>
-<div class="section"><h2>Section 6: Execution Risks, Dynamic Alert Corridors &amp; Pre-Mortem Falsification</h2><h3>1. Execution &amp; Operational Risk Assessment</h3><p>While Boyd Gaming possesses an efficient operating structure with company-wide property EBITDAR margins near 39–40%, several key execution and macroeconomic risks could threaten the thesis path toward fair value:</p><ul><li><strong>Norfolk Greenfield Development Execution ($750M Total Project):</strong> Boyd is committing substantial growth CapEx ($300 million targeted in 2026 alone) to build the resort in Norfolk, Virginia. Supply chain inflationary pressures, labor shortages, or construction delays could inflate total capital requirements or delay cash flow generation beyond 2027.</li><li><strong>Las Vegas Destination &amp; Downtown Softness:</strong> Recent quarters showed softness in Las Vegas destination play, lower pedestrian traffic on Downtown Fremont Street (down ~11% YoY), and temporary self-inflicted construction disruptions at Suncoast (a $2.5M–$3.0M quarterly EBITDAR drag) and softness at The Orleans. If regional drive-in or destination air travel contracts further due to macro consumer weakness, local margins could face compression.</li><li><strong>Cost Inflation &amp; Property Margin Defense:</strong> Maintaining property margins near historic highs (~40%) requires relentless cost discipline to counter rising utility fees, property insurance, and gaming wage inflation across its 27 properties.</li></ul><h3>2. Dynamic Price Alert Corridors &amp; Surveillance Triggers</h3><p>To automate risk surveillance, we establish dynamic upper and lower alert thresholds relative to the current market price of $83.42.</p><div class="metrics-grid">
-<div class="metric-card">
-<div class="metric-label">Lower Alert Threshold</div>
-<div class="metric-value">$72.00</div>
-<div class="metric-delta neg">Margin of Safety Re-Test (-13.7%)</div>
+</table></div>
+<p>
+    Our Base Case yields an intrinsic fair value of <strong>$98.50 per share</strong>, offering an upside of <strong>+18.3%</strong> from the current market price of $83.26, complemented by a ~10% Owner Earnings yield and ongoing share cannibalization.
+  </p>
 </div>
-<div class="metric-card">
-<div class="metric-label">Current Market Price</div>
-<div class="metric-value">$83.42</div>
-<div class="metric-delta neutral">Base Entry Range</div>
+<div class="section">
+<h2>Section 6: Thesis Confidence, Execution Risk &amp; Invalidation Corridors</h2>
+<p>
+    Our thesis conviction remains <strong>High Conviction</strong> with an actionable <strong>BUY</strong> signal. Boyd’s capital allocation formula continues to operate as an asymmetric wealth compounding machine for patient, long-term investors.
+  </p>
+<div class="callout">
+<strong>Pre-Mortem Falsification Triggers &amp; Risk Audit:</strong>
+<ul>
+<li><strong>Regional Discretionary Spending Collapse:</strong> Midwest &amp; South property margins falling below 32% across two consecutive quarters.</li>
+<li><strong>Capital Allocation Discipline Failure:</strong> Halting share buybacks in favor of unaccretive, debt-fueled mega-resort acquisitions outside core regional competencies.</li>
+<li><strong>Norfolk Construction CapEx Blowout:</strong> Total development CapEx on the Norfolk project exceeding $950M without proportional revenue underwriting.</li>
+<li><strong>Sky River Fee Impairment:</strong> Any regulatory or legal dispute impairing the $113M–$117M annual managed fee revenue stream.</li>
+</ul>
 </div>
-<div class="metric-card">
-<div class="metric-label">Upper Alert Threshold</div>
-<div class="metric-value">$98.00</div>
-<div class="metric-delta pos">Trim / Valuation Realization (+17.5%)</div>
+<p>
+<strong>Dynamic Surveillance Corridors:</strong> We establish an <em>Upper Alert Threshold</em> at <strong>$95.00</strong> (nearing intrinsic fair value; candidate for capital harvest) and a <em>Lower Alert Threshold</em> at <strong>$74.00</strong> (approaching Bear case support floor; trigger for aggressive accumulation review).
+  </p>
 </div>
-</div><p><strong>Upper Threshold Trigger ($98.00):</strong> Nearing the Base Case Intrinsic Value ($102.00). Crossing this corridor triggers an automatic portfolio rebalancing review to evaluate whether Norfolk development cash flows are fully priced in or if capital should be trimmed into higher margin-of-safety opportunities.</p><p><strong>Lower Threshold Trigger ($72.00):</strong> Testing Bear Case support ($68.00). Crossing this level triggers an immediate thesis review to verify whether the price drop is a macro liquidity disconnect (buying opportunity) or driven by fundamental operational deterioration in regional gaming EBITDAR.</p><div class="callout">
-<h4>Pre-Mortem Thesis Falsification Triggers</h4>
-<p>The investment thesis will be considered fundamentally broken or invalid if any of the following four objective triggers occur:</p>
-<ol><li><strong>EBITDAR Margin Decay:</strong> Company-wide property operating margins fall below <strong>36.0%</strong> for two consecutive quarters (indicating structural inability to absorb wage/operating cost inflation).</li><li><strong>Norfolk Project Cost Overrun:</strong> Total CapEx for the Norfolk resort project escalates beyond <strong>$900 million</strong> (&gt;20% overrun) or suffers regulatory licensing halts extending completion past mid-2027.</li><li><strong>Sky River Management Fee Reversal:</strong> Managed Business EBITDAR (primarily Sky River tribal management fees) declines below <strong>$80 million annualized</strong> due to competitive loss or contractual dispute.</li><li><strong>Leverage Over-Expansion:</strong> Net Debt to Adjusted EBITDAR exceeds</li><li><strong>3.5x</strong> driven by debt-funded buybacks during a downturn in regional gaming revenue.</li></ol>
-</div></div>
             </article>
         </div>
 
         <!-- History Content -->
         <div id="tab-history" class="tab-content">
             
-        <div class="empty-state-box" style="background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px; padding: 75px 24px;">
-            <div class="empty-state-title">Initial Baseline Active</div>
-            <div class="empty-state-sub">Version 1 represents the initial underwriting thesis. Future revisions, price trigger reviews, and catalyst audits will be logged here</div>
-        </div>
-        
+            <div class="history-entry history-entry-active">
+                <div class="history-top">
+                    <div class="history-tags">
+                        <span class="history-time">2026-08-13</span>
+                        <span class="history-price">$83.26</span>
+                        <span class="status-beacon beacon-buy" title="Action Signal: Strong Buy (Get in NOW / Thesis Accelerating)"><span class="beacon-ping"></span><span class="beacon-dot"></span></span>
+                        <span class="pill pill-active">High Conviction</span> <span class="pill pill-neutral">Buyback Cannibal</span> <span class="pill pill-neutral">Moat Expansion</span>
+                    </div>
+                    <button class="btn btn-subtle" onclick="toggleSnapshot(2)">Read Snapshot ▾</button>
+                </div>
+                <div class="history-content">
+                    <p class="history-shift-desc">The SEC Form 8-K filed August 13, 2026 formalizes the declaration of a regular $0.20 quarterly cash dividend ($0.80 annualized, ~1.0% yield) payable October 15, 2026. This reaffirmation follows a steady Q2 operational performance where comparable revenue grew 3% and property-level operating margins held firm at 40.0%, anchored by Midwest & South strength (EBITDAR +3.6%) and raised guidance across Online (+ $5M) and Managed (+ $3M) businesses. Management repurchased $156M of common stock in Q2 (3.7M shares retired YTD), compounding per-share Owner Earnings to ~$8.30 on a normalized basis, reinforcing our High Conviction BUY stance and $98.50 fair value estimate.</p>
+                    
+                <div class="diff-grid">
+                    <div class="diff-box diff-prev">
+                        <div class="diff-label">PREVIOUS THESIS</div>
+                        <div class="diff-text">Boyd Gaming Corporation presents an attractive risk-reward profile backed by a resilient regional casino moat, high property operating margins (~40%), and aggressive share repurchases ($150M/quarter). While destination Las Vegas properties face transient visitation softness and construction friction, Midwest & South operations, online casino expansion, and managed fee growth (Sky River) provide steady cash flow. Deducting maintenance CapEx ($250M) and SBC yields normalized Owner Earnings of ~$7.85/share, supporting an intrinsic value of $98.50.</div>
+                    </div>
+                    <div class="diff-box diff-now">
+                        <div class="diff-label">THESIS EVOLUTION</div>
+                        <div class="diff-text">
+                            The SEC Form 8-K filed August 13, 2026 formalizes the declaration of a regular $0.20 quarterly cash dividend ($0.80 annualized, ~1.0% yield) payable October 15, 2026. This reaffirmation follows a steady Q2 operational performance where comparable revenue grew 3% and property-level operating margins held firm at 40.0%, anchored by Midwest & South strength (EBITDAR +3.6%) and raised guidance across Online (+ $5M) and Managed (+ $3M) businesses. Management repurchased $156M of common stock in Q2 (3.7M shares retired YTD), compounding per-share Owner Earnings to ~$8.30 on a normalized basis, reinforcing our High Conviction BUY stance and $98.50 fair value estimate.
+                            
+                    <div style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border-color); font-size: 0.84rem;">
+                        <div style="font-weight: 500; color: var(--text-title); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                            <span style="color: var(--accent-warm);">🏷️ Label & Conviction Evolution:</span>
+                            <div style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                                <span class="pill pill-neutral" style="font-size:0.75rem;">High Conviction</span> <span class="pill pill-neutral" style="font-size:0.75rem;">Buyback Cannibal</span> <span class="pill pill-neutral" style="font-size:0.75rem;">Regional Moat</span>
+                                <span style="color: var(--text-dim);">→</span>
+                                <span class="pill pill-active" style="font-size:0.75rem;">High Conviction</span> <span class="pill pill-active" style="font-size:0.75rem;">Buyback Cannibal</span> <span class="pill pill-active" style="font-size:0.75rem;">Moat Expansion</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                        </div>
+                    </div>
+                </div>
+                
+                    <div id="snapshot-2" class="snapshot-drawer" style="display: none;">
+                        <div class="snapshot-body">
+                            <div class="section">
+<h2>Section 1: Business Model, Scale Moat &amp; GenAI Transition</h2>
+<p>
+    Boyd Gaming Corporation (NYSE: BYD) operates as a leading multi-jurisdictional gaming enterprise with 28 gaming properties across 10 states, complemented by an expanding digital interactive gaming presence and high-margin tribal management contracts. Founded on a disciplined regional operating philosophy, Boyd's competitive moat rests upon three self-reinforcing economic pillars: deep local customer entrenchment, industry-leading cost containment yielding sustainable ~40% property EBITDAR margins, and a capital allocation playbook that prioritizes substantial share cannibalism over empire building.
+  </p>
+<p>
+    Unlike destination Strip operators heavily exposed to airline travel volatility and mega-resort overhead, Boyd’s portfolio is insulated by local recurring play. In the Las Vegas Locals market, Boyd caters to residential gamblers with high repeat frequencies, where properties outside of temporary construction disruption achieve margins exceeding 50%. Across the Midwest &amp; South, Boyd benefits from captive drive-in demographic corridors with strict state licensing barriers to entry, shielding properties from new supply shocks. 
+  </p>
+<p>
+    In technological operations, Boyd is utilizing modern algorithmic player-tracking, predictive marketing engines, and automated labor-scheduling platforms to preserve post-pandemic operational efficiencies. By leveraging machine learning models across its B Connected loyalty ecosystem, Boyd targets promotional reinvestment precisely at high-lifetime-value retail and VIP tiers while eliminating low-margin promotional leakage. Additionally, through Boyd Interactive and its B2B game development arm (Design Works Studios), the company captures digital margin upside across expanding North American iGaming markets without bearing the dilutive customer acquisition costs of pure-play digital operators.
+  </p>
+</div>
+<div class="section">
+<h2>Section 2: Quarterly Operational Breakdown &amp; Segment Performance</h2>
+<p>
+    Boyd delivered a steady operational performance in the most recent quarter, highlighting the structural resilience of its geographically diversified model. Total net revenues stood at $1.034 billion, with total Adjusted EBITDAR reaching $350.5 million and overall property margins maintaining their disciplined 40.0% benchmark.
+  </p>
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">Quarterly Net Revenue</div>
+<div class="metric-value">$1,034.4M</div>
+<div class="metric-delta pos">+3.0% Comp YoY</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Total Adjusted EBITDAR</div>
+<div class="metric-value">$350.5M</div>
+<div class="metric-delta neut">40.0% Margin</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Midwest &amp; South EBITDAR</div>
+<div class="metric-value">$208.7M</div>
+<div class="metric-delta pos">+3.6% YoY</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Capital Returned (Q2)</div>
+<div class="metric-value">$170M+</div>
+<div class="metric-delta pos">1.9M Shares Retired</div>
+</div>
+</div>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Segment</th>
+<th>Revenue ($M)</th>
+<th>EBITDAR ($M)</th>
+<th>Operating Margin</th>
+<th>Key Operational Drivers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Midwest &amp; South</strong></td>
+<td>$556.9</td>
+<td>$208.7</td>
+<td>37.5%</td>
+<td>Core play growth, retail spend gains, ROI on food &amp; beverage investments.</td>
+</tr>
+<tr>
+<td><strong>Las Vegas Locals</strong></td>
+<td>$281.4</td>
+<td>$132.8</td>
+<td>47.2%</td>
+<td>50%+ margins on core properties; $5M Orleans destination &amp; $3M Suncoast construction drag.</td>
+</tr>
+<tr>
+<td><strong>Downtown Las Vegas</strong></td>
+<td>$50.2</td>
+<td>$17.1</td>
+<td>34.1%</td>
+<td>Steady Hawaiian fly-in niche; pedestrian destination traffic softness.</td>
+</tr>
+<tr>
+<td><strong>Online &amp; Interactive</strong></td>
+<td>$117.4</td>
+<td>$19.4</td>
+<td>16.5%</td>
+<td>Raised FY guidance to $35–$40M on Boyd Interactive &amp; 3rd-party market access.</td>
+</tr>
+<tr>
+<td><strong>Managed Business</strong></td>
+<td>$28.5</td>
+<td>$28.5</td>
+<td>100.0%</td>
+<td>Raised FY guidance to $113–$117M following Sky River Phase 1 expansion success.</td>
+</tr>
+</tbody>
+</table></div>
+<div class="executive-callout">
+<strong>Executive Commentary &amp; Guidance Revision:</strong> Management raised full-year 2026 guidance for both the Online segment (up $5M to $35M–$40M) and the Managed segment (up $3M to $113M–$117M). Suncoast renovations and the Cadence Crossing transition are slated to conclude by late 2026, removing transient EBITDA headwinds heading into 2027.
+  </div>
+</div>
+<div class="section">
+<h2>Section 3: Real Cash Flow &amp; Stock-Based Compensation (SBC) Audit</h2>
+<p>
+    Under the Warren Buffett cash generation doctrine, true economic Owner Earnings must strip out promotional accounting noise, working capital distortion, and treat Stock-Based Compensation (SBC) as an indisputable 100% cash deduction. 
+  </p>
+<p>
+    While GAAP Operating Cash Flow on a trailing basis was impacted by $341 million in one-off settlement outflows for transferable federal energy tax credits purchased in 2025 (which yield direct cash tax savings across future periods), normalized organic operating cash generation runs at ~$900 million annually.
+  </p>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Cash Flow Component</th>
+<th>LTM Normalized ($M)</th>
+<th>Per Diluted Share ($)</th>
+<th>Owner Earnings Treatment &amp; Audit Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Normalized Operating Cash Flow</strong></td>
+<td>$900.0</td>
+<td>$12.08</td>
+<td>Excludes one-time energy tax credit purchase timing ($341M).</td>
+</tr>
+<tr>
+<td><strong>Maintenance CapEx</strong></td>
+<td>-$250.0</td>
+<td>-$3.36</td>
+<td>Capital required to maintain slot floors, HVAC, and hotel rooms across 28 properties.</td>
+</tr>
+<tr>
+<td><strong>Stock-Based Compensation (SBC)</strong></td>
+<td>-$32.0</td>
+<td>-$0.43</td>
+<td>Deducted at 100% cash cost (conservative true owner penalty).</td>
+</tr>
+<tr>
+<td><strong>Normalized Owner Earnings</strong></td>
+<td><strong>$618.0</strong></td>
+<td><strong>$8.30</strong></td>
+<td><strong>Organic cash flow freely available for dividends and buybacks.</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>
+    At the current quotation of $83.26, Boyd trades at an initial Normalized Owner Earnings Cash Yield of <strong>9.97%</strong> ($8.30 / $83.26), providing an immediate, high-margin cash return backstopped by physical real estate equity.
+  </p>
+</div>
+<div class="section">
+<h2>Section 4: Capital Allocation &amp; Balance Sheet Discipline</h2>
+<p>
+    Boyd Gaming continues to exhibit exceptional capital allocation discipline under the "Cannibal Compounder" framework. During Q2 2026, management repurchased $156 million of stock (1.9 million shares retired at an average price of $83.60), bringing six-month repurchases to $311.1 million (3.71 million shares). Total diluted shares outstanding have shrunk to ~74.5 million, down from &gt;110 million five years ago.
+  </p>
+<div class="callout">
+<strong>Dividend Declaration &amp; Authorization:</strong> The Board declared its regular quarterly cash dividend of $0.20 per share on August 13, 2026, payable October 15, 2026 (Item 8.01 8-K). With $551 million remaining under its active share repurchase authorization, the company is on pace to retire an additional ~6-7% of outstanding shares over the next 12 months.
+  </div>
+<p>
+    The balance sheet remains conservative. Boyd closed the quarter with $322.7 million in cash and cash equivalents and $2.614 billion in long-term debt, resulting in net debt of ~$2.29 billion. With an annualized property EBITDAR base of ~$1.40 billion, net leverage sits comfortably at <strong>2.3x</strong>, well below covenants and industry peers. The company also executed an amended and restated $2.65 billion senior secured credit facility with over $1.89 billion in undrawn liquidity, fully funding major growth projects including the $750 million Norfolk Casino Resort development and Sky River Phase 2.
+  </p>
+</div>
+<div class="section">
+<h2>Section 5: Owner Earnings Intrinsic Value Matrix</h2>
+<p>
+    To calculate intrinsic fair value under Warren Buffett's 5-Year Market Closure framework, we model discounted normalized Owner Earnings using a strict 9.0% equity hurdle rate (grounded in the US 10-Year Treasury yield of ~4.20% + a 4.80% equity risk premium) with zero reliance on speculative terminal exit multiples.
+  </p>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Owner Earnings / Share</th>
+<th>5-Year CAGR (inc. Buybacks)</th>
+<th>Discount Rate</th>
+<th>Terminal Growth Rate</th>
+<th>Net Debt / Share</th>
+<th>Intrinsic Value / Share</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bear Case (-25%)</strong></td>
+<td>$6.20</td>
+<td>-1.0%</td>
+<td>10.0%</td>
+<td>1.5%</td>
+<td>-$30.70</td>
+<td><strong>$71.50</strong></td>
+</tr>
+<tr>
+<td><strong>Base Case (Intrinsic Fair Value)</strong></td>
+<td><strong>$8.30</strong></td>
+<td><strong>+3.5%</strong></td>
+<td><strong>9.0%</strong></td>
+<td><strong>2.0%</strong></td>
+<td><strong>-$30.70</strong></td>
+<td><strong>$98.50</strong></td>
+</tr>
+<tr>
+<td><strong>Bull Case (+35%)</strong></td>
+<td>$10.20</td>
+<td>+6.0%</td>
+<td>8.5%</td>
+<td>2.5%</td>
+<td>-$28.00</td>
+<td><strong>$122.00</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>
+    Our Base Case yields an intrinsic fair value of <strong>$98.50 per share</strong>, offering an upside of <strong>+18.3%</strong> from the current market price of $83.26, complemented by a ~10% Owner Earnings yield and ongoing share cannibalization.
+  </p>
+</div>
+<div class="section">
+<h2>Section 6: Thesis Confidence, Execution Risk &amp; Invalidation Corridors</h2>
+<p>
+    Our thesis conviction remains <strong>High Conviction</strong> with an actionable <strong>BUY</strong> signal. Boyd’s capital allocation formula continues to operate as an asymmetric wealth compounding machine for patient, long-term investors.
+  </p>
+<div class="callout">
+<strong>Pre-Mortem Falsification Triggers &amp; Risk Audit:</strong>
+<ul>
+<li><strong>Regional Discretionary Spending Collapse:</strong> Midwest &amp; South property margins falling below 32% across two consecutive quarters.</li>
+<li><strong>Capital Allocation Discipline Failure:</strong> Halting share buybacks in favor of unaccretive, debt-fueled mega-resort acquisitions outside core regional competencies.</li>
+<li><strong>Norfolk Construction CapEx Blowout:</strong> Total development CapEx on the Norfolk project exceeding $950M without proportional revenue underwriting.</li>
+<li><strong>Sky River Fee Impairment:</strong> Any regulatory or legal dispute impairing the $113M–$117M annual managed fee revenue stream.</li>
+</ul>
+</div>
+<p>
+<strong>Dynamic Surveillance Corridors:</strong> We establish an <em>Upper Alert Threshold</em> at <strong>$95.00</strong> (nearing intrinsic fair value; candidate for capital harvest) and a <em>Lower Alert Threshold</em> at <strong>$74.00</strong> (approaching Bear case support floor; trigger for aggressive accumulation review).
+  </p>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
         </div>
 
         <!-- Ownership & Fund Intel Content -->
@@ -1622,7 +1799,7 @@
                 </div>
                 <div class="stat-box">
                     <span class="stat-label">Whale & Superinvestor Tracking</span>
-                    <span class="stat-num" style="color: var(--accent-warm);">13 Funds Tracked</span>
+                    <span class="stat-num" style="color: var(--accent-warm);">12 Funds Tracked</span>
                     <span class="stat-note">36 Recent Form 4 Transactions Audited</span>
                 </div>
             </div>
@@ -1644,7 +1821,7 @@
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">🏛️</span>
-                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (13)</h3>
+                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (12)</h3>
             </div>
             <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, Dataroma superinvestor portfolios, and regulatory ownership registries.</p>
             <div class="table-responsive">
@@ -1824,7 +2001,7 @@
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Vanguard (11.8%)</div>
+                <div style="font-weight: 500; color: var(--text-title);">Vanguard Group (7.6%)</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
             <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
@@ -1840,23 +2017,7 @@
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">BlackRock (9.4%)</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
-            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
-            <td>
-                <a href="https://whalewisdom.com/stock/byd" target="_blank" rel="noopener noreferrer" class="link-out">
-                    View 13F ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Dimensional (4.8%)</div>
+                <div style="font-weight: 500; color: var(--text-title);">Cohen & Steers (3.4%)</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Asset Manager</span></td>
             <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
@@ -2603,8 +2764,8 @@
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
                     Substack / Pricedtoown · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://pricedtoown.substack.com/p/boyd-gaming-byd-a-winning-bet-for?utm_campaign=post&utm_medium=web" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Substack Memo ↗
+                <a href="https://substack.com/search/BYD%20Boyd%20Gaming%20Corporation%20investment%20thesis" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Search ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
@@ -2654,8 +2815,8 @@
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
                     Substack / Earningsandmore · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://earningsandmore.substack.com/p/investors-not-buoyed-by-weather-beaten" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Substack Memo ↗
+                <a href="https://substack.com/search/BYD%20Boyd%20Gaming%20Corporation%20investment%20thesis" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Search ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
