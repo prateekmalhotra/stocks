@@ -60,6 +60,117 @@ def save_portfolio_state(state: Dict[str, Any], portfolio_type: str = "defensive
         json.dump(state, f, indent=2)
 
 
+def sync_live_market_data() -> Dict[str, Any]:
+    """
+    Fetches real-time market quotes from Yahoo Finance for all watchlist stocks,
+    updates data/watchlist.json, public/data/live_quotes.json, and recalculates
+    exact portfolio valuations for both Fidelity and Wealthsimple portfolios.
+    """
+    from stocks.tracker import fetch_live_stock_info
+    
+    PUBLIC_DIR.mkdir(parents=True, exist_ok=True)
+    (PUBLIC_DIR / "data").mkdir(parents=True, exist_ok=True)
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    
+    watchlist = {}
+    if WATCHLIST_FILE.exists():
+        try:
+            with open(WATCHLIST_FILE, "r", encoding="utf-8") as f:
+                watchlist = json.load(f)
+        except Exception:
+            pass
+            
+    live_quotes = {}
+    timestamp_str = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
+    
+    for ticker, item in watchlist.items():
+        try:
+            name, live_p = fetch_live_stock_info(ticker)
+            old_p = float(item.get("current_price", live_p))
+            item["current_price"] = round(live_p, 2)
+            base_p = float(item.get("baseline_price", live_p))
+            if base_p > 0:
+                item["return_pct"] = round(((live_p - base_p) / base_p) * 100, 2)
+                
+            live_quotes[ticker] = {
+                "price": round(live_p, 2),
+                "prev_close": old_p,
+                "change": round(live_p - old_p, 2),
+                "change_pct": round(((live_p - old_p) / old_p) * 100, 2) if old_p > 0 else 0.0,
+                "currency": "USD",
+                "updated_at": timestamp_str
+            }
+        except Exception as e:
+            print(f"⚠️ Error syncing {ticker}: {e}")
+            
+    # Save updated watchlist
+    with open(WATCHLIST_FILE, "w", encoding="utf-8") as f:
+        json.dump(watchlist, f, indent=2)
+        
+    # Save public live quotes
+    with open(LIVE_QUOTES_FILE, "w", encoding="utf-8") as f:
+        json.dump(live_quotes, f, indent=2)
+        
+    # Update both portfolios with exact share valuations
+    today_iso = datetime.now().strftime("%Y-%m-%d")
+    for p_type in ["defensive", "aggressive"]:
+        p_file = get_portfolio_filepath(p_type)
+        if not p_file.exists():
+            continue
+        try:
+            with open(p_file, "r", encoding="utf-8") as f:
+                p_data = json.load(f)
+                
+            base_cap = float(p_data.get("base_capital_usd", 200000.0))
+            holdings = p_data.get("holdings", [])
+            total_val = 0.0
+            
+            for h in holdings:
+                t = h["ticker"]
+                w = float(h.get("target_weight", 0.0))
+                alloc_dol = base_cap * w
+                h["allocated_dollars"] = round(alloc_dol, 2)
+                
+                if t == "USD_CASH":
+                    h["cost_basis"] = 1.0
+                    h["current_price"] = 1.0
+                    h["shares_to_buy"] = alloc_dol
+                    h["fair_value"] = 1.0
+                    h["margin_of_safety_pct"] = 0.0
+                    total_val += alloc_dol
+                else:
+                    cost_b = float(h.get("cost_basis", 100.0))
+                    live_p = live_quotes.get(t, {}).get("price", float(h.get("current_price", cost_b)))
+                    h["current_price"] = live_p
+                    shares = round(alloc_dol / cost_b, 4) if cost_b > 0 else 0.0
+                    h["shares_to_buy"] = shares
+                    fv = float(h.get("fair_value", live_p))
+                    h["margin_of_safety_pct"] = round(((fv - live_p) / live_p) * 100, 1) if live_p > 0 else 0.0
+                    total_val += (shares * live_p)
+                    
+            hist = p_data.get("historical_performance", [])
+            entry = {
+                "date": today_iso,
+                "portfolio_value": round(total_val, 2),
+                "owner_earnings_runrate": float(p_data.get("owner_earnings_runrate", 15000.0)),
+                "spy_benchmark": base_cap
+            }
+            if hist and hist[-1]["date"] == today_iso:
+                hist[-1] = entry
+            else:
+                hist.append(entry)
+                
+            p_data["historical_performance"] = hist
+            p_data["last_rebalance_date"] = today_iso
+            
+            with open(p_file, "w", encoding="utf-8") as f:
+                json.dump(p_data, f, indent=2)
+        except Exception as e:
+            print(f"⚠️ Error updating {p_type} portfolio state: {e}")
+            
+    return live_quotes
+
+
 def get_enriched_portfolio(total_capital: float = 200000.0, portfolio_type: str = "defensive") -> Dict[str, Any]:
     """
     Enriches the selected portfolio with live prices, fair values, margins of safety,
@@ -161,8 +272,6 @@ def get_enriched_portfolio(total_capital: float = 200000.0, portfolio_type: str 
         else:
             live_portfolio_val += (eh["shares_to_buy"] * eh["current_price"])
     live_portfolio_val = round(live_portfolio_val, 2)
-    if abs(live_portfolio_val - total_capital) < 0.10:
-        live_portfolio_val = round(total_capital, 2)
             
     hist_perf = list(state.get("historical_performance", []))
     today_str = datetime.now().strftime("%Y-%m-%d")
@@ -390,6 +499,11 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
         "spy": [x["spy_benchmark"] for x in hist_perf]
     })
 
+    total_ret_dol = stats['total_value_usd'] - total_capital
+    total_ret_pct = (total_ret_dol / total_capital) * 100.0 if total_capital > 0 else 0.0
+    ret_color = "var(--accent-green)" if total_ret_dol >= 0 else "var(--accent-warm)"
+    total_ret_sign = "+" if total_ret_dol >= 0 else "-"
+
     return f"""
     <div style="display:flex; flex-direction:column; gap:24px; padding-top:4px;">
         
@@ -406,10 +520,13 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
             <div style="text-align:right;">
                 <div style="display:flex; align-items:center; justify-content:flex-end; gap:6px; margin-bottom:4px;">
                     <span class="live-pulse-dot" style="display:inline-block; width:7px; height:7px; border-radius:50%; background:#6FA882;"></span>
-                    <span id="live-stream-status-{portfolio_type}" style="font-size:0.70rem; font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim);">Live Stream Active</span>
+                    <span id="live-stream-status-{portfolio_type}" style="font-size:0.70rem; font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim);">Live Market Synced</span>
                 </div>
                 <div id="live-port-val-{portfolio_type}" style="font-family:var(--font-mono); font-size:2.1rem; font-weight:600; color:var(--text-title); letter-spacing:-0.02em; line-height:1.1;">
                     ${stats['total_value_usd']:,.2f}
+                </div>
+                <div id="live-port-delta-{portfolio_type}" style="font-family:var(--font-mono); font-size:0.86rem; color:{ret_color}; margin-top:3px; font-weight:600;">
+                    {total_ret_sign}${abs(total_ret_dol):,.2f} ({total_ret_pct:+.2f}%)
                 </div>
             </div>
         </div>
@@ -507,187 +624,157 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
 
     </div>
 
-    <!-- Chart Script -->
+    <!-- Chart & Real-Time Sync Script -->
     <script>
         (function() {{
             const pData = {chart_payload};
             const ctx = document.getElementById('{canvas_id}');
-            if (!ctx) return;
+            if (ctx) {{
+                const dates = pData.dates || ['Day 1'];
+                const portfolioVals = pData.portfolio || [200000];
+                const spyVals = pData.spy || [200000];
 
-            const dates = pData.dates || ['Day 1'];
-            const portfolioVals = pData.portfolio || [200000];
-            const spyVals = pData.spy || [200000];
-
-            new Chart(ctx, {{
-                type: 'line',
-                data: {{
-                    labels: dates,
-                    datasets: [
-                        {{
-                            label: '{port_title}',
-                            data: portfolioVals,
-                            borderColor: '#CC785C',
-                            backgroundColor: 'rgba(204, 120, 92, 0.06)',
-                            borderWidth: 2,
-                            pointRadius: dates.length === 1 ? 4 : (dates.length > 30 ? 0 : 2),
-                            pointHoverRadius: 5,
-                            pointBackgroundColor: '#CC785C',
-                            tension: 0.2,
-                            fill: true
-                        }},
-                        {{
-                            label: 'S&P 500',
-                            data: spyVals,
-                            borderColor: '#605C55',
-                            borderDash: [4, 4],
-                            borderWidth: 1.4,
-                            pointRadius: 0,
-                            pointHoverRadius: 4,
-                            pointBackgroundColor: '#8C8982',
-                            tension: 0.2,
-                            fill: false
-                        }}
-                    ]
-                }},
-                options: {{
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    animation: false,
-                    plugins: {{
-                        legend: {{ display: false }},
-                        tooltip: {{
-                            backgroundColor: '#1E1D1A',
-                            titleColor: '#F5EFEB',
-                            bodyColor: '#D4CDC3',
-                            borderColor: '#3D3A35',
-                            borderWidth: 1,
-                            padding: 10,
-                            callbacks: {{
-                                label: (c) => c.dataset.label + ': $' + Math.round(c.parsed.y).toLocaleString()
+                new Chart(ctx, {{
+                    type: 'line',
+                    data: {{
+                        labels: dates,
+                        datasets: [
+                            {{
+                                label: '{port_title}',
+                                data: portfolioVals,
+                                borderColor: '#CC785C',
+                                backgroundColor: 'rgba(204, 120, 92, 0.06)',
+                                borderWidth: 2,
+                                pointRadius: dates.length === 1 ? 4 : (dates.length > 30 ? 0 : 2),
+                                pointHoverRadius: 5,
+                                pointBackgroundColor: '#CC785C',
+                                tension: 0.2,
+                                fill: true
+                            }},
+                            {{
+                                label: 'S&P 500',
+                                data: spyVals,
+                                borderColor: '#605C55',
+                                borderDash: [4, 4],
+                                borderWidth: 1.4,
+                                pointRadius: 0,
+                                pointHoverRadius: 4,
+                                pointBackgroundColor: '#8C8982',
+                                tension: 0.2,
+                                fill: false
                             }}
-                        }}
+                        ]
                     }},
-                    scales: {{
-                        x: {{
-                            grid: {{ color: 'rgba(255,255,255,0.02)' }},
-                            ticks: {{
-                                color: '#8C8982',
-                                font: {{ family: "'JetBrains Mono', monospace", size: 10 }}
+                    options: {{
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        animation: false,
+                        plugins: {{
+                            legend: {{ display: false }},
+                            tooltip: {{
+                                backgroundColor: '#1E1D1A',
+                                titleColor: '#F5EFEB',
+                                bodyColor: '#D4CDC3',
+                                borderColor: '#3D3A35',
+                                borderWidth: 1,
+                                padding: 10,
+                                callbacks: {{
+                                    label: (c) => c.dataset.label + ': $' + Math.round(c.parsed.y).toLocaleString()
+                                }}
                             }}
                         }},
-                        y: {{
-                            suggestedMin: 180000,
-                            suggestedMax: 220000,
-                            grid: {{ color: 'rgba(255,255,255,0.03)' }},
-                            ticks: {{
-                                stepSize: 10000,
-                                color: '#8C8982',
-                                font: {{ family: "'JetBrains Mono', monospace", size: 10 }},
-                                callback: (v) => '$' + (v / 1000).toFixed(0) + 'k'
+                        scales: {{
+                            x: {{
+                                grid: {{ color: 'rgba(255,255,255,0.02)' }},
+                                ticks: {{
+                                    color: '#8C8982',
+                                    font: {{ family: "'JetBrains Mono', monospace", size: 10 }}
+                                }}
+                            }},
+                            y: {{
+                                suggestedMin: 180000,
+                                suggestedMax: 220000,
+                                grid: {{ color: 'rgba(255,255,255,0.03)' }},
+                                ticks: {{
+                                    stepSize: 10000,
+                                    color: '#8C8982',
+                                    font: {{ family: "'JetBrains Mono', monospace", size: 10 }},
+                                    callback: (v) => '$' + (v / 1000).toFixed(0) + 'k'
+                                }}
                             }}
                         }}
                     }}
-                }}
-            }});
-
-            // Real-Time Quote Streaming with Smooth Bloomberg-Style Rolling Number Animation
-            const portType = '{portfolio_type}';
-            const cashAlloc = {cash_dol};
-            let currentDisplayVal = 200000.0;
-            let lastSyncTime = Date.now();
-            let basePrices = {{}};
-
-            function animateRollingNumber(targetVal, startOverride) {{
-                const valElem = document.getElementById(`live-port-val-${{portType}}`);
-                if (!valElem || isNaN(targetVal)) return;
-
-                const startVal = (startOverride !== undefined) ? startOverride : (currentDisplayVal !== null ? currentDisplayVal : targetVal);
-                currentDisplayVal = targetVal;
-
-                if (Math.abs(startVal - targetVal) < 0.01) {{
-                    valElem.textContent = '$' + targetVal.toLocaleString('en-US', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }});
-                    return;
-                }}
-
-                // Dynamic Flash Color Cue on Total Value
-                if (targetVal > startVal) {{
-                    valElem.style.transition = 'color 0.4s ease';
-                    valElem.style.color = '#6FA882';
-                    setTimeout(() => {{ valElem.style.color = 'var(--text-title)'; }}, 1200);
-                }} else if (targetVal < startVal) {{
-                    valElem.style.transition = 'color 0.4s ease';
-                    valElem.style.color = '#CC785C';
-                    setTimeout(() => {{ valElem.style.color = 'var(--text-title)'; }}, 1200);
-                }}
-
-                const duration = 1200;
-                const startTime = performance.now();
-
-                function stepRoll(now) {{
-                    const elapsed = now - startTime;
-                    const progress = Math.min(elapsed / duration, 1.0);
-                    const ease = 1 - Math.pow(1 - progress, 4);
-                    const current = startVal + (targetVal - startVal) * ease;
-
-                    valElem.textContent = '$' + current.toLocaleString('en-US', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }});
-
-                    if (progress < 1.0) {{
-                        requestAnimationFrame(stepRoll);
-                    }} else {{
-                        valElem.textContent = '$' + targetVal.toLocaleString('en-US', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }});
-                    }}
-                }}
-                requestAnimationFrame(stepRoll);
+                }});
             }}
 
-            // Active live stream second counter ticker
+            // Real-Time Quote Streaming & Exact Position Valuation
+            const portType = '{portfolio_type}';
+            const baseCapital = {total_capital};
+            const cashAlloc = {cash_dol};
+            let lastSyncTime = Date.now();
+            const basePrices = {{}};
+            const previousPrices = {{}};
+
+            function animateRollingNumber(targetVal) {{
+                const valElem = document.getElementById(`live-port-val-${{portType}}`);
+                const deltaElem = document.getElementById(`live-port-delta-${{portType}}`);
+                if (!valElem || isNaN(targetVal)) return;
+
+                const startText = valElem.textContent.replace(/[^0-9.]/g, '');
+                const startVal = parseFloat(startText) || targetVal;
+
+                if (Math.abs(startVal - targetVal) > 0.01) {{
+                    if (targetVal > startVal) {{
+                        valElem.style.transition = 'color 0.4s ease';
+                        valElem.style.color = '#6FA882';
+                        setTimeout(() => {{ valElem.style.color = 'var(--text-title)'; }}, 1200);
+                    }} else if (targetVal < startVal) {{
+                        valElem.style.transition = 'color 0.4s ease';
+                        valElem.style.color = '#CC785C';
+                        setTimeout(() => {{ valElem.style.color = 'var(--text-title)'; }}, 1200);
+                    }}
+                }}
+
+                valElem.textContent = '$' + targetVal.toLocaleString('en-US', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }});
+
+                if (deltaElem) {{
+                    const retDol = targetVal - baseCapital;
+                    const retPct = (retDol / baseCapital) * 100.0;
+                    const sign = retDol >= 0 ? '+' : '-';
+                    const color = retDol >= 0 ? 'var(--accent-green)' : 'var(--accent-warm)';
+                    deltaElem.style.color = color;
+                    deltaElem.textContent = `${{sign}}$${{Math.abs(retDol).toLocaleString('en-US', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }})}} (${{retPct >= 0 ? '+' : ''}}${{retPct.toFixed(2)}}%)`;
+                }}
+            }}
+
+            // Status timer
             setInterval(function() {{
                 const statusElem = document.getElementById(`live-stream-status-${{portType}}`);
                 if (!statusElem) return;
                 const elapsedSec = Math.floor((Date.now() - lastSyncTime) / 1000);
-                if (elapsedSec <= 1) {{
-                    statusElem.textContent = 'Live Stream • Synced Just Now';
+                if (elapsedSec <= 2) {{
+                    statusElem.textContent = 'Live Market • Synced Just Now';
                     statusElem.style.color = 'var(--accent-green)';
                 }} else {{
-                    statusElem.textContent = `Live Stream • Synced ${{elapsedSec}}s ago`;
+                    statusElem.textContent = `Live Market • Synced ${{elapsedSec}}s ago`;
                     statusElem.style.color = 'var(--text-dim)';
                 }}
             }}, 1000);
 
-            // Fetch official baseline quotes
-            async function fetchBaselineQuotes() {{
+            async function fetchAndApplyQuotes() {{
                 try {{
                     const batchRes = await fetch('data/live_quotes.json?_t=' + Date.now());
-                    if (batchRes.ok) {{
-                        const data = await batchRes.json();
-                        for (const [k, v] of Object.entries(data)) {{
-                            if (v && v.price) basePrices[k] = parseFloat(v.price);
+                    if (!batchRes.ok) return;
+                    const data = await batchRes.json();
+                    
+                    for (const [k, v] of Object.entries(data)) {{
+                        if (v && v.price) {{
+                            basePrices[k] = parseFloat(v.price);
                         }}
                     }}
-                }} catch (e) {{}}
-            }}
 
-            async function streamLiveQuotes(isInitial) {{
-                try {{
                     const rows = Array.from(document.querySelectorAll(`tr[data-port="${{portType}}"]`));
-                    if (Object.keys(basePrices).length === 0) {{
-                        await fetchBaselineQuotes();
-                    }}
-
-                    // Micro-tick simulation on active trading positions during market session
-                    const candidateTickers = rows
-                        .map(r => r.getAttribute('data-row-ticker'))
-                        .filter(t => t && t !== 'USD_CASH');
-
-                    // Select 2 to 3 tickers to simulate live market spread tick on every cycle
-                    const numTicks = isInitial ? 0 : Math.floor(Math.random() * 2) + 2;
-                    const tickedTickers = new Set();
-                    for (let i = 0; i < numTicks; i++) {{
-                        const randomTicker = candidateTickers[Math.floor(Math.random() * candidateTickers.length)];
-                        if (randomTicker) tickedTickers.add(randomTicker);
-                    }}
-
-                    let liveEquityTotal = 0;
+                    let liveEquityTotal = 0.0;
 
                     for (const r of rows) {{
                         const ticker = r.getAttribute('data-row-ticker');
@@ -696,84 +783,62 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
 
                         if (!ticker || ticker === 'USD_CASH') continue;
 
-                        let livePrice = basePrices[ticker] || cost;
+                        const livePrice = (basePrices[ticker] !== undefined && basePrices[ticker] > 0) ? basePrices[ticker] : cost;
+                        const prevPrice = previousPrices[ticker] || livePrice;
+                        const didChange = Math.abs(livePrice - prevPrice) > 0.001;
+                        previousPrices[ticker] = livePrice;
 
-                        // Apply live micro-tick if selected
-                        let didTick = false;
-                        let tickDelta = 0;
-                        if (tickedTickers.has(ticker) && livePrice > 0) {{
-                            const microDeltaPct = (Math.random() * 0.0024) - 0.0012; // +/- 0.12% active spread
-                            const newPrice = parseFloat((livePrice * (1 + microDeltaPct)).toFixed(2));
-                            if (newPrice !== livePrice) {{
-                                tickDelta = newPrice - livePrice;
-                                livePrice = newPrice;
-                                basePrices[ticker] = livePrice;
-                                didTick = true;
+                        const pSpan = r.querySelector(`.live-price-${{ticker}}`);
+                        const glSpan = r.querySelector(`.live-gl-${{ticker}}`);
+                        const allocSpan = r.querySelector(`.live-alloc-${{ticker}}`);
+
+                        if (pSpan) {{
+                            pSpan.textContent = '$' + livePrice.toFixed(2);
+                            if (didChange) {{
+                                const isPos = livePrice >= prevPrice;
+                                r.style.transition = 'background-color 0.4s ease';
+                                r.style.backgroundColor = isPos ? 'rgba(111, 168, 130, 0.14)' : 'rgba(204, 120, 92, 0.14)';
+                                pSpan.style.transition = 'color 0.3s ease, transform 0.2s ease';
+                                pSpan.style.color = isPos ? '#6FA882' : '#CC785C';
+                                pSpan.style.transform = 'scale(1.06)';
+                                setTimeout(() => {{
+                                    r.style.backgroundColor = 'transparent';
+                                    pSpan.style.color = 'var(--text-title)';
+                                    pSpan.style.transform = 'scale(1.0)';
+                                }}, 1000);
                             }}
                         }}
 
-                        if (livePrice > 0) {{
-                            const pSpan = r.querySelector(`.live-price-${{ticker}}`);
-                            const glSpan = r.querySelector(`.live-gl-${{ticker}}`);
-                            const allocSpan = r.querySelector(`.live-alloc-${{ticker}}`);
-
-                            if (pSpan) {{
-                                pSpan.textContent = '$' + livePrice.toFixed(2);
-
-                                if (didTick) {{
-                                    r.style.transition = 'background-color 0.4s ease';
-                                    r.style.backgroundColor = (tickDelta >= 0) ? 'rgba(111, 168, 130, 0.12)' : 'rgba(204, 120, 92, 0.12)';
-                                    pSpan.style.transition = 'color 0.3s ease, transform 0.2s ease';
-                                    pSpan.style.color = (tickDelta >= 0) ? '#6FA882' : '#CC785C';
-                                    pSpan.style.transform = 'scale(1.06)';
-                                    setTimeout(() => {{
-                                        r.style.backgroundColor = 'transparent';
-                                        pSpan.style.color = 'var(--text-title)';
-                                        pSpan.style.transform = 'scale(1.0)';
-                                    }}, 900);
-                                }}
-                            }}
-
-                            if (glSpan && cost > 0) {{
-                                const gl = ((livePrice - cost) / cost) * 100;
-                                const sign = gl >= 0 ? '+' : '';
-                                glSpan.textContent = `${{sign}}${{gl.toFixed(2)}}%`;
-                                glSpan.style.color = gl >= 0 ? 'var(--accent-green)' : 'var(--accent-warm)';
-                            }}
-
-                            if (allocSpan && shares > 0) {{
-                                const curPosVal = shares * livePrice;
-                                allocSpan.textContent = '$' + Math.round(curPosVal).toLocaleString();
-                            }}
-
-                            liveEquityTotal += (shares * livePrice);
-                        }} else {{
-                            const curPriceSpan = r.querySelector(`.live-price-${{ticker}}`);
-                            const pVal = curPriceSpan ? parseFloat(curPriceSpan.textContent.replace(/[^0-9.]/g, '')) : cost;
-                            liveEquityTotal += (shares * pVal);
+                        if (glSpan && cost > 0) {{
+                            const gl = ((livePrice - cost) / cost) * 100.0;
+                            const sign = gl >= 0 ? '+' : '';
+                            glSpan.textContent = `${{sign}}${{gl.toFixed(2)}}%`;
+                            glSpan.style.color = gl >= 0 ? 'var(--accent-green)' : 'var(--accent-warm)';
                         }}
+
+                        const curPosVal = shares * livePrice;
+                        if (allocSpan && shares > 0) {{
+                            allocSpan.textContent = '$' + Math.round(curPosVal).toLocaleString();
+                        }}
+
+                        liveEquityTotal += curPosVal;
                     }}
 
-                    const totalLive = liveEquityTotal + cashAlloc;
+                    const totalLive = Math.round((liveEquityTotal + cashAlloc) * 100) / 100;
                     if (totalLive > 0) {{
                         animateRollingNumber(totalLive);
                     }}
                     lastSyncTime = Date.now();
-                }} catch (err) {{
-                    console.warn('Live streamer sync:', err);
+                }} catch (e) {{
+                    console.warn('Portfolio quote sync error:', e);
                 }}
             }}
 
-            // Initial load from $200k baseline
-            setTimeout(() => {{
-                streamLiveQuotes(true);
-            }}, 200);
+            // Run immediately on page load
+            fetchAndApplyQuotes();
 
-            // Active live stream micro-ticks every 3 seconds
-            setInterval(() => streamLiveQuotes(false), 3000);
-
-            // Refresh official quotes from CDN every 60 seconds (1 minute)
-            setInterval(fetchBaselineQuotes, 60000);
+            // Refresh quotes from live_quotes.json every 15 seconds
+            setInterval(fetchAndApplyQuotes, 15000);
         }})();
     </script>
     """

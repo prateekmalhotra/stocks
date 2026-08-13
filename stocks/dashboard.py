@@ -1958,7 +1958,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         clean_catalyst_desc = sanitize_catalyst_desc(stock.next_catalyst_event).rstrip(".")
 
         table_rows_html += f"""
-        <tr class="table-row" onclick="location.href='reports/{stock.ticker}.html'">
+        <tr class="table-row" data-ticker="{stock.ticker}" data-baseline="{stock.baseline_price}" onclick="location.href='reports/{stock.ticker}.html'">
             <td>
                 <div class="tbl-ticker-cell">
                     <span class="tbl-symbol">{stock.ticker}{stock_beacon}</span>
@@ -1967,8 +1967,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             </td>
             <td>
                 <div class="tbl-price-cell">
-                    <span class="tbl-price">${stock.current_price:.2f}</span>
-                    <span class="tbl-return {ret_class}">{stock.return_pct:+.2f}%</span>
+                    <span class="tbl-price tbl-price-{stock.ticker}">${stock.current_price:.2f}</span>
+                    <span class="tbl-return tbl-ret-{stock.ticker} {ret_class}">{stock.return_pct:+.2f}%</span>
                 </div>
             </td>
             <td>
@@ -1993,10 +1993,10 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         """
 
         grid_cards_html += f"""
-        <div class="grid-card" onclick="location.href='reports/{stock.ticker}.html'">
+        <div class="grid-card" data-ticker="{stock.ticker}" data-baseline="{stock.baseline_price}" onclick="location.href='reports/{stock.ticker}.html'">
             <div class="grid-card-top">
                 <span class="grid-symbol">{stock.ticker}{stock_beacon}</span>
-                <div class="grid-price">${stock.current_price:.2f}</div>
+                <div class="grid-price grid-price-{stock.ticker}">${stock.current_price:.2f}</div>
             </div>
             <div class="grid-labels-row" style="margin: 6px 0 14px;">
                 {labels_html}
@@ -2006,7 +2006,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             <div class="grid-metrics-box">
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Return</span>
-                    <span class="grid-stat-val {ret_class}">{stock.return_pct:+.2f}%</span>
+                    <span class="grid-stat-val grid-ret-{stock.ticker} {ret_class}">{stock.return_pct:+.2f}%</span>
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Fair Value</span>
@@ -3039,12 +3039,57 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             }}
         }}
 
+        async function syncWatchlistQuotes() {{
+            try {{
+                const res = await fetch('data/live_quotes.json?_t=' + Date.now());
+                if (!res.ok) return;
+                const quotes = await res.json();
+                
+                for (const [ticker, q] of Object.entries(quotes)) {{
+                    if (!q || q.price === undefined) continue;
+                    const price = parseFloat(q.price);
+                    
+                    // Update table
+                    const priceSpan = document.querySelector(`.tbl-price-${{ticker}}`);
+                    const retSpan = document.querySelector(`.tbl-ret-${{ticker}}`);
+                    if (priceSpan) priceSpan.textContent = '$' + price.toFixed(2);
+                    
+                    const row = document.querySelector(`tr.table-row[data-ticker="${{ticker}}"]`);
+                    if (row && retSpan) {{
+                        const baseline = parseFloat(row.getAttribute('data-baseline')) || price;
+                        if (baseline > 0) {{
+                            const ret = ((price - baseline) / baseline) * 100.0;
+                            const sign = ret >= 0 ? '+' : '';
+                            retSpan.textContent = `${{sign}}${{ret.toFixed(2)}}%`;
+                            retSpan.className = `tbl-return ${{ret >= 0 ? 'ret-pos' : 'ret-neg'}}`;
+                        }}
+                    }}
+                    
+                    // Update grid cards
+                    const gPrice = document.querySelector(`.grid-price-${{ticker}}`);
+                    const gRet = document.querySelector(`.grid-ret-${{ticker}}`);
+                    if (gPrice) gPrice.textContent = '$' + price.toFixed(2);
+                    if (gRet && row) {{
+                        const baseline = parseFloat(row.getAttribute('data-baseline')) || price;
+                        if (baseline > 0) {{
+                            const ret = ((price - baseline) / baseline) * 100.0;
+                            const sign = ret >= 0 ? '+' : '';
+                            gRet.textContent = `${{sign}}${{ret.toFixed(2)}}%`;
+                            gRet.className = `grid-stat-val ${{ret >= 0 ? 'ret-pos' : 'ret-neg'}}`;
+                        }}
+                    }}
+                }}
+            }} catch(e) {{}}
+        }}
+
         document.addEventListener('DOMContentLoaded', () => {{
             refreshAlertsUI();
             renderLatexEquations();
+            syncWatchlistQuotes();
         }});
         window.addEventListener('load', renderLatexEquations);
         refreshAlertsUI();
+        setInterval(syncWatchlistQuotes, 20000);
     </script>
     {build_labels_legend_modal_html()}
 </body>
@@ -3054,6 +3099,12 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
 
 def render_all():
     """Compiles all company dossiers and the master index dashboard."""
+    from stocks.portfolio import sync_live_market_data
+    try:
+        sync_live_market_data()
+    except Exception as e:
+        print(f"⚠️ Live market data sync warning: {e}")
+        
     _ensure_dirs()
     watchlist = load_watchlist()
     alerts = load_alerts()
@@ -3068,3 +3119,4 @@ def render_all():
     master_html = generate_master_dashboard_html(watchlist, alerts)
     with open(PUBLIC_DIR / "index.html", "w", encoding="utf-8") as f:
         f.write(master_html)
+
