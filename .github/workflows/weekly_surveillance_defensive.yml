@@ -15,6 +15,10 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
+env:
+  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: "true"
+  NODE_TLS_REJECT_UNAUTHORIZED: "0"
+
 jobs:
   weekly_surveillance_defensive:
     runs-on: ubuntu-latest
@@ -52,7 +56,7 @@ jobs:
         run: |
           git config --global user.name "Prateek Malhotra"
           git config --global user.email "prateekmalhotra@g.ucla.edu"
-          git add data/surveillance_defensive.json data/portfolio_defensive.json data/surveillance.json data/portfolio.json public/
+          git add data/ public/
           if git diff --staged --quiet; then
             echo "No changes from Sunday surveillance."
           else
