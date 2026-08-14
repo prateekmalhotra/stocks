@@ -329,6 +329,24 @@ def get_enriched_portfolio(total_capital: float = 200000.0, portfolio_type: str 
     }
 
 
+def get_ticker_logo_html(ticker: str, size: int = 20) -> str:
+    """Builds a minimalist, crisp logo avatar with automatic fallback to clean monogram."""
+    if not ticker:
+        return ""
+    clean_t = ticker.replace("USD_", "").strip()
+    if ticker == "USD_CASH" or clean_t == "CASH":
+        return f'<div class="ticker-logo-wrap" style="width:{size}px; height:{size}px; min-width:{size}px; min-height:{size}px;"><span class="ticker-logo-fallback" style="color:var(--accent-green); font-size:{int(size*0.55)}px;">$</span></div>'
+    
+    fallback_char = clean_t[:2]
+    return (
+        f'<div class="ticker-logo-wrap" style="width:{size}px; height:{size}px; min-width:{size}px; min-height:{size}px;">'
+        f'<img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/{clean_t}" alt="{clean_t}" loading="lazy" '
+        f'onerror="this.style.display=\'none\'; if(this.nextElementSibling) this.nextElementSibling.style.display=\'flex\';">'
+        f'<span class="ticker-logo-fallback" style="display:none; font-size:{int(size*0.42)}px;">{fallback_char}</span>'
+        f'</div>'
+    )
+
+
 def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: float = 200000.0) -> str:
     """Generates the ultra-clean, spacious, minimalist high-end portfolio UI."""
     p_data = get_enriched_portfolio(total_capital, portfolio_type)
@@ -387,9 +405,12 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
         display_name = CLEAN_NAMES.get(t, h.get("company_name", t))
         
         if t == "USD_CASH":
-            ticker_col = """
+            ticker_col = f"""
             <div style="display:flex; flex-direction:column; gap:5px;">
-                <span style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); line-height:1.15;">Cash</span>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    {get_ticker_logo_html(t, 20)}
+                    <span style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); line-height:1.15;">Cash</span>
+                </div>
                 <span style="font-family:var(--font-sans); font-size:0.74rem; color:var(--text-dim); line-height:1.1;">US Treasury (5.0%)</span>
             </div>
             """
@@ -410,9 +431,12 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
         else:
             ticker_col = f"""
             <div style="display:flex; flex-direction:column; gap:5px; min-width:0;">
-                <a href="{h['report_url']}" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
-                    {t}
-                </a>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    {get_ticker_logo_html(t, 20)}
+                    <a href="{h['report_url']}" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
+                        {t}
+                    </a>
+                </div>
                 <span style="font-family:var(--font-sans); font-size:0.74rem; color:var(--text-dim); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.1;" title="{display_name}">{display_name}</span>
             </div>
             """

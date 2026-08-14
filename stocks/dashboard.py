@@ -81,6 +81,24 @@ def sanitize_catalyst_desc(desc: str) -> str:
     return cleaned
 
 
+def get_ticker_logo_html(ticker: str, size: int = 22) -> str:
+    """Builds a very minimalist, crisp logo avatar with automatic fallback to clean monogram."""
+    if not ticker:
+        return ""
+    clean_t = ticker.replace("USD_", "").strip()
+    if ticker == "USD_CASH" or clean_t == "CASH":
+        return f'<div class="ticker-logo-wrap" style="width:{size}px; height:{size}px; min-width:{size}px; min-height:{size}px;"><span class="ticker-logo-fallback" style="color:var(--accent-green); font-size:{int(size*0.55)}px;">$</span></div>'
+    
+    fallback_char = clean_t[:2]
+    return (
+        f'<div class="ticker-logo-wrap" style="width:{size}px; height:{size}px; min-width:{size}px; min-height:{size}px;">'
+        f'<img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/{clean_t}" alt="{clean_t}" loading="lazy" '
+        f'onerror="this.style.display=\'none\'; if(this.nextElementSibling) this.nextElementSibling.style.display=\'flex\';">'
+        f'<span class="ticker-logo-fallback" style="display:none; font-size:{int(size*0.42)}px;">{fallback_char}</span>'
+        f'</div>'
+    )
+
+
 def format_action_beacon(signal: Optional[str] = None) -> str:
     """Renders a quiet, minimal dot beacon representing the surveillance stance."""
     if not signal:
@@ -816,6 +834,39 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             color: var(--text-title);
         }}
         .company-meta {{ color: var(--text-secondary); font-size: 1.05rem; font-style: italic; margin-top: 2px; }}
+
+        /* Minimalist Logo Avatars */
+        .ticker-logo-wrap {{
+            border-radius: 6px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }}
+        .ticker-logo {{
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 2px;
+            border-radius: 5px;
+            display: block;
+        }}
+        .ticker-logo-fallback {{
+            font-family: var(--font-mono);
+            font-weight: 600;
+            color: var(--accent-warm);
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background: rgba(212, 163, 115, 0.08);
+        }}
 
         .price-callout {{ text-align: right; }}
         .price-number {{ font-size: 2.6rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }}
@@ -1736,7 +1787,8 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         <section class="hero-deck">
             <div class="hero-top-row">
                 <div>
-                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                        {get_ticker_logo_html(stock.ticker, 32)}
                         <span class="ticker-symbol">{stock.ticker}{dossier_beacon}</span>
                         {labels_html}
                         <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="View Investment Taxonomy & Labels Legend">ⓘ</button>
@@ -1928,7 +1980,10 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         <tr class="table-row" data-ticker="{stock.ticker}" data-baseline="{safe_baseline}" onclick="location.href='reports/{stock.ticker}.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">{stock.ticker}{stock_beacon}</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        {get_ticker_logo_html(stock.ticker, 20)}
+                        <span class="tbl-symbol">{stock.ticker}{stock_beacon}</span>
+                    </div>
                     <span class="tbl-company-hover">{clean_company}</span>
                 </div>
             <td>
@@ -1960,7 +2015,10 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         grid_cards_html += f"""
         <div class="grid-card" data-ticker="{stock.ticker}" data-baseline="{safe_baseline}" onclick="location.href='reports/{stock.ticker}.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">{stock.ticker}{stock_beacon}</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    {get_ticker_logo_html(stock.ticker, 24)}
+                    <span class="grid-symbol">{stock.ticker}{stock_beacon}</span>
+                </div>
                 <div class="grid-price grid-price-{stock.ticker}">${stock.current_price:.2f}</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -2380,6 +2438,39 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             overflow: hidden;
             text-overflow: ellipsis;
             max-width: 200px;
+        }}
+
+        /* Minimalist Logo Avatars */
+        .ticker-logo-wrap {{
+            border-radius: 6px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }}
+        .ticker-logo {{
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 2px;
+            border-radius: 5px;
+            display: block;
+        }}
+        .ticker-logo-fallback {{
+            font-family: var(--font-mono);
+            font-weight: 600;
+            color: var(--accent-warm);
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background: rgba(212, 163, 115, 0.08);
         }}
 
         .tbl-price-cell {{

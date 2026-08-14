@@ -335,6 +335,39 @@
             max-width: 200px;
         }
 
+        /* Minimalist Logo Avatars */
+        .ticker-logo-wrap {
+            border-radius: 6px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }
+        .ticker-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 2px;
+            border-radius: 5px;
+            display: block;
+        }
+        .ticker-logo-fallback {
+            font-family: var(--font-mono);
+            font-weight: 600;
+            color: var(--accent-warm);
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background: rgba(212, 163, 115, 0.08);
+        }
+
         .tbl-price-cell {
             display: flex;
             flex-direction: column;
@@ -789,7 +822,10 @@
         <tr class="table-row" data-ticker="AAPL" data-baseline="304.91" onclick="location.href='reports/AAPL.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">AAPL</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/AAPL" alt="AAPL" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">AA</span></div>
+                        <span class="tbl-symbol">AAPL</span>
+                    </div>
                     <span class="tbl-company-hover">Apple Inc</span>
                 </div>
             <td>
@@ -820,7 +856,10 @@
         <tr class="table-row" data-ticker="ACN" data-baseline="175.72" onclick="location.href='reports/ACN.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">ACN</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/ACN" alt="ACN" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">AC</span></div>
+                        <span class="tbl-symbol">ACN</span>
+                    </div>
                     <span class="tbl-company-hover">Accenture plc</span>
                 </div>
             <td>
@@ -851,7 +890,10 @@
         <tr class="table-row" data-ticker="ADBE" data-baseline="265.21" onclick="location.href='reports/ADBE.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">ADBE</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/ADBE" alt="ADBE" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">AD</span></div>
+                        <span class="tbl-symbol">ADBE</span>
+                    </div>
                     <span class="tbl-company-hover">Adobe Inc</span>
                 </div>
             <td>
@@ -882,7 +924,10 @@
         <tr class="table-row" data-ticker="ADSK" data-baseline="251.59" onclick="location.href='reports/ADSK.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">ADSK</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/ADSK" alt="ADSK" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">AD</span></div>
+                        <span class="tbl-symbol">ADSK</span>
+                    </div>
                     <span class="tbl-company-hover">Autodesk, Inc</span>
                 </div>
             <td>
@@ -913,7 +958,10 @@
         <tr class="table-row" data-ticker="AMZN" data-baseline="274.48" onclick="location.href='reports/AMZN.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">AMZN</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/AMZN" alt="AMZN" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">AM</span></div>
+                        <span class="tbl-symbol">AMZN</span>
+                    </div>
                     <span class="tbl-company-hover">Amazon.com, Inc</span>
                 </div>
             <td>
@@ -944,7 +992,10 @@
         <tr class="table-row" data-ticker="ASML" data-baseline="1799.38" onclick="location.href='reports/ASML.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">ASML</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/ASML" alt="ASML" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">AS</span></div>
+                        <span class="tbl-symbol">ASML</span>
+                    </div>
                     <span class="tbl-company-hover">ASML Holding N.V. - New York Re</span>
                 </div>
             <td>
@@ -975,7 +1026,10 @@
         <tr class="table-row" data-ticker="BABA" data-baseline="128.41" onclick="location.href='reports/BABA.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">BABA</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/BABA" alt="BABA" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">BA</span></div>
+                        <span class="tbl-symbol">BABA</span>
+                    </div>
                     <span class="tbl-company-hover">Alibaba Group Holding Limited</span>
                 </div>
             <td>
@@ -1006,7 +1060,10 @@
         <tr class="table-row" data-ticker="BKNG" data-baseline="214.42" onclick="location.href='reports/BKNG.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">BKNG</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/BKNG" alt="BKNG" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">BK</span></div>
+                        <span class="tbl-symbol">BKNG</span>
+                    </div>
                     <span class="tbl-company-hover">Booking Holdings Inc</span>
                 </div>
             <td>
@@ -1037,7 +1094,10 @@
         <tr class="table-row" data-ticker="BMBL" data-baseline="2.83" onclick="location.href='reports/BMBL.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">BMBL</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/BMBL" alt="BMBL" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">BM</span></div>
+                        <span class="tbl-symbol">BMBL</span>
+                    </div>
                     <span class="tbl-company-hover">Bumble Inc</span>
                 </div>
             <td>
@@ -1068,7 +1128,10 @@
         <tr class="table-row" data-ticker="BTI" data-baseline="56.81" onclick="location.href='reports/BTI.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">BTI</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/BTI" alt="BTI" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">BT</span></div>
+                        <span class="tbl-symbol">BTI</span>
+                    </div>
                     <span class="tbl-company-hover">British American Tobacco  Indus</span>
                 </div>
             <td>
@@ -1099,7 +1162,10 @@
         <tr class="table-row" data-ticker="BVHMF" data-baseline="3.43" onclick="location.href='reports/BVHMF.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">BVHMF</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/BVHMF" alt="BVHMF" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">BV</span></div>
+                        <span class="tbl-symbol">BVHMF</span>
+                    </div>
                     <span class="tbl-company-hover">VISTRY GROUP PLC</span>
                 </div>
             <td>
@@ -1130,7 +1196,10 @@
         <tr class="table-row" data-ticker="BYD" data-baseline="83.42" onclick="location.href='reports/BYD.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">BYD<span class="status-beacon beacon-buy" title="Action: Buy"><span class="beacon-dot"></span></span></span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/BYD" alt="BYD" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">BY</span></div>
+                        <span class="tbl-symbol">BYD<span class="status-beacon beacon-buy" title="Action: Buy"><span class="beacon-dot"></span></span></span>
+                    </div>
                     <span class="tbl-company-hover">Boyd Gaming Corporation</span>
                 </div>
             <td>
@@ -1161,7 +1230,10 @@
         <tr class="table-row" data-ticker="CELH" data-baseline="27.77" onclick="location.href='reports/CELH.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">CELH</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CELH" alt="CELH" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">CE</span></div>
+                        <span class="tbl-symbol">CELH</span>
+                    </div>
                     <span class="tbl-company-hover">Celsius Holdings, Inc</span>
                 </div>
             <td>
@@ -1192,7 +1264,10 @@
         <tr class="table-row" data-ticker="CHGG" data-baseline="0.8" onclick="location.href='reports/CHGG.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">CHGG</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CHGG" alt="CHGG" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">CH</span></div>
+                        <span class="tbl-symbol">CHGG</span>
+                    </div>
                     <span class="tbl-company-hover">Chegg, Inc</span>
                 </div>
             <td>
@@ -1223,7 +1298,10 @@
         <tr class="table-row" data-ticker="CHTR" data-baseline="151.69" onclick="location.href='reports/CHTR.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">CHTR</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CHTR" alt="CHTR" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">CH</span></div>
+                        <span class="tbl-symbol">CHTR</span>
+                    </div>
                     <span class="tbl-company-hover">Charter Communications, Inc</span>
                 </div>
             <td>
@@ -1254,7 +1332,10 @@
         <tr class="table-row" data-ticker="CMCSA" data-baseline="25.65" onclick="location.href='reports/CMCSA.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">CMCSA</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CMCSA" alt="CMCSA" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">CM</span></div>
+                        <span class="tbl-symbol">CMCSA</span>
+                    </div>
                     <span class="tbl-company-hover">Comcast Corporation</span>
                 </div>
             <td>
@@ -1285,7 +1366,10 @@
         <tr class="table-row" data-ticker="CMG" data-baseline="32.79" onclick="location.href='reports/CMG.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">CMG</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CMG" alt="CMG" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">CM</span></div>
+                        <span class="tbl-symbol">CMG</span>
+                    </div>
                     <span class="tbl-company-hover">Chipotle Mexican Grill, Inc</span>
                 </div>
             <td>
@@ -1316,7 +1400,10 @@
         <tr class="table-row" data-ticker="COST" data-baseline="944.32" onclick="location.href='reports/COST.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">COST</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/COST" alt="COST" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">CO</span></div>
+                        <span class="tbl-symbol">COST</span>
+                    </div>
                     <span class="tbl-company-hover">Costco Wholesale Corporation</span>
                 </div>
             <td>
@@ -1347,7 +1434,10 @@
         <tr class="table-row" data-ticker="CPRT" data-baseline="29.66" onclick="location.href='reports/CPRT.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">CPRT</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CPRT" alt="CPRT" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">CP</span></div>
+                        <span class="tbl-symbol">CPRT</span>
+                    </div>
                     <span class="tbl-company-hover">Copart, Inc</span>
                 </div>
             <td>
@@ -1378,7 +1468,10 @@
         <tr class="table-row" data-ticker="CRM" data-baseline="192.74" onclick="location.href='reports/CRM.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">CRM</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CRM" alt="CRM" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">CR</span></div>
+                        <span class="tbl-symbol">CRM</span>
+                    </div>
                     <span class="tbl-company-hover">Salesforce, Inc</span>
                 </div>
             <td>
@@ -1409,7 +1502,10 @@
         <tr class="table-row" data-ticker="CROX" data-baseline="136.62" onclick="location.href='reports/CROX.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">CROX</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CROX" alt="CROX" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">CR</span></div>
+                        <span class="tbl-symbol">CROX</span>
+                    </div>
                     <span class="tbl-company-hover">Crocs, Inc</span>
                 </div>
             <td>
@@ -1440,7 +1536,10 @@
         <tr class="table-row" data-ticker="CSU" data-baseline="2308.0" onclick="location.href='reports/CSU.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">CSU<span class="status-beacon beacon-buy" title="Action: Buy"><span class="beacon-dot"></span></span></span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CSU" alt="CSU" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">CS</span></div>
+                        <span class="tbl-symbol">CSU<span class="status-beacon beacon-buy" title="Action: Buy"><span class="beacon-dot"></span></span></span>
+                    </div>
                     <span class="tbl-company-hover">Constellation Software, Inc</span>
                 </div>
             <td>
@@ -1471,7 +1570,10 @@
         <tr class="table-row" data-ticker="DECK" data-baseline="97.46" onclick="location.href='reports/DECK.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">DECK</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/DECK" alt="DECK" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">DE</span></div>
+                        <span class="tbl-symbol">DECK</span>
+                    </div>
                     <span class="tbl-company-hover">Deckers Outdoor Corporation</span>
                 </div>
             <td>
@@ -1502,7 +1604,10 @@
         <tr class="table-row" data-ticker="DIS" data-baseline="103.53" onclick="location.href='reports/DIS.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">DIS</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/DIS" alt="DIS" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">DI</span></div>
+                        <span class="tbl-symbol">DIS</span>
+                    </div>
                     <span class="tbl-company-hover">Walt Disney Company (The)</span>
                 </div>
             <td>
@@ -1533,7 +1638,10 @@
         <tr class="table-row" data-ticker="DUOL" data-baseline="135.44" onclick="location.href='reports/DUOL.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">DUOL</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/DUOL" alt="DUOL" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">DU</span></div>
+                        <span class="tbl-symbol">DUOL</span>
+                    </div>
                     <span class="tbl-company-hover">Duolingo, Inc</span>
                 </div>
             <td>
@@ -1564,7 +1672,10 @@
         <tr class="table-row" data-ticker="EDU" data-baseline="56.43" onclick="location.href='reports/EDU.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">EDU</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/EDU" alt="EDU" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">ED</span></div>
+                        <span class="tbl-symbol">EDU</span>
+                    </div>
                     <span class="tbl-company-hover">New Oriental Education Group</span>
                 </div>
             <td>
@@ -1595,7 +1706,10 @@
         <tr class="table-row" data-ticker="ELF" data-baseline="94.99" onclick="location.href='reports/ELF.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">ELF</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/ELF" alt="ELF" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">EL</span></div>
+                        <span class="tbl-symbol">ELF</span>
+                    </div>
                     <span class="tbl-company-hover">e.l.f. Beauty, Inc</span>
                 </div>
             <td>
@@ -1626,7 +1740,10 @@
         <tr class="table-row" data-ticker="FAST" data-baseline="52.38" onclick="location.href='reports/FAST.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">FAST</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/FAST" alt="FAST" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">FA</span></div>
+                        <span class="tbl-symbol">FAST</span>
+                    </div>
                     <span class="tbl-company-hover">Fastenal Company</span>
                 </div>
             <td>
@@ -1657,7 +1774,10 @@
         <tr class="table-row" data-ticker="FICO" data-baseline="1038.23" onclick="location.href='reports/FICO.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">FICO</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/FICO" alt="FICO" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">FI</span></div>
+                        <span class="tbl-symbol">FICO</span>
+                    </div>
                     <span class="tbl-company-hover">Fair Isaac Corporation</span>
                 </div>
             <td>
@@ -1688,7 +1808,10 @@
         <tr class="table-row" data-ticker="GCT" data-baseline="51.52" onclick="location.href='reports/GCT.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">GCT</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/GCT" alt="GCT" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">GC</span></div>
+                        <span class="tbl-symbol">GCT</span>
+                    </div>
                     <span class="tbl-company-hover">GigaCloud Technology Inc</span>
                 </div>
             <td>
@@ -1719,7 +1842,10 @@
         <tr class="table-row" data-ticker="GOOG" data-baseline="343.0" onclick="location.href='reports/GOOG.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">GOOG</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/GOOG" alt="GOOG" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">GO</span></div>
+                        <span class="tbl-symbol">GOOG</span>
+                    </div>
                     <span class="tbl-company-hover">Alphabet Inc</span>
                 </div>
             <td>
@@ -1750,7 +1876,10 @@
         <tr class="table-row" data-ticker="HOOD" data-baseline="98.51" onclick="location.href='reports/HOOD.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">HOOD</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/HOOD" alt="HOOD" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">HO</span></div>
+                        <span class="tbl-symbol">HOOD</span>
+                    </div>
                     <span class="tbl-company-hover">Robinhood Markets, Inc</span>
                 </div>
             <td>
@@ -1781,7 +1910,10 @@
         <tr class="table-row" data-ticker="INTC" data-baseline="106.63" onclick="location.href='reports/INTC.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">INTC</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/INTC" alt="INTC" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">IN</span></div>
+                        <span class="tbl-symbol">INTC</span>
+                    </div>
                     <span class="tbl-company-hover">Intel Corporation</span>
                 </div>
             <td>
@@ -1812,7 +1944,10 @@
         <tr class="table-row" data-ticker="INTU" data-baseline="325.25" onclick="location.href='reports/INTU.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">INTU</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/INTU" alt="INTU" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">IN</span></div>
+                        <span class="tbl-symbol">INTU</span>
+                    </div>
                     <span class="tbl-company-hover">Intuit Inc</span>
                 </div>
             <td>
@@ -1843,7 +1978,10 @@
         <tr class="table-row" data-ticker="ISRG" data-baseline="401.23" onclick="location.href='reports/ISRG.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">ISRG</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/ISRG" alt="ISRG" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">IS</span></div>
+                        <span class="tbl-symbol">ISRG</span>
+                    </div>
                     <span class="tbl-company-hover">Intuitive Surgical, Inc</span>
                 </div>
             <td>
@@ -1874,7 +2012,10 @@
         <tr class="table-row" data-ticker="JD" data-baseline="32.97" onclick="location.href='reports/JD.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">JD<span class="status-beacon beacon-buy" title="Action: Buy"><span class="beacon-dot"></span></span></span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/JD" alt="JD" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">JD</span></div>
+                        <span class="tbl-symbol">JD<span class="status-beacon beacon-buy" title="Action: Buy"><span class="beacon-dot"></span></span></span>
+                    </div>
                     <span class="tbl-company-hover">JD.com, Inc</span>
                 </div>
             <td>
@@ -1905,7 +2046,10 @@
         <tr class="table-row" data-ticker="KO" data-baseline="86.48" onclick="location.href='reports/KO.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">KO</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/KO" alt="KO" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">KO</span></div>
+                        <span class="tbl-symbol">KO</span>
+                    </div>
                     <span class="tbl-company-hover">Coca-Cola Company (The)</span>
                 </div>
             <td>
@@ -1936,7 +2080,10 @@
         <tr class="table-row" data-ticker="KSS" data-baseline="19.3" onclick="location.href='reports/KSS.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">KSS</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/KSS" alt="KSS" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">KS</span></div>
+                        <span class="tbl-symbol">KSS</span>
+                    </div>
                     <span class="tbl-company-hover">Kohl's Corporation</span>
                 </div>
             <td>
@@ -1967,7 +2114,10 @@
         <tr class="table-row" data-ticker="LGCY" data-baseline="11.5" onclick="location.href='reports/LGCY.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">LGCY</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/LGCY" alt="LGCY" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">LG</span></div>
+                        <span class="tbl-symbol">LGCY</span>
+                    </div>
                     <span class="tbl-company-hover">Legacy Education Inc</span>
                 </div>
             <td>
@@ -1998,7 +2148,10 @@
         <tr class="table-row" data-ticker="LLY" data-baseline="1215.02" onclick="location.href='reports/LLY.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">LLY</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/LLY" alt="LLY" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">LL</span></div>
+                        <span class="tbl-symbol">LLY</span>
+                    </div>
                     <span class="tbl-company-hover">Eli Lilly and Company</span>
                 </div>
             <td>
@@ -2029,7 +2182,10 @@
         <tr class="table-row" data-ticker="LMT" data-baseline="597.77" onclick="location.href='reports/LMT.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">LMT</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/LMT" alt="LMT" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">LM</span></div>
+                        <span class="tbl-symbol">LMT</span>
+                    </div>
                     <span class="tbl-company-hover">Lockheed Martin Corporation</span>
                 </div>
             <td>
@@ -2060,7 +2216,10 @@
         <tr class="table-row" data-ticker="LULU" data-baseline="128.58" onclick="location.href='reports/LULU.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">LULU<span class="status-beacon beacon-buy" title="Action: Buy"><span class="beacon-dot"></span></span></span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/LULU" alt="LULU" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">LU</span></div>
+                        <span class="tbl-symbol">LULU<span class="status-beacon beacon-buy" title="Action: Buy"><span class="beacon-dot"></span></span></span>
+                    </div>
                     <span class="tbl-company-hover">Lululemon Athletica Inc</span>
                 </div>
             <td>
@@ -2091,7 +2250,10 @@
         <tr class="table-row" data-ticker="MA" data-baseline="561.44" onclick="location.href='reports/MA.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">MA</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/MA" alt="MA" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">MA</span></div>
+                        <span class="tbl-symbol">MA</span>
+                    </div>
                     <span class="tbl-company-hover">Mastercard Incorporated</span>
                 </div>
             <td>
@@ -2122,7 +2284,10 @@
         <tr class="table-row" data-ticker="MEDP" data-baseline="605.5" onclick="location.href='reports/MEDP.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">MEDP</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/MEDP" alt="MEDP" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">ME</span></div>
+                        <span class="tbl-symbol">MEDP</span>
+                    </div>
                     <span class="tbl-company-hover">Medpace Holdings, Inc</span>
                 </div>
             <td>
@@ -2153,7 +2318,10 @@
         <tr class="table-row" data-ticker="MELI" data-baseline="1940.0" onclick="location.href='reports/MELI.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">MELI</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/MELI" alt="MELI" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">ME</span></div>
+                        <span class="tbl-symbol">MELI</span>
+                    </div>
                     <span class="tbl-company-hover">MercadoLibre, Inc</span>
                 </div>
             <td>
@@ -2184,7 +2352,10 @@
         <tr class="table-row" data-ticker="META" data-baseline="592.1" onclick="location.href='reports/META.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">META</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/META" alt="META" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">ME</span></div>
+                        <span class="tbl-symbol">META</span>
+                    </div>
                     <span class="tbl-company-hover">Meta Platforms, Inc</span>
                 </div>
             <td>
@@ -2215,7 +2386,10 @@
         <tr class="table-row" data-ticker="MSCI" data-baseline="561.71" onclick="location.href='reports/MSCI.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">MSCI</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/MSCI" alt="MSCI" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">MS</span></div>
+                        <span class="tbl-symbol">MSCI</span>
+                    </div>
                     <span class="tbl-company-hover">MSCI Inc</span>
                 </div>
             <td>
@@ -2246,7 +2420,10 @@
         <tr class="table-row" data-ticker="MSFT" data-baseline="499.99" onclick="location.href='reports/MSFT.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">MSFT</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/MSFT" alt="MSFT" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">MS</span></div>
+                        <span class="tbl-symbol">MSFT</span>
+                    </div>
                     <span class="tbl-company-hover">Microsoft Corporation</span>
                 </div>
             <td>
@@ -2277,7 +2454,10 @@
         <tr class="table-row" data-ticker="MTCH" data-baseline="37.26" onclick="location.href='reports/MTCH.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">MTCH</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/MTCH" alt="MTCH" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">MT</span></div>
+                        <span class="tbl-symbol">MTCH</span>
+                    </div>
                     <span class="tbl-company-hover">Match Group, Inc</span>
                 </div>
             <td>
@@ -2308,7 +2488,10 @@
         <tr class="table-row" data-ticker="NFLX" data-baseline="74.79" onclick="location.href='reports/NFLX.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">NFLX</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/NFLX" alt="NFLX" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">NF</span></div>
+                        <span class="tbl-symbol">NFLX</span>
+                    </div>
                     <span class="tbl-company-hover">Netflix, Inc</span>
                 </div>
             <td>
@@ -2339,7 +2522,10 @@
         <tr class="table-row" data-ticker="NKE" data-baseline="41.32" onclick="location.href='reports/NKE.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">NKE</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/NKE" alt="NKE" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">NK</span></div>
+                        <span class="tbl-symbol">NKE</span>
+                    </div>
                     <span class="tbl-company-hover">Nike, Inc</span>
                 </div>
             <td>
@@ -2370,7 +2556,10 @@
         <tr class="table-row" data-ticker="NOW" data-baseline="128.38" onclick="location.href='reports/NOW.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">NOW</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/NOW" alt="NOW" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">NO</span></div>
+                        <span class="tbl-symbol">NOW</span>
+                    </div>
                     <span class="tbl-company-hover">ServiceNow, Inc</span>
                 </div>
             <td>
@@ -2401,7 +2590,10 @@
         <tr class="table-row" data-ticker="NVDA" data-baseline="217.5" onclick="location.href='reports/NVDA.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">NVDA</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/NVDA" alt="NVDA" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">NV</span></div>
+                        <span class="tbl-symbol">NVDA</span>
+                    </div>
                     <span class="tbl-company-hover">NVIDIA Corporation</span>
                 </div>
             <td>
@@ -2432,7 +2624,10 @@
         <tr class="table-row" data-ticker="PDD" data-baseline="91.76" onclick="location.href='reports/PDD.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">PDD</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/PDD" alt="PDD" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">PD</span></div>
+                        <span class="tbl-symbol">PDD</span>
+                    </div>
                     <span class="tbl-company-hover">PDD Holdings Inc</span>
                 </div>
             <td>
@@ -2463,7 +2658,10 @@
         <tr class="table-row" data-ticker="PFE" data-baseline="26.62" onclick="location.href='reports/PFE.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">PFE</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/PFE" alt="PFE" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">PF</span></div>
+                        <span class="tbl-symbol">PFE</span>
+                    </div>
                     <span class="tbl-company-hover">Pfizer, Inc</span>
                 </div>
             <td>
@@ -2494,7 +2692,10 @@
         <tr class="table-row" data-ticker="PYPL" data-baseline="59.07" onclick="location.href='reports/PYPL.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">PYPL</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/PYPL" alt="PYPL" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">PY</span></div>
+                        <span class="tbl-symbol">PYPL</span>
+                    </div>
                     <span class="tbl-company-hover">PayPal Holdings, Inc</span>
                 </div>
             <td>
@@ -2525,7 +2726,10 @@
         <tr class="table-row" data-ticker="QCOM" data-baseline="162.68" onclick="location.href='reports/QCOM.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">QCOM</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/QCOM" alt="QCOM" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">QC</span></div>
+                        <span class="tbl-symbol">QCOM</span>
+                    </div>
                     <span class="tbl-company-hover">QUALCOMM Incorporated</span>
                 </div>
             <td>
@@ -2556,7 +2760,10 @@
         <tr class="table-row" data-ticker="RDDT" data-baseline="156.04" onclick="location.href='reports/RDDT.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">RDDT</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/RDDT" alt="RDDT" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">RD</span></div>
+                        <span class="tbl-symbol">RDDT</span>
+                    </div>
                     <span class="tbl-company-hover">Reddit, Inc</span>
                 </div>
             <td>
@@ -2587,7 +2794,10 @@
         <tr class="table-row" data-ticker="SMRT" data-baseline="1.41" onclick="location.href='reports/SMRT.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">SMRT</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/SMRT" alt="SMRT" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">SM</span></div>
+                        <span class="tbl-symbol">SMRT</span>
+                    </div>
                     <span class="tbl-company-hover">SmartRent, Inc</span>
                 </div>
             <td>
@@ -2618,7 +2828,10 @@
         <tr class="table-row" data-ticker="SOFI" data-baseline="18.38" onclick="location.href='reports/SOFI.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">SOFI</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/SOFI" alt="SOFI" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">SO</span></div>
+                        <span class="tbl-symbol">SOFI</span>
+                    </div>
                     <span class="tbl-company-hover">SoFi Technologies, Inc</span>
                 </div>
             <td>
@@ -2649,7 +2862,10 @@
         <tr class="table-row" data-ticker="SONO" data-baseline="15.64" onclick="location.href='reports/SONO.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">SONO</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/SONO" alt="SONO" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">SO</span></div>
+                        <span class="tbl-symbol">SONO</span>
+                    </div>
                     <span class="tbl-company-hover">Sonos, Inc</span>
                 </div>
             <td>
@@ -2680,7 +2896,10 @@
         <tr class="table-row" data-ticker="SONY" data-baseline="23.61" onclick="location.href='reports/SONY.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">SONY</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/SONY" alt="SONY" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">SO</span></div>
+                        <span class="tbl-symbol">SONY</span>
+                    </div>
                     <span class="tbl-company-hover">Sony Group Corporation</span>
                 </div>
             <td>
@@ -2711,7 +2930,10 @@
         <tr class="table-row" data-ticker="SPGI" data-baseline="408.69" onclick="location.href='reports/SPGI.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">SPGI</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/SPGI" alt="SPGI" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">SP</span></div>
+                        <span class="tbl-symbol">SPGI</span>
+                    </div>
                     <span class="tbl-company-hover">S&P Global Inc</span>
                 </div>
             <td>
@@ -2742,7 +2964,10 @@
         <tr class="table-row" data-ticker="STNE" data-baseline="10.6" onclick="location.href='reports/STNE.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">STNE<span class="status-beacon beacon-buy" title="Action: Buy"><span class="beacon-dot"></span></span></span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/STNE" alt="STNE" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">ST</span></div>
+                        <span class="tbl-symbol">STNE<span class="status-beacon beacon-buy" title="Action: Buy"><span class="beacon-dot"></span></span></span>
+                    </div>
                     <span class="tbl-company-hover">StoneCo Ltd</span>
                 </div>
             <td>
@@ -2773,7 +2998,10 @@
         <tr class="table-row" data-ticker="TSLA" data-baseline="332.81" onclick="location.href='reports/TSLA.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">TSLA</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/TSLA" alt="TSLA" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">TS</span></div>
+                        <span class="tbl-symbol">TSLA</span>
+                    </div>
                     <span class="tbl-company-hover">Tesla, Inc</span>
                 </div>
             <td>
@@ -2804,7 +3032,10 @@
         <tr class="table-row" data-ticker="TSM" data-baseline="422.06" onclick="location.href='reports/TSM.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">TSM</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/TSM" alt="TSM" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">TS</span></div>
+                        <span class="tbl-symbol">TSM</span>
+                    </div>
                     <span class="tbl-company-hover">Taiwan Semiconductor Manufactur</span>
                 </div>
             <td>
@@ -2835,7 +3066,10 @@
         <tr class="table-row" data-ticker="TTD" data-baseline="13.56" onclick="location.href='reports/TTD.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">TTD</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/TTD" alt="TTD" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">TT</span></div>
+                        <span class="tbl-symbol">TTD</span>
+                    </div>
                     <span class="tbl-company-hover">The Trade Desk, Inc</span>
                 </div>
             <td>
@@ -2866,7 +3100,10 @@
         <tr class="table-row" data-ticker="TXN" data-baseline="281.24" onclick="location.href='reports/TXN.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">TXN</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/TXN" alt="TXN" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">TX</span></div>
+                        <span class="tbl-symbol">TXN</span>
+                    </div>
                     <span class="tbl-company-hover">Texas Instruments Incorporated</span>
                 </div>
             <td>
@@ -2897,7 +3134,10 @@
         <tr class="table-row" data-ticker="UBER" data-baseline="75.02" onclick="location.href='reports/UBER.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">UBER</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/UBER" alt="UBER" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">UB</span></div>
+                        <span class="tbl-symbol">UBER</span>
+                    </div>
                     <span class="tbl-company-hover">Uber Technologies, Inc</span>
                 </div>
             <td>
@@ -2928,7 +3168,10 @@
         <tr class="table-row" data-ticker="UL" data-baseline="62.37" onclick="location.href='reports/UL.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">UL</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/UL" alt="UL" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">UL</span></div>
+                        <span class="tbl-symbol">UL</span>
+                    </div>
                     <span class="tbl-company-hover">Unilever PLC</span>
                 </div>
             <td>
@@ -2959,7 +3202,10 @@
         <tr class="table-row" data-ticker="UNH" data-baseline="402.19" onclick="location.href='reports/UNH.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">UNH</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/UNH" alt="UNH" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">UN</span></div>
+                        <span class="tbl-symbol">UNH</span>
+                    </div>
                     <span class="tbl-company-hover">UnitedHealth Group Incorporated</span>
                 </div>
             <td>
@@ -2990,7 +3236,10 @@
         <tr class="table-row" data-ticker="UPWK" data-baseline="8.36" onclick="location.href='reports/UPWK.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">UPWK</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/UPWK" alt="UPWK" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">UP</span></div>
+                        <span class="tbl-symbol">UPWK</span>
+                    </div>
                     <span class="tbl-company-hover">Upwork Inc</span>
                 </div>
             <td>
@@ -3021,7 +3270,10 @@
         <tr class="table-row" data-ticker="V" data-baseline="362.82" onclick="location.href='reports/V.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">V</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/V" alt="V" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">V</span></div>
+                        <span class="tbl-symbol">V</span>
+                    </div>
                     <span class="tbl-company-hover">Visa Inc</span>
                 </div>
             <td>
@@ -3052,7 +3304,10 @@
         <tr class="table-row" data-ticker="VRT" data-baseline="281.81" onclick="location.href='reports/VRT.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">VRT</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/VRT" alt="VRT" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">VR</span></div>
+                        <span class="tbl-symbol">VRT</span>
+                    </div>
                     <span class="tbl-company-hover">Vertiv Holdings, LLC</span>
                 </div>
             <td>
@@ -3083,7 +3338,10 @@
         <tr class="table-row" data-ticker="WDAY" data-baseline="179.64" onclick="location.href='reports/WDAY.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">WDAY</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/WDAY" alt="WDAY" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">WD</span></div>
+                        <span class="tbl-symbol">WDAY</span>
+                    </div>
                     <span class="tbl-company-hover">Workday, Inc</span>
                 </div>
             <td>
@@ -3114,7 +3372,10 @@
         <tr class="table-row" data-ticker="YELP" data-baseline="25.56" onclick="location.href='reports/YELP.html'">
             <td>
                 <div class="tbl-ticker-cell">
-                    <span class="tbl-symbol">YELP</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/YELP" alt="YELP" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">YE</span></div>
+                        <span class="tbl-symbol">YELP</span>
+                    </div>
                     <span class="tbl-company-hover">Yelp Inc</span>
                 </div>
             <td>
@@ -3151,7 +3412,10 @@
                 
         <div class="grid-card" data-ticker="AAPL" data-baseline="304.91" onclick="location.href='reports/AAPL.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">AAPL</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/AAPL" alt="AAPL" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">AA</span></div>
+                    <span class="grid-symbol">AAPL</span>
+                </div>
                 <div class="grid-price grid-price-AAPL">$305.26</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -3181,7 +3445,10 @@
         
         <div class="grid-card" data-ticker="ACN" data-baseline="175.72" onclick="location.href='reports/ACN.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">ACN</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/ACN" alt="ACN" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">AC</span></div>
+                    <span class="grid-symbol">ACN</span>
+                </div>
                 <div class="grid-price grid-price-ACN">$178.49</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -3211,7 +3478,10 @@
         
         <div class="grid-card" data-ticker="ADBE" data-baseline="265.21" onclick="location.href='reports/ADBE.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">ADBE</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/ADBE" alt="ADBE" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">AD</span></div>
+                    <span class="grid-symbol">ADBE</span>
+                </div>
                 <div class="grid-price grid-price-ADBE">$270.49</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -3241,7 +3511,10 @@
         
         <div class="grid-card" data-ticker="ADSK" data-baseline="251.59" onclick="location.href='reports/ADSK.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">ADSK</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/ADSK" alt="ADSK" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">AD</span></div>
+                    <span class="grid-symbol">ADSK</span>
+                </div>
                 <div class="grid-price grid-price-ADSK">$257.96</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -3271,7 +3544,10 @@
         
         <div class="grid-card" data-ticker="AMZN" data-baseline="274.48" onclick="location.href='reports/AMZN.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">AMZN</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/AMZN" alt="AMZN" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">AM</span></div>
+                    <span class="grid-symbol">AMZN</span>
+                </div>
                 <div class="grid-price grid-price-AMZN">$265.13</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -3301,7 +3577,10 @@
         
         <div class="grid-card" data-ticker="ASML" data-baseline="1799.38" onclick="location.href='reports/ASML.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">ASML</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/ASML" alt="ASML" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">AS</span></div>
+                    <span class="grid-symbol">ASML</span>
+                </div>
                 <div class="grid-price grid-price-ASML">$1847.90</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -3331,7 +3610,10 @@
         
         <div class="grid-card" data-ticker="BABA" data-baseline="128.41" onclick="location.href='reports/BABA.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">BABA</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/BABA" alt="BABA" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">BA</span></div>
+                    <span class="grid-symbol">BABA</span>
+                </div>
                 <div class="grid-price grid-price-BABA">$122.16</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -3361,7 +3643,10 @@
         
         <div class="grid-card" data-ticker="BKNG" data-baseline="214.42" onclick="location.href='reports/BKNG.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">BKNG</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/BKNG" alt="BKNG" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">BK</span></div>
+                    <span class="grid-symbol">BKNG</span>
+                </div>
                 <div class="grid-price grid-price-BKNG">$213.34</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -3391,7 +3676,10 @@
         
         <div class="grid-card" data-ticker="BMBL" data-baseline="2.83" onclick="location.href='reports/BMBL.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">BMBL</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/BMBL" alt="BMBL" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">BM</span></div>
+                    <span class="grid-symbol">BMBL</span>
+                </div>
                 <div class="grid-price grid-price-BMBL">$2.72</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -3421,7 +3709,10 @@
         
         <div class="grid-card" data-ticker="BTI" data-baseline="56.81" onclick="location.href='reports/BTI.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">BTI</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/BTI" alt="BTI" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">BT</span></div>
+                    <span class="grid-symbol">BTI</span>
+                </div>
                 <div class="grid-price grid-price-BTI">$57.35</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -3451,7 +3742,10 @@
         
         <div class="grid-card" data-ticker="BVHMF" data-baseline="3.43" onclick="location.href='reports/BVHMF.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">BVHMF</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/BVHMF" alt="BVHMF" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">BV</span></div>
+                    <span class="grid-symbol">BVHMF</span>
+                </div>
                 <div class="grid-price grid-price-BVHMF">$3.43</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -3481,7 +3775,10 @@
         
         <div class="grid-card" data-ticker="BYD" data-baseline="83.42" onclick="location.href='reports/BYD.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">BYD<span class="status-beacon beacon-buy" title="Action: Buy"><span class="beacon-dot"></span></span></span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/BYD" alt="BYD" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">BY</span></div>
+                    <span class="grid-symbol">BYD<span class="status-beacon beacon-buy" title="Action: Buy"><span class="beacon-dot"></span></span></span>
+                </div>
                 <div class="grid-price grid-price-BYD">$83.26</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -3511,7 +3808,10 @@
         
         <div class="grid-card" data-ticker="CELH" data-baseline="27.77" onclick="location.href='reports/CELH.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">CELH</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CELH" alt="CELH" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">CE</span></div>
+                    <span class="grid-symbol">CELH</span>
+                </div>
                 <div class="grid-price grid-price-CELH">$28.78</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -3541,7 +3841,10 @@
         
         <div class="grid-card" data-ticker="CHGG" data-baseline="0.8" onclick="location.href='reports/CHGG.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">CHGG</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CHGG" alt="CHGG" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">CH</span></div>
+                    <span class="grid-symbol">CHGG</span>
+                </div>
                 <div class="grid-price grid-price-CHGG">$0.80</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -3571,7 +3874,10 @@
         
         <div class="grid-card" data-ticker="CHTR" data-baseline="151.69" onclick="location.href='reports/CHTR.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">CHTR</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CHTR" alt="CHTR" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">CH</span></div>
+                    <span class="grid-symbol">CHTR</span>
+                </div>
                 <div class="grid-price grid-price-CHTR">$156.53</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -3601,7 +3907,10 @@
         
         <div class="grid-card" data-ticker="CMCSA" data-baseline="25.65" onclick="location.href='reports/CMCSA.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">CMCSA</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CMCSA" alt="CMCSA" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">CM</span></div>
+                    <span class="grid-symbol">CMCSA</span>
+                </div>
                 <div class="grid-price grid-price-CMCSA">$26.18</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -3631,7 +3940,10 @@
         
         <div class="grid-card" data-ticker="CMG" data-baseline="32.79" onclick="location.href='reports/CMG.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">CMG</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CMG" alt="CMG" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">CM</span></div>
+                    <span class="grid-symbol">CMG</span>
+                </div>
                 <div class="grid-price grid-price-CMG">$32.61</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -3661,7 +3973,10 @@
         
         <div class="grid-card" data-ticker="COST" data-baseline="944.32" onclick="location.href='reports/COST.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">COST</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/COST" alt="COST" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">CO</span></div>
+                    <span class="grid-symbol">COST</span>
+                </div>
                 <div class="grid-price grid-price-COST">$961.85</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -3691,7 +4006,10 @@
         
         <div class="grid-card" data-ticker="CPRT" data-baseline="29.66" onclick="location.href='reports/CPRT.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">CPRT</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CPRT" alt="CPRT" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">CP</span></div>
+                    <span class="grid-symbol">CPRT</span>
+                </div>
                 <div class="grid-price grid-price-CPRT">$29.39</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -3721,7 +4039,10 @@
         
         <div class="grid-card" data-ticker="CRM" data-baseline="192.74" onclick="location.href='reports/CRM.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">CRM</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CRM" alt="CRM" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">CR</span></div>
+                    <span class="grid-symbol">CRM</span>
+                </div>
                 <div class="grid-price grid-price-CRM">$201.37</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -3751,7 +4072,10 @@
         
         <div class="grid-card" data-ticker="CROX" data-baseline="136.62" onclick="location.href='reports/CROX.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">CROX</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CROX" alt="CROX" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">CR</span></div>
+                    <span class="grid-symbol">CROX</span>
+                </div>
                 <div class="grid-price grid-price-CROX">$132.56</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -3781,7 +4105,10 @@
         
         <div class="grid-card" data-ticker="CSU" data-baseline="2308.0" onclick="location.href='reports/CSU.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">CSU<span class="status-beacon beacon-buy" title="Action: Buy"><span class="beacon-dot"></span></span></span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CSU" alt="CSU" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">CS</span></div>
+                    <span class="grid-symbol">CSU<span class="status-beacon beacon-buy" title="Action: Buy"><span class="beacon-dot"></span></span></span>
+                </div>
                 <div class="grid-price grid-price-CSU">$2276.00</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -3811,7 +4138,10 @@
         
         <div class="grid-card" data-ticker="DECK" data-baseline="97.46" onclick="location.href='reports/DECK.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">DECK</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/DECK" alt="DECK" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">DE</span></div>
+                    <span class="grid-symbol">DECK</span>
+                </div>
                 <div class="grid-price grid-price-DECK">$93.30</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -3841,7 +4171,10 @@
         
         <div class="grid-card" data-ticker="DIS" data-baseline="103.53" onclick="location.href='reports/DIS.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">DIS</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/DIS" alt="DIS" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">DI</span></div>
+                    <span class="grid-symbol">DIS</span>
+                </div>
                 <div class="grid-price grid-price-DIS">$104.80</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -3871,7 +4204,10 @@
         
         <div class="grid-card" data-ticker="DUOL" data-baseline="135.44" onclick="location.href='reports/DUOL.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">DUOL</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/DUOL" alt="DUOL" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">DU</span></div>
+                    <span class="grid-symbol">DUOL</span>
+                </div>
                 <div class="grid-price grid-price-DUOL">$144.10</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -3901,7 +4237,10 @@
         
         <div class="grid-card" data-ticker="EDU" data-baseline="56.43" onclick="location.href='reports/EDU.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">EDU</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/EDU" alt="EDU" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">ED</span></div>
+                    <span class="grid-symbol">EDU</span>
+                </div>
                 <div class="grid-price grid-price-EDU">$52.33</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -3931,7 +4270,10 @@
         
         <div class="grid-card" data-ticker="ELF" data-baseline="94.99" onclick="location.href='reports/ELF.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">ELF</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/ELF" alt="ELF" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">EL</span></div>
+                    <span class="grid-symbol">ELF</span>
+                </div>
                 <div class="grid-price grid-price-ELF">$92.05</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -3961,7 +4303,10 @@
         
         <div class="grid-card" data-ticker="FAST" data-baseline="52.38" onclick="location.href='reports/FAST.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">FAST</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/FAST" alt="FAST" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">FA</span></div>
+                    <span class="grid-symbol">FAST</span>
+                </div>
                 <div class="grid-price grid-price-FAST">$51.34</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -3991,7 +4336,10 @@
         
         <div class="grid-card" data-ticker="FICO" data-baseline="1038.23" onclick="location.href='reports/FICO.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">FICO</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/FICO" alt="FICO" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">FI</span></div>
+                    <span class="grid-symbol">FICO</span>
+                </div>
                 <div class="grid-price grid-price-FICO">$1110.70</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4021,7 +4369,10 @@
         
         <div class="grid-card" data-ticker="GCT" data-baseline="51.52" onclick="location.href='reports/GCT.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">GCT</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/GCT" alt="GCT" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">GC</span></div>
+                    <span class="grid-symbol">GCT</span>
+                </div>
                 <div class="grid-price grid-price-GCT">$53.23</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4051,7 +4402,10 @@
         
         <div class="grid-card" data-ticker="GOOG" data-baseline="343.0" onclick="location.href='reports/GOOG.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">GOOG</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/GOOG" alt="GOOG" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">GO</span></div>
+                    <span class="grid-symbol">GOOG</span>
+                </div>
                 <div class="grid-price grid-price-GOOG">$343.94</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4081,7 +4435,10 @@
         
         <div class="grid-card" data-ticker="HOOD" data-baseline="98.51" onclick="location.href='reports/HOOD.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">HOOD</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/HOOD" alt="HOOD" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">HO</span></div>
+                    <span class="grid-symbol">HOOD</span>
+                </div>
                 <div class="grid-price grid-price-HOOD">$99.37</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4111,7 +4468,10 @@
         
         <div class="grid-card" data-ticker="INTC" data-baseline="106.63" onclick="location.href='reports/INTC.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">INTC</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/INTC" alt="INTC" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">IN</span></div>
+                    <span class="grid-symbol">INTC</span>
+                </div>
                 <div class="grid-price grid-price-INTC">$104.56</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4141,7 +4501,10 @@
         
         <div class="grid-card" data-ticker="INTU" data-baseline="325.25" onclick="location.href='reports/INTU.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">INTU</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/INTU" alt="INTU" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">IN</span></div>
+                    <span class="grid-symbol">INTU</span>
+                </div>
                 <div class="grid-price grid-price-INTU">$358.29</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4171,7 +4534,10 @@
         
         <div class="grid-card" data-ticker="ISRG" data-baseline="401.23" onclick="location.href='reports/ISRG.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">ISRG</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/ISRG" alt="ISRG" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">IS</span></div>
+                    <span class="grid-symbol">ISRG</span>
+                </div>
                 <div class="grid-price grid-price-ISRG">$401.27</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4201,7 +4567,10 @@
         
         <div class="grid-card" data-ticker="JD" data-baseline="32.97" onclick="location.href='reports/JD.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">JD<span class="status-beacon beacon-buy" title="Action: Buy"><span class="beacon-dot"></span></span></span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/JD" alt="JD" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">JD</span></div>
+                    <span class="grid-symbol">JD<span class="status-beacon beacon-buy" title="Action: Buy"><span class="beacon-dot"></span></span></span>
+                </div>
                 <div class="grid-price grid-price-JD">$29.30</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4231,7 +4600,10 @@
         
         <div class="grid-card" data-ticker="KO" data-baseline="86.48" onclick="location.href='reports/KO.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">KO</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/KO" alt="KO" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">KO</span></div>
+                    <span class="grid-symbol">KO</span>
+                </div>
                 <div class="grid-price grid-price-KO">$87.42</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4261,7 +4633,10 @@
         
         <div class="grid-card" data-ticker="KSS" data-baseline="19.3" onclick="location.href='reports/KSS.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">KSS</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/KSS" alt="KSS" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">KS</span></div>
+                    <span class="grid-symbol">KSS</span>
+                </div>
                 <div class="grid-price grid-price-KSS">$19.62</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4291,7 +4666,10 @@
         
         <div class="grid-card" data-ticker="LGCY" data-baseline="11.5" onclick="location.href='reports/LGCY.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">LGCY</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/LGCY" alt="LGCY" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">LG</span></div>
+                    <span class="grid-symbol">LGCY</span>
+                </div>
                 <div class="grid-price grid-price-LGCY">$10.59</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4321,7 +4699,10 @@
         
         <div class="grid-card" data-ticker="LLY" data-baseline="1215.02" onclick="location.href='reports/LLY.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">LLY</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/LLY" alt="LLY" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">LL</span></div>
+                    <span class="grid-symbol">LLY</span>
+                </div>
                 <div class="grid-price grid-price-LLY">$1209.00</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4351,7 +4732,10 @@
         
         <div class="grid-card" data-ticker="LMT" data-baseline="597.77" onclick="location.href='reports/LMT.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">LMT</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/LMT" alt="LMT" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">LM</span></div>
+                    <span class="grid-symbol">LMT</span>
+                </div>
                 <div class="grid-price grid-price-LMT">$598.01</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4381,7 +4765,10 @@
         
         <div class="grid-card" data-ticker="LULU" data-baseline="128.58" onclick="location.href='reports/LULU.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">LULU<span class="status-beacon beacon-buy" title="Action: Buy"><span class="beacon-dot"></span></span></span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/LULU" alt="LULU" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">LU</span></div>
+                    <span class="grid-symbol">LULU<span class="status-beacon beacon-buy" title="Action: Buy"><span class="beacon-dot"></span></span></span>
+                </div>
                 <div class="grid-price grid-price-LULU">$119.56</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4411,7 +4798,10 @@
         
         <div class="grid-card" data-ticker="MA" data-baseline="561.44" onclick="location.href='reports/MA.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">MA</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/MA" alt="MA" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">MA</span></div>
+                    <span class="grid-symbol">MA</span>
+                </div>
                 <div class="grid-price grid-price-MA">$567.04</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4441,7 +4831,10 @@
         
         <div class="grid-card" data-ticker="MEDP" data-baseline="605.5" onclick="location.href='reports/MEDP.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">MEDP</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/MEDP" alt="MEDP" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">ME</span></div>
+                    <span class="grid-symbol">MEDP</span>
+                </div>
                 <div class="grid-price grid-price-MEDP">$581.95</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4471,7 +4864,10 @@
         
         <div class="grid-card" data-ticker="MELI" data-baseline="1940.0" onclick="location.href='reports/MELI.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">MELI</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/MELI" alt="MELI" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">ME</span></div>
+                    <span class="grid-symbol">MELI</span>
+                </div>
                 <div class="grid-price grid-price-MELI">$1828.25</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4501,7 +4897,10 @@
         
         <div class="grid-card" data-ticker="META" data-baseline="592.1" onclick="location.href='reports/META.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">META</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/META" alt="META" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">ME</span></div>
+                    <span class="grid-symbol">META</span>
+                </div>
                 <div class="grid-price grid-price-META">$594.97</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4531,7 +4930,10 @@
         
         <div class="grid-card" data-ticker="MSCI" data-baseline="561.71" onclick="location.href='reports/MSCI.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">MSCI</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/MSCI" alt="MSCI" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">MS</span></div>
+                    <span class="grid-symbol">MSCI</span>
+                </div>
                 <div class="grid-price grid-price-MSCI">$575.24</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4561,7 +4963,10 @@
         
         <div class="grid-card" data-ticker="MSFT" data-baseline="499.99" onclick="location.href='reports/MSFT.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">MSFT</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/MSFT" alt="MSFT" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">MS</span></div>
+                    <span class="grid-symbol">MSFT</span>
+                </div>
                 <div class="grid-price grid-price-MSFT">$496.88</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4591,7 +4996,10 @@
         
         <div class="grid-card" data-ticker="MTCH" data-baseline="37.26" onclick="location.href='reports/MTCH.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">MTCH</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/MTCH" alt="MTCH" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">MT</span></div>
+                    <span class="grid-symbol">MTCH</span>
+                </div>
                 <div class="grid-price grid-price-MTCH">$37.28</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4621,7 +5029,10 @@
         
         <div class="grid-card" data-ticker="NFLX" data-baseline="74.79" onclick="location.href='reports/NFLX.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">NFLX</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/NFLX" alt="NFLX" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">NF</span></div>
+                    <span class="grid-symbol">NFLX</span>
+                </div>
                 <div class="grid-price grid-price-NFLX">$78.24</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4651,7 +5062,10 @@
         
         <div class="grid-card" data-ticker="NKE" data-baseline="41.32" onclick="location.href='reports/NKE.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">NKE</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/NKE" alt="NKE" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">NK</span></div>
+                    <span class="grid-symbol">NKE</span>
+                </div>
                 <div class="grid-price grid-price-NKE">$41.23</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4681,7 +5095,10 @@
         
         <div class="grid-card" data-ticker="NOW" data-baseline="128.38" onclick="location.href='reports/NOW.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">NOW</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/NOW" alt="NOW" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">NO</span></div>
+                    <span class="grid-symbol">NOW</span>
+                </div>
                 <div class="grid-price grid-price-NOW">$127.25</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4711,7 +5128,10 @@
         
         <div class="grid-card" data-ticker="NVDA" data-baseline="217.5" onclick="location.href='reports/NVDA.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">NVDA</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/NVDA" alt="NVDA" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">NV</span></div>
+                    <span class="grid-symbol">NVDA</span>
+                </div>
                 <div class="grid-price grid-price-NVDA">$225.30</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4741,7 +5161,10 @@
         
         <div class="grid-card" data-ticker="PDD" data-baseline="91.76" onclick="location.href='reports/PDD.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">PDD</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/PDD" alt="PDD" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">PD</span></div>
+                    <span class="grid-symbol">PDD</span>
+                </div>
                 <div class="grid-price grid-price-PDD">$84.17</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4771,7 +5194,10 @@
         
         <div class="grid-card" data-ticker="PFE" data-baseline="26.62" onclick="location.href='reports/PFE.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">PFE</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/PFE" alt="PFE" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">PF</span></div>
+                    <span class="grid-symbol">PFE</span>
+                </div>
                 <div class="grid-price grid-price-PFE">$26.80</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4801,7 +5227,10 @@
         
         <div class="grid-card" data-ticker="PYPL" data-baseline="59.07" onclick="location.href='reports/PYPL.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">PYPL</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/PYPL" alt="PYPL" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">PY</span></div>
+                    <span class="grid-symbol">PYPL</span>
+                </div>
                 <div class="grid-price grid-price-PYPL">$60.59</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4831,7 +5260,10 @@
         
         <div class="grid-card" data-ticker="QCOM" data-baseline="162.68" onclick="location.href='reports/QCOM.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">QCOM</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/QCOM" alt="QCOM" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">QC</span></div>
+                    <span class="grid-symbol">QCOM</span>
+                </div>
                 <div class="grid-price grid-price-QCOM">$164.79</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4861,7 +5293,10 @@
         
         <div class="grid-card" data-ticker="RDDT" data-baseline="156.04" onclick="location.href='reports/RDDT.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">RDDT</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/RDDT" alt="RDDT" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">RD</span></div>
+                    <span class="grid-symbol">RDDT</span>
+                </div>
                 <div class="grid-price grid-price-RDDT">$158.12</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4891,7 +5326,10 @@
         
         <div class="grid-card" data-ticker="SMRT" data-baseline="1.41" onclick="location.href='reports/SMRT.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">SMRT</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/SMRT" alt="SMRT" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">SM</span></div>
+                    <span class="grid-symbol">SMRT</span>
+                </div>
                 <div class="grid-price grid-price-SMRT">$1.44</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4921,7 +5359,10 @@
         
         <div class="grid-card" data-ticker="SOFI" data-baseline="18.38" onclick="location.href='reports/SOFI.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">SOFI</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/SOFI" alt="SOFI" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">SO</span></div>
+                    <span class="grid-symbol">SOFI</span>
+                </div>
                 <div class="grid-price grid-price-SOFI">$18.43</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4951,7 +5392,10 @@
         
         <div class="grid-card" data-ticker="SONO" data-baseline="15.64" onclick="location.href='reports/SONO.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">SONO</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/SONO" alt="SONO" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">SO</span></div>
+                    <span class="grid-symbol">SONO</span>
+                </div>
                 <div class="grid-price grid-price-SONO">$16.59</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -4981,7 +5425,10 @@
         
         <div class="grid-card" data-ticker="SONY" data-baseline="23.61" onclick="location.href='reports/SONY.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">SONY</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/SONY" alt="SONY" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">SO</span></div>
+                    <span class="grid-symbol">SONY</span>
+                </div>
                 <div class="grid-price grid-price-SONY">$23.61</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -5011,7 +5458,10 @@
         
         <div class="grid-card" data-ticker="SPGI" data-baseline="408.69" onclick="location.href='reports/SPGI.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">SPGI</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/SPGI" alt="SPGI" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">SP</span></div>
+                    <span class="grid-symbol">SPGI</span>
+                </div>
                 <div class="grid-price grid-price-SPGI">$422.67</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -5041,7 +5491,10 @@
         
         <div class="grid-card" data-ticker="STNE" data-baseline="10.6" onclick="location.href='reports/STNE.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">STNE<span class="status-beacon beacon-buy" title="Action: Buy"><span class="beacon-dot"></span></span></span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/STNE" alt="STNE" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">ST</span></div>
+                    <span class="grid-symbol">STNE<span class="status-beacon beacon-buy" title="Action: Buy"><span class="beacon-dot"></span></span></span>
+                </div>
                 <div class="grid-price grid-price-STNE">$10.23</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -5071,7 +5524,10 @@
         
         <div class="grid-card" data-ticker="TSLA" data-baseline="332.81" onclick="location.href='reports/TSLA.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">TSLA</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/TSLA" alt="TSLA" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">TS</span></div>
+                    <span class="grid-symbol">TSLA</span>
+                </div>
                 <div class="grid-price grid-price-TSLA">$339.96</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -5101,7 +5557,10 @@
         
         <div class="grid-card" data-ticker="TSM" data-baseline="422.06" onclick="location.href='reports/TSM.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">TSM</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/TSM" alt="TSM" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">TS</span></div>
+                    <span class="grid-symbol">TSM</span>
+                </div>
                 <div class="grid-price grid-price-TSM">$430.49</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -5131,7 +5590,10 @@
         
         <div class="grid-card" data-ticker="TTD" data-baseline="13.56" onclick="location.href='reports/TTD.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">TTD</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/TTD" alt="TTD" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">TT</span></div>
+                    <span class="grid-symbol">TTD</span>
+                </div>
                 <div class="grid-price grid-price-TTD">$14.56</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -5161,7 +5623,10 @@
         
         <div class="grid-card" data-ticker="TXN" data-baseline="281.24" onclick="location.href='reports/TXN.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">TXN</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/TXN" alt="TXN" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">TX</span></div>
+                    <span class="grid-symbol">TXN</span>
+                </div>
                 <div class="grid-price grid-price-TXN">$273.43</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -5191,7 +5656,10 @@
         
         <div class="grid-card" data-ticker="UBER" data-baseline="75.02" onclick="location.href='reports/UBER.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">UBER</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/UBER" alt="UBER" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">UB</span></div>
+                    <span class="grid-symbol">UBER</span>
+                </div>
                 <div class="grid-price grid-price-UBER">$75.88</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -5221,7 +5689,10 @@
         
         <div class="grid-card" data-ticker="UL" data-baseline="62.37" onclick="location.href='reports/UL.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">UL</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/UL" alt="UL" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">UL</span></div>
+                    <span class="grid-symbol">UL</span>
+                </div>
                 <div class="grid-price grid-price-UL">$62.68</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -5251,7 +5722,10 @@
         
         <div class="grid-card" data-ticker="UNH" data-baseline="402.19" onclick="location.href='reports/UNH.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">UNH</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/UNH" alt="UNH" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">UN</span></div>
+                    <span class="grid-symbol">UNH</span>
+                </div>
                 <div class="grid-price grid-price-UNH">$399.06</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -5281,7 +5755,10 @@
         
         <div class="grid-card" data-ticker="UPWK" data-baseline="8.36" onclick="location.href='reports/UPWK.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">UPWK</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/UPWK" alt="UPWK" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">UP</span></div>
+                    <span class="grid-symbol">UPWK</span>
+                </div>
                 <div class="grid-price grid-price-UPWK">$8.66</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -5311,7 +5788,10 @@
         
         <div class="grid-card" data-ticker="V" data-baseline="362.82" onclick="location.href='reports/V.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">V</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/V" alt="V" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">V</span></div>
+                    <span class="grid-symbol">V</span>
+                </div>
                 <div class="grid-price grid-price-V">$365.45</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -5341,7 +5821,10 @@
         
         <div class="grid-card" data-ticker="VRT" data-baseline="281.81" onclick="location.href='reports/VRT.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">VRT</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/VRT" alt="VRT" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">VR</span></div>
+                    <span class="grid-symbol">VRT</span>
+                </div>
                 <div class="grid-price grid-price-VRT">$287.07</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -5371,7 +5854,10 @@
         
         <div class="grid-card" data-ticker="WDAY" data-baseline="179.64" onclick="location.href='reports/WDAY.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">WDAY</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/WDAY" alt="WDAY" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">WD</span></div>
+                    <span class="grid-symbol">WDAY</span>
+                </div>
                 <div class="grid-price grid-price-WDAY">$206.45</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -5401,7 +5887,10 @@
         
         <div class="grid-card" data-ticker="YELP" data-baseline="25.56" onclick="location.href='reports/YELP.html'">
             <div class="grid-card-top">
-                <span class="grid-symbol">YELP</span>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/YELP" alt="YELP" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">YE</span></div>
+                    <span class="grid-symbol">YELP</span>
+                </div>
                 <div class="grid-price grid-price-YELP">$24.39</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
@@ -5732,9 +6221,12 @@
         <tr data-row-ticker="JD" data-shares="1378.4461" data-cost="31.92" data-port="defensive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:5px; min-width:0;">
-                <a href="reports/JD.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
-                    JD
-                </a>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/JD" alt="JD" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">JD</span></div>
+                    <a href="reports/JD.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
+                        JD
+                    </a>
+                </div>
                 <span style="font-family:var(--font-sans); font-size:0.74rem; color:var(--text-dim); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.1;" title="JD.com">JD.com</span>
             </div>
             </td>
@@ -5770,9 +6262,12 @@
         <tr data-row-ticker="YELP" data-shares="1328.2507" data-cost="23.61" data-port="defensive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:5px; min-width:0;">
-                <a href="reports/YELP.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
-                    YELP
-                </a>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/YELP" alt="YELP" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">YE</span></div>
+                    <a href="reports/YELP.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
+                        YELP
+                    </a>
+                </div>
                 <span style="font-family:var(--font-sans); font-size:0.74rem; color:var(--text-dim); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.1;" title="Yelp Inc.">Yelp Inc.</span>
             </div>
             </td>
@@ -5808,9 +6303,12 @@
         <tr data-row-ticker="ACN" data-shares="118.1181" data-cost="179.82" data-port="defensive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:5px; min-width:0;">
-                <a href="reports/ACN.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
-                    ACN
-                </a>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/ACN" alt="ACN" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">AC</span></div>
+                    <a href="reports/ACN.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
+                        ACN
+                    </a>
+                </div>
                 <span style="font-family:var(--font-sans); font-size:0.74rem; color:var(--text-dim); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.1;" title="Accenture plc">Accenture plc</span>
             </div>
             </td>
@@ -5846,9 +6344,12 @@
         <tr data-row-ticker="MTCH" data-shares="494.5652" data-cost="36.8" data-port="defensive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:5px; min-width:0;">
-                <a href="reports/MTCH.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
-                    MTCH
-                </a>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/MTCH" alt="MTCH" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">MT</span></div>
+                    <a href="reports/MTCH.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
+                        MTCH
+                    </a>
+                </div>
                 <span style="font-family:var(--font-sans); font-size:0.74rem; color:var(--text-dim); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.1;" title="Match Group, Inc.">Match Group, Inc.</span>
             </div>
             </td>
@@ -5884,9 +6385,12 @@
         <tr data-row-ticker="BABA" data-shares="98.3966" data-cost="127.85" data-port="defensive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:5px; min-width:0;">
-                <a href="reports/BABA.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
-                    BABA
-                </a>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/BABA" alt="BABA" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">BA</span></div>
+                    <a href="reports/BABA.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
+                        BABA
+                    </a>
+                </div>
                 <span style="font-family:var(--font-sans); font-size:0.74rem; color:var(--text-dim); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.1;" title="Alibaba Group">Alibaba Group</span>
             </div>
             </td>
@@ -5922,9 +6426,12 @@
         <tr data-row-ticker="CMCSA" data-shares="473.2943" data-cost="25.65" data-port="defensive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:5px; min-width:0;">
-                <a href="reports/CMCSA.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
-                    CMCSA
-                </a>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CMCSA" alt="CMCSA" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">CM</span></div>
+                    <a href="reports/CMCSA.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
+                        CMCSA
+                    </a>
+                </div>
                 <span style="font-family:var(--font-sans); font-size:0.74rem; color:var(--text-dim); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.1;" title="Comcast Corporation">Comcast Corporation</span>
             </div>
             </td>
@@ -5960,9 +6467,12 @@
         <tr data-row-ticker="NKE" data-shares="234.7531" data-cost="41.32" data-port="defensive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:5px; min-width:0;">
-                <a href="reports/NKE.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
-                    NKE
-                </a>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/NKE" alt="NKE" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">NK</span></div>
+                    <a href="reports/NKE.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
+                        NKE
+                    </a>
+                </div>
                 <span style="font-family:var(--font-sans); font-size:0.74rem; color:var(--text-dim); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.1;" title="Nike, Inc.">Nike, Inc.</span>
             </div>
             </td>
@@ -5998,9 +6508,12 @@
         <tr data-row-ticker="CROX" data-shares="63.4728" data-cost="131.71" data-port="defensive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:5px; min-width:0;">
-                <a href="reports/CROX.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
-                    CROX
-                </a>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CROX" alt="CROX" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">CR</span></div>
+                    <a href="reports/CROX.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
+                        CROX
+                    </a>
+                </div>
                 <span style="font-family:var(--font-sans); font-size:0.74rem; color:var(--text-dim); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.1;" title="Crocs">Crocs</span>
             </div>
             </td>
@@ -6036,7 +6549,10 @@
         <tr data-row-ticker="USD_CASH" data-shares="42420.0" data-cost="1.0" data-port="defensive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:5px;">
-                <span style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); line-height:1.15;">Cash</span>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><span class="ticker-logo-fallback" style="color:var(--accent-green); font-size:11px;">$</span></div>
+                    <span style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); line-height:1.15;">Cash</span>
+                </div>
                 <span style="font-family:var(--font-sans); font-size:0.74rem; color:var(--text-dim); line-height:1.1;">US Treasury (5.0%)</span>
             </div>
             </td>
@@ -6405,9 +6921,12 @@
         <tr data-row-ticker="PDD" data-shares="199.337" data-cost="90.5" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:5px; min-width:0;">
-                <a href="reports/PDD.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
-                    PDD
-                </a>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/PDD" alt="PDD" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">PD</span></div>
+                    <a href="reports/PDD.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
+                        PDD
+                    </a>
+                </div>
                 <span style="font-family:var(--font-sans); font-size:0.74rem; color:var(--text-dim); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.1;" title="PDD Holdings Inc.">PDD Holdings Inc.</span>
             </div>
             </td>
@@ -6443,9 +6962,12 @@
         <tr data-row-ticker="LULU" data-shares="138.6832" data-cost="125.61" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:5px; min-width:0;">
-                <a href="reports/LULU.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
-                    LULU
-                </a>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/LULU" alt="LULU" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">LU</span></div>
+                    <a href="reports/LULU.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
+                        LULU
+                    </a>
+                </div>
                 <span style="font-family:var(--font-sans); font-size:0.74rem; color:var(--text-dim); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.1;" title="Lululemon Athletica Inc.">Lululemon Athletica Inc.</span>
             </div>
             </td>
@@ -6481,9 +7003,12 @@
         <tr data-row-ticker="EDU" data-shares="296.3096" data-cost="55.55" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:5px; min-width:0;">
-                <a href="reports/EDU.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
-                    EDU
-                </a>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/EDU" alt="EDU" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">ED</span></div>
+                    <a href="reports/EDU.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
+                        EDU
+                    </a>
+                </div>
                 <span style="font-family:var(--font-sans); font-size:0.74rem; color:var(--text-dim); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.1;" title="New Oriental Education Group">New Oriental Education Group</span>
             </div>
             </td>
@@ -6519,9 +7044,12 @@
         <tr data-row-ticker="SOFI" data-shares="909.8999" data-cost="17.98" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:5px; min-width:0;">
-                <a href="reports/SOFI.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
-                    SOFI
-                </a>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/SOFI" alt="SOFI" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">SO</span></div>
+                    <a href="reports/SOFI.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
+                        SOFI
+                    </a>
+                </div>
                 <span style="font-family:var(--font-sans); font-size:0.74rem; color:var(--text-dim); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.1;" title="SoFi Technologies, Inc.">SoFi Technologies, Inc.</span>
             </div>
             </td>
@@ -6557,9 +7085,12 @@
         <tr data-row-ticker="STNE" data-shares="1520.0803" data-cost="9.96" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:5px; min-width:0;">
-                <a href="reports/STNE.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
-                    STNE
-                </a>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/STNE" alt="STNE" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">ST</span></div>
+                    <a href="reports/STNE.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
+                        STNE
+                    </a>
+                </div>
                 <span style="font-family:var(--font-sans); font-size:0.74rem; color:var(--text-dim); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.1;" title="StoneCo">StoneCo</span>
             </div>
             </td>
@@ -6595,9 +7126,12 @@
         <tr data-row-ticker="MA" data-shares="24.4015" data-cost="561.44" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:5px; min-width:0;">
-                <a href="reports/MA.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
-                    MA
-                </a>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/MA" alt="MA" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">MA</span></div>
+                    <a href="reports/MA.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
+                        MA
+                    </a>
+                </div>
                 <span style="font-family:var(--font-sans); font-size:0.74rem; color:var(--text-dim); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.1;" title="Mastercard">Mastercard</span>
             </div>
             </td>
@@ -6633,9 +7167,12 @@
         <tr data-row-ticker="NOW" data-shares="99.5766" data-cost="127.54" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:5px; min-width:0;">
-                <a href="reports/NOW.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
-                    NOW
-                </a>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/NOW" alt="NOW" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">NO</span></div>
+                    <a href="reports/NOW.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
+                        NOW
+                    </a>
+                </div>
                 <span style="font-family:var(--font-sans); font-size:0.74rem; color:var(--text-dim); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.1;" title="ServiceNow, Inc.">ServiceNow, Inc.</span>
             </div>
             </td>
@@ -6671,9 +7208,12 @@
         <tr data-row-ticker="UPWK" data-shares="1478.4689" data-cost="8.36" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:5px; min-width:0;">
-                <a href="reports/UPWK.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
-                    UPWK
-                </a>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/UPWK" alt="UPWK" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">UP</span></div>
+                    <a href="reports/UPWK.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
+                        UPWK
+                    </a>
+                </div>
                 <span style="font-family:var(--font-sans); font-size:0.74rem; color:var(--text-dim); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.1;" title="Upwork Inc.">Upwork Inc.</span>
             </div>
             </td>
@@ -6709,9 +7249,12 @@
         <tr data-row-ticker="INTU" data-shares="34.4192" data-cost="336.44" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:5px; min-width:0;">
-                <a href="reports/INTU.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
-                    INTU
-                </a>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/INTU" alt="INTU" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">IN</span></div>
+                    <a href="reports/INTU.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
+                        INTU
+                    </a>
+                </div>
                 <span style="font-family:var(--font-sans); font-size:0.74rem; color:var(--text-dim); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.1;" title="Intuit">Intuit</span>
             </div>
             </td>
@@ -6747,9 +7290,12 @@
         <tr data-row-ticker="UBER" data-shares="139.5467" data-cost="78.54" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:5px; min-width:0;">
-                <a href="reports/UBER.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
-                    UBER
-                </a>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/UBER" alt="UBER" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">UB</span></div>
+                    <a href="reports/UBER.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
+                        UBER
+                    </a>
+                </div>
                 <span style="font-family:var(--font-sans); font-size:0.74rem; color:var(--text-dim); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.1;" title="Uber Technologies, Inc.">Uber Technologies, Inc.</span>
             </div>
             </td>
@@ -6785,9 +7331,12 @@
         <tr data-row-ticker="MELI" data-shares="5.3711" data-cost="1940.0" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:5px; min-width:0;">
-                <a href="reports/MELI.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
-                    MELI
-                </a>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/MELI" alt="MELI" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">ME</span></div>
+                    <a href="reports/MELI.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
+                        MELI
+                    </a>
+                </div>
                 <span style="font-family:var(--font-sans); font-size:0.74rem; color:var(--text-dim); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.1;" title="MercadoLibre">MercadoLibre</span>
             </div>
             </td>
@@ -6823,9 +7372,12 @@
         <tr data-row-ticker="ASML" data-shares="5.6242" data-cost="1799.38" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:5px; min-width:0;">
-                <a href="reports/ASML.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
-                    ASML
-                </a>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/ASML" alt="ASML" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">AS</span></div>
+                    <a href="reports/ASML.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
+                        ASML
+                    </a>
+                </div>
                 <span style="font-family:var(--font-sans); font-size:0.74rem; color:var(--text-dim); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.1;" title="ASML Holding">ASML Holding</span>
             </div>
             </td>
@@ -6861,7 +7413,10 @@
         <tr data-row-ticker="USD_CASH" data-shares="34740.0" data-cost="1.0" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:5px;">
-                <span style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); line-height:1.15;">Cash</span>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><span class="ticker-logo-fallback" style="color:var(--accent-green); font-size:11px;">$</span></div>
+                    <span style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); line-height:1.15;">Cash</span>
+                </div>
                 <span style="font-family:var(--font-sans); font-size:0.74rem; color:var(--text-dim); line-height:1.1;">US Treasury (5.0%)</span>
             </div>
             </td>
