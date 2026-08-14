@@ -507,62 +507,53 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
     return f"""
     <div style="display:flex; flex-direction:column; gap:24px; padding-top:4px;">
         
-        <!-- Clean Minimalist Header Bar -->
-        <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 0 20px 0; border-bottom:1px solid var(--border-color); flex-wrap:wrap; gap:16px;">
-            <div style="display:flex; align-items:center; gap:12px;">
-                <h1 style="font-family:var(--font-serif); font-size:2.2rem; color:var(--text-title); margin:0; font-weight:400; letter-spacing:-0.02em;">
-                    {port_title}
-                </h1>
-                <span style="display:inline-flex; align-items:center; gap:6px; font-size:0.76rem; color:var(--accent-green); font-family:var(--font-mono); background:rgba(111,168,130,0.08); border:1px solid rgba(111,168,130,0.24); border-radius:20px; padding:3px 10px;">
-                    <span style="width:6px; height:6px; border-radius:50%; background:var(--accent-green);"></span> Council Audited
-                </span>
-            </div>
+        <!-- Minimalist Header Bar -->
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0 16px 0; border-bottom:1px solid var(--border-color); flex-wrap:wrap; gap:16px;">
+            <h1 style="font-family:var(--font-serif); font-size:1.85rem; color:var(--text-title); margin:0; font-weight:400; letter-spacing:-0.02em;">
+                {port_title}
+            </h1>
             <div style="text-align:right;">
-                <div style="display:flex; align-items:center; justify-content:flex-end; gap:6px; margin-bottom:4px;">
-                    <span class="live-pulse-dot" style="display:inline-block; width:7px; height:7px; border-radius:50%; background:#6FA882;"></span>
-                    <span id="live-stream-status-{portfolio_type}" style="font-size:0.70rem; font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim);">Live Market Synced</span>
-                </div>
-                <div id="live-port-val-{portfolio_type}" style="font-family:var(--font-mono); font-size:2.1rem; font-weight:600; color:var(--text-title); letter-spacing:-0.02em; line-height:1.1;">
+                <div id="live-port-val-{portfolio_type}" style="font-family:var(--font-mono); font-size:1.85rem; font-weight:600; color:var(--text-title); letter-spacing:-0.02em; line-height:1.1;">
                     ${stats['total_value_usd']:,.2f}
                 </div>
-                <div id="live-port-delta-{portfolio_type}" style="font-family:var(--font-mono); font-size:0.86rem; color:{ret_color}; margin-top:3px; font-weight:600;">
+                <div id="live-port-delta-{portfolio_type}" style="font-family:var(--font-mono); font-size:0.82rem; color:{ret_color}; margin-top:2px; font-weight:500;">
                     {total_ret_sign}${abs(total_ret_dol):,.2f} ({total_ret_pct:+.2f}%)
                 </div>
             </div>
         </div>
 
-        <!-- 4 Spacious KPI Cards -->
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:16px;">
-            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:20px 22px; display:flex; flex-direction:column; justify-content:space-between;">
-                <div style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim); margin-bottom:8px; font-weight:500;">Cash Flow Yield</div>
-                <div style="font-family:var(--font-mono); font-size:1.85rem; font-weight:600; color:var(--accent-warm); margin-bottom:6px; line-height:1.1; letter-spacing:-0.02em;">
+        <!-- 4 Clean KPI Cards -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px;">
+            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:16px 18px; display:flex; flex-direction:column; justify-content:space-between;">
+                <div style="font-size:0.68rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:6px;">Cash Flow Yield</div>
+                <div style="font-family:var(--font-mono); font-size:1.65rem; font-weight:600; color:var(--accent-warm); margin-bottom:4px; line-height:1.1;">
                     {stats['look_through_fcf_yield_pct']:.2f}%
                 </div>
-                <div style="font-size:0.80rem; color:var(--text-secondary); font-family:var(--font-mono); line-height:1.3;">${stats['total_owner_earnings_usd']:,.0f} / yr (Net Cash)</div>
+                <div style="font-size:0.76rem; color:var(--text-secondary); font-family:var(--font-mono);">${stats['total_owner_earnings_usd']:,.0f} / yr</div>
             </div>
 
-            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:20px 22px; display:flex; flex-direction:column; justify-content:space-between;">
-                <div style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim); margin-bottom:8px; font-weight:500;">Treasury Cash</div>
-                <div style="font-family:var(--font-mono); font-size:1.85rem; font-weight:600; color:var(--accent-green); margin-bottom:6px; line-height:1.1; letter-spacing:-0.02em;">
+            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:16px 18px; display:flex; flex-direction:column; justify-content:space-between;">
+                <div style="font-size:0.68rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:6px;">Cash Reserve</div>
+                <div style="font-family:var(--font-mono); font-size:1.65rem; font-weight:600; color:var(--accent-green); margin-bottom:4px; line-height:1.1;">
                     {stats['cash_weight_pct']:.1f}%
                 </div>
-                <div style="font-size:0.80rem; color:var(--text-secondary); font-family:var(--font-mono); line-height:1.3;">{cash_desc}</div>
+                <div style="font-size:0.76rem; color:var(--text-secondary); font-family:var(--font-mono);">{cash_desc}</div>
             </div>
 
-            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:20px 22px; display:flex; flex-direction:column; justify-content:space-between;">
-                <div style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim); margin-bottom:8px; font-weight:500;">Margin of Safety</div>
-                <div style="font-family:var(--font-mono); font-size:1.85rem; font-weight:600; color:var(--accent-green); margin-bottom:6px; line-height:1.1; letter-spacing:-0.02em;">
+            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:16px 18px; display:flex; flex-direction:column; justify-content:space-between;">
+                <div style="font-size:0.68rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:6px;">Margin of Safety</div>
+                <div style="font-family:var(--font-mono); font-size:1.65rem; font-weight:600; color:var(--accent-green); margin-bottom:4px; line-height:1.1;">
                     +{stats['portfolio_margin_of_safety_pct']:.1f}%
                 </div>
-                <div style="font-size:0.80rem; color:var(--text-secondary); line-height:1.3;">Weighted Undervaluation vs DCF</div>
+                <div style="font-size:0.76rem; color:var(--text-secondary);">vs Intrinsic DCF</div>
             </div>
 
-            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:20px 22px; display:flex; flex-direction:column; justify-content:space-between;">
-                <div style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim); margin-bottom:8px; font-weight:500;">Share Cannibalization</div>
-                <div style="font-family:var(--font-mono); font-size:1.85rem; font-weight:600; color:var(--text-title); margin-bottom:6px; line-height:1.1; letter-spacing:-0.02em;">
+            <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:16px 18px; display:flex; flex-direction:column; justify-content:space-between;">
+                <div style="font-size:0.68rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:6px;">Cannibal Rate</div>
+                <div style="font-family:var(--font-mono); font-size:1.65rem; font-weight:600; color:var(--text-title); margin-bottom:4px; line-height:1.1;">
                     +{stats['share_cannibalization_rate_pct']:.2f}%
                 </div>
-                <div style="font-size:0.80rem; color:var(--text-secondary); line-height:1.3;">Annual Share Buyback Rate</div>
+                <div style="font-size:0.76rem; color:var(--text-secondary);">Share Buybacks</div>
             </div>
         </div>
 

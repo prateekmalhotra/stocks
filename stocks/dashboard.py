@@ -81,27 +81,27 @@ def sanitize_catalyst_desc(desc: str) -> str:
 
 
 def format_action_beacon(signal: Optional[str] = None) -> str:
-    """Renders the subtle pulsing status beacon chosen autonomously by the LLM on update."""
+    """Renders a quiet, minimal dot beacon representing the surveillance stance."""
     if not signal:
         return ""
     sig = signal.upper().strip()
     if any(k in sig for k in ["RED", "AVOID", "BROKEN", "EXIT", "SELL", "DANGER", "CRITICAL", "DON'T BUY", "DO NOT BUY"]):
         css = "beacon-avoid"
-        tooltip = "Action Signal: Avoid / Do Not Buy (Thesis Broken)"
+        tooltip = "Action: Avoid"
     elif any(k in sig for k in ["ORANGE", "CAUTION", "TRIM", "HEADWIND", "WARNING", "FRICTION", "GOING BAD"]):
         css = "beacon-caution"
-        tooltip = "Action Signal: Caution (Facing Headwinds / Trim Zone)"
+        tooltip = "Action: Caution"
     elif any(k in sig for k in ["YELLOW", "WAIT", "HOLD", "MONITOR", "PATIENT", "NEUTRAL", "STEADY", "DO NOTHING"]):
         css = "beacon-hold"
-        tooltip = "Action Signal: Wait / Hold (Wait & Do Nothing for Now)"
+        tooltip = "Action: Hold"
     elif any(k in sig for k in ["GREEN", "BUY", "ACCUMULATE", "STRONG", "NOW"]):
         css = "beacon-buy"
-        tooltip = "Action Signal: Strong Buy (Get in NOW / Thesis Accelerating)"
+        tooltip = "Action: Buy"
     else:
         css = "beacon-buy"
-        tooltip = "Action Signal: Strong Buy"
+        tooltip = "Action: Buy"
     
-    return f'<span class="status-beacon {css}" title="{tooltip}"><span class="beacon-ping"></span><span class="beacon-dot"></span></span>'
+    return f'<span class="status-beacon {css}" title="{tooltip}"><span class="beacon-dot"></span></span>'
 
 
 def clean_fund_name(name: str) -> str:
@@ -115,41 +115,32 @@ def clean_fund_name(name: str) -> str:
 
 
 def format_top_funds_card_html(stock: WatchlistStock) -> str:
-    """Renders a clean, high-density institutional float card."""
+    """Renders a clean, minimalist float card."""
     funds = getattr(stock, "top_funds", None) or []
     inst_pct = getattr(stock, "institutional_ownership_pct", None) or "70%+"
-    
     clean_names = [clean_fund_name(f) for f in funds if clean_fund_name(f)]
-    subtext = " · ".join(clean_names[:3]) if clean_names else "13F Institutional Float"
-    
-    full_tooltip = ", ".join(funds) if funds else "Institutional Ownership"
-    if inst_pct and inst_pct not in full_tooltip:
-        full_tooltip += f" ({inst_pct} of float)"
-    
+    subtext = " · ".join(clean_names[:2]) if clean_names else ""
     return f"""
     <div class="metric-cell">
-        <div class="metric-label">Institutional Float</div>
-        <div class="metric-value" style="font-family: var(--font-mono); color: var(--text-title); font-size: 1.15rem; font-weight: 500;">{inst_pct}</div>
-        <div class="metric-subtext" style="color: var(--text-dim);" title="{full_tooltip}">{subtext}</div>
+        <div class="metric-label">Float</div>
+        <div class="metric-value">{inst_pct}</div>
+        {f'<div class="metric-subtext">{subtext}</div>' if subtext else ''}
     </div>
     """
 
 
 def format_insider_activity_card_html(stock: WatchlistStock) -> str:
-    """Renders a clean, high-density insider sentiment card computed deterministically from Form 4 ledger."""
+    """Renders a clean, minimalist insider card."""
     cached = load_cached_ownership(stock.ticker)
     oi_trades = cached.get("openinsider_trades", [])
     raw_signal = getattr(stock, "insider_signal", None) or ""
     intel = calculate_insider_sentiment_and_flow(oi_trades, raw_signal)
-    
     summary = intel["summary"]
-    subtext = summary if len(summary) <= 34 else "Executive alignment"
-
     return f"""
     <div class="metric-cell">
-        <div class="metric-label">Insider Sentiment</div>
-        <div class="metric-value" style="font-family: var(--font-sans); color: {intel['color']}; font-size: 1.05rem; font-weight: 600;">{intel['badge_html']}</div>
-        <div class="metric-subtext" style="color: var(--text-dim);" title="{summary}">{subtext}</div>
+        <div class="metric-label">Insiders</div>
+        <div class="metric-value" style="color: {intel['color']};">{intel['badge_html']}</div>
+        <div class="metric-subtext">{summary}</div>
     </div>
     """
 
@@ -1780,7 +1771,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 <div class="price-callout">
                     <div class="price-number">${stock.current_price:.2f}</div>
                     <div class="price-sub {'pos' if stock.return_pct >= 0 else 'neg'}">
-                        {stock.return_pct:+.2f}% vs Genesis
+                        {stock.return_pct:+.2f}%
                     </div>
                 </div>
             </div>
@@ -1793,32 +1784,26 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 <div class="metric-cell">
                     <div class="metric-label">Fair Value</div>
                     <div class="metric-value" style="color: var(--accent-warm);">{format_usd_target(stock.fair_value_estimate)}</div>
-                    <div class="metric-subtext" style="color: var(--text-dim);">Intrinsic baseline</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bear Target</div>
                     <div class="metric-value" style="color: var(--accent-red);">{stock.bear_target}</div>
-                    <div class="metric-subtext" style="color: var(--text-dim);">Downside floor</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Base Target</div>
                     <div class="metric-value">{stock.base_target}</div>
-                    <div class="metric-subtext" style="color: var(--text-dim);">Mid-cycle value</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bull Target</div>
                     <div class="metric-value" style="color: var(--accent-green);">{stock.bull_target}</div>
-                    <div class="metric-subtext" style="color: var(--text-dim);">Asymmetric upside</div>
                 </div>
                 <div class="metric-cell">
-                    <div class="metric-label">Alert Corridor</div>
-                    <div class="metric-value" style="font-size: 1.05rem; font-family: var(--font-mono); color: var(--text-title);">${stock.lower_alert_threshold:.2f} ⇄ ${stock.upper_alert_threshold:.2f}</div>
-                    <div class="metric-subtext" style="color: var(--text-dim);">Surveillance triggers</div>
+                    <div class="metric-label">Corridor</div>
+                    <div class="metric-value" style="font-size: 1.00rem; font-family: var(--font-mono); color: var(--text-title);">${stock.lower_alert_threshold:.2f} ⇄ ${stock.upper_alert_threshold:.2f}</div>
                 </div>
                 <div class="metric-cell">
-                    <div class="metric-label">Next Catalyst</div>
+                    <div class="metric-label">Catalyst</div>
                     <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">{stock.next_catalyst_date or 'TBD'}</div>
-                    <div class="metric-subtext" style="color: var(--text-dim);">{stock.next_catalyst_event or 'Calendar review'}</div>
                 </div>
                 {format_top_funds_card_html(stock)}
                 {format_insider_activity_card_html(stock)}
@@ -1971,7 +1956,6 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                     <span class="tbl-symbol">{stock.ticker}{stock_beacon}</span>
                     <span class="tbl-company-hover">{clean_company}</span>
                 </div>
-            </td>
             <td>
                 <div class="tbl-price-cell">
                     <span class="tbl-price tbl-price-{stock.ticker}">${stock.current_price:.2f}</span>
@@ -1986,14 +1970,13 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             <td>
                 <div class="tbl-val-cell">
                     <span class="tbl-fv" style="color: var(--accent-warm);">{format_usd_target(stock.fair_value_estimate)}</span>
-                    {f'<span class="tbl-base">{pct_delta_str}</span>' if pct_delta_str else ''}
+                    {f'<span class="tbl-upside">{pct_delta_str}</span>' if pct_delta_str else ''}
                 </div>
             </td>
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">{stock.next_catalyst_date or 'TBD'}</span>
                     {f'<span class="tbl-cat-desc">{clean_catalyst_desc}</span>' if clean_catalyst_desc else ''}
-                    {f'<span class="tbl-corridor" style="font-size: 0.74rem; color: var(--text-dim); font-family: var(--font-mono); display: block; margin-top: 4px;">Alerts: ${stock.lower_alert_threshold:.2f} ⇄ ${stock.upper_alert_threshold:.2f}</span>' if (stock.lower_alert_threshold and stock.upper_alert_threshold) else ''}
                 </div>
             </td>
         </tr>
@@ -2005,7 +1988,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                 <span class="grid-symbol">{stock.ticker}{stock_beacon}</span>
                 <div class="grid-price grid-price-{stock.ticker}">${stock.current_price:.2f}</div>
             </div>
-            <div class="grid-labels-row" style="margin: 6px 0 14px;">
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
                 {labels_html}
             </div>
             <div class="grid-company">{clean_company}</div>
@@ -2020,18 +2003,13 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                     <span class="grid-stat-val" style="color: var(--accent-warm);">{format_usd_target(stock.fair_value_estimate)}</span>
                 </div>
                 <div class="grid-stat">
-                    <span class="grid-stat-lbl">Base Target</span>
+                    <span class="grid-stat-lbl">Target</span>
                     <span class="grid-stat-val">{stock.base_target}</span>
                 </div>
                 <div class="grid-stat">
-                    <span class="grid-stat-lbl">Next Catalyst</span>
-                    <span class="grid-stat-val" style="font-family: var(--font-sans);">{stock.next_catalyst_date or 'TBD'}</span>
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val">{stock.next_catalyst_date or 'TBD'}</span>
                 </div>
-            </div>
-            
-            <div class="grid-card-foot">
-                <span class="grid-updated">Updated {stock.last_updated}</span>
-                <span class="grid-open">Open →</span>
             </div>
         </div>
         """
@@ -2713,18 +2691,25 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             z-index: 1;
         }}
         .beacon-buy .beacon-dot {{ background-color: #10b981; box-shadow: 0 0 6px rgba(16, 185, 129, 0.7); }}
-        .beacon-buy .beacon-ping {{ background-color: rgba(16, 185, 129, 0.45); }}
-        .beacon-hold .beacon-dot {{ background-color: #f59e0b; box-shadow: 0 0 6px rgba(245, 158, 11, 0.7); }}
-        .beacon-hold .beacon-ping {{ background-color: rgba(245, 158, 11, 0.45); }}
-        .beacon-caution .beacon-dot {{ background-color: #f97316; box-shadow: 0 0 6px rgba(249, 115, 22, 0.7); }}
-        .beacon-caution .beacon-ping {{ background-color: rgba(249, 115, 22, 0.45); }}
-        .beacon-avoid .beacon-dot {{ background-color: #ef4444; box-shadow: 0 0 6px rgba(239, 68, 68, 0.7); }}
-        .beacon-avoid .beacon-ping {{ background-color: rgba(239, 68, 68, 0.45); }}
-        @keyframes beacon-ripple {{
-            0% {{ transform: scale(0.9); opacity: 0.85; }}
-            70% {{ transform: scale(2.5); opacity: 0; }}
-            100% {{ transform: scale(2.5); opacity: 0; }}
+        .status-beacon {{
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 8px;
+            height: 8px;
+            margin-left: 6px;
+            vertical-align: middle;
         }}
+        .beacon-dot {{
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            display: inline-block;
+        }}
+        .beacon-buy .beacon-dot {{ background-color: var(--accent-green); }}
+        .beacon-hold .beacon-dot {{ background-color: var(--accent-warm); }}
+        .beacon-caution .beacon-dot {{ background-color: #C28565; }}
+        .beacon-avoid .beacon-dot {{ background-color: var(--accent-red); }}
 
         /* Modal */
         .modal-shade {{
@@ -2792,16 +2777,16 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
             background: var(--bg-subpanel);
             border: 1px solid var(--border-color);
             color: var(--text-dim);
-            font-size: 0.72rem;
+            font-size: 0.68rem;
             font-family: var(--font-mono);
             cursor: pointer;
-            margin-left: 6px;
+            margin-left: 4px;
             vertical-align: middle;
             transition: all 0.15s ease;
             padding: 0;
@@ -2811,25 +2796,13 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             background: var(--bg-hover);
             border-color: var(--accent-warm);
             color: var(--accent-warm);
-            transform: scale(1.1);
         }}
     </style>
 </head>
 <body>
     <header class="nav-header">
         <div class="container header-content">
-            <a href="#" class="brand-logo">
-                <svg width="22" height="22" viewBox="0 0 32 32" style="display: block;">
-                    <rect width="32" height="32" rx="8" fill="#1E1C19" stroke="#CC785C" stroke-opacity="0.35" stroke-width="1.2" />
-                    <path d="M 9 22 C 7.5 19 7 16 9 13.5 C 11 11 14.5 11 17 13 C 19.5 15 20.5 18 20 21 C 19.5 22.5 17.8 23 16 22.5 C 13.5 21.8 11.5 19 12 16 C 12.5 13 15 10 18.5 9 C 21.5 8.2 24 10 24.5 13 C 25 16 23.5 19.5 23 22" fill="none" stroke="#CC785C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-                <span>AlphaThesis</span>
-                <span class="brand-subtitle">Living Research</span>
-            </a>
-            <div class="header-status-badge">
-                <span class="status-live-dot"></span>
-                <span>Surveillance Active · {len(watchlist)} Assets</span>
-            </div>
+            <a href="#" class="brand-logo">AlphaThesis</a>
         </div>
     </header>
 
@@ -2839,17 +2812,16 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             <div class="hub-tabs">
                 <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">{len(watchlist)}</span></button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts <span class="tab-chip chip-alert">{len(alerts)}</span></span></button>
-                <button class="hub-tab-btn" onclick="switchTab('portfolio-defensive')">Fidelity <span class="tab-chip">$200k</span></button>
-                <button class="hub-tab-btn" onclick="switchTab('portfolio-aggressive')">Wealthsimple <span class="tab-chip">$200k</span></button>
+                <button class="hub-tab-btn" onclick="switchTab('portfolio-defensive')">Fidelity</button>
+                <button class="hub-tab-btn" onclick="switchTab('portfolio-aggressive')">Wealthsimple</button>
             </div>
-            <div style="display: flex; align-items: center; gap: 10px;" id="stocks-view-controls">
+            <div style="display: flex; align-items: center; gap: 8px;" id="stocks-view-controls">
                 <div class="search-input-wrap" id="hub-search-wrap">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--text-dim)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--text-dim)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="11" cy="11" r="8"></circle>
                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                     </svg>
-                    <input type="text" id="stock-search-input" class="search-input" placeholder="Search {len(watchlist)} stocks, tickers, drivers..." oninput="filterStocks(this.value)" spellcheck="false" autocomplete="off" autocapitalize="off">
-                    <kbd class="search-kbd">/</kbd>
+                    <input type="text" id="stock-search-input" class="search-input" placeholder="Search..." oninput="filterStocks(this.value)" spellcheck="false" autocomplete="off" autocapitalize="off">
                 </div>
                 <div class="view-toggle" id="view-toggle-bar">
                     <button class="view-btn active" onclick="setView('table')">Table</button>
@@ -2872,11 +2844,11 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                     </colgroup>
                     <thead>
                         <tr>
-                            <th>Asset / Company</th>
-                            <th>Live / Return</th>
-                            <th>Conviction & Drivers <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="View Investment Taxonomy & Labels Legend">ⓘ</button></th>
-                            <th>Intrinsic Value</th>
-                            <th>Catalyst / Corridors</th>
+                            <th>Ticker</th>
+                            <th>Price</th>
+                            <th>Labels <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="Legend">ⓘ</button></th>
+                            <th>Fair Value</th>
+                            <th>Catalyst</th>
                         </tr>
                     </thead>
                     <tbody>
