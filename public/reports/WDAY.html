@@ -124,6 +124,7 @@
             justify-content: center;
             overflow: hidden;
             flex-shrink: 0;
+            transform: translateY(-3px);
             box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
         }
         .ticker-logo {
@@ -1298,18 +1299,17 @@
 <h3>Enterprise Cloud Moat &amp; Unified Core Architecture</h3>
 Workday operates as the foundational software backbone for global enterprise Human Capital Management (HCM) and Financial Management (FINS). Unlike legacy architectures composed of cobbled-together point solutions and disparate relational databases, Workday was architected natively for the cloud on a single, unified multi-tenant architecture. 
 
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                      WORKDAY UNIFIED ENTERPRISE CORE                        │
-├──────────────────────────────────────┬──────────────────────────────────────┤
-│    HUMAN CAPITAL MANAGEMENT (HCM)    │      FINANCIAL MANAGEMENT (FINS)     │
-│ Core HR, Payroll, Talent, Benefits   │  GL, AP/AR, Planning, Spend, Procurement│
-├──────────────────────────────────────┴──────────────────────────────────────┤
-│                   WORKDAY AGENT SYSTEM OF RECORD (AI LAYER)                  │
-│    20+ Agentic AI Workflows • Sana Superintelligence • Security Perimeter    │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                    SINGLE MULTI-TENANT DATA IN-MEMORY CORE                   │
-│                       80+ Million Contracted Users                          │
-└─────────────────────────────────────────────────────────────────────────────┘
+<div class="arch-diagram">
+<div>WORKDAY UNIFIED ENTERPRISE CORE</div>
+<div>
+<div>HUMAN CAPITAL MANAGEMENT (HCM)           FINANCIAL MANAGEMENT (FINS)</div>
+<div>Core HR, Payroll, Talent, Benefits      GL, AP/AR, Planning, Spend, Procurement</div>
+<div>WORKDAY AGENT SYSTEM OF RECORD (AI LAYER)</div>
+<div>20+ Agentic AI Workflows • Sana Superintelligence • Security Perimeter</div>
+<div>SINGLE MULTI-TENANT DATA IN-MEMORY CORE</div>
+<div>80+ Million Contracted Users</div>
+</div>
+</div>
 By housing workforce planning, payroll, general ledger, accounts payable/receivable, spend management, and analytics inside a single in-memory database, Workday provides corporate executives with real-time visibility across human and financial capital. This core platform currently serves over <strong>80 million users under contract</strong> across mid-market and Large Enterprise (LE) accounts.
 <h3>Moat Drivers: Switching Costs, Customer Retention &amp; Pricing Power</h3>
 Workday’s economic moat relies on four primary structural pillars:
@@ -1349,18 +1349,25 @@ Rather than wrapping third-party LLMs with superficial chat interfaces, Workday 
 </div>
 <h4>Key Agentic Solutions &amp; Deployment Highlights:</h4>
 <ul><li><strong>Workday Recruiting Agent:</strong> Handled</li><li><strong>14 million hiring processes</strong> in Q1 FY27 alone, representing a <strong>44% YoY increase</strong>. It automates candidate matching, interview scheduling, and offer letters while remaining fully compliant with bias/regulatory standards.</li><li><strong>Workday Deployment Agent:</strong> Designed to transform enterprise professional services, reducing system implementation hours and consulting costs by <strong>approximately 30%</strong>, significantly lowering Total Cost of Ownership (TCO) for new platform adopters.</li><li><strong>Public Sector &amp; Veteran Agents:</strong> Launched specialized agents including the <em>Personnel Action Request Agent</em> (modernizing federal government HR transactions) and the <em>Military Skills Mapper</em> (translating veteran experience into commercial role fits).</li></ul>
-
-┌─────────────────────────────────────────┐
-                  │   WORKDAY AGENTIC AI ECOSYSTEM (20+)    │
-                  └────────────────────┬────────────────────┘
-                                       │
-        ┌──────────────────────────────┼──────────────────────────────┐
-        ▼                              ▼                              ▼
-┌──────────────────────┐    ┌──────────────────────┐    ┌──────────────────────┐
-│  RECRUITING AGENT    │    │   DEPLOYMENT AGENT   │    │ FEDERAL / SPECIALTY  │
-│ 14M Processes (+44%) │    │ -30% Implementation  │    │ Military Skills      │
-│ Automates Sourcing   │    │ Hours &amp; TCO Reduction│    │ Personnel Actions    │
-└──────────────────────┘    └──────────────────────┘    └──────────────────────┘
+<div class="arch-diagram">
+<div>
+        Workday Agentic AI Ecosystem (20+ Organic Agents)
+    </div>
+<div>
+<div>
+<div>Recruiting Agent</div>
+<div>14M Processes Handled (+44% YoY) • Automated Sourcing</div>
+</div>
+<div>
+<div>Deployment Agent</div>
+<div>-30% Implementation Hours &amp; TCO Reduction</div>
+</div>
+<div>
+<div>Federal &amp; Specialty</div>
+<div>Military Skills Mapper • Federal Personnel Actions</div>
+</div>
+</div>
+</div>
 <h3>Product Innovations: Sana Superintelligence &amp; Workday Agent System of Record</h3>
 Workday has augmented its organic product engine with target technology integrations:
 <ul><li><strong>Sana Integration:</strong> Following the acquisition of Sana, Workday released <em>Sana from Workday</em> globally—providing enterprise workers with proactive contextual search, cross-application reasoning, and personalized productivity tools across the enterprise stack.</li><li><strong>Workday Agent System of Record (GA):</strong> As enterprises deploy hundreds of autonomous agents from various software vendors, Workday introduced a centralized governance framework. The <em>Agent System of Record</em> gives IT executives complete auditing, security governance, role-based access control, and performance visibility across all deployed enterprise AI agents.</li></ul>
@@ -1415,16 +1422,14 @@ Workday delivered a strong Q1 FY27, beating market expectations on both top-line
 <h3>Backlog &amp; Operational Metric Analysis</h3>
 Workday’s forward metric stack highlights durable revenue visibility:
 <ul><li><strong>12-Month Current Remaining Performance Obligations (cRPO):</strong> Surged to <strong>$8.806 billion</strong>, representing <strong>15.5% YoY growth</strong>. This indicates that revenue growth over the next four quarters is well-protected by committed long-term enterprise software contracts.</li><li><strong>Total Subscription Backlog:</strong> Reached <strong>$27.294 billion</strong> (+10.9% YoY), representing nearly</li><li><strong>2.8x full-year subscription revenue guidance</strong>, illustrating long enterprise contract lengths (typically 3 to 5 years).</li><li><strong>Geographic Mix:</strong> US revenue grew 13% YoY to <strong>$1.89 billion</strong>, while International revenue outpaced domestic growth, expanding 16% YoY to <strong>$649 million</strong>. International expansion was highlighted by entry into Vietnam (its 6th ASEAN market) and newly activated EU-based data residency infrastructure in Frankfurt.</li></ul>
-
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                    Q1 FY27 REVENUE &amp; BACKLOG BREAKDOWN                      │
-├─────────────────────────────────────────────────────────────────────────────┤
-│  US Revenue ($1.89B / +13% YoY)    │ Intl Revenue ($649M / +16% YoY)         │
-├────────────────────────────────────┴────────────────────────────────────────┤
-│  12-Month cRPO ($8.806B / +15.5% YoY) -&gt; Recognized over next 4 quarters    │
-├─────────────────────────────────────────────────────────────────────────────┤
-│  Total Subscription Backlog ($27.294B / +10.9% YoY) -&gt; Total Contracted     │
-└─────────────────────────────────────────────────────────────────────────────┘
+<div class="arch-diagram">
+<div>Q1 FY27 REVENUE &amp; BACKLOG BREAKDOWN</div>
+<div>
+<div>US Revenue ($1.89B / +13% YoY)      Intl Revenue ($649M / +16% YoY)</div>
+<div>12-Month cRPO ($8.806B / +15.5% YoY) -&gt; Recognized over next 4 quarters</div>
+<div>Total Subscription Backlog ($27.294B / +10.9% YoY) -&gt; Total Contracted</div>
+</div>
+</div>
 <h3>Capital Structure, Operating Cash Flow &amp; Shareholder Returns</h3>
 Workday continues to transform its top-line scale into disciplined cash generation, expanding free cash flow while systematically reducing share dilution.
 
@@ -1743,17 +1748,16 @@ At the current price of <strong>$179.64</strong>, Workday trades at an initial <
 
 Workday’s economic moat rests on extreme customer switching costs and a powerful enterprise data network effect:
 <ul><li><strong>Mission-Critical Enterprise Friction:</strong> Replacing a cloud HR or accounting system requires multi-million dollar implementation expenses, years of system integrator effort, and massive organizational risk. As a result, Workday maintains enterprise gross renewal rates above 95%.</li><li><strong>Interest-Free Working Capital Float:</strong> Similar to the negative working capital float model praised by Warren Buffett in Berkshire’s shareholder letters, Workday collects annual subscription fees upfront while recognizing costs over time. This creates a structural, interest-free float that fuels operating cash flow ahead of GAAP earnings.</li><li><strong>Agentic AI Expansion:</strong> Workday is extending its moat via embedded AI agents across payroll, workforce management, and enterprise spend, approaching $500M in annual recurring revenue from AI solutions alone.</li></ul>
-
-┌────────────────────────────────────────────────────────────────────────┐
-│                   THE WORKDAY OWNER CASH FLOW BRIDGE                   │
-├────────────────────────────────────────────────────────────────────────┤
-│  GAAP Operating Cash Flow (TTM)                            $3.18 Billion│
-│  ─────── Less: Maintenance CapEx                          ($0.20 Billion)│
-│  ─────── Less: Stock-Based Compensation (100% Reality)   ($1.60 Billion)│
-├────────────────────────────────────────────────────────────────────────┤
-│  TRUE Warren Buffett Owner Earnings                        $1.38 Billion│
-│  Owner Earnings Per Share (258M Shares)                        $5.35    │
-└────────────────────────────────────────────────────────────────────────┘
+<div class="arch-diagram">
+<div>THE WORKDAY OWNER CASH FLOW BRIDGE</div>
+<div>
+<div>GAAP Operating Cash Flow (TTM)                            $3.18 Billion</div>
+<div>Less: Maintenance CapEx                          ($0.20 Billion)</div>
+<div>Less: Stock-Based Compensation (100% Reality)   ($1.60 Billion)</div>
+<div>TRUE Warren Buffett Owner Earnings                        $1.38 Billion</div>
+<div>Owner Earnings Per Share (258M Shares)                        $5.35</div>
+</div>
+</div>
 <hr/>
 <h3>3. Normalized Warren Buffett Owner Earnings Breakdown</h3>
 

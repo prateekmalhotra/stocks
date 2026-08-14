@@ -335,11 +335,11 @@ def get_ticker_logo_html(ticker: str, size: int = 20) -> str:
         return ""
     clean_t = ticker.replace("USD_", "").strip()
     if ticker == "USD_CASH" or clean_t == "CASH":
-        return f'<div class="ticker-logo-wrap" style="width:{size}px; height:{size}px; min-width:{size}px; min-height:{size}px;"><span class="ticker-logo-fallback" style="color:var(--accent-green); font-size:{int(size*0.55)}px;">$</span></div>'
+        return f'<div class="ticker-logo-wrap" style="width:{size}px; height:{size}px; min-width:{size}px; min-height:{size}px; transform:translateY(-1.5px);"><span class="ticker-logo-fallback" style="color:var(--accent-green); font-size:{int(size*0.55)}px;">$</span></div>'
     
     fallback_char = clean_t[:2]
     return (
-        f'<div class="ticker-logo-wrap" style="width:{size}px; height:{size}px; min-width:{size}px; min-height:{size}px;">'
+        f'<div class="ticker-logo-wrap" style="width:{size}px; height:{size}px; min-width:{size}px; min-height:{size}px; transform:translateY(-1.5px);">'
         f'<img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/{clean_t}" alt="{clean_t}" loading="lazy" '
         f'onerror="this.style.display=\'none\'; if(this.nextElementSibling) this.nextElementSibling.style.display=\'flex\';">'
         f'<span class="ticker-logo-fallback" style="display:none; font-size:{int(size*0.42)}px;">{fallback_char}</span>'

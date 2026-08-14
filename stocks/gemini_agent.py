@@ -300,6 +300,36 @@ def verify_and_repair_html_structure(html: str) -> str:
     # 1. Strip code fences
     cleaned = re.sub(r"^```(?:html)?\s*", "", html, flags=re.MULTILINE)
     cleaned = re.sub(r"\s*```$", "", cleaned, flags=re.MULTILINE).strip()
+
+    # 1.5 Convert raw ASCII box drawings into modern CSS cards
+    if any(c in cleaned for c in ['\u250c', '\u2500', '\u2510', '\u2502', '\u2514', '\u2518', '\u251c', '\u2524', '\u252c', '\u2534', '\u253c']):
+        lines = cleaned.split('\n')
+        new_lines = []
+        in_box = False
+        box_lines = []
+        for line in lines:
+            if any(c in line for c in ['\u250c', '\u2500', '\u2510', '\u2502', '\u2514', '\u2518', '\u251c', '\u2524', '\u252c', '\u2534', '\u253c']):
+                in_box = True
+                box_lines.append(line)
+            else:
+                if in_box:
+                    in_box = False
+                    clean_items = []
+                    for bl in box_lines:
+                        stripped = re.sub(r'[\u2500-\u257f\u250c\u2510\u2514\u2518\u251c\u2524\u252c\u2534\u253c\|┌┐└┘├┤┬┴┼─]+', ' ', bl).strip()
+                        if stripped:
+                            clean_items.append(stripped)
+                    if clean_items:
+                        title = clean_items[0]
+                        body_items = clean_items[1:]
+                        card_html = f'<div class="arch-diagram" style="background:var(--bg-subpanel); border:1px solid var(--border-color); border-radius:12px; padding:20px 22px; margin:24px 0;"><div style="font-family:var(--font-sans); font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--accent-warm); text-align:center; margin-bottom:14px;">{title}</div><div style="display:flex; flex-direction:column; gap:8px;">'
+                        for it in body_items:
+                            card_html += f'<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:var(--bg-panel); border:1px solid var(--border-color); border-radius:6px; font-family:var(--font-sans); font-size:0.86rem; color:var(--text-title);">{it}</div>'
+                        card_html += '</div></div>'
+                        new_lines.append(card_html)
+                    box_lines = []
+                new_lines.append(line)
+        cleaned = '\n'.join(new_lines)
     
     # 2. Strip rogue top dashboard header injections from sub-agents (template handles top header)
     cleaned = re.sub(r'<div class="investor-dashboard">[\s\S]*?</div>\s*</div>\s*</div>', '', cleaned, flags=re.IGNORECASE)

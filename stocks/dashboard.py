@@ -845,6 +845,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             justify-content: center;
             overflow: hidden;
             flex-shrink: 0;
+            transform: translateY(-3px);
             box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
         }}
         .ticker-logo {{
@@ -2450,6 +2451,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             justify-content: center;
             overflow: hidden;
             flex-shrink: 0;
+            transform: translateY(-1.5px);
             box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
         }}
         .ticker-logo {{
