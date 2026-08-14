@@ -1955,10 +1955,11 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         pct_delta_str = extract_pct_delta(stock.base_target, stock.current_price, stock.fair_value_estimate)
 
         # Clean catalyst description (max 4 words, no ellipses, wraps cleanly)
+        safe_baseline = stock.baseline_price if stock.baseline_price > 0 else stock.current_price
         clean_catalyst_desc = sanitize_catalyst_desc(stock.next_catalyst_event).rstrip(".")
 
         table_rows_html += f"""
-        <tr class="table-row" data-ticker="{stock.ticker}" data-baseline="{stock.baseline_price}" onclick="location.href='reports/{stock.ticker}.html'">
+        <tr class="table-row" data-ticker="{stock.ticker}" data-baseline="{safe_baseline}" onclick="location.href='reports/{stock.ticker}.html'">
             <td>
                 <div class="tbl-ticker-cell">
                     <span class="tbl-symbol">{stock.ticker}{stock_beacon}</span>
@@ -1993,7 +1994,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         """
 
         grid_cards_html += f"""
-        <div class="grid-card" data-ticker="{stock.ticker}" data-baseline="{stock.baseline_price}" onclick="location.href='reports/{stock.ticker}.html'">
+        <div class="grid-card" data-ticker="{stock.ticker}" data-baseline="{safe_baseline}" onclick="location.href='reports/{stock.ticker}.html'">
             <div class="grid-card-top">
                 <span class="grid-symbol">{stock.ticker}{stock_beacon}</span>
                 <div class="grid-price grid-price-{stock.ticker}">${stock.current_price:.2f}</div>

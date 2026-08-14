@@ -28,25 +28,17 @@ def convert_to_usd(amount: float, currency: str) -> float:
     """Guarantees conversion to USD for any international listing."""
     if not currency or currency.upper() == "USD" or amount <= 0:
         return amount
-    curr = currency.upper()
+    curr = currency.upper().strip()
     try:
-        if curr == "CAD":
-            url = "https://query1.finance.yahoo.com/v8/finance/chart/CADUSD=X?interval=1d&range=1d"
-            res = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=4)
+        if curr in ["GBX", "GBP_PENCE", "GBPENCE", "GBp"]:
+            amount = amount / 100.0
+            curr = "GBP"
+        url = f"https://query1.finance.yahoo.com/v8/finance/chart/{curr}USD=X?interval=1d&range=1d"
+        res = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=4)
+        if res.status_code == 200:
             rate = float(res.json()["chart"]["result"][0]["meta"]["regularMarketPrice"])
-            return amount * rate
-        elif curr in ["GBP", "GBX", "GBp", "GBPEUR"]:
-            url = "https://query1.finance.yahoo.com/v8/finance/chart/GBPUSD=X?interval=1d&range=1d"
-            res = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=4)
-            rate = float(res.json()["chart"]["result"][0]["meta"]["regularMarketPrice"])
-            if curr in ["GBX", "GBp"]:  # Pence to Pounds
-                return (amount / 100.0) * rate
-            return amount * rate
-        elif curr == "EUR":
-            url = "https://query1.finance.yahoo.com/v8/finance/chart/EURUSD=X?interval=1d&range=1d"
-            res = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=4)
-            rate = float(res.json()["chart"]["result"][0]["meta"]["regularMarketPrice"])
-            return amount * rate
+            if rate > 0:
+                return amount * rate
     except Exception:
         pass
     return amount
