@@ -20,19 +20,20 @@ def _ensure_dirs():
 
 
 def format_labels_pills(labels: List[str]) -> str:
-    """Formats up to 3 labels (max 2 words each) into clean, elegant pills."""
+    """Formats up to 2 concise labels into clean, single-line pills."""
     if not labels:
-        return '<span class="pill pill-neutral">Active</span>'
+        return ''
     
     html = ""
-    for i, lbl in enumerate(labels[:3]):
-        words = [w for w in lbl.replace("/", " ").replace("-", " ").replace("&", " ").split() if w.strip()]
+    for i, lbl in enumerate(labels[:2]):
+        cleaned = re.sub(r"&|/|-", " ", lbl)
+        words = [w for w in cleaned.split() if w.strip()]
         if not words:
             continue
-        short_lbl = " ".join(words[:2]).title()
+        short_lbl = words[0].title() if len(" ".join(words[:2])) > 14 else " ".join(words[:2]).title()
         pill_cls = "pill-conviction" if i == 0 else "pill-driver"
         html += f'<span class="pill {pill_cls}">{short_lbl}</span> '
-    return html.strip() or '<span class="pill pill-neutral">Active</span>'
+    return html.strip()
 
 
 def format_usd_target(val: Any) -> str:

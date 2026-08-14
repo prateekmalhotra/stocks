@@ -341,29 +341,29 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
     port_title = "Fidelity" if is_defensive else "Wealthsimple"
     cash_item = next((x for x in holdings if x["ticker"] == "USD_CASH"), None)
     cash_dol = cash_item["allocated_dollars"] if cash_item else total_capital * 0.15
-    cash_desc = f"${cash_dol:,.0f} in 3M Bills (5.00% Float)"
+    cash_desc = f"${cash_dol:,.0f} Treasury (5.0%)"
     
     # Clean concise names
     CLEAN_NAMES = {
-        "ASML": "ASML Holding N.V.",
-        "TSM": "Taiwan Semiconductor (TSMC)",
+        "ASML": "ASML Holding",
+        "TSM": "Taiwan Semi (TSMC)",
         "BABA": "Alibaba Group",
-        "JD": "JD.com, Inc.",
-        "STNE": "StoneCo Ltd.",
-        "CROX": "Crocs, Inc.",
-        "GCT": "GigaCloud Technology",
-        "NVDA": "NVIDIA Corporation",
-        "META": "Meta Platforms, Inc.",
-        "MELI": "MercadoLibre, Inc.",
+        "JD": "JD.com",
+        "STNE": "StoneCo",
+        "CROX": "Crocs",
+        "GCT": "GigaCloud",
+        "NVDA": "NVIDIA",
+        "META": "Meta Platforms",
+        "MELI": "MercadoLibre",
         "CSU": "Constellation Software",
-        "CPRT": "Copart, Inc.",
-        "V": "Visa Inc.",
-        "MA": "Mastercard Incorporated",
-        "ADBE": "Adobe Inc.",
-        "SPGI": "S&P Global Inc.",
-        "INTU": "Intuit Inc.",
-        "MSFT": "Microsoft Corporation",
-        "UNH": "UnitedHealth Group",
+        "CPRT": "Copart",
+        "V": "Visa",
+        "MA": "Mastercard",
+        "ADBE": "Adobe",
+        "SPGI": "S&P Global",
+        "INTU": "Intuit",
+        "MSFT": "Microsoft",
+        "UNH": "UnitedHealth",
         "BKNG": "Booking Holdings"
     }
     
@@ -388,78 +388,65 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
         
         if t == "USD_CASH":
             ticker_col = """
-            <div style="display:flex; flex-direction:column; gap:4px;">
-                <span style="font-weight:600; font-size:0.96rem; color:var(--text-title);">USD Cash Reserve</span>
-                <span style="font-size:0.78rem; color:var(--text-dim);">3M US Treasury Bills (5.00%)</span>
+            <div style="display:flex; flex-direction:column; gap:2px;">
+                <span style="font-family:var(--font-serif); font-size:1.20rem; color:var(--text-title);">Cash</span>
+                <span style="font-size:0.78rem; color:var(--text-dim);">US Treasury (5.0%)</span>
             </div>
             """
             alloc_col = f"""
             <div style="display:flex; align-items:center; gap:8px;">
-                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">${alloc_dol:,.0f}</span>
-                <span class="pill pill-neutral" style="font-size:0.72rem; padding:2px 7px;">{w_pct:.1f}%</span>
+                <span style="font-family:var(--font-mono); font-weight:500; font-size:0.92rem; color:var(--text-title);">${alloc_dol:,.0f}</span>
+                <span class="pill pill-neutral" style="font-size:0.70rem; padding:1px 6px;">{w_pct:.1f}%</span>
             </div>
             """
-            price_col = '<span style="font-family:var(--font-mono); font-size:0.90rem; color:var(--text-dim);">$1.00 ($1.00)</span>'
-            fv_col = '<span style="font-family:var(--font-mono); font-size:0.90rem; color:var(--text-dim);">$1.00 (Par)</span>'
+            price_col = '<span style="font-family:var(--font-mono); font-size:0.86rem; color:var(--text-dim);">$1.00</span>'
+            fv_col = '<span style="font-family:var(--font-mono); font-size:0.86rem; color:var(--text-dim);">$1.00</span>'
             yield_col = f"""
-            <div style="display:flex; flex-direction:column; gap:4px;">
-                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.92rem; color:var(--accent-warm);">${oe_yr:,.0f}/yr</span>
-                <span style="font-size:0.76rem; color:var(--text-dim); font-family:var(--font-mono);">5.00% Risk-Free</span>
+            <div style="display:flex; flex-direction:column; gap:2px;">
+                <span style="font-family:var(--font-mono); font-weight:500; font-size:0.90rem; color:var(--accent-warm);">${oe_yr:,.0f}/yr</span>
+                <span style="font-size:0.74rem; color:var(--text-dim); font-family:var(--font-mono);">5.0% Yield</span>
             </div>
             """
         else:
-            industry_tag = h.get("industry", "")
-            sector_tag = h.get("sector", "")
-            raw_label = industry_tag if industry_tag else sector_tag
-            # Format cleanly as title case without uppercase shouting
-            tag_label = raw_label.title() if raw_label.isupper() else raw_label
-            tag_html = f'<span style="display:inline-block; font-size:0.68rem; color:var(--text-muted); background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07); border-radius:4px; padding:1px 6px; margin-top:3px; max-width:fit-content; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; letter-spacing:0.01em;">{tag_label}</span>' if tag_label else ''
-
             ticker_col = f"""
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-                <div style="display:flex; align-items:center; gap:6px;">
-                    <a href="{h['report_url']}" style="font-family:var(--font-mono); font-weight:700; font-size:1.00rem; color:var(--accent-warm); text-decoration:none; display:inline-flex; align-items:center; gap:3px;">
-                        {t} <span style="font-size:0.68rem; opacity:0.6;">↗</span>
-                    </a>
-                </div>
-                <span style="font-size:0.80rem; color:var(--text-secondary); display:block; max-width:220px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="{display_name}">{display_name}</span>
-                {tag_html}
+                <a href="{h['report_url']}" style="font-family:var(--font-serif); font-size:1.22rem; color:var(--text-title); text-decoration:none;">
+                    {t}
+                </a>
+                <span style="font-size:0.78rem; color:var(--text-secondary); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="{display_name}">{display_name}</span>
             </div>
             """
             cur_pos_val = h['shares_to_buy'] * cur_p
             alloc_col = f"""
-            <div style="display:flex; flex-direction:column; gap:4px;">
+            <div style="display:flex; flex-direction:column; gap:3px;">
                 <div style="display:flex; align-items:center; gap:8px;">
-                    <span class="live-alloc-{t}" style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">${cur_pos_val:,.0f}</span>
-                    <span class="pill pill-neutral" style="font-size:0.72rem; padding:2px 7px;">{w_pct:.1f}%</span>
+                    <span class="live-alloc-{t}" style="font-family:var(--font-mono); font-weight:500; font-size:0.92rem; color:var(--text-title);">${cur_pos_val:,.0f}</span>
+                    <span class="pill pill-neutral" style="font-size:0.70rem; padding:1px 6px;">{w_pct:.1f}%</span>
                 </div>
-                <span style="font-size:0.76rem; color:var(--text-dim); font-family:var(--font-mono);">{h['shares_to_buy']:,.2f} shs</span>
+                <span style="font-size:0.74rem; color:var(--text-dim); font-family:var(--font-mono);">{h['shares_to_buy']:,.2f} shs</span>
             </div>
             """
             gain_loss_pct = ((cur_p - cost_b) / cost_b) * 100.0 if cost_b > 0 else 0.0
-            gl_color = "var(--accent-green)" if gain_loss_pct >= 0 else "var(--accent-warm)"
+            gl_color = "var(--accent-green)" if gain_loss_pct >= 0 else "var(--accent-red)"
             gl_sign = "+" if gain_loss_pct >= 0 else ""
             price_col = f"""
-            <div style="display:flex; flex-direction:column; gap:3px;">
-                <div style="display:flex; align-items:center; gap:6px;">
-                    <span class="live-price-{t}" style="font-family:var(--font-mono); font-weight:600; font-size:0.94rem; color:var(--text-title);">${cur_p:,.2f}</span>
-                    <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-dim);" title="Cost Basis">(${cost_b:,.2f})</span>
-                </div>
+            <div style="display:flex; flex-direction:column; gap:2px;">
+                <span class="live-price-{t}" style="font-family:var(--font-mono); font-weight:500; font-size:0.92rem; color:var(--text-title);">${cur_p:,.2f}</span>
                 <span class="live-gl-{t}" style="font-size:0.74rem; font-family:var(--font-mono); color:{gl_color}; font-weight:500;">{gl_sign}{gain_loss_pct:.2f}%</span>
             </div>
             """
-            mos_color = "var(--accent-green)" if mos > 0 else "var(--signal-avoid)"
+            mos_color = "var(--accent-green)" if mos > 0 else "var(--accent-red)"
             mos_sign = "+" if mos > 0 else ""
             fv_col = f"""
-            <div style="display:flex; flex-direction:column; gap:4px;">
-                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.92rem; color:var(--text-title);">${fv:,.2f}</span>
-                <span style="font-size:0.76rem; font-family:var(--font-mono); color:{mos_color}; font-weight:500;">{mos_sign}{mos:.1f}% MoS</span>
+            <div style="display:flex; flex-direction:column; gap:2px;">
+                <span style="font-family:var(--font-mono); font-weight:500; font-size:0.90rem; color:var(--text-title);">${fv:,.2f}</span>
+                <span style="font-size:0.74rem; font-family:var(--font-mono); color:{mos_color}; font-weight:500;">{mos_sign}{mos:.1f}% MoS</span>
             </div>
             """
             yield_col = f"""
-            <div style="display:flex; flex-direction:column; gap:4px;">
-                <span style="font-family:var(--font-mono); font-weight:600; font-size:0.92rem; color:var(--accent-warm);">${oe_yr:,.0f}/yr</span>
-                <span style="font-size:0.76rem; color:var(--text-secondary); font-family:var(--font-mono);">{fcf_y:.1f}% Yield</span>
+            <div style="display:flex; flex-direction:column; gap:2px;">
+                <span style="font-family:var(--font-mono); font-weight:500; font-size:0.90rem; color:var(--accent-warm);">${oe_yr:,.0f}/yr</span>
+                <span style="font-size:0.74rem; color:var(--text-secondary); font-family:var(--font-mono);">{fcf_y:.1f}% Yield</span>
             </div>
             """
 
