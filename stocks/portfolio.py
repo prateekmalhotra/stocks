@@ -763,11 +763,43 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                 }}
             }}, 1000);
 
+            async function loadLatestQuotes() {{
+                // 1. Path-aware relative URL
+                try {{
+                    let base = window.location.pathname;
+                    if (!base.endsWith('/')) {{
+                        base = base.substring(0, base.lastIndexOf('/') + 1);
+                    }}
+                    if (!base || base === '') base = './';
+                    const res = await fetch(base + 'data/live_quotes.json?_t=' + Date.now());
+                    if (res.ok) return await res.json();
+                }} catch(e) {{}}
+
+                // 2. Direct relative path
+                try {{
+                    const res = await fetch('data/live_quotes.json?_t=' + Date.now());
+                    if (res.ok) return await res.json();
+                }} catch(e) {{}}
+
+                // 3. Dot-relative path
+                try {{
+                    const res = await fetch('./data/live_quotes.json?_t=' + Date.now());
+                    if (res.ok) return await res.json();
+                }} catch(e) {{}}
+
+                // 4. Embedded static script tag fallback
+                try {{
+                    const el = document.getElementById('embedded-live-quotes');
+                    if (el && el.textContent) return JSON.parse(el.textContent);
+                }} catch(e) {{}}
+
+                return {{}};
+            }}
+
             async function fetchAndApplyQuotes() {{
                 try {{
-                    const batchRes = await fetch('data/live_quotes.json?_t=' + Date.now());
-                    if (!batchRes.ok) return;
-                    const data = await batchRes.json();
+                    const data = await loadLatestQuotes();
+                    if (!data || Object.keys(data).length === 0) return;
                     
                     for (const [k, v] of Object.entries(data)) {{
                         if (v && v.price !== undefined) {{
@@ -848,8 +880,8 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
             // Run immediately on page load
             fetchAndApplyQuotes();
 
-            // Refresh quotes from live_quotes.json every 10 seconds
-            setInterval(fetchAndApplyQuotes, 10000);
+            // Refresh quotes from live_quotes.json every 5 seconds
+            setInterval(fetchAndApplyQuotes, 5000);
         }})();
     </script>
     """

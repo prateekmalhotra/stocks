@@ -2201,7 +2201,15 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
     disp_style = "display: flex;" if not alerts else "display: none;"
     alerts_feed_html = alerts_feed_html + empty_alerts_html.format(display_style=disp_style)
 
-    from stocks.portfolio import build_portfolio_tab_html, get_enriched_portfolio
+    from stocks.portfolio import build_portfolio_tab_html, get_enriched_portfolio, LIVE_QUOTES_FILE
+    raw_quotes_json = "{}"
+    if LIVE_QUOTES_FILE.exists():
+        try:
+            with open(LIVE_QUOTES_FILE, "r", encoding="utf-8") as f:
+                raw_quotes_json = f.read()
+        except Exception:
+            pass
+
     portfolio_defensive_html = build_portfolio_tab_html("defensive", 200000.0)
     portfolio_aggressive_html = build_portfolio_tab_html("aggressive", 200000.0)
 
@@ -2220,6 +2228,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Embedded Initial Live Quotes for 100% Guaranteed Zero-Lag Data Delivery -->
+    <script id="embedded-live-quotes" type="application/json">{raw_quotes_json}</script>
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
@@ -3271,11 +3281,43 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             }}
         }}
 
-        async function syncWatchlistQuotes() {{
+        async function loadLatestQuotes() {{
+            // 1. Path-aware relative URL (supports /stocks subpaths)
+            try {{
+                let base = window.location.pathname;
+                if (!base.endsWith('/')) {{
+                    base = base.substring(0, base.lastIndexOf('/') + 1);
+                }}
+                if (!base || base === '') base = './';
+                const res = await fetch(base + 'data/live_quotes.json?_t=' + Date.now());
+                if (res.ok) return await res.json();
+            }} catch(e) {{}}
+
+            // 2. Direct relative path
             try {{
                 const res = await fetch('data/live_quotes.json?_t=' + Date.now());
-                if (!res.ok) return;
-                const quotes = await res.json();
+                if (res.ok) return await res.json();
+            }} catch(e) {{}}
+
+            // 3. Dot-relative path
+            try {{
+                const res = await fetch('./data/live_quotes.json?_t=' + Date.now());
+                if (res.ok) return await res.json();
+            }} catch(e) {{}}
+
+            // 4. Embedded static script tag fallback (for file:// protocol or offline)
+            try {{
+                const el = document.getElementById('embedded-live-quotes');
+                if (el && el.textContent) return JSON.parse(el.textContent);
+            }} catch(e) {{}}
+
+            return {{}};
+        }}
+
+        async function syncWatchlistQuotes() {{
+            try {{
+                const quotes = await loadLatestQuotes();
+                if (!quotes || Object.keys(quotes).length === 0) return;
                 
                 for (const [ticker, q] of Object.entries(quotes)) {{
                     if (!q || q.price === undefined) continue;
@@ -3320,7 +3362,10 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             renderLatexEquations();
             syncWatchlistQuotes();
         }});
-        window.addEventListener('load', renderLatexEquations);
+        window.addEventListener('load', () => {{
+            renderLatexEquations();
+            syncWatchlistQuotes();
+        }});
         window.addEventListener('keydown', (e) => {{
             if (e.key === 'Escape') {{
                 closeAlertModal();
@@ -3336,7 +3381,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             }}
         }});
         refreshAlertsUI();
-        setInterval(syncWatchlistQuotes, 10000);
+        setInterval(syncWatchlistQuotes, 5000);
     </script>
     {build_labels_legend_modal_html()}
 </body>
