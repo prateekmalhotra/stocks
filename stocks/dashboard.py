@@ -20,20 +20,20 @@ def _ensure_dirs():
 
 
 def format_labels_pills(labels: List[str]) -> str:
-    """Formats up to 2 concise labels into clean, single-line pills."""
+    """Formats strictly 1 clean, single-line badge for absolute visual consistency across all rows."""
     if not labels:
         return ''
     
-    html = ""
-    for i, lbl in enumerate(labels[:2]):
-        cleaned = re.sub(r"&|/|-", " ", lbl)
-        words = [w for w in cleaned.split() if w.strip()]
-        if not words:
-            continue
-        short_lbl = words[0].title() if len(" ".join(words[:2])) > 14 else " ".join(words[:2]).title()
-        pill_cls = "pill-conviction" if i == 0 else "pill-driver"
-        html += f'<span class="pill {pill_cls}">{short_lbl}</span> '
-    return html.strip()
+    # Pick the primary conviction/driver label
+    primary_lbl = labels[0]
+    cleaned = re.sub(r"&|/|-", " ", primary_lbl)
+    words = [w for w in cleaned.split() if w.strip()]
+    if not words:
+        return ''
+    
+    short_lbl = " ".join(words[:2]).title()
+    pill_cls = "pill-conviction"
+    return f'<span class="pill {pill_cls}">{short_lbl}</span>'
 
 
 def format_usd_target(val: Any) -> str:
@@ -2425,7 +2425,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         }}
         .tbl-return {{ font-size: 0.8rem; font-family: var(--font-mono); }}
 
-        .tbl-labels-cell {{ display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }}
+        .tbl-labels-cell {{ display: flex; gap: 6px; flex-wrap: nowrap; align-items: center; white-space: nowrap; }}
 
         .tbl-val-cell {{
             display: flex;
