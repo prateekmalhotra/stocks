@@ -9,6 +9,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.7-flash")
+
 
 def get_api_key() -> str:
     key = os.getenv("GEMINI_API_KEY")
@@ -138,7 +140,7 @@ def call_gemini_with_search(prompt: str, system_instruction: str = "", temperatu
     """Calls Gemini Flash via REST API with Google Search Grounding, exponential retry, and safety fallback."""
     import time
     api_key = get_api_key()
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent?key={api_key}"
     
     payload: Dict[str, Any] = {
         "contents": [{"parts": [{"text": prompt}]}],
@@ -958,7 +960,7 @@ def research_ownership_writeups(ticker: str, company_name: str) -> List[Dict[str
     
     prompt = f"Search Google for real, live investment thesis write-ups, hedge fund shareholder letters, Substack deep dives, and Value Investors Club pitches for {company_name} ({clean_t})."
     
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent?key={api_key}"
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
         "tools": [{"google_search": {}}],
@@ -1028,7 +1030,7 @@ def research_institutional_funds(ticker: str, company_name: str) -> Dict[str, An
     api_key = get_api_key()
     clean_t = ticker.upper().strip()
     
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent?key={api_key}"
     headers = {"Content-Type": "application/json"}
     
     prompt = f"""You are an elite SEC Form 13F institutional equity ownership auditor.
