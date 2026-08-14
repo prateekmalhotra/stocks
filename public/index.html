@@ -7985,101 +7985,90 @@
     
     <!-- Labels & Taxonomy Legend Modal -->
     <div id="labels-legend-modal" class="modal-shade" onclick="closeLegendModalOutside(event)">
-        <div class="modal-body-card" style="max-width: 720px; font-family: var(--font-sans);">
-            <button class="modal-x" onclick="closeLabelsLegendModal()">✕</button>
-            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-                <h2 style="font-family: var(--font-serif); font-size: 1.65rem; color: var(--text-title); margin: 0; font-weight: 500; letter-spacing: -0.015em;">Investment Taxonomy &amp; Legend</h2>
+        <div class="modal-body-card" style="max-width: 600px; padding: 30px 34px; background: rgba(22, 21, 20, 0.96); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6); font-family: var(--font-sans);">
+            <button class="modal-x" onclick="closeLabelsLegendModal()" style="top: 22px; right: 22px; color: var(--text-dim); font-size: 1.2rem; cursor: pointer;">✕</button>
+            
+            <div style="margin-bottom: 22px;">
+                <h2 style="font-family: var(--font-serif); font-size: 1.45rem; color: var(--text-title); margin: 0 0 5px; font-weight: 500; letter-spacing: -0.01em;">Investment Methodology</h2>
+                <p style="color: var(--text-dim); font-size: 0.80rem; margin: 0; line-height: 1.4;">
+                    Systematic framework evaluating forward conviction and live surveillance signals.
+                </p>
             </div>
-            <p style="color: var(--text-secondary); font-size: 0.86rem; margin: 0 0 20px; line-height: 1.5;">
-                Autonomous multi-tier categorization system evaluating long-term conviction, live surveillance action signals, and strategic catalysts.
-            </p>
 
-            <div style="display: flex; flex-direction: column; gap: 16px;">
-                <!-- Section 1: Conviction Tiers -->
-                <div style="background: var(--bg-subpanel); border: 1px solid var(--border-color); border-radius: 10px; padding: 18px 20px;">
-                    <div style="font-family: var(--font-sans); font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-warm); margin-bottom: 14px;">
-                        Forward Conviction &amp; Risk Stance
-                    </div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px 18px;">
-                        <div style="display: flex; flex-direction: column; gap: 3px;">
-                            <div style="font-family: var(--font-sans); font-size: 0.84rem; font-weight: 600; color: var(--accent-warm);">
-                                High Conviction
-                            </div>
-                            <span style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.45;">Exceptional asymmetric risk/reward, dominant economic moat, and fortress balance sheet.</span>
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: 3px;">
-                            <div style="font-family: var(--font-sans); font-size: 0.84rem; font-weight: 600; color: var(--accent-warm);">
-                                Solid Conviction
-                            </div>
-                            <span style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.45;">Proven recurring cash generation, structural advantages, and clear compounding runway.</span>
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: 3px;">
-                            <div style="font-family: var(--font-sans); font-size: 0.84rem; font-weight: 600; color: var(--accent-warm);">
-                                Moderate Conviction
-                            </div>
-                            <span style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.45;">Attractive upside balanced by cyclical exposure or competitive transition.</span>
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: 3px;">
-                            <div style="font-family: var(--font-sans); font-size: 0.84rem; font-weight: 600; color: var(--accent-warm);">
-                                Cautious Stance
-                            </div>
-                            <span style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.45;">Thesis intact but facing temporary execution headwinds or margin compression.</span>
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: 3px;">
-                            <div style="font-family: var(--font-sans); font-size: 0.84rem; font-weight: 600; color: var(--accent-warm);">
-                                Turnaround Play
-                            </div>
-                            <span style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.45;">High upside anchored in management operational reset, debt paydown, or cost cuts.</span>
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: 3px;">
-                            <div style="font-family: var(--font-sans); font-size: 0.84rem; font-weight: 600; color: var(--accent-warm);">
-                                Speculative Risk
-                            </div>
-                            <span style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.45;">High asymmetry paired with balance sheet leverage or binary product adoption.</span>
-                        </div>
-                    </div>
+            <!-- Section 1: Live Action Signals -->
+            <div style="margin-bottom: 20px;">
+                <div style="font-family: var(--font-sans); font-size: 0.66rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 12px;">
+                    Live Surveillance Signals
                 </div>
-
-                <!-- Section 2: Action Signals -->
-                <div style="background: var(--bg-subpanel); border: 1px solid var(--border-color); border-radius: 10px; padding: 18px 20px;">
-                    <div style="font-family: var(--font-sans); font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-warm); margin-bottom: 14px;">
-                        Live Surveillance Action Signals
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px 18px;">
+                    <div style="display: flex; align-items: baseline; gap: 8px;">
+                        <span class="status-beacon beacon-buy" style="position: relative; top: 1px;"><span class="beacon-dot"></span></span>
+                        <div style="font-size: 0.78rem;">
+                            <strong style="color: var(--accent-green); font-weight: 600;">BUY</strong>
+                            <span style="color: var(--text-secondary); margin-left: 4px;">Deep value accumulation zone.</span>
+                        </div>
                     </div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px 18px;">
-                        <div style="display: flex; gap: 10px; align-items: flex-start;">
-                            <span class="status-beacon beacon-buy" style="margin-top: 4px;"><span class="beacon-dot"></span></span>
-                            <div style="display: flex; flex-direction: column; gap: 2px;">
-                                <strong style="color: var(--accent-green); font-size: 0.84rem; font-family: var(--font-sans);">BUY</strong>
-                                <div style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.4;">Thesis accelerating, fundamentals compounding, deep value buy zone.</div>
-                            </div>
+                    <div style="display: flex; align-items: baseline; gap: 8px;">
+                        <span class="status-beacon beacon-hold" style="position: relative; top: 1px;"><span class="beacon-dot"></span></span>
+                        <div style="font-size: 0.78rem;">
+                            <strong style="color: var(--accent-warm); font-weight: 600;">HOLD</strong>
+                            <span style="color: var(--text-secondary); margin-left: 4px;">Fairly valued, core thesis intact.</span>
                         </div>
-                        <div style="display: flex; gap: 10px; align-items: flex-start;">
-                            <span class="status-beacon beacon-hold" style="margin-top: 4px;"><span class="beacon-dot"></span></span>
-                            <div style="display: flex; flex-direction: column; gap: 2px;">
-                                <strong style="color: var(--accent-warm); font-size: 0.84rem; font-family: var(--font-sans);">HOLD</strong>
-                                <div style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.4;">Thesis steady, fairly valued. Maintain core position.</div>
-                            </div>
+                    </div>
+                    <div style="display: flex; align-items: baseline; gap: 8px;">
+                        <span class="status-beacon beacon-caution" style="position: relative; top: 1px;"><span class="beacon-dot"></span></span>
+                        <div style="font-size: 0.78rem;">
+                            <strong style="color: #D48858; font-weight: 600;">CAUTION</strong>
+                            <span style="color: var(--text-secondary); margin-left: 4px;">Execution friction or trim zone.</span>
                         </div>
-                        <div style="display: flex; gap: 10px; align-items: flex-start;">
-                            <span class="status-beacon beacon-caution" style="margin-top: 4px;"><span class="beacon-dot"></span></span>
-                            <div style="display: flex; flex-direction: column; gap: 2px;">
-                                <strong style="color: #D48858; font-size: 0.84rem; font-family: var(--font-sans);">CAUTION</strong>
-                                <div style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.4;">Thesis encountering execution friction or margin pressure. Trim zone.</div>
-                            </div>
-                        </div>
-                        <div style="display: flex; gap: 10px; align-items: flex-start;">
-                            <span class="status-beacon beacon-avoid" style="margin-top: 4px;"><span class="beacon-dot"></span></span>
-                            <div style="display: flex; flex-direction: column; gap: 2px;">
-                                <strong style="color: var(--accent-red); font-size: 0.84rem; font-family: var(--font-sans);">AVOID</strong>
-                                <div style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.4;">Thesis broken, structural moat decay, or fatal hurdle breakdown.</div>
-                            </div>
+                    </div>
+                    <div style="display: flex; align-items: baseline; gap: 8px;">
+                        <span class="status-beacon beacon-avoid" style="position: relative; top: 1px;"><span class="beacon-dot"></span></span>
+                        <div style="font-size: 0.78rem;">
+                            <strong style="color: var(--accent-red); font-weight: 600;">AVOID</strong>
+                            <span style="color: var(--text-secondary); margin-left: 4px;">Moat decay or thesis breakdown.</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
-                <button class="btn-primary" onclick="closeLabelsLegendModal()">Got it</button>
+            <div style="height: 1px; background: var(--border-color); margin: 18px 0;"></div>
+
+            <!-- Section 2: Conviction Tiers -->
+            <div>
+                <div style="font-family: var(--font-sans); font-size: 0.66rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 12px;">
+                    Forward Conviction Tiers
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 9px;">
+                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">High Conviction</span>
+                        <span style="color: var(--text-secondary); line-height: 1.35;">Dominant economic moat, fortress balance sheet, and compounding cash generation.</span>
+                    </div>
+                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">Solid Conviction</span>
+                        <span style="color: var(--text-secondary); line-height: 1.35;">Proven recurring revenue, durable pricing power, and clear compounding runway.</span>
+                    </div>
+                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">Moderate Conviction</span>
+                        <span style="color: var(--text-secondary); line-height: 1.35;">Attractive upside balanced by cyclical exposure or transition risk.</span>
+                    </div>
+                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">Cautious Stance</span>
+                        <span style="color: var(--text-secondary); line-height: 1.35;">Thesis intact but navigating temporary execution friction or margin pressure.</span>
+                    </div>
+                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">Turnaround Play</span>
+                        <span style="color: var(--text-secondary); line-height: 1.35;">High asymmetry anchored in operational reset, debt reduction, or cost discipline.</span>
+                    </div>
+                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">Speculative Risk</span>
+                        <span style="color: var(--text-secondary); line-height: 1.35;">High asymmetry paired with balance sheet leverage or product adoption hurdles.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; margin-top: 22px;">
+                <button onclick="closeLabelsLegendModal()" style="font-family: var(--font-sans); font-size: 0.78rem; font-weight: 500; color: var(--text-title); background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); border-radius: 6px; padding: 6px 14px; cursor: pointer; transition: all 0.15s;">Dismiss</button>
             </div>
         </div>
     </div>

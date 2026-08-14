@@ -1085,10 +1085,11 @@
 
             <!-- Native Multi-Range Interactive Area Chart -->
             
-    <div class="native-chart-wrap" id="chart-container">
+    <div class="native-chart-wrap" id="chart-container" style="position: relative; overflow: hidden;">
         <div class="chart-top-bar">
             <div id="chart-live-val" class="chart-live-val">
                 <span id="tooltip-date">Aug 13, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$26.18</strong>
+                <span id="tooltip-delta" class="pos" style="font-size: 0.76rem; margin-left: 6px;"></span>
             </div>
             <div class="chart-range-pills">
                 <button class="range-pill active" onclick="switchChartRange('1Y')">1Y</button>
@@ -1098,24 +1099,42 @@
             </div>
         </div>
 
-        <svg id="interactive-svg" viewBox="0 0 900 260" preserveAspectRatio="none" class="chart-svg">
-            <defs>
-                <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#D4A373" stop-opacity="0.14" />
-                    <stop offset="100%" stop-color="#D4A373" stop-opacity="0.0" />
-                </linearGradient>
-            </defs>
-            
-            <line x1="20" y1="25" x2="880" y2="25" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
-            <line x1="20" y1="130.0" x2="880" y2="130.0" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
-            <line x1="20" y1="235" x2="880" y2="235" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+        <div style="position: relative; width: 100%; height: 260px;">
+            <svg id="interactive-svg" viewBox="0 0 900 260" preserveAspectRatio="none" class="chart-svg" style="width: 100%; height: 100%;">
+                <defs>
+                    <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#D4A373" stop-opacity="0.18" />
+                        <stop offset="100%" stop-color="#D4A373" stop-opacity="0.0" />
+                    </linearGradient>
+                </defs>
+                
+                <!-- Background Grid Reference Lines -->
+                <line x1="20" y1="25" x2="880" y2="25" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
+                <line x1="20" y1="130.0" x2="880" y2="130.0" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
+                <line x1="20" y1="235" x2="880" y2="235" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
 
-            <path id="chart-area-path" d="" fill="url(#area-grad)" />
-            <path id="chart-line-path" d="" fill="none" stroke="#D4A373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <!-- Area & Line Paths -->
+                <path id="chart-area-path" d="" fill="url(#area-grad)" />
+                <path id="chart-line-path" d="" fill="none" stroke="#D4A373" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
 
-            <line id="crosshair-line" x1="0" y1="25" x2="0" y2="235" stroke="rgba(212,163,115,0.4)" stroke-width="1" stroke-dasharray="3 3" style="display: none;" />
-            <circle id="hover-dot" r="4.5" fill="#D4A373" stroke="#1B1A19" stroke-width="2" style="display: none;" />
-        </svg>
+                <!-- Vertical Crosshair Line -->
+                <line id="crosshair-v" x1="0" y1="0" x2="0" y2="260" stroke="rgba(212,163,115,0.45)" stroke-width="1.2" stroke-dasharray="3 3" style="display: none;" />
+                
+                <!-- Horizontal Crosshair Line -->
+                <line id="crosshair-h" x1="20" y1="0" x2="880" y2="0" stroke="rgba(212,163,115,0.45)" stroke-width="1.2" stroke-dasharray="3 3" style="display: none;" />
+
+                <!-- Hover Halo & Dot -->
+                <circle id="hover-dot-outer" r="8.5" fill="rgba(212,163,115,0.22)" style="display: none;" />
+                <circle id="hover-dot" r="4.5" fill="#D4A373" stroke="#161513" stroke-width="2.5" style="display: none;" />
+            </svg>
+
+            <!-- Floating X-Axis Date Badge -->
+            <div id="chart-badge-x" style="display:none; position:absolute; bottom:4px; background:#111110; color:#EAE6E1; border:1px solid var(--accent-warm); border-radius:4px; padding:2px 8px; font-family:var(--font-mono); font-size:0.70rem; font-weight:600; transform:translateX(-50%); pointer-events:none; white-space:nowrap; box-shadow:0 4px 12px rgba(0,0,0,0.6); z-index:20;"></div>
+
+            <!-- Floating Y-Axis Price Badge -->
+            <div id="chart-badge-y" style="display:none; position:absolute; right:8px; background:var(--accent-warm); color:#161513; border-radius:4px; padding:2px 8px; font-family:var(--font-mono); font-size:0.74rem; font-weight:700; transform:translateY(-50%); pointer-events:none; white-space:nowrap; box-shadow:0 3px 10px rgba(0,0,0,0.5); z-index:20;"></div>
+        </div>
+
         <div class="chart-labels">
             <span id="chart-start-lbl">Aug 14, 2025 ($21.92)</span>
             <span id="chart-range-title">1-Year Historical Range</span>
@@ -1141,11 +1160,23 @@
         const areaPath = document.getElementById('chart-area-path');
         const tooltipDate = document.getElementById('tooltip-date');
         const tooltipPrice = document.getElementById('tooltip-price');
-        const crosshair = document.getElementById('crosshair-line');
+        const tooltipDelta = document.getElementById('tooltip-delta');
+        const crosshairV = document.getElementById('crosshair-v');
+        const crosshairH = document.getElementById('crosshair-h');
+        const dotOuter = document.getElementById('hover-dot-outer');
         const dot = document.getElementById('hover-dot');
+        const badgeX = document.getElementById('chart-badge-x');
+        const badgeY = document.getElementById('chart-badge-y');
         const startLbl = document.getElementById('chart-start-lbl');
         const endLbl = document.getElementById('chart-end-lbl');
         const rangeTitle = document.getElementById('chart-range-title');
+
+        // Hero price elements
+        const heroPriceNum = document.querySelector('.price-number');
+        const heroPriceSub = document.querySelector('.price-sub');
+        const defaultHeroPrice = heroPriceNum ? heroPriceNum.innerText : '';
+        const defaultHeroSub = heroPriceSub ? heroPriceSub.innerText : '';
+        const defaultHeroSubClass = heroPriceSub ? heroPriceSub.className : '';
 
         function recalculatePaths(points) {
             if (!points || points.length < 2) return;
@@ -1175,6 +1206,7 @@
             
             tooltipDate.innerText = points[n - 1].date;
             tooltipPrice.innerText = '$' + points[n - 1].price.toFixed(2);
+            if (tooltipDelta) tooltipDelta.innerText = '';
 
             const titles = { '1Y': '1-Year Range', '5Y': '5-Year Range', '10Y': '10-Year Range', 'MAX': 'All-Time Historical Range' };
             rangeTitle.innerText = titles[currentRangeKey] || currentRangeKey + ' Range';
@@ -1200,32 +1232,89 @@
         function updateHover(e) {
             if (!currentPoints.length || !currentSvgCoords.length) return;
             const rect = svg.getBoundingClientRect();
-            const mouseX = e.clientX - rect.left;
-            const pct = Math.max(0, Math.min(1, mouseX / rect.width));
-            const idx = Math.round(pct * (currentPoints.length - 1));
+            const mouseX = Math.max(0, Math.min(rect.width, e.clientX - rect.left));
+            const pct = mouseX / rect.width;
+            const idx = Math.min(currentPoints.length - 1, Math.max(0, Math.round(pct * (currentPoints.length - 1))));
             
             const pt = currentPoints[idx];
             const coord = currentSvgCoords[idx];
             if (!pt || !coord) return;
 
-            crosshair.setAttribute('x1', coord[0]);
-            crosshair.setAttribute('x2', coord[0]);
-            crosshair.style.display = 'block';
+            // Vertical crosshair
+            crosshairV.setAttribute('x1', coord[0]);
+            crosshairV.setAttribute('x2', coord[0]);
+            crosshairV.style.display = 'block';
+
+            // Horizontal crosshair
+            crosshairH.setAttribute('y1', coord[1]);
+            crosshairH.setAttribute('y2', coord[1]);
+            crosshairH.style.display = 'block';
+
+            // Dot & Halo
+            dotOuter.setAttribute('cx', coord[0]);
+            dotOuter.setAttribute('cy', coord[1]);
+            dotOuter.style.display = 'block';
 
             dot.setAttribute('cx', coord[0]);
             dot.setAttribute('cy', coord[1]);
             dot.style.display = 'block';
 
+            // Floating X-Axis Badge (CSS coords)
+            const cssX = (coord[0] / width) * rect.width;
+            badgeX.style.left = cssX + 'px';
+            badgeX.innerText = pt.date;
+            badgeX.style.display = 'block';
+
+            // Floating Y-Axis Badge (CSS coords)
+            const cssY = (coord[1] / height) * rect.height;
+            badgeY.style.top = cssY + 'px';
+            badgeY.innerText = '$' + pt.price.toFixed(2);
+            badgeY.style.display = 'block';
+
+            // Calculate range delta
+            const basePrice = currentPoints[0].price;
+            const deltaPct = ((pt.price - basePrice) / basePrice) * 100;
+            const deltaClass = deltaPct >= 0 ? 'pos' : 'neg';
+            const deltaSign = deltaPct >= 0 ? '+' : '';
+
+            // Tooltop header
             tooltipDate.innerText = pt.date;
             tooltipPrice.innerText = '$' + pt.price.toFixed(2);
+            if (tooltipDelta) {
+                tooltipDelta.className = deltaClass;
+                tooltipDelta.innerText = `${deltaSign}${deltaPct.toFixed(2)}% vs Range Start`;
+            }
+
+            // Real-time Hero Scrubbing
+            if (heroPriceNum) {
+                heroPriceNum.innerText = '$' + pt.price.toFixed(2);
+            }
+            if (heroPriceSub) {
+                heroPriceSub.className = 'price-sub ' + deltaClass;
+                heroPriceSub.innerText = `${deltaSign}${deltaPct.toFixed(2)}%`;
+            }
         }
 
         function hideHover() {
-            crosshair.style.display = 'none';
+            crosshairV.style.display = 'none';
+            crosshairH.style.display = 'none';
+            dotOuter.style.display = 'none';
             dot.style.display = 'none';
+            badgeX.style.display = 'none';
+            badgeY.style.display = 'none';
+            if (tooltipDelta) tooltipDelta.innerText = '';
+
             if (currentPoints.length) {
                 tooltipDate.innerText = currentPoints[currentPoints.length - 1].date;
                 tooltipPrice.innerText = '$' + currentPoints[currentPoints.length - 1].price.toFixed(2);
+            }
+
+            if (heroPriceNum && defaultHeroPrice) {
+                heroPriceNum.innerText = defaultHeroPrice;
+            }
+            if (heroPriceSub && defaultHeroSub) {
+                heroPriceSub.className = defaultHeroSubClass;
+                heroPriceSub.innerText = defaultHeroSub;
             }
         }
 
@@ -2338,101 +2427,90 @@
     
     <!-- Labels & Taxonomy Legend Modal -->
     <div id="labels-legend-modal" class="modal-shade" onclick="closeLegendModalOutside(event)">
-        <div class="modal-body-card" style="max-width: 720px; font-family: var(--font-sans);">
-            <button class="modal-x" onclick="closeLabelsLegendModal()">✕</button>
-            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-                <h2 style="font-family: var(--font-serif); font-size: 1.65rem; color: var(--text-title); margin: 0; font-weight: 500; letter-spacing: -0.015em;">Investment Taxonomy &amp; Legend</h2>
+        <div class="modal-body-card" style="max-width: 600px; padding: 30px 34px; background: rgba(22, 21, 20, 0.96); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6); font-family: var(--font-sans);">
+            <button class="modal-x" onclick="closeLabelsLegendModal()" style="top: 22px; right: 22px; color: var(--text-dim); font-size: 1.2rem; cursor: pointer;">✕</button>
+            
+            <div style="margin-bottom: 22px;">
+                <h2 style="font-family: var(--font-serif); font-size: 1.45rem; color: var(--text-title); margin: 0 0 5px; font-weight: 500; letter-spacing: -0.01em;">Investment Methodology</h2>
+                <p style="color: var(--text-dim); font-size: 0.80rem; margin: 0; line-height: 1.4;">
+                    Systematic framework evaluating forward conviction and live surveillance signals.
+                </p>
             </div>
-            <p style="color: var(--text-secondary); font-size: 0.86rem; margin: 0 0 20px; line-height: 1.5;">
-                Autonomous multi-tier categorization system evaluating long-term conviction, live surveillance action signals, and strategic catalysts.
-            </p>
 
-            <div style="display: flex; flex-direction: column; gap: 16px;">
-                <!-- Section 1: Conviction Tiers -->
-                <div style="background: var(--bg-subpanel); border: 1px solid var(--border-color); border-radius: 10px; padding: 18px 20px;">
-                    <div style="font-family: var(--font-sans); font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-warm); margin-bottom: 14px;">
-                        Forward Conviction &amp; Risk Stance
-                    </div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px 18px;">
-                        <div style="display: flex; flex-direction: column; gap: 3px;">
-                            <div style="font-family: var(--font-sans); font-size: 0.84rem; font-weight: 600; color: var(--accent-warm);">
-                                High Conviction
-                            </div>
-                            <span style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.45;">Exceptional asymmetric risk/reward, dominant economic moat, and fortress balance sheet.</span>
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: 3px;">
-                            <div style="font-family: var(--font-sans); font-size: 0.84rem; font-weight: 600; color: var(--accent-warm);">
-                                Solid Conviction
-                            </div>
-                            <span style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.45;">Proven recurring cash generation, structural advantages, and clear compounding runway.</span>
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: 3px;">
-                            <div style="font-family: var(--font-sans); font-size: 0.84rem; font-weight: 600; color: var(--accent-warm);">
-                                Moderate Conviction
-                            </div>
-                            <span style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.45;">Attractive upside balanced by cyclical exposure or competitive transition.</span>
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: 3px;">
-                            <div style="font-family: var(--font-sans); font-size: 0.84rem; font-weight: 600; color: var(--accent-warm);">
-                                Cautious Stance
-                            </div>
-                            <span style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.45;">Thesis intact but facing temporary execution headwinds or margin compression.</span>
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: 3px;">
-                            <div style="font-family: var(--font-sans); font-size: 0.84rem; font-weight: 600; color: var(--accent-warm);">
-                                Turnaround Play
-                            </div>
-                            <span style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.45;">High upside anchored in management operational reset, debt paydown, or cost cuts.</span>
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: 3px;">
-                            <div style="font-family: var(--font-sans); font-size: 0.84rem; font-weight: 600; color: var(--accent-warm);">
-                                Speculative Risk
-                            </div>
-                            <span style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.45;">High asymmetry paired with balance sheet leverage or binary product adoption.</span>
-                        </div>
-                    </div>
+            <!-- Section 1: Live Action Signals -->
+            <div style="margin-bottom: 20px;">
+                <div style="font-family: var(--font-sans); font-size: 0.66rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 12px;">
+                    Live Surveillance Signals
                 </div>
-
-                <!-- Section 2: Action Signals -->
-                <div style="background: var(--bg-subpanel); border: 1px solid var(--border-color); border-radius: 10px; padding: 18px 20px;">
-                    <div style="font-family: var(--font-sans); font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-warm); margin-bottom: 14px;">
-                        Live Surveillance Action Signals
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px 18px;">
+                    <div style="display: flex; align-items: baseline; gap: 8px;">
+                        <span class="status-beacon beacon-buy" style="position: relative; top: 1px;"><span class="beacon-dot"></span></span>
+                        <div style="font-size: 0.78rem;">
+                            <strong style="color: var(--accent-green); font-weight: 600;">BUY</strong>
+                            <span style="color: var(--text-secondary); margin-left: 4px;">Deep value accumulation zone.</span>
+                        </div>
                     </div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px 18px;">
-                        <div style="display: flex; gap: 10px; align-items: flex-start;">
-                            <span class="status-beacon beacon-buy" style="margin-top: 4px;"><span class="beacon-dot"></span></span>
-                            <div style="display: flex; flex-direction: column; gap: 2px;">
-                                <strong style="color: var(--accent-green); font-size: 0.84rem; font-family: var(--font-sans);">BUY</strong>
-                                <div style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.4;">Thesis accelerating, fundamentals compounding, deep value buy zone.</div>
-                            </div>
+                    <div style="display: flex; align-items: baseline; gap: 8px;">
+                        <span class="status-beacon beacon-hold" style="position: relative; top: 1px;"><span class="beacon-dot"></span></span>
+                        <div style="font-size: 0.78rem;">
+                            <strong style="color: var(--accent-warm); font-weight: 600;">HOLD</strong>
+                            <span style="color: var(--text-secondary); margin-left: 4px;">Fairly valued, core thesis intact.</span>
                         </div>
-                        <div style="display: flex; gap: 10px; align-items: flex-start;">
-                            <span class="status-beacon beacon-hold" style="margin-top: 4px;"><span class="beacon-dot"></span></span>
-                            <div style="display: flex; flex-direction: column; gap: 2px;">
-                                <strong style="color: var(--accent-warm); font-size: 0.84rem; font-family: var(--font-sans);">HOLD</strong>
-                                <div style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.4;">Thesis steady, fairly valued. Maintain core position.</div>
-                            </div>
+                    </div>
+                    <div style="display: flex; align-items: baseline; gap: 8px;">
+                        <span class="status-beacon beacon-caution" style="position: relative; top: 1px;"><span class="beacon-dot"></span></span>
+                        <div style="font-size: 0.78rem;">
+                            <strong style="color: #D48858; font-weight: 600;">CAUTION</strong>
+                            <span style="color: var(--text-secondary); margin-left: 4px;">Execution friction or trim zone.</span>
                         </div>
-                        <div style="display: flex; gap: 10px; align-items: flex-start;">
-                            <span class="status-beacon beacon-caution" style="margin-top: 4px;"><span class="beacon-dot"></span></span>
-                            <div style="display: flex; flex-direction: column; gap: 2px;">
-                                <strong style="color: #D48858; font-size: 0.84rem; font-family: var(--font-sans);">CAUTION</strong>
-                                <div style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.4;">Thesis encountering execution friction or margin pressure. Trim zone.</div>
-                            </div>
-                        </div>
-                        <div style="display: flex; gap: 10px; align-items: flex-start;">
-                            <span class="status-beacon beacon-avoid" style="margin-top: 4px;"><span class="beacon-dot"></span></span>
-                            <div style="display: flex; flex-direction: column; gap: 2px;">
-                                <strong style="color: var(--accent-red); font-size: 0.84rem; font-family: var(--font-sans);">AVOID</strong>
-                                <div style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.4;">Thesis broken, structural moat decay, or fatal hurdle breakdown.</div>
-                            </div>
+                    </div>
+                    <div style="display: flex; align-items: baseline; gap: 8px;">
+                        <span class="status-beacon beacon-avoid" style="position: relative; top: 1px;"><span class="beacon-dot"></span></span>
+                        <div style="font-size: 0.78rem;">
+                            <strong style="color: var(--accent-red); font-weight: 600;">AVOID</strong>
+                            <span style="color: var(--text-secondary); margin-left: 4px;">Moat decay or thesis breakdown.</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
-                <button class="btn-primary" onclick="closeLabelsLegendModal()">Got it</button>
+            <div style="height: 1px; background: var(--border-color); margin: 18px 0;"></div>
+
+            <!-- Section 2: Conviction Tiers -->
+            <div>
+                <div style="font-family: var(--font-sans); font-size: 0.66rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 12px;">
+                    Forward Conviction Tiers
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 9px;">
+                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">High Conviction</span>
+                        <span style="color: var(--text-secondary); line-height: 1.35;">Dominant economic moat, fortress balance sheet, and compounding cash generation.</span>
+                    </div>
+                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">Solid Conviction</span>
+                        <span style="color: var(--text-secondary); line-height: 1.35;">Proven recurring revenue, durable pricing power, and clear compounding runway.</span>
+                    </div>
+                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">Moderate Conviction</span>
+                        <span style="color: var(--text-secondary); line-height: 1.35;">Attractive upside balanced by cyclical exposure or transition risk.</span>
+                    </div>
+                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">Cautious Stance</span>
+                        <span style="color: var(--text-secondary); line-height: 1.35;">Thesis intact but navigating temporary execution friction or margin pressure.</span>
+                    </div>
+                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">Turnaround Play</span>
+                        <span style="color: var(--text-secondary); line-height: 1.35;">High asymmetry anchored in operational reset, debt reduction, or cost discipline.</span>
+                    </div>
+                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">Speculative Risk</span>
+                        <span style="color: var(--text-secondary); line-height: 1.35;">High asymmetry paired with balance sheet leverage or product adoption hurdles.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; margin-top: 22px;">
+                <button onclick="closeLabelsLegendModal()" style="font-family: var(--font-sans); font-size: 0.78rem; font-weight: 500; color: var(--text-title); background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); border-radius: 6px; padding: 6px 14px; cursor: pointer; transition: all 0.15s;">Dismiss</button>
             </div>
         </div>
     </div>
