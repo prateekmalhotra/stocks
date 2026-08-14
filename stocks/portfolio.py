@@ -520,15 +520,9 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
         
         <!-- Minimalist Header Bar -->
         <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0 16px 0; border-bottom:1px solid var(--border-color); flex-wrap:wrap; gap:16px;">
-            <div>
-                <h1 style="font-family:var(--font-sans); font-size:1.65rem; color:var(--text-title); margin:0; font-weight:700; letter-spacing:-0.03em;">
-                    {port_title}
-                </h1>
-                <div style="display:flex; align-items:center; gap:6px; margin-top:4px;">
-                    <span class="live-pulse-dot" style="display:inline-block; width:6px; height:6px; border-radius:50%; background:#6FA882;"></span>
-                    <span id="live-stream-status-{portfolio_type}" style="font-size:0.72rem; font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim);">Live Stream Active</span>
-                </div>
-            </div>
+            <h1 style="font-family:var(--font-sans); font-size:1.65rem; color:var(--text-title); margin:0; font-weight:700; letter-spacing:-0.03em;">
+                {port_title}
+            </h1>
             <div style="text-align:right;">
                 <div id="live-port-val-{portfolio_type}" style="font-family:var(--font-mono); font-size:1.95rem; font-weight:600; color:var(--text-title); letter-spacing:-0.02em; line-height:1.1;">
                     ${stats['total_value_usd']:,.2f}
@@ -776,20 +770,6 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                 }}
                 requestAnimationFrame(stepRoll);
             }}
-
-            // Active live stream second counter ticker
-            setInterval(function() {{
-                const statusElem = document.getElementById(`live-stream-status-${{portType}}`);
-                if (!statusElem) return;
-                const elapsedSec = Math.floor((Date.now() - lastSyncTime) / 1000);
-                if (elapsedSec <= 1) {{
-                    statusElem.textContent = 'Live Stream • Synced Just Now';
-                    statusElem.style.color = 'var(--accent-green)';
-                }} else {{
-                    statusElem.textContent = `Live Stream • Synced ${{elapsedSec}}s ago`;
-                    statusElem.style.color = 'var(--text-dim)';
-                }}
-            }}, 1000);
 
             async function loadLatestQuotes() {{
                 // 1. Path-aware relative URL
