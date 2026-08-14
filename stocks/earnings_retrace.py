@@ -63,11 +63,22 @@ def register_earnings_pop(
     # Trigger Price = P0 + 0.25 * pop_gain
     buy_trigger_price = round(pre_earnings_price + (0.25 * pop_gain), 2)
 
+    # Quarterly window: stay active until the next quarterly earnings release or up to 75 calendar days
+    expires_at = ""
     try:
-        earn_dt = datetime.strptime(earnings_date[:10], "%Y-%m-%d")
-        expires_at = (earn_dt + timedelta(days=30)).strftime("%Y-%m-%d")
+        watchlist = load_watchlist()
+        stock = watchlist.get(ticker.upper())
+        if stock and stock.next_catalyst_date and len(stock.next_catalyst_date.strip()) >= 10:
+            expires_at = stock.next_catalyst_date.strip()[:10]
     except Exception:
-        expires_at = (datetime.now() + timedelta(days=30)).strftime("%Y-%m-%d")
+        pass
+
+    if not expires_at:
+        try:
+            earn_dt = datetime.strptime(earnings_date[:10], "%Y-%m-%d")
+            expires_at = (earn_dt + timedelta(days=75)).strftime("%Y-%m-%d")
+        except Exception:
+            expires_at = (datetime.now() + timedelta(days=75)).strftime("%Y-%m-%d")
 
     entry = {
         "ticker": ticker.upper(),
@@ -86,8 +97,21 @@ def register_earnings_pop(
     tracker = load_retrace_tracker()
     tracker[ticker.upper()] = entry
     save_retrace_tracker(tracker)
-    print(f"🎯 [BEAT & RETRACE ARMED] {ticker}: Pop +{pop_pct:.1f}% to ${peak_price:.2f}. Buy trigger at ${buy_trigger_price:.2f} (75% erosion).")
+    print(f"🎯 [BEAT & RETRACE ARMED] {ticker}: Pop +{pop_pct:.1f}% to ${peak_price:.2f}. Buy trigger at ${buy_trigger_price:.2f} (75% erosion). Active until {expires_at}.")
     return entry
+
+
+def reset_earnings_cycle(ticker: str):
+    """
+    Resets the beat-and-retrace cycle for a ticker upon a new quarterly earnings release.
+    Clears the previous quarter's armed/triggered state so new pops and retraces can be tracked cleanly.
+    """
+    tracker = load_retrace_tracker()
+    if ticker.upper() in tracker:
+        old_status = tracker[ticker.upper()].get("status")
+        tracker.pop(ticker.upper(), None)
+        save_retrace_tracker(tracker)
+        print(f"🔄 [QUARTERLY RESET] {ticker}: Cleared prior quarterly cycle (was {old_status}). Ready for new quarter.")
 
 
 def check_earnings_retrace_triggers(live_quotes: Optional[Dict[str, Any]] = None) -> int:

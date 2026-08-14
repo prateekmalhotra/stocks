@@ -276,10 +276,11 @@ def _handle_review_task(ticker: str, trigger_reason: str):
     )
     add_alert(alert_obj)
 
-    # 4. If this review was an Earnings Catalyst, register Beat & Retrace Pop Watcher
+    # 4. If this review was an Earnings Catalyst, reset prior cycle and register new Beat & Retrace Pop Watcher
     if "earnings" in trigger_reason.lower() or "catalyst" in trigger_reason.lower():
         try:
-            from stocks.earnings_retrace import register_earnings_pop
+            from stocks.earnings_retrace import reset_earnings_cycle, register_earnings_pop
+            reset_earnings_cycle(ticker)
             register_earnings_pop(
                 ticker=ticker,
                 earnings_date=today_str,
