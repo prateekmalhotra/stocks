@@ -410,7 +410,7 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
         else:
             ticker_col = f"""
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-                <a href="{h['report_url']}" style="font-family:var(--font-serif); font-size:1.22rem; color:var(--text-title); text-decoration:none;">
+                <a href="{h['report_url']}" style="font-family:var(--font-mono); font-weight:600; font-size:1.02rem; color:var(--text-title); text-decoration:none;">
                     {t}
                 </a>
                 <span style="font-size:0.78rem; color:var(--text-secondary); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="{display_name}">{display_name}</span>

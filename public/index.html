@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
@@ -34,9 +34,9 @@
             --accent-red: #C97A72;
             --border-color: rgba(255, 255, 255, 0.055);
             --border-focus: rgba(212, 163, 115, 0.35);
-            --font-serif: 'Instrument Serif', Georgia, serif;
-            --font-sans: 'Geist', 'Plus Jakarta Sans', -apple-system, sans-serif;
-            --font-mono: 'Geist Mono', 'JetBrains Mono', monospace;
+            --font-serif: 'Newsreader', Garamond, Georgia, serif;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
         }
 
         /* KaTeX Math Styling & Dark Theme Alignment */
@@ -317,16 +317,17 @@
             line-height: 1.3;
         }
         .tbl-symbol {
-            font-family: var(--font-serif);
-            font-size: 1.35rem;
-            font-weight: 500;
+            font-family: var(--font-mono);
+            font-size: 1.08rem;
+            font-weight: 600;
+            letter-spacing: 0.01em;
             color: var(--text-title);
             line-height: 1.2;
         }
         .tbl-company-hover {
-            font-size: 0.82rem;
+            font-family: var(--font-sans);
+            font-size: 0.80rem;
             color: var(--text-secondary);
-            font-style: italic;
             line-height: 1.2;
             white-space: nowrap;
             overflow: hidden;
@@ -337,36 +338,37 @@
         .tbl-price-cell {
             display: flex;
             flex-direction: column;
-            gap: 4px;
-            line-height: 1.3;
+            gap: 3px;
+            line-height: 1.25;
         }
         .tbl-price {
-            font-size: 1.2rem;
+            font-size: 1.05rem;
             font-weight: 500;
             font-family: var(--font-mono);
             color: var(--text-title);
             line-height: 1.2;
         }
-        .tbl-return { font-size: 0.8rem; font-family: var(--font-mono); }
+        .tbl-return { font-size: 0.78rem; font-family: var(--font-mono); font-weight: 500; }
 
         .tbl-labels-cell { display: flex; gap: 6px; flex-wrap: nowrap; align-items: center; white-space: nowrap; }
 
         .tbl-val-cell {
             display: flex;
             flex-direction: column;
-            gap: 4px;
-            line-height: 1.3;
+            gap: 3px;
+            line-height: 1.25;
         }
         .tbl-fv {
-            font-size: 1.15rem;
+            font-size: 1.05rem;
             font-weight: 500;
             font-family: var(--font-mono);
             line-height: 1.2;
         }
-        .tbl-base {
-            font-size: 0.82rem;
-            color: var(--text-secondary);
+        .tbl-upside {
+            font-size: 0.78rem;
             font-family: var(--font-mono);
+            color: var(--accent-green);
+            font-weight: 500;
             line-height: 1.2;
         }
 
@@ -5727,7 +5729,7 @@
         <tr data-row-ticker="JD" data-shares="1378.4461" data-cost="31.92" data-port="defensive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-                <a href="reports/JD.html" style="font-family:var(--font-serif); font-size:1.22rem; color:var(--text-title); text-decoration:none;">
+                <a href="reports/JD.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.02rem; color:var(--text-title); text-decoration:none;">
                     JD
                 </a>
                 <span style="font-size:0.78rem; color:var(--text-secondary); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="JD.com">JD.com</span>
@@ -5765,7 +5767,7 @@
         <tr data-row-ticker="YELP" data-shares="1328.2507" data-cost="23.61" data-port="defensive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-                <a href="reports/YELP.html" style="font-family:var(--font-serif); font-size:1.22rem; color:var(--text-title); text-decoration:none;">
+                <a href="reports/YELP.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.02rem; color:var(--text-title); text-decoration:none;">
                     YELP
                 </a>
                 <span style="font-size:0.78rem; color:var(--text-secondary); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Yelp Inc.">Yelp Inc.</span>
@@ -5803,7 +5805,7 @@
         <tr data-row-ticker="ACN" data-shares="118.1181" data-cost="179.82" data-port="defensive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-                <a href="reports/ACN.html" style="font-family:var(--font-serif); font-size:1.22rem; color:var(--text-title); text-decoration:none;">
+                <a href="reports/ACN.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.02rem; color:var(--text-title); text-decoration:none;">
                     ACN
                 </a>
                 <span style="font-size:0.78rem; color:var(--text-secondary); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Accenture plc">Accenture plc</span>
@@ -5841,7 +5843,7 @@
         <tr data-row-ticker="MTCH" data-shares="494.5652" data-cost="36.8" data-port="defensive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-                <a href="reports/MTCH.html" style="font-family:var(--font-serif); font-size:1.22rem; color:var(--text-title); text-decoration:none;">
+                <a href="reports/MTCH.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.02rem; color:var(--text-title); text-decoration:none;">
                     MTCH
                 </a>
                 <span style="font-size:0.78rem; color:var(--text-secondary); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Match Group, Inc.">Match Group, Inc.</span>
@@ -5879,7 +5881,7 @@
         <tr data-row-ticker="BABA" data-shares="98.3966" data-cost="127.85" data-port="defensive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-                <a href="reports/BABA.html" style="font-family:var(--font-serif); font-size:1.22rem; color:var(--text-title); text-decoration:none;">
+                <a href="reports/BABA.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.02rem; color:var(--text-title); text-decoration:none;">
                     BABA
                 </a>
                 <span style="font-size:0.78rem; color:var(--text-secondary); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Alibaba Group">Alibaba Group</span>
@@ -5917,7 +5919,7 @@
         <tr data-row-ticker="CMCSA" data-shares="473.2943" data-cost="25.65" data-port="defensive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-                <a href="reports/CMCSA.html" style="font-family:var(--font-serif); font-size:1.22rem; color:var(--text-title); text-decoration:none;">
+                <a href="reports/CMCSA.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.02rem; color:var(--text-title); text-decoration:none;">
                     CMCSA
                 </a>
                 <span style="font-size:0.78rem; color:var(--text-secondary); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Comcast Corporation">Comcast Corporation</span>
@@ -5955,7 +5957,7 @@
         <tr data-row-ticker="NKE" data-shares="234.7531" data-cost="41.32" data-port="defensive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-                <a href="reports/NKE.html" style="font-family:var(--font-serif); font-size:1.22rem; color:var(--text-title); text-decoration:none;">
+                <a href="reports/NKE.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.02rem; color:var(--text-title); text-decoration:none;">
                     NKE
                 </a>
                 <span style="font-size:0.78rem; color:var(--text-secondary); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Nike, Inc.">Nike, Inc.</span>
@@ -5993,7 +5995,7 @@
         <tr data-row-ticker="CROX" data-shares="63.4728" data-cost="131.71" data-port="defensive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-                <a href="reports/CROX.html" style="font-family:var(--font-serif); font-size:1.22rem; color:var(--text-title); text-decoration:none;">
+                <a href="reports/CROX.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.02rem; color:var(--text-title); text-decoration:none;">
                     CROX
                 </a>
                 <span style="font-size:0.78rem; color:var(--text-secondary); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Crocs">Crocs</span>
@@ -6400,7 +6402,7 @@
         <tr data-row-ticker="PDD" data-shares="199.337" data-cost="90.5" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-                <a href="reports/PDD.html" style="font-family:var(--font-serif); font-size:1.22rem; color:var(--text-title); text-decoration:none;">
+                <a href="reports/PDD.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.02rem; color:var(--text-title); text-decoration:none;">
                     PDD
                 </a>
                 <span style="font-size:0.78rem; color:var(--text-secondary); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="PDD Holdings Inc.">PDD Holdings Inc.</span>
@@ -6438,7 +6440,7 @@
         <tr data-row-ticker="LULU" data-shares="138.6832" data-cost="125.61" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-                <a href="reports/LULU.html" style="font-family:var(--font-serif); font-size:1.22rem; color:var(--text-title); text-decoration:none;">
+                <a href="reports/LULU.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.02rem; color:var(--text-title); text-decoration:none;">
                     LULU
                 </a>
                 <span style="font-size:0.78rem; color:var(--text-secondary); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Lululemon Athletica Inc.">Lululemon Athletica Inc.</span>
@@ -6476,7 +6478,7 @@
         <tr data-row-ticker="EDU" data-shares="296.3096" data-cost="55.55" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-                <a href="reports/EDU.html" style="font-family:var(--font-serif); font-size:1.22rem; color:var(--text-title); text-decoration:none;">
+                <a href="reports/EDU.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.02rem; color:var(--text-title); text-decoration:none;">
                     EDU
                 </a>
                 <span style="font-size:0.78rem; color:var(--text-secondary); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="New Oriental Education Group">New Oriental Education Group</span>
@@ -6514,7 +6516,7 @@
         <tr data-row-ticker="SOFI" data-shares="909.8999" data-cost="17.98" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-                <a href="reports/SOFI.html" style="font-family:var(--font-serif); font-size:1.22rem; color:var(--text-title); text-decoration:none;">
+                <a href="reports/SOFI.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.02rem; color:var(--text-title); text-decoration:none;">
                     SOFI
                 </a>
                 <span style="font-size:0.78rem; color:var(--text-secondary); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="SoFi Technologies, Inc.">SoFi Technologies, Inc.</span>
@@ -6552,7 +6554,7 @@
         <tr data-row-ticker="STNE" data-shares="1520.0803" data-cost="9.96" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-                <a href="reports/STNE.html" style="font-family:var(--font-serif); font-size:1.22rem; color:var(--text-title); text-decoration:none;">
+                <a href="reports/STNE.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.02rem; color:var(--text-title); text-decoration:none;">
                     STNE
                 </a>
                 <span style="font-size:0.78rem; color:var(--text-secondary); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="StoneCo">StoneCo</span>
@@ -6590,7 +6592,7 @@
         <tr data-row-ticker="MA" data-shares="24.4015" data-cost="561.44" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-                <a href="reports/MA.html" style="font-family:var(--font-serif); font-size:1.22rem; color:var(--text-title); text-decoration:none;">
+                <a href="reports/MA.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.02rem; color:var(--text-title); text-decoration:none;">
                     MA
                 </a>
                 <span style="font-size:0.78rem; color:var(--text-secondary); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Mastercard">Mastercard</span>
@@ -6628,7 +6630,7 @@
         <tr data-row-ticker="NOW" data-shares="99.5766" data-cost="127.54" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-                <a href="reports/NOW.html" style="font-family:var(--font-serif); font-size:1.22rem; color:var(--text-title); text-decoration:none;">
+                <a href="reports/NOW.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.02rem; color:var(--text-title); text-decoration:none;">
                     NOW
                 </a>
                 <span style="font-size:0.78rem; color:var(--text-secondary); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="ServiceNow, Inc.">ServiceNow, Inc.</span>
@@ -6666,7 +6668,7 @@
         <tr data-row-ticker="UPWK" data-shares="1478.4689" data-cost="8.36" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-                <a href="reports/UPWK.html" style="font-family:var(--font-serif); font-size:1.22rem; color:var(--text-title); text-decoration:none;">
+                <a href="reports/UPWK.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.02rem; color:var(--text-title); text-decoration:none;">
                     UPWK
                 </a>
                 <span style="font-size:0.78rem; color:var(--text-secondary); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Upwork Inc.">Upwork Inc.</span>
@@ -6704,7 +6706,7 @@
         <tr data-row-ticker="INTU" data-shares="34.4192" data-cost="336.44" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-                <a href="reports/INTU.html" style="font-family:var(--font-serif); font-size:1.22rem; color:var(--text-title); text-decoration:none;">
+                <a href="reports/INTU.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.02rem; color:var(--text-title); text-decoration:none;">
                     INTU
                 </a>
                 <span style="font-size:0.78rem; color:var(--text-secondary); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Intuit">Intuit</span>
@@ -6742,7 +6744,7 @@
         <tr data-row-ticker="UBER" data-shares="139.5467" data-cost="78.54" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-                <a href="reports/UBER.html" style="font-family:var(--font-serif); font-size:1.22rem; color:var(--text-title); text-decoration:none;">
+                <a href="reports/UBER.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.02rem; color:var(--text-title); text-decoration:none;">
                     UBER
                 </a>
                 <span style="font-size:0.78rem; color:var(--text-secondary); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Uber Technologies, Inc.">Uber Technologies, Inc.</span>
@@ -6780,7 +6782,7 @@
         <tr data-row-ticker="MELI" data-shares="5.3711" data-cost="1940.0" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-                <a href="reports/MELI.html" style="font-family:var(--font-serif); font-size:1.22rem; color:var(--text-title); text-decoration:none;">
+                <a href="reports/MELI.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.02rem; color:var(--text-title); text-decoration:none;">
                     MELI
                 </a>
                 <span style="font-size:0.78rem; color:var(--text-secondary); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="MercadoLibre">MercadoLibre</span>
@@ -6818,7 +6820,7 @@
         <tr data-row-ticker="ASML" data-shares="5.6242" data-cost="1799.38" data-port="aggressive" style="border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.15s ease;">
             <td style="padding:14px 16px; vertical-align:middle;">
             <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-                <a href="reports/ASML.html" style="font-family:var(--font-serif); font-size:1.22rem; color:var(--text-title); text-decoration:none;">
+                <a href="reports/ASML.html" style="font-family:var(--font-mono); font-weight:600; font-size:1.02rem; color:var(--text-title); text-decoration:none;">
                     ASML
                 </a>
                 <span style="font-size:0.78rem; color:var(--text-secondary); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="ASML Holding">ASML Holding</span>

@@ -738,10 +738,9 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
     <link rel="apple-touch-icon" href="../favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
@@ -763,9 +762,9 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             --accent-red: #C97A72;
             --border-color: rgba(255, 255, 255, 0.055);
             --border-focus: rgba(212, 163, 115, 0.35);
-            --font-serif: 'Instrument Serif', Georgia, serif;
-            --font-sans: 'Geist', 'Plus Jakarta Sans', -apple-system, sans-serif;
-            --font-mono: 'Geist Mono', 'JetBrains Mono', monospace;
+            --font-serif: 'Newsreader', Garamond, Georgia, serif;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
         }}
 
         /* KaTeX Math Styling & Dark Theme Alignment */
@@ -1206,54 +1205,54 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         }}
         .memo-container h1, .memo-container h2 {{
             font-family: var(--font-serif) !important;
-            font-size: 1.85rem !important;
-            font-weight: 400 !important;
+            font-size: 1.65rem !important;
+            font-weight: 500 !important;
             color: var(--text-title) !important;
             margin: 44px 0 18px !important;
             padding-bottom: 10px !important;
             border-bottom: 1px solid var(--border-color) !important;
-            letter-spacing: -0.01em !important;
-            line-height: 1.25 !important;
+            letter-spacing: -0.015em !important;
+            line-height: 1.3 !important;
         }}
         .memo-container h1:first-child, .memo-container h2:first-of-type {{ margin-top: 0 !important; }}
         .memo-container h3 {{
             font-family: var(--font-serif) !important;
-            font-size: 1.45rem !important;
-            font-weight: 400 !important;
+            font-size: 1.30rem !important;
+            font-weight: 500 !important;
             color: var(--accent-warm) !important;
             margin: 32px 0 14px !important;
-            line-height: 1.3 !important;
+            line-height: 1.35 !important;
         }}
         .memo-container h4, .memo-container h5, .memo-container h6 {{
             font-family: var(--font-sans) !important;
-            font-size: 0.94rem !important;
+            font-size: 0.88rem !important;
             font-weight: 600 !important;
             text-transform: uppercase !important;
-            letter-spacing: 0.04em !important;
+            letter-spacing: 0.06em !important;
             color: var(--text-title) !important;
             margin: 24px 0 10px !important;
         }}
         .memo-container p {{
-            font-family: var(--font-sans) !important;
-            font-size: 0.98rem !important;
-            line-height: 1.76 !important;
+            font-family: var(--font-serif) !important;
+            font-size: 1.12rem !important;
+            line-height: 1.85 !important;
             color: var(--text-body) !important;
-            margin-bottom: 20px !important;
+            margin-bottom: 22px !important;
         }}
         .memo-container ul, .memo-container ol {{
-            font-family: var(--font-sans) !important;
-            font-size: 0.96rem !important;
-            line-height: 1.72 !important;
+            font-family: var(--font-serif) !important;
+            font-size: 1.10rem !important;
+            line-height: 1.80 !important;
             color: var(--text-body) !important;
-            margin: 14px 0 22px 20px !important;
-            padding-left: 10px !important;
+            margin: 16px 0 24px 24px !important;
+            padding-left: 12px !important;
         }}
         .memo-container ul {{ list-style-type: disc !important; }}
         .memo-container ol {{ list-style-type: decimal !important; }}
         .memo-container li {{
-            margin-bottom: 10px !important;
+            margin-bottom: 12px !important;
             color: var(--text-body) !important;
-            line-height: 1.72 !important;
+            line-height: 1.80 !important;
         }}
         .memo-container li::marker {{
             color: var(--accent-warm) !important;
@@ -2088,7 +2087,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
@@ -2110,9 +2109,9 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             --accent-red: #C97A72;
             --border-color: rgba(255, 255, 255, 0.055);
             --border-focus: rgba(212, 163, 115, 0.35);
-            --font-serif: 'Instrument Serif', Georgia, serif;
-            --font-sans: 'Geist', 'Plus Jakarta Sans', -apple-system, sans-serif;
-            --font-mono: 'Geist Mono', 'JetBrains Mono', monospace;
+            --font-serif: 'Newsreader', Garamond, Georgia, serif;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
         }}
 
         /* KaTeX Math Styling & Dark Theme Alignment */
@@ -2393,16 +2392,17 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             line-height: 1.3;
         }}
         .tbl-symbol {{
-            font-family: var(--font-serif);
-            font-size: 1.35rem;
-            font-weight: 500;
+            font-family: var(--font-mono);
+            font-size: 1.08rem;
+            font-weight: 600;
+            letter-spacing: 0.01em;
             color: var(--text-title);
             line-height: 1.2;
         }}
         .tbl-company-hover {{
-            font-size: 0.82rem;
+            font-family: var(--font-sans);
+            font-size: 0.80rem;
             color: var(--text-secondary);
-            font-style: italic;
             line-height: 1.2;
             white-space: nowrap;
             overflow: hidden;
@@ -2413,36 +2413,37 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         .tbl-price-cell {{
             display: flex;
             flex-direction: column;
-            gap: 4px;
-            line-height: 1.3;
+            gap: 3px;
+            line-height: 1.25;
         }}
         .tbl-price {{
-            font-size: 1.2rem;
+            font-size: 1.05rem;
             font-weight: 500;
             font-family: var(--font-mono);
             color: var(--text-title);
             line-height: 1.2;
         }}
-        .tbl-return {{ font-size: 0.8rem; font-family: var(--font-mono); }}
+        .tbl-return {{ font-size: 0.78rem; font-family: var(--font-mono); font-weight: 500; }}
 
         .tbl-labels-cell {{ display: flex; gap: 6px; flex-wrap: nowrap; align-items: center; white-space: nowrap; }}
 
         .tbl-val-cell {{
             display: flex;
             flex-direction: column;
-            gap: 4px;
-            line-height: 1.3;
+            gap: 3px;
+            line-height: 1.25;
         }}
         .tbl-fv {{
-            font-size: 1.15rem;
+            font-size: 1.05rem;
             font-weight: 500;
             font-family: var(--font-mono);
             line-height: 1.2;
         }}
-        .tbl-base {{
-            font-size: 0.82rem;
-            color: var(--text-secondary);
+        .tbl-upside {{
+            font-size: 0.78rem;
             font-family: var(--font-mono);
+            color: var(--accent-green);
+            font-weight: 500;
             line-height: 1.2;
         }}
 
