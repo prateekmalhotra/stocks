@@ -16,21 +16,21 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
     <style>
         :root {
-            --bg-canvas: #161513;
-            --bg-panel: #1E1C19;
-            --bg-subpanel: #252320;
-            --bg-hover: #2D2A25;
-            --text-title: #F5EFEB;
-            --text-body: #D4CDC3;
-            --text-secondary: #9E9689;
-            --text-dim: #736C61;
-            --accent-warm: #CC785C;
-            --accent-warm-hover: #E08A6E;
-            --accent-warm-subtle: rgba(204, 120, 92, 0.14);
-            --accent-green: #6FA882;
-            --accent-red: #D46E65;
-            --border-color: rgba(235, 225, 210, 0.08);
-            --border-focus: rgba(204, 120, 92, 0.38);
+            --bg-canvas: #0C0B0A;
+            --bg-panel: #141312;
+            --bg-subpanel: #1B1A18;
+            --bg-hover: #22211E;
+            --text-title: #FAF7F2;
+            --text-body: #D4CBC0;
+            --text-secondary: #968D82;
+            --text-dim: #635C53;
+            --accent-warm: #D48858;
+            --accent-warm-hover: #E89D6C;
+            --accent-warm-subtle: rgba(212, 136, 88, 0.14);
+            --accent-green: #34D399;
+            --accent-red: #F87171;
+            --border-color: rgba(245, 235, 220, 0.07);
+            --border-focus: rgba(212, 136, 88, 0.40);
             --font-serif: 'Newsreader', Garamond, Georgia, serif;
             --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
@@ -42,7 +42,7 @@
             overflow-x: auto !important;
             overflow-y: hidden !important;
             padding: 12px 16px !important;
-            background: rgba(0, 0, 0, 0.18) !important;
+            background: rgba(0, 0, 0, 0.25) !important;
             border-radius: 8px !important;
             border: 1px solid var(--border-color) !important;
         }
@@ -58,7 +58,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: 
-                radial-gradient(ellipse 70% 40% at 50% -10%, rgba(204, 120, 92, 0.08), transparent 60%),
+                radial-gradient(ellipse 80% 50% at 50% -10%, rgba(212, 136, 88, 0.07), transparent 60%),
                 var(--bg-canvas);
             color: var(--text-body);
             font-family: var(--font-serif);
@@ -67,25 +67,25 @@
             padding-bottom: 120px;
         }
 
-        .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+        .container { max-width: 980px; margin: 0 auto; padding: 0 24px; }
 
         /* Top Nav */
         nav.nav-bar {
-            background: rgba(22, 21, 19, 0.88);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(12, 11, 10, 0.85);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
             z-index: 100;
-            padding: 16px 0;
+            padding: 14px 0;
         }
         .nav-inner { display: flex; justify-content: space-between; align-items: center; }
         .nav-back {
             color: var(--accent-warm);
             text-decoration: none;
             font-family: var(--font-sans);
-            font-size: 0.88rem;
+            font-size: 0.84rem;
             font-weight: 500;
             display: inline-flex;
             align-items: center;
