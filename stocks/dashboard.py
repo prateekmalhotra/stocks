@@ -737,9 +737,10 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
     <link rel="apple-touch-icon" href="../favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
@@ -761,9 +762,9 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             --accent-red: #C97A72;
             --border-color: rgba(255, 255, 255, 0.055);
             --border-focus: rgba(212, 163, 115, 0.35);
-            --font-serif: 'Newsreader', Garamond, Georgia, serif;
-            --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
+            --font-serif: 'Instrument Serif', Georgia, serif;
+            --font-sans: 'Geist', 'Plus Jakarta Sans', -apple-system, sans-serif;
+            --font-mono: 'Geist Mono', 'JetBrains Mono', monospace;
         }}
 
         /* KaTeX Math Styling & Dark Theme Alignment */
@@ -1204,52 +1205,54 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         }}
         .memo-container h1, .memo-container h2 {{
             font-family: var(--font-serif) !important;
-            font-size: 1.55rem !important;
-            font-weight: 500 !important;
+            font-size: 1.85rem !important;
+            font-weight: 400 !important;
             color: var(--text-title) !important;
             margin: 44px 0 18px !important;
             padding-bottom: 10px !important;
             border-bottom: 1px solid var(--border-color) !important;
-            letter-spacing: -0.02em !important;
-            line-height: 1.35 !important;
+            letter-spacing: -0.01em !important;
+            line-height: 1.25 !important;
         }}
         .memo-container h1:first-child, .memo-container h2:first-of-type {{ margin-top: 0 !important; }}
         .memo-container h3 {{
             font-family: var(--font-serif) !important;
-            font-size: 1.28rem !important;
-            font-weight: 500 !important;
+            font-size: 1.45rem !important;
+            font-weight: 400 !important;
             color: var(--accent-warm) !important;
             margin: 32px 0 14px !important;
-            line-height: 1.4 !important;
+            line-height: 1.3 !important;
         }}
         .memo-container h4, .memo-container h5, .memo-container h6 {{
-            font-family: var(--font-serif) !important;
-            font-size: 1.12rem !important;
+            font-family: var(--font-sans) !important;
+            font-size: 0.94rem !important;
             font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.04em !important;
             color: var(--text-title) !important;
             margin: 24px 0 10px !important;
         }}
         .memo-container p {{
-            font-family: var(--font-serif) !important;
-            font-size: 1.15rem !important;
-            line-height: 1.9 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 0.98rem !important;
+            line-height: 1.76 !important;
             color: var(--text-body) !important;
-            margin-bottom: 22px !important;
+            margin-bottom: 20px !important;
         }}
         .memo-container ul, .memo-container ol {{
-            font-family: var(--font-serif) !important;
-            font-size: 1.12rem !important;
-            line-height: 1.85 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 0.96rem !important;
+            line-height: 1.72 !important;
             color: var(--text-body) !important;
-            margin: 16px 0 24px 24px !important;
-            padding-left: 12px !important;
+            margin: 14px 0 22px 20px !important;
+            padding-left: 10px !important;
         }}
         .memo-container ul {{ list-style-type: disc !important; }}
         .memo-container ol {{ list-style-type: decimal !important; }}
         .memo-container li {{
-            margin-bottom: 12px !important;
+            margin-bottom: 10px !important;
             color: var(--text-body) !important;
-            line-height: 1.85 !important;
+            line-height: 1.72 !important;
         }}
         .memo-container li::marker {{
             color: var(--accent-warm) !important;
@@ -2082,9 +2085,9 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
@@ -2106,9 +2109,9 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             --accent-red: #C97A72;
             --border-color: rgba(255, 255, 255, 0.055);
             --border-focus: rgba(212, 163, 115, 0.35);
-            --font-serif: 'Newsreader', Garamond, Georgia, serif;
-            --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
+            --font-serif: 'Instrument Serif', Georgia, serif;
+            --font-sans: 'Geist', 'Plus Jakarta Sans', -apple-system, sans-serif;
+            --font-mono: 'Geist Mono', 'JetBrains Mono', monospace;
         }}
 
         /* KaTeX Math Styling & Dark Theme Alignment */
