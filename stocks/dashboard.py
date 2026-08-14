@@ -163,81 +163,81 @@ def build_labels_legend_modal_html() -> str:
             <div style="display: flex; flex-direction: column; gap: 16px;">
                 <!-- Section 1: Conviction Tiers -->
                 <div style="background: var(--bg-subpanel); border: 1px solid var(--border-color); border-radius: 10px; padding: 18px 20px;">
-                    <div style="font-family: var(--font-sans); font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-warm); margin-bottom: 12px;">
+                    <div style="font-family: var(--font-sans); font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-warm); margin-bottom: 14px;">
                         Forward Conviction &amp; Risk Stance
                     </div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px 18px;">
                         <div style="display: flex; flex-direction: column; gap: 3px;">
-                            <div style="display: flex; align-items: center; gap: 8px;">
-                                <span class="pill pill-conviction" style="font-size: 0.72rem;">High Conviction</span>
+                            <div style="font-family: var(--font-sans); font-size: 0.84rem; font-weight: 600; color: var(--accent-warm);">
+                                High Conviction
                             </div>
-                            <span style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.4;">Exceptional asymmetric risk/reward, dominant economic moat, and fortress balance sheet.</span>
+                            <span style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.45;">Exceptional asymmetric risk/reward, dominant economic moat, and fortress balance sheet.</span>
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 3px;">
-                            <div style="display: flex; align-items: center; gap: 8px;">
-                                <span class="pill pill-conviction" style="font-size: 0.72rem;">Solid Conviction</span>
+                            <div style="font-family: var(--font-sans); font-size: 0.84rem; font-weight: 600; color: var(--accent-warm);">
+                                Solid Conviction
                             </div>
-                            <span style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.4;">Proven recurring cash generation, structural advantages, and clear compounding runway.</span>
+                            <span style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.45;">Proven recurring cash generation, structural advantages, and clear compounding runway.</span>
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 3px;">
-                            <div style="display: flex; align-items: center; gap: 8px;">
-                                <span class="pill pill-conviction" style="font-size: 0.72rem;">Moderate Conviction</span>
+                            <div style="font-family: var(--font-sans); font-size: 0.84rem; font-weight: 600; color: var(--accent-warm);">
+                                Moderate Conviction
                             </div>
-                            <span style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.4;">Attractive upside balanced by cyclical exposure or competitive transition.</span>
+                            <span style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.45;">Attractive upside balanced by cyclical exposure or competitive transition.</span>
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 3px;">
-                            <div style="display: flex; align-items: center; gap: 8px;">
-                                <span class="pill pill-conviction" style="font-size: 0.72rem;">Cautious Stance</span>
+                            <div style="font-family: var(--font-sans); font-size: 0.84rem; font-weight: 600; color: var(--accent-warm);">
+                                Cautious Stance
                             </div>
-                            <span style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.4;">Thesis intact but facing temporary execution headwinds or margin compression.</span>
+                            <span style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.45;">Thesis intact but facing temporary execution headwinds or margin compression.</span>
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 3px;">
-                            <div style="display: flex; align-items: center; gap: 8px;">
-                                <span class="pill pill-conviction" style="font-size: 0.72rem;">Turnaround Play</span>
+                            <div style="font-family: var(--font-sans); font-size: 0.84rem; font-weight: 600; color: var(--accent-warm);">
+                                Turnaround Play
                             </div>
-                            <span style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.4;">High upside anchored in management operational reset, debt paydown, or cost cuts.</span>
+                            <span style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.45;">High upside anchored in management operational reset, debt paydown, or cost cuts.</span>
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 3px;">
-                            <div style="display: flex; align-items: center; gap: 8px;">
-                                <span class="pill pill-conviction" style="font-size: 0.72rem;">Speculative Risk</span>
+                            <div style="font-family: var(--font-sans); font-size: 0.84rem; font-weight: 600; color: var(--accent-warm);">
+                                Speculative Risk
                             </div>
-                            <span style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.4;">High asymmetry paired with balance sheet leverage or binary product adoption.</span>
+                            <span style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.45;">High asymmetry paired with balance sheet leverage or binary product adoption.</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Section 2: Action Signals -->
                 <div style="background: var(--bg-subpanel); border: 1px solid var(--border-color); border-radius: 10px; padding: 18px 20px;">
-                    <div style="font-family: var(--font-sans); font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-warm); margin-bottom: 12px;">
+                    <div style="font-family: var(--font-sans); font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-warm); margin-bottom: 14px;">
                         Live Surveillance Action Signals
                     </div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px 18px;">
                         <div style="display: flex; gap: 10px; align-items: flex-start;">
                             <span class="status-beacon beacon-buy" style="margin-top: 4px;"><span class="beacon-dot"></span></span>
-                            <div>
-                                <strong style="color: var(--accent-green); font-size: 0.84rem;">BUY:</strong>
-                                <div style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.35;">Thesis accelerating, fundamentals compounding, deep value buy zone.</div>
+                            <div style="display: flex; flex-direction: column; gap: 2px;">
+                                <strong style="color: var(--accent-green); font-size: 0.84rem; font-family: var(--font-sans);">BUY</strong>
+                                <div style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.4;">Thesis accelerating, fundamentals compounding, deep value buy zone.</div>
                             </div>
                         </div>
                         <div style="display: flex; gap: 10px; align-items: flex-start;">
                             <span class="status-beacon beacon-hold" style="margin-top: 4px;"><span class="beacon-dot"></span></span>
-                            <div>
-                                <strong style="color: var(--accent-warm); font-size: 0.84rem;">HOLD:</strong>
-                                <div style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.35;">Thesis steady, fairly valued. Maintain core position.</div>
+                            <div style="display: flex; flex-direction: column; gap: 2px;">
+                                <strong style="color: var(--accent-warm); font-size: 0.84rem; font-family: var(--font-sans);">HOLD</strong>
+                                <div style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.4;">Thesis steady, fairly valued. Maintain core position.</div>
                             </div>
                         </div>
                         <div style="display: flex; gap: 10px; align-items: flex-start;">
                             <span class="status-beacon beacon-caution" style="margin-top: 4px;"><span class="beacon-dot"></span></span>
-                            <div>
-                                <strong style="color: #D48858; font-size: 0.84rem;">CAUTION:</strong>
-                                <div style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.35;">Thesis encountering execution friction or margin pressure. Trim zone.</div>
+                            <div style="display: flex; flex-direction: column; gap: 2px;">
+                                <strong style="color: #D48858; font-size: 0.84rem; font-family: var(--font-sans);">CAUTION</strong>
+                                <div style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.4;">Thesis encountering execution friction or margin pressure. Trim zone.</div>
                             </div>
                         </div>
                         <div style="display: flex; gap: 10px; align-items: flex-start;">
                             <span class="status-beacon beacon-avoid" style="margin-top: 4px;"><span class="beacon-dot"></span></span>
-                            <div>
-                                <strong style="color: var(--accent-red); font-size: 0.84rem;">AVOID:</strong>
-                                <div style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.35;">Thesis broken, structural moat decay, or fatal hurdle breakdown.</div>
+                            <div style="display: flex; flex-direction: column; gap: 2px;">
+                                <strong style="color: var(--accent-red); font-size: 0.84rem; font-family: var(--font-sans);">AVOID</strong>
+                                <div style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.4;">Thesis broken, structural moat decay, or fatal hurdle breakdown.</div>
                             </div>
                         </div>
                     </div>
@@ -2111,7 +2111,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                 radial-gradient(ellipse 90% 50% at 50% -10%, rgba(212, 163, 115, 0.04), transparent 70%),
                 var(--bg-canvas);
             color: var(--text-body);
-            font-family: var(--font-serif);
+            font-family: var(--font-sans);
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
             padding-bottom: 120px;
@@ -2469,15 +2469,16 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             line-height: 1.4;
         }}
         .tbl-cat-date {{
-            font-family: var(--font-sans);
+            font-family: var(--font-mono);
             font-size: 0.88rem;
             font-weight: 500;
             color: var(--text-title);
             line-height: 1.2;
         }}
         .tbl-cat-desc {{
-            font-size: 0.8rem;
-            color: var(--text-dim);
+            font-family: var(--font-sans);
+            font-size: 0.80rem;
+            color: var(--text-secondary);
             line-height: 1.35;
             white-space: normal;
             word-break: break-word;
@@ -2508,10 +2509,10 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.03);
         }}
         .grid-card-top {{ display: flex; justify-content: space-between; align-items: center; }}
-        .grid-symbol {{ font-family: var(--font-serif); font-size: 1.8rem; font-weight: 500; color: var(--text-title); }}
-        .grid-price {{ font-size: 1.6rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }}
+        .grid-symbol {{ font-family: var(--font-mono); font-size: 1.45rem; font-weight: 600; color: var(--text-title); }}
+        .grid-price {{ font-size: 1.45rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }}
         .grid-labels-row {{ display: flex; gap: 6px; flex-wrap: wrap; }}
-        .grid-company {{ color: var(--text-secondary); font-size: 0.92rem; font-style: italic; margin: 4px 0 18px; }}
+        .grid-company {{ color: var(--text-secondary); font-size: 0.86rem; font-family: var(--font-sans); margin: 4px 0 16px; }}
 
         .grid-metrics-box {{
             display: grid;
@@ -2523,8 +2524,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             margin-bottom: 18px;
         }}
         .grid-stat {{ display: flex; flex-direction: column; }}
-        .grid-stat-lbl {{ font-size: 0.65rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); font-weight: 500; }}
-        .grid-stat-val {{ font-size: 1rem; font-weight: 500; font-family: var(--font-mono); margin-top: 2px; }}
+        .grid-stat-lbl {{ font-size: 0.65rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); font-weight: 600; letter-spacing: 0.05em; }}
+        .grid-stat-val {{ font-size: 0.95rem; font-weight: 500; font-family: var(--font-mono); margin-top: 2px; }}
 
         .grid-card-foot {{
             display: flex; justify-content: space-between; align-items: center;
@@ -2553,10 +2554,10 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         }}
         .alert-left {{ flex: 1; }}
         .alert-badges {{ display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }}
-        .alert-ticker {{ font-family: var(--font-serif); font-size: 1.2rem; font-weight: 500; color: var(--text-title); }}
+        .alert-ticker {{ font-family: var(--font-mono); font-size: 1.08rem; font-weight: 600; color: var(--text-title); }}
         .alert-time {{ font-size: 0.78rem; color: var(--text-dim); font-family: var(--font-mono); }}
-        .alert-title {{ font-family: var(--font-serif); font-size: 1.2rem; font-weight: 500; color: var(--text-title); margin-bottom: 4px; }}
-        .alert-blurb {{ font-size: 1.02rem; color: var(--text-secondary); line-height: 1.55; }}
+        .alert-title {{ font-family: var(--font-sans); font-size: 1.05rem; font-weight: 600; color: var(--text-title); margin-bottom: 4px; }}
+        .alert-blurb {{ font-size: 0.92rem; font-family: var(--font-sans); color: var(--text-secondary); line-height: 1.55; }}
 
         .alert-right {{ text-align: right; }}
         .alert-price-val {{ font-size: 1.45rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }}
@@ -2594,6 +2595,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             letter-spacing: 0.03em;
             white-space: nowrap;
         }}
+        .pill-conviction {{ background: rgba(212, 163, 115, 0.12); color: var(--accent-warm); border: 1px solid rgba(212, 163, 115, 0.35); font-weight: 600; }}
+        .pill-driver {{ background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); font-weight: 500; }}
         .pill-active {{ background: rgba(201, 154, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.45); font-weight: 600; box-shadow: 0 0 10px rgba(201, 154, 117, 0.06); }}
         .pill-neutral {{ background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); font-weight: 500; }}
         .pill-alert {{ background: rgba(191, 160, 117, 0.14); color: var(--accent-warm); border: 1px solid rgba(191, 160, 117, 0.28); }}

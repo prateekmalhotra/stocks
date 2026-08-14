@@ -389,8 +389,8 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
         if t == "USD_CASH":
             ticker_col = """
             <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-serif); font-size:1.20rem; color:var(--text-title);">Cash</span>
-                <span style="font-size:0.78rem; color:var(--text-dim);">US Treasury (5.0%)</span>
+                <span style="font-family:var(--font-mono); font-weight:600; font-size:1.02rem; color:var(--text-title);">Cash</span>
+                <span style="font-family:var(--font-sans); font-size:0.78rem; color:var(--text-dim);">US Treasury (5.0%)</span>
             </div>
             """
             alloc_col = f"""
@@ -413,7 +413,7 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                 <a href="{h['report_url']}" style="font-family:var(--font-mono); font-weight:600; font-size:1.02rem; color:var(--text-title); text-decoration:none;">
                     {t}
                 </a>
-                <span style="font-size:0.78rem; color:var(--text-secondary); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="{display_name}">{display_name}</span>
+                <span style="font-family:var(--font-sans); font-size:0.78rem; color:var(--text-secondary); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="{display_name}">{display_name}</span>
             </div>
             """
             cur_pos_val = h['shares_to_buy'] * cur_p
@@ -512,7 +512,7 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
         <!-- 4 Clean KPI Cards -->
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px;">
             <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:16px 18px; display:flex; flex-direction:column; justify-content:space-between;">
-                <div style="font-size:0.68rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:6px;">Cash Flow Yield</div>
+                <div style="font-family:var(--font-sans); font-size:0.68rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:6px;">Cash Flow Yield</div>
                 <div style="font-family:var(--font-mono); font-size:1.65rem; font-weight:600; color:var(--accent-warm); margin-bottom:4px; line-height:1.1;">
                     {stats['look_through_fcf_yield_pct']:.2f}%
                 </div>
@@ -520,7 +520,7 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
             </div>
 
             <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:16px 18px; display:flex; flex-direction:column; justify-content:space-between;">
-                <div style="font-size:0.68rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:6px;">Cash Reserve</div>
+                <div style="font-family:var(--font-sans); font-size:0.68rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:6px;">Cash Reserve</div>
                 <div style="font-family:var(--font-mono); font-size:1.65rem; font-weight:600; color:var(--accent-green); margin-bottom:4px; line-height:1.1;">
                     {stats['cash_weight_pct']:.1f}%
                 </div>
@@ -528,19 +528,19 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
             </div>
 
             <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:16px 18px; display:flex; flex-direction:column; justify-content:space-between;">
-                <div style="font-size:0.68rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:6px;">Margin of Safety</div>
+                <div style="font-family:var(--font-sans); font-size:0.68rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:6px;">Margin of Safety</div>
                 <div style="font-family:var(--font-mono); font-size:1.65rem; font-weight:600; color:var(--accent-green); margin-bottom:4px; line-height:1.1;">
                     +{stats['portfolio_margin_of_safety_pct']:.1f}%
                 </div>
-                <div style="font-size:0.76rem; color:var(--text-secondary);">vs Intrinsic DCF</div>
+                <div style="font-family:var(--font-sans); font-size:0.76rem; color:var(--text-secondary);">vs Intrinsic DCF</div>
             </div>
 
             <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:16px 18px; display:flex; flex-direction:column; justify-content:space-between;">
-                <div style="font-size:0.68rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:6px;">Cannibal Rate</div>
+                <div style="font-family:var(--font-sans); font-size:0.68rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:6px;">Cannibal Rate</div>
                 <div style="font-family:var(--font-mono); font-size:1.65rem; font-weight:600; color:var(--text-title); margin-bottom:4px; line-height:1.1;">
                     +{stats['share_cannibalization_rate_pct']:.2f}%
                 </div>
-                <div style="font-size:0.76rem; color:var(--text-secondary);">Share Buybacks</div>
+                <div style="font-family:var(--font-sans); font-size:0.76rem; color:var(--text-secondary);">Share Buybacks</div>
             </div>
         </div>
 
@@ -555,7 +555,7 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                     <col style="width:16%;">
                 </colgroup>
                 <thead>
-                    <tr style="border-bottom:1px solid var(--border-color); text-align:left; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim);">
+                    <tr style="border-bottom:1px solid var(--border-color); text-align:left; font-family:var(--font-sans); font-size:0.70rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim);">
                         <th style="padding:12px 16px;">Holding</th>
                         <th style="padding:12px 16px;">Allocation</th>
                         <th style="padding:12px 16px;">Market Price</th>
