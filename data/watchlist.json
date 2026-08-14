@@ -2623,5 +2623,169 @@
     "last_updated": "2026-08-12",
     "total_versions": 1,
     "report_path": "reports/CHGG.html"
+  },
+  "AFL": {
+    "ticker": "AFL",
+    "company_name": "AFLAC Incorporated",
+    "baseline_price": 121.45,
+    "current_price": 121.45,
+    "return_pct": 0.0,
+    "status_label": "Solid Conviction",
+    "labels": [
+      "Solid Conviction",
+      "Buyback Cannibal",
+      "Cash Fortress"
+    ],
+    "action_signal": "HOLD",
+    "fair_value_estimate": "$128.00",
+    "bear_target": "$102.00 (-16.0%)",
+    "base_target": "$128.00 (+5.4%)",
+    "bull_target": "$148.00 (+21.9%)",
+    "upper_alert_threshold": 132.0,
+    "lower_alert_threshold": 105.0,
+    "next_catalyst_date": "2026-11-04",
+    "next_catalyst_event": "Q3 '26 ER",
+    "top_funds": [
+      "John Rogers - Ariel Investments (0.28)",
+      "David Katz - Matrix Asset Advisors (0.06)"
+    ],
+    "institutional_ownership_pct": "75.9%",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Routine 10b5-1 executive stock option exercises and tax withholdings; zero open-market buying.",
+    "last_updated": "2026-08-14",
+    "total_versions": 1,
+    "report_path": "reports/AFL.html"
+  },
+  "ALLY": {
+    "ticker": "ALLY",
+    "company_name": "Ally Financial Inc.",
+    "baseline_price": 44.91,
+    "current_price": 44.91,
+    "return_pct": 0.0,
+    "status_label": "High Conviction",
+    "labels": [
+      "High Conviction",
+      "Deep Value",
+      "Margin Expansion"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$56.00",
+    "bear_target": "$35.00 (-22.1%)",
+    "base_target": "$56.00 (+24.7%)",
+    "bull_target": "$72.00 (+60.3%)",
+    "upper_alert_threshold": 54.0,
+    "lower_alert_threshold": 37.5,
+    "next_catalyst_date": "2026-10-16",
+    "next_catalyst_event": "Q3 '26 ER",
+    "top_funds": [
+      "Francis Chou - Chou Associates (4.78)",
+      "Bill Nygren - Oakmark Funds (1.60)",
+      "Warren Buffett - Berkshire Hathaway (0.41)",
+      "Tweedy Browne (0.16)"
+    ],
+    "institutional_ownership_pct": "84.2%",
+    "insider_signal": "Cluster Buying",
+    "insider_summary": "CEO & CFO executed ~$1.5M open-market buys in Jan '26 at $41.68-$43.17.",
+    "last_updated": "2026-08-14",
+    "total_versions": 1,
+    "report_path": "reports/ALLY.html"
+  },
+  "AMD": {
+    "ticker": "AMD",
+    "company_name": "Advanced Micro Devices, Inc.",
+    "baseline_price": 514.39,
+    "current_price": 514.39,
+    "return_pct": 0.0,
+    "status_label": "Solid Conviction",
+    "labels": [
+      "Solid Conviction",
+      "Ai Data",
+      "Moat Expansion"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$560.00",
+    "bear_target": "$340.00 (-33.9%)",
+    "base_target": "$560.00 (+8.9%)",
+    "bull_target": "$780.00 (+51.6%)",
+    "upper_alert_threshold": 620.0,
+    "lower_alert_threshold": 420.0,
+    "next_catalyst_date": "2026-11-03",
+    "next_catalyst_event": "Q3 '26 ER",
+    "top_funds": [
+      "Lee Ainslie - Maverick Capital (5.12)",
+      "Chase Coleman - Tiger Global Management (1.63)",
+      "David Tepper - Appaloosa Management (1.54)",
+      "Mairs & Power Funds (0.01)",
+      "Polen Capital Management (0.00)",
+      "Bill Nygren - Oakmark Funds (0.00)"
+    ],
+    "institutional_ownership_pct": "71.2%",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Routine pre-planned Form 4 sales by CTO Papermaster and CFO Hu",
+    "last_updated": "2026-08-14",
+    "total_versions": 1,
+    "report_path": "reports/AMD.html"
+  },
+  "AMR": {
+    "ticker": "AMR",
+    "company_name": "Alpha Metallurgical Resources, ",
+    "baseline_price": 166.05,
+    "current_price": 166.05,
+    "return_pct": 0.0,
+    "status_label": "Moderate Conviction",
+    "labels": [
+      "Moderate Conviction",
+      "Buyback Cannibal",
+      "Cyclical Bottom"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$220.00",
+    "bear_target": "$125.00 (-24.7%)",
+    "base_target": "$220.00 (+32.5%)",
+    "bull_target": "$325.00 (+95.7%)",
+    "upper_alert_threshold": 215.0,
+    "lower_alert_threshold": 135.0,
+    "next_catalyst_date": "2026-11-05",
+    "next_catalyst_event": "Q3 '26 ER",
+    "top_funds": [
+      "Mohnish Pabrai - Pabrai Investments (26.11)"
+    ],
+    "institutional_ownership_pct": "88.2%",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Execs hold core equity; routine tax-withholding Form 4s following Q2 earnings",
+    "last_updated": "2026-08-14",
+    "total_versions": 1,
+    "report_path": "reports/AMR.html"
+  },
+  "ARE": {
+    "ticker": "ARE",
+    "company_name": "Alexandria Real Estate Equities",
+    "baseline_price": 48.14,
+    "current_price": 48.14,
+    "return_pct": 0.0,
+    "status_label": "High Conviction",
+    "labels": [
+      "High Conviction",
+      "Deep Value",
+      "Megacampus Moat"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$72.00",
+    "bear_target": "$38.00 (-21.1%)",
+    "base_target": "$72.00 (+49.6%)",
+    "bull_target": "$95.00 (+97.3%)",
+    "upper_alert_threshold": 62.0,
+    "lower_alert_threshold": 40.0,
+    "next_catalyst_date": "2026-10-26",
+    "next_catalyst_event": "Q3 '26 Earnings Release",
+    "top_funds": [
+      "Christopher Davis - Davis Advisors (0.02)"
+    ],
+    "institutional_ownership_pct": "96.5%",
+    "insider_signal": "Net Buying",
+    "insider_summary": "Exec Chairman Joel Marcus bought $2.4M in ARE stock in June 2026",
+    "last_updated": "2026-08-14",
+    "total_versions": 1,
+    "report_path": "reports/ARE.html"
   }
 }

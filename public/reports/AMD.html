@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UL — Investment Memo</title>
+    <title>AMD — Investment Memo</title>
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
     <link rel="apple-touch-icon" href="../favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1072,7 +1072,7 @@
     <nav class="nav-bar">
         <div class="container nav-inner">
             <a href="../index.html" class="nav-back">← AlphaThesis</a>
-            <span style="font-size: 0.82rem; color: var(--text-dim); font-family: var(--font-sans);">UL RESEARCH</span>
+            <span style="font-size: 0.82rem; color: var(--text-dim); font-family: var(--font-sans);">AMD RESEARCH</span>
         </div>
     </nav>
 
@@ -1082,17 +1082,17 @@
             <div class="hero-top-row">
                 <div>
                     <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-                        <div class="ticker-logo-wrap" style="width:32px; height:32px; min-width:32px; min-height:32px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/UL" alt="UL" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:13px;">UL</span></div>
-                        <span class="ticker-symbol">UL</span>
+                        <div class="ticker-logo-wrap" style="width:32px; height:32px; min-width:32px; min-height:32px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/AMD" alt="AMD" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:13px;">AM</span></div>
+                        <span class="ticker-symbol">AMD</span>
                         <span class="pill pill-conviction">Solid Conviction</span>
                         <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="View Investment Taxonomy & Labels Legend">ⓘ</button>
                     </div>
-                    <div class="company-meta">Unilever PLC</div>
+                    <div class="company-meta">Advanced Micro Devices, Inc.</div>
                 </div>
                 <div class="price-callout">
-                    <div class="price-number">$62.09</div>
-                    <div class="price-sub neg">
-                        -0.45%
+                    <div class="price-number">$514.39</div>
+                    <div class="price-sub pos">
+                        +0.00%
                     </div>
                 </div>
             </div>
@@ -1102,7 +1102,7 @@
     <div class="native-chart-wrap" id="chart-container" style="position: relative; overflow: hidden;">
         <div class="chart-top-bar">
             <div id="chart-live-val" class="chart-live-val">
-                <span id="tooltip-date">Aug 14, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$62.09</strong>
+                <span id="tooltip-date">Aug 14, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$514.39</strong>
                 <span id="tooltip-delta" class="pos" style="font-size: 0.76rem; margin-left: 6px;"></span>
             </div>
             <div class="chart-range-pills">
@@ -1150,15 +1150,15 @@
         </div>
 
         <div class="chart-labels">
-            <span id="chart-start-lbl">Aug 15, 2025 ($55.05)</span>
+            <span id="chart-start-lbl">Aug 15, 2025 ($151.14)</span>
             <span id="chart-range-title">1-Year Historical Range</span>
-            <span id="chart-end-lbl">Aug 14, 2026 ($62.09)</span>
+            <span id="chart-end-lbl">Aug 14, 2026 ($514.39)</span>
         </div>
     </div>
 
     <script>
     (function() {
-        const allDatasets = {"1Y": [{"date": "Aug 15, 2025", "price": 68.69}, {"date": "Aug 18, 2025", "price": 69.02}, {"date": "Aug 19, 2025", "price": 69.79}, {"date": "Aug 20, 2025", "price": 71.58}, {"date": "Aug 21, 2025", "price": 71.25}, {"date": "Aug 22, 2025", "price": 71.01}, {"date": "Aug 25, 2025", "price": 69.89}, {"date": "Aug 26, 2025", "price": 69.82}, {"date": "Aug 27, 2025", "price": 70.41}, {"date": "Aug 28, 2025", "price": 70.24}, {"date": "Aug 29, 2025", "price": 71.17}, {"date": "Sep 02, 2025", "price": 71.55}, {"date": "Sep 03, 2025", "price": 72.34}, {"date": "Sep 04, 2025", "price": 73.21}, {"date": "Sep 05, 2025", "price": 72.42}, {"date": "Sep 08, 2025", "price": 72.07}, {"date": "Sep 09, 2025", "price": 71.04}, {"date": "Sep 10, 2025", "price": 70.7}, {"date": "Sep 11, 2025", "price": 71.5}, {"date": "Sep 12, 2025", "price": 70.82}, {"date": "Sep 15, 2025", "price": 70.18}, {"date": "Sep 16, 2025", "price": 69.66}, {"date": "Sep 17, 2025", "price": 70.29}, {"date": "Sep 18, 2025", "price": 69.21}, {"date": "Sep 19, 2025", "price": 68.92}, {"date": "Sep 22, 2025", "price": 68.12}, {"date": "Sep 23, 2025", "price": 68.22}, {"date": "Sep 24, 2025", "price": 67.67}, {"date": "Sep 25, 2025", "price": 66.81}, {"date": "Sep 26, 2025", "price": 66.76}, {"date": "Sep 29, 2025", "price": 66.63}, {"date": "Sep 30, 2025", "price": 66.76}, {"date": "Oct 01, 2025", "price": 66.23}, {"date": "Oct 02, 2025", "price": 66.37}, {"date": "Oct 03, 2025", "price": 66.51}, {"date": "Oct 06, 2025", "price": 65.97}, {"date": "Oct 07, 2025", "price": 66.0}, {"date": "Oct 08, 2025", "price": 66.04}, {"date": "Oct 09, 2025", "price": 66.36}, {"date": "Oct 10, 2025", "price": 68.05}, {"date": "Oct 13, 2025", "price": 67.67}, {"date": "Oct 14, 2025", "price": 68.68}, {"date": "Oct 15, 2025", "price": 68.56}, {"date": "Oct 16, 2025", "price": 69.84}, {"date": "Oct 17, 2025", "price": 71.08}, {"date": "Oct 20, 2025", "price": 70.82}, {"date": "Oct 21, 2025", "price": 70.2}, {"date": "Oct 22, 2025", "price": 70.02}, {"date": "Oct 23, 2025", "price": 70.18}, {"date": "Oct 24, 2025", "price": 70.57}, {"date": "Oct 27, 2025", "price": 70.62}, {"date": "Oct 28, 2025", "price": 69.73}, {"date": "Oct 29, 2025", "price": 68.66}, {"date": "Oct 30, 2025", "price": 68.55}, {"date": "Oct 31, 2025", "price": 67.78}, {"date": "Nov 03, 2025", "price": 68.32}, {"date": "Nov 04, 2025", "price": 68.48}, {"date": "Nov 05, 2025", "price": 69.02}, {"date": "Nov 06, 2025", "price": 68.59}, {"date": "Nov 07, 2025", "price": 69.22}, {"date": "Nov 10, 2025", "price": 68.48}, {"date": "Nov 11, 2025", "price": 68.77}, {"date": "Nov 12, 2025", "price": 68.68}, {"date": "Nov 13, 2025", "price": 67.94}, {"date": "Nov 14, 2025", "price": 66.71}, {"date": "Nov 17, 2025", "price": 66.68}, {"date": "Nov 18, 2025", "price": 66.88}, {"date": "Nov 19, 2025", "price": 66.3}, {"date": "Nov 20, 2025", "price": 66.76}, {"date": "Nov 21, 2025", "price": 68.02}, {"date": "Nov 24, 2025", "price": 67.12}, {"date": "Nov 25, 2025", "price": 67.83}, {"date": "Nov 26, 2025", "price": 67.79}, {"date": "Nov 28, 2025", "price": 68.23}, {"date": "Dec 01, 2025", "price": 67.96}, {"date": "Dec 02, 2025", "price": 67.04}, {"date": "Dec 03, 2025", "price": 66.85}, {"date": "Dec 04, 2025", "price": 66.57}, {"date": "Dec 05, 2025", "price": 66.98}, {"date": "Dec 08, 2025", "price": 62.27}, {"date": "Dec 09, 2025", "price": 64.04}, {"date": "Dec 10, 2025", "price": 63.86}, {"date": "Dec 11, 2025", "price": 64.82}, {"date": "Dec 12, 2025", "price": 64.94}, {"date": "Dec 15, 2025", "price": 65.04}, {"date": "Dec 16, 2025", "price": 64.33}, {"date": "Dec 17, 2025", "price": 65.57}, {"date": "Dec 18, 2025", "price": 65.2}, {"date": "Dec 19, 2025", "price": 65.1}, {"date": "Dec 22, 2025", "price": 64.96}, {"date": "Dec 23, 2025", "price": 65.73}, {"date": "Dec 24, 2025", "price": 65.99}, {"date": "Dec 26, 2025", "price": 66.18}, {"date": "Dec 29, 2025", "price": 65.77}, {"date": "Dec 30, 2025", "price": 65.62}, {"date": "Dec 31, 2025", "price": 65.4}, {"date": "Jan 02, 2026", "price": 65.05}, {"date": "Jan 05, 2026", "price": 63.74}, {"date": "Jan 06, 2026", "price": 64.48}, {"date": "Jan 07, 2026", "price": 62.62}, {"date": "Jan 08, 2026", "price": 63.34}, {"date": "Jan 09, 2026", "price": 64.2}, {"date": "Jan 12, 2026", "price": 64.42}, {"date": "Jan 13, 2026", "price": 64.7}, {"date": "Jan 14, 2026", "price": 65.33}, {"date": "Jan 15, 2026", "price": 64.21}, {"date": "Jan 16, 2026", "price": 64.51}, {"date": "Jan 20, 2026", "price": 64.9}, {"date": "Jan 21, 2026", "price": 64.83}, {"date": "Jan 22, 2026", "price": 65.53}, {"date": "Jan 23, 2026", "price": 67.0}, {"date": "Jan 26, 2026", "price": 67.31}, {"date": "Jan 27, 2026", "price": 67.56}, {"date": "Jan 28, 2026", "price": 66.53}, {"date": "Jan 29, 2026", "price": 67.53}, {"date": "Jan 30, 2026", "price": 68.36}, {"date": "Feb 02, 2026", "price": 68.77}, {"date": "Feb 03, 2026", "price": 69.15}, {"date": "Feb 04, 2026", "price": 70.79}, {"date": "Feb 05, 2026", "price": 71.57}, {"date": "Feb 06, 2026", "price": 72.12}, {"date": "Feb 09, 2026", "price": 71.36}, {"date": "Feb 10, 2026", "price": 71.97}, {"date": "Feb 11, 2026", "price": 73.27}, {"date": "Feb 12, 2026", "price": 73.46}, {"date": "Feb 13, 2026", "price": 74.59}, {"date": "Feb 17, 2026", "price": 73.96}, {"date": "Feb 18, 2026", "price": 72.42}, {"date": "Feb 19, 2026", "price": 72.01}, {"date": "Feb 20, 2026", "price": 73.23}, {"date": "Feb 23, 2026", "price": 73.98}, {"date": "Feb 24, 2026", "price": 74.59}, {"date": "Feb 25, 2026", "price": 73.2}, {"date": "Feb 26, 2026", "price": 73.28}, {"date": "Feb 27, 2026", "price": 73.75}, {"date": "Mar 02, 2026", "price": 71.48}, {"date": "Mar 03, 2026", "price": 69.15}, {"date": "Mar 04, 2026", "price": 69.07}, {"date": "Mar 05, 2026", "price": 67.39}, {"date": "Mar 06, 2026", "price": 66.82}, {"date": "Mar 09, 2026", "price": 66.36}, {"date": "Mar 10, 2026", "price": 66.38}, {"date": "Mar 11, 2026", "price": 65.13}, {"date": "Mar 12, 2026", "price": 64.4}, {"date": "Mar 13, 2026", "price": 64.05}, {"date": "Mar 16, 2026", "price": 65.43}, {"date": "Mar 17, 2026", "price": 65.42}, {"date": "Mar 18, 2026", "price": 62.35}, {"date": "Mar 19, 2026", "price": 61.51}, {"date": "Mar 20, 2026", "price": 61.48}, {"date": "Mar 23, 2026", "price": 61.07}, {"date": "Mar 24, 2026", "price": 60.62}, {"date": "Mar 25, 2026", "price": 60.8}, {"date": "Mar 26, 2026", "price": 59.81}, {"date": "Mar 27, 2026", "price": 59.37}, {"date": "Mar 30, 2026", "price": 59.98}, {"date": "Mar 31, 2026", "price": 56.97}, {"date": "Apr 01, 2026", "price": 56.06}, {"date": "Apr 02, 2026", "price": 55.45}, {"date": "Apr 06, 2026", "price": 56.03}, {"date": "Apr 07, 2026", "price": 55.7}, {"date": "Apr 08, 2026", "price": 58.25}, {"date": "Apr 09, 2026", "price": 58.46}, {"date": "Apr 10, 2026", "price": 58.34}, {"date": "Apr 13, 2026", "price": 58.23}, {"date": "Apr 14, 2026", "price": 57.81}, {"date": "Apr 15, 2026", "price": 58.09}, {"date": "Apr 16, 2026", "price": 57.28}, {"date": "Apr 17, 2026", "price": 58.53}, {"date": "Apr 20, 2026", "price": 57.96}, {"date": "Apr 21, 2026", "price": 56.96}, {"date": "Apr 22, 2026", "price": 57.43}, {"date": "Apr 23, 2026", "price": 57.52}, {"date": "Apr 24, 2026", "price": 58.13}, {"date": "Apr 27, 2026", "price": 57.5}, {"date": "Apr 28, 2026", "price": 57.69}, {"date": "Apr 29, 2026", "price": 56.9}, {"date": "Apr 30, 2026", "price": 58.98}, {"date": "May 01, 2026", "price": 59.76}, {"date": "May 04, 2026", "price": 58.71}, {"date": "May 05, 2026", "price": 58.42}, {"date": "May 06, 2026", "price": 59.7}, {"date": "May 07, 2026", "price": 58.73}, {"date": "May 08, 2026", "price": 58.4}, {"date": "May 11, 2026", "price": 57.24}, {"date": "May 12, 2026", "price": 57.92}, {"date": "May 13, 2026", "price": 57.5}, {"date": "May 14, 2026", "price": 57.34}, {"date": "May 15, 2026", "price": 56.24}, {"date": "May 18, 2026", "price": 57.3}, {"date": "May 19, 2026", "price": 57.22}, {"date": "May 20, 2026", "price": 57.68}, {"date": "May 21, 2026", "price": 57.72}, {"date": "May 22, 2026", "price": 57.35}, {"date": "May 26, 2026", "price": 57.07}, {"date": "May 27, 2026", "price": 58.0}, {"date": "May 28, 2026", "price": 57.03}, {"date": "May 29, 2026", "price": 56.45}, {"date": "Jun 01, 2026", "price": 55.78}, {"date": "Jun 02, 2026", "price": 55.53}, {"date": "Jun 03, 2026", "price": 55.31}, {"date": "Jun 04, 2026", "price": 55.05}, {"date": "Jun 05, 2026", "price": 56.72}, {"date": "Jun 08, 2026", "price": 56.09}, {"date": "Jun 09, 2026", "price": 57.58}, {"date": "Jun 10, 2026", "price": 58.64}, {"date": "Jun 11, 2026", "price": 58.32}, {"date": "Jun 12, 2026", "price": 58.92}, {"date": "Jun 15, 2026", "price": 58.69}, {"date": "Jun 16, 2026", "price": 59.02}, {"date": "Jun 17, 2026", "price": 57.76}, {"date": "Jun 18, 2026", "price": 58.4}, {"date": "Jun 22, 2026", "price": 57.7}, {"date": "Jun 23, 2026", "price": 59.25}, {"date": "Jun 24, 2026", "price": 59.97}, {"date": "Jun 25, 2026", "price": 60.54}, {"date": "Jun 26, 2026", "price": 60.55}, {"date": "Jun 29, 2026", "price": 61.2}, {"date": "Jun 30, 2026", "price": 60.12}, {"date": "Jul 01, 2026", "price": 60.89}, {"date": "Jul 02, 2026", "price": 62.48}, {"date": "Jul 06, 2026", "price": 61.58}, {"date": "Jul 07, 2026", "price": 62.74}, {"date": "Jul 08, 2026", "price": 61.84}, {"date": "Jul 09, 2026", "price": 60.99}, {"date": "Jul 10, 2026", "price": 61.72}, {"date": "Jul 13, 2026", "price": 61.48}, {"date": "Jul 14, 2026", "price": 60.84}, {"date": "Jul 15, 2026", "price": 61.45}, {"date": "Jul 16, 2026", "price": 62.71}, {"date": "Jul 17, 2026", "price": 62.39}, {"date": "Jul 20, 2026", "price": 62.0}, {"date": "Jul 23, 2026", "price": 60.21}, {"date": "Jul 24, 2026", "price": 60.94}, {"date": "Jul 27, 2026", "price": 61.37}, {"date": "Jul 28, 2026", "price": 66.87}, {"date": "Jul 29, 2026", "price": 66.0}, {"date": "Jul 30, 2026", "price": 65.27}, {"date": "Aug 03, 2026", "price": 63.8}, {"date": "Aug 04, 2026", "price": 64.08}, {"date": "Aug 05, 2026", "price": 64.43}, {"date": "Aug 06, 2026", "price": 63.66}, {"date": "Aug 07, 2026", "price": 62.96}, {"date": "Aug 10, 2026", "price": 62.86}, {"date": "Aug 11, 2026", "price": 62.37}, {"date": "Aug 12, 2026", "price": 61.72}, {"date": "Aug 13, 2026", "price": 62.68}, {"date": "Aug 14, 2026", "price": 62.09}], "5Y": [{"date": "Aug 16, 2021", "price": 63.48}, {"date": "Aug 23, 2021", "price": 62.51}, {"date": "Aug 30, 2021", "price": 62.11}, {"date": "Sep 06, 2021", "price": 61.63}, {"date": "Sep 13, 2021", "price": 60.75}, {"date": "Sep 20, 2021", "price": 61.45}, {"date": "Sep 27, 2021", "price": 61.05}, {"date": "Oct 04, 2021", "price": 59.28}, {"date": "Oct 11, 2021", "price": 59.64}, {"date": "Oct 18, 2021", "price": 60.48}, {"date": "Oct 25, 2021", "price": 60.34}, {"date": "Nov 01, 2021", "price": 59.53}, {"date": "Nov 08, 2021", "price": 59.08}, {"date": "Nov 15, 2021", "price": 57.95}, {"date": "Nov 22, 2021", "price": 59.11}, {"date": "Nov 29, 2021", "price": 57.76}, {"date": "Dec 06, 2021", "price": 59.97}, {"date": "Dec 13, 2021", "price": 59.35}, {"date": "Dec 20, 2021", "price": 59.48}, {"date": "Dec 27, 2021", "price": 60.57}, {"date": "Jan 03, 2022", "price": 60.59}, {"date": "Jan 10, 2022", "price": 61.14}, {"date": "Jan 17, 2022", "price": 55.53}, {"date": "Jan 24, 2022", "price": 57.77}, {"date": "Jan 31, 2022", "price": 57.88}, {"date": "Feb 07, 2022", "price": 59.38}, {"date": "Feb 14, 2022", "price": 58.9}, {"date": "Feb 21, 2022", "price": 56.93}, {"date": "Feb 28, 2022", "price": 51.44}, {"date": "Mar 07, 2022", "price": 49.49}, {"date": "Mar 14, 2022", "price": 51.01}, {"date": "Mar 21, 2022", "price": 50.56}, {"date": "Mar 28, 2022", "price": 52.48}, {"date": "Apr 04, 2022", "price": 51.61}, {"date": "Apr 11, 2022", "price": 50.29}, {"date": "Apr 18, 2022", "price": 51.14}, {"date": "Apr 25, 2022", "price": 52.09}, {"date": "May 02, 2022", "price": 50.09}, {"date": "May 09, 2022", "price": 51.99}, {"date": "May 16, 2022", "price": 49.54}, {"date": "May 23, 2022", "price": 49.53}, {"date": "May 30, 2022", "price": 52.39}, {"date": "Jun 06, 2022", "price": 50.74}, {"date": "Jun 13, 2022", "price": 49.23}, {"date": "Jun 20, 2022", "price": 52.08}, {"date": "Jun 27, 2022", "price": 52.13}, {"date": "Jul 04, 2022", "price": 51.95}, {"date": "Jul 11, 2022", "price": 52.04}, {"date": "Jul 18, 2022", "price": 52.95}, {"date": "Jul 25, 2022", "price": 54.8}, {"date": "Aug 01, 2022", "price": 54.13}, {"date": "Aug 08, 2022", "price": 53.81}, {"date": "Aug 15, 2022", "price": 53.39}, {"date": "Aug 22, 2022", "price": 51.82}, {"date": "Aug 29, 2022", "price": 50.23}, {"date": "Sep 05, 2022", "price": 51.81}, {"date": "Sep 12, 2022", "price": 50.87}, {"date": "Sep 19, 2022", "price": 49.38}, {"date": "Sep 26, 2022", "price": 49.37}, {"date": "Oct 03, 2022", "price": 48.82}, {"date": "Oct 10, 2022", "price": 48.7}, {"date": "Oct 17, 2022", "price": 50.18}, {"date": "Oct 24, 2022", "price": 51.51}, {"date": "Oct 31, 2022", "price": 52.12}, {"date": "Nov 07, 2022", "price": 53.11}, {"date": "Nov 14, 2022", "price": 54.29}, {"date": "Nov 21, 2022", "price": 55.92}, {"date": "Nov 28, 2022", "price": 58.0}, {"date": "Dec 05, 2022", "price": 56.7}, {"date": "Dec 12, 2022", "price": 56.61}, {"date": "Dec 19, 2022", "price": 57.51}, {"date": "Dec 26, 2022", "price": 56.7}, {"date": "Jan 02, 2023", "price": 57.21}, {"date": "Jan 09, 2023", "price": 57.93}, {"date": "Jan 16, 2023", "price": 57.44}, {"date": "Jan 23, 2023", "price": 56.1}, {"date": "Jan 30, 2023", "price": 56.89}, {"date": "Feb 06, 2023", "price": 56.24}, {"date": "Feb 13, 2023", "price": 57.66}, {"date": "Feb 20, 2023", "price": 56.62}, {"date": "Feb 27, 2023", "price": 56.13}, {"date": "Mar 06, 2023", "price": 54.89}, {"date": "Mar 13, 2023", "price": 55.35}, {"date": "Mar 20, 2023", "price": 57.87}, {"date": "Mar 27, 2023", "price": 58.48}, {"date": "Apr 03, 2023", "price": 60.34}, {"date": "Apr 10, 2023", "price": 60.34}, {"date": "Apr 17, 2023", "price": 61.39}, {"date": "Apr 24, 2023", "price": 62.53}, {"date": "May 01, 2023", "price": 62.57}, {"date": "May 08, 2023", "price": 61.05}, {"date": "May 15, 2023", "price": 59.98}, {"date": "May 22, 2023", "price": 57.83}, {"date": "May 29, 2023", "price": 57.02}, {"date": "Jun 05, 2023", "price": 56.13}, {"date": "Jun 12, 2023", "price": 58.48}, {"date": "Jun 19, 2023", "price": 58.29}, {"date": "Jun 26, 2023", "price": 58.7}, {"date": "Jul 03, 2023", "price": 57.5}, {"date": "Jul 10, 2023", "price": 58.98}, {"date": "Jul 17, 2023", "price": 58.99}, {"date": "Jul 24, 2023", "price": 61.02}, {"date": "Jul 31, 2023", "price": 58.43}, {"date": "Aug 07, 2023", "price": 58.48}, {"date": "Aug 14, 2023", "price": 57.0}, {"date": "Aug 21, 2023", "price": 57.33}, {"date": "Aug 28, 2023", "price": 57.09}, {"date": "Sep 04, 2023", "price": 56.81}, {"date": "Sep 11, 2023", "price": 57.14}, {"date": "Sep 18, 2023", "price": 56.75}, {"date": "Sep 25, 2023", "price": 55.63}, {"date": "Oct 02, 2023", "price": 54.3}, {"date": "Oct 09, 2023", "price": 53.83}, {"date": "Oct 16, 2023", "price": 54.28}, {"date": "Oct 23, 2023", "price": 52.09}, {"date": "Oct 30, 2023", "price": 53.65}, {"date": "Nov 06, 2023", "price": 54.55}, {"date": "Nov 13, 2023", "price": 53.31}, {"date": "Nov 20, 2023", "price": 53.98}, {"date": "Nov 27, 2023", "price": 53.95}, {"date": "Dec 04, 2023", "price": 53.43}, {"date": "Dec 11, 2023", "price": 53.34}, {"date": "Dec 18, 2023", "price": 54.17}, {"date": "Dec 25, 2023", "price": 54.59}, {"date": "Jan 01, 2024", "price": 54.91}, {"date": "Jan 08, 2024", "price": 55.34}, {"date": "Jan 15, 2024", "price": 53.12}, {"date": "Jan 22, 2024", "price": 54.47}, {"date": "Jan 29, 2024", "price": 55.28}, {"date": "Feb 05, 2024", "price": 56.99}, {"date": "Feb 12, 2024", "price": 57.09}, {"date": "Feb 19, 2024", "price": 57.05}, {"date": "Feb 26, 2024", "price": 55.35}, {"date": "Mar 04, 2024", "price": 55.38}, {"date": "Mar 11, 2024", "price": 55.11}, {"date": "Mar 18, 2024", "price": 56.3}, {"date": "Mar 25, 2024", "price": 56.52}, {"date": "Apr 01, 2024", "price": 54.55}, {"date": "Apr 08, 2024", "price": 52.66}, {"date": "Apr 15, 2024", "price": 53.28}, {"date": "Apr 22, 2024", "price": 57.7}, {"date": "Apr 29, 2024", "price": 58.7}, {"date": "May 06, 2024", "price": 60.26}, {"date": "May 13, 2024", "price": 61.66}, {"date": "May 20, 2024", "price": 61.44}, {"date": "May 27, 2024", "price": 61.66}, {"date": "Jun 03, 2024", "price": 62.62}, {"date": "Jun 10, 2024", "price": 63.31}, {"date": "Jun 17, 2024", "price": 63.19}, {"date": "Jun 24, 2024", "price": 61.93}, {"date": "Jul 01, 2024", "price": 62.49}, {"date": "Jul 08, 2024", "price": 64.88}, {"date": "Jul 15, 2024", "price": 65.35}, {"date": "Jul 22, 2024", "price": 68.39}, {"date": "Jul 29, 2024", "price": 70.43}, {"date": "Aug 05, 2024", "price": 68.06}, {"date": "Aug 12, 2024", "price": 68.68}, {"date": "Aug 19, 2024", "price": 71.62}, {"date": "Aug 26, 2024", "price": 72.96}, {"date": "Sep 02, 2024", "price": 73.48}, {"date": "Sep 09, 2024", "price": 73.27}, {"date": "Sep 16, 2024", "price": 72.53}, {"date": "Sep 23, 2024", "price": 73.69}, {"date": "Sep 30, 2024", "price": 70.77}, {"date": "Oct 07, 2024", "price": 70.71}, {"date": "Oct 14, 2024", "price": 70.89}, {"date": "Oct 21, 2024", "price": 69.47}, {"date": "Oct 28, 2024", "price": 69.05}, {"date": "Nov 04, 2024", "price": 66.44}, {"date": "Nov 11, 2024", "price": 64.64}, {"date": "Nov 18, 2024", "price": 66.0}, {"date": "Nov 25, 2024", "price": 67.39}, {"date": "Dec 02, 2024", "price": 66.49}, {"date": "Dec 09, 2024", "price": 66.3}, {"date": "Dec 16, 2024", "price": 64.37}, {"date": "Dec 23, 2024", "price": 64.71}, {"date": "Dec 30, 2024", "price": 63.64}, {"date": "Jan 06, 2025", "price": 62.08}, {"date": "Jan 13, 2025", "price": 62.68}, {"date": "Jan 20, 2025", "price": 63.63}, {"date": "Jan 27, 2025", "price": 64.62}, {"date": "Feb 03, 2025", "price": 65.62}, {"date": "Feb 10, 2025", "price": 61.81}, {"date": "Feb 17, 2025", "price": 63.21}, {"date": "Feb 24, 2025", "price": 63.74}, {"date": "Mar 03, 2025", "price": 66.7}, {"date": "Mar 10, 2025", "price": 66.11}, {"date": "Mar 17, 2025", "price": 66.05}, {"date": "Mar 24, 2025", "price": 66.64}, {"date": "Mar 31, 2025", "price": 67.48}, {"date": "Apr 07, 2025", "price": 69.72}, {"date": "Apr 14, 2025", "price": 71.89}, {"date": "Apr 21, 2025", "price": 70.52}, {"date": "Apr 28, 2025", "price": 71.51}, {"date": "May 05, 2025", "price": 70.38}, {"date": "May 12, 2025", "price": 69.54}, {"date": "May 19, 2025", "price": 71.82}, {"date": "May 26, 2025", "price": 71.89}, {"date": "Jun 02, 2025", "price": 70.97}, {"date": "Jun 09, 2025", "price": 70.57}, {"date": "Jun 16, 2025", "price": 69.0}, {"date": "Jun 23, 2025", "price": 68.6}, {"date": "Jun 30, 2025", "price": 69.11}, {"date": "Jul 07, 2025", "price": 68.46}, {"date": "Jul 14, 2025", "price": 67.23}, {"date": "Jul 21, 2025", "price": 68.05}, {"date": "Jul 28, 2025", "price": 68.1}, {"date": "Aug 04, 2025", "price": 68.76}, {"date": "Aug 11, 2025", "price": 68.69}, {"date": "Aug 18, 2025", "price": 71.01}, {"date": "Aug 25, 2025", "price": 71.17}, {"date": "Sep 01, 2025", "price": 72.42}, {"date": "Sep 08, 2025", "price": 70.82}, {"date": "Sep 15, 2025", "price": 68.92}, {"date": "Sep 22, 2025", "price": 66.76}, {"date": "Sep 29, 2025", "price": 66.51}, {"date": "Oct 06, 2025", "price": 68.05}, {"date": "Oct 13, 2025", "price": 71.08}, {"date": "Oct 20, 2025", "price": 70.57}, {"date": "Oct 27, 2025", "price": 67.78}, {"date": "Nov 03, 2025", "price": 69.22}, {"date": "Nov 10, 2025", "price": 66.71}, {"date": "Nov 17, 2025", "price": 68.02}, {"date": "Nov 24, 2025", "price": 68.23}, {"date": "Dec 01, 2025", "price": 66.98}, {"date": "Dec 08, 2025", "price": 64.94}, {"date": "Dec 15, 2025", "price": 65.1}, {"date": "Dec 22, 2025", "price": 66.18}, {"date": "Dec 29, 2025", "price": 65.05}, {"date": "Jan 05, 2026", "price": 64.2}, {"date": "Jan 12, 2026", "price": 64.51}, {"date": "Jan 19, 2026", "price": 67.0}, {"date": "Jan 26, 2026", "price": 68.36}, {"date": "Feb 02, 2026", "price": 72.12}, {"date": "Feb 09, 2026", "price": 74.59}, {"date": "Feb 16, 2026", "price": 73.23}, {"date": "Feb 23, 2026", "price": 73.75}, {"date": "Mar 02, 2026", "price": 66.82}, {"date": "Mar 09, 2026", "price": 64.05}, {"date": "Mar 16, 2026", "price": 61.48}, {"date": "Mar 23, 2026", "price": 59.37}, {"date": "Mar 30, 2026", "price": 55.45}, {"date": "Apr 06, 2026", "price": 58.34}, {"date": "Apr 13, 2026", "price": 58.53}, {"date": "Apr 20, 2026", "price": 58.13}, {"date": "Apr 27, 2026", "price": 59.76}, {"date": "May 04, 2026", "price": 58.4}, {"date": "May 11, 2026", "price": 56.24}, {"date": "May 18, 2026", "price": 57.35}, {"date": "May 25, 2026", "price": 56.45}, {"date": "Jun 01, 2026", "price": 56.72}, {"date": "Jun 08, 2026", "price": 58.92}, {"date": "Jun 15, 2026", "price": 58.4}, {"date": "Jun 22, 2026", "price": 60.55}, {"date": "Jun 29, 2026", "price": 62.48}, {"date": "Jul 06, 2026", "price": 61.72}, {"date": "Jul 13, 2026", "price": 62.39}, {"date": "Jul 20, 2026", "price": 60.94}, {"date": "Jul 27, 2026", "price": 65.27}, {"date": "Aug 03, 2026", "price": 62.96}, {"date": "Aug 10, 2026", "price": 62.68}, {"date": "Aug 14, 2026", "price": 62.09}], "10Y": [{"date": "Sep 01, 2016", "price": 53.38}, {"date": "Oct 01, 2016", "price": 46.93}, {"date": "Nov 01, 2016", "price": 45.02}, {"date": "Dec 01, 2016", "price": 45.83}, {"date": "Jan 01, 2017", "price": 46.3}, {"date": "Feb 01, 2017", "price": 53.47}, {"date": "Mar 01, 2017", "price": 55.56}, {"date": "Apr 01, 2017", "price": 57.82}, {"date": "May 01, 2017", "price": 62.64}, {"date": "Jun 01, 2017", "price": 60.95}, {"date": "Jul 01, 2017", "price": 64.18}, {"date": "Aug 01, 2017", "price": 65.55}, {"date": "Sep 01, 2017", "price": 65.27}, {"date": "Oct 01, 2017", "price": 63.8}, {"date": "Nov 01, 2017", "price": 63.6}, {"date": "Dec 01, 2017", "price": 62.32}, {"date": "Jan 01, 2018", "price": 63.59}, {"date": "Feb 01, 2018", "price": 58.11}, {"date": "Mar 01, 2018", "price": 62.57}, {"date": "Apr 01, 2018", "price": 63.03}, {"date": "May 01, 2018", "price": 62.25}, {"date": "Jun 01, 2018", "price": 62.25}, {"date": "Jul 01, 2018", "price": 64.2}, {"date": "Aug 01, 2018", "price": 64.04}, {"date": "Sep 01, 2018", "price": 61.9}, {"date": "Oct 01, 2018", "price": 59.66}, {"date": "Nov 01, 2018", "price": 61.14}, {"date": "Dec 01, 2018", "price": 58.84}, {"date": "Jan 01, 2019", "price": 59.23}, {"date": "Feb 01, 2019", "price": 59.94}, {"date": "Mar 01, 2019", "price": 65.0}, {"date": "Apr 01, 2019", "price": 68.47}, {"date": "May 01, 2019", "price": 68.59}, {"date": "Jun 01, 2019", "price": 69.79}, {"date": "Jul 01, 2019", "price": 67.7}, {"date": "Aug 01, 2019", "price": 71.15}, {"date": "Sep 01, 2019", "price": 67.68}, {"date": "Oct 01, 2019", "price": 67.69}, {"date": "Nov 01, 2019", "price": 66.99}, {"date": "Dec 01, 2019", "price": 64.38}, {"date": "Jan 01, 2020", "price": 67.31}, {"date": "Feb 01, 2020", "price": 60.73}, {"date": "Mar 01, 2020", "price": 56.95}, {"date": "Apr 01, 2020", "price": 58.41}, {"date": "May 01, 2020", "price": 60.87}, {"date": "Jun 01, 2020", "price": 61.8}, {"date": "Jul 01, 2020", "price": 68.11}, {"date": "Aug 01, 2020", "price": 67.09}, {"date": "Sep 01, 2020", "price": 69.46}, {"date": "Oct 01, 2020", "price": 64.0}, {"date": "Nov 01, 2020", "price": 68.76}, {"date": "Dec 01, 2020", "price": 67.97}, {"date": "Jan 01, 2021", "price": 65.7}, {"date": "Feb 01, 2021", "price": 58.63}, {"date": "Mar 01, 2021", "price": 62.87}, {"date": "Apr 01, 2021", "price": 66.13}, {"date": "May 01, 2021", "price": 67.53}, {"date": "Jun 01, 2021", "price": 65.88}, {"date": "Jul 01, 2021", "price": 64.79}, {"date": "Aug 01, 2021", "price": 62.7}, {"date": "Sep 01, 2021", "price": 61.06}, {"date": "Oct 01, 2021", "price": 60.34}, {"date": "Nov 01, 2021", "price": 57.26}, {"date": "Dec 01, 2021", "price": 60.57}, {"date": "Jan 01, 2022", "price": 57.87}, {"date": "Feb 01, 2022", "price": 56.61}, {"date": "Mar 01, 2022", "price": 51.32}, {"date": "Apr 01, 2022", "price": 52.09}, {"date": "May 01, 2022", "price": 54.43}, {"date": "Jun 01, 2022", "price": 51.61}, {"date": "Jul 01, 2022", "price": 54.8}, {"date": "Aug 01, 2022", "price": 51.11}, {"date": "Sep 01, 2022", "price": 49.37}, {"date": "Oct 01, 2022", "price": 51.25}, {"date": "Nov 01, 2022", "price": 56.73}, {"date": "Dec 01, 2022", "price": 56.7}, {"date": "Jan 01, 2023", "price": 57.55}, {"date": "Feb 01, 2023", "price": 56.23}, {"date": "Mar 01, 2023", "price": 58.48}, {"date": "Apr 01, 2023", "price": 62.53}, {"date": "May 01, 2023", "price": 56.24}, {"date": "Jun 01, 2023", "price": 58.7}, {"date": "Jul 01, 2023", "price": 60.51}, {"date": "Aug 01, 2023", "price": 57.45}, {"date": "Sep 01, 2023", "price": 55.63}, {"date": "Oct 01, 2023", "price": 53.32}, {"date": "Nov 01, 2023", "price": 53.72}, {"date": "Dec 01, 2023", "price": 54.59}, {"date": "Jan 01, 2024", "price": 54.83}, {"date": "Feb 01, 2024", "price": 55.15}, {"date": "Mar 01, 2024", "price": 56.52}, {"date": "Apr 01, 2024", "price": 58.39}, {"date": "May 01, 2024", "price": 61.66}, {"date": "Jun 01, 2024", "price": 61.93}, {"date": "Jul 01, 2024", "price": 69.14}, {"date": "Aug 01, 2024", "price": 72.96}, {"date": "Sep 01, 2024", "price": 73.15}, {"date": "Oct 01, 2024", "price": 68.59}, {"date": "Nov 01, 2024", "price": 67.39}, {"date": "Dec 01, 2024", "price": 63.85}, {"date": "Jan 01, 2025", "price": 64.62}, {"date": "Feb 01, 2025", "price": 63.74}, {"date": "Mar 01, 2025", "price": 67.06}, {"date": "Apr 01, 2025", "price": 71.57}, {"date": "May 01, 2025", "price": 71.89}, {"date": "Jun 01, 2025", "price": 68.89}, {"date": "Jul 01, 2025", "price": 65.8}, {"date": "Aug 01, 2025", "price": 71.17}, {"date": "Sep 01, 2025", "price": 66.76}, {"date": "Oct 01, 2025", "price": 67.78}, {"date": "Nov 01, 2025", "price": 68.23}, {"date": "Dec 01, 2025", "price": 65.4}, {"date": "Jan 01, 2026", "price": 68.36}, {"date": "Feb 01, 2026", "price": 73.75}, {"date": "Mar 01, 2026", "price": 56.97}, {"date": "Apr 01, 2026", "price": 58.98}, {"date": "May 01, 2026", "price": 56.45}, {"date": "Jun 01, 2026", "price": 60.12}, {"date": "Jul 01, 2026", "price": 63.41}, {"date": "Aug 01, 2026", "price": 62.68}, {"date": "Aug 14, 2026", "price": 62.09}], "MAX": [{"date": "Mar 01, 1980", "price": 1.06}, {"date": "Jun 01, 1980", "price": 1.45}, {"date": "Sep 01, 1980", "price": 1.39}, {"date": "Dec 01, 1980", "price": 1.28}, {"date": "Mar 01, 1981", "price": 1.39}, {"date": "Jun 01, 1981", "price": 1.44}, {"date": "Sep 01, 1981", "price": 1.5}, {"date": "Dec 01, 1981", "price": 1.49}, {"date": "Mar 01, 1982", "price": 1.31}, {"date": "Jun 01, 1982", "price": 1.28}, {"date": "Sep 01, 1982", "price": 1.55}, {"date": "Dec 01, 1982", "price": 1.56}, {"date": "Mar 01, 1983", "price": 1.44}, {"date": "Jun 01, 1983", "price": 1.43}, {"date": "Sep 01, 1983", "price": 1.56}, {"date": "Dec 01, 1983", "price": 1.66}, {"date": "Mar 01, 1984", "price": 1.52}, {"date": "Jun 01, 1984", "price": 1.51}, {"date": "Sep 01, 1984", "price": 1.6}, {"date": "Dec 01, 1984", "price": 1.56}, {"date": "Mar 01, 1985", "price": 1.82}, {"date": "Jun 01, 1985", "price": 1.81}, {"date": "Sep 01, 1985", "price": 2.31}, {"date": "Dec 01, 1985", "price": 2.49}, {"date": "Mar 01, 1986", "price": 3.13}, {"date": "Jun 01, 1986", "price": 3.57}, {"date": "Sep 01, 1986", "price": 3.68}, {"date": "Dec 01, 1986", "price": 4.82}, {"date": "Mar 01, 1987", "price": 6.24}, {"date": "Jun 01, 1987", "price": 6.55}, {"date": "Sep 01, 1987", "price": 4.93}, {"date": "Dec 01, 1987", "price": 5.71}, {"date": "Mar 01, 1988", "price": 5.12}, {"date": "Jun 01, 1988", "price": 4.65}, {"date": "Sep 01, 1988", "price": 5.24}, {"date": "Dec 01, 1988", "price": 5.83}, {"date": "Mar 01, 1989", "price": 5.45}, {"date": "Jun 01, 1989", "price": 6.63}, {"date": "Sep 01, 1989", "price": 6.92}, {"date": "Dec 01, 1989", "price": 6.61}, {"date": "Mar 01, 1990", "price": 7.27}, {"date": "Jun 01, 1990", "price": 7.51}, {"date": "Sep 01, 1990", "price": 8.13}, {"date": "Dec 01, 1990", "price": 8.49}, {"date": "Mar 01, 1991", "price": 8.23}, {"date": "Jun 01, 1991", "price": 7.9}, {"date": "Sep 01, 1991", "price": 9.17}, {"date": "Dec 01, 1991", "price": 10.32}, {"date": "Mar 01, 1992", "price": 10.42}, {"date": "Jun 01, 1992", "price": 11.52}, {"date": "Sep 01, 1992", "price": 10.07}, {"date": "Dec 01, 1992", "price": 10.71}, {"date": "Mar 01, 1993", "price": 9.97}, {"date": "Jun 01, 1993", "price": 10.13}, {"date": "Sep 01, 1993", "price": 10.64}, {"date": "Dec 01, 1993", "price": 10.81}, {"date": "Mar 01, 1994", "price": 9.62}, {"date": "Jun 01, 1994", "price": 10.95}, {"date": "Sep 01, 1994", "price": 10.97}, {"date": "Dec 01, 1994", "price": 11.63}, {"date": "Mar 01, 1995", "price": 12.12}, {"date": "Jun 01, 1995", "price": 11.73}, {"date": "Sep 01, 1995", "price": 12.2}, {"date": "Dec 01, 1995", "price": 11.75}, {"date": "Mar 01, 1996", "price": 11.81}, {"date": "Jun 01, 1996", "price": 12.77}, {"date": "Sep 01, 1996", "price": 15.0}, {"date": "Dec 01, 1996", "price": 16.23}, {"date": "Mar 01, 1997", "price": 17.11}, {"date": "Jun 01, 1997", "price": 17.59}, {"date": "Sep 01, 1997", "price": 19.86}, {"date": "Dec 01, 1997", "price": 23.15}, {"date": "Mar 01, 1998", "price": 27.53}, {"date": "Jun 01, 1998", "price": 21.9}, {"date": "Sep 01, 1998", "price": 26.28}, {"date": "Dec 01, 1998", "price": 24.4}, {"date": "Mar 01, 1999", "price": 22.05}, {"date": "Jun 01, 1999", "price": 24.05}, {"date": "Sep 01, 1999", "price": 18.57}, {"date": "Dec 01, 1999", "price": 15.33}, {"date": "Mar 01, 2000", "price": 17.01}, {"date": "Jun 01, 2000", "price": 15.95}, {"date": "Sep 01, 2000", "price": 21.15}, {"date": "Dec 01, 2000", "price": 19.18}, {"date": "Mar 01, 2001", "price": 19.46}, {"date": "Jun 01, 2001", "price": 21.52}, {"date": "Sep 01, 2001", "price": 20.26}, {"date": "Dec 01, 2001", "price": 21.0}, {"date": "Mar 01, 2002", "price": 23.21}, {"date": "Jun 01, 2002", "price": 22.81}, {"date": "Sep 01, 2002", "price": 22.22}, {"date": "Dec 01, 2002", "price": 21.99}, {"date": "Mar 01, 2003", "price": 22.61}, {"date": "Jun 01, 2003", "price": 20.41}, {"date": "Sep 01, 2003", "price": 22.05}, {"date": "Dec 01, 2003", "price": 26.59}, {"date": "Mar 01, 2004", "price": 24.05}, {"date": "Jun 01, 2004", "price": 21.8}, {"date": "Sep 01, 2004", "price": 23.15}, {"date": "Dec 01, 2004", "price": 24.28}, {"date": "Mar 01, 2005", "price": 24.69}, {"date": "Jun 01, 2005", "price": 25.43}, {"date": "Sep 01, 2005", "price": 24.55}, {"date": "Dec 01, 2005", "price": 25.99}, {"date": "Mar 01, 2006", "price": 25.36}, {"date": "Jun 01, 2006", "price": 27.12}, {"date": "Sep 01, 2006", "price": 30.33}, {"date": "Dec 01, 2006", "price": 30.28}, {"date": "Mar 01, 2007", "price": 34.67}, {"date": "Jun 01, 2007", "price": 35.45}, {"date": "Sep 01, 2007", "price": 41.09}, {"date": "Dec 01, 2007", "price": 35.45}, {"date": "Mar 01, 2008", "price": 37.22}, {"date": "Jun 01, 2008", "price": 30.2}, {"date": "Sep 01, 2008", "price": 25.79}, {"date": "Dec 01, 2008", "price": 21.71}, {"date": "Mar 01, 2009", "price": 26.58}, {"date": "Jun 01, 2009", "price": 30.84}, {"date": "Sep 01, 2009", "price": 33.25}, {"date": "Dec 01, 2009", "price": 33.15}, {"date": "Mar 01, 2010", "price": 30.45}, {"date": "Jun 01, 2010", "price": 29.91}, {"date": "Sep 01, 2010", "price": 31.49}, {"date": "Dec 01, 2010", "price": 33.45}, {"date": "Mar 01, 2011", "price": 36.7}, {"date": "Jun 01, 2011", "price": 38.0}, {"date": "Sep 01, 2011", "price": 37.87}, {"date": "Dec 01, 2011", "price": 36.57}, {"date": "Mar 01, 2012", "price": 35.56}, {"date": "Jun 01, 2012", "price": 40.41}, {"date": "Sep 01, 2012", "price": 43.19}, {"date": "Dec 01, 2012", "price": 44.88}, {"date": "Mar 01, 2013", "price": 47.31}, {"date": "Jun 01, 2013", "price": 43.0}, {"date": "Sep 01, 2013", "price": 45.61}, {"date": "Dec 01, 2013", "price": 46.2}, {"date": "Mar 01, 2014", "price": 50.64}, {"date": "Jun 01, 2014", "price": 49.62}, {"date": "Sep 01, 2014", "price": 47.45}, {"date": "Dec 01, 2014", "price": 49.67}, {"date": "Mar 01, 2015", "price": 49.72}, {"date": "Jun 01, 2015", "price": 45.39}, {"date": "Sep 01, 2015", "price": 48.25}, {"date": "Dec 01, 2015", "price": 48.22}, {"date": "Mar 01, 2016", "price": 51.31}, {"date": "Jun 01, 2016", "price": 52.32}, {"date": "Sep 01, 2016", "price": 45.02}, {"date": "Dec 01, 2016", "price": 53.47}, {"date": "Mar 01, 2017", "price": 62.64}, {"date": "Jun 01, 2017", "price": 65.55}, {"date": "Sep 01, 2017", "price": 63.6}, {"date": "Dec 01, 2017", "price": 58.11}, {"date": "Mar 01, 2018", "price": 62.25}, {"date": "Jun 01, 2018", "price": 64.04}, {"date": "Sep 01, 2018", "price": 61.14}, {"date": "Dec 01, 2018", "price": 59.94}, {"date": "Mar 01, 2019", "price": 68.59}, {"date": "Jun 01, 2019", "price": 71.15}, {"date": "Sep 01, 2019", "price": 66.99}, {"date": "Dec 01, 2019", "price": 60.73}, {"date": "Mar 01, 2020", "price": 60.87}, {"date": "Jun 01, 2020", "price": 67.09}, {"date": "Sep 01, 2020", "price": 68.76}, {"date": "Dec 01, 2020", "price": 58.63}, {"date": "Mar 01, 2021", "price": 67.53}, {"date": "Jun 01, 2021", "price": 62.7}, {"date": "Sep 01, 2021", "price": 57.26}, {"date": "Dec 01, 2021", "price": 56.61}, {"date": "Mar 01, 2022", "price": 54.43}, {"date": "Jun 01, 2022", "price": 51.11}, {"date": "Sep 01, 2022", "price": 56.73}, {"date": "Dec 01, 2022", "price": 56.23}, {"date": "Mar 01, 2023", "price": 56.24}, {"date": "Jun 01, 2023", "price": 57.45}, {"date": "Sep 01, 2023", "price": 53.72}, {"date": "Dec 01, 2023", "price": 55.15}, {"date": "Mar 01, 2024", "price": 61.66}, {"date": "Jun 01, 2024", "price": 72.96}, {"date": "Sep 01, 2024", "price": 67.39}, {"date": "Dec 01, 2024", "price": 63.74}, {"date": "Mar 01, 2025", "price": 71.89}, {"date": "Jun 01, 2025", "price": 71.17}, {"date": "Sep 01, 2025", "price": 68.23}, {"date": "Dec 01, 2025", "price": 73.75}, {"date": "Mar 01, 2026", "price": 56.45}, {"date": "Jun 01, 2026", "price": 62.68}, {"date": "Aug 14, 2026", "price": 62.09}]};
+        const allDatasets = {"1Y": [{"date": "Aug 15, 2025", "price": 177.51}, {"date": "Aug 18, 2025", "price": 176.14}, {"date": "Aug 19, 2025", "price": 166.55}, {"date": "Aug 20, 2025", "price": 165.2}, {"date": "Aug 21, 2025", "price": 163.71}, {"date": "Aug 22, 2025", "price": 167.76}, {"date": "Aug 25, 2025", "price": 163.36}, {"date": "Aug 26, 2025", "price": 166.62}, {"date": "Aug 27, 2025", "price": 167.13}, {"date": "Aug 28, 2025", "price": 168.58}, {"date": "Aug 29, 2025", "price": 162.63}, {"date": "Sep 02, 2025", "price": 162.32}, {"date": "Sep 03, 2025", "price": 162.13}, {"date": "Sep 04, 2025", "price": 161.79}, {"date": "Sep 05, 2025", "price": 151.14}, {"date": "Sep 08, 2025", "price": 151.41}, {"date": "Sep 09, 2025", "price": 155.82}, {"date": "Sep 10, 2025", "price": 159.54}, {"date": "Sep 11, 2025", "price": 155.67}, {"date": "Sep 12, 2025", "price": 158.57}, {"date": "Sep 15, 2025", "price": 161.16}, {"date": "Sep 16, 2025", "price": 160.46}, {"date": "Sep 17, 2025", "price": 159.16}, {"date": "Sep 18, 2025", "price": 157.92}, {"date": "Sep 19, 2025", "price": 157.39}, {"date": "Sep 22, 2025", "price": 159.79}, {"date": "Sep 23, 2025", "price": 160.9}, {"date": "Sep 24, 2025", "price": 160.88}, {"date": "Sep 25, 2025", "price": 161.27}, {"date": "Sep 26, 2025", "price": 159.46}, {"date": "Sep 29, 2025", "price": 161.36}, {"date": "Sep 30, 2025", "price": 161.79}, {"date": "Oct 01, 2025", "price": 164.01}, {"date": "Oct 02, 2025", "price": 169.73}, {"date": "Oct 03, 2025", "price": 164.67}, {"date": "Oct 06, 2025", "price": 203.71}, {"date": "Oct 07, 2025", "price": 211.51}, {"date": "Oct 08, 2025", "price": 235.56}, {"date": "Oct 09, 2025", "price": 232.89}, {"date": "Oct 10, 2025", "price": 214.9}, {"date": "Oct 13, 2025", "price": 216.42}, {"date": "Oct 14, 2025", "price": 218.09}, {"date": "Oct 15, 2025", "price": 238.6}, {"date": "Oct 16, 2025", "price": 234.56}, {"date": "Oct 17, 2025", "price": 233.08}, {"date": "Oct 20, 2025", "price": 240.56}, {"date": "Oct 21, 2025", "price": 238.03}, {"date": "Oct 22, 2025", "price": 230.23}, {"date": "Oct 23, 2025", "price": 234.99}, {"date": "Oct 24, 2025", "price": 252.92}, {"date": "Oct 27, 2025", "price": 259.67}, {"date": "Oct 28, 2025", "price": 258.01}, {"date": "Oct 29, 2025", "price": 264.33}, {"date": "Oct 30, 2025", "price": 254.84}, {"date": "Oct 31, 2025", "price": 256.12}, {"date": "Nov 03, 2025", "price": 259.65}, {"date": "Nov 04, 2025", "price": 250.05}, {"date": "Nov 05, 2025", "price": 256.33}, {"date": "Nov 06, 2025", "price": 237.7}, {"date": "Nov 07, 2025", "price": 233.54}, {"date": "Nov 10, 2025", "price": 243.98}, {"date": "Nov 11, 2025", "price": 237.52}, {"date": "Nov 12, 2025", "price": 258.89}, {"date": "Nov 13, 2025", "price": 247.96}, {"date": "Nov 14, 2025", "price": 246.81}, {"date": "Nov 17, 2025", "price": 240.52}, {"date": "Nov 18, 2025", "price": 230.29}, {"date": "Nov 19, 2025", "price": 223.55}, {"date": "Nov 20, 2025", "price": 206.02}, {"date": "Nov 21, 2025", "price": 203.78}, {"date": "Nov 24, 2025", "price": 215.05}, {"date": "Nov 25, 2025", "price": 206.13}, {"date": "Nov 26, 2025", "price": 214.24}, {"date": "Nov 28, 2025", "price": 217.53}, {"date": "Dec 01, 2025", "price": 219.76}, {"date": "Dec 02, 2025", "price": 215.24}, {"date": "Dec 03, 2025", "price": 217.6}, {"date": "Dec 04, 2025", "price": 215.98}, {"date": "Dec 05, 2025", "price": 217.97}, {"date": "Dec 08, 2025", "price": 221.11}, {"date": "Dec 09, 2025", "price": 221.62}, {"date": "Dec 10, 2025", "price": 221.42}, {"date": "Dec 11, 2025", "price": 221.43}, {"date": "Dec 12, 2025", "price": 210.78}, {"date": "Dec 15, 2025", "price": 207.58}, {"date": "Dec 16, 2025", "price": 209.17}, {"date": "Dec 17, 2025", "price": 198.11}, {"date": "Dec 18, 2025", "price": 201.06}, {"date": "Dec 19, 2025", "price": 213.43}, {"date": "Dec 22, 2025", "price": 214.95}, {"date": "Dec 23, 2025", "price": 214.9}, {"date": "Dec 24, 2025", "price": 215.04}, {"date": "Dec 26, 2025", "price": 214.99}, {"date": "Dec 29, 2025", "price": 215.61}, {"date": "Dec 30, 2025", "price": 215.34}, {"date": "Dec 31, 2025", "price": 214.16}, {"date": "Jan 02, 2026", "price": 223.47}, {"date": "Jan 05, 2026", "price": 221.08}, {"date": "Jan 06, 2026", "price": 214.35}, {"date": "Jan 07, 2026", "price": 210.02}, {"date": "Jan 08, 2026", "price": 204.68}, {"date": "Jan 09, 2026", "price": 203.17}, {"date": "Jan 12, 2026", "price": 207.69}, {"date": "Jan 13, 2026", "price": 220.97}, {"date": "Jan 14, 2026", "price": 223.6}, {"date": "Jan 15, 2026", "price": 227.92}, {"date": "Jan 16, 2026", "price": 231.83}, {"date": "Jan 20, 2026", "price": 231.92}, {"date": "Jan 21, 2026", "price": 249.8}, {"date": "Jan 22, 2026", "price": 253.73}, {"date": "Jan 23, 2026", "price": 259.68}, {"date": "Jan 26, 2026", "price": 251.31}, {"date": "Jan 27, 2026", "price": 252.03}, {"date": "Jan 28, 2026", "price": 252.74}, {"date": "Jan 29, 2026", "price": 252.18}, {"date": "Jan 30, 2026", "price": 236.73}, {"date": "Feb 02, 2026", "price": 246.27}, {"date": "Feb 03, 2026", "price": 242.11}, {"date": "Feb 04, 2026", "price": 200.19}, {"date": "Feb 05, 2026", "price": 192.5}, {"date": "Feb 06, 2026", "price": 208.44}, {"date": "Feb 09, 2026", "price": 216.0}, {"date": "Feb 10, 2026", "price": 213.57}, {"date": "Feb 11, 2026", "price": 213.58}, {"date": "Feb 12, 2026", "price": 205.94}, {"date": "Feb 13, 2026", "price": 207.32}, {"date": "Feb 17, 2026", "price": 203.08}, {"date": "Feb 18, 2026", "price": 200.12}, {"date": "Feb 19, 2026", "price": 203.37}, {"date": "Feb 20, 2026", "price": 200.15}, {"date": "Feb 23, 2026", "price": 196.6}, {"date": "Feb 24, 2026", "price": 213.84}, {"date": "Feb 25, 2026", "price": 210.86}, {"date": "Feb 26, 2026", "price": 203.68}, {"date": "Feb 27, 2026", "price": 200.21}, {"date": "Mar 02, 2026", "price": 198.62}, {"date": "Mar 03, 2026", "price": 190.95}, {"date": "Mar 04, 2026", "price": 202.07}, {"date": "Mar 05, 2026", "price": 199.45}, {"date": "Mar 06, 2026", "price": 192.43}, {"date": "Mar 09, 2026", "price": 202.68}, {"date": "Mar 10, 2026", "price": 203.23}, {"date": "Mar 11, 2026", "price": 204.83}, {"date": "Mar 12, 2026", "price": 197.74}, {"date": "Mar 13, 2026", "price": 193.39}, {"date": "Mar 16, 2026", "price": 196.58}, {"date": "Mar 17, 2026", "price": 196.31}, {"date": "Mar 18, 2026", "price": 199.46}, {"date": "Mar 19, 2026", "price": 205.27}, {"date": "Mar 20, 2026", "price": 201.33}, {"date": "Mar 23, 2026", "price": 202.68}, {"date": "Mar 24, 2026", "price": 205.37}, {"date": "Mar 25, 2026", "price": 220.27}, {"date": "Mar 26, 2026", "price": 203.77}, {"date": "Mar 27, 2026", "price": 201.99}, {"date": "Mar 30, 2026", "price": 196.04}, {"date": "Mar 31, 2026", "price": 203.43}, {"date": "Apr 01, 2026", "price": 210.21}, {"date": "Apr 02, 2026", "price": 217.5}, {"date": "Apr 06, 2026", "price": 220.18}, {"date": "Apr 07, 2026", "price": 221.53}, {"date": "Apr 08, 2026", "price": 231.82}, {"date": "Apr 09, 2026", "price": 236.64}, {"date": "Apr 10, 2026", "price": 245.04}, {"date": "Apr 13, 2026", "price": 246.83}, {"date": "Apr 14, 2026", "price": 255.07}, {"date": "Apr 15, 2026", "price": 258.12}, {"date": "Apr 16, 2026", "price": 278.26}, {"date": "Apr 17, 2026", "price": 278.39}, {"date": "Apr 20, 2026", "price": 274.95}, {"date": "Apr 21, 2026", "price": 284.49}, {"date": "Apr 22, 2026", "price": 303.46}, {"date": "Apr 23, 2026", "price": 305.33}, {"date": "Apr 24, 2026", "price": 347.81}, {"date": "Apr 27, 2026", "price": 334.63}, {"date": "Apr 28, 2026", "price": 323.21}, {"date": "Apr 29, 2026", "price": 337.11}, {"date": "Apr 30, 2026", "price": 354.49}, {"date": "May 01, 2026", "price": 360.54}, {"date": "May 04, 2026", "price": 341.54}, {"date": "May 05, 2026", "price": 355.26}, {"date": "May 06, 2026", "price": 421.39}, {"date": "May 07, 2026", "price": 408.46}, {"date": "May 08, 2026", "price": 455.19}, {"date": "May 11, 2026", "price": 458.79}, {"date": "May 12, 2026", "price": 448.29}, {"date": "May 13, 2026", "price": 445.5}, {"date": "May 14, 2026", "price": 449.7}, {"date": "May 15, 2026", "price": 424.1}, {"date": "May 18, 2026", "price": 420.99}, {"date": "May 19, 2026", "price": 414.05}, {"date": "May 20, 2026", "price": 447.58}, {"date": "May 21, 2026", "price": 449.59}, {"date": "May 22, 2026", "price": 467.51}, {"date": "May 26, 2026", "price": 503.89}, {"date": "May 27, 2026", "price": 495.54}, {"date": "May 28, 2026", "price": 518.09}, {"date": "May 29, 2026", "price": 516.1}, {"date": "Jun 01, 2026", "price": 510.13}, {"date": "Jun 02, 2026", "price": 521.54}, {"date": "Jun 03, 2026", "price": 542.52}, {"date": "Jun 04, 2026", "price": 523.2}, {"date": "Jun 05, 2026", "price": 466.38}, {"date": "Jun 08, 2026", "price": 490.33}, {"date": "Jun 09, 2026", "price": 475.51}, {"date": "Jun 10, 2026", "price": 452.4}, {"date": "Jun 11, 2026", "price": 488.45}, {"date": "Jun 12, 2026", "price": 511.57}, {"date": "Jun 15, 2026", "price": 547.26}, {"date": "Jun 16, 2026", "price": 507.29}, {"date": "Jun 17, 2026", "price": 512.48}, {"date": "Jun 18, 2026", "price": 537.37}, {"date": "Jun 22, 2026", "price": 551.63}, {"date": "Jun 23, 2026", "price": 519.85}, {"date": "Jun 24, 2026", "price": 519.74}, {"date": "Jun 25, 2026", "price": 532.57}, {"date": "Jun 26, 2026", "price": 521.58}, {"date": "Jun 29, 2026", "price": 539.49}, {"date": "Jun 30, 2026", "price": 580.91}, {"date": "Jul 01, 2026", "price": 540.88}, {"date": "Jul 02, 2026", "price": 517.82}, {"date": "Jul 06, 2026", "price": 552.05}, {"date": "Jul 07, 2026", "price": 516.11}, {"date": "Jul 08, 2026", "price": 517.41}, {"date": "Jul 09, 2026", "price": 546.72}, {"date": "Jul 10, 2026", "price": 557.89}, {"date": "Jul 13, 2026", "price": 534.39}, {"date": "Jul 14, 2026", "price": 548.13}, {"date": "Jul 15, 2026", "price": 529.14}, {"date": "Jul 16, 2026", "price": 500.94}, {"date": "Jul 17, 2026", "price": 495.76}, {"date": "Jul 20, 2026", "price": 503.57}, {"date": "Jul 21, 2026", "price": 544.43}, {"date": "Jul 22, 2026", "price": 552.33}, {"date": "Jul 23, 2026", "price": 539.69}, {"date": "Jul 24, 2026", "price": 521.95}, {"date": "Jul 27, 2026", "price": 494.95}, {"date": "Jul 28, 2026", "price": 454.62}, {"date": "Jul 29, 2026", "price": 429.56}, {"date": "Jul 30, 2026", "price": 485.39}, {"date": "Jul 31, 2026", "price": 476.15}, {"date": "Aug 03, 2026", "price": 484.64}, {"date": "Aug 04, 2026", "price": 518.58}, {"date": "Aug 05, 2026", "price": 482.05}, {"date": "Aug 06, 2026", "price": 489.28}, {"date": "Aug 07, 2026", "price": 483.36}, {"date": "Aug 10, 2026", "price": 469.56}, {"date": "Aug 11, 2026", "price": 474.32}, {"date": "Aug 12, 2026", "price": 482.93}, {"date": "Aug 13, 2026", "price": 483.01}, {"date": "Aug 14, 2026", "price": 514.39}], "5Y": [{"date": "Aug 16, 2021", "price": 104.65}, {"date": "Aug 23, 2021", "price": 111.4}, {"date": "Aug 30, 2021", "price": 109.92}, {"date": "Sep 06, 2021", "price": 105.2}, {"date": "Sep 13, 2021", "price": 103.88}, {"date": "Sep 20, 2021", "price": 105.8}, {"date": "Sep 27, 2021", "price": 102.45}, {"date": "Oct 04, 2021", "price": 105.06}, {"date": "Oct 11, 2021", "price": 112.12}, {"date": "Oct 18, 2021", "price": 119.82}, {"date": "Oct 25, 2021", "price": 120.23}, {"date": "Nov 01, 2021", "price": 136.34}, {"date": "Nov 08, 2021", "price": 147.89}, {"date": "Nov 15, 2021", "price": 155.41}, {"date": "Nov 22, 2021", "price": 154.81}, {"date": "Nov 29, 2021", "price": 144.01}, {"date": "Dec 06, 2021", "price": 138.55}, {"date": "Dec 13, 2021", "price": 137.75}, {"date": "Dec 20, 2021", "price": 146.14}, {"date": "Dec 27, 2021", "price": 143.9}, {"date": "Jan 03, 2022", "price": 132.0}, {"date": "Jan 10, 2022", "price": 136.88}, {"date": "Jan 17, 2022", "price": 118.81}, {"date": "Jan 24, 2022", "price": 105.24}, {"date": "Jan 31, 2022", "price": 123.6}, {"date": "Feb 07, 2022", "price": 113.18}, {"date": "Feb 14, 2022", "price": 113.83}, {"date": "Feb 21, 2022", "price": 121.06}, {"date": "Feb 28, 2022", "price": 108.41}, {"date": "Mar 07, 2022", "price": 104.29}, {"date": "Mar 14, 2022", "price": 113.46}, {"date": "Mar 21, 2022", "price": 119.67}, {"date": "Mar 28, 2022", "price": 108.19}, {"date": "Apr 04, 2022", "price": 101.0}, {"date": "Apr 11, 2022", "price": 93.06}, {"date": "Apr 18, 2022", "price": 88.14}, {"date": "Apr 25, 2022", "price": 85.52}, {"date": "May 02, 2022", "price": 95.34}, {"date": "May 09, 2022", "price": 95.12}, {"date": "May 16, 2022", "price": 93.5}, {"date": "May 23, 2022", "price": 102.26}, {"date": "May 30, 2022", "price": 106.3}, {"date": "Jun 06, 2022", "price": 94.82}, {"date": "Jun 13, 2022", "price": 81.57}, {"date": "Jun 20, 2022", "price": 87.08}, {"date": "Jun 27, 2022", "price": 73.67}, {"date": "Jul 04, 2022", "price": 79.35}, {"date": "Jul 11, 2022", "price": 81.11}, {"date": "Jul 18, 2022", "price": 88.1}, {"date": "Jul 25, 2022", "price": 94.47}, {"date": "Aug 01, 2022", "price": 102.31}, {"date": "Aug 08, 2022", "price": 100.83}, {"date": "Aug 15, 2022", "price": 95.95}, {"date": "Aug 22, 2022", "price": 91.18}, {"date": "Aug 29, 2022", "price": 80.24}, {"date": "Sep 05, 2022", "price": 85.45}, {"date": "Sep 12, 2022", "price": 76.51}, {"date": "Sep 19, 2022", "price": 67.96}, {"date": "Sep 26, 2022", "price": 63.36}, {"date": "Oct 03, 2022", "price": 58.44}, {"date": "Oct 10, 2022", "price": 55.94}, {"date": "Oct 17, 2022", "price": 58.82}, {"date": "Oct 24, 2022", "price": 62.01}, {"date": "Oct 31, 2022", "price": 62.19}, {"date": "Nov 07, 2022", "price": 72.37}, {"date": "Nov 14, 2022", "price": 73.57}, {"date": "Nov 21, 2022", "price": 75.14}, {"date": "Nov 28, 2022", "price": 74.98}, {"date": "Dec 05, 2022", "price": 68.59}, {"date": "Dec 12, 2022", "price": 65.41}, {"date": "Dec 19, 2022", "price": 64.52}, {"date": "Dec 26, 2022", "price": 64.77}, {"date": "Jan 02, 2023", "price": 63.96}, {"date": "Jan 09, 2023", "price": 71.0}, {"date": "Jan 16, 2023", "price": 70.07}, {"date": "Jan 23, 2023", "price": 75.4}, {"date": "Jan 30, 2023", "price": 86.09}, {"date": "Feb 06, 2023", "price": 81.48}, {"date": "Feb 13, 2023", "price": 78.5}, {"date": "Feb 20, 2023", "price": 78.09}, {"date": "Feb 27, 2023", "price": 81.52}, {"date": "Mar 06, 2023", "price": 82.67}, {"date": "Mar 13, 2023", "price": 97.84}, {"date": "Mar 20, 2023", "price": 97.95}, {"date": "Mar 27, 2023", "price": 98.01}, {"date": "Apr 03, 2023", "price": 92.47}, {"date": "Apr 10, 2023", "price": 91.75}, {"date": "Apr 17, 2023", "price": 88.43}, {"date": "Apr 24, 2023", "price": 89.37}, {"date": "May 01, 2023", "price": 89.84}, {"date": "May 08, 2023", "price": 95.26}, {"date": "May 15, 2023", "price": 105.82}, {"date": "May 22, 2023", "price": 127.03}, {"date": "May 29, 2023", "price": 117.86}, {"date": "Jun 05, 2023", "price": 124.92}, {"date": "Jun 12, 2023", "price": 120.08}, {"date": "Jun 19, 2023", "price": 110.01}, {"date": "Jun 26, 2023", "price": 113.91}, {"date": "Jul 03, 2023", "price": 113.17}, {"date": "Jul 10, 2023", "price": 115.94}, {"date": "Jul 17, 2023", "price": 110.95}, {"date": "Jul 24, 2023", "price": 112.96}, {"date": "Jul 31, 2023", "price": 115.82}, {"date": "Aug 07, 2023", "price": 107.57}, {"date": "Aug 14, 2023", "price": 105.45}, {"date": "Aug 21, 2023", "price": 102.25}, {"date": "Aug 28, 2023", "price": 109.45}, {"date": "Sep 04, 2023", "price": 106.09}, {"date": "Sep 11, 2023", "price": 101.49}, {"date": "Sep 18, 2023", "price": 96.2}, {"date": "Sep 25, 2023", "price": 102.82}, {"date": "Oct 02, 2023", "price": 107.24}, {"date": "Oct 09, 2023", "price": 105.09}, {"date": "Oct 16, 2023", "price": 101.81}, {"date": "Oct 23, 2023", "price": 96.43}, {"date": "Oct 30, 2023", "price": 112.25}, {"date": "Nov 06, 2023", "price": 118.59}, {"date": "Nov 13, 2023", "price": 120.62}, {"date": "Nov 20, 2023", "price": 122.31}, {"date": "Nov 27, 2023", "price": 121.39}, {"date": "Dec 04, 2023", "price": 128.92}, {"date": "Dec 11, 2023", "price": 139.15}, {"date": "Dec 18, 2023", "price": 139.6}, {"date": "Dec 25, 2023", "price": 147.41}, {"date": "Jan 01, 2024", "price": 138.58}, {"date": "Jan 08, 2024", "price": 146.56}, {"date": "Jan 15, 2024", "price": 174.23}, {"date": "Jan 22, 2024", "price": 177.25}, {"date": "Jan 29, 2024", "price": 177.66}, {"date": "Feb 05, 2024", "price": 172.48}, {"date": "Feb 12, 2024", "price": 173.87}, {"date": "Feb 19, 2024", "price": 176.52}, {"date": "Feb 26, 2024", "price": 202.64}, {"date": "Mar 04, 2024", "price": 207.39}, {"date": "Mar 11, 2024", "price": 191.06}, {"date": "Mar 18, 2024", "price": 179.65}, {"date": "Mar 25, 2024", "price": 180.49}, {"date": "Apr 01, 2024", "price": 170.42}, {"date": "Apr 08, 2024", "price": 163.28}, {"date": "Apr 15, 2024", "price": 146.64}, {"date": "Apr 22, 2024", "price": 157.4}, {"date": "Apr 29, 2024", "price": 150.6}, {"date": "May 06, 2024", "price": 151.92}, {"date": "May 13, 2024", "price": 164.47}, {"date": "May 20, 2024", "price": 166.36}, {"date": "May 27, 2024", "price": 166.9}, {"date": "Jun 03, 2024", "price": 167.87}, {"date": "Jun 10, 2024", "price": 159.63}, {"date": "Jun 17, 2024", "price": 161.23}, {"date": "Jun 24, 2024", "price": 162.21}, {"date": "Jul 01, 2024", "price": 171.9}, {"date": "Jul 08, 2024", "price": 181.61}, {"date": "Jul 15, 2024", "price": 151.58}, {"date": "Jul 22, 2024", "price": 139.99}, {"date": "Jul 29, 2024", "price": 132.5}, {"date": "Aug 05, 2024", "price": 134.27}, {"date": "Aug 12, 2024", "price": 148.56}, {"date": "Aug 19, 2024", "price": 154.98}, {"date": "Aug 26, 2024", "price": 148.56}, {"date": "Sep 02, 2024", "price": 134.35}, {"date": "Sep 09, 2024", "price": 152.31}, {"date": "Sep 16, 2024", "price": 155.95}, {"date": "Sep 23, 2024", "price": 164.35}, {"date": "Sep 30, 2024", "price": 170.9}, {"date": "Oct 07, 2024", "price": 167.89}, {"date": "Oct 14, 2024", "price": 155.97}, {"date": "Oct 21, 2024", "price": 156.23}, {"date": "Oct 28, 2024", "price": 141.86}, {"date": "Nov 04, 2024", "price": 147.95}, {"date": "Nov 11, 2024", "price": 134.9}, {"date": "Nov 18, 2024", "price": 138.35}, {"date": "Nov 25, 2024", "price": 137.18}, {"date": "Dec 02, 2024", "price": 138.59}, {"date": "Dec 09, 2024", "price": 126.91}, {"date": "Dec 16, 2024", "price": 119.21}, {"date": "Dec 23, 2024", "price": 125.19}, {"date": "Dec 30, 2024", "price": 125.37}, {"date": "Jan 06, 2025", "price": 116.04}, {"date": "Jan 13, 2025", "price": 121.46}, {"date": "Jan 20, 2025", "price": 122.84}, {"date": "Jan 27, 2025", "price": 115.95}, {"date": "Feb 03, 2025", "price": 107.56}, {"date": "Feb 10, 2025", "price": 113.1}, {"date": "Feb 17, 2025", "price": 110.84}, {"date": "Feb 24, 2025", "price": 99.86}, {"date": "Mar 03, 2025", "price": 100.31}, {"date": "Mar 10, 2025", "price": 100.97}, {"date": "Mar 17, 2025", "price": 106.44}, {"date": "Mar 24, 2025", "price": 103.22}, {"date": "Mar 31, 2025", "price": 85.76}, {"date": "Apr 07, 2025", "price": 93.4}, {"date": "Apr 14, 2025", "price": 87.5}, {"date": "Apr 21, 2025", "price": 96.65}, {"date": "Apr 28, 2025", "price": 98.8}, {"date": "May 05, 2025", "price": 102.84}, {"date": "May 12, 2025", "price": 117.17}, {"date": "May 19, 2025", "price": 110.31}, {"date": "May 26, 2025", "price": 110.73}, {"date": "Jun 02, 2025", "price": 116.19}, {"date": "Jun 09, 2025", "price": 116.16}, {"date": "Jun 16, 2025", "price": 128.24}, {"date": "Jun 23, 2025", "price": 143.81}, {"date": "Jun 30, 2025", "price": 137.91}, {"date": "Jul 07, 2025", "price": 146.42}, {"date": "Jul 14, 2025", "price": 156.99}, {"date": "Jul 21, 2025", "price": 166.47}, {"date": "Jul 28, 2025", "price": 171.7}, {"date": "Aug 04, 2025", "price": 172.76}, {"date": "Aug 11, 2025", "price": 177.51}, {"date": "Aug 18, 2025", "price": 167.76}, {"date": "Aug 25, 2025", "price": 162.63}, {"date": "Sep 01, 2025", "price": 151.14}, {"date": "Sep 08, 2025", "price": 158.57}, {"date": "Sep 15, 2025", "price": 157.39}, {"date": "Sep 22, 2025", "price": 159.46}, {"date": "Sep 29, 2025", "price": 164.67}, {"date": "Oct 06, 2025", "price": 214.9}, {"date": "Oct 13, 2025", "price": 233.08}, {"date": "Oct 20, 2025", "price": 252.92}, {"date": "Oct 27, 2025", "price": 256.12}, {"date": "Nov 03, 2025", "price": 233.54}, {"date": "Nov 10, 2025", "price": 246.81}, {"date": "Nov 17, 2025", "price": 203.78}, {"date": "Nov 24, 2025", "price": 217.53}, {"date": "Dec 01, 2025", "price": 217.97}, {"date": "Dec 08, 2025", "price": 210.78}, {"date": "Dec 15, 2025", "price": 213.43}, {"date": "Dec 22, 2025", "price": 214.99}, {"date": "Dec 29, 2025", "price": 223.47}, {"date": "Jan 05, 2026", "price": 203.17}, {"date": "Jan 12, 2026", "price": 231.83}, {"date": "Jan 19, 2026", "price": 259.68}, {"date": "Jan 26, 2026", "price": 236.73}, {"date": "Feb 02, 2026", "price": 208.44}, {"date": "Feb 09, 2026", "price": 207.32}, {"date": "Feb 16, 2026", "price": 200.15}, {"date": "Feb 23, 2026", "price": 200.21}, {"date": "Mar 02, 2026", "price": 192.43}, {"date": "Mar 09, 2026", "price": 193.39}, {"date": "Mar 16, 2026", "price": 201.33}, {"date": "Mar 23, 2026", "price": 201.99}, {"date": "Mar 30, 2026", "price": 217.5}, {"date": "Apr 06, 2026", "price": 245.04}, {"date": "Apr 13, 2026", "price": 278.39}, {"date": "Apr 20, 2026", "price": 347.81}, {"date": "Apr 27, 2026", "price": 360.54}, {"date": "May 04, 2026", "price": 455.19}, {"date": "May 11, 2026", "price": 424.1}, {"date": "May 18, 2026", "price": 467.51}, {"date": "May 25, 2026", "price": 516.1}, {"date": "Jun 01, 2026", "price": 466.38}, {"date": "Jun 08, 2026", "price": 511.57}, {"date": "Jun 15, 2026", "price": 537.37}, {"date": "Jun 22, 2026", "price": 521.58}, {"date": "Jun 29, 2026", "price": 517.82}, {"date": "Jul 06, 2026", "price": 557.89}, {"date": "Jul 13, 2026", "price": 495.76}, {"date": "Jul 20, 2026", "price": 521.95}, {"date": "Jul 27, 2026", "price": 476.15}, {"date": "Aug 03, 2026", "price": 483.36}, {"date": "Aug 10, 2026", "price": 483.01}, {"date": "Aug 14, 2026", "price": 514.39}], "10Y": [{"date": "Sep 01, 2016", "price": 6.91}, {"date": "Oct 01, 2016", "price": 7.23}, {"date": "Nov 01, 2016", "price": 8.91}, {"date": "Dec 01, 2016", "price": 11.34}, {"date": "Jan 01, 2017", "price": 10.37}, {"date": "Feb 01, 2017", "price": 14.46}, {"date": "Mar 01, 2017", "price": 14.55}, {"date": "Apr 01, 2017", "price": 13.3}, {"date": "May 01, 2017", "price": 11.19}, {"date": "Jun 01, 2017", "price": 12.48}, {"date": "Jul 01, 2017", "price": 13.61}, {"date": "Aug 01, 2017", "price": 13.0}, {"date": "Sep 01, 2017", "price": 12.75}, {"date": "Oct 01, 2017", "price": 10.99}, {"date": "Nov 01, 2017", "price": 10.89}, {"date": "Dec 01, 2017", "price": 10.28}, {"date": "Jan 01, 2018", "price": 13.74}, {"date": "Feb 01, 2018", "price": 12.11}, {"date": "Mar 01, 2018", "price": 10.05}, {"date": "Apr 01, 2018", "price": 10.88}, {"date": "May 01, 2018", "price": 13.73}, {"date": "Jun 01, 2018", "price": 14.99}, {"date": "Jul 01, 2018", "price": 18.33}, {"date": "Aug 01, 2018", "price": 25.17}, {"date": "Sep 01, 2018", "price": 30.89}, {"date": "Oct 01, 2018", "price": 18.21}, {"date": "Nov 01, 2018", "price": 21.3}, {"date": "Dec 01, 2018", "price": 18.46}, {"date": "Jan 01, 2019", "price": 24.41}, {"date": "Feb 01, 2019", "price": 23.53}, {"date": "Mar 01, 2019", "price": 25.52}, {"date": "Apr 01, 2019", "price": 27.63}, {"date": "May 01, 2019", "price": 27.41}, {"date": "Jun 01, 2019", "price": 30.37}, {"date": "Jul 01, 2019", "price": 30.45}, {"date": "Aug 01, 2019", "price": 31.45}, {"date": "Sep 01, 2019", "price": 28.99}, {"date": "Oct 01, 2019", "price": 33.93}, {"date": "Nov 01, 2019", "price": 39.15}, {"date": "Dec 01, 2019", "price": 45.86}, {"date": "Jan 01, 2020", "price": 47.0}, {"date": "Feb 01, 2020", "price": 45.48}, {"date": "Mar 01, 2020", "price": 45.48}, {"date": "Apr 01, 2020", "price": 52.39}, {"date": "May 01, 2020", "price": 53.8}, {"date": "Jun 01, 2020", "price": 52.61}, {"date": "Jul 01, 2020", "price": 77.43}, {"date": "Aug 01, 2020", "price": 90.82}, {"date": "Sep 01, 2020", "price": 81.99}, {"date": "Oct 01, 2020", "price": 75.29}, {"date": "Nov 01, 2020", "price": 92.66}, {"date": "Dec 01, 2020", "price": 91.71}, {"date": "Jan 01, 2021", "price": 85.64}, {"date": "Feb 01, 2021", "price": 84.51}, {"date": "Mar 01, 2021", "price": 78.5}, {"date": "Apr 01, 2021", "price": 81.62}, {"date": "May 01, 2021", "price": 80.08}, {"date": "Jun 01, 2021", "price": 93.93}, {"date": "Jul 01, 2021", "price": 106.19}, {"date": "Aug 01, 2021", "price": 110.72}, {"date": "Sep 01, 2021", "price": 102.9}, {"date": "Oct 01, 2021", "price": 120.23}, {"date": "Nov 01, 2021", "price": 158.37}, {"date": "Dec 01, 2021", "price": 143.9}, {"date": "Jan 01, 2022", "price": 114.25}, {"date": "Feb 01, 2022", "price": 123.34}, {"date": "Mar 01, 2022", "price": 109.34}, {"date": "Apr 01, 2022", "price": 85.52}, {"date": "May 01, 2022", "price": 101.86}, {"date": "Jun 01, 2022", "price": 76.47}, {"date": "Jul 01, 2022", "price": 94.47}, {"date": "Aug 01, 2022", "price": 84.87}, {"date": "Sep 01, 2022", "price": 63.36}, {"date": "Oct 01, 2022", "price": 60.06}, {"date": "Nov 01, 2022", "price": 77.63}, {"date": "Dec 01, 2022", "price": 64.77}, {"date": "Jan 01, 2023", "price": 75.15}, {"date": "Feb 01, 2023", "price": 78.58}, {"date": "Mar 01, 2023", "price": 98.01}, {"date": "Apr 01, 2023", "price": 89.37}, {"date": "May 01, 2023", "price": 118.21}, {"date": "Jun 01, 2023", "price": 113.91}, {"date": "Jul 01, 2023", "price": 114.4}, {"date": "Aug 01, 2023", "price": 105.72}, {"date": "Sep 01, 2023", "price": 102.82}, {"date": "Oct 01, 2023", "price": 98.5}, {"date": "Nov 01, 2023", "price": 121.16}, {"date": "Dec 01, 2023", "price": 147.41}, {"date": "Jan 01, 2024", "price": 167.69}, {"date": "Feb 01, 2024", "price": 192.53}, {"date": "Mar 01, 2024", "price": 180.49}, {"date": "Apr 01, 2024", "price": 158.38}, {"date": "May 01, 2024", "price": 166.9}, {"date": "Jun 01, 2024", "price": 162.21}, {"date": "Jul 01, 2024", "price": 144.48}, {"date": "Aug 01, 2024", "price": 148.56}, {"date": "Sep 01, 2024", "price": 164.08}, {"date": "Oct 01, 2024", "price": 144.07}, {"date": "Nov 01, 2024", "price": 137.18}, {"date": "Dec 01, 2024", "price": 120.79}, {"date": "Jan 01, 2025", "price": 115.95}, {"date": "Feb 01, 2025", "price": 99.86}, {"date": "Mar 01, 2025", "price": 102.74}, {"date": "Apr 01, 2025", "price": 97.35}, {"date": "May 01, 2025", "price": 110.73}, {"date": "Jun 01, 2025", "price": 141.9}, {"date": "Jul 01, 2025", "price": 176.31}, {"date": "Aug 01, 2025", "price": 162.63}, {"date": "Sep 01, 2025", "price": 161.79}, {"date": "Oct 01, 2025", "price": 256.12}, {"date": "Nov 01, 2025", "price": 217.53}, {"date": "Dec 01, 2025", "price": 214.16}, {"date": "Jan 01, 2026", "price": 236.73}, {"date": "Feb 01, 2026", "price": 200.21}, {"date": "Mar 01, 2026", "price": 203.43}, {"date": "Apr 01, 2026", "price": 354.49}, {"date": "May 01, 2026", "price": 516.1}, {"date": "Jun 01, 2026", "price": 580.91}, {"date": "Jul 01, 2026", "price": 476.15}, {"date": "Aug 01, 2026", "price": 483.01}, {"date": "Aug 14, 2026", "price": 514.39}], "MAX": [{"date": "Dec 01, 1984", "price": 16.62}, {"date": "Mar 01, 1985", "price": 13.25}, {"date": "Jun 01, 1985", "price": 13.25}, {"date": "Sep 01, 1985", "price": 13.94}, {"date": "Dec 01, 1985", "price": 15.56}, {"date": "Mar 01, 1986", "price": 13.31}, {"date": "Jun 01, 1986", "price": 9.69}, {"date": "Sep 01, 1986", "price": 7.81}, {"date": "Dec 01, 1986", "price": 10.88}, {"date": "Mar 01, 1987", "price": 10.81}, {"date": "Jun 01, 1987", "price": 11.0}, {"date": "Sep 01, 1987", "price": 4.62}, {"date": "Dec 01, 1987", "price": 6.0}, {"date": "Mar 01, 1988", "price": 7.5}, {"date": "Jun 01, 1988", "price": 5.69}, {"date": "Sep 01, 1988", "price": 3.75}, {"date": "Dec 01, 1988", "price": 4.12}, {"date": "Mar 01, 1989", "price": 5.19}, {"date": "Jun 01, 1989", "price": 4.31}, {"date": "Sep 01, 1989", "price": 3.75}, {"date": "Dec 01, 1989", "price": 4.12}, {"date": "Mar 01, 1990", "price": 5.25}, {"date": "Jun 01, 1990", "price": 2.69}, {"date": "Sep 01, 1990", "price": 2.19}, {"date": "Dec 01, 1990", "price": 4.06}, {"date": "Mar 01, 1991", "price": 6.75}, {"date": "Jun 01, 1991", "price": 6.19}, {"date": "Sep 01, 1991", "price": 7.19}, {"date": "Dec 01, 1991", "price": 9.19}, {"date": "Mar 01, 1992", "price": 7.88}, {"date": "Jun 01, 1992", "price": 5.06}, {"date": "Sep 01, 1992", "price": 8.94}, {"date": "Dec 01, 1992", "price": 10.88}, {"date": "Mar 01, 1993", "price": 14.31}, {"date": "Jun 01, 1993", "price": 16.19}, {"date": "Sep 01, 1993", "price": 9.5}, {"date": "Dec 01, 1993", "price": 10.75}, {"date": "Mar 01, 1994", "price": 13.5}, {"date": "Jun 01, 1994", "price": 14.5}, {"date": "Sep 01, 1994", "price": 12.62}, {"date": "Dec 01, 1994", "price": 15.19}, {"date": "Mar 01, 1995", "price": 16.5}, {"date": "Jun 01, 1995", "price": 16.88}, {"date": "Sep 01, 1995", "price": 10.25}, {"date": "Dec 01, 1995", "price": 9.69}, {"date": "Mar 01, 1996", "price": 8.81}, {"date": "Jun 01, 1996", "price": 6.38}, {"date": "Sep 01, 1996", "price": 12.12}, {"date": "Dec 01, 1996", "price": 18.0}, {"date": "Mar 01, 1997", "price": 20.0}, {"date": "Jun 01, 1997", "price": 18.81}, {"date": "Sep 01, 1997", "price": 10.91}, {"date": "Dec 01, 1997", "price": 11.75}, {"date": "Mar 01, 1998", "price": 9.78}, {"date": "Jun 01, 1998", "price": 6.5}, {"date": "Sep 01, 1998", "price": 13.84}, {"date": "Dec 01, 1998", "price": 8.94}, {"date": "Mar 01, 1999", "price": 9.25}, {"date": "Jun 01, 1999", "price": 10.34}, {"date": "Sep 01, 1999", "price": 14.12}, {"date": "Dec 01, 1999", "price": 19.75}, {"date": "Mar 01, 2000", "price": 40.88}, {"date": "Jun 01, 2000", "price": 37.5}, {"date": "Sep 01, 2000", "price": 15.25}, {"date": "Dec 01, 2000", "price": 21.5}, {"date": "Mar 01, 2001", "price": 28.25}, {"date": "Jun 01, 2001", "price": 13.55}, {"date": "Sep 01, 2001", "price": 13.56}, {"date": "Dec 01, 2001", "price": 13.5}, {"date": "Mar 01, 2002", "price": 11.43}, {"date": "Jun 01, 2002", "price": 8.85}, {"date": "Sep 01, 2002", "price": 9.0}, {"date": "Dec 01, 2002", "price": 5.49}, {"date": "Mar 01, 2003", "price": 7.28}, {"date": "Jun 01, 2003", "price": 11.29}, {"date": "Sep 01, 2003", "price": 17.97}, {"date": "Dec 01, 2003", "price": 15.0}, {"date": "Mar 01, 2004", "price": 15.55}, {"date": "Jun 01, 2004", "price": 11.43}, {"date": "Sep 01, 2004", "price": 21.28}, {"date": "Dec 01, 2004", "price": 17.45}, {"date": "Mar 01, 2005", "price": 16.4}, {"date": "Jun 01, 2005", "price": 20.77}, {"date": "Sep 01, 2005", "price": 26.18}, {"date": "Dec 01, 2005", "price": 38.67}, {"date": "Mar 01, 2006", "price": 30.89}, {"date": "Jun 01, 2006", "price": 24.99}, {"date": "Sep 01, 2006", "price": 21.57}, {"date": "Dec 01, 2006", "price": 15.07}, {"date": "Mar 01, 2007", "price": 14.27}, {"date": "Jun 01, 2007", "price": 13.0}, {"date": "Sep 01, 2007", "price": 9.76}, {"date": "Dec 01, 2007", "price": 7.21}, {"date": "Mar 01, 2008", "price": 6.88}, {"date": "Jun 01, 2008", "price": 6.29}, {"date": "Sep 01, 2008", "price": 2.36}, {"date": "Dec 01, 2008", "price": 2.18}, {"date": "Mar 01, 2009", "price": 4.54}, {"date": "Jun 01, 2009", "price": 4.36}, {"date": "Sep 01, 2009", "price": 7.01}, {"date": "Dec 01, 2009", "price": 7.91}, {"date": "Mar 01, 2010", "price": 8.57}, {"date": "Jun 01, 2010", "price": 5.61}, {"date": "Sep 01, 2010", "price": 7.29}, {"date": "Dec 01, 2010", "price": 9.21}, {"date": "Mar 01, 2011", "price": 8.68}, {"date": "Jun 01, 2011", "price": 6.83}, {"date": "Sep 01, 2011", "price": 5.69}, {"date": "Dec 01, 2011", "price": 7.35}, {"date": "Mar 01, 2012", "price": 6.08}, {"date": "Jun 01, 2012", "price": 3.72}, {"date": "Sep 01, 2012", "price": 2.2}, {"date": "Dec 01, 2012", "price": 2.49}, {"date": "Mar 01, 2013", "price": 4.0}, {"date": "Jun 01, 2013", "price": 3.27}, {"date": "Sep 01, 2013", "price": 3.64}, {"date": "Dec 01, 2013", "price": 3.71}, {"date": "Mar 01, 2014", "price": 4.0}, {"date": "Jun 01, 2014", "price": 4.17}, {"date": "Sep 01, 2014", "price": 2.79}, {"date": "Dec 01, 2014", "price": 3.11}, {"date": "Mar 01, 2015", "price": 2.28}, {"date": "Jun 01, 2015", "price": 1.81}, {"date": "Sep 01, 2015", "price": 2.36}, {"date": "Dec 01, 2015", "price": 2.14}, {"date": "Mar 01, 2016", "price": 4.57}, {"date": "Jun 01, 2016", "price": 7.4}, {"date": "Sep 01, 2016", "price": 8.91}, {"date": "Dec 01, 2016", "price": 14.46}, {"date": "Mar 01, 2017", "price": 11.19}, {"date": "Jun 01, 2017", "price": 13.0}, {"date": "Sep 01, 2017", "price": 10.89}, {"date": "Dec 01, 2017", "price": 12.11}, {"date": "Mar 01, 2018", "price": 13.73}, {"date": "Jun 01, 2018", "price": 25.17}, {"date": "Sep 01, 2018", "price": 21.3}, {"date": "Dec 01, 2018", "price": 23.53}, {"date": "Mar 01, 2019", "price": 27.41}, {"date": "Jun 01, 2019", "price": 31.45}, {"date": "Sep 01, 2019", "price": 39.15}, {"date": "Dec 01, 2019", "price": 45.48}, {"date": "Mar 01, 2020", "price": 53.8}, {"date": "Jun 01, 2020", "price": 90.82}, {"date": "Sep 01, 2020", "price": 92.66}, {"date": "Dec 01, 2020", "price": 84.51}, {"date": "Mar 01, 2021", "price": 80.08}, {"date": "Jun 01, 2021", "price": 110.72}, {"date": "Sep 01, 2021", "price": 158.37}, {"date": "Dec 01, 2021", "price": 123.34}, {"date": "Mar 01, 2022", "price": 101.86}, {"date": "Jun 01, 2022", "price": 84.87}, {"date": "Sep 01, 2022", "price": 77.63}, {"date": "Dec 01, 2022", "price": 78.58}, {"date": "Mar 01, 2023", "price": 118.21}, {"date": "Jun 01, 2023", "price": 105.72}, {"date": "Sep 01, 2023", "price": 121.16}, {"date": "Dec 01, 2023", "price": 192.53}, {"date": "Mar 01, 2024", "price": 166.9}, {"date": "Jun 01, 2024", "price": 148.56}, {"date": "Sep 01, 2024", "price": 137.18}, {"date": "Dec 01, 2024", "price": 99.86}, {"date": "Mar 01, 2025", "price": 110.73}, {"date": "Jun 01, 2025", "price": 162.63}, {"date": "Sep 01, 2025", "price": 217.53}, {"date": "Dec 01, 2025", "price": 200.21}, {"date": "Mar 01, 2026", "price": 516.1}, {"date": "Jun 01, 2026", "price": 483.01}, {"date": "Aug 14, 2026", "price": 514.39}]};
         let currentRangeKey = '1Y';
         let currentPoints = allDatasets[currentRangeKey] || [];
         let currentSvgCoords = [];
@@ -1347,34 +1347,34 @@
             <div class="metrics-grid">
                 <div class="metric-cell">
                     <div class="metric-label">Fair Value</div>
-                    <div class="metric-value" style="color: var(--accent-warm);">$72.00</div>
+                    <div class="metric-value" style="color: var(--accent-warm);">$560.00</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bear Target</div>
-                    <div class="metric-value" style="color: var(--accent-red);">$54.00 (-13.4%)</div>
+                    <div class="metric-value" style="color: var(--accent-red);">$340.00 (-33.9%)</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Base Target</div>
-                    <div class="metric-value">$72.00 (+15.4%)</div>
+                    <div class="metric-value">$560.00 (+8.9%)</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bull Target</div>
-                    <div class="metric-value" style="color: var(--accent-green);">$93.60 (+50.1%)</div>
+                    <div class="metric-value" style="color: var(--accent-green);">$780.00 (+51.6%)</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Corridor</div>
-                    <div class="metric-value" style="font-size: 1.00rem; font-family: var(--font-mono); color: var(--text-title);">$54.00 ⇄ $70.00</div>
+                    <div class="metric-value" style="font-size: 1.00rem; font-family: var(--font-mono); color: var(--text-title);">$420.00 ⇄ $620.00</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Catalyst</div>
-                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">2026-10-22</div>
-                    <div class="metric-delta" style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 2px;">Q3 '26 Trading Statement</div>
+                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">2026-11-03</div>
+                    <div class="metric-delta" style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 2px;">Q3 '26 ER</div>
                 </div>
                 
     <div class="metric-cell">
         <div class="metric-label">Float</div>
-        <div class="metric-value" style="white-space: nowrap !important;">85.7%</div>
-        <div class="metric-subtext">Tweedy Browne · Yacktman Asset</div>
+        <div class="metric-value" style="white-space: nowrap !important;">71.2%</div>
+        <div class="metric-subtext">Lee Ainslie - Maverick · Chase Coleman - Tiger Global</div>
     </div>
     
                 
@@ -1397,441 +1397,312 @@
         <!-- Memo Content -->
         <div id="tab-memo" class="tab-content active">
             <article class="memo-container">
-                <div class="section" id="section-1"><h2>Section 1: Business Model Reality &amp; Moat Analysis</h2><p>Unilever's operational reality in H1 2026 demonstrates a profound inflection toward high-quality, volume-driven organic growth. Driven by CEO Fernando Fernandez's operational discipline under the <em>Growth Action Plan 2030</em>, the group delivered first-half underlying sales growth (USG) of <strong>4.8%</strong>, with <strong>4.2% stemming from volume</strong> and <strong>0.6% from price</strong>. Performance significantly accelerated in Q2 2026, posting <strong>5.8% USG led by 5.5% volume growth</strong>—marking Unilever's strongest single-quarter volume expansion in over a decade.</p><div class="metrics-grid">
+                <h2>Section 1: Executive Summary &amp; Operating Reality</h2>
+<p>Advanced Micro Devices, Inc. (AMD) has completed a structural pivot from a second-tier PC component supplier into a core data center infrastructure engine. In Q2 2026, AMD reported record revenue of $11.54 billion, representing a 50.1% year-over-year expansion and beating Wall Street expectations. This performance was anchored by the Data Center segment, which surged 107% year-over-year to $6.70 billion—now accounting for 58% of total enterprise sales. The underlying cash generation and margin expansion reflect operating leverage: GAAP gross margin expanded to 54.0% (56.0% non-GAAP), while GAAP operating income reached $1.99 billion (17.3% operating margin), swinging dramatically from an operating loss in the prior-year period. On a non-GAAP basis, operating income reached $3.10 billion, reflecting a robust 27.0% operating margin.</p>
+<p>Despite temporary cyclical headwinds in the semi-custom Gaming segment (revenue down 31% YoY to $779 million due to console lifecycle maturation), AMD's core computing engines are compounding cash flows. Client segment revenue grew 23% YoY to $3.10 billion on desktop Zen 5 adoption and enterprise AI PC pull-through, while Embedded segment revenue rebounded 19% YoY to $977 million. Operating cash flow for the quarter reached $2.40 billion, delivering $1.60 billion in Free Cash Flow (FCF) after deducting maintenance and capital expenditures. AMD ended the quarter with $13.11 billion in total cash and short-term investments, providing a solid liquidity balance sheet alongside its $4.75 billion investment-grade debt offering to fund long-term advanced packaging capacity and supply-chain commitments.</p>
+<div class="metrics-grid">
 <div class="metric-card">
-<div class="metric-label">H1 2026 Turnover</div>
-<div class="metric-value">€25.6B</div>
-<div class="metric-delta pos">+0.5% Reported (+4.8% USG)</div>
+<div class="metric-label">Quarterly Revenue</div>
+<div class="metric-value">$11.54B</div>
+<div class="metric-delta pos">+50.1% YoY</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">H1 Underlying Volume Growth</div>
-<div class="metric-value">4.2%</div>
-<div class="metric-delta pos">Primary Growth Driver (87.5%)</div>
+<div class="metric-label">Operating Margin</div>
+<div class="metric-value">17.3%</div>
+<div class="metric-delta pos">+1,895 bps</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">Q2 Underlying Volume Growth</div>
-<div class="metric-value">5.5%</div>
-<div class="metric-delta pos">Best Quarter Since 2010</div>
+<div class="metric-label">Free Cash Flow</div>
+<div class="metric-value">$1.60B</div>
+<div class="metric-delta pos">+92.8% YoY</div>
 </div>
-<div class="metric-card">
-<div class="metric-label">Underlying Operating Margin</div>
-<div class="metric-value">20.3%</div>
-<div class="metric-delta pos">+10 bps YoY</div>
 </div>
-</div><div class="executive-callout">
-<strong>Chief Executive Commentary:</strong><br/>
-<em>“We have delivered a strong volume-led performance in the first half, with a significant step-up in the second quarter – the best volume quarter at Unilever in over a decade. Our Power Brands continued to outperform, with all Business Groups delivering volume-led growth. These results show our ability to continue performing while transforming our portfolio. Our brands are stronger, our execution is sharper, and we are driving Desire at Scale.”</em><br/>
-    — <strong>Fernando Fernandez, Chief Executive Officer</strong>
-</div><h3>H1 2026 Business Group Operational Audit</h3><p>Operational performance across Unilever's four business segments reflects strong acceleration in Home &amp; Personal Care (HPC) categories, offsetting soft conditions in developed market condiments:</p><div class="table-scroll-wrap"><table>
+<p>For Q3 2026, executive management provided forward guidance projecting quarterly revenue of approximately $13.00 billion (± $300 million), representing 41% year-over-year growth at the midpoint, with non-GAAP gross margins maintaining stability at 56.0%. Management raised its full-year guidance, anticipating revenue growth substantially above its prior target of 35% as multi-gigawatt rack-scale AI platforms begin commercial shipments. From an Owner Earnings perspective, AMD's underlying cash engine is expanding rapidly, even after accounting for full stock-based compensation deductions and ongoing capital intensity in next-generation chiplet packaging.</p>
+<div class="executive-callout">
+<div class="exec-header"><span class="exec-badge">Executive Commentary</span></div>
+<p><em>"We delivered an excellent quarter, with record revenue and profitability as Data Center revenue more than doubled year-over-year... We enter the second half with strong momentum as EPYC demand accelerates, Instinct deployments scale, and Helios begins to ramp. More broadly, AI is driving a significant expansion in demand for compute across all of our markets, and our leadership portfolio and growing customer visibility position us exceptionally well to capture this expanding opportunity."</em><br/>
+  — <strong>Dr. Lisa Su, Chair &amp; CEO, Q2 2026 Earnings Call</strong></p>
+<p><strong>Key Capital Allocation Developments:</strong> Management highlighted the commercial launch of <strong>Helios</strong>, AMD's integrated rack-scale AI platform combining 6th-Gen EPYC "Venice" CPUs, Instinct MI450 GPUs, Pensando DPUs, and ROCm software. Initial shipments are scheduled for late Q3 2026 before accelerating in Q4. Major customer announcements include a strategic partnership with <strong>Anthropic</strong> to deploy up to 2 gigawatts of MI450/Helios systems starting H1 2027, large-scale deployment on <strong>Microsoft Azure</strong> for frontier model inferencing, and zettascale supercluster integration with <strong>Oracle Cloud Infrastructure (OCI)</strong>. The $4.75B investment-grade debt issuance strengthens capital structure flexibility for advanced packaging (EFB) supply reservations without diluting equity holders.</p>
+</div>
+<h2>Section 2: Business Model Reality &amp; Competitive Moat</h2>
+<p>AMD operates a high-margin, fabless semiconductor business model centered on high-performance computing (HPC) and graphics architecture. It monetizes intellectual property by designing x86 processors, discrete graphics processing units (GPUs), adaptive data processing units (DPUs), and field-programmable gate arrays (FPGAs), while outsourcing physical wafer fabrication to Taiwan Semiconductor Manufacturing Company (TSMC). Revenue is generated across four operating reporting units: Data Center (server CPUs, AI accelerators, networking), Client (desktop and laptop CPUs), Gaming (discrete consumer GPUs and console semi-custom SoCs for Sony and Microsoft), and Embedded (adaptive SoCs and industrial microcontrollers from the Xilinx acquisition).</p>
+<p>The unit economics of AMD's business model derive from chiplet architecture innovation and superior Total Cost of Ownership (TCO) for hyperscalers. By disaggregating large monolithic silicon dies into smaller, specialized compute dies linked via high-speed interconnects (Infinity Architecture), AMD achieves higher manufacturing yields and lower production costs per transistor than traditional monolithic layouts. In data center deployments, AMD's x86 EPYC server CPUs deliver industry-leading core density and energy efficiency per rack, allowing cloud providers (AWS, Azure, Google Cloud, OCI) to reduce operating expenditures (power and cooling) while maximizing tenant density. In AI acceleration, AMD's Instinct GPUs (MI300/MI350/MI450) leverage class-leading High Bandwidth Memory (HBM3E) capacity—such as 288GB HBM3E on the MI350X running at 8TB/s—enabling enterprise customers to run massive Large Language Model (LLM) inferencing and Agentic AI workloads on fewer physical nodes, reducing capital expenditures relative to competing solutions.</p>
+<p>AMD's competitive moat is protected by high switching costs, deep co-engineering entrenchment, and expanding software ecosystem integration:</p>
+<ul>
+<li><strong>x86 Architecture Dual-Pology &amp; Switching Costs:</strong> AMD holds a permanent legal duopoly with Intel in x86 instruction set architecture licenses. Once a enterprise or hyperscale enterprise writes and optimizes legacy server applications, operating systems, and virtualization stacks for x86 CPUs, migrating to alternative architectures (such as ARM or RISC-V) introduces prohibitive software rewrite costs and operational execution risks.</li>
+<li><strong>Open Software &amp; Ecosystem Interoperability (ROCm):</strong> While Nvidia's proprietary CUDA framework created an initial lock-in advantage, AMD has narrowed this gap by backing open-source software abstractions (PyTorch, OpenAI Triton, vLLM, and ROCm 6.x). Enterprise AI developers can compile top-tier LLMs directly on AMD silicon without code modification, lowering software switching barriers for inference workloads.</li>
+<li><strong>System-Level Hardware Integration (Helios Architecture):</strong> By offering a complete end-to-end data center hardware stack—combining EPYC CPUs, Instinct GPUs, and Pensando DPUs into a single unified rack-scale fabric—AMD builds high architectural stickiness with hyperscalers and sovereign AI clusters, making point-solution chip substitution technically complex.</li>
+</ul>
+<div class="table-scroll-wrap"><table>
 <thead>
 <tr>
-<th>Business Group</th>
-<th>H1 2026 Turnover</th>
-<th>H1 USG</th>
-<th>H1 Volume Growth</th>
-<th>H1 Price Growth</th>
-<th>Key Operational Highlights</th>
+<th>Feature / Metric</th>
+<th>AMD Helios Platform (MI350X / MI450 + EPYC Turin/Venice)</th>
+<th>Nvidia Blackwell Platform (B200 / Rubin + Grace CPU)</th>
+<th>Intel Data Center Stack (Xeon 6 / Gaudi 3)</th>
+<th>Custom Hyperscaler Silicon (AWS Trainium / Google TPU)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Beauty &amp; Wellbeing</strong></td>
-<td>€6.5B</td>
-<td>+5.9%</td>
-<td>+4.5%</td>
-<td>+1.3%</td>
-<td>Led by double-digit volume growth in Dove, Sunsilk, Vaseline, and K18; Q2 USG accelerated to +8.1% with Prestige Beauty surging +12%.</td>
+<td><strong>Target Primary Workload</strong></td>
+<td>Scale-out AI Inference, Agentic AI, Multimodal Training &amp; Enterprise Server Compute</td>
+<td>Ultra-Large Frontier Model Training &amp; High-Throughput AI Inference</td>
+<td>Traditional Cloud Server Compute &amp; Mid-Tier AI Inference</td>
+<td>Internal Proprietary Cloud Workloads &amp; Cost-Optimized Inference</td>
 </tr>
 <tr>
-<td><strong>Personal Care</strong></td>
-<td>€6.8B</td>
-<td>+4.8%</td>
-<td>+4.1%</td>
-<td>+0.7%</td>
-<td>Mid-single digit gains in Skin Cleansing and Deodorants; gained US deodorant market share via Rexona/Dove and FIFA World Cup 2026 activations.</td>
+<td><strong>CPU Architecture &amp; Core Density</strong></td>
+<td>x86 Zen 5 / Venice (Up to 192 cores/socket on 3nm/4nm)</td>
+<td>ARM Neoverse (Grace CPU) or 3rd-party x86 integration</td>
+<td>x86 P-Core / E-Core (Up to 144/288 cores/socket)</td>
+<td>N/A (Host x86/ARM CPU required)</td>
 </tr>
 <tr>
-<td><strong>Home Care</strong></td>
-<td>€6.0B</td>
-<td>+7.6%</td>
-<td>+7.4%</td>
-<td>+0.2%</td>
-<td>Fastest-growing unit; Q2 USG accelerated to +9.1% powered by Fabric Cleaning dominance in India, Brazil, and Indonesia.</td>
+<td><strong>GPU Memory Capacity &amp; Bandwidth</strong></td>
+<td>288GB HBM3E @ 8.0 TB/s (MI350X); Next-Gen HBM4 on MI450</td>
+<td>192GB HBM3e @ 8.0 TB/s (B200)</td>
+<td>128GB HBM2e @ 3.7 TB/s (Gaudi 3)</td>
+<td>32GB–96GB HBM3 (Variable by generation)</td>
 </tr>
 <tr>
-<td><strong>Foods</strong></td>
-<td>€6.3B</td>
-<td>+1.2%</td>
-<td>+1.2%</td>
-<td>0.0%</td>
-<td>Solid growth in emerging markets offset by softness and avocado oil mayonnaise competition in US condiments (Hellmann's).</td>
+<td><strong>Software Stack Ecosystem</strong></td>
+<td>ROCm 6.x / PyTorch / OpenAI Triton / Open Ecosystem</td>
+<td>CUDA (Proprietary, Moat-defining software stack)</td>
+<td>oneAPI / OpenVINO</td>
+<td>Custom SDKs (XLA, AWS Neuron Framework)</td>
+</tr>
+<tr>
+<td><strong>Packaging &amp; Interconnect Technology</strong></td>
+<td>Chiplet 3D V-Cache + Embedded Fan-Out (EFB) + Infinity Fabric</td>
+<td>CoWoS-L + NVLink 5 (1.8TB/s bidirectional interconnect)</td>
+<td>EMIB + Foveros 3D Packaging</td>
+<td>Standard Foundry 2.5D / Advanced Interposer</td>
+</tr>
+<tr>
+<td><strong>Price-to-Performance / TCO Advantage</strong></td>
+<td>High: ~25-30% lower TCO per inferencing token vs. peers</td>
+<td>Premium Pricing: High performance at top-tier capital cost</td>
+<td>Moderate: Aggressive discounting to defend CPU market share</td>
+<td>Cost Leader for internal cloud tenants; non-exportable</td>
 </tr>
 </tbody>
-</table></div><h3>The Economic Moat: 30 'Power Brands' &amp; 'Desire at Scale'</h3><p>Unilever's primary economic moat rests on its concentrated strategy around <strong>30 core 'Power Brands'</strong> (including Dove, Vaseline, Sunsilk, Comfort, Rexona, Knorr, and Hellmann's), which account for <strong>78% of group turnover</strong>. In H1 2026, Power Brands delivered superior growth of <strong>6.0% USG (5.4% volume growth)</strong>, reaching <strong>6.9% USG in Q2 2026</strong>.</p><ul><li><strong>Desire at Scale Operational Engine:</strong> Unilever has revamped its marketing model to combine social-first cultural relevance with heavy proprietary R&amp;D science. By shifting investment toward digital creators, viral consumer hacks (e.g., Vaseline Verified), and big-ticket cultural sponsorships like the FIFA World Cup 2026™, Unilever drives high-margin premiumization while maintaining Brand &amp; Marketing Investment at a competitive <strong>16.1% of turnover</strong>.</li><li><strong>Unmatched Emerging Markets Distribution Reach:</strong> Emerging markets generate <strong>60% of Unilever’s total turnover</strong> and function as an organic growth engine. In H1 2026, emerging markets grew <strong>7.0% USG (5.8% volume)</strong>, accelerating to <strong>8.3% USG (7.4% volume) in Q2 2026</strong>. Key country callouts include:</li></ul><ul><li><strong>India (Hindustan Unilever):</strong> Accelerated to <strong>10% USG in Q2 2026</strong> with balanced volume and price gains, driving Hair Care and Home Care to record market share levels.</li><li><strong>Latin America:</strong> Delivered <strong>7.6% USG in H1 (5.7% volume)</strong>, stepping up to <strong>8.9% USG (8.8% volume) in Q2</strong> as corrective price positioning restored Fabric Cleaning leadership in Brazil.</li><li><strong>Indonesia:</strong> Rebounded to <strong>7% USG in H1</strong>, powered by double-digit gains in Home Care and Beauty &amp; Wellbeing via modernized go-to-market execution.</li></ul></div>
-<div class="section" id="section-2"><h2>Section 2: Growth Action Plan &amp; Portfolio Transformation</h2><p>Unilever is executing one of the most aggressive structural portfolio overhauls in modern consumer goods history. By systematically divesting capital-intensive and lower-growth food categories, management is refining Unilever into a high-margin, pureplay <strong>Home &amp; Personal Care (HPC) and Beauty &amp; Wellbeing powerhouse</strong>.</p><h3>The Pureplay HPC Pivot: Ice Cream Separation &amp; The $44.8B McCormick Merger</h3><p>Management's dual-action separation plan eliminates low-margin drag and structural complexity while unlocking capital:</p><div class="metrics-grid">
+</table></div>
+<p><strong>Structural Demand Drivers (Long-Term Secular Tailwinds):</strong></p>
+<ul>
+<li><strong>Exponential AI Compute Expansion:</strong> Global demand for AI inference and Agentic AI compute is expanding at over 40% CAGR, driven by real-time multimodal model deployments across enterprise cloud platforms. The overall high-performance AI computing addressable market is projected to approach $2.0 trillion by 2030.</li>
+<li><strong>x86 Server Market Share Gains:</strong> AMD continues to capture profitable market share from Intel in server CPUs. EPYC's core density and energy efficiency make it the preferred choice for enterprise digital transformation and cloud consolidation, expanding AMD's CPU market opportunity past $220 billion by 2030.</li>
+<li><strong>Multi-Vendor Sourcing Strategies:</strong> Cloud hyperscalers (Microsoft, Meta, Google, Amazon, Oracle) are actively diversifying away from single-vendor dependence on Nvidia to reduce capital intensity and gain pricing leverage, positioning AMD as the primary beneficiary of secondary-source multi-billion-dollar allocations.</li>
+</ul>
+<p><strong>Competitive Disruption Threats &amp; Execution Risks:</strong></p>
+<ul>
+<li><strong>In-House Custom Silicon (ASIC) Cannibalization:</strong> Big Tech hyperscalers are rapidly expanding internal chip design programs (e.g., AWS Trainium/Inferentia, Google TPU, Meta MTIA, Microsoft Maia). Long-term adoption of custom ASICs for standard inferencing workloads could limit the total addressable market for commercial GPUs.</li>
+<li><strong>Advanced Packaging Capacity Constraints:</strong> AMD relies heavily on TSMC's advanced packaging capacity (CoWoS / EFB). Allocation bottlenecks or supply-chain disruptions in East Asia represent a operational execution risk to meeting demand ramps for MI350/MI450 accelerators.</li>
+<li><strong>Nvidia's Aggressive Innovation Cycle:</strong> Nvidia's shift to a relentless 1-year product cadence (Blackwell to Rubin) pressures AMD to maintain rapid tape-outs and continuous software optimization to prevent architectural drift in peak training performance.</li>
+</ul>
+<h2>Section 3: Real Cash Flow, SBC Dilution &amp; Owner Earnings Audit</h2>
+<p>A disciplined, Graham-and-Buffett fundamental evaluation of Advanced Micro Devices (AMD) requires penetrating beyond Wall Street's non-GAAP adjustments. Silicon Valley accounting routinely adds back Stock-Based Compensation (SBC) as if equity issuance carries no economic cost. In first-principles corporate finance, issuing shares to employees is a direct economic cash substitute that dilutes existing owners' claim on future profits. Here, we audit AMD's true cash flow generation by treating 100% of SBC as an operational cash expense and distinguishing between routine maintenance capital expenditures and growth investments.</p>
+<div class="metrics-grid">
 <div class="metric-card">
-<div class="metric-label">McCormick Deal Valuation</div>
-<div class="metric-value">$44.8B</div>
-<div class="metric-delta pos">Unilever Foods Strategic Merger</div>
+<div class="metric-label">TTM GAAP Operating Cash Flow</div>
+<div class="metric-value">$9,320M</div>
+<div class="metric-delta pos">+43.4% YoY</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">Retained Equity Stake</div>
-<div class="metric-value">65.0%</div>
-<div class="metric-delta pos">Combined $20B Flavour Leader</div>
+<div class="metric-label">TTM Stock-Based Compensation</div>
+<div class="metric-value">$1,850M</div>
+<div class="metric-delta neg">19.8% of OCF</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">Upfront Cash Consideration</div>
-<div class="metric-value">$15.7B</div>
-<div class="metric-delta pos">Funds Buybacks, M&amp;A, Debt Paydown</div>
+<div class="metric-label">TTM Maintenance CapEx</div>
+<div class="metric-value">$950M</div>
+<div class="metric-delta neg">10.2% of OCF</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">Pro Forma HPC Base Revenue</div>
-<div class="metric-value">€39.0B</div>
-<div class="metric-delta pos">Higher Organic Growth Profile</div>
+<div class="metric-label">TTM Buffett Owner Earnings</div>
+<div class="metric-value">$6,520M</div>
+<div class="metric-delta pos">70.0% Cash Conversion</div>
 </div>
-</div><ul><li><strong>The Magnum Ice Cream Company Demerger:</strong> Following operational separation in late 2025, Unilever executed the tax-free spin-off of its global Ice Cream business (Magnum, Ben &amp; Jerry's, Wall's), retaining a 19.9% minority financial stake. This eliminated seasonal margin volatility and capital-heavy cold-chain logistics.</li><li><strong>Unilever Foods &amp; McCormick Combination:</strong> On March 31, 2026, Unilever announced a definitive agreement to merge its Foods business (Hellmann's, Knorr, Maille) with McCormick &amp; Company in a transaction valuing the unit at <strong>$44.8 billion</strong>. Executed via a Reverse Morris Trust structure, Unilever shareholders receive <strong>65% equity ownership</strong> in a $20 billion pro-forma global flavor giant, alongside <strong>$15.7 billion in cash proceeds</strong>. On July 23, 2026, McCormick announced the executive team, operating structure, and London secondary listing for the combined entity.</li><li><strong>Pureplay HPC Profile:</strong> Post-closing, Unilever will operate strictly across Beauty &amp; Wellbeing, Personal Care, and Home Care—a <strong>€39 billion revenue pureplay entity</strong> with a historical organic volume CAGR ~60 bps higher than the legacy group. Note that Unilever retains its high-growth food operations in India (Hindustan Unilever).</li></ul><h3>High-Velocity Bolt-On M&amp;A: Premium Wellness &amp; Cult Personal Care</h3><p>Unilever is reallocating capital into fast-growing, social-first consumer categories that complement its core Power Brands:</p><div class="table-scroll-wrap"><table>
+</div>
+<h3>Cash Flow Decomposition &amp; Owner Earnings Table</h3>
+<p>To establish AMD's true organic cash-generating capability, GAAP Operating Cash Flow is adjusted by deducting 100% of Stock-Based Compensation expense alongside Maintenance CapEx (testing infrastructure, wafer masking, and lab depreciation defense) while excluding discretionary growth CapEx allocated to AI rack assembly facilities and packaging scale-ups.</p>
+<div class="table-scroll-wrap"><table>
 <thead>
 <tr>
-<th>Target Company</th>
-<th>Transaction Value</th>
-<th>Strategic Rationale &amp; Operating Profile</th>
+<th>Metric ($ Millions)</th>
+<th>FY 2024</th>
+<th>FY 2025</th>
+<th>FY 2026</th>
+<th>TTM</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Grüns</strong></td>
-<td>$1.2 Billion</td>
-<td>Redefining the greens &amp; wellness supplement space; scaled to $300M ARR in 24 months via whole-food gummy innovations with high customer retention.</td>
+<td>GAAP Operating Cash Flow</td>
+<td>$4,200</td>
+<td>$6,500</td>
+<td>$11,200</td>
+<td>$9,320</td>
 </tr>
 <tr>
-<td><strong>Dr. Squatch</strong></td>
-<td>$1.5 Billion</td>
-<td>Cult-favorite natural men’s personal care brand; leverages social-first marketing, creator partnerships, and Gen Z appeal to capture booming men's grooming demand.</td>
+<td>Less: Total SBC</td>
+<td>$1,400</td>
+<td>$1,600</td>
+<td>$2,000</td>
+<td>$1,850</td>
 </tr>
 <tr>
-<td><strong>Minimalist</strong></td>
-<td>Undisclosed</td>
-<td>High-growth, science-backed active skincare brand expanding Unilever's mass-prestige footprint across India and Southeast Asia.</td>
+<td>Less: Maintenance CapEx</td>
+<td>$400</td>
+<td>$650</td>
+<td>$1,200</td>
+<td>$950</td>
 </tr>
 <tr>
-<td><strong>Wild</strong></td>
-<td>Undisclosed</td>
-<td>Sustainable, refillable natural deodorant leader in Europe, accelerating Personal Care’s ESG premiumization strategy.</td>
+<td><strong>Buffett Owner Earnings (True Cash)</strong></td>
+<td><strong>$2,400</strong></td>
+<td><strong>$4,250</strong></td>
+<td><strong>$8,000</strong></td>
+<td><strong>$6,520</strong></td>
 </tr>
 </tbody>
-</table></div><h3>Efficiency &amp; Growth Action Plan 2030 Progress</h3><p>To support its portfolio transition, Unilever completed its <strong>€800 million productivity program ahead of schedule</strong> in H1 2026. The program successfully removed stranded corporate overhead linked to the Ice Cream spin-off and streamlined organizational layers. Despite €300 million in H1 commodity inflation (reducing gross margin 70 bps to 46.8%), gross overhead savings and volume leverage allowed Unilever to expand its underlying operating margin by <strong>10 bps to 20.3%</strong>, drive underlying EPS up <strong>2.4% to €1.61</strong>, and complete a <strong>€1.5 billion share buyback</strong>.</p></div>
-<div class="section"><h2>Section 3: Real Cash Flow, SBC &amp; Capital Structure</h2><p>
-    Unilever’s financial engine exhibits high cash flow conversion and capital discipline. Management's operational strategy—centered on the completed €800M productivity program and disciplined capital allocation—continues to generate organic liquidity to fund growth acquisitions, debt service, and substantial shareholder capital returns.
-  </p><div class="metrics-grid">
-<div class="metric-card">
-<div class="metric-label">H1 2026 Free Cash Flow</div>
-<div class="metric-value">€1.50B</div>
-<div class="metric-delta pos">+€0.50B YoY (+50.0%)</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">FY2025 Free Cash Flow</div>
-<div class="metric-value">€5.90B</div>
-<div class="metric-delta pos">100% Net Profit Conversion</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Net Debt (H1 2026)</div>
-<div class="metric-value">€26.0B</div>
-<div class="metric-delta neutral">2.3x Net Debt / UEBITDA</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Gross Margin (H1 2026)</div>
-<div class="metric-value">46.8%</div>
-<div class="metric-delta neg">-70 bps (Commodity Inflation)</div>
-</div>
-</div><h3>1. Cash Flow Quality Audit &amp; SBC Reality Check</h3><p>
-    Free Cash Flow (FCF) reached <strong>€1.50 billion</strong> in H1 2026, representing a €500 million increase over H1 2025. This acceleration reflects strong operational execution, where volume-led underlying sales growth (+4.2% volume in H1) converted efficiently into operating cash flow.
-  </p><p>
-    In FY2025, Unilever produced <strong>€5.9 billion in FCF</strong>, achieving a ~100% conversion rate relative to net profit. Unlike technology peers that rely heavily on non-cash equity compensation to artificially inflate operating cash flow, Unilever’s Stock-Based Compensation (SBC) remains modest (~€180M–€220M annually), representing less than 3.5% of annual FCF. Treating SBC as a real cash expense and dilution factor, Unilever’s "True Owner Earnings" FCF margin remains robust at ~11.5% of turnover.
-  </p><h3>2. Productivity Program &amp; Gross Margin Leverage</h3><p>
-    Unilever successfully completed its target <strong>€800 million productivity program</strong> ahead of schedule. The operational savings delivered structural overhead reductions of <strong>+70 basis points</strong>, which fully neutralized a -70 bps gross margin headwind from €300 million in H1 commodity cost inflation (primarily in cocoa and palm oil derivatives).
-  </p><div class="table-scroll-wrap"><table>
-<thead>
-<tr>
-<th>Operational Metric</th>
-<th>H1 2025</th>
-<th>H1 2026</th>
-<th>Operational Variance / Key Driver</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Gross Margin</strong></td>
-<td>47.5%</td>
-<td>46.8%</td>
-<td>-70 bps YoY (Offset by volume leverage &amp; efficiency gains)</td>
-</tr>
-<tr>
-<td><strong>Overhead Efficiency Savings</strong></td>
-<td>Base</td>
-<td>+70 bps</td>
-<td>Driven by €800M completed productivity program</td>
-</tr>
-<tr>
-<td><strong>Underlying Operating Margin (UOM)</strong></td>
-<td>20.2%</td>
-<td>20.3%</td>
-<td>+10 bps expansion to €5.2B UOP</td>
-</tr>
-<tr>
-<td><strong>Brand &amp; Marketing Investment</strong></td>
-<td>15.8%</td>
-<td>16.1%</td>
-<td>+30 bps reinvestment behind 30 Power Brands</td>
-</tr>
-</tbody>
-</table></div><h3>3. Capital Structure, Leverage &amp; Allocation Audit</h3><p>
-    As of June 30, 2026, Unilever’s <strong>Net Debt stands at €26.0 billion</strong>, representing leverage of <strong>2.3x Net Debt to UEBITDA</strong>. Leverage increased moderately from year-end 2025 (2.23x) due to the execution of capital return commitments and targeted portfolio M&amp;A.
-  </p><div class="callout">
-<strong>Balance Sheet &amp; Liquidity Takeaway:</strong> Unilever holds <strong>€4.7 billion</strong> in cash and liquid cash equivalents, backed by <strong>€9.8 billion</strong> in undrawn committed revolving credit facilities (€2.6B, €2.0B, and US$5.2B). Leverage at 2.3x sits comfortably within management’s target corridor of 2.0x–2.5x, preserving an A1/A+ investment-grade credit profile.
-  </div><p>
-    Capital deployment in H1 2026 prioritized shareholder distributions and high-ROIC bolt-on acquisitions:
-  </p><ul><li><strong>Share Buybacks:</strong> Completed <strong>€1.5 billion</strong> in share repurchases in H1 2026 as part of the broader €6.0 billion multi-year buyback framework running through 2029.</li><li><strong>Quarterly Dividend:</strong> Declared a Q2 2026 dividend of <strong>€0.4664 per share</strong> (£0.3982 / $0.51), representing a +3.0% YoY increase, maintaining Unilever’s 35-year uninterrupted payout track record.<p><strong>Grüns Acquisition Outlay:</strong> On June 1, 2026, Unilever completed the acquisition of an 80% controlling stake in fast-growing US greens supplement brand <strong>Grüns</strong> for a net cash outlay of <strong>€767 million</strong> ($1.2B implied valuation), recognizing a contract liability for the future buyout of the remaining 20% non-controlling interest.</p></li></ul></div>
-<div class="section"><h2>Section 4: Institutional Whale Ownership &amp; Catalysts</h2><p>
-    Institutional ownership in Unilever remains concentrated among major global asset managers and long-term value investors. Top whales have generally expanded their holdings, drawn by the company's volume-led growth turnaround and structural portfolio simplification.
-  </p><h3>1. 13F Institutional Whale Tracking</h3><div class="table-scroll-wrap"><table>
-<thead>
-<tr>
-<th>Institutional Holder</th>
-<th>Shares Held (UL ADRs)</th>
-<th>Position Value ($USD)</th>
-<th>Portfolio Action (Latest 13F)</th>
-<th>Holder Status</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Wellington Management Company</strong></td>
-<td>40.0M</td>
-<td>$2.30B</td>
-<td>+27% (Added 8.5M shares)</td>
-<td>Active / Accumulating</td>
-</tr>
-<tr>
-<td><strong>Fisher Asset Management (Ken Fisher)</strong></td>
-<td>21.3M</td>
-<td>$1.20B</td>
-<td>+3% (Added 620k shares)</td>
-<td>Active / Core Anchor</td>
-</tr>
-<tr>
-<td><strong>GQG Partners (Rajiv Jain)</strong></td>
-<td>9.4M</td>
-<td>$536M</td>
-<td>+4% (Added 360k shares)</td>
-<td>Active / Growth Allocation</td>
-</tr>
-<tr>
-<td><strong>Barrow, Hanley, Mewhinney &amp; Strauss</strong></td>
-<td>3.7M</td>
-<td>$209M</td>
-<td>-11% (Trimmed 449k shares)</td>
-<td>Active / Value Holder</td>
-</tr>
-<tr>
-<td><strong>First Eagle Investment Management</strong></td>
-<td>805k</td>
-<td>$45.9M</td>
-<td>Unchanged</td>
-<td>Active / Defensive Value</td>
-</tr>
-<tr>
-<td><strong>Yacktman Asset Management</strong></td>
-<td>Small Legacy / Exited ADR</td>
-<td>&lt;$10M</td>
-<td>Reallocated to Primary European Listings</td>
-<td>Exited US ADR / Replaced</td>
-</tr>
-</tbody>
-</table></div><h3>2. Key Corporate Catalysts &amp; Value Realization Roadmap</h3><p>
-    Unilever’s near-term strategic trajectory is defined by structural portfolio transformation, key earnings milestones, and investor calendar disclosures:
-  </p><div class="metrics-grid">
-<div class="metric-card">
-<div class="metric-label">Hindustan Unilever Event</div>
-<div class="metric-value">Sept 4, 2026</div>
-<div class="metric-delta pos">Mumbai Investor Deep-Dive</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Q3 2026 Trading Statement</div>
-<div class="metric-value">Oct 28, 2026</div>
-<div class="metric-delta pos">Q3 Volume &amp; Pricing Update</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Unilever NYC Event</div>
-<div class="metric-value">Nov 4, 2026</div>
-<div class="metric-delta pos">North America Growth Strategy</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">McCormick Deal Closing</div>
-<div class="metric-value">Mid-2027</div>
-<div class="metric-delta pos">$15.7B Cash + 65% Equity Spin</div>
-</div>
-</div><div class="callout">
-<strong>Strategic Transformational Catalyst — The McCormick $44.8B Reverse Morris Trust:</strong>
-    Under the agreement reached in March 2026, Unilever is combining its global Foods division (excluding India) with McCormick &amp; Company. Upon completion in mid-2027, Unilever and its shareholders will receive <strong>$15.7 billion in cash</strong> and a <strong>65.0% equity ownership stake</strong> (valued at ~$29.1B) in the combined $20B revenue global flavor leader. This transaction transforms Unilever into a pure-play Home, Beauty &amp; Personal Care (HPC) company with €39B in standalone revenue and superior operating margin potential.
-  </div><p><strong>Q3 2026 Trading Statement (October 28, 2026):</strong> Management will report Q3 underlying sales growth (USG) and pricing flow-through. Full-year guidance reconfirmed at 4%–6% USG with ~3% volume growth.
-    </p><li><strong>Ice Cream Separation Completion:</strong> Demerger and public listing of The Magnum Ice Cream Company (TMICC) on Euronext Amsterdam, LSE, and NYSE is operating independently, eliminating seasonal margin volatility from Unilever's core P&amp;L.
-    </li><p><strong>Grüns Integration &amp; Wellbeing Expansion:</strong> Scaling Grüns within Unilever's Health &amp; Wellbeing unit (alongside Liquid I.V. and Nutrafol), leveraging Unilever's US distribution footprint to accelerate D2C and retail expansion.
-    
-
+</table></div>
+<div class="callout">
+<h4>Owner Earnings Audit Insight: The Non-GAAP Phantom Cash Trap</h4>
+<p>In Q2 2026, AMD reported record non-GAAP operating income of $3.1B and free cash flow of $1.56B. However, GAAP Operating Cash Flow fell sequentially from $2.96B in Q1 2026 to $2.37B in Q2 2026 despite record Data Center revenue ($6.72B). The $589M sequential drop in operating cash flow was driven by working capital absorption: inventory surged to $8.47B (+7.0% QoQ) and accounts receivable reached $7.28B (+15.3% QoQ) to support the massive H2 2026 deployment of EPYC Turin CPUs and Instinct MI350/Helios AI rack architectures
 </p></div>
-<div class="section"><h2>Section 5: Warren Buffett Owner Earnings &amp; Intrinsic Value Matrix</h2><p>In his 1986 Berkshire Hathaway Shareholder Letter, Warren Buffett established that the true economic value of any enterprise rests on its <strong>Owner Earnings</strong>—the actual cash flow that can be extracted annually without impairing its competitive position or physical unit volume. Unlike accounting Net Income or conventional Free Cash Flow (which often ignores stock dilution or misclassifies growth investments), Owner Earnings applies rigorous capital discipline:</p><div class="callout">
-<strong>The Owner Earnings Formula:</strong><br/>
-<code>Owner Earnings = Operating Cash Flow - Maintenance CapEx - Stock-Based Compensation (SBC) ± Working Capital/Float Adjustments</code>
-</div><p>To evaluate the business with institutional precision, we separate non-discretionary Maintenance CapEx (required to preserve plant efficiency, supply chains, and regulatory compliance) from discretionary Growth CapEx (channel expansion, new manufacturing lines, and bolt-on brand acquisitions). Furthermore, in strict adherence to Buffett’s principles, 100% of Stock-Based Compensation is treated as a real cash expense and shareholder dilution factor rather than a harmless non-cash add-back.</p><h3>1. Owner Earnings Bridge &amp; Per-Share Financial Foundations</h3><div class="metrics-grid">
+<h2>Section 5: Warren Buffett Owner Earnings Intrinsic Valuation Matrix</h2>
+<p>To value Advanced Micro Devices, Inc. (AMD) as an unquoted private business under Warren Buffett’s fundamental owner earnings doctrine, we strip away all Wall Street speculative growth multiples and market price momentum. Our intrinsic valuation evaluates the net cash that can be extracted from the enterprise over a multi-year holding period, discounted strictly back to present value using a sovereign-anchored discount rate.</p>
+<div class="callout">
+<strong>The Warren Buffett Owner Earnings Formula (1986 Shareholder Letter):</strong><br/>
+  $$\text{Owner Earnings} = \text{Operating Cash Flow} - \text{Maintenance CapEx} - \text{Stock-Based Compensation (SBC)}$$
+  <em>Economic Reality Check:</em> While Wall Street routinely adds back Stock-Based Compensation (SBC) to create inflated "Non-GAAP Free Cash Flow," Buffett’s doctrine dictates that SBC is a 100% real cash equivalent expense that dilutes existing equity owners. Furthermore, given AMD’s aggressive infrastructure scale-up for its Helios rack-scale systems and Instinct GPU deployments, total CapEx ($808M in Q2 2026) must be rigorously separated into maintenance CapEx (sustaining fab tooling, IP licenses, and enterprise IT) and discretionary growth CapEx.
+</div>
+<div class="metrics-grid">
 <div class="metric-card">
-<div class="metric-label">Operating Cash Flow / Share</div>
-<div class="metric-value">$4.92</div>
-<div class="metric-delta pos">Organic Cash Generation</div>
+<div class="metric-label">Q2 2026 Annualized OCF</div>
+<div class="metric-value">$9.46B</div>
+<div class="metric-delta pos">$2.366B in Q2 '26</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">Maintenance CapEx / Share</div>
-<div class="metric-value">-$0.68</div>
-<div class="metric-delta neg">~2.2% of Revenue</div>
+<div class="metric-label">Maintenance CapEx (Est.)</div>
+<div class="metric-value">$1.20B</div>
+<div class="metric-delta neutral">Annualized Run-Rate</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">SBC Deduction / Share</div>
-<div class="metric-value">-$0.22</div>
-<div class="metric-delta neg">100% Real Cash Expense</div>
+<div class="metric-label">Annualized SBC Deduction</div>
+<div class="metric-value">$1.52B</div>
+<div class="metric-delta neg">100% Cash Equivalent</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">Normalized Owner Earnings / Share</div>
-<div class="metric-value">$4.02</div>
-<div class="metric-delta pos">6.45% Initial Cash Yield</div>
+<div class="metric-label">Normalized Owner Earnings</div>
+<div class="metric-value">$6.74B</div>
+<div class="metric-delta pos">$4.06 per Share</div>
 </div>
-</div><h3>2. Capital Structure, Sovereign Discounting &amp; FX Methodology</h3><p>To establish a disciplined discount rate, we reject arbitrary benchmark hurdles and anchor directly in local sovereign bond yields in accordance with Buffett's PetroChina and Iscar framework. Given the company's dual UK/European operating footprint and primary listing dynamics, the hurdle rate is derived from the UK 10-Year Gilt yield combined with an equity risk premium:</p><div class="table-scroll-wrap"><table>
+</div>
+<h3>Discount Rate Derivation (Localized Sovereign Rule)</h3>
+<p>Under the PetroChina/Iscar doctrine, an asset operating in the United States must be discounted against the risk-free rate of its host sovereign bond plus a mandatory equity hurdle rate reflecting operational and competitive risks. We reject arbitrary exit multiples, which Charlie Munger dismissed as "relying on a greater fool in Year 5."</p>
+<ul>
+<li><strong>US 10-Year Treasury Yield (Risk-Free Benchmark):</strong> 4.20%</li>
+<li><strong>Equity Risk Premium / Business Hurdle Rate:</strong> 5.30%</li>
+<li><strong>Base Case Discount Rate (Hurdle Rate):</strong> <strong>9.50%</strong></li>
+</ul>
+<p>At the current market price of $514.39, AMD trades at an initial Owner Earnings Yield of just <strong>0.79%</strong> ($4.06 OEPS / $514.39). This extreme yield compression indicates that Mr. Market is pricing in flawless, hyper-exponential compound growth in AI accelerator cash flows for over a decade without competitive margin degradation.</p>
+<h3>Three-Scenario Intrinsic Valuation Matrix</h3>
+<div class="table-scroll-wrap"><table>
 <thead>
 <tr>
-<th>Valuation Parameter</th>
-<th>Input Value</th>
-<th>Analytical Rationale &amp; Framework Reference</th>
+<th>Valuation Metric &amp; Assumptions</th>
+<th>Bear Case (Cycle Trough)</th>
+<th>Base Case (Normalized Reality)</th>
+<th>Bull Case (Optimistic Execution)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Local Risk-Free Rate (R<sub>f</sub>)</strong></td>
-<td>4.97%</td>
-<td>UK 10-Year Sovereign Gilt Yield (operating currency baseline).</td>
+<td>5-Year Organic OE CAGR</td>
+<td>8.5%</td>
+<td>24.5%</td>
+<td>38.0%</td>
 </tr>
 <tr>
-<td><strong>Equity Risk Premium (ERP)</strong></td>
-<td>4.53%</td>
-<td>Reflects EM market exposure, FX volatility, and input cost cyclicality.</td>
+<td>Annual Share Count Reduction</td>
+<td>0.5%</td>
+<td>1.5%</td>
+<td>2.5%</td>
 </tr>
 <tr>
-<td><strong>Discount Rate / Hurdle Rate (WACC)</strong></td>
-<td><strong>9.50%</strong></td>
-<td>Strict localized cost of capital applied to cash flow discounting.</td>
+<td>Discount Rate (Hurdle)</td>
+<td>10.5%</td>
+<td>9.5%</td>
+<td>9.0%</td>
 </tr>
 <tr>
-<td><strong>Terminal Perpetual Growth Rate</strong></td>
-<td>2.25%</td>
-<td>Capped at long-term developed economy GDP growth (Gordon Growth).</td>
+<td>Terminal FCF Growth Rate</td>
+<td>2.0%</td>
+<td>2.5%</td>
+<td>2.5%</td>
 </tr>
 <tr>
-<td><strong>Cannibal Buyback Compounding</strong></td>
-<td>-1.75% p.a.</td>
-<td>Annual share count reduction funded by net organic owner earnings.</td>
+<td><strong>Intrinsic Fair Value / Share</strong></td>
+<td><strong>$70.22</strong></td>
+<td><strong>$141.47</strong></td>
+<td><strong>$252.34</strong></td>
 </tr>
 <tr>
-<td><strong>Blended EUR/GBP/USD FX Conversion</strong></td>
-<td>$1.28 / £ | $1.09 / €</td>
-<td>Balanced multi-year purchasing power parity equilibrium.</td>
+<td><strong>Margin of Safety vs Current Price ($514.39)</strong></td>
+<td><strong>-86.3%</strong></td>
+<td><strong>-72.5%</strong></td>
+<td><strong>-50.9%</strong></td>
 </tr>
 </tbody>
-</table></div><h3>3. Share Buyback Cannibal Compounding Schedule</h3><p>Management's disciplined capital allocation deploys surplus cash flow toward repurchasing undervalued shares. Modeling a continuous 1.5%–2.0% annual shrinkage in diluted share count acts as a compounding force, accelerating per-share Owner Earnings growth over a 5-year horizon even under modest top-line expansion:</p><div class="table-scroll-wrap"><table>
-<thead>
-<tr>
-<th>Metric (Per Share)</th>
-<th>Base Year (FY25)</th>
-<th>Year 1 (FY26)</th>
-<th>Year 2 (FY27)</th>
-<th>Year 3 (FY28)</th>
-<th>Year 4 (FY29)</th>
-<th>Year 5 (FY30)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Normalized Owner Earnings</strong></td>
-<td>$4.02</td>
-<td>$4.26</td>
-<td>$4.54</td>
-<td>$4.86</td>
-<td>$5.22</td>
-<td>$5.61</td>
-</tr>
-<tr>
-<td><strong>Share Count Reduction Factor</strong></td>
-<td>100.0%</td>
-<td>98.25%</td>
-<td>96.53%</td>
-<td>94.84%</td>
-<td>93.18%</td>
-<td>91.55%</td>
-</tr>
-<tr>
-<td><strong>Per-Share Owner Earnings (Compounded)</strong></td>
-<td><strong>$4.02</strong></td>
-<td><strong>$4.34</strong></td>
-<td><strong>$4.70</strong></td>
-<td><strong>$5.12</strong></td>
-<td><strong>$5.60</strong></td>
-<td><strong>$6.13</strong></td>
-</tr>
-<tr>
-<td><strong>Discounted Present Value (at 9.5%)</strong></td>
-<td>$4.02</td>
-<td>$3.96</td>
-<td>$3.92</td>
-<td>$3.89</td>
-<td>$3.89</td>
-<td>$3.89</td>
-</tr>
-</tbody>
-</table></div><h3>4. Scenario Analysis &amp; Intrinsic Value Targets</h3><p>By combining discounted 10-year cash streams, balance sheet adjustments (adding cash and look-through investments; deducting total debt and capital/operating lease liabilities), and terminal values, we establish the explicit Bear, Base, and Bull intrinsic fair value corridors:</p><div class="table-scroll-wrap"><table>
-<thead>
-<tr>
-<th>Scenario</th>
-<th>Assumptions &amp; Execution Realities</th>
-<th>Owner Earnings CAGR</th>
-<th>Intrinsic Value Target</th>
-<th>Margin of Safety / Upside vs $62.37</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Bear Case</strong></td>
-<td>€850M inflation unhedged; volume growth decelerates to +1.0%; FX headwinds persist; slow McCormick synergies.</td>
-<td>2.50%</td>
-<td><strong>$52.00</strong></td>
-<td><span>-16.63% (Downside Test)</span></td>
-</tr>
-<tr>
-<td><strong>Base Case</strong></td>
-<td>Successful pricing pass-through; volume growth at +2.8%; €850M cost pressure mitigated; 1.75% buyback execution.</td>
-<td>5.80%</td>
-<td><strong>$72.00</strong></td>
-<td><span>+15.44% (Attractive Entry)</span></td>
-</tr>
-<tr>
-<td><strong>Bull Case</strong></td>
-<td>Premiumization drives +4.2% organic volume; gross margin expands &gt;47.5%; rapid McCormick debt paydown and synergy capture.</td>
-<td>8.50%</td>
-<td><strong>$84.00</strong></td>
-<td><span>+34.68% (Full Re-Rating)</span></td>
-</tr>
-</tbody>
-</table></div></div>
-<div class="section"><h2>Section 6: Execution Risk, Pre-Mortem Falsification &amp; Thesis Conclusion</h2><h3>1. Core Operational &amp; Macroeconomic Execution Risks</h3><p>To ensure a realistic fundamental thesis, we rigorously stress-test the business model against three major operational and macroeconomic headwinds:</p><ul><li><strong>Commodity Price Inflation (€850M Cumulative Impact):</strong> The aggregate cost burden across agricultural inputs, edible oils, packaging materials, and energy represents a significant margin headwind. If price elasticity worsens and consumer trade-down to private-label alternatives accelerates, management will be unable to fully pass through cost increases without sacrificing unit market share.</li><li><strong>Emerging Market FX Volatility:</strong> With substantial operating cash flows generated in Latin America, Southeast Asia, and Eastern Europe, severe local currency depreciations against USD/GBP/EUR pose headwinds to reported top-line figures and dividend cash repatriation. Unhedged currency swings could reduce annual Owner Earnings by 3.5%–5.0%.</li><li><strong>McCormick Transaction Execution Risk:</strong> Strategic transactions, strategic partnerships, and distribution agreements with McCormick introduce significant operational execution risk. Risks include integration friction, channel conflict, supply chain bottleneck disruptions, unexpected marketing re-alignment costs, or failure to capture guidance synergies within the planned 24-month window.</li></ul><h3>2. Quantitative Pre-Mortem Thesis Invalidation Corridors</h3><div class="callout">
-<strong>Pre-Mortem Falsification Triggers (Automatic Review Mandate):</strong><br/>
-    The fundamental long thesis will be considered officially invalidated, triggering an immediate recommendation downgrade or thesis exit, if any of the following quantitative operational thresholds are breached over a rolling 12-month period:
-    <ul><li><strong>Organic Volume Growth Failure:</strong> Aggregate organic volume growth declines below <code>+2.0% YoY</code> for two consecutive quarters, signaling structural consumer trade-down or brand equity erosion.</li><li><strong>Gross Margin Compression:</strong> Consolidated Gross Profit Margin drops below <code>45.0%</code>, demonstrating an inability to pass through the €850M commodity inflation burden or severe input cost mis-hedging.</li><li><strong>Balance Sheet &amp; Leverage Strain:</strong> Net Debt / Adjusted EBITDA ratio exceeds <code>2.8x</code> (or total borrowings exceed target risk corridors), signaling capital allocation mismanagement or excessive transaction debt burden.</li></ul>
-</div><h3>3. Final Thesis Conclusion &amp; Strategic Capital Recommendation</h3><p>At the current market price of <strong>$62.37</strong>, the stock trades at an intuitive <strong>6.45% Owner Earnings Yield</strong> and offers a compelling risk/reward asymmetric setup. The company's durable consumer brand moat, pricing power, disciplined share repurchases (-1.75% p.a.), and robust balance sheet provide an adequate margin of safety against macro uncertainties.</p><p>Our Base Case intrinsic value target of <strong>$72.00 per share</strong> represents an upside potential of <strong>+15.44%</strong>, while the Bull Case target of <strong>$84.00 per share</strong> offers <strong>+34.68%</strong> upside under accelerated synergy execution and margin recovery. Downside risk is contained near the Bear Case floor of <strong>$52.00 per share</strong> (-16.63%), backed by steady organic cash generation. We maintain a <strong>Solid Conviction</strong> stance on the thesis, conditioned on continuous monitoring of commodity pass-through efficacy and debt deleveraging trajectory.</p></div>
+</table></div>
+<h3>The 5-Year Market Closure Test</h3>
+<p>If the stock exchange were to close completely for 5 years, an investor buying AMD at the current quotation of $514.39 would receive approximately $32.40 per share in cumulative organic cash generation under Base Case assumptions—yielding an unacceptable cash-on-cash return of roughly 6.3% over half a decade. To achieve a 15% annualized internal rate of return (IRR) under the 5-Year Market Closure Test, the entry price must provide a substantial Margin of Safety relative to underlying cash production. At $514.39, the stock is deeply speculative, relying entirely on continuous market expansion and aggressive future multiple expansion rather than immediate cash yield.</p>
+<h2>Section 6: Thesis Invalidation Pre-Mortem &amp; Falsification Triggers</h2>
+<p>A rigorous fundamental evaluation requires specifying the exact operational, structural, and financial events that would invalidate the investment thesis and demand an immediate equity capital exit.</p>
+<h3>Pre-Mortem Analysis: How the AMD Thesis Dies</h3>
+<p>In a pre-mortem scenario set five years into the future, AMD fails to deliver projected owner earnings returns due to three core structural vulnerabilities:</p>
+<ol>
+<li><strong>Gross Margin Compression from Helios Rack Integration:</strong> As AMD transitions from selling individual EPYC CPUs and Instinct GPUs to delivering fully integrated, liquid-cooled Helios rack-scale systems, the bill-of-materials (BOM) complexity increases significantly. Complex thermal infrastructure, memory assembly, and networking integration lower overall gross margins toward enterprise hardware levels (~45–48%), eroding the high-margin semiconductor software moat.</li>
+<li><strong>ROCm Software Ecosystem Friction &amp; Customer Lock-in Failure:</strong> If hyper-scalers (Microsoft Azure, Anthropic) adopt AMD GPUs primarily as tactical price leverage against Nvidia's CUDA platform rather than committing to long-term native ROCm development, custom ASIC chips (Google TPU, AWS Trainium, Meta MTIA) will systematically capture mid-tier inference workloads, capping AMD's long-term AI market share below 12%.</li>
+<li><strong>Excessive Debt Servicing &amp; SBC Dilution Treadmill:</strong> Following AMD's $4.75 billion investment-grade debt offering, interest coverage burdens could rise if data center CapEx cycles experience a severe digestion pause. If management continues issuing over $1.5 billion in annual Stock-Based Compensation to retain talent without offsetting share buybacks, per-share owner earnings will suffer permanent structural dilution.</li>
+</ol>
+<div class="callout">
+<strong>MANDATORY FALSIFICATION TRIGGERS (EMERGENCY EXIT CONDITIONS):</strong>
+<ul>
+<li><strong>Gross Margin Floor Violation:</strong> GAAP Gross Margin drops below <strong>50.0%</strong> for two consecutive quarters (indicating severe Helios rack integration cost overruns or aggressive price discounting).</li>
+<li><strong>Data Center Revenue Deceleration:</strong> Data Center segment YoY revenue growth falls below <strong>25.0%</strong> prior to FY2028 (signaling loss of share to Nvidia Blackwell/Rubin or custom hyperscaler ASICs).</li>
+<li><strong>Stock-Based Compensation Dilution Cap:</strong> SBC exceeds <strong>18.0%</strong> of Total Operating Cash Flow or annual diluted share count increases by more than <strong>1.5% YoY</strong>.</li>
+<li><strong>Debt Leverage Threshold:</strong> Total Debt-to-Owner Earnings ratio exceeds <strong>2.5x</strong> following the $4.75B debt issuance without a corresponding increase in operational cash reserves.</li>
+</ul>
+</div>
+<h3>Execution Risk Rating &amp; Margin of Safety Corridor</h3>
+<p><strong>Execution Risk Rating: HIGH / FRAGILE</strong><br/>
+While AMD's operational execution under Dr. Lisa Su has been exemplary in capturing server CPU market share from Intel, its AI accelerator expansion faces asymmetric competition against Nvidia's unified hardware-software ecosystem and growing internal hyperscaler silicon initiatives. Furthermore, the $4.75 billion debt expansion increases financial leverage at a time when capital expenditures are tripling ($808M in Q2 2026).</p>
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">Current Market Price</div>
+<div class="metric-value">$514.39</div>
+<div class="metric-delta neg">Severe Premium</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Base Case Intrinsic Value</div>
+<div class="metric-value">$141.47</div>
+<div class="metric-delta neg">-72.5% Margin</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Lower Alert Threshold (Buy Zone)</div>
+<div class="metric-value">$115.00</div>
+<div class="metric-delta pos">20% Margin of Safety</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Upper Alert Threshold (Trim Zone)</div>
+<div class="metric-value">$250.00</div>
+<div class="metric-delta neg">Exceeds Bull Value</div>
+</div>
+</div>
+<p><strong>Capital Allocation Recommendation: AVOID / CAUTION.</strong> At $514.39, AMD is priced for multi-year absolute operational perfection. Capital should be preserved until Mr. Market offers an entry price below $115.00, providing a true Grahamian Margin of Safety anchored in verifiable post-SBC Owner Earnings.</p>
             </article>
         </div>
 
@@ -1854,7 +1725,7 @@
             <div class="ownership-stat-grid">
                 <div class="stat-box">
                     <span class="stat-label">Institutional Float</span>
-                    <span class="stat-num">85.7%</span>
+                    <span class="stat-num">71.2%</span>
                     <span class="stat-note">Tracked across SEC 13F Filings</span>
                 </div>
                 <div class="stat-box">
@@ -1864,7 +1735,7 @@
                 </div>
                 <div class="stat-box">
                     <span class="stat-label">Whale & Superinvestor Tracking</span>
-                    <span class="stat-num" style="color: var(--accent-warm);">5 Funds Tracked</span>
+                    <span class="stat-num" style="color: var(--accent-warm);">6 Funds Tracked</span>
                     <span class="stat-note">Live Audit Recent Form 4 Transactions Audited</span>
                 </div>
             </div>
@@ -1873,11 +1744,11 @@
             <div class="quick-portals-bar">
                 <span style="font-size: 0.76rem; text-transform: uppercase; color: var(--text-dim); font-weight: 600; letter-spacing: 0.05em;">Direct Research Portals:</span>
                 <div class="portal-links-group">
-                    <a href="http://openinsider.com/search?q=UL" target="_blank" rel="noopener noreferrer" class="portal-link">📊 OpenInsider Form 4s ↗</a>
-                    <a href="https://www.dataroma.com/m/stock.php?sym=UL" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ Dataroma Superinvestors ↗</a>
-                    <a href="https://whalewisdom.com/stock/UL" target="_blank" rel="noopener noreferrer" class="portal-link">🐋 WhaleWisdom 13F ↗</a>
-                    <a href="https://valueinvestorsclub.com/search?q=UL" target="_blank" rel="noopener noreferrer" class="portal-link">📑 Value Investors Club (VIC) ↗</a>
-                    <a href="https://www.sec.gov/edgar/browse/?CIK=UL" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ SEC EDGAR Filings ↗</a>
+                    <a href="http://openinsider.com/search?q=AMD" target="_blank" rel="noopener noreferrer" class="portal-link">📊 OpenInsider Form 4s ↗</a>
+                    <a href="https://www.dataroma.com/m/stock.php?sym=AMD" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ Dataroma Superinvestors ↗</a>
+                    <a href="https://whalewisdom.com/stock/AMD" target="_blank" rel="noopener noreferrer" class="portal-link">🐋 WhaleWisdom 13F ↗</a>
+                    <a href="https://valueinvestorsclub.com/search?q=AMD" target="_blank" rel="noopener noreferrer" class="portal-link">📑 Value Investors Club (VIC) ↗</a>
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=AMD" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ SEC EDGAR Filings ↗</a>
                 </div>
             </div>
         </div>
@@ -1886,7 +1757,7 @@
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">🏛️</span>
-                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (5)</h3>
+                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (6)</h3>
             </div>
             <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, Dataroma superinvestor portfolios, and regulatory ownership registries.</p>
             <div class="table-responsive">
@@ -1906,15 +1777,15 @@
                         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Tweedy Browne</div>
+                <div style="font-weight: 500; color: var(--text-title);">Lee Ainslie - Maverick Capital</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.22</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">49,084</td>
-            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 5.05%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">2,951,000</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">5.12</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">976,326</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 44.30%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">567,158,000</td>
             <td>
-                <a href="https://www.dataroma.com/m/stock.php?sym=UL" target="_blank" rel="noopener noreferrer" class="link-out">
+                <a href="https://www.dataroma.com/m/stock.php?sym=AMD" target="_blank" rel="noopener noreferrer" class="link-out">
                     View 13F ↗
                 </a>
             </td>
@@ -1922,15 +1793,15 @@
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Yacktman Asset Management</div>
+                <div style="font-weight: 500; color: var(--text-title);">Chase Coleman - Tiger Global Management</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.18</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">241,192</td>
-            <td><span style="color: var(--accent-green); font-weight: 500;">Add 20.53%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">14,500,000</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.63</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">674,727</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Buy</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">391,956,000</td>
             <td>
-                <a href="https://www.dataroma.com/m/stock.php?sym=UL" target="_blank" rel="noopener noreferrer" class="link-out">
+                <a href="https://www.dataroma.com/m/stock.php?sym=AMD" target="_blank" rel="noopener noreferrer" class="link-out">
                     View 13F ↗
                 </a>
             </td>
@@ -1938,15 +1809,15 @@
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">First Eagle Investment Management</div>
+                <div style="font-weight: 500; color: var(--text-title);">David Tepper - Appaloosa Management</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.08</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">842,507</td>
-            <td><span style="color: var(--accent-green); font-weight: 500;">Add 4.54%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">50,652,000</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.54</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">197,500</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 10.79%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">114,730,000</td>
             <td>
-                <a href="https://www.dataroma.com/m/stock.php?sym=UL" target="_blank" rel="noopener noreferrer" class="link-out">
+                <a href="https://www.dataroma.com/m/stock.php?sym=AMD" target="_blank" rel="noopener noreferrer" class="link-out">
                     View 13F ↗
                 </a>
             </td>
@@ -1954,15 +1825,31 @@
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Dodge & Cox Funds</div>
+                <div style="font-weight: 500; color: var(--text-title);">Mairs & Power Funds</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.01</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">1,648</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 14.61%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">957,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=AMD" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Polen Capital Management</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
             <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.00</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">5,243</td>
-            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 0.02%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">299,000</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">417</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Buy</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">242,000</td>
             <td>
-                <a href="https://www.dataroma.com/m/stock.php?sym=UL" target="_blank" rel="noopener noreferrer" class="link-out">
+                <a href="https://www.dataroma.com/m/stock.php?sym=AMD" target="_blank" rel="noopener noreferrer" class="link-out">
                     View 13F ↗
                 </a>
             </td>
@@ -1974,11 +1861,11 @@
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
             <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.00</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">4,123</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">875</td>
             <td><span style="color: var(--accent-green); font-weight: 500;">Buy</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">235,000</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">508,000</td>
             <td>
-                <a href="https://www.dataroma.com/m/stock.php?sym=UL" target="_blank" rel="noopener noreferrer" class="link-out">
+                <a href="https://www.dataroma.com/m/stock.php?sym=AMD" target="_blank" rel="noopener noreferrer" class="link-out">
                     View 13F ↗
                 </a>
             </td>
@@ -2020,12 +1907,12 @@
             <td><div style="font-weight: 500; color: var(--text-title);">Executive Management</div></td>
             <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Key Officers & Directors</span></td>
             <td><span style="color: var(--accent-warm); font-weight: 600;">🟡 Neutral (10b5-1)</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$62.09</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$514.39</td>
             <td style="font-family: var(--font-mono); font-size: 0.84rem;">Scheduled</td>
             <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">Aligned</td>
             <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Routine management alignment</td>
             <td>
-                <a href="http://openinsider.com/search?q=UL" target="_blank" rel="noopener noreferrer" class="link-out">
+                <a href="http://openinsider.com/search?q=AMD" target="_blank" rel="noopener noreferrer" class="link-out">
                     OpenInsider ↗
                 </a>
             </td>
@@ -2048,68 +1935,68 @@
         <div class="writeup-card">
             <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
-                    Substack / Librariancapital · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                    Value Investors Club (VIC) · <span style="color: var(--text-dim);">2026 Institutional Pitch</span>
                 </div>
-                <a href="https://substack.com/search/UL%20Unilever%20PLC%20investment%20thesis" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Substack Search ↗
+                <a href="https://valueinvestorsclub.com/search?q=AMD" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    VIC Pitch ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
-                Unilever: Long Turnaround Journey Ahead, But Priced Attractively
+                Advanced Micro Devices, Inc. (AMD): Value Investors Club Deep Dive Due Diligence
             </h4>
             <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
-                Comprehensive independent fundamental study of Unilever PLC's competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
+                Rigorous analytical breakdown of Advanced Micro Devices, Inc.'s unit economics, operating moat, return on capital (ROIC), and normalized Owner Earnings valuation.
             </p>
         </div>
         
         <div class="writeup-card">
             <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
-                    Shareholder Letter PDF · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                    Dataroma Superinvestor Archive · <span style="color: var(--text-dim);">2026 Whale Audit</span>
                 </div>
-                <a href="https://www.fundsmith.co.uk/media/bm0lyc22/annual-letter-to-shareholders-2022.pdf" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                <a href="https://www.dataroma.com/m/stock.php?sym=AMD" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    13F Whale File ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
+                Dataroma 13F Superinvestor Whale Review: AMD
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Historical accumulation patterns, portfolio concentration, and recent buy/sell activity across premier value hedge funds for Advanced Micro Devices, Inc..
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Substack Deep Value / Scuttlebutt · <span style="color: var(--text-dim);">2026 Research Note</span>
+                </div>
+                <a href="https://substack.com/search/AMD%20Advanced%20Micro%20Devices%2C%20Inc.%20investment%20thesis" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Search ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
+                Advanced Micro Devices, Inc. Fundamental Compounding & Capital Allocation Analysis
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Comprehensive study of Advanced Micro Devices, Inc.'s capital allocation strategy, share buyback velocity, and durable free cash flow generation.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    WhaleWisdom Institutional Tracking · <span style="color: var(--text-dim);">2026 Regulatory Audit</span>
+                </div>
+                <a href="https://whalewisdom.com/stock/AMD" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
                     Read Source ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
-                fundsmith.co.uk
+                SEC EDGAR Form 4 & Form 13D/G Institutional Ownership File: AMD
             </h4>
             <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
-                Comprehensive independent fundamental study of Unilever PLC's competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
-            </p>
-        </div>
-        
-        <div class="writeup-card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
-                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
-                    Substack / Tvsweekly · <span style="color: var(--text-dim);">Verified Due Diligence</span>
-                </div>
-                <a href="https://substack.com/search/UL%20Unilever%20PLC%20investment%20thesis" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Substack Search ↗
-                </a>
-            </div>
-            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
-                Unilever Quits Food. Here’s Why
-            </h4>
-            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
-                Comprehensive independent fundamental study of Unilever PLC's competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
-            </p>
-        </div>
-        
-        <div class="writeup-card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
-                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
-                    Substack / Compoundprosperity · <span style="color: var(--text-dim);">Verified Due Diligence</span>
-                </div>
-                <a href="https://substack.com/search/UL%20Unilever%20PLC%20investment%20thesis" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Substack Search ↗
-                </a>
-            </div>
-            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
-                Unilever: Recession resilient business at an attractive price
-            </h4>
-            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
-                Comprehensive independent fundamental study of Unilever PLC's competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
+                Complete regulatory audit of insider Form 4 transactions and institutional 13F/13D filings for Advanced Micro Devices, Inc..
             </p>
         </div>
         
