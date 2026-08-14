@@ -1,0 +1,70 @@
+name: Real-Time Market Quotes & Portfolio Stream
+on:
+  schedule:
+    # Every 15 minutes during US Market Hours (13:30 to 20:30 UTC / 9:30 AM to 4:30 PM EST, Mon-Fri)
+    - cron: '*/15 13-20 * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  stream_quotes:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Poetry & Dependencies
+        run: |
+          pip install poetry
+          poetry install --no-root
+
+      - name: Sync Live Quotes & Portfolios
+        run: |
+          echo "⚡ Fetching live market quotes and recalculating portfolio valuations..."
+          poetry run python -c "from stocks.portfolio import sync_live_market_data; sync_live_market_data()"
+          poetry run python -c "from stocks.dashboard import render_all; render_all()"
+
+      - name: Commit and Push Live Data
+        run: |
+          git config --global user.name "Prateek Malhotra"
+          git config --global user.email "prateekmalhotra@g.ucla.edu"
+          git add data/watchlist.json data/portfolio_*.json public/
+          if git diff --staged --quiet; then
+            echo "No quote delta to commit."
+          else
+            git commit -m "Live market quote stream & portfolio tick [skip ci]"
+            for i in 1 2 3 4 5; do
+              git pull --rebase -X theirs origin main && git push origin main && break || sleep 3
+            done
+          fi
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'public'
+
+      - name: Deploy Live to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

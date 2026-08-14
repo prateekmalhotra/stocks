@@ -770,7 +770,7 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                     const data = await batchRes.json();
                     
                     for (const [k, v] of Object.entries(data)) {{
-                        if (v && v.price) {{
+                        if (v && v.price !== undefined) {{
                             basePrices[k] = parseFloat(v.price);
                         }}
                     }}
@@ -785,14 +785,15 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
 
                         if (!ticker || ticker === 'USD_CASH') continue;
 
+                        const safeTicker = CSS.escape(ticker);
                         const livePrice = (basePrices[ticker] !== undefined && basePrices[ticker] > 0) ? basePrices[ticker] : cost;
                         const prevPrice = previousPrices[ticker] || livePrice;
                         const didChange = Math.abs(livePrice - prevPrice) > 0.001;
                         previousPrices[ticker] = livePrice;
 
-                        const pSpan = r.querySelector(`.live-price-${{ticker}}`);
-                        const glSpan = r.querySelector(`.live-gl-${{ticker}}`);
-                        const allocSpan = r.querySelector(`.live-alloc-${{ticker}}`);
+                        const pSpan = r.querySelector(`.live-price-${{safeTicker}}`);
+                        const glSpan = r.querySelector(`.live-gl-${{safeTicker}}`);
+                        const allocSpan = r.querySelector(`.live-alloc-${{safeTicker}}`);
 
                         if (pSpan) {{
                             pSpan.textContent = '$' + livePrice.toFixed(2);
@@ -836,11 +837,19 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                 }}
             }}
 
+            // Register global handler
+            window.fetchAndApplyPortfolioQuotes = window.fetchAndApplyPortfolioQuotes || function() {{}};
+            const prevHandler = window.fetchAndApplyPortfolioQuotes;
+            window.fetchAndApplyPortfolioQuotes = function() {{
+                try {{ prevHandler(); }} catch(e) {{}}
+                try {{ fetchAndApplyQuotes(); }} catch(e) {{}}
+            }};
+
             // Run immediately on page load
             fetchAndApplyQuotes();
 
-            // Refresh quotes from live_quotes.json every 15 seconds
-            setInterval(fetchAndApplyQuotes, 15000);
+            // Refresh quotes from live_quotes.json every 10 seconds
+            setInterval(fetchAndApplyQuotes, 10000);
         }})();
     </script>
     """

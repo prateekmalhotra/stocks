@@ -3184,6 +3184,13 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             }} else if (tab === 'portfolio-aggressive' && typeof initPortfolioChart_aggressive === 'function') {{
                 setTimeout(initPortfolioChart_aggressive, 50);
             }}
+            
+            if (typeof syncWatchlistQuotes === 'function') {{
+                syncWatchlistQuotes();
+            }}
+            if (typeof window.fetchAndApplyPortfolioQuotes === 'function') {{
+                window.fetchAndApplyPortfolioQuotes();
+            }}
         }}
 
         function setView(viewType) {{
@@ -3273,10 +3280,11 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                 for (const [ticker, q] of Object.entries(quotes)) {{
                     if (!q || q.price === undefined) continue;
                     const price = parseFloat(q.price);
+                    const safeTicker = CSS.escape(ticker);
                     
                     // Update table
-                    const priceSpan = document.querySelector(`.tbl-price-${{ticker}}`);
-                    const retSpan = document.querySelector(`.tbl-ret-${{ticker}}`);
+                    const priceSpan = document.querySelector(`.tbl-price-${{safeTicker}}`);
+                    const retSpan = document.querySelector(`.tbl-ret-${{safeTicker}}`);
                     if (priceSpan) priceSpan.textContent = '$' + price.toFixed(2);
                     
                     const row = document.querySelector(`tr.table-row[data-ticker="${{ticker}}"]`);
@@ -3286,13 +3294,13 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                             const ret = ((price - baseline) / baseline) * 100.0;
                             const sign = ret >= 0 ? '+' : '';
                             retSpan.textContent = `${{sign}}${{ret.toFixed(2)}}%`;
-                            retSpan.className = `tbl-return ${{ret >= 0 ? 'ret-pos' : 'ret-neg'}}`;
+                            retSpan.className = `tbl-return tbl-ret-${{safeTicker}} ${{ret >= 0 ? 'pos' : 'neg'}}`;
                         }}
                     }}
                     
                     // Update grid cards
-                    const gPrice = document.querySelector(`.grid-price-${{ticker}}`);
-                    const gRet = document.querySelector(`.grid-ret-${{ticker}}`);
+                    const gPrice = document.querySelector(`.grid-price-${{safeTicker}}`);
+                    const gRet = document.querySelector(`.grid-ret-${{safeTicker}}`);
                     if (gPrice) gPrice.textContent = '$' + price.toFixed(2);
                     if (gRet && row) {{
                         const baseline = parseFloat(row.getAttribute('data-baseline')) || price;
@@ -3300,7 +3308,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                             const ret = ((price - baseline) / baseline) * 100.0;
                             const sign = ret >= 0 ? '+' : '';
                             gRet.textContent = `${{sign}}${{ret.toFixed(2)}}%`;
-                            gRet.className = `grid-stat-val ${{ret >= 0 ? 'ret-pos' : 'ret-neg'}}`;
+                            gRet.className = `grid-stat-val grid-ret-${{safeTicker}} ${{ret >= 0 ? 'pos' : 'neg'}}`;
                         }}
                     }}
                 }}
@@ -3328,7 +3336,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             }}
         }});
         refreshAlertsUI();
-        setInterval(syncWatchlistQuotes, 20000);
+        setInterval(syncWatchlistQuotes, 10000);
     </script>
     {build_labels_legend_modal_html()}
 </body>
