@@ -113,6 +113,44 @@ def cmd_list():
     print("=" * 90 + "\n")
 
 
+def cmd_stream(interval: int = 10, serve: bool = False, port: int = 8000):
+    """Continuously streams real-time market quotes every N seconds, syncing live_quotes.json and portfolios."""
+    import time
+    from stocks.portfolio import sync_live_market_data
+    
+    print(f"📡 [REAL-TIME QUOTE STREAM ACTIVE] Polling market quotes every {interval}s...")
+    if serve:
+        import threading
+        import http.server
+        import socketserver
+        
+        class Handler(http.server.SimpleHTTPRequestHandler):
+            def __init__(self, *args, **kwargs):
+                super().__init__(*args, directory="public", **kwargs)
+                
+        def run_server():
+            with socketserver.TCPServer(("", port), Handler) as httpd:
+                print(f"🌐 Serving live dashboard at: http://localhost:{port}")
+                httpd.serve_forever()
+                
+        t = threading.Thread(target=run_server, daemon=True)
+        t.start()
+        
+    while True:
+        try:
+            start_t = time.time()
+            quotes = sync_live_market_data()
+            elapsed = time.time() - start_t
+            print(f"[{datetime.now().strftime('%H:%M:%S')}] ⚡ Synced {len(quotes)} live quotes ({elapsed:.1f}s)")
+            time.sleep(max(1, interval - int(elapsed)))
+        except KeyboardInterrupt:
+            print("\n🛑 Stream stopped.")
+            break
+        except Exception as e:
+            print(f"⚠️ Stream error: {e}")
+            time.sleep(interval)
+
+
 def main():
     parser = argparse.ArgumentParser(description="Equity Living Thesis & Surveillance Engine")
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
@@ -143,6 +181,12 @@ def main():
     # render
     subparsers.add_parser("render", help="Recompile all HTML reports and dashboard")
 
+    # stream (continuous live quote & portfolio sync daemon)
+    p_stream = subparsers.add_parser("stream", help="Continuously poll live market quotes and stream to dashboard")
+    p_stream.add_argument("--interval", type=int, default=10, help="Polling interval in seconds (default: 10)")
+    p_stream.add_argument("--serve", action="store_true", help="Also spin up local web server at http://localhost:8000")
+    p_stream.add_argument("--port", type=int, default=8000, help="Port for local web server (default: 8000)")
+
     args = parser.parse_args()
 
     if args.command == "add":
@@ -160,6 +204,8 @@ def main():
     elif args.command == "render":
         render_all()
         print("✅ Recompiled public/index.html and all company reports.")
+    elif args.command == "stream":
+        cmd_stream(interval=args.interval, serve=args.serve, port=args.port)
     else:
         parser.print_help()
 
