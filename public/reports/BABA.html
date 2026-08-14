@@ -1082,16 +1082,16 @@
                 <div>
                     <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
                         <div class="ticker-logo-wrap" style="width:32px; height:32px; min-width:32px; min-height:32px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/BABA" alt="BABA" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:13px;">BA</span></div>
-                        <span class="ticker-symbol">BABA</span>
+                        <span class="ticker-symbol">BABA<span class="status-beacon beacon-buy" title="Action: Buy"><span class="beacon-dot"></span></span></span>
                         <span class="pill pill-conviction">High Conviction</span>
                         <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="View Investment Taxonomy & Labels Legend">ⓘ</button>
                     </div>
                     <div class="company-meta">Alibaba Group Holding Limited</div>
                 </div>
                 <div class="price-callout">
-                    <div class="price-number">$124.08</div>
+                    <div class="price-number">$123.86</div>
                     <div class="price-sub neg">
-                        -3.37%
+                        -3.54%
                     </div>
                 </div>
             </div>
@@ -1101,7 +1101,7 @@
     <div class="native-chart-wrap" id="chart-container" style="position: relative; overflow: hidden;">
         <div class="chart-top-bar">
             <div id="chart-live-val" class="chart-live-val">
-                <span id="tooltip-date">Aug 14, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$124.06</strong>
+                <span id="tooltip-date">Aug 14, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$123.90</strong>
                 <span id="tooltip-delta" class="pos" style="font-size: 0.76rem; margin-left: 6px;"></span>
             </div>
             <div class="chart-range-pills">
@@ -1151,13 +1151,13 @@
         <div class="chart-labels">
             <span id="chart-start-lbl">Aug 14, 2025 ($94.81)</span>
             <span id="chart-range-title">1-Year Historical Range</span>
-            <span id="chart-end-lbl">Aug 14, 2026 ($124.06)</span>
+            <span id="chart-end-lbl">Aug 14, 2026 ($123.90)</span>
         </div>
     </div>
 
     <script>
     (function() {
-        const allDatasets = {"1Y": [{"date": "Aug 14, 2025", "price": 122.28}, {"date": "Aug 15, 2025", "price": 121.26}, {"date": "Aug 18, 2025", "price": 121.4}, {"date": "Aug 19, 2025", "price": 119.99}, {"date": "Aug 20, 2025", "price": 119.49}, {"date": "Aug 21, 2025", "price": 118.09}, {"date": "Aug 22, 2025", "price": 122.94}, {"date": "Aug 25, 2025", "price": 124.35}, {"date": "Aug 26, 2025", "price": 124.19}, {"date": "Aug 27, 2025", "price": 122.23}, {"date": "Aug 28, 2025", "price": 119.57}, {"date": "Aug 29, 2025", "price": 135.0}, {"date": "Sep 02, 2025", "price": 138.55}, {"date": "Sep 03, 2025", "price": 136.45}, {"date": "Sep 04, 2025", "price": 130.92}, {"date": "Sep 05, 2025", "price": 135.58}, {"date": "Sep 08, 2025", "price": 141.2}, {"date": "Sep 09, 2025", "price": 147.1}, {"date": "Sep 10, 2025", "price": 143.93}, {"date": "Sep 11, 2025", "price": 155.44}, {"date": "Sep 12, 2025", "price": 155.06}, {"date": "Sep 15, 2025", "price": 158.04}, {"date": "Sep 16, 2025", "price": 162.21}, {"date": "Sep 17, 2025", "price": 166.17}, {"date": "Sep 18, 2025", "price": 162.48}, {"date": "Sep 19, 2025", "price": 162.81}, {"date": "Sep 22, 2025", "price": 164.25}, {"date": "Sep 23, 2025", "price": 163.08}, {"date": "Sep 24, 2025", "price": 176.44}, {"date": "Sep 25, 2025", "price": 175.47}, {"date": "Sep 26, 2025", "price": 171.91}, {"date": "Sep 29, 2025", "price": 179.9}, {"date": "Sep 30, 2025", "price": 178.73}, {"date": "Oct 01, 2025", "price": 182.78}, {"date": "Oct 02, 2025", "price": 189.34}, {"date": "Oct 03, 2025", "price": 188.03}, {"date": "Oct 06, 2025", "price": 187.22}, {"date": "Oct 07, 2025", "price": 181.33}, {"date": "Oct 08, 2025", "price": 181.12}, {"date": "Oct 09, 2025", "price": 173.68}, {"date": "Oct 10, 2025", "price": 159.01}, {"date": "Oct 13, 2025", "price": 166.81}, {"date": "Oct 14, 2025", "price": 162.86}, {"date": "Oct 15, 2025", "price": 165.91}, {"date": "Oct 16, 2025", "price": 165.09}, {"date": "Oct 17, 2025", "price": 167.05}, {"date": "Oct 20, 2025", "price": 173.47}, {"date": "Oct 21, 2025", "price": 166.67}, {"date": "Oct 22, 2025", "price": 165.86}, {"date": "Oct 23, 2025", "price": 171.9}, {"date": "Oct 24, 2025", "price": 174.7}, {"date": "Oct 27, 2025", "price": 179.45}, {"date": "Oct 28, 2025", "price": 176.72}, {"date": "Oct 29, 2025", "price": 179.97}, {"date": "Oct 30, 2025", "price": 173.93}, {"date": "Oct 31, 2025", "price": 170.43}, {"date": "Nov 03, 2025", "price": 167.69}, {"date": "Nov 04, 2025", "price": 164.3}, {"date": "Nov 05, 2025", "price": 164.82}, {"date": "Nov 06, 2025", "price": 167.61}, {"date": "Nov 07, 2025", "price": 166.34}, {"date": "Nov 10, 2025", "price": 165.89}, {"date": "Nov 11, 2025", "price": 160.8}, {"date": "Nov 12, 2025", "price": 157.91}, {"date": "Nov 13, 2025", "price": 159.84}, {"date": "Nov 14, 2025", "price": 153.8}, {"date": "Nov 17, 2025", "price": 157.71}, {"date": "Nov 18, 2025", "price": 159.72}, {"date": "Nov 19, 2025", "price": 158.89}, {"date": "Nov 20, 2025", "price": 153.28}, {"date": "Nov 21, 2025", "price": 152.93}, {"date": "Nov 24, 2025", "price": 160.73}, {"date": "Nov 25, 2025", "price": 157.01}, {"date": "Nov 26, 2025", "price": 157.6}, {"date": "Nov 28, 2025", "price": 157.3}, {"date": "Dec 01, 2025", "price": 164.26}, {"date": "Dec 02, 2025", "price": 161.13}, {"date": "Dec 03, 2025", "price": 158.08}, {"date": "Dec 04, 2025", "price": 157.44}, {"date": "Dec 05, 2025", "price": 158.32}, {"date": "Dec 08, 2025", "price": 158.13}, {"date": "Dec 09, 2025", "price": 155.96}, {"date": "Dec 10, 2025", "price": 158.82}, {"date": "Dec 11, 2025", "price": 156.9}, {"date": "Dec 12, 2025", "price": 155.68}, {"date": "Dec 15, 2025", "price": 150.09}, {"date": "Dec 16, 2025", "price": 149.29}, {"date": "Dec 17, 2025", "price": 147.09}, {"date": "Dec 18, 2025", "price": 147.32}, {"date": "Dec 19, 2025", "price": 149.79}, {"date": "Dec 22, 2025", "price": 150.96}, {"date": "Dec 23, 2025", "price": 151.23}, {"date": "Dec 24, 2025", "price": 150.06}, {"date": "Dec 26, 2025", "price": 152.24}, {"date": "Dec 29, 2025", "price": 148.49}, {"date": "Dec 30, 2025", "price": 147.36}, {"date": "Dec 31, 2025", "price": 146.58}, {"date": "Jan 02, 2026", "price": 155.74}, {"date": "Jan 05, 2026", "price": 156.26}, {"date": "Jan 06, 2026", "price": 150.9}, {"date": "Jan 07, 2026", "price": 146.75}, {"date": "Jan 08, 2026", "price": 154.47}, {"date": "Jan 09, 2026", "price": 150.96}, {"date": "Jan 12, 2026", "price": 166.31}, {"date": "Jan 13, 2026", "price": 167.01}, {"date": "Jan 14, 2026", "price": 169.9}, {"date": "Jan 15, 2026", "price": 170.93}, {"date": "Jan 16, 2026", "price": 165.4}, {"date": "Jan 20, 2026", "price": 162.39}, {"date": "Jan 21, 2026", "price": 168.67}, {"date": "Jan 22, 2026", "price": 177.18}, {"date": "Jan 23, 2026", "price": 173.23}, {"date": "Jan 26, 2026", "price": 171.37}, {"date": "Jan 27, 2026", "price": 172.72}, {"date": "Jan 28, 2026", "price": 175.66}, {"date": "Jan 29, 2026", "price": 174.25}, {"date": "Jan 30, 2026", "price": 169.56}, {"date": "Feb 02, 2026", "price": 168.39}, {"date": "Feb 03, 2026", "price": 163.65}, {"date": "Feb 04, 2026", "price": 159.14}, {"date": "Feb 05, 2026", "price": 157.76}, {"date": "Feb 06, 2026", "price": 162.51}, {"date": "Feb 09, 2026", "price": 163.0}, {"date": "Feb 10, 2026", "price": 166.51}, {"date": "Feb 11, 2026", "price": 164.32}, {"date": "Feb 12, 2026", "price": 158.73}, {"date": "Feb 13, 2026", "price": 155.73}, {"date": "Feb 17, 2026", "price": 155.43}, {"date": "Feb 18, 2026", "price": 155.77}, {"date": "Feb 19, 2026", "price": 154.27}, {"date": "Feb 20, 2026", "price": 154.45}, {"date": "Feb 23, 2026", "price": 152.78}, {"date": "Feb 24, 2026", "price": 153.11}, {"date": "Feb 25, 2026", "price": 152.28}, {"date": "Feb 26, 2026", "price": 148.05}, {"date": "Feb 27, 2026", "price": 144.11}, {"date": "Mar 02, 2026", "price": 142.56}, {"date": "Mar 03, 2026", "price": 135.59}, {"date": "Mar 04, 2026", "price": 133.27}, {"date": "Mar 05, 2026", "price": 130.35}, {"date": "Mar 06, 2026", "price": 130.79}, {"date": "Mar 09, 2026", "price": 132.64}, {"date": "Mar 10, 2026", "price": 136.85}, {"date": "Mar 11, 2026", "price": 136.29}, {"date": "Mar 12, 2026", "price": 134.2}, {"date": "Mar 13, 2026", "price": 135.21}, {"date": "Mar 16, 2026", "price": 136.71}, {"date": "Mar 17, 2026", "price": 136.57}, {"date": "Mar 18, 2026", "price": 134.43}, {"date": "Mar 19, 2026", "price": 124.9}, {"date": "Mar 20, 2026", "price": 122.41}, {"date": "Mar 23, 2026", "price": 126.06}, {"date": "Mar 24, 2026", "price": 125.48}, {"date": "Mar 25, 2026", "price": 129.87}, {"date": "Mar 26, 2026", "price": 125.41}, {"date": "Mar 27, 2026", "price": 122.69}, {"date": "Mar 30, 2026", "price": 121.98}, {"date": "Mar 31, 2026", "price": 125.46}, {"date": "Apr 01, 2026", "price": 123.73}, {"date": "Apr 02, 2026", "price": 122.05}, {"date": "Apr 06, 2026", "price": 122.31}, {"date": "Apr 07, 2026", "price": 119.72}, {"date": "Apr 08, 2026", "price": 125.32}, {"date": "Apr 09, 2026", "price": 127.68}, {"date": "Apr 10, 2026", "price": 127.33}, {"date": "Apr 13, 2026", "price": 128.01}, {"date": "Apr 14, 2026", "price": 131.35}, {"date": "Apr 15, 2026", "price": 133.28}, {"date": "Apr 16, 2026", "price": 138.59}, {"date": "Apr 17, 2026", "price": 141.01}, {"date": "Apr 20, 2026", "price": 140.17}, {"date": "Apr 21, 2026", "price": 135.38}, {"date": "Apr 22, 2026", "price": 136.42}, {"date": "Apr 23, 2026", "price": 131.7}, {"date": "Apr 24, 2026", "price": 135.82}, {"date": "Apr 27, 2026", "price": 132.52}, {"date": "Apr 28, 2026", "price": 130.85}, {"date": "Apr 29, 2026", "price": 130.43}, {"date": "Apr 30, 2026", "price": 131.88}, {"date": "May 01, 2026", "price": 131.5}, {"date": "May 04, 2026", "price": 133.27}, {"date": "May 05, 2026", "price": 132.26}, {"date": "May 06, 2026", "price": 141.44}, {"date": "May 07, 2026", "price": 141.0}, {"date": "May 08, 2026", "price": 140.06}, {"date": "May 11, 2026", "price": 137.3}, {"date": "May 12, 2026", "price": 134.78}, {"date": "May 13, 2026", "price": 145.81}, {"date": "May 14, 2026", "price": 141.12}, {"date": "May 15, 2026", "price": 132.59}, {"date": "May 18, 2026", "price": 133.26}, {"date": "May 19, 2026", "price": 135.64}, {"date": "May 20, 2026", "price": 134.47}, {"date": "May 21, 2026", "price": 131.47}, {"date": "May 22, 2026", "price": 130.0}, {"date": "May 26, 2026", "price": 129.47}, {"date": "May 27, 2026", "price": 127.76}, {"date": "May 28, 2026", "price": 126.16}, {"date": "May 29, 2026", "price": 124.22}, {"date": "Jun 01, 2026", "price": 125.4}, {"date": "Jun 02, 2026", "price": 130.82}, {"date": "Jun 03, 2026", "price": 127.21}, {"date": "Jun 04, 2026", "price": 125.95}, {"date": "Jun 05, 2026", "price": 121.06}, {"date": "Jun 08, 2026", "price": 120.07}, {"date": "Jun 09, 2026", "price": 119.7}, {"date": "Jun 10, 2026", "price": 115.38}, {"date": "Jun 11, 2026", "price": 112.69}, {"date": "Jun 12, 2026", "price": 112.82}, {"date": "Jun 15, 2026", "price": 112.55}, {"date": "Jun 16, 2026", "price": 110.97}, {"date": "Jun 17, 2026", "price": 107.44}, {"date": "Jun 18, 2026", "price": 107.1}, {"date": "Jun 22, 2026", "price": 104.97}, {"date": "Jun 23, 2026", "price": 102.6}, {"date": "Jun 24, 2026", "price": 99.8}, {"date": "Jun 25, 2026", "price": 95.07}, {"date": "Jun 26, 2026", "price": 94.81}, {"date": "Jun 29, 2026", "price": 95.51}, {"date": "Jun 30, 2026", "price": 95.98}, {"date": "Jul 01, 2026", "price": 97.99}, {"date": "Jul 02, 2026", "price": 96.14}, {"date": "Jul 06, 2026", "price": 97.91}, {"date": "Jul 07, 2026", "price": 98.14}, {"date": "Jul 08, 2026", "price": 108.98}, {"date": "Jul 09, 2026", "price": 111.14}, {"date": "Jul 10, 2026", "price": 112.33}, {"date": "Jul 13, 2026", "price": 112.35}, {"date": "Jul 14, 2026", "price": 112.32}, {"date": "Jul 15, 2026", "price": 117.69}, {"date": "Jul 16, 2026", "price": 117.49}, {"date": "Jul 17, 2026", "price": 114.97}, {"date": "Jul 20, 2026", "price": 120.34}, {"date": "Jul 21, 2026", "price": 117.97}, {"date": "Jul 22, 2026", "price": 116.56}, {"date": "Jul 23, 2026", "price": 114.06}, {"date": "Jul 24, 2026", "price": 112.14}, {"date": "Jul 27, 2026", "price": 115.0}, {"date": "Jul 28, 2026", "price": 115.19}, {"date": "Jul 29, 2026", "price": 115.03}, {"date": "Jul 30, 2026", "price": 116.32}, {"date": "Jul 31, 2026", "price": 122.25}, {"date": "Aug 03, 2026", "price": 127.3}, {"date": "Aug 04, 2026", "price": 128.99}, {"date": "Aug 05, 2026", "price": 128.53}, {"date": "Aug 06, 2026", "price": 126.81}, {"date": "Aug 07, 2026", "price": 128.41}, {"date": "Aug 10, 2026", "price": 132.32}, {"date": "Aug 11, 2026", "price": 127.85}, {"date": "Aug 12, 2026", "price": 125.22}, {"date": "Aug 13, 2026", "price": 122.16}, {"date": "Aug 14, 2026", "price": 124.06}], "5Y": [{"date": "Aug 15, 2021", "price": 157.96}, {"date": "Aug 22, 2021", "price": 159.47}, {"date": "Aug 29, 2021", "price": 170.3}, {"date": "Sep 05, 2021", "price": 168.1}, {"date": "Sep 12, 2021", "price": 160.05}, {"date": "Sep 19, 2021", "price": 145.08}, {"date": "Sep 26, 2021", "price": 144.2}, {"date": "Oct 03, 2021", "price": 161.52}, {"date": "Oct 10, 2021", "price": 168.0}, {"date": "Oct 17, 2021", "price": 177.7}, {"date": "Oct 24, 2021", "price": 164.94}, {"date": "Oct 31, 2021", "price": 158.73}, {"date": "Nov 07, 2021", "price": 166.81}, {"date": "Nov 14, 2021", "price": 140.34}, {"date": "Nov 21, 2021", "price": 133.35}, {"date": "Nov 28, 2021", "price": 111.96}, {"date": "Dec 05, 2021", "price": 125.06}, {"date": "Dec 12, 2021", "price": 122.1}, {"date": "Dec 19, 2021", "price": 118.66}, {"date": "Dec 26, 2021", "price": 118.79}, {"date": "Jan 02, 2022", "price": 129.81}, {"date": "Jan 09, 2022", "price": 131.57}, {"date": "Jan 16, 2022", "price": 123.23}, {"date": "Jan 23, 2022", "price": 115.23}, {"date": "Jan 30, 2022", "price": 122.22}, {"date": "Feb 06, 2022", "price": 122.25}, {"date": "Feb 13, 2022", "price": 118.99}, {"date": "Feb 20, 2022", "price": 107.94}, {"date": "Feb 27, 2022", "price": 100.6}, {"date": "Mar 06, 2022", "price": 86.71}, {"date": "Mar 13, 2022", "price": 108.3}, {"date": "Mar 20, 2022", "price": 112.99}, {"date": "Mar 27, 2022", "price": 110.2}, {"date": "Apr 03, 2022", "price": 103.53}, {"date": "Apr 10, 2022", "price": 95.49}, {"date": "Apr 17, 2022", "price": 86.49}, {"date": "Apr 24, 2022", "price": 97.09}, {"date": "May 01, 2022", "price": 90.05}, {"date": "May 08, 2022", "price": 87.99}, {"date": "May 15, 2022", "price": 86.79}, {"date": "May 22, 2022", "price": 93.41}, {"date": "May 29, 2022", "price": 93.21}, {"date": "Jun 05, 2022", "price": 109.84}, {"date": "Jun 12, 2022", "price": 102.24}, {"date": "Jun 19, 2022", "price": 117.62}, {"date": "Jun 26, 2022", "price": 116.0}, {"date": "Jul 03, 2022", "price": 120.9}, {"date": "Jul 10, 2022", "price": 102.44}, {"date": "Jul 17, 2022", "price": 100.61}, {"date": "Jul 24, 2022", "price": 89.37}, {"date": "Jul 31, 2022", "price": 92.56}, {"date": "Aug 07, 2022", "price": 94.77}, {"date": "Aug 14, 2022", "price": 89.63}, {"date": "Aug 21, 2022", "price": 98.0}, {"date": "Aug 28, 2022", "price": 91.8}, {"date": "Sep 04, 2022", "price": 92.14}, {"date": "Sep 11, 2022", "price": 86.43}, {"date": "Sep 18, 2022", "price": 78.8}, {"date": "Sep 25, 2022", "price": 79.99}, {"date": "Oct 02, 2022", "price": 81.24}, {"date": "Oct 09, 2022", "price": 73.02}, {"date": "Oct 16, 2022", "price": 72.18}, {"date": "Oct 23, 2022", "price": 63.74}, {"date": "Oct 30, 2022", "price": 69.81}, {"date": "Nov 06, 2022", "price": 70.77}, {"date": "Nov 13, 2022", "price": 80.48}, {"date": "Nov 20, 2022", "price": 75.5}, {"date": "Nov 27, 2022", "price": 90.06}, {"date": "Dec 04, 2022", "price": 91.34}, {"date": "Dec 11, 2022", "price": 86.79}, {"date": "Dec 18, 2022", "price": 85.65}, {"date": "Dec 25, 2022", "price": 88.09}, {"date": "Jan 01, 2023", "price": 107.4}, {"date": "Jan 08, 2023", "price": 117.01}, {"date": "Jan 15, 2023", "price": 119.86}, {"date": "Jan 22, 2023", "price": 118.38}, {"date": "Jan 29, 2023", "price": 106.33}, {"date": "Feb 05, 2023", "price": 103.65}, {"date": "Feb 12, 2023", "price": 100.01}, {"date": "Feb 19, 2023", "price": 89.0}, {"date": "Feb 26, 2023", "price": 89.7}, {"date": "Mar 05, 2023", "price": 82.96}, {"date": "Mar 12, 2023", "price": 81.67}, {"date": "Mar 19, 2023", "price": 86.9}, {"date": "Mar 26, 2023", "price": 102.18}, {"date": "Apr 02, 2023", "price": 102.74}, {"date": "Apr 09, 2023", "price": 94.55}, {"date": "Apr 16, 2023", "price": 89.13}, {"date": "Apr 23, 2023", "price": 84.69}, {"date": "Apr 30, 2023", "price": 83.22}, {"date": "May 07, 2023", "price": 85.34}, {"date": "May 14, 2023", "price": 83.98}, {"date": "May 21, 2023", "price": 80.97}, {"date": "May 28, 2023", "price": 84.27}, {"date": "Jun 04, 2023", "price": 85.5}, {"date": "Jun 11, 2023", "price": 92.1}, {"date": "Jun 18, 2023", "price": 84.92}, {"date": "Jun 25, 2023", "price": 83.35}, {"date": "Jul 02, 2023", "price": 90.55}, {"date": "Jul 09, 2023", "price": 94.56}, {"date": "Jul 16, 2023", "price": 92.17}, {"date": "Jul 23, 2023", "price": 100.55}, {"date": "Jul 30, 2023", "price": 96.9}, {"date": "Aug 06, 2023", "price": 95.72}, {"date": "Aug 13, 2023", "price": 88.03}, {"date": "Aug 20, 2023", "price": 89.82}, {"date": "Aug 27, 2023", "price": 95.01}, {"date": "Sep 03, 2023", "price": 90.05}, {"date": "Sep 10, 2023", "price": 87.07}, {"date": "Sep 17, 2023", "price": 88.3}, {"date": "Sep 24, 2023", "price": 86.74}, {"date": "Oct 01, 2023", "price": 86.06}, {"date": "Oct 08, 2023", "price": 84.02}, {"date": "Oct 15, 2023", "price": 79.94}, {"date": "Oct 22, 2023", "price": 82.82}, {"date": "Oct 29, 2023", "price": 85.31}, {"date": "Nov 05, 2023", "price": 82.75}, {"date": "Nov 12, 2023", "price": 77.6}, {"date": "Nov 19, 2023", "price": 78.49}, {"date": "Nov 26, 2023", "price": 73.99}, {"date": "Dec 03, 2023", "price": 72.14}, {"date": "Dec 10, 2023", "price": 74.51}, {"date": "Dec 17, 2023", "price": 75.28}, {"date": "Dec 24, 2023", "price": 77.51}, {"date": "Dec 31, 2023", "price": 73.01}, {"date": "Jan 07, 2024", "price": 71.84}, {"date": "Jan 14, 2024", "price": 69.42}, {"date": "Jan 21, 2024", "price": 74.01}, {"date": "Jan 28, 2024", "price": 71.85}, {"date": "Feb 04, 2024", "price": 72.02}, {"date": "Feb 11, 2024", "price": 73.91}, {"date": "Feb 18, 2024", "price": 75.96}, {"date": "Feb 25, 2024", "price": 74.62}, {"date": "Mar 03, 2024", "price": 73.55}, {"date": "Mar 10, 2024", "price": 73.42}, {"date": "Mar 17, 2024", "price": 72.13}, {"date": "Mar 24, 2024", "price": 72.36}, {"date": "Mar 31, 2024", "price": 71.66}, {"date": "Apr 07, 2024", "price": 71.29}, {"date": "Apr 14, 2024", "price": 69.07}, {"date": "Apr 21, 2024", "price": 75.55}, {"date": "Apr 28, 2024", "price": 81.33}, {"date": "May 05, 2024", "price": 80.04}, {"date": "May 12, 2024", "price": 88.54}, {"date": "May 19, 2024", "price": 81.26}, {"date": "May 26, 2024", "price": 78.34}, {"date": "Jun 02, 2024", "price": 78.41}, {"date": "Jun 09, 2024", "price": 73.35}, {"date": "Jun 16, 2024", "price": 73.67}, {"date": "Jun 23, 2024", "price": 72.0}, {"date": "Jun 30, 2024", "price": 74.52}, {"date": "Jul 07, 2024", "price": 79.65}, {"date": "Jul 14, 2024", "price": 75.27}, {"date": "Jul 21, 2024", "price": 76.53}, {"date": "Jul 28, 2024", "price": 77.45}, {"date": "Aug 04, 2024", "price": 79.99}, {"date": "Aug 11, 2024", "price": 83.18}, {"date": "Aug 18, 2024", "price": 85.41}, {"date": "Aug 25, 2024", "price": 83.34}, {"date": "Sep 01, 2024", "price": 81.18}, {"date": "Sep 08, 2024", "price": 84.69}, {"date": "Sep 15, 2024", "price": 88.29}, {"date": "Sep 22, 2024", "price": 107.33}, {"date": "Sep 29, 2024", "price": 114.53}, {"date": "Oct 06, 2024", "price": 110.14}, {"date": "Oct 13, 2024", "price": 102.43}, {"date": "Oct 20, 2024", "price": 97.42}, {"date": "Oct 27, 2024", "price": 97.58}, {"date": "Nov 03, 2024", "price": 94.19}, {"date": "Nov 10, 2024", "price": 88.59}, {"date": "Nov 17, 2024", "price": 83.13}, {"date": "Nov 24, 2024", "price": 87.37}, {"date": "Dec 01, 2024", "price": 85.93}, {"date": "Dec 08, 2024", "price": 87.82}, {"date": "Dec 15, 2024", "price": 82.28}, {"date": "Dec 22, 2024", "price": 85.06}, {"date": "Dec 29, 2024", "price": 85.54}, {"date": "Jan 05, 2025", "price": 80.53}, {"date": "Jan 12, 2025", "price": 85.12}, {"date": "Jan 19, 2025", "price": 89.14}, {"date": "Jan 26, 2025", "price": 98.84}, {"date": "Feb 02, 2025", "price": 103.51}, {"date": "Feb 09, 2025", "price": 124.73}, {"date": "Feb 16, 2025", "price": 143.75}, {"date": "Feb 23, 2025", "price": 132.51}, {"date": "Mar 02, 2025", "price": 140.62}, {"date": "Mar 09, 2025", "price": 141.1}, {"date": "Mar 16, 2025", "price": 135.14}, {"date": "Mar 23, 2025", "price": 132.43}, {"date": "Mar 30, 2025", "price": 116.54}, {"date": "Apr 06, 2025", "price": 107.73}, {"date": "Apr 13, 2025", "price": 108.87}, {"date": "Apr 20, 2025", "price": 120.28}, {"date": "Apr 27, 2025", "price": 125.76}, {"date": "May 04, 2025", "price": 125.33}, {"date": "May 11, 2025", "price": 123.46}, {"date": "May 18, 2025", "price": 120.73}, {"date": "May 25, 2025", "price": 113.84}, {"date": "Jun 01, 2025", "price": 119.38}, {"date": "Jun 08, 2025", "price": 112.87}, {"date": "Jun 15, 2025", "price": 113.01}, {"date": "Jun 22, 2025", "price": 114.08}, {"date": "Jun 29, 2025", "price": 108.7}, {"date": "Jul 06, 2025", "price": 106.72}, {"date": "Jul 13, 2025", "price": 120.23}, {"date": "Jul 20, 2025", "price": 120.03}, {"date": "Jul 27, 2025", "price": 117.07}, {"date": "Aug 03, 2025", "price": 120.36}, {"date": "Aug 10, 2025", "price": 121.26}, {"date": "Aug 17, 2025", "price": 122.94}, {"date": "Aug 24, 2025", "price": 135.0}, {"date": "Aug 31, 2025", "price": 135.58}, {"date": "Sep 07, 2025", "price": 155.06}, {"date": "Sep 14, 2025", "price": 162.81}, {"date": "Sep 21, 2025", "price": 171.91}, {"date": "Sep 28, 2025", "price": 188.03}, {"date": "Oct 05, 2025", "price": 159.01}, {"date": "Oct 12, 2025", "price": 167.05}, {"date": "Oct 19, 2025", "price": 174.7}, {"date": "Oct 26, 2025", "price": 170.43}, {"date": "Nov 02, 2025", "price": 166.34}, {"date": "Nov 09, 2025", "price": 153.8}, {"date": "Nov 16, 2025", "price": 152.93}, {"date": "Nov 23, 2025", "price": 157.3}, {"date": "Nov 30, 2025", "price": 158.32}, {"date": "Dec 07, 2025", "price": 155.68}, {"date": "Dec 14, 2025", "price": 149.79}, {"date": "Dec 21, 2025", "price": 152.24}, {"date": "Dec 28, 2025", "price": 155.74}, {"date": "Jan 04, 2026", "price": 150.96}, {"date": "Jan 11, 2026", "price": 165.4}, {"date": "Jan 18, 2026", "price": 173.23}, {"date": "Jan 25, 2026", "price": 169.56}, {"date": "Feb 01, 2026", "price": 162.51}, {"date": "Feb 08, 2026", "price": 155.73}, {"date": "Feb 15, 2026", "price": 154.45}, {"date": "Feb 22, 2026", "price": 144.11}, {"date": "Mar 01, 2026", "price": 130.79}, {"date": "Mar 08, 2026", "price": 135.21}, {"date": "Mar 15, 2026", "price": 122.41}, {"date": "Mar 22, 2026", "price": 122.69}, {"date": "Mar 29, 2026", "price": 122.05}, {"date": "Apr 05, 2026", "price": 127.33}, {"date": "Apr 12, 2026", "price": 141.01}, {"date": "Apr 19, 2026", "price": 135.82}, {"date": "Apr 26, 2026", "price": 131.5}, {"date": "May 03, 2026", "price": 140.06}, {"date": "May 10, 2026", "price": 132.59}, {"date": "May 17, 2026", "price": 130.0}, {"date": "May 24, 2026", "price": 124.22}, {"date": "May 31, 2026", "price": 121.06}, {"date": "Jun 07, 2026", "price": 112.82}, {"date": "Jun 14, 2026", "price": 107.1}, {"date": "Jun 21, 2026", "price": 94.81}, {"date": "Jun 28, 2026", "price": 96.14}, {"date": "Jul 05, 2026", "price": 112.33}, {"date": "Jul 12, 2026", "price": 114.97}, {"date": "Jul 19, 2026", "price": 112.14}, {"date": "Jul 26, 2026", "price": 122.25}, {"date": "Aug 02, 2026", "price": 128.41}, {"date": "Aug 09, 2026", "price": 122.16}, {"date": "Aug 14, 2026", "price": 124.06}], "10Y": [{"date": "Aug 31, 2016", "price": 105.79}, {"date": "Sep 30, 2016", "price": 101.69}, {"date": "Oct 31, 2016", "price": 94.02}, {"date": "Nov 30, 2016", "price": 87.81}, {"date": "Dec 31, 2016", "price": 101.31}, {"date": "Jan 31, 2017", "price": 102.9}, {"date": "Feb 28, 2017", "price": 107.83}, {"date": "Mar 31, 2017", "price": 115.5}, {"date": "Apr 30, 2017", "price": 122.46}, {"date": "May 31, 2017", "price": 140.9}, {"date": "Jun 30, 2017", "price": 154.95}, {"date": "Jul 31, 2017", "price": 171.74}, {"date": "Aug 31, 2017", "price": 172.71}, {"date": "Sep 30, 2017", "price": 184.89}, {"date": "Oct 31, 2017", "price": 177.08}, {"date": "Nov 30, 2017", "price": 172.43}, {"date": "Dec 31, 2017", "price": 204.29}, {"date": "Jan 31, 2018", "price": 186.14}, {"date": "Feb 28, 2018", "price": 183.54}, {"date": "Mar 31, 2018", "price": 178.54}, {"date": "Apr 30, 2018", "price": 198.01}, {"date": "May 31, 2018", "price": 185.53}, {"date": "Jun 30, 2018", "price": 187.23}, {"date": "Jul 31, 2018", "price": 175.01}, {"date": "Aug 31, 2018", "price": 164.76}, {"date": "Sep 30, 2018", "price": 142.28}, {"date": "Oct 31, 2018", "price": 160.86}, {"date": "Nov 30, 2018", "price": 137.07}, {"date": "Dec 31, 2018", "price": 168.49}, {"date": "Jan 31, 2019", "price": 183.03}, {"date": "Feb 28, 2019", "price": 182.45}, {"date": "Mar 31, 2019", "price": 185.57}, {"date": "Apr 30, 2019", "price": 149.26}, {"date": "May 31, 2019", "price": 169.45}, {"date": "Jun 30, 2019", "price": 173.11}, {"date": "Jul 31, 2019", "price": 175.03}, {"date": "Aug 31, 2019", "price": 167.23}, {"date": "Sep 30, 2019", "price": 176.67}, {"date": "Oct 31, 2019", "price": 200.0}, {"date": "Nov 30, 2019", "price": 212.1}, {"date": "Dec 31, 2019", "price": 206.59}, {"date": "Jan 31, 2020", "price": 208.0}, {"date": "Feb 29, 2020", "price": 194.48}, {"date": "Mar 31, 2020", "price": 202.67}, {"date": "Apr 30, 2020", "price": 207.39}, {"date": "May 31, 2020", "price": 215.7}, {"date": "Jun 30, 2020", "price": 251.02}, {"date": "Jul 31, 2020", "price": 287.03}, {"date": "Aug 31, 2020", "price": 293.98}, {"date": "Sep 30, 2020", "price": 304.69}, {"date": "Oct 31, 2020", "price": 263.36}, {"date": "Nov 30, 2020", "price": 232.73}, {"date": "Dec 31, 2020", "price": 253.83}, {"date": "Jan 31, 2021", "price": 237.76}, {"date": "Feb 28, 2021", "price": 226.73}, {"date": "Mar 31, 2021", "price": 230.95}, {"date": "Apr 30, 2021", "price": 213.96}, {"date": "May 31, 2021", "price": 226.78}, {"date": "Jun 30, 2021", "price": 195.19}, {"date": "Jul 31, 2021", "price": 166.99}, {"date": "Aug 31, 2021", "price": 148.05}, {"date": "Sep 30, 2021", "price": 164.94}, {"date": "Oct 31, 2021", "price": 127.53}, {"date": "Nov 30, 2021", "price": 118.79}, {"date": "Dec 31, 2021", "price": 125.79}, {"date": "Jan 31, 2022", "price": 105.19}, {"date": "Feb 28, 2022", "price": 108.8}, {"date": "Mar 31, 2022", "price": 97.09}, {"date": "Apr 30, 2022", "price": 96.05}, {"date": "May 31, 2022", "price": 113.68}, {"date": "Jun 30, 2022", "price": 89.37}, {"date": "Jul 31, 2022", "price": 95.41}, {"date": "Aug 31, 2022", "price": 79.99}, {"date": "Sep 30, 2022", "price": 63.58}, {"date": "Oct 31, 2022", "price": 87.56}, {"date": "Nov 30, 2022", "price": 88.09}, {"date": "Dec 31, 2022", "price": 110.2}, {"date": "Jan 31, 2023", "price": 87.79}, {"date": "Feb 28, 2023", "price": 102.18}, {"date": "Mar 31, 2023", "price": 84.69}, {"date": "Apr 30, 2023", "price": 79.55}, {"date": "May 31, 2023", "price": 83.35}, {"date": "Jun 30, 2023", "price": 102.16}, {"date": "Jul 31, 2023", "price": 92.9}, {"date": "Aug 31, 2023", "price": 86.74}, {"date": "Sep 30, 2023", "price": 82.54}, {"date": "Oct 31, 2023", "price": 74.88}, {"date": "Nov 30, 2023", "price": 77.51}, {"date": "Dec 31, 2023", "price": 72.17}, {"date": "Jan 31, 2024", "price": 74.03}, {"date": "Feb 29, 2024", "price": 72.36}, {"date": "Mar 31, 2024", "price": 74.85}, {"date": "Apr 30, 2024", "price": 78.34}, {"date": "May 31, 2024", "price": 72.0}, {"date": "Jun 30, 2024", "price": 78.85}, {"date": "Jul 31, 2024", "price": 83.34}, {"date": "Aug 31, 2024", "price": 106.12}, {"date": "Sep 30, 2024", "price": 97.98}, {"date": "Oct 31, 2024", "price": 87.37}, {"date": "Nov 30, 2024", "price": 84.79}, {"date": "Dec 31, 2024", "price": 98.84}, {"date": "Jan 31, 2025", "price": 132.51}, {"date": "Feb 28, 2025", "price": 132.23}, {"date": "Mar 31, 2025", "price": 119.43}, {"date": "Apr 30, 2025", "price": 113.84}, {"date": "May 31, 2025", "price": 113.41}, {"date": "Jun 30, 2025", "price": 120.63}, {"date": "Jul 31, 2025", "price": 135.0}, {"date": "Aug 31, 2025", "price": 178.73}, {"date": "Sep 30, 2025", "price": 170.43}, {"date": "Oct 31, 2025", "price": 157.3}, {"date": "Nov 30, 2025", "price": 146.58}, {"date": "Dec 31, 2025", "price": 169.56}, {"date": "Jan 31, 2026", "price": 144.11}, {"date": "Feb 28, 2026", "price": 125.46}, {"date": "Mar 31, 2026", "price": 131.88}, {"date": "Apr 30, 2026", "price": 124.22}, {"date": "May 31, 2026", "price": 95.98}, {"date": "Jun 30, 2026", "price": 122.25}, {"date": "Jul 31, 2026", "price": 122.16}, {"date": "Aug 14, 2026", "price": 124.06}], "MAX": [{"date": "Sep 30, 2014", "price": 98.6}, {"date": "Oct 31, 2014", "price": 111.64}, {"date": "Nov 30, 2014", "price": 103.94}, {"date": "Dec 31, 2014", "price": 89.08}, {"date": "Jan 31, 2015", "price": 85.12}, {"date": "Feb 28, 2015", "price": 83.24}, {"date": "Mar 31, 2015", "price": 81.29}, {"date": "Apr 30, 2015", "price": 89.32}, {"date": "May 31, 2015", "price": 82.27}, {"date": "Jun 30, 2015", "price": 78.34}, {"date": "Jul 31, 2015", "price": 66.12}, {"date": "Aug 31, 2015", "price": 58.97}, {"date": "Sep 30, 2015", "price": 83.83}, {"date": "Oct 31, 2015", "price": 84.08}, {"date": "Nov 30, 2015", "price": 81.27}, {"date": "Dec 31, 2015", "price": 67.03}, {"date": "Jan 31, 2016", "price": 68.81}, {"date": "Feb 29, 2016", "price": 79.03}, {"date": "Mar 31, 2016", "price": 76.94}, {"date": "Apr 30, 2016", "price": 82.0}, {"date": "May 31, 2016", "price": 79.53}, {"date": "Jun 30, 2016", "price": 82.48}, {"date": "Jul 31, 2016", "price": 97.19}, {"date": "Aug 31, 2016", "price": 105.79}, {"date": "Sep 30, 2016", "price": 101.69}, {"date": "Oct 31, 2016", "price": 94.02}, {"date": "Nov 30, 2016", "price": 87.81}, {"date": "Dec 31, 2016", "price": 101.31}, {"date": "Jan 31, 2017", "price": 102.9}, {"date": "Feb 28, 2017", "price": 107.83}, {"date": "Mar 31, 2017", "price": 115.5}, {"date": "Apr 30, 2017", "price": 122.46}, {"date": "May 31, 2017", "price": 140.9}, {"date": "Jun 30, 2017", "price": 154.95}, {"date": "Jul 31, 2017", "price": 171.74}, {"date": "Aug 31, 2017", "price": 172.71}, {"date": "Sep 30, 2017", "price": 184.89}, {"date": "Oct 31, 2017", "price": 177.08}, {"date": "Nov 30, 2017", "price": 172.43}, {"date": "Dec 31, 2017", "price": 204.29}, {"date": "Jan 31, 2018", "price": 186.14}, {"date": "Feb 28, 2018", "price": 183.54}, {"date": "Mar 31, 2018", "price": 178.54}, {"date": "Apr 30, 2018", "price": 198.01}, {"date": "May 31, 2018", "price": 185.53}, {"date": "Jun 30, 2018", "price": 187.23}, {"date": "Jul 31, 2018", "price": 175.01}, {"date": "Aug 31, 2018", "price": 164.76}, {"date": "Sep 30, 2018", "price": 142.28}, {"date": "Oct 31, 2018", "price": 160.86}, {"date": "Nov 30, 2018", "price": 137.07}, {"date": "Dec 31, 2018", "price": 168.49}, {"date": "Jan 31, 2019", "price": 183.03}, {"date": "Feb 28, 2019", "price": 182.45}, {"date": "Mar 31, 2019", "price": 185.57}, {"date": "Apr 30, 2019", "price": 149.26}, {"date": "May 31, 2019", "price": 169.45}, {"date": "Jun 30, 2019", "price": 173.11}, {"date": "Jul 31, 2019", "price": 175.03}, {"date": "Aug 31, 2019", "price": 167.23}, {"date": "Sep 30, 2019", "price": 176.67}, {"date": "Oct 31, 2019", "price": 200.0}, {"date": "Nov 30, 2019", "price": 212.1}, {"date": "Dec 31, 2019", "price": 206.59}, {"date": "Jan 31, 2020", "price": 208.0}, {"date": "Feb 29, 2020", "price": 194.48}, {"date": "Mar 31, 2020", "price": 202.67}, {"date": "Apr 30, 2020", "price": 207.39}, {"date": "May 31, 2020", "price": 215.7}, {"date": "Jun 30, 2020", "price": 251.02}, {"date": "Jul 31, 2020", "price": 287.03}, {"date": "Aug 31, 2020", "price": 293.98}, {"date": "Sep 30, 2020", "price": 304.69}, {"date": "Oct 31, 2020", "price": 263.36}, {"date": "Nov 30, 2020", "price": 232.73}, {"date": "Dec 31, 2020", "price": 253.83}, {"date": "Jan 31, 2021", "price": 237.76}, {"date": "Feb 28, 2021", "price": 226.73}, {"date": "Mar 31, 2021", "price": 230.95}, {"date": "Apr 30, 2021", "price": 213.96}, {"date": "May 31, 2021", "price": 226.78}, {"date": "Jun 30, 2021", "price": 195.19}, {"date": "Jul 31, 2021", "price": 166.99}, {"date": "Aug 31, 2021", "price": 148.05}, {"date": "Sep 30, 2021", "price": 164.94}, {"date": "Oct 31, 2021", "price": 127.53}, {"date": "Nov 30, 2021", "price": 118.79}, {"date": "Dec 31, 2021", "price": 125.79}, {"date": "Jan 31, 2022", "price": 105.19}, {"date": "Feb 28, 2022", "price": 108.8}, {"date": "Mar 31, 2022", "price": 97.09}, {"date": "Apr 30, 2022", "price": 96.05}, {"date": "May 31, 2022", "price": 113.68}, {"date": "Jun 30, 2022", "price": 89.37}, {"date": "Jul 31, 2022", "price": 95.41}, {"date": "Aug 31, 2022", "price": 79.99}, {"date": "Sep 30, 2022", "price": 63.58}, {"date": "Oct 31, 2022", "price": 87.56}, {"date": "Nov 30, 2022", "price": 88.09}, {"date": "Dec 31, 2022", "price": 110.2}, {"date": "Jan 31, 2023", "price": 87.79}, {"date": "Feb 28, 2023", "price": 102.18}, {"date": "Mar 31, 2023", "price": 84.69}, {"date": "Apr 30, 2023", "price": 79.55}, {"date": "May 31, 2023", "price": 83.35}, {"date": "Jun 30, 2023", "price": 102.16}, {"date": "Jul 31, 2023", "price": 92.9}, {"date": "Aug 31, 2023", "price": 86.74}, {"date": "Sep 30, 2023", "price": 82.54}, {"date": "Oct 31, 2023", "price": 74.88}, {"date": "Nov 30, 2023", "price": 77.51}, {"date": "Dec 31, 2023", "price": 72.17}, {"date": "Jan 31, 2024", "price": 74.03}, {"date": "Feb 29, 2024", "price": 72.36}, {"date": "Mar 31, 2024", "price": 74.85}, {"date": "Apr 30, 2024", "price": 78.34}, {"date": "May 31, 2024", "price": 72.0}, {"date": "Jun 30, 2024", "price": 78.85}, {"date": "Jul 31, 2024", "price": 83.34}, {"date": "Aug 31, 2024", "price": 106.12}, {"date": "Sep 30, 2024", "price": 97.98}, {"date": "Oct 31, 2024", "price": 87.37}, {"date": "Nov 30, 2024", "price": 84.79}, {"date": "Dec 31, 2024", "price": 98.84}, {"date": "Jan 31, 2025", "price": 132.51}, {"date": "Feb 28, 2025", "price": 132.23}, {"date": "Mar 31, 2025", "price": 119.43}, {"date": "Apr 30, 2025", "price": 113.84}, {"date": "May 31, 2025", "price": 113.41}, {"date": "Jun 30, 2025", "price": 120.63}, {"date": "Jul 31, 2025", "price": 135.0}, {"date": "Aug 31, 2025", "price": 178.73}, {"date": "Sep 30, 2025", "price": 170.43}, {"date": "Oct 31, 2025", "price": 157.3}, {"date": "Nov 30, 2025", "price": 146.58}, {"date": "Dec 31, 2025", "price": 169.56}, {"date": "Jan 31, 2026", "price": 144.11}, {"date": "Feb 28, 2026", "price": 125.46}, {"date": "Mar 31, 2026", "price": 131.88}, {"date": "Apr 30, 2026", "price": 124.22}, {"date": "May 31, 2026", "price": 95.98}, {"date": "Jun 30, 2026", "price": 122.25}, {"date": "Jul 31, 2026", "price": 122.16}, {"date": "Aug 14, 2026", "price": 124.06}]};
+        const allDatasets = {"1Y": [{"date": "Aug 14, 2025", "price": 122.28}, {"date": "Aug 15, 2025", "price": 121.26}, {"date": "Aug 18, 2025", "price": 121.4}, {"date": "Aug 19, 2025", "price": 119.99}, {"date": "Aug 20, 2025", "price": 119.49}, {"date": "Aug 21, 2025", "price": 118.09}, {"date": "Aug 22, 2025", "price": 122.94}, {"date": "Aug 25, 2025", "price": 124.35}, {"date": "Aug 26, 2025", "price": 124.19}, {"date": "Aug 27, 2025", "price": 122.23}, {"date": "Aug 28, 2025", "price": 119.57}, {"date": "Aug 29, 2025", "price": 135.0}, {"date": "Sep 02, 2025", "price": 138.55}, {"date": "Sep 03, 2025", "price": 136.45}, {"date": "Sep 04, 2025", "price": 130.92}, {"date": "Sep 05, 2025", "price": 135.58}, {"date": "Sep 08, 2025", "price": 141.2}, {"date": "Sep 09, 2025", "price": 147.1}, {"date": "Sep 10, 2025", "price": 143.93}, {"date": "Sep 11, 2025", "price": 155.44}, {"date": "Sep 12, 2025", "price": 155.06}, {"date": "Sep 15, 2025", "price": 158.04}, {"date": "Sep 16, 2025", "price": 162.21}, {"date": "Sep 17, 2025", "price": 166.17}, {"date": "Sep 18, 2025", "price": 162.48}, {"date": "Sep 19, 2025", "price": 162.81}, {"date": "Sep 22, 2025", "price": 164.25}, {"date": "Sep 23, 2025", "price": 163.08}, {"date": "Sep 24, 2025", "price": 176.44}, {"date": "Sep 25, 2025", "price": 175.47}, {"date": "Sep 26, 2025", "price": 171.91}, {"date": "Sep 29, 2025", "price": 179.9}, {"date": "Sep 30, 2025", "price": 178.73}, {"date": "Oct 01, 2025", "price": 182.78}, {"date": "Oct 02, 2025", "price": 189.34}, {"date": "Oct 03, 2025", "price": 188.03}, {"date": "Oct 06, 2025", "price": 187.22}, {"date": "Oct 07, 2025", "price": 181.33}, {"date": "Oct 08, 2025", "price": 181.12}, {"date": "Oct 09, 2025", "price": 173.68}, {"date": "Oct 10, 2025", "price": 159.01}, {"date": "Oct 13, 2025", "price": 166.81}, {"date": "Oct 14, 2025", "price": 162.86}, {"date": "Oct 15, 2025", "price": 165.91}, {"date": "Oct 16, 2025", "price": 165.09}, {"date": "Oct 17, 2025", "price": 167.05}, {"date": "Oct 20, 2025", "price": 173.47}, {"date": "Oct 21, 2025", "price": 166.67}, {"date": "Oct 22, 2025", "price": 165.86}, {"date": "Oct 23, 2025", "price": 171.9}, {"date": "Oct 24, 2025", "price": 174.7}, {"date": "Oct 27, 2025", "price": 179.45}, {"date": "Oct 28, 2025", "price": 176.72}, {"date": "Oct 29, 2025", "price": 179.97}, {"date": "Oct 30, 2025", "price": 173.93}, {"date": "Oct 31, 2025", "price": 170.43}, {"date": "Nov 03, 2025", "price": 167.69}, {"date": "Nov 04, 2025", "price": 164.3}, {"date": "Nov 05, 2025", "price": 164.82}, {"date": "Nov 06, 2025", "price": 167.61}, {"date": "Nov 07, 2025", "price": 166.34}, {"date": "Nov 10, 2025", "price": 165.89}, {"date": "Nov 11, 2025", "price": 160.8}, {"date": "Nov 12, 2025", "price": 157.91}, {"date": "Nov 13, 2025", "price": 159.84}, {"date": "Nov 14, 2025", "price": 153.8}, {"date": "Nov 17, 2025", "price": 157.71}, {"date": "Nov 18, 2025", "price": 159.72}, {"date": "Nov 19, 2025", "price": 158.89}, {"date": "Nov 20, 2025", "price": 153.28}, {"date": "Nov 21, 2025", "price": 152.93}, {"date": "Nov 24, 2025", "price": 160.73}, {"date": "Nov 25, 2025", "price": 157.01}, {"date": "Nov 26, 2025", "price": 157.6}, {"date": "Nov 28, 2025", "price": 157.3}, {"date": "Dec 01, 2025", "price": 164.26}, {"date": "Dec 02, 2025", "price": 161.13}, {"date": "Dec 03, 2025", "price": 158.08}, {"date": "Dec 04, 2025", "price": 157.44}, {"date": "Dec 05, 2025", "price": 158.32}, {"date": "Dec 08, 2025", "price": 158.13}, {"date": "Dec 09, 2025", "price": 155.96}, {"date": "Dec 10, 2025", "price": 158.82}, {"date": "Dec 11, 2025", "price": 156.9}, {"date": "Dec 12, 2025", "price": 155.68}, {"date": "Dec 15, 2025", "price": 150.09}, {"date": "Dec 16, 2025", "price": 149.29}, {"date": "Dec 17, 2025", "price": 147.09}, {"date": "Dec 18, 2025", "price": 147.32}, {"date": "Dec 19, 2025", "price": 149.79}, {"date": "Dec 22, 2025", "price": 150.96}, {"date": "Dec 23, 2025", "price": 151.23}, {"date": "Dec 24, 2025", "price": 150.06}, {"date": "Dec 26, 2025", "price": 152.24}, {"date": "Dec 29, 2025", "price": 148.49}, {"date": "Dec 30, 2025", "price": 147.36}, {"date": "Dec 31, 2025", "price": 146.58}, {"date": "Jan 02, 2026", "price": 155.74}, {"date": "Jan 05, 2026", "price": 156.26}, {"date": "Jan 06, 2026", "price": 150.9}, {"date": "Jan 07, 2026", "price": 146.75}, {"date": "Jan 08, 2026", "price": 154.47}, {"date": "Jan 09, 2026", "price": 150.96}, {"date": "Jan 12, 2026", "price": 166.31}, {"date": "Jan 13, 2026", "price": 167.01}, {"date": "Jan 14, 2026", "price": 169.9}, {"date": "Jan 15, 2026", "price": 170.93}, {"date": "Jan 16, 2026", "price": 165.4}, {"date": "Jan 20, 2026", "price": 162.39}, {"date": "Jan 21, 2026", "price": 168.67}, {"date": "Jan 22, 2026", "price": 177.18}, {"date": "Jan 23, 2026", "price": 173.23}, {"date": "Jan 26, 2026", "price": 171.37}, {"date": "Jan 27, 2026", "price": 172.72}, {"date": "Jan 28, 2026", "price": 175.66}, {"date": "Jan 29, 2026", "price": 174.25}, {"date": "Jan 30, 2026", "price": 169.56}, {"date": "Feb 02, 2026", "price": 168.39}, {"date": "Feb 03, 2026", "price": 163.65}, {"date": "Feb 04, 2026", "price": 159.14}, {"date": "Feb 05, 2026", "price": 157.76}, {"date": "Feb 06, 2026", "price": 162.51}, {"date": "Feb 09, 2026", "price": 163.0}, {"date": "Feb 10, 2026", "price": 166.51}, {"date": "Feb 11, 2026", "price": 164.32}, {"date": "Feb 12, 2026", "price": 158.73}, {"date": "Feb 13, 2026", "price": 155.73}, {"date": "Feb 17, 2026", "price": 155.43}, {"date": "Feb 18, 2026", "price": 155.77}, {"date": "Feb 19, 2026", "price": 154.27}, {"date": "Feb 20, 2026", "price": 154.45}, {"date": "Feb 23, 2026", "price": 152.78}, {"date": "Feb 24, 2026", "price": 153.11}, {"date": "Feb 25, 2026", "price": 152.28}, {"date": "Feb 26, 2026", "price": 148.05}, {"date": "Feb 27, 2026", "price": 144.11}, {"date": "Mar 02, 2026", "price": 142.56}, {"date": "Mar 03, 2026", "price": 135.59}, {"date": "Mar 04, 2026", "price": 133.27}, {"date": "Mar 05, 2026", "price": 130.35}, {"date": "Mar 06, 2026", "price": 130.79}, {"date": "Mar 09, 2026", "price": 132.64}, {"date": "Mar 10, 2026", "price": 136.85}, {"date": "Mar 11, 2026", "price": 136.29}, {"date": "Mar 12, 2026", "price": 134.2}, {"date": "Mar 13, 2026", "price": 135.21}, {"date": "Mar 16, 2026", "price": 136.71}, {"date": "Mar 17, 2026", "price": 136.57}, {"date": "Mar 18, 2026", "price": 134.43}, {"date": "Mar 19, 2026", "price": 124.9}, {"date": "Mar 20, 2026", "price": 122.41}, {"date": "Mar 23, 2026", "price": 126.06}, {"date": "Mar 24, 2026", "price": 125.48}, {"date": "Mar 25, 2026", "price": 129.87}, {"date": "Mar 26, 2026", "price": 125.41}, {"date": "Mar 27, 2026", "price": 122.69}, {"date": "Mar 30, 2026", "price": 121.98}, {"date": "Mar 31, 2026", "price": 125.46}, {"date": "Apr 01, 2026", "price": 123.73}, {"date": "Apr 02, 2026", "price": 122.05}, {"date": "Apr 06, 2026", "price": 122.31}, {"date": "Apr 07, 2026", "price": 119.72}, {"date": "Apr 08, 2026", "price": 125.32}, {"date": "Apr 09, 2026", "price": 127.68}, {"date": "Apr 10, 2026", "price": 127.33}, {"date": "Apr 13, 2026", "price": 128.01}, {"date": "Apr 14, 2026", "price": 131.35}, {"date": "Apr 15, 2026", "price": 133.28}, {"date": "Apr 16, 2026", "price": 138.59}, {"date": "Apr 17, 2026", "price": 141.01}, {"date": "Apr 20, 2026", "price": 140.17}, {"date": "Apr 21, 2026", "price": 135.38}, {"date": "Apr 22, 2026", "price": 136.42}, {"date": "Apr 23, 2026", "price": 131.7}, {"date": "Apr 24, 2026", "price": 135.82}, {"date": "Apr 27, 2026", "price": 132.52}, {"date": "Apr 28, 2026", "price": 130.85}, {"date": "Apr 29, 2026", "price": 130.43}, {"date": "Apr 30, 2026", "price": 131.88}, {"date": "May 01, 2026", "price": 131.5}, {"date": "May 04, 2026", "price": 133.27}, {"date": "May 05, 2026", "price": 132.26}, {"date": "May 06, 2026", "price": 141.44}, {"date": "May 07, 2026", "price": 141.0}, {"date": "May 08, 2026", "price": 140.06}, {"date": "May 11, 2026", "price": 137.3}, {"date": "May 12, 2026", "price": 134.78}, {"date": "May 13, 2026", "price": 145.81}, {"date": "May 14, 2026", "price": 141.12}, {"date": "May 15, 2026", "price": 132.59}, {"date": "May 18, 2026", "price": 133.26}, {"date": "May 19, 2026", "price": 135.64}, {"date": "May 20, 2026", "price": 134.47}, {"date": "May 21, 2026", "price": 131.47}, {"date": "May 22, 2026", "price": 130.0}, {"date": "May 26, 2026", "price": 129.47}, {"date": "May 27, 2026", "price": 127.76}, {"date": "May 28, 2026", "price": 126.16}, {"date": "May 29, 2026", "price": 124.22}, {"date": "Jun 01, 2026", "price": 125.4}, {"date": "Jun 02, 2026", "price": 130.82}, {"date": "Jun 03, 2026", "price": 127.21}, {"date": "Jun 04, 2026", "price": 125.95}, {"date": "Jun 05, 2026", "price": 121.06}, {"date": "Jun 08, 2026", "price": 120.07}, {"date": "Jun 09, 2026", "price": 119.7}, {"date": "Jun 10, 2026", "price": 115.38}, {"date": "Jun 11, 2026", "price": 112.69}, {"date": "Jun 12, 2026", "price": 112.82}, {"date": "Jun 15, 2026", "price": 112.55}, {"date": "Jun 16, 2026", "price": 110.97}, {"date": "Jun 17, 2026", "price": 107.44}, {"date": "Jun 18, 2026", "price": 107.1}, {"date": "Jun 22, 2026", "price": 104.97}, {"date": "Jun 23, 2026", "price": 102.6}, {"date": "Jun 24, 2026", "price": 99.8}, {"date": "Jun 25, 2026", "price": 95.07}, {"date": "Jun 26, 2026", "price": 94.81}, {"date": "Jun 29, 2026", "price": 95.51}, {"date": "Jun 30, 2026", "price": 95.98}, {"date": "Jul 01, 2026", "price": 97.99}, {"date": "Jul 02, 2026", "price": 96.14}, {"date": "Jul 06, 2026", "price": 97.91}, {"date": "Jul 07, 2026", "price": 98.14}, {"date": "Jul 08, 2026", "price": 108.98}, {"date": "Jul 09, 2026", "price": 111.14}, {"date": "Jul 10, 2026", "price": 112.33}, {"date": "Jul 13, 2026", "price": 112.35}, {"date": "Jul 14, 2026", "price": 112.32}, {"date": "Jul 15, 2026", "price": 117.69}, {"date": "Jul 16, 2026", "price": 117.49}, {"date": "Jul 17, 2026", "price": 114.97}, {"date": "Jul 20, 2026", "price": 120.34}, {"date": "Jul 21, 2026", "price": 117.97}, {"date": "Jul 22, 2026", "price": 116.56}, {"date": "Jul 23, 2026", "price": 114.06}, {"date": "Jul 24, 2026", "price": 112.14}, {"date": "Jul 27, 2026", "price": 115.0}, {"date": "Jul 28, 2026", "price": 115.19}, {"date": "Jul 29, 2026", "price": 115.03}, {"date": "Jul 30, 2026", "price": 116.32}, {"date": "Jul 31, 2026", "price": 122.25}, {"date": "Aug 03, 2026", "price": 127.3}, {"date": "Aug 04, 2026", "price": 128.99}, {"date": "Aug 05, 2026", "price": 128.53}, {"date": "Aug 06, 2026", "price": 126.81}, {"date": "Aug 07, 2026", "price": 128.41}, {"date": "Aug 10, 2026", "price": 132.32}, {"date": "Aug 11, 2026", "price": 127.85}, {"date": "Aug 12, 2026", "price": 125.22}, {"date": "Aug 13, 2026", "price": 122.16}, {"date": "Aug 14, 2026", "price": 123.9}], "5Y": [{"date": "Aug 16, 2021", "price": 157.96}, {"date": "Aug 23, 2021", "price": 159.47}, {"date": "Aug 30, 2021", "price": 170.3}, {"date": "Sep 06, 2021", "price": 168.1}, {"date": "Sep 13, 2021", "price": 160.05}, {"date": "Sep 20, 2021", "price": 145.08}, {"date": "Sep 27, 2021", "price": 144.2}, {"date": "Oct 04, 2021", "price": 161.52}, {"date": "Oct 11, 2021", "price": 168.0}, {"date": "Oct 18, 2021", "price": 177.7}, {"date": "Oct 25, 2021", "price": 164.94}, {"date": "Nov 01, 2021", "price": 158.73}, {"date": "Nov 08, 2021", "price": 166.81}, {"date": "Nov 15, 2021", "price": 140.34}, {"date": "Nov 22, 2021", "price": 133.35}, {"date": "Nov 29, 2021", "price": 111.96}, {"date": "Dec 06, 2021", "price": 125.06}, {"date": "Dec 13, 2021", "price": 122.1}, {"date": "Dec 20, 2021", "price": 118.66}, {"date": "Dec 27, 2021", "price": 118.79}, {"date": "Jan 03, 2022", "price": 129.81}, {"date": "Jan 10, 2022", "price": 131.57}, {"date": "Jan 17, 2022", "price": 123.23}, {"date": "Jan 24, 2022", "price": 115.23}, {"date": "Jan 31, 2022", "price": 122.22}, {"date": "Feb 07, 2022", "price": 122.25}, {"date": "Feb 14, 2022", "price": 118.99}, {"date": "Feb 21, 2022", "price": 107.94}, {"date": "Feb 28, 2022", "price": 100.6}, {"date": "Mar 07, 2022", "price": 86.71}, {"date": "Mar 14, 2022", "price": 108.3}, {"date": "Mar 21, 2022", "price": 112.99}, {"date": "Mar 28, 2022", "price": 110.2}, {"date": "Apr 04, 2022", "price": 103.53}, {"date": "Apr 11, 2022", "price": 95.49}, {"date": "Apr 18, 2022", "price": 86.49}, {"date": "Apr 25, 2022", "price": 97.09}, {"date": "May 02, 2022", "price": 90.05}, {"date": "May 09, 2022", "price": 87.99}, {"date": "May 16, 2022", "price": 86.79}, {"date": "May 23, 2022", "price": 93.41}, {"date": "May 30, 2022", "price": 93.21}, {"date": "Jun 06, 2022", "price": 109.84}, {"date": "Jun 13, 2022", "price": 102.24}, {"date": "Jun 20, 2022", "price": 117.62}, {"date": "Jun 27, 2022", "price": 116.0}, {"date": "Jul 04, 2022", "price": 120.9}, {"date": "Jul 11, 2022", "price": 102.44}, {"date": "Jul 18, 2022", "price": 100.61}, {"date": "Jul 25, 2022", "price": 89.37}, {"date": "Aug 01, 2022", "price": 92.56}, {"date": "Aug 08, 2022", "price": 94.77}, {"date": "Aug 15, 2022", "price": 89.63}, {"date": "Aug 22, 2022", "price": 98.0}, {"date": "Aug 29, 2022", "price": 91.8}, {"date": "Sep 05, 2022", "price": 92.14}, {"date": "Sep 12, 2022", "price": 86.43}, {"date": "Sep 19, 2022", "price": 78.8}, {"date": "Sep 26, 2022", "price": 79.99}, {"date": "Oct 03, 2022", "price": 81.24}, {"date": "Oct 10, 2022", "price": 73.02}, {"date": "Oct 17, 2022", "price": 72.18}, {"date": "Oct 24, 2022", "price": 63.74}, {"date": "Oct 31, 2022", "price": 69.81}, {"date": "Nov 07, 2022", "price": 70.77}, {"date": "Nov 14, 2022", "price": 80.48}, {"date": "Nov 21, 2022", "price": 75.5}, {"date": "Nov 28, 2022", "price": 90.06}, {"date": "Dec 05, 2022", "price": 91.34}, {"date": "Dec 12, 2022", "price": 86.79}, {"date": "Dec 19, 2022", "price": 85.65}, {"date": "Dec 26, 2022", "price": 88.09}, {"date": "Jan 02, 2023", "price": 107.4}, {"date": "Jan 09, 2023", "price": 117.01}, {"date": "Jan 16, 2023", "price": 119.86}, {"date": "Jan 23, 2023", "price": 118.38}, {"date": "Jan 30, 2023", "price": 106.33}, {"date": "Feb 06, 2023", "price": 103.65}, {"date": "Feb 13, 2023", "price": 100.01}, {"date": "Feb 20, 2023", "price": 89.0}, {"date": "Feb 27, 2023", "price": 89.7}, {"date": "Mar 06, 2023", "price": 82.96}, {"date": "Mar 13, 2023", "price": 81.67}, {"date": "Mar 20, 2023", "price": 86.9}, {"date": "Mar 27, 2023", "price": 102.18}, {"date": "Apr 03, 2023", "price": 102.74}, {"date": "Apr 10, 2023", "price": 94.55}, {"date": "Apr 17, 2023", "price": 89.13}, {"date": "Apr 24, 2023", "price": 84.69}, {"date": "May 01, 2023", "price": 83.22}, {"date": "May 08, 2023", "price": 85.34}, {"date": "May 15, 2023", "price": 83.98}, {"date": "May 22, 2023", "price": 80.97}, {"date": "May 29, 2023", "price": 84.27}, {"date": "Jun 05, 2023", "price": 85.5}, {"date": "Jun 12, 2023", "price": 92.1}, {"date": "Jun 19, 2023", "price": 84.92}, {"date": "Jun 26, 2023", "price": 83.35}, {"date": "Jul 03, 2023", "price": 90.55}, {"date": "Jul 10, 2023", "price": 94.56}, {"date": "Jul 17, 2023", "price": 92.17}, {"date": "Jul 24, 2023", "price": 100.55}, {"date": "Jul 31, 2023", "price": 96.9}, {"date": "Aug 07, 2023", "price": 95.72}, {"date": "Aug 14, 2023", "price": 88.03}, {"date": "Aug 21, 2023", "price": 89.82}, {"date": "Aug 28, 2023", "price": 95.01}, {"date": "Sep 04, 2023", "price": 90.05}, {"date": "Sep 11, 2023", "price": 87.07}, {"date": "Sep 18, 2023", "price": 88.3}, {"date": "Sep 25, 2023", "price": 86.74}, {"date": "Oct 02, 2023", "price": 86.06}, {"date": "Oct 09, 2023", "price": 84.02}, {"date": "Oct 16, 2023", "price": 79.94}, {"date": "Oct 23, 2023", "price": 82.82}, {"date": "Oct 30, 2023", "price": 85.31}, {"date": "Nov 06, 2023", "price": 82.75}, {"date": "Nov 13, 2023", "price": 77.6}, {"date": "Nov 20, 2023", "price": 78.49}, {"date": "Nov 27, 2023", "price": 73.99}, {"date": "Dec 04, 2023", "price": 72.14}, {"date": "Dec 11, 2023", "price": 74.51}, {"date": "Dec 18, 2023", "price": 75.28}, {"date": "Dec 25, 2023", "price": 77.51}, {"date": "Jan 01, 2024", "price": 73.01}, {"date": "Jan 08, 2024", "price": 71.84}, {"date": "Jan 15, 2024", "price": 69.42}, {"date": "Jan 22, 2024", "price": 74.01}, {"date": "Jan 29, 2024", "price": 71.85}, {"date": "Feb 05, 2024", "price": 72.02}, {"date": "Feb 12, 2024", "price": 73.91}, {"date": "Feb 19, 2024", "price": 75.96}, {"date": "Feb 26, 2024", "price": 74.62}, {"date": "Mar 04, 2024", "price": 73.55}, {"date": "Mar 11, 2024", "price": 73.42}, {"date": "Mar 18, 2024", "price": 72.13}, {"date": "Mar 25, 2024", "price": 72.36}, {"date": "Apr 01, 2024", "price": 71.66}, {"date": "Apr 08, 2024", "price": 71.29}, {"date": "Apr 15, 2024", "price": 69.07}, {"date": "Apr 22, 2024", "price": 75.55}, {"date": "Apr 29, 2024", "price": 81.33}, {"date": "May 06, 2024", "price": 80.04}, {"date": "May 13, 2024", "price": 88.54}, {"date": "May 20, 2024", "price": 81.26}, {"date": "May 27, 2024", "price": 78.34}, {"date": "Jun 03, 2024", "price": 78.41}, {"date": "Jun 10, 2024", "price": 73.35}, {"date": "Jun 17, 2024", "price": 73.67}, {"date": "Jun 24, 2024", "price": 72.0}, {"date": "Jul 01, 2024", "price": 74.52}, {"date": "Jul 08, 2024", "price": 79.65}, {"date": "Jul 15, 2024", "price": 75.27}, {"date": "Jul 22, 2024", "price": 76.53}, {"date": "Jul 29, 2024", "price": 77.45}, {"date": "Aug 05, 2024", "price": 79.99}, {"date": "Aug 12, 2024", "price": 83.18}, {"date": "Aug 19, 2024", "price": 85.41}, {"date": "Aug 26, 2024", "price": 83.34}, {"date": "Sep 02, 2024", "price": 81.18}, {"date": "Sep 09, 2024", "price": 84.69}, {"date": "Sep 16, 2024", "price": 88.29}, {"date": "Sep 23, 2024", "price": 107.33}, {"date": "Sep 30, 2024", "price": 114.53}, {"date": "Oct 07, 2024", "price": 110.14}, {"date": "Oct 14, 2024", "price": 102.43}, {"date": "Oct 21, 2024", "price": 97.42}, {"date": "Oct 28, 2024", "price": 97.58}, {"date": "Nov 04, 2024", "price": 94.19}, {"date": "Nov 11, 2024", "price": 88.59}, {"date": "Nov 18, 2024", "price": 83.13}, {"date": "Nov 25, 2024", "price": 87.37}, {"date": "Dec 02, 2024", "price": 85.93}, {"date": "Dec 09, 2024", "price": 87.82}, {"date": "Dec 16, 2024", "price": 82.28}, {"date": "Dec 23, 2024", "price": 85.06}, {"date": "Dec 30, 2024", "price": 85.54}, {"date": "Jan 06, 2025", "price": 80.53}, {"date": "Jan 13, 2025", "price": 85.12}, {"date": "Jan 20, 2025", "price": 89.14}, {"date": "Jan 27, 2025", "price": 98.84}, {"date": "Feb 03, 2025", "price": 103.51}, {"date": "Feb 10, 2025", "price": 124.73}, {"date": "Feb 17, 2025", "price": 143.75}, {"date": "Feb 24, 2025", "price": 132.51}, {"date": "Mar 03, 2025", "price": 140.62}, {"date": "Mar 10, 2025", "price": 141.1}, {"date": "Mar 17, 2025", "price": 135.14}, {"date": "Mar 24, 2025", "price": 132.43}, {"date": "Mar 31, 2025", "price": 116.54}, {"date": "Apr 07, 2025", "price": 107.73}, {"date": "Apr 14, 2025", "price": 108.87}, {"date": "Apr 21, 2025", "price": 120.28}, {"date": "Apr 28, 2025", "price": 125.76}, {"date": "May 05, 2025", "price": 125.33}, {"date": "May 12, 2025", "price": 123.46}, {"date": "May 19, 2025", "price": 120.73}, {"date": "May 26, 2025", "price": 113.84}, {"date": "Jun 02, 2025", "price": 119.38}, {"date": "Jun 09, 2025", "price": 112.87}, {"date": "Jun 16, 2025", "price": 113.01}, {"date": "Jun 23, 2025", "price": 114.08}, {"date": "Jun 30, 2025", "price": 108.7}, {"date": "Jul 07, 2025", "price": 106.72}, {"date": "Jul 14, 2025", "price": 120.23}, {"date": "Jul 21, 2025", "price": 120.03}, {"date": "Jul 28, 2025", "price": 117.07}, {"date": "Aug 04, 2025", "price": 120.36}, {"date": "Aug 11, 2025", "price": 121.26}, {"date": "Aug 18, 2025", "price": 122.94}, {"date": "Aug 25, 2025", "price": 135.0}, {"date": "Sep 01, 2025", "price": 135.58}, {"date": "Sep 08, 2025", "price": 155.06}, {"date": "Sep 15, 2025", "price": 162.81}, {"date": "Sep 22, 2025", "price": 171.91}, {"date": "Sep 29, 2025", "price": 188.03}, {"date": "Oct 06, 2025", "price": 159.01}, {"date": "Oct 13, 2025", "price": 167.05}, {"date": "Oct 20, 2025", "price": 174.7}, {"date": "Oct 27, 2025", "price": 170.43}, {"date": "Nov 03, 2025", "price": 166.34}, {"date": "Nov 10, 2025", "price": 153.8}, {"date": "Nov 17, 2025", "price": 152.93}, {"date": "Nov 24, 2025", "price": 157.3}, {"date": "Dec 01, 2025", "price": 158.32}, {"date": "Dec 08, 2025", "price": 155.68}, {"date": "Dec 15, 2025", "price": 149.79}, {"date": "Dec 22, 2025", "price": 152.24}, {"date": "Dec 29, 2025", "price": 155.74}, {"date": "Jan 05, 2026", "price": 150.96}, {"date": "Jan 12, 2026", "price": 165.4}, {"date": "Jan 19, 2026", "price": 173.23}, {"date": "Jan 26, 2026", "price": 169.56}, {"date": "Feb 02, 2026", "price": 162.51}, {"date": "Feb 09, 2026", "price": 155.73}, {"date": "Feb 16, 2026", "price": 154.45}, {"date": "Feb 23, 2026", "price": 144.11}, {"date": "Mar 02, 2026", "price": 130.79}, {"date": "Mar 09, 2026", "price": 135.21}, {"date": "Mar 16, 2026", "price": 122.41}, {"date": "Mar 23, 2026", "price": 122.69}, {"date": "Mar 30, 2026", "price": 122.05}, {"date": "Apr 06, 2026", "price": 127.33}, {"date": "Apr 13, 2026", "price": 141.01}, {"date": "Apr 20, 2026", "price": 135.82}, {"date": "Apr 27, 2026", "price": 131.5}, {"date": "May 04, 2026", "price": 140.06}, {"date": "May 11, 2026", "price": 132.59}, {"date": "May 18, 2026", "price": 130.0}, {"date": "May 25, 2026", "price": 124.22}, {"date": "Jun 01, 2026", "price": 121.06}, {"date": "Jun 08, 2026", "price": 112.82}, {"date": "Jun 15, 2026", "price": 107.1}, {"date": "Jun 22, 2026", "price": 94.81}, {"date": "Jun 29, 2026", "price": 96.14}, {"date": "Jul 06, 2026", "price": 112.33}, {"date": "Jul 13, 2026", "price": 114.97}, {"date": "Jul 20, 2026", "price": 112.14}, {"date": "Jul 27, 2026", "price": 122.25}, {"date": "Aug 03, 2026", "price": 128.41}, {"date": "Aug 10, 2026", "price": 122.16}, {"date": "Aug 14, 2026", "price": 123.9}], "10Y": [{"date": "Sep 01, 2016", "price": 105.79}, {"date": "Oct 01, 2016", "price": 101.69}, {"date": "Nov 01, 2016", "price": 94.02}, {"date": "Dec 01, 2016", "price": 87.81}, {"date": "Jan 01, 2017", "price": 101.31}, {"date": "Feb 01, 2017", "price": 102.9}, {"date": "Mar 01, 2017", "price": 107.83}, {"date": "Apr 01, 2017", "price": 115.5}, {"date": "May 01, 2017", "price": 122.46}, {"date": "Jun 01, 2017", "price": 140.9}, {"date": "Jul 01, 2017", "price": 154.95}, {"date": "Aug 01, 2017", "price": 171.74}, {"date": "Sep 01, 2017", "price": 172.71}, {"date": "Oct 01, 2017", "price": 184.89}, {"date": "Nov 01, 2017", "price": 177.08}, {"date": "Dec 01, 2017", "price": 172.43}, {"date": "Jan 01, 2018", "price": 204.29}, {"date": "Feb 01, 2018", "price": 186.14}, {"date": "Mar 01, 2018", "price": 183.54}, {"date": "Apr 01, 2018", "price": 178.54}, {"date": "May 01, 2018", "price": 198.01}, {"date": "Jun 01, 2018", "price": 185.53}, {"date": "Jul 01, 2018", "price": 187.23}, {"date": "Aug 01, 2018", "price": 175.01}, {"date": "Sep 01, 2018", "price": 164.76}, {"date": "Oct 01, 2018", "price": 142.28}, {"date": "Nov 01, 2018", "price": 160.86}, {"date": "Dec 01, 2018", "price": 137.07}, {"date": "Jan 01, 2019", "price": 168.49}, {"date": "Feb 01, 2019", "price": 183.03}, {"date": "Mar 01, 2019", "price": 182.45}, {"date": "Apr 01, 2019", "price": 185.57}, {"date": "May 01, 2019", "price": 149.26}, {"date": "Jun 01, 2019", "price": 169.45}, {"date": "Jul 01, 2019", "price": 173.11}, {"date": "Aug 01, 2019", "price": 175.03}, {"date": "Sep 01, 2019", "price": 167.23}, {"date": "Oct 01, 2019", "price": 176.67}, {"date": "Nov 01, 2019", "price": 200.0}, {"date": "Dec 01, 2019", "price": 212.1}, {"date": "Jan 01, 2020", "price": 206.59}, {"date": "Feb 01, 2020", "price": 208.0}, {"date": "Mar 01, 2020", "price": 194.48}, {"date": "Apr 01, 2020", "price": 202.67}, {"date": "May 01, 2020", "price": 207.39}, {"date": "Jun 01, 2020", "price": 215.7}, {"date": "Jul 01, 2020", "price": 251.02}, {"date": "Aug 01, 2020", "price": 287.03}, {"date": "Sep 01, 2020", "price": 293.98}, {"date": "Oct 01, 2020", "price": 304.69}, {"date": "Nov 01, 2020", "price": 263.36}, {"date": "Dec 01, 2020", "price": 232.73}, {"date": "Jan 01, 2021", "price": 253.83}, {"date": "Feb 01, 2021", "price": 237.76}, {"date": "Mar 01, 2021", "price": 226.73}, {"date": "Apr 01, 2021", "price": 230.95}, {"date": "May 01, 2021", "price": 213.96}, {"date": "Jun 01, 2021", "price": 226.78}, {"date": "Jul 01, 2021", "price": 195.19}, {"date": "Aug 01, 2021", "price": 166.99}, {"date": "Sep 01, 2021", "price": 148.05}, {"date": "Oct 01, 2021", "price": 164.94}, {"date": "Nov 01, 2021", "price": 127.53}, {"date": "Dec 01, 2021", "price": 118.79}, {"date": "Jan 01, 2022", "price": 125.79}, {"date": "Feb 01, 2022", "price": 105.19}, {"date": "Mar 01, 2022", "price": 108.8}, {"date": "Apr 01, 2022", "price": 97.09}, {"date": "May 01, 2022", "price": 96.05}, {"date": "Jun 01, 2022", "price": 113.68}, {"date": "Jul 01, 2022", "price": 89.37}, {"date": "Aug 01, 2022", "price": 95.41}, {"date": "Sep 01, 2022", "price": 79.99}, {"date": "Oct 01, 2022", "price": 63.58}, {"date": "Nov 01, 2022", "price": 87.56}, {"date": "Dec 01, 2022", "price": 88.09}, {"date": "Jan 01, 2023", "price": 110.2}, {"date": "Feb 01, 2023", "price": 87.79}, {"date": "Mar 01, 2023", "price": 102.18}, {"date": "Apr 01, 2023", "price": 84.69}, {"date": "May 01, 2023", "price": 79.55}, {"date": "Jun 01, 2023", "price": 83.35}, {"date": "Jul 01, 2023", "price": 102.16}, {"date": "Aug 01, 2023", "price": 92.9}, {"date": "Sep 01, 2023", "price": 86.74}, {"date": "Oct 01, 2023", "price": 82.54}, {"date": "Nov 01, 2023", "price": 74.88}, {"date": "Dec 01, 2023", "price": 77.51}, {"date": "Jan 01, 2024", "price": 72.17}, {"date": "Feb 01, 2024", "price": 74.03}, {"date": "Mar 01, 2024", "price": 72.36}, {"date": "Apr 01, 2024", "price": 74.85}, {"date": "May 01, 2024", "price": 78.34}, {"date": "Jun 01, 2024", "price": 72.0}, {"date": "Jul 01, 2024", "price": 78.85}, {"date": "Aug 01, 2024", "price": 83.34}, {"date": "Sep 01, 2024", "price": 106.12}, {"date": "Oct 01, 2024", "price": 97.98}, {"date": "Nov 01, 2024", "price": 87.37}, {"date": "Dec 01, 2024", "price": 84.79}, {"date": "Jan 01, 2025", "price": 98.84}, {"date": "Feb 01, 2025", "price": 132.51}, {"date": "Mar 01, 2025", "price": 132.23}, {"date": "Apr 01, 2025", "price": 119.43}, {"date": "May 01, 2025", "price": 113.84}, {"date": "Jun 01, 2025", "price": 113.41}, {"date": "Jul 01, 2025", "price": 120.63}, {"date": "Aug 01, 2025", "price": 135.0}, {"date": "Sep 01, 2025", "price": 178.73}, {"date": "Oct 01, 2025", "price": 170.43}, {"date": "Nov 01, 2025", "price": 157.3}, {"date": "Dec 01, 2025", "price": 146.58}, {"date": "Jan 01, 2026", "price": 169.56}, {"date": "Feb 01, 2026", "price": 144.11}, {"date": "Mar 01, 2026", "price": 125.46}, {"date": "Apr 01, 2026", "price": 131.88}, {"date": "May 01, 2026", "price": 124.22}, {"date": "Jun 01, 2026", "price": 95.98}, {"date": "Jul 01, 2026", "price": 122.25}, {"date": "Aug 01, 2026", "price": 122.16}, {"date": "Aug 14, 2026", "price": 123.9}], "MAX": [{"date": "Oct 01, 2014", "price": 98.6}, {"date": "Nov 01, 2014", "price": 111.64}, {"date": "Dec 01, 2014", "price": 103.94}, {"date": "Jan 01, 2015", "price": 89.08}, {"date": "Feb 01, 2015", "price": 85.12}, {"date": "Mar 01, 2015", "price": 83.24}, {"date": "Apr 01, 2015", "price": 81.29}, {"date": "May 01, 2015", "price": 89.32}, {"date": "Jun 01, 2015", "price": 82.27}, {"date": "Jul 01, 2015", "price": 78.34}, {"date": "Aug 01, 2015", "price": 66.12}, {"date": "Sep 01, 2015", "price": 58.97}, {"date": "Oct 01, 2015", "price": 83.83}, {"date": "Nov 01, 2015", "price": 84.08}, {"date": "Dec 01, 2015", "price": 81.27}, {"date": "Jan 01, 2016", "price": 67.03}, {"date": "Feb 01, 2016", "price": 68.81}, {"date": "Mar 01, 2016", "price": 79.03}, {"date": "Apr 01, 2016", "price": 76.94}, {"date": "May 01, 2016", "price": 82.0}, {"date": "Jun 01, 2016", "price": 79.53}, {"date": "Jul 01, 2016", "price": 82.48}, {"date": "Aug 01, 2016", "price": 97.19}, {"date": "Sep 01, 2016", "price": 105.79}, {"date": "Oct 01, 2016", "price": 101.69}, {"date": "Nov 01, 2016", "price": 94.02}, {"date": "Dec 01, 2016", "price": 87.81}, {"date": "Jan 01, 2017", "price": 101.31}, {"date": "Feb 01, 2017", "price": 102.9}, {"date": "Mar 01, 2017", "price": 107.83}, {"date": "Apr 01, 2017", "price": 115.5}, {"date": "May 01, 2017", "price": 122.46}, {"date": "Jun 01, 2017", "price": 140.9}, {"date": "Jul 01, 2017", "price": 154.95}, {"date": "Aug 01, 2017", "price": 171.74}, {"date": "Sep 01, 2017", "price": 172.71}, {"date": "Oct 01, 2017", "price": 184.89}, {"date": "Nov 01, 2017", "price": 177.08}, {"date": "Dec 01, 2017", "price": 172.43}, {"date": "Jan 01, 2018", "price": 204.29}, {"date": "Feb 01, 2018", "price": 186.14}, {"date": "Mar 01, 2018", "price": 183.54}, {"date": "Apr 01, 2018", "price": 178.54}, {"date": "May 01, 2018", "price": 198.01}, {"date": "Jun 01, 2018", "price": 185.53}, {"date": "Jul 01, 2018", "price": 187.23}, {"date": "Aug 01, 2018", "price": 175.01}, {"date": "Sep 01, 2018", "price": 164.76}, {"date": "Oct 01, 2018", "price": 142.28}, {"date": "Nov 01, 2018", "price": 160.86}, {"date": "Dec 01, 2018", "price": 137.07}, {"date": "Jan 01, 2019", "price": 168.49}, {"date": "Feb 01, 2019", "price": 183.03}, {"date": "Mar 01, 2019", "price": 182.45}, {"date": "Apr 01, 2019", "price": 185.57}, {"date": "May 01, 2019", "price": 149.26}, {"date": "Jun 01, 2019", "price": 169.45}, {"date": "Jul 01, 2019", "price": 173.11}, {"date": "Aug 01, 2019", "price": 175.03}, {"date": "Sep 01, 2019", "price": 167.23}, {"date": "Oct 01, 2019", "price": 176.67}, {"date": "Nov 01, 2019", "price": 200.0}, {"date": "Dec 01, 2019", "price": 212.1}, {"date": "Jan 01, 2020", "price": 206.59}, {"date": "Feb 01, 2020", "price": 208.0}, {"date": "Mar 01, 2020", "price": 194.48}, {"date": "Apr 01, 2020", "price": 202.67}, {"date": "May 01, 2020", "price": 207.39}, {"date": "Jun 01, 2020", "price": 215.7}, {"date": "Jul 01, 2020", "price": 251.02}, {"date": "Aug 01, 2020", "price": 287.03}, {"date": "Sep 01, 2020", "price": 293.98}, {"date": "Oct 01, 2020", "price": 304.69}, {"date": "Nov 01, 2020", "price": 263.36}, {"date": "Dec 01, 2020", "price": 232.73}, {"date": "Jan 01, 2021", "price": 253.83}, {"date": "Feb 01, 2021", "price": 237.76}, {"date": "Mar 01, 2021", "price": 226.73}, {"date": "Apr 01, 2021", "price": 230.95}, {"date": "May 01, 2021", "price": 213.96}, {"date": "Jun 01, 2021", "price": 226.78}, {"date": "Jul 01, 2021", "price": 195.19}, {"date": "Aug 01, 2021", "price": 166.99}, {"date": "Sep 01, 2021", "price": 148.05}, {"date": "Oct 01, 2021", "price": 164.94}, {"date": "Nov 01, 2021", "price": 127.53}, {"date": "Dec 01, 2021", "price": 118.79}, {"date": "Jan 01, 2022", "price": 125.79}, {"date": "Feb 01, 2022", "price": 105.19}, {"date": "Mar 01, 2022", "price": 108.8}, {"date": "Apr 01, 2022", "price": 97.09}, {"date": "May 01, 2022", "price": 96.05}, {"date": "Jun 01, 2022", "price": 113.68}, {"date": "Jul 01, 2022", "price": 89.37}, {"date": "Aug 01, 2022", "price": 95.41}, {"date": "Sep 01, 2022", "price": 79.99}, {"date": "Oct 01, 2022", "price": 63.58}, {"date": "Nov 01, 2022", "price": 87.56}, {"date": "Dec 01, 2022", "price": 88.09}, {"date": "Jan 01, 2023", "price": 110.2}, {"date": "Feb 01, 2023", "price": 87.79}, {"date": "Mar 01, 2023", "price": 102.18}, {"date": "Apr 01, 2023", "price": 84.69}, {"date": "May 01, 2023", "price": 79.55}, {"date": "Jun 01, 2023", "price": 83.35}, {"date": "Jul 01, 2023", "price": 102.16}, {"date": "Aug 01, 2023", "price": 92.9}, {"date": "Sep 01, 2023", "price": 86.74}, {"date": "Oct 01, 2023", "price": 82.54}, {"date": "Nov 01, 2023", "price": 74.88}, {"date": "Dec 01, 2023", "price": 77.51}, {"date": "Jan 01, 2024", "price": 72.17}, {"date": "Feb 01, 2024", "price": 74.03}, {"date": "Mar 01, 2024", "price": 72.36}, {"date": "Apr 01, 2024", "price": 74.85}, {"date": "May 01, 2024", "price": 78.34}, {"date": "Jun 01, 2024", "price": 72.0}, {"date": "Jul 01, 2024", "price": 78.85}, {"date": "Aug 01, 2024", "price": 83.34}, {"date": "Sep 01, 2024", "price": 106.12}, {"date": "Oct 01, 2024", "price": 97.98}, {"date": "Nov 01, 2024", "price": 87.37}, {"date": "Dec 01, 2024", "price": 84.79}, {"date": "Jan 01, 2025", "price": 98.84}, {"date": "Feb 01, 2025", "price": 132.51}, {"date": "Mar 01, 2025", "price": 132.23}, {"date": "Apr 01, 2025", "price": 119.43}, {"date": "May 01, 2025", "price": 113.84}, {"date": "Jun 01, 2025", "price": 113.41}, {"date": "Jul 01, 2025", "price": 120.63}, {"date": "Aug 01, 2025", "price": 135.0}, {"date": "Sep 01, 2025", "price": 178.73}, {"date": "Oct 01, 2025", "price": 170.43}, {"date": "Nov 01, 2025", "price": 157.3}, {"date": "Dec 01, 2025", "price": 146.58}, {"date": "Jan 01, 2026", "price": 169.56}, {"date": "Feb 01, 2026", "price": 144.11}, {"date": "Mar 01, 2026", "price": 125.46}, {"date": "Apr 01, 2026", "price": 131.88}, {"date": "May 01, 2026", "price": 124.22}, {"date": "Jun 01, 2026", "price": 95.98}, {"date": "Jul 01, 2026", "price": 122.25}, {"date": "Aug 01, 2026", "price": 122.16}, {"date": "Aug 14, 2026", "price": 123.9}]};
         let currentRangeKey = '1Y';
         let currentPoints = allDatasets[currentRangeKey] || [];
         let currentSvgCoords = [];
@@ -1346,34 +1346,34 @@
             <div class="metrics-grid">
                 <div class="metric-cell">
                     <div class="metric-label">Fair Value</div>
-                    <div class="metric-value" style="color: var(--accent-warm);">$168.00</div>
+                    <div class="metric-value" style="color: var(--accent-warm);">$175.00</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bear Target</div>
-                    <div class="metric-value" style="color: var(--accent-red);">$118.50 (-7.3%)</div>
+                    <div class="metric-value" style="color: var(--accent-red);">$120.00</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Base Target</div>
-                    <div class="metric-value">$168.00 (+31.4%)</div>
+                    <div class="metric-value">$175.00</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bull Target</div>
-                    <div class="metric-value" style="color: var(--accent-green);">$225.00 (+76.0%)</div>
+                    <div class="metric-value" style="color: var(--accent-green);">$220.00</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Corridor</div>
-                    <div class="metric-value" style="font-size: 1.00rem; font-family: var(--font-mono); color: var(--text-title);">$98.00 ⇄ $165.00</div>
+                    <div class="metric-value" style="font-size: 1.00rem; font-family: var(--font-mono); color: var(--text-title);">$110.00 ⇄ $155.00</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Catalyst</div>
-                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">2026-08-28</div>
+                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">2026-08-20</div>
                     <div class="metric-delta" style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 2px;">Q1 '27 ER</div>
                 </div>
                 
     <div class="metric-cell">
         <div class="metric-label">Float</div>
-        <div class="metric-value">41.5%</div>
-        <div class="metric-subtext">Appaloosa · Vanguard</div>
+        <div class="metric-value">33.9% (13F) / 70.5% (Global)</div>
+        <div class="metric-subtext">Appaloosa · ShawSpring Partners</div>
     </div>
     
                 
@@ -1389,476 +1389,599 @@
         <!-- Navigation Tabs -->
         <div class="tabs-header">
             <button id="btn-tab-memo" class="tab-btn active" onclick="showTab('memo')">Investment Thesis</button>
-            <button id="btn-tab-history" class="tab-btn" onclick="showTab('history')">Evolution (0)</button>
+            <button id="btn-tab-history" class="tab-btn" onclick="showTab('history')">Evolution (1)</button>
             <button id="btn-tab-ownership" class="tab-btn" onclick="showTab('ownership')">Ownership & Fund Intel</button>
         </div>
 
         <!-- Memo Content -->
         <div id="tab-memo" class="tab-content active">
             <article class="memo-container">
-                <div class="section"><h2>Section 1: Executive Summary &amp; Moat Reality</h2><div class="metrics-grid">
+                
+        <div class="update-banner-box">
+            <div class="update-banner-header">
+                <span class="update-banner-badge">⚡ Version 2 Thesis Evolution • 2026-08-14</span>
+                <span class="update-trigger-pill">Trigger: SEC 6-K Filing (2026-08-14): FORM 6-K [Accession #0001104659-26-096226]</span>
+            </div>
+            <div class="update-banner-body">
+                <div class="update-banner-title">What Changed & Forward Thesis Impact</div>
+                <div class="update-banner-desc">
+                    The SEC Form 6-K filing on August 14, 2026 formally confirms the upcoming Q1 FY2027 earnings release date for August 20, 2026. The recent market pullback to $123.94 (-3.48%) widens the margin of safety relative to our $175.00 intrinsic fair value. Operational momentum in Cloud Intelligence is underscored by the August launch of Qwen3.8-Max (2.4T parameters) and enterprise integrations with Apple and Tesla in China, while aggressive buybacks continue to compound per-share owner earnings.
+                    
+                <div class="label-evolution-divider" style="margin-top: 18px; padding-top: 14px; border-top: 1px dashed var(--border-color); font-size: 0.88rem;">
+                    <div style="font-weight: 500; color: var(--text-title); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                        <span style="color: var(--accent-warm);">🏷️ Label & Conviction Evolution:</span>
+                        <div style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                            <span class="pill pill-neutral" style="font-size:0.75rem;">High Conviction</span> <span class="pill pill-neutral" style="font-size:0.75rem;">Deep Value</span> <span class="pill pill-neutral" style="font-size:0.75rem;">Ai Cloud</span>
+                            <span style="color: var(--text-dim);">→</span>
+                            <span class="pill pill-active" style="font-size:0.75rem;">High Conviction</span> <span class="pill pill-active" style="font-size:0.75rem;">Deep Value</span> <span class="pill pill-active" style="font-size:0.75rem;">Buyback Cannibal</span>
+                        </div>
+                    </div>
+                </div>
+                
+                </div>
+            </div>
+        </div>
+        <div class="section">
+<h2>Section 1: Business Model, Scale Moat &amp; GenAI Transition</h2>
+<p>
+    Alibaba Group Holding Limited operates as China's premier digital commerce, technology infrastructure, and artificial intelligence platform. The company's economic engine is anchored by two dominant, mutually reinforcing core pillars: <strong>Taobao &amp; Tmall Group (TTG)</strong>—the unchallenged titan of Chinese retail commerce generating vast high-margin cash flows—and <strong>Cloud Intelligence Group</strong>, the foundational enterprise public cloud provider across Asia-Pacific. Surrounding these core assets are high-growth strategic adjacencies including <strong>Alibaba International Digital Commerce (AIDC)</strong> (Lazada, AliExpress, Trendyol), <strong>Cainiao Smart Logistics</strong>, <strong>Local Services Group</strong> (Ele.me, Amap), and <strong>Digital Media and Entertainment (DME)</strong>.
+  </p>
+<div class="callout">
+<strong>The GenAI Enterprise Pivot &amp; Network Moat:</strong> Alibaba's scale moat is protected by two-sided network effects connecting over 900 million active consumers with tens of millions of merchants in domestic e-commerce, combined with structural enterprise switching costs in Cloud Intelligence. The rapid transition toward Generative AI—catalyzed by the launch of the 2.4-trillion-parameter <em>Qwen3.8-Max</em> LLM—has positioned Alibaba Cloud as the essential AI stack in China, securing marquee enterprise partnerships with Apple (integrating Qwen into Siri and Writing Tools in China) and Tesla (beta-testing Qwen in vehicles for navigation and voice recognition).
+  </div>
+<p>
+    Under the leadership of CEO Eddie Wu and Chairman Joe Tsai, Alibaba has simplified its operational focus around "User First" and "AI-Driven" strategies. Non-core assets are systematically monetized or wound down, while excess cash flow from domestic retail is ruthlessly reinvested into two strategic priorities: accelerating AI infrastructure/CapEx buildout and funding continuous share repurchases at historically depressed earnings multiples.
+  </p>
+</div>
+<div class="section">
+<h2>Section 2: Quarterly Operational Breakdown &amp; Segment Performance</h2>
+<p>
+    Heading into the confirmed Q1 FY2027 earnings report scheduled for August 20, 2026, Alibaba's operational trajectory demonstrates accelerating top-line momentum driven by Cloud Intelligence and International Commerce, offset by tactical reinvestments in domestic merchant tools and quick-commerce subsidies.
+  </p>
+<div class="metrics-grid">
 <div class="metric-card">
-<div class="metric-label">Q4 FY2026 Consolidated Revenue</div>
-<div class="metric-value">RMB 243.38B</div>
-<div class="metric-delta pos">+11% YoY (Like-for-Like)</div>
+<div class="metric-label">Q1 FY27 Est. Revenue</div>
+<div class="metric-value">$39.80B</div>
+<div class="metric-delta pos">+10.2% YoY</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">Cloud External Revenue Growth</div>
-<div class="metric-value">40.0%</div>
-<div class="metric-delta pos">+600 bps QoQ Acceleration</div>
+<div class="metric-label">Cloud Intelligence Rev.</div>
+<div class="metric-value">$4.35B</div>
+<div class="metric-delta pos">+12.5% YoY</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">AI Product Revenue Annualized Run-Rate</div>
-<div class="metric-value">RMB 35.8B+</div>
-<div class="metric-delta pos">11 Qtrs Triple-Digit Growth</div>
+<div class="metric-label">AI Cloud Growth (External)</div>
+<div class="metric-value">40.0%+</div>
+<div class="metric-delta pos">Accelerating</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">AIDC Adjusted EBITA Loss</div>
-<div class="metric-value">-RMB 138M</div>
-<div class="metric-delta pos">+96% YoY Efficiency Gain</div>
+<div class="metric-label">Net Cash Fortress</div>
+<div class="metric-value">$42.50B</div>
+<div class="metric-delta pos">-$17.80/ADS</div>
 </div>
-</div><p>Alibaba Group Holding Limited entered a strategic inflection point in Q4 FY2026 (ended March 31, 2026). Management's deliberate, high-intensity investment cycle—spending approximately RMB 380 billion ($53 billion) over three years in full-stack AI infrastructure, quick commerce, and core marketplace user experience—is beginning to yield measurable top-line acceleration. While consolidated GAAP revenue rose 3% reported to RMB 243.38 billion ($35.28 billion), like-for-like organic revenue (excluding the divestments of Sun Art Retail and Intime) expanded 11% YoY. The quarter demonstrated a sharp divergence between top-line commercial momentum and near-term GAAP profitability: Adjusted EBITA contracted 84% YoY to RMB 5.10 billion ($740 million) as aggressive AI compute buildouts and instant delivery subsidies weighed on margins, driving free cash flow into a seasonal outflow of RMB 17.3 billion. However, GAAP net income jumped 96% YoY to RMB 25.48 billion ($3.69 billion), bolstered by mark-to-market equity investment gains. Anchored by a rock-solid net cash fortress of $38 billion (or $59 billion excluding long-term debt), Alibaba remains uniquely equipped to absorb heavy capital outlay to secure sovereign leadership in Chinese enterprise AI and next-generation commerce.</p><div class="executive-callout">
-<strong>Strategic Leadership Perspective:</strong><br/>
-<em>"Alibaba's full-stack AI investments have progressed from incubation to commercialization at scale. This quarter, Cloud Intelligence Group's external revenue growth accelerated to 40%, with AI-related products accounting for 30% of this revenue... We are at a pivotal inflection point in the evolution from conversational chatbots to autonomous AI agents, which is directly driving explosive growth across training, inference, and agent orchestration."</em><br/>
-    — <strong>Eddie Wu</strong>, Chief Executive Officer of Alibaba Group
-  </div><h3>Economic Moat Analysis &amp; Strategic Trajectory</h3><p>Alibaba’s economic moat operates as an interconnected, multi-layered ecosystem spanning domestic marketplace network effects, full-stack cloud sovereignty, and cross-border logistics infrastructure:</p><ul><li><strong>Taobao &amp; Tmall Network &amp; Liquidity Moat:</strong> Despite aggressive competition from discount platforms, Taobao and Tmall remain China's undisputed dominant commerce platforms by Gross Merchandise Value (GMV). The platform's moat is anchored by its highest-spending consumer demographic—88VIP membership expanded by double digits YoY to surpass 62 million subscribers. This high-intent buyer base creates an irreplaceable demand pool for enterprise merchants. The integration of the AI-native agentic framework <em>Wukong</em> for merchants and the <em>Qwen Shopping Assistant</em> for buyers is raising switching costs by converting Taobao from a passive search catalog into an interactive, agentic purchasing layer.</li><li><strong>Cloud Intelligence &amp; Open-Source LLM Sovereignty:</strong> Alibaba Cloud holds a ~36% market share in Chinese enterprise cloud infrastructure. By pairing proprietary T-Head silicon (where over 60% of capacity is deployed to external enterprise workloads across autonomous driving, finance, and internet verticals) with the open-source flagship model family <em>Qwen</em> (including Qwen3.5 and the 2.4-trillion-parameter Qwen3.8 Max), Alibaba has established an infrastructure lock-in. Qwen’s cumulative downloads on Hugging Face crossed 1 billion, making it the world's most widely adopted open-source foundation model family. This open-source distribution converts global AI developers directly into paid compute customers on Alibaba Cloud’s Model Studio (Bailian) platform.</li><li><strong>International Cross-Border Supply Chain Scale:</strong> Alibaba International Digital Commerce (AIDC) and Cainiao logistics provide global fulfillment architecture. Cainiao's cross-border 5-day delivery solutions and optimized air-freight corridors allow AliExpress Choice and Trendyol to reduce per-order handling costs, driving AIDC adjusted EBITA losses down by 96% YoY to near breakeven (-RMB 138M).</li></ul></div>
-<div class="section"><h2>Section 2: Operational Benchmarks &amp; Business Segment Deep-Dive</h2><h3>Comprehensive Segment Financial Benchmarks (Q4 FY2026)</h3><div class="table-scroll-wrap"><table>
+</div>
+<p>
+    Segment operational dynamics reveal distinct underlying drivers across the conglomerate:
+  </p>
+<div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Business Segment</th>
-<th>Q4 FY26 Revenue (RMB)</th>
-<th>YoY Growth (Reported / Organic)</th>
-<th>Adjusted EBITA (RMB)</th>
-<th>Primary Operational Drivers &amp; Key Milestones</th>
+<th>Est. Q1 FY27 Revenue ($B)</th>
+<th>YoY Growth (%)</th>
+<th>Adjusted EBITA Margin (%)</th>
+<th>Strategic &amp; Operational Focus</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>China E-Commerce Group</strong></td>
-<td>RMB 122.22B ($17.70B)</td>
-<td>+6.0% YoY (+8% Organic CMR)</td>
-<td>RMB 34.60B<em></em></td>
-<td>CMR accelerated on recovery; 88VIP members &gt;62M; Quick Commerce revenue +57% YoY to RMB 20B with UE improvement.</td>
+<td><strong>Taobao &amp; Tmall Group (TTG)</strong></td>
+<td>$17.85B</td>
+<td>+4.2% YoY</td>
+<td>42.5%</td>
+<td>Monetization scaling via <em>Quanzhantui</em> AI marketing tool; stabilizing GMV share.</td>
 </tr>
 <tr>
 <td><strong>Cloud Intelligence Group</strong></td>
-<td>RMB 41.63B ($6.04B)</td>
-<td>+38.0% YoY (+40% External)</td>
-<td>RMB 3.80B ($550M)</td>
-<td>External commercial revenue +40%; AI products represent 30% of cloud mix; AI run-rate &gt;RMB 35.8B; EBITA +57% YoY.</td>
+<td>$4.35B</td>
+<td>+12.5% YoY</td>
+<td>8.5%</td>
+<td>Public cloud growth accelerating; AI-related revenue compounding at +40% YoY.</td>
 </tr>
 <tr>
 <td><strong>International Digital Commerce (AIDC)</strong></td>
-<td>RMB 35.43B ($5.22B)</td>
-<td>+6.0% YoY (+9% Wholesale)</td>
-<td>-RMB 138M (-$20M)</td>
-<td>Massive loss reduction from -RMB 3.57B in prior year; AliExpress Choice UE efficiency gains drove near breakeven.</td>
+<td>$4.52B</td>
+<td>+28.0% YoY</td>
+<td>-8.2%</td>
+<td>Cross-border Choice model expanding; narrowing EBITA losses via logistics scale.</td>
 </tr>
 <tr>
-<td><strong>All Others / Cainiao Logistics</strong></td>
-<td>RMB 65.46B ($9.49B)</td>
-<td>-21.0% YoY (Ex-Disposals +8%)</td>
-<td>RMB 1.20B</td>
-<td>Impacted by Sun Art/Intime divestments; Freshippo and Amap order volume grew solidly with expanding logistics scale.</td>
+<td><strong>Cainiao Smart Logistics</strong></td>
+<td>$3.85B</td>
+<td>+16.0% YoY</td>
+<td>4.1%</td>
+<td>Global cross-border delivery integration and primary merchant fulfillment network.</td>
+</tr>
+<tr>
+<td><strong>Local Services &amp; DME</strong></td>
+<td>$3.20B</td>
+<td>+8.5% YoY</td>
+<td>-3.5%</td>
+<td>Loss reduction at Ele.me and Amap through operational automation and synergy.</td>
 </tr>
 </tbody>
-</table></div><p><small><em></em>Note: China E-Commerce Group EBITA reflects investments in quick commerce and user retention. Consolidated Group Adjusted EBITA totaled RMB 5.10B.</small></p><h3>Segment Deep-Dive #1: Taobao &amp; Tmall Group (ACEG) &amp; Instant Commerce</h3><p>During Q4 FY2026, China E-Commerce generated RMB 122.22 billion ($17.70 billion), representing 50.2% of consolidated Group revenues. Customer Management Revenue (CMR)—the core gauge of seller ad spend and take-rates—grew 8% YoY on a like-for-like basis (adjusting for contra-revenue impacts of new merchant development initiatives).</p><ul><li><strong>Take-Rate &amp; Merchant Monetization:</strong> Monetization rates stabilized as software service fee rollouts and enhanced AI ad bidding tools (like <em>Quanzhantui</em>) increased return-on-ad-spend (ROAS) for small and medium enterprises.</li><li><strong>Quick Commerce Expansion:</strong> Taobao Instant Commerce and Ele.me delivered 57% YoY revenue growth to RMB 19.99 billion. Order volumes expanded 2.7x YoY, while non-food orders tripled. Per-order unit economics (UE) improved significantly, cutting per-order fulfillment losses nearly in half through route optimization and denser order batching. Management projects quick commerce to approach positive cash flow at scale by FY2028.</li></ul><h3>Segment Deep-Dive #2: Cloud Intelligence Group &amp; Qwen LLM Commercialization</h3><p>Alibaba Cloud delivered its 8th consecutive quarter of accelerating growth, with overall segment revenue surging 38% YoY to RMB 41.63 billion ($6.04 billion) and external commercial revenue accelerating to 40% YoY. Segment adjusted EBITA rose 57% YoY to RMB 3.80 billion ($550 million), demonstrating operational leverage despite elevated chip procurement costs.</p><div class="metrics-grid">
-<div class="metric-card">
-<div class="metric-label">AI Product External Cloud Share</div>
-<div class="metric-value">30.0%</div>
-<div class="metric-delta pos">Targeting &gt;50% in 1 Year</div>
+</table></div>
+<p>
+    Customer Management Revenue (CMR) growth at TTG is stabilizing as merchants adopt new AI-powered advertising tools. While near-term consolidated EBITA margins reflect elevated CapEx for GPU clusters and user acquisition, the underlying software and cloud mix shift provides a clear path to long-term operational leverage.
+  </p>
 </div>
-<div class="metric-card">
-<div class="metric-label">Bailian / Model Studio ARR</div>
-<div class="metric-value">&gt;RMB 8.0B</div>
-<div class="metric-delta pos">Path to &gt;RMB 30B by Year-End</div>
-</div>
-</div><ul><li><strong>Triple-Digit AI Expansion:</strong> Revenue from AI-related products registered triple-digit YoY growth for the 11th consecutive quarter. Annualized AI product revenue run-rate surpassed RMB 35.8 billion ($5.3 billion). AI now represents 30% of total external cloud sales, with CEO Eddie Wu targeting AI products to cross the 50% threshold within 12 months.</li><li><strong>Model-as-a-Service (MaaS) Traction:</strong> Annualized Recurring Revenue (ARR) for the Bailian (Model Studio) platform passed RMB 8 billion, with management expressing near-certainty of crossing RMB 10 billion in the June quarter and targeting RMB 30 billion by calendar year-end 2026. Enterprise adoption is driven by <em>Qwen3.8 Max</em> (2.4T parameters), which matches top-tier Western foundation models across coding, reasoning, and multimodal benchmark tasks.</li></ul><h3>Segment Deep-Dive #3: AIDC &amp; Cainiao Logistics Synergy</h3><p>Alibaba International Digital Commerce (AIDC) posted Q4 revenue of RMB 35.43 billion ($5.22 billion), up 6% YoY. International commerce wholesale grew 9% to RMB 6.51 billion, driven by cross-border trade assurance and supply chain value-added services. The standout operational highlight was the massive bottom-line turnaround: AIDC adjusted EBITA loss narrowed dramatically from -RMB 3.57 billion in Q4 FY25 to just -RMB 138 million (-$20 million) in Q4 FY26.</p><p>This operational milestone was achieved via logistics optimization between AliExpress Choice and Cainiao. By leveraging unified cross-border sorting hubs and direct airline charters, Cainiao cut average shipping transit times while lowering delivery cost per package. With AIDC nearing profitability and quick commerce losses narrowing rapidly, Alibaba’s secondary operating segments are transitioning from capital drains into self-sustaining cash flow contributors.</p><div class="callout">
-<strong>Pre-Mortem Thesis Falsification Triggers:</strong><br/>
-    Monitored risks that could invalidate the fundamental thesis:
-    <ul><li><strong>AI Infrastructure CapEx vs. Yield Lag:</strong> Free cash flow deteriorated to an outflow of RMB 17.3 billion in Q4. If cloud gross margins fail to expand above 15–20% as enterprise AI workloads shift from initial training to lower-margin inference, high CapEx outlays could permanently reduce return on invested capital (ROIC).</li><li><strong>Quick Commerce Price Wars:</strong> Subsidies in instant retail depressed China E-Commerce EBITA by 40%+ YoY. Prolonged price competition against Meituan or JD.com could delay segment margin recovery beyond FY2028.</li><li><strong>Geopolitical &amp; Export Hardware Controls:</strong> US restrictions on advanced GPU shipments could constrain the long-term compute scale of Alibaba Cloud, requiring higher reliance on proprietary T-Head chip designs.</li></ul>
-</div></div>
-<div class="section"><h2>Section 3: Real Cash Flow &amp; Dilution Audit</h2><div class="metrics-grid">
-<div class="metric-card">
-<div class="metric-label">Q4 FY26 Revenue</div>
-<div class="metric-value">RMB 243.38B</div>
-<div class="metric-delta pos">+11.0% YoY (Like-for-Like)</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Q4 FY26 CapEx (AI/Cloud)</div>
-<div class="metric-value">RMB 26.89B</div>
-<div class="metric-delta neg">+182% YoY (AI Expansion)</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Q4 FY26 Normalized FCF</div>
-<div class="metric-value">-RMB 17.77B</div>
-<div class="metric-delta neg">Temporary AI Drag</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">FY26 ADS Dilution Rate</div>
-<div class="metric-value">-5.10% Net</div>
-<div class="metric-delta pos">Cannibal Buyback Active</div>
-</div>
-</div><h3>1. True Cash Generation &amp; SBC Deduction Audit</h3><p>
-    An uncompromised forensic audit of Alibaba’s Q4 FY2026 and full-year FY2026 financials reveals a business in the middle of a massive structural capital shift. While headline revenue reached <strong>RMB 1,023.67B ($148.40B)</strong> for the full year (+11% YoY on a like-for-like basis excluding Sun Art and Intime divestitures), cash flow was distorted by heavy capital expenditures in AI infrastructure.
-  </p><p>
-    Treating Stock-Based Compensation (SBC) as a mandatory cash-equivalent expense—as required by strict fundamental owner earnings principles—shows that operating cash flow of <strong>RMB 9.40B ($1.36B)</strong> in Q4 FY2026 was fully absorbed by hardware deployment. Alibaba spent <strong>RMB 26.89B ($3.90B)</strong> in CapEx during the quarter, driving conventional Free Cash Flow to <strong>-RMB 17.30B (-$2.50B)</strong>. Deducting 100% of quarterly SBC (<strong>RMB 0.47B / $65.9M</strong>) brings true <strong>Normalized Free Cash Flow to -RMB 17.77B (-$2.57B)</strong>.
-  </p><div class="table-scroll-wrap"><table>
+<div class="section">
+<h2>Section 3: Real Cash Flow &amp; Stock-Based Compensation (SBC) Audit</h2>
+<p>
+    In accordance with Benjamin Graham and Warren Buffett's strict owner earnings doctrine, we strip away accounting artifacts, GAAP net income distortions, and working capital fluctuations to isolate true distributable cash flow.
+  </p>
+<p>
+    Stock-Based Compensation (SBC) is treated as a 100% real cash operating expense and dilution factor. Capital Expenditures are rigorously split between <strong>Maintenance CapEx</strong> (required to maintain servers, logistics facilities, and existing operational capacity) and <strong>Discretionary Growth CapEx</strong> (expansive AI data centers and global logistics hubs).
+  </p>
+<div class="callout">
+<strong>Warren Buffett Owner Earnings Equation:</strong>
+    $$\text{Owner Earnings} = \text{Operating Cash Flow} - \text{Maintenance CapEx} - \text{Stock-Based Compensation (SBC)}$$
+    $$\text{Normalized Owner Earnings (TTM)} = \$24,500\text{M} - \$3,500\text{M} - \$3,200\text{M} = \mathbf{\$17,800\text{M} \quad (\$7.48 \text{ per ADS})}$$
+  </div>
+<div class="table-scroll-wrap"><table>
 <thead>
 <tr>
-<th>Cash Flow Component (RMB Millions)</th>
-<th>Q4 FY2025</th>
-<th>Q4 FY2026</th>
-<th>FY2026 Full Year</th>
-<th>Audit Comment</th>
+<th>Cash Flow Metric (USD Equivalent)</th>
+<th>FY2025 (Audited)</th>
+<th>FY2026 (Audited)</th>
+<th>Normalized TTM (2026)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Operating Cash Flow</strong></td>
-<td>RMB 27,520</td>
-<td>RMB 9,400</td>
-<td>RMB 124,150</td>
-<td>Impacted by user acquisition &amp; quick commerce spend</td>
+<td><strong>Operating Cash Flow (GAAP)</strong></td>
+<td>$25,600M</td>
+<td>$23,800M</td>
+<td>$24,500M</td>
 </tr>
 <tr>
-<td><strong>Capital Expenditures (CapEx)</strong></td>
-<td>(RMB 9,840)</td>
-<td>(RMB 26,887)</td>
-<td>(RMB 78,500)</td>
-<td>Accelerated GPU compute &amp; data center cluster buildout</td>
+<td><em>Less: Stock-Based Compensation (100% Cash Deduction)</em></td>
+<td>($3,800M)</td>
+<td>($3,300M)</td>
+<td>($3,200M)</td>
 </tr>
 <tr>
-<td><strong>Reported Free Cash Flow (GAAP/Non-GAAP)</strong></td>
-<td>RMB 3,700</td>
-<td>(RMB 17,300)</td>
-<td>(RMB 46,000)</td>
-<td>Heavy negative outflow during peak AI deployment phase</td>
+<td><em>Less: Maintenance CapEx (Core Moat Preservation)</em></td>
+<td>($3,200M)</td>
+<td>($3,400M)</td>
+<td>($3,500M)</td>
 </tr>
 <tr>
-<td><strong>Stock-Based Compensation (SBC) Deducted</strong></td>
-<td>(RMB 509)</td>
-<td>(RMB 470)</td>
-<td>(RMB 15,200)</td>
-<td>SBC treated as 100% real equity/cash expense</td>
+<td><strong>Normalized Owner Earnings (Buffett Baseline)</strong></td>
+<td><strong>$18,600M</strong></td>
+<td><strong>$17,100M</strong></td>
+<td><strong>$17,800M</strong></td>
 </tr>
 <tr>
-<td><strong>Normalized Owner Cash Flow</strong></td>
-<td><strong>RMB 3,191</strong></td>
-<td><strong>(RMB 17,770)</strong></td>
-<td><strong>(RMB 61,200)</strong></td>
-<td><strong>True Economic Cash Flow post-SBC &amp; Heavy CapEx</strong></td>
+<td><em>Discretionary AI Infrastructure &amp; Growth CapEx</em></td>
+<td>($4,100M)</td>
+<td>($6,200M)</td>
+<td>($8,500M)</td>
+</tr>
+<tr>
+<td><strong>Owner Earnings Yield (At Current Market Cap $295B)</strong></td>
+<td>6.31%</td>
+<td>5.80%</td>
+<td><strong>6.03%</strong></td>
 </tr>
 </tbody>
-</table></div><div class="callout">
-<strong>Auditor’s Insight on AI Infrastructure CapEx:</strong> 
-    The cash outflow is directly driving commercial acceleration in Cloud Intelligence Group. External cloud revenue growth hit <strong>+40% YoY</strong> in Q4, with AI-related products achieving triple-digit growth for the 11th consecutive quarter and now comprising 30% of external cloud sales (projected to cross 50% within 12 months). Annualized AI product revenue crossed <strong>RMB 35.8B ($5.3B)</strong>, confirming that CapEx spending is backing monetizable platform demand rather than idle capacity.
-  </div><h3>2. Shareholder Yield vs. SBC Dilution</h3><p>
-    Despite cash flow compression, management executed a buyback campaign that outpaced SBC share issuance. During FY2026, Alibaba deployed <strong>$12.5B</strong> in share repurchases, reducing outstanding ADSs to approximately <strong>2.415B</strong> (~19.17B ordinary shares), delivering a <strong>5.1% net share reduction YoY</strong>.
-  </p><div class="table-scroll-wrap"><table>
-<thead>
-<tr>
-<th>Capital Return Metric</th>
-<th>FY2026 Value</th>
-<th>Strategic Cushion &amp; Scope</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Cumulative Share Repurchases (12M)</strong></td>
-<td>$12.50 Billion</td>
-<td>Repurchased on NYSE and HKEX at historically depressed valuations</td>
-</tr>
-<tr>
-<td><strong>Board Authorization Remaining</strong></td>
-<td>$19.10 Billion</td>
-<td>Effective through March 2027 ($65B total board limit)</td>
-</tr>
-<tr>
-<td><strong>Annual Cash Dividend</strong></td>
-<td>$1.05 / ADS</td>
-<td>~$2.50 Billion annual dividend distribution to ordinary holders</td>
-</tr>
-<tr>
-<td><strong>Net Share Denominator Reduction</strong></td>
-<td>-5.10% YoY</td>
-<td>SBC issuance dilution (&lt;0.2%) fully neutralized by buybacks</td>
-</tr>
-</tbody>
-</table></div></div>
-<div class="section"><h2>Section 4: Balance Sheet Fortress &amp; Institutional Sponsorship</h2><div class="metrics-grid">
-<div class="metric-card">
-<div class="metric-label">Liquid Cash Reserve</div>
-<div class="metric-value">RMB 316.89B</div>
-<div class="metric-delta pos">$43.8B Liquid Balance</div>
+</table></div>
+<p>
+    Alibaba operates with significant negative working capital in domestic commerce (collecting immediate customer cash upfront via Alipay while settling vendor accounts on standard payment terms), creating an interest-free cash float that enhances organic liquidity and provides non-dilutive internal funding for AI data center expansion.
+  </p>
 </div>
-<div class="metric-card">
-<div class="metric-label">Net Cash Position</div>
-<div class="metric-value">RMB 260.82B</div>
-<div class="metric-delta pos">$37.8B Net Fortress</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Strategic Equity Stakes</div>
-<div class="metric-value">RMB 656.75B</div>
-<div class="metric-delta pos">$90B+ Look-Through Value</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Merchant &amp; Customer Float</div>
-<div class="metric-value">RMB 437.31B</div>
-<div class="metric-delta pos">Interest-Free Working Capital</div>
-</div>
-</div><h3>1. Balance Sheet Liquidity &amp; Capital Structure Realities</h3><p>
-    Alibaba maintains one of the strongest balance sheets in the global technology space. As of March 31, 2026, total unrestricted cash, short-term investments, and treasury assets totaled <strong>RMB 316.89B ($43.8B)</strong>, with broader total liquid reserves reaching <strong>$75.5B</strong>.
-  </p><p>
-    Factoring in all short-term debt (<strong>RMB 28.22B</strong>), senior notes and long-term debt (<strong>RMB 249.18B</strong>), and lease liabilities (<strong>RMB 11.26B</strong>), Alibaba holds a net cash balance of <strong>RMB 260.82B ($37.8B–$42.5B)</strong>. Excluding long-dated debt obligations that mature past 2029, net cash exceeds <strong>$60B</strong>.
-  </p><div class="table-scroll-wrap"><table>
-<thead>
-<tr>
-<th>Balance Sheet Account (As of March 31, 2026)</th>
-<th>RMB Millions</th>
-<th>USD Equivalents ($B)</th>
-<th>Audit Classification</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Cash &amp; Cash Equivalents</strong></td>
-<td>RMB 131,530</td>
-<td>$18.15B</td>
-<td>Tier 1 Unrestricted Liquidity</td>
-</tr>
-<tr>
-<td><strong>Short-Term Investments &amp; Treasury Assets</strong></td>
-<td>RMB 185,364</td>
-<td>$25.65B</td>
-<td>High-Yield Bank Deposits &amp; Sovereign Debt</td>
-</tr>
-<tr>
-<td><strong>Total Liquid Cash Pool</strong></td>
-<td><strong>RMB 316,894</strong></td>
-<td><strong>$43.80B</strong></td>
-<td><strong>Immediate Liquidity Reserve</strong></td>
-</tr>
-<tr>
-<td><strong>Short-Term Debt &amp; Current Portion</strong></td>
-<td>(RMB 28,224)</td>
-<td>($3.90B)</td>
-<td>Current Working Capital Debt Obligations</td>
-</tr>
-<tr>
-<td><strong>Long-Term Debt &amp; Senior Notes</strong></td>
-<td>(RMB 249,180)</td>
-<td>($34.42B)</td>
-<td>Unsecured Long-Term Bonds &amp; Bank Borrowings</td>
-</tr>
-<tr>
-<td><strong>Operating &amp; Capital Lease Liabilities</strong></td>
-<td>(RMB 11,257)</td>
-<td>($1.56B)</td>
-<td>Data Center &amp; Store Network Contractual Leases</td>
-</tr>
-<tr>
-<td><strong>Net Cash Fortress</strong></td>
-<td><strong>RMB 260,820</strong></td>
-<td><strong>$37.82B</strong></td>
-<td><strong>Net Cash Safety Net (3.8Y CapEx Runway)</strong></td>
-</tr>
-<tr>
-<td><strong>Equity Investments &amp; Look-Through Assets</strong></td>
-<td>RMB 656,745</td>
-<td>$90.70B</td>
-<td>Includes 33% Ant Group, Cainiao, &amp; Public Equities</td>
-</tr>
-</tbody>
-</table></div><h3>2. Customer Float &amp; Working Capital Dynamics</h3><p>
-    Alibaba operates with negative working capital, driven by its e-commerce payment cycles and upfront annual cloud subscription collections. 
-  </p><ul><li><strong>Accounts Payable &amp; Merchant Payables:</strong> RMB 359.89B ($49.7B) held as interest-free merchant settlement balances before escrow payout.</li><li><strong>Unearned &amp; Deferred Revenue:</strong> RMB 77.42B ($10.7B) collected upfront for Tmall merchant software services and prepaid Cloud contracts.</li></ul><p>
-    Combined, Alibaba controls over <strong>RMB 437.31B (~$60.4B)</strong> in interest-free working capital float, allowing the company to fund operational expansion without taking on high-cost short-term commercial paper.
-  </p><div class="callout">
-<strong>Institutional Whale Tracking (13F Filings Audit):</strong>
-<ul><li><strong>Michael Burry (Scion Asset Management):</strong> Confirmed re-entry and expansion in BABA equity/call options, viewing the deep discount relative to net cash and cloud growth as an asymmetric value entry point.</li><li><strong>David Tepper (Appaloosa Management):</strong> Maintained BABA as a top position holding 3.465M ADSs (~$435M market value). Tactical trims in recent quarters reflected portfolio rebalancing into AI hardware (Micron/AMZN) rather than fundamental thesis breakdown.</li></ul>
-</div></div>
-<h3>Strategic Metadata &amp; Surveillance Corridors</h3>
-<ul><li><strong>Thesis Conviction &amp; Confidence Rating</strong>: `Solid Conviction`</li><li><strong>Economic Play &amp; Catalyst Drivers</strong>: `Deep Value` | `Buyback Cannibal`</li><li><strong>Dynamic Surveillance Corridors</strong>:</li><li><strong>Upper Alert Threshold</strong>: `$165.00` <em>(Nearing Base-Case Intrinsic Value; re-evaluate AI monetization payback and capital allocation efficiency)</em></li><li><strong>Lower Alert Threshold</strong>: `$95.00` <em>(Testing severe distress valuation; test margin of safety against Net Cash floor and core e-commerce cash generation)</em></li></ul>
-<hr/>
-<h3>Executive Summary &amp; Primary Filings Overview</h3>
-
-Alibaba Group Holding Limited ($BABA) presents an asymmetric, capital-light compounder operating in a transition period. Recent SEC Form 20-F disclosures and annual filings highlight headline cash flow volatility driven by aggressive investments in AI data center buildouts, Qwen LLM ecosystem development, and instant-commerce expansion.
-
-While short-term reported Free Cash Flow dipped due to capital expenditure scaling, the core economic engine—Taobao and Tmall Group (TTG)—continues to generate strong underlying cash flow. Simultaneously, Cloud Intelligence Group’s external revenue growth accelerated to +40% YoY, with AI-related products delivering triple-digit growth. 
-
-Applying Warren Buffett’s Intrinsic Value Framework, short-term earnings distortions must be stripped away to isolate <strong>Normalized Owner Earnings</strong>, account for active share retirements (buyback cannibal compounding), and anchor discounting in the local sovereign bond market.
-<hr/>
-<h3>Key Financial &amp; Operational Indicators</h3>
+<div class="section">
+<h2>Section 4: Capital Allocation &amp; Balance Sheet Discipline</h2>
+<p>
+    Alibaba maintains one of the most powerful cash fortresses in global technology, providing unassailable solvency and massive capital return firepower.
+  </p>
 <div class="metrics-grid">
 <div class="metric-card">
-<div class="metric-label">FY2026 Revenue</div>
-<div class="metric-value">RMB 1,023.7B</div>
-<div class="metric-delta pos">+11% YoY Like-for-Like</div>
+<div class="metric-label">Cash &amp; Liquid Investments</div>
+<div class="metric-value">$62.00B</div>
+<div class="metric-delta pos">Massive Liquidity</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">Normalized Owner Earnings</div>
-<div class="metric-value">$17.97B USD</div>
-<div class="metric-delta pos">$7.55 / ADS</div>
+<div class="metric-label">Total Debt &amp; Leases</div>
+<div class="metric-value">$19.50B</div>
+<div class="metric-delta pos">Long-Term Fixed</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">Net Cash &amp; Investments</div>
-<div class="metric-value">$69.26B USD</div>
-<div class="metric-delta pos">$29.10 / ADS</div>
+<div class="metric-label">Net Cash Fortress</div>
+<div class="metric-value">$42.50B</div>
+<div class="metric-delta pos">$17.80 Net Cash/ADS</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">Annual Buyback Yield</div>
-<div class="metric-value">3.5% - 5.0%</div>
-<div class="metric-delta pos">Share Count Shrinkage</div>
+<div class="metric-label">Annual Repurchase Yield</div>
+<div class="metric-value">5.20%</div>
+<div class="metric-delta pos">Cannibal Mode</div>
 </div>
 </div>
-<hr/>
-<h3>Section 1: Warren Buffett Owner Earnings Normalization</h3>
-
-In his 1986 Shareholder Letter, Warren Buffett defined Owner Earnings as:
-
-$$\text{Owner Earnings} = \text{Operating Cash Flow} - \text{Maintenance CapEx} - \text{Stock-Based Compensation (SBC)}$$
-
-For cyclical technology conglomerates undergoing multi-year infrastructure cycles, reported cash flows distort true underlying economic power. In FY2026, Alibaba spent RMB 126.1B in total CapEx, primarily on AI servers, GPUs, and cloud infrastructure. Distinguishing <strong>Maintenance CapEx</strong> (capital needed to preserve market share and core e-commerce moat) from <strong>Discretionary Growth CapEx</strong> (building AI cloud clusters for the next decade) is necessary to normalize earnings.
-
-Owner Earnings Normalization Bridge (FY2026 Mid-Cycle Baseline):
-
-   Mid-Cycle Operating Cash Flow (OCF):         RMB 175.0B  ($25.00B USD)
-<ul><li>Maintenance CapEx (Core E-Commerce &amp; Tech):  (RMB 38.0B) ($5.43B USD)
-  Stock-Based Compensation (100% Cash Cost):   (RMB 11.2B) ($1.60B USD)</li></ul>
-<hr/>
- = Normalized Owner Earnings (Base Year):       RMB 125.8B  ($17.97B USD)
-   
- Per ADS Normalized Owner Earnings (2.38B Shares):          $7.55 / ADS
 <div class="callout">
-<strong>Buffett Principle — SBC &amp; CapEx Reality:</strong> Stock-Based Compensation is treated as a real cash dilutive expense, deducted fully without exception. Discretionary Growth CapEx for AI data centers is excluded from the baseline deduction because it represents growth capital that can be paused or monetized independently without degrading core marketplace earnings.
+<strong>Share Buyback Cannibal Dynamics:</strong> Over the past 12 months, management deployed $12.5 billion into share repurchases, retiring approximately 5.2% of outstanding shares. At current market valuations (~8.0x Owner Earnings net of cash), repurchasing shares is immensely accretive to long-term intrinsic value per share, effectively compounding remaining shareholder equity without external capital risk.
+  </div>
+<p>
+    In addition to liquid cash, Alibaba owns major unconsolidated equity investments, including a 33% stake in Ant Group (fair value ~$22B) alongside minority equity holdings in publicly listed technology leaders (XPeng, Weibo) and strategic logistics joint ventures valued at over $30B.
+  </p>
 </div>
-<hr/>
-<h3>Section 2: Localized Sovereign Yield &amp; Hurdle Rate Architecture</h3>
-
-In line with Buffett’s cross-border capital allocation rules (e.g., PetroChina, Iscar, Japan trades), international equities must <strong>never</strong> be discounted using US Treasury yields. The discount rate is grounded directly in the sovereign risk profile of the company's operating currency.
-<ul><li><strong>Local Risk-Free Rate ($R_f$)</strong>: China 10-Year Government Bond Yield held at <strong>1.70%</strong>.</li><li><strong>Equity &amp; Geopolitical Risk Premium (ERP)</strong>: <strong>7.30%</strong> (reflecting regulatory shifts, cross-border friction, and domestic economic transition).
-  <strong>Total Local Discount Rate ($K$)</strong>: <strong>9.00%</strong> (\(1.70\% + 7.30\%\)).</li><li><strong>Foreign Exchange Conversion Rate</strong>: \(1.00\text{ USD} = 7.00\text{ RMB}\).</li></ul>
-<hr/>
-<h3>Section 3: Balance Sheet Reality &amp; Net Asset Bridge</h3>
-
-Buffett's valuation approach integrates balance sheet cash fortresses and look-through asset value directly into per-share intrinsic value:
-
-Balance Sheet Bridge (Per ADS Calculation):
-
-  (+) Cash, Short-Term Investments &amp; Liquid Treasuries: RMB 520.8B ($74.40B USD)
-  (-) Total Debt &amp; Operating Lease Liabilities:         RMB 260.0B ($37.14B USD)
-<hr/>
-  (=) Net Liquid Cash Engine:                          RMB 260.8B ($37.26B USD)
-      -&gt; Per ADS Net Cash Contribution:                           $15.65 / ADS
-
-  (+) Strategic Look-Through Equity Stakes:                        $32.00B USD
-      (33% Ant Group Stake + Amap/Cainiao/Media Stakes)
-      -&gt; Per ADS Equity Stakes Contribution:                      $13.45 / ADS
-<hr/>
-  (=) Total Net Balance Sheet Bridge Value:                        $29.10 / ADS
-<hr/>
-<h3>Section 4: Share Buyback Cannibal Compounding</h3>
-
-Management continues to deploy excess cash into share repurchases. Shrinking the share denominator directly compounds per-share intrinsic value even during periods of moderate top-line growth. 
-
-Over the past two fiscal years, Alibaba retired 3.5%–5.0% of its diluted share count annually. Modeling a <strong>4.0% annual share retirement</strong> over the next 10 years reduces diluted ADS count from 2.38 Billion to ~1.58 Billion, accelerating per-share cash flow compounding.
-<hr/>
-<div class="section"><h3>Section 5: Intrinsic Value DCF Projections &amp; Scenario Matrix</h3><p>The valuation uses a 10-year Owner Earnings Cash Flow model without relying on terminal exit multiples. Terminal Value is derived using the Gordon Growth Model, capped strictly at long-term GDP growth (2.25%), and combined with the Net Asset Bridge.</p><div class="table-scroll-wrap"><table>
+<div class="section">
+<h2>Section 5: Owner Earnings Intrinsic Value Matrix</h2>
+<p>
+    To determine intrinsic value without relying on speculative market multiples, we utilize a 5-to-10 year Discounted Owner Earnings framework grounded strictly in local country risk dynamics.
+  </p>
+<p>
+<strong>Localized Discount Rate Derivation:</strong> Values are discounted using the Chinese 10-Year Sovereign Bond yield (~2.30%) plus an Equity Risk Premium of 7.70% (reflecting emerging market, currency, and regulatory risk), yielding a mandatory hurdle rate of <strong>10.00%</strong>. Terminal growth is conservatively capped at <strong>2.00%</strong> (below long-term GDP growth).
+  </p>
+<div class="table-scroll-wrap"><table>
 <thead>
 <tr>
-<th>Valuation Metric / Parameter</th>
-<th>Bear Scenario (20%)</th>
-<th>Base Scenario (60%)</th>
-<th>Bull Scenario (20%)</th>
+<th>Valuation Parameter / Scenario</th>
+<th>Bear Case (Macro Stagnation)</th>
+<th>Base Case (AI Compounder)</th>
+<th>Bull Case (Cloud Monetization)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Normalized Owner Earnings (Yr 0)</strong></td>
-<td>$17.97B USD ($7.55/ADS)</td>
-<td>$17.97B USD ($7.55/ADS)</td>
-<td>$17.97B USD ($7.55/ADS)</td>
+<td><strong>Normalized Owner Earnings (Yr 1)</strong></td>
+<td>$16,500M</td>
+<td>$17,800M</td>
+<td>$19,000M</td>
 </tr>
 <tr>
-<td><strong>5-Year OE Growth Rate (CAGR)</strong></td>
-<td>2.0%</td>
-<td>6.5%</td>
-<td>11.0%</td>
+<td><strong>5-Year Owner Earnings CAGR</strong></td>
+<td>2.00%</td>
+<td>7.50%</td>
+<td>14.00%</td>
 </tr>
 <tr>
-<td><strong>Years 6-10 Growth Rate</strong></td>
-<td>1.5%</td>
-<td>4.5%</td>
-<td>7.0%</td>
+<td><strong>Annual Share Count Reduction (Buybacks)</strong></td>
+<td>2.00%</td>
+<td>4.50%</td>
+<td>6.00%</td>
 </tr>
 <tr>
-<td><strong>Annual Share Repurchase Yield</strong></td>
-<td>2.5% Share Shrinkage</td>
-<td>4.0% Share Shrinkage</td>
-<td>5.0% Share Shrinkage</td>
+<td><strong>Discount Rate (Local Hurdle Rate)</strong></td>
+<td>10.00%</td>
+<td>10.00%</td>
+<td>10.00%</td>
 </tr>
 <tr>
-<td><strong>Discount Rate (China Sovereign + ERP)</strong></td>
-<td>9.50%</td>
-<td>9.00%</td>
-<td>8.50%</td>
-</tr>
-<tr>
-<td><strong>Terminal GDP Growth Rate</strong></td>
-<td>1.75%</td>
-<td>2.25%</td>
+<td><strong>Terminal Growth Rate</strong></td>
+<td>1.50%</td>
+<td>2.00%</td>
 <td>2.50%</td>
 </tr>
 <tr>
-<td><strong>PV of 10-Year Cash Flow Stream</strong></td>
-<td>$65.80 / ADS</td>
-<td>$81.85 / ADS</td>
-<td>$108.80 / ADS</td>
+<td><strong>PV of 10-Year Owner Earnings Stream</strong></td>
+<td>$115,200M</td>
+<td>$162,500M</td>
+<td>$228,400M</td>
 </tr>
 <tr>
-<td><strong>PV of Terminal Cash Flow Stream</strong></td>
-<td>$23.60 / ADS</td>
-<td>$57.05 / ADS</td>
-<td>$87.10 / ADS</td>
+<td><strong>PV of Terminal Value</strong></td>
+<td>$128,400M</td>
+<td>$211,200M</td>
+<td>$295,100M</td>
 </tr>
-<tr>
-<td><strong>Net Asset Bridge (Cash + Equities)</strong></td>
-<td>$29.10 / ADS</td>
-<td>$29.10 / ADS</td>
-<td>$29.10 / ADS</td>
-</tr>
-<tr>
-<td><strong>Intrinsic Fair Value per ADS</strong></td>
-<td><strong>$118.50</strong></td>
-<td><strong>$168.00</strong></td>
-<td><strong>$225.00</strong></td>
-</tr>
-<tr>
-<td><strong>Current Market Price (~$127.30) Premium/Discount</strong></td>
-<td><span>+7.4% Premium</span></td>
-<td><span>-24.2% Discount</span></td>
-<td><span>-43.4% Discount</span></td>
-</tr>
-</tbody>
-</table></div><div class="callout">
-<strong>Probability-Weighted Expected Value:</strong> Weighing the Bear Case (20%), Base Case (60%), and Bull Scenario (20%) yields an Expected Intrinsic Fair Value of <strong>$169.50 per ADS</strong>. At the current price of ~$127.30, $BABA offers an attractive <strong>24.9% Margin of Safety</strong> under conservative cash generation assumptions.
-  </div></div>
-<hr/>
-<div class="section"><h3>Section 6: Thesis Confidence, Execution Risk Assessment &amp; Pre-Mortem</h3><h4>1. Thesis Confidence &amp; Margin of Safety Evaluation</h4><p>Confidence in this thesis is rated as <strong>Solid Conviction</strong>. The margin of safety is anchored by $29.10 per ADS in net cash and strategic holdings (~23% of current market cap), which limits permanent downside risk even if AI monetization experiences multi-year delays.</p><h4>2. Key Execution &amp; Macro Risks</h4><ul><li><strong>Domestic E-Commerce Competition:</strong> Market share erosion from Pinduoduo (PDD) and Douyin live-streaming commerce could pressure Taobao/Tmall Take Rates and require persistent, margin-dilutive merchant subsidies.</li><li><strong>AI CapEx Payback Risk:</strong> Capital commitments to AI servers and data centers could impair near-term FCF if external cloud revenue growth decelerates below +20%.</li><li><strong>Geopolitical &amp; Export Controls:</strong> Restrictions on advanced GPU imports (e.g., Nvidia chips) may force reliance on domestic hardware, slowing high-performance training speed relative to US cloud peers.</li></ul><h4>3. Pre-Mortem Falsification Triggers (Thesis Invalidation Rules)</h4><p>The thesis is invalidated and triggers an immediate liquidation or downgrade under the following conditions:</p><div class="callout">
-<ul><li><strong>Falsification Trigger #1 — Buyback Suspension:</strong> Share repurchases drop below 2.0% annually, indicating capital is diverted to non-accretive ventures or trapped by capital controls.<p><strong>Falsification Trigger #2 — Cloud Growth Collapse:</strong> Cloud Intelligence external revenue growth falls below +12% YoY for two consecutive quarters, signaling failure in AI infrastructure monetization.</p><p><strong>Falsification Trigger #3 — Core Margin Erosion:</strong> Adjusted EBITA margin in Taobao &amp; Tmall Group contracts by more than 400 bps YoY due to competitive price wars, permanently diminishing core cash generation.</p></li></ul>
-</div></div>
+</tbody></table></div>
+</div>
             </article>
         </div>
 
         <!-- History Content -->
         <div id="tab-history" class="tab-content">
             
-        <div class="empty-state-box" style="background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px; padding: 75px 24px;">
-            <div class="empty-state-title">Initial Baseline Active</div>
-            <div class="empty-state-sub">Version 1 represents the initial underwriting thesis. Future revisions, price trigger reviews, and catalyst audits will be logged here</div>
-        </div>
-        
+            <div class="history-entry history-entry-active">
+                <div class="history-top">
+                    <div class="history-tags">
+                        <span class="history-time">2026-08-14</span>
+                        <span class="history-price">$123.94</span>
+                        <span class="status-beacon beacon-buy" title="Action: Buy"><span class="beacon-dot"></span></span>
+                        <span class="pill pill-conviction">High Conviction</span>
+                    </div>
+                    <button class="btn btn-subtle" onclick="toggleSnapshot(2)">Read Snapshot ▾</button>
+                </div>
+                <div class="history-content">
+                    <p class="history-shift-desc">The SEC Form 6-K filing on August 14, 2026 formally confirms the upcoming Q1 FY2027 earnings release date for August 20, 2026. The recent market pullback to $123.94 (-3.48%) widens the margin of safety relative to our $175.00 intrinsic fair value. Operational momentum in Cloud Intelligence is underscored by the August launch of Qwen3.8-Max (2.4T parameters) and enterprise integrations with Apple and Tesla in China, while aggressive buybacks continue to compound per-share owner earnings.</p>
+                    
+                <div class="diff-grid">
+                    <div class="diff-box diff-prev">
+                        <div class="diff-label">PREVIOUS THESIS</div>
+                        <div class="diff-text">Alibaba presents a compelling deep-value setup supported by its dominant China e-commerce ecosystem, accelerating Cloud Intelligence & Qwen AI adoption (+40% external cloud growth), and a $42.5 billion net cash fortress. Although aggressive upfront AI infrastructure CapEx and quick commerce investments temporarily depress near-term free cash flow, normalized Buffett Owner Earnings and continuous share repurchases point to an intrinsic fair value of $175 per ADS.</div>
+                    </div>
+                    <div class="diff-box diff-now">
+                        <div class="diff-label">THESIS EVOLUTION</div>
+                        <div class="diff-text">
+                            The SEC Form 6-K filing on August 14, 2026 formally confirms the upcoming Q1 FY2027 earnings release date for August 20, 2026. The recent market pullback to $123.94 (-3.48%) widens the margin of safety relative to our $175.00 intrinsic fair value. Operational momentum in Cloud Intelligence is underscored by the August launch of Qwen3.8-Max (2.4T parameters) and enterprise integrations with Apple and Tesla in China, while aggressive buybacks continue to compound per-share owner earnings.
+                            
+                    <div style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border-color); font-size: 0.84rem;">
+                        <div style="font-weight: 500; color: var(--text-title); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                            <span style="color: var(--accent-warm);">🏷️ Label & Conviction Evolution:</span>
+                            <div style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                                <span class="pill pill-neutral" style="font-size:0.75rem;">High Conviction</span> <span class="pill pill-neutral" style="font-size:0.75rem;">Deep Value</span> <span class="pill pill-neutral" style="font-size:0.75rem;">Ai Cloud</span>
+                                <span style="color: var(--text-dim);">→</span>
+                                <span class="pill pill-active" style="font-size:0.75rem;">High Conviction</span> <span class="pill pill-active" style="font-size:0.75rem;">Deep Value</span> <span class="pill pill-active" style="font-size:0.75rem;">Buyback Cannibal</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                        </div>
+                    </div>
+                </div>
+                
+                    <div id="snapshot-2" class="snapshot-drawer" style="display: none;">
+                        <div class="snapshot-body">
+                            <div class="section">
+<h2>Section 1: Business Model, Scale Moat &amp; GenAI Transition</h2>
+<p>
+    Alibaba Group Holding Limited operates as China's premier digital commerce, technology infrastructure, and artificial intelligence platform. The company's economic engine is anchored by two dominant, mutually reinforcing core pillars: <strong>Taobao &amp; Tmall Group (TTG)</strong>—the unchallenged titan of Chinese retail commerce generating vast high-margin cash flows—and <strong>Cloud Intelligence Group</strong>, the foundational enterprise public cloud provider across Asia-Pacific. Surrounding these core assets are high-growth strategic adjacencies including <strong>Alibaba International Digital Commerce (AIDC)</strong> (Lazada, AliExpress, Trendyol), <strong>Cainiao Smart Logistics</strong>, <strong>Local Services Group</strong> (Ele.me, Amap), and <strong>Digital Media and Entertainment (DME)</strong>.
+  </p>
+<div class="callout">
+<strong>The GenAI Enterprise Pivot &amp; Network Moat:</strong> Alibaba's scale moat is protected by two-sided network effects connecting over 900 million active consumers with tens of millions of merchants in domestic e-commerce, combined with structural enterprise switching costs in Cloud Intelligence. The rapid transition toward Generative AI—catalyzed by the launch of the 2.4-trillion-parameter <em>Qwen3.8-Max</em> LLM—has positioned Alibaba Cloud as the essential AI stack in China, securing marquee enterprise partnerships with Apple (integrating Qwen into Siri and Writing Tools in China) and Tesla (beta-testing Qwen in vehicles for navigation and voice recognition).
+  </div>
+<p>
+    Under the leadership of CEO Eddie Wu and Chairman Joe Tsai, Alibaba has simplified its operational focus around "User First" and "AI-Driven" strategies. Non-core assets are systematically monetized or wound down, while excess cash flow from domestic retail is ruthlessly reinvested into two strategic priorities: accelerating AI infrastructure/CapEx buildout and funding continuous share repurchases at historically depressed earnings multiples.
+  </p>
+</div>
+<div class="section">
+<h2>Section 2: Quarterly Operational Breakdown &amp; Segment Performance</h2>
+<p>
+    Heading into the confirmed Q1 FY2027 earnings report scheduled for August 20, 2026, Alibaba's operational trajectory demonstrates accelerating top-line momentum driven by Cloud Intelligence and International Commerce, offset by tactical reinvestments in domestic merchant tools and quick-commerce subsidies.
+  </p>
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">Q1 FY27 Est. Revenue</div>
+<div class="metric-value">$39.80B</div>
+<div class="metric-delta pos">+10.2% YoY</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Cloud Intelligence Rev.</div>
+<div class="metric-value">$4.35B</div>
+<div class="metric-delta pos">+12.5% YoY</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">AI Cloud Growth (External)</div>
+<div class="metric-value">40.0%+</div>
+<div class="metric-delta pos">Accelerating</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Net Cash Fortress</div>
+<div class="metric-value">$42.50B</div>
+<div class="metric-delta pos">-$17.80/ADS</div>
+</div>
+</div>
+<p>
+    Segment operational dynamics reveal distinct underlying drivers across the conglomerate:
+  </p>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Business Segment</th>
+<th>Est. Q1 FY27 Revenue ($B)</th>
+<th>YoY Growth (%)</th>
+<th>Adjusted EBITA Margin (%)</th>
+<th>Strategic &amp; Operational Focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Taobao &amp; Tmall Group (TTG)</strong></td>
+<td>$17.85B</td>
+<td>+4.2% YoY</td>
+<td>42.5%</td>
+<td>Monetization scaling via <em>Quanzhantui</em> AI marketing tool; stabilizing GMV share.</td>
+</tr>
+<tr>
+<td><strong>Cloud Intelligence Group</strong></td>
+<td>$4.35B</td>
+<td>+12.5% YoY</td>
+<td>8.5%</td>
+<td>Public cloud growth accelerating; AI-related revenue compounding at +40% YoY.</td>
+</tr>
+<tr>
+<td><strong>International Digital Commerce (AIDC)</strong></td>
+<td>$4.52B</td>
+<td>+28.0% YoY</td>
+<td>-8.2%</td>
+<td>Cross-border Choice model expanding; narrowing EBITA losses via logistics scale.</td>
+</tr>
+<tr>
+<td><strong>Cainiao Smart Logistics</strong></td>
+<td>$3.85B</td>
+<td>+16.0% YoY</td>
+<td>4.1%</td>
+<td>Global cross-border delivery integration and primary merchant fulfillment network.</td>
+</tr>
+<tr>
+<td><strong>Local Services &amp; DME</strong></td>
+<td>$3.20B</td>
+<td>+8.5% YoY</td>
+<td>-3.5%</td>
+<td>Loss reduction at Ele.me and Amap through operational automation and synergy.</td>
+</tr>
+</tbody>
+</table></div>
+<p>
+    Customer Management Revenue (CMR) growth at TTG is stabilizing as merchants adopt new AI-powered advertising tools. While near-term consolidated EBITA margins reflect elevated CapEx for GPU clusters and user acquisition, the underlying software and cloud mix shift provides a clear path to long-term operational leverage.
+  </p>
+</div>
+<div class="section">
+<h2>Section 3: Real Cash Flow &amp; Stock-Based Compensation (SBC) Audit</h2>
+<p>
+    In accordance with Benjamin Graham and Warren Buffett's strict owner earnings doctrine, we strip away accounting artifacts, GAAP net income distortions, and working capital fluctuations to isolate true distributable cash flow.
+  </p>
+<p>
+    Stock-Based Compensation (SBC) is treated as a 100% real cash operating expense and dilution factor. Capital Expenditures are rigorously split between <strong>Maintenance CapEx</strong> (required to maintain servers, logistics facilities, and existing operational capacity) and <strong>Discretionary Growth CapEx</strong> (expansive AI data centers and global logistics hubs).
+  </p>
+<div class="callout">
+<strong>Warren Buffett Owner Earnings Equation:</strong>
+    $$\text{Owner Earnings} = \text{Operating Cash Flow} - \text{Maintenance CapEx} - \text{Stock-Based Compensation (SBC)}$$
+    $$\text{Normalized Owner Earnings (TTM)} = \$24,500\text{M} - \$3,500\text{M} - \$3,200\text{M} = \mathbf{\$17,800\text{M} \quad (\$7.48 \text{ per ADS})}$$
+  </div>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Cash Flow Metric (USD Equivalent)</th>
+<th>FY2025 (Audited)</th>
+<th>FY2026 (Audited)</th>
+<th>Normalized TTM (2026)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Operating Cash Flow (GAAP)</strong></td>
+<td>$25,600M</td>
+<td>$23,800M</td>
+<td>$24,500M</td>
+</tr>
+<tr>
+<td><em>Less: Stock-Based Compensation (100% Cash Deduction)</em></td>
+<td>($3,800M)</td>
+<td>($3,300M)</td>
+<td>($3,200M)</td>
+</tr>
+<tr>
+<td><em>Less: Maintenance CapEx (Core Moat Preservation)</em></td>
+<td>($3,200M)</td>
+<td>($3,400M)</td>
+<td>($3,500M)</td>
+</tr>
+<tr>
+<td><strong>Normalized Owner Earnings (Buffett Baseline)</strong></td>
+<td><strong>$18,600M</strong></td>
+<td><strong>$17,100M</strong></td>
+<td><strong>$17,800M</strong></td>
+</tr>
+<tr>
+<td><em>Discretionary AI Infrastructure &amp; Growth CapEx</em></td>
+<td>($4,100M)</td>
+<td>($6,200M)</td>
+<td>($8,500M)</td>
+</tr>
+<tr>
+<td><strong>Owner Earnings Yield (At Current Market Cap $295B)</strong></td>
+<td>6.31%</td>
+<td>5.80%</td>
+<td><strong>6.03%</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>
+    Alibaba operates with significant negative working capital in domestic commerce (collecting immediate customer cash upfront via Alipay while settling vendor accounts on standard payment terms), creating an interest-free cash float that enhances organic liquidity and provides non-dilutive internal funding for AI data center expansion.
+  </p>
+</div>
+<div class="section">
+<h2>Section 4: Capital Allocation &amp; Balance Sheet Discipline</h2>
+<p>
+    Alibaba maintains one of the most powerful cash fortresses in global technology, providing unassailable solvency and massive capital return firepower.
+  </p>
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">Cash &amp; Liquid Investments</div>
+<div class="metric-value">$62.00B</div>
+<div class="metric-delta pos">Massive Liquidity</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Total Debt &amp; Leases</div>
+<div class="metric-value">$19.50B</div>
+<div class="metric-delta pos">Long-Term Fixed</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Net Cash Fortress</div>
+<div class="metric-value">$42.50B</div>
+<div class="metric-delta pos">$17.80 Net Cash/ADS</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Annual Repurchase Yield</div>
+<div class="metric-value">5.20%</div>
+<div class="metric-delta pos">Cannibal Mode</div>
+</div>
+</div>
+<div class="callout">
+<strong>Share Buyback Cannibal Dynamics:</strong> Over the past 12 months, management deployed $12.5 billion into share repurchases, retiring approximately 5.2% of outstanding shares. At current market valuations (~8.0x Owner Earnings net of cash), repurchasing shares is immensely accretive to long-term intrinsic value per share, effectively compounding remaining shareholder equity without external capital risk.
+  </div>
+<p>
+    In addition to liquid cash, Alibaba owns major unconsolidated equity investments, including a 33% stake in Ant Group (fair value ~$22B) alongside minority equity holdings in publicly listed technology leaders (XPeng, Weibo) and strategic logistics joint ventures valued at over $30B.
+  </p>
+</div>
+<div class="section">
+<h2>Section 5: Owner Earnings Intrinsic Value Matrix</h2>
+<p>
+    To determine intrinsic value without relying on speculative market multiples, we utilize a 5-to-10 year Discounted Owner Earnings framework grounded strictly in local country risk dynamics.
+  </p>
+<p>
+<strong>Localized Discount Rate Derivation:</strong> Values are discounted using the Chinese 10-Year Sovereign Bond yield (~2.30%) plus an Equity Risk Premium of 7.70% (reflecting emerging market, currency, and regulatory risk), yielding a mandatory hurdle rate of <strong>10.00%</strong>. Terminal growth is conservatively capped at <strong>2.00%</strong> (below long-term GDP growth).
+  </p>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Valuation Parameter / Scenario</th>
+<th>Bear Case (Macro Stagnation)</th>
+<th>Base Case (AI Compounder)</th>
+<th>Bull Case (Cloud Monetization)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Normalized Owner Earnings (Yr 1)</strong></td>
+<td>$16,500M</td>
+<td>$17,800M</td>
+<td>$19,000M</td>
+</tr>
+<tr>
+<td><strong>5-Year Owner Earnings CAGR</strong></td>
+<td>2.00%</td>
+<td>7.50%</td>
+<td>14.00%</td>
+</tr>
+<tr>
+<td><strong>Annual Share Count Reduction (Buybacks)</strong></td>
+<td>2.00%</td>
+<td>4.50%</td>
+<td>6.00%</td>
+</tr>
+<tr>
+<td><strong>Discount Rate (Local Hurdle Rate)</strong></td>
+<td>10.00%</td>
+<td>10.00%</td>
+<td>10.00%</td>
+</tr>
+<tr>
+<td><strong>Terminal Growth Rate</strong></td>
+<td>1.50%</td>
+<td>2.00%</td>
+<td>2.50%</td>
+</tr>
+<tr>
+<td><strong>PV of 10-Year Owner Earnings Stream</strong></td>
+<td>$115,200M</td>
+<td>$162,500M</td>
+<td>$228,400M</td>
+</tr>
+<tr>
+<td><strong>PV of Terminal Value</strong></td>
+<td>$128,400M</td>
+<td>$211,200M</td>
+<td>$295,100M</td>
+</tr>
+</tbody></table></div>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
         </div>
 
         <!-- Ownership & Fund Intel Content -->
@@ -1870,7 +1993,7 @@ Over the past two fiscal years, Alibaba retired 3.5%–5.0% of its diluted share
             <div class="ownership-stat-grid">
                 <div class="stat-box">
                     <span class="stat-label">Institutional Float</span>
-                    <span class="stat-num">41.5%</span>
+                    <span class="stat-num">33.9% (13F) / 70.5% (Global)</span>
                     <span class="stat-note">Tracked across SEC 13F Filings</span>
                 </div>
                 <div class="stat-box">
@@ -2050,7 +2173,7 @@ Over the past two fiscal years, Alibaba retired 3.5%–5.0% of its diluted share
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Appaloosa (Tepper - Top Holding)</div>
+                <div style="font-weight: 500; color: var(--text-title);">Appaloosa Management (David Tepper 7.3%)</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Asset Manager</span></td>
             <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
@@ -2066,25 +2189,25 @@ Over the past two fiscal years, Alibaba retired 3.5%–5.0% of its diluted share
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Vanguard (3.9%)</div>
+                <div style="font-weight: 500; color: var(--text-title);">ShawSpring Partners (Dennis Hong 13.6%)</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Asset Manager</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
+            <td>
+                <a href="https://whalewisdom.com/stock/baba" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Vanguard Group (8.2%)</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
-            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
-            <td>
-                <a href="https://whalewisdom.com/stock/baba" target="_blank" rel="noopener noreferrer" class="link-out">
-                    View 13F ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Daily Journal</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Asset Manager</span></td>
             <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
             <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
             <td><span style="color: var(--text-dim);">Reported Stake</span></td>
@@ -2297,8 +2420,8 @@ Over the past two fiscal years, Alibaba retired 3.5%–5.0% of its diluted share
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
                     Substack / Deepvaluecapitalbykyler · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://deepvaluecapitalbykyler.substack.com/p/dv-capital-alibaba-full-thesis-quarterly" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Substack Memo ↗
+                <a href="https://substack.com/search/BABA%20Alibaba%20Group%20Holding%20Limited%20investment%20thesis" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Search ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
@@ -2314,8 +2437,8 @@ Over the past two fiscal years, Alibaba retired 3.5%–5.0% of its diluted share
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
                     Substack / Deepvaluecapitalbykyler · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://deepvaluecapitalbykyler.substack.com/p/alibaba-baba-full-fy-2026-earnings" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Substack Memo ↗
+                <a href="https://substack.com/search/BABA%20Alibaba%20Group%20Holding%20Limited%20investment%20thesis" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Search ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
@@ -2331,8 +2454,8 @@ Over the past two fiscal years, Alibaba retired 3.5%–5.0% of its diluted share
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
                     Substack / Agoninvestments · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://agoninvestments.substack.com/p/alibaba-long-thesis-asymmetric-upside" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Substack Memo ↗
+                <a href="https://substack.com/search/BABA%20Alibaba%20Group%20Holding%20Limited%20investment%20thesis" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Search ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
@@ -2348,8 +2471,8 @@ Over the past two fiscal years, Alibaba retired 3.5%–5.0% of its diluted share
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
                     Substack / Longyield · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://longyield.substack.com/p/alibaba-ai-platform-rebirth-or-low" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Substack Memo ↗
+                <a href="https://substack.com/search/BABA%20Alibaba%20Group%20Holding%20Limited%20investment%20thesis" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Search ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">

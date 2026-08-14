@@ -1,5 +1,43 @@
 [
   {
+    "id": "alert-tsm-1786727147",
+    "ticker": "TSM",
+    "timestamp": "2026-08-14 17:05",
+    "title": "TSMC 6-K Confirms Record H1 Profit; July Revenue Surges 44.7% YoY as 2nm Ramp Begins",
+    "severity": "High Conviction",
+    "labels": [
+      "High Conviction",
+      "Moat Expansion",
+      "Margin Expansion"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "SEC 6-K Filing (2026-08-14): 6-K [Accession #0001046179-26-000541]",
+    "what_was_before": "TSMC remains the undisputed epicenter of global artificial intelligence and high-performance computing, holding over 90% market share in advanced semiconductor node manufacturing. Following record Q2 2026 results ($40.20B revenue, up 33.7% YoY) and an upward guidance revision to +40%+ full-year USD revenue growth, TSMC's unmatched pricing power, CoWoS advanced packaging capacity chokehold, and 2nm/A14 process leadership create a near-impenetrable economic moat.",
+    "what_changes_now": "TSMC's August 14, 2026 SEC 6-K filing and August 10 monthly revenue disclosure confirm extraordinary operational momentum, with July 2026 revenue surging 44.7% YoY to a record NT$467.58B (~$14.6B USD). Second-quarter 2026 results shattered expectations with $40.20B USD in revenue (+33.7% YoY) and an expanding gross margin of 67.7%, while 2nm node shipments officially reached 3% of total revenue ahead of full volume ramp. Management raised full-year 2026 USD revenue growth guidance to slightly above 40% and approved $29.44B in capital appropriations to expand advanced logic and CoWoS packaging capacity, cementing TSMC's multi-year monopoly cash yield.",
+    "price_at_alert": 425.87,
+    "price_change_pct": 0.9,
+    "report_url": "reports/TSM.html"
+  },
+  {
+    "id": "alert-baba-1786726964",
+    "ticker": "BABA",
+    "timestamp": "2026-08-14 17:02",
+    "title": "Form 6-K Confirms Q1 FY27 Date; Pullback to $123.94 Expands Margin of Safety",
+    "severity": "High Conviction",
+    "labels": [
+      "High Conviction",
+      "Deep Value",
+      "Buyback Cannibal"
+    ],
+    "action_signal": "BUY",
+    "trigger_reason": "SEC 6-K Filing (2026-08-14): FORM 6-K [Accession #0001104659-26-096226]",
+    "what_was_before": "Alibaba presents a compelling deep-value setup supported by its dominant China e-commerce ecosystem, accelerating Cloud Intelligence & Qwen AI adoption (+40% external cloud growth), and a $42.5 billion net cash fortress. Although aggressive upfront AI infrastructure CapEx and quick commerce investments temporarily depress near-term free cash flow, normalized Buffett Owner Earnings and continuous share repurchases point to an intrinsic fair value of $175 per ADS.",
+    "what_changes_now": "The SEC Form 6-K filing on August 14, 2026 formally confirms the upcoming Q1 FY2027 earnings release date for August 20, 2026. The recent market pullback to $123.94 (-3.48%) widens the margin of safety relative to our $175.00 intrinsic fair value. Operational momentum in Cloud Intelligence is underscored by the August launch of Qwen3.8-Max (2.4T parameters) and enterprise integrations with Apple and Tesla in China, while aggressive buybacks continue to compound per-share owner earnings.",
+    "price_at_alert": 123.94,
+    "price_change_pct": -3.48,
+    "report_url": "reports/BABA.html"
+  },
+  {
     "id": "alert-csu-1786662183",
     "ticker": "CSU",
     "timestamp": "2026-08-13 23:03",
