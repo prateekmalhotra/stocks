@@ -496,7 +496,7 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
         
         <!-- Minimalist Header Bar -->
         <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0 16px 0; border-bottom:1px solid var(--border-color); flex-wrap:wrap; gap:16px;">
-            <h1 style="font-family:var(--font-serif); font-size:1.85rem; color:var(--text-title); margin:0; font-weight:400; letter-spacing:-0.02em;">
+            <h1 style="font-family:var(--font-serif); font-size:1.85rem; color:var(--text-title); margin:0; font-weight:500; letter-spacing:-0.02em;">
                 {port_title}
             </h1>
             <div style="text-align:right;">
@@ -572,15 +572,15 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
         <!-- Clean Scaled Performance Visualizer -->
         <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:12px; padding:20px 24px; display:flex; flex-direction:column; gap:14px;">
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-                <div style="font-family:var(--font-serif); font-size:1.15rem; color:var(--text-title); font-weight:400;">
+                <div style="font-family:var(--font-serif); font-size:1.20rem; color:var(--text-title); font-weight:500;">
                     Performance vs S&amp;P 500 Baseline
                 </div>
                 <div style="display:flex; align-items:center; gap:16px; font-size:0.75rem; font-family:var(--font-mono);">
                     <span style="display:flex; align-items:center; gap:6px; color:var(--accent-warm);">
-                        <span style="display:inline-block; width:12px; height:3px; background:#CC785C; border-radius:2px;"></span> {port_title}
+                        <span style="display:inline-block; width:12px; height:3px; background:var(--accent-warm); border-radius:2px;"></span> {port_title}
                     </span>
                     <span style="display:flex; align-items:center; gap:6px; color:var(--text-dim);">
-                        <span style="display:inline-block; width:12px; height:2px; background:#8C8982;"></span> S&amp;P 500
+                        <span style="display:inline-block; width:12px; height:2px; background:var(--text-dim);"></span> S&amp;P 500
                     </span>
                 </div>
             </div>
@@ -592,7 +592,7 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
 
         <!-- Audit Log -->
         <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:12px; padding:20px 22px; display:flex; flex-direction:column; gap:12px;">
-            <div style="font-family:var(--font-serif); font-size:1.10rem; color:var(--text-title); font-weight:400;">
+            <div style="font-family:var(--font-sans); font-size:0.86rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-title);">
                 Council Audit Log
             </div>
             <div style="display:flex; flex-direction:column; gap:8px;">
