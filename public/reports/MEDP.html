@@ -2641,8 +2641,8 @@
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
                     Independent Research · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://substack.com/search/MEDP%20Medpace%20Holdings%2C%20Inc.%20investment%20thesis" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Substack Search ↗
+                <a href="https://www.bestanchorstocks.com/p/understanding-medpaces-business" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Read Source ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
@@ -2658,8 +2658,8 @@
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
                     Substack / Pursuingtherighttail · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://substack.com/search/MEDP%20Medpace%20Holdings%2C%20Inc.%20investment%20thesis" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Substack Search ↗
+                <a href="https://pursuingtherighttail.substack.com/p/medpace-medp-a-case-study-in-exceptional" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Memo ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
@@ -2675,8 +2675,8 @@
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
                     Substack / Expansestocks · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://substack.com/search/MEDP%20Medpace%20Holdings%2C%20Inc.%20investment%20thesis" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Substack Search ↗
+                <a href="https://expansestocks.substack.com/p/deep-dive-brief-medpace" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Memo ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
@@ -2883,6 +2883,12 @@
 
         document.addEventListener("DOMContentLoaded", renderLatexEquations);
         window.addEventListener("load", renderLatexEquations);
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                closeEvolutionModal();
+                closeLabelsLegendModal();
+            }
+        });
     </script>
 </body>
 </html>

@@ -2225,8 +2225,8 @@
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
                     Substack / Reboundcapital · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://substack.com/search/SPGI%20S%26P%20Global%20Inc.%20investment%20thesis" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Substack Search ↗
+                <a href="https://reboundcapital.substack.com/p/deep-dive-s-and-p-global-spgi" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Memo ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
@@ -2259,8 +2259,8 @@
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
                     Substack / Nextgeninvestors · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://substack.com/search/SPGI%20S%26P%20Global%20Inc.%20investment%20thesis" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Substack Search ↗
+                <a href="https://nextgeninvestors.substack.com/p/initial-report-s-and-p-global-inc-553" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Memo ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
@@ -2467,6 +2467,12 @@
 
         document.addEventListener("DOMContentLoaded", renderLatexEquations);
         window.addEventListener("load", renderLatexEquations);
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                closeEvolutionModal();
+                closeLabelsLegendModal();
+            }
+        });
     </script>
 </body>
 </html>

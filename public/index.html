@@ -8009,6 +8009,12 @@
             syncWatchlistQuotes();
         });
         window.addEventListener('load', renderLatexEquations);
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeAlertModal();
+                closeLabelsLegendModal();
+            }
+        });
         refreshAlertsUI();
         setInterval(syncWatchlistQuotes, 20000);
     </script>

@@ -1910,6 +1910,12 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 
         document.addEventListener("DOMContentLoaded", renderLatexEquations);
         window.addEventListener("load", renderLatexEquations);
+        window.addEventListener("keydown", (e) => {{
+            if (e.key === "Escape") {{
+                closeEvolutionModal();
+                closeLabelsLegendModal();
+            }}
+        }});
     </script>
 </body>
 </html>
@@ -3089,6 +3095,12 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             syncWatchlistQuotes();
         }});
         window.addEventListener('load', renderLatexEquations);
+        window.addEventListener('keydown', (e) => {{
+            if (e.key === 'Escape') {{
+                closeAlertModal();
+                closeLabelsLegendModal();
+            }}
+        }});
         refreshAlertsUI();
         setInterval(syncWatchlistQuotes, 20000);
     </script>

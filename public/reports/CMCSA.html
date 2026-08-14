@@ -2493,6 +2493,12 @@
 
         document.addEventListener("DOMContentLoaded", renderLatexEquations);
         window.addEventListener("load", renderLatexEquations);
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                closeEvolutionModal();
+                closeLabelsLegendModal();
+            }
+        });
     </script>
 </body>
 </html>

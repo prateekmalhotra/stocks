@@ -2424,6 +2424,12 @@ Over the past two fiscal years, Alibaba retired 3.5%–5.0% of its diluted share
 
         document.addEventListener("DOMContentLoaded", renderLatexEquations);
         window.addEventListener("load", renderLatexEquations);
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                closeEvolutionModal();
+                closeLabelsLegendModal();
+            }
+        });
     </script>
 </body>
 </html>

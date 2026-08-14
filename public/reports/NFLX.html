@@ -2890,6 +2890,12 @@ At the current market price of <strong>$74.79</strong>, the stock trades at a <s
 
         document.addEventListener("DOMContentLoaded", renderLatexEquations);
         window.addEventListener("load", renderLatexEquations);
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                closeEvolutionModal();
+                closeLabelsLegendModal();
+            }
+        });
     </script>
 </body>
 </html>
