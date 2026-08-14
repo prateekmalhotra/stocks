@@ -2,6 +2,8 @@
 
 import json
 import re
+import requests
+from bs4 import BeautifulSoup
 from pathlib import Path
 from typing import Dict, List, Any, Optional
 
@@ -97,12 +99,9 @@ CURATED_MEMOS: Dict[str, List[Dict[str, Any]]] = {
 }
 
 
-import requests
-from bs4 import BeautifulSoup
-
 def fetch_openinsider_live(ticker: str) -> List[Dict[str, Any]]:
     """Scrapes up to 100 recent SEC Form 4 insider transactions from OpenInsider."""
-    url = f"http://openinsider.com/search?q={ticker}"
+    url = f"https://openinsider.com/search?q={ticker}"
     headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"}
     trades = []
     try:

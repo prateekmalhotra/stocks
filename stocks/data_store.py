@@ -158,6 +158,6 @@ def update_task_status(task_id: str, status: str, error: Optional[str] = None):
     for task in queue:
         if task.id == task_id:
             task.status = status
-            task.error_message = error
+            task.error = error
             break
     save_queue(queue)

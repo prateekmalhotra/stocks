@@ -23,7 +23,7 @@ from stocks.portfolio_engine import (
     COMPLIANCE_EXCLUSIONS
 )
 
-DATA_DIR = Path("/Users/pmlhtra/Documents/software/stocks/data")
+DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 WATCHLIST_FILE = DATA_DIR / "watchlist.json"
 
 def get_portfolio_filepath(portfolio_type: str) -> Path:

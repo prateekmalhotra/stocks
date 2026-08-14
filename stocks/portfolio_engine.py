@@ -28,7 +28,7 @@ import re
 from pathlib import Path
 from typing import Dict, List, Any, Tuple, Optional, Set
 
-DATA_DIR = Path("/Users/pmlhtra/Documents/software/stocks/data")
+DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 WATCHLIST_FILE = DATA_DIR / "watchlist.json"
 
 # =============================================================================
