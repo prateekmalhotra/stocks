@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
@@ -20,10 +20,10 @@
             --bg-panel: #1B1A19;
             --bg-subpanel: #21201E;
             --bg-hover: #272624;
-            --text-title: #EFE9E0;
-            --text-body: #C4BCB0;
-            --text-secondary: #8C8477;
-            --text-dim: #5C554A;
+            --text-title: #F5EFEB;
+            --text-body: #D4CDC2;
+            --text-secondary: #968E82;
+            --text-dim: #6B6357;
             --accent-warm: #D4A373;
             --accent-warm-hover: #E2B689;
             --accent-warm-subtle: rgba(212, 163, 115, 0.12);
@@ -31,8 +31,9 @@
             --accent-red: #C97A72;
             --border-color: rgba(255, 255, 255, 0.055);
             --border-focus: rgba(212, 163, 115, 0.35);
-            --font-serif: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-serif: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
         }
 
@@ -62,10 +63,11 @@
                 var(--bg-canvas);
             color: var(--text-body);
             font-family: var(--font-sans);
-            font-size: 0.94rem;
-            line-height: 1.72;
-            letter-spacing: -0.010em;
+            font-size: 0.95rem;
+            line-height: 1.80;
+            letter-spacing: 0.005em;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
             padding-bottom: 120px;
         }
 
@@ -512,65 +514,67 @@
             border-bottom-color: var(--accent-warm) !important;
         }
         .memo-container h1, .memo-container h2 {
-            font-family: var(--font-sans) !important;
-            font-size: 1.45rem !important;
-            font-weight: 600 !important;
+            font-family: var(--font-display) !important;
+            font-size: 1.40rem !important;
+            font-weight: 700 !important;
             color: var(--text-title) !important;
-            margin: 40px 0 16px !important;
-            padding-bottom: 8px !important;
-            border-bottom: 1px solid var(--border-color) !important;
-            letter-spacing: -0.02em !important;
-            line-height: 1.3 !important;
+            margin: 48px 0 20px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+            letter-spacing: -0.025em !important;
+            line-height: 1.35 !important;
         }
         .memo-container h1:first-child, .memo-container h2:first-of-type { margin-top: 0 !important; }
         .memo-container h3 {
-            font-family: var(--font-sans) !important;
-            font-size: 1.15rem !important;
+            font-family: var(--font-display) !important;
+            font-size: 1.12rem !important;
             font-weight: 600 !important;
             color: var(--accent-warm) !important;
-            margin: 28px 0 12px !important;
+            margin: 36px 0 14px !important;
             letter-spacing: -0.015em !important;
-            line-height: 1.35 !important;
+            line-height: 1.45 !important;
         }
         .memo-container h4, .memo-container h5, .memo-container h6 {
             font-family: var(--font-sans) !important;
-            font-size: 0.82rem !important;
+            font-size: 0.84rem !important;
             font-weight: 600 !important;
             text-transform: uppercase !important;
             letter-spacing: 0.06em !important;
             color: var(--text-title) !important;
-            margin: 22px 0 8px !important;
+            margin: 26px 0 10px !important;
         }
         .memo-container p {
             font-family: var(--font-sans) !important;
-            font-size: 0.94rem !important;
-            line-height: 1.72 !important;
-            letter-spacing: -0.008em !important;
+            font-size: 0.95rem !important;
+            line-height: 1.82 !important;
+            letter-spacing: 0.005em !important;
             color: var(--text-body) !important;
-            margin-bottom: 18px !important;
+            margin-bottom: 22px !important;
+            font-weight: 400 !important;
         }
         .memo-container ul, .memo-container ol {
             font-family: var(--font-sans) !important;
-            font-size: 0.92rem !important;
-            line-height: 1.68 !important;
-            letter-spacing: -0.008em !important;
+            font-size: 0.94rem !important;
+            line-height: 1.78 !important;
+            letter-spacing: 0.005em !important;
             color: var(--text-body) !important;
-            margin: 14px 0 20px 20px !important;
+            margin: 16px 0 24px 20px !important;
             padding-left: 12px !important;
         }
         .memo-container ul { list-style-type: disc !important; }
         .memo-container ol { list-style-type: decimal !important; }
         .memo-container li {
-            margin-bottom: 8px !important;
+            margin-bottom: 10px !important;
             color: var(--text-body) !important;
-            line-height: 1.68 !important;
+            line-height: 1.78 !important;
         }
         .memo-container li::marker {
             color: var(--accent-warm) !important;
         }
         .memo-container strong, .memo-container b {
-            color: var(--text-title) !important;
+            color: #FFFFFF !important;
             font-weight: 600 !important;
+            letter-spacing: 0 !important;
         }
 
         /* STUNNING CONSISTENT TABLES - SOOTHING WARM TONES & ZERO OVERFLOW */
@@ -1439,9 +1443,7 @@
 </div>
 </div><h3>Product Category &amp; Brand Performance Breakdown</h3><p>
     Volume performance in Q2 2026 was marked by broad-based expansion across key beverage categories, led by Trademark Coca-Cola and health-conscious zero-sugar extensions:
-  </p><ul><li><strong>Trademark Coca-Cola (+5% Volume):</strong> Achieved its highest quarterly growth rate in 17 years (excluding pandemic base effects), propelled by global FIFA World Cup activations and localized marketing campaigns.
-  <strong>Coca-Cola Zero Sugar (+16% Volume):</strong> Continued its multi-year hyper-growth trajectory. Strong global consumer adoption, enhanced visual identity rollouts across 18 key markets, and packaging innovation drove mid-to-high teens surge across all operating segments.
-  <strong>Powerade &amp; Sports Drinks (+8% Volume):</strong> Re-accelerated behind Powerade's prominent role as the official hydration partner of the 2026 FIFA World Cup, capturing market share in North America and Latin America.</li><li><strong>Diet Coke &amp; Sparkling Flavors:</strong> Diet Coke demonstrated resilient demand with mid-single digit volume gains, while sparkling flavors (Sprite, Fanta) expanded +4%, supported by zero-sugar line extensions.</li></ul><p> CEO Quote Callout Box </p><div class="callout">
+  </p><ul><li><strong>Trademark Coca-Cola (+5% Volume):</strong> Achieved its highest quarterly growth rate in 17 years (excluding pandemic base effects), propelled by global FIFA World Cup activations and localized marketing campaigns.<p><strong>Coca-Cola Zero Sugar (+16% Volume):</strong> Continued its multi-year hyper-growth trajectory. Strong global consumer adoption, enhanced visual identity rollouts across 18 key markets, and packaging innovation drove mid-to-high teens surge across all operating segments.</p><p><strong>Powerade &amp; Sports Drinks (+8% Volume):</strong> Re-accelerated behind Powerade's prominent role as the official hydration partner of the 2026 FIFA World Cup, capturing market share in North America and Latin America.</p></li><li><strong>Diet Coke &amp; Sparkling Flavors:</strong> Diet Coke demonstrated resilient demand with mid-single digit volume gains, while sparkling flavors (Sprite, Fanta) expanded +4%, supported by zero-sugar line extensions.</li></ul><p> CEO Quote Callout Box </p><div class="callout">
 <p><strong>CEO Henrique Braun on Q2 Performance &amp; Execution:</strong></p>
 <p>
 <em>"We delivered another strong quarter by staying close to the changing needs of our consumers and customers. While we continue to see a dynamic consumer landscape, we leveraged our powerful brands and system to gain value share, delivering revenue, profit and earnings growth while also investing for the long term. Activating around global platforms like the FIFA World Cup allowed us to engage billions of fans, demonstrating the unique strength of our global network and localized execution."</em>
@@ -1544,9 +1546,7 @@
 <div class="metric-value">1.4x</div>
 <div class="metric-delta pos">Below 2.0x–2.5x Target</div>
 </div>
-</div><p>To establish Warren Buffett's <em>Normalized Owner Earnings</em>, we adjust Operating Cash Flow by subtracting total CapEx, deducting Stock-Based Compensation (SBC) as a mandatory cash expense, and isolating Maintenance CapEx from Growth CapEx:</p><ul><li><strong>Maintenance CapEx (~$1.35 Billion / Year):</strong> Capital required to preserve global bottling infrastructure, replace fleet transport, maintain concentrate plants, and refresh cold-drink equipment (vending/coolers) across global markets.
-  <strong>Discretionary Growth CapEx (~$0.85 Billion / Year):</strong> Strategic capital earmarked for expanding fairlife ultra-filtered milk manufacturing facilities, digital fountain dispenser rollouts, and supply-chain automation.
-  <strong>SBC Cash Deduction (~$270 Million - $280 Million / Year):</strong> Equity compensation awarded to executives under the 2024 Equity Plan. Rather than treating SBC as a non-cash addition to cash flow, we treat it as an operating cash drain or a future dilution obligation.</li><li><strong>Working Capital &amp; Factoring Programs:</strong> Coca-Cola utilizes international trade accounts receivable factoring programs ($7.01 billion factored in H1 2026 at a cost of $27 million). While factoring accelerates cash collection, normalized cash flow reflects organic working capital neutrality over multi-year cycles.</li></ul><h3>Capital Structure, Lease Liabilities &amp; Leverage Capacity</h3><p>As of mid-2026, Coca-Cola maintains a total gross debt balance of <strong>~$45.5 billion</strong>, offset by cash, cash equivalents, short-term investments, and marketable securities of <strong>~$15.8 billion</strong>, yielding a <strong>Net Debt balance of ~$29.7 billion to $33.0 billion</strong>. Including operating lease liabilities of approximately <strong>$1.2 billion</strong>, enterprise net debt stays firmly anchored.</p><p>With trailing Comparable EBITDA running at <strong>~$18.1 billion</strong>, Coca-Cola's Net Debt to EBITDA ratio sits at <strong>1.4x to 1.6x</strong>—significantly below management's long-term target leverage corridor of <strong>2.0x to 2.5x</strong>. This under-levered balance sheet provides the company with approximately <strong>$15.6 billion in unused debt capacity</strong> up to the 2.5x threshold, affording substantial liquidity for strategic M&amp;A or extraordinary legal settlement buffers.</p><h4>Debt Maturity Profile</h4><div class="table-scroll-wrap"><table>
+</div><p>To establish Warren Buffett's <em>Normalized Owner Earnings</em>, we adjust Operating Cash Flow by subtracting total CapEx, deducting Stock-Based Compensation (SBC) as a mandatory cash expense, and isolating Maintenance CapEx from Growth CapEx:</p><ul><li><strong>Maintenance CapEx (~$1.35 Billion / Year):</strong> Capital required to preserve global bottling infrastructure, replace fleet transport, maintain concentrate plants, and refresh cold-drink equipment (vending/coolers) across global markets.<p><strong>Discretionary Growth CapEx (~$0.85 Billion / Year):</strong> Strategic capital earmarked for expanding fairlife ultra-filtered milk manufacturing facilities, digital fountain dispenser rollouts, and supply-chain automation.</p><p><strong>SBC Cash Deduction (~$270 Million - $280 Million / Year):</strong> Equity compensation awarded to executives under the 2024 Equity Plan. Rather than treating SBC as a non-cash addition to cash flow, we treat it as an operating cash drain or a future dilution obligation.</p></li><li><strong>Working Capital &amp; Factoring Programs:</strong> Coca-Cola utilizes international trade accounts receivable factoring programs ($7.01 billion factored in H1 2026 at a cost of $27 million). While factoring accelerates cash collection, normalized cash flow reflects organic working capital neutrality over multi-year cycles.</li></ul><h3>Capital Structure, Lease Liabilities &amp; Leverage Capacity</h3><p>As of mid-2026, Coca-Cola maintains a total gross debt balance of <strong>~$45.5 billion</strong>, offset by cash, cash equivalents, short-term investments, and marketable securities of <strong>~$15.8 billion</strong>, yielding a <strong>Net Debt balance of ~$29.7 billion to $33.0 billion</strong>. Including operating lease liabilities of approximately <strong>$1.2 billion</strong>, enterprise net debt stays firmly anchored.</p><p>With trailing Comparable EBITDA running at <strong>~$18.1 billion</strong>, Coca-Cola's Net Debt to EBITDA ratio sits at <strong>1.4x to 1.6x</strong>—significantly below management's long-term target leverage corridor of <strong>2.0x to 2.5x</strong>. This under-levered balance sheet provides the company with approximately <strong>$15.6 billion in unused debt capacity</strong> up to the 2.5x threshold, affording substantial liquidity for strategic M&amp;A or extraordinary legal settlement buffers.</p><h4>Debt Maturity Profile</h4><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Maturity Horizon</th>
@@ -1641,9 +1641,7 @@
 </div><p>Behind Berkshire, institutional indexing giants Vanguard Group (~8.8%), BlackRock (~7.2%), and State Street (~4.1%) hold major stakes, establishing a stable shareholder register that dampens equity volatility.</p><h3>Insider Trading Patterns &amp; Executive Incentive Compensation</h3><p>Insider transaction tracking shows consistent net insider selling by C-suite executives over the past 18 months, with aggregate sales exceeding <strong>$228.9 million</strong> against under <strong>$1.0 million in open-market purchases</strong>.</p><div class="callout">
 <strong>Insider Trading Audit: Pre-Scheduled 10b5-1 Program Structure</strong>
 <p>A granular review of SEC Form 4 filings indicates that executive sales (including transactions by CEO James Quincey and key EVPs) are almost entirely structured through pre-arranged <strong>Rule 10b5-1 trading plans</strong>. These transactions represent automatic option exercises (exercising legacy stock options near expiration) paired with mandatory "sell-to-cover" share liquidations to satisfy executive tax withholding obligations. There is no evidence of opportunistic or panic open-market insider selling.</p>
-</div><h3>Macro &amp; Legal Headwinds: The $14B+ IRS Tax Litigation Audit</h3><p>The single largest fundamental tail-risk hanging over The Coca-Cola Company is its long-running transfer pricing dispute with the U.S. Internal Revenue Service (IRS) covering tax years 2007 through 2009, with cascading effects through tax year 2025.</p><ul><li><strong>Core Legal Dispute:</strong> The IRS challenged Coca-Cola's long-standing "10-50-50" profit-split methodology (agreed upon in a 1996 closing agreement), which allowed foreign concentrate manufacturing affiliates ("supply points") to retain significant profits in lower-tax foreign jurisdictions. The IRS retroactively reallocated over $9 billion of foreign affiliate income back to the U.S. parent using the Comparable Profits Method (CPM).
-  <strong>Tax Court Rulings &amp; $6B Deposit:</strong> In November 2020 and August 2024, U.S. Tax Court Judge Albert Lauber issued decisions predominantly siding with the IRS. In September 2024, Coca-Cola paid a <strong>$6.0 billion tax litigation deposit</strong> to the U.S. Treasury to stop the accrual of market-rate statutory interest while pursuing an appeal.
-  <strong>Total Potential Exposure ($14B - $18B):</strong> If the IRS methodology is fully sustained across subsequent tax years (2010–2025), management estimates total potential aggregate tax and interest exposure could range between <strong>$14.0 billion and $18.0 billion</strong>. Coca-Cola currently maintains a tax reserve of $493 million under ASC 740 ("More-Likely-Than-Not" standard), reflecting management's belief that it will ultimately prevail on appeal.</li><li><strong>11th Circuit Appeal &amp; Administrative Law Shifts:</strong> The case is currently before the U.S. Court of Appeals for the 11th Circuit. Coca-Cola's appellate strategy hinges on two major legal developments:</li></ul><ol><li><em>Loper Bright v. Raimondo (Supreme Court 2024):</em> The overturning of <em>Chevron</em> deference eliminates judicial deference to IRS administrative interpretations, enabling appellate judges to independently evaluate the 1996 closing agreement.
+</div><h3>Macro &amp; Legal Headwinds: The $14B+ IRS Tax Litigation Audit</h3><p>The single largest fundamental tail-risk hanging over The Coca-Cola Company is its long-running transfer pricing dispute with the U.S. Internal Revenue Service (IRS) covering tax years 2007 through 2009, with cascading effects through tax year 2025.</p><ul><li><strong>Core Legal Dispute:</strong> The IRS challenged Coca-Cola's long-standing "10-50-50" profit-split methodology (agreed upon in a 1996 closing agreement), which allowed foreign concentrate manufacturing affiliates ("supply points") to retain significant profits in lower-tax foreign jurisdictions. The IRS retroactively reallocated over $9 billion of foreign affiliate income back to the U.S. parent using the Comparable Profits Method (CPM).<p><strong>Tax Court Rulings &amp; $6B Deposit:</strong> In November 2020 and August 2024, U.S. Tax Court Judge Albert Lauber issued decisions predominantly siding with the IRS. In September 2024, Coca-Cola paid a <strong>$6.0 billion tax litigation deposit</strong> to the U.S. Treasury to stop the accrual of market-rate statutory interest while pursuing an appeal.</p><p><strong>Total Potential Exposure ($14B - $18B):</strong> If the IRS methodology is fully sustained across subsequent tax years (2010–2025), management estimates total potential aggregate tax and interest exposure could range between <strong>$14.0 billion and $18.0 billion</strong>. Coca-Cola currently maintains a tax reserve of $493 million under ASC 740 ("More-Likely-Than-Not" standard), reflecting management's belief that it will ultimately prevail on appeal.</p></li><li><strong>11th Circuit Appeal &amp; Administrative Law Shifts:</strong> The case is currently before the U.S. Court of Appeals for the 11th Circuit. Coca-Cola's appellate strategy hinges on two major legal developments:</li></ul><ol><li><em>Loper Bright v. Raimondo (Supreme Court 2024):</em> The overturning of <em>Chevron</em> deference eliminates judicial deference to IRS administrative interpretations, enabling appellate judges to independently evaluate the 1996 closing agreement.
   <em>3M Co. v. Commissioner (8th Circuit Precedent):</em> Recent 8th Circuit rulings regarding "blocked income" (where foreign laws, such as Brazilian royalty caps, restrict payments back to U.S. parents) support Coca-Cola's arguments regarding foreign cash transfer restrictions.</li></ol><h3>Foreign Exchange (FX) Exposure &amp; Inflation Hedging Mechanics</h3><p>With over <strong>60% of consolidated net revenues</strong> and operating income generated outside the United States, Coca-Cola faces recurring currency translation volatility.</p><p>In 2026, management estimates that currency fluctuations present a <strong>5% to 6% headwind to comparable EPS</strong> and a <strong>1% headwind to net revenues</strong>. To insulate cash flows from severe foreign exchange shocks, Coca-Cola executes a structured hedging strategy:</p><ul><li><strong>Derivative Cash Flow Hedges:</strong> Utilizing derivative financial instruments (forward contracts and currency options) to hedge anticipated cross-border concentrate sales and foreign subsidiary dividend distributions over 12-to-36-month rolling horizons.</li><li><strong>Revenue Growth Management (RGM) &amp; Local Bottling Insulation:</strong> In hyperinflationary markets (e.g., Argentina, Turkey, Egypt, Nigeria), Coca-Cola utilizes its localized bottling franchise model. Local bottlers bear local operating expenses, while Coca-Cola adjusts concentrate pricing dynamically to match inflation, protecting organic gross margins.</li></ul></div>
 
 # Coca-Cola (NYSE: KO) — Warren Buffett Owner Earnings Intrinsic Value Evaluation &amp; Research Strategy
@@ -1688,14 +1686,11 @@ While macroeconomic volatility and currency headwinds remain persistent global v
 In its Q2 2026 earnings statement (released July 28, 2026), Coca-Cola delivered solid top-line and bottom-line momentum, demonstrating resilient volume growth across key international and domestic channels:
 
 <ol><li><strong>Top-Line Momentum &amp; Volume Acceleration:</strong> </li></ol>
-<strong>Net Revenues:</strong> Grew +6.7% YoY to $13.38 billion, underpinned by +6.0% organic revenue growth.
-    <strong>Global Unit Case Volume:</strong> Expanded <strong>+5.0% YoY</strong>. Growth was broad-based across Sparkling Soft Drinks (+5%), led by Trademark Coca-Cola, Coca-Cola Zero Sugar, and strong momentum in Latin America, Europe, and Asia-Pacific bottling hubs (e.g., Coca-Cola HBC organic volume +7.5%).
-   <strong>Price/Mix:</strong> Contributed +1.0% to +2.0% across major regions, indicating that Coca-Cola continues to pass through selective localized inflation without destroying consumer demand.
+<strong>Net Revenues:</strong> Grew +6.7% YoY to $13.38 billion, underpinned by +6.0% organic revenue growth.<p><strong>Global Unit Case Volume:</strong> Expanded <strong>+5.0% YoY</strong>. Growth was broad-based across Sparkling Soft Drinks (+5%), led by Trademark Coca-Cola, Coca-Cola Zero Sugar, and strong momentum in Latin America, Europe, and Asia-Pacific bottling hubs (e.g., Coca-Cola HBC organic volume +7.5%).</p><p><strong>Price/Mix:</strong> Contributed +1.0% to +2.0% across major regions, indicating that Coca-Cola continues to pass through selective localized inflation without destroying consumer demand.
 
 <ol>
 <li><strong>Operating Margins &amp; Cash Flow Recovery:</strong> </li></ol>
-<strong>Operating Income:</strong> Comparable operating margin expanded YoY, benefiting from supply chain efficiencies, disciplined marketing spend, and structural re-franchising leverage.
-   <strong>Operating Cash Flow:</strong> First half (H1) 2026 Operating Cash Flow reached <strong>$7.54 billion</strong>. This represents a complete normalization compared to FY2025, which experienced working capital timing distortions and a $6.0 billion contingent payout associated with the fairlife acquisition.
+<strong>Operating Income:</strong> Comparable operating margin expanded YoY, benefiting from supply chain efficiencies, disciplined marketing spend, and structural re-franchising leverage.</p><p><strong>Operating Cash Flow:</strong> First half (H1) 2026 Operating Cash Flow reached <strong>$7.54 billion</strong>. This represents a complete normalization compared to FY2025, which experienced working capital timing distortions and a $6.0 billion contingent payout associated with the fairlife acquisition.
 
 <ol>
 <li><strong>Management Full-Year Guidance Update:</strong> </li></ol>
@@ -1705,14 +1700,9 @@ In its Q2 2026 earnings statement (released July 28, 2026), Coca-Cola delivered 
 
 To establish an uncompromised valuation, we apply Warren Buffett’s classic 1986 Shareholder Letter methodology for <strong>Owner Earnings</strong>, stripping away accounting noise and treating Stock-Based Compensation (SBC) as an absolute cash expense.
 <h3>Balance Sheet Reality Bridge (As of Q2 2026)</h3>
-<strong>Cash &amp; Cash Equivalents + Short-Term Investments:</strong> $12.91 billion.
- <strong>Total Debt &amp; Lease Obligations:</strong> $37.00 billion in long-term debt plus ~$3.10 billion in short-term/current lease liabilities = <strong>$40.10 billion Total Debt</strong>.
-<strong>Net Debt Position:</strong> <strong>$27.19 billion</strong> (~$6.32 per share).
- <strong>Diluted Common Shares Outstanding:</strong> <strong>4.302 billion shares</strong> (as of July 27, 2026).
+<strong>Cash &amp; Cash Equivalents + Short-Term Investments:</strong> $12.91 billion.</p><p><strong>Total Debt &amp; Lease Obligations:</strong> $37.00 billion in long-term debt plus ~$3.10 billion in short-term/current lease liabilities = <strong>$40.10 billion Total Debt</strong>.</p><p><strong>Net Debt Position:</strong> <strong>$27.19 billion</strong> (~$6.32 per share).</p><p><strong>Diluted Common Shares Outstanding:</strong> <strong>4.302 billion shares</strong> (as of July 27, 2026).
 <h3>Maintenance CapEx vs. Growth CapEx Distinction</h3>
-Coca-Cola projects total FY2026 Capital Expenditures of <strong>~$2.20 billion</strong>. Because the vast majority of heavy bottling assets have been offloaded to independent bottling partners (such as Coca-Cola Consolidated and Coca-Cola HBC), Coca-Cola's direct CapEx is concentrated in concentrate plant upgrades, fountain equipment, digital architecture, and syrup line maintenance.
-<strong>Maintenance CapEx:</strong> ~$1.30 billion required to maintain moat and volume infrastructure.
- <strong>Growth CapEx:</strong> ~$0.90 billion allocated to incremental capacity expansion and digital cold-drink equipment investments.
+Coca-Cola projects total FY2026 Capital Expenditures of <strong>~$2.20 billion</strong>. Because the vast majority of heavy bottling assets have been offloaded to independent bottling partners (such as Coca-Cola Consolidated and Coca-Cola HBC), Coca-Cola's direct CapEx is concentrated in concentrate plant upgrades, fountain equipment, digital architecture, and syrup line maintenance.</p><p><strong>Maintenance CapEx:</strong> ~$1.30 billion required to maintain moat and volume infrastructure.</p><p><strong>Growth CapEx:</strong> ~$0.90 billion allocated to incremental capacity expansion and digital cold-drink equipment investments.
 <h3>Owner Earnings Derivation Matrix</h3>
 
 $$Owner\ Earnings = Operating\ Cash\ Flow - Maintenance\ CapEx - Stock\text{-}Based\ Compensation$$
@@ -1827,14 +1817,13 @@ We avoid arbitrary exit multiples (which rely on speculative future market senti
 </tbody>
 </table></div>
 <h3>Valuation Narrative &amp; Mathematical Mechanics</h3>
-<strong>Base Case ($84.00):</strong> Baseline Owner Earnings grow at a 6.0% CAGR over the next 5 years (driven by 3.0% unit volume + 2.5% price/mix + 0.5% share reduction). The discounted cash flows (at a 9.0% hurdle rate) plus a discounted terminal value capitalized at 2.5% yield an enterprise value that, after deducting Net Debt ($27.19B), produces an equity intrinsic value of <strong>$84.00 per share</strong>.
- <strong>Bear Case ($68.00):</strong> Reflects an adverse IRS tax ruling requiring a significant upfront cash payment, paired with consumer trade-down in key developed markets that squeezes operating margins by 150 bps and slows Owner Earnings growth to 2.5%.
+<strong>Base Case ($84.00):</strong> Baseline Owner Earnings grow at a 6.0% CAGR over the next 5 years (driven by 3.0% unit volume + 2.5% price/mix + 0.5% share reduction). The discounted cash flows (at a 9.0% hurdle rate) plus a discounted terminal value capitalized at 2.5% yield an enterprise value that, after deducting Net Debt ($27.19B), produces an equity intrinsic value of <strong>$84.00 per share</strong>.</p><p><strong>Bear Case ($68.00):</strong> Reflects an adverse IRS tax ruling requiring a significant upfront cash payment, paired with consumer trade-down in key developed markets that squeezes operating margins by 150 bps and slows Owner Earnings growth to 2.5%.
 <ul><li><strong>Bull Case ($98.00):</strong> Accelerates global case volume growth to 5.0% (led by emerging market sparkling and energy drinks), expanding operating margins to 30.4% and compounding Owner Earnings at 8.5% annually.</li></ul>
 <hr/>
 <h2>6. Thesis Confidence, Execution Risk &amp; Falsification Framework</h2>
 <div class="callout">
 <strong>Key Execution Risks &amp; Structural Headwinds:</strong>
-<ol><li><strong>IRS Transfer Pricing Litigation (Major Overhang):</strong> The US Department of Justice and IRS claim Coca-Cola underreported foreign concentrate profits between 2007 and 2025. Following oral arguments before the 11th Circuit Court of Appeals on June 25, 2026, total potential exposure (back taxes plus accumulated interest) stands at <strong>$14.0B to $20.0B</strong>. An outright loss without structured settlement terms would represent a ~$3.25 to $4.65 per share cash drain.</li><li><strong>Consumer Trade-Down &amp; Inelasticity Limits:</strong> </li></ol></div>
+<ol><li><strong>IRS Transfer Pricing Litigation (Major Overhang):</strong> The US Department of Justice and IRS claim Coca-Cola underreported foreign concentrate profits between 2007 and 2025. Following oral arguments before the 11th Circuit Court of Appeals on June 25, 2026, total potential exposure (back taxes plus accumulated interest) stands at <strong>$14.0B to $20.0B</strong>. An outright loss without structured settlement terms would represent a ~$3.25 to $4.65 per share cash drain.</li><li><strong>Consumer Trade-Down &amp; Inelasticity Limits:</strong> </li></ol></div></p>
             </article>
         </div>
 
@@ -2933,79 +2922,72 @@ We avoid arbitrary exit multiples (which rely on speculative future market senti
     
     <!-- Labels & Taxonomy Legend Modal -->
     <div id="labels-legend-modal" class="modal-shade" onclick="closeLegendModalOutside(event)">
-        <div class="modal-body-card" style="max-width: 520px; padding: 26px 28px; background: rgba(22, 21, 20, 0.98); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 14px; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7); font-family: var(--font-sans);">
+        <div class="modal-body-card" style="max-width: 540px; padding: 26px 28px; background: rgba(22, 21, 20, 0.98); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 14px; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7); font-family: var(--font-sans);">
             <button class="modal-x" onclick="closeLabelsLegendModal()" style="top: 20px; right: 20px; color: var(--text-dim); font-size: 1.1rem; cursor: pointer;">✕</button>
             
-            <div style="font-family: var(--font-sans); font-size: 1.12rem; font-weight: 600; color: var(--text-title); margin-bottom: 20px; letter-spacing: -0.02em;">
+            <div style="font-family: var(--font-sans); font-size: 1.15rem; font-weight: 600; color: var(--text-title); margin-bottom: 20px; letter-spacing: -0.02em;">
                 Taxonomy &amp; Signals
             </div>
 
             <!-- Section 1: Live Action Signals -->
             <div style="margin-bottom: 18px;">
-                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 10px;">
+                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 12px;">
                     Surveillance Signals
                 </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px;">
-                    <div style="display: flex; align-items: center; gap: 7px; font-size: 0.76rem;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px;">
+                    <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
                         <span class="status-beacon beacon-buy"><span class="beacon-dot"></span></span>
                         <strong style="color: var(--accent-green);">BUY</strong>
-                        <span style="color: var(--text-secondary);">• Deep value zone</span>
+                        <span style="color: var(--text-secondary);">Deep value zone</span>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 7px; font-size: 0.76rem;">
+                    <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
                         <span class="status-beacon beacon-hold"><span class="beacon-dot"></span></span>
                         <strong style="color: var(--accent-warm);">HOLD</strong>
-                        <span style="color: var(--text-secondary);">• Core thesis intact</span>
+                        <span style="color: var(--text-secondary);">Core thesis intact</span>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 7px; font-size: 0.76rem;">
+                    <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
                         <span class="status-beacon beacon-caution"><span class="beacon-dot"></span></span>
                         <strong style="color: #D48858;">CAUTION</strong>
-                        <span style="color: var(--text-secondary);">• Execution trim zone</span>
+                        <span style="color: var(--text-secondary);">Execution trim zone</span>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 7px; font-size: 0.76rem;">
+                    <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
                         <span class="status-beacon beacon-avoid"><span class="beacon-dot"></span></span>
                         <strong style="color: var(--accent-red);">AVOID</strong>
-                        <span style="color: var(--text-secondary);">• Thesis broken</span>
+                        <span style="color: var(--text-secondary);">Thesis broken</span>
                     </div>
                 </div>
             </div>
 
-            <div style="height: 1px; background: var(--border-color); margin: 16px 0;"></div>
+            <div style="height: 1px; background: var(--border-color); margin: 18px 0;"></div>
 
             <!-- Section 2: Conviction Tiers -->
             <div>
-                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 10px;">
+                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 12px;">
                     Conviction Tiers
                 </div>
-                <div style="display: flex; flex-direction: column; gap: 7px; font-size: 0.76rem;">
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">High Conviction</span>
-                        <span style="color: var(--text-secondary);">Dominant moat &amp; fortress balance sheet</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">Solid Conviction</span>
-                        <span style="color: var(--text-secondary);">Recurring cash flow &amp; compounding runway</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">Moderate Conviction</span>
-                        <span style="color: var(--text-secondary);">Attractive upside with cyclical exposure</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">Cautious Stance</span>
-                        <span style="color: var(--text-secondary);">Navigating margin or temporary friction</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">Turnaround Play</span>
-                        <span style="color: var(--text-secondary);">Operational reset or debt reduction</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">Speculative Risk</span>
-                        <span style="color: var(--text-secondary);">High asymmetry with binary outcome</span>
-                    </div>
+                <div style="display: grid; grid-template-columns: 150px 1fr; row-gap: 8px; column-gap: 16px; font-size: 0.76rem; align-items: center;">
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">High Conviction</span>
+                    <span style="color: var(--text-secondary);">Dominant moat &amp; fortress balance sheet</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Solid Conviction</span>
+                    <span style="color: var(--text-secondary);">Recurring cash flow &amp; compounding runway</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Moderate Conviction</span>
+                    <span style="color: var(--text-secondary);">Attractive upside with cyclical exposure</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Cautious Stance</span>
+                    <span style="color: var(--text-secondary);">Navigating margin or temporary friction</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Turnaround Play</span>
+                    <span style="color: var(--text-secondary);">Operational reset or debt reduction</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Speculative Risk</span>
+                    <span style="color: var(--text-secondary);">High asymmetry with binary outcome</span>
                 </div>
             </div>
 
-            <div style="display: flex; justify-content: flex-end; margin-top: 18px;">
-                <button onclick="closeLabelsLegendModal()" style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 500; color: var(--text-title); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border-color); border-radius: 6px; padding: 5px 14px; cursor: pointer; transition: all 0.15s;">Dismiss</button>
+            <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
+                <button onclick="closeLabelsLegendModal()" style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 500; color: var(--text-title); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border-color); border-radius: 6px; padding: 6px 16px; cursor: pointer; transition: all 0.15s;">Dismiss</button>
             </div>
         </div>
     </div>

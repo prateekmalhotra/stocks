@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
@@ -20,10 +20,10 @@
             --bg-panel: #1B1A19;
             --bg-subpanel: #21201E;
             --bg-hover: #272624;
-            --text-title: #EFE9E0;
-            --text-body: #C4BCB0;
-            --text-secondary: #8C8477;
-            --text-dim: #5C554A;
+            --text-title: #F5EFEB;
+            --text-body: #D4CDC2;
+            --text-secondary: #968E82;
+            --text-dim: #6B6357;
             --accent-warm: #D4A373;
             --accent-warm-hover: #E2B689;
             --accent-warm-subtle: rgba(212, 163, 115, 0.12);
@@ -31,8 +31,9 @@
             --accent-red: #C97A72;
             --border-color: rgba(255, 255, 255, 0.055);
             --border-focus: rgba(212, 163, 115, 0.35);
-            --font-serif: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-serif: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
         }
 
@@ -62,10 +63,11 @@
                 var(--bg-canvas);
             color: var(--text-body);
             font-family: var(--font-sans);
-            font-size: 0.94rem;
-            line-height: 1.72;
-            letter-spacing: -0.010em;
+            font-size: 0.95rem;
+            line-height: 1.80;
+            letter-spacing: 0.005em;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
             padding-bottom: 120px;
         }
 
@@ -512,65 +514,67 @@
             border-bottom-color: var(--accent-warm) !important;
         }
         .memo-container h1, .memo-container h2 {
-            font-family: var(--font-sans) !important;
-            font-size: 1.45rem !important;
-            font-weight: 600 !important;
+            font-family: var(--font-display) !important;
+            font-size: 1.40rem !important;
+            font-weight: 700 !important;
             color: var(--text-title) !important;
-            margin: 40px 0 16px !important;
-            padding-bottom: 8px !important;
-            border-bottom: 1px solid var(--border-color) !important;
-            letter-spacing: -0.02em !important;
-            line-height: 1.3 !important;
+            margin: 48px 0 20px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+            letter-spacing: -0.025em !important;
+            line-height: 1.35 !important;
         }
         .memo-container h1:first-child, .memo-container h2:first-of-type { margin-top: 0 !important; }
         .memo-container h3 {
-            font-family: var(--font-sans) !important;
-            font-size: 1.15rem !important;
+            font-family: var(--font-display) !important;
+            font-size: 1.12rem !important;
             font-weight: 600 !important;
             color: var(--accent-warm) !important;
-            margin: 28px 0 12px !important;
+            margin: 36px 0 14px !important;
             letter-spacing: -0.015em !important;
-            line-height: 1.35 !important;
+            line-height: 1.45 !important;
         }
         .memo-container h4, .memo-container h5, .memo-container h6 {
             font-family: var(--font-sans) !important;
-            font-size: 0.82rem !important;
+            font-size: 0.84rem !important;
             font-weight: 600 !important;
             text-transform: uppercase !important;
             letter-spacing: 0.06em !important;
             color: var(--text-title) !important;
-            margin: 22px 0 8px !important;
+            margin: 26px 0 10px !important;
         }
         .memo-container p {
             font-family: var(--font-sans) !important;
-            font-size: 0.94rem !important;
-            line-height: 1.72 !important;
-            letter-spacing: -0.008em !important;
+            font-size: 0.95rem !important;
+            line-height: 1.82 !important;
+            letter-spacing: 0.005em !important;
             color: var(--text-body) !important;
-            margin-bottom: 18px !important;
+            margin-bottom: 22px !important;
+            font-weight: 400 !important;
         }
         .memo-container ul, .memo-container ol {
             font-family: var(--font-sans) !important;
-            font-size: 0.92rem !important;
-            line-height: 1.68 !important;
-            letter-spacing: -0.008em !important;
+            font-size: 0.94rem !important;
+            line-height: 1.78 !important;
+            letter-spacing: 0.005em !important;
             color: var(--text-body) !important;
-            margin: 14px 0 20px 20px !important;
+            margin: 16px 0 24px 20px !important;
             padding-left: 12px !important;
         }
         .memo-container ul { list-style-type: disc !important; }
         .memo-container ol { list-style-type: decimal !important; }
         .memo-container li {
-            margin-bottom: 8px !important;
+            margin-bottom: 10px !important;
             color: var(--text-body) !important;
-            line-height: 1.68 !important;
+            line-height: 1.78 !important;
         }
         .memo-container li::marker {
             color: var(--accent-warm) !important;
         }
         .memo-container strong, .memo-container b {
-            color: var(--text-title) !important;
+            color: #FFFFFF !important;
             font-weight: 600 !important;
+            letter-spacing: 0 !important;
         }
 
         /* STUNNING CONSISTENT TABLES - SOOTHING WARM TONES & ZERO OVERFLOW */
@@ -1748,9 +1752,7 @@
 <div class="metric-delta neg">Thesis Review Trigger</div>
 </div>
 </div>
-<ul><li><strong>Failure Mode 1: AI Compute Depreciation Trap &amp; Hyper-Obsolescence:</strong> If the economic useful life of custom TPU v5e/v6 and GPU servers compresses from 4–5 years down to 2–3 years due to rapid silicon architecture shifts, Alphabet's depreciation expenses will surge, destroying operating margins. CapEx would become permanent maintenance spending rather than return-generating growth spending.
-  <strong>Failure Mode 2: Search Unit Economics Destruction via Generative AI Summaries:</strong> Generative AI Search queries carry 3x–5x higher compute/inference costs than traditional algorithmic search indexing. If cost-per-query reductions slow down and Traffic Acquisition Costs (TAC) rise due to distribution shifts (e.g. Apple Siri default integration losses or DOJ remedies), core advertising gross margins will collapse.
-  <strong>Failure Mode 3: Capital Misallocation &amp; Shareholder Dilution:</strong> If management continues expanding CapEx beyond $200B while issuing new equity/debt and reducing share repurchase volume, per-share Owner Earnings compounding will stall, transforming Alphabet into a capital-heavy low-ROIC utility.</li></ul>
+<ul><li><strong>Failure Mode 1: AI Compute Depreciation Trap &amp; Hyper-Obsolescence:</strong> If the economic useful life of custom TPU v5e/v6 and GPU servers compresses from 4–5 years down to 2–3 years due to rapid silicon architecture shifts, Alphabet's depreciation expenses will surge, destroying operating margins. CapEx would become permanent maintenance spending rather than return-generating growth spending.<p><strong>Failure Mode 2: Search Unit Economics Destruction via Generative AI Summaries:</strong> Generative AI Search queries carry 3x–5x higher compute/inference costs than traditional algorithmic search indexing. If cost-per-query reductions slow down and Traffic Acquisition Costs (TAC) rise due to distribution shifts (e.g. Apple Siri default integration losses or DOJ remedies), core advertising gross margins will collapse.</p><p><strong>Failure Mode 3: Capital Misallocation &amp; Shareholder Dilution:</strong> If management continues expanding CapEx beyond $200B while issuing new equity/debt and reducing share repurchase volume, per-share Owner Earnings compounding will stall, transforming Alphabet into a capital-heavy low-ROIC utility.</p></li></ul>
 <h3>2. Falsification Triggers &amp; Thresholds</h3>
 <p>The thesis is explicitly invalidated if any two of the following operational or financial thresholds are breached over a trailing 12-month period:</p>
 <div class="table-scroll-wrap"><table>
@@ -1797,8 +1799,7 @@
 </table></div>
 <h3>3. Insider Trading Audit (OpenInsider SEC Form 4 Analysis)</h3>
 <p>An audit of recent Form 4 filings via OpenInsider reveals systematic insider selling by key C-suite executives:</p>
-<ul><li><strong>CEO Sundar Pichai:</strong> Executed recurring pre-planned Rule 10b5-1 sales totaling over $40 million in early 2026 (including 32,500 shares at ~$303.38 on March 4, 2026, and 32,500 shares at ~$335.18 on Feb 4, 2026).</li><li><strong>CLO &amp; President John Kent Walker:</strong> Sold 47,574 shares at $301.46 ($14.3M) on Feb 17, 2026, and 8,993 shares at $275.89 on March 27, 2026.
-  <strong>CAO Amie Thuener O'Toole &amp; Director Frances Arnold:</strong> Executed systematic 10b5-1 monthly sales across Q1 and Q2 2026.</li></ul>
+<ul><li><strong>CEO Sundar Pichai:</strong> Executed recurring pre-planned Rule 10b5-1 sales totaling over $40 million in early 2026 (including 32,500 shares at ~$303.38 on March 4, 2026, and 32,500 shares at ~$335.18 on Feb 4, 2026).</li><li><strong>CLO &amp; President John Kent Walker:</strong> Sold 47,574 shares at $301.46 ($14.3M) on Feb 17, 2026, and 8,993 shares at $275.89 on March 27, 2026.<p><strong>CAO Amie Thuener O'Toole &amp; Director Frances Arnold:</strong> Executed systematic 10b5-1 monthly sales across Q1 and Q2 2026.</p></li></ul>
 <div class="callout">
 <strong>Insider Audit Takeaway:</strong> 100% of executive selling over the past 12 months was executed under pre-scheduled Rule 10b5-1 trading plans adopted in mid-2025. Notably, there have been zero open-market executive insider purchases. While not indicative of immediate panic, executive lack of open-market buying confirms that leadership views current market pricing as fully reflective of near-term fundamental value given the ongoing CapEx ramp.
 </div>
@@ -3316,79 +3317,72 @@
     
     <!-- Labels & Taxonomy Legend Modal -->
     <div id="labels-legend-modal" class="modal-shade" onclick="closeLegendModalOutside(event)">
-        <div class="modal-body-card" style="max-width: 520px; padding: 26px 28px; background: rgba(22, 21, 20, 0.98); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 14px; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7); font-family: var(--font-sans);">
+        <div class="modal-body-card" style="max-width: 540px; padding: 26px 28px; background: rgba(22, 21, 20, 0.98); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 14px; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7); font-family: var(--font-sans);">
             <button class="modal-x" onclick="closeLabelsLegendModal()" style="top: 20px; right: 20px; color: var(--text-dim); font-size: 1.1rem; cursor: pointer;">✕</button>
             
-            <div style="font-family: var(--font-sans); font-size: 1.12rem; font-weight: 600; color: var(--text-title); margin-bottom: 20px; letter-spacing: -0.02em;">
+            <div style="font-family: var(--font-sans); font-size: 1.15rem; font-weight: 600; color: var(--text-title); margin-bottom: 20px; letter-spacing: -0.02em;">
                 Taxonomy &amp; Signals
             </div>
 
             <!-- Section 1: Live Action Signals -->
             <div style="margin-bottom: 18px;">
-                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 10px;">
+                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 12px;">
                     Surveillance Signals
                 </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px;">
-                    <div style="display: flex; align-items: center; gap: 7px; font-size: 0.76rem;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px;">
+                    <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
                         <span class="status-beacon beacon-buy"><span class="beacon-dot"></span></span>
                         <strong style="color: var(--accent-green);">BUY</strong>
-                        <span style="color: var(--text-secondary);">• Deep value zone</span>
+                        <span style="color: var(--text-secondary);">Deep value zone</span>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 7px; font-size: 0.76rem;">
+                    <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
                         <span class="status-beacon beacon-hold"><span class="beacon-dot"></span></span>
                         <strong style="color: var(--accent-warm);">HOLD</strong>
-                        <span style="color: var(--text-secondary);">• Core thesis intact</span>
+                        <span style="color: var(--text-secondary);">Core thesis intact</span>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 7px; font-size: 0.76rem;">
+                    <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
                         <span class="status-beacon beacon-caution"><span class="beacon-dot"></span></span>
                         <strong style="color: #D48858;">CAUTION</strong>
-                        <span style="color: var(--text-secondary);">• Execution trim zone</span>
+                        <span style="color: var(--text-secondary);">Execution trim zone</span>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 7px; font-size: 0.76rem;">
+                    <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
                         <span class="status-beacon beacon-avoid"><span class="beacon-dot"></span></span>
                         <strong style="color: var(--accent-red);">AVOID</strong>
-                        <span style="color: var(--text-secondary);">• Thesis broken</span>
+                        <span style="color: var(--text-secondary);">Thesis broken</span>
                     </div>
                 </div>
             </div>
 
-            <div style="height: 1px; background: var(--border-color); margin: 16px 0;"></div>
+            <div style="height: 1px; background: var(--border-color); margin: 18px 0;"></div>
 
             <!-- Section 2: Conviction Tiers -->
             <div>
-                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 10px;">
+                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 12px;">
                     Conviction Tiers
                 </div>
-                <div style="display: flex; flex-direction: column; gap: 7px; font-size: 0.76rem;">
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">High Conviction</span>
-                        <span style="color: var(--text-secondary);">Dominant moat &amp; fortress balance sheet</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">Solid Conviction</span>
-                        <span style="color: var(--text-secondary);">Recurring cash flow &amp; compounding runway</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">Moderate Conviction</span>
-                        <span style="color: var(--text-secondary);">Attractive upside with cyclical exposure</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">Cautious Stance</span>
-                        <span style="color: var(--text-secondary);">Navigating margin or temporary friction</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">Turnaround Play</span>
-                        <span style="color: var(--text-secondary);">Operational reset or debt reduction</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">Speculative Risk</span>
-                        <span style="color: var(--text-secondary);">High asymmetry with binary outcome</span>
-                    </div>
+                <div style="display: grid; grid-template-columns: 150px 1fr; row-gap: 8px; column-gap: 16px; font-size: 0.76rem; align-items: center;">
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">High Conviction</span>
+                    <span style="color: var(--text-secondary);">Dominant moat &amp; fortress balance sheet</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Solid Conviction</span>
+                    <span style="color: var(--text-secondary);">Recurring cash flow &amp; compounding runway</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Moderate Conviction</span>
+                    <span style="color: var(--text-secondary);">Attractive upside with cyclical exposure</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Cautious Stance</span>
+                    <span style="color: var(--text-secondary);">Navigating margin or temporary friction</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Turnaround Play</span>
+                    <span style="color: var(--text-secondary);">Operational reset or debt reduction</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Speculative Risk</span>
+                    <span style="color: var(--text-secondary);">High asymmetry with binary outcome</span>
                 </div>
             </div>
 
-            <div style="display: flex; justify-content: flex-end; margin-top: 18px;">
-                <button onclick="closeLabelsLegendModal()" style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 500; color: var(--text-title); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border-color); border-radius: 6px; padding: 5px 14px; cursor: pointer; transition: all 0.15s;">Dismiss</button>
+            <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
+                <button onclick="closeLabelsLegendModal()" style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 500; color: var(--text-title); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border-color); border-radius: 6px; padding: 6px 16px; cursor: pointer; transition: all 0.15s;">Dismiss</button>
             </div>
         </div>
     </div>
