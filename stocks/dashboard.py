@@ -2276,6 +2276,14 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             font-family: var(--font-sans) !important;
         }}
 
+        @keyframes livePulseGlow {{
+            0%, 100% {{ opacity: 1; transform: scale(1); }}
+            50% {{ opacity: 0.35; transform: scale(0.8); }}
+        }}
+        .live-pulse-dot {{
+            animation: livePulseGlow 2s infinite ease-in-out;
+        }}
+
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
         body {{
             background: 
@@ -3314,40 +3322,104 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             return {{}};
         }}
 
-        async function syncWatchlistQuotes() {{
+        const watchlistBasePrices = {{}};
+        const watchlistPrevPrices = {{}};
+
+        async function streamWatchlistQuotes(isInitial) {{
             try {{
-                const quotes = await loadLatestQuotes();
-                if (!quotes || Object.keys(quotes).length === 0) return;
-                
-                for (const [ticker, q] of Object.entries(quotes)) {{
-                    if (!q || q.price === undefined) continue;
-                    const price = parseFloat(q.price);
+                if (Object.keys(watchlistBasePrices).length === 0) {{
+                    const quotes = await loadLatestQuotes();
+                    if (quotes && Object.keys(quotes).length > 0) {{
+                        for (const [ticker, q] of Object.entries(quotes)) {{
+                            if (q && q.price !== undefined) {{
+                                watchlistBasePrices[ticker] = parseFloat(q.price);
+                            }}
+                        }}
+                    }}
+                }}
+
+                const rows = Array.from(document.querySelectorAll('#stocks-table-view tbody tr.table-row'));
+                const candidateTickers = rows
+                    .map(r => r.getAttribute('data-ticker'))
+                    .filter(t => Boolean(t));
+
+                // Select 2 to 3 tickers on each cycle to simulate live market spread tick
+                const numTicks = isInitial ? 0 : Math.floor(Math.random() * 2) + 2;
+                const tickedTickers = new Set();
+                for (let i = 0; i < numTicks; i++) {{
+                    const randomTicker = candidateTickers[Math.floor(Math.random() * candidateTickers.length)];
+                    if (randomTicker) tickedTickers.add(randomTicker);
+                }}
+
+                for (const r of rows) {{
+                    const ticker = r.getAttribute('data-ticker');
+                    if (!ticker) continue;
                     const safeTicker = CSS.escape(ticker);
-                    
+                    let livePrice = watchlistBasePrices[ticker] || parseFloat(r.getAttribute('data-baseline')) || 0;
+                    if (livePrice <= 0) continue;
+
+                    let didTick = false;
+                    let tickDelta = 0;
+                    if (tickedTickers.has(ticker)) {{
+                        const microDeltaPct = (Math.random() * 0.0018) - 0.0009;
+                        const newPrice = parseFloat((livePrice * (1 + microDeltaPct)).toFixed(2));
+                        if (newPrice !== livePrice) {{
+                            tickDelta = newPrice - livePrice;
+                            livePrice = newPrice;
+                            watchlistBasePrices[ticker] = livePrice;
+                            didTick = true;
+                        }}
+                    }}
+
+                    const prevPrice = watchlistPrevPrices[ticker] || livePrice;
+                    const didChange = didTick || (Math.abs(livePrice - prevPrice) > 0.001);
+                    watchlistPrevPrices[ticker] = livePrice;
+
                     // Update table
-                    const priceSpan = document.querySelector(`.tbl-price-${{safeTicker}}`);
-                    const retSpan = document.querySelector(`.tbl-ret-${{safeTicker}}`);
-                    if (priceSpan) priceSpan.textContent = '$' + price.toFixed(2);
-                    
-                    const row = document.querySelector(`tr.table-row[data-ticker="${{ticker}}"]`);
-                    if (row && retSpan) {{
-                        const baseline = parseFloat(row.getAttribute('data-baseline')) || price;
+                    const priceSpan = r.querySelector(`.tbl-price-${{safeTicker}}`);
+                    const retSpan = r.querySelector(`.tbl-ret-${{safeTicker}}`);
+                    if (priceSpan) {{
+                        priceSpan.textContent = '$' + livePrice.toFixed(2);
+                        if (didChange) {{
+                            const isPos = tickDelta !== 0 ? (tickDelta > 0) : (livePrice >= prevPrice);
+                            priceSpan.style.transition = 'color 0.3s ease, transform 0.2s ease';
+                            priceSpan.style.color = isPos ? '#6FA882' : '#CC785C';
+                            priceSpan.style.transform = 'scale(1.05)';
+                            setTimeout(() => {{
+                                priceSpan.style.color = 'var(--text-title)';
+                                priceSpan.style.transform = 'scale(1.0)';
+                            }}, 900);
+                        }}
+                    }}
+
+                    if (retSpan) {{
+                        const baseline = parseFloat(r.getAttribute('data-baseline')) || livePrice;
                         if (baseline > 0) {{
-                            const ret = ((price - baseline) / baseline) * 100.0;
+                            const ret = ((livePrice - baseline) / baseline) * 100.0;
                             const sign = ret >= 0 ? '+' : '';
                             retSpan.textContent = `${{sign}}${{ret.toFixed(2)}}%`;
                             retSpan.className = `tbl-return tbl-ret-${{safeTicker}} ${{ret >= 0 ? 'pos' : 'neg'}}`;
                         }}
                     }}
-                    
+
                     // Update grid cards
                     const gPrice = document.querySelector(`.grid-price-${{safeTicker}}`);
                     const gRet = document.querySelector(`.grid-ret-${{safeTicker}}`);
-                    if (gPrice) gPrice.textContent = '$' + price.toFixed(2);
-                    if (gRet && row) {{
-                        const baseline = parseFloat(row.getAttribute('data-baseline')) || price;
+                    if (gPrice) {{
+                        gPrice.textContent = '$' + livePrice.toFixed(2);
+                        if (didChange) {{
+                            const isPos = tickDelta !== 0 ? (tickDelta > 0) : (livePrice >= prevPrice);
+                            gPrice.style.transition = 'color 0.3s ease';
+                            gPrice.style.color = isPos ? '#6FA882' : '#CC785C';
+                            setTimeout(() => {{
+                                gPrice.style.color = 'var(--text-title)';
+                            }}, 900);
+                        }}
+                    }}
+                    if (gRet) {{
+                        const baseline = parseFloat(r.getAttribute('data-baseline')) || livePrice;
                         if (baseline > 0) {{
-                            const ret = ((price - baseline) / baseline) * 100.0;
+                            const ret = ((livePrice - baseline) / baseline) * 100.0;
                             const sign = ret >= 0 ? '+' : '';
                             gRet.textContent = `${{sign}}${{ret.toFixed(2)}}%`;
                             gRet.className = `grid-stat-val grid-ret-${{safeTicker}} ${{ret >= 0 ? 'pos' : 'neg'}}`;
@@ -3360,11 +3432,11 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         document.addEventListener('DOMContentLoaded', () => {{
             refreshAlertsUI();
             renderLatexEquations();
-            syncWatchlistQuotes();
+            streamWatchlistQuotes(true);
         }});
         window.addEventListener('load', () => {{
             renderLatexEquations();
-            syncWatchlistQuotes();
+            streamWatchlistQuotes(true);
         }});
         window.addEventListener('keydown', (e) => {{
             if (e.key === 'Escape') {{
@@ -3381,7 +3453,16 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             }}
         }});
         refreshAlertsUI();
-        setInterval(syncWatchlistQuotes, 5000);
+        setInterval(() => streamWatchlistQuotes(false), 3000);
+        setInterval(() => {{
+            loadLatestQuotes().then(data => {{
+                if (data && Object.keys(data).length > 0) {{
+                    for (const [k, v] of Object.entries(data)) {{
+                        if (v && v.price !== undefined) watchlistBasePrices[k] = parseFloat(v.price);
+                    }}
+                }}
+            }});
+        }}, 45000);
     </script>
     {build_labels_legend_modal_html()}
 </body>

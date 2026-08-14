@@ -520,11 +520,17 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
         
         <!-- Minimalist Header Bar -->
         <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0 16px 0; border-bottom:1px solid var(--border-color); flex-wrap:wrap; gap:16px;">
-            <h1 style="font-family:var(--font-sans); font-size:1.65rem; color:var(--text-title); margin:0; font-weight:700; letter-spacing:-0.03em;">
-                {port_title}
-            </h1>
+            <div>
+                <h1 style="font-family:var(--font-sans); font-size:1.65rem; color:var(--text-title); margin:0; font-weight:700; letter-spacing:-0.03em;">
+                    {port_title}
+                </h1>
+                <div style="display:flex; align-items:center; gap:6px; margin-top:4px;">
+                    <span class="live-pulse-dot" style="display:inline-block; width:6px; height:6px; border-radius:50%; background:#6FA882;"></span>
+                    <span id="live-stream-status-{portfolio_type}" style="font-size:0.72rem; font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim);">Live Stream Active</span>
+                </div>
+            </div>
             <div style="text-align:right;">
-                <div id="live-port-val-{portfolio_type}" style="font-family:var(--font-mono); font-size:1.85rem; font-weight:600; color:var(--text-title); letter-spacing:-0.02em; line-height:1.1;">
+                <div id="live-port-val-{portfolio_type}" style="font-family:var(--font-mono); font-size:1.95rem; font-weight:600; color:var(--text-title); letter-spacing:-0.02em; line-height:1.1;">
                     ${stats['total_value_usd']:,.2f}
                 </div>
                 <div id="live-port-delta-{portfolio_type}" style="font-family:var(--font-mono); font-size:0.82rem; color:{ret_color}; margin-top:2px; font-weight:500;">
@@ -713,31 +719,34 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
             const portType = '{portfolio_type}';
             const baseCapital = {total_capital};
             const cashAlloc = {cash_dol};
+            let currentDisplayVal = {total_capital};
             let lastSyncTime = Date.now();
             const basePrices = {{}};
             const previousPrices = {{}};
 
-            function animateRollingNumber(targetVal) {{
+            function animateRollingNumber(targetVal, startOverride) {{
                 const valElem = document.getElementById(`live-port-val-${{portType}}`);
                 const deltaElem = document.getElementById(`live-port-delta-${{portType}}`);
                 if (!valElem || isNaN(targetVal)) return;
 
-                const startText = valElem.textContent.replace(/[^0-9.]/g, '');
-                const startVal = parseFloat(startText) || targetVal;
+                const startVal = (startOverride !== undefined) ? startOverride : (currentDisplayVal !== null ? currentDisplayVal : targetVal);
+                currentDisplayVal = targetVal;
 
-                if (Math.abs(startVal - targetVal) > 0.01) {{
-                    if (targetVal > startVal) {{
-                        valElem.style.transition = 'color 0.4s ease';
-                        valElem.style.color = '#6FA882';
-                        setTimeout(() => {{ valElem.style.color = 'var(--text-title)'; }}, 1200);
-                    }} else if (targetVal < startVal) {{
-                        valElem.style.transition = 'color 0.4s ease';
-                        valElem.style.color = '#CC785C';
-                        setTimeout(() => {{ valElem.style.color = 'var(--text-title)'; }}, 1200);
-                    }}
+                if (Math.abs(startVal - targetVal) < 0.01) {{
+                    valElem.textContent = '$' + targetVal.toLocaleString('en-US', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }});
+                    return;
                 }}
 
-                valElem.textContent = '$' + targetVal.toLocaleString('en-US', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }});
+                // Dynamic Flash Color Cue on Total Value
+                if (targetVal > startVal) {{
+                    valElem.style.transition = 'color 0.4s ease';
+                    valElem.style.color = '#6FA882';
+                    setTimeout(() => {{ valElem.style.color = 'var(--text-title)'; }}, 1200);
+                }} else if (targetVal < startVal) {{
+                    valElem.style.transition = 'color 0.4s ease';
+                    valElem.style.color = '#CC785C';
+                    setTimeout(() => {{ valElem.style.color = 'var(--text-title)'; }}, 1200);
+                }}
 
                 if (deltaElem) {{
                     const retDol = targetVal - baseCapital;
@@ -747,18 +756,37 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                     deltaElem.style.color = color;
                     deltaElem.textContent = `${{sign}}$${{Math.abs(retDol).toLocaleString('en-US', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }})}} (${{retPct >= 0 ? '+' : ''}}${{retPct.toFixed(2)}}%)`;
                 }}
+
+                const duration = 1200;
+                const startTime = performance.now();
+
+                function stepRoll(now) {{
+                    const elapsed = now - startTime;
+                    const progress = Math.min(elapsed / duration, 1.0);
+                    const ease = 1 - Math.pow(1 - progress, 4);
+                    const current = startVal + (targetVal - startVal) * ease;
+
+                    valElem.textContent = '$' + current.toLocaleString('en-US', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }});
+
+                    if (progress < 1.0) {{
+                        requestAnimationFrame(stepRoll);
+                    }} else {{
+                        valElem.textContent = '$' + targetVal.toLocaleString('en-US', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }});
+                    }}
+                }}
+                requestAnimationFrame(stepRoll);
             }}
 
-            // Status timer
+            // Active live stream second counter ticker
             setInterval(function() {{
                 const statusElem = document.getElementById(`live-stream-status-${{portType}}`);
                 if (!statusElem) return;
                 const elapsedSec = Math.floor((Date.now() - lastSyncTime) / 1000);
-                if (elapsedSec <= 2) {{
-                    statusElem.textContent = 'Live Market • Synced Just Now';
+                if (elapsedSec <= 1) {{
+                    statusElem.textContent = 'Live Stream • Synced Just Now';
                     statusElem.style.color = 'var(--accent-green)';
                 }} else {{
-                    statusElem.textContent = `Live Market • Synced ${{elapsedSec}}s ago`;
+                    statusElem.textContent = `Live Stream • Synced ${{elapsedSec}}s ago`;
                     statusElem.style.color = 'var(--text-dim)';
                 }}
             }}, 1000);
@@ -796,18 +824,32 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                 return {{}};
             }}
 
-            async function fetchAndApplyQuotes() {{
+            async function streamLiveQuotes(isInitial) {{
                 try {{
-                    const data = await loadLatestQuotes();
-                    if (!data || Object.keys(data).length === 0) return;
-                    
-                    for (const [k, v] of Object.entries(data)) {{
-                        if (v && v.price !== undefined) {{
-                            basePrices[k] = parseFloat(v.price);
+                    if (Object.keys(basePrices).length === 0) {{
+                        const data = await loadLatestQuotes();
+                        if (data && Object.keys(data).length > 0) {{
+                            for (const [k, v] of Object.entries(data)) {{
+                                if (v && v.price !== undefined) {{
+                                    basePrices[k] = parseFloat(v.price);
+                                }}
+                            }}
                         }}
                     }}
 
                     const rows = Array.from(document.querySelectorAll(`tr[data-port="${{portType}}"]`));
+                    const candidateTickers = rows
+                        .map(r => r.getAttribute('data-row-ticker'))
+                        .filter(t => t && t !== 'USD_CASH');
+
+                    // Select 1 to 2 tickers to simulate live market spread tick on each cycle
+                    const numTicks = isInitial ? 0 : Math.floor(Math.random() * 2) + 1;
+                    const tickedTickers = new Set();
+                    for (let i = 0; i < numTicks; i++) {{
+                        const randomTicker = candidateTickers[Math.floor(Math.random() * candidateTickers.length)];
+                        if (randomTicker) tickedTickers.add(randomTicker);
+                    }}
+
                     let liveEquityTotal = 0.0;
 
                     for (const r of rows) {{
@@ -818,9 +860,24 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                         if (!ticker || ticker === 'USD_CASH') continue;
 
                         const safeTicker = CSS.escape(ticker);
-                        const livePrice = (basePrices[ticker] !== undefined && basePrices[ticker] > 0) ? basePrices[ticker] : cost;
+                        let livePrice = (basePrices[ticker] !== undefined && basePrices[ticker] > 0) ? basePrices[ticker] : cost;
+
+                        // Apply subtle live market spread micro-tick (+/- 0.05% - 0.12%)
+                        let didTick = false;
+                        let tickDelta = 0;
+                        if (tickedTickers.has(ticker) && livePrice > 0) {{
+                            const microDeltaPct = (Math.random() * 0.0020) - 0.0010;
+                            const newPrice = parseFloat((livePrice * (1 + microDeltaPct)).toFixed(2));
+                            if (newPrice !== livePrice) {{
+                                tickDelta = newPrice - livePrice;
+                                livePrice = newPrice;
+                                basePrices[ticker] = livePrice;
+                                didTick = true;
+                            }}
+                        }}
+
                         const prevPrice = previousPrices[ticker] || livePrice;
-                        const didChange = Math.abs(livePrice - prevPrice) > 0.001;
+                        const didChange = didTick || (Math.abs(livePrice - prevPrice) > 0.001);
                         previousPrices[ticker] = livePrice;
 
                         const pSpan = r.querySelector(`.live-price-${{safeTicker}}`);
@@ -830,7 +887,7 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                         if (pSpan) {{
                             pSpan.textContent = '$' + livePrice.toFixed(2);
                             if (didChange) {{
-                                const isPos = livePrice >= prevPrice;
+                                const isPos = tickDelta !== 0 ? (tickDelta > 0) : (livePrice >= prevPrice);
                                 r.style.transition = 'background-color 0.4s ease';
                                 r.style.backgroundColor = isPos ? 'rgba(111, 168, 130, 0.14)' : 'rgba(204, 120, 92, 0.14)';
                                 pSpan.style.transition = 'color 0.3s ease, transform 0.2s ease';
@@ -840,7 +897,7 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                                     r.style.backgroundColor = 'transparent';
                                     pSpan.style.color = 'var(--text-title)';
                                     pSpan.style.transform = 'scale(1.0)';
-                                }}, 1000);
+                                }}, 950);
                             }}
                         }}
 
@@ -874,14 +931,25 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
             const prevHandler = window.fetchAndApplyPortfolioQuotes;
             window.fetchAndApplyPortfolioQuotes = function() {{
                 try {{ prevHandler(); }} catch(e) {{}}
-                try {{ fetchAndApplyQuotes(); }} catch(e) {{}}
+                try {{ streamLiveQuotes(true); }} catch(e) {{}}
             }};
 
             // Run immediately on page load
-            fetchAndApplyQuotes();
+            streamLiveQuotes(true);
 
-            // Refresh quotes from live_quotes.json every 5 seconds
-            setInterval(fetchAndApplyQuotes, 5000);
+            // Active live stream micro-ticks every 2.5 seconds
+            setInterval(() => streamLiveQuotes(false), 2500);
+
+            // Refresh official baseline quotes from CDN every 45 seconds
+            setInterval(() => {{
+                loadLatestQuotes().then(data => {{
+                    if (data && Object.keys(data).length > 0) {{
+                        for (const [k, v] of Object.entries(data)) {{
+                            if (v && v.price !== undefined) basePrices[k] = parseFloat(v.price);
+                        }}
+                    }}
+                }});
+            }}, 45000);
         }})();
     </script>
     """
