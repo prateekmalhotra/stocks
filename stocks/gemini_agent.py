@@ -833,7 +833,8 @@ Part 1: JSON metadata in ```json ... ```:
 }}
 
 Part 2: COMPLETE Living HTML Memo (All 6 Sections Updated):
-You MUST provide the full, comprehensive HTML memo updating all 6 sections with the new quarter's data, revenue, margins, cash flow, and revised DCF table:
+[MANDATORY LENGTH & ANALYTICAL DEPTH DIRECTIVE]:
+You MUST provide the full, comprehensive HTML memo updating all 6 sections with the new quarter's data, revenue, margins, cash flow, and revised DCF table. The complete dossier MUST be exhaustive and exceed 2,000 words of institutional rigor with complete data tables and LaTeX formulas. NEVER output brief outlines or abbreviated sections.
 <div class="section"><h2>Section 1: Business Model, Scale Moat & GenAI Transition</h2>...</div>
 <div class="section"><h2>Section 2: Quarterly Operational Breakdown & Segment Performance</h2>...</div>
 <div class="section"><h2>Section 3: Real Cash Flow & Stock-Based Compensation (SBC) Audit</h2>...</div>
