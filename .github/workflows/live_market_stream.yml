@@ -1,8 +1,8 @@
 name: Real-Time Market Quotes & Portfolio Stream
 on:
   schedule:
-    # Every 15 minutes during US Market Hours (13:30 to 20:30 UTC / 9:30 AM to 4:30 PM EST, Mon-Fri)
-    - cron: '*/15 13-20 * * 1-5'
+    # Every 15 minutes during US Market Hours (13:00 to 21:00 UTC / 9:00 AM to 5:00 PM EST, Mon-Fri)
+    - cron: '*/15 13-21 * * 1-5'
   workflow_dispatch:
 
 permissions:
