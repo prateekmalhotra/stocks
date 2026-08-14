@@ -165,14 +165,14 @@ def format_top_funds_card_html(stock: WatchlistStock) -> str:
     return f"""
     <div class="metric-cell">
         <div class="metric-label">Float</div>
-        <div class="metric-value">{inst_pct}</div>
+        <div class="metric-value" style="white-space: nowrap !important;">{inst_pct}</div>
         {f'<div class="metric-subtext">{subtext}</div>' if subtext else ''}
     </div>
     """
 
 
 def format_insider_activity_card_html(stock: WatchlistStock) -> str:
-    """Renders a clean, minimalist insider card."""
+    """Renders a clean, minimalist insider card on a single sleek line."""
     cached = load_cached_ownership(stock.ticker)
     oi_trades = cached.get("openinsider_trades", [])
     raw_signal = getattr(stock, "insider_signal", None) or ""
@@ -181,7 +181,7 @@ def format_insider_activity_card_html(stock: WatchlistStock) -> str:
     return f"""
     <div class="metric-cell">
         <div class="metric-label">Insiders</div>
-        <div class="metric-value" style="color: {intel['color']};">{intel['badge_html']}</div>
+        <div class="metric-value" style="color: {intel['color']}; font-family: var(--font-sans) !important; font-size: 1.05rem !important; font-weight: 600 !important; white-space: nowrap !important; letter-spacing: -0.01em !important; overflow: hidden !important; text-overflow: ellipsis !important;">{intel['badge_html']}</div>
         <div class="metric-subtext">{summary}</div>
     </div>
     """
@@ -1071,7 +1071,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             box-sizing: border-box;
         }}
         .metric-label {{ font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); letter-spacing: 0.05em; margin-bottom: 3px; }}
-        .metric-value {{ font-size: 1.15rem; font-weight: 500; color: var(--text-title); font-family: var(--font-mono); }}
+        .metric-value {{ font-size: 1.15rem; font-weight: 500; color: var(--text-title); font-family: var(--font-mono); white-space: nowrap; }}
         .metric-subtext {{ font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-sans); margin-top: 4px; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
 
         /* Tabs */
@@ -1606,13 +1606,14 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             margin-bottom: 6px !important;
         }}
         .metric-value, .stat-value, .kpi-value {{
-            font-family: var(--font-mono) !important;
-            font-size: 1.4rem !important;
-            font-weight: 600 !important;
-            color: var(--text-title) !important;
-            letter-spacing: -0.02em !important;
-            line-height: 1.2 !important;
-            margin-bottom: 4px !important;
+            font-family: var(--font-mono);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-title);
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 4px;
+            white-space: nowrap;
         }}
         .metric-delta, .metric-sub, .stat-sub, .kpi-sub {{
             font-family: var(--font-mono) !important;
