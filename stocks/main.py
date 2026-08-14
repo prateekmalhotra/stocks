@@ -70,6 +70,32 @@ def cmd_run():
     print(f"🏁 [SURVEILLANCE CYCLE COMPLETE] {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
 
+def cmd_review(tickers: List[str], reason: str = "Manual On-Demand Review"):
+    """Enqueues and processes an on-demand thesis review for one or more stocks."""
+    parsed_tickers = []
+    for raw_arg in tickers:
+        for item in re.split(r"[,;\s]+", raw_arg):
+            clean = item.upper().strip()
+            if clean and clean not in parsed_tickers:
+                parsed_tickers.append(clean)
+
+    for ticker in parsed_tickers:
+        task = TaskItem(
+            id=f"review_{ticker}_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
+            task_type="REVIEW",
+            ticker=ticker,
+            notes=reason,
+            created_at=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        )
+        enqueue_task(task)
+        print(f"📥 [ENQUEUED] On-Demand Thesis Review for {ticker}: {reason}")
+
+    if parsed_tickers:
+        print(f"\n⚡ Processing review task(s)...")
+        process_all_pending_tasks()
+        render_all()
+
+
 def cmd_list():
     """Prints active watchlist and triggers in terminal."""
     watchlist = load_watchlist()
@@ -97,6 +123,11 @@ def main():
     p_add.add_argument("--notes", default="", help="Optional context or user notes for the LLM")
     p_add.add_argument("--force", action="store_true", help="Force re-analysis even if thesis exists")
 
+    # review (on-demand review for earnings / SEC filings)
+    p_rev = subparsers.add_parser("review", help="Trigger an immediate on-demand thesis review for one or more stocks")
+    p_rev.add_argument("tickers", nargs="+", help="One or more stock tickers (e.g. JD STNE)")
+    p_rev.add_argument("--reason", default="Manual On-Demand Review", help="Trigger reason / context for the review")
+
     # check
     subparsers.add_parser("check", help="Check watchlist against alert triggers")
 
@@ -116,6 +147,8 @@ def main():
 
     if args.command == "add":
         cmd_add(args.tickers, args.notes, force=args.force)
+    elif args.command == "review":
+        cmd_review(args.tickers, reason=args.reason)
     elif args.command == "check":
         cmd_check()
     elif args.command == "process":
