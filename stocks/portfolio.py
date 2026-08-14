@@ -12,7 +12,7 @@ Zero overlap across equity holdings. Rooted in first-principles Buffett & Munger
 
 import json
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, List, Any, Optional
 from stocks.weekly_surveillance import get_surveillance_summary
 
@@ -81,7 +81,7 @@ def sync_live_market_data() -> Dict[str, Any]:
             pass
             
     live_quotes = {}
-    timestamp_str = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
+    timestamp_str = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
     
     for ticker, item in watchlist.items():
         try:

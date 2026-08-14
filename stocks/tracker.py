@@ -2,7 +2,7 @@
 
 import requests
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Tuple, Dict, Any, List, Optional
 import yfinance as yf
 from stocks.models import WatchlistStock, TaskItem
@@ -211,7 +211,7 @@ def check_watchlist_triggers() -> int:
         # Catalyst Date Trigger: Ensure earnings/catalyst reviews execute once the date has arrived/passed.
         # If it is today, execute post-market close (>= 21:00 UTC / 5:00 PM EST) so that after-hours earnings
         # releases and earnings call transcripts are fully published.
-        current_utc_hour = datetime.utcnow().hour
+        current_utc_hour = datetime.now(timezone.utc).hour
         is_post_market = (current_utc_hour >= 21 or current_utc_hour < 12)
         
         cat_date_clean = (stock.next_catalyst_date or "").strip().lower()
