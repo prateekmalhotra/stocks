@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
@@ -34,8 +34,8 @@
             --accent-red: #C97A72;
             --border-color: rgba(255, 255, 255, 0.055);
             --border-focus: rgba(212, 163, 115, 0.35);
-            --font-serif: 'Newsreader', Garamond, Georgia, serif;
-            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-serif: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
         }
 
@@ -55,7 +55,7 @@
         }
         .katex .mord.text {
             color: var(--text-body) !important;
-            font-family: var(--font-serif) !important;
+            font-family: var(--font-sans) !important;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -85,10 +85,10 @@
         }
         .header-content { display: flex; justify-content: space-between; align-items: center; }
         .brand-logo {
-            font-family: var(--font-serif);
+            font-family: var(--font-sans);
             font-size: 1.38rem;
-            font-weight: 500;
-            letter-spacing: -0.02em;
+            font-weight: 700;
+            letter-spacing: -0.03em;
             color: var(--text-title);
             text-decoration: none;
             display: inline-flex;
@@ -606,15 +606,15 @@
             box-sizing: border-box !important;
         }
         .empty-state-title, .empty-title {
-            font-family: var(--font-serif) !important;
-            font-size: 1.45rem !important;
-            font-weight: 400 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 1.20rem !important;
+            font-weight: 600 !important;
             color: var(--text-title) !important;
-            letter-spacing: -0.01em !important;
+            letter-spacing: -0.015em !important;
             text-align: center !important;
             width: 100% !important;
             margin: 0 auto !important;
-            line-height: 1.25 !important;
+            line-height: 1.3 !important;
         }
         .empty-state-sub, .empty-sub {
             font-family: var(--font-sans) !important;
@@ -849,7 +849,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-29</span>
-                    <span class="tbl-cat-desc">Q4 FY26 Earnings & iPhone 18 Reveal</span>
+                    <span class="tbl-cat-desc">Q4 '26 ER & iPhone 18 Reveal</span>
                 </div>
             </td>
         </tr>
@@ -883,7 +883,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-09-24</span>
-                    <span class="tbl-cat-desc">Q4 FY2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q4 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -917,7 +917,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-09-17</span>
-                    <span class="tbl-cat-desc">Q3 FY2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -951,7 +951,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-08-27</span>
-                    <span class="tbl-cat-desc">Q2 FY27 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q2 '27 ER</span>
                 </div>
             </td>
         </tr>
@@ -985,7 +985,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-29</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -1019,7 +1019,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-14</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -1053,7 +1053,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-08-28</span>
-                    <span class="tbl-cat-desc">Q1 FY27 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q1 '27 ER</span>
                 </div>
             </td>
         </tr>
@@ -1087,7 +1087,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-27</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -1121,7 +1121,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-11-05</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -1189,7 +1189,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-09-24</span>
-                    <span class="tbl-cat-desc">H1 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">H1 2026 ER</span>
                 </div>
             </td>
         </tr>
@@ -1223,7 +1223,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-22</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -1257,7 +1257,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-11-05</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -1291,7 +1291,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-11-05</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings & Soft Launch</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER & Soft Launch</span>
                 </div>
             </td>
         </tr>
@@ -1325,7 +1325,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-30</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -1359,7 +1359,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-29</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -1393,7 +1393,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-28</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Report</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -1427,7 +1427,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-09-24</span>
-                    <span class="tbl-cat-desc">Q4 FY2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q4 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -1461,7 +1461,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-09-03</span>
-                    <span class="tbl-cat-desc">Q4 FY2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q4 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -1495,7 +1495,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-08-26</span>
-                    <span class="tbl-cat-desc">Q2 FY27 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q2 '27 ER</span>
                 </div>
             </td>
         </tr>
@@ -1529,7 +1529,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-29</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -1563,7 +1563,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-11-06</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -1597,7 +1597,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-22</span>
-                    <span class="tbl-cat-desc">Q2 FY2027 Earnings</span>
+                    <span class="tbl-cat-desc">Q2 '27 ER</span>
                 </div>
             </td>
         </tr>
@@ -1631,7 +1631,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-11-12</span>
-                    <span class="tbl-cat-desc">Q4 FY26 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q4 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -1665,7 +1665,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-11-04</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -1699,7 +1699,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-22</span>
-                    <span class="tbl-cat-desc">Q1 FY2027 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q1 '27 ER</span>
                 </div>
             </td>
         </tr>
@@ -1733,7 +1733,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-11-04</span>
-                    <span class="tbl-cat-desc">Q2 FY2027 Earnings</span>
+                    <span class="tbl-cat-desc">Q2 '27 ER</span>
                 </div>
             </td>
         </tr>
@@ -1767,7 +1767,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-14</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -1801,7 +1801,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-11-04</span>
-                    <span class="tbl-cat-desc">Q4 FY2026 Earnings & FY27 Guidance</span>
+                    <span class="tbl-cat-desc">Q4 '26 ER & '27 Guidance</span>
                 </div>
             </td>
         </tr>
@@ -1835,7 +1835,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-11-05</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -1869,7 +1869,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-22</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -1903,7 +1903,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-11-04</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -1937,7 +1937,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-22</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -1971,7 +1971,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-08-25</span>
-                    <span class="tbl-cat-desc">Q4 FY26 Earnings Call</span>
+                    <span class="tbl-cat-desc">Q4 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -2005,7 +2005,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-20</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -2039,7 +2039,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-11-12</span>
-                    <span class="tbl-cat-desc">Q3 2026 Financial Results</span>
+                    <span class="tbl-cat-desc">Q3 '26 Financial Results</span>
                 </div>
             </td>
         </tr>
@@ -2073,7 +2073,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-20</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -2141,7 +2141,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-09-24</span>
-                    <span class="tbl-cat-desc">Q4 FY2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q4 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -2175,7 +2175,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-29</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -2209,7 +2209,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-20</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -2243,7 +2243,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-09-03</span>
-                    <span class="tbl-cat-desc">Q2 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q2 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -2277,7 +2277,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-29</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -2311,7 +2311,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-21</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -2345,7 +2345,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-11-04</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -2379,7 +2379,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-28</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -2413,7 +2413,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-20</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -2447,7 +2447,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-27</span>
-                    <span class="tbl-cat-desc">Q1 FY27 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q1 '27 ER</span>
                 </div>
             </td>
         </tr>
@@ -2481,7 +2481,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-11-03</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -2515,7 +2515,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-20</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -2549,7 +2549,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-09-29</span>
-                    <span class="tbl-cat-desc">Q1 FY27 Earnings Call</span>
+                    <span class="tbl-cat-desc">Q1 '27 ER</span>
                 </div>
             </td>
         </tr>
@@ -2583,7 +2583,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-21</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -2617,7 +2617,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-08-26</span>
-                    <span class="tbl-cat-desc">Q2 FY27 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q2 '27 ER</span>
                 </div>
             </td>
         </tr>
@@ -2651,7 +2651,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-08-25</span>
-                    <span class="tbl-cat-desc">Q2 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q2 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -2685,7 +2685,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-11-03</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings & Pipeline</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER & Pipeline</span>
                 </div>
             </td>
         </tr>
@@ -2719,7 +2719,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-27</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -2753,7 +2753,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-11-04</span>
-                    <span class="tbl-cat-desc">Q4 FY2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q4 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -2787,7 +2787,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-29</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -2821,7 +2821,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-11-05</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -2855,7 +2855,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-27</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -2923,7 +2923,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-11-10</span>
-                    <span class="tbl-cat-desc">Q2 FY2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q2 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -2991,7 +2991,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-11-12</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -3025,7 +3025,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-21</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -3059,7 +3059,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-15</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release & Q4 Guidance</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER & Q4 Guidance</span>
                 </div>
             </td>
         </tr>
@@ -3093,7 +3093,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-11-05</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -3127,7 +3127,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-20</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -3161,7 +3161,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-11-03</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -3195,7 +3195,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-22</span>
-                    <span class="tbl-cat-desc">Q3 2026 Trading Statement</span>
+                    <span class="tbl-cat-desc">Q3 '26 Trading Statement</span>
                 </div>
             </td>
         </tr>
@@ -3229,7 +3229,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-27</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -3263,7 +3263,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-11-04</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -3297,7 +3297,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-27</span>
-                    <span class="tbl-cat-desc">Q4 FY2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q4 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -3331,7 +3331,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-28</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -3365,7 +3365,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-08-27</span>
-                    <span class="tbl-cat-desc">Q2 FY27 Earnings Call</span>
+                    <span class="tbl-cat-desc">Q2 '27 ER</span>
                 </div>
             </td>
         </tr>
@@ -3399,7 +3399,7 @@
             <td>
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-11-05</span>
-                    <span class="tbl-cat-desc">Q3 2026 Earnings Release</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -6150,7 +6150,7 @@
         
         <!-- Minimalist Header Bar -->
         <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0 16px 0; border-bottom:1px solid var(--border-color); flex-wrap:wrap; gap:16px;">
-            <h1 style="font-family:var(--font-serif); font-size:1.85rem; color:var(--text-title); margin:0; font-weight:500; letter-spacing:-0.02em;">
+            <h1 style="font-family:var(--font-sans); font-size:1.65rem; color:var(--text-title); margin:0; font-weight:700; letter-spacing:-0.03em;">
                 Fidelity
             </h1>
             <div style="text-align:right;">
@@ -6580,7 +6580,7 @@
         <!-- Clean Scaled Performance Visualizer -->
         <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:12px; padding:20px 24px; display:flex; flex-direction:column; gap:14px;">
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-                <div style="font-family:var(--font-serif); font-size:1.20rem; color:var(--text-title); font-weight:500;">
+                <div style="font-family:var(--font-sans); font-size:1.15rem; color:var(--text-title); font-weight:600; letter-spacing:-0.02em;">
                     Performance vs S&amp;P 500 Baseline
                 </div>
                 <div style="display:flex; align-items:center; gap:16px; font-size:0.75rem; font-family:var(--font-mono);">
@@ -6850,7 +6850,7 @@
         
         <!-- Minimalist Header Bar -->
         <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0 16px 0; border-bottom:1px solid var(--border-color); flex-wrap:wrap; gap:16px;">
-            <h1 style="font-family:var(--font-serif); font-size:1.85rem; color:var(--text-title); margin:0; font-weight:500; letter-spacing:-0.02em;">
+            <h1 style="font-family:var(--font-sans); font-size:1.65rem; color:var(--text-title); margin:0; font-weight:700; letter-spacing:-0.03em;">
                 Wealthsimple
             </h1>
             <div style="text-align:right;">
@@ -7444,7 +7444,7 @@
         <!-- Clean Scaled Performance Visualizer -->
         <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:12px; padding:20px 24px; display:flex; flex-direction:column; gap:14px;">
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-                <div style="font-family:var(--font-serif); font-size:1.20rem; color:var(--text-title); font-weight:500;">
+                <div style="font-family:var(--font-sans); font-size:1.15rem; color:var(--text-title); font-weight:600; letter-spacing:-0.02em;">
                     Performance vs S&amp;P 500 Baseline
                 </div>
                 <div style="display:flex; align-items:center; gap:16px; font-size:0.75rem; font-family:var(--font-mono);">
@@ -7713,11 +7713,11 @@
         <div class="modal-body-card" id="modal-card">
             <button class="modal-x" onclick="closeAlertModal()">✕</button>
             <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                <strong id="modal-ticker" style="font-family: var(--font-serif); font-size: 1.35rem; color: var(--text-title);">TICKER</strong>
+                <strong id="modal-ticker" style="font-family: var(--font-sans); font-size: 1.35rem; font-weight: 700; color: var(--text-title);">TICKER</strong>
                 <span id="modal-badge" class="pill pill-alert">ALERT</span>
                 <span id="modal-time" style="color: var(--text-dim); font-size: 0.8rem; font-family: var(--font-mono);">Timestamp</span>
             </div>
-            <h2 id="modal-title" style="font-family: var(--font-serif); font-size: 1.45rem; color: var(--text-title); margin-bottom: 10px; letter-spacing: -0.02em;">Alert Headline</h2>
+            <h2 id="modal-title" style="font-family: var(--font-sans); font-size: 1.25rem; font-weight: 600; color: var(--text-title); margin-bottom: 10px; letter-spacing: -0.02em;">Alert Headline</h2>
             <div style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 18px;">
                 <strong>Trigger:</strong> <span id="modal-trigger">Reason</span>
             </div>
@@ -7985,90 +7985,79 @@
     
     <!-- Labels & Taxonomy Legend Modal -->
     <div id="labels-legend-modal" class="modal-shade" onclick="closeLegendModalOutside(event)">
-        <div class="modal-body-card" style="max-width: 600px; padding: 30px 34px; background: rgba(22, 21, 20, 0.96); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6); font-family: var(--font-sans);">
-            <button class="modal-x" onclick="closeLabelsLegendModal()" style="top: 22px; right: 22px; color: var(--text-dim); font-size: 1.2rem; cursor: pointer;">✕</button>
+        <div class="modal-body-card" style="max-width: 520px; padding: 26px 28px; background: rgba(22, 21, 20, 0.98); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 14px; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7); font-family: var(--font-sans);">
+            <button class="modal-x" onclick="closeLabelsLegendModal()" style="top: 20px; right: 20px; color: var(--text-dim); font-size: 1.1rem; cursor: pointer;">✕</button>
             
-            <div style="margin-bottom: 22px;">
-                <h2 style="font-family: var(--font-serif); font-size: 1.45rem; color: var(--text-title); margin: 0 0 5px; font-weight: 500; letter-spacing: -0.01em;">Investment Methodology</h2>
-                <p style="color: var(--text-dim); font-size: 0.80rem; margin: 0; line-height: 1.4;">
-                    Systematic framework evaluating forward conviction and live surveillance signals.
-                </p>
+            <div style="font-family: var(--font-sans); font-size: 1.12rem; font-weight: 600; color: var(--text-title); margin-bottom: 20px; letter-spacing: -0.02em;">
+                Taxonomy &amp; Signals
             </div>
 
             <!-- Section 1: Live Action Signals -->
-            <div style="margin-bottom: 20px;">
-                <div style="font-family: var(--font-sans); font-size: 0.66rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 12px;">
-                    Live Surveillance Signals
+            <div style="margin-bottom: 18px;">
+                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 10px;">
+                    Surveillance Signals
                 </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px 18px;">
-                    <div style="display: flex; align-items: baseline; gap: 8px;">
-                        <span class="status-beacon beacon-buy" style="position: relative; top: 1px;"><span class="beacon-dot"></span></span>
-                        <div style="font-size: 0.78rem;">
-                            <strong style="color: var(--accent-green); font-weight: 600;">BUY</strong>
-                            <span style="color: var(--text-secondary); margin-left: 4px;">Deep value accumulation zone.</span>
-                        </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px;">
+                    <div style="display: flex; align-items: center; gap: 7px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-buy"><span class="beacon-dot"></span></span>
+                        <strong style="color: var(--accent-green);">BUY</strong>
+                        <span style="color: var(--text-secondary);">• Deep value zone</span>
                     </div>
-                    <div style="display: flex; align-items: baseline; gap: 8px;">
-                        <span class="status-beacon beacon-hold" style="position: relative; top: 1px;"><span class="beacon-dot"></span></span>
-                        <div style="font-size: 0.78rem;">
-                            <strong style="color: var(--accent-warm); font-weight: 600;">HOLD</strong>
-                            <span style="color: var(--text-secondary); margin-left: 4px;">Fairly valued, core thesis intact.</span>
-                        </div>
+                    <div style="display: flex; align-items: center; gap: 7px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-hold"><span class="beacon-dot"></span></span>
+                        <strong style="color: var(--accent-warm);">HOLD</strong>
+                        <span style="color: var(--text-secondary);">• Core thesis intact</span>
                     </div>
-                    <div style="display: flex; align-items: baseline; gap: 8px;">
-                        <span class="status-beacon beacon-caution" style="position: relative; top: 1px;"><span class="beacon-dot"></span></span>
-                        <div style="font-size: 0.78rem;">
-                            <strong style="color: #D48858; font-weight: 600;">CAUTION</strong>
-                            <span style="color: var(--text-secondary); margin-left: 4px;">Execution friction or trim zone.</span>
-                        </div>
+                    <div style="display: flex; align-items: center; gap: 7px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-caution"><span class="beacon-dot"></span></span>
+                        <strong style="color: #D48858;">CAUTION</strong>
+                        <span style="color: var(--text-secondary);">• Execution trim zone</span>
                     </div>
-                    <div style="display: flex; align-items: baseline; gap: 8px;">
-                        <span class="status-beacon beacon-avoid" style="position: relative; top: 1px;"><span class="beacon-dot"></span></span>
-                        <div style="font-size: 0.78rem;">
-                            <strong style="color: var(--accent-red); font-weight: 600;">AVOID</strong>
-                            <span style="color: var(--text-secondary); margin-left: 4px;">Moat decay or thesis breakdown.</span>
-                        </div>
+                    <div style="display: flex; align-items: center; gap: 7px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-avoid"><span class="beacon-dot"></span></span>
+                        <strong style="color: var(--accent-red);">AVOID</strong>
+                        <span style="color: var(--text-secondary);">• Thesis broken</span>
                     </div>
                 </div>
             </div>
 
-            <div style="height: 1px; background: var(--border-color); margin: 18px 0;"></div>
+            <div style="height: 1px; background: var(--border-color); margin: 16px 0;"></div>
 
             <!-- Section 2: Conviction Tiers -->
             <div>
-                <div style="font-family: var(--font-sans); font-size: 0.66rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 12px;">
-                    Forward Conviction Tiers
+                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 10px;">
+                    Conviction Tiers
                 </div>
-                <div style="display: flex; flex-direction: column; gap: 9px;">
-                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">High Conviction</span>
-                        <span style="color: var(--text-secondary); line-height: 1.35;">Dominant economic moat, fortress balance sheet, and compounding cash generation.</span>
+                <div style="display: flex; flex-direction: column; gap: 7px; font-size: 0.76rem;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">High Conviction</span>
+                        <span style="color: var(--text-secondary);">Dominant moat &amp; fortress balance sheet</span>
                     </div>
-                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">Solid Conviction</span>
-                        <span style="color: var(--text-secondary); line-height: 1.35;">Proven recurring revenue, durable pricing power, and clear compounding runway.</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">Solid Conviction</span>
+                        <span style="color: var(--text-secondary);">Recurring cash flow &amp; compounding runway</span>
                     </div>
-                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">Moderate Conviction</span>
-                        <span style="color: var(--text-secondary); line-height: 1.35;">Attractive upside balanced by cyclical exposure or transition risk.</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">Moderate Conviction</span>
+                        <span style="color: var(--text-secondary);">Attractive upside with cyclical exposure</span>
                     </div>
-                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">Cautious Stance</span>
-                        <span style="color: var(--text-secondary); line-height: 1.35;">Thesis intact but navigating temporary execution friction or margin pressure.</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">Cautious Stance</span>
+                        <span style="color: var(--text-secondary);">Navigating margin or temporary friction</span>
                     </div>
-                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">Turnaround Play</span>
-                        <span style="color: var(--text-secondary); line-height: 1.35;">High asymmetry anchored in operational reset, debt reduction, or cost discipline.</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">Turnaround Play</span>
+                        <span style="color: var(--text-secondary);">Operational reset or debt reduction</span>
                     </div>
-                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">Speculative Risk</span>
-                        <span style="color: var(--text-secondary); line-height: 1.35;">High asymmetry paired with balance sheet leverage or product adoption hurdles.</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">Speculative Risk</span>
+                        <span style="color: var(--text-secondary);">High asymmetry with binary outcome</span>
                     </div>
                 </div>
             </div>
 
-            <div style="display: flex; justify-content: flex-end; margin-top: 22px;">
-                <button onclick="closeLabelsLegendModal()" style="font-family: var(--font-sans); font-size: 0.78rem; font-weight: 500; color: var(--text-title); background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); border-radius: 6px; padding: 6px 14px; cursor: pointer; transition: all 0.15s;">Dismiss</button>
+            <div style="display: flex; justify-content: flex-end; margin-top: 18px;">
+                <button onclick="closeLabelsLegendModal()" style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 500; color: var(--text-title); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border-color); border-radius: 6px; padding: 5px 14px; cursor: pointer; transition: all 0.15s;">Dismiss</button>
             </div>
         </div>
     </div>

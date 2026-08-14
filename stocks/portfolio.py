@@ -520,7 +520,7 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
         
         <!-- Minimalist Header Bar -->
         <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0 16px 0; border-bottom:1px solid var(--border-color); flex-wrap:wrap; gap:16px;">
-            <h1 style="font-family:var(--font-serif); font-size:1.85rem; color:var(--text-title); margin:0; font-weight:500; letter-spacing:-0.02em;">
+            <h1 style="font-family:var(--font-sans); font-size:1.65rem; color:var(--text-title); margin:0; font-weight:700; letter-spacing:-0.03em;">
                 {port_title}
             </h1>
             <div style="text-align:right;">
@@ -596,7 +596,7 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
         <!-- Clean Scaled Performance Visualizer -->
         <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:12px; padding:20px 24px; display:flex; flex-direction:column; gap:14px;">
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-                <div style="font-family:var(--font-serif); font-size:1.20rem; color:var(--text-title); font-weight:500;">
+                <div style="font-family:var(--font-sans); font-size:1.15rem; color:var(--text-title); font-weight:600; letter-spacing:-0.02em;">
                     Performance vs S&amp;P 500 Baseline
                 </div>
                 <div style="display:flex; align-items:center; gap:16px; font-size:0.75rem; font-family:var(--font-mono);">

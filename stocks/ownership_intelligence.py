@@ -658,7 +658,7 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
                     {btn_lbl}
                 </a>
             </div>
-            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
                 {w['title']}
             </h4>
             <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">

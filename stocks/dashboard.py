@@ -71,13 +71,36 @@ def extract_pct_delta(base_target: str, current_price: float, fair_value_str: st
 
 
 def sanitize_catalyst_desc(desc: str) -> str:
-    """Cleans and formats catalyst description ensuring zero cutoffs, dangling conjunctions, or artificial truncation."""
+    """Cleans and abbreviates catalyst description ensuring concise, beautiful cards (e.g. Earnings Release -> ER, Q2 FY27 -> Q2 '27)."""
     if not desc:
         return ""
     cleaned = re.sub(r"\.{2,}", "", desc).strip()
     cleaned = " ".join(cleaned.split())
-    # Clean any trailing conjunctions or dangling punctuation
+    
+    # 1. Abbreviate Earnings variations
+    cleaned = re.sub(r"\bEarnings Release\b", "ER", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\bEarnings Report\b", "ER", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\bEarnings Call\b", "ER", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\bQuarterly Earnings\b", "ER", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\bEarnings\b", "ER", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\bAnnual General Meeting\b", "AGM", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\bFirst Quarter\b", "Q1", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\bSecond Quarter\b", "Q2", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\bThird Quarter\b", "Q3", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\bFourth Quarter\b", "Q4", cleaned, flags=re.IGNORECASE)
+
+    # 2. Compact Quarter + Year: Q[1-4] FY2026 / Q[1-4] FY26 / Q[1-4] 2026 -> Q[1-4] '26
+    cleaned = re.sub(r"\bQ([1-4])\s*(?:FY|FY\s*)?20(\d{2})\b", r"Q\1 '\2", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\bQ([1-4])\s*(?:FY|FY\s*)(\d{2})\b", r"Q\1 '\2", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\bQ([1-4])\s*\'?(\d{2})\b", r"Q\1 '\2", cleaned, flags=re.IGNORECASE)
+
+    # 3. Compact isolated FY2026 / FY26
+    cleaned = re.sub(r"\bFY20(\d{2})\b", r"'\1", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\bFY(\d{2})\b", r"'\1", cleaned, flags=re.IGNORECASE)
+
+    # Clean double spaces or trailing punctuation
     cleaned = re.sub(r"[\s\-\,\:\&]+$", "", cleaned).strip()
+    cleaned = " ".join(cleaned.split())
     return cleaned
 
 
@@ -169,90 +192,79 @@ def build_labels_legend_modal_html() -> str:
     return """
     <!-- Labels & Taxonomy Legend Modal -->
     <div id="labels-legend-modal" class="modal-shade" onclick="closeLegendModalOutside(event)">
-        <div class="modal-body-card" style="max-width: 600px; padding: 30px 34px; background: rgba(22, 21, 20, 0.96); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6); font-family: var(--font-sans);">
-            <button class="modal-x" onclick="closeLabelsLegendModal()" style="top: 22px; right: 22px; color: var(--text-dim); font-size: 1.2rem; cursor: pointer;">✕</button>
+        <div class="modal-body-card" style="max-width: 520px; padding: 26px 28px; background: rgba(22, 21, 20, 0.98); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 14px; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7); font-family: var(--font-sans);">
+            <button class="modal-x" onclick="closeLabelsLegendModal()" style="top: 20px; right: 20px; color: var(--text-dim); font-size: 1.1rem; cursor: pointer;">✕</button>
             
-            <div style="margin-bottom: 22px;">
-                <h2 style="font-family: var(--font-serif); font-size: 1.45rem; color: var(--text-title); margin: 0 0 5px; font-weight: 500; letter-spacing: -0.01em;">Investment Methodology</h2>
-                <p style="color: var(--text-dim); font-size: 0.80rem; margin: 0; line-height: 1.4;">
-                    Systematic framework evaluating forward conviction and live surveillance signals.
-                </p>
+            <div style="font-family: var(--font-sans); font-size: 1.12rem; font-weight: 600; color: var(--text-title); margin-bottom: 20px; letter-spacing: -0.02em;">
+                Taxonomy &amp; Signals
             </div>
 
             <!-- Section 1: Live Action Signals -->
-            <div style="margin-bottom: 20px;">
-                <div style="font-family: var(--font-sans); font-size: 0.66rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 12px;">
-                    Live Surveillance Signals
+            <div style="margin-bottom: 18px;">
+                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 10px;">
+                    Surveillance Signals
                 </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px 18px;">
-                    <div style="display: flex; align-items: baseline; gap: 8px;">
-                        <span class="status-beacon beacon-buy" style="position: relative; top: 1px;"><span class="beacon-dot"></span></span>
-                        <div style="font-size: 0.78rem;">
-                            <strong style="color: var(--accent-green); font-weight: 600;">BUY</strong>
-                            <span style="color: var(--text-secondary); margin-left: 4px;">Deep value accumulation zone.</span>
-                        </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px;">
+                    <div style="display: flex; align-items: center; gap: 7px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-buy"><span class="beacon-dot"></span></span>
+                        <strong style="color: var(--accent-green);">BUY</strong>
+                        <span style="color: var(--text-secondary);">• Deep value zone</span>
                     </div>
-                    <div style="display: flex; align-items: baseline; gap: 8px;">
-                        <span class="status-beacon beacon-hold" style="position: relative; top: 1px;"><span class="beacon-dot"></span></span>
-                        <div style="font-size: 0.78rem;">
-                            <strong style="color: var(--accent-warm); font-weight: 600;">HOLD</strong>
-                            <span style="color: var(--text-secondary); margin-left: 4px;">Fairly valued, core thesis intact.</span>
-                        </div>
+                    <div style="display: flex; align-items: center; gap: 7px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-hold"><span class="beacon-dot"></span></span>
+                        <strong style="color: var(--accent-warm);">HOLD</strong>
+                        <span style="color: var(--text-secondary);">• Core thesis intact</span>
                     </div>
-                    <div style="display: flex; align-items: baseline; gap: 8px;">
-                        <span class="status-beacon beacon-caution" style="position: relative; top: 1px;"><span class="beacon-dot"></span></span>
-                        <div style="font-size: 0.78rem;">
-                            <strong style="color: #D48858; font-weight: 600;">CAUTION</strong>
-                            <span style="color: var(--text-secondary); margin-left: 4px;">Execution friction or trim zone.</span>
-                        </div>
+                    <div style="display: flex; align-items: center; gap: 7px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-caution"><span class="beacon-dot"></span></span>
+                        <strong style="color: #D48858;">CAUTION</strong>
+                        <span style="color: var(--text-secondary);">• Execution trim zone</span>
                     </div>
-                    <div style="display: flex; align-items: baseline; gap: 8px;">
-                        <span class="status-beacon beacon-avoid" style="position: relative; top: 1px;"><span class="beacon-dot"></span></span>
-                        <div style="font-size: 0.78rem;">
-                            <strong style="color: var(--accent-red); font-weight: 600;">AVOID</strong>
-                            <span style="color: var(--text-secondary); margin-left: 4px;">Moat decay or thesis breakdown.</span>
-                        </div>
+                    <div style="display: flex; align-items: center; gap: 7px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-avoid"><span class="beacon-dot"></span></span>
+                        <strong style="color: var(--accent-red);">AVOID</strong>
+                        <span style="color: var(--text-secondary);">• Thesis broken</span>
                     </div>
                 </div>
             </div>
 
-            <div style="height: 1px; background: var(--border-color); margin: 18px 0;"></div>
+            <div style="height: 1px; background: var(--border-color); margin: 16px 0;"></div>
 
             <!-- Section 2: Conviction Tiers -->
             <div>
-                <div style="font-family: var(--font-sans); font-size: 0.66rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 12px;">
-                    Forward Conviction Tiers
+                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 10px;">
+                    Conviction Tiers
                 </div>
-                <div style="display: flex; flex-direction: column; gap: 9px;">
-                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">High Conviction</span>
-                        <span style="color: var(--text-secondary); line-height: 1.35;">Dominant economic moat, fortress balance sheet, and compounding cash generation.</span>
+                <div style="display: flex; flex-direction: column; gap: 7px; font-size: 0.76rem;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">High Conviction</span>
+                        <span style="color: var(--text-secondary);">Dominant moat &amp; fortress balance sheet</span>
                     </div>
-                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">Solid Conviction</span>
-                        <span style="color: var(--text-secondary); line-height: 1.35;">Proven recurring revenue, durable pricing power, and clear compounding runway.</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">Solid Conviction</span>
+                        <span style="color: var(--text-secondary);">Recurring cash flow &amp; compounding runway</span>
                     </div>
-                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">Moderate Conviction</span>
-                        <span style="color: var(--text-secondary); line-height: 1.35;">Attractive upside balanced by cyclical exposure or transition risk.</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">Moderate Conviction</span>
+                        <span style="color: var(--text-secondary);">Attractive upside with cyclical exposure</span>
                     </div>
-                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">Cautious Stance</span>
-                        <span style="color: var(--text-secondary); line-height: 1.35;">Thesis intact but navigating temporary execution friction or margin pressure.</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">Cautious Stance</span>
+                        <span style="color: var(--text-secondary);">Navigating margin or temporary friction</span>
                     </div>
-                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">Turnaround Play</span>
-                        <span style="color: var(--text-secondary); line-height: 1.35;">High asymmetry anchored in operational reset, debt reduction, or cost discipline.</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">Turnaround Play</span>
+                        <span style="color: var(--text-secondary);">Operational reset or debt reduction</span>
                     </div>
-                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">Speculative Risk</span>
-                        <span style="color: var(--text-secondary); line-height: 1.35;">High asymmetry paired with balance sheet leverage or product adoption hurdles.</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">Speculative Risk</span>
+                        <span style="color: var(--text-secondary);">High asymmetry with binary outcome</span>
                     </div>
                 </div>
             </div>
 
-            <div style="display: flex; justify-content: flex-end; margin-top: 22px;">
-                <button onclick="closeLabelsLegendModal()" style="font-family: var(--font-sans); font-size: 0.78rem; font-weight: 500; color: var(--text-title); background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); border-radius: 6px; padding: 6px 14px; cursor: pointer; transition: all 0.15s;">Dismiss</button>
+            <div style="display: flex; justify-content: flex-end; margin-top: 18px;">
+                <button onclick="closeLabelsLegendModal()" style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 500; color: var(--text-title); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border-color); border-radius: 6px; padding: 5px 14px; cursor: pointer; transition: all 0.15s;">Dismiss</button>
             </div>
         </div>
     </div>
@@ -796,6 +808,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     active_content = evolution_banner_html + raw_active_content
     chart_html = build_native_svg_chart(ticker, stock.current_price)
     dossier_beacon = format_action_beacon(getattr(stock, "action_signal", None)) if stock.total_versions > 1 else ""
+    clean_cat_desc = sanitize_catalyst_desc(getattr(stock, "next_catalyst_event", "")).rstrip(".")
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -808,7 +821,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
@@ -830,8 +843,8 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             --accent-red: #C97A72;
             --border-color: rgba(255, 255, 255, 0.055);
             --border-focus: rgba(212, 163, 115, 0.35);
-            --font-serif: 'Newsreader', Garamond, Georgia, serif;
-            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-serif: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
         }}
 
@@ -851,7 +864,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         }}
         .katex .mord.text {{
             color: var(--text-body) !important;
-            font-family: var(--font-serif) !important;
+            font-family: var(--font-sans) !important;
         }}
 
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
@@ -860,8 +873,10 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 radial-gradient(ellipse 90% 50% at 50% -10%, rgba(212, 163, 115, 0.04), transparent 70%),
                 var(--bg-canvas);
             color: var(--text-body);
-            font-family: var(--font-serif);
-            line-height: 1.85;
+            font-family: var(--font-sans);
+            font-size: 0.94rem;
+            line-height: 1.72;
+            letter-spacing: -0.010em;
             -webkit-font-smoothing: antialiased;
             padding-bottom: 120px;
         }}
@@ -905,13 +920,13 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 
         .hero-top-row {{ display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px; }}
         .ticker-symbol {{
-            font-family: var(--font-serif);
-            font-size: 2.8rem;
-            font-weight: 500;
-            letter-spacing: -0.02em;
+            font-family: var(--font-sans);
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
             color: var(--text-title);
         }}
-        .company-meta {{ color: var(--text-secondary); font-size: 1.05rem; font-style: italic; margin-top: 2px; }}
+        .company-meta {{ color: var(--text-secondary); font-size: 0.95rem; margin-top: 2px; font-family: var(--font-sans); }}
 
         /* Minimalist Logo Avatars */
         .ticker-logo-wrap {{
@@ -1072,8 +1087,10 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             background: none;
             border: none;
             color: var(--text-secondary);
-            font-size: 1.1rem;
-            font-family: var(--font-serif);
+            font-size: 0.95rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            letter-spacing: -0.01em;
             padding: 12px 18px;
             cursor: pointer;
             position: relative;
@@ -1150,11 +1167,12 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         }}
         .section-icon {{ font-size: 1.35rem; }}
         .section-heading {{
-            font-family: var(--font-serif);
-            font-size: 1.35rem;
+            font-family: var(--font-sans);
+            font-size: 1.25rem;
+            font-weight: 600;
             color: var(--text-title);
             margin: 0;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.02em;
         }}
         .section-desc {{
             color: var(--text-dim);
@@ -1306,55 +1324,58 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             border-bottom-color: var(--accent-warm) !important;
         }}
         .memo-container h1, .memo-container h2 {{
-            font-family: var(--font-serif) !important;
-            font-size: 1.65rem !important;
-            font-weight: 500 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 1.45rem !important;
+            font-weight: 600 !important;
             color: var(--text-title) !important;
-            margin: 44px 0 18px !important;
-            padding-bottom: 10px !important;
+            margin: 40px 0 16px !important;
+            padding-bottom: 8px !important;
             border-bottom: 1px solid var(--border-color) !important;
-            letter-spacing: -0.015em !important;
+            letter-spacing: -0.02em !important;
             line-height: 1.3 !important;
         }}
         .memo-container h1:first-child, .memo-container h2:first-of-type {{ margin-top: 0 !important; }}
         .memo-container h3 {{
-            font-family: var(--font-serif) !important;
-            font-size: 1.30rem !important;
-            font-weight: 500 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 1.15rem !important;
+            font-weight: 600 !important;
             color: var(--accent-warm) !important;
-            margin: 32px 0 14px !important;
+            margin: 28px 0 12px !important;
+            letter-spacing: -0.015em !important;
             line-height: 1.35 !important;
         }}
         .memo-container h4, .memo-container h5, .memo-container h6 {{
             font-family: var(--font-sans) !important;
-            font-size: 0.88rem !important;
+            font-size: 0.82rem !important;
             font-weight: 600 !important;
             text-transform: uppercase !important;
             letter-spacing: 0.06em !important;
             color: var(--text-title) !important;
-            margin: 24px 0 10px !important;
+            margin: 22px 0 8px !important;
         }}
         .memo-container p {{
-            font-family: var(--font-serif) !important;
-            font-size: 1.12rem !important;
-            line-height: 1.85 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 0.94rem !important;
+            line-height: 1.72 !important;
+            letter-spacing: -0.008em !important;
             color: var(--text-body) !important;
-            margin-bottom: 22px !important;
+            margin-bottom: 18px !important;
         }}
         .memo-container ul, .memo-container ol {{
-            font-family: var(--font-serif) !important;
-            font-size: 1.10rem !important;
-            line-height: 1.80 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 0.92rem !important;
+            line-height: 1.68 !important;
+            letter-spacing: -0.008em !important;
             color: var(--text-body) !important;
-            margin: 16px 0 24px 24px !important;
+            margin: 14px 0 20px 20px !important;
             padding-left: 12px !important;
         }}
         .memo-container ul {{ list-style-type: disc !important; }}
         .memo-container ol {{ list-style-type: decimal !important; }}
         .memo-container li {{
-            margin-bottom: 12px !important;
+            margin-bottom: 8px !important;
             color: var(--text-body) !important;
-            line-height: 1.80 !important;
+            line-height: 1.68 !important;
         }}
         .memo-container li::marker {{
             color: var(--accent-warm) !important;
@@ -1511,10 +1532,10 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         }}
         .memo-container .executive-callout p em,
         .memo-container .executive-callout blockquote {{
-            font-family: var(--font-serif) !important;
+            font-family: var(--font-sans) !important;
             font-style: italic !important;
-            font-size: 1.05rem !important;
-            line-height: 1.8 !important;
+            font-size: 0.96rem !important;
+            line-height: 1.68 !important;
             color: var(--text-title) !important;
             display: block !important;
             margin: 8px 0 !important;
@@ -1663,16 +1684,17 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             border: 1px solid var(--border-color) !important;
         }}
         .update-banner-title {{
-            font-family: var(--font-serif) !important;
-            font-size: 1.22rem !important;
+            font-family: var(--font-sans) !important;
+            font-size: 1.15rem !important;
             font-weight: 600 !important;
             color: var(--text-title) !important;
             margin-bottom: 8px !important;
+            letter-spacing: -0.015em !important;
         }}
         .update-banner-desc {{
-            font-family: var(--font-serif) !important;
-            font-size: 1.08rem !important;
-            line-height: 1.8 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 0.94rem !important;
+            line-height: 1.68 !important;
             color: var(--text-body) !important;
         }}
 
@@ -1910,6 +1932,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 <div class="metric-cell">
                     <div class="metric-label">Catalyst</div>
                     <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">{stock.next_catalyst_date or 'TBD'}</div>
+                    {f'<div class="metric-delta" style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 2px;">{clean_cat_desc}</div>' if clean_cat_desc else ''}
                 </div>
                 {format_top_funds_card_html(stock)}
                 {format_insider_activity_card_html(stock)}
@@ -2196,7 +2219,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
@@ -2218,8 +2241,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             --accent-red: #C97A72;
             --border-color: rgba(255, 255, 255, 0.055);
             --border-focus: rgba(212, 163, 115, 0.35);
-            --font-serif: 'Newsreader', Garamond, Georgia, serif;
-            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-serif: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
         }}
 
@@ -2239,7 +2262,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         }}
         .katex .mord.text {{
             color: var(--text-body) !important;
-            font-family: var(--font-serif) !important;
+            font-family: var(--font-sans) !important;
         }}
 
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
@@ -2269,10 +2292,10 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         }}
         .header-content {{ display: flex; justify-content: space-between; align-items: center; }}
         .brand-logo {{
-            font-family: var(--font-serif);
+            font-family: var(--font-sans);
             font-size: 1.38rem;
-            font-weight: 500;
-            letter-spacing: -0.02em;
+            font-weight: 700;
+            letter-spacing: -0.03em;
             color: var(--text-title);
             text-decoration: none;
             display: inline-flex;
@@ -2790,15 +2813,15 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             box-sizing: border-box !important;
         }}
         .empty-state-title, .empty-title {{
-            font-family: var(--font-serif) !important;
-            font-size: 1.45rem !important;
-            font-weight: 400 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 1.20rem !important;
+            font-weight: 600 !important;
             color: var(--text-title) !important;
-            letter-spacing: -0.01em !important;
+            letter-spacing: -0.015em !important;
             text-align: center !important;
             width: 100% !important;
             margin: 0 auto !important;
-            line-height: 1.25 !important;
+            line-height: 1.3 !important;
         }}
         .empty-state-sub, .empty-sub {{
             font-family: var(--font-sans) !important;
@@ -3037,11 +3060,11 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         <div class="modal-body-card" id="modal-card">
             <button class="modal-x" onclick="closeAlertModal()">✕</button>
             <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                <strong id="modal-ticker" style="font-family: var(--font-serif); font-size: 1.35rem; color: var(--text-title);">TICKER</strong>
+                <strong id="modal-ticker" style="font-family: var(--font-sans); font-size: 1.35rem; font-weight: 700; color: var(--text-title);">TICKER</strong>
                 <span id="modal-badge" class="pill pill-alert">ALERT</span>
                 <span id="modal-time" style="color: var(--text-dim); font-size: 0.8rem; font-family: var(--font-mono);">Timestamp</span>
             </div>
-            <h2 id="modal-title" style="font-family: var(--font-serif); font-size: 1.45rem; color: var(--text-title); margin-bottom: 10px; letter-spacing: -0.02em;">Alert Headline</h2>
+            <h2 id="modal-title" style="font-family: var(--font-sans); font-size: 1.25rem; font-weight: 600; color: var(--text-title); margin-bottom: 10px; letter-spacing: -0.02em;">Alert Headline</h2>
             <div style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 18px;">
                 <strong>Trigger:</strong> <span id="modal-trigger">Reason</span>
             </div>

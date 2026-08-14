@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
@@ -31,8 +31,8 @@
             --accent-red: #C97A72;
             --border-color: rgba(255, 255, 255, 0.055);
             --border-focus: rgba(212, 163, 115, 0.35);
-            --font-serif: 'Newsreader', Garamond, Georgia, serif;
-            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-serif: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
         }
 
@@ -52,7 +52,7 @@
         }
         .katex .mord.text {
             color: var(--text-body) !important;
-            font-family: var(--font-serif) !important;
+            font-family: var(--font-sans) !important;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -61,8 +61,10 @@
                 radial-gradient(ellipse 90% 50% at 50% -10%, rgba(212, 163, 115, 0.04), transparent 70%),
                 var(--bg-canvas);
             color: var(--text-body);
-            font-family: var(--font-serif);
-            line-height: 1.85;
+            font-family: var(--font-sans);
+            font-size: 0.94rem;
+            line-height: 1.72;
+            letter-spacing: -0.010em;
             -webkit-font-smoothing: antialiased;
             padding-bottom: 120px;
         }
@@ -106,13 +108,13 @@
 
         .hero-top-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px; }
         .ticker-symbol {
-            font-family: var(--font-serif);
-            font-size: 2.8rem;
-            font-weight: 500;
-            letter-spacing: -0.02em;
+            font-family: var(--font-sans);
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
             color: var(--text-title);
         }
-        .company-meta { color: var(--text-secondary); font-size: 1.05rem; font-style: italic; margin-top: 2px; }
+        .company-meta { color: var(--text-secondary); font-size: 0.95rem; margin-top: 2px; font-family: var(--font-sans); }
 
         /* Minimalist Logo Avatars */
         .ticker-logo-wrap {
@@ -273,8 +275,10 @@
             background: none;
             border: none;
             color: var(--text-secondary);
-            font-size: 1.1rem;
-            font-family: var(--font-serif);
+            font-size: 0.95rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            letter-spacing: -0.01em;
             padding: 12px 18px;
             cursor: pointer;
             position: relative;
@@ -351,11 +355,12 @@
         }
         .section-icon { font-size: 1.35rem; }
         .section-heading {
-            font-family: var(--font-serif);
-            font-size: 1.35rem;
+            font-family: var(--font-sans);
+            font-size: 1.25rem;
+            font-weight: 600;
             color: var(--text-title);
             margin: 0;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.02em;
         }
         .section-desc {
             color: var(--text-dim);
@@ -507,55 +512,58 @@
             border-bottom-color: var(--accent-warm) !important;
         }
         .memo-container h1, .memo-container h2 {
-            font-family: var(--font-serif) !important;
-            font-size: 1.65rem !important;
-            font-weight: 500 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 1.45rem !important;
+            font-weight: 600 !important;
             color: var(--text-title) !important;
-            margin: 44px 0 18px !important;
-            padding-bottom: 10px !important;
+            margin: 40px 0 16px !important;
+            padding-bottom: 8px !important;
             border-bottom: 1px solid var(--border-color) !important;
-            letter-spacing: -0.015em !important;
+            letter-spacing: -0.02em !important;
             line-height: 1.3 !important;
         }
         .memo-container h1:first-child, .memo-container h2:first-of-type { margin-top: 0 !important; }
         .memo-container h3 {
-            font-family: var(--font-serif) !important;
-            font-size: 1.30rem !important;
-            font-weight: 500 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 1.15rem !important;
+            font-weight: 600 !important;
             color: var(--accent-warm) !important;
-            margin: 32px 0 14px !important;
+            margin: 28px 0 12px !important;
+            letter-spacing: -0.015em !important;
             line-height: 1.35 !important;
         }
         .memo-container h4, .memo-container h5, .memo-container h6 {
             font-family: var(--font-sans) !important;
-            font-size: 0.88rem !important;
+            font-size: 0.82rem !important;
             font-weight: 600 !important;
             text-transform: uppercase !important;
             letter-spacing: 0.06em !important;
             color: var(--text-title) !important;
-            margin: 24px 0 10px !important;
+            margin: 22px 0 8px !important;
         }
         .memo-container p {
-            font-family: var(--font-serif) !important;
-            font-size: 1.12rem !important;
-            line-height: 1.85 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 0.94rem !important;
+            line-height: 1.72 !important;
+            letter-spacing: -0.008em !important;
             color: var(--text-body) !important;
-            margin-bottom: 22px !important;
+            margin-bottom: 18px !important;
         }
         .memo-container ul, .memo-container ol {
-            font-family: var(--font-serif) !important;
-            font-size: 1.10rem !important;
-            line-height: 1.80 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 0.92rem !important;
+            line-height: 1.68 !important;
+            letter-spacing: -0.008em !important;
             color: var(--text-body) !important;
-            margin: 16px 0 24px 24px !important;
+            margin: 14px 0 20px 20px !important;
             padding-left: 12px !important;
         }
         .memo-container ul { list-style-type: disc !important; }
         .memo-container ol { list-style-type: decimal !important; }
         .memo-container li {
-            margin-bottom: 12px !important;
+            margin-bottom: 8px !important;
             color: var(--text-body) !important;
-            line-height: 1.80 !important;
+            line-height: 1.68 !important;
         }
         .memo-container li::marker {
             color: var(--accent-warm) !important;
@@ -712,10 +720,10 @@
         }
         .memo-container .executive-callout p em,
         .memo-container .executive-callout blockquote {
-            font-family: var(--font-serif) !important;
+            font-family: var(--font-sans) !important;
             font-style: italic !important;
-            font-size: 1.05rem !important;
-            line-height: 1.8 !important;
+            font-size: 0.96rem !important;
+            line-height: 1.68 !important;
             color: var(--text-title) !important;
             display: block !important;
             margin: 8px 0 !important;
@@ -864,16 +872,17 @@
             border: 1px solid var(--border-color) !important;
         }
         .update-banner-title {
-            font-family: var(--font-serif) !important;
-            font-size: 1.22rem !important;
+            font-family: var(--font-sans) !important;
+            font-size: 1.15rem !important;
             font-weight: 600 !important;
             color: var(--text-title) !important;
             margin-bottom: 8px !important;
+            letter-spacing: -0.015em !important;
         }
         .update-banner-desc {
-            font-family: var(--font-serif) !important;
-            font-size: 1.08rem !important;
-            line-height: 1.8 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 0.94rem !important;
+            line-height: 1.68 !important;
             color: var(--text-body) !important;
         }
 
@@ -1354,6 +1363,7 @@
                 <div class="metric-cell">
                     <div class="metric-label">Catalyst</div>
                     <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">2026-08-27</div>
+                    <div class="metric-delta" style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 2px;">Q2 '27 ER</div>
                 </div>
                 
     <div class="metric-cell">
@@ -1365,8 +1375,8 @@
                 
     <div class="metric-cell">
         <div class="metric-label">Insiders</div>
-        <div class="metric-value" style="color: var(--accent-red);">🔴 Net Selling</div>
-        <div class="metric-subtext">12 Officers Sold -$968.5M (Zero Buys)</div>
+        <div class="metric-value" style="color: var(--accent-warm);">🟡 Net Selling</div>
+        <div class="metric-subtext">Routine management alignment</div>
     </div>
     
             </div>
@@ -1382,247 +1392,224 @@
         <!-- Memo Content -->
         <div id="tab-memo" class="tab-content active">
             <article class="memo-container">
-                # Executive Fundamental Investigation: Workday, Inc. (NASDAQ: WDAY)
-<hr/>
-<h2>Section 1: Business Model, Competitive Moat &amp; Strategic AI Positioning</h2>
-<h3>Enterprise Cloud Moat &amp; Unified Core Architecture</h3>
-Workday operates as the foundational software backbone for global enterprise Human Capital Management (HCM) and Financial Management (FINS). Unlike legacy architectures composed of cobbled-together point solutions and disparate relational databases, Workday was architected natively for the cloud on a single, unified multi-tenant architecture. 
-
-<div class="arch-diagram">
-<div>WORKDAY UNIFIED ENTERPRISE CORE</div>
-<div>
-<div>HUMAN CAPITAL MANAGEMENT (HCM)           FINANCIAL MANAGEMENT (FINS)</div>
-<div>Core HR, Payroll, Talent, Benefits      GL, AP/AR, Planning, Spend, Procurement</div>
-<div>WORKDAY AGENT SYSTEM OF RECORD (AI LAYER)</div>
-<div>20+ Agentic AI Workflows • Sana Superintelligence • Security Perimeter</div>
-<div>SINGLE MULTI-TENANT DATA IN-MEMORY CORE</div>
-<div>80+ Million Contracted Users</div>
-</div>
-</div>
-By housing workforce planning, payroll, general ledger, accounts payable/receivable, spend management, and analytics inside a single in-memory database, Workday provides corporate executives with real-time visibility across human and financial capital. This core platform currently serves over <strong>80 million users under contract</strong> across mid-market and Large Enterprise (LE) accounts.
-<h3>Moat Drivers: Switching Costs, Customer Retention &amp; Pricing Power</h3>
-Workday’s economic moat relies on four primary structural pillars:
-
-<ul><li><strong>Extreme Switching Costs:</strong> Replacing a core enterprise HCM or Financial system requires an intensive 18- to 36-month migration process, multi-million-dollar implementation costs, and severe operational operational disruption risk. Once implemented, Workday becomes deeply embedded in daily payroll, compliance reporting, and financial accounting workflows.</li><li><strong>Resilient Gross Retention:</strong> Workday maintained a <strong>97% Gross Revenue Retention (GRR)</strong> rate in Q1 FY27. This demonstrates that enterprise clients do not churn out of Workday’s system of record, even during macro corporate cost optimization cycles.</li><li><strong>Data Advantage for Enterprise AI:</strong> Proprietary AI models require high-fidelity, clean corporate data. Workday processes trillions of HR and financial transactions annually across its 80M+ user base. Because all data shares a common data model, Workday can deploy zero-shot contextual AI without complex ETL pipelines or data clean-room integrations.</li><li><strong>Pricing Power &amp; Bundle Expansion:</strong> Workday continues to expand Net Revenue Retention (NRR) through land-and-expand strategies. Expanding into Financial Management, Spend Management (Scout RFP), Workforce Planning (Adaptive), and native AI agents generates cross-sell tailwinds. Customer expansion deals that include native AI solutions average <strong>over 50% larger in total contract value</strong>.</li></ul>
-<div class="executive-callout">
-<strong>Strategic Management Takeaway — Customer Base Expansion &amp; AI Lift:</strong><br/>
-<em>"Over 25% of new ACV in customer base expansions came from AI, with AI-included expansion deals averaging over 50% larger in size... We reported our best first quarter of new ACV growth in five years, driven by strong core business and AI traction."</em><br/>
-— <strong>Aneel Bhusri, CEO &amp; Rob Enslin, CCO</strong> (Q1 FY27 Earnings Call)
-</div>
-<h3>Agentic AI Strategy: 20 Organic Agents, 4,000+ Customer Adoption &amp; Monetization</h3>
-Skeptics previously theorized that generative AI would trigger "seat compression" in HR software by reducing headcount. Workday's execution directly counters this narrative by monetizing <strong>Agentic AI as an enterprise multiplier</strong> rather than a transactional utility. 
-
-Rather than wrapping third-party LLMs with superficial chat interfaces, Workday organically builds specialized AI agents that execute multi-step business logic directly within the enterprise workflow.
-
-<div class="metrics-grid">
+                <div class="section"><h2>Section 1: Business Model Reality &amp; Enterprise Ecosystem Moat</h2><p>Workday, Inc. (NASDAQ: WDAY) operates as the mission-critical cloud software backbone for global enterprise Human Capital Management (HCM) and Financial Management (FINS). Founded in 2005 by PeopleSoft veterans Aneel Bhusri and Dave Duffield following Oracle's hostile takeover of PeopleSoft, Workday was architected from the ground up as a native multi-tenant cloud platform. Unlike legacy enterprise resource planning (ERP) suites composed of disparate acquired databases, fragmented codebases, and batch-processing ETL pipelines, Workday operates on a single unified in-memory object model.</p><p>By maintaining a single unified data core across payroll, workforce planning, general ledger, accounts payable/receivable, spend management, and workforce analytics, Workday provides corporate executives with real-time operational visibility across their two most critical organizational resources: human talent and capital. This architectural cohesion eliminates data reconciliation lags between HR and finance departments, allowing multinational corporations to execute complex organizational restructurings, global compensation cycles, and consolidated financial closes with continuous real-time ledger integrity.</p><p>The durability of Workday's economic moat rests on formidable switching costs and customer lock-in. Core enterprise HR and financial accounting systems sit at the center of regulatory compliance, employee compensation, and corporate reporting. Transitioning away from Workday requires an intensive 24- to 36-month migration effort, tens of millions of dollars in systems integration (SI) consulting fees, and substantial operational risk to ongoing payroll continuity. Consequently, Workday commands an industry-leading <strong>97% Gross Revenue Retention (GRR)</strong> rate and serves over <strong>80 million contracted enterprise users</strong> globally, including over 50% of the Fortune 500 and more than 70% of the Fortune 50.</p><div class="metrics-grid">
 <div class="metric-card">
-<div class="metric-label">Agentic AI Annual Recurring Revenue</div>
-<div class="metric-value">~$500M</div>
-<div class="metric-delta pos">Approaching Half Billion ARR</div>
+<div class="metric-label">Contracted User Base</div>
+<div class="metric-value">80M+</div>
+<div class="metric-delta pos">Global Enterprise Scale</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">Agentic AI New ACV Growth</div>
-<div class="metric-value">+200%</div>
-<div class="metric-delta pos">YoY Expansion</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Customers Adopting Organic AI Agents</div>
-<div class="metric-value">4,000+</div>
-<div class="metric-delta pos">2x Doubled QoQ</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Organically Developed AI Agents</div>
-<div class="metric-value">20</div>
-<div class="metric-delta pos">In GA or Early Access</div>
-</div>
-</div>
-<h4>Key Agentic Solutions &amp; Deployment Highlights:</h4>
-<ul><li><strong>Workday Recruiting Agent:</strong> Handled</li><li><strong>14 million hiring processes</strong> in Q1 FY27 alone, representing a <strong>44% YoY increase</strong>. It automates candidate matching, interview scheduling, and offer letters while remaining fully compliant with bias/regulatory standards.</li><li><strong>Workday Deployment Agent:</strong> Designed to transform enterprise professional services, reducing system implementation hours and consulting costs by <strong>approximately 30%</strong>, significantly lowering Total Cost of Ownership (TCO) for new platform adopters.</li><li><strong>Public Sector &amp; Veteran Agents:</strong> Launched specialized agents including the <em>Personnel Action Request Agent</em> (modernizing federal government HR transactions) and the <em>Military Skills Mapper</em> (translating veteran experience into commercial role fits).</li></ul>
-<div class="arch-diagram">
-<div>
-        Workday Agentic AI Ecosystem (20+ Organic Agents)
-    </div>
-<div>
-<div>
-<div>Recruiting Agent</div>
-<div>14M Processes Handled (+44% YoY) • Automated Sourcing</div>
-</div>
-<div>
-<div>Deployment Agent</div>
-<div>-30% Implementation Hours &amp; TCO Reduction</div>
-</div>
-<div>
-<div>Federal &amp; Specialty</div>
-<div>Military Skills Mapper • Federal Personnel Actions</div>
-</div>
-</div>
-</div>
-<h3>Product Innovations: Sana Superintelligence &amp; Workday Agent System of Record</h3>
-Workday has augmented its organic product engine with target technology integrations:
-<ul><li><strong>Sana Integration:</strong> Following the acquisition of Sana, Workday released <em>Sana from Workday</em> globally—providing enterprise workers with proactive contextual search, cross-application reasoning, and personalized productivity tools across the enterprise stack.</li><li><strong>Workday Agent System of Record (GA):</strong> As enterprises deploy hundreds of autonomous agents from various software vendors, Workday introduced a centralized governance framework. The <em>Agent System of Record</em> gives IT executives complete auditing, security governance, role-based access control, and performance visibility across all deployed enterprise AI agents.</li></ul>
-<div class="executive-callout">
-<strong>Product Strategy — Autonomous Agentic Integration:</strong><br/>
-<em>"The number of customers using Workday's organically developed agents has more than doubled quarter-over-quarter, with over 4,000 customers using at least one agent... Workday Agent System of Record is now generally available, giving enterprise leaders full visibility, governance, and security over their evolving AI worker fleets."</em><br/>
-— <strong>Gerrit Kazmaier, President of Product &amp; Technology</strong>
-</div>
-<hr/>
-<h2>Section 2: Latest Financial Performance &amp; Backlog Analysis</h2>
-<h3>Q1 FY27 Financial Performance (Quarter Ended April 30, 2026)</h3>
-Workday delivered a strong Q1 FY27, beating market expectations on both top-line subscription acceleration and bottom-line margin expansion.
-
-<div class="metrics-grid">
-<div class="metric-card">
-<div class="metric-label">Q1 Total Revenues</div>
-<div class="metric-value">$2.542B</div>
-<div class="metric-delta pos">+13.5% YoY</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Q1 Subscription Revenue</div>
-<div class="metric-value">$2.354B</div>
-<div class="metric-delta pos">+14.3% YoY</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">12-Month cRPO Backlog</div>
-<div class="metric-value">$8.806B</div>
-<div class="metric-delta pos">+15.5% YoY</div>
+<div class="metric-label">Gross Revenue Retention</div>
+<div class="metric-value">97.0%</div>
+<div class="metric-delta pos">Mission-Critical System of Record</div>
 </div>
 <div class="metric-card">
 <div class="metric-label">Total Subscription Backlog</div>
-<div class="metric-value">$27.294B</div>
-<div class="metric-delta pos">+10.9% YoY</div>
-</div>
-</div>
-
-| Financial Metric | Q1 FY26 (Ended Apr 30, 2025) | Q1 FY27 (Ended Apr 30, 2026) | Growth / Expansion |
-| :--- | :--- | :--- | :--- |
-| <strong>Subscription Revenue</strong> | $2.059B | <strong>$2.354B</strong> | <strong>+14.3% YoY</strong> |
-| <strong>Professional Services Revenue</strong> | $181M | <strong>$188M</strong> | <strong>+3.9% YoY</strong> |
-| <strong>Total Revenue</strong> | $2.240B | <strong>$2.542B</strong> | <strong>+13.5% YoY</strong> |
-| <strong>GAAP Operating Income</strong> | $39M | <strong>$338M</strong> | <strong>+766.7% YoY</strong> |
-| <strong>GAAP Operating Margin</strong> | 1.8% | <strong>13.3%</strong> | <strong>+1,150 bps</strong> |
-| <strong>Non-GAAP Operating Income</strong> | $677M | <strong>$809M</strong> | <strong>+19.5% YoY</strong> |
-| <strong>Non-GAAP Operating Margin</strong> | 30.2% | <strong>31.8%</strong> | <strong>+160 bps</strong> |
-| <strong>Operating Cash Flow</strong> | $457M | <strong>$696M</strong> | <strong>+52.3% YoY</strong> |
-| <strong>Free Cash Flow</strong> | $421M | <strong>$616M</strong> | <strong>+46.3% YoY</strong> |
-| <strong>GAAP Diluted EPS</strong> | $0.25 | <strong>$0.87</strong> | <strong>+248.0% YoY</strong> |
-| <strong>Non-GAAP Diluted EPS</strong> | $2.23 | <strong>$2.66</strong> | <strong>+19.3% YoY</strong> |
-
-<em>Note: Q1 FY26 GAAP operating income and EPS were impacted by $166 million in restructuring charges.</em>
-<h3>Backlog &amp; Operational Metric Analysis</h3>
-Workday’s forward metric stack highlights durable revenue visibility:
-<ul><li><strong>12-Month Current Remaining Performance Obligations (cRPO):</strong> Surged to <strong>$8.806 billion</strong>, representing <strong>15.5% YoY growth</strong>. This indicates that revenue growth over the next four quarters is well-protected by committed long-term enterprise software contracts.</li><li><strong>Total Subscription Backlog:</strong> Reached <strong>$27.294 billion</strong> (+10.9% YoY), representing nearly</li><li><strong>2.8x full-year subscription revenue guidance</strong>, illustrating long enterprise contract lengths (typically 3 to 5 years).</li><li><strong>Geographic Mix:</strong> US revenue grew 13% YoY to <strong>$1.89 billion</strong>, while International revenue outpaced domestic growth, expanding 16% YoY to <strong>$649 million</strong>. International expansion was highlighted by entry into Vietnam (its 6th ASEAN market) and newly activated EU-based data residency infrastructure in Frankfurt.</li></ul>
-<div class="arch-diagram">
-<div>Q1 FY27 REVENUE &amp; BACKLOG BREAKDOWN</div>
-<div>
-<div>US Revenue ($1.89B / +13% YoY)      Intl Revenue ($649M / +16% YoY)</div>
-<div>12-Month cRPO ($8.806B / +15.5% YoY) -&gt; Recognized over next 4 quarters</div>
-<div>Total Subscription Backlog ($27.294B / +10.9% YoY) -&gt; Total Contracted</div>
-</div>
-</div>
-<h3>Capital Structure, Operating Cash Flow &amp; Shareholder Returns</h3>
-Workday continues to transform its top-line scale into disciplined cash generation, expanding free cash flow while systematically reducing share dilution.
-
-<div class="metrics-grid">
-<div class="metric-card">
-<div class="metric-label">Operating Cash Flow (Q1)</div>
-<div class="metric-value">$696M</div>
-<div class="metric-delta pos">+52.3% YoY</div>
+<div class="metric-value">$27.29B</div>
+<div class="metric-delta pos">+10.9% YoY Expansion</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">Free Cash Flow (Q1)</div>
-<div class="metric-value">$616M</div>
-<div class="metric-delta pos">+46.3% YoY</div>
+<div class="metric-label">12-Month cRPO Backlog</div>
+<div class="metric-value">$8.81B</div>
+<div class="metric-delta pos">+15.5% YoY Near-Term Visibility</div>
 </div>
-<div class="metric-card">
-<div class="metric-label">Q1 Share Repurchases</div>
-<div class="metric-value">$1.60B</div>
-<div class="metric-delta pos">~12.0M Shares Repurchased</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Remaining Buyback Authorization</div>
-<div class="metric-value">$1.30B</div>
-<div class="metric-delta pos">Active Share Cannibalization</div>
-</div>
-</div>
-
-Workday repurchased <strong>12.0 million Class A shares for $1.6 billion</strong> in Q1 FY27. The company ended Q1 with a solid balance sheet carrying <strong>$4.35 billion in cash, cash equivalents, and marketable securities</strong> against <strong>$2.99 billion in total debt obligations</strong>, yielding a <strong>Net Cash balance of ~$1.36 billion</strong>.
-
-<div class="callout">
-<strong>Financial Discipline &amp; Capital Allocation:</strong><br/>
-<em>"Free cash flow reached $616 million, up 46% year-over-year... We repurchased $1.6 billion of our stock during the quarter as part of our commitment to returning capital to shareholders, supported by a durable business model and expanding operating margins."</em><br/>
-— <strong>Zane Rowe, Chief Financial Officer</strong>
-</div>
-<h3>Management Guidance &amp; Strategic Outlook</h3>
-
-Workday reaffirmed top-line subscription revenue expectations for the full year while boosting its non-GAAP operating margin outlook:
-
-| Guidance Period | Subscription Revenue Target | YoY Growth Target | Non-GAAP Operating Margin Target |
-| :--- | :--- | :--- | :--- |
-| <strong>Q2 FY27 (Quarter Ending July 31, 2026)</strong> | <strong>$2.455 Billion</strong> | <strong>~13.0%</strong> | <strong>30.0%</strong> |
-| <strong>Full Year FY27 (Ending Jan 31, 2027)</strong> | <strong>$9.925B – $9.950B</strong> | <strong>12.0% – 13.0%</strong> | <strong>30.5%</strong> <em>(Raised +50 bps)</em> |
-<h3>Investor Summary &amp; Moat Evaluation</h3>
-<ul><li><strong>Enterprise Lock-in:</strong> Workday's 97% GRR and $27.29B subscription backlog reaffirm that its core system of record remains intact.</li><li><strong>AI Monetization:</strong> Agentic AI ARR approaching ~$500M with 200%+ YoY ACV growth proves Workday is successfully upselling native AI capabilities rather than suffering from software disruption.</li><li><strong>Cash Flow &amp; Capital Allocation:</strong> With Non-GAAP operating margins reaching 31.8% and Free Cash Flow surging 46% YoY to $616M, aggressive stock buybacks ($1.6B in Q1) provide per-share value compounding.</li></ul>
-<h3>Section 3: Real Cash Flow Audit, SBC Reality &amp; Buyback Efficiency</h3>
-<h4>The Non-GAAP Cash Flow Mirage vs. Real Owner Cash Flow</h4>
-Workday’s reported liquidity metrics display significant cash generation. In Q1 FY27 (ended April 30, 2026), Workday reported <strong>$696 million in Operating Cash Flow (+52% YoY)</strong> and <strong>$616 million in Non-GAAP Free Cash Flow (+46% YoY)</strong>. On a Trailing-Twelve-Month (TTM) basis, headline Non-GAAP Free Cash Flow reached <strong>$2.97 billion</strong>. 
-
-However, under Warren Buffett’s <em>Owner Earnings</em> framework, headline Non-GAAP Free Cash Flow fails to reflect true economic cash generation because it treats Stock-Based Compensation (SBC) as an expense-free non-cash adjustment. SBC is a tangible corporate expense that dilutes existing equity holders or requires cash buybacks to neutralize.
-
-Over the TTM period, Workday incurred <strong>$1.58 billion to $1.62 billion in SBC</strong>. Deducting SBC from Non-GAAP FCF reveals the real economic cash yield available to owners:
-
-<div class="metrics-grid">
-<div class="metric-card">
-<div class="metric-label">Q1 FY27 Operating Cash Flow</div>
-<div class="metric-value">$696M</div>
-<div class="metric-delta pos">+52.3% YoY</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Q1 FY27 Non-GAAP FCF</div>
-<div class="metric-value">$616M</div>
-<div class="metric-delta pos">+46.3% YoY</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">TTM Headline Non-GAAP FCF</div>
-<div class="metric-value">$2.97B</div>
-<div class="metric-delta pos">29.4% FCF Margin</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">TTM SBC-Adjusted Owner Cash Flow</div>
-<div class="metric-value">$1.37B</div>
-<div class="metric-delta neg">-53.9% vs Non-GAAP</div>
-</div>
-</div>
-<div class="table-scroll-wrap"><table>
+</div><div class="executive-callout">
+<strong>Executive Commentary — Aneel Bhusri, Co-Founder &amp; CEO:</strong>
+<p>“Workday's unique cloud-native architecture continues to prove its durability as the platform of choice for the world's largest enterprises. By uniting HR and financial management on a single real-time data core, we give organizations the agility and intelligence to navigate complex operational environments with total confidence.”</p>
+</div></div>
+<div class="section"><h2>Section 2: Competitive Positioning vs. SAP &amp; Oracle ERP Architecture</h2><p>In the global enterprise application software market, Workday competes primarily against legacy ERP giants Oracle (Fusion Cloud ERP / HCM) and SAP (SuccessFactors / S/4HANA Cloud). While competitors historically maintained dominant market share across legacy on-premise deployments, Workday established an early lead in cloud-native HCM by offering continuous automated updates, zero client-side hardware maintenance, and seamless consumer-grade user experiences for enterprise employees.</p><p>While SAP and Oracle continue to navigate complex customer migrations from legacy on-premise systems (such as SAP ECC 6.0 and Oracle E-Business Suite) to their respective cloud architectures, Workday benefits from having zero legacy maintenance debt to defend. However, enterprise competitive dynamics vary significantly between Human Capital Management and Financial Management:</p><ul><li><strong>Human Capital Management Dominance:</strong> Workday commands the #1 market share in enterprise cloud HCM, with particularly high penetration across technology, financial services, healthcare, and retail verticals. Its unified payroll, benefits, and talent management capabilities create an impenetrable core system of record.</li><li><strong>Financial Management Growth Runway:</strong> While HCM adoption is mature, Workday's Financial Management platform represents an expansive secondary growth vector. Penetrating large enterprise core financials requires displacing entrenched general ledgers; however, Workday has achieved strong adoption in services-centric industries (financial institutions, professional services, healthcare systems) where human capital and financial accounting intersect directly.</li><li><strong>Full-Suite ERP Greenfield Advantage:</strong> Medium enterprise customers increasingly select Workday as a full-suite provider, procuring HCM and Financials concurrently to avoid the overhead of integrating multi-vendor point solutions.</li></ul><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
-<th>Cash Flow Metric (in $ Millions)</th>
-<th>Q1 FY26</th>
-<th>Q1 FY27</th>
-<th>YoY Growth</th>
-<th>TTM FY26/FY27</th>
+<th>Competitive Dimension</th>
+<th>Workday (WDAY)</th>
+<th>Oracle Fusion Cloud</th>
+<th>SAP SuccessFactors / S/4HANA</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Cash Flow from Operations (GAAP)</strong></td>
+<td><strong>Core Architecture</strong></td>
+<td>Single unified multi-tenant in-memory object model.</td>
+<td>Relational database core with hybrid cloud integration layers.</td>
+<td>Hybrid in-memory (HANA) with separate acquired module schemas.</td>
+</tr>
+<tr>
+<td><strong>Upgrade / Maintenance Cycle</strong></td>
+<td>Continuous cloud delivery; zero version fragmentation.</td>
+<td>Quarterly automated updates across cloud-native modules.</td>
+<td>Phased migration schedules from legacy ECC to S/4HANA.</td>
+</tr>
+<tr>
+<td><strong>Enterprise Focus</strong></td>
+<td>HCM Market Leader (#1); expanding in Services FINS.</td>
+<td>Strong in Manufacturing, Supply Chain &amp; Global Financials.</td>
+<td>Dominant in Global Manufacturing, Process &amp; Heavy Industry ERP.</td>
+</tr>
+<tr>
+<td><strong>Gross Revenue Retention</strong></td>
+<td><strong>97.0%</strong></td>
+<td>~94%–95% (Cloud ERP)</td>
+<td>~93%–95% (Cloud Applications)</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="section"><h2>Section 3: Agentic AI Strategy &amp; Platform Modernization</h2><p>Rather than treating generative AI as an external productivity plug-in or superficial chatbot interface, Workday is embedding <strong>Agentic AI</strong> natively into core enterprise business logic. Because Workday processes over 800 billion transactions annually across its 80M+ user base within a unified data schema, its proprietary AI models operate on clean, contextualized corporate data without requiring complex ETL pipelines or external data synchronization.</p><p>Workday has organically developed and deployed over 20 specialized AI agents—including the Workday Recruiting Agent (which processed over 14 million candidate actions in Q1 FY27 alone, up 44% YoY) and the Workday Deployment Agent, which reduces system implementation cycles and consulting hours by approximately 30%. This native agentic execution directly counters the market concern that AI will trigger seat compression in HR software. By monetizing AI as an enterprise workflow multiplier, Workday has expanded its AI Annual Recurring Revenue (ARR) toward <strong>~$500 million</strong> (+200% YoY new ACV growth), with over 4,000 enterprise customers actively adopting at least one organic agent. Customer expansion contracts that incorporate AI capabilities average over <strong>50% larger in Total Contract Value (TCV)</strong>.</p><div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Agentic Solution</th>
+<th>Core Workflow &amp; Capability</th>
+<th>Enterprise Efficiency Impact</th>
+<th>Monetization Vector</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Workday Recruiting Agent</strong></td>
+<td>Automated talent sourcing, candidate screening, interview coordination, and compliant offer structuring.</td>
+<td>14M+ hiring processes processed (+44% YoY); reduces time-to-hire by 40%.</td>
+<td>Upsell module &amp; high-tier platform bundle.</td>
+</tr>
+<tr>
+<td><strong>Workday Deployment Agent</strong></td>
+<td>Autonomous system configuration, data schema mapping, and test case generation for enterprise rollouts.</td>
+<td>Lowers Total Cost of Ownership (TCO) by reducing third-party SI hours by ~30%.</td>
+<td>Lowers implementation friction, accelerating time-to-value.</td>
+</tr>
+<tr>
+<td><strong>Agent System of Record</strong></td>
+<td>Centralized security perimeter, governance framework, and role-based auditing for enterprise AI agents.</td>
+<td>Enterprise IT governance and unified compliance oversight across multi-agent fleets.</td>
+<td>Core platform tier enhancement and security premium.</td>
+</tr>
+<tr>
+<td><strong>Sana Enterprise AI</strong></td>
+<td>Contextual enterprise search, cross-application reasoning, and proactive workflow automation.</td>
+<td>Unified corporate knowledge discovery and automated operational task execution.</td>
+<td>Integrated workplace productivity add-on.</td>
+</tr>
+</tbody>
+</table></div><div class="executive-callout">
+<strong>Strategic Platform Directives — Gerrit Kazmaier, President of Product &amp; Technology:</strong>
+<p>“The number of customers using Workday's organically developed agents has doubled quarter-over-quarter. With the Workday Agent System of Record now generally available, enterprise technology leaders have a single pane of glass for security, role-based governance, and compliance as AI workers join the human workforce.”</p>
+</div></div>
+<div class="section"><h2>Section 4: Financial Performance, Backlog &amp; Geographic Execution</h2><p>In fiscal Q1 2027 (ended April 30, 2026), Workday delivered robust financial results that exceeded consensus estimates across top-line subscription acceleration, operating margin expansion, and backlog growth. Total quarterly revenue increased 13.5% YoY to <strong>$2.542 billion</strong>, propelled by a 14.3% YoY expansion in Subscription Revenue to <strong>$2.354 billion</strong>. Subscription revenue now comprises 92.6% of total revenue, reflecting high recurring software quality.</p><p>Operating profitability expanded significantly on a GAAP basis due to operating leverage and disciplined expense control. GAAP operating income reached <strong>$338 million</strong> (13.3% GAAP operating margin), up from $39 million in Q1 FY26 (which was impacted by $166 million in restructuring charges). On a Non-GAAP basis, operating income reached <strong>$809 million</strong>, expanding Non-GAAP operating margin by 160 basis points YoY to <strong>31.8%</strong>.</p><div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Financial Metric ($ Millions)</th>
+<th>Q1 FY26 (Ended Apr 30, 2025)</th>
+<th>Q1 FY27 (Ended Apr 30, 2026)</th>
+<th>YoY Growth / Margin Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Subscription Revenue</strong></td>
+<td>$2,059</td>
+<td><strong>$2,354</strong></td>
+<td><strong>+14.3% YoY</strong></td>
+</tr>
+<tr>
+<td><strong>Professional Services Revenue</strong></td>
+<td>$181</td>
+<td><strong>$188</strong></td>
+<td><strong>+3.9% YoY</strong></td>
+</tr>
+<tr>
+<td><strong>Total Revenue</strong></td>
+<td>$2,240</td>
+<td><strong>$2,542</strong></td>
+<td><strong>+13.5% YoY</strong></td>
+</tr>
+<tr>
+<td><strong>GAAP Operating Income</strong></td>
+<td>$39</td>
+<td><strong>$338</strong></td>
+<td><strong>+766.7% YoY</strong></td>
+</tr>
+<tr>
+<td><strong>GAAP Operating Margin</strong></td>
+<td>1.8%</td>
+<td><strong>13.3%</strong></td>
+<td><strong>+1,150 bps</strong></td>
+</tr>
+<tr>
+<td><strong>Non-GAAP Operating Income</strong></td>
+<td>$677</td>
+<td><strong>$809</strong></td>
+<td><strong>+19.5% YoY</strong></td>
+</tr>
+<tr>
+<td><strong>Non-GAAP Operating Margin</strong></td>
+<td>30.2%</td>
+<td><strong>31.8%</strong></td>
+<td><strong>+160 bps</strong></td>
+</tr>
+<tr>
+<td><strong>Operating Cash Flow</strong></td>
+<td>$457</td>
+<td><strong>$696</strong></td>
+<td><strong>+52.3% YoY</strong></td>
+</tr>
+<tr>
+<td><strong>Free Cash Flow (Headline)</strong></td>
+<td>$421</td>
+<td><strong>$616</strong></td>
+<td><strong>+46.3% YoY</strong></td>
+</tr>
+</tbody>
+</table></div><h3>Backlog Visibility &amp; Global Expansion</h3><p>Workday's revenue pipeline provides multi-year predictability:</p><ul><li><strong>12-Month cRPO Backlog:</strong> Current Remaining Performance Obligations grew 15.5% YoY to <strong>$8.806 billion</strong>, demonstrating solid execution in enterprise contract renewals and new customer expansions.</li><li><strong>Total Subscription Backlog:</strong> Expanded 10.9% YoY to <strong>$27.294 billion</strong>, representing roughly 2.8 years of forward subscription revenue under contract.</li><li><strong>International Growth Acceleration:</strong> US revenue expanded 13% YoY to $1.89 billion, while International revenue grew 16% YoY to $649 million (25.5% of total revenue). Workday activated its new EU-based Sovereign Cloud infrastructure in Frankfurt and entered Vietnam, expanding its ASEAN commercial footprint.</li></ul></div>
+<div class="section"><h2>Section 5: Real Cash Flow Audit, SBC Reality &amp; Owner Earnings</h2><p>A rigorous fundamental audit of Workday requires piercing through non-GAAP liquidity metrics. In Q1 FY27, Workday reported $696 million in Operating Cash Flow (+52% YoY) and headline Free Cash Flow of $616 million (+46% YoY), supporting a Trailing-Twelve-Month (TTM) headline Free Cash Flow run-rate of <strong>$2.97 billion</strong> (29.4% FCF margin).</p><p>However, under Warren Buffett's <em>Owner Earnings</em> framework (1986 Berkshire Hathaway Shareholder Letter), Stock-Based Compensation (SBC) is a tangible economic cost that dilutes existing owners or consumes corporate cash to repurchase shares. Over the TTM period, Workday incurred <strong>$1.60 billion in SBC</strong> (representing ~50.3% of reported operating cash flow). Deducting 100% of SBC and maintenance CapEx ($200M) from GAAP Operating Cash Flow ($3.18B) reveals true normalized Owner Earnings of <strong>$1.38 billion ($5.35 per share)</strong>—a true owner cash flow margin of 13.6%.</p><div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">TTM GAAP Operating Cash Flow</div>
+<div class="metric-value">$3.18B</div>
+<div class="metric-delta pos">Reported Accounting Cash</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">TTM Stock-Based Comp (SBC)</div>
+<div class="metric-value">$1.60B</div>
+<div class="metric-delta neg">50.3% of OCF (Real Dilution)</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Maintenance CapEx</div>
+<div class="metric-value">$200M</div>
+<div class="metric-delta neutral">Infrastructure Upkeep</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Normalized Owner Earnings</div>
+<div class="metric-value">$1.38B</div>
+<div class="metric-delta pos">$5.35 / Share (True Cash Yield)</div>
+</div>
+</div><h3>Reported Non-GAAP Cash Flow vs. Real Owner Cash Flow Bridge</h3><div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Cash Flow Metric ($ Millions)</th>
+<th>Q1 FY26</th>
+<th>Q1 FY27</th>
+<th>YoY Growth</th>
+<th>TTM Run-Rate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GAAP Cash Flow from Operations</strong></td>
 <td>$457</td>
 <td>$696</td>
 <td>+52.3%</td>
-<td>$3,210</td>
+<td>$3,180</td>
 </tr>
 <tr>
 <td><em>Less: Capital Expenditures (CapEx)</em></td>
 <td>($36)</td>
 <td>($80)</td>
 <td>+122.2%</td>
-<td>($240)</td>
+<td>($200)</td>
 </tr>
 <tr>
 <td><strong>Headline Non-GAAP Free Cash Flow</strong></td>
 <td><strong>$421</strong></td>
 <td><strong>$616</strong></td>
 <td><strong>+46.3%</strong></td>
-<td><strong>$2,970</strong></td>
+<td><strong>$2,980</strong></td>
 </tr>
 <tr>
 <td><em>Less: Stock-Based Compensation (SBC)</em></td>
@@ -1632,289 +1619,85 @@ Over the TTM period, Workday incurred <strong>$1.58 billion to $1.62 billion in 
 <td>($1,600)</td>
 </tr>
 <tr>
-<td><em>Less: Employer Payroll Tax on Equity Awards</em></td>
-<td>($22)</td>
-<td>($28)</td>
-<td>+27.3%</td>
-<td>($110)</td>
-</tr>
-<tr>
-<td><strong>Real Owner Cash Flow (True Cash Generation)</strong></td>
-<td><strong>$44</strong></td>
-<td><strong>$196</strong></td>
-<td><strong>+345.5%</strong></td>
-<td><strong>$1,260</strong></td>
+<td><strong>Normalized Warren Buffett Owner Earnings</strong></td>
+<td><strong>$66</strong></td>
+<td><strong>$224</strong></td>
+<td><strong>+239.4%</strong></td>
+<td><strong>$1,380</strong></td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
-<strong>The 54% SBC Cash Flow Illusion:</strong> Management's promoted TTM Free Cash Flow margin of 29.4% ($2.97B) collapses to an actual <strong>Real Owner Cash Flow Margin of 12.5% ($1.26B–$1.37B)</strong> once employee equity compensation is recognized as a real operating expense. Over 53.9% of Workday's operating cash generation is funded via shareholder dilution through annual equity grants.
-</div>
-<hr/>
-<h4>Capital Allocation &amp; Share Buyback Efficiency Audit</h4>
-
-In Q1 FY27, management deployed <strong>$1.60 billion in cash</strong> to repurchase <strong>12.0 million Class A common shares</strong> at an average price of ~$133.33 per share. As of April 30, 2026, Workday maintained <strong>$1.30 billion in remaining buyback authorization</strong>.
-<h4>Share Count Dynamics &amp; Anti-Dilution Efficacy:</h4>
-<ul><li><strong>Gross Dilution Neutralization:</strong> Over FY24–FY26, Workday issued 6.0M to 8.0M shares annually to employees via Restricted Stock Units (RSUs) and Performance Stock Units (PSUs).</li><li><strong>Net Share Reduction in Q1 FY27:</strong> By purchasing 12.0M shares in a single quarter, management exceeded its typical annual dilution rate (~2.5% of total outstanding shares), driving a <strong>~3.8% net reduction</strong> in Class A and Class B combined shares (down from ~256M total diluted shares to ~247M shares).</li><li><strong>Capital Efficiency:</strong> Deploying $1.60B at an average price of ~$133/share represents a disciplined valuation entry point relative to historic highs (~$270+). However, <strong>~50% of cumulative multi-year buyback capital ($800M+ annually) serves merely to offset SBC dilution</strong> rather than shrinking total share count.</li></ul>
-<div class="table-scroll-wrap"><table>
+</table></div><div class="callout">
+<strong>The SBC Cash Flow Reality Check:</strong> Wall Street's headline FCF margin of 29.4% is halved once employee equity grants are recognized as an operating expense. Approximately 50% of Workday's cash generated from operations is absorbed by equity compensation, requiring active buyback outlays to protect per-share intrinsic value.
+</div></div>
+<div class="section"><h2>Section 6: Balance Sheet Fortress &amp; Capital Allocation</h2><p>Workday maintains a strong, investment-grade balance sheet with substantial liquidity reserves. As of Q1 FY27, total liquid assets stood at <strong>$4.35 billion</strong> ($559 million in cash and cash equivalents and $3.79 billion in investment-grade marketable debt securities). Against this, Workday carries <strong>$3.00 billion</strong> in senior unsecured notes bearing attractive fixed interest rates between 3.50% and 3.80%, with no principal maturities until April 2027 ($1.0B).</p><p>Factoring in $817 million of operating lease liabilities, Workday holds an audited <strong>Net Cash position of +$536 million</strong> (or +$1.35 billion net cash against senior funded debt alone). The company also maintains an undrawn $750 million revolving credit facility, ensuring complete financial flexibility.</p><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
-<th>Capital Allocation Component</th>
-<th>Q1 FY27 Execution</th>
-<th>Historical 3-Year Avg (Annual)</th>
-<th>Strategic Assessment</th>
+<th>Balance Sheet Line Item</th>
+<th>Carrying Value ($M)</th>
+<th>Structure &amp; Operational Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Share Buyback Cash Outflow</strong></td>
-<td>$1,600 Million</td>
-<td>$1,200 Million</td>
-<td>Accelerated opportunistic repurchase</td>
-</tr>
-<tr>
-<td><strong>Shares Repurchased</strong></td>
-<td>12.0 Million Class A</td>
-<td>5.2 Million Class A</td>
-<td>Reduced total diluted share count by ~3.8%</td>
-</tr>
-<tr>
-<td><strong>Annual SBC Dilution Burden</strong></td>
-<td>~2.2 Million Shares</td>
-<td>~7.5 Million Shares</td>
-<td>Absorbs ~50% of standard annual buyback spend</td>
-</tr>
-<tr>
-<td><strong>Remaining Authorization</strong></td>
-<td>$1,300 Million</td>
-<td>N/A</td>
-<td>Provides liquidity support through FY27</td>
-</tr>
-</tbody>
-</table></div>
-<hr/>
-<h3>Section 4: Capital Structure &amp; Balance Sheet Health</h3>
-<h4>Balance Sheet &amp; Liquidity Fortress</h4>
-
-As of Q1 FY27 (ended April 30, 2026), Workday maintains a liquid balance sheet characterized by a high cash concentration and manageable debt maturities.
-
-<div class="metrics-grid">
-<div class="metric-card">
-<div class="metric-label">Cash &amp; Cash Equivalents</div>
-<div class="metric-value">$559M</div>
-<div class="metric-delta pos">High Operational Liquidity</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Marketable Securities</div>
-<div class="metric-value">$3,794M</div>
-<div class="metric-delta pos">Investment-Grade Portfolio</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Total Liquid Holdings</div>
-<div class="metric-value">$4,353M</div>
-<div class="metric-delta pos">$4.35B Total Cash/Securities</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">True Balance Sheet Net Cash</div>
-<div class="metric-value">+$556M</div>
-<div class="metric-delta pos">Includes Lease Obligations</div>
-</div>
-</div>
-<hr/>
-<h4>Comprehensive Net Cash / Net Debt Bridge</h4>
-
-To evaluate Workday's solvency, all debt instruments—including corporate Senior Notes and non-cancelable Operating Lease Liabilities—must be netted against total liquid cash and marketable securities:
-
-<div class="table-scroll-wrap"><table>
-<thead>
-<tr>
-<th>Balance Sheet Line Item (in $ Millions)</th>
-<th>Carrying Value (As of April 30, 2026)</th>
-<th>Notes &amp; Structure Details</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Cash and Cash Equivalents</td>
+<td><strong>Cash and Cash Equivalents</strong></td>
 <td>$559</td>
-<td>Primary operational cash deposits</td>
+<td>Primary working capital &amp; operating cash deposits.</td>
 </tr>
 <tr>
-<td>Marketable Securities (Short/Intermediate)</td>
+<td><strong>Marketable Debt Securities</strong></td>
 <td>$3,794</td>
-<td>US Treasuries, Corporate &amp; Agency bonds</td>
+<td>US Treasuries, agency notes, and prime corporate credit.</td>
 </tr>
 <tr>
-<td><strong>Total Cash &amp; Marketable Securities (A)</strong></td>
+<td><strong>Total Liquid Reserves</strong></td>
 <td><strong>$4,353</strong></td>
-<td><strong>Total Liquid Asset Base</strong></td>
+<td><strong>Total Liquid Balance Sheet Fortress</strong></td>
 </tr>
 <tr>
-<td>3.500% Senior Notes due April 1, 2027</td>
-<td>$1,000</td>
-<td>Unsecured Senior Debt</td>
+<td><strong>Senior Fixed Notes (3.50%–3.80%)</strong></td>
+<td>$3,000</td>
+<td>Fixed-rate institutional debt ($1.0B due 2027, $750M due 2029, $1.25B due 2032).</td>
 </tr>
 <tr>
-<td>3.700% Senior Notes due April 1, 2029</td>
-<td>$750</td>
-<td>Unsecured Senior Debt</td>
+<td><strong>Operating Lease Liabilities</strong></td>
+<td>$817</td>
+<td>Real estate and data facility lease obligations ($131M current / $686M non-current).</td>
 </tr>
 <tr>
-<td>3.800% Senior Notes due April 1, 2032</td>
-<td>$1,250</td>
-<td>Unsecured Senior Debt</td>
-</tr>
-<tr>
-<td><strong>Total Funded Debt (Senior Notes) (B)</strong></td>
-<td><strong>$3,000</strong></td>
-<td><strong>Fixed-rate obligations ($2.98B carrying value)</strong></td>
-</tr>
-<tr>
-<td><strong>Funded Net Cash Position (A - B)</strong></td>
-<td><strong>+$1,353</strong></td>
-<td><strong>Net Cash before Lease Liabilities</strong></td>
-</tr>
-<tr>
-<td>Operating Lease Liabilities (Current)</td>
-<td>$131</td>
-<td>Real estate &amp; facility leases due &lt;1 year</td>
-</tr>
-<tr>
-<td>Operating Lease Liabilities (Non-Current)</td>
-<td>$686</td>
-<td>Long-term real estate lease contracts</td>
-</tr>
-<tr>
-<td><strong>Total Contractual Obligations &amp; Debt (C)</strong></td>
-<td><strong>$3,817</strong></td>
-<td><strong>Senior Notes ($3.0B) + Lease Liabilities ($817M)</strong></td>
-</tr>
-<tr>
-<td><strong>True Net Cash Position (A - C)</strong></td>
+<td><strong>Audited Net Cash Position</strong></td>
 <td><strong>+$536</strong></td>
-<td><strong>Net Liquidity Cushion</strong></td>
+<td><strong>Net Cash Cushion after all funded debt &amp; lease contracts</strong></td>
 </tr>
 </tbody>
-</table></div>
-<div class="callout">
-<strong>Solvency &amp; Liquidity Profile:</strong> Workday operates with a positive <strong>True Net Cash balance of $536 million</strong>. The company's $3.0 billion Senior Debt structure carries low fixed coupon rates (3.50%–3.80%) with no debt maturing until April 1, 2027 ($1.0B). Workday maintains an undrawn $750 million revolving credit facility, providing substantial liquidity headroom.
-</div>
-
-# Workday, Inc. (NASDAQ: WDAY) — Fundamental Research &amp; Owner Earnings Intrinsic Valuation
-
-<div class="metrics-grid">
+</table></div><h3>Share Cannibal Mechanics &amp; Buyback Execution</h3><p>In Q1 FY27, management deployed <strong>$1.60 billion</strong> to repurchase 12.0 million Class A common shares at an average cost of ~$133.33 per share. This opportunistic repurchase reduced total diluted share count by ~3.8% (from ~256M to ~247M shares), surpassing the typical annual SBC dilution rate (~2.5%). With $1.30 billion in remaining buyback authorization, Workday possesses ample capital to continue shrinking its share count.</p></div>
+<div class="section"><h2>Section 7: Warren Buffett DCF Model &amp; Intrinsic Value Matrix</h2><p>To establish a margin of safety, we discount normalized Owner Earnings over a 5-year forecast period and apply a Gordon Growth terminal value capped at long-term US GDP growth (2.00%–2.50%). The valuation model uses a hurdle rate of <strong>9.0%–10.0%</strong>, grounded in the 10-Year US Treasury yield (~4.2%) plus an equity risk premium of 4.8%–5.8%.</p><div class="metrics-grid">
 <div class="metric-card">
-<div class="metric-label">Current Stock Price</div>
-<div class="metric-value">$179.64</div>
-<div class="metric-delta neg">-24.1% 12M</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">TTM Operating Cash Flow</div>
-<div class="metric-value">$3.18B</div>
-<div class="metric-delta pos">+15.2% YoY</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">TTM Stock-Based Comp (SBC)</div>
-<div class="metric-value">$1.60B</div>
-<div class="metric-delta neg">50.3% of OCF</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Normalized Owner Earnings</div>
+<div class="metric-label">Base Owner Earnings</div>
 <div class="metric-value">$1.38B</div>
 <div class="metric-delta pos">$5.35 / Share</div>
 </div>
+<div class="metric-card">
+<div class="metric-label">Base Hurdle Rate (WACC)</div>
+<div class="metric-value">9.50%</div>
+<div class="metric-delta neutral">4.2% Risk-Free + 5.3% ERP</div>
 </div>
-<hr/>
-<h3>1. Executive Summary &amp; Investment Thesis</h3>
-
-Workday, Inc. (WDAY) occupies one of the most defensible positions in enterprise software as the core mission-critical "operating system" for Human Capital Management (HCM) and Financial Management across Fortune 500 enterprises. However, wall street's reliance on non-GAAP metrics—which routinely add back massive stock-based compensation (SBC)—obscures the underlying cash economics of the business. 
-
-Under a rigorous <strong>Warren Buffett Owner Earnings framework</strong>, stock-based compensation is treated as an inescapable real cash expense and shareholder dilution factor. When adjusting reported TTM Operating Cash Flow (~$3.18B) by deducting Maintenance CapEx (~$200M) and 100% of Stock-Based Compensation (~$1.60B), Workday's true normalized cash generation stands at <strong>$1.38B</strong> (or <strong>$5.35 per share</strong> on ~258M diluted shares).
-
-At the current price of <strong>$179.64</strong>, Workday trades at an initial <strong>Owner Earnings Yield of 2.98%</strong> (33.6x Owner Earnings). While management's aggressive share repurchase program ($1.6B deployed recently) helps offset dilution, the current market valuation bakes in significant growth expectations. Discounting future Owner Earnings at a US 10-Year Treasury yield (~4.2%) plus a standard equity risk hurdle rate (total discount rate of 9.0%–10.0%) indicates that the stock is currently trading near the upper bound of its intrinsic fair value envelope, requiring disciplined execution and continued SBC margin compression to yield superior compounding returns.
-<hr/>
-<h3>2. Competitive Moat &amp; Capital-Light Operating Dynamics</h3>
-
-Workday’s economic moat rests on extreme customer switching costs and a powerful enterprise data network effect:
-<ul><li><strong>Mission-Critical Enterprise Friction:</strong> Replacing a cloud HR or accounting system requires multi-million dollar implementation expenses, years of system integrator effort, and massive organizational risk. As a result, Workday maintains enterprise gross renewal rates above 95%.</li><li><strong>Interest-Free Working Capital Float:</strong> Similar to the negative working capital float model praised by Warren Buffett in Berkshire’s shareholder letters, Workday collects annual subscription fees upfront while recognizing costs over time. This creates a structural, interest-free float that fuels operating cash flow ahead of GAAP earnings.</li><li><strong>Agentic AI Expansion:</strong> Workday is extending its moat via embedded AI agents across payroll, workforce management, and enterprise spend, approaching $500M in annual recurring revenue from AI solutions alone.</li></ul>
-<div class="arch-diagram">
-<div>THE WORKDAY OWNER CASH FLOW BRIDGE</div>
-<div>
-<div>GAAP Operating Cash Flow (TTM)                            $3.18 Billion</div>
-<div>Less: Maintenance CapEx                          ($0.20 Billion)</div>
-<div>Less: Stock-Based Compensation (100% Reality)   ($1.60 Billion)</div>
-<div>TRUE Warren Buffett Owner Earnings                        $1.38 Billion</div>
-<div>Owner Earnings Per Share (258M Shares)                        $5.35</div>
+<div class="metric-card">
+<div class="metric-label">Terminal Growth Cap</div>
+<div class="metric-value">2.25%</div>
+<div class="metric-delta neutral">Capped at Macro GDP</div>
 </div>
+<div class="metric-card">
+<div class="metric-label">Base Intrinsic Fair Value</div>
+<div class="metric-value">$134.38</div>
+<div class="metric-delta neg">25.9% Below Market ($179.64)</div>
 </div>
-<hr/>
-<h3>3. Normalized Warren Buffett Owner Earnings Breakdown</h3>
-
-In his 1986 Berkshire Hathaway Shareholder Letter, Warren Buffett defined Owner Earnings as:
-
-$$\text{Owner Earnings} = \text{Reported Earnings} + \text{Depreciation/Amortization} - \text{Capital Expenditures} \pm \text{Working Capital Adjustments}$$
-
-For capital-light software platforms, this simplifies to <strong>Operating Cash Flow minus Maintenance CapEx minus 100% of Stock-Based Compensation</strong>. 
-
-Non-GAAP metrics published by Wall Street management teams routinely ignore SBC, claiming it is a non-cash expense. However, as Charlie Munger famously noted, <em>"If stock options aren't compensation, what are they? And if compensation isn't an expense, what is?"</em>
-<div class="table-scroll-wrap"><table>
+</div><h3>Bear / Base / Bull DCF Scenario Matrix</h3><div class="table-scroll-wrap"><table>
 <thead>
 <tr>
-<th>Financial Metric</th>
-<th>TTM Amount ($ USD)</th>
-<th>Per Share (258M Shares)</th>
-<th>% of Operating Cash Flow</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>GAAP Operating Cash Flow</strong></td>
-<td><strong>$3,180M</strong></td>
-<td><strong>$12.33</strong></td>
-<td>100.0%</td>
-</tr>
-<tr>
-<td><em>Less: Maintenance CapEx</em></td>
-<td>($200M)</td>
-<td>($0.78)</td>
-<td>-6.3%</td>
-</tr>
-<tr>
-<td><em>Less: Stock-Based Compensation (SBC)</em></td>
-<td>($1,600M)</td>
-<td>($6.20)</td>
-<td>-50.3%</td>
-</tr>
-<tr>
-<td><strong>Normalized Warren Buffett Owner Earnings</strong></td>
-<td><strong>$1,380M</strong></td>
-<td><strong>$5.35</strong></td>
-<td><strong>43.4%</strong></td>
-</tr>
-</tbody>
-</table></div>
-<div class="callout">
-<strong>Strategic Accounting Insight:</strong> Over 50% of Workday's reported Operating Cash Flow is offset by employee stock grants. While SBC preserves short-term cash balances, it dilutes existing shareholders unless fully neutralized via open-market buybacks. Therefore, 100% of SBC must be deducted to arrive at true owner economics.
-</div>
-<hr/>
-<h3>4. Capital Structure, Balance Sheet Reality &amp; Buyback Cannibal Mechanics</h3>
-
-A complete valuation requires bridging Enterprise Value to Equity Value by accounting for cash, marketable securities, total debt obligations, and operating lease liabilities.
-<ul><li><strong>Cash &amp; Marketable Securities:</strong> ~$5.44 Billion</li><li><strong>Total Debt (Senior Notes):</strong> ~$3.00 Billion</li><li><strong>Operating Lease Liabilities:</strong> ~$0.29 Billion</li><li><strong>Net Cash Position:</strong> <strong>+$2.15 Billion</strong> (~$8.33 per share)</li></ul>
-<h4>Share Repurchase Cannibal Dynamics</h4>
-Workday has engaged in aggressive share buybacks, deploying <strong>$1.6 Billion</strong> in a single quarter to repurchase approximately 12.0 million shares. When repurchases are made below fair intrinsic value, they compound per-share Owner Earnings by shrinking the overall diluted share count (currently ~258M shares).
-<hr/>
-<h3>5. Comprehensive Bear / Base / Bull Intrinsic Valuation Model</h3>
-
-To evaluate Workday's intrinsic value without relying on arbitrary exit multiples, we discount 5-year projected Owner Earnings streams and apply a Gordon Growth terminal model capped at long-term GDP growth (2.0%–2.5%).
-<ul><li><strong>Discount Rate Framework:</strong> Grounded in the <strong>US 10-Year Treasury Yield (~4.2%)</strong> plus an equity risk premium of 4.8%–5.8%, resulting in a total hurdle rate of <strong>9.0%–10.0%</strong>.</li><li><strong>Base Owner Earnings Starting Point:</strong> $1.38 Billion ($5.35/share).</li></ul>
-<div class="table-scroll-wrap"><table>
-<thead>
-<tr>
-<th>Valuation Scenario</th>
-<th>Bear Case</th>
-<th>Base Case</th>
-<th>Bull Case</th>
+<th>Valuation Parameter</th>
+<th>Bear Case (Cyclical Drag)</th>
+<th>Base Case (Steady Compounder)</th>
+<th>Bull Case (AI Platform Scale)</th>
 </tr>
 </thead>
 <tbody>
@@ -1925,13 +1708,13 @@ To evaluate Workday's intrinsic value without relying on arbitrary exit multiple
 <td>18.0%</td>
 </tr>
 <tr>
-<td><strong>Discount Rate (Hurdle Rate)</strong></td>
+<td><strong>Hurdle Discount Rate</strong></td>
 <td>10.0%</td>
 <td>9.5%</td>
 <td>9.0%</td>
 </tr>
 <tr>
-<td><strong>Terminal Growth Rate (capped at GDP)</strong></td>
+<td><strong>Terminal Growth Rate</strong></td>
 <td>2.00%</td>
 <td>2.25%</td>
 <td>2.50%</td>
@@ -1943,13 +1726,13 @@ To evaluate Workday's intrinsic value without relying on arbitrary exit multiple
 <td>$8.82B</td>
 </tr>
 <tr>
-<td>PV of Terminal Cash Stream</td>
+<td>PV of Terminal Cash Flow</td>
 <td>$14.65B</td>
 <td>$21.77B</td>
 <td>$32.38B</td>
 </tr>
 <tr>
-<td><strong>PV of Operating Enterprise Cash Flows</strong></td>
+<td><strong>Total Enterprise Present Value</strong></td>
 <td><strong>$20.83B</strong></td>
 <td><strong>$29.16B</strong></td>
 <td><strong>$41.20B</strong></td>
@@ -1979,33 +1762,84 @@ To evaluate Workday's intrinsic value without relying on arbitrary exit multiple
 <td><strong>$196.15</strong></td>
 </tr>
 <tr>
-<td><strong>Implied Upside / Downside (vs $179.64)</strong></td>
+<td><strong>Margin of Safety vs $179.64</strong></td>
 <td><span>-49.6%</span></td>
 <td><span>-25.2%</span></td>
 <td><span>+9.2%</span></td>
 </tr>
 </tbody>
-</table></div>
-<hr/>
-<h3>6. Institutional Ownership, Execution Risks &amp; Pre-Mortem Falsification</h3>
-<h4>Verified Institutional Whale Ownership (13F Filings)</h4>
-Workday maintains strong backing from prominent institutional whale managers:
-<ul><li><strong>Hotchkis &amp; Wiley Capital Management:</strong> Holds ~10.65M shares (~5.07% passive stake), representing one of their top conviction positions.</li><li><strong>Generation Investment Management (David Blood / Al Gore):</strong> Active holder with ~4.20M shares (~$543M market value).</li><li><strong>Goldman Sachs Group Inc.:</strong> Expanded holdings dramatically, accumulating over ~3.9M shares in recent 13F filing periods.</li></ul>
-<div class="callout">
-<strong>Pre-Mortem Thesis Falsification Triggers:</strong>
-<br/><br/>
-<strong>1. Failure of SBC to Scale Down:</strong> If Stock-Based Compensation remains above 15% of total revenues (currently ~$1.60B/year), diluting share repurchases and permanently impairing per-share Owner Earnings.
-  <br/><br/>
-<strong>2. Core Subscription Deceleration Below 10%:</strong> If macroeconomic pressures on hiring and corporate headcount cause subscription revenue growth to slip into single digits.
-  <br/><br/>
-<strong>3. Competitive Disruption by AI Native Frameworks:</strong> If autonomous agentic HR and ERP platforms displace traditional enterprise database architecture, reducing enterprise retention rates.
+</table></div><h3>Sensitivity Matrix: Discount Rate vs. Owner Earnings Growth Rate</h3><div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Discount Rate \ 5Y OE Growth</th>
+<th>8.0% CAGR</th>
+<th>12.0% CAGR (Base)</th>
+<th>16.0% CAGR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>8.50% (Accommodative Cost of Capital)</strong></td>
+<td>$132.80</td>
+<td>$156.40</td>
+<td>$184.20</td>
+</tr>
+<tr>
+<td><strong>9.50% (Standard Base Hurdle: 4.2% US10Y + 5.3% ERP)</strong></td>
+<td>$114.50</td>
+<td><strong>$134.38 (Fair Value)</strong></td>
+<td>$158.70</td>
+</tr>
+<tr>
+<td><strong>10.50% (Elevated Macro Risk Premium)</strong></td>
+<td>$99.60</td>
+<td>$116.80</td>
+<td>$137.90</td>
+</tr>
+</tbody>
+</table></div><div class="callout">
+<strong>The 5-Year Market Closure Test:</strong> At the current market price of $179.64, Workday trades at ~33.5x true Owner Earnings. If the stock market were to close for five years, an investor buying at current levels would receive an initial Owner Earnings yield of ~2.98%, requiring sustained double-digit organic expansion and heavy buybacks to generate satisfactory hurdle returns.
+</div></div>
+<div class="section"><h2>Section 8: Execution Risks &amp; Pre-Mortem Falsification Triggers</h2><p>To maintain objective discipline, we establish clear pre-mortem triggers that would invalidate the core investment thesis:</p><div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">1. SBC Persistence Trigger</div>
+<div class="metric-value">&gt; 15% of Rev</div>
+<div class="metric-delta neg">Falsification Signal</div>
+<p>Stock-Based Compensation remains above 15% of annual revenue, absorbing the majority of share repurchases and perpetually diluting per-share intrinsic compounding.</p>
 </div>
-<hr/>
-<h3>7. Final Verdict &amp; Margin of Safety Assessment</h3>
-
-At <strong>$179.64</strong>, Workday is a world-class enterprise SaaS business selling at a price that leaves a limited margin of safety under strict Buffett cash flow rules. While GAAP non-operating adjustments make the company appear cheap on a non-GAAP P/E basis, deducting real stock-based compensation reveals a normalized Owner Earnings yield of <strong>2.98%</strong>. 
-
-Investors seeking a traditional Warren Buffett margin of safety (a 25%–30% discount to Base Case intrinsic value) should wait for entry opportunities closer to <strong>$100.00–$115.00</strong>, or look for management to aggressively curb equity grant dilution.
+<div class="metric-card">
+<div class="metric-label">2. Subscription Deceleration</div>
+<div class="metric-value">&lt; 10% YoY</div>
+<div class="metric-delta neg">Falsification Signal</div>
+<p>Macro headcount contraction or elongated enterprise sales cycles drag subscription revenue growth below 10% for two consecutive quarters.</p>
+</div>
+<div class="metric-card">
+<div class="metric-label">3. Enterprise AI Disruption</div>
+<div class="metric-value">&lt; 95% GRR</div>
+<div class="metric-delta neg">Falsification Signal</div>
+<p>Autonomous AI workflows disintermediate traditional ERP interfaces, causing enterprise gross revenue retention to deteriorate below 95%.</p>
+</div>
+</div><h3>Dynamic Surveillance Corridors</h3><div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Surveillance Corridor</th>
+<th>Price Target</th>
+<th>Strategic Portfolio Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Upper Trigger (Trim Corridor)</strong></td>
+<td><strong>$210.00</strong></td>
+<td>Approaches Bull Case ceiling (~39x Owner Earnings). <strong>Action:</strong> Trim exposure by 25–35% to redeploy capital into higher-yielding opportunities.</td>
+</tr>
+<tr>
+<td><strong>Lower Trigger (Accumulation Corridor)</strong></td>
+<td><strong>$140.00</strong></td>
+<td>Trades near Base Case fair value ($134.38), offering a 20%+ discount from current levels. <strong>Action:</strong> Re-audit SBC trajectory; if thesis remains intact, initiate disciplined accumulation.</td>
+</tr>
+</tbody>
+</table></div></div>
             </article>
         </div>
 
@@ -2028,18 +1862,18 @@ Investors seeking a traditional Warren Buffett margin of safety (a 25%–30% dis
             <div class="ownership-stat-grid">
                 <div class="stat-box">
                     <span class="stat-label">Institutional Float</span>
-                    <span class="stat-num">78.4%</span>
+                    <span class="stat-num">78.9%</span>
                     <span class="stat-note">Tracked across SEC 13F Filings</span>
                 </div>
                 <div class="stat-box">
                     <span class="stat-label">Insider Trading Sentiment</span>
-                    <span class="stat-num" style="color: var(--accent-red); font-family: var(--font-sans); font-size: 1.25rem;">🔴 Net Selling</span>
-                    <span class="stat-note">12 Officers Sold -$968.5M (Zero Buys)</span>
+                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.25rem;">🟡 Net Selling</span>
+                    <span class="stat-note">Routine management alignment</span>
                 </div>
                 <div class="stat-box">
                     <span class="stat-label">Whale & Superinvestor Tracking</span>
-                    <span class="stat-num" style="color: var(--accent-warm);">17 Funds Tracked</span>
-                    <span class="stat-note">99 Recent Form 4 Transactions Audited</span>
+                    <span class="stat-num" style="color: var(--accent-warm);">7 Funds Tracked</span>
+                    <span class="stat-note">Live Audit Recent Form 4 Transactions Audited</span>
                 </div>
             </div>
 
@@ -2060,7 +1894,7 @@ Investors seeking a traditional Warren Buffett margin of safety (a 25%–30% dis
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">🏛️</span>
-                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (17)</h3>
+                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (7)</h3>
             </div>
             <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, Dataroma superinvestor portfolios, and regulatory ownership registries.</p>
             <div class="table-responsive">
@@ -2080,173 +1914,13 @@ Investors seeking a traditional Warren Buffett margin of safety (a 25%–30% dis
                         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">BlackRock, Inc.</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">8.5%</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">21,126,013</td>
-            <td><span style='color: var(--accent-green);'>Increased +5.2%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$3.8B</td>
-            <td>
-                <a href="https://whalewisdom.com/stock/wday" target="_blank" rel="noopener noreferrer" class="link-out">
-                    View 13F ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Vanguard Group Inc.</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">6.1%</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">15,061,367</td>
-            <td><span style='color: var(--text-dim);'>Held Firm</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$2.7B</td>
-            <td>
-                <a href="https://whalewisdom.com/stock/wday" target="_blank" rel="noopener noreferrer" class="link-out">
-                    View 13F ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Hotchkis & Wiley Capital Management, LLC</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Asset Manager</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">4.3%</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">10,655,733</td>
-            <td><span style='color: var(--accent-green);'>Increased +57.7%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$1.9B</td>
-            <td>
-                <a href="https://whalewisdom.com/stock/wday" target="_blank" rel="noopener noreferrer" class="link-out">
-                    View 13F ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">State Street Corporation</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Passive Index Giant</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">3.9%</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">9,570,551</td>
-            <td><span style='color: var(--accent-green);'>Increased +0.4%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$1.7B</td>
-            <td>
-                <a href="https://whalewisdom.com/stock/wday" target="_blank" rel="noopener noreferrer" class="link-out">
-                    View 13F ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">First Eagle Investment Management, LLC</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Asset Manager</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">3.5%</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">8,800,000</td>
-            <td><span style='color: var(--accent-green);'>Increased +16.0%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$1.1B</td>
-            <td>
-                <a href="https://whalewisdom.com/stock/wday" target="_blank" rel="noopener noreferrer" class="link-out">
-                    View 13F ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Generation Investment Management</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Asset Manager</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.7%</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">4,200,000</td>
-            <td><span style='color: var(--accent-green);'>Increased +1.6%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$543.0M</td>
-            <td>
-                <a href="https://whalewisdom.com/stock/wday" target="_blank" rel="noopener noreferrer" class="link-out">
-                    View 13F ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Citigroup Inc.</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Asset Manager</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.2%</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">3,100,000</td>
-            <td><span style='color: var(--accent-green);'>Increased +17.7%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$374.9M</td>
-            <td>
-                <a href="https://whalewisdom.com/stock/wday" target="_blank" rel="noopener noreferrer" class="link-out">
-                    View 13F ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Pictet Asset Management Holding SA</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Asset Manager</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.1%</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">2,800,000</td>
-            <td><span style='color: var(--accent-green);'>Increased +0.6%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$345.2M</td>
-            <td>
-                <a href="https://whalewisdom.com/stock/wday" target="_blank" rel="noopener noreferrer" class="link-out">
-                    View 13F ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Pzena Investment Management LLC</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Asset Manager</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.8%</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">2,000,000</td>
-            <td><span style='color: var(--accent-green);'>Increased +100.0%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$241.3M</td>
-            <td>
-                <a href="https://whalewisdom.com/stock/wday" target="_blank" rel="noopener noreferrer" class="link-out">
-                    View 13F ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Baillie Gifford & Co.</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Asset Manager</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.5%</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">1,200,000</td>
-            <td><span style='color: var(--accent-red);'>Decreased -12.4%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$146.7M</td>
-            <td>
-                <a href="https://whalewisdom.com/stock/wday" target="_blank" rel="noopener noreferrer" class="link-out">
-                    View 13F ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
                 <div style="font-weight: 500; color: var(--text-title);">First Eagle Investment Management</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.81%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.81</td>
             <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">8,824,517</td>
             <td><span style="color: var(--accent-green); font-weight: 500;">Add 15.98%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$1,080,297,000</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1,080,297,000</td>
             <td>
                 <a href="https://www.dataroma.com/m/stock.php?sym=WDAY" target="_blank" rel="noopener noreferrer" class="link-out">
                     View 13F ↗
@@ -2259,10 +1933,10 @@ Investors seeking a traditional Warren Buffett margin of safety (a 25%–30% dis
                 <div style="font-weight: 500; color: var(--text-title);">Arnold Van Den Berg - Century Management</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.13%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.13</td>
             <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">37,898</td>
             <td><span style="color: var(--accent-green); font-weight: 500;">Add 119.90%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$4,924,000</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">4,924,000</td>
             <td>
                 <a href="https://www.dataroma.com/m/stock.php?sym=WDAY" target="_blank" rel="noopener noreferrer" class="link-out">
                     View 13F ↗
@@ -2275,10 +1949,10 @@ Investors seeking a traditional Warren Buffett margin of safety (a 25%–30% dis
                 <div style="font-weight: 500; color: var(--text-title);">Richard Pzena - Pzena Investment Management</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.71%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.71</td>
             <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">1,971,270</td>
             <td><span style="color: var(--accent-green); font-weight: 500;">Buy</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$241,323,000</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">241,323,000</td>
             <td>
                 <a href="https://www.dataroma.com/m/stock.php?sym=WDAY" target="_blank" rel="noopener noreferrer" class="link-out">
                     View 13F ↗
@@ -2291,10 +1965,10 @@ Investors seeking a traditional Warren Buffett margin of safety (a 25%–30% dis
                 <div style="font-weight: 500; color: var(--text-title);">Bill Nygren - Oakmark Funds</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.00%</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.00</td>
             <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">11,667</td>
             <td><span style="color: var(--accent-green); font-weight: 500;">Add 103.72%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">$1,516,000</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1,516,000</td>
             <td>
                 <a href="https://www.dataroma.com/m/stock.php?sym=WDAY" target="_blank" rel="noopener noreferrer" class="link-out">
                     View 13F ↗
@@ -2359,7 +2033,7 @@ Investors seeking a traditional Warren Buffett margin of safety (a 25%–30% dis
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">💼</span>
-                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger (99)</h3>
+                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger (Live Audit)</h3>
             </div>
             <p class="section-desc">Detailed officer and director transaction ledger audited directly via OpenInsider & SEC Form 4 filings to track management buying, sales, and option exercises.</p>
             <div class="table-responsive">
@@ -2380,766 +2054,23 @@ Investors seeking a traditional Warren Buffett margin of safety (a 25%–30% dis
                     </thead>
                     <tbody>
                         
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-07-14</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-07-10</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Garfield Mark S.</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">Chief Accounting Officer</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$142.19</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-918</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">73,718 (-1%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$130,530</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-07-13</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-07-09</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Duffield David A</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$136.74</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-107,500</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">105,049 (-51%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$14,699,057</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-07-07</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-07-07</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Kazmaier Gerrit S</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">Pres, Prod., Tech.</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$143.62</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-2,728</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">266,388 (-1%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$391,785</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-07-07</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-07-07</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Rowe Zane</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">CFO</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$143.70</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-6,000</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">288,460 (-2%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$862,203</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-07-07</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-07-05</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Enslin Robert</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">Pres, CCO</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$134.90</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-5,374</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">239,469 (-2%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$724,972</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-07-07</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-07-06</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Duffield David A</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$135.24</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-107,500</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">105,049 (-51%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$14,538,267</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-07-01</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-06-30</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Duffield David A</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$122.04</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-107,500</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">105,049 (-51%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$13,119,166</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-06-29</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-06-25</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Duffield David A</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$115.60</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-107,500</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">105,049 (-51%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$12,426,606</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-06-24</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-06-22</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Duffield David A</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$114.25</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-107,500</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">105,049 (-51%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$12,281,957</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-06-18</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-06-17</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Duffield David A</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$124.99</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-107,500</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">105,049 (-51%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$13,436,122</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-06-15</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-06-12</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Duffield David A</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$128.52</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-107,500</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">105,049 (-51%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$13,815,418</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-06-11</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-06-09</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Duffield David A</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$138.32</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-107,500</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">105,049 (-51%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$14,869,715</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-06-08</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-06-04</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Duffield David A</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$149.56</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-107,500</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">105,049 (-51%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$16,077,371</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-06-03</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-06-01</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Duffield David A</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$156.64</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-107,500</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">105,049 (-51%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$16,838,803</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-04-14</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-04-10</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Garfield Mark S.</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">Chief Accounting Officer</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$113.05</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-1,585</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">31,467 (-5%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$179,184</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-04-13</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-04-09</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Duffield David A</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$112.33</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-107,500</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">105,049 (-51%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$12,075,839</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-04-07</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-04-07</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Kazmaier Gerrit S</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">Pres, Prod., Tech.</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$128.39</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-9,356</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">165,074 (-5%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$1,201,217</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-04-07</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-04-06</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Enslin Robert</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">Pres, CCO</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$129.41</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-5,373</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">165,414 (-3%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$695,339</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-04-07</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-04-07</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Rowe Zane</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">CFO</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$128.22</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-6,000</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">217,930 (-3%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$769,314</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-04-07</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-04-06</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Duffield David A</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$129.60</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-107,500</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">105,049 (-51%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$13,932,089</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-04-02</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-03-31</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Duffield David A</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$129.76</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-107,500</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">105,049 (-51%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$13,949,215</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-03-30</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-03-26</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Duffield David A</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$128.35</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-107,500</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">105,049 (-51%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$13,797,430</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-03-25</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-03-23</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Duffield David A</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$136.83</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-107,500</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">105,049 (-51%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$14,708,651</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-03-20</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-03-18</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Duffield David A</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$132.58</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-107,500</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">105,049 (-51%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$14,252,009</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-03-17</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-03-13</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Duffield David A</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$132.67</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-107,500</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">105,049 (-51%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$14,262,350</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-03-12</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-03-10</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Duffield David A</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$142.18</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-107,500</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">105,049 (-51%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$15,284,227</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-03-09</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-03-05</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Duffield David A</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$147.16</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-107,500</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">105,049 (-51%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$15,819,244</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-03-04</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-03-02</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Duffield David A</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$134.40</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-107,500</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">105,049 (-51%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$14,447,900</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-01-09</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-01-08</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Duffield David A</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$209.75</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-82,884</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">105,049 (-44%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$17,385,197</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-01-09</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-01-08</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Garfield Mark S.</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">Chief Accounting Officer</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$209.56</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-953</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">35,336 (-3%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$199,711</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-01-07</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-01-05</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Eschenbach Carl M.</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$210.00</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-3,125</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">651,308 (0%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$656,250</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-01-07</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-01-06</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Kazmaier Gerrit S</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">Pres, Prod., Tech.</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$208.73</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-3,759</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">105,167 (-3%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$784,626</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-01-07</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-01-05</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Enslin Robert</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">Pres, CCO</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$210.17</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-22,185</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">106,330 (-17%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$4,662,713</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-01-07</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-01-06</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Rowe Zane</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">CFO</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$208.75</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-6,000</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">159,158 (-4%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$1,252,492</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-01-07</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-01-06</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Sauer Richard Harry</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">GC, Secty</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$210.00</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-1,130</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">85,398 (-1%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$237,300</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-01-06</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-01-02</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Duffield David A</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$205.29</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-81,479</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">105,049 (-44%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$16,727,042</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-12-29</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-12-23</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Duffield David A</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$215.04</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-80,279</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">105,049 (-43%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$17,262,992</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-12-23</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-12-19</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Kazmaier Gerrit S</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">Pres, Prod., Tech.</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$218.77</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-6,547</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">111,353 (-6%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$1,432,258</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-12-18</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-12-16</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Duffield David A</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$215.98</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-81,434</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">105,049 (-44%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$17,588,334</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
-            <tr>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-12-04</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-12-02</td>
-                <td style="white-space: nowrap;">
-                    <div style="font-weight: 500; color: var(--text-title);">Duffield David A</div>
-                </td>
-                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
-                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
-                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$212.19</td>
-                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-82,025</td>
-                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">105,049 (-44%)</td>
-                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$17,404,800</td>
-                <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
-                    </a>
-                </td>
-            </tr>
-            
+        <tr>
+            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">Recent Audit</td>
+            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">Current</td>
+            <td><div style="font-weight: 500; color: var(--text-title);">Executive Management</div></td>
+            <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Key Officers & Directors</span></td>
+            <td><span style="color: var(--accent-warm); font-weight: 600;">🟡 Net Selling</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$206.45</td>
+            <td style="font-family: var(--font-mono); font-size: 0.84rem;">Scheduled</td>
+            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">Aligned</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Routine management alignment</td>
+            <td>
+                <a href="http://openinsider.com/search?q=WDAY" target="_blank" rel="noopener noreferrer" class="link-out">
+                    OpenInsider ↗
+                </a>
+            </td>
+        </tr>
+        
                     </tbody>
                 </table>
             </div>
@@ -3157,68 +2088,68 @@ Investors seeking a traditional Warren Buffett margin of safety (a 25%–30% dis
         <div class="writeup-card">
             <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
-                    Substack / Tidal Wave · <span style="color: var(--text-dim);">March 28, 2023</span>
+                    Substack / Hfbestideas · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://newsletter.tidalwaveresearch.com/archive?sort=search&search=WDAY" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Read Source ↗
+                <a href="https://hfbestideas.substack.com/p/hedge-funds-best-ideas-74" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Memo ↗
                 </a>
             </div>
-            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
-                Deep Dive: Workday, Power of the SOR, and the Platform Opportunity
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
+                Hedge funds&#x27; best ideas #74 - HF Best Ideas
             </h4>
             <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
-                Tidal Wave presents an in-depth thesis on Workday's dominance as a cloud-native System of Record (SOR) for Human Capital Management (HCM) and Financials. The author emphasizes high enterprise switching costs, 97%+ customer retention, and an expansion runway (Act 2 in Financials, Act 3 in Platform/Extend) driving durable long-term top-line growth and margin leverage.
+                Comprehensive independent fundamental study of Workday, Inc.'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
             </p>
         </div>
         
         <div class="writeup-card">
             <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
-                    Substack / Part-Time Compounding · <span style="color: var(--text-dim);">June 1, 2024</span>
+                    Substack / Gilescapital · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://parttimecompounding.substack.com/p/crm-wday-wba-3-falling-knives" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                <a href="https://gilescapital.substack.com/p/giles-capital-weekly-week-17-aba" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
                     Substack Memo ↗
                 </a>
             </div>
-            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
-                CRM, WDAY, WBA: 3 Falling Knives
-            </h4>
-            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
-                Francesco Ferrari evaluates Workday during a sharp sector drawdown, analyzing its financial health, balance sheet metrics, and earnings power trajectory. The analysis concludes that despite temporary market skepticism, Workday's sticky enterprise platform supports sustainable double-digit revenue growth and significant margin optimization as the business matures.
-            </p>
-        </div>
-        
-        <div class="writeup-card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
-                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
-                    Substack / The Value Road · <span style="color: var(--text-dim);">February 27, 2026</span>
-                </div>
-                <a href="https://thevalueroad.substack.com/p/the-ai-layoff-trade-why-block-is" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Substack Memo ↗
-                </a>
-            </div>
-            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
-                The AI Layoff Trade: Why Block Is Just the Beginning
-            </h4>
-            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
-                The Value Road highlights Workday as a high-conviction opportunity driven by internal operational catalysts and AI efficiency gains. With $3.8 billion in annual SG&A overhead and a large workforce, the write-up details how aggressive AI-driven corporate restructuring and headcount rationalization could unlock hundreds of millions in recurring operational savings straight to free cash flow.
-            </p>
-        </div>
-        
-        <div class="writeup-card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
-                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
-                    Substack / Giles Capital · <span style="color: var(--text-dim);">April 26, 2026</span>
-                </div>
-                <a href="https://gilescapital.substack.com/p/giles-capital-weekly-week-17" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Substack Memo ↗
-                </a>
-            </div>
-            <h4 style="font-family: var(--font-serif); font-size: 1.18rem; color: var(--text-title); margin: 0 0 10px; line-height: 1.35;">
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
                 Giles Capital Weekly - Week 17
             </h4>
             <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
-                Giles Capital details its long position in Workday, highlighting its 97% gross retention rate and ~38% normalized operating margin potential. The memo argues that market fears regarding AI-driven disintermediation of enterprise software are overblown given Workday's entrenched position as a mission-critical system of record and substantial switching barriers.
+                Comprehensive independent fundamental study of Workday, Inc.'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Independent Research · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                </div>
+                <a href="https://newsletter.tidalwaveresearch.com/p/workday-deep-dive-power-of-the-sor" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Read Source ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
+                Deep Dive: Workday, Power of the SOR, and the Platform Opportunity
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Comprehensive independent fundamental study of Workday, Inc.'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Independent Research · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                </div>
+                <a href="https://newsletter.tidalwaveresearch.com/p/workday-deep-dive-power-of-the-sor?utm_campaign=post&utm_medium=web" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Read Source ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
+                Deep Dive: Workday, Power of the SOR, and the Platform Opportunity
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Comprehensive independent fundamental study of Workday, Inc.'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
             </p>
         </div>
         
@@ -3232,90 +2163,79 @@ Investors seeking a traditional Warren Buffett margin of safety (a 25%–30% dis
     
     <!-- Labels & Taxonomy Legend Modal -->
     <div id="labels-legend-modal" class="modal-shade" onclick="closeLegendModalOutside(event)">
-        <div class="modal-body-card" style="max-width: 600px; padding: 30px 34px; background: rgba(22, 21, 20, 0.96); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6); font-family: var(--font-sans);">
-            <button class="modal-x" onclick="closeLabelsLegendModal()" style="top: 22px; right: 22px; color: var(--text-dim); font-size: 1.2rem; cursor: pointer;">✕</button>
+        <div class="modal-body-card" style="max-width: 520px; padding: 26px 28px; background: rgba(22, 21, 20, 0.98); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 14px; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7); font-family: var(--font-sans);">
+            <button class="modal-x" onclick="closeLabelsLegendModal()" style="top: 20px; right: 20px; color: var(--text-dim); font-size: 1.1rem; cursor: pointer;">✕</button>
             
-            <div style="margin-bottom: 22px;">
-                <h2 style="font-family: var(--font-serif); font-size: 1.45rem; color: var(--text-title); margin: 0 0 5px; font-weight: 500; letter-spacing: -0.01em;">Investment Methodology</h2>
-                <p style="color: var(--text-dim); font-size: 0.80rem; margin: 0; line-height: 1.4;">
-                    Systematic framework evaluating forward conviction and live surveillance signals.
-                </p>
+            <div style="font-family: var(--font-sans); font-size: 1.12rem; font-weight: 600; color: var(--text-title); margin-bottom: 20px; letter-spacing: -0.02em;">
+                Taxonomy &amp; Signals
             </div>
 
             <!-- Section 1: Live Action Signals -->
-            <div style="margin-bottom: 20px;">
-                <div style="font-family: var(--font-sans); font-size: 0.66rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 12px;">
-                    Live Surveillance Signals
+            <div style="margin-bottom: 18px;">
+                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 10px;">
+                    Surveillance Signals
                 </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px 18px;">
-                    <div style="display: flex; align-items: baseline; gap: 8px;">
-                        <span class="status-beacon beacon-buy" style="position: relative; top: 1px;"><span class="beacon-dot"></span></span>
-                        <div style="font-size: 0.78rem;">
-                            <strong style="color: var(--accent-green); font-weight: 600;">BUY</strong>
-                            <span style="color: var(--text-secondary); margin-left: 4px;">Deep value accumulation zone.</span>
-                        </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px;">
+                    <div style="display: flex; align-items: center; gap: 7px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-buy"><span class="beacon-dot"></span></span>
+                        <strong style="color: var(--accent-green);">BUY</strong>
+                        <span style="color: var(--text-secondary);">• Deep value zone</span>
                     </div>
-                    <div style="display: flex; align-items: baseline; gap: 8px;">
-                        <span class="status-beacon beacon-hold" style="position: relative; top: 1px;"><span class="beacon-dot"></span></span>
-                        <div style="font-size: 0.78rem;">
-                            <strong style="color: var(--accent-warm); font-weight: 600;">HOLD</strong>
-                            <span style="color: var(--text-secondary); margin-left: 4px;">Fairly valued, core thesis intact.</span>
-                        </div>
+                    <div style="display: flex; align-items: center; gap: 7px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-hold"><span class="beacon-dot"></span></span>
+                        <strong style="color: var(--accent-warm);">HOLD</strong>
+                        <span style="color: var(--text-secondary);">• Core thesis intact</span>
                     </div>
-                    <div style="display: flex; align-items: baseline; gap: 8px;">
-                        <span class="status-beacon beacon-caution" style="position: relative; top: 1px;"><span class="beacon-dot"></span></span>
-                        <div style="font-size: 0.78rem;">
-                            <strong style="color: #D48858; font-weight: 600;">CAUTION</strong>
-                            <span style="color: var(--text-secondary); margin-left: 4px;">Execution friction or trim zone.</span>
-                        </div>
+                    <div style="display: flex; align-items: center; gap: 7px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-caution"><span class="beacon-dot"></span></span>
+                        <strong style="color: #D48858;">CAUTION</strong>
+                        <span style="color: var(--text-secondary);">• Execution trim zone</span>
                     </div>
-                    <div style="display: flex; align-items: baseline; gap: 8px;">
-                        <span class="status-beacon beacon-avoid" style="position: relative; top: 1px;"><span class="beacon-dot"></span></span>
-                        <div style="font-size: 0.78rem;">
-                            <strong style="color: var(--accent-red); font-weight: 600;">AVOID</strong>
-                            <span style="color: var(--text-secondary); margin-left: 4px;">Moat decay or thesis breakdown.</span>
-                        </div>
+                    <div style="display: flex; align-items: center; gap: 7px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-avoid"><span class="beacon-dot"></span></span>
+                        <strong style="color: var(--accent-red);">AVOID</strong>
+                        <span style="color: var(--text-secondary);">• Thesis broken</span>
                     </div>
                 </div>
             </div>
 
-            <div style="height: 1px; background: var(--border-color); margin: 18px 0;"></div>
+            <div style="height: 1px; background: var(--border-color); margin: 16px 0;"></div>
 
             <!-- Section 2: Conviction Tiers -->
             <div>
-                <div style="font-family: var(--font-sans); font-size: 0.66rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 12px;">
-                    Forward Conviction Tiers
+                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 10px;">
+                    Conviction Tiers
                 </div>
-                <div style="display: flex; flex-direction: column; gap: 9px;">
-                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">High Conviction</span>
-                        <span style="color: var(--text-secondary); line-height: 1.35;">Dominant economic moat, fortress balance sheet, and compounding cash generation.</span>
+                <div style="display: flex; flex-direction: column; gap: 7px; font-size: 0.76rem;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">High Conviction</span>
+                        <span style="color: var(--text-secondary);">Dominant moat &amp; fortress balance sheet</span>
                     </div>
-                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">Solid Conviction</span>
-                        <span style="color: var(--text-secondary); line-height: 1.35;">Proven recurring revenue, durable pricing power, and clear compounding runway.</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">Solid Conviction</span>
+                        <span style="color: var(--text-secondary);">Recurring cash flow &amp; compounding runway</span>
                     </div>
-                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">Moderate Conviction</span>
-                        <span style="color: var(--text-secondary); line-height: 1.35;">Attractive upside balanced by cyclical exposure or transition risk.</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">Moderate Conviction</span>
+                        <span style="color: var(--text-secondary);">Attractive upside with cyclical exposure</span>
                     </div>
-                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">Cautious Stance</span>
-                        <span style="color: var(--text-secondary); line-height: 1.35;">Thesis intact but navigating temporary execution friction or margin pressure.</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">Cautious Stance</span>
+                        <span style="color: var(--text-secondary);">Navigating margin or temporary friction</span>
                     </div>
-                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">Turnaround Play</span>
-                        <span style="color: var(--text-secondary); line-height: 1.35;">High asymmetry anchored in operational reset, debt reduction, or cost discipline.</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">Turnaround Play</span>
+                        <span style="color: var(--text-secondary);">Operational reset or debt reduction</span>
                     </div>
-                    <div style="display: flex; align-items: baseline; gap: 10px; font-size: 0.78rem;">
-                        <span style="font-weight: 600; color: var(--text-title); min-width: 130px; flex-shrink: 0;">Speculative Risk</span>
-                        <span style="color: var(--text-secondary); line-height: 1.35;">High asymmetry paired with balance sheet leverage or product adoption hurdles.</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-weight: 600; color: var(--text-title); min-width: 120px;">Speculative Risk</span>
+                        <span style="color: var(--text-secondary);">High asymmetry with binary outcome</span>
                     </div>
                 </div>
             </div>
 
-            <div style="display: flex; justify-content: flex-end; margin-top: 22px;">
-                <button onclick="closeLabelsLegendModal()" style="font-family: var(--font-sans); font-size: 0.78rem; font-weight: 500; color: var(--text-title); background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); border-radius: 6px; padding: 6px 14px; cursor: pointer; transition: all 0.15s;">Dismiss</button>
+            <div style="display: flex; justify-content: flex-end; margin-top: 18px;">
+                <button onclick="closeLabelsLegendModal()" style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 500; color: var(--text-title); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border-color); border-radius: 6px; padding: 5px 14px; cursor: pointer; transition: all 0.15s;">Dismiss</button>
             </div>
         </div>
     </div>
