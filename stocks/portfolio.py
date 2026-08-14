@@ -388,9 +388,9 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
         
         if t == "USD_CASH":
             ticker_col = """
-            <div style="display:flex; flex-direction:column; gap:2px;">
-                <span style="font-family:var(--font-mono); font-weight:600; font-size:1.02rem; color:var(--text-title);">Cash</span>
-                <span style="font-family:var(--font-sans); font-size:0.78rem; color:var(--text-dim);">US Treasury (5.0%)</span>
+            <div style="display:flex; flex-direction:column; gap:5px;">
+                <span style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); line-height:1.15;">Cash</span>
+                <span style="font-family:var(--font-sans); font-size:0.74rem; color:var(--text-dim); line-height:1.1;">US Treasury (5.0%)</span>
             </div>
             """
             alloc_col = f"""
@@ -409,11 +409,11 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
             """
         else:
             ticker_col = f"""
-            <div style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-                <a href="{h['report_url']}" style="font-family:var(--font-mono); font-weight:600; font-size:1.02rem; color:var(--text-title); text-decoration:none;">
+            <div style="display:flex; flex-direction:column; gap:5px; min-width:0;">
+                <a href="{h['report_url']}" style="font-family:var(--font-mono); font-weight:600; font-size:1.00rem; letter-spacing:0.02em; color:var(--text-title); text-decoration:none; line-height:1.15;">
                     {t}
                 </a>
-                <span style="font-family:var(--font-sans); font-size:0.78rem; color:var(--text-secondary); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="{display_name}">{display_name}</span>
+                <span style="font-family:var(--font-sans); font-size:0.74rem; color:var(--text-dim); display:block; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.1;" title="{display_name}">{display_name}</span>
             </div>
             """
             cur_pos_val = h['shares_to_buy'] * cur_p

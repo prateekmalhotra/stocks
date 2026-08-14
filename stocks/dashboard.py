@@ -2360,22 +2360,22 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         .tbl-ticker-cell {{
             display: flex;
             flex-direction: column;
-            gap: 4px;
-            line-height: 1.3;
+            gap: 5px;
+            line-height: 1.15;
         }}
         .tbl-symbol {{
             font-family: var(--font-mono);
-            font-size: 1.08rem;
+            font-size: 1.02rem;
             font-weight: 600;
-            letter-spacing: 0.01em;
+            letter-spacing: 0.02em;
             color: var(--text-title);
-            line-height: 1.2;
+            line-height: 1.15;
         }}
         .tbl-company-hover {{
             font-family: var(--font-sans);
-            font-size: 0.80rem;
-            color: var(--text-secondary);
-            line-height: 1.2;
+            font-size: 0.74rem;
+            color: var(--text-dim);
+            line-height: 1.1;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
