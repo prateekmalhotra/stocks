@@ -30,7 +30,7 @@ def format_labels_pills(labels: List[str]) -> str:
         if not words:
             continue
         short_lbl = " ".join(words[:2]).title()
-        pill_cls = "pill-active" if i == 0 else "pill-neutral"
+        pill_cls = "pill-conviction" if i == 0 else "pill-driver"
         html += f'<span class="pill {pill_cls}">{short_lbl}</span> '
     return html.strip() or '<span class="pill pill-neutral">Active</span>'
 
@@ -2164,30 +2164,63 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             padding-bottom: 120px;
         }}
 
-        .container {{ max-width: 1000px; margin: 0 auto; padding: 0 24px; }}
+        .container {{ max-width: 1060px; margin: 0 auto; padding: 0 24px; }}
 
         /* Header */
         header.nav-header {{
-            background: rgba(22, 21, 19, 0.88);
+            background: rgba(20, 19, 17, 0.85);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
             z-index: 100;
-            padding: 18px 0;
+            padding: 16px 0;
         }}
         .header-content {{ display: flex; justify-content: space-between; align-items: center; }}
         .brand-logo {{
             font-family: var(--font-serif);
             font-size: 1.45rem;
             font-weight: 500;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.02em;
             color: var(--text-title);
             text-decoration: none;
-            transition: color 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: opacity 0.15s;
         }}
-        .brand-logo:hover {{ color: var(--accent-warm-hover); }}
+        .brand-logo:hover {{ opacity: 0.9; }}
+        .brand-subtitle {{
+            font-family: var(--font-sans);
+            font-size: 0.70rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-dim);
+            padding-left: 10px;
+            border-left: 1px solid var(--border-color);
+        }}
+
+        .header-status-badge {{
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            padding: 5px 12px;
+            border-radius: 9999px;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+        }}
+        .status-live-dot {{
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #10B981;
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.8);
+        }}
 
         /* Navigation Controls */
         .hub-controls {{
@@ -2196,7 +2229,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             align-items: center;
             flex-wrap: wrap;
             gap: 16px;
-            margin: 36px 0 20px;
+            margin: 32px 0 20px;
             padding-bottom: 14px;
             border-bottom: 1px solid var(--border-color);
         }}
@@ -2205,12 +2238,14 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             background: none;
             border: none;
             color: var(--text-secondary);
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-family: var(--font-serif);
             font-weight: 400;
-            padding: 8px 16px;
+            padding: 8px 14px;
             cursor: pointer;
             position: relative;
+            display: inline-flex;
+            align-items: center;
             transition: color 0.15s;
         }}
         .hub-tab-btn:hover {{ color: var(--text-title); }}
@@ -2224,6 +2259,29 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             background: var(--accent-warm);
             box-shadow: 0 0 8px rgba(204, 120, 92, 0.4);
         }}
+        .tab-chip {{
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            background: var(--bg-subpanel);
+            color: var(--text-dim);
+            padding: 1px 7px;
+            border-radius: 9999px;
+            margin-left: 6px;
+            border: 1px solid var(--border-color);
+        }}
+        .hub-tab-btn.active .tab-chip {{
+            background: rgba(204, 120, 92, 0.16);
+            color: var(--accent-warm);
+            border-color: rgba(204, 120, 92, 0.35);
+        }}
+        .tab-chip.chip-alert {{
+            background: rgba(239, 68, 68, 0.14);
+            color: #F87171;
+            border-color: rgba(239, 68, 68, 0.30);
+        }}
 
         .view-toggle {{
             display: flex;
@@ -2236,7 +2294,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             background: none;
             border: none;
             color: var(--text-secondary);
-            font-size: 0.78rem;
+            font-size: 0.76rem;
             font-family: var(--font-sans);
             font-weight: 500;
             padding: 5px 12px;
@@ -2280,17 +2338,15 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             outline: none !important;
             box-shadow: none !important;
         }}
-        .search-input:-webkit-autofill,
-        .search-input:-webkit-autofill:hover,
-        .search-input:-webkit-autofill:focus,
-        .search-input:-webkit-autofill:active {{
-            -webkit-box-shadow: 0 0 0 30px #181614 inset !important;
-            -webkit-text-fill-color: #E8E4DF !important;
-            caret-color: #E8E4DF !important;
-            transition: background-color 5000s ease-in-out 0s;
-        }}
-        .search-input::placeholder {{
+        .search-input::placeholder {{ color: var(--text-dim); }}
+        .search-kbd {{
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            background: var(--bg-hover);
             color: var(--text-dim);
+            border: 1px solid var(--border-color);
+            padding: 1px 5px;
+            border-radius: 4px;
         }}
 
         .tab-panel {{ display: none; }}
@@ -2753,13 +2809,18 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
 <body>
     <header class="nav-header">
         <div class="container header-content">
-            <a href="#" class="brand-logo" style="display: inline-flex; align-items: center; gap: 10px;">
+            <a href="#" class="brand-logo">
                 <svg width="22" height="22" viewBox="0 0 32 32" style="display: block;">
                     <rect width="32" height="32" rx="8" fill="#1E1C19" stroke="#CC785C" stroke-opacity="0.35" stroke-width="1.2" />
                     <path d="M 9 22 C 7.5 19 7 16 9 13.5 C 11 11 14.5 11 17 13 C 19.5 15 20.5 18 20 21 C 19.5 22.5 17.8 23 16 22.5 C 13.5 21.8 11.5 19 12 16 C 12.5 13 15 10 18.5 9 C 21.5 8.2 24 10 24.5 13 C 25 16 23.5 19.5 23 22" fill="none" stroke="#CC785C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
                 <span>AlphaThesis</span>
+                <span class="brand-subtitle">Living Research</span>
             </a>
+            <div class="header-status-badge">
+                <span class="status-live-dot"></span>
+                <span>Surveillance Active · {len(watchlist)} Assets</span>
+            </div>
         </div>
     </header>
 
@@ -2767,10 +2828,10 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         <!-- Navigation Controls -->
         <div class="hub-controls">
             <div class="hub-tabs">
-                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage ({len(watchlist)})</button>
-                <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts ({len(alerts)})</span></button>
-                <button class="hub-tab-btn" onclick="switchTab('portfolio-defensive')">Fidelity</button>
-                <button class="hub-tab-btn" onclick="switchTab('portfolio-aggressive')">Wealthsimple</button>
+                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">{len(watchlist)}</span></button>
+                <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts <span class="tab-chip chip-alert">{len(alerts)}</span></span></button>
+                <button class="hub-tab-btn" onclick="switchTab('portfolio-defensive')">Fidelity <span class="tab-chip">$200k</span></button>
+                <button class="hub-tab-btn" onclick="switchTab('portfolio-aggressive')">Wealthsimple <span class="tab-chip">$200k</span></button>
             </div>
             <div style="display: flex; align-items: center; gap: 10px;" id="stocks-view-controls">
                 <div class="search-input-wrap" id="hub-search-wrap">
@@ -2778,7 +2839,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                         <circle cx="11" cy="11" r="8"></circle>
                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                     </svg>
-                    <input type="text" id="stock-search-input" class="search-input" placeholder="Search {len(watchlist)} stocks..." oninput="filterStocks(this.value)" spellcheck="false" autocomplete="off" autocapitalize="off">
+                    <input type="text" id="stock-search-input" class="search-input" placeholder="Search {len(watchlist)} stocks, tickers, drivers..." oninput="filterStocks(this.value)" spellcheck="false" autocomplete="off" autocapitalize="off">
+                    <kbd class="search-kbd">/</kbd>
                 </div>
                 <div class="view-toggle" id="view-toggle-bar">
                     <button class="view-btn active" onclick="setView('table')">Table</button>
@@ -2801,11 +2863,11 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                     </colgroup>
                     <thead>
                         <tr>
-                            <th>Ticker</th>
-                            <th>Market Price</th>
-                            <th>Labels <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="View Investment Taxonomy & Labels Legend">ⓘ</button></th>
-                            <th>Fair Value</th>
-                            <th>Catalyst Horizon</th>
+                            <th>Asset / Company</th>
+                            <th>Live / Return</th>
+                            <th>Conviction & Drivers <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="View Investment Taxonomy & Labels Legend">ⓘ</button></th>
+                            <th>Intrinsic Value</th>
+                            <th>Catalyst / Corridors</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -3099,6 +3161,14 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             if (e.key === 'Escape') {{
                 closeAlertModal();
                 closeLabelsLegendModal();
+            }}
+            if (e.key === '/' && document.activeElement && document.activeElement.tagName !== 'INPUT') {{
+                e.preventDefault();
+                const searchInput = document.getElementById('stock-search-input');
+                if (searchInput) {{
+                    searchInput.focus();
+                    searchInput.select();
+                }}
             }}
         }});
         refreshAlertsUI();
