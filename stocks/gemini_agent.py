@@ -9,7 +9,24 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.7-flash")
+DEFAULT_GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-flash-latest")
+_CURRENT_ACTIVE_MODEL = DEFAULT_GEMINI_MODEL
+FALLBACK_GEMINI_MODEL = "gemini-3.6-flash"
+
+
+def get_active_model() -> str:
+    """Returns the current in-memory active model for this workflow run."""
+    global _CURRENT_ACTIVE_MODEL
+    return _CURRENT_ACTIVE_MODEL
+
+
+def switch_to_fallback_model(reason: str = "") -> str:
+    """Switches the active model to the fallback model in memory for the remainder of this workflow run."""
+    global _CURRENT_ACTIVE_MODEL
+    if _CURRENT_ACTIVE_MODEL != FALLBACK_GEMINI_MODEL:
+        print(f"  ⚡ [Model Failover] Switching active model for this workflow run to {FALLBACK_GEMINI_MODEL}. (Reason: {reason})")
+        _CURRENT_ACTIVE_MODEL = FALLBACK_GEMINI_MODEL
+    return _CURRENT_ACTIVE_MODEL
 
 
 def get_api_key() -> str:
@@ -137,14 +154,10 @@ def normalize_action_signal(signal: Any, default: str = "BUY") -> str:
 
 
 def call_gemini_with_search(prompt: str, system_instruction: str = "", temperature: float = 0.4) -> str:
-    """Calls Gemini Flash via REST API with Google Search Grounding, exponential retry, and safety fallback."""
+    """Calls Gemini Flash via REST API with Google Search Grounding, exponential retry, and session failover."""
     import time
     api_key = get_api_key()
     
-    models_to_try = [GEMINI_MODEL]
-    if GEMINI_MODEL != "gemini-flash-latest":
-        models_to_try.append("gemini-flash-latest")
-        
     payload: Dict[str, Any] = {
         "contents": [{"parts": [{"text": prompt}]}],
         "tools": [{"google_search": {}}],
@@ -159,13 +172,18 @@ def call_gemini_with_search(prompt: str, system_instruction: str = "", temperatu
             "parts": [{"text": system_instruction}]
         }
     
+    current_model = get_active_model()
+    models_to_try = [current_model]
+    if current_model != FALLBACK_GEMINI_MODEL:
+        models_to_try.append(FALLBACK_GEMINI_MODEL)
+        
     last_err = None
     for model_name in models_to_try:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
-        max_retries = 3
+        max_retries = 2
         for attempt in range(1, max_retries + 1):
             try:
-                response = requests.post(url, json=payload, timeout=120)
+                response = requests.post(url, json=payload, timeout=90)
                 if response.status_code == 200:
                     res_json = response.json()
                     candidate = res_json.get("candidates", [{}])[0]
@@ -177,7 +195,7 @@ def call_gemini_with_search(prompt: str, system_instruction: str = "", temperatu
                         fallback_prompt = prompt + "\n\nCRITICAL: Paraphrase all data in your own original analytical words. Do NOT quote verbatim text."
                         payload["contents"] = [{"parts": [{"text": fallback_prompt}]}]
                         payload["generationConfig"]["temperature"] = 0.7
-                        retry_res = requests.post(url, json=payload, timeout=120)
+                        retry_res = requests.post(url, json=payload, timeout=90)
                         if retry_res.status_code == 200:
                             retry_json = retry_res.json()
                             retry_parts = retry_json.get("candidates", [{}])[0].get("content", {}).get("parts", [])
@@ -185,16 +203,23 @@ def call_gemini_with_search(prompt: str, system_instruction: str = "", temperatu
                                 return clean_grounding_artifacts(retry_parts[0]["text"])
                                 
                     return "Analysis completed."
-                elif response.status_code in (500, 502, 503, 504, 429) and attempt < max_retries:
-                    wait_time = attempt * 3
-                    print(f"  ⚠️ Gemini API ({model_name}) returned {response.status_code}. Retrying in {wait_time}s (Attempt {attempt}/{max_retries})...")
-                    time.sleep(wait_time)
-                    continue
+                elif response.status_code in (500, 502, 503, 504, 429):
+                    if model_name != FALLBACK_GEMINI_MODEL:
+                        switch_to_fallback_model(f"HTTP {response.status_code}")
+                        break
+                    elif attempt < max_retries:
+                        wait_time = attempt * 3
+                        print(f"  ⚠️ Gemini API ({model_name}) returned {response.status_code}. Retrying in {wait_time}s...")
+                        time.sleep(wait_time)
+                        continue
                 else:
                     last_err = RuntimeError(f"Gemini API error ({response.status_code}): {response.text}")
                     break
             except requests.RequestException as req_err:
-                if attempt < max_retries:
+                if model_name != FALLBACK_GEMINI_MODEL:
+                    switch_to_fallback_model(str(req_err))
+                    break
+                elif attempt < max_retries:
                     wait_time = attempt * 3
                     print(f"  ⚠️ Network error on {model_name} ({req_err}). Retrying in {wait_time}s...")
                     time.sleep(wait_time)
@@ -972,7 +997,6 @@ def research_ownership_writeups(ticker: str, company_name: str) -> List[Dict[str
     
     prompt = f"Search Google for real, live investment thesis write-ups, hedge fund shareholder letters, Substack deep dives, and Value Investors Club pitches for {company_name} ({clean_t})."
     
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent?key={api_key}"
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
         "tools": [{"google_search": {}}],
@@ -982,58 +1006,72 @@ def research_ownership_writeups(ticker: str, company_name: str) -> List[Dict[str
     verified_articles = []
     seen_urls = set()
     
-    try:
-        r = requests.post(url, json=payload, timeout=60)
-        if r.status_code == 200:
-            data = r.json()
-            candidate = data.get("candidates", [{}])[0]
-            grounding = candidate.get("groundingMetadata", {})
-            chunks = grounding.get("groundingChunks", [])
-            
-            for c in chunks:
-                web = c.get("web", {})
-                uri = web.get("uri")
-                if not uri:
-                    continue
-                try:
-                    res = requests.get(uri, headers=headers, timeout=4.5, allow_redirects=True)
-                    final_url = res.url
-                    if final_url in seen_urls:
+    active_m = get_active_model()
+    models_to_try = [active_m]
+    if active_m != FALLBACK_GEMINI_MODEL:
+        models_to_try.append(FALLBACK_GEMINI_MODEL)
+
+    for model_name in models_to_try:
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
+        try:
+            r = requests.post(url, json=payload, timeout=60)
+            if r.status_code == 200:
+                data = r.json()
+                candidate = data.get("candidates", [{}])[0]
+                grounding = candidate.get("groundingMetadata", {})
+                chunks = grounding.get("groundingChunks", [])
+                
+                for c in chunks:
+                    web = c.get("web", {})
+                    uri = web.get("uri")
+                    if not uri:
                         continue
-                    if res.status_code == 200 and not any(err in final_url.lower() for err in ["404", "not-found", "error"]):
-                        if any(k in final_url for k in ["/p/", "/idea/", "/article/", ".pdf", "/letter", "/insights/", "/analysis/"]):
-                            m = re.search(r"<title[^>]*>(.*?)</title>", res.text, re.IGNORECASE | re.DOTALL)
-                            page_title = m.group(1).strip() if m else web.get("title", f"{company_name} Deep Dive")
-                            clean_title = re.sub(r"\s*\|\s*Substack.*", "", page_title, flags=re.IGNORECASE)
-                            clean_title = re.sub(r"\s*-\s*by\s+.*", "", clean_title, flags=re.IGNORECASE).strip()
-                            
-                            # Determine Fund/Author
-                            fund = "Independent Research"
-                            if "substack.com" in final_url:
-                                match_sub = re.search(r"https?://([a-zA-Z0-9_-]+)\.substack\.com", final_url)
-                                fund = f"Substack / {match_sub.group(1).title()}" if match_sub else "Substack Memo"
-                            elif "valueinvestorsclub.com" in final_url:
-                                fund = "Value Investors Club (VIC)"
-                            elif "seekingalpha.com" in final_url:
-                                fund = "Seeking Alpha / Hedge Fund Letter"
-                            elif ".pdf" in final_url:
-                                fund = "Shareholder Letter PDF"
+                    try:
+                        res = requests.get(uri, headers=headers, timeout=4.5, allow_redirects=True)
+                        final_url = res.url
+                        if final_url in seen_urls:
+                            continue
+                        if res.status_code == 200 and not any(err in final_url.lower() for err in ["404", "not-found", "error"]):
+                            if any(k in final_url for k in ["/p/", "/idea/", "/article/", ".pdf", "/letter", "/insights/", "/analysis/"]):
+                                m = re.search(r"<title[^>]*>(.*?)</title>", res.text, re.IGNORECASE | re.DOTALL)
+                                page_title = m.group(1).strip() if m else web.get("title", f"{company_name} Deep Dive")
+                                clean_title = re.sub(r"\s*\|\s*Substack.*", "", page_title, flags=re.IGNORECASE)
+                                clean_title = re.sub(r"\s*-\s*by\s+.*", "", clean_title, flags=re.IGNORECASE).strip()
                                 
-                            seen_urls.add(final_url)
-                            verified_articles.append({
-                                "title": clean_title or f"{company_name} Investment Thesis",
-                                "fund": fund,
-                                "date": "Verified Due Diligence",
-                                "summary": f"Comprehensive independent fundamental study of {company_name}'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.",
-                                "url": final_url
-                            })
-                            if len(verified_articles) >= 4:
-                                break
-                except Exception:
-                    pass
-    except Exception as e:
-        print(f"Error in grounding extraction for {clean_t}: {e}")
-        
+                                # Determine Fund/Author
+                                fund = "Independent Research"
+                                if "substack.com" in final_url:
+                                    match_sub = re.search(r"https?://([a-zA-Z0-9_-]+)\.substack\.com", final_url)
+                                    fund = f"Substack / {match_sub.group(1).title()}" if match_sub else "Substack Memo"
+                                elif "valueinvestorsclub.com" in final_url:
+                                    fund = "Value Investors Club (VIC)"
+                                elif "seekingalpha.com" in final_url:
+                                    fund = "Seeking Alpha / Hedge Fund Letter"
+                                elif ".pdf" in final_url:
+                                    fund = "Shareholder Letter PDF"
+                                    
+                                seen_urls.add(final_url)
+                                verified_articles.append({
+                                    "title": clean_title or f"{company_name} Investment Thesis",
+                                    "fund": fund,
+                                    "date": "Verified Due Diligence",
+                                    "summary": f"Comprehensive independent fundamental study of {company_name}'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.",
+                                    "url": final_url
+                                    })
+                                if len(verified_articles) >= 4:
+                                    break
+                    except Exception:
+                        pass
+                break
+            elif r.status_code in (500, 502, 503, 504, 429) and model_name != FALLBACK_GEMINI_MODEL:
+                switch_to_fallback_model(f"HTTP {r.status_code}")
+                continue
+        except Exception as e:
+            if model_name != FALLBACK_GEMINI_MODEL:
+                switch_to_fallback_model(str(e))
+                continue
+            print(f"Error in grounding extraction for {clean_t}: {e}")
+            
     return verified_articles
 
 
@@ -1041,8 +1079,6 @@ def research_institutional_funds(ticker: str, company_name: str) -> Dict[str, An
     """Specialized Subagent Prompt: Searches live web for comprehensive 13F institutional shareholders and WhaleWisdom holdings."""
     api_key = get_api_key()
     clean_t = ticker.upper().strip()
-    
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent?key={api_key}"
     headers = {"Content-Type": "application/json"}
     
     prompt = f"""You are an elite SEC Form 13F institutional equity ownership auditor.
@@ -1072,16 +1108,30 @@ Respond ONLY with the JSON object enclosed in ```json ```.
         "generationConfig": {"temperature": 0.1}
     }
     
-    try:
-        resp = requests.post(url, headers=headers, json=payload, timeout=60)
-        if resp.status_code == 200:
-            data = resp.json()
-            text = data["candidates"][0]["content"]["parts"][0]["text"]
-            m = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", text, re.DOTALL)
-            if m:
-                return json.loads(m.group(1))
-    except Exception as e:
-        print(f"Error researching institutional funds for {clean_t}: {e}")
+    active_m = get_active_model()
+    models_to_try = [active_m]
+    if active_m != FALLBACK_GEMINI_MODEL:
+        models_to_try.append(FALLBACK_GEMINI_MODEL)
+
+    for model_name in models_to_try:
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
+        try:
+            resp = requests.post(url, headers=headers, json=payload, timeout=60)
+            if resp.status_code == 200:
+                data = resp.json()
+                text = data["candidates"][0]["content"]["parts"][0]["text"]
+                m = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", text, re.DOTALL)
+                if m:
+                    return json.loads(m.group(1))
+                break
+            elif resp.status_code in (500, 502, 503, 504, 429) and model_name != FALLBACK_GEMINI_MODEL:
+                switch_to_fallback_model(f"HTTP {resp.status_code}")
+                continue
+        except Exception as e:
+            if model_name != FALLBACK_GEMINI_MODEL:
+                switch_to_fallback_model(str(e))
+                continue
+            print(f"Error researching institutional funds for {clean_t}: {e}")
     return {}
 
 
