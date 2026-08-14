@@ -315,20 +315,20 @@ def build_native_svg_chart(ticker: str, current_price: float) -> str:
         <svg id="interactive-svg" viewBox="0 0 {width} {height}" preserveAspectRatio="none" class="chart-svg">
             <defs>
                 <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#CC785C" stop-opacity="0.20" />
-                    <stop offset="100%" stop-color="#CC785C" stop-opacity="0.0" />
+                    <stop offset="0%" stop-color="#D4A373" stop-opacity="0.14" />
+                    <stop offset="100%" stop-color="#D4A373" stop-opacity="0.0" />
                 </linearGradient>
             </defs>
             
-            <line x1="{padding_x}" y1="{padding_y}" x2="{width - padding_x}" y2="{padding_y}" stroke="rgba(235,225,210,0.04)" stroke-width="1" />
-            <line x1="{padding_x}" y1="{height/2}" x2="{width - padding_x}" y2="{height/2}" stroke="rgba(235,225,210,0.04)" stroke-width="1" />
-            <line x1="{padding_x}" y1="{height - padding_y}" x2="{width - padding_x}" y2="{height - padding_y}" stroke="rgba(235,225,210,0.04)" stroke-width="1" />
+            <line x1="{padding_x}" y1="{padding_y}" x2="{width - padding_x}" y2="{padding_y}" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+            <line x1="{padding_x}" y1="{height/2}" x2="{width - padding_x}" y2="{height/2}" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+            <line x1="{padding_x}" y1="{height - padding_y}" x2="{width - padding_x}" y2="{height - padding_y}" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
 
             <path id="chart-area-path" d="" fill="url(#area-grad)" />
-            <path id="chart-line-path" d="" fill="none" stroke="#CC785C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+            <path id="chart-line-path" d="" fill="none" stroke="#D4A373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 
-            <line id="crosshair-line" x1="0" y1="{padding_y}" x2="0" y2="{height - padding_y}" stroke="rgba(204,120,92,0.4)" stroke-width="1" stroke-dasharray="3 3" style="display: none;" />
-            <circle id="hover-dot" r="4.5" fill="#CC785C" stroke="#1E1C19" stroke-width="2" style="display: none;" />
+            <line id="crosshair-line" x1="0" y1="{padding_y}" x2="0" y2="{height - padding_y}" stroke="rgba(212,163,115,0.4)" stroke-width="1" stroke-dasharray="3 3" style="display: none;" />
+            <circle id="hover-dot" r="4.5" fill="#D4A373" stroke="#1B1A19" stroke-width="2" style="display: none;" />
         </svg>
         <div class="chart-labels">
             <span id="chart-start-lbl">{first_date} (${min_p:.2f})</span>
@@ -746,21 +746,21 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
     <style>
         :root {{
-            --bg-canvas: #0C0B0A;
-            --bg-panel: #141312;
-            --bg-subpanel: #1B1A18;
-            --bg-hover: #22211E;
-            --text-title: #FAF7F2;
-            --text-body: #D4CBC0;
-            --text-secondary: #968D82;
-            --text-dim: #635C53;
-            --accent-warm: #D48858;
-            --accent-warm-hover: #E89D6C;
-            --accent-warm-subtle: rgba(212, 136, 88, 0.14);
-            --accent-green: #34D399;
-            --accent-red: #F87171;
-            --border-color: rgba(245, 235, 220, 0.07);
-            --border-focus: rgba(212, 136, 88, 0.40);
+            --bg-canvas: #141312;
+            --bg-panel: #1B1A19;
+            --bg-subpanel: #21201E;
+            --bg-hover: #272624;
+            --text-title: #EFE9E0;
+            --text-body: #C4BCB0;
+            --text-secondary: #8C8477;
+            --text-dim: #5C554A;
+            --accent-warm: #D4A373;
+            --accent-warm-hover: #E2B689;
+            --accent-warm-subtle: rgba(212, 163, 115, 0.12);
+            --accent-green: #82AE8C;
+            --accent-red: #C97A72;
+            --border-color: rgba(255, 255, 255, 0.055);
+            --border-focus: rgba(212, 163, 115, 0.35);
             --font-serif: 'Newsreader', Garamond, Georgia, serif;
             --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
@@ -772,7 +772,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             overflow-x: auto !important;
             overflow-y: hidden !important;
             padding: 12px 16px !important;
-            background: rgba(0, 0, 0, 0.25) !important;
+            background: rgba(0, 0, 0, 0.20) !important;
             border-radius: 8px !important;
             border: 1px solid var(--border-color) !important;
         }}
@@ -788,7 +788,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
         body {{
             background: 
-                radial-gradient(ellipse 80% 50% at 50% -10%, rgba(212, 136, 88, 0.07), transparent 60%),
+                radial-gradient(ellipse 90% 50% at 50% -10%, rgba(212, 163, 115, 0.04), transparent 70%),
                 var(--bg-canvas);
             color: var(--text-body);
             font-family: var(--font-serif);
@@ -801,9 +801,9 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 
         /* Top Nav */
         nav.nav-bar {{
-            background: rgba(12, 11, 10, 0.85);
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            background: rgba(20, 19, 18, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
@@ -2091,21 +2091,21 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
     <style>
         :root {{
-            --bg-canvas: #0C0B0A;
-            --bg-panel: #141312;
-            --bg-subpanel: #1B1A18;
-            --bg-hover: #22211E;
-            --text-title: #FAF7F2;
-            --text-body: #D4CBC0;
-            --text-secondary: #968D82;
-            --text-dim: #635C53;
-            --accent-warm: #D48858;
-            --accent-warm-hover: #E89D6C;
-            --accent-warm-subtle: rgba(212, 136, 88, 0.14);
-            --accent-green: #34D399;
-            --accent-red: #F87171;
-            --border-color: rgba(245, 235, 220, 0.07);
-            --border-focus: rgba(212, 136, 88, 0.40);
+            --bg-canvas: #141312;
+            --bg-panel: #1B1A19;
+            --bg-subpanel: #21201E;
+            --bg-hover: #272624;
+            --text-title: #EFE9E0;
+            --text-body: #C4BCB0;
+            --text-secondary: #8C8477;
+            --text-dim: #5C554A;
+            --accent-warm: #D4A373;
+            --accent-warm-hover: #E2B689;
+            --accent-warm-subtle: rgba(212, 163, 115, 0.12);
+            --accent-green: #82AE8C;
+            --accent-red: #C97A72;
+            --border-color: rgba(255, 255, 255, 0.055);
+            --border-focus: rgba(212, 163, 115, 0.35);
             --font-serif: 'Newsreader', Garamond, Georgia, serif;
             --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
@@ -2117,7 +2117,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             overflow-x: auto !important;
             overflow-y: hidden !important;
             padding: 12px 16px !important;
-            background: rgba(0, 0, 0, 0.25) !important;
+            background: rgba(0, 0, 0, 0.20) !important;
             border-radius: 8px !important;
             border: 1px solid var(--border-color) !important;
         }}
@@ -2133,7 +2133,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
         body {{
             background: 
-                radial-gradient(ellipse 80% 50% at 50% -10%, rgba(212, 136, 88, 0.07), transparent 60%),
+                radial-gradient(ellipse 90% 50% at 50% -10%, rgba(212, 163, 115, 0.04), transparent 70%),
                 var(--bg-canvas);
             color: var(--text-body);
             font-family: var(--font-serif);
@@ -2146,9 +2146,9 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
 
         /* Header */
         header.nav-header {{
-            background: rgba(12, 11, 10, 0.85);
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            background: rgba(20, 19, 18, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;

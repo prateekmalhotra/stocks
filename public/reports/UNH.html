@@ -16,21 +16,21 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
     <style>
         :root {
-            --bg-canvas: #0C0B0A;
-            --bg-panel: #141312;
-            --bg-subpanel: #1B1A18;
-            --bg-hover: #22211E;
-            --text-title: #FAF7F2;
-            --text-body: #D4CBC0;
-            --text-secondary: #968D82;
-            --text-dim: #635C53;
-            --accent-warm: #D48858;
-            --accent-warm-hover: #E89D6C;
-            --accent-warm-subtle: rgba(212, 136, 88, 0.14);
-            --accent-green: #34D399;
-            --accent-red: #F87171;
-            --border-color: rgba(245, 235, 220, 0.07);
-            --border-focus: rgba(212, 136, 88, 0.40);
+            --bg-canvas: #141312;
+            --bg-panel: #1B1A19;
+            --bg-subpanel: #21201E;
+            --bg-hover: #272624;
+            --text-title: #EFE9E0;
+            --text-body: #C4BCB0;
+            --text-secondary: #8C8477;
+            --text-dim: #5C554A;
+            --accent-warm: #D4A373;
+            --accent-warm-hover: #E2B689;
+            --accent-warm-subtle: rgba(212, 163, 115, 0.12);
+            --accent-green: #82AE8C;
+            --accent-red: #C97A72;
+            --border-color: rgba(255, 255, 255, 0.055);
+            --border-focus: rgba(212, 163, 115, 0.35);
             --font-serif: 'Newsreader', Garamond, Georgia, serif;
             --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
@@ -42,7 +42,7 @@
             overflow-x: auto !important;
             overflow-y: hidden !important;
             padding: 12px 16px !important;
-            background: rgba(0, 0, 0, 0.25) !important;
+            background: rgba(0, 0, 0, 0.20) !important;
             border-radius: 8px !important;
             border: 1px solid var(--border-color) !important;
         }
@@ -58,7 +58,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: 
-                radial-gradient(ellipse 80% 50% at 50% -10%, rgba(212, 136, 88, 0.07), transparent 60%),
+                radial-gradient(ellipse 90% 50% at 50% -10%, rgba(212, 163, 115, 0.04), transparent 70%),
                 var(--bg-canvas);
             color: var(--text-body);
             font-family: var(--font-serif);
@@ -71,9 +71,9 @@
 
         /* Top Nav */
         nav.nav-bar {
-            background: rgba(12, 11, 10, 0.85);
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            background: rgba(20, 19, 18, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
@@ -1064,20 +1064,20 @@
         <svg id="interactive-svg" viewBox="0 0 900 260" preserveAspectRatio="none" class="chart-svg">
             <defs>
                 <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#CC785C" stop-opacity="0.20" />
-                    <stop offset="100%" stop-color="#CC785C" stop-opacity="0.0" />
+                    <stop offset="0%" stop-color="#D4A373" stop-opacity="0.14" />
+                    <stop offset="100%" stop-color="#D4A373" stop-opacity="0.0" />
                 </linearGradient>
             </defs>
             
-            <line x1="20" y1="25" x2="880" y2="25" stroke="rgba(235,225,210,0.04)" stroke-width="1" />
-            <line x1="20" y1="130.0" x2="880" y2="130.0" stroke="rgba(235,225,210,0.04)" stroke-width="1" />
-            <line x1="20" y1="235" x2="880" y2="235" stroke="rgba(235,225,210,0.04)" stroke-width="1" />
+            <line x1="20" y1="25" x2="880" y2="25" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+            <line x1="20" y1="130.0" x2="880" y2="130.0" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+            <line x1="20" y1="235" x2="880" y2="235" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
 
             <path id="chart-area-path" d="" fill="url(#area-grad)" />
-            <path id="chart-line-path" d="" fill="none" stroke="#CC785C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+            <path id="chart-line-path" d="" fill="none" stroke="#D4A373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 
-            <line id="crosshair-line" x1="0" y1="25" x2="0" y2="235" stroke="rgba(204,120,92,0.4)" stroke-width="1" stroke-dasharray="3 3" style="display: none;" />
-            <circle id="hover-dot" r="4.5" fill="#CC785C" stroke="#1E1C19" stroke-width="2" style="display: none;" />
+            <line id="crosshair-line" x1="0" y1="25" x2="0" y2="235" stroke="rgba(212,163,115,0.4)" stroke-width="1" stroke-dasharray="3 3" style="display: none;" />
+            <circle id="hover-dot" r="4.5" fill="#D4A373" stroke="#1B1A19" stroke-width="2" style="display: none;" />
         </svg>
         <div class="chart-labels">
             <span id="chart-start-lbl">Aug 14, 2025 ($259.02)</span>

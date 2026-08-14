@@ -19,21 +19,21 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
     <style>
         :root {
-            --bg-canvas: #0C0B0A;
-            --bg-panel: #141312;
-            --bg-subpanel: #1B1A18;
-            --bg-hover: #22211E;
-            --text-title: #FAF7F2;
-            --text-body: #D4CBC0;
-            --text-secondary: #968D82;
-            --text-dim: #635C53;
-            --accent-warm: #D48858;
-            --accent-warm-hover: #E89D6C;
-            --accent-warm-subtle: rgba(212, 136, 88, 0.14);
-            --accent-green: #34D399;
-            --accent-red: #F87171;
-            --border-color: rgba(245, 235, 220, 0.07);
-            --border-focus: rgba(212, 136, 88, 0.40);
+            --bg-canvas: #141312;
+            --bg-panel: #1B1A19;
+            --bg-subpanel: #21201E;
+            --bg-hover: #272624;
+            --text-title: #EFE9E0;
+            --text-body: #C4BCB0;
+            --text-secondary: #8C8477;
+            --text-dim: #5C554A;
+            --accent-warm: #D4A373;
+            --accent-warm-hover: #E2B689;
+            --accent-warm-subtle: rgba(212, 163, 115, 0.12);
+            --accent-green: #82AE8C;
+            --accent-red: #C97A72;
+            --border-color: rgba(255, 255, 255, 0.055);
+            --border-focus: rgba(212, 163, 115, 0.35);
             --font-serif: 'Newsreader', Garamond, Georgia, serif;
             --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
@@ -45,7 +45,7 @@
             overflow-x: auto !important;
             overflow-y: hidden !important;
             padding: 12px 16px !important;
-            background: rgba(0, 0, 0, 0.25) !important;
+            background: rgba(0, 0, 0, 0.20) !important;
             border-radius: 8px !important;
             border: 1px solid var(--border-color) !important;
         }
@@ -61,7 +61,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: 
-                radial-gradient(ellipse 80% 50% at 50% -10%, rgba(212, 136, 88, 0.07), transparent 60%),
+                radial-gradient(ellipse 90% 50% at 50% -10%, rgba(212, 163, 115, 0.04), transparent 70%),
                 var(--bg-canvas);
             color: var(--text-body);
             font-family: var(--font-serif);
@@ -74,9 +74,9 @@
 
         /* Header */
         header.nav-header {
-            background: rgba(12, 11, 10, 0.85);
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            background: rgba(20, 19, 18, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
