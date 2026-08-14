@@ -140,8 +140,11 @@ def call_gemini_with_search(prompt: str, system_instruction: str = "", temperatu
     """Calls Gemini Flash via REST API with Google Search Grounding, exponential retry, and safety fallback."""
     import time
     api_key = get_api_key()
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent?key={api_key}"
     
+    models_to_try = [GEMINI_MODEL]
+    if GEMINI_MODEL != "gemini-flash-latest":
+        models_to_try.append("gemini-flash-latest")
+        
     payload: Dict[str, Any] = {
         "contents": [{"parts": [{"text": prompt}]}],
         "tools": [{"google_search": {}}],
@@ -156,43 +159,52 @@ def call_gemini_with_search(prompt: str, system_instruction: str = "", temperatu
             "parts": [{"text": system_instruction}]
         }
     
-    max_retries = 4
-    for attempt in range(1, max_retries + 1):
-        try:
-            response = requests.post(url, json=payload, timeout=120)
-            if response.status_code == 200:
-                res_json = response.json()
-                candidate = res_json.get("candidates", [{}])[0]
-                parts = candidate.get("content", {}).get("parts", [])
-                if parts and "text" in parts[0]:
-                    return clean_grounding_artifacts(parts[0]["text"])
-                
-                if candidate.get("finishReason") == "RECITATION":
-                    fallback_prompt = prompt + "\n\nCRITICAL: Paraphrase all data in your own original analytical words. Do NOT quote verbatim text."
-                    payload["contents"] = [{"parts": [{"text": fallback_prompt}]}]
-                    payload["generationConfig"]["temperature"] = 0.7
-                    retry_res = requests.post(url, json=payload, timeout=120)
-                    if retry_res.status_code == 200:
-                        retry_json = retry_res.json()
-                        retry_parts = retry_json.get("candidates", [{}])[0].get("content", {}).get("parts", [])
-                        if retry_parts and "text" in retry_parts[0]:
-                            return clean_grounding_artifacts(retry_parts[0]["text"])
-                            
-                return "Analysis completed."
-            elif response.status_code in (500, 502, 503, 504, 429) and attempt < max_retries:
-                wait_time = attempt * 3
-                print(f"  ⚠️ Gemini API returned {response.status_code}. Retrying in {wait_time}s (Attempt {attempt}/{max_retries})...")
-                time.sleep(wait_time)
-                continue
-            else:
-                raise RuntimeError(f"Gemini API error ({response.status_code}): {response.text}")
-        except requests.RequestException as req_err:
-            if attempt < max_retries:
-                wait_time = attempt * 3
-                print(f"  ⚠️ Network error ({req_err}). Retrying in {wait_time}s...")
-                time.sleep(wait_time)
-                continue
-            raise RuntimeError(f"Gemini API network error: {req_err}") from req_err
+    last_err = None
+    for model_name in models_to_try:
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
+        max_retries = 3
+        for attempt in range(1, max_retries + 1):
+            try:
+                response = requests.post(url, json=payload, timeout=120)
+                if response.status_code == 200:
+                    res_json = response.json()
+                    candidate = res_json.get("candidates", [{}])[0]
+                    parts = candidate.get("content", {}).get("parts", [])
+                    if parts and "text" in parts[0]:
+                        return clean_grounding_artifacts(parts[0]["text"])
+                    
+                    if candidate.get("finishReason") == "RECITATION":
+                        fallback_prompt = prompt + "\n\nCRITICAL: Paraphrase all data in your own original analytical words. Do NOT quote verbatim text."
+                        payload["contents"] = [{"parts": [{"text": fallback_prompt}]}]
+                        payload["generationConfig"]["temperature"] = 0.7
+                        retry_res = requests.post(url, json=payload, timeout=120)
+                        if retry_res.status_code == 200:
+                            retry_json = retry_res.json()
+                            retry_parts = retry_json.get("candidates", [{}])[0].get("content", {}).get("parts", [])
+                            if retry_parts and "text" in retry_parts[0]:
+                                return clean_grounding_artifacts(retry_parts[0]["text"])
+                                
+                    return "Analysis completed."
+                elif response.status_code in (500, 502, 503, 504, 429) and attempt < max_retries:
+                    wait_time = attempt * 3
+                    print(f"  ⚠️ Gemini API ({model_name}) returned {response.status_code}. Retrying in {wait_time}s (Attempt {attempt}/{max_retries})...")
+                    time.sleep(wait_time)
+                    continue
+                else:
+                    last_err = RuntimeError(f"Gemini API error ({response.status_code}): {response.text}")
+                    break
+            except requests.RequestException as req_err:
+                if attempt < max_retries:
+                    wait_time = attempt * 3
+                    print(f"  ⚠️ Network error on {model_name} ({req_err}). Retrying in {wait_time}s...")
+                    time.sleep(wait_time)
+                    continue
+                last_err = RuntimeError(f"Gemini API network error: {req_err}")
+                break
+
+    if last_err:
+        raise last_err
+    return "Analysis completed."
 
 
 def extract_json_block(text: str) -> Dict[str, Any]:
