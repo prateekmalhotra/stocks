@@ -1,97 +1,97 @@
 {
   "portfolio_type": "defensive",
   "portfolio_label": "Fidelity (Defensive Fortress)",
-  "last_run_date": "2026-08-14",
-  "last_run_timestamp": "2026-08-14T00:21:42.912544",
+  "last_run_date": "2026-08-15",
+  "last_run_timestamp": "2026-08-15T18:18:11.488049",
   "status": "ACTION_REQUIRED",
-  "status_display": "REBALANCE PROPOSAL PENDING (17 ACTIONS)",
+  "status_display": "REBALANCE PROPOSAL PENDING (20 ACTIONS)",
   "action_required": true,
-  "verdict_summary": "Council flagged 17 position(s) exceeding materiality rebalance hurdles.",
-  "total_universe_scanned": 76,
+  "verdict_summary": "Council flagged 20 position(s) exceeding materiality rebalance hurdles.",
+  "total_universe_scanned": 81,
   "active_holdings_verified": 8,
   "shiller_cape": 35.5,
   "buffett_indicator_pct": 198.5,
   "treasury_3m_yield_pct": 5.0,
-  "portfolio_average_mos_pct": 48.92,
-  "cash_cushion_pct": 14.93,
+  "portfolio_average_mos_pct": 49.33,
+  "cash_cushion_pct": 14.85,
   "macro_cash_audit": {
     "shiller_cape": 35.5,
     "historical_cape_median": 18.0,
     "buffett_indicator_pct": 198.5,
     "treasury_3m_yield_pct": 5.0,
-    "portfolio_weighted_mos_pct": 48.92,
+    "portfolio_weighted_mos_pct": 49.33,
     "mandate_structural_floor_pct": 5.0,
-    "calculated_target_cash_pct": 14.93,
+    "calculated_target_cash_pct": 14.85,
     "current_actual_cash_pct": 21.21,
     "cash_status": "SURPLUS_STRIKE_READY",
     "strike_trigger_threshold": "MoS > 45.0% on Tier-1 Compounder or Flash Crash Dislocation",
-    "cash_directive": "Cash reserves (21.21%) exceed target (14.93%). Ready for opportunistic deployment.",
-    "formula_description": "Senior US Treasury Buffer (14.93%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +48.92% weighted Margin of Safety."
+    "cash_directive": "Cash reserves (21.21%) exceed target (14.85%). Ready for opportunistic deployment.",
+    "formula_description": "Senior US Treasury Buffer (14.85%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +49.33% weighted Margin of Safety."
   },
-  "next_scheduled_run": "2026-08-21",
+  "next_scheduled_run": "2026-08-22",
   "holdings_health": [
     {
       "ticker": "JD",
       "company_name": "JD.com, Inc.",
-      "price": 29.3,
+      "price": 29.06,
       "fair_value": 51.8,
-      "mos_pct": 76.79,
+      "mos_pct": 78.25,
       "signal": "BUY",
       "moat_score": 9.0,
-      "expected_irr": 36.1,
-      "kelly_edge": 23.7,
+      "expected_irr": 36.4,
+      "kelly_edge": 24.05,
       "health_status": "PRISTINE",
       "thesis_core": "Richard Liu founder leadership; nationwide direct 1P logistics infrastructure, refrigerated supply chain."
     },
     {
       "ticker": "YELP",
       "company_name": "Yelp Inc.",
-      "price": 24.39,
+      "price": 24.7,
       "fair_value": 34.0,
-      "mos_pct": 39.4,
+      "mos_pct": 37.65,
       "signal": "BUY",
       "moat_score": 8.4,
-      "expected_irr": 29.4,
-      "kelly_edge": 2.38,
+      "expected_irr": 29.0,
+      "kelly_edge": 1.69,
       "health_status": "PRISTINE",
       "thesis_core": "Extreme cash cow (zero debt, $400M cash) repurchasing 7%+ shares annually."
     },
     {
       "ticker": "ACN",
       "company_name": "Accenture plc",
-      "price": 178.49,
+      "price": 176.89,
       "fair_value": 245.0,
-      "mos_pct": 37.26,
+      "mos_pct": 38.5,
       "signal": "BUY",
       "moat_score": 8.9,
-      "expected_irr": 20.8,
-      "kelly_edge": 9.81,
+      "expected_irr": 21.0,
+      "kelly_edge": 10.46,
       "health_status": "PRISTINE",
       "thesis_core": "Global systems integrator and enterprise AI implementation partner."
     },
     {
       "ticker": "MTCH",
       "company_name": "Match Group, Inc.",
-      "price": 37.28,
+      "price": 37.95,
       "fair_value": 50.0,
-      "mos_pct": 34.12,
+      "mos_pct": 31.75,
       "signal": "BUY",
       "moat_score": 8.5,
-      "expected_irr": 26.6,
-      "kelly_edge": 3.4,
+      "expected_irr": 26.2,
+      "kelly_edge": 2.45,
       "health_status": "PRISTINE",
       "thesis_core": "Hinge growth flywheel and deep value cash generation with aggressive buybacks."
     },
     {
       "ticker": "BABA",
       "company_name": "Alibaba Group Holding Limited",
-      "price": 122.16,
-      "fair_value": 168.0,
-      "mos_pct": 37.52,
+      "price": 123.81,
+      "fair_value": 175.0,
+      "mos_pct": 41.35,
       "signal": "BUY",
       "moat_score": 9.5,
-      "expected_irr": 28.5,
-      "kelly_edge": 17.56,
+      "expected_irr": 29.3,
+      "kelly_edge": 19.09,
       "health_status": "PRISTINE",
       "thesis_core": "Massive deep-value cash fortress ($60B+ net cash), Cloud AI enterprise leader, 7%+ buybacks."
     },
@@ -111,26 +111,26 @@
     {
       "ticker": "NKE",
       "company_name": "Nike, Inc.",
-      "price": 41.23,
+      "price": 40.73,
       "fair_value": 58.0,
-      "mos_pct": 40.67,
+      "mos_pct": 42.4,
       "signal": "BUY",
       "moat_score": 9.1,
-      "expected_irr": 20.6,
-      "kelly_edge": 0.49,
+      "expected_irr": 21.0,
+      "kelly_edge": 1.57,
       "health_status": "PRISTINE",
       "thesis_core": "Phil Knight founder legacy; unmatched global sports endorsement roster and brand turn."
     },
     {
       "ticker": "CROX",
       "company_name": "Crocs, Inc.",
-      "price": 132.56,
+      "price": 131.72,
       "fair_value": 175.0,
-      "mos_pct": 32.02,
+      "mos_pct": 32.86,
       "signal": "BUY",
       "moat_score": 8.6,
-      "expected_irr": 26.2,
-      "kelly_edge": 2.7,
+      "expected_irr": 26.4,
+      "kelly_edge": 3.06,
       "health_status": "PRISTINE",
       "thesis_core": "High-margin cash machine (28% operating margin); rapid debt paydown and buybacks."
     }
@@ -139,31 +139,31 @@
     {
       "ticker": "CSU",
       "company_name": "Constellation Software, Inc.",
-      "price": 2276.0,
+      "price": 2230.0,
       "fair_value": 2950.0,
-      "mos_pct": 29.61,
-      "expected_irr": 24.4,
-      "kelly_edge": 53.24,
+      "mos_pct": 32.29,
+      "expected_irr": 25.0,
+      "kelly_edge": 53.87,
       "moat_score": 9.9
     },
     {
       "ticker": "META",
       "company_name": "Meta Platforms, Inc.",
-      "price": 594.97,
+      "price": 589.85,
       "fair_value": 720.0,
-      "mos_pct": 21.01,
-      "expected_irr": 25.8,
-      "kelly_edge": 43.09,
+      "mos_pct": 22.06,
+      "expected_irr": 26.0,
+      "kelly_edge": 43.41,
       "moat_score": 9.7
     },
     {
       "ticker": "AMZN",
       "company_name": "Amazon.com, Inc.",
-      "price": 265.13,
+      "price": 262.65,
       "fair_value": 320.0,
-      "mos_pct": 20.7,
-      "expected_irr": 20.8,
-      "kelly_edge": 37.2,
+      "mos_pct": 21.84,
+      "expected_irr": 21.1,
+      "kelly_edge": 37.66,
       "moat_score": 9.8
     }
   ],
@@ -171,87 +171,102 @@
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "META",
-      "reason": "Dislocation arbitrage: META offers Edge 43.09 vs 0.49 min active."
+      "reason": "Dislocation arbitrage: META offers Edge 43.41 vs 1.57 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "AMZN",
-      "reason": "Dislocation arbitrage: AMZN offers Edge 37.2 vs 0.49 min active."
+      "reason": "Dislocation arbitrage: AMZN offers Edge 37.66 vs 1.57 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "ADBE",
-      "reason": "Dislocation arbitrage: ADBE offers Edge 33.83 vs 0.49 min active."
+      "reason": "Dislocation arbitrage: ADBE offers Edge 34.89 vs 1.57 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "CRM",
-      "reason": "Dislocation arbitrage: CRM offers Edge 14.88 vs 0.49 min active."
+      "reason": "Dislocation arbitrage: CRM offers Edge 16.43 vs 1.57 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "DECK",
-      "reason": "Dislocation arbitrage: DECK offers Edge 21.01 vs 0.49 min active."
+      "reason": "Dislocation arbitrage: DECK offers Edge 21.12 vs 1.57 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "CMG",
-      "reason": "Dislocation arbitrage: CMG offers Edge 29.22 vs 0.49 min active."
+      "reason": "Dislocation arbitrage: CMG offers Edge 27.87 vs 1.57 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "BKNG",
-      "reason": "Dislocation arbitrage: BKNG offers Edge 24.33 vs 0.49 min active."
+      "reason": "Dislocation arbitrage: BKNG offers Edge 24.62 vs 1.57 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "CSU",
-      "reason": "Dislocation arbitrage: CSU offers Edge 53.24 vs 0.49 min active."
+      "reason": "Dislocation arbitrage: CSU offers Edge 53.87 vs 1.57 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "GCT",
-      "reason": "Dislocation arbitrage: GCT offers Edge 14.46 vs 0.49 min active."
+      "reason": "Dislocation arbitrage: GCT offers Edge 15.39 vs 1.57 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "UNH",
-      "reason": "Dislocation arbitrage: UNH offers Edge 26.06 vs 0.49 min active."
+      "reason": "Dislocation arbitrage: UNH offers Edge 25.67 vs 1.57 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "QCOM",
-      "reason": "Dislocation arbitrage: QCOM offers Edge 10.07 vs 0.49 min active."
+      "reason": "Dislocation arbitrage: QCOM offers Edge 9.7 vs 1.57 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "SONY",
-      "reason": "Dislocation arbitrage: SONY offers Edge 17.34 vs 0.49 min active."
+      "reason": "Dislocation arbitrage: SONY offers Edge 15.6 vs 1.57 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "SPGI",
-      "reason": "Dislocation arbitrage: SPGI offers Edge 35.23 vs 0.49 min active."
+      "reason": "Dislocation arbitrage: SPGI offers Edge 35.73 vs 1.57 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "TSM",
-      "reason": "Dislocation arbitrage: TSM offers Edge 34.69 vs 0.49 min active."
+      "reason": "Dislocation arbitrage: TSM offers Edge 37.39 vs 1.57 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "VRT",
-      "reason": "Dislocation arbitrage: VRT offers Edge 18.49 vs 0.49 min active."
+      "reason": "Dislocation arbitrage: VRT offers Edge 17.61 vs 1.57 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "NFLX",
-      "reason": "Dislocation arbitrage: NFLX offers Edge 39.86 vs 0.49 min active."
+      "reason": "Dislocation arbitrage: NFLX offers Edge 39.9 vs 1.57 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "ADSK",
-      "reason": "Dislocation arbitrage: ADSK offers Edge 32.36 vs 0.49 min active."
+      "reason": "Dislocation arbitrage: ADSK offers Edge 33.58 vs 1.57 min active."
+    },
+    {
+      "action": "SWAP_PROPOSAL",
+      "ticker": "ALLY",
+      "reason": "Dislocation arbitrage: ALLY offers Edge 9.65 vs 1.57 min active."
+    },
+    {
+      "action": "SWAP_PROPOSAL",
+      "ticker": "AMR",
+      "reason": "Dislocation arbitrage: AMR offers Edge 13.24 vs 1.57 min active."
+    },
+    {
+      "action": "SWAP_PROPOSAL",
+      "ticker": "ARE",
+      "reason": "Dislocation arbitrage: ARE offers Edge 19.59 vs 1.57 min active."
     }
   ]
 }
