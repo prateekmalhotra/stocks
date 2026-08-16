@@ -1,8 +1,8 @@
 {
   "portfolio_type": "aggressive",
   "portfolio_label": "Wealthsimple (Aggressive Alpha)",
-  "last_run_date": "2026-08-15",
-  "last_run_timestamp": "2026-08-15T18:18:11.490000",
+  "last_run_date": "2026-08-16",
+  "last_run_timestamp": "2026-08-16T18:33:26.556873",
   "status": "ACTION_REQUIRED",
   "status_display": "REBALANCE PROPOSAL PENDING (17 ACTIONS)",
   "action_required": true,
@@ -28,7 +28,7 @@
     "cash_directive": "Cash reserves (17.37%) exceed target (13.25%). Ready for opportunistic deployment.",
     "formula_description": "Tactical Strike Reserve (13.25%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +47.30% weighted Margin of Safety."
   },
-  "next_scheduled_run": "2026-08-22",
+  "next_scheduled_run": "2026-08-23",
   "holdings_health": [
     {
       "ticker": "PDD",
@@ -191,11 +191,11 @@
     {
       "ticker": "CSU",
       "company_name": "Constellation Software, Inc.",
-      "price": 2230.0,
+      "price": 2228.99,
       "fair_value": 2950.0,
-      "mos_pct": 32.29,
+      "mos_pct": 32.35,
       "expected_irr": 25.0,
-      "kelly_edge": 53.87,
+      "kelly_edge": 53.89,
       "moat_score": 9.9
     },
     {
@@ -258,7 +258,7 @@
     {
       "action": "SWAP_PROPOSAL",
       "ticker": "CSU",
-      "reason": "Dislocation arbitrage: CSU offers Edge 53.87 vs 5.78 min active."
+      "reason": "Dislocation arbitrage: CSU offers Edge 53.89 vs 5.78 min active."
     },
     {
       "action": "SWAP_PROPOSAL",
