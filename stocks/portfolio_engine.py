@@ -185,9 +185,47 @@ def parse_target_price(raw_val: Any, cur_p: float) -> float:
     except Exception:
         return cur_p
 
+def get_ownership_factor(wl_item: dict, meta: dict) -> Tuple[float, float]:
+    """Extracts 13F Superinvestor Whale score and SEC Form 4 Insider Buying score."""
+    top_funds = wl_item.get("top_funds", [])
+    top_funds_str = " ".join(top_funds).lower()
+    
+    # 1. 13F Superinvestor Whale conviction factor
+    superinvestors = [
+        "li lu", "berkshire", "buffett", "tepper", "pabrai", "spier",
+        "terry smith", "gayner", "klarman", "akre", "bill miller",
+        "greenblatt", "combs", "weschler", "tcs capital"
+    ]
+    matched_whales = [w for w in superinvestors if w in top_funds_str]
+    if len(matched_whales) >= 2:
+        whale_score = 10.0
+    elif len(matched_whales) == 1:
+        whale_score = 8.5
+    elif len(top_funds) >= 2:
+        whale_score = 7.0
+    else:
+        whale_score = 5.0
+        
+    # 2. SEC Form 4 Insider Buying & Founder Skin-in-the-game factor
+    insider_sig = wl_item.get("insider_signal", "").lower()
+    insider_sum = wl_item.get("insider_summary", "").lower()
+    founder_align = meta.get("insider_align", 7.0)
+    
+    if "buying" in insider_sig or "buying" in insider_sum or founder_align >= 9.5:
+        insider_score = 10.0
+    elif founder_align >= 8.5 or "founder" in insider_sum:
+        insider_score = 8.5
+    elif "selling" in insider_sig:
+        insider_score = 3.0
+    else:
+        insider_score = 6.0
+        
+    return whale_score, insider_score
+
 def score_fidelity_defensive(
     ticker: str,
     meta: dict,
+    wl_item: dict,
     cur_p: float,
     bear_p: float,
     base_p: float,
@@ -198,66 +236,89 @@ def score_fidelity_defensive(
     Fidelity Mandate: Margin of Safety & Downside Risk Paramount.
     Pillars:
     - Base Margin of Safety (30 pts): min(30.0, max(-15.0, base_ret * 0.60))
-    - Downside Bear Cushion (25 pts): min(25.0, max(-15.0, (bear_ret + 15.0) * 0.80))
+    - Downside Bear Cushion (20 pts): min(20.0, max(-15.0, (bear_ret + 15.0) * 0.80))
     - Moat Durability (15 pts): (moat / 10.0) * 15.0
-    - Pricing Power (10 pts): min(10.0, (p / 0.90) * 10.0)
     - Balance Sheet Fortress (10 pts): (bs / 10.0) * 10.0
-    - Capital Allocation ROIC (4 pts): min(4.0, (roic / 30.0) * 4.0)
-    - Working Capital Float (2 pts): (float_gen / 10.0) * 2.0
-    - Founder / Insider Alignment (2 pts): (insider_align / 10.0) * 2.0
-    - Lindy & AI Resilience (2 pts): (lindy_ai_res / 10.0) * 2.0
-    - Share Cannibalization (3 pts): min(3.0, cannibal * 0.60)
-    - Zero Margin of Safety Penalty: -20 pts if MoS < 5%, -8 pts if MoS < 15%
+    - 13F Superinvestor Whale Conviction (10 pts): (whale_score / 10.0) * 10.0
+    - Insider Alignment & Buying (5 pts): (insider_score / 10.0) * 5.0
+    - Capital Allocation ROIC (5 pts): min(5.0, (roic / 30.0) * 5.0)
+    - Pricing Power (5 pts): min(5.0, (p / 0.90) * 5.0)
+    - Strict Turnaround Invariant: Disqualifies turnarounds, paused buybacks, or distressed debt.
     """
     bear_ret = ((bear_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
     base_ret = ((base_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
     bull_ret = ((bull_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
     
-    mos_pts = min(30.0, max(-15.0, base_ret * 0.60))
-    downside_pts = min(25.0, max(-15.0, (bear_ret + 15.0) * 0.80))
-    moat_pts = (meta.get("moat", 8.0) / 10.0) * 15.0
+    whale_score, insider_score = get_ownership_factor(wl_item, meta)
+    moat = meta.get("moat", 8.0)
+    bs = meta.get("bs", 8.0)
+    roic = meta.get("roic", 18.0)
     pricing_power = meta.get("p", 0.85)
-    pricing_power_pts = min(10.0, (pricing_power / 0.90) * 10.0)
-    bs_pts = (meta.get("bs", 8.0) / 10.0) * 10.0
     
-    roic_pts = min(4.0, (meta.get("roic", 18.0) / 30.0) * 4.0)
-    float_pts = (meta.get("float_gen", 6.0) / 10.0) * 2.0
-    insider_pts = (meta.get("insider_align", 7.0) / 10.0) * 2.0
-    lindy_pts = (meta.get("lindy_ai_res", 8.5) / 10.0) * 2.0
-    cannibal_pts = min(3.0, meta.get("cannibal", 1.0) * 0.60)
-    cust_pen = -(meta.get("cust_conc", 0.5) * 1.5)
+    status_lbl = wl_item.get("status_label", "")
+    summary_txt = wl_item.get("thesis_summary", "") + " " + wl_item.get("what_changes_now", "")
+    is_turnaround = (
+        sig in ["AVOID", "CAUTION"]
+        or "turnaround" in status_lbl.lower()
+        or "speculative" in status_lbl.lower()
+        or "pause" in summary_txt.lower()
+        or "paused" in summary_txt.lower()
+    )
     
-    # Severe penalty for buying at full price (0% MoS)
+    mos_pts = min(30.0, max(-15.0, base_ret * 0.60))
+    downside_pts = min(20.0, max(-15.0, (bear_ret + 15.0) * 0.80))
+    moat_pts = (moat / 10.0) * 15.0
+    bs_pts = (bs / 10.0) * 10.0
+    whale_pts = (whale_score / 10.0) * 10.0
+    insider_pts = (insider_score / 10.0) * 5.0
+    roic_pts = min(5.0, (roic / 30.0) * 5.0)
+    pricing_power_pts = min(5.0, (pricing_power / 0.90) * 5.0)
+    
+    # Severe penalty for zero margin of safety or turnaround state
+    mos_penalty = 0.0
     if base_ret < 5.0:
-        mos_penalty = -20.0
+        mos_penalty -= 20.0
     elif base_ret < 15.0:
-        mos_penalty = -8.0
-    else:
-        mos_penalty = 0.0
+        mos_penalty -= 8.0
         
-    total_score = round(max(5.0, mos_pts + downside_pts + moat_pts + pricing_power_pts + bs_pts + roic_pts + float_pts + insider_pts + lindy_pts + cannibal_pts + cust_pen + mos_penalty), 2)
-    mos_factor = max(0.20, (base_ret / 40.0))
-    downside_factor = max(0.20, 1.0 + (bear_ret / 50.0))
-    fid_k = max(0.001, (total_score / 100.0) ** 2 * mos_factor * downside_factor * (meta.get("moat", 8.0) / 10.0) * (pricing_power / 0.85))
+    if is_turnaround:
+        mos_penalty -= 35.0  # Turnarounds must be proven before portfolio inclusion
+        
+    total_score = round(max(5.0, mos_pts + downside_pts + moat_pts + bs_pts + whale_pts + insider_pts + roic_pts + pricing_power_pts + mos_penalty), 2)
+    
+    # Institutional Quality & Ownership Multiplier
+    q_def = ((moat * 0.35 + bs * 0.25 + whale_score * 0.15 + insider_score * 0.15 + min(10.0, (roic / 40.0) * 10.0) * 0.10) / 10.0) ** 2
+    if is_turnaround:
+        q_def *= 0.10
+        
+    oe_y = meta.get("oe_yield", 5.0)
+    cannibal = meta.get("cannibal", 1.0)
+    growth = meta.get("growth", 8.0)
+    payoff_b = (base_ret / 500.0) + (oe_y / 100.0) + (cannibal / 100.0) + (growth / 100.0)
+    raw_k = (pricing_power * payoff_b - (1.0 - pricing_power)) / payoff_b if payoff_b > 0 else 0.001
+    fid_k = max(0.001, raw_k * q_def)
     
     return {
         "ticker": ticker, "sector": meta["sector"], "industry": meta["industry"],
         "mandate_pref": "defensive", "price": cur_p, "fair_value": base_p,
         "bear_target": bear_p, "base_target": base_p, "bull_target": bull_p,
         "bear_ret": round(bear_ret, 2), "base_ret": round(base_ret, 2), "bull_ret": round(bull_ret, 2),
-        "margin_of_safety_pct": round(base_ret, 2), "oe_yield": meta.get("oe_yield", 5.0),
-        "growth": meta["growth"], "cannibal": meta["cannibal"],
-        "moat": meta["moat"], "bs": meta["bs"], "pricing_power": pricing_power,
-        "roic": meta.get("roic", 18.0), "float_gen": meta.get("float_gen", 6.0),
-        "insider_align": meta.get("insider_align", 7.0), "lindy_ai_res": meta.get("lindy_ai_res", 8.5),
+        "margin_of_safety_pct": round(base_ret, 2), "oe_yield": oe_y,
+        "growth": growth, "cannibal": cannibal,
+        "moat": moat, "bs": bs, "pricing_power": pricing_power,
+        "roic": roic, "float_gen": meta.get("float_gen", 6.0),
+        "insider_align": insider_score, "whale_score": whale_score,
+        "lindy_ai_res": meta.get("lindy_ai_res", 8.5),
         "scale_shared": meta.get("scale_shared", 5.0),
         "total_score": total_score, "kelly_score": fid_k,
-        "thesis": meta.get("thesis", ""), "action_signal": sig
+        "thesis": meta.get("thesis", ""), "action_signal": sig,
+        "is_turnaround": is_turnaround
     }
 
 def score_wealthsimple_aggressive(
     ticker: str,
     meta: dict,
+    wl_item: dict,
     cur_p: float,
     bear_p: float,
     base_p: float,
@@ -267,38 +328,57 @@ def score_wealthsimple_aggressive(
     """
     Wealthsimple Mandate: Growth, Asymmetry & Risk-Adjusted Quality.
     Pillars:
-    - Organic Growth CAGR (25 pts): min(25.0, (growth / 20.0) * 25.0)
-    - Bull Case Asymmetric Upside (25 pts): min(25.0, (bull_ret / 100.0) * 25.0)
+    - Reinvestment ROIC (20 pts): min(20.0, (roic / 35.0) * 20.0)
+    - Organic Growth + Cannibal (20 pts): min(20.0, ((growth + cannibal) / 20.0) * 20.0)
+    - Bull Case Asymmetric Upside (20 pts): min(20.0, (bull_ret / 100.0) * 20.0)
     - Base Margin of Safety (15 pts): min(15.0, (base_ret / 50.0) * 15.0)
-    - Downside Risk Protection (10 pts): min(10.0, (bear_ret + 30.0) * 0.25)
-    - Economic Moat Defense (15 pts): (moat / 10.0) * 15.0
-    - Pricing Power (10 pts): min(10.0, (p / 0.90) * 10.0)
-    - Reinvestment ROIC (4 pts): min(4.0, (roic / 35.0) * 4.0)
-    - Founder / Insider Alignment (3 pts): (insider_align / 10.0) * 3.0
-    - Negative Working Capital Float (2 pts): (float_gen / 10.0) * 2.0
-    - Lindy & AI Obsolescence Resilience (1 pt): (lindy_ai_res / 10.0) * 1.0
-    - Customer Concentration Penalty (-5 pts): -(cust_conc * 1.5)
+    - Economic Moat Defense (10 pts): (moat / 10.0) * 10.0
+    - 13F Superinvestor Whale Conviction (8 pts): (whale_score / 10.0) * 8.0
+    - Founder Alignment & Insider Buying (7 pts): (insider_score / 10.0) * 7.0
+    - Strict Turnaround Invariant: Excludes broken turnarounds until validated.
     """
     bear_ret = ((bear_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
     base_ret = ((base_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
     bull_ret = ((bull_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
     
-    asym_ratio = bull_ret / max(10.0, abs(bear_ret)) if bear_ret < 0 else (bull_ret / 5.0)
-    growth_pts = min(25.0, max(0.0, (meta.get("growth", 5.0) / 20.0) * 25.0))
-    bull_pts = min(25.0, max(0.0, (bull_ret / 100.0) * 25.0))
-    ws_mos_pts = min(15.0, (base_ret / 50.0) * 15.0)
-    downside_pts_ws = min(10.0, (bear_ret + 30.0) * 0.25)
-    ws_moat_pts = (meta.get("moat", 8.0) / 10.0) * 15.0
+    whale_score, insider_score = get_ownership_factor(wl_item, meta)
+    moat = meta.get("moat", 8.0)
+    bs = meta.get("bs", 8.0)
+    roic = meta.get("roic", 18.0)
+    growth = meta.get("growth", 5.0)
+    cannibal = meta.get("cannibal", 1.0)
     pricing_power = meta.get("p", 0.85)
-    ws_pp_pts = min(10.0, (pricing_power / 0.90) * 10.0)
-    ws_roic_pts = min(4.0, (meta.get("roic", 18.0) / 35.0) * 4.0)
-    ws_insider_pts = (meta.get("insider_align", 7.0) / 10.0) * 3.0
-    ws_float_pts = (meta.get("float_gen", 6.0) / 10.0) * 2.0
-    ws_lindy_pts = (meta.get("lindy_ai_res", 8.5) / 10.0) * 1.0
-    ws_cust_pen = -(meta.get("cust_conc", 0.5) * 1.5)
     
-    total_score = round(max(5.0, growth_pts + bull_pts + ws_mos_pts + downside_pts_ws + ws_moat_pts + ws_pp_pts + ws_roic_pts + ws_insider_pts + ws_float_pts + ws_lindy_pts + ws_cust_pen), 2)
-    ws_k = max(0.001, (total_score / 100.0) ** 2 * (1.0 + min(1.5, asym_ratio / 4.0)) * (meta.get("moat", 8.0) / 10.0) * (pricing_power / 0.85))
+    status_lbl = wl_item.get("status_label", "")
+    summary_txt = wl_item.get("thesis_summary", "") + " " + wl_item.get("what_changes_now", "")
+    is_turnaround = (
+        sig in ["AVOID", "CAUTION"]
+        or "turnaround" in status_lbl.lower()
+        or "speculative" in status_lbl.lower()
+        or "pause" in summary_txt.lower()
+        or "paused" in summary_txt.lower()
+    )
+    
+    asym_ratio = bull_ret / max(10.0, abs(bear_ret)) if bear_ret < 0 else (bull_ret / 5.0)
+    roic_pts = min(20.0, (roic / 35.0) * 20.0)
+    growth_cannibal_pts = min(20.0, ((growth + cannibal) / 20.0) * 20.0)
+    bull_pts = min(20.0, max(0.0, (bull_ret / 100.0) * 20.0))
+    ws_mos_pts = min(15.0, (base_ret / 50.0) * 15.0)
+    ws_moat_pts = (moat / 10.0) * 10.0
+    whale_pts = (whale_score / 10.0) * 8.0
+    insider_pts = (insider_score / 10.0) * 7.0
+    
+    turnaround_penalty = -30.0 if is_turnaround else 0.0
+    total_score = round(max(5.0, roic_pts + growth_cannibal_pts + bull_pts + ws_mos_pts + ws_moat_pts + whale_pts + insider_pts + turnaround_penalty), 2)
+    
+    q_agg = ((min(10.0, (roic / 35.0) * 10.0) * 0.30 + min(10.0, ((growth + cannibal) / 20.0) * 10.0) * 0.25 + moat * 0.20 + whale_score * 0.15 + insider_score * 0.10) / 10.0) ** 2
+    if is_turnaround:
+        q_agg *= 0.15
+        
+    oe_y = meta.get("oe_yield", 5.0)
+    payoff_b = (base_ret / 500.0) + (oe_y / 100.0) + (cannibal / 100.0) + (growth / 100.0)
+    raw_k = (pricing_power * payoff_b - (1.0 - pricing_power)) / payoff_b if payoff_b > 0 else 0.001
+    ws_k = max(0.001, raw_k * q_agg * (1.0 + min(1.0, asym_ratio / 5.0)))
     
     return {
         "ticker": ticker, "sector": meta["sector"], "industry": meta["industry"],
@@ -306,13 +386,15 @@ def score_wealthsimple_aggressive(
         "bear_target": bear_p, "base_target": base_p, "bull_target": bull_p,
         "bear_ret": round(bear_ret, 2), "base_ret": round(base_ret, 2), "bull_ret": round(bull_ret, 2),
         "asym_ratio": round(asym_ratio, 2), "margin_of_safety_pct": round(base_ret, 2),
-        "oe_yield": meta.get("oe_yield", 5.0), "growth": meta["growth"], "cannibal": meta["cannibal"],
-        "moat": meta["moat"], "bs": meta["bs"], "pricing_power": pricing_power,
-        "roic": meta.get("roic", 18.0), "float_gen": meta.get("float_gen", 6.0),
-        "insider_align": meta.get("insider_align", 7.0), "lindy_ai_res": meta.get("lindy_ai_res", 8.5),
+        "oe_yield": oe_y, "growth": growth, "cannibal": cannibal,
+        "moat": moat, "bs": bs, "pricing_power": pricing_power,
+        "roic": roic, "float_gen": meta.get("float_gen", 6.0),
+        "insider_align": insider_score, "whale_score": whale_score,
+        "lindy_ai_res": meta.get("lindy_ai_res", 8.5),
         "scale_shared": meta.get("scale_shared", 5.0),
         "total_score": total_score, "kelly_score": ws_k,
-        "thesis": meta.get("thesis", ""), "action_signal": sig
+        "thesis": meta.get("thesis", ""), "action_signal": sig,
+        "is_turnaround": is_turnaround
     }
 
 # =============================================================================
@@ -420,29 +502,49 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
         base_p = parse_target_price(w_item.get("base_target") or w_item.get("fair_value_estimate"), cur_p)
         bull_p = parse_target_price(w_item.get("bull_target"), cur_p)
         
-        # Mathematical hurdle: must offer positive expected base DCF return
+        # Mathematical hurdle: must offer at least 15.0% Margin of Safety
         base_ret = ((base_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
-        if base_ret <= 0.0:
+        if base_ret < 15.0:
             continue
             
         meta = get_asset_metadata(ticker, w_item)
         
-        scored_fid = score_fidelity_defensive(ticker, meta, cur_p, bear_p, base_p, bull_p, sig)
-        fidelity_candidates.append(scored_fid)
+        scored_fid = score_fidelity_defensive(ticker, meta, w_item, cur_p, bear_p, base_p, bull_p, sig)
+        if not scored_fid.get("is_turnaround", False) and meta.get("moat", 8.0) >= 8.8 and meta.get("bs", 8.0) >= 8.0:
+            fidelity_candidates.append(scored_fid)
             
-        scored_ws = score_wealthsimple_aggressive(ticker, meta, cur_p, bear_p, base_p, bull_p, sig)
-        wealthsimple_candidates.append(scored_ws)
+        scored_ws = score_wealthsimple_aggressive(ticker, meta, w_item, cur_p, bear_p, base_p, bull_p, sig)
+        if not scored_ws.get("is_turnaround", False) and meta.get("roic", 18.0) >= 16.0 and (meta.get("growth", 5.0) + meta.get("cannibal", 1.0)) >= 8.0:
+            wealthsimple_candidates.append(scored_ws)
 
-    # 1. Wealthsimple selects high-growth asymmetric alpha champions (Growth >= 8.0%)
-    # Strict duopoly filter ONLY (e.g. V vs MA) - No arbitrary sector/industry exclusion blocks
-    wealthsimple_candidates.sort(key=lambda x: (x["total_score"], x["growth"], x["bull_ret"]), reverse=True)
+    # 1. Fidelity selects top wide-moat fortress compounders
+    fidelity_candidates.sort(key=lambda x: (1 if x.get("mandate_pref") == "defensive" else 0, x["kelly_score"], x["total_score"]), reverse=True)
+    fid_selected = []
+    fid_selected_tickers = set()
+    fid_blocked_duopolies = set()
+    
+    for item in fidelity_candidates:
+        t = item["ticker"]
+        if t in fid_blocked_duopolies:
+            continue
+            
+        fid_selected.append(item)
+        fid_selected_tickers.add(t)
+        partner = get_duopoly_partner(t)
+        if partner:
+            fid_blocked_duopolies.add(partner)
+        if len(fid_selected) >= 10:
+            break
+
+    # 2. Wealthsimple selects high-ROIC aggressive compounders (strictly excludes Fidelity holdings & duopolies)
+    wealthsimple_candidates.sort(key=lambda x: (1 if x.get("mandate_pref") == "aggressive" else 0, x["kelly_score"], x["total_score"]), reverse=True)
     ws_selected = []
     ws_selected_tickers = set()
-    ws_blocked_duopolies = set()
+    ws_blocked_duopolies = set(fid_blocked_duopolies)
     
     for item in wealthsimple_candidates:
         t = item["ticker"]
-        if item["growth"] < 8.0:
+        if t in fid_selected_tickers:
             continue
         if t in ws_blocked_duopolies:
             continue
@@ -452,26 +554,8 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
         partner = get_duopoly_partner(t)
         if partner:
             ws_blocked_duopolies.add(partner)
-
-    # 2. Fidelity selects fortress moat & defensive preservation compounders
-    # Strictly excludes any ticker selected in Wealthsimple (Zero Overlap Invariant) + Duopoly Filter
-    fidelity_candidates.sort(key=lambda x: (x["total_score"], x["base_ret"], x["moat"]), reverse=True)
-    fid_selected = []
-    fid_selected_tickers = set()
-    fid_blocked_duopolies = set()
-    
-    for item in fidelity_candidates:
-        t = item["ticker"]
-        if t in ws_selected_tickers:
-            continue
-        if t in fid_blocked_duopolies:
-            continue
-            
-        fid_selected.append(item)
-        fid_selected_tickers.add(t)
-        partner = get_duopoly_partner(t)
-        if partner:
-            fid_blocked_duopolies.add(partner)
+        if len(ws_selected) >= 12:
+            break
     # 3. Compute Fidelity Allocations
     fid_k = {x["ticker"]: x["kelly_score"] for x in fid_selected}
     fid_mos = sum(x["margin_of_safety_pct"] for x in fid_selected) / len(fid_selected) if fid_selected else 25.0

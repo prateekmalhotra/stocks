@@ -36,11 +36,46 @@ def get_surveillance_filepath(portfolio_type: str) -> Path:
         return DATA_DIR / "surveillance_aggressive.json"
     return DATA_DIR / "surveillance_defensive.json"
 
+def get_ownership_factor(wl_item: dict, meta: dict) -> Tuple[float, float]:
+    """Extracts 13F Superinvestor Whale score and SEC Form 4 Insider Buying score."""
+    top_funds = wl_item.get("top_funds", [])
+    top_funds_str = " ".join(top_funds).lower()
+    
+    superinvestors = [
+        "li lu", "berkshire", "buffett", "tepper", "pabrai", "spier",
+        "terry smith", "gayner", "klarman", "akre", "bill miller",
+        "greenblatt", "combs", "weschler", "tcs capital"
+    ]
+    matched_whales = [w for w in superinvestors if w in top_funds_str]
+    if len(matched_whales) >= 2:
+        whale_score = 10.0
+    elif len(matched_whales) == 1:
+        whale_score = 8.5
+    elif len(top_funds) >= 2:
+        whale_score = 7.0
+    else:
+        whale_score = 5.0
+        
+    insider_sig = wl_item.get("insider_signal", "").lower()
+    insider_sum = wl_item.get("insider_summary", "").lower()
+    founder_align = meta.get("insider_align", 7.0)
+    
+    if "buying" in insider_sig or "buying" in insider_sum or founder_align >= 9.5:
+        insider_score = 10.0
+    elif founder_align >= 8.5 or "founder" in insider_sum:
+        insider_score = 8.5
+    elif "selling" in insider_sig:
+        insider_score = 3.0
+    else:
+        insider_score = 6.0
+        
+    return whale_score, insider_score
+
 def calculate_kelly_edge(ticker: str, current_price: float, fair_value: float, wl_item: Optional[Dict[str, Any]] = None) -> Dict[str, float]:
     """Calculates Expected 5-Year IRR and Quality-Adjusted Kelly Edge for all existing and newly ingested stocks."""
+    wl_item = wl_item or {}
     meta = TAXONOMY_MAP.get(ticker)
     if not meta:
-        wl_item = wl_item or {}
         labels = wl_item.get("labels", [])
         status = wl_item.get("status_label", "")
         
@@ -51,7 +86,8 @@ def calculate_kelly_edge(ticker: str, current_price: float, fair_value: float, w
         cannibal = 4.0 if "Buyback Cannibal" in labels else 1.5
         oe_y = 6.0 if "Deep Value" in labels else 4.5
         p = 0.90 if "Monopoly Moat" in labels else 0.85
-        meta = {"moat": moat, "bs": bs, "growth": growth, "cannibal": cannibal, "oe_yield": oe_y, "p": p}
+        roic = 22.0 if "High ROIC" in labels else 18.0
+        meta = {"moat": moat, "bs": bs, "growth": growth, "cannibal": cannibal, "oe_yield": oe_y, "p": p, "roic": roic}
     
     moat = meta.get("moat", meta.get("moat_base", 8.5))
     bs = meta.get("bs", meta.get("bs_base", 8.5))
@@ -59,6 +95,20 @@ def calculate_kelly_edge(ticker: str, current_price: float, fair_value: float, w
     cannibal = meta.get("cannibal", meta.get("cannibal_base", 1.5))
     growth = meta.get("growth", meta.get("growth_base", 10.0))
     p = meta.get("p", meta.get("p_success", 0.85))
+    roic = meta.get("roic", 18.0)
+    
+    status_lbl = wl_item.get("status_label", "")
+    summary_txt = wl_item.get("thesis_summary", "") + " " + wl_item.get("what_changes_now", "")
+    sig = wl_item.get("action_signal", "HOLD")
+    is_turnaround = (
+        sig in ["AVOID", "CAUTION"]
+        or "turnaround" in status_lbl.lower()
+        or "speculative" in status_lbl.lower()
+        or "pause" in summary_txt.lower()
+        or "paused" in summary_txt.lower()
+    )
+    
+    whale_score, insider_score = get_ownership_factor(wl_item, meta)
     
     mos_pct = max(0.0, ((fair_value - current_price) / current_price) * 100.0) if current_price > 0 else 0.0
     irr_5y = oe_y + cannibal + growth + (mos_pct / 5.0)
@@ -66,14 +116,21 @@ def calculate_kelly_edge(ticker: str, current_price: float, fair_value: float, w
     payoff_b = (mos_pct / 500.0) + (oe_y / 100.0) + (cannibal / 100.0) + (growth / 100.0)
     q = 1.0 - p
     raw_kelly = (p * payoff_b - q) / payoff_b if payoff_b > 0 else 0.0
-    quality_mult = ((moat * 0.70 + bs * 0.30) / 10.0) ** 2
+    
+    quality_mult = ((moat * 0.35 + bs * 0.25 + whale_score * 0.15 + insider_score * 0.15 + min(10.0, (roic / 40.0) * 10.0) * 0.10) / 10.0) ** 2
+    if is_turnaround:
+        quality_mult *= 0.15
+        
     kelly_score = max(0.001, raw_kelly * quality_mult)
     
     return {
         "expected_irr": round(irr_5y, 1),
         "kelly_edge": round(kelly_score * 100.0, 2),
         "moat": moat,
-        "bs": bs
+        "bs": bs,
+        "whale_score": whale_score,
+        "insider_score": insider_score,
+        "is_turnaround": is_turnaround
     }
 
 def make_holding_record(
