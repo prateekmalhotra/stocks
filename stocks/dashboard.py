@@ -744,14 +744,9 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         # 1g. Use BeautifulSoup for perfect DOM normalization
         soup = BeautifulSoup(cleaned, "html.parser")
         
-        # Flatten improperly nested <li> tags
-        for outer_li in soup.find_all("li"):
-            nested_lis = outer_li.find_all("li")
-            for inner_li in nested_lis:
-                parent_list = outer_li.parent
-                if parent_list and parent_list.name in ["ul", "ol"]:
-                    outer_li.insert_after(inner_li.extract())
-                    
+        # Ensure lists are strictly closed before section boundaries
+        cleaned = re.sub(r"(<li[^>]*>(?:(?!</li>|<ul|<ol).)*?)(?=\s*<h[1234])", r"</li></ul>", cleaned, flags=re.DOTALL | re.IGNORECASE)
+        
         # Remove empty list items
         for li in soup.find_all("li"):
             text = li.get_text(strip=True)
@@ -2120,11 +2115,13 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         <section class="hero-deck">
             <div class="hero-top-row">
                 <div>
-                    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
                         {get_ticker_logo_html(stock.ticker, 32)}
                         <span class="ticker-symbol">{stock.ticker}{dossier_beacon}</span>
-                        {labels_html}
-                        <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="View Investment Taxonomy & Labels Legend">ⓘ</button>
+                        <span style="display: inline-flex; align-items: center; gap: 4px;">
+                            {labels_html}
+                            <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="View Investment Taxonomy & Labels Legend">ⓘ</button>
+                        </span>
                     </div>
                     <div class="company-meta">{stock.company_name}</div>
                 </div>

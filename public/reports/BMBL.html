@@ -1152,11 +1152,13 @@
         <section class="hero-deck">
             <div class="hero-top-row">
                 <div>
-                    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
                         <div class="ticker-logo-wrap" style="width:32px; height:32px; min-width:32px; min-height:32px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/BMBL" alt="BMBL" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:13px;">BM</span></div>
                         <span class="ticker-symbol">BMBL</span>
-                        <span class="pill pill-conviction">Asymmetric Upside</span>
-                        <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="View Investment Taxonomy & Labels Legend">ⓘ</button>
+                        <span style="display: inline-flex; align-items: center; gap: 4px;">
+                            <span class="pill pill-conviction">Asymmetric Upside</span>
+                            <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="View Investment Taxonomy & Labels Legend">ⓘ</button>
+                        </span>
                     </div>
                     <div class="company-meta">Bumble Inc.</div>
                 </div>
@@ -2080,7 +2082,8 @@
 <h3>Dynamic Price Alert Corridors</h3>
 <ul>
 <li><strong>Upper Realization Corridor ($6.50 – $8.50):</strong> Reaching this corridor reflects a convergence toward Base Case Intrinsic Value ($6.35/share), priced at ~8x–10x normalized Owner Earnings. Positions should be systematically trimmed as the Margin of Safety narrows.</li>
-<li><strong>Lower Margin</strong></li></ul>
+<li><strong>Lower Margin of Safety Floor ($1.75):</strong> Deep-value trough valuation reflecting Bear Case Intrinsic Value ($1.75/share). Represents an extreme bargain accumulation corridor for turnaround plays.</li>
+</ul>
             </article>
         </div>
 

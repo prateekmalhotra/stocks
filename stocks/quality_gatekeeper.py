@@ -80,6 +80,33 @@ def validate_dossier_quality(ticker: str, html: str) -> Tuple[bool, List[str]]:
     if "```" in html:
         issues.append("Contains unrendered markdown code fences (```).")
 
+    # 8. List & Tag Balance Integrity (Zero Unclosed Lists)
+    open_ul = len(re.findall(r"<ul(?:\s|>)", html, re.IGNORECASE))
+    close_ul = len(re.findall(r"</ul>", html, re.IGNORECASE))
+    if open_ul != close_ul:
+        issues.append(f"Mismatched <ul> tags ({open_ul} opened vs {close_ul} closed).")
+
+    open_ol = len(re.findall(r"<ol(?:\s|>)", html, re.IGNORECASE))
+    close_ol = len(re.findall(r"</ol>", html, re.IGNORECASE))
+    if open_ol != close_ol:
+        issues.append(f"Mismatched <ol> tags ({open_ol} opened vs {close_ol} closed).")
+
+    open_li = len(re.findall(r"<li(?:\s|>)", html, re.IGNORECASE))
+    close_li = len(re.findall(r"</li>", html, re.IGNORECASE))
+    if open_li != close_li:
+        issues.append(f"Mismatched <li> tags ({open_li} opened vs {close_li} closed).")
+    # 9. Dangling Truncated Tail Check
+    trimmed = html.strip()
+    if trimmed.endswith("<") or re.search(r"<[a-zA-Z0-9_-]+(?:\s+[^>]*)?$", trimmed):
+        issues.append("HTML ends with an incomplete/cut-off opening tag at tail.")
+    
+    if re.search(r"<li>\s*<strong>[^<]{2,40}$", trimmed):
+        issues.append("Dossier ends with an incomplete dangling list item.")
+
+    valid_tail_endings = (">", ".", "!", "?", "</div>", "</p>", "</li>", "</ul>", "</ol>", "</table>", "</section>")
+    if not trimmed.endswith(valid_tail_endings):
+        issues.append("Dossier text appears truncated mid-sentence at tail.")
+
     return len(issues) == 0, issues
 
 
