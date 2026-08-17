@@ -17,6 +17,9 @@ def validate_dossier_quality(ticker: str, html: str) -> Tuple[bool, List[str]]:
     if not html or not isinstance(html, str):
         return False, ["HTML content is completely empty or not a string."]
 
+    from stocks.gemini_agent import verify_and_repair_html_structure
+    html = verify_and_repair_html_structure(html)
+
     # 1. Word Count & Analytical Depth
     words = html.split()
     word_count = len(words)

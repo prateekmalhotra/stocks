@@ -332,14 +332,18 @@ def extract_json_block(text: str) -> Dict[str, Any]:
 
 
 def verify_and_repair_html_structure(html: str) -> str:
-    """Deterministic structural cleanup, markdown-to-HTML conversion, inline style removal, and tag balancing."""
+    """Bulletproof HTML sanitizer and structure repair engine.
+    Ensures 100% clean semantic HTML, perfectly balanced lists, tables, callouts, and sections."""
     if not html:
         return ""
+        
+    from bs4 import BeautifulSoup
+    cleaned = clean_grounding_artifacts(html)
     
-    # 1. Strip code fences
-    cleaned = re.sub(r"^```(?:html)?\s*", "", html, flags=re.MULTILINE)
-    cleaned = re.sub(r"\s*```$", "", cleaned, flags=re.MULTILINE).strip()
-
+    # 1. Strip code fences, json blocks
+    cleaned = re.sub(r"```(?:html|json)?", "", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"```", "", cleaned)
+    
     # 1.5 Convert raw ASCII box drawings into modern CSS cards
     if any(c in cleaned for c in ['\u250c', '\u2500', '\u2510', '\u2502', '\u2514', '\u2518', '\u251c', '\u2524', '\u252c', '\u2534', '\u253c']):
         lines = cleaned.split('\n')
@@ -370,124 +374,91 @@ def verify_and_repair_html_structure(html: str) -> str:
                 new_lines.append(line)
         cleaned = '\n'.join(new_lines)
     
-    # 2. Strip rogue top dashboard header injections from sub-agents (template handles top header)
+    # 2. Strip rogue top dashboard header injections
     cleaned = re.sub(r'<div class="investor-dashboard">[\s\S]*?</div>\s*</div>\s*</div>', '', cleaned, flags=re.IGNORECASE)
     cleaned = re.sub(r'<div class="dashboard-header">[\s\S]*?</div>\s*</div>', '', cleaned, flags=re.IGNORECASE)
-
-    # 3. Strip rogue inline style attributes to enforce 100% theme consistency
+    
+    # 3. Strip inline style attributes
     cleaned = re.sub(r'\s*style\s*=\s*"[^"]*"', '', cleaned, flags=re.IGNORECASE)
     cleaned = re.sub(r"\s*style\s*=\s*'[^']*'", '', cleaned, flags=re.IGNORECASE)
-
-    # 4. Clean up section titles like <div class="section-title">SECTION X: ...</div>
+    
+    # 4. Clean up section titles
     cleaned = re.sub(r'<div class="section-title">\s*(?:SECTION\s*\d+:?\s*)?(.*?)</div>', r'<h2>\1</h2>', cleaned, flags=re.IGNORECASE)
     cleaned = re.sub(r'<div class="section-heading">(.*?)</div>', r'<h2>\1</h2>', cleaned, flags=re.IGNORECASE)
-
-    # 5. Clean up rogue italics/bold artifacts like * <strong>...</strong> or <em> <strong>...</strong></em>
+    
+    # 5. Clean up bold / italic markers
     cleaned = re.sub(r'<em>\s*<strong>', r'<strong>', cleaned)
     cleaned = re.sub(r'</strong>\s*</em>', r'</strong>', cleaned)
-    cleaned = re.sub(r'^\s*[*•-]\s*\*\*(.*?)\*\*', r'<li><strong>\1</strong>', cleaned, flags=re.MULTILINE)
-    cleaned = re.sub(r'^\s*[*•-]\s+<strong>(.*?)</strong>', r'<li><strong>\1</strong>', cleaned, flags=re.MULTILINE)
-
-    # 6. Convert markdown horizontal rules
-    cleaned = re.sub(r"^\s*[-*_]{3,}\s*$", '<hr style="border:0; border-top:1px solid var(--border-color); margin:28px 0;">', cleaned, flags=re.MULTILINE)
-    
-    # 7. Convert markdown headings (####, ###, ##)
     cleaned = re.sub(r"^\s*####\s+(.*?)$", lambda m: f"<h4>{m.group(1)}</h4>", cleaned, flags=re.MULTILINE)
     cleaned = re.sub(r"^\s*###\s+(.*?)$", lambda m: f"<h3>{m.group(1)}</h3>", cleaned, flags=re.MULTILINE)
     cleaned = re.sub(r"^\s*##\s+(.*?)$", lambda m: f"<h2>{m.group(1)}</h2>", cleaned, flags=re.MULTILINE)
-    
-    # 8. Convert bold and italics
     cleaned = re.sub(r"\*\*(.*?)\*\*", lambda m: f"<strong>{m.group(1)}</strong>", cleaned)
-    cleaned = re.sub(r"(?<!\*)\*([^*]+)\*(?!\*)", lambda m: f"<em>{m.group(1)}</em>", cleaned)
+    cleaned = re.sub(r"(?<!\*)\*([^\*]+)\*(?!\*)", lambda m: f"<em>{m.group(1)}</em>", cleaned)
     
-    # 9. Clean and convert bullet and numbered lists with zero nesting
-    cleaned = re.sub(r"<ul>\s*<ul>+", "<ul>", cleaned)
-    cleaned = re.sub(r"</ul>\s*</ul>+", "</ul>", cleaned)
-    cleaned = re.sub(r"<ol>\s*<ol>+", "<ol>", cleaned)
-    cleaned = re.sub(r"</ol>\s*</ol>+", "</ol>", cleaned)
-
-    lines = cleaned.split("\n")
-    in_ol = False
-    in_ul = False
-    new_lines = []
+    # 6. Convert markdown bullets to <li>
+    cleaned = re.sub(r'^\s*[*•-]\s+\*\*(.*?)\*\*', r'<li><strong>\1</strong>', cleaned, flags=re.MULTILINE)
+    cleaned = re.sub(r'^\s*[*•-]\s+<strong>(.*?)</strong>', r'<li><strong>\1</strong>', cleaned, flags=re.MULTILINE)
+    cleaned = re.sub(r'^\s*[*•-]\s+(.*?)$', r'<li>\1</li>', cleaned, flags=re.MULTILINE)
     
-    for line in lines:
-        stripped = line.strip()
-        ol_match = re.match(r"^(\d+)\.\s+(.*)$", stripped)
-        ul_match = re.match(r"^[-*•]\s+(.*)$", stripped)
-        li_start = re.match(r"^<li>(.*)$", stripped)
-        
-        if ol_match and not stripped.startswith("<"):
-            if in_ul:
-                new_lines.append("</ul>")
-                in_ul = False
-            if not in_ol:
-                new_lines.append('<ol style="padding-left:22px; line-height:1.65; margin:14px 0;">')
-                in_ol = True
-            new_lines.append(f"  <li>{ol_match.group(2)}</li>")
-        elif ul_match and not stripped.startswith("<table") and not stripped.startswith("<div") and not stripped.startswith("<h"):
-            if in_ol:
-                new_lines.append("</ol>")
-                in_ol = False
-            if not in_ul:
-                new_lines.append('<ul style="padding-left:22px; line-height:1.65; margin:14px 0;">')
-                in_ul = True
-            content = ul_match.group(1)
-            if not content.endswith("</li>"):
-                content = content + "</li>"
-            if not content.startswith("<li>"):
-                content = "<li>" + content
-            new_lines.append(f"  {content}")
-        else:
-            if in_ol and (stripped.startswith("<") or not stripped):
-                new_lines.append("</ol>")
-                in_ol = False
-            if in_ul and (stripped.startswith("<") or not stripped):
-                new_lines.append("</ul>")
-                in_ul = False
-            new_lines.append(line)
-            
-    if in_ol:
-        new_lines.append("</ol>")
-    if in_ul:
-        new_lines.append("</ul>")
-        
-    cleaned = "\n".join(new_lines)
-    cleaned = re.sub(r"<ul>\s*<ul>+", "<ul>", cleaned)
-    cleaned = re.sub(r"</ul>\s*</ul>+", "</ul>", cleaned)
+    # 7. Ensure every <li> has </li>
+    prev = ""
+    while prev != cleaned:
+        prev = cleaned
+        cleaned = re.sub(
+            r"(<li\b[^>]*>(?:(?!</li>|<li\b|</?[uo]l\b).)*?)(?=\s*<li\b|\s*</[uo]l\b|\s*<h[1-6]\b|\s*<div\b|$)",
+            r"\1</li>\n",
+            cleaned,
+            flags=re.DOTALL | re.IGNORECASE
+        )
+    cleaned = re.sub(r"</li>\s*</li>+", "</li>", cleaned, flags=re.IGNORECASE)
 
-    # 10. Clean up unclosed table tags & cells
-    cleaned = re.sub(r"<td>([^<]+)(?=(?:<tr>|</tr>|<td>|<th>|$))", r"<td>\1</td>", cleaned)
-    cleaned = re.sub(r"<th>([^<]+)(?=(?:<tr>|</tr>|<td>|<th>|$))", r"<th>\1</th>", cleaned)
+    # 8. Auto-close lists before headings
+    cleaned = re.sub(r"(<li\b[^>]*>.*?</li>)(?=\s*<h[1-6]\b)", r"\1</ul>", cleaned, flags=re.DOTALL | re.IGNORECASE)
+    
+    # 9. Auto-close unclosed lists
+    open_ul = len(re.findall(r"<ul(?:\s|>)", cleaned, re.IGNORECASE))
+    close_ul = len(re.findall(r"</ul>", cleaned, re.IGNORECASE))
+    if open_ul > close_ul:
+        cleaned += "\n" + ("</ul>" * (open_ul - close_ul))
+    elif close_ul > open_ul:
+        for _ in range(close_ul - open_ul):
+            cleaned = re.sub(r"</ul>(?=[^<]*$)", "", cleaned, flags=re.IGNORECASE)
+        
+    open_ol = len(re.findall(r"<ol(?:\s|>)", cleaned, re.IGNORECASE))
+    close_ol = len(re.findall(r"</ol>", cleaned, re.IGNORECASE))
+    if open_ol > close_ol:
+        cleaned += "\n" + ("</ol>" * (open_ol - close_ol))
+    elif close_ol > open_ol:
+        for _ in range(close_ol - open_ol):
+            cleaned = re.sub(r"</ol>(?=[^<]*$)", "", cleaned, flags=re.IGNORECASE)
 
-    # 11. Auto-close unclosed table rows
+    open_li = len(re.findall(r"<li(?:\s|>)", cleaned, re.IGNORECASE))
+    close_li = len(re.findall(r"</li>", cleaned, re.IGNORECASE))
+    if open_li > close_li:
+        cleaned += "\n" + ("</li>" * (open_li - close_li))
+    elif close_li > open_li:
+        for _ in range(close_li - open_li):
+            cleaned = re.sub(r"</li>(?=[^<]*$)", "", cleaned, flags=re.IGNORECASE)
+        
+    # 10. Auto-close tables, divs, sections
     open_tr = len(re.findall(r"<tr\b", cleaned, re.IGNORECASE))
     close_tr = len(re.findall(r"</tr>", cleaned, re.IGNORECASE))
     if open_tr > close_tr:
         cleaned += "</tr>" * (open_tr - close_tr)
 
-    # 12. Auto-close unclosed tables
     open_tables = len(re.findall(r"<table\b", cleaned, re.IGNORECASE))
     close_tables = len(re.findall(r"</table>", cleaned, re.IGNORECASE))
     if open_tables > close_tables:
-        diff = open_tables - close_tables
-        cleaned += "\n" + ("</tbody></table>" * diff)
+        cleaned += "\n" + ("</tbody></table>" * (open_tables - close_tables))
         
-    # 13. Auto-close unclosed divs & sections
     open_divs = len(re.findall(r"<div\b", cleaned, re.IGNORECASE))
     close_divs = len(re.findall(r"</div>", cleaned, re.IGNORECASE))
     if open_divs > close_divs:
-        diff = open_divs - close_divs
-        cleaned += "\n" + ("</div>" * diff)
+        cleaned += "\n" + ("</div>" * (open_divs - close_divs))
 
-    open_sec = len(re.findall(r"<section\b", cleaned, re.IGNORECASE))
-    close_sec = len(re.findall(r"</section>", cleaned, re.IGNORECASE))
-    if open_sec > close_sec:
-        diff = open_sec - close_sec
-        cleaned += "\n" + ("</section>" * diff)
-
-    return clean_grounding_artifacts(cleaned)
-
+    # 11. Normalize DOM via BeautifulSoup
+    soup = BeautifulSoup(cleaned, "html.parser")
+    return str(soup)
 
 # =====================================================================
 # AUTONOMOUS LEVEL-HEADED MULTI-AGENT PROMPT ARCHITECTURE
