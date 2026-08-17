@@ -596,6 +596,10 @@ THE BENJAMIN GRAHAM & WARREN BUFFETT "ANTI-MR. MARKET" DOCTRINE (MANDATORY & IND
           - For consumer internet, dating apps, gaming, or mobile subscription platforms with contracting paying users or active accounts (< 0% YoY growth):
           - POSITIVE 10-YEAR REVENUE GROWTH IS STRICTLY PROHIBITED.
           - Base Case MUST model continued user attrition (-3% to -8%/year) or stabilization at permanently reduced run-rates, with zero or negative terminal growth (g <= 0%).
+        * [TWO-SIDED NETWORK LIQUIDITY DEGRADATION & CAC INVERSION INVARIANT]:
+          - For two-sided matching platforms, social marketplaces, and gig/matching networks (e.g. dating apps, freelance portals, rideshare, classifieds):
+          - When active/paying users decline (> 10% YoY contraction), the organic network flywheel inverts: lower matching liquidity accelerates churn among remaining users.
+          - The evaluator MUST model non-linear Customer Acquisition Cost (CAC) inflation (+20% to +40% higher paid ad spend to backfill churn) and disallow margin expansion assumptions during user contraction phases.
         * [HIGH DEBT-TO-EQUITY DISTRESS RULE (SMALL/MID-CAP)]:
           - When Net Debt exceeds 75% of Equity Market Cap during an operational contraction or user churn phase:
           - Apply an elevated distress discount / hurdle rate (11.5%–14.0%) to reflect bankruptcy/restructuring overhead.
