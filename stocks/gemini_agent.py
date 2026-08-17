@@ -628,11 +628,13 @@ THE BENJAMIN GRAHAM & WARREN BUFFETT "ANTI-MR. MARKET" DOCTRINE (MANDATORY & IND
           - Audit Tenure Mix: Differentiate capital-heavy speculative merchant builders (requiring 4–5 year owned landbanks) from asset-light Partnership developers (pre-selling 60%+ of units with monthly partner milestone billing / negative working capital float).
           - Statutory Building Safety & Cladding Deductions: For UK/European builders under Building Safety Acts, statutory remediation provisions CANNOT be ignored as non-cash items. Deduct projected annual cash outflows ($50M–$80M/yr) directly from Owner Earnings.
           - Average Daily Net Debt Audit: In seasonal working capital businesses, verify 'Average Daily Net Debt' across the full year rather than relying on window-dressed period-end balance sheet dates.
-        * [CHINESE ADR POST-REGULATORY PIVOT & DEFERRED TUITION FLOAT INVARIANT]:
-          - For Chinese ADRs emerging from structural regulatory overhauls (e.g. EdTech Double Reduction, Gaming Curfews, Ant Group/Fintech Restructuring):
-          - Audit Regulatory Safe Harbors: Strictly disallow growth assumptions on historically banned product lines. Only assign positive growth to government-permitted/encouraged vectors (e.g. non-academic enrichment, high school prep, overseas consulting, vocational training).
-          - Deferred Revenue Customer Float: In education/subscription businesses collecting cash upfront (e.g. deferred tuition balances), treat unearned revenue as an interest-free operating float that funds capacity expansion without interest-bearing debt.
-          - Offshore Capital Return Requirement: Only credit balance sheet cash at full value if management actively repatriates funds via offshore ADR buybacks and cash dividends (e.g. >50% payout of Owner Earnings); otherwise apply a 25%–35% onshore liquidity haircut.
+        * [CROSS-BORDER E-COMMERCE DE MINIMIS & LOCAL FULFILLMENT INVARIANT]:
+          - For cross-border consumer platforms (e.g. Temu / PDD, Shein, AliExpress):
+          - Model the permanent elimination of Section 321 ($800 US / €150 EU) 'de minimis' customs exemptions on direct airfreight parcels.
+          - Evaluate the strategic shift to Semi-Managed Local Warehousing (bulk ocean freight to local bonded distribution hubs):
+            a) Model a 200–400 bps gross take-rate compression from local merchant onboarding subsidies.
+            b) Credit delivery velocity gains (cutting delivery from 10 days to 2–3 days) and category expansion into bulky/high-AOV goods (furniture, appliances, auto parts).
+          - Non-Distribution Cash Haircut: If management hoards massive cash (> $30B) without executing share repurchases or cash dividends, apply a mandatory 25%–35% liquidity haircut to balance sheet cash in DCF bridges.
         * [FOR-PROFIT HEALTHCARE EDUCATION & TITLE IV 90/10 COMPLIANCE INVARIANT]:
           - For proprietary post-secondary career colleges and vocational healthcare academies (e.g. Legacy Education, UTI, Lincoln Tech):
           - Title IV 90/10 Rule Audit: Federal regulations mandate that <= 90% of revenues can derive from federal Title IV financial aid. If Title IV mix exceeds 85%, model elevated regulatory scrutiny and disallow aggressive multiple expansion.
