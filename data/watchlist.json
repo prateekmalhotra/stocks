@@ -1,37 +1,4 @@
 {
-  "UBER": {
-    "ticker": "UBER",
-    "company_name": "Uber Technologies, Inc.",
-    "baseline_price": 75.02,
-    "current_price": 75.58,
-    "return_pct": 0.75,
-    "status_label": "High Conviction",
-    "labels": [
-      "High Conviction",
-      "Quality Compounder",
-      "Buyback Cannibal"
-    ],
-    "action_signal": "BUY",
-    "fair_value_estimate": "$95.00",
-    "bear_target": "$71.25 (-9.3%)",
-    "base_target": "$95.00 (+21.0%)",
-    "bull_target": "$123.50 (+57.2%)",
-    "upper_alert_threshold": 92.0,
-    "lower_alert_threshold": 64.0,
-    "next_catalyst_date": "2026-11-03",
-    "next_catalyst_event": "Q3 '26 ER",
-    "top_funds": [
-      "Vanguard (7.8%)",
-      "BlackRock (6.9%)",
-      "Altimeter Capital"
-    ],
-    "institutional_ownership_pct": "82.6%",
-    "insider_signal": "Cluster Buying",
-    "insider_summary": "3 Insiders +$1.7M Open Market Buys",
-    "last_updated": "2026-08-08",
-    "total_versions": 1,
-    "report_path": "reports/UBER.html"
-  },
   "HOOD": {
     "ticker": "HOOD",
     "company_name": "Robinhood Markets, Inc.",
