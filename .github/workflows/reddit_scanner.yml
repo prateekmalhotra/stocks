@@ -10,8 +10,8 @@ on:
         description: 'Maximum number of new discovered stocks to ingest in this batch (0 for all discovered stocks)'
         required: false
         default: '0'
-      dry_run:
-        description: 'Run in dry-run mode (scan and discover only, do not ingest)'
+      auto_ingest:
+        description: 'Auto-ingest discovered candidates into watchlist (default: false)'
         required: false
         type: boolean
         default: false
@@ -48,15 +48,15 @@ jobs:
           pip install poetry
           poetry install --no-root
 
-      - name: Run r/ValueInvesting Trending Scanner & Ingestion Pipeline
+      - name: Run r/ValueInvesting Trending Scanner
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           PYTHONUNBUFFERED: "1"
         run: |
-          echo "📡 Executing Friday r/ValueInvesting Community Scanner..."
+          echo "📡 Executing r/ValueInvesting Community Scanner..."
           MAX_STOCKS="${{ github.event.inputs.max_stocks || '0' }}"
-          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
-            poetry run python -m stocks.reddit_scanner --max "$MAX_STOCKS" --dry-run
+          if [ "${{ github.event.inputs.auto_ingest }}" = "true" ]; then
+            poetry run python -m stocks.reddit_scanner --max "$MAX_STOCKS" --auto-ingest
           else
             poetry run python -m stocks.reddit_scanner --max "$MAX_STOCKS"
           fi
