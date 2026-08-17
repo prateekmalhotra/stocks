@@ -644,6 +644,13 @@ THE BENJAMIN GRAHAM & WARREN BUFFETT "ANTI-MR. MARKET" DOCTRINE (MANDATORY & IND
      7. Financial Institutions, Asset Managers & Banking Books (1990 & 2011 Letters on Wells Fargo & Amex):
         * For banks or fintechs with expanding credit/loan portfolios (e.g. StoneCo Banking, PayPal Credit, SoFi, Ally):
           - Evaluate Credit Quality, Non-Performing Loans (NPLs), net charge-off trends, provision coverage, Cost of Deposits, and Return on Tangible Equity (ROTE) rather than pure FCF.
+        * [EMERGING MARKET FINTECH SOVEREIGN DISCOUNTING & FX DEPRECIATION INVARIANT]:
+          - For emerging market fintechs and banks (e.g. StoneCo, Nu Holdings, MercadoLibre, Kaspi):
+          - Anchor the discount hurdle rate strictly to the domestic 10-year sovereign bond yield (e.g. Brazil 10Y NTN-F ~11%–14%) plus local Equity Risk Premium, NEVER US Treasuries.
+          - Apply an annual -2.5% to -4.0% FX depreciation drag against local-currency Owner Earnings when deriving USD ADR per-share targets.
+        * [MERCHANT CARD RECEIVABLES LOCKBOX ('TRAVA DE DOMICÍLIO') SENIORITY]:
+          - Distinguish unsecured consumer loans from merchant acquiring-backed credit where loan repayments are automatically intercepted from daily POS settlements.
+          - Model higher provision cycles during rate hikes, but account for structurally lower terminal loss severity (30%–40% vs 80%+ on unsecured personal loans).
         * [ASSET MANAGEMENT AUM & PASSIVE FEE-EROSION INVARIANT]:
           - For traditional asset managers (e.g. Franklin Templeton, T. Rowe Price, Invesco):
           - Evaluate AUM mix between legacy mutual funds (facing secular outflows to passive ETFs) vs. alternative assets / private markets (sticky long-term capital lock-ups).
