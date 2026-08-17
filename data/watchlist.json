@@ -3,8 +3,8 @@
     "ticker": "PYPL",
     "company_name": "PayPal Holdings, Inc.",
     "baseline_price": 60.44,
-    "current_price": 60.42,
-    "return_pct": -0.03,
+    "current_price": 60.45,
+    "return_pct": 0.02,
     "status_label": "High Conviction",
     "labels": [
       "High Conviction",
@@ -16,6 +16,7 @@
     "bear_target": "$42.30 (-30.0%)",
     "base_target": "$78.50 (+29.9%)",
     "bull_target": "$112.00 (+85.3%)",
+    "what_is_priced_in": "",
     "upper_alert_threshold": 69.51,
     "lower_alert_threshold": 51.37,
     "next_catalyst_date": "2026-10-27",
@@ -36,5 +37,78 @@
     "last_updated": "2026-08-17",
     "total_versions": 1,
     "report_path": "reports/PYPL.html"
+  },
+  "NKE": {
+    "ticker": "NKE",
+    "company_name": "Nike, Inc.",
+    "baseline_price": 39.27,
+    "current_price": 39.2,
+    "return_pct": -0.18,
+    "status_label": "Turnaround Risk",
+    "labels": [
+      "Turnaround Risk",
+      "Wholesale Reset",
+      "Cash Fortress"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$48.50",
+    "bear_target": "$26.80 (-31.8%)",
+    "base_target": "$48.50 (+23.5%)",
+    "bull_target": "$68.20 (+73.7%)",
+    "what_is_priced_in": "",
+    "upper_alert_threshold": 45.16,
+    "lower_alert_threshold": 33.38,
+    "next_catalyst_date": "2026-09-29",
+    "next_catalyst_event": "Q1 '27 ER",
+    "top_funds": [
+      "Hillman Capital Management (2.32)",
+      "Bill Nygren - Oakmark Funds (0.79)",
+      "David Katz - Matrix Asset Advisors (0.75)",
+      "Thomas Gayner - Markel Group (0.14)",
+      "Jensen Investment Management (0.07)",
+      "Lindsell Train (0.03)",
+      "Mairs & Power Funds (0.02)"
+    ],
+    "institutional_ownership_pct": "69.4%",
+    "insider_signal": "Cluster Buying",
+    "insider_summary": "Aggressive insider open-market purchases totaling $9,881,252 across executive leadership.",
+    "last_updated": "2026-08-17",
+    "total_versions": 1,
+    "report_path": "reports/NKE.html"
+  },
+  "LULU": {
+    "ticker": "LULU",
+    "company_name": "lululemon athletica inc.",
+    "baseline_price": 115.67,
+    "current_price": 115.74,
+    "return_pct": 0.06,
+    "status_label": "High Conviction",
+    "labels": [
+      "High Conviction",
+      "Deep Value",
+      "Buyback Cannibal"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$158.20",
+    "bear_target": "$78.45 (-32.2%)",
+    "base_target": "$158.20 (+36.8%)",
+    "bull_target": "$224.60 (+94.2%)",
+    "what_is_priced_in": "",
+    "upper_alert_threshold": 133.02,
+    "lower_alert_threshold": 98.32,
+    "next_catalyst_date": "2026-08-27",
+    "next_catalyst_event": "Q2 '26 ER",
+    "top_funds": [
+      "Michael Burry - Scion Asset Management (32.35)",
+      "Francois Rochon - Giverny Capital (0.49)",
+      "Tweedy Browne (0.16)",
+      "Prem Watsa - Fairfax Financial Holdings (0.05)"
+    ],
+    "institutional_ownership_pct": "78.4%",
+    "insider_signal": "Cluster Buying",
+    "insider_summary": "Aggressive insider open-market purchases totaling $3,034,953 across executive leadership.",
+    "last_updated": "2026-08-17",
+    "total_versions": 1,
+    "report_path": "reports/LULU.html"
   }
 }
