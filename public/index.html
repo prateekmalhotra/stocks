@@ -14,32 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <!-- Embedded Initial Live Quotes for 100% Guaranteed Zero-Lag Data Delivery -->
-    <script id="embedded-live-quotes" type="application/json">{
-  "AMZN": {
-    "price": 261.31,
-    "prev_close": 261.31,
-    "change": 0.0,
-    "change_pct": 0.0,
-    "currency": "USD",
-    "updated_at": "2026-08-17 22:02:53 UTC"
-  },
-  "GOOG": {
-    "price": 341.45,
-    "prev_close": 341.45,
-    "change": 0.0,
-    "change_pct": 0.0,
-    "currency": "USD",
-    "updated_at": "2026-08-17 22:02:53 UTC"
-  },
-  "META": {
-    "price": 568.97,
-    "prev_close": 568.97,
-    "change": 0.0,
-    "change_pct": 0.0,
-    "currency": "USD",
-    "updated_at": "2026-08-17 22:02:53 UTC"
-  }
-}</script>
+    <script id="embedded-live-quotes" type="application/json">{}</script>
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
@@ -813,7 +788,7 @@
         <!-- Navigation Controls -->
         <div class="hub-controls">
             <div class="hub-tabs">
-                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">3</span></button>
+                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">0</span></button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts <span class="tab-chip chip-alert">0</span></span></button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-defensive')">Fidelity</button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-aggressive')">Wealthsimple</button>
@@ -856,104 +831,11 @@
                     </thead>
                     <tbody>
                         
-        <tr class="table-row" data-ticker="AMZN" data-baseline="100.0" onclick="location.href='reports/AMZN.html'">
-            <td>
-                <div class="tbl-ticker-cell">
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/AMZN" alt="AMZN" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">AM</span></div>
-                        <span class="tbl-symbol">AMZN</span>
-                    </div>
-                    <span class="tbl-company-hover">AMZN</span>
-                </div>
-            <td>
-                <div class="tbl-price-cell">
-                    <span class="tbl-price tbl-price-AMZN">$261.31</span>
-                    <span class="tbl-return tbl-ret-AMZN pos">+161.31%</span>
-                </div>
-            </td>
-            <td>
-                <div class="tbl-labels-cell">
-                    <span class="pill pill-conviction">Active</span>
-                </div>
-            </td>
-            <td>
-                <div class="tbl-val-cell">
-                    <span class="tbl-fv" style="color: var(--accent-warm);">$284.60</span>
-                    <span class="tbl-upside">+8.9%</span>
-                </div>
-            </td>
-            <td>
-                <div class="tbl-catalyst-cell">
-                    <span class="tbl-cat-date">2026-11-15</span>
-                    <span class="tbl-cat-desc">Scheduled quarterly report</span>
-                </div>
-            </td>
-        </tr>
-        
-        <tr class="table-row" data-ticker="GOOG" data-baseline="100.0" onclick="location.href='reports/GOOG.html'">
-            <td>
-                <div class="tbl-ticker-cell">
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/GOOG" alt="GOOG" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">GO</span></div>
-                        <span class="tbl-symbol">GOOG</span>
-                    </div>
-                    <span class="tbl-company-hover">GOOG</span>
-                </div>
-            <td>
-                <div class="tbl-price-cell">
-                    <span class="tbl-price tbl-price-GOOG">$341.45</span>
-                    <span class="tbl-return tbl-ret-GOOG pos">+241.45%</span>
-                </div>
-            </td>
-            <td>
-                <div class="tbl-labels-cell">
-                    <span class="pill pill-conviction">High Conviction</span>
-                </div>
-            </td>
-            <td>
-                <div class="tbl-val-cell">
-                    <span class="tbl-fv" style="color: var(--accent-warm);">$382.40</span>
-                    <span class="tbl-upside">+12.0%</span>
-                </div>
-            </td>
-            <td>
-                <div class="tbl-catalyst-cell">
-                    <span class="tbl-cat-date">2026-10-27</span>
-                    <span class="tbl-cat-desc">Q3 '26 ER</span>
-                </div>
-            </td>
-        </tr>
-        
-        <tr class="table-row" data-ticker="META" data-baseline="100.0" onclick="location.href='reports/META.html'">
-            <td>
-                <div class="tbl-ticker-cell">
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/META" alt="META" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">ME</span></div>
-                        <span class="tbl-symbol">META</span>
-                    </div>
-                    <span class="tbl-company-hover">META</span>
-                </div>
-            <td>
-                <div class="tbl-price-cell">
-                    <span class="tbl-price tbl-price-META">$568.97</span>
-                    <span class="tbl-return tbl-ret-META pos">+468.97%</span>
-                </div>
-            </td>
-            <td>
-                <div class="tbl-labels-cell">
-                    <span class="pill pill-conviction">High Conviction</span>
-                </div>
-            </td>
-            <td>
-                <div class="tbl-val-cell">
-                    <span class="tbl-fv" style="color: var(--accent-warm);">$645.96</span>
-                    <span class="tbl-upside">+13.5%</span>
-                </div>
-            </td>
-            <td>
-                <div class="tbl-catalyst-cell">
-                    <span class="tbl-cat-date">2026-10-28</span>
-                    <span class="tbl-cat-desc">Q3 '26 ER</span>
+        <tr>
+            <td colspan="5" style="border-bottom: none !important; padding: 0 !important;">
+                <div class="empty-state-box">
+                    <div class="empty-state-title">No Stocks Tracked</div>
+                    <div class="empty-state-sub">Ready for coverage</div>
                 </div>
             </td>
         </tr>
@@ -965,102 +847,10 @@
             <!-- Grid Cards View -->
             <div id="stocks-grid-view" class="grid-cards-wrap" style="display: none;">
                 
-        <div class="grid-card" data-ticker="AMZN" data-baseline="100.0" onclick="location.href='reports/AMZN.html'">
-            <div class="grid-card-top">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/AMZN" alt="AMZN" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">AM</span></div>
-                    <span class="grid-symbol">AMZN</span>
-                </div>
-                <div class="grid-price grid-price-AMZN">$261.31</div>
-            </div>
-            <div class="grid-labels-row" style="margin: 4px 0 8px;">
-                <span class="pill pill-conviction">Active</span>
-            </div>
-            <div class="grid-company">AMZN</div>
-            
-            <div class="grid-metrics-box">
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Return</span>
-                    <span class="grid-stat-val grid-ret-AMZN pos">+161.31%</span>
-                </div>
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Fair Value</span>
-                    <span class="grid-stat-val" style="color: var(--accent-warm);">$284.60</span>
-                </div>
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Target</span>
-                    <span class="grid-stat-val">$284.60 (+8.9%)</span>
-                </div>
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Catalyst</span>
-                    <span class="grid-stat-val">2026-11-15</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="grid-card" data-ticker="GOOG" data-baseline="100.0" onclick="location.href='reports/GOOG.html'">
-            <div class="grid-card-top">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/GOOG" alt="GOOG" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">GO</span></div>
-                    <span class="grid-symbol">GOOG</span>
-                </div>
-                <div class="grid-price grid-price-GOOG">$341.45</div>
-            </div>
-            <div class="grid-labels-row" style="margin: 4px 0 8px;">
-                <span class="pill pill-conviction">High Conviction</span>
-            </div>
-            <div class="grid-company">GOOG</div>
-            
-            <div class="grid-metrics-box">
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Return</span>
-                    <span class="grid-stat-val grid-ret-GOOG pos">+241.45%</span>
-                </div>
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Fair Value</span>
-                    <span class="grid-stat-val" style="color: var(--accent-warm);">$382.40</span>
-                </div>
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Target</span>
-                    <span class="grid-stat-val">$382.40 (+12.0%)</span>
-                </div>
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Catalyst</span>
-                    <span class="grid-stat-val">2026-10-27</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="grid-card" data-ticker="META" data-baseline="100.0" onclick="location.href='reports/META.html'">
-            <div class="grid-card-top">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/META" alt="META" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">ME</span></div>
-                    <span class="grid-symbol">META</span>
-                </div>
-                <div class="grid-price grid-price-META">$568.97</div>
-            </div>
-            <div class="grid-labels-row" style="margin: 4px 0 8px;">
-                <span class="pill pill-conviction">High Conviction</span>
-            </div>
-            <div class="grid-company">META</div>
-            
-            <div class="grid-metrics-box">
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Return</span>
-                    <span class="grid-stat-val grid-ret-META pos">+468.97%</span>
-                </div>
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Fair Value</span>
-                    <span class="grid-stat-val" style="color: var(--accent-warm);">$645.96</span>
-                </div>
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Target</span>
-                    <span class="grid-stat-val">$645.96 (+13.5%)</span>
-                </div>
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Catalyst</span>
-                    <span class="grid-stat-val">2026-10-28</span>
-                </div>
+        <div style="grid-column: 1 / -1; background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px;">
+            <div class="empty-state-box">
+                <div class="empty-state-title">No Stocks Tracked</div>
+                <div class="empty-state-sub">Ready for coverage</div>
             </div>
         </div>
         
