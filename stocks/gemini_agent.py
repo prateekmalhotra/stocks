@@ -694,16 +694,20 @@ Return your plan strictly as a JSON object in ```json ... ```:
   "research_objective": "<Your custom summary of the core thesis questions for {ticker}. Search OpenInsider (http://openinsider.com/search?q={ticker}) and Dataroma for insider trades and whale ownership>",
   "sub_agents": [
     {{
-      "role": "<Sub-Agent 1 Role Name, e.g. Business Model & Moat Specialist>",
-      "prompt": "<Detailed prompt instructing Sub-Agent 1 to search latest earnings release/transcript, news & filings and output Section 1 & 2 in clean Semantic HTML using metrics-grid, tables, callout boxes, and optional product figures>"
+      "role": "<Sub-Agent 1: Business Model, Moat & Operating Reality Specialist>",
+      "prompt": "<Detailed prompt instructing Sub-Agent 1 to output Section 1 & 2 in clean Semantic HTML>"
     }},
     {{
-      "role": "<Sub-Agent 2 Role Name, e.g. Cash Flow, SBC Dilution & Balance Sheet Auditor>",
-      "prompt": "<Detailed prompt instructing Sub-Agent 2 to search latest earnings release/transcript, news & filings and output Section 3 & 4 in clean Semantic HTML using metrics-grid, tables, and callout boxes>"
+      "role": "<Sub-Agent 2: Real Cash Flow, SBC Dilution & Capital Structure Auditor>",
+      "prompt": "<Detailed prompt instructing Sub-Agent 2 to output Section 3 & 4 in clean Semantic HTML>"
     }},
     {{
-      "role": "<Sub-Agent 3 Role Name, e.g. Ballpark Valuation, Confidence & Invalidation Specialist>",
-      "prompt": "<Detailed prompt instructing Sub-Agent 3 to search latest earnings release/transcript, news & filings and output Section 5 & 6 evaluating fair value confidence, execution risk, and Bear/Base/Bull tables in clean Semantic HTML>"
+      "role": "<Sub-Agent 3: Warren Buffett Owner Earnings Valuation Strategist>",
+      "prompt": "<Detailed prompt instructing Sub-Agent 3 to output Section 5 in clean Semantic HTML>"
+    }},
+    {{
+      "role": "<Sub-Agent 4: Probabilistic Risk, Threat Assessment & Pre-Mortem Auditor>",
+      "prompt": "<Detailed prompt instructing Sub-Agent 4 to output Section 6 in clean Semantic HTML>"
     }}
   ]
 }}
@@ -795,10 +799,10 @@ Generate ONLY the following two sections in clean Semantic HTML with NO external
 
 DO NOT write Section 1, 2, 5, or 6. Output pure HTML only."""
 
-    agent_3_prompt = f"""You are Sub-Agent 3: Warren Buffett Owner Earnings Valuation Strategist & Pre-Mortem Auditor researching {ticker_clean} ({company_name}) at current market price ${current_price:.2f}.
+    agent_3_prompt = f"""You are Sub-Agent 3: Warren Buffett Owner Earnings Valuation Strategist researching {ticker_clean} ({company_name}) at current market price ${current_price:.2f}.
 Your Objective: {research_obj}
 
-Generate ONLY the following two sections in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
+Generate ONLY Section 5 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
 
 <h2>Section 5: Warren Buffett Owner Earnings Intrinsic Valuation Matrix</h2>
 - Root valuation strictly in Warren Buffett's 1986 Owner Earnings methodology. Zero arbitrary exit multiples.
@@ -835,12 +839,19 @@ Generate ONLY the following two sections in clean Semantic HTML with NO external
   * Present a dedicated Reverse-DCF callout box or table contrasting Market-Implied Expectations vs. Base Case Reality (highlighting whether the stock is priced for perfection, fairly priced, or pricing in excessive disaster).
 - The 5-Year Market Closure Test: Demonstrate the organic cash yield earned if the stock exchange closed for 5 years.
 
+DO NOT write Section 1, 2, 3, 4, or 6. Output pure HTML only."""
+
+    agent_4_prompt = f"""You are Sub-Agent 4: Probabilistic Risk, Threat Assessment & Pre-Mortem Invalidation Auditor researching {ticker_clean} ({company_name}) at current market price ${current_price:.2f}.
+Your Objective: {research_obj}
+
+Generate ONLY Section 6 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
+
 <h2>Section 6: Probabilistic Risk Audit, Threat Assessment & Pre-Mortem Falsification</h2>
 - Business Fragility & Tail-Risk Stat Grid:
   <div class="metrics-grid">
     <div class="metric-card"><div class="metric-label">Business Fragility Rating</div><div class="metric-value">Low / Medium / High Fragility</div><div class="metric-delta">Moat Robustness</div></div>
-    <div class="metric-card"><div class="metric-label">Primary Vulnerability</div><div class="metric-value">e.g. AI / Regulation / Debt</div><div class="metric-delta neg">Key Threat</div></div>
-    <div class="metric-card"><div class="metric-label">Tail-Risk Severity</div><div class="metric-value">Moderate / Severe</div><div class="metric-delta">P&L Impact</div></div>
+    <div class="metric-card"><div class="metric-label">Primary Vulnerability</div><div class="metric-value">e.g. AI / Regulation / Debt / Tariffs</div><div class="metric-delta neg">Key Threat</div></div>
+    <div class="metric-card"><div class="metric-label">Tail-Risk Severity</div><div class="metric-value">Moderate / Severe / Catastrophic</div><div class="metric-delta">P&L Impact</div></div>
   </div>
 - Comprehensive Probabilistic Risk & Threat Matrix Table:
   Evaluate the top 3-4 existential or major operational risk scenarios. MUST include probability rating, financial severity, and the deep fundamental "Why" (transmission mechanics into cash flow):
@@ -856,14 +867,14 @@ Generate ONLY the following two sections in clean Semantic HTML with NO external
     </thead>
     <tbody>
       <tr>
-        <td><strong>e.g. Disintermediation / Tech Shift</strong></td>
+        <td><strong>e.g. Disintermediation / Tech Shift / Tariff Barrier</strong></td>
         <td>Medium (30%-40%)</td>
         <td>Severe</td>
         <td>Explain exactly why this risk exists, how it impacts sales/margins, and why DCF growth could fail...</td>
         <td>Balance sheet net cash, proprietary distribution, etc.</td>
       </tr>
       <tr>
-        <td><strong>e.g. Regulatory / Antitrust / Tariff Risk</strong></td>
+        <td><strong>e.g. Regulatory / Credit Portfolio / Antitrust Risk</strong></td>
         <td>...</td>
         <td>...</td>
         <td>...</td>
@@ -876,20 +887,28 @@ Generate ONLY the following two sections in clean Semantic HTML with NO external
         <td>...</td>
         <td>...</td>
       </tr>
+      <tr>
+        <td><strong>e.g. Capital Allocation / Sponsor Overhang / Governance Risk</strong></td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+      </tr>
     </tbody>
   </table>
-- 3 Explicit Quantitative Pre-Mortem Falsification Triggers (Kill switches that invalidate the investment thesis).
+- 3 Explicit Quantitative Pre-Mortem Falsification Triggers (Kill switches that invalidate the investment thesis if breached over two consecutive quarters).
 - Dynamic Price Alert Corridors: Upper threshold (trim / target realization) and Lower threshold (margin of safety floor).
 
-DO NOT write Section 1, 2, 3, or 4. Output pure HTML only."""
+DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
 
     sub_agents = [
         {"role": "Business Model, Moat & Operating Reality Specialist", "prompt": agent_1_prompt},
         {"role": "Real Cash Flow, SBC & Capital Structure Auditor", "prompt": agent_2_prompt},
-        {"role": "Warren Buffett Owner Earnings Valuation Strategist", "prompt": agent_3_prompt}
+        {"role": "Warren Buffett Owner Earnings Valuation Strategist", "prompt": agent_3_prompt},
+        {"role": "Probabilistic Risk & Pre-Mortem Invalidation Auditor", "prompt": agent_4_prompt}
     ]
     
-    print(f"   │ Planned Sub-Agents: 3 specialized non-overlapping autonomous tasks", flush=True)
+    print(f"   │ Planned Sub-Agents: 4 specialized non-overlapping autonomous tasks", flush=True)
     print("   └" + "─" * 50, flush=True)
 
     # ------------------------------------------------------------------
