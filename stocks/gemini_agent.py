@@ -623,6 +623,11 @@ THE BENJAMIN GRAHAM & WARREN BUFFETT "ANTI-MR. MARKET" DOCTRINE (MANDATORY & IND
           - For biopharmaceutical enterprises, you MUST audit blockbuster drug patent expirations (Loss of Exclusivity / LOE) over the 5-year discrete DCF window.
           - If expiring drugs account for > 20% of consolidated revenues (e.g. Eliquis, Vyndaqel, Keytruda, Humira), you MUST model 70%–90% revenue erosion from generic/biosimilar substitution on off-patent assets in Bear and Base scenarios.
           - Stress-test dividend sustainability against post-cliff Owner Earnings to verify that high cash dividend yields are not an unpayable capital trap.
+        * [HOMEBUILDER PARTNERSHIP FLOAT & REMEDIATION LIABILITY INVARIANT]:
+          - For residential real estate developers, mixed-tenure homebuilders, and contractors:
+          - Audit Tenure Mix: Differentiate capital-heavy speculative merchant builders (requiring 4–5 year owned landbanks) from asset-light Partnership developers (pre-selling 60%+ of units with monthly partner milestone billing / negative working capital float).
+          - Statutory Building Safety & Cladding Deductions: For UK/European builders under Building Safety Acts, statutory remediation provisions CANNOT be ignored as non-cash items. Deduct projected annual cash outflows ($50M–$80M/yr) directly from Owner Earnings.
+          - Average Daily Net Debt Audit: In seasonal working capital businesses, verify 'Average Daily Net Debt' across the full year rather than relying on window-dressed period-end balance sheet dates.
         * [EMERGING MARKET TRAPPED CASH & CROSS-BORDER REGULATORY HAIRCUT]:
           - For foreign ADRs, Chinese cross-border e-commerce, or emerging market compounders with large cash/treasury balances:
           - If management DOES NOT actively return cash via share buybacks or cash dividends, apply a 25%–35% haircut to balance sheet cash to reflect capital controls, withholding taxes, or trapped corporate liquidity.
