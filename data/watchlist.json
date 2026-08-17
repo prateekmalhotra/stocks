@@ -1910,5 +1910,38 @@
     "last_updated": "2026-08-17",
     "total_versions": 1,
     "report_path": "reports/CHWY.html"
+  },
+  "COKE": {
+    "ticker": "COKE",
+    "company_name": "Coca-Cola Consolidated, Inc.",
+    "baseline_price": 185.65,
+    "current_price": 185.65,
+    "return_pct": 0.0,
+    "status_label": "Solid Conviction",
+    "labels": [
+      "Solid Conviction",
+      "Buyback Cannibal",
+      "Cash Fortress"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$215.00",
+    "bear_target": "$145.00 (-21.9%)",
+    "base_target": "$215.00 (+15.8%)",
+    "bull_target": "$260.00 (+40.1%)",
+    "upper_alert_threshold": 215.0,
+    "lower_alert_threshold": 155.0,
+    "next_catalyst_date": "2026-11-04",
+    "next_catalyst_event": "Q3 '26 ER",
+    "top_funds": [
+      "Vanguard Group (8.5%)",
+      "BlackRock Inc. (7.2%)",
+      "Renaissance Technologies (0.6%)"
+    ],
+    "institutional_ownership_pct": "60.7%",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Harrison family maintains voting control; steady holdings post 10-for-1 split with no recent open-market insider dumping.",
+    "last_updated": "2026-08-17",
+    "total_versions": 1,
+    "report_path": "reports/COKE.html"
   }
 }

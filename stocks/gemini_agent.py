@@ -973,152 +973,33 @@ def review_stock_thesis(
     previous_base_target: str = "",
     previous_bull_target: str = ""
 ) -> Tuple[Dict[str, Any], str]:
-    """Reviews an active stock thesis when triggered by price or catalyst."""
-    price_change_pct = ((current_price - baseline_price) / baseline_price) * 100 if baseline_price else 0.0
+    """Reviews an active stock thesis by executing the full multi-agent evaluation pipeline."""
+    print(f"
+🔄 [FULL MULTI-AGENT RE-EVALUATION] Running fresh coverage pipeline for {ticker} ({company_name})", flush=True)
+    print(f"   │ Trigger: {trigger_reason}", flush=True)
+    print(f"   │ Current Price: ${current_price:.2f} | Baseline Price: ${baseline_price:.2f}", flush=True)
 
-    prompt = f"""We are conducting an urgent investment thesis review on {ticker.upper()} ({company_name}).
-TRIGGER REASON: {trigger_reason}
-Baseline Price: ${baseline_price:.2f}
-Current Price: ${current_price:.2f} (Change: {price_change_pct:+.2f}%)
-Previous Stance: {previous_status}
+    update_notes = f"""MATERIAL TRIGGER: {trigger_reason}
+Current Stock Price: ${current_price:.2f} (Baseline: ${baseline_price:.2f})
+Previous Thesis Stance: {previous_status}
 Previous Thesis Summary: {previous_thesis_summary}
-PREVIOUS BASE FAIR VALUE: {previous_fair_value or previous_base_target or 'N/A'}
-PREVIOUS TARGETS: Bear: {previous_bear_target or 'N/A'} | Base: {previous_base_target or 'N/A'} | Bull: {previous_bull_target or 'N/A'}
+Previous Fair Value: {previous_fair_value or previous_base_target or 'N/A'}
 
-[ANALYTICAL AUTONOMY & FIRST-PRINCIPLES UPDATE DIRECTIVES]:
-You have full analytical freedom to evaluate the new facts and determine the evolved thesis:
-1. Primary Source Audit: Search the latest quarterly earnings release, latest earnings call transcript, material corporate announcements, and latest 13F whale filings.
-2. First-Principles Valuation Reasoning (Buffett & Munger Discipline):
-   - Intrinsic value represents the present value of decades of future cash flows, not a short-term momentum tracker of quarterly headlines.
-   - Evaluate whether the new financial report or material event structurally alters the business's durable economic moat, normalized mid-cycle unit economics, or capital allocation trajectory.
-   - If the long-term compounding engine is intact with normal quarterly noise, the core cash flow projections remain steady.
-   - If verifiable fundamental evidence demonstrates a structural inflection (e.g. permanent moat breakdown, major subsidiary restructuring, or accelerated capital-efficient cash compounding), adjust the DCF projections logically based on concrete financial reality.
-3. Forward Action Beacon Selection (action_signal):
-   Autonomously choose the actionable status signal based on how the thesis is playing out in the real world:
-   - "BUY" (Green Beacon): Thesis is playing out great, fundamentals accelerating, trading at a genuine Margin of Safety (≥ 20%-30% discount to MID-CYCLE NORMALIZED Owner Earnings). NEVER give a BUY signal to stocks trading near/above fair value or priced for perfection at peak cyclical multiples.
-   - "HOLD" (Yellow Beacon): Thesis is steady, waiting for next catalyst, fairly valued, or priced for perfection (e.g. trading at peak hardware multiples with < 15% MoS) -> wait and do nothing for now.
-   - "CAUTION" (Orange Beacon): Thesis facing execution friction, headwinds, or margin pressure -> caution / trim.
-   - "AVOID" (Red Beacon): Thesis broken, severe structural impairment -> avoid / do not buy / exit.
-3. 2-Tier Autonomous Labels:
-   Slot 1 = Forward Conviction/Confidence Rating (e.g. "High Conviction", "Cautious Stance", "Speculative Risk", "Solid Conviction", "Turnaround Risk", "Priced For Perfection").
-   Slots 2 & 3 = Key Play Drivers & Catalysts (e.g. "Buyback Cannibal", "Margin Expansion", "Deep Value", "Cash Fortress", "Infrastructure Moat", "CapEx Digestion").
-   (Note: You choose both the action_signal color and labels independently based on your forward evaluation).
-4. What Changed & Thesis Impact:
-   - Detail what new information has arrived from latest earnings or market filings.
-   - Explain whether this reinforces our thesis (making the opportunity safer / higher confidence) or breaks/weakens it (increasing execution risk / lowering fair value).
-   - Formulate a clear 2-3 sentence executive evolution summary for "what_changes_now".
-5. Warren Buffett Owner Earnings & Intrinsic Value Framework:
-   - Update fair value and Bear / Base / Bull scenario targets using Warren Buffett's 7-pillar Owner Earnings methodology (Post-SBC cash flow minus maintenance CapEx, lease debt/float bridge, share count reduction from buybacks, strictly discounting via local sovereign bond yields, zero arbitrary exit multiples).
-   - [MANDATORY CYCLICALITY & HARDWARE NORMALIZATION]: For semiconductors and hardware infrastructure, YOU MUST normalize peak-cycle gross margins down by 15-20 pts (to 50%-55% mid-cycle levels) and model CapEx digestion pauses. NEVER extrapolate peak-quarter cash flows. For mega-cap enterprises (> $1T), apply strict Law of Large Numbers & Macro TAM sanity checks against global IT hardware spending.
-   - [MANDATORY BEAR CASE DOWNSIDE INVARIANT]: "new_bear_target" MUST ALWAYS BE BELOW CURRENT STOCK PRICE (typically 15% to 40% below current price). A Bear target higher than today's quotation is strictly prohibited and logically invalid.
-   - [MANDATORY METADATA-SCENARIO BINDING]: "new_fair_value" and "new_base_target" must match identically. If Base Fair Value offers < 15%-20% discount or trades at peak cyclical multiples, "action_signal" MUST be "HOLD" or "CAUTION", NEVER "BUY".
-   - [MANDATORY CURRENCY DIRECTIVE]: ALL financial figures, share prices, intrinsic fair values, scenario targets (Bear/Base/Bull), and price corridors MUST ALWAYS BE CONVERTED TO AND PRESENTED IN US DOLLARS (USD / $) with a leading '$' symbol (e.g. '$2,320.00', '$2,950.00'). NEVER output 'C$', 'CAD', 'HK$', 'EUR', or other non-USD currency prefixes.
-6. Self-Healing Catalyst Date Update Rule:
-   - "next_catalyst_date" MUST ALWAYS BE IN STRICT "YYYY-MM-DD" FORMAT (e.g. 2026-11-18).
-   - If on the trigger date after market close no earnings release or event has occurred (or the event was rescheduled), search investor relations for the newly confirmed or estimated date, set "next_catalyst_date" to the new YYYY-MM-DD, and explain in "what_changes_now" that the calendar date has been refreshed.
+Execute a fresh, uncompromised fundamental evaluation. Query latest earnings releases, call transcripts, 10-Q/10-K filings, and 13F whale filings. Re-evaluate operating moat, cash generation post-SBC, balance sheet health, and Owner Earnings DCF scenarios."""
 
-Output in TWO parts:
-Part 1: JSON metadata in ```json ... ```:
-{{
-  "alert_title": "<Punchy headline stating if thesis shifted, conviction changed, or catalyst date refreshed>",
-  "alert_severity": "<1-2 word severity, e.g. Strong Buy, Caution, Thesis Broken, Accumulate, Calendar Update>",
-  "action_signal": "<BUY | HOLD | CAUTION | AVOID (BUY=Green get in now, HOLD=Yellow wait/do nothing, CAUTION=Orange headwinds/trim, AVOID=Red broken/don't buy)>",
-  "labels": ["<Confidence/Risk Label 1>", "<Play Driver Label 2>", "<Play Driver Label 3>"],
-  "label_change_rationale": "<If labels or conviction changed from previous version, 1-2 sentence explanation of what changed and why. If unchanged, write 'Conviction and play drivers reaffirmed.'>",
-  "what_was_before": "<Summary of previous thesis>",
-  "what_changes_now": "<Comprehensive summary of what new information arrived, how it impacts risk/safety, and our updated forward conviction>",
-  "new_fair_value": "$<Updated Fair Value matching Section 5 Base DCF>",
-  "new_bear_target": "$<Updated Bear Target matching Section 5 Bear DCF>",
-  "new_base_target": "$<Updated Base Target matching Section 5 Base DCF>",
-  "new_bull_target": "$<Updated Bull Target matching Section 5 Bull DCF>",
-  "new_upper_alert_threshold": <New upper price trigger>,
-  "new_lower_alert_threshold": <New lower price trigger>,
-  "next_catalyst_date": "<YYYY-MM-DD (Strict ISO date for next catalyst, e.g. 2026-11-18)>",
-  "next_catalyst_event": "<Upcoming Event max 4 words, using clean concise notation e.g. Q3 '26 ER, Q2 '27 ER, Investor Day>",
-  "top_funds": ["<Top Fund 1 (e.g. Vanguard 8.4%)>", "<Top Fund 2 (e.g. BlackRock 7.1%)>", "<Whale/Superinvestor 3 from Dataroma/WhaleWisdom>"],
-  "institutional_ownership_pct": "<e.g. 78.4%>",
-  "insider_signal": "<Net Buying | Cluster Buying | Neutral (10b5-1) | Net Selling | No Activity>",
-  "insider_summary": "<Crisp 1-line summary of recent Form 4 insider purchases/sales audited from OpenInsider, max 10 words>"
-}}
+    metadata, full_html = generate_genesis_thesis(
+        ticker=ticker,
+        company_name=company_name,
+        current_price=current_price,
+        initial_notes=update_notes
+    )
 
-Part 2: COMPLETE Living HTML Memo (All 6 Sections Updated):
-[MANDATORY LENGTH & ANALYTICAL DEPTH DIRECTIVE]:
-You MUST provide the full, comprehensive HTML memo updating all 6 sections with the new quarter's data, revenue, margins, cash flow, and revised DCF table. The complete dossier MUST be exhaustive and exceed 2,000 words of institutional rigor with complete data tables and LaTeX formulas. NEVER output brief outlines or abbreviated sections.
-<div class="section"><h2>Section 1: Business Model, Scale Moat & GenAI Transition</h2>...</div>
-<div class="section"><h2>Section 2: Quarterly Operational Breakdown & Segment Performance</h2>...</div>
-<div class="section"><h2>Section 3: Real Cash Flow & Stock-Based Compensation (SBC) Audit</h2>...</div>
-<div class="section"><h2>Section 4: Capital Allocation & Balance Sheet Discipline</h2>...</div>
-<div class="section"><h2>Section 5: Owner Earnings Intrinsic Value Matrix</h2>... (Full DCF calculation table with Bear, Base, and Bull per-share values)</div>
-<div class="section"><h2>Section 6: Thesis Confidence, Execution Risk & Invalidation Corridors</h2>...</div>
-"""
-
-    response_text = call_gemini_with_search(prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
-    metadata = extract_json_block(response_text)
-    
-    html_content = re.sub(r"```(?:json)?\s*\{.*?\}\s*```", "", response_text, flags=re.DOTALL).strip()
-    if html_content.startswith("```html"):
-        html_content = html_content[7:]
-    if html_content.endswith("```"):
-        html_content = html_content[:-3]
-    html_content = verify_and_repair_html_structure(clean_grounding_artifacts(html_content.strip()))
-
-    if not metadata:
-        metadata = {}
-
-    # Extract Section 5 DCF Intrinsic Value table to guarantee 100% mathematical reconciliation
-    rows = re.findall(r"<tr[^>]*>(.*?)</tr>", html_content, re.DOTALL | re.IGNORECASE)
-    target_row = None
-    for r in rows:
-        r_clean = re.sub(r"<[^>]+>", " ", r).strip()
-        if any(k in r_clean.lower() for k in ["intrinsic fair value", "intrinsic value per", "intrinsic value /", "base intrinsic value", "implied intrinsic value"]):
-            target_row = r
-            break
-            
-    if target_row:
-        tds = re.findall(r"<td[^>]*>(.*?)</td>", target_row, re.DOTALL)
-        extracted_nums = []
-        for td in tds:
-            cleaned = re.sub(r"<[^>]+>", "", td).strip()
-            num_match = re.search(r"\$?\s*([\d,]+(?:\.\d+)?)", cleaned)
-            if num_match:
-                try: extracted_nums.append(float(num_match.group(1).replace(",", "")))
-                except ValueError: pass
-                
-        if len(extracted_nums) >= 3:
-            bear_val, base_val, bull_val = extracted_nums[0], extracted_nums[1], extracted_nums[2]
-            bear_ret = ((bear_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
-            base_ret = ((base_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
-            bull_ret = ((bull_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
-            
-            metadata["new_fair_value"] = f"${base_val:.2f}"
-            metadata["new_base_target"] = f"${base_val:.2f} ({base_ret:+.1f}%)"
-            metadata["new_bear_target"] = f"${bear_val:.2f} ({bear_ret:+.1f}%)"
-            metadata["new_bull_target"] = f"${bull_val:.2f} ({bull_ret:+.1f}%)"
-
-    # Extract first paragraph/callout from HTML if what_changes_now is missing
-    what_changes = metadata.get("what_changes_now", "").strip()
-    if not what_changes or len(what_changes) < 25:
-        callout_m = re.search(r'<div class="callout"[^>]*>(.*?)</div>', html_content, re.DOTALL | re.IGNORECASE)
-        if callout_m:
-            raw_c = re.sub(r'<[^>]+>', ' ', callout_m.group(1)).strip()
-            what_changes = " ".join(raw_c.split()[:45])
-        else:
-            first_p = re.search(r'<p[^>]*>(.*?)</p>', html_content, re.DOTALL | re.IGNORECASE)
-            if first_p:
-                raw_p = re.sub(r'<[^>]+>', ' ', first_p.group(1)).strip()
-                what_changes = " ".join(raw_p.split()[:45])
-            else:
-                what_changes = f"Comprehensive surveillance review completed following {trigger_reason}. Living thesis, intrinsic fair value, and operating scenarios updated."
-
-    metadata["what_changes_now"] = what_changes
-    metadata["what_was_before"] = metadata.get("what_was_before") or previous_thesis_summary
+    metadata["what_was_before"] = previous_thesis_summary
+    metadata["what_changes_now"] = metadata.get("executive_summary") or f"Thesis re-evaluated following: {trigger_reason}"
+    metadata["alert_title"] = metadata.get("alert_title") or f"{ticker.upper()}: Coverage Re-Evaluated ({metadata.get('status_label', 'Active')})"
     metadata["action_signal"] = normalize_action_signal(metadata.get("action_signal", "BUY"))
-    metadata["labels"] = sanitize_labels(metadata.get("labels") or metadata.get("alert_severity") or [previous_status])
-    metadata["alert_title"] = metadata.get("alert_title") or f"{ticker.upper()}: Thesis Evolved Following {trigger_reason}"
-    metadata["next_catalyst_date"] = normalize_catalyst_date(metadata.get("next_catalyst_date"))
-    metadata["next_catalyst_event"] = metadata.get("next_catalyst_event") or "Upcoming Earnings Report"
 
-    return metadata, html_content
+    return metadata, full_html
 
 
 # ==============================================================================
