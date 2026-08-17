@@ -1798,6 +1798,8 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             justify-content: flex-start !important;
             box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
             box-sizing: border-box !important;
+            min-width: 0 !important;
+            overflow: hidden !important;
             transition: transform 0.15s ease, border-color 0.15s ease !important;
         }}
         .memo-container .metric-card:hover,
@@ -1819,18 +1821,22 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             color: var(--text-secondary) !important;
             margin: 0 0 8px 0 !important;
             line-height: 1.3 !important;
+            overflow-wrap: break-word !important;
+            word-break: break-word !important;
         }}
         .memo-container .metric-card .metric-value,
         .memo-container .metric-card .stat-value,
         .memo-container .metric-card .kpi-value {{
             font-family: var(--font-mono) !important;
-            font-size: 1.40rem !important;
+            font-size: 1.20rem !important;
             font-weight: 600 !important;
             color: var(--text-title) !important;
             letter-spacing: -0.02em !important;
-            line-height: 1.15 !important;
+            line-height: 1.25 !important;
             margin: 0 0 8px 0 !important;
-            white-space: nowrap !important;
+            white-space: normal !important;
+            overflow-wrap: break-word !important;
+            word-break: break-word !important;
         }}
         .memo-container .metric-card p,
         .memo-container .metric-card .metric-desc,
@@ -1842,6 +1848,8 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             color: var(--text-dim) !important;
             line-height: 1.45 !important;
             margin: 0 !important;
+            overflow-wrap: break-word !important;
+            word-break: break-word !important;
         }}
 
         /* EMBEDDED IMAGES, CHARTS & VISUAL INFOGRAPHICS */
