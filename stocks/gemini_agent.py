@@ -654,6 +654,11 @@ THE BENJAMIN GRAHAM & WARREN BUFFETT "ANTI-MR. MARKET" DOCTRINE (MANDATORY & IND
      7. Financial Institutions, Asset Managers & Banking Books (1990 & 2011 Letters on Wells Fargo & Amex):
         * For banks or fintechs with expanding credit/loan portfolios (e.g. StoneCo Banking, PayPal Credit, SoFi, Ally):
           - Evaluate Credit Quality, Non-Performing Loans (NPLs), net charge-off trends, provision coverage, Cost of Deposits, and Return on Tangible Equity (ROTE) rather than pure FCF.
+        * [PAYMENT PROCESSOR TRANSACTION MARGIN DOLLAR (TMD) QUALITY INVARIANT]:
+          - For payment networks, gateways, and PSPs (e.g. PayPal, Adyen, Block, Shift4):
+          - DO NOT rely on headline Total Payment Volume (TPV) growth. High-volume unbranded processing (e.g. Braintree, enterprise PSP) carries thin 0.20%–0.35% take rates, which can mask underlying erosion in high-margin branded checkout (2.0%–2.5% take rate).
+          - The evaluator MUST anchor on Transaction Margin Dollars (TMD) growth. If TMD growth is negative or stagnant despite double-digit TPV expansion, penalize terminal multiples.
+          - Calculate Net Cannibalization: Deduct annual SBC dilution shares from total shares repurchased to isolate the true net per-share compounding rate.
         * [EMERGING MARKET FINTECH SOVEREIGN DISCOUNTING & FX DEPRECIATION INVARIANT]:
           - For emerging market fintechs and banks (e.g. StoneCo, Nu Holdings, MercadoLibre, Kaspi):
           - Anchor the discount hurdle rate strictly to the domestic 10-year sovereign bond yield (e.g. Brazil 10Y NTN-F ~11%–14%) plus local Equity Risk Premium, NEVER US Treasuries.
