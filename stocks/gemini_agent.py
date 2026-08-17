@@ -640,6 +640,11 @@ THE BENJAMIN GRAHAM & WARREN BUFFETT "ANTI-MR. MARKET" DOCTRINE (MANDATORY & IND
           - Supplier Payable Working Capital Float: Direct 1P procurement creates an interest-free customer float by collecting cash instantly at delivery while settling vendor payables on 50–60 day terms. Do not mistake temporary inventory builds for structural cash destruction.
           - Captive Logistics External Monetization: When self-owned logistics networks open to third-party merchant fulfillment, incremental volume converts fixed warehouse depreciation into high-margin logistics services cash flow.
           - Maintenance vs. Discretionary Growth CapEx: Strictly isolate maintenance CapEx (~35%–40% of total CapEx) from discretionary expansion CapEx (land purchases, automated logistics parks) to derive true owner cash flow.
+        * [PROPRIETARY RESIN INJECTION-MOLDING & WHOLESALE PURGE INVARIANT]:
+          - For branded consumer footwear and accessories (e.g. Crocs / Croslite, Deckers, Birkenstock):
+          - Single-Piece Polymer Economics: Differentiate labor-intensive multi-piece cut-and-sew shoes (42%–48% gross margin) from proprietary single-piece resin injection molding (58%–61% gross margin, <3% CapEx intensity, near-zero scrap).
+          - Customization Attach Margin: Credit high-margin impulse accessories (e.g. Jibbitz at >80% gross margin) as high-ROIC Average Order Value (AOV) multipliers.
+          - Wholesale Channel Purge vs. Brand Fatigue: When management deliberately curtails low-tier wholesale accounts to eliminate gray-market discounting, verify Direct-to-Consumer (DTC) sell-through; if DTC is positive, treat wholesale contraction as brand-equity protection rather than structural demand loss.
         * [FOR-PROFIT HEALTHCARE EDUCATION & TITLE IV 90/10 COMPLIANCE INVARIANT]:
           - For proprietary post-secondary career colleges and vocational healthcare academies (e.g. Legacy Education, UTI, Lincoln Tech):
           - Title IV 90/10 Rule Audit: Federal regulations mandate that <= 90% of revenues can derive from federal Title IV financial aid. If Title IV mix exceeds 85%, model elevated regulatory scrutiny and disallow aggressive multiple expansion.

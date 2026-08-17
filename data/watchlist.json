@@ -1,37 +1,4 @@
 {
-  "CROX": {
-    "ticker": "CROX",
-    "company_name": "Crocs, Inc.",
-    "baseline_price": 136.62,
-    "current_price": 129.34,
-    "return_pct": -5.33,
-    "status_label": "High Conviction",
-    "labels": [
-      "High Conviction",
-      "Buyback Cannibal",
-      "Deep Value"
-    ],
-    "action_signal": "BUY",
-    "fair_value_estimate": "$175.00",
-    "bear_target": "$95.00 (-26.5%)",
-    "base_target": "$175.00 (+32.9%)",
-    "bull_target": "$220.00 (+67.0%)",
-    "upper_alert_threshold": 165.0,
-    "lower_alert_threshold": 95.0,
-    "next_catalyst_date": "2026-10-29",
-    "next_catalyst_event": "Q3 '26 ER",
-    "top_funds": [
-      "BlackRock (11.2%)",
-      "Vanguard (10.4%)",
-      "Fidelity (6.8%)"
-    ],
-    "institutional_ownership_pct": "92.4%",
-    "insider_signal": "Cluster Buying",
-    "insider_summary": "2 Insiders +$979K Buys",
-    "last_updated": "2026-08-08",
-    "total_versions": 1,
-    "report_path": "reports/CROX.html"
-  },
   "MTCH": {
     "ticker": "MTCH",
     "company_name": "Match Group, Inc.",
@@ -2872,5 +2839,38 @@
     "last_updated": "2026-08-17",
     "total_versions": 1,
     "report_path": "reports/CALM.html"
+  },
+  "CHWY": {
+    "ticker": "CHWY",
+    "company_name": "Chewy, Inc.",
+    "baseline_price": 22.2,
+    "current_price": 22.2,
+    "return_pct": 0.0,
+    "status_label": "Solid Conviction",
+    "labels": [
+      "Solid Conviction",
+      "Buyback Cannibal",
+      "Margin Expansion"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$30.00",
+    "bear_target": "$16.50 (-25.7%)",
+    "base_target": "$30.00 (+35.1%)",
+    "bull_target": "$42.00 (+89.2%)",
+    "upper_alert_threshold": 28.5,
+    "lower_alert_threshold": 18.0,
+    "next_catalyst_date": "2026-09-09",
+    "next_catalyst_event": "Q2 '26 ER",
+    "top_funds": [
+      "BC Partners PE (42.6%)",
+      "BlackRock, Inc. (5.2%)",
+      "AQR Capital Management (3.9%)"
+    ],
+    "institutional_ownership_pct": "96.0%",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "CEO Sumit Singh sold 49.5k shares via 10b5-1 plan on Aug 4, 2026 @ $23.01",
+    "last_updated": "2026-08-17",
+    "total_versions": 1,
+    "report_path": "reports/CHWY.html"
   }
 }
