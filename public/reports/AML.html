@@ -1,0 +1,2234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AML — Investment Memo</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="apple-touch-icon" href="../favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --bg-canvas: #141312;
+            --bg-panel: #1B1A19;
+            --bg-subpanel: #21201E;
+            --bg-hover: #272624;
+            --text-title: #E8E2D8;
+            --text-body: #C5BCB0;
+            --text-secondary: #8E867A;
+            --text-dim: #5C5549;
+            --accent-warm: #D4A373;
+            --accent-warm-hover: #E2B689;
+            --accent-warm-subtle: rgba(212, 163, 115, 0.12);
+            --accent-green: #82AE8C;
+            --accent-red: #C97A72;
+            --border-color: rgba(255, 255, 255, 0.055);
+            --border-focus: rgba(212, 163, 115, 0.35);
+            --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-serif: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        /* KaTeX Math Styling & Dark Theme Alignment */
+        .katex-display {
+            margin: 20px 0 !important;
+            overflow-x: auto !important;
+            overflow-y: hidden !important;
+            padding: 12px 16px !important;
+            background: rgba(0, 0, 0, 0.20) !important;
+            border-radius: 8px !important;
+            border: 1px solid var(--border-color) !important;
+        }
+        .katex {
+            font-size: 1.08em !important;
+            color: var(--text-title) !important;
+        }
+        .katex .mord.text {
+            color: var(--text-body) !important;
+            font-family: var(--font-sans) !important;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: 
+                radial-gradient(ellipse 90% 50% at 50% -10%, rgba(212, 163, 115, 0.04), transparent 70%),
+                var(--bg-canvas);
+            color: var(--text-body);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            line-height: 1.80;
+            letter-spacing: 0.005em;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding-bottom: 120px;
+        }
+
+        .container { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+
+        /* Top Nav */
+        nav.nav-bar {
+            background: rgba(20, 19, 18, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 14px 0;
+        }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .nav-back {
+            color: var(--accent-warm);
+            text-decoration: none;
+            font-family: var(--font-sans);
+            font-size: 0.84rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s;
+        }
+        .nav-back:hover { color: var(--accent-warm-hover); transform: translateX(-2px); }
+
+        /* Hero Deck */
+        .hero-deck {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 36px 40px;
+            margin: 32px 0 28px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+        }
+
+        .hero-top-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px; }
+        .ticker-symbol {
+            font-family: var(--font-sans);
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: var(--text-title);
+        }
+        .company-meta { color: var(--text-secondary); font-size: 0.95rem; margin-top: 2px; font-family: var(--font-sans); }
+
+        /* Minimalist Logo Avatars */
+        .ticker-logo-wrap {
+            border-radius: 6px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+            transform: translateY(-3px);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }
+        .ticker-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 2px;
+            border-radius: 5px;
+            display: block;
+        }
+        .ticker-logo-fallback {
+            font-family: var(--font-mono);
+            font-weight: 600;
+            color: var(--accent-warm);
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background: rgba(212, 163, 115, 0.08);
+        }
+
+        .price-callout { text-align: right; }
+        .price-number { font-size: 2.6rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }
+        .price-sub { font-size: 0.88rem; font-family: var(--font-mono); margin-top: 2px; }
+
+        /* Native SVG Area Chart */
+        .native-chart-wrap {
+            margin-top: 28px;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px 20px 12px;
+            position: relative;
+            user-select: none;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+        }
+        .chart-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            min-height: 28px;
+        }
+        .chart-live-val {
+            font-size: 0.88rem;
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .chart-range-pills {
+            display: flex;
+            gap: 4px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 2px;
+        }
+        .range-pill {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.72rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .range-pill:hover { color: var(--text-title); }
+        .range-pill.active {
+            background: var(--accent-warm);
+            color: #161513;
+            font-weight: 600;
+            box-shadow: 0 1px 4px rgba(204, 120, 92, 0.3);
+        }
+        .chart-svg { width: 100%; height: 220px; display: block; overflow: visible; }
+        .chart-tooltip {
+            position: absolute;
+            top: 14px;
+            left: 20px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-focus);
+            color: var(--text-title);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            padding: 5px 12px;
+            border-radius: 6px;
+            pointer-events: none;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            font-family: var(--font-sans);
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Key Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 24px;
+        }
+        @media (max-width: 960px) {
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 520px) {
+            .metrics-grid { grid-template-columns: 1fr; }
+        }
+        .metric-cell {
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            min-height: 80px;
+            box-sizing: border-box;
+        }
+        .metric-label { font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); letter-spacing: 0.05em; margin-bottom: 3px; }
+        .metric-value { font-size: 1.15rem; font-weight: 500; color: var(--text-title); font-family: var(--font-mono); white-space: nowrap; }
+        .metric-subtext { font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-sans); margin-top: 4px; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+        /* Tabs */
+        .tabs-header {
+            display: flex;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-color);
+            margin: 32px 0 28px;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            padding: 12px 18px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.15s;
+        }
+        .tab-btn:hover { color: var(--text-title); }
+        .tab-btn.active { color: var(--accent-warm); }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0; right: 0;
+            height: 2px;
+            background: var(--accent-warm);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Ownership, Insiders & Fund Intelligence Tab */
+        .ownership-container {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+        .ownership-header-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 24px 28px;
+        }
+        .ownership-stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .ownership-stat-grid { grid-template-columns: 1fr; }
+        }
+        .stat-box {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .stat-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-dim);
+            font-family: var(--font-sans);
+        }
+        .stat-num {
+            font-size: 1.45rem;
+            font-weight: 500;
+            font-family: var(--font-mono);
+            color: var(--text-title);
+        }
+        .stat-note {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            font-family: var(--font-sans);
+        }
+        .ownership-section {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 28px 32px;
+        }
+        .section-title-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+        .section-icon { font-size: 1.35rem; }
+        .section-heading {
+            font-family: var(--font-sans);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-title);
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+        .section-desc {
+            color: var(--text-dim);
+            font-size: 0.86rem;
+            margin: 0 0 20px;
+            line-height: 1.4;
+        }
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-subpanel);
+            margin-top: 14px;
+        }
+        .ownership-table {
+            width: 100%;
+            min-width: 980px;
+            border-collapse: collapse;
+            font-size: 0.86rem;
+        }
+        .ownership-table th {
+            text-align: left;
+            padding: 13px 16px;
+            font-size: 0.70rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-dim);
+            border-bottom: 1px solid var(--border-color);
+            background: #1E1D1A;
+            font-family: var(--font-sans);
+            white-space: nowrap;
+        }
+        .ownership-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.035);
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+        .ownership-table tr:last-child td {
+            border-bottom: none;
+        }
+        .ownership-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .link-out {
+            color: var(--accent-warm);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 500;
+            transition: color 0.15s ease;
+        }
+        .link-out:hover {
+            color: #fcd34d;
+            text-decoration: underline;
+        }
+        .writeups-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 16px;
+        }
+        .writeup-card {
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 22px 24px;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.15s ease;
+        }
+        .writeup-card:hover {
+            border-color: rgba(217, 119, 6, 0.4);
+        }
+        .btn-read-letter {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(217, 119, 6, 0.12);
+            color: var(--accent-warm);
+            border: 1px solid rgba(217, 119, 6, 0.25);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.76rem;
+            font-weight: 500;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: all 0.15s ease;
+        }
+        .btn-read-letter:hover {
+            background: rgba(217, 119, 6, 0.25);
+            color: #fcd34d;
+        }
+
+        /* Quick Portals Bar */
+        .quick-portals-bar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+        .portal-links-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .portal-link {
+            background: var(--bg-subpanel);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        .portal-link:hover {
+            background: rgba(201, 154, 117, 0.14);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            transform: translateY(-1px);
+        }
+
+        /* Memo Content & Premium Editorial Typography */
+        .memo-container {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 48px 52px;
+        }
+        .memo-container * {
+            box-sizing: border-box;
+        }
+        .memo-container a {
+            color: var(--accent-warm) !important;
+            text-decoration: none !important;
+            transition: color 0.15s ease !important;
+            border-bottom: 1px dotted rgba(201, 154, 117, 0.4) !important;
+        }
+        .memo-container a:hover {
+            color: #E2DDD5 !important;
+            border-bottom-color: var(--accent-warm) !important;
+        }
+        .memo-container h1, .memo-container h2 {
+            font-family: var(--font-display) !important;
+            font-size: 1.40rem !important;
+            font-weight: 700 !important;
+            color: #EAE4DA !important;
+            margin: 48px 0 20px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+            letter-spacing: -0.025em !important;
+            line-height: 1.35 !important;
+        }
+        .memo-container h1:first-child, .memo-container h2:first-of-type { margin-top: 0 !important; }
+        .memo-container h3 {
+            font-family: var(--font-display) !important;
+            font-size: 1.12rem !important;
+            font-weight: 600 !important;
+            color: #CCA278 !important;
+            margin: 36px 0 14px !important;
+            letter-spacing: -0.015em !important;
+            line-height: 1.45 !important;
+        }
+        .memo-container h4, .memo-container h5, .memo-container h6 {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            color: #E2DBD0 !important;
+            margin: 26px 0 10px !important;
+        }
+        .memo-container p {
+            font-family: var(--font-sans) !important;
+            font-size: 0.95rem !important;
+            line-height: 1.82 !important;
+            letter-spacing: 0.005em !important;
+            color: #C5BCB0 !important;
+            margin-bottom: 22px !important;
+            font-weight: 400 !important;
+        }
+        .memo-container ul, .memo-container ol {
+            font-family: var(--font-sans) !important;
+            font-size: 0.94rem !important;
+            line-height: 1.78 !important;
+            letter-spacing: 0.005em !important;
+            color: #C5BCB0 !important;
+            margin: 16px 0 24px 20px !important;
+            padding-left: 12px !important;
+        }
+        .memo-container ul { list-style-type: disc !important; }
+        .memo-container ol { list-style-type: decimal !important; }
+        .memo-container li {
+            margin-bottom: 10px !important;
+            color: #C5BCB0 !important;
+            line-height: 1.78 !important;
+        }
+        .memo-container li::marker {
+            color: #C99A75 !important;
+        }
+        .memo-container strong, .memo-container b {
+            color: #E6DFD5 !important;
+            font-weight: 600 !important;
+            letter-spacing: 0 !important;
+        }
+
+        /* STUNNING CONSISTENT TABLES - SOOTHING WARM TONES & ZERO OVERFLOW */
+        .table-scroll-wrap {
+            width: 100% !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            margin: 32px 0 !important;
+            background: #171614 !important;
+            background-color: #171614 !important;
+            border-radius: 12px !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            box-sizing: border-box !important;
+        }
+        .memo-container table {
+            width: 100% !important;
+            min-width: 600px !important;
+            border-collapse: separate !important;
+            border-spacing: 0 !important;
+            margin: 0 !important;
+            background: transparent !important;
+            background-color: transparent !important;
+            border: none !important;
+        }
+        .memo-container tr, .memo-container td, .memo-container th {
+            background: transparent !important;
+            background-color: transparent !important;
+        }
+        .memo-container th {
+            background: #1E1D1A !important;
+            background-color: #1E1D1A !important;
+            color: #C99A75 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            padding: 14px 18px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
+            text-align: left !important;
+        }
+        .memo-container td {
+            padding: 14px 18px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.05) !important;
+            font-size: 0.92rem !important;
+            color: #BDB7AA !important;
+            font-family: var(--font-mono) !important;
+            text-align: left !important;
+        }
+        .memo-container tr:last-child td {
+            border-bottom: none !important;
+        }
+        .memo-container tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.012) !important;
+            background-color: rgba(255, 255, 255, 0.012) !important;
+        }
+        .memo-container tr:hover td {
+            background: rgba(201, 154, 117, 0.04) !important;
+            background-color: rgba(201, 154, 117, 0.04) !important;
+        }
+        .memo-container td strong, .memo-container td b {
+            color: #D8D2C6 !important;
+            font-weight: 500 !important;
+        }
+
+        /* UNIVERSAL CALLOUT & BOX STYLING - NEVER WHITE OR PINK, STRICT DARK OBSIDIAN */
+        .memo-container blockquote,
+        .memo-container .callout,
+        .memo-container .falsification-box,
+        .memo-container .institutional-box,
+        .memo-container div[class*="box"],
+        .memo-container div[class*="card"],
+        .memo-container div[class*="alert"],
+        .memo-container div[class*="warning"],
+        .memo-container div[class*="highlight-box"] {
+            background: var(--bg-subpanel) !important;
+            background-color: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-left: 3px solid var(--accent-warm) !important;
+            padding: 22px 26px !important;
+            border-radius: 8px !important;
+            margin: 28px 0 !important;
+            color: var(--text-body) !important;
+            line-height: 1.8 !important;
+        }
+        .memo-container blockquote *,
+        .memo-container .callout *,
+        .memo-container .falsification-box *,
+        .memo-container .institutional-box *,
+        .memo-container div[class*="box"] *,
+        .memo-container div[class*="card"] *,
+        .memo-container div[class*="alert"] * {
+            background: transparent !important;
+            background-color: transparent !important;
+            color: var(--text-body) !important;
+        }
+        .memo-container blockquote h3,
+        .memo-container blockquote h4,
+        .memo-container .callout h3,
+        .memo-container .callout h4,
+        .memo-container .falsification-box h4,
+        .memo-container .falsification-box strong,
+        .memo-container .institutional-box h4,
+        .memo-container .institutional-box strong,
+        .memo-container div[class*="box"] h4,
+        .memo-container div[class*="box"] strong,
+        .memo-container div[class*="card"] strong {
+            color: var(--text-title) !important;
+        }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-sans) !important;
+            font-style: italic !important;
+            font-size: 0.96rem !important;
+            line-height: 1.68 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
+        .highlight, mark {
+            background: rgba(201, 154, 117, 0.16) !important;
+            color: #E2DDD5 !important;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* FINANCIAL METRIC CARDS & STAT GRIDS */
+        .metrics-grid, .stats-grid, .grid-3, .grid-4, .grid-2, .metric-grid {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+            gap: 16px !important;
+            margin: 28px 0 !important;
+        }
+        .metric-card, .stat-card, div[class*="metric-box"], div[class*="stat-box"], div[class*="kpi-card"] {
+            background: var(--bg-subpanel) !important;
+            background-color: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-radius: 10px !important;
+            padding: 18px 20px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            box-sizing: border-box !important;
+        }
+        .metric-label, .stat-label, .kpi-label {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            color: var(--text-secondary) !important;
+            margin-bottom: 6px !important;
+        }
+        .metric-value, .stat-value, .kpi-value {
+            font-family: var(--font-mono);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-title);
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 4px;
+            white-space: nowrap;
+        }
+        .metric-delta, .metric-sub, .stat-sub, .kpi-sub {
+            font-family: var(--font-mono) !important;
+            font-size: 0.82rem !important;
+            color: var(--accent-warm) !important;
+        }
+
+        /* EMBEDDED IMAGES, CHARTS & VISUAL INFOGRAPHICS */
+        .figure-container, figure {
+            margin: 32px 0 !important;
+            text-align: center !important;
+            background: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-radius: 12px !important;
+            padding: 16px !important;
+            overflow: hidden !important;
+        }
+        .memo-container img {
+            max-width: 100% !important;
+            height: auto !important;
+            border-radius: 8px !important;
+            display: block !important;
+            margin: 0 auto !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+        }
+        .figure-caption, figcaption {
+            font-family: var(--font-sans) !important;
+            font-size: 0.8rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 10px !important;
+            text-align: center !important;
+        }
+
+        /* Evolution Update Highlight Banner at top of Memo */
+        .update-banner-box {
+            background: #1C1B18 !important;
+            border: 1px solid rgba(201, 154, 117, 0.3) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 12px !important;
+            padding: 24px 28px !important;
+            margin-bottom: 36px !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .update-banner-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 14px !important;
+            padding-bottom: 10px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
+        }
+        .update-banner-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.76rem !important;
+            font-weight: 600 !important;
+            color: var(--accent-warm) !important;
+            letter-spacing: 0.04em !important;
+            text-transform: uppercase !important;
+        }
+        .update-trigger-pill {
+            font-family: var(--font-mono) !important;
+            font-size: 0.74rem !important;
+            color: var(--text-secondary) !important;
+            background: var(--bg-subpanel) !important;
+            padding: 3px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid var(--border-color) !important;
+        }
+        .update-banner-title {
+            font-family: var(--font-sans) !important;
+            font-size: 1.15rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            margin-bottom: 8px !important;
+            letter-spacing: -0.015em !important;
+        }
+        .update-banner-desc {
+            font-family: var(--font-sans) !important;
+            font-size: 0.94rem !important;
+            line-height: 1.68 !important;
+            color: var(--text-body) !important;
+        }
+
+        /* History */
+        .history-entry {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 28px 32px;
+            margin-bottom: 20px;
+        }
+        .history-entry-active { border-color: rgba(201, 154, 117, 0.35); }
+        .history-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+        .history-tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .history-time { color: var(--text-secondary); font-size: 0.88rem; font-family: var(--font-sans); }
+        .history-price { font-family: var(--font-mono); font-size: 0.92rem; }
+
+        .diff-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) { .diff-grid { grid-template-columns: 1fr; } }
+        .diff-box {
+            padding: 18px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .diff-prev { background: rgba(196, 114, 108, 0.05); border-color: rgba(196, 114, 108, 0.18); }
+        .diff-now { background: rgba(125, 157, 129, 0.05); border-color: rgba(125, 157, 129, 0.18); }
+        .diff-label { font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+        .diff-prev .diff-label { color: var(--accent-red); }
+        .diff-now .diff-label { color: var(--accent-green); }
+        .diff-text { font-size: 1.02rem; color: var(--text-body); line-height: 1.65; }
+
+        /* Pills */
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 11px;
+            border-radius: 9999px;
+            font-size: 0.72rem;
+            font-family: var(--font-sans);
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+        }
+        .pill-active { background: rgba(201, 154, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.45); font-weight: 600; box-shadow: 0 0 10px rgba(201, 154, 117, 0.06); }
+        .pill-neutral { background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); font-weight: 500; }
+        .pill-alert { background: rgba(191, 160, 117, 0.14); color: var(--accent-warm); border: 1px solid rgba(191, 160, 117, 0.28); }
+
+        .btn-subtle {
+            background: var(--bg-subpanel);
+            color: var(--text-title);
+            border: 1px solid var(--border-color);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            padding: 7px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .btn-subtle:hover { background: var(--bg-hover); }
+
+        .snapshot-drawer { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color); }
+
+        /* Subtle Hinge-style Status Pulse Beacon */
+        .status-beacon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 9px;
+            height: 9px;
+            margin-left: 7px;
+            vertical-align: middle;
+            cursor: help;
+        }
+        .beacon-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            position: relative;
+            z-index: 2;
+        }
+        .beacon-ping {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            animation: beacon-ripple 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+            z-index: 1;
+        }
+        .beacon-buy .beacon-dot { background-color: #10b981; box-shadow: 0 0 6px rgba(16, 185, 129, 0.7); }
+        .beacon-buy .beacon-ping { background-color: rgba(16, 185, 129, 0.45); }
+        .beacon-hold .beacon-dot { background-color: #f59e0b; box-shadow: 0 0 6px rgba(245, 158, 11, 0.7); }
+        .beacon-hold .beacon-ping { background-color: rgba(245, 158, 11, 0.45); }
+        .beacon-caution .beacon-dot { background-color: #f97316; box-shadow: 0 0 6px rgba(249, 115, 22, 0.7); }
+        .beacon-caution .beacon-ping { background-color: rgba(249, 115, 22, 0.45); }
+        .beacon-avoid .beacon-dot { background-color: #ef4444; box-shadow: 0 0 6px rgba(239, 68, 68, 0.7); }
+        .beacon-avoid .beacon-ping { background-color: rgba(239, 68, 68, 0.45); }
+        @keyframes beacon-ripple {
+            0% { transform: scale(0.9); opacity: 0.85; }
+            70% { transform: scale(2.5); opacity: 0; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+
+        .pos { color: var(--accent-green); }
+        .neg { color: var(--accent-red); }
+
+        /* Info Circle Button */
+        .btn-info-circle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            color: var(--text-dim);
+            font-size: 0.72rem;
+            font-family: var(--font-mono);
+            cursor: pointer;
+            margin-left: 6px;
+            vertical-align: middle;
+            transition: all 0.15s ease;
+            padding: 0;
+            line-height: 1;
+        }
+        .btn-info-circle:hover {
+            background: var(--bg-hover);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            transform: scale(1.1);
+        }
+
+        /* Modal */
+        .modal-shade {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(10, 10, 9, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+        }
+        .modal-body-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-focus);
+            border-radius: 16px;
+            max-width: 720px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 36px;
+            position: relative;
+        }
+        .modal-x {
+            position: absolute;
+            top: 20px; right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-size: 1.4rem;
+            cursor: pointer;
+        }
+        .modal-x:hover { color: var(--text-title); }
+        .btn-primary {
+            background: var(--accent-warm); color: #141312; font-family: var(--font-sans); font-weight: 500;
+            padding: 10px 20px; border-radius: 6px; text-decoration: none; display: inline-flex; align-items: center; border: none; cursor: pointer;
+            transition: all 0.15s;
+        }
+        .btn-primary:hover { background: #DDB495; }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="container nav-inner">
+            <a href="../index.html" class="nav-back">← AlphaThesis</a>
+            <span style="font-size: 0.82rem; color: var(--text-dim); font-family: var(--font-sans);">AML RESEARCH</span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Hero Deck -->
+        <section class="hero-deck">
+            <div class="hero-top-row">
+                <div>
+                    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                        <div class="ticker-logo-wrap" style="width:32px; height:32px; min-width:32px; min-height:32px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/AML" alt="AML" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:13px;">AM</span></div>
+                        <span class="ticker-symbol">AML</span>
+                        <span class="pill pill-conviction">Turnaround Risk</span>
+                        <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="View Investment Taxonomy & Labels Legend">ⓘ</button>
+                    </div>
+                    <div class="company-meta">AML</div>
+                </div>
+                <div class="price-callout">
+                    <div class="price-number">$0.45</div>
+                    <div class="price-sub neg">
+                        -4.26%
+                    </div>
+                </div>
+            </div>
+
+            <!-- Native Multi-Range Interactive Area Chart -->
+            
+    <div class="native-chart-wrap" id="chart-container" style="position: relative; overflow: hidden;">
+        <div class="chart-top-bar">
+            <div id="chart-live-val" class="chart-live-val">
+                <span id="tooltip-date">Today</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$0.45</strong>
+                <span id="tooltip-delta" class="pos" style="font-size: 0.76rem; margin-left: 6px;"></span>
+            </div>
+            <div class="chart-range-pills">
+                <button class="range-pill active" onclick="switchChartRange('1Y')">1Y</button>
+                <button class="range-pill" onclick="switchChartRange('5Y')">5Y</button>
+                <button class="range-pill" onclick="switchChartRange('10Y')">10Y</button>
+                <button class="range-pill" onclick="switchChartRange('MAX')">MAX</button>
+            </div>
+        </div>
+
+        <div style="position: relative; width: 100%; height: 260px;">
+            <svg id="interactive-svg" viewBox="0 0 900 260" preserveAspectRatio="none" class="chart-svg" style="width: 100%; height: 100%;">
+                <defs>
+                    <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#D4A373" stop-opacity="0.18" />
+                        <stop offset="100%" stop-color="#D4A373" stop-opacity="0.0" />
+                    </linearGradient>
+                </defs>
+                
+                <!-- Background Grid Reference Lines -->
+                <line x1="20" y1="25" x2="880" y2="25" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
+                <line x1="20" y1="130.0" x2="880" y2="130.0" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
+                <line x1="20" y1="235" x2="880" y2="235" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
+
+                <!-- Area & Line Paths -->
+                <path id="chart-area-path" d="" fill="url(#area-grad)" />
+                <path id="chart-line-path" d="" fill="none" stroke="#D4A373" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+
+                <!-- Vertical Crosshair Line -->
+                <line id="crosshair-v" x1="0" y1="0" x2="0" y2="260" stroke="rgba(212,163,115,0.45)" stroke-width="1.2" stroke-dasharray="3 3" style="display: none;" />
+                
+                <!-- Horizontal Crosshair Line -->
+                <line id="crosshair-h" x1="20" y1="0" x2="880" y2="0" stroke="rgba(212,163,115,0.45)" stroke-width="1.2" stroke-dasharray="3 3" style="display: none;" />
+
+                <!-- Hover Halo & Dot -->
+                <circle id="hover-dot-outer" r="8.5" fill="rgba(212,163,115,0.22)" style="display: none;" />
+                <circle id="hover-dot" r="4.5" fill="#D4A373" stroke="#161513" stroke-width="2.5" style="display: none;" />
+            </svg>
+
+            <!-- Floating X-Axis Date Badge -->
+            <div id="chart-badge-x" style="display:none; position:absolute; bottom:4px; background:#111110; color:#EAE6E1; border:1px solid var(--accent-warm); border-radius:4px; padding:2px 8px; font-family:var(--font-mono); font-size:0.70rem; font-weight:600; transform:translateX(-50%); pointer-events:none; white-space:nowrap; box-shadow:0 4px 12px rgba(0,0,0,0.6); z-index:20;"></div>
+
+            <!-- Floating Y-Axis Price Badge -->
+            <div id="chart-badge-y" style="display:none; position:absolute; right:8px; background:var(--accent-warm); color:#161513; border-radius:4px; padding:2px 8px; font-family:var(--font-mono); font-size:0.74rem; font-weight:700; transform:translateY(-50%); pointer-events:none; white-space:nowrap; box-shadow:0 3px 10px rgba(0,0,0,0.5); z-index:20;"></div>
+        </div>
+
+        <div class="chart-labels">
+            <span id="chart-start-lbl">Start ($0.41)</span>
+            <span id="chart-range-title">1-Year Historical Range</span>
+            <span id="chart-end-lbl">Today ($0.45)</span>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const allDatasets = {"1Y": [{"date": "Start", "price": 0.41}, {"date": "Mid", "price": 0.43}, {"date": "Today", "price": 0.45}], "5Y": [{"date": "Start", "price": 0.41}, {"date": "Mid", "price": 0.43}, {"date": "Today", "price": 0.45}], "10Y": [{"date": "Aug 31, 2016", "price": 66.5}, {"date": "Sep 30, 2016", "price": 0.08}, {"date": "Oct 31, 2016", "price": 57.0}, {"date": "Nov 30, 2016", "price": 0.09}, {"date": "Dec 31, 2016", "price": 66.1}, {"date": "Jan 31, 2017", "price": 60.45}, {"date": "Feb 28, 2017", "price": 61.0}, {"date": "Mar 31, 2017", "price": 0.09}, {"date": "Apr 30, 2017", "price": 0.11}, {"date": "May 31, 2017", "price": 0.09}, {"date": "Jun 30, 2017", "price": 45.0}, {"date": "Jul 31, 2017", "price": 48.83}, {"date": "Aug 31, 2017", "price": 0.11}, {"date": "Sep 30, 2017", "price": 0.27}, {"date": "Oct 31, 2017", "price": 0.43}, {"date": "Nov 30, 2017", "price": 53.95}, {"date": "Dec 31, 2017", "price": 56.5}], "MAX": [{"date": "Jul 31, 1996", "price": 360.0}, {"date": "Aug 31, 1996", "price": 558.0}, {"date": "Sep 30, 1996", "price": 279.0}, {"date": "Oct 31, 1996", "price": 306.0}, {"date": "Nov 30, 1996", "price": 288.0}, {"date": "Dec 31, 1996", "price": 333.0}, {"date": "Jan 31, 1997", "price": 243.0}, {"date": "Feb 28, 1997", "price": 270.0}, {"date": "Mar 31, 1997", "price": 171.0}, {"date": "Apr 30, 1997", "price": 135.0}, {"date": "May 31, 1997", "price": 126.0}, {"date": "Jun 30, 1997", "price": 108.0}, {"date": "Jul 31, 1997", "price": 90.0}, {"date": "Aug 31, 1997", "price": 90.0}, {"date": "Sep 30, 1997", "price": 72.0}, {"date": "Oct 31, 1997", "price": 63.0}, {"date": "Nov 30, 1997", "price": 36.0}, {"date": "Dec 31, 1997", "price": 72.0}, {"date": "Jan 31, 1998", "price": 180.0}, {"date": "Feb 28, 1998", "price": 81.0}, {"date": "Mar 31, 1998", "price": 99.0}, {"date": "Apr 30, 1998", "price": 72.0}, {"date": "May 31, 1998", "price": 54.0}, {"date": "Jun 30, 1998", "price": 36.0}, {"date": "Jul 31, 1998", "price": 18.0}, {"date": "Aug 31, 1998", "price": 27.0}, {"date": "Sep 30, 1998", "price": 27.0}, {"date": "Oct 31, 1998", "price": 27.0}, {"date": "Nov 30, 1998", "price": 18.0}, {"date": "Dec 31, 1998", "price": 36.0}, {"date": "Jan 31, 1999", "price": 36.0}, {"date": "Feb 28, 1999", "price": 45.0}, {"date": "Mar 31, 1999", "price": 90.0}, {"date": "Apr 30, 1999", "price": 90.0}, {"date": "May 31, 1999", "price": 90.0}, {"date": "Jun 30, 1999", "price": 108.0}, {"date": "Jul 31, 1999", "price": 108.0}, {"date": "Aug 31, 1999", "price": 108.0}, {"date": "Sep 30, 1999", "price": 72.0}, {"date": "Oct 31, 1999", "price": 36.0}, {"date": "Nov 30, 1999", "price": 36.0}, {"date": "Dec 31, 1999", "price": 27.0}, {"date": "Jan 31, 2000", "price": 90.0}, {"date": "Feb 29, 2000", "price": 63.0}, {"date": "Mar 31, 2000", "price": 81.0}, {"date": "Apr 30, 2000", "price": 81.0}, {"date": "May 31, 2000", "price": 63.0}, {"date": "Jun 30, 2000", "price": 45.0}, {"date": "Jul 31, 2000", "price": 63.0}, {"date": "Aug 31, 2000", "price": 72.0}, {"date": "Sep 30, 2000", "price": 27.0}, {"date": "Oct 31, 2000", "price": 926.1}, {"date": "Nov 30, 2000", "price": 36.0}, {"date": "Dec 31, 2000", "price": 1157.4}, {"date": "Jan 31, 2001", "price": 1157.4}, {"date": "Feb 28, 2001", "price": 1851.3}, {"date": "Mar 31, 2001", "price": 926.1}, {"date": "Apr 30, 2001", "price": 926.1}, {"date": "May 31, 2001", "price": 693.9}, {"date": "Jun 30, 2001", "price": 693.9}, {"date": "Jul 31, 2001", "price": 693.9}, {"date": "Aug 31, 2001", "price": 462.6}, {"date": "Sep 30, 2001", "price": 18.0}, {"date": "Oct 31, 2001", "price": 9.0}, {"date": "Nov 30, 2001", "price": 231.3}, {"date": "Dec 31, 2001", "price": 231.3}, {"date": "Jan 31, 2002", "price": 18.0}, {"date": "Feb 28, 2002", "price": 9.0}, {"date": "Mar 31, 2002", "price": 462.6}, {"date": "Apr 30, 2002", "price": 693.9}, {"date": "May 31, 2002", "price": 926.1}, {"date": "Jun 30, 2002", "price": 693.9}, {"date": "Jul 31, 2002", "price": 693.9}, {"date": "Aug 31, 2002", "price": 18.0}, {"date": "Sep 30, 2002", "price": 18.0}, {"date": "Oct 31, 2002", "price": 462.6}, {"date": "Nov 30, 2002", "price": 693.9}, {"date": "Dec 31, 2002", "price": 693.9}, {"date": "Jan 31, 2003", "price": 693.9}, {"date": "Feb 28, 2003", "price": 231.3}, {"date": "Mar 31, 2003", "price": 231.3}, {"date": "Apr 30, 2003", "price": 462.6}, {"date": "May 31, 2003", "price": 693.9}, {"date": "Jun 30, 2003", "price": 462.6}, {"date": "Jul 31, 2003", "price": 231.3}, {"date": "Aug 31, 2003", "price": 926.1}, {"date": "Sep 30, 2003", "price": 926.1}, {"date": "Oct 31, 2003", "price": 3240.0}, {"date": "Nov 30, 2003", "price": 103.5}, {"date": "Dec 31, 2003", "price": 126.0}, {"date": "Jan 31, 2004", "price": 1851.3}, {"date": "Feb 29, 2004", "price": 90.0}, {"date": "Mar 31, 2004", "price": 94.5}, {"date": "Apr 30, 2004", "price": 54.0}, {"date": "May 31, 2004", "price": 2777.4}, {"date": "Jun 30, 2004", "price": 94.5}, {"date": "Jul 31, 2004", "price": 144.0}, {"date": "Aug 31, 2004", "price": 3933.9}, {"date": "Sep 30, 2004", "price": 126.0}, {"date": "Oct 31, 2004", "price": 2198.7}, {"date": "Nov 30, 2004", "price": 90.0}, {"date": "Dec 31, 2004", "price": 1620.0}, {"date": "Jan 31, 2005", "price": 1736.1}, {"date": "Feb 28, 2005", "price": 1620.0}, {"date": "Mar 31, 2005", "price": 72.0}, {"date": "Apr 30, 2005", "price": 1851.3}, {"date": "May 31, 2005", "price": 1388.7}, {"date": "Jun 30, 2005", "price": 1620.0}, {"date": "Jul 31, 2005", "price": 54.0}, {"date": "Aug 31, 2005", "price": 54.0}, {"date": "Sep 30, 2005", "price": 54.0}, {"date": "Oct 31, 2005", "price": 54.0}, {"date": "Nov 30, 2005", "price": 69.0}, {"date": "Dec 31, 2005", "price": 64.5}, {"date": "Jan 31, 2006", "price": 141.0}, {"date": "Feb 28, 2006", "price": 120.0}, {"date": "Mar 31, 2006", "price": 114.0}, {"date": "Apr 30, 2006", "price": 132.0}, {"date": "May 31, 2006", "price": 114.0}, {"date": "Jun 30, 2006", "price": 88.5}, {"date": "Jul 31, 2006", "price": 222.0}, {"date": "Aug 31, 2006", "price": 148.5}, {"date": "Sep 30, 2006", "price": 234.0}, {"date": "Oct 31, 2006", "price": 267.0}, {"date": "Nov 30, 2006", "price": 297.0}, {"date": "Dec 31, 2006", "price": 195.0}, {"date": "Jan 31, 2007", "price": 252.0}, {"date": "Feb 28, 2007", "price": 210.0}, {"date": "Mar 31, 2007", "price": 168.0}, {"date": "Apr 30, 2007", "price": 165.0}, {"date": "May 31, 2007", "price": 162.0}, {"date": "Jun 30, 2007", "price": 162.0}, {"date": "Jul 31, 2007", "price": 109.5}, {"date": "Aug 31, 2007", "price": 162.0}, {"date": "Sep 30, 2007", "price": 195.0}, {"date": "Oct 31, 2007", "price": 186.0}, {"date": "Nov 30, 2007", "price": 207.0}, {"date": "Dec 31, 2007", "price": 180.0}, {"date": "Jan 31, 2008", "price": 264.0}, {"date": "Feb 29, 2008", "price": 195.0}, {"date": "Mar 31, 2008", "price": 159.0}, {"date": "Apr 30, 2008", "price": 156.0}, {"date": "May 31, 2008", "price": 135.0}, {"date": "Jun 30, 2008", "price": 0.18}, {"date": "Jul 31, 2008", "price": 51.0}, {"date": "Aug 31, 2008", "price": 27.0}, {"date": "Sep 30, 2008", "price": 12.0}, {"date": "Oct 31, 2008", "price": 9.0}, {"date": "Nov 30, 2008", "price": 9.0}, {"date": "Dec 31, 2008", "price": 7.5}, {"date": "Jan 31, 2009", "price": 7.5}, {"date": "Feb 28, 2009", "price": 3.0}, {"date": "Mar 31, 2009", "price": 6.0}, {"date": "Apr 30, 2009", "price": 3.6}, {"date": "May 31, 2009", "price": 2.4}, {"date": "Jun 30, 2009", "price": 2.3}, {"date": "Jul 31, 2009", "price": 2.4}, {"date": "Aug 31, 2009", "price": 2.6}, {"date": "Sep 30, 2009", "price": 2.0}, {"date": "Oct 31, 2009", "price": 3.1}, {"date": "Nov 30, 2009", "price": 3.3}, {"date": "Dec 31, 2009", "price": 0.09}, {"date": "Jan 31, 2010", "price": 4.6}, {"date": "Feb 28, 2010", "price": 0.07}, {"date": "Mar 31, 2010", "price": 2.9}, {"date": "Apr 30, 2010", "price": 0.08}, {"date": "May 31, 2010", "price": 0.07}, {"date": "Jun 30, 2010", "price": 2.1}, {"date": "Jul 31, 2010", "price": 3.4}, {"date": "Aug 31, 2010", "price": 3.4}, {"date": "Sep 30, 2010", "price": 3.2}, {"date": "Oct 31, 2010", "price": 3.5}, {"date": "Nov 30, 2010", "price": 5.4}, {"date": "Dec 31, 2010", "price": 6.2}, {"date": "Jan 31, 2011", "price": 4.0}, {"date": "Feb 28, 2011", "price": 3.7}, {"date": "Mar 31, 2011", "price": 3.4}, {"date": "Apr 30, 2011", "price": 3.3}, {"date": "May 31, 2011", "price": 2.4}, {"date": "Jun 30, 2011", "price": 3.5}, {"date": "Jul 31, 2011", "price": 3.1}, {"date": "Aug 31, 2011", "price": 1.4}, {"date": "Sep 30, 2011", "price": 1.3}, {"date": "Oct 31, 2011", "price": 0.15}, {"date": "Nov 30, 2011", "price": 0.15}, {"date": "Dec 31, 2011", "price": 0.15}, {"date": "Jan 31, 2012", "price": 0.15}, {"date": "Feb 29, 2012", "price": 0.15}, {"date": "Mar 31, 2012", "price": 0.15}, {"date": "Apr 30, 2012", "price": 0.15}, {"date": "May 31, 2012", "price": 0.15}, {"date": "Jun 30, 2012", "price": 0.15}, {"date": "Jul 31, 2012", "price": 0.15}, {"date": "Aug 31, 2012", "price": 0.3}, {"date": "Sep 30, 2012", "price": 0.2}, {"date": "Oct 31, 2012", "price": 0.3}, {"date": "Nov 30, 2012", "price": 0.2}, {"date": "Dec 31, 2012", "price": 0.15}, {"date": "Jan 31, 2013", "price": 0.12}, {"date": "Feb 28, 2013", "price": 0.09}, {"date": "Mar 31, 2013", "price": 0.06}, {"date": "Apr 30, 2013", "price": 0.05}, {"date": "May 31, 2013", "price": 0.05}, {"date": "Jun 30, 2013", "price": 0.05}, {"date": "Jul 31, 2013", "price": 0.07}, {"date": "Aug 31, 2013", "price": 0.07}, {"date": "Sep 30, 2013", "price": 0.05}, {"date": "Oct 31, 2013", "price": 0.04}, {"date": "Nov 30, 2013", "price": 0.03}, {"date": "Dec 31, 2013", "price": 0.04}, {"date": "Jan 31, 2014", "price": 0.05}, {"date": "Feb 28, 2014", "price": 0.05}, {"date": "Mar 31, 2014", "price": 0.06}, {"date": "Apr 30, 2014", "price": 0.06}, {"date": "May 31, 2014", "price": 0.1}, {"date": "Jun 30, 2014", "price": 35.0}, {"date": "Jul 31, 2014", "price": 37.7}, {"date": "Aug 31, 2014", "price": 40.7}, {"date": "Sep 30, 2014", "price": 43.49}, {"date": "Oct 31, 2014", "price": 42.4}, {"date": "Nov 30, 2014", "price": 0.1}, {"date": "Dec 31, 2014", "price": 47.79}, {"date": "Jan 31, 2015", "price": 49.1}, {"date": "Feb 28, 2015", "price": 53.9}, {"date": "Mar 31, 2015", "price": 0.03}, {"date": "Apr 30, 2015", "price": 0.04}, {"date": "May 31, 2015", "price": 56.0}, {"date": "Jun 30, 2015", "price": 0.02}, {"date": "Jul 31, 2015", "price": 0.03}, {"date": "Aug 31, 2015", "price": 0.01}, {"date": "Sep 30, 2015", "price": 0.03}, {"date": "Oct 31, 2015", "price": 0.01}, {"date": "Nov 30, 2015", "price": 50.8}, {"date": "Dec 31, 2015", "price": 49.5}, {"date": "Jan 31, 2016", "price": 0.05}, {"date": "Feb 29, 2016", "price": 0.06}, {"date": "Mar 31, 2016", "price": 0.07}, {"date": "Apr 30, 2016", "price": 0.07}, {"date": "May 31, 2016", "price": 55.5}, {"date": "Jun 30, 2016", "price": 0.08}, {"date": "Jul 31, 2016", "price": 0.09}, {"date": "Aug 31, 2016", "price": 66.5}, {"date": "Sep 30, 2016", "price": 0.08}, {"date": "Oct 31, 2016", "price": 57.0}, {"date": "Nov 30, 2016", "price": 0.09}, {"date": "Dec 31, 2016", "price": 66.1}, {"date": "Jan 31, 2017", "price": 60.45}, {"date": "Feb 28, 2017", "price": 61.0}, {"date": "Mar 31, 2017", "price": 0.09}, {"date": "Apr 30, 2017", "price": 0.11}, {"date": "May 31, 2017", "price": 0.09}, {"date": "Jun 30, 2017", "price": 45.0}, {"date": "Jul 31, 2017", "price": 48.83}, {"date": "Aug 31, 2017", "price": 0.11}, {"date": "Sep 30, 2017", "price": 0.27}, {"date": "Oct 31, 2017", "price": 0.43}, {"date": "Nov 30, 2017", "price": 53.95}, {"date": "Dec 31, 2017", "price": 56.5}]};
+        let currentRangeKey = '1Y';
+        let currentPoints = allDatasets[currentRangeKey] || [];
+        let currentSvgCoords = [];
+
+        const width = 900;
+        const height = 260;
+        const padX = 20;
+        const padY = 25;
+
+        const container = document.getElementById('chart-container');
+        const svg = document.getElementById('interactive-svg');
+        const linePath = document.getElementById('chart-line-path');
+        const areaPath = document.getElementById('chart-area-path');
+        const tooltipDate = document.getElementById('tooltip-date');
+        const tooltipPrice = document.getElementById('tooltip-price');
+        const tooltipDelta = document.getElementById('tooltip-delta');
+        const crosshairV = document.getElementById('crosshair-v');
+        const crosshairH = document.getElementById('crosshair-h');
+        const dotOuter = document.getElementById('hover-dot-outer');
+        const dot = document.getElementById('hover-dot');
+        const badgeX = document.getElementById('chart-badge-x');
+        const badgeY = document.getElementById('chart-badge-y');
+        const startLbl = document.getElementById('chart-start-lbl');
+        const endLbl = document.getElementById('chart-end-lbl');
+        const rangeTitle = document.getElementById('chart-range-title');
+
+        // Hero price elements
+        const heroPriceNum = document.querySelector('.price-number');
+        const heroPriceSub = document.querySelector('.price-sub');
+        const defaultHeroPrice = heroPriceNum ? heroPriceNum.innerText : '';
+        const defaultHeroSub = heroPriceSub ? heroPriceSub.innerText : '';
+        const defaultHeroSubClass = heroPriceSub ? heroPriceSub.className : '';
+
+        function recalculatePaths(points) {
+            if (!points || points.length < 2) return;
+            const prices = points.map(p => p.price);
+            const minP = Math.min(...prices);
+            const maxP = Math.max(...prices);
+            const pRange = Math.max(maxP - minP, 0.01);
+            const n = points.length;
+
+            currentSvgCoords = [];
+            for (let i = 0; i < n; i++) {
+                const x = padX + (i / (n - 1)) * (width - 2 * padX);
+                const y = height - padY - ((points[i].price - minP) / pRange) * (height - 2 * padY);
+                currentSvgCoords.push([Math.round(x * 10) / 10, Math.round(y * 10) / 10]);
+            }
+
+            const lineD = 'M ' + currentSvgCoords.map(c => c[0] + ',' + c[1]).join(' L ');
+            const firstC = currentSvgCoords[0];
+            const lastC = currentSvgCoords[currentSvgCoords.length - 1];
+            const areaD = lineD + ' L ' + lastC[0] + ',' + height + ' L ' + firstC[0] + ',' + height + ' Z';
+
+            linePath.setAttribute('d', lineD);
+            areaPath.setAttribute('d', areaD);
+
+            startLbl.innerText = points[0].date + ' ($' + minP.toFixed(2) + ')';
+            endLbl.innerText = points[n - 1].date + ' ($' + points[n - 1].price.toFixed(2) + ')';
+            
+            tooltipDate.innerText = points[n - 1].date;
+            tooltipPrice.innerText = '$' + points[n - 1].price.toFixed(2);
+            if (tooltipDelta) tooltipDelta.innerText = '';
+
+            const titles = { '1Y': '1-Year Range', '5Y': '5-Year Range', '10Y': '10-Year Range', 'MAX': 'All-Time Historical Range' };
+            rangeTitle.innerText = titles[currentRangeKey] || currentRangeKey + ' Range';
+        }
+
+        window.switchChartRange = function(rangeKey) {
+            if (!allDatasets[rangeKey]) return;
+            currentRangeKey = rangeKey;
+            currentPoints = allDatasets[rangeKey];
+            
+            document.querySelectorAll('.range-pill').forEach(btn => {
+                if (btn.innerText.trim() === rangeKey) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            recalculatePaths(currentPoints);
+            hideHover();
+        };
+
+        function updateHover(e) {
+            if (!currentPoints.length || !currentSvgCoords.length) return;
+            const rect = svg.getBoundingClientRect();
+            const mouseX = Math.max(0, Math.min(rect.width, e.clientX - rect.left));
+            const pct = mouseX / rect.width;
+            const idx = Math.min(currentPoints.length - 1, Math.max(0, Math.round(pct * (currentPoints.length - 1))));
+            
+            const pt = currentPoints[idx];
+            const coord = currentSvgCoords[idx];
+            if (!pt || !coord) return;
+
+            // Vertical crosshair
+            crosshairV.setAttribute('x1', coord[0]);
+            crosshairV.setAttribute('x2', coord[0]);
+            crosshairV.style.display = 'block';
+
+            // Horizontal crosshair
+            crosshairH.setAttribute('y1', coord[1]);
+            crosshairH.setAttribute('y2', coord[1]);
+            crosshairH.style.display = 'block';
+
+            // Dot & Halo
+            dotOuter.setAttribute('cx', coord[0]);
+            dotOuter.setAttribute('cy', coord[1]);
+            dotOuter.style.display = 'block';
+
+            dot.setAttribute('cx', coord[0]);
+            dot.setAttribute('cy', coord[1]);
+            dot.style.display = 'block';
+
+            // Floating X-Axis Badge (CSS coords)
+            const cssX = (coord[0] / width) * rect.width;
+            badgeX.style.left = cssX + 'px';
+            badgeX.innerText = pt.date;
+            badgeX.style.display = 'block';
+
+            // Floating Y-Axis Badge (CSS coords)
+            const cssY = (coord[1] / height) * rect.height;
+            badgeY.style.top = cssY + 'px';
+            badgeY.innerText = '$' + pt.price.toFixed(2);
+            badgeY.style.display = 'block';
+
+            // Calculate range delta
+            const basePrice = currentPoints[0].price;
+            const deltaPct = ((pt.price - basePrice) / basePrice) * 100;
+            const deltaClass = deltaPct >= 0 ? 'pos' : 'neg';
+            const deltaSign = deltaPct >= 0 ? '+' : '';
+
+            // Tooltop header
+            tooltipDate.innerText = pt.date;
+            tooltipPrice.innerText = '$' + pt.price.toFixed(2);
+            if (tooltipDelta) {
+                tooltipDelta.className = deltaClass;
+                tooltipDelta.innerText = `${deltaSign}${deltaPct.toFixed(2)}% vs Range Start`;
+            }
+
+            // Real-time Hero Scrubbing
+            if (heroPriceNum) {
+                heroPriceNum.innerText = '$' + pt.price.toFixed(2);
+            }
+            if (heroPriceSub) {
+                heroPriceSub.className = 'price-sub ' + deltaClass;
+                heroPriceSub.innerText = `${deltaSign}${deltaPct.toFixed(2)}%`;
+            }
+        }
+
+        function hideHover() {
+            crosshairV.style.display = 'none';
+            crosshairH.style.display = 'none';
+            dotOuter.style.display = 'none';
+            dot.style.display = 'none';
+            badgeX.style.display = 'none';
+            badgeY.style.display = 'none';
+            if (tooltipDelta) tooltipDelta.innerText = '';
+
+            if (currentPoints.length) {
+                tooltipDate.innerText = currentPoints[currentPoints.length - 1].date;
+                tooltipPrice.innerText = '$' + currentPoints[currentPoints.length - 1].price.toFixed(2);
+            }
+
+            if (heroPriceNum && defaultHeroPrice) {
+                heroPriceNum.innerText = defaultHeroPrice;
+            }
+            if (heroPriceSub && defaultHeroSub) {
+                heroPriceSub.className = defaultHeroSubClass;
+                heroPriceSub.innerText = defaultHeroSub;
+            }
+        }
+
+        container.addEventListener('mousemove', updateHover);
+        container.addEventListener('mouseleave', hideHover);
+        container.addEventListener('touchstart', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
+        container.addEventListener('touchmove', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
+        container.addEventListener('touchend', hideHover);
+
+        recalculatePaths(currentPoints);
+    })();
+    </script>
+    
+
+            <!-- Key Metrics Grid -->
+            <div class="metrics-grid">
+                <div class="metric-cell">
+                    <div class="metric-label">Fair Value</div>
+                    <div class="metric-value" style="color: var(--accent-warm);">$0.55</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Bear Target</div>
+                    <div class="metric-value" style="color: var(--accent-red);">$0.15 (-68.1%)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Base Target</div>
+                    <div class="metric-value">$0.55 (+17.0%)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Bull Target</div>
+                    <div class="metric-value" style="color: var(--accent-green);">$1.10 (+134.0%)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Corridor</div>
+                    <div class="metric-value" style="font-size: 1.00rem; font-family: var(--font-mono); color: var(--text-title);">$0.30 ⇄ $0.70</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Catalyst</div>
+                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">2026-11-05</div>
+                    <div class="metric-delta" style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 2px;">Q3 '26 Trading Update</div>
+                </div>
+                
+    <div class="metric-cell">
+        <div class="metric-label">Float</div>
+        <div class="metric-value" style="white-space: nowrap !important;">78.5%</div>
+        <div class="metric-subtext">Yew Tree Consortium · Saudi Public Investment Fund</div>
+    </div>
+    
+                
+    <div class="metric-cell">
+        <div class="metric-label">Insiders</div>
+        <div class="metric-value" style="color: var(--accent-warm); font-family: var(--font-sans) !important; font-size: 1.05rem !important; font-weight: 600 !important; white-space: nowrap !important; letter-spacing: -0.01em !important; overflow: hidden !important; text-overflow: ellipsis !important;">🟡 Cluster Buying</div>
+        <div class="metric-subtext">Routine management alignment</div>
+    </div>
+    
+            </div>
+        </section>
+
+        <!-- Navigation Tabs -->
+        <div class="tabs-header">
+            <button id="btn-tab-memo" class="tab-btn active" onclick="showTab('memo')">Investment Thesis</button>
+            <button id="btn-tab-history" class="tab-btn" onclick="showTab('history')">Evolution (0)</button>
+            <button id="btn-tab-ownership" class="tab-btn" onclick="showTab('ownership')">Ownership & Fund Intel</button>
+        </div>
+
+        <!-- Memo Content -->
+        <div id="tab-memo" class="tab-content active">
+            <article class="memo-container">
+                <h2>Section 1: Executive Summary &amp; Operating Reality</h2>
+<p>Aston Martin Lagonda Global Holdings plc (LSE: AML / OTC: ARGGY) presents a quintessential high-stakes operational turnaround: an iconic ultra-luxury automotive brand possessing immense pricing power and cinematic heritage, trapped beneath a severely overleveraged balance sheet. Under newly appointed CEO Adrian Hallmark (formerly CEO of Bentley), H1 2026 operational execution demonstrated initial validation of management's margin expansion thesis. H1 2026 revenue surged 38% year-over-year to £628.6 million (with Q2 revenue accelerating 62% to £358.2 million), propelled by a 21% expansion in total wholesale volumes to 2,331 units and the initial customer deliveries of over 220 Valhalla mid-engine plug-in hybrid (PHEV) supercars. Gross profit surged 68% to £212.5 million, driving gross margins up 590 basis points to 33.8%, demonstrating the significant operating leverage embedded in high-ASP Special models.</p>
+<p>However, the economic reality of the business remains dictated by its legacy capital structure. Aston Martin closed H1 2026 with £1.545 billion in net debt, resulting in an adjusted net leverage ratio of 8.9x EBITDA and an onerous annual cash interest burden expected to reach ~£160 million in FY 2026. To stave off near-term maturities and strengthen pro forma liquidity to £340 million, management completed a £550 million debt refinancing package in July 2026—comprising a £450 million Senior Secured Term Loan and a £100 million Delayed Draw Term Loan, alongside a £50 million facility from Lawrence Stroll's Yew Tree Consortium. Notably, securing this liquidity required encumbering 50.1% of non-automotive brand rights to Authentic Brands, highlighting the high cost of debt service under S&amp;P's distressed 'CCC+' credit rating. While Q2 free cash outflow narrowed sharply to £81.0 million (from £201.0 million in Q2 2025), organic free cash flow breakeven remains dependent on achieving full-year Valhalla target deliveries.</p>
+<p>From an owner's perspective, Aston Martin operates as a high-potential asset encumbered by structural cash burn. CEO Adrian Hallmark's transformation plan centers on establishing a disciplined production cadence, resolving core dealer inventory overstock (primarily DBX models in North America), and driving gross margins into the high-30% range for H2 2026. Strategic backing from Lawrence Stroll's Yew Tree Consortium (~28% stake), Saudi Arabia's Public Investment Fund (~18%), Geely (~17%), and Mercedes-Benz (~9%) provides critical institutional alignment, industrial technology access, and equity backstop support. The investment thesis hinges entirely on whether Valhalla cash generation can permanently cover the £160 million annual debt service hurdle or if debt obligations will trigger further dilutive equity recapitalizations.</p>
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">Q2 2026 Revenue</div>
+<div class="metric-value">£358.2M</div>
+<div class="metric-delta pos">+62.5% YoY</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">H1 2026 Gross Margin</div>
+<div class="metric-value">33.8%</div>
+<div class="metric-delta pos">+590 bps YoY</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Q2 Free Cash Flow</div>
+<div class="metric-value">-£81.0M</div>
+<div class="metric-delta pos">+59.7% YoY</div>
+</div>
+</div>
+<div class="executive-callout">
+<div class="exec-header"><span class="exec-badge">Executive Commentary</span></div>
+<p><em>"H1 2026 demonstrates that we are on track to deliver material financial improvement this year compared with 2025. Key to this has been the delivery of over 220 Valhallas, our first mid-engine PHEV supercar, which supported gross profit increasing by 68% to £213 million... The new £550 million debt financing completed in July significantly strengthens our liquidity, providing us with both additional resilience and further flexibility to execute our product plans... Full-year guidance remains unchanged as we target ~500 Valhalla deliveries, high-30% gross margins in H2, and approaching EBIT breakeven."</em></p>
+<p class="exec-attribution"><strong>Adrian Hallmark, Chief Executive Officer</strong> &amp; <strong>Douglas Lafferty, Chief Financial Officer</strong></p>
+</div>
+<h2>Section 2: Business Model Reality &amp; Competitive Moat</h2>
+<p>Aston Martin Lagonda operates as a boutique ultra-luxury original equipment manufacturer (OEM) positioned in the rarefied market segment between high-volume premium sports cars (e.g., Porsche) and ultra-exclusive hypercar specialists (e.g., Ferrari). The business generates revenue through three primary product tiers: Core Front-Engine GT/Sports Cars (DB12, Vantage, Vanquish), Luxury SUVs (DBX / DBX707, representing ~50% of volume), and Limited-Edition Specials / Mid-Engine Supercars (Valhalla, Valkyrie, Valen). In addition, the company monetizes high-margin options via its bespoke "Q by Aston Martin" personalization service, which generates gross margins exceeding 40% and contributes ~17% to core revenue.</p>
+<p>The unit economics of the business are highly bifurcated between Core models and Special vehicles:</p>
+<ul>
+<li><strong>Core &amp; SUV Unit Economics:</strong> Core average selling prices (ASPs) stand at ~£241,000 across GT sports cars and DBX SUVs. Core gross margins historically average 28%–32%, constrained by fixed manufacturing overhead and periodic dealer inventory support necessary to clear aged stock.</li>
+<li><strong>Specials &amp; Valhalla Unit Economics:</strong> The Valhalla PHEV supercar carries a base price exceeding £1.10 million ($1.45M+). Delivering ~500 Valhallas annually generates ~£550 million in revenue at gross margins estimated above 45%–50%. Because R&amp;D and tooling costs for Specials are amortized rapidly, each Valhalla delivery provides exceptional incremental contribution margin, acting as the primary engine for group cash flow generation.</li>
+</ul>
+<p>Aston Martin's customer switching costs and pricing power stem from brand heritage, limited production volume, and collector allocation dynamics. Price elasticity among ultra-high-net-worth individuals (UHNWIs) is exceptionally low. Furthermore, access to purchase highly coveted Specials (such as the 999-unit Valhalla or 150-unit Valen) requires customers to maintain a strong purchase history of core GT and DBX models, creating a powerful economic ecosystem that incentivizes multi-vehicle ownership and protects brand equity.</p>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Metric / Architecture</th>
+<th>Aston Martin Lagonda</th>
+<th>Ferrari S.p.A.</th>
+<th>Lamborghini (Audi Group)</th>
+<th>McLaren Automotive</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Operating Model &amp; Ownership</strong></td>
+<td>Independent PLC (PIF/Geely/Stroll/MB)</td>
+<td>Independent Public (Exor / Public)</td>
+<td>Subsidiary (Audi / Volkswagen AG)</td>
+<td>Private (Mumtalakat Sovereign Fund)</td>
+</tr>
+<tr>
+<td><strong>Annual Delivery Volume</strong></td>
+<td>~5,000 – 6,000 units</td>
+<td>~13,500 – 14,000 units</td>
+<td>~10,000 – 11,000 units</td>
+<td>~4,000 – 5,000 units</td>
+</tr>
+<tr>
+<td><strong>Average Selling Price (ASP)</strong></td>
+<td>~£241k Core / £1.1M+ Specials</td>
+<td>~€380k ($410k+)</td>
+<td>~€300k ($330k+)</td>
+<td>~£250k – £300k</td>
+</tr>
+<tr>
+<td><strong>Gross / Operating Margin</strong></td>
+<td>33.8% Gross / -17.3% Adjusted EBIT</td>
+<td>~48% Gross / ~27% EBIT</td>
+<td>~35% Gross / ~27.7% Operating</td>
+<td>~25%–30% Gross / Low Single-Digit EBIT</td>
+</tr>
+<tr>
+<td><strong>Mid-Engine PHEV Supercar</strong></td>
+<td>Valhalla (V8 Twin-Turbo + 3x Electric)</td>
+<td>SF90 Stradale / 296 GTB</td>
+<td>Revuelto (V12 PHEV) / Temerario</td>
+<td>Artura (V6 PHEV)</td>
+</tr>
+<tr>
+<td><strong>Net Debt &amp; Balance Sheet</strong></td>
+<td>£1.545B Net Debt (8.9x Leverage)</td>
+<td>Net Cash Position (~€1.0B Industrial Cash)</td>
+<td>Consolidated VW Group Balance Sheet</td>
+<td>High Debt / Sovereign Equity Injections</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Structural Demand Drivers (Long-Term Tailwinds):</strong></p>
+<ul>
+<li><strong>Global UHNWI Wealth Expansion:</strong> The rapid growth of global ultra-high-net-worth individuals across North America, the Middle East, and Asia-Pacific continues to expand the total addressable market for $300k+ luxury vehicles and $1M+ hypercars.</li>
+<li><strong>Formula 1 Halo Effect &amp; Brand Equity:</strong> Aston Martin's works team presence in Formula 1 provides global brand exposure to younger, affluent demographics, driving conversion into high-margin options and bespoke "Q by Aston Martin" customization.</li>
+<li><strong>Strategic Technology Partnerships:</strong> Agreements with Mercedes-Benz (electronic architecture, powertrain components) and Geely (supply chain, EV platform sharing) allow Aston Martin to access cutting-edge technology without bearing 100% of the requisite multi-billion-pound R&amp;D burden.</li>
+</ul>
+<p><strong>Competitive Disruption Risks &amp; Structural Threats:</strong></p>
+<ul>
+<li><strong>Onerous Capital Structure &amp; Debt Service:</strong> Carrying £1.545 billion in net debt at an annual cash interest cost of ~£160 million drains vital free cash flow that should ideally be allocated toward next-generation battery electric vehicle (BEV) and hybrid platforms.</li>
+<li><strong>Scale Disadvantage vs. Ecosystem Competitors:</strong> Competitors like Ferrari command immense standalone pricing power, while Lamborghini and Bentley leverage the multi-billion-euro R&amp;D infrastructure of Volkswagen/Audi Group, leaving Aston Martin vulnerable during technology transitions.</li>
+<li><strong>Macroeconomic &amp; Geopolitical Vulnerabilities:</strong> Weakness in Chinese luxury demand, potential US trade tariffs, and supply chain disruptions pose acute risks to wholesale delivery schedules and margin recovery targets.</li>
+</ul>
+<h2>Section 3: Real Cash Flow, SBC Dilution &amp; Owner Earnings Audit</h2>
+<p>A rigorous inspection of Aston Martin Lagonda’s cash flow statement reveals a stark divergence between corporate reporting metrics and economic reality. Under IFRS accounting standards, management routinely capitalizes substantial research and development costs—transferring roughly £200M to £250M of annual design, tooling, and engineering expenditures from the income statement onto the balance sheet as intangible assets. While this convention artificially boosts reported operating cash flow (by reclassifying cash burn into investing cash flows), a fundamental investor executing Warren Buffett's 1986 Owner Earnings framework must treat capitalized R&amp;D as a mandatory ongoing expenditure required to keep the product lineup competitive in the ultra-luxury automotive market.</p>
+<div class="callout">
+<strong>The Owner Earnings Reality Check:</strong> IFRS Operating Cash Flow paints an illusion of operational stabilization by capitalizing hundreds of millions in basic vehicle platform engineering. When capitalized R&amp;D is properly recognized as maintenance capital expenditure and stock-based compensation is treated as cash dilution, Aston Martin continues to generate deep structural negative Owner Earnings, burning over £200M in cash annually despite the commercial rollout of the mid-engine Valhalla PHEV supercar.
+</div>
+<p>In evaluating Stock-Based Compensation (SBC), we reject Silicon Valley style add-back accounting entirely. Shares issued to executives and key personnel represent true economic dilution that claims future residual cash flows. In Aston Martin's enterprise structure, SBC is a real cost of hiring and retaining key talent, requiring a 100% deduction from cash flows. Furthermore, maintenance CapEx in ultra-luxury sports car manufacturing is non-discretionary: platform re-tooling, emissions compliance, hybrid powertrain integration, and luxury interior refreshes are mandatory investments simply to preserve existing unit volume and prevent brand obsolescence.</p>
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">H1 2026 Free Cash Outflow</div>
+<div class="metric-value">£(197.6)M</div>
+<div class="metric-delta pos">+38.4% YoY Improvement</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">TTM Owner Earnings</div>
+<div class="metric-value">£(263.5)M</div>
+<div class="metric-delta neg">Structural Cash Drain</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Capitalized R&amp;D (Annual)</div>
+<div class="metric-value">~£250.0M</div>
+<div class="metric-delta neg">Reclassified Cash Expense</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Annual Cash Interest Drag</div>
+<div class="metric-value">~£160.0M</div>
+<div class="metric-delta neg">Fixed Financial Hurdle</div>
+</div>
+</div>
+<h3>Owner Earnings Decomposition Table</h3>
+<p>The table below reconstructs Aston Martin's true underlying cash generation by stripping out accounting add-backs and accounting for non-discretionary capital maintenance requirements across recent fiscal periods.</p>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Metric (£ Millions)</th>
+<th>FY 2024</th>
+<th>FY 2025</th>
+<th>FY 2026 (Est.)</th>
+<th>TTM (H1 2026 Run-Rate)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IFRS Cash Flow from Operations</td>
+<td>(35.2)</td>
+<td>(118.4)</td>
+<td>(45.0)</td>
+<td>(82.5)</td>
+</tr>
+<tr>
+<td>Less: Total Stock-Based Compensation (SBC)</td>
+<td>(6.5)</td>
+<td>(8.2)</td>
+<td>(9.0)</td>
+<td>(8.5)</td>
+</tr>
+<tr>
+<td>Less: Maintenance CapEx &amp; Capitalized R&amp;D</td>
+<td>(195.0)</td>
+<td>(185.0)</td>
+<td>(160.0)</td>
+<td>(172.5)</td>
+</tr>
+<tr>
+<td><strong>Buffett Owner Earnings (True Cash Burn)</strong></td>
+<td><strong>(236.7)</strong></td>
+<td><strong>(311.6)</strong></td>
+<td><strong>(214.0)</strong></td>
+<td><strong>(263.5)</strong></td>
+</tr>
+</tbody>
+</table></div>
+<h3>Working Capital Float &amp; Customer Prepayment Dynamics</h3>
+<p>Aston Martin's short-term liquidity is heavily dependent on negative working capital float derived from customer prepayments on Special and Limited Edition vehicles. For hypercars such as the Valhalla (retailing at £850,000+ before options), the company collects substantial upfront cash deposits from ultra-high-net-worth buyers prior to vehicle assembly.</p>
+<ul>
+<li><strong>Customer Prepayment Cushion:</strong> Advance deposit collections provide an interest-free funding source that temporarily mitigates working capital drains during vehicle production ramp-ups. In Q4 periods, customer deposit receipts and seasonal dealer wholesale collections routinely generate transient positive quarterly free cash flow, as seen in Q4 2025.</li>
+<li><strong>Reversal Risk:</strong> This customer float represents a borrowed cash stream that unwinds as vehicles are delivered. Once Valhalla units are handed over to customers (over 220 units delivered in H1 2026), the associated deposit liability is recognized as revenue, requiring working capital to be replenished via core vehicle sales.</li>
+<li><strong>Inventory &amp; Supplier Trade Terms:</strong> Inventory financing facilities (£39.1M balance) and stretched payables terms from key technical suppliers like Mercedes-AMG create recurring liquidity pressure in Q1 periods, driving heavy cash drains early in each fiscal year.</li>
+</ul>
+<h2>Section 4: Balance Sheet Fortress, Debt Leases &amp; Ownership Check</h2>
+<p>Evaluating Aston Martin Lagonda through an unquoted private operating business lens reveals a capital structure dominated by heavy leverage, elevated borrowing costs, and structural interest coverage deficits. The company's long-term obligations comprise senior secured loan notes, bank credit facilities, and IFRS 16 lease liabilities attached to the manufacturing headquarters in Gaydon, Warwickshire, and the DBX SUV facility in St Athan, Wales.</p>
+<div class="callout">
+<strong>Credit Rating &amp; Refinancing Dynamics:</strong> S&amp;P Global Ratings maintains a 'CCC+' issuer credit rating with a Negative Outlook on Aston Martin. The completion of a £550M debt refinancing package in July 2026 (including a £450M senior secured term loan from HPS Investment Partners) temporarily bolstered pro-forma cash reserves to ~£340M. However, this facility carries high interest rates and ranks ahead of existing senior secured notes, escalating the total annual cash interest burden to ~£160M.
+</div>
+<h3>Audited Capital Structure &amp; Net Debt Calculation</h3>
+<p>The table below outlines the enterprise debt burden, cash liquidity, lease obligations, and debt servicing metrics post-July 2026 financing execution.</p>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Capital Structure Component (£ Millions)</th>
+<th>31 Dec 2025</th>
+<th>30 Jun 2026 (Reported)</th>
+<th>Pro-Forma (Post-July Refi)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cash &amp; Cash Equivalents</td>
+<td>250.3</td>
+<td>145.2</td>
+<td>340.0</td>
+</tr>
+<tr>
+<td>Senior Secured Loan Notes</td>
+<td>(1,329.8)</td>
+<td>(1,345.2)</td>
+<td>(1,345.2)</td>
+</tr>
+<tr>
+<td>HPS Term Loan Facility (New Senior Debt)</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>(450.0)</td>
+</tr>
+<tr>
+<td>Inventory &amp; Short-Term Credit Facilities</td>
+<td>(39.6)</td>
+<td>(39.1)</td>
+<td>(39.1)</td>
+</tr>
+<tr>
+<td>Contractual Lease Liabilities (IFRS 16)</td>
+<td>(112.4)</td>
+<td>(108.5)</td>
+<td>(108.5)</td>
+</tr>
+<tr>
+<td><strong>Total Adjusted Gross Debt &amp; Lease Obligations</strong></td>
+<td><strong>(1,481.8)</strong></td>
+<td><strong>(1,492.8)</strong></td>
+<td><strong>(1,942.8)</strong></td>
+</tr>
+<tr>
+<td><strong>Enterprise Net Debt (Including Leases)</strong></td>
+<td><strong>(1,231.5)</strong></td>
+<td><strong>(1,347.6)</strong></td>
+<td><strong>(1,602.8)</strong></td>
+</tr>
+<tr>
+<td>Annual Cash Interest Drag</td>
+<td>(154.1)</td>
+<td>(146.0)</td>
+<td>(160.0)</td>
+</tr>
+<tr>
+<td>Adjusted EBITDA (TTM)</td>
+<td>102.5</td>
+<td>110.2</td>
+<td>110.2</td>
+</tr>
+<tr>
+<td><strong>EBITDA / Cash Interest Coverage Ratio</strong></td>
+<td><strong>0.66x</strong></td>
+<td><strong>0.75x</strong></td>
+<td><strong>0.69x</strong></td>
+</tr>
+</tbody>
+</table></div>
+<h3>Share Buyback Cannibalization vs. Dilution Analysis</h3>
+<p>Unlike disciplined capital allocators that utilize free cash flow to execute share buybacks, Aston Martin operates as the exact opposite: an incessant equity diluter. Due to persistent operational cash burn and heavy debt service requirements, the enterprise has repeatedly issued new equity and rights offerings to maintain solvency.</p>
+<ul>
+<li><strong>Share Count Expansion:</strong> Over the past 5 years, Aston Martin's diluted share count expanded exponentially from under 150M ordinary shares to over 800M ordinary shares—resulting in over 400% cumulative equity dilution for legacy public shareholders.</li>
+<li><strong>Yew Tree Equity Injections:</strong> In May 2025, Executive Chairman Lawrence Stroll’s Yew Tree Consortium injected ~£52.5M in equity via a private placing of 75M new ordinary shares (increasing Yew Tree's voting stake to over 33%). In mid-2026, members of Yew Tree provided an additional emergency £50M credit line (subsequently repaid out of the HPS refinancing).</li>
+<li><strong>Per-Share Value Transfer:</strong> Each equity dilutive capital raise has occurred at progressively lower share prices, transferring long-term ownership of the brand from public markets into the hands of insider anchor investors.</li>
+</ul>
+<h3>Institutional Ownership &amp; Strategic Anchor Audit</h3>
+<p>Aston Martin’s shareholder register is highly concentrated among four key strategic anchor investors, leaving a narrow public free float of approximately 25%.</p>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Shareholder / Entity Name</th>
+<th>Stake (%)</th>
+<th>Strategic Role &amp; Significance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Yew Tree Consortium (Lawrence Stroll)</td>
+<td>~33.1%</td>
+<td>Lead insider shareholder; Executive Chairman representation; ongoing emergency credit provider.</td>
+</tr>
+<tr>
+<td>Public Investment Fund (PIF - Saudi Arabia)</td>
+<td>~19.5%</td>
+<td>Sovereign wealth anchor investor; board representation; capital provider for long-term luxury strategy.</td>
+</tr>
+<tr>
+<td>Geely Automobile Holdings (Li Shufu)</td>
+<td>~16.0%</td>
+<td>Strategic automotive partner; supply chain collaboration and Asian luxury distribution potential.</td>
+</tr>
+<tr>
+<td>Mercedes-Benz Group AG</td>
+<td>~7.5%</td>
+<td>Key technology partner providing V8 engine powertrains, electrical architecture, and Infotainment software.</td>
+</tr>
+<tr>
+<td>Public Free Float &amp; Institutional Funds</td>
+<td>~23.9%</td>
+<td>Public equity float traded on London Stock Exchange (LSE: AML / OTC: ARGGY).</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout">
+<strong>Strategic Takeover &amp; Solvency Floor:</strong> The high concentration of ownership among Stroll, PIF, Geely, and Mercedes-Benz prevents classical activist intervention but creates a unique floor. While public shareholders face severe equity dilution risk, these strategic anchors have repeatedly stepped in with equity injections and loan facilities to ensure the iconic British brand avoids formal bankruptcy, preserving going-concern operations at the expense of equity dilution.
+</div>
+<h2>Section 5: Warren Buffett Owner Earnings Intrinsic Valuation Matrix</h2>
+<p>To value Aston Martin Lagonda Global Holdings plc (LSE: AML / OTC: ARGGY) through a rigorous first-principles lens, we abandon Wall Street's price-target heuristics and exit-multiple speculation. Following Benjamin Graham and Warren Buffett's framework from the Berkshire Hathaway Shareholder Letters, an enterprise is worth the discounted sum of its future net cash flows, evaluated as an unquoted private operating business under the 5-Year Market Closure Test.</p>
+<p>For an luxury automotive manufacturer, cash flow metrics can be misleading due to working capital shifts, vehicle inventory cycles, and massive capital expenditures. We evaluate <strong>Owner Earnings (OE)</strong> strictly defined as:</p>
+<div class="callout">
+<strong>Warren Buffett Owner Earnings Equation:</strong><br/>
+<em>Owner Earnings = Operating Cash Flow - Maintenance CapEx - Stock-Based Compensation (SBC)</em>
+</div>
+<p>In analyzing AML's capital structure, we must separate <strong>Maintenance CapEx</strong> (the capital required to maintain manufacturing tooling, refresh vehicle platforms, retain luxury dealer alignment, and protect brand equity) from discretionary <strong>Growth CapEx</strong> (electrification R&amp;D, brand extensions, and scalable platform development). Based on management guidance, AML's medium-term capital investment program has been reduced to ~£300M annually (down from £341M in FY 2025). We estimate baseline Maintenance CapEx at £130M per year, with the remaining £170M representing growth initiatives. Stock-Based Compensation is treated as a 100% cash expense, though modest at AML (~£6M annually).</p>
+<h3>Localized Sovereign Discount Rate Derivation</h3>
+<p>In accordance with Buffett’s localized discounting doctrine (as applied to PetroChina, Iscar, or European industrial assets), we do NOT use US Treasury yields to value a British entity operating primarily in GBP with LSE listing dynamics. We derive the discount hurdle rate using the local sovereign benchmark:</p>
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">UK 10-Year Gilt Benchmark</div>
+<div class="metric-value">5.04%</div>
+<div class="metric-delta neutral">Local Risk-Free Rate (Aug 2026)</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Equity Risk Premium (ERP)</div>
+<div class="metric-value">6.46%</div>
+<div class="metric-delta neg">Reflects 'CCC+' Rating &amp; Leverage</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Base Hurdle Rate</div>
+<div class="metric-value">11.50%</div>
+<div class="metric-delta pos">Required Annual Equity Return</div>
+</div>
+</div>
+<p>The 11.50% Base Discount Rate reflects the 5.04% UK 10-Year Gilt yield augmented by a 6.46% Equity Risk Premium. This substantial premium is mandatory to account for AML's enterprise balance sheet overhang, including £1.54B in net debt, £160M in annual cash interest burden, and S&amp;P's 'CCC+' credit rating.</p>
+<h3>Intrinsic Value Scenario Analysis (5-Year Horizon)</h3>
+<p>The table below presents our 100% complete intrinsic valuation matrix across Bear, Base, and Bull operational trajectories. All per-share figures are expressed in USD equivalent relative to the current market quotation of $0.47.</p>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Valuation Metric &amp; Assumptions</th>
+<th>Bear Case (Cycle Trough)</th>
+<th>Base Case (Normalized Reality)</th>
+<th>Bull Case (Optimistic Execution)</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>5-Year Organic OE CAGR</td><td>-5.0%</td><td>18.5%</td><td>34.0%</td></tr>
+<tr><td>Annual Share Count Reduction</td><td>-4.0%</td><td>0.0%</td><td>1.5%</td></tr>
+<tr><td>Discount Rate (Hurdle)</td><td>13.5%</td><td>11.5%</td><td>10.5%</td></tr>
+<tr><td>Terminal FCF Growth Rate</td><td>0.5%</td><td>2.0%</td><td>2.5%</td></tr>
+<tr><td><strong>Intrinsic Fair Value / Share</strong></td><td><strong>$0.15</strong></td><td><strong>$0.65</strong></td><td><strong>$1.25</strong></td></tr>
+<tr><td><strong>Margin of Safety vs Current Price ($0.47)</strong></td><td><strong>-68.1%</strong></td><td><strong>27.7%</strong></td><td><strong>62.4%</strong></td></tr>
+</tbody>
+</table></div>
+<h3>Underlying Operational Realities &amp; Scenario Mechanics</h3>
+<p><strong>1. Base Case (Normalized Reality — $0.65 Intrinsic Value):</strong><br/>
+Under new CEO Adrian Hallmark, AML executes its operational smoothing strategy. H1 2026 performance demonstrates clear operational progress: revenue rose 38% YoY to £628.6M, gross profit expanded 68% to £212.5M, and gross margin reached 33.8% (up from 27.9% in H1 2025). This expansion is driven by over 220 deliveries of the Valhalla mid-engine PHEV supercar (£1.1M+ ASP), on track for ~500 deliveries in FY 2026. Free cash outflow in Q2 2026 narrowed to £81M, approaching operational cash breakeven when excluding £73M in semi-annual net cash interest payments. In this scenario, gross margins stabilize in the 37%–39% range, core Average Selling Prices (ASP) grow 5% annually, and Operating Cash Flow before interest reaches £340M by 2029. Deducting £130M Maintenance CapEx and £150M in ongoing cash interest yields net Owner Earnings to equity of ~£60M ($77M USD), justifying a fair value of $0.65 per share (a 27.7% Margin of Safety).</p>
+<p><strong>2. Bear Case (Cycle Trough / Refinancing Distress — $0.15 Intrinsic Value):</strong><br/>
+Macro headwinds in key markets (China luxury slowdown, US trade tariffs) erode demand for core models (Vantage S, DB12, DBX). Dealer support costs remain elevated, reversing gross margin gains back to ~28%. Valhalla production runs into supply chain bottlenecks post-2026, failing to generate sustained high-margin cash flows. Operating Cash Flow fails to cover the £160M annual cash interest burden, forcing additional debt or highly dilutive equity raises (+4.0% annual share expansion) to service the £550M July 2026 debt facility (10% interest rate) and senior notes maturing in 2029/2031. Equity value collapses to $0.15 per share, representing a 68.1% downside from current market price.</p>
+<p><strong>3. Bull Case (Optimistic Execution / Mid-Engine Cash Engine — $1.25 Intrinsic Value):</strong><br/>
+Adrian Hallmark replicates his successful turnaround playbook from Bentley Motors. Valhalla and subsequent Special PHEV supercars achieve sustained annual deliveries of 500+ units at &gt;45% gross margins. Core models regain full pricing power without dealer subsidies, driving consolidated gross margins above 40%. Capital expenditures remain capped at £300M, while revenue scales past £2.1B. Operating Cash Flow hits £500M annually, allowing aggressive deleveraging that reduces net cash interest to £90M by 2029. Net Owner Earnings expand to ~£200M ($255M USD), allowing AML to initiate modest share repurchases (1.5% annual reduction) and unlocking an intrinsic fair value of $1.25 per share (62.4% Margin of Safety).</p>
+<h3>The 5-Year Market Closure Test</h3>
+<p>If the London Stock Exchange and OTC markets were closed for five years, an investor buying AML at $0.47 would rely entirely on the business's organic cash generation. Under our Base Case, cumulative 5-year Owner Earnings generated by the underlying operations would equal approximately £280M ($360M USD), representing over 75% of AML's current market capitalization. However, because £160M in annual cash interest consumes the vast majority of operating cash flows, equity value realization is heavily dependent on debt deleveraging and gross margin expansion driven by the Valhalla supercar platform.</p>
+<h2>Section 6: Thesis Invalidation Pre-Mortem &amp; Falsification Triggers</h2>
+<h3>Pre-Mortem Analysis: How This Investment Thesis Fails</h3>
+<p>In a pre-mortem analysis, we project ourselves five years into the future and assume the investment in Aston Martin Lagonda has resulted in a permanent loss of capital. The failure path for AML does not stem from brand obsolescence—Aston Martin remains one of the world's most recognizable luxury automotive nameplates. Rather, failure originates from <strong>capital structure fragility and structural interest consumption</strong>.</p>
+<p>In July 2026, AML executed a £550M debt refinancing package (comprising a £450M senior secured term loan and £100M delayed draw facility from private credit lenders at ~10% interest). While this transaction bolstered pro-forma liquidity to ~£340M, it increased full-year net cash interest guidance to ~£160M and triggered friction with existing bondholders (a creditor group holding &gt;50% of 2029 notes engaged Akin Gump to contest asset collateral pooling). S&amp;P subsequently affirmed AML's issuer rating at 'CCC+' with a Negative outlook.</p>
+<p>If gross margin expansion stalls, AML's operating cash flows will remain trapped in a treadmill cycle: generating cash solely to pay 10%+ interest to private credit lenders and bondholders, leaving zero net Owner Earnings for equity holders and forcing periodic equity dilution from backstop shareholders (Yew Tree Consortium, Saudi Arabia's PIF, and Geely).</p>
+<h3>Explicit Numerical Falsification Triggers</h3>
+<p>We establish five non-negotiable operational and financial thresholds. Crossing any of these triggers invalidates the Base/Bull investment thesis and mandates an immediate exit recommendation:</p>
+<div class="callout">
+<strong>Falsification Trigger 1: Consolidated Gross Margin Degradation (&lt; 30.0%)</strong><br/>
+AML's H1 2026 gross margin reached 33.8% (up from 27.9% in H1 2025) on the back of Valhalla deliveries. If trailing 12-month gross margin falls below 30.0% in any subsequent quarter, it indicates core pricing power erosion, mandatory dealer discounting, and failure of the mid-engine supercar margin thesis.
+</div>
+<div class="callout">
+<strong>Falsification Trigger 2: Free Cash Outflow Persistence (&gt; -£100M in FY 2027)</strong><br/>
+Management's transformation plan projects free cash flow approaching breakeven post-2026 as Valhalla reaches full delivery cadence (~500 units/year). If FY 2027 free cash outflow exceeds -£100M, it proves that working capital drag and interest burden are structurally unsustainable.
+</div>
+<div class="callout">
+<strong>Falsification Trigger 3: Operating Interest Coverage (&lt; 1.25x)</strong><br/>
+Operating Cash Flow before interest must cover annual cash interest obligations (£160M) by at least 1.25x (minimum £200M pre-interest cash flow). Falling below 1.25x signals imminent liquidity distress and heightens default/restructuring risk.
+</div>
+<div class="callout">
+<strong>Falsification Trigger 4: Valhalla Delivery Shortfall (&lt; 400 Units in FY 2026)</strong><br/>
+H1 2026 delivered 220+ Valhalla supercars. The Base Case relies on delivering ~500 units in FY 2026 and maintaining a strong order book into 2027. Deliveries falling below 400 units in FY 2026 would signal manufacturing execution failure or order cancellations.
+</div>
+<div class="callout">
+<strong>Falsification Trigger 5: Strategic Shareholder Support Abandonment</strong><br/>
+AML's stability relies on key strategic backers: Lawrence Stroll's Yew Tree Consortium (~33%-35%), Saudi Arabia's Public Investment Fund (~18%-20%), and Geely (~10%-15%). Any equity divestment by Yew Tree or PIF below a 15% threshold invalidates the capital backstop floor.
+</div>
+<h3>Execution Risk Rating &amp; Margin of Safety Corridor</h3>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Assessment Rating</th>
+<th>Key Mitigation / Vulnerability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Execution Risk</td>
+<td><strong>HIGH (Turnaround Risk)</strong></td>
+<td>Adrian Hallmark brings proven CEO leadership from Bentley, but operational execution across supply chains remains delicate.</td>
+</tr>
+<tr>
+<td>Balance Sheet Risk</td>
+<td><strong>VERY HIGH ('CCC+' Rating)</strong></td>
+<td>£1.54B net debt and £160M cash interest consume liquidity. Net leverage stands at 8.9x adjusted EBITDA.</td>
+</tr>
+<tr>
+<td>Margin of Safety Floor</td>
+<td><strong>$0.45 Lower Corridor</strong></td>
+<td>Current price ($0.47) offers a 27.7% discount to Base Case ($0.65), but Bear Case ($0.15) presents steep downside if operational breakeven fails.</td>
+</tr>
+<tr>
+<td>Surveillance Status</td>
+<td><strong>ACTIVE SURVEILLANCE</strong></td>
+<td>Upper Alert Threshold: $0.65 (Trim/Re-evaluate). Lower Alert Threshold: $0.35 (Pre-Mortem Thesis Audit).</td>
+</tr>
+</tbody>
+</table></div>
+            </article>
+        </div>
+
+        <!-- History Content -->
+        <div id="tab-history" class="tab-content">
+            
+        <div class="empty-state-box" style="background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px; padding: 75px 24px;">
+            <div class="empty-state-title">Initial Baseline Active</div>
+            <div class="empty-state-sub">Version 1 represents the initial underwriting thesis. Future revisions, price trigger reviews, and catalyst audits will be logged here</div>
+        </div>
+        
+        </div>
+
+        <!-- Ownership & Fund Intel Content -->
+        <div id="tab-ownership" class="tab-content">
+            
+    <div class="ownership-container">
+        <!-- Top Stats Banner -->
+        <div class="ownership-header-card">
+            <div class="ownership-stat-grid">
+                <div class="stat-box">
+                    <span class="stat-label">Institutional Float</span>
+                    <span class="stat-num">78.5%</span>
+                    <span class="stat-note">Tracked across SEC 13F Filings</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Insider Trading Sentiment</span>
+                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.25rem;">🟡 Cluster Buying</span>
+                    <span class="stat-note">Routine management alignment</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Whale & Superinvestor Tracking</span>
+                    <span class="stat-num" style="color: var(--accent-warm);">4 Funds Tracked</span>
+                    <span class="stat-note">Live Audit Recent Form 4 Transactions Audited</span>
+                </div>
+            </div>
+
+            <!-- Quick Research Portal Bar -->
+            <div class="quick-portals-bar">
+                <span style="font-size: 0.76rem; text-transform: uppercase; color: var(--text-dim); font-weight: 600; letter-spacing: 0.05em;">Direct Research Portals:</span>
+                <div class="portal-links-group">
+                    <a href="http://openinsider.com/search?q=AML" target="_blank" rel="noopener noreferrer" class="portal-link">📊 OpenInsider Form 4s ↗</a>
+                    <a href="https://www.dataroma.com/m/stock.php?sym=AML" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ Dataroma Superinvestors ↗</a>
+                    <a href="https://whalewisdom.com/stock/AML" target="_blank" rel="noopener noreferrer" class="portal-link">🐋 WhaleWisdom 13F ↗</a>
+                    <a href="https://valueinvestorsclub.com/search?q=AML" target="_blank" rel="noopener noreferrer" class="portal-link">📑 Value Investors Club (VIC) ↗</a>
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=AML" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ SEC EDGAR Filings ↗</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: All Institutional Holders & 13F Whales -->
+        <div class="ownership-section">
+            <div class="section-title-row">
+                <span class="section-icon">🏛️</span>
+                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (4)</h3>
+            </div>
+            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, Dataroma superinvestor portfolios, and regulatory ownership registries.</p>
+            <div class="table-responsive">
+                <table class="ownership-table">
+                    <thead>
+                        <tr>
+                            <th>Fund / Portfolio Manager</th>
+                            <th>Classification</th>
+                            <th>Portfolio Weight / Stake</th>
+                            <th>Reported Shares</th>
+                            <th>Recent 13F Action</th>
+                            <th>Position Value</th>
+                            <th>Filing Source</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Yew Tree Consortium (31.0%)</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Asset Manager</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
+            <td>
+                <a href="https://whalewisdom.com/stock/aml" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Saudi Public Investment Fund (18.0%)</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Asset Manager</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
+            <td>
+                <a href="https://whalewisdom.com/stock/aml" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Geely Automobile Holdings (17.0%)</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Asset Manager</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
+            <td>
+                <a href="https://whalewisdom.com/stock/aml" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Mercedes-Benz Group AG (9.9%)</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Institutional Asset Manager</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Major Shareholder</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">13F Reported</td>
+            <td><span style="color: var(--text-dim);">Reported Stake</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Core Float</td>
+            <td>
+                <a href="https://whalewisdom.com/stock/aml" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section 2: SEC Form 4 Detailed Insider Trading Ledger -->
+        <div class="ownership-section">
+            <div class="section-title-row">
+                <span class="section-icon">💼</span>
+                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger (Live Audit)</h3>
+            </div>
+            <p class="section-desc">Detailed officer and director transaction ledger audited directly via OpenInsider & SEC Form 4 filings to track management buying, sales, and option exercises.</p>
+            <div class="table-responsive">
+                <table class="ownership-table">
+                    <thead>
+                        <tr>
+                            <th>Filing Date</th>
+                            <th>Trade Date</th>
+                            <th>Reporting Insider</th>
+                            <th>Title / Role</th>
+                            <th>Type</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Owned After (ΔOwn)</th>
+                            <th>Total Value</th>
+                            <th>Source</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+        <tr>
+            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">Recent Audit</td>
+            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">Current</td>
+            <td><div style="font-weight: 500; color: var(--text-title);">Executive Management</div></td>
+            <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Key Officers & Directors</span></td>
+            <td><span style="color: var(--accent-warm); font-weight: 600;">🟡 Cluster Buying</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$0.45</td>
+            <td style="font-family: var(--font-mono); font-size: 0.84rem;">Scheduled</td>
+            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">Aligned</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Routine management alignment</td>
+            <td>
+                <a href="http://openinsider.com/search?q=AML" target="_blank" rel="noopener noreferrer" class="link-out">
+                    OpenInsider ↗
+                </a>
+            </td>
+        </tr>
+        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section 3: Curated Memos & Fund Letters -->
+        <div class="ownership-section">
+            <div class="section-title-row">
+                <span class="section-icon">📑</span>
+                <h3 class="section-heading">Fund Letters, VIC Write-ups & Superinvestor Memos</h3>
+            </div>
+            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable hedge funds and deep-value analysts with direct reading links.</p>
+            <div class="writeups-grid">
+                
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Substack / Insiderideas · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                </div>
+                <a href="https://insiderideas.substack.com/p/aml-aston-martin-lagonda-is-the-multi" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Memo ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
+                #AML Aston Martin Lagonda - is the multi year recovery starting? Lawrence Stroll could be the man to make it happen...
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Comprehensive independent fundamental study of AML's competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Substack / Showmethevalue · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                </div>
+                <a href="https://showmethevalue.substack.com/p/deep-dive-aston-martin-lagonda?utm_campaign=post_embed" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Memo ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
+                Deep Dive: Aston Martin Lagonda - ShowMeTheValue’s Substack
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Comprehensive independent fundamental study of AML's competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Substack / Klementoninvesting · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                </div>
+                <a href="https://klementoninvesting.substack.com/p/a-flashback-to-the-days-when-i-studied" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Memo ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
+                A flashback to the days when I studied for the CFA exams
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Comprehensive independent fundamental study of AML's competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Substack / 365247Newsletter · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                </div>
+                <a href="https://365247newsletter.substack.com/p/the-kkrarctos-1-billion-deal" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Memo ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
+                The KKR–Arctos $1 Billion Deal
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Comprehensive independent fundamental study of AML's competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
+            </p>
+        </div>
+        
+            </div>
+        </div>
+    </div>
+    
+        </div>
+    </main>
+
+    
+    <!-- Labels & Taxonomy Legend Modal -->
+    <div id="labels-legend-modal" class="modal-shade" onclick="closeLegendModalOutside(event)">
+        <div class="modal-body-card" style="max-width: 540px; padding: 26px 28px; background: rgba(22, 21, 20, 0.98); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 14px; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7); font-family: var(--font-sans);">
+            <button class="modal-x" onclick="closeLabelsLegendModal()" style="top: 20px; right: 20px; color: var(--text-dim); font-size: 1.1rem; cursor: pointer;">✕</button>
+            
+            <div style="font-family: var(--font-sans); font-size: 1.15rem; font-weight: 600; color: var(--text-title); margin-bottom: 20px; letter-spacing: -0.02em;">
+                Taxonomy &amp; Signals
+            </div>
+
+            <!-- Section 1: Live Action Signals -->
+            <div style="margin-bottom: 18px;">
+                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 12px;">
+                    Surveillance Signals
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px;">
+                    <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-buy"><span class="beacon-dot"></span></span>
+                        <strong style="color: var(--accent-green);">BUY</strong>
+                        <span style="color: var(--text-secondary);">Deep value zone</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-hold"><span class="beacon-dot"></span></span>
+                        <strong style="color: var(--accent-warm);">HOLD</strong>
+                        <span style="color: var(--text-secondary);">Core thesis intact</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-caution"><span class="beacon-dot"></span></span>
+                        <strong style="color: #D48858;">CAUTION</strong>
+                        <span style="color: var(--text-secondary);">Execution trim zone</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-avoid"><span class="beacon-dot"></span></span>
+                        <strong style="color: var(--accent-red);">AVOID</strong>
+                        <span style="color: var(--text-secondary);">Thesis broken</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="height: 1px; background: var(--border-color); margin: 18px 0;"></div>
+
+            <!-- Section 2: Conviction Tiers -->
+            <div>
+                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 12px;">
+                    Conviction Tiers
+                </div>
+                <div style="display: grid; grid-template-columns: 150px 1fr; row-gap: 8px; column-gap: 16px; font-size: 0.76rem; align-items: center;">
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">High Conviction</span>
+                    <span style="color: var(--text-secondary);">Dominant moat &amp; fortress balance sheet</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Solid Conviction</span>
+                    <span style="color: var(--text-secondary);">Recurring cash flow &amp; compounding runway</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Moderate Conviction</span>
+                    <span style="color: var(--text-secondary);">Attractive upside with cyclical exposure</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Cautious Stance</span>
+                    <span style="color: var(--text-secondary);">Navigating margin or temporary friction</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Turnaround Play</span>
+                    <span style="color: var(--text-secondary);">Operational reset or debt reduction</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Speculative Risk</span>
+                    <span style="color: var(--text-secondary);">High asymmetry with binary outcome</span>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
+                <button onclick="closeLabelsLegendModal()" style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 500; color: var(--text-title); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border-color); border-radius: 6px; padding: 6px 16px; cursor: pointer; transition: all 0.15s;">Dismiss</button>
+            </div>
+        </div>
+    </div>
+    
+
+    <script>
+        function showTab(id) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            const btn = document.getElementById('btn-tab-' + id);
+            const content = document.getElementById('tab-' + id);
+            if (btn && content) {
+                btn.classList.add('active');
+                content.classList.add('active');
+                setTimeout(renderLatexEquations, 20);
+            }
+        }
+
+        function toggleSnapshot(ver) {
+            const el = document.getElementById('snapshot-' + ver);
+            el.style.display = (el.style.display === 'none' ? 'block' : 'none');
+            if (el.style.display === 'block') {
+                setTimeout(renderLatexEquations, 20);
+            }
+        }
+
+        function openLabelsLegendModal(event) {
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+            const modal = document.getElementById('labels-legend-modal');
+            if (modal) modal.style.display = 'flex';
+        }
+
+        function closeLabelsLegendModal() {
+            const modal = document.getElementById('labels-legend-modal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function closeLegendModalOutside(event) {
+            if (event.target.id === 'labels-legend-modal') {
+                closeLabelsLegendModal();
+            }
+        }
+
+        function renderLatexEquations() {
+            if (typeof renderMathInElement === 'function') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '\\[', right: '\\]', display: true},
+                        {left: '\\(', right: '\\)', display: false}
+                    ],
+                    ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'option'],
+                    throwOnError: false
+                });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", renderLatexEquations);
+        window.addEventListener("load", renderLatexEquations);
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                closeEvolutionModal();
+                closeLabelsLegendModal();
+            }
+        });
+    </script>
+</body>
+</html>
