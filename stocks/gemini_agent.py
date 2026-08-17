@@ -570,6 +570,14 @@ Your analysis must adhere strictly to these 7 First Principles of Business Valua
      * If $g_{\text{implied}} \approx g_{\text{realistic}}$: Fairly valued.
      * If $g_{\text{implied}} \ll g_{\text{realistic}}$ (or negative): Market is pricing in permanent secular decline or excessive pessimism, creating a high-conviction asymmetric Margin of Safety.
 
+   Pillar 9: Probabilistic Risk & Fragility Audit (The Anti-Fragility Test)
+   - Standard DCF models often assume smooth, normal growth trajectories that obscure existential business risks or asymmetric fat-tail liabilities.
+   - For every enterprise, conduct an explicit probabilistic threat audit:
+     1. Identify the top 3-4 structural failure modes (technological disintermediation, regulatory bans, customer concentration loss, debt maturity traps, commodity squeezes, algorithm de-indexing).
+     2. Assign an honest Probability Rating (High >50%, Medium 20%-50%, Low <20%, Tail Risk <5%) and Financial Severity (Catastrophic, Severe, Moderate, Minor).
+     3. Detail the exact fundamental "Why" (the transmission mechanism into Owner Earnings, margins, or balance sheet solvency).
+     4. Assign an overall Business Fragility Score (Low Fragility / Robust Moat | Moderate Sensitivity | High Fragility / Tail-Risk Asymmetric) to disqualify or caution against businesses where risk probability is dangerously elevated regardless of theoretical DCF upside.
+
 5. Editorial Aesthetics & Structural Clarity:
    - Format financial KPIs and segment data into `<div class="metrics-grid"><div class="metric-card">...</div></div>` or structured HTML tables. Zero raw text dumps.
    - Use Callout boxes (`<div class="callout">...</div>`) for key insights, management quotes, and pre-mortem falsification triggers.
@@ -592,6 +600,7 @@ Key Areas to Investigate via Real-Time Filings, Earnings Calls & Announcements:
 - Ownership & Catalysts: Verified active 13F whale positions from latest official filings (exclude exited investors), management alignment, and upcoming catalysts.
 - Warren Buffett Owner Earnings & Intrinsic Value Matrix: Calculate normalized Owner Earnings (Post-SBC cash flow minus maintenance CapEx, float/lease debt discipline), project 3-5 year compounding, factor in share count reduction from buybacks, and discount strictly via the LOCAL SOVEREIGN BOND YIELD with zero arbitrary exit multiples. Build a clean Bear / Base / Bull scenario table in Section 5.
 - What is Priced In? (Reverse DCF): Calculate what 5-year growth rate the current stock price implies.
+- Probabilistic Risk & Fragility Audit (Section 6): Conduct an explicit probabilistic threat audit detailing top risk scenarios, probability ratings (%), severity, fundamental "Why", and overall Business Fragility rating.
 - Dynamic Alert Corridors: Establish exact `upper_alert_threshold` (upside breakout / trim level) and `lower_alert_threshold` (downside margin-of-safety floor) based on your valuation targets.
 
 Editorial Aesthetics Mandate:
@@ -767,9 +776,50 @@ Generate ONLY the following two sections in clean Semantic HTML with NO external
   * Present a dedicated Reverse-DCF callout box or table contrasting Market-Implied Expectations vs. Base Case Reality (highlighting whether the stock is priced for perfection, fairly priced, or pricing in excessive disaster).
 - The 5-Year Market Closure Test: Demonstrate the organic cash yield earned if the stock exchange closed for 5 years.
 
-<h2>Section 6: Thesis Confidence, Execution Risk & Pre-Mortem Falsification</h2>
-- Forward Conviction Rating and Execution Risk breakdown.
-- 3 Explicit Pre-Mortem Falsification Triggers (Quantitative operational tripwires that declare the thesis fundamentally broken).
+<h2>Section 6: Probabilistic Risk Audit, Threat Assessment & Pre-Mortem Falsification</h2>
+- Business Fragility & Tail-Risk Stat Grid:
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="metric-label">Business Fragility Rating</div><div class="metric-value">Low / Medium / High Fragility</div><div class="metric-delta">Moat Robustness</div></div>
+    <div class="metric-card"><div class="metric-label">Primary Vulnerability</div><div class="metric-value">e.g. AI / Regulation / Debt</div><div class="metric-delta neg">Key Threat</div></div>
+    <div class="metric-card"><div class="metric-label">Tail-Risk Severity</div><div class="metric-value">Moderate / Severe</div><div class="metric-delta">P&L Impact</div></div>
+  </div>
+- Comprehensive Probabilistic Risk & Threat Matrix Table:
+  Evaluate the top 3-4 existential or major operational risk scenarios. MUST include probability rating, financial severity, and the deep fundamental "Why" (transmission mechanics into cash flow):
+  <table>
+    <thead>
+      <tr>
+        <th>Risk Vector & Threat Scenario</th>
+        <th>Probability Rating (%)</th>
+        <th>Financial Severity</th>
+        <th>The "Why" & Transmission Mechanics (Root Cause)</th>
+        <th>Mitigation & Structural Defenses</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>e.g. Disintermediation / Tech Shift</strong></td>
+        <td>Medium (30%-40%)</td>
+        <td>Severe</td>
+        <td>Explain exactly why this risk exists, how it impacts sales/margins, and why DCF growth could fail...</td>
+        <td>Balance sheet net cash, proprietary distribution, etc.</td>
+      </tr>
+      <tr>
+        <td><strong>e.g. Regulatory / Antitrust / Tariff Risk</strong></td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+      </tr>
+      <tr>
+        <td><strong>e.g. Margin Compression / Component Squeeze</strong></td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+      </tr>
+    </tbody>
+  </table>
+- 3 Explicit Quantitative Pre-Mortem Falsification Triggers (Kill switches that invalidate the investment thesis).
 - Dynamic Price Alert Corridors: Upper threshold (trim / target realization) and Lower threshold (margin of safety floor).
 
 DO NOT write Section 1, 2, 3, or 4. Output pure HTML only."""
