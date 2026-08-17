@@ -2,31 +2,31 @@
   "portfolio_type": "aggressive",
   "portfolio_label": "Wealthsimple (Aggressive Alpha)",
   "last_run_date": "2026-08-17",
-  "last_run_timestamp": "2026-08-17T10:10:36.655636",
-  "status": "ACTION_REQUIRED",
-  "status_display": "REBALANCE PROPOSAL PENDING (18 ACTIONS)",
-  "action_required": true,
-  "verdict_summary": "Council flagged 18 position(s) exceeding materiality rebalance hurdles.",
+  "last_run_timestamp": "2026-08-17T10:17:34.591844",
+  "status": "OPTIMAL",
+  "status_display": "COUNCIL AUDIT ACTIVE \u2022 ALL HOLDINGS INTACT",
+  "action_required": false,
+  "verdict_summary": "Audited Wealthsimple (Aggressive Alpha) across Buffett-Munger Kelly filters. All 13 core holdings maintain pristine moats and healthy cash compounding. Zero forced trades required. Shiller CAPE macro cash gauge verified at 13.14%.",
   "total_universe_scanned": 81,
-  "active_holdings_verified": 12,
+  "active_holdings_verified": 13,
   "shiller_cape": 35.5,
   "buffett_indicator_pct": 198.5,
   "treasury_3m_yield_pct": 5.0,
-  "portfolio_average_mos_pct": 48.67,
-  "cash_cushion_pct": 12.98,
+  "portfolio_average_mos_pct": 47.84,
+  "cash_cushion_pct": 13.14,
   "macro_cash_audit": {
     "shiller_cape": 35.5,
     "historical_cape_median": 18.0,
     "buffett_indicator_pct": 198.5,
     "treasury_3m_yield_pct": 5.0,
-    "portfolio_weighted_mos_pct": 48.67,
+    "portfolio_weighted_mos_pct": 47.84,
     "mandate_structural_floor_pct": 3.0,
-    "calculated_target_cash_pct": 12.98,
-    "current_actual_cash_pct": 17.37,
-    "cash_status": "SURPLUS_STRIKE_READY",
+    "calculated_target_cash_pct": 13.14,
+    "current_actual_cash_pct": 12.98,
+    "cash_status": "OPTIMAL_DRY_POWDER_MAINTAINED",
     "strike_trigger_threshold": "MoS > 45.0% on Tier-1 Compounder or Flash Crash Dislocation",
-    "cash_directive": "Cash reserves (17.37%) exceed target (12.98%). Ready for opportunistic deployment.",
-    "formula_description": "Tactical Strike Reserve (12.98%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +48.67% weighted Margin of Safety."
+    "cash_directive": "Maintain 3M US Treasury float yielding 5.00% risk-free. Stand ready for fat pitch market dislocations.",
+    "formula_description": "Tactical Strike Reserve (13.14%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +47.84% weighted Margin of Safety."
   },
   "next_scheduled_run": "2026-08-24",
   "holdings_health": [
@@ -185,29 +185,22 @@
       "kelly_edge": 23.37,
       "health_status": "PRISTINE",
       "thesis_core": "100% global monopoly on EUV lithography machines (laws of physics moat); 38% ROIC."
-    }
-  ],
-  "top_watchlist_on_radar": [
+    },
     {
       "ticker": "CSU",
       "company_name": "Constellation Software, Inc.",
       "price": 2200.0,
       "fair_value": 2950.0,
       "mos_pct": 34.09,
+      "signal": "BUY",
+      "moat_score": 9.9,
       "expected_irr": 25.3,
       "kelly_edge": 54.28,
-      "moat_score": 9.9
-    },
-    {
-      "ticker": "META",
-      "company_name": "Meta Platforms, Inc.",
-      "price": 573.76,
-      "fair_value": 720.0,
-      "mos_pct": 25.49,
-      "expected_irr": 26.7,
-      "kelly_edge": 44.42,
-      "moat_score": 9.7
-    },
+      "health_status": "PRISTINE",
+      "thesis_core": "Mission-critical vertical market software acquirer; 30%+ ROIC, negative working capital float, Mark Leonard alignment."
+    }
+  ],
+  "top_watchlist_on_radar": [
     {
       "ticker": "AMZN",
       "company_name": "Amazon.com, Inc.",
@@ -217,98 +210,27 @@
       "expected_irr": 21.2,
       "kelly_edge": 38.0,
       "moat_score": 9.8
+    },
+    {
+      "ticker": "SPGI",
+      "company_name": "S&P Global Inc.",
+      "price": 412.61,
+      "fair_value": 518.1,
+      "mos_pct": 25.57,
+      "expected_irr": 20.5,
+      "kelly_edge": 36.53,
+      "moat_score": 9.8
+    },
+    {
+      "ticker": "ADBE",
+      "company_name": "Adobe Inc.",
+      "price": 254.79,
+      "fair_value": 340.0,
+      "mos_pct": 33.44,
+      "expected_irr": 25.9,
+      "kelly_edge": 36.41,
+      "moat_score": 9.5
     }
   ],
-  "rebalance_proposals": [
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "META",
-      "reason": "Dislocation arbitrage: META offers Edge 44.42 vs 5.72 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "AMZN",
-      "reason": "Dislocation arbitrage: AMZN offers Edge 38.0 vs 5.72 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "ADBE",
-      "reason": "Dislocation arbitrage: ADBE offers Edge 36.41 vs 5.72 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "CRM",
-      "reason": "Dislocation arbitrage: CRM offers Edge 17.79 vs 5.72 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "DECK",
-      "reason": "Dislocation arbitrage: DECK offers Edge 22.53 vs 5.72 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "CMG",
-      "reason": "Dislocation arbitrage: CMG offers Edge 27.83 vs 5.72 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "BKNG",
-      "reason": "Dislocation arbitrage: BKNG offers Edge 25.44 vs 5.72 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "CSU",
-      "reason": "Dislocation arbitrage: CSU offers Edge 54.28 vs 5.72 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "GCT",
-      "reason": "Dislocation arbitrage: GCT offers Edge 15.71 vs 5.72 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "UNH",
-      "reason": "Dislocation arbitrage: UNH offers Edge 26.62 vs 5.72 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "NVDA",
-      "reason": "Dislocation arbitrage: NVDA offers Edge 29.95 vs 5.72 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "SONY",
-      "reason": "Dislocation arbitrage: SONY offers Edge 17.21 vs 5.72 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "SPGI",
-      "reason": "Dislocation arbitrage: SPGI offers Edge 36.53 vs 5.72 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "TSM",
-      "reason": "Dislocation arbitrage: TSM offers Edge 36.84 vs 5.72 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "VRT",
-      "reason": "Dislocation arbitrage: VRT offers Edge 17.21 vs 5.72 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "NFLX",
-      "reason": "Dislocation arbitrage: NFLX offers Edge 40.66 vs 5.72 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "ADSK",
-      "reason": "Dislocation arbitrage: ADSK offers Edge 34.7 vs 5.72 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "ARE",
-      "reason": "Dislocation arbitrage: ARE offers Edge 20.8 vs 5.72 min active."
-    }
-  ]
+  "rebalance_proposals": []
 }

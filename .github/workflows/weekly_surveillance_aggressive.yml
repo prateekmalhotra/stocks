@@ -1,9 +1,9 @@
-name: Saturday Deep Surveillance - Aggressive Alpha ($200k)
+name: Wednesday Noon Deep Surveillance & Autonomous Execution - Aggressive Alpha ($200k)
 
 on:
   schedule:
-    # Every Saturday at 2:00 PM EST (18:00 UTC)
-    - cron: '0 18 * * 6'
+    # Every Wednesday at 12:00 PM EST / Noon Market Hours (16:00 UTC)
+    - cron: '0 16 * * 3'
   workflow_dispatch:
 
 permissions:
@@ -42,25 +42,25 @@ jobs:
           pip install poetry
           poetry install --no-root
 
-      - name: Run Saturday Council Surveillance on Aggressive Alpha Compounder
+      - name: Run Wednesday Noon Surveillance & Autonomous Execution (Aggressive Alpha)
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           PYTHONUNBUFFERED: "1"
         run: |
-          echo "🚀 Running Saturday Deep Surveillance on Aggressive Alpha Compounder ($200k)..."
+          echo "🚀 Running Wednesday Noon Deep Surveillance & Autonomous Execution on Aggressive Alpha ($200k)..."
           poetry run python -m stocks.weekly_surveillance aggressive
           echo "🎨 Re-rendering master dashboard and research reports..."
           poetry run python -c "from stocks.dashboard import render_all; render_all()"
 
-      - name: Commit and Push Aggressive Surveillance Report
+      - name: Commit and Push Aggressive Surveillance & Execution Changes
         run: |
           git config --global user.name "Prateek Malhotra"
           git config --global user.email "prateekmalhotra@g.ucla.edu"
           git add data/ public/
           if git diff --staged --quiet; then
-            echo "No changes from Saturday surveillance."
+            echo "No changes from Wednesday surveillance."
           else
-            git commit -m "Saturday Deep Surveillance: Aggressive Alpha Council Audit [skip ci]"
+            git commit -m "Wednesday Noon Surveillance: Aggressive Alpha Council Audit & Execution [skip ci]"
             for i in 1 2 3 4 5; do
               git pull --rebase -X theirs origin main && git push origin main && break || sleep 3
             done

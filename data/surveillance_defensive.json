@@ -2,11 +2,11 @@
   "portfolio_type": "defensive",
   "portfolio_label": "Fidelity (Defensive Fortress)",
   "last_run_date": "2026-08-17",
-  "last_run_timestamp": "2026-08-17T10:10:44.465555",
-  "status": "ACTION_REQUIRED",
-  "status_display": "REBALANCE PROPOSAL PENDING (19 ACTIONS)",
-  "action_required": true,
-  "verdict_summary": "Council flagged 19 position(s) exceeding materiality rebalance hurdles.",
+  "last_run_timestamp": "2026-08-17T10:17:31.351565",
+  "status": "EXECUTED",
+  "status_display": "SURVEILLANCE ACTIONS EXECUTED (2 ACTIONS)",
+  "action_required": false,
+  "verdict_summary": "Council executed 2 high-conviction decision(s): VALUATION FROTH (TRIM), SURPLUS CASH DEPLOYMENT (BUY).",
   "total_universe_scanned": 81,
   "active_holdings_verified": 8,
   "shiller_cape": 35.5,
@@ -40,7 +40,7 @@
       "moat_score": 9.0,
       "expected_irr": 37.0,
       "kelly_edge": 24.78,
-      "health_status": "PRISTINE",
+      "health_status": "FROTHY",
       "thesis_core": "Richard Liu founder leadership; nationwide direct 1P logistics infrastructure, refrigerated supply chain."
     },
     {
@@ -137,16 +137,6 @@
   ],
   "top_watchlist_on_radar": [
     {
-      "ticker": "CSU",
-      "company_name": "Constellation Software, Inc.",
-      "price": 2200.0,
-      "fair_value": 2950.0,
-      "mos_pct": 34.09,
-      "expected_irr": 25.3,
-      "kelly_edge": 54.28,
-      "moat_score": 9.9
-    },
-    {
       "ticker": "META",
       "company_name": "Meta Platforms, Inc.",
       "price": 573.76,
@@ -165,103 +155,34 @@
       "expected_irr": 21.2,
       "kelly_edge": 38.0,
       "moat_score": 9.8
+    },
+    {
+      "ticker": "SPGI",
+      "company_name": "S&P Global Inc.",
+      "price": 412.61,
+      "fair_value": 518.1,
+      "mos_pct": 25.57,
+      "expected_irr": 20.5,
+      "kelly_edge": 36.53,
+      "moat_score": 9.8
     }
   ],
   "rebalance_proposals": [
     {
-      "action": "SWAP_PROPOSAL",
+      "date": "2026-08-17",
+      "action": "VALUATION FROTH (TRIM)",
+      "ticker": "JD",
+      "reason": "Trimmed frothy position JD from 22.0% to 8.0% (Price $28.57 vs Fair Value $51.8)",
+      "weight_delta": "-14.0%",
+      "verification_status": "Audited & Executed by Autonomous Surveillance Council"
+    },
+    {
+      "date": "2026-08-17",
+      "action": "SURPLUS CASH DEPLOYMENT (BUY)",
       "ticker": "META",
-      "reason": "Dislocation arbitrage: META offers Edge 44.42 vs 3.35 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "AMZN",
-      "reason": "Dislocation arbitrage: AMZN offers Edge 38.0 vs 3.35 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "ADBE",
-      "reason": "Dislocation arbitrage: ADBE offers Edge 36.41 vs 3.35 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "CRM",
-      "reason": "Dislocation arbitrage: CRM offers Edge 17.79 vs 3.35 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "DECK",
-      "reason": "Dislocation arbitrage: DECK offers Edge 22.53 vs 3.35 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "CMG",
-      "reason": "Dislocation arbitrage: CMG offers Edge 27.83 vs 3.35 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "BKNG",
-      "reason": "Dislocation arbitrage: BKNG offers Edge 25.44 vs 3.35 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "CSU",
-      "reason": "Dislocation arbitrage: CSU offers Edge 54.28 vs 3.35 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "GCT",
-      "reason": "Dislocation arbitrage: GCT offers Edge 15.71 vs 3.35 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "UNH",
-      "reason": "Dislocation arbitrage: UNH offers Edge 26.62 vs 3.35 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "NVDA",
-      "reason": "Dislocation arbitrage: NVDA offers Edge 29.95 vs 3.35 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "SONY",
-      "reason": "Dislocation arbitrage: SONY offers Edge 17.21 vs 3.35 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "SPGI",
-      "reason": "Dislocation arbitrage: SPGI offers Edge 36.53 vs 3.35 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "TSM",
-      "reason": "Dislocation arbitrage: TSM offers Edge 36.84 vs 3.35 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "VRT",
-      "reason": "Dislocation arbitrage: VRT offers Edge 17.21 vs 3.35 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "NFLX",
-      "reason": "Dislocation arbitrage: NFLX offers Edge 40.66 vs 3.35 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "ADSK",
-      "reason": "Dislocation arbitrage: ADSK offers Edge 34.7 vs 3.35 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "AMR",
-      "reason": "Dislocation arbitrage: AMR offers Edge 13.5 vs 3.35 min active."
-    },
-    {
-      "action": "SWAP_PROPOSAL",
-      "ticker": "ARE",
-      "reason": "Dislocation arbitrage: ARE offers Edge 20.8 vs 3.35 min active."
+      "reason": "Deployed surplus cash ($14,120 / 7.1%) into Tier-1 compounder META (Moat: 9.7/10, MoS: +25.5%, Kelly Edge: 44.42)",
+      "weight_delta": "+7.1%",
+      "verification_status": "Audited & Executed by Autonomous Surveillance Council"
     }
   ]
 }
