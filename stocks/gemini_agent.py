@@ -528,6 +528,8 @@ Your analysis must adhere strictly to these 7 First Principles of Business Valua
    - Post-IPO SBC Normalization: For newly public technology platforms (IPOs within 1–3 years), separate temporary pre-IPO vesting spikes from ongoing run-rate SBC. Audit whether SBC as a % of revenue is structurally contracting toward sustainable levels (<12%).
    - Brokerage Working Capital Distortion: In financial brokerages and retail custodians, GAAP Operating Cash Flow exhibits massive non-economic swings from customer margin lending receivables, segregated clearing deposits, and cash sweep transfers. Strip out customer margin loan expansion and segregated regulatory funds to isolate true corporate operating cash flow.
    - Working Capital Float: Recognize persistent negative cash conversion cycles (deferred revenue + accounts payable > accounts receivable) as interest-free, non-dilutive customer funding.
+   - Insurance Float & Combined Ratio Moat: In property, casualty, and specialty insurance (e.g. Berkshire, Markel, Kinsale, Progressive), audit the Combined Ratio (Loss Ratio + Expense Ratio). A sub-95% combined ratio means the company is paid an underwriting profit to hold customer float, generating negative-cost capital that compounds investment earnings without debt or dilution.
+   - Streaming & Media Content Cash Amortization Drag: For digital entertainment and streaming platforms (e.g. Netflix, Disney, Warner), audit cash spent on content production vs. income statement content amortization. If cash production spend exceeds amortization by >15%, deduct the net cash content drag directly from Owner Earnings.
 
    Pillar 2: Mid-Cycle Business Normalization (1982 & 1991 Letters)
    - For cyclical, commodity, and hardware technology sectors, NEVER extrapolate peak-quarter cash flows or peak gross margins into perpetuity.
@@ -550,6 +552,8 @@ Your analysis must adhere strictly to these 7 First Principles of Business Valua
    - Demand Aggregation vs. Hardware Fleet Traps: In sectors transitioning to physical automation (e.g. Autonomous Vehicles, robotics, automated fulfillment), evaluate whether the platform's consumer demand density positions it as the high-margin dispatch and routing aggregator, avoiding the capital-heavy depreciation traps of owned vehicle fleets.
    - Normalize earnings and margins across full 3-5 year operating cycles to account for customer CapEx digestion pauses, capacity additions, and supply-demand normalization.
    - For mega-cap platforms, enforce a Law of Large Numbers sanity check against total addressable enterprise spending.
+   - Biopharma Patent Cliff & Loss of Exclusivity (LOE): For pharmaceuticals and biotechnology, evaluate patent expiration schedules on top-3 revenue drivers. Disallow perpetual terminal growth on single-blockbuster drugs facing generic or biosimilar entry within 5 years; model realistic LOE revenue runoff (-40% to -80%) unless offset by late-stage Phase 3 pipeline commercialization.
+   - Semiconductor Fabless vs. Foundry Capital Intensity: Strictly differentiate asset-light fabless IP design firms (Qualcomm, Nvidia, ARM) from capital-heavy semiconductor fabrication foundries (TSMC, Intel, Micron). For foundries, evaluate multi-billion-dollar cleanroom tool depreciation against ongoing EUV lithography reinvestment hurdles to isolate true free cash flow.
 
    Pillar 3: Local Sovereign Hurdle Rates (The PetroChina & Iscar Discipline)
    - Never discount international cash flows using US Treasury rates.
