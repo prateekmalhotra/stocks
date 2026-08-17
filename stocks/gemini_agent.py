@@ -600,6 +600,21 @@ Your analysis must adhere strictly to these 7 First Principles of Business Valua
      3. Detail the exact fundamental "Why" (the transmission mechanism into Owner Earnings, margins, or balance sheet solvency).
      4. Assign an overall Business Fragility Score (Low Fragility / Robust Moat | Moderate Sensitivity | High Fragility / Tail-Risk Asymmetric) to disqualify or caution against businesses where risk probability is dangerously elevated regardless of theoretical DCF upside.
 
+   Pillar 10: Central Bank Policy Rate & Pure-Profit Float Sensitivity
+   - For financial platforms, neo-banks, digital brokerages, and payroll/escrow custodians holding material customer float (>10% of operating profit), stress-test earnings against interest rate cycles.
+   - Model the earnings impact of a +/-100 bps shift in central bank policy rates (e.g. Fed funds rate, ECB deposit rate). Never assume peak-rate Net Interest Income (NII) persists indefinitely during an easing cycle.
+
+   Pillar 11: Agile Boutique Challenger & Incremental Market Share Loss Audit
+   - When evaluating competitive moats, do not limit comparisons to legacy mega-cap peers.
+   - Explicitly audit fast-growing agile disrupters and boutique category specialists (e.g. On Running/Hoka vs Nike, Alo Yoga/Vuori vs Lululemon, Shop Pay/Stripe vs PayPal). Identify where the marginal high-income or younger consumer is shifting and quantify physical store encroachment and digital checkout capture.
+
+   Pillar 12: Turnaround J-Curve & Physical Product Lead-Time Realism
+   - For enterprises executing a strategic restructuring or product line pruning (labeled 'Turnaround Play' or 'Turnaround Risk'), enforce a 12–24 month innovation lag.
+   - Restricting legacy product supply (e.g. pruning retro footwear franchises, pulling defective apparel lines) creates an immediate revenue gap. Incorporate Year 1–2 trough conservatism in Base Case DCF modeling before projecting multi-year compounding re-acceleration.
+
+   Pillar 13: Antitrust & Regulatory M&A Plausibility Filter
+   - Disallow treating speculative mega-cap takeovers or private equity buyouts as a firm downside 'valuation floor' unless the transaction is legally and regulatory feasible under global antitrust regimes (FTC/DOJ, EU Commission, UK CMA).
+
 5. Editorial Aesthetics & Structural Clarity:
    - Format financial KPIs and segment data into `<div class="metrics-grid"><div class="metric-card">...</div></div>` or structured HTML tables. Zero raw text dumps.
    - Use Callout boxes (`<div class="callout">...</div>`) for key insights, management quotes, and pre-mortem falsification triggers.
@@ -715,7 +730,8 @@ Your Objective: {research_obj}
 Generate ONLY the following two sections in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
 
 <h2>Section 1: Executive Summary & Operating Reality</h2>
-- 2-3 paragraph institutional executive summary grounded in the LATEST quarterly earnings report, call transcript remarks, and forward guidance.
+- MANDATORY C-SUITE PRIMARY VERIFICATION: Search and verify the EXACT active Chief Executive Officer (CEO) and Chief Financial Officer (CFO) from the company's latest SEC 10-K/10-Q or official press releases. Do NOT confuse Board Directors, former executives, or division heads with the active CEO.
+- 2-3 paragraph institutional executive summary grounded in the LATEST quarterly earnings report, call transcript remarks, and forward guidance under active leadership.
 - Present latest quarterly performance using a clean stat grid:
   <div class="metrics-grid">
     <div class="metric-card"><div class="metric-label">Quarterly Net Revenue</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">+XX% YoY</div></div>
@@ -728,7 +744,7 @@ Generate ONLY the following two sections in clean Semantic HTML with NO external
 <h2>Section 2: Business Model Reality, Unit Economics & Competitive Moat</h2>
 - Segment-by-segment revenue and operating profit breakdown table.
 - Explain in plain English how the company makes money, customer switching costs, and evidence of pricing power.
-- Detailed competitive comparison table contrasting the company against its top 2-3 global peers across unit economics, distribution channels, and technology moats.
+- Detailed competitive comparison table contrasting the company against its top 2-3 global peers AND 1-2 fast-growing agile/boutique category challengers (e.g. On/Hoka for footwear, Alo/Vuori for activewear, Shop Pay/Stripe for payments) across unit economics, distribution channels, and technology moats.
 - Structural secular tailwinds vs. competitive disruption / technological substitution threats.
 
 DO NOT write Section 3, 4, 5, or 6. Output pure HTML only."""
@@ -753,6 +769,7 @@ Generate ONLY the following two sections in clean Semantic HTML with NO external
     </tbody>
   </table>
 - Working Capital Float Audit: Quantify interest-free customer/supplier float (Deferred Revenue + Accounts Payable minus Accounts Receivable).
+- Float & Interest Rate Sensitivity Audit: If the company holds material customer float, escrow balances, or payroll deposits (>10% of operating profit), provide an explicit Float Rate Sensitivity breakdown modeling a 100 bps cut/hike in central bank policy rates and its pre-tax dollar impact on Owner Earnings.
 
 <h2>Section 4: Balance Sheet Fortress, Debt Leases & Ownership Check</h2>
 - Audited capital structure table: Cash & Marketable Treasuries, Funded Debt, Debt Maturity Schedule, and Contractual Capital/Operating Lease liabilities (ASC 842).
@@ -770,6 +787,8 @@ Generate ONLY the following two sections in clean Semantic HTML with NO external
 <h2>Section 5: Warren Buffett Owner Earnings Intrinsic Valuation Matrix</h2>
 - Root valuation strictly in Warren Buffett's 1986 Owner Earnings methodology. Zero arbitrary exit multiples.
 - For cyclical, hardware, or commodity sectors: Normalize peak margins across a full 3-5 year operating cycle.
+- Turnaround J-Curve Realism: If the company is executing a strategic restructuring, product line pruning, or wholesale reset, incorporate Year 1-2 trough conservatism to reflect the 12-24 month physical lead time for new product creation and channel rebuilding.
+- Antitrust Regulatory Plausibility: Disallow treating speculative mega-cap takeovers or buyout rumors as a firm downside valuation floor unless antitrust clearance is legally plausible.
 - Localized sovereign discount rate derivation (local 10Y sovereign bond yield + equity risk premium, e.g. US 10Y for US, SELIC for Brazil, Gilts for UK).
 - [MANDATORY BEAR CASE DOWNSIDE INVARIANT]: The Bear Case (Cycle Trough) MUST BE A REALISTIC DOWNSIDE SCENARIO. The Bear Case Intrinsic Value Per Share MUST ALWAYS BE BELOW CURRENT STOCK PRICE (typically 15% to 40% below current price). A Bear target higher than today's price is strictly forbidden.
 - Complete 3-Scenario DCF Valuation Matrix:
