@@ -4,7 +4,7 @@ AlphaThesis Daily Post-Market Close Rebalancing Audit & Verification Council.
 Runs automatically after 4:30 PM ET market close:
 1. Audits current portfolio holdings against event triggers:
    - 🚨 Moat Break / Capital Destruction (100% Exit on AVOID)
-   - ✂️ Valuation Froth (Trim when Price > 1.35x Fair Value or Position > 20%)
+   - ✂️ Valuation Froth (Trim when Price > 1.35x Fair Value or Position > 50%)
    - 💰 Panic Dip Deployment (Deploy Cash Buffer when Pillar A Anchor Price < 0.65x Fair Value)
 2. Enforces minimum material threshold (>= 5% allocation delta).
 3. If any trigger fires, summons an N=3 Autonomous Consensus Verification Council against SEC EDGAR before executing.

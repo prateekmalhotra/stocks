@@ -154,14 +154,14 @@ def execute_surveillance_decisions(
             retained_holdings.append(h)
             
     # ---------------------------------------------------------
-    # 2. TRIM FROTHY POSITIONS
+    # 2. TRIM FROTHY POSITIONS (Buffett-style up to 50% concentration)
     # ---------------------------------------------------------
     for h in retained_holdings:
         ticker = h.get("ticker")
         audit = next((a for a in holding_audits if a["ticker"] == ticker), None)
         w = float(h.get("target_weight", 0.0))
-        if audit and audit.get("health_status") == "FROTHY" and w > 0.10:
-            trim_to = 0.08 if is_defensive else 0.07
+        if audit and audit.get("health_status") == "FROTHY" and w > 0.50:
+            trim_to = 0.35 if is_defensive else 0.40
             delta_w = w - trim_to
             h["target_weight"] = trim_to
             action_desc = f"Trimmed frothy position {ticker} from {w*100:.1f}% to {trim_to*100:.1f}% (Price ${audit['price']} vs Fair Value ${audit['fair_value']})"
@@ -359,10 +359,10 @@ def run_portfolio_surveillance(portfolio_type: str = "defensive", auto_execute: 
         calc = calculate_kelly_edge(ticker, cur_p, fv)
         active_edge_scores.append(calc["kelly_edge"])
 
-        # Health checks
+        # Health checks (Buffett-style concentration up to 50%)
         if signal in ["AVOID", "CAUTION"] and mos < -15.0:
             health = "IMPAIRED"
-        elif cur_p > 1.35 * fv or w_tgt > 0.20:
+        elif (cur_p > 1.35 * fv and w_tgt > 0.40) or w_tgt > 0.50:
             health = "FROTHY"
         else:
             health = "PRISTINE"

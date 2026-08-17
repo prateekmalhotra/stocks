@@ -39,7 +39,7 @@ SHILLER_CAPE = 35.50            # S&P 500 Cyclically Adjusted P/E (95th Historic
 CAPE_HISTORICAL_MEDIAN = 18.00  # Historical Mean/Median Baseline
 BUFFETT_INDICATOR = 198.50      # US Total Market Cap to GDP %
 TREASURY_BILL_YIELD = 0.0500    # 3-Month Senior US Treasury Bill Yield (5.00% Risk-Free)
-MAX_SINGLE_EQUITY_CAP = 0.1500  # Single-asset prudence ceiling
+MAX_SINGLE_EQUITY_CAP = 0.5000  # Buffett-style high-conviction concentration ceiling (up to 50%)
 
 COMPLIANCE_EXCLUSIONS = {
     "GOOG": "Regulatory/Compliance Constraint: Direct Employer Affiliation",
@@ -322,14 +322,14 @@ def score_wealthsimple_aggressive(
 def allocate_concentrated_buffett_kelly(
     k_scores: Dict[str, float],
     budget: float,
-    max_cap: float = 0.2200,
+    max_cap: float = 0.5000,
     min_hurdle: float = 0.0350,
     min_holdings: int = 8,
     max_holdings: int = 12
 ) -> Dict[str, float]:
     """
     Buffett-Munger Concentrated High-Conviction Allocation Engine:
-    - Eliminates artificial 10% dilution caps: highest-conviction fortresses scale up to 20%-22%.
+    - Allows high-conviction fortresses to scale up to 40%-50% (Buffett AmEx/Apple allocation model).
     - Concentrates capital on the top 8 to 12 best ideas (no trivial micro-positions < 3.5%).
     - Automatically balances capital to match the exact macro-equity budget.
     """
@@ -476,7 +476,7 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
     fid_k = {x["ticker"]: x["kelly_score"] for x in fid_selected}
     fid_mos = sum(x["margin_of_safety_pct"] for x in fid_selected) / len(fid_selected) if fid_selected else 25.0
     fid_cash_target, fid_budget, fid_desc = calculate_shiller_macro_cash(True, fid_mos)
-    fid_weights = allocate_concentrated_buffett_kelly(fid_k, fid_budget, max_cap=0.2200, min_hurdle=0.0350, min_holdings=8, max_holdings=12)
+    fid_weights = allocate_concentrated_buffett_kelly(fid_k, fid_budget, max_cap=0.5000, min_hurdle=0.0350, min_holdings=8, max_holdings=12)
 
     # Ensure cash absorbs exact remainder
     tot_fid_equity = sum(fid_weights.values())
@@ -537,7 +537,7 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
     ws_k = {x["ticker"]: x["kelly_score"] for x in ws_selected}
     ws_mos = sum(x["margin_of_safety_pct"] for x in ws_selected) / len(ws_selected) if ws_selected else 40.0
     ws_cash_target, ws_budget, ws_desc = calculate_shiller_macro_cash(False, ws_mos)
-    ws_weights = allocate_concentrated_buffett_kelly(ws_k, ws_budget, max_cap=0.2200, min_hurdle=0.0350, min_holdings=8, max_holdings=12)
+    ws_weights = allocate_concentrated_buffett_kelly(ws_k, ws_budget, max_cap=0.5000, min_hurdle=0.0350, min_holdings=8, max_holdings=12)
 
     tot_ws_equity = sum(ws_weights.values())
     exact_ws_cash = round(max(0.03, 1.0 - tot_ws_equity), 4)
