@@ -630,8 +630,14 @@ THE BENJAMIN GRAHAM & WARREN BUFFETT "ANTI-MR. MARKET" DOCTRINE (MANDATORY & IND
         * Intrinsic Equity Value = PV of 5-10Y Owner Earnings + PV of Terminal Cash Stream (capped at -2% to +2.0% GDP) + Cash & Equities - Total Debt & Leases.
         * Divide by diluted share count to arrive at Intrinsic Fair Value per Share.
         * The 5-Year Exchange Closure Test: Demand a clear Margin of Safety (20–40% discount) so that even if the stock market were closed for 5 years, the investor earns an attractive return purely from organic cash generation.
-     7. Financial Institutions & Banking Books (1990 & 2011 Letters on Wells Fargo & Amex):
-        * For banks or fintechs with expanding credit/loan portfolios (e.g. StoneCo Banking, PayPal Credit), evaluate Credit Quality, Non-Performing Loans (NPLs), provision coverage, Cost of Deposits, and Return on Tangible Equity (ROTE) rather than pure FCF.
+     7. Financial Institutions, Asset Managers & Banking Books (1990 & 2011 Letters on Wells Fargo & Amex):
+        * For banks or fintechs with expanding credit/loan portfolios (e.g. StoneCo Banking, PayPal Credit, SoFi, Ally):
+          - Evaluate Credit Quality, Non-Performing Loans (NPLs), net charge-off trends, provision coverage, Cost of Deposits, and Return on Tangible Equity (ROTE) rather than pure FCF.
+        * [ASSET MANAGEMENT AUM & PASSIVE FEE-EROSION INVARIANT]:
+          - For traditional asset managers (e.g. Franklin Templeton, T. Rowe Price, Invesco):
+          - Evaluate AUM mix between legacy mutual funds (facing secular outflows to passive ETFs) vs. alternative assets / private markets (sticky long-term capital lock-ups).
+          - If legacy active mutual funds exceed 50% of total AUM, you MUST model ongoing gross fee compression (-10 to -20 bps) in Bear and Base scenarios.
+          - Subtract regulatory penalties, legal settlements, and deferred acquisition earnouts directly from enterprise net cash.
    - BUFFETT RESOLUTION & RESEARCH FALLBACK DIRECTIVE:
      If you encounter any accounting edge cases, complex capital structure, negative working capital dilemma, cyclical distortion, foreign banking nuance, or feel stuck on any valuation step, you MUST search and reference Warren Buffett's Berkshire Hathaway Shareholder Letters and 'The Essays of Warren Buffett' (by Lawrence Cunningham). Apply how Warren Buffett and Charlie Munger resolved that exact economic problem from first principles.
    - Present a clean, transparent Bear / Base / Bull scenario table in Section 5 detailing Owner Earnings, growth assumptions, and per-share intrinsic values.
