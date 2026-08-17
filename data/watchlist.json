@@ -1,1 +1,41 @@
-[]
+[
+  {
+    "ticker": "AMZN",
+    "company_name": "Amazon.com, Inc.",
+    "baseline_price": 261.31,
+    "current_price": 261.31,
+    "return_pct": 0.0,
+    "status_label": "Active",
+    "labels": [
+      "Active"
+    ],
+    "action_signal": "HOLD",
+    "fair_value_estimate": "$284.60",
+    "bear_target": "$178.45 (-31.7%)",
+    "base_target": "$284.60 (+8.9%)",
+    "bull_target": "$382.10 (+46.2%)",
+    "what_is_priced_in": "",
+    "upper_alert_threshold": 284.6,
+    "lower_alert_threshold": 222.11,
+    "next_catalyst_date": "2026-11-15",
+    "next_catalyst_event": "Scheduled quarterly report",
+    "top_funds": [
+      "AltaRock Partners (32.21)",
+      "Josh Tarasoff - Greenlea Lane Capital (18.35)",
+      "Seth Klarman - Baupost Group (16.48)",
+      "Dennis Hong - ShawSpring Partners (16.13)",
+      "David Tepper - Appaloosa Management (15.95)",
+      "ValueAct Capital (12.44)",
+      "Bill Ackman - Pershing Square Capital Management (10.49)",
+      "Chase Coleman - Tiger Global Management (9.62)",
+      "Triple Frond Partners (9.20)",
+      "Daniel Loeb - Third Point (9.13)"
+    ],
+    "institutional_ownership_pct": "78.4%",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Standard executive equity incentive exercises and routine holding maintenance.",
+    "last_updated": "2026-08-17",
+    "total_versions": 1,
+    "report_path": "reports/AMZN.html"
+  }
+]
