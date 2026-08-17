@@ -694,20 +694,28 @@ Return your plan strictly as a JSON object in ```json ... ```:
   "research_objective": "<Your custom summary of the core thesis questions for {ticker}. Search OpenInsider (http://openinsider.com/search?q={ticker}) and Dataroma for insider trades and whale ownership>",
   "sub_agents": [
     {{
-      "role": "<Sub-Agent 1: Business Model, Moat & Operating Reality Specialist>",
-      "prompt": "<Detailed prompt instructing Sub-Agent 1 to output Section 1 & 2 in clean Semantic HTML>"
+      "role": "<Sub-Agent 1: Executive Leadership & Operating Reality Specialist>",
+      "prompt": "<Detailed prompt instructing Sub-Agent 1 to output Section 1 in clean Semantic HTML>"
     }},
     {{
-      "role": "<Sub-Agent 2: Real Cash Flow, SBC Dilution & Capital Structure Auditor>",
-      "prompt": "<Detailed prompt instructing Sub-Agent 2 to output Section 3 & 4 in clean Semantic HTML>"
+      "role": "<Sub-Agent 2: Business Model, Unit Economics & Moat Specialist>",
+      "prompt": "<Detailed prompt instructing Sub-Agent 2 to output Section 2 in clean Semantic HTML>"
     }},
     {{
-      "role": "<Sub-Agent 3: Warren Buffett Owner Earnings Valuation Strategist>",
-      "prompt": "<Detailed prompt instructing Sub-Agent 3 to output Section 5 in clean Semantic HTML>"
+      "role": "<Sub-Agent 3: Forensic Cash Flow, SBC & Float Auditor>",
+      "prompt": "<Detailed prompt instructing Sub-Agent 3 to output Section 3 in clean Semantic HTML>"
     }},
     {{
-      "role": "<Sub-Agent 4: Probabilistic Risk, Threat Assessment & Pre-Mortem Auditor>",
-      "prompt": "<Detailed prompt instructing Sub-Agent 4 to output Section 6 in clean Semantic HTML>"
+      "role": "<Sub-Agent 4: Balance Sheet Fortress, Debt Leases & Ownership Auditor>",
+      "prompt": "<Detailed prompt instructing Sub-Agent 4 to output Section 4 in clean Semantic HTML>"
+    }},
+    {{
+      "role": "<Sub-Agent 5: Warren Buffett Owner Earnings Valuation Strategist>",
+      "prompt": "<Detailed prompt instructing Sub-Agent 5 to output Section 5 in clean Semantic HTML>"
+    }},
+    {{
+      "role": "<Sub-Agent 6: Probabilistic Risk, Threat Assessment & Pre-Mortem Auditor>",
+      "prompt": "<Detailed prompt instructing Sub-Agent 6 to output Section 6 in clean Semantic HTML>"
     }}
   ]
 }}
@@ -743,11 +751,11 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     research_obj = plan_json.get("research_objective", f"Evaluate {ticker_clean} core business reality and valuation.")
     print(f"   │ Strategy: {research_obj}", flush=True)
 
-    # Enforce strict non-overlapping 3-agent modular section generation
-    agent_1_prompt = f"""You are Sub-Agent 1: Business Model, Moat & Operational Strategy Specialist researching {ticker_clean} ({company_name}) at current market price ${current_price:.2f}.
+    # Enforce strict 6-agent dedicated modular section generation (1 Agent per Section)
+    agent_1_prompt = f"""You are Sub-Agent 1: Executive Leadership & Operating Reality Specialist researching {ticker_clean} ({company_name}) at current market price ${current_price:.2f}.
 Your Objective: {research_obj}
 
-Generate ONLY the following two sections in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
+Generate ONLY Section 1 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
 
 <h2>Section 1: Executive Summary & Operating Reality</h2>
 - MANDATORY C-SUITE PRIMARY VERIFICATION: Search and verify the EXACT active Chief Executive Officer (CEO) and Chief Financial Officer (CFO) from the company's latest SEC 10-K/10-Q or official press releases. Do NOT confuse Board Directors, former executives, or division heads with the active CEO.
@@ -761,18 +769,25 @@ Generate ONLY the following two sections in clean Semantic HTML with NO external
   </div>
 - Add a Callout box (<div class="callout">...</div>) highlighting direct CEO/CFO quotes from the latest earnings call regarding capital allocation, margin outlook, and competitive dynamics.
 
+DO NOT write Section 2, 3, 4, 5, or 6. Output pure HTML only."""
+
+    agent_2_prompt = f"""You are Sub-Agent 2: Business Model, Unit Economics & Competitive Moat Specialist researching {ticker_clean} ({company_name}) at current market price ${current_price:.2f}.
+Your Objective: {research_obj}
+
+Generate ONLY Section 2 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
+
 <h2>Section 2: Business Model Reality, Unit Economics & Competitive Moat</h2>
 - Segment-by-segment revenue and operating profit breakdown table.
 - Explain in plain English how the company makes money, customer switching costs, and evidence of pricing power.
-- Detailed competitive comparison table contrasting the company against its top 2-3 global peers AND 1-2 fast-growing agile/boutique category challengers (e.g. On/Hoka for footwear, Alo/Vuori for activewear, Shop Pay/Stripe for payments) across unit economics, distribution channels, and technology moats.
+- Detailed competitive comparison table contrasting the company against its top 2-3 global peers AND 1-2 fast-growing agile/boutique category challengers (e.g. On/Hoka for footwear, Alo/Vuori for activewear, Shop Pay/Stripe for payments, Nubank for LatAm fintech) across unit economics, distribution channels, and technology moats.
 - Structural secular tailwinds vs. competitive disruption / technological substitution threats.
 
-DO NOT write Section 3, 4, 5, or 6. Output pure HTML only."""
+DO NOT write Section 1, 3, 4, 5, or 6. Output pure HTML only."""
 
-    agent_2_prompt = f"""You are Sub-Agent 2: Real Cash Flow, SBC Dilution & Capital Allocation Auditor researching {ticker_clean} ({company_name}) at current market price ${current_price:.2f}.
+    agent_3_prompt = f"""You are Sub-Agent 3: Forensic Cash Flow, SBC Dilution & Float Auditor researching {ticker_clean} ({company_name}) at current market price ${current_price:.2f}.
 Your Objective: {research_obj}
 
-Generate ONLY the following two sections in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
+Generate ONLY Section 3 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
 
 <h2>Section 3: Forensic Cash Flow, SBC Dilution & Owner Earnings Audit</h2>
 - Rigorous cash flow audit stripping away Non-GAAP add-backs.
@@ -791,15 +806,22 @@ Generate ONLY the following two sections in clean Semantic HTML with NO external
 - Working Capital Float Audit: Quantify interest-free customer/supplier float (Deferred Revenue + Accounts Payable minus Accounts Receivable).
 - Float & Interest Rate Sensitivity Audit: If the company holds material customer float, escrow balances, or payroll deposits (>10% of operating profit), provide an explicit Float Rate Sensitivity breakdown modeling a 100 bps cut/hike in central bank policy rates and its pre-tax dollar impact on Owner Earnings.
 
+DO NOT write Section 1, 2, 4, 5, or 6. Output pure HTML only."""
+
+    agent_4_prompt = f"""You are Sub-Agent 4: Balance Sheet Fortress, Debt Leases & Ownership Auditor researching {ticker_clean} ({company_name}) at current market price ${current_price:.2f}.
+Your Objective: {research_obj}
+
+Generate ONLY Section 4 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
+
 <h2>Section 4: Balance Sheet Fortress, Debt Leases & Ownership Check</h2>
 - Audited capital structure table: Cash & Marketable Treasuries, Funded Debt, Debt Maturity Schedule, and Contractual Capital/Operating Lease liabilities (ASC 842).
 - Net Cash / Net Debt calculation and Interest Expense Coverage ratio.
 - Share Buyback Cannibalization Analysis: Gross shares repurchased minus SBC shares issued = True Net Annual Share Count Reduction (-X.X%/year).
 - Institutional 13F Whales & Form 4 Insider Trading audit from latest official filings.
 
-DO NOT write Section 1, 2, 5, or 6. Output pure HTML only."""
+DO NOT write Section 1, 2, 3, 5, or 6. Output pure HTML only."""
 
-    agent_3_prompt = f"""You are Sub-Agent 3: Warren Buffett Owner Earnings Valuation Strategist researching {ticker_clean} ({company_name}) at current market price ${current_price:.2f}.
+    agent_5_prompt = f"""You are Sub-Agent 5: Warren Buffett Owner Earnings Valuation Strategist researching {ticker_clean} ({company_name}) at current market price ${current_price:.2f}.
 Your Objective: {research_obj}
 
 Generate ONLY Section 5 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
@@ -841,7 +863,7 @@ Generate ONLY Section 5 in clean Semantic HTML with NO external images, NO inlin
 
 DO NOT write Section 1, 2, 3, 4, or 6. Output pure HTML only."""
 
-    agent_4_prompt = f"""You are Sub-Agent 4: Probabilistic Risk, Threat Assessment & Pre-Mortem Invalidation Auditor researching {ticker_clean} ({company_name}) at current market price ${current_price:.2f}.
+    agent_6_prompt = f"""You are Sub-Agent 6: Probabilistic Risk, Threat Assessment & Pre-Mortem Invalidation Auditor researching {ticker_clean} ({company_name}) at current market price ${current_price:.2f}.
 Your Objective: {research_obj}
 
 Generate ONLY Section 6 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
@@ -902,13 +924,15 @@ Generate ONLY Section 6 in clean Semantic HTML with NO external images, NO inlin
 DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
 
     sub_agents = [
-        {"role": "Business Model, Moat & Operating Reality Specialist", "prompt": agent_1_prompt},
-        {"role": "Real Cash Flow, SBC & Capital Structure Auditor", "prompt": agent_2_prompt},
-        {"role": "Warren Buffett Owner Earnings Valuation Strategist", "prompt": agent_3_prompt},
-        {"role": "Probabilistic Risk & Pre-Mortem Invalidation Auditor", "prompt": agent_4_prompt}
+        {"role": "Executive Leadership & Operating Reality Specialist", "prompt": agent_1_prompt, "section_num": 1},
+        {"role": "Business Model, Unit Economics & Moat Specialist", "prompt": agent_2_prompt, "section_num": 2},
+        {"role": "Forensic Cash Flow, SBC & Float Auditor", "prompt": agent_3_prompt, "section_num": 3},
+        {"role": "Balance Sheet Fortress, Debt Leases & Ownership Auditor", "prompt": agent_4_prompt, "section_num": 4},
+        {"role": "Warren Buffett Owner Earnings Valuation Strategist", "prompt": agent_5_prompt, "section_num": 5},
+        {"role": "Probabilistic Risk & Pre-Mortem Invalidation Auditor", "prompt": agent_6_prompt, "section_num": 6}
     ]
     
-    print(f"   │ Planned Sub-Agents: 4 specialized non-overlapping autonomous tasks", flush=True)
+    print(f"   │ Planned Sub-Agents: 6 specialized dedicated section tasks (1 Agent per Section)", flush=True)
     print("   └" + "─" * 50, flush=True)
 
     # ------------------------------------------------------------------
@@ -923,8 +947,17 @@ DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
         print(f"   │ Task: {prompt_snippet}", flush=True)
         print(f"   │ Search Grounding: Querying real-time filings & consensus...", flush=True)
         
-        agent_out = call_gemini_with_search(agent_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
-        clean_section = verify_and_repair_html_structure(clean_grounding_artifacts(agent_out))
+        clean_section = ""
+        sec_num = agent.get("section_num", idx)
+        for attempt in range(1, 3):
+            agent_out = call_gemini_with_search(agent_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
+            clean_section = verify_and_repair_html_structure(clean_grounding_artifacts(agent_out))
+            word_count = len(clean_section.split())
+            has_sec_header = f"section {sec_num}" in clean_section.lower() or f"section {sec_num}" in clean_section.lower()
+            if word_count >= 150 and has_sec_header:
+                break
+            print(f"   ⚠️ Sub-Agent {idx} output insufficient ({word_count} words). Auto-healing retry (attempt {attempt+1}/2)...", flush=True)
+        
         section_htmls.append(clean_section)
         print(f"   │ Status: Complete ({len(clean_section.split())} words generated)", flush=True)
         print("   └" + "─" * 50, flush=True)
