@@ -663,6 +663,11 @@ THE BENJAMIN GRAHAM & WARREN BUFFETT "ANTI-MR. MARKET" DOCTRINE (MANDATORY & IND
      7. Financial Institutions, Asset Managers & Banking Books (1990 & 2011 Letters on Wells Fargo & Amex):
         * For banks or fintechs with expanding credit/loan portfolios (e.g. StoneCo Banking, PayPal Credit, SoFi, Ally):
           - Evaluate Credit Quality, Non-Performing Loans (NPLs), net charge-off trends, provision coverage, Cost of Deposits, and Return on Tangible Equity (ROTE) rather than pure FCF.
+        * [CASINO FEE-SIMPLE REAL ESTATE VS. MASTER LEASE DRAG INVARIANT]:
+          - For regional gaming, hospitality, and casino operators (e.g. Boyd Gaming, Red Rock Resorts, Penn, Caesars):
+          - Fee-Simple Ownership Advantage: Operators owning > 80% of their casino real estate pay ZERO master lease rent to gaming REITs (VICI, GLPI), eliminating rigid rent escalators and converting ~40% property EBITDAR directly into free cash flow.
+          - OpCo/PropCo Lease Penalty: If an operator rents via triple-net leases, deduct full annual cash rent obligations as mandatory debt service, and penalize downturn resilience.
+          - Tribal Management & Digital Stakes: Credit 100%-margin tribal management contracts (e.g. Sky River) and digital sports betting stakes (e.g. FanDuel equity) as high-value, asset-light cash accelerators.
         * [PAYMENT PROCESSOR TRANSACTION MARGIN DOLLAR (TMD) QUALITY INVARIANT]:
           - For payment networks, gateways, and PSPs (e.g. PayPal, Adyen, Block, Shift4):
           - DO NOT rely on headline Total Payment Volume (TPV) growth. High-volume unbranded processing (e.g. Braintree, enterprise PSP) carries thin 0.20%–0.35% take rates, which can mask underlying erosion in high-margin branded checkout (2.0%–2.5% take rate).
