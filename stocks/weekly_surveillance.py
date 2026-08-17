@@ -36,11 +36,22 @@ def get_surveillance_filepath(portfolio_type: str) -> Path:
         return DATA_DIR / "surveillance_aggressive.json"
     return DATA_DIR / "surveillance_defensive.json"
 
-def calculate_kelly_edge(ticker: str, current_price: float, fair_value: float) -> Dict[str, float]:
-    """Calculates Expected 5-Year IRR and Quality-Adjusted Kelly Edge."""
-    meta = TAXONOMY_MAP.get(ticker, {
-        "moat": 8.5, "bs": 8.5, "growth": 10.0, "cannibal": 1.5, "oe_yield": 4.5, "p": 0.85
-    })
+def calculate_kelly_edge(ticker: str, current_price: float, fair_value: float, wl_item: Optional[Dict[str, Any]] = None) -> Dict[str, float]:
+    """Calculates Expected 5-Year IRR and Quality-Adjusted Kelly Edge for all existing and newly ingested stocks."""
+    meta = TAXONOMY_MAP.get(ticker)
+    if not meta:
+        wl_item = wl_item or {}
+        labels = wl_item.get("labels", [])
+        status = wl_item.get("status_label", "")
+        
+        # Derive high-precision fundamental heuristics from research labels
+        moat = 9.4 if ("Monopoly Moat" in labels or "High Conviction" in status) else (9.0 if "Solid Conviction" in status else 8.5)
+        bs = 9.5 if "Cash Fortress" in labels else (8.0 if "Debt Caution" in labels else 8.5)
+        growth = 15.0 if ("Cloud Acceleration" in labels or "Growth" in labels) else 9.0
+        cannibal = 4.0 if "Buyback Cannibal" in labels else 1.5
+        oe_y = 6.0 if "Deep Value" in labels else 4.5
+        p = 0.90 if "Monopoly Moat" in labels else 0.85
+        meta = {"moat": moat, "bs": bs, "growth": growth, "cannibal": cannibal, "oe_yield": oe_y, "p": p}
     
     moat = meta.get("moat", meta.get("moat_base", 8.5))
     bs = meta.get("bs", meta.get("bs_base", 8.5))
@@ -356,7 +367,7 @@ def run_portfolio_surveillance(portfolio_type: str = "defensive", auto_execute: 
         weighted_mos_numerator += (mos * w_tgt)
         equity_weight_sum += w_tgt
 
-        calc = calculate_kelly_edge(ticker, cur_p, fv)
+        calc = calculate_kelly_edge(ticker, cur_p, fv, w_item)
         active_edge_scores.append(calc["kelly_edge"])
 
         # Health checks (Buffett-style concentration up to 50%)
@@ -432,7 +443,7 @@ def run_portfolio_surveillance(portfolio_type: str = "defensive", auto_execute: 
             
         mos = round(((fv - cur_p) / cur_p) * 100.0, 2) if cur_p > 0 else 0.0
         signal = s.get("action_signal", "HOLD")
-        calc = calculate_kelly_edge(ticker, cur_p, fv)
+        calc = calculate_kelly_edge(ticker, cur_p, fv, s)
 
         if signal == "BUY" and mos >= 20.0:
             watchlist_candidates.append({
