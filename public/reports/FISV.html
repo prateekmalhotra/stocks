@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PYPL — Investment Memo</title>
+    <title>FISV — Investment Memo</title>
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
     <link rel="apple-touch-icon" href="../favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1072,7 +1072,7 @@
     <nav class="nav-bar">
         <div class="container nav-inner">
             <a href="../index.html" class="nav-back">← AlphaThesis</a>
-            <span style="font-size: 0.82rem; color: var(--text-dim); font-family: var(--font-sans);">PYPL RESEARCH</span>
+            <span style="font-size: 0.82rem; color: var(--text-dim); font-family: var(--font-sans);">FISV RESEARCH</span>
         </div>
     </nav>
 
@@ -1082,17 +1082,17 @@
             <div class="hero-top-row">
                 <div>
                     <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-                        <div class="ticker-logo-wrap" style="width:32px; height:32px; min-width:32px; min-height:32px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/PYPL" alt="PYPL" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:13px;">PY</span></div>
-                        <span class="ticker-symbol">PYPL</span>
-                        <span class="pill pill-conviction">High Conviction</span>
+                        <div class="ticker-logo-wrap" style="width:32px; height:32px; min-width:32px; min-height:32px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/FISV" alt="FISV" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:13px;">FI</span></div>
+                        <span class="ticker-symbol">FISV</span>
+                        <span class="pill pill-conviction">Active</span>
                         <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="View Investment Taxonomy & Labels Legend">ⓘ</button>
                     </div>
-                    <div class="company-meta">PayPal Holdings, Inc.</div>
+                    <div class="company-meta">Fiserv, Inc.</div>
                 </div>
                 <div class="price-callout">
-                    <div class="price-number">$60.47</div>
+                    <div class="price-number">$52.48</div>
                     <div class="price-sub pos">
-                        +0.03%
+                        +0.06%
                     </div>
                 </div>
             </div>
@@ -1102,7 +1102,7 @@
     <div class="native-chart-wrap" id="chart-container" style="position: relative; overflow: hidden;">
         <div class="chart-top-bar">
             <div id="chart-live-val" class="chart-live-val">
-                <span id="tooltip-date">Aug 17, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$60.47</strong>
+                <span id="tooltip-date">Aug 17, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$52.47</strong>
                 <span id="tooltip-delta" class="pos" style="font-size: 0.76rem; margin-left: 6px;"></span>
             </div>
             <div class="chart-range-pills">
@@ -1150,15 +1150,15 @@
         </div>
 
         <div class="chart-labels">
-            <span id="chart-start-lbl">Aug 18, 2025 ($39.08)</span>
+            <span id="chart-start-lbl">Aug 18, 2025 ($47.18)</span>
             <span id="chart-range-title">1-Year Historical Range</span>
-            <span id="chart-end-lbl">Aug 17, 2026 ($60.47)</span>
+            <span id="chart-end-lbl">Aug 17, 2026 ($52.47)</span>
         </div>
     </div>
 
     <script>
     (function() {
-        const allDatasets = {"1Y": [{"date": "Aug 18, 2025", "price": 69.53}, {"date": "Aug 19, 2025", "price": 69.05}, {"date": "Aug 20, 2025", "price": 68.08}, {"date": "Aug 21, 2025", "price": 67.55}, {"date": "Aug 22, 2025", "price": 69.9}, {"date": "Aug 25, 2025", "price": 69.48}, {"date": "Aug 26, 2025", "price": 70.18}, {"date": "Aug 27, 2025", "price": 69.65}, {"date": "Aug 28, 2025", "price": 70.06}, {"date": "Aug 29, 2025", "price": 70.19}, {"date": "Sep 02, 2025", "price": 69.25}, {"date": "Sep 03, 2025", "price": 69.64}, {"date": "Sep 04, 2025", "price": 68.46}, {"date": "Sep 05, 2025", "price": 68.26}, {"date": "Sep 08, 2025", "price": 68.4}, {"date": "Sep 09, 2025", "price": 67.68}, {"date": "Sep 10, 2025", "price": 65.64}, {"date": "Sep 11, 2025", "price": 67.27}, {"date": "Sep 12, 2025", "price": 66.89}, {"date": "Sep 15, 2025", "price": 67.11}, {"date": "Sep 16, 2025", "price": 66.85}, {"date": "Sep 17, 2025", "price": 68.62}, {"date": "Sep 18, 2025", "price": 68.52}, {"date": "Sep 19, 2025", "price": 68.22}, {"date": "Sep 22, 2025", "price": 67.68}, {"date": "Sep 23, 2025", "price": 67.31}, {"date": "Sep 24, 2025", "price": 67.86}, {"date": "Sep 25, 2025", "price": 66.74}, {"date": "Sep 26, 2025", "price": 67.3}, {"date": "Sep 29, 2025", "price": 69.68}, {"date": "Sep 30, 2025", "price": 67.06}, {"date": "Oct 01, 2025", "price": 66.66}, {"date": "Oct 02, 2025", "price": 68.93}, {"date": "Oct 03, 2025", "price": 69.25}, {"date": "Oct 06, 2025", "price": 71.29}, {"date": "Oct 07, 2025", "price": 74.61}, {"date": "Oct 08, 2025", "price": 76.13}, {"date": "Oct 09, 2025", "price": 75.75}, {"date": "Oct 10, 2025", "price": 69.84}, {"date": "Oct 13, 2025", "price": 68.86}, {"date": "Oct 14, 2025", "price": 69.15}, {"date": "Oct 15, 2025", "price": 67.98}, {"date": "Oct 16, 2025", "price": 66.05}, {"date": "Oct 17, 2025", "price": 67.41}, {"date": "Oct 20, 2025", "price": 69.2}, {"date": "Oct 21, 2025", "price": 70.05}, {"date": "Oct 22, 2025", "price": 68.07}, {"date": "Oct 23, 2025", "price": 69.66}, {"date": "Oct 24, 2025", "price": 69.77}, {"date": "Oct 27, 2025", "price": 70.25}, {"date": "Oct 28, 2025", "price": 73.02}, {"date": "Oct 29, 2025", "price": 69.68}, {"date": "Oct 30, 2025", "price": 67.93}, {"date": "Oct 31, 2025", "price": 69.27}, {"date": "Nov 03, 2025", "price": 68.34}, {"date": "Nov 04, 2025", "price": 66.08}, {"date": "Nov 05, 2025", "price": 68.06}, {"date": "Nov 06, 2025", "price": 66.26}, {"date": "Nov 07, 2025", "price": 66.22}, {"date": "Nov 10, 2025", "price": 66.25}, {"date": "Nov 11, 2025", "price": 67.4}, {"date": "Nov 12, 2025", "price": 67.2}, {"date": "Nov 13, 2025", "price": 65.33}, {"date": "Nov 14, 2025", "price": 62.81}, {"date": "Nov 17, 2025", "price": 61.89}, {"date": "Nov 18, 2025", "price": 60.7}, {"date": "Nov 19, 2025", "price": 60.11}, {"date": "Nov 20, 2025", "price": 58.1}, {"date": "Nov 21, 2025", "price": 60.57}, {"date": "Nov 24, 2025", "price": 60.56}, {"date": "Nov 25, 2025", "price": 61.22}, {"date": "Nov 26, 2025", "price": 61.83}, {"date": "Nov 28, 2025", "price": 62.69}, {"date": "Dec 01, 2025", "price": 62.58}, {"date": "Dec 02, 2025", "price": 62.9}, {"date": "Dec 03, 2025", "price": 61.24}, {"date": "Dec 04, 2025", "price": 61.73}, {"date": "Dec 05, 2025", "price": 62.28}, {"date": "Dec 08, 2025", "price": 61.12}, {"date": "Dec 09, 2025", "price": 60.78}, {"date": "Dec 10, 2025", "price": 61.16}, {"date": "Dec 11, 2025", "price": 61.69}, {"date": "Dec 12, 2025", "price": 61.66}, {"date": "Dec 15, 2025", "price": 60.74}, {"date": "Dec 16, 2025", "price": 61.33}, {"date": "Dec 17, 2025", "price": 60.18}, {"date": "Dec 18, 2025", "price": 59.44}, {"date": "Dec 19, 2025", "price": 59.81}, {"date": "Dec 22, 2025", "price": 59.86}, {"date": "Dec 23, 2025", "price": 59.41}, {"date": "Dec 24, 2025", "price": 60.04}, {"date": "Dec 26, 2025", "price": 59.97}, {"date": "Dec 29, 2025", "price": 59.49}, {"date": "Dec 30, 2025", "price": 59.1}, {"date": "Dec 31, 2025", "price": 58.38}, {"date": "Jan 02, 2026", "price": 58.14}, {"date": "Jan 05, 2026", "price": 59.29}, {"date": "Jan 06, 2026", "price": 59.81}, {"date": "Jan 07, 2026", "price": 58.51}, {"date": "Jan 08, 2026", "price": 58.27}, {"date": "Jan 09, 2026", "price": 57.66}, {"date": "Jan 12, 2026", "price": 57.29}, {"date": "Jan 13, 2026", "price": 56.56}, {"date": "Jan 14, 2026", "price": 57.66}, {"date": "Jan 15, 2026", "price": 56.74}, {"date": "Jan 16, 2026", "price": 56.89}, {"date": "Jan 20, 2026", "price": 55.08}, {"date": "Jan 21, 2026", "price": 55.89}, {"date": "Jan 22, 2026", "price": 57.15}, {"date": "Jan 23, 2026", "price": 56.62}, {"date": "Jan 26, 2026", "price": 56.6}, {"date": "Jan 27, 2026", "price": 55.51}, {"date": "Jan 28, 2026", "price": 54.08}, {"date": "Jan 29, 2026", "price": 53.11}, {"date": "Jan 30, 2026", "price": 52.69}, {"date": "Feb 02, 2026", "price": 52.33}, {"date": "Feb 03, 2026", "price": 41.7}, {"date": "Feb 04, 2026", "price": 41.03}, {"date": "Feb 05, 2026", "price": 39.9}, {"date": "Feb 06, 2026", "price": 40.42}, {"date": "Feb 09, 2026", "price": 41.15}, {"date": "Feb 10, 2026", "price": 41.49}, {"date": "Feb 11, 2026", "price": 40.46}, {"date": "Feb 12, 2026", "price": 39.08}, {"date": "Feb 13, 2026", "price": 40.29}, {"date": "Feb 17, 2026", "price": 40.81}, {"date": "Feb 18, 2026", "price": 41.45}, {"date": "Feb 19, 2026", "price": 41.73}, {"date": "Feb 20, 2026", "price": 41.65}, {"date": "Feb 23, 2026", "price": 44.05}, {"date": "Feb 24, 2026", "price": 47.02}, {"date": "Feb 25, 2026", "price": 47.32}, {"date": "Feb 26, 2026", "price": 45.53}, {"date": "Feb 27, 2026", "price": 46.21}, {"date": "Mar 02, 2026", "price": 45.63}, {"date": "Mar 03, 2026", "price": 46.38}, {"date": "Mar 04, 2026", "price": 46.75}, {"date": "Mar 05, 2026", "price": 47.64}, {"date": "Mar 06, 2026", "price": 46.97}, {"date": "Mar 09, 2026", "price": 46.16}, {"date": "Mar 10, 2026", "price": 45.02}, {"date": "Mar 11, 2026", "price": 45.57}, {"date": "Mar 12, 2026", "price": 44.36}, {"date": "Mar 13, 2026", "price": 44.9}, {"date": "Mar 16, 2026", "price": 45.42}, {"date": "Mar 17, 2026", "price": 46.13}, {"date": "Mar 18, 2026", "price": 44.59}, {"date": "Mar 19, 2026", "price": 44.19}, {"date": "Mar 20, 2026", "price": 44.01}, {"date": "Mar 23, 2026", "price": 45.49}, {"date": "Mar 24, 2026", "price": 44.21}, {"date": "Mar 25, 2026", "price": 44.85}, {"date": "Mar 26, 2026", "price": 45.2}, {"date": "Mar 27, 2026", "price": 43.59}, {"date": "Mar 30, 2026", "price": 44.67}, {"date": "Mar 31, 2026", "price": 45.23}, {"date": "Apr 01, 2026", "price": 44.63}, {"date": "Apr 02, 2026", "price": 45.34}, {"date": "Apr 06, 2026", "price": 45.48}, {"date": "Apr 07, 2026", "price": 44.87}, {"date": "Apr 08, 2026", "price": 45.85}, {"date": "Apr 09, 2026", "price": 45.98}, {"date": "Apr 10, 2026", "price": 45.24}, {"date": "Apr 13, 2026", "price": 47.51}, {"date": "Apr 14, 2026", "price": 47.97}, {"date": "Apr 15, 2026", "price": 49.57}, {"date": "Apr 16, 2026", "price": 49.81}, {"date": "Apr 17, 2026", "price": 50.81}, {"date": "Apr 20, 2026", "price": 51.46}, {"date": "Apr 21, 2026", "price": 50.88}, {"date": "Apr 22, 2026", "price": 51.22}, {"date": "Apr 23, 2026", "price": 49.75}, {"date": "Apr 24, 2026", "price": 50.48}, {"date": "Apr 27, 2026", "price": 49.77}, {"date": "Apr 28, 2026", "price": 49.64}, {"date": "Apr 29, 2026", "price": 50.94}, {"date": "Apr 30, 2026", "price": 50.14}, {"date": "May 01, 2026", "price": 50.44}, {"date": "May 04, 2026", "price": 50.39}, {"date": "May 05, 2026", "price": 46.49}, {"date": "May 06, 2026", "price": 46.27}, {"date": "May 07, 2026", "price": 46.22}, {"date": "May 08, 2026", "price": 45.37}, {"date": "May 11, 2026", "price": 45.07}, {"date": "May 12, 2026", "price": 45.44}, {"date": "May 13, 2026", "price": 45.23}, {"date": "May 14, 2026", "price": 45.04}, {"date": "May 15, 2026", "price": 44.41}, {"date": "May 18, 2026", "price": 44.38}, {"date": "May 19, 2026", "price": 43.83}, {"date": "May 20, 2026", "price": 44.38}, {"date": "May 21, 2026", "price": 44.3}, {"date": "May 22, 2026", "price": 44.23}, {"date": "May 26, 2026", "price": 44.16}, {"date": "May 27, 2026", "price": 43.76}, {"date": "May 28, 2026", "price": 44.46}, {"date": "May 29, 2026", "price": 44.75}, {"date": "Jun 01, 2026", "price": 45.19}, {"date": "Jun 02, 2026", "price": 44.53}, {"date": "Jun 03, 2026", "price": 42.61}, {"date": "Jun 04, 2026", "price": 42.75}, {"date": "Jun 05, 2026", "price": 41.29}, {"date": "Jun 08, 2026", "price": 41.26}, {"date": "Jun 09, 2026", "price": 41.46}, {"date": "Jun 10, 2026", "price": 40.7}, {"date": "Jun 11, 2026", "price": 41.24}, {"date": "Jun 12, 2026", "price": 41.53}, {"date": "Jun 15, 2026", "price": 42.49}, {"date": "Jun 16, 2026", "price": 43.65}, {"date": "Jun 17, 2026", "price": 42.08}, {"date": "Jun 18, 2026", "price": 42.51}, {"date": "Jun 22, 2026", "price": 42.34}, {"date": "Jun 23, 2026", "price": 41.7}, {"date": "Jun 24, 2026", "price": 42.48}, {"date": "Jun 25, 2026", "price": 42.38}, {"date": "Jun 26, 2026", "price": 44.29}, {"date": "Jun 29, 2026", "price": 44.38}, {"date": "Jun 30, 2026", "price": 43.18}, {"date": "Jul 01, 2026", "price": 44.07}, {"date": "Jul 02, 2026", "price": 45.47}, {"date": "Jul 06, 2026", "price": 45.09}, {"date": "Jul 07, 2026", "price": 45.65}, {"date": "Jul 08, 2026", "price": 44.53}, {"date": "Jul 09, 2026", "price": 45.32}, {"date": "Jul 10, 2026", "price": 46.32}, {"date": "Jul 13, 2026", "price": 47.65}, {"date": "Jul 14, 2026", "price": 47.37}, {"date": "Jul 15, 2026", "price": 55.52}, {"date": "Jul 16, 2026", "price": 56.73}, {"date": "Jul 17, 2026", "price": 56.56}, {"date": "Jul 20, 2026", "price": 56.82}, {"date": "Jul 21, 2026", "price": 55.85}, {"date": "Jul 22, 2026", "price": 55.51}, {"date": "Jul 23, 2026", "price": 56.0}, {"date": "Jul 24, 2026", "price": 56.15}, {"date": "Jul 27, 2026", "price": 56.07}, {"date": "Jul 28, 2026", "price": 58.32}, {"date": "Jul 29, 2026", "price": 58.35}, {"date": "Jul 30, 2026", "price": 57.65}, {"date": "Jul 31, 2026", "price": 57.21}, {"date": "Aug 03, 2026", "price": 57.87}, {"date": "Aug 04, 2026", "price": 58.54}, {"date": "Aug 05, 2026", "price": 57.93}, {"date": "Aug 06, 2026", "price": 59.78}, {"date": "Aug 07, 2026", "price": 59.07}, {"date": "Aug 10, 2026", "price": 59.07}, {"date": "Aug 11, 2026", "price": 59.0}, {"date": "Aug 12, 2026", "price": 59.2}, {"date": "Aug 13, 2026", "price": 60.59}, {"date": "Aug 14, 2026", "price": 61.66}, {"date": "Aug 17, 2026", "price": 60.47}], "5Y": [{"date": "Aug 15, 2021", "price": 272.96}, {"date": "Aug 22, 2021", "price": 278.33}, {"date": "Aug 29, 2021", "price": 289.13}, {"date": "Sep 05, 2021", "price": 284.32}, {"date": "Sep 12, 2021", "price": 276.34}, {"date": "Sep 19, 2021", "price": 278.11}, {"date": "Sep 26, 2021", "price": 264.65}, {"date": "Oct 03, 2021", "price": 260.06}, {"date": "Oct 10, 2021", "price": 268.35}, {"date": "Oct 17, 2021", "price": 240.4}, {"date": "Oct 24, 2021", "price": 232.59}, {"date": "Oct 31, 2021", "price": 225.78}, {"date": "Nov 07, 2021", "price": 208.3}, {"date": "Nov 14, 2021", "price": 193.61}, {"date": "Nov 21, 2021", "price": 187.79}, {"date": "Nov 28, 2021", "price": 183.93}, {"date": "Dec 05, 2021", "price": 188.51}, {"date": "Dec 12, 2021", "price": 186.2}, {"date": "Dec 19, 2021", "price": 192.01}, {"date": "Dec 26, 2021", "price": 188.58}, {"date": "Jan 02, 2022", "price": 187.6}, {"date": "Jan 09, 2022", "price": 178.42}, {"date": "Jan 16, 2022", "price": 163.54}, {"date": "Jan 23, 2022", "price": 163.52}, {"date": "Jan 30, 2022", "price": 126.08}, {"date": "Feb 06, 2022", "price": 115.29}, {"date": "Feb 13, 2022", "price": 103.65}, {"date": "Feb 20, 2022", "price": 110.94}, {"date": "Feb 27, 2022", "price": 99.91}, {"date": "Mar 06, 2022", "price": 96.57}, {"date": "Mar 13, 2022", "price": 118.77}, {"date": "Mar 20, 2022", "price": 113.76}, {"date": "Mar 27, 2022", "price": 116.67}, {"date": "Apr 03, 2022", "price": 111.21}, {"date": "Apr 10, 2022", "price": 102.31}, {"date": "Apr 17, 2022", "price": 86.03}, {"date": "Apr 24, 2022", "price": 87.93}, {"date": "May 01, 2022", "price": 81.68}, {"date": "May 08, 2022", "price": 78.83}, {"date": "May 15, 2022", "price": 80.54}, {"date": "May 22, 2022", "price": 85.21}, {"date": "May 29, 2022", "price": 86.53}, {"date": "Jun 05, 2022", "price": 79.3}, {"date": "Jun 12, 2022", "price": 72.9}, {"date": "Jun 19, 2022", "price": 77.68}, {"date": "Jun 26, 2022", "price": 71.4}, {"date": "Jul 03, 2022", "price": 73.43}, {"date": "Jul 10, 2022", "price": 73.91}, {"date": "Jul 17, 2022", "price": 81.05}, {"date": "Jul 24, 2022", "price": 86.53}, {"date": "Jul 31, 2022", "price": 95.32}, {"date": "Aug 07, 2022", "price": 101.1}, {"date": "Aug 14, 2022", "price": 96.56}, {"date": "Aug 21, 2022", "price": 92.7}, {"date": "Aug 28, 2022", "price": 91.13}, {"date": "Sep 04, 2022", "price": 96.23}, {"date": "Sep 11, 2022", "price": 94.0}, {"date": "Sep 18, 2022", "price": 86.97}, {"date": "Sep 25, 2022", "price": 86.07}, {"date": "Oct 02, 2022", "price": 90.17}, {"date": "Oct 09, 2022", "price": 80.47}, {"date": "Oct 16, 2022", "price": 83.94}, {"date": "Oct 23, 2022", "price": 86.25}, {"date": "Oct 30, 2022", "price": 75.18}, {"date": "Nov 06, 2022", "price": 91.03}, {"date": "Nov 13, 2022", "price": 84.92}, {"date": "Nov 20, 2022", "price": 80.08}, {"date": "Nov 27, 2022", "price": 74.66}, {"date": "Dec 04, 2022", "price": 73.57}, {"date": "Dec 11, 2022", "price": 69.26}, {"date": "Dec 18, 2022", "price": 69.03}, {"date": "Dec 25, 2022", "price": 71.22}, {"date": "Jan 01, 2023", "price": 76.48}, {"date": "Jan 08, 2023", "price": 79.48}, {"date": "Jan 15, 2023", "price": 79.09}, {"date": "Jan 22, 2023", "price": 81.83}, {"date": "Jan 29, 2023", "price": 85.52}, {"date": "Feb 05, 2023", "price": 80.8}, {"date": "Feb 12, 2023", "price": 74.66}, {"date": "Feb 19, 2023", "price": 73.55}, {"date": "Feb 26, 2023", "price": 76.29}, {"date": "Mar 05, 2023", "price": 73.43}, {"date": "Mar 12, 2023", "price": 72.99}, {"date": "Mar 19, 2023", "price": 73.88}, {"date": "Mar 26, 2023", "price": 75.94}, {"date": "Apr 02, 2023", "price": 74.96}, {"date": "Apr 09, 2023", "price": 76.53}, {"date": "Apr 16, 2023", "price": 74.18}, {"date": "Apr 23, 2023", "price": 76.0}, {"date": "Apr 30, 2023", "price": 74.97}, {"date": "May 07, 2023", "price": 61.69}, {"date": "May 14, 2023", "price": 60.92}, {"date": "May 21, 2023", "price": 60.22}, {"date": "May 28, 2023", "price": 63.96}, {"date": "Jun 04, 2023", "price": 63.49}, {"date": "Jun 11, 2023", "price": 66.43}, {"date": "Jun 18, 2023", "price": 66.94}, {"date": "Jun 25, 2023", "price": 66.73}, {"date": "Jul 02, 2023", "price": 66.79}, {"date": "Jul 09, 2023", "price": 72.1}, {"date": "Jul 16, 2023", "price": 72.99}, {"date": "Jul 23, 2023", "price": 73.98}, {"date": "Jul 30, 2023", "price": 62.75}, {"date": "Aug 06, 2023", "price": 61.54}, {"date": "Aug 13, 2023", "price": 59.42}, {"date": "Aug 20, 2023", "price": 61.19}, {"date": "Aug 27, 2023", "price": 63.57}, {"date": "Sep 03, 2023", "price": 60.98}, {"date": "Sep 10, 2023", "price": 64.21}, {"date": "Sep 17, 2023", "price": 57.88}, {"date": "Sep 24, 2023", "price": 58.46}, {"date": "Oct 01, 2023", "price": 57.77}, {"date": "Oct 08, 2023", "price": 55.75}, {"date": "Oct 15, 2023", "price": 53.39}, {"date": "Oct 22, 2023", "price": 50.39}, {"date": "Oct 29, 2023", "price": 56.1}, {"date": "Nov 05, 2023", "price": 54.77}, {"date": "Nov 12, 2023", "price": 56.54}, {"date": "Nov 19, 2023", "price": 55.76}, {"date": "Nov 26, 2023", "price": 59.65}, {"date": "Dec 03, 2023", "price": 58.94}, {"date": "Dec 10, 2023", "price": 61.26}, {"date": "Dec 17, 2023", "price": 61.84}, {"date": "Dec 24, 2023", "price": 61.41}, {"date": "Dec 31, 2023", "price": 60.12}, {"date": "Jan 07, 2024", "price": 61.0}, {"date": "Jan 14, 2024", "price": 65.82}, {"date": "Jan 21, 2024", "price": 61.78}, {"date": "Jan 28, 2024", "price": 62.42}, {"date": "Feb 04, 2024", "price": 58.91}, {"date": "Feb 11, 2024", "price": 59.14}, {"date": "Feb 18, 2024", "price": 59.16}, {"date": "Feb 25, 2024", "price": 60.54}, {"date": "Mar 03, 2024", "price": 59.01}, {"date": "Mar 10, 2024", "price": 62.85}, {"date": "Mar 17, 2024", "price": 64.77}, {"date": "Mar 24, 2024", "price": 66.99}, {"date": "Mar 31, 2024", "price": 65.15}, {"date": "Apr 07, 2024", "price": 64.59}, {"date": "Apr 14, 2024", "price": 62.31}, {"date": "Apr 21, 2024", "price": 65.96}, {"date": "Apr 28, 2024", "price": 65.7}, {"date": "May 05, 2024", "price": 62.93}, {"date": "May 12, 2024", "price": 64.48}, {"date": "May 19, 2024", "price": 61.64}, {"date": "May 26, 2024", "price": 62.99}, {"date": "Jun 02, 2024", "price": 67.3}, {"date": "Jun 09, 2024", "price": 60.63}, {"date": "Jun 16, 2024", "price": 60.61}, {"date": "Jun 23, 2024", "price": 58.03}, {"date": "Jun 30, 2024", "price": 59.76}, {"date": "Jul 07, 2024", "price": 60.27}, {"date": "Jul 14, 2024", "price": 59.33}, {"date": "Jul 21, 2024", "price": 58.29}, {"date": "Jul 28, 2024", "price": 61.98}, {"date": "Aug 04, 2024", "price": 64.72}, {"date": "Aug 11, 2024", "price": 67.96}, {"date": "Aug 18, 2024", "price": 71.7}, {"date": "Aug 25, 2024", "price": 72.43}, {"date": "Sep 01, 2024", "price": 68.89}, {"date": "Sep 08, 2024", "price": 70.1}, {"date": "Sep 15, 2024", "price": 76.76}, {"date": "Sep 22, 2024", "price": 77.88}, {"date": "Sep 29, 2024", "price": 79.36}, {"date": "Oct 06, 2024", "price": 80.51}, {"date": "Oct 13, 2024", "price": 80.94}, {"date": "Oct 20, 2024", "price": 81.7}, {"date": "Oct 27, 2024", "price": 77.25}, {"date": "Nov 03, 2024", "price": 83.01}, {"date": "Nov 10, 2024", "price": 85.83}, {"date": "Nov 17, 2024", "price": 86.77}, {"date": "Nov 24, 2024", "price": 86.77}, {"date": "Dec 01, 2024", "price": 89.88}, {"date": "Dec 08, 2024", "price": 91.02}, {"date": "Dec 15, 2024", "price": 87.13}, {"date": "Dec 22, 2024", "price": 86.86}, {"date": "Dec 29, 2024", "price": 87.6}, {"date": "Jan 05, 2025", "price": 83.36}, {"date": "Jan 12, 2025", "price": 91.81}, {"date": "Jan 19, 2025", "price": 89.11}, {"date": "Jan 26, 2025", "price": 88.58}, {"date": "Feb 02, 2025", "price": 77.31}, {"date": "Feb 09, 2025", "price": 77.97}, {"date": "Feb 16, 2025", "price": 74.95}, {"date": "Feb 23, 2025", "price": 71.05}, {"date": "Mar 02, 2025", "price": 70.48}, {"date": "Mar 09, 2025", "price": 68.95}, {"date": "Mar 16, 2025", "price": 70.19}, {"date": "Mar 23, 2025", "price": 65.15}, {"date": "Mar 30, 2025", "price": 58.37}, {"date": "Apr 06, 2025", "price": 62.59}, {"date": "Apr 13, 2025", "price": 61.0}, {"date": "Apr 20, 2025", "price": 65.34}, {"date": "Apr 27, 2025", "price": 67.24}, {"date": "May 04, 2025", "price": 70.26}, {"date": "May 11, 2025", "price": 72.18}, {"date": "May 18, 2025", "price": 69.85}, {"date": "May 25, 2025", "price": 70.28}, {"date": "Jun 01, 2025", "price": 73.43}, {"date": "Jun 08, 2025", "price": 70.83}, {"date": "Jun 15, 2025", "price": 70.05}, {"date": "Jun 22, 2025", "price": 73.64}, {"date": "Jun 29, 2025", "price": 76.59}, {"date": "Jul 06, 2025", "price": 71.36}, {"date": "Jul 13, 2025", "price": 74.17}, {"date": "Jul 20, 2025", "price": 77.98}, {"date": "Jul 27, 2025", "price": 67.11}, {"date": "Aug 03, 2025", "price": 67.65}, {"date": "Aug 10, 2025", "price": 69.23}, {"date": "Aug 17, 2025", "price": 69.9}, {"date": "Aug 24, 2025", "price": 70.19}, {"date": "Aug 31, 2025", "price": 68.26}, {"date": "Sep 07, 2025", "price": 66.89}, {"date": "Sep 14, 2025", "price": 68.22}, {"date": "Sep 21, 2025", "price": 67.3}, {"date": "Sep 28, 2025", "price": 69.25}, {"date": "Oct 05, 2025", "price": 69.84}, {"date": "Oct 12, 2025", "price": 67.41}, {"date": "Oct 19, 2025", "price": 69.77}, {"date": "Oct 26, 2025", "price": 69.27}, {"date": "Nov 02, 2025", "price": 66.22}, {"date": "Nov 09, 2025", "price": 62.81}, {"date": "Nov 16, 2025", "price": 60.57}, {"date": "Nov 23, 2025", "price": 62.69}, {"date": "Nov 30, 2025", "price": 62.28}, {"date": "Dec 07, 2025", "price": 61.66}, {"date": "Dec 14, 2025", "price": 59.81}, {"date": "Dec 21, 2025", "price": 59.97}, {"date": "Dec 28, 2025", "price": 58.14}, {"date": "Jan 04, 2026", "price": 57.66}, {"date": "Jan 11, 2026", "price": 56.89}, {"date": "Jan 18, 2026", "price": 56.62}, {"date": "Jan 25, 2026", "price": 52.69}, {"date": "Feb 01, 2026", "price": 40.42}, {"date": "Feb 08, 2026", "price": 40.29}, {"date": "Feb 15, 2026", "price": 41.65}, {"date": "Feb 22, 2026", "price": 46.21}, {"date": "Mar 01, 2026", "price": 46.97}, {"date": "Mar 08, 2026", "price": 44.9}, {"date": "Mar 15, 2026", "price": 44.01}, {"date": "Mar 22, 2026", "price": 43.59}, {"date": "Mar 29, 2026", "price": 45.34}, {"date": "Apr 05, 2026", "price": 45.24}, {"date": "Apr 12, 2026", "price": 50.81}, {"date": "Apr 19, 2026", "price": 50.48}, {"date": "Apr 26, 2026", "price": 50.44}, {"date": "May 03, 2026", "price": 45.37}, {"date": "May 10, 2026", "price": 44.41}, {"date": "May 17, 2026", "price": 44.23}, {"date": "May 24, 2026", "price": 44.75}, {"date": "May 31, 2026", "price": 41.29}, {"date": "Jun 07, 2026", "price": 41.53}, {"date": "Jun 14, 2026", "price": 42.51}, {"date": "Jun 21, 2026", "price": 44.29}, {"date": "Jun 28, 2026", "price": 45.47}, {"date": "Jul 05, 2026", "price": 46.32}, {"date": "Jul 12, 2026", "price": 56.56}, {"date": "Jul 19, 2026", "price": 56.15}, {"date": "Jul 26, 2026", "price": 57.21}, {"date": "Aug 02, 2026", "price": 59.07}, {"date": "Aug 09, 2026", "price": 61.66}, {"date": "Aug 16, 2026", "price": 60.47}], "10Y": [{"date": "Aug 31, 2016", "price": 40.97}, {"date": "Sep 30, 2016", "price": 41.66}, {"date": "Oct 31, 2016", "price": 39.28}, {"date": "Nov 30, 2016", "price": 39.47}, {"date": "Dec 31, 2016", "price": 39.78}, {"date": "Jan 31, 2017", "price": 42.0}, {"date": "Feb 28, 2017", "price": 43.02}, {"date": "Mar 31, 2017", "price": 47.72}, {"date": "Apr 30, 2017", "price": 52.21}, {"date": "May 31, 2017", "price": 53.67}, {"date": "Jun 30, 2017", "price": 58.55}, {"date": "Jul 31, 2017", "price": 61.68}, {"date": "Aug 31, 2017", "price": 64.03}, {"date": "Sep 30, 2017", "price": 72.56}, {"date": "Oct 31, 2017", "price": 75.73}, {"date": "Nov 30, 2017", "price": 73.62}, {"date": "Dec 31, 2017", "price": 85.32}, {"date": "Jan 31, 2018", "price": 79.41}, {"date": "Feb 28, 2018", "price": 75.87}, {"date": "Mar 31, 2018", "price": 74.61}, {"date": "Apr 30, 2018", "price": 82.07}, {"date": "May 31, 2018", "price": 83.27}, {"date": "Jun 30, 2018", "price": 82.14}, {"date": "Jul 31, 2018", "price": 92.33}, {"date": "Aug 31, 2018", "price": 87.84}, {"date": "Sep 30, 2018", "price": 84.19}, {"date": "Oct 31, 2018", "price": 85.81}, {"date": "Nov 30, 2018", "price": 84.09}, {"date": "Dec 31, 2018", "price": 88.76}, {"date": "Jan 31, 2019", "price": 98.07}, {"date": "Feb 28, 2019", "price": 103.84}, {"date": "Mar 31, 2019", "price": 112.77}, {"date": "Apr 30, 2019", "price": 109.75}, {"date": "May 31, 2019", "price": 114.46}, {"date": "Jun 30, 2019", "price": 110.4}, {"date": "Jul 31, 2019", "price": 109.05}, {"date": "Aug 31, 2019", "price": 103.59}, {"date": "Sep 30, 2019", "price": 104.1}, {"date": "Oct 31, 2019", "price": 108.01}, {"date": "Nov 30, 2019", "price": 108.17}, {"date": "Dec 31, 2019", "price": 113.89}, {"date": "Jan 31, 2020", "price": 107.99}, {"date": "Feb 29, 2020", "price": 95.74}, {"date": "Mar 31, 2020", "price": 123.0}, {"date": "Apr 30, 2020", "price": 155.01}, {"date": "May 31, 2020", "price": 174.23}, {"date": "Jun 30, 2020", "price": 196.07}, {"date": "Jul 31, 2020", "price": 204.14}, {"date": "Aug 31, 2020", "price": 197.03}, {"date": "Sep 30, 2020", "price": 186.13}, {"date": "Oct 31, 2020", "price": 214.12}, {"date": "Nov 30, 2020", "price": 234.2}, {"date": "Dec 31, 2020", "price": 234.31}, {"date": "Jan 31, 2021", "price": 259.85}, {"date": "Feb 28, 2021", "price": 242.84}, {"date": "Mar 31, 2021", "price": 262.29}, {"date": "Apr 30, 2021", "price": 260.02}, {"date": "May 31, 2021", "price": 291.48}, {"date": "Jun 30, 2021", "price": 275.53}, {"date": "Jul 31, 2021", "price": 288.66}, {"date": "Aug 31, 2021", "price": 260.21}, {"date": "Sep 30, 2021", "price": 232.59}, {"date": "Oct 31, 2021", "price": 184.89}, {"date": "Nov 30, 2021", "price": 188.58}, {"date": "Dec 31, 2021", "price": 171.94}, {"date": "Jan 31, 2022", "price": 111.93}, {"date": "Feb 28, 2022", "price": 115.65}, {"date": "Mar 31, 2022", "price": 87.93}, {"date": "Apr 30, 2022", "price": 85.21}, {"date": "May 31, 2022", "price": 69.84}, {"date": "Jun 30, 2022", "price": 86.53}, {"date": "Jul 31, 2022", "price": 93.44}, {"date": "Aug 31, 2022", "price": 86.07}, {"date": "Sep 30, 2022", "price": 83.58}, {"date": "Oct 31, 2022", "price": 78.41}, {"date": "Nov 30, 2022", "price": 71.22}, {"date": "Dec 31, 2022", "price": 81.49}, {"date": "Jan 31, 2023", "price": 73.6}, {"date": "Feb 28, 2023", "price": 75.94}, {"date": "Mar 31, 2023", "price": 76.0}, {"date": "Apr 30, 2023", "price": 61.99}, {"date": "May 31, 2023", "price": 66.73}, {"date": "Jun 30, 2023", "price": 75.82}, {"date": "Jul 31, 2023", "price": 62.51}, {"date": "Aug 31, 2023", "price": 58.46}, {"date": "Sep 30, 2023", "price": 51.8}, {"date": "Oct 31, 2023", "price": 57.61}, {"date": "Nov 30, 2023", "price": 61.41}, {"date": "Dec 31, 2023", "price": 61.35}, {"date": "Jan 31, 2024", "price": 60.34}, {"date": "Feb 29, 2024", "price": 66.99}, {"date": "Mar 31, 2024", "price": 67.92}, {"date": "Apr 30, 2024", "price": 62.99}, {"date": "May 31, 2024", "price": 58.03}, {"date": "Jun 30, 2024", "price": 65.78}, {"date": "Jul 31, 2024", "price": 72.43}, {"date": "Aug 31, 2024", "price": 78.03}, {"date": "Sep 30, 2024", "price": 79.3}, {"date": "Oct 31, 2024", "price": 86.77}, {"date": "Nov 30, 2024", "price": 85.35}, {"date": "Dec 31, 2024", "price": 88.58}, {"date": "Jan 31, 2025", "price": 71.05}, {"date": "Feb 28, 2025", "price": 65.25}, {"date": "Mar 31, 2025", "price": 65.84}, {"date": "Apr 30, 2025", "price": 70.28}, {"date": "May 31, 2025", "price": 74.32}, {"date": "Jun 30, 2025", "price": 68.76}, {"date": "Jul 31, 2025", "price": 70.19}, {"date": "Aug 31, 2025", "price": 67.06}, {"date": "Sep 30, 2025", "price": 69.27}, {"date": "Oct 31, 2025", "price": 62.69}, {"date": "Nov 30, 2025", "price": 58.38}, {"date": "Dec 31, 2025", "price": 52.69}, {"date": "Jan 31, 2026", "price": 46.21}, {"date": "Feb 28, 2026", "price": 45.23}, {"date": "Mar 31, 2026", "price": 50.14}, {"date": "Apr 30, 2026", "price": 44.75}, {"date": "May 31, 2026", "price": 43.18}, {"date": "Jun 30, 2026", "price": 57.21}, {"date": "Jul 31, 2026", "price": 61.66}, {"date": "Aug 17, 2026", "price": 60.47}], "MAX": [{"date": "Jul 31, 2015", "price": 35.0}, {"date": "Aug 31, 2015", "price": 31.04}, {"date": "Sep 30, 2015", "price": 36.01}, {"date": "Oct 31, 2015", "price": 35.26}, {"date": "Nov 30, 2015", "price": 36.2}, {"date": "Dec 31, 2015", "price": 36.14}, {"date": "Jan 31, 2016", "price": 38.14}, {"date": "Feb 29, 2016", "price": 38.6}, {"date": "Mar 31, 2016", "price": 39.18}, {"date": "Apr 30, 2016", "price": 37.79}, {"date": "May 31, 2016", "price": 36.51}, {"date": "Jun 30, 2016", "price": 37.24}, {"date": "Jul 31, 2016", "price": 37.15}, {"date": "Aug 31, 2016", "price": 40.97}, {"date": "Sep 30, 2016", "price": 41.66}, {"date": "Oct 31, 2016", "price": 39.28}, {"date": "Nov 30, 2016", "price": 39.47}, {"date": "Dec 31, 2016", "price": 39.78}, {"date": "Jan 31, 2017", "price": 42.0}, {"date": "Feb 28, 2017", "price": 43.02}, {"date": "Mar 31, 2017", "price": 47.72}, {"date": "Apr 30, 2017", "price": 52.21}, {"date": "May 31, 2017", "price": 53.67}, {"date": "Jun 30, 2017", "price": 58.55}, {"date": "Jul 31, 2017", "price": 61.68}, {"date": "Aug 31, 2017", "price": 64.03}, {"date": "Sep 30, 2017", "price": 72.56}, {"date": "Oct 31, 2017", "price": 75.73}, {"date": "Nov 30, 2017", "price": 73.62}, {"date": "Dec 31, 2017", "price": 85.32}, {"date": "Jan 31, 2018", "price": 79.41}, {"date": "Feb 28, 2018", "price": 75.87}, {"date": "Mar 31, 2018", "price": 74.61}, {"date": "Apr 30, 2018", "price": 82.07}, {"date": "May 31, 2018", "price": 83.27}, {"date": "Jun 30, 2018", "price": 82.14}, {"date": "Jul 31, 2018", "price": 92.33}, {"date": "Aug 31, 2018", "price": 87.84}, {"date": "Sep 30, 2018", "price": 84.19}, {"date": "Oct 31, 2018", "price": 85.81}, {"date": "Nov 30, 2018", "price": 84.09}, {"date": "Dec 31, 2018", "price": 88.76}, {"date": "Jan 31, 2019", "price": 98.07}, {"date": "Feb 28, 2019", "price": 103.84}, {"date": "Mar 31, 2019", "price": 112.77}, {"date": "Apr 30, 2019", "price": 109.75}, {"date": "May 31, 2019", "price": 114.46}, {"date": "Jun 30, 2019", "price": 110.4}, {"date": "Jul 31, 2019", "price": 109.05}, {"date": "Aug 31, 2019", "price": 103.59}, {"date": "Sep 30, 2019", "price": 104.1}, {"date": "Oct 31, 2019", "price": 108.01}, {"date": "Nov 30, 2019", "price": 108.17}, {"date": "Dec 31, 2019", "price": 113.89}, {"date": "Jan 31, 2020", "price": 107.99}, {"date": "Feb 29, 2020", "price": 95.74}, {"date": "Mar 31, 2020", "price": 123.0}, {"date": "Apr 30, 2020", "price": 155.01}, {"date": "May 31, 2020", "price": 174.23}, {"date": "Jun 30, 2020", "price": 196.07}, {"date": "Jul 31, 2020", "price": 204.14}, {"date": "Aug 31, 2020", "price": 197.03}, {"date": "Sep 30, 2020", "price": 186.13}, {"date": "Oct 31, 2020", "price": 214.12}, {"date": "Nov 30, 2020", "price": 234.2}, {"date": "Dec 31, 2020", "price": 234.31}, {"date": "Jan 31, 2021", "price": 259.85}, {"date": "Feb 28, 2021", "price": 242.84}, {"date": "Mar 31, 2021", "price": 262.29}, {"date": "Apr 30, 2021", "price": 260.02}, {"date": "May 31, 2021", "price": 291.48}, {"date": "Jun 30, 2021", "price": 275.53}, {"date": "Jul 31, 2021", "price": 288.66}, {"date": "Aug 31, 2021", "price": 260.21}, {"date": "Sep 30, 2021", "price": 232.59}, {"date": "Oct 31, 2021", "price": 184.89}, {"date": "Nov 30, 2021", "price": 188.58}, {"date": "Dec 31, 2021", "price": 171.94}, {"date": "Jan 31, 2022", "price": 111.93}, {"date": "Feb 28, 2022", "price": 115.65}, {"date": "Mar 31, 2022", "price": 87.93}, {"date": "Apr 30, 2022", "price": 85.21}, {"date": "May 31, 2022", "price": 69.84}, {"date": "Jun 30, 2022", "price": 86.53}, {"date": "Jul 31, 2022", "price": 93.44}, {"date": "Aug 31, 2022", "price": 86.07}, {"date": "Sep 30, 2022", "price": 83.58}, {"date": "Oct 31, 2022", "price": 78.41}, {"date": "Nov 30, 2022", "price": 71.22}, {"date": "Dec 31, 2022", "price": 81.49}, {"date": "Jan 31, 2023", "price": 73.6}, {"date": "Feb 28, 2023", "price": 75.94}, {"date": "Mar 31, 2023", "price": 76.0}, {"date": "Apr 30, 2023", "price": 61.99}, {"date": "May 31, 2023", "price": 66.73}, {"date": "Jun 30, 2023", "price": 75.82}, {"date": "Jul 31, 2023", "price": 62.51}, {"date": "Aug 31, 2023", "price": 58.46}, {"date": "Sep 30, 2023", "price": 51.8}, {"date": "Oct 31, 2023", "price": 57.61}, {"date": "Nov 30, 2023", "price": 61.41}, {"date": "Dec 31, 2023", "price": 61.35}, {"date": "Jan 31, 2024", "price": 60.34}, {"date": "Feb 29, 2024", "price": 66.99}, {"date": "Mar 31, 2024", "price": 67.92}, {"date": "Apr 30, 2024", "price": 62.99}, {"date": "May 31, 2024", "price": 58.03}, {"date": "Jun 30, 2024", "price": 65.78}, {"date": "Jul 31, 2024", "price": 72.43}, {"date": "Aug 31, 2024", "price": 78.03}, {"date": "Sep 30, 2024", "price": 79.3}, {"date": "Oct 31, 2024", "price": 86.77}, {"date": "Nov 30, 2024", "price": 85.35}, {"date": "Dec 31, 2024", "price": 88.58}, {"date": "Jan 31, 2025", "price": 71.05}, {"date": "Feb 28, 2025", "price": 65.25}, {"date": "Mar 31, 2025", "price": 65.84}, {"date": "Apr 30, 2025", "price": 70.28}, {"date": "May 31, 2025", "price": 74.32}, {"date": "Jun 30, 2025", "price": 68.76}, {"date": "Jul 31, 2025", "price": 70.19}, {"date": "Aug 31, 2025", "price": 67.06}, {"date": "Sep 30, 2025", "price": 69.27}, {"date": "Oct 31, 2025", "price": 62.69}, {"date": "Nov 30, 2025", "price": 58.38}, {"date": "Dec 31, 2025", "price": 52.69}, {"date": "Jan 31, 2026", "price": 46.21}, {"date": "Feb 28, 2026", "price": 45.23}, {"date": "Mar 31, 2026", "price": 50.14}, {"date": "Apr 30, 2026", "price": 44.75}, {"date": "May 31, 2026", "price": 43.18}, {"date": "Jun 30, 2026", "price": 57.21}, {"date": "Jul 31, 2026", "price": 61.66}, {"date": "Aug 17, 2026", "price": 60.47}]};
+        const allDatasets = {"1Y": [{"date": "Aug 18, 2025", "price": 137.06}, {"date": "Aug 19, 2025", "price": 139.11}, {"date": "Aug 20, 2025", "price": 139.96}, {"date": "Aug 21, 2025", "price": 140.0}, {"date": "Aug 22, 2025", "price": 139.68}, {"date": "Aug 25, 2025", "price": 137.26}, {"date": "Aug 26, 2025", "price": 137.88}, {"date": "Aug 27, 2025", "price": 137.98}, {"date": "Aug 28, 2025", "price": 137.65}, {"date": "Aug 29, 2025", "price": 138.18}, {"date": "Sep 02, 2025", "price": 136.78}, {"date": "Sep 03, 2025", "price": 136.77}, {"date": "Sep 04, 2025", "price": 136.18}, {"date": "Sep 05, 2025", "price": 135.05}, {"date": "Sep 08, 2025", "price": 135.21}, {"date": "Sep 09, 2025", "price": 136.41}, {"date": "Sep 10, 2025", "price": 132.14}, {"date": "Sep 11, 2025", "price": 135.7}, {"date": "Sep 12, 2025", "price": 134.32}, {"date": "Sep 15, 2025", "price": 132.65}, {"date": "Sep 16, 2025", "price": 132.75}, {"date": "Sep 17, 2025", "price": 134.18}, {"date": "Sep 18, 2025", "price": 132.87}, {"date": "Sep 19, 2025", "price": 131.8}, {"date": "Sep 22, 2025", "price": 130.48}, {"date": "Sep 23, 2025", "price": 129.82}, {"date": "Sep 24, 2025", "price": 130.59}, {"date": "Sep 25, 2025", "price": 128.66}, {"date": "Sep 26, 2025", "price": 129.56}, {"date": "Sep 29, 2025", "price": 130.45}, {"date": "Sep 30, 2025", "price": 128.93}, {"date": "Oct 01, 2025", "price": 126.09}, {"date": "Oct 02, 2025", "price": 125.76}, {"date": "Oct 03, 2025", "price": 127.56}, {"date": "Oct 06, 2025", "price": 125.05}, {"date": "Oct 07, 2025", "price": 126.69}, {"date": "Oct 08, 2025", "price": 126.51}, {"date": "Oct 09, 2025", "price": 125.96}, {"date": "Oct 10, 2025", "price": 122.63}, {"date": "Oct 13, 2025", "price": 122.55}, {"date": "Oct 14, 2025", "price": 124.12}, {"date": "Oct 15, 2025", "price": 121.11}, {"date": "Oct 16, 2025", "price": 118.0}, {"date": "Oct 17, 2025", "price": 121.65}, {"date": "Oct 20, 2025", "price": 124.14}, {"date": "Oct 21, 2025", "price": 126.07}, {"date": "Oct 22, 2025", "price": 125.25}, {"date": "Oct 23, 2025", "price": 123.96}, {"date": "Oct 24, 2025", "price": 125.17}, {"date": "Oct 27, 2025", "price": 126.54}, {"date": "Oct 28, 2025", "price": 126.17}, {"date": "Oct 29, 2025", "price": 70.6}, {"date": "Oct 30, 2025", "price": 65.19}, {"date": "Oct 31, 2025", "price": 66.69}, {"date": "Nov 03, 2025", "price": 65.14}, {"date": "Nov 04, 2025", "price": 64.45}, {"date": "Nov 05, 2025", "price": 64.0}, {"date": "Nov 06, 2025", "price": 61.63}, {"date": "Nov 07, 2025", "price": 63.7}, {"date": "Nov 10, 2025", "price": 63.8}, {"date": "Nov 11, 2025", "price": 64.26}, {"date": "Nov 13, 2025", "price": 64.53}, {"date": "Nov 14, 2025", "price": 63.42}, {"date": "Nov 17, 2025", "price": 62.7}, {"date": "Nov 18, 2025", "price": 61.34}, {"date": "Nov 19, 2025", "price": 61.17}, {"date": "Nov 20, 2025", "price": 59.77}, {"date": "Nov 21, 2025", "price": 60.84}, {"date": "Nov 24, 2025", "price": 60.67}, {"date": "Nov 25, 2025", "price": 60.76}, {"date": "Nov 26, 2025", "price": 60.8}, {"date": "Nov 28, 2025", "price": 61.47}, {"date": "Dec 01, 2025", "price": 62.69}, {"date": "Dec 02, 2025", "price": 63.24}, {"date": "Dec 03, 2025", "price": 66.95}, {"date": "Dec 04, 2025", "price": 66.06}, {"date": "Dec 05, 2025", "price": 66.28}, {"date": "Dec 08, 2025", "price": 65.73}, {"date": "Dec 09, 2025", "price": 66.21}, {"date": "Dec 10, 2025", "price": 66.57}, {"date": "Dec 11, 2025", "price": 68.16}, {"date": "Dec 12, 2025", "price": 68.75}, {"date": "Dec 15, 2025", "price": 68.97}, {"date": "Dec 16, 2025", "price": 67.7}, {"date": "Dec 17, 2025", "price": 68.33}, {"date": "Dec 18, 2025", "price": 68.0}, {"date": "Dec 19, 2025", "price": 67.94}, {"date": "Dec 22, 2025", "price": 68.62}, {"date": "Dec 23, 2025", "price": 67.72}, {"date": "Dec 24, 2025", "price": 67.95}, {"date": "Dec 26, 2025", "price": 67.5}, {"date": "Dec 29, 2025", "price": 67.28}, {"date": "Dec 30, 2025", "price": 67.54}, {"date": "Dec 31, 2025", "price": 67.17}, {"date": "Jan 02, 2026", "price": 65.59}, {"date": "Jan 05, 2026", "price": 66.99}, {"date": "Jan 06, 2026", "price": 68.76}, {"date": "Jan 07, 2026", "price": 68.71}, {"date": "Jan 08, 2026", "price": 69.5}, {"date": "Jan 09, 2026", "price": 69.85}, {"date": "Jan 12, 2026", "price": 68.2}, {"date": "Jan 13, 2026", "price": 66.75}, {"date": "Jan 14, 2026", "price": 67.5}, {"date": "Jan 15, 2026", "price": 66.78}, {"date": "Jan 16, 2026", "price": 66.29}, {"date": "Jan 20, 2026", "price": 64.49}, {"date": "Jan 21, 2026", "price": 65.73}, {"date": "Jan 22, 2026", "price": 67.4}, {"date": "Jan 23, 2026", "price": 67.56}, {"date": "Jan 26, 2026", "price": 67.15}, {"date": "Jan 27, 2026", "price": 66.29}, {"date": "Jan 28, 2026", "price": 64.95}, {"date": "Jan 29, 2026", "price": 63.43}, {"date": "Jan 30, 2026", "price": 63.73}, {"date": "Feb 02, 2026", "price": 62.94}, {"date": "Feb 03, 2026", "price": 58.12}, {"date": "Feb 04, 2026", "price": 59.72}, {"date": "Feb 05, 2026", "price": 58.44}, {"date": "Feb 06, 2026", "price": 60.0}, {"date": "Feb 09, 2026", "price": 60.14}, {"date": "Feb 10, 2026", "price": 62.59}, {"date": "Feb 11, 2026", "price": 62.11}, {"date": "Feb 12, 2026", "price": 58.82}, {"date": "Feb 13, 2026", "price": 59.36}, {"date": "Feb 17, 2026", "price": 63.45}, {"date": "Feb 18, 2026", "price": 63.01}, {"date": "Feb 19, 2026", "price": 61.53}, {"date": "Feb 20, 2026", "price": 61.47}, {"date": "Feb 23, 2026", "price": 58.4}, {"date": "Feb 24, 2026", "price": 59.13}, {"date": "Feb 25, 2026", "price": 61.61}, {"date": "Feb 26, 2026", "price": 61.89}, {"date": "Feb 27, 2026", "price": 62.29}, {"date": "Mar 02, 2026", "price": 61.85}, {"date": "Mar 03, 2026", "price": 62.89}, {"date": "Mar 04, 2026", "price": 62.6}, {"date": "Mar 05, 2026", "price": 63.86}, {"date": "Mar 06, 2026", "price": 63.1}, {"date": "Mar 09, 2026", "price": 61.29}, {"date": "Mar 10, 2026", "price": 59.45}, {"date": "Mar 11, 2026", "price": 58.5}, {"date": "Mar 12, 2026", "price": 56.07}, {"date": "Mar 13, 2026", "price": 56.74}, {"date": "Mar 16, 2026", "price": 57.57}, {"date": "Mar 17, 2026", "price": 58.21}, {"date": "Mar 18, 2026", "price": 57.06}, {"date": "Mar 19, 2026", "price": 57.02}, {"date": "Mar 20, 2026", "price": 57.07}, {"date": "Mar 23, 2026", "price": 57.71}, {"date": "Mar 24, 2026", "price": 56.34}, {"date": "Mar 25, 2026", "price": 56.64}, {"date": "Mar 26, 2026", "price": 55.54}, {"date": "Mar 27, 2026", "price": 53.9}, {"date": "Mar 30, 2026", "price": 54.53}, {"date": "Mar 31, 2026", "price": 55.8}, {"date": "Apr 01, 2026", "price": 55.45}, {"date": "Apr 02, 2026", "price": 56.16}, {"date": "Apr 06, 2026", "price": 56.32}, {"date": "Apr 07, 2026", "price": 55.32}, {"date": "Apr 08, 2026", "price": 56.63}, {"date": "Apr 09, 2026", "price": 56.41}, {"date": "Apr 10, 2026", "price": 56.09}, {"date": "Apr 13, 2026", "price": 58.79}, {"date": "Apr 14, 2026", "price": 59.02}, {"date": "Apr 15, 2026", "price": 61.29}, {"date": "Apr 16, 2026", "price": 62.44}, {"date": "Apr 17, 2026", "price": 63.97}, {"date": "Apr 20, 2026", "price": 64.14}, {"date": "Apr 21, 2026", "price": 63.26}, {"date": "Apr 22, 2026", "price": 63.26}, {"date": "Apr 23, 2026", "price": 61.55}, {"date": "Apr 24, 2026", "price": 60.84}, {"date": "Apr 27, 2026", "price": 61.27}, {"date": "Apr 28, 2026", "price": 61.6}, {"date": "Apr 29, 2026", "price": 62.02}, {"date": "Apr 30, 2026", "price": 62.65}, {"date": "May 01, 2026", "price": 62.14}, {"date": "May 04, 2026", "price": 62.81}, {"date": "May 05, 2026", "price": 57.28}, {"date": "May 06, 2026", "price": 56.11}, {"date": "May 07, 2026", "price": 56.81}, {"date": "May 08, 2026", "price": 55.48}, {"date": "May 11, 2026", "price": 54.39}, {"date": "May 12, 2026", "price": 54.88}, {"date": "May 13, 2026", "price": 52.37}, {"date": "May 14, 2026", "price": 53.46}, {"date": "May 15, 2026", "price": 55.33}, {"date": "May 18, 2026", "price": 56.66}, {"date": "May 19, 2026", "price": 56.03}, {"date": "May 20, 2026", "price": 56.41}, {"date": "May 21, 2026", "price": 55.82}, {"date": "May 22, 2026", "price": 57.13}, {"date": "May 26, 2026", "price": 55.61}, {"date": "May 27, 2026", "price": 55.62}, {"date": "May 28, 2026", "price": 55.83}, {"date": "May 29, 2026", "price": 56.56}, {"date": "Jun 01, 2026", "price": 59.05}, {"date": "Jun 02, 2026", "price": 56.46}, {"date": "Jun 03, 2026", "price": 55.08}, {"date": "Jun 04, 2026", "price": 56.23}, {"date": "Jun 05, 2026", "price": 54.43}, {"date": "Jun 08, 2026", "price": 52.72}, {"date": "Jun 09, 2026", "price": 54.03}, {"date": "Jun 10, 2026", "price": 53.28}, {"date": "Jun 11, 2026", "price": 53.06}, {"date": "Jun 12, 2026", "price": 53.78}, {"date": "Jun 15, 2026", "price": 47.91}, {"date": "Jun 16, 2026", "price": 49.83}, {"date": "Jun 17, 2026", "price": 48.77}, {"date": "Jun 18, 2026", "price": 47.86}, {"date": "Jun 22, 2026", "price": 47.18}, {"date": "Jun 23, 2026", "price": 47.3}, {"date": "Jun 24, 2026", "price": 48.19}, {"date": "Jun 25, 2026", "price": 47.53}, {"date": "Jun 26, 2026", "price": 49.45}, {"date": "Jun 29, 2026", "price": 48.83}, {"date": "Jun 30, 2026", "price": 49.05}, {"date": "Jul 01, 2026", "price": 50.73}, {"date": "Jul 02, 2026", "price": 52.33}, {"date": "Jul 06, 2026", "price": 51.78}, {"date": "Jul 07, 2026", "price": 52.71}, {"date": "Jul 08, 2026", "price": 50.6}, {"date": "Jul 09, 2026", "price": 51.65}, {"date": "Jul 10, 2026", "price": 50.45}, {"date": "Jul 13, 2026", "price": 51.18}, {"date": "Jul 14, 2026", "price": 49.54}, {"date": "Jul 15, 2026", "price": 50.36}, {"date": "Jul 16, 2026", "price": 51.72}, {"date": "Jul 17, 2026", "price": 50.63}, {"date": "Jul 20, 2026", "price": 51.68}, {"date": "Jul 21, 2026", "price": 50.61}, {"date": "Jul 22, 2026", "price": 50.22}, {"date": "Jul 23, 2026", "price": 49.97}, {"date": "Jul 24, 2026", "price": 51.02}, {"date": "Jul 27, 2026", "price": 52.31}, {"date": "Jul 28, 2026", "price": 54.21}, {"date": "Jul 29, 2026", "price": 55.63}, {"date": "Jul 30, 2026", "price": 54.07}, {"date": "Jul 31, 2026", "price": 53.94}, {"date": "Aug 03, 2026", "price": 54.35}, {"date": "Aug 04, 2026", "price": 55.78}, {"date": "Aug 05, 2026", "price": 54.11}, {"date": "Aug 06, 2026", "price": 54.11}, {"date": "Aug 07, 2026", "price": 52.41}, {"date": "Aug 10, 2026", "price": 52.22}, {"date": "Aug 11, 2026", "price": 52.72}, {"date": "Aug 12, 2026", "price": 51.56}, {"date": "Aug 13, 2026", "price": 55.5}, {"date": "Aug 14, 2026", "price": 54.39}, {"date": "Aug 17, 2026", "price": 52.47}], "5Y": [{"date": "Aug 15, 2021", "price": 116.09}, {"date": "Aug 22, 2021", "price": 117.94}, {"date": "Aug 29, 2021", "price": 115.66}, {"date": "Sep 05, 2021", "price": 110.68}, {"date": "Sep 12, 2021", "price": 108.62}, {"date": "Sep 19, 2021", "price": 109.74}, {"date": "Sep 26, 2021", "price": 109.78}, {"date": "Oct 03, 2021", "price": 107.89}, {"date": "Oct 10, 2021", "price": 109.8}, {"date": "Oct 17, 2021", "price": 110.18}, {"date": "Oct 24, 2021", "price": 98.49}, {"date": "Oct 31, 2021", "price": 100.36}, {"date": "Nov 07, 2021", "price": 100.82}, {"date": "Nov 14, 2021", "price": 100.06}, {"date": "Nov 21, 2021", "price": 98.25}, {"date": "Nov 28, 2021", "price": 100.5}, {"date": "Dec 05, 2021", "price": 103.19}, {"date": "Dec 12, 2021", "price": 103.65}, {"date": "Dec 19, 2021", "price": 105.54}, {"date": "Dec 26, 2021", "price": 103.79}, {"date": "Jan 02, 2022", "price": 108.83}, {"date": "Jan 09, 2022", "price": 109.11}, {"date": "Jan 16, 2022", "price": 104.86}, {"date": "Jan 23, 2022", "price": 104.89}, {"date": "Jan 30, 2022", "price": 104.88}, {"date": "Feb 06, 2022", "price": 97.4}, {"date": "Feb 13, 2022", "price": 94.13}, {"date": "Feb 20, 2022", "price": 98.05}, {"date": "Feb 27, 2022", "price": 97.32}, {"date": "Mar 06, 2022", "price": 94.15}, {"date": "Mar 13, 2022", "price": 100.61}, {"date": "Mar 20, 2022", "price": 100.51}, {"date": "Mar 27, 2022", "price": 102.99}, {"date": "Apr 03, 2022", "price": 100.55}, {"date": "Apr 10, 2022", "price": 99.67}, {"date": "Apr 17, 2022", "price": 97.36}, {"date": "Apr 24, 2022", "price": 97.92}, {"date": "May 01, 2022", "price": 95.71}, {"date": "May 08, 2022", "price": 96.17}, {"date": "May 15, 2022", "price": 95.59}, {"date": "May 22, 2022", "price": 101.37}, {"date": "May 29, 2022", "price": 99.67}, {"date": "Jun 05, 2022", "price": 94.34}, {"date": "Jun 12, 2022", "price": 89.15}, {"date": "Jun 19, 2022", "price": 94.19}, {"date": "Jun 26, 2022", "price": 92.58}, {"date": "Jul 03, 2022", "price": 93.06}, {"date": "Jul 10, 2022", "price": 94.16}, {"date": "Jul 17, 2022", "price": 99.87}, {"date": "Jul 24, 2022", "price": 105.68}, {"date": "Jul 31, 2022", "price": 106.08}, {"date": "Aug 07, 2022", "price": 109.37}, {"date": "Aug 14, 2022", "price": 109.48}, {"date": "Aug 21, 2022", "price": 103.83}, {"date": "Aug 28, 2022", "price": 101.44}, {"date": "Sep 04, 2022", "price": 106.46}, {"date": "Sep 11, 2022", "price": 103.61}, {"date": "Sep 18, 2022", "price": 97.95}, {"date": "Sep 25, 2022", "price": 93.57}, {"date": "Oct 02, 2022", "price": 98.7}, {"date": "Oct 09, 2022", "price": 94.14}, {"date": "Oct 16, 2022", "price": 96.74}, {"date": "Oct 23, 2022", "price": 102.6}, {"date": "Oct 30, 2022", "price": 94.32}, {"date": "Nov 06, 2022", "price": 100.47}, {"date": "Nov 13, 2022", "price": 99.86}, {"date": "Nov 20, 2022", "price": 102.49}, {"date": "Nov 27, 2022", "price": 105.46}, {"date": "Dec 04, 2022", "price": 100.64}, {"date": "Dec 11, 2022", "price": 98.58}, {"date": "Dec 18, 2022", "price": 100.46}, {"date": "Dec 25, 2022", "price": 101.07}, {"date": "Jan 01, 2023", "price": 102.18}, {"date": "Jan 08, 2023", "price": 102.56}, {"date": "Jan 15, 2023", "price": 104.05}, {"date": "Jan 22, 2023", "price": 106.49}, {"date": "Jan 29, 2023", "price": 106.6}, {"date": "Feb 05, 2023", "price": 115.64}, {"date": "Feb 12, 2023", "price": 115.37}, {"date": "Feb 19, 2023", "price": 114.45}, {"date": "Feb 26, 2023", "price": 118.26}, {"date": "Mar 05, 2023", "price": 111.83}, {"date": "Mar 12, 2023", "price": 108.17}, {"date": "Mar 19, 2023", "price": 112.52}, {"date": "Mar 26, 2023", "price": 113.03}, {"date": "Apr 02, 2023", "price": 113.01}, {"date": "Apr 09, 2023", "price": 115.59}, {"date": "Apr 16, 2023", "price": 116.96}, {"date": "Apr 23, 2023", "price": 122.12}, {"date": "Apr 30, 2023", "price": 120.3}, {"date": "May 07, 2023", "price": 119.45}, {"date": "May 14, 2023", "price": 119.54}, {"date": "May 21, 2023", "price": 113.77}, {"date": "May 28, 2023", "price": 113.9}, {"date": "Jun 04, 2023", "price": 116.82}, {"date": "Jun 11, 2023", "price": 119.96}, {"date": "Jun 18, 2023", "price": 120.49}, {"date": "Jun 25, 2023", "price": 126.15}, {"date": "Jul 02, 2023", "price": 125.2}, {"date": "Jul 09, 2023", "price": 128.0}, {"date": "Jul 16, 2023", "price": 128.53}, {"date": "Jul 23, 2023", "price": 124.99}, {"date": "Jul 30, 2023", "price": 124.82}, {"date": "Aug 06, 2023", "price": 125.59}, {"date": "Aug 13, 2023", "price": 120.08}, {"date": "Aug 20, 2023", "price": 121.48}, {"date": "Aug 27, 2023", "price": 122.81}, {"date": "Sep 03, 2023", "price": 121.6}, {"date": "Sep 10, 2023", "price": 121.05}, {"date": "Sep 17, 2023", "price": 116.08}, {"date": "Sep 24, 2023", "price": 112.96}, {"date": "Oct 01, 2023", "price": 114.06}, {"date": "Oct 08, 2023", "price": 112.48}, {"date": "Oct 15, 2023", "price": 110.5}, {"date": "Oct 22, 2023", "price": 112.46}, {"date": "Oct 29, 2023", "price": 119.54}, {"date": "Nov 05, 2023", "price": 121.51}, {"date": "Nov 12, 2023", "price": 124.08}, {"date": "Nov 19, 2023", "price": 125.8}, {"date": "Nov 26, 2023", "price": 130.61}, {"date": "Dec 03, 2023", "price": 132.36}, {"date": "Dec 10, 2023", "price": 133.01}, {"date": "Dec 17, 2023", "price": 133.61}, {"date": "Dec 24, 2023", "price": 132.84}, {"date": "Dec 31, 2023", "price": 132.57}, {"date": "Jan 07, 2024", "price": 136.92}, {"date": "Jan 14, 2024", "price": 139.02}, {"date": "Jan 21, 2024", "price": 141.34}, {"date": "Jan 28, 2024", "price": 144.9}, {"date": "Feb 04, 2024", "price": 144.23}, {"date": "Feb 11, 2024", "price": 148.04}, {"date": "Feb 18, 2024", "price": 150.76}, {"date": "Feb 25, 2024", "price": 150.35}, {"date": "Mar 03, 2024", "price": 151.24}, {"date": "Mar 10, 2024", "price": 149.63}, {"date": "Mar 17, 2024", "price": 156.29}, {"date": "Mar 24, 2024", "price": 159.82}, {"date": "Mar 31, 2024", "price": 157.38}, {"date": "Apr 07, 2024", "price": 151.2}, {"date": "Apr 14, 2024", "price": 148.62}, {"date": "Apr 21, 2024", "price": 155.89}, {"date": "Apr 28, 2024", "price": 149.22}, {"date": "May 05, 2024", "price": 154.22}, {"date": "May 12, 2024", "price": 152.71}, {"date": "May 19, 2024", "price": 150.34}, {"date": "May 26, 2024", "price": 149.76}, {"date": "Jun 02, 2024", "price": 151.42}, {"date": "Jun 09, 2024", "price": 148.94}, {"date": "Jun 16, 2024", "price": 149.79}, {"date": "Jun 23, 2024", "price": 149.04}, {"date": "Jun 30, 2024", "price": 150.51}, {"date": "Jul 07, 2024", "price": 153.2}, {"date": "Jul 14, 2024", "price": 156.04}, {"date": "Jul 21, 2024", "price": 159.94}, {"date": "Jul 28, 2024", "price": 158.92}, {"date": "Aug 04, 2024", "price": 161.59}, {"date": "Aug 11, 2024", "price": 167.32}, {"date": "Aug 18, 2024", "price": 169.81}, {"date": "Aug 25, 2024", "price": 174.6}, {"date": "Sep 01, 2024", "price": 170.02}, {"date": "Sep 08, 2024", "price": 174.89}, {"date": "Sep 15, 2024", "price": 177.61}, {"date": "Sep 22, 2024", "price": 178.38}, {"date": "Sep 29, 2024", "price": 185.42}, {"date": "Oct 06, 2024", "price": 190.35}, {"date": "Oct 13, 2024", "price": 197.29}, {"date": "Oct 20, 2024", "price": 199.52}, {"date": "Oct 27, 2024", "price": 202.05}, {"date": "Nov 03, 2024", "price": 210.7}, {"date": "Nov 10, 2024", "price": 210.92}, {"date": "Nov 17, 2024", "price": 221.56}, {"date": "Nov 24, 2024", "price": 220.96}, {"date": "Dec 01, 2024", "price": 207.28}, {"date": "Dec 08, 2024", "price": 204.66}, {"date": "Dec 15, 2024", "price": 206.05}, {"date": "Dec 22, 2024", "price": 207.95}, {"date": "Dec 29, 2024", "price": 208.57}, {"date": "Jan 05, 2025", "price": 200.51}, {"date": "Jan 12, 2025", "price": 208.58}, {"date": "Jan 19, 2025", "price": 208.84}, {"date": "Jan 26, 2025", "price": 216.04}, {"date": "Feb 02, 2025", "price": 230.06}, {"date": "Feb 09, 2025", "price": 230.6}, {"date": "Feb 16, 2025", "price": 232.34}, {"date": "Feb 23, 2025", "price": 235.69}, {"date": "Mar 02, 2025", "price": 218.04}, {"date": "Mar 09, 2025", "price": 214.61}, {"date": "Mar 16, 2025", "price": 218.09}, {"date": "Mar 23, 2025", "price": 216.13}, {"date": "Mar 30, 2025", "price": 198.6}, {"date": "Apr 06, 2025", "price": 208.14}, {"date": "Apr 13, 2025", "price": 208.66}, {"date": "Apr 20, 2025", "price": 177.53}, {"date": "Apr 27, 2025", "price": 184.37}, {"date": "May 04, 2025", "price": 184.07}, {"date": "May 11, 2025", "price": 166.66}, {"date": "May 18, 2025", "price": 159.34}, {"date": "May 25, 2025", "price": 162.79}, {"date": "Jun 01, 2025", "price": 166.71}, {"date": "Jun 08, 2025", "price": 163.02}, {"date": "Jun 15, 2025", "price": 163.38}, {"date": "Jun 22, 2025", "price": 172.33}, {"date": "Jun 29, 2025", "price": 175.55}, {"date": "Jul 06, 2025", "price": 165.52}, {"date": "Jul 13, 2025", "price": 165.74}, {"date": "Jul 20, 2025", "price": 142.03}, {"date": "Jul 27, 2025", "price": 135.33}, {"date": "Aug 03, 2025", "price": 133.24}, {"date": "Aug 10, 2025", "price": 136.7}, {"date": "Aug 17, 2025", "price": 139.68}, {"date": "Aug 24, 2025", "price": 138.18}, {"date": "Aug 31, 2025", "price": 135.05}, {"date": "Sep 07, 2025", "price": 134.32}, {"date": "Sep 14, 2025", "price": 131.8}, {"date": "Sep 21, 2025", "price": 129.56}, {"date": "Sep 28, 2025", "price": 127.56}, {"date": "Oct 05, 2025", "price": 122.63}, {"date": "Oct 12, 2025", "price": 121.65}, {"date": "Oct 19, 2025", "price": 125.17}, {"date": "Oct 26, 2025", "price": 66.69}, {"date": "Nov 02, 2025", "price": 63.7}, {"date": "Nov 09, 2025", "price": 63.42}, {"date": "Nov 16, 2025", "price": 60.84}, {"date": "Nov 23, 2025", "price": 61.47}, {"date": "Nov 30, 2025", "price": 66.28}, {"date": "Dec 07, 2025", "price": 68.75}, {"date": "Dec 14, 2025", "price": 67.94}, {"date": "Dec 21, 2025", "price": 67.5}, {"date": "Dec 28, 2025", "price": 65.59}, {"date": "Jan 04, 2026", "price": 69.85}, {"date": "Jan 11, 2026", "price": 66.29}, {"date": "Jan 18, 2026", "price": 67.56}, {"date": "Jan 25, 2026", "price": 63.73}, {"date": "Feb 01, 2026", "price": 60.0}, {"date": "Feb 08, 2026", "price": 59.36}, {"date": "Feb 15, 2026", "price": 61.47}, {"date": "Feb 22, 2026", "price": 62.29}, {"date": "Mar 01, 2026", "price": 63.1}, {"date": "Mar 08, 2026", "price": 56.74}, {"date": "Mar 15, 2026", "price": 57.07}, {"date": "Mar 22, 2026", "price": 53.9}, {"date": "Mar 29, 2026", "price": 56.16}, {"date": "Apr 05, 2026", "price": 56.09}, {"date": "Apr 12, 2026", "price": 63.97}, {"date": "Apr 19, 2026", "price": 60.84}, {"date": "Apr 26, 2026", "price": 62.14}, {"date": "May 03, 2026", "price": 55.48}, {"date": "May 10, 2026", "price": 55.33}, {"date": "May 17, 2026", "price": 57.13}, {"date": "May 24, 2026", "price": 56.56}, {"date": "May 31, 2026", "price": 54.43}, {"date": "Jun 07, 2026", "price": 53.78}, {"date": "Jun 14, 2026", "price": 47.86}, {"date": "Jun 21, 2026", "price": 49.45}, {"date": "Jun 28, 2026", "price": 52.33}, {"date": "Jul 05, 2026", "price": 50.45}, {"date": "Jul 12, 2026", "price": 50.63}, {"date": "Jul 19, 2026", "price": 51.02}, {"date": "Jul 26, 2026", "price": 53.94}, {"date": "Aug 02, 2026", "price": 52.41}, {"date": "Aug 09, 2026", "price": 54.39}, {"date": "Aug 16, 2026", "price": 52.47}], "10Y": [{"date": "Aug 31, 2016", "price": 49.74}, {"date": "Sep 30, 2016", "price": 49.24}, {"date": "Oct 31, 2016", "price": 52.31}, {"date": "Nov 30, 2016", "price": 53.14}, {"date": "Dec 31, 2016", "price": 53.72}, {"date": "Jan 31, 2017", "price": 57.7}, {"date": "Feb 28, 2017", "price": 57.65}, {"date": "Mar 31, 2017", "price": 59.57}, {"date": "Apr 30, 2017", "price": 62.64}, {"date": "May 31, 2017", "price": 61.17}, {"date": "Jun 30, 2017", "price": 64.25}, {"date": "Jul 31, 2017", "price": 61.85}, {"date": "Aug 31, 2017", "price": 64.48}, {"date": "Sep 30, 2017", "price": 64.71}, {"date": "Oct 31, 2017", "price": 65.72}, {"date": "Nov 30, 2017", "price": 65.57}, {"date": "Dec 31, 2017", "price": 70.42}, {"date": "Jan 31, 2018", "price": 71.69}, {"date": "Feb 28, 2018", "price": 71.31}, {"date": "Mar 31, 2018", "price": 70.86}, {"date": "Apr 30, 2018", "price": 72.6}, {"date": "May 31, 2018", "price": 74.09}, {"date": "Jun 30, 2018", "price": 75.48}, {"date": "Jul 31, 2018", "price": 80.07}, {"date": "Aug 31, 2018", "price": 82.38}, {"date": "Sep 30, 2018", "price": 79.3}, {"date": "Oct 31, 2018", "price": 79.13}, {"date": "Nov 30, 2018", "price": 73.49}, {"date": "Dec 31, 2018", "price": 82.93}, {"date": "Jan 31, 2019", "price": 84.69}, {"date": "Feb 28, 2019", "price": 88.28}, {"date": "Mar 31, 2019", "price": 87.24}, {"date": "Apr 30, 2019", "price": 85.86}, {"date": "May 31, 2019", "price": 91.16}, {"date": "Jun 30, 2019", "price": 105.43}, {"date": "Jul 31, 2019", "price": 106.94}, {"date": "Aug 31, 2019", "price": 103.59}, {"date": "Sep 30, 2019", "price": 106.14}, {"date": "Oct 31, 2019", "price": 116.24}, {"date": "Nov 30, 2019", "price": 115.63}, {"date": "Dec 31, 2019", "price": 118.61}, {"date": "Jan 31, 2020", "price": 109.36}, {"date": "Feb 29, 2020", "price": 94.99}, {"date": "Mar 31, 2020", "price": 103.06}, {"date": "Apr 30, 2020", "price": 106.77}, {"date": "May 31, 2020", "price": 97.62}, {"date": "Jun 30, 2020", "price": 99.79}, {"date": "Jul 31, 2020", "price": 99.58}, {"date": "Aug 31, 2020", "price": 103.05}, {"date": "Sep 30, 2020", "price": 95.47}, {"date": "Oct 31, 2020", "price": 115.18}, {"date": "Nov 30, 2020", "price": 113.86}, {"date": "Dec 31, 2020", "price": 102.69}, {"date": "Jan 31, 2021", "price": 115.37}, {"date": "Feb 28, 2021", "price": 119.04}, {"date": "Mar 31, 2021", "price": 120.12}, {"date": "Apr 30, 2021", "price": 115.2}, {"date": "May 31, 2021", "price": 106.89}, {"date": "Jun 30, 2021", "price": 115.11}, {"date": "Jul 31, 2021", "price": 117.79}, {"date": "Aug 31, 2021", "price": 108.5}, {"date": "Sep 30, 2021", "price": 98.49}, {"date": "Oct 31, 2021", "price": 96.52}, {"date": "Nov 30, 2021", "price": 103.79}, {"date": "Dec 31, 2021", "price": 105.7}, {"date": "Jan 31, 2022", "price": 97.67}, {"date": "Feb 28, 2022", "price": 101.4}, {"date": "Mar 31, 2022", "price": 97.92}, {"date": "Apr 30, 2022", "price": 100.18}, {"date": "May 31, 2022", "price": 88.97}, {"date": "Jun 30, 2022", "price": 105.68}, {"date": "Jul 31, 2022", "price": 101.19}, {"date": "Aug 31, 2022", "price": 93.57}, {"date": "Sep 30, 2022", "price": 102.74}, {"date": "Oct 31, 2022", "price": 104.36}, {"date": "Nov 30, 2022", "price": 101.07}, {"date": "Dec 31, 2022", "price": 106.68}, {"date": "Jan 31, 2023", "price": 115.09}, {"date": "Feb 28, 2023", "price": 113.03}, {"date": "Mar 31, 2023", "price": 122.12}, {"date": "Apr 30, 2023", "price": 112.19}, {"date": "May 31, 2023", "price": 126.15}, {"date": "Jun 30, 2023", "price": 126.21}, {"date": "Jul 31, 2023", "price": 121.39}, {"date": "Aug 31, 2023", "price": 112.96}, {"date": "Sep 30, 2023", "price": 113.75}, {"date": "Oct 31, 2023", "price": 130.61}, {"date": "Nov 30, 2023", "price": 132.84}, {"date": "Dec 31, 2023", "price": 141.87}, {"date": "Jan 31, 2024", "price": 149.27}, {"date": "Feb 29, 2024", "price": 159.82}, {"date": "Mar 31, 2024", "price": 152.67}, {"date": "Apr 30, 2024", "price": 149.76}, {"date": "May 31, 2024", "price": 149.04}, {"date": "Jun 30, 2024", "price": 163.57}, {"date": "Jul 31, 2024", "price": 174.6}, {"date": "Aug 31, 2024", "price": 179.65}, {"date": "Sep 30, 2024", "price": 197.9}, {"date": "Oct 31, 2024", "price": 220.96}, {"date": "Nov 30, 2024", "price": 205.42}, {"date": "Dec 31, 2024", "price": 216.04}, {"date": "Jan 31, 2025", "price": 235.69}, {"date": "Feb 28, 2025", "price": 220.83}, {"date": "Mar 31, 2025", "price": 184.57}, {"date": "Apr 30, 2025", "price": 162.79}, {"date": "May 31, 2025", "price": 172.41}, {"date": "Jun 30, 2025", "price": 138.94}, {"date": "Jul 31, 2025", "price": 138.18}, {"date": "Aug 31, 2025", "price": 128.93}, {"date": "Sep 30, 2025", "price": 66.69}, {"date": "Oct 31, 2025", "price": 61.47}, {"date": "Nov 30, 2025", "price": 67.17}, {"date": "Dec 31, 2025", "price": 63.73}, {"date": "Jan 31, 2026", "price": 62.29}, {"date": "Feb 28, 2026", "price": 55.8}, {"date": "Mar 31, 2026", "price": 62.65}, {"date": "Apr 30, 2026", "price": 56.56}, {"date": "May 31, 2026", "price": 49.05}, {"date": "Jun 30, 2026", "price": 53.94}, {"date": "Jul 31, 2026", "price": 54.39}, {"date": "Aug 17, 2026", "price": 52.47}], "MAX": [{"date": "Aug 31, 1986", "price": 0.3}, {"date": "Nov 30, 1986", "price": 0.4}, {"date": "Feb 28, 1987", "price": 0.39}, {"date": "May 31, 1987", "price": 0.45}, {"date": "Aug 31, 1987", "price": 0.27}, {"date": "Nov 30, 1987", "price": 0.43}, {"date": "Feb 29, 1988", "price": 0.43}, {"date": "May 31, 1988", "price": 0.41}, {"date": "Aug 31, 1988", "price": 0.41}, {"date": "Nov 30, 1988", "price": 0.42}, {"date": "Feb 28, 1989", "price": 0.49}, {"date": "May 31, 1989", "price": 0.52}, {"date": "Aug 31, 1989", "price": 0.48}, {"date": "Nov 30, 1989", "price": 0.46}, {"date": "Feb 28, 1990", "price": 0.52}, {"date": "May 31, 1990", "price": 0.51}, {"date": "Aug 31, 1990", "price": 0.6}, {"date": "Nov 30, 1990", "price": 0.75}, {"date": "Feb 28, 1991", "price": 0.87}, {"date": "May 31, 1991", "price": 0.98}, {"date": "Aug 31, 1991", "price": 1.13}, {"date": "Nov 30, 1991", "price": 1.06}, {"date": "Feb 29, 1992", "price": 1.17}, {"date": "May 31, 1992", "price": 1.2}, {"date": "Aug 31, 1992", "price": 1.19}, {"date": "Nov 30, 1992", "price": 1.35}, {"date": "Feb 28, 1993", "price": 1.43}, {"date": "May 31, 1993", "price": 1.54}, {"date": "Aug 31, 1993", "price": 1.61}, {"date": "Nov 30, 1993", "price": 1.48}, {"date": "Feb 28, 1994", "price": 1.51}, {"date": "May 31, 1994", "price": 1.69}, {"date": "Aug 31, 1994", "price": 1.57}, {"date": "Nov 30, 1994", "price": 1.94}, {"date": "Feb 28, 1995", "price": 1.95}, {"date": "May 31, 1995", "price": 2.11}, {"date": "Aug 31, 1995", "price": 1.96}, {"date": "Nov 30, 1995", "price": 2.3}, {"date": "Feb 29, 1996", "price": 2.32}, {"date": "May 31, 1996", "price": 2.51}, {"date": "Aug 31, 1996", "price": 2.8}, {"date": "Nov 30, 1996", "price": 2.43}, {"date": "Feb 28, 1997", "price": 3.05}, {"date": "May 31, 1997", "price": 3.33}, {"date": "Aug 31, 1997", "price": 3.59}, {"date": "Nov 30, 1997", "price": 4.06}, {"date": "Feb 28, 1998", "price": 4.37}, {"date": "May 31, 1998", "price": 4.33}, {"date": "Aug 31, 1998", "price": 4.91}, {"date": "Nov 30, 1998", "price": 5.22}, {"date": "Feb 28, 1999", "price": 6.25}, {"date": "May 31, 1999", "price": 5.14}, {"date": "Aug 31, 1999", "price": 5.92}, {"date": "Nov 30, 1999", "price": 4.54}, {"date": "Feb 29, 2000", "price": 7.79}, {"date": "May 31, 2000", "price": 9.03}, {"date": "Aug 31, 2000", "price": 9.31}, {"date": "Nov 30, 2000", "price": 8.25}, {"date": "Feb 28, 2001", "price": 9.19}, {"date": "May 31, 2001", "price": 9.03}, {"date": "Aug 31, 2001", "price": 9.77}, {"date": "Nov 30, 2001", "price": 10.69}, {"date": "Feb 28, 2002", "price": 10.64}, {"date": "May 31, 2002", "price": 9.2}, {"date": "Aug 31, 2002", "price": 8.48}, {"date": "Nov 30, 2002", "price": 7.97}, {"date": "Feb 28, 2003", "price": 8.28}, {"date": "May 31, 2003", "price": 9.7}, {"date": "Aug 31, 2003", "price": 9.38}, {"date": "Nov 30, 2003", "price": 9.64}, {"date": "Feb 29, 2004", "price": 9.43}, {"date": "May 31, 2004", "price": 8.69}, {"date": "Aug 31, 2004", "price": 9.63}, {"date": "Nov 30, 2004", "price": 9.48}, {"date": "Feb 28, 2005", "price": 10.75}, {"date": "May 31, 2005", "price": 11.23}, {"date": "Aug 31, 2005", "price": 11.38}, {"date": "Nov 30, 2005", "price": 10.38}, {"date": "Feb 28, 2006", "price": 10.79}, {"date": "May 31, 2006", "price": 11.04}, {"date": "Aug 31, 2006", "price": 12.78}, {"date": "Nov 30, 2006", "price": 13.24}, {"date": "Feb 28, 2007", "price": 14.81}, {"date": "May 31, 2007", "price": 11.63}, {"date": "Aug 31, 2007", "price": 12.83}, {"date": "Nov 30, 2007", "price": 13.15}, {"date": "Feb 29, 2008", "price": 13.09}, {"date": "May 31, 2008", "price": 12.97}, {"date": "Aug 31, 2008", "price": 8.53}, {"date": "Nov 30, 2008", "price": 8.15}, {"date": "Feb 28, 2009", "price": 10.59}, {"date": "May 31, 2009", "price": 12.06}, {"date": "Aug 31, 2009", "price": 11.56}, {"date": "Nov 30, 2009", "price": 12.05}, {"date": "Feb 28, 2010", "price": 11.89}, {"date": "May 31, 2010", "price": 12.5}, {"date": "Aug 31, 2010", "price": 13.82}, {"date": "Nov 30, 2010", "price": 15.82}, {"date": "Feb 28, 2011", "price": 16.13}, {"date": "May 31, 2011", "price": 13.96}, {"date": "Aug 31, 2011", "price": 14.41}, {"date": "Nov 30, 2011", "price": 16.58}, {"date": "Feb 29, 2012", "price": 16.86}, {"date": "May 31, 2012", "price": 17.83}, {"date": "Aug 31, 2012", "price": 19.25}, {"date": "Nov 30, 2012", "price": 20.56}, {"date": "Feb 28, 2013", "price": 21.79}, {"date": "May 31, 2013", "price": 24.07}, {"date": "Aug 31, 2013", "price": 27.47}, {"date": "Nov 30, 2013", "price": 29.02}, {"date": "Feb 28, 2014", "price": 30.06}, {"date": "May 31, 2014", "price": 32.24}, {"date": "Aug 31, 2014", "price": 35.74}, {"date": "Nov 30, 2014", "price": 39.03}, {"date": "Feb 28, 2015", "price": 40.08}, {"date": "May 31, 2015", "price": 42.63}, {"date": "Aug 31, 2015", "price": 48.12}, {"date": "Nov 30, 2015", "price": 47.81}, {"date": "Feb 29, 2016", "price": 52.67}, {"date": "May 31, 2016", "price": 51.53}, {"date": "Aug 31, 2016", "price": 52.31}, {"date": "Nov 30, 2016", "price": 57.7}, {"date": "Feb 28, 2017", "price": 62.64}, {"date": "May 31, 2017", "price": 61.85}, {"date": "Aug 31, 2017", "price": 65.72}, {"date": "Nov 30, 2017", "price": 71.69}, {"date": "Feb 28, 2018", "price": 72.6}, {"date": "May 31, 2018", "price": 80.07}, {"date": "Aug 31, 2018", "price": 79.13}, {"date": "Nov 30, 2018", "price": 84.69}, {"date": "Feb 28, 2019", "price": 85.86}, {"date": "May 31, 2019", "price": 106.94}, {"date": "Aug 31, 2019", "price": 116.24}, {"date": "Nov 30, 2019", "price": 109.36}, {"date": "Feb 29, 2020", "price": 106.77}, {"date": "May 31, 2020", "price": 99.58}, {"date": "Aug 31, 2020", "price": 115.18}, {"date": "Nov 30, 2020", "price": 115.37}, {"date": "Feb 28, 2021", "price": 115.2}, {"date": "May 31, 2021", "price": 117.79}, {"date": "Aug 31, 2021", "price": 96.52}, {"date": "Nov 30, 2021", "price": 97.67}, {"date": "Feb 28, 2022", "price": 100.18}, {"date": "May 31, 2022", "price": 101.19}, {"date": "Aug 31, 2022", "price": 104.36}, {"date": "Nov 30, 2022", "price": 115.09}, {"date": "Feb 28, 2023", "price": 112.19}, {"date": "May 31, 2023", "price": 121.39}, {"date": "Aug 31, 2023", "price": 130.61}, {"date": "Nov 30, 2023", "price": 149.27}, {"date": "Feb 29, 2024", "price": 149.76}, {"date": "May 31, 2024", "price": 174.6}, {"date": "Aug 31, 2024", "price": 220.96}, {"date": "Nov 30, 2024", "price": 235.69}, {"date": "Feb 28, 2025", "price": 162.79}, {"date": "May 31, 2025", "price": 138.18}, {"date": "Aug 31, 2025", "price": 61.47}, {"date": "Nov 30, 2025", "price": 62.29}, {"date": "Feb 28, 2026", "price": 56.56}, {"date": "May 31, 2026", "price": 54.39}, {"date": "Aug 17, 2026", "price": 52.47}]};
         let currentRangeKey = '1Y';
         let currentPoints = allDatasets[currentRangeKey] || [];
         let currentSvgCoords = [];
@@ -1347,35 +1347,35 @@
             <div class="metrics-grid">
                 <div class="metric-cell">
                     <div class="metric-label">Fair Value</div>
-                    <div class="metric-value" style="color: var(--accent-warm);">$77.78</div>
+                    <div class="metric-value" style="color: var(--accent-warm);">$60.32</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bear Target</div>
-                    <div class="metric-value" style="color: var(--accent-red);">$45.91 (-24.1%)</div>
+                    <div class="metric-value" style="color: var(--accent-red);">$39.34 (-25.0%)</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Base Target</div>
-                    <div class="metric-value">$77.78 (+28.7%)</div>
+                    <div class="metric-value">$60.32 (+15.0%)</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bull Target</div>
-                    <div class="metric-value" style="color: var(--accent-green);">$104.44 (+72.8%)</div>
+                    <div class="metric-value" style="color: var(--accent-green);">$78.68 (+50.0%)</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Corridor</div>
-                    <div class="metric-value" style="font-size: 1.00rem; font-family: var(--font-mono); color: var(--text-title);">$51.38 ⇄ $69.52</div>
+                    <div class="metric-value" style="font-size: 1.00rem; font-family: var(--font-mono); color: var(--text-title);">$46.16 ⇄ $60.32</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Catalyst</div>
-                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">2026-10-27</div>
-                    <div class="metric-delta" style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 2px;">Q3 '26 ER</div>
+                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">2026-11-15</div>
+                    <div class="metric-delta" style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 2px;">Scheduled quarterly report</div>
                 </div>
                 
                 
     <div class="metric-cell">
         <div class="metric-label">Float</div>
-        <div class="metric-value" style="white-space: nowrap !important;">73.3%</div>
-        <div class="metric-subtext">Norbert Lou - Punch Card · Lindsell Train</div>
+        <div class="metric-value" style="white-space: nowrap !important;">78.4%</div>
+        <div class="metric-subtext">Hillman · Samantha McLemore - Patient</div>
     </div>
     
                 
@@ -1399,456 +1399,360 @@
         <div id="tab-memo" class="tab-content active">
             <article class="memo-container">
                 <h2>Section 1: Executive Summary &amp; Operating Reality</h2>
-<p>PayPal Holdings, Inc. (NASDAQ: PYPL) entered the second quarter of 2026 operating under a reorganized multi-pillar corporate structure following a board-directed executive transition that installed Alex Chriss as Chief Executive Officer. Facing multi-year market share erosion in legacy online checkout and severe gross margin compression across its unbranded processing business, management launched a comprehensive operational transformation program aimed at extracting at least $1.5 billion in gross run-rate cost savings over two to three years ($400 million identified in 2026). The Q2 2026 print demonstrated operational stabilization, characterized by revenue of $8.68 billion (+4.8% YoY), Total Payment Volume (TPV) of $486.4 billion (+9.0% FX-neutral), and free cash flow generation of $1.78 billion. Transaction margin dollars reached $3.90 billion (+1.0% YoY, or +3.0% excluding interest on customer balances), supported by double-digit TPV expansion across Venmo and Braintree alongside early stabilization in core branded checkout (+2.0% YoY TPV growth).</p>
-<p>Despite top-line resilience and upside in bottom-line Non-GAAP EPS ($1.38 vs. $1.28 consensus), operating margins contracted by 171 basis points GAAP (to 16.4%) and 248 basis points Non-GAAP (to 17.4%). This profitability squeeze reflects front-loaded transformation investments in cloud infrastructure migration, enterprise risk controls, and accelerated marketing spend for high-value user segments. Management cushioned per-share metrics by executing $1.50 billion in quarterly share repurchases ($6.0 billion over the trailing twelve months), using capital returns to hold per-share earnings flat while fundamental operating income contracted 8% YoY. Based on execution momentum and expected cost reduction realizations in H2 2026, PayPal raised full-year guidance, projecting $15.6 billion in transaction margin dollars, $5.38 in Non-GAAP EPS, and at least $6.0 billion in full-year adjusted free cash flow, fully dedicated to share buybacks.</p>
-<p>Compounding operational turnaround efforts, PayPal trades against an active M&amp;A floor. Following public disclosure of buyout interest from a private consortium led by Stripe and Advent International—which tendered an initial non-binding proposal of $60.50 per share that PayPal's board rejected as inadequate—management has formally signaled openness to transaction structures that deliver immediate value above the standalone execution plan. Underwriting the enterprise at current trading levels ($60.45) requires evaluating whether the business can successfully re-accelerate high-margin branded checkout conversion via Fastlane biometrics and Venmo monetization, or if structural disintermediation by native mobile operating systems will force a private market buyout or terminal yield contraction.</p>
+<p>Fiserv, Inc. (NASDAQ: FISV) enters the second half of 2026 under significant operational stress as macro headwinds, legacy business attrition, and accelerated technology reinvestments weigh heavily on top-line growth and operating profitability. In its Q2 2026 financial report, Fiserv posted GAAP revenue of $5.29 billion (down 4.0% YoY) and adjusted revenue of $4.96 billion (down 4.5% YoY), marking what management identified as the growth trough for the fiscal year. Adjusted diluted earnings per share (EPS) came in at $1.84, down 26% year-over-year and missing consensus expectations by $0.07. Confronted by compounding revenue shortfalls—specifically a 90 basis point revenue drag from Argentina's anticipation business, slowing merchant hardware sales, and a negative 8% organic revenue drop in Financial Solutions—management lowered its full-year 2026 guidance. Organic revenue growth for 2026 is now projected between -1.0% and 0.0% (down from prior expectations of 1.0% to 3.0%), with full-year adjusted EPS revised downward to $7.20–$7.40.</p>
+<p>Profitability metrics contracted sharply during the quarter, with adjusted operating margin falling to 31.8% compared to historical highs near 39%. Margins absorbed a direct 60 basis point headwind from South American currency and anticipation contract decay, alongside intentional margin sacrifices to fund a $100 million second-half technology commitment targeting cloud resiliency, platform stability, and enterprise cybersecurity. Despite operational margin compression, Fiserv's cash generation mechanics remain intact. Free Cash Flow reached $1.10 billion in Q2 2026, representing a robust 112% FCF conversion rate driven by favorable working capital timing, bringing first-half free cash flow to $1.36 billion.</p>
+<p>Operational performance across segment lines reveals a distinct divergence in structural execution. Within Merchant Solutions, the core software-led POS platform Clover demonstrated durable adoption, generating $75 billion in quarterly Gross Payment Volume (GPV, up 11% YoY on an adjusted basis) and $570 million in revenue (up 13% adjusted YoY). Conversely, Financial Solutions remains constrained by ongoing account attrition in legacy core processing and tough prior-year nonrecurring revenue comparisons. To counter core banking decay, Fiserv is accelerating migrations toward its next-generation cloud core platform, Finxact, which grew active accounts over 75% YoY and was selected as the ledger provider for Affirm. Capital allocation remains focused on balance sheet fortification and opportunistic repurchases: the company repurchased 1.7 million shares for $100 million in Q2 ($300 million H1 total), retired $1.41 billion in principal senior notes via a $1.23 billion cash tender offer, and completed the formation of its MoneyPass Group joint venture.</p>
 <div class="metrics-grid">
 <div class="metric-card">
-<div class="metric-label">Quarterly Net Revenue</div>
-<div class="metric-value">$8.68B</div>
-<div class="metric-delta pos">+4.8% YoY</div>
+<div class="metric-label">Quarterly Revenue (GAAP)</div>
+<div class="metric-value">$5.29B</div>
+<div class="metric-delta neg">-4.0% YoY</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">Operating Margin (GAAP)</div>
-<div class="metric-value">16.4%</div>
-<div class="metric-delta neg">-171 bps YoY</div>
+<div class="metric-label">Operating Margin (Adj.)</div>
+<div class="metric-value">31.8%</div>
+<div class="metric-delta neg">-740 bps YoY</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">Operating Cash Flow</div>
-<div class="metric-value">$1.98B</div>
-<div class="metric-delta pos">+114.8% YoY</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Currency-Neutral TPV Growth</div>
-<div class="metric-value">+9.0%</div>
-<div class="metric-delta pos">Organic</div>
+<div class="metric-label">Free Cash Flow (Q2)</div>
+<div class="metric-value">$1.10B</div>
+<div class="metric-delta neg">-15.4% YoY</div>
 </div>
 </div>
 <div class="executive-callout">
-<p><strong>Executive Guidance &amp; Capital Allocation Commentary:</strong></p>
-<p><em>"Branded checkout has further stabilized and we are building on strong momentum in Venmo and Braintree, while diversifying our business model through financial services. Based on the strength of our execution, we raised our full-year guidance for transaction margin dollars to $15.6 billion and non-GAAP EPS to $5.38. As a board and management team, while we do not comment on market speculation, we remain fully focused on evaluating all paths that maximize shareholder value versus our standalone transformation plan."</em> <br/>— <strong>Alex Chriss, President &amp; Chief Executive Officer</strong></p>
-<p><em>"We delivered $1.78 billion in adjusted free cash flow in Q2 and remain committed to generating at least $6.0 billion for the full year. We returned $1.5 billion through repurchases this quarter, maintaining our plan to allocate approximately 100% of free cash flow to share buybacks as our $1.5 billion cost-savings program ramps up in the second half of the year."</em> <br/>— <strong>Jamie Miller, Chief Financial &amp; Operating Officer</strong></p>
+<p><strong>Executive Guidance &amp; Capital Allocation Commentary (Q2 2026 Call):</strong></p>
+<p><em>"Growth in overall volumes, transactions, and accounts, coupled with recurring revenue growth, highlights the underlying baseline performance of our business in the second quarter. While macroeconomic headwinds in Argentina and lower nonrecurring revenues required us to adjust our full-year 2026 outlook to (1%) to 0% organic revenue and $7.20 to $7.40 adjusted EPS, second-quarter performance represents the trough for the year. We are committing an incremental $100 million in technology investment during the second half to bolster core resiliency, cyber defense, and platform stability, positioning Fiserv for medium-term compound growth."</em></p>
+<p class="exec-attribution"><strong>Paul Todd</strong>, Chief Financial Officer &amp; <strong>Takis Georgakopoulos</strong>, Chief Executive Officer</p>
 </div>
-<h2>Section 2: Business Model Reality, Unit Economics &amp; Competitive Moat</h2>
-<p>PayPal operates a global two-sided technology network connecting 439 million active consumer accounts with approximately 35 million commercial merchants. The operating strategy is structured across three core reporting divisions designed to segregate high-margin consumer engagement from high-volume processing:</p>
+<h2>Section 2: Business Model Reality &amp; Competitive Moat</h2>
+<p>Fiserv operates an essential payment processing and financial technology infrastructure engine across two core operational segments: <strong>Merchant Solutions</strong> (merchant acquiring, point-of-sale hardware/software, e-commerce payment gateways) and <strong>Financial Solutions</strong> (account processing, core banking ledgers, card issuer processing, electronic payment networks like Star/Accel). The company monetizes its network through three fundamental pricing streams: (1) percentage-based volume take-rates and transaction processing fees on credit/debit card authorizations; (2) fixed per-account recurring software fees charged to banks and credit unions for host ledger maintenance; and (3) SaaS subscription and hardware terminal sales through the Clover small business management platform. Roughly 84% of total adjusted revenue is recurring, anchored by long-term enterprise multi-year contracts.</p>
+<p>The unit economics of financial core processing and merchant acquiring exhibit extreme operating leverage. Fixed capital outlays required to build fault-tolerant datacenter networks, maintain regulatory compliance, and construct security clearing infrastructure mean that each incremental transaction processed yields high marginal gross profit. Fiserv's competitive moat is heavily driven by <strong>high customer switching costs</strong>. Replacing a bank's core processing system (such as Fiserv Premier, DNA, or Signature) is equivalent to performing open-heart surgery on an institution while it is operating; migrating legacy ledgers involves massive financial cost, regulatory risk, and multi-year operational disruption, resulting in client contract retention rates historically exceeding 95% over 5- to 10-year service agreements. In merchant acquiring, Clover protects terminal relationships by embedding accounting, inventory, capital management, and payroll software directly into the POS hardware, transforming a simple payment terminal into an indispensable operating system for SMBs.</p>
 <div class="table-scroll-wrap"><table>
 <thead>
 <tr>
-<th>Operating Division</th>
-<th>Core Products &amp; Solutions</th>
-<th>Q2 2026 Net Revenue</th>
-<th>Est. Transaction Margin Contribution</th>
-<th>Operational Dynamics &amp; Growth Trajectory</th>
+<th>Architecture / Performance Dimension</th>
+<th>Fiserv (FISV)</th>
+<th>FIS (Fidelity National Info)</th>
+<th>Global Payments (GPN)</th>
+<th>Tech-First Disruptors (Adyen / Toast / Block)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Checkout Solutions</strong></td>
-<td>PayPal Online Branded Button, Fastlane Guest Checkout, Pay in 4 (BNPL)</td>
-<td>$3.95B (~45.5%)</td>
-<td>~58.0%</td>
-<td>High-margin core (70%+ gross margin). TPV grew +2.0% YoY. Fastlane biometric rollout targeting 50% merchant readiness by year-end.</td>
+<th>Core Platform Architecture</th>
+<td>Hybrid: Legacy mainframe host ledgers (Premier/DNA) blended with cloud-native engines (Finxact) &amp; Clover SaaS.</td>
+<td>Legacy mainframe core banking (Systematics/Horizon) paired with Worldpay merchant network.</td>
+<td>Modernized legacy acquirer (TSYS card processing) heavily reliant on integrated ISV partnerships.</td>
+<td>100% cloud-native, single-codebase global stack (Adyen) or vertically tailored POS microservices (Toast).</td>
 </tr>
 <tr>
-<td><strong>Consumer Financial Services &amp; Venmo</strong></td>
-<td>Venmo P2P, Pay with Venmo, Debit Cards, Savings, Interest on Customer Balances</td>
-<td>$1.95B (~22.5%)</td>
-<td>~22.0%</td>
-<td>Rapid monetization phase. Pay with Venmo TPV up +44% YoY; Venmo Debit MAUs up &gt;50%. Customer float harvested across $39.7B balance escrow.</td>
+<th>Target Market Focus</th>
+<td>Tier 1–4 Banks, Credit Unions, Enterprise Merchants, SMB Retail/Restaurants.</td>
+<td>Global Tier-1 Financial Institutions, Regional Banks, Capital Markets.</td>
+<td>Mid-Market Merchants, Integrated ISVs, Enterprise Issuer Processing.</td>
+<td>Global Enterprise E-commerce (Adyen), Vertical SMB Restaurants (Toast), Micro-Merchants (Square).</td>
 </tr>
 <tr>
-<td><strong>Payment Services &amp; Enterprise (PSP)</strong></td>
-<td>Braintree, Hyperwallet, PaaP, Unbranded Credit Card Processing</td>
-<td>$2.78B (~32.0%)</td>
-<td>~20.0%</td>
-<td>High TPV volume driver ($200B+/qtr) with low gross margin (~20-25%). Mid-teens TPV growth under "value-over-volume" re-pricing contracts.</td>
+<th>POS &amp; Software Ecosystem</th>
+<td>Clover Platform: Proprietary OS, integrated app store, $75B quarterly GPV.</td>
+<td>Disaggregated 3rd-party POS integrations; limited unified SMB platform.</td>
+<td>Heartland POS &amp; integrated partner software networks.</td>
+<td>Deep vertical POS software embedded with native acquiring, loyalty, and hardware.</td>
+</tr>
+<tr>
+<th>Operating Margin Profile</th>
+<td>31.0% – 31.8% (Consolidated Adj. Margin, undergoing tech reinvestment).</td>
+<td>~38.0% – 40.0% (Post-Worldpay spin adjustments).</td>
+<td>~44.0% – 45.0% (Adjusted operating margin).</td>
+<td>18.0% – 28.0% (Lower gross margin due to aggressive sales/R&amp;D reinvestment).</td>
+</tr>
+<tr>
+<th>Switching Cost Intensity</th>
+<td><strong>Very High</strong> in Core Banking (5-10 yr contracts); <strong>Moderate-High</strong> in Clover SMB ecosystem.</td>
+<td><strong>Very High</strong> in Core Banking; <strong>Moderate</strong> in Merchant.</td>
+<td><strong>Moderate</strong> in Merchant acquiring; <strong>High</strong> in Issuer processing.</td>
+<td><strong>Low-Moderate</strong> in SMB acquiring; <strong>Moderate</strong> in Enterprise API integration.</td>
 </tr>
 </tbody>
 </table></div>
-<p><strong>Revenue Generation &amp; Unit Economic Mechanics:</strong> PayPal monetizes primarily through transaction processing fees levied on TPV. For branded checkout, PayPal commands a premium take rate (typically 2.00% to 2.50% net of transaction expenses) because it delivers identity verification, buyer/seller protection, vaulting, and multi-funding source routing. In contrast, unbranded processing through Braintree operates on tight merchant-acquirer fee structures (take rates of 0.80% to 1.20% with high interchange pass-through costs), making volume scale essential. Supplemental revenue streams include cross-border currency conversion fees (~300-400 bps spread), instant transfer cash-out fees on Venmo/PayPal, merchant lending, BNPL merchant fees (+26% volume growth in Q2), and yield earned on $39.7 billion in customer custodial funds ($300M+ quarterly transaction margin contribution).</p>
-<p><strong>Switching Costs &amp; Network Moats:</strong> PayPal's fundamental moat relies on two-sided network density. For merchants, removing PayPal increases cart abandonment among loyal cohorts; integrated merchants face technical friction to swap out risk engines, fraud scoring systems, and vaulted consumer credentials. For consumers, two-click checkout without re-entering payment credentials builds behavioral friction. However, this moat has eroded at desktop and mobile points-of-sale due to friction-free operating-system-level wallets (Apple Pay, Google Pay) and platform checkouts (Shop Pay). To restore pricing power and combat cart drop-off, PayPal introduced <em>Fastlane</em>—an unbranded guest checkout solution that recognizes guest shoppers via email/biometrics, auto-filling payment details across participating merchants to boost conversion rates by 200 to 500 basis points.</p>
-<div class="table-scroll-wrap"><table>
-<thead>
-<tr>
-<th>Strategic Dimension</th>
-<th>PayPal Holdings (PYPL)</th>
-<th>Stripe (Private)</th>
-<th>Adyen (Euronext: ADYEN)</th>
-<th>Apple Pay / OS Wallets</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Primary Monetization Model</strong></td>
-<td>Two-sided network take rate + merchant acquiring + float yield</td>
-<td>Unbranded merchant acquiring + developer APIs + SaaS tools</td>
-<td>Single-platform enterprise merchant gateway &amp; acquiring</td>
-<td>Issuer fee share (~15 bps on credit) + ecosystem lock-in</td>
-</tr>
-<tr>
-<td><strong>Consumer Wallet Scale</strong></td>
-<td>439M active accounts; 60 transactions/user/yr (ex-PSP)</td>
-<td>Zero direct consumer wallet; payment link ecosystem</td>
-<td>Zero consumer wallet; pure enterprise infrastructure</td>
-<td>1.0B+ active iPhone users with hardware wallet integration</td>
-</tr>
-<tr>
-<td><strong>Transaction Gross Margin %</strong></td>
-<td>45.0% - 47.0% overall (decaying from historical 60%+)</td>
-<td>~30.0% - 35.0% (blended across SMB &amp; enterprise)</td>
-<td>~45.0% - 50.0% (net revenue basis, capital-light)</td>
-<td>~90.0%+ (pure software overlay with minimal transaction risk)</td>
-</tr>
-<tr>
-<td><strong>Enterprise PSP Strategy</strong></td>
-<td>Braintree re-priced for "value over volume" profit margins</td>
-<td>Dominant developer mindshare; aggressive enterprise expansion</td>
-<td>Single-codebase unified commerce; ultra-low processing cost</td>
-<td>N/A (Partners with processing gateways for distribution)</td>
-</tr>
-<tr>
-<td><strong>Guest Checkout Innovation</strong></td>
-<td>Fastlane biometrics targeting 50% US merchant coverage</td>
-<td>Link by Stripe (embedded across checkout surface)</td>
-<td>Network tokenization &amp; custom enterprise checkout components</td>
-<td>Native iOS FaceID / TouchID biometric tokenization</td>
-</tr>
-</tbody>
-</table></div>
-<p><strong>Secular Tailwinds vs. Structural Disruption Risks:</strong></p>
+<p>Fiserv's core franchise is defined by strong structural tailwinds alongside clear technological threats:</p>
 <ul>
-<li><strong>Tailwinds:</strong> Global e-commerce growth (7-9% annual CAGR); digital wallet adoption replacing cash and physical plastic; Venmo monetization inflection (+44% Pay with Venmo TPV; &gt;50% growth in debit card MAUs); high short-term interest rates generating durable float income on custodial customer balances; and agentic AI commerce integrations where vaulted 2-sided identity credentials streamline automated machine-to-machine checkout.</li>
-<li><strong>Disruption Threats:</strong> Native mobile operating system wallets (Apple Pay/Google Pay) disintermediating third-party buttons at the browser/OS level; merchant platform lock-in (e.g., Shopify favoring Shop Pay); unbranded PSP margin commoditization driven by Adyen and Stripe price competition; and stagnant total user account growth (439M active accounts, flatlining YoY and down 200k sequentially), forcing PayPal to rely on per-user monetization rather than network expansion.</li>
+<li><strong>Structural Demand Drivers (Long-Term Tailwinds):</strong>
+
+</li><li><em>Global Digital Payments Secular Growth: Cash-to-digital payment conversions across Latin America and EMEA continue to expand structural transaction volumes.</em></li><li><em>SMB Software Integration (Clover Expansion): Small merchants are shifting from legacy terminal credit card readers to all-in-one smart POS platforms. Clover's annualized GPV (~$300 billion) positions Fiserv as a major beneficiary of value-added software cross-selling (Clover Capital, payroll, customer engagement).</em></li><li><em>Cloud Core Banking Modernization: Community banks and credit unions are forced to replace 30-year-old COBOL ledgers with cloud platforms like Finxact to offer real-time payments, open banking APIs, and agentic AI tools.</em></li>
+<li><strong>Competitive Disruption Threats &amp; Structural Risks:</strong>
+
+</li><li><em>Capital Intensity &amp; FX Sensitivity: Unfavorable macroeconomic policies and severe foreign exchange devaluations in key Latin American markets (e.g., Argentina anticipation business decay) directly impair growth rates and operational margins.</em></li><li><em>Tech-First Merchant Disruption: Pure-play cloud platforms like Adyen and Stripe are capturing enterprise cross-border e-commerce market share, while vertical specialists (Toast in restaurants, Shopify in e-commerce) challenge legacy merchant acquiring margins.</em></li><li><em>Legacy Core Bank Attrition: Smaller regional banks and credit unions face ongoing consolidation or insolvency. Bank failures or mergers frequently result in contract cancellations, creating persistent organic headwinds in Financial Solutions (-8% organic in Q2 2026).</em></li>
 </ul>
-<h2>Section 3: Forensic Cash Flow, SBC Dilution &amp; Owner Earnings Audit</h2>
-<p>A rigorous fundamental analysis requires stripping away Non-GAAP promotional metrics like "Adjusted Free Cash Flow" and "Non-GAAP Operating Income" that obscure real economic costs. Wall Street analysts routinely add back Stock-Based Compensation (SBC) as if issuing equity to employees carries zero cash impact. Under Ben Graham and Warren Buffett's framework, stock-based compensation is an inescapable cash-equivalent operating expense that either dilutes existing owners or consumes corporate cash via share buybacks to neutralize dilution. Furthermore, unbranded payment processing expansion via Braintree generates significantly lower transaction margins compared to legacy high-margin branded PayPal checkout, creating structural margin compression that must be audited at the cash level.</p>
-<div class="metrics-grid">
-<div class="metric-card">
-<h3>Q2 2026 Net Revenue</h3>
-<p>$8,682 Million</p>
-<span>+4.8% YoY growth driven by Venmo &amp; Braintree volume</span>
-</div>
-<div class="metric-card">
-<h3>Q2 2026 Operating Cash Flow</h3>
-<p>$1,980 Million</p>
-<span>More than doubled YoY on loan timing &amp; execution</span>
-</div>
-<div class="metric-card">
-<h3>TTM Buffett Owner Earnings</h3>
-<p>$5,301 Million</p>
-<span>Stripping 100% of SBC &amp; defensive maintenance CapEx</span>
-</div>
-<div class="metric-card">
-<h3>Transaction Margin Compression</h3>
-<p>-248 bps</p>
-<span>Non-GAAP operating margin contracted to 17.4% on mix shift</span>
-</div>
-</div>
-<h3>4-Year Cash Flow &amp; Owner Earnings Decomposition</h3>
-<p>To establish true underlying owner earning power, we reconcile GAAP Operating Cash Flow down to Buffett Owner Earnings by subtracting 100% of Stock-Based Compensation and deducting Maintenance CapEx (defensive infrastructure, compliance, security tech, and platform maintenance required to protect competitive positioning).</p>
+<h2>Section 3: Real Cash Flow, SBC Dilution &amp; Owner Earnings Audit</h2>
+<p>A rigorous cash flow audit requires stripping away Wall Street’s sanitized "Free Cash Flow" definitions and examining the true economic cash generated by the operating engine. Management frequently attempts to mask economic costs by adding back Stock-Based Compensation (SBC) as a "non-cash expense" while categorizing essential technology platform investments as discretionary growth CapEx. Under fundamental value principles, SBC is an indelible cash cost—if the enterprise did not compensate software engineers, sales executives, and managers with equity, it would be forced to pay them cash out of operating profits. Furthermore, for a payments processor and core banking technology provider, maintaining core software infrastructure, cloud migration pipelines, and Clover point-of-sale terminal hardware requires continuous capital outlays that cannot be omitted.</p>
+<p>Fiserv's reported operating cash flows reflect a maturing enterprise navigating operational re-tooling following the dramatic 2025 guidance reset. GAAP operating cash flow peaked at $6.63 billion in FY 2024, before receding to $6.06 billion in FY 2025 and $5.83 billion on a TTM basis as organic revenue growth decelerated into the low single digits. While SBC appears moderate relative to West Coast tech firms—hovering between $357 million and $377 million annually—it remains a steady 6% to 7% drain on normalized operating profits that must be fully deducted from owner earnings.</p>
 <div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Metric ($ Millions)</th>
 <th>FY 2024</th>
 <th>FY 2025</th>
-<th>FY 2026 (E)</th>
-<th>TTM Run-Rate</th>
+<th>FY 2026 (Est.)</th>
+<th>TTM</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>GAAP Operating Cash Flow</td>
-<td>$7,450</td>
-<td>$6,416</td>
-<td>$6,800</td>
-<td>$7,240</td>
+<td>$6,631</td>
+<td>$6,062</td>
+<td>$5,700</td>
+<td>$5,831</td>
 </tr>
 <tr>
-<td>Less: Stock-Based Compensation (100% Cash Deducted)</td>
-<td>$1,230</td>
-<td>$1,002</td>
-<td>$1,080</td>
-<td>$1,050</td>
+<td>Less: Total Stock-Based Compensation (SBC)</td>
+<td>($367)</td>
+<td>($357)</td>
+<td>($380)</td>
+<td>($377)</td>
 </tr>
 <tr>
-<td>Less: Maintenance CapEx (Defensive Moat Upkeep)</td>
-<td>$683</td>
-<td>$852</td>
-<td>$850</td>
-<td>$889</td>
+<td>Less: Estimated Maintenance CapEx (~80% of Total CapEx)</td>
+<td>($1,255)</td>
+<td>($1,410)</td>
+<td>($1,480)</td>
+<td>($1,524)</td>
 </tr>
 <tr>
-<td><strong>Buffett Owner Earnings (True Distributable Cash)</strong></td>
-<td><strong>$5,537</strong></td>
-<td><strong>$4,562</strong></td>
-<td><strong>$4,870</strong></td>
-<td><strong>$5,301</strong></td>
-</tr>
-<tr>
-<td>Discretionary Growth CapEx (Isolated)</td>
-<td>$110</td>
-<td>$125</td>
-<td>$140</td>
-<td>$135</td>
+<td><strong>Buffett Owner Earnings (True Cash)</strong></td>
+<td><strong>$5,009</strong></td>
+<td><strong>$4,295</strong></td>
+<td><strong>$3,840</strong></td>
+<td><strong>$3,930</strong></td>
 </tr>
 </tbody>
 </table></div>
 <div class="callout">
-<h4>SBC Illusion &amp; Unbranded Braintree Margin Dilution</h4>
-<p><strong>The SBC Trap:</strong> Over the trailing twelve months, PayPal granted $1.05B in SBC. While management promotes $6.0B+ in "Adjusted Free Cash Flow," nearly 17.5% of that cash flow was economically consumed by equity compensation. Without $6.0B in annual buybacks, SBC would dilute existing shareholders by ~1.8% per year.</p>
-<p><strong>Braintree vs. Branded Checkout Margin Dynamics:</strong> Unbranded processing (Braintree) and Venmo volume grew in the mid-teens, while high-margin branded checkout grew at a modest 2% currency-neutral rate. Braintree carries thin transaction margins (~10%-15%) compared to branded PayPal checkout (~45%-50%). As Braintree expands its share of Total Payment Volume (TPV), total transaction margins contract, requiring aggressive OpEx cost-cutting ($1.5B run-rate savings program) to defend owner cash flow generation.</p>
+<strong>Working Capital Float &amp; Settlement Cash Dynamics:</strong> 
+  Fiserv operates a massive settlement engine within its Merchant Solutions division, holding $16.66 billion in settlement assets matched against $16.48 billion in settlement liabilities as of 2026 filings. This represents temporary merchant settlement funds moving through the payment pipes. While this provides substantial operational liquidity, it cannot be treated as permanent equity cash. Crucially, working capital cash flows are subject to quarterly timing volatility—such as merchant cash advance outlays (netting $801 million in 2024 primarily across Latin America) and deferred revenue adjustments ($844 million in unearned revenue). True Owner Earnings strip out these non-organic working capital fluctuations to isolate baseline enterprise cash generation.
 </div>
-<h3>Working Capital &amp; Customer Escrow Float Audit</h3>
-<p>PayPal operates an exceptional, capital-light customer funding mechanism driven by customer funds held in escrow and favorable negative working capital dynamics:</p>
-<ul>
-<li><strong>Segregated Customer Balance Float:</strong> PayPal holds $38.4B in customer balance deposits. Interest harvested on customer balances generated $275M in Q2 2026 (~$1.1B annualized), representing zero-credit-risk organic cash flowing directly into operating profits.</li>
-<li><strong>Working Capital Float:</strong> Deferred Revenue ($480M) plus Accounts Payable and accrued operational liabilities ($4,120M) minus Accounts Receivable ($1,850M) yields an interest-free working capital float of approximately $2.75B, providing non-dilutive operating liquidity.</li>
-</ul>
-<div class="callout">
-<h4>Custodial Float Rate Sensitivity Stress-Test ($38.4B Escrow)</h4>
-<p>PayPal currently generates ~$1.1B in annualized interest income on its $38.4B custodial customer balance float under a ~4.75% short-term sovereign interest rate environment. Under a macroeconomic rate-cutting cycle:</p>
-<ul>
-<li><strong>-100 bps Fed/ECB Rate Cut:</strong> Reduces annual float interest income by ~$380M (~$0.38/share pre-tax).</li>
-<li><strong>-200 bps Fed/ECB Rate Cut:</strong> Reduces annual float interest income by ~$760M (~$0.77/share pre-tax).</li>
-</ul>
-<p>This macro rate drag is modeled into our Bear Case ($3.85B Owner Earnings), highlighting why operational cost savings ($1.5B run-rate program) and Fastlane conversion uplifts are essential to protect bottom-line owner compounding.</p>
-</div>
+<p>Accounting for total capital expenditures ($1.57 billion in FY 2024, $1.76 billion in FY 2025, and $1.91 billion TTM), true Owner Earnings stand at approximately $3.93 billion today. On a per-share basis across 531.8 million diluted shares, Fiserv yields approximately $7.39 in real owner cash per share. At the current market price of $52.45, this translates to an initial cash-on-cash Owner Earnings yield of 14.1%, providing a robust cushion against operational turnarounds.</p>
 <h2>Section 4: Balance Sheet Fortress, Debt Leases &amp; Ownership Check</h2>
-<p>PayPal maintains an investment-grade balance sheet (rated 'A-' by Fitch) with substantial corporate liquidity, modest financial leverage, and a proactive capital structure strategy.</p>
-<h3>Audited Capital Structure &amp; Lease Liabilities</h3>
+<p>Fiserv’s balance sheet bears the structural imprint of historical large-scale M&amp;A—most notably the acquisition of First Data—resulting in $37.60 billion in goodwill and $9.98 billion in intangible assets against a GAAP net worth of $25.81 billion. Consequently, tangible book value remains deep in negative territory (-$22.05 billion). Evaluating the enterprise requires a cold assessment of solvency, debt maturity ladders, and interest coverage capability.</p>
+<p>During mid-2026, management executed active liability management to lower annual debt service costs. In June and July 2026, Fiserv completed a cash tender offer, retiring $1.41 billion in principal of high-coupon senior notes for $1.23 billion in cash, generating a $154 million GAAP gain on early debt extinguishment while refinancing portion of the obligation with €1.0 billion in euro-denominated senior notes at a 4.0% weighted-average coupon. Long-term debt stood at $26.68 billion following these transactions.</p>
 <div class="table-scroll-wrap"><table>
 <thead>
 <tr>
-<th>Balance Sheet Item</th>
-<th>Reported Amount ($ Millions)</th>
-<th>Analytical Classification &amp; Audit Commentary</th>
+<th>Capital Structure &amp; Balance Sheet Component</th>
+<th>Carrying Value ($ Millions)</th>
+<th>Analytical Notes &amp; Obligations</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Cash, Cash Equivalents &amp; Short-Term Marketable Treasuries</td>
-<td>$13,500</td>
-<td>Gross corporate liquidity including ~$9.2B unrestricted cash and ~$4.3B liquid short-term treasuries.</td>
+<td>Cash &amp; Cash Equivalents</td>
+<td>$829</td>
+<td>Unencumbered corporate operational cash</td>
 </tr>
 <tr>
-<td>Funded Senior Unsecured Debt</td>
-<td>$12,200</td>
-<td>Includes $2.0B senior notes issued in May 2026 across 2028 ($650M @ 4.55%), 2031 ($850M @ 4.95%), and 2036 ($500M @ 5.55%) tranches.</td>
+<td>Less: Short-Term Debt &amp; Current Portion</td>
+<td>($1,323)</td>
+<td>Commercial paper &amp; maturing notes</td>
 </tr>
 <tr>
-<td>Operating Lease Liabilities (ASC 842)</td>
-<td>$850</td>
-<td>Present value of contractual facility, office, and data center operating leases ($180M current, $670M non-current).</td>
+<td>Less: Senior Long-Term Debt</td>
+<td>($26,680)</td>
+<td>Reflects post-Q2 2026 debt tender retirement</td>
 </tr>
 <tr>
-<td><strong>Net Corporate Debt / (Cash) Position</strong></td>
-<td><strong>($1,300) Net Cash</strong></td>
-<td><strong>Unrestricted Cash ($13.5B) exceeds Funded Debt ($12.2B) by $1.3B. (Excludes $38.4B in segregated customer funds).</strong></td>
+<td>Less: Total Contractual Operating Leases</td>
+<td>($763)</td>
+<td>Facility real estate &amp; equipment obligations</td>
 </tr>
 <tr>
-<td>TTM GAAP Operating Income (EBIT)</td>
-<td>$6,065</td>
-<td>Provides strong operational interest coverage.</td>
+<td><strong>Net Debt Position</strong></td>
+<td><strong>($27,937)</strong></td>
+<td><strong>Net debt load requiring ongoing cash amortization</strong></td>
 </tr>
 <tr>
-<td><strong>Interest Expense Coverage Ratio</strong></td>
-<td><strong>16.0x</strong></td>
-<td><strong>EBIT / Interest Expense ratio demonstrates high solvency and debt service capacity.</strong></td>
+<td>Annual GAAP Operating Income (TTM)</td>
+<td>$5,820</td>
+<td>Core operating profitability pre-interest</td>
+</tr>
+<tr>
+<td>Annual Interest Expense (TTM)</td>
+<td>$1,200</td>
+<td>Contractual cash debt service obligations</td>
+</tr>
+<tr>
+<td><strong>Interest Coverage Ratio</strong></td>
+<td><strong>4.85x</strong></td>
+<td><strong>Adequate coverage, though leverage constrains liquidity</strong></td>
 </tr>
 </tbody>
 </table></div>
-<h3>Contractual Debt Maturity Schedule</h3>
-<p>Management proactively addressed near-term debt maturities by issuing $2.0B in fixed-rate senior notes in May 2026, using net proceeds ($1.99B) to refinance the 2.65% senior notes maturing in October 2026 ($1.25B) and extending the weighted average debt maturity profile out to 2036.</p>
-<ul>
-<li><strong>2026 Maturing Debt:</strong> $1.25B of 2.650% notes due October 2026 (refinanced via May 2026 note offering).</li>
-<li><strong>2027 Maturing Debt:</strong> $1.00B of 2.400% notes due October 2027.</li>
-<li><strong>2028 Maturing Debt:</strong> $1.65B ($1.00B of 2.850% notes + $650M of 4.550% notes due June
-
-<h2>Section 5: Warren Buffett Owner Earnings Intrinsic Valuation Matrix</h2>
+<p>With an interest coverage ratio of 4.85x and annual operating cash flow exceeding $5.8 billion, Fiserv faces minimal immediate solvency risk, but its $27.9 billion net debt burden restricts aggressive capital reallocation. Repurchase activity, which previously devoured over $5.8 billion annually in FY 2024 (reducing share count from over 650 million to 531.8 million today), was drastically reined in to $300 million during the first half of 2026 as cash flow was directed toward debt reduction and balance sheet stabilization.</p>
 <div class="callout">
-<strong>The Invariant of Owner Earnings (1986 Shareholder Letter Paradigm):</strong> Mr. Market evaluates PayPal Holdings, Inc. through the narrow lens of headline non-GAAP EPS and gross Total Payment Volume (TPV). As fundamental value investors, we evaluate PayPal as an enduring enterprise generating true cash flow available for distribution or share repurchases without impairing corporate solvency. 
-<br/><br/>
-<strong>Owner Earnings Formula:</strong><br/>
-<code>Owner Earnings = GAAP Operating Cash Flow - Maintenance CapEx - 100% Stock-Based Compensation (SBC)</code>
-<br/><br/>
-In Q2 2026, PayPal generated $1.98B in GAAP Operating Cash Flow. On a trailing twelve-month (TTM) basis, operating cash flow stands at $6.85B. Capital Expenditures averaged $0.82B annually (primarily server infrastructure, data center upkeep, and network security). Stock-Based Compensation ran at $1.28B annually. Deducting 100% of SBC—a non-negotiable economic expense that dilutes equity holders—yields a <strong>Normalized Baseline Owner Earnings of $4.75B</strong> (vs. optical Non-GAAP Free Cash Flow guidance of $6.0B+).
+<strong>Insider Transaction Audit (Form 4 Filings):</strong>
+  Official SEC filings reveal a highly telling divergence in insider behavior across cycle phases. Former CEO Frank Bisignano engaged in massive equity liquidations throughout mid-2025, selling tens of millions of dollars in stock at prices ranging between $165.23 and $171.41 per share prior to the guidance collapse. Conversely, following the steep stock drop into the $48–$52 range in mid-2026, an unprecedented cluster of open-market insider buying occurred. Between June and August 2026, Independent Chairman Gordon Nixon ($371k @ $49.57), CFO Paul Todd ($500k @ $49.70), CAO/CLO Adam Rosman ($500k @ $49.33), and Directors Lance Fritz ($519k @ $51.95), Wafaa Mamilli, Charlotte Yarkoni, and Harry DiSimone all executed direct open-market cash purchases. Such coordinated executive buying without stock option exercises represents a potent signal of insider alignment at current valuation levels.
 </div>
-<h3>1. Localized Sovereign Hurdle Rate &amp; Discount Rate Derivation</h3>
-<p>
-In accordance with local sovereign yield discipline, US cash flows are discounted using the benchmark US 10-Year Treasury Yield as the risk-free rate ($R_f$).
-</p>
-
-<h3>2. Complete 3-Scenario DCF Valuation Matrix</h3>
-<p>
-The following zero-multiple discounted cash flow model projects 5 years of discrete Owner Earnings plus a terminal value capped at long-term US real GDP growth (2.25%). Balance sheet cash ($15.3B in liquid cash, short-term investments, and long-term investments) and total debt ($12.73B term debt) yield a net cash adjustment of +$2.57B, or +$2.61 per share across 985 million diluted shares.
-</p>
+<p>Institutional ownership remains heavily concentrated at ~88–92% of float, dominated by mega-cap indexers (Vanguard, BlackRock, State Street) alongside value-oriented institutional managers (Harris Associates/Oakmark, Dodge &amp; Cox). While institutional positioning stabilized following the late 2025 panic, executive leadership's deliberate shift from aggressive buybacks to debt retirement underscores a prudent pivot toward financial durability.</p>
+<h2>Section 5: Warren Buffett Owner Earnings Intrinsic Valuation Matrix</h2>
+<p>To value Fiserv, Inc. (FISV) at the current stock quotation of $52.45, we entirely discard Wall Street's volatile price targets, short-term earnings multiples, and momentum sentiment. Following the anti-Mr. Market doctrine of Benjamin Graham and Warren Buffett, we evaluate Fiserv as an unquoted private enterprise, focusing strictly on the real cash generated by the business and available for distribution to owners without impairing its competitive moat.</p>
+<p>Warren Buffett defines <strong>Owner Earnings</strong> in his 1986 Berkshire Hathaway Shareholder Letter as:</p>
+<div class="callout">
+<p><strong>Warren Buffett Owner Earnings Equation:</strong><br/>
+<em>Owner Earnings = Reported Operating Cash Flow - Maintenance Capital Expenditures - Stock-Based Compensation (SBC)</em></p>
+</div>
+<p>Applying this formula to Fiserv's normalized trailing twelve-month (TTM) financial performance:</p>
+<ul>
+<li><strong>Reported Operating Cash Flow (TTM):</strong> $5,830 million. (Reflects core cash generation across Merchant Solutions and Financial Solutions, excluding short-term working capital timing distortions).</li>
+<li><strong>Maintenance Capital Expenditures:</strong> -$1,400 million. Total CapEx for Fiserv runs near $1.85 billion annually. However, approximately $450 million is allocated to growth initiatives (Clover international expansion, cloud point-of-sale development, and Finxact core banking onboarding). Maintenance CapEx required to protect legacy processing networks and existing software software infrastructure is estimated at $1.40 billion.</li>
+<li><strong>Stock-Based Compensation (SBC):</strong> -$357 million. In accordance with strict fundamental discipline, SBC is treated as a 100% real cash expense because it dilutes owner equity unless repurchased on the open market with corporate cash.</li>
+</ul>
+<p><strong>Normalized Baseline Owner Earnings:</strong> $5,830M - $1,400M - $357M = <strong>$4,073 million</strong>. Divided across 531.8 million diluted shares outstanding, Fiserv currently generates <strong>$7.66 per share in normalized Owner Earnings</strong>. At the market price of $52.45, the stock offers an initial <strong>Owner Earnings Cash Yield of 14.6%</strong> ($7.66 / $52.45).</p>
+<h3>Sovereign Discount Rate Derivation</h3>
+<p>Because Fiserv is domiciled in the United States and generates the majority of its net cash flow in U.S. dollars (despite international exposure in Latin America and Europe), the hurdle rate is anchored directly in the 10-Year U.S. Treasury yield (~4.20%). Adding an Equity Risk Premium (ERP) of 4.80% to 5.80% to compensate for credit leverage and operational execution risks yields an intrinsic hurdle rate range of <strong>9.0% to 10.0%</strong>.</p>
+<h3>Capital Structure &amp; Balance Sheet Net Debt Bridge</h3>
+<p>Fiserv operates with substantial financial leverage following historical acquisitions (including First Data). To determine intrinsic equity value, net debt must be explicitly deducted from the discounted enterprise stream:</p>
+<ul>
+<li><strong>Total Debt (Long-Term &amp; Short-Term Obligations):</strong> $27,886 million</li>
+<li><strong>Lease Liabilities (Operating &amp; Capital):</strong> $933 million</li>
+<li><strong>Cash &amp; Cash Equivalents:</strong> -$627 million</li>
+<li><strong>Net Debt Burden:</strong> <strong>$28,192 million</strong> (~$52.96 per share in debt obligations).</li>
+</ul>
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">TTM Operating Cash Flow</div>
+<div class="metric-value">$5.83B</div>
+<div class="metric-delta neg">-3.8% YoY</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Normalized Owner Earnings</div>
+<div class="metric-value">$4.07B</div>
+<div class="metric-delta pos">$7.66 / share</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Initial Cash Yield</div>
+<div class="metric-value">14.6%</div>
+<div class="metric-delta pos">High Organic Yield</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Net Debt Burden</div>
+<div class="metric-value">$28.19B</div>
+<div class="metric-delta neg">2.8x Net Debt/EBITDA</div>
+</div>
+</div>
+<h3>3-Scenario Intrinsic Valuation Matrix</h3>
 <div class="table-scroll-wrap"><table>
 <thead>
 <tr>
-<th>Valuation Parameter / Scenario</th>
-<th>Bear Case (Trough Stress-Test)</th>
+<th>Valuation Metric &amp; Assumptions</th>
+<th>Bear Case (Cycle Trough)</th>
 <th>Base Case (Normalized Reality)</th>
-<th>Bull Case (Optimistic Compounding)</th>
+<th>Bull Case (Optimistic Execution)</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>Normalized Owner Earnings (Yr 1)</td>
-<td>$3.85B</td>
-<td>$4.85B</td>
-<td>$5.35B</td>
-</tr>
 <tr>
 <td>5-Year Organic OE CAGR</td>
-<td>1.5%</td>
-<td>5.5%</td>
-<td>8.5%</td>
+<td>-1.0%</td>
+<td>4.5%</td>
+<td>9.0%</td>
 </tr>
 <tr>
-<td>Net Annual Share Compounding</td>
-<td>-3.0%/yr</td>
-<td>-6.0%/yr</td>
-<td>-7.5%/yr</td>
+<td>Annual Share Count Reduction</td>
+<td>1.0%</td>
+<td>2.5%</td>
+<td>4.0%</td>
 </tr>
 <tr>
-<td>Discount Rate (Local Sovereign + ERP)</td>
-<td>10.50%</td>
-<td>9.50%</td>
-<td>9.00%</td>
+<td>Discount Rate (Hurdle)</td>
+<td>10.0%</td>
+<td>9.5%</td>
+<td>9.0%</td>
 </tr>
 <tr>
-<td>Terminal Growth Rate (GDP Capped)</td>
-<td>1.50%</td>
-<td>2.25%</td>
-<td>2.50%</td>
-</tr>
-<tr>
-<td>Net Balance Sheet Debt/Cash Adjustment</td>
-<td>+$2.61/sh</td>
-<td>+$2.61/sh</td>
-<td>+$2.61/sh</td>
+<td>Terminal FCF Growth Rate</td>
+<td>1.0%</td>
+<td>2.0%</td>
+<td>2.5%</td>
 </tr>
 <tr>
 <td><strong>Intrinsic Fair Value / Share</strong></td>
-<td><strong>$45.91</strong></td>
-<td><strong>$77.78</strong></td>
-<td><strong>$104.44</strong></td>
+<td><strong>$42.50</strong></td>
+<td><strong>$78.20</strong></td>
+<td><strong>$118.50</strong></td>
 </tr>
 <tr>
-<td><strong>Margin of Safety vs Current Price ($60.45)</strong></td>
-<td><strong>-24.1% (Premium)</strong></td>
-<td><strong>+22.3% (Discount)</strong></td>
-<td><strong>+42.1% (Discount)</strong></td>
+<td><strong>Margin of Safety vs Current Price ($52.45)</strong></td>
+<td><strong>-18.9%</strong></td>
+<td><strong>+32.9%</strong></td>
+<td><strong>+55.7%</strong></td>
 </tr>
 </tbody>
 </table></div>
+<h3>The 5-Year Market Closure Test</h3>
+<p>If the stock exchange were closed for 5 years starting today, an investor buying Fiserv at $52.45 would rely entirely on the business's organic cash generation. Over 5 years, under our Base Case scenario, Fiserv will generate approximately <strong>$22.5 billion in cumulative Owner Earnings</strong> (~$42.30 per share). Management can utilize these cash flows to pay down $12 billion in debt (reducing interest drag) and repurchase 10% to 12% of outstanding shares. By Year 5, per-share Owner Earnings would expand from $7.66 to $9.50+. Thus, even without Wall Street re-rating the stock's earnings multiple, the organic yield and fundamental cash compounding provide a robust <strong>14% to 16% annualized return</strong>, passing the 5-Year Market Closure Test with high conviction.</p>
+<h2>Section 6: Thesis Invalidation Pre-Mortem &amp; Falsification Triggers</h2>
+<p>A disciplined value investor must pre-commit to cold, emotionless falsification criteria before taking a capital position. While Fiserv's valuation at ~7.0x Owner Earnings appears severely depressed, the stock has fallen due to genuine operational resets, executive turnover (exit of former leadership and appointment of CEO Takis Georgakopoulos), and guidance downgrades. The pre-mortem analysis below outlines the precise economic breakdown that would render our intrinsic value thesis WRONG.</p>
+<h3>Pre-Mortem Thesis Breakdown Pathways</h3>
+<ol>
+<li><strong>Legacy Core Banking Attrition Acceleration:</strong> Fiserv's Financial Solutions segment relies on deeply embedded account processing infrastructure in small-to-midsize financial institutions. If community banks and credit unions migrate rapidly away from legacy Fiserv systems to cloud-native platforms (e.g., Mambu, Thought Machine, or internal modernizations) faster than Fiserv can port them to Finxact, organic growth in Financial Solutions could permanently contract.</li>
+<li><strong>Clover Market Share Loss &amp; POS Disintermediation:</strong> Clover is Fiserv's prime growth engine in small-and-medium business (SMB) merchant acquiring. If competitive pressure from Toast, Block (Square), Adyen, and Shopify erodes Clover's Gross Payment Volume (GPV) growth or squeezes take-rates, merchant processing margins will collapse, destroying the capital-light compounding narrative.</li>
+<li><strong>Latin American Macroeconomic &amp; Currency Contagion:</strong> Recent organic guidance cuts were driven in part by hyperinflation accounting and currency volatility in Argentina. Persistent macro dislocation or foreign exchange devaluation across key LatAm markets could permanently impair reported consolidated cash flows.</li>
+<li><strong>Debt Refinancing &amp; Capital Allocation Failure:</strong> With over $28 billion in debt obligations, if high interest rates persist and management misallocates capital toward overpriced defensive M&amp;A rather than retiring high-cost debt or buying back heavily discounted shares, the equity margin of safety will erode.</li>
+</ol>
+<h3>Quantitative Hard Falsification Triggers</h3>
 <div class="callout">
-<h3>3. Reverse DCF Market-Implied Expectations ("What is Priced In?")</h3>
-<p>
-Inverting the valuation model at today's stock price of <strong>$60.45</strong> (Market Cap $59.54B, Enterprise Value $56.97B):
-</p>
-
+<p><strong>Mandatory Thesis Exit Rules:</strong> If any of the following numerical thresholds are breached over two consecutive quarters, the intrinsic valuation thesis is deemed falsified, and an immediate capital exit is mandated regardless of cost basis:</p>
 </div>
-<h3>4. The 5-Year Market Closure Test</h3>
-<p>
-If the NASDAQ stock exchange were to close operations for 5 years starting today:
-</p>
-
-<h2>Section 6: Probabilistic Risk Audit, Threat Assessment &amp; Pre-Mortem Falsification</h2>
-<div class="metrics-grid">
-<div class="metric-card">
-<div class="metric-label">Business Fragility Rating</div>
-<div class="metric-value">Moderate Fragility</div>
-<div class="metric-delta">Transitioning Payment Moat</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Primary Vulnerability</div>
-<div class="metric-value">Take-Rate &amp; Mix Shift</div>
-<div class="metric-delta neg">Braintree Dilution</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Tail-Risk Severity</div>
-<div class="metric-value">Moderate to Severe</div>
-<div class="metric-delta">Margin Erosion</div>
-</div>
-</div>
-<h3>1. Comprehensive Probabilistic Risk &amp; Threat Matrix</h3>
 <div class="table-scroll-wrap"><table>
 <thead>
 <tr>
-<th>Risk Vector &amp; Threat Scenario</th>
-<th>Probability Rating (%)</th>
-<th>Financial Severity</th>
-<th>The "Why" &amp; Transmission Mechanics (Root Cause)</th>
-<th>Mitigation &amp; Structural Defenses</th>
+<th>Operational &amp; Financial Metric</th>
+<th>Baseline (Current TTM)</th>
+<th>Falsification Threshold (Exit Trigger)</th>
+<th>Thesis Risk Realization</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Unbranded Mix Shift &amp; Braintree Margin Compression</strong></td>
-<td>High (40%)</td>
-<td>Severe</td>
-<td>Unbranded payment processing (Braintree/PSP) grows at mid-teens TPV rates while high-margin branded checkout grows at low single digits (2%). Because Braintree operates at dramatically lower gross take rates (~0.80% vs ~2.30% branded), unbranded volume expansion dilutes consolidated Transaction Margin percentages (contracting 248 bps YoY in Q2 2026 to 17.4%).</td>
-<td>Braintree price repricing discipline, bundling PayPal Complete Payments (PPCP) for SMBs, and driving value-added services (payouts, fraud protection, risk management tools).</td>
+<td>Organic Revenue Growth</td>
+<td>-1.0% to 0.0%</td>
+<td><strong>&lt; -3.0% YoY</strong></td>
+<td>Structural market share loss across core segments.</td>
 </tr>
 <tr>
-<td><strong>Big-Tech Operating System Disintermediation (Apple Pay / Shop Pay)</strong></td>
-<td>Medium (30%)</td>
-<td>Severe</td>
-<td>Natively integrated mobile wallet checkouts (Apple Pay, Google Pay, Shop Pay) eliminate checkout friction on iOS/Android devices, reducing consumer preference for redirect-based PayPal branded buttons on merchant product pages, threatening core branded volume.</td>
-<td>Fastlane guest checkout implementation, debit card integration, Venmo integration, and exclusive merchant reward programs.</td>
+<td>Adjusted Operating Margin</td>
+<td>31.0% - 31.8%</td>
+<td><strong>&lt; 28.0%</strong></td>
+<td>Permanent pricing power loss &amp; cost structure deterioration.</td>
 </tr>
 <tr>
-<td><strong>Consumer Credit Loss Expansion in BNPL &amp; Credit Products</strong></td>
-<td>Low-Medium (20%)</td>
-<td>Moderate</td>
-<td>Buy Now Pay Later (BNPL) volume grew 26% YoY. If macro unemployment spikes or credit losses deteriorate across the $5.5B consumer receivable balance, loan loss provisions will surge, directly reducing Net Transaction Margin dollars.</td>
-<td>Offloading BNPL loan receivables to third-party balance sheets (e.g., KKR European BNPL agreement), tightening AI credit underwriting standards.</td>
+<td>Clover GPV YoY Growth</td>
+<td>+9.0% to +11.0%</td>
+<td><strong>&lt; +4.0% YoY</strong></td>
+<td>Disintermediation in cloud merchant point-of-sale.</td>
 </tr>
 <tr>
-<td><strong>AI Agentic Commerce &amp; Direct API Checkout Bypass</strong></td>
-<td>Low (15%)</td>
-<td>Moderate</td>
-<td>Autonomous AI purchasing agents bypass traditional web checkouts by executing transactions via direct API endpoints or agentic payment protocols, disintermediating brand-level consumer payment choices.</td>
-<td>Developing developer-first AI payment agent SDKs, securing account-to-account authentication layers, and leveraging Venmo's social graph.</td>
+<td>Free Cash Flow Conversion</td>
+<td>&gt; 90% of Net Income</td>
+<td><strong>&lt; 75%</strong></td>
+<td>Working capital drag or uncurbed maintenance CapEx spikes.</td>
+</tr>
+<tr>
+<td>Net Debt / EBITDA Leverage</td>
+<td>2.8x EBITDA</td>
+<td><strong>&gt; 3.8x EBITDA</strong></td>
+<td>Refinancing distress and balance sheet over-leveraging.</td>
 </tr>
 </tbody>
 </table></div>
-<div class="callout">
-<h3>2. Explicit Quantitative Pre-Mortem Falsification Triggers</h3>
-<p>
-The investment thesis for PYPL is declared fundamentally broken and subject to immediate immediate downgrade or total exit if any of the following 3 quantitative tripwires are activated:
-</p>
+<h3>Execution Risk Assessment &amp; Margin of Safety Corridor</h3>
+<ul>
+<li><strong>Execution Risk Rating: MODERATE-TO-HIGH.</strong> Fiserv is undergoing a major strategic turnaround, portfolio review (pushed by activist investor JANA Partners), and operational re-baselining. Leadership transition under CEO Takis Georgakopoulos introduces organizational execution risk.</li>
+<li><strong>True Margin of Safety:</strong> At $52.45, the stock trades at a <strong>32.9% discount to Base Case Intrinsic Value ($78.20)</strong> and offers a 14.6% initial Owner Earnings yield. The market price already reflects significant pessimism, providing a robust cushion against minor operational delays.</li>
+<li><strong>Surveillance &amp; Action Corridors:</strong>
 
-</div>
-<h3>3. Dynamic Price Alert Corridors</h3>
-<div class="table-scroll-wrap"><table>
-<thead>
-<tr>
-<th>Corridor Level</th>
-<th>Price Threshold</th>
-<th>Strategic Action &amp; Fundamental Rationale</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Upper Corridor (Trim / Realization)</strong></td>
-<td><strong>$78.00 – $85.00</strong></td>
-<td>Trim position. Shares reach Base Case Intrinsic Value ($77.78), pricing in 15x Owner Earnings. Margin of Safety shrinks below 10%, warranting capital reallocation to higher-conviction opportunities.</td>
-</tr>
-<tr>
-<td><strong>Current Market Price</strong></td>
-<td><strong>$60.45</strong></td>
-<td>Underweight / Accumulate. Trades at a 22.3% discount to Base Case Intrinsic Value ($77.78) and offers a 9.1% annualized 5-Year Owner Cash Yield.</td>
-</tr>
-<tr>
-<td><strong>Lower Corridor (Strong Buy Floor)</strong></td>
-<td><strong>$48.00 – $52.00</strong></td>
-<td>Aggressive Capital Accumulation. Stock approaches Bear Case Intrinsic Floor ($45.91). At $50.00, 5-Year Owner Cash Yield exceeds 11.5%, providing an exceptional Margin of Safety regardless of branded checkout headwinds.</td>
-</tr>
-</tbody>
-</table></div></li><li><strong>Active Consumer Account Churn Acceleration:</strong> Active user accounts drop by &gt;2.0 million accounts sequentially in a single quarter (excluding intentional low-value account purges), signaling widespread user abandonment of the PayPal/Venmo ecosystem.</li><li><strong>Branded Checkout TPV Contraction:</strong> Online branded checkout TPV growth drops below 0.0% (FX-neutral) on a trailing 12-month basis, confirming structural market share loss to Big Tech wallets.</li><li><strong>Transaction Margin Dollars (ex-interest) Decay:</strong> Transaction margin dollars excluding interest on customer balances contract by &gt;3.0% YoY for two consecutive quarters (indicating that cost reductions cannot offset core payment take-rate degradation).</li><li><strong>Capital Allocation &amp; Share Cannibalization:</strong> Management's guided $6.0 billion annual buyback program—funded entirely by organic free cash flow without incurring net debt—will retire ~27% of diluted shares outstanding over 5 years (shrinking diluted share count from 985M to ~723M), compounding per-share Owner Earnings from $4.92 to $8.31 by Year 5.</li><li><strong>5-Year Organic Cash Yield:</strong> Relative to today's market capitalization of $59.54B, PYPL will generate an organic cash return of <strong>45.5% of its purchase price</strong> in pure unencumbered owner cash.</li><li><strong>Cumulative Owner Cash Flow Generation:</strong> Over the next 5 years, PayPal is projected to generate <strong>$27.08 billion</strong> in cumulative Owner Earnings under Base Case parameters ($4.85B in Year 1 growing at 5.5% annually).</li><li><strong>Valuation Verdict:</strong> The market is pricing PYPL for permanent structural decay. If PayPal executes its cost transformation program ($1.5B gross run-rate savings) and stabilizes branded checkout TPV growth at even low-single digits (2%–3%), the stock offers a substantial asymmetric Margin of Safety (+22.3% to Base Case, +42.1% to Bull Case).</li><li><strong>Implied Transaction Margin Trajectory:</strong> Mr. Market is pricing in terminal transaction margin erosion, permanent market share loss in branded checkout to Apple Pay, and zero monetization success across Venmo or Pay with Venmo.</li><li><strong>Market-Implied 5-Year Owner Earnings CAGR (g_implied):</strong> <strong>-0.8% to +0.5%</strong>.</li><li><strong>Stress-Test Discount Rate (Bear Case):</strong> <strong>10.50%</strong> (elevated 5.82% ERP for severe take-rate compression).</li><li><strong>Normalized Discount Rate ($k$):</strong> <strong>9.50%</strong> (4.68% + 4.82%).</li><li><strong>Equity Risk Premium (ERP):</strong> 4.82% (reflecting payment industry disruption, unbranded Braintree margin pressure, and regulatory overhang).</li><li><strong>Risk-Free Rate ($R_f$):</strong> 4.68% (US 10-Year Treasury Yield, August 2026).</li></ul>
+</li><li><em>Trim / Profit Take Target Corridor:</em> Above $100.00 (Nearing Bull Case fair value, multiple fully re-rated).</li><li><em>Hold / Dynamic Surveillance Corridor:</em> $58.00 to $78.00 (Fair value convergence under way).</li><li><em>Buy / Capital Deployment Corridor:</em> Below $58.00 (Deep Margin of Safety, high organic yield).</li>
+</ul>
             </article>
         </div>
 
@@ -1871,7 +1775,7 @@ The investment thesis for PYPL is declared fundamentally broken and subject to i
             <div class="ownership-stat-grid">
                 <div class="stat-box">
                     <span class="stat-label">Institutional Float</span>
-                    <span class="stat-num">73.3%</span>
+                    <span class="stat-num">78.4%</span>
                     <span class="stat-note">Tracked across SEC 13F Filings</span>
                 </div>
                 <div class="stat-box">
@@ -1881,7 +1785,7 @@ The investment thesis for PYPL is declared fundamentally broken and subject to i
                 </div>
                 <div class="stat-box">
                     <span class="stat-label">Whale & Superinvestor Tracking</span>
-                    <span class="stat-num" style="color: var(--accent-warm);">8 Funds Tracked</span>
+                    <span class="stat-num" style="color: var(--accent-warm);">9 Funds Tracked</span>
                     <span class="stat-note">Live Audit Recent Form 4 Transactions Audited</span>
                 </div>
             </div>
@@ -1890,11 +1794,11 @@ The investment thesis for PYPL is declared fundamentally broken and subject to i
             <div class="quick-portals-bar">
                 <span style="font-size: 0.76rem; text-transform: uppercase; color: var(--text-dim); font-weight: 600; letter-spacing: 0.05em;">Direct Research Portals:</span>
                 <div class="portal-links-group">
-                    <a href="http://openinsider.com/search?q=PYPL" target="_blank" rel="noopener noreferrer" class="portal-link">📊 OpenInsider Form 4s ↗</a>
-                    <a href="https://www.dataroma.com/m/stock.php?sym=PYPL" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ Dataroma Superinvestors ↗</a>
-                    <a href="https://whalewisdom.com/stock/PYPL" target="_blank" rel="noopener noreferrer" class="portal-link">🐋 WhaleWisdom 13F ↗</a>
-                    <a href="https://valueinvestorsclub.com/search?q=PYPL" target="_blank" rel="noopener noreferrer" class="portal-link">📑 Value Investors Club (VIC) ↗</a>
-                    <a href="https://www.sec.gov/edgar/browse/?CIK=PYPL" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ SEC EDGAR Filings ↗</a>
+                    <a href="http://openinsider.com/search?q=FISV" target="_blank" rel="noopener noreferrer" class="portal-link">📊 OpenInsider Form 4s ↗</a>
+                    <a href="https://www.dataroma.com/m/stock.php?sym=FISV" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ Dataroma Superinvestors ↗</a>
+                    <a href="https://whalewisdom.com/stock/FISV" target="_blank" rel="noopener noreferrer" class="portal-link">🐋 WhaleWisdom 13F ↗</a>
+                    <a href="https://valueinvestorsclub.com/search?q=FISV" target="_blank" rel="noopener noreferrer" class="portal-link">📑 Value Investors Club (VIC) ↗</a>
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=FISV" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ SEC EDGAR Filings ↗</a>
                 </div>
             </div>
         </div>
@@ -1903,7 +1807,7 @@ The investment thesis for PYPL is declared fundamentally broken and subject to i
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">🏛️</span>
-                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (8)</h3>
+                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (9)</h3>
             </div>
             <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, Dataroma superinvestor portfolios, and regulatory ownership registries.</p>
             <div class="table-responsive">
@@ -1923,15 +1827,15 @@ The investment thesis for PYPL is declared fundamentally broken and subject to i
                         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Norbert Lou - Punch Card Management</div>
+                <div style="font-weight: 500; color: var(--text-title);">Hillman Capital Management</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">10.61</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">628,907</td>
-            <td><span style="color: var(--text-dim); font-weight: 500;"></span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">27,156,000</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">2.79</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">78,456</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 2.81%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">3,848,000</td>
             <td>
-                <a href="https://www.dataroma.com/m/stock.php?sym=PYPL" target="_blank" rel="noopener noreferrer" class="link-out">
+                <a href="https://www.dataroma.com/m/stock.php?sym=FISV" target="_blank" rel="noopener noreferrer" class="link-out">
                     View 13F ↗
                 </a>
             </td>
@@ -1939,15 +1843,15 @@ The investment thesis for PYPL is declared fundamentally broken and subject to i
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Lindsell Train</div>
+                <div style="font-weight: 500; color: var(--text-title);">Samantha McLemore - Patient Capital Management</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">5.19</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">3,162,672</td>
-            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 24.33%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">136,564,000</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.55</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">953,637</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 1.50%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">46,776,000</td>
             <td>
-                <a href="https://www.dataroma.com/m/stock.php?sym=PYPL" target="_blank" rel="noopener noreferrer" class="link-out">
+                <a href="https://www.dataroma.com/m/stock.php?sym=FISV" target="_blank" rel="noopener noreferrer" class="link-out">
                     View 13F ↗
                 </a>
             </td>
@@ -1955,15 +1859,15 @@ The investment thesis for PYPL is declared fundamentally broken and subject to i
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Francis Chou - Chou Associates</div>
+                <div style="font-weight: 500; color: var(--text-title);">Bill Nygren - Oakmark Funds</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">3.34</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">167,400</td>
-            <td><span style="color: var(--text-dim); font-weight: 500;"></span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">7,228,000</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.45</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">22,210,980</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 12.53%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1,089,449,000</td>
             <td>
-                <a href="https://www.dataroma.com/m/stock.php?sym=PYPL" target="_blank" rel="noopener noreferrer" class="link-out">
+                <a href="https://www.dataroma.com/m/stock.php?sym=FISV" target="_blank" rel="noopener noreferrer" class="link-out">
                     View 13F ↗
                 </a>
             </td>
@@ -1971,15 +1875,15 @@ The investment thesis for PYPL is declared fundamentally broken and subject to i
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">David Einhorn - Greenlight Capital</div>
+                <div style="font-weight: 500; color: var(--text-title);">Vulcan Value Partners</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.57</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">1,424,320</td>
-            <td><span style="color: var(--accent-green); font-weight: 500;">Buy</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">61,502,000</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.33</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">893,965</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 18.33%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">43,849,000</td>
             <td>
-                <a href="https://www.dataroma.com/m/stock.php?sym=PYPL" target="_blank" rel="noopener noreferrer" class="link-out">
+                <a href="https://www.dataroma.com/m/stock.php?sym=FISV" target="_blank" rel="noopener noreferrer" class="link-out">
                     View 13F ↗
                 </a>
             </td>
@@ -1987,15 +1891,15 @@ The investment thesis for PYPL is declared fundamentally broken and subject to i
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Yacktman Asset Management</div>
+                <div style="font-weight: 500; color: var(--text-title);">Dodge & Cox Funds</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.24</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">2,317,304</td>
-            <td><span style="color: var(--accent-green); font-weight: 500;">Add 1.16%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">100,061,000</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.29</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">50,194,946</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 0.13%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">2,462,062,000</td>
             <td>
-                <a href="https://www.dataroma.com/m/stock.php?sym=PYPL" target="_blank" rel="noopener noreferrer" class="link-out">
+                <a href="https://www.dataroma.com/m/stock.php?sym=FISV" target="_blank" rel="noopener noreferrer" class="link-out">
                     View 13F ↗
                 </a>
             </td>
@@ -2003,15 +1907,15 @@ The investment thesis for PYPL is declared fundamentally broken and subject to i
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">First Pacific Advisors</div>
+                <div style="font-weight: 500; color: var(--text-title);">Mairs & Power Funds</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.16</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">2,137,851</td>
-            <td><span style="color: var(--accent-green); font-weight: 500;">Add 53.65%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">92,312,000</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.03</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">2,293,029</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 6.51%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">112,473,000</td>
             <td>
-                <a href="https://www.dataroma.com/m/stock.php?sym=PYPL" target="_blank" rel="noopener noreferrer" class="link-out">
+                <a href="https://www.dataroma.com/m/stock.php?sym=FISV" target="_blank" rel="noopener noreferrer" class="link-out">
                     View 13F ↗
                 </a>
             </td>
@@ -2019,15 +1923,15 @@ The investment thesis for PYPL is declared fundamentally broken and subject to i
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">David Katz - Matrix Asset Advisors</div>
+                <div style="font-weight: 500; color: var(--text-title);">First Eagle Investment Management</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.92</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">262,618</td>
-            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 1.73%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">11,340,000</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.89</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">10,857,773</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 44.86%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">532,574,000</td>
             <td>
-                <a href="https://www.dataroma.com/m/stock.php?sym=PYPL" target="_blank" rel="noopener noreferrer" class="link-out">
+                <a href="https://www.dataroma.com/m/stock.php?sym=FISV" target="_blank" rel="noopener noreferrer" class="link-out">
                     View 13F ↗
                 </a>
             </td>
@@ -2035,15 +1939,31 @@ The investment thesis for PYPL is declared fundamentally broken and subject to i
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Mason Hawkins - Southeastern Asset Management</div>
+                <div style="font-weight: 500; color: var(--text-title);">John Rogers - Ariel Investments</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.05</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">22,463</td>
-            <td><span style="color: var(--text-dim); font-weight: 500;"></span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">970,000</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.27</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">545,115</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 26.02%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">26,738,000</td>
             <td>
-                <a href="https://www.dataroma.com/m/stock.php?sym=PYPL" target="_blank" rel="noopener noreferrer" class="link-out">
+                <a href="https://www.dataroma.com/m/stock.php?sym=FISV" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Christopher Davis - Davis Advisors</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.11</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">539,839</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 8.33%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">26,479,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=FISV" target="_blank" rel="noopener noreferrer" class="link-out">
                     View 13F ↗
                 </a>
             </td>
@@ -2085,12 +2005,12 @@ The investment thesis for PYPL is declared fundamentally broken and subject to i
             <td><div style="font-weight: 500; color: var(--text-title);">Executive Management</div></td>
             <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Key Officers & Directors</span></td>
             <td><span style="color: var(--accent-warm); font-weight: 600;">🟡 Neutral (10b5-1)</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$60.47</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$52.48</td>
             <td style="font-family: var(--font-mono); font-size: 0.84rem;">Scheduled</td>
             <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">Aligned</td>
             <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Routine management alignment</td>
             <td>
-                <a href="http://openinsider.com/search?q=PYPL" target="_blank" rel="noopener noreferrer" class="link-out">
+                <a href="http://openinsider.com/search?q=FISV" target="_blank" rel="noopener noreferrer" class="link-out">
                     OpenInsider ↗
                 </a>
             </td>
@@ -2113,68 +2033,68 @@ The investment thesis for PYPL is declared fundamentally broken and subject to i
         <div class="writeup-card">
             <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
-                    Shareholder Letter PDF · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                    Substack / Ianbezek · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://business.columbia.edu/sites/default/files-efs/imce-uploads/PYPL_0.pdf" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Read Source ↗
-                </a>
-            </div>
-            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
-                columbia.edu
-            </h4>
-            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
-                Comprehensive independent fundamental study of PayPal Holdings, Inc.'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
-            </p>
-        </div>
-        
-        <div class="writeup-card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
-                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
-                    Substack / Cheapsoftwarestocks · <span style="color: var(--text-dim);">Verified Due Diligence</span>
-                </div>
-                <a href="https://cheapsoftwarestocks.substack.com/p/paypal-at-8x-earnings-post-print" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                <a href="https://ianbezek.substack.com/p/fiserv-deep-value-or-value-trap" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
                     Substack Memo ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
-                PayPal at 8x Earnings, Post-Print: The Setup Got Better, Not Worse
+                Fiserv: Deep Value Or Value Trap?
             </h4>
             <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
-                Comprehensive independent fundamental study of PayPal Holdings, Inc.'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
+                Comprehensive independent fundamental study of Fiserv, Inc.'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
             </p>
         </div>
         
         <div class="writeup-card">
             <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
-                    Substack / Jbglobalfund · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                    Substack / Bizmodelmastery · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://jbglobalfund.substack.com/p/paypal-heads-i-win-tails-i-dont-lose" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                <a href="https://bizmodelmastery.substack.com/p/fiserv-stock-analysis" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
                     Substack Memo ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
-                PayPal: Heads I Win, Tails I Don’t Lose Much
+                Fiserv Stock Analysis
             </h4>
             <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
-                Comprehensive independent fundamental study of PayPal Holdings, Inc.'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
+                Comprehensive independent fundamental study of Fiserv, Inc.'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
             </p>
         </div>
         
         <div class="writeup-card">
             <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
-                    Independent Research · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                    Substack / Thepursuitofcompounding · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://www.beatingthetide.com/p/paypal-post-mortem-why-i-sold-pypl" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Read Source ↗
+                <a href="https://thepursuitofcompounding.substack.com/p/fiserv-when-the-bill-comes-due" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Memo ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
-                PayPal Post-Mortem: Why I Sold PYPL and What Changed in the Investment Thesis
+                Fiserv: When The Bill Comes Due
             </h4>
             <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
-                Comprehensive independent fundamental study of PayPal Holdings, Inc.'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
+                Comprehensive independent fundamental study of Fiserv, Inc.'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Substack / Jingshu · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                </div>
+                <a href="https://jingshu.substack.com/p/fiservs-pdd-moment" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Memo ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
+                Fiserv&#x27;s PDD Moment
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Comprehensive independent fundamental study of Fiserv, Inc.'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
             </p>
         </div>
         
