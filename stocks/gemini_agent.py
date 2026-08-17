@@ -831,6 +831,16 @@ DO NOT write Section 1, 2, 3, or 4. Output pure HTML only."""
             metadata["upper_alert_threshold"] = round(min(base_val, current_price * 1.15), 2)
             metadata["lower_alert_threshold"] = round(max(bear_val, current_price * 0.85), 2)
 
+            # Strict First-Principles Action Signal Derivation from Calculated Margin of Safety
+            if base_ret >= 20.0 and bear_val < current_price:
+                metadata["action_signal"] = "BUY"
+            elif base_ret >= 0.0:
+                metadata["action_signal"] = "HOLD"
+            elif base_ret >= -15.0:
+                metadata["action_signal"] = "CAUTION"
+            else:
+                metadata["action_signal"] = "AVOID"
+
     metadata["labels"] = sanitize_labels(metadata.get("labels") or metadata.get("status_label"))
     metadata["status_label"] = metadata["labels"][0] if metadata["labels"] else "Active"
     metadata["next_catalyst_date"] = normalize_catalyst_date(metadata.get("next_catalyst_date"))
