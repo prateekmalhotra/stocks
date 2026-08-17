@@ -1,1 +1,102 @@
-{}
+{
+  "BMBL": {
+    "ticker": "BMBL",
+    "company_name": "Bumble Inc.",
+    "baseline_price": 2.6,
+    "current_price": 2.6,
+    "return_pct": 0.0,
+    "status_label": "Asymmetric Upside",
+    "labels": [
+      "Asymmetric Upside",
+      "Deep Value",
+      "Turnaround Play"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$6.35",
+    "bear_target": "$1.75 (-32.7%)",
+    "base_target": "$6.35 (+144.2%)",
+    "bull_target": "$11.80 (+353.8%)",
+    "what_is_priced_in": "",
+    "upper_alert_threshold": 2.99,
+    "lower_alert_threshold": 2.21,
+    "next_catalyst_date": "2026-11-04",
+    "next_catalyst_event": "Q3 '26 ER",
+    "top_funds": [
+      "Blackstone Inc. 17.0%",
+      "BlackRock Inc. 6.1%",
+      "Saba Capital 4.1%"
+    ],
+    "institutional_ownership_pct": "78.4%",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Standard executive equity incentive exercises and routine holding maintenance.",
+    "last_updated": "2026-08-17",
+    "total_versions": 1,
+    "report_path": "reports/BMBL.html"
+  },
+  "YELP": {
+    "ticker": "YELP",
+    "company_name": "Yelp Inc.",
+    "baseline_price": 23.07,
+    "current_price": 23.07,
+    "return_pct": 0.0,
+    "status_label": "Active",
+    "labels": [
+      "Active"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$28.50",
+    "bear_target": "$15.25 (-33.9%)",
+    "base_target": "$28.50 (+23.5%)",
+    "bull_target": "$40.20 (+74.3%)",
+    "what_is_priced_in": "",
+    "upper_alert_threshold": 26.53,
+    "lower_alert_threshold": 19.61,
+    "next_catalyst_date": "2026-11-15",
+    "next_catalyst_event": "Scheduled quarterly report",
+    "top_funds": [],
+    "institutional_ownership_pct": "78.4%",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Standard executive equity incentive exercises and routine holding maintenance.",
+    "last_updated": "2026-08-17",
+    "total_versions": 1,
+    "report_path": "reports/YELP.html"
+  },
+  "MELI": {
+    "ticker": "MELI",
+    "company_name": "MercadoLibre, Inc.",
+    "baseline_price": 1787.57,
+    "current_price": 1787.57,
+    "return_pct": 0.0,
+    "status_label": "High Conviction",
+    "labels": [
+      "High Conviction",
+      "Moat Expansion",
+      "Margin Expansion"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$2245.80",
+    "bear_target": "$1215.50 (-32.0%)",
+    "base_target": "$2245.80 (+25.6%)",
+    "bull_target": "$3380.00 (+89.1%)",
+    "what_is_priced_in": "",
+    "upper_alert_threshold": 2055.71,
+    "lower_alert_threshold": 1519.43,
+    "next_catalyst_date": "2026-11-04",
+    "next_catalyst_event": "Q3 '26 ER",
+    "top_funds": [
+      "Henry Ellenbogen - Durable Capital Partners (5.10)",
+      "Chase Coleman - Tiger Global Management (1.08)",
+      "Wallace Weitz - Weitz Investment Management (1.08)",
+      "Bill Miller - Miller Value Partners (0.69)",
+      "Polen Capital Management (0.38)",
+      "Thomas Gayner - Markel Group (0.31)",
+      "Dodge & Cox Funds (0.00)"
+    ],
+    "institutional_ownership_pct": "75.8%",
+    "insider_signal": "Cluster Buying",
+    "insider_summary": "Aggressive insider open-market purchases totaling $1,293,635 across executive leadership.",
+    "last_updated": "2026-08-17",
+    "total_versions": 1,
+    "report_path": "reports/MELI.html"
+  }
+}

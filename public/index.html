@@ -14,7 +14,32 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <!-- Embedded Initial Live Quotes for 100% Guaranteed Zero-Lag Data Delivery -->
-    <script id="embedded-live-quotes" type="application/json">{}</script>
+    <script id="embedded-live-quotes" type="application/json">{
+  "BMBL": {
+    "price": 2.6,
+    "prev_close": 2.6,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-17 20:41:54 UTC"
+  },
+  "YELP": {
+    "price": 23.07,
+    "prev_close": 23.07,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-17 20:41:54 UTC"
+  },
+  "MELI": {
+    "price": 1787.57,
+    "prev_close": 1787.57,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-17 20:41:54 UTC"
+  }
+}</script>
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
@@ -788,7 +813,7 @@
         <!-- Navigation Controls -->
         <div class="hub-controls">
             <div class="hub-tabs">
-                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">0</span></button>
+                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">3</span></button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts <span class="tab-chip chip-alert">0</span></span></button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-defensive')">Fidelity</button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-aggressive')">Wealthsimple</button>
@@ -831,11 +856,104 @@
                     </thead>
                     <tbody>
                         
-        <tr>
-            <td colspan="5" style="border-bottom: none !important; padding: 0 !important;">
-                <div class="empty-state-box">
-                    <div class="empty-state-title">No Stocks Tracked</div>
-                    <div class="empty-state-sub">Ready for coverage</div>
+        <tr class="table-row" data-ticker="BMBL" data-baseline="2.6" onclick="location.href='reports/BMBL.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/BMBL" alt="BMBL" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">BM</span></div>
+                        <span class="tbl-symbol">BMBL</span>
+                    </div>
+                    <span class="tbl-company-hover">Bumble Inc</span>
+                </div>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-BMBL">$2.60</span>
+                    <span class="tbl-return tbl-ret-BMBL pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="pill pill-conviction">Asymmetric Upside</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-val-cell">
+                    <span class="tbl-fv" style="color: var(--accent-warm);">$6.35</span>
+                    <span class="tbl-upside">+144.2%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-date">2026-11-04</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
+                </div>
+            </td>
+        </tr>
+        
+        <tr class="table-row" data-ticker="MELI" data-baseline="1787.57" onclick="location.href='reports/MELI.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/MELI" alt="MELI" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">ME</span></div>
+                        <span class="tbl-symbol">MELI</span>
+                    </div>
+                    <span class="tbl-company-hover">MercadoLibre, Inc</span>
+                </div>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-MELI">$1787.57</span>
+                    <span class="tbl-return tbl-ret-MELI pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="pill pill-conviction">High Conviction</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-val-cell">
+                    <span class="tbl-fv" style="color: var(--accent-warm);">$2,245.80</span>
+                    <span class="tbl-upside">+25.6%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-date">2026-11-04</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
+                </div>
+            </td>
+        </tr>
+        
+        <tr class="table-row" data-ticker="YELP" data-baseline="23.07" onclick="location.href='reports/YELP.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/YELP" alt="YELP" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">YE</span></div>
+                        <span class="tbl-symbol">YELP</span>
+                    </div>
+                    <span class="tbl-company-hover">Yelp Inc</span>
+                </div>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-YELP">$23.07</span>
+                    <span class="tbl-return tbl-ret-YELP pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="pill pill-conviction">Active</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-val-cell">
+                    <span class="tbl-fv" style="color: var(--accent-warm);">$28.50</span>
+                    <span class="tbl-upside">+23.5%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-date">2026-11-15</span>
+                    <span class="tbl-cat-desc">Scheduled quarterly report</span>
                 </div>
             </td>
         </tr>
@@ -847,10 +965,102 @@
             <!-- Grid Cards View -->
             <div id="stocks-grid-view" class="grid-cards-wrap" style="display: none;">
                 
-        <div style="grid-column: 1 / -1; background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px;">
-            <div class="empty-state-box">
-                <div class="empty-state-title">No Stocks Tracked</div>
-                <div class="empty-state-sub">Ready for coverage</div>
+        <div class="grid-card" data-ticker="BMBL" data-baseline="2.6" onclick="location.href='reports/BMBL.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/BMBL" alt="BMBL" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">BM</span></div>
+                    <span class="grid-symbol">BMBL</span>
+                </div>
+                <div class="grid-price grid-price-BMBL">$2.60</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <span class="pill pill-conviction">Asymmetric Upside</span>
+            </div>
+            <div class="grid-company">Bumble Inc</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-BMBL pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Fair Value</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">$6.35</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Target</span>
+                    <span class="grid-stat-val">$6.35 (+144.2%)</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val">2026-11-04</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid-card" data-ticker="MELI" data-baseline="1787.57" onclick="location.href='reports/MELI.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/MELI" alt="MELI" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">ME</span></div>
+                    <span class="grid-symbol">MELI</span>
+                </div>
+                <div class="grid-price grid-price-MELI">$1787.57</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <span class="pill pill-conviction">High Conviction</span>
+            </div>
+            <div class="grid-company">MercadoLibre, Inc</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-MELI pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Fair Value</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">$2,245.80</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Target</span>
+                    <span class="grid-stat-val">$2245.80 (+25.6%)</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val">2026-11-04</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid-card" data-ticker="YELP" data-baseline="23.07" onclick="location.href='reports/YELP.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/YELP" alt="YELP" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">YE</span></div>
+                    <span class="grid-symbol">YELP</span>
+                </div>
+                <div class="grid-price grid-price-YELP">$23.07</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <span class="pill pill-conviction">Active</span>
+            </div>
+            <div class="grid-company">Yelp Inc</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-YELP pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Fair Value</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">$28.50</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Target</span>
+                    <span class="grid-stat-val">$28.50 (+23.5%)</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val">2026-11-15</span>
+                </div>
             </div>
         </div>
         
