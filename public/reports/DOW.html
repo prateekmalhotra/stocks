@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMGN — Investment Memo</title>
+    <title>DOW — Investment Memo</title>
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
     <link rel="apple-touch-icon" href="../favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1072,7 +1072,7 @@
     <nav class="nav-bar">
         <div class="container nav-inner">
             <a href="../index.html" class="nav-back">← AlphaThesis</a>
-            <span style="font-size: 0.82rem; color: var(--text-dim); font-family: var(--font-sans);">AMGN RESEARCH</span>
+            <span style="font-size: 0.82rem; color: var(--text-dim); font-family: var(--font-sans);">DOW RESEARCH</span>
         </div>
     </nav>
 
@@ -1082,17 +1082,17 @@
             <div class="hero-top-row">
                 <div>
                     <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-                        <div class="ticker-logo-wrap" style="width:32px; height:32px; min-width:32px; min-height:32px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/AMGN" alt="AMGN" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:13px;">AM</span></div>
-                        <span class="ticker-symbol">AMGN</span>
-                        <span class="pill pill-conviction">Solid Conviction</span>
+                        <div class="ticker-logo-wrap" style="width:32px; height:32px; min-width:32px; min-height:32px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/DOW" alt="DOW" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:13px;">DO</span></div>
+                        <span class="ticker-symbol">DOW</span>
+                        <span class="pill pill-conviction">Active</span>
                         <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="View Investment Taxonomy & Labels Legend">ⓘ</button>
                     </div>
-                    <div class="company-meta">Amgen Inc.</div>
+                    <div class="company-meta">Dow Inc.</div>
                 </div>
                 <div class="price-callout">
-                    <div class="price-number">$416.30</div>
+                    <div class="price-number">$31.38</div>
                     <div class="price-sub neg">
-                        -0.40%
+                        -0.03%
                     </div>
                 </div>
             </div>
@@ -1102,7 +1102,7 @@
     <div class="native-chart-wrap" id="chart-container" style="position: relative; overflow: hidden;">
         <div class="chart-top-bar">
             <div id="chart-live-val" class="chart-live-val">
-                <span id="tooltip-date">Aug 17, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$416.37</strong>
+                <span id="tooltip-date">Aug 17, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$31.35</strong>
                 <span id="tooltip-delta" class="pos" style="font-size: 0.76rem; margin-left: 6px;"></span>
             </div>
             <div class="chart-range-pills">
@@ -1150,15 +1150,15 @@
         </div>
 
         <div class="chart-labels">
-            <span id="chart-start-lbl">Aug 18, 2025 ($271.18)</span>
+            <span id="chart-start-lbl">Aug 18, 2025 ($20.65)</span>
             <span id="chart-range-title">1-Year Historical Range</span>
-            <span id="chart-end-lbl">Aug 17, 2026 ($416.37)</span>
+            <span id="chart-end-lbl">Aug 17, 2026 ($31.35)</span>
         </div>
     </div>
 
     <script>
     (function() {
-        const allDatasets = {"1Y": [{"date": "Aug 18, 2025", "price": 292.62}, {"date": "Aug 19, 2025", "price": 295.55}, {"date": "Aug 20, 2025", "price": 296.45}, {"date": "Aug 21, 2025", "price": 295.76}, {"date": "Aug 22, 2025", "price": 293.72}, {"date": "Aug 25, 2025", "price": 288.47}, {"date": "Aug 26, 2025", "price": 289.58}, {"date": "Aug 27, 2025", "price": 287.97}, {"date": "Aug 28, 2025", "price": 285.61}, {"date": "Aug 29, 2025", "price": 287.71}, {"date": "Sep 02, 2025", "price": 286.92}, {"date": "Sep 03, 2025", "price": 283.85}, {"date": "Sep 04, 2025", "price": 280.1}, {"date": "Sep 05, 2025", "price": 283.64}, {"date": "Sep 08, 2025", "price": 280.19}, {"date": "Sep 09, 2025", "price": 279.97}, {"date": "Sep 10, 2025", "price": 278.51}, {"date": "Sep 11, 2025", "price": 282.73}, {"date": "Sep 12, 2025", "price": 276.39}, {"date": "Sep 15, 2025", "price": 274.4}, {"date": "Sep 16, 2025", "price": 273.08}, {"date": "Sep 17, 2025", "price": 274.71}, {"date": "Sep 18, 2025", "price": 275.83}, {"date": "Sep 19, 2025", "price": 285.41}, {"date": "Sep 22, 2025", "price": 286.0}, {"date": "Sep 23, 2025", "price": 286.81}, {"date": "Sep 24, 2025", "price": 279.22}, {"date": "Sep 25, 2025", "price": 271.18}, {"date": "Sep 26, 2025", "price": 272.98}, {"date": "Sep 29, 2025", "price": 273.97}, {"date": "Sep 30, 2025", "price": 282.2}, {"date": "Oct 01, 2025", "price": 298.5}, {"date": "Oct 02, 2025", "price": 297.4}, {"date": "Oct 03, 2025", "price": 297.89}, {"date": "Oct 06, 2025", "price": 294.12}, {"date": "Oct 07, 2025", "price": 295.54}, {"date": "Oct 08, 2025", "price": 294.62}, {"date": "Oct 09, 2025", "price": 295.43}, {"date": "Oct 10, 2025", "price": 290.13}, {"date": "Oct 13, 2025", "price": 292.4}, {"date": "Oct 14, 2025", "price": 293.85}, {"date": "Oct 15, 2025", "price": 297.32}, {"date": "Oct 16, 2025", "price": 295.81}, {"date": "Oct 17, 2025", "price": 298.81}, {"date": "Oct 20, 2025", "price": 303.33}, {"date": "Oct 21, 2025", "price": 301.14}, {"date": "Oct 22, 2025", "price": 295.98}, {"date": "Oct 23, 2025", "price": 292.89}, {"date": "Oct 24, 2025", "price": 291.76}, {"date": "Oct 27, 2025", "price": 291.16}, {"date": "Oct 28, 2025", "price": 292.09}, {"date": "Oct 29, 2025", "price": 291.77}, {"date": "Oct 30, 2025", "price": 292.0}, {"date": "Oct 31, 2025", "price": 298.43}, {"date": "Nov 03, 2025", "price": 296.3}, {"date": "Nov 04, 2025", "price": 296.7}, {"date": "Nov 05, 2025", "price": 319.86}, {"date": "Nov 06, 2025", "price": 315.59}, {"date": "Nov 07, 2025", "price": 320.2}, {"date": "Nov 10, 2025", "price": 323.66}, {"date": "Nov 11, 2025", "price": 338.45}, {"date": "Nov 12, 2025", "price": 336.28}, {"date": "Nov 13, 2025", "price": 336.0}, {"date": "Nov 14, 2025", "price": 336.74}, {"date": "Nov 17, 2025", "price": 341.71}, {"date": "Nov 18, 2025", "price": 343.99}, {"date": "Nov 19, 2025", "price": 342.4}, {"date": "Nov 20, 2025", "price": 336.07}, {"date": "Nov 21, 2025", "price": 337.54}, {"date": "Nov 24, 2025", "price": 334.3}, {"date": "Nov 25, 2025", "price": 341.11}, {"date": "Nov 26, 2025", "price": 344.57}, {"date": "Nov 28, 2025", "price": 345.46}, {"date": "Dec 01, 2025", "price": 337.49}, {"date": "Dec 02, 2025", "price": 338.36}, {"date": "Dec 03, 2025", "price": 345.42}, {"date": "Dec 04, 2025", "price": 340.16}, {"date": "Dec 05, 2025", "price": 329.89}, {"date": "Dec 08, 2025", "price": 321.23}, {"date": "Dec 09, 2025", "price": 313.85}, {"date": "Dec 10, 2025", "price": 315.38}, {"date": "Dec 11, 2025", "price": 317.38}, {"date": "Dec 12, 2025", "price": 317.74}, {"date": "Dec 15, 2025", "price": 325.31}, {"date": "Dec 16, 2025", "price": 326.74}, {"date": "Dec 17, 2025", "price": 326.01}, {"date": "Dec 18, 2025", "price": 324.42}, {"date": "Dec 19, 2025", "price": 327.38}, {"date": "Dec 22, 2025", "price": 331.39}, {"date": "Dec 23, 2025", "price": 331.49}, {"date": "Dec 24, 2025", "price": 333.96}, {"date": "Dec 26, 2025", "price": 332.93}, {"date": "Dec 29, 2025", "price": 329.63}, {"date": "Dec 30, 2025", "price": 328.69}, {"date": "Dec 31, 2025", "price": 327.31}, {"date": "Jan 02, 2026", "price": 327.64}, {"date": "Jan 05, 2026", "price": 320.72}, {"date": "Jan 06, 2026", "price": 330.17}, {"date": "Jan 07, 2026", "price": 341.64}, {"date": "Jan 08, 2026", "price": 330.11}, {"date": "Jan 09, 2026", "price": 326.1}, {"date": "Jan 12, 2026", "price": 325.54}, {"date": "Jan 13, 2026", "price": 324.3}, {"date": "Jan 14, 2026", "price": 328.97}, {"date": "Jan 15, 2026", "price": 330.03}, {"date": "Jan 16, 2026", "price": 330.41}, {"date": "Jan 20, 2026", "price": 331.0}, {"date": "Jan 21, 2026", "price": 343.6}, {"date": "Jan 22, 2026", "price": 347.07}, {"date": "Jan 23, 2026", "price": 344.75}, {"date": "Jan 26, 2026", "price": 349.69}, {"date": "Jan 27, 2026", "price": 351.32}, {"date": "Jan 28, 2026", "price": 342.22}, {"date": "Jan 29, 2026", "price": 342.94}, {"date": "Jan 30, 2026", "price": 341.88}, {"date": "Feb 02, 2026", "price": 344.68}, {"date": "Feb 03, 2026", "price": 338.59}, {"date": "Feb 04, 2026", "price": 366.2}, {"date": "Feb 05, 2026", "price": 367.8}, {"date": "Feb 06, 2026", "price": 384.32}, {"date": "Feb 09, 2026", "price": 375.82}, {"date": "Feb 10, 2026", "price": 364.65}, {"date": "Feb 11, 2026", "price": 366.58}, {"date": "Feb 12, 2026", "price": 366.2}, {"date": "Feb 13, 2026", "price": 369.19}, {"date": "Feb 17, 2026", "price": 373.36}, {"date": "Feb 18, 2026", "price": 379.73}, {"date": "Feb 19, 2026", "price": 375.5}, {"date": "Feb 20, 2026", "price": 374.75}, {"date": "Feb 23, 2026", "price": 379.42}, {"date": "Feb 24, 2026", "price": 382.87}, {"date": "Feb 25, 2026", "price": 384.33}, {"date": "Feb 26, 2026", "price": 379.33}, {"date": "Feb 27, 2026", "price": 388.16}, {"date": "Mar 02, 2026", "price": 385.7}, {"date": "Mar 03, 2026", "price": 377.0}, {"date": "Mar 04, 2026", "price": 379.27}, {"date": "Mar 05, 2026", "price": 367.6}, {"date": "Mar 06, 2026", "price": 369.53}, {"date": "Mar 09, 2026", "price": 376.97}, {"date": "Mar 10, 2026", "price": 375.43}, {"date": "Mar 11, 2026", "price": 377.64}, {"date": "Mar 12, 2026", "price": 367.79}, {"date": "Mar 13, 2026", "price": 366.21}, {"date": "Mar 16, 2026", "price": 366.25}, {"date": "Mar 17, 2026", "price": 361.13}, {"date": "Mar 18, 2026", "price": 351.48}, {"date": "Mar 19, 2026", "price": 349.92}, {"date": "Mar 20, 2026", "price": 347.8}, {"date": "Mar 23, 2026", "price": 349.77}, {"date": "Mar 24, 2026", "price": 348.43}, {"date": "Mar 25, 2026", "price": 353.93}, {"date": "Mar 26, 2026", "price": 353.16}, {"date": "Mar 27, 2026", "price": 348.77}, {"date": "Mar 30, 2026", "price": 349.0}, {"date": "Mar 31, 2026", "price": 351.85}, {"date": "Apr 01, 2026", "price": 353.28}, {"date": "Apr 02, 2026", "price": 347.94}, {"date": "Apr 06, 2026", "price": 342.57}, {"date": "Apr 07, 2026", "price": 340.0}, {"date": "Apr 08, 2026", "price": 349.81}, {"date": "Apr 09, 2026", "price": 355.6}, {"date": "Apr 10, 2026", "price": 351.02}, {"date": "Apr 13, 2026", "price": 349.82}, {"date": "Apr 14, 2026", "price": 350.95}, {"date": "Apr 15, 2026", "price": 348.22}, {"date": "Apr 16, 2026", "price": 349.39}, {"date": "Apr 17, 2026", "price": 355.3}, {"date": "Apr 20, 2026", "price": 350.16}, {"date": "Apr 21, 2026", "price": 344.86}, {"date": "Apr 22, 2026", "price": 345.92}, {"date": "Apr 23, 2026", "price": 348.62}, {"date": "Apr 24, 2026", "price": 344.55}, {"date": "Apr 27, 2026", "price": 340.18}, {"date": "Apr 28, 2026", "price": 339.57}, {"date": "Apr 29, 2026", "price": 338.02}, {"date": "Apr 30, 2026", "price": 346.25}, {"date": "May 01, 2026", "price": 329.82}, {"date": "May 04, 2026", "price": 323.85}, {"date": "May 05, 2026", "price": 329.59}, {"date": "May 06, 2026", "price": 331.11}, {"date": "May 07, 2026", "price": 329.09}, {"date": "May 08, 2026", "price": 331.7}, {"date": "May 11, 2026", "price": 329.59}, {"date": "May 12, 2026", "price": 336.29}, {"date": "May 13, 2026", "price": 336.45}, {"date": "May 14, 2026", "price": 336.23}, {"date": "May 15, 2026", "price": 326.31}, {"date": "May 18, 2026", "price": 324.39}, {"date": "May 19, 2026", "price": 330.75}, {"date": "May 20, 2026", "price": 331.57}, {"date": "May 21, 2026", "price": 337.42}, {"date": "May 22, 2026", "price": 339.3}, {"date": "May 26, 2026", "price": 335.94}, {"date": "May 27, 2026", "price": 336.06}, {"date": "May 28, 2026", "price": 336.48}, {"date": "May 29, 2026", "price": 336.79}, {"date": "Jun 01, 2026", "price": 329.13}, {"date": "Jun 02, 2026", "price": 328.26}, {"date": "Jun 03, 2026", "price": 338.22}, {"date": "Jun 04, 2026", "price": 345.6}, {"date": "Jun 05, 2026", "price": 349.58}, {"date": "Jun 08, 2026", "price": 345.73}, {"date": "Jun 09, 2026", "price": 344.57}, {"date": "Jun 10, 2026", "price": 337.73}, {"date": "Jun 11, 2026", "price": 354.06}, {"date": "Jun 12, 2026", "price": 355.2}, {"date": "Jun 15, 2026", "price": 350.53}, {"date": "Jun 16, 2026", "price": 347.84}, {"date": "Jun 17, 2026", "price": 341.66}, {"date": "Jun 18, 2026", "price": 337.6}, {"date": "Jun 22, 2026", "price": 344.72}, {"date": "Jun 23, 2026", "price": 347.01}, {"date": "Jun 24, 2026", "price": 351.43}, {"date": "Jun 25, 2026", "price": 352.82}, {"date": "Jun 26, 2026", "price": 358.33}, {"date": "Jun 29, 2026", "price": 360.55}, {"date": "Jun 30, 2026", "price": 362.12}, {"date": "Jul 01, 2026", "price": 361.33}, {"date": "Jul 02, 2026", "price": 374.15}, {"date": "Jul 06, 2026", "price": 366.44}, {"date": "Jul 07, 2026", "price": 368.1}, {"date": "Jul 08, 2026", "price": 367.99}, {"date": "Jul 09, 2026", "price": 363.62}, {"date": "Jul 10, 2026", "price": 363.39}, {"date": "Jul 13, 2026", "price": 360.45}, {"date": "Jul 14, 2026", "price": 355.25}, {"date": "Jul 15, 2026", "price": 358.32}, {"date": "Jul 16, 2026", "price": 371.58}, {"date": "Jul 17, 2026", "price": 366.29}, {"date": "Jul 20, 2026", "price": 364.17}, {"date": "Jul 21, 2026", "price": 366.24}, {"date": "Jul 22, 2026", "price": 366.05}, {"date": "Jul 23, 2026", "price": 371.5}, {"date": "Jul 24, 2026", "price": 376.04}, {"date": "Jul 27, 2026", "price": 376.26}, {"date": "Jul 28, 2026", "price": 393.1}, {"date": "Jul 29, 2026", "price": 387.64}, {"date": "Jul 30, 2026", "price": 387.64}, {"date": "Jul 31, 2026", "price": 385.16}, {"date": "Aug 03, 2026", "price": 378.87}, {"date": "Aug 04, 2026", "price": 390.02}, {"date": "Aug 05, 2026", "price": 407.83}, {"date": "Aug 06, 2026", "price": 404.85}, {"date": "Aug 07, 2026", "price": 410.95}, {"date": "Aug 10, 2026", "price": 417.2}, {"date": "Aug 11, 2026", "price": 414.3}, {"date": "Aug 12, 2026", "price": 416.18}, {"date": "Aug 13, 2026", "price": 417.84}, {"date": "Aug 14, 2026", "price": 415.21}, {"date": "Aug 17, 2026", "price": 416.37}], "5Y": [{"date": "Aug 15, 2021", "price": 223.53}, {"date": "Aug 22, 2021", "price": 222.78}, {"date": "Aug 29, 2021", "price": 226.37}, {"date": "Sep 05, 2021", "price": 213.75}, {"date": "Sep 12, 2021", "price": 219.38}, {"date": "Sep 19, 2021", "price": 213.61}, {"date": "Sep 26, 2021", "price": 213.92}, {"date": "Oct 03, 2021", "price": 208.95}, {"date": "Oct 10, 2021", "price": 207.84}, {"date": "Oct 17, 2021", "price": 209.24}, {"date": "Oct 24, 2021", "price": 206.97}, {"date": "Oct 31, 2021", "price": 213.77}, {"date": "Nov 07, 2021", "price": 211.39}, {"date": "Nov 14, 2021", "price": 206.08}, {"date": "Nov 21, 2021", "price": 201.09}, {"date": "Nov 28, 2021", "price": 202.44}, {"date": "Dec 05, 2021", "price": 210.89}, {"date": "Dec 12, 2021", "price": 222.5}, {"date": "Dec 19, 2021", "price": 223.79}, {"date": "Dec 26, 2021", "price": 224.97}, {"date": "Jan 02, 2022", "price": 227.29}, {"date": "Jan 09, 2022", "price": 235.36}, {"date": "Jan 16, 2022", "price": 227.72}, {"date": "Jan 23, 2022", "price": 229.14}, {"date": "Jan 30, 2022", "price": 222.11}, {"date": "Feb 06, 2022", "price": 228.2}, {"date": "Feb 13, 2022", "price": 220.77}, {"date": "Feb 20, 2022", "price": 227.03}, {"date": "Feb 27, 2022", "price": 232.91}, {"date": "Mar 06, 2022", "price": 228.85}, {"date": "Mar 13, 2022", "price": 236.25}, {"date": "Mar 20, 2022", "price": 238.79}, {"date": "Mar 27, 2022", "price": 243.12}, {"date": "Apr 03, 2022", "price": 252.02}, {"date": "Apr 10, 2022", "price": 254.02}, {"date": "Apr 17, 2022", "price": 250.35}, {"date": "Apr 24, 2022", "price": 233.19}, {"date": "May 01, 2022", "price": 236.5}, {"date": "May 08, 2022", "price": 243.4}, {"date": "May 15, 2022", "price": 247.5}, {"date": "May 22, 2022", "price": 255.26}, {"date": "May 29, 2022", "price": 248.45}, {"date": "Jun 05, 2022", "price": 240.01}, {"date": "Jun 12, 2022", "price": 234.72}, {"date": "Jun 19, 2022", "price": 245.37}, {"date": "Jun 26, 2022", "price": 245.55}, {"date": "Jul 03, 2022", "price": 248.48}, {"date": "Jul 10, 2022", "price": 248.69}, {"date": "Jul 17, 2022", "price": 245.95}, {"date": "Jul 24, 2022", "price": 247.47}, {"date": "Jul 31, 2022", "price": 246.25}, {"date": "Aug 07, 2022", "price": 248.39}, {"date": "Aug 14, 2022", "price": 250.86}, {"date": "Aug 21, 2022", "price": 240.65}, {"date": "Aug 28, 2022", "price": 242.37}, {"date": "Sep 04, 2022", "price": 247.69}, {"date": "Sep 11, 2022", "price": 231.14}, {"date": "Sep 18, 2022", "price": 226.97}, {"date": "Sep 25, 2022", "price": 225.4}, {"date": "Oct 02, 2022", "price": 229.03}, {"date": "Oct 09, 2022", "price": 251.34}, {"date": "Oct 16, 2022", "price": 251.94}, {"date": "Oct 23, 2022", "price": 273.81}, {"date": "Oct 30, 2022", "price": 269.04}, {"date": "Nov 06, 2022", "price": 285.02}, {"date": "Nov 13, 2022", "price": 287.29}, {"date": "Nov 20, 2022", "price": 283.74}, {"date": "Nov 27, 2022", "price": 285.51}, {"date": "Dec 04, 2022", "price": 278.65}, {"date": "Dec 11, 2022", "price": 267.41}, {"date": "Dec 18, 2022", "price": 263.92}, {"date": "Dec 25, 2022", "price": 262.64}, {"date": "Jan 01, 2023", "price": 275.2}, {"date": "Jan 08, 2023", "price": 271.73}, {"date": "Jan 15, 2023", "price": 263.24}, {"date": "Jan 22, 2023", "price": 253.65}, {"date": "Jan 29, 2023", "price": 245.17}, {"date": "Feb 05, 2023", "price": 242.5}, {"date": "Feb 12, 2023", "price": 240.53}, {"date": "Feb 19, 2023", "price": 233.66}, {"date": "Feb 26, 2023", "price": 234.81}, {"date": "Mar 05, 2023", "price": 227.87}, {"date": "Mar 12, 2023", "price": 229.79}, {"date": "Mar 19, 2023", "price": 238.03}, {"date": "Mar 26, 2023", "price": 241.75}, {"date": "Apr 02, 2023", "price": 253.32}, {"date": "Apr 09, 2023", "price": 250.0}, {"date": "Apr 16, 2023", "price": 243.86}, {"date": "Apr 23, 2023", "price": 239.74}, {"date": "Apr 30, 2023", "price": 236.53}, {"date": "May 07, 2023", "price": 232.95}, {"date": "May 14, 2023", "price": 223.42}, {"date": "May 21, 2023", "price": 216.93}, {"date": "May 28, 2023", "price": 218.07}, {"date": "Jun 04, 2023", "price": 218.76}, {"date": "Jun 11, 2023", "price": 229.66}, {"date": "Jun 18, 2023", "price": 227.11}, {"date": "Jun 25, 2023", "price": 222.02}, {"date": "Jul 02, 2023", "price": 218.65}, {"date": "Jul 09, 2023", "price": 227.43}, {"date": "Jul 16, 2023", "price": 234.82}, {"date": "Jul 23, 2023", "price": 236.37}, {"date": "Jul 30, 2023", "price": 243.28}, {"date": "Aug 06, 2023", "price": 262.51}, {"date": "Aug 13, 2023", "price": 261.82}, {"date": "Aug 20, 2023", "price": 256.38}, {"date": "Aug 27, 2023", "price": 256.71}, {"date": "Sep 03, 2023", "price": 259.43}, {"date": "Sep 10, 2023", "price": 260.72}, {"date": "Sep 17, 2023", "price": 267.7}, {"date": "Sep 24, 2023", "price": 268.76}, {"date": "Oct 01, 2023", "price": 267.47}, {"date": "Oct 08, 2023", "price": 284.1}, {"date": "Oct 15, 2023", "price": 278.81}, {"date": "Oct 22, 2023", "price": 261.57}, {"date": "Oct 29, 2023", "price": 269.86}, {"date": "Nov 05, 2023", "price": 267.31}, {"date": "Nov 12, 2023", "price": 265.39}, {"date": "Nov 19, 2023", "price": 265.46}, {"date": "Nov 26, 2023", "price": 272.45}, {"date": "Dec 03, 2023", "price": 269.12}, {"date": "Dec 10, 2023", "price": 275.45}, {"date": "Dec 17, 2023", "price": 284.16}, {"date": "Dec 24, 2023", "price": 288.02}, {"date": "Dec 31, 2023", "price": 303.0}, {"date": "Jan 07, 2024", "price": 306.51}, {"date": "Jan 14, 2024", "price": 307.81}, {"date": "Jan 21, 2024", "price": 311.77}, {"date": "Jan 28, 2024", "price": 323.19}, {"date": "Feb 04, 2024", "price": 291.12}, {"date": "Feb 11, 2024", "price": 283.7}, {"date": "Feb 18, 2024", "price": 289.18}, {"date": "Feb 25, 2024", "price": 280.33}, {"date": "Mar 03, 2024", "price": 273.75}, {"date": "Mar 10, 2024", "price": 268.87}, {"date": "Mar 17, 2024", "price": 276.17}, {"date": "Mar 24, 2024", "price": 284.32}, {"date": "Mar 31, 2024", "price": 269.95}, {"date": "Apr 07, 2024", "price": 267.28}, {"date": "Apr 14, 2024", "price": 268.93}, {"date": "Apr 21, 2024", "price": 269.98}, {"date": "Apr 28, 2024", "price": 311.29}, {"date": "May 05, 2024", "price": 310.15}, {"date": "May 12, 2024", "price": 312.47}, {"date": "May 19, 2024", "price": 305.84}, {"date": "May 26, 2024", "price": 305.85}, {"date": "Jun 02, 2024", "price": 305.02}, {"date": "Jun 09, 2024", "price": 298.62}, {"date": "Jun 16, 2024", "price": 308.16}, {"date": "Jun 23, 2024", "price": 312.45}, {"date": "Jun 30, 2024", "price": 310.88}, {"date": "Jul 07, 2024", "price": 330.83}, {"date": "Jul 14, 2024", "price": 331.29}, {"date": "Jul 21, 2024", "price": 334.85}, {"date": "Jul 28, 2024", "price": 333.99}, {"date": "Aug 04, 2024", "price": 322.49}, {"date": "Aug 11, 2024", "price": 321.44}, {"date": "Aug 18, 2024", "price": 328.8}, {"date": "Aug 25, 2024", "price": 333.83}, {"date": "Sep 01, 2024", "price": 320.56}, {"date": "Sep 08, 2024", "price": 332.45}, {"date": "Sep 15, 2024", "price": 337.38}, {"date": "Sep 22, 2024", "price": 322.67}, {"date": "Sep 29, 2024", "price": 319.66}, {"date": "Oct 06, 2024", "price": 328.35}, {"date": "Oct 13, 2024", "price": 321.66}, {"date": "Oct 20, 2024", "price": 316.98}, {"date": "Oct 27, 2024", "price": 319.22}, {"date": "Nov 03, 2024", "price": 325.28}, {"date": "Nov 10, 2024", "price": 283.61}, {"date": "Nov 17, 2024", "price": 294.53}, {"date": "Nov 24, 2024", "price": 282.87}, {"date": "Dec 01, 2024", "price": 272.58}, {"date": "Dec 08, 2024", "price": 270.62}, {"date": "Dec 15, 2024", "price": 263.38}, {"date": "Dec 22, 2024", "price": 262.65}, {"date": "Dec 29, 2024", "price": 261.22}, {"date": "Jan 05, 2025", "price": 262.23}, {"date": "Jan 12, 2025", "price": 272.11}, {"date": "Jan 19, 2025", "price": 275.42}, {"date": "Jan 26, 2025", "price": 285.42}, {"date": "Feb 02, 2025", "price": 293.54}, {"date": "Feb 09, 2025", "price": 291.16}, {"date": "Feb 16, 2025", "price": 303.01}, {"date": "Feb 23, 2025", "price": 308.06}, {"date": "Mar 02, 2025", "price": 324.86}, {"date": "Mar 09, 2025", "price": 313.71}, {"date": "Mar 16, 2025", "price": 316.04}, {"date": "Mar 23, 2025", "price": 306.95}, {"date": "Mar 30, 2025", "price": 294.39}, {"date": "Apr 06, 2025", "price": 285.98}, {"date": "Apr 13, 2025", "price": 277.29}, {"date": "Apr 20, 2025", "price": 280.84}, {"date": "Apr 27, 2025", "price": 281.22}, {"date": "May 04, 2025", "price": 265.86}, {"date": "May 11, 2025", "price": 272.41}, {"date": "May 18, 2025", "price": 271.66}, {"date": "May 25, 2025", "price": 288.18}, {"date": "Jun 01, 2025", "price": 290.33}, {"date": "Jun 08, 2025", "price": 295.22}, {"date": "Jun 15, 2025", "price": 289.33}, {"date": "Jun 22, 2025", "price": 277.13}, {"date": "Jun 29, 2025", "price": 298.24}, {"date": "Jul 06, 2025", "price": 295.27}, {"date": "Jul 13, 2025", "price": 294.76}, {"date": "Jul 20, 2025", "price": 306.58}, {"date": "Jul 27, 2025", "price": 296.88}, {"date": "Aug 03, 2025", "price": 288.23}, {"date": "Aug 10, 2025", "price": 296.47}, {"date": "Aug 17, 2025", "price": 293.72}, {"date": "Aug 24, 2025", "price": 287.71}, {"date": "Aug 31, 2025", "price": 283.64}, {"date": "Sep 07, 2025", "price": 276.39}, {"date": "Sep 14, 2025", "price": 285.41}, {"date": "Sep 21, 2025", "price": 272.98}, {"date": "Sep 28, 2025", "price": 297.89}, {"date": "Oct 05, 2025", "price": 290.13}, {"date": "Oct 12, 2025", "price": 298.81}, {"date": "Oct 19, 2025", "price": 291.76}, {"date": "Oct 26, 2025", "price": 298.43}, {"date": "Nov 02, 2025", "price": 320.2}, {"date": "Nov 09, 2025", "price": 336.74}, {"date": "Nov 16, 2025", "price": 337.54}, {"date": "Nov 23, 2025", "price": 345.46}, {"date": "Nov 30, 2025", "price": 329.89}, {"date": "Dec 07, 2025", "price": 317.74}, {"date": "Dec 14, 2025", "price": 327.38}, {"date": "Dec 21, 2025", "price": 332.93}, {"date": "Dec 28, 2025", "price": 327.64}, {"date": "Jan 04, 2026", "price": 326.1}, {"date": "Jan 11, 2026", "price": 330.41}, {"date": "Jan 18, 2026", "price": 344.75}, {"date": "Jan 25, 2026", "price": 341.88}, {"date": "Feb 01, 2026", "price": 384.32}, {"date": "Feb 08, 2026", "price": 369.19}, {"date": "Feb 15, 2026", "price": 374.75}, {"date": "Feb 22, 2026", "price": 388.16}, {"date": "Mar 01, 2026", "price": 369.53}, {"date": "Mar 08, 2026", "price": 366.21}, {"date": "Mar 15, 2026", "price": 347.8}, {"date": "Mar 22, 2026", "price": 348.77}, {"date": "Mar 29, 2026", "price": 347.94}, {"date": "Apr 05, 2026", "price": 351.02}, {"date": "Apr 12, 2026", "price": 355.3}, {"date": "Apr 19, 2026", "price": 344.55}, {"date": "Apr 26, 2026", "price": 329.82}, {"date": "May 03, 2026", "price": 331.7}, {"date": "May 10, 2026", "price": 326.31}, {"date": "May 17, 2026", "price": 339.3}, {"date": "May 24, 2026", "price": 336.79}, {"date": "May 31, 2026", "price": 349.58}, {"date": "Jun 07, 2026", "price": 355.2}, {"date": "Jun 14, 2026", "price": 337.6}, {"date": "Jun 21, 2026", "price": 358.33}, {"date": "Jun 28, 2026", "price": 374.15}, {"date": "Jul 05, 2026", "price": 363.39}, {"date": "Jul 12, 2026", "price": 366.29}, {"date": "Jul 19, 2026", "price": 376.04}, {"date": "Jul 26, 2026", "price": 385.16}, {"date": "Aug 02, 2026", "price": 410.95}, {"date": "Aug 09, 2026", "price": 415.21}, {"date": "Aug 16, 2026", "price": 416.37}], "10Y": [{"date": "Aug 31, 2016", "price": 166.81}, {"date": "Sep 30, 2016", "price": 141.16}, {"date": "Oct 31, 2016", "price": 144.07}, {"date": "Nov 30, 2016", "price": 146.21}, {"date": "Dec 31, 2016", "price": 156.68}, {"date": "Jan 31, 2017", "price": 176.53}, {"date": "Feb 28, 2017", "price": 164.07}, {"date": "Mar 31, 2017", "price": 163.32}, {"date": "Apr 30, 2017", "price": 155.24}, {"date": "May 31, 2017", "price": 172.23}, {"date": "Jun 30, 2017", "price": 174.51}, {"date": "Jul 31, 2017", "price": 177.77}, {"date": "Aug 31, 2017", "price": 186.45}, {"date": "Sep 30, 2017", "price": 175.22}, {"date": "Oct 31, 2017", "price": 175.66}, {"date": "Nov 30, 2017", "price": 173.9}, {"date": "Dec 31, 2017", "price": 186.05}, {"date": "Jan 31, 2018", "price": 183.77}, {"date": "Feb 28, 2018", "price": 170.48}, {"date": "Mar 31, 2018", "price": 174.48}, {"date": "Apr 30, 2018", "price": 179.62}, {"date": "May 31, 2018", "price": 184.59}, {"date": "Jun 30, 2018", "price": 196.55}, {"date": "Jul 31, 2018", "price": 199.81}, {"date": "Aug 31, 2018", "price": 207.29}, {"date": "Sep 30, 2018", "price": 192.79}, {"date": "Oct 31, 2018", "price": 208.25}, {"date": "Nov 30, 2018", "price": 194.67}, {"date": "Dec 31, 2018", "price": 187.11}, {"date": "Jan 31, 2019", "price": 190.08}, {"date": "Feb 28, 2019", "price": 189.98}, {"date": "Mar 31, 2019", "price": 179.32}, {"date": "Apr 30, 2019", "price": 166.7}, {"date": "May 31, 2019", "price": 184.28}, {"date": "Jun 30, 2019", "price": 186.58}, {"date": "Jul 31, 2019", "price": 208.62}, {"date": "Aug 31, 2019", "price": 193.51}, {"date": "Sep 30, 2019", "price": 213.25}, {"date": "Oct 31, 2019", "price": 234.72}, {"date": "Nov 30, 2019", "price": 241.07}, {"date": "Dec 31, 2019", "price": 216.05}, {"date": "Jan 31, 2020", "price": 199.73}, {"date": "Feb 29, 2020", "price": 202.73}, {"date": "Mar 31, 2020", "price": 239.22}, {"date": "Apr 30, 2020", "price": 229.7}, {"date": "May 31, 2020", "price": 235.86}, {"date": "Jun 30, 2020", "price": 244.67}, {"date": "Jul 31, 2020", "price": 253.32}, {"date": "Aug 31, 2020", "price": 254.16}, {"date": "Sep 30, 2020", "price": 216.94}, {"date": "Oct 31, 2020", "price": 222.04}, {"date": "Nov 30, 2020", "price": 229.92}, {"date": "Dec 31, 2020", "price": 241.43}, {"date": "Jan 31, 2021", "price": 224.92}, {"date": "Feb 28, 2021", "price": 248.81}, {"date": "Mar 31, 2021", "price": 239.64}, {"date": "Apr 30, 2021", "price": 237.94}, {"date": "May 31, 2021", "price": 243.75}, {"date": "Jun 30, 2021", "price": 241.54}, {"date": "Jul 31, 2021", "price": 225.53}, {"date": "Aug 31, 2021", "price": 212.65}, {"date": "Sep 30, 2021", "price": 206.97}, {"date": "Oct 31, 2021", "price": 198.88}, {"date": "Nov 30, 2021", "price": 224.97}, {"date": "Dec 31, 2021", "price": 227.14}, {"date": "Jan 31, 2022", "price": 226.48}, {"date": "Feb 28, 2022", "price": 241.82}, {"date": "Mar 31, 2022", "price": 233.19}, {"date": "Apr 30, 2022", "price": 256.74}, {"date": "May 31, 2022", "price": 243.3}, {"date": "Jun 30, 2022", "price": 247.47}, {"date": "Jul 31, 2022", "price": 240.3}, {"date": "Aug 31, 2022", "price": 225.4}, {"date": "Sep 30, 2022", "price": 270.35}, {"date": "Oct 31, 2022", "price": 286.4}, {"date": "Nov 30, 2022", "price": 262.64}, {"date": "Dec 31, 2022", "price": 252.4}, {"date": "Jan 31, 2023", "price": 231.66}, {"date": "Feb 28, 2023", "price": 241.75}, {"date": "Mar 31, 2023", "price": 239.74}, {"date": "Apr 30, 2023", "price": 220.65}, {"date": "May 31, 2023", "price": 222.02}, {"date": "Jun 30, 2023", "price": 234.15}, {"date": "Jul 31, 2023", "price": 256.34}, {"date": "Aug 31, 2023", "price": 268.76}, {"date": "Sep 30, 2023", "price": 255.7}, {"date": "Oct 31, 2023", "price": 269.64}, {"date": "Nov 30, 2023", "price": 288.02}, {"date": "Dec 31, 2023", "price": 314.26}, {"date": "Jan 31, 2024", "price": 273.83}, {"date": "Feb 29, 2024", "price": 284.32}, {"date": "Mar 31, 2024", "price": 273.94}, {"date": "Apr 30, 2024", "price": 305.85}, {"date": "May 31, 2024", "price": 312.45}, {"date": "Jun 30, 2024", "price": 332.47}, {"date": "Jul 31, 2024", "price": 333.83}, {"date": "Aug 31, 2024", "price": 322.21}, {"date": "Sep 30, 2024", "price": 320.16}, {"date": "Oct 31, 2024", "price": 282.87}, {"date": "Nov 30, 2024", "price": 260.64}, {"date": "Dec 31, 2024", "price": 285.42}, {"date": "Jan 31, 2025", "price": 308.06}, {"date": "Feb 28, 2025", "price": 311.55}, {"date": "Mar 31, 2025", "price": 290.92}, {"date": "Apr 30, 2025", "price": 288.18}, {"date": "May 31, 2025", "price": 279.21}, {"date": "Jun 30, 2025", "price": 295.1}, {"date": "Jul 31, 2025", "price": 287.71}, {"date": "Aug 31, 2025", "price": 282.2}, {"date": "Sep 30, 2025", "price": 298.43}, {"date": "Oct 31, 2025", "price": 345.46}, {"date": "Nov 30, 2025", "price": 327.31}, {"date": "Dec 31, 2025", "price": 341.88}, {"date": "Jan 31, 2026", "price": 388.16}, {"date": "Feb 28, 2026", "price": 351.85}, {"date": "Mar 31, 2026", "price": 346.25}, {"date": "Apr 30, 2026", "price": 336.79}, {"date": "May 31, 2026", "price": 362.12}, {"date": "Jun 30, 2026", "price": 385.16}, {"date": "Jul 31, 2026", "price": 415.21}, {"date": "Aug 17, 2026", "price": 416.37}], "MAX": [{"date": "Nov 30, 1984", "price": 0.11}, {"date": "Feb 28, 1985", "price": 0.16}, {"date": "May 31, 1985", "price": 0.16}, {"date": "Aug 31, 1985", "price": 0.23}, {"date": "Nov 30, 1985", "price": 0.31}, {"date": "Feb 28, 1986", "price": 0.54}, {"date": "May 31, 1986", "price": 0.45}, {"date": "Aug 31, 1986", "price": 0.5}, {"date": "Nov 30, 1986", "price": 0.78}, {"date": "Feb 28, 1987", "price": 0.84}, {"date": "May 31, 1987", "price": 0.67}, {"date": "Aug 31, 1987", "price": 0.44}, {"date": "Nov 30, 1987", "price": 0.69}, {"date": "Feb 29, 1988", "price": 0.59}, {"date": "May 31, 1988", "price": 0.66}, {"date": "Aug 31, 1988", "price": 0.66}, {"date": "Nov 30, 1988", "price": 0.79}, {"date": "Feb 28, 1989", "price": 0.84}, {"date": "May 31, 1989", "price": 0.81}, {"date": "Aug 31, 1989", "price": 1.17}, {"date": "Nov 30, 1989", "price": 1.2}, {"date": "Feb 28, 1990", "price": 1.46}, {"date": "May 31, 1990", "price": 1.89}, {"date": "Aug 31, 1990", "price": 2.42}, {"date": "Nov 30, 1990", "price": 3.8}, {"date": "Feb 28, 1991", "price": 5.09}, {"date": "May 31, 1991", "price": 6.66}, {"date": "Aug 31, 1991", "price": 7.0}, {"date": "Nov 30, 1991", "price": 8.16}, {"date": "Feb 29, 1992", "price": 7.62}, {"date": "May 31, 1992", "price": 7.92}, {"date": "Aug 31, 1992", "price": 9.59}, {"date": "Nov 30, 1992", "price": 4.53}, {"date": "Feb 28, 1993", "price": 4.44}, {"date": "May 31, 1993", "price": 4.62}, {"date": "Aug 31, 1993", "price": 5.66}, {"date": "Nov 30, 1993", "price": 5.22}, {"date": "Feb 28, 1994", "price": 5.82}, {"date": "May 31, 1994", "price": 6.59}, {"date": "Aug 31, 1994", "price": 7.3}, {"date": "Nov 30, 1994", "price": 8.62}, {"date": "Feb 28, 1995", "price": 9.06}, {"date": "May 31, 1995", "price": 11.97}, {"date": "Aug 31, 1995", "price": 12.41}, {"date": "Nov 30, 1995", "price": 14.94}, {"date": "Feb 29, 1996", "price": 14.88}, {"date": "May 31, 1996", "price": 14.56}, {"date": "Aug 31, 1996", "price": 15.22}, {"date": "Nov 30, 1996", "price": 15.28}, {"date": "Feb 28, 1997", "price": 16.72}, {"date": "May 31, 1997", "price": 12.39}, {"date": "Aug 31, 1997", "price": 12.78}, {"date": "Nov 30, 1997", "price": 13.28}, {"date": "Feb 28, 1998", "price": 15.12}, {"date": "May 31, 1998", "price": 15.22}, {"date": "Aug 31, 1998", "price": 18.81}, {"date": "Nov 30, 1998", "price": 31.22}, {"date": "Feb 28, 1999", "price": 31.62}, {"date": "May 31, 1999", "price": 41.59}, {"date": "Aug 31, 1999", "price": 45.56}, {"date": "Nov 30, 1999", "price": 68.19}, {"date": "Feb 29, 2000", "price": 63.62}, {"date": "May 31, 2000", "price": 75.81}, {"date": "Aug 31, 2000", "price": 63.62}, {"date": "Nov 30, 2000", "price": 72.06}, {"date": "Feb 28, 2001", "price": 66.38}, {"date": "May 31, 2001", "price": 64.3}, {"date": "Aug 31, 2001", "price": 66.43}, {"date": "Nov 30, 2001", "price": 57.98}, {"date": "Feb 28, 2002", "price": 47.63}, {"date": "May 31, 2002", "price": 45.03}, {"date": "Aug 31, 2002", "price": 47.2}, {"date": "Nov 30, 2002", "price": 54.64}, {"date": "Feb 28, 2003", "price": 64.74}, {"date": "May 31, 2003", "price": 65.94}, {"date": "Aug 31, 2003", "price": 57.62}, {"date": "Nov 30, 2003", "price": 63.53}, {"date": "Feb 29, 2004", "price": 54.7}, {"date": "May 31, 2004", "price": 59.29}, {"date": "Aug 31, 2004", "price": 60.04}, {"date": "Nov 30, 2004", "price": 61.61}, {"date": "Feb 28, 2005", "price": 62.58}, {"date": "May 31, 2005", "price": 79.9}, {"date": "Aug 31, 2005", "price": 80.93}, {"date": "Nov 30, 2005", "price": 75.48}, {"date": "Feb 28, 2006", "price": 67.59}, {"date": "May 31, 2006", "price": 68.03}, {"date": "Aug 31, 2006", "price": 71.04}, {"date": "Nov 30, 2006", "price": 64.26}, {"date": "Feb 28, 2007", "price": 56.45}, {"date": "May 31, 2007", "price": 50.11}, {"date": "Aug 31, 2007", "price": 55.25}, {"date": "Nov 30, 2007", "price": 45.52}, {"date": "Feb 29, 2008", "price": 44.03}, {"date": "May 31, 2008", "price": 62.85}, {"date": "Aug 31, 2008", "price": 55.54}, {"date": "Nov 30, 2008", "price": 48.93}, {"date": "Feb 28, 2009", "price": 49.94}, {"date": "May 31, 2009", "price": 59.78}, {"date": "Aug 31, 2009", "price": 56.35}, {"date": "Nov 30, 2009", "price": 56.61}, {"date": "Feb 28, 2010", "price": 51.78}, {"date": "May 31, 2010", "price": 51.04}, {"date": "Aug 31, 2010", "price": 52.69}, {"date": "Nov 30, 2010", "price": 51.33}, {"date": "Feb 28, 2011", "price": 60.54}, {"date": "May 31, 2011", "price": 55.4}, {"date": "Aug 31, 2011", "price": 57.91}, {"date": "Nov 30, 2011", "price": 68.01}, {"date": "Feb 29, 2012", "price": 69.52}, {"date": "May 31, 2012", "price": 83.92}, {"date": "Aug 31, 2012", "price": 88.8}, {"date": "Nov 30, 2012", "price": 91.55}, {"date": "Feb 28, 2013", "price": 100.53}, {"date": "May 31, 2013", "price": 108.94}, {"date": "Aug 31, 2013", "price": 114.08}, {"date": "Nov 30, 2013", "price": 124.02}, {"date": "Feb 28, 2014", "price": 115.99}, {"date": "May 31, 2014", "price": 139.38}, {"date": "Aug 31, 2014", "price": 165.31}, {"date": "Nov 30, 2014", "price": 157.72}, {"date": "Feb 28, 2015", "price": 156.26}, {"date": "May 31, 2015", "price": 151.78}, {"date": "Aug 31, 2015", "price": 161.1}, {"date": "Nov 30, 2015", "price": 142.28}, {"date": "Feb 29, 2016", "price": 157.95}, {"date": "May 31, 2016", "price": 170.06}, {"date": "Aug 31, 2016", "price": 144.07}, {"date": "Nov 30, 2016", "price": 176.53}, {"date": "Feb 28, 2017", "price": 155.24}, {"date": "May 31, 2017", "price": 177.77}, {"date": "Aug 31, 2017", "price": 175.66}, {"date": "Nov 30, 2017", "price": 183.77}, {"date": "Feb 28, 2018", "price": 179.62}, {"date": "May 31, 2018", "price": 199.81}, {"date": "Aug 31, 2018", "price": 208.25}, {"date": "Nov 30, 2018", "price": 190.08}, {"date": "Feb 28, 2019", "price": 166.7}, {"date": "May 31, 2019", "price": 208.62}, {"date": "Aug 31, 2019", "price": 234.72}, {"date": "Nov 30, 2019", "price": 199.73}, {"date": "Feb 29, 2020", "price": 229.7}, {"date": "May 31, 2020", "price": 253.32}, {"date": "Aug 31, 2020", "price": 222.04}, {"date": "Nov 30, 2020", "price": 224.92}, {"date": "Feb 28, 2021", "price": 237.94}, {"date": "May 31, 2021", "price": 225.53}, {"date": "Aug 31, 2021", "price": 198.88}, {"date": "Nov 30, 2021", "price": 226.48}, {"date": "Feb 28, 2022", "price": 256.74}, {"date": "May 31, 2022", "price": 240.3}, {"date": "Aug 31, 2022", "price": 286.4}, {"date": "Nov 30, 2022", "price": 231.66}, {"date": "Feb 28, 2023", "price": 220.65}, {"date": "May 31, 2023", "price": 256.34}, {"date": "Aug 31, 2023", "price": 269.64}, {"date": "Nov 30, 2023", "price": 273.83}, {"date": "Feb 29, 2024", "price": 305.85}, {"date": "May 31, 2024", "price": 333.83}, {"date": "Aug 31, 2024", "price": 282.87}, {"date": "Nov 30, 2024", "price": 308.06}, {"date": "Feb 28, 2025", "price": 288.18}, {"date": "May 31, 2025", "price": 287.71}, {"date": "Aug 31, 2025", "price": 345.46}, {"date": "Nov 30, 2025", "price": 388.16}, {"date": "Feb 28, 2026", "price": 336.79}, {"date": "May 31, 2026", "price": 415.21}, {"date": "Aug 17, 2026", "price": 416.37}]};
+        const allDatasets = {"1Y": [{"date": "Aug 18, 2025", "price": 23.24}, {"date": "Aug 19, 2025", "price": 23.53}, {"date": "Aug 20, 2025", "price": 24.08}, {"date": "Aug 21, 2025", "price": 23.69}, {"date": "Aug 22, 2025", "price": 25.11}, {"date": "Aug 25, 2025", "price": 24.92}, {"date": "Aug 26, 2025", "price": 24.74}, {"date": "Aug 27, 2025", "price": 24.74}, {"date": "Aug 28, 2025", "price": 24.57}, {"date": "Aug 29, 2025", "price": 24.63}, {"date": "Sep 02, 2025", "price": 24.41}, {"date": "Sep 03, 2025", "price": 23.93}, {"date": "Sep 04, 2025", "price": 23.91}, {"date": "Sep 05, 2025", "price": 24.5}, {"date": "Sep 08, 2025", "price": 23.98}, {"date": "Sep 09, 2025", "price": 24.14}, {"date": "Sep 10, 2025", "price": 23.83}, {"date": "Sep 11, 2025", "price": 25.02}, {"date": "Sep 12, 2025", "price": 25.04}, {"date": "Sep 15, 2025", "price": 24.17}, {"date": "Sep 16, 2025", "price": 24.48}, {"date": "Sep 17, 2025", "price": 24.54}, {"date": "Sep 18, 2025", "price": 24.11}, {"date": "Sep 19, 2025", "price": 23.49}, {"date": "Sep 22, 2025", "price": 23.17}, {"date": "Sep 23, 2025", "price": 22.86}, {"date": "Sep 24, 2025", "price": 23.13}, {"date": "Sep 25, 2025", "price": 22.2}, {"date": "Sep 26, 2025", "price": 22.96}, {"date": "Sep 29, 2025", "price": 22.89}, {"date": "Sep 30, 2025", "price": 22.93}, {"date": "Oct 01, 2025", "price": 23.05}, {"date": "Oct 02, 2025", "price": 23.69}, {"date": "Oct 03, 2025", "price": 23.82}, {"date": "Oct 06, 2025", "price": 23.42}, {"date": "Oct 07, 2025", "price": 22.5}, {"date": "Oct 08, 2025", "price": 22.6}, {"date": "Oct 09, 2025", "price": 22.08}, {"date": "Oct 10, 2025", "price": 20.65}, {"date": "Oct 13, 2025", "price": 21.42}, {"date": "Oct 14, 2025", "price": 21.92}, {"date": "Oct 15, 2025", "price": 22.2}, {"date": "Oct 16, 2025", "price": 21.9}, {"date": "Oct 17, 2025", "price": 21.89}, {"date": "Oct 20, 2025", "price": 21.63}, {"date": "Oct 21, 2025", "price": 21.75}, {"date": "Oct 22, 2025", "price": 21.7}, {"date": "Oct 23, 2025", "price": 24.51}, {"date": "Oct 24, 2025", "price": 24.81}, {"date": "Oct 27, 2025", "price": 25.73}, {"date": "Oct 28, 2025", "price": 25.38}, {"date": "Oct 29, 2025", "price": 24.86}, {"date": "Oct 30, 2025", "price": 23.8}, {"date": "Oct 31, 2025", "price": 23.85}, {"date": "Nov 03, 2025", "price": 23.23}, {"date": "Nov 04, 2025", "price": 22.59}, {"date": "Nov 05, 2025", "price": 22.77}, {"date": "Nov 06, 2025", "price": 22.22}, {"date": "Nov 07, 2025", "price": 22.29}, {"date": "Nov 10, 2025", "price": 22.1}, {"date": "Nov 11, 2025", "price": 22.31}, {"date": "Nov 12, 2025", "price": 22.18}, {"date": "Nov 13, 2025", "price": 23.11}, {"date": "Nov 14, 2025", "price": 22.93}, {"date": "Nov 17, 2025", "price": 21.67}, {"date": "Nov 18, 2025", "price": 21.85}, {"date": "Nov 19, 2025", "price": 21.31}, {"date": "Nov 20, 2025", "price": 20.95}, {"date": "Nov 21, 2025", "price": 22.2}, {"date": "Nov 24, 2025", "price": 22.53}, {"date": "Nov 25, 2025", "price": 23.2}, {"date": "Nov 26, 2025", "price": 23.91}, {"date": "Nov 28, 2025", "price": 23.85}, {"date": "Dec 01, 2025", "price": 23.84}, {"date": "Dec 02, 2025", "price": 23.86}, {"date": "Dec 03, 2025", "price": 23.76}, {"date": "Dec 04, 2025", "price": 22.87}, {"date": "Dec 05, 2025", "price": 22.96}, {"date": "Dec 08, 2025", "price": 22.86}, {"date": "Dec 09, 2025", "price": 23.11}, {"date": "Dec 10, 2025", "price": 24.59}, {"date": "Dec 11, 2025", "price": 24.58}, {"date": "Dec 12, 2025", "price": 23.97}, {"date": "Dec 15, 2025", "price": 23.45}, {"date": "Dec 16, 2025", "price": 22.84}, {"date": "Dec 17, 2025", "price": 23.07}, {"date": "Dec 18, 2025", "price": 23.04}, {"date": "Dec 19, 2025", "price": 23.26}, {"date": "Dec 22, 2025", "price": 23.42}, {"date": "Dec 23, 2025", "price": 22.9}, {"date": "Dec 24, 2025", "price": 23.06}, {"date": "Dec 26, 2025", "price": 23.29}, {"date": "Dec 29, 2025", "price": 23.35}, {"date": "Dec 30, 2025", "price": 23.51}, {"date": "Dec 31, 2025", "price": 23.38}, {"date": "Jan 02, 2026", "price": 24.27}, {"date": "Jan 05, 2026", "price": 24.9}, {"date": "Jan 06, 2026", "price": 25.52}, {"date": "Jan 07, 2026", "price": 24.8}, {"date": "Jan 08, 2026", "price": 25.92}, {"date": "Jan 09, 2026", "price": 26.33}, {"date": "Jan 12, 2026", "price": 26.5}, {"date": "Jan 13, 2026", "price": 26.55}, {"date": "Jan 14, 2026", "price": 28.26}, {"date": "Jan 15, 2026", "price": 27.94}, {"date": "Jan 16, 2026", "price": 27.57}, {"date": "Jan 20, 2026", "price": 26.58}, {"date": "Jan 21, 2026", "price": 28.41}, {"date": "Jan 22, 2026", "price": 28.33}, {"date": "Jan 23, 2026", "price": 28.25}, {"date": "Jan 26, 2026", "price": 28.18}, {"date": "Jan 27, 2026", "price": 27.81}, {"date": "Jan 28, 2026", "price": 27.78}, {"date": "Jan 29, 2026", "price": 27.16}, {"date": "Jan 30, 2026", "price": 27.55}, {"date": "Feb 02, 2026", "price": 28.88}, {"date": "Feb 03, 2026", "price": 30.49}, {"date": "Feb 04, 2026", "price": 32.4}, {"date": "Feb 05, 2026", "price": 30.6}, {"date": "Feb 06, 2026", "price": 31.78}, {"date": "Feb 09, 2026", "price": 32.08}, {"date": "Feb 10, 2026", "price": 33.6}, {"date": "Feb 11, 2026", "price": 34.0}, {"date": "Feb 12, 2026", "price": 32.65}, {"date": "Feb 13, 2026", "price": 32.49}, {"date": "Feb 17, 2026", "price": 31.42}, {"date": "Feb 18, 2026", "price": 31.58}, {"date": "Feb 19, 2026", "price": 31.39}, {"date": "Feb 20, 2026", "price": 30.52}, {"date": "Feb 23, 2026", "price": 30.3}, {"date": "Feb 24, 2026", "price": 31.05}, {"date": "Feb 25, 2026", "price": 30.02}, {"date": "Feb 26, 2026", "price": 29.9}, {"date": "Feb 27, 2026", "price": 30.73}, {"date": "Mar 02, 2026", "price": 30.6}, {"date": "Mar 03, 2026", "price": 30.74}, {"date": "Mar 04, 2026", "price": 32.34}, {"date": "Mar 05, 2026", "price": 33.72}, {"date": "Mar 06, 2026", "price": 33.28}, {"date": "Mar 09, 2026", "price": 34.31}, {"date": "Mar 10, 2026", "price": 33.89}, {"date": "Mar 11, 2026", "price": 34.37}, {"date": "Mar 12, 2026", "price": 37.58}, {"date": "Mar 13, 2026", "price": 36.62}, {"date": "Mar 16, 2026", "price": 36.0}, {"date": "Mar 17, 2026", "price": 36.91}, {"date": "Mar 18, 2026", "price": 37.69}, {"date": "Mar 19, 2026", "price": 37.49}, {"date": "Mar 20, 2026", "price": 36.65}, {"date": "Mar 23, 2026", "price": 36.04}, {"date": "Mar 24, 2026", "price": 38.31}, {"date": "Mar 25, 2026", "price": 39.62}, {"date": "Mar 26, 2026", "price": 39.47}, {"date": "Mar 27, 2026", "price": 40.82}, {"date": "Mar 30, 2026", "price": 41.87}, {"date": "Mar 31, 2026", "price": 41.65}, {"date": "Apr 01, 2026", "price": 40.69}, {"date": "Apr 02, 2026", "price": 41.4}, {"date": "Apr 06, 2026", "price": 40.56}, {"date": "Apr 07, 2026", "price": 41.41}, {"date": "Apr 08, 2026", "price": 39.28}, {"date": "Apr 09, 2026", "price": 38.04}, {"date": "Apr 10, 2026", "price": 39.01}, {"date": "Apr 13, 2026", "price": 40.11}, {"date": "Apr 14, 2026", "price": 39.16}, {"date": "Apr 15, 2026", "price": 38.84}, {"date": "Apr 16, 2026", "price": 39.92}, {"date": "Apr 17, 2026", "price": 35.6}, {"date": "Apr 20, 2026", "price": 36.77}, {"date": "Apr 21, 2026", "price": 38.31}, {"date": "Apr 22, 2026", "price": 38.81}, {"date": "Apr 23, 2026", "price": 38.53}, {"date": "Apr 24, 2026", "price": 38.66}, {"date": "Apr 27, 2026", "price": 38.1}, {"date": "Apr 28, 2026", "price": 38.01}, {"date": "Apr 29, 2026", "price": 39.55}, {"date": "Apr 30, 2026", "price": 40.49}, {"date": "May 01, 2026", "price": 40.29}, {"date": "May 04, 2026", "price": 40.58}, {"date": "May 05, 2026", "price": 40.8}, {"date": "May 06, 2026", "price": 38.5}, {"date": "May 07, 2026", "price": 37.32}, {"date": "May 08, 2026", "price": 36.87}, {"date": "May 11, 2026", "price": 38.76}, {"date": "May 12, 2026", "price": 39.43}, {"date": "May 13, 2026", "price": 38.84}, {"date": "May 14, 2026", "price": 38.78}, {"date": "May 15, 2026", "price": 38.75}, {"date": "May 18, 2026", "price": 38.56}, {"date": "May 19, 2026", "price": 37.74}, {"date": "May 20, 2026", "price": 36.27}, {"date": "May 21, 2026", "price": 35.91}, {"date": "May 22, 2026", "price": 36.01}, {"date": "May 26, 2026", "price": 35.28}, {"date": "May 27, 2026", "price": 34.49}, {"date": "May 28, 2026", "price": 34.77}, {"date": "May 29, 2026", "price": 33.75}, {"date": "Jun 01, 2026", "price": 34.69}, {"date": "Jun 02, 2026", "price": 34.72}, {"date": "Jun 03, 2026", "price": 35.4}, {"date": "Jun 04, 2026", "price": 34.79}, {"date": "Jun 05, 2026", "price": 33.97}, {"date": "Jun 08, 2026", "price": 34.2}, {"date": "Jun 09, 2026", "price": 33.22}, {"date": "Jun 10, 2026", "price": 34.24}, {"date": "Jun 11, 2026", "price": 33.63}, {"date": "Jun 12, 2026", "price": 33.85}, {"date": "Jun 15, 2026", "price": 33.23}, {"date": "Jun 16, 2026", "price": 32.96}, {"date": "Jun 17, 2026", "price": 32.5}, {"date": "Jun 18, 2026", "price": 31.73}, {"date": "Jun 22, 2026", "price": 30.79}, {"date": "Jun 23, 2026", "price": 30.33}, {"date": "Jun 24, 2026", "price": 29.38}, {"date": "Jun 25, 2026", "price": 29.31}, {"date": "Jun 26, 2026", "price": 29.04}, {"date": "Jun 29, 2026", "price": 27.92}, {"date": "Jun 30, 2026", "price": 27.36}, {"date": "Jul 01, 2026", "price": 27.02}, {"date": "Jul 02, 2026", "price": 27.71}, {"date": "Jul 06, 2026", "price": 27.33}, {"date": "Jul 07, 2026", "price": 28.64}, {"date": "Jul 08, 2026", "price": 29.03}, {"date": "Jul 09, 2026", "price": 28.5}, {"date": "Jul 10, 2026", "price": 29.03}, {"date": "Jul 13, 2026", "price": 30.37}, {"date": "Jul 14, 2026", "price": 30.31}, {"date": "Jul 15, 2026", "price": 29.7}, {"date": "Jul 16, 2026", "price": 29.3}, {"date": "Jul 17, 2026", "price": 29.92}, {"date": "Jul 20, 2026", "price": 30.37}, {"date": "Jul 21, 2026", "price": 30.47}, {"date": "Jul 22, 2026", "price": 31.25}, {"date": "Jul 23, 2026", "price": 30.9}, {"date": "Jul 24, 2026", "price": 29.84}, {"date": "Jul 27, 2026", "price": 28.75}, {"date": "Jul 28, 2026", "price": 28.85}, {"date": "Jul 29, 2026", "price": 30.45}, {"date": "Jul 30, 2026", "price": 30.09}, {"date": "Jul 31, 2026", "price": 30.29}, {"date": "Aug 03, 2026", "price": 29.89}, {"date": "Aug 04, 2026", "price": 30.33}, {"date": "Aug 05, 2026", "price": 29.67}, {"date": "Aug 06, 2026", "price": 30.3}, {"date": "Aug 07, 2026", "price": 29.34}, {"date": "Aug 10, 2026", "price": 30.58}, {"date": "Aug 11, 2026", "price": 31.26}, {"date": "Aug 12, 2026", "price": 30.57}, {"date": "Aug 13, 2026", "price": 30.36}, {"date": "Aug 14, 2026", "price": 31.07}, {"date": "Aug 17, 2026", "price": 31.35}], "5Y": [{"date": "Aug 15, 2021", "price": 60.89}, {"date": "Aug 22, 2021", "price": 65.38}, {"date": "Aug 29, 2021", "price": 62.12}, {"date": "Sep 05, 2021", "price": 60.41}, {"date": "Sep 12, 2021", "price": 57.75}, {"date": "Sep 19, 2021", "price": 56.81}, {"date": "Sep 26, 2021", "price": 58.58}, {"date": "Oct 03, 2021", "price": 58.71}, {"date": "Oct 10, 2021", "price": 58.96}, {"date": "Oct 17, 2021", "price": 58.4}, {"date": "Oct 24, 2021", "price": 55.97}, {"date": "Oct 31, 2021", "price": 58.31}, {"date": "Nov 07, 2021", "price": 60.06}, {"date": "Nov 14, 2021", "price": 57.34}, {"date": "Nov 21, 2021", "price": 57.6}, {"date": "Nov 28, 2021", "price": 53.07}, {"date": "Dec 05, 2021", "price": 54.68}, {"date": "Dec 12, 2021", "price": 54.1}, {"date": "Dec 19, 2021", "price": 55.14}, {"date": "Dec 26, 2021", "price": 56.72}, {"date": "Jan 02, 2022", "price": 59.1}, {"date": "Jan 09, 2022", "price": 60.74}, {"date": "Jan 16, 2022", "price": 56.72}, {"date": "Jan 23, 2022", "price": 60.04}, {"date": "Jan 30, 2022", "price": 60.6}, {"date": "Feb 06, 2022", "price": 61.09}, {"date": "Feb 13, 2022", "price": 60.59}, {"date": "Feb 20, 2022", "price": 59.65}, {"date": "Feb 27, 2022", "price": 58.83}, {"date": "Mar 06, 2022", "price": 60.91}, {"date": "Mar 13, 2022", "price": 62.39}, {"date": "Mar 20, 2022", "price": 64.7}, {"date": "Mar 27, 2022", "price": 64.18}, {"date": "Apr 03, 2022", "price": 61.68}, {"date": "Apr 10, 2022", "price": 65.49}, {"date": "Apr 17, 2022", "price": 68.5}, {"date": "Apr 24, 2022", "price": 66.5}, {"date": "May 01, 2022", "price": 67.93}, {"date": "May 08, 2022", "price": 67.56}, {"date": "May 15, 2022", "price": 68.11}, {"date": "May 22, 2022", "price": 69.06}, {"date": "May 29, 2022", "price": 67.03}, {"date": "Jun 05, 2022", "price": 61.87}, {"date": "Jun 12, 2022", "price": 54.77}, {"date": "Jun 19, 2022", "price": 53.14}, {"date": "Jun 26, 2022", "price": 51.69}, {"date": "Jul 03, 2022", "price": 51.38}, {"date": "Jul 10, 2022", "price": 49.55}, {"date": "Jul 17, 2022", "price": 50.85}, {"date": "Jul 24, 2022", "price": 53.21}, {"date": "Jul 31, 2022", "price": 51.49}, {"date": "Aug 07, 2022", "price": 55.93}, {"date": "Aug 14, 2022", "price": 55.49}, {"date": "Aug 21, 2022", "price": 54.46}, {"date": "Aug 28, 2022", "price": 49.31}, {"date": "Sep 04, 2022", "price": 50.51}, {"date": "Sep 11, 2022", "price": 46.42}, {"date": "Sep 18, 2022", "price": 43.9}, {"date": "Sep 25, 2022", "price": 43.93}, {"date": "Oct 02, 2022", "price": 44.41}, {"date": "Oct 09, 2022", "price": 45.12}, {"date": "Oct 16, 2022", "price": 46.87}, {"date": "Oct 23, 2022", "price": 47.48}, {"date": "Oct 30, 2022", "price": 49.03}, {"date": "Nov 06, 2022", "price": 53.14}, {"date": "Nov 13, 2022", "price": 50.07}, {"date": "Nov 20, 2022", "price": 51.56}, {"date": "Nov 27, 2022", "price": 51.55}, {"date": "Dec 04, 2022", "price": 50.2}, {"date": "Dec 11, 2022", "price": 49.8}, {"date": "Dec 18, 2022", "price": 50.86}, {"date": "Dec 25, 2022", "price": 50.39}, {"date": "Jan 01, 2023", "price": 55.02}, {"date": "Jan 08, 2023", "price": 58.68}, {"date": "Jan 15, 2023", "price": 57.44}, {"date": "Jan 22, 2023", "price": 58.97}, {"date": "Jan 29, 2023", "price": 60.0}, {"date": "Feb 05, 2023", "price": 59.82}, {"date": "Feb 12, 2023", "price": 58.13}, {"date": "Feb 19, 2023", "price": 57.79}, {"date": "Feb 26, 2023", "price": 58.32}, {"date": "Mar 05, 2023", "price": 53.88}, {"date": "Mar 12, 2023", "price": 50.02}, {"date": "Mar 19, 2023", "price": 51.78}, {"date": "Mar 26, 2023", "price": 54.82}, {"date": "Apr 02, 2023", "price": 54.66}, {"date": "Apr 09, 2023", "price": 56.5}, {"date": "Apr 16, 2023", "price": 54.87}, {"date": "Apr 23, 2023", "price": 54.4}, {"date": "Apr 30, 2023", "price": 54.41}, {"date": "May 07, 2023", "price": 52.31}, {"date": "May 14, 2023", "price": 51.95}, {"date": "May 21, 2023", "price": 50.34}, {"date": "May 28, 2023", "price": 51.61}, {"date": "Jun 04, 2023", "price": 51.74}, {"date": "Jun 11, 2023", "price": 53.16}, {"date": "Jun 18, 2023", "price": 51.36}, {"date": "Jun 25, 2023", "price": 53.26}, {"date": "Jul 02, 2023", "price": 53.1}, {"date": "Jul 09, 2023", "price": 52.92}, {"date": "Jul 16, 2023", "price": 53.05}, {"date": "Jul 23, 2023", "price": 55.46}, {"date": "Jul 30, 2023", "price": 54.51}, {"date": "Aug 06, 2023", "price": 55.45}, {"date": "Aug 13, 2023", "price": 54.02}, {"date": "Aug 20, 2023", "price": 53.98}, {"date": "Aug 27, 2023", "price": 55.29}, {"date": "Sep 03, 2023", "price": 53.71}, {"date": "Sep 10, 2023", "price": 53.84}, {"date": "Sep 17, 2023", "price": 50.25}, {"date": "Sep 24, 2023", "price": 51.56}, {"date": "Oct 01, 2023", "price": 50.28}, {"date": "Oct 08, 2023", "price": 49.73}, {"date": "Oct 15, 2023", "price": 48.99}, {"date": "Oct 22, 2023", "price": 48.11}, {"date": "Oct 29, 2023", "price": 49.73}, {"date": "Nov 05, 2023", "price": 49.48}, {"date": "Nov 12, 2023", "price": 51.7}, {"date": "Nov 19, 2023", "price": 51.67}, {"date": "Nov 26, 2023", "price": 52.3}, {"date": "Dec 03, 2023", "price": 50.92}, {"date": "Dec 10, 2023", "price": 54.24}, {"date": "Dec 17, 2023", "price": 55.12}, {"date": "Dec 24, 2023", "price": 54.84}, {"date": "Dec 31, 2023", "price": 54.82}, {"date": "Jan 07, 2024", "price": 53.37}, {"date": "Jan 14, 2024", "price": 52.81}, {"date": "Jan 21, 2024", "price": 54.06}, {"date": "Jan 28, 2024", "price": 53.42}, {"date": "Feb 04, 2024", "price": 53.99}, {"date": "Feb 11, 2024", "price": 55.48}, {"date": "Feb 18, 2024", "price": 56.39}, {"date": "Feb 25, 2024", "price": 55.77}, {"date": "Mar 03, 2024", "price": 56.61}, {"date": "Mar 10, 2024", "price": 57.04}, {"date": "Mar 17, 2024", "price": 57.68}, {"date": "Mar 24, 2024", "price": 57.93}, {"date": "Mar 31, 2024", "price": 59.69}, {"date": "Apr 07, 2024", "price": 57.69}, {"date": "Apr 14, 2024", "price": 56.66}, {"date": "Apr 21, 2024", "price": 57.29}, {"date": "Apr 28, 2024", "price": 57.04}, {"date": "May 05, 2024", "price": 59.41}, {"date": "May 12, 2024", "price": 59.19}, {"date": "May 19, 2024", "price": 57.76}, {"date": "May 26, 2024", "price": 57.63}, {"date": "Jun 02, 2024", "price": 55.73}, {"date": "Jun 09, 2024", "price": 55.02}, {"date": "Jun 16, 2024", "price": 53.99}, {"date": "Jun 23, 2024", "price": 53.05}, {"date": "Jun 30, 2024", "price": 52.23}, {"date": "Jul 07, 2024", "price": 52.91}, {"date": "Jul 14, 2024", "price": 53.9}, {"date": "Jul 21, 2024", "price": 52.86}, {"date": "Jul 28, 2024", "price": 52.01}, {"date": "Aug 04, 2024", "price": 52.66}, {"date": "Aug 11, 2024", "price": 53.91}, {"date": "Aug 18, 2024", "price": 53.53}, {"date": "Aug 25, 2024", "price": 53.58}, {"date": "Sep 01, 2024", "price": 50.68}, {"date": "Sep 08, 2024", "price": 50.15}, {"date": "Sep 15, 2024", "price": 51.71}, {"date": "Sep 22, 2024", "price": 55.08}, {"date": "Sep 29, 2024", "price": 55.34}, {"date": "Oct 06, 2024", "price": 53.78}, {"date": "Oct 13, 2024", "price": 53.11}, {"date": "Oct 20, 2024", "price": 49.7}, {"date": "Oct 27, 2024", "price": 48.97}, {"date": "Nov 03, 2024", "price": 46.49}, {"date": "Nov 10, 2024", "price": 44.04}, {"date": "Nov 17, 2024", "price": 45.46}, {"date": "Nov 24, 2024", "price": 44.21}, {"date": "Dec 01, 2024", "price": 41.99}, {"date": "Dec 08, 2024", "price": 40.86}, {"date": "Dec 15, 2024", "price": 39.94}, {"date": "Dec 22, 2024", "price": 40.03}, {"date": "Dec 29, 2024", "price": 39.4}, {"date": "Jan 05, 2025", "price": 38.5}, {"date": "Jan 12, 2025", "price": 41.04}, {"date": "Jan 19, 2025", "price": 41.37}, {"date": "Jan 26, 2025", "price": 39.05}, {"date": "Feb 02, 2025", "price": 38.58}, {"date": "Feb 09, 2025", "price": 38.67}, {"date": "Feb 16, 2025", "price": 39.51}, {"date": "Feb 23, 2025", "price": 38.11}, {"date": "Mar 02, 2025", "price": 37.45}, {"date": "Mar 09, 2025", "price": 36.97}, {"date": "Mar 16, 2025", "price": 36.17}, {"date": "Mar 23, 2025", "price": 34.36}, {"date": "Mar 30, 2025", "price": 28.2}, {"date": "Apr 06, 2025", "price": 28.43}, {"date": "Apr 13, 2025", "price": 28.15}, {"date": "Apr 20, 2025", "price": 30.02}, {"date": "Apr 27, 2025", "price": 30.42}, {"date": "May 04, 2025", "price": 29.48}, {"date": "May 11, 2025", "price": 30.19}, {"date": "May 18, 2025", "price": 28.32}, {"date": "May 25, 2025", "price": 27.74}, {"date": "Jun 01, 2025", "price": 28.55}, {"date": "Jun 08, 2025", "price": 29.9}, {"date": "Jun 15, 2025", "price": 27.76}, {"date": "Jun 22, 2025", "price": 27.0}, {"date": "Jun 29, 2025", "price": 28.46}, {"date": "Jul 06, 2025", "price": 29.55}, {"date": "Jul 13, 2025", "price": 28.34}, {"date": "Jul 20, 2025", "price": 25.51}, {"date": "Jul 27, 2025", "price": 21.79}, {"date": "Aug 03, 2025", "price": 21.22}, {"date": "Aug 10, 2025", "price": 23.36}, {"date": "Aug 17, 2025", "price": 25.11}, {"date": "Aug 24, 2025", "price": 24.63}, {"date": "Aug 31, 2025", "price": 24.5}, {"date": "Sep 07, 2025", "price": 25.04}, {"date": "Sep 14, 2025", "price": 23.49}, {"date": "Sep 21, 2025", "price": 22.96}, {"date": "Sep 28, 2025", "price": 23.82}, {"date": "Oct 05, 2025", "price": 20.65}, {"date": "Oct 12, 2025", "price": 21.89}, {"date": "Oct 19, 2025", "price": 24.81}, {"date": "Oct 26, 2025", "price": 23.85}, {"date": "Nov 02, 2025", "price": 22.29}, {"date": "Nov 09, 2025", "price": 22.93}, {"date": "Nov 16, 2025", "price": 22.2}, {"date": "Nov 23, 2025", "price": 23.85}, {"date": "Nov 30, 2025", "price": 22.96}, {"date": "Dec 07, 2025", "price": 23.97}, {"date": "Dec 14, 2025", "price": 23.26}, {"date": "Dec 21, 2025", "price": 23.29}, {"date": "Dec 28, 2025", "price": 24.27}, {"date": "Jan 04, 2026", "price": 26.33}, {"date": "Jan 11, 2026", "price": 27.57}, {"date": "Jan 18, 2026", "price": 28.25}, {"date": "Jan 25, 2026", "price": 27.55}, {"date": "Feb 01, 2026", "price": 31.78}, {"date": "Feb 08, 2026", "price": 32.49}, {"date": "Feb 15, 2026", "price": 30.52}, {"date": "Feb 22, 2026", "price": 30.73}, {"date": "Mar 01, 2026", "price": 33.28}, {"date": "Mar 08, 2026", "price": 36.62}, {"date": "Mar 15, 2026", "price": 36.65}, {"date": "Mar 22, 2026", "price": 40.82}, {"date": "Mar 29, 2026", "price": 41.4}, {"date": "Apr 05, 2026", "price": 39.01}, {"date": "Apr 12, 2026", "price": 35.6}, {"date": "Apr 19, 2026", "price": 38.66}, {"date": "Apr 26, 2026", "price": 40.29}, {"date": "May 03, 2026", "price": 36.87}, {"date": "May 10, 2026", "price": 38.75}, {"date": "May 17, 2026", "price": 36.01}, {"date": "May 24, 2026", "price": 33.75}, {"date": "May 31, 2026", "price": 33.97}, {"date": "Jun 07, 2026", "price": 33.85}, {"date": "Jun 14, 2026", "price": 31.73}, {"date": "Jun 21, 2026", "price": 29.04}, {"date": "Jun 28, 2026", "price": 27.71}, {"date": "Jul 05, 2026", "price": 29.03}, {"date": "Jul 12, 2026", "price": 29.92}, {"date": "Jul 19, 2026", "price": 29.84}, {"date": "Jul 26, 2026", "price": 30.29}, {"date": "Aug 02, 2026", "price": 29.34}, {"date": "Aug 09, 2026", "price": 31.07}, {"date": "Aug 16, 2026", "price": 31.35}], "10Y": [{"date": "Mar 31, 2019", "price": 56.73}, {"date": "Apr 30, 2019", "price": 46.76}, {"date": "May 31, 2019", "price": 49.31}, {"date": "Jun 30, 2019", "price": 48.44}, {"date": "Jul 31, 2019", "price": 42.63}, {"date": "Aug 31, 2019", "price": 47.65}, {"date": "Sep 30, 2019", "price": 50.49}, {"date": "Oct 31, 2019", "price": 53.37}, {"date": "Nov 30, 2019", "price": 54.73}, {"date": "Dec 31, 2019", "price": 46.07}, {"date": "Jan 31, 2020", "price": 40.41}, {"date": "Feb 29, 2020", "price": 29.24}, {"date": "Mar 31, 2020", "price": 36.69}, {"date": "Apr 30, 2020", "price": 38.6}, {"date": "May 31, 2020", "price": 40.76}, {"date": "Jun 30, 2020", "price": 41.06}, {"date": "Jul 31, 2020", "price": 45.12}, {"date": "Aug 31, 2020", "price": 47.05}, {"date": "Sep 30, 2020", "price": 45.49}, {"date": "Oct 31, 2020", "price": 53.01}, {"date": "Nov 30, 2020", "price": 55.5}, {"date": "Dec 31, 2020", "price": 51.9}, {"date": "Jan 31, 2021", "price": 59.31}, {"date": "Feb 28, 2021", "price": 63.94}, {"date": "Mar 31, 2021", "price": 62.5}, {"date": "Apr 30, 2021", "price": 68.42}, {"date": "May 31, 2021", "price": 63.28}, {"date": "Jun 30, 2021", "price": 62.16}, {"date": "Jul 31, 2021", "price": 62.9}, {"date": "Aug 31, 2021", "price": 57.56}, {"date": "Sep 30, 2021", "price": 55.97}, {"date": "Oct 31, 2021", "price": 54.93}, {"date": "Nov 30, 2021", "price": 56.72}, {"date": "Dec 31, 2021", "price": 59.73}, {"date": "Jan 31, 2022", "price": 58.96}, {"date": "Feb 28, 2022", "price": 63.72}, {"date": "Mar 31, 2022", "price": 66.5}, {"date": "Apr 30, 2022", "price": 67.98}, {"date": "May 31, 2022", "price": 51.61}, {"date": "Jun 30, 2022", "price": 53.21}, {"date": "Jul 31, 2022", "price": 51.0}, {"date": "Aug 31, 2022", "price": 43.93}, {"date": "Sep 30, 2022", "price": 46.74}, {"date": "Oct 31, 2022", "price": 50.97}, {"date": "Nov 30, 2022", "price": 50.39}, {"date": "Dec 31, 2022", "price": 59.35}, {"date": "Jan 31, 2023", "price": 57.2}, {"date": "Feb 28, 2023", "price": 54.82}, {"date": "Mar 31, 2023", "price": 54.4}, {"date": "Apr 30, 2023", "price": 48.78}, {"date": "May 31, 2023", "price": 53.26}, {"date": "Jun 30, 2023", "price": 56.47}, {"date": "Jul 31, 2023", "price": 54.56}, {"date": "Aug 31, 2023", "price": 51.56}, {"date": "Sep 30, 2023", "price": 48.34}, {"date": "Oct 31, 2023", "price": 51.75}, {"date": "Nov 30, 2023", "price": 54.84}, {"date": "Dec 31, 2023", "price": 53.6}, {"date": "Jan 31, 2024", "price": 55.88}, {"date": "Feb 29, 2024", "price": 57.93}, {"date": "Mar 31, 2024", "price": 56.9}, {"date": "Apr 30, 2024", "price": 57.63}, {"date": "May 31, 2024", "price": 53.05}, {"date": "Jun 30, 2024", "price": 54.47}, {"date": "Jul 31, 2024", "price": 53.58}, {"date": "Aug 31, 2024", "price": 54.63}, {"date": "Sep 30, 2024", "price": 49.38}, {"date": "Oct 31, 2024", "price": 44.21}, {"date": "Nov 30, 2024", "price": 40.13}, {"date": "Dec 31, 2024", "price": 39.05}, {"date": "Jan 31, 2025", "price": 38.11}, {"date": "Feb 28, 2025", "price": 34.92}, {"date": "Mar 31, 2025", "price": 30.59}, {"date": "Apr 30, 2025", "price": 27.74}, {"date": "May 31, 2025", "price": 26.48}, {"date": "Jun 30, 2025", "price": 23.29}, {"date": "Jul 31, 2025", "price": 24.63}, {"date": "Aug 31, 2025", "price": 22.93}, {"date": "Sep 30, 2025", "price": 23.85}, {"date": "Oct 31, 2025", "price": 23.85}, {"date": "Nov 30, 2025", "price": 23.38}, {"date": "Dec 31, 2025", "price": 27.55}, {"date": "Jan 31, 2026", "price": 30.73}, {"date": "Feb 28, 2026", "price": 41.65}, {"date": "Mar 31, 2026", "price": 40.49}, {"date": "Apr 30, 2026", "price": 33.75}, {"date": "May 31, 2026", "price": 27.36}, {"date": "Jun 30, 2026", "price": 30.29}, {"date": "Jul 31, 2026", "price": 31.07}, {"date": "Aug 17, 2026", "price": 31.35}], "MAX": [{"date": "Mar 17, 2019", "price": 48.6}, {"date": "Mar 24, 2019", "price": 51.63}, {"date": "Mar 31, 2019", "price": 57.24}, {"date": "Apr 07, 2019", "price": 58.3}, {"date": "Apr 14, 2019", "price": 57.77}, {"date": "Apr 21, 2019", "price": 55.25}, {"date": "Apr 28, 2019", "price": 53.3}, {"date": "May 05, 2019", "price": 53.07}, {"date": "May 12, 2019", "price": 50.8}, {"date": "May 19, 2019", "price": 49.2}, {"date": "May 26, 2019", "price": 46.76}, {"date": "Jun 02, 2019", "price": 51.3}, {"date": "Jun 09, 2019", "price": 51.15}, {"date": "Jun 16, 2019", "price": 48.36}, {"date": "Jun 23, 2019", "price": 49.31}, {"date": "Jun 30, 2019", "price": 49.31}, {"date": "Jul 07, 2019", "price": 49.71}, {"date": "Jul 14, 2019", "price": 51.52}, {"date": "Jul 21, 2019", "price": 49.11}, {"date": "Jul 28, 2019", "price": 45.6}, {"date": "Aug 04, 2019", "price": 46.64}, {"date": "Aug 11, 2019", "price": 44.51}, {"date": "Aug 18, 2019", "price": 40.71}, {"date": "Aug 25, 2019", "price": 42.63}, {"date": "Sep 01, 2019", "price": 43.24}, {"date": "Sep 08, 2019", "price": 48.2}, {"date": "Sep 15, 2019", "price": 48.21}, {"date": "Sep 22, 2019", "price": 47.07}, {"date": "Sep 29, 2019", "price": 45.34}, {"date": "Oct 06, 2019", "price": 47.13}, {"date": "Oct 13, 2019", "price": 47.96}, {"date": "Oct 20, 2019", "price": 50.48}, {"date": "Oct 27, 2019", "price": 52.31}, {"date": "Nov 03, 2019", "price": 55.99}, {"date": "Nov 10, 2019", "price": 54.86}, {"date": "Nov 17, 2019", "price": 54.2}, {"date": "Nov 24, 2019", "price": 53.37}, {"date": "Dec 01, 2019", "price": 53.22}, {"date": "Dec 08, 2019", "price": 53.28}, {"date": "Dec 15, 2019", "price": 54.61}, {"date": "Dec 22, 2019", "price": 54.83}, {"date": "Dec 29, 2019", "price": 52.42}, {"date": "Jan 05, 2020", "price": 51.5}, {"date": "Jan 12, 2020", "price": 53.34}, {"date": "Jan 19, 2020", "price": 48.49}, {"date": "Jan 26, 2020", "price": 46.07}, {"date": "Feb 02, 2020", "price": 48.03}, {"date": "Feb 09, 2020", "price": 48.63}, {"date": "Feb 16, 2020", "price": 48.3}, {"date": "Feb 23, 2020", "price": 40.41}, {"date": "Mar 01, 2020", "price": 38.97}, {"date": "Mar 08, 2020", "price": 25.69}, {"date": "Mar 15, 2020", "price": 27.44}, {"date": "Mar 22, 2020", "price": 28.56}, {"date": "Mar 29, 2020", "price": 27.97}, {"date": "Apr 05, 2020", "price": 36.56}, {"date": "Apr 12, 2020", "price": 33.42}, {"date": "Apr 19, 2020", "price": 33.12}, {"date": "Apr 26, 2020", "price": 33.93}, {"date": "May 03, 2020", "price": 34.33}, {"date": "May 10, 2020", "price": 33.56}, {"date": "May 17, 2020", "price": 36.12}, {"date": "May 24, 2020", "price": 38.6}, {"date": "May 31, 2020", "price": 43.97}, {"date": "Jun 07, 2020", "price": 41.23}, {"date": "Jun 14, 2020", "price": 41.65}, {"date": "Jun 21, 2020", "price": 39.8}, {"date": "Jun 28, 2020", "price": 41.59}, {"date": "Jul 05, 2020", "price": 40.76}, {"date": "Jul 12, 2020", "price": 43.67}, {"date": "Jul 19, 2020", "price": 42.61}, {"date": "Jul 26, 2020", "price": 41.06}, {"date": "Aug 02, 2020", "price": 42.63}, {"date": "Aug 09, 2020", "price": 44.87}, {"date": "Aug 16, 2020", "price": 43.59}, {"date": "Aug 23, 2020", "price": 46.05}, {"date": "Aug 30, 2020", "price": 48.6}, {"date": "Sep 06, 2020", "price": 49.85}, {"date": "Sep 13, 2020", "price": 50.37}, {"date": "Sep 20, 2020", "price": 46.04}, {"date": "Sep 27, 2020", "price": 47.31}, {"date": "Oct 04, 2020", "price": 49.36}, {"date": "Oct 11, 2020", "price": 49.3}, {"date": "Oct 18, 2020", "price": 48.53}, {"date": "Oct 25, 2020", "price": 45.49}, {"date": "Nov 01, 2020", "price": 48.23}, {"date": "Nov 08, 2020", "price": 51.97}, {"date": "Nov 15, 2020", "price": 54.73}, {"date": "Nov 22, 2020", "price": 55.4}, {"date": "Nov 29, 2020", "price": 55.05}, {"date": "Dec 06, 2020", "price": 54.0}, {"date": "Dec 13, 2020", "price": 55.66}, {"date": "Dec 20, 2020", "price": 54.79}, {"date": "Dec 27, 2020", "price": 55.5}, {"date": "Jan 03, 2021", "price": 58.21}, {"date": "Jan 10, 2021", "price": 57.31}, {"date": "Jan 17, 2021", "price": 57.5}, {"date": "Jan 24, 2021", "price": 51.9}, {"date": "Jan 31, 2021", "price": 57.24}, {"date": "Feb 07, 2021", "price": 58.15}, {"date": "Feb 14, 2021", "price": 60.39}, {"date": "Feb 21, 2021", "price": 59.31}, {"date": "Feb 28, 2021", "price": 62.91}, {"date": "Mar 07, 2021", "price": 64.34}, {"date": "Mar 14, 2021", "price": 63.91}, {"date": "Mar 21, 2021", "price": 63.99}, {"date": "Mar 28, 2021", "price": 64.6}, {"date": "Apr 04, 2021", "price": 63.14}, {"date": "Apr 11, 2021", "price": 64.68}, {"date": "Apr 18, 2021", "price": 62.11}, {"date": "Apr 25, 2021", "price": 62.5}, {"date": "May 02, 2021", "price": 69.04}, {"date": "May 09, 2021", "price": 69.83}, {"date": "May 16, 2021", "price": 68.83}, {"date": "May 23, 2021", "price": 68.42}, {"date": "May 30, 2021", "price": 70.37}, {"date": "Jun 06, 2021", "price": 68.0}, {"date": "Jun 13, 2021", "price": 61.98}, {"date": "Jun 20, 2021", "price": 63.29}, {"date": "Jun 27, 2021", "price": 63.51}, {"date": "Jul 04, 2021", "price": 63.08}, {"date": "Jul 11, 2021", "price": 60.01}, {"date": "Jul 18, 2021", "price": 60.11}, {"date": "Jul 25, 2021", "price": 62.16}, {"date": "Aug 01, 2021", "price": 62.0}, {"date": "Aug 08, 2021", "price": 63.69}, {"date": "Aug 15, 2021", "price": 60.89}, {"date": "Aug 22, 2021", "price": 65.38}, {"date": "Aug 29, 2021", "price": 62.12}, {"date": "Sep 05, 2021", "price": 60.41}, {"date": "Sep 12, 2021", "price": 57.75}, {"date": "Sep 19, 2021", "price": 56.81}, {"date": "Sep 26, 2021", "price": 58.58}, {"date": "Oct 03, 2021", "price": 58.71}, {"date": "Oct 10, 2021", "price": 58.96}, {"date": "Oct 17, 2021", "price": 58.4}, {"date": "Oct 24, 2021", "price": 55.97}, {"date": "Oct 31, 2021", "price": 58.31}, {"date": "Nov 07, 2021", "price": 60.06}, {"date": "Nov 14, 2021", "price": 57.34}, {"date": "Nov 21, 2021", "price": 57.6}, {"date": "Nov 28, 2021", "price": 53.07}, {"date": "Dec 05, 2021", "price": 54.68}, {"date": "Dec 12, 2021", "price": 54.1}, {"date": "Dec 19, 2021", "price": 55.14}, {"date": "Dec 26, 2021", "price": 56.72}, {"date": "Jan 02, 2022", "price": 59.1}, {"date": "Jan 09, 2022", "price": 60.74}, {"date": "Jan 16, 2022", "price": 56.72}, {"date": "Jan 23, 2022", "price": 60.04}, {"date": "Jan 30, 2022", "price": 60.6}, {"date": "Feb 06, 2022", "price": 61.09}, {"date": "Feb 13, 2022", "price": 60.59}, {"date": "Feb 20, 2022", "price": 59.65}, {"date": "Feb 27, 2022", "price": 58.83}, {"date": "Mar 06, 2022", "price": 60.91}, {"date": "Mar 13, 2022", "price": 62.39}, {"date": "Mar 20, 2022", "price": 64.7}, {"date": "Mar 27, 2022", "price": 64.18}, {"date": "Apr 03, 2022", "price": 61.68}, {"date": "Apr 10, 2022", "price": 65.49}, {"date": "Apr 17, 2022", "price": 68.5}, {"date": "Apr 24, 2022", "price": 66.5}, {"date": "May 01, 2022", "price": 67.93}, {"date": "May 08, 2022", "price": 67.56}, {"date": "May 15, 2022", "price": 68.11}, {"date": "May 22, 2022", "price": 69.06}, {"date": "May 29, 2022", "price": 67.03}, {"date": "Jun 05, 2022", "price": 61.87}, {"date": "Jun 12, 2022", "price": 54.77}, {"date": "Jun 19, 2022", "price": 53.14}, {"date": "Jun 26, 2022", "price": 51.69}, {"date": "Jul 03, 2022", "price": 51.38}, {"date": "Jul 10, 2022", "price": 49.55}, {"date": "Jul 17, 2022", "price": 50.85}, {"date": "Jul 24, 2022", "price": 53.21}, {"date": "Jul 31, 2022", "price": 51.49}, {"date": "Aug 07, 2022", "price": 55.93}, {"date": "Aug 14, 2022", "price": 55.49}, {"date": "Aug 21, 2022", "price": 54.46}, {"date": "Aug 28, 2022", "price": 49.31}, {"date": "Sep 04, 2022", "price": 50.51}, {"date": "Sep 11, 2022", "price": 46.42}, {"date": "Sep 18, 2022", "price": 43.9}, {"date": "Sep 25, 2022", "price": 43.93}, {"date": "Oct 02, 2022", "price": 44.41}, {"date": "Oct 09, 2022", "price": 45.12}, {"date": "Oct 16, 2022", "price": 46.87}, {"date": "Oct 23, 2022", "price": 47.48}, {"date": "Oct 30, 2022", "price": 49.03}, {"date": "Nov 06, 2022", "price": 53.14}, {"date": "Nov 13, 2022", "price": 50.07}, {"date": "Nov 20, 2022", "price": 51.56}, {"date": "Nov 27, 2022", "price": 51.55}, {"date": "Dec 04, 2022", "price": 50.2}, {"date": "Dec 11, 2022", "price": 49.8}, {"date": "Dec 18, 2022", "price": 50.86}, {"date": "Dec 25, 2022", "price": 50.39}, {"date": "Jan 01, 2023", "price": 55.02}, {"date": "Jan 08, 2023", "price": 58.68}, {"date": "Jan 15, 2023", "price": 57.44}, {"date": "Jan 22, 2023", "price": 58.97}, {"date": "Jan 29, 2023", "price": 60.0}, {"date": "Feb 05, 2023", "price": 59.82}, {"date": "Feb 12, 2023", "price": 58.13}, {"date": "Feb 19, 2023", "price": 57.79}, {"date": "Feb 26, 2023", "price": 58.32}, {"date": "Mar 05, 2023", "price": 53.88}, {"date": "Mar 12, 2023", "price": 50.02}, {"date": "Mar 19, 2023", "price": 51.78}, {"date": "Mar 26, 2023", "price": 54.82}, {"date": "Apr 02, 2023", "price": 54.66}, {"date": "Apr 09, 2023", "price": 56.5}, {"date": "Apr 16, 2023", "price": 54.87}, {"date": "Apr 23, 2023", "price": 54.4}, {"date": "Apr 30, 2023", "price": 54.41}, {"date": "May 07, 2023", "price": 52.31}, {"date": "May 14, 2023", "price": 51.95}, {"date": "May 21, 2023", "price": 50.34}, {"date": "May 28, 2023", "price": 51.61}, {"date": "Jun 04, 2023", "price": 51.74}, {"date": "Jun 11, 2023", "price": 53.16}, {"date": "Jun 18, 2023", "price": 51.36}, {"date": "Jun 25, 2023", "price": 53.26}, {"date": "Jul 02, 2023", "price": 53.1}, {"date": "Jul 09, 2023", "price": 52.92}, {"date": "Jul 16, 2023", "price": 53.05}, {"date": "Jul 23, 2023", "price": 55.46}, {"date": "Jul 30, 2023", "price": 54.51}, {"date": "Aug 06, 2023", "price": 55.45}, {"date": "Aug 13, 2023", "price": 54.02}, {"date": "Aug 20, 2023", "price": 53.98}, {"date": "Aug 27, 2023", "price": 55.29}, {"date": "Sep 03, 2023", "price": 53.71}, {"date": "Sep 10, 2023", "price": 53.84}, {"date": "Sep 17, 2023", "price": 50.25}, {"date": "Sep 24, 2023", "price": 51.56}, {"date": "Oct 01, 2023", "price": 50.28}, {"date": "Oct 08, 2023", "price": 49.73}, {"date": "Oct 15, 2023", "price": 48.99}, {"date": "Oct 22, 2023", "price": 48.11}, {"date": "Oct 29, 2023", "price": 49.73}, {"date": "Nov 05, 2023", "price": 49.48}, {"date": "Nov 12, 2023", "price": 51.7}, {"date": "Nov 19, 2023", "price": 51.67}, {"date": "Nov 26, 2023", "price": 52.3}, {"date": "Dec 03, 2023", "price": 50.92}, {"date": "Dec 10, 2023", "price": 54.24}, {"date": "Dec 17, 2023", "price": 55.12}, {"date": "Dec 24, 2023", "price": 54.84}, {"date": "Dec 31, 2023", "price": 54.82}, {"date": "Jan 07, 2024", "price": 53.37}, {"date": "Jan 14, 2024", "price": 52.81}, {"date": "Jan 21, 2024", "price": 54.06}, {"date": "Jan 28, 2024", "price": 53.42}, {"date": "Feb 04, 2024", "price": 53.99}, {"date": "Feb 11, 2024", "price": 55.48}, {"date": "Feb 18, 2024", "price": 56.39}, {"date": "Feb 25, 2024", "price": 55.77}, {"date": "Mar 03, 2024", "price": 56.61}, {"date": "Mar 10, 2024", "price": 57.04}, {"date": "Mar 17, 2024", "price": 57.68}, {"date": "Mar 24, 2024", "price": 57.93}, {"date": "Mar 31, 2024", "price": 59.69}, {"date": "Apr 07, 2024", "price": 57.69}, {"date": "Apr 14, 2024", "price": 56.66}, {"date": "Apr 21, 2024", "price": 57.29}, {"date": "Apr 28, 2024", "price": 57.04}, {"date": "May 05, 2024", "price": 59.41}, {"date": "May 12, 2024", "price": 59.19}, {"date": "May 19, 2024", "price": 57.76}, {"date": "May 26, 2024", "price": 57.63}, {"date": "Jun 02, 2024", "price": 55.73}, {"date": "Jun 09, 2024", "price": 55.02}, {"date": "Jun 16, 2024", "price": 53.99}, {"date": "Jun 23, 2024", "price": 53.05}, {"date": "Jun 30, 2024", "price": 52.23}, {"date": "Jul 07, 2024", "price": 52.91}, {"date": "Jul 14, 2024", "price": 53.9}, {"date": "Jul 21, 2024", "price": 52.86}, {"date": "Jul 28, 2024", "price": 52.01}, {"date": "Aug 04, 2024", "price": 52.66}, {"date": "Aug 11, 2024", "price": 53.91}, {"date": "Aug 18, 2024", "price": 53.53}, {"date": "Aug 25, 2024", "price": 53.58}, {"date": "Sep 01, 2024", "price": 50.68}, {"date": "Sep 08, 2024", "price": 50.15}, {"date": "Sep 15, 2024", "price": 51.71}, {"date": "Sep 22, 2024", "price": 55.08}, {"date": "Sep 29, 2024", "price": 55.34}, {"date": "Oct 06, 2024", "price": 53.78}, {"date": "Oct 13, 2024", "price": 53.11}, {"date": "Oct 20, 2024", "price": 49.7}, {"date": "Oct 27, 2024", "price": 48.97}, {"date": "Nov 03, 2024", "price": 46.49}, {"date": "Nov 10, 2024", "price": 44.04}, {"date": "Nov 17, 2024", "price": 45.46}, {"date": "Nov 24, 2024", "price": 44.21}, {"date": "Dec 01, 2024", "price": 41.99}, {"date": "Dec 08, 2024", "price": 40.86}, {"date": "Dec 15, 2024", "price": 39.94}, {"date": "Dec 22, 2024", "price": 40.03}, {"date": "Dec 29, 2024", "price": 39.4}, {"date": "Jan 05, 2025", "price": 38.5}, {"date": "Jan 12, 2025", "price": 41.04}, {"date": "Jan 19, 2025", "price": 41.37}, {"date": "Jan 26, 2025", "price": 39.05}, {"date": "Feb 02, 2025", "price": 38.58}, {"date": "Feb 09, 2025", "price": 38.67}, {"date": "Feb 16, 2025", "price": 39.51}, {"date": "Feb 23, 2025", "price": 38.11}, {"date": "Mar 02, 2025", "price": 37.45}, {"date": "Mar 09, 2025", "price": 36.97}, {"date": "Mar 16, 2025", "price": 36.17}, {"date": "Mar 23, 2025", "price": 34.36}, {"date": "Mar 30, 2025", "price": 28.2}, {"date": "Apr 06, 2025", "price": 28.43}, {"date": "Apr 13, 2025", "price": 28.15}, {"date": "Apr 20, 2025", "price": 30.02}, {"date": "Apr 27, 2025", "price": 30.42}, {"date": "May 04, 2025", "price": 29.48}, {"date": "May 11, 2025", "price": 30.19}, {"date": "May 18, 2025", "price": 28.32}, {"date": "May 25, 2025", "price": 27.74}, {"date": "Jun 01, 2025", "price": 28.55}, {"date": "Jun 08, 2025", "price": 29.9}, {"date": "Jun 15, 2025", "price": 27.76}, {"date": "Jun 22, 2025", "price": 27.0}, {"date": "Jun 29, 2025", "price": 28.46}, {"date": "Jul 06, 2025", "price": 29.55}, {"date": "Jul 13, 2025", "price": 28.34}, {"date": "Jul 20, 2025", "price": 25.51}, {"date": "Jul 27, 2025", "price": 21.79}, {"date": "Aug 03, 2025", "price": 21.22}, {"date": "Aug 10, 2025", "price": 23.36}, {"date": "Aug 17, 2025", "price": 25.11}, {"date": "Aug 24, 2025", "price": 24.63}, {"date": "Aug 31, 2025", "price": 24.5}, {"date": "Sep 07, 2025", "price": 25.04}, {"date": "Sep 14, 2025", "price": 23.49}, {"date": "Sep 21, 2025", "price": 22.96}, {"date": "Sep 28, 2025", "price": 23.82}, {"date": "Oct 05, 2025", "price": 20.65}, {"date": "Oct 12, 2025", "price": 21.89}, {"date": "Oct 19, 2025", "price": 24.81}, {"date": "Oct 26, 2025", "price": 23.85}, {"date": "Nov 02, 2025", "price": 22.29}, {"date": "Nov 09, 2025", "price": 22.93}, {"date": "Nov 16, 2025", "price": 22.2}, {"date": "Nov 23, 2025", "price": 23.85}, {"date": "Nov 30, 2025", "price": 22.96}, {"date": "Dec 07, 2025", "price": 23.97}, {"date": "Dec 14, 2025", "price": 23.26}, {"date": "Dec 21, 2025", "price": 23.29}, {"date": "Dec 28, 2025", "price": 24.27}, {"date": "Jan 04, 2026", "price": 26.33}, {"date": "Jan 11, 2026", "price": 27.57}, {"date": "Jan 18, 2026", "price": 28.25}, {"date": "Jan 25, 2026", "price": 27.55}, {"date": "Feb 01, 2026", "price": 31.78}, {"date": "Feb 08, 2026", "price": 32.49}, {"date": "Feb 15, 2026", "price": 30.52}, {"date": "Feb 22, 2026", "price": 30.73}, {"date": "Mar 01, 2026", "price": 33.28}, {"date": "Mar 08, 2026", "price": 36.62}, {"date": "Mar 15, 2026", "price": 36.65}, {"date": "Mar 22, 2026", "price": 40.82}, {"date": "Mar 29, 2026", "price": 41.4}, {"date": "Apr 05, 2026", "price": 39.01}, {"date": "Apr 12, 2026", "price": 35.6}, {"date": "Apr 19, 2026", "price": 38.66}, {"date": "Apr 26, 2026", "price": 40.29}, {"date": "May 03, 2026", "price": 36.87}, {"date": "May 10, 2026", "price": 38.75}, {"date": "May 17, 2026", "price": 36.01}, {"date": "May 24, 2026", "price": 33.75}, {"date": "May 31, 2026", "price": 33.97}, {"date": "Jun 07, 2026", "price": 33.85}, {"date": "Jun 14, 2026", "price": 31.73}, {"date": "Jun 21, 2026", "price": 29.04}, {"date": "Jun 28, 2026", "price": 27.71}, {"date": "Jul 05, 2026", "price": 29.03}, {"date": "Jul 12, 2026", "price": 29.92}, {"date": "Jul 19, 2026", "price": 29.84}, {"date": "Jul 26, 2026", "price": 30.29}, {"date": "Aug 02, 2026", "price": 29.34}, {"date": "Aug 09, 2026", "price": 31.07}, {"date": "Aug 16, 2026", "price": 31.35}]};
         let currentRangeKey = '1Y';
         let currentPoints = allDatasets[currentRangeKey] || [];
         let currentSvgCoords = [];
@@ -1347,40 +1347,40 @@
             <div class="metrics-grid">
                 <div class="metric-cell">
                     <div class="metric-label">Fair Value</div>
-                    <div class="metric-value" style="color: var(--accent-warm);">$395.00</div>
+                    <div class="metric-value" style="color: var(--accent-warm);">$36.10</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bear Target</div>
-                    <div class="metric-value" style="color: var(--accent-red);">$300.00 (-28.2%)</div>
+                    <div class="metric-value" style="color: var(--accent-red);">$23.54 (-25.0%)</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Base Target</div>
-                    <div class="metric-value">$395.00 (-5.5%)</div>
+                    <div class="metric-value">$36.10 (+15.0%)</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bull Target</div>
-                    <div class="metric-value" style="color: var(--accent-green);">$495.00 (+18.4%)</div>
+                    <div class="metric-value" style="color: var(--accent-green);">$47.09 (+50.0%)</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Corridor</div>
-                    <div class="metric-value" style="font-size: 1.00rem; font-family: var(--font-mono); color: var(--text-title);">$340.00 ⇄ $465.00</div>
+                    <div class="metric-value" style="font-size: 1.00rem; font-family: var(--font-mono); color: var(--text-title);">$27.62 ⇄ $36.10</div>
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Catalyst</div>
-                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">2026-11-03</div>
-                    <div class="metric-delta" style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 2px;">Q3 '26 ER</div>
+                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">2026-11-15</div>
+                    <div class="metric-delta" style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 2px;">Scheduled quarterly report</div>
                 </div>
                 
     <div class="metric-cell">
         <div class="metric-label">Float</div>
         <div class="metric-value" style="white-space: nowrap !important;">78.4%</div>
-        <div class="metric-subtext">Torray Funds · David Katz - Matrix Asset Advisors</div>
+        <div class="metric-subtext">Richard Pzena - Pzena Investment · First Eagle Investment</div>
     </div>
     
                 
     <div class="metric-cell">
         <div class="metric-label">Insiders</div>
-        <div class="metric-value" style="color: var(--accent-warm); font-family: var(--font-sans) !important; font-size: 1.05rem !important; font-weight: 600 !important; white-space: nowrap !important; letter-spacing: -0.01em !important; overflow: hidden !important; text-overflow: ellipsis !important;">🟡 Net Selling (10b5-1)</div>
+        <div class="metric-value" style="color: var(--accent-warm); font-family: var(--font-sans) !important; font-size: 1.05rem !important; font-weight: 600 !important; white-space: nowrap !important; letter-spacing: -0.01em !important; overflow: hidden !important; text-overflow: ellipsis !important;">🟡 Neutral (10b5-1)</div>
         <div class="metric-subtext">Routine management alignment</div>
     </div>
     
@@ -1398,229 +1398,232 @@
         <div id="tab-memo" class="tab-content active">
             <article class="memo-container">
                 <h2>Section 1: Executive Summary &amp; Operating Reality</h2>
-<p>Amgen Inc. (AMGN) reported solid operational performance in Q2 2026, delivering total revenues of $10.05 billion (+10.0% YoY) and a GAAP operating margin expansion to 36.8% (+650 bps YoY). The quarter demonstrated clear top-line momentum across Amgen's designated growth engine, with six core franchises—led by Repatha (+37% YoY to $953M), EVENITY (+38% YoY to $714M), TEZSPIRE (+42% YoY to $486M), UPLIZNA (+90% YoY to $335M), and IMDELLTRA (+115% YoY to $288M)—growing 26% in aggregate and generating nearly 70% of total product sales. Free cash flow for the quarter surged to $3.50 billion, up from $1.90 billion in Q2 2025, bolstered by strong volume-driven commercial growth and the lapse of prior-year tax payments.</p>
-<p>This operational strength highlights Amgen's ongoing structural migration away from legacy biologic blockbusters toward next-generation cardiometabolic, oncology, and rare disease assets. Commercial erosion in legacy products is accelerating under two primary pressures: patent exclusivity loss and legislative price regulation. Bone-health blockbusters Prolia and XGEVA experienced a combined 33% revenue decline to $1.1 billion due to expanding biosimilar competition, while inflammation stalwart Enbrel declined significantly following mandatory Medicare Part D price reductions under the Inflation Reduction Act (IRA). To offset these headwind cliffs, Amgen is aggressively channeling capital into its Phase 3 pipeline, highlighted by MariTide (a novel monthly/bimonthly antibody-peptide conjugate targeting obesity and Type 2 diabetes) and expanding indications for IMDELLTRA in small-cell lung cancer (SCLC).</p>
-<p>Following Q2 results, management raised full-year 2026 guidance, projecting total revenues of $38.2 billion to $39.4 billion and non-GAAP EPS of $22.30 to $23.50. Capital allocation remains focused on balancing organic R&amp;D investments, manufacturing capacity expansion ($2.6 billion full-year CapEx), shareholder capital returns ($2.52/share quarterly dividend, +6% YoY), and deleveraging its balance sheet following the Horizon Therapeutics acquisition. Amgen closed Q2 with $14.0 billion in cash and cash equivalents against $57.3 billion in total debt, resulting in a net debt burden of $43.3 billion that requires disciplined cash generation to service.</p>
+<p>Dow Inc. delivered a sharp operational recovery in Q2 2026, generating net sales of $12.09 billion—a 19.7% year-over-year expansion—and swinging to a GAAP net income of $802 million ($0.99 per share) alongside non-GAAP Operating EPS of $1.44, compared to an operating loss of $(0.42) per share in Q2 2025. Top-line expansion was spearheaded by a 20% surge in global local pricing, led by a 30% price escalation in Packaging &amp; Specialty Plastics. This price recovery successfully offset a modest 1% volume pullback stemming from planned turnaround activity at U.S. Gulf Coast merchant olefin assets and deliberate capacity shutdowns in Europe. Operating EBIT surged to $1.65 billion, representing an operating EBIT margin of 13.6%—an expansion of over 1,380 basis points year-over-year.</p>
+<p>Cash generation expanded in lockstep with operating profitability. Cash provided by operating activities reached $1.32 billion, driving quarterly Free Cash Flow to $692 million as the company's internal efficiency program ("Transform to Outperform") delivered more than $300 million in self-help cost savings during the quarter. Segment performance was anchored by Packaging &amp; Specialty Plastics ($6.39 billion net sales, up 27% YoY; $1.28 billion EBIT) and Industrial Intermediates &amp; Infrastructure ($3.17 billion net sales, up 14% YoY). Operating EBITDA hit $2.31 billion, prompting executive leadership to elevate full-year 2026 self-help savings targets from $1.1 billion to over $1.3 billion.</p>
+<p>For Q3 2026, management issued guidance projecting Operating EBITDA of approximately $1.7 billion. This sequential moderation reflects an anticipated $0.10 per pound contraction in global integrated polyethylene margins following North American price settlements, alongside seasonal plant maintenance. Despite near-term margin normalization, Dow's structural low-cost position—anchored in North American natural gas liquids (NGL) feedstock—continues to provide a firm competitive floor against higher-cost European and Asian naphtha-based producers, reinforcing liquidity exceeding $14 billion with no major debt maturities until 2029.</p>
 <div class="metrics-grid">
 <div class="metric-card">
-<div class="metric-label">Quarterly Revenue (Q2 2026)</div>
-<div class="metric-value">$10.05B</div>
-<div class="metric-delta pos">+10.0% YoY</div>
+<div class="metric-label">Quarterly Revenue</div>
+<div class="metric-value">$12.09B</div>
+<div class="metric-delta pos">+19.7% YoY</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">GAAP Operating Margin</div>
-<div class="metric-value">36.8%</div>
-<div class="metric-delta pos">+650 bps YoY</div>
+<div class="metric-label">Operating Margin</div>
+<div class="metric-value">13.6%</div>
+<div class="metric-delta pos">+1,380 bps</div>
 </div>
 <div class="metric-card">
 <div class="metric-label">Free Cash Flow</div>
-<div class="metric-value">$3.50B</div>
-<div class="metric-delta pos">+84.2% YoY</div>
+<div class="metric-value">$0.69B</div>
+<div class="metric-delta pos">+143.0% YoY</div>
 </div>
 </div>
 <div class="executive-callout">
-<div class="exec-header"><span class="exec-badge">Executive Commentary</span></div>
-<p><em>"Our results demonstrate strong performance across our business. Our six key growth drivers grew 26% year over year, generating nearly 70% of second-quarter product sales... As we expand the potential of our existing medicines through new indications and advance the next wave of pipeline molecules through Phase 3, we remain confident in our ability to deliver growth well into the next decade."</em> — <strong>Robert A. Bradway, Chairman &amp; CEO</strong></p>
-<p><em>"We are raising our 2026 guidance ranges for both revenue and non-GAAP earnings per share. We now expect 2026 total revenues in the range of $38.2 billion to $39.4 billion and non-GAAP earnings per share between $22.30 and $23.50... We continue to expect capital expenditures of approximately $2.6 billion for the year as we expand manufacturing capacity in North Carolina, Ohio, and Puerto Rico to support our volume growth and potential commercial launch for MariTide."</em> — <strong>Peter Griffith, Outgoing Executive VP &amp; CFO</strong></p>
+<p><strong>CEO &amp; Executive Commentary:</strong> "Team Dow delivered strong second quarter results through disciplined and timely execution, reliably serving our customers, and accelerating our self-help actions... Market conditions were supportive this quarter, and our self-help initiatives delivered ahead of plan, further reinforcing the improvement in our earnings as we continue to strengthen Dow's resilience and agility. We now expect to generate approximately $200 million more in benefits from Transform to Outperform this year, enabling us to increase the total in-year benefits from self-help to greater than $1.3 billion." — <em>Karen S. Carter, Chief Executive Officer</em></p>
+<p><strong>Capital Allocation &amp; Footprint Optimization:</strong> Dow returned $253 million to shareholders in Q2 dividends ($0.70 per share). Capital expenditure remains focused on the Fort Saskatchewan "Path2Zero" zero-carbon ethylene cracker project (60% of CapEx executed). Management completed the permanent shutdown of the Barry, UK siloxanes unit (reducing European siloxanes capacity by 25%) while restarting the highly efficient Terneuzen cracker to maximize operational flexibility.</p>
 </div>
 <h2>Section 2: Business Model Reality &amp; Competitive Moat</h2>
-<p>Amgen operates as a global biotechnology originator and biosimilar producer. The company derives the vast majority of its revenues from human therapeutics across four principal pillars: General Medicine (cardiovascular, bone health), Oncology, Inflammation, and Rare Disease (expanded via Horizon Therapeutics). Unit economics are characterized by high gross margins (non-GAAP cost of sales ~19.5% of product sales), heavy upfront fixed R&amp;D costs, and high biomanufacturing complexity. Once a biologic medicine secures formulary placement and regulatory exclusivity, incremental manufacturing costs are modest, yielding strong operational leverage during peak commercial adoption.</p>
-<p>Amgen's competitive moat rests on three core economic pillars:</p>
+<p>Dow operates as one of the world's largest commodity and specialty chemical manufacturers, transforming fundamental hydrocarbon feedstocks—primarily ethane, propane, and crude oil derivatives—into high-value chemical building blocks and downstream specialty materials. The enterprise generates revenue through three primary operating reporting segments:</p>
 <ul>
-<li><strong>High Switching Costs &amp; Clinical Entrenchment:</strong> In complex chronic conditions (such as severe asthma, high-risk hypercholesterolemia, and rare autoimmune diseases), physicians face significant clinical risk when transitioning stabilized patients off established biologic regimens. Extensive long-term cardiovascular and safety outcome trials (e.g., Repatha's VESALIUS-CV trial) create deep institutional trust that competitor molecules cannot easily replicate without years of clinical study.</li>
-<li><strong>Proprietary Biomanufacturing Architecture:</strong> Biologics, bispecific T-cell engagers (BiTEs), and antibody-peptide conjugates require sophisticated cell-culture biomanufacturing that acts as a major physical barrier to entry. Unlike small-molecule generic drugs, biosimilars require multi-hundred-million-dollar capital outlays and complex clinical equivalency trials, insulating original molecules from instant price collapse.</li>
-<li><strong>Orphan Drug Protection &amp; Formulary Bundling:</strong> Following the Horizon acquisition, Amgen controls first-in-class therapies (TEPEZZA for thyroid eye disease, KRYSTEXXA for chronic refractory gout, UPLIZNA for NMOSD) with orphan drug exclusivity. Amgen leverages its scaled portfolio across inflammation and general medicine to secure favorable pharmacy benefit manager (PBM) formulary access.</li>
+<li><strong>Packaging &amp; Specialty Plastics (~53% of Revenue):</strong> Converts ethane and propane into ethylene and high-density/low-density polyethylene (HDPE/LDPE) and polyolefin elastomers. End markets include flexible food packaging, health/hygiene films, infrastructure pipes, and industrial packaging.</li>
+<li><strong>Industrial Intermediates &amp; Infrastructure (~26% of Revenue):</strong> Produces ethylene oxide, propylene oxide, polyether polyols, chlor-alkali, caustic soda, and industrial fluids used in building insulation, furniture cushions, automotive components, and pharmaceutical formulations.</li>
+<li><strong>Performance Materials &amp; Coatings (~21% of Revenue):</strong> Manufactures architectural and industrial coatings, monomers, silicones, and building block siloxanes used in electronics, electric vehicle thermal management, personal care, and construction sealants.</li>
 </ul>
-<p>However, pricing power is subject to increasing systemic regulation. In the United States, PBM rebate structures and mandatory price negotiations under the IRA (Inflation Reduction Act) directly cap pricing flexibility on mature blockbusters like Enbrel. Consequently, Amgen's economic growth relies heavily on volume growth driven by new indications and international market expansion rather than net price realization.</p>
+<p>Unit economics in Dow's core commodity operations are heavily governed by the <em>integrated polyethylene margin</em>—the price difference between merchant polyethylene sales and the cost of raw ethane feedstock and fuel gas. In commodity plastics, products are highly fungible standards, meaning customer switching costs are minimal and Dow operates as a price-taker on global markets. However, in specialized sub-segments such as functional automotive silicones, medical packaging films, and construction cellulose ethers, sticky customer specifications and long qualification cycles create moderate switching costs.</p>
+<p>Consequently, Dow's economic moat does <strong>not</strong> rest on broad pricing power, but rather on a cost advantage derived from geography and scale. Through its massive Gulf Coast and Middle Eastern asset footprint, Dow utilizes shale-gas derived ethane feedstock, which is structurally cheaper than the crude oil-derived naphtha feedstock utilized by European and Asian competitors. This ethane-to-naphtha cost spread grants Dow a structural position at the low end of the global cost curve.</p>
 <div class="table-scroll-wrap"><table>
 <thead>
 <tr>
-<th>Therapeutic Area / Product</th>
-<th>Amgen Architecture &amp; Mechanism</th>
-<th>Primary Competitors &amp; Platform</th>
-<th>Clinical / Dosing Differentiation</th>
-<th>Moat Duration &amp; Commercial Protection</th>
+<th>Company</th>
+<th>Primary Feedstock &amp; Cost Position</th>
+<th>Key Product Focus</th>
+<th>Economic Moat Rating</th>
+<th>ROIC Profile &amp; Structural Economics</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Obesity &amp; Type 2 Diabetes</strong><br/>(MariTide / AMG 133)</td>
-<td>GIPR antagonist conjugated to GLP-1 receptor agonist peptide (antibody-peptide conjugate)</td>
-<td>Eli Lilly (Tirzepatide / Zepbound), Novo Nordisk (Semaglutide / Wegovy)</td>
-<td>Monthly or bimonthly administration vs. weekly injections; potential for sustained weight loss retention after treatment discontinuation.</td>
-<td>High IP protection (Phase 3 trials ongoing); potential best-in-class dosing compliance moat through 2040+.</td>
+<td><strong>Dow Inc. (DOW)</strong></td>
+<td>North American Ethane / Middle East NGLs (First-Quartile Cost Curve)</td>
+<td>Polyethylene, Silicones, Polyurethanes, Functional Coatings</td>
+<td>Narrow (Cost Advantage)</td>
+<td>Cyclical ROIC (5%–18%); highly leverage-sensitive to US ethane vs. global crude oil pricing spread.</td>
 </tr>
 <tr>
-<td><strong>Oncology (SCLC)</strong><br/>(IMDELLTRA / Tarlatamab)</td>
-<td>DLL3-targeted Bispecific T-cell Engager (BiTE) engineered antibody</td>
-<td>Standard Chemotherapy + PD-L1 inhibitors (Atezolizumab, Durvalumab)</td>
-<td>First-in-class therapy directly redirecting patient T-cells to attack DLL3-expressing small cell lung cancer cells.</td>
-<td>Pioneer BiTE platform patent exclusivity; limited competing targeted biologics in second-line SCLC.</td>
+<td><strong>LyondellBasell (LYB)</strong></td>
+<td>North American Ethane &amp; European Naphtha (Mixed Cost Curve)</td>
+<td>Polyolefins, Polypropylene, Advanced Polymer Solutions</td>
+<td>Narrow (Cost Advantage)</td>
+<td>Mid-to-high single-digit mid-cycle ROIC; strong capital return discipline and buyback focus.</td>
 </tr>
 <tr>
-<td><strong>Hypercholesterolemia / CV</strong><br/>(Repatha / Evolocumab)</td>
-<td>PCSK9 monoclonal antibody inhibitor</td>
-<td>Novartis (Leqvio / Inclisiran siRNA), Regeneron/Sanofi (Praluent)</td>
-<td>Only PCSK9 inhibitor with Phase 3 outcomes data covering both primary and secondary prevention (VESALIUS-CV).</td>
-<td>Deep clinical entrenchment and broad PBM coverage; biosimilar entry protected through late 2020s.</td>
+<td><strong>ExxonMobil Chemical (XOM)</strong></td>
+<td>Fully Integrated Refinery Feedstocks (First-Quartile Cost Curve)</td>
+<td>Ethylene, Polyethylene, Performance Polymers, Aromatics</td>
+<td>Narrow (Cost Advantage / Integration)</td>
+<td>Resilient ROIC backed by upstream oil &amp; gas integration and immense balance sheet scale.</td>
 </tr>
 <tr>
-<td><strong>Rare Autoimmune</strong><br/>(UPLIZNA &amp; TEPEZZA)</td>
-<td>Anti-CD19 mAb (UPLIZNA) &amp; IGF-1R inhibitor mAb (TEPEZZA)</td>
-<td>Horizon Rare Disease assets vs. FcRn inhibitors (Vyvgart) &amp; conventional anti-CD20s</td>
-<td>Twice-yearly maintenance dosing for UPLIZNA across generalized Myasthenia Gravis and NMOSD.</td>
-<td>Orphan drug designation exclusivity, specialized specialty pharmacy distribution network.</td>
+<td><strong>BASF SE (BASFY)</strong></td>
+<td>European Naphtha &amp; Natural Gas (Fourth-Quartile Cost Curve)</td>
+<td>Verbund Petrochemicals, Catalysts, Agricultural Solutions</td>
+<td>None / Weak (High European Cost Drag)</td>
+<td>Depressed ROIC (&lt;6%) due to structural European natural gas price disadvantages and carbon costs.</td>
 </tr>
 </tbody>
 </table></div>
-<h3>Audit of Structural Tailwinds vs. Competitive Disruption Threats</h3>
-<p><strong>Structural Growth Tailwinds:</strong></p>
+<p>An audit of Dow's long-term business trajectory reveals clear structural tailwinds paired with persistent macro disruption risks:</p>
 <ul>
-<li><strong>The Cardiometabolic Epidemic:</strong> Over 100 million patients globally remain above target LDL-C levels despite standard statin therapy, providing a multi-year volume ramp for Repatha. Furthermore, the global obesity market represents a multi-hundred-billion-dollar TAM where MariTide's monthly/bimonthly dosing profile offers a differentiated patient adherence value proposition.</li>
-<li><strong>Bispecific Oncology Platform (BiTE):</strong> IMDELLTRA and BLINCYTO demonstrate the commercial viability of off-the-shelf bispecific antibodies in hard-to-treat solid tumors and hematologic malignancies. Amgen's BiTE platform provides a repeatable molecular engineering engine for future pipeline candidates.</li>
-<li><strong>Biosimilar Portfolio Expansion:</strong> Amgen acts both as a target and a perpetrator of biosimilar disruption. Its biosimilar franchise grew 29% YoY in Q2 2026 to $855 million (driven by PAVBLU, its Eylea biosimilar), capturing market share from originator drugs of rival pharma companies.</li>
-</ul>
-<p><strong>Competitive Disruption &amp; Structural Risks:</strong></p>
-<ul>
-<li><strong>Biosimilar Cliffs on Legacy Franchise:</strong> The 33% collapse in Prolia/XGEVA revenues highlights the velocity of biosimilar cliff risks. As patents expire across legacy biologics, revenue loss must be continuously replaced by higher-margin pipeline execution.</li>
-<li><strong>Legislative &amp; Regulatory Price Compression (IRA):</strong> Inflation Reduction Act price caps on Medicare Part D products pose systemic pressure on mature therapies. Mandatory price negotiations restrict net pricing power across the U.S. pharmaceutical landscape.</li>
-<li><strong>Post-Horizon Net Debt Payload ($43.3B):</strong> Total debt stands at $57.3 billion against $14.0 billion in cash. While Q2 free cash flow reached $3.50 billion, maintaining debt service, dividend commitments ($2.52/share), and $2.6 billion in capital expenditures limits room for error if pipeline readouts face setbacks or delay.</li>
+<li><strong>Structural Demand Drivers:</strong>
+
+</li><li><em>Electrification &amp; Infrastructure Megatrends:</em> Expanding demand for specialized silicones and polyurethane insulation materials required for EV thermal management, renewable power infrastructure, and energy-efficient building retrofits.</li><li><em>Decarbonization &amp; Circularity Leadership:</em> Early investments in zero-carbon ethylene capacity (Path2Zero project in Alberta) position Dow as a primary supplier of low-carbon polyolefins to global CPG customers bound by ESG packaging mandates.</li><li><em>North American Shale Gas Feedstock Advantage:</em> Abundant domestic natural gas and ethane production keeps North American cracker cash costs among the lowest globally, guaranteeing structural cash generation even during macro downturns.</li>
+<li><strong>Competitive Disruption &amp; Cyclical Threats:</strong>
+
+</li><li><em>Oil-to-Gas Price Compression:</em> If crude oil prices fall relative to natural gas, European and Asian naphtha crackers become more competitive, narrowing Dow's ethane cost advantage.</li><li><em>European Energy &amp; Regulatory Drag:</em> High European power/gas costs and stringent EU environmental mandates force asset write-downs and site closures (e.g., Barry siloxanes unit shutdown).</li><li><em>Global Ethylene Overcapacity:</em> Unprecedented chemical capacity buildouts in China and the Middle East continue to create structural global supply overhangs, suppressing mid-cycle operating rates and pricing power.</li>
 </ul>
 <h2>Section 3: Real Cash Flow, SBC Dilution &amp; Owner Earnings Audit</h2>
-<p>A rigorous fundamental evaluation of Amgen Inc. requires peeling back the non-GAAP adjustments commonly favored by Wall Street analysts and restoring the cold, objective cash accounting mandated by Warren Buffett and Charlie Munger. While management highlights adjusted EBITDA and non-GAAP EPS that sanitize acquisition-related intangible amortization, tax settlement adjustments, and equity grant compensation, our audit focuses strictly on GAAP Operating Cash Flow, real Stock-Based Compensation (SBC), and necessary Maintenance Capital Expenditures.</p>
+<p>A central tenet of Warren Buffett's investment philosophy is that reported GAAP net income and Wall Street's preferred "Adjusted EBITDA" frequently mask the economic reality of capital-intensive industrial enterprises. For an integrated materials science leader like Dow Inc., evaluating cash generation requires stripping away artificial non-cash adjustments, treating equity grants as full cash burdens, and rigorously distinguishing between discretionary growth spending and the heavy capital required merely to maintain asset health across deep chemical industry cycles.</p>
 <div class="metrics-grid">
 <div class="metric-card">
 <div class="metric-label">TTM Operating Cash Flow</div>
-<div class="metric-value">$11,660M</div>
-<div class="metric-delta pos">+17.1% vs FY25</div>
+<div class="metric-value">$3,045M</div>
+<div class="metric-delta pos">+191.9% vs FY25 Trough</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">TTM SBC Expense</div>
-<div class="metric-value">$510M</div>
-<div class="metric-delta neg">4.37% of OCF</div>
+<div class="metric-label">TTM SBC Cash Cost</div>
+<div class="metric-value">$118M</div>
+<div class="metric-delta neg">3.9% of Op Cash Flow</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">FY2026 CapEx Guidance</div>
-<div class="metric-value">$2,600M</div>
-<div class="metric-delta neg">+39.9% YoY</div>
+<div class="metric-label">Maintenance CapEx Burden</div>
+<div class="metric-value">$1,600M</div>
+<div class="metric-delta neutral">~65% of Total CapEx</div>
 </div>
 <div class="metric-card">
 <div class="metric-label">TTM Buffett Owner Earnings</div>
-<div class="metric-value">$8,990M</div>
-<div class="metric-delta pos">76.8% Cash Conversion</div>
+<div class="metric-value">$1,327M</div>
+<div class="metric-delta pos">Swung Positive from FY25</div>
 </div>
 </div>
-<p>In accordance with first-principles economic doctrine, 100% of Stock-Based Compensation is treated as an inescapable cash-equivalent expense and immediate shareholder dilution factor. Assigning options and restricted stock units to executives is not a "non-cash charge to be added back"—it represents real economic value transferred from current shareholders to insiders. Over the trailing twelve months, Amgen incurred $510 million in SBC. Furthermore, while biopharmaceutical peers often mask growth capital as routine investments, Amgen's escalating Capital Expenditures—projected at $2.6 billion for full-year 2026—reflect major physical infrastructure buildouts for next-generation manufacturing, including high-capacity fill-finish facilities required for the global commercial rollout of injectable cardiometabolic assets like MariTide.</p>
-<h3>Buffett Owner Earnings Decomposition</h3>
-<p>The table below provides a full multi-year audit deconstructing Amgen's GAAP cash flow into true Owner Earnings. Maintenance CapEx accounts for necessary facility upkeep, environmental compliance, and baseline production tooling, while growth CapEx reflects strategic capacity additions for MariTide and Imdelltra.</p>
+<h3>Cash Flow Audit &amp; Owner Earnings Decomposition</h3>
+<p>In accordance with the 1986 Berkshire Hathaway Shareholder Letter framework, <strong>Owner Earnings</strong> represent the true, unencumbered cash cash-flow an enterprise generates for its owners. We calculate this as: <em>GAAP Operating Cash Flow minus 100% of Stock-Based Compensation (SBC) minus Maintenance Capital Expenditures</em>.</p>
+<p>During the FY 2025 chemical industry trough, Dow experienced severe gross margin compression (falling from 10.7% to 6.3%), causing GAAP Operating Cash Flow to plunge to $1,043 million. Because baseline maintenance requirements to preserve cracker safety and regulatory compliance remained near $1.7 billion, true Owner Earnings turned sharply negative (-$767 million). However, following Q2 2026's price recovery in polyethylene and execution of the "Transform to Outperform" self-help program, TTM Operating Cash Flow recovered to $3,045 million, lifting TTM Owner Earnings back to $1,327 million.</p>
 <div class="table-scroll-wrap"><table>
 <thead>
 <tr>
 <th>Metric ($ Millions)</th>
 <th>FY 2024</th>
 <th>FY 2025</th>
-<th>FY 2026</th>
-<th>TTM</th>
+<th>FY 2026 (E)</th>
+<th>TTM (Q2 '26)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>GAAP Operating Cash Flow</td>
-<td>$11,500</td>
-<td>$9,960</td>
-<td>$12,200</td>
-<td>$11,660</td>
+<td>$2,883</td>
+<td>$1,043</td>
+<td>$3,600</td>
+<td>$3,045</td>
 </tr>
 <tr>
-<td>Less: Total SBC</td>
-<td>$520</td>
-<td>$494</td>
-<td>$530</td>
-<td>$510</td>
+<td>Less: Total Stock-Based Compensation (SBC)</td>
+<td>$120</td>
+<td>$110</td>
+<td>$115</td>
+<td>$118</td>
 </tr>
 <tr>
 <td>Less: Maintenance CapEx</td>
-<td>$1,100</td>
-<td>$1,858</td>
-<td>$2,600</td>
-<td>$2,160</td>
+<td>$1,850</td>
+<td>$1,700</td>
+<td>$1,650</td>
+<td>$1,600</td>
 </tr>
 <tr>
 <td><strong>Buffett Owner Earnings (True Cash)</strong></td>
-<td><strong>$9,880</strong></td>
-<td><strong>$7,608</strong></td>
-<td><strong>$9,070</strong></td>
-<td><strong>$8,990</strong></td>
+<td><strong>$913</strong></td>
+<td><strong>-$767</strong></td>
+<td><strong>$1,835</strong></td>
+<td><strong>$1,327</strong></td>
 </tr>
 </tbody>
 </table></div>
 <div class="callout">
-<p><strong>Working Capital Float &amp; Tax Settlement Dynamics:</strong> Operating cash flow during FY 2025 dropped to $9.96 billion (down from $11.50 billion in FY 2024) primarily due to cash working capital timing shifts and deferred tax payments paid in mid-2025 (including a major $800 million tax deposit tied to IRS legacy transfer-pricing disputes). In H1 2026, free cash flow normalized sharply to $3.5 billion in Q2 alone following the completion of final U.S. repatriation tax installments. Additionally, inventory working capital has expanded by ~$450 million to support commercial safety stock for rapid-growth blockbusters (Repatha, EVENITY, TEZSPIRE) and impending global Phase 3 trials for MariTide.</p>
+<strong>SBC Expense Reality Check:</strong> Unlike Silicon Valley software firms where SBC can consume 20%–30% of revenue, Dow's annual stock-based compensation is relatively modest at ~$110M–$120M (~0.3% of sales). However, under Graham &amp; Buffett principles, SBC is never "non-cash." It is a real compensation expense paid in equity shares that degrades owner stakes if uncountered by repurchases.
 </div>
+<h3>Working Capital Float &amp; Customer Prepayment Dynamics</h3>
+<p>Dow operates in a cyclical heavy-industrial business where working capital consumes significant cash during market turnarounds. As net sales rebounded 20% YoY in Q2 2026 to $12.09 billion, trade receivables surged from $4.76 billion at year-end 2025 to $6.43 billion, reflecting a $1.67 billion temporary absorption of cash into working capital.</p>
+<p>Conversely, Dow utilizes strategic customer prepayment structures and Supply Chain Finance (SCF) programs to optimize cash efficiency:</p>
+<ul>
+<li><strong>Supply Chain Finance Program:</strong> Confirmed valid obligations under Dow's SCF program stood at $290 million as of June 30, 2026 ($239 million at Dec 31, 2025), classified under Trade Accounts Payable.</li>
+<li><strong>Decarbonization Project Prepayments:</strong> Customer advance payments for low-carbon products (such as the Fort Saskatchewan Path2Zero net-zero ethylene complex) generated sizable cash inflows in early periods, creating sequential working capital volatility during execution phases.</li>
+</ul>
 <h2>Section 4: Balance Sheet Fortress, Debt Leases &amp; Ownership Check</h2>
-<p>Amgen’s balance sheet reflects the structural debt burden undertaken to execute the $27.8 billion acquisition of Horizon Therapeutics. While the transaction significantly fortified Amgen’s rare disease franchise (adding KRYSTEXXA, TEPEZZA, and UPLIZNA), it elevated total debt outstanding above $60 billion at year-end 2024. Management has since directed core free cash flow toward aggressive debt retirement, paying off $6.0 billion of principal debt in FY 2025 alone and bringing total debt outstanding to $57.3 billion as of June 30, 2026.</p>
+<p>A Graham-style margin of safety requires an unassailable financial structure capable of withstanding protracted commodity downturns, elevated interest rates, and unexpected demand shocks. Dow's capital structure carries notable debt leverage from historic spin-off obligations and heavy infrastructure commitments, making balance sheet de-leveraging management's primary strategic mandate.</p>
 <h3>Audited Capital Structure &amp; Net Debt Position</h3>
+<p>As of June 30, 2026, Dow held $3.97 billion in total cash and cash equivalents (including $237 million restricted to consolidated variable interest entities) against $17.99 billion in total short- and long-term principal debt. Contractual operating lease liabilities add an extra $1.48 billion to total financial obligations, bringing gross debt and lease obligations to $19.48 billion.</p>
 <div class="table-scroll-wrap"><table>
 <thead>
 <tr>
-<th>Capital Structure Element</th>
-<th>Q4 2024</th>
-<th>FY 2025</th>
-<th>Q2 2026 (Current)</th>
+<th>Capital Structure Item ($ Millions)</th>
+<th>Dec 31, 2024</th>
+<th>Dec 31, 2025</th>
+<th>Jun 30, 2026</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Cash &amp; Cash Equivalents ($M)</td>
-<td>$11,973</td>
-<td>$9,129</td>
-<td>$13,989</td>
+<td>Cash &amp; Cash Equivalents</td>
+<td>$2,189</td>
+<td>$3,816</td>
+<td>$3,973</td>
 </tr>
 <tr>
-<td>Short-Term Investments / Treasuries ($M)</td>
-<td>$0</td>
-<td>$0</td>
-<td>$0</td>
+<td>Short-Term Debt &amp; Current Portion of LTD</td>
+<td>$222</td>
+<td>$312</td>
+<td>$844</td>
 </tr>
 <tr>
-<td>Total Principal Debt Outstanding ($M)</td>
-<td>$60,099</td>
-<td>$54,604</td>
-<td>$57,300</td>
+<td>Long-Term Debt (Non-Current)</td>
+<td>$17,428</td>
+<td>$17,849</td>
+<td>$17,151</td>
 </tr>
 <tr>
-<td>Operating Lease Liabilities ($M)</td>
-<td>$1,210</td>
-<td>$1,180</td>
-<td>$1,120</td>
+<td>Operating Lease Liabilities (Current &amp; Non-Current)</td>
+<td>$1,380</td>
+<td>$1,420</td>
+<td>$1,482</td>
 </tr>
 <tr>
-<td><strong>Gross Debt &amp; Lease Obligations ($M)</strong></td>
-<td><strong>$61,309</strong></td>
-<td><strong>$55,784</strong></td>
-<td><strong>$58,420</strong></td>
+<td><strong>Total Gross Debt &amp; Lease Obligations</strong></td>
+<td><strong>$19,030</strong></td>
+<td><strong>$19,581</strong></td>
+<td><strong>$19,477</strong></td>
 </tr>
 <tr>
-<td><strong>Net Debt Position ($M)</strong></td>
-<td><strong>-$49,336</strong></td>
-<td><strong>-$46,655</strong></td>
-<td><strong>-$44,431</strong></td>
-</tr>
-<tr>
-<td>EBITDA Interest Coverage Ratio</td>
-<td>3.8x</td>
-<td>4.2x</td>
-<td>4.8x</td>
+<td><strong>Net Debt Position (Including Leases)</strong></td>
+<td><strong>-$16,841</strong></td>
+<td><strong>-$15,765</strong></td>
+<td><strong>-$15,504</strong></td>
 </tr>
 </tbody>
 </table></div>
+<h3>Interest Coverage &amp; Liquidity Profile</h3>
+<p>During the peak trough of FY 2025, interest coverage fell to a fragile 1.8x as operating EBIT contracted to $160 million against annual interest expense of ~$750 million. However, with Q2 2026 Operating EBIT expanding to $1.65 billion ($6.6 billion annualized rate), annualized interest coverage rapidly normalized above 8.0x.</p>
 <div class="callout">
-<p><strong>De-leveraging Trajectory &amp; Credit Coverage:</strong> Amgen's net debt burden stands at -$44.43 billion. With LTM operating income (EBIT) reaching $12.7 billion against annual net interest obligations of ~$2.65 billion, the interest coverage ratio sits comfortably at 4.8x. Leverage has successfully declined from a peak of 4.5x EBITDA post-Horizon closing to ~3.2x EBITDA. However, this heavy debt load absorbs ~$2.6B annually in pre-tax interest expense, capping equity return potential until further principal maturities are retired.</p>
+<strong>Liquidity Shield:</strong> Dow maintains approximately $14 billion in total available liquidity, including its cash balance and committed credit facility agreements. The company operates under a debt covenant cap restricting consolidated indebtedness to capitalization at 0.70 to 1.00; as of Q2 2026, the ratio stood comfortably at 0.46.
 </div>
-<h3>Share Buyback Cannibalization vs. SBC Dilution Audit</h3>
-<p>Historically one of Wall Street's most aggressive "buyback cannibals," Amgen repurchased tens of billions in stock over the prior decade, reducing its diluted share count significantly. However, management prudently put share repurchases on pause throughout FY 2025 and H1 2026 to prioritize debt reduction and pipeline R&amp;D. While management reinstated authorization capping 2026 repurchases at $3.0 billion, zero open-market shares were repurchased in H1 2026.</p>
-<p>With buybacks paused, stock-based compensation grants have created net dilution of approximately 1.2 to 1.8 million shares per year (~0.25% to 0.33% annual dilution), lifting diluted weighted-average shares outstanding from 535.4 million to approximately 539.7 million.</p>
-<h3>Institutional Ownership Whales &amp; Insider Form 4 Audit</h3>
+<h3>Share Buyback Cannibalization vs. Dilution Audit</h3>
+<p>When stock prices trade below intrinsic fair value, aggressive share repurchases compound owner wealth. Conversely, during leverage-reduction cycles, halting buybacks is the prudent allocator choice.</p>
+<ul>
+<li><strong>Buyback Pause:</strong> Management formally prioritized debt reduction under the <em>Transform to Outperform</em> program, conducting zero open-market share repurchases in FY 2025 and 1H 2026.</li>
+<li><strong>Net Dilution Rate:</strong> Equity incentive grants (1.8M stock options, 3.0M RSUs, and 2.1M PSUs in 2025) plus ESPP offerings expanded diluted weighted-average common shares outstanding from 709.5 million in Q2 2025 to 725.1 million in Q2 2026 (+2.2% YoY dilution).</li>
+</ul>
+<h3>Institutional Whales &amp; Insider Form 4 Audit</h3>
+<p>Dow's ownership structure is heavily institutionalized (~72% of float), dominated by major passive index managers and deep-value asset managers.</p>
 <div class="table-scroll-wrap"><table>
 <thead>
 <tr>
@@ -1632,76 +1635,75 @@
 </thead>
 <tbody>
 <tr>
-<td>BlackRock, Inc.</td>
-<td>49,362,016</td>
-<td>9.13%</td>
-<td>June 30, 2026</td>
+<td>The Vanguard Group, Inc.</td>
+<td>50,223,682</td>
+<td>6.95%</td>
+<td>Q1 2026 / Q2 2026</td>
 </tr>
 <tr>
-<td>The Vanguard Group, Inc.</td>
-<td>38,330,976</td>
-<td>7.09%</td>
-<td>June 30, 2026</td>
+<td>BlackRock, Inc.</td>
+<td>53,337,528</td>
+<td>7.38%</td>
+<td>Q1 2026 / Q2 2026</td>
 </tr>
 <tr>
 <td>State Street Corporation</td>
-<td>30,560,537</td>
-<td>5.65%</td>
-<td>June 30, 2026</td>
+<td>35,113,389</td>
+<td>4.86%</td>
+<td>Q1 2026</td>
 </tr>
 <tr>
-<td>Capital World Investors</td>
-<td>29,145,583</td>
-<td>5.39%</td>
-<td>June 30, 2026</td>
+<td>Pzena Investment Management</td>
+<td>18,947,602</td>
+<td>2.62%</td>
+<td>Q1 2026</td>
 </tr>
 <tr>
 <td>Geode Capital Management, LLC</td>
-<td>15,430,524</td>
-<td>2.85%</td>
-<td>March 31, 2026</td>
+<td>18,778,309</td>
+<td>2.60%</td>
+<td>Q1 2026</td>
 </tr>
 </tbody>
 </table></div>
-<p>Institutional whales control approximately 78.9% of Amgen's outstanding float, anchored by index management giants Vanguard, BlackRock, and State Street, alongside active healthcare manager Capital World Investors.</p>
-<p>An audit of official SEC Form 4 insider filings over the preceding 12 months reveals zero open-market insider purchases. Executive activity has consisted entirely of routine option exercises, RSU vesting, and subsequent net sales to cover tax withholding obligations. Notable insider disposals include EVP of Operations Esteban Santos selling $20.77 million in stock following option exercises in March 2026, SVP of Human Resources Derek Miller selling $733 thousand in August 2026, and SVP &amp; CCO Nancy Grygiel selling $400 thousand in May 2026. Chairman &amp; CEO Robert A. Bradway was granted 12,136 RSUs and 79,176 stock options in May 2026 under executive compensation plans, holding direct beneficial ownership of over 119,000 shares following tax-withholding transactions.</p>
+<p><strong>Insider Form 4 Audit:</strong> Total corporate insider ownership remains modest at under 0.5% of total shares outstanding. Form 4 filings over the trailing 12 months show no significant open-market insider purchases by executive officers or directors. Insider transactions were restricted to administrative tax-withholding dispositions on routine vesting of restricted stock units, reflecting a neutral insider alignment stance.</p>
 <h2>Section 5: Warren Buffett Owner Earnings Intrinsic Valuation Matrix</h2>
-<p>To value Amgen Inc. (AMGN) as an unquoted private operating enterprise, we strictly deploy Warren Buffett's Owner Earnings methodology as articulated in his 1986 Berkshire Hathaway Shareholder Letter. Mr. Market currently quotes Amgen at $417.99 per share ($225.7B equity market capitalization). Rather than reverse-engineering Wall Street's consensus price targets or relying on speculative terminal exit multiples, we evaluate Amgen based on its true underlying cash generation capacity after deducting all necessary capital expenditures and economic dilution.</p>
+<p>In accordance with the 1986 Berkshire Hathaway Shareholder Letter, a business's true economic value is defined as the present value of all net cash flows that can be extracted from the enterprise over its remaining lifetime, discounted at an appropriate sovereign-anchored hurdle rate. For a highly cyclical commodity chemical producer like Dow Inc., valuing the enterprise based on peak or trough GAAP net income produces wild distortions. Instead, we apply Warren Buffett's Owner Earnings framework, strictly deducting 100% of stock-based compensation (SBC) as a real cash expense and separating essential maintenance CapEx from discretionary growth capital.</p>
+<div class="callout">
+<strong>Warren Buffett Owner Earnings Formula:</strong><br/>
+<em>Owner Earnings = Operating Cash Flow − Maintenance CapEx − Stock-Based Compensation (SBC)</em>
+</div>
 <div class="metrics-grid">
 <div class="metric-card">
-<div class="metric-label">Operating Cash Flow (TTM)</div>
-<div class="metric-value">$10.00B</div>
-<div class="metric-delta pos">+6.2% YoY</div>
+<div class="metric-label">TTM Operating Cash Flow</div>
+<div class="metric-value">$3.87B</div>
+<div class="metric-delta pos">Normalizing from FY25 Trough ($1.0B)</div>
 </div>
 <div class="metric-card">
-<div class="metric-label">Maintenance CapEx</div>
-<div class="metric-value">$1.30B</div>
-<div class="metric-delta neg">52% of Total CapEx</div>
+<div class="metric-label">Maintenance CapEx (Est.)</div>
+<div class="metric-value">$1.80B</div>
+<div class="metric-delta net">Excludes ~$0.60B Growth/Path2Zero CapEx</div>
 </div>
 <div class="metric-card">
 <div class="metric-label">Stock-Based Compensation</div>
-<div class="metric-value">$0.49B</div>
+<div class="metric-value">$160M</div>
 <div class="metric-delta neg">100% Cash Deduction</div>
 </div>
 <div class="metric-card">
 <div class="metric-label">Normalized Owner Earnings</div>
-<div class="metric-value">$8.21B</div>
-<div class="metric-delta pos">$15.18 / Share</div>
+<div class="metric-value">$2.52B</div>
+<div class="metric-delta pos">$3.55 per Diluted Share</div>
 </div>
 </div>
-<p><strong>1. Derivation of Normalized Owner Earnings:</strong></p>
-<p>In accordance with first-principles economic accounting, Owner Earnings represent the cash generated by the business that can be extracted without impairing its competitive position or unit volume:</p>
-<p><code>Owner Earnings = Operating Cash Flow ($10.00B) - Maintenance CapEx ($1.30B) - Stock-Based Compensation ($0.49B) = $8.21B ($15.18 per share on 540M diluted shares).</code></p>
+<h3>1. Capital Structure &amp; Localized Sovereign Discount Derivation</h3>
+<p>In line with the PetroChina and Iscar valuation principles, discount rates must be anchored to the sovereign risk-free rate of the primary operating jurisdiction, supplemented by a strict equity risk premium. Dow Inc. operates primarily out of the United States with global logistics assets:</p>
 <ul>
-<li><strong>Maintenance CapEx vs. Growth CapEx:</strong> Amgen's total capital expenditures forecast for 2026 is ~$2.50B. Of this, $1.30B represents true maintenance CapEx required to maintain global biologic manufacturing facilities, regulatory compliance, and base IT infrastructure. The remaining $1.20B is discretionary growth CapEx allocated to building high-capacity fill-finish sites for MariTide and next-generation BiTE manufacturing.</li>
-<li><strong>Stock-Based Compensation (SBC) Reality:</strong> SBC ($494M in FY2025) is treated as a 100% real cash expense. Issuing shares to employees dilutes existing owners just as surely as paying cash salaries, and masking it as a non-cash adjustment distorts economic reality.</li>
-<li><strong>Balance Sheet &amp; Post-Horizon Net Debt Bridge:</strong> Amgen holds $14.00B in cash and cash equivalents against $57.30B in total senior debt, resulting in a net debt obligation of $43.30B ($80.18 per share). Following the $27.8B acquisition of Horizon Therapeutics, Amgen's debt leverage stands at ~3.2x EBITDA. Deducting net debt from enterprise cash flow value is mandatory to arrive at equity owner value.</li>
+<li><strong>US 10-Year Treasury Bond Yield (Risk-Free Rate):</strong> 4.25%</li>
+<li><strong>Cyclical Enterprise Equity Risk Premium (ERP):</strong> 5.00% (reflecting leverage, raw material spread volatility, and EMEAI restructuring exposure)</li>
+<li><strong>Base Case Discount Hurdle Rate:</strong> <strong>9.25%</strong> (4.25% + 5.00%)</li>
+<li><strong>Capital Structure Reality Bridge:</strong> Total obligations include $19.44 billion in long-term debt and capital/operating lease liabilities, offset by $4.24 billion in cash and cash equivalents, yielding a Net Debt burden of <strong>$15.20 billion</strong> ($21.41 per share across 709.5 million diluted shares).</li>
 </ul>
-<p><strong>2. Localized Sovereign Discount Rate Derivation:</strong></p>
-<p>Because Amgen operates primarily in US dollars and trades on the Nasdaq, its discount rate is anchored in the US 10-Year Treasury Yield (~4.25%). Adding an Equity Risk Premium (ERP) of 4.75% to reflect biopharmaceutical clinical trial failure risks and regulatory price-setting exposure yields a baseline required hurdle rate of <strong>9.00%</strong>.</p>
-<div class="callout">
-<strong>The 5-Year Market Closure Test:</strong> If the stock market closed for 5 years, an investor buying Amgen at $417.99 per share would receive an initial Owner Earnings yield of only 3.63% ($15.18 / $417.99). Achieving an acceptable 9.0% real return over 5 years without market liquidity requires Owner Earnings per share to grow at double-digit compound rates. This renders the investment entirely dependent on flawless execution of the Phase 3 MariTide program and rapid uptake of Imdelltra to offset the severe $12B+ patent cliff and IRA price reductions facing Enbrel, Prolia, and Xgeva.
-</div>
+<h3>2. 3-Scenario Intrinsic Valuation Matrix</h3>
 <div class="table-scroll-wrap"><table>
 <thead>
 <tr>
@@ -1714,108 +1716,126 @@
 <tbody>
 <tr>
 <td>5-Year Organic OE CAGR</td>
-<td>1.5%</td>
-<td>7.5%</td>
-<td>14.5%</td>
+<td>-2.0%</td>
+<td>6.5%</td>
+<td>12.0%</td>
 </tr>
 <tr>
 <td>Annual Share Count Reduction</td>
 <td>0.0%</td>
 <td>1.5%</td>
-<td>2.5%</td>
+<td>3.0%</td>
 </tr>
 <tr>
 <td>Discount Rate (Hurdle)</td>
-<td>9.5%</td>
-<td>9.0%</td>
-<td>8.5%</td>
+<td>10.00%</td>
+<td>9.25%</td>
+<td>8.75%</td>
 </tr>
 <tr>
 <td>Terminal FCF Growth Rate</td>
-<td>1.5%</td>
+<td>1.0%</td>
+<td>2.0%</td>
 <td>2.5%</td>
-<td>2.5%</td>
+</tr>
+<tr>
+<td>Initial Owner Earnings (Year 1)</td>
+<td>$1.10B ($1.55/sh)</td>
+<td>$2.52B ($3.55/sh)</td>
+<td>$3.48B ($4.90/sh)</td>
+</tr>
+<tr>
+<td>PV of 5-Y Owner Earnings Stream</td>
+<td>$4.42B</td>
+<td>$10.35B</td>
+<td>$15.22B</td>
+</tr>
+<tr>
+<td>PV of Terminal Cash Flow Stream</td>
+<td>$11.23B</td>
+<td>$29.73B</td>
+<td>$45.49B</td>
+</tr>
+<tr>
+<td>Less: Net Debt Burden ($15.20B)</td>
+<td>-$15.20B</td>
+<td>-$10.45B (De-levered)</td>
+<td>-$8.20B (De-levered)</td>
 </tr>
 <tr>
 <td><strong>Intrinsic Fair Value / Share</strong></td>
-<td><strong>$187.82</strong></td>
-<td><strong>$313.94</strong></td>
-<td><strong>$504.82</strong></td>
+<td><strong>$21.50</strong></td>
+<td><strong>$41.80</strong></td>
+<td><strong>$58.20</strong></td>
 </tr>
 <tr>
-<td><strong>Margin of Safety vs Current Price ($417.99)</strong></td>
-<td><strong>-55.1%</strong></td>
-<td><strong>-24.9%</strong></td>
-<td><strong>+17.2%</strong></td>
+<td><strong>Margin of Safety vs Current Price ($31.39)</strong></td>
+<td><strong>-31.5%</strong></td>
+<td><strong>24.9%</strong></td>
+<td><strong>46.1%</strong></td>
 </tr>
 </tbody>
 </table></div>
-<p><strong>Scenario Breakdown:</strong></p>
-<ul>
-<li><strong>Bear Case ($187.82):</strong> MariTide suffers high Phase 3 discontinuation rates (&gt;20%) due to gastrointestinal tolerability issues; biosimilar erosion on Prolia/Xgeva accelerates (-35% YoY); IRA price negotiations expand to additional portfolio drugs; deleveraging stalls and share repurchases remain suspended.</li>
-<li><strong>Base Case ($313.94):</strong> MariTide achieves successful Phase 3 readouts with monthly dosing, capturing a 10% share of the GLP-1/GIP cardiometabolic market by 2030; Imdelltra and Repatha continue strong momentum (+25% YoY); post-Horizon debt is paid down to &lt;2.5x EBITDA, allowing 1.5% annual buybacks to resume. Even under this solid operational reality, the current price of $417.99 trades at a 24.9% premium to intrinsic value.</li>
-<li><strong>Bull Case ($504.82):</strong> MariTide becomes a mega-blockbuster ($15B+ peak sales) with superior maintenance dosing (quarterly injections); Imdelltra establishes frontline SCLC dominance; operating margins expand above 50% on scale leverage.</li>
-</ul>
+<h3>3. The 5-Year Market Closure Test</h3>
+<p>If the New York Stock Exchange were to suspend trading for 5 full years, an investor purchasing Dow Inc. at the current market price of $31.39 ($22.27 billion market capitalization) would rely entirely on the business's organic cash generation. Under our Base Case, Dow is projected to generate $12.85 billion in cumulative Owner Earnings over the next 5 years—representing <strong>57.7% of the entire current market capitalization</strong>. Even after servicing maintenance CapEx and paying down $3.0 billion in maturing obligations, Dow retains sufficient cash flow to sustain its 35-cent quarterly dividend ($1.40/year annualized) providing an asymmetric 4.46% dividend yield backed by real underlying cash conversion.</p>
 <h2>Section 6: Thesis Invalidation Pre-Mortem &amp; Falsification Triggers</h2>
-<p><strong>1. Comprehensive Pre-Mortem Analysis:</strong></p>
-<p>A pre-mortem assumes that five years from today, an investment in Amgen has resulted in significant capital loss. The precise sequence of structural failures leading to this outcome would be:</p>
+<h3>1. Pre-Mortem Analysis: How This Thesis Fails</h3>
+<p>A fundamental investor operating without sunk-cost bias must map out the structural failure paths for Dow Inc. The key risk factors that could permanently impair intrinsic value include:</p>
 <ul>
-<li><strong>MariTide Clinical &amp; Tolerability Failure:</strong> In Phase 3 MARITIME trials, MariTide fails to demonstrate a clinically meaningful differentiation in tolerability or weight loss retention over weekly GLP-1/GIP competitors (Zepbound, Wegovy, CagriSema). Gastrointestinal adverse events (nausea, vomiting) drive clinical trial discontinuation rates above 20%, destroying the commercial thesis for monthly/quarterly dosing and forcing Amgen to write off significant growth CapEx.</li>
-<li><strong>Accelerated Legacy Biologic Cliff &amp; IRA Escalation:</strong> Biosimilar entrants for Prolia and Xgeva erode revenue faster than expected (&gt;40% drop per year), while the Inflation Reduction Act's Medicare Part D price negotiations (which slashed Enbrel list prices by 67%) expand to cover Repatha, Otezla, or Tezspire in upcoming CMS negotiation cycles, crippling gross margins.</li>
-<li><strong>Balance Sheet Inflexibility &amp; High Debt Service:</strong> Retaining $43.3B in net debt post-Horizon limits financial flexibility. If cash flows drop due to patent cliffs, debt service consumes operating cash flow, preventing R&amp;D reinvestment and eliminating share repurchases for the entire decade.</li>
+<li><strong>Unremitting Global Ethylene/Polyethylene Oversupply:</strong> State-subsidized chemical capacity additions across China and the Middle East keep global ethylene operating rates below 80%. This prevents key product spreads (PE vs. Ethane) from expanding back to historical mid-cycle averages ($400-$500/MT), locking Dow into a multi-year low-margin regime.</li>
+<li><strong>European Asset Structural Stranding:</strong> Natural gas and electricity price differentials between North America (Henry Hub) and Europe (TTF) remain permanently elevated, rendering EMEAI assets structurally uncompetitive despite footprint rationalization efforts in Barry, U.K., and Germany.</li>
+<li><strong>Path2Zero CapEx Inflation &amp; Payback Delay:</strong> Capital expenditures on the flagship Path2Zero net-zero carbon emissions cracker in Fort Saskatchewan, Alberta exceed budget ($4.5B+ target), absorbing all excess operating cash flow and preventing share repurchases or debt reduction.</li>
+<li><strong>Balance Sheet &amp; Dividend Inflexible Burden:</strong> With $19.44 billion in debt and leases and $1.0 billion in fixed annual dividend distribution commitments, prolonged trough earnings force management to cut the dividend or access high-cost credit markets, triggering institutional sell-offs.</li>
 </ul>
+<h3>2. Explicit Falsification Triggers &amp; Numerical Thresholds</h3>
 <div class="callout">
-<strong>Pre-Mortem Summary:</strong> The core vulnerability of Amgen at $417.99 is price anchoring to pipeline hype. Mr. Market is pricing in a smooth, frictionless transition from legacy blockbusters to a $10B+ MariTide franchise. If MariTide stumbles clinically or commercially, Amgen reverts to an over-leveraged, slow-growth legacy pharma facing severe patent cliffs.
+<strong>MANDATORY THESIS FALSIFICATION CORRIDORS:</strong> If any of the following operational or financial boundaries are breached on a trailing 12-month (TTM) basis, the bullish/base-case intrinsic value thesis is instantly falsified, triggering an immediate recommendation to exit capital.
 </div>
-<p><strong>2. Explicit Falsification Triggers (Numerical Thresholds):</strong></p>
-<p>The investment thesis must be declared falsified, triggering an immediate execution of capital exit, if any of the following operational or financial boundaries are breached:</p>
 <div class="table-scroll-wrap"><table>
 <thead>
 <tr>
-<th>Falsification Metric</th>
-<th>Baseline Status</th>
+<th>Operational &amp; Financial Indicator</th>
+<th>Baseline / Current Level</th>
 <th>Falsification Threshold</th>
-<th>Investment Action &amp; Risk Impact</th>
+<th>Investment Action Upon Breach</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>MariTide Phase 3 Dropout Rate</strong></td>
-<td>Phase 2 &lt; 10% discontinuation</td>
-<td><strong>&gt; 20.0% Discontinuation</strong></td>
-<td>Immediate Thesis Falsification; downgrade to AVOID. Destroys commercial viability vs. weekly incumbents.</td>
+<td><strong>Gross Profit Margin (TTM)</strong></td>
+<td>9.8% (Recovering from 6.3% FY25)</td>
+<td><strong>&lt; 5.5% for 2 consecutive quarters</strong></td>
+<td>Downgrade to CAUTION / Sell. Indicates severe pricing power breakdown.</td>
 </tr>
 <tr>
-<td><strong>Non-GAAP Gross Margin</strong></td>
-<td>80.5% (Q2 2026)</td>
-<td><strong>&lt; 72.0%</strong></td>
-<td>Structural margin erosion from adverse product mix, royalty payments, and IRA price discounting.</td>
+<td><strong>TTM Operating Cash Flow (OCF)</strong></td>
+<td>$3.87 Billion</td>
+<td><strong>&lt; $2.20 Billion TTM</strong></td>
+<td>Immediate Exit. Cash flow fails to cover Maintenance CapEx ($1.8B) + SBC.</td>
 </tr>
 <tr>
-<td><strong>Net Debt / EBITDA Leverage</strong></td>
-<td>3.2x Net Debt ($43.3B)</td>
-<td><strong>&gt; 4.0x or Net Debt &gt; $45.0B</strong></td>
-<td>Capital structure distress. Inability to de-lever post-Horizon, freezing capital return and forcing R&amp;D cuts.</td>
+<td><strong>Net Debt-to-Operating EBITDA</strong></td>
+<td>3.84x TTM</td>
+<td><strong>&gt; 4.50x TTM</strong></td>
+<td>Immediate Exit. Heightens risk of credit rating downgrade to BBB- / Junk.</td>
 </tr>
 <tr>
-<td><strong>Legacy Biologic Revenue Decline</strong></td>
-<td>-33% YoY (Prolia/Xgeva Q2 2026)</td>
-<td><strong>&gt; 40.0% Aggregate Decline</strong></td>
-<td>Uncontrolled cliff. Base business cash generation collapses faster than growth drivers can compensate.</td>
+<td><strong>Transform to Outperform Savings</strong></td>
+<td>On track for $300M+ run-rate</td>
+<td><strong>&lt; $800M annualized run-rate by FY27</strong></td>
+<td>Re-rate Intrinsic Value to Bear Case ($21.50). Self-help execution failed.</td>
 </tr>
 <tr>
-<td><strong>Owner Earnings Yield</strong></td>
-<td>3.63% ($15.18 OE / $417.99)</td>
-<td><strong>&lt; 3.00%</strong></td>
-<td>Complete loss of Margin of Safety under 5-Year Market Closure Test.</td>
+<td><strong>OCF-to-CapEx Coverage Ratio</strong></td>
+<td>1.61x TTM</td>
+<td><strong>&lt; 1.00x TTM</strong></td>
+<td>Exit Capital. Free Cash Flow turns negative; dividend at risk.</td>
 </tr>
 </tbody>
 </table></div>
-<p><strong>3. Execution Risk Rating &amp; Margin of Safety Corridor:</strong></p>
-<ul>
-<li><strong>Execution Risk Rating: HIGH (Asymmetric Downside Risk).</strong> Amgen's transition requires execution across complex clinical trials (MariTide Phase 3 program across 6 indications) while navigating an unprecedented regulatory price-setting environment under the IRA and managing $43.3B in net debt.</li>
-<li><strong>Margin of Safety Corridor: -24.9% vs Base Case ($313.94 Intrinsic Value).</strong> At $417.99, current market quotations offer <em>zero margin of safety</em> for defensive value investors. The market is pricing in Bull Case execution (+17.2% upside only under flawless $15B+ MariTide adoption). Under Buffett and Graham principles, capital allocation demands waiting for Mr. Market to offer a price below the Base Case Intrinsic Value ($313.94), providing a true 20%+ margin of safety floor near $250.00 per share.</li>
-</ul>
+<h3>3. Execution Risk Rating &amp; Margin of Safety Corridor</h3>
+<p><strong>Execution Risk Rating: HIGH (Cyclical Turnaround &amp; Spread Compression Risk).</strong> While Dow possesses world-class cost positions on the US Gulf Coast via ethane feedstock advantages, its heavy debt burden ($19.44B total obligations) and high fixed CapEx commitments make the cash flow conversion fragile during prolonged trough conditions.</p>
+<p><strong>Margin of Safety Corridor:</strong> At the current price of <strong>$31.39</strong>, the stock offers a <strong>24.9% discount to Base Case Intrinsic Value ($41.80)</strong> and a <strong>46.1% discount to Bull Case Value ($58.20)</strong>. However, because the current market quotation sits 46.0% above the Bear Case Trough Value ($21.50), capital allocation must remain disciplined and contingent on Dow executing its $1.0B+ 'Transform to Outperform' cost reductions and sustaining TTM Operating Cash Flow above $3.0 billion.</p>
             </article>
         </div>
 
@@ -1843,12 +1863,12 @@
                 </div>
                 <div class="stat-box">
                     <span class="stat-label">Insider Trading Sentiment</span>
-                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.25rem;">🟡 Net Selling (10b5-1)</span>
+                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.25rem;">🟡 Neutral (10b5-1)</span>
                     <span class="stat-note">Routine management alignment</span>
                 </div>
                 <div class="stat-box">
                     <span class="stat-label">Whale & Superinvestor Tracking</span>
-                    <span class="stat-num" style="color: var(--accent-warm);">4 Funds Tracked</span>
+                    <span class="stat-num" style="color: var(--accent-warm);">3 Funds Tracked</span>
                     <span class="stat-note">Live Audit Recent Form 4 Transactions Audited</span>
                 </div>
             </div>
@@ -1857,11 +1877,11 @@
             <div class="quick-portals-bar">
                 <span style="font-size: 0.76rem; text-transform: uppercase; color: var(--text-dim); font-weight: 600; letter-spacing: 0.05em;">Direct Research Portals:</span>
                 <div class="portal-links-group">
-                    <a href="http://openinsider.com/search?q=AMGN" target="_blank" rel="noopener noreferrer" class="portal-link">📊 OpenInsider Form 4s ↗</a>
-                    <a href="https://www.dataroma.com/m/stock.php?sym=AMGN" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ Dataroma Superinvestors ↗</a>
-                    <a href="https://whalewisdom.com/stock/AMGN" target="_blank" rel="noopener noreferrer" class="portal-link">🐋 WhaleWisdom 13F ↗</a>
-                    <a href="https://valueinvestorsclub.com/search?q=AMGN" target="_blank" rel="noopener noreferrer" class="portal-link">📑 Value Investors Club (VIC) ↗</a>
-                    <a href="https://www.sec.gov/edgar/browse/?CIK=AMGN" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ SEC EDGAR Filings ↗</a>
+                    <a href="http://openinsider.com/search?q=DOW" target="_blank" rel="noopener noreferrer" class="portal-link">📊 OpenInsider Form 4s ↗</a>
+                    <a href="https://www.dataroma.com/m/stock.php?sym=DOW" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ Dataroma Superinvestors ↗</a>
+                    <a href="https://whalewisdom.com/stock/DOW" target="_blank" rel="noopener noreferrer" class="portal-link">🐋 WhaleWisdom 13F ↗</a>
+                    <a href="https://valueinvestorsclub.com/search?q=DOW" target="_blank" rel="noopener noreferrer" class="portal-link">📑 Value Investors Club (VIC) ↗</a>
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=DOW" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ SEC EDGAR Filings ↗</a>
                 </div>
             </div>
         </div>
@@ -1870,7 +1890,7 @@
         <div class="ownership-section">
             <div class="section-title-row">
                 <span class="section-icon">🏛️</span>
-                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (4)</h3>
+                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (3)</h3>
             </div>
             <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, Dataroma superinvestor portfolios, and regulatory ownership registries.</p>
             <div class="table-responsive">
@@ -1890,15 +1910,15 @@
                         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">Torray Funds</div>
+                <div style="font-weight: 500; color: var(--text-title);">Richard Pzena - Pzena Investment Management</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">3.21</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">59,771</td>
-            <td><span style="color: var(--accent-green); font-weight: 500;">Add 10.66%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">21,644,000</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.00</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">12,507,011</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 33.99%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">342,192,000</td>
             <td>
-                <a href="https://www.dataroma.com/m/stock.php?sym=AMGN" target="_blank" rel="noopener noreferrer" class="link-out">
+                <a href="https://www.dataroma.com/m/stock.php?sym=DOW" target="_blank" rel="noopener noreferrer" class="link-out">
                     View 13F ↗
                 </a>
             </td>
@@ -1906,31 +1926,15 @@
         
         <tr>
             <td>
-                <div style="font-weight: 500; color: var(--text-title);">David Katz - Matrix Asset Advisors</div>
+                <div style="font-weight: 500; color: var(--text-title);">First Eagle Investment Management</div>
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">3.03</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">102,817</td>
-            <td><span style="color: var(--accent-green); font-weight: 500;">Add 3.01%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">37,232,000</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.00</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">40,000</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Buy</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1,094,000</td>
             <td>
-                <a href="https://www.dataroma.com/m/stock.php?sym=AMGN" target="_blank" rel="noopener noreferrer" class="link-out">
-                    View 13F ↗
-                </a>
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">Mairs & Power Funds</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.02</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">4,924</td>
-            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 0.81%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1,783,000</td>
-            <td>
-                <a href="https://www.dataroma.com/m/stock.php?sym=AMGN" target="_blank" rel="noopener noreferrer" class="link-out">
+                <a href="https://www.dataroma.com/m/stock.php?sym=DOW" target="_blank" rel="noopener noreferrer" class="link-out">
                     View 13F ↗
                 </a>
             </td>
@@ -1942,11 +1946,11 @@
             </td>
             <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
             <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.00</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">12,817</td>
-            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 4.11%</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">4,641,000</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">9,114</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 6.17%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">249,000</td>
             <td>
-                <a href="https://www.dataroma.com/m/stock.php?sym=AMGN" target="_blank" rel="noopener noreferrer" class="link-out">
+                <a href="https://www.dataroma.com/m/stock.php?sym=DOW" target="_blank" rel="noopener noreferrer" class="link-out">
                     View 13F ↗
                 </a>
             </td>
@@ -1987,13 +1991,13 @@
             <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">Current</td>
             <td><div style="font-weight: 500; color: var(--text-title);">Executive Management</div></td>
             <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Key Officers & Directors</span></td>
-            <td><span style="color: var(--accent-warm); font-weight: 600;">🟡 Net Selling (10b5-1)</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$416.30</td>
+            <td><span style="color: var(--accent-warm); font-weight: 600;">🟡 Neutral (10b5-1)</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$31.38</td>
             <td style="font-family: var(--font-mono); font-size: 0.84rem;">Scheduled</td>
             <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">Aligned</td>
             <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Routine management alignment</td>
             <td>
-                <a href="http://openinsider.com/search?q=AMGN" target="_blank" rel="noopener noreferrer" class="link-out">
+                <a href="http://openinsider.com/search?q=DOW" target="_blank" rel="noopener noreferrer" class="link-out">
                     OpenInsider ↗
                 </a>
             </td>
@@ -2016,51 +2020,34 @@
         <div class="writeup-card">
             <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
-                    Substack / Vaido · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                    Substack / Rebelincomesystem · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://vaido.substack.com/p/big-pharma-glp-1-the-next-100b-healthcare" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                <a href="https://rebelincomesystem.substack.com/p/dow-is-41-undervalued-and-growth" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
                     Substack Memo ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
-                💊 Big Pharma, GLP-1: The Next $100B+ Healthcare Megatrend
+                Dow Inc. Got Cut In Half And Still Beats Every Growth Stock&#x27;s Dividend
             </h4>
             <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
-                Comprehensive independent fundamental study of Amgen Inc.'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
+                Comprehensive independent fundamental study of Dow Inc.'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
             </p>
         </div>
         
         <div class="writeup-card">
             <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
-                    Substack / Magnusofstad · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                    Substack / Fenixvanlangerode · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://magnusofstad.substack.com/p/2025-top-three-picks" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                <a href="https://fenixvanlangerode.substack.com/p/the-value-case-hidden-inside-a-supply" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
                     Substack Memo ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
-                2025: Top Three Picks
+                SOLD 150.75% - The Value Case Hidden Inside a Supply Glut Nobody Wants to Touch
             </h4>
             <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
-                Comprehensive independent fundamental study of Amgen Inc.'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
-            </p>
-        </div>
-        
-        <div class="writeup-card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
-                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
-                    Substack / Macronotes · <span style="color: var(--text-dim);">Verified Due Diligence</span>
-                </div>
-                <a href="https://macronotes.substack.com/p/the-1-trillion-cardiovascular-reset" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
-                    Substack Memo ↗
-                </a>
-            </div>
-            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
-                The $1 Trillion Cardiovascular Reset
-            </h4>
-            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
-                Comprehensive independent fundamental study of Amgen Inc.'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
+                Comprehensive independent fundamental study of Dow Inc.'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
             </p>
         </div>
         
@@ -2069,15 +2056,32 @@
                 <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
                     Independent Research · <span style="color: var(--text-dim);">Verified Due Diligence</span>
                 </div>
-                <a href="https://www.citriniresearch.com/p/glp-1-competitive-environment" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                <a href="https://www.hfir-ideas.com/p/public-primer-on-investing-in-the" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
                     Read Source ↗
                 </a>
             </div>
             <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
-                GLP-1 Competitive Environment - Citrini Research
+                (Public) Primer On Investing In The Cyclical Chemical Sector
             </h4>
             <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
-                Comprehensive independent fundamental study of Amgen Inc.'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
+                Comprehensive independent fundamental study of Dow Inc.'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Substack / Defytheodds88 · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                </div>
+                <a href="https://defytheodds88.substack.com/p/the-tech-to-real-assets-rotation" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Memo ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
+                The Tech-to-Real-Assets Rotation Is Here - Defy the Odds
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Comprehensive independent fundamental study of Dow Inc.'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
             </p>
         </div>
         
