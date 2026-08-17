@@ -26,6 +26,7 @@ class ThesisVersion(BaseModel):
     next_catalyst_date: Optional[str] = ""
     next_catalyst_event: Optional[str] = ""
     trigger_reason: Optional[str] = ""
+    what_is_priced_in: Optional[str] = ""  # Reverse DCF implied 5-year growth rate
     top_funds: List[str] = Field(default_factory=list)  # Top institutional holders / 13F whales
     institutional_ownership_pct: Optional[str] = ""  # e.g. "78.4%"
     insider_signal: Optional[str] = "Neutral (10b5-1)"  # Net Buying, Cluster Buying, Neutral (10b5-1), Net Selling, No Activity
@@ -64,6 +65,7 @@ class WatchlistStock(BaseModel):
     bear_target: str
     base_target: str
     bull_target: str
+    what_is_priced_in: Optional[str] = ""  # Reverse DCF implied 5-year growth rate
     upper_alert_threshold: Optional[float] = None
     lower_alert_threshold: Optional[float] = None
     next_catalyst_date: Optional[str] = ""

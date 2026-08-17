@@ -187,6 +187,19 @@ def format_insider_activity_card_html(stock: WatchlistStock) -> str:
     """
 
 
+def format_priced_in_card_html(stock: WatchlistStock) -> str:
+    """Renders a clean, high-conviction card showing what growth the current market price implies."""
+    priced_in = getattr(stock, "what_is_priced_in", "") or ""
+    if not priced_in:
+        return ""
+    return f"""
+    <div class="metric-cell">
+        <div class="metric-label">Priced In (Implied)</div>
+        <div class="metric-value" style="font-size: 0.85rem; font-family: var(--font-sans); color: var(--accent-warm); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{priced_in}">{priced_in}</div>
+    </div>
+    """
+
+
 def build_labels_legend_modal_html() -> str:
     """Builds the clean, minimalist, subtle modal explaining investment taxonomy and surveillance signals."""
     return """
@@ -1935,6 +1948,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                     <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">{stock.next_catalyst_date or 'TBD'}</div>
                     {f'<div class="metric-delta" style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 2px;">{clean_cat_desc}</div>' if clean_cat_desc else ''}
                 </div>
+                {format_priced_in_card_html(stock)}
                 {format_top_funds_card_html(stock)}
                 {format_insider_activity_card_html(stock)}
             </div>
