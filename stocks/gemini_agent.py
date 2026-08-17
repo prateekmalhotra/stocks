@@ -521,6 +521,8 @@ Your analysis must adhere strictly to these 7 First Principles of Business Valua
    Pillar 2: Mid-Cycle Business Normalization (1982 & 1991 Letters)
    - For cyclical, commodity, and hardware technology sectors, NEVER extrapolate peak-quarter cash flows or peak gross margins into perpetuity.
    - Single-Platform Distribution Vulnerability: For digital media, marketplaces, and aggregators whose top-of-funnel discovery relies on third-party search engines or app stores (e.g. Google Search indexing, Apple App Store ranking), evaluate referral concentration and stress-test a 15%–25% traffic reduction from search engine AI Overviews (SGE) or algorithm de-indexing in Bear cases.
+   - Marketplace Take-Rate & Gross Bookings Integrity: For two-sided platforms (mobility, delivery, OTAs), differentiate optical reported revenue shifts caused by regional principal-vs-agent tax reclassifications from true operational take rates and underlying Gross Bookings volume.
+   - Demand Aggregation vs. Hardware Fleet Traps: In sectors transitioning to physical automation (e.g. Autonomous Vehicles, robotics, automated fulfillment), evaluate whether the platform's consumer demand density positions it as the high-margin dispatch and routing aggregator, avoiding the capital-heavy depreciation traps of owned vehicle fleets.
    - Normalize earnings and margins across full 3-5 year operating cycles to account for customer CapEx digestion pauses, capacity additions, and supply-demand normalization.
    - For mega-cap platforms, enforce a Law of Large Numbers sanity check against total addressable enterprise spending.
 
@@ -537,8 +539,9 @@ Your analysis must adhere strictly to these 7 First Principles of Business Valua
      Net Annual Share Count Reduction = (Shares Repurchased - SBC Shares Issued) / Diluted Share Count.
    - Retiring shares below intrinsic value concentrates cash flow into fewer shares and compounds per-share intrinsic value. If buybacks are paused or insufficient to offset equity grants, model net shareholder dilution (+1% to +3%/year).
 
-   Pillar 6: Balance Sheet Fortress & Fixed Obligation Integrity
+   Pillar 6: Balance Sheet Fortress, Fixed Obligations & Look-Through Assets
    - Account for all contractual fixed legal obligations: Total interest-bearing debt, capitalized operating and finance leases (ASC 842), and non-discretionary statutory/environmental liabilities.
+   - Strategic Minority Equity Stakes (Look-Through Asset Bridge): For platforms holding substantial unconsolidated equity stakes in other public/private market leaders (e.g. Uber holding Grab/Didi/Aurora, Alibaba holding Ant Group, Alphabet holding venture stakes), audit these holdings at conservative marked-to-market or liquidation values and credit them directly to the Net Asset Balance Sheet Bridge in DCF.
    - Deduct net debt/liabilities from Enterprise Intrinsic Value to arrive at Equity Intrinsic Value. Add unrestricted liquid cash and marketable short-term treasuries.
    - For businesses in structural secular decline, disallow positive terminal growth and model realistic runoff.
 
