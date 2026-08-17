@@ -72,13 +72,20 @@ def sync_live_market_data() -> Dict[str, Any]:
     (PUBLIC_DIR / "data").mkdir(parents=True, exist_ok=True)
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     
-    watchlist = {}
+    raw_watchlist = []
     if WATCHLIST_FILE.exists():
         try:
             with open(WATCHLIST_FILE, "r", encoding="utf-8") as f:
-                watchlist = json.load(f)
+                raw_watchlist = json.load(f)
         except Exception:
             pass
+
+    if isinstance(raw_watchlist, list):
+        watchlist = {item["ticker"]: item for item in raw_watchlist if isinstance(item, dict) and "ticker" in item}
+    elif isinstance(raw_watchlist, dict):
+        watchlist = raw_watchlist
+    else:
+        watchlist = {}
             
     live_quotes = {}
     timestamp_str = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
@@ -105,7 +112,7 @@ def sync_live_market_data() -> Dict[str, Any]:
             
     # Save updated watchlist
     with open(WATCHLIST_FILE, "w", encoding="utf-8") as f:
-        json.dump(watchlist, f, indent=2)
+        json.dump(list(watchlist.values()), f, indent=2)
         
     # Save public live quotes
     with open(LIVE_QUOTES_FILE, "w", encoding="utf-8") as f:
