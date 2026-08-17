@@ -628,10 +628,11 @@ THE BENJAMIN GRAHAM & WARREN BUFFETT "ANTI-MR. MARKET" DOCTRINE (MANDATORY & IND
           - Audit Tenure Mix: Differentiate capital-heavy speculative merchant builders (requiring 4–5 year owned landbanks) from asset-light Partnership developers (pre-selling 60%+ of units with monthly partner milestone billing / negative working capital float).
           - Statutory Building Safety & Cladding Deductions: For UK/European builders under Building Safety Acts, statutory remediation provisions CANNOT be ignored as non-cash items. Deduct projected annual cash outflows ($50M–$80M/yr) directly from Owner Earnings.
           - Average Daily Net Debt Audit: In seasonal working capital businesses, verify 'Average Daily Net Debt' across the full year rather than relying on window-dressed period-end balance sheet dates.
-        * [EMERGING MARKET TRAPPED CASH & CROSS-BORDER REGULATORY HAIRCUT]:
-          - For foreign ADRs, Chinese cross-border e-commerce, or emerging market compounders with large cash/treasury balances:
-          - If management DOES NOT actively return cash via share buybacks or cash dividends, apply a 25%–35% haircut to balance sheet cash to reflect capital controls, withholding taxes, or trapped corporate liquidity.
-          - Factor in tariff and regulatory risks (e.g. de minimis import duty closures) and enforce an emerging market hurdle rate (11.5%–13.5%).
+        * [CHINESE ADR POST-REGULATORY PIVOT & DEFERRED TUITION FLOAT INVARIANT]:
+          - For Chinese ADRs emerging from structural regulatory overhauls (e.g. EdTech Double Reduction, Gaming Curfews, Ant Group/Fintech Restructuring):
+          - Audit Regulatory Safe Harbors: Strictly disallow growth assumptions on historically banned product lines. Only assign positive growth to government-permitted/encouraged vectors (e.g. non-academic enrichment, high school prep, overseas consulting, vocational training).
+          - Deferred Revenue Customer Float: In education/subscription businesses collecting cash upfront (e.g. deferred tuition balances), treat unearned revenue as an interest-free operating float that funds capacity expansion without interest-bearing debt.
+          - Offshore Capital Return Requirement: Only credit balance sheet cash at full value if management actively repatriates funds via offshore ADR buybacks and cash dividends (e.g. >50% payout of Owner Earnings); otherwise apply a 25%–35% onshore liquidity haircut.
         * [ENTERPRISE SAAS AI SEAT-COMPRESSION & INFERENCE COMPUTE DRAG]:
           - For enterprise software / SaaS transitioning from per-seat subscription licensing to outcome-based AI agents:
           - Stress-test the risk of client seat-consolidation (fewer human employees requiring individual software seats).
