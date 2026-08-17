@@ -1787,5 +1787,37 @@
     "last_updated": "2026-08-17",
     "total_versions": 1,
     "report_path": "reports/DG.html"
+  },
+  "DLO": {
+    "ticker": "DLO",
+    "company_name": "DLocal Limited",
+    "baseline_price": 13.98,
+    "current_price": 13.98,
+    "return_pct": 0.0,
+    "status_label": "High Conviction",
+    "labels": [
+      "High Conviction",
+      "Deep Value",
+      "Margin Expansion"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$19.50",
+    "bear_target": "$10.00 (-28.5%)",
+    "base_target": "$19.50 (+39.5%)",
+    "bull_target": "$26.00 (+86.0%)",
+    "upper_alert_threshold": 18.5,
+    "lower_alert_threshold": 11.2,
+    "next_catalyst_date": "2026-11-12",
+    "next_catalyst_event": "Q3 '26 ER",
+    "top_funds": [
+      "Polen Capital Management (0.05)",
+      "Dodge & Cox Funds (0.00)"
+    ],
+    "institutional_ownership_pct": "78.4%",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Director S. Kanovich executed routine 10b5-1 option sales at $15.53; core insider alignment remains intact.",
+    "last_updated": "2026-08-17",
+    "total_versions": 1,
+    "report_path": "reports/DLO.html"
   }
 }

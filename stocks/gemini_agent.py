@@ -515,10 +515,12 @@ Your analysis must adhere strictly to these 7 First Principles of Business Valua
    - Owner Earnings = GAAP Operating Cash Flow - Maintenance CapEx - 100% of Stock-Based Compensation (SBC).
    - Maintenance CapEx vs. Discretionary Growth CapEx: Isolate defensive capital required to maintain existing unit volumes and technological competitive parity from elective, high-ROIC growth investments.
    - 100% SBC Deduction: Stock compensation is a real, non-negotiable economic cash expense that dilutes shareholder equity.
+   - Post-IPO SBC Normalization: For newly public technology platforms (IPOs within 1–3 years), separate temporary pre-IPO vesting spikes from ongoing run-rate SBC. Audit whether SBC as a % of revenue is structurally contracting toward sustainable levels (<12%).
    - Working Capital Float: Recognize persistent negative cash conversion cycles (deferred revenue + accounts payable > accounts receivable) as interest-free, non-dilutive customer funding.
 
    Pillar 2: Mid-Cycle Business Normalization (1982 & 1991 Letters)
    - For cyclical, commodity, and hardware technology sectors, NEVER extrapolate peak-quarter cash flows or peak gross margins into perpetuity.
+   - Single-Platform Distribution Vulnerability: For digital media, marketplaces, and aggregators whose top-of-funnel discovery relies on third-party search engines or app stores (e.g. Google Search indexing, Apple App Store ranking), evaluate referral concentration and stress-test a 15%–25% traffic reduction from search engine AI Overviews (SGE) or algorithm de-indexing in Bear cases.
    - Normalize earnings and margins across full 3-5 year operating cycles to account for customer CapEx digestion pauses, capacity additions, and supply-demand normalization.
    - For mega-cap platforms, enforce a Law of Large Numbers sanity check against total addressable enterprise spending.
 
@@ -540,8 +542,9 @@ Your analysis must adhere strictly to these 7 First Principles of Business Valua
    - Deduct net debt/liabilities from Enterprise Intrinsic Value to arrive at Equity Intrinsic Value. Add unrestricted liquid cash and marketable short-term treasuries.
    - For businesses in structural secular decline, disallow positive terminal growth and model realistic runoff.
 
-   Pillar 7: Anti-Multiples Rule & Pre-Mortem Falsification
+   Pillar 7: Anti-Multiples Rule, Revenue Quality & Pre-Mortem Falsification
    - Intrinsic Value is the present value of all cash that can be extracted from the business over its remaining life. Reject speculative terminal multiple expansion.
+   - AI Data Licensing Backlog vs. Perpetual SaaS: Differentiate sticky enterprise recurring subscriptions from finite AI model training data licensing contracts. Audit RPO backlog decay and avoid capitalizing non-recurring dataset licensing fees into perpetuity.
    - Terminal growth is strictly capped at long-term real GDP growth (2.0% to 2.5%).
    - Formulate 3 quantitative pre-mortem operational tripwires (margin decay, customer churn, backlog contraction) that declare the thesis fundamentally invalid.
 
