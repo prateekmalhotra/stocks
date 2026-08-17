@@ -967,7 +967,11 @@ def review_stock_thesis(
     trigger_reason: str,
     baseline_price: float,
     current_price: float,
-    previous_version_num: int
+    previous_version_num: int,
+    previous_fair_value: str = "",
+    previous_bear_target: str = "",
+    previous_base_target: str = "",
+    previous_bull_target: str = ""
 ) -> Tuple[Dict[str, Any], str]:
     """Reviews an active stock thesis when triggered by price or catalyst."""
     price_change_pct = ((current_price - baseline_price) / baseline_price) * 100 if baseline_price else 0.0
@@ -978,11 +982,18 @@ Baseline Price: ${baseline_price:.2f}
 Current Price: ${current_price:.2f} (Change: {price_change_pct:+.2f}%)
 Previous Stance: {previous_status}
 Previous Thesis Summary: {previous_thesis_summary}
+PREVIOUS BASE FAIR VALUE: {previous_fair_value or previous_base_target or 'N/A'}
+PREVIOUS TARGETS: Bear: {previous_bear_target or 'N/A'} | Base: {previous_base_target or 'N/A'} | Bull: {previous_bull_target or 'N/A'}
 
 [ANALYTICAL AUTONOMY & THESIS INFLECTION DIRECTIVES]:
 You have full analytical freedom to evaluate the new facts and determine the evolved thesis:
 1. Primary Source Audit: Search the latest quarterly earnings release, latest earnings call transcript, material corporate announcements, and latest 13F whale filings.
-2. Forward Action Beacon Selection (action_signal):
+2. [STRICT INCREMENTAL CONTINUITY & ANTI-HALLUCINATION DELTA CLAMP]:
+   - DO NOT hallucinate wild, unanchored DCF jumps on routine updates (e.g. an earnings beat or Form 8-K/6-K filing MUST NOT cause fair value to jump +30% to +50% overnight like $220 to $320).
+   - For routine quarterly updates and calendar shifts, fair value adjustments MUST be incremental and logically bridged from the PREVIOUS BASE FAIR VALUE ({previous_fair_value or previous_base_target or 'N/A'}).
+   - Routine adjustments (accretion from buybacks, slight margin beats) typically move fair value by ±2% to ±8%.
+   - Fair value revisions exceeding ±15% are STRICTLY FORBIDDEN unless there is a verified tectonic operational shift (e.g. major subsidiary divestment, catastrophic regulatory ban, permanent loss of >30% revenue, or permanent >500 bps gross margin structural reset).
+3. Forward Action Beacon Selection (action_signal):
    Autonomously choose the actionable status signal based on how the thesis is playing out in the real world:
    - "BUY" (Green Beacon): Thesis is playing out great, fundamentals accelerating, trading at a genuine Margin of Safety (≥ 20%-30% discount to MID-CYCLE NORMALIZED Owner Earnings). NEVER give a BUY signal to stocks trading near/above fair value or priced for perfection at peak cyclical multiples.
    - "HOLD" (Yellow Beacon): Thesis is steady, waiting for next catalyst, fairly valued, or priced for perfection (e.g. trading at peak hardware multiples with < 15% MoS) -> wait and do nothing for now.

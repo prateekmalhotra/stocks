@@ -1,0 +1,2604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLY — Investment Memo</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="apple-touch-icon" href="../favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --bg-canvas: #141312;
+            --bg-panel: #1B1A19;
+            --bg-subpanel: #21201E;
+            --bg-hover: #272624;
+            --text-title: #E8E2D8;
+            --text-body: #C5BCB0;
+            --text-secondary: #8E867A;
+            --text-dim: #5C5549;
+            --accent-warm: #D4A373;
+            --accent-warm-hover: #E2B689;
+            --accent-warm-subtle: rgba(212, 163, 115, 0.12);
+            --accent-green: #82AE8C;
+            --accent-red: #C97A72;
+            --border-color: rgba(255, 255, 255, 0.055);
+            --border-focus: rgba(212, 163, 115, 0.35);
+            --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-serif: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        /* KaTeX Math Styling & Dark Theme Alignment */
+        .katex-display {
+            margin: 20px 0 !important;
+            overflow-x: auto !important;
+            overflow-y: hidden !important;
+            padding: 12px 16px !important;
+            background: rgba(0, 0, 0, 0.20) !important;
+            border-radius: 8px !important;
+            border: 1px solid var(--border-color) !important;
+        }
+        .katex {
+            font-size: 1.08em !important;
+            color: var(--text-title) !important;
+        }
+        .katex .mord.text {
+            color: var(--text-body) !important;
+            font-family: var(--font-sans) !important;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: 
+                radial-gradient(ellipse 90% 50% at 50% -10%, rgba(212, 163, 115, 0.04), transparent 70%),
+                var(--bg-canvas);
+            color: var(--text-body);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            line-height: 1.80;
+            letter-spacing: 0.005em;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding-bottom: 120px;
+        }
+
+        .container { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+
+        /* Top Nav */
+        nav.nav-bar {
+            background: rgba(20, 19, 18, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 14px 0;
+        }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .nav-back {
+            color: var(--accent-warm);
+            text-decoration: none;
+            font-family: var(--font-sans);
+            font-size: 0.84rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s;
+        }
+        .nav-back:hover { color: var(--accent-warm-hover); transform: translateX(-2px); }
+
+        /* Hero Deck */
+        .hero-deck {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 36px 40px;
+            margin: 32px 0 28px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+        }
+
+        .hero-top-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px; }
+        .ticker-symbol {
+            font-family: var(--font-sans);
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: var(--text-title);
+        }
+        .company-meta { color: var(--text-secondary); font-size: 0.95rem; margin-top: 2px; font-family: var(--font-sans); }
+
+        /* Minimalist Logo Avatars */
+        .ticker-logo-wrap {
+            border-radius: 6px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+            transform: translateY(-3px);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }
+        .ticker-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 2px;
+            border-radius: 5px;
+            display: block;
+        }
+        .ticker-logo-fallback {
+            font-family: var(--font-mono);
+            font-weight: 600;
+            color: var(--accent-warm);
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background: rgba(212, 163, 115, 0.08);
+        }
+
+        .price-callout { text-align: right; }
+        .price-number { font-size: 2.6rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }
+        .price-sub { font-size: 0.88rem; font-family: var(--font-mono); margin-top: 2px; }
+
+        /* Native SVG Area Chart */
+        .native-chart-wrap {
+            margin-top: 28px;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px 20px 12px;
+            position: relative;
+            user-select: none;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+        }
+        .chart-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            min-height: 28px;
+        }
+        .chart-live-val {
+            font-size: 0.88rem;
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .chart-range-pills {
+            display: flex;
+            gap: 4px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 2px;
+        }
+        .range-pill {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.72rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .range-pill:hover { color: var(--text-title); }
+        .range-pill.active {
+            background: var(--accent-warm);
+            color: #161513;
+            font-weight: 600;
+            box-shadow: 0 1px 4px rgba(204, 120, 92, 0.3);
+        }
+        .chart-svg { width: 100%; height: 220px; display: block; overflow: visible; }
+        .chart-tooltip {
+            position: absolute;
+            top: 14px;
+            left: 20px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-focus);
+            color: var(--text-title);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            padding: 5px 12px;
+            border-radius: 6px;
+            pointer-events: none;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            font-family: var(--font-sans);
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Key Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 24px;
+        }
+        @media (max-width: 960px) {
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 520px) {
+            .metrics-grid { grid-template-columns: 1fr; }
+        }
+        .metric-cell {
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            min-height: 80px;
+            box-sizing: border-box;
+        }
+        .metric-label { font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); letter-spacing: 0.05em; margin-bottom: 3px; }
+        .metric-value { font-size: 1.15rem; font-weight: 500; color: var(--text-title); font-family: var(--font-mono); white-space: nowrap; }
+        .metric-subtext { font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-sans); margin-top: 4px; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+        /* Tabs */
+        .tabs-header {
+            display: flex;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-color);
+            margin: 32px 0 28px;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            padding: 12px 18px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.15s;
+        }
+        .tab-btn:hover { color: var(--text-title); }
+        .tab-btn.active { color: var(--accent-warm); }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0; right: 0;
+            height: 2px;
+            background: var(--accent-warm);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Ownership, Insiders & Fund Intelligence Tab */
+        .ownership-container {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+        .ownership-header-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 24px 28px;
+        }
+        .ownership-stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .ownership-stat-grid { grid-template-columns: 1fr; }
+        }
+        .stat-box {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .stat-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-dim);
+            font-family: var(--font-sans);
+        }
+        .stat-num {
+            font-size: 1.45rem;
+            font-weight: 500;
+            font-family: var(--font-mono);
+            color: var(--text-title);
+        }
+        .stat-note {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            font-family: var(--font-sans);
+        }
+        .ownership-section {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 28px 32px;
+        }
+        .section-title-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+        .section-icon { font-size: 1.35rem; }
+        .section-heading {
+            font-family: var(--font-sans);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-title);
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+        .section-desc {
+            color: var(--text-dim);
+            font-size: 0.86rem;
+            margin: 0 0 20px;
+            line-height: 1.4;
+        }
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-subpanel);
+            margin-top: 14px;
+        }
+        .ownership-table {
+            width: 100%;
+            min-width: 980px;
+            border-collapse: collapse;
+            font-size: 0.86rem;
+        }
+        .ownership-table th {
+            text-align: left;
+            padding: 13px 16px;
+            font-size: 0.70rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-dim);
+            border-bottom: 1px solid var(--border-color);
+            background: #1E1D1A;
+            font-family: var(--font-sans);
+            white-space: nowrap;
+        }
+        .ownership-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.035);
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+        .ownership-table tr:last-child td {
+            border-bottom: none;
+        }
+        .ownership-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .link-out {
+            color: var(--accent-warm);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 500;
+            transition: color 0.15s ease;
+        }
+        .link-out:hover {
+            color: #fcd34d;
+            text-decoration: underline;
+        }
+        .writeups-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 16px;
+        }
+        .writeup-card {
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 22px 24px;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.15s ease;
+        }
+        .writeup-card:hover {
+            border-color: rgba(217, 119, 6, 0.4);
+        }
+        .btn-read-letter {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(217, 119, 6, 0.12);
+            color: var(--accent-warm);
+            border: 1px solid rgba(217, 119, 6, 0.25);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.76rem;
+            font-weight: 500;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: all 0.15s ease;
+        }
+        .btn-read-letter:hover {
+            background: rgba(217, 119, 6, 0.25);
+            color: #fcd34d;
+        }
+
+        /* Quick Portals Bar */
+        .quick-portals-bar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+        .portal-links-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .portal-link {
+            background: var(--bg-subpanel);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        .portal-link:hover {
+            background: rgba(201, 154, 117, 0.14);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            transform: translateY(-1px);
+        }
+
+        /* Memo Content & Premium Editorial Typography */
+        .memo-container {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 48px 52px;
+        }
+        .memo-container * {
+            box-sizing: border-box;
+        }
+        .memo-container a {
+            color: var(--accent-warm) !important;
+            text-decoration: none !important;
+            transition: color 0.15s ease !important;
+            border-bottom: 1px dotted rgba(201, 154, 117, 0.4) !important;
+        }
+        .memo-container a:hover {
+            color: #E2DDD5 !important;
+            border-bottom-color: var(--accent-warm) !important;
+        }
+        .memo-container h1, .memo-container h2 {
+            font-family: var(--font-display) !important;
+            font-size: 1.40rem !important;
+            font-weight: 700 !important;
+            color: #EAE4DA !important;
+            margin: 48px 0 20px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+            letter-spacing: -0.025em !important;
+            line-height: 1.35 !important;
+        }
+        .memo-container h1:first-child, .memo-container h2:first-of-type { margin-top: 0 !important; }
+        .memo-container h3 {
+            font-family: var(--font-display) !important;
+            font-size: 1.12rem !important;
+            font-weight: 600 !important;
+            color: #CCA278 !important;
+            margin: 36px 0 14px !important;
+            letter-spacing: -0.015em !important;
+            line-height: 1.45 !important;
+        }
+        .memo-container h4, .memo-container h5, .memo-container h6 {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            color: #E2DBD0 !important;
+            margin: 26px 0 10px !important;
+        }
+        .memo-container p {
+            font-family: var(--font-sans) !important;
+            font-size: 0.95rem !important;
+            line-height: 1.82 !important;
+            letter-spacing: 0.005em !important;
+            color: #C5BCB0 !important;
+            margin-bottom: 22px !important;
+            font-weight: 400 !important;
+        }
+        .memo-container ul, .memo-container ol {
+            font-family: var(--font-sans) !important;
+            font-size: 0.94rem !important;
+            line-height: 1.78 !important;
+            letter-spacing: 0.005em !important;
+            color: #C5BCB0 !important;
+            margin: 16px 0 24px 20px !important;
+            padding-left: 12px !important;
+        }
+        .memo-container ul { list-style-type: disc !important; }
+        .memo-container ol { list-style-type: decimal !important; }
+        .memo-container li {
+            margin-bottom: 10px !important;
+            color: #C5BCB0 !important;
+            line-height: 1.78 !important;
+        }
+        .memo-container li::marker {
+            color: #C99A75 !important;
+        }
+        .memo-container strong, .memo-container b {
+            color: #E6DFD5 !important;
+            font-weight: 600 !important;
+            letter-spacing: 0 !important;
+        }
+
+        /* STUNNING CONSISTENT TABLES - SOOTHING WARM TONES & ZERO OVERFLOW */
+        .table-scroll-wrap {
+            width: 100% !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            margin: 32px 0 !important;
+            background: #171614 !important;
+            background-color: #171614 !important;
+            border-radius: 12px !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            box-sizing: border-box !important;
+        }
+        .memo-container table {
+            width: 100% !important;
+            min-width: 600px !important;
+            border-collapse: separate !important;
+            border-spacing: 0 !important;
+            margin: 0 !important;
+            background: transparent !important;
+            background-color: transparent !important;
+            border: none !important;
+        }
+        .memo-container tr, .memo-container td, .memo-container th {
+            background: transparent !important;
+            background-color: transparent !important;
+        }
+        .memo-container th {
+            background: #1E1D1A !important;
+            background-color: #1E1D1A !important;
+            color: #C99A75 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            padding: 14px 18px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
+            text-align: left !important;
+        }
+        .memo-container td {
+            padding: 14px 18px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.05) !important;
+            font-size: 0.92rem !important;
+            color: #BDB7AA !important;
+            font-family: var(--font-mono) !important;
+            text-align: left !important;
+        }
+        .memo-container tr:last-child td {
+            border-bottom: none !important;
+        }
+        .memo-container tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.012) !important;
+            background-color: rgba(255, 255, 255, 0.012) !important;
+        }
+        .memo-container tr:hover td {
+            background: rgba(201, 154, 117, 0.04) !important;
+            background-color: rgba(201, 154, 117, 0.04) !important;
+        }
+        .memo-container td strong, .memo-container td b {
+            color: #D8D2C6 !important;
+            font-weight: 500 !important;
+        }
+
+        /* UNIVERSAL CALLOUT & BOX STYLING - NEVER WHITE OR PINK, STRICT DARK OBSIDIAN */
+        .memo-container blockquote,
+        .memo-container .callout,
+        .memo-container .falsification-box,
+        .memo-container .institutional-box,
+        .memo-container div[class*="box"],
+        .memo-container div[class*="card"],
+        .memo-container div[class*="alert"],
+        .memo-container div[class*="warning"],
+        .memo-container div[class*="highlight-box"] {
+            background: var(--bg-subpanel) !important;
+            background-color: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-left: 3px solid var(--accent-warm) !important;
+            padding: 22px 26px !important;
+            border-radius: 8px !important;
+            margin: 28px 0 !important;
+            color: var(--text-body) !important;
+            line-height: 1.8 !important;
+        }
+        .memo-container blockquote *,
+        .memo-container .callout *,
+        .memo-container .falsification-box *,
+        .memo-container .institutional-box *,
+        .memo-container div[class*="box"] *,
+        .memo-container div[class*="card"] *,
+        .memo-container div[class*="alert"] * {
+            background: transparent !important;
+            background-color: transparent !important;
+            color: var(--text-body) !important;
+        }
+        .memo-container blockquote h3,
+        .memo-container blockquote h4,
+        .memo-container .callout h3,
+        .memo-container .callout h4,
+        .memo-container .falsification-box h4,
+        .memo-container .falsification-box strong,
+        .memo-container .institutional-box h4,
+        .memo-container .institutional-box strong,
+        .memo-container div[class*="box"] h4,
+        .memo-container div[class*="box"] strong,
+        .memo-container div[class*="card"] strong {
+            color: var(--text-title) !important;
+        }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-sans) !important;
+            font-style: italic !important;
+            font-size: 0.96rem !important;
+            line-height: 1.68 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
+        .highlight, mark {
+            background: rgba(201, 154, 117, 0.16) !important;
+            color: #E2DDD5 !important;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* FINANCIAL METRIC CARDS & STAT GRIDS */
+        .metrics-grid, .stats-grid, .grid-3, .grid-4, .grid-2, .metric-grid {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+            gap: 16px !important;
+            margin: 28px 0 !important;
+        }
+        .metric-card, .stat-card, div[class*="metric-box"], div[class*="stat-box"], div[class*="kpi-card"] {
+            background: var(--bg-subpanel) !important;
+            background-color: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-radius: 10px !important;
+            padding: 18px 20px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            box-sizing: border-box !important;
+        }
+        .metric-label, .stat-label, .kpi-label {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            color: var(--text-secondary) !important;
+            margin-bottom: 6px !important;
+        }
+        .metric-value, .stat-value, .kpi-value {
+            font-family: var(--font-mono);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-title);
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 4px;
+            white-space: nowrap;
+        }
+        .metric-delta, .metric-sub, .stat-sub, .kpi-sub {
+            font-family: var(--font-mono) !important;
+            font-size: 0.82rem !important;
+            color: var(--accent-warm) !important;
+        }
+
+        /* EMBEDDED IMAGES, CHARTS & VISUAL INFOGRAPHICS */
+        .figure-container, figure {
+            margin: 32px 0 !important;
+            text-align: center !important;
+            background: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-radius: 12px !important;
+            padding: 16px !important;
+            overflow: hidden !important;
+        }
+        .memo-container img {
+            max-width: 100% !important;
+            height: auto !important;
+            border-radius: 8px !important;
+            display: block !important;
+            margin: 0 auto !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+        }
+        .figure-caption, figcaption {
+            font-family: var(--font-sans) !important;
+            font-size: 0.8rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 10px !important;
+            text-align: center !important;
+        }
+
+        /* Evolution Update Highlight Banner at top of Memo */
+        .update-banner-box {
+            background: #1C1B18 !important;
+            border: 1px solid rgba(201, 154, 117, 0.3) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 12px !important;
+            padding: 24px 28px !important;
+            margin-bottom: 36px !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .update-banner-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 14px !important;
+            padding-bottom: 10px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
+        }
+        .update-banner-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.76rem !important;
+            font-weight: 600 !important;
+            color: var(--accent-warm) !important;
+            letter-spacing: 0.04em !important;
+            text-transform: uppercase !important;
+        }
+        .update-trigger-pill {
+            font-family: var(--font-mono) !important;
+            font-size: 0.74rem !important;
+            color: var(--text-secondary) !important;
+            background: var(--bg-subpanel) !important;
+            padding: 3px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid var(--border-color) !important;
+        }
+        .update-banner-title {
+            font-family: var(--font-sans) !important;
+            font-size: 1.15rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            margin-bottom: 8px !important;
+            letter-spacing: -0.015em !important;
+        }
+        .update-banner-desc {
+            font-family: var(--font-sans) !important;
+            font-size: 0.94rem !important;
+            line-height: 1.68 !important;
+            color: var(--text-body) !important;
+        }
+
+        /* History */
+        .history-entry {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 28px 32px;
+            margin-bottom: 20px;
+        }
+        .history-entry-active { border-color: rgba(201, 154, 117, 0.35); }
+        .history-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+        .history-tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .history-time { color: var(--text-secondary); font-size: 0.88rem; font-family: var(--font-sans); }
+        .history-price { font-family: var(--font-mono); font-size: 0.92rem; }
+
+        .diff-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) { .diff-grid { grid-template-columns: 1fr; } }
+        .diff-box {
+            padding: 18px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .diff-prev { background: rgba(196, 114, 108, 0.05); border-color: rgba(196, 114, 108, 0.18); }
+        .diff-now { background: rgba(125, 157, 129, 0.05); border-color: rgba(125, 157, 129, 0.18); }
+        .diff-label { font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+        .diff-prev .diff-label { color: var(--accent-red); }
+        .diff-now .diff-label { color: var(--accent-green); }
+        .diff-text { font-size: 1.02rem; color: var(--text-body); line-height: 1.65; }
+
+        /* Pills */
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 11px;
+            border-radius: 9999px;
+            font-size: 0.72rem;
+            font-family: var(--font-sans);
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+        }
+        .pill-active { background: rgba(201, 154, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.45); font-weight: 600; box-shadow: 0 0 10px rgba(201, 154, 117, 0.06); }
+        .pill-neutral { background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); font-weight: 500; }
+        .pill-alert { background: rgba(191, 160, 117, 0.14); color: var(--accent-warm); border: 1px solid rgba(191, 160, 117, 0.28); }
+
+        .btn-subtle {
+            background: var(--bg-subpanel);
+            color: var(--text-title);
+            border: 1px solid var(--border-color);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            padding: 7px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .btn-subtle:hover { background: var(--bg-hover); }
+
+        .snapshot-drawer { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color); }
+
+        /* Subtle Hinge-style Status Pulse Beacon */
+        .status-beacon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 9px;
+            height: 9px;
+            margin-left: 7px;
+            vertical-align: middle;
+            cursor: help;
+        }
+        .beacon-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            position: relative;
+            z-index: 2;
+        }
+        .beacon-ping {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            animation: beacon-ripple 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+            z-index: 1;
+        }
+        .beacon-buy .beacon-dot { background-color: #10b981; box-shadow: 0 0 6px rgba(16, 185, 129, 0.7); }
+        .beacon-buy .beacon-ping { background-color: rgba(16, 185, 129, 0.45); }
+        .beacon-hold .beacon-dot { background-color: #f59e0b; box-shadow: 0 0 6px rgba(245, 158, 11, 0.7); }
+        .beacon-hold .beacon-ping { background-color: rgba(245, 158, 11, 0.45); }
+        .beacon-caution .beacon-dot { background-color: #f97316; box-shadow: 0 0 6px rgba(249, 115, 22, 0.7); }
+        .beacon-caution .beacon-ping { background-color: rgba(249, 115, 22, 0.45); }
+        .beacon-avoid .beacon-dot { background-color: #ef4444; box-shadow: 0 0 6px rgba(239, 68, 68, 0.7); }
+        .beacon-avoid .beacon-ping { background-color: rgba(239, 68, 68, 0.45); }
+        @keyframes beacon-ripple {
+            0% { transform: scale(0.9); opacity: 0.85; }
+            70% { transform: scale(2.5); opacity: 0; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+
+        .pos { color: var(--accent-green); }
+        .neg { color: var(--accent-red); }
+
+        /* Info Circle Button */
+        .btn-info-circle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            color: var(--text-dim);
+            font-size: 0.72rem;
+            font-family: var(--font-mono);
+            cursor: pointer;
+            margin-left: 6px;
+            vertical-align: middle;
+            transition: all 0.15s ease;
+            padding: 0;
+            line-height: 1;
+        }
+        .btn-info-circle:hover {
+            background: var(--bg-hover);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            transform: scale(1.1);
+        }
+
+        /* Modal */
+        .modal-shade {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(10, 10, 9, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+        }
+        .modal-body-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-focus);
+            border-radius: 16px;
+            max-width: 720px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 36px;
+            position: relative;
+        }
+        .modal-x {
+            position: absolute;
+            top: 20px; right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-size: 1.4rem;
+            cursor: pointer;
+        }
+        .modal-x:hover { color: var(--text-title); }
+        .btn-primary {
+            background: var(--accent-warm); color: #141312; font-family: var(--font-sans); font-weight: 500;
+            padding: 10px 20px; border-radius: 6px; text-decoration: none; display: inline-flex; align-items: center; border: none; cursor: pointer;
+            transition: all 0.15s;
+        }
+        .btn-primary:hover { background: #DDB495; }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="container nav-inner">
+            <a href="../index.html" class="nav-back">← AlphaThesis</a>
+            <span style="font-size: 0.82rem; color: var(--text-dim); font-family: var(--font-sans);">LLY RESEARCH</span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Hero Deck -->
+        <section class="hero-deck">
+            <div class="hero-top-row">
+                <div>
+                    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                        <div class="ticker-logo-wrap" style="width:32px; height:32px; min-width:32px; min-height:32px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/LLY" alt="LLY" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:13px;">LL</span></div>
+                        <span class="ticker-symbol">LLY</span>
+                        <span class="pill pill-conviction">Moderate Conviction</span>
+                        <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="View Investment Taxonomy & Labels Legend">ⓘ</button>
+                    </div>
+                    <div class="company-meta">Eli Lilly and Company</div>
+                </div>
+                <div class="price-callout">
+                    <div class="price-number">$1189.76</div>
+                    <div class="price-sub neg">
+                        -2.08%
+                    </div>
+                </div>
+            </div>
+
+            <!-- Native Multi-Range Interactive Area Chart -->
+            
+    <div class="native-chart-wrap" id="chart-container" style="position: relative; overflow: hidden;">
+        <div class="chart-top-bar">
+            <div id="chart-live-val" class="chart-live-val">
+                <span id="tooltip-date">Aug 17, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$1189.96</strong>
+                <span id="tooltip-delta" class="pos" style="font-size: 0.76rem; margin-left: 6px;"></span>
+            </div>
+            <div class="chart-range-pills">
+                <button class="range-pill active" onclick="switchChartRange('1Y')">1Y</button>
+                <button class="range-pill" onclick="switchChartRange('5Y')">5Y</button>
+                <button class="range-pill" onclick="switchChartRange('10Y')">10Y</button>
+                <button class="range-pill" onclick="switchChartRange('MAX')">MAX</button>
+            </div>
+        </div>
+
+        <div style="position: relative; width: 100%; height: 260px;">
+            <svg id="interactive-svg" viewBox="0 0 900 260" preserveAspectRatio="none" class="chart-svg" style="width: 100%; height: 100%;">
+                <defs>
+                    <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#D4A373" stop-opacity="0.18" />
+                        <stop offset="100%" stop-color="#D4A373" stop-opacity="0.0" />
+                    </linearGradient>
+                </defs>
+                
+                <!-- Background Grid Reference Lines -->
+                <line x1="20" y1="25" x2="880" y2="25" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
+                <line x1="20" y1="130.0" x2="880" y2="130.0" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
+                <line x1="20" y1="235" x2="880" y2="235" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
+
+                <!-- Area & Line Paths -->
+                <path id="chart-area-path" d="" fill="url(#area-grad)" />
+                <path id="chart-line-path" d="" fill="none" stroke="#D4A373" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+
+                <!-- Vertical Crosshair Line -->
+                <line id="crosshair-v" x1="0" y1="0" x2="0" y2="260" stroke="rgba(212,163,115,0.45)" stroke-width="1.2" stroke-dasharray="3 3" style="display: none;" />
+                
+                <!-- Horizontal Crosshair Line -->
+                <line id="crosshair-h" x1="20" y1="0" x2="880" y2="0" stroke="rgba(212,163,115,0.45)" stroke-width="1.2" stroke-dasharray="3 3" style="display: none;" />
+
+                <!-- Hover Halo & Dot -->
+                <circle id="hover-dot-outer" r="8.5" fill="rgba(212,163,115,0.22)" style="display: none;" />
+                <circle id="hover-dot" r="4.5" fill="#D4A373" stroke="#161513" stroke-width="2.5" style="display: none;" />
+            </svg>
+
+            <!-- Floating X-Axis Date Badge -->
+            <div id="chart-badge-x" style="display:none; position:absolute; bottom:4px; background:#111110; color:#EAE6E1; border:1px solid var(--accent-warm); border-radius:4px; padding:2px 8px; font-family:var(--font-mono); font-size:0.70rem; font-weight:600; transform:translateX(-50%); pointer-events:none; white-space:nowrap; box-shadow:0 4px 12px rgba(0,0,0,0.6); z-index:20;"></div>
+
+            <!-- Floating Y-Axis Price Badge -->
+            <div id="chart-badge-y" style="display:none; position:absolute; right:8px; background:var(--accent-warm); color:#161513; border-radius:4px; padding:2px 8px; font-family:var(--font-mono); font-size:0.74rem; font-weight:700; transform:translateY(-50%); pointer-events:none; white-space:nowrap; box-shadow:0 3px 10px rgba(0,0,0,0.5); z-index:20;"></div>
+        </div>
+
+        <div class="chart-labels">
+            <span id="chart-start-lbl">Aug 18, 2025 ($695.33)</span>
+            <span id="chart-range-title">1-Year Historical Range</span>
+            <span id="chart-end-lbl">Aug 17, 2026 ($1189.96)</span>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const allDatasets = {"1Y": [{"date": "Aug 18, 2025", "price": 698.05}, {"date": "Aug 19, 2025", "price": 703.21}, {"date": "Aug 20, 2025", "price": 705.44}, {"date": "Aug 21, 2025", "price": 709.82}, {"date": "Aug 22, 2025", "price": 711.68}, {"date": "Aug 25, 2025", "price": 695.33}, {"date": "Aug 26, 2025", "price": 736.03}, {"date": "Aug 27, 2025", "price": 734.17}, {"date": "Aug 28, 2025", "price": 731.96}, {"date": "Aug 29, 2025", "price": 732.58}, {"date": "Sep 02, 2025", "price": 735.19}, {"date": "Sep 03, 2025", "price": 737.83}, {"date": "Sep 04, 2025", "price": 742.91}, {"date": "Sep 05, 2025", "price": 727.21}, {"date": "Sep 08, 2025", "price": 738.64}, {"date": "Sep 09, 2025", "price": 750.61}, {"date": "Sep 10, 2025", "price": 754.62}, {"date": "Sep 11, 2025", "price": 756.28}, {"date": "Sep 12, 2025", "price": 755.39}, {"date": "Sep 15, 2025", "price": 748.19}, {"date": "Sep 16, 2025", "price": 764.71}, {"date": "Sep 17, 2025", "price": 760.13}, {"date": "Sep 18, 2025", "price": 762.93}, {"date": "Sep 19, 2025", "price": 751.99}, {"date": "Sep 22, 2025", "price": 754.95}, {"date": "Sep 23, 2025", "price": 746.98}, {"date": "Sep 24, 2025", "price": 741.85}, {"date": "Sep 25, 2025", "price": 714.59}, {"date": "Sep 26, 2025", "price": 724.54}, {"date": "Sep 29, 2025", "price": 726.51}, {"date": "Sep 30, 2025", "price": 763.0}, {"date": "Oct 01, 2025", "price": 825.42}, {"date": "Oct 02, 2025", "price": 819.85}, {"date": "Oct 03, 2025", "price": 839.87}, {"date": "Oct 06, 2025", "price": 845.05}, {"date": "Oct 07, 2025", "price": 843.63}, {"date": "Oct 08, 2025", "price": 845.72}, {"date": "Oct 09, 2025", "price": 855.35}, {"date": "Oct 10, 2025", "price": 833.49}, {"date": "Oct 13, 2025", "price": 819.4}, {"date": "Oct 14, 2025", "price": 812.35}, {"date": "Oct 15, 2025", "price": 826.57}, {"date": "Oct 16, 2025", "price": 819.38}, {"date": "Oct 17, 2025", "price": 802.83}, {"date": "Oct 20, 2025", "price": 808.96}, {"date": "Oct 21, 2025", "price": 799.57}, {"date": "Oct 22, 2025", "price": 812.43}, {"date": "Oct 23, 2025", "price": 821.04}, {"date": "Oct 24, 2025", "price": 825.45}, {"date": "Oct 27, 2025", "price": 826.41}, {"date": "Oct 28, 2025", "price": 820.1}, {"date": "Oct 29, 2025", "price": 813.53}, {"date": "Oct 30, 2025", "price": 844.5}, {"date": "Oct 31, 2025", "price": 862.86}, {"date": "Nov 03, 2025", "price": 896.53}, {"date": "Nov 04, 2025", "price": 906.86}, {"date": "Nov 05, 2025", "price": 925.81}, {"date": "Nov 06, 2025", "price": 937.44}, {"date": "Nov 07, 2025", "price": 924.37}, {"date": "Nov 10, 2025", "price": 966.64}, {"date": "Nov 11, 2025", "price": 988.62}, {"date": "Nov 12, 2025", "price": 1017.78}, {"date": "Nov 13, 2025", "price": 1022.87}, {"date": "Nov 14, 2025", "price": 1025.28}, {"date": "Nov 17, 2025", "price": 1021.7}, {"date": "Nov 18, 2025", "price": 1030.05}, {"date": "Nov 19, 2025", "price": 1049.6}, {"date": "Nov 20, 2025", "price": 1043.29}, {"date": "Nov 21, 2025", "price": 1059.7}, {"date": "Nov 24, 2025", "price": 1070.16}, {"date": "Nov 25, 2025", "price": 1109.94}, {"date": "Nov 26, 2025", "price": 1104.34}, {"date": "Nov 28, 2025", "price": 1075.47}, {"date": "Dec 01, 2025", "price": 1057.89}, {"date": "Dec 02, 2025", "price": 1046.12}, {"date": "Dec 03, 2025", "price": 1033.56}, {"date": "Dec 04, 2025", "price": 1014.49}, {"date": "Dec 05, 2025", "price": 1010.31}, {"date": "Dec 08, 2025", "price": 997.59}, {"date": "Dec 09, 2025", "price": 982.22}, {"date": "Dec 10, 2025", "price": 993.64}, {"date": "Dec 11, 2025", "price": 1009.38}, {"date": "Dec 12, 2025", "price": 1027.51}, {"date": "Dec 15, 2025", "price": 1062.19}, {"date": "Dec 16, 2025", "price": 1054.29}, {"date": "Dec 17, 2025", "price": 1041.79}, {"date": "Dec 18, 2025", "price": 1056.88}, {"date": "Dec 19, 2025", "price": 1071.44}, {"date": "Dec 22, 2025", "price": 1076.48}, {"date": "Dec 23, 2025", "price": 1071.64}, {"date": "Dec 24, 2025", "price": 1076.98}, {"date": "Dec 26, 2025", "price": 1077.75}, {"date": "Dec 29, 2025", "price": 1078.73}, {"date": "Dec 30, 2025", "price": 1079.75}, {"date": "Dec 31, 2025", "price": 1074.68}, {"date": "Jan 02, 2026", "price": 1080.36}, {"date": "Jan 05, 2026", "price": 1041.51}, {"date": "Jan 06, 2026", "price": 1064.04}, {"date": "Jan 07, 2026", "price": 1108.09}, {"date": "Jan 08, 2026", "price": 1085.19}, {"date": "Jan 09, 2026", "price": 1063.56}, {"date": "Jan 12, 2026", "price": 1081.0}, {"date": "Jan 13, 2026", "price": 1077.19}, {"date": "Jan 14, 2026", "price": 1073.29}, {"date": "Jan 15, 2026", "price": 1032.97}, {"date": "Jan 16, 2026", "price": 1038.4}, {"date": "Jan 20, 2026", "price": 1041.29}, {"date": "Jan 21, 2026", "price": 1078.52}, {"date": "Jan 22, 2026", "price": 1087.38}, {"date": "Jan 23, 2026", "price": 1064.29}, {"date": "Jan 26, 2026", "price": 1062.75}, {"date": "Jan 27, 2026", "price": 1039.51}, {"date": "Jan 28, 2026", "price": 1023.8}, {"date": "Jan 29, 2026", "price": 1024.14}, {"date": "Jan 30, 2026", "price": 1037.15}, {"date": "Feb 02, 2026", "price": 1044.13}, {"date": "Feb 03, 2026", "price": 1003.46}, {"date": "Feb 04, 2026", "price": 1107.12}, {"date": "Feb 05, 2026", "price": 1020.84}, {"date": "Feb 06, 2026", "price": 1058.18}, {"date": "Feb 09, 2026", "price": 1044.67}, {"date": "Feb 10, 2026", "price": 1025.0}, {"date": "Feb 11, 2026", "price": 1015.21}, {"date": "Feb 12, 2026", "price": 1038.27}, {"date": "Feb 13, 2026", "price": 1040.0}, {"date": "Feb 17, 2026", "price": 1036.05}, {"date": "Feb 18, 2026", "price": 1020.56}, {"date": "Feb 19, 2026", "price": 1023.22}, {"date": "Feb 20, 2026", "price": 1009.52}, {"date": "Feb 23, 2026", "price": 1058.56}, {"date": "Feb 24, 2026", "price": 1042.15}, {"date": "Feb 25, 2026", "price": 1028.83}, {"date": "Feb 26, 2026", "price": 1022.02}, {"date": "Feb 27, 2026", "price": 1051.99}, {"date": "Mar 02, 2026", "price": 1017.97}, {"date": "Mar 03, 2026", "price": 1007.73}, {"date": "Mar 04, 2026", "price": 1003.57}, {"date": "Mar 05, 2026", "price": 983.26}, {"date": "Mar 06, 2026", "price": 990.33}, {"date": "Mar 09, 2026", "price": 1008.39}, {"date": "Mar 10, 2026", "price": 1001.35}, {"date": "Mar 11, 2026", "price": 999.84}, {"date": "Mar 12, 2026", "price": 977.25}, {"date": "Mar 13, 2026", "price": 985.08}, {"date": "Mar 16, 2026", "price": 989.12}, {"date": "Mar 17, 2026", "price": 930.35}, {"date": "Mar 18, 2026", "price": 918.05}, {"date": "Mar 19, 2026", "price": 917.5}, {"date": "Mar 20, 2026", "price": 906.7}, {"date": "Mar 23, 2026", "price": 910.55}, {"date": "Mar 24, 2026", "price": 903.02}, {"date": "Mar 25, 2026", "price": 916.31}, {"date": "Mar 26, 2026", "price": 897.0}, {"date": "Mar 27, 2026", "price": 878.24}, {"date": "Mar 30, 2026", "price": 886.63}, {"date": "Mar 31, 2026", "price": 919.77}, {"date": "Apr 01, 2026", "price": 954.52}, {"date": "Apr 02, 2026", "price": 935.58}, {"date": "Apr 06, 2026", "price": 927.06}, {"date": "Apr 07, 2026", "price": 931.09}, {"date": "Apr 08, 2026", "price": 953.3}, {"date": "Apr 09, 2026", "price": 955.19}, {"date": "Apr 10, 2026", "price": 939.47}, {"date": "Apr 13, 2026", "price": 929.55}, {"date": "Apr 14, 2026", "price": 922.5}, {"date": "Apr 15, 2026", "price": 905.03}, {"date": "Apr 16, 2026", "price": 903.99}, {"date": "Apr 17, 2026", "price": 927.03}, {"date": "Apr 20, 2026", "price": 919.9}, {"date": "Apr 21, 2026", "price": 903.02}, {"date": "Apr 22, 2026", "price": 921.48}, {"date": "Apr 23, 2026", "price": 917.65}, {"date": "Apr 24, 2026", "price": 883.96}, {"date": "Apr 27, 2026", "price": 868.27}, {"date": "Apr 28, 2026", "price": 874.0}, {"date": "Apr 29, 2026", "price": 851.21}, {"date": "Apr 30, 2026", "price": 934.6}, {"date": "May 01, 2026", "price": 963.33}, {"date": "May 04, 2026", "price": 967.93}, {"date": "May 05, 2026", "price": 988.87}, {"date": "May 06, 2026", "price": 987.05}, {"date": "May 07, 2026", "price": 974.96}, {"date": "May 08, 2026", "price": 948.45}, {"date": "May 11, 2026", "price": 966.99}, {"date": "May 12, 2026", "price": 989.87}, {"date": "May 13, 2026", "price": 1015.75}, {"date": "May 14, 2026", "price": 1006.7}, {"date": "May 15, 2026", "price": 1004.92}, {"date": "May 18, 2026", "price": 988.09}, {"date": "May 19, 2026", "price": 1021.41}, {"date": "May 20, 2026", "price": 1018.87}, {"date": "May 21, 2026", "price": 1041.65}, {"date": "May 22, 2026", "price": 1065.0}, {"date": "May 26, 2026", "price": 1064.74}, {"date": "May 27, 2026", "price": 1082.92}, {"date": "May 28, 2026", "price": 1126.8}, {"date": "May 29, 2026", "price": 1105.0}, {"date": "Jun 01, 2026", "price": 1082.2}, {"date": "Jun 02, 2026", "price": 1064.15}, {"date": "Jun 03, 2026", "price": 1078.78}, {"date": "Jun 04, 2026", "price": 1125.27}, {"date": "Jun 05, 2026", "price": 1131.42}, {"date": "Jun 08, 2026", "price": 1149.15}, {"date": "Jun 09, 2026", "price": 1144.68}, {"date": "Jun 10, 2026", "price": 1136.37}, {"date": "Jun 11, 2026", "price": 1160.95}, {"date": "Jun 12, 2026", "price": 1133.0}, {"date": "Jun 15, 2026", "price": 1129.35}, {"date": "Jun 16, 2026", "price": 1122.5}, {"date": "Jun 17, 2026", "price": 1112.0}, {"date": "Jun 18, 2026", "price": 1098.57}, {"date": "Jun 22, 2026", "price": 1102.08}, {"date": "Jun 23, 2026", "price": 1107.08}, {"date": "Jun 24, 2026", "price": 1117.26}, {"date": "Jun 25, 2026", "price": 1127.69}, {"date": "Jun 26, 2026", "price": 1208.12}, {"date": "Jun 29, 2026", "price": 1229.93}, {"date": "Jun 30, 2026", "price": 1199.43}, {"date": "Jul 01, 2026", "price": 1191.74}, {"date": "Jul 02, 2026", "price": 1213.91}, {"date": "Jul 06, 2026", "price": 1200.06}, {"date": "Jul 07, 2026", "price": 1235.56}, {"date": "Jul 08, 2026", "price": 1215.83}, {"date": "Jul 09, 2026", "price": 1216.95}, {"date": "Jul 10, 2026", "price": 1188.58}, {"date": "Jul 13, 2026", "price": 1181.87}, {"date": "Jul 14, 2026", "price": 1152.54}, {"date": "Jul 15, 2026", "price": 1156.63}, {"date": "Jul 16, 2026", "price": 1169.17}, {"date": "Jul 17, 2026", "price": 1179.11}, {"date": "Jul 20, 2026", "price": 1146.9}, {"date": "Jul 21, 2026", "price": 1175.41}, {"date": "Jul 22, 2026", "price": 1163.01}, {"date": "Jul 23, 2026", "price": 1185.87}, {"date": "Jul 24, 2026", "price": 1196.03}, {"date": "Jul 27, 2026", "price": 1197.53}, {"date": "Jul 28, 2026", "price": 1220.66}, {"date": "Jul 29, 2026", "price": 1210.02}, {"date": "Jul 30, 2026", "price": 1154.97}, {"date": "Jul 31, 2026", "price": 1148.84}, {"date": "Aug 03, 2026", "price": 1121.36}, {"date": "Aug 04, 2026", "price": 1115.68}, {"date": "Aug 05, 2026", "price": 1169.86}, {"date": "Aug 06, 2026", "price": 1191.94}, {"date": "Aug 07, 2026", "price": 1185.71}, {"date": "Aug 10, 2026", "price": 1231.94}, {"date": "Aug 11, 2026", "price": 1215.02}, {"date": "Aug 12, 2026", "price": 1220.28}, {"date": "Aug 13, 2026", "price": 1209.0}, {"date": "Aug 14, 2026", "price": 1180.16}, {"date": "Aug 17, 2026", "price": 1189.96}], "5Y": [{"date": "Aug 15, 2021", "price": 270.91}, {"date": "Aug 22, 2021", "price": 259.75}, {"date": "Aug 29, 2021", "price": 259.53}, {"date": "Sep 05, 2021", "price": 239.5}, {"date": "Sep 12, 2021", "price": 230.1}, {"date": "Sep 19, 2021", "price": 231.68}, {"date": "Sep 26, 2021", "price": 229.59}, {"date": "Oct 03, 2021", "price": 233.94}, {"date": "Oct 10, 2021", "price": 237.88}, {"date": "Oct 17, 2021", "price": 243.75}, {"date": "Oct 24, 2021", "price": 254.76}, {"date": "Oct 31, 2021", "price": 265.0}, {"date": "Nov 07, 2021", "price": 259.65}, {"date": "Nov 14, 2021", "price": 260.7}, {"date": "Nov 21, 2021", "price": 260.37}, {"date": "Nov 28, 2021", "price": 245.58}, {"date": "Dec 05, 2021", "price": 244.14}, {"date": "Dec 12, 2021", "price": 267.42}, {"date": "Dec 19, 2021", "price": 273.1}, {"date": "Dec 26, 2021", "price": 276.22}, {"date": "Jan 02, 2022", "price": 259.5}, {"date": "Jan 09, 2022", "price": 244.12}, {"date": "Jan 16, 2022", "price": 243.06}, {"date": "Jan 23, 2022", "price": 245.1}, {"date": "Jan 30, 2022", "price": 242.27}, {"date": "Feb 06, 2022", "price": 235.74}, {"date": "Feb 13, 2022", "price": 240.31}, {"date": "Feb 20, 2022", "price": 250.85}, {"date": "Feb 27, 2022", "price": 262.87}, {"date": "Mar 06, 2022", "price": 266.3}, {"date": "Mar 13, 2022", "price": 287.64}, {"date": "Mar 20, 2022", "price": 289.02}, {"date": "Mar 27, 2022", "price": 292.67}, {"date": "Apr 03, 2022", "price": 311.69}, {"date": "Apr 10, 2022", "price": 301.86}, {"date": "Apr 17, 2022", "price": 278.73}, {"date": "Apr 24, 2022", "price": 292.13}, {"date": "May 01, 2022", "price": 296.9}, {"date": "May 08, 2022", "price": 291.63}, {"date": "May 15, 2022", "price": 298.85}, {"date": "May 22, 2022", "price": 323.48}, {"date": "May 29, 2022", "price": 301.65}, {"date": "Jun 05, 2022", "price": 297.01}, {"date": "Jun 12, 2022", "price": 290.9}, {"date": "Jun 19, 2022", "price": 325.62}, {"date": "Jun 26, 2022", "price": 324.71}, {"date": "Jul 03, 2022", "price": 330.47}, {"date": "Jul 10, 2022", "price": 331.6}, {"date": "Jul 17, 2022", "price": 328.75}, {"date": "Jul 24, 2022", "price": 329.69}, {"date": "Jul 31, 2022", "price": 301.32}, {"date": "Aug 07, 2022", "price": 308.08}, {"date": "Aug 14, 2022", "price": 322.77}, {"date": "Aug 21, 2022", "price": 315.56}, {"date": "Aug 28, 2022", "price": 301.33}, {"date": "Sep 04, 2022", "price": 317.7}, {"date": "Sep 11, 2022", "price": 308.89}, {"date": "Sep 18, 2022", "price": 311.46}, {"date": "Sep 25, 2022", "price": 323.35}, {"date": "Oct 02, 2022", "price": 326.66}, {"date": "Oct 09, 2022", "price": 331.39}, {"date": "Oct 16, 2022", "price": 340.77}, {"date": "Oct 23, 2022", "price": 359.9}, {"date": "Oct 30, 2022", "price": 357.41}, {"date": "Nov 06, 2022", "price": 352.3}, {"date": "Nov 13, 2022", "price": 361.67}, {"date": "Nov 20, 2022", "price": 365.25}, {"date": "Nov 27, 2022", "price": 374.76}, {"date": "Dec 04, 2022", "price": 360.99}, {"date": "Dec 11, 2022", "price": 359.87}, {"date": "Dec 18, 2022", "price": 367.9}, {"date": "Dec 25, 2022", "price": 365.84}, {"date": "Jan 01, 2023", "price": 362.94}, {"date": "Jan 08, 2023", "price": 361.62}, {"date": "Jan 15, 2023", "price": 346.07}, {"date": "Jan 22, 2023", "price": 342.1}, {"date": "Jan 29, 2023", "price": 339.08}, {"date": "Feb 05, 2023", "price": 345.12}, {"date": "Feb 12, 2023", "price": 328.4}, {"date": "Feb 19, 2023", "price": 321.64}, {"date": "Feb 26, 2023", "price": 318.43}, {"date": "Mar 05, 2023", "price": 315.02}, {"date": "Mar 12, 2023", "price": 329.18}, {"date": "Mar 19, 2023", "price": 336.13}, {"date": "Mar 26, 2023", "price": 343.42}, {"date": "Apr 02, 2023", "price": 368.29}, {"date": "Apr 09, 2023", "price": 374.73}, {"date": "Apr 16, 2023", "price": 385.24}, {"date": "Apr 23, 2023", "price": 395.86}, {"date": "Apr 30, 2023", "price": 427.81}, {"date": "May 07, 2023", "price": 434.43}, {"date": "May 14, 2023", "price": 442.38}, {"date": "May 21, 2023", "price": 425.79}, {"date": "May 28, 2023", "price": 442.33}, {"date": "Jun 04, 2023", "price": 446.04}, {"date": "Jun 11, 2023", "price": 447.71}, {"date": "Jun 18, 2023", "price": 458.84}, {"date": "Jun 25, 2023", "price": 468.98}, {"date": "Jul 02, 2023", "price": 452.08}, {"date": "Jul 09, 2023", "price": 449.46}, {"date": "Jul 16, 2023", "price": 462.04}, {"date": "Jul 23, 2023", "price": 458.48}, {"date": "Jul 30, 2023", "price": 449.49}, {"date": "Aug 06, 2023", "price": 528.28}, {"date": "Aug 13, 2023", "price": 546.43}, {"date": "Aug 20, 2023", "price": 553.65}, {"date": "Aug 27, 2023", "price": 557.11}, {"date": "Sep 03, 2023", "price": 586.46}, {"date": "Sep 10, 2023", "price": 575.66}, {"date": "Sep 17, 2023", "price": 550.54}, {"date": "Sep 24, 2023", "price": 537.13}, {"date": "Oct 01, 2023", "price": 565.22}, {"date": "Oct 08, 2023", "price": 609.2}, {"date": "Oct 15, 2023", "price": 584.64}, {"date": "Oct 22, 2023", "price": 560.23}, {"date": "Oct 29, 2023", "price": 567.81}, {"date": "Nov 05, 2023", "price": 597.71}, {"date": "Nov 12, 2023", "price": 591.71}, {"date": "Nov 19, 2023", "price": 601.1}, {"date": "Nov 26, 2023", "price": 584.04}, {"date": "Dec 03, 2023", "price": 598.05}, {"date": "Dec 10, 2023", "price": 572.04}, {"date": "Dec 17, 2023", "price": 570.39}, {"date": "Dec 24, 2023", "price": 582.92}, {"date": "Dec 31, 2023", "price": 618.55}, {"date": "Jan 07, 2024", "price": 642.92}, {"date": "Jan 14, 2024", "price": 628.58}, {"date": "Jan 21, 2024", "price": 639.25}, {"date": "Jan 28, 2024", "price": 667.65}, {"date": "Feb 04, 2024", "price": 740.16}, {"date": "Feb 11, 2024", "price": 782.06}, {"date": "Feb 18, 2024", "price": 769.54}, {"date": "Feb 25, 2024", "price": 782.12}, {"date": "Mar 03, 2024", "price": 762.14}, {"date": "Mar 10, 2024", "price": 754.17}, {"date": "Mar 17, 2024", "price": 770.61}, {"date": "Mar 24, 2024", "price": 777.96}, {"date": "Mar 31, 2024", "price": 784.21}, {"date": "Apr 07, 2024", "price": 751.64}, {"date": "Apr 14, 2024", "price": 726.31}, {"date": "Apr 21, 2024", "price": 733.51}, {"date": "Apr 28, 2024", "price": 734.97}, {"date": "May 05, 2024", "price": 760.0}, {"date": "May 12, 2024", "price": 770.0}, {"date": "May 19, 2024", "price": 807.43}, {"date": "May 26, 2024", "price": 820.34}, {"date": "Jun 02, 2024", "price": 849.99}, {"date": "Jun 09, 2024", "price": 878.45}, {"date": "Jun 16, 2024", "price": 883.88}, {"date": "Jun 23, 2024", "price": 905.38}, {"date": "Jun 30, 2024", "price": 914.57}, {"date": "Jul 07, 2024", "price": 948.4}, {"date": "Jul 14, 2024", "price": 857.47}, {"date": "Jul 21, 2024", "price": 804.62}, {"date": "Jul 28, 2024", "price": 804.46}, {"date": "Aug 04, 2024", "price": 891.68}, {"date": "Aug 11, 2024", "price": 922.12}, {"date": "Aug 18, 2024", "price": 952.74}, {"date": "Aug 25, 2024", "price": 960.02}, {"date": "Sep 01, 2024", "price": 902.71}, {"date": "Sep 08, 2024", "price": 923.71}, {"date": "Sep 15, 2024", "price": 921.49}, {"date": "Sep 22, 2024", "price": 877.79}, {"date": "Sep 29, 2024", "price": 887.16}, {"date": "Oct 06, 2024", "price": 932.06}, {"date": "Oct 13, 2024", "price": 917.97}, {"date": "Oct 20, 2024", "price": 892.7}, {"date": "Oct 27, 2024", "price": 818.93}, {"date": "Nov 03, 2024", "price": 831.54}, {"date": "Nov 10, 2024", "price": 746.2}, {"date": "Nov 17, 2024", "price": 748.01}, {"date": "Nov 24, 2024", "price": 795.35}, {"date": "Dec 01, 2024", "price": 826.71}, {"date": "Dec 08, 2024", "price": 789.12}, {"date": "Dec 15, 2024", "price": 767.76}, {"date": "Dec 22, 2024", "price": 783.17}, {"date": "Dec 29, 2024", "price": 781.98}, {"date": "Jan 05, 2025", "price": 799.9}, {"date": "Jan 12, 2025", "price": 725.72}, {"date": "Jan 19, 2025", "price": 785.41}, {"date": "Jan 26, 2025", "price": 811.08}, {"date": "Feb 02, 2025", "price": 878.31}, {"date": "Feb 09, 2025", "price": 844.27}, {"date": "Feb 16, 2025", "price": 873.68}, {"date": "Feb 23, 2025", "price": 920.63}, {"date": "Mar 02, 2025", "price": 869.58}, {"date": "Mar 09, 2025", "price": 813.48}, {"date": "Mar 16, 2025", "price": 837.57}, {"date": "Mar 23, 2025", "price": 822.51}, {"date": "Mar 30, 2025", "price": 738.21}, {"date": "Apr 06, 2025", "price": 732.41}, {"date": "Apr 13, 2025", "price": 839.96}, {"date": "Apr 20, 2025", "price": 884.54}, {"date": "Apr 27, 2025", "price": 823.62}, {"date": "May 04, 2025", "price": 734.57}, {"date": "May 11, 2025", "price": 757.39}, {"date": "May 18, 2025", "price": 713.71}, {"date": "May 25, 2025", "price": 737.67}, {"date": "Jun 01, 2025", "price": 769.88}, {"date": "Jun 08, 2025", "price": 819.36}, {"date": "Jun 15, 2025", "price": 762.73}, {"date": "Jun 22, 2025", "price": 775.45}, {"date": "Jun 29, 2025", "price": 780.67}, {"date": "Jul 06, 2025", "price": 793.01}, {"date": "Jul 13, 2025", "price": 771.71}, {"date": "Jul 20, 2025", "price": 812.69}, {"date": "Jul 27, 2025", "price": 762.33}, {"date": "Aug 03, 2025", "price": 625.65}, {"date": "Aug 10, 2025", "price": 701.23}, {"date": "Aug 17, 2025", "price": 711.68}, {"date": "Aug 24, 2025", "price": 732.58}, {"date": "Aug 31, 2025", "price": 727.21}, {"date": "Sep 07, 2025", "price": 755.39}, {"date": "Sep 14, 2025", "price": 751.99}, {"date": "Sep 21, 2025", "price": 724.54}, {"date": "Sep 28, 2025", "price": 839.87}, {"date": "Oct 05, 2025", "price": 833.49}, {"date": "Oct 12, 2025", "price": 802.83}, {"date": "Oct 19, 2025", "price": 825.45}, {"date": "Oct 26, 2025", "price": 862.86}, {"date": "Nov 02, 2025", "price": 924.37}, {"date": "Nov 09, 2025", "price": 1025.28}, {"date": "Nov 16, 2025", "price": 1059.7}, {"date": "Nov 23, 2025", "price": 1075.47}, {"date": "Nov 30, 2025", "price": 1010.31}, {"date": "Dec 07, 2025", "price": 1027.51}, {"date": "Dec 14, 2025", "price": 1071.44}, {"date": "Dec 21, 2025", "price": 1077.75}, {"date": "Dec 28, 2025", "price": 1080.36}, {"date": "Jan 04, 2026", "price": 1063.56}, {"date": "Jan 11, 2026", "price": 1038.4}, {"date": "Jan 18, 2026", "price": 1064.29}, {"date": "Jan 25, 2026", "price": 1037.15}, {"date": "Feb 01, 2026", "price": 1058.18}, {"date": "Feb 08, 2026", "price": 1040.0}, {"date": "Feb 15, 2026", "price": 1009.52}, {"date": "Feb 22, 2026", "price": 1051.99}, {"date": "Mar 01, 2026", "price": 990.33}, {"date": "Mar 08, 2026", "price": 985.08}, {"date": "Mar 15, 2026", "price": 906.7}, {"date": "Mar 22, 2026", "price": 878.24}, {"date": "Mar 29, 2026", "price": 935.58}, {"date": "Apr 05, 2026", "price": 939.47}, {"date": "Apr 12, 2026", "price": 927.03}, {"date": "Apr 19, 2026", "price": 883.96}, {"date": "Apr 26, 2026", "price": 963.33}, {"date": "May 03, 2026", "price": 948.45}, {"date": "May 10, 2026", "price": 1004.92}, {"date": "May 17, 2026", "price": 1065.0}, {"date": "May 24, 2026", "price": 1105.0}, {"date": "May 31, 2026", "price": 1131.42}, {"date": "Jun 07, 2026", "price": 1133.0}, {"date": "Jun 14, 2026", "price": 1098.57}, {"date": "Jun 21, 2026", "price": 1208.12}, {"date": "Jun 28, 2026", "price": 1213.91}, {"date": "Jul 05, 2026", "price": 1188.58}, {"date": "Jul 12, 2026", "price": 1179.11}, {"date": "Jul 19, 2026", "price": 1196.03}, {"date": "Jul 26, 2026", "price": 1148.84}, {"date": "Aug 02, 2026", "price": 1185.71}, {"date": "Aug 09, 2026", "price": 1180.16}, {"date": "Aug 16, 2026", "price": 1189.98}], "10Y": [{"date": "Aug 31, 2016", "price": 80.26}, {"date": "Sep 30, 2016", "price": 73.84}, {"date": "Oct 31, 2016", "price": 67.12}, {"date": "Nov 30, 2016", "price": 73.55}, {"date": "Dec 31, 2016", "price": 77.03}, {"date": "Jan 31, 2017", "price": 82.81}, {"date": "Feb 28, 2017", "price": 84.11}, {"date": "Mar 31, 2017", "price": 82.06}, {"date": "Apr 30, 2017", "price": 79.57}, {"date": "May 31, 2017", "price": 82.3}, {"date": "Jun 30, 2017", "price": 82.66}, {"date": "Jul 31, 2017", "price": 81.29}, {"date": "Aug 31, 2017", "price": 85.54}, {"date": "Sep 30, 2017", "price": 81.94}, {"date": "Oct 31, 2017", "price": 84.64}, {"date": "Nov 30, 2017", "price": 84.46}, {"date": "Dec 31, 2017", "price": 81.45}, {"date": "Jan 31, 2018", "price": 77.02}, {"date": "Feb 28, 2018", "price": 77.37}, {"date": "Mar 31, 2018", "price": 81.07}, {"date": "Apr 30, 2018", "price": 85.04}, {"date": "May 31, 2018", "price": 85.33}, {"date": "Jun 30, 2018", "price": 98.81}, {"date": "Jul 31, 2018", "price": 105.65}, {"date": "Aug 31, 2018", "price": 107.31}, {"date": "Sep 30, 2018", "price": 108.44}, {"date": "Oct 31, 2018", "price": 118.64}, {"date": "Nov 30, 2018", "price": 115.72}, {"date": "Dec 31, 2018", "price": 119.86}, {"date": "Jan 31, 2019", "price": 126.29}, {"date": "Feb 28, 2019", "price": 129.76}, {"date": "Mar 31, 2019", "price": 117.04}, {"date": "Apr 30, 2019", "price": 115.94}, {"date": "May 31, 2019", "price": 110.79}, {"date": "Jun 30, 2019", "price": 108.95}, {"date": "Jul 31, 2019", "price": 112.97}, {"date": "Aug 31, 2019", "price": 111.83}, {"date": "Sep 30, 2019", "price": 113.95}, {"date": "Oct 31, 2019", "price": 117.35}, {"date": "Nov 30, 2019", "price": 131.43}, {"date": "Dec 31, 2019", "price": 139.64}, {"date": "Jan 31, 2020", "price": 126.13}, {"date": "Feb 29, 2020", "price": 138.72}, {"date": "Mar 31, 2020", "price": 154.64}, {"date": "Apr 30, 2020", "price": 152.95}, {"date": "May 31, 2020", "price": 164.18}, {"date": "Jun 30, 2020", "price": 150.29}, {"date": "Jul 31, 2020", "price": 148.39}, {"date": "Aug 31, 2020", "price": 148.02}, {"date": "Sep 30, 2020", "price": 130.46}, {"date": "Oct 31, 2020", "price": 145.65}, {"date": "Nov 30, 2020", "price": 168.84}, {"date": "Dec 31, 2020", "price": 207.97}, {"date": "Jan 31, 2021", "price": 204.89}, {"date": "Feb 28, 2021", "price": 186.82}, {"date": "Mar 31, 2021", "price": 182.77}, {"date": "Apr 30, 2021", "price": 199.74}, {"date": "May 31, 2021", "price": 229.52}, {"date": "Jun 30, 2021", "price": 243.5}, {"date": "Jul 31, 2021", "price": 258.29}, {"date": "Aug 31, 2021", "price": 231.05}, {"date": "Sep 30, 2021", "price": 254.76}, {"date": "Oct 31, 2021", "price": 248.04}, {"date": "Nov 30, 2021", "price": 276.22}, {"date": "Dec 31, 2021", "price": 245.39}, {"date": "Jan 31, 2022", "price": 249.95}, {"date": "Feb 28, 2022", "price": 286.37}, {"date": "Mar 31, 2022", "price": 292.13}, {"date": "Apr 30, 2022", "price": 313.44}, {"date": "May 31, 2022", "price": 324.23}, {"date": "Jun 30, 2022", "price": 329.69}, {"date": "Jul 31, 2022", "price": 301.23}, {"date": "Aug 31, 2022", "price": 323.35}, {"date": "Sep 30, 2022", "price": 362.09}, {"date": "Oct 31, 2022", "price": 371.08}, {"date": "Nov 30, 2022", "price": 365.84}, {"date": "Dec 31, 2022", "price": 344.15}, {"date": "Jan 31, 2023", "price": 311.22}, {"date": "Feb 28, 2023", "price": 343.42}, {"date": "Mar 31, 2023", "price": 395.86}, {"date": "Apr 30, 2023", "price": 429.46}, {"date": "May 31, 2023", "price": 468.98}, {"date": "Jun 30, 2023", "price": 454.55}, {"date": "Jul 31, 2023", "price": 554.2}, {"date": "Aug 31, 2023", "price": 537.13}, {"date": "Sep 30, 2023", "price": 553.93}, {"date": "Oct 31, 2023", "price": 591.04}, {"date": "Nov 30, 2023", "price": 582.92}, {"date": "Dec 31, 2023", "price": 645.61}, {"date": "Jan 31, 2024", "price": 753.68}, {"date": "Feb 29, 2024", "price": 777.96}, {"date": "Mar 31, 2024", "price": 781.1}, {"date": "Apr 30, 2024", "price": 820.34}, {"date": "May 31, 2024", "price": 905.38}, {"date": "Jun 30, 2024", "price": 804.27}, {"date": "Jul 31, 2024", "price": 960.02}, {"date": "Aug 31, 2024", "price": 885.94}, {"date": "Sep 30, 2024", "price": 829.74}, {"date": "Oct 31, 2024", "price": 795.35}, {"date": "Nov 30, 2024", "price": 772.0}, {"date": "Dec 31, 2024", "price": 811.08}, {"date": "Jan 31, 2025", "price": 920.63}, {"date": "Feb 28, 2025", "price": 825.91}, {"date": "Mar 31, 2025", "price": 898.95}, {"date": "Apr 30, 2025", "price": 737.67}, {"date": "May 31, 2025", "price": 779.53}, {"date": "Jun 30, 2025", "price": 740.07}, {"date": "Jul 31, 2025", "price": 732.58}, {"date": "Aug 31, 2025", "price": 763.0}, {"date": "Sep 30, 2025", "price": 862.86}, {"date": "Oct 31, 2025", "price": 1075.47}, {"date": "Nov 30, 2025", "price": 1074.68}, {"date": "Dec 31, 2025", "price": 1037.15}, {"date": "Jan 31, 2026", "price": 1051.99}, {"date": "Feb 28, 2026", "price": 919.77}, {"date": "Mar 31, 2026", "price": 934.6}, {"date": "Apr 30, 2026", "price": 1105.0}, {"date": "May 31, 2026", "price": 1199.43}, {"date": "Jun 30, 2026", "price": 1148.84}, {"date": "Jul 31, 2026", "price": 1180.16}, {"date": "Aug 17, 2026", "price": 1189.96}], "MAX": [{"date": "Nov 30, 1984", "price": 4.83}, {"date": "Feb 28, 1985", "price": 5.34}, {"date": "May 31, 1985", "price": 5.41}, {"date": "Aug 31, 1985", "price": 6.48}, {"date": "Nov 30, 1985", "price": 7.5}, {"date": "Feb 28, 1986", "price": 9.47}, {"date": "May 31, 1986", "price": 9.73}, {"date": "Aug 31, 1986", "price": 9.39}, {"date": "Nov 30, 1986", "price": 11.8}, {"date": "Feb 28, 1987", "price": 11.0}, {"date": "May 31, 1987", "price": 12.28}, {"date": "Aug 31, 1987", "price": 8.38}, {"date": "Nov 30, 1987", "price": 9.83}, {"date": "Feb 29, 1988", "price": 9.98}, {"date": "May 31, 1988", "price": 10.42}, {"date": "Aug 31, 1988", "price": 11.02}, {"date": "Nov 30, 1988", "price": 11.69}, {"date": "Feb 28, 1989", "price": 13.84}, {"date": "May 31, 1989", "price": 15.44}, {"date": "Aug 31, 1989", "price": 16.75}, {"date": "Nov 30, 1989", "price": 15.09}, {"date": "Feb 28, 1990", "price": 19.56}, {"date": "May 31, 1990", "price": 18.78}, {"date": "Aug 31, 1990", "price": 18.44}, {"date": "Nov 30, 1990", "price": 19.75}, {"date": "Feb 28, 1991", "price": 19.88}, {"date": "May 31, 1991", "price": 21.0}, {"date": "Aug 31, 1991", "price": 18.38}, {"date": "Nov 30, 1991", "price": 18.72}, {"date": "Feb 29, 1992", "price": 16.5}, {"date": "May 31, 1992", "price": 16.28}, {"date": "Aug 31, 1992", "price": 15.62}, {"date": "Nov 30, 1992", "price": 12.88}, {"date": "Feb 28, 1993", "price": 12.75}, {"date": "May 31, 1993", "price": 12.0}, {"date": "Aug 31, 1993", "price": 14.34}, {"date": "Nov 30, 1993", "price": 13.84}, {"date": "Feb 28, 1994", "price": 14.31}, {"date": "May 31, 1994", "price": 14.25}, {"date": "Aug 31, 1994", "price": 15.66}, {"date": "Nov 30, 1994", "price": 16.75}, {"date": "Feb 28, 1995", "price": 18.66}, {"date": "May 31, 1995", "price": 20.47}, {"date": "Aug 31, 1995", "price": 24.88}, {"date": "Nov 30, 1995", "price": 30.31}, {"date": "Feb 29, 1996", "price": 32.12}, {"date": "May 31, 1996", "price": 28.62}, {"date": "Aug 31, 1996", "price": 38.25}, {"date": "Nov 30, 1996", "price": 43.69}, {"date": "Feb 28, 1997", "price": 46.5}, {"date": "May 31, 1997", "price": 52.31}, {"date": "Aug 31, 1997", "price": 63.0}, {"date": "Nov 30, 1997", "price": 65.81}, {"date": "Feb 28, 1998", "price": 61.38}, {"date": "May 31, 1998", "price": 65.75}, {"date": "Aug 31, 1998", "price": 89.69}, {"date": "Nov 30, 1998", "price": 94.5}, {"date": "Feb 28, 1999", "price": 71.44}, {"date": "May 31, 1999", "price": 74.62}, {"date": "Aug 31, 1999", "price": 72.17}, {"date": "Nov 30, 1999", "price": 59.44}, {"date": "Feb 29, 2000", "price": 76.12}, {"date": "May 31, 2000", "price": 73.02}, {"date": "Aug 31, 2000", "price": 93.69}, {"date": "Nov 30, 2000", "price": 79.46}, {"date": "Feb 28, 2001", "price": 84.7}, {"date": "May 31, 2001", "price": 77.63}, {"date": "Aug 31, 2001", "price": 82.67}, {"date": "Nov 30, 2001", "price": 75.73}, {"date": "Feb 28, 2002", "price": 64.7}, {"date": "May 31, 2002", "price": 58.05}, {"date": "Aug 31, 2002", "price": 68.3}, {"date": "Nov 30, 2002", "price": 56.56}, {"date": "Feb 28, 2003", "price": 59.77}, {"date": "May 31, 2003", "price": 66.53}, {"date": "Aug 31, 2003", "price": 68.8}, {"date": "Nov 30, 2003", "price": 73.94}, {"date": "Feb 29, 2004", "price": 73.67}, {"date": "May 31, 2004", "price": 63.45}, {"date": "Aug 31, 2004", "price": 53.33}, {"date": "Nov 30, 2004", "price": 56.0}, {"date": "Feb 28, 2005", "price": 58.3}, {"date": "May 31, 2005", "price": 55.02}, {"date": "Aug 31, 2005", "price": 50.5}, {"date": "Nov 30, 2005", "price": 55.62}, {"date": "Feb 28, 2006", "price": 51.64}, {"date": "May 31, 2006", "price": 55.93}, {"date": "Aug 31, 2006", "price": 53.59}, {"date": "Nov 30, 2006", "price": 52.59}, {"date": "Feb 28, 2007", "price": 58.62}, {"date": "May 31, 2007", "price": 57.35}, {"date": "Aug 31, 2007", "price": 52.95}, {"date": "Nov 30, 2007", "price": 50.02}, {"date": "Feb 29, 2008", "price": 48.14}, {"date": "May 31, 2008", "price": 46.65}, {"date": "Aug 31, 2008", "price": 34.15}, {"date": "Nov 30, 2008", "price": 29.38}, {"date": "Feb 28, 2009", "price": 34.57}, {"date": "May 31, 2009", "price": 33.46}, {"date": "Aug 31, 2009", "price": 36.73}, {"date": "Nov 30, 2009", "price": 34.34}, {"date": "Feb 28, 2010", "price": 32.79}, {"date": "May 31, 2010", "price": 33.59}, {"date": "Aug 31, 2010", "price": 33.66}, {"date": "Nov 30, 2010", "price": 34.56}, {"date": "Feb 28, 2011", "price": 38.48}, {"date": "May 31, 2011", "price": 37.51}, {"date": "Aug 31, 2011", "price": 37.85}, {"date": "Nov 30, 2011", "price": 39.24}, {"date": "Feb 29, 2012", "price": 40.95}, {"date": "May 31, 2012", "price": 44.91}, {"date": "Aug 31, 2012", "price": 49.04}, {"date": "Nov 30, 2012", "price": 54.66}, {"date": "Feb 28, 2013", "price": 53.16}, {"date": "May 31, 2013", "price": 51.4}, {"date": "Aug 31, 2013", "price": 50.22}, {"date": "Nov 30, 2013", "price": 59.61}, {"date": "Feb 28, 2014", "price": 59.86}, {"date": "May 31, 2014", "price": 63.56}, {"date": "Aug 31, 2014", "price": 68.12}, {"date": "Nov 30, 2014", "price": 70.17}, {"date": "Feb 28, 2015", "price": 78.9}, {"date": "May 31, 2015", "price": 82.35}, {"date": "Aug 31, 2015", "price": 82.04}, {"date": "Nov 30, 2015", "price": 72.0}, {"date": "Feb 29, 2016", "price": 75.03}, {"date": "May 31, 2016", "price": 77.75}, {"date": "Aug 31, 2016", "price": 67.12}, {"date": "Nov 30, 2016", "price": 82.81}, {"date": "Feb 28, 2017", "price": 79.57}, {"date": "May 31, 2017", "price": 81.29}, {"date": "Aug 31, 2017", "price": 84.64}, {"date": "Nov 30, 2017", "price": 77.02}, {"date": "Feb 28, 2018", "price": 85.04}, {"date": "May 31, 2018", "price": 105.65}, {"date": "Aug 31, 2018", "price": 118.64}, {"date": "Nov 30, 2018", "price": 126.29}, {"date": "Feb 28, 2019", "price": 115.94}, {"date": "May 31, 2019", "price": 112.97}, {"date": "Aug 31, 2019", "price": 117.35}, {"date": "Nov 30, 2019", "price": 126.13}, {"date": "Feb 29, 2020", "price": 152.95}, {"date": "May 31, 2020", "price": 148.39}, {"date": "Aug 31, 2020", "price": 145.65}, {"date": "Nov 30, 2020", "price": 204.89}, {"date": "Feb 28, 2021", "price": 199.74}, {"date": "May 31, 2021", "price": 258.29}, {"date": "Aug 31, 2021", "price": 248.04}, {"date": "Nov 30, 2021", "price": 249.95}, {"date": "Feb 28, 2022", "price": 313.44}, {"date": "May 31, 2022", "price": 301.23}, {"date": "Aug 31, 2022", "price": 371.08}, {"date": "Nov 30, 2022", "price": 311.22}, {"date": "Feb 28, 2023", "price": 429.46}, {"date": "May 31, 2023", "price": 554.2}, {"date": "Aug 31, 2023", "price": 591.04}, {"date": "Nov 30, 2023", "price": 753.68}, {"date": "Feb 29, 2024", "price": 820.34}, {"date": "May 31, 2024", "price": 960.02}, {"date": "Aug 31, 2024", "price": 795.35}, {"date": "Nov 30, 2024", "price": 920.63}, {"date": "Feb 28, 2025", "price": 737.67}, {"date": "May 31, 2025", "price": 732.58}, {"date": "Aug 31, 2025", "price": 1075.47}, {"date": "Nov 30, 2025", "price": 1051.99}, {"date": "Feb 28, 2026", "price": 1105.0}, {"date": "May 31, 2026", "price": 1180.16}, {"date": "Aug 17, 2026", "price": 1189.98}]};
+        let currentRangeKey = '1Y';
+        let currentPoints = allDatasets[currentRangeKey] || [];
+        let currentSvgCoords = [];
+
+        const width = 900;
+        const height = 260;
+        const padX = 20;
+        const padY = 25;
+
+        const container = document.getElementById('chart-container');
+        const svg = document.getElementById('interactive-svg');
+        const linePath = document.getElementById('chart-line-path');
+        const areaPath = document.getElementById('chart-area-path');
+        const tooltipDate = document.getElementById('tooltip-date');
+        const tooltipPrice = document.getElementById('tooltip-price');
+        const tooltipDelta = document.getElementById('tooltip-delta');
+        const crosshairV = document.getElementById('crosshair-v');
+        const crosshairH = document.getElementById('crosshair-h');
+        const dotOuter = document.getElementById('hover-dot-outer');
+        const dot = document.getElementById('hover-dot');
+        const badgeX = document.getElementById('chart-badge-x');
+        const badgeY = document.getElementById('chart-badge-y');
+        const startLbl = document.getElementById('chart-start-lbl');
+        const endLbl = document.getElementById('chart-end-lbl');
+        const rangeTitle = document.getElementById('chart-range-title');
+
+        // Hero price elements
+        const heroPriceNum = document.querySelector('.price-number');
+        const heroPriceSub = document.querySelector('.price-sub');
+        const defaultHeroPrice = heroPriceNum ? heroPriceNum.innerText : '';
+        const defaultHeroSub = heroPriceSub ? heroPriceSub.innerText : '';
+        const defaultHeroSubClass = heroPriceSub ? heroPriceSub.className : '';
+
+        function recalculatePaths(points) {
+            if (!points || points.length < 2) return;
+            const prices = points.map(p => p.price);
+            const minP = Math.min(...prices);
+            const maxP = Math.max(...prices);
+            const pRange = Math.max(maxP - minP, 0.01);
+            const n = points.length;
+
+            currentSvgCoords = [];
+            for (let i = 0; i < n; i++) {
+                const x = padX + (i / (n - 1)) * (width - 2 * padX);
+                const y = height - padY - ((points[i].price - minP) / pRange) * (height - 2 * padY);
+                currentSvgCoords.push([Math.round(x * 10) / 10, Math.round(y * 10) / 10]);
+            }
+
+            const lineD = 'M ' + currentSvgCoords.map(c => c[0] + ',' + c[1]).join(' L ');
+            const firstC = currentSvgCoords[0];
+            const lastC = currentSvgCoords[currentSvgCoords.length - 1];
+            const areaD = lineD + ' L ' + lastC[0] + ',' + height + ' L ' + firstC[0] + ',' + height + ' Z';
+
+            linePath.setAttribute('d', lineD);
+            areaPath.setAttribute('d', areaD);
+
+            startLbl.innerText = points[0].date + ' ($' + minP.toFixed(2) + ')';
+            endLbl.innerText = points[n - 1].date + ' ($' + points[n - 1].price.toFixed(2) + ')';
+            
+            tooltipDate.innerText = points[n - 1].date;
+            tooltipPrice.innerText = '$' + points[n - 1].price.toFixed(2);
+            if (tooltipDelta) tooltipDelta.innerText = '';
+
+            const titles = { '1Y': '1-Year Range', '5Y': '5-Year Range', '10Y': '10-Year Range', 'MAX': 'All-Time Historical Range' };
+            rangeTitle.innerText = titles[currentRangeKey] || currentRangeKey + ' Range';
+        }
+
+        window.switchChartRange = function(rangeKey) {
+            if (!allDatasets[rangeKey]) return;
+            currentRangeKey = rangeKey;
+            currentPoints = allDatasets[rangeKey];
+            
+            document.querySelectorAll('.range-pill').forEach(btn => {
+                if (btn.innerText.trim() === rangeKey) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            recalculatePaths(currentPoints);
+            hideHover();
+        };
+
+        function updateHover(e) {
+            if (!currentPoints.length || !currentSvgCoords.length) return;
+            const rect = svg.getBoundingClientRect();
+            const mouseX = Math.max(0, Math.min(rect.width, e.clientX - rect.left));
+            const pct = mouseX / rect.width;
+            const idx = Math.min(currentPoints.length - 1, Math.max(0, Math.round(pct * (currentPoints.length - 1))));
+            
+            const pt = currentPoints[idx];
+            const coord = currentSvgCoords[idx];
+            if (!pt || !coord) return;
+
+            // Vertical crosshair
+            crosshairV.setAttribute('x1', coord[0]);
+            crosshairV.setAttribute('x2', coord[0]);
+            crosshairV.style.display = 'block';
+
+            // Horizontal crosshair
+            crosshairH.setAttribute('y1', coord[1]);
+            crosshairH.setAttribute('y2', coord[1]);
+            crosshairH.style.display = 'block';
+
+            // Dot & Halo
+            dotOuter.setAttribute('cx', coord[0]);
+            dotOuter.setAttribute('cy', coord[1]);
+            dotOuter.style.display = 'block';
+
+            dot.setAttribute('cx', coord[0]);
+            dot.setAttribute('cy', coord[1]);
+            dot.style.display = 'block';
+
+            // Floating X-Axis Badge (CSS coords)
+            const cssX = (coord[0] / width) * rect.width;
+            badgeX.style.left = cssX + 'px';
+            badgeX.innerText = pt.date;
+            badgeX.style.display = 'block';
+
+            // Floating Y-Axis Badge (CSS coords)
+            const cssY = (coord[1] / height) * rect.height;
+            badgeY.style.top = cssY + 'px';
+            badgeY.innerText = '$' + pt.price.toFixed(2);
+            badgeY.style.display = 'block';
+
+            // Calculate range delta
+            const basePrice = currentPoints[0].price;
+            const deltaPct = ((pt.price - basePrice) / basePrice) * 100;
+            const deltaClass = deltaPct >= 0 ? 'pos' : 'neg';
+            const deltaSign = deltaPct >= 0 ? '+' : '';
+
+            // Tooltop header
+            tooltipDate.innerText = pt.date;
+            tooltipPrice.innerText = '$' + pt.price.toFixed(2);
+            if (tooltipDelta) {
+                tooltipDelta.className = deltaClass;
+                tooltipDelta.innerText = `${deltaSign}${deltaPct.toFixed(2)}% vs Range Start`;
+            }
+
+            // Real-time Hero Scrubbing
+            if (heroPriceNum) {
+                heroPriceNum.innerText = '$' + pt.price.toFixed(2);
+            }
+            if (heroPriceSub) {
+                heroPriceSub.className = 'price-sub ' + deltaClass;
+                heroPriceSub.innerText = `${deltaSign}${deltaPct.toFixed(2)}%`;
+            }
+        }
+
+        function hideHover() {
+            crosshairV.style.display = 'none';
+            crosshairH.style.display = 'none';
+            dotOuter.style.display = 'none';
+            dot.style.display = 'none';
+            badgeX.style.display = 'none';
+            badgeY.style.display = 'none';
+            if (tooltipDelta) tooltipDelta.innerText = '';
+
+            if (currentPoints.length) {
+                tooltipDate.innerText = currentPoints[currentPoints.length - 1].date;
+                tooltipPrice.innerText = '$' + currentPoints[currentPoints.length - 1].price.toFixed(2);
+            }
+
+            if (heroPriceNum && defaultHeroPrice) {
+                heroPriceNum.innerText = defaultHeroPrice;
+            }
+            if (heroPriceSub && defaultHeroSub) {
+                heroPriceSub.className = defaultHeroSubClass;
+                heroPriceSub.innerText = defaultHeroSub;
+            }
+        }
+
+        container.addEventListener('mousemove', updateHover);
+        container.addEventListener('mouseleave', hideHover);
+        container.addEventListener('touchstart', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
+        container.addEventListener('touchmove', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
+        container.addEventListener('touchend', hideHover);
+
+        recalculatePaths(currentPoints);
+    })();
+    </script>
+    
+
+            <!-- Key Metrics Grid -->
+            <div class="metrics-grid">
+                <div class="metric-cell">
+                    <div class="metric-label">Fair Value</div>
+                    <div class="metric-value" style="color: var(--accent-warm);">$1,250.00</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Bear Target</div>
+                    <div class="metric-value" style="color: var(--accent-red);">$937.50 (-22.8%)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Base Target</div>
+                    <div class="metric-value">$1,250.00 (+2.9%)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Bull Target</div>
+                    <div class="metric-value" style="color: var(--accent-green);">$1,625.00 (+33.7%)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Corridor</div>
+                    <div class="metric-value" style="font-size: 1.00rem; font-family: var(--font-mono); color: var(--text-title);">$1020.00 ⇄ $1350.00</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Catalyst</div>
+                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">2026-10-29</div>
+                    <div class="metric-delta" style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 2px;">Q3 '26 ER</div>
+                </div>
+                
+    <div class="metric-cell">
+        <div class="metric-label">Float</div>
+        <div class="metric-value" style="white-space: nowrap !important;">78.4%</div>
+        <div class="metric-subtext">Polen · Jensen Investment</div>
+    </div>
+    
+                
+    <div class="metric-cell">
+        <div class="metric-label">Insiders</div>
+        <div class="metric-value" style="color: var(--accent-green); font-family: var(--font-sans) !important; font-size: 1.05rem !important; font-weight: 600 !important; white-space: nowrap !important; letter-spacing: -0.01em !important; overflow: hidden !important; text-overflow: ellipsis !important;">🟢 Cluster Buy</div>
+        <div class="metric-subtext">8 Insiders +$4.5M Open Market Buys</div>
+    </div>
+    
+            </div>
+        </section>
+
+        <!-- Navigation Tabs -->
+        <div class="tabs-header">
+            <button id="btn-tab-memo" class="tab-btn active" onclick="showTab('memo')">Investment Thesis</button>
+            <button id="btn-tab-history" class="tab-btn" onclick="showTab('history')">Evolution (0)</button>
+            <button id="btn-tab-ownership" class="tab-btn" onclick="showTab('ownership')">Ownership & Fund Intel</button>
+        </div>
+
+        <!-- Memo Content -->
+        <div id="tab-memo" class="tab-content active">
+            <article class="memo-container">
+                <p>No active thesis found.</p>
+            </article>
+        </div>
+
+        <!-- History Content -->
+        <div id="tab-history" class="tab-content">
+            
+        <div class="empty-state-box" style="background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px; padding: 75px 24px;">
+            <div class="empty-state-title">Initial Baseline Active</div>
+            <div class="empty-state-sub">Version 1 represents the initial underwriting thesis. Future revisions, price trigger reviews, and catalyst audits will be logged here</div>
+        </div>
+        
+        </div>
+
+        <!-- Ownership & Fund Intel Content -->
+        <div id="tab-ownership" class="tab-content">
+            
+    <div class="ownership-container">
+        <!-- Top Stats Banner -->
+        <div class="ownership-header-card">
+            <div class="ownership-stat-grid">
+                <div class="stat-box">
+                    <span class="stat-label">Institutional Float</span>
+                    <span class="stat-num">78.4%</span>
+                    <span class="stat-note">Tracked across SEC 13F Filings</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Insider Trading Sentiment</span>
+                    <span class="stat-num" style="color: var(--accent-green); font-family: var(--font-sans); font-size: 1.25rem;">🟢 Cluster Buy</span>
+                    <span class="stat-note">8 Insiders +$4.5M Open Market Buys</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Whale & Superinvestor Tracking</span>
+                    <span class="stat-num" style="color: var(--accent-warm);">7 Funds Tracked</span>
+                    <span class="stat-note">68 Recent Form 4 Transactions Audited</span>
+                </div>
+            </div>
+
+            <!-- Quick Research Portal Bar -->
+            <div class="quick-portals-bar">
+                <span style="font-size: 0.76rem; text-transform: uppercase; color: var(--text-dim); font-weight: 600; letter-spacing: 0.05em;">Direct Research Portals:</span>
+                <div class="portal-links-group">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="portal-link">📊 OpenInsider Form 4s ↗</a>
+                    <a href="https://www.dataroma.com/m/stock.php?sym=LLY" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ Dataroma Superinvestors ↗</a>
+                    <a href="https://whalewisdom.com/stock/LLY" target="_blank" rel="noopener noreferrer" class="portal-link">🐋 WhaleWisdom 13F ↗</a>
+                    <a href="https://valueinvestorsclub.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="portal-link">📑 Value Investors Club (VIC) ↗</a>
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=LLY" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ SEC EDGAR Filings ↗</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: All Institutional Holders & 13F Whales -->
+        <div class="ownership-section">
+            <div class="section-title-row">
+                <span class="section-icon">🏛️</span>
+                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (7)</h3>
+            </div>
+            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, Dataroma superinvestor portfolios, and regulatory ownership registries.</p>
+            <div class="table-responsive">
+                <table class="ownership-table">
+                    <thead>
+                        <tr>
+                            <th>Fund / Portfolio Manager</th>
+                            <th>Classification</th>
+                            <th>Portfolio Weight / Stake</th>
+                            <th>Reported Shares</th>
+                            <th>Recent 13F Action</th>
+                            <th>Position Value</th>
+                            <th>Filing Source</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Polen Capital Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">6.89</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">666,912</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 27.08%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">799,914,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=LLY" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Jensen Investment Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">4.47</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">153,735</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 33.35%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">184,394,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=LLY" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Mairs & Power Funds</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">3.07</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">326,306</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 5.51%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">300,126,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=LLY" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Torray Funds</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.07</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">398</td>
+            <td><span style="color: var(--text-dim); font-weight: 500;"></span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">477,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=LLY" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">David Katz - Matrix Asset Advisors</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.03</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">311</td>
+            <td><span style="color: var(--text-dim); font-weight: 500;"></span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">372,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=LLY" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Dodge & Cox Funds</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.02</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">42,012</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 1.13%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">38,641,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=LLY" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Bill Nygren - Oakmark Funds</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.00</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">450</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 8.70%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">414,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=LLY" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section 2: SEC Form 4 Detailed Insider Trading Ledger -->
+        <div class="ownership-section">
+            <div class="section-title-row">
+                <span class="section-icon">💼</span>
+                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger (68)</h3>
+            </div>
+            <p class="section-desc">Detailed officer and director transaction ledger audited directly via OpenInsider & SEC Form 4 filings to track management buying, sales, and option exercises.</p>
+            <div class="table-responsive">
+                <table class="ownership-table">
+                    <thead>
+                        <tr>
+                            <th>Filing Date</th>
+                            <th>Trade Date</th>
+                            <th>Reporting Insider</th>
+                            <th>Title / Role</th>
+                            <th>Type</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Owned After (ΔOwn)</th>
+                            <th>Total Value</th>
+                            <th>Source</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-08-11</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-08-10</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Zakrowski Donald A</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">SVP, Finance, CAO</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$0.59</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-2,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">3,261 (-38%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$1,185</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-08-10</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-08-07</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Hakim Anat</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, GC, Secretary</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$0.24</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-5,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">50,562 (-9%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$1,190</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-06-11</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-06-10</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Yuffa Ilya</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, Pres, LLY USA, Global Cap</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$0.46</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-2,500</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">29,804 (-8%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$1,151</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-05-07</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-05-06</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">Former 10% Shareholder</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$995.36</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-15,828</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">91,881,150 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$15,754,537</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-01-08</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-01-07</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$0.11</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-292,148</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">91,896,978 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$33,045</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-01-06</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-01-05</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$0.78</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-1,390</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">92,189,126 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$1,085</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-12-30</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-12-29</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$0.30</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-3,593</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">92,190,516 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$1,085</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-12-29</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-12-24</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$0.41</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-2,629</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">92,194,109 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$1,085</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-12-29</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-12-23</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$4.52</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-240</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">92,196,738 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$1,085</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-26</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-25</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$0.21</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-15,632</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">92,196,978 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$3,329</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-26</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-25</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$0.22</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-147,061</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">92,212,610 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$32,765</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-25</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-24</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$0.05</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-142,307</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">92,359,671 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$6,426</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-24</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-21</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$0.17</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-105,326</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">92,501,978 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$17,994</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-21</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-20</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$0.17</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-37,148</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">92,607,304 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$6,318</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-20</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-19</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$0.04</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-167,526</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">92,644,452 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$6,317</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-19</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-18</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$0.17</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-60,213</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">92,811,978 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$10,350</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-18</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-17</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$0.21</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-9,886</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">92,872,191 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$2,062</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-17</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-14</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$11.59</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-178,295</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">92,882,077 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$2,065,796</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-14</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-13</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$0.04</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-46,606</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">93,060,372 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$2,062</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-13</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-13</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Zakrowski Donald A</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">SVP, Finance, CAO</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$1.01</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-1,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">4,568 (-18%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$1,011</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-13</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-12</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$0.07</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-305,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">93,106,978 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$20,231</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-12</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-11</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$974.70</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-283,131</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">93,411,978 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$275,967,765</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-12</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-10</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$972.52</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-16,869</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">93,695,109 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$16,405,396</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-06</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-05</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$951.56</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-40,432</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">93,711,978 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$38,473,442</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-06</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-05</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$933.26</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-179,042</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">93,752,410 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$167,092,104</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-05</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-04</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$910.72</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-526</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">93,931,452 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$479,038</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-04</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-03</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$888.83</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-300,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">93,931,978 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$266,648,921</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-03</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-10-31</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$863.36</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-301,342</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">94,231,978 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$260,165,031</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-10-14</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-10-10</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$863.24</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-3,658</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">94,533,320 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$3,157,722</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-10-10</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-10-09</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$852.49</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-10,602</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">94,536,978 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$9,038,055</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-10-09</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-10-08</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$850.28</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-101,420</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">94,547,580 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$86,234,874</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-10-08</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-10-07</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$848.01</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-26,795</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">94,649,000 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$22,722,401</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-10-07</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-10-06</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$850.22</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-161,183</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">94,675,795 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$137,041,657</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-10-06</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-10-03</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$837.93</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-192,404</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">94,836,978 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$161,220,401</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-10-03</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-10-02</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$821.55</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-112,596</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">95,029,382 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$92,503,361</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-10-02</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-10-01</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$821.47</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-215,822</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">95,141,978 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$177,290,448</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-10-02</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-10-01</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$794.15</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-135,193</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">95,357,800 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$107,363,016</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-10-01</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-09-30</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$763.39</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-113,694</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">95,492,993 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$86,793,274</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-09-22</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-09-19</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$763.10</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-23,665</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">95,606,687 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$18,058,643</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-09-19</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-09-18</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lilly Endowment Inc</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$764.65</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-106,626</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">95,630,352 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$81,531,959</td>
+                <td style="white-space: nowrap;">
+                    <a href="http://openinsider.com/search?q=LLY" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section 3: Curated Memos & Fund Letters -->
+        <div class="ownership-section">
+            <div class="section-title-row">
+                <span class="section-icon">📑</span>
+                <h3 class="section-heading">Fund Letters, VIC Write-ups & Superinvestor Memos</h3>
+            </div>
+            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable hedge funds and deep-value analysts with direct reading links.</p>
+            <div class="writeups-grid">
+                
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Independent Research · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                </div>
+                <a href="https://www.baroncapitalgroup.com/article/quarterly-letter-baron-fifth-avenue-growth-fund-q2-2025" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Read Source ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
+                Baron Fifth Avenue Growth Fund | Q2 2025 | Baron Funds
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Comprehensive independent fundamental study of Eli Lilly and Company's competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Independent Research · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                </div>
+                <a href="https://www.baroncapitalgroup.com/article/quarterly-letter-baron-opportunity-fund-q4-2025" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Read Source ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
+                Baron Opportunity Fund | Q4 2025 | Baron Funds
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Comprehensive independent fundamental study of Eli Lilly and Company's competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Independent Research · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                </div>
+                <a href="https://www.baroncapitalgroup.com/article/quarterly-letter-baron-fifth-avenue-growth-fund-q1-2025" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Read Source ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
+                Baron Fifth Avenue Growth Fund | Q1 2025 | Baron Funds
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Comprehensive independent fundamental study of Eli Lilly and Company's competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Independent Research · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                </div>
+                <a href="https://www.baroncapitalgroup.com/article/quarterly-letter-baron-opportunity-fund-q2-2025" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Read Source ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
+                Baron Opportunity Fund | Q2 2025 | Baron Funds
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Comprehensive independent fundamental study of Eli Lilly and Company's competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
+            </p>
+        </div>
+        
+            </div>
+        </div>
+    </div>
+    
+        </div>
+    </main>
+
+    
+    <!-- Labels & Taxonomy Legend Modal -->
+    <div id="labels-legend-modal" class="modal-shade" onclick="closeLegendModalOutside(event)">
+        <div class="modal-body-card" style="max-width: 540px; padding: 26px 28px; background: rgba(22, 21, 20, 0.98); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 14px; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7); font-family: var(--font-sans);">
+            <button class="modal-x" onclick="closeLabelsLegendModal()" style="top: 20px; right: 20px; color: var(--text-dim); font-size: 1.1rem; cursor: pointer;">✕</button>
+            
+            <div style="font-family: var(--font-sans); font-size: 1.15rem; font-weight: 600; color: var(--text-title); margin-bottom: 20px; letter-spacing: -0.02em;">
+                Taxonomy &amp; Signals
+            </div>
+
+            <!-- Section 1: Live Action Signals -->
+            <div style="margin-bottom: 18px;">
+                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 12px;">
+                    Surveillance Signals
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px;">
+                    <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-buy"><span class="beacon-dot"></span></span>
+                        <strong style="color: var(--accent-green);">BUY</strong>
+                        <span style="color: var(--text-secondary);">Deep value zone</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-hold"><span class="beacon-dot"></span></span>
+                        <strong style="color: var(--accent-warm);">HOLD</strong>
+                        <span style="color: var(--text-secondary);">Core thesis intact</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-caution"><span class="beacon-dot"></span></span>
+                        <strong style="color: #D48858;">CAUTION</strong>
+                        <span style="color: var(--text-secondary);">Execution trim zone</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-avoid"><span class="beacon-dot"></span></span>
+                        <strong style="color: var(--accent-red);">AVOID</strong>
+                        <span style="color: var(--text-secondary);">Thesis broken</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="height: 1px; background: var(--border-color); margin: 18px 0;"></div>
+
+            <!-- Section 2: Conviction Tiers -->
+            <div>
+                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 12px;">
+                    Conviction Tiers
+                </div>
+                <div style="display: grid; grid-template-columns: 150px 1fr; row-gap: 8px; column-gap: 16px; font-size: 0.76rem; align-items: center;">
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">High Conviction</span>
+                    <span style="color: var(--text-secondary);">Dominant moat &amp; fortress balance sheet</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Solid Conviction</span>
+                    <span style="color: var(--text-secondary);">Recurring cash flow &amp; compounding runway</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Moderate Conviction</span>
+                    <span style="color: var(--text-secondary);">Attractive upside with cyclical exposure</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Cautious Stance</span>
+                    <span style="color: var(--text-secondary);">Navigating margin or temporary friction</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Turnaround Play</span>
+                    <span style="color: var(--text-secondary);">Operational reset or debt reduction</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Speculative Risk</span>
+                    <span style="color: var(--text-secondary);">High asymmetry with binary outcome</span>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
+                <button onclick="closeLabelsLegendModal()" style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 500; color: var(--text-title); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border-color); border-radius: 6px; padding: 6px 16px; cursor: pointer; transition: all 0.15s;">Dismiss</button>
+            </div>
+        </div>
+    </div>
+    
+
+    <script>
+        function showTab(id) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            const btn = document.getElementById('btn-tab-' + id);
+            const content = document.getElementById('tab-' + id);
+            if (btn && content) {
+                btn.classList.add('active');
+                content.classList.add('active');
+                setTimeout(renderLatexEquations, 20);
+            }
+        }
+
+        function toggleSnapshot(ver) {
+            const el = document.getElementById('snapshot-' + ver);
+            el.style.display = (el.style.display === 'none' ? 'block' : 'none');
+            if (el.style.display === 'block') {
+                setTimeout(renderLatexEquations, 20);
+            }
+        }
+
+        function openLabelsLegendModal(event) {
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+            const modal = document.getElementById('labels-legend-modal');
+            if (modal) modal.style.display = 'flex';
+        }
+
+        function closeLabelsLegendModal() {
+            const modal = document.getElementById('labels-legend-modal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function closeLegendModalOutside(event) {
+            if (event.target.id === 'labels-legend-modal') {
+                closeLabelsLegendModal();
+            }
+        }
+
+        function renderLatexEquations() {
+            if (typeof renderMathInElement === 'function') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '\\[', right: '\\]', display: true},
+                        {left: '\\(', right: '\\)', display: false}
+                    ],
+                    ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'option'],
+                    throwOnError: false
+                });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", renderLatexEquations);
+        window.addEventListener("load", renderLatexEquations);
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                closeEvolutionModal();
+                closeLabelsLegendModal();
+            }
+        });
+    </script>
+</body>
+</html>

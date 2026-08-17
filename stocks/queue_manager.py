@@ -194,7 +194,11 @@ def _handle_review_task(ticker: str, trigger_reason: str):
         trigger_reason=trigger_reason,
         baseline_price=stock.baseline_price,
         current_price=current_price,
-        previous_version_num=len(history)
+        previous_version_num=len(history),
+        previous_fair_value=stock.fair_value_estimate,
+        previous_bear_target=stock.bear_target,
+        previous_base_target=stock.base_target,
+        previous_bull_target=stock.bull_target
     )
 
     labels = sanitize_labels(meta.get("labels") or meta.get("new_status_label"))
