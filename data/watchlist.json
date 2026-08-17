@@ -3,8 +3,8 @@
     "ticker": "PYPL",
     "company_name": "PayPal Holdings, Inc.",
     "baseline_price": 60.44,
-    "current_price": 60.42,
-    "return_pct": -0.03,
+    "current_price": 60.47,
+    "return_pct": 0.05,
     "status_label": "High Conviction",
     "labels": [
       "High Conviction",
@@ -78,8 +78,8 @@
     "ticker": "LULU",
     "company_name": "lululemon athletica inc.",
     "baseline_price": 115.67,
-    "current_price": 115.78,
-    "return_pct": 0.1,
+    "current_price": 115.94,
+    "return_pct": 0.23,
     "status_label": "High Conviction",
     "labels": [
       "High Conviction",
@@ -112,8 +112,8 @@
     "ticker": "KHC",
     "company_name": "The Kraft Heinz Company",
     "baseline_price": 24.73,
-    "current_price": 24.7,
-    "return_pct": -0.12,
+    "current_price": 24.73,
+    "return_pct": 0.0,
     "status_label": "High Conviction",
     "labels": [
       "High Conviction",
@@ -151,8 +151,8 @@
     "ticker": "KMB",
     "company_name": "Kimberly-Clark Corporation",
     "baseline_price": 107.44,
-    "current_price": 107.45,
-    "return_pct": 0.01,
+    "current_price": 107.64,
+    "return_pct": 0.19,
     "status_label": "Active",
     "labels": [
       "Active"
@@ -175,5 +175,42 @@
     "last_updated": "2026-08-17",
     "total_versions": 1,
     "report_path": "reports/KMB.html"
+  },
+  "KSPI": {
+    "ticker": "KSPI",
+    "company_name": "Joint Stock Company Kaspi.kz - ",
+    "baseline_price": 98.87,
+    "current_price": 99.06,
+    "return_pct": 0.19,
+    "status_label": "High Conviction",
+    "labels": [
+      "High Conviction",
+      "Quality Compounder",
+      "Cash Fortress"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$135.00",
+    "bear_target": "$75.00 (-24.1%)",
+    "base_target": "$135.00 (+36.5%)",
+    "bull_target": "$170.00 (+71.9%)",
+    "upper_alert_threshold": 125.0,
+    "lower_alert_threshold": 82.0,
+    "next_catalyst_date": "2026-11-09",
+    "next_catalyst_event": "Q3 '26 ER",
+    "top_funds": [
+      "Mason Hawkins - Southeastern Asset Management (0.96)",
+      "Richard Pzena - Pzena Investment Management (0.78)",
+      "Prem Watsa - Fairfax Financial Holdings (0.35)",
+      "Mohnish Pabrai - Pabrai Investments (0.04)",
+      "John Rogers - Ariel Investments (0.02)",
+      "Ruane Cunniff LP (0.01)",
+      "Dodge & Cox Funds (0.01)"
+    ],
+    "institutional_ownership_pct": "90.3%",
+    "insider_signal": "Cluster Buying",
+    "insider_summary": "CEO Lomtadze & Tencent bought Baring stake; Chair Kim holds 19.7%.",
+    "last_updated": "2026-08-17",
+    "total_versions": 1,
+    "report_path": "reports/KSPI.html"
   }
 }

@@ -340,26 +340,31 @@ def build_native_svg_chart(
     padding_x = 20
     padding_y = 25
 
-    # Target Legend Badges
+    # Target Legend Badges with Percentage from Today's Price
     target_legend_items = []
-    if bear_target is not None:
-        target_legend_items.append(f'<span style="color: var(--accent-red); display: inline-flex; align-items: center; gap: 4px;"><span style="display:inline-block; width:10px; height:0; border-top:1.5px dashed var(--accent-red);"></span> Bear: ${bear_target:.2f}</span>')
-    if fair_target is not None:
-        target_legend_items.append(f'<span style="color: var(--accent-warm); display: inline-flex; align-items: center; gap: 4px; font-weight: 600;"><span style="display:inline-block; width:10px; height:0; border-top:1.5px dashed var(--accent-warm);"></span> Fair: ${fair_target:.2f}</span>')
-    if bull_target is not None:
-        target_legend_items.append(f'<span style="color: var(--accent-green); display: inline-flex; align-items: center; gap: 4px;"><span style="display:inline-block; width:10px; height:0; border-top:1.5px dashed var(--accent-green);"></span> Bull: ${bull_target:.2f}</span>')
+    if bear_target is not None and current_price > 0:
+        bear_diff = ((bear_target - current_price) / current_price) * 100
+        target_legend_items.append(f'<span style="color: var(--accent-red); display: inline-flex; align-items: center; gap: 4px;"><span style="display:inline-block; width:12px; height:0; border-top:1.8px dashed var(--accent-red);"></span> Bear: ${bear_target:.2f} ({bear_diff:+.1f}%)</span>')
+    if fair_target is not None and current_price > 0:
+        fair_diff = ((fair_target - current_price) / current_price) * 100
+        target_legend_items.append(f'<span style="color: var(--accent-warm); display: inline-flex; align-items: center; gap: 4px; font-weight: 600;"><span style="display:inline-block; width:12px; height:0; border-top:1.8px dashed var(--accent-warm);"></span> Fair: ${fair_target:.2f} ({fair_diff:+.1f}%)</span>')
+    if bull_target is not None and current_price > 0:
+        bull_diff = ((bull_target - current_price) / current_price) * 100
+        target_legend_items.append(f'<span style="color: var(--accent-green); display: inline-flex; align-items: center; gap: 4px;"><span style="display:inline-block; width:12px; height:0; border-top:1.8px dashed var(--accent-green);"></span> Bull: ${bull_target:.2f} ({bull_diff:+.1f}%)</span>')
 
-    targets_legend_html = f'<div class="chart-targets-legend" style="display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 0.72rem; margin-right: auto; margin-left: 10px;">{" ".join(target_legend_items)}</div>' if target_legend_items else ""
+    targets_legend_html = f'<div class="chart-targets-legend" style="display: flex; align-items: center; gap: 12px; font-family: var(--font-mono); font-size: 0.72rem; flex-wrap: wrap;">{" ".join(target_legend_items)}</div>' if target_legend_items else ""
 
     return f"""
     <div class="native-chart-wrap" id="chart-container" style="position: relative; overflow: hidden;">
-        <div class="chart-top-bar" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
-            <div id="chart-live-val" class="chart-live-val">
-                <span id="tooltip-date">{last_date}</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">${last_price:.2f}</strong>
-                <span id="tooltip-delta" class="pos" style="font-size: 0.76rem; margin-left: 6px;"></span>
+        <div class="chart-top-bar" style="display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 32px; width: 100%;">
+            <div class="chart-meta-left" style="display: flex; align-items: center; gap: 14px; min-width: 0; overflow: hidden; flex-wrap: wrap;">
+                <div id="chart-live-val" class="chart-live-val" style="white-space: nowrap; flex-shrink: 0;">
+                    <span id="tooltip-date">{last_date}</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">${last_price:.2f}</strong>
+                    <span id="tooltip-delta" class="pos" style="font-size: 0.76rem; margin-left: 6px;"></span>
+                </div>
+                {targets_legend_html}
             </div>
-            {targets_legend_html}
-            <div class="chart-range-pills">
+            <div class="chart-range-pills" style="margin-left: auto; flex-shrink: 0;">
                 <button class="range-pill active" onclick="switchChartRange('1Y')">1Y</button>
                 <button class="range-pill" onclick="switchChartRange('5Y')">5Y</button>
                 <button class="range-pill" onclick="switchChartRange('10Y')">10Y</button>
@@ -381,15 +386,15 @@ def build_native_svg_chart(
                 <line x1="{padding_x}" y1="{height/2}" x2="{width - padding_x}" y2="{height/2}" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
                 <line x1="{padding_x}" y1="{height - padding_y}" x2="{width - padding_x}" y2="{height - padding_y}" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
 
-                <!-- Valuation Target Reference Dotted Lines -->
+                <!-- Valuation Target Reference Dotted Lines (Sleek 8 6 dash pattern) -->
                 <g id="valuation-targets-layer">
-                    <line id="target-bear-line" x1="{padding_x}" y1="0" x2="{width - padding_x}" y2="0" stroke="#C97A72" stroke-width="1.4" stroke-dasharray="3 3" stroke-opacity="0.85" style="display:none;" />
+                    <line id="target-bear-line" x1="{padding_x}" y1="0" x2="{width - padding_x}" y2="0" stroke="#C97A72" stroke-width="1.3" stroke-dasharray="8 6" stroke-opacity="0.9" style="display:none;" />
                     <text id="target-bear-label" x="{width - padding_x - 6}" y="0" fill="#C97A72" font-family="var(--font-mono)" font-size="9.5" font-weight="600" text-anchor="end" style="display:none;"></text>
 
-                    <line id="target-fair-line" x1="{padding_x}" y1="0" x2="{width - padding_x}" y2="0" stroke="#D4A373" stroke-width="1.5" stroke-dasharray="3 3" stroke-opacity="0.95" style="display:none;" />
+                    <line id="target-fair-line" x1="{padding_x}" y1="0" x2="{width - padding_x}" y2="0" stroke="#D4A373" stroke-width="1.5" stroke-dasharray="8 6" stroke-opacity="0.95" style="display:none;" />
                     <text id="target-fair-label" x="{width - padding_x - 6}" y="0" fill="#D4A373" font-family="var(--font-mono)" font-size="9.5" font-weight="700" text-anchor="end" style="display:none;"></text>
 
-                    <line id="target-bull-line" x1="{padding_x}" y1="0" x2="{width - padding_x}" y2="0" stroke="#82AE8C" stroke-width="1.4" stroke-dasharray="3 3" stroke-opacity="0.85" style="display:none;" />
+                    <line id="target-bull-line" x1="{padding_x}" y1="0" x2="{width - padding_x}" y2="0" stroke="#82AE8C" stroke-width="1.3" stroke-dasharray="8 6" stroke-opacity="0.9" style="display:none;" />
                     <text id="target-bull-label" x="{width - padding_x - 6}" y="0" fill="#82AE8C" font-family="var(--font-mono)" font-size="9.5" font-weight="600" text-anchor="end" style="display:none;"></text>
                 </g>
 
@@ -504,14 +509,18 @@ def build_native_svg_chart(
             linePath.setAttribute('d', lineD);
             areaPath.setAttribute('d', areaD);
 
-            // Update Target Reference Dotted Lines
+            const liveTodayPrice = {current_price};
+
+            // Update Target Reference Dotted Lines with % relative to today's price
             if (targetBear !== null && !isNaN(targetBear) && lineBear && labelBear) {{
                 const y = getSvgY(targetBear);
                 lineBear.setAttribute('y1', y);
                 lineBear.setAttribute('y2', y);
                 lineBear.style.display = 'block';
                 labelBear.setAttribute('y', y - 4);
-                labelBear.textContent = 'Bear $' + targetBear.toFixed(2);
+                const bDiff = liveTodayPrice > 0 ? ((targetBear - liveTodayPrice) / liveTodayPrice * 100) : 0;
+                const bSign = bDiff >= 0 ? '+' : '';
+                labelBear.textContent = 'Bear $' + targetBear.toFixed(2) + ' (' + bSign + bDiff.toFixed(1) + '%)';
                 labelBear.style.display = 'block';
             }} else if (lineBear) {{
                 lineBear.style.display = 'none';
@@ -524,7 +533,9 @@ def build_native_svg_chart(
                 lineFair.setAttribute('y2', y);
                 lineFair.style.display = 'block';
                 labelFair.setAttribute('y', y - 4);
-                labelFair.textContent = 'Fair $' + targetFair.toFixed(2);
+                const fDiff = liveTodayPrice > 0 ? ((targetFair - liveTodayPrice) / liveTodayPrice * 100) : 0;
+                const fSign = fDiff >= 0 ? '+' : '';
+                labelFair.textContent = 'Fair $' + targetFair.toFixed(2) + ' (' + fSign + fDiff.toFixed(1) + '%)';
                 labelFair.style.display = 'block';
             }} else if (lineFair) {{
                 lineFair.style.display = 'none';
@@ -537,7 +548,9 @@ def build_native_svg_chart(
                 lineBull.setAttribute('y2', y);
                 lineBull.style.display = 'block';
                 labelBull.setAttribute('y', y - 4);
-                labelBull.textContent = 'Bull $' + targetBull.toFixed(2);
+                const uDiff = liveTodayPrice > 0 ? ((targetBull - liveTodayPrice) / liveTodayPrice * 100) : 0;
+                const uSign = uDiff >= 0 ? '+' : '';
+                labelBull.textContent = 'Bull $' + targetBull.toFixed(2) + ' (' + uSign + uDiff.toFixed(1) + '%)';
                 labelBull.style.display = 'block';
             }} else if (lineBull) {{
                 lineBull.style.display = 'none';
@@ -1128,7 +1141,17 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             align-items: center;
             margin-bottom: 12px;
             padding-bottom: 6px;
-            min-height: 28px;
+            min-height: 32px;
+            gap: 12px;
+            width: 100%;
+        }}
+        .chart-meta-left {{
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-width: 0;
+            overflow: hidden;
+            flex-wrap: wrap;
         }}
         .chart-live-val {{
             font-size: 0.88rem;
@@ -1137,6 +1160,16 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             display: flex;
             align-items: center;
             gap: 6px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }}
+        .chart-targets-legend {{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            white-space: nowrap;
         }}
         .chart-range-pills {{
             display: flex;
@@ -1145,6 +1178,8 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             border: 1px solid var(--border-color);
             border-radius: 6px;
             padding: 2px;
+            margin-left: auto;
+            flex-shrink: 0;
         }}
         .range-pill {{
             background: none;
