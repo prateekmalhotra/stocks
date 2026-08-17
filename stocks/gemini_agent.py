@@ -589,6 +589,14 @@ THE BENJAMIN GRAHAM & WARREN BUFFETT "ANTI-MR. MARKET" DOCTRINE (MANDATORY & IND
           - For businesses facing secular decline, market share erosion, store closures, or multi-year top-line/comp decline (e.g. department stores, mall retail, linear TV, dying legacy formats):
           - POSITIVE TERMINAL GROWTH (g > 0) IS STRICTLY PROHIBITED. NEVER assume a dying format grows into infinity.
           - You MUST model a negative terminal runoff (g = -2.0% to -5.0%) or a finite 10-year terminal cash stream.
+        * [CONSUMER TECH & SUBSCRIPTION APP USER CONTRACTION INVARIANT]:
+          - For consumer internet, dating apps, gaming, or mobile subscription platforms with contracting paying users or active accounts (< 0% YoY growth):
+          - POSITIVE 10-YEAR REVENUE GROWTH IS STRICTLY PROHIBITED.
+          - Base Case MUST model continued user attrition (-3% to -8%/year) or stabilization at permanently reduced run-rates, with zero or negative terminal growth (g <= 0%).
+        * [HIGH DEBT-TO-EQUITY DISTRESS RULE (SMALL/MID-CAP)]:
+          - When Net Debt exceeds 75% of Equity Market Cap during an operational contraction or user churn phase:
+          - Apply an elevated distress discount / hurdle rate (11.5%–14.0%) to reflect bankruptcy/restructuring overhead.
+          - The Action Signal is STRICTLY BARRED FROM "BUY" and must be tagged as "CAUTION" (Orange) or "AVOID" (Red) with label "Speculative Risk" or "Turnaround Risk".
         * [DISTRESSED VALUE TRAP 'BUY' DISQUALIFICATION]:
           - If a company has:
             a) Frozen or suspended share buybacks due to debt/liquidity pressure,

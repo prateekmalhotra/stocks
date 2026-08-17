@@ -48,16 +48,16 @@
     "status_label": "Speculative Risk",
     "labels": [
       "Speculative Risk",
-      "Deep Value",
-      "Turnaround Play"
+      "User Contraction",
+      "Debt Leverage"
     ],
-    "action_signal": "BUY",
-    "fair_value_estimate": "$5.50",
-    "bear_target": "$1.80 (-35.3%)",
-    "base_target": "$5.50 (+97.8%)",
-    "bull_target": "$9.50 (+241.7%)",
-    "upper_alert_threshold": 4.2,
-    "lower_alert_threshold": 2.0,
+    "action_signal": "CAUTION",
+    "fair_value_estimate": "$1.90",
+    "bear_target": "$0.95 (-63.7%)",
+    "base_target": "$1.90 (-27.5%)",
+    "bull_target": "$3.20 (+22.1%)",
+    "upper_alert_threshold": 3.5,
+    "lower_alert_threshold": 1.5,
     "next_catalyst_date": "2026-11-05",
     "next_catalyst_event": "Q3 '26 ER",
     "top_funds": [
