@@ -615,6 +615,18 @@ Your analysis must adhere strictly to these 7 First Principles of Business Valua
    Pillar 13: Antitrust & Regulatory M&A Plausibility Filter
    - Disallow treating speculative mega-cap takeovers or private equity buyouts as a firm downside 'valuation floor' unless the transaction is legally and regulatory feasible under global antitrust regimes (FTC/DOJ, EU Commission, UK CMA).
 
+   Pillar 14: Capital Hoarder Discount & Cash Repatriation Governance Audit
+   - When an enterprise holds cash and liquid investments exceeding 35%–40% of its market capitalization but refuses to return capital via share repurchases or cash dividends ($0 capital return), audit the capital distribution governance.
+   - For non-dividend-paying / non-repurchasing enterprises (e.g. PDD), evaluate whether cash is economically locked in operating jurisdictions or subject to withholding taxes upon offshore repatriation. Apply a conservative 15%–25% governance/repatriation haircut to unreturned balance sheet cash in Bear and Base DCF bridges.
+
+   Pillar 15: Cross-Border De Minimis Customs & Local Warehousing Margin Audit
+   - For global export and cross-border direct-to-consumer platforms (e.g. Temu, Shein, AliExpress), stress-test the operational transition from duty-free air parcels (US $800 / EU €150 de minimis exemptions) to semi-managed local bonded warehouse fulfillment.
+   - Model the resulting compression in gross take rates and higher localized merchant inventory holding overhead in Bear and Base case margin projections.
+
+   Pillar 16: Founder Super-Voting Lock & Minority Governance Discount
+   - When a founder or controlling insider holds >50%–70% of total voting power through dual-class super-voting shares (e.g. 10:1 or 20:1 Class B shares) while holding a minority economic stake, audit governance misalignment risks (e.g. unilateral subsidization of non-core side ventures).
+   - Apply a 5%–10% minority shareholder governance discount to equity intrinsic value if capital allocation is unilaterally controlled without independent board checks.
+
 5. Editorial Aesthetics & Structural Clarity:
    - Format financial KPIs and segment data into `<div class="metrics-grid"><div class="metric-card">...</div></div>` or structured HTML tables. Zero raw text dumps.
    - Use Callout boxes (`<div class="callout">...</div>`) for key insights, management quotes, and pre-mortem falsification triggers.
@@ -788,6 +800,8 @@ Generate ONLY the following two sections in clean Semantic HTML with NO external
 - Root valuation strictly in Warren Buffett's 1986 Owner Earnings methodology. Zero arbitrary exit multiples.
 - For cyclical, hardware, or commodity sectors: Normalize peak margins across a full 3-5 year operating cycle.
 - Turnaround J-Curve Realism: If the company is executing a strategic restructuring, product line pruning, or wholesale reset, incorporate Year 1-2 trough conservatism to reflect the 12-24 month physical lead time for new product creation and channel rebuilding.
+- Capital Hoarder & Repatriation Haircut: If the company holds massive cash (>35%-40% of market cap) but executes $0 in buybacks/dividends, apply a 15%-25% governance/repatriation haircut to unreturned net cash in the Net Balance Sheet Debt/Cash Adjustment row.
+- Founder Super-Voting Governance Discount: If a founder/insider controls >50%-70% voting power with a minority economic stake, factor in a 5%-10% governance discount.
 - Antitrust Regulatory Plausibility: Disallow treating speculative mega-cap takeovers or buyout rumors as a firm downside valuation floor unless antitrust clearance is legally plausible.
 - Localized sovereign discount rate derivation (local 10Y sovereign bond yield + equity risk premium, e.g. US 10Y for US, SELIC for Brazil, Gilts for UK).
 - [MANDATORY BEAR CASE DOWNSIDE INVARIANT]: The Bear Case (Cycle Trough) MUST BE A REALISTIC DOWNSIDE SCENARIO. The Bear Case Intrinsic Value Per Share MUST ALWAYS BE BELOW CURRENT STOCK PRICE (typically 15% to 40% below current price). A Bear target higher than today's price is strictly forbidden.
