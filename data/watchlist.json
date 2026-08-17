@@ -1,37 +1,4 @@
 {
-  "CPRT": {
-    "ticker": "CPRT",
-    "company_name": "Copart, Inc.",
-    "baseline_price": 29.66,
-    "current_price": 31.82,
-    "return_pct": 7.28,
-    "status_label": "High Conviction",
-    "labels": [
-      "High Conviction",
-      "Cash Fortress",
-      "Moat Expansion"
-    ],
-    "action_signal": "HOLD",
-    "fair_value_estimate": "$28.80",
-    "bear_target": "$21.60 (-26.5%)",
-    "base_target": "$28.80 (-2.0%)",
-    "bull_target": "$37.44 (+27.3%)",
-    "upper_alert_threshold": 36.0,
-    "lower_alert_threshold": 25.0,
-    "next_catalyst_date": "2026-09-03",
-    "next_catalyst_event": "Q4 '26 ER",
-    "top_funds": [
-      "Vanguard (9.8%)",
-      "BlackRock (8.4%)",
-      "State Street (4.6%)"
-    ],
-    "institutional_ownership_pct": "87.2%",
-    "insider_signal": "Net Selling",
-    "insider_summary": "8 Officers Sold -$93.2M (Zero Buys)",
-    "last_updated": "2026-08-08",
-    "total_versions": 1,
-    "report_path": "reports/CPRT.html"
-  },
   "UPWK": {
     "ticker": "UPWK",
     "company_name": "Upwork Inc.",
@@ -1753,5 +1720,36 @@
     "last_updated": "2026-08-17",
     "total_versions": 1,
     "report_path": "reports/DLO.html"
+  },
+  "DOW": {
+    "ticker": "DOW",
+    "company_name": "Dow Inc.",
+    "baseline_price": 31.39,
+    "current_price": 31.39,
+    "return_pct": 0.0,
+    "status_label": "Active",
+    "labels": [
+      "Active"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$36.10",
+    "bear_target": "$23.54 (-25.0%)",
+    "base_target": "$36.10 (+15.0%)",
+    "bull_target": "$47.09 (+50.0%)",
+    "upper_alert_threshold": 36.1,
+    "lower_alert_threshold": 27.62,
+    "next_catalyst_date": "2026-11-15",
+    "next_catalyst_event": "Scheduled quarterly report",
+    "top_funds": [
+      "Richard Pzena - Pzena Investment Management (1.00)",
+      "First Eagle Investment Management (0.00)",
+      "Dodge & Cox Funds (0.00)"
+    ],
+    "institutional_ownership_pct": "78.4%",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "",
+    "last_updated": "2026-08-17",
+    "total_versions": 1,
+    "report_path": "reports/DOW.html"
   }
 }
