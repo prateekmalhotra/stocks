@@ -633,10 +633,11 @@ THE BENJAMIN GRAHAM & WARREN BUFFETT "ANTI-MR. MARKET" DOCTRINE (MANDATORY & IND
           - Audit Regulatory Safe Harbors: Strictly disallow growth assumptions on historically banned product lines. Only assign positive growth to government-permitted/encouraged vectors (e.g. non-academic enrichment, high school prep, overseas consulting, vocational training).
           - Deferred Revenue Customer Float: In education/subscription businesses collecting cash upfront (e.g. deferred tuition balances), treat unearned revenue as an interest-free operating float that funds capacity expansion without interest-bearing debt.
           - Offshore Capital Return Requirement: Only credit balance sheet cash at full value if management actively repatriates funds via offshore ADR buybacks and cash dividends (e.g. >50% payout of Owner Earnings); otherwise apply a 25%–35% onshore liquidity haircut.
-        * [ENTERPRISE SAAS AI SEAT-COMPRESSION & INFERENCE COMPUTE DRAG]:
-          - For enterprise software / SaaS transitioning from per-seat subscription licensing to outcome-based AI agents:
-          - Stress-test the risk of client seat-consolidation (fewer human employees requiring individual software seats).
-          - Model a 200–400 bps gross margin drag to reflect third-party LLM inference compute expenses and GPU infrastructure costs.
+        * [FOR-PROFIT HEALTHCARE EDUCATION & TITLE IV 90/10 COMPLIANCE INVARIANT]:
+          - For proprietary post-secondary career colleges and vocational healthcare academies (e.g. Legacy Education, UTI, Lincoln Tech):
+          - Title IV 90/10 Rule Audit: Federal regulations mandate that <= 90% of revenues can derive from federal Title IV financial aid. If Title IV mix exceeds 85%, model elevated regulatory scrutiny and disallow aggressive multiple expansion.
+          - Clinical Placement & Lab Capacity Capping: Healthcare programs (nursing, sonography, MRI techs) are bound by mandatory hospital clinical rotation spots and physical lab equipment. Strictly cap multi-year student enrollment growth at verified physical capacity expansion.
+          - Multi-Year Accreditation Moat: Institutional accreditations (e.g. ACCET, ABHES, HLC) act as operational licenses; verify that campuses maintain multi-year reaccreditation grants (>= 4 years remaining) before assigning Base Case compounder status.
         * [DIGITAL AD TAC ANTITRUST & DEFAULT DISTRIBUTION OFFSET INVARIANT]:
           - For dominant search and digital advertising ecosystems facing antitrust remedies or default contract scrutiny (e.g. Google Search / Apple Safari default deals):
           - Model the symmetry between query volume loss and Traffic Acquisition Cost (TAC) elimination.
