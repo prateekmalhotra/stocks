@@ -657,6 +657,11 @@ THE BENJAMIN GRAHAM & WARREN BUFFETT "ANTI-MR. MARKET" DOCTRINE (MANDATORY & IND
           - In Bear and Base cases, the loss center burn MUST be deducted as a real, non-capitalized cash drain on owner earnings.
           - In Section 5, you MUST calculate the 'Cease-and-Desist Accretion': If management reduces loss-center burn by 50%, calculate the immediate unlevered cash accretion per share to common equity.
           - Open-sourcing AI foundation models (e.g. Llama) must be evaluated as 'Commoditizing Complements'—reducing external API rents and supercharging internal recommendation/ad ranking without paying third-party model fees.
+        * [CHINESE ADR DUAL-PRIMARY HK LISTING & OPEN-SOURCE CLOUD AI FUNNEL INVARIANT]:
+          - For Chinese technology leaders with Dual-Primary listings on HKEX (e.g. Alibaba 9988.HK, Meituan, Tencent):
+          - Southbound Stock Connect Liquidity: Factor in direct mainland Chinese institutional capital access via Southbound Connect, which reduces geopolitical ADR discount volatility and insulates against Western custodial flight.
+          - Open-Source LLM Cloud Funnel (e.g. Qwen, Llama): When a cloud provider releases premier open-source AI models, evaluate it as an enterprise compute funnel. Open weights commoditize third-party model licensing while driving high-margin recurring inference compute and Model-as-a-Service (MaaS) revenue to the host cloud platform.
+          - Strategic Look-Through Stakes: Value unlisted fintech and logistics holdings (e.g. Ant Group, Cainiao) at conservative private-market liquidation multiples and credit to the Net Asset Bridge.
         * Intrinsic Equity Value = PV of 5-10Y Owner Earnings + PV of Terminal Cash Stream (capped at -2% to +2.0% GDP) + Cash & Equities - Total Debt & Leases.
         * Divide by diluted share count to arrive at Intrinsic Fair Value per Share.
         * The 5-Year Exchange Closure Test: Demand a clear Margin of Safety (20–40% discount) so that even if the stock market were closed for 5 years, the investor earns an attractive return purely from organic cash generation.
