@@ -17,19 +17,11 @@
     <script id="embedded-live-quotes" type="application/json">{
   "PYPL": {
     "price": 60.47,
-    "prev_close": 60.45,
-    "change": 0.02,
-    "change_pct": 0.03,
-    "currency": "USD",
-    "updated_at": "2026-08-17 19:07:23 UTC"
-  },
-  "FISV": {
-    "price": 52.48,
-    "prev_close": 52.48,
+    "prev_close": 60.47,
     "change": 0.0,
     "change_pct": 0.0,
     "currency": "USD",
-    "updated_at": "2026-08-17 19:07:23 UTC"
+    "updated_at": "2026-08-17 19:07:40 UTC"
   }
 }</script>
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
@@ -805,7 +797,7 @@
         <!-- Navigation Controls -->
         <div class="hub-controls">
             <div class="hub-tabs">
-                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">2</span></button>
+                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">1</span></button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts <span class="tab-chip chip-alert">0</span></span></button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-defensive')">Fidelity</button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-aggressive')">Wealthsimple</button>
@@ -848,40 +840,6 @@
                     </thead>
                     <tbody>
                         
-        <tr class="table-row" data-ticker="FISV" data-baseline="52.45" onclick="location.href='reports/FISV.html'">
-            <td>
-                <div class="tbl-ticker-cell">
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/FISV" alt="FISV" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">FI</span></div>
-                        <span class="tbl-symbol">FISV</span>
-                    </div>
-                    <span class="tbl-company-hover">Fiserv, Inc</span>
-                </div>
-            <td>
-                <div class="tbl-price-cell">
-                    <span class="tbl-price tbl-price-FISV">$52.48</span>
-                    <span class="tbl-return tbl-ret-FISV pos">+0.06%</span>
-                </div>
-            </td>
-            <td>
-                <div class="tbl-labels-cell">
-                    <span class="pill pill-conviction">Active</span>
-                </div>
-            </td>
-            <td>
-                <div class="tbl-val-cell">
-                    <span class="tbl-fv" style="color: var(--accent-warm);">$60.32</span>
-                    <span class="tbl-upside">+15.0%</span>
-                </div>
-            </td>
-            <td>
-                <div class="tbl-catalyst-cell">
-                    <span class="tbl-cat-date">2026-11-15</span>
-                    <span class="tbl-cat-desc">Scheduled quarterly report</span>
-                </div>
-            </td>
-        </tr>
-        
         <tr class="table-row" data-ticker="PYPL" data-baseline="60.45" onclick="location.href='reports/PYPL.html'">
             <td>
                 <div class="tbl-ticker-cell">
@@ -923,39 +881,6 @@
             <!-- Grid Cards View -->
             <div id="stocks-grid-view" class="grid-cards-wrap" style="display: none;">
                 
-        <div class="grid-card" data-ticker="FISV" data-baseline="52.45" onclick="location.href='reports/FISV.html'">
-            <div class="grid-card-top">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/FISV" alt="FISV" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">FI</span></div>
-                    <span class="grid-symbol">FISV</span>
-                </div>
-                <div class="grid-price grid-price-FISV">$52.48</div>
-            </div>
-            <div class="grid-labels-row" style="margin: 4px 0 8px;">
-                <span class="pill pill-conviction">Active</span>
-            </div>
-            <div class="grid-company">Fiserv, Inc</div>
-            
-            <div class="grid-metrics-box">
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Return</span>
-                    <span class="grid-stat-val grid-ret-FISV pos">+0.06%</span>
-                </div>
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Fair Value</span>
-                    <span class="grid-stat-val" style="color: var(--accent-warm);">$60.32</span>
-                </div>
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Target</span>
-                    <span class="grid-stat-val">$60.32 (+15.0%)</span>
-                </div>
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Catalyst</span>
-                    <span class="grid-stat-val">2026-11-15</span>
-                </div>
-            </div>
-        </div>
-        
         <div class="grid-card" data-ticker="PYPL" data-baseline="60.45" onclick="location.href='reports/PYPL.html'">
             <div class="grid-card-top">
                 <div style="display: flex; align-items: center; gap: 8px;">
