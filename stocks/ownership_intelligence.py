@@ -101,33 +101,41 @@ CURATED_MEMOS: Dict[str, List[Dict[str, Any]]] = {
 
 def fetch_openinsider_live(ticker: str) -> List[Dict[str, Any]]:
     """Scrapes up to 100 recent SEC Form 4 insider transactions from OpenInsider."""
-    url = f"https://openinsider.com/search?q={ticker}"
+    clean_t = ticker.upper().strip()
+    urls = [
+        f"http://openinsider.com/search?q={clean_t}",
+        f"http://www.openinsider.com/search?q={clean_t}",
+        f"https://openinsider.com/search?q={clean_t}"
+    ]
     headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"}
     trades = []
-    try:
-        r = requests.get(url, headers=headers, timeout=15)
-        if r.status_code == 200:
-            soup = BeautifulSoup(r.text, "html.parser")
-            table = soup.find("table", class_="tinytable")
-            if table:
-                rows = table.find("tbody").find_all("tr") if table.find("tbody") else table.find_all("tr")[1:]
-                for row in rows:
-                    cols = [td.text.strip() for td in row.find_all("td")]
-                    if len(cols) >= 13:
-                        trades.append({
-                            "filing_date": cols[1].split()[0] if cols[1] else "",
-                            "trade_date": cols[2].split()[0] if cols[2] else "",
-                            "name": cols[4],
-                            "title": cols[5],
-                            "trade_type": cols[6],
-                            "price": cols[7],
-                            "qty": cols[8],
-                            "owned": cols[9],
-                            "delta_own": cols[10],
-                            "value": cols[11]
-                        })
-    except Exception as e:
-        print(f"Error fetching OpenInsider for {ticker}: {e}")
+    for url in urls:
+        try:
+            r = requests.get(url, headers=headers, timeout=15)
+            if r.status_code == 200 and len(r.text) > 1000:
+                soup = BeautifulSoup(r.text, "html.parser")
+                table = soup.find("table", class_="tinytable")
+                if table:
+                    rows = table.find("tbody").find_all("tr") if table.find("tbody") else table.find_all("tr")[1:]
+                    for row in rows:
+                        cols = [td.text.strip() for td in row.find_all("td")]
+                        if len(cols) >= 13:
+                            trades.append({
+                                "filing_date": cols[1].split()[0] if cols[1] else "",
+                                "trade_date": cols[2].split()[0] if cols[2] else "",
+                                "name": cols[4],
+                                "title": cols[5],
+                                "trade_type": cols[6],
+                                "price": cols[7],
+                                "qty": cols[8],
+                                "owned": cols[9],
+                                "delta_own": cols[10],
+                                "value": cols[11]
+                            })
+                    if trades:
+                        break
+        except Exception as e:
+            continue
     return trades
 
 
