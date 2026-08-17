@@ -63,8 +63,8 @@ Example format:
     return list(dict.fromkeys([w for w in words if w not in EXCLUDED_TICKERS]))
 
 
-def run_weekly_reddit_coverage_sync(max_new: int = 10, auto_ingest: bool = True) -> List[str]:
-    """Scans r/ValueInvesting, filters existing watchlist stocks, and triggers coverage on new candidates."""
+def run_weekly_reddit_coverage_sync(max_new: int = 0, auto_ingest: bool = True) -> List[str]:
+    """Scans r/ValueInvesting, filters existing watchlist stocks, and triggers coverage on all new candidates."""
     print("=" * 90)
     print(f"📡 [REDDIT VALUE SCANNER] Initiating Friday Surveillance at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}...")
     print("=" * 90)
@@ -99,9 +99,13 @@ def run_weekly_reddit_coverage_sync(max_new: int = 10, auto_ingest: bool = True)
         print("\n✅ All trending r/ValueInvesting stocks are already in our coverage universe. Zero actions needed.")
         return []
 
-    # Limit to top max_new per batch
-    to_ingest = new_tickers[:max_new]
-    print(f"\n🚀 Initiating Genesis Research & Living Thesis Pipeline for {len(to_ingest)} new stocks: {', '.join(to_ingest)}...")
+    # Ingest all new discovered stocks (or limit if max_new is explicitly set > 0)
+    if max_new and max_new > 0:
+        to_ingest = new_tickers[:max_new]
+    else:
+        to_ingest = new_tickers
+
+    print(f"\n🚀 Initiating Genesis Research & Living Thesis Pipeline for all {len(to_ingest)} new stocks: {', '.join(to_ingest)}...")
 
     if auto_ingest:
         cmd_add(to_ingest, notes="Auto-discovered via r/ValueInvesting weekly trending surveillance scanner.")
@@ -115,8 +119,9 @@ def run_weekly_reddit_coverage_sync(max_new: int = 10, auto_ingest: bool = True)
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(description="Scan r/ValueInvesting and ingest new stock coverage.")
-    parser.add_argument("--max", type=int, default=5, help="Max new stocks to ingest in one batch")
+    parser.add_argument("--max", type=int, default=0, help="Max new stocks to ingest in one batch (default: 0 = ingest all new candidates)")
     parser.add_argument("--dry-run", action="store_true", help="Only scan and display without ingesting")
     args = parser.parse_args()
 
     run_weekly_reddit_coverage_sync(max_new=args.max, auto_ingest=not args.dry_run)
+

@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
     inputs:
       max_stocks:
-        description: 'Maximum number of new discovered stocks to ingest in this batch'
+        description: 'Maximum number of new discovered stocks to ingest in this batch (0 for all discovered stocks)'
         required: false
-        default: '5'
+        default: '0'
       dry_run:
         description: 'Run in dry-run mode (scan and discover only, do not ingest)'
         required: false
@@ -54,7 +54,7 @@ jobs:
           PYTHONUNBUFFERED: "1"
         run: |
           echo "📡 Executing Friday r/ValueInvesting Community Scanner..."
-          MAX_STOCKS="${{ github.event.inputs.max_stocks || '5' }}"
+          MAX_STOCKS="${{ github.event.inputs.max_stocks || '0' }}"
           if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
             poetry run python -m stocks.reddit_scanner --max "$MAX_STOCKS" --dry-run
           else
