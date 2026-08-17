@@ -714,8 +714,10 @@ AUDIT OBJECTIVES & INVARIANTS:
    - If the fundamentals dictate the stock is 40% overvalued or 100% undervalued, preserve the mathematical truth!
 3. REVERSE DCF AUDIT:
    - Ensure the "Market-Implied Expectations & What is Priced In?" subsection correctly computes g_implied (the 5-year OE CAGR required to justify ${current_price:.2f}).
+4. SCENARIO ASSUMPTIONS TRANSPARENCY:
+   - Ensure the "Scenario Assumptions Deep Dive: What Each Case is Pricing In" clearly details the explicit revenue growth rates, margin assumptions, CapEx drag, and economic drivers behind Bear, Base, and Bull cases.
 
-If all calculations in Section 5 are 100% mathematically correct and consistent, output the HTML as is.
+If all calculations and assumption breakdowns in Section 5 are 100% mathematically correct and consistent, output the HTML as is.
 If there are mathematical errors or inconsistent row numbers, correct the numbers in the table and text, and output the reconciled, complete Section 5 in clean Semantic HTML only."""
 
     try:
@@ -867,6 +869,12 @@ Generate ONLY Section 5 in clean Semantic HTML with NO external images, NO inlin
       <tr><td><strong>Margin of Safety vs Current Price (${current_price:.2f})</strong></td><td><strong>XX.X%</strong></td><td><strong>XX.X%</strong></td><td><strong>XX.X%</strong></td></tr>
     </tbody>
   </table>
+
+<h3>Scenario Assumptions Deep Dive: What Each Case is Pricing In</h3>
+- Detail the exact fundamental mechanics, revenue growth rates, margin trajectories, and CapEx drag modeled in each scenario:
+  * <strong>🐻 Bear Case (Trough Stress-Test):</strong> Explicitly detail what headwinds are assumed (e.g. revenue deceleration to X.X%, margin compression from competitive squeeze, heightened SBC dilution, higher hurdle rate). State the resulting Bear Fair Value and downside risk.
+  * <strong>🎯 Base Case (Normalized Operating Reality):</strong> Explicitly detail the normalized baseline assumptions (e.g. steady-state organic growth of XX.X%, normalized operating margins, baseline maintenance CapEx, disciplined share buybacks). State the resulting Base Fair Value and Margin of Safety.
+  * <strong>🐂 Bull Case (Optimistic Compounding):</strong> Explicitly detail the upside drivers assumed (e.g. accelerating growth to XX.X%, operating leverage expanding margins, successful monetization of new initiatives, aggressive share cannibalization). State the resulting Bull Fair Value and upside potential.
 
 <h3>Market-Implied Expectations & "What is Priced In?" (Reverse DCF Audit)</h3>
 - Compare the market's current enterprise value against Year 1 Owner Earnings ($EV / OE_1$).
