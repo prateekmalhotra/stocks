@@ -61,10 +61,14 @@ def validate_dossier_quality(ticker: str, html: str) -> Tuple[bool, List[str]]:
     if open_table != close_table:
         issues.append(f"Mismatched <table> tags ({open_table} opened vs {close_table} closed).")
 
-    # 4. Bear / Base / Bull Scenario Valuation Matrix Presence
+    # 4. Bear / Base / Bull Scenario Valuation Matrix & Reverse DCF Presence
     has_scenarios = any(k in html.lower() for k in ["bear case", "base case", "bull case"])
     if not has_scenarios:
         issues.append("Missing complete Bear / Base / Bull scenario valuation matrix in Section 5.")
+        
+    has_reverse_dcf = any(k in html.lower() for k in ["priced in", "market-implied", "reverse dcf", "g_implied", "g_{implied}"])
+    if not has_reverse_dcf:
+        issues.append("Missing Market-Implied Expectations / 'What is Priced In?' Reverse DCF analysis in Section 5.")
 
     # 5. Clean Semantic Lists (No Raw Markdown Bullets or Nested ULs)
     stray_bullets = len(re.findall(r"^\s*[*•-]\s+\*\*", html, flags=re.MULTILINE))

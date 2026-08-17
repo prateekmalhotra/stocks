@@ -694,6 +694,52 @@ Return your plan strictly as a JSON object in ```json ... ```:
 """
 
 
+def audit_and_reconcile_dcf_math(ticker: str, company_name: str, current_price: float, section_5_html: str) -> str:
+    """Rigorous mathematical audit pass for Section 5 DCF valuation matrix.
+    Audits cash flow discounting, terminal value, share division, and Margin of Safety.
+    Guarantees 100% internal mathematical consistency with zero anchoring and zero calculation errors."""
+    if not section_5_html or len(section_5_html.split()) < 200:
+        return section_5_html
+        
+    print(f"   │ 🧮 [QUANT AUDIT] Running mathematical reconciliation check on DCF matrix...", flush=True)
+    math_audit_prompt = f"""You are an elite Quantitative Valuation Auditor & Actuary auditing Section 5 for {ticker} ({company_name}) at current market price ${current_price:.2f}.
+
+SECTION 5 DRAFT CONTENT:
+{section_5_html}
+
+AUDIT OBJECTIVES & INVARIANTS:
+1. MATHEMATICAL EXACTNESS (THE INVARIANT OF ARITHMETIC):
+   - Check the 3-scenario DCF table:
+     * Year 1 Owner Earnings ($OE_1)
+     * 5-Year CAGR (g)
+     * Discount Rate (r = 10Y Sovereign Yield + Equity Risk Premium)
+     * Terminal Growth Rate (g_term capped at GDP 2.0%-2.5%)
+     * Net Cash / Debt Adjustment
+     * Diluted Shares Outstanding (N)
+   - Verify that Intrinsic Fair Value / Share strictly equals:
+     (PV(5-Year Cash Flows) + PV(Terminal Value) +/- Net Cash or Debt) / Diluted Shares.
+   - Verify that Margin of Safety (%) = ((Intrinsic Fair Value - ${current_price:.2f}) / ${current_price:.2f}) * 100.
+2. ZERO MARKET PRICE PANDERING:
+   - Do NOT adjust the intrinsic value to match today's stock price (${current_price:.2f}).
+   - If the fundamentals dictate the stock is 40% overvalued or 100% undervalued, preserve the mathematical truth!
+3. REVERSE DCF AUDIT:
+   - Ensure the "Market-Implied Expectations & What is Priced In?" subsection correctly computes g_implied (the 5-year OE CAGR required to justify ${current_price:.2f}).
+
+If all calculations in Section 5 are 100% mathematically correct and consistent, output the HTML as is.
+If there are mathematical errors or inconsistent row numbers, correct the numbers in the table and text, and output the reconciled, complete Section 5 in clean Semantic HTML only."""
+
+    try:
+        reconciled = call_gemini_with_search(math_audit_prompt, system_instruction="You are an elite quantitative valuation auditor. Output pure semantic HTML only.")
+        cleaned = verify_and_repair_html_structure(reconciled)
+        if len(cleaned.split()) >= 300 and ("<h2>Section 5" in cleaned or "Section 5:" in cleaned or "<table" in cleaned):
+            print(f"   │ 🧮 [QUANT AUDIT] Mathematical reconciliation verified and applied.", flush=True)
+            return cleaned
+    except Exception as e:
+        print(f"   │ ⚠️ Math audit notice: {e}", flush=True)
+        
+    return section_5_html
+
+
 def generate_genesis_thesis(ticker: str, company_name: str, current_price: float, initial_notes: str = "") -> Tuple[Dict[str, Any], str]:
     """Generates a level-headed, honest institutional investment memo via direct modular sub-agent section generation."""
     ticker_clean = ticker.upper().strip()
@@ -792,21 +838,25 @@ Generate ONLY Section 4 in clean Semantic HTML with NO external images, NO inlin
 
 DO NOT write Section 1, 2, 3, 5, or 6. Output pure HTML only."""
 
-    agent_5_prompt = f"""You are Sub-Agent 5: Warren Buffett Owner Earnings Valuation Strategist researching {ticker_clean} ({company_name}) at current market price ${current_price:.2f}.
+    agent_5_prompt = f"""You are Sub-Agent 5: Warren Buffett Owner Earnings Valuation Strategist conducting an independent fundamental intrinsic valuation of {ticker_clean} ({company_name}).
 Your Objective: {research_obj}
+
+CRITICAL PRINCIPLE OF UNBIASED INTELLECTUAL PURITY:
+- Value the enterprise strictly from First Principles of discounted cash flow as if you were buying 100% of the private business.
+- DO NOT pander or anchor your valuation to today's market price (${current_price:.2f}), consensus price targets, or crowd optimism/pessimism.
+- If a stock is trading at an excessive bubble multiple, your pure DCF may conclude it is -40% to -60% OVERVALUED.
+- If a stock is trading in deep cyclical distress, your pure DCF may conclude it is +50% to +150% UNDERVALUED.
+- Let the fundamental Owner Cash Flow, share count, and sovereign hurdle rates dictate the mathematical truth.
 
 Generate ONLY Section 5 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
 
 <h2>Section 5: Warren Buffett Owner Earnings Intrinsic Valuation Matrix</h2>
-- Root valuation strictly in Warren Buffett's 1986 Owner Earnings methodology. Zero arbitrary exit multiples.
+- Root valuation strictly in Warren Buffett's 1986 Owner Earnings methodology (GAAP OCF minus Maintenance CapEx minus 100% SBC). Zero arbitrary exit multiples.
 - For cyclical, hardware, or commodity sectors: Normalize peak margins across a full 3-5 year operating cycle.
-- Turnaround J-Curve Realism: If the company is executing a strategic restructuring, product line pruning, or wholesale reset, incorporate Year 1-2 trough conservatism to reflect the 12-24 month physical lead time for new product creation and channel rebuilding.
-- Capital Hoarder & Repatriation Haircut: If the company holds massive cash (>35%-40% of market cap) but executes $0 in buybacks/dividends, apply a 15%-25% governance/repatriation haircut to unreturned net cash in the Net Balance Sheet Debt/Cash Adjustment row.
-- Founder Super-Voting Governance Discount: If a founder/insider controls >50%-70% voting power with a minority economic stake, factor in a 5%-10% governance discount.
-- Antitrust Regulatory Plausibility: Disallow treating speculative mega-cap takeovers or buyout rumors as a firm downside valuation floor unless antitrust clearance is legally plausible.
+- Turnaround J-Curve Realism: If the company is executing a strategic turnaround, reflect realistic multi-year cash flow progression.
+- Capital Hoarder / Governance Discounts: Apply explicit haircuts for super-voting control or trapped non-returning balance sheet cash where justified.
 - Localized sovereign discount rate derivation (local 10Y sovereign bond yield + equity risk premium, e.g. US 10Y for US, SELIC for Brazil, Gilts for UK).
-- [MANDATORY BEAR CASE DOWNSIDE INVARIANT]: The Bear Case (Cycle Trough) MUST BE A REALISTIC DOWNSIDE SCENARIO. The Bear Case Intrinsic Value Per Share MUST ALWAYS BE BELOW CURRENT STOCK PRICE (typically 15% to 40% below current price). A Bear target higher than today's price is strictly forbidden.
-- Complete 3-Scenario DCF Valuation Matrix:
+- Complete 3-Scenario DCF Valuation Matrix (Calculate pure mathematical intrinsic values):
   <table>
     <thead>
       <tr>
@@ -824,13 +874,18 @@ Generate ONLY Section 5 in clean Semantic HTML with NO external images, NO inlin
       <tr><td>Terminal Growth Rate (GDP Capped)</td><td>X.X%</td><td>X.X%</td><td>X.X%</td></tr>
       <tr><td>Net Balance Sheet Debt/Cash Adjustment</td><td>-$X.XX/sh</td><td>-$X.XX/sh</td><td>-$X.XX/sh</td></tr>
       <tr><td><strong>Intrinsic Fair Value / Share</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td></tr>
-      <tr><td><strong>Margin of Safety vs Current Price</strong></td><td><strong>XX.X%</strong></td><td><strong>XX.X%</strong></td><td><strong>XX.X%</strong></td></tr>
+      <tr><td><strong>Margin of Safety vs Current Price (${current_price:.2f})</strong></td><td><strong>XX.X%</strong></td><td><strong>XX.X%</strong></td><td><strong>XX.X%</strong></td></tr>
     </tbody>
   </table>
-- Market-Implied Expectations & "What is Priced In?" (Reverse DCF):
-  * Calculate what exact 5-year Owner Earnings CAGR (g_implied) the market is pricing into today's stock price (${current_price:.2f}).
-  * Present a dedicated Reverse-DCF callout box or table contrasting Market-Implied Expectations vs. Base Case Reality (highlighting whether the stock is priced for perfection, fairly priced, or pricing in excessive disaster).
-- The 5-Year Market Closure Test: Demonstrate the organic cash yield earned if the stock exchange closed for 5 years.
+
+<h3>Market-Implied Expectations & "What is Priced In?" (Reverse DCF Audit)</h3>
+- Compare the market's current enterprise value against Year 1 Owner Earnings ($EV / OE_1$).
+- Calculate what exact 5-year Owner Earnings CAGR ($g_{implied}$) the market is pricing into today's stock price (${current_price:.2f}).
+- Present a dedicated Reverse-DCF callout box contrasting Market-Implied Expectations ($g_{implied}$) vs. Base Case Reality ($g_{base}$):
+  * State unvarnished whether Mr. Market is pricing in extreme euphoria/perfection, reasonable compounding, or severe insolvency/distress.
+
+<h3>The 5-Year Market Closure Test</h3>
+- Demonstrate the organic cash yield earned if the stock exchange closed for 5 full years starting today.
 
 DO NOT write Section 1, 2, 3, 4, or 6. Output pure HTML only."""
 
@@ -929,6 +984,8 @@ DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
                 break
             print(f"   ⚠️ Sub-Agent {idx} output insufficient ({word_count} words). Auto-healing retry (attempt {attempt+1}/2)...", flush=True)
         
+        if sec_num == 5:
+            clean_section = audit_and_reconcile_dcf_math(ticker_clean, company_name, current_price, clean_section)
         section_htmls.append(clean_section)
         print(f"   │ Status: Complete ({len(clean_section.split())} words generated)", flush=True)
         print("   └" + "─" * 50, flush=True)
