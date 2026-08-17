@@ -615,6 +615,18 @@ THE BENJAMIN GRAHAM & WARREN BUFFETT "ANTI-MR. MARKET" DOCTRINE (MANDATORY & IND
         * [MANDATORY METADATA-SECTION 5 BINDING INVARIANT]:
           - The top-level summary JSON 'fair_value_estimate', 'base_target', and 'action_signal' MUST 100% MATHEMATICALLY MATCH the exact numbers in Section 5's Base Case row and Section 6's recommendation.
           - If Section 5 shows a negative Margin of Safety (overvalued), or if Section 6 recommends "AVOID" or "CAUTION", the JSON metadata is STRICTLY FORBIDDEN from outputting "BUY".
+        * [PHARMACEUTICAL PATENT CLIFF & LOE SUBSTITUTION INVARIANT]:
+          - For biopharmaceutical enterprises, you MUST audit blockbuster drug patent expirations (Loss of Exclusivity / LOE) over the 5-year discrete DCF window.
+          - If expiring drugs account for > 20% of consolidated revenues (e.g. Eliquis, Vyndaqel, Keytruda, Humira), you MUST model 70%–90% revenue erosion from generic/biosimilar substitution on off-patent assets in Bear and Base scenarios.
+          - Stress-test dividend sustainability against post-cliff Owner Earnings to verify that high cash dividend yields are not an unpayable capital trap.
+        * [EMERGING MARKET TRAPPED CASH & CROSS-BORDER REGULATORY HAIRCUT]:
+          - For foreign ADRs, Chinese cross-border e-commerce, or emerging market compounders with large cash/treasury balances:
+          - If management DOES NOT actively return cash via share buybacks or cash dividends, apply a 25%–35% haircut to balance sheet cash to reflect capital controls, withholding taxes, or trapped corporate liquidity.
+          - Factor in tariff and regulatory risks (e.g. de minimis import duty closures) and enforce an emerging market hurdle rate (11.5%–13.5%).
+        * [ENTERPRISE SAAS AI SEAT-COMPRESSION & INFERENCE COMPUTE DRAG]:
+          - For enterprise software / SaaS transitioning from per-seat subscription licensing to outcome-based AI agents:
+          - Stress-test the risk of client seat-consolidation (fewer human employees requiring individual software seats).
+          - Model a 200–400 bps gross margin drag to reflect third-party LLM inference compute expenses and GPU infrastructure costs.
         * Intrinsic Equity Value = PV of 5-10Y Owner Earnings + PV of Terminal Cash Stream (capped at -2% to +2.0% GDP) + Cash & Equities - Total Debt & Leases.
         * Divide by diluted share count to arrive at Intrinsic Fair Value per Share.
         * The 5-Year Exchange Closure Test: Demand a clear Margin of Safety (20–40% discount) so that even if the stock market were closed for 5 years, the investor earns an attractive return purely from organic cash generation.
