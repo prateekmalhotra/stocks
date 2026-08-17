@@ -645,6 +645,10 @@ THE BENJAMIN GRAHAM & WARREN BUFFETT "ANTI-MR. MARKET" DOCTRINE (MANDATORY & IND
           - Single-Piece Polymer Economics: Differentiate labor-intensive multi-piece cut-and-sew shoes (42%–48% gross margin) from proprietary single-piece resin injection molding (58%–61% gross margin, <3% CapEx intensity, near-zero scrap).
           - Customization Attach Margin: Credit high-margin impulse accessories (e.g. Jibbitz at >80% gross margin) as high-ROIC Average Order Value (AOV) multipliers.
           - Wholesale Channel Purge vs. Brand Fatigue: When management deliberately curtails low-tier wholesale accounts to eliminate gray-market discounting, verify Direct-to-Consumer (DTC) sell-through; if DTC is positive, treat wholesale contraction as brand-equity protection rather than structural demand loss.
+        * [DIGITAL DATING NETWORK LIQUIDITY & APP STORE WEB BILLING INVARIANT]:
+          - For digital dating and social discovery networks (e.g. Match Group / Tinder / Hinge, Bumble, Grindr):
+          - Hyper-Local Two-Sided Network Moat: Moats are bound by local geographic density (active singles within 10–15 miles). When top-of-funnel user growth matures, verify Revenue Per Payer (RPP) expansion via tiered pricing (HingeX, Tinder Platinum) and à la carte features.
+          - Alternative Direct Web Billing Margins: Factor in gross margin expansion from anti-steering regulatory rulings (EU DMA, US court orders) that bypass Apple/Google 30% app store fees by routing subscriptions through direct web payment gateways.
         * [FOR-PROFIT HEALTHCARE EDUCATION & TITLE IV 90/10 COMPLIANCE INVARIANT]:
           - For proprietary post-secondary career colleges and vocational healthcare academies (e.g. Legacy Education, UTI, Lincoln Tech):
           - Title IV 90/10 Rule Audit: Federal regulations mandate that <= 90% of revenues can derive from federal Title IV financial aid. If Title IV mix exceeds 85%, model elevated regulatory scrutiny and disallow aggressive multiple expansion.
