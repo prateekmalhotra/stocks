@@ -545,6 +545,13 @@ Your analysis must adhere strictly to these 7 First Principles of Business Valua
    - Terminal growth is strictly capped at long-term real GDP growth (2.0% to 2.5%).
    - Formulate 3 quantitative pre-mortem operational tripwires (margin decay, customer churn, backlog contraction) that declare the thesis fundamentally invalid.
 
+   Pillar 8: Reverse-Engineered Market Expectations (The "What is Priced In?" Test)
+   - Invert the valuation: At today's market price, solve for the exact 5-year Owner Earnings CAGR ($g_{\text{implied}}$) that Mr. Market is currently pricing in.
+   - Contrast $g_{\text{implied}}$ against the company's realistic organic compounding capacity:
+     * If $g_{\text{implied}} \gg g_{\text{realistic}}$: The stock is "Priced for Perfection"—any operational hiccup will trigger severe multiple compression.
+     * If $g_{\text{implied}} \approx g_{\text{realistic}}$: Fairly valued.
+     * If $g_{\text{implied}} \ll g_{\text{realistic}}$ (or negative): Market is pricing in permanent secular decline or excessive pessimism, creating a high-conviction asymmetric Margin of Safety.
+
 5. Editorial Aesthetics & Structural Clarity:
    - Format financial KPIs and segment data into `<div class="metrics-grid"><div class="metric-card">...</div></div>` or structured HTML tables. Zero raw text dumps.
    - Use Callout boxes (`<div class="callout">...</div>`) for key insights, management quotes, and pre-mortem falsification triggers.
@@ -565,7 +572,8 @@ Key Areas to Investigate via Real-Time Filings, Earnings Calls & Announcements:
 - Business Model Reality & Moat: How the company makes money, customer retention, pricing power, and competitive advantages in plain English.
 - Real Cash Flow, SBC & Capital Structure: Real cash generation (treating SBC as a cash charge), dilution vs. buybacks, Net Cash/Debt, and capital allocation.
 - Ownership & Catalysts: Verified active 13F whale positions from latest official filings (exclude exited investors), management alignment, and upcoming catalysts.
-- Warren Buffett Owner Earnings & Intrinsic Value Matrix: Calculate normalized Owner Earnings (Post-SBC cash flow minus maintenance CapEx, float/lease debt discipline), project 3-5 year compounding, factor in share count reduction from buybacks, and discount strictly via the LOCAL SOVEREIGN BOND YIELD (e.g. Brazilian NTN-F/SELIC for Brazil, US 10Y for US, Gilts for UK) with zero arbitrary exit multiples. (If you ever face an accounting dilemma or feel stuck on any valuation step, search and reference Warren Buffett's Berkshire Shareholder Letters & Essays to resolve it from first principles). Build a clean Bear / Base / Bull scenario table in Section 5, assess confidence, execution risk, and explicit falsification triggers.
+- Warren Buffett Owner Earnings & Intrinsic Value Matrix: Calculate normalized Owner Earnings (Post-SBC cash flow minus maintenance CapEx, float/lease debt discipline), project 3-5 year compounding, factor in share count reduction from buybacks, and discount strictly via the LOCAL SOVEREIGN BOND YIELD with zero arbitrary exit multiples. Build a clean Bear / Base / Bull scenario table in Section 5.
+- What is Priced In? (Reverse DCF): Calculate what 5-year growth rate the current stock price implies.
 - Dynamic Alert Corridors: Establish exact `upper_alert_threshold` (upside breakout / trim level) and `lower_alert_threshold` (downside margin-of-safety floor) based on your valuation targets.
 
 Editorial Aesthetics Mandate:
@@ -590,6 +598,7 @@ Return your plan strictly as a JSON object in ```json ... ```:
     "bear_target": "$<Price> (<% Upside/Downside>)",
     "base_target": "$<Price> (<% Upside/Downside>)",
     "bull_target": "$<Price> (<% Upside/Downside>)",
+    "what_is_priced_in": "<1-line summary: e.g. Market is pricing in +3.5%/yr OE growth vs Base Case of +10.5%/yr (Asymmetric MoS)>",
     "upper_alert_threshold": <Float price to alert on upside breakout>,
     "lower_alert_threshold": <Float price to alert on downside break>,
     "upper_trigger_reason": "<Short reason>",
@@ -735,6 +744,9 @@ Generate ONLY the following two sections in clean Semantic HTML with NO external
       <tr><td><strong>Margin of Safety vs Current Price</strong></td><td><strong>XX.X%</strong></td><td><strong>XX.X%</strong></td><td><strong>XX.X%</strong></td></tr>
     </tbody>
   </table>
+- Market-Implied Expectations & "What is Priced In?" (Reverse DCF):
+  * Calculate what exact 5-year Owner Earnings CAGR ($g_{\text{implied}}$) the market is pricing into today's stock price (${current_price:.2f}).
+  * Present a dedicated Reverse-DCF callout box or table contrasting Market-Implied Expectations vs. Base Case Reality (highlighting whether the stock is priced for perfection, fairly priced, or pricing in excessive disaster).
 - The 5-Year Market Closure Test: Demonstrate the organic cash yield earned if the stock exchange closed for 5 years.
 
 <h2>Section 6: Thesis Confidence, Execution Risk & Pre-Mortem Falsification</h2>
