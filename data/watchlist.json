@@ -1,1 +1,41 @@
-{}
+{
+  "PYPL": {
+    "ticker": "PYPL",
+    "company_name": "PayPal Holdings, Inc.",
+    "baseline_price": 60.45,
+    "current_price": 60.45,
+    "return_pct": 0.0,
+    "status_label": "High Conviction",
+    "labels": [
+      "High Conviction",
+      "Turnaround Play",
+      "Buyback Cannibal"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$77.78",
+    "bear_target": "$45.91 (-24.1%)",
+    "base_target": "$77.78 (+28.7%)",
+    "bull_target": "$104.44 (+72.8%)",
+    "what_is_priced_in": "",
+    "upper_alert_threshold": 69.52,
+    "lower_alert_threshold": 51.38,
+    "next_catalyst_date": "2026-10-27",
+    "next_catalyst_event": "Q3 '26 ER",
+    "top_funds": [
+      "Norbert Lou - Punch Card Management (10.61)",
+      "Lindsell Train (5.19)",
+      "Francis Chou - Chou Associates (3.34)",
+      "David Einhorn - Greenlight Capital (1.57)",
+      "Yacktman Asset Management (1.24)",
+      "First Pacific Advisors (1.16)",
+      "David Katz - Matrix Asset Advisors (0.92)",
+      "Mason Hawkins - Southeastern Asset Management (0.05)"
+    ],
+    "institutional_ownership_pct": "73.3%",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Routine 10b5-1 executive sales offset by $254k CFO open-market buy.",
+    "last_updated": "2026-08-17",
+    "total_versions": 1,
+    "report_path": "reports/PYPL.html"
+  }
+}

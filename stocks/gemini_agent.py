@@ -791,7 +791,7 @@ Generate ONLY the following two sections in clean Semantic HTML with NO external
     </tbody>
   </table>
 - Market-Implied Expectations & "What is Priced In?" (Reverse DCF):
-  * Calculate what exact 5-year Owner Earnings CAGR ($g_{\text{implied}}$) the market is pricing into today's stock price (${current_price:.2f}).
+  * Calculate what exact 5-year Owner Earnings CAGR (g_implied) the market is pricing into today's stock price (${current_price:.2f}).
   * Present a dedicated Reverse-DCF callout box or table contrasting Market-Implied Expectations vs. Base Case Reality (highlighting whether the stock is priced for perfection, fairly priced, or pricing in excessive disaster).
 - The 5-Year Market Closure Test: Demonstrate the organic cash yield earned if the stock exchange closed for 5 years.
 
