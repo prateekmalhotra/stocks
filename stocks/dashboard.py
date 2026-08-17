@@ -277,15 +277,41 @@ def build_labels_legend_modal_html() -> str:
     """
 
 
-def build_native_svg_chart(ticker: str, current_price: float) -> str:
-    """Builds a lightweight, native interactive SVG area chart with 1Y, 5Y, 10Y, MAX ranges."""
+def extract_numeric_price(val: Any) -> Optional[float]:
+    """Safely extracts a floating point dollar amount from numeric values or formatted strings like '$78.50 (+29.9%)'."""
+    if val is None:
+        return None
+    if isinstance(val, (int, float)):
+        return float(val)
+    m = re.search(r"\$([0-9]+(?:\.[0-9]+)?)", str(val))
+    if m:
+        try:
+            return float(m.group(1))
+        except ValueError:
+            return None
+    return None
+
+
+def build_native_svg_chart(
+    ticker: str,
+    current_price: float,
+    bear_target: Optional[float] = None,
+    fair_target: Optional[float] = None,
+    bull_target: Optional[float] = None
+) -> str:
+    """Builds a lightweight, native interactive SVG area chart with 1Y, 5Y, 10Y, MAX ranges and Bear/Fair/Bull target lines."""
     all_ranges_data = fetch_all_chart_ranges(ticker, current_price)
     ranges_json = json.dumps(all_ranges_data)
 
     initial_pts = all_ranges_data.get("1Y", [])
     prices = [p["price"] for p in initial_pts]
-    min_p = min(prices) if prices else current_price * 0.9
-    max_p = max(prices) if prices else current_price * 1.1
+    eval_prices = list(prices)
+    if bear_target is not None: eval_prices.append(bear_target)
+    if fair_target is not None: eval_prices.append(fair_target)
+    if bull_target is not None: eval_prices.append(bull_target)
+
+    min_p = min(eval_prices) if eval_prices else current_price * 0.9
+    max_p = max(eval_prices) if eval_prices else current_price * 1.1
 
     first_date = initial_pts[0]["date"] if initial_pts else ""
     last_date = initial_pts[-1]["date"] if initial_pts else ""
@@ -296,13 +322,25 @@ def build_native_svg_chart(ticker: str, current_price: float) -> str:
     padding_x = 20
     padding_y = 25
 
+    # Target Legend Badges
+    target_legend_items = []
+    if bear_target is not None:
+        target_legend_items.append(f'<span style="color: var(--accent-red); display: inline-flex; align-items: center; gap: 4px;"><span style="display:inline-block; width:10px; height:0; border-top:1.5px dashed var(--accent-red);"></span> Bear: ${bear_target:.2f}</span>')
+    if fair_target is not None:
+        target_legend_items.append(f'<span style="color: var(--accent-warm); display: inline-flex; align-items: center; gap: 4px; font-weight: 600;"><span style="display:inline-block; width:10px; height:0; border-top:1.5px dashed var(--accent-warm);"></span> Fair: ${fair_target:.2f}</span>')
+    if bull_target is not None:
+        target_legend_items.append(f'<span style="color: var(--accent-green); display: inline-flex; align-items: center; gap: 4px;"><span style="display:inline-block; width:10px; height:0; border-top:1.5px dashed var(--accent-green);"></span> Bull: ${bull_target:.2f}</span>')
+
+    targets_legend_html = f'<div class="chart-targets-legend" style="display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 0.72rem; margin-right: auto; margin-left: 10px;">{" ".join(target_legend_items)}</div>' if target_legend_items else ""
+
     return f"""
     <div class="native-chart-wrap" id="chart-container" style="position: relative; overflow: hidden;">
-        <div class="chart-top-bar">
+        <div class="chart-top-bar" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
             <div id="chart-live-val" class="chart-live-val">
                 <span id="tooltip-date">{last_date}</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">${last_price:.2f}</strong>
                 <span id="tooltip-delta" class="pos" style="font-size: 0.76rem; margin-left: 6px;"></span>
             </div>
+            {targets_legend_html}
             <div class="chart-range-pills">
                 <button class="range-pill active" onclick="switchChartRange('1Y')">1Y</button>
                 <button class="range-pill" onclick="switchChartRange('5Y')">5Y</button>
@@ -324,6 +362,18 @@ def build_native_svg_chart(ticker: str, current_price: float) -> str:
                 <line x1="{padding_x}" y1="{padding_y}" x2="{width - padding_x}" y2="{padding_y}" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
                 <line x1="{padding_x}" y1="{height/2}" x2="{width - padding_x}" y2="{height/2}" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
                 <line x1="{padding_x}" y1="{height - padding_y}" x2="{width - padding_x}" y2="{height - padding_y}" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
+
+                <!-- Valuation Target Reference Dotted Lines -->
+                <g id="valuation-targets-layer">
+                    <line id="target-bear-line" x1="{padding_x}" y1="0" x2="{width - padding_x}" y2="0" stroke="#C97A72" stroke-width="1.4" stroke-dasharray="3 3" stroke-opacity="0.85" style="display:none;" />
+                    <text id="target-bear-label" x="{width - padding_x - 6}" y="0" fill="#C97A72" font-family="var(--font-mono)" font-size="9.5" font-weight="600" text-anchor="end" style="display:none;"></text>
+
+                    <line id="target-fair-line" x1="{padding_x}" y1="0" x2="{width - padding_x}" y2="0" stroke="#D4A373" stroke-width="1.5" stroke-dasharray="3 3" stroke-opacity="0.95" style="display:none;" />
+                    <text id="target-fair-label" x="{width - padding_x - 6}" y="0" fill="#D4A373" font-family="var(--font-mono)" font-size="9.5" font-weight="700" text-anchor="end" style="display:none;"></text>
+
+                    <line id="target-bull-line" x1="{padding_x}" y1="0" x2="{width - padding_x}" y2="0" stroke="#82AE8C" stroke-width="1.4" stroke-dasharray="3 3" stroke-opacity="0.85" style="display:none;" />
+                    <text id="target-bull-label" x="{width - padding_x - 6}" y="0" fill="#82AE8C" font-family="var(--font-mono)" font-size="9.5" font-weight="600" text-anchor="end" style="display:none;"></text>
+                </g>
 
                 <!-- Area & Line Paths -->
                 <path id="chart-area-path" d="" fill="url(#area-grad)" />
@@ -357,6 +407,10 @@ def build_native_svg_chart(ticker: str, current_price: float) -> str:
     <script>
     (function() {{
         const allDatasets = {ranges_json};
+        const targetBear = {bear_target if bear_target is not None else 'null'};
+        const targetFair = {fair_target if fair_target is not None else 'null'};
+        const targetBull = {bull_target if bull_target is not None else 'null'};
+
         let currentRangeKey = '1Y';
         let currentPoints = allDatasets[currentRangeKey] || [];
         let currentSvgCoords = [];
@@ -370,6 +424,13 @@ def build_native_svg_chart(ticker: str, current_price: float) -> str:
         const svg = document.getElementById('interactive-svg');
         const linePath = document.getElementById('chart-line-path');
         const areaPath = document.getElementById('chart-area-path');
+        const lineBear = document.getElementById('target-bear-line');
+        const labelBear = document.getElementById('target-bear-label');
+        const lineFair = document.getElementById('target-fair-line');
+        const labelFair = document.getElementById('target-fair-label');
+        const lineBull = document.getElementById('target-bull-line');
+        const labelBull = document.getElementById('target-bull-label');
+
         const tooltipDate = document.getElementById('tooltip-date');
         const tooltipPrice = document.getElementById('tooltip-price');
         const tooltipDelta = document.getElementById('tooltip-delta');
@@ -393,15 +454,27 @@ def build_native_svg_chart(ticker: str, current_price: float) -> str:
         function recalculatePaths(points) {{
             if (!points || points.length < 2) return;
             const prices = points.map(p => p.price);
-            const minP = Math.min(...prices);
-            const maxP = Math.max(...prices);
+            const evalPrices = [...prices];
+            if (targetBear !== null && !isNaN(targetBear)) evalPrices.push(targetBear);
+            if (targetFair !== null && !isNaN(targetFair)) evalPrices.push(targetFair);
+            if (targetBull !== null && !isNaN(targetBull)) evalPrices.push(targetBull);
+
+            const rawMin = Math.min(...evalPrices);
+            const rawMax = Math.max(...evalPrices);
+            const padSpan = Math.max((rawMax - rawMin) * 0.05, 0.5);
+            const minP = rawMin - padSpan;
+            const maxP = rawMax + padSpan;
             const pRange = Math.max(maxP - minP, 0.01);
             const n = points.length;
+
+            function getSvgY(val) {{
+                return height - padY - ((val - minP) / pRange) * (height - 2 * padY);
+            }}
 
             currentSvgCoords = [];
             for (let i = 0; i < n; i++) {{
                 const x = padX + (i / (n - 1)) * (width - 2 * padX);
-                const y = height - padY - ((points[i].price - minP) / pRange) * (height - 2 * padY);
+                const y = getSvgY(points[i].price);
                 currentSvgCoords.push([Math.round(x * 10) / 10, Math.round(y * 10) / 10]);
             }}
 
@@ -413,7 +486,47 @@ def build_native_svg_chart(ticker: str, current_price: float) -> str:
             linePath.setAttribute('d', lineD);
             areaPath.setAttribute('d', areaD);
 
-            startLbl.innerText = points[0].date + ' ($' + minP.toFixed(2) + ')';
+            // Update Target Reference Dotted Lines
+            if (targetBear !== null && !isNaN(targetBear) && lineBear && labelBear) {{
+                const y = getSvgY(targetBear);
+                lineBear.setAttribute('y1', y);
+                lineBear.setAttribute('y2', y);
+                lineBear.style.display = 'block';
+                labelBear.setAttribute('y', y - 4);
+                labelBear.textContent = 'Bear $' + targetBear.toFixed(2);
+                labelBear.style.display = 'block';
+            }} else if (lineBear) {{
+                lineBear.style.display = 'none';
+                if (labelBear) labelBear.style.display = 'none';
+            }}
+
+            if (targetFair !== null && !isNaN(targetFair) && lineFair && labelFair) {{
+                const y = getSvgY(targetFair);
+                lineFair.setAttribute('y1', y);
+                lineFair.setAttribute('y2', y);
+                lineFair.style.display = 'block';
+                labelFair.setAttribute('y', y - 4);
+                labelFair.textContent = 'Fair $' + targetFair.toFixed(2);
+                labelFair.style.display = 'block';
+            }} else if (lineFair) {{
+                lineFair.style.display = 'none';
+                if (labelFair) labelFair.style.display = 'none';
+            }}
+
+            if (targetBull !== null && !isNaN(targetBull) && lineBull && labelBull) {{
+                const y = getSvgY(targetBull);
+                lineBull.setAttribute('y1', y);
+                lineBull.setAttribute('y2', y);
+                lineBull.style.display = 'block';
+                labelBull.setAttribute('y', y - 4);
+                labelBull.textContent = 'Bull $' + targetBull.toFixed(2);
+                labelBull.style.display = 'block';
+            }} else if (lineBull) {{
+                lineBull.style.display = 'none';
+                if (labelBull) labelBull.style.display = 'none';
+            }}
+
+            startLbl.innerText = points[0].date + ' ($' + Math.min(...prices).toFixed(2) + ')';
             endLbl.innerText = points[n - 1].date + ' ($' + points[n - 1].price.toFixed(2) + ')';
             
             tooltipDate.innerText = points[n - 1].date;
@@ -489,7 +602,7 @@ def build_native_svg_chart(ticker: str, current_price: float) -> str:
             const deltaClass = deltaPct >= 0 ? 'pos' : 'neg';
             const deltaSign = deltaPct >= 0 ? '+' : '';
 
-            // Tooltop header
+            // Tooltip header
             tooltipDate.innerText = pt.date;
             tooltipPrice.innerText = '$' + pt.price.toFixed(2);
             if (tooltipDelta) {{
@@ -815,7 +928,10 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         """
 
     active_content = evolution_banner_html + raw_active_content
-    chart_html = build_native_svg_chart(ticker, stock.current_price)
+    bear_num = extract_numeric_price(getattr(stock, "bear_target", None))
+    fair_num = extract_numeric_price(getattr(stock, "fair_value_estimate", None)) or extract_numeric_price(getattr(stock, "base_target", None))
+    bull_num = extract_numeric_price(getattr(stock, "bull_target", None))
+    chart_html = build_native_svg_chart(ticker, stock.current_price, bear_target=bear_num, fair_target=fair_num, bull_target=bull_num)
     dossier_beacon = format_action_beacon(getattr(stock, "action_signal", None)) if stock.total_versions > 1 else ""
     clean_cat_desc = sanitize_catalyst_desc(getattr(stock, "next_catalyst_event", "")).rstrip(".")
 
