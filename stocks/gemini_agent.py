@@ -858,8 +858,7 @@ def review_stock_thesis(
     previous_bull_target: str = ""
 ) -> Tuple[Dict[str, Any], str]:
     """Reviews an active stock thesis by executing the full multi-agent evaluation pipeline."""
-    print(f"
-🔄 [FULL MULTI-AGENT RE-EVALUATION] Running fresh coverage pipeline for {ticker} ({company_name})", flush=True)
+    print(f"\n🔄 [FULL MULTI-AGENT RE-EVALUATION] Running fresh coverage pipeline for {ticker} ({company_name})", flush=True)
     print(f"   │ Trigger: {trigger_reason}", flush=True)
     print(f"   │ Current Price: ${current_price:.2f} | Baseline Price: ${baseline_price:.2f}", flush=True)
 
