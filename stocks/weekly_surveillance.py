@@ -308,6 +308,13 @@ def run_dual_surveillance():
     run_portfolio_surveillance("defensive")
     run_portfolio_surveillance("aggressive")
 
+
 if __name__ == "__main__":
-    run_dual_surveillance()
+    import sys
+    if len(sys.argv) > 1 and sys.argv[1].lower() in ["aggressive", "defensive"]:
+        port_type = sys.argv[1].lower()
+        print(f"=== RUNNING WEEKLY AUTONOMOUS SURVEILLANCE ({port_type.upper()}) ===")
+        run_portfolio_surveillance(port_type)
+    else:
+        run_dual_surveillance()
 
