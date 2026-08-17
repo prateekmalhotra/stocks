@@ -3,8 +3,8 @@
     "ticker": "PYPL",
     "company_name": "PayPal Holdings, Inc.",
     "baseline_price": 60.44,
-    "current_price": 60.47,
-    "return_pct": 0.05,
+    "current_price": 60.41,
+    "return_pct": -0.05,
     "status_label": "High Conviction",
     "labels": [
       "High Conviction",
@@ -41,8 +41,8 @@
     "ticker": "NKE",
     "company_name": "Nike, Inc.",
     "baseline_price": 39.27,
-    "current_price": 39.17,
-    "return_pct": -0.25,
+    "current_price": 39.2,
+    "return_pct": -0.18,
     "status_label": "Turnaround Risk",
     "labels": [
       "Turnaround Risk",
@@ -78,8 +78,8 @@
     "ticker": "LULU",
     "company_name": "lululemon athletica inc.",
     "baseline_price": 115.67,
-    "current_price": 115.94,
-    "return_pct": 0.23,
+    "current_price": 115.86,
+    "return_pct": 0.16,
     "status_label": "High Conviction",
     "labels": [
       "High Conviction",
@@ -107,110 +107,5 @@
     "last_updated": "2026-08-17",
     "total_versions": 1,
     "report_path": "reports/LULU.html"
-  },
-  "KHC": {
-    "ticker": "KHC",
-    "company_name": "The Kraft Heinz Company",
-    "baseline_price": 24.73,
-    "current_price": 24.73,
-    "return_pct": 0.0,
-    "status_label": "High Conviction",
-    "labels": [
-      "High Conviction",
-      "Deep Value",
-      "High Yield"
-    ],
-    "action_signal": "BUY",
-    "fair_value_estimate": "$33.00",
-    "bear_target": "$21.00 (-15.1%)",
-    "base_target": "$33.00 (+33.4%)",
-    "bull_target": "$40.00 (+61.7%)",
-    "upper_alert_threshold": 31.0,
-    "lower_alert_threshold": 21.5,
-    "next_catalyst_date": "2026-11-04",
-    "next_catalyst_event": "Q3 '26 ER",
-    "top_funds": [
-      "Prem Watsa - Fairfax Financial Holdings (12.80)",
-      "Mason Hawkins - Southeastern Asset Management (4.45)",
-      "Hillman Capital Management (3.36)",
-      "Warren Buffett - Berkshire Hathaway (2.57)",
-      "Francis Chou - Chou Associates (0.76)",
-      "Bruce Berkowitz - Fairholme Capital (0.32)",
-      "Bill & Melinda Gates Foundation Trust (0.17)",
-      "Mairs & Power Funds (0.04)",
-      "Lee Ainslie - Maverick Capital (0.02)"
-    ],
-    "institutional_ownership_pct": "78.4%",
-    "insider_signal": "Net Buying",
-    "insider_summary": "CEO Steven Cahillane purchased $5.0M in KHC stock at $23.46 on May 12, 2026.",
-    "last_updated": "2026-08-17",
-    "total_versions": 1,
-    "report_path": "reports/KHC.html"
-  },
-  "KMB": {
-    "ticker": "KMB",
-    "company_name": "Kimberly-Clark Corporation",
-    "baseline_price": 107.44,
-    "current_price": 107.64,
-    "return_pct": 0.19,
-    "status_label": "Active",
-    "labels": [
-      "Active"
-    ],
-    "action_signal": "BUY",
-    "fair_value_estimate": "$123.56",
-    "bear_target": "$80.58 (-25.0%)",
-    "base_target": "$123.56 (+15.0%)",
-    "bull_target": "$161.16 (+50.0%)",
-    "upper_alert_threshold": 123.56,
-    "lower_alert_threshold": 94.55,
-    "next_catalyst_date": "2026-11-15",
-    "next_catalyst_event": "Scheduled quarterly report",
-    "top_funds": [
-      "Mairs & Power Funds (0.01)"
-    ],
-    "institutional_ownership_pct": "78.4%",
-    "insider_signal": "Neutral (10b5-1)",
-    "insider_summary": "",
-    "last_updated": "2026-08-17",
-    "total_versions": 1,
-    "report_path": "reports/KMB.html"
-  },
-  "KSPI": {
-    "ticker": "KSPI",
-    "company_name": "Joint Stock Company Kaspi.kz - ",
-    "baseline_price": 98.87,
-    "current_price": 99.06,
-    "return_pct": 0.19,
-    "status_label": "High Conviction",
-    "labels": [
-      "High Conviction",
-      "Quality Compounder",
-      "Cash Fortress"
-    ],
-    "action_signal": "BUY",
-    "fair_value_estimate": "$135.00",
-    "bear_target": "$75.00 (-24.1%)",
-    "base_target": "$135.00 (+36.5%)",
-    "bull_target": "$170.00 (+71.9%)",
-    "upper_alert_threshold": 125.0,
-    "lower_alert_threshold": 82.0,
-    "next_catalyst_date": "2026-11-09",
-    "next_catalyst_event": "Q3 '26 ER",
-    "top_funds": [
-      "Mason Hawkins - Southeastern Asset Management (0.96)",
-      "Richard Pzena - Pzena Investment Management (0.78)",
-      "Prem Watsa - Fairfax Financial Holdings (0.35)",
-      "Mohnish Pabrai - Pabrai Investments (0.04)",
-      "John Rogers - Ariel Investments (0.02)",
-      "Ruane Cunniff LP (0.01)",
-      "Dodge & Cox Funds (0.01)"
-    ],
-    "institutional_ownership_pct": "90.3%",
-    "insider_signal": "Cluster Buying",
-    "insider_summary": "CEO Lomtadze & Tencent bought Baring stake; Chair Kim holds 19.7%.",
-    "last_updated": "2026-08-17",
-    "total_versions": 1,
-    "report_path": "reports/KSPI.html"
   }
 }
