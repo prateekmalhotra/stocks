@@ -597,6 +597,11 @@ THE BENJAMIN GRAHAM & WARREN BUFFETT "ANTI-MR. MARKET" DOCTRINE (MANDATORY & IND
           - When Net Debt exceeds 75% of Equity Market Cap during an operational contraction or user churn phase:
           - Apply an elevated distress discount / hurdle rate (11.5%–14.0%) to reflect bankruptcy/restructuring overhead.
           - The Action Signal is STRICTLY BARRED FROM "BUY" and must be tagged as "CAUTION" (Orange) or "AVOID" (Red) with label "Speculative Risk" or "Turnaround Risk".
+        * [EXTREME LEVERAGED STUB & UTILITY / TELCO CAPEX INVARIANT]:
+          - When Net Debt exceeds 3.0x Equity Market Cap (e.g. $90B+ debt on a $20B equity cap):
+            a) Mandatory EBITDA -10% Sensitivity Test: Model what happens to equity cash flow after mandatory debt interest and CapEx. If a 10% EBITDA decline eliminates > 50% of equity free cash flow, the equity is a high-beta leveraged stub requiring an elevated hurdle rate (11.0%–13.0%).
+            b) No "CapEx Holiday" Fantasy: For capital-intensive utilities and broadband networks fighting fiber/5G competition, NEVER assume maintenance CapEx is > 30% below 5-year historical average CapEx.
+            c) If Net Debt > 3.0x Market Cap, buybacks are paused, and customers/subscribers are declining, "BUY" (Green Beacon) is STRICTLY PROHIBITED. Signal must be "HOLD" (Yellow) or "CAUTION" (Orange).
         * [DISTRESSED VALUE TRAP 'BUY' DISQUALIFICATION]:
           - If a company has:
             a) Frozen or suspended share buybacks due to debt/liquidity pressure,

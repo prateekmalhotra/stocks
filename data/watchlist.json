@@ -1232,19 +1232,19 @@
     "baseline_price": 151.69,
     "current_price": 146.15,
     "return_pct": -3.65,
-    "status_label": "High Conviction",
+    "status_label": "Leveraged Structure",
     "labels": [
-      "High Conviction",
-      "Deep Value",
-      "Buyback Cannibal"
+      "Leveraged Structure",
+      "Broadband Churn",
+      "Mobile Growth"
     ],
-    "action_signal": "BUY",
-    "fair_value_estimate": "$240.00",
-    "bear_target": "$110.00 (-27.5%)",
-    "base_target": "$240.00 (+58.2%)",
-    "bull_target": "$350.00 (+130.7%)",
-    "upper_alert_threshold": 210.0,
-    "lower_alert_threshold": 120.0,
+    "action_signal": "HOLD",
+    "fair_value_estimate": "$155.00",
+    "bear_target": "$85.00 (-41.8%)",
+    "base_target": "$155.00 (+6.0%)",
+    "bull_target": "$235.00 (+60.8%)",
+    "upper_alert_threshold": 200.0,
+    "lower_alert_threshold": 110.0,
     "next_catalyst_date": "2026-10-30",
     "next_catalyst_event": "Q3 '26 ER",
     "top_funds": [
@@ -3140,5 +3140,38 @@
     "last_updated": "2026-08-17",
     "total_versions": 1,
     "report_path": "reports/BEN.html"
+  },
+  "BEP": {
+    "ticker": "BEP",
+    "company_name": "Brookfield Renewable Partners L",
+    "baseline_price": 34.58,
+    "current_price": 34.58,
+    "return_pct": 0.0,
+    "status_label": "Solid Conviction",
+    "labels": [
+      "Solid Conviction",
+      "Safe Compounder",
+      "Infrastructure Moat"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$43.00",
+    "bear_target": "$28.00 (-19.0%)",
+    "base_target": "$43.00 (+24.3%)",
+    "bull_target": "$52.00 (+50.4%)",
+    "upper_alert_threshold": 40.0,
+    "lower_alert_threshold": 29.5,
+    "next_catalyst_date": "2026-09-29",
+    "next_catalyst_event": "Investor Day 2026",
+    "top_funds": [
+      "Brookfield Corp (48.0%)",
+      "Vanguard Group (7.5%)",
+      "BlackRock (5.2%)"
+    ],
+    "institutional_ownership_pct": "68.5%",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Sponsor Brookfield Corp holds ~48%; management compensated on per-unit FFO growth.",
+    "last_updated": "2026-08-17",
+    "total_versions": 1,
+    "report_path": "reports/BEP.html"
   }
 }
