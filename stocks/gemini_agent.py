@@ -581,8 +581,22 @@ THE BENJAMIN GRAHAM & WARREN BUFFETT "ANTI-MR. MARKET" DOCTRINE (MANDATORY & IND
         * If management uses excess cash to aggressively repurchase shares at attractive prices, model the annual reduction in share count (e.g. 3–7%/year). This shrinks the share denominator and directly compounds per-share Owner Earnings into future cash streams.
      6. Balance Sheet Reality Bridge (Leases, Total Debt & Look-Through Assets):
         * Total Debt MUST include contractual Capital and Operating Lease Liabilities (especially for retailers, store networks, and casinos).
+        * [MANDATORY LEASE LEVERAGE & OPERATING LEVERAGE TEST]:
+          - Store leases (ASC 842) are fixed legal obligations. When store sales decline, fixed rent DOES NOT DECLINE.
+          - If Total Debt + Leases exceeds 1.5x Equity Market Cap, or if recent debt was issued at junk yields (> 8.0%), stress-test a 5%–10% revenue drop against fixed rent and subtract capitalized lease debt from Enterprise Intrinsic Value.
         * Add Cash, Short-Term Treasuries, and the look-through fair value of unconsolidated equity stakes (e.g. BABA's Ant Group, GOOG's equity stakes).
-        * Intrinsic Equity Value = PV of 5-10Y Owner Earnings + PV of Terminal Cash Stream (Gordon Growth capped at 2.0%-2.5% long-term GDP) + Cash & Equities - Total Debt & Leases.
+        * [MANDATORY SECULAR DECLINE & TERMINAL RUNOFF INVARIANT]:
+          - For businesses facing secular decline, market share erosion, store closures, or multi-year top-line/comp decline (e.g. department stores, mall retail, linear TV, dying legacy formats):
+          - POSITIVE TERMINAL GROWTH (g > 0) IS STRICTLY PROHIBITED. NEVER assume a dying format grows into infinity.
+          - You MUST model a negative terminal runoff (g = -2.0% to -5.0%) or a finite 10-year terminal cash stream.
+        * [DISTRESSED VALUE TRAP 'BUY' DISQUALIFICATION]:
+          - If a company has:
+            a) Frozen or suspended share buybacks due to debt/liquidity pressure,
+            b) Cut its cash dividend by > 50%,
+            c) Issued debt with coupon rates > 8.0%, OR
+            d) Exhibited 3+ consecutive years of negative comparable sales / revenue decline,
+            --> The Action Signal is STRICTLY BARRED FROM "BUY". It must be tagged as "CAUTION" (Orange Beacon) or "AVOID" (Red Beacon) with label "Turnaround Risk" or "Value Trap".
+        * Intrinsic Equity Value = PV of 5-10Y Owner Earnings + PV of Terminal Cash Stream (capped at -2% to +2.0% GDP) + Cash & Equities - Total Debt & Leases.
         * Divide by diluted share count to arrive at Intrinsic Fair Value per Share.
         * The 5-Year Exchange Closure Test: Demand a clear Margin of Safety (20–40% discount) so that even if the stock market were closed for 5 years, the investor earns an attractive return purely from organic cash generation.
      7. Financial Institutions & Banking Books (1990 & 2011 Letters on Wells Fargo & Amex):
