@@ -1,0 +1,2194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AZO — Investment Memo</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="apple-touch-icon" href="../favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --bg-canvas: #141312;
+            --bg-panel: #1B1A19;
+            --bg-subpanel: #21201E;
+            --bg-hover: #272624;
+            --text-title: #E8E2D8;
+            --text-body: #C5BCB0;
+            --text-secondary: #8E867A;
+            --text-dim: #5C5549;
+            --accent-warm: #D4A373;
+            --accent-warm-hover: #E2B689;
+            --accent-warm-subtle: rgba(212, 163, 115, 0.12);
+            --accent-green: #82AE8C;
+            --accent-red: #C97A72;
+            --border-color: rgba(255, 255, 255, 0.055);
+            --border-focus: rgba(212, 163, 115, 0.35);
+            --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-serif: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        /* KaTeX Math Styling & Dark Theme Alignment */
+        .katex-display {
+            margin: 20px 0 !important;
+            overflow-x: auto !important;
+            overflow-y: hidden !important;
+            padding: 12px 16px !important;
+            background: rgba(0, 0, 0, 0.20) !important;
+            border-radius: 8px !important;
+            border: 1px solid var(--border-color) !important;
+        }
+        .katex {
+            font-size: 1.08em !important;
+            color: var(--text-title) !important;
+        }
+        .katex .mord.text {
+            color: var(--text-body) !important;
+            font-family: var(--font-sans) !important;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: 
+                radial-gradient(ellipse 90% 50% at 50% -10%, rgba(212, 163, 115, 0.04), transparent 70%),
+                var(--bg-canvas);
+            color: var(--text-body);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            line-height: 1.80;
+            letter-spacing: 0.005em;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding-bottom: 120px;
+        }
+
+        .container { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+
+        /* Top Nav */
+        nav.nav-bar {
+            background: rgba(20, 19, 18, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 14px 0;
+        }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .nav-back {
+            color: var(--accent-warm);
+            text-decoration: none;
+            font-family: var(--font-sans);
+            font-size: 0.84rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s;
+        }
+        .nav-back:hover { color: var(--accent-warm-hover); transform: translateX(-2px); }
+
+        /* Hero Deck */
+        .hero-deck {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 36px 40px;
+            margin: 32px 0 28px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+        }
+
+        .hero-top-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px; }
+        .ticker-symbol {
+            font-family: var(--font-sans);
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: var(--text-title);
+        }
+        .company-meta { color: var(--text-secondary); font-size: 0.95rem; margin-top: 2px; font-family: var(--font-sans); }
+
+        /* Minimalist Logo Avatars */
+        .ticker-logo-wrap {
+            border-radius: 6px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+            transform: translateY(-3px);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }
+        .ticker-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 2px;
+            border-radius: 5px;
+            display: block;
+        }
+        .ticker-logo-fallback {
+            font-family: var(--font-mono);
+            font-weight: 600;
+            color: var(--accent-warm);
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background: rgba(212, 163, 115, 0.08);
+        }
+
+        .price-callout { text-align: right; }
+        .price-number { font-size: 2.6rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }
+        .price-sub { font-size: 0.88rem; font-family: var(--font-mono); margin-top: 2px; }
+
+        /* Native SVG Area Chart */
+        .native-chart-wrap {
+            margin-top: 28px;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px 20px 12px;
+            position: relative;
+            user-select: none;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+        }
+        .chart-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            min-height: 28px;
+        }
+        .chart-live-val {
+            font-size: 0.88rem;
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .chart-range-pills {
+            display: flex;
+            gap: 4px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 2px;
+        }
+        .range-pill {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.72rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .range-pill:hover { color: var(--text-title); }
+        .range-pill.active {
+            background: var(--accent-warm);
+            color: #161513;
+            font-weight: 600;
+            box-shadow: 0 1px 4px rgba(204, 120, 92, 0.3);
+        }
+        .chart-svg { width: 100%; height: 220px; display: block; overflow: visible; }
+        .chart-tooltip {
+            position: absolute;
+            top: 14px;
+            left: 20px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-focus);
+            color: var(--text-title);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            padding: 5px 12px;
+            border-radius: 6px;
+            pointer-events: none;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            font-family: var(--font-sans);
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Key Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 24px;
+        }
+        @media (max-width: 960px) {
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 520px) {
+            .metrics-grid { grid-template-columns: 1fr; }
+        }
+        .metric-cell {
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            min-height: 80px;
+            box-sizing: border-box;
+        }
+        .metric-label { font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); letter-spacing: 0.05em; margin-bottom: 3px; }
+        .metric-value { font-size: 1.15rem; font-weight: 500; color: var(--text-title); font-family: var(--font-mono); white-space: nowrap; }
+        .metric-subtext { font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-sans); margin-top: 4px; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+        /* Tabs */
+        .tabs-header {
+            display: flex;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-color);
+            margin: 32px 0 28px;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            padding: 12px 18px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.15s;
+        }
+        .tab-btn:hover { color: var(--text-title); }
+        .tab-btn.active { color: var(--accent-warm); }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0; right: 0;
+            height: 2px;
+            background: var(--accent-warm);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Ownership, Insiders & Fund Intelligence Tab */
+        .ownership-container {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+        .ownership-header-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 24px 28px;
+        }
+        .ownership-stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .ownership-stat-grid { grid-template-columns: 1fr; }
+        }
+        .stat-box {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .stat-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-dim);
+            font-family: var(--font-sans);
+        }
+        .stat-num {
+            font-size: 1.45rem;
+            font-weight: 500;
+            font-family: var(--font-mono);
+            color: var(--text-title);
+        }
+        .stat-note {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            font-family: var(--font-sans);
+        }
+        .ownership-section {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 28px 32px;
+        }
+        .section-title-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+        .section-icon { font-size: 1.35rem; }
+        .section-heading {
+            font-family: var(--font-sans);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-title);
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+        .section-desc {
+            color: var(--text-dim);
+            font-size: 0.86rem;
+            margin: 0 0 20px;
+            line-height: 1.4;
+        }
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-subpanel);
+            margin-top: 14px;
+        }
+        .ownership-table {
+            width: 100%;
+            min-width: 980px;
+            border-collapse: collapse;
+            font-size: 0.86rem;
+        }
+        .ownership-table th {
+            text-align: left;
+            padding: 13px 16px;
+            font-size: 0.70rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-dim);
+            border-bottom: 1px solid var(--border-color);
+            background: #1E1D1A;
+            font-family: var(--font-sans);
+            white-space: nowrap;
+        }
+        .ownership-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.035);
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+        .ownership-table tr:last-child td {
+            border-bottom: none;
+        }
+        .ownership-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .link-out {
+            color: var(--accent-warm);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 500;
+            transition: color 0.15s ease;
+        }
+        .link-out:hover {
+            color: #fcd34d;
+            text-decoration: underline;
+        }
+        .writeups-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 16px;
+        }
+        .writeup-card {
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 22px 24px;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.15s ease;
+        }
+        .writeup-card:hover {
+            border-color: rgba(217, 119, 6, 0.4);
+        }
+        .btn-read-letter {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(217, 119, 6, 0.12);
+            color: var(--accent-warm);
+            border: 1px solid rgba(217, 119, 6, 0.25);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.76rem;
+            font-weight: 500;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: all 0.15s ease;
+        }
+        .btn-read-letter:hover {
+            background: rgba(217, 119, 6, 0.25);
+            color: #fcd34d;
+        }
+
+        /* Quick Portals Bar */
+        .quick-portals-bar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+        .portal-links-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .portal-link {
+            background: var(--bg-subpanel);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        .portal-link:hover {
+            background: rgba(201, 154, 117, 0.14);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            transform: translateY(-1px);
+        }
+
+        /* Memo Content & Premium Editorial Typography */
+        .memo-container {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 48px 52px;
+        }
+        .memo-container * {
+            box-sizing: border-box;
+        }
+        .memo-container a {
+            color: var(--accent-warm) !important;
+            text-decoration: none !important;
+            transition: color 0.15s ease !important;
+            border-bottom: 1px dotted rgba(201, 154, 117, 0.4) !important;
+        }
+        .memo-container a:hover {
+            color: #E2DDD5 !important;
+            border-bottom-color: var(--accent-warm) !important;
+        }
+        .memo-container h1, .memo-container h2 {
+            font-family: var(--font-display) !important;
+            font-size: 1.40rem !important;
+            font-weight: 700 !important;
+            color: #EAE4DA !important;
+            margin: 48px 0 20px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+            letter-spacing: -0.025em !important;
+            line-height: 1.35 !important;
+        }
+        .memo-container h1:first-child, .memo-container h2:first-of-type { margin-top: 0 !important; }
+        .memo-container h3 {
+            font-family: var(--font-display) !important;
+            font-size: 1.12rem !important;
+            font-weight: 600 !important;
+            color: #CCA278 !important;
+            margin: 36px 0 14px !important;
+            letter-spacing: -0.015em !important;
+            line-height: 1.45 !important;
+        }
+        .memo-container h4, .memo-container h5, .memo-container h6 {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            color: #E2DBD0 !important;
+            margin: 26px 0 10px !important;
+        }
+        .memo-container p {
+            font-family: var(--font-sans) !important;
+            font-size: 0.95rem !important;
+            line-height: 1.82 !important;
+            letter-spacing: 0.005em !important;
+            color: #C5BCB0 !important;
+            margin-bottom: 22px !important;
+            font-weight: 400 !important;
+        }
+        .memo-container ul, .memo-container ol {
+            font-family: var(--font-sans) !important;
+            font-size: 0.94rem !important;
+            line-height: 1.78 !important;
+            letter-spacing: 0.005em !important;
+            color: #C5BCB0 !important;
+            margin: 16px 0 24px 20px !important;
+            padding-left: 12px !important;
+        }
+        .memo-container ul { list-style-type: disc !important; }
+        .memo-container ol { list-style-type: decimal !important; }
+        .memo-container li {
+            margin-bottom: 10px !important;
+            color: #C5BCB0 !important;
+            line-height: 1.78 !important;
+        }
+        .memo-container li::marker {
+            color: #C99A75 !important;
+        }
+        .memo-container strong, .memo-container b {
+            color: #E6DFD5 !important;
+            font-weight: 600 !important;
+            letter-spacing: 0 !important;
+        }
+
+        /* STUNNING CONSISTENT TABLES - SOOTHING WARM TONES & ZERO OVERFLOW */
+        .table-scroll-wrap {
+            width: 100% !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            margin: 32px 0 !important;
+            background: #171614 !important;
+            background-color: #171614 !important;
+            border-radius: 12px !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            box-sizing: border-box !important;
+        }
+        .memo-container table {
+            width: 100% !important;
+            min-width: 600px !important;
+            border-collapse: separate !important;
+            border-spacing: 0 !important;
+            margin: 0 !important;
+            background: transparent !important;
+            background-color: transparent !important;
+            border: none !important;
+        }
+        .memo-container tr, .memo-container td, .memo-container th {
+            background: transparent !important;
+            background-color: transparent !important;
+        }
+        .memo-container th {
+            background: #1E1D1A !important;
+            background-color: #1E1D1A !important;
+            color: #C99A75 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            padding: 14px 18px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
+            text-align: left !important;
+        }
+        .memo-container td {
+            padding: 14px 18px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.05) !important;
+            font-size: 0.92rem !important;
+            color: #BDB7AA !important;
+            font-family: var(--font-mono) !important;
+            text-align: left !important;
+        }
+        .memo-container tr:last-child td {
+            border-bottom: none !important;
+        }
+        .memo-container tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.012) !important;
+            background-color: rgba(255, 255, 255, 0.012) !important;
+        }
+        .memo-container tr:hover td {
+            background: rgba(201, 154, 117, 0.04) !important;
+            background-color: rgba(201, 154, 117, 0.04) !important;
+        }
+        .memo-container td strong, .memo-container td b {
+            color: #D8D2C6 !important;
+            font-weight: 500 !important;
+        }
+
+        /* UNIVERSAL CALLOUT & BOX STYLING - NEVER WHITE OR PINK, STRICT DARK OBSIDIAN */
+        .memo-container blockquote,
+        .memo-container .callout,
+        .memo-container .falsification-box,
+        .memo-container .institutional-box,
+        .memo-container div[class*="box"],
+        .memo-container div[class*="card"],
+        .memo-container div[class*="alert"],
+        .memo-container div[class*="warning"],
+        .memo-container div[class*="highlight-box"] {
+            background: var(--bg-subpanel) !important;
+            background-color: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-left: 3px solid var(--accent-warm) !important;
+            padding: 22px 26px !important;
+            border-radius: 8px !important;
+            margin: 28px 0 !important;
+            color: var(--text-body) !important;
+            line-height: 1.8 !important;
+        }
+        .memo-container blockquote *,
+        .memo-container .callout *,
+        .memo-container .falsification-box *,
+        .memo-container .institutional-box *,
+        .memo-container div[class*="box"] *,
+        .memo-container div[class*="card"] *,
+        .memo-container div[class*="alert"] * {
+            background: transparent !important;
+            background-color: transparent !important;
+            color: var(--text-body) !important;
+        }
+        .memo-container blockquote h3,
+        .memo-container blockquote h4,
+        .memo-container .callout h3,
+        .memo-container .callout h4,
+        .memo-container .falsification-box h4,
+        .memo-container .falsification-box strong,
+        .memo-container .institutional-box h4,
+        .memo-container .institutional-box strong,
+        .memo-container div[class*="box"] h4,
+        .memo-container div[class*="box"] strong,
+        .memo-container div[class*="card"] strong {
+            color: var(--text-title) !important;
+        }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-sans) !important;
+            font-style: italic !important;
+            font-size: 0.96rem !important;
+            line-height: 1.68 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
+        .highlight, mark {
+            background: rgba(201, 154, 117, 0.16) !important;
+            color: #E2DDD5 !important;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* FINANCIAL METRIC CARDS & STAT GRIDS */
+        .metrics-grid, .stats-grid, .grid-3, .grid-4, .grid-2, .metric-grid {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+            gap: 16px !important;
+            margin: 28px 0 !important;
+        }
+        .metric-card, .stat-card, div[class*="metric-box"], div[class*="stat-box"], div[class*="kpi-card"] {
+            background: var(--bg-subpanel) !important;
+            background-color: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-radius: 10px !important;
+            padding: 18px 20px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            box-sizing: border-box !important;
+        }
+        .metric-label, .stat-label, .kpi-label {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            color: var(--text-secondary) !important;
+            margin-bottom: 6px !important;
+        }
+        .metric-value, .stat-value, .kpi-value {
+            font-family: var(--font-mono);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-title);
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 4px;
+            white-space: nowrap;
+        }
+        .metric-delta, .metric-sub, .stat-sub, .kpi-sub {
+            font-family: var(--font-mono) !important;
+            font-size: 0.82rem !important;
+            color: var(--accent-warm) !important;
+        }
+
+        /* EMBEDDED IMAGES, CHARTS & VISUAL INFOGRAPHICS */
+        .figure-container, figure {
+            margin: 32px 0 !important;
+            text-align: center !important;
+            background: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-radius: 12px !important;
+            padding: 16px !important;
+            overflow: hidden !important;
+        }
+        .memo-container img {
+            max-width: 100% !important;
+            height: auto !important;
+            border-radius: 8px !important;
+            display: block !important;
+            margin: 0 auto !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+        }
+        .figure-caption, figcaption {
+            font-family: var(--font-sans) !important;
+            font-size: 0.8rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 10px !important;
+            text-align: center !important;
+        }
+
+        /* Evolution Update Highlight Banner at top of Memo */
+        .update-banner-box {
+            background: #1C1B18 !important;
+            border: 1px solid rgba(201, 154, 117, 0.3) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 12px !important;
+            padding: 24px 28px !important;
+            margin-bottom: 36px !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .update-banner-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 14px !important;
+            padding-bottom: 10px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
+        }
+        .update-banner-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.76rem !important;
+            font-weight: 600 !important;
+            color: var(--accent-warm) !important;
+            letter-spacing: 0.04em !important;
+            text-transform: uppercase !important;
+        }
+        .update-trigger-pill {
+            font-family: var(--font-mono) !important;
+            font-size: 0.74rem !important;
+            color: var(--text-secondary) !important;
+            background: var(--bg-subpanel) !important;
+            padding: 3px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid var(--border-color) !important;
+        }
+        .update-banner-title {
+            font-family: var(--font-sans) !important;
+            font-size: 1.15rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            margin-bottom: 8px !important;
+            letter-spacing: -0.015em !important;
+        }
+        .update-banner-desc {
+            font-family: var(--font-sans) !important;
+            font-size: 0.94rem !important;
+            line-height: 1.68 !important;
+            color: var(--text-body) !important;
+        }
+
+        /* History */
+        .history-entry {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 28px 32px;
+            margin-bottom: 20px;
+        }
+        .history-entry-active { border-color: rgba(201, 154, 117, 0.35); }
+        .history-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+        .history-tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .history-time { color: var(--text-secondary); font-size: 0.88rem; font-family: var(--font-sans); }
+        .history-price { font-family: var(--font-mono); font-size: 0.92rem; }
+
+        .diff-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) { .diff-grid { grid-template-columns: 1fr; } }
+        .diff-box {
+            padding: 18px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .diff-prev { background: rgba(196, 114, 108, 0.05); border-color: rgba(196, 114, 108, 0.18); }
+        .diff-now { background: rgba(125, 157, 129, 0.05); border-color: rgba(125, 157, 129, 0.18); }
+        .diff-label { font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+        .diff-prev .diff-label { color: var(--accent-red); }
+        .diff-now .diff-label { color: var(--accent-green); }
+        .diff-text { font-size: 1.02rem; color: var(--text-body); line-height: 1.65; }
+
+        /* Pills */
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 11px;
+            border-radius: 9999px;
+            font-size: 0.72rem;
+            font-family: var(--font-sans);
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+        }
+        .pill-active { background: rgba(201, 154, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.45); font-weight: 600; box-shadow: 0 0 10px rgba(201, 154, 117, 0.06); }
+        .pill-neutral { background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); font-weight: 500; }
+        .pill-alert { background: rgba(191, 160, 117, 0.14); color: var(--accent-warm); border: 1px solid rgba(191, 160, 117, 0.28); }
+
+        .btn-subtle {
+            background: var(--bg-subpanel);
+            color: var(--text-title);
+            border: 1px solid var(--border-color);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            padding: 7px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .btn-subtle:hover { background: var(--bg-hover); }
+
+        .snapshot-drawer { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color); }
+
+        /* Subtle Hinge-style Status Pulse Beacon */
+        .status-beacon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 9px;
+            height: 9px;
+            margin-left: 7px;
+            vertical-align: middle;
+            cursor: help;
+        }
+        .beacon-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            position: relative;
+            z-index: 2;
+        }
+        .beacon-ping {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            animation: beacon-ripple 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+            z-index: 1;
+        }
+        .beacon-buy .beacon-dot { background-color: #10b981; box-shadow: 0 0 6px rgba(16, 185, 129, 0.7); }
+        .beacon-buy .beacon-ping { background-color: rgba(16, 185, 129, 0.45); }
+        .beacon-hold .beacon-dot { background-color: #f59e0b; box-shadow: 0 0 6px rgba(245, 158, 11, 0.7); }
+        .beacon-hold .beacon-ping { background-color: rgba(245, 158, 11, 0.45); }
+        .beacon-caution .beacon-dot { background-color: #f97316; box-shadow: 0 0 6px rgba(249, 115, 22, 0.7); }
+        .beacon-caution .beacon-ping { background-color: rgba(249, 115, 22, 0.45); }
+        .beacon-avoid .beacon-dot { background-color: #ef4444; box-shadow: 0 0 6px rgba(239, 68, 68, 0.7); }
+        .beacon-avoid .beacon-ping { background-color: rgba(239, 68, 68, 0.45); }
+        @keyframes beacon-ripple {
+            0% { transform: scale(0.9); opacity: 0.85; }
+            70% { transform: scale(2.5); opacity: 0; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+
+        .pos { color: var(--accent-green); }
+        .neg { color: var(--accent-red); }
+
+        /* Info Circle Button */
+        .btn-info-circle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            color: var(--text-dim);
+            font-size: 0.72rem;
+            font-family: var(--font-mono);
+            cursor: pointer;
+            margin-left: 6px;
+            vertical-align: middle;
+            transition: all 0.15s ease;
+            padding: 0;
+            line-height: 1;
+        }
+        .btn-info-circle:hover {
+            background: var(--bg-hover);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            transform: scale(1.1);
+        }
+
+        /* Modal */
+        .modal-shade {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(10, 10, 9, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+        }
+        .modal-body-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-focus);
+            border-radius: 16px;
+            max-width: 720px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 36px;
+            position: relative;
+        }
+        .modal-x {
+            position: absolute;
+            top: 20px; right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-size: 1.4rem;
+            cursor: pointer;
+        }
+        .modal-x:hover { color: var(--text-title); }
+        .btn-primary {
+            background: var(--accent-warm); color: #141312; font-family: var(--font-sans); font-weight: 500;
+            padding: 10px 20px; border-radius: 6px; text-decoration: none; display: inline-flex; align-items: center; border: none; cursor: pointer;
+            transition: all 0.15s;
+        }
+        .btn-primary:hover { background: #DDB495; }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="container nav-inner">
+            <a href="../index.html" class="nav-back">← AlphaThesis</a>
+            <span style="font-size: 0.82rem; color: var(--text-dim); font-family: var(--font-sans);">AZO RESEARCH</span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Hero Deck -->
+        <section class="hero-deck">
+            <div class="hero-top-row">
+                <div>
+                    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                        <div class="ticker-logo-wrap" style="width:32px; height:32px; min-width:32px; min-height:32px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/AZO" alt="AZO" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:13px;">AZ</span></div>
+                        <span class="ticker-symbol">AZO</span>
+                        <span class="pill pill-conviction">High Conviction</span>
+                        <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="View Investment Taxonomy & Labels Legend">ⓘ</button>
+                    </div>
+                    <div class="company-meta">AutoZone, Inc.</div>
+                </div>
+                <div class="price-callout">
+                    <div class="price-number">$3044.37</div>
+                    <div class="price-sub neg">
+                        -0.14%
+                    </div>
+                </div>
+            </div>
+
+            <!-- Native Multi-Range Interactive Area Chart -->
+            
+    <div class="native-chart-wrap" id="chart-container" style="position: relative; overflow: hidden;">
+        <div class="chart-top-bar">
+            <div id="chart-live-val" class="chart-live-val">
+                <span id="tooltip-date">Aug 17, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$3038.45</strong>
+                <span id="tooltip-delta" class="pos" style="font-size: 0.76rem; margin-left: 6px;"></span>
+            </div>
+            <div class="chart-range-pills">
+                <button class="range-pill active" onclick="switchChartRange('1Y')">1Y</button>
+                <button class="range-pill" onclick="switchChartRange('5Y')">5Y</button>
+                <button class="range-pill" onclick="switchChartRange('10Y')">10Y</button>
+                <button class="range-pill" onclick="switchChartRange('MAX')">MAX</button>
+            </div>
+        </div>
+
+        <div style="position: relative; width: 100%; height: 260px;">
+            <svg id="interactive-svg" viewBox="0 0 900 260" preserveAspectRatio="none" class="chart-svg" style="width: 100%; height: 100%;">
+                <defs>
+                    <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#D4A373" stop-opacity="0.18" />
+                        <stop offset="100%" stop-color="#D4A373" stop-opacity="0.0" />
+                    </linearGradient>
+                </defs>
+                
+                <!-- Background Grid Reference Lines -->
+                <line x1="20" y1="25" x2="880" y2="25" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
+                <line x1="20" y1="130.0" x2="880" y2="130.0" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
+                <line x1="20" y1="235" x2="880" y2="235" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
+
+                <!-- Area & Line Paths -->
+                <path id="chart-area-path" d="" fill="url(#area-grad)" />
+                <path id="chart-line-path" d="" fill="none" stroke="#D4A373" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+
+                <!-- Vertical Crosshair Line -->
+                <line id="crosshair-v" x1="0" y1="0" x2="0" y2="260" stroke="rgba(212,163,115,0.45)" stroke-width="1.2" stroke-dasharray="3 3" style="display: none;" />
+                
+                <!-- Horizontal Crosshair Line -->
+                <line id="crosshair-h" x1="20" y1="0" x2="880" y2="0" stroke="rgba(212,163,115,0.45)" stroke-width="1.2" stroke-dasharray="3 3" style="display: none;" />
+
+                <!-- Hover Halo & Dot -->
+                <circle id="hover-dot-outer" r="8.5" fill="rgba(212,163,115,0.22)" style="display: none;" />
+                <circle id="hover-dot" r="4.5" fill="#D4A373" stroke="#161513" stroke-width="2.5" style="display: none;" />
+            </svg>
+
+            <!-- Floating X-Axis Date Badge -->
+            <div id="chart-badge-x" style="display:none; position:absolute; bottom:4px; background:#111110; color:#EAE6E1; border:1px solid var(--accent-warm); border-radius:4px; padding:2px 8px; font-family:var(--font-mono); font-size:0.70rem; font-weight:600; transform:translateX(-50%); pointer-events:none; white-space:nowrap; box-shadow:0 4px 12px rgba(0,0,0,0.6); z-index:20;"></div>
+
+            <!-- Floating Y-Axis Price Badge -->
+            <div id="chart-badge-y" style="display:none; position:absolute; right:8px; background:var(--accent-warm); color:#161513; border-radius:4px; padding:2px 8px; font-family:var(--font-mono); font-size:0.74rem; font-weight:700; transform:translateY(-50%); pointer-events:none; white-space:nowrap; box-shadow:0 3px 10px rgba(0,0,0,0.5); z-index:20;"></div>
+        </div>
+
+        <div class="chart-labels">
+            <span id="chart-start-lbl">Aug 18, 2025 ($2923.50)</span>
+            <span id="chart-range-title">1-Year Historical Range</span>
+            <span id="chart-end-lbl">Aug 17, 2026 ($3038.45)</span>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const allDatasets = {"1Y": [{"date": "Aug 18, 2025", "price": 4039.95}, {"date": "Aug 19, 2025", "price": 4128.8}, {"date": "Aug 20, 2025", "price": 4158.1}, {"date": "Aug 21, 2025", "price": 4127.69}, {"date": "Aug 22, 2025", "price": 4110.61}, {"date": "Aug 25, 2025", "price": 4139.83}, {"date": "Aug 26, 2025", "price": 4180.17}, {"date": "Aug 27, 2025", "price": 4205.41}, {"date": "Aug 28, 2025", "price": 4197.09}, {"date": "Aug 29, 2025", "price": 4198.53}, {"date": "Sep 02, 2025", "price": 4179.84}, {"date": "Sep 03, 2025", "price": 4189.48}, {"date": "Sep 04, 2025", "price": 4232.96}, {"date": "Sep 05, 2025", "price": 4219.41}, {"date": "Sep 08, 2025", "price": 4242.88}, {"date": "Sep 09, 2025", "price": 4291.12}, {"date": "Sep 10, 2025", "price": 4252.9}, {"date": "Sep 11, 2025", "price": 4354.54}, {"date": "Sep 12, 2025", "price": 4322.15}, {"date": "Sep 15, 2025", "price": 4233.3}, {"date": "Sep 16, 2025", "price": 4223.93}, {"date": "Sep 17, 2025", "price": 4232.57}, {"date": "Sep 18, 2025", "price": 4132.83}, {"date": "Sep 19, 2025", "price": 4140.36}, {"date": "Sep 22, 2025", "price": 4121.0}, {"date": "Sep 23, 2025", "price": 4120.0}, {"date": "Sep 24, 2025", "price": 4176.89}, {"date": "Sep 25, 2025", "price": 4136.07}, {"date": "Sep 26, 2025", "price": 4198.03}, {"date": "Sep 29, 2025", "price": 4273.84}, {"date": "Sep 30, 2025", "price": 4290.24}, {"date": "Oct 01, 2025", "price": 4247.96}, {"date": "Oct 02, 2025", "price": 4253.71}, {"date": "Oct 03, 2025", "price": 4215.08}, {"date": "Oct 06, 2025", "price": 4174.43}, {"date": "Oct 07, 2025", "price": 4085.93}, {"date": "Oct 08, 2025", "price": 4027.76}, {"date": "Oct 09, 2025", "price": 3967.28}, {"date": "Oct 10, 2025", "price": 4075.31}, {"date": "Oct 13, 2025", "price": 4097.97}, {"date": "Oct 14, 2025", "price": 4055.99}, {"date": "Oct 15, 2025", "price": 4027.03}, {"date": "Oct 16, 2025", "price": 4007.91}, {"date": "Oct 17, 2025", "price": 4030.17}, {"date": "Oct 20, 2025", "price": 3968.57}, {"date": "Oct 21, 2025", "price": 4006.21}, {"date": "Oct 22, 2025", "price": 3997.26}, {"date": "Oct 23, 2025", "price": 3850.0}, {"date": "Oct 24, 2025", "price": 3805.56}, {"date": "Oct 27, 2025", "price": 3814.21}, {"date": "Oct 28, 2025", "price": 3803.0}, {"date": "Oct 29, 2025", "price": 3709.12}, {"date": "Oct 30, 2025", "price": 3705.63}, {"date": "Oct 31, 2025", "price": 3674.43}, {"date": "Nov 03, 2025", "price": 3576.14}, {"date": "Nov 04, 2025", "price": 3675.9}, {"date": "Nov 05, 2025", "price": 3661.81}, {"date": "Nov 06, 2025", "price": 3673.66}, {"date": "Nov 07, 2025", "price": 3718.26}, {"date": "Nov 10, 2025", "price": 3728.09}, {"date": "Nov 11, 2025", "price": 3756.24}, {"date": "Nov 12, 2025", "price": 3788.7}, {"date": "Nov 13, 2025", "price": 3819.29}, {"date": "Nov 14, 2025", "price": 3856.87}, {"date": "Nov 17, 2025", "price": 3855.26}, {"date": "Nov 18, 2025", "price": 3827.89}, {"date": "Nov 19, 2025", "price": 3808.55}, {"date": "Nov 20, 2025", "price": 3849.81}, {"date": "Nov 21, 2025", "price": 3897.88}, {"date": "Nov 24, 2025", "price": 3851.52}, {"date": "Nov 25, 2025", "price": 3948.07}, {"date": "Nov 26, 2025", "price": 3967.95}, {"date": "Nov 28, 2025", "price": 3954.33}, {"date": "Dec 01, 2025", "price": 3946.99}, {"date": "Dec 02, 2025", "price": 3826.77}, {"date": "Dec 03, 2025", "price": 3822.92}, {"date": "Dec 04, 2025", "price": 3840.5}, {"date": "Dec 05, 2025", "price": 3822.66}, {"date": "Dec 08, 2025", "price": 3766.96}, {"date": "Dec 09, 2025", "price": 3496.77}, {"date": "Dec 10, 2025", "price": 3421.13}, {"date": "Dec 11, 2025", "price": 3469.1}, {"date": "Dec 12, 2025", "price": 3445.71}, {"date": "Dec 15, 2025", "price": 3488.71}, {"date": "Dec 16, 2025", "price": 3417.42}, {"date": "Dec 17, 2025", "price": 3393.35}, {"date": "Dec 18, 2025", "price": 3426.61}, {"date": "Dec 19, 2025", "price": 3392.34}, {"date": "Dec 22, 2025", "price": 3413.81}, {"date": "Dec 23, 2025", "price": 3463.61}, {"date": "Dec 24, 2025", "price": 3456.02}, {"date": "Dec 26, 2025", "price": 3448.7}, {"date": "Dec 29, 2025", "price": 3415.81}, {"date": "Dec 30, 2025", "price": 3398.85}, {"date": "Dec 31, 2025", "price": 3391.5}, {"date": "Jan 02, 2026", "price": 3303.82}, {"date": "Jan 05, 2026", "price": 3268.3}, {"date": "Jan 06, 2026", "price": 3244.92}, {"date": "Jan 07, 2026", "price": 3318.08}, {"date": "Jan 08, 2026", "price": 3313.99}, {"date": "Jan 09, 2026", "price": 3421.17}, {"date": "Jan 12, 2026", "price": 3523.0}, {"date": "Jan 13, 2026", "price": 3505.75}, {"date": "Jan 14, 2026", "price": 3472.66}, {"date": "Jan 15, 2026", "price": 3465.45}, {"date": "Jan 16, 2026", "price": 3522.02}, {"date": "Jan 20, 2026", "price": 3573.98}, {"date": "Jan 21, 2026", "price": 3671.68}, {"date": "Jan 22, 2026", "price": 3698.63}, {"date": "Jan 23, 2026", "price": 3700.0}, {"date": "Jan 26, 2026", "price": 3786.03}, {"date": "Jan 27, 2026", "price": 3799.99}, {"date": "Jan 28, 2026", "price": 3782.14}, {"date": "Jan 29, 2026", "price": 3703.76}, {"date": "Jan 30, 2026", "price": 3704.29}, {"date": "Feb 02, 2026", "price": 3722.41}, {"date": "Feb 03, 2026", "price": 3671.61}, {"date": "Feb 04, 2026", "price": 3720.5}, {"date": "Feb 05, 2026", "price": 3605.03}, {"date": "Feb 06, 2026", "price": 3681.26}, {"date": "Feb 09, 2026", "price": 3634.29}, {"date": "Feb 10, 2026", "price": 3664.84}, {"date": "Feb 11, 2026", "price": 3735.85}, {"date": "Feb 12, 2026", "price": 3788.71}, {"date": "Feb 13, 2026", "price": 3858.16}, {"date": "Feb 17, 2026", "price": 3742.0}, {"date": "Feb 18, 2026", "price": 3744.64}, {"date": "Feb 19, 2026", "price": 3745.49}, {"date": "Feb 20, 2026", "price": 3748.52}, {"date": "Feb 23, 2026", "price": 3829.27}, {"date": "Feb 24, 2026", "price": 3784.42}, {"date": "Feb 25, 2026", "price": 3671.82}, {"date": "Feb 26, 2026", "price": 3660.0}, {"date": "Feb 27, 2026", "price": 3755.58}, {"date": "Mar 02, 2026", "price": 3882.47}, {"date": "Mar 03, 2026", "price": 3637.17}, {"date": "Mar 04, 2026", "price": 3717.0}, {"date": "Mar 05, 2026", "price": 3742.02}, {"date": "Mar 06, 2026", "price": 3641.29}, {"date": "Mar 09, 2026", "price": 3672.68}, {"date": "Mar 10, 2026", "price": 3726.02}, {"date": "Mar 11, 2026", "price": 3712.42}, {"date": "Mar 12, 2026", "price": 3614.27}, {"date": "Mar 13, 2026", "price": 3562.85}, {"date": "Mar 16, 2026", "price": 3488.88}, {"date": "Mar 17, 2026", "price": 3439.64}, {"date": "Mar 18, 2026", "price": 3361.98}, {"date": "Mar 19, 2026", "price": 3341.58}, {"date": "Mar 20, 2026", "price": 3282.9}, {"date": "Mar 23, 2026", "price": 3353.24}, {"date": "Mar 24, 2026", "price": 3345.84}, {"date": "Mar 25, 2026", "price": 3386.14}, {"date": "Mar 26, 2026", "price": 3395.97}, {"date": "Mar 27, 2026", "price": 3316.71}, {"date": "Mar 30, 2026", "price": 3342.51}, {"date": "Mar 31, 2026", "price": 3377.78}, {"date": "Apr 01, 2026", "price": 3426.47}, {"date": "Apr 02, 2026", "price": 3400.54}, {"date": "Apr 06, 2026", "price": 3438.35}, {"date": "Apr 07, 2026", "price": 3387.0}, {"date": "Apr 08, 2026", "price": 3464.93}, {"date": "Apr 09, 2026", "price": 3548.19}, {"date": "Apr 10, 2026", "price": 3430.45}, {"date": "Apr 13, 2026", "price": 3514.47}, {"date": "Apr 14, 2026", "price": 3508.5}, {"date": "Apr 15, 2026", "price": 3536.42}, {"date": "Apr 16, 2026", "price": 3489.29}, {"date": "Apr 17, 2026", "price": 3572.38}, {"date": "Apr 20, 2026", "price": 3582.5}, {"date": "Apr 21, 2026", "price": 3606.18}, {"date": "Apr 22, 2026", "price": 3589.99}, {"date": "Apr 23, 2026", "price": 3597.2}, {"date": "Apr 24, 2026", "price": 3577.91}, {"date": "Apr 27, 2026", "price": 3562.26}, {"date": "Apr 28, 2026", "price": 3563.09}, {"date": "Apr 29, 2026", "price": 3523.56}, {"date": "Apr 30, 2026", "price": 3704.03}, {"date": "May 01, 2026", "price": 3594.08}, {"date": "May 04, 2026", "price": 3482.24}, {"date": "May 05, 2026", "price": 3540.92}, {"date": "May 06, 2026", "price": 3541.79}, {"date": "May 07, 2026", "price": 3554.88}, {"date": "May 08, 2026", "price": 3496.19}, {"date": "May 11, 2026", "price": 3427.8}, {"date": "May 12, 2026", "price": 3409.81}, {"date": "May 13, 2026", "price": 3366.79}, {"date": "May 14, 2026", "price": 3379.52}, {"date": "May 15, 2026", "price": 3321.15}, {"date": "May 18, 2026", "price": 3365.74}, {"date": "May 19, 2026", "price": 3347.28}, {"date": "May 20, 2026", "price": 3419.36}, {"date": "May 21, 2026", "price": 3438.18}, {"date": "May 22, 2026", "price": 3406.5}, {"date": "May 26, 2026", "price": 3100.11}, {"date": "May 27, 2026", "price": 3027.48}, {"date": "May 28, 2026", "price": 3007.08}, {"date": "May 29, 2026", "price": 2935.19}, {"date": "Jun 01, 2026", "price": 3020.95}, {"date": "Jun 02, 2026", "price": 3029.36}, {"date": "Jun 03, 2026", "price": 3061.65}, {"date": "Jun 04, 2026", "price": 3081.94}, {"date": "Jun 05, 2026", "price": 3116.43}, {"date": "Jun 08, 2026", "price": 3074.04}, {"date": "Jun 09, 2026", "price": 3137.75}, {"date": "Jun 10, 2026", "price": 3110.05}, {"date": "Jun 11, 2026", "price": 3081.62}, {"date": "Jun 12, 2026", "price": 3116.3}, {"date": "Jun 15, 2026", "price": 3105.48}, {"date": "Jun 16, 2026", "price": 3127.79}, {"date": "Jun 17, 2026", "price": 3059.63}, {"date": "Jun 18, 2026", "price": 3064.48}, {"date": "Jun 22, 2026", "price": 2949.06}, {"date": "Jun 23, 2026", "price": 3046.46}, {"date": "Jun 24, 2026", "price": 3087.77}, {"date": "Jun 25, 2026", "price": 3059.04}, {"date": "Jun 26, 2026", "price": 3128.7}, {"date": "Jun 29, 2026", "price": 3153.62}, {"date": "Jun 30, 2026", "price": 3195.94}, {"date": "Jul 01, 2026", "price": 3218.15}, {"date": "Jul 02, 2026", "price": 3159.28}, {"date": "Jul 06, 2026", "price": 2957.71}, {"date": "Jul 07, 2026", "price": 3074.86}, {"date": "Jul 08, 2026", "price": 3070.17}, {"date": "Jul 09, 2026", "price": 3010.39}, {"date": "Jul 10, 2026", "price": 3072.64}, {"date": "Jul 13, 2026", "price": 3078.98}, {"date": "Jul 14, 2026", "price": 3032.07}, {"date": "Jul 15, 2026", "price": 2970.57}, {"date": "Jul 16, 2026", "price": 3062.16}, {"date": "Jul 17, 2026", "price": 3046.44}, {"date": "Jul 20, 2026", "price": 2994.13}, {"date": "Jul 21, 2026", "price": 3013.03}, {"date": "Jul 22, 2026", "price": 2972.45}, {"date": "Jul 23, 2026", "price": 2923.5}, {"date": "Jul 24, 2026", "price": 2957.41}, {"date": "Jul 27, 2026", "price": 3075.26}, {"date": "Jul 28, 2026", "price": 3118.8}, {"date": "Jul 29, 2026", "price": 3142.17}, {"date": "Jul 30, 2026", "price": 3006.57}, {"date": "Jul 31, 2026", "price": 3016.25}, {"date": "Aug 03, 2026", "price": 2990.27}, {"date": "Aug 04, 2026", "price": 3028.03}, {"date": "Aug 05, 2026", "price": 3066.06}, {"date": "Aug 06, 2026", "price": 3069.62}, {"date": "Aug 07, 2026", "price": 3127.29}, {"date": "Aug 10, 2026", "price": 3067.99}, {"date": "Aug 11, 2026", "price": 3042.65}, {"date": "Aug 12, 2026", "price": 3045.87}, {"date": "Aug 13, 2026", "price": 3040.37}, {"date": "Aug 14, 2026", "price": 3025.0}, {"date": "Aug 17, 2026", "price": 3038.45}], "5Y": [{"date": "Aug 15, 2021", "price": 1640.76}, {"date": "Aug 22, 2021", "price": 1548.49}, {"date": "Aug 29, 2021", "price": 1537.25}, {"date": "Sep 05, 2021", "price": 1550.56}, {"date": "Sep 12, 2021", "price": 1592.88}, {"date": "Sep 19, 2021", "price": 1694.83}, {"date": "Sep 26, 2021", "price": 1672.28}, {"date": "Oct 03, 2021", "price": 1681.37}, {"date": "Oct 10, 2021", "price": 1736.03}, {"date": "Oct 17, 2021", "price": 1832.89}, {"date": "Oct 24, 2021", "price": 1784.84}, {"date": "Oct 31, 2021", "price": 1817.94}, {"date": "Nov 07, 2021", "price": 1886.23}, {"date": "Nov 14, 2021", "price": 1859.68}, {"date": "Nov 21, 2021", "price": 1814.18}, {"date": "Nov 28, 2021", "price": 1863.0}, {"date": "Dec 05, 2021", "price": 2003.02}, {"date": "Dec 12, 2021", "price": 1996.37}, {"date": "Dec 19, 2021", "price": 2014.5}, {"date": "Dec 26, 2021", "price": 2096.39}, {"date": "Jan 02, 2022", "price": 2014.77}, {"date": "Jan 09, 2022", "price": 2033.48}, {"date": "Jan 16, 2022", "price": 1942.17}, {"date": "Jan 23, 2022", "price": 1951.16}, {"date": "Jan 30, 2022", "price": 2018.7}, {"date": "Feb 06, 2022", "price": 1949.11}, {"date": "Feb 13, 2022", "price": 1920.01}, {"date": "Feb 20, 2022", "price": 1864.63}, {"date": "Feb 27, 2022", "price": 1891.36}, {"date": "Mar 06, 2022", "price": 1864.59}, {"date": "Mar 13, 2022", "price": 1952.75}, {"date": "Mar 20, 2022", "price": 2027.29}, {"date": "Mar 27, 2022", "price": 1974.51}, {"date": "Apr 03, 2022", "price": 2190.56}, {"date": "Apr 10, 2022", "price": 2164.6}, {"date": "Apr 17, 2022", "price": 2160.27}, {"date": "Apr 24, 2022", "price": 1955.47}, {"date": "May 01, 2022", "price": 2000.0}, {"date": "May 08, 2022", "price": 2001.11}, {"date": "May 15, 2022", "price": 1771.68}, {"date": "May 22, 2022", "price": 2055.39}, {"date": "May 29, 2022", "price": 2058.04}, {"date": "Jun 05, 2022", "price": 2064.46}, {"date": "Jun 12, 2022", "price": 1992.55}, {"date": "Jun 19, 2022", "price": 2158.91}, {"date": "Jun 26, 2022", "price": 2159.81}, {"date": "Jul 03, 2022", "price": 2182.37}, {"date": "Jul 10, 2022", "price": 2215.03}, {"date": "Jul 17, 2022", "price": 2147.62}, {"date": "Jul 24, 2022", "price": 2137.39}, {"date": "Jul 31, 2022", "price": 2195.19}, {"date": "Aug 07, 2022", "price": 2259.18}, {"date": "Aug 14, 2022", "price": 2332.09}, {"date": "Aug 21, 2022", "price": 2163.02}, {"date": "Aug 28, 2022", "price": 2120.88}, {"date": "Sep 04, 2022", "price": 2199.08}, {"date": "Sep 11, 2022", "price": 2165.65}, {"date": "Sep 18, 2022", "price": 2096.84}, {"date": "Sep 25, 2022", "price": 2141.93}, {"date": "Oct 02, 2022", "price": 2174.0}, {"date": "Oct 09, 2022", "price": 2255.17}, {"date": "Oct 16, 2022", "price": 2301.03}, {"date": "Oct 23, 2022", "price": 2543.5}, {"date": "Oct 30, 2022", "price": 2465.1}, {"date": "Nov 06, 2022", "price": 2408.99}, {"date": "Nov 13, 2022", "price": 2460.84}, {"date": "Nov 20, 2022", "price": 2562.12}, {"date": "Nov 27, 2022", "price": 2571.59}, {"date": "Dec 04, 2022", "price": 2454.99}, {"date": "Dec 11, 2022", "price": 2380.45}, {"date": "Dec 18, 2022", "price": 2430.65}, {"date": "Dec 25, 2022", "price": 2466.18}, {"date": "Jan 01, 2023", "price": 2486.64}, {"date": "Jan 08, 2023", "price": 2368.88}, {"date": "Jan 15, 2023", "price": 2326.61}, {"date": "Jan 22, 2023", "price": 2369.34}, {"date": "Jan 29, 2023", "price": 2398.51}, {"date": "Feb 05, 2023", "price": 2513.69}, {"date": "Feb 12, 2023", "price": 2605.62}, {"date": "Feb 19, 2023", "price": 2540.56}, {"date": "Feb 26, 2023", "price": 2497.34}, {"date": "Mar 05, 2023", "price": 2421.39}, {"date": "Mar 12, 2023", "price": 2365.0}, {"date": "Mar 19, 2023", "price": 2329.4}, {"date": "Mar 26, 2023", "price": 2458.15}, {"date": "Apr 02, 2023", "price": 2530.68}, {"date": "Apr 09, 2023", "price": 2638.32}, {"date": "Apr 16, 2023", "price": 2681.41}, {"date": "Apr 23, 2023", "price": 2663.31}, {"date": "Apr 30, 2023", "price": 2691.58}, {"date": "May 07, 2023", "price": 2729.06}, {"date": "May 14, 2023", "price": 2653.18}, {"date": "May 21, 2023", "price": 2460.79}, {"date": "May 28, 2023", "price": 2381.23}, {"date": "Jun 04, 2023", "price": 2363.19}, {"date": "Jun 11, 2023", "price": 2493.83}, {"date": "Jun 18, 2023", "price": 2423.73}, {"date": "Jun 25, 2023", "price": 2493.36}, {"date": "Jul 02, 2023", "price": 2469.51}, {"date": "Jul 09, 2023", "price": 2556.59}, {"date": "Jul 16, 2023", "price": 2457.93}, {"date": "Jul 23, 2023", "price": 2477.77}, {"date": "Jul 30, 2023", "price": 2450.99}, {"date": "Aug 06, 2023", "price": 2483.83}, {"date": "Aug 13, 2023", "price": 2458.39}, {"date": "Aug 20, 2023", "price": 2453.4}, {"date": "Aug 27, 2023", "price": 2542.39}, {"date": "Sep 03, 2023", "price": 2619.29}, {"date": "Sep 10, 2023", "price": 2529.68}, {"date": "Sep 17, 2023", "price": 2570.27}, {"date": "Sep 24, 2023", "price": 2539.99}, {"date": "Oct 01, 2023", "price": 2549.04}, {"date": "Oct 08, 2023", "price": 2552.7}, {"date": "Oct 15, 2023", "price": 2488.55}, {"date": "Oct 22, 2023", "price": 2446.17}, {"date": "Oct 29, 2023", "price": 2574.54}, {"date": "Nov 05, 2023", "price": 2702.34}, {"date": "Nov 12, 2023", "price": 2627.05}, {"date": "Nov 19, 2023", "price": 2688.0}, {"date": "Nov 26, 2023", "price": 2641.75}, {"date": "Dec 03, 2023", "price": 2620.49}, {"date": "Dec 10, 2023", "price": 2628.05}, {"date": "Dec 17, 2023", "price": 2608.69}, {"date": "Dec 24, 2023", "price": 2585.61}, {"date": "Dec 31, 2023", "price": 2550.93}, {"date": "Jan 07, 2024", "price": 2569.1}, {"date": "Jan 14, 2024", "price": 2746.44}, {"date": "Jan 21, 2024", "price": 2780.24}, {"date": "Jan 28, 2024", "price": 2821.89}, {"date": "Feb 04, 2024", "price": 2680.0}, {"date": "Feb 11, 2024", "price": 2727.83}, {"date": "Feb 18, 2024", "price": 2756.34}, {"date": "Feb 25, 2024", "price": 3035.99}, {"date": "Mar 03, 2024", "price": 3079.49}, {"date": "Mar 10, 2024", "price": 3124.33}, {"date": "Mar 17, 2024", "price": 3239.32}, {"date": "Mar 24, 2024", "price": 3151.65}, {"date": "Mar 31, 2024", "price": 3104.94}, {"date": "Apr 07, 2024", "price": 2962.32}, {"date": "Apr 14, 2024", "price": 2985.54}, {"date": "Apr 21, 2024", "price": 2945.98}, {"date": "Apr 28, 2024", "price": 2952.2}, {"date": "May 05, 2024", "price": 2979.32}, {"date": "May 12, 2024", "price": 2917.5}, {"date": "May 19, 2024", "price": 2792.9}, {"date": "May 26, 2024", "price": 2769.94}, {"date": "Jun 02, 2024", "price": 2800.7}, {"date": "Jun 09, 2024", "price": 2835.82}, {"date": "Jun 16, 2024", "price": 2990.35}, {"date": "Jun 23, 2024", "price": 2964.1}, {"date": "Jun 30, 2024", "price": 2815.0}, {"date": "Jul 07, 2024", "price": 2920.83}, {"date": "Jul 14, 2024", "price": 2950.4}, {"date": "Jul 21, 2024", "price": 3090.31}, {"date": "Jul 28, 2024", "price": 3177.67}, {"date": "Aug 04, 2024", "price": 3120.25}, {"date": "Aug 11, 2024", "price": 3212.87}, {"date": "Aug 18, 2024", "price": 3125.67}, {"date": "Aug 25, 2024", "price": 3181.48}, {"date": "Sep 01, 2024", "price": 3092.56}, {"date": "Sep 08, 2024", "price": 3123.36}, {"date": "Sep 15, 2024", "price": 3020.66}, {"date": "Sep 22, 2024", "price": 3196.61}, {"date": "Sep 29, 2024", "price": 3033.58}, {"date": "Oct 06, 2024", "price": 3129.78}, {"date": "Oct 13, 2024", "price": 3182.07}, {"date": "Oct 20, 2024", "price": 3130.96}, {"date": "Oct 27, 2024", "price": 2981.19}, {"date": "Nov 03, 2024", "price": 3110.12}, {"date": "Nov 10, 2024", "price": 3107.53}, {"date": "Nov 17, 2024", "price": 3099.38}, {"date": "Nov 24, 2024", "price": 3169.54}, {"date": "Dec 01, 2024", "price": 3309.44}, {"date": "Dec 08, 2024", "price": 3370.27}, {"date": "Dec 15, 2024", "price": 3253.47}, {"date": "Dec 22, 2024", "price": 3241.62}, {"date": "Dec 29, 2024", "price": 3268.78}, {"date": "Jan 05, 2025", "price": 3251.32}, {"date": "Jan 12, 2025", "price": 3228.4}, {"date": "Jan 19, 2025", "price": 3332.53}, {"date": "Jan 26, 2025", "price": 3350.21}, {"date": "Feb 02, 2025", "price": 3420.19}, {"date": "Feb 09, 2025", "price": 3458.55}, {"date": "Feb 16, 2025", "price": 3368.98}, {"date": "Feb 23, 2025", "price": 3493.01}, {"date": "Mar 02, 2025", "price": 3614.97}, {"date": "Mar 09, 2025", "price": 3554.91}, {"date": "Mar 16, 2025", "price": 3606.34}, {"date": "Mar 23, 2025", "price": 3771.0}, {"date": "Mar 30, 2025", "price": 3653.24}, {"date": "Apr 06, 2025", "price": 3659.6}, {"date": "Apr 13, 2025", "price": 3603.47}, {"date": "Apr 20, 2025", "price": 3609.33}, {"date": "Apr 27, 2025", "price": 3756.33}, {"date": "May 04, 2025", "price": 3663.73}, {"date": "May 11, 2025", "price": 3786.42}, {"date": "May 18, 2025", "price": 3826.46}, {"date": "May 25, 2025", "price": 3733.04}, {"date": "Jun 01, 2025", "price": 3719.24}, {"date": "Jun 08, 2025", "price": 3642.6}, {"date": "Jun 15, 2025", "price": 3655.33}, {"date": "Jun 22, 2025", "price": 3609.49}, {"date": "Jun 29, 2025", "price": 3769.26}, {"date": "Jul 06, 2025", "price": 3705.64}, {"date": "Jul 13, 2025", "price": 3713.93}, {"date": "Jul 20, 2025", "price": 3820.91}, {"date": "Jul 27, 2025", "price": 3858.86}, {"date": "Aug 03, 2025", "price": 4035.16}, {"date": "Aug 10, 2025", "price": 4006.91}, {"date": "Aug 17, 2025", "price": 4110.61}, {"date": "Aug 24, 2025", "price": 4198.53}, {"date": "Aug 31, 2025", "price": 4219.41}, {"date": "Sep 07, 2025", "price": 4322.15}, {"date": "Sep 14, 2025", "price": 4140.36}, {"date": "Sep 21, 2025", "price": 4198.03}, {"date": "Sep 28, 2025", "price": 4215.08}, {"date": "Oct 05, 2025", "price": 4075.31}, {"date": "Oct 12, 2025", "price": 4030.17}, {"date": "Oct 19, 2025", "price": 3805.56}, {"date": "Oct 26, 2025", "price": 3674.43}, {"date": "Nov 02, 2025", "price": 3718.26}, {"date": "Nov 09, 2025", "price": 3856.87}, {"date": "Nov 16, 2025", "price": 3897.88}, {"date": "Nov 23, 2025", "price": 3954.33}, {"date": "Nov 30, 2025", "price": 3822.66}, {"date": "Dec 07, 2025", "price": 3445.71}, {"date": "Dec 14, 2025", "price": 3392.34}, {"date": "Dec 21, 2025", "price": 3448.7}, {"date": "Dec 28, 2025", "price": 3303.82}, {"date": "Jan 04, 2026", "price": 3421.17}, {"date": "Jan 11, 2026", "price": 3522.02}, {"date": "Jan 18, 2026", "price": 3700.0}, {"date": "Jan 25, 2026", "price": 3704.29}, {"date": "Feb 01, 2026", "price": 3681.26}, {"date": "Feb 08, 2026", "price": 3858.16}, {"date": "Feb 15, 2026", "price": 3748.52}, {"date": "Feb 22, 2026", "price": 3755.58}, {"date": "Mar 01, 2026", "price": 3641.29}, {"date": "Mar 08, 2026", "price": 3562.85}, {"date": "Mar 15, 2026", "price": 3282.9}, {"date": "Mar 22, 2026", "price": 3316.71}, {"date": "Mar 29, 2026", "price": 3400.54}, {"date": "Apr 05, 2026", "price": 3430.45}, {"date": "Apr 12, 2026", "price": 3572.38}, {"date": "Apr 19, 2026", "price": 3577.91}, {"date": "Apr 26, 2026", "price": 3594.08}, {"date": "May 03, 2026", "price": 3496.19}, {"date": "May 10, 2026", "price": 3321.15}, {"date": "May 17, 2026", "price": 3406.5}, {"date": "May 24, 2026", "price": 2935.19}, {"date": "May 31, 2026", "price": 3116.43}, {"date": "Jun 07, 2026", "price": 3116.3}, {"date": "Jun 14, 2026", "price": 3064.48}, {"date": "Jun 21, 2026", "price": 3128.7}, {"date": "Jun 28, 2026", "price": 3159.28}, {"date": "Jul 05, 2026", "price": 3072.64}, {"date": "Jul 12, 2026", "price": 3046.44}, {"date": "Jul 19, 2026", "price": 2957.41}, {"date": "Jul 26, 2026", "price": 3016.25}, {"date": "Aug 02, 2026", "price": 3127.29}, {"date": "Aug 09, 2026", "price": 3025.0}, {"date": "Aug 16, 2026", "price": 3038.45}], "10Y": [{"date": "Aug 31, 2016", "price": 768.34}, {"date": "Sep 30, 2016", "price": 742.16}, {"date": "Oct 31, 2016", "price": 783.18}, {"date": "Nov 30, 2016", "price": 789.79}, {"date": "Dec 31, 2016", "price": 724.98}, {"date": "Jan 31, 2017", "price": 736.55}, {"date": "Feb 28, 2017", "price": 723.05}, {"date": "Mar 31, 2017", "price": 692.19}, {"date": "Apr 30, 2017", "price": 605.92}, {"date": "May 31, 2017", "price": 570.46}, {"date": "Jun 30, 2017", "price": 539.82}, {"date": "Jul 31, 2017", "price": 528.44}, {"date": "Aug 31, 2017", "price": 595.11}, {"date": "Sep 30, 2017", "price": 589.5}, {"date": "Oct 31, 2017", "price": 686.76}, {"date": "Nov 30, 2017", "price": 711.37}, {"date": "Dec 31, 2017", "price": 765.44}, {"date": "Jan 31, 2018", "price": 664.72}, {"date": "Feb 28, 2018", "price": 648.69}, {"date": "Mar 31, 2018", "price": 624.52}, {"date": "Apr 30, 2018", "price": 649.32}, {"date": "May 31, 2018", "price": 670.93}, {"date": "Jun 30, 2018", "price": 705.53}, {"date": "Jul 31, 2018", "price": 766.88}, {"date": "Aug 31, 2018", "price": 775.7}, {"date": "Sep 30, 2018", "price": 733.47}, {"date": "Oct 31, 2018", "price": 809.07}, {"date": "Nov 30, 2018", "price": 838.34}, {"date": "Dec 31, 2018", "price": 847.34}, {"date": "Jan 31, 2019", "price": 938.97}, {"date": "Feb 28, 2019", "price": 1024.12}, {"date": "Mar 31, 2019", "price": 1028.31}, {"date": "Apr 30, 2019", "price": 1027.11}, {"date": "May 31, 2019", "price": 1099.47}, {"date": "Jun 30, 2019", "price": 1123.04}, {"date": "Jul 31, 2019", "price": 1101.69}, {"date": "Aug 31, 2019", "price": 1084.62}, {"date": "Sep 30, 2019", "price": 1144.38}, {"date": "Oct 31, 2019", "price": 1177.92}, {"date": "Nov 30, 2019", "price": 1191.31}, {"date": "Dec 31, 2019", "price": 1057.96}, {"date": "Jan 31, 2020", "price": 1032.51}, {"date": "Feb 29, 2020", "price": 846.0}, {"date": "Mar 31, 2020", "price": 1020.32}, {"date": "Apr 30, 2020", "price": 1147.86}, {"date": "May 31, 2020", "price": 1128.12}, {"date": "Jun 30, 2020", "price": 1207.42}, {"date": "Jul 31, 2020", "price": 1196.31}, {"date": "Aug 31, 2020", "price": 1177.64}, {"date": "Sep 30, 2020", "price": 1128.98}, {"date": "Oct 31, 2020", "price": 1137.65}, {"date": "Nov 30, 2020", "price": 1185.44}, {"date": "Dec 31, 2020", "price": 1118.37}, {"date": "Jan 31, 2021", "price": 1159.92}, {"date": "Feb 28, 2021", "price": 1404.3}, {"date": "Mar 31, 2021", "price": 1464.12}, {"date": "Apr 30, 2021", "price": 1406.6}, {"date": "May 31, 2021", "price": 1492.22}, {"date": "Jun 30, 2021", "price": 1623.57}, {"date": "Jul 31, 2021", "price": 1549.15}, {"date": "Aug 31, 2021", "price": 1697.99}, {"date": "Sep 30, 2021", "price": 1784.84}, {"date": "Oct 31, 2021", "price": 1817.07}, {"date": "Nov 30, 2021", "price": 2096.39}, {"date": "Dec 31, 2021", "price": 1986.35}, {"date": "Jan 31, 2022", "price": 1863.39}, {"date": "Feb 28, 2022", "price": 2044.58}, {"date": "Mar 31, 2022", "price": 1955.47}, {"date": "Apr 30, 2022", "price": 2059.65}, {"date": "May 31, 2022", "price": 2149.12}, {"date": "Jun 30, 2022", "price": 2137.39}, {"date": "Jul 31, 2022", "price": 2119.21}, {"date": "Aug 31, 2022", "price": 2141.93}, {"date": "Sep 30, 2022", "price": 2532.88}, {"date": "Oct 31, 2022", "price": 2579.0}, {"date": "Nov 30, 2022", "price": 2466.18}, {"date": "Dec 31, 2022", "price": 2438.85}, {"date": "Jan 31, 2023", "price": 2486.54}, {"date": "Feb 28, 2023", "price": 2458.15}, {"date": "Mar 31, 2023", "price": 2663.31}, {"date": "Apr 30, 2023", "price": 2386.84}, {"date": "May 31, 2023", "price": 2493.36}, {"date": "Jun 30, 2023", "price": 2481.72}, {"date": "Jul 31, 2023", "price": 2531.33}, {"date": "Aug 31, 2023", "price": 2539.99}, {"date": "Sep 30, 2023", "price": 2477.13}, {"date": "Oct 31, 2023", "price": 2609.93}, {"date": "Nov 30, 2023", "price": 2585.61}, {"date": "Dec 31, 2023", "price": 2762.13}, {"date": "Jan 31, 2024", "price": 3006.02}, {"date": "Feb 29, 2024", "price": 3151.65}, {"date": "Mar 31, 2024", "price": 2956.4}, {"date": "Apr 30, 2024", "price": 2769.94}, {"date": "May 31, 2024", "price": 2964.1}, {"date": "Jun 30, 2024", "price": 3133.69}, {"date": "Jul 31, 2024", "price": 3181.48}, {"date": "Aug 31, 2024", "price": 3150.04}, {"date": "Sep 30, 2024", "price": 3009.0}, {"date": "Oct 31, 2024", "price": 3169.54}, {"date": "Nov 30, 2024", "price": 3202.0}, {"date": "Dec 31, 2024", "price": 3350.21}, {"date": "Jan 31, 2025", "price": 3493.01}, {"date": "Feb 28, 2025", "price": 3812.78}, {"date": "Mar 31, 2025", "price": 3762.6}, {"date": "Apr 30, 2025", "price": 3733.04}, {"date": "May 31, 2025", "price": 3712.23}, {"date": "Jun 30, 2025", "price": 3768.38}, {"date": "Jul 31, 2025", "price": 4198.53}, {"date": "Aug 31, 2025", "price": 4290.24}, {"date": "Sep 30, 2025", "price": 3674.43}, {"date": "Oct 31, 2025", "price": 3954.33}, {"date": "Nov 30, 2025", "price": 3391.5}, {"date": "Dec 31, 2025", "price": 3704.29}, {"date": "Jan 31, 2026", "price": 3755.58}, {"date": "Feb 28, 2026", "price": 3377.78}, {"date": "Mar 31, 2026", "price": 3704.03}, {"date": "Apr 30, 2026", "price": 2935.19}, {"date": "May 31, 2026", "price": 3195.94}, {"date": "Jun 30, 2026", "price": 3016.25}, {"date": "Jul 31, 2026", "price": 3025.0}, {"date": "Aug 17, 2026", "price": 3038.45}], "MAX": [{"date": "Apr 30, 1991", "price": 7.53}, {"date": "May 31, 1991", "price": 8.47}, {"date": "Jun 30, 1991", "price": 9.44}, {"date": "Jul 31, 1991", "price": 10.19}, {"date": "Aug 31, 1991", "price": 11.16}, {"date": "Sep 30, 1991", "price": 11.94}, {"date": "Oct 31, 1991", "price": 12.81}, {"date": "Nov 30, 1991", "price": 16.78}, {"date": "Dec 31, 1991", "price": 17.06}, {"date": "Jan 31, 1992", "price": 19.31}, {"date": "Feb 29, 1992", "price": 18.44}, {"date": "Mar 31, 1992", "price": 17.94}, {"date": "Apr 30, 1992", "price": 17.56}, {"date": "May 31, 1992", "price": 14.0}, {"date": "Jun 30, 1992", "price": 15.5}, {"date": "Jul 31, 1992", "price": 14.5}, {"date": "Aug 31, 1992", "price": 16.69}, {"date": "Sep 30, 1992", "price": 16.5}, {"date": "Oct 31, 1992", "price": 19.38}, {"date": "Nov 30, 1992", "price": 19.62}, {"date": "Dec 31, 1992", "price": 17.56}, {"date": "Jan 31, 1993", "price": 18.88}, {"date": "Feb 28, 1993", "price": 21.81}, {"date": "Mar 31, 1993", "price": 19.44}, {"date": "Apr 30, 1993", "price": 23.62}, {"date": "May 31, 1993", "price": 23.44}, {"date": "Jun 30, 1993", "price": 23.69}, {"date": "Jul 31, 1993", "price": 26.81}, {"date": "Aug 31, 1993", "price": 25.0}, {"date": "Sep 30, 1993", "price": 26.62}, {"date": "Oct 31, 1993", "price": 27.81}, {"date": "Nov 30, 1993", "price": 28.62}, {"date": "Dec 31, 1993", "price": 28.19}, {"date": "Jan 31, 1994", "price": 28.25}, {"date": "Feb 28, 1994", "price": 27.12}, {"date": "Mar 31, 1994", "price": 29.0}, {"date": "Apr 30, 1994", "price": 27.25}, {"date": "May 31, 1994", "price": 24.38}, {"date": "Jun 30, 1994", "price": 24.0}, {"date": "Jul 31, 1994", "price": 24.88}, {"date": "Aug 31, 1994", "price": 22.88}, {"date": "Sep 30, 1994", "price": 24.0}, {"date": "Oct 31, 1994", "price": 25.62}, {"date": "Nov 30, 1994", "price": 24.25}, {"date": "Dec 31, 1994", "price": 26.38}, {"date": "Jan 31, 1995", "price": 26.5}, {"date": "Feb 28, 1995", "price": 24.88}, {"date": "Mar 31, 1995", "price": 23.12}, {"date": "Apr 30, 1995", "price": 23.25}, {"date": "May 31, 1995", "price": 25.12}, {"date": "Jun 30, 1995", "price": 26.0}, {"date": "Jul 31, 1995", "price": 26.88}, {"date": "Aug 31, 1995", "price": 25.5}, {"date": "Sep 30, 1995", "price": 24.75}, {"date": "Oct 31, 1995", "price": 29.12}, {"date": "Nov 30, 1995", "price": 28.88}, {"date": "Dec 31, 1995", "price": 24.12}, {"date": "Jan 31, 1996", "price": 25.75}, {"date": "Feb 29, 1996", "price": 33.88}, {"date": "Mar 31, 1996", "price": 36.5}, {"date": "Apr 30, 1996", "price": 35.12}, {"date": "May 31, 1996", "price": 34.75}, {"date": "Jun 30, 1996", "price": 28.88}, {"date": "Jul 31, 1996", "price": 27.25}, {"date": "Aug 31, 1996", "price": 29.0}, {"date": "Sep 30, 1996", "price": 25.62}, {"date": "Oct 31, 1996", "price": 24.62}, {"date": "Nov 30, 1996", "price": 27.5}, {"date": "Dec 31, 1996", "price": 21.62}, {"date": "Jan 31, 1997", "price": 24.75}, {"date": "Feb 28, 1997", "price": 22.5}, {"date": "Mar 31, 1997", "price": 24.5}, {"date": "Apr 30, 1997", "price": 23.38}, {"date": "May 31, 1997", "price": 23.38}, {"date": "Jun 30, 1997", "price": 28.69}, {"date": "Jul 31, 1997", "price": 28.25}, {"date": "Aug 31, 1997", "price": 29.88}, {"date": "Sep 30, 1997", "price": 29.56}, {"date": "Oct 31, 1997", "price": 30.0}, {"date": "Nov 30, 1997", "price": 29.0}, {"date": "Dec 31, 1997", "price": 27.44}, {"date": "Jan 31, 1998", "price": 30.25}, {"date": "Feb 28, 1998", "price": 33.88}, {"date": "Mar 31, 1998", "price": 30.19}, {"date": "Apr 30, 1998", "price": 33.25}, {"date": "May 31, 1998", "price": 31.94}, {"date": "Jun 30, 1998", "price": 34.25}, {"date": "Jul 31, 1998", "price": 25.94}, {"date": "Aug 31, 1998", "price": 24.62}, {"date": "Sep 30, 1998", "price": 26.31}, {"date": "Oct 31, 1998", "price": 30.12}, {"date": "Nov 30, 1998", "price": 32.94}, {"date": "Dec 31, 1998", "price": 33.88}, {"date": "Jan 31, 1999", "price": 35.0}, {"date": "Feb 28, 1999", "price": 30.38}, {"date": "Mar 31, 1999", "price": 30.0}, {"date": "Apr 30, 1999", "price": 28.94}, {"date": "May 31, 1999", "price": 30.12}, {"date": "Jun 30, 1999", "price": 24.69}, {"date": "Jul 31, 1999", "price": 23.81}, {"date": "Aug 31, 1999", "price": 28.06}, {"date": "Sep 30, 1999", "price": 26.56}, {"date": "Oct 31, 1999", "price": 27.56}, {"date": "Nov 30, 1999", "price": 32.31}, {"date": "Dec 31, 1999", "price": 26.25}, {"date": "Jan 31, 2000", "price": 24.0}, {"date": "Feb 29, 2000", "price": 27.75}, {"date": "Mar 31, 2000", "price": 22.94}, {"date": "Apr 30, 2000", "price": 28.0}, {"date": "May 31, 2000", "price": 22.02}, {"date": "Jun 30, 2000", "price": 22.88}, {"date": "Jul 31, 2000", "price": 22.52}, {"date": "Aug 31, 2000", "price": 22.69}, {"date": "Sep 30, 2000", "price": 26.81}, {"date": "Oct 31, 2000", "price": 25.81}, {"date": "Nov 30, 2000", "price": 28.5}, {"date": "Dec 31, 2000", "price": 26.03}, {"date": "Jan 31, 2001", "price": 25.26}, {"date": "Feb 28, 2001", "price": 28.02}, {"date": "Mar 31, 2001", "price": 31.34}, {"date": "Apr 30, 2001", "price": 33.07}, {"date": "May 31, 2001", "price": 37.5}, {"date": "Jun 30, 2001", "price": 47.33}, {"date": "Jul 31, 2001", "price": 46.2}, {"date": "Aug 31, 2001", "price": 51.86}, {"date": "Sep 30, 2001", "price": 58.53}, {"date": "Oct 31, 2001", "price": 67.3}, {"date": "Nov 30, 2001", "price": 71.8}, {"date": "Dec 31, 2001", "price": 67.65}, {"date": "Jan 31, 2002", "price": 66.36}, {"date": "Feb 28, 2002", "price": 68.85}, {"date": "Mar 31, 2002", "price": 76.0}, {"date": "Apr 30, 2002", "price": 81.85}, {"date": "May 31, 2002", "price": 77.3}, {"date": "Jun 30, 2002", "price": 73.75}, {"date": "Jul 31, 2002", "price": 72.35}, {"date": "Aug 31, 2002", "price": 78.86}, {"date": "Sep 30, 2002", "price": 85.77}, {"date": "Oct 31, 2002", "price": 81.7}, {"date": "Nov 30, 2002", "price": 70.65}, {"date": "Dec 31, 2002", "price": 65.71}, {"date": "Jan 31, 2003", "price": 65.8}, {"date": "Feb 28, 2003", "price": 68.71}, {"date": "Mar 31, 2003", "price": 80.81}, {"date": "Apr 30, 2003", "price": 83.68}, {"date": "May 31, 2003", "price": 75.97}, {"date": "Jun 30, 2003", "price": 83.26}, {"date": "Jul 31, 2003", "price": 91.8}, {"date": "Aug 31, 2003", "price": 89.53}, {"date": "Sep 30, 2003", "price": 96.1}, {"date": "Oct 31, 2003", "price": 95.66}, {"date": "Nov 30, 2003", "price": 85.21}, {"date": "Dec 31, 2003", "price": 84.32}, {"date": "Jan 31, 2004", "price": 89.7}, {"date": "Feb 29, 2004", "price": 85.97}, {"date": "Mar 31, 2004", "price": 87.57}, {"date": "Apr 30, 2004", "price": 86.75}, {"date": "May 31, 2004", "price": 80.1}, {"date": "Jun 30, 2004", "price": 77.2}, {"date": "Jul 31, 2004", "price": 74.06}, {"date": "Aug 31, 2004", "price": 77.25}, {"date": "Sep 30, 2004", "price": 81.81}, {"date": "Oct 31, 2004", "price": 85.6}, {"date": "Nov 30, 2004", "price": 91.31}, {"date": "Dec 31, 2004", "price": 89.25}, {"date": "Jan 31, 2005", "price": 96.9}, {"date": "Feb 28, 2005", "price": 85.7}, {"date": "Mar 31, 2005", "price": 83.0}, {"date": "Apr 30, 2005", "price": 90.52}, {"date": "May 31, 2005", "price": 92.46}, {"date": "Jun 30, 2005", "price": 97.44}, {"date": "Jul 31, 2005", "price": 94.5}, {"date": "Aug 31, 2005", "price": 83.25}, {"date": "Sep 30, 2005", "price": 80.9}, {"date": "Oct 31, 2005", "price": 89.06}, {"date": "Nov 30, 2005", "price": 91.75}, {"date": "Dec 31, 2005", "price": 97.75}, {"date": "Jan 31, 2006", "price": 96.68}, {"date": "Feb 28, 2006", "price": 99.69}, {"date": "Mar 31, 2006", "price": 93.61}, {"date": "Apr 30, 2006", "price": 90.73}, {"date": "May 31, 2006", "price": 88.2}, {"date": "Jun 30, 2006", "price": 87.87}, {"date": "Jul 31, 2006", "price": 90.3}, {"date": "Aug 31, 2006", "price": 103.3}, {"date": "Sep 30, 2006", "price": 112.0}, {"date": "Oct 31, 2006", "price": 113.61}, {"date": "Nov 30, 2006", "price": 115.56}, {"date": "Dec 31, 2006", "price": 125.63}, {"date": "Jan 31, 2007", "price": 125.46}, {"date": "Feb 28, 2007", "price": 128.14}, {"date": "Mar 31, 2007", "price": 133.04}, {"date": "Apr 30, 2007", "price": 128.63}, {"date": "May 31, 2007", "price": 136.62}, {"date": "Jun 30, 2007", "price": 126.81}, {"date": "Jul 31, 2007", "price": 121.29}, {"date": "Aug 31, 2007", "price": 116.14}, {"date": "Sep 30, 2007", "price": 124.41}, {"date": "Oct 31, 2007", "price": 111.63}, {"date": "Nov 30, 2007", "price": 119.91}, {"date": "Dec 31, 2007", "price": 120.65}, {"date": "Jan 31, 2008", "price": 115.08}, {"date": "Feb 29, 2008", "price": 113.83}, {"date": "Mar 31, 2008", "price": 120.75}, {"date": "Apr 30, 2008", "price": 126.56}, {"date": "May 31, 2008", "price": 121.01}, {"date": "Jun 30, 2008", "price": 130.29}, {"date": "Jul 31, 2008", "price": 137.23}, {"date": "Aug 31, 2008", "price": 123.34}, {"date": "Sep 30, 2008", "price": 127.29}, {"date": "Oct 31, 2008", "price": 109.22}, {"date": "Nov 30, 2008", "price": 139.47}, {"date": "Dec 31, 2008", "price": 132.89}, {"date": "Jan 31, 2009", "price": 142.23}, {"date": "Feb 28, 2009", "price": 162.62}, {"date": "Mar 31, 2009", "price": 166.39}, {"date": "Apr 30, 2009", "price": 152.15}, {"date": "May 31, 2009", "price": 151.11}, {"date": "Jun 30, 2009", "price": 153.57}, {"date": "Jul 31, 2009", "price": 147.25}, {"date": "Aug 31, 2009", "price": 146.22}, {"date": "Sep 30, 2009", "price": 135.31}, {"date": "Oct 31, 2009", "price": 147.87}, {"date": "Nov 30, 2009", "price": 158.07}, {"date": "Dec 31, 2009", "price": 155.03}, {"date": "Jan 31, 2010", "price": 165.93}, {"date": "Feb 28, 2010", "price": 173.09}, {"date": "Mar 31, 2010", "price": 185.01}, {"date": "Apr 30, 2010", "price": 190.88}, {"date": "May 31, 2010", "price": 193.22}, {"date": "Jun 30, 2010", "price": 211.57}, {"date": "Jul 31, 2010", "price": 209.78}, {"date": "Aug 31, 2010", "price": 228.91}, {"date": "Sep 30, 2010", "price": 237.63}, {"date": "Oct 31, 2010", "price": 259.41}, {"date": "Nov 30, 2010", "price": 272.59}, {"date": "Dec 31, 2010", "price": 253.53}, {"date": "Jan 31, 2011", "price": 257.95}, {"date": "Feb 28, 2011", "price": 273.56}, {"date": "Mar 31, 2011", "price": 282.38}, {"date": "Apr 30, 2011", "price": 294.0}, {"date": "May 31, 2011", "price": 294.85}, {"date": "Jun 30, 2011", "price": 285.45}, {"date": "Jul 31, 2011", "price": 307.0}, {"date": "Aug 31, 2011", "price": 319.19}, {"date": "Sep 30, 2011", "price": 323.59}, {"date": "Oct 31, 2011", "price": 328.38}, {"date": "Nov 30, 2011", "price": 324.97}, {"date": "Dec 31, 2011", "price": 347.88}, {"date": "Jan 31, 2012", "price": 374.48}, {"date": "Feb 29, 2012", "price": 371.8}, {"date": "Mar 31, 2012", "price": 396.16}, {"date": "Apr 30, 2012", "price": 380.26}, {"date": "May 31, 2012", "price": 367.17}, {"date": "Jun 30, 2012", "price": 375.23}, {"date": "Jul 31, 2012", "price": 361.64}, {"date": "Aug 31, 2012", "price": 369.67}, {"date": "Sep 30, 2012", "price": 375.0}, {"date": "Oct 31, 2012", "price": 383.77}, {"date": "Nov 30, 2012", "price": 354.43}, {"date": "Dec 31, 2012", "price": 369.7}, {"date": "Jan 31, 2013", "price": 380.15}, {"date": "Feb 28, 2013", "price": 396.77}, {"date": "Mar 31, 2013", "price": 409.09}, {"date": "Apr 30, 2013", "price": 408.83}, {"date": "May 31, 2013", "price": 423.69}, {"date": "Jun 30, 2013", "price": 448.58}, {"date": "Jul 31, 2013", "price": 419.94}, {"date": "Aug 31, 2013", "price": 422.73}, {"date": "Sep 30, 2013", "price": 434.69}, {"date": "Oct 31, 2013", "price": 461.6}, {"date": "Nov 30, 2013", "price": 477.94}, {"date": "Dec 31, 2013", "price": 495.06}, {"date": "Jan 31, 2014", "price": 538.44}, {"date": "Feb 28, 2014", "price": 537.1}, {"date": "Mar 31, 2014", "price": 533.89}, {"date": "Apr 30, 2014", "price": 532.5}, {"date": "May 31, 2014", "price": 536.24}, {"date": "Jun 30, 2014", "price": 517.03}, {"date": "Jul 31, 2014", "price": 538.84}, {"date": "Aug 31, 2014", "price": 509.66}, {"date": "Sep 30, 2014", "price": 553.52}, {"date": "Oct 31, 2014", "price": 577.71}, {"date": "Nov 30, 2014", "price": 619.11}, {"date": "Dec 31, 2014", "price": 596.96}, {"date": "Jan 31, 2015", "price": 642.68}, {"date": "Feb 28, 2015", "price": 682.16}, {"date": "Mar 31, 2015", "price": 672.66}, {"date": "Apr 30, 2015", "price": 673.62}, {"date": "May 31, 2015", "price": 666.9}, {"date": "Jun 30, 2015", "price": 700.94}, {"date": "Jul 31, 2015", "price": 715.99}, {"date": "Aug 31, 2015", "price": 723.83}, {"date": "Sep 30, 2015", "price": 784.41}, {"date": "Oct 31, 2015", "price": 783.77}, {"date": "Nov 30, 2015", "price": 741.91}, {"date": "Dec 31, 2015", "price": 767.39}, {"date": "Jan 31, 2016", "price": 774.57}, {"date": "Feb 29, 2016", "price": 796.69}, {"date": "Mar 31, 2016", "price": 765.23}, {"date": "Apr 30, 2016", "price": 762.2}, {"date": "May 31, 2016", "price": 793.84}, {"date": "Jun 30, 2016", "price": 813.97}, {"date": "Jul 31, 2016", "price": 741.8}, {"date": "Aug 31, 2016", "price": 768.34}, {"date": "Sep 30, 2016", "price": 742.16}, {"date": "Oct 31, 2016", "price": 783.18}, {"date": "Nov 30, 2016", "price": 789.79}, {"date": "Dec 31, 2016", "price": 724.98}, {"date": "Jan 31, 2017", "price": 736.55}, {"date": "Feb 28, 2017", "price": 723.05}, {"date": "Mar 31, 2017", "price": 692.19}, {"date": "Apr 30, 2017", "price": 605.92}, {"date": "May 31, 2017", "price": 570.46}, {"date": "Jun 30, 2017", "price": 539.82}, {"date": "Jul 31, 2017", "price": 528.44}, {"date": "Aug 31, 2017", "price": 595.11}, {"date": "Sep 30, 2017", "price": 589.5}, {"date": "Oct 31, 2017", "price": 686.76}, {"date": "Nov 30, 2017", "price": 711.37}, {"date": "Dec 31, 2017", "price": 765.44}, {"date": "Jan 31, 2018", "price": 664.72}, {"date": "Feb 28, 2018", "price": 648.69}, {"date": "Mar 31, 2018", "price": 624.52}, {"date": "Apr 30, 2018", "price": 649.32}, {"date": "May 31, 2018", "price": 670.93}, {"date": "Jun 30, 2018", "price": 705.53}, {"date": "Jul 31, 2018", "price": 766.88}, {"date": "Aug 31, 2018", "price": 775.7}, {"date": "Sep 30, 2018", "price": 733.47}, {"date": "Oct 31, 2018", "price": 809.07}, {"date": "Nov 30, 2018", "price": 838.34}, {"date": "Dec 31, 2018", "price": 847.34}, {"date": "Jan 31, 2019", "price": 938.97}, {"date": "Feb 28, 2019", "price": 1024.12}, {"date": "Mar 31, 2019", "price": 1028.31}, {"date": "Apr 30, 2019", "price": 1027.11}, {"date": "May 31, 2019", "price": 1099.47}, {"date": "Jun 30, 2019", "price": 1123.04}, {"date": "Jul 31, 2019", "price": 1101.69}, {"date": "Aug 31, 2019", "price": 1084.62}, {"date": "Sep 30, 2019", "price": 1144.38}, {"date": "Oct 31, 2019", "price": 1177.92}, {"date": "Nov 30, 2019", "price": 1191.31}, {"date": "Dec 31, 2019", "price": 1057.96}, {"date": "Jan 31, 2020", "price": 1032.51}, {"date": "Feb 29, 2020", "price": 846.0}, {"date": "Mar 31, 2020", "price": 1020.32}, {"date": "Apr 30, 2020", "price": 1147.86}, {"date": "May 31, 2020", "price": 1128.12}, {"date": "Jun 30, 2020", "price": 1207.42}, {"date": "Jul 31, 2020", "price": 1196.31}, {"date": "Aug 31, 2020", "price": 1177.64}, {"date": "Sep 30, 2020", "price": 1128.98}, {"date": "Oct 31, 2020", "price": 1137.65}, {"date": "Nov 30, 2020", "price": 1185.44}, {"date": "Dec 31, 2020", "price": 1118.37}, {"date": "Jan 31, 2021", "price": 1159.92}, {"date": "Feb 28, 2021", "price": 1404.3}, {"date": "Mar 31, 2021", "price": 1464.12}, {"date": "Apr 30, 2021", "price": 1406.6}, {"date": "May 31, 2021", "price": 1492.22}, {"date": "Jun 30, 2021", "price": 1623.57}, {"date": "Jul 31, 2021", "price": 1549.15}, {"date": "Aug 31, 2021", "price": 1697.99}, {"date": "Sep 30, 2021", "price": 1784.84}, {"date": "Oct 31, 2021", "price": 1817.07}, {"date": "Nov 30, 2021", "price": 2096.39}, {"date": "Dec 31, 2021", "price": 1986.35}, {"date": "Jan 31, 2022", "price": 1863.39}, {"date": "Feb 28, 2022", "price": 2044.58}, {"date": "Mar 31, 2022", "price": 1955.47}, {"date": "Apr 30, 2022", "price": 2059.65}, {"date": "May 31, 2022", "price": 2149.12}, {"date": "Jun 30, 2022", "price": 2137.39}, {"date": "Jul 31, 2022", "price": 2119.21}, {"date": "Aug 31, 2022", "price": 2141.93}, {"date": "Sep 30, 2022", "price": 2532.88}, {"date": "Oct 31, 2022", "price": 2579.0}, {"date": "Nov 30, 2022", "price": 2466.18}, {"date": "Dec 31, 2022", "price": 2438.85}, {"date": "Jan 31, 2023", "price": 2486.54}, {"date": "Feb 28, 2023", "price": 2458.15}, {"date": "Mar 31, 2023", "price": 2663.31}, {"date": "Apr 30, 2023", "price": 2386.84}, {"date": "May 31, 2023", "price": 2493.36}, {"date": "Jun 30, 2023", "price": 2481.72}, {"date": "Jul 31, 2023", "price": 2531.33}, {"date": "Aug 31, 2023", "price": 2539.99}, {"date": "Sep 30, 2023", "price": 2477.13}, {"date": "Oct 31, 2023", "price": 2609.93}, {"date": "Nov 30, 2023", "price": 2585.61}, {"date": "Dec 31, 2023", "price": 2762.13}, {"date": "Jan 31, 2024", "price": 3006.02}, {"date": "Feb 29, 2024", "price": 3151.65}, {"date": "Mar 31, 2024", "price": 2956.4}, {"date": "Apr 30, 2024", "price": 2769.94}, {"date": "May 31, 2024", "price": 2964.1}, {"date": "Jun 30, 2024", "price": 3133.69}, {"date": "Jul 31, 2024", "price": 3181.48}, {"date": "Aug 31, 2024", "price": 3150.04}, {"date": "Sep 30, 2024", "price": 3009.0}, {"date": "Oct 31, 2024", "price": 3169.54}, {"date": "Nov 30, 2024", "price": 3202.0}, {"date": "Dec 31, 2024", "price": 3350.21}, {"date": "Jan 31, 2025", "price": 3493.01}, {"date": "Feb 28, 2025", "price": 3812.78}, {"date": "Mar 31, 2025", "price": 3762.6}, {"date": "Apr 30, 2025", "price": 3733.04}, {"date": "May 31, 2025", "price": 3712.23}, {"date": "Jun 30, 2025", "price": 3768.38}, {"date": "Jul 31, 2025", "price": 4198.53}, {"date": "Aug 31, 2025", "price": 4290.24}, {"date": "Sep 30, 2025", "price": 3674.43}, {"date": "Oct 31, 2025", "price": 3954.33}, {"date": "Nov 30, 2025", "price": 3391.5}, {"date": "Dec 31, 2025", "price": 3704.29}, {"date": "Jan 31, 2026", "price": 3755.58}, {"date": "Feb 28, 2026", "price": 3377.78}, {"date": "Mar 31, 2026", "price": 3704.03}, {"date": "Apr 30, 2026", "price": 2935.19}, {"date": "May 31, 2026", "price": 3195.94}, {"date": "Jun 30, 2026", "price": 3016.25}, {"date": "Jul 31, 2026", "price": 3025.0}, {"date": "Aug 17, 2026", "price": 3038.45}]};
+        let currentRangeKey = '1Y';
+        let currentPoints = allDatasets[currentRangeKey] || [];
+        let currentSvgCoords = [];
+
+        const width = 900;
+        const height = 260;
+        const padX = 20;
+        const padY = 25;
+
+        const container = document.getElementById('chart-container');
+        const svg = document.getElementById('interactive-svg');
+        const linePath = document.getElementById('chart-line-path');
+        const areaPath = document.getElementById('chart-area-path');
+        const tooltipDate = document.getElementById('tooltip-date');
+        const tooltipPrice = document.getElementById('tooltip-price');
+        const tooltipDelta = document.getElementById('tooltip-delta');
+        const crosshairV = document.getElementById('crosshair-v');
+        const crosshairH = document.getElementById('crosshair-h');
+        const dotOuter = document.getElementById('hover-dot-outer');
+        const dot = document.getElementById('hover-dot');
+        const badgeX = document.getElementById('chart-badge-x');
+        const badgeY = document.getElementById('chart-badge-y');
+        const startLbl = document.getElementById('chart-start-lbl');
+        const endLbl = document.getElementById('chart-end-lbl');
+        const rangeTitle = document.getElementById('chart-range-title');
+
+        // Hero price elements
+        const heroPriceNum = document.querySelector('.price-number');
+        const heroPriceSub = document.querySelector('.price-sub');
+        const defaultHeroPrice = heroPriceNum ? heroPriceNum.innerText : '';
+        const defaultHeroSub = heroPriceSub ? heroPriceSub.innerText : '';
+        const defaultHeroSubClass = heroPriceSub ? heroPriceSub.className : '';
+
+        function recalculatePaths(points) {
+            if (!points || points.length < 2) return;
+            const prices = points.map(p => p.price);
+            const minP = Math.min(...prices);
+            const maxP = Math.max(...prices);
+            const pRange = Math.max(maxP - minP, 0.01);
+            const n = points.length;
+
+            currentSvgCoords = [];
+            for (let i = 0; i < n; i++) {
+                const x = padX + (i / (n - 1)) * (width - 2 * padX);
+                const y = height - padY - ((points[i].price - minP) / pRange) * (height - 2 * padY);
+                currentSvgCoords.push([Math.round(x * 10) / 10, Math.round(y * 10) / 10]);
+            }
+
+            const lineD = 'M ' + currentSvgCoords.map(c => c[0] + ',' + c[1]).join(' L ');
+            const firstC = currentSvgCoords[0];
+            const lastC = currentSvgCoords[currentSvgCoords.length - 1];
+            const areaD = lineD + ' L ' + lastC[0] + ',' + height + ' L ' + firstC[0] + ',' + height + ' Z';
+
+            linePath.setAttribute('d', lineD);
+            areaPath.setAttribute('d', areaD);
+
+            startLbl.innerText = points[0].date + ' ($' + minP.toFixed(2) + ')';
+            endLbl.innerText = points[n - 1].date + ' ($' + points[n - 1].price.toFixed(2) + ')';
+            
+            tooltipDate.innerText = points[n - 1].date;
+            tooltipPrice.innerText = '$' + points[n - 1].price.toFixed(2);
+            if (tooltipDelta) tooltipDelta.innerText = '';
+
+            const titles = { '1Y': '1-Year Range', '5Y': '5-Year Range', '10Y': '10-Year Range', 'MAX': 'All-Time Historical Range' };
+            rangeTitle.innerText = titles[currentRangeKey] || currentRangeKey + ' Range';
+        }
+
+        window.switchChartRange = function(rangeKey) {
+            if (!allDatasets[rangeKey]) return;
+            currentRangeKey = rangeKey;
+            currentPoints = allDatasets[rangeKey];
+            
+            document.querySelectorAll('.range-pill').forEach(btn => {
+                if (btn.innerText.trim() === rangeKey) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            recalculatePaths(currentPoints);
+            hideHover();
+        };
+
+        function updateHover(e) {
+            if (!currentPoints.length || !currentSvgCoords.length) return;
+            const rect = svg.getBoundingClientRect();
+            const mouseX = Math.max(0, Math.min(rect.width, e.clientX - rect.left));
+            const pct = mouseX / rect.width;
+            const idx = Math.min(currentPoints.length - 1, Math.max(0, Math.round(pct * (currentPoints.length - 1))));
+            
+            const pt = currentPoints[idx];
+            const coord = currentSvgCoords[idx];
+            if (!pt || !coord) return;
+
+            // Vertical crosshair
+            crosshairV.setAttribute('x1', coord[0]);
+            crosshairV.setAttribute('x2', coord[0]);
+            crosshairV.style.display = 'block';
+
+            // Horizontal crosshair
+            crosshairH.setAttribute('y1', coord[1]);
+            crosshairH.setAttribute('y2', coord[1]);
+            crosshairH.style.display = 'block';
+
+            // Dot & Halo
+            dotOuter.setAttribute('cx', coord[0]);
+            dotOuter.setAttribute('cy', coord[1]);
+            dotOuter.style.display = 'block';
+
+            dot.setAttribute('cx', coord[0]);
+            dot.setAttribute('cy', coord[1]);
+            dot.style.display = 'block';
+
+            // Floating X-Axis Badge (CSS coords)
+            const cssX = (coord[0] / width) * rect.width;
+            badgeX.style.left = cssX + 'px';
+            badgeX.innerText = pt.date;
+            badgeX.style.display = 'block';
+
+            // Floating Y-Axis Badge (CSS coords)
+            const cssY = (coord[1] / height) * rect.height;
+            badgeY.style.top = cssY + 'px';
+            badgeY.innerText = '$' + pt.price.toFixed(2);
+            badgeY.style.display = 'block';
+
+            // Calculate range delta
+            const basePrice = currentPoints[0].price;
+            const deltaPct = ((pt.price - basePrice) / basePrice) * 100;
+            const deltaClass = deltaPct >= 0 ? 'pos' : 'neg';
+            const deltaSign = deltaPct >= 0 ? '+' : '';
+
+            // Tooltop header
+            tooltipDate.innerText = pt.date;
+            tooltipPrice.innerText = '$' + pt.price.toFixed(2);
+            if (tooltipDelta) {
+                tooltipDelta.className = deltaClass;
+                tooltipDelta.innerText = `${deltaSign}${deltaPct.toFixed(2)}% vs Range Start`;
+            }
+
+            // Real-time Hero Scrubbing
+            if (heroPriceNum) {
+                heroPriceNum.innerText = '$' + pt.price.toFixed(2);
+            }
+            if (heroPriceSub) {
+                heroPriceSub.className = 'price-sub ' + deltaClass;
+                heroPriceSub.innerText = `${deltaSign}${deltaPct.toFixed(2)}%`;
+            }
+        }
+
+        function hideHover() {
+            crosshairV.style.display = 'none';
+            crosshairH.style.display = 'none';
+            dotOuter.style.display = 'none';
+            dot.style.display = 'none';
+            badgeX.style.display = 'none';
+            badgeY.style.display = 'none';
+            if (tooltipDelta) tooltipDelta.innerText = '';
+
+            if (currentPoints.length) {
+                tooltipDate.innerText = currentPoints[currentPoints.length - 1].date;
+                tooltipPrice.innerText = '$' + currentPoints[currentPoints.length - 1].price.toFixed(2);
+            }
+
+            if (heroPriceNum && defaultHeroPrice) {
+                heroPriceNum.innerText = defaultHeroPrice;
+            }
+            if (heroPriceSub && defaultHeroSub) {
+                heroPriceSub.className = defaultHeroSubClass;
+                heroPriceSub.innerText = defaultHeroSub;
+            }
+        }
+
+        container.addEventListener('mousemove', updateHover);
+        container.addEventListener('mouseleave', hideHover);
+        container.addEventListener('touchstart', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
+        container.addEventListener('touchmove', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
+        container.addEventListener('touchend', hideHover);
+
+        recalculatePaths(currentPoints);
+    })();
+    </script>
+    
+
+            <!-- Key Metrics Grid -->
+            <div class="metrics-grid">
+                <div class="metric-cell">
+                    <div class="metric-label">Fair Value</div>
+                    <div class="metric-value" style="color: var(--accent-warm);">$3,780.00</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Bear Target</div>
+                    <div class="metric-value" style="color: var(--accent-red);">$2,750.00 (-9.8%)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Base Target</div>
+                    <div class="metric-value">$3,780.00 (+24.0%)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Bull Target</div>
+                    <div class="metric-value" style="color: var(--accent-green);">$4,450.00 (+46.0%)</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Corridor</div>
+                    <div class="metric-value" style="font-size: 1.00rem; font-family: var(--font-mono); color: var(--text-title);">$2800.00 ⇄ $3750.00</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Catalyst</div>
+                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">2026-09-22</div>
+                    <div class="metric-delta" style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 2px;">Q4 '26 ER</div>
+                </div>
+                
+    <div class="metric-cell">
+        <div class="metric-label">Float</div>
+        <div class="metric-value" style="white-space: nowrap !important;">74.7%</div>
+        <div class="metric-subtext">Tweedy Browne</div>
+    </div>
+    
+                
+    <div class="metric-cell">
+        <div class="metric-label">Insiders</div>
+        <div class="metric-value" style="color: var(--accent-warm); font-family: var(--font-sans) !important; font-size: 1.05rem !important; font-weight: 600 !important; white-space: nowrap !important; letter-spacing: -0.01em !important; overflow: hidden !important; text-overflow: ellipsis !important;">🟡 Net Buying</div>
+        <div class="metric-subtext">Routine management alignment</div>
+    </div>
+    
+            </div>
+        </section>
+
+        <!-- Navigation Tabs -->
+        <div class="tabs-header">
+            <button id="btn-tab-memo" class="tab-btn active" onclick="showTab('memo')">Investment Thesis</button>
+            <button id="btn-tab-history" class="tab-btn" onclick="showTab('history')">Evolution (0)</button>
+            <button id="btn-tab-ownership" class="tab-btn" onclick="showTab('ownership')">Ownership & Fund Intel</button>
+        </div>
+
+        <!-- Memo Content -->
+        <div id="tab-memo" class="tab-content active">
+            <article class="memo-container">
+                <h2>Section 1: Executive Summary &amp; Operating Reality</h2>
+<p>AutoZone, Inc. (NYSE: AZO) delivered resilient operational performance in its Q3 Fiscal 2026 financial results (for the 12 weeks ended May 9, 2026), generating GAAP net sales of $4.84 billion, an 8.4% increase year-over-year. Total company same-store sales expanded 5.5% on a reported basis (3.9% on a constant-currency basis), underpinned by domestic same-store sales growth of 4.1%. Growth was primarily spearheaded by the Commercial (Do-It-For-Me / DIFM) segment, which surged 10.4% YoY to $1.40 billion, demonstrating continued market share gains from independent jobbers. Diluted earnings per share reached $38.07, representing a 7.7% YoY increase from $35.36 in Q3 FY2025. GAAP gross profit margin contracted 57 basis points to 52.2%, primarily reflecting a $20.0 million non-cash LIFO accounting drag (77 bps impact). Operating expenses leveraged favorably to 33.1% of sales from 33.3% last year, allowing GAAP operating profit (EBIT) to rise 6.6% to $923.8 million, translating to a strong 19.1% operating margin.</p>
+<p>From a capital allocation perspective, AutoZone continues to operate as an elite share cannibal. During Q3 FY2026, management deployed $586.3 million to repurchase 164,000 shares of common stock at an average price of $3,582 per share, bringing year-to-date buyback deployment past $1.3 billion. Operating cash flow generation remains robust, yielding Q3 Free Cash Flow of $455 million ($1.10 billion YTD), supported by AutoZone's signature negative working capital engine where accounts payable routinely cover merchandise inventory. Management accelerated its footprint expansion, opening 82 net new global stores in Q3 (57 in the U.S., 20 in Mexico, and 5 in Brazil), elevating total store count to 7,856. On the Q3 earnings call, executive leadership raised full-year store opening guidance to 355–365 stores, backed by $1.6 billion in annual CapEx targeted at expanding high-density MegaHub supply chain networks.</p>
+<p>A rigorous audit of primary insider records via OpenInsider and Dataroma confirms alignment between management actions and long-term shareholder value. Recent filings highlight notable open-market insider purchases in 2026, including Director Brian Hannasch purchasing $492,855 of AZO stock in May 2026 at ~$2,987 per share, Director Michael George acquiring $492,729 of equity in December 2025, and Chief Financial Officer Jamere Jackson purchasing $187,742 of stock. Institutional whale tracker data reveals steady long-term backing from fundamental compounding funds such as Tweedy Browne. Executive management’s direct skin-in-the-game underscores high confidence in AutoZone’s commercial penetration strategy despite macro noise regarding consumer belt-tightening and tariff friction.</p>
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">Quarterly Revenue</div>
+<div class="metric-value">$4.84B</div>
+<div class="metric-delta pos">+8.4% YoY</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Operating Margin</div>
+<div class="metric-value">19.1%</div>
+<div class="metric-delta neg">-32 bps YoY</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Free Cash Flow</div>
+<div class="metric-value">$455M</div>
+<div class="metric-delta pos">+12.3% YoY</div>
+</div>
+</div>
+<div class="executive-callout">
+<div class="exec-header"><span class="exec-badge">Executive Commentary</span></div>
+<p><em>"Our Commercial strategy continues to yield outsized market share gains as our MegaHub rollout elevates local parts availability to unprecedented levels. In Q3, Commercial sales grew 10.4%, driven by speed-to-delivery improvements and expanded coverage. We remain deeply committed to our disciplined capital allocation framework—reinvesting in high-ROIC store growth, expanding our supply chain infrastructure, and returning all excess cash to shareholders via repurchases. Year-to-date, we have opened 206 new stores globally and expect to complete 355 to 365 store openings for the full fiscal year."</em> — <strong>Philip Daniele, President &amp; Chief Executive Officer</strong></p>
+</div>
+<h2>Section 2: Business Model Reality &amp; Competitive Moat</h2>
+<p>AutoZone operates an exceptionally durable, dual-channel automotive aftermarket distribution platform structured around two primary customer segments: DIY (Do-It-Yourself) retail consumers and Commercial DIFM (Do-It-For-Me) professional repair shops. In the retail DIY channel, AutoZone functions as an essential, high-urgency service provider. When an auto owner's alternator fails or battery dies, purchase decisions are driven by immediate part availability and store proximity rather than price sensitivity. This breakdown-driven demand curve grants AutoZone extraordinary pricing power, allowing the enterprise to pass product cost inflation directly through to retail shelf pricing without sacrificing gross margins or volume.</p>
+<p>The operational moat is reinforced by AutoZone's industry-leading <strong>Vendor Payables Float Engine</strong> (negative working capital cycle). AutoZone leverages its massive purchasing scale to negotiate extended vendor payment terms that exceed its inventory turnover days. Accounts payable routinely exceed 100% of merchandise inventory balance sheets (net inventory per store stood at negative $107 thousand in Q3 FY2026). In essence, parts suppliers fund AutoZone's inventory, generating a persistent, interest-free float that management redirects toward high-ROIC new store construction, MegaHub fulfillment infrastructure, and opportunistic share buybacks.</p>
+<p>To capture the commercial DIFM market—historically dominated by O'Reilly Automotive and local jobbers—AutoZone developed its proprietary <strong>MegaHub Strategy</strong>. Standard retail stores carry approximately 22,000 SKUs, whereas MegaHub locations stock up to 100,000+ unique SKUs. Serving as regional distribution anchors, MegaHubs fulfill parts deliveries to surrounding satellite stores and commercial repair bays within 15 to 30 minutes. This speed-of-delivery network creates substantial switching costs for commercial shop managers, who prioritize bay turnover time and part accuracy over minor price differentials.</p>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Operational Metric / Feature</th>
+<th>AutoZone (AZO)</th>
+<th>O'Reilly Automotive (ORLY)</th>
+<th>Advance Auto Parts (AAP)</th>
+<th>Genuine Parts / NAPA (GPC)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Core Revenue Mix</strong></td>
+<td>~70% DIY / ~30% DIFM</td>
+<td>~55% DIY / ~45% DIFM</td>
+<td>~40% DIY / ~60% DIFM</td>
+<td>~15% DIY / ~85% DIFM</td>
+</tr>
+<tr>
+<td><strong>Global Store Footprint</strong></td>
+<td>7,856 Stores (US, MX, BR)</td>
+<td>6,200+ Stores (US, MX, CA)</td>
+<td>4,700+ Stores (US, CA)</td>
+<td>9,800+ Locations (Global)</td>
+</tr>
+<tr>
+<td><strong>Operating Margin (TTM)</strong></td>
+<td>19.1%</td>
+<td>19.6%</td>
+<td>-1.1% (Restructuring)</td>
+<td>6.8%</td>
+</tr>
+<tr>
+<td><strong>Accounts Payable / Inventory Ratio</strong></td>
+<td>&gt; 100% (Negative Working Capital)</td>
+<td>~100% (Neutral/Negative WC)</td>
+<td>~70% (Positive WC Drain)</td>
+<td>~55% (Working Capital Heavy)</td>
+</tr>
+<tr>
+<td><strong>Return on Invested Capital (ROIC)</strong></td>
+<td>&gt; 50% (Pinnacle Tier)</td>
+<td>~38% (High Quality)</td>
+<td>&lt; 5% (Distressed)</td>
+<td>~12% (Moderate)</td>
+</tr>
+<tr>
+<td><strong>Hub Infrastructure Strategy</strong></td>
+<td>100,000+ SKU MegaHubs</td>
+<td>120,000+ SKU Super Hubs</td>
+<td>Consolidating Hub Network</td>
+<td>Two-Tier Independent Jobbers</td>
+</tr>
+</tbody>
+</table></div>
+<p>An objective audit of structural demand drivers versus competitive disruption threats illustrates the long-term defensibility of AutoZone's cash flows:</p>
+<ul>
+<li><strong>Structural Demand Drivers (Tailwinds):</strong>
+
+</li><li><em>Fleet Complexity &amp; Electronics:</em> Increasing electronic sophistication in internal combustion engine (ICE) and hybrid vehicles inflates average order value (AOV) per repair ticket, sustaining revenue expansion.</li><li><em>Vehicle Miles Traveled (VMT):</em> Total U.S. miles driven remain near historic highs, directly driving wear-and-tear cycle frequency on brakes, chassis components, and tires.</li><li><em>Aging U.S. Vehicle Fleet:</em> The average age of light vehicles in the United States has reached an all-time high of 12.6 years. Older vehicles out of factory warranty require non-discretionary maintenance and component replacement, expanding AutoZone's addressable market.</li>
+<li><strong>Competitive Disruption Threats (Risks):</strong>
+
+</li><li><em>Wage Inflation &amp; Supply Chain Friction:</em> Rising store-level retail wages and potential import tariff escalation pressure operating margins, requiring continuous labor automation and supply chain density optimization.</li><li><em>E-Commerce Disintermediation:</em> Pure-play online retailers (Amazon, RockAuto) offer lower prices on non-urgent, scheduled maintenance parts. However, AutoZone's same-day delivery requirement for emergency breakdowns and commercial bay speed shields core gross profits.</li><li><em>EV Fleet Penetration:</em> Pure battery electric vehicles (BEVs) contain ~30% fewer moving parts than ICE vehicles (eliminating spark plugs, oil filters, mufflers, and complex transmissions). While BEV adoption headwinds are muted over a 10-year horizon due to fleet inertia, long-term DIY volume face secular erosion.</li>
+</ul>
+<h2>Section 3: Real Cash Flow, SBC Dilution &amp; Owner Earnings Audit</h2>
+<p>Wall Street frequently focuses on non-GAAP adjusted earnings metrics that conveniently add back stock-based compensation and disguise long-term maintenance reinvestment needs. Following Warren Buffett’s classic 1986 Shareholder Letter methodology, true business valuation requires auditing cash generated from operations, subtracting 100% of Stock-Based Compensation (SBC) as an undeniable economic cash dilution cost, and separating growth-oriented CapEx from the maintenance CapEx required to preserve unit volume and competitive position.</p>
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">TTM Operating Cash Flow</div>
+<div class="metric-value">$3,180.0M</div>
+<div class="metric-delta pos">+2.5% YoY</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">TTM Owner Earnings</div>
+<div class="metric-value">$2,595.0M</div>
+<div class="metric-delta pos">High Conversion</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">TTM SBC Cash Expense</div>
+<div class="metric-value">$135.0M</div>
+<div class="metric-delta neutral">4.2% of OCF</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">AP / Inventory Ratio</div>
+<div class="metric-value">115.6%</div>
+<div class="metric-delta pos">Negative WC Float</div>
+</div>
+</div>
+<p>AutoZone's business model generates remarkably high cash conversion. Unlike tech companies that hand out massive equity grants to inflate reported free cash flow, AutoZone’s stock-based compensation remains disciplined, accounting for just ~4.2% of operating cash flow. However, because equity issuances dilute existing shareholders or require cash repurchases to offset dilution, 100% of SBC is treated as an immediate cash deduction in our Owner Earnings model.</p>
+<p>Distinguishing maintenance CapEx from total capital expenditures is essential for evaluating AutoZone's intrinsic value. In fiscal 2025 and 2026, total CapEx expanded rapidly ($1.31B and $1.38B TTM) as management accelerated store footprint growth, adding over 200–300 net new stores annually while building out regional Hubs and Mega Hubs to drive commercial Do-It-For-Me (DIFM) market share. Approximately 65%–70% of total CapEx represents discretionary growth CapEx (new store real estate acquisition, hub builds, international expansion in Mexico and Brazil). True maintenance CapEx—required to maintain existing retail stores, distribution center machinery, and IT infrastructure—is estimated at ~$425M–$450M annually.</p>
+<h3>Buffett Owner Earnings Decomposition Table</h3>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Metric ($ Millions)</th>
+<th>FY 2024</th>
+<th>FY 2025</th>
+<th>FY 2026</th>
+<th>TTM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GAAP Operating Cash Flow</td>
+<td>$3,044.8</td>
+<td>$3,101.4</td>
+<td>$3,180.0</td>
+<td>$3,180.0</td>
+</tr>
+<tr>
+<td>Less: Total SBC (100% Cash Deduction)</td>
+<td>($118.8)</td>
+<td>($122.5)</td>
+<td>($135.0)</td>
+<td>($135.0)</td>
+</tr>
+<tr>
+<td>Less: Maintenance CapEx (Moat Preservation)</td>
+<td>($385.0)</td>
+<td>($425.0)</td>
+<td>($450.0)</td>
+<td>($450.0)</td>
+</tr>
+<tr>
+<td><strong>Buffett Owner Earnings (True Cash)</strong></td>
+<td><strong>$2,541.0</strong></td>
+<td><strong>$2,553.9</strong></td>
+<td><strong>$2,595.0</strong></td>
+<td><strong>$2,595.0</strong></td>
+</tr>
+<tr>
+<td><em>Mem: Total CapEx (Growth + Maintenance)</em></td>
+<td><em>($1,104.4)</em></td>
+<td><em>($1,308.2)</em></td>
+<td><em>($1,380.0)</em></td>
+<td><em>($1,380.0)</em></td>
+</tr>
+<tr>
+<td><em>Mem: Standard Free Cash Flow (OCF - Total CapEx)</em></td>
+<td><em>$1,940.4</em></td>
+<td><em>$1,793.2</em></td>
+<td><em>$1,800.0</em></td>
+<td><em>$1,800.0</em></td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout">
+<strong>Working Capital Float &amp; Trade Credit Advantage:</strong> AutoZone operates with an extraordinary negative working capital model. By utilizing its dominant scale in auto parts retail, AutoZone secures extended payment terms from parts manufacturers (120–180 days) while selling goods to retail DIY and commercial DIFM customers for cash or short-term credit. Accounts payable sits at $8.26B against total inventory of $7.14B, yielding an AP-to-Inventory ratio of 115.6%. AutoZone effectively operates on an interest-free float provided by suppliers, allowing the business to finance 100% of its merchandise inventory and a substantial portion of store expansions without utilizing high-cost corporate debt.
+</div>
+<h2>Section 4: Balance Sheet Fortress, Debt Leases &amp; Ownership Check</h2>
+<p>A fundamental evaluation of AutoZone's balance sheet requires looking beyond gross nominal debt. AutoZone operates under a deliberate financial policy targeting an adjusted debt-to-EBITDAR ratio of ~2.5x to optimize return on equity while protecting its investment-grade credit rating. Because retail locations and distribution hubs rely heavily on long-term real estate leases, a true audit must capitalize all operating and finance lease obligations alongside long-term senior debt obligations.</p>
+<h3>Capital Structure &amp; Debt Liquidity Bridge</h3>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Balance Sheet Component ($ Millions)</th>
+<th>Carrying Value</th>
+<th>Capitalization &amp; Valuation Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cash and Cash Equivalents</td>
+<td>$287.6</td>
+<td>Unrestricted liquid operating cash balance</td>
+</tr>
+<tr>
+<td>Marketable Debt Securities (Insurance Captive)</td>
+<td>$120.2</td>
+<td>Short-term Treasuries held in trust</td>
+</tr>
+<tr>
+<td><strong>Total Cash &amp; Short-Term Liquid Assets</strong></td>
+<td><strong>$407.8</strong></td>
+<td><strong>Cash bridge addition to enterprise value</strong></td>
+</tr>
+<tr>
+<td>Senior Unsecured Notes &amp; Commercial Paper</td>
+<td>$8,623.1</td>
+<td>Long-term fixed/floating debt obligations</td>
+</tr>
+<tr>
+<td>Finance Lease Liabilities</td>
+<td>$399.9</td>
+<td>Capitalized real estate &amp; vehicle obligations</td>
+</tr>
+<tr>
+<td>Operating Lease Liabilities (Current &amp; Non-Current)</td>
+<td>$3,426.5</td>
+<td>Present value of store network leases</td>
+</tr>
+<tr>
+<td><strong>Total Contractual Debt &amp; Lease Obligations</strong></td>
+<td><strong>$12,449.5</strong></td>
+<td><strong>Gross capital structure claim</strong></td>
+</tr>
+<tr>
+<td><strong>Net Debt (Including Operating &amp; Finance Leases)</strong></td>
+<td><strong>$12,041.7</strong></td>
+<td><strong>Deduction from asset value in DCF bridge</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>AutoZone's interest coverage remains secure despite high nominal leverage. Trailing 12-month operating income (EBIT) of ~$3.61B provides a 7.6x interest coverage ratio against ~$475M in net interest expenses. The company's debt maturities are well-laddered with fixed interest rates, mitigating immediate refinancing risks.</p>
+<h3>Share Buyback Cannibalization: The 90% Share Reduction Engine</h3>
+<p>AutoZone represents one of the most aggressive and effective share cannibals in corporate history. Since initiating its stock repurchase program in 1998, the Board of Directors has authorized $42.2 billion in cumulative buybacks. Management uses organic free cash flow and incremental low-cost debt to purchase and retire shares systematically.</p>
+<ul>
+<li><strong>Historical Share Reduction:</strong> From a peak of over 150 million shares outstanding in 1998, AutoZone has reduced its diluted share count by over 89% to 16.52 million shares.</li>
+<li><strong>Recent Execution:</strong> Over the past 12 months, management spent ~$1.6B–$1.8B on share repurchases, shrinking the total share count from 17.51M in FY 2024 to 16.52M in Q2/Q3 2026 (~2.8% to 3.5% net annual shrinkage).</li>
+<li><strong>Authorization Floor:</strong> In June 2026, the Board authorized an additional $1.5 billion for share repurchases, confirming management's commitment to returning all excess cash to owners.</li>
+<li><strong>Anti-Dilution Efficacy:</strong> Executive equity compensation grants create less than 0.3% annual share dilution, ensuring that &gt;90% of share buybacks directly shrink the share denominator and compound per-share Owner Earnings.</li>
+</ul>
+<div class="callout">
+<strong>Ownership Audit &amp; Insider Trading Check:</strong> Institutional investors own approximately 92.4% of AutoZone's common stock, led by long-term index and value managers including Vanguard Group (~11.8%), BlackRock (~8.5%), and State Street (~4.2%). Superinvestor funds such as Tweedy Browne maintain active equity positions. Official SEC Form 4 filings reveal direct open-market purchases by corporate directors and executives: Director Brian Hannasch purchased 165 shares at $2,987.00 ($492.8K) in May 2026 after purchasing 147 shares at $3,393.09 ($498.8K) in December 2025. Director Michael George bought 145 shares at $3,398.13 ($492.7K) and CFO Jamere Jackson bought 55 shares at $3,413.50. Insider sales consist entirely of routine Form 144 tax-withholding transactions following stock option exercises. Open-market insider purchases by senior leadership reinforce management's long-term conviction in the business.
+</div>
+<h2>Section 5: Warren Buffett Owner Earnings Intrinsic Valuation Matrix</h2>
+<p>To value AutoZone, Inc. (AZO) through the classic Benjamin Graham and Warren Buffett framework, we evaluate the enterprise strictly as an unquoted private operating business. We ignore day-to-day market price fluctuations and Wall Street quarterly noise, focusing entirely on cash generated for owners after all necessary cash outflows, mandatory reinvestments, and dilution are accounted for.</p>
+<div class="callout">
+<p><strong>The Owner Earnings Identity (1986 Berkshire Hathaway Shareholder Letter):</strong><br/>
+<em>Owner Earnings = Operating Cash Flow − Maintenance Capital Expenditures − Stock-Based Compensation (100% Cash Deduction)</em></p>
+</div>
+<h3>1. Derivation of Normalized Owner Earnings</h3>
+<p>AutoZone operates an exceptionally disciplined retail and commercial automotive aftermarket model. Over recent trailing twelve-month reporting periods, AutoZone generated approximately $3.15 billion in Operating Cash Flow. To determine true Owner Earnings, we must separate maintenance CapEx from growth CapEx and deduct stock-based compensation:</p>
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">Operating Cash Flow (TTM)</div>
+<div class="metric-value">$3,150.0M</div>
+<div class="metric-delta pos">Sustainable Organic Baseline</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Maintenance CapEx</div>
+<div class="metric-value">-$500.0M</div>
+<div class="metric-delta neutral">~38% of Total $1.3B CapEx</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Stock-Based Comp (SBC)</div>
+<div class="metric-value">-$35.0M</div>
+<div class="metric-delta pos">100% Cash Deduction</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Normalized Owner Earnings</div>
+<div class="metric-value">$2,615.0M</div>
+<div class="metric-delta pos">$158.77 / Share</div>
+</div>
+</div>
+<ul>
+<li><strong>Maintenance CapEx vs. Growth CapEx:</strong> Total capital spending runs near $1.30 billion annually. However, approximately $800 million represents discretionary growth CapEx dedicated to opening new MegaHub distribution facilities and international retail expansion across Mexico and Brazil (aiming for 355–365 global store openings annually). Maintenance CapEx required to preserve existing store infrastructure, technology, and vehicle fleet is estimated at $500 million.</li>
+<li><strong>Stock-Based Compensation Reality:</strong> Unlike Silicon Valley tech firms, AutoZone exercises extreme restraint with SBC ($35 million annually). Consistent with Berkshire principles, we treat 100% of SBC as a direct cash cost to shareholders.</li>
+<li><strong>Working Capital Engine (Negative Working Capital Float):</strong> AutoZone operates with a negative working capital structure. Due to immense bargaining power, AutoZone's Accounts Payable to Inventory ratio exceeds 100% (AP routinely exceeds $6.0 billion against $5.8 billion in inventory). Vendors effectively fund AutoZone's inventory shelf space interest-free. This supplier float frees up virtually 100% of net income to be converted into Owner Earnings.</li>
+</ul>
+<h3>2. Localized Sovereign Discount Rate Derivation</h3>
+<p>Because AutoZone derives the vast majority of its cash flows within the United States (supplemented by profitable hubs in Mexico and Brazil), the discount rate is anchored strictly in the domestic risk-free rate plus an equity risk premium:</p>
+<ul>
+<li><strong>US 10-Year Treasury Sovereign Benchmark Yield:</strong> 4.25%</li>
+<li><strong>Equity Risk Premium (Mature Retail / Commercial Leader):</strong> 4.75%</li>
+<li><strong>Base Case Hurdle / Discount Rate:</strong> <strong>9.00%</strong></li>
+</ul>
+<h3>3. Share Cannibalization &amp; Capital Structure Bridge</h3>
+<p>AutoZone is one of the most prolific share repurchasers in corporate history. Since inception of its buyback program in 1998, the Board has authorized $42.2 billion in repurchases (including an additional $1.5 billion authorization in June 2026). Over the past 25 years, share count has been cannibalized from over 150 million down to 16.47 million diluted shares, compounding per-share Owner Earnings exponentially faster than organic top-line growth.</p>
+<p>Accounting for capital structure, AutoZone carries ~$8.9 billion in funded debt and ~$2.5 billion in operating lease obligations, offset by ~$250 million in cash, resulting in Net Debt &amp; Leases of ~$11.15 billion. Because the enterprise yields structural return on invested capital (ROIC) near 48% to 55%, carrying fixed debt at a weighted average interest rate of 4.52% creates substantial long-term economic value for equity holders.</p>
+<h3>4. Owner Earnings Intrinsic Valuation Scenario Matrix</h3>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Valuation Metric &amp; Assumptions</th>
+<th>Bear Case (Cycle Trough)</th>
+<th>Base Case (Normalized Reality)</th>
+<th>Bull Case (Optimistic Execution)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5-Year Organic OE CAGR</td>
+<td>3.5%</td>
+<td>6.5%</td>
+<td>9.5%</td>
+</tr>
+<tr>
+<td>Annual Share Count Reduction</td>
+<td>2.0%</td>
+<td>3.5%</td>
+<td>4.5%</td>
+</tr>
+<tr>
+<td>Discount Rate (Hurdle)</td>
+<td>9.5%</td>
+<td>9.0%</td>
+<td>8.5%</td>
+</tr>
+<tr>
+<td>Terminal FCF Growth Rate</td>
+<td>1.5%</td>
+<td>2.0%</td>
+<td>2.5%</td>
+</tr>
+<tr>
+<td><strong>Intrinsic Fair Value / Share</strong></td>
+<td><strong>$2,550.00</strong></td>
+<td><strong>$3,680.00</strong></td>
+<td><strong>$4,520.00</strong></td>
+</tr>
+<tr>
+<td><strong>Margin of Safety vs Current Price ($3,048.64)</strong></td>
+<td><strong>-16.4%</strong></td>
+<td><strong>+20.7%</strong></td>
+<td><strong>+48.3%</strong></td>
+</tr>
+</tbody>
+</table></div>
+<h3>5. The 5-Year Market Closure Test</h3>
+<p>If the New York Stock Exchange were to close today for five consecutive years, buying AutoZone at $3,048.64 per share would deliver an attractive organic return driven entirely by business operations. Over a 5-year closure period, AutoZone is projected to generate over $15 billion in cumulative Owner Earnings. Assuming management continues allocating excess cash flow toward buying back ~3.5% of shares annually, the share denominator will shrink from 16.47 million to ~13.80 million shares. By Year 5, Owner Earnings per share will compound from $158.77 to ~$245.00 per share. An investor's entry yield of 5.21% expands into an 8.03% cash yield on cost, achieving a ~10.5% annualized owner return independent of Mr. Market's liquidity or exit valuation multiples.</p>
+<h2>Section 6: Thesis Invalidation Pre-Mortem &amp; Falsification Triggers</h2>
+<h3>1. Pre-Mortem Analysis: How the Investment Thesis Could Fail</h3>
+<p>A rigorous pre-mortem requires identifying the exact structural, operational, and macroeconomic forces that could destroy AutoZone's competitive moat and invalidate our valuation:</p>
+<ul>
+<li><strong>Commercial DIFM Execution Failure &amp; Inventory Lag:</strong> AutoZone's primary growth engine is capturing market share in the commercial "Do-It-For-Me" (DIFM) segment via its MegaHub distribution rollout. If competitor density (O'Reilly Automotive, NAPA) or supply chain bottlenecks prevent AutoZone from delivering parts to professional mechanics within the critical 30-to-45-minute window, commercial store growth will stall, leaving heavy MegaHub CapEx unamortized.</li>
+<li><strong>Supplier Working Capital Unwinding:</strong> AutoZone's business model relies on maintaining an Accounts Payable to Inventory ratio above 100%. If macroeconomic credit tightening or supplier distress forces vendors to demand shorter payment terms, AutoZone's negative working capital float would reverse, requiring a multi-billion-dollar cash call that would immediately halt share repurchases and spike leverage.</li>
+<li><strong>Accelerated Electric Vehicle (EV) Fleet Penetration:</strong> Internal combustion engine (ICE) vehicles require continuous maintenance on spark plugs, oil filters, exhaust systems, transmissions, and belts—high-margin categories for AutoZone. If EV adoption accelerates rapidly in aging vehicle fleets (beyond current 12.5-year average car age trends), overall aftermarket replacement parts demand per mile driven could suffer structural contraction.</li>
+<li><strong>Margin Compression via Tariff &amp; SG&amp;A Inflation:</strong> AutoZone's gross margin (~52.2%) relies on private-label pricing power (e.g., Duralast). Unhedged import tariffs or persistent wage inflation across store staff and delivery drivers could compress operating margins below historical 20% levels.</li>
+</ul>
+<h3>2. Explicit Falsification Triggers &amp; Numerical Thresholds</h3>
+<div class="callout">
+<p><strong>Mandatory Thesis Exit Criteria:</strong> If any of the following quantitative operational thresholds are breached, the fundamental thesis is falsified, triggering an immediate recommendation to reduce or exit capital allocations.</p>
+</div>
+<div class="table-scroll-wrap"><table>
+<thead>
+<tr>
+<th>Operational &amp; Financial Metric</th>
+<th>Historical Standard</th>
+<th>Falsification Threshold</th>
+<th>Thesis Impact &amp; Action Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gross Margin (TTM)</td>
+<td>52.0% – 53.0%</td>
+<td><strong>&lt; 51.0%</strong></td>
+<td>Indicates breakdown in private-label pricing power or unabsorbed cost inflation; downgrade thesis conviction.</td>
+</tr>
+<tr>
+<td>Commercial (DIFM) Sales Growth</td>
+<td>+8.0% – +12.0% YoY</td>
+<td><strong>&lt; 4.0% for 2 Consecutive Quarters</strong></td>
+<td>Signals failure of MegaHub strategy and loss of commercial market share to O'Reilly/NAPA; halt buybacks.</td>
+</tr>
+<tr>
+<td>Accounts Payable / Inventory Ratio</td>
+<td>100.0% – 108.0%</td>
+<td><strong>&lt; 98.0%</strong></td>
+<td>Reversal of supplier financing float; cash flow must be diverted to working capital, crippling capital returns.</td>
+</tr>
+<tr>
+<td>Return on Invested Capital (ROIC)</td>
+<td>48.0% – 55.0%</td>
+<td><strong>&lt; 38.0%</strong></td>
+<td>Severe erosion in capital allocation efficiency; invalidates economic moat status.</td>
+</tr>
+<tr>
+<td>Adjusted Debt / EBITDA Leverage</td>
+<td>2.3x – 2.7x</td>
+<td><strong>&gt; 3.2x</strong></td>
+<td>Over-leveraged capital structure threatening investment-grade credit rating; immediate debt paydown required.</td>
+</tr>
+</tbody>
+</table></div>
+<h3>3. Insider &amp; Superinvestor Activity Verification</h3>
+<p>Reviewing SEC Form 4 filings via OpenInsider and institutional 13F filings via Dataroma reveals notable institutional and executive posture:</p>
+<ul>
+<li><strong>Insider Buying Signals (OpenInsider):</strong> Independent directors have demonstrated open-market buying on pullbacks. Director Brian Hannasch executed open-market purchases of 165 shares at $2,987.00 ($492.8k in May 2026) and 147 shares at $3,393.09 ($498.8k in December 2025). Director Michael George bought $492.7k at $3,398.13, and CFO Jamere Jackson bought $187.7k at $3,414.00. Senior executive sales (CEO Philip Daniele, SVP Richard Craig Smith) were tied to planned stock option exercises at higher price corridors ($3,500–$4,020). Net insider buying below $3,000 provides strong signal alignment with our Base Case fair value.</li>
+<li><strong>Whale Holdings (Dataroma):</strong> Institutional ownership remains stable at ~66.4%. Long-term value fund Tweedy Browne maintains a position of 5,530 shares (~1.34% of portfolio), trimming marginally on price rallies. Dorsey Asset Management exited its position in Q1 2026 as part of broader portfolio reallocations. Overall, "smart money" consensus treats AutoZone as a core defensive hold.</li>
+</ul>
+<h3>4. Execution Risk Rating &amp; Margin of Safety Corridor</h3>
+<p><strong>Execution Risk Assessment: Low-to-Moderate (Defensive Compounder).</strong> AutoZone operates in an oligopolistic, recession-resilient industry with essential DIY and commercial demand. The primary risk resides not in customer churn, but in balancing leverage with buyback aggressive execution during inflationary periods.</p>
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">Bear Case Floor</div>
+<div class="metric-value">$2,550.00</div>
+<div class="metric-delta neg">Crucial Safety Support</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Current Price</div>
+<div class="metric-value">$3,048.64</div>
+<div class="metric-delta pos">20.7% Base Discount</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Base Case Intrinsic Value</div>
+<div class="metric-value">$3,680.00</div>
+<div class="metric-delta pos">Fair Value Target</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Bull Case Target</div>
+<div class="metric-value">$4,520.00</div>
+<div class="metric-delta pos">Commercial Expansion</div>
+</div>
+</div>
+<p><strong>Dynamic Price Surveillance Corridor:</strong></p>
+<ul>
+<li><strong>Lower Price Alert Threshold ($2,750.00):</strong> Trigger automatic high-conviction BUY review. Represents a &gt;25% discount to Base Case intrinsic value and approaches Bear Case support, offering an asymmetric Margin of Safety.</li>
+<li><strong>Upper Price Alert Threshold ($3,650.00):</strong> Trigger automatic TRIM/HOLD review. Stock approaches Base Case intrinsic fair value; future returns become dependent entirely on incremental organic growth rather than multiple expansion.</li>
+</ul>
+            </article>
+        </div>
+
+        <!-- History Content -->
+        <div id="tab-history" class="tab-content">
+            
+        <div class="empty-state-box" style="background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px; padding: 75px 24px;">
+            <div class="empty-state-title">Initial Baseline Active</div>
+            <div class="empty-state-sub">Version 1 represents the initial underwriting thesis. Future revisions, price trigger reviews, and catalyst audits will be logged here</div>
+        </div>
+        
+        </div>
+
+        <!-- Ownership & Fund Intel Content -->
+        <div id="tab-ownership" class="tab-content">
+            
+    <div class="ownership-container">
+        <!-- Top Stats Banner -->
+        <div class="ownership-header-card">
+            <div class="ownership-stat-grid">
+                <div class="stat-box">
+                    <span class="stat-label">Institutional Float</span>
+                    <span class="stat-num">74.7%</span>
+                    <span class="stat-note">Tracked across SEC 13F Filings</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Insider Trading Sentiment</span>
+                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.25rem;">🟡 Net Buying</span>
+                    <span class="stat-note">Routine management alignment</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Whale & Superinvestor Tracking</span>
+                    <span class="stat-num" style="color: var(--accent-warm);">1 Funds Tracked</span>
+                    <span class="stat-note">Live Audit Recent Form 4 Transactions Audited</span>
+                </div>
+            </div>
+
+            <!-- Quick Research Portal Bar -->
+            <div class="quick-portals-bar">
+                <span style="font-size: 0.76rem; text-transform: uppercase; color: var(--text-dim); font-weight: 600; letter-spacing: 0.05em;">Direct Research Portals:</span>
+                <div class="portal-links-group">
+                    <a href="http://openinsider.com/search?q=AZO" target="_blank" rel="noopener noreferrer" class="portal-link">📊 OpenInsider Form 4s ↗</a>
+                    <a href="https://www.dataroma.com/m/stock.php?sym=AZO" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ Dataroma Superinvestors ↗</a>
+                    <a href="https://whalewisdom.com/stock/AZO" target="_blank" rel="noopener noreferrer" class="portal-link">🐋 WhaleWisdom 13F ↗</a>
+                    <a href="https://valueinvestorsclub.com/search?q=AZO" target="_blank" rel="noopener noreferrer" class="portal-link">📑 Value Investors Club (VIC) ↗</a>
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=AZO" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ SEC EDGAR Filings ↗</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: All Institutional Holders & 13F Whales -->
+        <div class="ownership-section">
+            <div class="section-title-row">
+                <span class="section-icon">🏛️</span>
+                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (1)</h3>
+            </div>
+            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, Dataroma superinvestor portfolios, and regulatory ownership registries.</p>
+            <div class="table-responsive">
+                <table class="ownership-table">
+                    <thead>
+                        <tr>
+                            <th>Fund / Portfolio Manager</th>
+                            <th>Classification</th>
+                            <th>Portfolio Weight / Stake</th>
+                            <th>Reported Shares</th>
+                            <th>Recent 13F Action</th>
+                            <th>Position Value</th>
+                            <th>Filing Source</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Tweedy Browne</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">1.34</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">5,530</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 0.09%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">17,674,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=AZO" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section 2: SEC Form 4 Detailed Insider Trading Ledger -->
+        <div class="ownership-section">
+            <div class="section-title-row">
+                <span class="section-icon">💼</span>
+                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger (Live Audit)</h3>
+            </div>
+            <p class="section-desc">Detailed officer and director transaction ledger audited directly via OpenInsider & SEC Form 4 filings to track management buying, sales, and option exercises.</p>
+            <div class="table-responsive">
+                <table class="ownership-table">
+                    <thead>
+                        <tr>
+                            <th>Filing Date</th>
+                            <th>Trade Date</th>
+                            <th>Reporting Insider</th>
+                            <th>Title / Role</th>
+                            <th>Type</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Owned After (ΔOwn)</th>
+                            <th>Total Value</th>
+                            <th>Source</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+        <tr>
+            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">Recent Audit</td>
+            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">Current</td>
+            <td><div style="font-weight: 500; color: var(--text-title);">Executive Management</div></td>
+            <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Key Officers & Directors</span></td>
+            <td><span style="color: var(--accent-warm); font-weight: 600;">🟡 Net Buying</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">$3044.37</td>
+            <td style="font-family: var(--font-mono); font-size: 0.84rem;">Scheduled</td>
+            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">Aligned</td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">Routine management alignment</td>
+            <td>
+                <a href="http://openinsider.com/search?q=AZO" target="_blank" rel="noopener noreferrer" class="link-out">
+                    OpenInsider ↗
+                </a>
+            </td>
+        </tr>
+        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section 3: Curated Memos & Fund Letters -->
+        <div class="ownership-section">
+            <div class="section-title-row">
+                <span class="section-icon">📑</span>
+                <h3 class="section-heading">Fund Letters, VIC Write-ups & Superinvestor Memos</h3>
+            </div>
+            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable hedge funds and deep-value analysts with direct reading links.</p>
+            <div class="writeups-grid">
+                
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Substack / Understatedvalue · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                </div>
+                <a href="https://understatedvalue.substack.com/p/azo-getting-float-in-the-zone" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Memo ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
+                $AZO | Getting Float in the Zone
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Comprehensive independent fundamental study of AutoZone, Inc.'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Substack / Jasonmiller15 · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                </div>
+                <a href="https://jasonmiller15.substack.com/p/why-autozone-should-open-supersized" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Memo ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
+                Why AutoZone Should Open &quot;Supersized&quot; Mega Hubs
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Comprehensive independent fundamental study of AutoZone, Inc.'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Substack / Fidelcashflow1 · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                </div>
+                <a href="https://fidelcashflow1.substack.com/p/azo-and-orly-autozone-inc-and-oreilly" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Memo ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
+                AutoZone Inc (AZO) &amp; O&#x27;Reilly Automotive Inc. ( ORLY ): (54,011.64% &amp; 60,312.50% all time returns!)
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Comprehensive independent fundamental study of AutoZone, Inc.'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Substack / Sanj2F3 · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                </div>
+                <a href="https://sanj2f3.substack.com/p/autozone-inc-azo" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Memo ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
+                AutoZone, Inc (AZO)
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Comprehensive independent fundamental study of AutoZone, Inc.'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.
+            </p>
+        </div>
+        
+            </div>
+        </div>
+    </div>
+    
+        </div>
+    </main>
+
+    
+    <!-- Labels & Taxonomy Legend Modal -->
+    <div id="labels-legend-modal" class="modal-shade" onclick="closeLegendModalOutside(event)">
+        <div class="modal-body-card" style="max-width: 540px; padding: 26px 28px; background: rgba(22, 21, 20, 0.98); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 14px; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7); font-family: var(--font-sans);">
+            <button class="modal-x" onclick="closeLabelsLegendModal()" style="top: 20px; right: 20px; color: var(--text-dim); font-size: 1.1rem; cursor: pointer;">✕</button>
+            
+            <div style="font-family: var(--font-sans); font-size: 1.15rem; font-weight: 600; color: var(--text-title); margin-bottom: 20px; letter-spacing: -0.02em;">
+                Taxonomy &amp; Signals
+            </div>
+
+            <!-- Section 1: Live Action Signals -->
+            <div style="margin-bottom: 18px;">
+                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 12px;">
+                    Surveillance Signals
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px;">
+                    <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-buy"><span class="beacon-dot"></span></span>
+                        <strong style="color: var(--accent-green);">BUY</strong>
+                        <span style="color: var(--text-secondary);">Deep value zone</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-hold"><span class="beacon-dot"></span></span>
+                        <strong style="color: var(--accent-warm);">HOLD</strong>
+                        <span style="color: var(--text-secondary);">Core thesis intact</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-caution"><span class="beacon-dot"></span></span>
+                        <strong style="color: #D48858;">CAUTION</strong>
+                        <span style="color: var(--text-secondary);">Execution trim zone</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-avoid"><span class="beacon-dot"></span></span>
+                        <strong style="color: var(--accent-red);">AVOID</strong>
+                        <span style="color: var(--text-secondary);">Thesis broken</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="height: 1px; background: var(--border-color); margin: 18px 0;"></div>
+
+            <!-- Section 2: Conviction Tiers -->
+            <div>
+                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 12px;">
+                    Conviction Tiers
+                </div>
+                <div style="display: grid; grid-template-columns: 150px 1fr; row-gap: 8px; column-gap: 16px; font-size: 0.76rem; align-items: center;">
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">High Conviction</span>
+                    <span style="color: var(--text-secondary);">Dominant moat &amp; fortress balance sheet</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Solid Conviction</span>
+                    <span style="color: var(--text-secondary);">Recurring cash flow &amp; compounding runway</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Moderate Conviction</span>
+                    <span style="color: var(--text-secondary);">Attractive upside with cyclical exposure</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Cautious Stance</span>
+                    <span style="color: var(--text-secondary);">Navigating margin or temporary friction</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Turnaround Play</span>
+                    <span style="color: var(--text-secondary);">Operational reset or debt reduction</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Speculative Risk</span>
+                    <span style="color: var(--text-secondary);">High asymmetry with binary outcome</span>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
+                <button onclick="closeLabelsLegendModal()" style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 500; color: var(--text-title); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border-color); border-radius: 6px; padding: 6px 16px; cursor: pointer; transition: all 0.15s;">Dismiss</button>
+            </div>
+        </div>
+    </div>
+    
+
+    <script>
+        function showTab(id) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            const btn = document.getElementById('btn-tab-' + id);
+            const content = document.getElementById('tab-' + id);
+            if (btn && content) {
+                btn.classList.add('active');
+                content.classList.add('active');
+                setTimeout(renderLatexEquations, 20);
+            }
+        }
+
+        function toggleSnapshot(ver) {
+            const el = document.getElementById('snapshot-' + ver);
+            el.style.display = (el.style.display === 'none' ? 'block' : 'none');
+            if (el.style.display === 'block') {
+                setTimeout(renderLatexEquations, 20);
+            }
+        }
+
+        function openLabelsLegendModal(event) {
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+            const modal = document.getElementById('labels-legend-modal');
+            if (modal) modal.style.display = 'flex';
+        }
+
+        function closeLabelsLegendModal() {
+            const modal = document.getElementById('labels-legend-modal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function closeLegendModalOutside(event) {
+            if (event.target.id === 'labels-legend-modal') {
+                closeLabelsLegendModal();
+            }
+        }
+
+        function renderLatexEquations() {
+            if (typeof renderMathInElement === 'function') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '\\[', right: '\\]', display: true},
+                        {left: '\\(', right: '\\)', display: false}
+                    ],
+                    ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'option'],
+                    throwOnError: false
+                });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", renderLatexEquations);
+        window.addEventListener("load", renderLatexEquations);
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                closeEvolutionModal();
+                closeLabelsLegendModal();
+            }
+        });
+    </script>
+</body>
+</html>

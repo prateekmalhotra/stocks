@@ -540,7 +540,7 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                 <div style="font-family:var(--font-mono); font-size:1.65rem; font-weight:600; color:var(--accent-warm); margin-bottom:4px; line-height:1.1;">
                     {stats['look_through_fcf_yield_pct']:.2f}%
                 </div>
-                <div style="font-size:0.76rem; color:var(--text-secondary); font-family:var(--font-mono);">${stats['total_owner_earnings_usd']:,.0f} / yr</div>
+                <div style="font-family:var(--font-sans); font-size:0.76rem; color:var(--text-secondary);">${stats['total_owner_earnings_usd']:,.0f} / yr</div>
             </div>
 
             <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:16px 18px; display:flex; flex-direction:column; justify-content:space-between;">
@@ -548,7 +548,7 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
                 <div style="font-family:var(--font-mono); font-size:1.65rem; font-weight:600; color:var(--accent-green); margin-bottom:4px; line-height:1.1;">
                     {stats['cash_weight_pct']:.1f}%
                 </div>
-                <div style="font-size:0.76rem; color:var(--text-secondary); font-family:var(--font-mono);">{cash_desc}</div>
+                <div style="font-family:var(--font-sans); font-size:0.76rem; color:var(--text-secondary);">{cash_desc}</div>
             </div>
 
             <div style="background:var(--bg-panel); border:1px solid var(--border-color); border-radius:10px; padding:16px 18px; display:flex; flex-direction:column; justify-content:space-between;">
