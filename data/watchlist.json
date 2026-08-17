@@ -1,37 +1,4 @@
 {
-  "AMZN": {
-    "ticker": "AMZN",
-    "company_name": "Amazon.com, Inc.",
-    "baseline_price": 274.48,
-    "current_price": 258.46,
-    "return_pct": -5.84,
-    "status_label": "High Conviction",
-    "labels": [
-      "High Conviction",
-      "Safe Compounder",
-      "Moat Expansion"
-    ],
-    "action_signal": "BUY",
-    "fair_value_estimate": "$320.00",
-    "bear_target": "$220.00 (-19.2%)",
-    "base_target": "$320.00 (+17.5%)",
-    "bull_target": "$390.00 (+43.2%)",
-    "upper_alert_threshold": 310.0,
-    "lower_alert_threshold": 220.0,
-    "next_catalyst_date": "2026-10-29",
-    "next_catalyst_event": "Q3 '26 ER",
-    "top_funds": [
-      "Vanguard (7.4%)",
-      "BlackRock (6.2%)",
-      "State Street (3.4%)"
-    ],
-    "institutional_ownership_pct": "62.8%",
-    "insider_signal": "Net Selling",
-    "insider_summary": "10 Officers Sold -$9568.8M (Zero Buys)",
-    "last_updated": "2026-08-08",
-    "total_versions": 1,
-    "report_path": "reports/AMZN.html"
-  },
   "MSFT": {
     "ticker": "MSFT",
     "company_name": "Microsoft Corporation",
