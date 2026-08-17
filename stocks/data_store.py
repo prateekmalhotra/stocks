@@ -27,8 +27,12 @@ def load_watchlist() -> Dict[str, WatchlistStock]:
     try:
         with open(WATCHLIST_FILE, "r", encoding="utf-8") as f:
             data = json.load(f)
-            return {k: WatchlistStock(**v) for k, v in data.items()}
-    except Exception:
+            if isinstance(data, list):
+                return {item["ticker"].upper(): WatchlistStock(**item) for item in data if isinstance(item, dict) and "ticker" in item}
+            elif isinstance(data, dict):
+                return {k.upper(): WatchlistStock(**v) if isinstance(v, dict) else v for k, v in data.items()}
+            return {}
+    except Exception as e:
         return {}
 
 

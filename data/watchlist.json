@@ -1,10 +1,10 @@
 [
   {
     "ticker": "AMZN",
-    "company_name": "Amazon.com, Inc.",
-    "baseline_price": 261.31,
+    "company_name": "AMZN",
+    "baseline_price": 100.0,
     "current_price": 261.31,
-    "return_pct": 0.0,
+    "return_pct": 161.31,
     "status_label": "Active",
     "labels": [
       "Active"
@@ -37,5 +37,87 @@
     "last_updated": "2026-08-17",
     "total_versions": 1,
     "report_path": "reports/AMZN.html"
+  },
+  {
+    "ticker": "GOOG",
+    "company_name": "GOOG",
+    "baseline_price": 100.0,
+    "current_price": 341.45,
+    "return_pct": 241.45,
+    "status_label": "High Conviction",
+    "labels": [
+      "High Conviction",
+      "Cash Fortress",
+      "Moat Expansion"
+    ],
+    "action_signal": "HOLD",
+    "fair_value_estimate": "$382.40",
+    "bear_target": "$238.50 (-30.2%)",
+    "base_target": "$382.40 (+12.0%)",
+    "bull_target": "$512.80 (+50.2%)",
+    "what_is_priced_in": "",
+    "upper_alert_threshold": 382.4,
+    "lower_alert_threshold": 290.23,
+    "next_catalyst_date": "2026-10-27",
+    "next_catalyst_event": "Q3 '26 ER",
+    "top_funds": [
+      "Li Lu - Himalaya Capital Management (23.39)",
+      "Bryan Lawrence - Oakcliff Capital (15.55)",
+      "Steven Check - Check Capital Management (13.60)",
+      "Thomas Russo - Gardner Russo & Quinn (12.07)",
+      "Francis Chou - Chou Associates (11.81)",
+      "John Armitage - Egerton Capital (11.24)",
+      "Triple Frond Partners (9.19)",
+      "Seth Klarman - Baupost Group (8.95)",
+      "David Tepper - Appaloosa Management (8.75)",
+      "Thomas Gayner - Markel Group (7.40)"
+    ],
+    "institutional_ownership_pct": "78.4%",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Standard executive equity incentive exercises and routine holding maintenance.",
+    "last_updated": "2026-08-17",
+    "total_versions": 1,
+    "report_path": "reports/GOOG.html"
+  },
+  {
+    "ticker": "META",
+    "company_name": "META",
+    "baseline_price": 100.0,
+    "current_price": 568.97,
+    "return_pct": 468.97,
+    "status_label": "High Conviction",
+    "labels": [
+      "High Conviction",
+      "Cash Compounder",
+      "Moat Expansion"
+    ],
+    "action_signal": "HOLD",
+    "fair_value_estimate": "$645.96",
+    "bear_target": "$410.59 (-27.8%)",
+    "base_target": "$645.96 (+13.5%)",
+    "bull_target": "$949.68 (+66.9%)",
+    "what_is_priced_in": "",
+    "upper_alert_threshold": 645.96,
+    "lower_alert_threshold": 483.62,
+    "next_catalyst_date": "2026-10-28",
+    "next_catalyst_event": "Q3 '26 ER",
+    "top_funds": [
+      "Robert Vinall - RV Capital GmbH (20.45)",
+      "Bill Ackman - Pershing Square Capital Management (9.25)",
+      "ValueAct Capital (9.15)",
+      "David Rolfe - Wedgewood Partners (8.89)",
+      "Pat Dorsey - Dorsey Asset Management (7.21)",
+      "Chase Coleman - Tiger Global Management (6.63)",
+      "Triple Frond Partners (5.91)",
+      "Francois Rochon - Giverny Capital (5.74)",
+      "David Tepper - Appaloosa Management (5.09)",
+      "First Pacific Advisors (4.81)"
+    ],
+    "institutional_ownership_pct": "79.2%",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Standard executive equity incentive exercises and routine holding maintenance.",
+    "last_updated": "2026-08-17",
+    "total_versions": 1,
+    "report_path": "reports/META.html"
   }
 ]
