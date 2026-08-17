@@ -638,6 +638,11 @@ THE BENJAMIN GRAHAM & WARREN BUFFETT "ANTI-MR. MARKET" DOCTRINE (MANDATORY & IND
         * [HYPERSCALER CUSTOM SILICON (ASIC) MARGIN LEADERSHIP INVARIANT]:
           - For hyperscale cloud operators developing proprietary AI silicon (e.g. Google TPUs, AWS Trainium, Meta MTIA):
           - Disregard simplistic third-party GPU rental cost assumptions. Custom ASICs deliver 30%–50% lower cost per token on LLM training/inference, justifying higher normalized cloud operating margins (32%–38%) and lower hardware depreciation drag compared to GPU-only clouds.
+        * [MOONSHOT LOSS-CENTER SEGREGATION & CEASE-AND-DESIST ACCRETION INVARIANT]:
+          - For mega-cap technology platforms operating structural R&D loss centers (e.g. Meta Reality Labs at -$18B/yr, Alphabet Other Bets at -$4B/yr):
+          - In Bear and Base cases, the loss center burn MUST be deducted as a real, non-capitalized cash drain on owner earnings.
+          - In Section 5, you MUST calculate the 'Cease-and-Desist Accretion': If management reduces loss-center burn by 50%, calculate the immediate unlevered cash accretion per share to common equity.
+          - Open-sourcing AI foundation models (e.g. Llama) must be evaluated as 'Commoditizing Complements'—reducing external API rents and supercharging internal recommendation/ad ranking without paying third-party model fees.
         * Intrinsic Equity Value = PV of 5-10Y Owner Earnings + PV of Terminal Cash Stream (capped at -2% to +2.0% GDP) + Cash & Equities - Total Debt & Leases.
         * Divide by diluted share count to arrive at Intrinsic Fair Value per Share.
         * The 5-Year Exchange Closure Test: Demand a clear Margin of Safety (20–40% discount) so that even if the stock market were closed for 5 years, the investor earns an attractive return purely from organic cash generation.
