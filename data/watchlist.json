@@ -2042,19 +2042,19 @@
     "baseline_price": 217.5,
     "current_price": 227.01,
     "return_pct": 4.37,
-    "status_label": "High Conviction",
+    "status_label": "Priced For Perfection",
     "labels": [
-      "High Conviction",
+      "Priced For Perfection",
       "Infrastructure Moat",
-      "Cash Fortress"
+      "CapEx Digestion"
     ],
-    "action_signal": "BUY",
-    "fair_value_estimate": "$315.00",
-    "bear_target": "$205.00 (-9.2%)",
-    "base_target": "$315.00 (+39.5%)",
-    "bull_target": "$420.00 (+86.1%)",
-    "upper_alert_threshold": 285.0,
-    "lower_alert_threshold": 195.0,
+    "action_signal": "HOLD",
+    "fair_value_estimate": "$165.00",
+    "bear_target": "$105.00 (-53.7%)",
+    "base_target": "$165.00 (-27.3%)",
+    "bull_target": "$245.00 (+7.9%)",
+    "upper_alert_threshold": 250.0,
+    "lower_alert_threshold": 160.0,
     "next_catalyst_date": "2026-08-26",
     "next_catalyst_event": "Q2 '27 ER",
     "top_funds": [
@@ -3109,5 +3109,36 @@
     "last_updated": "2026-08-17",
     "total_versions": 1,
     "report_path": "reports/BDX.html"
+  },
+  "BEN": {
+    "ticker": "BEN",
+    "company_name": "Franklin Resources, Inc.",
+    "baseline_price": 34.38,
+    "current_price": 34.38,
+    "return_pct": 0.0,
+    "status_label": "Solid Conviction",
+    "labels": [
+      "Solid Conviction",
+      "Buyback Cannibal",
+      "Deep Value"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$42.00",
+    "bear_target": "$26.00 (-24.4%)",
+    "base_target": "$42.00 (+22.2%)",
+    "bull_target": "$52.00 (+51.3%)",
+    "upper_alert_threshold": 40.0,
+    "lower_alert_threshold": 28.0,
+    "next_catalyst_date": "2026-10-27",
+    "next_catalyst_event": "Q4 '26 ER",
+    "top_funds": [
+      "Polen Capital Management (0.00)"
+    ],
+    "institutional_ownership_pct": "71.4%",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Insiders hold over 3.5M shares; Exec Chair Gregory Johnson holds 2.97M.",
+    "last_updated": "2026-08-17",
+    "total_versions": 1,
+    "report_path": "reports/BEN.html"
   }
 }

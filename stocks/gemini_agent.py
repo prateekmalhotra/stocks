@@ -553,8 +553,19 @@ THE BENJAMIN GRAHAM & WARREN BUFFETT "ANTI-MR. MARKET" DOCTRINE (MANDATORY & IND
         * Maintenance CapEx vs. Growth CapEx: Strictly distinguish maintenance CapEx (capital required to protect unit volume and competitive moat) from discretionary growth CapEx.
         * SBC Reality: Deduct 100% of Stock-Based Compensation as a real cash expense.
         * Working Capital / Float Discipline (1995 & 2002 Letters): Verify that Operating Cash Flow reflects sustainable organic cash generation rather than one-quarter working capital timing spikes. If the company operates with negative working capital (like Amazon, Temu/PDD, or StoneCo collecting upfront and paying suppliers later), treat this interest-free customer float as a competitive funding advantage.
-     2. Mid-Cycle Normalization for Cyclicals (1982 & 1991 Letters):
-        * For cyclical businesses (housing, industrials, retail, consumer), NEVER extrapolate a single peak or trough year. Normalize Owner Earnings across a full 5-year business cycle.
+     2. Mid-Cycle Normalization for Cyclicals & Hardware Infrastructure (1982 & 1991 Letters):
+        * For cyclical businesses (housing, industrials, retail, consumer, AND SEMICONDUCTORS / HARDWARE ACCELERATORS / DATA CENTER CHIPS), NEVER extrapolate a single peak or trough year. Normalize Owner Earnings across a full 5-year business cycle.
+        * [MANDATORY HARDWARE & SEMICONDUCTOR CYCLICALITY INVARIANT]:
+          - Semiconductor hardware (GPUs, CPUs, ASICs, memory, networking) is a strictly cyclical capital goods industry driven by lumpy customer CapEx cycles.
+          - NEVER extrapolate a single peak quarter/year of hyper-concentrated hyperscaler CapEx buildouts (e.g. Meta, Microsoft, Google, Amazon spending 80%+ of cash flow on chips).
+          - Peak gross margins (70%–75%+) MUST be stress-tested and normalized down by 15–20 percentage points (to 50%–55% mid-cycle levels) to account for custom ASICs (Google TPU, Meta MTIA, AWS Trainium), customer CapEx digestion pauses, open-source software abstraction (Triton, PyTorch), and memory/foundry supplier margin squeezes.
+          - Bear and Base cases MUST model multi-quarter CapEx pauses and gross margin normalization.
+        * [LAW OF LARGE NUMBERS & MACRO PLAUSIBILITY SANITY CHECK]:
+          - For mega-cap enterprises (> $1 Trillion market cap), cross-check implied 5-year revenues and cash flows against total global IT hardware TAM (~$1.5 Trillion) and customer cash flows.
+          - Strictly reject and penalize valuations that require a single hardware vendor to capture an economically impossible percentage of total global enterprise IT spending.
+        * [STRICT MARGIN OF SAFETY FOR BUY SIGNALS]:
+          - "BUY" (Green Beacon) is STRICTLY reserved for companies trading at a genuine Margin of Safety (≥ 20%–30% discount) against conservative, MID-CYCLE NORMALIZED Owner Earnings.
+          - If a company is priced for perfection, trades at peak cyclical multiples (> 35x–40x PE on peak hardware earnings), or offers < 15% discount to mid-cycle fair value, its action signal MUST be "HOLD" (Yellow) or "CAUTION" (Orange), NEVER "BUY".
      3. Strict Localized Country-Specific Sovereign Discounting (The PetroChina / Iscar / Japan Rule):
         * NEVER use US 10-Year Treasury rates to value international companies!
         * Ground the discount rate strictly in the LOCAL SOVEREIGN BOND YIELD of the company's operating currency + an appropriate equity risk premium:
@@ -738,6 +749,8 @@ Generate ONLY the following two sections in clean Semantic HTML with NO external
 
 <h2>Section 5: Warren Buffett Owner Earnings Intrinsic Valuation Matrix</h2>
 - Root valuation strictly in Warren Buffett's intrinsic value methodology (Berkshire Shareholder Letters). Zero arbitrary exit multiples.
+- For semiconductors, hardware accelerators, and cyclical industries: YOU MUST normalize peak-cycle gross margins (down by 15-20 pts) and stress-test CapEx digestion cycles. NEVER extrapolate peak-quarter cash flow.
+- For mega-cap enterprises (> $1T market cap): Perform a strict Law of Large Numbers & Macro TAM sanity check against global IT hardware spending.
 - Localized sovereign discount rate derivation (local 10Y sovereign bond yield + equity risk premium, e.g. US 10Y for US, SELIC for Brazil, Gilts for UK).
 - A 100% COMPLETE, fully populated Bear / Base / Bull scenario table where EVERY CELL is filled with concrete numbers:
   <table>
@@ -858,13 +871,13 @@ You have full analytical freedom to evaluate the new facts and determine the evo
 1. Primary Source Audit: Search the latest quarterly earnings release, latest earnings call transcript, material corporate announcements, and latest 13F whale filings.
 2. Forward Action Beacon Selection (action_signal):
    Autonomously choose the actionable status signal based on how the thesis is playing out in the real world:
-   - "BUY" (Green Beacon): Thesis is playing out great, fundamentals accelerating, deep value / buy zone -> we want to get in NOW.
-   - "HOLD" (Yellow Beacon): Thesis is steady, waiting for next catalyst / fairly valued -> wait and do nothing for now.
+   - "BUY" (Green Beacon): Thesis is playing out great, fundamentals accelerating, trading at a genuine Margin of Safety (≥ 20%-30% discount to MID-CYCLE NORMALIZED Owner Earnings). NEVER give a BUY signal to stocks trading near/above fair value or priced for perfection at peak cyclical multiples.
+   - "HOLD" (Yellow Beacon): Thesis is steady, waiting for next catalyst, fairly valued, or priced for perfection (e.g. trading at peak hardware multiples with < 15% MoS) -> wait and do nothing for now.
    - "CAUTION" (Orange Beacon): Thesis facing execution friction, headwinds, or margin pressure -> caution / trim.
    - "AVOID" (Red Beacon): Thesis broken, severe structural impairment -> avoid / do not buy / exit.
 3. 2-Tier Autonomous Labels:
-   Slot 1 = Forward Conviction/Confidence Rating (e.g. "High Conviction", "Cautious Stance", "Speculative Risk", "Solid Conviction", "Turnaround Risk").
-   Slots 2 & 3 = Key Play Drivers & Catalysts (e.g. "Buyback Cannibal", "Margin Expansion", "Deep Value", "Cash Fortress").
+   Slot 1 = Forward Conviction/Confidence Rating (e.g. "High Conviction", "Cautious Stance", "Speculative Risk", "Solid Conviction", "Turnaround Risk", "Priced For Perfection").
+   Slots 2 & 3 = Key Play Drivers & Catalysts (e.g. "Buyback Cannibal", "Margin Expansion", "Deep Value", "Cash Fortress", "Infrastructure Moat", "CapEx Digestion").
    (Note: You choose both the action_signal color and labels independently based on your forward evaluation).
 4. What Changed & Thesis Impact:
    - Detail what new information has arrived from latest earnings or market filings.
@@ -872,6 +885,7 @@ You have full analytical freedom to evaluate the new facts and determine the evo
    - Formulate a clear 2-3 sentence executive evolution summary for "what_changes_now".
 5. Warren Buffett Owner Earnings & Intrinsic Value Framework:
    - Update fair value and Bear / Base / Bull scenario targets using Warren Buffett's 7-pillar Owner Earnings methodology (Post-SBC cash flow minus maintenance CapEx, lease debt/float bridge, share count reduction from buybacks, strictly discounting via local sovereign bond yields, zero arbitrary exit multiples).
+   - [MANDATORY CYCLICALITY & HARDWARE NORMALIZATION]: For semiconductors and hardware infrastructure, YOU MUST normalize peak-cycle gross margins down by 15-20 pts (to 50%-55% mid-cycle levels) and model CapEx digestion pauses. NEVER extrapolate peak-quarter cash flows. For mega-cap enterprises (> $1T), apply strict Law of Large Numbers & Macro TAM sanity checks against global IT hardware spending.
    - [MANDATORY CURRENCY DIRECTIVE]: ALL financial figures, share prices, intrinsic fair values, scenario targets (Bear/Base/Bull), and price corridors MUST ALWAYS BE CONVERTED TO AND PRESENTED IN US DOLLARS (USD / $) with a leading '$' symbol (e.g. '$2,320.00', '$2,950.00'). NEVER output 'C$', 'CAD', 'HK$', 'EUR', or other non-USD currency prefixes.
 6. Self-Healing Catalyst Date Update Rule:
    - "next_catalyst_date" MUST ALWAYS BE IN STRICT "YYYY-MM-DD" FORMAT (e.g. 2026-11-18).
