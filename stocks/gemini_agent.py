@@ -985,14 +985,14 @@ Previous Thesis Summary: {previous_thesis_summary}
 PREVIOUS BASE FAIR VALUE: {previous_fair_value or previous_base_target or 'N/A'}
 PREVIOUS TARGETS: Bear: {previous_bear_target or 'N/A'} | Base: {previous_base_target or 'N/A'} | Bull: {previous_bull_target or 'N/A'}
 
-[ANALYTICAL AUTONOMY & THESIS INFLECTION DIRECTIVES]:
+[ANALYTICAL AUTONOMY & FIRST-PRINCIPLES UPDATE DIRECTIVES]:
 You have full analytical freedom to evaluate the new facts and determine the evolved thesis:
 1. Primary Source Audit: Search the latest quarterly earnings release, latest earnings call transcript, material corporate announcements, and latest 13F whale filings.
-2. [STRICT INCREMENTAL CONTINUITY & ANTI-HALLUCINATION DELTA CLAMP]:
-   - DO NOT hallucinate wild, unanchored DCF jumps on routine updates (e.g. an earnings beat or Form 8-K/6-K filing MUST NOT cause fair value to jump +30% to +50% overnight like $220 to $320).
-   - For routine quarterly updates and calendar shifts, fair value adjustments MUST be incremental and logically bridged from the PREVIOUS BASE FAIR VALUE ({previous_fair_value or previous_base_target or 'N/A'}).
-   - Routine adjustments (accretion from buybacks, slight margin beats) typically move fair value by ±2% to ±8%.
-   - Fair value revisions exceeding ±15% are STRICTLY FORBIDDEN unless there is a verified tectonic operational shift (e.g. major subsidiary divestment, catastrophic regulatory ban, permanent loss of >30% revenue, or permanent >500 bps gross margin structural reset).
+2. First-Principles Valuation Reasoning (Buffett & Munger Discipline):
+   - Intrinsic value represents the present value of decades of future cash flows, not a short-term momentum tracker of quarterly headlines.
+   - Evaluate whether the new financial report or material event structurally alters the business's durable economic moat, normalized mid-cycle unit economics, or capital allocation trajectory.
+   - If the long-term compounding engine is intact with normal quarterly noise, the core cash flow projections remain steady.
+   - If verifiable fundamental evidence demonstrates a structural inflection (e.g. permanent moat breakdown, major subsidiary restructuring, or accelerated capital-efficient cash compounding), adjust the DCF projections logically based on concrete financial reality.
 3. Forward Action Beacon Selection (action_signal):
    Autonomously choose the actionable status signal based on how the thesis is playing out in the real world:
    - "BUY" (Green Beacon): Thesis is playing out great, fundamentals accelerating, trading at a genuine Margin of Safety (≥ 20%-30% discount to MID-CYCLE NORMALIZED Owner Earnings). NEVER give a BUY signal to stocks trading near/above fair value or priced for perfection at peak cyclical multiples.
