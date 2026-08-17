@@ -644,16 +644,6 @@ Return your plan strictly as a JSON object in ```json ... ```:
     "ticker": "{ticker}",
     "company_name": "{company_name}",
     "labels": ["<Confidence/Risk Label 1>", "<Play Driver Label 2>", "<Play Driver Label 3>"],
-    "action_signal": "<BUY | HOLD | CAUTION | AVOID (Actionable stance: BUY if thesis accelerating/deep value, HOLD if steady/wait, CAUTION if headwinds/trim, AVOID if broken)>",
-    "fair_value_estimate": "$<Estimated Fair Value>",
-    "bear_target": "$<Price> (<% Upside/Downside>)",
-    "base_target": "$<Price> (<% Upside/Downside>)",
-    "bull_target": "$<Price> (<% Upside/Downside>)",
-    "what_is_priced_in": "<1-line summary: e.g. Market is pricing in +3.5%/yr OE growth vs Base Case of +10.5%/yr (Asymmetric MoS)>",
-    "upper_alert_threshold": <Float price to alert on upside breakout>,
-    "lower_alert_threshold": <Float price to alert on downside break>,
-    "upper_trigger_reason": "<Short reason>",
-    "lower_trigger_reason": "<Short reason>",
     "next_catalyst_date": "<YYYY-MM-DD (Strict ISO date, e.g. 2026-08-13; if unconfirmed, estimate exact calendar day based on historical reporting cadence)>",
     "next_catalyst_event": "<Short description of catalyst, max 4 words, using clean concise notation e.g. Q3 '26 ER, Q2 '27 ER, Investor Day>",
     "top_funds": ["<Top Fund 1 (e.g. Vanguard 8.4%)>", "<Top Fund 2 (e.g. BlackRock 7.1%)>", "<Whale/Superinvestor 3 from Dataroma/WhaleWisdom>"],
@@ -769,7 +759,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     print(f"   │ Strategy: {research_obj}", flush=True)
 
     # Enforce strict 6-agent dedicated modular section generation (1 Agent per Section)
-    agent_1_prompt = f"""You are Sub-Agent 1: Executive Leadership & Operating Reality Specialist researching {ticker_clean} ({company_name}) at current market price ${current_price:.2f}.
+    agent_1_prompt = f"""You are Sub-Agent 1: Executive Leadership & Operating Reality Specialist researching {ticker_clean} ({company_name}).
 Your Objective: {research_obj}
 
 Generate ONLY Section 1 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
@@ -788,7 +778,7 @@ Generate ONLY Section 1 in clean Semantic HTML with NO external images, NO inlin
 
 DO NOT write Section 2, 3, 4, 5, or 6. Output pure HTML only."""
 
-    agent_2_prompt = f"""You are Sub-Agent 2: Business Model, Unit Economics & Competitive Moat Specialist researching {ticker_clean} ({company_name}) at current market price ${current_price:.2f}.
+    agent_2_prompt = f"""You are Sub-Agent 2: Business Model, Unit Economics & Competitive Moat Specialist researching {ticker_clean} ({company_name}).
 Your Objective: {research_obj}
 
 Generate ONLY Section 2 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
@@ -801,7 +791,7 @@ Generate ONLY Section 2 in clean Semantic HTML with NO external images, NO inlin
 
 DO NOT write Section 1, 3, 4, 5, or 6. Output pure HTML only."""
 
-    agent_3_prompt = f"""You are Sub-Agent 3: Forensic Cash Flow, SBC Dilution & Float Auditor researching {ticker_clean} ({company_name}) at current market price ${current_price:.2f}.
+    agent_3_prompt = f"""You are Sub-Agent 3: Forensic Cash Flow, SBC Dilution & Float Auditor researching {ticker_clean} ({company_name}).
 Your Objective: {research_obj}
 
 Generate ONLY Section 3 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
@@ -825,7 +815,7 @@ Generate ONLY Section 3 in clean Semantic HTML with NO external images, NO inlin
 
 DO NOT write Section 1, 2, 4, 5, or 6. Output pure HTML only."""
 
-    agent_4_prompt = f"""You are Sub-Agent 4: Balance Sheet Fortress, Debt Leases & Ownership Auditor researching {ticker_clean} ({company_name}) at current market price ${current_price:.2f}.
+    agent_4_prompt = f"""You are Sub-Agent 4: Balance Sheet Fortress, Debt Leases & Ownership Auditor researching {ticker_clean} ({company_name}).
 Your Objective: {research_obj}
 
 Generate ONLY Section 4 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
@@ -889,7 +879,7 @@ Generate ONLY Section 5 in clean Semantic HTML with NO external images, NO inlin
 
 DO NOT write Section 1, 2, 3, 4, or 6. Output pure HTML only."""
 
-    agent_6_prompt = f"""You are Sub-Agent 6: Probabilistic Risk, Threat Assessment & Pre-Mortem Invalidation Auditor researching {ticker_clean} ({company_name}) at current market price ${current_price:.2f}.
+    agent_6_prompt = f"""You are Sub-Agent 6: Probabilistic Risk, Threat Assessment & Pre-Mortem Invalidation Auditor researching {ticker_clean} ({company_name}).
 Your Objective: {research_obj}
 
 Generate ONLY Section 6 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
@@ -1047,11 +1037,11 @@ DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
             metadata["base_target"] = f"${base_val:.2f} ({base_ret:+.1f}%)"
             metadata["bear_target"] = f"${bear_val:.2f} ({bear_ret:+.1f}%)"
             metadata["bull_target"] = f"${bull_val:.2f} ({bull_ret:+.1f}%)"
-            metadata["upper_alert_threshold"] = round(min(base_val, current_price * 1.15), 2)
-            metadata["lower_alert_threshold"] = round(max(bear_val, current_price * 0.85), 2)
+            metadata["upper_alert_threshold"] = round(base_val if base_val > current_price else bull_val, 2)
+            metadata["lower_alert_threshold"] = round(bear_val if bear_val < current_price else current_price * 0.90, 2)
 
-            # Strict First-Principles Action Signal Derivation from Calculated Margin of Safety
-            if base_ret >= 20.0 and bear_val < current_price:
+            # Strict First-Principles Action Signal Derivation purely from Calculated Margin of Safety
+            if base_ret >= 20.0:
                 metadata["action_signal"] = "BUY"
             elif base_ret >= 0.0:
                 metadata["action_signal"] = "HOLD"
