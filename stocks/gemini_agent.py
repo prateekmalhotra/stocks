@@ -522,6 +522,7 @@ Your analysis must adhere strictly to these 7 First Principles of Business Valua
 
    Pillar 2: Mid-Cycle Business Normalization (1982 & 1991 Letters)
    - For cyclical, commodity, and hardware technology sectors, NEVER extrapolate peak-quarter cash flows or peak gross margins into perpetuity.
+   - Local Advertising Services vs. Dining Mix: In local search and advertising directories, evaluate the revenue mix transition from low-margin discretionary dining/retail toward high-ticket, high-intent Home, Auto, and Professional Services, where customer lead values ($50–$150+) provide superior pricing power and insulation from food delivery aggregators.
    - Generative AI Task Bifurcation: In digital services, freelance platforms, and knowledge marketplaces, analyze task bifurcation. Separate low-complexity commodity tasks (displaced by autonomous AI agents) from high-complexity technical, consulting, and AI implementation workflows (where AI integration increases spend per enterprise client). Track Spend Per Active Client alongside headline user counts.
    - Municipal NIMBY Zoning & Land Entitlement Moats: In heavy industrial, salvage, and environmental disposal networks, evaluate the structural barriers created by local municipal land-use permits and environmental clearances that make replicating physical yard networks near urban centers virtually impossible for competitors.
    - Single-Platform Distribution Vulnerability: For digital media, marketplaces, and aggregators whose top-of-funnel discovery relies on third-party search engines or app stores (e.g. Google Search indexing, Apple App Store ranking), evaluate referral concentration and stress-test a 15%–25% traffic reduction from search engine AI Overviews (SGE) or algorithm de-indexing in Bear cases.
@@ -543,6 +544,7 @@ Your analysis must adhere strictly to these 7 First Principles of Business Valua
    - Model the net per-share compounding impact of management's capital allocation:
      Net Annual Share Count Reduction = (Shares Repurchased - SBC Shares Issued) / Diluted Share Count.
    - Retiring shares below intrinsic value concentrates cash flow into fewer shares and compounds per-share intrinsic value. If buybacks are paused or insufficient to offset equity grants, model net shareholder dilution (+1% to +3%/year).
+   - M&A Debt Digestion & Buyback Pause Dynamics: When an active share repurchaser temporarily suspends buybacks to fund an acquisition or repay revolving credit facilities, model positive net shareholder dilution (+1% to +2.5%/year from unsterilized SBC) during the debt payback period, and only resume modeling share count reduction once leverage targets are restored.
 
    Pillar 6: Balance Sheet Fortress, Fixed Obligations & Look-Through Assets
    - Account for all contractual fixed legal obligations: Total interest-bearing debt, capitalized operating and finance leases (ASC 842), and non-discretionary statutory/environmental liabilities.
