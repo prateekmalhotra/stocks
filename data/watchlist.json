@@ -1,37 +1,4 @@
 {
-  "ADBE": {
-    "ticker": "ADBE",
-    "company_name": "Adobe Inc.",
-    "baseline_price": 265.21,
-    "current_price": 253.13,
-    "return_pct": -4.55,
-    "status_label": "High Conviction",
-    "labels": [
-      "High Conviction",
-      "Buyback Cannibal",
-      "Ai Compounder"
-    ],
-    "action_signal": "BUY",
-    "fair_value_estimate": "$340.00",
-    "bear_target": "$220.00 (-16.6%)",
-    "base_target": "$340.00 (+28.9%)",
-    "bull_target": "$410.00 (+55.5%)",
-    "upper_alert_threshold": 330.0,
-    "lower_alert_threshold": 235.0,
-    "next_catalyst_date": "2026-09-17",
-    "next_catalyst_event": "Q3 '26 ER",
-    "top_funds": [
-      "Vanguard (8.8%)",
-      "BlackRock (8.1%)",
-      "State Street (4.3%)"
-    ],
-    "institutional_ownership_pct": "84.1%",
-    "insider_signal": "Cluster Buying",
-    "insider_summary": "2 Insiders +$3.5M Open Market Buys",
-    "last_updated": "2026-08-08",
-    "total_versions": 1,
-    "report_path": "reports/ADBE.html"
-  },
   "WDAY": {
     "ticker": "WDAY",
     "company_name": "Workday, Inc.",
@@ -1811,5 +1778,38 @@
     "last_updated": "2026-08-17",
     "total_versions": 1,
     "report_path": "reports/COKE.html"
+  },
+  "CPB": {
+    "ticker": "CPB",
+    "company_name": "The Campbell's Company",
+    "baseline_price": 22.75,
+    "current_price": 22.75,
+    "return_pct": 0.0,
+    "status_label": "Turnaround Risk",
+    "labels": [
+      "Turnaround Risk",
+      "Debt Paydown",
+      "Margin Expansion"
+    ],
+    "action_signal": "HOLD",
+    "fair_value_estimate": "$26.50",
+    "bear_target": "$18.50 (-18.7%)",
+    "base_target": "$26.50 (+16.5%)",
+    "bull_target": "$34.00 (+49.5%)",
+    "upper_alert_threshold": 28.5,
+    "lower_alert_threshold": 19.5,
+    "next_catalyst_date": "2026-09-03",
+    "next_catalyst_event": "Q4 FY26 ER",
+    "top_funds": [
+      "Hillman Capital Management (2.60)",
+      "Bruce Berkowitz - Fairholme Capital (0.17)",
+      "Jensen Investment Management (0.01)"
+    ],
+    "institutional_ownership_pct": "78.4%",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Minor director purchase at $21.45 offset by routine C-suite Form 4 sales",
+    "last_updated": "2026-08-17",
+    "total_versions": 1,
+    "report_path": "reports/CPB.html"
   }
 }
