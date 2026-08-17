@@ -627,6 +627,13 @@ THE BENJAMIN GRAHAM & WARREN BUFFETT "ANTI-MR. MARKET" DOCTRINE (MANDATORY & IND
           - For enterprise software / SaaS transitioning from per-seat subscription licensing to outcome-based AI agents:
           - Stress-test the risk of client seat-consolidation (fewer human employees requiring individual software seats).
           - Model a 200–400 bps gross margin drag to reflect third-party LLM inference compute expenses and GPU infrastructure costs.
+        * [DIGITAL AD TAC ANTITRUST & DEFAULT DISTRIBUTION OFFSET INVARIANT]:
+          - For dominant search and digital advertising ecosystems facing antitrust remedies or default contract scrutiny (e.g. Google Search / Apple Safari default deals):
+          - Model the symmetry between query volume loss and Traffic Acquisition Cost (TAC) elimination.
+          - If default distribution contracts are banned, model a 10%–15% query distribution volume drop OFFSET BY the elimination of massive TAC cash payments (e.g. $18B–$22B annual savings), which protects operating cash margins.
+        * [HYPERSCALER CUSTOM SILICON (ASIC) MARGIN LEADERSHIP INVARIANT]:
+          - For hyperscale cloud operators developing proprietary AI silicon (e.g. Google TPUs, AWS Trainium, Meta MTIA):
+          - Disregard simplistic third-party GPU rental cost assumptions. Custom ASICs deliver 30%–50% lower cost per token on LLM training/inference, justifying higher normalized cloud operating margins (32%–38%) and lower hardware depreciation drag compared to GPU-only clouds.
         * Intrinsic Equity Value = PV of 5-10Y Owner Earnings + PV of Terminal Cash Stream (capped at -2% to +2.0% GDP) + Cash & Equities - Total Debt & Leases.
         * Divide by diluted share count to arrive at Intrinsic Fair Value per Share.
         * The 5-Year Exchange Closure Test: Demand a clear Margin of Safety (20–40% discount) so that even if the stock market were closed for 5 years, the investor earns an attractive return purely from organic cash generation.
