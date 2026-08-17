@@ -877,9 +877,9 @@ Generate ONLY Section 5 in clean Semantic HTML with NO external images, NO inlin
   * <strong>🐂 Bull Case (Optimistic Compounding):</strong> Explicitly detail the upside drivers assumed (e.g. accelerating growth to XX.X%, operating leverage expanding margins, successful monetization of new initiatives, aggressive share cannibalization). State the resulting Bull Fair Value and upside potential.
 
 <h3>Market-Implied Expectations & "What is Priced In?" (Reverse DCF Audit)</h3>
-- Compare the market's current enterprise value against Year 1 Owner Earnings ($EV / OE_1$).
-- Calculate what exact 5-year Owner Earnings CAGR ($g_{implied}$) the market is pricing into today's stock price (${current_price:.2f}).
-- Present a dedicated Reverse-DCF callout box contrasting Market-Implied Expectations ($g_{implied}$) vs. Base Case Reality ($g_{base}$):
+- Compare the market's current enterprise value against Year 1 Owner Earnings (EV / OE_1).
+- Calculate what exact 5-year Owner Earnings CAGR (g_implied) the market is pricing into today's stock price (${current_price:.2f}).
+- Present a dedicated Reverse-DCF callout box contrasting Market-Implied Expectations (g_implied) vs. Base Case Reality (g_base):
   * State unvarnished whether Mr. Market is pricing in extreme euphoria/perfection, reasonable compounding, or severe insolvency/distress.
 
 <h3>The 5-Year Market Closure Test</h3>
