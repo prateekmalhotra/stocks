@@ -1,37 +1,4 @@
 {
-  "HOOD": {
-    "ticker": "HOOD",
-    "company_name": "Robinhood Markets, Inc.",
-    "baseline_price": 98.51,
-    "current_price": 96.3,
-    "return_pct": -2.24,
-    "status_label": "Cautious Stance",
-    "labels": [
-      "Cautious Stance",
-      "Platform Moat",
-      "Prediction Expansion"
-    ],
-    "action_signal": "CAUTION",
-    "fair_value_estimate": "$84.00",
-    "bear_target": "$55.00 (-44.2%)",
-    "base_target": "$84.00 (-14.7%)",
-    "bull_target": "$115.00 (+16.7%)",
-    "upper_alert_threshold": 108.0,
-    "lower_alert_threshold": 72.0,
-    "next_catalyst_date": "2026-11-04",
-    "next_catalyst_event": "Q3 '26 ER",
-    "top_funds": [
-      "Vanguard Group (8.2%)",
-      "BlackRock Inc. (6.8%)",
-      "ARK Investment Management (4.1%)"
-    ],
-    "institutional_ownership_pct": "74.5%",
-    "insider_signal": "Cluster Buying",
-    "insider_summary": "Aggressive insider open-market purchases totaling $57,272,254 across executive leadership.",
-    "last_updated": "2026-08-13",
-    "total_versions": 1,
-    "report_path": "reports/HOOD.html"
-  },
   "CPRT": {
     "ticker": "CPRT",
     "company_name": "Copart, Inc.",
