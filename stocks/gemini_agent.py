@@ -577,8 +577,11 @@ THE BENJAMIN GRAHAM & WARREN BUFFETT "ANTI-MR. MARKET" DOCTRINE (MANDATORY & IND
      4. Capital-Light Moats (ROIC) & The "Expanding Bond" Cash Yield:
         * Calculate Initial Owner Earnings Cash Yield: (Owner Earnings per Share / Current Stock Price).
         * Evaluate Return on Invested Capital (ROIC): Does this business require heavy physical reinvestment just to stay alive (capital trap), or is it a capital-light compounder that throws off cash to owners?
-     5. Share Buyback Cannibal Compounding (1999 & 2018 Letters):
+     5. Share Buyback Cannibal Compounding & SBC Dilution Reality (1999 & 2018 Letters):
         * If management uses excess cash to aggressively repurchase shares at attractive prices, model the annual reduction in share count (e.g. 3–7%/year). This shrinks the share denominator and directly compounds per-share Owner Earnings into future cash streams.
+        * [SBC REALITY & PAUSED BUYBACK DILUTION INVARIANT]:
+          - If management has PAUSED, SUSPENDED, or REDUCED share repurchases (e.g. to fund M&A or pay down debt), you are STRICTLY PROHIBITED from modeling positive share count shrinkage.
+          - In such cases, Stock-Based Compensation (SBC) MUST be modeled as NET SHAREHOLDER DILUTION (+1.0% to +3.0% annual share count expansion), which dilutes per-share Owner Earnings until buybacks demonstrably resume.
      6. Balance Sheet Reality Bridge (Leases, Total Debt & Look-Through Assets):
         * Total Debt MUST include contractual Capital and Operating Lease Liabilities (especially for retailers, store networks, and casinos).
         * [MANDATORY LEASE LEVERAGE & OPERATING LEVERAGE TEST]:
@@ -609,6 +612,9 @@ THE BENJAMIN GRAHAM & WARREN BUFFETT "ANTI-MR. MARKET" DOCTRINE (MANDATORY & IND
             c) Issued debt with coupon rates > 8.0%, OR
             d) Exhibited 3+ consecutive years of negative comparable sales / revenue decline,
             --> The Action Signal is STRICTLY BARRED FROM "BUY". It must be tagged as "CAUTION" (Orange Beacon) or "AVOID" (Red Beacon) with label "Turnaround Risk" or "Value Trap".
+        * [MANDATORY METADATA-SECTION 5 BINDING INVARIANT]:
+          - The top-level summary JSON 'fair_value_estimate', 'base_target', and 'action_signal' MUST 100% MATHEMATICALLY MATCH the exact numbers in Section 5's Base Case row and Section 6's recommendation.
+          - If Section 5 shows a negative Margin of Safety (overvalued), or if Section 6 recommends "AVOID" or "CAUTION", the JSON metadata is STRICTLY FORBIDDEN from outputting "BUY".
         * Intrinsic Equity Value = PV of 5-10Y Owner Earnings + PV of Terminal Cash Stream (capped at -2% to +2.0% GDP) + Cash & Equities - Total Debt & Leases.
         * Divide by diluted share count to arrive at Intrinsic Fair Value per Share.
         * The 5-Year Exchange Closure Test: Demand a clear Margin of Safety (20–40% discount) so that even if the stock market were closed for 5 years, the investor earns an attractive return purely from organic cash generation.
@@ -778,6 +784,7 @@ Generate ONLY the following two sections in clean Semantic HTML with NO external
 - Root valuation strictly in Warren Buffett's intrinsic value methodology (Berkshire Shareholder Letters). Zero arbitrary exit multiples.
 - For semiconductors, hardware accelerators, and cyclical industries: YOU MUST normalize peak-cycle gross margins (down by 15-20 pts) and stress-test CapEx digestion cycles. NEVER extrapolate peak-quarter cash flow.
 - For mega-cap enterprises (> $1T market cap): Perform a strict Law of Large Numbers & Macro TAM sanity check against global IT hardware spending.
+- [MANDATORY BEAR CASE DOWNSIDE STRESS-TEST INVARIANT]: The Bear Case (Cycle Trough) MUST BE A REALISTIC DOWNSIDE SCENARIO. Model adverse operational conditions, recessionary demand contractions, margin compression, or credit loss provision spikes. The Bear Case Intrinsic Value Per Share MUST ALWAYS BE BELOW CURRENT STOCK PRICE (typically 15% to 40% below current market price), establishing a true risk floor. A Bear target higher than today's price is STRICTLY FORBIDDEN.
 - Localized sovereign discount rate derivation (local 10Y sovereign bond yield + equity risk premium, e.g. US 10Y for US, SELIC for Brazil, Gilts for UK).
 - A 100% COMPLETE, fully populated Bear / Base / Bull scenario table where EVERY CELL is filled with concrete numbers:
   <table>
@@ -913,6 +920,8 @@ You have full analytical freedom to evaluate the new facts and determine the evo
 5. Warren Buffett Owner Earnings & Intrinsic Value Framework:
    - Update fair value and Bear / Base / Bull scenario targets using Warren Buffett's 7-pillar Owner Earnings methodology (Post-SBC cash flow minus maintenance CapEx, lease debt/float bridge, share count reduction from buybacks, strictly discounting via local sovereign bond yields, zero arbitrary exit multiples).
    - [MANDATORY CYCLICALITY & HARDWARE NORMALIZATION]: For semiconductors and hardware infrastructure, YOU MUST normalize peak-cycle gross margins down by 15-20 pts (to 50%-55% mid-cycle levels) and model CapEx digestion pauses. NEVER extrapolate peak-quarter cash flows. For mega-cap enterprises (> $1T), apply strict Law of Large Numbers & Macro TAM sanity checks against global IT hardware spending.
+   - [MANDATORY BEAR CASE DOWNSIDE INVARIANT]: "new_bear_target" MUST ALWAYS BE BELOW CURRENT STOCK PRICE (typically 15% to 40% below current price). A Bear target higher than today's quotation is strictly prohibited and logically invalid.
+   - [MANDATORY METADATA-SCENARIO BINDING]: "new_fair_value" and "new_base_target" must match identically. If Base Fair Value offers < 15%-20% discount or trades at peak cyclical multiples, "action_signal" MUST be "HOLD" or "CAUTION", NEVER "BUY".
    - [MANDATORY CURRENCY DIRECTIVE]: ALL financial figures, share prices, intrinsic fair values, scenario targets (Bear/Base/Bull), and price corridors MUST ALWAYS BE CONVERTED TO AND PRESENTED IN US DOLLARS (USD / $) with a leading '$' symbol (e.g. '$2,320.00', '$2,950.00'). NEVER output 'C$', 'CAD', 'HK$', 'EUR', or other non-USD currency prefixes.
 6. Self-Healing Catalyst Date Update Rule:
    - "next_catalyst_date" MUST ALWAYS BE IN STRICT "YYYY-MM-DD" FORMAT (e.g. 2026-11-18).
