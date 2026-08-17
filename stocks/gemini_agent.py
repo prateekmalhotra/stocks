@@ -635,6 +635,11 @@ THE BENJAMIN GRAHAM & WARREN BUFFETT "ANTI-MR. MARKET" DOCTRINE (MANDATORY & IND
             a) Model a 200–400 bps gross take-rate compression from local merchant onboarding subsidies.
             b) Credit delivery velocity gains (cutting delivery from 10 days to 2–3 days) and category expansion into bulky/high-AOV goods (furniture, appliances, auto parts).
           - Non-Distribution Cash Haircut: If management hoards massive cash (> $30B) without executing share repurchases or cash dividends, apply a mandatory 25%–35% liquidity haircut to balance sheet cash in DCF bridges.
+        * [1P DIRECT RETAIL WORKING CAPITAL FLOAT & CAPTIVE LOGISTICS INVARIANT]:
+          - For first-party direct retailers operating proprietary logistics networks (e.g. JD.com, Amazon Retail, Coupang):
+          - Supplier Payable Working Capital Float: Direct 1P procurement creates an interest-free customer float by collecting cash instantly at delivery while settling vendor payables on 50–60 day terms. Do not mistake temporary inventory builds for structural cash destruction.
+          - Captive Logistics External Monetization: When self-owned logistics networks open to third-party merchant fulfillment, incremental volume converts fixed warehouse depreciation into high-margin logistics services cash flow.
+          - Maintenance vs. Discretionary Growth CapEx: Strictly isolate maintenance CapEx (~35%–40% of total CapEx) from discretionary expansion CapEx (land purchases, automated logistics parks) to derive true owner cash flow.
         * [FOR-PROFIT HEALTHCARE EDUCATION & TITLE IV 90/10 COMPLIANCE INVARIANT]:
           - For proprietary post-secondary career colleges and vocational healthcare academies (e.g. Legacy Education, UTI, Lincoln Tech):
           - Title IV 90/10 Rule Audit: Federal regulations mandate that <= 90% of revenues can derive from federal Title IV financial aid. If Title IV mix exceeds 85%, model elevated regulatory scrutiny and disallow aggressive multiple expansion.
