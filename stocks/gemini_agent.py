@@ -804,94 +804,98 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     print(f"   │ Strategy: {research_obj}", flush=True)
 
     # Enforce strict non-overlapping 3-agent modular section generation
-    agent_1_prompt = f"""You are Sub-Agent 1: Business Model, Moat & Earnings Specialist researching {ticker_clean} ({company_name}) at current market price ${current_price:.2f}.
+    agent_1_prompt = f"""You are Sub-Agent 1: Business Model, Moat & Operational Strategy Specialist researching {ticker_clean} ({company_name}) at current market price ${current_price:.2f}.
 Your Objective: {research_obj}
 
 Generate ONLY the following two sections in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
 
 <h2>Section 1: Executive Summary & Operating Reality</h2>
-- 2-3 paragraph institutional executive summary grounded in the LATEST quarterly earnings statement, earnings call transcript, and forward management guidance.
-- Present latest quarterly financial performance using a clean stat grid:
+- 2-3 paragraph institutional executive summary grounded in the LATEST quarterly earnings report, call transcript remarks, and forward guidance.
+- Present latest quarterly performance using a clean stat grid:
   <div class="metrics-grid">
-    <div class="metric-card"><div class="metric-label">Quarterly Revenue</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">+XX% YoY</div></div>
-    <div class="metric-card"><div class="metric-label">Operating Margin</div><div class="metric-value">XX.X%</div><div class="metric-delta pos">+XXX bps</div></div>
-    <div class="metric-card"><div class="metric-label">Free Cash Flow</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">+XX% YoY</div></div>
+    <div class="metric-card"><div class="metric-label">Quarterly Net Revenue</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">+XX% YoY</div></div>
+    <div class="metric-card"><div class="metric-label">Operating Margin (EBIT)</div><div class="metric-value">XX.X%</div><div class="metric-delta pos">+XXX bps YoY</div></div>
+    <div class="metric-card"><div class="metric-label">Operating Cash Flow</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">+XX% YoY</div></div>
+    <div class="metric-card"><div class="metric-label">Core Segment Growth</div><div class="metric-value">+XX.X%</div><div class="metric-delta pos">Organic</div></div>
   </div>
-- Add a Callout box (<div class="callout">...</div>) highlighting direct CEO/CFO commentary from the latest earnings call and key capital allocation announcements.
+- Add a Callout box (<div class="callout">...</div>) highlighting direct CEO/CFO quotes from the latest earnings call regarding capital allocation, margin outlook, and competitive dynamics.
 
-<h2>Section 2: Business Model Reality & Competitive Moat</h2>
-- Explain in plain English how the company makes money, unit economics, customer switching costs, and pricing power.
-- Detailed technical comparison table comparing the company's architecture/products against primary competitors.
-- Clear audit of structural demand drivers (long-term tailwinds) vs. competitive disruption threats.
+<h2>Section 2: Business Model Reality, Unit Economics & Competitive Moat</h2>
+- Segment-by-segment revenue and operating profit breakdown table.
+- Explain in plain English how the company makes money, customer switching costs, and evidence of pricing power.
+- Detailed competitive comparison table contrasting the company against its top 2-3 global peers across unit economics, distribution channels, and technology moats.
+- Structural secular tailwinds vs. competitive disruption / technological substitution threats.
 
 DO NOT write Section 3, 4, 5, or 6. Output pure HTML only."""
 
-    agent_2_prompt = f"""You are Sub-Agent 2: Real Cash Flow, SBC Dilution & Balance Sheet Auditor researching {ticker_clean} ({company_name}) at current market price ${current_price:.2f}.
+    agent_2_prompt = f"""You are Sub-Agent 2: Real Cash Flow, SBC Dilution & Capital Allocation Auditor researching {ticker_clean} ({company_name}) at current market price ${current_price:.2f}.
 Your Objective: {research_obj}
 
 Generate ONLY the following two sections in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
 
-<h2>Section 3: Real Cash Flow, SBC Dilution & Owner Earnings Audit</h2>
-- Rigorous cash flow audit stripping out Silicon Valley accounting add-backs.
-- Treat 100% of Stock-Based Compensation (SBC) as a real cash expense and shareholder dilution factor.
-- Detailed Cash Flow Decomposition Table:
+<h2>Section 3: Forensic Cash Flow, SBC Dilution & Owner Earnings Audit</h2>
+- Rigorous cash flow audit stripping away Non-GAAP add-backs.
+- Treat 100% of Stock-Based Compensation (SBC) as an unavoidable cash expense and equity dilution factor.
+- Detailed 4-Year Cash Flow Decomposition Table:
   <table>
-    <thead><tr><th>Metric ($ Millions)</th><th>FY 2024</th><th>FY 2025</th><th>FY 2026</th><th>TTM</th></tr></thead>
+    <thead><tr><th>Metric ($ Millions)</th><th>FY 2024</th><th>FY 2025</th><th>FY 2026</th><th>TTM Run-Rate</th></tr></thead>
     <tbody>
       <tr><td>GAAP Operating Cash Flow</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
-      <tr><td>Less: Total SBC</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
-      <tr><td>Less: Maintenance CapEx</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
-      <tr><td><strong>Buffett Owner Earnings (True Cash)</strong></td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
+      <tr><td>Less: Stock-Based Compensation (100% Cash Deducted)</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
+      <tr><td>Less: Maintenance CapEx (Defensive Moat Upkeep)</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
+      <tr><td><strong>Buffett Owner Earnings (True Distributable Cash)</strong></td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
+      <tr><td>Discretionary Growth CapEx (Isolated)</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
     </tbody>
   </table>
-- Working Capital Float & Customer Prepayment dynamics.
+- Working Capital Float Audit: Quantify interest-free customer/supplier float (Deferred Revenue + Accounts Payable minus Accounts Receivable).
 
 <h2>Section 4: Balance Sheet Fortress, Debt Leases & Ownership Check</h2>
-- Audited capital structure: Cash, Short-Term Treasuries, Long-Term Debt, and contractual Capital/Operating Lease liabilities.
-- Net Cash/Debt calculation table and interest coverage ratio.
-- Share Buyback Cannibalization analysis: Share count reduction vs. dilution.
-- Institutional Ownership & Insider Form 4 audit from official filings.
+- Audited capital structure table: Cash & Marketable Treasuries, Funded Debt, Debt Maturity Schedule, and Contractual Capital/Operating Lease liabilities (ASC 842).
+- Net Cash / Net Debt calculation and Interest Expense Coverage ratio.
+- Share Buyback Cannibalization Analysis: Gross shares repurchased minus SBC shares issued = True Net Annual Share Count Reduction (-X.X%/year).
+- Institutional 13F Whales & Form 4 Insider Trading audit from latest official filings.
 
 DO NOT write Section 1, 2, 5, or 6. Output pure HTML only."""
 
-    agent_3_prompt = f"""You are Sub-Agent 3: Warren Buffett Owner Earnings Valuation Strategist & Invalidation Auditor researching {ticker_clean} ({company_name}) at current market price ${current_price:.2f}.
+    agent_3_prompt = f"""You are Sub-Agent 3: Warren Buffett Owner Earnings Valuation Strategist & Pre-Mortem Auditor researching {ticker_clean} ({company_name}) at current market price ${current_price:.2f}.
 Your Objective: {research_obj}
 
 Generate ONLY the following two sections in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
 
 <h2>Section 5: Warren Buffett Owner Earnings Intrinsic Valuation Matrix</h2>
-- Root valuation strictly in Warren Buffett's intrinsic value methodology (Berkshire Shareholder Letters). Zero arbitrary exit multiples.
-- For semiconductors, hardware accelerators, and cyclical industries: YOU MUST normalize peak-cycle gross margins (down by 15-20 pts) and stress-test CapEx digestion cycles. NEVER extrapolate peak-quarter cash flow.
-- For mega-cap enterprises (> $1T market cap): Perform a strict Law of Large Numbers & Macro TAM sanity check against global IT hardware spending.
-- [MANDATORY BEAR CASE DOWNSIDE STRESS-TEST INVARIANT]: The Bear Case (Cycle Trough) MUST BE A REALISTIC DOWNSIDE SCENARIO. Model adverse operational conditions, recessionary demand contractions, margin compression, or credit loss provision spikes. The Bear Case Intrinsic Value Per Share MUST ALWAYS BE BELOW CURRENT STOCK PRICE (typically 15% to 40% below current market price), establishing a true risk floor. A Bear target higher than today's price is STRICTLY FORBIDDEN.
+- Root valuation strictly in Warren Buffett's 1986 Owner Earnings methodology. Zero arbitrary exit multiples.
+- For cyclical, hardware, or commodity sectors: Normalize peak margins across a full 3-5 year operating cycle.
 - Localized sovereign discount rate derivation (local 10Y sovereign bond yield + equity risk premium, e.g. US 10Y for US, SELIC for Brazil, Gilts for UK).
-- A 100% COMPLETE, fully populated Bear / Base / Bull scenario table where EVERY CELL is filled with concrete numbers:
+- [MANDATORY BEAR CASE DOWNSIDE INVARIANT]: The Bear Case (Cycle Trough) MUST BE A REALISTIC DOWNSIDE SCENARIO. The Bear Case Intrinsic Value Per Share MUST ALWAYS BE BELOW CURRENT STOCK PRICE (typically 15% to 40% below current price). A Bear target higher than today's price is strictly forbidden.
+- Complete 3-Scenario DCF Valuation Matrix:
   <table>
     <thead>
       <tr>
-        <th>Valuation Metric & Assumptions</th>
-        <th>Bear Case (Cycle Trough)</th>
+        <th>Valuation Parameter / Scenario</th>
+        <th>Bear Case (Trough Stress-Test)</th>
         <th>Base Case (Normalized Reality)</th>
-        <th>Bull Case (Optimistic Execution)</th>
+        <th>Bull Case (Optimistic Compounding)</th>
       </tr>
     </thead>
     <tbody>
+      <tr><td>Normalized Owner Earnings (Yr 1)</td><td>$XX.XXB</td><td>$XX.XXB</td><td>$XX.XXB</td></tr>
       <tr><td>5-Year Organic OE CAGR</td><td>X.X%</td><td>XX.X%</td><td>XX.X%</td></tr>
-      <tr><td>Annual Share Count Reduction</td><td>X.X%</td><td>X.X%</td><td>X.X%</td></tr>
-      <tr><td>Discount Rate (Hurdle)</td><td>X.X%</td><td>X.X%</td><td>X.X%</td></tr>
-      <tr><td>Terminal FCF Growth Rate</td><td>X.X%</td><td>X.X%</td><td>X.X%</td></tr>
+      <tr><td>Net Annual Share Compounding</td><td>-X.X%/yr</td><td>-X.X%/yr</td><td>-X.X%/yr</td></tr>
+      <tr><td>Discount Rate (Local Sovereign + ERP)</td><td>X.X%</td><td>X.X%</td><td>X.X%</td></tr>
+      <tr><td>Terminal Growth Rate (GDP Capped)</td><td>X.X%</td><td>X.X%</td><td>X.X%</td></tr>
+      <tr><td>Net Balance Sheet Debt/Cash Adjustment</td><td>-$X.XX/sh</td><td>-$X.XX/sh</td><td>-$X.XX/sh</td></tr>
       <tr><td><strong>Intrinsic Fair Value / Share</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td></tr>
       <tr><td><strong>Margin of Safety vs Current Price</strong></td><td><strong>XX.X%</strong></td><td><strong>XX.X%</strong></td><td><strong>XX.X%</strong></td></tr>
     </tbody>
   </table>
-- Explicit 5-Year Market Closure Test: Return derived purely from underlying business cash generation.
+- The 5-Year Market Closure Test: Demonstrate the organic cash yield earned if the stock exchange closed for 5 years.
 
-<h2>Section 6: Thesis Invalidation Pre-Mortem & Falsification Triggers</h2>
-- Pre-Mortem Analysis: Exactly what operational missteps, macro shocks, or structural shifts would prove this thesis WRONG.
-- Explicit falsification triggers with numerical thresholds (e.g. Gross margin falling below XX%, NPLs exceeding X.X%, customer churn above XX%).
-- Execution risk rating and margin of safety corridor.
+<h2>Section 6: Thesis Confidence, Execution Risk & Pre-Mortem Falsification</h2>
+- Forward Conviction Rating and Execution Risk breakdown.
+- 3 Explicit Pre-Mortem Falsification Triggers (Quantitative operational tripwires that declare the thesis fundamentally broken).
+- Dynamic Price Alert Corridors: Upper threshold (trim / target realization) and Lower threshold (margin of safety floor).
 
-DO NOT write Section 1, 2, 3, or 4. Ensure all HTML tables and tags are 100% complete and closed. Output pure HTML only."""
+DO NOT write Section 1, 2, 3, or 4. Output pure HTML only."""
 
     sub_agents = [
         {"role": "Business Model, Moat & Operating Reality Specialist", "prompt": agent_1_prompt},
