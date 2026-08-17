@@ -3,8 +3,8 @@
     "ticker": "PYPL",
     "company_name": "PayPal Holdings, Inc.",
     "baseline_price": 60.44,
-    "current_price": 60.38,
-    "return_pct": -0.1,
+    "current_price": 60.42,
+    "return_pct": -0.03,
     "status_label": "High Conviction",
     "labels": [
       "High Conviction",
@@ -41,8 +41,8 @@
     "ticker": "NKE",
     "company_name": "Nike, Inc.",
     "baseline_price": 39.27,
-    "current_price": 39.16,
-    "return_pct": -0.28,
+    "current_price": 39.17,
+    "return_pct": -0.25,
     "status_label": "Turnaround Risk",
     "labels": [
       "Turnaround Risk",
@@ -78,8 +78,8 @@
     "ticker": "LULU",
     "company_name": "lululemon athletica inc.",
     "baseline_price": 115.67,
-    "current_price": 115.65,
-    "return_pct": -0.02,
+    "current_price": 115.78,
+    "return_pct": 0.1,
     "status_label": "High Conviction",
     "labels": [
       "High Conviction",
@@ -107,5 +107,73 @@
     "last_updated": "2026-08-17",
     "total_versions": 1,
     "report_path": "reports/LULU.html"
+  },
+  "KHC": {
+    "ticker": "KHC",
+    "company_name": "The Kraft Heinz Company",
+    "baseline_price": 24.73,
+    "current_price": 24.7,
+    "return_pct": -0.12,
+    "status_label": "High Conviction",
+    "labels": [
+      "High Conviction",
+      "Deep Value",
+      "High Yield"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$33.00",
+    "bear_target": "$21.00 (-15.1%)",
+    "base_target": "$33.00 (+33.4%)",
+    "bull_target": "$40.00 (+61.7%)",
+    "upper_alert_threshold": 31.0,
+    "lower_alert_threshold": 21.5,
+    "next_catalyst_date": "2026-11-04",
+    "next_catalyst_event": "Q3 '26 ER",
+    "top_funds": [
+      "Prem Watsa - Fairfax Financial Holdings (12.80)",
+      "Mason Hawkins - Southeastern Asset Management (4.45)",
+      "Hillman Capital Management (3.36)",
+      "Warren Buffett - Berkshire Hathaway (2.57)",
+      "Francis Chou - Chou Associates (0.76)",
+      "Bruce Berkowitz - Fairholme Capital (0.32)",
+      "Bill & Melinda Gates Foundation Trust (0.17)",
+      "Mairs & Power Funds (0.04)",
+      "Lee Ainslie - Maverick Capital (0.02)"
+    ],
+    "institutional_ownership_pct": "78.4%",
+    "insider_signal": "Net Buying",
+    "insider_summary": "CEO Steven Cahillane purchased $5.0M in KHC stock at $23.46 on May 12, 2026.",
+    "last_updated": "2026-08-17",
+    "total_versions": 1,
+    "report_path": "reports/KHC.html"
+  },
+  "KMB": {
+    "ticker": "KMB",
+    "company_name": "Kimberly-Clark Corporation",
+    "baseline_price": 107.44,
+    "current_price": 107.45,
+    "return_pct": 0.01,
+    "status_label": "Active",
+    "labels": [
+      "Active"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$123.56",
+    "bear_target": "$80.58 (-25.0%)",
+    "base_target": "$123.56 (+15.0%)",
+    "bull_target": "$161.16 (+50.0%)",
+    "upper_alert_threshold": 123.56,
+    "lower_alert_threshold": 94.55,
+    "next_catalyst_date": "2026-11-15",
+    "next_catalyst_event": "Scheduled quarterly report",
+    "top_funds": [
+      "Mairs & Power Funds (0.01)"
+    ],
+    "institutional_ownership_pct": "78.4%",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "",
+    "last_updated": "2026-08-17",
+    "total_versions": 1,
+    "report_path": "reports/KMB.html"
   }
 }

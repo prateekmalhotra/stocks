@@ -70,6 +70,24 @@ def extract_pct_delta(base_target: str, current_price: float, fair_value_str: st
     return ""
 
 
+def format_target_metric_html(target_val: Any, color_var: str = "") -> str:
+    """Formats target metrics like '$224.60 (+94.2%)' into a responsive, beautiful HTML layout
+    with the price in primary font and the delta in a subtle badge, preventing text overflow."""
+    if not target_val:
+        return '<div class="metric-value">N/A</div>'
+    val_str = str(target_val).strip()
+    m = re.match(r"(\$[0-9]+(?:\.[0-9]+)?|\d+(?:\.[0-9]+)?)\s*(\([-+]?[0-9]+(?:\.[0-9]+)?%\))?", val_str)
+    if m:
+        price = m.group(1)
+        if not price.startswith("$"): price = f"${price}"
+        pct = m.group(2) or ""
+        color_style = f'style="color: {color_var};"' if color_var else ""
+        pct_html = f'<span class="target-pct" style="font-size: 0.74rem; opacity: 0.85; font-family: var(--font-mono); font-weight: 500; margin-left: 4px;">{pct}</span>' if pct else ""
+        return f'<div class="metric-value metric-target-value" {color_style}><span class="target-price">{price}</span>{pct_html}</div>'
+    color_style = f'style="color: {color_var};"' if color_var else ""
+    return f'<div class="metric-value" {color_style}>{val_str}</div>'
+
+
 def sanitize_catalyst_desc(desc: str) -> str:
     """Cleans and abbreviates catalyst description ensuring concise, beautiful cards (e.g. Earnings Release -> ER, Q2 FY27 -> Q2 '27)."""
     if not desc:
@@ -1192,15 +1210,24 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             background: var(--bg-subpanel);
             border: 1px solid var(--border-color);
             border-radius: 10px;
-            padding: 14px 16px;
+            padding: 13px 15px;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
             min-height: 80px;
             box-sizing: border-box;
+            overflow: hidden;
+            min-width: 0;
+            transition: border-color 0.15s ease;
         }}
-        .metric-label {{ font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); letter-spacing: 0.05em; margin-bottom: 3px; }}
-        .metric-value {{ font-size: 1.15rem; font-weight: 500; color: var(--text-title); font-family: var(--font-mono); white-space: nowrap; }}
+        .metric-cell:hover {{
+            border-color: rgba(212, 163, 115, 0.25);
+        }}
+        .metric-label {{ font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); letter-spacing: 0.05em; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
+        .metric-value {{ font-size: 1.15rem; font-weight: 500; color: var(--text-title); font-family: var(--font-mono); display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px; line-height: 1.2; }}
+        .metric-target-value {{ display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px; }}
+        .metric-target-value .target-price {{ font-size: 1.15rem; font-weight: 500; font-family: var(--font-mono); white-space: nowrap; }}
+        .metric-target-value .target-pct {{ font-size: 0.76rem; font-weight: 500; font-family: var(--font-mono); opacity: 0.85; white-space: nowrap; }}
         .metric-subtext {{ font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-sans); margin-top: 4px; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
 
         /* Tabs */
@@ -1554,27 +1581,30 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             text-align: left !important;
         }}
         .memo-container td {{
-            padding: 14px 18px !important;
-            border-bottom: 1px solid rgba(215, 205, 190, 0.05) !important;
-            font-size: 0.92rem !important;
-            color: #BDB7AA !important;
-            font-family: var(--font-mono) !important;
+            padding: 12px 16px !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+            font-size: 0.88rem !important;
+            line-height: 1.55 !important;
+            color: var(--text-body) !important;
+            font-family: var(--font-sans) !important;
             text-align: left !important;
+            vertical-align: top !important;
         }}
         .memo-container tr:last-child td {{
             border-bottom: none !important;
         }}
         .memo-container tr:nth-child(even) td {{
-            background: rgba(255, 255, 255, 0.012) !important;
-            background-color: rgba(255, 255, 255, 0.012) !important;
+            background: rgba(255, 255, 255, 0.015) !important;
+            background-color: rgba(255, 255, 255, 0.015) !important;
         }}
         .memo-container tr:hover td {{
-            background: rgba(201, 154, 117, 0.04) !important;
-            background-color: rgba(201, 154, 117, 0.04) !important;
+            background: rgba(212, 163, 115, 0.04) !important;
+            background-color: rgba(212, 163, 115, 0.04) !important;
         }}
         .memo-container td strong, .memo-container td b {{
-            color: #D8D2C6 !important;
-            font-weight: 500 !important;
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+            font-family: var(--font-sans) !important;
         }}
 
         /* UNIVERSAL CALLOUT & BOX STYLING - NEVER WHITE OR PINK, STRICT DARK OBSIDIAN */
@@ -1582,28 +1612,27 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         .memo-container .callout,
         .memo-container .falsification-box,
         .memo-container .institutional-box,
-        .memo-container div[class*="box"],
-        .memo-container div[class*="card"],
-        .memo-container div[class*="alert"],
-        .memo-container div[class*="warning"],
-        .memo-container div[class*="highlight-box"] {{
+        .memo-container .alert-box,
+        .memo-container .warning-box,
+        .memo-container .highlight-box,
+        .memo-container .takeaway-card {{
             background: var(--bg-subpanel) !important;
             background-color: var(--bg-subpanel) !important;
             border: 1px solid rgba(215, 205, 190, 0.08) !important;
             border-left: 3px solid var(--accent-warm) !important;
-            padding: 22px 26px !important;
+            padding: 20px 24px !important;
             border-radius: 8px !important;
-            margin: 28px 0 !important;
+            margin: 24px 0 !important;
             color: var(--text-body) !important;
-            line-height: 1.8 !important;
+            line-height: 1.75 !important;
         }}
         .memo-container blockquote *,
         .memo-container .callout *,
         .memo-container .falsification-box *,
         .memo-container .institutional-box *,
-        .memo-container div[class*="box"] *,
-        .memo-container div[class*="card"] *,
-        .memo-container div[class*="alert"] * {{
+        .memo-container .alert-box *,
+        .memo-container .warning-box *,
+        .memo-container .highlight-box * {{
             background: transparent !important;
             background-color: transparent !important;
             color: var(--text-body) !important;
@@ -1615,10 +1644,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         .memo-container .falsification-box h4,
         .memo-container .falsification-box strong,
         .memo-container .institutional-box h4,
-        .memo-container .institutional-box strong,
-        .memo-container div[class*="box"] h4,
-        .memo-container div[class*="box"] strong,
-        .memo-container div[class*="card"] strong {{
+        .memo-container .institutional-box strong {{
             color: var(--text-title) !important;
         }}
 
@@ -1708,46 +1734,79 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         }}
 
         /* FINANCIAL METRIC CARDS & STAT GRIDS */
-        .metrics-grid, .stats-grid, .grid-3, .grid-4, .grid-2, .metric-grid {{
+        .memo-container .metrics-grid,
+        .memo-container .stats-grid,
+        .memo-container .grid-3,
+        .memo-container .grid-4,
+        .memo-container .grid-2,
+        .memo-container .metric-grid {{
             display: grid !important;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
-            gap: 16px !important;
-            margin: 28px 0 !important;
+            gap: 14px !important;
+            margin: 24px 0 28px !important;
         }}
-        .metric-card, .stat-card, div[class*="metric-box"], div[class*="stat-box"], div[class*="kpi-card"] {{
-            background: var(--bg-subpanel) !important;
-            background-color: var(--bg-subpanel) !important;
-            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+        .memo-container .metric-card,
+        .memo-container .stat-card,
+        .memo-container div[class*="metric-box"],
+        .memo-container div[class*="stat-box"],
+        .memo-container div[class*="kpi-card"] {{
+            background: #191816 !important;
+            background-color: #191816 !important;
+            border: 1px solid rgba(255, 255, 255, 0.07) !important;
+            border-top: 2.5px solid var(--accent-warm) !important;
+            border-left: 1px solid rgba(255, 255, 255, 0.07) !important;
             border-radius: 10px !important;
-            padding: 18px 20px !important;
+            padding: 16px 18px !important;
+            margin: 0 !important;
             display: flex !important;
             flex-direction: column !important;
-            justify-content: center !important;
+            justify-content: flex-start !important;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
             box-sizing: border-box !important;
+            transition: transform 0.15s ease, border-color 0.15s ease !important;
         }}
-        .metric-label, .stat-label, .kpi-label {{
+        .memo-container .metric-card:hover,
+        .memo-container .stat-card:hover {{
+            border-color: rgba(212, 163, 115, 0.35) !important;
+            transform: translateY(-2px);
+        }}
+        .memo-container .metric-card .metric-label,
+        .memo-container .metric-card .stat-label,
+        .memo-container .metric-card .kpi-label,
+        .memo-container .metric-card h4,
+        .memo-container .metric-card .metric-title,
+        .memo-container .metric-card .stat-title {{
             font-family: var(--font-sans) !important;
             font-size: 0.72rem !important;
             font-weight: 600 !important;
             text-transform: uppercase !important;
             letter-spacing: 0.06em !important;
             color: var(--text-secondary) !important;
-            margin-bottom: 6px !important;
+            margin: 0 0 8px 0 !important;
+            line-height: 1.3 !important;
         }}
-        .metric-value, .stat-value, .kpi-value {{
-            font-family: var(--font-mono);
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--text-title);
-            letter-spacing: -0.02em;
-            line-height: 1.2;
-            margin-bottom: 4px;
-            white-space: nowrap;
-        }}
-        .metric-delta, .metric-sub, .stat-sub, .kpi-sub {{
+        .memo-container .metric-card .metric-value,
+        .memo-container .metric-card .stat-value,
+        .memo-container .metric-card .kpi-value {{
             font-family: var(--font-mono) !important;
-            font-size: 0.82rem !important;
-            color: var(--accent-warm) !important;
+            font-size: 1.40rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            letter-spacing: -0.02em !important;
+            line-height: 1.15 !important;
+            margin: 0 0 8px 0 !important;
+            white-space: nowrap !important;
+        }}
+        .memo-container .metric-card p,
+        .memo-container .metric-card .metric-desc,
+        .memo-container .metric-card .stat-sub,
+        .memo-container .metric-card .kpi-sub,
+        .memo-container .metric-card .metric-delta {{
+            font-family: var(--font-sans) !important;
+            font-size: 0.78rem !important;
+            color: var(--text-dim) !important;
+            line-height: 1.45 !important;
+            margin: 0 !important;
         }}
 
         /* EMBEDDED IMAGES, CHARTS & VISUAL INFOGRAPHICS */
@@ -2045,15 +2104,15 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bear Target</div>
-                    <div class="metric-value" style="color: var(--accent-red);">{stock.bear_target}</div>
+                    {format_target_metric_html(stock.bear_target, "var(--accent-red)")}
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Base Target</div>
-                    <div class="metric-value">{stock.base_target}</div>
+                    {format_target_metric_html(stock.base_target, "var(--text-title)")}
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Bull Target</div>
-                    <div class="metric-value" style="color: var(--accent-green);">{stock.bull_target}</div>
+                    {format_target_metric_html(stock.bull_target, "var(--accent-green)")}
                 </div>
                 <div class="metric-cell">
                     <div class="metric-label">Corridor</div>
