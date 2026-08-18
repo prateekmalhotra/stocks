@@ -196,14 +196,35 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
     if not any(k in html.lower() for k in ["priced in", "market-implied", "reverse dcf", "g_implied"]):
         issues.append("Missing mandatory Section 5 subsection: 'Market-Implied Expectations / Reverse DCF'.")
 
-    # 16. Section 5 3-Scenario DCF Valuation Matrix Check
+    # 16. Section 5 Unit Economics & 3-Scenario DCF Valuation Matrix Check
     s5_match = re.search(r"<h2>Section 5:.*?</h2>(.*?)(?=<h2>Section 6|$)", html, re.DOTALL | re.IGNORECASE)
     if s5_match:
         s5_text = s5_match.group(1)
-        if "<table" not in s5_text.lower():
-            issues.append("Section 5 is truncated or missing the mandatory 3-Scenario DCF Valuation Table.")
-        elif not any(k in s5_text.lower() for k in ["intrinsic fair value", "intrinsic value / share", "intrinsic value per share", "base case"]):
-            issues.append("Section 5 table does not contain intrinsic fair value per-share rows.")
+        s5_tables = re.findall(r"<table.*?</table>", s5_text, re.DOTALL | re.IGNORECASE)
+        if len(s5_tables) < 2:
+            issues.append(f"Section 5 must contain at least 2 tables (Unit Economics Waterfall + DCF Matrix). Found {len(s5_tables)}.")
+        
+        # Verify explicit Intrinsic Fair Value / Share row
+        has_fair_value_row = False
+        for tbl in s5_tables:
+            for r in re.findall(r"<tr.*?</tr>", tbl, re.DOTALL | re.IGNORECASE):
+                r_txt = re.sub(r"<[^>]+>", " ", r).lower()
+                if any(k in r_txt for k in ["intrinsic fair value", "intrinsic value / share", "intrinsic value per share"]):
+                    nums = re.findall(r"\$\s*[\d,]+(?:\.\d+)?", r)
+                    if len(nums) >= 2:
+                        has_fair_value_row = True
+                        break
+        if not has_fair_value_row:
+            issues.append("Section 5 DCF Table is missing the explicit 'Intrinsic Fair Value / Share' row with calculated per-share values.")
+
+    # 17. Rejection of Synthetic Target Multipliers (Anti-Fallback Gate)
+    if metadata:
+        b_target = metadata.get("base_target", "")
+        m_pct = re.search(r"\(([+-]?\d+(?:\.\d+)?)%\)", b_target)
+        if m_pct and abs(float(m_pct.group(1)) - 15.0) < 0.2:
+            bear_t = metadata.get("bear_target", "")
+            if "(-25.0%)" in bear_t or "(-25.1%)" in bear_t:
+                issues.append("Dossier contains uncalibrated synthetic fallback target multipliers (-25% / +15% / +50%). DCF table failed to parse.")
 
     return len(issues) == 0, issues
 
