@@ -9,9 +9,14 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-DEFAULT_GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-flash-latest")
+DEFAULT_GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
 _CURRENT_ACTIVE_MODEL = DEFAULT_GEMINI_MODEL
-FALLBACK_GEMINI_MODEL = "gemini-flash-lite-latest"
+GEMINI_MODELS_LADDER = [
+    DEFAULT_GEMINI_MODEL,
+    "gemini-flash-latest",
+    "gemini-2.5-flash-lite",
+    "gemini-flash-lite-latest"
+]
 
 
 def get_active_model() -> str:
@@ -21,11 +26,16 @@ def get_active_model() -> str:
 
 
 def switch_to_fallback_model(reason: str = "") -> str:
-    """Switches the active model to the fallback model in memory for the remainder of this workflow run."""
+    """Switches the active model to the next fallback model in the ladder."""
     global _CURRENT_ACTIVE_MODEL
-    if _CURRENT_ACTIVE_MODEL != FALLBACK_GEMINI_MODEL:
-        print(f"  ⚡ [Model Failover] Switching active model for this workflow run to {FALLBACK_GEMINI_MODEL}. (Reason: {reason})")
-        _CURRENT_ACTIVE_MODEL = FALLBACK_GEMINI_MODEL
+    try:
+        cur_idx = GEMINI_MODELS_LADDER.index(_CURRENT_ACTIVE_MODEL)
+        if cur_idx + 1 < len(GEMINI_MODELS_LADDER):
+            next_model = GEMINI_MODELS_LADDER[cur_idx + 1]
+            print(f"  ⚡ [Model Failover] Switching active model for this workflow run to {next_model}. (Reason: {reason})")
+            _CURRENT_ACTIVE_MODEL = next_model
+    except Exception:
+        _CURRENT_ACTIVE_MODEL = "gemini-flash-lite-latest"
     return _CURRENT_ACTIVE_MODEL
 
 
@@ -255,9 +265,9 @@ def call_gemini_with_search(prompt: str, system_instruction: str = "", temperatu
         }
     
     current_model = get_active_model()
-    models_to_try = [current_model]
-    if current_model != FALLBACK_GEMINI_MODEL:
-        models_to_try.append(FALLBACK_GEMINI_MODEL)
+    # Build models to try starting from current active model down the ladder
+    start_idx = GEMINI_MODELS_LADDER.index(current_model) if current_model in GEMINI_MODELS_LADDER else 0
+    models_to_try = GEMINI_MODELS_LADDER[start_idx:]
         
     last_err = None
     for model_name in models_to_try:
@@ -286,8 +296,8 @@ def call_gemini_with_search(prompt: str, system_instruction: str = "", temperatu
                                 
                     return "Analysis completed."
                 elif response.status_code in (500, 502, 503, 504, 429):
-                    if model_name != FALLBACK_GEMINI_MODEL:
-                        switch_to_fallback_model(f"HTTP {response.status_code}")
+                    if model_name != GEMINI_MODELS_LADDER[-1]:
+                        switch_to_fallback_model(f"HTTP {response.status_code} on {model_name}")
                         break
                     elif attempt < max_retries:
                         wait_time = attempt * 3
@@ -298,8 +308,8 @@ def call_gemini_with_search(prompt: str, system_instruction: str = "", temperatu
                     last_err = RuntimeError(f"Gemini API error ({response.status_code}): {response.text}")
                     break
             except requests.RequestException as req_err:
-                if model_name != FALLBACK_GEMINI_MODEL:
-                    switch_to_fallback_model(str(req_err))
+                if model_name != GEMINI_MODELS_LADDER[-1]:
+                    switch_to_fallback_model(f"{req_err} on {model_name}")
                     break
                 elif attempt < max_retries:
                     wait_time = attempt * 3
@@ -1215,6 +1225,7 @@ Your Objective: {research_obj}
 
 CRITICAL 3 DISTINCT BUSINESS STORYLINES INVARIANT:
 - ZERO PRICE ANCHORING: Value the operational business strictly from First Principles of unit economics and cash flow without any reference to stock market prices or analyst targets.
+- 2-QUARTER TRANSCRIPT RESEARCH MANDATE: You MUST search and analyze the company's LAST 2 QUARTERLY EARNINGS CALL TRANSCRIPTS (e.g. Q4 / Q1 earnings calls). Extract verified executive remarks, pricing changes, product roadmap updates, and analyst questions to ground the 3 storylines in verifiable operating reality.
 - 3 ORGANIC BUSINESS STORYLINES: Formulate 3 distinct, probable, business-specific narrative storylines for how this specific company's future could unfold over the next 5 years (do NOT label them Bear/Bull/Base; instead give each storyline a descriptive, business-specific name based on its real operational mechanics, products, customer adoption, and competitive moats):
   * Storyline 1: e.g. [Descriptive Business Title based on operational path A]
   * Storyline 2: e.g. [Descriptive Business Title based on operational path B]
@@ -1422,17 +1433,17 @@ DO NOT write Section 1, 2, 3, 4, or 6. Output pure HTML only."""
             clean_5a = ""
             for attempt_5a in range(1, 4):
                 print(f"   │ 🔄 [SUB-AGENT 5A: Attempt {attempt_5a}/3] Generating Unit Economics & Operating Leverage P&L Waterfall Matrix...", flush=True)
-                current_p_5a = agent_5a_prompt if attempt_5a == 1 else agent_5a_prompt + "\n\nCRITICAL FIX MANDATE: Your previous attempt was missing the complete Table 1 or Scenario Assumptions Deep Dive. You MUST generate the complete Table 1 with all operational rows (Paying Users/Volume, ARPPU/Price, Revenue, Gross Margin, OpEx, EBIT, Owner Earnings) across Bear, Base, and Bull!"
+                current_p_5a = agent_5a_prompt if attempt_5a == 1 else agent_5a_prompt + "\n\nCRITICAL FIX MANDATE: Your previous attempt was missing the complete Table 1 or 3 Business Storylines. You MUST generate the 3 distinct business storylines in callout cards followed by Table 1 with all operational rows (Volume, Price, Revenue, Gross Margin, OpEx, EBIT, Owner Earnings) across all 3 storylines!"
                 out_5a = call_gemini_with_search(current_p_5a, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
                 clean_5a = verify_and_repair_html_structure(clean_grounding_artifacts(out_5a))
                 
-                # Check Table 1 validity
-                has_table_1 = "<table" in clean_5a.lower() and any(k in clean_5a.lower() for k in ["primary unit", "operating expense", "ebit", "owner earnings"])
-                has_deep_dive = "scenario assumptions deep dive" in clean_5a.lower() or "bear case" in clean_5a.lower()
-                if has_table_1 and has_deep_dive and len(clean_5a.split()) >= 250:
-                    print(f"   │ ✅ [SUB-AGENT 5A] Validated Table 1 & Unit Economics ({len(clean_5a.split())} words).", flush=True)
+                # Check Table 1 & Storylines validity
+                has_table_1 = "<table" in clean_5a.lower() and any(k in clean_5a.lower() for k in ["primary unit", "operating expense", "ebit", "owner earnings", "top-line revenue", "revenue trajectory"])
+                has_storylines = any(k in clean_5a.lower() for k in ["storyline", "storylines", "probable business", "trajectory", "narrative", "story"])
+                if has_table_1 and has_storylines and len(clean_5a.split()) >= 220:
+                    print(f"   │ ✅ [SUB-AGENT 5A] Validated 3 Storylines & Table 1 Unit Economics ({len(clean_5a.split())} words).", flush=True)
                     break
-                print(f"   │ ⚠️ [SUB-AGENT 5A] Output incomplete ({len(clean_5a.split())} words, has_table={has_table_1}). Retrying with fresh generation...", flush=True)
+                print(f"   │ ⚠️ [SUB-AGENT 5A] Output incomplete ({len(clean_5a.split())} words, has_table={has_table_1}, has_storylines={has_storylines}). Retrying with fresh generation...", flush=True)
 
             # Step 5B: Autonomous Generation & Quality Verification Loop (Up to 3 attempts)
             clean_5b = ""
