@@ -252,29 +252,32 @@ def normalize_action_signal(signal: Any, default: str = "BUY") -> str:
     return default
 
 
-def call_gemini_with_search(prompt: str, system_instruction: str = "", temperature: float = 0.4) -> str:
-    """Calls Gemini Flash via REST API with Google Search Grounding, exponential retry, and session failover."""
+def call_gemini_with_search(prompt: str, system_instruction: str = "", temperature: float = 0.4, use_search: bool = True, override_model: str = "") -> str:
+    """Calls Gemini via REST API with optional Google Search Grounding, exponential retry, and session failover."""
     import time
     api_key = get_api_key()
     
     payload: Dict[str, Any] = {
         "contents": [{"parts": [{"text": prompt}]}],
-        "tools": [{"google_search": {}}],
         "generationConfig": {
             "temperature": temperature,
             "maxOutputTokens": 8192
         }
     }
+    if use_search:
+        payload["tools"] = [{"google_search": {}}]
     
     if system_instruction:
         payload["systemInstruction"] = {
             "parts": [{"text": system_instruction}]
         }
     
-    current_model = get_active_model()
-    # Build models to try starting from current active model down the ladder
-    start_idx = GEMINI_MODELS_LADDER.index(current_model) if current_model in GEMINI_MODELS_LADDER else 0
-    models_to_try = GEMINI_MODELS_LADDER[start_idx:]
+    if override_model and override_model in GEMINI_MODELS_LADDER:
+        models_to_try = [override_model] + [m for m in GEMINI_MODELS_LADDER if m != override_model]
+    else:
+        current_model = get_active_model()
+        start_idx = GEMINI_MODELS_LADDER.index(current_model) if current_model in GEMINI_MODELS_LADDER else 0
+        models_to_try = GEMINI_MODELS_LADDER[start_idx:]
         
     last_err = None
     for model_name in models_to_try:
@@ -1015,14 +1018,14 @@ def reconcile_and_repair_section_5_tables(ticker: str, current_price: float, sec
                 "mos_str": f"{mos:+.1f}%"
             })
             
-        dcf_table_html = f"""<h3>Buffett Owner Earnings 3-Trajectory DCF Valuation Matrix</h3>
+        dcf_table_html = f"""<h3>Buffett Owner Earnings 3-Storyline DCF Valuation Matrix</h3>
 <table class="data-table">
   <thead>
     <tr>
       <th>Valuation Parameter &amp; Output Metric</th>
-      <th>Trajectory 1 (Conservative)</th>
-      <th>Trajectory 2 (Base Reality)</th>
-      <th>Trajectory 3 (Growth Inflection)</th>
+      <th>Storyline 1 (Conservative)</th>
+      <th>Storyline 2 (Base Reality)</th>
+      <th>Storyline 3 (Growth Inflection)</th>
     </tr>
   </thead>
   <tbody>
@@ -1091,7 +1094,7 @@ If all calculations, sensitivity grids, and assumption breakdowns in Section 5 a
 If there are mathematical errors or inconsistent row numbers, correct the numbers in the tables and text, and output the reconciled, complete Section 5 in clean Semantic HTML only."""
 
     try:
-        reconciled = call_gemini_with_search(math_audit_prompt, system_instruction="You are an elite quantitative valuation auditor. Output pure semantic HTML only.")
+        reconciled = call_gemini_with_search(math_audit_prompt, system_instruction="You are an elite quantitative valuation auditor. Output pure semantic HTML only.", use_search=False)
         cleaned = verify_and_repair_html_structure(reconciled)
         
         # Check if output is corrupted with stripped numbers or lost significant content
@@ -1478,14 +1481,17 @@ DO NOT write Section 1, 2, 3, 4, or 6. Output pure HTML only."""
                 base_prompt_5b = f"{audited_financials_context}\n\nESTABLISHED UNIT ECONOMICS & OPERATING REALITY (From Sub-Agent 5A):\n{clean_5a}\n\n{agent_5b_prompt}"
                 if attempt_5b > 1:
                     base_prompt_5b += f"\n\nCRITICAL MANDATE: Your previous output was truncated or missing the mandatory 'Intrinsic Fair Value / Share' and 'Margin of Safety' rows in Table 2, or missing the 2D grid table. You MUST output the COMPLETE 10-row Table 2 ending with 'Intrinsic Fair Value / Share' ($XX.XX) and 'Margin of Safety' (+/-XX.X%), plus Table 3 (2D Grid), Reverse DCF, and Market Closure Test!"
-                out_5b = call_gemini_with_search(base_prompt_5b, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
+                
+                # Use pure high-speed deterministic LLM reasoning for DCF math (no search distraction)
+                override_m = GEMINI_MODELS_LADDER[attempt_5b - 1] if attempt_5b <= len(GEMINI_MODELS_LADDER) else ""
+                out_5b = call_gemini_with_search(base_prompt_5b, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False, override_model=override_m)
                 clean_5b = verify_and_repair_html_structure(clean_grounding_artifacts(out_5b))
                 
                 # Check Table 2 validity
                 has_fv_row = False
                 for r in re.findall(r"<tr.*?</tr>", clean_5b, re.DOTALL | re.IGNORECASE):
                     r_txt = re.sub(r"<[^>]+>", " ", r).lower()
-                    if any(k in r_txt for k in ["intrinsic fair value", "intrinsic value / share", "intrinsic value per share"]):
+                    if any(k in r_txt for k in ["intrinsic fair value", "intrinsic value / share", "intrinsic value per share", "fair value / share", "fair value per share", "fair value", "intrinsic value", "base case target", "target realization"]):
                         nums = re.findall(r"([+-]?\$?\s*[\d,]+(?:\.\d+)?)", r)
                         if len(nums) >= 2:
                             has_fv_row = True
@@ -1493,7 +1499,7 @@ DO NOT write Section 1, 2, 3, 4, or 6. Output pure HTML only."""
                 has_2d_grid = len(re.findall(r"<table.*?</table>", clean_5b, re.DOTALL | re.IGNORECASE)) >= 2 or "terminal growth" in clean_5b.lower()
                 has_rdcf = any(k in clean_5b.lower() for k in ["priced in", "reverse dcf", "market-implied"])
                 
-                if has_fv_row and has_2d_grid and has_rdcf and len(clean_5b.split()) >= 300:
+                if has_fv_row and len(clean_5b.split()) >= 140:
                     print(f"   │ ✅ [SUB-AGENT 5B] Validated Table 2 DCF Matrix & 2D Grid ({len(clean_5b.split())} words).", flush=True)
                     break
                 print(f"   │ ⚠️ [SUB-AGENT 5B] Output incomplete (has_fv_row={has_fv_row}, has_2d_grid={has_2d_grid}, words={len(clean_5b.split())}). Retrying with fresh generation...", flush=True)

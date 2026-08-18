@@ -1,6 +1,7 @@
 """Task Queue Manager for Async Thesis Ingestion & Monitoring."""
 
 import re
+import time
 from datetime import datetime
 from typing import Optional, List, Any
 from stocks.models import WatchlistStock, ThesisVersion, AlertItem, TaskItem
