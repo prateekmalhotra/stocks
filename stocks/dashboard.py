@@ -650,8 +650,6 @@ def build_native_svg_chart(
                 lineS3.style.display = 'none';
                 if (labelS3) labelS3.style.display = 'none';
             }}
-        }}belBull.style.display = 'none';
-            }}
 
             startLbl.innerText = points[0].date + ' ($' + Math.min(...prices).toFixed(2) + ')';
             endLbl.innerText = points[n - 1].date + ' ($' + points[n - 1].price.toFixed(2) + ')';
