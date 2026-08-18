@@ -304,8 +304,8 @@ def call_gemini_with_search(prompt: str, system_instruction: str = "", temperatu
                         switch_to_fallback_model(f"HTTP {response.status_code} on {model_name}")
                         break
                     elif attempt < max_retries:
-                        wait_time = attempt * 3
-                        print(f"  ⚠️ Gemini API ({model_name}) returned {response.status_code}. Retrying in {wait_time}s...")
+                        wait_time = 20
+                        print(f"  ⚠️ Gemini API ({model_name}) returned {response.status_code}. Waiting {wait_time}s before retry...", flush=True)
                         time.sleep(wait_time)
                         continue
                 else:
@@ -316,8 +316,8 @@ def call_gemini_with_search(prompt: str, system_instruction: str = "", temperatu
                     switch_to_fallback_model(f"{req_err} on {model_name}")
                     break
                 elif attempt < max_retries:
-                    wait_time = attempt * 3
-                    print(f"  ⚠️ Network error on {model_name} ({req_err}). Retrying in {wait_time}s...")
+                    wait_time = 20
+                    print(f"  ⚠️ Network error on {model_name} ({req_err}). Waiting {wait_time}s before retry...", flush=True)
                     time.sleep(wait_time)
                     continue
                 last_err = RuntimeError(f"Gemini API network error: {req_err}")
@@ -1400,6 +1400,9 @@ DO NOT write Section 1, 2, 3, 4, or 6. Output pure HTML only."""
             if word_count >= 250 and has_sec_header:
                 break
             print(f"   ⚠️ Sub-Agent {idx} output insufficient ({word_count} words, header={has_sec_header}). Auto-healing retry (attempt {attempt+1}/3)...", flush=True)
+            if attempt < 3:
+                print(f"   ⏱️ [BACKOFF] Waiting 20s before Sub-Agent {idx} retry...", flush=True)
+                time.sleep(20)
         
         if sec_num == 1:
             first_p = re.findall(r"<p>(.*?)</p>", clean_section, re.DOTALL)
@@ -1448,6 +1451,9 @@ DO NOT write Section 1, 2, 3, 4, or 6. Output pure HTML only."""
                     print(f"   │ ✅ [SUB-AGENT 5A] Validated 3 Storylines & Table 1 Unit Economics ({len(clean_5a.split())} words).", flush=True)
                     break
                 print(f"   │ ⚠️ [SUB-AGENT 5A] Output incomplete ({len(clean_5a.split())} words, has_table={has_table_1}, has_storylines={has_storylines}). Retrying with fresh generation...", flush=True)
+                if attempt_5a < 3:
+                    print(f"   │ ⏱️ [BACKOFF] Waiting 20s before Sub-Agent 5A retry...", flush=True)
+                    time.sleep(20)
 
             # Step 5B: Autonomous Generation & Quality Verification Loop (Up to 3 attempts)
             clean_5b = ""
@@ -1475,6 +1481,9 @@ DO NOT write Section 1, 2, 3, 4, or 6. Output pure HTML only."""
                     print(f"   │ ✅ [SUB-AGENT 5B] Validated Table 2 DCF Matrix & 2D Grid ({len(clean_5b.split())} words).", flush=True)
                     break
                 print(f"   │ ⚠️ [SUB-AGENT 5B] Output incomplete (has_fv_row={has_fv_row}, has_2d_grid={has_2d_grid}, words={len(clean_5b.split())}). Retrying with fresh generation...", flush=True)
+                if attempt_5b < 3:
+                    print(f"   │ ⏱️ [BACKOFF] Waiting 20s before Sub-Agent 5B retry...", flush=True)
+                    time.sleep(20)
 
             # Combine 5A and 5B into full Section 5
             clean_section = clean_5a + "\n\n" + clean_5b
