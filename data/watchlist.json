@@ -1,1 +1,82 @@
-[]
+[
+  {
+    "ticker": "AMZN",
+    "company_name": "Amazon.com, Inc.",
+    "baseline_price": 261.31,
+    "current_price": 261.31,
+    "return_pct": 0.0,
+    "status_label": "Active",
+    "labels": [
+      "Active"
+    ],
+    "action_signal": "AVOID",
+    "fair_value_estimate": "$174.34",
+    "bear_target": "$98.09 (-62.5%)",
+    "base_target": "$174.34 (-33.3%)",
+    "bull_target": "$295.80 (+13.2%)",
+    "what_is_priced_in": "g_implied: 22.8% (vs Base 14.5%)",
+    "upper_alert_threshold": 295.8,
+    "lower_alert_threshold": 98.09,
+    "next_catalyst_date": "2026-11-16",
+    "next_catalyst_event": "Scheduled quarterly report",
+    "top_funds": [
+      "AltaRock Partners (32.21)",
+      "Josh Tarasoff - Greenlea Lane Capital (18.35)",
+      "Seth Klarman - Baupost Group (16.48)",
+      "Dennis Hong - ShawSpring Partners (16.13)",
+      "David Tepper - Appaloosa Management (15.95)",
+      "ValueAct Capital (12.44)",
+      "Bill Ackman - Pershing Square Capital Management (10.49)",
+      "Chase Coleman - Tiger Global Management (9.62)",
+      "Triple Frond Partners (9.20)",
+      "Daniel Loeb - Third Point (9.13)"
+    ],
+    "institutional_ownership_pct": "78.4%",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Standard executive equity incentive exercises and routine holding maintenance.",
+    "last_updated": "2026-08-18",
+    "total_versions": 1,
+    "report_path": "reports/AMZN.html"
+  },
+  {
+    "ticker": "META",
+    "company_name": "Meta Platforms, Inc.",
+    "baseline_price": 568.97,
+    "current_price": 568.97,
+    "return_pct": 0.0,
+    "status_label": "High Conviction",
+    "labels": [
+      "High Conviction",
+      "Safe Compounder",
+      "Ai Reinvestment"
+    ],
+    "action_signal": "HOLD",
+    "fair_value_estimate": "$642.15",
+    "bear_target": "$368.50 (-35.2%)",
+    "base_target": "$642.15 (+12.9%)",
+    "bull_target": "$925.80 (+62.7%)",
+    "what_is_priced_in": "g_implied: 9.8% (vs Base 12.0%)",
+    "upper_alert_threshold": 642.15,
+    "lower_alert_threshold": 368.5,
+    "next_catalyst_date": "2026-10-28",
+    "next_catalyst_event": "Q3 '26 ER",
+    "top_funds": [
+      "Robert Vinall - RV Capital GmbH (20.45)",
+      "Bill Ackman - Pershing Square Capital Management (9.25)",
+      "ValueAct Capital (9.15)",
+      "David Rolfe - Wedgewood Partners (8.89)",
+      "Pat Dorsey - Dorsey Asset Management (7.21)",
+      "Chase Coleman - Tiger Global Management (6.63)",
+      "Triple Frond Partners (5.91)",
+      "Francois Rochon - Giverny Capital (5.74)",
+      "David Tepper - Appaloosa Management (5.09)",
+      "First Pacific Advisors (4.81)"
+    ],
+    "institutional_ownership_pct": "78.4%",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Standard executive equity incentive exercises and routine holding maintenance.",
+    "last_updated": "2026-08-18",
+    "total_versions": 1,
+    "report_path": "reports/META.html"
+  }
+]
