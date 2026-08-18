@@ -104,32 +104,114 @@ def clean_grounding_artifacts(text: str) -> str:
     return cleaned.strip()
 
 
-def sanitize_labels(labels: Any) -> List[str]:
+CANONICAL_CONVICTION_TIERS = [
+    "High Conviction",
+    "Solid Conviction",
+    "Moderate Conviction",
+    "Cautious Stance",
+    "Turnaround Play",
+    "Speculative Risk",
+]
+
+
+def map_to_canonical_conviction_tier(lbl: str, action_signal: str = "", base_ret: float = 0.0) -> str:
+    """Maps any input conviction string or fallback signal to one of the 6 canonical Conviction Tiers:
+    1. High Conviction: Dominant moat & fortress balance sheet
+    2. Solid Conviction: Recurring cash flow & compounding runway
+    3. Moderate Conviction: Attractive upside with cyclical exposure
+    4. Cautious Stance: Navigating margin or temporary friction / valuation premium
+    5. Turnaround Play: Operational reset or debt reduction
+    6. Speculative Risk: High asymmetry with binary outcome
+    """
+    if lbl and isinstance(lbl, str):
+        clean = lbl.strip().upper()
+        # Direct exact match check
+        for tier in CANONICAL_CONVICTION_TIERS:
+            if clean == tier.upper():
+                return tier
+        # Keyword based matching
+        if any(k in clean for k in ["TURNAROUND", "RESTRUCTURING", "OPERATIONAL RESET", "DEBT REDUCTION"]):
+            return "Turnaround Play"
+        elif any(k in clean for k in ["SPECULATIVE", "BINARY", "ASYMMETRY", "UNPROVEN", "HIGH RISK"]):
+            return "Speculative Risk"
+        elif any(k in clean for k in ["CAUTION", "CAUTIOUS", "FRICTION", "VALUATION RISK", "HEADWIND", "PREMIUM", "OVERVALUED"]):
+            return "Cautious Stance"
+        elif any(k in clean for k in ["MODERATE", "CYCLICAL", "EXPOSURE", "AVERAGE"]):
+            return "Moderate Conviction"
+        elif any(k in clean for k in ["SOLID", "COMPOUNDER", "STEADY", "RECURRING", "RUNWAY"]):
+            return "Solid Conviction"
+        elif any(k in clean for k in ["HIGH CONVICTION", "HIGH", "DOMINANT", "FORTRESS", "DEEP VALUE", "MOAT"]):
+            return "High Conviction"
+            
+    # Derive from action signal & return if not provided or matched generic
+    sig = (action_signal or "").upper().strip()
+    if sig in ["AVOID", "RED"] or base_ret < -15.0:
+        return "Cautious Stance"
+    elif sig in ["CAUTION", "ORANGE"] or base_ret < 0.0:
+        return "Cautious Stance"
+    elif sig in ["BUY", "GREEN"] and base_ret >= 25.0:
+        return "High Conviction"
+    elif sig in ["BUY", "GREEN"]:
+        return "Solid Conviction"
+    elif sig in ["HOLD", "YELLOW"]:
+        return "Solid Conviction"
+    return "Solid Conviction"
+
+
+def sanitize_labels(labels: Any, action_signal: str = "", base_ret: float = 0.0) -> List[str]:
     """Sanitizes labels ensuring:
+    - Slot 1 is STRICTLY one of the 6 canonical Conviction Tiers:
+      * High Conviction, Solid Conviction, Moderate Conviction, Cautious Stance, Turnaround Play, Speculative Risk.
+    - Slots 2 & 3 are specific 2-word operating/catalyst drivers (e.g. "Cloud Leader", "Ad Monopoly").
     - Max 3 labels total.
-    - Each label is max 2 words, properly Title Cased.
-    - Preserves the model's nuanced conviction/confidence evaluation in Slot 1 and play drivers in Slots 2 & 3.
+    - Eliminates all generic placeholders like 'Active', 'Review', 'None', etc.
     """
     if not isinstance(labels, list):
         if isinstance(labels, str) and labels:
             labels = [labels]
         else:
             labels = []
+
+    GENERIC_BLACKLIST = {
+        "ACTIVE", "REVIEW", "ALERT", "UPDATE", "TASK", "STOCK", "STATUS", 
+        "NEW", "NONE", "PRICE", "CONVICTION", "TBD", "HOLD", "BUY", "AVOID", "CAUTION"
+    }
     
-    GENERIC_BLACKLIST = {"REVIEW", "ALERT", "UPDATE", "TASK", "STOCK", "STATUS", "NEW", "NONE", "PRICE"}
-    clean_list = []
-    for lbl in labels:
-        if not isinstance(lbl, str):
+    # 1. Determine canonical conviction tier for Slot 1
+    raw_slot1 = labels[0] if labels and isinstance(labels[0], str) else ""
+    conviction_tier = map_to_canonical_conviction_tier(raw_slot1, action_signal=action_signal, base_ret=base_ret)
+    
+    # If action signal is AVOID/CAUTION, override bullish conviction in slot 1
+    sig = (action_signal or "").upper().strip()
+    if (sig == "AVOID" or base_ret < -15.0) and conviction_tier in ["High Conviction", "Solid Conviction"]:
+        conviction_tier = "Cautious Stance"
+    elif (sig == "CAUTION" or base_ret < 0.0) and conviction_tier in ["High Conviction", "Solid Conviction"]:
+        conviction_tier = "Cautious Stance"
+
+    clean_drivers = []
+    # Check remaining elements for driver tags
+    candidates = labels[1:] if len(labels) > 1 else []
+    # Also check if raw_slot1 was a driver instead of a conviction tier
+    if raw_slot1 and raw_slot1.upper() not in [t.upper() for t in CANONICAL_CONVICTION_TIERS] and raw_slot1.upper() not in GENERIC_BLACKLIST:
+        candidates = [raw_slot1] + candidates
+
+    for item in candidates:
+        if not isinstance(item, str):
             continue
-        words = [w for w in lbl.replace("/", " ").replace("-", " ").replace("&", " ").split() if w.strip()]
+        words = [w for w in item.replace("/", " ").replace("-", " ").replace("&", " ").split() if w.strip()]
         if words:
             short_lbl = " ".join(words[:2]).title()
-            if short_lbl.upper() not in GENERIC_BLACKLIST and short_lbl not in clean_list:
-                clean_list.append(short_lbl)
-        if len(clean_list) >= 3:
+            if (
+                short_lbl.upper() not in GENERIC_BLACKLIST 
+                and short_lbl != conviction_tier 
+                and short_lbl not in clean_drivers
+            ):
+                clean_drivers.append(short_lbl)
+        if len(clean_drivers) >= 2:
             break
 
-    return clean_list if clean_list else ["High Conviction", "Deep Value", "Margin Expansion"]
+    result = [conviction_tier] + clean_drivers
+    return result
 
 
 def normalize_action_signal(signal: Any, default: str = "BUY") -> str:
@@ -742,10 +824,16 @@ Editorial Aesthetics Mandate:
 - DO NOT duplicate raw metadata text or pill badges inside the HTML sections.
 - NO IMAGES: Do not output `<img>` tags or figure containers. Pure analytical text, tables, and metric cards only.
 
-Labels Directive (2-Tier Intuitive Structure):
-- Label #1 (MANDATORY PRIMARY PILL — CONVICTION & CONFIDENCE RATING): State in MAX 2 WORDS your thesis conviction/certainty (e.g. "High Conviction", "Cautious Stance", "Speculative Risk", "High Confidence", "Moderate Conviction", "Turnaround Risk", "Defensive Safe", "High Uncertainty", "Asymmetric Upside"). DO NOT put play types here.
-- Labels #2 & #3 (THE PLAY NATURE & CATALYST DRIVERS): Describe the economic play and catalyst driver in intuitive plain English (e.g. "Deep Value", "Turnaround Play", "Safe Compounder", "Buyback Cannibal", "Margin Expansion", "Cash Fortress", "Debt Paydown", "Pricing Power", "Moat Expansion", "Special Situation"). Avoid textbook jargon.
-- 100% FREEDOM: Examples are inspiration only. You can freely choose or invent any 2-word label names that best fit the company.
+Labels Directive (Canonical Taxonomy):
+- Label #1 (MANDATORY CANONICAL CONVICTION TIER): MUST strictly be one of these 6 canonical tiers:
+  * "High Conviction" (Dominant moat & fortress balance sheet)
+  * "Solid Conviction" (Recurring cash flow & compounding runway)
+  * "Moderate Conviction" (Attractive upside with cyclical exposure)
+  * "Cautious Stance" (Navigating margin or temporary friction / valuation premium)
+  * "Turnaround Play" (Operational reset or debt reduction)
+  * "Speculative Risk" (High asymmetry with binary outcome)
+  NEVER use generic placeholders like "Active", "Review", "Stock", "Alert", "None".
+- Labels #2 & #3 (THE PLAY NATURE & CATALYST DRIVERS): Describe operating drivers in MAX 2 WORDS (e.g. "Cloud Leader", "Ad Monopoly", "Ai Infrastructure", "Buyback Cannibal", "Margin Expansion", "Cash Fortress", "Retail Density", "Pricing Power").
 
 Return your plan strictly as a JSON object in ```json ... ```:
 ```json
@@ -753,7 +841,7 @@ Return your plan strictly as a JSON object in ```json ... ```:
   "metadata": {{
     "ticker": "{ticker}",
     "company_name": "{company_name}",
-    "labels": ["<Confidence/Risk Label 1>", "<Play Driver Label 2>", "<Play Driver Label 3>"],
+    "labels": ["<Canonical Conviction Tier (e.g. High Conviction | Solid Conviction | Cautious Stance)>", "<Play Driver 1>", "<Play Driver 2>"],
     "next_catalyst_date": "<YYYY-MM-DD (Strict ISO date, e.g. 2026-08-13; if unconfirmed, estimate exact calendar day based on historical reporting cadence)>",
     "next_catalyst_event": "<Short description of catalyst, max 4 words, using clean concise notation e.g. Q3 '26 ER, Q2 '27 ER, Investor Day>",
     "top_funds": ["<Top Fund 1 (e.g. Vanguard 8.4%)>", "<Top Fund 2 (e.g. BlackRock 7.1%)>", "<Whale/Superinvestor 3 from Dataroma/WhaleWisdom>"],
@@ -1282,7 +1370,7 @@ DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
         metadata = {
             "ticker": ticker_clean,
             "company_name": company_name,
-            "labels": ["Active"],
+            "labels": ["Solid Conviction", "Compounding Moat", "Cash Generation"],
             "fair_value_estimate": f"${current_price * 1.15:.2f}",
             "bear_target": f"${current_price * 0.75:.2f} (-25.0%)",
             "base_target": f"${current_price * 1.15:.2f} (+15.0%)",
@@ -1454,7 +1542,6 @@ DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
 
     # Reconcile summary text and labels to eliminate contradictions with Action Signal
     summary_text = metadata.get("executive_summary", "")
-    current_labels = sanitize_labels(metadata.get("labels") or metadata.get("status_label"))
     
     if metadata["action_signal"] == "AVOID" or base_ret < -15.0:
         bullish_terms = ["attractive risk-adjusted entry", "attractive entry", "deep value", "strong buy", "screaming buy", "undervalued opportunity", "highly attractive entry", "attractive entry point"]
@@ -1463,16 +1550,16 @@ DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
                 summary_text = re.sub(re.escape(term), "elevated valuation / asymmetric downside risk", summary_text, flags=re.IGNORECASE)
         if not any(k in summary_text.lower() for k in ["overvalued", "premium", "caution", "avoid", "pullback", "risk", "stretched"]):
             summary_text += f" At ${current_price:.2f}, shares trade at a premium to Base Fair Value (${base_val:.2f}, {base_ret:+.1f}%), signaling an AVOID stance until a margin of safety emerges."
-        if current_labels and any(k in current_labels[0].lower() for k in ["conviction buy", "high conviction", "deep value", "bargain", "asymmetric upside"]):
-            current_labels[0] = "Valuation Risk"
             
-    elif metadata["action_signal"] == "CAUTION" or base_ret < 0.0:
-        if current_labels and any(k in current_labels[0].lower() for k in ["high conviction", "deep value", "asymmetric upside"]):
-            current_labels[0] = "Cautious Stance"
+    current_labels = sanitize_labels(
+        metadata.get("labels") or metadata.get("status_label"),
+        action_signal=metadata.get("action_signal"),
+        base_ret=base_ret
+    )
 
     metadata["executive_summary"] = summary_text.strip()
     metadata["labels"] = current_labels
-    metadata["status_label"] = metadata["labels"][0] if metadata["labels"] else "Active"
+    metadata["status_label"] = metadata["labels"][0]
     metadata["next_catalyst_date"] = normalize_catalyst_date(metadata.get("next_catalyst_date"))
     metadata["action_signal"] = normalize_action_signal(metadata.get("action_signal", "BUY"))
 

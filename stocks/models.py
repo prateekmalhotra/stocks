@@ -11,7 +11,7 @@ class ThesisVersion(BaseModel):
     version: int
     date: str
     price_at_version: float
-    status_label: str = "Active"
+    status_label: str = "Solid Conviction"
     labels: List[str] = Field(default_factory=list)  # Max 3 labels, max 2 words each
     action_signal: str = "BUY"  # BUY, HOLD, CAUTION, AVOID
     summary_of_change: str  # How the company/thesis changed in this version
@@ -58,7 +58,7 @@ class WatchlistStock(BaseModel):
     baseline_price: float
     current_price: float
     return_pct: float
-    status_label: str = "Active"
+    status_label: str = "Solid Conviction"
     labels: List[str] = Field(default_factory=list)  # Max 3 labels, max 2 words each
     action_signal: str = "BUY"  # BUY, HOLD, CAUTION, AVOID
     fair_value_estimate: str

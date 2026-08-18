@@ -175,6 +175,21 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
                 if bk in exec_summary:
                     issues.append(f"Signal Contradiction: Action signal is AVOID but executive summary contains '{bk}'.")
 
+        # 14. Canonical Conviction Tier & Label Quality Check
+        CANONICAL_CONVICTION_TIERS = {
+            "High Conviction", "Solid Conviction", "Moderate Conviction",
+            "Cautious Stance", "Turnaround Play", "Speculative Risk"
+        }
+        status_lbl = metadata.get("status_label") or (metadata.get("labels", [""])[0] if metadata.get("labels") else "")
+        if not status_lbl or status_lbl in ["Active", "Review", "Stock", "Alert", "None", "TBD", "Status"]:
+            issues.append(f"Non-canonical status_label '{status_lbl}'. Must strictly be one of: {sorted(list(CANONICAL_CONVICTION_TIERS))}.")
+        elif status_lbl not in CANONICAL_CONVICTION_TIERS:
+            issues.append(f"Invalid Conviction Tier '{status_lbl}'. Must strictly be one of: {sorted(list(CANONICAL_CONVICTION_TIERS))}.")
+
+        labels = metadata.get("labels", [])
+        if not labels or labels[0] not in CANONICAL_CONVICTION_TIERS:
+            issues.append(f"Label Slot 1 '{labels[0] if labels else None}' must strictly be a canonical Conviction Tier.")
+
     return len(issues) == 0, issues
 
 

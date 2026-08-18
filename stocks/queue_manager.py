@@ -12,7 +12,14 @@ from stocks.data_store import (
     add_alert
 )
 from stocks.tracker import fetch_live_stock_info
-from stocks.gemini_agent import generate_genesis_thesis, review_stock_thesis, sanitize_labels, normalize_catalyst_date, normalize_action_signal
+from stocks.gemini_agent import (
+    generate_genesis_thesis,
+    review_stock_thesis,
+    sanitize_labels,
+    normalize_catalyst_date,
+    normalize_action_signal,
+    CANONICAL_CONVICTION_TIERS
+)
 from stocks.dashboard import render_all
 
 
@@ -68,7 +75,7 @@ def _handle_genesis_task(ticker: str, notes: str):
     print(f"🔍 Researching {ticker} ({company_name}) at real market price ${current_price:.2f} with Gemini Flash + Search...")
 
     meta, html_content = generate_genesis_thesis(ticker, company_name, current_price, notes)
-    labels = sanitize_labels(meta.get("labels") or meta.get("status_label"))
+    labels = sanitize_labels(meta.get("labels") or meta.get("status_label"), action_signal=meta.get("action_signal"))
     action_signal = normalize_action_signal(meta.get("action_signal", "BUY"))
 
     # 1. Create Initial Thesis Version
@@ -105,7 +112,7 @@ def _handle_genesis_task(ticker: str, notes: str):
         version=1,
         date=today_str,
         price_at_version=current_price,
-        status_label=labels[0] if labels else "Active",
+        status_label=labels[0] if labels else "Solid Conviction",
         labels=labels,
         action_signal=action_signal,
         summary_of_change=meta.get("executive_summary", "Initial institutional thesis established."),
@@ -226,7 +233,7 @@ def _handle_review_task(ticker: str, trigger_reason: str):
         previous_bull_target=stock.bull_target
     )
 
-    labels = sanitize_labels(meta.get("labels") or meta.get("new_status_label"))
+    labels = sanitize_labels(meta.get("labels") or meta.get("new_status_label") or prev_status, action_signal=meta.get("action_signal"))
     action_signal = normalize_action_signal(meta.get("action_signal", "BUY"))
     new_version_num = len(history) + 1
     today_str = datetime.now().strftime("%Y-%m-%d")
@@ -241,7 +248,7 @@ def _handle_review_task(ticker: str, trigger_reason: str):
         version=new_version_num,
         date=today_str,
         price_at_version=current_price,
-        status_label=labels[0] if labels else prev_status,
+        status_label=labels[0] if labels else (prev_status if prev_status in CANONICAL_CONVICTION_TIERS else "Solid Conviction"),
         labels=labels,
         action_signal=action_signal,
         summary_of_change=meta.get("what_changes_now", "Living thesis updated with recent market developments."),
