@@ -21,7 +21,7 @@
     "change": 0.0,
     "change_pct": 0.0,
     "currency": "USD",
-    "updated_at": "2026-08-18 06:10:12 UTC"
+    "updated_at": "2026-08-18 06:30:57 UTC"
   },
   "META": {
     "price": 568.97,
@@ -29,7 +29,31 @@
     "change": 0.0,
     "change_pct": 0.0,
     "currency": "USD",
-    "updated_at": "2026-08-18 06:10:12 UTC"
+    "updated_at": "2026-08-18 06:30:57 UTC"
+  },
+  "JD": {
+    "price": 28.5,
+    "prev_close": 28.5,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-18 06:30:57 UTC"
+  },
+  "PDD": {
+    "price": 86.94,
+    "prev_close": 86.94,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-18 06:30:57 UTC"
+  },
+  "BABA": {
+    "price": 124.71,
+    "prev_close": 124.71,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-18 06:30:57 UTC"
   }
 }</script>
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
@@ -805,7 +829,7 @@
         <!-- Navigation Controls -->
         <div class="hub-controls">
             <div class="hub-tabs">
-                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">2</span></button>
+                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">5</span></button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts <span class="tab-chip chip-alert">0</span></span></button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-defensive')">Fidelity</button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-aggressive')">Wealthsimple</button>
@@ -882,6 +906,74 @@
             </td>
         </tr>
         
+        <tr class="table-row" data-ticker="BABA" data-baseline="124.71" onclick="location.href='reports/BABA.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/BABA" alt="BABA" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">BA</span></div>
+                        <span class="tbl-symbol">BABA</span>
+                    </div>
+                    <span class="tbl-company-hover">Alibaba Group Holding Limited</span>
+                </div>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-BABA">$124.71</span>
+                    <span class="tbl-return tbl-ret-BABA pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="pill pill-conviction">Turnaround Play</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-val-cell">
+                    <span class="tbl-fv" style="color: var(--accent-warm);">$146.99</span>
+                    <span class="tbl-upside">+17.9%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-date">2026-08-20</span>
+                    <span class="tbl-cat-desc">Q1 '27 ER</span>
+                </div>
+            </td>
+        </tr>
+        
+        <tr class="table-row" data-ticker="JD" data-baseline="28.5" onclick="location.href='reports/JD.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/JD" alt="JD" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">JD</span></div>
+                        <span class="tbl-symbol">JD</span>
+                    </div>
+                    <span class="tbl-company-hover">JD.com, Inc</span>
+                </div>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-JD">$28.50</span>
+                    <span class="tbl-return tbl-ret-JD pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="pill pill-conviction">Solid Conviction</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-val-cell">
+                    <span class="tbl-fv" style="color: var(--accent-warm);">$84.50</span>
+                    <span class="tbl-upside">+196.5%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-date">2026-11-12</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
+                </div>
+            </td>
+        </tr>
+        
         <tr class="table-row" data-ticker="META" data-baseline="568.97" onclick="location.href='reports/META.html'">
             <td>
                 <div class="tbl-ticker-cell">
@@ -912,6 +1004,40 @@
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-10-28</span>
                     <span class="tbl-cat-desc">Q3 '26 ER</span>
+                </div>
+            </td>
+        </tr>
+        
+        <tr class="table-row" data-ticker="PDD" data-baseline="86.94" onclick="location.href='reports/PDD.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/PDD" alt="PDD" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">PD</span></div>
+                        <span class="tbl-symbol">PDD</span>
+                    </div>
+                    <span class="tbl-company-hover">PDD Holdings Inc</span>
+                </div>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-PDD">$86.94</span>
+                    <span class="tbl-return tbl-ret-PDD pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="pill pill-conviction">Solid Conviction</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-val-cell">
+                    <span class="tbl-fv" style="color: var(--accent-warm);">$177.79</span>
+                    <span class="tbl-upside">+104.5%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-date">2026-08-24</span>
+                    <span class="tbl-cat-desc">Q2 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -956,6 +1082,72 @@
             </div>
         </div>
         
+        <div class="grid-card" data-ticker="BABA" data-baseline="124.71" onclick="location.href='reports/BABA.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/BABA" alt="BABA" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">BA</span></div>
+                    <span class="grid-symbol">BABA</span>
+                </div>
+                <div class="grid-price grid-price-BABA">$124.71</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <span class="pill pill-conviction">Turnaround Play</span>
+            </div>
+            <div class="grid-company">Alibaba Group Holding Limited</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-BABA pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Fair Value</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">$146.99</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Target</span>
+                    <span class="grid-stat-val">$146.99 (+17.9%)</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val">2026-08-20</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid-card" data-ticker="JD" data-baseline="28.5" onclick="location.href='reports/JD.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/JD" alt="JD" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">JD</span></div>
+                    <span class="grid-symbol">JD</span>
+                </div>
+                <div class="grid-price grid-price-JD">$28.50</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <span class="pill pill-conviction">Solid Conviction</span>
+            </div>
+            <div class="grid-company">JD.com, Inc</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-JD pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Fair Value</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">$84.50</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Target</span>
+                    <span class="grid-stat-val">$84.50 (+196.5%)</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val">2026-11-12</span>
+                </div>
+            </div>
+        </div>
+        
         <div class="grid-card" data-ticker="META" data-baseline="568.97" onclick="location.href='reports/META.html'">
             <div class="grid-card-top">
                 <div style="display: flex; align-items: center; gap: 8px;">
@@ -985,6 +1177,39 @@
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Catalyst</span>
                     <span class="grid-stat-val">2026-10-28</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid-card" data-ticker="PDD" data-baseline="86.94" onclick="location.href='reports/PDD.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/PDD" alt="PDD" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">PD</span></div>
+                    <span class="grid-symbol">PDD</span>
+                </div>
+                <div class="grid-price grid-price-PDD">$86.94</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <span class="pill pill-conviction">Solid Conviction</span>
+            </div>
+            <div class="grid-company">PDD Holdings Inc</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-PDD pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Fair Value</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">$177.79</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Target</span>
+                    <span class="grid-stat-val">$177.79 (+104.5%)</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val">2026-08-24</span>
                 </div>
             </div>
         </div>
