@@ -21,7 +21,15 @@
     "change": 0.0,
     "change_pct": 0.0,
     "currency": "USD",
-    "updated_at": "2026-08-18 20:34:36 UTC"
+    "updated_at": "2026-08-18 20:41:07 UTC"
+  },
+  "BABA": {
+    "price": 128.15,
+    "prev_close": 128.15,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-18 20:41:07 UTC"
   }
 }</script>
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
@@ -797,7 +805,7 @@
         <!-- Navigation Controls -->
         <div class="hub-controls">
             <div class="hub-tabs">
-                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">1</span></button>
+                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">2</span></button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts <span class="tab-chip chip-alert">0</span></span></button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-defensive')">Fidelity</button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-aggressive')">Wealthsimple</button>
@@ -840,6 +848,40 @@
                     </thead>
                     <tbody>
                         
+        <tr class="table-row" data-ticker="BABA" data-baseline="128.15" onclick="location.href='reports/BABA.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/BABA" alt="BABA" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">BA</span></div>
+                        <span class="tbl-symbol">BABA</span>
+                    </div>
+                    <span class="tbl-company-hover">Alibaba Group Holding Limited</span>
+                </div>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-BABA">$128.15</span>
+                    <span class="tbl-return tbl-ret-BABA pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="pill pill-conviction">Turnaround Play</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-val-cell">
+                    <span class="tbl-fv" style="color: var(--accent-warm);">$138.60</span>
+                    <span class="tbl-upside">+8.2%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-date">2026-08-20</span>
+                    <span class="tbl-cat-desc">Q1 '27 ER</span>
+                </div>
+            </td>
+        </tr>
+        
         <tr class="table-row" data-ticker="JD" data-baseline="28.82" onclick="location.href='reports/JD.html'">
             <td>
                 <div class="tbl-ticker-cell">
@@ -881,6 +923,39 @@
             <!-- Grid Cards View -->
             <div id="stocks-grid-view" class="grid-cards-wrap" style="display: none;">
                 
+        <div class="grid-card" data-ticker="BABA" data-baseline="128.15" onclick="location.href='reports/BABA.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/BABA" alt="BABA" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">BA</span></div>
+                    <span class="grid-symbol">BABA</span>
+                </div>
+                <div class="grid-price grid-price-BABA">$128.15</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <span class="pill pill-conviction">Turnaround Play</span>
+            </div>
+            <div class="grid-company">Alibaba Group Holding Limited</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-BABA pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Fair Value</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">$138.60</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Target</span>
+                    <span class="grid-stat-val">$138.60 (+8.2%)</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val">2026-08-20</span>
+                </div>
+            </div>
+        </div>
+        
         <div class="grid-card" data-ticker="JD" data-baseline="28.82" onclick="location.href='reports/JD.html'">
             <div class="grid-card-top">
                 <div style="display: flex; align-items: center; gap: 8px;">
