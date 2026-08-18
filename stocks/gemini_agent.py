@@ -1314,16 +1314,15 @@ Your Objective: {research_obj}
 CRITICAL 3 DISTINCT BUSINESS STORYLINES & ACCOUNTING INVARIANTS:
 - ZERO PRICE ANCHORING: Value the operational business strictly from First Principles of unit economics and cash flow without any reference to stock market prices or analyst targets.
 - 2-QUARTER TRANSCRIPT RESEARCH MANDATE: You MUST search and analyze the company's LAST 2 QUARTERLY EARNINGS CALL TRANSCRIPTS (e.g. Q4 / Q1 earnings calls). Extract verified executive remarks, pricing changes, product roadmap updates, and analyst questions to ground the 3 storylines in verifiable operating reality.
-- 3 PROBABLE BUSINESS STORYLINES WITH EXPLICIT PROBABILITY WEIGHTS (90-95% PROBABILITY SPECTRUM):
-  Formulate 3 distinct, plausible, fundamental operational trajectories that together cover 90-95% of future possibilities with explicit probability weights:
-  * 📖 Storyline 1: MUST ALWAYS BE the Primary Base Operating Trajectory (Baseline Reality / Core Fundamental Expectation, Weight: ~50-60%). This establishes the primary Intrinsic Fair Value and headline price target of the memo!
-  * 📖 Storyline 2: MUST ALWAYS BE the Defensive Stress Trajectory / Moat-Testing Floor (Downside Margin Compression / Competition / Headwinds / Geopolitical or Regulatory Overhangs, Weight: ~20-25%).
-  * 📖 Storyline 3: MUST ALWAYS BE the High-Execution / Accelerated Trajectory (Upside Expansion / Favorable Mix / Blue-Sky Potential, Weight: ~20-25%).
-- DOWNSIDE STRESS FLOOR REALISM INVARIANT: Storyline 2 (Defensive Stress Trajectory) MUST be a genuine stress test reflecting the primary downside structural and regulatory/geopolitical risks of the business (e.g. tariffs, de minimis elimination, pricing war, or customer churn). Storyline 2 MUST model conservative or negative growth and margin contraction to establish a true defensive valuation floor that tests downside levels below current market price!
+- 3 PROBABLE BUSINESS STORYLINES (90-95% PROBABILITY COVERAGE):
+  Formulate 3 distinct, plausible, fundamental operational trajectories for how this specific company's future could unfold over the next 5 years. They are NOT meant to be labeled Low/High/Medium or Bear/Bull/Base or anchored to any positive/negative sentiment. They represent 3 distinct realistic operating paths that together cover 90-95% of future possibilities:
+  * 📖 Storyline 1: [Descriptive Business Title based on operational path A]
+  * 📖 Storyline 2: [Descriptive Business Title based on operational path B]
+  * 📖 Storyline 3: [Descriptive Business Title based on operational path C]
 - STRICT COLUMN ALIGNMENT INVARIANT:
-  * Column 1 in Table 1 MUST correspond to Storyline 1 (Base Case / Baseline Reality).
-  * Column 2 in Table 1 MUST correspond to Storyline 2 (Defensive Bear Floor).
-  * Column 3 in Table 1 MUST correspond to Storyline 3 (Accelerated Bull Upside).
+  * Column 1 in Table 1 MUST correspond to Storyline 1.
+  * Column 2 in Table 1 MUST correspond to Storyline 2.
+  * Column 3 in Table 1 MUST correspond to Storyline 3.
 - MODELED VS DISCLOSED DISTINCTION: Any modeled operational metrics (such as brand-level operating margins, unit ASPs, or fulfillment costs) must be explicitly noted as modeled estimates rather than asserted as audited GAAP line items.
 - CAPEX & MAINTENANCE BENCHMARKING: For e-commerce, global logistics, retail, or tech compounders, Maintenance CapEx must realistically cover IT infrastructure, server capacity, and logistics upkeep (benchmarked to GAAP D&A or at least 1.0%-3.0% of revenue). Modeling an absurdly negligible CapEx number (e.g. <0.2% of revenue) on a $50B+ global operations network is strictly prohibited.
 - TOP-DOWN GAAP-TO-OWNER EARNINGS ACCOUNTING INVARIANT:
@@ -1342,16 +1341,16 @@ Generate the first half of Section 5 in clean Semantic HTML with NO external ima
 
 <h3>3 Probable Business Storylines (The Narrative &amp; Operational Paths)</h3>
 <div class="callout">
-  <p><strong>📖 Storyline 1: [Descriptive Base Case Title] (Primary Baseline Reality · Prob: ~55%)</strong></p>
-  <p>Detail the primary baseline narrative: customer churn/growth dynamics, pricing power, management actions, product adoption, and operational mechanics.</p>
+  <p><strong>📖 Storyline 1: [Descriptive Operational Title A]</strong></p>
+  <p>Detail the full operational narrative: customer churn/growth dynamics, pricing power, management actions, product adoption, and operational mechanics.</p>
 </div>
 <div class="callout">
-  <p><strong>📖 Storyline 2: [Descriptive Bear Title] (Defensive Stress Trajectory · Prob: ~25%)</strong></p>
-  <p>Detail the downside stress narrative: customer churn/growth dynamics, pricing power, management actions, product adoption, and operational mechanics.</p>
+  <p><strong>📖 Storyline 2: [Descriptive Operational Title B]</strong></p>
+  <p>Detail the full operational narrative: customer churn/growth dynamics, pricing power, management actions, product adoption, and operational mechanics.</p>
 </div>
 <div class="callout">
-  <p><strong>📖 Storyline 3: [Descriptive Bull Title] (High-Execution Trajectory · Prob: ~20%)</strong></p>
-  <p>Detail the upside acceleration narrative: customer churn/growth dynamics, pricing power, management actions, product adoption, and operational mechanics.</p>
+  <p><strong>📖 Storyline 3: [Descriptive Operational Title C]</strong></p>
+  <p>Detail the full operational narrative: customer churn/growth dynamics, pricing power, management actions, product adoption, and operational mechanics.</p>
 </div>
 
 <h3>Primary Unit Economics &amp; Operating Leverage P&amp;L Waterfall Matrix</h3>
@@ -1360,9 +1359,9 @@ Generate the first half of Section 5 in clean Semantic HTML with NO external ima
   <thead>
     <tr>
       <th>Operational &amp; Financial Metric (P&amp;L Flow-Through)</th>
-      <th>Storyline 1: [Base Title] (~55%)</th>
-      <th>Storyline 2: [Bear Title] (~25%)</th>
-      <th>Storyline 3: [Bull Title] (~20%)</th>
+      <th>Storyline 1: [Title A]</th>
+      <th>Storyline 2: [Title B]</th>
+      <th>Storyline 3: [Title C]</th>
     </tr>
   </thead>
   <tbody>
@@ -1389,15 +1388,10 @@ Your Objective: Complete the quantitative discounted cash flow modeling and intr
 
 CRITICAL DCF MATHEMATICS & INVARIANTS:
 - ZERO PRICE ANCHORING: Value the enterprise strictly from First Principles of discounted cash flow as if you were buying 100% of the private business.
-- STRICT 1:1 COLUMN CORRESPONDENCE: Table 2 MUST use columns matching the 3 Storylines in EXACT order:
-  * Column 1 = Storyline 1 (Primary Base Reality / Headline Fair Value · ~55% Weight).
-  * Column 2 = Storyline 2 (Defensive Stress Floor · ~25% Weight).
-  * Column 3 = Storyline 3 (High-Execution Bull Case · ~20% Weight).
-- STORYLINE 1 IS THE PRIMARY BASE CASE: In the 2D Sensitivity Grid, Reverse DCF, and Market Closure Test, the Primary Baseline Reality is ALWAYS Storyline 1.
+- STRICT 1:1 COLUMN CORRESPONDENCE: Table 2 MUST use columns matching the 3 Storylines in EXACT order (Column 1 = Storyline 1, Column 2 = Storyline 2, Column 3 = Storyline 3 with their exact descriptive titles from Table 1).
+- Table 2 MUST contain the exact rows for 'Intrinsic Fair Value / Share' and 'Margin of Safety vs Current Price (${current_price:.2f})'.
 - DISCOUNT RATE VS. GROWTH RATE DECOUPLING INVARIANT: In Storyline 1 and across all discrete projection periods, the 5-year CAGR (g) MUST NOT equal the discount rate (r). Ensure (r - g) >= 1.0% to preserve realistic discounting physics and avoid artificial flat cash flow streams.
 - Net Balance Sheet Debt/Cash Adjustment & Diluted Share Count: MUST strictly lock the per-share figure and diluted share count audited in Section 4 across all 3 storylines.
-- TERMINAL VALUE SENSITIVITY & DISCLOSURE: Calculate the percentage of Total Enterprise Value driven by Terminal Value (PV(TV) / EV). When Terminal Value exceeds 65%, explicitly caveat the sensitivity to long-term discount rates (+/- 100 bps).
-- BLENDED PROBABILITY-WEIGHTED FAIR VALUE: After Table 2, provide a summary callout calculating the blended probability-weighted expected value: (W1 * FV1 + W2 * FV2 + W3 * FV3).
 - LIQUIDITY FLOOR & SANITY INVARIANT:
   * For a going-concern cash-generative business, Intrinsic Value / Share cannot be modeled below the company's net liquid cash per share from Section 4.
   * Check your resulting Enterprise Value (EV) and Intrinsic Value per share to ensure it represents an economically coherent 90-95% probability spectrum, avoiding absurd multi-standard-deviation outliers.
@@ -1412,13 +1406,12 @@ Generate the quantitative second half of Section 5 in clean Semantic HTML with N
     <thead>
       <tr>
         <th>Valuation Parameter &amp; Output Metric</th>
-        <th>Storyline 1: [Base Title] (~55%)</th>
-        <th>Storyline 2: [Bear Title] (~25%)</th>
-        <th>Storyline 3: [Bull Title] (~20%)</th>
+        <th>Storyline 1: [Title A]</th>
+        <th>Storyline 2: [Title B]</th>
+        <th>Storyline 3: [Title C]</th>
       </tr>
     </thead>
     <tbody>
-      <tr><td>Probability Weight %</td><td>55.0%</td><td>25.0%</td><td>20.0%</td></tr>
       <tr><td>Year 1 Owner Earnings (OE₁)</td><td>$XX.XXM / $XX.XXB</td><td>$XX.XXM / $XX.XXB</td><td>$XX.XXM / $XX.XXB</td></tr>
       <tr><td>5-Year Organic OE CAGR</td><td>X.X%</td><td>XX.X%</td><td>XX.X%</td></tr>
       <tr><td>Discount Rate (Local Sovereign + ERP)</td><td>X.X%</td><td>X.X%</td><td>X.X%</td></tr>
@@ -1433,17 +1426,8 @@ Generate the quantitative second half of Section 5 in clean Semantic HTML with N
   </table>
   * MANDATORY ROW INVARIANT: You MUST include the 'Intrinsic Fair Value / Share' and 'Margin of Safety vs Current Price (${current_price:.2f})' rows. Do NOT omit them!
 
-<div class="callout">
-  <p><strong>🎲 Probability-Weighted Valuation Summary &amp; Terminal Value Sensitivity:</strong></p>
-  <ul>
-    <li><strong>Primary Base Fair Value (Storyline 1):</strong> $XX.XX (+/-XX.X% Margin of Safety)</li>
-    <li><strong>Blended Probability-Weighted Fair Value (55% / 25% / 20%):</strong> $XX.XX (+/-XX.X% Margin of Safety)</li>
-    <li><strong>Terminal Value Weight:</strong> PV(TV) represents XX.X% of Enterprise Value in Base Case (reflecting sensitivity to terminal discount rate assumptions).</li>
-  </ul>
-</div>
-
 <h3>2D Valuation Sensitivity Matrix</h3>
-- Table 3: Storyline 1 (Base Case) Intrinsic Value / Share across varying Discount Rates ($r \pm 1.0\%$) and Terminal Growth Rates ($g_{{\\text{{term}}}} \pm 0.5\%$):
+- Table 3: Storyline 1 Intrinsic Value / Share across varying Discount Rates ($r \pm 1.0\%$) and Terminal Growth Rates ($g_{{\\text{{term}}}} \pm 0.5\%$):
   <table>
     <thead>
       <tr>
@@ -1462,11 +1446,11 @@ Generate the quantitative second half of Section 5 in clean Semantic HTML with N
   </table>
 
 <h3>Market-Implied Expectations &amp; &quot;What is Priced In?&quot; (Reverse DCF Audit)</h3>
-- Contrast Market-Implied Expectations (g_implied) vs. Storyline 1 Base Reality (g_base).
+- Contrast Market-Implied Expectations (g_implied) vs. Storyline 1 Reality (g_base).
 - State whether Mr. Market is pricing in extreme distress/extinction, reasonable compounding, or euphoria.
 
 <h3>The 5-Year Market Closure Test</h3>
-- Demonstrate cumulative 5-year Owner Earnings cash returned on today's market capitalization (${current_price:.2f}) based on Storyline 1 Base Case cash flows and audited share count.
+- Demonstrate cumulative 5-year Owner Earnings cash returned on today's market capitalization (${current_price:.2f}) based on Storyline 1 cash flows and audited share count.
 
 DO NOT write Section 1, 2, 3, 4, or 6. Output pure HTML only."""
 
@@ -1904,7 +1888,6 @@ DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
     elif base_ret >= -15.0:
         metadata["action_signal"] = "CAUTION"
     else:
-        metadata["action_signal"] = "AVOID"
         metadata["action_signal"] = "AVOID"
 
     # Extract Reverse DCF / What is Priced In from Section 5

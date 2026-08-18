@@ -300,7 +300,7 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
             except Exception:
                 pass
 
-    # 22. Storyline Base Case & Headline Target Harmonization Check
+    # 22. Storyline 1 Primary Target Harmonization Check
     if metadata:
         fv_str = metadata.get("fair_value_estimate", "")
         s1_str = metadata.get("story1_target", "")
@@ -308,7 +308,7 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
             fv_num = _parse_p(fv_str)
             s1_num = _parse_p(s1_str)
             if fv_num is not None and s1_num is not None and abs(fv_num - s1_num) > 0.05:
-                issues.append(f"Base Case Inversion Failure: Headline Fair Value (${fv_num:.2f}) does not match Storyline 1 Base Target (${s1_num:.2f}). Storyline 1 MUST be the primary Base Case.")
+                issues.append(f"Storyline Target Inconsistency: Headline Fair Value (${fv_num:.2f}) does not match Storyline 1 Calculated Target (${s1_num:.2f}).")
 
     # 23. Discount Rate vs Growth Rate Decoupling Check (Rate Flattening Prevention)
     if s5_match:
@@ -360,10 +360,10 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
             if re.search(r"sale\s*-\s*open\s*market|s\s*-\s*sale", s4_t):
                 issues.append("Insider Narrative Contradiction: Section 4 text claims 'zero insider sales' while adjacent Form 4 ledger documents open-market sales.")
 
-    # 27. Downside Stress Floor Invariant
-    if metadata and s1 is not None and s2 is not None:
-        if s2 > s1:
-            issues.append(f"Storyline Inversion Failure: Storyline 2 (${s2:.2f}) is higher than Storyline 1 Base Case (${s1:.2f}). Storyline 2 must represent the defensive stress floor.")
+    # 27. 3 Distinct Storylines Valuation Spread Check
+    if metadata and s1 is not None and s2 is not None and s3 is not None:
+        if abs(s1 - s2) < 0.05 and abs(s2 - s3) < 0.05:
+            issues.append("Storyline Diversity Failure: All 3 storylines produced identical valuation targets. Storylines must represent 3 distinct operating trajectories.")
 
     return len(issues) == 0, issues
 
