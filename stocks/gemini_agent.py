@@ -1999,9 +1999,8 @@ def research_ownership_writeups(ticker: str, company_name: str) -> List[Dict[str
     seen_urls = set()
     
     active_m = get_active_model()
-    models_to_try = [active_m]
-    if active_m != FALLBACK_GEMINI_MODEL:
-        models_to_try.append(FALLBACK_GEMINI_MODEL)
+    start_idx = GEMINI_MODELS_LADDER.index(active_m) if active_m in GEMINI_MODELS_LADDER else 0
+    models_to_try = GEMINI_MODELS_LADDER[start_idx:]
 
     for model_name in models_to_try:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
@@ -2055,11 +2054,11 @@ def research_ownership_writeups(ticker: str, company_name: str) -> List[Dict[str
                     except Exception:
                         pass
                 break
-            elif r.status_code in (500, 502, 503, 504, 429) and model_name != FALLBACK_GEMINI_MODEL:
+            elif r.status_code in (500, 502, 503, 504, 429) and model_name != GEMINI_MODELS_LADDER[-1]:
                 switch_to_fallback_model(f"HTTP {r.status_code}")
                 continue
         except Exception as e:
-            if model_name != FALLBACK_GEMINI_MODEL:
+            if model_name != GEMINI_MODELS_LADDER[-1]:
                 switch_to_fallback_model(str(e))
                 continue
             print(f"Error in grounding extraction for {clean_t}: {e}")
@@ -2101,9 +2100,8 @@ Respond ONLY with the JSON object enclosed in ```json ```.
     }
     
     active_m = get_active_model()
-    models_to_try = [active_m]
-    if active_m != FALLBACK_GEMINI_MODEL:
-        models_to_try.append(FALLBACK_GEMINI_MODEL)
+    start_idx = GEMINI_MODELS_LADDER.index(active_m) if active_m in GEMINI_MODELS_LADDER else 0
+    models_to_try = GEMINI_MODELS_LADDER[start_idx:]
 
     for model_name in models_to_try:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
@@ -2116,11 +2114,11 @@ Respond ONLY with the JSON object enclosed in ```json ```.
                 if m:
                     return json.loads(m.group(1))
                 break
-            elif resp.status_code in (500, 502, 503, 504, 429) and model_name != FALLBACK_GEMINI_MODEL:
+            elif resp.status_code in (500, 502, 503, 504, 429) and model_name != GEMINI_MODELS_LADDER[-1]:
                 switch_to_fallback_model(f"HTTP {resp.status_code}")
                 continue
         except Exception as e:
-            if model_name != FALLBACK_GEMINI_MODEL:
+            if model_name != GEMINI_MODELS_LADDER[-1]:
                 switch_to_fallback_model(str(e))
                 continue
             print(f"Error researching institutional funds for {clean_t}: {e}")
