@@ -949,9 +949,9 @@ def reconcile_and_repair_section_5_tables(ticker: str, current_price: float, sec
         
         # Scenario parameters
         scenarios = [
-            {"name": "🐻 Bear Case", "oe1": max(10.0, oe1_bear), "cagr": -0.05, "r": 0.11, "g_term": 0.005},
-            {"name": "🎯 Base Case", "oe1": max(20.0, oe1_base), "cagr": 0.025, "r": 0.10, "g_term": 0.0175},
-            {"name": "🐂 Bull Case", "oe1": max(30.0, oe1_bull), "cagr": 0.075, "r": 0.095, "g_term": 0.0225}
+            {"name": "📉 Trajectory 1 (Conservative)", "oe1": max(10.0, oe1_bear), "cagr": -0.05, "r": 0.11, "g_term": 0.005},
+            {"name": "🎯 Trajectory 2 (Base Reality)", "oe1": max(20.0, oe1_base), "cagr": 0.025, "r": 0.10, "g_term": 0.0175},
+            {"name": "🚀 Trajectory 3 (Growth Inflection)", "oe1": max(30.0, oe1_bull), "cagr": 0.075, "r": 0.095, "g_term": 0.0225}
         ]
         
         cols = []
@@ -968,8 +968,8 @@ def reconcile_and_repair_section_5_tables(ticker: str, current_price: float, sec
             pv_tv = tv / ((1 + r) ** 5)
             ev = pv_5yr + pv_tv
             eq_val = ev + (net_debt_adj * shares_m)
-            fv_sh = max(0.25, eq_val / shares_m)
-            mos = ((fv_sh - current_price) / current_price) * 100.0
+            fv_sh = max(0.00, eq_val / shares_m)
+            mos = ((fv_sh - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
             
             cols.append({
                 "oe1_str": f"${oe:.1f}M",
@@ -984,18 +984,18 @@ def reconcile_and_repair_section_5_tables(ticker: str, current_price: float, sec
                 "mos_str": f"{mos:+.1f}%"
             })
             
-        dcf_table_html = f"""<h3>Buffett Owner Earnings 3-Scenario DCF Valuation Matrix</h3>
+        dcf_table_html = f"""<h3>Buffett Owner Earnings 3-Trajectory DCF Valuation Matrix</h3>
 <table class="data-table">
   <thead>
     <tr>
       <th>Valuation Parameter &amp; Output Metric</th>
-      <th>🐻 Bear Case</th>
-      <th>🎯 Base Case</th>
-      <th>🐂 Bull Case</th>
+      <th>Trajectory 1 (Conservative)</th>
+      <th>Trajectory 2 (Base Reality)</th>
+      <th>Trajectory 3 (Growth Inflection)</th>
     </tr>
   </thead>
   <tbody>
-    <tr><td>Year 1 Owner Earnings (\\(OE_1\\))</td><td>{cols[0]['oe1_str']}</td><td>{cols[1]['oe1_str']}</td><td>{cols[2]['oe1_str']}</td></tr>
+    <tr><td>Year 1 Owner Earnings (OE₁)</td><td>{cols[0]['oe1_str']}</td><td>{cols[1]['oe1_str']}</td><td>{cols[2]['oe1_str']}</td></tr>
     <tr><td>5-Year Organic OE CAGR</td><td>{cols[0]['cagr_str']}</td><td>{cols[1]['cagr_str']}</td><td>{cols[2]['cagr_str']}</td></tr>
     <tr><td>Discount Rate (Local Sovereign + ERP)</td><td>{cols[0]['r_str']}</td><td>{cols[1]['r_str']}</td><td>{cols[2]['r_str']}</td></tr>
     <tr><td>Terminal Growth Rate (GDP Capped)</td><td>{cols[0]['g_term_str']}</td><td>{cols[1]['g_term_str']}</td><td>{cols[2]['g_term_str']}</td></tr>
@@ -1008,9 +1008,9 @@ def reconcile_and_repair_section_5_tables(ticker: str, current_price: float, sec
   </tbody>
 </table>"""
 
-        if "<h3>Buffett Owner Earnings 3-Scenario DCF Valuation Matrix</h3>" in section_5_html:
-            parts = section_5_html.split("<h3>Buffett Owner Earnings 3-Scenario DCF Valuation Matrix</h3>")
-            post = parts[1]
+        if "<h3>Buffett Owner Earnings" in section_5_html:
+            parts = re.split(r'<h3>Buffett Owner Earnings.*?</h3>', section_5_html, maxsplit=1, flags=re.IGNORECASE)
+            post = parts[1] if len(parts) > 1 else ""
             post_clean = re.sub(r'<table.*?</table>', '', post, count=1, flags=re.DOTALL)
             section_5_html = parts[0] + dcf_table_html + "\n\n" + post_clean.strip()
         else:
@@ -1213,16 +1213,19 @@ DO NOT write Section 1, 2, 3, 5, or 6. Output pure HTML only."""
     agent_5a_prompt = f"""You are Sub-Agent 5A: Unit Economics, Operating Leverage & P&L Waterfall Specialist researching {ticker_clean} ({company_name}).
 Your Objective: {research_obj}
 
-CRITICAL P&L WATERFALL & FIRST PRINCIPLES INVARIANTS:
+CRITICAL BUSINESS NARRATIVE & P&L WATERFALL INVARIANTS:
 - ZERO PRICE ANCHORING: Never anchor or guide your fundamental calculations to today's market stock price (${current_price:.2f}) or analyst targets.
-- BUSINESS STORY TO FINANCIAL TRANSMISSION: Your Table 1 and Scenario Deep Dive must explicitly translate the qualitative business narrative from Sections 1-4 (e.g. customer churn/retention, pricing power, management cost actions, product cycle inflections) into concrete unit volume and ARPPU/pricing metrics.
-- TOP-DOWN P&L FLOW-THROUGH INVARIANT: All financial modeling MUST flow top-to-bottom from primary business unit drivers -> revenue -> gross profit -> fixed cost OpEx budgets (accounting for the fixed cost floor & operational deleveraging) -> EBIT -> taxes/CapEx/SBC -> Owner Earnings.
-- Year 1 Baseline Owner Earnings ($OE_1) in Base Case must align with Section 3's audited (GAAP OCF - Maintenance CapEx - 100% SBC).
+- 3 PROBABLE BUSINESS TRAJECTORIES (NARRATIVE DRIVEN): Formulate 3 distinct, realistic operational narrative trajectories for how this business actually evolves over the next 5 years (anchor them to this company's real products, customer dynamics, and competitive moats; do not use artificial good/bad priming):
+  * Trajectory 1 (Conservative / Operational Friction): Detail customer churn, pricing resistance, and how the rigid fixed-cost floor impacts margins.
+  * Trajectory 2 (Base Operating Reality / Steady-State): Detail normalized user retention, steady pricing power, and baseline cash conversion.
+  * Trajectory 3 (Growth Inflection / Operating Leverage): Detail successful product adoption, expanding monetization, and powerful incremental operating leverage.
+- TOP-DOWN P&L FLOW-THROUGH INVARIANT: All financial projections MUST flow top-to-bottom: Primary Unit Volume Driver -> Monetization / Pricing -> Revenue -> Gross Margin -> Fixed OpEx Floor -> Operating Income (EBIT) -> Taxes/CapEx/SBC -> Year 1 Owner Earnings.
+- FORMATTING CLEANLINESS: Use clean human text for Year 1 Owner Earnings (OE₁). DO NOT use raw LaTeX tokens like $OE_1 or ($OE_1).
 
 Generate the first half of Section 5 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
 
 <h2>Section 5: Warren Buffett Owner Earnings Intrinsic Valuation Matrix</h2>
-<p>Root valuation strictly in Warren Buffett's 1986 Owner Earnings methodology (GAAP OCF minus Maintenance CapEx minus 100% SBC). Zero arbitrary exit multiples.</p>
+<p>Root valuation strictly in Warren Buffett's 1986 Owner Earnings methodology (GAAP OCF minus Maintenance CapEx minus 100% SBC). Valuation is derived from 3 distinct, fundamental business narrative trajectories.</p>
 
 <h3>Primary Unit Economics &amp; Operating Leverage P&amp;L Waterfall Matrix</h3>
 <p>All financial projections flow top-to-bottom from primary business unit volume drivers and monetization, down through fixed-cost operating floors, cash tax drag, and 100% SBC cash deductions:</p>
@@ -1230,9 +1233,9 @@ Generate the first half of Section 5 in clean Semantic HTML with NO external ima
   <thead>
     <tr>
       <th>Operational &amp; Financial Metric (P&amp;L Flow-Through)</th>
-      <th>🐻 Bear Case (Operational Deleveraging)</th>
-      <th>🎯 Base Case (Normalized Reality)</th>
-      <th>🐂 Bull Case (Operating Leverage Inflection)</th>
+      <th>Trajectory 1 (Conservative / Friction)</th>
+      <th>Trajectory 2 (Base Operating Reality)</th>
+      <th>Trajectory 3 (Growth Inflection)</th>
     </tr>
   </thead>
   <tbody>
@@ -1244,15 +1247,15 @@ Generate the first half of Section 5 in clean Semantic HTML with NO external ima
     <tr><td><strong>Operating Income (EBIT) &amp; EBIT Margin %</strong></td><td><strong>$XX.XXB (XX.X% margin)</strong></td><td><strong>$XX.XXB (XX.X% margin)</strong></td><td><strong>$XX.XXB (XX.X% margin)</strong></td></tr>
     <tr><td>Cash Tax &amp; Defensive Maintenance CapEx Drag</td><td>-$XX.XXB</td><td>-$XX.XXB</td><td>-$XX.XXB</td></tr>
     <tr><td>Stock-Based Compensation (100% Cash Deducted)</td><td>-$XX.XXB</td><td>-$XX.XXB</td><td>-$XX.XXB</td></tr>
-    <tr><td><strong>Normalized Year 1 Buffett Owner Earnings ($OE_1)</strong></td><td><strong>$XX.XXB</strong></td><td><strong>$XX.XXB</strong></td><td><strong>$XX.XXB</strong></td></tr>
+    <tr><td><strong>Normalized Year 1 Buffett Owner Earnings (OE₁)</strong></td><td><strong>$XX.XXB</strong></td><td><strong>$XX.XXB</strong></td><td><strong>$XX.XXB</strong></td></tr>
   </tbody>
 </table>
 
-<h3>Scenario Assumptions Deep Dive: Unit Economics &amp; Operational Mechanics</h3>
+<h3>3 Probable Business Trajectories Deep Dive: Operational Mechanics</h3>
 <ul>
-  <li><strong>🐻 Bear Case (Operational Deleveraging &amp; Trough Stress-Test):</strong> Detail why unit volume churns, pricing power degrades, fixed costs hit a wall, decremental margins crush EBIT, and how much cash remains.</li>
-  <li><strong>🎯 Base Case (Normalized Operating Reality):</strong> Detail steady-state unit economics, normalized marketing budgets, sustainable pricing, and normalized Owner Earnings compounding.</li>
-  <li><strong>🐂 Bull Case (Operating Leverage Inflection &amp; Upside Compounding):</strong> Detail how unit expansion and new product monetization flow through with high incremental margins as fixed costs scale efficiently.</li>
+  <li><strong>📉 Trajectory 1 (Conservative / Operational Friction):</strong> Detail the narrative: why customer churn accelerates, pricing power weakens, fixed costs hit a wall, decremental margins crush EBIT, and how much cash remains.</li>
+  <li><strong>🎯 Trajectory 2 (Base Operating Reality / Steady-State):</strong> Detail the narrative: steady-state unit economics, normalized marketing budgets, sustainable pricing, and normalized Owner Earnings compounding.</li>
+  <li><strong>🚀 Trajectory 3 (Growth Inflection / Operating Leverage):</strong> Detail the narrative: how unit expansion and new product monetization flow through with high incremental margins as fixed costs scale efficiently.</li>
 </ul>
 
 DO NOT write the DCF valuation table, Sensitivity grid, or Reverse DCF. Output pure HTML only."""
@@ -1261,30 +1264,31 @@ DO NOT write the DCF valuation table, Sensitivity grid, or Reverse DCF. Output p
     # Sub-Agent 5B: Quantitative DCF Valuation & Intrinsic Pricing Actuary
     # ------------------------------------------------------------------
     agent_5b_prompt = f"""You are Sub-Agent 5B: Quantitative DCF Valuation & Intrinsic Pricing Actuary researching {ticker_clean} ({company_name}).
-Your Objective: Complete the quantitative discounted cash flow modeling and intrinsic valuation for Section 5 based on the audited Unit Economics and Year 1 Owner Earnings established by Sub-Agent 5A.
+Your Objective: Complete the quantitative discounted cash flow modeling and intrinsic valuation for Section 5 across the 3 Business Trajectories established by Sub-Agent 5A.
 
 CRITICAL DCF MATHEMATICS & INVARIANTS:
 - ZERO PRICE ANCHORING: Value the enterprise strictly from First Principles of discounted cash flow as if you were buying 100% of the private business.
+- 3 TRAJECTORY COLUMNS: Table 2 MUST use columns for Trajectory 1 (Conservative), Trajectory 2 (Base Reality), and Trajectory 3 (Growth Inflection).
 - Table 2 MUST contain the exact rows for 'Intrinsic Fair Value / Share' and 'Margin of Safety vs Current Price (${current_price:.2f})'.
 - Net Balance Sheet Debt/Cash Adjustment: MUST strictly lock the per-share figure calculated in Section 4 across all scenarios.
-- Complete 2D Valuation Sensitivity Matrix: Format all per-share intrinsic values with dollar signs ($XX.XX), never raw decimals.
+- FORMATTING CLEANLINESS: Use clean human text for Year 1 Owner Earnings (OE₁). Format all per-share intrinsic values with dollar signs ($XX.XX).
 - Reverse DCF: Dynamically determine what 5-year Owner Earnings CAGR (g_implied) is priced into ${current_price:.2f}.
 
 Generate the quantitative second half of Section 5 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
 
-<h3>Buffett Owner Earnings 3-Scenario DCF Valuation Matrix</h3>
-- Table 2: 3-Scenario DCF Valuation Table:
+<h3>Buffett Owner Earnings 3-Trajectory DCF Valuation Matrix</h3>
+- Table 2: 3-Trajectory DCF Valuation Table:
   <table>
     <thead>
       <tr>
         <th>Valuation Parameter &amp; Output Metric</th>
-        <th>🐻 Bear Case</th>
-        <th>🎯 Base Case</th>
-        <th>🐂 Bull Case</th>
+        <th>Trajectory 1 (Conservative)</th>
+        <th>Trajectory 2 (Base Reality)</th>
+        <th>Trajectory 3 (Growth Inflection)</th>
       </tr>
     </thead>
     <tbody>
-      <tr><td>Year 1 Owner Earnings ($OE_1)</td><td>$XX.XXM / $XX.XXB</td><td>$XX.XXM / $XX.XXB</td><td>$XX.XXM / $XX.XXB</td></tr>
+      <tr><td>Year 1 Owner Earnings (OE₁)</td><td>$XX.XXM / $XX.XXB</td><td>$XX.XXM / $XX.XXB</td><td>$XX.XXM / $XX.XXB</td></tr>
       <tr><td>5-Year Organic OE CAGR</td><td>X.X%</td><td>XX.X%</td><td>XX.X%</td></tr>
       <tr><td>Discount Rate (Local Sovereign + ERP)</td><td>X.X%</td><td>X.X%</td><td>X.X%</td></tr>
       <tr><td>Terminal Growth Rate (GDP Capped)</td><td>X.X%</td><td>X.X%</td><td>X.X%</td></tr>
@@ -1299,7 +1303,7 @@ Generate the quantitative second half of Section 5 in clean Semantic HTML with N
   * MANDATORY ROW INVARIANT: You MUST include the 'Intrinsic Fair Value / Share' and 'Margin of Safety vs Current Price (${current_price:.2f})' rows. Do NOT omit them!
 
 <h3>2D Valuation Sensitivity Matrix</h3>
-- Table 3: Base Case Intrinsic Value / Share across varying Discount Rates ($r \pm 1.0\%$) and Terminal Growth Rates ($g_{{\\text{{term}}}} \pm 0.5\%$):
+- Table 3: Trajectory 2 (Base Reality) Intrinsic Value / Share across varying Discount Rates ($r \pm 1.0\%$) and Terminal Growth Rates ($g_{{\\text{{term}}}} \pm 0.5\%$):
   <table>
     <thead>
       <tr>
@@ -1318,7 +1322,7 @@ Generate the quantitative second half of Section 5 in clean Semantic HTML with N
   </table>
 
 <h3>Market-Implied Expectations &amp; &quot;What is Priced In?&quot; (Reverse DCF Audit)</h3>
-- Contrast Market-Implied Expectations (\(g_{{\\text{{implied}}}}\)) vs. Base Case Reality (\(g_{{\\text{{base}}}}\)).
+- Contrast Market-Implied Expectations (g_implied) vs. Base Case Reality (g_base).
 - State whether Mr. Market is pricing in extreme distress/extinction, reasonable compounding, or euphoria.
 
 <h3>The 5-Year Market Closure Test</h3>
@@ -1647,7 +1651,9 @@ DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
                     pass
                 
     if len(extracted_nums) >= 3:
-        bear_val, base_val, bull_val = extracted_nums[-3], extracted_nums[-2], extracted_nums[-1]
+        raw_vals = [max(0.0, v) for v in extracted_nums[-3:]]
+        sorted_vals = sorted(raw_vals)
+        low_val, mid_val, high_val = sorted_vals[0], sorted_vals[1], sorted_vals[2]
     else:
         # Fallback text regex scanning across Section 5 with bulletproof parsing
         def _safe_regex_target(pattern: str, fallback: float) -> float:
@@ -1657,29 +1663,34 @@ DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
                     clean_num = re.sub(r"[^\d.-]", "", m.group(1))
                     if clean_num and clean_num not in (".", "-"):
                         v = float(clean_num)
-                        return v
+                        return max(0.0, v)
                 except Exception:
                     pass
             return fallback
 
-        bear_val = _safe_regex_target(r'(?:Bear Case|Bear Target|Trough Stress-Test).*?\$?\s*([+-]?[\d,]+(?:\.\d+)?)', round(current_price * 0.75, 2))
-        base_val = _safe_regex_target(r'(?:Base Case|Base Target|Normalized Operating Reality|Fair Value Target).*?\$?\s*([+-]?[\d,]+(?:\.\d+)?)', round(current_price * 1.15, 2))
-        bull_val = _safe_regex_target(r'(?:Bull Case|Bull Target|Optimistic Compounding).*?\$?\s*([+-]?[\d,]+(?:\.\d+)?)', round(current_price * 1.50, 2))
+        raw_bear = _safe_regex_target(r'(?:Trajectory 1|Bear Case|Bear Target|Trough Stress-Test).*?\$?\s*([+-]?[\d,]+(?:\.\d+)?)', round(current_price * 0.75, 2))
+        raw_base = _safe_regex_target(r'(?:Trajectory 2|Base Case|Base Target|Normalized Operating Reality|Fair Value Target).*?\$?\s*([+-]?[\d,]+(?:\.\d+)?)', round(current_price * 1.15, 2))
+        raw_bull = _safe_regex_target(r'(?:Trajectory 3|Bull Case|Bull Target|Optimistic Compounding).*?\$?\s*([+-]?[\d,]+(?:\.\d+)?)', round(current_price * 1.50, 2))
+        
+        sorted_vals = sorted([raw_bear, raw_base, raw_bull])
+        low_val, mid_val, high_val = sorted_vals[0], sorted_vals[1], sorted_vals[2]
 
-    bear_ret = ((bear_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
-    base_ret = ((base_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
-    bull_ret = ((bull_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
+    low_ret = ((low_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
+    mid_ret = ((mid_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
+    high_ret = ((high_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
     
-    metadata["fair_value_estimate"] = f"${base_val:.2f}" if base_val >= 0 else f"-${abs(base_val):.2f}"
-    metadata["base_target"] = f"${base_val:.2f} ({base_ret:+.1f}%)" if base_val >= 0 else f"-${abs(base_val):.2f} ({base_ret:+.1f}%)"
-    metadata["bear_target"] = f"${bear_val:.2f} ({bear_ret:+.1f}%)" if bear_val >= 0 else f"-${abs(bear_val):.2f} ({bear_ret:+.1f}%)"
-    metadata["bull_target"] = f"${bull_val:.2f} ({bull_ret:+.1f}%)" if bull_val >= 0 else f"-${abs(bull_val):.2f} ({bull_ret:+.1f}%)"
-    if base_val > current_price:
-        metadata["upper_alert_threshold"] = round(base_val, 2)
-        metadata["lower_alert_threshold"] = round(bear_val if 0 < bear_val < current_price else current_price * 0.90, 2)
+    metadata["fair_value_estimate"] = f"${mid_val:.2f}"
+    metadata["base_target"] = f"${mid_val:.2f} ({mid_ret:+.1f}%)"
+    metadata["bear_target"] = f"${low_val:.2f} ({low_ret:+.1f}%)"
+    metadata["bull_target"] = f"${high_val:.2f} ({high_ret:+.1f}%)"
+    
+    # Alert corridors dynamically derived from sorted trajectories
+    if mid_val > current_price:
+        metadata["upper_alert_threshold"] = round(mid_val, 2)
+        metadata["lower_alert_threshold"] = round(low_val if 0 < low_val < current_price else current_price * 0.90, 2)
     else:
-        metadata["upper_alert_threshold"] = round(bull_val if bull_val > current_price else current_price * 1.15, 2)
-        metadata["lower_alert_threshold"] = round(base_val if 0 < base_val < current_price else current_price * 0.90, 2)
+        metadata["upper_alert_threshold"] = round(high_val if high_val > current_price else current_price * 1.15, 2)
+        metadata["lower_alert_threshold"] = round(mid_val if 0 < mid_val < current_price else current_price * 0.90, 2)
 
     # Invariant safety guarantee: lower < current_price < upper
     if metadata["lower_alert_threshold"] >= current_price:
@@ -1688,11 +1699,11 @@ DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
         metadata["upper_alert_threshold"] = round(current_price * 1.15, 2)
 
     # Strict First-Principles Action Signal Derivation purely from Calculated Margin of Safety
-    if base_ret >= 20.0:
+    if mid_ret >= 20.0:
         metadata["action_signal"] = "BUY"
-    elif base_ret >= 0.0:
+    elif mid_ret >= 0.0:
         metadata["action_signal"] = "HOLD"
-    elif base_ret >= -15.0:
+    elif mid_ret >= -15.0:
         metadata["action_signal"] = "CAUTION"
     else:
         metadata["action_signal"] = "AVOID"

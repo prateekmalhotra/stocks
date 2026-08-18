@@ -226,6 +226,28 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
             if "(-25.0%)" in bear_t or "(-25.1%)" in bear_t:
                 issues.append("Dossier contains uncalibrated synthetic fallback target multipliers (-25% / +15% / +50%). DCF table failed to parse.")
 
+    # 18. Target Monotonicity Invariant (Lower <= Fair <= Upper)
+    if metadata:
+        def _parse_p(val_str: Optional[str]) -> Optional[float]:
+            if not val_str: return None
+            m = re.search(r"\$?\s*([+-]?[\d,]+(?:\.\d+)?)", str(val_str))
+            if m:
+                try:
+                    c = re.sub(r"[^\d.-]", "", m.group(1))
+                    if c and c not in (".", "-"):
+                        return float(c)
+                except Exception:
+                    pass
+            return None
+        
+        v_low = _parse_p(metadata.get("bear_target"))
+        v_fair = _parse_p(metadata.get("fair_value_estimate") or metadata.get("base_target"))
+        v_high = _parse_p(metadata.get("bull_target"))
+        if v_low is not None and v_fair is not None and v_low > v_fair:
+            issues.append(f"Target Monotonicity Failure: Lower Target (${v_low:.2f}) cannot be greater than Fair Value Target (${v_fair:.2f}).")
+        if v_fair is not None and v_high is not None and v_fair > v_high:
+            issues.append(f"Target Monotonicity Failure: Fair Value Target (${v_fair:.2f}) cannot be greater than Upper Target (${v_high:.2f}).")
+
     return len(issues) == 0, issues
 
 
