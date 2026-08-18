@@ -282,7 +282,7 @@ def call_gemini_with_search(prompt: str, system_instruction: str = "", temperatu
         max_retries = 2
         for attempt in range(1, max_retries + 1):
             try:
-                response = requests.post(url, json=payload, timeout=90)
+                response = requests.post(url, json=payload, timeout=180)
                 if response.status_code == 200:
                     res_json = response.json()
                     candidate = res_json.get("candidates", [{}])[0]
@@ -294,7 +294,7 @@ def call_gemini_with_search(prompt: str, system_instruction: str = "", temperatu
                         fallback_prompt = prompt + "\n\nCRITICAL: Paraphrase all data in your own original analytical words. Do NOT quote verbatim text."
                         payload["contents"] = [{"parts": [{"text": fallback_prompt}]}]
                         payload["generationConfig"]["temperature"] = 0.7
-                        retry_res = requests.post(url, json=payload, timeout=90)
+                        retry_res = requests.post(url, json=payload, timeout=180)
                         if retry_res.status_code == 200:
                             retry_json = retry_res.json()
                             retry_parts = retry_json.get("candidates", [{}])[0].get("content", {}).get("parts", [])
