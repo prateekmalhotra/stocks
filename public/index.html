@@ -2139,6 +2139,12 @@
                     ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'option'],
                     throwOnError: false
                 });
+            } else {
+                if (!window._katexRetryCount) window._katexRetryCount = 0;
+                if (window._katexRetryCount < 25) {
+                    window._katexRetryCount++;
+                    setTimeout(renderLatexEquations, 60);
+                }
             }
         }
 

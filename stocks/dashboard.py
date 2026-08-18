@@ -19,6 +19,87 @@ def _ensure_dirs():
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
 
 
+def normalize_latex_typography(html: str) -> str:
+    """Normalizes all LaTeX math expressions into robust KaTeX delimiters \\( ... \\) and $$ ... $$.
+    Protects financial currencies ($XX.XX, $50B, etc.), HTML tags, and pre-existing math blocks,
+    ensuring 100% typography-grade mathematical equations without broken raw brackets or text collisions."""
+    if not html:
+        return ""
+        
+    # Step 1: Protect existing block / display equations ($$ ... $$ and \\[ ... \\])
+    display_blocks = []
+    def save_display(m):
+        display_blocks.append(m.group(0))
+        return f"««DISPLAY_BLOCK_{len(display_blocks)-1}»»"
+    
+    html = re.sub(r'\$\$(.*?)\$\$', save_display, html, flags=re.DOTALL)
+    html = re.sub(r'\\\[(.*?)\\\]', save_display, html, flags=re.DOTALL)
+
+    # Step 2: Protect HTML tags so we don't touch attributes or tag names
+    tags = []
+    def save_tag(m):
+        tags.append(m.group(0))
+        return f"««HTML_TAG_{len(tags)-1}»»"
+    
+    html = re.sub(r'<[^>]+>', save_tag, html)
+
+    # Step 3: Protect existing inline equations \\( ... \\)
+    inline_blocks = []
+    def save_inline(m):
+        inline_blocks.append(m.group(0))
+        return f"««INLINE_BLOCK_{len(inline_blocks)-1}»»"
+    
+    html = re.sub(r'\\\((.*?)\\\)', save_inline, html, flags=re.DOTALL)
+
+    # Step 4: Protect all currency amounts ($568.97, $50, $1,200.50, $25B, $19.31 billion, ~$252.00, -$8.65B, etc.)
+    currencies = []
+    def save_currency(m):
+        currencies.append(m.group(0))
+        return f"««CURRENCY_{len(currencies)-1}»»"
+    
+    curr_pattern = r'(?:~|-|\+)?\$(?=\d|\.\d)(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d+)?(?:\s*(?:billion|million|trillion|[kKmMbBtT]))?'
+    html = re.sub(curr_pattern, save_currency, html)
+
+    # Step 5: Convert dollar-wrapped math $...$ into saved inline blocks
+    def convert_dollar_math(m):
+        math_content = m.group(1).strip()
+        if not math_content:
+            return ""
+        inline_blocks.append(f"\\({math_content}\\)")
+        return f"««INLINE_BLOCK_{len(inline_blocks)-1}»»"
+        
+    html = re.sub(r'(?<![\$\\])\$(?!\$)([^\$\n]+?)(?<![\$\\])\$(?!\$)', convert_dollar_math, html)
+
+    # Step 6: Convert naked LaTeX identifiers (e.g. g_{\\text{implied}}, g_{implied}, g_{base}, g_{realistic}, \\frac{a}{b})
+    def wrap_naked_latex(m):
+        expr = m.group(0)
+        inline_blocks.append(f"\\({expr}\\)")
+        return f"««INLINE_BLOCK_{len(inline_blocks)-1}»»"
+        
+    nested_braced_subscript = r'[a-zA-Z]\w*_(?:\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}|\w+)'
+    nested_braced_cmd = r'\\[a-zA-Z]+(?:\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\})+'
+    naked_latex_pattern = rf'(?<![\w\\\(«])(?:{nested_braced_subscript}|{nested_braced_cmd})(?![\w\\\)»])'
+    html = re.sub(naked_latex_pattern, wrap_naked_latex, html)
+
+    # Step 7: Restore currencies
+    for i, curr in enumerate(currencies):
+        html = html.replace(f"««CURRENCY_{i}»»", curr)
+
+    # Step 8: Restore inline blocks
+    for i, inl in enumerate(inline_blocks):
+        html = html.replace(f"««INLINE_BLOCK_{i}»»", inl)
+
+    # Step 9: Restore HTML tags
+    for i, tag in enumerate(tags):
+        html = html.replace(f"««HTML_TAG_{i}»»", tag)
+
+    # Step 10: Restore display blocks
+    for i, disp in enumerate(display_blocks):
+        html = html.replace(f"««DISPLAY_BLOCK_{i}»»", disp)
+        
+    return html
+
+
 def format_labels_pills(labels: List[str]) -> str:
     """Formats strictly 1 clean, single-line badge for absolute visual consistency across all rows."""
     if not labels:
@@ -733,13 +814,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         cleaned = re.sub(r"(\.|\!|\?)\s*(<strong>[A-Z0-9][^<]{2,80}:</strong>)", r"\1</p><p>\2", cleaned)
         
         # 1f. Math syntax normalizer (ensure LaTeX formulas render properly)
-        def fix_single_dollar_math(match):
-            inner = match.group(1)
-            if any(cmd in inner for cmd in [r"\text", r"\mathbf", r"\math", r"\frac", r"\times", r"\ge", r"\le", r"\quad", r"\%", r"\cdot", r"\approx", r"\pm"]):
-                return f"\\({inner}\\)"
-            return match.group(0)
-
-        cleaned = re.sub(r"(?<![\$\\])\$(?!\$)([^\$\n]+?)(?<![\$\\])\$(?!\$)", fix_single_dollar_math, cleaned)
+        cleaned = normalize_latex_typography(cleaned)
         
         # 1g. Use BeautifulSoup for perfect DOM normalization
         soup = BeautifulSoup(cleaned, "html.parser")
@@ -2249,11 +2324,34 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                     ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'option'],
                     throwOnError: false
                 }});
+            }} else {{
+                if (!window._katexRetryCount) window._katexRetryCount = 0;
+                if (window._katexRetryCount < 25) {{
+                    window._katexRetryCount++;
+                    setTimeout(renderLatexEquations, 60);
+                }}
             }}
         }}
 
         document.addEventListener("DOMContentLoaded", renderLatexEquations);
         window.addEventListener("load", renderLatexEquations);
+        
+        if (typeof MutationObserver !== 'undefined') {{
+            const _mathObserver = new MutationObserver(() => {{
+                if (typeof renderMathInElement === 'function') {{
+                    _mathObserver.disconnect();
+                    renderLatexEquations();
+                    setTimeout(() => {{
+                        const target = document.querySelector('.memo-container') || document.body;
+                        if (target) _mathObserver.observe(target, {{ childList: true, subtree: true }});
+                    }}, 250);
+                }}
+            }});
+            document.addEventListener("DOMContentLoaded", () => {{
+                const target = document.querySelector('.memo-container') || document.body;
+                if (target) _mathObserver.observe(target, {{ childList: true, subtree: true }});
+            }});
+        }}
         window.addEventListener("keydown", (e) => {{
             if (e.key === "Escape") {{
                 closeEvolutionModal();
@@ -3516,6 +3614,12 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                     ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'option'],
                     throwOnError: false
                 }});
+            }} else {{
+                if (!window._katexRetryCount) window._katexRetryCount = 0;
+                if (window._katexRetryCount < 25) {{
+                    window._katexRetryCount++;
+                    setTimeout(renderLatexEquations, 60);
+                }}
             }}
         }}
 
@@ -3712,12 +3816,48 @@ def render_all():
     watchlist = load_watchlist()
     alerts = load_alerts()
     
-    for ticker, stock in watchlist.items():
+    tickers = set(watchlist.keys())
+    data_theses_dir = Path(__file__).resolve().parent.parent / "data" / "theses"
+    if data_theses_dir.exists():
+        for p in data_theses_dir.glob("*.json"):
+            tickers.add(p.stem.upper())
+            
+    for ticker in sorted(tickers):
+        stock = watchlist.get(ticker)
         history = load_thesis_history(ticker)
-        html = generate_company_dossier_html(ticker, stock, history)
-        report_file = REPORTS_DIR / f"{ticker.upper()}.html"
-        with open(report_file, "w", encoding="utf-8") as f:
-            f.write(html)
+        if not stock and history:
+            current_v = history[-1]
+            stock = WatchlistStock(
+                ticker=ticker,
+                company_name=ticker,
+                baseline_price=current_v.price_at_version or 0.0,
+                current_price=current_v.price_at_version or 0.0,
+                return_pct=0.0,
+                status_label=current_v.status_label or "ACTIVE RESEARCH",
+                labels=current_v.labels or [current_v.status_label or "ACTIVE RESEARCH"],
+                action_signal=current_v.action_signal or "BUY",
+                fair_value_estimate=current_v.fair_value_estimate or "$0.00",
+                bear_target=current_v.bear_target or "$0.00",
+                base_target=current_v.base_target or "$0.00",
+                bull_target=current_v.bull_target or "$0.00",
+                what_is_priced_in=current_v.what_is_priced_in or "",
+                upper_alert_threshold=current_v.upper_alert_threshold,
+                lower_alert_threshold=current_v.lower_alert_threshold,
+                next_catalyst_date=current_v.next_catalyst_date or "",
+                next_catalyst_event=current_v.next_catalyst_event or "",
+                top_funds=current_v.top_funds or [],
+                institutional_ownership_pct=current_v.institutional_ownership_pct or "",
+                insider_signal=current_v.insider_signal or "Neutral (10b5-1)",
+                insider_summary=current_v.insider_summary or "",
+                last_updated=current_v.date or datetime.now().strftime("%Y-%m-%d"),
+                total_versions=len(history),
+                report_path=f"reports/{ticker.upper()}.html"
+            )
+        if stock:
+            html = generate_company_dossier_html(ticker, stock, history)
+            report_file = REPORTS_DIR / f"{ticker.upper()}.html"
+            with open(report_file, "w", encoding="utf-8") as f:
+                f.write(html)
             
     master_html = generate_master_dashboard_html(watchlist, alerts)
     with open(PUBLIC_DIR / "index.html", "w", encoding="utf-8") as f:

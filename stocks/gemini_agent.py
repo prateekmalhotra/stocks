@@ -331,6 +331,87 @@ def extract_json_block(text: str) -> Dict[str, Any]:
     return data
 
 
+def normalize_latex_typography(html: str) -> str:
+    """Normalizes all LaTeX math expressions into robust KaTeX delimiters \\( ... \\) and $$ ... $$.
+    Protects financial currencies ($XX.XX, $50B, etc.), HTML tags, and pre-existing math blocks,
+    ensuring 100% typography-grade mathematical equations without broken raw brackets or text collisions."""
+    if not html:
+        return ""
+        
+    # Step 1: Protect existing block / display equations ($$ ... $$ and \\[ ... \\])
+    display_blocks = []
+    def save_display(m):
+        display_blocks.append(m.group(0))
+        return f"««DISPLAY_BLOCK_{len(display_blocks)-1}»»"
+    
+    html = re.sub(r'\$\$(.*?)\$\$', save_display, html, flags=re.DOTALL)
+    html = re.sub(r'\\\[(.*?)\\\]', save_display, html, flags=re.DOTALL)
+
+    # Step 2: Protect HTML tags so we don't touch attributes or tag names
+    tags = []
+    def save_tag(m):
+        tags.append(m.group(0))
+        return f"««HTML_TAG_{len(tags)-1}»»"
+    
+    html = re.sub(r'<[^>]+>', save_tag, html)
+
+    # Step 3: Protect existing inline equations \\( ... \\)
+    inline_blocks = []
+    def save_inline(m):
+        inline_blocks.append(m.group(0))
+        return f"««INLINE_BLOCK_{len(inline_blocks)-1}»»"
+    
+    html = re.sub(r'\\\((.*?)\\\)', save_inline, html, flags=re.DOTALL)
+
+    # Step 4: Protect all currency amounts ($568.97, $50, $1,200.50, $25B, $19.31 billion, ~$252.00, -$8.65B, etc.)
+    currencies = []
+    def save_currency(m):
+        currencies.append(m.group(0))
+        return f"««CURRENCY_{len(currencies)-1}»»"
+    
+    curr_pattern = r'(?:~|-|\+)?\$(?=\d|\.\d)(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d+)?(?:\s*(?:billion|million|trillion|[kKmMbBtT]))?'
+    html = re.sub(curr_pattern, save_currency, html)
+
+    # Step 5: Convert dollar-wrapped math $...$ into saved inline blocks
+    def convert_dollar_math(m):
+        math_content = m.group(1).strip()
+        if not math_content:
+            return ""
+        inline_blocks.append(f"\\({math_content}\\)")
+        return f"««INLINE_BLOCK_{len(inline_blocks)-1}»»"
+        
+    html = re.sub(r'(?<![\$\\])\$(?!\$)([^\$\n]+?)(?<![\$\\])\$(?!\$)', convert_dollar_math, html)
+
+    # Step 6: Convert naked LaTeX identifiers (e.g. g_{\\text{implied}}, g_{implied}, g_{base}, g_{realistic}, \\frac{a}{b})
+    def wrap_naked_latex(m):
+        expr = m.group(0)
+        inline_blocks.append(f"\\({expr}\\)")
+        return f"««INLINE_BLOCK_{len(inline_blocks)-1}»»"
+        
+    nested_braced_subscript = r'[a-zA-Z]\w*_(?:\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}|\w+)'
+    nested_braced_cmd = r'\\[a-zA-Z]+(?:\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\})+'
+    naked_latex_pattern = rf'(?<![\w\\\(«])(?:{nested_braced_subscript}|{nested_braced_cmd})(?![\w\\\)»])'
+    html = re.sub(naked_latex_pattern, wrap_naked_latex, html)
+
+    # Step 7: Restore currencies
+    for i, curr in enumerate(currencies):
+        html = html.replace(f"««CURRENCY_{i}»»", curr)
+
+    # Step 8: Restore inline blocks
+    for i, inl in enumerate(inline_blocks):
+        html = html.replace(f"««INLINE_BLOCK_{i}»»", inl)
+
+    # Step 9: Restore HTML tags
+    for i, tag in enumerate(tags):
+        html = html.replace(f"««HTML_TAG_{i}»»", tag)
+
+    # Step 10: Restore display blocks
+    for i, disp in enumerate(display_blocks):
+        html = html.replace(f"««DISPLAY_BLOCK_{i}»»", disp)
+        
+    return html
+
+
 def verify_and_repair_html_structure(html: str) -> str:
     """Bulletproof HTML sanitizer and structure repair engine.
     Ensures 100% clean semantic HTML, perfectly balanced lists, tables, callouts, and sections."""
@@ -339,6 +420,7 @@ def verify_and_repair_html_structure(html: str) -> str:
         
     from bs4 import BeautifulSoup
     cleaned = clean_grounding_artifacts(html)
+    cleaned = normalize_latex_typography(cleaned)
     
     # 1. Strip code fences, json blocks
     cleaned = re.sub(r"```(?:html|json)?", "", cleaned, flags=re.IGNORECASE)
@@ -878,8 +960,8 @@ Generate ONLY Section 5 in clean Semantic HTML with NO external images, NO inlin
 
 <h3>Market-Implied Expectations & "What is Priced In?" (Reverse DCF Audit)</h3>
 - Compare the market's current enterprise value against Year 1 Owner Earnings (EV / OE_1).
-- Calculate what exact 5-year Owner Earnings CAGR (g_implied) the market is pricing into today's stock price (${current_price:.2f}).
-- Present a dedicated Reverse-DCF callout box contrasting Market-Implied Expectations (g_implied) vs. Base Case Reality (g_base):
+- Calculate what exact 5-year Owner Earnings CAGR (\(g_{{\\text{{implied}}}}\)) the market is pricing into today's stock price (${current_price:.2f}).
+- Present a dedicated Reverse-DCF callout box contrasting Market-Implied Expectations (\(g_{{\\text{{implied}}}}\)) vs. Base Case Reality (\(g_{{\\text{{base}}}}\)):
   * State unvarnished whether Mr. Market is pricing in extreme euphoria/perfection, reasonable compounding, or severe insolvency/distress.
 
 <h3>The 5-Year Market Closure Test</h3>
