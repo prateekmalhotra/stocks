@@ -929,6 +929,8 @@ AUDIT OBJECTIVES & INVARIANTS:
    - Ensure the "Scenario Assumptions Deep Dive: What Each Case is Pricing In" clearly details the explicit revenue growth rates, margin assumptions, CapEx drag, and economic drivers behind Bear, Base, and Bull cases.
 5. 2D VALUATION SENSITIVITY GRID AUDIT:
    - Verify that the 2D Valuation Sensitivity Matrix (Discount Rate vs. Terminal Growth Rate or 5-Year CAGR) is internally consistent with the Base Case DCF model and outputs realistic, mathematically aligned per-share intrinsic values across all cells ($XX.XX format).
+6. TOP-DOWN UNIT ECONOMICS & P&L FLOW-THROUGH INTEGRITY:
+   - Verify that Table 1 (Unit Economics & P&L Waterfall Matrix) connects cleanly to Table 2 (3-Scenario DCF Valuation Matrix). Ensure that the Bear Case explicitly models the fixed-cost floor and operational deleveraging (where revenue contraction causes severe decremental EBIT margin collapse after cost-cutting hits a wall).
 
 If all calculations, sensitivity grids, and assumption breakdowns in Section 5 are 100% mathematically correct and consistent, output the HTML as is.
 If there are mathematical errors or inconsistent row numbers, correct the numbers in the tables and text, and output the reconciled, complete Section 5 in clean Semantic HTML only."""
@@ -1090,11 +1092,35 @@ Generate ONLY Section 5 in clean Semantic HTML with NO external images, NO inlin
 
 <h2>Section 5: Warren Buffett Owner Earnings Intrinsic Valuation Matrix</h2>
 - Root valuation strictly in Warren Buffett's 1986 Owner Earnings methodology (GAAP OCF minus Maintenance CapEx minus 100% SBC). Zero arbitrary exit multiples.
-- For cyclical, hardware, or commodity sectors: Normalize peak margins across a full 3-5 year operating cycle.
-- Turnaround J-Curve Realism: If the company is executing a strategic turnaround, reflect realistic multi-year cash flow progression.
-- Capital Hoarder / Governance Discounts: Apply explicit haircuts for super-voting control or trapped non-returning balance sheet cash where justified.
-- Localized sovereign discount rate derivation (local 10Y sovereign bond yield + equity risk premium, e.g. US 10Y for US, SELIC for Brazil, Gilts for UK).
-- Complete 3-Scenario DCF Valuation Matrix (Calculate pure mathematical intrinsic values):
+- ZERO PRICE ANCHORING: Never anchor, calibrate, or guide your fundamental DCF calculations to today's market stock price or sell-side analyst price targets.
+- TOP-DOWN P&L FLOW-THROUGH INVARIANT: All financial modeling MUST flow top-to-bottom from primary business unit drivers -> revenue -> gross profit -> fixed cost OpEx budgets (accounting for the fixed cost floor & operational deleveraging) -> EBIT -> taxes/CapEx/SBC -> Owner Earnings.
+
+<h3>Primary Unit Economics & Operating Leverage P&L Waterfall Matrix</h3>
+- Present Table 1: Top-to-Bottom Unit Economics & P&L Flow-Through Across Scenarios:
+  <table>
+    <thead>
+      <tr>
+        <th>Operational & Financial Metric (P&L Flow-Through)</th>
+        <th>🐻 Bear Case (Operational Deleveraging)</th>
+        <th>🎯 Base Case (Normalized Reality)</th>
+        <th>🐂 Bull Case (Operating Leverage Inflection)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Primary Unit Volume Driver (e.g. Paying Users / GMV / Seats / Impressions)</td><td>X.XM / $XX.XB</td><td>X.XM / $XX.XB</td><td>X.XM / $XX.XB</td></tr>
+      <tr><td>Monetization / Pricing Metric (e.g. ARPPU / Take Rate / CPM / ARPU)</td><td>$XX.XX</td><td>$XX.XX</td><td>$XX.XX</td></tr>
+      <tr><td><strong>Top-Line Revenue Trajectory ($Rev & YoY %)</strong></td><td><strong>$XX.XXB (-X.X%)</strong></td><td><strong>$XX.XXB (+XX.X%)</strong></td><td><strong>$XX.XXB (+XX.X%)</strong></td></tr>
+      <tr><td>Gross Margin % (Direct delivery, hosting, app store / distribution)</td><td>XX.X%</td><td>XX.X%</td><td>XX.X%</td></tr>
+      <tr><td>Operating Expense (OpEx) Budgets (S&M, R&D Payroll, G&A Overhead)</td><td>$XX.XXB (Fixed cost floor limit)</td><td>$XX.XXB (Normalized)</td><td>$XX.XXB (Scaled)</td></tr>
+      <tr><td><strong>Operating Income (EBIT) & EBIT Margin %</strong></td><td><strong>$XX.XXB (XX.X% margin)</strong></td><td><strong>$XX.XXB (XX.X% margin)</strong></td><td><strong>$XX.XXB (XX.X% margin)</strong></td></tr>
+      <tr><td>Cash Tax & Defensive Maintenance CapEx Drag</td><td>-$XX.XXB</td><td>-$XX.XXB</td><td>-$XX.XXB</td></tr>
+      <tr><td>Stock-Based Compensation (100% Cash Deducted)</td><td>-$XX.XXB</td><td>-$XX.XXB</td><td>-$XX.XXB</td></tr>
+      <tr><td><strong>Normalized Year 1 Buffett Owner Earnings ($OE_1)</strong></td><td><strong>$XX.XXB</strong></td><td><strong>$XX.XXB</strong></td><td><strong>$XX.XXB</strong></td></tr>
+    </tbody>
+  </table>
+
+<h3>Complete 3-Scenario DCF Valuation Matrix</h3>
+- Table 2: Intrinsic Valuation Matrix (Calculated strictly from the P&L flow-through above):
   <table>
     <thead>
       <tr>
@@ -1117,11 +1143,11 @@ Generate ONLY Section 5 in clean Semantic HTML with NO external images, NO inlin
   </table>
   * FORMULA INVARIANT: The Margin of Safety row MUST strictly equal ((Intrinsic Fair Value - ${current_price:.2f}) / ${current_price:.2f}) * 100 with an explicit plus or minus sign (e.g. +17.9% or -43.6%). Do NOT use (Target - Price)/Target.
 
-<h3>Scenario Assumptions Deep Dive: What Each Case is Pricing In</h3>
-- Detail the exact fundamental mechanics, revenue growth rates, margin trajectories, and CapEx drag modeled in each scenario:
-  * <strong>🐻 Bear Case (Trough Stress-Test):</strong> Explicitly detail what headwinds are assumed (e.g. revenue deceleration to X.X%, margin compression from competitive squeeze, heightened SBC dilution, higher hurdle rate). State the resulting Bear Fair Value and downside risk.
-  * <strong>🎯 Base Case (Normalized Operating Reality):</strong> Explicitly detail the normalized baseline assumptions (e.g. steady-state organic growth of XX.X%, normalized operating margins, baseline maintenance CapEx, disciplined share buybacks). State the resulting Base Fair Value and Margin of Safety.
-  * <strong>🐂 Bull Case (Optimistic Compounding):</strong> Explicitly detail the upside drivers assumed (e.g. accelerating growth to XX.X%, operating leverage expanding margins, successful monetization of new initiatives, aggressive share cannibalization). State the resulting Bull Fair Value and upside potential.
+<h3>Scenario Assumptions Deep Dive: Unit Economics & Operational Mechanics</h3>
+- Detail the exact top-to-bottom mechanics modeled in each scenario:
+  * <strong>🐻 Bear Case (Operational Deleveraging & Trough Stress-Test):</strong> Explicitly detail how unit volume erosion or pricing pressure leads to top-line contraction. Explain why the fixed-cost floor (after past layoffs/cuts) prevents further OpEx reductions, causing severe decremental operating margins and cash flow contraction. State the resulting Bear Fair Value and downside risk.
+  * <strong>🎯 Base Case (Normalized Operating Reality):</strong> Explicitly detail steady-state unit economics, normalized marketing budgets, sustainable pricing, and normalized Owner Earnings compounding. State the resulting Base Fair Value and Margin of Safety.
+  * <strong>🐂 Bull Case (Operating Leverage Inflection & Upside Compounding):</strong> Explicitly detail how unit expansion and new product monetization flow through with high incremental margins as fixed costs scale efficiently. State the resulting Bull Fair Value and upside potential.
 
 <h3>2D Valuation Sensitivity Matrix</h3>
 - Provide an explicit 2D sensitivity table modeling Base Case Intrinsic Value / Share across varying Discount Rates ($r \pm 1.0\%$) and Terminal Growth Rates ($g_{{\\text{{term}}}} \pm 0.5\%$):
