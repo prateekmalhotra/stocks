@@ -16,12 +16,20 @@
     <!-- Embedded Initial Live Quotes for 100% Guaranteed Zero-Lag Data Delivery -->
     <script id="embedded-live-quotes" type="application/json">{
   "BMBL": {
-    "price": 2.71,
-    "prev_close": 2.7,
-    "change": 0.01,
-    "change_pct": 0.37,
+    "price": 2.72,
+    "prev_close": 2.73,
+    "change": -0.01,
+    "change_pct": -0.37,
     "currency": "USD",
-    "updated_at": "2026-08-18 19:49:01 UTC"
+    "updated_at": "2026-08-18 20:00:04 UTC"
+  },
+  "MTCH": {
+    "price": 38.7,
+    "prev_close": 38.7,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-18 20:00:04 UTC"
   }
 }</script>
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
@@ -797,7 +805,7 @@
         <!-- Navigation Controls -->
         <div class="hub-controls">
             <div class="hub-tabs">
-                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">1</span></button>
+                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">2</span></button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts <span class="tab-chip chip-alert">0</span></span></button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-defensive')">Fidelity</button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-aggressive')">Wealthsimple</button>
@@ -851,8 +859,8 @@
                 </div>
             <td>
                 <div class="tbl-price-cell">
-                    <span class="tbl-price tbl-price-BMBL">$2.71</span>
-                    <span class="tbl-return tbl-ret-BMBL pos">+0.00%</span>
+                    <span class="tbl-price tbl-price-BMBL">$2.72</span>
+                    <span class="tbl-return tbl-ret-BMBL pos">+0.37%</span>
                 </div>
             </td>
             <td>
@@ -874,6 +882,40 @@
             </td>
         </tr>
         
+        <tr class="table-row" data-ticker="MTCH" data-baseline="38.81" onclick="location.href='reports/MTCH.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/MTCH" alt="MTCH" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">MT</span></div>
+                        <span class="tbl-symbol">MTCH</span>
+                    </div>
+                    <span class="tbl-company-hover">Match Group, Inc</span>
+                </div>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-MTCH">$38.70</span>
+                    <span class="tbl-return tbl-ret-MTCH neg">-0.28%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="pill pill-conviction">Turnaround Play</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-val-cell">
+                    <span class="tbl-fv" style="color: var(--accent-warm);">$45.52</span>
+                    <span class="tbl-upside">+17.3%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-date">2026-11-03</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
+                </div>
+            </td>
+        </tr>
+        
                     </tbody>
                 </table>
             </div>
@@ -887,7 +929,7 @@
                     <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/BMBL" alt="BMBL" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">BM</span></div>
                     <span class="grid-symbol">BMBL</span>
                 </div>
-                <div class="grid-price grid-price-BMBL">$2.71</div>
+                <div class="grid-price grid-price-BMBL">$2.72</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
                 <span class="pill pill-conviction">Cautious Stance</span>
@@ -897,7 +939,7 @@
             <div class="grid-metrics-box">
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Return</span>
-                    <span class="grid-stat-val grid-ret-BMBL pos">+0.00%</span>
+                    <span class="grid-stat-val grid-ret-BMBL pos">+0.37%</span>
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Fair Value</span>
@@ -910,6 +952,39 @@
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Catalyst</span>
                     <span class="grid-stat-val">2026-08-11</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid-card" data-ticker="MTCH" data-baseline="38.81" onclick="location.href='reports/MTCH.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/MTCH" alt="MTCH" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">MT</span></div>
+                    <span class="grid-symbol">MTCH</span>
+                </div>
+                <div class="grid-price grid-price-MTCH">$38.70</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <span class="pill pill-conviction">Turnaround Play</span>
+            </div>
+            <div class="grid-company">Match Group, Inc</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-MTCH neg">-0.28%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Fair Value</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">$45.52</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Target</span>
+                    <span class="grid-stat-val">$45.52 (+17.3%)</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val">2026-11-03</span>
                 </div>
             </div>
         </div>

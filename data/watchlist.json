@@ -3,8 +3,8 @@
     "ticker": "BMBL",
     "company_name": "Bumble Inc.",
     "baseline_price": 2.71,
-    "current_price": 2.71,
-    "return_pct": 0.0,
+    "current_price": 2.72,
+    "return_pct": 0.37,
     "status_label": "Cautious Stance",
     "labels": [
       "Cautious Stance",
@@ -32,5 +32,39 @@
     "last_updated": "2026-08-18",
     "total_versions": 1,
     "report_path": "reports/BMBL.html"
+  },
+  {
+    "ticker": "MTCH",
+    "company_name": "Match Group, Inc.",
+    "baseline_price": 38.81,
+    "current_price": 38.7,
+    "return_pct": -0.28,
+    "status_label": "Turnaround Play",
+    "labels": [
+      "Turnaround Play",
+      "App Store",
+      "Cash Compounder"
+    ],
+    "action_signal": "HOLD",
+    "fair_value_estimate": "$45.52",
+    "bear_target": "$17.24 (-55.6%)",
+    "base_target": "$45.52 (+17.3%)",
+    "bull_target": "$72.80 (+87.6%)",
+    "what_is_priced_in": "g_implied: +2.1% (vs Base 0.5%)",
+    "upper_alert_threshold": 45.52,
+    "lower_alert_threshold": 17.24,
+    "next_catalyst_date": "2026-11-03",
+    "next_catalyst_event": "Q3 '26 ER",
+    "top_funds": [
+      "Vanguard Group (9.2%)",
+      "BlackRock (7.8%)",
+      "Elliott Investment Management"
+    ],
+    "institutional_ownership_pct": "84.5%",
+    "insider_signal": "Cluster Buying",
+    "insider_summary": "Aggressive insider open-market purchases totaling $5,194,803 across executive leadership.",
+    "last_updated": "2026-08-18",
+    "total_versions": 1,
+    "report_path": "reports/MTCH.html"
   }
 ]
