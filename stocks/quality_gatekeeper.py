@@ -226,7 +226,7 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
             if "(-25.0%)" in bear_t or "(-25.1%)" in bear_t:
                 issues.append("Dossier contains uncalibrated synthetic fallback target multipliers (-25% / +15% / +50%). DCF table failed to parse.")
 
-    # 18. Target Monotonicity Invariant (Lower <= Fair <= Upper)
+    # 18. Storyline Targets & Alert Corridor Validity
     if metadata:
         def _parse_p(val_str: Optional[str]) -> Optional[float]:
             if not val_str: return None
@@ -240,13 +240,25 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
                     pass
             return None
         
-        v_low = _parse_p(metadata.get("bear_target"))
-        v_fair = _parse_p(metadata.get("fair_value_estimate") or metadata.get("base_target"))
-        v_high = _parse_p(metadata.get("bull_target"))
-        if v_low is not None and v_fair is not None and v_low > v_fair:
-            issues.append(f"Target Monotonicity Failure: Lower Target (${v_low:.2f}) cannot be greater than Fair Value Target (${v_fair:.2f}).")
-        if v_fair is not None and v_high is not None and v_fair > v_high:
-            issues.append(f"Target Monotonicity Failure: Fair Value Target (${v_fair:.2f}) cannot be greater than Upper Target (${v_high:.2f}).")
+        s1 = _parse_p(metadata.get("story1_target") or metadata.get("bear_target"))
+        s2 = _parse_p(metadata.get("story2_target") or metadata.get("base_target"))
+        s3 = _parse_p(metadata.get("story3_target") or metadata.get("bull_target"))
+        
+        for idx, s_val in enumerate([s1, s2, s3], start=1):
+            if s_val is not None and s_val <= 0:
+                issues.append(f"Storyline {idx} calculated valuation (${s_val:.2f}) must be positive (> $0.00).")
+                
+        lower_alert = metadata.get("lower_alert_threshold")
+        upper_alert = metadata.get("upper_alert_threshold")
+        if lower_alert is not None and upper_alert is not None and lower_alert >= upper_alert:
+            issues.append(f"Corridor Invariant Failure: Lower Alert (${lower_alert:.2f}) must be strictly less than Upper Alert (${upper_alert:.2f}).")
+
+    # 19. Script & Interactive Chart Block Health Check
+    if "<script" in html:
+        open_scripts = len(re.findall(r"<script\b", html, re.IGNORECASE))
+        close_scripts = len(re.findall(r"</script>", html, re.IGNORECASE))
+        if open_scripts != close_scripts:
+            issues.append(f"Mismatched <script> tags ({open_scripts} opened vs {close_scripts} closed).")
 
     return len(issues) == 0, issues
 
