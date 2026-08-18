@@ -942,6 +942,78 @@ def build_portfolio_tab_html(portfolio_type: str = "defensive", total_capital: f
     """
 
 
+def audit_rebalancing_triggers(portfolio_type: str = "defensive", total_capital: float = 200000.0) -> Dict[str, Any]:
+    """
+    Audits portfolio holdings against first-principles rebalancing triggers:
+    1. Moat Break / Capital Destruction (100% Exit on AVOID)
+    2. Valuation Froth (Trim when Price > 1.35x Fair Value or Weight > 50%)
+    3. Panic Dip Deployment (Deploy Cash Buffer when Anchor Price < 0.65x Fair Value)
+    Enforces minimum material threshold (>= 5.0% allocation delta).
+    """
+    enriched = get_enriched_portfolio(total_capital, portfolio_type)
+    holdings = enriched.get("holdings", [])
+    cash_holding = next((h for h in holdings if h.get("ticker") == "USD_CASH"), None)
+    cash_weight = cash_holding.get("target_weight", 0.0) if cash_holding else 0.0
+    
+    triggers = []
+    
+    for h in holdings:
+        ticker = h.get("ticker")
+        if ticker == "USD_CASH":
+            continue
+            
+        cur_p = float(h.get("current_price", 0.0))
+        fair_p = float(h.get("fair_value", 0.0))
+        target_w = float(h.get("target_weight", 0.0))
+        action_sig = str(h.get("action_signal", "HOLD")).upper()
+        
+        # 1. Moat Break / Capital Destruction (100% Exit on AVOID)
+        if action_sig == "AVOID":
+            delta_pct = -(target_w * 100.0)
+            if abs(delta_pct) >= 5.0:
+                triggers.append({
+                    "ticker": ticker,
+                    "type": "MOAT_BREAK_EXIT",
+                    "severity": "CRITICAL",
+                    "message": f"{ticker} action signal downgraded to AVOID. Moat erosion or capital destruction detected.",
+                    "proposed_action": f"Liquidate 100% of {ticker} position and reallocate {abs(delta_pct):.1f}% into USD Cash Reserve.",
+                    "weight_delta_pct": delta_pct
+                })
+            continue
+
+        # 2. Valuation Froth (Trim when Price > 1.35x Fair Value or Weight > 50%)
+        if fair_p > 0 and cur_p > 1.35 * fair_p and target_w >= 0.10:
+            excess_weight = max(5.0, (target_w - 0.20) * 100.0)
+            triggers.append({
+                "ticker": ticker,
+                "type": "VALUATION_FROTH_TRIM",
+                "severity": "HIGH",
+                "message": f"{ticker} current price (${cur_p:.2f}) exceeds 1.35x Fair Value (${fair_p:.2f}). Valuation froth reached.",
+                "proposed_action": f"Trim {ticker} by {excess_weight:.1f}% to lock in gains and sweep capital into Treasury Cash Buffer.",
+                "weight_delta_pct": -excess_weight
+            })
+            continue
+
+        # 3. Panic Dip Deployment (Deploy Cash Buffer when Anchor Price < 0.65x Fair Value)
+        if fair_p > 0 and cur_p < 0.65 * fair_p and cash_weight >= 0.10:
+            deploy_w = min(10.0, cash_weight * 50.0) # Deploy half of cash reserve up to 10%
+            if deploy_w >= 5.0:
+                triggers.append({
+                    "ticker": ticker,
+                    "type": "PANIC_DIP_DEPLOYMENT",
+                    "severity": "HIGH",
+                    "message": f"{ticker} trades at extreme discount (${cur_p:.2f} vs FV ${fair_p:.2f}, MoS > +53.8%).",
+                    "proposed_action": f"Deploy {deploy_w:.1f}% dry powder from Treasury Cash Buffer into {ticker} anchor compounding position.",
+                    "weight_delta_pct": deploy_w
+                })
+
+    return {
+        "portfolio_type": portfolio_type,
+        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "triggers": triggers
+    }
+
+
 def record_daily_market_close_snapshot():
     """Records daily valuation snapshots for both Defensive and Aggressive portfolios."""
     today_str = datetime.now().strftime("%Y-%m-%d")

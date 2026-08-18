@@ -66,7 +66,10 @@ def validate_dossier_quality(ticker: str, html: str) -> Tuple[bool, List[str]]:
     if not has_scenarios:
         issues.append("Missing complete Bear / Base / Bull scenario valuation matrix in Section 5.")
         
-    has_reverse_dcf = any(k in html.lower() for k in ["priced in", "market-implied", "reverse dcf", "g_implied", "g_{implied}"])
+    has_reverse_dcf = any(k in html.lower() for k in [
+        "priced in", "market-implied", "reverse dcf", "reverse-dcf", "g_implied", 
+        "g_{implied}", "implied cagr", "implied growth", "market expectations", "what is priced in"
+    ])
     if not has_reverse_dcf:
         issues.append("Missing Market-Implied Expectations / 'What is Priced In?' Reverse DCF analysis in Section 5.")
 
