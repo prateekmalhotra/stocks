@@ -9,14 +9,16 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-DEFAULT_GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+DEFAULT_GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.5-flash")
 _CURRENT_ACTIVE_MODEL = DEFAULT_GEMINI_MODEL
 GEMINI_MODELS_LADDER = [
-    DEFAULT_GEMINI_MODEL,
+    "gemini-3.5-flash",
     "gemini-flash-latest",
-    "gemini-2.5-flash-lite",
+    "gemini-3.5-flash-lite",
     "gemini-flash-lite-latest"
 ]
+if DEFAULT_GEMINI_MODEL not in GEMINI_MODELS_LADDER:
+    GEMINI_MODELS_LADDER.insert(0, DEFAULT_GEMINI_MODEL)
 
 
 def get_active_model() -> str:
