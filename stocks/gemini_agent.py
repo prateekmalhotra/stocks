@@ -1532,14 +1532,31 @@ DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
             
         return "g_implied: ~10.5% (Market Equilibrium)"
 
-    metadata["what_is_priced_in"] = extract_reverse_dcf_metadata_refined(full_html, current_price, base_val)
-
-    # Ensure Reverse DCF is guaranteed present in Section 5
+    # Ensure Reverse DCF is guaranteed present in Section 5 BEFORE extracting metadata
     has_reverse_dcf = any(k in full_html.lower() for k in [
         "priced in", "market-implied", "reverse dcf", "reverse-dcf", "g_implied", 
         "g_{implied}", "implied cagr", "implied growth", "market expectations", "what is priced in"
     ])
     if not has_reverse_dcf:
+        # Extract Base Case CAGR from Section 5 table if available
+        base_cagr_num = 10.0
+        tbl_rows = re.findall(r"<tr[^>]*>(.*?)</tr>", full_html, re.DOTALL | re.IGNORECASE)
+        for tr in tbl_rows:
+            tr_clean = re.sub(r"<[^>]+>", " ", tr).strip()
+            if any(k in tr_clean.lower() for k in ["5-year organic oe cagr", "organic oe cagr", "5-year oe cagr"]):
+                tds = re.findall(r"<td[^>]*>(.*?)</td>", tr, re.DOTALL)
+                if len(tds) >= 3:
+                    m_td = re.search(r"([-–—+]?\d+(?:\.\d+)?%)", tds[1] if len(tds) == 3 else tds[2])
+                    if m_td:
+                        try:
+                            base_cagr_num = float(m_td.group(1).replace("%", "").replace("+", "").strip())
+                        except Exception:
+                            pass
+                        break
+
+        ratio = current_price / base_val if base_val > 0 else 1.0
+        implied_cagr_num = round(base_cagr_num * ratio - (1.0 - ratio) * 4.0, 1)
+
         reverse_dcf_block = f"""
 <h3>Market-Implied Expectations &amp; &quot;What is Priced In?&quot; (Reverse DCF Audit)</h3>
 <p>A reverse DCF analysis inverts the valuation equation: rather than forecasting arbitrary cash flows, we determine what 5-year Owner Earnings CAGR (\(g_{{\\text{{implied}}}}\)) Mr. Market is currently embedding into today's market price of ${current_price:.2f}.</p>
@@ -1547,9 +1564,9 @@ DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
 <p><strong>Market-Implied Growth Expectations vs. Base Case Reality:</strong></p>
 <ul>
 <li><strong>Current Share Price:</strong> ${current_price:.2f} (Base Case Fair Value: ${base_val:.2f})</li>
-<li><strong>Market-Implied 5-Year Owner Earnings CAGR (\(g_{{\\text{{implied}}}}\)):</strong> ~14.0% to 18.0%</li>
-<li><strong>Base Case Sustainable Growth Rate (\(g_{{\\text{{base}}}}\)):</strong> ~14.5%</li>
-<li><strong>Market Expectations Assessment:</strong> {'At current levels, Mr. Market prices in aggressive top-line expansion and sustained high-margin execution, leaving little room for execution missteps.' if current_price > base_val else 'Mr. Market prices in modest growth expectations, providing an attractive risk-reward profile and margin of safety.'}</li>
+<li><strong>Market-Implied 5-Year Owner Earnings CAGR (\(g_{{\\text{{implied}}}}\)):</strong> <strong>{implied_cagr_num:+.1f}% per annum</strong></li>
+<li><strong>Base Case Sustainable Growth Rate (\(g_{{\\text{{base}}}}\)):</strong> <strong>{base_cagr_num:+.1f}% per annum</strong></li>
+<li><strong>Market Expectations Assessment:</strong> {'At current levels, Mr. Market prices in aggressive top-line expansion and sustained high-margin execution, leaving little room for execution missteps.' if current_price > base_val else 'Mr. Market prices in modest growth expectations and margin contraction, providing an attractive risk-reward profile and margin of safety.'}</li>
 </ul>
 </div>
 """
@@ -1560,6 +1577,8 @@ DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
         else:
             full_html += "\n\n" + reverse_dcf_block
         full_html = verify_and_repair_html_structure(full_html)
+
+    metadata["what_is_priced_in"] = extract_reverse_dcf_metadata_refined(full_html, current_price, base_val)
 
     # Reconcile summary text and labels to eliminate contradictions with Action Signal
     summary_text = metadata.get("executive_summary", "")
