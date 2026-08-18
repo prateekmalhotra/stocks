@@ -123,7 +123,7 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
     base_val = None
     for r in rows:
         r_clean = re.sub(r"<[^>]+>", " ", r).strip()
-        if any(k in r_clean.lower() for k in ["intrinsic fair value", "intrinsic value / share", "base intrinsic value"]):
+        if any(k in r_clean.lower() for k in ["intrinsic fair value", "intrinsic value / share", "intrinsic value per share", "base intrinsic value", "fair value / share", "fair value per share", "fair value target"]):
             tds = re.findall(r"<td[^>]*>(.*?)</td>", r, re.DOTALL)
             extracted_nums = []
             for td in tds:
@@ -209,7 +209,7 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
         for tbl in s5_tables:
             for r in re.findall(r"<tr.*?</tr>", tbl, re.DOTALL | re.IGNORECASE):
                 r_txt = re.sub(r"<[^>]+>", " ", r).lower()
-                if any(k in r_txt for k in ["intrinsic fair value", "intrinsic value / share", "intrinsic value per share"]):
+                if any(k in r_txt for k in ["intrinsic fair value", "intrinsic value / share", "intrinsic value per share", "fair value / share", "fair value per share", "fair value target"]):
                     nums = re.findall(r"\$\s*[\d,]+(?:\.\d+)?", r)
                     if len(nums) >= 2:
                         has_fair_value_row = True
