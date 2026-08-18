@@ -922,12 +922,27 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         </div>
         """
     else:
-        # Show actual evolution revisions (v2, v3, ...)
+        # Show all historical versions (v3, v2, v1 Genesis baseline)
         for v in reversed(history):
-            if v.version == 1:
-                continue
             is_current = (v.version == len(history))
+            is_genesis = (v.version == 1)
             v_labels_html = format_labels_pills(v.labels or [v.status_label])
+
+            # Historical Target Badges
+            v_s1 = getattr(v, "story1_target", None) or getattr(v, "bear_target", "")
+            v_s2 = getattr(v, "story2_target", None) or getattr(v, "base_target", "")
+            v_s3 = getattr(v, "story3_target", None) or getattr(v, "bull_target", "")
+            
+            targets_chips = []
+            if v.fair_value_estimate:
+                targets_chips.append(f'<span style="color:var(--accent-warm); font-weight:600;">🎯 FV: {v.fair_value_estimate}</span>')
+            if v_s1:
+                targets_chips.append(f'<span style="color:#64B5F6;">Story 1: {v_s1}</span>')
+            if v_s2:
+                targets_chips.append(f'<span style="color:#D4A373;">Story 2: {v_s2}</span>')
+            if v_s3:
+                targets_chips.append(f'<span style="color:#81C784;">Story 3: {v_s3}</span>')
+            targets_summary_html = f'<div style="display:flex; align-items:center; gap:10px; font-family:var(--font-mono); font-size:0.75rem; flex-wrap:wrap; margin-top:8px; padding:6px 12px; background:rgba(255,255,255,0.02); border-radius:6px; border:1px solid rgba(255,255,255,0.04);">{" • ".join(targets_chips)}</div>' if targets_chips else ""
 
             # Check if labels evolved in this version
             v_idx = history.index(v)
@@ -942,7 +957,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                     v_label_diff = f"""
                     <div style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border-color); font-size: 0.84rem;">
                         <div style="font-weight: 500; color: var(--text-title); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-                            <span style="color: var(--accent-warm);">🏷️ Label & Conviction Evolution:</span>
+                            <span style="color: var(--accent-warm);">🏷️ Label &amp; Conviction Evolution:</span>
                             <div style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
                                 {p_pills}
                                 <span style="color: var(--text-dim);">→</span>
@@ -953,7 +968,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                     """
 
             diff_box = ""
-            if v.what_was_before or v.what_changes_now:
+            if not is_genesis and (v.what_was_before or v.what_changes_now):
                 diff_box = f"""
                 <div class="diff-grid">
                     <div class="diff-box diff-prev">
@@ -970,21 +985,25 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 </div>
                 """
                 
-            v_beacon_html = format_action_beacon(getattr(v, "action_signal", None)) if v.version > 1 else ""
+            v_beacon_html = format_action_beacon(getattr(v, "action_signal", None))
             sanitized_snapshot = clean_and_sanitize_html(v.full_html_content)
+            version_title = f"Version {v.version} ({'Initial Underwriting' if is_genesis else (getattr(v, 'trigger_reason', '') or 'Earnings / Price Review')})"
+            
             history_cards_html += f"""
             <div class="history-entry {'history-entry-active' if is_current else ''}">
                 <div class="history-top">
                     <div class="history-tags">
+                        <span class="pill pill-neutral" style="font-weight:600; color:var(--text-title);">{version_title}</span>
                         <span class="history-time">{v.date}</span>
                         <span class="history-price">${f"{v.price_at_version:.2f}" if v.price_at_version is not None else "0.00"}</span>
                         {v_beacon_html}
                         {v_labels_html}
                     </div>
-                    <button class="btn btn-subtle" onclick="toggleSnapshot({v.version})">Read Snapshot ▾</button>
+                    <button class="btn btn-subtle" onclick="toggleSnapshot({v.version})">Read Full Memo Snapshot ▾</button>
                 </div>
                 <div class="history-content">
-                    <p class="history-shift-desc">{v.summary_of_change}</p>
+                    <p class="history-shift-desc" style="font-size:0.92rem; color:var(--text-body); margin:6px 0;">{v.summary_of_change}</p>
+                    {targets_summary_html}
                     {diff_box}
                     <div id="snapshot-{v.version}" class="snapshot-drawer" style="display: none;">
                         <div class="snapshot-body">

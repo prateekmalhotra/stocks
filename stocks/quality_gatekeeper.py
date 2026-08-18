@@ -148,9 +148,15 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
             except ValueError:
                 pass
 
-    # 11. No Unexpanded Tokenizer / LLM Synthetic Artifacts
+    # 11. No Unexpanded Tokenizer / LLM Synthetic Artifacts & Foreign Script Leaks
     if re.search(r"««[A-Z_0-9]+»»", html) or "««" in html or "»»" in html:
         issues.append("Contains unexpanded tokenizer/LLM placeholder artifacts (e.g. ««CURRENCY...»» or ««INLINE_BLOCK...»»).")
+
+    if re.search(r'[\u0400-\u04FF]', html):
+        issues.append("Contains stray Cyrillic/foreign script characters in English report.")
+
+    if re.search(r'\$\s*(?:Millions|Billions)?\s*(?:CNY|RMB)\b', html, re.IGNORECASE):
+        issues.append("Contains contradictory currency labeling (e.g. '$ Millions CNY'). Use clean 'RMB Millions (¥)' or '$ Millions USD'.")
 
     # 12. Stripped Currency Decimals & Formatting Integrity Check
     stripped_cents = re.findall(r"(?:^|\s|\()\.\d{2}\b", html)
@@ -269,6 +275,95 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
             # If lowest storyline implies > 82% drop on a company that is not flagged as Distressed/Speculative
             if min_s < (cur_p * 0.18) and "speculative risk" not in str(metadata.get("status_label", "")).lower():
                 issues.append(f"Economic Reality Failure: Storyline valuation target (${min_s:.2f}) represents an irrational {-((cur_p-min_s)/cur_p*100):.1f}% collapse on a going-concern business.")
+
+    # 21. Cross-Sectional Balance Sheet & Share Count Consistency Check
+    s4_match = re.search(r"<h2>Section 4:.*?</h2>(.*?)(?=<h2>Section 5|$)", html, re.DOTALL | re.IGNORECASE)
+    if s4_match and s5_match:
+        s4_txt = re.sub(r"<[^>]+>", " ", s4_match.group(1))
+        s5_txt = re.sub(r"<[^>]+>", " ", s5_match.group(1))
+        
+        # Check Net Cash / Net Debt per share consistency
+        s4_nd_m = re.search(r'(?:Net Cash Per (?:Diluted )?Share|Net Debt Per (?:Diluted )?Share|Net Cash Position|Net Debt Position|Net Cash|Net Debt).*?([+-]?\$?\s*\d+(?:\.\d+)?\s*(?:/sh|/share))', s4_txt, re.IGNORECASE)
+        s5_nd_m = re.search(r'(?:Net Balance Sheet Debt/Cash Adjustment|Net Debt/Cash Adjustment).*?([+-]?\$?\s*\d+(?:\.\d+)?\s*(?:/sh|/share)?)', s5_txt, re.IGNORECASE)
+        
+        if s4_nd_m and s5_nd_m:
+            try:
+                s4_v = float(re.sub(r"[^\d.-]", "", s4_nd_m.group(1)))
+                s5_v = float(re.sub(r"[^\d.-]", "", s5_nd_m.group(1)))
+                if "net debt" in s4_nd_m.group(0).lower() and s4_v > 0:
+                    s4_v = -s4_v
+                if "net debt" in s5_nd_m.group(0).lower() and s5_v > 0:
+                    s5_v = -s5_v
+                # Check for significant discrepancy (> $0.50/share)
+                if abs(s4_v - s5_v) > 0.50:
+                    issues.append(f"Cross-Sectional Balance Sheet Discrepancy: Section 4 reports Net Cash/Debt of ${s4_v:+.2f}/sh, but Section 5 DCF uses ${s5_v:+.2f}/sh (diff: ${abs(s4_v - s5_v):.2f}).")
+            except Exception:
+                pass
+
+    # 22. Storyline Base Case & Headline Target Harmonization Check
+    if metadata:
+        fv_str = metadata.get("fair_value_estimate", "")
+        s1_str = metadata.get("story1_target", "")
+        if fv_str and s1_str:
+            fv_num = _parse_p(fv_str)
+            s1_num = _parse_p(s1_str)
+            if fv_num is not None and s1_num is not None and abs(fv_num - s1_num) > 0.05:
+                issues.append(f"Base Case Inversion Failure: Headline Fair Value (${fv_num:.2f}) does not match Storyline 1 Base Target (${s1_num:.2f}). Storyline 1 MUST be the primary Base Case.")
+
+    # 23. Discount Rate vs Growth Rate Decoupling Check (Rate Flattening Prevention)
+    if s5_match:
+        s5_t = s5_match.group(1)
+        cagr_row = re.search(r'(?:5-Year Organic OE CAGR|5-Year CAGR).*?</tr>', s5_t, re.DOTALL | re.IGNORECASE)
+        disc_row = re.search(r'(?:Discount Rate).*?</tr>', s5_t, re.DOTALL | re.IGNORECASE)
+        if cagr_row and disc_row:
+            cagr_nums = re.findall(r'([+-]?\d+(?:\.\d+)?%)', cagr_row.group(0))
+            disc_nums = re.findall(r'(\d+(?:\.\d+)?%)', disc_row.group(0))
+            if cagr_nums and disc_nums:
+                try:
+                    c1 = float(cagr_nums[0].replace("%", ""))
+                    d1 = float(disc_nums[0].replace("%", ""))
+                    if abs(c1 - d1) < 0.01 and c1 > 0:
+                        issues.append(f"Rate Flattening Failure: Storyline 1 5-year CAGR ({c1:.1f}%) exactly matches Discount Rate ({d1:.1f}%), artificially neutralizing the discounting physics.")
+                except Exception:
+                    pass
+
+    # 24. Exact Alert Corridor Harmonization Check
+    if metadata:
+        lower_alert = metadata.get("lower_alert_threshold")
+        upper_alert = metadata.get("upper_alert_threshold")
+        if lower_alert is not None and s_vals and cur_p:
+            min_expected = min(s_vals)
+            if min_expected < cur_p and abs(lower_alert - min_expected) > 0.05:
+                issues.append(f"Corridor Discrepancy: Lower Alert Threshold (${lower_alert:.2f}) does not match exact Storyline Floor (${min_expected:.2f}).")
+
+    # 25. Reverse DCF Metadata Synchronization Check
+    if metadata and s5_match:
+        p_in = str(metadata.get("what_is_priced_in", ""))
+        s5_t = s5_match.group(1)
+        m_meta_g = re.search(r"g_implied:\s*([+-]?\d+(?:\.\d+)?%)", p_in)
+        m_sec5_g = re.search(r"(?:Market-Implied\s*5-Year\s*Owner\s*Earnings\s*CAGR|g_\{?(?:\\?text\{)?implied\}?\}?|g_implied).*?([+-]?\d+(?:\.\d+)?%)", s5_t, re.IGNORECASE)
+        if m_meta_g and m_sec5_g:
+            try:
+                g_m = float(m_meta_g.group(1).replace("%", ""))
+                g_s = float(m_sec5_g.group(1).replace("%", ""))
+                if abs(g_m - g_s) > 1.0:
+                    issues.append(f"Reverse DCF Synchronization Contradiction: Metadata header reports implied growth of {g_m:+.1f}%, but Section 5 Reverse DCF calculates {g_s:+.1f}%.")
+            except Exception:
+                pass
+
+    # 26. Insider Narrative vs Ledger Consistency Check
+    s4_match_all = re.search(r"<h2>Section 4:.*?</h2>(.*?)(?=<h2>Section 5|$)", html, re.DOTALL | re.IGNORECASE)
+    if s4_match_all:
+        s4_t = s4_match_all.group(1).lower()
+        if "zero open-market insider sales" in s4_t or "zero insider sales" in s4_t or "no insider sales" in s4_t:
+            # Check if Form 4 table right beside it actually lists sales
+            if re.search(r"sale\s*-\s*open\s*market|s\s*-\s*sale", s4_t):
+                issues.append("Insider Narrative Contradiction: Section 4 text claims 'zero insider sales' while adjacent Form 4 ledger documents open-market sales.")
+
+    # 27. Downside Stress Floor Invariant
+    if metadata and s1 is not None and s2 is not None:
+        if s2 > s1:
+            issues.append(f"Storyline Inversion Failure: Storyline 2 (${s2:.2f}) is higher than Storyline 1 Base Case (${s1:.2f}). Storyline 2 must represent the defensive stress floor.")
 
     return len(issues) == 0, issues
 

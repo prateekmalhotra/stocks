@@ -548,6 +548,21 @@ def verify_and_repair_html_structure(html: str) -> str:
     cleaned = clean_grounding_artifacts(html)
     cleaned = normalize_latex_typography(cleaned)
     
+    # 0. Strip foreign script/tokenizer leaks (e.g. Cyrillic/Russian/Chinese stray tokens in English text)
+    cleaned = re.sub(r'\bмиллиардов\b', 'billion', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'\bмиллиарда\b', 'billion', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'\bмиллиард\b', 'billion', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'\bмиллионов\b', 'million', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'\bмиллиона\b', 'million', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'\bмиллион\b', 'million', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'[\u0400-\u04FF]+', '', cleaned) # Strip any remaining Cyrillic tokens
+    
+    # 0.5 Clean contradictory currency labels (e.g. $ Millions CNY -> RMB Millions (¥))
+    cleaned = re.sub(r'\$\s*Millions\s*CNY\b', 'RMB Millions (¥)', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'\$\s*Millions\s*RMB\b', 'RMB Millions (¥)', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'\$\s*Billions\s*CNY\b', 'RMB Billions (¥)', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'\$\s*Billions\s*RMB\b', 'RMB Billions (¥)', cleaned, flags=re.IGNORECASE)
+    
     # 1. Strip code fences, json blocks
     cleaned = re.sub(r"```(?:html|json)?", "", cleaned, flags=re.IGNORECASE)
     cleaned = re.sub(r"```", "", cleaned)
@@ -926,9 +941,9 @@ def reconcile_and_repair_section_5_tables(ticker: str, current_price: float, sec
     if not section_5_html:
         return section_5_html
 
-    # 1. Parse Net Debt per share from Section 4 or Section 5
-    nd_m = re.search(r'(?:Net Cash|Net Debt|Net Funded Debt).*?\$?\s*([+-]?\d+(?:\.\d+)?(?:\s*(?:/sh|/share))?)', section_5_html + " " + bs_context, re.IGNORECASE)
+    # 1. Parse Net Debt per share and Diluted Shares strictly from bs_context (Section 4 Invariants)
     net_debt_adj = 0.0
+    nd_m = re.search(r'(?:Audited Net Balance Sheet Cash/Debt Per Share Adjustment|Net Cash Per (?:Diluted )?Share|Net Debt Per (?:Diluted )?Share|Net Cash Position|Net Debt Position|Net Cash|Net Debt).*?([+-]?\$?\s*\d+(?:\.\d+)?\s*(?:/sh|/share)?)', bs_context + " " + section_5_html, re.IGNORECASE)
     if nd_m:
         val_str = re.sub(r"[^\d.-]", "", nd_m.group(1))
         try:
@@ -937,20 +952,49 @@ def reconcile_and_repair_section_5_tables(ticker: str, current_price: float, sec
                 net_debt_adj = -net_debt_adj
         except Exception:
             pass
+
+    shares_m = 100.0
+    sh_match = re.search(r'(?:Audited Diluted Share Count|diluted shares|share count|shares outstanding|total shares).*?\$?\s*([+-]?[\d,]+(?:\.\d+)?)\s*(?:B|M|billion|million)?', bs_context + " " + section_5_html, re.IGNORECASE)
+    if sh_match:
+        try:
+            sh_val = float(re.sub(r"[^\d.-]", "", sh_match.group(1)))
+            if sh_val < 50.0: # assume Billions
+                sh_val = sh_val * 1000.0
+            shares_m = max(1.0, sh_val)
+        except Exception:
+            pass
             
     # 2. Check Table 2 completion across all tables in section_5_html
     s5_tables = re.findall(r"<table.*?</table>", section_5_html, re.DOTALL | re.IGNORECASE)
     has_full_dcf_table = False
+    existing_dcf_table = ""
     for tbl in s5_tables:
         if any(k in tbl.lower() for k in ["intrinsic fair value", "intrinsic value / share", "fair value / share", "margin of safety"]):
             nums = re.findall(r"([+-]?\$?\s*[\d,]+(?:\.\d+)?)", tbl)
             if len(nums) >= 2:
                 has_full_dcf_table = True
+                existing_dcf_table = tbl
                 break
 
-    # If Table 2 is incomplete or truncated, build the deterministic 10-row DCF table
+    # If Table 2 exists, check if its Net Cash / Net Debt row contradicts Section 4 audited reality
+    if has_full_dcf_table and existing_dcf_table and abs(net_debt_adj) > 0.01:
+        nd_row_m = re.search(r'(?:Net Balance Sheet Debt/Cash Adjustment|Net Debt/Cash Adjustment).*?</tr>', existing_dcf_table, re.DOTALL | re.IGNORECASE)
+        if nd_row_m:
+            row_vals = re.findall(r'([+-]?\$?\s*\d+(?:\.\d+)?)', nd_row_m.group(0))
+            if row_vals:
+                try:
+                    first_v = float(re.sub(r"[^\d.-]", "", row_vals[0]))
+                    if "net debt" in nd_row_m.group(0).lower() and first_v > 0:
+                        first_v = -first_v
+                    if abs(first_v - net_debt_adj) > 0.50:
+                        print(f"   │ ⚠️ [DCF RECONCILIATION] Table 2 used Net Debt/Cash ${first_v:+.2f}/sh vs Section 4 Audited ${net_debt_adj:+.2f}/sh. Rebuilding Table 2...", flush=True)
+                        has_full_dcf_table = False # Force rebuild with correct balance sheet numbers
+                except Exception:
+                    pass
+
+    # If Table 2 is incomplete, truncated, or inconsistent with audited balance sheet, build the deterministic 10-row DCF table
     if not has_full_dcf_table:
-        print("   │ 🛠️ [DCF REPAIR] Rebuilding complete 10-row DCF Valuation Matrix from audited unit economics...", flush=True)
+        print("   │ 🛠️ [DCF REPAIR] Rebuilding complete 10-row DCF Valuation Matrix from audited unit economics & balance sheet...", flush=True)
         # Extract OE_1 from Table 1 or text
         oe1_bear, oe1_base, oe1_bull = 50.0, 150.0, 250.0 # defaults in M
         oe_row_m = re.search(r'(?:Owner Earnings|OE_1).*?</tr>', section_5_html, re.DOTALL | re.IGNORECASE)
@@ -1201,43 +1245,43 @@ DO NOT write Section 2, 3, 4, 5, or 6. Output pure HTML only."""
     agent_2_prompt = f"""You are Sub-Agent 2: Business Model, Unit Economics & Competitive Moat Specialist researching {ticker_clean} ({company_name}).
 Your Objective: {research_obj}
 
+CRITICAL BUSINESS MODEL & SEGMENT RECONCILIATION INVARIANTS:
+- SEGMENT PROFIT RECONCILIATION: If reporting segment profits / EBITA (e.g. Commerce, Cloud, Logistics), you MUST include unallocated corporate costs, corporate eliminations, and loss-making units to explicitly bridge to consolidated GAAP Operating Income (EBIT). Do NOT present isolated segment profits that don't reconcile to consolidated operating profit!
+- EXPLICIT MONETIZATION MECHANICS: Explain in plain English how the company makes money, customer switching costs, and concrete evidence of pricing power vs margin concessions.
+- PEER & CHALLENGER BENCHMARKING: Detailed comparison matrix contrasting against top 2-3 global peers AND 1-2 fast-growing agile/boutique challengers across unit economics, channel mix, and technology moats.
+- SECULAR TAILWINDS VS SUBSTITUTION THREATS: Contrast multi-year structural tailwinds against realistic competitive disruption vectors.
+
 Generate ONLY Section 2 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
 
 <h2>Section 2: Business Model Reality, Unit Economics & Competitive Moat</h2>
-- Segment-by-segment revenue and operating profit breakdown table.
-- Explain in plain English how the company makes money, customer switching costs, and evidence of pricing power.
-- Detailed competitive comparison table contrasting the company against its top 2-3 global peers AND 1-2 fast-growing agile/boutique category challengers (e.g. On/Hoka for footwear, Alo/Vuori for activewear, Shop Pay/Stripe for payments, Nubank for LatAm fintech) across unit economics, distribution channels, and technology moats.
-- Structural secular tailwinds vs. competitive disruption / technological substitution threats.
+- Segment-by-segment revenue and operating profit breakdown table (with clean reconciliation to consolidated GAAP EBIT).
+- Plain-English monetization mechanics, switching costs, and pricing power audit.
+- Peer & agile challenger competitive matrix.
+- Structural tailwinds vs. competitive disruption threats.
 
 DO NOT write Section 1, 3, 4, 5, or 6. Output pure HTML only."""
 
     agent_3_prompt = f"""You are Sub-Agent 3: Forensic Cash Flow, SBC Dilution & Float Auditor researching {ticker_clean} ({company_name}).
 Your Objective: {research_obj}
 
-CRITICAL CASH FLOW & GAAP CAPEX REALISM:
-- All figures MUST reflect audited 12-month annual SEC Form 10-K reported figures (or latest trailing 12 months).
-- Total CapEx MUST strictly equal Purchases of Property and Equipment from the GAAP Cash Flow Statement (typically 15%-35% of revenue for tech compounders; NEVER multi-year commitments).
-- Maintenance CapEx vs Growth CapEx: Isolate defensive capital required for routine IT/facility refresh from elective growth.
-- Owner Earnings = GAAP Operating Cash Flow - Maintenance CapEx - 100% SBC.
+CRITICAL CASH FLOW, CAPEX & CURRENCY INVARIANTS:
+- GAAP CASH FLOW GROUNDING: All figures MUST reflect audited 12-month annual SEC filings (10-K / 20-F) or trailing 12 months.
+- CAPEX REALISM & MAINTENANCE BENCHMARKING:
+  * Total CapEx strictly equals Purchases of Property, Plant, Equipment & Software from the GAAP Cash Flow Statement.
+  * In the absence of audited management breakdown, benchmark Maintenance CapEx to Depreciation & Amortization (D&A) (replacing worn capacity is maintenance).
+  * For tech, cloud, or semiconductor infrastructure, 3-5 year server and computing hardware refresh cycles represent necessary defensive maintenance to retain enterprise clients. You MUST NOT classify the majority of CapEx as elective growth if real cash flow is negative!
+  * Total CapEx MUST equal Maintenance CapEx + Discretionary Growth CapEx with clear operational justification.
+- CURRENCY LABEL INTEGRITY: Use clean, non-contradictory units (e.g. '$ Millions USD' or 'RMB Millions (¥)'). NEVER write '$ Millions CNY' or '$ in RMB'.
+- OWNER EARNINGS: Buffett Owner Earnings = GAAP Operating Cash Flow - Maintenance CapEx - 100% Stock-Based Compensation (SBC).
 
 Generate ONLY Section 3 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
 
 <h2>Section 3: Forensic Cash Flow, SBC Dilution & Owner Earnings Audit</h2>
 - Rigorous cash flow audit stripping away Non-GAAP add-backs.
 - Treat 100% of Stock-Based Compensation (SBC) as an unavoidable cash expense and equity dilution factor.
-- Detailed 4-Year Cash Flow Decomposition Table:
-  <table>
-    <thead><tr><th>Metric ($ Millions)</th><th>FY 2024</th><th>FY 2025</th><th>FY 2026</th><th>TTM Run-Rate</th></tr></thead>
-    <tbody>
-      <tr><td>GAAP Operating Cash Flow</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
-      <tr><td>Less: Stock-Based Compensation (100% Cash Deducted)</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
-      <tr><td>Less: Maintenance CapEx (Defensive Moat Upkeep)</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
-      <tr><td><strong>Buffett Owner Earnings (True Distributable Cash)</strong></td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
-      <tr><td>Discretionary Growth CapEx (Isolated)</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
-    </tbody>
-  </table>
-- Working Capital Float Audit: Quantify interest-free customer/supplier float (Deferred Revenue + Accounts Payable minus Accounts Receivable).
-- Float & Interest Rate Sensitivity Audit: If the company holds material customer float, escrow balances, or payroll deposits (>10% of operating profit), provide an explicit Float Rate Sensitivity breakdown modeling a 100 bps cut/hike in central bank policy rates and its pre-tax dollar impact on Owner Earnings.
+- Detailed 4-Year Cash Flow Decomposition Table with clean, non-contradictory currency headers.
+- Working Capital Float Audit: Quantify interest-free customer/supplier float.
+- Float & Interest Rate Sensitivity Audit (if customer float >10% of operating profit).
 
 DO NOT write Section 1, 2, 4, 5, or 6. Output pure HTML only."""
 
@@ -1250,13 +1294,14 @@ CRITICAL BALANCE SHEET & CAPITAL METRICS:
   Net Cash/Debt Per Share = (Cash + Marketable Securities - Total Funded Debt - Leases) / Diluted Shares.
 - Share Buyback Cannibalization Analysis: Gross shares repurchased minus SBC shares issued = True Net Annual Share Count Reduction (-X.X%/year) or Net Dilution (+X.X%/year). State explicitly whether the company is net shrinking or net diluting shares.
 - Institutional 13F Whales & Form 4 Insider Trading audit from latest official filings.
+- INSIDER NARRATIVE CONFORMANCE INVARIANT: Your narrative discussing insider ownership and Form 4 transactions MUST 100% conform to the verified Form 4 insider ledger provided in context. If the ledger shows director or executive open-market sales, you MUST NOT write 'zero insider sales' or claim no selling occurred. Detail the exact transactions from the ledger accurately.
 
 Generate ONLY Section 4 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
 
 <h2>Section 4: Balance Sheet Fortress, Debt Leases & Ownership Check</h2>
 - Audited capital structure table and Net Cash/Debt breakdown.
 - Dilution vs Cannibalization analysis.
-- Institutional Whales and Form 4 Insider trading summary.
+- Institutional Whales and Form 4 Insider trading summary (matching the Form 4 ledger precisely).
 
 DO NOT write Section 1, 2, 3, 5, or 6. Output pure HTML only."""
 
@@ -1269,11 +1314,18 @@ Your Objective: {research_obj}
 CRITICAL 3 DISTINCT BUSINESS STORYLINES & ACCOUNTING INVARIANTS:
 - ZERO PRICE ANCHORING: Value the operational business strictly from First Principles of unit economics and cash flow without any reference to stock market prices or analyst targets.
 - 2-QUARTER TRANSCRIPT RESEARCH MANDATE: You MUST search and analyze the company's LAST 2 QUARTERLY EARNINGS CALL TRANSCRIPTS (e.g. Q4 / Q1 earnings calls). Extract verified executive remarks, pricing changes, product roadmap updates, and analyst questions to ground the 3 storylines in verifiable operating reality.
-- 3 PROBABLE BUSINESS STORYLINES (90-95% PROBABILITY COVERAGE): Formulate 3 distinct, plausible, fundamental operational trajectories for how this specific company's future could unfold over the next 5 years. They are NOT meant to be labeled Low/High/Medium or Bear/Bull/Base or anchored to any positive/negative sentiment. They represent 3 distinct realistic operating paths that together cover 90-95% of future possibilities:
-  * Storyline 1: e.g. [Descriptive Business Title based on operational path A]
-  * Storyline 2: e.g. [Descriptive Business Title based on operational path B]
-  * Storyline 3: e.g. [Descriptive Business Title based on operational path C]
-- STRICT COLUMN ALIGNMENT INVARIANT: Column 1 in Table 1 MUST correspond to Storyline 1. Column 2 MUST correspond to Storyline 2. Column 3 MUST correspond to Storyline 3.
+- 3 PROBABLE BUSINESS STORYLINES WITH EXPLICIT PROBABILITY WEIGHTS (90-95% PROBABILITY SPECTRUM):
+  Formulate 3 distinct, plausible, fundamental operational trajectories that together cover 90-95% of future possibilities with explicit probability weights:
+  * 📖 Storyline 1: MUST ALWAYS BE the Primary Base Operating Trajectory (Baseline Reality / Core Fundamental Expectation, Weight: ~50-60%). This establishes the primary Intrinsic Fair Value and headline price target of the memo!
+  * 📖 Storyline 2: MUST ALWAYS BE the Defensive Stress Trajectory / Moat-Testing Floor (Downside Margin Compression / Competition / Headwinds / Geopolitical or Regulatory Overhangs, Weight: ~20-25%).
+  * 📖 Storyline 3: MUST ALWAYS BE the High-Execution / Accelerated Trajectory (Upside Expansion / Favorable Mix / Blue-Sky Potential, Weight: ~20-25%).
+- DOWNSIDE STRESS FLOOR REALISM INVARIANT: Storyline 2 (Defensive Stress Trajectory) MUST be a genuine stress test reflecting the primary downside structural and regulatory/geopolitical risks of the business (e.g. tariffs, de minimis elimination, pricing war, or customer churn). Storyline 2 MUST model conservative or negative growth and margin contraction to establish a true defensive valuation floor that tests downside levels below current market price!
+- STRICT COLUMN ALIGNMENT INVARIANT:
+  * Column 1 in Table 1 MUST correspond to Storyline 1 (Base Case / Baseline Reality).
+  * Column 2 in Table 1 MUST correspond to Storyline 2 (Defensive Bear Floor).
+  * Column 3 in Table 1 MUST correspond to Storyline 3 (Accelerated Bull Upside).
+- MODELED VS DISCLOSED DISTINCTION: Any modeled operational metrics (such as brand-level operating margins, unit ASPs, or fulfillment costs) must be explicitly noted as modeled estimates rather than asserted as audited GAAP line items.
+- CAPEX & MAINTENANCE BENCHMARKING: For e-commerce, global logistics, retail, or tech compounders, Maintenance CapEx must realistically cover IT infrastructure, server capacity, and logistics upkeep (benchmarked to GAAP D&A or at least 1.0%-3.0% of revenue). Modeling an absurdly negligible CapEx number (e.g. <0.2% of revenue) on a $50B+ global operations network is strictly prohibited.
 - TOP-DOWN GAAP-TO-OWNER EARNINGS ACCOUNTING INVARIANT:
   * Operating Income (EBIT) ALREADY deducts non-cash Depreciation & Amortization (D&A).
   * Therefore, `Year 1 Buffett Owner Earnings (OE₁) = Operating Income (EBIT) - Normalized Cash Taxes (EBIT × ~15-22%) - Net Reinvestment Drag (Maint CapEx minus D&A) - 100% SBC`.
@@ -1290,16 +1342,16 @@ Generate the first half of Section 5 in clean Semantic HTML with NO external ima
 
 <h3>3 Probable Business Storylines (The Narrative &amp; Operational Paths)</h3>
 <div class="callout">
-  <p><strong>📖 Storyline 1: [Descriptive Title]</strong></p>
-  <p>Detail the full narrative: customer churn/growth dynamics, pricing power, management actions, product adoption, and operational mechanics.</p>
+  <p><strong>📖 Storyline 1: [Descriptive Base Case Title] (Primary Baseline Reality · Prob: ~55%)</strong></p>
+  <p>Detail the primary baseline narrative: customer churn/growth dynamics, pricing power, management actions, product adoption, and operational mechanics.</p>
 </div>
 <div class="callout">
-  <p><strong>📖 Storyline 2: [Descriptive Title]</strong></p>
-  <p>Detail the full narrative: customer churn/growth dynamics, pricing power, management actions, product adoption, and operational mechanics.</p>
+  <p><strong>📖 Storyline 2: [Descriptive Bear Title] (Defensive Stress Trajectory · Prob: ~25%)</strong></p>
+  <p>Detail the downside stress narrative: customer churn/growth dynamics, pricing power, management actions, product adoption, and operational mechanics.</p>
 </div>
 <div class="callout">
-  <p><strong>📖 Storyline 3: [Descriptive Title]</strong></p>
-  <p>Detail the full narrative: customer churn/growth dynamics, pricing power, management actions, product adoption, and operational mechanics.</p>
+  <p><strong>📖 Storyline 3: [Descriptive Bull Title] (High-Execution Trajectory · Prob: ~20%)</strong></p>
+  <p>Detail the upside acceleration narrative: customer churn/growth dynamics, pricing power, management actions, product adoption, and operational mechanics.</p>
 </div>
 
 <h3>Primary Unit Economics &amp; Operating Leverage P&amp;L Waterfall Matrix</h3>
@@ -1308,9 +1360,9 @@ Generate the first half of Section 5 in clean Semantic HTML with NO external ima
   <thead>
     <tr>
       <th>Operational &amp; Financial Metric (P&amp;L Flow-Through)</th>
-      <th>Storyline 1: [Title]</th>
-      <th>Storyline 2: [Title]</th>
-      <th>Storyline 3: [Title]</th>
+      <th>Storyline 1: [Base Title] (~55%)</th>
+      <th>Storyline 2: [Bear Title] (~25%)</th>
+      <th>Storyline 3: [Bull Title] (~20%)</th>
     </tr>
   </thead>
   <tbody>
@@ -1337,14 +1389,20 @@ Your Objective: Complete the quantitative discounted cash flow modeling and intr
 
 CRITICAL DCF MATHEMATICS & INVARIANTS:
 - ZERO PRICE ANCHORING: Value the enterprise strictly from First Principles of discounted cash flow as if you were buying 100% of the private business.
-- STRICT 1:1 COLUMN CORRESPONDENCE: Table 2 MUST use columns matching the 3 Storylines in EXACT order (Column 1 = Storyline 1, Column 2 = Storyline 2, Column 3 = Storyline 3 with their exact descriptive titles from Table 1).
-- Table 2 MUST contain the exact rows for 'Intrinsic Fair Value / Share' and 'Margin of Safety vs Current Price (${current_price:.2f})'.
-- Net Balance Sheet Debt/Cash Adjustment: MUST strictly lock the per-share figure calculated in Section 4 across all 3 storylines.
+- STRICT 1:1 COLUMN CORRESPONDENCE: Table 2 MUST use columns matching the 3 Storylines in EXACT order:
+  * Column 1 = Storyline 1 (Primary Base Reality / Headline Fair Value · ~55% Weight).
+  * Column 2 = Storyline 2 (Defensive Stress Floor · ~25% Weight).
+  * Column 3 = Storyline 3 (High-Execution Bull Case · ~20% Weight).
+- STORYLINE 1 IS THE PRIMARY BASE CASE: In the 2D Sensitivity Grid, Reverse DCF, and Market Closure Test, the Primary Baseline Reality is ALWAYS Storyline 1.
+- DISCOUNT RATE VS. GROWTH RATE DECOUPLING INVARIANT: In Storyline 1 and across all discrete projection periods, the 5-year CAGR (g) MUST NOT equal the discount rate (r). Ensure (r - g) >= 1.0% to preserve realistic discounting physics and avoid artificial flat cash flow streams.
+- Net Balance Sheet Debt/Cash Adjustment & Diluted Share Count: MUST strictly lock the per-share figure and diluted share count audited in Section 4 across all 3 storylines.
+- TERMINAL VALUE SENSITIVITY & DISCLOSURE: Calculate the percentage of Total Enterprise Value driven by Terminal Value (PV(TV) / EV). When Terminal Value exceeds 65%, explicitly caveat the sensitivity to long-term discount rates (+/- 100 bps).
+- BLENDED PROBABILITY-WEIGHTED FAIR VALUE: After Table 2, provide a summary callout calculating the blended probability-weighted expected value: (W1 * FV1 + W2 * FV2 + W3 * FV3).
 - LIQUIDITY FLOOR & SANITY INVARIANT:
   * For a going-concern cash-generative business, Intrinsic Value / Share cannot be modeled below the company's net liquid cash per share from Section 4.
   * Check your resulting Enterprise Value (EV) and Intrinsic Value per share to ensure it represents an economically coherent 90-95% probability spectrum, avoiding absurd multi-standard-deviation outliers.
 - FORMATTING CLEANLINESS: Use clean human text for Year 1 Owner Earnings (OE₁) and Total Enterprise Value (EV). Format all per-share intrinsic values with dollar signs ($XX.XX).
-- Reverse DCF: Dynamically determine what 5-year Owner Earnings CAGR (g_implied) is priced into ${current_price:.2f}.
+- Reverse DCF: Dynamically determine what 5-year Owner Earnings CAGR (g_implied) is priced into ${current_price:.2f} relative to Storyline 1 (g_base) using the audited diluted share count from Section 4.
 
 Generate the quantitative second half of Section 5 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
 
@@ -1354,12 +1412,13 @@ Generate the quantitative second half of Section 5 in clean Semantic HTML with N
     <thead>
       <tr>
         <th>Valuation Parameter &amp; Output Metric</th>
-        <th>Storyline 1: [Title]</th>
-        <th>Storyline 2: [Title]</th>
-        <th>Storyline 3: [Title]</th>
+        <th>Storyline 1: [Base Title] (~55%)</th>
+        <th>Storyline 2: [Bear Title] (~25%)</th>
+        <th>Storyline 3: [Bull Title] (~20%)</th>
       </tr>
     </thead>
     <tbody>
+      <tr><td>Probability Weight %</td><td>55.0%</td><td>25.0%</td><td>20.0%</td></tr>
       <tr><td>Year 1 Owner Earnings (OE₁)</td><td>$XX.XXM / $XX.XXB</td><td>$XX.XXM / $XX.XXB</td><td>$XX.XXM / $XX.XXB</td></tr>
       <tr><td>5-Year Organic OE CAGR</td><td>X.X%</td><td>XX.X%</td><td>XX.X%</td></tr>
       <tr><td>Discount Rate (Local Sovereign + ERP)</td><td>X.X%</td><td>X.X%</td><td>X.X%</td></tr>
@@ -1374,8 +1433,17 @@ Generate the quantitative second half of Section 5 in clean Semantic HTML with N
   </table>
   * MANDATORY ROW INVARIANT: You MUST include the 'Intrinsic Fair Value / Share' and 'Margin of Safety vs Current Price (${current_price:.2f})' rows. Do NOT omit them!
 
+<div class="callout">
+  <p><strong>🎲 Probability-Weighted Valuation Summary &amp; Terminal Value Sensitivity:</strong></p>
+  <ul>
+    <li><strong>Primary Base Fair Value (Storyline 1):</strong> $XX.XX (+/-XX.X% Margin of Safety)</li>
+    <li><strong>Blended Probability-Weighted Fair Value (55% / 25% / 20%):</strong> $XX.XX (+/-XX.X% Margin of Safety)</li>
+    <li><strong>Terminal Value Weight:</strong> PV(TV) represents XX.X% of Enterprise Value in Base Case (reflecting sensitivity to terminal discount rate assumptions).</li>
+  </ul>
+</div>
+
 <h3>2D Valuation Sensitivity Matrix</h3>
-- Table 3: Primary Storyline Intrinsic Value / Share across varying Discount Rates ($r \pm 1.0\%$) and Terminal Growth Rates ($g_{{\\text{{term}}}} \pm 0.5\%$):
+- Table 3: Storyline 1 (Base Case) Intrinsic Value / Share across varying Discount Rates ($r \pm 1.0\%$) and Terminal Growth Rates ($g_{{\\text{{term}}}} \pm 0.5\%$):
   <table>
     <thead>
       <tr>
@@ -1394,11 +1462,11 @@ Generate the quantitative second half of Section 5 in clean Semantic HTML with N
   </table>
 
 <h3>Market-Implied Expectations &amp; &quot;What is Priced In?&quot; (Reverse DCF Audit)</h3>
-- Contrast Market-Implied Expectations (g_implied) vs. Storyline 1 Reality (g_base).
+- Contrast Market-Implied Expectations (g_implied) vs. Storyline 1 Base Reality (g_base).
 - State whether Mr. Market is pricing in extreme distress/extinction, reasonable compounding, or euphoria.
 
 <h3>The 5-Year Market Closure Test</h3>
-- Demonstrate cumulative 5-year Owner Earnings cash returned on today's market capitalization (${current_price:.2f}).
+- Demonstrate cumulative 5-year Owner Earnings cash returned on today's market capitalization (${current_price:.2f}) based on Storyline 1 Base Case cash flows and audited share count.
 
 DO NOT write Section 1, 2, 3, 4, or 6. Output pure HTML only."""
 
@@ -1474,13 +1542,32 @@ DO NOT write Section 1, 2, 3, 4, or 6. Output pure HTML only."""
 
         if sec_num == 4:
             bs_text = re.sub(r"<[^>]+>", " ", clean_section)
-            net_debt_m = re.search(r'(?:Net Cash|Net Debt).*?\$?\s*([+-]?\d+(?:\.\d+)?(?:\s*(?:B|M|billion|million|/sh|/share))?)', bs_text, re.IGNORECASE)
+            
+            # 1. Extract per-share Net Cash or Net Debt figure
+            net_debt_sh_m = re.search(r'(?:Net Cash Per (?:Diluted )?Share|Net Debt Per (?:Diluted )?Share|Net Cash Position|Net Debt Position|Net Cash|Net Debt).*?([+-]?\$?\s*\d+(?:\.\d+)?\s*(?:/sh|/share)?)', bs_text, re.IGNORECASE)
+            # 2. Extract total Net Cash / Debt in millions or billions
+            net_debt_tot_m = re.search(r'(?:Net Cash|Net Debt|Funded Borrowings|Total Liquidity).*?([+-]?\$?\s*[\d,]+(?:\.\d+)?\s*(?:B|M|billion|million))', bs_text, re.IGNORECASE)
+            # 3. Extract Diluted Share Count
+            sh_count_m = re.search(r'(?:Diluted Share Count|Diluted Shares Outstanding|Shares Outstanding|Diluted Shares|Share count denominator).*?([\d,]+(?:\.\d+)?\s*(?:M|B|million|billion|\bshares\b))', bs_text, re.IGNORECASE)
+            # 4. Extract Share Reduction / Dilution trajectory
             dilution_m = re.search(r'(?:Net Annual Share Count|Share Cannibalization|Net Share Reduction|Share Dilution|dilution rate).*?([+-]?\d+(?:\.\d+)?%[\w/]*)', bs_text, re.IGNORECASE)
             
-            nd_str = net_debt_m.group(0) if net_debt_m else "Audited in Section 4"
-            dil_str = dilution_m.group(0) if dilution_m else "Audited in Section 4"
+            nd_sh_str = net_debt_sh_m.group(0).strip() if net_debt_sh_m else "Audited in Section 4"
+            nd_tot_str = net_debt_tot_m.group(0).strip() if net_debt_tot_m else "Audited in Section 4"
+            sh_str = sh_count_m.group(0).strip() if sh_count_m else "Audited in Section 4"
+            dil_str = dilution_m.group(0).strip() if dilution_m else "Audited in Section 4"
             
-            audited_financials_context += f"\nVERIFIED SECTION 4 BALANCE SHEET & CAPITAL STRUCTURE INVARIANTS:\n- Net Balance Sheet Cash/Debt: {nd_str}\n- Net Share Trajectory: {dil_str}\n- INVARIANT FOR SECTION 5: Section 5 DCF MUST use the exact Net Debt/Cash per share adjustment and exact share count dilution/cannibalization rate audited in Section 4."
+            audited_financials_context += f"""
+VERIFIED SECTION 4 BALANCE SHEET & CAPITAL STRUCTURE INVARIANTS (UNBREAKABLE CONTRACT):
+- Audited Diluted Share Count: {sh_str}
+- Audited Net Balance Sheet Cash/Debt Per Share Adjustment: {nd_sh_str}
+- Audited Total Balance Sheet Net Cash/Debt: {nd_tot_str}
+- Net Share Trajectory: {dil_str}
+- UNBREAKABLE INVARIANTS FOR SECTION 5 DCF & REVERSE DCF:
+  1. Denominator Invariant: Section 5 DCF division MUST strictly use the exact Diluted Share Count ({sh_str}) audited in Section 4.
+  2. Net Cash/Debt Adjustment Invariant: The 'Net Balance Sheet Debt/Cash Adjustment' row in Table 2 MUST strictly use the exact per-share figure ({nd_sh_str}) audited in Section 4 across ALL 3 storylines.
+  3. Market Cap Invariant: Today's market capitalization in the Reverse DCF & 5-Year Market Closure Test MUST strictly equal Current Share Price (${current_price:.2f}) × Audited Diluted Shares ({sh_str}). You MUST NOT use stale historical share counts from prior years.
+  4. No Balance Sheet Drift: You MUST NOT invent, recalculate, or alter the share count or net cash number between sections."""
 
         if sec_num == 5:
             # ------------------------------------------------------------------
@@ -1795,15 +1882,15 @@ DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
     metadata["bear_target"] = metadata["story2_target"]
     metadata["bull_target"] = metadata["story3_target"]
     
-    # Alert corridors dynamically derived from all 3 storylines
+    # Alert corridors strictly anchored to the foundational 3-Storyline valuation bounds
     valid_story_vals = [v for v in [story1_val, story2_val, story3_val] if v > 0]
-    min_story = min(valid_story_vals) if valid_story_vals else current_price * 0.85
-    max_story = max(valid_story_vals) if valid_story_vals else current_price * 1.15
+    min_story = min(valid_story_vals) if valid_story_vals else round(current_price * 0.85, 2)
+    max_story = max(valid_story_vals) if valid_story_vals else round(current_price * 1.15, 2)
 
-    metadata["upper_alert_threshold"] = round(max(max_story, current_price * 1.05), 2)
-    metadata["lower_alert_threshold"] = round(min(min_story, current_price * 0.95), 2)
+    metadata["lower_alert_threshold"] = round(min_story, 2)
+    metadata["upper_alert_threshold"] = round(max_story, 2)
 
-    # Invariant safety guarantee: lower < current_price < upper
+    # Invariant safety guarantee: lower < current_price < upper (only if valuation bounds didn't span current price)
     if metadata["lower_alert_threshold"] >= current_price:
         metadata["lower_alert_threshold"] = round(current_price * 0.90, 2)
     if metadata["upper_alert_threshold"] <= current_price:
@@ -1871,12 +1958,7 @@ DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
                 tr_clean = re.sub(r"<[^>]+>", " ", tr).strip()
                 if "5-year organic oe cagr" in tr_clean.lower() or "organic oe cagr" in tr_clean.lower() or "5-year oe cagr" in tr_clean.lower():
                     tds = re.findall(r"<td[^>]*>(.*?)</td>", tr, re.DOTALL)
-                    if len(tds) >= 4:
-                        m_td = re.search(r"([-–—+]?\d+(?:\.\d+)?%)", tds[2])
-                        if m_td:
-                            base_val_txt = m_td.group(1)
-                            break
-                    elif len(tds) >= 3:
+                    if len(tds) >= 2:
                         m_td = re.search(r"([-–—+]?\d+(?:\.\d+)?%)", tds[1])
                         if m_td:
                             base_val_txt = m_td.group(1)

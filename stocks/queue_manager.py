@@ -250,6 +250,12 @@ def _handle_review_task(ticker: str, trigger_reason: str):
         summary_of_change=meta.get("what_changes_now", "Living thesis updated with recent market developments."),
         what_was_before=meta.get("what_was_before", prev_summary),
         fair_value_estimate=meta.get("fair_value_estimate") or meta.get("new_fair_value") or stock.fair_value_estimate,
+        story1_target=meta.get("story1_target", stock.story1_target or ""),
+        story2_target=meta.get("story2_target", stock.story2_target or ""),
+        story3_target=meta.get("story3_target", stock.story3_target or ""),
+        story1_title=meta.get("story1_title", stock.story1_title or "Storyline 1"),
+        story2_title=meta.get("story2_title", stock.story2_title or "Storyline 2"),
+        story3_title=meta.get("story3_title", stock.story3_title or "Storyline 3"),
         bear_target=meta.get("bear_target") or meta.get("new_bear_target") or stock.bear_target,
         base_target=meta.get("base_target") or meta.get("new_base_target") or stock.base_target,
         bull_target=meta.get("bull_target") or meta.get("new_bull_target") or stock.bull_target,
@@ -274,6 +280,12 @@ def _handle_review_task(ticker: str, trigger_reason: str):
     stock.labels = labels
     stock.action_signal = action_signal
     stock.fair_value_estimate = new_version.fair_value_estimate
+    stock.story1_target = new_version.story1_target
+    stock.story2_target = new_version.story2_target
+    stock.story3_target = new_version.story3_target
+    stock.story1_title = new_version.story1_title
+    stock.story2_title = new_version.story2_title
+    stock.story3_title = new_version.story3_title
     stock.bear_target = new_version.bear_target
     stock.base_target = new_version.base_target
     stock.bull_target = new_version.bull_target

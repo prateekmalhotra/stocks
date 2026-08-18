@@ -283,7 +283,7 @@ def parse_trade_value(val_str: str) -> float:
 
 
 def calculate_insider_sentiment_and_flow(oi_trades: List[Dict[str, Any]], stock_signal_hint: str = "") -> Dict[str, Any]:
-    """Deterministically computes insider buying/selling signal from real Form 4 ledger."""
+    """Deterministically computes insider buying/selling signal from real Form 4 ledger, filtering for recency (last 12 months)."""
     if not oi_trades:
         sig = stock_signal_hint or "Neutral (10b5-1)"
         return {
@@ -296,12 +296,31 @@ def calculate_insider_sentiment_and_flow(oi_trades: List[Dict[str, Any]], stock_
             "net_flow_usd": 0.0
         }
 
+    from datetime import datetime, timedelta
+    now = datetime.now()
+    cutoff_12m = now - timedelta(days=365)
+    
+    # Filter for trades within the last 12 months
+    recent_trades = []
+    for t in oi_trades:
+        fdate_str = t.get("filing_date") or t.get("trade_date") or ""
+        try:
+            clean_d = re.sub(r"[^\d-]", "", fdate_str.split()[0])
+            trade_dt = datetime.strptime(clean_d, "%Y-%m-%d")
+            if trade_dt >= cutoff_12m:
+                recent_trades.append(t)
+        except Exception:
+            pass
+
+    # Use recent trades if available, otherwise use top 10 most recent transactions
+    active_trades = recent_trades if recent_trades else oi_trades[:10]
+
     total_buy = 0.0
     total_sell = 0.0
     buyers = set()
     sellers = set()
 
-    for t in oi_trades:
+    for t in active_trades:
         ttype = t.get("trade_type", "")
         v_num = parse_trade_value(t.get("value", ""))
         name = t.get("name", "")
@@ -316,32 +335,42 @@ def calculate_insider_sentiment_and_flow(oi_trades: List[Dict[str, Any]], stock_
 
     net_flow = total_buy - total_sell
 
-    # Classification rules
-    if len(buyers) >= 2 and total_buy >= 500000:
+    # Classification rules (Strictly balanced against recency, gross sales and net flow)
+    if len(buyers) >= 2 and total_buy >= 500000 and (total_sell <= total_buy * 1.5 or net_flow >= 0):
         sig = "Cluster Buying"
         badge_html = "🟢 Cluster Buy"
         color = "var(--accent-green)"
-        summary = f"{len(buyers)} Insiders +${total_buy/1e6:.1f}M Open Market Buys" if total_buy >= 1e6 else f"{len(buyers)} Insiders +${total_buy/1e3:.0f}K Buys"
+        summary = f"{len(buyers)} Insiders +${total_buy/1e6:.1f}M Recent Open Market Buys" if total_buy >= 1e6 else f"{len(buyers)} Insiders +${total_buy/1e3:.0f}K Buys"
     elif total_buy > 0 and net_flow > 0:
         sig = "Net Buying"
         badge_html = "🟢 Net Buying"
         color = "var(--accent-green)"
-        summary = f"+${net_flow/1e6:.1f}M Net Open Market Buys" if net_flow >= 1e6 else f"+${net_flow/1e3:.0f}K Net Buys"
+        summary = f"+${net_flow/1e6:.1f}M Net Open Market Buys (12M)" if net_flow >= 1e6 else f"+${net_flow/1e3:.0f}K Net Buys"
+    elif total_buy > 0 and total_sell >= 3000000 and total_sell > total_buy * 2.0:
+        sig = "Neutral (10b5-1)"
+        badge_html = "🟡 Mixed Flow"
+        color = "var(--accent-warm)"
+        summary = f"{len(buyers)} Buys (+${total_buy/1e6:.1f}M) offset by {len(sellers)} Sales (-${total_sell/1e6:.1f}M 10b5-1)"
+    elif total_sell >= 3000000 and total_buy == 0:
+        sig = "Net Selling"
+        badge_html = "🔴 Net Selling"
+        color = "var(--accent-red)"
+        summary = f"{len(sellers)} Officers Sold -${total_sell/1e6:.1f}M (Zero Buys in 12M)" if total_sell >= 1e6 else f"{len(sellers)} Officers Sold -${total_sell/1e3:.0f}K"
     elif total_sell >= 500000 and total_buy == 0:
-        sig = "Net Selling"
-        badge_html = "🔴 Net Selling"
-        color = "var(--accent-red)"
-        summary = f"{len(sellers)} Officers Sold -${total_sell/1e6:.1f}M (Zero Buys)" if total_sell >= 1e6 else f"{len(sellers)} Officers Sold -${total_sell/1e3:.0f}K"
+        sig = "Routine Sales (10b5-1)"
+        badge_html = "🟡 10b5-1 Sales"
+        color = "var(--accent-warm)"
+        summary = f"Executive 10b5-1 sales -${total_sell/1e6:.1f}M" if total_sell >= 1e6 else f"Executive sales -${total_sell/1e3:.0f}K"
     elif total_sell > 0 and total_buy == 0:
-        sig = "Net Selling"
-        badge_html = "🔴 Net Selling"
-        color = "var(--accent-red)"
+        sig = "Routine Sales (10b5-1)"
+        badge_html = "🟡 10b5-1 Sales"
+        color = "var(--accent-warm)"
         summary = f"Executive sales -${total_sell/1e6:.1f}M" if total_sell >= 1e6 else f"Executive sales -${total_sell/1e3:.0f}K"
     elif total_buy == 0 and total_sell == 0:
         sig = "No Activity"
         badge_html = "⚪ Inactive"
         color = "var(--text-dim)"
-        summary = "Zero Form 4 open market transactions"
+        summary = "Zero Form 4 open market transactions (12M)"
     else:
         sig = "Neutral (10b5-1)"
         badge_html = "🟡 Neutral"
