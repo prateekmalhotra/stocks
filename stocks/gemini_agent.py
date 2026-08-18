@@ -1224,6 +1224,16 @@ DO NOT write Section 1, 2, 3, 4, or 6. Output pure HTML only."""
             audited_financials_context += f"\nVERIFIED SECTION 4 BALANCE SHEET & CAPITAL STRUCTURE INVARIANTS:\n- Net Balance Sheet Cash/Debt: {nd_str}\n- Net Share Trajectory: {dil_str}\n- INVARIANT FOR SECTION 5: Section 5 DCF MUST use the exact Net Debt/Cash per share adjustment and exact share count dilution/cannibalization rate audited in Section 4."
 
         if sec_num == 5:
+            # Enforce that Section 5 MUST contain a 3-Scenario DCF table and at least 350 words
+            has_table = "<table" in clean_section.lower() and any(k in clean_section.lower() for k in ["intrinsic fair value", "intrinsic value", "base case", "fair value / share"])
+            word_cnt = len(clean_section.split())
+            if not has_table or word_cnt < 350:
+                print(f"   │ ⚠️ Section 5 draft was truncated ({word_cnt} words, has_table={has_table}). Retrying Section 5 generation...", flush=True)
+                retry_prompt = prompt + "\n\nCRITICAL MANDATE: Your previous response was truncated. You MUST output the COMPLETE Section 5 in Semantic HTML, including the full 3-Scenario DCF Valuation Table (Bear, Base, Bull), Scenario Assumptions Breakdown, 2D Valuation Sensitivity Matrix, Reverse DCF analysis, and 5-Year Market Closure Test. Do NOT omit or truncate any tables!"
+                retry_resp = call_gemini_with_search(retry_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, temperature=0.3)
+                clean_retry = verify_and_repair_html_structure(retry_resp)
+                if len(clean_retry.split()) > word_cnt and "<table" in clean_retry.lower():
+                    clean_section = clean_retry
             clean_section = audit_and_reconcile_dcf_math(ticker_clean, company_name, current_price, clean_section)
             
         section_htmls.append(clean_section)

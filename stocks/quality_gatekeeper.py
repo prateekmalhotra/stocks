@@ -196,6 +196,15 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
     if not any(k in html.lower() for k in ["priced in", "market-implied", "reverse dcf", "g_implied"]):
         issues.append("Missing mandatory Section 5 subsection: 'Market-Implied Expectations / Reverse DCF'.")
 
+    # 16. Section 5 3-Scenario DCF Valuation Matrix Check
+    s5_match = re.search(r"<h2>Section 5:.*?</h2>(.*?)(?=<h2>Section 6|$)", html, re.DOTALL | re.IGNORECASE)
+    if s5_match:
+        s5_text = s5_match.group(1)
+        if "<table" not in s5_text.lower():
+            issues.append("Section 5 is truncated or missing the mandatory 3-Scenario DCF Valuation Table.")
+        elif not any(k in s5_text.lower() for k in ["intrinsic fair value", "intrinsic value / share", "intrinsic value per share", "base case"]):
+            issues.append("Section 5 table does not contain intrinsic fair value per-share rows.")
+
     return len(issues) == 0, issues
 
 
