@@ -966,14 +966,23 @@ def reconcile_and_repair_section_5_tables(ticker: str, current_price: float, sec
             if len(parsed_oes) >= 3:
                 oe1_bear, oe1_base, oe1_bull = parsed_oes[-3], parsed_oes[-2], parsed_oes[-1]
 
-        # Extract shares from context or estimate from current price and EV
-        shares_m = 135.0
+        # Dynamically extract shares from context or estimate from current price and EV
+        shares_m = 100.0
+        sh_match = re.search(r'(?:diluted shares|share count|shares outstanding|total shares).*?\$?\s*([+-]?[\d,]+(?:\.\d+)?)\s*(?:B|M|billion|million)?', section_5_html + " " + bs_context, re.IGNORECASE)
+        if sh_match:
+            try:
+                sh_val = float(re.sub(r"[^\d.-]", "", sh_match.group(1)))
+                if sh_val < 50.0: # assume Billions
+                    sh_val = sh_val * 1000.0
+                shares_m = max(1.0, sh_val)
+            except Exception:
+                pass
         
         # Scenario parameters
         scenarios = [
-            {"name": "📉 Trajectory 1 (Conservative)", "oe1": max(10.0, oe1_bear), "cagr": -0.05, "r": 0.11, "g_term": 0.005},
-            {"name": "🎯 Trajectory 2 (Base Reality)", "oe1": max(20.0, oe1_base), "cagr": 0.025, "r": 0.10, "g_term": 0.0175},
-            {"name": "🚀 Trajectory 3 (Growth Inflection)", "oe1": max(30.0, oe1_bull), "cagr": 0.075, "r": 0.095, "g_term": 0.0225}
+            {"name": "📉 Storyline 1 (Conservative)", "oe1": max(10.0, oe1_bear), "cagr": -0.05, "r": 0.11, "g_term": 0.005},
+            {"name": "🎯 Storyline 2 (Base Reality)", "oe1": max(20.0, oe1_base), "cagr": 0.025, "r": 0.10, "g_term": 0.0175},
+            {"name": "🚀 Storyline 3 (Growth Inflection)", "oe1": max(30.0, oe1_bull), "cagr": 0.075, "r": 0.095, "g_term": 0.0225}
         ]
         
         cols = []
@@ -1056,8 +1065,8 @@ SECTION 5 DRAFT CONTENT:
 
 AUDIT OBJECTIVES & INVARIANTS:
 1. MATHEMATICAL EXACTNESS (THE INVARIANT OF ARITHMETIC):
-   - Check the 3-scenario DCF table:
-     * Year 1 Owner Earnings ($OE_1)
+   - Check the 3-Storyline DCF table:
+     * Year 1 Owner Earnings (OE₁)
      * 5-Year CAGR (g)
      * Discount Rate (r = 10Y Sovereign Yield + Equity Risk Premium)
      * Terminal Growth Rate (g_term capped at GDP 2.0%-2.5%)
@@ -1071,12 +1080,12 @@ AUDIT OBJECTIVES & INVARIANTS:
    - Always preserve all dollar signs ($) and exact scenario headings. NEVER output stripped raw decimals (.61) or lone magnitude letters (B).
 3. REVERSE DCF AUDIT:
    - Ensure the "Market-Implied Expectations & What is Priced In?" subsection correctly computes g_implied (the 5-year OE CAGR required to justify ${current_price:.2f}).
-4. SCENARIO ASSUMPTIONS TRANSPARENCY:
-   - Ensure the "Scenario Assumptions Deep Dive: What Each Case is Pricing In" clearly details the explicit revenue growth rates, margin assumptions, CapEx drag, and economic drivers behind Bear, Base, and Bull cases.
+4. 3 BUSINESS STORYLINES TRANSPARENCY:
+   - Ensure the 3 Business Storylines clearly detail the explicit revenue growth rates, margin assumptions, CapEx drag, and economic drivers across Storylines 1, 2, and 3.
 5. 2D VALUATION SENSITIVITY GRID AUDIT:
-   - Verify that the 2D Valuation Sensitivity Matrix (Discount Rate vs. Terminal Growth Rate or 5-Year CAGR) is internally consistent with the Base Case DCF model and outputs realistic, mathematically aligned per-share intrinsic values across all cells ($XX.XX format).
+   - Verify that the 2D Valuation Sensitivity Matrix (Discount Rate vs. Terminal Growth Rate or 5-Year CAGR) is internally consistent with Storyline 2 (Fair Value Target) and outputs realistic, mathematically aligned per-share intrinsic values across all cells ($XX.XX format).
 6. TOP-DOWN UNIT ECONOMICS & P&L FLOW-THROUGH INTEGRITY:
-   - Verify that Table 1 (Unit Economics & P&L Waterfall Matrix) connects cleanly to Table 2 (3-Scenario DCF Valuation Matrix). Ensure that the Bear Case explicitly models the fixed-cost floor and operational deleveraging (where revenue contraction causes severe decremental EBIT margin collapse after cost-cutting hits a wall).
+   - Verify that Table 1 (Unit Economics & P&L Waterfall Matrix) connects cleanly to Table 2 (3-Storyline DCF Valuation Matrix). Ensure that Storyline 1 explicitly models the fixed-cost floor and operational deleveraging (where revenue contraction causes severe decremental EBIT margin collapse after cost-cutting hits a wall).
 
 If all calculations, sensitivity grids, and assumption breakdowns in Section 5 are 100% mathematically correct and consistent, output the HTML as is.
 If there are mathematical errors or inconsistent row numbers, correct the numbers in the tables and text, and output the reconciled, complete Section 5 in clean Semantic HTML only."""

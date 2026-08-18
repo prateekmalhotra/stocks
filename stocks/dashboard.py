@@ -2224,15 +2224,15 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                     <div class="metric-value" style="color: var(--accent-warm);">{format_usd_target(stock.fair_value_estimate)}</div>
                 </div>
                 <div class="metric-cell">
-                    <div class="metric-label">Bear Target</div>
+                    <div class="metric-label">Story 1 (Low)</div>
                     {format_target_metric_html(stock.bear_target, "var(--accent-red)")}
                 </div>
                 <div class="metric-cell">
-                    <div class="metric-label">Base Target</div>
+                    <div class="metric-label">Story 2 (Fair)</div>
                     {format_target_metric_html(stock.base_target, "var(--text-title)")}
                 </div>
                 <div class="metric-cell">
-                    <div class="metric-label">Bull Target</div>
+                    <div class="metric-label">Story 3 (High)</div>
                     {format_target_metric_html(stock.bull_target, "var(--accent-green)")}
                 </div>
                 <div class="metric-cell">
