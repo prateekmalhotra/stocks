@@ -300,6 +300,7 @@ def extract_json_block(text: str) -> Dict[str, Any]:
         "bull_target": r'"(?:bull_target|new_bull_target)"\s*:\s*"([^"]+)"',
         "next_catalyst_date": r'"next_catalyst_date"\s*:\s*"([^"]+)"',
         "next_catalyst_event": r'"next_catalyst_event"\s*:\s*"([^"]+)"',
+        "what_is_priced_in": r'"(?:what_is_priced_in|reverse_dcf_growth|implied_growth|g_implied)"\s*:\s*"([^"]+)"',
         "institutional_ownership_pct": r'"institutional_ownership_pct"\s*:\s*"([^"]+)"',
         "insider_signal": r'"insider_signal"\s*:\s*"([^"]+)"',
         "insider_summary": r'"insider_summary"\s*:\s*"([^"]+)"',
@@ -798,9 +799,11 @@ AUDIT OBJECTIVES & INVARIANTS:
    - Ensure the "Market-Implied Expectations & What is Priced In?" subsection correctly computes g_implied (the 5-year OE CAGR required to justify ${current_price:.2f}).
 4. SCENARIO ASSUMPTIONS TRANSPARENCY:
    - Ensure the "Scenario Assumptions Deep Dive: What Each Case is Pricing In" clearly details the explicit revenue growth rates, margin assumptions, CapEx drag, and economic drivers behind Bear, Base, and Bull cases.
+5. 2D VALUATION SENSITIVITY GRID AUDIT:
+   - Verify that the 2D Valuation Sensitivity Matrix (Discount Rate vs. Terminal Growth Rate or 5-Year CAGR) is internally consistent with the Base Case DCF model and outputs realistic, mathematically aligned per-share intrinsic values across all cells.
 
-If all calculations and assumption breakdowns in Section 5 are 100% mathematically correct and consistent, output the HTML as is.
-If there are mathematical errors or inconsistent row numbers, correct the numbers in the table and text, and output the reconciled, complete Section 5 in clean Semantic HTML only."""
+If all calculations, sensitivity grids, and assumption breakdowns in Section 5 are 100% mathematically correct and consistent, output the HTML as is.
+If there are mathematical errors or inconsistent row numbers, correct the numbers in the tables and text, and output the reconciled, complete Section 5 in clean Semantic HTML only."""
 
     try:
         reconciled = call_gemini_with_search(math_audit_prompt, system_instruction="You are an elite quantitative valuation auditor. Output pure semantic HTML only.")
@@ -958,6 +961,25 @@ Generate ONLY Section 5 in clean Semantic HTML with NO external images, NO inlin
   * <strong>🎯 Base Case (Normalized Operating Reality):</strong> Explicitly detail the normalized baseline assumptions (e.g. steady-state organic growth of XX.X%, normalized operating margins, baseline maintenance CapEx, disciplined share buybacks). State the resulting Base Fair Value and Margin of Safety.
   * <strong>🐂 Bull Case (Optimistic Compounding):</strong> Explicitly detail the upside drivers assumed (e.g. accelerating growth to XX.X%, operating leverage expanding margins, successful monetization of new initiatives, aggressive share cannibalization). State the resulting Bull Fair Value and upside potential.
 
+<h3>2D Valuation Sensitivity Matrix</h3>
+- Provide an explicit 2D sensitivity table modeling Base Case Intrinsic Value / Share across varying Discount Rates ($r \pm 1.0\%$) and Terminal Growth Rates ($g_{{\\text{{term}}}} \pm 0.5\%$):
+  <table>
+    <thead>
+      <tr>
+        <th>Discount Rate \\ Terminal Growth</th>
+        <th>1.50%</th>
+        <th>2.00%</th>
+        <th>2.25% (Base)</th>
+        <th>2.75%</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>r - 1.0%</strong></td><td>$XX.XX</td><td>$XX.XX</td><td>$XX.XX</td><td>$XX.XX</td></tr>
+      <tr><td><strong>r Base</strong></td><td>$XX.XX</td><td>$XX.XX</td><td><strong>$XX.XX (Base Target)</strong></td><td>$XX.XX</td></tr>
+      <tr><td><strong>r + 1.0%</strong></td><td>$XX.XX</td><td>$XX.XX</td><td>$XX.XX</td><td>$XX.XX</td></tr>
+    </tbody>
+  </table>
+
 <h3>Market-Implied Expectations & "What is Priced In?" (Reverse DCF Audit)</h3>
 - Compare the market's current enterprise value against Year 1 Owner Earnings (EV / OE_1).
 - Calculate what exact 5-year Owner Earnings CAGR (\(g_{{\\text{{implied}}}}\)) the market is pricing into today's stock price (${current_price:.2f}).
@@ -969,8 +991,107 @@ Generate ONLY Section 5 in clean Semantic HTML with NO external images, NO inlin
 
 DO NOT write Section 1, 2, 3, 4, or 6. Output pure HTML only."""
 
+    sub_agents = [
+        {"role": "Executive Leadership & Operating Reality Specialist", "prompt": agent_1_prompt, "section_num": 1},
+        {"role": "Business Model, Unit Economics & Moat Specialist", "prompt": agent_2_prompt, "section_num": 2},
+        {"role": "Forensic Cash Flow, SBC & Float Auditor", "prompt": agent_3_prompt, "section_num": 3},
+        {"role": "Balance Sheet Fortress, Debt Leases & Ownership Auditor", "prompt": agent_4_prompt, "section_num": 4},
+        {"role": "Warren Buffett Owner Earnings Valuation Strategist", "prompt": agent_5_prompt, "section_num": 5}
+    ]
+    
+    print(f"   │ Planned Sub-Agents: 6 specialized dedicated section tasks (1 Agent per Section)", flush=True)
+    print("   └" + "─" * 50, flush=True)
+
+    # ------------------------------------------------------------------
+    # Step 2: Execute Sub-Agents (Sequential Fact & Target Coordinated Generation)
+    # ------------------------------------------------------------------
+    section_htmls = []
+    verified_context = ""
+    
+    for idx, agent in enumerate(sub_agents, 1):
+        role_name = agent.get("role", f"Sub-Agent {idx}")
+        agent_prompt = agent.get("prompt", "")
+        if verified_context and idx in (2, 3, 4, 5):
+            agent_prompt = f"{verified_context}\n\n{agent_prompt}"
+            
+        print(f"\n🤖 [STAGE 2/3: AGENT {idx}/6] {role_name}", flush=True)
+        prompt_snippet = agent_prompt.replace('\n', ' ')[:100] + '...' if len(agent_prompt) > 100 else agent_prompt
+        print(f"   │ Task: {prompt_snippet}", flush=True)
+        print(f"   │ Search Grounding: Querying real-time filings & consensus...", flush=True)
+        
+        clean_section = ""
+        sec_num = agent.get("section_num", idx)
+        for attempt in range(1, 3):
+            agent_out = call_gemini_with_search(agent_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
+            clean_section = verify_and_repair_html_structure(clean_grounding_artifacts(agent_out))
+            word_count = len(clean_section.split())
+            has_sec_header = f"section {sec_num}" in clean_section.lower()
+            if word_count >= 150 and has_sec_header:
+                break
+            print(f"   ⚠️ Sub-Agent {idx} output insufficient ({word_count} words). Auto-healing retry (attempt {attempt+1}/2)...", flush=True)
+        
+        if sec_num == 1:
+            # Extract factual grounding summary to keep subsequent subagents 100% data-synchronized
+            first_p = re.findall(r"<p>(.*?)</p>", clean_section, re.DOTALL)
+            if first_p:
+                snippet = re.sub(r"<[^>]+>", " ", first_p[0])[:300]
+                verified_context = f"VERIFIED PRIMARY OPERATING CONTEXT (Use consistent timeline & executive facts):\n{snippet.strip()}"
+
+        if sec_num == 5:
+            clean_section = audit_and_reconcile_dcf_math(ticker_clean, company_name, current_price, clean_section)
+            
+        section_htmls.append(clean_section)
+        print(f"   │ Status: Complete ({len(clean_section.split())} words generated)", flush=True)
+        print("   └" + "─" * 50, flush=True)
+
+    # ------------------------------------------------------------------
+    # Step 2b: Execute Sub-Agent 6 with Dynamically Anchored DCF Targets
+    # ------------------------------------------------------------------
+    sec_5_html = section_htmls[4] if len(section_htmls) >= 5 else ""
+    bear_val_dcf, base_val_dcf, bull_val_dcf = current_price * 0.75, current_price * 1.15, current_price * 1.50
+    g_implied_str, g_base_str = "N/A", "10-15%"
+    
+    # Parse Section 5 DCF numbers to pass to Sub-Agent 6
+    rows = re.findall(r"<tr[^>]*>(.*?)</tr>", sec_5_html, re.DOTALL | re.IGNORECASE)
+    for r in rows:
+        r_clean = re.sub(r"<[^>]+>", " ", r).strip()
+        if any(k in r_clean.lower() for k in ["intrinsic fair value", "intrinsic value / share", "intrinsic value per share", "base intrinsic value"]):
+            tds = re.findall(r"<td[^>]*>(.*?)</td>", r, re.DOTALL)
+            extracted_nums = []
+            for td in tds:
+                cleaned = re.sub(r"<[^>]+>", "", td).strip()
+                num_match = re.search(r"\$?\s*([\d,]+(?:\.\d+)?)", cleaned)
+                if num_match:
+                    try: extracted_nums.append(float(num_match.group(1).replace(",", "")))
+                    except ValueError: pass
+            if len(extracted_nums) >= 3:
+                bear_val_dcf, base_val_dcf, bull_val_dcf = extracted_nums[0], extracted_nums[1], extracted_nums[2]
+            break
+
+    # Parse Reverse DCF implied growth from Section 5
+    implied_m = re.search(r'(?:Market-Implied|g_implied|g_\{\\text\{implied\}\}|g_\{implied\}).*?(\d+(?:\.\d+)?%)', sec_5_html, re.IGNORECASE)
+    if implied_m:
+        g_implied_str = implied_m.group(1)
+    base_g_m = re.search(r'(?:Base Case|g_base|g_\{\\text\{base\}\}|g_\{base\}).*?(\d+(?:\.\d+)?%)', sec_5_html, re.IGNORECASE)
+    if base_g_m:
+        g_base_str = base_g_m.group(1)
+
     agent_6_prompt = f"""You are Sub-Agent 6: Probabilistic Risk, Threat Assessment & Pre-Mortem Invalidation Auditor researching {ticker_clean} ({company_name}).
 Your Objective: {research_obj}
+
+{verified_context}
+
+CRITICAL VALUATION HARMONIZATION & PRICE CORRIDORS INVARIANT:
+Section 5 Quantitative DCF Valuation established the following exact mathematical targets:
+- 🐻 Bear Case Intrinsic Target: ${bear_val_dcf:.2f}
+- 🎯 Base Case Fair Value Target: ${base_val_dcf:.2f}
+- 🐂 Bull Case Intrinsic Target: ${bull_val_dcf:.2f}
+- Market-Implied Reverse DCF Growth: {g_implied_str} vs Base Case {g_base_str}
+
+In your 'Dynamic Price Alert Corridors' subsection, you MUST strictly anchor your corridors to these Section 5 calculations:
+- Lower Threshold (Margin of Safety Floor / Deep Value Buy Zone): Explicitly anchored to the Bear Target (${bear_val_dcf:.2f}) / Margin of Safety floor.
+- Upper Threshold (Target Realization / Trim Zone): Explicitly anchored to the Base Fair Value Target (${base_val_dcf:.2f}) or Bull Target (${bull_val_dcf:.2f}).
+DO NOT invent random or conflicting corridor numbers that contradict Section 5!
 
 Generate ONLY Section 6 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
 
@@ -1025,50 +1146,25 @@ Generate ONLY Section 6 in clean Semantic HTML with NO external images, NO inlin
     </tbody>
   </table>
 - 3 Explicit Quantitative Pre-Mortem Falsification Triggers (Kill switches that invalidate the investment thesis if breached over two consecutive quarters).
-- Dynamic Price Alert Corridors: Upper threshold (trim / target realization) and Lower threshold (margin of safety floor).
+- Dynamic Price Alert Corridors:
+  * Lower threshold (Margin of Safety Floor / Deep Value Buy Zone): Anchored to Bear Target (${bear_val_dcf:.2f}).
+  * Upper threshold (Target Realization / Trim Zone): Anchored to Base Fair Value (${base_val_dcf:.2f}) / Bull Target (${bull_val_dcf:.2f}).
 
 DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
 
-    sub_agents = [
-        {"role": "Executive Leadership & Operating Reality Specialist", "prompt": agent_1_prompt, "section_num": 1},
-        {"role": "Business Model, Unit Economics & Moat Specialist", "prompt": agent_2_prompt, "section_num": 2},
-        {"role": "Forensic Cash Flow, SBC & Float Auditor", "prompt": agent_3_prompt, "section_num": 3},
-        {"role": "Balance Sheet Fortress, Debt Leases & Ownership Auditor", "prompt": agent_4_prompt, "section_num": 4},
-        {"role": "Warren Buffett Owner Earnings Valuation Strategist", "prompt": agent_5_prompt, "section_num": 5},
-        {"role": "Probabilistic Risk & Pre-Mortem Invalidation Auditor", "prompt": agent_6_prompt, "section_num": 6}
-    ]
-    
-    print(f"   │ Planned Sub-Agents: 6 specialized dedicated section tasks (1 Agent per Section)", flush=True)
+    print(f"\n🤖 [STAGE 2/3: AGENT 6/6] Probabilistic Risk & Pre-Mortem Invalidation Auditor (Target Harmonized)", flush=True)
+    clean_sec_6 = ""
+    for attempt in range(1, 3):
+        agent_out = call_gemini_with_search(agent_6_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
+        clean_sec_6 = verify_and_repair_html_structure(clean_grounding_artifacts(agent_out))
+        word_count = len(clean_sec_6.split())
+        if word_count >= 150 and "section 6" in clean_sec_6.lower():
+            break
+        print(f"   ⚠️ Sub-Agent 6 output insufficient ({word_count} words). Auto-healing retry (attempt {attempt+1}/2)...", flush=True)
+        
+    section_htmls.append(clean_sec_6)
+    print(f"   │ Status: Complete ({len(clean_sec_6.split())} words generated)", flush=True)
     print("   └" + "─" * 50, flush=True)
-
-    # ------------------------------------------------------------------
-    # Step 2: Execute Sub-Agents (Each Directly Generates Its Clean HTML Section)
-    # ------------------------------------------------------------------
-    section_htmls = []
-    for idx, agent in enumerate(sub_agents, 1):
-        role_name = agent.get("role", f"Sub-Agent {idx}")
-        agent_prompt = agent.get("prompt", "")
-        print(f"\n🤖 [STAGE 2/3: AGENT {idx}/{len(sub_agents)}] {role_name}", flush=True)
-        prompt_snippet = agent_prompt.replace('\n', ' ')[:100] + '...' if len(agent_prompt) > 100 else agent_prompt
-        print(f"   │ Task: {prompt_snippet}", flush=True)
-        print(f"   │ Search Grounding: Querying real-time filings & consensus...", flush=True)
-        
-        clean_section = ""
-        sec_num = agent.get("section_num", idx)
-        for attempt in range(1, 3):
-            agent_out = call_gemini_with_search(agent_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
-            clean_section = verify_and_repair_html_structure(clean_grounding_artifacts(agent_out))
-            word_count = len(clean_section.split())
-            has_sec_header = f"section {sec_num}" in clean_section.lower() or f"section {sec_num}" in clean_section.lower()
-            if word_count >= 150 and has_sec_header:
-                break
-            print(f"   ⚠️ Sub-Agent {idx} output insufficient ({word_count} words). Auto-healing retry (attempt {attempt+1}/2)...", flush=True)
-        
-        if sec_num == 5:
-            clean_section = audit_and_reconcile_dcf_math(ticker_clean, company_name, current_price, clean_section)
-        section_htmls.append(clean_section)
-        print(f"   │ Status: Complete ({len(clean_section.split())} words generated)", flush=True)
-        print("   └" + "─" * 50, flush=True)
 
     raw_full_html = "\n\n".join(section_htmls).strip()
 
@@ -1095,6 +1191,7 @@ DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
             "lower_trigger_reason": "Downside margin of safety test",
             "next_catalyst_date": "Next Earnings",
             "next_catalyst_event": "Scheduled quarterly report",
+            "what_is_priced_in": "",
             "executive_summary": f"Level-headed fundamental investment memo established for {ticker_clean}."
         }
 
@@ -1140,6 +1237,15 @@ DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
             else:
                 metadata["action_signal"] = "AVOID"
 
+    # Extract Reverse DCF / What is Priced In from Section 5 if empty
+    if not metadata.get("what_is_priced_in"):
+        implied_match = re.search(r'(?:Market-Implied 5-Yr|g_implied|g_\{\\text\{implied\}\}|g_\{implied\}).*?(\d+(?:\.\d+)?%)', full_html, re.IGNORECASE)
+        base_match = re.search(r'(?:Base Case Compounding|g_base|g_\{\\text\{base\}\}|g_\{base\}).*?(\d+(?:\.\d+)?%)', full_html, re.IGNORECASE)
+        if implied_match:
+            implied_val = implied_match.group(1)
+            base_val_txt = base_match.group(1) if base_match else "Base Case"
+            metadata["what_is_priced_in"] = f"g_implied: {implied_val} (vs Base Case {base_val_txt})"
+
     metadata["labels"] = sanitize_labels(metadata.get("labels") or metadata.get("status_label"))
     metadata["status_label"] = metadata["labels"][0] if metadata["labels"] else "Active"
     metadata["next_catalyst_date"] = normalize_catalyst_date(metadata.get("next_catalyst_date"))
@@ -1147,6 +1253,8 @@ DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
 
     print("\n" + "=" * 70, flush=True)
     print(f"✅ DOSSIER COMPLETE: {ticker_clean} ({metadata['status_label']}) at ${current_price:.2f}", flush=True)
+    print(f"   │ Valuation: Bear: {metadata.get('bear_target')} | Base: {metadata.get('base_target')} | Bull: {metadata.get('bull_target')}", flush=True)
+    print(f"   │ Priced In: {metadata.get('what_is_priced_in', 'N/A')}", flush=True)
     print("=" * 70 + "\n", flush=True)
 
     return metadata, full_html

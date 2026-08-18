@@ -1,46 +1,11 @@
 {
-  "portfolio_name": "Fidelity",
-  "portfolio_type": "defensive",
-  "target_audience": "Defensive Fortresses & Consistent Cash Compounding",
-  "inception_date": "2026-08-17",
-  "last_rebalance_date": "2026-08-17",
-  "base_capital_usd": 200000.0,
-  "holdings": [
-    {
-      "ticker": "USD_CASH",
-      "company_name": "USD Cash Fortress Reserve",
-      "sector": "Cash & Cash Equivalents",
-      "industry": "3-Month US Treasury Bills",
-      "quality_score": 100.0,
-      "target_weight": 1.0,
-      "pillar": "CASH",
-      "cost_basis": 1.0,
-      "current_price": 1.0,
-      "fair_value": 1.0,
-      "margin_of_safety_pct": 0.0,
-      "allocated_dollars": 200000.0,
-      "shares_to_buy": 200000.0,
-      "look_through_fcf_yield": 5.0,
-      "annual_owner_earnings": 10000.0,
-      "cannibal_rate_pct": 0.0,
-      "thesis_core": "3-Month US Treasury Yield (5.00% risk-free). 100% Cash Fortress Reserve awaiting defensive fortress entries.",
-      "report_url": "#"
-    }
-  ],
-  "rebalance_log": [
-    {
-      "date": "2026-08-17",
-      "action": "PORTFOLIO RESET TO 100% CASH",
-      "reason": "Full portfolio reset to $200,000 USD Cash Reserve awaiting strategic capital deployment.",
-      "verification_status": "Verified Cash Reset"
-    }
-  ],
   "historical_performance": [
     {
       "date": "2026-08-17",
-      "portfolio_value": 200000.0,
+      "portfolio_value": 0.0,
       "owner_earnings_runrate": 15000.0,
       "spy_benchmark": 200000.0
     }
-  ]
+  ],
+  "last_rebalance_date": "2026-08-17"
 }

@@ -114,6 +114,36 @@ def validate_dossier_quality(ticker: str, html: str) -> Tuple[bool, List[str]]:
     if not trimmed.endswith(valid_tail_endings):
         issues.append("Dossier text appears truncated mid-sentence at tail.")
 
+    # 10. Valuation Corridor Harmonization & Price Alignment
+    rows = re.findall(r"<tr[^>]*>(.*?)</tr>", html, re.DOTALL | re.IGNORECASE)
+    base_val = None
+    for r in rows:
+        r_clean = re.sub(r"<[^>]+>", " ", r).strip()
+        if any(k in r_clean.lower() for k in ["intrinsic fair value", "intrinsic value / share", "base intrinsic value"]):
+            tds = re.findall(r"<td[^>]*>(.*?)</td>", r, re.DOTALL)
+            extracted_nums = []
+            for td in tds:
+                cleaned = re.sub(r"<[^>]+>", "", td).strip()
+                num_match = re.search(r"\$?\s*([\d,]+(?:\.\d+)?)", cleaned)
+                if num_match:
+                    try:
+                        extracted_nums.append(float(num_match.group(1).replace(",", "")))
+                    except ValueError:
+                        pass
+            if len(extracted_nums) >= 2:
+                base_val = extracted_nums[1]
+            break
+
+    if base_val:
+        upper_match = re.search(r'(?:upper\s+threshold|trim\s+zone|target\s+realization).*?\$?\s*([\d,]+(?:\.\d+)?)', html, re.IGNORECASE)
+        if upper_match:
+            try:
+                upper_val = float(upper_match.group(1).replace(",", ""))
+                if upper_val < (base_val * 0.70):
+                    issues.append(f"Valuation Corridor Contradiction: Section 6 Upper Trim Alert (${upper_val:.2f}) is significantly below Section 5 Base Case Intrinsic Fair Value (${base_val:.2f}).")
+            except ValueError:
+                pass
+
     return len(issues) == 0, issues
 
 
@@ -135,6 +165,13 @@ def audit_all_theses_directory() -> Tuple[int, int, List[Dict[str, Any]]]:
             v = data[-1]
             html = v.get("full_html_content", "")
             is_valid, issues = validate_dossier_quality(ticker, html)
+            
+            # Check metadata fields completeness
+            for req_field in ["bear_target", "base_target", "bull_target"]:
+                if not v.get(req_field):
+                    issues.append(f"Missing required metadata field: {req_field}")
+                    is_valid = False
+
             if is_valid:
                 passed_count += 1
             else:
