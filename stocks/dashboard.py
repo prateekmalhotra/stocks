@@ -431,13 +431,13 @@ def build_native_svg_chart(
     target_legend_items = []
     if bear_target is not None and current_price > 0:
         bear_diff = ((bear_target - current_price) / current_price) * 100
-        target_legend_items.append(f'<span style="color: var(--accent-red); display: inline-flex; align-items: center; gap: 4px;"><span style="display:inline-block; width:12px; height:0; border-top:1.8px dashed var(--accent-red);"></span> Traj 1 (Conservative): ${bear_target:.2f} ({bear_diff:+.1f}%)</span>')
+        target_legend_items.append(f'<span style="color: var(--accent-red); display: inline-flex; align-items: center; gap: 4px;"><span style="display:inline-block; width:12px; height:0; border-top:1.8px dashed var(--accent-red);"></span> Story 1: ${bear_target:.2f} ({bear_diff:+.1f}%)</span>')
     if fair_target is not None and current_price > 0:
         fair_diff = ((fair_target - current_price) / current_price) * 100
-        target_legend_items.append(f'<span style="color: var(--accent-warm); display: inline-flex; align-items: center; gap: 4px; font-weight: 600;"><span style="display:inline-block; width:12px; height:0; border-top:1.8px dashed var(--accent-warm);"></span> Traj 2 (Fair Value): ${fair_target:.2f} ({fair_diff:+.1f}%)</span>')
+        target_legend_items.append(f'<span style="color: var(--accent-warm); display: inline-flex; align-items: center; gap: 4px; font-weight: 600;"><span style="display:inline-block; width:12px; height:0; border-top:1.8px dashed var(--accent-warm);"></span> Story 2 (Fair Value): ${fair_target:.2f} ({fair_diff:+.1f}%)</span>')
     if bull_target is not None and current_price > 0:
         bull_diff = ((bull_target - current_price) / current_price) * 100
-        target_legend_items.append(f'<span style="color: var(--accent-green); display: inline-flex; align-items: center; gap: 4px;"><span style="display:inline-block; width:12px; height:0; border-top:1.8px dashed var(--accent-green);"></span> Traj 3 (Growth Inflection): ${bull_target:.2f} ({bull_diff:+.1f}%)</span>')
+        target_legend_items.append(f'<span style="color: var(--accent-green); display: inline-flex; align-items: center; gap: 4px;"><span style="display:inline-block; width:12px; height:0; border-top:1.8px dashed var(--accent-green);"></span> Story 3: ${bull_target:.2f} ({bull_diff:+.1f}%)</span>')
 
     targets_legend_html = f'<div class="chart-targets-legend" style="display: flex; align-items: center; gap: 12px; font-family: var(--font-mono); font-size: 0.72rem; flex-wrap: wrap;">{" ".join(target_legend_items)}</div>' if target_legend_items else ""
 
@@ -607,7 +607,7 @@ def build_native_svg_chart(
                 labelBear.setAttribute('y', y - 4);
                 const bDiff = liveTodayPrice > 0 ? ((targetBear - liveTodayPrice) / liveTodayPrice * 100) : 0;
                 const bSign = bDiff >= 0 ? '+' : '';
-                labelBear.textContent = 'Traj 1 $' + targetBear.toFixed(2) + ' (' + bSign + bDiff.toFixed(1) + '%)';
+                labelBear.textContent = 'Story 1 $' + targetBear.toFixed(2) + ' (' + bSign + bDiff.toFixed(1) + '%)';
                 labelBear.style.display = 'block';
             }} else if (lineBear) {{
                 lineBear.style.display = 'none';
@@ -622,7 +622,7 @@ def build_native_svg_chart(
                 labelFair.setAttribute('y', y - 4);
                 const fDiff = liveTodayPrice > 0 ? ((targetFair - liveTodayPrice) / liveTodayPrice * 100) : 0;
                 const fSign = fDiff >= 0 ? '+' : '';
-                labelFair.textContent = 'Traj 2 (Fair) $' + targetFair.toFixed(2) + ' (' + fSign + fDiff.toFixed(1) + '%)';
+                labelFair.textContent = 'Story 2 (Fair) $' + targetFair.toFixed(2) + ' (' + fSign + fDiff.toFixed(1) + '%)';
                 labelFair.style.display = 'block';
             }} else if (lineFair) {{
                 lineFair.style.display = 'none';
@@ -637,7 +637,7 @@ def build_native_svg_chart(
                 labelBull.setAttribute('y', y - 4);
                 const uDiff = liveTodayPrice > 0 ? ((targetBull - liveTodayPrice) / liveTodayPrice * 100) : 0;
                 const uSign = uDiff >= 0 ? '+' : '';
-                labelBull.textContent = 'Traj 3 $' + targetBull.toFixed(2) + ' (' + uSign + uDiff.toFixed(1) + '%)';
+                labelBull.textContent = 'Story 3 $' + targetBull.toFixed(2) + ' (' + uSign + uDiff.toFixed(1) + '%)';
                 labelBull.style.display = 'block';
             }} else if (lineBull) {{
                 lineBull.style.display = 'none';

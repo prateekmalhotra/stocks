@@ -1213,37 +1213,37 @@ DO NOT write Section 1, 2, 3, 5, or 6. Output pure HTML only."""
     agent_5a_prompt = f"""You are Sub-Agent 5A: Unit Economics, Operating Leverage & P&L Waterfall Specialist researching {ticker_clean} ({company_name}).
 Your Objective: {research_obj}
 
-CRITICAL BUSINESS NARRATIVE & P&L WATERFALL INVARIANTS:
+CRITICAL 3 DISTINCT BUSINESS STORYLINES INVARIANT:
 - ZERO PRICE ANCHORING: Value the operational business strictly from First Principles of unit economics and cash flow without any reference to stock market prices or analyst targets.
-- 3 PROBABLE BUSINESS TRAJECTORIES (NARRATIVE DRIVEN): Formulate 3 distinct, realistic operational narrative trajectories for how this business actually evolves over the next 5 years (anchor them to this company's real products, customer dynamics, and competitive moats; do not use artificial good/bad priming):
-  * Trajectory 1 (Conservative / Operational Friction): Detail customer churn, pricing resistance, and how the rigid fixed-cost floor impacts margins.
-  * Trajectory 2 (Base Operating Reality / Steady-State): Detail normalized user retention, steady pricing power, and baseline cash conversion.
-  * Trajectory 3 (Growth Inflection / Operating Leverage): Detail successful product adoption, expanding monetization, and powerful incremental operating leverage.
-- TOP-DOWN P&L FLOW-THROUGH INVARIANT: All financial projections MUST flow top-to-bottom: Primary Unit Volume Driver -> Monetization / Pricing -> Revenue -> Gross Margin -> Fixed OpEx Floor -> Operating Income (EBIT) -> Taxes/CapEx/SBC -> Year 1 Owner Earnings.
+- 3 ORGANIC BUSINESS STORYLINES: Formulate 3 distinct, probable, business-specific narrative storylines for how this specific company's future could unfold over the next 5 years (do NOT label them Bear/Bull/Base; instead give each storyline a descriptive, business-specific name based on its real operational mechanics, products, customer adoption, and competitive moats):
+  * Storyline 1: e.g. [Descriptive Business Title based on operational path A]
+  * Storyline 2: e.g. [Descriptive Business Title based on operational path B]
+  * Storyline 3: e.g. [Descriptive Business Title based on operational path C]
+- TOP-DOWN P&L FLOW-THROUGH INVARIANT: For each of the 3 storylines, project the full P&L flow-through independently: Primary Unit Volume Driver -> Monetization / Pricing -> Revenue -> Gross Margin -> Fixed OpEx Floor -> Operating Income (EBIT) -> Taxes/CapEx/SBC -> Year 1 Owner Earnings (OE₁).
 - FORMATTING CLEANLINESS: Use clean human text for Year 1 Owner Earnings (OE₁). DO NOT use raw LaTeX tokens like $OE_1 or ($OE_1).
 
 Generate the first half of Section 5 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
 
 <h2>Section 5: Warren Buffett Owner Earnings Intrinsic Valuation Matrix</h2>
-<p>Root valuation strictly in Warren Buffett's 1986 Owner Earnings methodology (GAAP OCF minus Maintenance CapEx minus 100% SBC). Valuation is derived from 3 distinct, fundamental business narrative trajectories.</p>
+<p>Root valuation strictly in Warren Buffett's 1986 Owner Earnings methodology (GAAP OCF minus Maintenance CapEx minus 100% SBC). Valuation is derived from 3 distinct, fundamental business narrative storylines.</p>
 
 <h3>Primary Unit Economics &amp; Operating Leverage P&amp;L Waterfall Matrix</h3>
-<p>All financial projections flow top-to-bottom from primary business unit volume drivers and monetization, down through fixed-cost operating floors, cash tax drag, and 100% SBC cash deductions:</p>
+<p>All financial projections flow top-to-bottom from primary business unit volume drivers and monetization, down through fixed-cost operating floors, cash tax drag, and 100% SBC cash deductions for each distinct storyline:</p>
 <table>
   <thead>
     <tr>
       <th>Operational &amp; Financial Metric (P&amp;L Flow-Through)</th>
-      <th>Trajectory 1 (Conservative / Friction)</th>
-      <th>Trajectory 2 (Base Operating Reality)</th>
-      <th>Trajectory 3 (Growth Inflection)</th>
+      <th>Storyline 1: [Title]</th>
+      <th>Storyline 2: [Title]</th>
+      <th>Storyline 3: [Title]</th>
     </tr>
   </thead>
   <tbody>
     <tr><td>Primary Unit Volume Driver (e.g. Paying Users / GMV / Seats / Impressions)</td><td>X.XM / $XX.XB</td><td>X.XM / $XX.XB</td><td>X.XM / $XX.XB</td></tr>
     <tr><td>Monetization / Pricing Metric (e.g. ARPPU / Take Rate / CPM / ARPU)</td><td>$XX.XX</td><td>$XX.XX</td><td>$XX.XX</td></tr>
-    <tr><td><strong>Top-Line Revenue Trajectory ($Rev &amp; YoY %)</strong></td><td><strong>$XX.XXB (-X.X%)</strong></td><td><strong>$XX.XXB (+XX.X%)</strong></td><td><strong>$XX.XXB (+XX.X%)</strong></td></tr>
+    <tr><td><strong>Top-Line Revenue Trajectory ($Rev &amp; YoY %)</strong></td><td><strong>$XX.XXB (+/-X.X%)</strong></td><td><strong>$XX.XXB (+/-X.X%)</strong></td><td><strong>$XX.XXB (+/-X.X%)</strong></td></tr>
     <tr><td>Gross Margin % (Direct delivery, hosting, app store / distribution)</td><td>XX.X%</td><td>XX.X%</td><td>XX.X%</td></tr>
-    <tr><td>Operating Expense (OpEx) Budgets (S&amp;M, R&amp;D Payroll, G&amp;A Overhead)</td><td>$XX.XXB (Fixed cost floor limit)</td><td>$XX.XXB (Normalized)</td><td>$XX.XXB (Scaled)</td></tr>
+    <tr><td>Operating Expense (OpEx) Budgets (S&amp;M, R&amp;D Payroll, G&amp;A Overhead)</td><td>$XX.XXB</td><td>$XX.XXB</td><td>$XX.XXB</td></tr>
     <tr><td><strong>Operating Income (EBIT) &amp; EBIT Margin %</strong></td><td><strong>$XX.XXB (XX.X% margin)</strong></td><td><strong>$XX.XXB (XX.X% margin)</strong></td><td><strong>$XX.XXB (XX.X% margin)</strong></td></tr>
     <tr><td>Cash Tax &amp; Defensive Maintenance CapEx Drag</td><td>-$XX.XXB</td><td>-$XX.XXB</td><td>-$XX.XXB</td></tr>
     <tr><td>Stock-Based Compensation (100% Cash Deducted)</td><td>-$XX.XXB</td><td>-$XX.XXB</td><td>-$XX.XXB</td></tr>
@@ -1251,11 +1251,11 @@ Generate the first half of Section 5 in clean Semantic HTML with NO external ima
   </tbody>
 </table>
 
-<h3>3 Probable Business Trajectories Deep Dive: Operational Mechanics</h3>
+<h3>3 Probable Business Storylines Deep Dive: Operational Mechanics &amp; Narrative</h3>
 <ul>
-  <li><strong>📉 Trajectory 1 (Conservative / Operational Friction):</strong> Detail the narrative: why customer churn accelerates, pricing power weakens, fixed costs hit a wall, decremental margins crush EBIT, and how much cash remains.</li>
-  <li><strong>🎯 Trajectory 2 (Base Operating Reality / Steady-State):</strong> Detail the narrative: steady-state unit economics, normalized marketing budgets, sustainable pricing, and normalized Owner Earnings compounding.</li>
-  <li><strong>🚀 Trajectory 3 (Growth Inflection / Operating Leverage):</strong> Detail the narrative: how unit expansion and new product monetization flow through with high incremental margins as fixed costs scale efficiently.</li>
+  <li><strong>📖 Storyline 1 ([Title]):</strong> Detail the full business narrative: why customers behave this way, what management does, product adoption dynamics, how fixed overhead behaves, and resulting cash generation.</li>
+  <li><strong>📖 Storyline 2 ([Title]):</strong> Detail the full business narrative: why customers behave this way, what management does, product adoption dynamics, how fixed overhead behaves, and resulting cash generation.</li>
+  <li><strong>📖 Storyline 3 ([Title]):</strong> Detail the full business narrative: why customers behave this way, what management does, product adoption dynamics, how fixed overhead behaves, and resulting cash generation.</li>
 </ul>
 
 DO NOT write the DCF valuation table, Sensitivity grid, or Reverse DCF. Output pure HTML only."""
@@ -1264,27 +1264,27 @@ DO NOT write the DCF valuation table, Sensitivity grid, or Reverse DCF. Output p
     # Sub-Agent 5B: Quantitative DCF Valuation & Intrinsic Pricing Actuary
     # ------------------------------------------------------------------
     agent_5b_prompt = f"""You are Sub-Agent 5B: Quantitative DCF Valuation & Intrinsic Pricing Actuary researching {ticker_clean} ({company_name}).
-Your Objective: Complete the quantitative discounted cash flow modeling and intrinsic valuation for Section 5 across the 3 Business Trajectories established by Sub-Agent 5A.
+Your Objective: Complete the quantitative discounted cash flow modeling and intrinsic valuation for Section 5 across the 3 Business Storylines established by Sub-Agent 5A.
 
 CRITICAL DCF MATHEMATICS & INVARIANTS:
 - ZERO PRICE ANCHORING: Value the enterprise strictly from First Principles of discounted cash flow as if you were buying 100% of the private business.
-- 3 TRAJECTORY COLUMNS: Table 2 MUST use columns for Trajectory 1 (Conservative), Trajectory 2 (Base Reality), and Trajectory 3 (Growth Inflection).
+- 3 STORYLINE COLUMNS: Table 2 MUST use columns matching the 3 Storylines from Table 1 (Storyline 1, Storyline 2, Storyline 3 with their descriptive titles).
 - Table 2 MUST contain the exact rows for 'Intrinsic Fair Value / Share' and 'Margin of Safety vs Current Price (${current_price:.2f})'.
-- Net Balance Sheet Debt/Cash Adjustment: MUST strictly lock the per-share figure calculated in Section 4 across all scenarios.
+- Net Balance Sheet Debt/Cash Adjustment: MUST strictly lock the per-share figure calculated in Section 4 across all 3 storylines.
 - FORMATTING CLEANLINESS: Use clean human text for Year 1 Owner Earnings (OE₁). Format all per-share intrinsic values with dollar signs ($XX.XX).
 - Reverse DCF: Dynamically determine what 5-year Owner Earnings CAGR (g_implied) is priced into ${current_price:.2f}.
 
 Generate the quantitative second half of Section 5 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
 
-<h3>Buffett Owner Earnings 3-Trajectory DCF Valuation Matrix</h3>
-- Table 2: 3-Trajectory DCF Valuation Table:
+<h3>Buffett Owner Earnings 3-Storyline DCF Valuation Matrix</h3>
+- Table 2: 3-Storyline DCF Valuation Table:
   <table>
     <thead>
       <tr>
         <th>Valuation Parameter &amp; Output Metric</th>
-        <th>Trajectory 1 (Conservative)</th>
-        <th>Trajectory 2 (Base Reality)</th>
-        <th>Trajectory 3 (Growth Inflection)</th>
+        <th>Storyline 1: [Title]</th>
+        <th>Storyline 2: [Title]</th>
+        <th>Storyline 3: [Title]</th>
       </tr>
     </thead>
     <tbody>
@@ -1303,7 +1303,7 @@ Generate the quantitative second half of Section 5 in clean Semantic HTML with N
   * MANDATORY ROW INVARIANT: You MUST include the 'Intrinsic Fair Value / Share' and 'Margin of Safety vs Current Price (${current_price:.2f})' rows. Do NOT omit them!
 
 <h3>2D Valuation Sensitivity Matrix</h3>
-- Table 3: Trajectory 2 (Base Reality) Intrinsic Value / Share across varying Discount Rates ($r \pm 1.0\%$) and Terminal Growth Rates ($g_{{\\text{{term}}}} \pm 0.5\%$):
+- Table 3: Storyline 2 Intrinsic Value / Share across varying Discount Rates ($r \pm 1.0\%$) and Terminal Growth Rates ($g_{{\\text{{term}}}} \pm 0.5\%$):
   <table>
     <thead>
       <tr>
@@ -1316,13 +1316,13 @@ Generate the quantitative second half of Section 5 in clean Semantic HTML with N
     </thead>
     <tbody>
       <tr><td><strong>r - 1.0%</strong></td><td>$XX.XX</td><td>$XX.XX</td><td>$XX.XX</td><td>$XX.XX</td></tr>
-      <tr><td><strong>r Base</strong></td><td>$XX.XX</td><td>$XX.XX</td><td><strong>$XX.XX (Base Target)</strong></td><td>$XX.XX</td></tr>
+      <tr><td><strong>r Base</strong></td><td>$XX.XX</td><td>$XX.XX</td><td><strong>$XX.XX (Target)</strong></td><td>$XX.XX</td></tr>
       <tr><td><strong>r + 1.0%</strong></td><td>$XX.XX</td><td>$XX.XX</td><td>$XX.XX</td><td>$XX.XX</td></tr>
     </tbody>
   </table>
 
 <h3>Market-Implied Expectations &amp; &quot;What is Priced In?&quot; (Reverse DCF Audit)</h3>
-- Contrast Market-Implied Expectations (g_implied) vs. Base Case Reality (g_base).
+- Contrast Market-Implied Expectations (g_implied) vs. Storyline 2 Reality (g_base).
 - State whether Mr. Market is pricing in extreme distress/extinction, reasonable compounding, or euphoria.
 
 <h3>The 5-Year Market Closure Test</h3>
