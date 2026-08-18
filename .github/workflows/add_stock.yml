@@ -56,9 +56,9 @@ jobs:
         run: |
           poetry run python -m stocks.main add "${{ github.event.inputs.ticker }}" --notes "${{ github.event.inputs.notes }}"
 
-      - name: Quality Gatekeeper Audit (Zero-Defect Enforcement)
+      - name: Quality Gatekeeper Audit (Zero-Defect Enforcement & Auto-Healing)
         run: |
-          poetry run python -m stocks.quality_gatekeeper --tickers "${{ github.event.inputs.ticker }}" --strict
+          poetry run python -m stocks.quality_gatekeeper --tickers "${{ github.event.inputs.ticker }}" --heal --strict
 
       - name: Commit and Push Changes to Main
         run: |

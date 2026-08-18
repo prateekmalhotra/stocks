@@ -291,6 +291,7 @@ def main():
     parser = argparse.ArgumentParser(description="Institutional Quality Gatekeeper")
     parser.add_argument("--tickers", nargs="*", default=[], help="Specific tickers to validate (e.g. CHGG)")
     parser.add_argument("--strict", action="store_true", help="Fail with exit code 1 on any failure")
+    parser.add_argument("--heal", action="store_true", help="Auto-repair/re-generate flagged dossiers instead of failing")
     args = parser.parse_args()
 
     print("=" * 90)
@@ -330,7 +331,32 @@ def main():
             except Exception as e:
                 failures.append({"ticker": ticker, "issues": [f"Exception loading JSON: {e}"]})
 
-        total = passed_count + len(failures)
+        # Auto-Healing pass if requested and issues detected
+        if failures and args.heal:
+            print(f"\n🔄 [AUTONOMOUS HEALING] Quality Gatekeeper detected {len(failures)} flagged ticker(s). Running autonomous regeneration...", flush=True)
+            from stocks.queue_manager import _handle_genesis_task
+            from stocks.dashboard import render_all
+            for f in failures:
+                t = f["ticker"]
+                print(f"   🛠️ Auto-regenerating complete thesis for {t}...", flush=True)
+                _handle_genesis_task(t, notes="")
+            render_all()
+            print("✅ Autonomous healing pass completed. Re-verifying...")
+            failures = []
+            for ticker in target_tickers:
+                tf = THESES_DIR / f"{ticker}.json"
+                if tf.exists():
+                    import json
+                    with open(tf, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                    if data:
+                        v = data[-1]
+                        is_valid, issues = validate_dossier_quality(ticker, v.get("full_html_content", ""), metadata=v)
+                        if not is_valid:
+                            failures.append({"ticker": ticker, "issues": issues, "word_count": len(v.get("full_html_content", "").split())})
+
+        total = len(target_tickers)
+        passed_count = total - len(failures)
         print(f"\n📊 Target Gatekeeper Results: {passed_count}/{total} PASSED | {len(failures)} FLAGGED\n")
         if failures:
             print("❌ QUALITY GATE FLAGGED ISSUES ON TARGET DOSSIERS:")
