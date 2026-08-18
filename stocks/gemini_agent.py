@@ -981,11 +981,22 @@ def reconcile_and_repair_section_5_tables(ticker: str, current_price: float, sec
             except Exception:
                 pass
         
+        # Extract custom titles from Table 1 or narrative
+        found_story_titles = ["Storyline 1", "Storyline 2", "Storyline 3"]
+        th_m = re.findall(r"<th[^>]*>(.*?)</th>", section_5_html, re.DOTALL | re.IGNORECASE)
+        th_filtered = []
+        for th in th_m:
+            th_c = re.sub(r"<[^>]+>", " ", th).strip()
+            if any(k in th_c.lower() for k in ["storyline", "trajectory"]):
+                th_filtered.append(th_c)
+        if len(th_filtered) >= 3:
+            found_story_titles = th_filtered[:3]
+
         # Scenario parameters
         scenarios = [
-            {"name": "📉 Storyline 1 (Conservative)", "oe1": max(10.0, oe1_bear), "cagr": -0.05, "r": 0.11, "g_term": 0.005},
-            {"name": "🎯 Storyline 2 (Base Reality)", "oe1": max(20.0, oe1_base), "cagr": 0.025, "r": 0.10, "g_term": 0.0175},
-            {"name": "🚀 Storyline 3 (Growth Inflection)", "oe1": max(30.0, oe1_bull), "cagr": 0.075, "r": 0.095, "g_term": 0.0225}
+            {"name": found_story_titles[0], "oe1": max(10.0, oe1_bear), "cagr": 0.08, "r": 0.09, "g_term": 0.0225},
+            {"name": found_story_titles[1], "oe1": max(20.0, oe1_base), "cagr": 0.03, "r": 0.095, "g_term": 0.020},
+            {"name": found_story_titles[2], "oe1": max(30.0, oe1_bull), "cagr": -0.02, "r": 0.10, "g_term": 0.015}
         ]
         
         cols = []
@@ -1023,9 +1034,9 @@ def reconcile_and_repair_section_5_tables(ticker: str, current_price: float, sec
   <thead>
     <tr>
       <th>Valuation Parameter &amp; Output Metric</th>
-      <th>Storyline 1 (Conservative)</th>
-      <th>Storyline 2 (Base Reality)</th>
-      <th>Storyline 3 (Growth Inflection)</th>
+      <th>{found_story_titles[0]}</th>
+      <th>{found_story_titles[1]}</th>
+      <th>{found_story_titles[2]}</th>
     </tr>
   </thead>
   <tbody>
@@ -1083,12 +1094,13 @@ AUDIT OBJECTIVES & INVARIANTS:
    - Always preserve all dollar signs ($) and exact scenario headings. NEVER output stripped raw decimals (.61) or lone magnitude letters (B).
 3. REVERSE DCF AUDIT:
    - Ensure the "Market-Implied Expectations & What is Priced In?" subsection correctly computes g_implied (the 5-year OE CAGR required to justify ${current_price:.2f}).
-4. 3 BUSINESS STORYLINES TRANSPARENCY:
-   - Ensure the 3 Business Storylines clearly detail the explicit revenue growth rates, margin assumptions, CapEx drag, and economic drivers across Storylines 1, 2, and 3.
+4. 3 BUSINESS STORYLINES TRANSPARENCY & STRICT 1:1 COLUMN ORDER:
+   - Ensure the 3 Business Storylines clearly detail the explicit revenue growth rates, margin assumptions, CapEx drag, and economic drivers across Storylines 1, 2, and 3 in exact column order.
 5. 2D VALUATION SENSITIVITY GRID AUDIT:
-   - Verify that the 2D Valuation Sensitivity Matrix (Discount Rate vs. Terminal Growth Rate or 5-Year CAGR) is internally consistent with Storyline 2 (Fair Value Target) and outputs realistic, mathematically aligned per-share intrinsic values across all cells ($XX.XX format).
-6. TOP-DOWN UNIT ECONOMICS & P&L FLOW-THROUGH INTEGRITY:
-   - Verify that Table 1 (Unit Economics & P&L Waterfall Matrix) connects cleanly to Table 2 (3-Storyline DCF Valuation Matrix). Ensure that Storyline 1 explicitly models the fixed-cost floor and operational deleveraging (where revenue contraction causes severe decremental EBIT margin collapse after cost-cutting hits a wall).
+   - Verify that the 2D Valuation Sensitivity Matrix (Discount Rate vs. Terminal Growth Rate) is internally consistent with the primary storyline and outputs realistic, mathematically aligned per-share intrinsic values across all cells ($XX.XX format).
+6. TOP-DOWN UNIT ECONOMICS & GAAP-TO-OWNER-EARNINGS BRIDGE INTEGRITY:
+   - Verify that Table 1 (Unit Economics & P&L Waterfall Matrix) connects cleanly to Table 2 (3-Storyline DCF Valuation Matrix) in strict 1:1 column order.
+   - Verify that Operating Income (EBIT) is not subject to double-deducted capital expenditures (Depreciation is already inside EBIT, so Net Reinvestment Drag = Maint CapEx minus D&A).
 
 If all calculations, sensitivity grids, and assumption breakdowns in Section 5 are 100% mathematically correct and consistent, output the HTML as is.
 If there are mathematical errors or inconsistent row numbers, correct the numbers in the tables and text, and output the reconciled, complete Section 5 in clean Semantic HTML only."""
@@ -1530,14 +1542,14 @@ DO NOT write Section 1, 2, 3, 4, or 6. Output pure HTML only."""
     # Step 2b: Execute Sub-Agent 6 with Dynamically Anchored DCF Targets
     # ------------------------------------------------------------------
     sec_5_html = section_htmls[4] if len(section_htmls) >= 5 else ""
-    bear_val_dcf, base_val_dcf, bull_val_dcf = current_price * 0.75, current_price * 1.15, current_price * 1.50
+    s1_dcf, s2_dcf, s3_dcf = current_price * 1.15, current_price * 0.85, current_price * 1.40
     g_implied_str, g_base_str = "N/A", "10-15%"
     
-    # Parse Section 5 DCF numbers to pass to Sub-Agent 6
+    # Parse Section 5 DCF numbers in strict 1:1 column order
     rows = re.findall(r"<tr[^>]*>(.*?)</tr>", sec_5_html, re.DOTALL | re.IGNORECASE)
     for r in rows:
         r_clean = re.sub(r"<[^>]+>", " ", r).strip()
-        if any(k in r_clean.lower() for k in ["intrinsic fair value", "intrinsic value / share", "intrinsic value per share", "base intrinsic value"]):
+        if any(k in r_clean.lower() for k in ["intrinsic fair value", "intrinsic value / share", "intrinsic value per share", "base intrinsic value", "fair value / share"]):
             tds = re.findall(r"<td[^>]*>(.*?)</td>", r, re.DOTALL)
             extracted_nums = []
             for td in tds:
@@ -1551,7 +1563,7 @@ DO NOT write Section 1, 2, 3, 4, or 6. Output pure HTML only."""
                     except Exception:
                         pass
             if len(extracted_nums) >= 3:
-                bear_val_dcf, base_val_dcf, bull_val_dcf = extracted_nums[-3], extracted_nums[-2], extracted_nums[-1]
+                s1_dcf, s2_dcf, s3_dcf = extracted_nums[-3], extracted_nums[-2], extracted_nums[-1]
             break
 
     # Parse Reverse DCF implied growth from Section 5
@@ -1562,6 +1574,9 @@ DO NOT write Section 1, 2, 3, 4, or 6. Output pure HTML only."""
     if base_g_m:
         g_base_str = base_g_m.group(1)
 
+    min_story = min([v for v in [s1_dcf, s2_dcf, s3_dcf] if v > 0] or [current_price * 0.85])
+    max_story = max([v for v in [s1_dcf, s2_dcf, s3_dcf] if v > 0] or [current_price * 1.15])
+
     agent_6_prompt = f"""You are Sub-Agent 6: Probabilistic Risk, Threat Assessment & Pre-Mortem Invalidation Auditor researching {ticker_clean} ({company_name}).
 Your Objective: {research_obj}
 
@@ -1570,14 +1585,14 @@ Your Objective: {research_obj}
 
 CRITICAL VALUATION HARMONIZATION & PRICE CORRIDORS INVARIANT:
 Section 5 Quantitative DCF Valuation established the following exact mathematical targets:
-- 🐻 Bear Case Intrinsic Target: ${bear_val_dcf:.2f}
-- 🎯 Base Case Fair Value Target: ${base_val_dcf:.2f}
-- 🐂 Bull Case Intrinsic Target: ${bull_val_dcf:.2f}
-- Market-Implied Reverse DCF Growth: {g_implied_str} vs Base Case {g_base_str}
+- 📖 Storyline 1 Target: ${s1_dcf:.2f}
+- 📖 Storyline 2 Target: ${s2_dcf:.2f}
+- 📖 Storyline 3 Target: ${s3_dcf:.2f}
+- Market-Implied Reverse DCF Growth: {g_implied_str} vs Base Reality {g_base_str}
 
 In your 'Dynamic Price Alert Corridors' subsection, you MUST strictly anchor your corridors to these Section 5 calculations:
-- Lower Threshold (Margin of Safety Floor / Deep Value Buy Zone): Explicitly anchored to the Bear Target (${bear_val_dcf:.2f}) / Margin of Safety floor.
-- Upper Threshold (Target Realization / Trim Zone): Explicitly anchored to the Base Fair Value Target (${base_val_dcf:.2f}) or Bull Target (${bull_val_dcf:.2f}).
+- Lower Threshold (Margin of Safety Floor / Deep Value Buy Zone): Explicitly anchored to the lower valuation corridor bound (${min_story:.2f}) / Margin of Safety floor.
+- Upper Threshold (Target Realization / Trim Zone): Explicitly anchored to the upper valuation corridor bound (${max_story:.2f}).
 DO NOT invent random or conflicting corridor numbers that contradict Section 5!
 
 Generate ONLY Section 6 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
@@ -1594,11 +1609,11 @@ Generate ONLY Section 6 in clean Semantic HTML with NO external images, NO inlin
   <table>
     <thead>
       <tr>
-        <th>Risk Vector & Threat Scenario</th>
+        <th>Risk Vector &amp; Threat Scenario</th>
         <th>Probability Rating (%)</th>
         <th>Financial Severity</th>
-        <th>The "Why" & Transmission Mechanics (Root Cause)</th>
-        <th>Mitigation & Structural Defenses</th>
+        <th>The &quot;Why&quot; &amp; Transmission Mechanics (Root Cause)</th>
+        <th>Mitigation &amp; Structural Defenses</th>
       </tr>
     </thead>
     <tbody>
@@ -1634,8 +1649,8 @@ Generate ONLY Section 6 in clean Semantic HTML with NO external images, NO inlin
   </table>
 - 3 Explicit Quantitative Pre-Mortem Falsification Triggers (Kill switches that invalidate the investment thesis if breached over two consecutive quarters).
 - Dynamic Price Alert Corridors:
-  * Lower threshold (Margin of Safety Floor / Deep Value Buy Zone): Anchored to Bear Target (${bear_val_dcf:.2f}).
-  * Upper threshold (Target Realization / Trim Zone): Anchored to Base Fair Value (${base_val_dcf:.2f}) / Bull Target (${bull_val_dcf:.2f}).
+  * Lower threshold (Margin of Safety Floor / Deep Value Buy Zone): Anchored to Lower Corridor (${min_story:.2f}).
+  * Upper threshold (Target Realization / Trim Zone): Anchored to Upper Corridor (${max_story:.2f}).
 
 DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
 
