@@ -1112,9 +1112,10 @@ Generate ONLY Section 5 in clean Semantic HTML with NO external images, NO inlin
       <tr><td>Terminal Growth Rate (GDP Capped)</td><td>X.X%</td><td>X.X%</td><td>X.X%</td></tr>
       <tr><td>Net Balance Sheet Debt/Cash Adjustment</td><td>-$X.XX/sh</td><td>-$X.XX/sh</td><td>-$X.XX/sh</td></tr>
       <tr><td><strong>Intrinsic Fair Value / Share</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td></tr>
-      <tr><td><strong>Margin of Safety vs Current Price (${current_price:.2f})</strong></td><td><strong>XX.X%</strong></td><td><strong>XX.X%</strong></td><td><strong>XX.X%</strong></td></tr>
+      <tr><td><strong>Margin of Safety vs Current Price (${current_price:.2f})</strong></td><td><strong>+XX.X% or -XX.X%</strong></td><td><strong>+XX.X% or -XX.X%</strong></td><td><strong>+XX.X% or -XX.X%</strong></td></tr>
     </tbody>
   </table>
+  * FORMULA INVARIANT: The Margin of Safety row MUST strictly equal ((Intrinsic Fair Value - ${current_price:.2f}) / ${current_price:.2f}) * 100 with an explicit plus or minus sign (e.g. +17.9% or -43.6%). Do NOT use (Target - Price)/Target.
 
 <h3>Scenario Assumptions Deep Dive: What Each Case is Pricing In</h3>
 - Detail the exact fundamental mechanics, revenue growth rates, margin trajectories, and CapEx drag modeled in each scenario:
@@ -1466,35 +1467,55 @@ DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
         plain = re.sub(r"\s+", " ", plain)
 
         implied_val = None
-        m_impl = re.search(r"(?:g_implied|g_\{?implied\}?|g_\{?\\text\{implied\}\}?|pricing in a 5-year.*?CAGR.*?of|pricing in.*?CAGR.*?of|Market-Implied.*?CAGR.*?of|implied.*?growth.*?rate.*?of|implied.*?CAGR.*?of|CAGR.*?\(.*?g_implied.*?\).*?of|of exactly)\s*[:=]?\s*(\d+(?:\.\d+)?%)", plain, re.IGNORECASE)
-        if m_impl:
-            implied_val = m_impl.group(1)
-        else:
-            m_fallback = re.search(r"(\d+(?:\.\d+)?%)\s*(?:\(g_implied|\(implied|implied)", plain, re.IGNORECASE)
-            if m_fallback:
-                implied_val = m_fallback.group(1)
-            else:
-                m_pct = re.search(r"(?:implied|pricing in).*?(\d+(?:\.\d+)?%)", plain, re.IGNORECASE)
-                if m_pct:
-                    implied_val = m_pct.group(1)
 
+        patterns = [
+            r"(?:g_\{?(?:\\?text\{)?implied\}?\}?|g_implied)\s*\\?\)?\s*[:=]\s*([-–—+]?\s*\d+(?:\.\d+)?%)",
+            r"Market-Implied\s*5-Year\s*Owner\s*Earnings\s*CAGR.*?[:=]?\s*([-–—+]?\s*\d+(?:\.\d+)?%)",
+            r"\(\s*\\?\(?\s*g_\{?(?:\\?text\{)?implied\}?\}?\s*\\?\)?\s*\)\s*[:=]?\s*([-–—+]?\s*\d+(?:\.\d+)?%)",
+            r"CAGR\s*\(\s*\\?\(?g_\{?(?:\\?text\{)?implied\}?\}?\\?\)?\s*\)\s*[:=]?\s*([-–—+]?\s*\d+(?:\.\d+)?%)",
+            r"(?:implies.*?CAGR.*?\\?\(?g_\{?(?:\\?text\{)?implied\}?\}?\\?\)?.*?of\s*(?:only\s*)?)([-–—+]?\s*\d+(?:\.\d+)?%)",
+            r"(?:implies an Owner Earnings 5-year CAGR.*?of\s*(?:only\s*)?)([-–—+]?\s*\d+(?:\.\d+)?%)",
+            r"(?:implied\s+CAGR\s+of\s+g\s+implied\s*=\s*)([-–—+]?\s*\d+(?:\.\d+)?%)",
+            r"(?:pricing in a 5-year.*?CAGR.*?of|pricing in.*?CAGR.*?of|Market-Implied.*?CAGR.*?of|implied.*?growth.*?rate.*?of|implied.*?CAGR.*?of)\s*[:=]?\s*([-–—+]?\s*\d+(?:\.\d+)?%)",
+            r"(?:pricing in a structural|pricing in a|compound decline in.*?of|implied.*?decline.*?of)\s*(\d+(?:\.\d+)?%)"
+        ]
+
+        for pat in patterns:
+            m = re.search(pat, plain, re.IGNORECASE)
+            if m:
+                val = m.group(1).replace(" ", "").replace("–", "-").replace("—", "-")
+                if "decline" in pat or "compound decline" in pat:
+                    if not val.startswith("-"):
+                        val = f"-{val}"
+                implied_val = val
+                break
+
+        # Base Case CAGR extraction
         base_val_txt = None
-        m_base = re.search(r"(?:g_base|g_\{?base\}?|g_\{?\\text\{base\}\}?|Base Case sustainable.*?growth.*?of|Base Case.*?capacity.*?\(.*?g_base.*?\).*?of|Base Case organic.*?CAGR.*?of|Base Case.*?CAGR.*?of|Base Case.*?growth.*?of)\s*[:=]?\s*(\d+(?:\.\d+)?%)", plain, re.IGNORECASE)
-        if m_base:
-            base_val_txt = m_base.group(1)
-        else:
+        base_patterns = [
+            r"(?:g_\{?(?:\\?text\{)?base\}?\}?|g_base)\s*\\?\)?\s*[:=]\s*([-–—+]?\s*\d+(?:\.\d+)?%)",
+            r"Base\s*Case\s*Reality\s*CAGR.*?[:=]?\s*([-–—+]?\s*\d+(?:\.\d+)?%)",
+            r"(?:Base Case sustainable.*?growth.*?of|Base Case.*?capacity.*?\(.*?g_base.*?\).*?of|Base Case organic.*?CAGR.*?of|Base Case.*?CAGR.*?of|Base Case.*?growth.*?of|Base Case reality CAGR.*?of)\s*[:=]?\s*([-–—+]?\s*\d+(?:\.\d+)?%)"
+        ]
+        for b_pat in base_patterns:
+            m_b = re.search(b_pat, plain, re.IGNORECASE)
+            if m_b:
+                base_val_txt = m_b.group(1).replace(" ", "").replace("–", "-").replace("—", "-")
+                break
+
+        if not base_val_txt:
             tbl_rows = re.findall(r"<tr[^>]*>(.*?)</tr>", html_content, re.DOTALL | re.IGNORECASE)
             for tr in tbl_rows:
                 tr_clean = re.sub(r"<[^>]+>", " ", tr).strip()
                 if "5-year organic oe cagr" in tr_clean.lower() or "organic oe cagr" in tr_clean.lower() or "5-year oe cagr" in tr_clean.lower():
                     tds = re.findall(r"<td[^>]*>(.*?)</td>", tr, re.DOTALL)
                     if len(tds) >= 4:
-                        m_td = re.search(r"(\d+(?:\.\d+)?%)", tds[2])
+                        m_td = re.search(r"([-–—+]?\d+(?:\.\d+)?%)", tds[2])
                         if m_td:
                             base_val_txt = m_td.group(1)
                             break
                     elif len(tds) >= 3:
-                        m_td = re.search(r"(\d+(?:\.\d+)?%)", tds[1])
+                        m_td = re.search(r"([-–—+]?\d+(?:\.\d+)?%)", tds[1])
                         if m_td:
                             base_val_txt = m_td.group(1)
                             break
