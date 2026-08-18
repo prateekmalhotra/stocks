@@ -1365,14 +1365,15 @@ DO NOT write Section 1, 2, 3, 4, or 6. Output pure HTML only."""
         print(f"   │ Search Grounding: Querying real-time filings & consensus...", flush=True)
         
         clean_section = ""
-        for attempt in range(1, 3):
-            agent_out = call_gemini_with_search(agent_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
+        for attempt in range(1, 4):
+            current_prompt = agent_prompt if attempt == 1 else agent_prompt + f"\n\nCRITICAL FIX MANDATE: Your previous attempt was incomplete or lacked analytical depth. You MUST output a comprehensive, rigorous HTML Section {sec_num} (minimum 300 words) with all required tables, metric grids, and deep fundamental analysis."
+            agent_out = call_gemini_with_search(current_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
             clean_section = verify_and_repair_html_structure(clean_grounding_artifacts(agent_out))
             word_count = len(clean_section.split())
             has_sec_header = f"section {sec_num}" in clean_section.lower()
-            if word_count >= 150 and has_sec_header:
+            if word_count >= 250 and has_sec_header:
                 break
-            print(f"   ⚠️ Sub-Agent {idx} output insufficient ({word_count} words). Auto-healing retry (attempt {attempt+1}/2)...", flush=True)
+            print(f"   ⚠️ Sub-Agent {idx} output insufficient ({word_count} words, header={has_sec_header}). Auto-healing retry (attempt {attempt+1}/3)...", flush=True)
         
         if sec_num == 1:
             first_p = re.findall(r"<p>(.*?)</p>", clean_section, re.DOTALL)
@@ -1572,13 +1573,16 @@ DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
 
     print(f"\n🤖 [STAGE 2/3: AGENT 6/6] Probabilistic Risk & Pre-Mortem Invalidation Auditor (Target Harmonized)", flush=True)
     clean_sec_6 = ""
-    for attempt in range(1, 3):
-        agent_out = call_gemini_with_search(agent_6_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
+    for attempt in range(1, 4):
+        current_p6 = agent_6_prompt if attempt == 1 else agent_6_prompt + "\n\nCRITICAL FIX MANDATE: Your previous attempt was incomplete or lacked threat depth. You MUST output a comprehensive Section 6 with the metric card grid, probabilistic risk table, 3 kill switches, and dynamic price alert corridors (minimum 300 words)."
+        agent_out = call_gemini_with_search(current_p6, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
         clean_sec_6 = verify_and_repair_html_structure(clean_grounding_artifacts(agent_out))
         word_count = len(clean_sec_6.split())
-        if word_count >= 150 and "section 6" in clean_sec_6.lower():
+        has_sec_header = "section 6" in clean_sec_6.lower()
+        has_table = "<table" in clean_sec_6.lower()
+        if word_count >= 250 and has_sec_header and has_table:
             break
-        print(f"   ⚠️ Sub-Agent 6 output insufficient ({word_count} words). Auto-healing retry (attempt {attempt+1}/2)...", flush=True)
+        print(f"   ⚠️ Sub-Agent 6 output insufficient ({word_count} words, header={has_sec_header}, table={has_table}). Auto-healing retry (attempt {attempt+1}/3)...", flush=True)
         
     section_htmls.append(clean_sec_6)
     print(f"   │ Status: Complete ({len(clean_sec_6.split())} words generated)", flush=True)
