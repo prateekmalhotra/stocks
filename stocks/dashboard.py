@@ -2201,7 +2201,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                     <div class="company-meta">{stock.company_name}</div>
                 </div>
                 <div class="price-callout">
-                    <div class="price-number">${stock.current_price:.2f if stock.current_price is not None else 0.0}</div>
+                    <div class="price-number">${(stock.current_price if stock.current_price is not None else 0.0):.2f}</div>
                     <div class="price-sub {'pos' if (stock.return_pct or 0.0) >= 0 else 'neg'}">
                         {f"{stock.return_pct:+.2f}%" if stock.return_pct is not None else "+0.00%"}
                     </div>
@@ -2418,7 +2418,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                 </div>
             <td>
                 <div class="tbl-price-cell">
-                    <span class="tbl-price tbl-price-{stock.ticker}">${stock.current_price:.2f if stock.current_price is not None else 0.0}</span>
+                    <span class="tbl-price tbl-price-{stock.ticker}">${(stock.current_price if stock.current_price is not None else 0.0):.2f}</span>
                     <span class="tbl-return tbl-ret-{stock.ticker} {ret_class}">{f"{stock.return_pct:+.2f}%" if stock.return_pct is not None else "+0.00%"}</span>
                 </div>
             </td>
@@ -2449,7 +2449,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                     {get_ticker_logo_html(stock.ticker, 24)}
                     <span class="grid-symbol">{stock.ticker}{stock_beacon}</span>
                 </div>
-                <div class="grid-price grid-price-{stock.ticker}">${stock.current_price:.2f if stock.current_price is not None else 0.0}</div>
+                <div class="grid-price grid-price-{stock.ticker}">${(stock.current_price if stock.current_price is not None else 0.0):.2f}</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
                 {labels_html}
@@ -2512,7 +2512,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             </div>
             <div class="alert-right" style="display:flex; align-items:center; gap:16px;">
                 <div style="text-align:right;">
-                    <div class="alert-price-val">${a.price_at_alert:.2f if a.price_at_alert is not None else 0.0}</div>
+                    <div class="alert-price-val">${(a.price_at_alert if a.price_at_alert is not None else 0.0):.2f}</div>
                     <div class="alert-price-pct {ret_class}">{f"{a.price_change_pct:+.2f}%" if a.price_change_pct is not None else "+0.00%"}</div>
                 </div>
                 <button class="alert-dismiss-btn" title="Dismiss this alert" onclick="event.stopPropagation(); dismissAlert('{alert_id}')">✕</button>
