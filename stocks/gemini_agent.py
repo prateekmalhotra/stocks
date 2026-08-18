@@ -1399,15 +1399,49 @@ DO NOT write Section 1, 2, 3, 4, or 6. Output pure HTML only."""
             # ------------------------------------------------------------------
             # Multi-Agent Section 5 Execution: Part 5A (Unit Economics) + Part 5B (DCF Matrix)
             # ------------------------------------------------------------------
-            print("   │ 🔄 [SUB-AGENT 5A] Generating Unit Economics & Operating Leverage P&L Waterfall Matrix...", flush=True)
-            out_5a = call_gemini_with_search(agent_5a_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
-            clean_5a = verify_and_repair_html_structure(clean_grounding_artifacts(out_5a))
-            
-            print("   │ 🔄 [SUB-AGENT 5B] Generating Quantitative 3-Scenario DCF Valuation Matrix & 2D Grid...", flush=True)
-            prompt_5b_combined = f"{audited_financials_context}\n\nESTABLISHED UNIT ECONOMICS & OPERATING REALITY (From Sub-Agent 5A):\n{clean_5a}\n\n{agent_5b_prompt}"
-            out_5b = call_gemini_with_search(prompt_5b_combined, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
-            clean_5b = verify_and_repair_html_structure(clean_grounding_artifacts(out_5b))
-            
+            # Step 5A: Autonomous Generation & Quality Verification Loop (Up to 3 attempts)
+            clean_5a = ""
+            for attempt_5a in range(1, 4):
+                print(f"   │ 🔄 [SUB-AGENT 5A: Attempt {attempt_5a}/3] Generating Unit Economics & Operating Leverage P&L Waterfall Matrix...", flush=True)
+                current_p_5a = agent_5a_prompt if attempt_5a == 1 else agent_5a_prompt + "\n\nCRITICAL FIX MANDATE: Your previous attempt was missing the complete Table 1 or Scenario Assumptions Deep Dive. You MUST generate the complete Table 1 with all operational rows (Paying Users/Volume, ARPPU/Price, Revenue, Gross Margin, OpEx, EBIT, Owner Earnings) across Bear, Base, and Bull!"
+                out_5a = call_gemini_with_search(current_p_5a, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
+                clean_5a = verify_and_repair_html_structure(clean_grounding_artifacts(out_5a))
+                
+                # Check Table 1 validity
+                has_table_1 = "<table" in clean_5a.lower() and any(k in clean_5a.lower() for k in ["primary unit", "operating expense", "ebit", "owner earnings"])
+                has_deep_dive = "scenario assumptions deep dive" in clean_5a.lower() or "bear case" in clean_5a.lower()
+                if has_table_1 and has_deep_dive and len(clean_5a.split()) >= 250:
+                    print(f"   │ ✅ [SUB-AGENT 5A] Validated Table 1 & Unit Economics ({len(clean_5a.split())} words).", flush=True)
+                    break
+                print(f"   │ ⚠️ [SUB-AGENT 5A] Output incomplete ({len(clean_5a.split())} words, has_table={has_table_1}). Retrying with fresh generation...", flush=True)
+
+            # Step 5B: Autonomous Generation & Quality Verification Loop (Up to 3 attempts)
+            clean_5b = ""
+            for attempt_5b in range(1, 4):
+                print(f"   │ 🔄 [SUB-AGENT 5B: Attempt {attempt_5b}/3] Generating Quantitative 3-Scenario DCF Valuation Matrix & 2D Grid...", flush=True)
+                base_prompt_5b = f"{audited_financials_context}\n\nESTABLISHED UNIT ECONOMICS & OPERATING REALITY (From Sub-Agent 5A):\n{clean_5a}\n\n{agent_5b_prompt}"
+                if attempt_5b > 1:
+                    base_prompt_5b += f"\n\nCRITICAL MANDATE: Your previous output was truncated or missing the mandatory 'Intrinsic Fair Value / Share' and 'Margin of Safety' rows in Table 2, or missing the 2D grid table. You MUST output the COMPLETE 10-row Table 2 ending with 'Intrinsic Fair Value / Share' ($XX.XX) and 'Margin of Safety' (+/-XX.X%), plus Table 3 (2D Grid), Reverse DCF, and Market Closure Test!"
+                out_5b = call_gemini_with_search(base_prompt_5b, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
+                clean_5b = verify_and_repair_html_structure(clean_grounding_artifacts(out_5b))
+                
+                # Check Table 2 validity
+                has_fv_row = False
+                for r in re.findall(r"<tr.*?</tr>", clean_5b, re.DOTALL | re.IGNORECASE):
+                    r_txt = re.sub(r"<[^>]+>", " ", r).lower()
+                    if any(k in r_txt for k in ["intrinsic fair value", "intrinsic value / share", "intrinsic value per share"]):
+                        nums = re.findall(r"([+-]?\$?\s*[\d,]+(?:\.\d+)?)", r)
+                        if len(nums) >= 2:
+                            has_fv_row = True
+                            break
+                has_2d_grid = len(re.findall(r"<table.*?</table>", clean_5b, re.DOTALL | re.IGNORECASE)) >= 2 or "terminal growth" in clean_5b.lower()
+                has_rdcf = any(k in clean_5b.lower() for k in ["priced in", "reverse dcf", "market-implied"])
+                
+                if has_fv_row and has_2d_grid and has_rdcf and len(clean_5b.split()) >= 300:
+                    print(f"   │ ✅ [SUB-AGENT 5B] Validated Table 2 DCF Matrix & 2D Grid ({len(clean_5b.split())} words).", flush=True)
+                    break
+                print(f"   │ ⚠️ [SUB-AGENT 5B] Output incomplete (has_fv_row={has_fv_row}, has_2d_grid={has_2d_grid}, words={len(clean_5b.split())}). Retrying with fresh generation...", flush=True)
+
             # Combine 5A and 5B into full Section 5
             clean_section = clean_5a + "\n\n" + clean_5b
             clean_section = audit_and_reconcile_dcf_math(ticker_clean, company_name, current_price, clean_section, audited_financials_context)
