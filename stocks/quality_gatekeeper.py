@@ -260,6 +260,16 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
         if open_scripts != close_scripts:
             issues.append(f"Mismatched <script> tags ({open_scripts} opened vs {close_scripts} closed).")
 
+    # 20. Economic Reality & Liquidity Floor Check
+    if metadata:
+        s_vals = [s for s in [s1, s2, s3] if s is not None and s > 0]
+        cur_p = _parse_p(metadata.get("price_at_version") or metadata.get("current_price"))
+        if cur_p and len(s_vals) >= 3:
+            min_s = min(s_vals)
+            # If lowest storyline implies > 82% drop on a company that is not flagged as Distressed/Speculative
+            if min_s < (cur_p * 0.18) and "speculative risk" not in str(metadata.get("status_label", "")).lower():
+                issues.append(f"Economic Reality Failure: Storyline valuation target (${min_s:.2f}) represents an irrational {-((cur_p-min_s)/cur_p*100):.1f}% collapse on a going-concern business.")
+
     return len(issues) == 0, issues
 
 

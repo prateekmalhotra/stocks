@@ -1246,7 +1246,7 @@ DO NOT write Section 1, 2, 3, 5, or 6. Output pure HTML only."""
     agent_5a_prompt = f"""You are Sub-Agent 5A: Unit Economics, Operating Leverage & P&L Waterfall Specialist researching {ticker_clean} ({company_name}).
 Your Objective: {research_obj}
 
-CRITICAL 3 DISTINCT BUSINESS STORYLINES INVARIANT:
+CRITICAL 3 DISTINCT BUSINESS STORYLINES & ACCOUNTING INVARIANTS:
 - ZERO PRICE ANCHORING: Value the operational business strictly from First Principles of unit economics and cash flow without any reference to stock market prices or analyst targets.
 - 2-QUARTER TRANSCRIPT RESEARCH MANDATE: You MUST search and analyze the company's LAST 2 QUARTERLY EARNINGS CALL TRANSCRIPTS (e.g. Q4 / Q1 earnings calls). Extract verified executive remarks, pricing changes, product roadmap updates, and analyst questions to ground the 3 storylines in verifiable operating reality.
 - 3 PROBABLE BUSINESS STORYLINES (90-95% PROBABILITY COVERAGE): Formulate 3 distinct, plausible, fundamental operational trajectories for how this specific company's future could unfold over the next 5 years. They are NOT meant to be labeled Low/High/Medium or Bear/Bull/Base or anchored to any positive/negative sentiment. They represent 3 distinct realistic operating paths that together cover 90-95% of future possibilities:
@@ -1254,7 +1254,13 @@ CRITICAL 3 DISTINCT BUSINESS STORYLINES INVARIANT:
   * Storyline 2: e.g. [Descriptive Business Title based on operational path B]
   * Storyline 3: e.g. [Descriptive Business Title based on operational path C]
 - STRICT COLUMN ALIGNMENT INVARIANT: Column 1 in Table 1 MUST correspond to Storyline 1. Column 2 MUST correspond to Storyline 2. Column 3 MUST correspond to Storyline 3.
-- TOP-DOWN P&L FLOW-THROUGH INVARIANT: For each of the 3 storylines, project the full P&L flow-through independently: Primary Unit Volume Driver -> Monetization / Pricing -> Revenue -> Gross Margin -> Fixed OpEx Floor -> Operating Income (EBIT) -> Taxes/CapEx/SBC -> Year 1 Owner Earnings (OE₁).
+- TOP-DOWN GAAP-TO-OWNER EARNINGS ACCOUNTING INVARIANT:
+  * Operating Income (EBIT) ALREADY deducts non-cash Depreciation & Amortization (D&A).
+  * Therefore, `Year 1 Buffett Owner Earnings (OE₁) = Operating Income (EBIT) - Normalized Cash Taxes (EBIT × ~15-22%) - Net Reinvestment Drag (Maint CapEx minus D&A) - 100% SBC`.
+  * DO NOT double-deduct full capital expenditures from EBIT! In mature or software businesses, D&A roughly matches Maintenance CapEx, so Net Reinvestment Drag is minimal.
+- ECONOMIC REALITY SANITY INVARIANT:
+  * 90-95% probability coverage means realistic operating variations (e.g. steady growth, competitive margin compression, or accelerated expansion).
+  * For a highly cash-generative business with positive operating cash flow and tens of billions in liquid cash, you MUST NOT model an absurd scenario where Owner Earnings collapses to near-zero ($1B on $150B revenue), which would imply the business is worth less than its cash in the bank!
 - FORMATTING CLEANLINESS: Use clean human text for Year 1 Owner Earnings (OE₁). DO NOT use raw LaTeX tokens like $OE_1 or ($OE_1).
 
 Generate the first half of Section 5 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
@@ -1294,7 +1300,8 @@ Generate the first half of Section 5 in clean Semantic HTML with NO external ima
     <tr><td>Gross Margin % (Direct delivery, hosting, app store / distribution)</td><td>XX.X%</td><td>XX.X%</td><td>XX.X%</td></tr>
     <tr><td>Operating Expense (OpEx) Budgets (S&amp;M, R&amp;D Payroll, G&amp;A Overhead)</td><td>$XX.XXB</td><td>$XX.XXB</td><td>$XX.XXB</td></tr>
     <tr><td><strong>Operating Income (EBIT) &amp; EBIT Margin %</strong></td><td><strong>$XX.XXB (XX.X% margin)</strong></td><td><strong>$XX.XXB (XX.X% margin)</strong></td><td><strong>$XX.XXB (XX.X% margin)</strong></td></tr>
-    <tr><td>Cash Tax &amp; Defensive Maintenance CapEx Drag</td><td>-$XX.XXB</td><td>-$XX.XXB</td><td>-$XX.XXB</td></tr>
+    <tr><td>Normalized Cash Taxes (EBIT &times; ~15-22% Effective Rate)</td><td>-$XX.XXB</td><td>-$XX.XXB</td><td>-$XX.XXB</td></tr>
+    <tr><td>Net Maintenance Reinvestment Drag (Maint CapEx minus D&amp;A)</td><td>-$XX.XXB or $0.00B</td><td>-$XX.XXB or $0.00B</td><td>-$XX.XXB or $0.00B</td></tr>
     <tr><td>Stock-Based Compensation (100% Cash Deducted)</td><td>-$XX.XXB</td><td>-$XX.XXB</td><td>-$XX.XXB</td></tr>
     <tr><td><strong>Normalized Year 1 Buffett Owner Earnings (OE₁)</strong></td><td><strong>$XX.XXB</strong></td><td><strong>$XX.XXB</strong></td><td><strong>$XX.XXB</strong></td></tr>
   </tbody>
@@ -1313,7 +1320,10 @@ CRITICAL DCF MATHEMATICS & INVARIANTS:
 - STRICT 1:1 COLUMN CORRESPONDENCE: Table 2 MUST use columns matching the 3 Storylines in EXACT order (Column 1 = Storyline 1, Column 2 = Storyline 2, Column 3 = Storyline 3 with their exact descriptive titles from Table 1).
 - Table 2 MUST contain the exact rows for 'Intrinsic Fair Value / Share' and 'Margin of Safety vs Current Price (${current_price:.2f})'.
 - Net Balance Sheet Debt/Cash Adjustment: MUST strictly lock the per-share figure calculated in Section 4 across all 3 storylines.
-- FORMATTING CLEANLINESS: Use clean human text for Year 1 Owner Earnings (OE₁). Format all per-share intrinsic values with dollar signs ($XX.XX).
+- LIQUIDITY FLOOR & SANITY INVARIANT:
+  * For a going-concern cash-generative business, Intrinsic Value / Share cannot be modeled below the company's net liquid cash per share from Section 4.
+  * Check your resulting Enterprise Value (EV) and Intrinsic Value per share to ensure it represents an economically coherent 90-95% probability spectrum, avoiding absurd multi-standard-deviation outliers.
+- FORMATTING CLEANLINESS: Use clean human text for Year 1 Owner Earnings (OE₁) and Total Enterprise Value (EV). Format all per-share intrinsic values with dollar signs ($XX.XX).
 - Reverse DCF: Dynamically determine what 5-year Owner Earnings CAGR (g_implied) is priced into ${current_price:.2f}.
 
 Generate the quantitative second half of Section 5 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
