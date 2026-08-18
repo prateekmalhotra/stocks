@@ -938,16 +938,15 @@ def reconcile_and_repair_section_5_tables(ticker: str, current_price: float, sec
         except Exception:
             pass
             
-    # 2. Check Table 2 completion
+    # 2. Check Table 2 completion across all tables in section_5_html
     s5_tables = re.findall(r"<table.*?</table>", section_5_html, re.DOTALL | re.IGNORECASE)
     has_full_dcf_table = False
-    if len(s5_tables) >= 2:
-        for tbl in s5_tables[1:]:
-            if any(k in tbl.lower() for k in ["intrinsic fair value", "intrinsic value / share", "fair value / share"]):
-                nums = re.findall(r"\$\s*[\d,]+(?:\.\d+)?", tbl)
-                if len(nums) >= 2:
-                    has_full_dcf_table = True
-                    break
+    for tbl in s5_tables:
+        if any(k in tbl.lower() for k in ["intrinsic fair value", "intrinsic value / share", "fair value / share", "margin of safety"]):
+            nums = re.findall(r"([+-]?\$?\s*[\d,]+(?:\.\d+)?)", tbl)
+            if len(nums) >= 2:
+                has_full_dcf_table = True
+                break
 
     # If Table 2 is incomplete or truncated, build the deterministic 10-row DCF table
     if not has_full_dcf_table:
@@ -1113,6 +1112,15 @@ If there are mathematical errors or inconsistent row numbers, correct the number
         if is_corrupted_math_html(cleaned) or len(cleaned.split()) < 180:
             print("   │ ⚠️ Math audit returned corrupted/truncated HTML. Retaining verified draft Section 5.", flush=True)
             cleaned = section_5_html
+            
+        # Guarantee Table 1 is NEVER dropped by Math Audit
+        has_t1_orig = any(k in section_5_html.lower() for k in ["primary unit", "operational & financial metric", "top-line revenue"])
+        has_t1_cleaned = any(k in cleaned.lower() for k in ["primary unit", "operational & financial metric", "top-line revenue"])
+        if has_t1_orig and not has_t1_cleaned:
+            # Extract Table 1 from original draft and prepend
+            t1_match = re.search(r'(<h3>Primary Unit Economics.*?</table>)', section_5_html, re.DOTALL | re.IGNORECASE)
+            if t1_match:
+                cleaned = t1_match.group(1) + "\n\n" + cleaned
             
         # Guarantee Reverse DCF subsection is preserved through audit
         if any(k in section_5_html.lower() for k in ["priced in", "market-implied", "reverse dcf"]) and not any(k in cleaned.lower() for k in ["priced in", "market-implied", "reverse dcf"]):
