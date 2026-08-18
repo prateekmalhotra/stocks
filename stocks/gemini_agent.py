@@ -804,9 +804,13 @@ Your analysis must adhere strictly to these 7 First Principles of Business Valua
    - For global export and cross-border direct-to-consumer platforms (e.g. Temu, Shein, AliExpress), stress-test the operational transition from duty-free air parcels (US $800 / EU €150 de minimis exemptions) to semi-managed local bonded warehouse fulfillment.
    - Model the resulting compression in gross take rates and higher localized merchant inventory holding overhead in Bear and Base case margin projections.
 
-   Pillar 16: Founder Super-Voting Lock & Minority Governance Discount
-   - When a founder or controlling insider holds >50%–70% of total voting power through dual-class super-voting shares (e.g. 10:1 or 20:1 Class B shares) while holding a minority economic stake, audit governance misalignment risks (e.g. unilateral subsidization of non-core side ventures).
-   - Apply a 5%–10% minority shareholder governance discount to equity intrinsic value if capital allocation is unilaterally controlled without independent board checks.
+   Pillar 17: 3 Organic Business Storylines Operational Matrix
+   - Value the business through 3 distinct, organic, company-specific narrative storylines (with descriptive titles) grounded in the company's real operational mechanics, customer adoption, pricing power, and last 2 quarterly earnings transcripts, rather than rigid Bear/Base/Bull priming.
+   - Flow each storyline top-down through unit economics: Volume x Price -> Revenue -> Gross Margin -> OpEx Floor -> EBIT -> Owner Earnings (OE₁).
+
+   Pillar 18: Zero Price Anchoring & Anti-Wall-Street Consensus Shield
+   - ZERO WALL STREET CONSENSUS ANCHORING: Never cite, adopt, or anchor to Wall Street sell-side price targets, broker buy/sell ratings, or consensus price forecasts. Value the enterprise purely as an unlisted private business from primary SEC filings, audited unit economics, and owner cash flows.
+   - ZERO STOCK CHART BIAS: Do not treat stock price declines as evidence of cheapness or past stock runs as evidence of overvaluation. Intrinsic value is independent of Mr. Market's daily quotations.
 
 5. Editorial Aesthetics & Structural Clarity:
    - Format financial KPIs and segment data into `<div class="metrics-grid"><div class="metric-card">...</div></div>` or structured HTML tables. Zero raw text dumps.
@@ -814,24 +818,25 @@ Your analysis must adhere strictly to these 7 First Principles of Business Valua
    - Zero external images: Keep all analyses purely professional analytical text, data tables, callouts, and metric cards.
 """
 
-MASTER_PLANNER_PROMPT = """Target: {ticker} ({company_name}) | Current Stock Price: ${current_price:.2f}
+MASTER_PLANNER_PROMPT = """Target: {ticker} ({company_name})
 User Focus / Research Notes: {notes}
 
 You are the Lead Investment Strategist. Your broad goal is to formulate an honest, down-to-earth fundamental evaluation of {ticker}.
 
 [AUTONOMY & BROAD OBJECTIVE DIRECTIVE]:
 You have full freedom to decide what matters most for this business and how to evaluate it.
-You will divide the research memo into 3 to 4 specialized sub-agents. Each sub-agent will research its assigned area using real-time search (including the latest earnings release, latest earnings call transcript, and latest official announcements) and directly output its dedicated section in clean Semantic HTML (<div class="section"> ... </div>).
+You will divide the research memo into 6 specialized sub-agents. Each sub-agent will research its assigned area using real-time search (including SEC Form 10-K/10-Q, the last 2 quarterly earnings call transcripts, and official announcements) and directly output its dedicated section in clean Semantic HTML (<div class="section"> ... </div>).
 
 Key Areas to Investigate via Real-Time Filings, Earnings Calls & Announcements:
-- Latest Earnings Statement, Call Transcript & Corporate News: What did management announce and discuss regarding current performance, forward guidance, capital allocation, and industry headwinds?
-- Business Model Reality & Moat: How the company makes money, customer retention, pricing power, and competitive advantages in plain English.
-- Real Cash Flow, SBC & Capital Structure: Real cash generation (treating SBC as a cash charge), dilution vs. buybacks, Net Cash/Debt, and capital allocation.
-- Ownership & Catalysts: Verified active 13F whale positions from latest official filings (exclude exited investors), management alignment, and upcoming catalysts.
-- Warren Buffett Owner Earnings & Intrinsic Value Matrix: Calculate normalized Owner Earnings (Post-SBC cash flow minus maintenance CapEx, float/lease debt discipline), project 3-5 year compounding, factor in share count reduction from buybacks, and discount strictly via the LOCAL SOVEREIGN BOND YIELD with zero arbitrary exit multiples. Build a clean Bear / Base / Bull scenario table in Section 5.
-- What is Priced In? (Reverse DCF): Calculate what 5-year growth rate the current stock price implies.
-- Probabilistic Risk & Fragility Audit (Section 6): Conduct an explicit probabilistic threat audit detailing top risk scenarios, probability ratings (%), severity, fundamental "Why", and overall Business Fragility rating.
-- Dynamic Alert Corridors: Establish exact `upper_alert_threshold` (upside breakout / trim level) and `lower_alert_threshold` (downside margin-of-safety floor) based on your valuation targets.
+- Executive Leadership & Operating Reality (Section 1): Active CEO/CFO verification, latest quarterly earnings statement, call transcript remarks, and forward guidance.
+- Business Model Reality & Moat (Section 2): How the company makes money, unit economics, customer retention, pricing power, and competitive advantages vs peers and agile challengers.
+- Real Cash Flow, SBC & Capital Structure (Section 3): Audited GAAP Operating Cash Flow, 100% SBC cash deduction, true maintenance CapEx, and working capital float.
+- Balance Sheet Fortress & Ownership (Section 4): Audited Net Debt/Cash per share, share cannibalization vs dilution, Dataroma superinvestors, and OpenInsider Form 4 insider transactions.
+- Warren Buffett Owner Earnings & 3-Storyline Intrinsic Valuation Matrix (Section 5): 3 distinct narrative business storylines -> Table 1 Unit Economics P&L Waterfall -> Table 2 Discounted Cash Flow Matrix -> Table 3 Sensitivity Grid.
+- Probabilistic Risk & Fragility Audit (Section 6): Explicit probabilistic threat audit detailing top risk scenarios, probability ratings (%), severity, and 3 quantitative Pre-Mortem Kill Switches.
+
+ZERO PRICE ANCHORING INVARIANT:
+Do NOT anchor to stock market prices, broker targets, or 52-week ranges. Value the company purely from First Principles of business unit economics and discounted owner cash flows.
 
 Editorial Aesthetics Mandate:
 - Format all financial KPIs and quarterly numbers into `<div class="metrics-grid"><div class="metric-card">...</div></div>` or structured HTML tables. Zero raw text dumps.
@@ -1129,7 +1134,6 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     planner_prompt = MASTER_PLANNER_PROMPT.format(
         ticker=ticker_clean,
         company_name=company_name,
-        current_price=current_price,
         notes=initial_notes or "Evaluate fundamental moat, true cash generation deducting SBC, dilution, balance sheet, and level-headed ballpark valuation."
     )
     planner_res = call_gemini_with_search(planner_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
