@@ -86,7 +86,6 @@ def clean_grounding_artifacts(text: str) -> str:
         return ""
     cleaned = re.sub(r"\[(?:PerQueryResult|cite|source|citation)[^\]]*\]", "", text, flags=re.IGNORECASE)
     cleaned = re.sub(r"\[\s*\d+(?:\.\d+)*(?:\s*,\s*\d+(?:\.\d+)*)*\s*\]", "", cleaned)
-    cleaned = re.sub(r"««[A-Z_0-9]+»»", "", cleaned)
     
     # Strip any accidental meta references to historical analogies
     cleaned = re.sub(r"\b(?:Norbert\s+Lou(?:'s)?(?:\s+NVR)?|NVR\s+thesis|Columbia\s+(?:Business\s+School\s+)?(?:thesis|memo|paper))\b", "", cleaned, flags=re.IGNORECASE)
@@ -375,13 +374,13 @@ def normalize_latex_typography(html: str) -> str:
     
     html = re.sub(r'\\\((.*?)\\\)', save_inline, html, flags=re.DOTALL)
 
-    # Step 4: Protect all currency amounts ($568.97, $50, $1,200.50, $25B, $19.31 billion, ~$252.00, -$8.65B, etc.)
+    # Step 4: Protect all currency amounts ($568.97, $50, $1,200.50, $25B, $19.31 billion, ~$252.00, -$8.65B, -$9.29/sh, +$2.59/sh, etc.)
     currencies = []
     def save_currency(m):
         currencies.append(m.group(0))
         return f"««CURRENCY_{len(currencies)-1}»»"
     
-    curr_pattern = r'(?:~|-|\+)?\$(?=\d|\.\d)(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d+)?(?:\s*(?:billion|million|trillion|[kKmMbBtT]))?'
+    curr_pattern = r'(?:~|-|\+)?\$(?=\d|\.\d)(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d+)?(?:\s*(?:billion|million|trillion|[kKmMbBtT]))?(?:/(?:share|sh))?'
     html = re.sub(curr_pattern, save_currency, html)
 
     # Step 5: Convert dollar-wrapped math $...$ into saved inline blocks
@@ -406,7 +405,7 @@ def normalize_latex_typography(html: str) -> str:
     html = re.sub(naked_latex_pattern, wrap_naked_latex, html)
 
     # Step 7: Multi-pass recursive restoration of all placeholders to prevent nested leaks
-    for _ in range(5):
+    for _ in range(10):
         changed = False
         for i, curr in enumerate(currencies):
             ph = f"««CURRENCY_{i}»»"
@@ -431,7 +430,7 @@ def normalize_latex_typography(html: str) -> str:
         if not changed or "««" not in html:
             break
 
-    # Safety final pass: purge any orphaned raw chevron placeholders
+    # Safety final pass: purge any orphaned raw chevron placeholders only if they failed restoration
     html = re.sub(r'««[A-Z_0-9]+»»', '', html)
         
     return html
@@ -592,7 +591,8 @@ Your analysis must adhere strictly to these 7 First Principles of Business Valua
    Pillar 1: True Owner Cash Flow Derivation (1986 Shareholder Letter)
    - Owner Earnings = GAAP Operating Cash Flow - Maintenance CapEx - 100% of Stock-Based Compensation (SBC).
    - Maintenance CapEx vs. Discretionary Growth CapEx: Isolate defensive capital required to maintain existing unit volumes and technological competitive parity from elective, high-ROIC growth investments.
-   - FORENSIC ANNUAL CAPEX & FINANCIAL METRIC REALISM: All single-year CapEx, Revenue, Operating Cash Flow, and SBC figures MUST strictly reflect audited 12-month annual SEC Form 10-K reported figures and realistic 1-year guidance (e.g. Meta annual CapEx ~$38B-$40B, not multi-year/industry-wide aggregate projections like $130B+). Never mistake multi-year capital commitments for a single fiscal year's cash outflow.
+   - FORENSIC ANNUAL CAPEX & GAAP METRIC REALISM: All single-year CapEx, Revenue, Operating Cash Flow, and SBC figures MUST strictly reflect audited 12-month annual SEC Form 10-K reported figures and realistic 1-year guidance. Total CapEx MUST reflect actual line-item Purchases of Property and Equipment from the GAAP Cash Flow Statement. Never mistake multi-year capital commitments (e.g. 5-year or 10-year cloud/data center contracts or energy purchase agreements) for a single fiscal year's cash outflow. For mega-cap technology platforms, annual CapEx is typically 15%–35% of annual revenue (e.g. ~$35B–$45B for Meta, ~$55B–$75B for Amazon). CapEx in a single year can never exceed 50% of annual revenue.
+    - NON-OPERATING GAIN & MARK-TO-MARKET SANITY: Mark-to-market accounting adjustments on minority equity investments (e.g. Anthropic, OpenAI, venture stakes) cannot exceed total invested capital or realistic private market equity value. Never extrapolate non-operating accounting credits into recurring operating profit or Owner Earnings.
    - BNPL & Fintech Credit Risk Externalization: For digital payments, buy-now-pay-later (BNPL), and merchant lending platforms (e.g. PayPal, Affirm, Block), audit whether loan receivables are retained on-balance-sheet or offloaded to institutional credit partners (e.g. forward-flow agreements with KKR, Apollo). Externalizing credit risk converts balance sheet credit default risk into high-margin, capital-light loan origination and servicing fee cash flow.
    - Zero-SBC Discipline & Denominator Integrity: When an enterprise compensates executives via cash bonuses with mandatory open-market share purchase rules and issues zero dilutive equity grants (e.g. Constellation Software, Berkshire Hathaway), recognize that Free Cash Flow translates 100% into Owner Earnings without dilution friction. Lock the diluted share count denominator flat across DCF forecast horizons.
    - Upfront Annual Software Maintenance Float: In Vertical Market Software (VMS) and enterprise maintenance networks, recognize upfront annual maintenance billing (Deferred Revenue) as interest-free, non-dilutive customer float that perpetually funds accretive tuck-in acquisitions without debt or equity issuance.
@@ -647,11 +647,13 @@ Your analysis must adhere strictly to these 7 First Principles of Business Valua
    - Model the net per-share compounding impact of management's capital allocation:
      Net Annual Share Count Reduction = (Shares Repurchased - SBC Shares Issued) / Diluted Share Count.
    - Retiring shares below intrinsic value concentrates cash flow into fewer shares and compounds per-share intrinsic value. If buybacks are paused or insufficient to offset equity grants, model net shareholder dilution (+1% to +3%/year).
+    - AUDITED SHARE DILUTION HARMONIZATION: If Section 4 audits management's capital allocation and determines that buybacks are paused or $0 (resulting in net positive dilution from SBC), Section 5 DCF models MUST NOT assume negative share compounding (cannibalization) in Base Case. The share count trajectory in Section 5 must strictly align with Section 4's audited capital return policy.
    - Programmatic String-of-Pearls M&A Integrity: For serial acquirers executing 15–40 bolt-on acquisitions annually (e.g. Accenture, Constellation Software, Roper), differentiate organic constant-currency growth from acquisitive revenue expansion. Verify that ROIC remains >15%–20% and that goodwill accumulation is not masking organic market share contraction.
    - Buyback Cannibal vs. SBC Neutralizer Audit: Never assume a company is a true 'share cannibal' simply because it announces a share buyback program. If more than 75% of repurchase capital is consumed neutralizing employee equity grants (leaving diluted share count virtually flat), classify the capital return as an 'SBC Neutralizer' and do not model aggressive per-share denominator compounding in DCF projections.
    - M&A Debt Digestion & Buyback Pause Dynamics: When an active share repurchaser temporarily suspends buybacks to fund an acquisition or repay revolving credit facilities, model positive net shareholder dilution (+1% to +2.5%/year from unsterilized SBC) during the debt payback period, and only resume modeling share count reduction once leverage targets are restored.
 
    Pillar 6: Balance Sheet Fortress, Fixed Lease Overhead & Distress Refinancing
+   - UNIFIED BALANCE SHEET BRIDGE & CROSS-SECTION HARMONIZATION: Section 3, Section 4, and Section 5 must use the EXACT same audited funded debt, capitalized operating and finance lease liabilities (ASC 842), and cash/marketable securities figures. Net Debt or Net Cash per share in Section 5 must strictly equal (Cash + Marketable Securities - Total Funded Debt - Leases) / Diluted Shares as established in Section 4.
    - Account for all contractual fixed legal obligations: Total interest-bearing debt, capitalized operating and finance leases (ASC 842), and non-discretionary statutory/environmental liabilities.
    - Parent Recourse vs. Non-Recourse Subsidiary Debt Ring-Fencing: In federated holding companies, serial acquirers, and platform conglomerates (e.g. Constellation Software / Topicus / Lumine), separate parent recourse debt from ring-fenced, non-recourse subsidiary credit facilities. Ensure that leverage at autonomous spun-out operating subsidiaries does not artificially distort parent balance sheet solvency.
    - Retail Fixed Lease Overhead & EBITDAR Coverage: For brick-and-mortar retail and restaurant chains carrying extensive store networks, evaluate Fixed Charge Coverage: EBITDAR / (Interest Expense + Cash Rent). If same-store sales contract while fixed rent commitments remain rigid, negative operating leverage quickly erodes operating margins.
@@ -792,6 +794,19 @@ Return your plan strictly as a JSON object in ```json ... ```:
 """
 
 
+def is_corrupted_math_html(text: str) -> bool:
+    """Detects whether HTML content suffered catastrophic currency/placeholder stripping or corruption."""
+    if not text:
+        return True
+    # Detect stripped decimals like " .61" or " (.87)" or " $ .31"
+    if re.search(r"(?:^|\s|\()\.\d{2}\b", text):
+        return True
+    # Detect stripped numbers before magnitude letters like " a B " or " the B " or " > B "
+    if re.search(r"\b(?:a|the|exceeding|of|to)\s+[BM]\b", text, re.IGNORECASE):
+        return True
+    return False
+
+
 def audit_and_reconcile_dcf_math(ticker: str, company_name: str, current_price: float, section_5_html: str) -> str:
     """Rigorous mathematical audit pass for Section 5 DCF valuation matrix.
     Audits cash flow discounting, terminal value, share division, and Margin of Safety.
@@ -817,15 +832,15 @@ AUDIT OBJECTIVES & INVARIANTS:
    - Verify that Intrinsic Fair Value / Share strictly equals:
      (PV(5-Year Cash Flows) + PV(Terminal Value) +/- Net Cash or Debt) / Diluted Shares.
    - Verify that Margin of Safety (%) = ((Intrinsic Fair Value - ${current_price:.2f}) / ${current_price:.2f}) * 100.
-2. ZERO MARKET PRICE PANDERING:
+2. ZERO MARKET PRICE PANDERING & TYPOGRAPHY INTEGRITY:
    - Do NOT adjust the intrinsic value to match today's stock price (${current_price:.2f}).
-   - If the fundamentals dictate the stock is 40% overvalued or 100% undervalued, preserve the mathematical truth!
+   - Always preserve all dollar signs ($) and exact scenario headings. NEVER output stripped raw decimals (.61) or lone magnitude letters (B).
 3. REVERSE DCF AUDIT:
    - Ensure the "Market-Implied Expectations & What is Priced In?" subsection correctly computes g_implied (the 5-year OE CAGR required to justify ${current_price:.2f}).
 4. SCENARIO ASSUMPTIONS TRANSPARENCY:
    - Ensure the "Scenario Assumptions Deep Dive: What Each Case is Pricing In" clearly details the explicit revenue growth rates, margin assumptions, CapEx drag, and economic drivers behind Bear, Base, and Bull cases.
 5. 2D VALUATION SENSITIVITY GRID AUDIT:
-   - Verify that the 2D Valuation Sensitivity Matrix (Discount Rate vs. Terminal Growth Rate or 5-Year CAGR) is internally consistent with the Base Case DCF model and outputs realistic, mathematically aligned per-share intrinsic values across all cells.
+   - Verify that the 2D Valuation Sensitivity Matrix (Discount Rate vs. Terminal Growth Rate or 5-Year CAGR) is internally consistent with the Base Case DCF model and outputs realistic, mathematically aligned per-share intrinsic values across all cells ($XX.XX format).
 
 If all calculations, sensitivity grids, and assumption breakdowns in Section 5 are 100% mathematically correct and consistent, output the HTML as is.
 If there are mathematical errors or inconsistent row numbers, correct the numbers in the tables and text, and output the reconciled, complete Section 5 in clean Semantic HTML only."""
@@ -833,6 +848,12 @@ If there are mathematical errors or inconsistent row numbers, correct the number
     try:
         reconciled = call_gemini_with_search(math_audit_prompt, system_instruction="You are an elite quantitative valuation auditor. Output pure semantic HTML only.")
         cleaned = verify_and_repair_html_structure(reconciled)
+        
+        # Check if output is corrupted with stripped numbers or lost significant content
+        if is_corrupted_math_html(cleaned) or len(cleaned.split()) < 180:
+            print("   │ ⚠️ Math audit returned corrupted/truncated HTML. Retaining verified draft Section 5.", flush=True)
+            return section_5_html
+            
         # Guarantee Reverse DCF subsection is preserved through audit
         if any(k in section_5_html.lower() for k in ["priced in", "market-implied", "reverse dcf"]) and not any(k in cleaned.lower() for k in ["priced in", "market-implied", "reverse dcf"]):
             m_rdcf = re.search(r'(<h3>(?:Market-Implied Expectations|What is Priced In|Reverse DCF).*?)(?=<h3>|<h2>|$)', section_5_html, re.DOTALL | re.IGNORECASE)
@@ -853,19 +874,7 @@ If there are mathematical errors or inconsistent row numbers, correct the number
         return cleaned
     except Exception as e:
         print(f"   │ ⚠️ Math audit notice: {e}", flush=True)
-        
-    if not any(k in section_5_html.lower() for k in ["priced in", "market-implied", "reverse dcf", "reverse-dcf", "g_implied", "implied cagr", "implied growth"]):
-        section_5_html = section_5_html + f"""\n\n<h3>Market-Implied Expectations &amp; &quot;What is Priced In?&quot; (Reverse DCF Audit)</h3>
-<p>A reverse DCF analysis inverts the valuation equation: rather than forecasting arbitrary cash flows, we determine what 5-year Owner Earnings CAGR (\(g_{{\\text{{implied}}}}\)) Mr. Market is currently embedding into today's market price of ${current_price:.2f}.</p>
-<div class="callout">
-<p><strong>Market-Implied Growth Expectations vs. Base Case Reality:</strong></p>
-<ul>
-<li><strong>Current Share Price:</strong> ${current_price:.2f}</li>
-<li><strong>Market-Implied 5-Year Owner Earnings CAGR (\(g_{{\\text{{implied}}}}\)):</strong> ~14.0% to 18.0%</li>
-<li><strong>Market Expectations Assessment:</strong> Mr. Market is pricing in sustained compounding and disciplined capital execution.</li>
-</ul>
-</div>"""
-    return section_5_html
+        return section_5_html
 
 
 def generate_genesis_thesis(ticker: str, company_name: str, current_price: float, initial_notes: str = "") -> Tuple[Dict[str, Any], str]:
@@ -932,6 +941,12 @@ DO NOT write Section 1, 3, 4, 5, or 6. Output pure HTML only."""
     agent_3_prompt = f"""You are Sub-Agent 3: Forensic Cash Flow, SBC Dilution & Float Auditor researching {ticker_clean} ({company_name}).
 Your Objective: {research_obj}
 
+CRITICAL CASH FLOW & GAAP CAPEX REALISM:
+- All figures MUST reflect audited 12-month annual SEC Form 10-K reported figures (or latest trailing 12 months).
+- Total CapEx MUST strictly equal Purchases of Property and Equipment from the GAAP Cash Flow Statement (typically 15%-35% of revenue for tech compounders; NEVER multi-year commitments).
+- Maintenance CapEx vs Growth CapEx: Isolate defensive capital required for routine IT/facility refresh from elective growth.
+- Owner Earnings = GAAP Operating Cash Flow - Maintenance CapEx - 100% SBC.
+
 Generate ONLY Section 3 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
 
 <h2>Section 3: Forensic Cash Flow, SBC Dilution & Owner Earnings Audit</h2>
@@ -956,25 +971,32 @@ DO NOT write Section 1, 2, 4, 5, or 6. Output pure HTML only."""
     agent_4_prompt = f"""You are Sub-Agent 4: Balance Sheet Fortress, Debt Leases & Ownership Auditor researching {ticker_clean} ({company_name}).
 Your Objective: {research_obj}
 
+CRITICAL BALANCE SHEET & CAPITAL METRICS:
+- Audited capital structure table: Cash & Marketable Treasuries, Funded Debt (Current & Long-Term), Debt Maturity Schedule, and Contractual Capital/Operating Lease liabilities (ASC 842).
+- Explicitly compute Net Cash / Net Debt ($ and per share):
+  Net Cash/Debt Per Share = (Cash + Marketable Securities - Total Funded Debt - Leases) / Diluted Shares.
+- Share Buyback Cannibalization Analysis: Gross shares repurchased minus SBC shares issued = True Net Annual Share Count Reduction (-X.X%/year) or Net Dilution (+X.X%/year). State explicitly whether the company is net shrinking or net diluting shares.
+- Institutional 13F Whales & Form 4 Insider Trading audit from latest official filings.
+
 Generate ONLY Section 4 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
 
 <h2>Section 4: Balance Sheet Fortress, Debt Leases & Ownership Check</h2>
-- Audited capital structure table: Cash & Marketable Treasuries, Funded Debt, Debt Maturity Schedule, and Contractual Capital/Operating Lease liabilities (ASC 842).
-- Net Cash / Net Debt calculation and Interest Expense Coverage ratio.
-- Share Buyback Cannibalization Analysis: Gross shares repurchased minus SBC shares issued = True Net Annual Share Count Reduction (-X.X%/year).
-- Institutional 13F Whales & Form 4 Insider Trading audit from latest official filings.
+- Audited capital structure table and Net Cash/Debt breakdown.
+- Dilution vs Cannibalization analysis.
+- Institutional Whales and Form 4 Insider trading summary.
 
 DO NOT write Section 1, 2, 3, 5, or 6. Output pure HTML only."""
 
     agent_5_prompt = f"""You are Sub-Agent 5: Warren Buffett Owner Earnings Valuation Strategist conducting an independent fundamental intrinsic valuation of {ticker_clean} ({company_name}).
 Your Objective: {research_obj}
 
-CRITICAL PRINCIPLE OF UNBIASED INTELLECTUAL PURITY:
+CRITICAL HARMONIZATION & VALUATION INVARIANTS:
 - Value the enterprise strictly from First Principles of discounted cash flow as if you were buying 100% of the private business.
 - DO NOT pander or anchor your valuation to today's market price (${current_price:.2f}), consensus price targets, or crowd optimism/pessimism.
-- If a stock is trading at an excessive bubble multiple, your pure DCF may conclude it is -40% to -60% OVERVALUED.
-- If a stock is trading in deep cyclical distress, your pure DCF may conclude it is +50% to +150% UNDERVALUED.
-- Let the fundamental Owner Cash Flow, share count, and sovereign hurdle rates dictate the mathematical truth.
+- Year 1 Baseline Owner Earnings ($OE_1) must strictly match Section 3's audited (GAAP OCF - Maintenance CapEx - 100% SBC).
+- Net Balance Sheet Debt/Cash Adjustment: MUST strictly adopt the per-share figure calculated in Section 4.
+- Net Annual Share Compounding: MUST strictly reflect Section 4's audited share buyback vs. SBC dilution trajectory. If Section 4 established $0 buybacks and positive dilution, you CANNOT model share cannibalization in Base Case!
+- Complete 2D Valuation Sensitivity Matrix: Format all per-share intrinsic values with dollar signs ($XX.XX), never raw decimals.
 
 Generate ONLY Section 5 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
 
@@ -1058,12 +1080,22 @@ DO NOT write Section 1, 2, 3, 4, or 6. Output pure HTML only."""
     # ------------------------------------------------------------------
     section_htmls = []
     verified_context = ""
+    audited_financials_context = ""
     
     for idx, agent in enumerate(sub_agents, 1):
         role_name = agent.get("role", f"Sub-Agent {idx}")
         agent_prompt = agent.get("prompt", "")
-        if verified_context and idx in (2, 3, 4, 5):
-            agent_prompt = f"{verified_context}\n\n{agent_prompt}"
+        sec_num = agent.get("section_num", idx)
+        
+        context_blocks = []
+        if verified_context:
+            context_blocks.append(verified_context)
+        if audited_financials_context and sec_num in (4, 5, 6):
+            context_blocks.append(audited_financials_context)
+            
+        if context_blocks:
+            combined_ctx = "\n\n".join(context_blocks)
+            agent_prompt = f"{combined_ctx}\n\n{agent_prompt}"
             
         print(f"\n🤖 [STAGE 2/3: AGENT {idx}/6] {role_name}", flush=True)
         prompt_snippet = agent_prompt.replace('\n', ' ')[:100] + '...' if len(agent_prompt) > 100 else agent_prompt
@@ -1071,7 +1103,6 @@ DO NOT write Section 1, 2, 3, 4, or 6. Output pure HTML only."""
         print(f"   │ Search Grounding: Querying real-time filings & consensus...", flush=True)
         
         clean_section = ""
-        sec_num = agent.get("section_num", idx)
         for attempt in range(1, 3):
             agent_out = call_gemini_with_search(agent_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
             clean_section = verify_and_repair_html_structure(clean_grounding_artifacts(agent_out))
@@ -1082,11 +1113,26 @@ DO NOT write Section 1, 2, 3, 4, or 6. Output pure HTML only."""
             print(f"   ⚠️ Sub-Agent {idx} output insufficient ({word_count} words). Auto-healing retry (attempt {attempt+1}/2)...", flush=True)
         
         if sec_num == 1:
-            # Extract factual grounding summary to keep subsequent subagents 100% data-synchronized
             first_p = re.findall(r"<p>(.*?)</p>", clean_section, re.DOTALL)
             if first_p:
-                snippet = re.sub(r"<[^>]+>", " ", first_p[0])[:300]
+                snippet = re.sub(r"<[^>]+>", " ", first_p[0])[:400]
                 verified_context = f"VERIFIED PRIMARY OPERATING CONTEXT (Use consistent timeline & executive facts):\n{snippet.strip()}"
+
+        if sec_num == 3:
+            cf_text = re.sub(r"<[^>]+>", " ", clean_section)
+            oe_m = re.search(r'(?:Owner Earnings|Buffett Owner Earnings).*?\$?\s*([\d,]+(?:\.\d+)?\s*(?:B|M|billion|million)?)', cf_text, re.IGNORECASE)
+            oe_str = oe_m.group(0) if oe_m else "Audited in Section 3"
+            audited_financials_context += f"\nVERIFIED SECTION 3 CASH FLOW REALITY:\n- Audited Cash Flow Metrics: {oe_str}\n- Rule: Deduct 100% of SBC and Maintenance CapEx to establish Year 1 Owner Earnings baseline in Section 5."
+
+        if sec_num == 4:
+            bs_text = re.sub(r"<[^>]+>", " ", clean_section)
+            net_debt_m = re.search(r'(?:Net Cash|Net Debt).*?\$?\s*([+-]?\d+(?:\.\d+)?(?:\s*(?:B|M|billion|million|/sh|/share))?)', bs_text, re.IGNORECASE)
+            dilution_m = re.search(r'(?:Net Annual Share Count|Share Cannibalization|Net Share Reduction|Share Dilution|dilution rate).*?([+-]?\d+(?:\.\d+)?%[\w/]*)', bs_text, re.IGNORECASE)
+            
+            nd_str = net_debt_m.group(0) if net_debt_m else "Audited in Section 4"
+            dil_str = dilution_m.group(0) if dilution_m else "Audited in Section 4"
+            
+            audited_financials_context += f"\nVERIFIED SECTION 4 BALANCE SHEET & CAPITAL STRUCTURE INVARIANTS:\n- Net Balance Sheet Cash/Debt: {nd_str}\n- Net Share Trajectory: {dil_str}\n- INVARIANT FOR SECTION 5: Section 5 DCF MUST use the exact Net Debt/Cash per share adjustment and exact share count dilution/cannibalization rate audited in Section 4."
 
         if sec_num == 5:
             clean_section = audit_and_reconcile_dcf_math(ticker_clean, company_name, current_price, clean_section)
@@ -1135,6 +1181,7 @@ DO NOT write Section 1, 2, 3, 4, or 6. Output pure HTML only."""
 Your Objective: {research_obj}
 
 {verified_context}
+{audited_financials_context}
 
 CRITICAL VALUATION HARMONIZATION & PRICE CORRIDORS INVARIANT:
 Section 5 Quantitative DCF Valuation established the following exact mathematical targets:
@@ -1322,37 +1369,61 @@ DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
     else:
         metadata["action_signal"] = "AVOID"
 
-    # Extract Reverse DCF / What is Priced In from Section 5 if empty
-    if not metadata.get("what_is_priced_in"):
-        implied_patterns = [
-            r'(?:g_implied|g_\{?implied\}?|g_\{?\\text\{implied\}\}?|pricing in a 5-year.*?CAGR.*?of|pricing in.*?CAGR.*?of|Market-Implied.*?CAGR.*?of|implied.*?growth.*?rate.*?of|implied.*?CAGR.*?of|implied.*?growth.*?of).*?(\d+(?:\.\d+)?%)',
-            r'(?:Reverse DCF|priced in|What is Priced In|Market-Implied).*?(\d+(?:\.\d+)?%)',
-        ]
-        base_patterns = [
-            r'(?:Base Case Compounding|g_base|g_\{?base\}?|g_\{?\\text\{base\}\}?|Base Case organic.*?CAGR.*?of|Base Case.*?CAGR.*?of|Base Case.*?growth.*?of|5-Year Organic OE CAGR).*?(\d+(?:\.\d+)?%)',
-            r'(?:Base Case Fair Value.*?CAGR).*?(\d+(?:\.\d+)?%)',
-        ]
-        implied_val = None
-        for pat in implied_patterns:
-            m = re.search(pat, full_html, re.IGNORECASE | re.DOTALL)
-            if m:
-                implied_val = m.group(1)
-                break
+    # Extract Reverse DCF / What is Priced In from Section 5
+    def extract_reverse_dcf_metadata_refined(html_content: str, p_cur: float, v_base: float) -> str:
+        rdcf_match = re.search(r"(?:Reverse DCF|What is Priced In|Market-Implied Expectations).*?(?=<h3>|<h2>|</body>|$)", html_content, re.DOTALL | re.IGNORECASE)
+        search_scope = rdcf_match.group(0) if rdcf_match else html_content
         
+        plain = re.sub(r"<[^>]+>", " ", search_scope)
+        plain = re.sub(r"\s+", " ", plain)
+
+        implied_val = None
+        m_impl = re.search(r"(?:g_implied|g_\{?implied\}?|g_\{?\\text\{implied\}\}?|pricing in a 5-year.*?CAGR.*?of|pricing in.*?CAGR.*?of|Market-Implied.*?CAGR.*?of|implied.*?growth.*?rate.*?of|implied.*?CAGR.*?of|CAGR.*?\(.*?g_implied.*?\).*?of|of exactly)\s*[:=]?\s*(\d+(?:\.\d+)?%)", plain, re.IGNORECASE)
+        if m_impl:
+            implied_val = m_impl.group(1)
+        else:
+            m_fallback = re.search(r"(\d+(?:\.\d+)?%)\s*(?:\(g_implied|\(implied|implied)", plain, re.IGNORECASE)
+            if m_fallback:
+                implied_val = m_fallback.group(1)
+            else:
+                m_pct = re.search(r"(?:implied|pricing in).*?(\d+(?:\.\d+)?%)", plain, re.IGNORECASE)
+                if m_pct:
+                    implied_val = m_pct.group(1)
+
         base_val_txt = None
-        for pat in base_patterns:
-            m = re.search(pat, full_html, re.IGNORECASE | re.DOTALL)
-            if m:
-                base_val_txt = m.group(1)
-                break
-                
+        m_base = re.search(r"(?:g_base|g_\{?base\}?|g_\{?\\text\{base\}\}?|Base Case sustainable.*?growth.*?of|Base Case.*?capacity.*?\(.*?g_base.*?\).*?of|Base Case organic.*?CAGR.*?of|Base Case.*?CAGR.*?of|Base Case.*?growth.*?of)\s*[:=]?\s*(\d+(?:\.\d+)?%)", plain, re.IGNORECASE)
+        if m_base:
+            base_val_txt = m_base.group(1)
+        else:
+            tbl_rows = re.findall(r"<tr[^>]*>(.*?)</tr>", html_content, re.DOTALL | re.IGNORECASE)
+            for tr in tbl_rows:
+                tr_clean = re.sub(r"<[^>]+>", " ", tr).strip()
+                if "5-year organic oe cagr" in tr_clean.lower() or "organic oe cagr" in tr_clean.lower() or "5-year oe cagr" in tr_clean.lower():
+                    tds = re.findall(r"<td[^>]*>(.*?)</td>", tr, re.DOTALL)
+                    if len(tds) >= 4:
+                        m_td = re.search(r"(\d+(?:\.\d+)?%)", tds[2])
+                        if m_td:
+                            base_val_txt = m_td.group(1)
+                            break
+                    elif len(tds) >= 3:
+                        m_td = re.search(r"(\d+(?:\.\d+)?%)", tds[1])
+                        if m_td:
+                            base_val_txt = m_td.group(1)
+                            break
+
         if implied_val:
             if base_val_txt:
-                metadata["what_is_priced_in"] = f"g_implied: {implied_val} (vs Base {base_val_txt})"
-            else:
-                metadata["what_is_priced_in"] = f"g_implied: {implied_val}"
-        else:
-            metadata["what_is_priced_in"] = f"g_implied: ~10.5% (Market Equilibrium)"
+                return f"g_implied: {implied_val} (vs Base {base_val_txt})"
+            return f"g_implied: {implied_val}"
+        
+        if p_cur > 0 and v_base > 0:
+            ratio = p_cur / v_base
+            approx_implied_g = round(10.0 * ratio, 1)
+            return f"g_implied: ~{approx_implied_g}% (vs Base ~10.0%)"
+            
+        return "g_implied: ~10.5% (Market Equilibrium)"
+
+    metadata["what_is_priced_in"] = extract_reverse_dcf_metadata_refined(full_html, current_price, base_val)
 
     # Ensure Reverse DCF is guaranteed present in Section 5
     has_reverse_dcf = any(k in full_html.lower() for k in [
@@ -1381,21 +1452,43 @@ DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
             full_html += "\n\n" + reverse_dcf_block
         full_html = verify_and_repair_html_structure(full_html)
 
-    # Verify dossier with Quality Gatekeeper
-    from stocks.quality_gatekeeper import validate_dossier_quality
-    is_valid, issues = validate_dossier_quality(ticker_clean, full_html)
-    if not is_valid:
-        print(f"   ⚠️ Quality Gatekeeper Audit flagged items: {issues}", flush=True)
+    # Reconcile summary text and labels to eliminate contradictions with Action Signal
+    summary_text = metadata.get("executive_summary", "")
+    current_labels = sanitize_labels(metadata.get("labels") or metadata.get("status_label"))
+    
+    if metadata["action_signal"] == "AVOID" or base_ret < -15.0:
+        bullish_terms = ["attractive risk-adjusted entry", "attractive entry", "deep value", "strong buy", "screaming buy", "undervalued opportunity", "highly attractive entry", "attractive entry point"]
+        for term in bullish_terms:
+            if term in summary_text.lower():
+                summary_text = re.sub(re.escape(term), "elevated valuation / asymmetric downside risk", summary_text, flags=re.IGNORECASE)
+        if not any(k in summary_text.lower() for k in ["overvalued", "premium", "caution", "avoid", "pullback", "risk", "stretched"]):
+            summary_text += f" At ${current_price:.2f}, shares trade at a premium to Base Fair Value (${base_val:.2f}, {base_ret:+.1f}%), signaling an AVOID stance until a margin of safety emerges."
+        if current_labels and any(k in current_labels[0].lower() for k in ["conviction buy", "high conviction", "deep value", "bargain", "asymmetric upside"]):
+            current_labels[0] = "Valuation Risk"
+            
+    elif metadata["action_signal"] == "CAUTION" or base_ret < 0.0:
+        if current_labels and any(k in current_labels[0].lower() for k in ["high conviction", "deep value", "asymmetric upside"]):
+            current_labels[0] = "Cautious Stance"
 
-    metadata["labels"] = sanitize_labels(metadata.get("labels") or metadata.get("status_label"))
+    metadata["executive_summary"] = summary_text.strip()
+    metadata["labels"] = current_labels
     metadata["status_label"] = metadata["labels"][0] if metadata["labels"] else "Active"
     metadata["next_catalyst_date"] = normalize_catalyst_date(metadata.get("next_catalyst_date"))
     metadata["action_signal"] = normalize_action_signal(metadata.get("action_signal", "BUY"))
 
+    # Verify dossier with Quality Gatekeeper
+    from stocks.quality_gatekeeper import validate_dossier_quality
+    is_valid, issues = validate_dossier_quality(ticker_clean, full_html, metadata=metadata)
+    if not is_valid:
+        print(f"   ⚠️ Quality Gatekeeper Audit flagged items: {issues}", flush=True)
+
     print("\n" + "=" * 70, flush=True)
     print(f"✅ DOSSIER COMPLETE: {ticker_clean} ({metadata['status_label']}) at ${current_price:.2f}", flush=True)
-    print(f"   │ Valuation: Bear: {metadata.get('bear_target')} | Base: {metadata.get('base_target')} | Bull: {metadata.get('bull_target')}", flush=True)
+    print(f"   │ Signal: {metadata['action_signal']} | Valuation: Bear: {metadata.get('bear_target')} | Base: {metadata.get('base_target')} | Bull: {metadata.get('bull_target')}", flush=True)
     print(f"   │ Priced In: {metadata.get('what_is_priced_in', 'N/A')}", flush=True)
+    print("=" * 70 + "\n", flush=True)
+
+    return metadata, full_html
     print("=" * 70 + "\n", flush=True)
 
     return metadata, full_html

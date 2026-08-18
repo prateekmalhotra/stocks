@@ -119,11 +119,12 @@ def _handle_genesis_task(ticker: str, notes: str):
         lower_alert_threshold=safe_float(meta.get("lower_alert_threshold"), None),
         next_catalyst_date=normalize_catalyst_date(meta.get("next_catalyst_date", "")),
         next_catalyst_event=meta.get("next_catalyst_event", ""),
+        trigger_reason="Genesis Initial Underwriting",
+        what_is_priced_in=meta.get("what_is_priced_in", ""),
         top_funds=top_funds,
         institutional_ownership_pct=inst_pct,
         insider_signal=insider_signal,
         insider_summary=insider_summary,
-        trigger_reason="Genesis Initial Underwriting",
         full_html_content=html_content
     )
 
@@ -134,7 +135,7 @@ def _handle_genesis_task(ticker: str, notes: str):
 
     # 2. QUALITY GATEKEEPER CHECK: Ensure dossier passes institutional quality pillars
     from stocks.quality_gatekeeper import validate_dossier_quality
-    is_valid, quality_issues = validate_dossier_quality(ticker, html_content)
+    is_valid, quality_issues = validate_dossier_quality(ticker, html_content, metadata=meta)
     if not is_valid:
         print(f"⚠️ [QUALITY GATE WARNING] {ticker} quality audit notification:", flush=True)
         for issue in quality_issues:
@@ -151,7 +152,7 @@ Output pure HTML only."""
             patch_out = verify_and_repair_html_structure(call_gemini_with_search(patch_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY))
             html_content = verify_and_repair_html_structure(html_content + "\n\n" + patch_out)
             version_1.full_html_content = html_content
-            is_valid_recheck, remaining_issues = validate_dossier_quality(ticker, html_content)
+            is_valid_recheck, remaining_issues = validate_dossier_quality(ticker, html_content, metadata=meta)
             if not is_valid_recheck:
                 # Only discard if catastrophic failure (< 1000 words or completely empty)
                 if len(html_content.split()) < 1000:
@@ -178,6 +179,7 @@ Output pure HTML only."""
         bear_target=version_1.bear_target,
         base_target=version_1.base_target,
         bull_target=version_1.bull_target,
+        what_is_priced_in=version_1.what_is_priced_in,
         upper_alert_threshold=version_1.upper_alert_threshold,
         lower_alert_threshold=version_1.lower_alert_threshold,
         next_catalyst_date=version_1.next_catalyst_date,
@@ -252,11 +254,12 @@ def _handle_review_task(ticker: str, trigger_reason: str):
         lower_alert_threshold=safe_float(meta.get("lower_alert_threshold") or meta.get("new_lower_alert_threshold"), None),
         next_catalyst_date=normalize_catalyst_date(meta.get("next_catalyst_date") or stock.next_catalyst_date),
         next_catalyst_event=meta.get("next_catalyst_event") or stock.next_catalyst_event,
+        trigger_reason=trigger_reason,
+        what_is_priced_in=meta.get("what_is_priced_in") or stock.what_is_priced_in or "",
         top_funds=top_funds,
         institutional_ownership_pct=inst_pct,
         insider_signal=insider_signal,
         insider_summary=insider_summary,
-        trigger_reason=trigger_reason,
         full_html_content=html_content
     )
     save_thesis_version(ticker, new_version)
@@ -271,6 +274,7 @@ def _handle_review_task(ticker: str, trigger_reason: str):
     stock.bear_target = new_version.bear_target
     stock.base_target = new_version.base_target
     stock.bull_target = new_version.bull_target
+    stock.what_is_priced_in = new_version.what_is_priced_in
     stock.upper_alert_threshold = new_version.upper_alert_threshold
     stock.lower_alert_threshold = new_version.lower_alert_threshold
     stock.next_catalyst_date = new_version.next_catalyst_date

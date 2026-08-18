@@ -7,12 +7,12 @@ the watchlist, saved to disk, or deployed to GitHub Pages.
 import re
 import sys
 from pathlib import Path
-from typing import Dict, List, Any, Tuple
+from typing import Dict, List, Any, Tuple, Optional
 
 THESES_DIR = Path(__file__).resolve().parent.parent / "data" / "theses"
 
-def validate_dossier_quality(ticker: str, html: str) -> Tuple[bool, List[str]]:
-    """Strictly audits a research dossier across 7 quality dimensions."""
+def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str, Any]] = None) -> Tuple[bool, List[str]]:
+    """Strictly audits a research dossier across institutional quality dimensions."""
     issues = []
     if not html or not isinstance(html, str):
         return False, ["HTML content is completely empty or not a string."]
@@ -105,6 +105,7 @@ def validate_dossier_quality(ticker: str, html: str) -> Tuple[bool, List[str]]:
     close_li = len(re.findall(r"</li>", html, re.IGNORECASE))
     if open_li != close_li:
         issues.append(f"Mismatched <li> tags ({open_li} opened vs {close_li} closed).")
+
     # 9. Dangling Truncated Tail Check
     trimmed = html.strip()
     if trimmed.endswith("<") or re.search(r"<[a-zA-Z0-9_-]+(?:\s+[^>]*)?$", trimmed):
@@ -151,6 +152,29 @@ def validate_dossier_quality(ticker: str, html: str) -> Tuple[bool, List[str]]:
     if re.search(r"««[A-Z_0-9]+»»", html) or "««" in html or "»»" in html:
         issues.append("Contains unexpanded tokenizer/LLM placeholder artifacts (e.g. ««CURRENCY...»» or ««INLINE_BLOCK...»»).")
 
+    # 12. Stripped Currency Decimals & Formatting Integrity Check
+    stripped_cents = re.findall(r"(?:^|\s|\()\.\d{2}\b", html)
+    if stripped_cents:
+        issues.append(f"Contains stripped currency numbers missing dollar signs or integer amounts ({stripped_cents[:3]}).")
+
+    orphaned_magnitude = re.findall(r"\b(?:a|the|exceeding|of|to)\s+[BM]\b", html, re.IGNORECASE)
+    if orphaned_magnitude:
+        issues.append(f"Contains corrupted magnitude words where numbers were stripped ({orphaned_magnitude[:3]}).")
+
+    # 13. Metadata Alignment & Signal Consistency Check
+    if metadata:
+        p_in = metadata.get("what_is_priced_in", "")
+        if not p_in or str(p_in).strip() in ("", "N/A"):
+            issues.append("Metadata field 'what_is_priced_in' is empty or unpopulated.")
+
+        act_signal = str(metadata.get("action_signal", "")).upper()
+        exec_summary = str(metadata.get("executive_summary", "")).lower()
+        if act_signal == "AVOID":
+            bullish_keywords = ["attractive entry", "attractive risk-adjusted entry", "deep value", "strong buy", "screaming buy", "undervalued opportunity"]
+            for bk in bullish_keywords:
+                if bk in exec_summary:
+                    issues.append(f"Signal Contradiction: Action signal is AVOID but executive summary contains '{bk}'.")
+
     return len(issues) == 0, issues
 
 
@@ -171,7 +195,7 @@ def audit_all_theses_directory() -> Tuple[int, int, List[Dict[str, Any]]]:
                 continue
             v = data[-1]
             html = v.get("full_html_content", "")
-            is_valid, issues = validate_dossier_quality(ticker, html)
+            is_valid, issues = validate_dossier_quality(ticker, html, metadata=v)
             
             # Check metadata fields completeness
             for req_field in ["bear_target", "base_target", "bull_target"]:
@@ -225,7 +249,7 @@ def main():
                     continue
                 v = data[-1]
                 html = v.get("full_html_content", "")
-                is_valid, issues = validate_dossier_quality(ticker, html)
+                is_valid, issues = validate_dossier_quality(ticker, html, metadata=v)
                 if is_valid:
                     passed_count += 1
                 else:
