@@ -86,6 +86,7 @@ def clean_grounding_artifacts(text: str) -> str:
         return ""
     cleaned = re.sub(r"\[(?:PerQueryResult|cite|source|citation)[^\]]*\]", "", text, flags=re.IGNORECASE)
     cleaned = re.sub(r"\[\s*\d+(?:\.\d+)*(?:\s*,\s*\d+(?:\.\d+)*)*\s*\]", "", cleaned)
+    cleaned = re.sub(r"««[A-Z_0-9]+»»", "", cleaned)
     
     # Strip any accidental meta references to historical analogies
     cleaned = re.sub(r"\b(?:Norbert\s+Lou(?:'s)?(?:\s+NVR)?|NVR\s+thesis|Columbia\s+(?:Business\s+School\s+)?(?:thesis|memo|paper))\b", "", cleaned, flags=re.IGNORECASE)
@@ -394,21 +395,34 @@ def normalize_latex_typography(html: str) -> str:
     naked_latex_pattern = rf'(?<![\w\\\(«])(?:{nested_braced_subscript}|{nested_braced_cmd})(?![\w\\\)»])'
     html = re.sub(naked_latex_pattern, wrap_naked_latex, html)
 
-    # Step 7: Restore currencies
-    for i, curr in enumerate(currencies):
-        html = html.replace(f"««CURRENCY_{i}»»", curr)
+    # Step 7: Multi-pass recursive restoration of all placeholders to prevent nested leaks
+    for _ in range(5):
+        changed = False
+        for i, curr in enumerate(currencies):
+            ph = f"««CURRENCY_{i}»»"
+            if ph in html:
+                html = html.replace(ph, curr)
+                changed = True
+        for i, inl in enumerate(inline_blocks):
+            ph = f"««INLINE_BLOCK_{i}»»"
+            if ph in html:
+                html = html.replace(ph, inl)
+                changed = True
+        for i, tag in enumerate(tags):
+            ph = f"««HTML_TAG_{i}»»"
+            if ph in html:
+                html = html.replace(ph, tag)
+                changed = True
+        for i, disp in enumerate(display_blocks):
+            ph = f"««DISPLAY_BLOCK_{i}»»"
+            if ph in html:
+                html = html.replace(ph, disp)
+                changed = True
+        if not changed or "««" not in html:
+            break
 
-    # Step 8: Restore inline blocks
-    for i, inl in enumerate(inline_blocks):
-        html = html.replace(f"««INLINE_BLOCK_{i}»»", inl)
-
-    # Step 9: Restore HTML tags
-    for i, tag in enumerate(tags):
-        html = html.replace(f"««HTML_TAG_{i}»»", tag)
-
-    # Step 10: Restore display blocks
-    for i, disp in enumerate(display_blocks):
-        html = html.replace(f"««DISPLAY_BLOCK_{i}»»", disp)
+    # Safety final pass: purge any orphaned raw chevron placeholders
+    html = re.sub(r'««[A-Z_0-9]+»»', '', html)
         
     return html
 
@@ -568,6 +582,7 @@ Your analysis must adhere strictly to these 7 First Principles of Business Valua
    Pillar 1: True Owner Cash Flow Derivation (1986 Shareholder Letter)
    - Owner Earnings = GAAP Operating Cash Flow - Maintenance CapEx - 100% of Stock-Based Compensation (SBC).
    - Maintenance CapEx vs. Discretionary Growth CapEx: Isolate defensive capital required to maintain existing unit volumes and technological competitive parity from elective, high-ROIC growth investments.
+   - FORENSIC ANNUAL CAPEX & FINANCIAL METRIC REALISM: All single-year CapEx, Revenue, Operating Cash Flow, and SBC figures MUST strictly reflect audited 12-month annual SEC Form 10-K reported figures and realistic 1-year guidance (e.g. Meta annual CapEx ~$38B-$40B, not multi-year/industry-wide aggregate projections like $130B+). Never mistake multi-year capital commitments for a single fiscal year's cash outflow.
    - BNPL & Fintech Credit Risk Externalization: For digital payments, buy-now-pay-later (BNPL), and merchant lending platforms (e.g. PayPal, Affirm, Block), audit whether loan receivables are retained on-balance-sheet or offloaded to institutional credit partners (e.g. forward-flow agreements with KKR, Apollo). Externalizing credit risk converts balance sheet credit default risk into high-margin, capital-light loan origination and servicing fee cash flow.
    - Zero-SBC Discipline & Denominator Integrity: When an enterprise compensates executives via cash bonuses with mandatory open-market share purchase rules and issues zero dilutive equity grants (e.g. Constellation Software, Berkshire Hathaway), recognize that Free Cash Flow translates 100% into Owner Earnings without dilution friction. Lock the diluted share count denominator flat across DCF forecast horizons.
    - Upfront Annual Software Maintenance Float: In Vertical Market Software (VMS) and enterprise maintenance networks, recognize upfront annual maintenance billing (Deferred Revenue) as interest-free, non-dilutive customer float that perpetually funds accretive tuck-in acquisitions without debt or equity issuance.
@@ -1239,12 +1254,39 @@ DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
 
     # Extract Reverse DCF / What is Priced In from Section 5 if empty
     if not metadata.get("what_is_priced_in"):
-        implied_match = re.search(r'(?:Market-Implied 5-Yr|g_implied|g_\{\\text\{implied\}\}|g_\{implied\}).*?(\d+(?:\.\d+)?%)', full_html, re.IGNORECASE)
-        base_match = re.search(r'(?:Base Case Compounding|g_base|g_\{\\text\{base\}\}|g_\{base\}).*?(\d+(?:\.\d+)?%)', full_html, re.IGNORECASE)
-        if implied_match:
-            implied_val = implied_match.group(1)
-            base_val_txt = base_match.group(1) if base_match else "Base Case"
-            metadata["what_is_priced_in"] = f"g_implied: {implied_val} (vs Base Case {base_val_txt})"
+        implied_patterns = [
+            r'(?:g_implied|g_\{?implied\}?|g_\{?\\text\{implied\}\}?|pricing in a 5-year.*?CAGR.*?of|pricing in.*?CAGR.*?of|Market-Implied.*?CAGR.*?of|implied.*?growth.*?rate.*?of|implied.*?CAGR.*?of|implied.*?growth.*?of).*?(\d+(?:\.\d+)?%)',
+            r'(?:Reverse DCF|priced in|What is Priced In).*?(\d+(?:\.\d+)?%)',
+        ]
+        base_patterns = [
+            r'(?:Base Case Compounding|g_base|g_\{?base\}?|g_\{?\\text\{base\}\}?|Base Case organic.*?CAGR.*?of|Base Case.*?CAGR.*?of|Base Case.*?growth.*?of|5-Year Organic OE CAGR).*?(\d+(?:\.\d+)?%)',
+            r'(?:Base Case Fair Value.*?CAGR).*?(\d+(?:\.\d+)?%)',
+        ]
+        implied_val = None
+        for pat in implied_patterns:
+            m = re.search(pat, full_html, re.IGNORECASE | re.DOTALL)
+            if m:
+                implied_val = m.group(1)
+                break
+        
+        base_val_txt = None
+        for pat in base_patterns:
+            m = re.search(pat, full_html, re.IGNORECASE | re.DOTALL)
+            if m:
+                base_val_txt = m.group(1)
+                break
+                
+        if implied_val:
+            if base_val_txt:
+                metadata["what_is_priced_in"] = f"g_implied: {implied_val} (vs Base {base_val_txt})"
+            else:
+                metadata["what_is_priced_in"] = f"g_implied: {implied_val}"
+
+    # Verify dossier with Quality Gatekeeper
+    from stocks.quality_gatekeeper import validate_dossier_quality
+    is_valid, issues = validate_dossier_quality(ticker_clean, full_html)
+    if not is_valid:
+        print(f"   ⚠️ Quality Gatekeeper Audit flagged items: {issues}", flush=True)
 
     metadata["labels"] = sanitize_labels(metadata.get("labels") or metadata.get("status_label"))
     metadata["status_label"] = metadata["labels"][0] if metadata["labels"] else "Active"

@@ -96,6 +96,24 @@ def cmd_review(tickers: List[str], reason: str = "Manual On-Demand Review"):
         render_all()
 
 
+def cmd_delete(tickers: List[str]):
+    """Removes one or more stocks from watchlist, thesis storage, ownership cache, and public reports."""
+    from stocks.data_store import delete_stock
+    parsed_tickers = []
+    for raw_arg in tickers:
+        for item in re.split(r"[,;\s]+", raw_arg):
+            clean = item.upper().strip()
+            if clean and clean not in parsed_tickers:
+                parsed_tickers.append(clean)
+
+    for ticker in parsed_tickers:
+        delete_stock(ticker)
+        print(f"🗑️ [DELETED] Removed {ticker} from watchlist, theses, cache, and reports.")
+
+    render_all()
+    print("✅ Recompiled public/index.html and dashboard.")
+
+
 def cmd_list():
     """Prints active watchlist and triggers in terminal."""
     watchlist = load_watchlist()
@@ -161,6 +179,10 @@ def main():
     p_add.add_argument("--notes", default="", help="Optional context or user notes for the LLM")
     p_add.add_argument("--force", action="store_true", help="Force re-analysis even if thesis exists")
 
+    # delete (removes stock coverage)
+    p_del = subparsers.add_parser("delete", help="Delete and remove one or more stocks")
+    p_del.add_argument("tickers", nargs="+", help="One or more stock tickers to delete (e.g. META GOOG AMZN MSFT)")
+
     # review (on-demand review for earnings / SEC filings)
     p_rev = subparsers.add_parser("review", help="Trigger an immediate on-demand thesis review for one or more stocks")
     p_rev.add_argument("tickers", nargs="+", help="One or more stock tickers (e.g. JD STNE)")
@@ -191,6 +213,8 @@ def main():
 
     if args.command == "add":
         cmd_add(args.tickers, args.notes, force=args.force)
+    elif args.command == "delete":
+        cmd_delete(args.tickers)
     elif args.command == "review":
         cmd_review(args.tickers, reason=args.reason)
     elif args.command == "check":

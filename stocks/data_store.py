@@ -53,6 +53,42 @@ def save_stock(stock: WatchlistStock):
     save_watchlist(wl)
 
 
+def delete_stock(ticker: str) -> bool:
+    """Completely removes a stock from watchlist, thesis storage, alerts, ownership cache, and reports."""
+    _ensure_dirs()
+    clean_t = ticker.upper().strip()
+    wl = load_watchlist()
+    if clean_t in wl:
+        del wl[clean_t]
+        save_watchlist(wl)
+    
+    # Remove thesis file
+    tf = get_thesis_file(clean_t)
+    if tf.exists():
+        try:
+            tf.unlink()
+        except Exception:
+            pass
+            
+    # Remove public report
+    report_file = Path(__file__).resolve().parent.parent / "public" / "reports" / f"{clean_t}.html"
+    if report_file.exists():
+        try:
+            report_file.unlink()
+        except Exception:
+            pass
+            
+    # Remove ownership cache
+    cache_file = DATA_DIR / "ownership_cache" / f"{clean_t}.json"
+    if cache_file.exists():
+        try:
+            cache_file.unlink()
+        except Exception:
+            pass
+            
+    return True
+
+
 # ==================== ALERTS ====================
 
 def load_alerts() -> List[AlertItem]:

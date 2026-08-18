@@ -144,6 +144,10 @@ def validate_dossier_quality(ticker: str, html: str) -> Tuple[bool, List[str]]:
             except ValueError:
                 pass
 
+    # 11. No Unexpanded Tokenizer / LLM Synthetic Artifacts
+    if re.search(r"««[A-Z_0-9]+»»", html) or "««" in html or "»»" in html:
+        issues.append("Contains unexpanded tokenizer/LLM placeholder artifacts (e.g. ««CURRENCY...»» or ««INLINE_BLOCK...»»).")
+
     return len(issues) == 0, issues
 
 

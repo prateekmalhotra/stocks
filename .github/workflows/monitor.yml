@@ -70,6 +70,10 @@ jobs:
             poetry run python -m stocks.main run
           fi
 
+      - name: Quality Gatekeeper Audit
+        run: |
+          poetry run python -m stocks.quality_gatekeeper
+
       - name: Commit and Push Changes
         run: |
           git config --global user.name "Prateek Malhotra"
