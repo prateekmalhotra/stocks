@@ -1229,7 +1229,7 @@ DO NOT write Section 1, 2, 3, 4, or 6. Output pure HTML only."""
             word_cnt = len(clean_section.split())
             if not has_table or word_cnt < 350:
                 print(f"   │ ⚠️ Section 5 draft was truncated ({word_cnt} words, has_table={has_table}). Retrying Section 5 generation...", flush=True)
-                retry_prompt = prompt + "\n\nCRITICAL MANDATE: Your previous response was truncated. You MUST output the COMPLETE Section 5 in Semantic HTML, including the full 3-Scenario DCF Valuation Table (Bear, Base, Bull), Scenario Assumptions Breakdown, 2D Valuation Sensitivity Matrix, Reverse DCF analysis, and 5-Year Market Closure Test. Do NOT omit or truncate any tables!"
+                retry_prompt = agent_prompt + "\n\nCRITICAL MANDATE: Your previous response was truncated. You MUST output the COMPLETE Section 5 in Semantic HTML, including the full 3-Scenario DCF Valuation Table (Bear, Base, Bull), Scenario Assumptions Breakdown, 2D Valuation Sensitivity Matrix, Reverse DCF analysis, and 5-Year Market Closure Test. Do NOT omit or truncate any tables!"
                 retry_resp = call_gemini_with_search(retry_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, temperature=0.3)
                 clean_retry = verify_and_repair_html_structure(retry_resp)
                 if len(clean_retry.split()) > word_cnt and "<table" in clean_retry.lower():
@@ -1455,8 +1455,18 @@ DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
     metadata["base_target"] = f"${base_val:.2f} ({base_ret:+.1f}%)"
     metadata["bear_target"] = f"${bear_val:.2f} ({bear_ret:+.1f}%)"
     metadata["bull_target"] = f"${bull_val:.2f} ({bull_ret:+.1f}%)"
-    metadata["upper_alert_threshold"] = round(base_val if base_val > current_price else bull_val, 2)
-    metadata["lower_alert_threshold"] = round(bear_val if bear_val < current_price else current_price * 0.90, 2)
+    if base_val > current_price:
+        metadata["upper_alert_threshold"] = round(base_val, 2)
+        metadata["lower_alert_threshold"] = round(bear_val if bear_val < current_price else current_price * 0.90, 2)
+    else:
+        metadata["upper_alert_threshold"] = round(bull_val if bull_val > current_price else current_price * 1.15, 2)
+        metadata["lower_alert_threshold"] = round(base_val if base_val < current_price else current_price * 0.90, 2)
+
+    # Invariant safety guarantee: lower < current_price < upper
+    if metadata["lower_alert_threshold"] >= current_price:
+        metadata["lower_alert_threshold"] = round(current_price * 0.90, 2)
+    if metadata["upper_alert_threshold"] <= current_price:
+        metadata["upper_alert_threshold"] = round(current_price * 1.15, 2)
 
     # Strict First-Principles Action Signal Derivation purely from Calculated Margin of Safety
     if base_ret >= 20.0:
