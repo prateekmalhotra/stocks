@@ -21,7 +21,47 @@
     "change": 0.0,
     "change_pct": 0.0,
     "currency": "USD",
-    "updated_at": "2026-08-18 22:12:19 UTC"
+    "updated_at": "2026-08-18 22:37:49 UTC"
+  },
+  "PDD": {
+    "price": 87.27,
+    "prev_close": 87.27,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-18 22:37:49 UTC"
+  },
+  "BABA": {
+    "price": 128.15,
+    "prev_close": 128.15,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-18 22:37:49 UTC"
+  },
+  "CROX": {
+    "price": 128.66,
+    "prev_close": 128.66,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-18 22:37:49 UTC"
+  },
+  "LULU": {
+    "price": 119.01,
+    "prev_close": 119.01,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-18 22:37:49 UTC"
+  },
+  "PYPL": {
+    "price": 60.43,
+    "prev_close": 60.43,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-18 22:37:49 UTC"
   }
 }</script>
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
@@ -797,7 +837,7 @@
         <!-- Navigation Controls -->
         <div class="hub-controls">
             <div class="hub-tabs">
-                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">3</span></button>
+                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">6</span></button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts <span class="tab-chip chip-alert">0</span></span></button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-defensive')">Fidelity</button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-aggressive')">Wealthsimple</button>
@@ -874,6 +914,40 @@
             </td>
         </tr>
         
+        <tr class="table-row" data-ticker="CROX" data-baseline="128.66" onclick="location.href='reports/CROX.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CROX" alt="CROX" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">CR</span></div>
+                        <span class="tbl-symbol">CROX</span>
+                    </div>
+                    <span class="tbl-company-hover">Crocs, Inc</span>
+                </div>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-CROX">$128.66</span>
+                    <span class="tbl-return tbl-ret-CROX pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="pill pill-conviction">Solid Conviction</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-val-cell">
+                    <span class="tbl-fv" style="color: var(--accent-warm);">$169.10</span>
+                    <span class="tbl-upside">+31.4%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-date">2026-10-29</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
+                </div>
+            </td>
+        </tr>
+        
         <tr class="table-row" data-ticker="JD" data-baseline="28.82" onclick="location.href='reports/JD.html'">
             <td>
                 <div class="tbl-ticker-cell">
@@ -908,6 +982,40 @@
             </td>
         </tr>
         
+        <tr class="table-row" data-ticker="LULU" data-baseline="119.01" onclick="location.href='reports/LULU.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/LULU" alt="LULU" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">LU</span></div>
+                        <span class="tbl-symbol">LULU</span>
+                    </div>
+                    <span class="tbl-company-hover">lululemon athletica inc</span>
+                </div>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-LULU">$119.01</span>
+                    <span class="tbl-return tbl-ret-LULU pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="pill pill-conviction">Cautious Stance</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-val-cell">
+                    <span class="tbl-fv" style="color: var(--accent-warm);">$293.74</span>
+                    <span class="tbl-upside">+146.8%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-date">2026-09-03</span>
+                    <span class="tbl-cat-desc">Q2 '27 ER</span>
+                </div>
+            </td>
+        </tr>
+        
         <tr class="table-row" data-ticker="PDD" data-baseline="87.27" onclick="location.href='reports/PDD.html'">
             <td>
                 <div class="tbl-ticker-cell">
@@ -938,6 +1046,40 @@
                 <div class="tbl-catalyst-cell">
                     <span class="tbl-cat-date">2026-11-16</span>
                     <span class="tbl-cat-desc">Scheduled quarterly report</span>
+                </div>
+            </td>
+        </tr>
+        
+        <tr class="table-row" data-ticker="PYPL" data-baseline="60.43" onclick="location.href='reports/PYPL.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/PYPL" alt="PYPL" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">PY</span></div>
+                        <span class="tbl-symbol">PYPL</span>
+                    </div>
+                    <span class="tbl-company-hover">PayPal Holdings, Inc</span>
+                </div>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-PYPL">$60.43</span>
+                    <span class="tbl-return tbl-ret-PYPL pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="pill pill-conviction">Turnaround Play</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-val-cell">
+                    <span class="tbl-fv" style="color: var(--accent-warm);">$60.81</span>
+                    <span class="tbl-upside">+0.6%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-date">2026-10-27</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -982,6 +1124,39 @@
             </div>
         </div>
         
+        <div class="grid-card" data-ticker="CROX" data-baseline="128.66" onclick="location.href='reports/CROX.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CROX" alt="CROX" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">CR</span></div>
+                    <span class="grid-symbol">CROX</span>
+                </div>
+                <div class="grid-price grid-price-CROX">$128.66</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <span class="pill pill-conviction">Solid Conviction</span>
+            </div>
+            <div class="grid-company">Crocs, Inc</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-CROX pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Fair Value</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">$169.10</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Target</span>
+                    <span class="grid-stat-val">$169.10 (+31.4%)</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val">2026-10-29</span>
+                </div>
+            </div>
+        </div>
+        
         <div class="grid-card" data-ticker="JD" data-baseline="28.82" onclick="location.href='reports/JD.html'">
             <div class="grid-card-top">
                 <div style="display: flex; align-items: center; gap: 8px;">
@@ -1015,6 +1190,39 @@
             </div>
         </div>
         
+        <div class="grid-card" data-ticker="LULU" data-baseline="119.01" onclick="location.href='reports/LULU.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/LULU" alt="LULU" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">LU</span></div>
+                    <span class="grid-symbol">LULU</span>
+                </div>
+                <div class="grid-price grid-price-LULU">$119.01</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <span class="pill pill-conviction">Cautious Stance</span>
+            </div>
+            <div class="grid-company">lululemon athletica inc</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-LULU pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Fair Value</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">$293.74</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Target</span>
+                    <span class="grid-stat-val">$293.74 (+146.8%)</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val">2026-09-03</span>
+                </div>
+            </div>
+        </div>
+        
         <div class="grid-card" data-ticker="PDD" data-baseline="87.27" onclick="location.href='reports/PDD.html'">
             <div class="grid-card-top">
                 <div style="display: flex; align-items: center; gap: 8px;">
@@ -1044,6 +1252,39 @@
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Catalyst</span>
                     <span class="grid-stat-val">2026-11-16</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid-card" data-ticker="PYPL" data-baseline="60.43" onclick="location.href='reports/PYPL.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/PYPL" alt="PYPL" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">PY</span></div>
+                    <span class="grid-symbol">PYPL</span>
+                </div>
+                <div class="grid-price grid-price-PYPL">$60.43</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <span class="pill pill-conviction">Turnaround Play</span>
+            </div>
+            <div class="grid-company">PayPal Holdings, Inc</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-PYPL pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Fair Value</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">$60.81</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Target</span>
+                    <span class="grid-stat-val">$60.81 (+0.6%)</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val">2026-10-27</span>
                 </div>
             </div>
         </div>
