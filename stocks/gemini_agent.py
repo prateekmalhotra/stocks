@@ -1214,7 +1214,7 @@ DO NOT write Section 1, 2, 3, 5, or 6. Output pure HTML only."""
 Your Objective: {research_obj}
 
 CRITICAL BUSINESS NARRATIVE & P&L WATERFALL INVARIANTS:
-- ZERO PRICE ANCHORING: Never anchor or guide your fundamental calculations to today's market stock price (${current_price:.2f}) or analyst targets.
+- ZERO PRICE ANCHORING: Value the operational business strictly from First Principles of unit economics and cash flow without any reference to stock market prices or analyst targets.
 - 3 PROBABLE BUSINESS TRAJECTORIES (NARRATIVE DRIVEN): Formulate 3 distinct, realistic operational narrative trajectories for how this business actually evolves over the next 5 years (anchor them to this company's real products, customer dynamics, and competitive moats; do not use artificial good/bad priming):
   * Trajectory 1 (Conservative / Operational Friction): Detail customer churn, pricing resistance, and how the rigid fixed-cost floor impacts margins.
   * Trajectory 2 (Base Operating Reality / Steady-State): Detail normalized user retention, steady pricing power, and baseline cash conversion.
