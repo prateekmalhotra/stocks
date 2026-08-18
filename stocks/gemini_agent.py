@@ -1225,10 +1225,24 @@ CRITICAL 3 DISTINCT BUSINESS STORYLINES INVARIANT:
 Generate the first half of Section 5 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
 
 <h2>Section 5: Warren Buffett Owner Earnings Intrinsic Valuation Matrix</h2>
-<p>Root valuation strictly in Warren Buffett's 1986 Owner Earnings methodology (GAAP OCF minus Maintenance CapEx minus 100% SBC). Valuation is derived from 3 distinct, fundamental business narrative storylines.</p>
+<p>Root valuation strictly in Warren Buffett's 1986 Owner Earnings methodology (GAAP OCF minus Maintenance CapEx minus 100% SBC). Valuation begins with 3 distinct, fundamental business narrative storylines, followed by top-down unit economics modeling and discounted cash flow valuation.</p>
+
+<h3>3 Probable Business Storylines (The Narrative &amp; Operational Paths)</h3>
+<div class="callout">
+  <p><strong>📖 Storyline 1: [Descriptive Title]</strong></p>
+  <p>Detail the full narrative: customer churn/growth dynamics, pricing power, management actions, product adoption, and operational mechanics.</p>
+</div>
+<div class="callout">
+  <p><strong>📖 Storyline 2: [Descriptive Title]</strong></p>
+  <p>Detail the full narrative: customer churn/growth dynamics, pricing power, management actions, product adoption, and operational mechanics.</p>
+</div>
+<div class="callout">
+  <p><strong>📖 Storyline 3: [Descriptive Title]</strong></p>
+  <p>Detail the full narrative: customer churn/growth dynamics, pricing power, management actions, product adoption, and operational mechanics.</p>
+</div>
 
 <h3>Primary Unit Economics &amp; Operating Leverage P&amp;L Waterfall Matrix</h3>
-<p>All financial projections flow top-to-bottom from primary business unit volume drivers and monetization, down through fixed-cost operating floors, cash tax drag, and 100% SBC cash deductions for each distinct storyline:</p>
+<p>Translating each of the 3 business storylines above into top-down financial flow-through (volume &times; pricing &rarr; revenue &rarr; gross margin &rarr; fixed OpEx &rarr; EBIT &rarr; cash deductions &rarr; Year 1 Owner Earnings):</p>
 <table>
   <thead>
     <tr>
@@ -1250,13 +1264,6 @@ Generate the first half of Section 5 in clean Semantic HTML with NO external ima
     <tr><td><strong>Normalized Year 1 Buffett Owner Earnings (OE₁)</strong></td><td><strong>$XX.XXB</strong></td><td><strong>$XX.XXB</strong></td><td><strong>$XX.XXB</strong></td></tr>
   </tbody>
 </table>
-
-<h3>3 Probable Business Storylines Deep Dive: Operational Mechanics &amp; Narrative</h3>
-<ul>
-  <li><strong>📖 Storyline 1 ([Title]):</strong> Detail the full business narrative: why customers behave this way, what management does, product adoption dynamics, how fixed overhead behaves, and resulting cash generation.</li>
-  <li><strong>📖 Storyline 2 ([Title]):</strong> Detail the full business narrative: why customers behave this way, what management does, product adoption dynamics, how fixed overhead behaves, and resulting cash generation.</li>
-  <li><strong>📖 Storyline 3 ([Title]):</strong> Detail the full business narrative: why customers behave this way, what management does, product adoption dynamics, how fixed overhead behaves, and resulting cash generation.</li>
-</ul>
 
 DO NOT write the DCF valuation table, Sensitivity grid, or Reverse DCF. Output pure HTML only."""
 
