@@ -1722,9 +1722,17 @@ DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
         sorted_vals = sorted([raw_bear, raw_base, raw_bull])
         low_val, mid_val, high_val = sorted_vals[0], sorted_vals[1], sorted_vals[2]
 
+    base_val = mid_val
+    bear_val = low_val
+    bull_val = high_val
+
     low_ret = ((low_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
     mid_ret = ((mid_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
     high_ret = ((high_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
+
+    base_ret = mid_ret
+    bear_ret = low_ret
+    bull_ret = high_ret
     
     metadata["fair_value_estimate"] = f"${mid_val:.2f}"
     metadata["base_target"] = f"${mid_val:.2f} ({mid_ret:+.1f}%)"
