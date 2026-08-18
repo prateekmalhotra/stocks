@@ -190,6 +190,12 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
         if not labels or labels[0] not in CANONICAL_CONVICTION_TIERS:
             issues.append(f"Label Slot 1 '{labels[0] if labels else None}' must strictly be a canonical Conviction Tier.")
 
+    # 15. Institutional Section 5 Completeness Check (Reverse DCF & 5-Year Market Closure Test)
+    if "market closure test" not in html.lower():
+        issues.append("Missing mandatory Section 5 subsection: 'The 5-Year Market Closure Test'.")
+    if not any(k in html.lower() for k in ["priced in", "market-implied", "reverse dcf", "g_implied"]):
+        issues.append("Missing mandatory Section 5 subsection: 'Market-Implied Expectations / Reverse DCF'.")
+
     return len(issues) == 0, issues
 
 
