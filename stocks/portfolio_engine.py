@@ -175,15 +175,19 @@ def calculate_shiller_macro_cash(is_defensive: bool, weighted_mos: float) -> Tup
 
 def parse_target_price(raw_val: Any, cur_p: float) -> float:
     """Safely extracts pure USD float price from raw target value string."""
-    if raw_val is None:
+    if not raw_val:
         return cur_p
-    m = re.search(r"\$([\d,]+\.?\d*)", str(raw_val))
+    m = re.search(r"\$?\s*([\d,]+(?:\.\d+)?)", str(raw_val))
     if m:
-        return float(m.group(1).replace(",", ""))
-    try:
-        return float(re.sub(r"[^\d.]", "", str(raw_val)))
-    except Exception:
-        return cur_p
+        try:
+            clean = re.sub(r"[^\d.]", "", m.group(1))
+            if clean and clean != ".":
+                val = float(clean)
+                if val > 0:
+                    return val
+        except Exception:
+            pass
+    return cur_p
 
 def get_ownership_factor(wl_item: dict, meta: dict) -> Tuple[float, float]:
     """Extracts 13F Superinvestor Whale score and SEC Form 4 Insider Buying score."""
@@ -486,8 +490,20 @@ def get_duopoly_partner(ticker: str) -> Optional[str]:
     return None
 
 def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str, Any], Dict[str, Any]]:
-    with open(WATCHLIST_FILE, "r") as f:
-        wl = json.load(f)
+    raw_wl = []
+    if WATCHLIST_FILE.exists():
+        try:
+            with open(WATCHLIST_FILE, "r") as f:
+                raw_wl = json.load(f)
+        except Exception:
+            raw_wl = []
+            
+    if isinstance(raw_wl, list):
+        wl = {item["ticker"].upper(): item for item in raw_wl if isinstance(item, dict) and "ticker" in item}
+    elif isinstance(raw_wl, dict):
+        wl = {k.upper(): v for k, v in raw_wl.items() if isinstance(v, dict)}
+    else:
+        wl = {}
         
     fidelity_candidates = []
     wealthsimple_candidates = []

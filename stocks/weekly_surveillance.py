@@ -383,8 +383,20 @@ def run_portfolio_surveillance(portfolio_type: str = "defensive", auto_execute: 
     with open(p_file, "r") as f:
         portfolio_state = json.load(f)
 
-    with open(WATCHLIST_FILE, "r") as f:
-        watchlist = json.load(f)
+    raw_wl = []
+    if WATCHLIST_FILE.exists():
+        try:
+            with open(WATCHLIST_FILE, "r", encoding="utf-8") as f:
+                raw_wl = json.load(f)
+        except Exception:
+            raw_wl = []
+            
+    if isinstance(raw_wl, list):
+        watchlist = {item["ticker"].upper(): item for item in raw_wl if isinstance(item, dict) and "ticker" in item}
+    elif isinstance(raw_wl, dict):
+        watchlist = {k.upper(): v for k, v in raw_wl.items() if isinstance(v, dict)}
+    else:
+        watchlist = {}
 
     is_defensive = (portfolio_type == "defensive")
     port_label = "Fidelity (Defensive Fortress)" if is_defensive else "Wealthsimple (Aggressive Alpha)"
