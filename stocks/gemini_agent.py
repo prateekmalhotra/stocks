@@ -1215,6 +1215,7 @@ Your Objective: {research_obj}
 
 CRITICAL P&L WATERFALL & FIRST PRINCIPLES INVARIANTS:
 - ZERO PRICE ANCHORING: Never anchor or guide your fundamental calculations to today's market stock price (${current_price:.2f}) or analyst targets.
+- BUSINESS STORY TO FINANCIAL TRANSMISSION: Your Table 1 and Scenario Deep Dive must explicitly translate the qualitative business narrative from Sections 1-4 (e.g. customer churn/retention, pricing power, management cost actions, product cycle inflections) into concrete unit volume and ARPPU/pricing metrics.
 - TOP-DOWN P&L FLOW-THROUGH INVARIANT: All financial modeling MUST flow top-to-bottom from primary business unit drivers -> revenue -> gross profit -> fixed cost OpEx budgets (accounting for the fixed cost floor & operational deleveraging) -> EBIT -> taxes/CapEx/SBC -> Owner Earnings.
 - Year 1 Baseline Owner Earnings ($OE_1) in Base Case must align with Section 3's audited (GAAP OCF - Maintenance CapEx - 100% SBC).
 
@@ -1378,6 +1379,12 @@ DO NOT write Section 1, 2, 3, 4, or 6. Output pure HTML only."""
             if first_p:
                 snippet = re.sub(r"<[^>]+>", " ", first_p[0])[:400]
                 verified_context = f"VERIFIED PRIMARY OPERATING CONTEXT (Use consistent timeline & executive facts):\n{snippet.strip()}"
+
+        if sec_num == 2:
+            first_p2 = re.findall(r"<p>(.*?)</p>", clean_section, re.DOTALL)
+            if first_p2:
+                snippet2 = re.sub(r"<[^>]+>", " ", first_p2[0])[:400]
+                verified_context += f"\n\nVERIFIED BUSINESS MODEL & MOAT REALITY (From Section 2):\n{snippet2.strip()}"
 
         if sec_num == 3:
             cf_text = re.sub(r"<[^>]+>", " ", clean_section)
