@@ -104,6 +104,9 @@ def clean_grounding_artifacts(text: str) -> str:
     # Strip any accidental meta references to historical analogies
     cleaned = re.sub(r"\b(?:Norbert\s+Lou(?:'s)?(?:\s+NVR)?|NVR\s+thesis|Columbia\s+(?:Business\s+School\s+)?(?:thesis|memo|paper))\b", "", cleaned, flags=re.IGNORECASE)
     
+    # Strip any stray Wall Street sell-side analyst targets or broker ratings
+    cleaned = re.sub(r"\b(?:Wall Street|sell-side|analyst|broker|consensus)\s+(?:price\s+target|target\s+price|consensus\s+target|PT)\s*(?:of|is|at|set\s+at)?\s*\$?\d+(?:\.\d+)?\b", "", cleaned, flags=re.IGNORECASE)
+    
     # Strip ALL inline style, bgcolor, and border attributes to enforce 100% theme consistency
     cleaned = re.sub(r'\s*style\s*=\s*"[^"]*"', '', cleaned, flags=re.IGNORECASE)
     cleaned = re.sub(r"\s*style\s*=\s*'[^']*'", '', cleaned, flags=re.IGNORECASE)
@@ -809,7 +812,7 @@ Your analysis must adhere strictly to these 7 First Principles of Business Valua
    - Flow each storyline top-down through unit economics: Volume x Price -> Revenue -> Gross Margin -> OpEx Floor -> EBIT -> Owner Earnings (OE₁).
 
    Pillar 18: Zero Price Anchoring & Anti-Wall-Street Consensus Shield
-   - ZERO WALL STREET CONSENSUS ANCHORING: Never cite, adopt, or anchor to Wall Street sell-side price targets, broker buy/sell ratings, or consensus price forecasts. Value the enterprise purely as an unlisted private business from primary SEC filings, audited unit economics, and owner cash flows.
+   - TOTAL BAN ON WALL STREET SELL-SIDE ANALYST TARGETS: Sell-side broker price targets and ratings (Goldman Sachs, Morgan Stanley, TipRanks, broker consensus) are momentum-driven marketing noise designed for trading flow. You are strictly FORBIDDEN from searching, quoting, or anchoring to Wall Street analyst price targets or buy/sell recommendations. Value the enterprise purely as an unlisted private business from primary SEC filings, audited unit economics, and owner cash flows.
    - ZERO STOCK CHART BIAS: Do not treat stock price declines as evidence of cheapness or past stock runs as evidence of overvaluation. Intrinsic value is independent of Mr. Market's daily quotations.
 
 5. Editorial Aesthetics & Structural Clarity:
