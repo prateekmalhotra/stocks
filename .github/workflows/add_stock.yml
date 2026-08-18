@@ -25,6 +25,8 @@ concurrency:
 env:
   ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: "true"
   NODE_TLS_REJECT_UNAUTHORIZED: "0"
+  GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+  PYTHONUNBUFFERED: "1"
 
 jobs:
   add_coverage_and_deploy:
@@ -57,6 +59,9 @@ jobs:
           poetry run python -m stocks.main add "${{ github.event.inputs.ticker }}" --notes "${{ github.event.inputs.notes }}"
 
       - name: Quality Gatekeeper Audit (Zero-Defect Enforcement & Auto-Healing)
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PYTHONUNBUFFERED: "1"
         run: |
           poetry run python -m stocks.quality_gatekeeper --tickers "${{ github.event.inputs.ticker }}" --heal
 
