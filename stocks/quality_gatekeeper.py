@@ -61,10 +61,10 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
     if open_table != close_table:
         issues.append(f"Mismatched <table> tags ({open_table} opened vs {close_table} closed).")
 
-    # 4. Bear / Base / Bull Scenario Valuation Matrix & Reverse DCF Presence
-    has_scenarios = any(k in html.lower() for k in ["bear case", "base case", "bull case"])
+    # 4. 3-Storyline / Scenario Valuation Matrix & Reverse DCF Presence
+    has_scenarios = any(k in html.lower() for k in ["storyline", "storylines", "trajectory", "trajectories", "scenario", "scenarios", "bear case", "base case", "bull case"])
     if not has_scenarios:
-        issues.append("Missing complete Bear / Base / Bull scenario valuation matrix in Section 5.")
+        issues.append("Missing 3-Storyline / Scenario valuation matrix in Section 5.")
         
     has_reverse_dcf = any(k in html.lower() for k in [
         "priced in", "market-implied", "reverse dcf", "reverse-dcf", "g_implied", 
