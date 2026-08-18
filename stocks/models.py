@@ -18,6 +18,12 @@ class ThesisVersion(BaseModel):
     what_was_before: Optional[str] = ""
     what_changes_now: Optional[str] = ""
     fair_value_estimate: Optional[str] = ""
+    story1_target: Optional[str] = ""
+    story2_target: Optional[str] = ""
+    story3_target: Optional[str] = ""
+    story1_title: Optional[str] = ""
+    story2_title: Optional[str] = ""
+    story3_title: Optional[str] = ""
     bear_target: Optional[str] = ""
     base_target: Optional[str] = ""
     bull_target: Optional[str] = ""
@@ -62,6 +68,12 @@ class WatchlistStock(BaseModel):
     labels: List[str] = Field(default_factory=list)  # Max 3 labels, max 2 words each
     action_signal: str = "BUY"  # BUY, HOLD, CAUTION, AVOID
     fair_value_estimate: str
+    story1_target: Optional[str] = ""
+    story2_target: Optional[str] = ""
+    story3_target: Optional[str] = ""
+    story1_title: Optional[str] = ""
+    story2_title: Optional[str] = ""
+    story3_title: Optional[str] = ""
     bear_target: str
     base_target: str
     bull_target: str

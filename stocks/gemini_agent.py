@@ -1249,17 +1249,18 @@ Your Objective: {research_obj}
 CRITICAL 3 DISTINCT BUSINESS STORYLINES INVARIANT:
 - ZERO PRICE ANCHORING: Value the operational business strictly from First Principles of unit economics and cash flow without any reference to stock market prices or analyst targets.
 - 2-QUARTER TRANSCRIPT RESEARCH MANDATE: You MUST search and analyze the company's LAST 2 QUARTERLY EARNINGS CALL TRANSCRIPTS (e.g. Q4 / Q1 earnings calls). Extract verified executive remarks, pricing changes, product roadmap updates, and analyst questions to ground the 3 storylines in verifiable operating reality.
-- 3 ORGANIC BUSINESS STORYLINES: Formulate 3 distinct, probable, business-specific narrative storylines for how this specific company's future could unfold over the next 5 years (do NOT label them Bear/Bull/Base; instead give each storyline a descriptive, business-specific name based on its real operational mechanics, products, customer adoption, and competitive moats):
+- 3 PROBABLE BUSINESS STORYLINES (90-95% PROBABILITY COVERAGE): Formulate 3 distinct, plausible, fundamental operational trajectories for how this specific company's future could unfold over the next 5 years. They are NOT meant to be labeled Low/High/Medium or Bear/Bull/Base or anchored to any positive/negative sentiment. They represent 3 distinct realistic operating paths that together cover 90-95% of future possibilities:
   * Storyline 1: e.g. [Descriptive Business Title based on operational path A]
   * Storyline 2: e.g. [Descriptive Business Title based on operational path B]
   * Storyline 3: e.g. [Descriptive Business Title based on operational path C]
+- STRICT COLUMN ALIGNMENT INVARIANT: Column 1 in Table 1 MUST correspond to Storyline 1. Column 2 MUST correspond to Storyline 2. Column 3 MUST correspond to Storyline 3.
 - TOP-DOWN P&L FLOW-THROUGH INVARIANT: For each of the 3 storylines, project the full P&L flow-through independently: Primary Unit Volume Driver -> Monetization / Pricing -> Revenue -> Gross Margin -> Fixed OpEx Floor -> Operating Income (EBIT) -> Taxes/CapEx/SBC -> Year 1 Owner Earnings (OE₁).
 - FORMATTING CLEANLINESS: Use clean human text for Year 1 Owner Earnings (OE₁). DO NOT use raw LaTeX tokens like $OE_1 or ($OE_1).
 
 Generate the first half of Section 5 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
 
 <h2>Section 5: Warren Buffett Owner Earnings Intrinsic Valuation Matrix</h2>
-<p>Root valuation strictly in Warren Buffett's 1986 Owner Earnings methodology (GAAP OCF minus Maintenance CapEx minus 100% SBC). Valuation begins with 3 distinct, fundamental business narrative storylines, followed by top-down unit economics modeling and discounted cash flow valuation.</p>
+<p>Root valuation strictly in Warren Buffett's 1986 Owner Earnings methodology (GAAP OCF minus Maintenance CapEx minus 100% SBC). Valuation begins with 3 distinct, fundamental business narrative storylines covering 90–95% of probable future operating trajectories, followed by top-down unit economics modeling and discounted cash flow valuation.</p>
 
 <h3>3 Probable Business Storylines (The Narrative &amp; Operational Paths)</h3>
 <div class="callout">
@@ -1309,7 +1310,7 @@ Your Objective: Complete the quantitative discounted cash flow modeling and intr
 
 CRITICAL DCF MATHEMATICS & INVARIANTS:
 - ZERO PRICE ANCHORING: Value the enterprise strictly from First Principles of discounted cash flow as if you were buying 100% of the private business.
-- 3 STORYLINE COLUMNS: Table 2 MUST use columns matching the 3 Storylines from Table 1 (Storyline 1, Storyline 2, Storyline 3 with their descriptive titles).
+- STRICT 1:1 COLUMN CORRESPONDENCE: Table 2 MUST use columns matching the 3 Storylines in EXACT order (Column 1 = Storyline 1, Column 2 = Storyline 2, Column 3 = Storyline 3 with their exact descriptive titles from Table 1).
 - Table 2 MUST contain the exact rows for 'Intrinsic Fair Value / Share' and 'Margin of Safety vs Current Price (${current_price:.2f})'.
 - Net Balance Sheet Debt/Cash Adjustment: MUST strictly lock the per-share figure calculated in Section 4 across all 3 storylines.
 - FORMATTING CLEANLINESS: Use clean human text for Year 1 Owner Earnings (OE₁). Format all per-share intrinsic values with dollar signs ($XX.XX).
@@ -1344,7 +1345,7 @@ Generate the quantitative second half of Section 5 in clean Semantic HTML with N
   * MANDATORY ROW INVARIANT: You MUST include the 'Intrinsic Fair Value / Share' and 'Margin of Safety vs Current Price (${current_price:.2f})' rows. Do NOT omit them!
 
 <h3>2D Valuation Sensitivity Matrix</h3>
-- Table 3: Storyline 2 Intrinsic Value / Share across varying Discount Rates ($r \pm 1.0\%$) and Terminal Growth Rates ($g_{{\\text{{term}}}} \pm 0.5\%$):
+- Table 3: Primary Storyline Intrinsic Value / Share across varying Discount Rates ($r \pm 1.0\%$) and Terminal Growth Rates ($g_{{\\text{{term}}}} \pm 0.5\%$):
   <table>
     <thead>
       <tr>
@@ -1363,7 +1364,7 @@ Generate the quantitative second half of Section 5 in clean Semantic HTML with N
   </table>
 
 <h3>Market-Implied Expectations &amp; &quot;What is Priced In?&quot; (Reverse DCF Audit)</h3>
-- Contrast Market-Implied Expectations (g_implied) vs. Storyline 2 Reality (g_base).
+- Contrast Market-Implied Expectations (g_implied) vs. Storyline 1 Reality (g_base).
 - State whether Mr. Market is pricing in extreme distress/extinction, reasonable compounding, or euphoria.
 
 <h3>The 5-Year Market Closure Test</h3>
@@ -1703,10 +1704,25 @@ DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
                 except Exception: 
                     pass
                 
+    # 1. Parse Storyline column titles from the Table 1 / Table 2 headers
+    story_titles = ["Storyline 1", "Storyline 2", "Storyline 3"]
+    th_matches = re.findall(r"<th[^>]*>(.*?)</th>", full_html, re.DOTALL | re.IGNORECASE)
+    found_titles = []
+    for th in th_matches:
+        th_clean = re.sub(r"<[^>]+>", " ", th).strip()
+        if any(k in th_clean.lower() for k in ["storyline", "trajectory"]):
+            sub_title = re.sub(r"^(?:Storyline|Trajectory)\s*\d+\s*[:\-–—]\s*", "", th_clean, flags=re.IGNORECASE).strip()
+            if sub_title:
+                found_titles.append(sub_title)
+            else:
+                found_titles.append(th_clean)
+    if len(found_titles) >= 3:
+        story_titles = found_titles[:3]
+
+    # 2. Extract targets in EXACT column order (Column 1 = Story 1, Column 2 = Story 2, Column 3 = Story 3)
     if len(extracted_nums) >= 3:
         raw_vals = [max(0.0, v) for v in extracted_nums[-3:]]
-        sorted_vals = sorted(raw_vals)
-        low_val, mid_val, high_val = sorted_vals[0], sorted_vals[1], sorted_vals[2]
+        story1_val, story2_val, story3_val = raw_vals[0], raw_vals[1], raw_vals[2]
     else:
         # Fallback text regex scanning across Section 5 with bulletproof parsing
         def _safe_regex_target(pattern: str, fallback: float) -> float:
@@ -1721,37 +1737,38 @@ DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
                     pass
             return fallback
 
-        raw_bear = _safe_regex_target(r'(?:Trajectory 1|Bear Case|Bear Target|Trough Stress-Test).*?\$?\s*([+-]?[\d,]+(?:\.\d+)?)', round(current_price * 0.75, 2))
-        raw_base = _safe_regex_target(r'(?:Trajectory 2|Base Case|Base Target|Normalized Operating Reality|Fair Value Target).*?\$?\s*([+-]?[\d,]+(?:\.\d+)?)', round(current_price * 1.15, 2))
-        raw_bull = _safe_regex_target(r'(?:Trajectory 3|Bull Case|Bull Target|Optimistic Compounding).*?\$?\s*([+-]?[\d,]+(?:\.\d+)?)', round(current_price * 1.50, 2))
-        
-        sorted_vals = sorted([raw_bear, raw_base, raw_bull])
-        low_val, mid_val, high_val = sorted_vals[0], sorted_vals[1], sorted_vals[2]
+        story1_val = _safe_regex_target(r'(?:Storyline 1|Trajectory 1).*?\$?\s*([+-]?[\d,]+(?:\.\d+)?)', round(current_price * 1.15, 2))
+        story2_val = _safe_regex_target(r'(?:Storyline 2|Trajectory 2).*?\$?\s*([+-]?[\d,]+(?:\.\d+)?)', round(current_price * 0.85, 2))
+        story3_val = _safe_regex_target(r'(?:Storyline 3|Trajectory 3).*?\$?\s*([+-]?[\d,]+(?:\.\d+)?)', round(current_price * 1.50, 2))
 
-    base_val = mid_val
-    bear_val = low_val
-    bull_val = high_val
+    story1_ret = ((story1_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
+    story2_ret = ((story2_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
+    story3_ret = ((story3_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
 
-    low_ret = ((low_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
-    mid_ret = ((mid_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
-    high_ret = ((high_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
+    metadata["story1_target"] = f"${story1_val:.2f} ({story1_ret:+.1f}%)"
+    metadata["story2_target"] = f"${story2_val:.2f} ({story2_ret:+.1f}%)"
+    metadata["story3_target"] = f"${story3_val:.2f} ({story3_ret:+.1f}%)"
+    metadata["story1_title"] = story_titles[0]
+    metadata["story2_title"] = story_titles[1]
+    metadata["story3_title"] = story_titles[2]
 
-    base_ret = mid_ret
-    bear_ret = low_ret
-    bull_ret = high_ret
+    # Primary Fair Value is anchored to Storyline 1 or the primary base trajectory
+    fair_val = story1_val if story1_val > 0 else story2_val
+    base_val = fair_val
+    base_ret = ((fair_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
     
-    metadata["fair_value_estimate"] = f"${mid_val:.2f}"
-    metadata["base_target"] = f"${mid_val:.2f} ({mid_ret:+.1f}%)"
-    metadata["bear_target"] = f"${low_val:.2f} ({low_ret:+.1f}%)"
-    metadata["bull_target"] = f"${high_val:.2f} ({high_ret:+.1f}%)"
+    metadata["fair_value_estimate"] = f"${fair_val:.2f}"
+    metadata["base_target"] = metadata["story1_target"]
+    metadata["bear_target"] = metadata["story2_target"]
+    metadata["bull_target"] = metadata["story3_target"]
     
-    # Alert corridors dynamically derived from sorted trajectories
-    if mid_val > current_price:
-        metadata["upper_alert_threshold"] = round(mid_val, 2)
-        metadata["lower_alert_threshold"] = round(low_val if 0 < low_val < current_price else current_price * 0.90, 2)
-    else:
-        metadata["upper_alert_threshold"] = round(high_val if high_val > current_price else current_price * 1.15, 2)
-        metadata["lower_alert_threshold"] = round(mid_val if 0 < mid_val < current_price else current_price * 0.90, 2)
+    # Alert corridors dynamically derived from all 3 storylines
+    valid_story_vals = [v for v in [story1_val, story2_val, story3_val] if v > 0]
+    min_story = min(valid_story_vals) if valid_story_vals else current_price * 0.85
+    max_story = max(valid_story_vals) if valid_story_vals else current_price * 1.15
+
+    metadata["upper_alert_threshold"] = round(max(max_story, current_price * 1.05), 2)
+    metadata["lower_alert_threshold"] = round(min(min_story, current_price * 0.95), 2)
 
     # Invariant safety guarantee: lower < current_price < upper
     if metadata["lower_alert_threshold"] >= current_price:
@@ -1759,14 +1776,15 @@ DO NOT write Section 1, 2, 3, 4, or 5. Output pure HTML only."""
     if metadata["upper_alert_threshold"] <= current_price:
         metadata["upper_alert_threshold"] = round(current_price * 1.15, 2)
 
-    # Strict First-Principles Action Signal Derivation purely from Calculated Margin of Safety
-    if mid_ret >= 20.0:
+    # Strict First-Principles Action Signal Derivation purely from Calculated Margin of Safety of Fair Value
+    if base_ret >= 20.0:
         metadata["action_signal"] = "BUY"
-    elif mid_ret >= 0.0:
+    elif base_ret >= 0.0:
         metadata["action_signal"] = "HOLD"
-    elif mid_ret >= -15.0:
+    elif base_ret >= -15.0:
         metadata["action_signal"] = "CAUTION"
     else:
+        metadata["action_signal"] = "AVOID"
         metadata["action_signal"] = "AVOID"
 
     # Extract Reverse DCF / What is Priced In from Section 5
