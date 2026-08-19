@@ -796,7 +796,9 @@ CRITICAL AUDITED FINANCIAL REALITY & INTEGRITY CHECKS:
      * Total Funded Debt & Capital Leases
      * Cross-border dividend withholding taxes or upstream cash repatriation friction from operating subsidiaries to the offshore parent.
      * Committed M&A Cash Outlays & Inherited Net Debt.
-   - The resulting figure is the true Unencumbered Surplus Net Cash per Share/ADS.
+     * Non-Consolidated Equity Affiliates / SOTP Value: If the company holds major non-consolidated equity-method investments (e.g. Alibaba's 33% equity stake in Ant Group), explicitly value them conservatively as a dedicated non-operating equity asset line item on the balance sheet bridge ($ USD per share/ADS).
+     * AI Hardware Obsolescence Treadmill: For AI hyperscalers and cloud operators, recognize that rapidly depreciating compute clusters (3-4 year replacement cycle) blur the line between Growth and Maintenance CapEx; audit ongoing maintenance reinvestment needs realistically.
+   - The resulting figure is the true Unencumbered Surplus Net Cash & Asset Value per Share/ADS.
 3. Historical Corporate Trauma & Underwriting Post-Mortem:
    - If the company is trading down significantly (>50%) from historical highs or suffered a well-known operational crisis in the past (e.g. credit underwriting blowups, regulatory restructuring, short-seller litigation, failed acquisitions):
      * Explicitly address the historical root cause and contrast it with today's operational reality.
@@ -866,6 +868,7 @@ Guidelines:
 - Grounded Margin & Growth Realism: For thin-margin direct retail or financial spread businesses, do NOT assume heroic margin doubling. Model realistic, incremental operating progression.
 - Primary Research: Search and inspect {company_name}'s latest filings and earnings transcripts.
 - Currency/FX Depreciation Stress in Emerging Markets: For companies operating in emerging market currencies (e.g. Brazil BRL, China RMB, Mexico MXN, India INR) with high local sovereign interest rates, Story 3 (Downside / Bear Floor) MUST incorporate realistic local FX depreciation against the USD (e.g. +10% to +15% FX headwind in the USD conversion) to stress-test the dollar-denominated fair value floor.
+- Cross-Border Trade & Customs Friction (For Global E-Commerce/Logistics): For international retail platforms (e.g. AIDC, AliExpress Choice, cross-border commerce), Story 3 MUST model potential revisions to international *de minimis* customs exemptions, cross-border tariffs, and delivery unit cost friction.
 - Operational Metric Continuity: Explicitly carry forward and trace the primary operational metrics identified in Section 1 (e.g. Active Clients, TPV/GMV growth, Take Rate %, Deposit Float, Cost of Risk / NPLs, ARPAC, Fulfillment/Lease Expense Ratio) across EACH of the 3 stories to justify how margin expansion or contraction occurs.
 
 FIRST-PRINCIPLES BUSINESS METRIC CHAIN (NO ARBITRARY GROWTH ASSUMPTIONS):
@@ -965,7 +968,7 @@ Calculate the intrinsic fair value per share (or per ADS for ADRs) in USD using 
 4. Calculate Terminal Value using ~2.0% terminal growth and discount it to present value.
 5. Add 5-year PV + Terminal Value PV to get Total Operating Enterprise Value (in $ Millions USD).
 6. Divide Enterprise Value by the Diluted Shares / ADSs count (in Millions) to get Operating Value per Share in USD.
-7. Add the Net Surplus Cash per Share/ADS (in USD) to get the final Intrinsic Fair Value per Share in USD.
+7. Add the Net Surplus Cash and Non-Operating Strategic Equity Affiliates per Share/ADS (in USD) from the balance sheet bridge to get the final Intrinsic Fair Value per Share in USD.
 
 SANITY CHECK:
 - Final fair value per share MUST be a realistic per-share price in USD (e.g. $50 to $300 for BABA, NOT the total company market cap).
