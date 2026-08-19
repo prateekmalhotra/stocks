@@ -815,8 +815,9 @@ Core Topics to Cover:
 1. The Core Business Machine, Moat & Unit Economics:
    - Customer value proposition, monetization mechanics, pricing power, and durable economic moat.
    - Core operational volume drivers vs high-margin service streams.
-   - Multi-Brand & Segment Disaggregation: If the company operates distinct brand divisions or operating segments with divergent growth/margin trajectories (e.g. core flagship platform vs secondary/acquired brands), disaggregate their unit economics, active users, and revenue trends separately.
-   - Sourcing Footprint & Tooling Mobility: For consumer and hardware brands, audit supply chain geographic concentration and production tooling mobility across manufacturing regions to evaluate tariff elasticity.
+   - Multi-Brand & Segment Disaggregation: If the company operates distinct brand divisions or operating segments with divergent growth/margin trajectories (e.g. core flagship platform vs secondary/acquired brands), explicitly report their individual revenues and YoY growth rates separately. If an acquired division is falling double digits (e.g. -10% to -15% YoY) or taking inventory write-downs, explicitly document this drag.
+   - Product Concentration & Silhouette/Platform Risk: Audit product line concentration (e.g. over-dependence on a single product silhouette, single hardware model, or single app) and assess vulnerability to fashion fatigue or consumer taste shifts.
+   - Sourcing Footprint & Tooling Mobility: For consumer and hardware brands, audit supply chain geographic concentration (% of manufacturing in Vietnam, China, Indonesia, Americas) and evaluate exposure to tariffs and freight friction.
    - Identify the 3–5 PRIMARY OPERATIONAL METRICS reported by the company (e.g. Active Clients/Buyers/Paying Users, 3P GMV %, Take Rate %, Spend per Buyer, ARPPU, Cost of Risk, ARPAC, Warehouse Space / Lease Footprint).
 2. Audited Financial Baseline (Single Source of Truth in $ Millions/Billions USD):
    - Latest Period Net Revenue ($ USD)
@@ -868,10 +869,12 @@ Guidelines:
 - Blind Valuation: Formulate business trajectories based strictly on operational realities and competitive dynamics, with zero knowledge of stock market prices.
 - Currency & Financial Consistency: All figures in $ USD. Anchor all 3 stories directly to the audited baseline numbers (revenue, margins, cash flow) established in Agent 1's Company Premise above.
 - Guidance Realism & Non-Linear Trajectories: Factor in management's near-term quarterly forward guidance (e.g. Q3/Q4 cyclical dips due to macro/housing pressure) to model realistic trajectory shapes rather than smooth straight-line ramps.
+- Turnaround Realism & Segment Drag in Story 1 (Base Case): If an acquired brand or secondary segment is contracting double-digits, Story 1 (Base Case) MUST NOT assume an unearned miraculous V-shaped rebound. Model the struggling segment at flat to negative growth, requiring the core flagship business to carry the baseline enterprise.
 - Grounded Margin & Growth Realism: For thin-margin direct retail or financial spread businesses, do NOT assume heroic margin doubling. Model realistic, incremental operating progression.
 - Primary Research: Search and inspect {company_name}'s latest filings and earnings transcripts.
 - Currency/FX Depreciation Stress in Emerging Markets: For companies operating in emerging market currencies (e.g. Brazil BRL, China RMB, Mexico MXN, India INR) with high local sovereign interest rates, Story 3 (Downside / Bear Floor) MUST incorporate realistic local FX depreciation against the USD (e.g. +10% to +15% FX headwind in the USD conversion) to stress-test the dollar-denominated fair value floor.
 - Cross-Border Trade & Customs Friction (For Global E-Commerce/Logistics): For international retail platforms (e.g. AIDC, AliExpress Choice, cross-border commerce), Story 3 MUST model potential revisions to international *de minimis* customs exemptions, cross-border tariffs, and delivery unit cost friction.
+- Downside Stress Realism in Story 3: Story 3 MUST explicitly model: (1) core product silhouette / platform fashion fatigue, (2) wholesale channel destocking / order cancellations, (3) supply chain tariffs / landed-cost inflation from concentrated manufacturing regions (e.g. Vietnam/China duties), and (4) FX depreciation.
 - Operational Metric Continuity: Explicitly carry forward and trace the primary operational metrics identified in Section 1 (e.g. Active Clients, TPV/GMV growth, Take Rate %, Deposit Float, Cost of Risk / NPLs, ARPAC, Fulfillment/Lease Expense Ratio) across EACH of the 3 stories to justify how margin expansion or contraction occurs.
 
 FIRST-PRINCIPLES BUSINESS METRIC CHAIN (NO ARBITRARY GROWTH ASSUMPTIONS):
