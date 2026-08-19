@@ -766,8 +766,9 @@ CRITICAL AUDITED FINANCIAL REALITY & INTEGRITY CHECKS:
      * Major Committed M&A Cash Outlays (e.g. Ceconomy acquisition)
      * Non-Controlling Interests (NCI)
    - The resulting figure is the true Unencumbered Surplus Net Cash per Share/ADS (typically $3–$6/share, NOT $13–$17/share).
-3. Foreign Private Issuer (FPI) Disclosure Reality:
+3. Foreign Private Issuer (FPI), VIE Structure & Governance Reality:
    - For foreign companies traded via ADRs/ADSs (e.g. JD, BABA, PDD, SE, ASML, TSM), recognize that insiders do not file domestic Section 16 Form 4s. Beneficial ownership is reported via SEC Form 20-F (Item 6.E), Schedule 13D/G, and Form 3 filings under the HFIAA.
+   - For Variable Interest Entity (VIE) structures and dual-class shareholdings (e.g. Founder Richard Liu holding 73.1% voting power via Class B shares), explicitly analyze the corporate governance implications, minority shareholder rights, and onshore RMB cash repatriation mechanics.
 4. Buffett Country-Specific Valuation & Hurdle Rate:
    - Use Warren Buffett's standard opportunity-cost hurdle rate (9.0%–10.5%), reflecting the local sovereign rate and equity hurdle. Do NOT apply artificial academic CAPM haircuts; risk is properly accounted for through conservative Owner Earnings projections and demanding a robust Margin of Safety.
 
@@ -785,7 +786,11 @@ Core Topics to Cover:
    - Diluted Shares / ADSs Outstanding (Millions)
    - Unencumbered Surplus Net Cash / (Debt) per Share/ADS in USD.
 3. Leadership Commentary & 4-Quarter Trajectory: Executive commentary and authentic quotes from the active CEO and CFO across the last 4 quarters.
-4. Current State of Play: Why the business is at a pivotal inflection point today.
+4. Corporate Governance, VIE Structure & Onshore Capital Realities:
+   - VIE contractual arrangement and Cayman holding structure.
+   - Dual-class voting rights, founder voting concentration, and capital allocation track record.
+   - Onshore RMB cash reinvestment vs offshore dividend withholding / ADR buyback mechanics.
+5. Current State of Play: Why the business is at a pivotal inflection point today.
 
 Format Section 1 in clean Semantic HTML:
 <h2>Section 1: The Premise of the Company</h2>
@@ -804,6 +809,11 @@ Format Section 1 in clean Semantic HTML:
   <p><strong>[CFO Name], Chief Financial Officer:</strong> "..."</p>
 </div>
 
+<div class="callout">
+  <h3>Corporate Governance, VIE Structure &amp; Capital Allocation Controls</h3>
+  <p>[Analysis of Cayman VIE holding company structure, founder dual-class voting control (e.g. Richard Liu 73.1% voting power), and onshore RMB capital allocation / dividend withholding realities...]</p>
+</div>
+
 <p>[Current state of play summary, including recent cash flow dynamics, capital expenditures, and major M&amp;A commitments...]</p>
 
 Output pure HTML only (no code fences, no inline styles)."""
@@ -818,7 +828,7 @@ Here is the Company Premise from Agent 1 (containing the audited financial basel
 Guidelines:
 - Blind Valuation: Formulate business trajectories based strictly on operational realities and competitive dynamics, with zero knowledge of stock market prices.
 - Currency & Financial Consistency: All figures in $ USD. Anchor all 3 stories directly to the audited baseline numbers (revenue, margins, cash flow) established in Agent 1's Company Premise above.
-- Grounded Growth Realism: If the company is currently navigating price wars, consumer trading down, or heavy CapEx cycles, do NOT assume unrealistic runaway growth (e.g. +16% CAGR on an inflated base). Calibrate organic growth rates to the competitive reality.
+- Grounded Margin & Growth Realism: For thin-margin direct retail businesses (1P) in competitive markets, do NOT assume heroic margin doubling (e.g. 1.3% -> 2.8%). Model realistic, incremental operating margin progression (e.g. 1.3% -> 1.6%-1.9% in Base Case).
 - Primary Research: Search and inspect {company_name}'s latest filings and earnings transcripts.
 - Strategic Moat & Model Trade-Offs: If analyzing a 1P retail vs 3P marketplace transition, explicitly address the trade-offs (e.g. 3P improves gross margins but introduces quality control and fulfillment differentiation challenges vs pure 1P).
 - Rigorous Downside Stress Test: At least one story (Story 2 or Story 3) must be a rigorous downside stress test modeling severe competitive price wars, gross margin compression, negative cash flow CAGR (-5% to -15%), and minimal terminal expansion.
@@ -1085,7 +1095,7 @@ def build_deterministic_valuation_section(
     
     # Build Semantic HTML
     html = f"""<h2>Section 3: Valuation Across the 3 Stories</h2>
-<p>Translating each of the 3 business stories into Warren Buffett-style discounted cash flow valuations based on true Owner Earnings (GAAP Operating Cash Flow minus Maintenance CapEx minus 100% Stock-Based Compensation treated as a cash charge) plus audited balance sheet net cash per share:</p>
+<p>Translating each of the 3 business stories into Warren Buffett-style discounted cash flow valuations based on true Core Owner Earnings (GAAP Operating Cash Flow minus Non-Operating Interest Income minus Maintenance CapEx minus Stock-Based Compensation, which is treated as an authentic economic compensation cost to measure non-dilutive owner cash generation) plus audited balance sheet surplus net cash per share:</p>
 
 <table class="data-table">
   <thead>
