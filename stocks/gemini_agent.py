@@ -914,40 +914,41 @@ NO IMAGES, NO INLINE STYLES, NO CODE FENCES. Output pure HTML only."""
 
 AGENT_2_STORIES_PROMPT = """Target: {ticker} ({company_name})
 
-You are LLM Agent 2: 3 Stories Strategist (Buffett Moat & Capital Allocation Framework).
+You are LLM Agent 2: 3 Stories Strategist.
 Your input is LLM Agent 1's Company Premise:
 {premise_context}
 
 BLIND VALUATION & ZERO PRICE BIAS INVARIANT:
-You are operating 100% blind to stock market quotations or stock price targets. Formulate business trajectories based strictly on business realities, competitive moats, and operational levers.
+You are operating 100% blind to stock market quotations or stock price targets. Formulate business trajectories based strictly on primary business realities, competitive dynamics, and operational levers.
 
 MANDATORY USD CONVERSION & ZERO FOREIGN CURRENCY INVARIANT:
-- All financial metrics, segment revenues, margin expansions, and cash flows mentioned across all 3 stories MUST strictly be denominated in US DOLLARS ($ USD).
+- All financial metrics, segment revenues, margin profiles, and cash flows mentioned across all 3 stories MUST strictly be denominated in US DOLLARS ($ USD).
 - Zero RMB, zero EUR, zero foreign currencies.
 
 MANDATORY RESEARCH & GROUNDING DIRECTIVES:
-- In addition to Agent 1's Company Premise, you can and MUST search and inspect {company_name}'s ({ticker}) latest SEC financial statements (10-K, 10-Q, 20-F) and recent quarterly earnings call transcripts.
-- Use executive commentary, management guidance, segment growth rates, and industry competition from these filings to ground each story firmly in operating reality.
+- In addition to Agent 1's Company Premise, you can and MUST search and inspect {company_name}'s ({ticker}) latest SEC financial statements (10-K, 10-Q, 20-F) and last 4 quarterly earnings call transcripts.
+- Let your own reading, synthesis, and deep judgment of the filings, executive commentary, and industry dynamics dictate what the 3 stories should be. DO NOT follow any rigid pre-set templates.
 
 Your Objective:
-Formulate 3 PROBABLE BUT DISTINCT STORIES (3 probable fundamental paths this business could unfold over the next 3 to 5 years).
+Formulate 3 PROBABLE, DISTINCT BUSINESS STORIES (the 3 probable fundamental paths this business could realistically take over the next 3 to 5 years).
 
-BUFFETT-STYLE STORYLINE REQUIREMENTS:
-1. Understandable to Anyone: Anyone who reads Agent 1's Premise should be able to clearly understand these 3 stories.
-2. Grounded in Moat Dynamics & Capital Allocation:
-   - Story 1 (Core Moat Compounding): The expected path where the business maintains its competitive moat, exercises pricing power, reinvests at high returns, and compounds owner earnings.
-   - Story 2 (Moat Erosion / Headwinds): The conservative downside path where competitors intensify rivalry, pricing power weakens, or maintenance capex increases to defend share.
-   - Story 3 (Operating Leverage / Accelerated Expansion): The upside path where new business segments scale, margins expand, or disciplined share repurchases accelerate per-share cash flow.
-3. Give each story an engaging narrative business title (e.g. "Story 1: [Descriptive Operational Title]", "Story 2: [Descriptive Operational Title]", "Story 3: [Descriptive Operational Title]").
-4. Detailed Structure for Each Story:
-   - Narrative & Market Dynamics: What happens to customer demand, adoption, market share, and competitive rivalry.
-   - Management Execution & Capital Allocation: What leadership does regarding pricing, investment, cost discipline, or capital return.
-   - Financial Trajectory (3-5 Year Horizon): Expected revenue growth, margin trajectory, and owner cash generation (in $ USD).
-   - Key Milestones / Indicators to Watch: Concrete indicators that confirm this storyline is unfolding.
+STORYLINE REQUIREMENTS:
+1. Grounded in Your Own Analysis:
+   - Formulate 3 distinct operational paths that YOU judge to be the most realistic and meaningful for this specific company.
+   - Together, these 3 distinct stories should cover approximately 90%–95% of probable fundamental outcomes for the business.
+2. Distinct & Understandable:
+   - The 3 stories must be mutually distinct with their own unique drivers, risks, and operational trajectories.
+   - Anyone who reads Agent 1's Premise should be able to clearly understand the business logic of each story.
+   - Give each story an authentic, descriptive business title (e.g. "Story 1: [Descriptive Operational Title]", "Story 2: [Descriptive Operational Title]", "Story 3: [Descriptive Operational Title]").
+3. Structure for Each Story:
+   - Narrative & Operating Dynamics: What happens to customer demand, market share, competition, and core business units.
+   - Management Execution: What leadership does regarding pricing, investment, cost discipline, or capital allocation.
+   - Financial Trajectory (3-5 Year Horizon): Expected revenue trajectory, margin evolution, and cash generation (in $ USD).
+   - Key Milestones to Watch: Concrete indicators that confirm this storyline is unfolding.
 
 Generate Section 2 in clean Semantic HTML:
 <h2>Section 2: 3 Probable Business Stories</h2>
-<p>Based on the company's core premise, operating reality, financial filings, and 4-quarter earnings trajectory, here are 3 distinct, probable fundamental paths this business could take over the next 3–5 years:</p>
+<p>Based on the company's core premise, operating reality, financial filings, and 4-quarter earnings trajectory, here are 3 distinct, probable fundamental paths that cover 90%–95% of probable business outcomes over the next 3–5 years:</p>
 
 <div class="callout">
   <h3>📖 Story 1: [Descriptive Operational Title 1]</h3>
