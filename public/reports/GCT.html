@@ -1,0 +1,2655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCT — Investment Memo</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="apple-touch-icon" href="../favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --bg-canvas: #141312;
+            --bg-panel: #1B1A19;
+            --bg-subpanel: #21201E;
+            --bg-hover: #272624;
+            --text-title: #E8E2D8;
+            --text-body: #C5BCB0;
+            --text-secondary: #8E867A;
+            --text-dim: #5C5549;
+            --accent-warm: #D4A373;
+            --accent-warm-hover: #E2B689;
+            --accent-warm-subtle: rgba(212, 163, 115, 0.12);
+            --accent-green: #82AE8C;
+            --accent-red: #C97A72;
+            --border-color: rgba(255, 255, 255, 0.055);
+            --border-focus: rgba(212, 163, 115, 0.35);
+            --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-serif: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        /* KaTeX Math Styling & Dark Theme Alignment */
+        .katex-display {
+            margin: 20px 0 !important;
+            overflow-x: auto !important;
+            overflow-y: hidden !important;
+            padding: 12px 16px !important;
+            background: rgba(0, 0, 0, 0.20) !important;
+            border-radius: 8px !important;
+            border: 1px solid var(--border-color) !important;
+        }
+        .katex {
+            font-size: 1.08em !important;
+            color: var(--text-title) !important;
+        }
+        .katex .mord.text {
+            color: var(--text-body) !important;
+            font-family: var(--font-sans) !important;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: 
+                radial-gradient(ellipse 90% 50% at 50% -10%, rgba(212, 163, 115, 0.04), transparent 70%),
+                var(--bg-canvas);
+            color: var(--text-body);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            line-height: 1.80;
+            letter-spacing: 0.005em;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding-bottom: 120px;
+        }
+
+        .container { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+
+        /* Top Nav */
+        nav.nav-bar {
+            background: rgba(20, 19, 18, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 14px 0;
+        }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .nav-back {
+            color: var(--accent-warm);
+            text-decoration: none;
+            font-family: var(--font-sans);
+            font-size: 0.84rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s;
+        }
+        .nav-back:hover { color: var(--accent-warm-hover); transform: translateX(-2px); }
+
+        /* Hero Deck */
+        .hero-deck {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 36px 40px;
+            margin: 32px 0 28px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+        }
+
+        .hero-top-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px; }
+        .ticker-symbol {
+            font-family: var(--font-sans);
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: var(--text-title);
+        }
+        .company-meta { color: var(--text-secondary); font-size: 0.95rem; margin-top: 2px; font-family: var(--font-sans); }
+
+        /* Minimalist Logo Avatars */
+        .ticker-logo-wrap {
+            border-radius: 6px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+            transform: translateY(-3px);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }
+        .ticker-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 2px;
+            border-radius: 5px;
+            display: block;
+        }
+        .ticker-logo-fallback {
+            font-family: var(--font-mono);
+            font-weight: 600;
+            color: var(--accent-warm);
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background: rgba(212, 163, 115, 0.08);
+        }
+
+        .price-callout { text-align: right; }
+        .price-number { font-size: 2.6rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }
+        .price-sub { font-size: 0.88rem; font-family: var(--font-mono); margin-top: 2px; }
+
+        /* Native SVG Area Chart */
+        .native-chart-wrap {
+            margin-top: 28px;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px 20px 12px;
+            position: relative;
+            user-select: none;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+        }
+        .chart-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            min-height: 32px;
+            gap: 12px;
+            width: 100%;
+        }
+        .chart-meta-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-width: 0;
+            overflow: hidden;
+            flex-wrap: wrap;
+        }
+        .chart-live-val {
+            font-size: 0.88rem;
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .chart-targets-legend {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            white-space: nowrap;
+        }
+        .chart-range-pills {
+            display: flex;
+            gap: 4px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 2px;
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+        .range-pill {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.72rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .range-pill:hover { color: var(--text-title); }
+        .range-pill.active {
+            background: var(--accent-warm);
+            color: #161513;
+            font-weight: 600;
+            box-shadow: 0 1px 4px rgba(204, 120, 92, 0.3);
+        }
+        .chart-svg { width: 100%; height: 220px; display: block; overflow: visible; }
+        .chart-tooltip {
+            position: absolute;
+            top: 14px;
+            left: 20px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-focus);
+            color: var(--text-title);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            padding: 5px 12px;
+            border-radius: 6px;
+            pointer-events: none;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            font-family: var(--font-sans);
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Key Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 24px;
+        }
+        @media (max-width: 960px) {
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 520px) {
+            .metrics-grid { grid-template-columns: 1fr; }
+        }
+        .metric-cell {
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 13px 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            min-height: 80px;
+            box-sizing: border-box;
+            overflow: hidden;
+            min-width: 0;
+            transition: border-color 0.15s ease;
+        }
+        .metric-cell:hover {
+            border-color: rgba(212, 163, 115, 0.25);
+        }
+        .metric-label { font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); letter-spacing: 0.05em; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .metric-value { font-size: 1.15rem; font-weight: 500; color: var(--text-title); font-family: var(--font-mono); display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px; line-height: 1.2; }
+        .metric-target-value { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px; }
+        .metric-target-value .target-price { font-size: 1.15rem; font-weight: 500; font-family: var(--font-mono); white-space: nowrap; }
+        .metric-target-value .target-pct { font-size: 0.76rem; font-weight: 500; font-family: var(--font-mono); opacity: 0.85; white-space: nowrap; }
+        .metric-subtext { font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-sans); margin-top: 4px; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+        /* Tabs */
+        .tabs-header {
+            display: flex;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-color);
+            margin: 32px 0 28px;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            padding: 12px 18px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.15s;
+        }
+        .tab-btn:hover { color: var(--text-title); }
+        .tab-btn.active { color: var(--accent-warm); }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0; right: 0;
+            height: 2px;
+            background: var(--accent-warm);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Ownership, Insiders & Fund Intelligence Tab */
+        .ownership-container {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+        .ownership-header-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 24px 28px;
+        }
+        .ownership-stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .ownership-stat-grid { grid-template-columns: 1fr; }
+        }
+        .stat-box {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .stat-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-dim);
+            font-family: var(--font-sans);
+        }
+        .stat-num {
+            font-size: 1.45rem;
+            font-weight: 500;
+            font-family: var(--font-mono);
+            color: var(--text-title);
+        }
+        .stat-note {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            font-family: var(--font-sans);
+        }
+        .ownership-section {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 28px 32px;
+        }
+        .section-title-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+        .section-icon { font-size: 1.35rem; }
+        .section-heading {
+            font-family: var(--font-sans);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-title);
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+        .section-desc {
+            color: var(--text-dim);
+            font-size: 0.86rem;
+            margin: 0 0 20px;
+            line-height: 1.4;
+        }
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-subpanel);
+            margin-top: 14px;
+        }
+        .ownership-table {
+            width: 100%;
+            min-width: 980px;
+            border-collapse: collapse;
+            font-size: 0.86rem;
+        }
+        .ownership-table th {
+            text-align: left;
+            padding: 13px 16px;
+            font-size: 0.70rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-dim);
+            border-bottom: 1px solid var(--border-color);
+            background: #1E1D1A;
+            font-family: var(--font-sans);
+            white-space: nowrap;
+        }
+        .ownership-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.035);
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+        .ownership-table tr:last-child td {
+            border-bottom: none;
+        }
+        .ownership-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .link-out {
+            color: var(--accent-warm);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 500;
+            transition: color 0.15s ease;
+        }
+        .link-out:hover {
+            color: #fcd34d;
+            text-decoration: underline;
+        }
+        .writeups-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 16px;
+        }
+        .writeup-card {
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 22px 24px;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.15s ease;
+        }
+        .writeup-card:hover {
+            border-color: rgba(217, 119, 6, 0.4);
+        }
+        .btn-read-letter {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(217, 119, 6, 0.12);
+            color: var(--accent-warm);
+            border: 1px solid rgba(217, 119, 6, 0.25);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.76rem;
+            font-weight: 500;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: all 0.15s ease;
+        }
+        .btn-read-letter:hover {
+            background: rgba(217, 119, 6, 0.25);
+            color: #fcd34d;
+        }
+
+        /* Quick Portals Bar */
+        .quick-portals-bar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+        .portal-links-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .portal-link {
+            background: var(--bg-subpanel);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        .portal-link:hover {
+            background: rgba(201, 154, 117, 0.14);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            transform: translateY(-1px);
+        }
+
+        /* Memo Content & Premium Editorial Typography */
+        .memo-container {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 48px 52px;
+        }
+        .memo-container * {
+            box-sizing: border-box;
+        }
+        .memo-container a {
+            color: var(--accent-warm) !important;
+            text-decoration: none !important;
+            transition: color 0.15s ease !important;
+            border-bottom: 1px dotted rgba(201, 154, 117, 0.4) !important;
+        }
+        .memo-container a:hover {
+            color: #E2DDD5 !important;
+            border-bottom-color: var(--accent-warm) !important;
+        }
+        .memo-container h1, .memo-container h2 {
+            font-family: var(--font-display) !important;
+            font-size: 1.40rem !important;
+            font-weight: 700 !important;
+            color: #EAE4DA !important;
+            margin: 48px 0 20px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+            letter-spacing: -0.025em !important;
+            line-height: 1.35 !important;
+        }
+        .memo-container h1:first-child, .memo-container h2:first-of-type { margin-top: 0 !important; }
+        .memo-container h3 {
+            font-family: var(--font-display) !important;
+            font-size: 1.12rem !important;
+            font-weight: 600 !important;
+            color: #CCA278 !important;
+            margin: 36px 0 14px !important;
+            letter-spacing: -0.015em !important;
+            line-height: 1.45 !important;
+        }
+        .memo-container h4, .memo-container h5, .memo-container h6 {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            color: #E2DBD0 !important;
+            margin: 26px 0 10px !important;
+        }
+        .memo-container p {
+            font-family: var(--font-sans) !important;
+            font-size: 0.95rem !important;
+            line-height: 1.82 !important;
+            letter-spacing: 0.005em !important;
+            color: #C5BCB0 !important;
+            margin-bottom: 22px !important;
+            font-weight: 400 !important;
+        }
+        .memo-container ul, .memo-container ol {
+            font-family: var(--font-sans) !important;
+            font-size: 0.94rem !important;
+            line-height: 1.78 !important;
+            letter-spacing: 0.005em !important;
+            color: #C5BCB0 !important;
+            margin: 16px 0 24px 20px !important;
+            padding-left: 12px !important;
+        }
+        .memo-container ul { list-style-type: disc !important; }
+        .memo-container ol { list-style-type: decimal !important; }
+        .memo-container li {
+            margin-bottom: 10px !important;
+            color: #C5BCB0 !important;
+            line-height: 1.78 !important;
+        }
+        .memo-container li::marker {
+            color: #C99A75 !important;
+        }
+        .memo-container strong, .memo-container b {
+            color: #E6DFD5 !important;
+            font-weight: 600 !important;
+            letter-spacing: 0 !important;
+        }
+
+        /* STUNNING CONSISTENT TABLES - SOOTHING WARM TONES & ZERO OVERFLOW */
+        .table-scroll-wrap {
+            width: 100% !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            margin: 32px 0 !important;
+            background: #171614 !important;
+            background-color: #171614 !important;
+            border-radius: 12px !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            box-sizing: border-box !important;
+        }
+        .memo-container table {
+            width: 100% !important;
+            min-width: 600px !important;
+            border-collapse: separate !important;
+            border-spacing: 0 !important;
+            margin: 0 !important;
+            background: transparent !important;
+            background-color: transparent !important;
+            border: none !important;
+        }
+        .memo-container tr, .memo-container td, .memo-container th {
+            background: transparent !important;
+            background-color: transparent !important;
+        }
+        .memo-container th {
+            background: #1E1D1A !important;
+            background-color: #1E1D1A !important;
+            color: #C99A75 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            padding: 14px 18px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
+            text-align: left !important;
+        }
+        .memo-container td {
+            padding: 12px 16px !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+            font-size: 0.88rem !important;
+            line-height: 1.55 !important;
+            color: var(--text-body) !important;
+            font-family: var(--font-sans) !important;
+            text-align: left !important;
+            vertical-align: top !important;
+        }
+        .memo-container tr:last-child td {
+            border-bottom: none !important;
+        }
+        .memo-container tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.015) !important;
+            background-color: rgba(255, 255, 255, 0.015) !important;
+        }
+        .memo-container tr:hover td {
+            background: rgba(212, 163, 115, 0.04) !important;
+            background-color: rgba(212, 163, 115, 0.04) !important;
+        }
+        .memo-container td strong, .memo-container td b {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+            font-family: var(--font-sans) !important;
+        }
+
+        /* UNIVERSAL CALLOUT & BOX STYLING - NEVER WHITE OR PINK, STRICT DARK OBSIDIAN */
+        .memo-container blockquote,
+        .memo-container .callout,
+        .memo-container .falsification-box,
+        .memo-container .institutional-box,
+        .memo-container .alert-box,
+        .memo-container .warning-box,
+        .memo-container .highlight-box,
+        .memo-container .takeaway-card {
+            background: var(--bg-subpanel) !important;
+            background-color: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-left: 3px solid var(--accent-warm) !important;
+            padding: 20px 24px !important;
+            border-radius: 8px !important;
+            margin: 24px 0 !important;
+            color: var(--text-body) !important;
+            line-height: 1.75 !important;
+        }
+        .memo-container blockquote *,
+        .memo-container .callout *,
+        .memo-container .falsification-box *,
+        .memo-container .institutional-box *,
+        .memo-container .alert-box *,
+        .memo-container .warning-box *,
+        .memo-container .highlight-box * {
+            background: transparent !important;
+            background-color: transparent !important;
+            color: var(--text-body) !important;
+        }
+        .memo-container blockquote h3,
+        .memo-container blockquote h4,
+        .memo-container .callout h3,
+        .memo-container .callout h4,
+        .memo-container .falsification-box h4,
+        .memo-container .falsification-box strong,
+        .memo-container .institutional-box h4,
+        .memo-container .institutional-box strong {
+            color: var(--text-title) !important;
+        }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-sans) !important;
+            font-style: italic !important;
+            font-size: 0.96rem !important;
+            line-height: 1.68 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
+        .highlight, mark {
+            background: rgba(201, 154, 117, 0.16) !important;
+            color: #E2DDD5 !important;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* FINANCIAL METRIC CARDS & STAT GRIDS */
+        .memo-container .metrics-grid,
+        .memo-container .stats-grid,
+        .memo-container .grid-3,
+        .memo-container .grid-4,
+        .memo-container .grid-2,
+        .memo-container .metric-grid {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+            gap: 14px !important;
+            margin: 24px 0 28px !important;
+        }
+        .memo-container .metric-card,
+        .memo-container .stat-card,
+        .memo-container div[class*="metric-box"],
+        .memo-container div[class*="stat-box"],
+        .memo-container div[class*="kpi-card"] {
+            background: #191816 !important;
+            background-color: #191816 !important;
+            border: 1px solid rgba(255, 255, 255, 0.07) !important;
+            border-top: 2.5px solid var(--accent-warm) !important;
+            border-left: 1px solid rgba(255, 255, 255, 0.07) !important;
+            border-radius: 10px !important;
+            padding: 16px 18px !important;
+            margin: 0 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: flex-start !important;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
+            box-sizing: border-box !important;
+            min-width: 0 !important;
+            overflow: hidden !important;
+            transition: transform 0.15s ease, border-color 0.15s ease !important;
+        }
+        .memo-container .metric-card:hover,
+        .memo-container .stat-card:hover {
+            border-color: rgba(212, 163, 115, 0.35) !important;
+            transform: translateY(-2px);
+        }
+        .memo-container .metric-card .metric-label,
+        .memo-container .metric-card .stat-label,
+        .memo-container .metric-card .kpi-label,
+        .memo-container .metric-card h4,
+        .memo-container .metric-card .metric-title,
+        .memo-container .metric-card .stat-title {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            color: var(--text-secondary) !important;
+            margin: 0 0 8px 0 !important;
+            line-height: 1.3 !important;
+            overflow-wrap: break-word !important;
+            word-break: break-word !important;
+        }
+        .memo-container .metric-card .metric-value,
+        .memo-container .metric-card .stat-value,
+        .memo-container .metric-card .kpi-value {
+            font-family: var(--font-mono) !important;
+            font-size: 1.20rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            letter-spacing: -0.02em !important;
+            line-height: 1.25 !important;
+            margin: 0 0 8px 0 !important;
+            white-space: normal !important;
+            overflow-wrap: break-word !important;
+            word-break: break-word !important;
+        }
+        .memo-container .metric-card p,
+        .memo-container .metric-card .metric-desc,
+        .memo-container .metric-card .stat-sub,
+        .memo-container .metric-card .kpi-sub,
+        .memo-container .metric-card .metric-delta {
+            font-family: var(--font-sans) !important;
+            font-size: 0.78rem !important;
+            color: var(--text-dim) !important;
+            line-height: 1.45 !important;
+            margin: 0 !important;
+            overflow-wrap: break-word !important;
+            word-break: break-word !important;
+        }
+
+        /* EMBEDDED IMAGES, CHARTS & VISUAL INFOGRAPHICS */
+        .figure-container, figure {
+            margin: 32px 0 !important;
+            text-align: center !important;
+            background: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-radius: 12px !important;
+            padding: 16px !important;
+            overflow: hidden !important;
+        }
+        .memo-container img {
+            max-width: 100% !important;
+            height: auto !important;
+            border-radius: 8px !important;
+            display: block !important;
+            margin: 0 auto !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+        }
+        .figure-caption, figcaption {
+            font-family: var(--font-sans) !important;
+            font-size: 0.8rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 10px !important;
+            text-align: center !important;
+        }
+
+        /* Evolution Update Highlight Banner at top of Memo */
+        .update-banner-box {
+            background: #1C1B18 !important;
+            border: 1px solid rgba(201, 154, 117, 0.3) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 12px !important;
+            padding: 24px 28px !important;
+            margin-bottom: 36px !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .update-banner-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 14px !important;
+            padding-bottom: 10px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
+        }
+        .update-banner-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.76rem !important;
+            font-weight: 600 !important;
+            color: var(--accent-warm) !important;
+            letter-spacing: 0.04em !important;
+            text-transform: uppercase !important;
+        }
+        .update-trigger-pill {
+            font-family: var(--font-mono) !important;
+            font-size: 0.74rem !important;
+            color: var(--text-secondary) !important;
+            background: var(--bg-subpanel) !important;
+            padding: 3px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid var(--border-color) !important;
+        }
+        .update-banner-title {
+            font-family: var(--font-sans) !important;
+            font-size: 1.15rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            margin-bottom: 8px !important;
+            letter-spacing: -0.015em !important;
+        }
+        .update-banner-desc {
+            font-family: var(--font-sans) !important;
+            font-size: 0.94rem !important;
+            line-height: 1.68 !important;
+            color: var(--text-body) !important;
+        }
+
+        /* History */
+        .history-entry {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 28px 32px;
+            margin-bottom: 20px;
+        }
+        .history-entry-active { border-color: rgba(201, 154, 117, 0.35); }
+        .history-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+        .history-tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .history-time { color: var(--text-secondary); font-size: 0.88rem; font-family: var(--font-sans); }
+        .history-price { font-family: var(--font-mono); font-size: 0.92rem; }
+
+        .diff-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) { .diff-grid { grid-template-columns: 1fr; } }
+        .diff-box {
+            padding: 18px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .diff-prev { background: rgba(196, 114, 108, 0.05); border-color: rgba(196, 114, 108, 0.18); }
+        .diff-now { background: rgba(125, 157, 129, 0.05); border-color: rgba(125, 157, 129, 0.18); }
+        .diff-label { font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+        .diff-prev .diff-label { color: var(--accent-red); }
+        .diff-now .diff-label { color: var(--accent-green); }
+        .diff-text { font-size: 1.02rem; color: var(--text-body); line-height: 1.65; }
+
+        /* Pills */
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 11px;
+            border-radius: 9999px;
+            font-size: 0.72rem;
+            font-family: var(--font-sans);
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+        }
+        .pill-active { background: rgba(201, 154, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.45); font-weight: 600; box-shadow: 0 0 10px rgba(201, 154, 117, 0.06); }
+        .pill-neutral { background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); font-weight: 500; }
+        .pill-alert { background: rgba(191, 160, 117, 0.14); color: var(--accent-warm); border: 1px solid rgba(191, 160, 117, 0.28); }
+
+        .btn-subtle {
+            background: var(--bg-subpanel);
+            color: var(--text-title);
+            border: 1px solid var(--border-color);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            padding: 7px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .btn-subtle:hover { background: var(--bg-hover); }
+
+        .snapshot-drawer { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color); }
+
+        /* Subtle Hinge-style Status Pulse Beacon */
+        .status-beacon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 9px;
+            height: 9px;
+            margin-left: 7px;
+            vertical-align: middle;
+            cursor: help;
+        }
+        .beacon-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            position: relative;
+            z-index: 2;
+        }
+        .beacon-ping {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            animation: beacon-ripple 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+            z-index: 1;
+        }
+        .beacon-buy .beacon-dot { background-color: #10b981; box-shadow: 0 0 6px rgba(16, 185, 129, 0.7); }
+        .beacon-buy .beacon-ping { background-color: rgba(16, 185, 129, 0.45); }
+        .beacon-hold .beacon-dot { background-color: #f59e0b; box-shadow: 0 0 6px rgba(245, 158, 11, 0.7); }
+        .beacon-hold .beacon-ping { background-color: rgba(245, 158, 11, 0.45); }
+        .beacon-caution .beacon-dot { background-color: #f97316; box-shadow: 0 0 6px rgba(249, 115, 22, 0.7); }
+        .beacon-caution .beacon-ping { background-color: rgba(249, 115, 22, 0.45); }
+        .beacon-avoid .beacon-dot { background-color: #ef4444; box-shadow: 0 0 6px rgba(239, 68, 68, 0.7); }
+        .beacon-avoid .beacon-ping { background-color: rgba(239, 68, 68, 0.45); }
+        @keyframes beacon-ripple {
+            0% { transform: scale(0.9); opacity: 0.85; }
+            70% { transform: scale(2.5); opacity: 0; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+
+        .pos { color: var(--accent-green); }
+        .neg { color: var(--accent-red); }
+
+        /* Info Circle Button */
+        .btn-info-circle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            color: var(--text-dim);
+            font-size: 0.72rem;
+            font-family: var(--font-mono);
+            cursor: pointer;
+            margin-left: 6px;
+            vertical-align: middle;
+            transition: all 0.15s ease;
+            padding: 0;
+            line-height: 1;
+        }
+        .btn-info-circle:hover {
+            background: var(--bg-hover);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            transform: scale(1.1);
+        }
+
+        /* Modal */
+        .modal-shade {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(10, 10, 9, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+        }
+        .modal-body-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-focus);
+            border-radius: 16px;
+            max-width: 720px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 36px;
+            position: relative;
+        }
+        .modal-x {
+            position: absolute;
+            top: 20px; right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-size: 1.4rem;
+            cursor: pointer;
+        }
+        .modal-x:hover { color: var(--text-title); }
+        .btn-primary {
+            background: var(--accent-warm); color: #141312; font-family: var(--font-sans); font-weight: 500;
+            padding: 10px 20px; border-radius: 6px; text-decoration: none; display: inline-flex; align-items: center; border: none; cursor: pointer;
+            transition: all 0.15s;
+        }
+        .btn-primary:hover { background: #DDB495; }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="container nav-inner">
+            <a href="../index.html" class="nav-back">← AlphaThesis</a>
+            <span style="font-size: 0.82rem; color: var(--text-dim); font-family: var(--font-sans);">GCT RESEARCH</span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Hero Deck -->
+        <section class="hero-deck">
+            <div class="hero-top-row">
+                <div>
+                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                        <div class="ticker-logo-wrap" style="width:32px; height:32px; min-width:32px; min-height:32px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/GCT" alt="GCT" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:13px;">GC</span></div>
+                        <span class="ticker-symbol">GCT</span>
+                        <span style="display: inline-flex; align-items: center; gap: 4px;">
+                            <span class="pill pill-conviction">High Conviction</span>
+                            <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="View Investment Taxonomy & Labels Legend">ⓘ</button>
+                        </span>
+                    </div>
+                    <div class="company-meta">GigaCloud Technology Inc</div>
+                </div>
+                <div class="price-callout">
+                    <div class="price-number">$51.52</div>
+                    <div class="price-sub pos">
+                        +0.04%
+                    </div>
+                </div>
+            </div>
+
+            <!-- Native Multi-Range Interactive Area Chart -->
+            
+    <div class="native-chart-wrap" id="chart-container" style="position: relative; overflow: hidden;">
+        <div class="chart-top-bar" style="display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 32px; width: 100%;">
+            <div class="chart-meta-left" style="display: flex; align-items: center; gap: 14px; min-width: 0; overflow: hidden; flex-wrap: wrap;">
+                <div id="chart-live-val" class="chart-live-val" style="white-space: nowrap; flex-shrink: 0;">
+                    <span id="tooltip-date">Aug 19, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$51.52</strong>
+                    <span id="tooltip-delta" class="pos" style="font-size: 0.76rem; margin-left: 6px;"></span>
+                </div>
+                <div class="chart-targets-legend" style="display: flex; align-items: center; gap: 12px; font-family: var(--font-mono); font-size: 0.72rem; flex-wrap: wrap;"><span style="color: #64B5F6; display: inline-flex; align-items: center; gap: 4px;"><span style="display:inline-block; width:12px; height:0; border-top:1.8px dashed #64B5F6;"></span> Story 1: $94.08 (+82.6%)</span> <span style="color: #D4A373; display: inline-flex; align-items: center; gap: 4px; font-weight: 600;"><span style="display:inline-block; width:12px; height:0; border-top:1.8px dashed #D4A373;"></span> Story 2: $173.00 (+235.8%)</span> <span style="color: #81C784; display: inline-flex; align-items: center; gap: 4px;"><span style="display:inline-block; width:12px; height:0; border-top:1.8px dashed #81C784;"></span> Story 3: $27.82 (-46.0%)</span></div>
+            </div>
+            <div class="chart-range-pills" style="margin-left: auto; flex-shrink: 0;">
+                <button class="range-pill active" onclick="switchChartRange('1Y')">1Y</button>
+                <button class="range-pill" onclick="switchChartRange('5Y')">5Y</button>
+                <button class="range-pill" onclick="switchChartRange('10Y')">10Y</button>
+                <button class="range-pill" onclick="switchChartRange('MAX')">MAX</button>
+            </div>
+        </div>
+
+        <div style="position: relative; width: 100%; height: 260px;">
+            <svg id="interactive-svg" viewBox="0 0 900 260" preserveAspectRatio="none" class="chart-svg" style="width: 100%; height: 100%;">
+                <defs>
+                    <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#D4A373" stop-opacity="0.18" />
+                        <stop offset="100%" stop-color="#D4A373" stop-opacity="0.0" />
+                    </linearGradient>
+                </defs>
+                
+                <!-- Background Grid Reference Lines -->
+                <line x1="20" y1="25" x2="880" y2="25" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
+                <line x1="20" y1="130.0" x2="880" y2="130.0" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
+                <line x1="20" y1="235" x2="880" y2="235" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
+
+                <!-- Valuation Target Reference Dotted Lines (Sleek 8 6 dash pattern) -->
+                <g id="valuation-targets-layer">
+                    <line id="target-s1-line" x1="20" y1="0" x2="880" y2="0" stroke="#64B5F6" stroke-width="1.4" stroke-dasharray="8 6" stroke-opacity="0.9" style="display:none;" />
+                    <text id="target-s1-label" x="874" y="0" fill="#64B5F6" font-family="var(--font-mono)" font-size="9.5" font-weight="600" text-anchor="end" style="display:none;"></text>
+
+                    <line id="target-s2-line" x1="20" y1="0" x2="880" y2="0" stroke="#D4A373" stroke-width="1.5" stroke-dasharray="8 6" stroke-opacity="0.95" style="display:none;" />
+                    <text id="target-s2-label" x="874" y="0" fill="#D4A373" font-family="var(--font-mono)" font-size="9.5" font-weight="700" text-anchor="end" style="display:none;"></text>
+
+                    <line id="target-s3-line" x1="20" y1="0" x2="880" y2="0" stroke="#81C784" stroke-width="1.4" stroke-dasharray="8 6" stroke-opacity="0.9" style="display:none;" />
+                    <text id="target-s3-label" x="874" y="0" fill="#81C784" font-family="var(--font-mono)" font-size="9.5" font-weight="600" text-anchor="end" style="display:none;"></text>
+                </g>
+
+                <!-- Area & Line Paths -->
+                <path id="chart-area-path" d="" fill="url(#area-grad)" />
+                <path id="chart-line-path" d="" fill="none" stroke="#D4A373" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+
+                <!-- Vertical Crosshair Line -->
+                <line id="crosshair-v" x1="0" y1="0" x2="0" y2="260" stroke="rgba(212,163,115,0.45)" stroke-width="1.2" stroke-dasharray="3 3" style="display: none;" />
+                
+                <!-- Horizontal Crosshair Line -->
+                <line id="crosshair-h" x1="20" y1="0" x2="880" y2="0" stroke="rgba(212,163,115,0.45)" stroke-width="1.2" stroke-dasharray="3 3" style="display: none;" />
+
+                <!-- Hover Halo & Dot -->
+                <circle id="hover-dot-outer" r="8.5" fill="rgba(212,163,115,0.22)" style="display: none;" />
+                <circle id="hover-dot" r="4.5" fill="#D4A373" stroke="#161513" stroke-width="2.5" style="display: none;" />
+            </svg>
+
+            <!-- Floating X-Axis Date Badge -->
+            <div id="chart-badge-x" style="display:none; position:absolute; bottom:4px; background:#111110; color:#EAE6E1; border:1px solid var(--accent-warm); border-radius:4px; padding:2px 8px; font-family:var(--font-mono); font-size:0.70rem; font-weight:600; transform:translateX(-50%); pointer-events:none; white-space:nowrap; box-shadow:0 4px 12px rgba(0,0,0,0.6); z-index:20;"></div>
+
+            <!-- Floating Y-Axis Price Badge -->
+            <div id="chart-badge-y" style="display:none; position:absolute; right:8px; background:var(--accent-warm); color:#161513; border-radius:4px; padding:2px 8px; font-family:var(--font-mono); font-size:0.74rem; font-weight:700; transform:translateY(-50%); pointer-events:none; white-space:nowrap; box-shadow:0 3px 10px rgba(0,0,0,0.5); z-index:20;"></div>
+        </div>
+
+        <div class="chart-labels">
+            <span id="chart-start-lbl">Aug 19, 2025 ($25.44)</span>
+            <span id="chart-range-title">1-Year Historical Range</span>
+            <span id="chart-end-lbl">Aug 19, 2026 ($51.52)</span>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const allDatasets = {"1Y": [{"date": "Aug 19, 2025", "price": 31.5}, {"date": "Aug 20, 2025", "price": 31.6}, {"date": "Aug 21, 2025", "price": 29.95}, {"date": "Aug 22, 2025", "price": 31.03}, {"date": "Aug 25, 2025", "price": 28.1}, {"date": "Aug 26, 2025", "price": 26.54}, {"date": "Aug 27, 2025", "price": 26.43}, {"date": "Aug 28, 2025", "price": 26.12}, {"date": "Aug 29, 2025", "price": 26.47}, {"date": "Sep 02, 2025", "price": 25.44}, {"date": "Sep 03, 2025", "price": 25.56}, {"date": "Sep 04, 2025", "price": 26.14}, {"date": "Sep 05, 2025", "price": 27.06}, {"date": "Sep 08, 2025", "price": 27.57}, {"date": "Sep 09, 2025", "price": 29.86}, {"date": "Sep 10, 2025", "price": 28.22}, {"date": "Sep 11, 2025", "price": 29.07}, {"date": "Sep 12, 2025", "price": 29.84}, {"date": "Sep 15, 2025", "price": 31.23}, {"date": "Sep 16, 2025", "price": 30.66}, {"date": "Sep 17, 2025", "price": 29.71}, {"date": "Sep 18, 2025", "price": 29.12}, {"date": "Sep 19, 2025", "price": 29.56}, {"date": "Sep 22, 2025", "price": 30.11}, {"date": "Sep 23, 2025", "price": 30.36}, {"date": "Sep 24, 2025", "price": 29.78}, {"date": "Sep 25, 2025", "price": 28.86}, {"date": "Sep 26, 2025", "price": 29.66}, {"date": "Sep 29, 2025", "price": 29.44}, {"date": "Sep 30, 2025", "price": 28.4}, {"date": "Oct 01, 2025", "price": 27.12}, {"date": "Oct 02, 2025", "price": 27.19}, {"date": "Oct 03, 2025", "price": 27.98}, {"date": "Oct 06, 2025", "price": 28.71}, {"date": "Oct 07, 2025", "price": 28.32}, {"date": "Oct 08, 2025", "price": 29.42}, {"date": "Oct 09, 2025", "price": 28.45}, {"date": "Oct 10, 2025", "price": 26.19}, {"date": "Oct 13, 2025", "price": 26.7}, {"date": "Oct 14, 2025", "price": 27.35}, {"date": "Oct 15, 2025", "price": 28.01}, {"date": "Oct 16, 2025", "price": 27.05}, {"date": "Oct 17, 2025", "price": 26.65}, {"date": "Oct 20, 2025", "price": 27.14}, {"date": "Oct 21, 2025", "price": 27.38}, {"date": "Oct 22, 2025", "price": 27.01}, {"date": "Oct 23, 2025", "price": 27.79}, {"date": "Oct 24, 2025", "price": 28.34}, {"date": "Oct 27, 2025", "price": 28.56}, {"date": "Oct 28, 2025", "price": 29.02}, {"date": "Oct 29, 2025", "price": 29.15}, {"date": "Oct 30, 2025", "price": 27.37}, {"date": "Oct 31, 2025", "price": 27.98}, {"date": "Nov 03, 2025", "price": 28.04}, {"date": "Nov 04, 2025", "price": 26.58}, {"date": "Nov 05, 2025", "price": 27.38}, {"date": "Nov 06, 2025", "price": 25.46}, {"date": "Nov 07, 2025", "price": 33.11}, {"date": "Nov 10, 2025", "price": 33.77}, {"date": "Nov 11, 2025", "price": 31.92}, {"date": "Nov 12, 2025", "price": 32.12}, {"date": "Nov 13, 2025", "price": 31.31}, {"date": "Nov 14, 2025", "price": 30.42}, {"date": "Nov 17, 2025", "price": 29.9}, {"date": "Nov 18, 2025", "price": 31.44}, {"date": "Nov 19, 2025", "price": 31.98}, {"date": "Nov 20, 2025", "price": 31.64}, {"date": "Nov 21, 2025", "price": 34.88}, {"date": "Nov 24, 2025", "price": 34.81}, {"date": "Nov 25, 2025", "price": 36.78}, {"date": "Nov 26, 2025", "price": 37.32}, {"date": "Nov 28, 2025", "price": 37.1}, {"date": "Dec 01, 2025", "price": 38.1}, {"date": "Dec 02, 2025", "price": 38.84}, {"date": "Dec 03, 2025", "price": 39.42}, {"date": "Dec 04, 2025", "price": 40.0}, {"date": "Dec 05, 2025", "price": 40.06}, {"date": "Dec 08, 2025", "price": 39.42}, {"date": "Dec 09, 2025", "price": 40.11}, {"date": "Dec 10, 2025", "price": 38.35}, {"date": "Dec 11, 2025", "price": 38.19}, {"date": "Dec 12, 2025", "price": 40.37}, {"date": "Dec 15, 2025", "price": 38.65}, {"date": "Dec 16, 2025", "price": 39.99}, {"date": "Dec 17, 2025", "price": 39.95}, {"date": "Dec 18, 2025", "price": 40.15}, {"date": "Dec 19, 2025", "price": 40.37}, {"date": "Dec 22, 2025", "price": 40.47}, {"date": "Dec 23, 2025", "price": 40.25}, {"date": "Dec 24, 2025", "price": 40.52}, {"date": "Dec 26, 2025", "price": 40.19}, {"date": "Dec 29, 2025", "price": 39.79}, {"date": "Dec 30, 2025", "price": 39.52}, {"date": "Dec 31, 2025", "price": 39.28}, {"date": "Jan 02, 2026", "price": 38.76}, {"date": "Jan 05, 2026", "price": 39.1}, {"date": "Jan 06, 2026", "price": 40.95}, {"date": "Jan 07, 2026", "price": 42.32}, {"date": "Jan 08, 2026", "price": 41.71}, {"date": "Jan 09, 2026", "price": 41.8}, {"date": "Jan 12, 2026", "price": 44.41}, {"date": "Jan 13, 2026", "price": 41.74}, {"date": "Jan 14, 2026", "price": 41.01}, {"date": "Jan 15, 2026", "price": 41.58}, {"date": "Jan 16, 2026", "price": 40.41}, {"date": "Jan 20, 2026", "price": 39.78}, {"date": "Jan 21, 2026", "price": 39.64}, {"date": "Jan 22, 2026", "price": 40.51}, {"date": "Jan 23, 2026", "price": 42.08}, {"date": "Jan 26, 2026", "price": 42.04}, {"date": "Jan 27, 2026", "price": 38.25}, {"date": "Jan 28, 2026", "price": 40.73}, {"date": "Jan 29, 2026", "price": 40.69}, {"date": "Jan 30, 2026", "price": 39.93}, {"date": "Feb 02, 2026", "price": 40.4}, {"date": "Feb 03, 2026", "price": 42.04}, {"date": "Feb 04, 2026", "price": 38.92}, {"date": "Feb 05, 2026", "price": 38.57}, {"date": "Feb 06, 2026", "price": 40.25}, {"date": "Feb 09, 2026", "price": 39.38}, {"date": "Feb 10, 2026", "price": 38.54}, {"date": "Feb 11, 2026", "price": 36.49}, {"date": "Feb 12, 2026", "price": 34.11}, {"date": "Feb 13, 2026", "price": 35.23}, {"date": "Feb 17, 2026", "price": 34.62}, {"date": "Feb 18, 2026", "price": 35.22}, {"date": "Feb 19, 2026", "price": 35.4}, {"date": "Feb 20, 2026", "price": 35.03}, {"date": "Feb 23, 2026", "price": 33.82}, {"date": "Feb 24, 2026", "price": 34.49}, {"date": "Feb 25, 2026", "price": 35.31}, {"date": "Feb 26, 2026", "price": 46.98}, {"date": "Feb 27, 2026", "price": 44.34}, {"date": "Mar 02, 2026", "price": 43.01}, {"date": "Mar 03, 2026", "price": 42.6}, {"date": "Mar 04, 2026", "price": 44.4}, {"date": "Mar 05, 2026", "price": 43.66}, {"date": "Mar 06, 2026", "price": 42.76}, {"date": "Mar 09, 2026", "price": 44.09}, {"date": "Mar 10, 2026", "price": 42.69}, {"date": "Mar 11, 2026", "price": 43.82}, {"date": "Mar 12, 2026", "price": 41.44}, {"date": "Mar 13, 2026", "price": 40.95}, {"date": "Mar 16, 2026", "price": 42.33}, {"date": "Mar 17, 2026", "price": 43.04}, {"date": "Mar 18, 2026", "price": 42.61}, {"date": "Mar 19, 2026", "price": 42.74}, {"date": "Mar 20, 2026", "price": 40.31}, {"date": "Mar 23, 2026", "price": 43.28}, {"date": "Mar 24, 2026", "price": 42.02}, {"date": "Mar 25, 2026", "price": 44.69}, {"date": "Mar 26, 2026", "price": 43.52}, {"date": "Mar 27, 2026", "price": 41.59}, {"date": "Mar 30, 2026", "price": 41.55}, {"date": "Mar 31, 2026", "price": 45.38}, {"date": "Apr 01, 2026", "price": 45.92}, {"date": "Apr 02, 2026", "price": 44.78}, {"date": "Apr 06, 2026", "price": 45.54}, {"date": "Apr 07, 2026", "price": 41.0}, {"date": "Apr 08, 2026", "price": 45.55}, {"date": "Apr 09, 2026", "price": 46.5}, {"date": "Apr 10, 2026", "price": 44.54}, {"date": "Apr 13, 2026", "price": 43.5}, {"date": "Apr 14, 2026", "price": 44.96}, {"date": "Apr 15, 2026", "price": 46.57}, {"date": "Apr 16, 2026", "price": 48.22}, {"date": "Apr 17, 2026", "price": 51.8}, {"date": "Apr 20, 2026", "price": 50.09}, {"date": "Apr 21, 2026", "price": 47.42}, {"date": "Apr 22, 2026", "price": 47.77}, {"date": "Apr 23, 2026", "price": 47.5}, {"date": "Apr 24, 2026", "price": 46.74}, {"date": "Apr 27, 2026", "price": 45.44}, {"date": "Apr 28, 2026", "price": 42.98}, {"date": "Apr 29, 2026", "price": 43.39}, {"date": "Apr 30, 2026", "price": 44.49}, {"date": "May 01, 2026", "price": 45.1}, {"date": "May 04, 2026", "price": 43.76}, {"date": "May 05, 2026", "price": 42.14}, {"date": "May 06, 2026", "price": 44.99}, {"date": "May 07, 2026", "price": 42.84}, {"date": "May 08, 2026", "price": 40.18}, {"date": "May 11, 2026", "price": 39.4}, {"date": "May 12, 2026", "price": 38.25}, {"date": "May 13, 2026", "price": 38.1}, {"date": "May 14, 2026", "price": 37.06}, {"date": "May 15, 2026", "price": 36.06}, {"date": "May 18, 2026", "price": 37.3}, {"date": "May 19, 2026", "price": 35.83}, {"date": "May 20, 2026", "price": 37.34}, {"date": "May 21, 2026", "price": 38.55}, {"date": "May 22, 2026", "price": 38.19}, {"date": "May 26, 2026", "price": 38.4}, {"date": "May 27, 2026", "price": 38.36}, {"date": "May 28, 2026", "price": 37.86}, {"date": "May 29, 2026", "price": 36.04}, {"date": "Jun 01, 2026", "price": 35.38}, {"date": "Jun 02, 2026", "price": 34.49}, {"date": "Jun 03, 2026", "price": 32.41}, {"date": "Jun 04, 2026", "price": 33.31}, {"date": "Jun 05, 2026", "price": 31.53}, {"date": "Jun 08, 2026", "price": 31.71}, {"date": "Jun 09, 2026", "price": 32.72}, {"date": "Jun 10, 2026", "price": 31.71}, {"date": "Jun 11, 2026", "price": 33.45}, {"date": "Jun 12, 2026", "price": 34.1}, {"date": "Jun 15, 2026", "price": 34.5}, {"date": "Jun 16, 2026", "price": 33.69}, {"date": "Jun 17, 2026", "price": 32.99}, {"date": "Jun 18, 2026", "price": 33.98}, {"date": "Jun 22, 2026", "price": 33.32}, {"date": "Jun 23, 2026", "price": 33.31}, {"date": "Jun 24, 2026", "price": 33.37}, {"date": "Jun 25, 2026", "price": 31.73}, {"date": "Jun 26, 2026", "price": 32.03}, {"date": "Jun 29, 2026", "price": 32.41}, {"date": "Jun 30, 2026", "price": 31.6}, {"date": "Jul 01, 2026", "price": 33.12}, {"date": "Jul 02, 2026", "price": 33.21}, {"date": "Jul 06, 2026", "price": 34.08}, {"date": "Jul 07, 2026", "price": 33.69}, {"date": "Jul 08, 2026", "price": 33.74}, {"date": "Jul 09, 2026", "price": 34.83}, {"date": "Jul 10, 2026", "price": 34.41}, {"date": "Jul 13, 2026", "price": 35.4}, {"date": "Jul 14, 2026", "price": 35.4}, {"date": "Jul 15, 2026", "price": 37.44}, {"date": "Jul 16, 2026", "price": 38.41}, {"date": "Jul 17, 2026", "price": 38.01}, {"date": "Jul 20, 2026", "price": 38.37}, {"date": "Jul 21, 2026", "price": 38.49}, {"date": "Jul 22, 2026", "price": 37.1}, {"date": "Jul 23, 2026", "price": 35.78}, {"date": "Jul 24, 2026", "price": 36.09}, {"date": "Jul 27, 2026", "price": 39.17}, {"date": "Jul 28, 2026", "price": 40.26}, {"date": "Jul 29, 2026", "price": 41.59}, {"date": "Jul 30, 2026", "price": 42.21}, {"date": "Jul 31, 2026", "price": 43.74}, {"date": "Aug 03, 2026", "price": 44.94}, {"date": "Aug 04, 2026", "price": 46.46}, {"date": "Aug 05, 2026", "price": 46.24}, {"date": "Aug 06, 2026", "price": 52.4}, {"date": "Aug 07, 2026", "price": 53.25}, {"date": "Aug 10, 2026", "price": 51.65}, {"date": "Aug 11, 2026", "price": 51.52}, {"date": "Aug 12, 2026", "price": 51.66}, {"date": "Aug 13, 2026", "price": 53.23}, {"date": "Aug 14, 2026", "price": 51.87}, {"date": "Aug 17, 2026", "price": 50.28}, {"date": "Aug 18, 2026", "price": 49.07}, {"date": "Aug 19, 2026", "price": 51.52}], "5Y": [{"date": "Aug 15, 2022", "price": 48.01}, {"date": "Aug 22, 2022", "price": 19.3}, {"date": "Aug 29, 2022", "price": 20.04}, {"date": "Sep 05, 2022", "price": 18.1}, {"date": "Sep 12, 2022", "price": 14.99}, {"date": "Sep 19, 2022", "price": 12.82}, {"date": "Sep 26, 2022", "price": 10.11}, {"date": "Oct 03, 2022", "price": 6.38}, {"date": "Oct 10, 2022", "price": 6.19}, {"date": "Oct 17, 2022", "price": 5.03}, {"date": "Oct 24, 2022", "price": 4.86}, {"date": "Oct 31, 2022", "price": 4.66}, {"date": "Nov 07, 2022", "price": 6.43}, {"date": "Nov 14, 2022", "price": 5.96}, {"date": "Nov 21, 2022", "price": 6.16}, {"date": "Nov 28, 2022", "price": 7.73}, {"date": "Dec 05, 2022", "price": 6.64}, {"date": "Dec 12, 2022", "price": 5.73}, {"date": "Dec 19, 2022", "price": 5.53}, {"date": "Dec 26, 2022", "price": 5.69}, {"date": "Jan 02, 2023", "price": 6.35}, {"date": "Jan 09, 2023", "price": 6.3}, {"date": "Jan 16, 2023", "price": 6.12}, {"date": "Jan 23, 2023", "price": 5.94}, {"date": "Jan 30, 2023", "price": 5.84}, {"date": "Feb 06, 2023", "price": 4.94}, {"date": "Feb 13, 2023", "price": 5.34}, {"date": "Feb 20, 2023", "price": 5.01}, {"date": "Feb 27, 2023", "price": 4.97}, {"date": "Mar 06, 2023", "price": 4.9}, {"date": "Mar 13, 2023", "price": 5.27}, {"date": "Mar 20, 2023", "price": 5.21}, {"date": "Mar 27, 2023", "price": 6.3}, {"date": "Apr 03, 2023", "price": 5.63}, {"date": "Apr 10, 2023", "price": 5.56}, {"date": "Apr 17, 2023", "price": 5.26}, {"date": "Apr 24, 2023", "price": 5.53}, {"date": "May 01, 2023", "price": 5.05}, {"date": "May 08, 2023", "price": 5.24}, {"date": "May 15, 2023", "price": 5.27}, {"date": "May 22, 2023", "price": 6.45}, {"date": "May 29, 2023", "price": 6.78}, {"date": "Jun 05, 2023", "price": 6.98}, {"date": "Jun 12, 2023", "price": 8.08}, {"date": "Jun 19, 2023", "price": 7.79}, {"date": "Jun 26, 2023", "price": 6.76}, {"date": "Jul 03, 2023", "price": 7.13}, {"date": "Jul 10, 2023", "price": 7.75}, {"date": "Jul 17, 2023", "price": 8.7}, {"date": "Jul 24, 2023", "price": 8.47}, {"date": "Jul 31, 2023", "price": 9.08}, {"date": "Aug 07, 2023", "price": 10.72}, {"date": "Aug 14, 2023", "price": 11.54}, {"date": "Aug 21, 2023", "price": 12.09}, {"date": "Aug 28, 2023", "price": 13.58}, {"date": "Sep 04, 2023", "price": 16.4}, {"date": "Sep 11, 2023", "price": 11.45}, {"date": "Sep 18, 2023", "price": 9.25}, {"date": "Sep 25, 2023", "price": 8.81}, {"date": "Oct 02, 2023", "price": 8.67}, {"date": "Oct 09, 2023", "price": 8.69}, {"date": "Oct 16, 2023", "price": 8.55}, {"date": "Oct 23, 2023", "price": 8.22}, {"date": "Oct 30, 2023", "price": 10.79}, {"date": "Nov 06, 2023", "price": 9.31}, {"date": "Nov 13, 2023", "price": 9.41}, {"date": "Nov 20, 2023", "price": 10.07}, {"date": "Nov 27, 2023", "price": 11.8}, {"date": "Dec 04, 2023", "price": 13.33}, {"date": "Dec 11, 2023", "price": 13.08}, {"date": "Dec 18, 2023", "price": 14.86}, {"date": "Dec 25, 2023", "price": 18.3}, {"date": "Jan 01, 2024", "price": 20.15}, {"date": "Jan 08, 2024", "price": 20.11}, {"date": "Jan 15, 2024", "price": 19.9}, {"date": "Jan 22, 2024", "price": 25.62}, {"date": "Jan 29, 2024", "price": 25.0}, {"date": "Feb 05, 2024", "price": 29.28}, {"date": "Feb 12, 2024", "price": 34.5}, {"date": "Feb 19, 2024", "price": 32.31}, {"date": "Feb 26, 2024", "price": 39.46}, {"date": "Mar 04, 2024", "price": 34.38}, {"date": "Mar 11, 2024", "price": 43.15}, {"date": "Mar 18, 2024", "price": 26.91}, {"date": "Mar 25, 2024", "price": 26.72}, {"date": "Apr 01, 2024", "price": 34.75}, {"date": "Apr 08, 2024", "price": 31.75}, {"date": "Apr 15, 2024", "price": 34.69}, {"date": "Apr 22, 2024", "price": 35.35}, {"date": "Apr 29, 2024", "price": 37.27}, {"date": "May 06, 2024", "price": 37.35}, {"date": "May 13, 2024", "price": 35.76}, {"date": "May 20, 2024", "price": 32.55}, {"date": "May 27, 2024", "price": 31.14}, {"date": "Jun 03, 2024", "price": 30.6}, {"date": "Jun 10, 2024", "price": 31.17}, {"date": "Jun 17, 2024", "price": 29.33}, {"date": "Jun 24, 2024", "price": 30.42}, {"date": "Jul 01, 2024", "price": 32.19}, {"date": "Jul 08, 2024", "price": 30.38}, {"date": "Jul 15, 2024", "price": 28.59}, {"date": "Jul 22, 2024", "price": 28.44}, {"date": "Jul 29, 2024", "price": 25.56}, {"date": "Aug 05, 2024", "price": 22.43}, {"date": "Aug 12, 2024", "price": 22.4}, {"date": "Aug 19, 2024", "price": 22.54}, {"date": "Aug 26, 2024", "price": 19.44}, {"date": "Sep 02, 2024", "price": 17.11}, {"date": "Sep 09, 2024", "price": 17.08}, {"date": "Sep 16, 2024", "price": 18.3}, {"date": "Sep 23, 2024", "price": 23.76}, {"date": "Sep 30, 2024", "price": 28.33}, {"date": "Oct 07, 2024", "price": 25.24}, {"date": "Oct 14, 2024", "price": 26.4}, {"date": "Oct 21, 2024", "price": 24.17}, {"date": "Oct 28, 2024", "price": 22.71}, {"date": "Nov 04, 2024", "price": 27.93}, {"date": "Nov 11, 2024", "price": 20.86}, {"date": "Nov 18, 2024", "price": 25.5}, {"date": "Nov 25, 2024", "price": 24.7}, {"date": "Dec 02, 2024", "price": 22.2}, {"date": "Dec 09, 2024", "price": 20.69}, {"date": "Dec 16, 2024", "price": 17.93}, {"date": "Dec 23, 2024", "price": 17.57}, {"date": "Dec 30, 2024", "price": 19.59}, {"date": "Jan 06, 2025", "price": 19.22}, {"date": "Jan 13, 2025", "price": 19.83}, {"date": "Jan 20, 2025", "price": 21.09}, {"date": "Jan 27, 2025", "price": 21.32}, {"date": "Feb 03, 2025", "price": 19.79}, {"date": "Feb 10, 2025", "price": 20.46}, {"date": "Feb 17, 2025", "price": 18.68}, {"date": "Feb 24, 2025", "price": 16.93}, {"date": "Mar 03, 2025", "price": 15.69}, {"date": "Mar 10, 2025", "price": 14.93}, {"date": "Mar 17, 2025", "price": 15.06}, {"date": "Mar 24, 2025", "price": 15.11}, {"date": "Mar 31, 2025", "price": 13.31}, {"date": "Apr 07, 2025", "price": 11.7}, {"date": "Apr 14, 2025", "price": 12.73}, {"date": "Apr 21, 2025", "price": 13.32}, {"date": "Apr 28, 2025", "price": 13.64}, {"date": "May 05, 2025", "price": 14.5}, {"date": "May 12, 2025", "price": 18.88}, {"date": "May 19, 2025", "price": 17.88}, {"date": "May 26, 2025", "price": 17.56}, {"date": "Jun 02, 2025", "price": 18.61}, {"date": "Jun 09, 2025", "price": 17.81}, {"date": "Jun 16, 2025", "price": 18.24}, {"date": "Jun 23, 2025", "price": 19.8}, {"date": "Jun 30, 2025", "price": 20.56}, {"date": "Jul 07, 2025", "price": 20.76}, {"date": "Jul 14, 2025", "price": 21.42}, {"date": "Jul 21, 2025", "price": 24.07}, {"date": "Jul 28, 2025", "price": 20.97}, {"date": "Aug 04, 2025", "price": 28.91}, {"date": "Aug 11, 2025", "price": 32.27}, {"date": "Aug 18, 2025", "price": 31.03}, {"date": "Aug 25, 2025", "price": 26.47}, {"date": "Sep 01, 2025", "price": 27.06}, {"date": "Sep 08, 2025", "price": 29.84}, {"date": "Sep 15, 2025", "price": 29.56}, {"date": "Sep 22, 2025", "price": 29.66}, {"date": "Sep 29, 2025", "price": 27.98}, {"date": "Oct 06, 2025", "price": 26.19}, {"date": "Oct 13, 2025", "price": 26.65}, {"date": "Oct 20, 2025", "price": 28.34}, {"date": "Oct 27, 2025", "price": 27.98}, {"date": "Nov 03, 2025", "price": 33.11}, {"date": "Nov 10, 2025", "price": 30.42}, {"date": "Nov 17, 2025", "price": 34.88}, {"date": "Nov 24, 2025", "price": 37.1}, {"date": "Dec 01, 2025", "price": 40.06}, {"date": "Dec 08, 2025", "price": 40.37}, {"date": "Dec 15, 2025", "price": 40.37}, {"date": "Dec 22, 2025", "price": 40.19}, {"date": "Dec 29, 2025", "price": 38.76}, {"date": "Jan 05, 2026", "price": 41.8}, {"date": "Jan 12, 2026", "price": 40.41}, {"date": "Jan 19, 2026", "price": 42.08}, {"date": "Jan 26, 2026", "price": 39.93}, {"date": "Feb 02, 2026", "price": 40.25}, {"date": "Feb 09, 2026", "price": 35.23}, {"date": "Feb 16, 2026", "price": 35.03}, {"date": "Feb 23, 2026", "price": 44.34}, {"date": "Mar 02, 2026", "price": 42.76}, {"date": "Mar 09, 2026", "price": 40.95}, {"date": "Mar 16, 2026", "price": 40.31}, {"date": "Mar 23, 2026", "price": 41.59}, {"date": "Mar 30, 2026", "price": 44.78}, {"date": "Apr 06, 2026", "price": 44.54}, {"date": "Apr 13, 2026", "price": 51.8}, {"date": "Apr 20, 2026", "price": 46.74}, {"date": "Apr 27, 2026", "price": 45.1}, {"date": "May 04, 2026", "price": 40.18}, {"date": "May 11, 2026", "price": 36.06}, {"date": "May 18, 2026", "price": 38.19}, {"date": "May 25, 2026", "price": 36.04}, {"date": "Jun 01, 2026", "price": 31.53}, {"date": "Jun 08, 2026", "price": 34.1}, {"date": "Jun 15, 2026", "price": 33.98}, {"date": "Jun 22, 2026", "price": 32.03}, {"date": "Jun 29, 2026", "price": 33.21}, {"date": "Jul 06, 2026", "price": 34.41}, {"date": "Jul 13, 2026", "price": 38.01}, {"date": "Jul 20, 2026", "price": 36.09}, {"date": "Jul 27, 2026", "price": 42.21}, {"date": "Aug 03, 2026", "price": 53.25}, {"date": "Aug 10, 2026", "price": 51.87}, {"date": "Aug 17, 2026", "price": 49.07}, {"date": "Aug 19, 2026", "price": 51.52}], "10Y": [{"date": "Sep 01, 2022", "price": 10.11}, {"date": "Oct 01, 2022", "price": 4.68}, {"date": "Nov 01, 2022", "price": 7.37}, {"date": "Dec 01, 2022", "price": 5.69}, {"date": "Jan 01, 2023", "price": 5.85}, {"date": "Feb 01, 2023", "price": 5.06}, {"date": "Mar 01, 2023", "price": 6.3}, {"date": "Apr 01, 2023", "price": 5.53}, {"date": "May 01, 2023", "price": 6.75}, {"date": "Jun 01, 2023", "price": 6.76}, {"date": "Jul 01, 2023", "price": 8.74}, {"date": "Aug 01, 2023", "price": 12.51}, {"date": "Sep 01, 2023", "price": 8.81}, {"date": "Oct 01, 2023", "price": 9.47}, {"date": "Nov 01, 2023", "price": 9.72}, {"date": "Dec 01, 2023", "price": 18.3}, {"date": "Jan 01, 2024", "price": 22.22}, {"date": "Feb 01, 2024", "price": 37.45}, {"date": "Mar 01, 2024", "price": 26.72}, {"date": "Apr 01, 2024", "price": 31.79}, {"date": "May 01, 2024", "price": 31.14}, {"date": "Jun 01, 2024", "price": 30.42}, {"date": "Jul 01, 2024", "price": 29.43}, {"date": "Aug 01, 2024", "price": 19.44}, {"date": "Sep 01, 2024", "price": 22.98}, {"date": "Oct 01, 2024", "price": 22.77}, {"date": "Nov 01, 2024", "price": 24.7}, {"date": "Dec 01, 2024", "price": 18.52}, {"date": "Jan 01, 2025", "price": 21.32}, {"date": "Feb 01, 2025", "price": 16.93}, {"date": "Mar 01, 2025", "price": 14.2}, {"date": "Apr 01, 2025", "price": 12.54}, {"date": "May 01, 2025", "price": 17.56}, {"date": "Jun 01, 2025", "price": 19.78}, {"date": "Jul 01, 2025", "price": 22.27}, {"date": "Aug 01, 2025", "price": 26.47}, {"date": "Sep 01, 2025", "price": 28.4}, {"date": "Oct 01, 2025", "price": 27.98}, {"date": "Nov 01, 2025", "price": 37.1}, {"date": "Dec 01, 2025", "price": 39.28}, {"date": "Jan 01, 2026", "price": 39.93}, {"date": "Feb 01, 2026", "price": 44.34}, {"date": "Mar 01, 2026", "price": 45.38}, {"date": "Apr 01, 2026", "price": 44.49}, {"date": "May 01, 2026", "price": 36.04}, {"date": "Jun 01, 2026", "price": 31.6}, {"date": "Jul 01, 2026", "price": 43.74}, {"date": "Aug 01, 2026", "price": 49.07}, {"date": "Aug 19, 2026", "price": 51.52}], "MAX": [{"date": "Aug 15, 2022", "price": 48.01}, {"date": "Aug 22, 2022", "price": 19.3}, {"date": "Aug 29, 2022", "price": 20.04}, {"date": "Sep 05, 2022", "price": 18.1}, {"date": "Sep 12, 2022", "price": 14.99}, {"date": "Sep 19, 2022", "price": 12.82}, {"date": "Sep 26, 2022", "price": 10.11}, {"date": "Oct 03, 2022", "price": 6.38}, {"date": "Oct 10, 2022", "price": 6.19}, {"date": "Oct 17, 2022", "price": 5.03}, {"date": "Oct 24, 2022", "price": 4.86}, {"date": "Oct 31, 2022", "price": 4.66}, {"date": "Nov 07, 2022", "price": 6.43}, {"date": "Nov 14, 2022", "price": 5.96}, {"date": "Nov 21, 2022", "price": 6.16}, {"date": "Nov 28, 2022", "price": 7.73}, {"date": "Dec 05, 2022", "price": 6.64}, {"date": "Dec 12, 2022", "price": 5.73}, {"date": "Dec 19, 2022", "price": 5.53}, {"date": "Dec 26, 2022", "price": 5.69}, {"date": "Jan 02, 2023", "price": 6.35}, {"date": "Jan 09, 2023", "price": 6.3}, {"date": "Jan 16, 2023", "price": 6.12}, {"date": "Jan 23, 2023", "price": 5.94}, {"date": "Jan 30, 2023", "price": 5.84}, {"date": "Feb 06, 2023", "price": 4.94}, {"date": "Feb 13, 2023", "price": 5.34}, {"date": "Feb 20, 2023", "price": 5.01}, {"date": "Feb 27, 2023", "price": 4.97}, {"date": "Mar 06, 2023", "price": 4.9}, {"date": "Mar 13, 2023", "price": 5.27}, {"date": "Mar 20, 2023", "price": 5.21}, {"date": "Mar 27, 2023", "price": 6.3}, {"date": "Apr 03, 2023", "price": 5.63}, {"date": "Apr 10, 2023", "price": 5.56}, {"date": "Apr 17, 2023", "price": 5.26}, {"date": "Apr 24, 2023", "price": 5.53}, {"date": "May 01, 2023", "price": 5.05}, {"date": "May 08, 2023", "price": 5.24}, {"date": "May 15, 2023", "price": 5.27}, {"date": "May 22, 2023", "price": 6.45}, {"date": "May 29, 2023", "price": 6.78}, {"date": "Jun 05, 2023", "price": 6.98}, {"date": "Jun 12, 2023", "price": 8.08}, {"date": "Jun 19, 2023", "price": 7.79}, {"date": "Jun 26, 2023", "price": 6.76}, {"date": "Jul 03, 2023", "price": 7.13}, {"date": "Jul 10, 2023", "price": 7.75}, {"date": "Jul 17, 2023", "price": 8.7}, {"date": "Jul 24, 2023", "price": 8.47}, {"date": "Jul 31, 2023", "price": 9.08}, {"date": "Aug 07, 2023", "price": 10.72}, {"date": "Aug 14, 2023", "price": 11.54}, {"date": "Aug 21, 2023", "price": 12.09}, {"date": "Aug 28, 2023", "price": 13.58}, {"date": "Sep 04, 2023", "price": 16.4}, {"date": "Sep 11, 2023", "price": 11.45}, {"date": "Sep 18, 2023", "price": 9.25}, {"date": "Sep 25, 2023", "price": 8.81}, {"date": "Oct 02, 2023", "price": 8.67}, {"date": "Oct 09, 2023", "price": 8.69}, {"date": "Oct 16, 2023", "price": 8.55}, {"date": "Oct 23, 2023", "price": 8.22}, {"date": "Oct 30, 2023", "price": 10.79}, {"date": "Nov 06, 2023", "price": 9.31}, {"date": "Nov 13, 2023", "price": 9.41}, {"date": "Nov 20, 2023", "price": 10.07}, {"date": "Nov 27, 2023", "price": 11.8}, {"date": "Dec 04, 2023", "price": 13.33}, {"date": "Dec 11, 2023", "price": 13.08}, {"date": "Dec 18, 2023", "price": 14.86}, {"date": "Dec 25, 2023", "price": 18.3}, {"date": "Jan 01, 2024", "price": 20.15}, {"date": "Jan 08, 2024", "price": 20.11}, {"date": "Jan 15, 2024", "price": 19.9}, {"date": "Jan 22, 2024", "price": 25.62}, {"date": "Jan 29, 2024", "price": 25.0}, {"date": "Feb 05, 2024", "price": 29.28}, {"date": "Feb 12, 2024", "price": 34.5}, {"date": "Feb 19, 2024", "price": 32.31}, {"date": "Feb 26, 2024", "price": 39.46}, {"date": "Mar 04, 2024", "price": 34.38}, {"date": "Mar 11, 2024", "price": 43.15}, {"date": "Mar 18, 2024", "price": 26.91}, {"date": "Mar 25, 2024", "price": 26.72}, {"date": "Apr 01, 2024", "price": 34.75}, {"date": "Apr 08, 2024", "price": 31.75}, {"date": "Apr 15, 2024", "price": 34.69}, {"date": "Apr 22, 2024", "price": 35.35}, {"date": "Apr 29, 2024", "price": 37.27}, {"date": "May 06, 2024", "price": 37.35}, {"date": "May 13, 2024", "price": 35.76}, {"date": "May 20, 2024", "price": 32.55}, {"date": "May 27, 2024", "price": 31.14}, {"date": "Jun 03, 2024", "price": 30.6}, {"date": "Jun 10, 2024", "price": 31.17}, {"date": "Jun 17, 2024", "price": 29.33}, {"date": "Jun 24, 2024", "price": 30.42}, {"date": "Jul 01, 2024", "price": 32.19}, {"date": "Jul 08, 2024", "price": 30.38}, {"date": "Jul 15, 2024", "price": 28.59}, {"date": "Jul 22, 2024", "price": 28.44}, {"date": "Jul 29, 2024", "price": 25.56}, {"date": "Aug 05, 2024", "price": 22.43}, {"date": "Aug 12, 2024", "price": 22.4}, {"date": "Aug 19, 2024", "price": 22.54}, {"date": "Aug 26, 2024", "price": 19.44}, {"date": "Sep 02, 2024", "price": 17.11}, {"date": "Sep 09, 2024", "price": 17.08}, {"date": "Sep 16, 2024", "price": 18.3}, {"date": "Sep 23, 2024", "price": 23.76}, {"date": "Sep 30, 2024", "price": 28.33}, {"date": "Oct 07, 2024", "price": 25.24}, {"date": "Oct 14, 2024", "price": 26.4}, {"date": "Oct 21, 2024", "price": 24.17}, {"date": "Oct 28, 2024", "price": 22.71}, {"date": "Nov 04, 2024", "price": 27.93}, {"date": "Nov 11, 2024", "price": 20.86}, {"date": "Nov 18, 2024", "price": 25.5}, {"date": "Nov 25, 2024", "price": 24.7}, {"date": "Dec 02, 2024", "price": 22.2}, {"date": "Dec 09, 2024", "price": 20.69}, {"date": "Dec 16, 2024", "price": 17.93}, {"date": "Dec 23, 2024", "price": 17.57}, {"date": "Dec 30, 2024", "price": 19.59}, {"date": "Jan 06, 2025", "price": 19.22}, {"date": "Jan 13, 2025", "price": 19.83}, {"date": "Jan 20, 2025", "price": 21.09}, {"date": "Jan 27, 2025", "price": 21.32}, {"date": "Feb 03, 2025", "price": 19.79}, {"date": "Feb 10, 2025", "price": 20.46}, {"date": "Feb 17, 2025", "price": 18.68}, {"date": "Feb 24, 2025", "price": 16.93}, {"date": "Mar 03, 2025", "price": 15.69}, {"date": "Mar 10, 2025", "price": 14.93}, {"date": "Mar 17, 2025", "price": 15.06}, {"date": "Mar 24, 2025", "price": 15.11}, {"date": "Mar 31, 2025", "price": 13.31}, {"date": "Apr 07, 2025", "price": 11.7}, {"date": "Apr 14, 2025", "price": 12.73}, {"date": "Apr 21, 2025", "price": 13.32}, {"date": "Apr 28, 2025", "price": 13.64}, {"date": "May 05, 2025", "price": 14.5}, {"date": "May 12, 2025", "price": 18.88}, {"date": "May 19, 2025", "price": 17.88}, {"date": "May 26, 2025", "price": 17.56}, {"date": "Jun 02, 2025", "price": 18.61}, {"date": "Jun 09, 2025", "price": 17.81}, {"date": "Jun 16, 2025", "price": 18.24}, {"date": "Jun 23, 2025", "price": 19.8}, {"date": "Jun 30, 2025", "price": 20.56}, {"date": "Jul 07, 2025", "price": 20.76}, {"date": "Jul 14, 2025", "price": 21.42}, {"date": "Jul 21, 2025", "price": 24.07}, {"date": "Jul 28, 2025", "price": 20.97}, {"date": "Aug 04, 2025", "price": 28.91}, {"date": "Aug 11, 2025", "price": 32.27}, {"date": "Aug 18, 2025", "price": 31.03}, {"date": "Aug 25, 2025", "price": 26.47}, {"date": "Sep 01, 2025", "price": 27.06}, {"date": "Sep 08, 2025", "price": 29.84}, {"date": "Sep 15, 2025", "price": 29.56}, {"date": "Sep 22, 2025", "price": 29.66}, {"date": "Sep 29, 2025", "price": 27.98}, {"date": "Oct 06, 2025", "price": 26.19}, {"date": "Oct 13, 2025", "price": 26.65}, {"date": "Oct 20, 2025", "price": 28.34}, {"date": "Oct 27, 2025", "price": 27.98}, {"date": "Nov 03, 2025", "price": 33.11}, {"date": "Nov 10, 2025", "price": 30.42}, {"date": "Nov 17, 2025", "price": 34.88}, {"date": "Nov 24, 2025", "price": 37.1}, {"date": "Dec 01, 2025", "price": 40.06}, {"date": "Dec 08, 2025", "price": 40.37}, {"date": "Dec 15, 2025", "price": 40.37}, {"date": "Dec 22, 2025", "price": 40.19}, {"date": "Dec 29, 2025", "price": 38.76}, {"date": "Jan 05, 2026", "price": 41.8}, {"date": "Jan 12, 2026", "price": 40.41}, {"date": "Jan 19, 2026", "price": 42.08}, {"date": "Jan 26, 2026", "price": 39.93}, {"date": "Feb 02, 2026", "price": 40.25}, {"date": "Feb 09, 2026", "price": 35.23}, {"date": "Feb 16, 2026", "price": 35.03}, {"date": "Feb 23, 2026", "price": 44.34}, {"date": "Mar 02, 2026", "price": 42.76}, {"date": "Mar 09, 2026", "price": 40.95}, {"date": "Mar 16, 2026", "price": 40.31}, {"date": "Mar 23, 2026", "price": 41.59}, {"date": "Mar 30, 2026", "price": 44.78}, {"date": "Apr 06, 2026", "price": 44.54}, {"date": "Apr 13, 2026", "price": 51.8}, {"date": "Apr 20, 2026", "price": 46.74}, {"date": "Apr 27, 2026", "price": 45.1}, {"date": "May 04, 2026", "price": 40.18}, {"date": "May 11, 2026", "price": 36.06}, {"date": "May 18, 2026", "price": 38.19}, {"date": "May 25, 2026", "price": 36.04}, {"date": "Jun 01, 2026", "price": 31.53}, {"date": "Jun 08, 2026", "price": 34.1}, {"date": "Jun 15, 2026", "price": 33.98}, {"date": "Jun 22, 2026", "price": 32.03}, {"date": "Jun 29, 2026", "price": 33.21}, {"date": "Jul 06, 2026", "price": 34.41}, {"date": "Jul 13, 2026", "price": 38.01}, {"date": "Jul 20, 2026", "price": 36.09}, {"date": "Jul 27, 2026", "price": 42.21}, {"date": "Aug 03, 2026", "price": 53.25}, {"date": "Aug 10, 2026", "price": 51.87}, {"date": "Aug 17, 2026", "price": 49.07}, {"date": "Aug 19, 2026", "price": 51.52}]};
+        const targetS1 = 94.08;
+        const targetS2 = 173.0;
+        const targetS3 = 27.82;
+
+        let currentRangeKey = '1Y';
+        let currentPoints = allDatasets[currentRangeKey] || [];
+        let currentSvgCoords = [];
+
+        const width = 900;
+        const height = 260;
+        const padX = 20;
+        const padY = 25;
+
+        const container = document.getElementById('chart-container');
+        const svg = document.getElementById('interactive-svg');
+        const linePath = document.getElementById('chart-line-path');
+        const areaPath = document.getElementById('chart-area-path');
+        const lineS1 = document.getElementById('target-s1-line');
+        const labelS1 = document.getElementById('target-s1-label');
+        const lineS2 = document.getElementById('target-s2-line');
+        const labelS2 = document.getElementById('target-s2-label');
+        const lineS3 = document.getElementById('target-s3-line');
+        const labelS3 = document.getElementById('target-s3-label');
+
+        const tooltipDate = document.getElementById('tooltip-date');
+        const tooltipPrice = document.getElementById('tooltip-price');
+        const tooltipDelta = document.getElementById('tooltip-delta');
+        const crosshairV = document.getElementById('crosshair-v');
+        const crosshairH = document.getElementById('crosshair-h');
+        const dotOuter = document.getElementById('hover-dot-outer');
+        const dot = document.getElementById('hover-dot');
+        const badgeX = document.getElementById('chart-badge-x');
+        const badgeY = document.getElementById('chart-badge-y');
+        const startLbl = document.getElementById('chart-start-lbl');
+        const endLbl = document.getElementById('chart-end-lbl');
+        const rangeTitle = document.getElementById('chart-range-title');
+
+        // Hero price elements
+        const heroPriceNum = document.querySelector('.price-number');
+        const heroPriceSub = document.querySelector('.price-sub');
+        const defaultHeroPrice = heroPriceNum ? heroPriceNum.innerText : '';
+        const defaultHeroSub = heroPriceSub ? heroPriceSub.innerText : '';
+        const defaultHeroSubClass = heroPriceSub ? heroPriceSub.className : '';
+
+        function recalculatePaths(points) {
+            if (!points || points.length < 2) return;
+            const prices = points.map(p => p.price);
+            const evalPrices = [...prices];
+            if (targetS1 !== null && !isNaN(targetS1)) evalPrices.push(targetS1);
+            if (targetS2 !== null && !isNaN(targetS2)) evalPrices.push(targetS2);
+            if (targetS3 !== null && !isNaN(targetS3)) evalPrices.push(targetS3);
+
+            const rawMin = Math.min(...evalPrices);
+            const rawMax = Math.max(...evalPrices);
+            const padSpan = Math.max((rawMax - rawMin) * 0.05, 0.5);
+            const minP = rawMin - padSpan;
+            const maxP = rawMax + padSpan;
+            const pRange = Math.max(maxP - minP, 0.01);
+            const n = points.length;
+
+            function getSvgY(val) {
+                return height - padY - ((val - minP) / pRange) * (height - 2 * padY);
+            }
+
+            currentSvgCoords = [];
+            for (let i = 0; i < n; i++) {
+                const x = padX + (i / (n - 1)) * (width - 2 * padX);
+                const y = getSvgY(points[i].price);
+                currentSvgCoords.push([Math.round(x * 10) / 10, Math.round(y * 10) / 10]);
+            }
+
+            const lineD = 'M ' + currentSvgCoords.map(c => c[0] + ',' + c[1]).join(' L ');
+            const firstC = currentSvgCoords[0];
+            const lastC = currentSvgCoords[currentSvgCoords.length - 1];
+            const areaD = lineD + ' L ' + lastC[0] + ',' + height + ' L ' + firstC[0] + ',' + height + ' Z';
+
+            linePath.setAttribute('d', lineD);
+            areaPath.setAttribute('d', areaD);
+
+            const liveTodayPrice = 51.52;
+
+            // Update Target Reference Dotted Lines with % relative to today's price (EXACT 1:1 Storyline lines)
+            if (targetS1 !== null && !isNaN(targetS1) && lineS1 && labelS1) {
+                const y = getSvgY(targetS1);
+                lineS1.setAttribute('y1', y);
+                lineS1.setAttribute('y2', y);
+                lineS1.style.display = 'block';
+                labelS1.setAttribute('y', y - 4);
+                const s1Diff = liveTodayPrice > 0 ? ((targetS1 - liveTodayPrice) / liveTodayPrice * 100) : 0;
+                const s1Sign = s1Diff >= 0 ? '+' : '';
+                labelS1.textContent = 'Story 1 $' + targetS1.toFixed(2) + ' (' + s1Sign + s1Diff.toFixed(1) + '%)';
+                labelS1.style.display = 'block';
+            } else if (lineS1) {
+                lineS1.style.display = 'none';
+                if (labelS1) labelS1.style.display = 'none';
+            }
+
+            if (targetS2 !== null && !isNaN(targetS2) && lineS2 && labelS2) {
+                const y = getSvgY(targetS2);
+                lineS2.setAttribute('y1', y);
+                lineS2.setAttribute('y2', y);
+                lineS2.style.display = 'block';
+                labelS2.setAttribute('y', y - 4);
+                const s2Diff = liveTodayPrice > 0 ? ((targetS2 - liveTodayPrice) / liveTodayPrice * 100) : 0;
+                const s2Sign = s2Diff >= 0 ? '+' : '';
+                labelS2.textContent = 'Story 2 $' + targetS2.toFixed(2) + ' (' + s2Sign + s2Diff.toFixed(1) + '%)';
+                labelS2.style.display = 'block';
+            } else if (lineS2) {
+                lineS2.style.display = 'none';
+                if (labelS2) labelS2.style.display = 'none';
+            }
+
+            if (targetS3 !== null && !isNaN(targetS3) && lineS3 && labelS3) {
+                const y = getSvgY(targetS3);
+                lineS3.setAttribute('y1', y);
+                lineS3.setAttribute('y2', y);
+                lineS3.style.display = 'block';
+                labelS3.setAttribute('y', y - 4);
+                const s3Diff = liveTodayPrice > 0 ? ((targetS3 - liveTodayPrice) / liveTodayPrice * 100) : 0;
+                const s3Sign = s3Diff >= 0 ? '+' : '';
+                labelS3.textContent = 'Story 3 $' + targetS3.toFixed(2) + ' (' + s3Sign + s3Diff.toFixed(1) + '%)';
+                labelS3.style.display = 'block';
+            } else if (lineS3) {
+                lineS3.style.display = 'none';
+                if (labelS3) labelS3.style.display = 'none';
+            }
+
+            startLbl.innerText = points[0].date + ' ($' + Math.min(...prices).toFixed(2) + ')';
+            endLbl.innerText = points[n - 1].date + ' ($' + points[n - 1].price.toFixed(2) + ')';
+            
+            tooltipDate.innerText = points[n - 1].date;
+            tooltipPrice.innerText = '$' + points[n - 1].price.toFixed(2);
+            if (tooltipDelta) tooltipDelta.innerText = '';
+
+            const titles = { '1Y': '1-Year Range', '5Y': '5-Year Range', '10Y': '10-Year Range', 'MAX': 'All-Time Historical Range' };
+            rangeTitle.innerText = titles[currentRangeKey] || currentRangeKey + ' Range';
+        }
+
+        window.switchChartRange = function(rangeKey) {
+            if (!allDatasets[rangeKey]) return;
+            currentRangeKey = rangeKey;
+            currentPoints = allDatasets[rangeKey];
+            
+            document.querySelectorAll('.range-pill').forEach(btn => {
+                if (btn.innerText.trim() === rangeKey) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            recalculatePaths(currentPoints);
+            hideHover();
+        };
+
+        function updateHover(e) {
+            if (!currentPoints.length || !currentSvgCoords.length) return;
+            const rect = svg.getBoundingClientRect();
+            const mouseX = Math.max(0, Math.min(rect.width, e.clientX - rect.left));
+            const pct = mouseX / rect.width;
+            const idx = Math.min(currentPoints.length - 1, Math.max(0, Math.round(pct * (currentPoints.length - 1))));
+            
+            const pt = currentPoints[idx];
+            const coord = currentSvgCoords[idx];
+            if (!pt || !coord) return;
+
+            // Vertical crosshair
+            crosshairV.setAttribute('x1', coord[0]);
+            crosshairV.setAttribute('x2', coord[0]);
+            crosshairV.style.display = 'block';
+
+            // Horizontal crosshair
+            crosshairH.setAttribute('y1', coord[1]);
+            crosshairH.setAttribute('y2', coord[1]);
+            crosshairH.style.display = 'block';
+
+            // Dot & Halo
+            dotOuter.setAttribute('cx', coord[0]);
+            dotOuter.setAttribute('cy', coord[1]);
+            dotOuter.style.display = 'block';
+
+            dot.setAttribute('cx', coord[0]);
+            dot.setAttribute('cy', coord[1]);
+            dot.style.display = 'block';
+
+            // Floating X-Axis Badge (CSS coords)
+            const cssX = (coord[0] / width) * rect.width;
+            badgeX.style.left = cssX + 'px';
+            badgeX.innerText = pt.date;
+            badgeX.style.display = 'block';
+
+            // Floating Y-Axis Badge (CSS coords)
+            const cssY = (coord[1] / height) * rect.height;
+            badgeY.style.top = cssY + 'px';
+            badgeY.innerText = '$' + pt.price.toFixed(2);
+            badgeY.style.display = 'block';
+
+            // Calculate range delta
+            const basePrice = currentPoints[0].price;
+            const deltaPct = ((pt.price - basePrice) / basePrice) * 100;
+            const deltaClass = deltaPct >= 0 ? 'pos' : 'neg';
+            const deltaSign = deltaPct >= 0 ? '+' : '';
+
+            // Tooltip header
+            tooltipDate.innerText = pt.date;
+            tooltipPrice.innerText = '$' + pt.price.toFixed(2);
+            if (tooltipDelta) {
+                tooltipDelta.className = deltaClass;
+                tooltipDelta.innerText = `${deltaSign}${deltaPct.toFixed(2)}% vs Range Start`;
+            }
+
+            // Real-time Hero Scrubbing
+            if (heroPriceNum) {
+                heroPriceNum.innerText = '$' + pt.price.toFixed(2);
+            }
+            if (heroPriceSub) {
+                heroPriceSub.className = 'price-sub ' + deltaClass;
+                heroPriceSub.innerText = `${deltaSign}${deltaPct.toFixed(2)}%`;
+            }
+        }
+
+        function hideHover() {
+            crosshairV.style.display = 'none';
+            crosshairH.style.display = 'none';
+            dotOuter.style.display = 'none';
+            dot.style.display = 'none';
+            badgeX.style.display = 'none';
+            badgeY.style.display = 'none';
+            if (tooltipDelta) tooltipDelta.innerText = '';
+
+            if (currentPoints.length) {
+                tooltipDate.innerText = currentPoints[currentPoints.length - 1].date;
+                tooltipPrice.innerText = '$' + currentPoints[currentPoints.length - 1].price.toFixed(2);
+            }
+
+            if (heroPriceNum && defaultHeroPrice) {
+                heroPriceNum.innerText = defaultHeroPrice;
+            }
+            if (heroPriceSub && defaultHeroSub) {
+                heroPriceSub.className = defaultHeroSubClass;
+                heroPriceSub.innerText = defaultHeroSub;
+            }
+        }
+
+        container.addEventListener('mousemove', updateHover);
+        container.addEventListener('mouseleave', hideHover);
+        container.addEventListener('touchstart', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
+        container.addEventListener('touchmove', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
+        container.addEventListener('touchend', hideHover);
+
+        recalculatePaths(currentPoints);
+    })();
+    </script>
+    
+
+            <!-- Key Metrics Grid -->
+            <div class="metrics-grid">
+                <div class="metric-cell">
+                    <div class="metric-label">Fair Value</div>
+                    <div class="metric-value" style="color: var(--accent-warm);">$94.08</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Story 1</div>
+                    <div class="metric-value metric-target-value" style="color: #64B5F6;"><span class="target-price">$94.08</span><span class="target-pct" style="font-size: 0.74rem; opacity: 0.85; font-family: var(--font-mono); font-weight: 500; margin-left: 4px;">(+82.7%)</span></div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Story 2</div>
+                    <div class="metric-value metric-target-value" style="color: #D4A373;"><span class="target-price">$173.00</span><span class="target-pct" style="font-size: 0.74rem; opacity: 0.85; font-family: var(--font-mono); font-weight: 500; margin-left: 4px;">(+235.9%)</span></div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Story 3</div>
+                    <div class="metric-value metric-target-value" style="color: #81C784;"><span class="target-price">$27.82</span><span class="target-pct" style="font-size: 0.74rem; opacity: 0.85; font-family: var(--font-mono); font-weight: 500; margin-left: 4px;">(-46.0%)</span></div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Corridor</div>
+                    <div class="metric-value" style="font-size: 1.00rem; font-family: var(--font-mono); color: var(--text-title);">$27.82 ⇄ $173.00</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Catalyst</div>
+                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">2026-11-17</div>
+                    <div class="metric-delta" style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 2px;">Scheduled quarterly report</div>
+                </div>
+                
+    <div class="metric-cell">
+        <div class="metric-label">Whales</div>
+        <div class="metric-value" style="font-size: 1.05rem !important; font-family: var(--font-sans) !important; font-weight: 600 !important; color: var(--text-title); white-space: nowrap !important;">Whale Backed</div>
+        <div class="metric-subtext">13F Institutional Backing</div>
+    </div>
+    
+                
+    <div class="metric-cell">
+        <div class="metric-label">Insiders</div>
+        <div class="metric-value" style="color: var(--accent-red); font-family: var(--font-sans) !important; font-size: 1.05rem !important; font-weight: 600 !important; white-space: nowrap !important; letter-spacing: -0.01em !important; overflow: hidden !important; text-overflow: ellipsis !important;">🔴 Net Selling</div>
+        <div class="metric-subtext">5 Officers Sold -$57.4M (Zero Buys in 12M)</div>
+    </div>
+    
+            </div>
+        </section>
+
+        <!-- Navigation Tabs -->
+        <div class="tabs-header">
+            <button id="btn-tab-memo" class="tab-btn active" onclick="showTab('memo')">Investment Thesis</button>
+            <button id="btn-tab-history" class="tab-btn" onclick="showTab('history')">Evolution (0)</button>
+            <button id="btn-tab-ownership" class="tab-btn" onclick="showTab('ownership')">Ownership & Fund Intel</button>
+        </div>
+
+        <!-- Memo Content -->
+        <div id="tab-memo" class="tab-content active">
+            <article class="memo-container">
+                <h2>Section 1: The Premise of the Company</h2>
+<p>GigaCloud Technology Inc. (Nasdaq: GCT) is a pioneer in global B2B e-commerce technology solutions, specifically engineered for large-parcel merchandise such as furniture, home appliances, and fitness equipment. The company operates an integrated B2B marketplace known as the <strong>GigaCloud Marketplace</strong>, which unites product discovery, cross-border payment processing, and end-to-end logistics fulfillment into a single digital ecosystem. At the foundation of GigaCloud's business model is its proprietary <strong>Supplier Fulfilled Retailing® (SFR®)</strong> framework. Under this model, overseas manufacturers (primarily in Asia) are directly connected to online and offline retailers and resellers across North America, Europe, and Asia. By fulfilling large-parcel goods directly from factory-side inventory to the end-consumer's doorstep at flat-rate, predictable pricing, GigaCloud eliminates multiple intermediary handling costs, lowers buyer inventory risks, and optimizes pooled global shipping demand.</p>
+<p>The operational engine derives revenue from two complementary channels: <strong>1P Product Revenue</strong> (where GigaCloud buys and sells merchandise directly to optimize platform velocity and establish baseline merchant liquidity) and <strong>3P Service Revenue</strong> (high-margin marketplace transaction commissions, ocean freight forwarding, warehousing, and last-mile delivery services). The company's competitive moat is rooted in network scale economies, high switching costs for integrated sellers, and a physical fulfillment moat comprising 38 leased fulfillment centers spanning over 12.4 million square feet globally. The key operational metrics tracking marketplace density and network flywheel velocity for the trailing 12 months ended June 30, 2026 include:</p>
+<ul>
+<li><strong>Total GigaCloud Marketplace GMV:</strong> $1,744.8 million (+21.3% YoY)</li>
+<li><strong>3P Seller Marketplace GMV:</strong> $962.3 million (+27.0% YoY, representing 55.2% of total marketplace GMV)</li>
+<li><strong>Active 3P Sellers:</strong> 1,465 (+26.1% YoY)</li>
+<li><strong>Active Buyers:</strong> 12,823 (+17.1% YoY)</li>
+<li><strong>Average Spend per Active Buyer:</strong> $136,069</li>
+</ul>
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">LTM Net Revenue</div>
+<div class="metric-value">$1.47B</div>
+<div class="metric-delta pos">Q2 2026 LTM / +29.7% 1H YoY</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">GAAP Operating Cash Flow</div>
+<div class="metric-value">$169.32M</div>
+<div class="metric-delta pos">LTM Ended June 30, 2026</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Core Baseline Owner Earnings</div>
+<div class="metric-value">$136.03M</div>
+<div class="metric-delta pos">OCF - Interest - CapEx - SBC</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Surplus Net Cash / Share</div>
+<div class="metric-value">+$9.15</div>
+<div class="metric-delta pos">Net of 3.0% Rev Buffer, Zero Debt</div>
+</div>
+</div>
+<div class="executive-callout">
+<h3>Executive Leadership Commentary &amp; 4-Quarter Trajectory</h3>
+<p><strong>Larry Wu, Founder, Chairman &amp; Chief Executive Officer:</strong> "Our second quarter demonstrated GigaCloud's resilience and adaptability. Despite ongoing pressure from across the broader furniture landscape, we delivered 28% revenue growth and record earnings per share, underscoring our commitment to profitable growth... By seamlessly connecting buyers and sellers across channels and geographies, we have created an ecosystem that meets today's demands while positioning GigaCloud for future growth. Europe is a strong example of this strategy in action."</p>
+<p><strong>Erica Wei, Chief Financial Officer:</strong> "Supported by share repurchases, diluted GAAP EPS increased 28% to $1.16 per share. Operating cash flow was $48 million during the quarter. We remain debt-free as of quarter end and ended the quarter with $379 million of total liquidity... As we had previously communicated, we retained the flexibility to execute our share repurchase plan opportunistically during periods of market volatility."</p>
+<p><strong>Iman Schrock, President:</strong> "Our marketplace remains GigaCloud's core engine, delivering another strong quarter. Trailing 12-month GMV grew 21% year-over-year to $1.7 billion as of June 30th, 2026... Active third-party sellers increased 26% to 1,465, while active buyers grew 17% to 12,823. These gains reinforce the network effect at the heart of our platform."</p>
+</div>
+<div class="callout">
+<h3>Corporate Governance, Structural Defenses &amp; Historical Post-Mortem</h3>
+<p><strong>VIE Structure Elimination &amp; Upstream Cash Freedom:</strong> As explicitly disclosed in Note 1 of the audited SEC Form 10-K, GigaCloud successfully unwound and eliminated all legacy Variable Interest Entity (VIE) structures, confirming that zero VIEs remain. GigaCloud owns direct equity interests in its operating subsidiaries. Because the majority of consolidated revenue and cash flows originate in North America and Europe, the business does not suffer from foreign cash-trapping regulations or upstream dividend repatriation restrictions.</p>
+<p><strong>Historical Short-Seller Allegations &amp; Underwriting Resolution:</strong> In prior years (2023–2024), GigaCloud faced short-seller scrutiny questioning its physical warehouse footprint and transaction authenticity. Management decisively resolved these claims by subjecting operations to independent accounting audits by KPMG Huazhen LLP, expanding physical verification across 38 global fulfillment centers (~12.4M sq. ft.), and executing strategic physical acquisitions—including Noble House, Wondersign, and New Classic Furniture—which deepened its real-world distribution footprint and software integration with brick-and-mortar retail POS systems.</p>
+</div>
+<p>For the LTM period ended June 30, 2026, GigaCloud generated $169.32 million in GAAP Operating Cash Flow. Deducting $12.50 million in non-operating interest income earned on cash deposits, $8.50 million in annualized Maintenance CapEx (reflecting an asset-light model where fulfillment centers are leased rather than owned), and $12.29 million in Stock-Based Compensation (strictly expensed as a cash charge) yields a <strong>Core Baseline Owner Earnings (OE₀) of $136.03 million</strong>.</p>
+<p>The balance sheet represents a fortress cash reserve: as of June 30, 2026, GigaCloud held $378.6 million in cash, cash equivalents, restricted cash, and short-term investments, with <strong>zero funded debt</strong>. After reserving an essential operational cash buffer of $44.0 million (3.0% of LTM revenue), the business maintains $334.6 million in Unencumbered Surplus Cash. Divided by 36.55 million diluted shares outstanding, this represents <strong>+$9.15 per share in net surplus cash</strong> backing the operational enterprise. Demonstrating strict capital allocation discipline, management retired $47.7 million of stock in 1H 2026 and authorized a new $120.0 million three-year share repurchase program effective August 6, 2026.</p>
+<h2>Section 2: 3 Probable Business Stories</h2>
+<p>Based on the company's core premise, reported operational metrics, financial filings, and 4-quarter earnings trajectory, here are 3 distinct, probable fundamental paths that cover 90%–95% of probable business outcomes over the next 3–5 years:</p>
+<div class="callout">
+<h3>📖 Story 1: Steady Network Flywheel &amp; Global Marketplace Penetration (Base Case)</h3>
+<p>In this baseline scenario, GigaCloud's proprietary Supplier Fulfilled Retailing® (SFR®) model continues its steady market share gains in North America while deepening penetration across European home furnishings and large-parcel retail markets. The core B2B marketplace flywheel operates smoothly: as more Asian and European manufacturers list inventory on the platform, online and offline resellers benefit from lower inventory risks and flat-rate global fulfillment. Physical acquisitions (such as Noble House, Wondersign, and New Classic) remain successfully integrated, driving steady point-of-sale catalog adoption among traditional brick-and-mortar retailers. The business maintains its asset-light logistics structure by selectively adding leased warehouse capacity in lockstep with volume growth, preserving pricing power and operational efficiency without taking on balance sheet debt.</p>
+<p><strong>Operational Metric Drivers &amp; Revenue:</strong>
+<ul>
+<li><strong>Active 3P Sellers:</strong> Expands from 1,465 to ~2,250 over 4 years (~11.3% CAGR) as factory-direct Asian and European suppliers seek cross-border sales channels.</li>
+<li><strong>Active Buyers &amp; Buyer Spend:</strong> Active buyers increase from 12,823 to ~18,500 (~9.6% CAGR), while Average Spend per Active Buyer climbs modestly from $136,069 to ~$145,000, supported by software-enabled ordering.</li>
+<li><strong>Marketplace GMV &amp; 3P Mix:</strong> Total GigaCloud Marketplace GMV grows from $1,744.8 million to ~$2,680.0 million (+53.6% over 4 years, ~11.3% CAGR). The higher-margin 3P Seller GMV share expands from 55.2% to 62.0% ($1,661.6 million 3P GMV).</li>
+<li><strong>Revenue Translation:</strong> Net revenue expands from $1,470.0 million (LTM) to $2,250.0 million (~11.2% revenue CAGR). High-margin 3P Service Revenue (commissions, warehousing, ocean freight forwarding) grows faster (~15.0% CAGR) to $720.0 million, while 1P Product Revenue reaches $1,530.0 million.</li>
+</ul>
+</p>
+<p><strong>Cost Dynamics, CapEx &amp; Owner Earnings:</strong> GAAP Gross Margins edge upward from 24.8% to 25.5% as 3P marketplace services constitute a larger percentage of total sales. Fulfillment expense stabilizes at ~72% of total cost of sales as warehouse utilization across ~16.0 million sq. ft. reaches optimal density. GAAP Operating Margin expands from 11.6% to 12.5%, generating $281.25 million in operating profit. Maintenance CapEx scales with facility expansion from $8.50 million to $14.00 million per year. Stock-Based Compensation increases modestly from $12.29 million to $18.00 million annually (dilution offset by active share buybacks). GAAP Operating Cash Flow scales to $280.00 million. Subtracting $14.00 million in Maintenance CapEx, $18.00 million in SBC (cash-equivalent expense), and removing $13.00 million in non-operating interest income yields a <strong>Year 4 Core Owner Earnings (OE₄) of $235.00 million</strong> (~14.6% OE CAGR from baseline OE₀ $136.03M).</p>
+<p><strong>Key Milestones to Watch:</strong> Sustained active 3P seller growth above +10% YoY; 3P GMV share exceeding 60% of total GMV; European quarterly GMV growth maintaining &gt;25% YoY; maintaining gross margins above 24.5%.</p>
+</div>
+<div class="callout">
+<h3>📖 Story 2: High-Margin 3P Service Dominance &amp; International Scale (Upside Case)</h3>
+<p>In this high-margin expansion scenario, GigaCloud's B2B marketplace achieves dominant network scale economics. The platform becomes the global default "tollbooth" infrastructure for cross-border large-parcel commerce, mirroring an asset-light tech marketplace. European operations scale exponentially—leveraging local logistics hubs and cross-border seller onboarding—while Wondersign e-catalog software achieves mass adoption across thousands of independent furniture retailers. As 3P seller density surges, GigaCloud gains structural negotiating leverage over ocean shippers and last-mile trucking carriers, reducing shipping costs and widening its logistics moat. The company's revenue mix shifts heavily toward recurring, high-margin 3P transaction commissions and SaaS software integration fees, driving significant operational leverage and expanding corporate returns on capital.</p>
+<p><strong>Operational Metric Drivers &amp; Revenue:</strong>
+<ul>
+<li><strong>Active 3P Sellers:</strong> Surges from 1,465 to ~3,100 (~20.6% CAGR) as factory-direct manufacturers across Asia and Europe migrate to GigaCloud to bypass traditional wholesalers.</li>
+<li><strong>Active Buyers &amp; Buyer Spend:</strong> Active buyers expand from 12,823 to ~24,000 (~17.0% CAGR). Average Spend per Active Buyer climbs to ~$160,000 as buyers consolidate spending into new categories like outdoor equipment and major home appliances.</li>
+<li><strong>Marketplace GMV &amp; 3P Mix:</strong> Total GigaCloud Marketplace GMV accelerates to ~$3,840.0 million (~21.8% CAGR). High-margin 3P Seller GMV share expands dramatically from 55.2% to 70.0% ($2,688.0 million 3P GMV).</li>
+<li><strong>Revenue Translation:</strong> Net revenue reaches $3,100.0 million (~20.5% CAGR). 3P Service Revenue scales rapidly (~30.0% CAGR) to $1,250.0 million (40.3% of revenue mix), while 1P Product Revenue reaches $1,850.0 million.</li>
+</ul>
+</p>
+<p><strong>Cost Dynamics, CapEx &amp; Owner Earnings:</strong> Gross Margins expand significantly from 24.8% to 28.5%, driven by the higher-margin 3P marketplace fee mix and dynamic shipping rate optimization. Fulfillment expense improves by 200 bps due to higher warehouse throughput and AI-optimized last-mile routing across an expanded 19.0 million sq. ft. footprint. GAAP Operating Margin expands to 15.5%, generating $480.50 million in operating profit. Maintenance CapEx increases to $18.00 million annually to service higher transaction volume. Stock-Based Compensation rises to $22.00 million. GAAP Operating Cash Flow surges to $460.00 million. Deducting $18.00 million in Maintenance CapEx, $22.00 million in SBC, and $15.00 million in non-operating interest income produces a <strong>Year 4 Core Owner Earnings (OE₄) of $405.00 million</strong> (~31.4% OE CAGR from baseline OE₀ $136.03M).</p>
+<p><strong>Key Milestones to Watch:</strong> 3P Seller GMV share breaching 65% of total marketplace volume; GAAP Gross Margin breaking above 27.0%; active buyers exceeding 20,000; aggressive execution of the $120.0 million share repurchase program during stock pullbacks.</p>
+</div>
+<div class="callout">
+<h3>📖 Story 3: Trade Friction, Supply Chain Inflation &amp; FX Depreciation Stress (Downside / Bear Floor)</h3>
+<p>In this defensive stress scenario, the global trade environment deteriorates under heightened geopolitical friction, strict customs enforcement, and escalating import tariffs on cross-border merchandise originating from Asian supply chains. Simultaneously, high local interest rates and currency volatility trigger a <strong>+12.0% to +15.0% foreign exchange depreciation (e.g., RMB and emerging Asian currencies relative to the $ USD)</strong>. This FX devaluation inflates dollar-denominated landing and sourcing costs for factory merchandise, squeezing direct 1P product gross margins and forcing price concessions to clear inventory. High ocean shipping freight rates and fixed lease commitments across 38 fulfillment centers (~12.4 million sq. ft.) create severe negative operating leverage. Resellers face softening end-consumer demand in discretionary home furnishings, leading to slower marketplace GMV velocity, reduced buyer spend, and margin compression.</p>
+<p><strong>Operational Metric Drivers &amp; Revenue:</strong>
+<ul>
+<li><strong>Active 3P Sellers:</strong> Growth stagnates, edging up from 1,465 to only ~1,650 (~3.0% CAGR) as smaller overseas suppliers struggle with tariff border compliance costs.</li>
+<li><strong>Active Buyers &amp; Buyer Spend:</strong> Active buyers plateau at ~14,500 (~3.1% CAGR). Average Spend per Active Buyer declines from $136,069 to ~$128,000 as resellers pull back orders.</li>
+<li><strong>Marketplace GMV &amp; 3P Mix:</strong> Total GigaCloud Marketplace GMV stagnates near $1,856.0 million (+6.4% cumulative 4-year growth). 3P GMV share stalls at 52.0% ($965.1 million 3P GMV).</li>
+<li><strong>Revenue Translation &amp; FX Drag:</strong> Net revenue contracts slightly to $1,350.0 million (-8.2% total reduction from LTM baseline). Local currency depreciation (+12.0% to +15.0% FX headwind in USD conversion) directly reduces dollar-denominated net realizations on Asian supply flows. 3P Service Revenue drops to $370.0 million, while 1P Product Revenue declines to $980.0 million.</li>
+</ul>
+</p>
+<p><strong>Cost Dynamics, CapEx &amp; Owner Earnings:</strong> GAAP Gross Margin contracts sharply from 24.8% down to 20.0% as tariff absorption, container cost spikes, and FX conversion headwinds compress product sales. Fulfillment expense ratio surges from ~72% to 78% of cost of sales due to fixed warehouse lease obligations amidst lower throughput. Operating Margin compresses to 6.5%, generating $87.75 million in operating profit. Maintenance CapEx is restricted to $7.00 million per year (zero warehouse expansion). SBC remains at $11.00 million. GAAP Operating Cash Flow falls to $85.00 million. Deducting $7.00 million in Maintenance CapEx, $11.00 million in SBC, and $2.00 million in non-op interest yields a <strong>Year 4 Core Owner Earnings (OE₄) of $65.00 million</strong> (-52.2% cumulative decline from OE₀ $136.03M).</p>
+<p><strong>Key Milestones to Watch:</strong> Gross Margins dropping below 21.0%; fulfillment expense ratio exceeding 76% of sales; 3P GMV share falling below 50%; active seller churn rising above 8% per year.</p>
+</div>
+<div class="callout">
+<h3>Actionable Quarterly Monitoring Checklist (Next 12–18 Months)</h3>
+<div class="table-scroll-wrap"><table class="data-table">
+<thead>
+<tr>
+<th>Operational Metric</th>
+<th>🟢 Green Light (Thesis Acceleration)</th>
+<th>🔴 Red Light (Thesis Falsification Threshold)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Primary Quality Metric: Active 3P Sellers &amp; Network Health</strong></td>
+<td>Active 3P Sellers growing &gt;+20% YoY (exceeding 1,750 active sellers); warehouse throughput utilization exceeding 85% across fulfillment facilities.</td>
+<td>Active 3P Sellers flatlining or turning negative (&lt;1,400 active sellers); fulfillment expense ratio climbing above 76% of cost of sales.</td>
+</tr>
+<tr>
+<td><strong>Monetization &amp; Unit Economics: 3P GMV Mix &amp; Gross Margins</strong></td>
+<td>3P Seller GMV share expanding above 58% of total marketplace GMV; GAAP Gross Margin maintaining &gt;25.0%; Average Spend per Active Buyer &gt;$140,000.</td>
+<td>3P Seller GMV share contracting below 50.0%; GAAP Gross Margin compressing below 21.0% due to tariff/FX shock; Average Spend per Buyer falling below $120,000.</td>
+</tr>
+<tr>
+<td><strong>Balance Sheet &amp; Capital Allocation: Liquidity &amp; Buybacks</strong></td>
+<td>Unencumbered Net Cash maintained above $300M baseline; disciplined share repurchases executed under the $120M buyback program at intrinsic value discounts; zero funded debt.</td>
+<td>Unencumbered Cash drawn down below $200M for dilutive/unaccretive acquisitions; debt incurred on balance sheet; Stock-Based Compensation diluting share count by &gt;4% annually without cash flow growth.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<h2>Section 3: Valuation Across the 3 Stories</h2>
+<p>Translating each of the 3 business stories into Warren Buffett-style discounted cash flow valuations based on true Core Owner Earnings (GAAP Operating Cash Flow minus Non-Operating Interest Income minus Maintenance CapEx minus Stock-Based Compensation, which is treated as an authentic economic compensation cost to measure non-dilutive owner cash generation) plus audited balance sheet surplus net cash per share:</p>
+<div class="table-scroll-wrap"><table class="data-table">
+<thead>
+<tr>
+<th>Valuation Parameter</th>
+<th>Story 1: Steady Network Flywheel &amp; Global Marketplace Penetration</th>
+<th>Story 2: High-Margin 3P Service Dominance &amp; International Scale</th>
+<th>Story 3: Trade Friction, Supply Chain Inflation &amp; FX Depreciation Stress</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>Starting Normalized Owner Earnings (OE₀)</td><td>$136.0M</td><td>$136.0M</td><td>$136.0M</td></tr>
+<tr><td>5-Year Organic CAGR</td><td>+14.6%</td><td>+31.4%</td><td>-16.9%</td></tr>
+<tr><td>Discount / Hurdle Rate</td><td>9.5%</td><td>9.5%</td><td>10.5%</td></tr>
+<tr><td>Terminal Growth Rate</td><td>2.00%</td><td>2.25%</td><td>1.50%</td></tr>
+<tr><td>PV of 5-Year Cash Flows</td><td>$781.3M</td><td>$1,214.7M</td><td>$313.3M</td></tr>
+<tr><td>PV of Terminal Value</td><td>$2,322.9M</td><td>$4,773.8M</td><td>$369.1M</td></tr>
+<tr><td>Operating Business Enterprise Value</td><td>$3,104.2M ($84.93/sh)</td><td>$5,988.6M ($163.85/sh)</td><td>$682.4M ($18.67/sh)</td></tr>
+<tr><td>Net Balance Sheet Cash / (Debt) Adjustment</td><td>+$9.15/sh</td><td>+$9.15/sh</td><td>+$9.15/sh</td></tr>
+<tr><td><strong>Calculated Intrinsic Value / Share</strong></td><td><strong>$94.08</strong></td><td><strong>$173.00</strong></td><td><strong>$27.82</strong></td></tr>
+</tbody>
+</table></div>
+<div class="callout">
+<h3>Step-by-Step Mathematical Proofs Across the 3 Paths</h3>
+<p><strong>Steady Network Flywheel &amp; Global Marketplace Penetration ($94.08):</strong> GigaCloud leverages its Supplier Fulfilled Retailing framework to expand 3P marketplace volume across North America and Europe. Steady GMV growth and disciplined warehouse lease expansion drive double-digit Owner Earnings compounding while maintaining zero funded debt. Starting from baseline Owner Earnings of $136.0M compounding at +14.6% annually over 5 years (reaching $268.9M in Year 5), the discounted cash flows total $781.3M at a 9.5% discount rate. Capitalizing Year 5 terminal cash flow at 2.00% terminal growth produces a terminal value of $3,656.8M (PV $2,322.9M). Operating enterprise value equals $3,104.2M, or <strong>$84.93 per ADS</strong> across 36.5M diluted ADSs. Adding unencumbered balance sheet surplus net cash of <strong>+$9.15 per ADS</strong> yields an exact intrinsic fair value of <strong>$84.93 + $9.15 = $94.08 per ADS</strong>.</p>
+<p><strong>High-Margin 3P Service Dominance &amp; International Scale ($173.00):</strong> The B2B marketplace becomes the global tollbooth infrastructure for cross-border large-parcel goods, shifting the revenue mix heavily toward high-margin 3P transaction commissions and software services. Substantial gross margin expansion and logistics scale accelerate operational cash flow and shareholder yields. Starting from baseline Owner Earnings of $136.0M compounding at +31.4% annually over 5 years (reaching $532.9M in Year 5), the discounted cash flows total $1,214.7M at a 9.5% discount rate. Capitalizing Year 5 terminal cash flow at 2.25% terminal growth produces a terminal value of $7,515.2M (PV $4,773.8M). Operating enterprise value equals $5,988.6M, or <strong>$163.85 per ADS</strong> across 36.5M diluted ADSs. Adding unencumbered balance sheet surplus net cash of <strong>+$9.15 per ADS</strong> yields an exact intrinsic fair value of <strong>$163.85 + $9.15 = $173.00 per ADS</strong>.</p>
+<p><strong>Trade Friction, Supply Chain Inflation &amp; FX Depreciation Stress ($27.82):</strong> Escalating international trade tariffs, container cost inflation, and Asian currency depreciation compress 1P merchandise gross margins and slow B2B seller onboarding. High fixed warehouse lease obligations create negative operating leverage, severely reducing baseline cash generation. Starting from baseline Owner Earnings of $136.0M contracting at -16.9% annually over 5 years (declining to $53.9M in Year 5), the discounted cash flows total $313.3M at a 10.5% discount rate. Capitalizing Year 5 terminal cash flow at 1.50% terminal growth produces a terminal value of $608.0M (PV $369.1M). Operating enterprise value contracts to $682.4M, or <strong>$18.67 per ADS</strong> across 36.5M diluted ADSs. Adding unencumbered balance sheet surplus net cash of <strong>+$9.15 per ADS</strong> yields an exact intrinsic fair value of <strong>$18.67 + $9.15 = $27.82 per ADS</strong>.</p>
+</div>
+<div class="callout">
+<h3>Reverse DCF Sensitivity Matrix: What is Mr. Market Pricing In?</h3>
+<p><strong>Current Market Price:</strong> $51.50 | <strong>Net Cash / ADS:</strong> +$9.15 | <strong>Implied Operating EV:</strong> $42.35/ADS ($1,547.9M total)</p>
+<p>To avoid false precision, the table below inverts the valuation equation to solve for the exact 5-year Owner Earnings growth rate required to justify today's stock price across varying cash flow baselines and hurdle rates:</p>
+<div class="table-scroll-wrap"><table class="data-table">
+<thead>
+<tr>
+<th>Normalized Starting Baseline (OE₀)</th>
+<th>Hurdle Rate: 9.5%</th>
+<th>Hurdle Rate: 10.5%</th>
+<th>Hurdle Rate: 11.5%</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>Trough / Compressed Cash Flow ($88M)</td><td>+8.1% / yr</td><td>+11.4% / yr</td><td>+14.4% / yr</td></tr>
+<tr><td>Normalized Base Run-Rate ($136M)</td><td><strong>-2.1% / yr</strong></td><td>+0.7% / yr</td><td>+3.4% / yr</td></tr>
+<tr><td>Peak / Re-Accelerated Capacity ($184M)</td><td>-8.9% / yr</td><td>-6.2% / yr</td><td>-3.8% / yr</td></tr>
+</tbody>
+</table></div>
+<p><strong>Market Narrative Analysis (Dual-Perspective Inversion):</strong></p>
+<ul>
+<li><strong>Consolidated Full-Price Hurdle (Zero Cash Credit):</strong> At the full market price of $51.50/ADS ($1,882.3M market cap), assuming zero balance sheet cash is distributed, Mr. Market is pricing in <strong>+2.4% annual Owner Earnings growth</strong> over 5 years.</li>
+<li><strong>Surplus Cash-Adjusted Hurdle:</strong> Backing out unencumbered balance sheet cash (+$9.15/ADS), the market values the core operating infrastructure at $42.35/ADS ($1,547.9M operating EV), implying <strong>-2.1% annual growth</strong> against our baseline Owner Earnings ($136M) at a 9.5% discount rate.</li>
+</ul>
+</div>
+            </article>
+        </div>
+
+        <!-- History Content -->
+        <div id="tab-history" class="tab-content">
+            
+        <div class="empty-state-box" style="background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px; padding: 75px 24px;">
+            <div class="empty-state-title">Initial Baseline Active</div>
+            <div class="empty-state-sub">Version 1 represents the initial underwriting thesis. Future revisions, price trigger reviews, and catalyst audits will be logged here</div>
+        </div>
+        
+        </div>
+
+        <!-- Ownership & Fund Intel Content -->
+        <div id="tab-ownership" class="tab-content">
+            
+    <div class="ownership-container">
+        <!-- Top Stats Banner -->
+        <div class="ownership-header-card">
+            <div class="ownership-stat-grid">
+                <div class="stat-box">
+                    <span class="stat-label">Institutional Float</span>
+                    <span class="stat-num">Whale Backed</span>
+                    <span class="stat-note">Tracked across SEC 13F Filings</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Insider & Beneficial Sentiment</span>
+                    <span class="stat-num" style="color: var(--accent-red); font-family: var(--font-sans); font-size: 1.25rem;">🔴 Net Selling</span>
+                    <span class="stat-note">5 Officers Sold -$57.4M (Zero Buys in 12M)</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Whale & Superinvestor Tracking</span>
+                    <span class="stat-num" style="color: var(--accent-warm);">0 Funds Tracked</span>
+                    <span class="stat-note">Audited SEC Filings & Superinvestor Portfolios</span>
+                </div>
+            </div>
+
+            <!-- Quick Research Portal Bar -->
+            <div class="quick-portals-bar">
+                <span style="font-size: 0.76rem; text-transform: uppercase; color: var(--text-dim); font-weight: 600; letter-spacing: 0.05em;">Direct Research Portals:</span>
+                <div class="portal-links-group">
+                    <a href="http://openinsider.com/search?q=GCT" target="_blank" rel="noopener noreferrer" class="portal-link">📊 OpenInsider Form 4s ↗</a>
+                    <a href="https://www.dataroma.com/m/stock.php?sym=GCT" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ Dataroma Superinvestors ↗</a>
+                    <a href="https://whalewisdom.com/stock/GCT" target="_blank" rel="noopener noreferrer" class="portal-link">🐋 WhaleWisdom 13F ↗</a>
+                    <a href="https://valueinvestorsclub.com/search?q=GCT" target="_blank" rel="noopener noreferrer" class="portal-link">📑 Value Investors Club (VIC) ↗</a>
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ SEC EDGAR Filings ↗</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: All Institutional Holders & 13F Whales -->
+        <div class="ownership-section">
+            <div class="section-title-row">
+                <span class="section-icon">🏛️</span>
+                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (0)</h3>
+            </div>
+            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, Dataroma superinvestor portfolios, and regulatory ownership registries.</p>
+            <div class="table-responsive">
+                <table class="ownership-table">
+                    <thead>
+                        <tr>
+                            <th>Fund / Portfolio Manager</th>
+                            <th>Classification</th>
+                            <th>Portfolio Weight / Stake</th>
+                            <th>Reported Shares</th>
+                            <th>Recent 13F Action</th>
+                            <th>Position Value</th>
+                            <th>Filing Source</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section 2: SEC Form 4 Detailed Insider Trading Ledger -->
+        <div class="ownership-section">
+            <div class="section-title-row">
+                <span class="section-icon">💼</span>
+                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger (30)</h3>
+            </div>
+            <p class="section-desc">Detailed officer and director transaction ledger audited directly via OpenInsider & SEC Form 4 filings to track management buying, sales, and option exercises.</p>
+            <div class="table-responsive">
+                <table class="ownership-table">
+                    <thead>
+                        <tr>
+                            <th>Filing Date</th>
+                            <th>Trade Date</th>
+                            <th>Reporting Insider</th>
+                            <th>Title / Role</th>
+                            <th>Type</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Owned After (ΔOwn)</th>
+                            <th>Total Value</th>
+                            <th>Source</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-08-17</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-08-13</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Bernes Marshall</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">Head of Brand Center</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$53.00</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-10,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">53,150 (-16%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$530,000</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-08-12</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-08-11</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Wan Xin</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">CTO</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$50.94</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-60,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">673,140 (-8%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$3,056,484</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-08-12</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-08-10</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Bernes Marshall</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">Head of Brand Center</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$51.88</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-5,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">63,150 (-7%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$259,400</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-08-12</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-08-10</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Schrock Iman Aj</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">Pres</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$51.91</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-6,679</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">16,700 (-29%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$346,697</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-03-20</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-03-19</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Wu Lei</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO, 10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$40.80</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-60,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">60,000 (-50%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$2,448,060</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-03-16</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-03-11</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Wu Lei</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO, 10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$42.49</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-90,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">210,000 (-30%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$3,823,762</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-03-10</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-03-06</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Wu Lei</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO, 10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$42.50</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-90,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">300,000 (-23%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$3,824,950</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-03-05</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-03-05</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Wan Xin</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">CTO</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$43.38</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-100,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">723,040 (-12%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$4,338,000</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-03-05</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-03-03</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Wu Lei</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO, 10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$42.45</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-128,090</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">390,000 (-25%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$5,437,610</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-03-02</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-02-26</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Wu Lei</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO, 10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$44.18</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-160,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">518,090 (-24%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$7,069,244</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-01-22</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-01-20</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Wu Lei</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO, 10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$40.72</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-21,910</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">678,090 (-3%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$892,141</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-01-16</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-01-14</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Wu Lei</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO, 10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$41.26</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-60,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">700,000 (-8%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$2,475,572</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-01-13</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-01-09</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Wu Lei</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO, 10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$42.44</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-60,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">760,000 (-7%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$2,546,622</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-01-09</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-01-07</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Wu Lei</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO, 10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$41.91</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-40,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">820,000 (-5%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$1,676,543</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-12-08</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-12-04</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Hao Xinyan</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">COO</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$40.07</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-50,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">357,486 (-12%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$2,003,414</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-25</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-21</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Hao Xinyan</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">COO</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$35.18</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-100,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">407,486 (-20%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$3,517,520</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-19</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-17</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Hao Xinyan</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">COO</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$30.82</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-89,319</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">507,486 (-15%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$2,752,575</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-14</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-12</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Hao Xinyan</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">COO</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$31.34</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-90,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">596,805 (-13%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$2,820,947</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-12</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-07</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Hao Xinyan</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">COO</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$31.92</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-90,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">686,805 (-12%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$2,872,975</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-10-30</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-10-29</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Hao Xinyan</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">COO</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$30.01</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-16,939</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">776,805 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$508,395</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-09-30</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-09-29</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Hao Xinyan</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">COO</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$30.02</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-13,742</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">793,744 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$412,540</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-09-10</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-09-10</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Wu Lei</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO, 10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$28.52</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-100,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">60,000 (-63%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$2,851,740</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-08-22</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-08-21</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Schrock Iman Aj</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">Pres</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$29.94</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-9,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">20,000 (-31%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$269,424</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-08-20</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-08-18</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Bernes Marshall</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">Head of BaaS Program</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$31.49</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-20,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">61,000 (-25%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$629,699</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2024-12-31</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2024-12-27</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Bernes Marshall</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">Head of BaaS Program</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-green); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🟢 Purchase</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$17.50</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">+5,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">61,000 (+9%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-green); font-weight: 500; white-space: nowrap;">+$87,500</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2024-12-19</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2024-12-18</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Wan Xin</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">CTO</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$20.00</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-466</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">807,540 (0%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$9,320</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2024-12-17</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2024-12-16</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Wan Xin</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">CTO</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$20.42</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-69,534</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">808,006 (-8%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$1,420,098</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2024-12-12</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2024-12-06</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Lin Frank Hurst</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">10%</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$21.80</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-2,663,076</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">1,406,813 (-65%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$58,055,057</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2024-12-10</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2024-12-06</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Wan Xin</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">CTO</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$22.14</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-80,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">877,540 (-8%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$1,771,200</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2024-12-09</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2024-12-06</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Wan Xin</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">CTO</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$22.14</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-80,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">877,540 (-8%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$1,771,200</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section 3: Curated Memos & Fund Letters -->
+        <div class="ownership-section">
+            <div class="section-title-row">
+                <span class="section-icon">📑</span>
+                <h3 class="section-heading">Fund Letters, VIC Write-ups & Superinvestor Memos</h3>
+            </div>
+            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable hedge funds and deep-value analysts with direct reading links.</p>
+            <div class="writeups-grid">
+                
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Dataroma Superinvestors · <span style="color: var(--text-dim);">13F Whale Audit</span>
+                </div>
+                <a href="https://www.dataroma.com/m/stock.php?sym=GCT" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    13F Whale File ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
+                Dataroma 13F Superinvestor Whale File: GCT
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Historical accumulation patterns, portfolio concentration, and recent buy/sell activity across premier value hedge funds for GigaCloud Technology Inc.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    SEC EDGAR Official Registry · <span style="color: var(--text-dim);">Regulatory Archive</span>
+                </div>
+                <a href="https://www.sec.gov/edgar/browse/?CIK=GCT" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    SEC EDGAR ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
+                SEC EDGAR Official Filings & Regulatory File: GCT
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Official regulatory depository of 10-K/20-F annual reports, 10-Q/6-K quarterlies, and beneficial ownership filings for GigaCloud Technology Inc.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Substack Deep Value · <span style="color: var(--text-dim);">Independent Research</span>
+                </div>
+                <a href="https://substack.com/search/GCT%20investment%20thesis" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Search ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
+                Substack Investment Research & Deep Dives: GCT
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Independent research publications, subscriber letters, and thesis breakdowns covering GigaCloud Technology Inc.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    OpenInsider Real-Time · <span style="color: var(--text-dim);">Insider Audit</span>
+                </div>
+                <a href="http://openinsider.com/search?q=GCT" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    OpenInsider ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
+                OpenInsider Real-Time Form 4 & Insider Ledger: GCT
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Live stream of officer, director, and 10% beneficial owner purchases, sales, and option grants for GigaCloud Technology Inc.
+            </p>
+        </div>
+        
+            </div>
+        </div>
+    </div>
+    
+        </div>
+    </main>
+
+    
+    <!-- Labels & Taxonomy Legend Modal -->
+    <div id="labels-legend-modal" class="modal-shade" onclick="closeLegendModalOutside(event)">
+        <div class="modal-body-card" style="max-width: 540px; padding: 26px 28px; background: rgba(22, 21, 20, 0.98); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 14px; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7); font-family: var(--font-sans);">
+            <button class="modal-x" onclick="closeLabelsLegendModal()" style="top: 20px; right: 20px; color: var(--text-dim); font-size: 1.1rem; cursor: pointer;">✕</button>
+            
+            <div style="font-family: var(--font-sans); font-size: 1.15rem; font-weight: 600; color: var(--text-title); margin-bottom: 20px; letter-spacing: -0.02em;">
+                Taxonomy &amp; Signals
+            </div>
+
+            <!-- Section 1: Live Action Signals -->
+            <div style="margin-bottom: 18px;">
+                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 12px;">
+                    Surveillance Signals
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px;">
+                    <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-buy"><span class="beacon-dot"></span></span>
+                        <strong style="color: var(--accent-green);">BUY</strong>
+                        <span style="color: var(--text-secondary);">Deep value zone</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-hold"><span class="beacon-dot"></span></span>
+                        <strong style="color: var(--accent-warm);">HOLD</strong>
+                        <span style="color: var(--text-secondary);">Core thesis intact</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-caution"><span class="beacon-dot"></span></span>
+                        <strong style="color: #D48858;">CAUTION</strong>
+                        <span style="color: var(--text-secondary);">Execution trim zone</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-avoid"><span class="beacon-dot"></span></span>
+                        <strong style="color: var(--accent-red);">AVOID</strong>
+                        <span style="color: var(--text-secondary);">Thesis broken</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="height: 1px; background: var(--border-color); margin: 18px 0;"></div>
+
+            <!-- Section 2: Conviction Tiers -->
+            <div>
+                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 12px;">
+                    Conviction Tiers
+                </div>
+                <div style="display: grid; grid-template-columns: 150px 1fr; row-gap: 8px; column-gap: 16px; font-size: 0.76rem; align-items: center;">
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">High Conviction</span>
+                    <span style="color: var(--text-secondary);">Dominant moat &amp; fortress balance sheet</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Solid Conviction</span>
+                    <span style="color: var(--text-secondary);">Recurring cash flow &amp; compounding runway</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Moderate Conviction</span>
+                    <span style="color: var(--text-secondary);">Attractive upside with cyclical exposure</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Cautious Stance</span>
+                    <span style="color: var(--text-secondary);">Navigating margin or temporary friction</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Turnaround Play</span>
+                    <span style="color: var(--text-secondary);">Operational reset or debt reduction</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Speculative Risk</span>
+                    <span style="color: var(--text-secondary);">High asymmetry with binary outcome</span>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
+                <button onclick="closeLabelsLegendModal()" style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 500; color: var(--text-title); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border-color); border-radius: 6px; padding: 6px 16px; cursor: pointer; transition: all 0.15s;">Dismiss</button>
+            </div>
+        </div>
+    </div>
+    
+
+    <script>
+        function showTab(id) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            const btn = document.getElementById('btn-tab-' + id);
+            const content = document.getElementById('tab-' + id);
+            if (btn && content) {
+                btn.classList.add('active');
+                content.classList.add('active');
+                setTimeout(renderLatexEquations, 20);
+            }
+        }
+
+        function toggleSnapshot(ver) {
+            const el = document.getElementById('snapshot-' + ver);
+            el.style.display = (el.style.display === 'none' ? 'block' : 'none');
+            if (el.style.display === 'block') {
+                setTimeout(renderLatexEquations, 20);
+            }
+        }
+
+        function openLabelsLegendModal(event) {
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+            const modal = document.getElementById('labels-legend-modal');
+            if (modal) modal.style.display = 'flex';
+        }
+
+        function closeLabelsLegendModal() {
+            const modal = document.getElementById('labels-legend-modal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function closeLegendModalOutside(event) {
+            if (event.target.id === 'labels-legend-modal') {
+                closeLabelsLegendModal();
+            }
+        }
+
+        function renderLatexEquations() {
+            if (typeof renderMathInElement === 'function') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '\\[', right: '\\]', display: true},
+                        {left: '\\(', right: '\\)', display: false}
+                    ],
+                    ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'option'],
+                    throwOnError: false
+                });
+            } else {
+                if (!window._katexRetryCount) window._katexRetryCount = 0;
+                if (window._katexRetryCount < 25) {
+                    window._katexRetryCount++;
+                    setTimeout(renderLatexEquations, 60);
+                }
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", renderLatexEquations);
+        window.addEventListener("load", renderLatexEquations);
+        
+        if (typeof MutationObserver !== 'undefined') {
+            const _mathObserver = new MutationObserver(() => {
+                if (typeof renderMathInElement === 'function') {
+                    _mathObserver.disconnect();
+                    renderLatexEquations();
+                    setTimeout(() => {
+                        const target = document.querySelector('.memo-container') || document.body;
+                        if (target) _mathObserver.observe(target, { childList: true, subtree: true });
+                    }, 250);
+                }
+            });
+            document.addEventListener("DOMContentLoaded", () => {
+                const target = document.querySelector('.memo-container') || document.body;
+                if (target) _mathObserver.observe(target, { childList: true, subtree: true });
+            });
+        }
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                closeEvolutionModal();
+                closeLabelsLegendModal();
+            }
+        });
+    </script>
+</body>
+</html>
