@@ -654,23 +654,31 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
         </tr>
         """
 
-    # 2. Build OpenInsider Form 4 Rows
+    is_fpi_issuer = clean_t in ["JD", "BABA", "PDD", "BIDU", "NTES", "TCOM", "SE", "ASML", "TSM", "NVO", "AZN", "BTI", "FMX"] or any("20-f" in str(t.get("trade_type", "")).lower() or "form 3" in str(t.get("trade_type", "")).lower() for t in oi_trades)
+
+    # 2. Build OpenInsider Form 4 / FPI Ownership Rows
     insider_rows = ""
     if oi_trades:
-        for t in oi_trades[:40]:  # Show up to 40 most recent detailed Form 4 trades
+        for t in oi_trades[:40]:
             ttype = t.get("trade_type", "")
             if any(k in ttype.lower() for k in ["beneficial", "form 3", "hfiaa", "20-f", "annual audit", "director grant", "rsu", "class a", "class b"]):
                 t_badge = '<span style="color: var(--text-dim); font-weight: 500; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">⚪ Form 3 / 20-F</span>'
+                link_text = "SEC Filing ↗"
             elif "P - Purchase" in ttype or "Purchase" in ttype:
                 t_badge = '<span style="color: var(--accent-green); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🟢 Purchase</span>'
+                link_text = "Form 4 ↗"
             elif "S - Sale" in ttype or "Sale" in ttype:
                 t_badge = '<span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span>'
+                link_text = "Form 4 ↗"
             elif "Option" in ttype or "M - " in ttype:
                 t_badge = '<span style="color: var(--accent-warm); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🟡 Option Ex</span>'
+                link_text = "Form 4 ↗"
             elif "D - " in ttype or "Tax" in ttype:
                 t_badge = '<span style="color: var(--text-dim); font-weight: 500; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">⚪ Tax (D)</span>'
+                link_text = "Form 4 ↗"
             else:
                 t_badge = f'<span style="color: var(--text-dim); white-space: nowrap;">{ttype}</span>'
+                link_text = "Filing ↗" if is_fpi_issuer else "Form 4 ↗"
                 
             val = t.get("value", "")
             val_color = "var(--accent-green)" if val.startswith("+") else ("var(--accent-red)" if val.startswith("-") else "var(--text-title)")
@@ -689,8 +697,8 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
                 <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">{t.get('owned', '')} ({t.get('delta_own', '')})</td>
                 <td style="font-family: var(--font-mono); color: {val_color}; font-weight: 500; white-space: nowrap;">{val}</td>
                 <td style="white-space: nowrap;">
-                    <a href="http://openinsider.com/search?q={clean_t}" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
-                        Form 4 ↗
+                    <a href="https://www.sec.gov/edgar/browse/?CIK={clean_t}" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        {link_text}
                     </a>
                 </td>
             </tr>
@@ -698,18 +706,18 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
     else:
         insider_rows = f"""
         <tr>
-            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">Recent Audit</td>
+            <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">Audited Ledger</td>
             <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem;">Current</td>
             <td><div style="font-weight: 500; color: var(--text-title);">Executive Management</div></td>
             <td><span style="font-size: 0.82rem; color: var(--text-secondary);">Key Officers & Directors</span></td>
             <td><span style="color: {insider_intel['color']}; font-weight: 600;">{insider_intel['badge_html']}</span></td>
             <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem;">${stock.current_price:.2f}</td>
-            <td style="font-family: var(--font-mono); font-size: 0.84rem;">Scheduled</td>
+            <td style="font-family: var(--font-mono); font-size: 0.84rem;">Beneficial Stake</td>
             <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem;">Aligned</td>
             <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">{insider_intel['summary']}</td>
             <td>
-                <a href="http://openinsider.com/search?q={clean_t}" target="_blank" rel="noopener noreferrer" class="link-out">
-                    OpenInsider ↗
+                <a href="https://www.sec.gov/edgar/browse/?CIK={clean_t}" target="_blank" rel="noopener noreferrer" class="link-out">
+                    SEC EDGAR ↗
                 </a>
             </td>
         </tr>

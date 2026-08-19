@@ -751,15 +751,23 @@ Guidelines:
 - Current Reporting Period: Explicitly state the latest reported fiscal year / quarter (e.g. "FY 2025 / Q3 2025 LTM").
 
 CRITICAL AUDITED FINANCIAL REALITY & INTEGRITY CHECKS:
-1. Cash Flow & Free Cash Flow Compression Check:
+1. Mathematical Waterfall Consistency (Zero Hallucinated Arithmetic):
+   - All quoted cash flow metrics MUST strictly reconcile mathematically:
+     * Free Cash Flow = GAAP Operating Cash Flow (OCF) - Total CapEx.
+     * Baseline Owner Earnings (OE₁) = GAAP Operating Cash Flow (OCF) - Maintenance CapEx - Stock-Based Compensation (SBC).
+   - If quoting CFO statements or LTM cash flows, the numbers must be 100% internally consistent. NEVER present contradictory figures where OCF minus CapEx does not equal the stated FCF.
+2. Foreign Private Issuer (FPI) Disclosure Reality:
+   - For foreign companies traded via ADRs/ADSs (e.g. JD, BABA, PDD, SE, ASML, TSM), recognize that insiders do not file domestic Section 16 Form 4s. Their beneficial ownership is reported via SEC Form 20-F (Item 6.E), Schedule 13D/G, and initial Form 3 filings under the HFIAA.
+3. Cash Flow Compression & Grounded Realism:
    - Search the ACTUAL Statement of Cash Flows for the latest completed fiscal year and recent quarters.
-   - Explicitly verify whether GAAP Operating Cash Flow (OCF) or Free Cash Flow (FCF) experienced compression due to elevated CapEx (infrastructure, automated warehouses, AI buildout), gross margin concessions from price wars, or cash burn in new business initiatives (e.g. food delivery, on-demand retail, cross-border expansion).
-   - DO NOT use stale historical peak cash flow numbers. If the latest completed fiscal year (e.g. FY 2025) saw OCF or FCF compress significantly, you MUST ground the Baseline Owner Earnings in this actual recent cash generation reality.
-2. Major M&A Commitments & Capital Outlays Check:
+   - Ground Baseline Owner Earnings in the actual audited recent cash generation reality, accounting for margin pressure, working capital dynamics, and capital intensity.
+4. Major M&A Commitments & Capital Outlays Check:
    - Search for any major recently announced or pending M&A transactions, capital commitments, or acquisitions.
    - When deriving Net Balance Sheet Cash, deduct committed acquisition cash outlays and incorporate inherited debt liabilities to establish the true Unencumbered Net Cash per Share/ADS.
-3. Currency Notation Rigor:
+5. Currency Notation Rigor:
    - NEVER use the dollar sign `$` when referring to RMB or foreign currencies. Use `¥` for Chinese Yuan / RMB, `€` for Euros, and `$` strictly for US Dollars. Always write conversions clearly (e.g. `¥19.0B RMB (~$2.72B USD)`).
+6. Buffett Country-Specific Valuation & Hurdle Rate:
+   - Use Warren Buffett's standard opportunity-cost hurdle rate (9.0%–10.5%), reflecting the local sovereign rate and equity hurdle. Do NOT apply artificial academic CAPM haircuts; risk is properly accounted for through conservative Owner Earnings projections and demanding a robust Margin of Safety.
 
 Core Topics to Cover:
 1. The Core Business Machine & Operational Metrics:
