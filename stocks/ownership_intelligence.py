@@ -182,7 +182,7 @@ Return a JSON array of objects in ```json ... ``` with 4 to 8 key leadership ent
     "trade_date": "<Audit Period e.g. FY24 Audit or Current>",
     "name": "<Full Name of Officer/Director>",
     "title": "<Executive Role e.g. Founder & Chairman, CEO, CFO, Director>",
-    "trade_type": "<Ownership Type e.g. Beneficial Owner, Equity Incentive, Direct ADS>",
+    "trade_type": "<Ownership Classification e.g. Initial Beneficial Ownership (HFIAA Form 3 / 20-F), Director Equity Holding, Direct ADS>",
     "price": "<Current Share Price or Market Value>",
     "qty": "<Total Shares or ADSs Held>",
     "owned": "<Percentage Ownership e.g. 11.2% (70.5% Voting)>",
@@ -327,7 +327,7 @@ def parse_trade_value(val_str: str) -> float:
 
 
 def calculate_insider_sentiment_and_flow(oi_trades: List[Dict[str, Any]], stock_signal_hint: str = "") -> Dict[str, Any]:
-    """Deterministically computes insider buying/selling signal from real Form 4 ledger, filtering for recency (last 12 months)."""
+    """Deterministically computes insider buying/selling signal from real Form 4 ledger, filtering for recency (last 12 months) and excluding initial Form 3 / HFIAA disclosures."""
     if not oi_trades:
         sig = stock_signal_hint or "Neutral (10b5-1)"
         return {
@@ -356,24 +356,29 @@ def calculate_insider_sentiment_and_flow(oi_trades: List[Dict[str, Any]], stock_
         except Exception:
             pass
 
-    # Use recent trades if available, otherwise use top 10 most recent transactions
     active_trades = recent_trades if recent_trades else oi_trades[:10]
 
     total_buy = 0.0
     total_sell = 0.0
     buyers = set()
     sellers = set()
+    is_fpi_initial_filing = False
 
     for t in active_trades:
-        ttype = t.get("trade_type", "")
+        ttype = (t.get("trade_type") or "").strip()
         v_num = parse_trade_value(t.get("value", ""))
         name = t.get("name", "")
 
-        # Check for open market purchases
-        if "Purchase" in ttype or "P -" in ttype:
+        # Exclude initial Form 3 / HFIAA / 20-F beneficial ownership disclosures from active market buys/sells
+        if any(marker in ttype.lower() for marker in ["beneficial", "initial", "form 3", "hfiaa", "20-f", "annual audit", "director grant", "rsu", "class a", "class b", "controlling"]):
+            is_fpi_initial_filing = True
+            continue
+
+        # Check for open market purchases (Strict Form 4 code P / Open Market Purchase)
+        if ("purchase" in ttype.lower() or ttype.startswith("P -")) and "grant" not in ttype.lower():
             total_buy += abs(v_num)
             buyers.add(name)
-        elif "Sale" in ttype or "S -" in ttype:
+        elif "sale" in ttype.lower() or ttype.startswith("S -"):
             total_sell += abs(v_num)
             sellers.add(name)
 
@@ -410,6 +415,11 @@ def calculate_insider_sentiment_and_flow(oi_trades: List[Dict[str, Any]], stock_
         badge_html = "🟡 10b5-1 Sales"
         color = "var(--accent-warm)"
         summary = f"Executive sales -${total_sell/1e6:.1f}M" if total_sell >= 1e6 else f"Executive sales -${total_sell/1e3:.0f}K"
+    elif is_fpi_initial_filing and total_buy == 0 and total_sell == 0:
+        sig = "Initial Form 3 / 20-F Ledger"
+        badge_html = "⚪ Form 3 / FPI Ledger"
+        color = "var(--text-dim)"
+        summary = "HFIAA / 20-F initial beneficial ownership filings; zero open-market Form 4 trades in 12M"
     elif total_buy == 0 and total_sell == 0:
         sig = "No Activity"
         badge_html = "⚪ Inactive"

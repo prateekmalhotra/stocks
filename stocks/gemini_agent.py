@@ -731,10 +731,6 @@ Core Principles of Business Valuation:
    - For foreign ADRs, strictly use the US-traded ADS share count so per-share valuations are in USD per ADS.
 """
 
-# ==============================================================================
-# OVERHAULED 3-AGENT THESIS PIPELINE PROMPTS & SYSTEM PROMPTS
-# ==============================================================================
-
 AGENT_1_PREMISE_PROMPT = """Target: {ticker} ({company_name})
 User Focus / Research Notes: {notes}
 
@@ -744,21 +740,32 @@ Your objective is to establish the single audited factual foundation ("The Premi
 Guidelines:
 - Blind Valuation: Analyze the business purely as an unlisted private enterprise with zero knowledge of current stock prices.
 - Currency & Denominator Integrity: ALL figures MUST strictly be in US DOLLARS ($ USD). Convert foreign currencies (e.g. RMB, EUR) at prevailing FX rates (e.g. RMB / ~7.15). For foreign ADRs, strictly use the US-listed ADS (American Depositary Share) count.
-- Primary Research: Search audited SEC filings (10-K, 10-Q, 20-F) and the last 4 quarterly earnings call transcripts.
-- Current Reporting Period: Explicitly state the latest reported fiscal quarter / period (e.g. "Q3 2024 / LTM Ended Sept 2024").
+- Primary Research: Search audited SEC filings (10-K, 10-Q, 20-F, 6-K) and the last 4 quarterly earnings call transcripts.
+- Current Reporting Period: Explicitly state the latest reported fiscal year / quarter (e.g. "FY 2025 / Q3 2025 LTM").
+
+CRITICAL AUDITED FINANCIAL REALITY & INTEGRITY CHECKS:
+1. Cash Flow & Free Cash Flow Compression Check:
+   - Search the ACTUAL Statement of Cash Flows for the latest completed fiscal year and recent quarters.
+   - Explicitly verify whether GAAP Operating Cash Flow (OCF) or Free Cash Flow (FCF) experienced compression due to elevated CapEx (infrastructure, automated warehouses, AI buildout), gross margin concessions from price wars, or cash burn in new business initiatives (e.g. food delivery, on-demand retail, cross-border expansion).
+   - DO NOT use stale historical peak cash flow numbers. If the latest completed fiscal year (e.g. FY 2025) saw OCF or FCF compress significantly, you MUST ground the Baseline Owner Earnings in this actual recent cash generation reality.
+2. Major M&A Commitments & Capital Outlays Check:
+   - Search for any major recently announced or pending M&A transactions, capital commitments, or acquisitions.
+   - When deriving Net Balance Sheet Cash, deduct committed acquisition cash outlays and incorporate inherited debt liabilities to establish the true Unencumbered Net Cash per Share/ADS.
+3. Currency Notation Rigor:
+   - NEVER use the dollar sign `$` when referring to RMB or foreign currencies. Use `¥` for Chinese Yuan / RMB, `€` for Euros, and `$` strictly for US Dollars. Always write conversions clearly (e.g. `¥19.0B RMB (~$2.72B USD)`).
 
 Core Topics to Cover:
 1. The Core Business Machine & Operational Metrics:
    - What the company does, its customer value proposition, pricing power, and durable economic moat.
    - Identify the 3–5 PRIMARY OPERATIONAL METRICS reported by the company (e.g. Active Customers, AOV, GMV, Units Sold, Comps, ARPU, RevPAR, Take Rate, Capacity).
 2. Audited Financial Baseline (Single Source of Truth in $ Millions/Billions USD):
-   - LTM Net Revenue ($ USD)
-   - GAAP Operating Cash Flow (OCF) ($ Millions USD)
-   - Annual Maintenance CapEx ($ Millions USD) & Stock-Based Compensation (SBC) ($ Millions USD)
+   - Latest Period Net Revenue ($ USD)
+   - Latest GAAP Operating Cash Flow (OCF) ($ Millions USD)
+   - Annual CapEx ($ Millions USD) & Stock-Based Compensation (SBC) ($ Millions USD)
    - Baseline Base Year 1 Owner Earnings: OE₁ = OCF - Maintenance CapEx - SBC ($ Millions USD)
-   - Balance Sheet Cash & ST Investments ($ Millions USD) vs Total Funded Debt & Leases ($ Millions USD)
+   - Balance Sheet Cash & ST Investments ($ Millions USD) vs Total Funded Debt & Leases ($ Millions USD), adjusted for committed M&A cash outlays.
    - Diluted Shares / ADSs Outstanding (Millions)
-   - Net Cash / (Debt) per Share/ADS in USD: (Cash & ST Investments - Total Debt) / Diluted Shares
+   - Unencumbered Net Cash / (Debt) per Share/ADS in USD.
 3. Leadership Commentary & 4-Quarter Trajectory: Executive commentary and authentic quotes from the active CEO and CFO across the last 4 quarters.
 4. Current State of Play: Why the business is at a pivotal inflection point today.
 
@@ -767,10 +774,10 @@ Format Section 1 in clean Semantic HTML:
 <p>[Plain-English explanation of how the business machine operates, its primary operational business metrics, its moat, and customer proposition...]</p>
 
 <div class="metrics-grid">
-  <div class="metric-card"><div class="metric-label">Latest Period / LTM Revenue</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">[e.g. Q3 2024 / +XX% YoY]</div></div>
-  <div class="metric-card"><div class="metric-label">GAAP Operating Cash Flow</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">LTM ($ USD)</div></div>
+  <div class="metric-card"><div class="metric-label">Latest Period / LTM Revenue</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">[e.g. FY 2025 / +XX% YoY]</div></div>
+  <div class="metric-card"><div class="metric-label">GAAP Operating Cash Flow</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">Latest Period ($ USD)</div></div>
   <div class="metric-card"><div class="metric-label">Baseline Owner Earnings</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">OCF - CapEx - SBC</div></div>
-  <div class="metric-card"><div class="metric-label">Net Balance Sheet Cash</div><div class="metric-value">+$XX.XXB</div><div class="metric-delta pos">+$XX.XX / share</div></div>
+  <div class="metric-card"><div class="metric-label">Net Balance Sheet Cash</div><div class="metric-value">+$XX.XXB</div><div class="metric-delta pos">+$XX.XX / share (Unencumbered)</div></div>
 </div>
 
 <div class="callout">
@@ -779,7 +786,7 @@ Format Section 1 in clean Semantic HTML:
   <p><strong>[CFO Name], Chief Financial Officer:</strong> "..."</p>
 </div>
 
-<p>[Current state of play summary...]</p>
+<p>[Current state of play summary, including recent cash flow dynamics, capital expenditures, and major M&amp;A commitments...]</p>
 
 Output pure HTML only (no code fences, no inline styles)."""
 
@@ -787,12 +794,13 @@ Output pure HTML only (no code fences, no inline styles)."""
 AGENT_2_STORIES_PROMPT = """Target: {ticker} ({company_name})
 
 You are LLM Agent 2: 3 Stories Strategist.
-Here is the Company Premise from Agent 1 (containing the audited financial baseline, operational metrics, and net cash per share):
+Here is the Company Premise from Agent 1 (containing the audited financial baseline, operational metrics, cash flow compression reality, and unencumbered net cash per share):
 {premise_context}
 
 Guidelines:
 - Blind Valuation: Formulate business trajectories based strictly on operational realities and competitive dynamics, with zero knowledge of stock market prices.
 - Currency & Financial Consistency: All figures in $ USD. Anchor all 3 stories directly to the audited baseline numbers (revenue, margins, cash flow) established in Agent 1's Company Premise above.
+- Grounded Growth Realism: If the company is currently navigating price wars, consumer trading down, or heavy CapEx cycles, do NOT assume unrealistic runaway growth (e.g. +16% CAGR on an inflated base). Calibrate organic growth rates to the competitive reality.
 - Primary Research: Search and inspect {company_name}'s latest filings and earnings transcripts.
 
 FIRST-PRINCIPLES BUSINESS METRIC CHAIN (NO ARBITRARY GROWTH ASSUMPTIONS):
@@ -801,12 +809,12 @@ FIRST-PRINCIPLES BUSINESS METRIC CHAIN (NO ARBITRARY GROWTH ASSUMPTIONS):
   1. Top-Level Operational Metric Shifts: How specific business volume, unit capacity, pricing power, or new asset additions evolve over the next 3–5 years with clear operational justifications.
   2. Revenue Translation: How those operational metric shifts calculate into top-line net revenue.
   3. Cost Structure & Margins: COGS (input costs/procurement), OpEx (SG&A, R&D, marketing leverage), and operating margin progression.
-  4. CapEx & Cash Conversion: Maintenance vs Growth CapEx cycles (e.g. heavy 2-year buildout vs mature cash harvest), SBC dilution, and resulting Owner Earnings.
+  4. CapEx & Cash Conversion: Maintenance vs Growth CapEx cycles, SBC dilution, and resulting Owner Earnings trajectory in $ USD.
 
 Your Objective:
 Formulate 3 PROBABLE, DISTINCT BUSINESS STORIES (the 3 probable fundamental paths this business could realistically take over the next 3 to 5 years).
 - Together, these 3 stories should cover approximately 90%–95% of probable fundamental outcomes for the business.
-- Each story should have an authentic descriptive title, clear narrative explanation, expected operating trajectory (metrics $\\rightarrow$ revenue $\\rightarrow$ margins $\\rightarrow$ owner cash generation in $ USD), and key milestones to watch.
+- Each story should have an authentic descriptive title, clear narrative explanation, expected operating trajectory (metrics $\rightarrow$ revenue $\rightarrow$ margins $\rightarrow$ owner cash generation in $ USD), and key milestones to watch.
 
 Format Section 2 in clean Semantic HTML:
 <h2>Section 2: 3 Probable Business Stories</h2>
@@ -852,8 +860,8 @@ You are LLM Agent 3: Storyline DCF Valuation Specialist.
 BLIND VALUATION & MATHEMATICAL INTEGRITY INVARIANTS:
 1. Blind Valuation: Evaluate cash flows purely from First Principles as if buying 100% of the private enterprise, with zero knowledge of current stock prices.
 2. STRICT MATHEMATICAL CONSISTENCY & SCALE INTEGRITY:
-   - Year 1 Annual Owner Earnings (OE₁): Must be denominated in $ Millions USD and accurately reflect the business operating scale established in Section 1 (e.g. if the company generates $4.0B in owner cash, OE₁ is $4,000.0M, NOT $400M!).
-   - Net Cash / (Debt) per Share/ADS Adjustment: MUST strictly match the exact calculated Net Cash / (Debt) per share from Section 1 (e.g. (Cash - Debt) / Diluted Shares = +$XX.XX/sh). NEVER hardcode +$100.00/sh or use an arbitrary round plug!
+   - Year 1 Annual Owner Earnings (OE₁): Must be denominated in $ Millions USD and accurately reflect the business operating scale established in Section 1 (e.g. if the company generated $1.0B in baseline owner cash due to capex cycles, OE₁ is ~$1,000.0M, NOT an inflated $5B!).
+   - Net Cash / (Debt) per Share/ADS Adjustment: MUST strictly match the exact calculated unencumbered Net Cash / (Debt) per share from Section 1 (accounting for any committed M&A cash outlays). NEVER hardcode arbitrary plugs!
    - Each Story Must Have DISTINCT Projections: Story 1, Story 2, and Story 3 must each have their own distinct OE₁, distinct growth rates, and distinct calculated intrinsic values per share ($XX.XX) matching their narrative.
 3. DCF Parameters:
    - Discount Rate: 9.0%–10.0% hurdle rate (opportunity cost).
