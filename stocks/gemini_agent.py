@@ -36,7 +36,7 @@ def switch_to_fallback_model(reason: str = "") -> str:
             print(f"  ⚡ [Model Failover] Switching active model for this workflow run to {next_model}. (Reason: {reason})")
             _CURRENT_ACTIVE_MODEL = next_model
     except Exception:
-        _CURRENT_ACTIVE_MODEL = "gemini-flash-lite-latest"
+        _CURRENT_ACTIVE_MODEL = "gemini-3.5-flash"
     return _CURRENT_ACTIVE_MODEL
 
 
