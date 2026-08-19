@@ -1,1 +1,44 @@
-{}
+{
+  "JD": {
+    "ticker": "JD",
+    "company_name": "JD.com, Inc.",
+    "baseline_price": 28.82,
+    "current_price": 28.82,
+    "return_pct": 0.0,
+    "status_label": "Solid Conviction",
+    "labels": [
+      "Solid Conviction",
+      "3P Take",
+      "Global Supply"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$61.36",
+    "story1_target": "$61.36 (+112.9%)",
+    "story2_target": "$89.07 (+209.1%)",
+    "story3_target": "$20.06 (-30.4%)",
+    "story1_title": "Core E-Commerce Consolidation & High-Margin Service Monetization (Base Case)",
+    "story2_title": "Global Supply Chain Orchestration & Omnichannel Monetization (Bull Case)",
+    "story3_title": "E-Commerce Deflation, Structural Price Wars & Working Capital Unwind (Downside Stress Test)",
+    "bear_target": "$89.07 (+209.1%)",
+    "base_target": "$61.36 (+112.9%)",
+    "bull_target": "$20.06 (-30.4%)",
+    "what_is_priced_in": "Market prices in -10.1% annual growth (surplus-adjusted) vs Story 1 $61.36 value",
+    "upper_alert_threshold": 89.07,
+    "lower_alert_threshold": 20.06,
+    "next_catalyst_date": "2026-11-17",
+    "next_catalyst_event": "Scheduled quarterly report",
+    "top_funds": [
+      "Samantha McLemore - Patient Capital Management (1.17)",
+      "Sarah Ketterer - Causeway Capital Management (0.33)",
+      "Dodge & Cox Funds (0.16)",
+      "Christopher Davis - Davis Advisors (0.03)",
+      "Chase Coleman - Tiger Global Management (0.02)"
+    ],
+    "institutional_ownership_pct": "5 Whales",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Audited SEC Form 3 / 20-F / Form 4 filings.",
+    "last_updated": "2026-08-19",
+    "total_versions": 1,
+    "report_path": "reports/JD.html"
+  }
+}
