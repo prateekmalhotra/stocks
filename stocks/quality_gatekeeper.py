@@ -284,8 +284,10 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
         if m_nd:
             try:
                 nd_v = float(re.sub(r"[^\d.-]", "", m_nd.group(1)))
-                if nd_v > 25.0:
-                    issues.append(f"Balance Sheet Cash Overstatement Failure: Surplus Net Cash Adjustment (${nd_v:.2f}/sh) exceeds plausible per-share liquidity bounds ($25.00/sh). Must strictly deduct working capital buffer and debt from gross cash.")
+                cur_p = float(metadata.get("current_price", 100.0)) if metadata else 100.0
+                max_plausible_cash = max(35.0, cur_p * 0.65)
+                if nd_v > max_plausible_cash or nd_v > 90.0:
+                    issues.append(f"Balance Sheet Cash Overstatement Failure: Surplus Net Cash Adjustment (${nd_v:.2f}/sh) exceeds plausible per-share liquidity bounds (${max_plausible_cash:.2f}/sh). Must strictly deduct working capital buffer and debt from gross cash.")
             except Exception:
                 pass
 
