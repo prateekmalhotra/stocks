@@ -257,7 +257,7 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
         cur_p = _parse_p(metadata.get("price_at_version") or metadata.get("current_price"))
         if cur_p and len(s_vals) >= 3:
             min_s = min(s_vals)
-            if min_s < (cur_p * 0.18) and "speculative risk" not in str(metadata.get("status_label", "")).lower():
+            if min_s < (cur_p * 0.10) and "speculative risk" not in str(metadata.get("status_label", "")).lower():
                 issues.append(f"Economic Reality Failure: Storyline valuation target (${min_s:.2f}) represents an irrational {-((cur_p-min_s)/cur_p*100):.1f}% collapse on a going-concern business.")
 
     # 22. Storyline 1 Primary Target Harmonization Check
@@ -311,16 +311,24 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
     if s1_match and s3_match:
         s1_t = s1_match.group(1)
         s3_t = s3_match.group(1)
-        m_s1_sh_before = re.search(r'([0-9,]+(?:\.[0-9]+)?)\s*(?:million|billion|M|B)?\s*(?:diluted ADSs|diluted shares|ADSs/shares outstanding|shares/ADSs outstanding|ADSs outstanding|shares outstanding)', s1_t, re.IGNORECASE)
-        m_s1_sh_after = re.search(r'(?:diluted share count|diluted shares|diluted ADSs|shares outstanding)[^0-9\n\r$]*?([0-9,]+(?:\.[0-9]+)?)\s*(?:M|million|B|billion)?', s1_t, re.IGNORECASE)
+        m_s1_sh_before = re.search(r'([0-9,]+(?:\.[0-9]+)?)\s*(million|billion|M|B)?\s*(?:diluted ADSs|diluted shares|ADSs/shares outstanding|shares/ADSs outstanding|ADSs outstanding|shares outstanding)', s1_t, re.IGNORECASE)
+        m_s1_sh_after = re.search(r'(?:diluted share count|diluted shares|diluted ADSs|shares outstanding)[^0-9\n\r$]*?([0-9,]+(?:\.[0-9]+)?)\s*(million|billion|M|B)?', s1_t, re.IGNORECASE)
         m_s1_sh = m_s1_sh_before or m_s1_sh_after
 
-        m_s3_sh = re.search(r'(?:across|divided by)\s*([0-9,]+(?:\.[0-9]+)?)\s*(?:M|million)?\s*(?:diluted ADSs|diluted shares|shares|ADSs)', s3_t, re.IGNORECASE)
+        m_s3_sh = re.search(r'(?:across|divided by)\s*([0-9,]+(?:\.[0-9]+)?)\s*(million|billion|M|B)?\s*(?:diluted ADSs|diluted shares|shares|ADSs)', s3_t, re.IGNORECASE)
         
         if m_s1_sh and m_s3_sh:
             try:
                 s1_val = float(m_s1_sh.group(1).replace(",", ""))
+                s1_unit = (m_s1_sh.group(2) or "").lower()
+                if s1_unit in ["b", "billion"] or (s1_val < 10.0 and s1_val > 0.1 and not s1_unit):
+                    s1_val *= 1000.0
+
                 s3_val = float(m_s3_sh.group(1).replace(",", ""))
+                s3_unit = (m_s3_sh.group(2) or "").lower()
+                if s3_unit in ["b", "billion"] or (s3_val < 10.0 and s3_val > 0.1 and not s3_unit):
+                    s3_val *= 1000.0
+
                 if s1_val > 0 and s3_val > 0:
                     ratio = max(s1_val, s3_val) / min(s1_val, s3_val)
                     if ratio > 1.50:

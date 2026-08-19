@@ -797,7 +797,7 @@ CRITICAL AUDITED FINANCIAL REALITY & INTEGRITY CHECKS:
      * Total Funded Debt & Capital Leases
      * Cross-border dividend withholding taxes or upstream cash repatriation friction from operating subsidiaries to the offshore parent.
      * Committed M&A Cash Outlays & Inherited Net Debt.
-     * Non-Consolidated Equity Affiliates / SOTP Value: If the company holds major non-consolidated equity-method investments, associates, or joint ventures, explicitly value them conservatively as a dedicated non-operating equity asset line item on the balance sheet bridge ($ USD per share/ADS).
+     * Non-Consolidated Equity Affiliates / SOTP Value: If the company holds major non-consolidated equity-method investments, associates, or joint ventures, explicitly value them conservatively as a dedicated non-operating equity asset line item on the balance sheet bridge ($ USD per share/ADS), applying a standard 20% to 25% holding company / illiquidity haircut to private or unlisted affiliate stakes.
      * AI Hardware Obsolescence Treadmill: For AI hyperscalers and cloud operators, recognize that rapidly depreciating compute clusters (3-4 year replacement cycle) blur the line between Growth and Maintenance CapEx; audit ongoing maintenance reinvestment needs realistically.
    - The resulting figure is the true Unencumbered Surplus Net Cash & Asset Value per Share/ADS.
 3. Historical Corporate Trauma & Underwriting Post-Mortem:
