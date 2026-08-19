@@ -1052,9 +1052,20 @@ def build_deterministic_valuation_section(
 ) -> Tuple[str, Dict[str, Any]]:
     """Builds the 100% mathematically exact Section 3 DCF and Reverse DCF HTML section."""
     # Single Source of Truth: Extract Diluted Shares directly from Section 1 if present
-    sec1_shares_match = re.search(r'(?:Diluted Shares|Diluted ADSs|ADSs Outstanding|Shares Outstanding|Diluted Ordinary Shares).*?([0-9,]+(?:\.[0-9]+)?)\s*(?:M|million)', sec1_text or "", re.DOTALL | re.IGNORECASE)
+    # Check number BEFORE keywords first (e.g. '36.80 million diluted ADSs/shares outstanding')
+    sec1_shares_before = re.search(r'([0-9,]+(?:\.[0-9]+)?)\s*(?:million|billion|M|B)?\s*(?:diluted ADSs|diluted shares|ADSs/shares outstanding|shares/ADSs outstanding|ADSs outstanding|shares outstanding|diluted ordinary shares|ordinary shares)', sec1_text or "", re.IGNORECASE)
+    # Check number AFTER keywords (e.g. 'Diluted ADSs Outstanding: 1,410.0M')
+    sec1_shares_after = re.search(r'(?:diluted share count|diluted shares|diluted ADSs|shares outstanding|share count)[^0-9\n\r$]*?([0-9,]+(?:\.[0-9]+)?)\s*(?:M|million|B|billion)?', sec1_text or "", re.IGNORECASE)
+    
+    sec1_shares_match = sec1_shares_before or sec1_shares_after
     if sec1_shares_match:
-        shares = float(sec1_shares_match.group(1).replace(",", ""))
+        try:
+            s_val = float(sec1_shares_match.group(1).replace(",", ""))
+            if s_val < 5.0 and "b" in sec1_shares_match.group(0).lower():
+                s_val = s_val * 1000.0
+            shares = max(0.1, s_val)
+        except Exception:
+            shares = max(1.0, float(dcf_data.get("diluted_shares") or 1000.0))
     else:
         shares = max(1.0, float(dcf_data.get("diluted_shares") or 1000.0))
     

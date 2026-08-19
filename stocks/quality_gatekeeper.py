@@ -307,6 +307,27 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
             except Exception:
                 pass
 
+    # 28. Share Count Cross-Section Consistency Check
+    if s1_match and s3_match:
+        s1_t = s1_match.group(1)
+        s3_t = s3_match.group(1)
+        m_s1_sh_before = re.search(r'([0-9,]+(?:\.[0-9]+)?)\s*(?:million|billion|M|B)?\s*(?:diluted ADSs|diluted shares|ADSs/shares outstanding|shares/ADSs outstanding|ADSs outstanding|shares outstanding)', s1_t, re.IGNORECASE)
+        m_s1_sh_after = re.search(r'(?:diluted share count|diluted shares|diluted ADSs|shares outstanding)[^0-9\n\r$]*?([0-9,]+(?:\.[0-9]+)?)\s*(?:M|million|B|billion)?', s1_t, re.IGNORECASE)
+        m_s1_sh = m_s1_sh_before or m_s1_sh_after
+
+        m_s3_sh = re.search(r'(?:across|divided by)\s*([0-9,]+(?:\.[0-9]+)?)\s*(?:M|million)?\s*(?:diluted ADSs|diluted shares|shares|ADSs)', s3_t, re.IGNORECASE)
+        
+        if m_s1_sh and m_s3_sh:
+            try:
+                s1_val = float(m_s1_sh.group(1).replace(",", ""))
+                s3_val = float(m_s3_sh.group(1).replace(",", ""))
+                if s1_val > 0 and s3_val > 0:
+                    ratio = max(s1_val, s3_val) / min(s1_val, s3_val)
+                    if ratio > 1.50:
+                        issues.append(f"Share Count Inconsistency Failure: Section 1 specifies {s1_val:.1f}M shares but Section 3 DCF uses {s3_val:.1f}M shares ({ratio:.1f}x mismatch).")
+            except Exception:
+                pass
+
     return len(issues) == 0, issues
 
 
