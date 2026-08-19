@@ -1063,6 +1063,7 @@ def build_deterministic_valuation_section(
     dcf3 = compute_deterministic_dcf(s3_oe0, s3_g, s3_r, s3_gt, shares, net_cash_per_sh)
     
     # Compute 2D Reverse DCF Matrix across discount rates and 3 distinct starting FCF levels
+    full_mcap = max(100.0, current_price * shares)
     target_op_ev = max(100.0, (current_price - net_cash_per_sh) * shares)
     fcf_trough = round(s1_oe0 * 0.65, 0)
     fcf_base = round(s1_oe0, 0)
@@ -1076,7 +1077,8 @@ def build_deterministic_valuation_section(
         for r in rates:
             rev_matrix[fcf][r] = solve_implied_growth(target_op_ev, fcf, r, terminal_growth=0.02)
             
-    base_implied_g = rev_matrix[fcf_base][0.095]
+    implied_g_surplus = rev_matrix[fcf_base][0.095]
+    implied_g_full = solve_implied_growth(full_mcap, fcf_base, 0.095, terminal_growth=0.02)
     
     # Build Semantic HTML
     html = f"""<h2>Section 3: Valuation Across the 3 Stories</h2>
@@ -1114,7 +1116,7 @@ def build_deterministic_valuation_section(
 <div class="callout">
   <h3>Reverse DCF Sensitivity Matrix: What is Mr. Market Pricing In?</h3>
   <p><strong>Current Market Price:</strong> ${current_price:.2f} | <strong>Net Cash / ADS:</strong> +${net_cash_per_sh:.2f} | <strong>Implied Operating EV:</strong> ${(current_price - net_cash_per_sh):.2f}/ADS (${target_op_ev:,.1f}M total)</p>
-  <p>To avoid false precision from a single static growth rate, the table below solves for the exact 5-year Owner Earnings growth rate implied by today's stock price across varying normalized cash flow baselines and hurdle rates:</p>
+  <p>To avoid false precision, the table below inverts the valuation equation to solve for the exact 5-year Owner Earnings growth rate required to justify today's stock price across varying cash flow baselines and hurdle rates:</p>
 
   <table class="data-table">
     <thead>
@@ -1126,13 +1128,17 @@ def build_deterministic_valuation_section(
       </tr>
     </thead>
     <tbody>
-      <tr><td>Bear / Compressed Cash Flow (${fcf_levels[0]:,.0f}M)</td><td>{rev_matrix[fcf_levels[0]][0.095]:+.1f}% / yr</td><td>{rev_matrix[fcf_levels[0]][0.105]:+.1f}% / yr</td><td>{rev_matrix[fcf_levels[0]][0.115]:+.1f}% / yr</td></tr>
+      <tr><td>Trough / Compressed Cash Flow (${fcf_levels[0]:,.0f}M)</td><td>{rev_matrix[fcf_levels[0]][0.095]:+.1f}% / yr</td><td>{rev_matrix[fcf_levels[0]][0.105]:+.1f}% / yr</td><td>{rev_matrix[fcf_levels[0]][0.115]:+.1f}% / yr</td></tr>
       <tr><td>Normalized Base Run-Rate (${fcf_levels[1]:,.0f}M)</td><td><strong>{rev_matrix[fcf_levels[1]][0.095]:+.1f}% / yr</strong></td><td>{rev_matrix[fcf_levels[1]][0.105]:+.1f}% / yr</td><td>{rev_matrix[fcf_levels[1]][0.115]:+.1f}% / yr</td></tr>
-      <tr><td>Pre-Compression Peak Capacity (${fcf_levels[2]:,.0f}M)</td><td>{rev_matrix[fcf_levels[2]][0.095]:+.1f}% / yr</td><td>{rev_matrix[fcf_levels[2]][0.105]:+.1f}% / yr</td><td>{rev_matrix[fcf_levels[2]][0.115]:+.1f}% / yr</td></tr>
+      <tr><td>Peak / Re-Accelerated Capacity (${fcf_levels[2]:,.0f}M)</td><td>{rev_matrix[fcf_levels[2]][0.095]:+.1f}% / yr</td><td>{rev_matrix[fcf_levels[2]][0.105]:+.1f}% / yr</td><td>{rev_matrix[fcf_levels[2]][0.115]:+.1f}% / yr</td></tr>
     </tbody>
   </table>
 
-  <p><strong>Market Narrative Analysis:</strong> At ${current_price:.2f}, backing out unencumbered balance sheet cash (+${net_cash_per_sh:.2f}/ADS) implies the market is valuing the core operating infrastructure at ${(current_price - net_cash_per_sh):.2f}/ADS. Under our normalized base owner earnings (${s1_oe0:,.1f}M) and a 9.5% discount rate, Mr. Market is pricing in <strong>{base_implied_g:+.1f}% annual growth</strong>—effectively pricing in operational stagnation and competitive margin pressure.</p>
+  <p><strong>Market Narrative Analysis (Dual-Perspective Inversion):</strong></p>
+  <ul>
+    <li><strong>Consolidated Full-Price Hurdle (Zero Cash Credit):</strong> At the full market price of ${current_price:.2f}/ADS (${full_mcap:,.1f}M market cap), assuming zero balance sheet cash is distributed, Mr. Market is pricing in <strong>{implied_g_full:+.1f}% annual Owner Earnings growth</strong> over 5 years.</li>
+    <li><strong>Surplus Cash-Adjusted Hurdle:</strong> Backing out unencumbered balance sheet cash (+${net_cash_per_sh:.2f}/ADS), the market values the core operating infrastructure at ${(current_price - net_cash_per_sh):.2f}/ADS (${target_op_ev:,.1f}M operating EV), implying <strong>{implied_g_surplus:+.1f}% annual growth</strong> against our baseline Owner Earnings (${fcf_base:,.0f}M) at a 9.5% discount rate.</li>
+  </ul>
 </div>"""
 
     val_meta = {
@@ -1142,8 +1148,8 @@ def build_deterministic_valuation_section(
         "story1_title": s1_title,
         "story2_title": s2_title,
         "story3_title": s3_title,
-        "base_implied_growth": f"{base_implied_g:+.1f}%",
-        "what_is_priced_in": f"Market prices in {base_implied_g:+.1f}% annual growth (stagnation) vs Story 1 ${dcf1['total_intrinsic_value_per_share']:.2f} value",
+        "base_implied_growth": f"{implied_g_surplus:+.1f}%",
+        "what_is_priced_in": f"Market prices in {implied_g_surplus:+.1f}% annual growth (surplus-adjusted) vs Story 1 ${dcf1['total_intrinsic_value_per_share']:.2f} value",
         "labels": dcf_data.get("labels") or ["Solid Conviction", "Logistics Moat", "Fortress Net"],
         "executive_summary": dcf_data.get("executive_summary") or f"Level-headed fundamental thesis established for {ticker} across 3 distinct operating paths."
     }
