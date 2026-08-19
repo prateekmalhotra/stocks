@@ -748,7 +748,9 @@ Guidelines:
 - Current Reporting Period: Explicitly state the latest reported fiscal quarter / period (e.g. "Q3 2024 / LTM Ended Sept 2024").
 
 Core Topics to Cover:
-1. The Core Business Machine: What the company does, customer value proposition, unit economics, pricing power, and durable economic moat.
+1. The Core Business Machine & Operational Metrics:
+   - What the company does, its customer value proposition, pricing power, and durable economic moat.
+   - Identify the 3–5 PRIMARY OPERATIONAL METRICS reported by the company (e.g. Active Customers, Average Order Value (AOV), GMV, Units Sold, Same-Store Comps, ARPU, RevPAR, Take Rate, Capacity/Fulfillment volume).
 2. Audited Financial Baseline (Single Source of Truth in $ USD):
    - State the exact audited baseline figures: LTM Net Revenue, GAAP Operating Cash Flow (OCF), Maintenance CapEx, Stock-Based Compensation (SBC), Cash & ST Investments, Total Debt, Diluted Share/ADS Count, and Net Cash per share.
 3. Leadership Commentary & 4-Quarter Trajectory: Executive commentary and authentic quotes from the active CEO and CFO across the last 4 quarters.
@@ -756,7 +758,7 @@ Core Topics to Cover:
 
 Format Section 1 in clean Semantic HTML:
 <h2>Section 1: The Premise of the Company</h2>
-<p>[Plain-English explanation of how the business machine operates, its moat, and customer proposition...]</p>
+<p>[Plain-English explanation of how the business machine operates, its primary operational business metrics, its moat, and customer proposition...]</p>
 
 <div class="metrics-grid">
   <div class="metric-card"><div class="metric-label">Latest Period / LTM Revenue</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">[e.g. Q3 2024 / +XX% YoY]</div></div>
@@ -779,42 +781,52 @@ Output pure HTML only (no code fences, no inline styles)."""
 AGENT_2_STORIES_PROMPT = """Target: {ticker} ({company_name})
 
 You are LLM Agent 2: 3 Stories Strategist.
-Here is the Company Premise from Agent 1 (containing the audited financial baseline and latest reporting quarter):
+Here is the Company Premise from Agent 1 (containing the audited financial baseline and operational metrics):
 {premise_context}
 
 Guidelines:
 - Blind Valuation: Formulate business trajectories based strictly on operational realities and competitive dynamics, with zero knowledge of stock market prices.
-- Currency & Financial Consistency: All figures in $ USD. Anchor all 3 stories directly to the audited baseline numbers (revenue, margins, cash flow) established in Agent 1's Company Premise above. Do not invent contradictory baseline numbers.
+- Currency & Financial Consistency: All figures in $ USD. Anchor all 3 stories directly to the audited baseline numbers (revenue, margins, cash flow) established in Agent 1's Company Premise above.
 - Primary Research: Search and inspect {company_name}'s latest filings and earnings transcripts.
+
+FIRST-PRINCIPLES BUSINESS METRIC CHAIN (NO ARBITRARY GROWTH ASSUMPTIONS):
+- Revenue does NOT come from thin air or an arbitrary percentage. Revenue is driven by explicit operational business metrics reported by the company (e.g. active customer counts, unit volume, order frequency, pricing/AOV, capacity ramps, store/resort openings, or take rates).
+- For EACH story, you must explicitly justify the business assumptions chain:
+  1. Top-Level Operational Metric Shifts: How specific business volume, unit capacity, pricing power, or new asset additions evolve over the next 3–5 years with clear operational justifications.
+  2. Revenue Translation: How those operational metric shifts calculate into top-line net revenue.
+  3. Cost Structure & Margins: COGS (input costs/procurement), OpEx (SG&A, R&D, marketing leverage), and operating margin progression.
+  4. CapEx & Cash Conversion: Maintenance vs Growth CapEx cycles (e.g. heavy 2-year buildout vs mature cash harvest), SBC dilution, and resulting Owner Earnings.
 
 Your Objective:
 Formulate 3 PROBABLE, DISTINCT BUSINESS STORIES (the 3 probable fundamental paths this business could realistically take over the next 3 to 5 years).
-- Use your own analytical judgment and synthesis. Do NOT follow rigid pre-set templates.
 - Together, these 3 stories should cover approximately 90%–95% of probable fundamental outcomes for the business.
-- Each story should have an authentic descriptive title, clear narrative explanation, expected operating trajectory (revenue, margins, owner cash generation in $ USD), and key milestones to watch.
+- Each story should have an authentic descriptive title, clear narrative explanation, expected operating trajectory (metrics $\\rightarrow$ revenue $\\rightarrow$ margins $\\rightarrow$ owner cash generation in $ USD), and key milestones to watch.
 
 Format Section 2 in clean Semantic HTML:
 <h2>Section 2: 3 Probable Business Stories</h2>
-<p>Based on the company's core premise, operating reality, financial filings, and 4-quarter earnings trajectory, here are 3 distinct, probable fundamental paths that cover 90%–95% of probable business outcomes over the next 3–5 years:</p>
+<p>Based on the company's core premise, reported operational metrics, financial filings, and 4-quarter earnings trajectory, here are 3 distinct, probable fundamental paths that cover 90%–95% of probable business outcomes over the next 3–5 years:</p>
 
 <div class="callout">
   <h3>📖 Story 1: [Descriptive Operational Title 1]</h3>
   <p>[Full narrative explanation of this operational path...]</p>
-  <p><strong>Core Operating Trajectory:</strong> [Revenue growth, margin profile, cash generation dynamics in $ USD...]</p>
+  <p><strong>Operational Metric Drivers &amp; Revenue:</strong> [Explicit business metric shifts (e.g. customer volume, pricing/AOV, capacity ramps) and how they drive top-line revenue in $ USD...]</p>
+  <p><strong>Cost Dynamics, CapEx &amp; Owner Earnings:</strong> [COGS, OpEx margins, CapEx cycle assumptions, and resulting Owner Earnings trajectory...]</p>
   <p><strong>Key Milestones to Watch:</strong> [Specific indicators to monitor...]</p>
 </div>
 
 <div class="callout">
   <h3>📖 Story 2: [Descriptive Operational Title 2]</h3>
   <p>[Full narrative explanation of this operational path...]</p>
-  <p><strong>Core Operating Trajectory:</strong> [Revenue growth, margin profile, cash generation dynamics in $ USD...]</p>
+  <p><strong>Operational Metric Drivers &amp; Revenue:</strong> [Explicit business metric shifts and how they drive top-line revenue in $ USD...]</p>
+  <p><strong>Cost Dynamics, CapEx &amp; Owner Earnings:</strong> [COGS, OpEx margins, CapEx cycle assumptions, and resulting Owner Earnings trajectory...]</p>
   <p><strong>Key Milestones to Watch:</strong> [Specific indicators to monitor...]</p>
 </div>
 
 <div class="callout">
   <h3>📖 Story 3: [Descriptive Operational Title 3]</h3>
   <p>[Full narrative explanation of this operational path...]</p>
-  <p><strong>Core Operating Trajectory:</strong> [Revenue growth, margin profile, cash generation dynamics in $ USD...]</p>
+  <p><strong>Operational Metric Drivers &amp; Revenue:</strong> [Explicit business metric shifts and how they drive top-line revenue in $ USD...]</p>
+  <p><strong>Cost Dynamics, CapEx &amp; Owner Earnings:</strong> [COGS, OpEx margins, CapEx cycle assumptions, and resulting Owner Earnings trajectory...]</p>
   <p><strong>Key Milestones to Watch:</strong> [Specific indicators to monitor...]</p>
 </div>
 
@@ -826,7 +838,7 @@ AGENT_3_DCF_EVALUATOR_PROMPT = """Target: {ticker} ({company_name})
 Company Premise (Audited Financial Baseline & Balance Sheet):
 {premise_context}
 
-The 3 Stories:
+The 3 Stories (Operational Metrics & Cost Trajectories):
 {stories_context}
 
 You are LLM Agent 3: Storyline DCF Valuation Specialist.
@@ -834,6 +846,7 @@ You are LLM Agent 3: Storyline DCF Valuation Specialist.
 Guidelines:
 - Blind Valuation: Evaluate cash flows purely from First Principles as if buying 100% of the private enterprise, with zero knowledge of current stock prices.
 - Strict Baseline Consistency: Use the EXACT audited baseline figures established in Section 1 (Base Year 1 Owner Earnings, Net Cash/Debt per share, Diluted Shares/ADSs in $ USD) as the mathematical foundation for your DCF model.
+- Model Derivation from Story Drivers: Translate each story's operational metrics, revenue trajectory, margin expansion/compression, and CapEx cycle directly into the 5-Year Owner Earnings CAGR and Year 1-5 cash flow trajectory. No arbitrary growth numbers—every rate must be justified by the story's business metrics.
 - Buffett Owner Earnings: Year 1 Owner Earnings = GAAP Operating Cash Flow - Maintenance CapEx - 100% Stock-Based Compensation ($ Millions USD).
 - Discount Rate: 9.0%–10.0% hurdle rate (opportunity cost).
 - Terminal Growth: 1.5%–2.25% (GDP capped).
@@ -865,9 +878,9 @@ Format Section 3 in clean Semantic HTML:
 
 <div class="callout">
   <h3>Valuation Rationale Across the 3 Paths</h3>
-  <p><strong>Story 1 ($XX.XX):</strong> [Rationale explaining how Story 1 dynamics produce this intrinsic value...]</p>
-  <p><strong>Story 2 ($XX.XX):</strong> [Rationale explaining how Story 2 dynamics produce this intrinsic value...]</p>
-  <p><strong>Story 3 ($XX.XX):</strong> [Rationale explaining how Story 3 dynamics produce this intrinsic value...]</p>
+  <p><strong>Story 1 ($XX.XX):</strong> [Rationale explaining how the specific operational metric shifts, revenue, and cost structure produce this intrinsic value...]</p>
+  <p><strong>Story 2 ($XX.XX):</strong> [Rationale explaining how the specific operational metric shifts, revenue, and cost structure produce this intrinsic value...]</p>
+  <p><strong>Story 3 ($XX.XX):</strong> [Rationale explaining how the specific operational metric shifts, revenue, and cost structure produce this intrinsic value...]</p>
 </div>
 
 At the very end, output a JSON block in ```json ... ```:
