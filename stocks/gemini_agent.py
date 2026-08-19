@@ -1045,7 +1045,7 @@ def build_deterministic_valuation_section(
         
     s1_g = float(dcf_data.get("story1_growth") or 0.08)
     s1_r = float(dcf_data.get("story1_discount") or 0.095)
-    s1_gt = float(dcf_data.get("story1_terminal") or 0.02)
+    s1_gt = min(0.020, max(0.010, float(dcf_data.get("story1_terminal") or 0.020)))
     s1_narrative = dcf_data.get("story1_narrative") or "Core retail margin expansion and supply-chain efficiency."
     
     # Story 2 parameters
@@ -1058,7 +1058,7 @@ def build_deterministic_valuation_section(
         
     s2_g = float(dcf_data.get("story2_growth") or 0.12)
     s2_r = float(dcf_data.get("story2_discount") or 0.095)
-    s2_gt = float(dcf_data.get("story2_terminal") or 0.0225)
+    s2_gt = min(0.0225, max(0.010, float(dcf_data.get("story2_terminal") or 0.0225)))
     s2_narrative = dcf_data.get("story2_narrative") or "Aggressive 3P marketplace advertising and logistics scaling."
     
     # Story 3 parameters (Defensive Floor / Severe Downside Stress Test)
@@ -1071,7 +1071,7 @@ def build_deterministic_valuation_section(
         
     s3_g = float(dcf_data.get("story3_growth") or -0.09)
     s3_r = float(dcf_data.get("story3_discount") or 0.105)
-    s3_gt = float(dcf_data.get("story3_terminal") or 0.015)
+    s3_gt = min(0.015, max(0.005, float(dcf_data.get("story3_terminal") or 0.015))) if (s3_g < 0) else min(0.0225, max(0.010, float(dcf_data.get("story3_terminal") or 0.020)))
     s3_narrative = dcf_data.get("story3_narrative") or "Intense price competition, gross margin compression, and persistent operational drag."
     
     # Compute Exact Deterministic DCF in Python
@@ -1290,6 +1290,16 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     exec_summary = val_meta.get("executive_summary") or dcf_data.get("executive_summary") or f"Level-headed fundamental investment thesis established for {ticker_clean} across 3 distinct operating paths."
     what_is_priced_in = val_meta.get("what_is_priced_in") or f"Market prices in {val_meta.get('base_implied_growth', '0.0%')} annual growth vs Story 1"
 
+    # Dynamic Scenario Mapping: Ensure bear is lowest (floor), base is Story 1, bull is highest (ceiling)
+    all_story_tuples = [
+        (story1_val, mos1, story1_title, "Story 1"),
+        (story2_val, mos2, story2_title, "Story 2"),
+        (story3_val, mos3, story3_title, "Story 3")
+    ]
+    min_story = min(all_story_tuples, key=lambda x: x[0])
+    max_story = max(all_story_tuples, key=lambda x: x[0])
+    base_story = all_story_tuples[0]  # Story 1 is always Base Case
+
     metadata = {
         "ticker": ticker_clean,
         "company_name": company_name,
@@ -1309,9 +1319,9 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         "story1_val": story1_val,
         "story2_val": story2_val,
         "story3_val": story3_val,
-        "bear_target": f"${story2_val:.2f} ({mos2:+.1f}%)",
-        "base_target": f"${story1_val:.2f} ({mos1:+.1f}%)",
-        "bull_target": f"${story3_val:.2f} ({mos3:+.1f}%)",
+        "bear_target": f"${min_story[0]:.2f} ({min_story[1]:+.1f}%)",
+        "base_target": f"${base_story[0]:.2f} ({base_story[1]:+.1f}%)",
+        "bull_target": f"${max_story[0]:.2f} ({max_story[1]:+.1f}%)",
         "what_is_priced_in": what_is_priced_in,
         "upper_alert_threshold": upper_alert,
         "lower_alert_threshold": lower_alert,
