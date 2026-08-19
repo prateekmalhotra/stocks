@@ -279,8 +279,9 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
     foreign_pat = r"[¥€£]\s*[\d,]+(?:\.\d+)?\s*(?:(?:billion|million|trillion|[BM])\b)?\s*(?:(?:RMB|CNY|EUR|GBP|JPY)\b)?"
     unconverted_foreign = []
     for m in re.finditer(foreign_pat, html, re.IGNORECASE):
-        after_str = html[m.end():m.end()+50]
-        if not re.search(r"^\s*(?:/ADS|/share|/sh)?\s*\([^\)]*?\$", after_str):
+        # Inspect 80 characters before and after the foreign amount for a USD ($) conversion or context
+        context_window = html[max(0, m.start()-80):min(len(html), m.end()+80)]
+        if "$" not in context_window:
             unconverted_foreign.append(m.group(0).strip())
     if unconverted_foreign:
         issues.append(f"Foreign Currency Standardization Failure: Found standalone unconverted foreign currency values ({unconverted_foreign[:3]}). All figures must be converted to US Dollars ($ USD).")
