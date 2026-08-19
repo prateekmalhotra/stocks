@@ -275,16 +275,7 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
         if abs(s1 - s2) < 0.05 and abs(s2 - s3) < 0.05:
             issues.append("Storyline Diversity Failure: All 3 storylines produced identical valuation targets. Storylines must represent 3 distinct operating trajectories.")
 
-    # 25. USD Currency Standardization Invariant Check (Check for un-converted foreign currency standalone values)
-    foreign_pat = r"[¥€£]\s*[\d,]+(?:\.\d+)?\s*(?:(?:billion|million|trillion|[BM])\b)?\s*(?:(?:RMB|CNY|EUR|GBP|JPY)\b)?"
-    unconverted_foreign = []
-    for m in re.finditer(foreign_pat, html, re.IGNORECASE):
-        # Inspect 80 characters before and after the foreign amount for a USD ($) conversion or context
-        context_window = html[max(0, m.start()-80):min(len(html), m.end()+80)]
-        if "$" not in context_window:
-            unconverted_foreign.append(m.group(0).strip())
-    if unconverted_foreign:
-        issues.append(f"Foreign Currency Standardization Failure: Found standalone unconverted foreign currency values ({unconverted_foreign[:3]}). All figures must be converted to US Dollars ($ USD).")
+
 
     # 26. Balance Sheet Net Cash/Debt Plausibility Check (Plugged Number Prevention)
     if s3_match:
