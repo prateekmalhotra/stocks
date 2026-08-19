@@ -946,53 +946,54 @@ Format Section 2 in clean Semantic HTML:
 Output pure HTML only (no code fences, no inline styles)."""
 
 
-AGENT_3_SINGLE_STORY_DCF_PROMPT = """Target: {ticker} ({company_name})
-Story to Value: {story_name} (Story {story_num}/3)
+AGENT_3_SINGLE_STORY_DCF_PROMPT = """You are a Warren Buffett DCF valuation analyst.
 
-Company Premise (Audited Financial Baseline, Share Count, Balance Sheet Cash):
+Company: {company_name} ({ticker})
+Scenario to Value: {story_name} (Story {story_num}/3)
+
+Audited Financial Context:
 {premise_context}
 
-Operational Story Context:
+Scenario Description:
 {story_context}
 
-You are LLM Agent 3{story_letter}: Dedicated Buffett DCF Valuation Specialist for {story_name}.
-Your objective is to independently model and calculate the complete, step-by-step Warren Buffett Owner Earnings Discounted Cash Flow (DCF) valuation for THIS SPECIFIC STORY ONLY (100% Blind Mode, zero knowledge of current stock market price).
+Your Task:
+Calculate the intrinsic fair value per share (or per ADS for ADRs) in USD using a 5-year Discounted Cash Flow (DCF):
+1. Start with Year 0 Normalized Owner Earnings (in $ Millions USD) from the financial context.
+2. Compound Owner Earnings over 5 years based on the scenario growth rate.
+3. Discount the 5 years of cash flows at a ~9.5% discount rate.
+4. Calculate Terminal Value using ~2.0% terminal growth and discount it to present value.
+5. Add 5-year PV + Terminal Value PV to get Total Operating Enterprise Value (in $ Millions USD).
+6. Divide Enterprise Value by the Diluted Shares / ADSs count (in Millions) to get Operating Value per Share in USD.
+7. Add the Net Surplus Cash per Share/ADS (in USD) to get the final Intrinsic Fair Value per Share in USD.
 
-Guidelines:
-- 100% First-Principles Math: Calculate the 5-year Owner Earnings cash flows, PV of each year, terminal value, enterprise value, and per-share intrinsic value.
-- Denominator Integrity: Use the exact diluted share count stated in Section 1 (e.g. for BABA: 2,360M diluted ADSs; for GCT: 36.8M diluted ADSs; for JD: 1,410M diluted ADSs). For foreign ADRs, strictly value in USD per ADS.
-- Surplus Cash Addition: Add the exact unencumbered balance sheet surplus net cash per ADS established in Section 1 (after deducting debt, leases, and operational liquidity buffer).
-- Cash Flow Normalization: Starting Owner Earnings (OE₀) = Normalized GAAP OCF - Non-Operating Interest Income - Maintenance CapEx - SBC.
+SANITY CHECK:
+- Final fair value per share MUST be a realistic per-share price in USD (e.g. $50 to $300 for BABA, NOT the total company market cap).
 
-Output a strict JSON block in ```json ... ```:
+Respond ONLY with a JSON block:
 ```json
 {{
-  "story_title": "<Descriptive Operational Title>",
-  "story_narrative": "<2-3 sentence fundamental operational explanation for this path>",
-  "starting_oe0_usd_m": <float, Starting Year 0 Owner Earnings in $ Millions USD>,
-  "cagr_5yr": <float, 5-Year CAGR (e.g. 0.083 for +8.3%, -0.05 for -5.0%)>,
-  "discount_rate": <float, Hurdle Rate (e.g. 0.095 for 9.5%, 0.105 for 10.5%)>,
-  "terminal_growth": <float, Terminal Growth (e.g. 0.020 for 2.0%)>,
-  "cash_flows_yr1_to_5_usd_m": [<float Yr1>, <float Yr2>, <float Yr3>, <float Yr4>, <float Yr5>],
-  "pv_cash_flows_yr1_to_5_usd_m": [<float PV1>, <float PV2>, <float PV3>, <float PV4>, <float PV5>],
-  "sum_pv_5yr_usd_m": <float, Sum of 5-year discounted cash flows in $ Millions USD>,
-  "terminal_value_usd_m": <float, Undiscounted Terminal Value in $ Millions USD>,
-  "pv_terminal_value_usd_m": <float, Discounted Terminal Value in $ Millions USD>,
-  "enterprise_value_usd_m": <float, Total Operating Enterprise Value in $ Millions USD>,
-  "diluted_shares_m": <float, Diluted ADSs / Shares in Millions>,
-  "operating_value_per_share": <float, Operating EV divided by Diluted Shares in $ USD>,
-  "net_cash_per_share": <float, Balance Sheet Surplus Net Cash per Share in $ USD>,
-  "fair_value_per_share": <float, Operating Value per Share + Net Cash per Share in $ USD>,
-  "story_step_by_step_proof_html": "<p><strong>[Story Title] ($[Fair Value]):</strong> [Detailed step-by-step narrative and mathematical proof showing Year 0 OE₀, 5-year CAGR, 5-year PV sum, terminal value, enterprise value, share division, and net cash addition...]</p>"
+  "story_title": "<Short descriptive title>",
+  "starting_oe_millions": <number in $M>,
+  "growth_rate_pct": <e.g. 10.0 for 10%>,
+  "discount_rate_pct": <e.g. 9.5>,
+  "terminal_growth_pct": <e.g. 2.0>,
+  "enterprise_value_millions": <number in $M>,
+  "diluted_shares_millions": <number in Millions>,
+  "operating_value_per_share": <number in $ USD>,
+  "net_cash_per_share": <number in $ USD>,
+  "fair_value_per_share": <number in $ USD>,
+  "proof_summary": "<2-3 sentence mathematical explanation of the calculation and final per-share value>"
 }}
-```
-Output JSON only in ```json ... ```."""
+```"""
 
 
-AGENT_4_REVERSE_DCF_PROMPT = """Target: {ticker} ({company_name})
-Current Market Price: ${current_price:.2f}
+AGENT_4_REVERSE_DCF_PROMPT = """You are an institutional investment equity research analyst.
 
-Company Premise (Audited Baseline & Balance Sheet):
+Company: {company_name} ({ticker})
+Current Market Stock Price: ${current_price:.2f}
+
+Audited Financial Context:
 {premise_context}
 
 Story 1 (Base Case) Valuation Model:
@@ -1004,16 +1005,16 @@ Story 2 (Bull Case) Valuation Model:
 Story 3 (Bear Case) Valuation Model:
 {story3_json}
 
-You are LLM Agent 4: Reverse DCF & Market Expectation Inversion Specialist.
-Your objective is to:
-1. Synthesize all 3 standalone story valuations into the consolidated 3-Storyline Valuation Table.
-2. Invert today's market price (${current_price:.2f}) vs Story 1's fundamental value to construct the 2D Reverse DCF Sensitivity Matrix across discount rates (9.5%, 10.5%, 11.5%) and cash flow baselines (trough, base, peak).
-3. Provide the dual-perspective market narrative inversion analysis (Consolidated Full-Price Hurdle vs Surplus Cash-Adjusted Hurdle).
-4. Output the complete, beautifully formatted Section 3 in clean Semantic HTML.
+Your Task:
+Write Section 3 (Valuation & Reverse DCF) in clean, semantic HTML:
+1. A summary 3-Story DCF table comparing all 3 paths (Starting Owner Earnings, 5-Yr Growth, Discount Rate, Terminal Growth, Enterprise Value, Net Cash/sh, and Calculated Intrinsic Value/share).
+2. Clear paragraph proofs for each of the 3 stories explaining the math and operational logic in plain English.
+3. A Reverse DCF sensitivity matrix table showing what annual growth rate Mr. Market is pricing in at today's stock price (${current_price:.2f}) across discount rates (9.5%, 10.5%, 11.5%) and cash flow baselines.
+4. Plain-English narrative explaining what Mr. Market is pricing in today versus Story 1.
 
-Format Section 3 in clean Semantic HTML:
+Format:
 <h2>Section 3: Valuation Across the 3 Stories</h2>
-<p>Translating each of the 3 business stories into Warren Buffett-style discounted cash flow valuations based on true Core Owner Earnings (GAAP Operating Cash Flow minus Non-Operating Interest Income minus Maintenance CapEx minus Stock-Based Compensation, which is treated as an authentic economic compensation cost to measure non-dilutive owner cash generation) plus audited balance sheet surplus net cash per share:</p>
+<p>Translating each of the 3 business stories into Warren Buffett-style discounted cash flow valuations based on true Core Owner Earnings plus audited balance sheet surplus net cash per share:</p>
 
 <table class="data-table">
   <thead>
@@ -1039,9 +1040,9 @@ Format Section 3 in clean Semantic HTML:
 
 <div class="callout">
   <h3>Step-by-Step Mathematical Proofs Across the 3 Paths</h3>
-  [Insert Story 1 Proof HTML]
-  [Insert Story 2 Proof HTML]
-  [Insert Story 3 Proof HTML]
+  [Story 1 Proof HTML]
+  [Story 2 Proof HTML]
+  [Story 3 Proof HTML]
 </div>
 
 <div class="callout">
@@ -1072,7 +1073,7 @@ Format Section 3 in clean Semantic HTML:
   </ul>
 </div>
 
-Output pure HTML only (no code fences, no inline styles)."""
+Output pure HTML only (no markdown backticks, no inline styles)."""
 
 
 def parse_float_safe(val: Any, default: float = 0.0) -> float:
@@ -1097,8 +1098,9 @@ def parse_float_safe(val: Any, default: float = 0.0) -> float:
     return default
 
 
-def extract_story_valuation(dcf_dict: Dict[str, Any], raw_text: str = "") -> float:
-    """Extracts the fair value per share from JSON keys or regex fallback in raw LLM text."""
+def extract_story_valuation(dcf_dict: Dict[str, Any], raw_text: str = "", current_price: float = 0.0) -> float:
+    """Extracts the fair value per share from JSON keys or regex fallback in raw LLM text, with sanity protection."""
+    val = 0.0
     if isinstance(dcf_dict, dict):
         for k in [
             "fair_value_per_share", "total_intrinsic_value_per_share", "intrinsic_value_per_share",
@@ -1108,15 +1110,22 @@ def extract_story_valuation(dcf_dict: Dict[str, Any], raw_text: str = "") -> flo
             if k in dcf_dict:
                 v = parse_float_safe(dcf_dict[k])
                 if v > 0.0:
-                    return v
-    if raw_text:
-        m = re.search(r'(?:fair value|intrinsic value|calculated intrinsic value|per share|per ADS).*?\$?\s*([0-9,]+(?:\.[0-9]+)?)', raw_text, re.IGNORECASE)
+                    val = v
+                    break
+                    
+        # Sanity check: if value is > 2000 and current price is under 500, check if enterprise value was returned instead of per-share
+        shares = parse_float_safe(dcf_dict.get("diluted_shares_millions") or dcf_dict.get("diluted_shares"))
+        if val > 1500.0 and current_price > 0 and current_price < 500.0 and shares > 10.0:
+            val = round(val / shares, 2)
+            
+    if val <= 0.0 and raw_text:
+        m = re.search(r'(?:fair value|intrinsic value|calculated intrinsic value|per share|per ADS)[^0-9$]*?\$?\s*([0-9,]+(?:\.[0-9]+)?)', raw_text, re.IGNORECASE)
         if m:
             try:
-                return float(m.group(1).replace(",", ""))
+                val = float(m.group(1).replace(",", ""))
             except Exception:
                 pass
-    return 0.0
+    return val
 
 
 def generate_genesis_thesis(ticker: str, company_name: str, current_price: float, initial_notes: str = "") -> Tuple[Dict[str, Any], str]:
@@ -1180,7 +1189,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     )
     raw_3a = call_gemini_with_search(prompt_3a, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False)
     dcf1 = extract_json_block(raw_3a)
-    story1_val = extract_story_valuation(dcf1, raw_3a)
+    story1_val = extract_story_valuation(dcf1, raw_3a, current_price=current_price)
     story1_title = str(dcf1.get("story_title") or "Base Case Compounder")
     print(f"   │ Story 1 Valuation: ${story1_val:.2f} / share ({story1_title})", flush=True)
     print("   └" + "─" * 50, flush=True)
@@ -1200,7 +1209,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     )
     raw_3b = call_gemini_with_search(prompt_3b, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False)
     dcf2 = extract_json_block(raw_3b)
-    story2_val = extract_story_valuation(dcf2, raw_3b)
+    story2_val = extract_story_valuation(dcf2, raw_3b, current_price=current_price)
     story2_title = str(dcf2.get("story_title") or "High-Margin Upside Engine")
     print(f"   │ Story 2 Valuation: ${story2_val:.2f} / share ({story2_title})", flush=True)
     print("   └" + "─" * 50, flush=True)
@@ -1220,7 +1229,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     )
     raw_3c = call_gemini_with_search(prompt_3c, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False)
     dcf3 = extract_json_block(raw_3c)
-    story3_val = extract_story_valuation(dcf3, raw_3c)
+    story3_val = extract_story_valuation(dcf3, raw_3c, current_price=current_price)
     story3_title = str(dcf3.get("story_title") or "Macro Friction & Defensive Floor")
     print(f"   │ Story 3 Valuation: ${story3_val:.2f} / share ({story3_title})", flush=True)
     print("   └" + "─" * 50, flush=True)
@@ -1322,12 +1331,12 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         "what_is_priced_in": what_is_priced_in,
         "upper_alert_threshold": upper_alert,
         "lower_alert_threshold": lower_alert,
-        "next_catalyst_date": normalize_catalyst_date(dcf_data.get("next_catalyst_date")),
-        "next_catalyst_event": dcf_data.get("next_catalyst_event") or "Scheduled quarterly report",
-        "top_funds": dcf_data.get("top_funds") or [],
-        "institutional_ownership_pct": dcf_data.get("institutional_ownership_pct") or "N/A",
-        "insider_signal": dcf_data.get("insider_signal") or "Neutral (10b5-1)",
-        "insider_summary": dcf_data.get("insider_summary") or "Audited from official SEC Form 4 filings.",
+        "next_catalyst_date": "",
+        "next_catalyst_event": "Scheduled quarterly report",
+        "top_funds": [],
+        "institutional_ownership_pct": "N/A",
+        "insider_signal": "Neutral (10b5-1)",
+        "insider_summary": "Audited from official SEC Form 4 filings.",
         "executive_summary": exec_summary.strip()
     }
 
