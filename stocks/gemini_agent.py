@@ -1004,25 +1004,27 @@ Output a strict JSON block in ```json ... ```:
   "story1_growth": <float (e.g. 0.08)>,
   "story1_discount": <float (e.g. 0.095)>,
   "story1_terminal": <float (e.g. 0.020)>,
+  "story1_net_cash": <float (Surplus Net Cash per Share/ADS for Story 1 e.g. 13.41)>,
   "story1_narrative": "<2-3 sentence fundamental operational explanation for Story 1>",
   "story2_title": "<Clean Title 2 e.g. High-Margin Harvest>",
   "story2_oe0": <float (e.g. 2500.0)>,
   "story2_growth": <float (e.g. 0.12)>,
   "story2_discount": <float (e.g. 0.095)>,
   "story2_terminal": <float (e.g. 0.0225)>,
+  "story2_net_cash": <float (Surplus Net Cash per Share/ADS for Story 2 e.g. 10.24)>,
   "story2_narrative": "<2-3 sentence fundamental operational explanation for Story 2>",
   "story3_title": "<Clean Title 3 e.g. Macro Stagnation & Price War>",
   "story3_oe0": <float (e.g. 1000.0)>,
   "story3_growth": <float (e.g. -0.05)>,
   "story3_discount": <float (e.g. 0.105)>,
   "story3_terminal": <float (e.g. 0.015)>,
+  "story3_net_cash": <float (Surplus Net Cash per Share/ADS for Story 3 e.g. 10.50)>,
   "story3_narrative": "<2-3 sentence fundamental operational explanation for Story 3>",
   "diluted_shares": <float (Diluted Shares / ADSs in Millions e.g. 1371.0)>,
   "gross_cash_usd": <float (e.g. 31300.0)>,
   "total_debt_usd": <float (e.g. 10300.0)>,
   "committed_ma_usd": <float (e.g. 2400.0)>,
-  "nci_usd": <float (e.g. 1600.0)>,
-  "net_cash_per_share": <float (e.g. 12.35)>,
+  "net_cash_per_share": <float (e.g. 13.41)>,
   "labels": ["<Canonical Conviction Tier (High Conviction | Solid Conviction | Moderate Conviction | Cautious Stance | Turnaround Play | Speculative Risk)>", "<Play Driver 1>", "<Play Driver 2>"],
   "executive_summary": "<2-3 sentence crisp plain-English summary of premise, stories, and valuations in USD>"
 }}
@@ -1108,14 +1110,19 @@ def build_deterministic_valuation_section(
     s3_gt = min(0.015, max(0.005, float(dcf_data.get("story3_terminal") or 0.015))) if (s3_g < 0) else min(0.0225, max(0.010, float(dcf_data.get("story3_terminal") or 0.020)))
     s3_narrative = dcf_data.get("story3_narrative") or "Intense price competition, gross margin compression, and persistent operational drag."
     
+    # Story-specific net cash adjustments matching Section 2 narratives
+    s1_net_cash = float(dcf_data.get("story1_net_cash") or net_cash_per_sh)
+    s2_net_cash = float(dcf_data.get("story2_net_cash") or net_cash_per_sh)
+    s3_net_cash = float(dcf_data.get("story3_net_cash") or net_cash_per_sh)
+
     # Compute Exact Deterministic DCF in Python
-    dcf1 = compute_deterministic_dcf(s1_oe0, s1_g, s1_r, s1_gt, shares, net_cash_per_sh)
-    dcf2 = compute_deterministic_dcf(s2_oe0, s2_g, s2_r, s2_gt, shares, net_cash_per_sh)
-    dcf3 = compute_deterministic_dcf(s3_oe0, s3_g, s3_r, s3_gt, shares, net_cash_per_sh)
+    dcf1 = compute_deterministic_dcf(s1_oe0, s1_g, s1_r, s1_gt, shares, s1_net_cash)
+    dcf2 = compute_deterministic_dcf(s2_oe0, s2_g, s2_r, s2_gt, shares, s2_net_cash)
+    dcf3 = compute_deterministic_dcf(s3_oe0, s3_g, s3_r, s3_gt, shares, s3_net_cash)
     
     # Compute 2D Reverse DCF Matrix across discount rates and 3 distinct starting FCF levels
     full_mcap = max(100.0, current_price * shares)
-    target_op_ev = max(100.0, (current_price - net_cash_per_sh) * shares)
+    target_op_ev = max(100.0, (current_price - s1_net_cash) * shares)
     fcf_trough = round(s1_oe0 * 0.65, 0)
     fcf_base = round(s1_oe0, 0)
     fcf_peak = round(s1_oe0 * 1.35, 0)
@@ -1157,16 +1164,16 @@ def build_deterministic_valuation_section(
     <tr><td>PV of 5-Year Cash Flows</td><td>${dcf1['sum_pv_5yr']:,.1f}M</td><td>${dcf2['sum_pv_5yr']:,.1f}M</td><td>${dcf3['sum_pv_5yr']:,.1f}M</td></tr>
     <tr><td>PV of Terminal Value</td><td>${dcf1['pv_terminal_value']:,.1f}M</td><td>${dcf2['pv_terminal_value']:,.1f}M</td><td>${dcf3['pv_terminal_value']:,.1f}M</td></tr>
     <tr><td>Operating Business Enterprise Value</td><td>${dcf1['enterprise_value']:,.1f}M (${dcf1['operating_value_per_share']:.2f}/sh)</td><td>${dcf2['enterprise_value']:,.1f}M (${dcf2['operating_value_per_share']:.2f}/sh)</td><td>${dcf3['enterprise_value']:,.1f}M (${dcf3['operating_value_per_share']:.2f}/sh)</td></tr>
-    <tr><td>Net Balance Sheet Cash / (Debt) Adjustment</td><td>+${net_cash_per_sh:.2f}/sh</td><td>+${net_cash_per_sh:.2f}/sh</td><td>+${net_cash_per_sh:.2f}/sh</td></tr>
+    <tr><td>Net Balance Sheet Cash / (Debt) Adjustment</td><td>+${s1_net_cash:.2f}/sh</td><td>+${s2_net_cash:.2f}/sh</td><td>+${s3_net_cash:.2f}/sh</td></tr>
     <tr><td><strong>Calculated Intrinsic Value / Share</strong></td><td><strong>${dcf1['total_intrinsic_value_per_share']:.2f}</strong></td><td><strong>${dcf2['total_intrinsic_value_per_share']:.2f}</strong></td><td><strong>${dcf3['total_intrinsic_value_per_share']:.2f}</strong></td></tr>
   </tbody>
 </table>
 
 <div class="callout">
   <h3>Step-by-Step Mathematical Proofs Across the 3 Paths</h3>
-  {_build_story_proof(s1_title, s1_narrative, s1_oe0, s1_g, s1_r, s1_gt, dcf1, shares, net_cash_per_sh)}
-  {_build_story_proof(s2_title, s2_narrative, s2_oe0, s2_g, s2_r, s2_gt, dcf2, shares, net_cash_per_sh)}
-  {_build_story_proof(s3_title, s3_narrative, s3_oe0, s3_g, s3_r, s3_gt, dcf3, shares, net_cash_per_sh)}
+  {_build_story_proof(s1_title, s1_narrative, s1_oe0, s1_g, s1_r, s1_gt, dcf1, shares, s1_net_cash)}
+  {_build_story_proof(s2_title, s2_narrative, s2_oe0, s2_g, s2_r, s2_gt, dcf2, shares, s2_net_cash)}
+  {_build_story_proof(s3_title, s3_narrative, s3_oe0, s3_g, s3_r, s3_gt, dcf3, shares, s3_net_cash)}
 </div>
 
 <div class="callout">
