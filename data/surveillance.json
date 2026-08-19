@@ -1,13 +1,13 @@
 {
   "portfolio_type": "defensive",
   "portfolio_label": "Fidelity (Defensive Fortress)",
-  "last_run_date": "2026-08-17",
-  "last_run_timestamp": "2026-08-17T23:52:22.396327",
-  "status": "OPTIMAL",
-  "status_display": "COUNCIL AUDIT ACTIVE \u2022 ALL HOLDINGS INTACT",
+  "last_run_date": "2026-08-19",
+  "last_run_timestamp": "2026-08-19T18:38:17.572206",
+  "status": "EXECUTED",
+  "status_display": "SURVEILLANCE ACTIONS EXECUTED (1 ACTIONS)",
   "action_required": false,
-  "verdict_summary": "Audited Fidelity (Defensive Fortress) across Buffett-Munger Kelly filters. All 0 core holdings maintain pristine moats and healthy cash compounding. Zero forced trades required. Shiller CAPE macro cash gauge verified at 20.56%.",
-  "total_universe_scanned": 1,
+  "verdict_summary": "Council executed 1 high-conviction decision(s): SURPLUS CASH DEPLOYMENT (BUY).",
+  "total_universe_scanned": 7,
   "active_holdings_verified": 0,
   "shiller_cape": 35.5,
   "buffett_indicator_pct": 198.5,
@@ -28,8 +28,48 @@
     "cash_directive": "Cash reserves (100.00%) exceed target (20.56%). Ready for opportunistic deployment.",
     "formula_description": "Senior US Treasury Buffer (20.56%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +20.00% weighted Margin of Safety."
   },
-  "next_scheduled_run": "2026-08-24",
+  "next_scheduled_run": "2026-08-26",
   "holdings_health": [],
-  "top_watchlist_on_radar": [],
-  "rebalance_proposals": []
+  "top_watchlist_on_radar": [
+    {
+      "ticker": "PDD",
+      "company_name": "PDD Holdings Inc.",
+      "price": 90.2,
+      "fair_value": 158.92,
+      "mos_pct": 76.19,
+      "expected_irr": 45.0,
+      "kelly_edge": 32.09,
+      "moat_score": 9.2
+    },
+    {
+      "ticker": "LULU",
+      "company_name": "lululemon athletica inc.",
+      "price": 119.45,
+      "fair_value": 188.69,
+      "mos_pct": 57.97,
+      "expected_irr": 33.4,
+      "kelly_edge": 26.19,
+      "moat_score": 9.2
+    },
+    {
+      "ticker": "JD",
+      "company_name": "JD.com, Inc.",
+      "price": 29.35,
+      "fair_value": 63.18,
+      "mos_pct": 115.26,
+      "expected_irr": 43.8,
+      "kelly_edge": 25.81,
+      "moat_score": 9.0
+    }
+  ],
+  "rebalance_proposals": [
+    {
+      "date": "2026-08-19",
+      "action": "SURPLUS CASH DEPLOYMENT (BUY)",
+      "ticker": "PDD",
+      "reason": "Deployed surplus cash ($16,000 / 8.0%) into Tier-1 compounder PDD (Moat: 9.2/10, MoS: +76.2%, Kelly Edge: 32.09)",
+      "weight_delta": "+8.0%",
+      "verification_status": "Audited & Executed by Autonomous Surveillance Council"
+    }
+  ]
 }

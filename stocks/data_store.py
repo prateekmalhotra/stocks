@@ -85,6 +85,14 @@ def delete_stock(ticker: str) -> bool:
             cache_file.unlink()
         except Exception:
             pass
+
+    # Remove critique file
+    critique_file = DATA_DIR / "critiques" / f"{clean_t}_critique.md"
+    if critique_file.exists():
+        try:
+            critique_file.unlink()
+        except Exception:
+            pass
             
     return True
 

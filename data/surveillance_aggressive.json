@@ -2,12 +2,12 @@
   "portfolio_type": "aggressive",
   "portfolio_label": "Wealthsimple (Aggressive Alpha)",
   "last_run_date": "2026-08-19",
-  "last_run_timestamp": "2026-08-19T16:20:31.076265",
-  "status": "OPTIMAL",
-  "status_display": "COUNCIL AUDIT ACTIVE \u2022 ALL HOLDINGS INTACT",
+  "last_run_timestamp": "2026-08-19T18:38:17.596105",
+  "status": "EXECUTED",
+  "status_display": "SURVEILLANCE ACTIONS EXECUTED (1 ACTIONS)",
   "action_required": false,
-  "verdict_summary": "Audited Wealthsimple (Aggressive Alpha) across Buffett-Munger Kelly filters. All 0 core holdings maintain pristine moats and healthy cash compounding. Zero forced trades required. Shiller CAPE macro cash gauge verified at 18.56%.",
-  "total_universe_scanned": 0,
+  "verdict_summary": "Council executed 1 high-conviction decision(s): SURPLUS CASH DEPLOYMENT (BUY).",
+  "total_universe_scanned": 7,
   "active_holdings_verified": 0,
   "shiller_cape": 35.5,
   "buffett_indicator_pct": 198.5,
@@ -30,6 +30,46 @@
   },
   "next_scheduled_run": "2026-08-26",
   "holdings_health": [],
-  "top_watchlist_on_radar": [],
-  "rebalance_proposals": []
+  "top_watchlist_on_radar": [
+    {
+      "ticker": "LULU",
+      "company_name": "lululemon athletica inc.",
+      "price": 119.45,
+      "fair_value": 188.69,
+      "mos_pct": 57.97,
+      "expected_irr": 33.4,
+      "kelly_edge": 26.19,
+      "moat_score": 9.2
+    },
+    {
+      "ticker": "JD",
+      "company_name": "JD.com, Inc.",
+      "price": 29.35,
+      "fair_value": 63.18,
+      "mos_pct": 115.26,
+      "expected_irr": 43.8,
+      "kelly_edge": 25.81,
+      "moat_score": 9.0
+    },
+    {
+      "ticker": "BMBL",
+      "company_name": "Bumble Inc.",
+      "price": 2.79,
+      "fair_value": 20.29,
+      "mos_pct": 627.24,
+      "expected_irr": 139.4,
+      "kelly_edge": 20.17,
+      "moat_score": 7.5
+    }
+  ],
+  "rebalance_proposals": [
+    {
+      "date": "2026-08-19",
+      "action": "SURPLUS CASH DEPLOYMENT (BUY)",
+      "ticker": "LULU",
+      "reason": "Deployed surplus cash ($16,000 / 8.0%) into Tier-1 compounder LULU (Moat: 9.2/10, MoS: +58.0%, Kelly Edge: 26.19)",
+      "weight_delta": "+8.0%",
+      "verification_status": "Audited & Executed by Autonomous Surveillance Council"
+    }
+  ]
 }

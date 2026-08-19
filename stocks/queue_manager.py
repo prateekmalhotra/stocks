@@ -235,6 +235,15 @@ def _handle_review_task(ticker: str, trigger_reason: str):
     today_str = datetime.now().strftime("%Y-%m-%d")
 
     # 1. Create New Thesis Version
+    from stocks.ownership_intelligence import fetch_and_cache_complete_ownership
+    ownership_data = fetch_and_cache_complete_ownership(ticker, company_name)
+    dr_holders = ownership_data.get("dataroma_holders", [])
+    if dr_holders:
+        top_funds = [f"{h.get('manager')} ({h.get('pct_of_portfolio', '')})" for h in dr_holders[:10]]
+    else:
+        raw_funds = meta.get("top_funds") or stock.top_funds or []
+        top_funds = [f if isinstance(f, str) else str(f) for f in raw_funds]
+
     raw_inst = meta.get("institutional_ownership_pct") or stock.institutional_ownership_pct or ""
     if raw_inst and str(raw_inst).strip() not in ("N/A", "None", "", "TBD") and "%" in str(raw_inst):
         inst_pct = str(raw_inst).strip()
