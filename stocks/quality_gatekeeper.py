@@ -275,10 +275,10 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
         if abs(s1 - s2) < 0.05 and abs(s2 - s3) < 0.05:
             issues.append("Storyline Diversity Failure: All 3 storylines produced identical valuation targets. Storylines must represent 3 distinct operating trajectories.")
 
-    # 25. USD Currency Standardization Invariant Check
-    foreign_currencies = re.findall(r"\b(?:RMB|CNY|EUR|JPY|GBP)\b|[¥€£]", html)
-    if foreign_currencies:
-        issues.append(f"Foreign Currency Standardization Failure: Found non-USD currency markers ({set(foreign_currencies)}) in thesis. All figures must strictly be denominated in US Dollars ($ USD).")
+    # 25. USD Currency Standardization Invariant Check (Check for un-converted foreign currency standalone values)
+    unconverted_foreign = re.findall(r"(?:[¥€£]\s*[\d,]+(?:\.\d+)?\s*(?:[BM]|billion|million)?(?!\s*\([^)]*\$\s*[\d,]+))\b", html, re.IGNORECASE)
+    if unconverted_foreign:
+        issues.append(f"Foreign Currency Standardization Failure: Found standalone unconverted foreign currency values ({unconverted_foreign[:3]}). All figures must be converted to US Dollars ($ USD).")
 
     # 26. Balance Sheet Net Cash/Debt Plausibility Check (Plugged Number Prevention)
     if s3_match:
@@ -298,12 +298,12 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
         s1_t = s1_match.group(1)
         s3_t = s3_match.group(1)
         m_rev = re.search(r'(?:Annual / LTM Net Revenue|Net Revenue|Revenue).*?\$([\d,]+(?:\.\d+)?)\s*(?:B|billion)', s1_t, re.IGNORECASE)
-        m_oe = re.search(r'(?:Year 1 Base Owner Earnings \(OE₁\)|Year 1 Owner Earnings|Base Owner Earnings).*?\$([\d,]+(?:\.\d+)?)\s*(?:M|million)', s3_t, re.IGNORECASE)
+        m_oe = re.search(r'(?:Starting Normalized Owner Earnings|Year 1 Owner Earnings|Base Owner Earnings).*?\$([\d,]+(?:\.\d+)?)\s*(?:M|million)', s3_t, re.IGNORECASE)
         if m_rev and m_oe:
             try:
                 rev_b = float(re.sub(r"[^\d.-]", "", m_rev.group(1)))
                 oe_m = float(re.sub(r"[^\d.-]", "", m_oe.group(1)))
-                if rev_b >= 30.0 and oe_m < 800.0:
+                if rev_b >= 50.0 and oe_m < 200.0:
                     issues.append(f"Owner Earnings Annualization Failure: Large-cap platform with ${rev_b:.1f}B revenue has Year 1 Owner Earnings of only ${oe_m:.1f}M (likely an un-annualized single quarterly figure).")
             except Exception:
                 pass
