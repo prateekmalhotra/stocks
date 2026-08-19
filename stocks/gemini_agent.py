@@ -1222,8 +1222,8 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     raw_labels = dcf_data.get("labels") or ["Solid Conviction", "Owner Earnings", "Cash Generation"]
     sanitized_labels = sanitize_labels(raw_labels, action_signal=action_signal, base_ret=mos1)
 
-    exec_summary = dcf_data.get("executive_summary") or f"Level-headed fundamental investment thesis established for {ticker_clean} across 3 distinct operating paths."
-    what_is_priced_in = rev_data.get("what_is_priced_in") or dcf_data.get("what_is_priced_in") or f"g_implied: {rev_data.get('implied_growth_pct', '0.0%')} vs Story 1"
+    exec_summary = val_meta.get("executive_summary") or dcf_data.get("executive_summary") or f"Level-headed fundamental investment thesis established for {ticker_clean} across 3 distinct operating paths."
+    what_is_priced_in = val_meta.get("what_is_priced_in") or f"Market prices in {val_meta.get('base_implied_growth', '0.0%')} annual growth vs Story 1"
 
     metadata = {
         "ticker": ticker_clean,
