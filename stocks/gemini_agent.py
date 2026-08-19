@@ -1024,8 +1024,28 @@ def build_deterministic_valuation_section(
     sec1_text: str = ""
 ) -> Tuple[str, Dict[str, Any]]:
     """Builds the 100% mathematically exact Section 3 DCF and Reverse DCF HTML section."""
-    shares = float(dcf_data.get("diluted_shares") or 1371.0)
-    net_cash_per_sh = float(dcf_data.get("net_cash_per_share") or 12.35)
+    shares = max(1.0, float(dcf_data.get("diluted_shares") or 1371.0))
+    
+    # Calculate exact balance sheet surplus cash in Python
+    gross_cash_raw = float(dcf_data.get("gross_cash_usd") or 0.0)
+    total_debt_raw = float(dcf_data.get("total_debt_usd") or 0.0)
+    committed_ma_raw = float(dcf_data.get("committed_ma_usd") or 0.0)
+    
+    # Revenue extraction for 3.0% working capital buffer
+    rev_match = re.search(r'Revenue.*?\$([0-9,]+(?:\.[0-9]+)?)\s*([BM])', sec1_text or "", re.DOTALL | re.IGNORECASE)
+    annual_rev_m = 0.0
+    if rev_match:
+        r_val = float(rev_match.group(1).replace(",", ""))
+        r_mag = rev_match.group(2).upper()
+        annual_rev_m = r_val * 1000.0 if r_mag == "B" else r_val
+        
+    wc_buffer_m = round(annual_rev_m * 0.03, 1) if annual_rev_m > 0 else 0.0
+    
+    if gross_cash_raw > 0:
+        calc_surplus_m = max(0.0, gross_cash_raw - total_debt_raw - wc_buffer_m - committed_ma_raw)
+        net_cash_per_sh = round(calc_surplus_m / shares, 2)
+    else:
+        net_cash_per_sh = float(dcf_data.get("net_cash_per_share") or 8.50)
     
     # Extract audited Baseline Owner Earnings from Section 1 if present
     base_anchor = None
