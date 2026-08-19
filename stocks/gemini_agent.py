@@ -937,8 +937,6 @@ def is_corrupted_math_html(text: str) -> bool:
 
 def extract_capital_structure_invariants(context_text: str) -> Tuple[float, float]:
     """Extracts Diluted Shares (in Millions, prioritizing ADS count for US ADRs) 
-def extract_capital_structure_invariants(context_text: str) -> Tuple[float, float]:
-    """Extracts Diluted Shares (in Millions, prioritizing ADS count for US ADRs) 
     and Net Cash / Net Debt per share in USD from Section 4 audited balance sheet."""
     shares_m = 100.0
     net_debt_adj = 0.0
@@ -998,54 +996,57 @@ def extract_capital_structure_invariants(context_text: str) -> Tuple[float, floa
 
 def extract_storyline_owner_earnings(table_html: str) -> List[float]:
     """Extracts Year 1 Owner Earnings in USD ($ Millions) for each storyline from Table 1 cells."""
-    oe_row_m = re.search(r'(?:Normalized Year 1 Buffett Owner Earnings|Owner Earnings|OE_1).*?</tr>', table_html, re.DOTALL | re.IGNORECASE)
-    if not oe_row_m:
-        return [500.0, 300.0, 800.0]
-        
-    cells = re.findall(r'<td[^>]*>(.*?)</td>', oe_row_m.group(0), re.DOTALL)
-    data_cells = cells[1:] if len(cells) > 3 else cells
-    
     parsed_oes = []
-    for cell in data_cells:
-        cell_clean = re.sub(r'<[^>]+>', ' ', cell).strip()
-        # 1. Check for explicit USD amount first: e.g. (~US$ 5.37B) or $5.37B or US$ 5.37B
-        usd_m = re.search(r'(?:US\$|\$)\s*([+-]?[\d,]+(?:\.\d+)?)\s*(B|M|billion|million)?', cell_clean, re.IGNORECASE)
-        if usd_m:
-            try:
-                v = float(re.sub(r"[^\d.-]", "", usd_m.group(1)))
-                unit = (usd_m.group(2) or "").lower()
-                if "b" in unit or abs(v) < 50.0:
-                    v = v * 1000.0
-                parsed_oes.append(v)
+    for row in re.findall(r'<tr.*?</tr>', table_html, re.DOTALL | re.IGNORECASE):
+        row_clean = re.sub(r'<[^>]+>', ' ', row).lower()
+        if any(k in row_clean for k in ['normalized year 1', 'owner earnings (oe', 'oe₁', 'oe_1', 'buffett owner earnings']):
+            if any(k in row_clean for k in ['discount rate', 'terminal growth', 'pv of 5-year']):
                 continue
-            except Exception:
-                pass
-                
-        # 2. Check for RMB / Foreign Currency amount: e.g. RMB 38.13B or ¥38.13B
-        rmb_m = re.search(r'(?:RMB|¥|CNY)\s*([+-]?[\d,]+(?:\.\d+)?)\s*(B|M|billion|million)?', cell_clean, re.IGNORECASE)
-        if rmb_m:
-            try:
-                v = float(re.sub(r"[^\d.-]", "", rmb_m.group(1)))
-                unit = (rmb_m.group(2) or "").lower()
-                if "b" in unit or abs(v) < 100.0:
-                    v = v * 1000.0
-                v = v / 7.15
-                parsed_oes.append(v)
-                continue
-            except Exception:
-                pass
+            cells = re.findall(r'<td[^>]*>(.*?)</td>', row, re.DOTALL)
+            data_cells = cells[1:] if len(cells) > 3 else cells
+            for cell in data_cells:
+                cell_clean = re.sub(r'<[^>]+>', ' ', cell).strip()
+                # 1. Check for explicit USD amount first: e.g. (~US$ 5.37B) or $5.37B or US$ 5.37B
+                usd_m = re.search(r'(?:US\$|\$)\s*([+-]?[\d,]+(?:\.\d+)?)\s*(B|M|billion|million)?', cell_clean, re.IGNORECASE)
+                if usd_m:
+                    try:
+                        v = float(re.sub(r"[^\d.-]", "", usd_m.group(1)))
+                        unit = (usd_m.group(2) or "").lower()
+                        if "b" in unit or abs(v) < 50.0:
+                            v = v * 1000.0
+                        parsed_oes.append(v)
+                        continue
+                    except Exception:
+                        pass
+                        
+                # 2. Check for RMB / Foreign Currency amount: e.g. RMB 38.13B or ¥38.13B
+                rmb_m = re.search(r'(?:RMB|¥|CNY)\s*([+-]?[\d,]+(?:\.\d+)?)\s*(B|M|billion|million)?', cell_clean, re.IGNORECASE)
+                if rmb_m:
+                    try:
+                        v = float(re.sub(r"[^\d.-]", "", rmb_m.group(1)))
+                        unit = (rmb_m.group(2) or "").lower()
+                        if "b" in unit or abs(v) < 100.0:
+                            v = v * 1000.0
+                        v = v / 7.15
+                        parsed_oes.append(v)
+                        continue
+                    except Exception:
+                        pass
 
-        # 3. Generic number fallback
-        gen_m = re.search(r'([+-]?[\d,]+(?:\.\d+)?)\s*(B|M|billion|million)?', cell_clean)
-        if gen_m:
-            try:
-                v = float(re.sub(r"[^\d.-]", "", gen_m.group(1)))
-                unit = (gen_m.group(2) or "").lower()
-                if "b" in unit or abs(v) < 50.0:
-                    v = v * 1000.0
-                parsed_oes.append(v)
-            except Exception:
-                pass
+                # 3. Generic number fallback
+                gen_m = re.search(r'([+-]?[\d,]+(?:\.\d+)?)\s*(B|M|billion|million)?', cell_clean)
+                if gen_m:
+                    try:
+                        v = float(re.sub(r"[^\d.-]", "", gen_m.group(1)))
+                        unit = (gen_m.group(2) or "").lower()
+                        if "b" in unit or abs(v) < 50.0:
+                            v = v * 1000.0
+                        parsed_oes.append(v)
+                    except Exception:
+                        pass
+
+            if len(parsed_oes) >= 3:
+                break
 
     while len(parsed_oes) < 3:
         parsed_oes.append(parsed_oes[-1] if parsed_oes else 500.0)
