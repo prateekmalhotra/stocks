@@ -993,15 +993,29 @@ def build_deterministic_valuation_section(
     ticker: str,
     company_name: str,
     current_price: float,
-    dcf_data: Dict[str, Any]
+    dcf_data: Dict[str, Any],
+    sec1_text: str = ""
 ) -> Tuple[str, Dict[str, Any]]:
     """Builds the 100% mathematically exact Section 3 DCF and Reverse DCF HTML section."""
     shares = float(dcf_data.get("diluted_shares") or 1371.0)
     net_cash_per_sh = float(dcf_data.get("net_cash_per_share") or 12.35)
     
+    # Extract audited Baseline Owner Earnings from Section 1 if present
+    base_anchor = None
+    baseline_match = re.search(r'Baseline Owner Earnings.*?\$([0-9,]+(?:\.[0-9]+)?)\s*([BM])', sec1_text or "", re.DOTALL | re.IGNORECASE)
+    if baseline_match:
+        val = float(baseline_match.group(1).replace(",", ""))
+        mag = baseline_match.group(2).upper()
+        base_anchor = val * 1000.0 if mag == "B" else val
+    
     # Story 1 parameters
     s1_title = dcf_data.get("story1_title") or "Base Case Compounder"
-    s1_oe0 = float(dcf_data.get("story1_oe0") or 1800.0)
+    raw_s1_oe0 = float(dcf_data.get("story1_oe0") or 1800.0)
+    if base_anchor and (raw_s1_oe0 > base_anchor * 1.5 or raw_s1_oe0 < base_anchor * 0.5):
+        s1_oe0 = base_anchor
+    else:
+        s1_oe0 = raw_s1_oe0
+        
     s1_g = float(dcf_data.get("story1_growth") or 0.08)
     s1_r = float(dcf_data.get("story1_discount") or 0.095)
     s1_gt = float(dcf_data.get("story1_terminal") or 0.02)
@@ -1009,7 +1023,12 @@ def build_deterministic_valuation_section(
     
     # Story 2 parameters
     s2_title = dcf_data.get("story2_title") or "High-Margin Digital Service & Logistics Harvest"
-    s2_oe0 = float(dcf_data.get("story2_oe0") or 2500.0)
+    raw_s2_oe0 = float(dcf_data.get("story2_oe0") or (s1_oe0 * 1.35))
+    if base_anchor and (raw_s2_oe0 > base_anchor * 2.0 or raw_s2_oe0 < base_anchor * 0.6):
+        s2_oe0 = base_anchor * 1.35
+    else:
+        s2_oe0 = raw_s2_oe0
+        
     s2_g = float(dcf_data.get("story2_growth") or 0.12)
     s2_r = float(dcf_data.get("story2_discount") or 0.095)
     s2_gt = float(dcf_data.get("story2_terminal") or 0.0225)
@@ -1017,7 +1036,12 @@ def build_deterministic_valuation_section(
     
     # Story 3 parameters
     s3_title = dcf_data.get("story3_title") or "Macro Consumption Stagnation & Margin Compression"
-    s3_oe0 = float(dcf_data.get("story3_oe0") or 1000.0)
+    raw_s3_oe0 = float(dcf_data.get("story3_oe0") or (s1_oe0 * 0.60))
+    if base_anchor and (raw_s3_oe0 > base_anchor * 1.2 or raw_s3_oe0 < base_anchor * 0.2):
+        s3_oe0 = base_anchor * 0.60
+    else:
+        s3_oe0 = raw_s3_oe0
+        
     s3_g = float(dcf_data.get("story3_growth") or -0.05)
     s3_r = float(dcf_data.get("story3_discount") or 0.105)
     s3_gt = float(dcf_data.get("story3_terminal") or 0.015)
@@ -1177,7 +1201,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         dcf_data = {}
 
     # Build 100% mathematically exact Section 3 in Python
-    sec3_clean, val_meta = build_deterministic_valuation_section(ticker_clean, company_name, current_price, dcf_data)
+    sec3_clean, val_meta = build_deterministic_valuation_section(ticker_clean, company_name, current_price, dcf_data, sec1_text=sec1_clean)
     
     story1_val = val_meta["story1_val"]
     story2_val = val_meta["story2_val"]
