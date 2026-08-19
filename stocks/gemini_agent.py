@@ -946,56 +946,6 @@ Format Section 2 in clean Semantic HTML:
 Output pure HTML only (no code fences, no inline styles)."""
 
 
-def compute_deterministic_dcf(
-    starting_oe: float,      # $ Millions USD (Year 0 baseline)
-    growth_rate: float,      # 5-Year CAGR (e.g. 0.08 for +8%)
-    discount_rate: float,    # Hurdle rate (e.g. 0.095 for 9.5%)
-    terminal_growth: float,  # Terminal growth rate (e.g. 0.02 for 2.0%)
-    diluted_shares: float,   # Millions of ADSs / Shares
-    net_cash_per_share: float # $ USD per share
-) -> Dict[str, Any]:
-    """Computes an exact, 100% reproducible 5-year DCF + Gordon Growth Terminal Value."""
-    cash_flows = []
-    pv_cash_flows = []
-    current_oe = starting_oe
-    
-    for year in range(1, 6):
-        current_oe = current_oe * (1.0 + growth_rate)
-        discount_factor = (1.0 + discount_rate) ** year
-        pv = current_oe / discount_factor
-        cash_flows.append(round(current_oe, 2))
-        pv_cash_flows.append(round(pv, 2))
-        
-    sum_pv_5yr = sum(pv_cash_flows)
-    
-    # Terminal Value at Year 5
-    oe_5 = cash_flows[-1]
-    denom = max(0.005, discount_rate - terminal_growth)
-    terminal_value = (oe_5 * (1.0 + terminal_growth)) / denom
-    pv_terminal_value = terminal_value / ((1.0 + discount_rate) ** 5)
-    
-    enterprise_value = sum_pv_5yr + pv_terminal_value
-    operating_value_per_share = enterprise_value / diluted_shares if diluted_shares > 0 else 0.0
-    total_intrinsic_value_per_share = operating_value_per_share + net_cash_per_share
-    
-    return {
-        "starting_oe": starting_oe,
-        "growth_rate": growth_rate,
-        "discount_rate": discount_rate,
-        "terminal_growth": terminal_growth,
-        "cash_flows_yr1_to_5": cash_flows,
-        "pv_cash_flows_yr1_to_5": pv_cash_flows,
-        "sum_pv_5yr": round(sum_pv_5yr, 2),
-        "oe_5": round(oe_5, 2),
-        "terminal_value": round(terminal_value, 2),
-        "pv_terminal_value": round(pv_terminal_value, 2),
-        "enterprise_value": round(enterprise_value, 2),
-        "operating_value_per_share": round(operating_value_per_share, 2),
-        "net_cash_per_share": round(net_cash_per_share, 2),
-        "total_intrinsic_value_per_share": round(total_intrinsic_value_per_share, 2)
-    }
-
-
 AGENT_3_SINGLE_STORY_DCF_PROMPT = """Target: {ticker} ({company_name})
 Story to Value: {story_name} (Story {story_num}/3)
 
