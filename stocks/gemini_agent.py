@@ -762,6 +762,7 @@ CRITICAL AUDITED FINANCIAL REALITY & INTEGRITY CHECKS:
    - Line 3: Stock-Based Compensation (SBC) expense ($ Millions USD) treated as a 100% cash charge.
    - Line 4: Non-Operating Interest Income Deduction ($ Millions USD). If the company holds large cash deposits generating non-operating interest income (e.g. ~$1.3B USD for JD), that interest income MUST be deducted from OCF before deriving core Operating Owner Earnings to prevent double-counting when adding cash on the balance sheet bridge:
      * Core Operating Baseline Owner Earnings (OE₀) = GAAP OCF - Non-Operating Interest Income - Maintenance CapEx - SBC.
+   - Line 5: Non-Cash Impairments & One-Off Exclusions: GAAP OCF already automatically adds back non-cash accounting charges (e.g. paper goodwill impairments, asset write-downs, non-cash investment mark-to-market swings). Additionally, normalize and exclude any material non-recurring one-off cash items (e.g. one-time litigation windfalls, asset divestiture gains, or extraordinary regulatory fines) to ensure Owner Earnings reflects true recurring steady-state cash power.
 2. Calibrated Working Capital Operational Cash Buffer & M&A Debt Consolidation:
    - Direct-sales (1P) retailers operate with negative cash conversion cycles (collecting cash immediately from retail customers while paying suppliers on 50–60 day terms).
    - Reserve an essential operational liquidity buffer of 2.5% to 3.5% of annual revenue (e.g. $4.5B–$6.5B for a $180B+ retailer).
@@ -984,7 +985,7 @@ You are LLM Agent 3: Storyline DCF Valuation Specialist.
 
 Your Objective:
 Extract and assign the exact fundamental valuation parameters for the 3 distinct business stories:
-1. Starting Year 0 Core Normalized Owner Earnings ($OE_0$) in $ Millions USD (strictly derived from audited cash flows: GAAP OCF minus Non-Operating Interest Income minus Maintenance CapEx minus SBC).
+1. Starting Year 0 Core Normalized Owner Earnings ($OE_0$) in $ Millions USD (strictly derived from audited cash flows: GAAP OCF minus Non-Operating Interest Income minus Maintenance CapEx minus SBC, inherently excluding non-cash paper goodwill/asset impairments which are added back to GAAP OCF, and normalizing for material non-recurring one-off cash items).
 2. 5-Year Organic Owner Earnings CAGR (e.g. 0.08 for +8.0%, -0.09 for -9.0% downside).
 3. Discount / Hurdle Rate (typically 0.095 for 9.5%, or 0.105 for higher risk).
 4. Terminal Growth Rate (typically 0.015 to 0.0225).
