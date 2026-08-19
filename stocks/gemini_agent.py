@@ -578,6 +578,10 @@ def verify_and_repair_html_structure(html: str) -> str:
     cleaned = re.sub(r'<p>\s*\d{4}-\d{2}-\d{2}(?:\s+\d{2}:\d{2}(?::\d{2})?)?(?:\s+(?:UTC|GMT|[A-Z]{3,4}))?\s*</p>', '', cleaned, flags=re.IGNORECASE)
     cleaned = re.sub(r'\b\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}\s+(?:UTC|GMT|[A-Z]{3,4})\b', '', cleaned)
     
+    # 0.8 Clean up concatenated heading/sentence transition artifacts
+    cleaned = re.sub(r'\b(Strategic Insights|Executive Commentary|Key Insights)([A-Za-z])', r'\1: \2', cleaned)
+    cleaned = re.sub(r'([a-z])([A-Z][a-z]+Insights)', r'\1 \2', cleaned)
+    
     # 1. Strip code fences, json blocks
     cleaned = re.sub(r"```(?:html|json)?", "", cleaned, flags=re.IGNORECASE)
     cleaned = re.sub(r"```", "", cleaned)
@@ -758,14 +762,15 @@ CRITICAL AUDITED FINANCIAL REALITY & INTEGRITY CHECKS:
    - Line 3: Stock-Based Compensation (SBC) expense ($ Millions USD) treated as a 100% cash charge.
    - Line 4: Non-Operating Interest Income Deduction ($ Millions USD). If the company holds large cash deposits generating non-operating interest income (e.g. ~$1.3B USD for JD), that interest income MUST be deducted from OCF before deriving core Operating Owner Earnings to prevent double-counting when adding cash on the balance sheet bridge:
      * Core Operating Baseline Owner Earnings (OE₀) = GAAP OCF - Non-Operating Interest Income - Maintenance CapEx - SBC.
-2. Realistic Working Capital Operational Cash Buffer (5%–8% of Revenue):
-   - Physical direct-sales (1P) retailers with massive supplier payables and logistics footprints require an essential operational working capital buffer of 5.0% to 8.0% of annual revenue (e.g. $10B–$14B for a $180B+ retailer).
+2. Calibrated Working Capital Operational Cash Buffer (2.5%–3.5% of Revenue):
+   - Direct-sales (1P) retailers operate with negative cash conversion cycles (collecting cash immediately from retail customers while paying suppliers on 50–60 day terms).
+   - Reserve an essential operational liquidity buffer of 2.5% to 3.5% of annual revenue (e.g. $4.5B–$6.5B for a $180B+ retailer).
    - When deriving Net Balance Sheet Cash, deduct:
-     * Essential Operational Cash Buffer (5.0%–8.0% of revenue)
+     * Operational Cash Buffer (2.5%–3.5% of revenue)
      * Total Funded Debt & Capital Leases
      * Major Committed M&A Cash Outlays (e.g. Ceconomy acquisition)
-     * Non-Controlling Interests (NCI)
-   - The resulting figure is the true Unencumbered Surplus Net Cash per Share/ADS (typically $3–$6/share, NOT $13–$17/share).
+   - Do NOT deduct Non-Controlling Interests (NCI) from cash (NCI is an equity claim on net subsidiary assets, not a cash debt).
+   - The resulting figure is the true Unencumbered Surplus Net Cash per Share/ADS (typically $7–$10/share for JD).
 3. Foreign Private Issuer (FPI), VIE Structure & Governance Reality:
    - For foreign companies traded via ADRs/ADSs (e.g. JD, BABA, PDD, SE, ASML, TSM), recognize that insiders do not file domestic Section 16 Form 4s. Beneficial ownership is reported via SEC Form 20-F (Item 6.E), Schedule 13D/G, and Form 3 filings under the HFIAA.
    - For Variable Interest Entity (VIE) structures and dual-class shareholdings (e.g. Founder Richard Liu holding 73.1% voting power via Class B shares), explicitly analyze the corporate governance implications, minority shareholder rights, and onshore RMB cash repatriation mechanics.
@@ -972,11 +977,10 @@ Extract and assign the exact fundamental valuation parameters for the 3 distinct
 5. Balance Sheet & Share Count Denominators:
    - Diluted Shares / ADSs in Millions
    - Gross Cash & ST Investments ($ Millions USD)
-   - Total Debt ($ Millions USD)
-   - Operational Working Capital Buffer ($ Millions USD, 5.0%–8.0% of annual revenue)
+   - Total Debt & Capital Leases ($ Millions USD)
+   - Operational Working Capital Buffer ($ Millions USD, 2.5%–3.5% of annual revenue)
    - Major Committed M&A Cash Outlays ($ Millions USD, e.g. Ceconomy)
-   - Non-Controlling Interests (NCI) ($ Millions USD)
-   - Unencumbered Surplus Net Cash per Share / ADS ($ USD) = (Gross Cash - Total Debt - Working Capital Buffer - M&A - NCI) / Diluted Shares
+   - Unencumbered Surplus Net Cash per Share / ADS ($ USD) = (Gross Cash - Total Debt - Working Capital Buffer - M&A) / Diluted Shares
 
 Output a strict JSON block in ```json ... ```:
 ```json
@@ -1093,6 +1097,11 @@ def build_deterministic_valuation_section(
     implied_g_surplus = rev_matrix[fcf_base][0.095]
     implied_g_full = solve_implied_growth(full_mcap, fcf_base, 0.095, terminal_growth=0.02)
     
+    def _build_story_proof(title, narrative, oe0, g, r, gt, dcf_res, s_shares, s_net_cash):
+        growth_phrase = f"compounding at {g*100:+.1f}% annually over 5 years (reaching ${dcf_res['oe_5']:,.1f}M in Year 5)" if g >= 0 else f"contracting at {g*100:+.1f}% annually over 5 years (declining to ${dcf_res['oe_5']:,.1f}M in Year 5)"
+        ev_phrase = f"Operating enterprise value equals ${dcf_res['enterprise_value']:,.1f}M" if g >= 0 else f"Operating enterprise value contracts to ${dcf_res['enterprise_value']:,.1f}M"
+        return f"<p><strong>{title} (${dcf_res['total_intrinsic_value_per_share']:.2f}):</strong> {narrative} Starting from baseline Owner Earnings of ${oe0:,.1f}M {growth_phrase}, the discounted cash flows total ${dcf_res['sum_pv_5yr']:,.1f}M at a {r*100:.1f}% discount rate. Capitalizing Year 5 terminal cash flow at {gt*100:.2f}% terminal growth produces a terminal value of ${dcf_res['terminal_value']:,.1f}M (PV ${dcf_res['pv_terminal_value']:,.1f}M). {ev_phrase}, or <strong>${dcf_res['operating_value_per_share']:.2f} per ADS</strong> across {s_shares:,.1f}M diluted ADSs. Adding unencumbered balance sheet surplus net cash of <strong>+${s_net_cash:.2f} per ADS</strong> yields an exact intrinsic fair value of <strong>${dcf_res['operating_value_per_share']:.2f} + ${s_net_cash:.2f} = ${dcf_res['total_intrinsic_value_per_share']:.2f} per ADS</strong>.</p>"
+
     # Build Semantic HTML
     html = f"""<h2>Section 3: Valuation Across the 3 Stories</h2>
 <p>Translating each of the 3 business stories into Warren Buffett-style discounted cash flow valuations based on true Core Owner Earnings (GAAP Operating Cash Flow minus Non-Operating Interest Income minus Maintenance CapEx minus Stock-Based Compensation, which is treated as an authentic economic compensation cost to measure non-dilutive owner cash generation) plus audited balance sheet surplus net cash per share:</p>
@@ -1121,9 +1130,9 @@ def build_deterministic_valuation_section(
 
 <div class="callout">
   <h3>Step-by-Step Mathematical Proofs Across the 3 Paths</h3>
-  <p><strong>Story 1 (${dcf1['total_intrinsic_value_per_share']:.2f}):</strong> {s1_narrative} Starting from normalized baseline Owner Earnings of ${s1_oe0:,.1f}M compounding at {s1_g*100:+.1f}% annually over 5 years (reaching ${dcf1['oe_5']:,.1f}M in Year 5), the discounted cash flows total ${dcf1['sum_pv_5yr']:,.1f}M at a {s1_r*100:.1f}% discount rate. Capitalizing Year 5 terminal cash flow at {s1_gt*100:.2f}% terminal growth produces a terminal value of ${dcf1['terminal_value']:,.1f}M (PV ${dcf1['pv_terminal_value']:,.1f}M). Operating enterprise value equals ${dcf1['enterprise_value']:,.1f}M, or <strong>${dcf1['operating_value_per_share']:.2f} per ADS</strong> across {shares:,.1f}M diluted ADSs. Adding unencumbered net balance sheet cash of <strong>+${net_cash_per_sh:.2f} per ADS</strong> yields an exact intrinsic fair value of <strong>${dcf1['operating_value_per_share']:.2f} + ${net_cash_per_sh:.2f} = ${dcf1['total_intrinsic_value_per_share']:.2f} per ADS</strong>.</p>
-  <p><strong>Story 2 (${dcf2['total_intrinsic_value_per_share']:.2f}):</strong> {s2_narrative} Starting from an optimized baseline of ${s2_oe0:,.1f}M compounding at {s2_g*100:+.1f}% annually (reaching ${dcf2['oe_5']:,.1f}M in Year 5), the discounted cash flows total ${dcf2['sum_pv_5yr']:,.1f}M at {s2_r*100:.1f}% discount rate. Capitalizing terminal cash flow at {s2_gt*100:.2f}% yields a terminal value of ${dcf2['terminal_value']:,.1f}M (PV ${dcf2['pv_terminal_value']:,.1f}M). Total operating enterprise value is ${dcf2['enterprise_value']:,.1f}M (<strong>${dcf2['operating_value_per_share']:.2f} per ADS</strong>). Adding net cash of <strong>+${net_cash_per_sh:.2f} per ADS</strong> yields <strong>${dcf2['operating_value_per_share']:.2f} + ${net_cash_per_sh:.2f} = ${dcf2['total_intrinsic_value_per_share']:.2f} per ADS</strong>.</p>
-  <p><strong>Story 3 (${dcf3['total_intrinsic_value_per_share']:.2f}):</strong> {s3_narrative} Modeling a depressed baseline of ${s3_oe0:,.1f}M contracting at {s3_g*100:+.1f}% annually (declining to ${dcf3['oe_5']:,.1f}M in Year 5), discounted cash flows total ${dcf3['sum_pv_5yr']:,.1f}M at a {s3_r*100:.1f}% hurdle rate. Capitalizing terminal cash flow at {s3_gt*100:.2f}% yields a terminal value of ${dcf3['terminal_value']:,.1f}M (PV ${dcf3['pv_terminal_value']:,.1f}M). Total operating enterprise value drops to ${dcf3['enterprise_value']:,.1f}M (<strong>${dcf3['operating_value_per_share']:.2f} per ADS</strong>). Adding unencumbered net cash of <strong>+${net_cash_per_sh:.2f} per ADS</strong> provides a protective valuation floor of <strong>${dcf3['operating_value_per_share']:.2f} + ${net_cash_per_sh:.2f} = ${dcf3['total_intrinsic_value_per_share']:.2f} per ADS</strong>.</p>
+  {_build_story_proof(s1_title, s1_narrative, s1_oe0, s1_g, s1_r, s1_gt, dcf1, shares, net_cash_per_sh)}
+  {_build_story_proof(s2_title, s2_narrative, s2_oe0, s2_g, s2_r, s2_gt, dcf2, shares, net_cash_per_sh)}
+  {_build_story_proof(s3_title, s3_narrative, s3_oe0, s3_g, s3_r, s3_gt, dcf3, shares, net_cash_per_sh)}
 </div>
 
 <div class="callout">
