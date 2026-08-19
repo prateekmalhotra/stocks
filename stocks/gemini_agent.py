@@ -750,7 +750,7 @@ Your objective is to establish the single audited factual foundation ("The Premi
 
 Guidelines:
 - Blind Valuation: Analyze the business purely as an unlisted private enterprise with zero knowledge of current stock prices.
-- Currency & Denominator Integrity: ALL figures MUST strictly be in US DOLLARS ($ USD). Convert foreign currencies (e.g. RMB, EUR) at prevailing FX rates (e.g. RMB / ~7.15). For foreign ADRs, strictly use the US-listed ADS (American Depositary Share) count.
+- Currency & Denominator Integrity: ALL figures MUST strictly be in US DOLLARS ($ USD). Convert foreign currencies (e.g. RMB, EUR) at prevailing FX rates. On the first occurrence of a currency conversion, explicitly include the parenthetical exchange rate notation (e.g. "(converted at an exchange rate of RMB 7.15 / $1.00 USD)"). For foreign ADRs, strictly use the US-listed ADS (American Depositary Share) count.
 - Primary Research: Search audited SEC filings (10-K, 10-Q, 20-F, 6-K) and the last 4 quarterly earnings call transcripts.
 - Current Reporting Period: Explicitly state the latest reported fiscal year / quarter (e.g. "FY 2025 / Q3 2025 LTM").
 
@@ -778,16 +778,18 @@ CRITICAL AUDITED FINANCIAL REALITY & INTEGRITY CHECKS:
    - Use Warren Buffett's standard opportunity-cost hurdle rate (9.0%–10.5%), reflecting the local sovereign rate and equity hurdle. Do NOT apply artificial academic CAPM haircuts; risk is properly accounted for through conservative Owner Earnings projections and demanding a robust Margin of Safety.
 
 Core Topics to Cover:
-1. The Core Business Machine & Operational Metrics:
+1. The Core Business Machine, Moat & 1P vs 3P Unit Economics:
    - What the company does, its customer value proposition, pricing power, and durable economic moat.
-   - Identify the 3–5 PRIMARY OPERATIONAL METRICS reported by the company (e.g. Active Customers, AOV, GMV, Units Sold, Comps, ARPU, RevPAR, Take Rate, Capacity).
+   - 1P Direct Sales vs 3P Services Dynamics: How low-margin, high-volume 1P direct sales creates consumer trust and negative working capital, while high-margin 3P Net Service Revenues (marketplace take rates, advertising, logistics fulfillment) serves as the primary engine of margin expansion.
+   - Identify the 3–5 PRIMARY OPERATIONAL METRICS reported by the company (e.g. Active Customers, AOV, GMV, Units Sold, Comps, ARPU, RevPAR, 3P Take Rate, Fulfillment Expense Ratio).
 2. Audited Financial Baseline (Single Source of Truth in $ Millions/Billions USD):
    - Latest Period Net Revenue ($ USD)
    - Latest GAAP Operating Cash Flow (OCF) ($ Millions USD)
    - Non-Operating Interest Income stripped from OCF ($ Millions USD)
-   - Annual CapEx ($ Millions USD) & Stock-Based Compensation (SBC) ($ Millions USD)
+   - Annual CapEx ($ Millions USD): Explicitly distinguish between Maintenance CapEx (steady-state upkeep of logistics fleets/warehouses) vs Growth CapEx (new fulfillment hubs).
+   - Stock-Based Compensation (SBC) ($ Millions USD) treated as a cash charge.
    - Core Baseline Owner Earnings: OE₀ = OCF - Interest Income - Maintenance CapEx - SBC ($ Millions USD)
-   - Balance Sheet Cash & ST Investments ($ Millions USD) vs Total Funded Debt & Leases ($ Millions USD), minus Operational Cash Buffer (5%–8% Rev) and committed M&A cash outlays.
+   - Balance Sheet Cash & ST Investments ($ Millions USD) vs Total Funded Debt & Leases ($ Millions USD), minus Operational Cash Buffer (2.5%–3.5% Rev) and committed M&A cash outlays.
    - Diluted Shares / ADSs Outstanding (Millions)
    - Unencumbered Surplus Net Cash / (Debt) per Share/ADS in USD.
 3. Leadership Commentary & 4-Quarter Trajectory: Executive commentary and authentic quotes from the active CEO and CFO across the last 4 quarters.
@@ -795,7 +797,9 @@ Core Topics to Cover:
    - VIE contractual arrangement and Cayman holding structure.
    - Dual-class voting rights, founder voting concentration, and capital allocation track record.
    - Onshore RMB cash reinvestment vs offshore dividend withholding / ADR buyback mechanics.
-5. Current State of Play: Why the business is at a pivotal inflection point today.
+5. Current State of Play & Cyclical Catalysts:
+   - Why the business is at a pivotal inflection point today.
+   - Government-subsidized consumer trade-in programs (home appliances, electronics) and how JD captures outsized demand via direct OEM integrations and white-glove installation logistics.
 
 Format Section 1 in clean Semantic HTML:
 <h2>Section 1: The Premise of the Company</h2>
@@ -838,6 +842,7 @@ Guidelines:
 - Strategic Moat & Model Trade-Offs: If analyzing a 1P retail vs 3P marketplace transition, explicitly address the trade-offs (e.g. 3P improves gross margins but introduces quality control and fulfillment differentiation challenges vs pure 1P).
 - Rigorous Downside Stress Test: At least one story (Story 2 or Story 3) must be a rigorous downside stress test modeling severe competitive price wars, gross margin compression, negative cash flow CAGR (-5% to -15%), and minimal terminal expansion.
 - Negative Working Capital Unwind in Downside: For direct-sales (1P) retailers with large trade payables, explicitly account for working capital drain during revenue contraction (paying off supplier liabilities without sufficient new cash inflows, compressing owner earnings).
+- Operational Metric Continuity: Explicitly carry forward and trace the primary operational metrics identified in Section 1 (e.g. 3P Marketplace Take Rate %, Active Customer growth %, Fulfillment Expense Ratio %, AOV) across EACH of the 3 stories to justify how margin expansion or contraction occurs.
 
 FIRST-PRINCIPLES BUSINESS METRIC CHAIN (NO ARBITRARY GROWTH ASSUMPTIONS):
 - Revenue is driven by explicit operational business metrics reported by the company (e.g. active customer counts, unit volume, order frequency, pricing/AOV, capacity ramps, store/resort openings, or take rates).
