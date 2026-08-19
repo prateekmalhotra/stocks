@@ -365,6 +365,23 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
         if abs(s1 - s2) < 0.05 and abs(s2 - s3) < 0.05:
             issues.append("Storyline Diversity Failure: All 3 storylines produced identical valuation targets. Storylines must represent 3 distinct operating trajectories.")
 
+    # 28. Economic Liquidity Floor Check
+    if metadata and s1 is not None and s4_match:
+        s4_t = re.sub(r"<[^>]+>", " ", s4_match.group(1))
+        s4_nd_m = re.search(r'(?:Net Cash Per (?:Diluted )?(?:ADS|Share)|Net Cash Fortress|Net Cash Position|Net Cash).*?([+-]?\$?\s*\d+(?:\.\d+)?\s*(?:/ADS|/sh|/share|\bper ADS\b|\bper share\b))', s4_t, re.IGNORECASE)
+        if s4_nd_m:
+            try:
+                nd_val = float(re.sub(r"[^\d.-]", "", s4_nd_m.group(1)))
+                if nd_val >= 3.0 and s1 < nd_val:
+                    issues.append(f"Liquidity Floor Violation: Storyline 1 Fair Value (${s1:.2f}) is lower than the company's audited Net Liquid Cash (${nd_val:.2f}/sh) on the balance sheet.")
+            except Exception:
+                pass
+
+    # 29. ADR Denominator & Extreme Downside Sanity Check
+    if metadata and s1 is not None and cur_p and cur_p > 15.0:
+        if s1 < (cur_p * 0.35) and "distressed" not in str(metadata.get("status_label", "")).lower() and "speculative" not in str(metadata.get("status_label", "")).lower():
+            issues.append(f"ADR Denominator / Valuation Collapse Failure: Calculated Fair Value (${s1:.2f}) represents an impossible {-((cur_p-s1)/cur_p*100):.1f}% drop on a cash-generative going-concern (likely ADR ordinary-to-ADS share denominator confusion).")
+
     return len(issues) == 0, issues
 
 
