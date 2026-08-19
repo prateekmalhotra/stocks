@@ -815,7 +815,9 @@ Core Topics to Cover:
 1. The Core Business Machine, Moat & Unit Economics:
    - Customer value proposition, monetization mechanics, pricing power, and durable economic moat.
    - Core operational volume drivers vs high-margin service streams.
-   - Identify the 3–5 PRIMARY OPERATIONAL METRICS reported by the company (e.g. Active Clients/Buyers, 3P GMV %, Take Rate %, Spend per Buyer, Cost of Risk, ARPAC, Warehouse Space / Lease Footprint).
+   - Multi-Brand & Segment Disaggregation: If the company operates distinct brand divisions or operating segments with divergent growth/margin trajectories (e.g. core flagship platform vs secondary/acquired brands), disaggregate their unit economics, active users, and revenue trends separately.
+   - Sourcing Footprint & Tooling Mobility: For consumer and hardware brands, audit supply chain geographic concentration and production tooling mobility across manufacturing regions to evaluate tariff elasticity.
+   - Identify the 3–5 PRIMARY OPERATIONAL METRICS reported by the company (e.g. Active Clients/Buyers/Paying Users, 3P GMV %, Take Rate %, Spend per Buyer, ARPPU, Cost of Risk, ARPAC, Warehouse Space / Lease Footprint).
 2. Audited Financial Baseline (Single Source of Truth in $ Millions/Billions USD):
    - Latest Period Net Revenue ($ USD)
    - Latest GAAP Operating Cash Flow (OCF) ($ Millions USD)

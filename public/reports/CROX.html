@@ -1,0 +1,2488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CROX — Investment Memo</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="apple-touch-icon" href="../favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --bg-canvas: #141312;
+            --bg-panel: #1B1A19;
+            --bg-subpanel: #21201E;
+            --bg-hover: #272624;
+            --text-title: #E8E2D8;
+            --text-body: #C5BCB0;
+            --text-secondary: #8E867A;
+            --text-dim: #5C5549;
+            --accent-warm: #D4A373;
+            --accent-warm-hover: #E2B689;
+            --accent-warm-subtle: rgba(212, 163, 115, 0.12);
+            --accent-green: #82AE8C;
+            --accent-red: #C97A72;
+            --border-color: rgba(255, 255, 255, 0.055);
+            --border-focus: rgba(212, 163, 115, 0.35);
+            --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-serif: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        /* KaTeX Math Styling & Dark Theme Alignment */
+        .katex-display {
+            margin: 20px 0 !important;
+            overflow-x: auto !important;
+            overflow-y: hidden !important;
+            padding: 12px 16px !important;
+            background: rgba(0, 0, 0, 0.20) !important;
+            border-radius: 8px !important;
+            border: 1px solid var(--border-color) !important;
+        }
+        .katex {
+            font-size: 1.08em !important;
+            color: var(--text-title) !important;
+        }
+        .katex .mord.text {
+            color: var(--text-body) !important;
+            font-family: var(--font-sans) !important;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: 
+                radial-gradient(ellipse 90% 50% at 50% -10%, rgba(212, 163, 115, 0.04), transparent 70%),
+                var(--bg-canvas);
+            color: var(--text-body);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            line-height: 1.80;
+            letter-spacing: 0.005em;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding-bottom: 120px;
+        }
+
+        .container { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+
+        /* Top Nav */
+        nav.nav-bar {
+            background: rgba(20, 19, 18, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 14px 0;
+        }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .nav-back {
+            color: var(--accent-warm);
+            text-decoration: none;
+            font-family: var(--font-sans);
+            font-size: 0.84rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s;
+        }
+        .nav-back:hover { color: var(--accent-warm-hover); transform: translateX(-2px); }
+
+        /* Hero Deck */
+        .hero-deck {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 36px 40px;
+            margin: 32px 0 28px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+        }
+
+        .hero-top-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px; }
+        .ticker-symbol {
+            font-family: var(--font-sans);
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: var(--text-title);
+        }
+        .company-meta { color: var(--text-secondary); font-size: 0.95rem; margin-top: 2px; font-family: var(--font-sans); }
+
+        /* Minimalist Logo Avatars */
+        .ticker-logo-wrap {
+            border-radius: 6px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+            transform: translateY(-3px);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }
+        .ticker-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 2px;
+            border-radius: 5px;
+            display: block;
+        }
+        .ticker-logo-fallback {
+            font-family: var(--font-mono);
+            font-weight: 600;
+            color: var(--accent-warm);
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background: rgba(212, 163, 115, 0.08);
+        }
+
+        .price-callout { text-align: right; }
+        .price-number { font-size: 2.6rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }
+        .price-sub { font-size: 0.88rem; font-family: var(--font-mono); margin-top: 2px; }
+
+        /* Native SVG Area Chart */
+        .native-chart-wrap {
+            margin-top: 28px;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px 20px 12px;
+            position: relative;
+            user-select: none;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+        }
+        .chart-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            min-height: 32px;
+            gap: 12px;
+            width: 100%;
+        }
+        .chart-meta-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-width: 0;
+            overflow: hidden;
+            flex-wrap: wrap;
+        }
+        .chart-live-val {
+            font-size: 0.88rem;
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .chart-targets-legend {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            white-space: nowrap;
+        }
+        .chart-range-pills {
+            display: flex;
+            gap: 4px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 2px;
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+        .range-pill {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.72rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .range-pill:hover { color: var(--text-title); }
+        .range-pill.active {
+            background: var(--accent-warm);
+            color: #161513;
+            font-weight: 600;
+            box-shadow: 0 1px 4px rgba(204, 120, 92, 0.3);
+        }
+        .chart-svg { width: 100%; height: 220px; display: block; overflow: visible; }
+        .chart-tooltip {
+            position: absolute;
+            top: 14px;
+            left: 20px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-focus);
+            color: var(--text-title);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            padding: 5px 12px;
+            border-radius: 6px;
+            pointer-events: none;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            font-family: var(--font-sans);
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Key Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 24px;
+        }
+        @media (max-width: 960px) {
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 520px) {
+            .metrics-grid { grid-template-columns: 1fr; }
+        }
+        .metric-cell {
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 13px 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            min-height: 80px;
+            box-sizing: border-box;
+            overflow: hidden;
+            min-width: 0;
+            transition: border-color 0.15s ease;
+        }
+        .metric-cell:hover {
+            border-color: rgba(212, 163, 115, 0.25);
+        }
+        .metric-label { font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); letter-spacing: 0.05em; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .metric-value { font-size: 1.15rem; font-weight: 500; color: var(--text-title); font-family: var(--font-mono); display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px; line-height: 1.2; }
+        .metric-target-value { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px; }
+        .metric-target-value .target-price { font-size: 1.15rem; font-weight: 500; font-family: var(--font-mono); white-space: nowrap; }
+        .metric-target-value .target-pct { font-size: 0.76rem; font-weight: 500; font-family: var(--font-mono); opacity: 0.85; white-space: nowrap; }
+        .metric-subtext { font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-sans); margin-top: 4px; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+        /* Tabs */
+        .tabs-header {
+            display: flex;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-color);
+            margin: 32px 0 28px;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            padding: 12px 18px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.15s;
+        }
+        .tab-btn:hover { color: var(--text-title); }
+        .tab-btn.active { color: var(--accent-warm); }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0; right: 0;
+            height: 2px;
+            background: var(--accent-warm);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Ownership, Insiders & Fund Intelligence Tab */
+        .ownership-container {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+        .ownership-header-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 24px 28px;
+        }
+        .ownership-stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .ownership-stat-grid { grid-template-columns: 1fr; }
+        }
+        .stat-box {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .stat-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-dim);
+            font-family: var(--font-sans);
+        }
+        .stat-num {
+            font-size: 1.45rem;
+            font-weight: 500;
+            font-family: var(--font-mono);
+            color: var(--text-title);
+        }
+        .stat-note {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            font-family: var(--font-sans);
+        }
+        .ownership-section {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 28px 32px;
+        }
+        .section-title-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+        .section-icon { font-size: 1.35rem; }
+        .section-heading {
+            font-family: var(--font-sans);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-title);
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+        .section-desc {
+            color: var(--text-dim);
+            font-size: 0.86rem;
+            margin: 0 0 20px;
+            line-height: 1.4;
+        }
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-subpanel);
+            margin-top: 14px;
+        }
+        .ownership-table {
+            width: 100%;
+            min-width: 980px;
+            border-collapse: collapse;
+            font-size: 0.86rem;
+        }
+        .ownership-table th {
+            text-align: left;
+            padding: 13px 16px;
+            font-size: 0.70rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-dim);
+            border-bottom: 1px solid var(--border-color);
+            background: #1E1D1A;
+            font-family: var(--font-sans);
+            white-space: nowrap;
+        }
+        .ownership-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.035);
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+        .ownership-table tr:last-child td {
+            border-bottom: none;
+        }
+        .ownership-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .link-out {
+            color: var(--accent-warm);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 500;
+            transition: color 0.15s ease;
+        }
+        .link-out:hover {
+            color: #fcd34d;
+            text-decoration: underline;
+        }
+        .writeups-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 16px;
+        }
+        .writeup-card {
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 22px 24px;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.15s ease;
+        }
+        .writeup-card:hover {
+            border-color: rgba(217, 119, 6, 0.4);
+        }
+        .btn-read-letter {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(217, 119, 6, 0.12);
+            color: var(--accent-warm);
+            border: 1px solid rgba(217, 119, 6, 0.25);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.76rem;
+            font-weight: 500;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: all 0.15s ease;
+        }
+        .btn-read-letter:hover {
+            background: rgba(217, 119, 6, 0.25);
+            color: #fcd34d;
+        }
+
+        /* Quick Portals Bar */
+        .quick-portals-bar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+        .portal-links-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .portal-link {
+            background: var(--bg-subpanel);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        .portal-link:hover {
+            background: rgba(201, 154, 117, 0.14);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            transform: translateY(-1px);
+        }
+
+        /* Memo Content & Premium Editorial Typography */
+        .memo-container {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 48px 52px;
+        }
+        .memo-container * {
+            box-sizing: border-box;
+        }
+        .memo-container a {
+            color: var(--accent-warm) !important;
+            text-decoration: none !important;
+            transition: color 0.15s ease !important;
+            border-bottom: 1px dotted rgba(201, 154, 117, 0.4) !important;
+        }
+        .memo-container a:hover {
+            color: #E2DDD5 !important;
+            border-bottom-color: var(--accent-warm) !important;
+        }
+        .memo-container h1, .memo-container h2 {
+            font-family: var(--font-display) !important;
+            font-size: 1.40rem !important;
+            font-weight: 700 !important;
+            color: #EAE4DA !important;
+            margin: 48px 0 20px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+            letter-spacing: -0.025em !important;
+            line-height: 1.35 !important;
+        }
+        .memo-container h1:first-child, .memo-container h2:first-of-type { margin-top: 0 !important; }
+        .memo-container h3 {
+            font-family: var(--font-display) !important;
+            font-size: 1.12rem !important;
+            font-weight: 600 !important;
+            color: #CCA278 !important;
+            margin: 36px 0 14px !important;
+            letter-spacing: -0.015em !important;
+            line-height: 1.45 !important;
+        }
+        .memo-container h4, .memo-container h5, .memo-container h6 {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            color: #E2DBD0 !important;
+            margin: 26px 0 10px !important;
+        }
+        .memo-container p {
+            font-family: var(--font-sans) !important;
+            font-size: 0.95rem !important;
+            line-height: 1.82 !important;
+            letter-spacing: 0.005em !important;
+            color: #C5BCB0 !important;
+            margin-bottom: 22px !important;
+            font-weight: 400 !important;
+        }
+        .memo-container ul, .memo-container ol {
+            font-family: var(--font-sans) !important;
+            font-size: 0.94rem !important;
+            line-height: 1.78 !important;
+            letter-spacing: 0.005em !important;
+            color: #C5BCB0 !important;
+            margin: 16px 0 24px 20px !important;
+            padding-left: 12px !important;
+        }
+        .memo-container ul { list-style-type: disc !important; }
+        .memo-container ol { list-style-type: decimal !important; }
+        .memo-container li {
+            margin-bottom: 10px !important;
+            color: #C5BCB0 !important;
+            line-height: 1.78 !important;
+        }
+        .memo-container li::marker {
+            color: #C99A75 !important;
+        }
+        .memo-container strong, .memo-container b {
+            color: #E6DFD5 !important;
+            font-weight: 600 !important;
+            letter-spacing: 0 !important;
+        }
+
+        /* STUNNING CONSISTENT TABLES - SOOTHING WARM TONES & ZERO OVERFLOW */
+        .table-scroll-wrap {
+            width: 100% !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            margin: 32px 0 !important;
+            background: #171614 !important;
+            background-color: #171614 !important;
+            border-radius: 12px !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            box-sizing: border-box !important;
+        }
+        .memo-container table {
+            width: 100% !important;
+            min-width: 600px !important;
+            border-collapse: separate !important;
+            border-spacing: 0 !important;
+            margin: 0 !important;
+            background: transparent !important;
+            background-color: transparent !important;
+            border: none !important;
+        }
+        .memo-container tr, .memo-container td, .memo-container th {
+            background: transparent !important;
+            background-color: transparent !important;
+        }
+        .memo-container th {
+            background: #1E1D1A !important;
+            background-color: #1E1D1A !important;
+            color: #C99A75 !important;
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            padding: 14px 18px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
+            text-align: left !important;
+        }
+        .memo-container td {
+            padding: 12px 16px !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+            font-size: 0.88rem !important;
+            line-height: 1.55 !important;
+            color: var(--text-body) !important;
+            font-family: var(--font-sans) !important;
+            text-align: left !important;
+            vertical-align: top !important;
+        }
+        .memo-container tr:last-child td {
+            border-bottom: none !important;
+        }
+        .memo-container tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.015) !important;
+            background-color: rgba(255, 255, 255, 0.015) !important;
+        }
+        .memo-container tr:hover td {
+            background: rgba(212, 163, 115, 0.04) !important;
+            background-color: rgba(212, 163, 115, 0.04) !important;
+        }
+        .memo-container td strong, .memo-container td b {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+            font-family: var(--font-sans) !important;
+        }
+
+        /* UNIVERSAL CALLOUT & BOX STYLING - NEVER WHITE OR PINK, STRICT DARK OBSIDIAN */
+        .memo-container blockquote,
+        .memo-container .callout,
+        .memo-container .falsification-box,
+        .memo-container .institutional-box,
+        .memo-container .alert-box,
+        .memo-container .warning-box,
+        .memo-container .highlight-box,
+        .memo-container .takeaway-card {
+            background: var(--bg-subpanel) !important;
+            background-color: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-left: 3px solid var(--accent-warm) !important;
+            padding: 20px 24px !important;
+            border-radius: 8px !important;
+            margin: 24px 0 !important;
+            color: var(--text-body) !important;
+            line-height: 1.75 !important;
+        }
+        .memo-container blockquote *,
+        .memo-container .callout *,
+        .memo-container .falsification-box *,
+        .memo-container .institutional-box *,
+        .memo-container .alert-box *,
+        .memo-container .warning-box *,
+        .memo-container .highlight-box * {
+            background: transparent !important;
+            background-color: transparent !important;
+            color: var(--text-body) !important;
+        }
+        .memo-container blockquote h3,
+        .memo-container blockquote h4,
+        .memo-container .callout h3,
+        .memo-container .callout h4,
+        .memo-container .falsification-box h4,
+        .memo-container .falsification-box strong,
+        .memo-container .institutional-box h4,
+        .memo-container .institutional-box strong {
+            color: var(--text-title) !important;
+        }
+
+        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
+        .memo-container .executive-callout {
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
+            border: 1px solid rgba(204, 120, 92, 0.22) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 10px !important;
+            padding: 24px 28px !important;
+            margin: 32px 0 !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .memo-container .exec-header {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 12px !important;
+            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
+        }
+        .memo-container .exec-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--accent-warm) !important;
+            background: rgba(204, 120, 92, 0.12) !important;
+            padding: 4px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid rgba(204, 120, 92, 0.24) !important;
+        }
+        .memo-container .exec-sub {
+            font-family: var(--font-sans) !important;
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--text-secondary) !important;
+        }
+        .memo-container .executive-callout p em,
+        .memo-container .executive-callout blockquote {
+            font-family: var(--font-sans) !important;
+            font-style: italic !important;
+            font-size: 0.96rem !important;
+            line-height: 1.68 !important;
+            color: var(--text-title) !important;
+            display: block !important;
+            margin: 8px 0 !important;
+        }
+        .memo-container .exec-attribution {
+            font-family: var(--font-sans) !important;
+            font-size: 0.84rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 6px !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        .memo-container .exec-attribution::before {
+            content: "—";
+            color: var(--accent-warm) !important;
+            font-weight: 600 !important;
+            margin-right: 2px !important;
+        }
+        .memo-container .exec-attribution strong {
+            color: var(--text-title) !important;
+            font-weight: 600 !important;
+        }
+        .memo-container .exec-divider {
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 20px 0 !important;
+        }
+        .memo-container hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
+            margin: 24px 0 !important;
+        }
+        .highlight, mark {
+            background: rgba(201, 154, 117, 0.16) !important;
+            color: #E2DDD5 !important;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* FINANCIAL METRIC CARDS & STAT GRIDS */
+        .memo-container .metrics-grid,
+        .memo-container .stats-grid,
+        .memo-container .grid-3,
+        .memo-container .grid-4,
+        .memo-container .grid-2,
+        .memo-container .metric-grid {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+            gap: 14px !important;
+            margin: 24px 0 28px !important;
+        }
+        .memo-container .metric-card,
+        .memo-container .stat-card,
+        .memo-container div[class*="metric-box"],
+        .memo-container div[class*="stat-box"],
+        .memo-container div[class*="kpi-card"] {
+            background: #191816 !important;
+            background-color: #191816 !important;
+            border: 1px solid rgba(255, 255, 255, 0.07) !important;
+            border-top: 2.5px solid var(--accent-warm) !important;
+            border-left: 1px solid rgba(255, 255, 255, 0.07) !important;
+            border-radius: 10px !important;
+            padding: 16px 18px !important;
+            margin: 0 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: flex-start !important;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
+            box-sizing: border-box !important;
+            min-width: 0 !important;
+            overflow: hidden !important;
+            transition: transform 0.15s ease, border-color 0.15s ease !important;
+        }
+        .memo-container .metric-card:hover,
+        .memo-container .stat-card:hover {
+            border-color: rgba(212, 163, 115, 0.35) !important;
+            transform: translateY(-2px);
+        }
+        .memo-container .metric-card .metric-label,
+        .memo-container .metric-card .stat-label,
+        .memo-container .metric-card .kpi-label,
+        .memo-container .metric-card h4,
+        .memo-container .metric-card .metric-title,
+        .memo-container .metric-card .stat-title {
+            font-family: var(--font-sans) !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.06em !important;
+            color: var(--text-secondary) !important;
+            margin: 0 0 8px 0 !important;
+            line-height: 1.3 !important;
+            overflow-wrap: break-word !important;
+            word-break: break-word !important;
+        }
+        .memo-container .metric-card .metric-value,
+        .memo-container .metric-card .stat-value,
+        .memo-container .metric-card .kpi-value {
+            font-family: var(--font-mono) !important;
+            font-size: 1.20rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            letter-spacing: -0.02em !important;
+            line-height: 1.25 !important;
+            margin: 0 0 8px 0 !important;
+            white-space: normal !important;
+            overflow-wrap: break-word !important;
+            word-break: break-word !important;
+        }
+        .memo-container .metric-card p,
+        .memo-container .metric-card .metric-desc,
+        .memo-container .metric-card .stat-sub,
+        .memo-container .metric-card .kpi-sub,
+        .memo-container .metric-card .metric-delta {
+            font-family: var(--font-sans) !important;
+            font-size: 0.78rem !important;
+            color: var(--text-dim) !important;
+            line-height: 1.45 !important;
+            margin: 0 !important;
+            overflow-wrap: break-word !important;
+            word-break: break-word !important;
+        }
+
+        /* EMBEDDED IMAGES, CHARTS & VISUAL INFOGRAPHICS */
+        .figure-container, figure {
+            margin: 32px 0 !important;
+            text-align: center !important;
+            background: var(--bg-subpanel) !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+            border-radius: 12px !important;
+            padding: 16px !important;
+            overflow: hidden !important;
+        }
+        .memo-container img {
+            max-width: 100% !important;
+            height: auto !important;
+            border-radius: 8px !important;
+            display: block !important;
+            margin: 0 auto !important;
+            border: 1px solid rgba(215, 205, 190, 0.08) !important;
+        }
+        .figure-caption, figcaption {
+            font-family: var(--font-sans) !important;
+            font-size: 0.8rem !important;
+            color: var(--text-secondary) !important;
+            margin-top: 10px !important;
+            text-align: center !important;
+        }
+
+        /* Evolution Update Highlight Banner at top of Memo */
+        .update-banner-box {
+            background: #1C1B18 !important;
+            border: 1px solid rgba(201, 154, 117, 0.3) !important;
+            border-left: 4px solid var(--accent-warm) !important;
+            border-radius: 12px !important;
+            padding: 24px 28px !important;
+            margin-bottom: 36px !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+        }
+        .update-banner-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+            margin-bottom: 14px !important;
+            padding-bottom: 10px !important;
+            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
+        }
+        .update-banner-badge {
+            font-family: var(--font-sans) !important;
+            font-size: 0.76rem !important;
+            font-weight: 600 !important;
+            color: var(--accent-warm) !important;
+            letter-spacing: 0.04em !important;
+            text-transform: uppercase !important;
+        }
+        .update-trigger-pill {
+            font-family: var(--font-mono) !important;
+            font-size: 0.74rem !important;
+            color: var(--text-secondary) !important;
+            background: var(--bg-subpanel) !important;
+            padding: 3px 10px !important;
+            border-radius: 4px !important;
+            border: 1px solid var(--border-color) !important;
+        }
+        .update-banner-title {
+            font-family: var(--font-sans) !important;
+            font-size: 1.15rem !important;
+            font-weight: 600 !important;
+            color: var(--text-title) !important;
+            margin-bottom: 8px !important;
+            letter-spacing: -0.015em !important;
+        }
+        .update-banner-desc {
+            font-family: var(--font-sans) !important;
+            font-size: 0.94rem !important;
+            line-height: 1.68 !important;
+            color: var(--text-body) !important;
+        }
+
+        /* History */
+        .history-entry {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 28px 32px;
+            margin-bottom: 20px;
+        }
+        .history-entry-active { border-color: rgba(201, 154, 117, 0.35); }
+        .history-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+        .history-tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .history-time { color: var(--text-secondary); font-size: 0.88rem; font-family: var(--font-sans); }
+        .history-price { font-family: var(--font-mono); font-size: 0.92rem; }
+
+        .diff-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) { .diff-grid { grid-template-columns: 1fr; } }
+        .diff-box {
+            padding: 18px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .diff-prev { background: rgba(196, 114, 108, 0.05); border-color: rgba(196, 114, 108, 0.18); }
+        .diff-now { background: rgba(125, 157, 129, 0.05); border-color: rgba(125, 157, 129, 0.18); }
+        .diff-label { font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+        .diff-prev .diff-label { color: var(--accent-red); }
+        .diff-now .diff-label { color: var(--accent-green); }
+        .diff-text { font-size: 1.02rem; color: var(--text-body); line-height: 1.65; }
+
+        /* Pills */
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 11px;
+            border-radius: 9999px;
+            font-size: 0.72rem;
+            font-family: var(--font-sans);
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+        }
+        .pill-active { background: rgba(201, 154, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.45); font-weight: 600; box-shadow: 0 0 10px rgba(201, 154, 117, 0.06); }
+        .pill-neutral { background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); font-weight: 500; }
+        .pill-alert { background: rgba(191, 160, 117, 0.14); color: var(--accent-warm); border: 1px solid rgba(191, 160, 117, 0.28); }
+
+        .btn-subtle {
+            background: var(--bg-subpanel);
+            color: var(--text-title);
+            border: 1px solid var(--border-color);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            padding: 7px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .btn-subtle:hover { background: var(--bg-hover); }
+
+        .snapshot-drawer { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color); }
+
+        /* Subtle Hinge-style Status Pulse Beacon */
+        .status-beacon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 9px;
+            height: 9px;
+            margin-left: 7px;
+            vertical-align: middle;
+            cursor: help;
+        }
+        .beacon-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            position: relative;
+            z-index: 2;
+        }
+        .beacon-ping {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            animation: beacon-ripple 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+            z-index: 1;
+        }
+        .beacon-buy .beacon-dot { background-color: #10b981; box-shadow: 0 0 6px rgba(16, 185, 129, 0.7); }
+        .beacon-buy .beacon-ping { background-color: rgba(16, 185, 129, 0.45); }
+        .beacon-hold .beacon-dot { background-color: #f59e0b; box-shadow: 0 0 6px rgba(245, 158, 11, 0.7); }
+        .beacon-hold .beacon-ping { background-color: rgba(245, 158, 11, 0.45); }
+        .beacon-caution .beacon-dot { background-color: #f97316; box-shadow: 0 0 6px rgba(249, 115, 22, 0.7); }
+        .beacon-caution .beacon-ping { background-color: rgba(249, 115, 22, 0.45); }
+        .beacon-avoid .beacon-dot { background-color: #ef4444; box-shadow: 0 0 6px rgba(239, 68, 68, 0.7); }
+        .beacon-avoid .beacon-ping { background-color: rgba(239, 68, 68, 0.45); }
+        @keyframes beacon-ripple {
+            0% { transform: scale(0.9); opacity: 0.85; }
+            70% { transform: scale(2.5); opacity: 0; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+
+        .pos { color: var(--accent-green); }
+        .neg { color: var(--accent-red); }
+
+        /* Info Circle Button */
+        .btn-info-circle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            color: var(--text-dim);
+            font-size: 0.72rem;
+            font-family: var(--font-mono);
+            cursor: pointer;
+            margin-left: 6px;
+            vertical-align: middle;
+            transition: all 0.15s ease;
+            padding: 0;
+            line-height: 1;
+        }
+        .btn-info-circle:hover {
+            background: var(--bg-hover);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            transform: scale(1.1);
+        }
+
+        /* Modal */
+        .modal-shade {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(10, 10, 9, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+        }
+        .modal-body-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-focus);
+            border-radius: 16px;
+            max-width: 720px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 36px;
+            position: relative;
+        }
+        .modal-x {
+            position: absolute;
+            top: 20px; right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-size: 1.4rem;
+            cursor: pointer;
+        }
+        .modal-x:hover { color: var(--text-title); }
+        .btn-primary {
+            background: var(--accent-warm); color: #141312; font-family: var(--font-sans); font-weight: 500;
+            padding: 10px 20px; border-radius: 6px; text-decoration: none; display: inline-flex; align-items: center; border: none; cursor: pointer;
+            transition: all 0.15s;
+        }
+        .btn-primary:hover { background: #DDB495; }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="container nav-inner">
+            <a href="../index.html" class="nav-back">← AlphaThesis</a>
+            <span style="font-size: 0.82rem; color: var(--text-dim); font-family: var(--font-sans);">CROX RESEARCH</span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Hero Deck -->
+        <section class="hero-deck">
+            <div class="hero-top-row">
+                <div>
+                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                        <div class="ticker-logo-wrap" style="width:32px; height:32px; min-width:32px; min-height:32px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/CROX" alt="CROX" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:13px;">CR</span></div>
+                        <span class="ticker-symbol">CROX</span>
+                        <span style="display: inline-flex; align-items: center; gap: 4px;">
+                            <span class="pill pill-conviction">Solid Conviction</span>
+                            <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="View Investment Taxonomy & Labels Legend">ⓘ</button>
+                        </span>
+                    </div>
+                    <div class="company-meta">Crocs, Inc.</div>
+                </div>
+                <div class="price-callout">
+                    <div class="price-number">$125.73</div>
+                    <div class="price-sub pos">
+                        +0.00%
+                    </div>
+                </div>
+            </div>
+
+            <!-- Native Multi-Range Interactive Area Chart -->
+            
+    <div class="native-chart-wrap" id="chart-container" style="position: relative; overflow: hidden;">
+        <div class="chart-top-bar" style="display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 32px; width: 100%;">
+            <div class="chart-meta-left" style="display: flex; align-items: center; gap: 14px; min-width: 0; overflow: hidden; flex-wrap: wrap;">
+                <div id="chart-live-val" class="chart-live-val" style="white-space: nowrap; flex-shrink: 0;">
+                    <span id="tooltip-date">Aug 19, 2026</span> • <strong id="tooltip-price" style="color: var(--accent-warm);">$125.73</strong>
+                    <span id="tooltip-delta" class="pos" style="font-size: 0.76rem; margin-left: 6px;"></span>
+                </div>
+                <div class="chart-targets-legend" style="display: flex; align-items: center; gap: 12px; font-family: var(--font-mono); font-size: 0.72rem; flex-wrap: wrap;"><span style="color: #64B5F6; display: inline-flex; align-items: center; gap: 4px;"><span style="display:inline-block; width:12px; height:0; border-top:1.8px dashed #64B5F6;"></span> Story 1: $173.45 (+38.0%)</span> <span style="color: #D4A373; display: inline-flex; align-items: center; gap: 4px; font-weight: 600;"><span style="display:inline-block; width:12px; height:0; border-top:1.8px dashed #D4A373;"></span> Story 2: $241.50 (+92.1%)</span> <span style="color: #81C784; display: inline-flex; align-items: center; gap: 4px;"><span style="display:inline-block; width:12px; height:0; border-top:1.8px dashed #81C784;"></span> Story 3: $78.47 (-37.6%)</span></div>
+            </div>
+            <div class="chart-range-pills" style="margin-left: auto; flex-shrink: 0;">
+                <button class="range-pill active" onclick="switchChartRange('1Y')">1Y</button>
+                <button class="range-pill" onclick="switchChartRange('5Y')">5Y</button>
+                <button class="range-pill" onclick="switchChartRange('10Y')">10Y</button>
+                <button class="range-pill" onclick="switchChartRange('MAX')">MAX</button>
+            </div>
+        </div>
+
+        <div style="position: relative; width: 100%; height: 260px;">
+            <svg id="interactive-svg" viewBox="0 0 900 260" preserveAspectRatio="none" class="chart-svg" style="width: 100%; height: 100%;">
+                <defs>
+                    <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#D4A373" stop-opacity="0.18" />
+                        <stop offset="100%" stop-color="#D4A373" stop-opacity="0.0" />
+                    </linearGradient>
+                </defs>
+                
+                <!-- Background Grid Reference Lines -->
+                <line x1="20" y1="25" x2="880" y2="25" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
+                <line x1="20" y1="130.0" x2="880" y2="130.0" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
+                <line x1="20" y1="235" x2="880" y2="235" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
+
+                <!-- Valuation Target Reference Dotted Lines (Sleek 8 6 dash pattern) -->
+                <g id="valuation-targets-layer">
+                    <line id="target-s1-line" x1="20" y1="0" x2="880" y2="0" stroke="#64B5F6" stroke-width="1.4" stroke-dasharray="8 6" stroke-opacity="0.9" style="display:none;" />
+                    <text id="target-s1-label" x="874" y="0" fill="#64B5F6" font-family="var(--font-mono)" font-size="9.5" font-weight="600" text-anchor="end" style="display:none;"></text>
+
+                    <line id="target-s2-line" x1="20" y1="0" x2="880" y2="0" stroke="#D4A373" stroke-width="1.5" stroke-dasharray="8 6" stroke-opacity="0.95" style="display:none;" />
+                    <text id="target-s2-label" x="874" y="0" fill="#D4A373" font-family="var(--font-mono)" font-size="9.5" font-weight="700" text-anchor="end" style="display:none;"></text>
+
+                    <line id="target-s3-line" x1="20" y1="0" x2="880" y2="0" stroke="#81C784" stroke-width="1.4" stroke-dasharray="8 6" stroke-opacity="0.9" style="display:none;" />
+                    <text id="target-s3-label" x="874" y="0" fill="#81C784" font-family="var(--font-mono)" font-size="9.5" font-weight="600" text-anchor="end" style="display:none;"></text>
+                </g>
+
+                <!-- Area & Line Paths -->
+                <path id="chart-area-path" d="" fill="url(#area-grad)" />
+                <path id="chart-line-path" d="" fill="none" stroke="#D4A373" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+
+                <!-- Vertical Crosshair Line -->
+                <line id="crosshair-v" x1="0" y1="0" x2="0" y2="260" stroke="rgba(212,163,115,0.45)" stroke-width="1.2" stroke-dasharray="3 3" style="display: none;" />
+                
+                <!-- Horizontal Crosshair Line -->
+                <line id="crosshair-h" x1="20" y1="0" x2="880" y2="0" stroke="rgba(212,163,115,0.45)" stroke-width="1.2" stroke-dasharray="3 3" style="display: none;" />
+
+                <!-- Hover Halo & Dot -->
+                <circle id="hover-dot-outer" r="8.5" fill="rgba(212,163,115,0.22)" style="display: none;" />
+                <circle id="hover-dot" r="4.5" fill="#D4A373" stroke="#161513" stroke-width="2.5" style="display: none;" />
+            </svg>
+
+            <!-- Floating X-Axis Date Badge -->
+            <div id="chart-badge-x" style="display:none; position:absolute; bottom:4px; background:#111110; color:#EAE6E1; border:1px solid var(--accent-warm); border-radius:4px; padding:2px 8px; font-family:var(--font-mono); font-size:0.70rem; font-weight:600; transform:translateX(-50%); pointer-events:none; white-space:nowrap; box-shadow:0 4px 12px rgba(0,0,0,0.6); z-index:20;"></div>
+
+            <!-- Floating Y-Axis Price Badge -->
+            <div id="chart-badge-y" style="display:none; position:absolute; right:8px; background:var(--accent-warm); color:#161513; border-radius:4px; padding:2px 8px; font-family:var(--font-mono); font-size:0.74rem; font-weight:700; transform:translateY(-50%); pointer-events:none; white-space:nowrap; box-shadow:0 3px 10px rgba(0,0,0,0.5); z-index:20;"></div>
+        </div>
+
+        <div class="chart-labels">
+            <span id="chart-start-lbl">Aug 20, 2025 ($73.39)</span>
+            <span id="chart-range-title">1-Year Historical Range</span>
+            <span id="chart-end-lbl">Aug 19, 2026 ($125.73)</span>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const allDatasets = {"1Y": [{"date": "Aug 20, 2025", "price": 83.72}, {"date": "Aug 21, 2025", "price": 83.81}, {"date": "Aug 22, 2025", "price": 86.56}, {"date": "Aug 25, 2025", "price": 86.29}, {"date": "Aug 26, 2025", "price": 85.47}, {"date": "Aug 27, 2025", "price": 86.63}, {"date": "Aug 28, 2025", "price": 86.29}, {"date": "Aug 29, 2025", "price": 87.2}, {"date": "Sep 02, 2025", "price": 90.37}, {"date": "Sep 03, 2025", "price": 86.78}, {"date": "Sep 04, 2025", "price": 89.02}, {"date": "Sep 05, 2025", "price": 86.45}, {"date": "Sep 08, 2025", "price": 87.19}, {"date": "Sep 09, 2025", "price": 83.28}, {"date": "Sep 10, 2025", "price": 81.17}, {"date": "Sep 11, 2025", "price": 80.95}, {"date": "Sep 12, 2025", "price": 77.43}, {"date": "Sep 15, 2025", "price": 77.58}, {"date": "Sep 16, 2025", "price": 78.99}, {"date": "Sep 17, 2025", "price": 80.54}, {"date": "Sep 18, 2025", "price": 80.36}, {"date": "Sep 19, 2025", "price": 80.32}, {"date": "Sep 22, 2025", "price": 77.14}, {"date": "Sep 23, 2025", "price": 78.15}, {"date": "Sep 24, 2025", "price": 77.49}, {"date": "Sep 25, 2025", "price": 76.65}, {"date": "Sep 26, 2025", "price": 81.73}, {"date": "Sep 29, 2025", "price": 83.76}, {"date": "Sep 30, 2025", "price": 83.55}, {"date": "Oct 01, 2025", "price": 85.0}, {"date": "Oct 02, 2025", "price": 86.2}, {"date": "Oct 03, 2025", "price": 84.89}, {"date": "Oct 06, 2025", "price": 80.64}, {"date": "Oct 07, 2025", "price": 78.82}, {"date": "Oct 08, 2025", "price": 81.1}, {"date": "Oct 09, 2025", "price": 80.39}, {"date": "Oct 10, 2025", "price": 76.7}, {"date": "Oct 13, 2025", "price": 81.49}, {"date": "Oct 14, 2025", "price": 83.98}, {"date": "Oct 15, 2025", "price": 82.85}, {"date": "Oct 16, 2025", "price": 83.15}, {"date": "Oct 17, 2025", "price": 83.0}, {"date": "Oct 20, 2025", "price": 82.34}, {"date": "Oct 21, 2025", "price": 84.03}, {"date": "Oct 22, 2025", "price": 83.47}, {"date": "Oct 23, 2025", "price": 85.15}, {"date": "Oct 24, 2025", "price": 82.82}, {"date": "Oct 27, 2025", "price": 87.29}, {"date": "Oct 28, 2025", "price": 86.74}, {"date": "Oct 29, 2025", "price": 84.69}, {"date": "Oct 30, 2025", "price": 82.54}, {"date": "Oct 31, 2025", "price": 81.69}, {"date": "Nov 03, 2025", "price": 81.16}, {"date": "Nov 04, 2025", "price": 78.7}, {"date": "Nov 05, 2025", "price": 80.23}, {"date": "Nov 06, 2025", "price": 78.43}, {"date": "Nov 07, 2025", "price": 78.85}, {"date": "Nov 10, 2025", "price": 74.09}, {"date": "Nov 11, 2025", "price": 75.0}, {"date": "Nov 12, 2025", "price": 74.45}, {"date": "Nov 13, 2025", "price": 74.18}, {"date": "Nov 14, 2025", "price": 73.39}, {"date": "Nov 17, 2025", "price": 77.15}, {"date": "Nov 18, 2025", "price": 77.57}, {"date": "Nov 19, 2025", "price": 79.17}, {"date": "Nov 20, 2025", "price": 78.51}, {"date": "Nov 21, 2025", "price": 81.44}, {"date": "Nov 24, 2025", "price": 80.33}, {"date": "Nov 25, 2025", "price": 83.07}, {"date": "Nov 26, 2025", "price": 85.46}, {"date": "Nov 28, 2025", "price": 84.98}, {"date": "Dec 01, 2025", "price": 86.63}, {"date": "Dec 02, 2025", "price": 85.25}, {"date": "Dec 03, 2025", "price": 89.35}, {"date": "Dec 04, 2025", "price": 88.24}, {"date": "Dec 05, 2025", "price": 89.7}, {"date": "Dec 08, 2025", "price": 86.21}, {"date": "Dec 09, 2025", "price": 85.72}, {"date": "Dec 10, 2025", "price": 87.16}, {"date": "Dec 11, 2025", "price": 89.35}, {"date": "Dec 12, 2025", "price": 89.91}, {"date": "Dec 15, 2025", "price": 90.66}, {"date": "Dec 16, 2025", "price": 91.65}, {"date": "Dec 17, 2025", "price": 89.75}, {"date": "Dec 18, 2025", "price": 89.46}, {"date": "Dec 19, 2025", "price": 89.31}, {"date": "Dec 22, 2025", "price": 88.9}, {"date": "Dec 23, 2025", "price": 89.98}, {"date": "Dec 24, 2025", "price": 90.61}, {"date": "Dec 26, 2025", "price": 91.63}, {"date": "Dec 29, 2025", "price": 85.94}, {"date": "Dec 30, 2025", "price": 86.68}, {"date": "Dec 31, 2025", "price": 85.52}, {"date": "Jan 02, 2026", "price": 86.95}, {"date": "Jan 05, 2026", "price": 85.56}, {"date": "Jan 06, 2026", "price": 89.08}, {"date": "Jan 07, 2026", "price": 85.5}, {"date": "Jan 08, 2026", "price": 86.57}, {"date": "Jan 09, 2026", "price": 86.07}, {"date": "Jan 12, 2026", "price": 87.09}, {"date": "Jan 13, 2026", "price": 85.37}, {"date": "Jan 14, 2026", "price": 83.54}, {"date": "Jan 15, 2026", "price": 83.01}, {"date": "Jan 16, 2026", "price": 83.07}, {"date": "Jan 20, 2026", "price": 82.27}, {"date": "Jan 21, 2026", "price": 85.27}, {"date": "Jan 22, 2026", "price": 86.31}, {"date": "Jan 23, 2026", "price": 85.83}, {"date": "Jan 26, 2026", "price": 83.98}, {"date": "Jan 27, 2026", "price": 84.15}, {"date": "Jan 28, 2026", "price": 82.87}, {"date": "Jan 29, 2026", "price": 82.51}, {"date": "Jan 30, 2026", "price": 83.92}, {"date": "Feb 02, 2026", "price": 86.88}, {"date": "Feb 03, 2026", "price": 86.32}, {"date": "Feb 04, 2026", "price": 86.75}, {"date": "Feb 05, 2026", "price": 84.49}, {"date": "Feb 06, 2026", "price": 85.81}, {"date": "Feb 09, 2026", "price": 84.09}, {"date": "Feb 10, 2026", "price": 83.48}, {"date": "Feb 11, 2026", "price": 82.73}, {"date": "Feb 12, 2026", "price": 98.46}, {"date": "Feb 13, 2026", "price": 96.88}, {"date": "Feb 17, 2026", "price": 99.92}, {"date": "Feb 18, 2026", "price": 98.19}, {"date": "Feb 19, 2026", "price": 96.48}, {"date": "Feb 20, 2026", "price": 100.04}, {"date": "Feb 23, 2026", "price": 96.65}, {"date": "Feb 24, 2026", "price": 96.69}, {"date": "Feb 25, 2026", "price": 93.97}, {"date": "Feb 26, 2026", "price": 92.7}, {"date": "Feb 27, 2026", "price": 90.71}, {"date": "Mar 02, 2026", "price": 86.85}, {"date": "Mar 03, 2026", "price": 85.38}, {"date": "Mar 04, 2026", "price": 83.57}, {"date": "Mar 05, 2026", "price": 83.29}, {"date": "Mar 06, 2026", "price": 86.0}, {"date": "Mar 09, 2026", "price": 87.16}, {"date": "Mar 10, 2026", "price": 82.91}, {"date": "Mar 11, 2026", "price": 80.4}, {"date": "Mar 12, 2026", "price": 79.63}, {"date": "Mar 13, 2026", "price": 77.95}, {"date": "Mar 16, 2026", "price": 78.98}, {"date": "Mar 17, 2026", "price": 79.43}, {"date": "Mar 18, 2026", "price": 77.83}, {"date": "Mar 19, 2026", "price": 77.29}, {"date": "Mar 20, 2026", "price": 75.78}, {"date": "Mar 23, 2026", "price": 79.69}, {"date": "Mar 24, 2026", "price": 79.99}, {"date": "Mar 25, 2026", "price": 80.09}, {"date": "Mar 26, 2026", "price": 79.94}, {"date": "Mar 27, 2026", "price": 79.54}, {"date": "Mar 30, 2026", "price": 80.0}, {"date": "Mar 31, 2026", "price": 83.02}, {"date": "Apr 01, 2026", "price": 83.56}, {"date": "Apr 02, 2026", "price": 83.66}, {"date": "Apr 06, 2026", "price": 89.01}, {"date": "Apr 07, 2026", "price": 90.47}, {"date": "Apr 08, 2026", "price": 97.08}, {"date": "Apr 09, 2026", "price": 101.95}, {"date": "Apr 10, 2026", "price": 99.76}, {"date": "Apr 13, 2026", "price": 100.22}, {"date": "Apr 14, 2026", "price": 101.2}, {"date": "Apr 15, 2026", "price": 102.52}, {"date": "Apr 16, 2026", "price": 102.25}, {"date": "Apr 17, 2026", "price": 105.87}, {"date": "Apr 20, 2026", "price": 111.19}, {"date": "Apr 21, 2026", "price": 107.35}, {"date": "Apr 22, 2026", "price": 105.29}, {"date": "Apr 23, 2026", "price": 104.22}, {"date": "Apr 24, 2026", "price": 102.32}, {"date": "Apr 27, 2026", "price": 103.39}, {"date": "Apr 28, 2026", "price": 102.52}, {"date": "Apr 29, 2026", "price": 100.14}, {"date": "Apr 30, 2026", "price": 101.98}, {"date": "May 01, 2026", "price": 103.88}, {"date": "May 04, 2026", "price": 101.48}, {"date": "May 05, 2026", "price": 102.94}, {"date": "May 06, 2026", "price": 105.75}, {"date": "May 07, 2026", "price": 104.08}, {"date": "May 08, 2026", "price": 103.63}, {"date": "May 11, 2026", "price": 100.42}, {"date": "May 12, 2026", "price": 99.32}, {"date": "May 13, 2026", "price": 96.93}, {"date": "May 14, 2026", "price": 97.16}, {"date": "May 15, 2026", "price": 94.94}, {"date": "May 18, 2026", "price": 97.0}, {"date": "May 19, 2026", "price": 99.11}, {"date": "May 20, 2026", "price": 102.91}, {"date": "May 21, 2026", "price": 108.93}, {"date": "May 22, 2026", "price": 110.44}, {"date": "May 26, 2026", "price": 116.03}, {"date": "May 27, 2026", "price": 118.39}, {"date": "May 28, 2026", "price": 118.62}, {"date": "May 29, 2026", "price": 118.67}, {"date": "Jun 01, 2026", "price": 119.28}, {"date": "Jun 02, 2026", "price": 116.86}, {"date": "Jun 03, 2026", "price": 118.48}, {"date": "Jun 04, 2026", "price": 121.52}, {"date": "Jun 05, 2026", "price": 119.35}, {"date": "Jun 08, 2026", "price": 120.65}, {"date": "Jun 09, 2026", "price": 127.77}, {"date": "Jun 10, 2026", "price": 121.94}, {"date": "Jun 11, 2026", "price": 125.87}, {"date": "Jun 12, 2026", "price": 124.71}, {"date": "Jun 15, 2026", "price": 126.27}, {"date": "Jun 16, 2026", "price": 127.08}, {"date": "Jun 17, 2026", "price": 124.53}, {"date": "Jun 18, 2026", "price": 125.05}, {"date": "Jun 22, 2026", "price": 123.8}, {"date": "Jun 23, 2026", "price": 121.14}, {"date": "Jun 24, 2026", "price": 121.4}, {"date": "Jun 25, 2026", "price": 118.88}, {"date": "Jun 26, 2026", "price": 127.76}, {"date": "Jun 29, 2026", "price": 125.33}, {"date": "Jun 30, 2026", "price": 120.64}, {"date": "Jul 01, 2026", "price": 124.17}, {"date": "Jul 02, 2026", "price": 125.28}, {"date": "Jul 06, 2026", "price": 125.78}, {"date": "Jul 07, 2026", "price": 124.55}, {"date": "Jul 08, 2026", "price": 122.44}, {"date": "Jul 09, 2026", "price": 127.13}, {"date": "Jul 10, 2026", "price": 132.78}, {"date": "Jul 13, 2026", "price": 130.46}, {"date": "Jul 14, 2026", "price": 131.17}, {"date": "Jul 15, 2026", "price": 133.37}, {"date": "Jul 16, 2026", "price": 138.91}, {"date": "Jul 17, 2026", "price": 137.13}, {"date": "Jul 20, 2026", "price": 135.39}, {"date": "Jul 23, 2026", "price": 132.47}, {"date": "Jul 24, 2026", "price": 134.72}, {"date": "Jul 27, 2026", "price": 134.54}, {"date": "Jul 28, 2026", "price": 135.94}, {"date": "Jul 29, 2026", "price": 133.52}, {"date": "Jul 30, 2026", "price": 123.66}, {"date": "Aug 03, 2026", "price": 134.89}, {"date": "Aug 04, 2026", "price": 141.19}, {"date": "Aug 05, 2026", "price": 137.32}, {"date": "Aug 06, 2026", "price": 134.18}, {"date": "Aug 07, 2026", "price": 136.62}, {"date": "Aug 10, 2026", "price": 138.19}, {"date": "Aug 11, 2026", "price": 131.71}, {"date": "Aug 12, 2026", "price": 130.61}, {"date": "Aug 13, 2026", "price": 132.56}, {"date": "Aug 14, 2026", "price": 131.72}, {"date": "Aug 17, 2026", "price": 129.97}, {"date": "Aug 18, 2026", "price": 128.66}, {"date": "Aug 19, 2026", "price": 125.73}], "5Y": [{"date": "Aug 15, 2021", "price": 141.93}, {"date": "Aug 22, 2021", "price": 146.09}, {"date": "Aug 29, 2021", "price": 139.69}, {"date": "Sep 05, 2021", "price": 144.11}, {"date": "Sep 12, 2021", "price": 155.18}, {"date": "Sep 19, 2021", "price": 156.3}, {"date": "Sep 26, 2021", "price": 141.13}, {"date": "Oct 03, 2021", "price": 130.4}, {"date": "Oct 10, 2021", "price": 137.19}, {"date": "Oct 17, 2021", "price": 149.76}, {"date": "Oct 24, 2021", "price": 161.45}, {"date": "Oct 31, 2021", "price": 180.17}, {"date": "Nov 07, 2021", "price": 180.57}, {"date": "Nov 14, 2021", "price": 175.5}, {"date": "Nov 21, 2021", "price": 168.04}, {"date": "Nov 28, 2021", "price": 162.38}, {"date": "Dec 05, 2021", "price": 158.7}, {"date": "Dec 12, 2021", "price": 136.12}, {"date": "Dec 19, 2021", "price": 123.53}, {"date": "Dec 26, 2021", "price": 128.22}, {"date": "Jan 02, 2022", "price": 125.7}, {"date": "Jan 09, 2022", "price": 122.54}, {"date": "Jan 16, 2022", "price": 102.14}, {"date": "Jan 23, 2022", "price": 96.51}, {"date": "Jan 30, 2022", "price": 99.74}, {"date": "Feb 06, 2022", "price": 98.2}, {"date": "Feb 13, 2022", "price": 79.26}, {"date": "Feb 20, 2022", "price": 83.62}, {"date": "Feb 27, 2022", "price": 71.73}, {"date": "Mar 06, 2022", "price": 70.14}, {"date": "Mar 13, 2022", "price": 83.12}, {"date": "Mar 20, 2022", "price": 78.04}, {"date": "Mar 27, 2022", "price": 75.73}, {"date": "Apr 03, 2022", "price": 71.88}, {"date": "Apr 10, 2022", "price": 72.32}, {"date": "Apr 17, 2022", "price": 71.18}, {"date": "Apr 24, 2022", "price": 66.43}, {"date": "May 01, 2022", "price": 60.87}, {"date": "May 08, 2022", "price": 58.34}, {"date": "May 15, 2022", "price": 54.01}, {"date": "May 22, 2022", "price": 56.14}, {"date": "May 29, 2022", "price": 60.84}, {"date": "Jun 05, 2022", "price": 53.82}, {"date": "Jun 12, 2022", "price": 47.21}, {"date": "Jun 19, 2022", "price": 53.49}, {"date": "Jun 26, 2022", "price": 47.95}, {"date": "Jul 03, 2022", "price": 58.08}, {"date": "Jul 10, 2022", "price": 54.14}, {"date": "Jul 17, 2022", "price": 62.84}, {"date": "Jul 24, 2022", "price": 71.64}, {"date": "Jul 31, 2022", "price": 73.61}, {"date": "Aug 07, 2022", "price": 77.94}, {"date": "Aug 14, 2022", "price": 72.85}, {"date": "Aug 21, 2022", "price": 77.11}, {"date": "Aug 28, 2022", "price": 71.0}, {"date": "Sep 04, 2022", "price": 80.62}, {"date": "Sep 11, 2022", "price": 76.15}, {"date": "Sep 18, 2022", "price": 66.71}, {"date": "Sep 25, 2022", "price": 68.66}, {"date": "Oct 02, 2022", "price": 76.64}, {"date": "Oct 09, 2022", "price": 77.51}, {"date": "Oct 16, 2022", "price": 77.71}, {"date": "Oct 23, 2022", "price": 71.81}, {"date": "Oct 30, 2022", "price": 85.38}, {"date": "Nov 06, 2022", "price": 93.24}, {"date": "Nov 13, 2022", "price": 101.42}, {"date": "Nov 20, 2022", "price": 94.91}, {"date": "Nov 27, 2022", "price": 103.99}, {"date": "Dec 04, 2022", "price": 94.77}, {"date": "Dec 11, 2022", "price": 95.01}, {"date": "Dec 18, 2022", "price": 103.0}, {"date": "Dec 25, 2022", "price": 108.43}, {"date": "Jan 01, 2023", "price": 111.11}, {"date": "Jan 08, 2023", "price": 125.82}, {"date": "Jan 15, 2023", "price": 122.4}, {"date": "Jan 22, 2023", "price": 121.32}, {"date": "Jan 29, 2023", "price": 121.98}, {"date": "Feb 05, 2023", "price": 115.3}, {"date": "Feb 12, 2023", "price": 131.47}, {"date": "Feb 19, 2023", "price": 122.36}, {"date": "Feb 26, 2023", "price": 125.54}, {"date": "Mar 05, 2023", "price": 115.32}, {"date": "Mar 12, 2023", "price": 119.92}, {"date": "Mar 19, 2023", "price": 118.35}, {"date": "Mar 26, 2023", "price": 126.44}, {"date": "Apr 02, 2023", "price": 121.86}, {"date": "Apr 09, 2023", "price": 134.3}, {"date": "Apr 16, 2023", "price": 147.18}, {"date": "Apr 23, 2023", "price": 123.67}, {"date": "Apr 30, 2023", "price": 114.48}, {"date": "May 07, 2023", "price": 115.4}, {"date": "May 14, 2023", "price": 109.0}, {"date": "May 21, 2023", "price": 106.74}, {"date": "May 28, 2023", "price": 110.04}, {"date": "Jun 04, 2023", "price": 116.19}, {"date": "Jun 11, 2023", "price": 109.95}, {"date": "Jun 18, 2023", "price": 106.01}, {"date": "Jun 25, 2023", "price": 112.44}, {"date": "Jul 02, 2023", "price": 112.43}, {"date": "Jul 09, 2023", "price": 124.04}, {"date": "Jul 16, 2023", "price": 122.81}, {"date": "Jul 23, 2023", "price": 108.14}, {"date": "Jul 30, 2023", "price": 105.91}, {"date": "Aug 06, 2023", "price": 100.59}, {"date": "Aug 13, 2023", "price": 94.8}, {"date": "Aug 20, 2023", "price": 95.56}, {"date": "Aug 27, 2023", "price": 99.86}, {"date": "Sep 03, 2023", "price": 93.37}, {"date": "Sep 10, 2023", "price": 87.99}, {"date": "Sep 17, 2023", "price": 86.45}, {"date": "Sep 24, 2023", "price": 88.23}, {"date": "Oct 01, 2023", "price": 84.82}, {"date": "Oct 08, 2023", "price": 82.73}, {"date": "Oct 15, 2023", "price": 85.56}, {"date": "Oct 22, 2023", "price": 85.98}, {"date": "Oct 29, 2023", "price": 83.93}, {"date": "Nov 05, 2023", "price": 79.69}, {"date": "Nov 12, 2023", "price": 91.18}, {"date": "Nov 19, 2023", "price": 94.59}, {"date": "Nov 26, 2023", "price": 106.56}, {"date": "Dec 03, 2023", "price": 103.74}, {"date": "Dec 10, 2023", "price": 107.11}, {"date": "Dec 17, 2023", "price": 98.18}, {"date": "Dec 24, 2023", "price": 93.41}, {"date": "Dec 31, 2023", "price": 86.46}, {"date": "Jan 07, 2024", "price": 103.39}, {"date": "Jan 14, 2024", "price": 101.35}, {"date": "Jan 21, 2024", "price": 102.96}, {"date": "Jan 28, 2024", "price": 98.18}, {"date": "Feb 04, 2024", "price": 107.54}, {"date": "Feb 11, 2024", "price": 118.98}, {"date": "Feb 18, 2024", "price": 118.31}, {"date": "Feb 25, 2024", "price": 124.81}, {"date": "Mar 03, 2024", "price": 125.04}, {"date": "Mar 10, 2024", "price": 128.17}, {"date": "Mar 17, 2024", "price": 141.62}, {"date": "Mar 24, 2024", "price": 143.8}, {"date": "Mar 31, 2024", "price": 134.09}, {"date": "Apr 07, 2024", "price": 125.54}, {"date": "Apr 14, 2024", "price": 120.54}, {"date": "Apr 21, 2024", "price": 125.4}, {"date": "Apr 28, 2024", "price": 124.28}, {"date": "May 05, 2024", "price": 143.27}, {"date": "May 12, 2024", "price": 140.95}, {"date": "May 19, 2024", "price": 148.92}, {"date": "May 26, 2024", "price": 155.64}, {"date": "Jun 02, 2024", "price": 147.0}, {"date": "Jun 09, 2024", "price": 156.98}, {"date": "Jun 16, 2024", "price": 154.74}, {"date": "Jun 23, 2024", "price": 145.94}, {"date": "Jun 30, 2024", "price": 143.54}, {"date": "Jul 07, 2024", "price": 139.24}, {"date": "Jul 14, 2024", "price": 133.5}, {"date": "Jul 21, 2024", "price": 130.5}, {"date": "Jul 28, 2024", "price": 123.31}, {"date": "Aug 04, 2024", "price": 132.27}, {"date": "Aug 11, 2024", "price": 136.05}, {"date": "Aug 18, 2024", "price": 144.69}, {"date": "Aug 25, 2024", "price": 146.17}, {"date": "Sep 01, 2024", "price": 129.82}, {"date": "Sep 08, 2024", "price": 128.77}, {"date": "Sep 15, 2024", "price": 139.05}, {"date": "Sep 22, 2024", "price": 144.31}, {"date": "Sep 29, 2024", "price": 141.93}, {"date": "Oct 06, 2024", "price": 139.55}, {"date": "Oct 13, 2024", "price": 139.4}, {"date": "Oct 20, 2024", "price": 133.75}, {"date": "Oct 27, 2024", "price": 106.21}, {"date": "Nov 03, 2024", "price": 101.3}, {"date": "Nov 10, 2024", "price": 97.78}, {"date": "Nov 17, 2024", "price": 106.08}, {"date": "Nov 24, 2024", "price": 105.6}, {"date": "Dec 01, 2024", "price": 109.75}, {"date": "Dec 08, 2024", "price": 111.72}, {"date": "Dec 15, 2024", "price": 111.86}, {"date": "Dec 22, 2024", "price": 110.72}, {"date": "Dec 29, 2024", "price": 110.8}, {"date": "Jan 05, 2025", "price": 110.04}, {"date": "Jan 12, 2025", "price": 99.97}, {"date": "Jan 19, 2025", "price": 103.59}, {"date": "Jan 26, 2025", "price": 102.07}, {"date": "Feb 02, 2025", "price": 93.37}, {"date": "Feb 09, 2025", "price": 108.43}, {"date": "Feb 16, 2025", "price": 107.6}, {"date": "Feb 23, 2025", "price": 99.57}, {"date": "Mar 02, 2025", "price": 99.84}, {"date": "Mar 09, 2025", "price": 98.6}, {"date": "Mar 16, 2025", "price": 104.59}, {"date": "Mar 23, 2025", "price": 105.99}, {"date": "Mar 30, 2025", "price": 100.65}, {"date": "Apr 06, 2025", "price": 92.56}, {"date": "Apr 13, 2025", "price": 90.72}, {"date": "Apr 20, 2025", "price": 97.68}, {"date": "Apr 27, 2025", "price": 97.49}, {"date": "May 04, 2025", "price": 109.77}, {"date": "May 11, 2025", "price": 117.55}, {"date": "May 18, 2025", "price": 108.29}, {"date": "May 25, 2025", "price": 102.0}, {"date": "Jun 01, 2025", "price": 101.46}, {"date": "Jun 08, 2025", "price": 97.49}, {"date": "Jun 15, 2025", "price": 98.52}, {"date": "Jun 22, 2025", "price": 103.02}, {"date": "Jun 29, 2025", "price": 107.34}, {"date": "Jul 06, 2025", "price": 103.75}, {"date": "Jul 13, 2025", "price": 105.18}, {"date": "Jul 20, 2025", "price": 106.75}, {"date": "Jul 27, 2025", "price": 97.13}, {"date": "Aug 03, 2025", "price": 75.24}, {"date": "Aug 10, 2025", "price": 84.7}, {"date": "Aug 17, 2025", "price": 86.56}, {"date": "Aug 24, 2025", "price": 87.2}, {"date": "Aug 31, 2025", "price": 86.45}, {"date": "Sep 07, 2025", "price": 77.43}, {"date": "Sep 14, 2025", "price": 80.32}, {"date": "Sep 21, 2025", "price": 81.73}, {"date": "Sep 28, 2025", "price": 84.89}, {"date": "Oct 05, 2025", "price": 76.7}, {"date": "Oct 12, 2025", "price": 83.0}, {"date": "Oct 19, 2025", "price": 82.82}, {"date": "Oct 26, 2025", "price": 81.69}, {"date": "Nov 02, 2025", "price": 78.85}, {"date": "Nov 09, 2025", "price": 73.39}, {"date": "Nov 16, 2025", "price": 81.44}, {"date": "Nov 23, 2025", "price": 84.98}, {"date": "Nov 30, 2025", "price": 89.7}, {"date": "Dec 07, 2025", "price": 89.91}, {"date": "Dec 14, 2025", "price": 89.31}, {"date": "Dec 21, 2025", "price": 91.63}, {"date": "Dec 28, 2025", "price": 86.95}, {"date": "Jan 04, 2026", "price": 86.07}, {"date": "Jan 11, 2026", "price": 83.07}, {"date": "Jan 18, 2026", "price": 85.83}, {"date": "Jan 25, 2026", "price": 83.92}, {"date": "Feb 01, 2026", "price": 85.81}, {"date": "Feb 08, 2026", "price": 96.88}, {"date": "Feb 15, 2026", "price": 100.04}, {"date": "Feb 22, 2026", "price": 90.71}, {"date": "Mar 01, 2026", "price": 86.0}, {"date": "Mar 08, 2026", "price": 77.95}, {"date": "Mar 15, 2026", "price": 75.78}, {"date": "Mar 22, 2026", "price": 79.54}, {"date": "Mar 29, 2026", "price": 83.66}, {"date": "Apr 05, 2026", "price": 99.76}, {"date": "Apr 12, 2026", "price": 105.87}, {"date": "Apr 19, 2026", "price": 102.32}, {"date": "Apr 26, 2026", "price": 103.88}, {"date": "May 03, 2026", "price": 103.63}, {"date": "May 10, 2026", "price": 94.94}, {"date": "May 17, 2026", "price": 110.44}, {"date": "May 24, 2026", "price": 118.67}, {"date": "May 31, 2026", "price": 119.35}, {"date": "Jun 07, 2026", "price": 124.71}, {"date": "Jun 14, 2026", "price": 125.05}, {"date": "Jun 21, 2026", "price": 127.76}, {"date": "Jun 28, 2026", "price": 125.28}, {"date": "Jul 05, 2026", "price": 132.78}, {"date": "Jul 12, 2026", "price": 137.13}, {"date": "Jul 19, 2026", "price": 134.72}, {"date": "Jul 26, 2026", "price": 123.66}, {"date": "Aug 02, 2026", "price": 136.62}, {"date": "Aug 09, 2026", "price": 131.72}, {"date": "Aug 16, 2026", "price": 128.66}, {"date": "Aug 19, 2026", "price": 125.73}], "10Y": [{"date": "Aug 31, 2016", "price": 8.3}, {"date": "Sep 30, 2016", "price": 7.69}, {"date": "Oct 31, 2016", "price": 7.0}, {"date": "Nov 30, 2016", "price": 6.86}, {"date": "Dec 31, 2016", "price": 7.3}, {"date": "Jan 31, 2017", "price": 6.65}, {"date": "Feb 28, 2017", "price": 7.07}, {"date": "Mar 31, 2017", "price": 6.23}, {"date": "Apr 30, 2017", "price": 6.83}, {"date": "May 31, 2017", "price": 7.71}, {"date": "Jun 30, 2017", "price": 7.94}, {"date": "Jul 31, 2017", "price": 8.93}, {"date": "Aug 31, 2017", "price": 9.7}, {"date": "Sep 30, 2017", "price": 10.2}, {"date": "Oct 31, 2017", "price": 10.93}, {"date": "Nov 30, 2017", "price": 12.64}, {"date": "Dec 31, 2017", "price": 13.51}, {"date": "Jan 31, 2018", "price": 12.24}, {"date": "Feb 28, 2018", "price": 16.25}, {"date": "Mar 31, 2018", "price": 15.8}, {"date": "Apr 30, 2018", "price": 17.84}, {"date": "May 31, 2018", "price": 17.61}, {"date": "Jun 30, 2018", "price": 18.11}, {"date": "Jul 31, 2018", "price": 20.66}, {"date": "Aug 31, 2018", "price": 21.29}, {"date": "Sep 30, 2018", "price": 20.54}, {"date": "Oct 31, 2018", "price": 27.8}, {"date": "Nov 30, 2018", "price": 25.98}, {"date": "Dec 31, 2018", "price": 28.72}, {"date": "Jan 31, 2019", "price": 25.68}, {"date": "Feb 28, 2019", "price": 25.75}, {"date": "Mar 31, 2019", "price": 27.85}, {"date": "Apr 30, 2019", "price": 19.32}, {"date": "May 31, 2019", "price": 19.75}, {"date": "Jun 30, 2019", "price": 22.85}, {"date": "Jul 31, 2019", "price": 22.3}, {"date": "Aug 31, 2019", "price": 27.76}, {"date": "Sep 30, 2019", "price": 34.99}, {"date": "Oct 31, 2019", "price": 34.9}, {"date": "Nov 30, 2019", "price": 41.89}, {"date": "Dec 31, 2019", "price": 37.91}, {"date": "Jan 31, 2020", "price": 26.17}, {"date": "Feb 29, 2020", "price": 16.99}, {"date": "Mar 31, 2020", "price": 24.25}, {"date": "Apr 30, 2020", "price": 28.65}, {"date": "May 31, 2020", "price": 36.82}, {"date": "Jun 30, 2020", "price": 35.94}, {"date": "Jul 31, 2020", "price": 39.91}, {"date": "Aug 31, 2020", "price": 42.73}, {"date": "Sep 30, 2020", "price": 52.33}, {"date": "Oct 31, 2020", "price": 58.89}, {"date": "Nov 30, 2020", "price": 62.66}, {"date": "Dec 31, 2020", "price": 70.02}, {"date": "Jan 31, 2021", "price": 76.72}, {"date": "Feb 28, 2021", "price": 80.45}, {"date": "Mar 31, 2021", "price": 100.12}, {"date": "Apr 30, 2021", "price": 101.24}, {"date": "May 31, 2021", "price": 116.52}, {"date": "Jun 30, 2021", "price": 135.81}, {"date": "Jul 31, 2021", "price": 142.82}, {"date": "Aug 31, 2021", "price": 143.48}, {"date": "Sep 30, 2021", "price": 161.45}, {"date": "Oct 31, 2021", "price": 164.02}, {"date": "Nov 30, 2021", "price": 128.22}, {"date": "Dec 31, 2021", "price": 102.62}, {"date": "Jan 31, 2022", "price": 83.73}, {"date": "Feb 28, 2022", "price": 76.4}, {"date": "Mar 31, 2022", "price": 66.43}, {"date": "Apr 30, 2022", "price": 55.76}, {"date": "May 31, 2022", "price": 48.67}, {"date": "Jun 30, 2022", "price": 71.64}, {"date": "Jul 31, 2022", "price": 73.7}, {"date": "Aug 31, 2022", "price": 68.66}, {"date": "Sep 30, 2022", "price": 70.75}, {"date": "Oct 31, 2022", "price": 101.0}, {"date": "Nov 30, 2022", "price": 108.43}, {"date": "Dec 31, 2022", "price": 121.77}, {"date": "Jan 31, 2023", "price": 121.71}, {"date": "Feb 28, 2023", "price": 126.44}, {"date": "Mar 31, 2023", "price": 123.67}, {"date": "Apr 30, 2023", "price": 112.28}, {"date": "May 31, 2023", "price": 112.44}, {"date": "Jun 30, 2023", "price": 108.35}, {"date": "Jul 31, 2023", "price": 97.34}, {"date": "Aug 31, 2023", "price": 88.23}, {"date": "Sep 30, 2023", "price": 89.32}, {"date": "Oct 31, 2023", "price": 105.61}, {"date": "Nov 30, 2023", "price": 93.41}, {"date": "Dec 31, 2023", "price": 101.48}, {"date": "Jan 31, 2024", "price": 122.25}, {"date": "Feb 29, 2024", "price": 143.8}, {"date": "Mar 31, 2024", "price": 124.37}, {"date": "Apr 30, 2024", "price": 155.64}, {"date": "May 31, 2024", "price": 145.94}, {"date": "Jun 30, 2024", "price": 134.37}, {"date": "Jul 31, 2024", "price": 146.17}, {"date": "Aug 31, 2024", "price": 144.81}, {"date": "Sep 30, 2024", "price": 107.82}, {"date": "Oct 31, 2024", "price": 105.6}, {"date": "Nov 30, 2024", "price": 109.53}, {"date": "Dec 31, 2024", "price": 102.07}, {"date": "Jan 31, 2025", "price": 99.57}, {"date": "Feb 28, 2025", "price": 106.2}, {"date": "Mar 31, 2025", "price": 96.42}, {"date": "Apr 30, 2025", "price": 102.0}, {"date": "May 31, 2025", "price": 101.28}, {"date": "Jun 30, 2025", "price": 99.73}, {"date": "Jul 31, 2025", "price": 87.2}, {"date": "Aug 31, 2025", "price": 83.55}, {"date": "Sep 30, 2025", "price": 81.69}, {"date": "Oct 31, 2025", "price": 84.98}, {"date": "Nov 30, 2025", "price": 85.52}, {"date": "Dec 31, 2025", "price": 83.92}, {"date": "Jan 31, 2026", "price": 90.71}, {"date": "Feb 28, 2026", "price": 83.02}, {"date": "Mar 31, 2026", "price": 101.98}, {"date": "Apr 30, 2026", "price": 118.67}, {"date": "May 31, 2026", "price": 120.64}, {"date": "Jun 30, 2026", "price": 128.01}, {"date": "Jul 31, 2026", "price": 128.66}, {"date": "Aug 19, 2026", "price": 125.73}], "MAX": [{"date": "Feb 28, 2006", "price": 12.57}, {"date": "Mar 31, 2006", "price": 14.95}, {"date": "Apr 30, 2006", "price": 11.45}, {"date": "May 31, 2006", "price": 12.57}, {"date": "Jun 30, 2006", "price": 13.84}, {"date": "Jul 31, 2006", "price": 13.51}, {"date": "Aug 31, 2006", "price": 16.98}, {"date": "Sep 30, 2006", "price": 19.81}, {"date": "Oct 31, 2006", "price": 21.48}, {"date": "Nov 30, 2006", "price": 21.6}, {"date": "Dec 31, 2006", "price": 25.17}, {"date": "Jan 31, 2007", "price": 24.36}, {"date": "Feb 28, 2007", "price": 23.62}, {"date": "Mar 31, 2007", "price": 27.94}, {"date": "Apr 30, 2007", "price": 40.72}, {"date": "May 31, 2007", "price": 43.0}, {"date": "Jun 30, 2007", "price": 59.32}, {"date": "Jul 31, 2007", "price": 59.04}, {"date": "Aug 31, 2007", "price": 67.25}, {"date": "Sep 30, 2007", "price": 74.75}, {"date": "Oct 31, 2007", "price": 39.03}, {"date": "Nov 30, 2007", "price": 36.81}, {"date": "Dec 31, 2007", "price": 34.79}, {"date": "Jan 31, 2008", "price": 24.32}, {"date": "Feb 29, 2008", "price": 17.47}, {"date": "Mar 31, 2008", "price": 10.21}, {"date": "Apr 30, 2008", "price": 10.21}, {"date": "May 31, 2008", "price": 8.01}, {"date": "Jun 30, 2008", "price": 4.44}, {"date": "Jul 31, 2008", "price": 4.15}, {"date": "Aug 31, 2008", "price": 3.58}, {"date": "Sep 30, 2008", "price": 2.51}, {"date": "Oct 31, 2008", "price": 1.27}, {"date": "Nov 30, 2008", "price": 1.24}, {"date": "Dec 31, 2008", "price": 1.2}, {"date": "Jan 31, 2009", "price": 1.22}, {"date": "Feb 28, 2009", "price": 1.19}, {"date": "Mar 31, 2009", "price": 2.25}, {"date": "Apr 30, 2009", "price": 2.91}, {"date": "May 31, 2009", "price": 3.4}, {"date": "Jun 30, 2009", "price": 3.42}, {"date": "Jul 31, 2009", "price": 6.35}, {"date": "Aug 31, 2009", "price": 6.65}, {"date": "Sep 30, 2009", "price": 6.08}, {"date": "Oct 31, 2009", "price": 4.87}, {"date": "Nov 30, 2009", "price": 5.75}, {"date": "Dec 31, 2009", "price": 7.35}, {"date": "Jan 31, 2010", "price": 7.05}, {"date": "Feb 28, 2010", "price": 8.78}, {"date": "Mar 31, 2010", "price": 9.66}, {"date": "Apr 30, 2010", "price": 10.35}, {"date": "May 31, 2010", "price": 10.58}, {"date": "Jun 30, 2010", "price": 12.83}, {"date": "Jul 31, 2010", "price": 12.48}, {"date": "Aug 31, 2010", "price": 13.0}, {"date": "Sep 30, 2010", "price": 13.93}, {"date": "Oct 31, 2010", "price": 17.55}, {"date": "Nov 30, 2010", "price": 17.12}, {"date": "Dec 31, 2010", "price": 16.39}, {"date": "Jan 31, 2011", "price": 17.65}, {"date": "Feb 28, 2011", "price": 17.84}, {"date": "Mar 31, 2011", "price": 20.11}, {"date": "Apr 30, 2011", "price": 22.73}, {"date": "May 31, 2011", "price": 25.75}, {"date": "Jun 30, 2011", "price": 31.33}, {"date": "Jul 31, 2011", "price": 27.39}, {"date": "Aug 31, 2011", "price": 23.68}, {"date": "Sep 30, 2011", "price": 17.67}, {"date": "Oct 31, 2011", "price": 15.51}, {"date": "Nov 30, 2011", "price": 14.77}, {"date": "Dec 31, 2011", "price": 19.02}, {"date": "Jan 31, 2012", "price": 19.64}, {"date": "Feb 29, 2012", "price": 20.92}, {"date": "Mar 31, 2012", "price": 20.2}, {"date": "Apr 30, 2012", "price": 16.91}, {"date": "May 31, 2012", "price": 16.15}, {"date": "Jun 30, 2012", "price": 15.35}, {"date": "Jul 31, 2012", "price": 17.49}, {"date": "Aug 31, 2012", "price": 16.21}, {"date": "Sep 30, 2012", "price": 12.6}, {"date": "Oct 31, 2012", "price": 13.35}, {"date": "Nov 30, 2012", "price": 14.39}, {"date": "Dec 31, 2012", "price": 14.86}, {"date": "Jan 31, 2013", "price": 15.15}, {"date": "Feb 28, 2013", "price": 14.82}, {"date": "Mar 31, 2013", "price": 16.02}, {"date": "Apr 30, 2013", "price": 17.64}, {"date": "May 31, 2013", "price": 16.5}, {"date": "Jun 30, 2013", "price": 13.67}, {"date": "Jul 31, 2013", "price": 13.46}, {"date": "Aug 31, 2013", "price": 13.6}, {"date": "Sep 30, 2013", "price": 12.17}, {"date": "Oct 31, 2013", "price": 13.8}, {"date": "Nov 30, 2013", "price": 15.92}, {"date": "Dec 31, 2013", "price": 15.35}, {"date": "Jan 31, 2014", "price": 15.23}, {"date": "Feb 28, 2014", "price": 15.6}, {"date": "Mar 31, 2014", "price": 15.13}, {"date": "Apr 30, 2014", "price": 14.93}, {"date": "May 31, 2014", "price": 15.03}, {"date": "Jun 30, 2014", "price": 15.87}, {"date": "Jul 31, 2014", "price": 15.45}, {"date": "Aug 31, 2014", "price": 12.58}, {"date": "Sep 30, 2014", "price": 11.68}, {"date": "Oct 31, 2014", "price": 13.28}, {"date": "Nov 30, 2014", "price": 12.49}, {"date": "Dec 31, 2014", "price": 10.6}, {"date": "Jan 31, 2015", "price": 11.15}, {"date": "Feb 28, 2015", "price": 11.81}, {"date": "Mar 31, 2015", "price": 13.2}, {"date": "Apr 30, 2015", "price": 15.04}, {"date": "May 31, 2015", "price": 14.71}, {"date": "Jun 30, 2015", "price": 15.73}, {"date": "Jul 31, 2015", "price": 14.73}, {"date": "Aug 31, 2015", "price": 12.93}, {"date": "Sep 30, 2015", "price": 10.8}, {"date": "Oct 31, 2015", "price": 11.13}, {"date": "Nov 30, 2015", "price": 10.24}, {"date": "Dec 31, 2015", "price": 9.21}, {"date": "Jan 31, 2016", "price": 9.79}, {"date": "Feb 29, 2016", "price": 9.62}, {"date": "Mar 31, 2016", "price": 8.35}, {"date": "Apr 30, 2016", "price": 9.84}, {"date": "May 31, 2016", "price": 11.28}, {"date": "Jun 30, 2016", "price": 11.33}, {"date": "Jul 31, 2016", "price": 8.64}, {"date": "Aug 31, 2016", "price": 8.3}, {"date": "Sep 30, 2016", "price": 7.69}, {"date": "Oct 31, 2016", "price": 7.0}, {"date": "Nov 30, 2016", "price": 6.86}, {"date": "Dec 31, 2016", "price": 7.3}, {"date": "Jan 31, 2017", "price": 6.65}, {"date": "Feb 28, 2017", "price": 7.07}, {"date": "Mar 31, 2017", "price": 6.23}, {"date": "Apr 30, 2017", "price": 6.83}, {"date": "May 31, 2017", "price": 7.71}, {"date": "Jun 30, 2017", "price": 7.94}, {"date": "Jul 31, 2017", "price": 8.93}, {"date": "Aug 31, 2017", "price": 9.7}, {"date": "Sep 30, 2017", "price": 10.2}, {"date": "Oct 31, 2017", "price": 10.93}, {"date": "Nov 30, 2017", "price": 12.64}, {"date": "Dec 31, 2017", "price": 13.51}, {"date": "Jan 31, 2018", "price": 12.24}, {"date": "Feb 28, 2018", "price": 16.25}, {"date": "Mar 31, 2018", "price": 15.8}, {"date": "Apr 30, 2018", "price": 17.84}, {"date": "May 31, 2018", "price": 17.61}, {"date": "Jun 30, 2018", "price": 18.11}, {"date": "Jul 31, 2018", "price": 20.66}, {"date": "Aug 31, 2018", "price": 21.29}, {"date": "Sep 30, 2018", "price": 20.54}, {"date": "Oct 31, 2018", "price": 27.8}, {"date": "Nov 30, 2018", "price": 25.98}, {"date": "Dec 31, 2018", "price": 28.72}, {"date": "Jan 31, 2019", "price": 25.68}, {"date": "Feb 28, 2019", "price": 25.75}, {"date": "Mar 31, 2019", "price": 27.85}, {"date": "Apr 30, 2019", "price": 19.32}, {"date": "May 31, 2019", "price": 19.75}, {"date": "Jun 30, 2019", "price": 22.85}, {"date": "Jul 31, 2019", "price": 22.3}, {"date": "Aug 31, 2019", "price": 27.76}, {"date": "Sep 30, 2019", "price": 34.99}, {"date": "Oct 31, 2019", "price": 34.9}, {"date": "Nov 30, 2019", "price": 41.89}, {"date": "Dec 31, 2019", "price": 37.91}, {"date": "Jan 31, 2020", "price": 26.17}, {"date": "Feb 29, 2020", "price": 16.99}, {"date": "Mar 31, 2020", "price": 24.25}, {"date": "Apr 30, 2020", "price": 28.65}, {"date": "May 31, 2020", "price": 36.82}, {"date": "Jun 30, 2020", "price": 35.94}, {"date": "Jul 31, 2020", "price": 39.91}, {"date": "Aug 31, 2020", "price": 42.73}, {"date": "Sep 30, 2020", "price": 52.33}, {"date": "Oct 31, 2020", "price": 58.89}, {"date": "Nov 30, 2020", "price": 62.66}, {"date": "Dec 31, 2020", "price": 70.02}, {"date": "Jan 31, 2021", "price": 76.72}, {"date": "Feb 28, 2021", "price": 80.45}, {"date": "Mar 31, 2021", "price": 100.12}, {"date": "Apr 30, 2021", "price": 101.24}, {"date": "May 31, 2021", "price": 116.52}, {"date": "Jun 30, 2021", "price": 135.81}, {"date": "Jul 31, 2021", "price": 142.82}, {"date": "Aug 31, 2021", "price": 143.48}, {"date": "Sep 30, 2021", "price": 161.45}, {"date": "Oct 31, 2021", "price": 164.02}, {"date": "Nov 30, 2021", "price": 128.22}, {"date": "Dec 31, 2021", "price": 102.62}, {"date": "Jan 31, 2022", "price": 83.73}, {"date": "Feb 28, 2022", "price": 76.4}, {"date": "Mar 31, 2022", "price": 66.43}, {"date": "Apr 30, 2022", "price": 55.76}, {"date": "May 31, 2022", "price": 48.67}, {"date": "Jun 30, 2022", "price": 71.64}, {"date": "Jul 31, 2022", "price": 73.7}, {"date": "Aug 31, 2022", "price": 68.66}, {"date": "Sep 30, 2022", "price": 70.75}, {"date": "Oct 31, 2022", "price": 101.0}, {"date": "Nov 30, 2022", "price": 108.43}, {"date": "Dec 31, 2022", "price": 121.77}, {"date": "Jan 31, 2023", "price": 121.71}, {"date": "Feb 28, 2023", "price": 126.44}, {"date": "Mar 31, 2023", "price": 123.67}, {"date": "Apr 30, 2023", "price": 112.28}, {"date": "May 31, 2023", "price": 112.44}, {"date": "Jun 30, 2023", "price": 108.35}, {"date": "Jul 31, 2023", "price": 97.34}, {"date": "Aug 31, 2023", "price": 88.23}, {"date": "Sep 30, 2023", "price": 89.32}, {"date": "Oct 31, 2023", "price": 105.61}, {"date": "Nov 30, 2023", "price": 93.41}, {"date": "Dec 31, 2023", "price": 101.48}, {"date": "Jan 31, 2024", "price": 122.25}, {"date": "Feb 29, 2024", "price": 143.8}, {"date": "Mar 31, 2024", "price": 124.37}, {"date": "Apr 30, 2024", "price": 155.64}, {"date": "May 31, 2024", "price": 145.94}, {"date": "Jun 30, 2024", "price": 134.37}, {"date": "Jul 31, 2024", "price": 146.17}, {"date": "Aug 31, 2024", "price": 144.81}, {"date": "Sep 30, 2024", "price": 107.82}, {"date": "Oct 31, 2024", "price": 105.6}, {"date": "Nov 30, 2024", "price": 109.53}, {"date": "Dec 31, 2024", "price": 102.07}, {"date": "Jan 31, 2025", "price": 99.57}, {"date": "Feb 28, 2025", "price": 106.2}, {"date": "Mar 31, 2025", "price": 96.42}, {"date": "Apr 30, 2025", "price": 102.0}, {"date": "May 31, 2025", "price": 101.28}, {"date": "Jun 30, 2025", "price": 99.73}, {"date": "Jul 31, 2025", "price": 87.2}, {"date": "Aug 31, 2025", "price": 83.55}, {"date": "Sep 30, 2025", "price": 81.69}, {"date": "Oct 31, 2025", "price": 84.98}, {"date": "Nov 30, 2025", "price": 85.52}, {"date": "Dec 31, 2025", "price": 83.92}, {"date": "Jan 31, 2026", "price": 90.71}, {"date": "Feb 28, 2026", "price": 83.02}, {"date": "Mar 31, 2026", "price": 101.98}, {"date": "Apr 30, 2026", "price": 118.67}, {"date": "May 31, 2026", "price": 120.64}, {"date": "Jun 30, 2026", "price": 128.01}, {"date": "Jul 31, 2026", "price": 128.66}, {"date": "Aug 19, 2026", "price": 125.73}]};
+        const targetS1 = 173.45;
+        const targetS2 = 241.5;
+        const targetS3 = 78.47;
+
+        let currentRangeKey = '1Y';
+        let currentPoints = allDatasets[currentRangeKey] || [];
+        let currentSvgCoords = [];
+
+        const width = 900;
+        const height = 260;
+        const padX = 20;
+        const padY = 25;
+
+        const container = document.getElementById('chart-container');
+        const svg = document.getElementById('interactive-svg');
+        const linePath = document.getElementById('chart-line-path');
+        const areaPath = document.getElementById('chart-area-path');
+        const lineS1 = document.getElementById('target-s1-line');
+        const labelS1 = document.getElementById('target-s1-label');
+        const lineS2 = document.getElementById('target-s2-line');
+        const labelS2 = document.getElementById('target-s2-label');
+        const lineS3 = document.getElementById('target-s3-line');
+        const labelS3 = document.getElementById('target-s3-label');
+
+        const tooltipDate = document.getElementById('tooltip-date');
+        const tooltipPrice = document.getElementById('tooltip-price');
+        const tooltipDelta = document.getElementById('tooltip-delta');
+        const crosshairV = document.getElementById('crosshair-v');
+        const crosshairH = document.getElementById('crosshair-h');
+        const dotOuter = document.getElementById('hover-dot-outer');
+        const dot = document.getElementById('hover-dot');
+        const badgeX = document.getElementById('chart-badge-x');
+        const badgeY = document.getElementById('chart-badge-y');
+        const startLbl = document.getElementById('chart-start-lbl');
+        const endLbl = document.getElementById('chart-end-lbl');
+        const rangeTitle = document.getElementById('chart-range-title');
+
+        // Hero price elements
+        const heroPriceNum = document.querySelector('.price-number');
+        const heroPriceSub = document.querySelector('.price-sub');
+        const defaultHeroPrice = heroPriceNum ? heroPriceNum.innerText : '';
+        const defaultHeroSub = heroPriceSub ? heroPriceSub.innerText : '';
+        const defaultHeroSubClass = heroPriceSub ? heroPriceSub.className : '';
+
+        function recalculatePaths(points) {
+            if (!points || points.length < 2) return;
+            const prices = points.map(p => p.price);
+            const evalPrices = [...prices];
+            if (targetS1 !== null && !isNaN(targetS1)) evalPrices.push(targetS1);
+            if (targetS2 !== null && !isNaN(targetS2)) evalPrices.push(targetS2);
+            if (targetS3 !== null && !isNaN(targetS3)) evalPrices.push(targetS3);
+
+            const rawMin = Math.min(...evalPrices);
+            const rawMax = Math.max(...evalPrices);
+            const padSpan = Math.max((rawMax - rawMin) * 0.05, 0.5);
+            const minP = rawMin - padSpan;
+            const maxP = rawMax + padSpan;
+            const pRange = Math.max(maxP - minP, 0.01);
+            const n = points.length;
+
+            function getSvgY(val) {
+                return height - padY - ((val - minP) / pRange) * (height - 2 * padY);
+            }
+
+            currentSvgCoords = [];
+            for (let i = 0; i < n; i++) {
+                const x = padX + (i / (n - 1)) * (width - 2 * padX);
+                const y = getSvgY(points[i].price);
+                currentSvgCoords.push([Math.round(x * 10) / 10, Math.round(y * 10) / 10]);
+            }
+
+            const lineD = 'M ' + currentSvgCoords.map(c => c[0] + ',' + c[1]).join(' L ');
+            const firstC = currentSvgCoords[0];
+            const lastC = currentSvgCoords[currentSvgCoords.length - 1];
+            const areaD = lineD + ' L ' + lastC[0] + ',' + height + ' L ' + firstC[0] + ',' + height + ' Z';
+
+            linePath.setAttribute('d', lineD);
+            areaPath.setAttribute('d', areaD);
+
+            const liveTodayPrice = 125.73;
+
+            // Update Target Reference Dotted Lines with % relative to today's price (EXACT 1:1 Storyline lines)
+            if (targetS1 !== null && !isNaN(targetS1) && lineS1 && labelS1) {
+                const y = getSvgY(targetS1);
+                lineS1.setAttribute('y1', y);
+                lineS1.setAttribute('y2', y);
+                lineS1.style.display = 'block';
+                labelS1.setAttribute('y', y - 4);
+                const s1Diff = liveTodayPrice > 0 ? ((targetS1 - liveTodayPrice) / liveTodayPrice * 100) : 0;
+                const s1Sign = s1Diff >= 0 ? '+' : '';
+                labelS1.textContent = 'Story 1 $' + targetS1.toFixed(2) + ' (' + s1Sign + s1Diff.toFixed(1) + '%)';
+                labelS1.style.display = 'block';
+            } else if (lineS1) {
+                lineS1.style.display = 'none';
+                if (labelS1) labelS1.style.display = 'none';
+            }
+
+            if (targetS2 !== null && !isNaN(targetS2) && lineS2 && labelS2) {
+                const y = getSvgY(targetS2);
+                lineS2.setAttribute('y1', y);
+                lineS2.setAttribute('y2', y);
+                lineS2.style.display = 'block';
+                labelS2.setAttribute('y', y - 4);
+                const s2Diff = liveTodayPrice > 0 ? ((targetS2 - liveTodayPrice) / liveTodayPrice * 100) : 0;
+                const s2Sign = s2Diff >= 0 ? '+' : '';
+                labelS2.textContent = 'Story 2 $' + targetS2.toFixed(2) + ' (' + s2Sign + s2Diff.toFixed(1) + '%)';
+                labelS2.style.display = 'block';
+            } else if (lineS2) {
+                lineS2.style.display = 'none';
+                if (labelS2) labelS2.style.display = 'none';
+            }
+
+            if (targetS3 !== null && !isNaN(targetS3) && lineS3 && labelS3) {
+                const y = getSvgY(targetS3);
+                lineS3.setAttribute('y1', y);
+                lineS3.setAttribute('y2', y);
+                lineS3.style.display = 'block';
+                labelS3.setAttribute('y', y - 4);
+                const s3Diff = liveTodayPrice > 0 ? ((targetS3 - liveTodayPrice) / liveTodayPrice * 100) : 0;
+                const s3Sign = s3Diff >= 0 ? '+' : '';
+                labelS3.textContent = 'Story 3 $' + targetS3.toFixed(2) + ' (' + s3Sign + s3Diff.toFixed(1) + '%)';
+                labelS3.style.display = 'block';
+            } else if (lineS3) {
+                lineS3.style.display = 'none';
+                if (labelS3) labelS3.style.display = 'none';
+            }
+
+            startLbl.innerText = points[0].date + ' ($' + Math.min(...prices).toFixed(2) + ')';
+            endLbl.innerText = points[n - 1].date + ' ($' + points[n - 1].price.toFixed(2) + ')';
+            
+            tooltipDate.innerText = points[n - 1].date;
+            tooltipPrice.innerText = '$' + points[n - 1].price.toFixed(2);
+            if (tooltipDelta) tooltipDelta.innerText = '';
+
+            const titles = { '1Y': '1-Year Range', '5Y': '5-Year Range', '10Y': '10-Year Range', 'MAX': 'All-Time Historical Range' };
+            rangeTitle.innerText = titles[currentRangeKey] || currentRangeKey + ' Range';
+        }
+
+        window.switchChartRange = function(rangeKey) {
+            if (!allDatasets[rangeKey]) return;
+            currentRangeKey = rangeKey;
+            currentPoints = allDatasets[rangeKey];
+            
+            document.querySelectorAll('.range-pill').forEach(btn => {
+                if (btn.innerText.trim() === rangeKey) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            recalculatePaths(currentPoints);
+            hideHover();
+        };
+
+        function updateHover(e) {
+            if (!currentPoints.length || !currentSvgCoords.length) return;
+            const rect = svg.getBoundingClientRect();
+            const mouseX = Math.max(0, Math.min(rect.width, e.clientX - rect.left));
+            const pct = mouseX / rect.width;
+            const idx = Math.min(currentPoints.length - 1, Math.max(0, Math.round(pct * (currentPoints.length - 1))));
+            
+            const pt = currentPoints[idx];
+            const coord = currentSvgCoords[idx];
+            if (!pt || !coord) return;
+
+            // Vertical crosshair
+            crosshairV.setAttribute('x1', coord[0]);
+            crosshairV.setAttribute('x2', coord[0]);
+            crosshairV.style.display = 'block';
+
+            // Horizontal crosshair
+            crosshairH.setAttribute('y1', coord[1]);
+            crosshairH.setAttribute('y2', coord[1]);
+            crosshairH.style.display = 'block';
+
+            // Dot & Halo
+            dotOuter.setAttribute('cx', coord[0]);
+            dotOuter.setAttribute('cy', coord[1]);
+            dotOuter.style.display = 'block';
+
+            dot.setAttribute('cx', coord[0]);
+            dot.setAttribute('cy', coord[1]);
+            dot.style.display = 'block';
+
+            // Floating X-Axis Badge (CSS coords)
+            const cssX = (coord[0] / width) * rect.width;
+            badgeX.style.left = cssX + 'px';
+            badgeX.innerText = pt.date;
+            badgeX.style.display = 'block';
+
+            // Floating Y-Axis Badge (CSS coords)
+            const cssY = (coord[1] / height) * rect.height;
+            badgeY.style.top = cssY + 'px';
+            badgeY.innerText = '$' + pt.price.toFixed(2);
+            badgeY.style.display = 'block';
+
+            // Calculate range delta
+            const basePrice = currentPoints[0].price;
+            const deltaPct = ((pt.price - basePrice) / basePrice) * 100;
+            const deltaClass = deltaPct >= 0 ? 'pos' : 'neg';
+            const deltaSign = deltaPct >= 0 ? '+' : '';
+
+            // Tooltip header
+            tooltipDate.innerText = pt.date;
+            tooltipPrice.innerText = '$' + pt.price.toFixed(2);
+            if (tooltipDelta) {
+                tooltipDelta.className = deltaClass;
+                tooltipDelta.innerText = `${deltaSign}${deltaPct.toFixed(2)}% vs Range Start`;
+            }
+
+            // Real-time Hero Scrubbing
+            if (heroPriceNum) {
+                heroPriceNum.innerText = '$' + pt.price.toFixed(2);
+            }
+            if (heroPriceSub) {
+                heroPriceSub.className = 'price-sub ' + deltaClass;
+                heroPriceSub.innerText = `${deltaSign}${deltaPct.toFixed(2)}%`;
+            }
+        }
+
+        function hideHover() {
+            crosshairV.style.display = 'none';
+            crosshairH.style.display = 'none';
+            dotOuter.style.display = 'none';
+            dot.style.display = 'none';
+            badgeX.style.display = 'none';
+            badgeY.style.display = 'none';
+            if (tooltipDelta) tooltipDelta.innerText = '';
+
+            if (currentPoints.length) {
+                tooltipDate.innerText = currentPoints[currentPoints.length - 1].date;
+                tooltipPrice.innerText = '$' + currentPoints[currentPoints.length - 1].price.toFixed(2);
+            }
+
+            if (heroPriceNum && defaultHeroPrice) {
+                heroPriceNum.innerText = defaultHeroPrice;
+            }
+            if (heroPriceSub && defaultHeroSub) {
+                heroPriceSub.className = defaultHeroSubClass;
+                heroPriceSub.innerText = defaultHeroSub;
+            }
+        }
+
+        container.addEventListener('mousemove', updateHover);
+        container.addEventListener('mouseleave', hideHover);
+        container.addEventListener('touchstart', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
+        container.addEventListener('touchmove', (e) => { if (e.touches.length) updateHover(e.touches[0]); }, {passive: true});
+        container.addEventListener('touchend', hideHover);
+
+        recalculatePaths(currentPoints);
+    })();
+    </script>
+    
+
+            <!-- Key Metrics Grid -->
+            <div class="metrics-grid">
+                <div class="metric-cell">
+                    <div class="metric-label">Fair Value</div>
+                    <div class="metric-value" style="color: var(--accent-warm);">$173.45</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Story 1</div>
+                    <div class="metric-value metric-target-value" style="color: #64B5F6;"><span class="target-price">$173.45</span><span class="target-pct" style="font-size: 0.74rem; opacity: 0.85; font-family: var(--font-mono); font-weight: 500; margin-left: 4px;">(+38.0%)</span></div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Story 2</div>
+                    <div class="metric-value metric-target-value" style="color: #D4A373;"><span class="target-price">$241.50</span><span class="target-pct" style="font-size: 0.74rem; opacity: 0.85; font-family: var(--font-mono); font-weight: 500; margin-left: 4px;">(+92.1%)</span></div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Story 3</div>
+                    <div class="metric-value metric-target-value" style="color: #81C784;"><span class="target-price">$78.47</span><span class="target-pct" style="font-size: 0.74rem; opacity: 0.85; font-family: var(--font-mono); font-weight: 500; margin-left: 4px;">(-37.6%)</span></div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Corridor</div>
+                    <div class="metric-value" style="font-size: 1.00rem; font-family: var(--font-mono); color: var(--text-title);">$78.47 ⇄ $241.50</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Catalyst</div>
+                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">2026-11-17</div>
+                    <div class="metric-delta" style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 2px;">Scheduled quarterly report</div>
+                </div>
+                
+    <div class="metric-cell">
+        <div class="metric-label">Whales</div>
+        <div class="metric-value" style="font-size: 1.05rem !important; font-family: var(--font-sans) !important; font-weight: 600 !important; color: var(--text-title); white-space: nowrap !important;">6 Whales</div>
+        <div class="metric-subtext">Norbert Lou - Punch Card · Samantha McLemore - Patient</div>
+    </div>
+    
+                
+    <div class="metric-cell">
+        <div class="metric-label">Insiders</div>
+        <div class="metric-value" style="color: var(--accent-warm); font-family: var(--font-sans) !important; font-size: 1.05rem !important; font-weight: 600 !important; white-space: nowrap !important; letter-spacing: -0.01em !important; overflow: hidden !important; text-overflow: ellipsis !important;">🟡 Mixed Flow</div>
+        <div class="metric-subtext">1 Buys (+$0.2M) offset by 3 Sales (-$10.2M 10b5-1)</div>
+    </div>
+    
+            </div>
+        </section>
+
+        <!-- Navigation Tabs -->
+        <div class="tabs-header">
+            <button id="btn-tab-memo" class="tab-btn active" onclick="showTab('memo')">Investment Thesis</button>
+            <button id="btn-tab-history" class="tab-btn" onclick="showTab('history')">Evolution (0)</button>
+            <button id="btn-tab-ownership" class="tab-btn" onclick="showTab('ownership')">Ownership & Fund Intel</button>
+        </div>
+
+        <!-- Memo Content -->
+        <div id="tab-memo" class="tab-content active">
+            <article class="memo-container">
+                <h2>Section 1: The Premise of the Company</h2>
+<p>Crocs, Inc. operates as a highly cash-generative global leader in innovative casual footwear, driving commercial performance across two primary brand platforms: the flagship <strong>Crocs Brand</strong> and the casual canvas footwear brand <strong>HEYDUDE</strong>. The fundamental engine of the enterprise rests upon proprietary closed-cell foam technology (Croslite™), which delivers lightweight, durable, and low-cost manufacturing capabilities coupled with industry-leading gross profit margins hovering near 60.0% enterprise-wide (Crocs Brand gross margin at 63.1% vs. HEYDUDE at 43.7%). The company monetizes through a balanced omnichannel distribution framework consisting of Direct-to-Consumer (DTC)—encompassing global e-commerce and company-operated retail stores—and wholesale partners.</p>
+<p>The unit economics of the Crocs brand are enhanced by high-margin product customization through proprietary Jibbitz™ charms, which carry gross margins exceeding 80% and serve as a high-velocity, impulse-purchase cash flow accelerator. The business model maintains strong pricing power, with core assortments priced below $100, appealing broadly to a democratic mass-market consumer base. Crocs' operational performance and capital allocation engine are monitored via four primary operational metrics: (1) <strong>Brand Revenue Segmentation</strong> (Crocs Brand $1.00B quarterly threshold vs. HEYDUDE $179M), (2) <strong>Direct-to-Consumer (DTC) Sales Growth</strong> (+12.9% for Crocs Brand), (3) <strong>Adjusted Operating Margin</strong> (25.1% enterprise baseline), and (4) <strong>Digital Channel Penetration</strong> (representing ~35–40% of overall enterprise revenue).</p>
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">Latest Period / LTM Revenue</div>
+<div class="metric-value">$3.98B</div>
+<div class="metric-delta pos">Q2 2026 LTM / +2.6% YoY</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">GAAP Operating Cash Flow</div>
+<div class="metric-value">$762.63M</div>
+<div class="metric-delta pos">LTM Ended June 30, 2026</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Core Baseline Owner Earnings</div>
+<div class="metric-value">$675.11M</div>
+<div class="metric-delta pos">OCF - Interest - CapEx - SBC</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Surplus Net Cash / (Debt) per Share</div>
+<div class="metric-value">-$25.33</div>
+<div class="metric-delta neg">Net Debt incl. 3.0% Cash Buffer</div>
+</div>
+</div>
+<h3>Audited Financial Baseline &amp; True Owner Earnings Waterfall</h3>
+<p>To establish the audited operational financial baseline, cash flow streams from the LTM period ending June 30, 2026 (Form 10-Q filed July 30, 2026) are adjusted for recurring maintenance requirements, stock-based compensation, and treasury cash yields:</p>
+<ul>
+<li><strong>GAAP Operating Cash Flow (LTM):</strong> $762.63 Million</li>
+<li><strong>Less Non-Operating Interest Income:</strong> -$4.00 Million (derived from corporate cash treasury deposits stripped from operational baseline)</li>
+<li><strong>Less Maintenance CapEx:</strong> -$42.00 Million (out of $58.01 Million total LTM CapEx, isolating necessary store refurbishments, logistics fleet maintenance, and IT systems upkeep from $16.01 Million in discretionary store expansion)</li>
+<li><strong>Less Stock-Based Compensation (SBC):</strong> -$41.52 Million (strictly treated as a 100% cash charge per Warren Buffett's capital allocation principles)</li>
+<li><strong>Core Baseline Owner Earnings (OE₀):</strong> <strong>$675.11 Million</strong> ($13.37 per diluted share based on 50.5 Million diluted shares outstanding)</li>
+</ul>
+<h3>Balance Sheet Capital Structure &amp; Debt Encumbrance Bridge</h3>
+<p>As of June 30, 2026, Crocs held $170.28 Million in gross cash and cash equivalents against $1,330.27 Million in total funded borrowings (term loans and credit facilities). In addition, the enterprise utilizes physical infrastructure under long-term operating contracts, resulting in <strong>ASC 842 Contractual Operating Lease Liabilities</strong> of $389.63 Million ($88.30 Million current liabilities + $301.33 Million non-current liabilities) for retail stores and distribution hubs.</p>
+<p>Applying the working capital liquidity buffer standard of 3.0% of annual revenue ($119.40 Million reserved on $3,980.00 Million LTM revenue), the unencumbered capital structure resolves as follows:</p>
+<ul>
+<li><strong>Gross Cash &amp; Cash Equivalents:</strong> +$170.28 Million</li>
+<li><strong>Less Operational Cash Buffer (3.0% of Revenue):</strong> -$119.40 Million</li>
+<li><strong>Adjusted Liquidity Cash:</strong> +$50.88 Million</li>
+<li><strong>Less Funded Long-Term Borrowings:</strong> -$1,330.27 Million</li>
+<li><strong>Net Surplus Cash / (Debt) Position (Funded Debt):</strong> -$1,279.39 Million, or <strong>-$25.33 per diluted share</strong></li>
+<li><strong>Net Surplus Cash / (Debt) Position (Including ASC 842 Leases):</strong> -$1,669.02 Million, or <strong>-$33.05 per diluted share</strong></li>
+</ul>
+<div class="executive-callout">
+<h3>Executive Leadership Commentary &amp; 4-Quarter Trajectory</h3>
+<p><strong>Andrew Rees, Chief Executive Officer:</strong> "We are pleased to have delivered a stronger-than-expected second quarter, highlighted by record enterprise revenue, including the Crocs Brand surpassing $1 billion in quarterly revenue for the first time ever. Our results reflect broad consumer demand across both brands, healthy direct-to-consumer growth, and strong consumer response to new product innovation. Supported by our strong cash flow generation, we remain committed to balancing investment in our brands with disciplined capital allocation, including share repurchase and debt paydown. Reflecting our confidence in the business and future cash-flow generation, we have expanded our share repurchase authorization by $1.5 billion to approximately $2.0 billion as we aim to further return meaningful value to shareholders."</p>
+<p><strong>Patraic Reagan, Executive Vice President &amp; Chief Financial Officer:</strong> "Our financial results demonstrate the exceptional cash-generative power of our business model. In Q2 2026, free cash flow reached $331 million, allowing us to simultaneously fund $251 million in share repurchases, execute $63 million in net debt paydown, and maintain leverage near the bottom end of our target range. Looking ahead to full-year 2026, we have raised our adjusted diluted EPS guidance to $13.70–$14.00, supported by expected enterprise revenue growth of 1% to 2% and disciplined gross margin management amidst ongoing tariff and promotional friction in wholesale channels."</p>
+</div>
+<div class="callout">
+<h3>Corporate Governance, Regulatory Defenses &amp; Historical Post-Mortem</h3>
+<p><strong>Historical Corporate Trauma &amp; Resolution:</strong> In February 2022, Crocs acquired HEYDUDE for $2.5 billion, taking on substantial debt. During 2023–2024, HEYDUDE experienced operational indigestion marked by wholesale channel over-stuffing, excess inventory, and grey-market discounting that pushed HEYDUDE revenues down double-digits YoY. Management responded with structural fixes: terminating non-compliant wholesale accounts, cleaning up excess inventory through controlled channels, restricting promotional liquidations, and shifting HEYDUDE toward clean DTC channels. By Q2 2026, HEYDUDE DTC revenue rebounded to +7.2% growth, confirming channel stabilization.</p>
+<p><strong>Deleveraging &amp; Capital Allocation Discipline:</strong> Management reduced net leverage from over 3.0x down to ~1.2x Net Debt/EBITDA, paying down over $1.2 billion in funded debt since the acquisition. Capital allocation prioritizes organic re-investment, debt reduction, and opportunistic buybacks. Given that Crocs trades at single-digit earnings multiples relative to its free cash flow, the board's $1.5 billion expansion of the repurchase authorization aligns with value-accretive capital deployment rules.</p>
+</div>
+<p>Crocs operates as a high-margin consumer cash machine generating $675.11 Million in core baseline Owner Earnings. While the company carries $1.33 Billion in funded debt and $389.63 Million in operating lease commitments, its robust annual operating cash flow ($762.63 Million LTM) covers interest obligations comfortably and funds substantial share buybacks without compromising operational solvency.</p>
+<h2>Section 2: 3 Probable Business Stories</h2>
+<p>Based on the company's core premise, reported operational metrics, financial filings, and 4-quarter earnings trajectory, here are 3 distinct, probable fundamental paths that cover 90%–95% of probable business outcomes over the next 3–5 years:</p>
+<div class="callout">
+<h3>📖 Story 1: Steady International Scaling &amp; HEYDUDE Channel Normalization (Base Case - 60% Probability)</h3>
+<p>In this baseline operational trajectory, Crocs, Inc. continues to execute its two-pronged growth strategy: expanding the high-margin Crocs Brand across underserved international markets while completing the multi-year structural turnaround and inventory cleanup of HEYDUDE. The Crocs Brand capitalizes on strong momentum in Asia-Pacific (particularly China, Japan, and India) and Western Europe, where clog adoption and Jibbitz™ personalization drive mid-to-high single-digit revenue growth, fully offsetting low-single-digit maturity in North American wholesale channels. Near-term FY2026 guidance reality (+1% to +2% enterprise revenue growth) is respected, with growth re-accelerating toward a 3.0%–4.0% enterprise CAGR in Years 2 through 5.</p>
+<p>On the HEYDUDE front, management's aggressive wholesale channel rationalization—eliminating non-compliant liquidation accounts and terminating grey-market supply—successfully establishes a clean demand floor. HEYDUDE Direct-to-Consumer (DTC) channels, which turned positive (+7.2% in Q2 2026), maintain modest low-single-digit momentum (+3% to +5% annual CAGR), stabilizing total HEYDUDE brand annual revenues near $750M–$800M. Enterprise digital penetration expands from 38% to ~42% over the 5-year period.</p>
+<p><strong>Operational Metric Drivers &amp; Revenue:</strong></p>
+<ul>
+<li><strong>Crocs Brand Segmentation:</strong> Quarterly revenue scales from $1.00B baseline ($3.13B LTM) to $1.18B per quarter ($4.72B annual) by Year 5, driven by international growth (+8% CAGR) and continued Jibbitz™ market expansion.</li>
+<li><strong>HEYDUDE Brand Segmentation:</strong> Quarterly revenue stabilizes from $179M baseline ($848M LTM) to ~$200M per quarter ($800M annual) by Year 5 as clean DTC channels replace lost non-compliant wholesale volume.</li>
+<li><strong>Enterprise Top-Line Revenue:</strong> Expands from $3.98B LTM baseline to $4.06B in Year 1 (+2.0% YoY guidance midpoint), reaching $4.50B by Year 3 and $5.52B by Year 5 (~3.4% 5-year CAGR).</li>
+<li><strong>DTC Sales Growth &amp; Digital Penetration:</strong> Crocs DTC grows at +8.0% CAGR, while digital penetration rises to 42.0% of enterprise sales.</li>
+</ul>
+<p><strong>Cost Dynamics, CapEx &amp; Owner Earnings:</strong> Enterprise adjusted operating margin remains resilient at 24.8%–25.3% (relative to the 25.1% baseline). The structural drag from lower HEYDUDE gross margins (43.7%) is neutralized by expanding Crocs Brand gross margins (63.1% to 64.0%) powered by high-margin Jibbitz™ sales (&gt;80% gross margin) and scale efficiencies in Asian manufacturing. Operating cash flow expands alongside net operating income. Funded debt is reduced from $1.33B to ~$500M over 5 years via annual free cash flow allocation, shrinking net annual interest drag from $45M to ~$18M. Maintenance CapEx scales modestly from $42.00M to $52.00M alongside store refurbishments and logistics upkeep, while SBC remains controlled at ~$45.00M. Consequently, core Owner Earnings grow from $675.11M ($13.37/share) to <strong>$825.00M ($16.34/share)</strong> by Year 5.</p>
+<p><strong>Key Milestones to Watch:</strong></p>
+<ul>
+<li>Crocs Brand international revenue growth sustained above +8.0% YoY in constant currency.</li>
+<li>HEYDUDE DTC growth remaining positive without gross margin degradation below 43.5%.</li>
+<li>Cumulative funded debt paydown exceeding $150M annually while executing accretive share buybacks.</li>
+</ul>
+</div>
+<div class="callout">
+<h3>📖 Story 2: Global Monobrand Hyper-Expansion &amp; HEYDUDE Re-Acceleration (High-Margin Upside - 20% Probability)</h3>
+<p>Under this high-productivity operational scenario, Crocs Brand transforms into an inescapable global lifestyle brand while HEYDUDE achieves an aggressive commercial turnaround. International market expansion in China, India, Southeast Asia, and Latin America dramatically exceeds expectations, powered by localized social marketing, high-profile strategic brand collabs, and accelerated retail store expansion. High-margin Jibbitz™ adoption penetrates over 30% of total clog purchases, accelerating high-margin impulse monetization.</p>
+<p>Concurrently, HEYDUDE completes its brand repositioning ahead of schedule. Management successfully establishes core canvas silhouettes ("Wally" and "Wendy") as premier casual footwear staples across Europe and Asia, expanding foreign wholesale distribution with premium retail partners. HEYDUDE gross margins rebound from 43.7% toward 48.0% as full-price selling takes hold, shifting HEYDUDE back into a $1.1B+ annual revenue platform. Enterprise digital penetration jumps to 48.0%.</p>
+<p><strong>Operational Metric Drivers &amp; Revenue:</strong></p>
+<ul>
+<li><strong>Crocs Brand Segmentation:</strong> Quarterly revenue expands rapidly from $1.00B baseline to $1.38B per quarter ($5.52B annual) by Year 5, reflecting a +8.5% annual brand CAGR led by international markets (+15% CAGR).</li>
+<li><strong>HEYDUDE Brand Segmentation:</strong> Quarterly revenue rebounds from $179M baseline to $280M per quarter ($1.12B annual) by Year 5 (+5.8% CAGR).</li>
+<li><strong>Enterprise Top-Line Revenue:</strong> Reaches $4.10B in Year 1 (+3.0% YoY), accelerating to $5.20B by Year 3 and $6.64B by Year 5 (+6.7% 5-year CAGR).</li>
+<li><strong>DTC Sales Growth &amp; Digital Penetration:</strong> Crocs DTC grows at +12.5% CAGR; HEYDUDE DTC accelerates to +10.0% CAGR. Enterprise digital penetration scales to 48.0%.</li>
+</ul>
+<p><strong>Cost Dynamics, CapEx &amp; Owner Earnings:</strong> Enterprise adjusted operating margin expands substantially from 25.1% to 27.5%. Operating leverage over fixed retail store lease liabilities ($389.63M ASC 842 balance) and distribution networks generates notable margin expansion. COGS per unit declines due to raw material purchasing scale for Croslite™ compound resin. Funded debt is completely retired within 4 years, eliminating interest expense entirely and unencumbering corporate cash flow for massive share repurchases. Maintenance CapEx scales to $60.00M to support expanded global retail footprint, while SBC rises modestly to $50.00M. Core Owner Earnings surge from $675.11M ($13.37/share) baseline to <strong>$1.15B ($22.77/share)</strong> by Year 5.</p>
+<p><strong>Key Milestones to Watch:</strong></p>
+<ul>
+<li>Crocs Brand Asia-Pacific quarterly revenue growth exceeding +18.0% YoY consistently.</li>
+<li>HEYDUDE enterprise gross margins expanding above 47.0% alongside positive wholesale re-order growth.</li>
+<li>Enterprise adjusted operating margins expanding beyond 26.5%.</li>
+</ul>
+</div>
+<div class="callout">
+<h3>📖 Story 3: Trade Policy Tariffs, Emerging Market FX Decay &amp; HEYDUDE Fatigue (Defensive Stress / Downside - 20% Probability)</h3>
+<p>This downside stress case models the convergence of structural brand fatigue, cross-border trade friction, foreign exchange headwinds, and operating lease fixed cost deleverage over a 3- to 5-year horizon. HEYDUDE proves to be a secularly impaired acquisition; consumer interest in canvas slip-ons fades, forcing permanent promotional discounting to clear channels, driving HEYDUDE annual revenue down -6.0% CAGR toward $600M. Meanwhile, North American Crocs clog demand saturates, while international revenue expansion is heavily muted by real-world macro drag.</p>
+<p>Specifically, this scenario incorporates strict macro stress factors required for global consumer platforms: (1) <strong>EM FX Depreciation:</strong> A 12% to 15% cumulative local currency devaluation against the USD across key growth markets (China RMB, Brazil BRL, Mexico MXN, India INR) reduces dollar-denominated international revenues upon translation; (2) <strong>Cross-Border Trade &amp; Customs Friction:</strong> Revisions to US <i>de minimis</i> customs exemptions and elevated Section 301 tariffs on Asian manufacturing hubs (Vietnam, Indonesia, China) add 250–300 bps of direct landing and supply chain cost friction that cannot be passed to price-sensitive mass-market consumers without sacrificing volume; and (3) <strong>Fixed Overhead Operating Lease Leverage:</strong> $389.63M in ASC 842 lease commitments acts as a fixed cost burden against declining retail store productivity.</p>
+<p><strong>Operational Metric Drivers &amp; Revenue:</strong></p>
+<ul>
+<li><strong>Crocs Brand Segmentation:</strong> Quarterly revenue drops from $1.00B baseline to $880M–$900M per quarter ($3.56B annual) by Year 5, as international operational gains are wiped out by USD currency translation headwinds.</li>
+<li><strong>HEYDUDE Brand Segmentation:</strong> Quarterly revenue decays from $179M baseline to $150M per quarter ($600M annual) by Year 5 (-6.7% CAGR).</li>
+<li><strong>Enterprise Top-Line Revenue:</strong> Drops to $3.90B in Year 1 (-2.0% YoY), stagnating at $3.80B in Year 3 and bottoming at $4.16B in Year 5 (-1.5% 5-year CAGR in USD terms).</li>
+<li><strong>DTC Sales Growth &amp; Digital Penetration:</strong> Crocs DTC slows to +1.0% CAGR; HEYDUDE DTC declines -4.0% CAGR. Digital penetration contracts to 34.0% as marketing efficiency degrades.</li>
+</ul>
+<p><strong>Cost Dynamics, CapEx &amp; Owner Earnings:</strong> Enterprise adjusted operating margin compresses from 25.1% down to 19.0% due to tariff absorption, ocean freight spikes, structural HEYDUDE discounting (gross margin down to 38.0%), and fixed retail store lease deleverage. GAAP Operating Cash Flow drops from $762.63M to $520.00M. Debt paydown halts as excess cash flow is consumed by lease obligations and working capital needs, keeping annual interest expense elevated at ~$50.00M. Maintenance CapEx absorbs $45.00M annually to maintain retail store leases, while SBC absorbs $40.00M. Core Owner Earnings drop sharply from $675.11M ($13.37/share) baseline to <strong>$385.00M ($7.62/share)</strong> by Year 5.</p>
+<p><strong>Key Milestones to Watch:</strong></p>
+<ul>
+<li>HEYDUDE quarterly brand revenue dropping below $150M or gross margin falling below 40.0%.</li>
+<li>Supply chain tariff increases exceeding 10% on key Asian sourcing origins without pricing power offset.</li>
+<li>Enterprise operating margin compressing below 20.0% alongside rising net leverage (&gt;2.0x EBITDA).</li>
+</ul>
+</div>
+<div class="callout">
+<h3>Actionable Quarterly Monitoring Checklist (Next 12–18 Months)</h3>
+<div class="table-scroll-wrap"><table class="data-table">
+<thead>
+<tr>
+<th>Operational Metric</th>
+<th>🟢 Green Light (Thesis Acceleration)</th>
+<th>🔴 Red Light (Thesis Falsification Threshold)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Crocs Brand DTC &amp; International Growth</strong></td>
+<td>Crocs DTC growth &gt;+10.0% YoY; Asia-Pacific revenue growth &gt;+15.0% YoY constant currency.</td>
+<td>Crocs DTC growth turns negative (&lt;0.0% YoY); Asia-Pacific growth slows below +3.0%.</td>
+</tr>
+<tr>
+<td><strong>HEYDUDE Brand Stabilization &amp; Margins</strong></td>
+<td>HEYDUDE quarterly DTC growth &gt;+5.0% YoY; brand gross margin stabilizes above 45.0%.</td>
+<td>HEYDUDE total revenue declines &gt;-10.0% YoY; brand gross margin contracts below 40.0%.</td>
+</tr>
+<tr>
+<td><strong>Operating Margin &amp; Cost Drag (Tariffs/FX)</strong></td>
+<td>Enterprise adjusted operating margin maintained above 25.0%; tariff impacts fully offset by pricing.</td>
+<td>Enterprise adjusted operating margin compresses below 21.5% due to tariff drag or promotional clearance.</td>
+</tr>
+<tr>
+<td><strong>Capital Allocation &amp; Balance Sheet Deleveraging</strong></td>
+<td>Funded debt reduced by &gt;$200M annually; share repurchases executed aggressively at single-digit P/E multiples.</td>
+<td>Net leverage increases above 2.0x Net Debt/EBITDA; share repurchases halted due to cash compression.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<h2>Section 3: Valuation Across the 3 Stories</h2>
+<p>Translating each of the 3 business stories into Warren Buffett-style discounted cash flow valuations based on true Core Owner Earnings plus audited balance sheet surplus net cash per share:</p>
+<div class="table-scroll-wrap"><table class="data-table">
+<thead>
+<tr>
+<th>Valuation Parameter</th>
+<th>Story 1: Steady International Scaling &amp; HEYDUDE Channel Normalization (Base Case)</th>
+<th>Story 2: Global Monobrand Hyper-Expansion &amp; HEYDUDE Re-Acceleration (Bull Case)</th>
+<th>Story 3: Trade Policy Tariffs, Emerging Market FX Decay &amp; HEYDUDE Fatigue (Bear Case)</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>Starting Normalized Owner Earnings (OE₀)</td><td>$675.11M</td><td>$675.11M</td><td>$675.11M</td></tr>
+<tr><td>5-Year Organic CAGR</td><td>+4.10%</td><td>+11.24%</td><td>-10.61%</td></tr>
+<tr><td>Discount / Hurdle Rate</td><td>9.50%</td><td>9.50%</td><td>9.50%</td></tr>
+<tr><td>Terminal Growth Rate</td><td>2.00%</td><td>2.00%</td><td>2.00%</td></tr>
+<tr><td>PV of 5-Year Cash Flows</td><td>$2,907.84M</td><td>$3,539.94M</td><td>$1,912.90M</td></tr>
+<tr><td>PV of Terminal Value</td><td>$7,130.34M</td><td>$9,934.96M</td><td>$3,328.80M</td></tr>
+<tr><td>Operating Business Enterprise Value</td><td>$10,038.19M ($198.78/sh)</td><td>$13,474.90M ($266.83/sh)</td><td>$5,241.70M ($103.80/sh)</td></tr>
+<tr><td>Net Balance Sheet Cash / (Debt) Adjustment</td><td>-$25.33/sh</td><td>-$25.33/sh</td><td>-$25.33/sh</td></tr>
+<tr><td><strong>Calculated Intrinsic Value / Share</strong></td><td><strong>$173.45</strong></td><td><strong>$241.50</strong></td><td><strong>$78.47</strong></td></tr>
+</tbody>
+</table></div>
+<div class="callout">
+<h3>Step-by-Step Mathematical Proofs Across the 3 Paths</h3>
+<p><strong>Story 1 Proof (Base Case — $173.45 Intrinsic Value):</strong> Starting with baseline Core Owner Earnings of $675.11M ($13.37 per share), cash flows compound at a modest 4.10% annual rate through Year 5, reaching $825.33M. Discounted back at a conservative 9.50% equity hurdle rate, the 5-year cumulative cash flows produce a present value (PV) of $2,907.84M. Capitalizing Year 5 cash flow into perpetuity at a 2.00% terminal growth rate yields a Terminal Value of $11,224.49M, which discounts to $7,130.34M today. Adding the 5-year PV and Terminal PV establishes an Enterprise Operating Value of $10,038.19M ($198.78 per share across 50.5M diluted shares). Deducting net funded debt of -$25.33 per share (after reserving $119.40M in operational cash buffer) results in a fair intrinsic equity value of $173.45 per share, offering a 37.9% upside from current market quotations.</p>
+<p><strong>Story 2 Proof (Bull Case — $241.50 Intrinsic Value):</strong> Reflecting accelerated international expansion in Asian and European markets combined with HEYDUDE revenue recovery, Owner Earnings compound at 11.24% annually, expanding $675.11M in baseline cash flow to $1,150.00M by Year 5. Discounting these 5 annual cash streams at 9.50% produces a PV of $3,539.94M. Terminal value capitalized at 2.00% growth reaches $15,640.00M, translating to a discounted terminal PV of $9,934.96M. Combining operating cash streams yields an Enterprise Value of $13,474.90M ($266.83 per share). Subtracting -$25.33 per share in funded net debt produces a Bull Case intrinsic value of $241.50 per share.</p>
+<p><strong>Story 3 Proof (Bear Case — $78.47 Intrinsic Value):</strong> Incorporating severe macroeconomic headwinds—including heightened geopolitical import tariffs, wholesale channel destocking, foreign currency decay, and HEYDUDE brand fatigue—Owner Earnings decay at an annual rate of -10.61% over 5 years, falling to $385.32M by Year 5. Summing the discounted 5-year cash flows ($1,912.90M) and capitalized terminal value discounted PV ($3,328.80M at 2.00% terminal growth) establishes a compressed Enterprise Operating Value of $5,241.70M ($103.80 per share). Subtracting -$25.33 per share in net funded debt leaves a Bear Case intrinsic fair value floor of $78.47 per share.</p>
+</div>
+<div class="callout">
+<h3>Reverse DCF Sensitivity Matrix: What is Mr. Market Pricing In?</h3>
+<p><strong>Current Market Stock Price:</strong> $125.73 | <strong>Net Debt / Share:</strong> -$25.33 | <strong>Implied Operating EV:</strong> $151.06/share ($7,628.76M total operating EV)</p>
+<p>To eliminate false precision, the table below inverts the valuation equation to reveal the exact 5-year Owner Earnings growth rate required to justify today's stock price ($125.73) across varying starting cash flow baselines and equity discount rates (assuming a 2.00% terminal growth rate):</p>
+<div class="table-scroll-wrap"><table class="data-table">
+<thead>
+<tr>
+<th>Normalized Starting Baseline (OE₀)</th>
+<th>Hurdle Rate: 9.5%</th>
+<th>Hurdle Rate: 10.5%</th>
+<th>Hurdle Rate: 11.5%</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>Trough / Compressed Cash Flow ($500.00M)</td><td>+6.5% / yr</td><td>+9.8% / yr</td><td>+13.1% / yr</td></tr>
+<tr><td>Normalized Base Run-Rate ($675.11M)</td><td><strong>-2.3% / yr</strong></td><td>+0.8% / yr</td><td>+3.9% / yr</td></tr>
+<tr><td>Peak / Re-Accelerated Capacity ($800.00M)</td><td>-6.8% / yr</td><td>-3.8% / yr</td><td>-0.9% / yr</td></tr>
+</tbody>
+</table></div>
+<p><strong>Market Narrative Analysis (Dual-Perspective Inversion):</strong></p>
+<ul>
+<li><strong>Consolidated Full-Price Hurdle (Zero Debt Deduction):</strong> At the headline share price of $125.73 ($6,349.37M total equity market capitalization), if an investor assumes zero balance sheet debt burden, Mr. Market is pricing in an annual cash flow decline of <strong>-6.5% per year</strong> over the next 5 years at a 9.5% hurdle rate.</li>
+<li><strong>Net Debt-Adjusted Operating Hurdle:</strong> Incorporating the company's net funded debt obligation of -$25.33 per share ($1,279.39M total net debt), the enterprise operating value implied by today's share price is $151.06 per share ($7,628.76M total operating EV). Against our baseline Owner Earnings of $675.11M, today's market price embeds an annual cash flow growth expectation of <strong>-2.3% per year</strong> over 5 years at a 9.5% discount rate. In short, Mr. Market is pricing Crocs as a declining business, creating a substantial margin of safety for disciplined value investors if cash generation simply stays flat.</li>
+</ul>
+</div>
+<div class="callout">
+<h3>Reconciliation vs. Wall Street Consensus Price Targets</h3>
+<p>Sell-side consensus estimates and Wall Street price targets frequently diverge from our conservative Graham &amp; Buffett Owner Earnings intrinsic value framework. Our disciplined approach differs due to four key analytical principles:</p>
+<ul>
+<li><strong>100% Stock-Based Compensation Cash Deduction:</strong> Sell-side models routinely add back Stock-Based Compensation as a "non-cash expense" under Non-GAAP adjusted metrics. We follow Warren Buffett's strict standard and deduct 100% of SBC ($41.52M LTM) directly from operational cash flow, treating equity issuance as a real economic cash expense.</li>
+<li><strong>Maintenance vs. Growth CapEx Separation:</strong> Sell-side models often lump all CapEx together or treat total CapEx as cash-accretive growth. We isolate mandatory store maintenance, IT infrastructure, and logistics upkeep ($42.00M) as essential operational reinvestment required just to maintain current unit volume.</li>
+<li><strong>Disciplined Opportunity Cost Hurdle Rates:</strong> While investment banks employ academic CAPM Beta models to derive low discount rates (often 7.0%–8.0%), we apply an absolute equity hurdle rate of 9.5%–11.5% to reflect true opportunity cost and capital protection standards.</li>
+<li><strong>Rigorous Balance Sheet Liquidity Deductions:</strong> Consensus equity targets often credit gross cash balance figures directly. We apply a strict 3.0% annual revenue liquidity buffer ($119.40M) to safeguard working capital requirements, while fully deducting funded financial obligations ($1,330.27M gross debt).</li>
+</ul>
+</div>
+            </article>
+        </div>
+
+        <!-- History Content -->
+        <div id="tab-history" class="tab-content">
+            
+        <div class="empty-state-box" style="background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px; padding: 75px 24px;">
+            <div class="empty-state-title">Initial Baseline Active</div>
+            <div class="empty-state-sub">Version 1 represents the initial underwriting thesis. Future revisions, price trigger reviews, and catalyst audits will be logged here</div>
+        </div>
+        
+        </div>
+
+        <!-- Ownership & Fund Intel Content -->
+        <div id="tab-ownership" class="tab-content">
+            
+    <div class="ownership-container">
+        <!-- Top Stats Banner -->
+        <div class="ownership-header-card">
+            <div class="ownership-stat-grid">
+                <div class="stat-box">
+                    <span class="stat-label">Institutional Float</span>
+                    <span class="stat-num">6 Whales</span>
+                    <span class="stat-note">Tracked across SEC 13F Filings</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Insider & Beneficial Sentiment</span>
+                    <span class="stat-num" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 1.25rem;">🟡 Mixed Flow</span>
+                    <span class="stat-note">1 Buys (+$0.2M) offset by 3 Sales (-$10.2M 10b5-1)</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Whale & Superinvestor Tracking</span>
+                    <span class="stat-num" style="color: var(--accent-warm);">6 Funds Tracked</span>
+                    <span class="stat-note">🔴 3 Whales Trimming / 1 Adding</span>
+                </div>
+            </div>
+
+            <!-- Quick Research Portal Bar -->
+            <div class="quick-portals-bar">
+                <span style="font-size: 0.76rem; text-transform: uppercase; color: var(--text-dim); font-weight: 600; letter-spacing: 0.05em;">Direct Research Portals:</span>
+                <div class="portal-links-group">
+                    <a href="http://openinsider.com/search?q=CROX" target="_blank" rel="noopener noreferrer" class="portal-link">📊 OpenInsider Form 4s ↗</a>
+                    <a href="https://www.dataroma.com/m/stock.php?sym=CROX" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ Dataroma Superinvestors ↗</a>
+                    <a href="https://whalewisdom.com/stock/CROX" target="_blank" rel="noopener noreferrer" class="portal-link">🐋 WhaleWisdom 13F ↗</a>
+                    <a href="https://valueinvestorsclub.com/search?q=CROX" target="_blank" rel="noopener noreferrer" class="portal-link">📑 Value Investors Club (VIC) ↗</a>
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=CROX" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ SEC EDGAR Filings ↗</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: All Institutional Holders & 13F Whales -->
+        <div class="ownership-section">
+            <div class="section-title-row">
+                <span class="section-icon">🏛️</span>
+                <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings (6)</h3>
+            </div>
+            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, Dataroma superinvestor portfolios, and regulatory ownership registries.</p>
+            <div class="table-responsive">
+                <table class="ownership-table">
+                    <thead>
+                        <tr>
+                            <th>Fund / Portfolio Manager</th>
+                            <th>Classification</th>
+                            <th>Portfolio Weight / Stake</th>
+                            <th>Reported Shares</th>
+                            <th>Recent 13F Action</th>
+                            <th>Position Value</th>
+                            <th>Filing Source</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Norbert Lou - Punch Card Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">27.20</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">577,170</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 2.93%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">69,630,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=CROX" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Samantha McLemore - Patient Capital Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">3.20</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">799,426</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 5.15%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">96,443,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=CROX" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Li Lu - Himalaya Capital Management</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">2.89</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">887,093</td>
+            <td><span style="color: var(--text-dim); font-weight: 500;"></span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">107,019,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=CROX" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">David Einhorn - Greenlight Capital</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">2.07</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">669,140</td>
+            <td><span style="color: var(--text-dim); font-weight: 500;"></span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">80,725,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=CROX" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Bill Miller - Miller Value Partners</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.82</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">28,856</td>
+            <td><span style="color: var(--accent-red); font-weight: 500;">Reduce 25.14%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">3,481,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=CROX" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div style="font-weight: 500; color: var(--text-title);">Tweedy Browne</div>
+            </td>
+            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">Superinvestor Whale</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">0.18</td>
+            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">19,181</td>
+            <td><span style="color: var(--accent-green); font-weight: 500;">Add 36.86%</span></td>
+            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">2,314,000</td>
+            <td>
+                <a href="https://www.dataroma.com/m/stock.php?sym=CROX" target="_blank" rel="noopener noreferrer" class="link-out">
+                    View 13F ↗
+                </a>
+            </td>
+        </tr>
+        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section 2: SEC Form 4 Detailed Insider Trading Ledger -->
+        <div class="ownership-section">
+            <div class="section-title-row">
+                <span class="section-icon">💼</span>
+                <h3 class="section-heading">SEC Form 4 Insider Trading Ledger (14)</h3>
+            </div>
+            <p class="section-desc">Detailed officer and director transaction ledger audited directly via OpenInsider & SEC Form 4 filings to track management buying, sales, and option exercises.</p>
+            <div class="table-responsive">
+                <table class="ownership-table">
+                    <thead>
+                        <tr>
+                            <th>Filing Date</th>
+                            <th>Trade Date</th>
+                            <th>Reporting Insider</th>
+                            <th>Title / Role</th>
+                            <th>Type</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Owned After (ΔOwn)</th>
+                            <th>Total Value</th>
+                            <th>Source</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-08-11</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-08-07</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Rees Andrew</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$138.49</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-30,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">1,283,472 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$4,154,785</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=CROX" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-06-09</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-06-05</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Rees Andrew</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">CEO</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$118.10</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-32,688</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">1,219,082 (-3%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$3,860,284</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=CROX" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-02-24</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-02-20</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Mehlman Anne</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, Crocs Brand Pres</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$100.06</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-12,145</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">131,112 (-8%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$1,215,172</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=CROX" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-02-24</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-02-20</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Smach Thomas J</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$100.00</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-4,963</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">213,620 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$496,300</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=CROX" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-02-18</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2026-02-13</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Smach Thomas J</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$98.41</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-5,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">218,583 (-2%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$492,070</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=CROX" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-12</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-11-11</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Replogle John B</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-green); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🟢 Purchase</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$74.50</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">+3,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">18,417 (+19%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-green); font-weight: 500; white-space: nowrap;">+$223,500</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=CROX" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-08-14</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-08-12</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Healy Susan L.</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, CFO</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-green); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🟢 Purchase</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$76.56</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">+2,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">50,078 (+4%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-green); font-weight: 500; white-space: nowrap;">+$153,120</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=CROX" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-08-13</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-08-08</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Replogle John B</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-green); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🟢 Purchase</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$76.69</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">+3,261</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">15,417 (+27%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-green); font-weight: 500; white-space: nowrap;">+$250,084</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=CROX" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-05-13</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-05-09</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Smach Thomas J</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$109.47</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-9,139</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">208,591 (-4%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$1,000,446</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=CROX" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-05-13</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-05-12</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Bickley Ian</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$115.90</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-3,044</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">27,505 (-10%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$352,784</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=CROX" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-02-21</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-02-21</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Sisler Shannon</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, Chief People Officer</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$109.75</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-4,659</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">29,299 (-14%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$511,325</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=CROX" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-02-19</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2025-02-18</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Michaels Adam</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, Chief Digital Officer</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$106.69</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">-15,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">89,323 (-14%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-red); font-weight: 500; white-space: nowrap;">-$1,600,325</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=CROX" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2024-11-14</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2024-11-13</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Healy Susan L.</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">EVP, CFO</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-green); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🟢 Purchase</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$99.70</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">+1,000</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">22,652 (+5%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-green); font-weight: 500; white-space: nowrap;">+$99,702</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=CROX" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2024-10-30</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.82rem; white-space: nowrap;">2024-10-30</td>
+                <td style="white-space: nowrap;">
+                    <div style="font-weight: 500; color: var(--text-title);">Replogle John B</div>
+                </td>
+                <td style="white-space: nowrap;"><span style="font-size: 0.82rem; color: var(--text-secondary);">Dir</span></td>
+                <td style="white-space: nowrap;"><span style="color: var(--accent-green); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🟢 Purchase</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-size: 0.84rem; white-space: nowrap;">$112.60</td>
+                <td style="font-family: var(--font-mono); font-size: 0.84rem; white-space: nowrap;">+2,240</td>
+                <td style="font-family: var(--font-mono); color: var(--text-dim); font-size: 0.84rem; white-space: nowrap;">9,304 (+32%)</td>
+                <td style="font-family: var(--font-mono); color: var(--accent-green); font-weight: 500; white-space: nowrap;">+$252,222</td>
+                <td style="white-space: nowrap;">
+                    <a href="https://www.sec.gov/edgar/browse/?CIK=CROX" target="_blank" rel="noopener noreferrer" class="link-out" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;">
+                        Form 4 ↗
+                    </a>
+                </td>
+            </tr>
+            
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section 3: Curated Memos & Fund Letters -->
+        <div class="ownership-section">
+            <div class="section-title-row">
+                <span class="section-icon">📑</span>
+                <h3 class="section-heading">Fund Letters, VIC Write-ups & Superinvestor Memos</h3>
+            </div>
+            <p class="section-desc">Curated long-form investment theses, shareholder letters, and value pitches published by notable hedge funds and deep-value analysts with direct reading links.</p>
+            <div class="writeups-grid">
+                
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Independent Research · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                </div>
+                <a href="https://www.gurugems.org/p/norbert-lou-the-punch-card-mindset" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Read Source ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
+                Norbert Lou - The Punch Card Mindset - Guru Gems
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                Fundamental equity research study examining Crocs, Inc.'s cash generation, market share durability, and valuation.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Substack / Hiddenrockcapital · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                </div>
+                <a href="https://hiddenrockcapital.substack.com/p/single-stock-spotlight-2-crox" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Memo ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
+                Single Stock Spotlight #2: CROX
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                In-depth Substack memo detailing Crocs, Inc.'s business moat, unit monetization, and margin trajectory.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Substack / Thefinancecorner · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                </div>
+                <a href="https://thefinancecorner.substack.com/p/deep-dive-into-crocs-crox" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Memo ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
+                Crocs: The ugly shoe printing beautiful margins
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                In-depth Substack memo detailing Crocs, Inc.'s business moat, unit monetization, and margin trajectory.
+            </p>
+        </div>
+        
+        <div class="writeup-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+                <div style="font-size: 0.76rem; text-transform: uppercase; color: var(--accent-warm); font-weight: 600; letter-spacing: 0.04em;">
+                    Substack / Ltir · <span style="color: var(--text-dim);">Verified Due Diligence</span>
+                </div>
+                <a href="https://ltir.substack.com/p/crocs-crox-2025-deep-dive" target="_blank" rel="noopener noreferrer" class="btn-read-letter">
+                    Substack Memo ↗
+                </a>
+            </div>
+            <h4 style="font-family: var(--font-sans); font-size: 1.10rem; font-weight: 600; color: var(--text-title); margin: 0 0 10px; line-height: 1.35; letter-spacing: -0.015em;">
+                Crocs ($CROX) 2025 Deep Dive
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.90rem; line-height: 1.55; margin: 0;">
+                In-depth Substack memo detailing Crocs, Inc.'s business moat, unit monetization, and margin trajectory.
+            </p>
+        </div>
+        
+            </div>
+        </div>
+    </div>
+    
+        </div>
+    </main>
+
+    
+    <!-- Labels & Taxonomy Legend Modal -->
+    <div id="labels-legend-modal" class="modal-shade" onclick="closeLegendModalOutside(event)">
+        <div class="modal-body-card" style="max-width: 540px; padding: 26px 28px; background: rgba(22, 21, 20, 0.98); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 14px; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7); font-family: var(--font-sans);">
+            <button class="modal-x" onclick="closeLabelsLegendModal()" style="top: 20px; right: 20px; color: var(--text-dim); font-size: 1.1rem; cursor: pointer;">✕</button>
+            
+            <div style="font-family: var(--font-sans); font-size: 1.15rem; font-weight: 600; color: var(--text-title); margin-bottom: 20px; letter-spacing: -0.02em;">
+                Taxonomy &amp; Signals
+            </div>
+
+            <!-- Section 1: Live Action Signals -->
+            <div style="margin-bottom: 18px;">
+                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 12px;">
+                    Surveillance Signals
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px;">
+                    <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-buy"><span class="beacon-dot"></span></span>
+                        <strong style="color: var(--accent-green);">BUY</strong>
+                        <span style="color: var(--text-secondary);">Deep value zone</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-hold"><span class="beacon-dot"></span></span>
+                        <strong style="color: var(--accent-warm);">HOLD</strong>
+                        <span style="color: var(--text-secondary);">Core thesis intact</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-caution"><span class="beacon-dot"></span></span>
+                        <strong style="color: #D48858;">CAUTION</strong>
+                        <span style="color: var(--text-secondary);">Execution trim zone</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
+                        <span class="status-beacon beacon-avoid"><span class="beacon-dot"></span></span>
+                        <strong style="color: var(--accent-red);">AVOID</strong>
+                        <span style="color: var(--text-secondary);">Thesis broken</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="height: 1px; background: var(--border-color); margin: 18px 0;"></div>
+
+            <!-- Section 2: Conviction Tiers -->
+            <div>
+                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 12px;">
+                    Conviction Tiers
+                </div>
+                <div style="display: grid; grid-template-columns: 150px 1fr; row-gap: 8px; column-gap: 16px; font-size: 0.76rem; align-items: center;">
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">High Conviction</span>
+                    <span style="color: var(--text-secondary);">Dominant moat &amp; fortress balance sheet</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Solid Conviction</span>
+                    <span style="color: var(--text-secondary);">Recurring cash flow &amp; compounding runway</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Moderate Conviction</span>
+                    <span style="color: var(--text-secondary);">Attractive upside with cyclical exposure</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Cautious Stance</span>
+                    <span style="color: var(--text-secondary);">Navigating margin or temporary friction</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Turnaround Play</span>
+                    <span style="color: var(--text-secondary);">Operational reset or debt reduction</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Speculative Risk</span>
+                    <span style="color: var(--text-secondary);">High asymmetry with binary outcome</span>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
+                <button onclick="closeLabelsLegendModal()" style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 500; color: var(--text-title); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border-color); border-radius: 6px; padding: 6px 16px; cursor: pointer; transition: all 0.15s;">Dismiss</button>
+            </div>
+        </div>
+    </div>
+    
+
+    <script>
+        function showTab(id) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            const btn = document.getElementById('btn-tab-' + id);
+            const content = document.getElementById('tab-' + id);
+            if (btn && content) {
+                btn.classList.add('active');
+                content.classList.add('active');
+                setTimeout(renderLatexEquations, 20);
+            }
+        }
+
+        function toggleSnapshot(ver) {
+            const el = document.getElementById('snapshot-' + ver);
+            el.style.display = (el.style.display === 'none' ? 'block' : 'none');
+            if (el.style.display === 'block') {
+                setTimeout(renderLatexEquations, 20);
+            }
+        }
+
+        function openLabelsLegendModal(event) {
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+            const modal = document.getElementById('labels-legend-modal');
+            if (modal) modal.style.display = 'flex';
+        }
+
+        function closeLabelsLegendModal() {
+            const modal = document.getElementById('labels-legend-modal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function closeLegendModalOutside(event) {
+            if (event.target.id === 'labels-legend-modal') {
+                closeLabelsLegendModal();
+            }
+        }
+
+        function renderLatexEquations() {
+            if (typeof renderMathInElement === 'function') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '\\[', right: '\\]', display: true},
+                        {left: '\\(', right: '\\)', display: false}
+                    ],
+                    ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'option'],
+                    throwOnError: false
+                });
+            } else {
+                if (!window._katexRetryCount) window._katexRetryCount = 0;
+                if (window._katexRetryCount < 25) {
+                    window._katexRetryCount++;
+                    setTimeout(renderLatexEquations, 60);
+                }
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", renderLatexEquations);
+        window.addEventListener("load", renderLatexEquations);
+        
+        if (typeof MutationObserver !== 'undefined') {
+            const _mathObserver = new MutationObserver(() => {
+                if (typeof renderMathInElement === 'function') {
+                    _mathObserver.disconnect();
+                    renderLatexEquations();
+                    setTimeout(() => {
+                        const target = document.querySelector('.memo-container') || document.body;
+                        if (target) _mathObserver.observe(target, { childList: true, subtree: true });
+                    }, 250);
+                }
+            });
+            document.addEventListener("DOMContentLoaded", () => {
+                const target = document.querySelector('.memo-container') || document.body;
+                if (target) _mathObserver.observe(target, { childList: true, subtree: true });
+            });
+        }
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                closeEvolutionModal();
+                closeLabelsLegendModal();
+            }
+        });
+    </script>
+</body>
+</html>
