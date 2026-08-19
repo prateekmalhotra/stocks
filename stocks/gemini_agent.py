@@ -773,15 +773,16 @@ CRITICAL AUDITED FINANCIAL REALITY & INTEGRITY CHECKS:
    - Do NOT deduct Non-Controlling Interests (NCI) from cash (NCI is an equity claim on net subsidiary assets, not a cash debt).
    - The resulting figure is the true Unencumbered Surplus Net Cash per Share/ADS.
 3. Foreign Private Issuer (FPI), VIE Structure & Governance Reality:
-   - For foreign companies traded via ADRs/ADSs (e.g. JD, BABA, PDD, SE, ASML, TSM), recognize that insiders do not file domestic Section 16 Form 4s. Beneficial ownership is reported via SEC Form 20-F (Item 6.E), Schedule 13D/G, and Form 3 filings under the HFIAA.
+   - For foreign companies traded via ADRs/ADSs (e.g. JD, BABA, PDD, SE, ASML, TSM), recognize that insiders do not file domestic Section 16 Form 4s. Beneficial ownership is reported via SEC Form 20-F (Item 6.E), Schedule 13D/G, and Form 3 filings under the HFCAA.
    - For Variable Interest Entity (VIE) structures and dual-class shareholdings (e.g. Founder Richard Liu holding 73.1% voting power via Class B shares), explicitly analyze the corporate governance implications, minority shareholder rights, and onshore RMB cash repatriation mechanics.
    - Address PRC statutory reserve fund requirements (10% of after-tax profits retained onshore until 50% of registered capital) and the 10% PRC dividend withholding tax on cash distributions.
+   - Holding Foreign Companies Accountable Act (HFCAA) & Delisting Risk: Explicitly evaluate PCAOB audit inspection compliance, auditor jurisdiction, and the regulatory/legal status of US-listed foreign ADRs/VIEs to assess sovereign delisting or sanctions tail risk.
    - Analyze Synthetic Repatriation & Offshore Debt Dynamics: How the company finances offshore USD cash dividends and ADS repurchases (e.g. via offshore bond offerings) to bypass immediate domestic withholding taxes, and whether accumulating offshore debt creates structural liquidity or interest-coverage risks during a domestic revenue slowdown.
 4. Capital Allocation Discipline (M&A vs. Share Repurchases) & Fixed-Cost Channel Risks:
    - M&A vs. Share Buyback ROIC Arbitrage: When a company pursues large acquisitions of mature or low-margin legacy assets (e.g. Ceconomy), explicitly evaluate whether walking away / deal cancellation represents a stronger bull catalyst for long-term ROIC by preserving cash for accretive share repurchases.
    - Fixed-Cost Operating Leverage vs. Channel Shifts: For asset-heavy infrastructure platforms (e.g. nationwide warehouse networks, captive delivery fleets), evaluate the vulnerability of fixed overhead to secular channel shifts (e.g. search-based e-commerce losing traffic to social/livestreaming commerce), and how volume contraction impacts unit fulfillment margins.
 5. Buffett Country-Specific Valuation & Hurdle Rate:
-   - Use Warren Buffett's standard opportunity-cost hurdle rate (9.0%–10.5%), reflecting the local sovereign rate and equity hurdle. Do NOT apply artificial academic CAPM haircuts; risk is properly accounted for through conservative Owner Earnings projections and demanding a robust Margin of Safety.
+   - Baseline hurdle rate is 9.0%–10.5%. For high-fragility, severe tail-risk setups (e.g. cross-border trade sanctions, regulatory probes), elevate the discount rate to 11.0%–12.0% in the Downside Story to properly price the heightened equity risk premium without relying on artificial academic CAPM haircuts.
 
 Core Topics to Cover:
 1. The Core Business Machine, Moat & 1P vs 3P Unit Economics:
@@ -1045,7 +1046,16 @@ def build_deterministic_valuation_section(
     sec1_text: str = ""
 ) -> Tuple[str, Dict[str, Any]]:
     """Builds the 100% mathematically exact Section 3 DCF and Reverse DCF HTML section."""
-    shares = max(1.0, float(dcf_data.get("diluted_shares") or 1371.0))
+    # Single Source of Truth: Extract Diluted Shares directly from Section 1 if present
+    sec1_shares_match = re.search(r'(?:Diluted Shares|Diluted ADSs|ADSs Outstanding|Shares Outstanding|Diluted Ordinary Shares).*?([0-9,]+(?:\.[0-9]+)?)\s*(?:M|million)', sec1_text or "", re.DOTALL | re.IGNORECASE)
+    if sec1_shares_match:
+        shares = float(sec1_shares_match.group(1).replace(",", ""))
+    else:
+        shares = max(1.0, float(dcf_data.get("diluted_shares") or 1000.0))
+    
+    # Single Source of Truth: Extract Net Cash per Share directly from Section 1 if present
+    sec1_cash_match = re.search(r'(?:Surplus Net Cash / ADS|Surplus Net Cash / Share|Net Cash per ADS|Net Cash per Share|Standalone Net Cash).*?\+\$([0-9,]+(?:\.[0-9]+)?)', sec1_text or "", re.DOTALL | re.IGNORECASE)
+    sec1_net_cash = float(sec1_cash_match.group(1).replace(",", "")) if sec1_cash_match else None
     
     # Calculate exact balance sheet surplus cash in Python
     gross_cash_raw = float(dcf_data.get("gross_cash_usd") or 0.0)
@@ -1062,7 +1072,9 @@ def build_deterministic_valuation_section(
         
     wc_buffer_m = round(annual_rev_m * 0.03, 1) if annual_rev_m > 0 else 0.0
     
-    if gross_cash_raw > 0:
+    if sec1_net_cash is not None and sec1_net_cash > 0:
+        net_cash_per_sh = sec1_net_cash
+    elif gross_cash_raw > 0:
         calc_surplus_m = max(0.0, gross_cash_raw - total_debt_raw - wc_buffer_m - committed_ma_raw)
         net_cash_per_sh = round(calc_surplus_m / shares, 2)
     else:
@@ -1505,13 +1517,26 @@ def research_ownership_writeups(ticker: str, company_name: str) -> List[Dict[str
                                     fund = "Shareholder Letter PDF"
                                     
                                 seen_urls.add(final_url)
+                                # Extract real article meta description or create specific summary
+                                desc_match = re.search(r'<meta\s+(?:name|property)=["\'](?:description|og:description)["\']\s+content=["\']([^"\']+)["\']', res.text, re.IGNORECASE)
+                                if desc_match and len(desc_match.group(1).strip()) > 20:
+                                    art_summary = desc_match.group(1).strip()[:180] + "..."
+                                elif "substack.com" in final_url:
+                                    art_summary = f"In-depth Substack memo detailing {company_name}'s business moat, unit monetization, and margin trajectory."
+                                elif "valueinvestorsclub.com" in final_url:
+                                    art_summary = f"Value Investors Club long/short analysis evaluating {company_name}'s intrinsic value, competitive dynamics, and risk-reward asymmetry."
+                                elif ".pdf" in final_url or "letter" in final_url.lower():
+                                    art_summary = f"Institutional shareholder letter & fund commentary analyzing capital allocation and portfolio position sizing for {company_name}."
+                                else:
+                                    art_summary = f"Fundamental equity research study examining {company_name}'s cash generation, market share durability, and valuation."
+
                                 verified_articles.append({
                                     "title": clean_title or f"{company_name} Investment Thesis",
                                     "fund": fund,
                                     "date": "Verified Due Diligence",
-                                    "summary": f"Comprehensive independent fundamental study of {company_name}'s competitive moat, capital allocation discipline, unit economics, and normalized Owner Earnings valuation.",
+                                    "summary": art_summary,
                                     "url": final_url
-                                    })
+                                })
                                 if len(verified_articles) >= 4:
                                     break
                     except Exception:
