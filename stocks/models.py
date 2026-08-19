@@ -97,6 +97,7 @@ class TaskItem(BaseModel):
     task_type: str
     ticker: str
     notes: Optional[str] = ""
+    payload: Dict[str, Any] = Field(default_factory=dict)
     created_at: str = Field(default_factory=lambda: datetime.now().isoformat())
     status: str = "PENDING"
     error: Optional[str] = None
