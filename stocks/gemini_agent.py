@@ -849,11 +849,13 @@ Your analysis must adhere strictly to these 7 First Principles of Business Valua
 # ==============================================================================
 
 AGENT_1_PREMISE_PROMPT = """Target: {ticker} ({company_name})
-Current Market Price: ${current_price:.2f}
 User Focus / Research Notes: {notes}
 
 You are LLM Agent 1: Company Premise Specialist.
 Your broad goal is to formulate a comprehensive, crystal-clear, plain-English "Premise of the Company" grounded in verified primary data.
+
+BLIND VALUATION & ZERO PRICE BIAS INVARIANT:
+You are analyzing this company 100% blind to current stock market prices or broker consensus targets. Value the enterprise purely as an unlisted private operating business from audited SEC filings, unit economics, and owner cash flows.
 
 MANDATORY RESEARCH & INVESTIGATION DIRECTIVES:
 1. AUDITED FINANCIAL STATEMENTS:
@@ -894,11 +896,13 @@ NO IMAGES, NO INLINE STYLES, NO CODE FENCES. Output pure HTML only."""
 
 
 AGENT_2_STORIES_PROMPT = """Target: {ticker} ({company_name})
-Current Market Price: ${current_price:.2f}
 
 You are LLM Agent 2: 3 Stories Strategist.
 Your input is LLM Agent 1's Company Premise:
 {premise_context}
+
+BLIND VALUATION & ZERO PRICE BIAS INVARIANT:
+You are operating 100% blind to stock market quotations or stock price targets. Formulate business trajectories based strictly on business realities, competitive moats, and operational levers.
 
 MANDATORY RESEARCH & GROUNDING DIRECTIVES:
 - In addition to Agent 1's Company Premise, you can and MUST search and inspect {company_name}'s ({ticker}) latest SEC financial statements (10-K, 10-Q, 20-F) and recent quarterly earnings call transcripts.
@@ -948,7 +952,6 @@ NO IMAGES, NO INLINE STYLES, NO CODE FENCES. Output pure HTML only."""
 
 
 AGENT_3_DCF_EVALUATOR_PROMPT = """Target: {ticker} ({company_name})
-Current Market Price: ${current_price:.2f}
 
 Company Premise:
 {premise_context}
@@ -957,6 +960,9 @@ The 3 Stories:
 {stories_context}
 
 You are LLM Agent 3: Storyline DCF Valuation Specialist.
+
+BLIND VALUATION & ZERO PRICE BIAS INVARIANT:
+You have ZERO knowledge of current stock market price, 52-week ranges, or broker consensus targets. Value the enterprise purely from First Principles of business cash generation as if purchasing 100% of the unlisted private business.
 
 MANDATORY FINANCIAL RESEARCH & AUDITING DIRECTIVES:
 - In addition to the Premise and 3 Stories, you can and MUST search and inspect {company_name}'s ({ticker}) audited SEC financial statements (10-K, 10-Q, 20-F), balance sheet cash/debt, cash flow statements (Operating Cash Flow, Maintenance CapEx, Stock-Based Compensation), and recent earnings call guidance.
@@ -1317,11 +1323,10 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     # ------------------------------------------------------------------
     # Step 1: LLM Agent 1 - Company Premise Specialist
     # ------------------------------------------------------------------
-    print(f"\n🧠 [AGENT 1/3: COMPANY PREMISE] Researching financial statements and last 4 earnings calls...", flush=True)
+    print(f"\n🧠 [AGENT 1/3: COMPANY PREMISE] Researching financial statements and last 4 earnings calls (Blind Valuation Mode)...", flush=True)
     agent_1_prompt = AGENT_1_PREMISE_PROMPT.format(
         ticker=ticker_clean,
         company_name=company_name,
-        current_price=current_price,
         notes=initial_notes or "Synthesize core business model, unit economics, 4-quarter earnings commentary, and balance sheet strength in plain English."
     )
     
@@ -1333,11 +1338,10 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     # ------------------------------------------------------------------
     # Step 2: LLM Agent 2 - 3 Stories Strategist
     # ------------------------------------------------------------------
-    print(f"\n📖 [AGENT 2/3: 3 STORIES GENERATOR] Formulating 3 probable, distinct operational stories...", flush=True)
+    print(f"\n📖 [AGENT 2/3: 3 STORIES GENERATOR] Formulating 3 probable, distinct operational stories (Blind Valuation Mode)...", flush=True)
     agent_2_prompt = AGENT_2_STORIES_PROMPT.format(
         ticker=ticker_clean,
         company_name=company_name,
-        current_price=current_price,
         premise_context=sec1_clean
     )
     
@@ -1349,11 +1353,10 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     # ------------------------------------------------------------------
     # Step 3: LLM Agent 3 / DCF Evaluator - Storyline DCF Valuation Engine
     # ------------------------------------------------------------------
-    print(f"\n🧮 [AGENT 3/3: DCF EVALUATOR] Evaluating DCF parameters & computing 3-story valuation matrix...", flush=True)
+    print(f"\n🧮 [AGENT 3/3: DCF EVALUATOR] Evaluating DCF parameters (Blind Valuation Mode)...", flush=True)
     agent_3_prompt = AGENT_3_DCF_EVALUATOR_PROMPT.format(
         ticker=ticker_clean,
         company_name=company_name,
-        current_price=current_price,
         premise_context=sec1_clean,
         stories_context=sec2_clean
     )
@@ -1458,7 +1461,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         print(f"   ⚠️ Quality Gatekeeper Audit flagged items: {issues}. Auto-healing...", flush=True)
 
     print("\n" + "=" * 70, flush=True)
-    print(f"✅ DOSSIER COMPLETE: {ticker_clean} ({metadata['status_label']}) at ${current_price:.2f}", flush=True)
+    print(f"✅ DOSSIER COMPLETE: {ticker_clean} ({metadata['status_label']}) [Blind Fundamental Evaluation]", flush=True)
     print(f"   │ Signal: {metadata['action_signal']} | Fair Value: {metadata['fair_value_estimate']}", flush=True)
     print(f"   │ Story 1 ({metadata['story1_title']}): {metadata['story1_target']}", flush=True)
     print(f"   │ Story 2 ({metadata['story2_title']}): {metadata['story2_target']}", flush=True)
@@ -1483,18 +1486,15 @@ def review_stock_thesis(
     previous_base_target: str = "",
     previous_bull_target: str = ""
 ) -> Tuple[Dict[str, Any], str]:
-    """Reviews an active stock thesis by executing the overhauled 3-Agent pipeline."""
-    print(f"\n🔄 [3-AGENT RE-EVALUATION] Running fresh coverage pipeline for {ticker} ({company_name})", flush=True)
+    """Reviews an active stock thesis by executing the overhauled 3-Agent pipeline in blind valuation mode."""
+    print(f"\n🔄 [3-AGENT RE-EVALUATION] Running fresh blind coverage pipeline for {ticker} ({company_name})", flush=True)
     print(f"   │ Trigger: {trigger_reason}", flush=True)
-    print(f"   │ Current Price: ${current_price:.2f} | Baseline Price: ${baseline_price:.2f}", flush=True)
 
     update_notes = f"""MATERIAL TRIGGER: {trigger_reason}
-Current Stock Price: ${current_price:.2f} (Baseline: ${baseline_price:.2f})
 Previous Thesis Stance: {previous_status}
 Previous Thesis Summary: {previous_thesis_summary}
-Previous Fair Value: {previous_fair_value or previous_base_target or 'N/A'}
 
-Execute a fresh fundamental evaluation. Re-verify financial statements and the last 4 quarterly earnings call transcripts. Re-evaluate the premise, formulate 3 distinct probable stories, and calculate the DCF valuation matrix."""
+Execute a fresh, blind fundamental evaluation without reference to stock market prices. Re-verify financial statements and the last 4 quarterly earnings call transcripts. Re-evaluate the premise, formulate 3 distinct probable stories, and calculate the DCF valuation matrix."""
 
     metadata, full_html = generate_genesis_thesis(
         ticker=ticker,
