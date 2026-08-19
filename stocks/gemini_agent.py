@@ -739,27 +739,30 @@ AGENT_1_PREMISE_PROMPT = """Target: {ticker} ({company_name})
 User Focus / Research Notes: {notes}
 
 You are LLM Agent 1: Company Premise Specialist.
-Your objective is to research and write a plain-English, deeply insightful "Premise of the Company".
+Your objective is to establish the single audited factual foundation ("The Premise of the Company") for all downstream analysis and valuation.
 
 Guidelines:
 - Blind Valuation: Analyze the business purely as an unlisted private enterprise with zero knowledge of current stock prices.
 - Currency: All figures MUST strictly be in US DOLLARS ($ USD). (Convert foreign currencies at prevailing FX rates; foreign ADRs use US ADS count).
 - Primary Research: Search audited SEC filings (10-K, 10-Q, 20-F) and the last 4 quarterly earnings call transcripts.
-- Core Topics to Cover:
-  1. What the company actually does, how it creates value, customer unit economics, pricing power, and its competitive moat.
-  2. Financial snapshot: Revenue, GAAP Operating Margins, Operating Cash Flow, CapEx, SBC, and Balance Sheet Cash/Debt (in $ USD).
-  3. Leadership narrative: Executive commentary and authentic quotes from the active CEO and CFO across the last 4 quarters.
-  4. Current state of play: Why the business is at a pivotal inflection point today.
+- Current Reporting Period: Explicitly state the latest reported fiscal quarter / period (e.g. "Q3 2024 / LTM Ended Sept 2024").
+
+Core Topics to Cover:
+1. The Core Business Machine: What the company does, customer value proposition, unit economics, pricing power, and durable economic moat.
+2. Audited Financial Baseline (Single Source of Truth in $ USD):
+   - State the exact audited baseline figures: LTM Net Revenue, GAAP Operating Cash Flow (OCF), Maintenance CapEx, Stock-Based Compensation (SBC), Cash & ST Investments, Total Debt, Diluted Share/ADS Count, and Net Cash per share.
+3. Leadership Commentary & 4-Quarter Trajectory: Executive commentary and authentic quotes from the active CEO and CFO across the last 4 quarters.
+4. Current State of Play: Why the business is at a pivotal inflection point today.
 
 Format Section 1 in clean Semantic HTML:
 <h2>Section 1: The Premise of the Company</h2>
 <p>[Plain-English explanation of how the business machine operates, its moat, and customer proposition...]</p>
 
 <div class="metrics-grid">
-  <div class="metric-card"><div class="metric-label">Annual Net Revenue</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">+XX% YoY</div></div>
-  <div class="metric-card"><div class="metric-label">GAAP Operating Margin</div><div class="metric-value">XX.X%</div><div class="metric-delta pos">+XXX bps YoY</div></div>
-  <div class="metric-card"><div class="metric-label">Operating Cash Flow (OCF)</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">GAAP ($ USD)</div></div>
-  <div class="metric-card"><div class="metric-label">Net Cash / Debt Fortress</div><div class="metric-value">+$XX.XXB</div><div class="metric-delta pos">Liquid ($ USD)</div></div>
+  <div class="metric-card"><div class="metric-label">Latest Period / LTM Revenue</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">[e.g. Q3 2024 / +XX% YoY]</div></div>
+  <div class="metric-card"><div class="metric-label">GAAP Operating Cash Flow</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">LTM ($ USD)</div></div>
+  <div class="metric-card"><div class="metric-label">Baseline Owner Earnings</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">OCF - CapEx - SBC</div></div>
+  <div class="metric-card"><div class="metric-label">Net Balance Sheet Cash</div><div class="metric-value">+$XX.XXB</div><div class="metric-delta pos">+$XX.XX / share</div></div>
 </div>
 
 <div class="callout">
@@ -776,19 +779,19 @@ Output pure HTML only (no code fences, no inline styles)."""
 AGENT_2_STORIES_PROMPT = """Target: {ticker} ({company_name})
 
 You are LLM Agent 2: 3 Stories Strategist.
-Here is the Company Premise from Agent 1:
+Here is the Company Premise from Agent 1 (containing the audited financial baseline and latest reporting quarter):
 {premise_context}
 
 Guidelines:
 - Blind Valuation: Formulate business trajectories based strictly on operational realities and competitive dynamics, with zero knowledge of stock market prices.
-- Currency: All figures in $ USD.
+- Currency & Financial Consistency: All figures in $ USD. Anchor all 3 stories directly to the audited baseline numbers (revenue, margins, cash flow) established in Agent 1's Company Premise above. Do not invent contradictory baseline numbers.
 - Primary Research: Search and inspect {company_name}'s latest filings and earnings transcripts.
 
 Your Objective:
 Formulate 3 PROBABLE, DISTINCT BUSINESS STORIES (the 3 probable fundamental paths this business could realistically take over the next 3 to 5 years).
 - Use your own analytical judgment and synthesis. Do NOT follow rigid pre-set templates.
 - Together, these 3 stories should cover approximately 90%–95% of probable fundamental outcomes for the business.
-- Each story should have an authentic descriptive title, clear narrative explanation, expected operating trajectory (revenue, margins, cash flow in $ USD), and key milestones to watch.
+- Each story should have an authentic descriptive title, clear narrative explanation, expected operating trajectory (revenue, margins, owner cash generation in $ USD), and key milestones to watch.
 
 Format Section 2 in clean Semantic HTML:
 <h2>Section 2: 3 Probable Business Stories</h2>
@@ -820,7 +823,7 @@ Output pure HTML only (no code fences, no inline styles)."""
 
 AGENT_3_DCF_EVALUATOR_PROMPT = """Target: {ticker} ({company_name})
 
-Company Premise:
+Company Premise (Audited Financial Baseline & Balance Sheet):
 {premise_context}
 
 The 3 Stories:
@@ -830,10 +833,11 @@ You are LLM Agent 3: Storyline DCF Valuation Specialist.
 
 Guidelines:
 - Blind Valuation: Evaluate cash flows purely from First Principles as if buying 100% of the private enterprise, with zero knowledge of current stock prices.
+- Strict Baseline Consistency: Use the EXACT audited baseline figures established in Section 1 (Base Year 1 Owner Earnings, Net Cash/Debt per share, Diluted Shares/ADSs in $ USD) as the mathematical foundation for your DCF model.
 - Buffett Owner Earnings: Year 1 Owner Earnings = GAAP Operating Cash Flow - Maintenance CapEx - 100% Stock-Based Compensation ($ Millions USD).
 - Discount Rate: 9.0%–10.0% hurdle rate (opportunity cost).
 - Terminal Growth: 1.5%–2.25% (GDP capped).
-- Balance Sheet Bridge: Add Net Cash/Debt per share: (Cash & ST Investments - Total Debt - Leases) / Diluted Shares (ADSs).
+- Balance Sheet Bridge: Use the Net Cash/Debt per share established in Section 1.
 - Currency: All numbers strictly in US DOLLARS ($ USD).
 
 Format Section 3 in clean Semantic HTML:
