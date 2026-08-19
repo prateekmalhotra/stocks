@@ -58,17 +58,10 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
     if open_table != close_table:
         issues.append(f"Mismatched <table> tags ({open_table} opened vs {close_table} closed).")
 
-    # 4. 3-Storyline / Scenario Valuation Matrix & Reverse DCF Presence
-    has_scenarios = any(k in html.lower() for k in ["storyline", "storylines", "trajectory", "trajectories", "scenario", "scenarios", "story 1", "story 2", "story 3", "3 stories", "probable business stories"])
+    # 4. 3-Storyline Valuation Table Presence
+    has_scenarios = any(k in html.lower() for k in ["storyline", "storylines", "trajectory", "trajectories", "scenario", "scenarios", "story 1", "story 2", "story 3", "3 stories", "probable business stories", "owner earnings"])
     if not has_scenarios:
-        issues.append("Missing 3-Storyline / Scenario valuation matrix in Section 3.")
-        
-    has_reverse_dcf = any(k in html.lower() for k in [
-        "priced in", "market-implied", "reverse dcf", "reverse-dcf", "g_implied", 
-        "g_{implied}", "implied cagr", "implied growth", "market expectations", "what is priced in"
-    ])
-    if not has_reverse_dcf:
-        issues.append("Missing Market-Implied Expectations / 'What is Priced In?' Reverse DCF analysis in Section 3.")
+        issues.append("Missing 3-Storyline / Scenario valuation table in Section 3.")
 
     # 5. Clean Semantic Lists (No Raw Markdown Bullets or Nested ULs)
     stray_bullets = len(re.findall(r"^\s*[*•-]\s+\*\*", html, flags=re.MULTILINE))
@@ -271,21 +264,6 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
             s1_num = _parse_p(s1_str)
             if fv_num is not None and s1_num is not None and abs(fv_num - s1_num) > 0.05:
                 issues.append(f"Storyline Target Inconsistency: Headline Fair Value (${fv_num:.2f}) does not match Storyline 1 Calculated Target (${s1_num:.2f}).")
-
-    # 23. Reverse DCF Metadata Synchronization Check
-    if metadata and s3_match:
-        p_in = str(metadata.get("what_is_priced_in", ""))
-        s3_t = s3_match.group(1)
-        m_meta_g = re.search(r"g_implied:\s*([+-]?\d+(?:\.\d+)?%)", p_in)
-        m_sec3_g = re.search(r"(?:Market-Implied\s*5-Year\s*Owner\s*Earnings\s*CAGR|g_\{?(?:\\?text\{)?implied\}?\}?|g_implied).*?([+-]?\d+(?:\.\d+)?%)", s3_t, re.IGNORECASE)
-        if m_meta_g and m_sec3_g:
-            try:
-                g_m = float(m_meta_g.group(1).replace("%", ""))
-                g_s = float(m_sec3_g.group(1).replace("%", ""))
-                if abs(g_m - g_s) > 1.0:
-                    issues.append(f"Reverse DCF Synchronization Contradiction: Metadata header reports implied growth of {g_m:+.1f}%, but Section 3 Reverse DCF calculates {g_s:+.1f}%.")
-            except Exception:
-                pass
 
     # 24. 3 Distinct Storylines Valuation Spread Check
     if metadata and s1 is not None and s2 is not None and s3 is not None:
