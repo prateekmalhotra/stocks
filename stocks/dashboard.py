@@ -377,9 +377,7 @@ def extract_numeric_price(val: Any) -> Optional[float]:
     """Safely extracts a floating point dollar amount from numeric values or formatted strings like '$78.50 (+29.9%)'."""
     if val is None:
         return None
-    if isinstance(val, (int, float)):
-        return float(val)
-    m = re.search(r"\$([0-9]+(?:\.[0-9]+)?)", str(val))
+    m = re.search(r"(?:\$)?\s*([0-9]+(?:\.[0-9]+)?)", str(val))
     if m:
         try:
             return float(m.group(1))

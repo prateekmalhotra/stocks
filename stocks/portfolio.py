@@ -178,11 +178,20 @@ def sync_live_market_data() -> Dict[str, Any]:
     return live_quotes
 
 
-def get_enriched_portfolio(total_capital: float = 200000.0, portfolio_type: str = "defensive") -> Dict[str, Any]:
+def get_enriched_portfolio(total_capital: Any = 200000.0, portfolio_type: str = "defensive") -> Dict[str, Any]:
     """
     Enriches the selected portfolio with live prices, fair values, margins of safety,
     owner earnings yields, dollar allocations, and exact share counts.
     """
+    if isinstance(total_capital, str):
+        portfolio_type = total_capital
+        total_capital = 200000.0
+    else:
+        try:
+            total_capital = float(total_capital)
+        except Exception:
+            total_capital = 200000.0
+            
     state = load_portfolio_state(portfolio_type)
     watchlist_data = {}
     if WATCHLIST_FILE.exists():
