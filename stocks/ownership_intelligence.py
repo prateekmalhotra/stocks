@@ -762,8 +762,19 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
         </div>
         """
 
-    trade_count_display = len(oi_trades) if oi_trades else "Live Audit"
+    trade_count_display = len(oi_trades) if oi_trades else ("FPI Ownership Ledger" if is_fpi_issuer else "Form 4 Ledger")
     fund_count_display = len(combined_holders)
+
+    whale_buyers = sum(1 for dr in dr_holders if any(k in dr.get("recent_activity", "").upper() for k in ["BUY", "ADD", "NEW"]))
+    whale_sellers = sum(1 for dr in dr_holders if any(k in dr.get("recent_activity", "").upper() for k in ["REDUCE", "SELL"]))
+    if whale_buyers > whale_sellers and whale_buyers > 0:
+        whale_flow_note = f"🟢 {whale_buyers} Whales Adding / {whale_sellers} Trimming"
+    elif whale_sellers > whale_buyers and whale_sellers > 0:
+        whale_flow_note = f"🔴 {whale_sellers} Whales Trimming / {whale_buyers} Adding"
+    elif len(dr_holders) > 0:
+        whale_flow_note = f"🟡 {len(dr_holders)} Superinvestor Positions Monitored"
+    else:
+        whale_flow_note = "Audited SEC Filings & Superinvestor Portfolios"
 
     return f"""
     <div class="ownership-container">
@@ -776,14 +787,14 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
                     <span class="stat-note">Tracked across SEC 13F Filings</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">Insider Trading Sentiment</span>
+                    <span class="stat-label">Insider & Beneficial Sentiment</span>
                     <span class="stat-num" style="color: {insider_intel['color']}; font-family: var(--font-sans); font-size: 1.25rem;">{insider_intel['badge_html']}</span>
                     <span class="stat-note">{insider_intel['summary']}</span>
                 </div>
                 <div class="stat-box">
                     <span class="stat-label">Whale & Superinvestor Tracking</span>
                     <span class="stat-num" style="color: var(--accent-warm);">{fund_count_display} Funds Tracked</span>
-                    <span class="stat-note">{trade_count_display} Recent Form 4 Transactions Audited</span>
+                    <span class="stat-note">{whale_flow_note}</span>
                 </div>
             </div>
 

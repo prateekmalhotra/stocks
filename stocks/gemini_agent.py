@@ -761,9 +761,11 @@ CRITICAL AUDITED FINANCIAL REALITY & INTEGRITY CHECKS:
 3. Cash Flow Compression & Grounded Realism:
    - Search the ACTUAL Statement of Cash Flows for the latest completed fiscal year and recent quarters.
    - Ground Baseline Owner Earnings in the actual audited recent cash generation reality, accounting for margin pressure, working capital dynamics, and capital intensity.
-4. Major M&A Commitments & Capital Outlays Check:
-   - Search for any major recently announced or pending M&A transactions, capital commitments, or acquisitions.
-   - When deriving Net Balance Sheet Cash, deduct committed acquisition cash outlays and incorporate inherited debt liabilities to establish the true Unencumbered Net Cash per Share/ADS.
+4. Balance Sheet Surplus Cash & Working Capital Reality:
+   - Search for any major recently announced or pending M&A transactions, capital commitments, or acquisitions (e.g. Ceconomy).
+   - High-volume retail and operating businesses require cash buffers (~2% of annual revenue) for working capital and inventory funding.
+   - When deriving Net Balance Sheet Cash, deduct required operating cash buffers, committed acquisition cash outlays, and non-controlling interests (NCI) to establish the true Unencumbered Surplus Net Cash per Share/ADS.
+   - For foreign issuers, evaluate cash through capital allocation realities (onshore operational reinvestment, dividend withholding, or offshore buyback execution).
 5. Currency Notation Rigor:
    - NEVER use the dollar sign `$` when referring to RMB or foreign currencies. Use `¥` for Chinese Yuan / RMB, `€` for Euros, and `$` strictly for US Dollars. Always write conversions clearly (e.g. `¥19.0B RMB (~$2.72B USD)`).
 6. Buffett Country-Specific Valuation & Hurdle Rate:
@@ -778,9 +780,9 @@ Core Topics to Cover:
    - Latest GAAP Operating Cash Flow (OCF) ($ Millions USD)
    - Annual CapEx ($ Millions USD) & Stock-Based Compensation (SBC) ($ Millions USD)
    - Baseline Base Year 1 Owner Earnings: OE₁ = OCF - Maintenance CapEx - SBC ($ Millions USD)
-   - Balance Sheet Cash & ST Investments ($ Millions USD) vs Total Funded Debt & Leases ($ Millions USD), adjusted for committed M&A cash outlays.
+   - Balance Sheet Cash & ST Investments ($ Millions USD) vs Total Funded Debt & Leases ($ Millions USD), adjusted for working capital buffers and committed M&A cash outlays.
    - Diluted Shares / ADSs Outstanding (Millions)
-   - Unencumbered Net Cash / (Debt) per Share/ADS in USD.
+   - Unencumbered Surplus Net Cash / (Debt) per Share/ADS in USD.
 3. Leadership Commentary & 4-Quarter Trajectory: Executive commentary and authentic quotes from the active CEO and CFO across the last 4 quarters.
 4. Current State of Play: Why the business is at a pivotal inflection point today.
 
@@ -792,7 +794,7 @@ Format Section 1 in clean Semantic HTML:
   <div class="metric-card"><div class="metric-label">Latest Period / LTM Revenue</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">[e.g. FY 2025 / +XX% YoY]</div></div>
   <div class="metric-card"><div class="metric-label">GAAP Operating Cash Flow</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">Latest Period ($ USD)</div></div>
   <div class="metric-card"><div class="metric-label">Baseline Owner Earnings</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">OCF - CapEx - SBC</div></div>
-  <div class="metric-card"><div class="metric-label">Net Balance Sheet Cash</div><div class="metric-value">+$XX.XXB</div><div class="metric-delta pos">+$XX.XX / share (Unencumbered)</div></div>
+  <div class="metric-card"><div class="metric-label">Net Balance Sheet Cash</div><div class="metric-value">+$XX.XXB</div><div class="metric-delta pos">+$XX.XX / share (Unencumbered Surplus)</div></div>
 </div>
 
 <div class="callout">
@@ -817,6 +819,8 @@ Guidelines:
 - Currency & Financial Consistency: All figures in $ USD. Anchor all 3 stories directly to the audited baseline numbers (revenue, margins, cash flow) established in Agent 1's Company Premise above.
 - Grounded Growth Realism: If the company is currently navigating price wars, consumer trading down, or heavy CapEx cycles, do NOT assume unrealistic runaway growth (e.g. +16% CAGR on an inflated base). Calibrate organic growth rates to the competitive reality.
 - Primary Research: Search and inspect {company_name}'s latest filings and earnings transcripts.
+- Strategic Moat & Model Trade-Offs: If analyzing a 1P retail vs 3P marketplace transition, explicitly address the trade-offs (e.g. 3P improves gross margins but introduces quality control and fulfillment differentiation challenges vs pure 1P).
+- Rigorous Downside Stress Test: At least one story (Story 2 or Story 3) must be a rigorous downside stress test modeling severe competitive price wars, gross margin compression, negative cash flow CAGR (-5% to -15%), and minimal terminal expansion.
 
 FIRST-PRINCIPLES BUSINESS METRIC CHAIN (NO ARBITRARY GROWTH ASSUMPTIONS):
 - Revenue is driven by explicit operational business metrics reported by the company (e.g. active customer counts, unit volume, order frequency, pricing/AOV, capacity ramps, store/resort openings, or take rates).
@@ -1040,7 +1044,7 @@ def build_deterministic_valuation_section(
     s2_gt = float(dcf_data.get("story2_terminal") or 0.0225)
     s2_narrative = dcf_data.get("story2_narrative") or "Aggressive 3P marketplace advertising and logistics scaling."
     
-    # Story 3 parameters
+    # Story 3 parameters (Defensive Floor / Severe Downside Stress Test)
     s3_title = dcf_data.get("story3_title") or "Macro Consumption Stagnation & Margin Compression"
     raw_s3_oe0 = float(dcf_data.get("story3_oe0") or (s1_oe0 * 0.60))
     if base_anchor and (raw_s3_oe0 > base_anchor * 1.2 or raw_s3_oe0 < base_anchor * 0.2):
@@ -1048,19 +1052,22 @@ def build_deterministic_valuation_section(
     else:
         s3_oe0 = raw_s3_oe0
         
-    s3_g = float(dcf_data.get("story3_growth") or -0.05)
+    s3_g = float(dcf_data.get("story3_growth") or -0.09)
     s3_r = float(dcf_data.get("story3_discount") or 0.105)
     s3_gt = float(dcf_data.get("story3_terminal") or 0.015)
-    s3_narrative = dcf_data.get("story3_narrative") or "Intense price competition and persistent macroeconomic headwinds."
+    s3_narrative = dcf_data.get("story3_narrative") or "Intense price competition, gross margin compression, and persistent operational drag."
     
     # Compute Exact Deterministic DCF in Python
     dcf1 = compute_deterministic_dcf(s1_oe0, s1_g, s1_r, s1_gt, shares, net_cash_per_sh)
     dcf2 = compute_deterministic_dcf(s2_oe0, s2_g, s2_r, s2_gt, shares, net_cash_per_sh)
     dcf3 = compute_deterministic_dcf(s3_oe0, s3_g, s3_r, s3_gt, shares, net_cash_per_sh)
     
-    # Compute 2D Reverse DCF Matrix across discount rates and starting FCF levels
+    # Compute 2D Reverse DCF Matrix across discount rates and 3 distinct starting FCF levels
     target_op_ev = max(100.0, (current_price - net_cash_per_sh) * shares)
-    fcf_levels = [round(s3_oe0, 0), round(s1_oe0, 0), round(s2_oe0, 0)]
+    fcf_trough = round(s1_oe0 * 0.65, 0)
+    fcf_base = round(s1_oe0, 0)
+    fcf_peak = round(s1_oe0 * 1.35, 0)
+    fcf_levels = [fcf_trough, fcf_base, fcf_peak]
     rates = [0.095, 0.105, 0.115]
     
     rev_matrix = {}
@@ -1069,7 +1076,7 @@ def build_deterministic_valuation_section(
         for r in rates:
             rev_matrix[fcf][r] = solve_implied_growth(target_op_ev, fcf, r, terminal_growth=0.02)
             
-    base_implied_g = rev_matrix[round(s1_oe0, 0)][0.095]
+    base_implied_g = rev_matrix[fcf_base][0.095]
     
     # Build Semantic HTML
     html = f"""<h2>Section 3: Valuation Across the 3 Stories</h2>
