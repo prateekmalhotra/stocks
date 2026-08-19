@@ -276,7 +276,12 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
             issues.append("Storyline Diversity Failure: All 3 storylines produced identical valuation targets. Storylines must represent 3 distinct operating trajectories.")
 
     # 25. USD Currency Standardization Invariant Check (Check for un-converted foreign currency standalone values)
-    unconverted_foreign = re.findall(r"(?:[¥€£]\s*[\d,]+(?:\.\d+)?\s*(?:[BM]|billion|million)?(?!\s*\([^)]*\$\s*[\d,]+))\b", html, re.IGNORECASE)
+    foreign_pat = r"[¥€£]\s*[\d,]+(?:\.\d+)?\s*(?:(?:billion|million|trillion|[BM])\b)?\s*(?:(?:RMB|CNY|EUR|GBP|JPY)\b)?"
+    unconverted_foreign = []
+    for m in re.finditer(foreign_pat, html, re.IGNORECASE):
+        after_str = html[m.end():m.end()+50]
+        if not re.search(r"^\s*(?:/ADS|/share|/sh)?\s*\([^\)]*?\$", after_str):
+            unconverted_foreign.append(m.group(0).strip())
     if unconverted_foreign:
         issues.append(f"Foreign Currency Standardization Failure: Found standalone unconverted foreign currency values ({unconverted_foreign[:3]}). All figures must be converted to US Dollars ($ USD).")
 
