@@ -796,7 +796,7 @@ CRITICAL AUDITED FINANCIAL REALITY & INTEGRITY CHECKS:
      * Total Funded Debt & Capital Leases
      * Cross-border dividend withholding taxes or upstream cash repatriation friction from operating subsidiaries to the offshore parent.
      * Committed M&A Cash Outlays & Inherited Net Debt.
-     * Non-Consolidated Equity Affiliates / SOTP Value: If the company holds major non-consolidated equity-method investments (e.g. Alibaba's 33% equity stake in Ant Group), explicitly value them conservatively as a dedicated non-operating equity asset line item on the balance sheet bridge ($ USD per share/ADS).
+     * Non-Consolidated Equity Affiliates / SOTP Value: If the company holds major non-consolidated equity-method investments, associates, or joint ventures, explicitly value them conservatively as a dedicated non-operating equity asset line item on the balance sheet bridge ($ USD per share/ADS).
      * AI Hardware Obsolescence Treadmill: For AI hyperscalers and cloud operators, recognize that rapidly depreciating compute clusters (3-4 year replacement cycle) blur the line between Growth and Maintenance CapEx; audit ongoing maintenance reinvestment needs realistically.
    - The resulting figure is the true Unencumbered Surplus Net Cash & Asset Value per Share/ADS.
 3. Historical Corporate Trauma & Underwriting Post-Mortem:
@@ -971,7 +971,7 @@ Calculate the intrinsic fair value per share (or per ADS for ADRs) in USD using 
 7. Add the Net Surplus Cash and Non-Operating Strategic Equity Affiliates per Share/ADS (in USD) from the balance sheet bridge to get the final Intrinsic Fair Value per Share in USD.
 
 SANITY CHECK:
-- Final fair value per share MUST be a realistic per-share price in USD (e.g. $50 to $300 for BABA, NOT the total company market cap).
+- Final fair value per share MUST be the realistic intrinsic per-share value in USD (divided by total diluted shares/ADSs, NOT the total company enterprise value in Millions/Billions).
 
 Respond ONLY with a JSON block:
 ```json
