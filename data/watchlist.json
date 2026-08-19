@@ -1,1 +1,48 @@
-{}
+{
+  "BABA": {
+    "ticker": "BABA",
+    "company_name": "Alibaba Group Holding Limited",
+    "baseline_price": 128.04,
+    "current_price": 128.11,
+    "return_pct": 0.05,
+    "status_label": "Solid Conviction",
+    "labels": [
+      "Solid Conviction",
+      "Ai Cloud",
+      "E Commerce"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$19406.73",
+    "story1_target": "$19406.73 (+15056.8%)",
+    "story2_target": "$30821.73 (+23972.0%)",
+    "story3_target": "$3724.20 (+2808.6%)",
+    "story1_title": "Base Case: AI Cloud Monetization & E-Commerce Stabilization",
+    "story2_title": "Bull Case: AI Infrastructure Tollbridge & E-Commerce Monetization Power",
+    "story3_title": "Bear Case: Competitive Friction, Price Wars & RMB FX Depreciation",
+    "bear_target": "$3724.20 (+2808.6%)",
+    "base_target": "$19406.73 (+15056.8%)",
+    "bull_target": "$30821.73 (+23972.0%)",
+    "what_is_priced_in": "Market prices in -73.9% annual growth (surplus-adjusted) vs Story 1 $19406.73 value",
+    "upper_alert_threshold": 30821.73,
+    "lower_alert_threshold": 115.24,
+    "next_catalyst_date": "2026-11-17",
+    "next_catalyst_event": "Scheduled quarterly report",
+    "top_funds": [
+      "Dennis Hong - ShawSpring Partners (16.92)",
+      "David Tepper - Appaloosa Management (2.57)",
+      "Francis Chou - Chou Associates (1.86)",
+      "Sarah Ketterer - Causeway Capital Management (1.04)",
+      "Dodge & Cox Funds (0.50)",
+      "Duan Yongping - H&H International Investment (0.15)",
+      "Tweedy Browne (0.03)",
+      "Richard Pzena - Pzena Investment Management (0.01)",
+      "Bill Nygren - Oakmark Funds (0.00)"
+    ],
+    "institutional_ownership_pct": "9 Whales",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Audited SEC Form 3 / 20-F / Form 4 filings.",
+    "last_updated": "2026-08-19",
+    "total_versions": 1,
+    "report_path": "reports/BABA.html"
+  }
+}
