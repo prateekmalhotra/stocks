@@ -255,10 +255,37 @@ def normalize_action_signal(signal: Any, default: str = "BUY") -> str:
     return default
 
 
+# Shared persistent session with connection pooling
+_GEMINI_SESSION: Optional[requests.Session] = None
+
+def get_gemini_session() -> requests.Session:
+    global _GEMINI_SESSION
+    if _GEMINI_SESSION is None:
+        import urllib3
+        from requests.adapters import HTTPAdapter
+        s = requests.Session()
+        adapter = HTTPAdapter(
+            pool_connections=10,
+            pool_maxsize=20,
+            max_retries=urllib3.util.Retry(
+                total=2,
+                backoff_factor=0.5,
+                status_forcelist=[500, 502, 503, 504],
+                raise_on_status=False
+            )
+        )
+        s.mount("https://", adapter)
+        s.mount("http://", adapter)
+        _GEMINI_SESSION = s
+    return _GEMINI_SESSION
+
+
 def call_gemini_with_search(prompt: str, system_instruction: str = "", temperature: float = 0.4, use_search: bool = True, override_model: str = "") -> str:
-    """Calls Gemini via REST API with optional Google Search Grounding, exponential retry, and session failover."""
+    """Calls Gemini via REST API with optional Google Search Grounding, exponential backoff with jitter, and automatic ladder failover."""
     import time
+    import random
     api_key = get_api_key()
+    session = get_gemini_session()
     
     payload: Dict[str, Any] = {
         "contents": [{"parts": [{"text": prompt}]}],
@@ -285,10 +312,10 @@ def call_gemini_with_search(prompt: str, system_instruction: str = "", temperatu
     last_err = None
     for model_name in models_to_try:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
-        max_retries = 2
+        max_retries = 3
         for attempt in range(1, max_retries + 1):
             try:
-                response = requests.post(url, json=payload, timeout=180)
+                response = session.post(url, json=payload, timeout=180)
                 if response.status_code == 200:
                     res_json = response.json()
                     candidate = res_json.get("candidates", [{}])[0]
@@ -301,7 +328,7 @@ def call_gemini_with_search(prompt: str, system_instruction: str = "", temperatu
                         fallback_prompt = prompt + "\n\nCRITICAL: Paraphrase all data in your own original analytical words. Do NOT quote verbatim text."
                         payload["contents"] = [{"parts": [{"text": fallback_prompt}]}]
                         payload["generationConfig"]["temperature"] = 0.7
-                        retry_res = requests.post(url, json=payload, timeout=180)
+                        retry_res = session.post(url, json=payload, timeout=180)
                         if retry_res.status_code == 200:
                             retry_json = retry_res.json()
                             retry_parts = retry_json.get("candidates", [{}])[0].get("content", {}).get("parts", [])
@@ -312,8 +339,9 @@ def call_gemini_with_search(prompt: str, system_instruction: str = "", temperatu
                     return "Analysis completed."
                 elif response.status_code in (500, 502, 503, 504, 429):
                     if attempt < max_retries:
-                        wait_time = attempt * 4
-                        print(f"  ⚠️ Gemini API ({model_name}) returned {response.status_code}. Retrying in {wait_time}s (Attempt {attempt}/{max_retries})...", flush=True)
+                        jitter = random.uniform(0.5, 1.8)
+                        wait_time = round(min(24.0, (2.0 ** attempt) + jitter), 2)
+                        print(f"  ⚠️ Gemini API ({model_name}) returned HTTP {response.status_code}. Retrying in {wait_time}s (Attempt {attempt}/{max_retries})...", flush=True)
                         time.sleep(wait_time)
                         continue
                     elif model_name != models_to_try[-1]:
@@ -322,9 +350,10 @@ def call_gemini_with_search(prompt: str, system_instruction: str = "", temperatu
                 else:
                     last_err = RuntimeError(f"Gemini API error ({response.status_code}): {response.text}")
                     break
-            except requests.RequestException as req_err:
+            except (requests.RequestException, Exception) as req_err:
                 if attempt < max_retries:
-                    wait_time = attempt * 4
+                    jitter = random.uniform(0.5, 1.8)
+                    wait_time = round(min(24.0, (2.0 ** attempt) + jitter), 2)
                     print(f"  ⚠️ Network/Connection error on {model_name} ({req_err}). Retrying in {wait_time}s (Attempt {attempt}/{max_retries})...", flush=True)
                     time.sleep(wait_time)
                     continue
@@ -1581,10 +1610,7 @@ def research_ownership_writeups(ticker: str, company_name: str) -> List[Dict[str
 
 def research_institutional_funds(ticker: str, company_name: str) -> Dict[str, Any]:
     """Specialized Subagent Prompt: Searches live web for comprehensive 13F institutional shareholders and WhaleWisdom holdings."""
-    api_key = get_api_key()
     clean_t = ticker.upper().strip()
-    headers = {"Content-Type": "application/json"}
-    
     prompt = f"""You are an elite SEC Form 13F institutional equity ownership auditor.
 Search the live web for the top institutional shareholders and 13F fund holdings of {clean_t} ({company_name}) from WhaleWisdom, SEC Form 13F filings, Nasdaq, Fintel, or Morningstar.
 
@@ -1605,37 +1631,12 @@ Extract and return a JSON object with:
 Provide 8 to 12 top institutional holders with realistic/exact 13F share amounts, stake percentages, and dollar values.
 Respond ONLY with the JSON object enclosed in ```json ```.
 """
-
-    payload = {
-        "contents": [{"parts": [{"text": prompt}]}],
-        "tools": [{"google_search": {}}],
-        "generationConfig": {"temperature": 0.1}
-    }
-    
-    active_m = get_active_model()
-    start_idx = GEMINI_MODELS_LADDER.index(active_m) if active_m in GEMINI_MODELS_LADDER else 0
-    models_to_try = GEMINI_MODELS_LADDER[start_idx:]
-
-    for model_name in models_to_try:
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
-        try:
-            resp = requests.post(url, headers=headers, json=payload, timeout=60)
-            if resp.status_code == 200:
-                data = resp.json()
-                text = data["candidates"][0]["content"]["parts"][0]["text"]
-                m = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", text, re.DOTALL)
-                if m:
-                    return json.loads(m.group(1))
-                break
-            elif resp.status_code in (500, 502, 503, 504, 429) and model_name != GEMINI_MODELS_LADDER[-1]:
-                switch_to_fallback_model(f"HTTP {resp.status_code}")
-                continue
-        except Exception as e:
-            if model_name != GEMINI_MODELS_LADDER[-1]:
-                switch_to_fallback_model(str(e))
-                continue
-            print(f"Error researching institutional funds for {clean_t}: {e}")
-    return {}
+    try:
+        raw = call_gemini_with_search(prompt, temperature=0.1, use_search=True)
+        return extract_json_block(raw)
+    except Exception as e:
+        print(f"Error researching institutional funds for {clean_t}: {e}")
+        return {}
 
 
 def research_insider_intel(ticker: str, company_name: str) -> Dict[str, Any]:
