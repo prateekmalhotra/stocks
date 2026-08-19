@@ -292,6 +292,11 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
         if abs(s1 - s2) < 0.05 and abs(s2 - s3) < 0.05:
             issues.append("Storyline Diversity Failure: All 3 storylines produced identical valuation targets. Storylines must represent 3 distinct operating trajectories.")
 
+    # 25. USD Currency Standardization Invariant Check
+    foreign_currencies = re.findall(r"\b(?:RMB|CNY|EUR|JPY|GBP)\b|[¥€£]", html)
+    if foreign_currencies:
+        issues.append(f"Foreign Currency Standardization Failure: Found non-USD currency markers ({set(foreign_currencies)}) in thesis. All figures must strictly be denominated in US Dollars ($ USD).")
+
     return len(issues) == 0, issues
 
 

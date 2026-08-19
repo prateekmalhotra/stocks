@@ -562,11 +562,23 @@ def verify_and_repair_html_structure(html: str) -> str:
     cleaned = re.sub(r'\bмиллион\b', 'million', cleaned, flags=re.IGNORECASE)
     cleaned = re.sub(r'[\u0400-\u04FF]+', '', cleaned) # Strip any remaining Cyrillic tokens
     
-    # 0.5 Clean contradictory currency labels (e.g. $ Millions CNY -> RMB Millions (¥))
-    cleaned = re.sub(r'\$\s*Millions\s*CNY\b', 'RMB Millions (¥)', cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r'\$\s*Millions\s*RMB\b', 'RMB Millions (¥)', cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r'\$\s*Billions\s*CNY\b', 'RMB Billions (¥)', cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r'\$\s*Billions\s*RMB\b', 'RMB Billions (¥)', cleaned, flags=re.IGNORECASE)
+    # 0.5 Strict USD Currency Standardization (Zero RMB, CNY, EUR, JPY, GBP)
+    # Convert and normalize currency labels into USD ($)
+    cleaned = re.sub(r'RMB\s*Millions\s*\(¥\)', '$ Millions USD', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'RMB\s*Billions\s*\(¥\)', '$ Billions USD', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'\$\s*Millions\s*CNY\b', '$ Millions USD', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'\$\s*Millions\s*RMB\b', '$ Millions USD', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'\$\s*Billions\s*CNY\b', '$ Billions USD', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'\$\s*Billions\s*RMB\b', '$ Billions USD', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'CNY\s*Millions\b', '$ Millions USD', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'CNY\s*Billions\b', '$ Billions USD', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'EUR\s*Millions\b', '$ Millions USD', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'EUR\s*Billions\b', '$ Billions USD', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'¥\s*([\d,]+(?:\.\d+)?)', r'$\1', cleaned)
+    cleaned = re.sub(r'€\s*([\d,]+(?:\.\d+)?)', r'$\1', cleaned)
+    cleaned = re.sub(r'£\s*([\d,]+(?:\.\d+)?)', r'$\1', cleaned)
+    cleaned = re.sub(r'\bRMB\s*([\d,]+(?:\.\d+)?)', r'$\1', cleaned)
+    cleaned = re.sub(r'\bCNY\s*([\d,]+(?:\.\d+)?)', r'$\1', cleaned)
     
     # 1. Strip code fences, json blocks
     cleaned = re.sub(r"```(?:html|json)?", "", cleaned, flags=re.IGNORECASE)
@@ -830,13 +842,11 @@ Your analysis must adhere strictly to these 7 First Principles of Business Valua
    - For global export and cross-border direct-to-consumer platforms (e.g. Temu, Shein, AliExpress), stress-test the operational transition from duty-free air parcels (US $800 / EU €150 de minimis exemptions) to semi-managed local bonded warehouse fulfillment.
    - Model the resulting compression in gross take rates and higher localized merchant inventory holding overhead in Bear and Base case margin projections.
 
-   Pillar 17: 3 Organic Business Storylines Operational Matrix
-   - Value the business through 3 distinct, organic, company-specific narrative storylines (with descriptive titles) grounded in the company's real operational mechanics, customer adoption, pricing power, and last 2 quarterly earnings transcripts, rather than rigid Bear/Base/Bull priming.
-   - Flow each storyline top-down through unit economics: Volume x Price -> Revenue -> Gross Margin -> OpEx Floor -> EBIT -> Owner Earnings (OE₁).
-
-   Pillar 18: Zero Price Anchoring & Anti-Wall-Street Consensus Shield
-   - TOTAL BAN ON WALL STREET SELL-SIDE ANALYST TARGETS: Sell-side broker price targets and ratings (Goldman Sachs, Morgan Stanley, TipRanks, broker consensus) are momentum-driven marketing noise designed for trading flow. You are strictly FORBIDDEN from searching, quoting, or anchoring to Wall Street analyst price targets or buy/sell recommendations. Value the enterprise purely as an unlisted private business from primary SEC filings, audited unit economics, and owner cash flows.
-   - ZERO STOCK CHART BIAS: Do not treat stock price declines as evidence of cheapness or past stock runs as evidence of overvaluation. Intrinsic value is independent of Mr. Market's daily quotations.
+   Pillar 19: Strict USD Currency Standardization & Mandatory FX Conversion
+   - MANDATORY USD CURRENCY DENOMINATION: Every single financial metric, stat card, segment revenue, operating cash flow, CapEx, debt, cash, and DCF valuation across the entire dossier MUST strictly be converted to and presented in US DOLLARS ($ USD).
+   - If a company reports in foreign currency (e.g. RMB/CNY, EUR, JPY, GBP, NTD, BRL), you MUST convert every number to USD ($) at prevailing exchange rates (e.g. for Chinese companies, divide RMB by ~7.15).
+   - Zero RMB (¥ / CNY), zero EUR (€), zero foreign currency symbols or labels in text, tables, metrics cards, or JSON blocks.
+   - For foreign ADRs, the share count denominator MUST strictly be the US-traded ADS (American Depositary Share) count so per-share numbers are directly in USD per ADS / USD per share.
 
 5. Editorial Aesthetics & Structural Clarity:
    - Format financial KPIs and segment data into `<div class="metrics-grid"><div class="metric-card">...</div></div>` or structured HTML tables. Zero raw text dumps.
@@ -857,12 +867,17 @@ Your broad goal is to formulate a comprehensive, crystal-clear, plain-English "P
 BLIND VALUATION & ZERO PRICE BIAS INVARIANT:
 You are analyzing this company 100% blind to current stock market prices or broker consensus targets. Value the enterprise purely as an unlisted private operating business from audited SEC filings, unit economics, and owner cash flows.
 
+MANDATORY USD CONVERSION & ZERO FOREIGN CURRENCY INVARIANT:
+- ALL financial numbers, metrics, segment revenues, operating cash flows, CapEx, debt, cash, and balance sheet figures MUST strictly be converted to and denominated in US DOLLARS ($ USD) at prevailing FX exchange rates (e.g. for RMB divide by ~7.15, EUR convert to USD).
+- Zero RMB (¥ / CNY), zero EUR (€), zero foreign currencies anywhere in your analysis, stat cards, executive quotes, or commentary.
+- For foreign ADRs (e.g. JD, BABA, PDD, TSM, NIO), use the US-listed ADS (American Depositary Share) share count.
+
 MANDATORY RESEARCH & INVESTIGATION DIRECTIVES:
 1. AUDITED FINANCIAL STATEMENTS:
    - Search SEC 10-K, 10-Q, 20-F filings or audited financial releases for:
-     * Annual / LTM Net Revenue, segment breakdowns, and gross margin profiles.
-     * GAAP Operating Income (EBIT), GAAP Operating Cash Flow, Maintenance/Growth CapEx, and Stock-Based Compensation (SBC).
-     * Balance Sheet Fortress: Cash, cash equivalents, short-term investments, funded debt, lease liabilities (ASC 842), and net cash/debt.
+     * Annual / LTM Net Revenue (in $ USD Billions), segment breakdowns, and gross margin profiles.
+     * GAAP Operating Income (EBIT), GAAP Operating Cash Flow, Maintenance/Growth CapEx, and Stock-Based Compensation (SBC) in $ USD.
+     * Balance Sheet Fortress: Cash, cash equivalents, short-term investments, funded debt, lease liabilities (ASC 842), and net cash/debt in $ USD.
      * Capital Structure: Diluted shares outstanding / Diluted ADSs, share buybacks vs equity dilution trajectory.
 2. LAST 4 QUARTERLY EARNINGS CALL TRANSCRIPTS:
    - Search and synthesize the LAST 4 QUARTERLY EARNINGS CALL TRANSCRIPTS (e.g. Q1, Q2, Q3, Q4 / the 4 most recent reporting quarters).
@@ -876,12 +891,12 @@ EDITORIAL & FORMATTING DIRECTIVES:
 - Structure Section 1 in clean Semantic HTML (<div class="section">...</div> or direct HTML tags) with:
   * <h2>Section 1: The Premise of the Company</h2>
   * Plain-English Business Overview (The Core Machine): How the business operates, customer value proposition, unit economics, switching costs, and competitive moat.
-  * Financial Reality & Balance Sheet Snapshot:
+  * Financial Reality & Balance Sheet Snapshot (All figures strictly in $ USD):
     <div class="metrics-grid">
       <div class="metric-card"><div class="metric-label">Annual / LTM Net Revenue</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">+XX% YoY</div></div>
       <div class="metric-card"><div class="metric-label">GAAP Operating Margin</div><div class="metric-value">XX.X%</div><div class="metric-delta pos">+XXX bps YoY</div></div>
-      <div class="metric-card"><div class="metric-label">Operating Cash Flow (OCF)</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">GAAP</div></div>
-      <div class="metric-card"><div class="metric-label">Net Cash / Debt Fortress</div><div class="metric-value">+$XX.XXB</div><div class="metric-delta pos">Liquid</div></div>
+      <div class="metric-card"><div class="metric-label">Operating Cash Flow (OCF)</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">GAAP ($ USD)</div></div>
+      <div class="metric-card"><div class="metric-label">Net Cash / Debt Fortress</div><div class="metric-value">+$XX.XXB</div><div class="metric-delta pos">Liquid ($ USD)</div></div>
     </div>
   * Last 4 Earnings Calls: Management Commentary & Operational Arc:
     A dedicated executive commentary box synthesizing the 4 quarters with authentic executive quotes:
@@ -904,6 +919,10 @@ Your input is LLM Agent 1's Company Premise:
 BLIND VALUATION & ZERO PRICE BIAS INVARIANT:
 You are operating 100% blind to stock market quotations or stock price targets. Formulate business trajectories based strictly on business realities, competitive moats, and operational levers.
 
+MANDATORY USD CONVERSION & ZERO FOREIGN CURRENCY INVARIANT:
+- All financial metrics, segment revenues, margin expansions, and cash flows mentioned across all 3 stories MUST strictly be denominated in US DOLLARS ($ USD).
+- Zero RMB, zero EUR, zero foreign currencies.
+
 MANDATORY RESEARCH & GROUNDING DIRECTIVES:
 - In addition to Agent 1's Company Premise, you can and MUST search and inspect {company_name}'s ({ticker}) latest SEC financial statements (10-K, 10-Q, 20-F) and recent quarterly earnings call transcripts.
 - Use executive commentary, management guidance, segment growth rates, and industry competition from these filings to ground each story firmly in operating reality.
@@ -920,7 +939,7 @@ STORYLINE REQUIREMENTS:
 3. Detailed Structure for Each Story:
    - Narrative & Market Dynamics: What happens to customer demand, adoption, market share, and competitive rivalry.
    - Management Execution & Strategic Levers: What leadership does regarding pricing, investment, cost optimization, product development, or capital return.
-   - Financial Trajectory (3-5 Year Horizon): Expected revenue growth, margin expansion or compression, and cash generation.
+   - Financial Trajectory (3-5 Year Horizon): Expected revenue growth, margin expansion or compression, and cash generation (in $ USD).
    - Key Milestones / Indicators to Watch: Concrete signs that confirm this storyline is unfolding.
 
 Generate Section 2 in clean Semantic HTML:
@@ -930,21 +949,21 @@ Generate Section 2 in clean Semantic HTML:
 <div class="callout">
   <h3>📖 Story 1: [Descriptive Operational Title 1]</h3>
   <p>[Full narrative explanation of this operational path...]</p>
-  <p><strong>Core Operating Trajectory:</strong> [Revenue growth, margin profile, cash generation dynamics...]</p>
+  <p><strong>Core Operating Trajectory:</strong> [Revenue growth, margin profile, cash generation dynamics in $ USD...]</p>
   <p><strong>Key Milestones to Watch:</strong> [Specific indicators to monitor...]</p>
 </div>
 
 <div class="callout">
   <h3>📖 Story 2: [Descriptive Operational Title 2]</h3>
   <p>[Full narrative explanation of this operational path...]</p>
-  <p><strong>Core Operating Trajectory:</strong> [Revenue growth, margin profile, cash generation dynamics...]</p>
+  <p><strong>Core Operating Trajectory:</strong> [Revenue growth, margin profile, cash generation dynamics in $ USD...]</p>
   <p><strong>Key Milestones to Watch:</strong> [Specific indicators to monitor...]</p>
 </div>
 
 <div class="callout">
   <h3>📖 Story 3: [Descriptive Operational Title 3]</h3>
   <p>[Full narrative explanation of this operational path...]</p>
-  <p><strong>Core Operating Trajectory:</strong> [Revenue growth, margin profile, cash generation dynamics...]</p>
+  <p><strong>Core Operating Trajectory:</strong> [Revenue growth, margin profile, cash generation dynamics in $ USD...]</p>
   <p><strong>Key Milestones to Watch:</strong> [Specific indicators to monitor...]</p>
 </div>
 
@@ -964,16 +983,22 @@ You are LLM Agent 3: Storyline DCF Valuation Specialist.
 BLIND VALUATION & ZERO PRICE BIAS INVARIANT:
 You have ZERO knowledge of current stock market price, 52-week ranges, or broker consensus targets. Value the enterprise purely from First Principles of business cash generation as if purchasing 100% of the unlisted private business.
 
+MANDATORY USD CONVERSION & DENOMINATOR INTEGRITY INVARIANT:
+- ALL DCF numbers MUST strictly be evaluated in US DOLLARS ($ USD).
+- `year1_oe_m`: Base Year 1 Owner Earnings in MILLIONS OF US DOLLARS ($ Millions USD). (If reported in RMB, divide by ~7.15 to convert to USD).
+- `net_cash_debt_per_share`: Net Cash / Debt in US DOLLARS PER ADS/SHARE ($ USD per ADS/share).
+- `diluted_shares_m`: Diluted shares outstanding (in Millions). For US-listed foreign ADRs (e.g. JD, BABA, PDD, TSM, NIO), you MUST use the US-traded ADS (American Depositary Share) count, NOT the ordinary share count!
+
 MANDATORY FINANCIAL RESEARCH & AUDITING DIRECTIVES:
 - In addition to the Premise and 3 Stories, you can and MUST search and inspect {company_name}'s ({ticker}) audited SEC financial statements (10-K, 10-Q, 20-F), balance sheet cash/debt, cash flow statements (Operating Cash Flow, Maintenance CapEx, Stock-Based Compensation), and recent earnings call guidance.
 - Ensure all DCF parameters (Year 1 Owner Earnings, 5-Year CAGR, Discount Rate, Terminal Growth, Diluted Shares/ADSs, Net Cash/Debt) are reasonable, level-headed, and consistent with each specific storyline.
 
 Your Objective:
-For each of the 3 stories generated by Agent 2, evaluate and formulate reasonable, level-headed DCF assumptions that are strictly consistent with that specific storyline.
+For each of the 3 stories generated by Agent 2, evaluate and formulate reasonable, level-headed DCF assumptions in USD that are strictly consistent with that specific storyline.
 
 Valuation Invariants:
 1. Zero Price Anchoring: Value the business strictly from First Principles of cash generation as if purchasing 100% of the private enterprise.
-2. DCF Parameters for each of the 3 Stories:
+2. DCF Parameters for each of the 3 Stories (Strictly $ USD):
    - Year 1 Base Owner Earnings (OE₁) in $ Millions USD (GAAP Operating Cash Flow minus Maintenance CapEx minus 100% SBC).
    - 5-Year Organic OE CAGR (%) consistent with that story's operational trajectory.
    - Discount Rate (r) (%) anchored to local sovereign 10Y bond yield + equity risk premium (typically 8.5% - 11.0%).
@@ -1021,7 +1046,7 @@ Return your valuation evaluation as a JSON block in ```json ... ```:
   "institutional_ownership_pct": "<e.g. 48.5%>",
   "insider_signal": "<Neutral (10b5-1) | Net Buying | Cluster Buying | Net Selling | No Activity>",
   "insider_summary": "<Crisp 1-line Form 4 insider trading summary, max 12 words>",
-  "executive_summary": "<2-3 sentence crisp plain-English summary of the premise and valuation>"
+  "executive_summary": "<2-3 sentence crisp plain-English summary of the premise and valuation in USD>"
 }}
 ```
 """
