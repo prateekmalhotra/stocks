@@ -752,13 +752,15 @@ CRITICAL AUDITED FINANCIAL REALITY & INTEGRITY CHECKS:
 1. Statement of Cash Flows Extraction & Owner Earnings Waterfall:
    - Search the ACTUAL Statement of Cash Flows for the latest completed fiscal year (e.g. Form 20-F / 10-K) and recent quarterly reports (Form 6-K / 10-Q).
    - Line 1: Net Cash Provided by Operating Activities (GAAP OCF) ($ Millions/Billions USD). NEVER use Financing Cash Flows (e.g. share buybacks or debt repayments) or Net Income as OCF!
-   - Line 2: Capital Expenditures (Additions to property, equipment, logistics facilities, software) ($ Millions/Billions USD). Explicitly distinguish between Maintenance CapEx (steady-state upkeep of logistics fleets, warehouses, POS terminals, and server clusters) vs Growth CapEx.
-   - Line 3: Stock-Based Compensation (SBC) expense ($ Millions USD) treated as a 100% cash charge.
-   - Line 4: Non-Operating Interest Income Deduction ($ Millions USD). If the company holds large cash deposits generating non-operating interest income, that interest income MUST be deducted from OCF before deriving core Operating Owner Earnings to prevent double-counting when adding cash on the balance sheet bridge:
-     * Core Operating Baseline Owner Earnings (OE₀) = GAAP OCF - Non-Operating Interest Income - Maintenance CapEx - SBC.
-   - Line 5: Non-Cash Impairments & One-Off Exclusions: GAAP OCF already automatically adds back non-cash accounting charges (e.g. paper goodwill impairments, asset write-downs). Additionally, normalize and exclude any material non-recurring one-off cash items (e.g. one-time litigation windfalls, asset divestiture gains, extraordinary dividends, or regulatory fines) to ensure Owner Earnings reflects true recurring steady-state cash power.
-2. Calibrated Working Capital Operational Cash Buffer & Debt Consolidation:
+   - Line 2: Working Capital Normalization: Cross-check LTM GAAP OCF against LTM Net Income + D&A. If OCF includes material temporary working capital inflows/outflows (e.g. aggressive inventory buildup for 1P sales, freight prepayments, or lumpy supplier payable timing), normalize starting Core Baseline Owner Earnings (OE₀) to reflect recurring steady-state cash generation.
+   - Line 3: Capital Expenditures (Additions to property, equipment, logistics facilities, software) ($ Millions/Billions USD). Explicitly distinguish between Maintenance CapEx (steady-state upkeep of logistics fleets, warehouses, POS terminals, and server clusters) vs Growth CapEx.
+   - Line 4: Stock-Based Compensation (SBC) expense ($ Millions USD) treated as a 100% cash charge.
+   - Line 5: Non-Operating Interest Income Deduction ($ Millions USD). If the company holds large cash deposits generating non-operating interest income, that interest income MUST be deducted from OCF before deriving core Operating Owner Earnings to prevent double-counting when adding cash on the balance sheet bridge:
+     * Core Operating Baseline Owner Earnings (OE₀) = GAAP OCF (Normalized) - Non-Operating Interest Income - Maintenance CapEx - SBC.
+   - Line 6: Non-Cash Impairments & One-Off Exclusions: GAAP OCF already automatically adds back non-cash accounting charges (e.g. paper goodwill impairments, asset write-downs). Additionally, normalize and exclude any material non-recurring one-off cash items (e.g. one-time litigation windfalls, asset divestiture gains, extraordinary dividends, or regulatory fines) to ensure Owner Earnings reflects true recurring steady-state cash power.
+2. Calibrated Working Capital Operational Cash Buffer & ASC 842 Lease Obligations:
    - Reserve an essential operational liquidity buffer of 2.5% to 3.5% of annual revenue.
+   - For companies with extensive leased physical infrastructure (warehouses, retail stores, fulfillment centers), explicitly document total **ASC 842 Contractual Operating Lease Liabilities** ($ Millions USD) alongside funded debt. Highlight that while there may be zero bank debt, contractual lease obligations represent fixed operating cost commitments that create operating leverage in a volume downturn.
    - When deriving Net Balance Sheet Cash, deduct:
      * Operational Cash Buffer (2.5%–3.5% of revenue)
      * Total Funded Debt & Capital Leases
@@ -766,33 +768,33 @@ CRITICAL AUDITED FINANCIAL REALITY & INTEGRITY CHECKS:
      * Committed M&A Cash Outlays & Inherited Net Debt.
    - The resulting figure is the true Unencumbered Surplus Net Cash per Share/ADS.
 3. Historical Corporate Trauma & Underwriting Post-Mortem:
-   - If the company is trading down significantly (>50%) from historical highs or suffered a well-known operational crisis in the past (e.g. credit underwriting blowups, regulatory restructuring, failed acquisitions):
+   - If the company is trading down significantly (>50%) from historical highs or suffered a well-known operational crisis in the past (e.g. credit underwriting blowups, regulatory restructuring, short-seller litigation, failed acquisitions):
      * Explicitly address the historical root cause and contrast it with today's operational reality.
-     * Detail the structural fixes (e.g. government-backed credit guarantees like FGI/BNDES, real-time registry verification via central bank infrastructure, transition to low-cost retail deposit float funding) that prevent a recurrence.
+     * Detail the structural fixes (e.g. government-backed credit guarantees like FGI/BNDES, real-time registry verification, independent audit investigations, dismissal of shareholder class action litigation) that prevent a recurrence.
 4. Regulatory Capital & Banking Ratio Constraints (For Fintechs & Lenders):
    - For financial institutions, fintechs, and credit businesses, audit regulatory capital adequacy (e.g. BACEN Managerial Capital Ratio, Tier 1 / Basel ratios).
    - Evaluate whether rapid loan book expansion consumes regulatory capital, and confirm that organic retained earnings cover capital adequacy requirements alongside share buybacks.
 5. Foreign Private Issuer (FPI), VIE Structure & Upstream Cash Repatriation:
-   - For foreign companies traded via ADRs/ADSs, audit corporate structure (direct holding company vs VIE vs supervisory banking oversight).
-   - Evaluate cash repatriation mechanics from domestic operating subsidiaries to offshore holding companies (Cayman/Bermuda) to fund US-traded ADS share repurchases and dividends.
+   - For foreign companies traded via ADRs/ADSs, audit corporate structure (direct Cayman holding company vs VIE vs supervisory banking oversight).
+   - Evaluate cash repatriation mechanics from domestic operating subsidiaries to offshore holding companies to fund US-traded ADS share repurchases and dividends.
 
 Core Topics to Cover:
 1. The Core Business Machine, Moat & Unit Economics:
    - Customer value proposition, monetization mechanics, pricing power, and durable economic moat.
    - Core operational volume drivers vs high-margin service streams.
-   - Identify the 3–5 PRIMARY OPERATIONAL METRICS reported by the company (e.g. Active Clients, MSMB TPV, Banking Deposits, Take Rate %, Credit Portfolio size, NPL >90d ratio, ARPAC, Fulfillment Expense Ratio).
+   - Identify the 3–5 PRIMARY OPERATIONAL METRICS reported by the company (e.g. Active Clients/Buyers, 3P GMV %, Take Rate %, Spend per Buyer, Cost of Risk, ARPAC, Warehouse Space / Lease Footprint).
 2. Audited Financial Baseline (Single Source of Truth in $ Millions/Billions USD):
    - Latest Period Net Revenue ($ USD)
    - Latest GAAP Operating Cash Flow (OCF) ($ Millions USD)
    - Non-Operating Interest Income stripped from OCF ($ Millions USD)
    - Annual CapEx ($ Millions USD): Distinguish Maintenance CapEx vs Growth CapEx.
    - Stock-Based Compensation (SBC) ($ Millions USD) treated as a cash charge.
-   - Core Baseline Owner Earnings: OE₀ = OCF - Interest Income - Maintenance CapEx - SBC ($ Millions USD)
-   - Balance Sheet Cash & ST Investments ($ Millions USD) vs Total Funded Debt & Leases ($ Millions USD), minus Operational Buffer and M&A commitments.
+   - Core Baseline Owner Earnings: OE₀ = OCF (Normalized) - Interest Income - Maintenance CapEx - SBC ($ Millions USD)
+   - Balance Sheet Cash & ST Investments ($ Millions USD) vs Total Funded Debt, Operating Lease Commitments, minus Operational Buffer and M&A commitments.
    - Diluted Shares / ADSs Outstanding (Millions)
    - Unencumbered Surplus Net Cash / (Debt) per Share/ADS in USD.
-3. Leadership Commentary & 4-Quarter Trajectory: Executive commentary and authentic quotes from the active CEO and CFO across the last 4 quarters.
-4. Corporate Governance, Regulatory Capital & Historical Crisis Resolution: Structural defenses, capital adequacy ratios, and historical underwriting post-mortem.
+3. Leadership Commentary & 4-Quarter Trajectory: Executive commentary and authentic quotes from the active CEO and CFO across the last 4 quarters (including latest quarterly guidance).
+4. Corporate Governance, Regulatory Defenses & Historical Crisis Resolution: Structural defenses, capital adequacy / lease ratios, and historical underwriting post-mortem.
 
 Format Section 1 in clean Semantic HTML:
 <h2>Section 1: The Premise of the Company</h2>
@@ -813,7 +815,7 @@ Format Section 1 in clean Semantic HTML:
 
 <div class="callout">
   <h3>Corporate Governance, Regulatory Defenses &amp; Historical Post-Mortem</h3>
-  <p>[Analysis of corporate structure, regulatory capital ratios (e.g. BACEN capital adequacy), resolution of historical operational crises, and upstream cash repatriation mechanics...]</p>
+  <p>[Analysis of corporate structure, regulatory/lease obligations, resolution of historical operational crises, and upstream cash repatriation mechanics...]</p>
 </div>
 
 <p>[Current state of play summary, including recent cash flow dynamics, capital expenditures, and major strategic commitments...]</p>
@@ -830,17 +832,18 @@ Here is the Company Premise from Agent 1 (containing the audited financial basel
 Guidelines:
 - Blind Valuation: Formulate business trajectories based strictly on operational realities and competitive dynamics, with zero knowledge of stock market prices.
 - Currency & Financial Consistency: All figures in $ USD. Anchor all 3 stories directly to the audited baseline numbers (revenue, margins, cash flow) established in Agent 1's Company Premise above.
+- Guidance Realism & Non-Linear Trajectories: Factor in management's near-term quarterly forward guidance (e.g. Q3/Q4 cyclical dips due to macro/housing pressure) to model realistic trajectory shapes rather than smooth straight-line ramps.
 - Grounded Margin & Growth Realism: For thin-margin direct retail or financial spread businesses, do NOT assume heroic margin doubling. Model realistic, incremental operating progression.
 - Primary Research: Search and inspect {company_name}'s latest filings and earnings transcripts.
 - Currency/FX Depreciation Stress in Emerging Markets: For companies operating in emerging market currencies (e.g. Brazil BRL, China RMB, Mexico MXN, India INR) with high local sovereign interest rates, Story 3 (Downside / Bear Floor) MUST incorporate realistic local FX depreciation against the USD (e.g. +10% to +15% FX headwind in the USD conversion) to stress-test the dollar-denominated fair value floor.
-- Operational Metric Continuity: Explicitly carry forward and trace the primary operational metrics identified in Section 1 (e.g. Active Clients, TPV growth, Take Rate %, Deposit Float, Cost of Risk / NPLs, ARPAC, Fulfillment Expense Ratio) across EACH of the 3 stories to justify how margin expansion or contraction occurs.
+- Operational Metric Continuity: Explicitly carry forward and trace the primary operational metrics identified in Section 1 (e.g. Active Clients, TPV/GMV growth, Take Rate %, Deposit Float, Cost of Risk / NPLs, ARPAC, Fulfillment/Lease Expense Ratio) across EACH of the 3 stories to justify how margin expansion or contraction occurs.
 
 FIRST-PRINCIPLES BUSINESS METRIC CHAIN (NO ARBITRARY GROWTH ASSUMPTIONS):
 - Revenue is driven by explicit operational business metrics reported by the company.
 - For EACH story, you must explicitly justify the business assumptions chain:
   1. Top-Level Operational Metric Shifts: How specific business volume, unit capacity, pricing power, or new asset additions evolve over the next 3–5 years with clear operational justifications.
   2. Revenue Translation: How those operational metric shifts calculate into top-line net revenue in $ USD.
-  3. Cost Structure & Margins: Funding costs / COGS, OpEx, provisioning / NPL drag, and operating margin progression.
+  3. Cost Structure & Margins: Funding/lease costs, COGS, OpEx, provisioning / NPL drag, and operating margin progression.
   4. CapEx & Cash Conversion: Maintenance vs Growth CapEx cycles, SBC dilution, and resulting Owner Earnings trajectory in $ USD.
 
 Your Objective:
@@ -853,9 +856,9 @@ Format Section 2 in clean Semantic HTML:
 
 <div class="callout">
   <h3>📖 Story 1: [Descriptive Operational Title 1 - Base Case]</h3>
-  <p>[Full narrative explanation of this operational path...]</p>
-  <p><strong>Operational Metric Drivers &amp; Revenue:</strong> [Explicit business metric shifts (e.g. client volume, TPV, take rates, pricing) and how they drive top-line revenue in $ USD...]</p>
-  <p><strong>Cost Dynamics, CapEx &amp; Owner Earnings:</strong> [Cost structure, provision/OpEx margins, CapEx cycle assumptions, and resulting Owner Earnings trajectory in $ USD...]</p>
+  <p>[Full narrative explanation of this operational path, incorporating near-term guidance reality...]</p>
+  <p><strong>Operational Metric Drivers &amp; Revenue:</strong> [Explicit business metric shifts (e.g. client volume, GMV, take rates, pricing) and how they drive top-line revenue in $ USD...]</p>
+  <p><strong>Cost Dynamics, CapEx &amp; Owner Earnings:</strong> [Cost structure, lease commitments, provision/OpEx margins, CapEx cycle assumptions, and resulting Owner Earnings trajectory in $ USD...]</p>
   <p><strong>Key Milestones to Watch:</strong> [Specific indicators to monitor...]</p>
 </div>
 
@@ -869,9 +872,9 @@ Format Section 2 in clean Semantic HTML:
 
 <div class="callout">
   <h3>📖 Story 3: [Descriptive Operational Title 3 - Defensive Stress / Downside]</h3>
-  <p>[Full narrative explanation of this operational path, incorporating realistic local FX depreciation headwind in USD conversion...]</p>
+  <p>[Full narrative explanation of this operational path, incorporating realistic local FX depreciation headwind in USD conversion and lease fixed-overhead leverage...]</p>
   <p><strong>Operational Metric Drivers &amp; Revenue:</strong> [Explicit business metric shifts and how they drive top-line revenue in $ USD...]</p>
-  <p><strong>Cost Dynamics, CapEx &amp; Owner Earnings:</strong> [Cost structure, credit/margin drag, CapEx assumptions, and resulting Owner Earnings trajectory in $ USD...]</p>
+  <p><strong>Cost Dynamics, CapEx &amp; Owner Earnings:</strong> [Cost structure, credit/tariff/margin drag, CapEx assumptions, and resulting Owner Earnings trajectory in $ USD...]</p>
   <p><strong>Key Milestones to Watch:</strong> [Specific indicators to monitor...]</p>
 </div>
 
@@ -887,19 +890,24 @@ Format Section 2 in clean Semantic HTML:
     </thead>
     <tbody>
       <tr>
-        <td><strong>Primary Quality Metric (e.g. NPL >90d / Churn)</strong></td>
-        <td>Improving / below target threshold (e.g. &lt;6.5%)</td>
-        <td>Deteriorating above risk ceiling (e.g. &gt;10.0%)</td>
+        <td><strong>Primary Quality Metric (e.g. NPL >90d / Active Buyers / Lease Utilization)</strong></td>
+        <td>Improving / healthy expansion (e.g. &gt;13,500 buyers)</td>
+        <td>Deteriorating below risk floor (e.g. &lt;11,000 buyers / &gt;10% NPL)</td>
       </tr>
       <tr>
-        <td><strong>Monetization &amp; Unit Economics (e.g. ARPAC / Take Rate)</strong></td>
+        <td><strong>Monetization &amp; Unit Economics (e.g. ARPAC / Take Rate / Spend per Buyer)</strong></td>
         <td>Expanding organically above target run-rate</td>
         <td>Contracting due to competitive price concessions</td>
       </tr>
       <tr>
-        <td><strong>Balance Sheet &amp; Liquidity (e.g. Deposits / Net Cash)</strong></td>
-        <td>Scaling low-cost float / executing accretive buybacks</td>
-        <td>Capital adequacy erosion or funding cost spike</td>
+        <td><strong>Trade Policy &amp; Macro Drag (e.g. Tariffs / Section 301 / Freight Spikes)</strong></td>
+        <td>Stable trade policy; ocean freight normalization</td>
+        <td>Severe tariff escalation absorbed entirely by platform margins</td>
+      </tr>
+      <tr>
+        <td><strong>Balance Sheet &amp; Capital Allocation (e.g. Buyback Velocity / Net Cash)</strong></td>
+        <td>Deploying repurchase authorization aggressively at &lt; Operating EV</td>
+        <td>Excessive cash burn or capital allocation drift</td>
       </tr>
     </tbody>
   </table>
