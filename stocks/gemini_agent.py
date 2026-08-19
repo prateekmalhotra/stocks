@@ -1075,6 +1075,50 @@ Format Section 3 in clean Semantic HTML:
 Output pure HTML only (no code fences, no inline styles)."""
 
 
+def parse_float_safe(val: Any, default: float = 0.0) -> float:
+    """Safely parses a float from string, int, float, or formatted currency ('$145.20', '145.20 / share')."""
+    if val is None:
+        return default
+    if isinstance(val, (int, float)):
+        return float(val)
+    if isinstance(val, str):
+        cleaned = re.sub(r"[^\d.-]", "", val.strip())
+        if cleaned:
+            try:
+                return float(cleaned)
+            except Exception:
+                pass
+        m = re.search(r'[-+]?[0-9,]+(?:\.[0-9]+)?', val.strip())
+        if m:
+            try:
+                return float(m.group(0).replace(",", ""))
+            except Exception:
+                pass
+    return default
+
+
+def extract_story_valuation(dcf_dict: Dict[str, Any], raw_text: str = "") -> float:
+    """Extracts the fair value per share from JSON keys or regex fallback in raw LLM text."""
+    if isinstance(dcf_dict, dict):
+        for k in [
+            "fair_value_per_share", "total_intrinsic_value_per_share", "intrinsic_value_per_share",
+            "calculated_intrinsic_value", "fair_value", "intrinsic_value", "operating_value_per_share",
+            "per_share_value", "target_price"
+        ]:
+            if k in dcf_dict:
+                v = parse_float_safe(dcf_dict[k])
+                if v > 0.0:
+                    return v
+    if raw_text:
+        m = re.search(r'(?:fair value|intrinsic value|calculated intrinsic value|per share|per ADS).*?\$?\s*([0-9,]+(?:\.[0-9]+)?)', raw_text, re.IGNORECASE)
+        if m:
+            try:
+                return float(m.group(1).replace(",", ""))
+            except Exception:
+                pass
+    return 0.0
+
+
 def generate_genesis_thesis(ticker: str, company_name: str, current_price: float, initial_notes: str = "") -> Tuple[Dict[str, Any], str]:
     """Generates an investment thesis via the streamlined 4-Agent pipeline:
     1. Agent 1: Company Premise Specialist (100% Blind to market price).
@@ -1102,7 +1146,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         company_name=company_name,
         notes=initial_notes or "Synthesize core business model, unit economics, 4-quarter earnings commentary, and balance sheet strength in plain English."
     )
-    sec1_raw = call_gemini_with_search(agent_1_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
+    sec1_raw = call_gemini_with_search(agent_1_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=True)
     sec1_clean = verify_and_repair_html_structure(clean_grounding_artifacts(sec1_raw))
     print(f"   │ Status: Premise established ({len(sec1_clean.split())} words generated)", flush=True)
     print("   └" + "─" * 50, flush=True)
@@ -1116,7 +1160,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         company_name=company_name,
         premise_context=sec1_clean
     )
-    sec2_raw = call_gemini_with_search(agent_2_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
+    sec2_raw = call_gemini_with_search(agent_2_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False)
     sec2_clean = verify_and_repair_html_structure(clean_grounding_artifacts(sec2_raw))
     print(f"   │ Status: 3 Stories generated ({len(sec2_clean.split())} words generated)", flush=True)
     print("   └" + "─" * 50, flush=True)
@@ -1134,9 +1178,9 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         premise_context=sec1_clean,
         story_context=sec2_clean
     )
-    raw_3a = call_gemini_with_search(prompt_3a, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
+    raw_3a = call_gemini_with_search(prompt_3a, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False)
     dcf1 = extract_json_block(raw_3a)
-    story1_val = float(dcf1.get("fair_value_per_share") or 0.0)
+    story1_val = extract_story_valuation(dcf1, raw_3a)
     story1_title = str(dcf1.get("story_title") or "Base Case Compounder")
     print(f"   │ Story 1 Valuation: ${story1_val:.2f} / share ({story1_title})", flush=True)
     print("   └" + "─" * 50, flush=True)
@@ -1154,9 +1198,9 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         premise_context=sec1_clean,
         story_context=sec2_clean
     )
-    raw_3b = call_gemini_with_search(prompt_3b, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
+    raw_3b = call_gemini_with_search(prompt_3b, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False)
     dcf2 = extract_json_block(raw_3b)
-    story2_val = float(dcf2.get("fair_value_per_share") or 0.0)
+    story2_val = extract_story_valuation(dcf2, raw_3b)
     story2_title = str(dcf2.get("story_title") or "High-Margin Upside Engine")
     print(f"   │ Story 2 Valuation: ${story2_val:.2f} / share ({story2_title})", flush=True)
     print("   └" + "─" * 50, flush=True)
@@ -1174,9 +1218,9 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         premise_context=sec1_clean,
         story_context=sec2_clean
     )
-    raw_3c = call_gemini_with_search(prompt_3c, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
+    raw_3c = call_gemini_with_search(prompt_3c, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False)
     dcf3 = extract_json_block(raw_3c)
-    story3_val = float(dcf3.get("fair_value_per_share") or 0.0)
+    story3_val = extract_story_valuation(dcf3, raw_3c)
     story3_title = str(dcf3.get("story_title") or "Macro Friction & Defensive Floor")
     print(f"   │ Story 3 Valuation: ${story3_val:.2f} / share ({story3_title})", flush=True)
     print("   └" + "─" * 50, flush=True)
@@ -1202,7 +1246,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         story2_json=json.dumps(dcf2, indent=2),
         story3_json=json.dumps(dcf3, indent=2)
     )
-    sec3_raw = call_gemini_with_search(agent_4_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
+    sec3_raw = call_gemini_with_search(agent_4_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False)
     sec3_clean = verify_and_repair_html_structure(clean_grounding_artifacts(sec3_raw))
     print(f"   │ Status: Section 3 DCF & Reverse DCF built ({len(sec3_clean.split())} words generated)", flush=True)
     print("   └" + "─" * 50, flush=True)
