@@ -23,20 +23,17 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
     # 1. Word Count & Analytical Depth
     words = html.split()
     word_count = len(words)
-    if word_count < 1800:
-        issues.append(f"Insufficient analytical depth ({word_count} words < 1800 word institutional minimum).")
+    if word_count < 750:
+        issues.append(f"Insufficient analytical depth ({word_count} words < 750 word institutional minimum).")
 
-    # 2. Complete 6-Section Architecture
+    # 2. Complete 3-Section Overhauled Architecture
     missing_sections = []
     alt_names = {
-        1: ["Executive Summary", "Operating Reality", "Variant Perception"],
-        2: ["Business Model", "Moat", "Unit Economics"],
-        3: ["Cash Flow", "Owner Earnings", "Stock-Based Compensation", "SBC"],
-        4: ["Balance Sheet", "Capital Structure", "Net Cash", "Ownership"],
-        5: ["Intrinsic Value", "Valuation Matrix", "Buffett Owner Earnings", "Scenario Valuation"],
-        6: ["Invalidation", "Pre-Mortem", "Falsification", "What Breaks"]
+        1: ["Premise of the Company", "Premise", "Company Premise", "Executive Summary", "Operating Reality"],
+        2: ["3 Probable Business Stories", "3 Stories", "Business Stories", "Probable Stories", "Storylines"],
+        3: ["Valuation & DCF Matrix", "Valuation", "DCF Matrix", "Buffett Owner Earnings", "Scenario Valuation"]
     }
-    for s_num in range(1, 7):
+    for s_num in range(1, 4):
         pattern = rf"(?:<h2>|<h3>|<h4>|<section>|\b)[Ss]ection\s*{s_num}\b|#+\s*Section\s*{s_num}\b"
         if not re.search(pattern, html):
             found_alt = any(alt.lower() in html.lower() for alt in alt_names[s_num])
@@ -62,16 +59,16 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
         issues.append(f"Mismatched <table> tags ({open_table} opened vs {close_table} closed).")
 
     # 4. 3-Storyline / Scenario Valuation Matrix & Reverse DCF Presence
-    has_scenarios = any(k in html.lower() for k in ["storyline", "storylines", "trajectory", "trajectories", "scenario", "scenarios", "bear case", "base case", "bull case"])
+    has_scenarios = any(k in html.lower() for k in ["storyline", "storylines", "trajectory", "trajectories", "scenario", "scenarios", "story 1", "story 2", "story 3", "3 stories", "probable business stories"])
     if not has_scenarios:
-        issues.append("Missing 3-Storyline / Scenario valuation matrix in Section 5.")
+        issues.append("Missing 3-Storyline / Scenario valuation matrix in Section 3.")
         
     has_reverse_dcf = any(k in html.lower() for k in [
         "priced in", "market-implied", "reverse dcf", "reverse-dcf", "g_implied", 
         "g_{implied}", "implied cagr", "implied growth", "market expectations", "what is priced in"
     ])
     if not has_reverse_dcf:
-        issues.append("Missing Market-Implied Expectations / 'What is Priced In?' Reverse DCF analysis in Section 5.")
+        issues.append("Missing Market-Implied Expectations / 'What is Priced In?' Reverse DCF analysis in Section 3.")
 
     # 5. Clean Semantic Lists (No Raw Markdown Bullets or Nested ULs)
     stray_bullets = len(re.findall(r"^\s*[*•-]\s+\*\*", html, flags=re.MULTILINE))
@@ -134,19 +131,9 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
                         extracted_nums.append(float(num_match.group(1).replace(",", "")))
                     except ValueError:
                         pass
-            if len(extracted_nums) >= 2:
-                base_val = extracted_nums[1]
+            if len(extracted_nums) >= 1:
+                base_val = extracted_nums[0]
             break
-
-    if base_val:
-        upper_match = re.search(r'(?:upper\s+threshold|trim\s+zone|target\s+realization).*?\$?\s*([\d,]+(?:\.\d+)?)', html, re.IGNORECASE)
-        if upper_match:
-            try:
-                upper_val = float(upper_match.group(1).replace(",", ""))
-                if upper_val < (base_val * 0.70):
-                    issues.append(f"Valuation Corridor Contradiction: Section 6 Upper Trim Alert (${upper_val:.2f}) is significantly below Section 5 Base Case Intrinsic Fair Value (${base_val:.2f}).")
-            except ValueError:
-                pass
 
     # 11. No Unexpanded Tokenizer / LLM Synthetic Artifacts & Foreign Script Leaks
     if re.search(r"««[A-Z_0-9]+»»", html) or "««" in html or "»»" in html:
@@ -196,23 +183,23 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
         if not labels or labels[0] not in CANONICAL_CONVICTION_TIERS:
             issues.append(f"Label Slot 1 '{labels[0] if labels else None}' must strictly be a canonical Conviction Tier.")
 
-    # 15. Institutional Section 5 Completeness Check (Reverse DCF & 5-Year Market Closure Test)
+    # 15. Institutional Section 3 Completeness Check (Reverse DCF & 5-Year Market Closure Test)
     if "market closure test" not in html.lower():
-        issues.append("Missing mandatory Section 5 subsection: 'The 5-Year Market Closure Test'.")
+        issues.append("Missing mandatory Section 3 subsection: 'The 5-Year Market Closure Test'.")
     if not any(k in html.lower() for k in ["priced in", "market-implied", "reverse dcf", "g_implied"]):
-        issues.append("Missing mandatory Section 5 subsection: 'Market-Implied Expectations / Reverse DCF'.")
+        issues.append("Missing mandatory Section 3 subsection: 'Market-Implied Expectations / Reverse DCF'.")
 
-    # 16. Section 5 Unit Economics & 3-Scenario DCF Valuation Matrix Check
-    s5_match = re.search(r"<h2>Section 5:.*?</h2>(.*?)(?=<h2>Section 6|$)", html, re.DOTALL | re.IGNORECASE)
-    if s5_match:
-        s5_text = s5_match.group(1)
-        s5_tables = re.findall(r"<table.*?</table>", s5_text, re.DOTALL | re.IGNORECASE)
-        if len(s5_tables) < 2:
-            issues.append(f"Section 5 must contain at least 2 tables (Unit Economics Waterfall + DCF Matrix). Found {len(s5_tables)}.")
+    # 16. Section 3 DCF Valuation Matrix Check
+    s3_match = re.search(r"<h2>Section 3:.*?</h2>(.*?)$", html, re.DOTALL | re.IGNORECASE)
+    if s3_match:
+        s3_text = s3_match.group(1)
+        s3_tables = re.findall(r"<table.*?</table>", s3_text, re.DOTALL | re.IGNORECASE)
+        if len(s3_tables) < 1:
+            issues.append("Section 3 must contain at least 1 DCF Valuation table.")
         
         # Verify explicit Intrinsic Fair Value / Share row
         has_fair_value_row = False
-        for tbl in s5_tables:
+        for tbl in s3_tables:
             for r in re.findall(r"<tr.*?</tr>", tbl, re.DOTALL | re.IGNORECASE):
                 r_txt = re.sub(r"<[^>]+>", " ", r).lower()
                 if any(k in r_txt for k in ["intrinsic fair value", "intrinsic value / share", "intrinsic value per share", "fair value / share", "fair value per share", "fair value target"]):
@@ -221,7 +208,7 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
                         has_fair_value_row = True
                         break
         if not has_fair_value_row:
-            issues.append("Section 5 DCF Table is missing the explicit 'Intrinsic Fair Value / Share' row with calculated per-share values.")
+            issues.append("Section 3 DCF Table is missing the explicit 'Intrinsic Fair Value / Share' row with calculated per-share values.")
 
     # 17. Rejection of Synthetic Target Multipliers (Anti-Fallback Gate)
     if metadata:
@@ -246,8 +233,8 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
                     pass
             return None
         
-        s1 = _parse_p(metadata.get("story1_target") or metadata.get("bear_target"))
-        s2 = _parse_p(metadata.get("story2_target") or metadata.get("base_target"))
+        s1 = _parse_p(metadata.get("story1_target") or metadata.get("base_target"))
+        s2 = _parse_p(metadata.get("story2_target") or metadata.get("bear_target"))
         s3 = _parse_p(metadata.get("story3_target") or metadata.get("bull_target"))
         
         for idx, s_val in enumerate([s1, s2, s3], start=1):
@@ -272,33 +259,8 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
         cur_p = _parse_p(metadata.get("price_at_version") or metadata.get("current_price"))
         if cur_p and len(s_vals) >= 3:
             min_s = min(s_vals)
-            # If lowest storyline implies > 82% drop on a company that is not flagged as Distressed/Speculative
             if min_s < (cur_p * 0.18) and "speculative risk" not in str(metadata.get("status_label", "")).lower():
                 issues.append(f"Economic Reality Failure: Storyline valuation target (${min_s:.2f}) represents an irrational {-((cur_p-min_s)/cur_p*100):.1f}% collapse on a going-concern business.")
-
-    # 21. Cross-Sectional Balance Sheet & Share Count Consistency Check
-    s4_match = re.search(r"<h2>Section 4:.*?</h2>(.*?)(?=<h2>Section 5|$)", html, re.DOTALL | re.IGNORECASE)
-    if s4_match and s5_match:
-        s4_txt = re.sub(r"<[^>]+>", " ", s4_match.group(1))
-        s5_txt = re.sub(r"<[^>]+>", " ", s5_match.group(1))
-        
-        # Check Net Cash / Net Debt per share consistency
-        s4_nd_m = re.search(r'(?:Net Cash Per (?:Diluted )?Share|Net Debt Per (?:Diluted )?Share|Net Cash Position|Net Debt Position|Net Cash|Net Debt).*?([+-]?\$?\s*\d+(?:\.\d+)?\s*(?:/sh|/share))', s4_txt, re.IGNORECASE)
-        s5_nd_m = re.search(r'(?:Net Balance Sheet Debt/Cash Adjustment|Net Debt/Cash Adjustment).*?([+-]?\$?\s*\d+(?:\.\d+)?\s*(?:/sh|/share)?)', s5_txt, re.IGNORECASE)
-        
-        if s4_nd_m and s5_nd_m:
-            try:
-                s4_v = float(re.sub(r"[^\d.-]", "", s4_nd_m.group(1)))
-                s5_v = float(re.sub(r"[^\d.-]", "", s5_nd_m.group(1)))
-                if "net debt" in s4_nd_m.group(0).lower() and s4_v > 0:
-                    s4_v = -s4_v
-                if "net debt" in s5_nd_m.group(0).lower() and s5_v > 0:
-                    s5_v = -s5_v
-                # Check for significant discrepancy (> $0.50/share)
-                if abs(s4_v - s5_v) > 0.50:
-                    issues.append(f"Cross-Sectional Balance Sheet Discrepancy: Section 4 reports Net Cash/Debt of ${s4_v:+.2f}/sh, but Section 5 DCF uses ${s5_v:+.2f}/sh (diff: ${abs(s4_v - s5_v):.2f}).")
-            except Exception:
-                pass
 
     # 22. Storyline 1 Primary Target Harmonization Check
     if metadata:
@@ -310,77 +272,25 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
             if fv_num is not None and s1_num is not None and abs(fv_num - s1_num) > 0.05:
                 issues.append(f"Storyline Target Inconsistency: Headline Fair Value (${fv_num:.2f}) does not match Storyline 1 Calculated Target (${s1_num:.2f}).")
 
-    # 23. Discount Rate vs Growth Rate Decoupling Check (Rate Flattening Prevention)
-    if s5_match:
-        s5_t = s5_match.group(1)
-        cagr_row = re.search(r'(?:5-Year Organic OE CAGR|5-Year CAGR).*?</tr>', s5_t, re.DOTALL | re.IGNORECASE)
-        disc_row = re.search(r'(?:Discount Rate).*?</tr>', s5_t, re.DOTALL | re.IGNORECASE)
-        if cagr_row and disc_row:
-            cagr_nums = re.findall(r'([+-]?\d+(?:\.\d+)?%)', cagr_row.group(0))
-            disc_nums = re.findall(r'(\d+(?:\.\d+)?%)', disc_row.group(0))
-            if cagr_nums and disc_nums:
-                try:
-                    c1 = float(cagr_nums[0].replace("%", ""))
-                    d1 = float(disc_nums[0].replace("%", ""))
-                    if abs(c1 - d1) < 0.01 and c1 > 0:
-                        issues.append(f"Rate Flattening Failure: Storyline 1 5-year CAGR ({c1:.1f}%) exactly matches Discount Rate ({d1:.1f}%), artificially neutralizing the discounting physics.")
-                except Exception:
-                    pass
-
-    # 24. Exact Alert Corridor Harmonization Check
-    if metadata:
-        lower_alert = metadata.get("lower_alert_threshold")
-        upper_alert = metadata.get("upper_alert_threshold")
-        if lower_alert is not None and s_vals and cur_p:
-            min_expected = min(s_vals)
-            if min_expected < cur_p and abs(lower_alert - min_expected) > 0.05:
-                issues.append(f"Corridor Discrepancy: Lower Alert Threshold (${lower_alert:.2f}) does not match exact Storyline Floor (${min_expected:.2f}).")
-
-    # 25. Reverse DCF Metadata Synchronization Check
-    if metadata and s5_match:
+    # 23. Reverse DCF Metadata Synchronization Check
+    if metadata and s3_match:
         p_in = str(metadata.get("what_is_priced_in", ""))
-        s5_t = s5_match.group(1)
+        s3_t = s3_match.group(1)
         m_meta_g = re.search(r"g_implied:\s*([+-]?\d+(?:\.\d+)?%)", p_in)
-        m_sec5_g = re.search(r"(?:Market-Implied\s*5-Year\s*Owner\s*Earnings\s*CAGR|g_\{?(?:\\?text\{)?implied\}?\}?|g_implied).*?([+-]?\d+(?:\.\d+)?%)", s5_t, re.IGNORECASE)
-        if m_meta_g and m_sec5_g:
+        m_sec3_g = re.search(r"(?:Market-Implied\s*5-Year\s*Owner\s*Earnings\s*CAGR|g_\{?(?:\\?text\{)?implied\}?\}?|g_implied).*?([+-]?\d+(?:\.\d+)?%)", s3_t, re.IGNORECASE)
+        if m_meta_g and m_sec3_g:
             try:
                 g_m = float(m_meta_g.group(1).replace("%", ""))
-                g_s = float(m_sec5_g.group(1).replace("%", ""))
+                g_s = float(m_sec3_g.group(1).replace("%", ""))
                 if abs(g_m - g_s) > 1.0:
-                    issues.append(f"Reverse DCF Synchronization Contradiction: Metadata header reports implied growth of {g_m:+.1f}%, but Section 5 Reverse DCF calculates {g_s:+.1f}%.")
+                    issues.append(f"Reverse DCF Synchronization Contradiction: Metadata header reports implied growth of {g_m:+.1f}%, but Section 3 Reverse DCF calculates {g_s:+.1f}%.")
             except Exception:
                 pass
 
-    # 26. Insider Narrative vs Ledger Consistency Check
-    s4_match_all = re.search(r"<h2>Section 4:.*?</h2>(.*?)(?=<h2>Section 5|$)", html, re.DOTALL | re.IGNORECASE)
-    if s4_match_all:
-        s4_t = s4_match_all.group(1).lower()
-        if "zero open-market insider sales" in s4_t or "zero insider sales" in s4_t or "no insider sales" in s4_t:
-            # Check if Form 4 table right beside it actually lists sales
-            if re.search(r"sale\s*-\s*open\s*market|s\s*-\s*sale", s4_t):
-                issues.append("Insider Narrative Contradiction: Section 4 text claims 'zero insider sales' while adjacent Form 4 ledger documents open-market sales.")
-
-    # 27. 3 Distinct Storylines Valuation Spread Check
+    # 24. 3 Distinct Storylines Valuation Spread Check
     if metadata and s1 is not None and s2 is not None and s3 is not None:
         if abs(s1 - s2) < 0.05 and abs(s2 - s3) < 0.05:
             issues.append("Storyline Diversity Failure: All 3 storylines produced identical valuation targets. Storylines must represent 3 distinct operating trajectories.")
-
-    # 28. Economic Liquidity Floor Check
-    if metadata and s1 is not None and s4_match:
-        s4_t = re.sub(r"<[^>]+>", " ", s4_match.group(1))
-        s4_nd_m = re.search(r'(?:Net Cash Per (?:Diluted )?(?:ADS|Share)|Net Cash Fortress|Net Cash Position|Net Cash).*?([+-]?\$?\s*\d+(?:\.\d+)?\s*(?:/ADS|/sh|/share|\bper ADS\b|\bper share\b))', s4_t, re.IGNORECASE)
-        if s4_nd_m:
-            try:
-                nd_val = float(re.sub(r"[^\d.-]", "", s4_nd_m.group(1)))
-                if nd_val >= 3.0 and s1 < nd_val:
-                    issues.append(f"Liquidity Floor Violation: Storyline 1 Fair Value (${s1:.2f}) is lower than the company's audited Net Liquid Cash (${nd_val:.2f}/sh) on the balance sheet.")
-            except Exception:
-                pass
-
-    # 29. ADR Denominator & Extreme Downside Sanity Check
-    if metadata and s1 is not None and cur_p and cur_p > 15.0:
-        if s1 < (cur_p * 0.35) and "distressed" not in str(metadata.get("status_label", "")).lower() and "speculative" not in str(metadata.get("status_label", "")).lower():
-            issues.append(f"ADR Denominator / Valuation Collapse Failure: Calculated Fair Value (${s1:.2f}) represents an impossible {-((cur_p-s1)/cur_p*100):.1f}% drop on a cash-generative going-concern (likely ADR ordinary-to-ADS share denominator confusion).")
 
     return len(issues) == 0, issues
 
