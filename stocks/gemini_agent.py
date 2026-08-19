@@ -776,7 +776,11 @@ CRITICAL AUDITED FINANCIAL REALITY & INTEGRITY CHECKS:
    - For foreign companies traded via ADRs/ADSs (e.g. JD, BABA, PDD, SE, ASML, TSM), recognize that insiders do not file domestic Section 16 Form 4s. Beneficial ownership is reported via SEC Form 20-F (Item 6.E), Schedule 13D/G, and Form 3 filings under the HFIAA.
    - For Variable Interest Entity (VIE) structures and dual-class shareholdings (e.g. Founder Richard Liu holding 73.1% voting power via Class B shares), explicitly analyze the corporate governance implications, minority shareholder rights, and onshore RMB cash repatriation mechanics.
    - Address PRC statutory reserve fund requirements (10% of after-tax profits retained onshore until 50% of registered capital) and the 10% PRC dividend withholding tax on cash distributions.
-4. Buffett Country-Specific Valuation & Hurdle Rate:
+   - Analyze Synthetic Repatriation & Offshore Debt Dynamics: How the company finances offshore USD cash dividends and ADS repurchases (e.g. via offshore bond offerings) to bypass immediate domestic withholding taxes, and whether accumulating offshore debt creates structural liquidity or interest-coverage risks during a domestic revenue slowdown.
+4. Capital Allocation Discipline (M&A vs. Share Repurchases) & Fixed-Cost Channel Risks:
+   - M&A vs. Share Buyback ROIC Arbitrage: When a company pursues large acquisitions of mature or low-margin legacy assets (e.g. Ceconomy), explicitly evaluate whether walking away / deal cancellation represents a stronger bull catalyst for long-term ROIC by preserving cash for accretive share repurchases.
+   - Fixed-Cost Operating Leverage vs. Channel Shifts: For asset-heavy infrastructure platforms (e.g. nationwide warehouse networks, captive delivery fleets), evaluate the vulnerability of fixed overhead to secular channel shifts (e.g. search-based e-commerce losing traffic to social/livestreaming commerce), and how volume contraction impacts unit fulfillment margins.
+5. Buffett Country-Specific Valuation & Hurdle Rate:
    - Use Warren Buffett's standard opportunity-cost hurdle rate (9.0%–10.5%), reflecting the local sovereign rate and equity hurdle. Do NOT apply artificial academic CAPM haircuts; risk is properly accounted for through conservative Owner Earnings projections and demanding a robust Margin of Safety.
 
 Core Topics to Cover:
@@ -850,7 +854,7 @@ Guidelines:
   * Operational upside must come strictly from automated warehouse routing, inventory placement algorithms, and cross-border vendor procurement scale.
 - Operational Metric Continuity: Explicitly carry forward and trace the primary operational metrics identified in Section 1 (e.g. 3P Marketplace Take Rate %, Active Customer growth %, Fulfillment Expense Ratio %, AOV) across EACH of the 3 stories to justify how margin expansion or contraction occurs.
 - Cross-Border M&A Scenario Segmentation: If the company is pursuing major cross-border retail acquisitions (e.g. Ceconomy AG / MediaMarkt-Saturn under EU FSR regulatory scrutiny):
-  * Base Case (Story 1): Focuses on domestic 3P service take-rate expansion and logistics efficiency with cash preserved at standalone levels (+$13.41/ADS).
+  * Base Case (Story 1): Focuses on domestic 3P service take-rate expansion and logistics efficiency with cash preserved at standalone levels (+$13.41/ADS). Model superior capital allocation discipline where preserved cash and annual Owner Earnings are deployed into aggressive share repurchases, compounding per-share intrinsic value higher without M&A integration drag.
   * Bull Case (Story 2): Models successful transaction close ($4.40B cash + debt burden, net cash +$10.24/ADS), treating European retail realistically as a mature, low-margin (1.5%–2.0% EBIT) volume bridge.
   * Downside Case (Story 3): Models transaction blocked under EU regulatory probes, domestic 1P revenue contraction (-3% to -5%), and front-loaded supplier cash drain.
 
