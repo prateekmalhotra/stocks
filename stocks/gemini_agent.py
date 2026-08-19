@@ -762,18 +762,19 @@ CRITICAL AUDITED FINANCIAL REALITY & INTEGRITY CHECKS:
    - Line 3: Stock-Based Compensation (SBC) expense ($ Millions USD) treated as a 100% cash charge.
    - Line 4: Non-Operating Interest Income Deduction ($ Millions USD). If the company holds large cash deposits generating non-operating interest income (e.g. ~$1.3B USD for JD), that interest income MUST be deducted from OCF before deriving core Operating Owner Earnings to prevent double-counting when adding cash on the balance sheet bridge:
      * Core Operating Baseline Owner Earnings (OE₀) = GAAP OCF - Non-Operating Interest Income - Maintenance CapEx - SBC.
-2. Calibrated Working Capital Operational Cash Buffer (2.5%–3.5% of Revenue):
+2. Calibrated Working Capital Operational Cash Buffer & M&A Debt Consolidation:
    - Direct-sales (1P) retailers operate with negative cash conversion cycles (collecting cash immediately from retail customers while paying suppliers on 50–60 day terms).
    - Reserve an essential operational liquidity buffer of 2.5% to 3.5% of annual revenue (e.g. $4.5B–$6.5B for a $180B+ retailer).
    - When deriving Net Balance Sheet Cash, deduct:
      * Operational Cash Buffer (2.5%–3.5% of revenue)
      * Total Funded Debt & Capital Leases
-     * Major Committed M&A Cash Outlays (e.g. Ceconomy acquisition)
+     * Major Committed M&A Cash Outlays & Inherited Consolidated Net Debt (e.g. for Ceconomy AG: $2.05B cash outlay + ~$1.98B inherited net debt). Present the net cash per ADS under both Consolidated Close ($9.50/ADS) and Standalone ($12.50/ADS) conditions.
    - Do NOT deduct Non-Controlling Interests (NCI) from cash (NCI is an equity claim on net subsidiary assets, not a cash debt).
-   - The resulting figure is the true Unencumbered Surplus Net Cash per Share/ADS (typically $7–$10/share for JD).
+   - The resulting figure is the true Unencumbered Surplus Net Cash per Share/ADS.
 3. Foreign Private Issuer (FPI), VIE Structure & Governance Reality:
    - For foreign companies traded via ADRs/ADSs (e.g. JD, BABA, PDD, SE, ASML, TSM), recognize that insiders do not file domestic Section 16 Form 4s. Beneficial ownership is reported via SEC Form 20-F (Item 6.E), Schedule 13D/G, and Form 3 filings under the HFIAA.
    - For Variable Interest Entity (VIE) structures and dual-class shareholdings (e.g. Founder Richard Liu holding 73.1% voting power via Class B shares), explicitly analyze the corporate governance implications, minority shareholder rights, and onshore RMB cash repatriation mechanics.
+   - Address PRC statutory reserve fund requirements (10% of after-tax profits retained onshore until 50% of registered capital) and the 10% PRC dividend withholding tax on cash distributions.
 4. Buffett Country-Specific Valuation & Hurdle Rate:
    - Use Warren Buffett's standard opportunity-cost hurdle rate (9.0%–10.5%), reflecting the local sovereign rate and equity hurdle. Do NOT apply artificial academic CAPM haircuts; risk is properly accounted for through conservative Owner Earnings projections and demanding a robust Margin of Safety.
 
@@ -781,6 +782,7 @@ Core Topics to Cover:
 1. The Core Business Machine, Moat & 1P vs 3P Unit Economics:
    - What the company does, its customer value proposition, pricing power, and durable economic moat.
    - 1P Direct Sales vs 3P Services Dynamics: How low-margin, high-volume 1P direct sales creates consumer trust and negative working capital, while high-margin 3P Net Service Revenues (marketplace take rates, advertising, logistics fulfillment) serves as the primary engine of margin expansion.
+   - Top-Line Realism: Acknowledge recent top-line dynamics (e.g. Q2 2026 net revenue dip of -2.9% YoY and 1P product revenue contraction of -5.4% due to high-base effects and consumer sentiment).
    - Identify the 3–5 PRIMARY OPERATIONAL METRICS reported by the company (e.g. Active Customers, AOV, GMV, Units Sold, Comps, ARPU, RevPAR, 3P Take Rate, Fulfillment Expense Ratio).
 2. Audited Financial Baseline (Single Source of Truth in $ Millions/Billions USD):
    - Latest Period Net Revenue ($ USD)
@@ -789,17 +791,18 @@ Core Topics to Cover:
    - Annual CapEx ($ Millions USD): Explicitly distinguish between Maintenance CapEx (steady-state upkeep of logistics fleets/warehouses) vs Growth CapEx (new fulfillment hubs).
    - Stock-Based Compensation (SBC) ($ Millions USD) treated as a cash charge.
    - Core Baseline Owner Earnings: OE₀ = OCF - Interest Income - Maintenance CapEx - SBC ($ Millions USD)
-   - Balance Sheet Cash & ST Investments ($ Millions USD) vs Total Funded Debt & Leases ($ Millions USD), minus Operational Cash Buffer (2.5%–3.5% Rev) and committed M&A cash outlays.
+   - Balance Sheet Cash & ST Investments ($ Millions USD) vs Total Funded Debt & Leases ($ Millions USD), minus Operational Cash Buffer (2.5%–3.5% Rev) and committed M&A cash outlays plus inherited net debt.
    - Diluted Shares / ADSs Outstanding (Millions)
    - Unencumbered Surplus Net Cash / (Debt) per Share/ADS in USD.
 3. Leadership Commentary & 4-Quarter Trajectory: Executive commentary and authentic quotes from the active CEO and CFO across the last 4 quarters.
 4. Corporate Governance, VIE Structure & Onshore Capital Realities:
    - VIE contractual arrangement and Cayman holding structure.
    - Dual-class voting rights, founder voting concentration, and capital allocation track record.
-   - Onshore RMB cash reinvestment vs offshore dividend withholding / ADR buyback mechanics.
-5. Current State of Play & Cyclical Catalysts:
+   - Onshore RMB cash statutory reserves and 10% dividend withholding tax mechanics.
+5. Current State of Play, Catalysts & Regulatory Execution Risks:
    - Why the business is at a pivotal inflection point today.
-   - Government-subsidized consumer trade-in programs (home appliances, electronics) and how JD captures outsized demand via direct OEM integrations and white-glove installation logistics.
+   - Domestic catalysts: Government-subsidized consumer trade-in programs (home appliances, electronics) and how JD captures outsized demand via direct OEM integrations and white-glove installation logistics.
+   - International M&A & Regulatory Friction: Ceconomy AG takeover status, including the European Commission's Foreign Subsidies Regulation in-depth probe and geopolitical pushback.
 
 Format Section 1 in clean Semantic HTML:
 <h2>Section 1: The Premise of the Company</h2>
