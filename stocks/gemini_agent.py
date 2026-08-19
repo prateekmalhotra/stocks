@@ -743,16 +743,22 @@ Your objective is to establish the single audited factual foundation ("The Premi
 
 Guidelines:
 - Blind Valuation: Analyze the business purely as an unlisted private enterprise with zero knowledge of current stock prices.
-- Currency: All figures MUST strictly be in US DOLLARS ($ USD). (Convert foreign currencies at prevailing FX rates; foreign ADRs use US ADS count).
+- Currency & Denominator Integrity: ALL figures MUST strictly be in US DOLLARS ($ USD). Convert foreign currencies (e.g. RMB, EUR) at prevailing FX rates (e.g. RMB / ~7.15). For foreign ADRs, strictly use the US-listed ADS (American Depositary Share) count.
 - Primary Research: Search audited SEC filings (10-K, 10-Q, 20-F) and the last 4 quarterly earnings call transcripts.
 - Current Reporting Period: Explicitly state the latest reported fiscal quarter / period (e.g. "Q3 2024 / LTM Ended Sept 2024").
 
 Core Topics to Cover:
 1. The Core Business Machine & Operational Metrics:
    - What the company does, its customer value proposition, pricing power, and durable economic moat.
-   - Identify the 3–5 PRIMARY OPERATIONAL METRICS reported by the company (e.g. Active Customers, Average Order Value (AOV), GMV, Units Sold, Same-Store Comps, ARPU, RevPAR, Take Rate, Capacity/Fulfillment volume).
-2. Audited Financial Baseline (Single Source of Truth in $ USD):
-   - State the exact audited baseline figures: LTM Net Revenue, GAAP Operating Cash Flow (OCF), Maintenance CapEx, Stock-Based Compensation (SBC), Cash & ST Investments, Total Debt, Diluted Share/ADS Count, and Net Cash per share.
+   - Identify the 3–5 PRIMARY OPERATIONAL METRICS reported by the company (e.g. Active Customers, AOV, GMV, Units Sold, Comps, ARPU, RevPAR, Take Rate, Capacity).
+2. Audited Financial Baseline (Single Source of Truth in $ Millions/Billions USD):
+   - LTM Net Revenue ($ USD)
+   - GAAP Operating Cash Flow (OCF) ($ Millions USD)
+   - Annual Maintenance CapEx ($ Millions USD) & Stock-Based Compensation (SBC) ($ Millions USD)
+   - Baseline Base Year 1 Owner Earnings: OE₁ = OCF - Maintenance CapEx - SBC ($ Millions USD)
+   - Balance Sheet Cash & ST Investments ($ Millions USD) vs Total Funded Debt & Leases ($ Millions USD)
+   - Diluted Shares / ADSs Outstanding (Millions)
+   - Net Cash / (Debt) per Share/ADS in USD: (Cash & ST Investments - Total Debt) / Diluted Shares
 3. Leadership Commentary & 4-Quarter Trajectory: Executive commentary and authentic quotes from the active CEO and CFO across the last 4 quarters.
 4. Current State of Play: Why the business is at a pivotal inflection point today.
 
@@ -781,7 +787,7 @@ Output pure HTML only (no code fences, no inline styles)."""
 AGENT_2_STORIES_PROMPT = """Target: {ticker} ({company_name})
 
 You are LLM Agent 2: 3 Stories Strategist.
-Here is the Company Premise from Agent 1 (containing the audited financial baseline and operational metrics):
+Here is the Company Premise from Agent 1 (containing the audited financial baseline, operational metrics, and net cash per share):
 {premise_context}
 
 Guidelines:
@@ -790,7 +796,7 @@ Guidelines:
 - Primary Research: Search and inspect {company_name}'s latest filings and earnings transcripts.
 
 FIRST-PRINCIPLES BUSINESS METRIC CHAIN (NO ARBITRARY GROWTH ASSUMPTIONS):
-- Revenue does NOT come from thin air or an arbitrary percentage. Revenue is driven by explicit operational business metrics reported by the company (e.g. active customer counts, unit volume, order frequency, pricing/AOV, capacity ramps, store/resort openings, or take rates).
+- Revenue is driven by explicit operational business metrics reported by the company (e.g. active customer counts, unit volume, order frequency, pricing/AOV, capacity ramps, store/resort openings, or take rates).
 - For EACH story, you must explicitly justify the business assumptions chain:
   1. Top-Level Operational Metric Shifts: How specific business volume, unit capacity, pricing power, or new asset additions evolve over the next 3–5 years with clear operational justifications.
   2. Revenue Translation: How those operational metric shifts calculate into top-line net revenue.
@@ -810,7 +816,7 @@ Format Section 2 in clean Semantic HTML:
   <h3>📖 Story 1: [Descriptive Operational Title 1]</h3>
   <p>[Full narrative explanation of this operational path...]</p>
   <p><strong>Operational Metric Drivers &amp; Revenue:</strong> [Explicit business metric shifts (e.g. customer volume, pricing/AOV, capacity ramps) and how they drive top-line revenue in $ USD...]</p>
-  <p><strong>Cost Dynamics, CapEx &amp; Owner Earnings:</strong> [COGS, OpEx margins, CapEx cycle assumptions, and resulting Owner Earnings trajectory...]</p>
+  <p><strong>Cost Dynamics, CapEx &amp; Owner Earnings:</strong> [COGS, OpEx margins, CapEx cycle assumptions, and resulting Owner Earnings trajectory in $ USD...]</p>
   <p><strong>Key Milestones to Watch:</strong> [Specific indicators to monitor...]</p>
 </div>
 
@@ -818,7 +824,7 @@ Format Section 2 in clean Semantic HTML:
   <h3>📖 Story 2: [Descriptive Operational Title 2]</h3>
   <p>[Full narrative explanation of this operational path...]</p>
   <p><strong>Operational Metric Drivers &amp; Revenue:</strong> [Explicit business metric shifts and how they drive top-line revenue in $ USD...]</p>
-  <p><strong>Cost Dynamics, CapEx &amp; Owner Earnings:</strong> [COGS, OpEx margins, CapEx cycle assumptions, and resulting Owner Earnings trajectory...]</p>
+  <p><strong>Cost Dynamics, CapEx &amp; Owner Earnings:</strong> [COGS, OpEx margins, CapEx cycle assumptions, and resulting Owner Earnings trajectory in $ USD...]</p>
   <p><strong>Key Milestones to Watch:</strong> [Specific indicators to monitor...]</p>
 </div>
 
@@ -826,7 +832,7 @@ Format Section 2 in clean Semantic HTML:
   <h3>📖 Story 3: [Descriptive Operational Title 3]</h3>
   <p>[Full narrative explanation of this operational path...]</p>
   <p><strong>Operational Metric Drivers &amp; Revenue:</strong> [Explicit business metric shifts and how they drive top-line revenue in $ USD...]</p>
-  <p><strong>Cost Dynamics, CapEx &amp; Owner Earnings:</strong> [COGS, OpEx margins, CapEx cycle assumptions, and resulting Owner Earnings trajectory...]</p>
+  <p><strong>Cost Dynamics, CapEx &amp; Owner Earnings:</strong> [COGS, OpEx margins, CapEx cycle assumptions, and resulting Owner Earnings trajectory in $ USD...]</p>
   <p><strong>Key Milestones to Watch:</strong> [Specific indicators to monitor...]</p>
 </div>
 
@@ -843,15 +849,17 @@ The 3 Stories (Operational Metrics & Cost Trajectories):
 
 You are LLM Agent 3: Storyline DCF Valuation Specialist.
 
-Guidelines:
-- Blind Valuation: Evaluate cash flows purely from First Principles as if buying 100% of the private enterprise, with zero knowledge of current stock prices.
-- Strict Baseline Consistency: Use the EXACT audited baseline figures established in Section 1 (Base Year 1 Owner Earnings, Net Cash/Debt per share, Diluted Shares/ADSs in $ USD) as the mathematical foundation for your DCF model.
-- Model Derivation from Story Drivers: Translate each story's operational metrics, revenue trajectory, margin expansion/compression, and CapEx cycle directly into the 5-Year Owner Earnings CAGR and Year 1-5 cash flow trajectory. No arbitrary growth numbers—every rate must be justified by the story's business metrics.
-- Buffett Owner Earnings: Year 1 Owner Earnings = GAAP Operating Cash Flow - Maintenance CapEx - 100% Stock-Based Compensation ($ Millions USD).
-- Discount Rate: 9.0%–10.0% hurdle rate (opportunity cost).
-- Terminal Growth: 1.5%–2.25% (GDP capped).
-- Balance Sheet Bridge: Use the Net Cash/Debt per share established in Section 1.
-- Currency: All numbers strictly in US DOLLARS ($ USD).
+BLIND VALUATION & MATHEMATICAL INTEGRITY INVARIANTS:
+1. Blind Valuation: Evaluate cash flows purely from First Principles as if buying 100% of the private enterprise, with zero knowledge of current stock prices.
+2. STRICT MATHEMATICAL CONSISTENCY & SCALE INTEGRITY:
+   - Year 1 Annual Owner Earnings (OE₁): Must be denominated in $ Millions USD and accurately reflect the business operating scale established in Section 1 (e.g. if the company generates $4.0B in owner cash, OE₁ is $4,000.0M, NOT $400M!).
+   - Net Cash / (Debt) per Share/ADS Adjustment: MUST strictly match the exact calculated Net Cash / (Debt) per share from Section 1 (e.g. (Cash - Debt) / Diluted Shares = +$XX.XX/sh). NEVER hardcode +$100.00/sh or use an arbitrary round plug!
+   - Each Story Must Have DISTINCT Projections: Story 1, Story 2, and Story 3 must each have their own distinct OE₁, distinct growth rates, and distinct calculated intrinsic values per share ($XX.XX) matching their narrative.
+3. DCF Parameters:
+   - Discount Rate: 9.0%–10.0% hurdle rate (opportunity cost).
+   - Terminal Growth: 1.5%–2.25% (GDP capped).
+   - Total Intrinsic Value per Share = (PV of 5-Yr Owner Earnings + PV of Terminal Value) / Diluted Shares + Net Cash per Share.
+   - All numbers strictly in US DOLLARS ($ USD).
 
 Format Section 3 in clean Semantic HTML:
 <h2>Section 3: Valuation Across the 3 Stories</h2>
@@ -878,9 +886,9 @@ Format Section 3 in clean Semantic HTML:
 
 <div class="callout">
   <h3>Valuation Rationale Across the 3 Paths</h3>
-  <p><strong>Story 1 ($XX.XX):</strong> [Rationale explaining how the specific operational metric shifts, revenue, and cost structure produce this intrinsic value...]</p>
-  <p><strong>Story 2 ($XX.XX):</strong> [Rationale explaining how the specific operational metric shifts, revenue, and cost structure produce this intrinsic value...]</p>
-  <p><strong>Story 3 ($XX.XX):</strong> [Rationale explaining how the specific operational metric shifts, revenue, and cost structure produce this intrinsic value...]</p>
+  <p><strong>Story 1 ($XX.XX):</strong> [Detailed step-by-step arithmetic rationale explaining how the operational metrics, revenue, cost structure, and discounted cash flows plus net cash per share produce this intrinsic value...]</p>
+  <p><strong>Story 2 ($XX.XX):</strong> [Detailed step-by-step arithmetic rationale explaining how the operational metrics, revenue, cost structure, and discounted cash flows plus net cash per share produce this intrinsic value...]</p>
+  <p><strong>Story 3 ($XX.XX):</strong> [Detailed step-by-step arithmetic rationale explaining how the operational metrics, revenue, cost structure, and discounted cash flows plus net cash per share produce this intrinsic value...]</p>
 </div>
 
 At the very end, output a JSON block in ```json ... ```:
