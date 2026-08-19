@@ -996,260 +996,107 @@ def compute_deterministic_dcf(
     }
 
 
-def solve_implied_growth(target_ev: float, starting_oe: float, discount_rate: float, terminal_growth: float = 0.02) -> float:
-    """Numerically solves for the exact 5-year growth rate implied by target Enterprise Value."""
-    if starting_oe <= 0 or target_ev <= 0:
-        return 0.0
-    low = -0.90
-    high = 3.00
-    for _ in range(100):
-        mid = (low + high) / 2.0
-        current_oe = starting_oe
-        pv_sum = 0.0
-        for y in range(1, 6):
-            current_oe *= (1.0 + mid)
-            pv_sum += current_oe / ((1.0 + discount_rate) ** y)
-        oe_5 = current_oe
-        denom = max(0.005, discount_rate - terminal_growth)
-        tv = (oe_5 * (1.0 + terminal_growth)) / denom
-        pv_tv = tv / ((1.0 + discount_rate) ** 5)
-        ev = pv_sum + pv_tv
-        if ev < target_ev:
-            low = mid
-        else:
-            high = mid
-    return round(mid * 100.0, 1)
+AGENT_3_SINGLE_STORY_DCF_PROMPT = """Target: {ticker} ({company_name})
+Story to Value: {story_name} (Story {story_num}/3)
 
-
-AGENT_3_DCF_EVALUATOR_PROMPT = """Target: {ticker} ({company_name})
-
-Company Premise (Audited Financial Baseline & Balance Sheet):
+Company Premise (Audited Financial Baseline, Share Count, Balance Sheet Cash):
 {premise_context}
 
-The 3 Stories (Operational Metrics & Cost Trajectories):
-{stories_context}
+Operational Story Context:
+{story_context}
 
-You are LLM Agent 3: Storyline DCF Valuation Specialist.
+You are LLM Agent 3{story_letter}: Dedicated Buffett DCF Valuation Specialist for {story_name}.
+Your objective is to independently model and calculate the complete, step-by-step Warren Buffett Owner Earnings Discounted Cash Flow (DCF) valuation for THIS SPECIFIC STORY ONLY (100% Blind Mode, zero knowledge of current stock market price).
 
-Your Objective:
-Extract and assign the exact fundamental valuation parameters for the 3 distinct business stories:
-1. Starting Year 0 Core Normalized Owner Earnings ($OE_0$) in $ Millions USD (strictly derived from audited cash flows: GAAP OCF minus Non-Operating Interest Income minus Maintenance CapEx minus SBC, inherently excluding non-cash paper goodwill/asset impairments which are added back to GAAP OCF, and normalizing for material non-recurring one-off cash items).
-2. 5-Year Organic Owner Earnings CAGR (e.g. 0.08 for +8.0%, -0.09 for -9.0% downside).
-3. Discount / Hurdle Rate (typically 0.095 for 9.5%, or 0.105 for higher risk).
-4. Terminal Growth Rate (typically 0.015 to 0.0225).
-5. Balance Sheet & Share Count Denominators:
-   - Diluted Shares / ADSs in Millions
-   - Gross Cash & ST Investments ($ Millions USD)
-   - Total Debt & Capital Leases ($ Millions USD)
-   - Operational Working Capital Buffer ($ Millions USD, 2.5%–3.5% of annual revenue)
-   - Major Committed M&A Cash Outlays ($ Millions USD, e.g. Ceconomy)
-   - Unencumbered Surplus Net Cash per Share / ADS ($ USD) = (Gross Cash - Total Debt - Working Capital Buffer - M&A) / Diluted Shares
+Guidelines:
+- 100% First-Principles Math: Calculate the 5-year Owner Earnings cash flows, PV of each year, terminal value, enterprise value, and per-share intrinsic value.
+- Denominator Integrity: Use the exact diluted share count stated in Section 1 (e.g. for BABA: 2,360M diluted ADSs; for GCT: 36.8M diluted ADSs; for JD: 1,410M diluted ADSs). For foreign ADRs, strictly value in USD per ADS.
+- Surplus Cash Addition: Add the exact unencumbered balance sheet surplus net cash per ADS established in Section 1 (after deducting debt, leases, and operational liquidity buffer).
+- Cash Flow Normalization: Starting Owner Earnings (OE₀) = Normalized GAAP OCF - Non-Operating Interest Income - Maintenance CapEx - SBC.
 
 Output a strict JSON block in ```json ... ```:
 ```json
 {{
-  "story1_title": "<Clean Title 1 e.g. Base Case Compounder>",
-  "story1_oe0": <float (e.g. 1800.0)>,
-  "story1_growth": <float (e.g. 0.08)>,
-  "story1_discount": <float (e.g. 0.095)>,
-  "story1_terminal": <float (e.g. 0.020)>,
-  "story1_net_cash": <float (Surplus Net Cash per Share/ADS for Story 1 e.g. 13.41)>,
-  "story1_narrative": "<2-3 sentence fundamental operational explanation for Story 1>",
-  "story2_title": "<Clean Title 2 e.g. High-Margin Harvest>",
-  "story2_oe0": <float (e.g. 2500.0)>,
-  "story2_growth": <float (e.g. 0.12)>,
-  "story2_discount": <float (e.g. 0.095)>,
-  "story2_terminal": <float (e.g. 0.0225)>,
-  "story2_net_cash": <float (Surplus Net Cash per Share/ADS for Story 2 e.g. 10.24)>,
-  "story2_narrative": "<2-3 sentence fundamental operational explanation for Story 2>",
-  "story3_title": "<Clean Title 3 e.g. Macro Stagnation & Price War>",
-  "story3_oe0": <float (e.g. 1000.0)>,
-  "story3_growth": <float (e.g. -0.05)>,
-  "story3_discount": <float (e.g. 0.105)>,
-  "story3_terminal": <float (e.g. 0.015)>,
-  "story3_net_cash": <float (Surplus Net Cash per Share/ADS for Story 3 e.g. 10.50)>,
-  "story3_narrative": "<2-3 sentence fundamental operational explanation for Story 3>",
-  "diluted_shares": <float (Diluted Shares / ADSs in Millions e.g. 1371.0)>,
-  "gross_cash_usd": <float (e.g. 31300.0)>,
-  "total_debt_usd": <float (e.g. 10300.0)>,
-  "committed_ma_usd": <float (e.g. 2400.0)>,
-  "net_cash_per_share": <float (e.g. 13.41)>,
-  "labels": ["<Canonical Conviction Tier (High Conviction | Solid Conviction | Moderate Conviction | Cautious Stance | Turnaround Play | Speculative Risk)>", "<Play Driver 1>", "<Play Driver 2>"],
-  "executive_summary": "<2-3 sentence crisp plain-English summary of premise, stories, and valuations in USD>"
+  "story_title": "<Descriptive Operational Title>",
+  "story_narrative": "<2-3 sentence fundamental operational explanation for this path>",
+  "starting_oe0_usd_m": <float, Starting Year 0 Owner Earnings in $ Millions USD>,
+  "cagr_5yr": <float, 5-Year CAGR (e.g. 0.083 for +8.3%, -0.05 for -5.0%)>,
+  "discount_rate": <float, Hurdle Rate (e.g. 0.095 for 9.5%, 0.105 for 10.5%)>,
+  "terminal_growth": <float, Terminal Growth (e.g. 0.020 for 2.0%)>,
+  "cash_flows_yr1_to_5_usd_m": [<float Yr1>, <float Yr2>, <float Yr3>, <float Yr4>, <float Yr5>],
+  "pv_cash_flows_yr1_to_5_usd_m": [<float PV1>, <float PV2>, <float PV3>, <float PV4>, <float PV5>],
+  "sum_pv_5yr_usd_m": <float, Sum of 5-year discounted cash flows in $ Millions USD>,
+  "terminal_value_usd_m": <float, Undiscounted Terminal Value in $ Millions USD>,
+  "pv_terminal_value_usd_m": <float, Discounted Terminal Value in $ Millions USD>,
+  "enterprise_value_usd_m": <float, Total Operating Enterprise Value in $ Millions USD>,
+  "diluted_shares_m": <float, Diluted ADSs / Shares in Millions>,
+  "operating_value_per_share": <float, Operating EV divided by Diluted Shares in $ USD>,
+  "net_cash_per_share": <float, Balance Sheet Surplus Net Cash per Share in $ USD>,
+  "fair_value_per_share": <float, Operating Value per Share + Net Cash per Share in $ USD>,
+  "story_step_by_step_proof_html": "<p><strong>[Story Title] ($[Fair Value]):</strong> [Detailed step-by-step narrative and mathematical proof showing Year 0 OE₀, 5-year CAGR, 5-year PV sum, terminal value, enterprise value, share division, and net cash addition...]</p>"
 }}
 ```
 Output JSON only in ```json ... ```."""
 
 
-def build_deterministic_valuation_section(
-    ticker: str,
-    company_name: str,
-    current_price: float,
-    dcf_data: Dict[str, Any],
-    sec1_text: str = ""
-) -> Tuple[str, Dict[str, Any]]:
-    """Builds the 100% mathematically exact Section 3 DCF and Reverse DCF HTML section."""
-    # Single Source of Truth: Extract Diluted Shares directly from Section 1 if present
-    # Check number BEFORE keywords first (e.g. '36.80 million diluted ADSs/shares outstanding')
-    sec1_shares_before = re.search(r'([0-9,]+(?:\.[0-9]+)?)\s*(?:million|billion|M|B)?\s*(?:diluted ADSs|diluted shares|ADSs/shares outstanding|shares/ADSs outstanding|ADSs outstanding|shares outstanding|diluted ordinary shares|ordinary shares)', sec1_text or "", re.IGNORECASE)
-    # Check number AFTER keywords (e.g. 'Diluted ADSs Outstanding: 1,410.0M')
-    sec1_shares_after = re.search(r'(?:diluted share count|diluted shares|diluted ADSs|shares outstanding|share count)[^0-9\n\r$]*?([0-9,]+(?:\.[0-9]+)?)\s*(?:M|million|B|billion)?', sec1_text or "", re.IGNORECASE)
-    
-    sec1_shares_match = sec1_shares_before or sec1_shares_after
-    if sec1_shares_match:
-        try:
-            s_val = float(sec1_shares_match.group(1).replace(",", ""))
-            if s_val < 5.0 and "b" in sec1_shares_match.group(0).lower():
-                s_val = s_val * 1000.0
-            shares = max(0.1, s_val)
-        except Exception:
-            shares = max(1.0, float(dcf_data.get("diluted_shares") or 1000.0))
-    else:
-        shares = max(1.0, float(dcf_data.get("diluted_shares") or 1000.0))
-    
-    # Single Source of Truth: Extract Net Cash per Share directly from Section 1 if present
-    sec1_cash_match = re.search(r'(?:Surplus Net Cash / ADS|Surplus Net Cash / Share|Net Cash per ADS|Net Cash per Share|Standalone Net Cash).*?\+\$([0-9,]+(?:\.[0-9]+)?)', sec1_text or "", re.DOTALL | re.IGNORECASE)
-    sec1_net_cash = float(sec1_cash_match.group(1).replace(",", "")) if sec1_cash_match else None
-    
-    # Calculate exact balance sheet surplus cash in Python
-    gross_cash_raw = float(dcf_data.get("gross_cash_usd") or 0.0)
-    total_debt_raw = float(dcf_data.get("total_debt_usd") or 0.0)
-    committed_ma_raw = float(dcf_data.get("committed_ma_usd") or 0.0)
-    
-    # Revenue extraction for 3.0% working capital buffer
-    rev_match = re.search(r'Revenue.*?\$([0-9,]+(?:\.[0-9]+)?)\s*([BM])', sec1_text or "", re.DOTALL | re.IGNORECASE)
-    annual_rev_m = 0.0
-    if rev_match:
-        r_val = float(rev_match.group(1).replace(",", ""))
-        r_mag = rev_match.group(2).upper()
-        annual_rev_m = r_val * 1000.0 if r_mag == "B" else r_val
-        
-    wc_buffer_m = round(annual_rev_m * 0.03, 1) if annual_rev_m > 0 else 0.0
-    
-    if sec1_net_cash is not None and sec1_net_cash > 0:
-        net_cash_per_sh = sec1_net_cash
-    elif gross_cash_raw > 0:
-        calc_surplus_m = max(0.0, gross_cash_raw - total_debt_raw - wc_buffer_m - committed_ma_raw)
-        net_cash_per_sh = round(calc_surplus_m / shares, 2)
-    else:
-        net_cash_per_sh = float(dcf_data.get("net_cash_per_share") or 8.50)
-    
-    # Extract audited Baseline Owner Earnings from Section 1 if present
-    base_anchor = None
-    baseline_match = re.search(r'Baseline Owner Earnings.*?\$([0-9,]+(?:\.[0-9]+)?)\s*([BM])', sec1_text or "", re.DOTALL | re.IGNORECASE)
-    if baseline_match:
-        val = float(baseline_match.group(1).replace(",", ""))
-        mag = baseline_match.group(2).upper()
-        base_anchor = val * 1000.0 if mag == "B" else val
-    
-    # Story 1 parameters
-    s1_title = dcf_data.get("story1_title") or "Base Case Compounder"
-    raw_s1_oe0 = float(dcf_data.get("story1_oe0") or 1800.0)
-    if base_anchor and (raw_s1_oe0 > base_anchor * 1.5 or raw_s1_oe0 < base_anchor * 0.5):
-        s1_oe0 = base_anchor
-    else:
-        s1_oe0 = raw_s1_oe0
-        
-    s1_g = float(dcf_data.get("story1_growth") or 0.08)
-    s1_r = float(dcf_data.get("story1_discount") or 0.095)
-    s1_gt = min(0.020, max(0.010, float(dcf_data.get("story1_terminal") or 0.020)))
-    s1_narrative = dcf_data.get("story1_narrative") or "Core retail margin expansion and supply-chain efficiency."
-    
-    # Story 2 parameters
-    s2_title = dcf_data.get("story2_title") or "High-Margin Digital Service & Logistics Harvest"
-    raw_s2_oe0 = float(dcf_data.get("story2_oe0") or (s1_oe0 * 1.35))
-    if base_anchor and (raw_s2_oe0 > base_anchor * 2.0 or raw_s2_oe0 < base_anchor * 0.6):
-        s2_oe0 = base_anchor * 1.35
-    else:
-        s2_oe0 = raw_s2_oe0
-        
-    s2_g = float(dcf_data.get("story2_growth") or 0.12)
-    s2_r = float(dcf_data.get("story2_discount") or 0.095)
-    s2_gt = min(0.0225, max(0.010, float(dcf_data.get("story2_terminal") or 0.0225)))
-    s2_narrative = dcf_data.get("story2_narrative") or "Aggressive 3P marketplace advertising and logistics scaling."
-    
-    # Story 3 parameters (Defensive Floor / Severe Downside Stress Test)
-    s3_title = dcf_data.get("story3_title") or "Macro Consumption Stagnation & Margin Compression"
-    raw_s3_oe0 = float(dcf_data.get("story3_oe0") or (s1_oe0 * 0.60))
-    if base_anchor and (raw_s3_oe0 > base_anchor * 1.2 or raw_s3_oe0 < base_anchor * 0.2):
-        s3_oe0 = base_anchor * 0.60
-    else:
-        s3_oe0 = raw_s3_oe0
-        
-    s3_g = float(dcf_data.get("story3_growth") or -0.09)
-    s3_r = float(dcf_data.get("story3_discount") or 0.105)
-    s3_gt = min(0.015, max(0.005, float(dcf_data.get("story3_terminal") or 0.015))) if (s3_g < 0) else min(0.0225, max(0.010, float(dcf_data.get("story3_terminal") or 0.020)))
-    s3_narrative = dcf_data.get("story3_narrative") or "Intense price competition, gross margin compression, and persistent operational drag."
-    
-    # Story-specific net cash adjustments matching Section 2 narratives
-    s1_net_cash = float(dcf_data.get("story1_net_cash") or net_cash_per_sh)
-    s2_net_cash = float(dcf_data.get("story2_net_cash") or net_cash_per_sh)
-    s3_net_cash = float(dcf_data.get("story3_net_cash") or net_cash_per_sh)
+AGENT_4_REVERSE_DCF_PROMPT = """Target: {ticker} ({company_name})
+Current Market Price: ${current_price:.2f}
 
-    # Compute Exact Deterministic DCF in Python
-    dcf1 = compute_deterministic_dcf(s1_oe0, s1_g, s1_r, s1_gt, shares, s1_net_cash)
-    dcf2 = compute_deterministic_dcf(s2_oe0, s2_g, s2_r, s2_gt, shares, s2_net_cash)
-    dcf3 = compute_deterministic_dcf(s3_oe0, s3_g, s3_r, s3_gt, shares, s3_net_cash)
-    
-    # Compute 2D Reverse DCF Matrix across discount rates and 3 distinct starting FCF levels
-    full_mcap = max(100.0, current_price * shares)
-    target_op_ev = max(100.0, (current_price - s1_net_cash) * shares)
-    fcf_trough = round(s1_oe0 * 0.65, 0)
-    fcf_base = round(s1_oe0, 0)
-    fcf_peak = round(s1_oe0 * 1.35, 0)
-    fcf_levels = [fcf_trough, fcf_base, fcf_peak]
-    rates = [0.095, 0.105, 0.115]
-    
-    rev_matrix = {}
-    for fcf in fcf_levels:
-        rev_matrix[fcf] = {}
-        for r in rates:
-            rev_matrix[fcf][r] = solve_implied_growth(target_op_ev, fcf, r, terminal_growth=0.02)
-            
-    implied_g_surplus = rev_matrix[fcf_base][0.095]
-    implied_g_full = solve_implied_growth(full_mcap, fcf_base, 0.095, terminal_growth=0.02)
-    
-    def _build_story_proof(title, narrative, oe0, g, r, gt, dcf_res, s_shares, s_net_cash):
-        growth_phrase = f"compounding at {g*100:+.1f}% annually over 5 years (reaching ${dcf_res['oe_5']:,.1f}M in Year 5)" if g >= 0 else f"contracting at {g*100:+.1f}% annually over 5 years (declining to ${dcf_res['oe_5']:,.1f}M in Year 5)"
-        ev_phrase = f"Operating enterprise value equals ${dcf_res['enterprise_value']:,.1f}M" if g >= 0 else f"Operating enterprise value contracts to ${dcf_res['enterprise_value']:,.1f}M"
-        return f"<p><strong>{title} (${dcf_res['total_intrinsic_value_per_share']:.2f}):</strong> {narrative} Starting from baseline Owner Earnings of ${oe0:,.1f}M {growth_phrase}, the discounted cash flows total ${dcf_res['sum_pv_5yr']:,.1f}M at a {r*100:.1f}% discount rate. Capitalizing Year 5 terminal cash flow at {gt*100:.2f}% terminal growth produces a terminal value of ${dcf_res['terminal_value']:,.1f}M (PV ${dcf_res['pv_terminal_value']:,.1f}M). {ev_phrase}, or <strong>${dcf_res['operating_value_per_share']:.2f} per ADS</strong> across {s_shares:,.1f}M diluted ADSs. Adding unencumbered balance sheet surplus net cash of <strong>+${s_net_cash:.2f} per ADS</strong> yields an exact intrinsic fair value of <strong>${dcf_res['operating_value_per_share']:.2f} + ${s_net_cash:.2f} = ${dcf_res['total_intrinsic_value_per_share']:.2f} per ADS</strong>.</p>"
+Company Premise (Audited Baseline & Balance Sheet):
+{premise_context}
 
-    # Build Semantic HTML
-    html = f"""<h2>Section 3: Valuation Across the 3 Stories</h2>
+Story 1 (Base Case) Valuation Model:
+{story1_json}
+
+Story 2 (Bull Case) Valuation Model:
+{story2_json}
+
+Story 3 (Bear Case) Valuation Model:
+{story3_json}
+
+You are LLM Agent 4: Reverse DCF & Market Expectation Inversion Specialist.
+Your objective is to:
+1. Synthesize all 3 standalone story valuations into the consolidated 3-Storyline Valuation Table.
+2. Invert today's market price (${current_price:.2f}) vs Story 1's fundamental value to construct the 2D Reverse DCF Sensitivity Matrix across discount rates (9.5%, 10.5%, 11.5%) and cash flow baselines (trough, base, peak).
+3. Provide the dual-perspective market narrative inversion analysis (Consolidated Full-Price Hurdle vs Surplus Cash-Adjusted Hurdle).
+4. Output the complete, beautifully formatted Section 3 in clean Semantic HTML.
+
+Format Section 3 in clean Semantic HTML:
+<h2>Section 3: Valuation Across the 3 Stories</h2>
 <p>Translating each of the 3 business stories into Warren Buffett-style discounted cash flow valuations based on true Core Owner Earnings (GAAP Operating Cash Flow minus Non-Operating Interest Income minus Maintenance CapEx minus Stock-Based Compensation, which is treated as an authentic economic compensation cost to measure non-dilutive owner cash generation) plus audited balance sheet surplus net cash per share:</p>
 
 <table class="data-table">
   <thead>
     <tr>
       <th>Valuation Parameter</th>
-      <th>Story 1: {s1_title}</th>
-      <th>Story 2: {s2_title}</th>
-      <th>Story 3: {s3_title}</th>
+      <th>Story 1: [Title 1]</th>
+      <th>Story 2: [Title 2]</th>
+      <th>Story 3: [Title 3]</th>
     </tr>
   </thead>
   <tbody>
-    <tr><td>Starting Normalized Owner Earnings (OE₀)</td><td>${s1_oe0:,.1f}M</td><td>${s2_oe0:,.1f}M</td><td>${s3_oe0:,.1f}M</td></tr>
-    <tr><td>5-Year Organic CAGR</td><td>{s1_g*100:+.1f}%</td><td>{s2_g*100:+.1f}%</td><td>{s3_g*100:+.1f}%</td></tr>
-    <tr><td>Discount / Hurdle Rate</td><td>{s1_r*100:.1f}%</td><td>{s2_r*100:.1f}%</td><td>{s3_r*100:.1f}%</td></tr>
-    <tr><td>Terminal Growth Rate</td><td>{s1_gt*100:.2f}%</td><td>{s2_gt*100:.2f}%</td><td>{s3_gt*100:.2f}%</td></tr>
-    <tr><td>PV of 5-Year Cash Flows</td><td>${dcf1['sum_pv_5yr']:,.1f}M</td><td>${dcf2['sum_pv_5yr']:,.1f}M</td><td>${dcf3['sum_pv_5yr']:,.1f}M</td></tr>
-    <tr><td>PV of Terminal Value</td><td>${dcf1['pv_terminal_value']:,.1f}M</td><td>${dcf2['pv_terminal_value']:,.1f}M</td><td>${dcf3['pv_terminal_value']:,.1f}M</td></tr>
-    <tr><td>Operating Business Enterprise Value</td><td>${dcf1['enterprise_value']:,.1f}M (${dcf1['operating_value_per_share']:.2f}/sh)</td><td>${dcf2['enterprise_value']:,.1f}M (${dcf2['operating_value_per_share']:.2f}/sh)</td><td>${dcf3['enterprise_value']:,.1f}M (${dcf3['operating_value_per_share']:.2f}/sh)</td></tr>
-    <tr><td>Net Balance Sheet Cash / (Debt) Adjustment</td><td>+${s1_net_cash:.2f}/sh</td><td>+${s2_net_cash:.2f}/sh</td><td>+${s3_net_cash:.2f}/sh</td></tr>
-    <tr><td><strong>Calculated Intrinsic Value / Share</strong></td><td><strong>${dcf1['total_intrinsic_value_per_share']:.2f}</strong></td><td><strong>${dcf2['total_intrinsic_value_per_share']:.2f}</strong></td><td><strong>${dcf3['total_intrinsic_value_per_share']:.2f}</strong></td></tr>
+    <tr><td>Starting Normalized Owner Earnings (OE₀)</td><td>$XX.XM</td><td>$XX.XM</td><td>$XX.XM</td></tr>
+    <tr><td>5-Year Organic CAGR</td><td>+XX.X%</td><td>+XX.X%</td><td>-XX.X%</td></tr>
+    <tr><td>Discount / Hurdle Rate</td><td>9.5%</td><td>9.5%</td><td>10.5%</td></tr>
+    <tr><td>Terminal Growth Rate</td><td>2.00%</td><td>2.25%</td><td>1.50%</td></tr>
+    <tr><td>PV of 5-Year Cash Flows</td><td>$XX,XXX.XM</td><td>$XX,XXX.XM</td><td>$XX,XXX.XM</td></tr>
+    <tr><td>PV of Terminal Value</td><td>$XX,XXX.XM</td><td>$XX,XXX.XM</td><td>$XX,XXX.XM</td></tr>
+    <tr><td>Operating Business Enterprise Value</td><td>$XX,XXX.XM ($XX.XX/sh)</td><td>$XX,XXX.XM ($XX.XX/sh)</td><td>$XX,XXX.XM ($XX.XX/sh)</td></tr>
+    <tr><td>Net Balance Sheet Cash / (Debt) Adjustment</td><td>+$XX.XX/sh</td><td>+$XX.XX/sh</td><td>+$XX.XX/sh</td></tr>
+    <tr><td><strong>Calculated Intrinsic Value / Share</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td></tr>
   </tbody>
 </table>
 
 <div class="callout">
   <h3>Step-by-Step Mathematical Proofs Across the 3 Paths</h3>
-  {_build_story_proof(s1_title, s1_narrative, s1_oe0, s1_g, s1_r, s1_gt, dcf1, shares, s1_net_cash)}
-  {_build_story_proof(s2_title, s2_narrative, s2_oe0, s2_g, s2_r, s2_gt, dcf2, shares, s2_net_cash)}
-  {_build_story_proof(s3_title, s3_narrative, s3_oe0, s3_g, s3_r, s3_gt, dcf3, shares, s3_net_cash)}
+  [Insert Story 1 Proof HTML]
+  [Insert Story 2 Proof HTML]
+  [Insert Story 3 Proof HTML]
 </div>
 
 <div class="callout">
   <h3>Reverse DCF Sensitivity Matrix: What is Mr. Market Pricing In?</h3>
-  <p><strong>Current Market Price:</strong> ${current_price:.2f} | <strong>Net Cash / ADS:</strong> +${net_cash_per_sh:.2f} | <strong>Implied Operating EV:</strong> ${(current_price - net_cash_per_sh):.2f}/ADS (${target_op_ev:,.1f}M total)</p>
+  <p><strong>Current Market Price:</strong> ${current_price:.2f} | <strong>Net Cash / ADS:</strong> +$[Net Cash] | <strong>Implied Operating EV:</strong> $[Implied EV]/ADS ($[Total EV]M total)</p>
   <p>To avoid false precision, the table below inverts the valuation equation to solve for the exact 5-year Owner Earnings growth rate required to justify today's stock price across varying cash flow baselines and hurdle rates:</p>
 
   <table class="data-table">
@@ -1262,46 +1109,35 @@ def build_deterministic_valuation_section(
       </tr>
     </thead>
     <tbody>
-      <tr><td>Trough / Compressed Cash Flow (${fcf_levels[0]:,.0f}M)</td><td>{rev_matrix[fcf_levels[0]][0.095]:+.1f}% / yr</td><td>{rev_matrix[fcf_levels[0]][0.105]:+.1f}% / yr</td><td>{rev_matrix[fcf_levels[0]][0.115]:+.1f}% / yr</td></tr>
-      <tr><td>Normalized Base Run-Rate (${fcf_levels[1]:,.0f}M)</td><td><strong>{rev_matrix[fcf_levels[1]][0.095]:+.1f}% / yr</strong></td><td>{rev_matrix[fcf_levels[1]][0.105]:+.1f}% / yr</td><td>{rev_matrix[fcf_levels[1]][0.115]:+.1f}% / yr</td></tr>
-      <tr><td>Peak / Re-Accelerated Capacity (${fcf_levels[2]:,.0f}M)</td><td>{rev_matrix[fcf_levels[2]][0.095]:+.1f}% / yr</td><td>{rev_matrix[fcf_levels[2]][0.105]:+.1f}% / yr</td><td>{rev_matrix[fcf_levels[2]][0.115]:+.1f}% / yr</td></tr>
+      <tr><td>Trough / Compressed Cash Flow ($XX,XXXM)</td><td>XX.X% / yr</td><td>XX.X% / yr</td><td>XX.X% / yr</td></tr>
+      <tr><td>Normalized Base Run-Rate ($XX,XXXM)</td><td><strong>XX.X% / yr</strong></td><td>XX.X% / yr</td><td>XX.X% / yr</td></tr>
+      <tr><td>Peak / Re-Accelerated Capacity ($XX,XXXM)</td><td>XX.X% / yr</td><td>XX.X% / yr</td><td>XX.X% / yr</td></tr>
     </tbody>
   </table>
 
   <p><strong>Market Narrative Analysis (Dual-Perspective Inversion):</strong></p>
   <ul>
-    <li><strong>Consolidated Full-Price Hurdle (Zero Cash Credit):</strong> At the full market price of ${current_price:.2f}/ADS (${full_mcap:,.1f}M market cap), assuming zero balance sheet cash is distributed, Mr. Market is pricing in <strong>{implied_g_full:+.1f}% annual Owner Earnings growth</strong> over 5 years.</li>
-    <li><strong>Surplus Cash-Adjusted Hurdle:</strong> Backing out unencumbered balance sheet cash (+${net_cash_per_sh:.2f}/ADS), the market values the core operating infrastructure at ${(current_price - net_cash_per_sh):.2f}/ADS (${target_op_ev:,.1f}M operating EV), implying <strong>{implied_g_surplus:+.1f}% annual growth</strong> against our baseline Owner Earnings (${fcf_base:,.0f}M) at a 9.5% discount rate.</li>
+    <li><strong>Consolidated Full-Price Hurdle (Zero Cash Credit):</strong> At the full market price of ${current_price:.2f}/ADS ($XX,XXX.XM market cap), assuming zero balance sheet cash is distributed, Mr. Market is pricing in <strong>XX.X% annual Owner Earnings growth</strong> over 5 years.</li>
+    <li><strong>Surplus Cash-Adjusted Hurdle:</strong> Backing out unencumbered balance sheet cash (+$XX.XX/ADS), the market values the core operating infrastructure at $XX.XX/ADS ($XX,XXX.XM operating EV), implying <strong>XX.X% annual growth</strong> against our baseline Owner Earnings ($XX,XXXM) at a 9.5% discount rate.</li>
   </ul>
-</div>"""
+</div>
 
-    val_meta = {
-        "story1_val": dcf1["total_intrinsic_value_per_share"],
-        "story2_val": dcf2["total_intrinsic_value_per_share"],
-        "story3_val": dcf3["total_intrinsic_value_per_share"],
-        "story1_title": s1_title,
-        "story2_title": s2_title,
-        "story3_title": s3_title,
-        "base_implied_growth": f"{implied_g_surplus:+.1f}%",
-        "what_is_priced_in": f"Market prices in {implied_g_surplus:+.1f}% annual growth (surplus-adjusted) vs Story 1 ${dcf1['total_intrinsic_value_per_share']:.2f} value",
-        "labels": dcf_data.get("labels") or ["Solid Conviction", "Logistics Moat", "Fortress Net"],
-        "executive_summary": dcf_data.get("executive_summary") or f"Level-headed fundamental thesis established for {ticker} across 3 distinct operating paths."
-    }
-    
-    return html, val_meta
+Output pure HTML only (no code fences, no inline styles)."""
 
 
 def generate_genesis_thesis(ticker: str, company_name: str, current_price: float, initial_notes: str = "") -> Tuple[Dict[str, Any], str]:
-    """Generates an investment thesis via the streamlined 3-Agent pipeline:
-    1. Agent 1: Company Premise (Blind to price).
-    2. Agent 2: 3 Stories (Blind to price).
-    3. Agent 3: Buffett Owner Earnings DCF (Blind to price).
-    4. Reverse DCF: Explains what Mr. Market is pricing in today vs Story 1.
+    """Generates an investment thesis via the streamlined 4-Agent pipeline:
+    1. Agent 1: Company Premise Specialist (100% Blind to market price).
+    2. Agent 2: 3 Stories Generator (100% Blind to market price).
+    3. Agent 3A: Story 1 Buffett DCF Valuation (100% Blind to market price).
+    4. Agent 3B: Story 2 Buffett DCF Valuation (100% Blind to market price).
+    5. Agent 3C: Story 3 Buffett DCF Valuation (100% Blind to market price).
+    6. Agent 4: Reverse DCF Specialist & Section 3 HTML Synthesis.
     """
     ticker_clean = ticker.upper().strip()
     
     print("\n" + "=" * 70, flush=True)
-    print(f"🏢 INITIATING 3-AGENT THESIS GENERATION: {ticker_clean} ({company_name})", flush=True)
+    print(f"🏢 INITIATING 4-AGENT MODULAR THESIS GENERATION: {ticker_clean} ({company_name})", flush=True)
     print(f"💵 Market Entry Price: ${current_price:.2f}", flush=True)
     if initial_notes:
         print(f"📝 User Notes / Focus: {initial_notes}", flush=True)
@@ -1310,13 +1146,12 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     # ------------------------------------------------------------------
     # Step 1: LLM Agent 1 - Company Premise Specialist (100% BLIND)
     # ------------------------------------------------------------------
-    print(f"\n🧠 [AGENT 1/3: COMPANY PREMISE] Researching financial statements and last 4 earnings calls (100% Blind Mode)...", flush=True)
+    print(f"\n🧠 [AGENT 1: COMPANY PREMISE] Researching audited financial statements and last 4 earnings calls (100% Blind Mode)...", flush=True)
     agent_1_prompt = AGENT_1_PREMISE_PROMPT.format(
         ticker=ticker_clean,
         company_name=company_name,
         notes=initial_notes or "Synthesize core business model, unit economics, 4-quarter earnings commentary, and balance sheet strength in plain English."
     )
-    
     sec1_raw = call_gemini_with_search(agent_1_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
     sec1_clean = verify_and_repair_html_structure(clean_grounding_artifacts(sec1_raw))
     print(f"   │ Status: Premise established ({len(sec1_clean.split())} words generated)", flush=True)
@@ -1325,49 +1160,105 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     # ------------------------------------------------------------------
     # Step 2: LLM Agent 2 - 3 Stories Strategist (100% BLIND)
     # ------------------------------------------------------------------
-    print(f"\n📖 [AGENT 2/3: 3 STORIES GENERATOR] Formulating 3 probable, distinct operational stories (100% Blind Mode)...", flush=True)
+    print(f"\n📖 [AGENT 2: 3 STORIES GENERATOR] Formulating 3 probable, distinct operational stories (100% Blind Mode)...", flush=True)
     agent_2_prompt = AGENT_2_STORIES_PROMPT.format(
         ticker=ticker_clean,
         company_name=company_name,
         premise_context=sec1_clean
     )
-    
     sec2_raw = call_gemini_with_search(agent_2_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
     sec2_clean = verify_and_repair_html_structure(clean_grounding_artifacts(sec2_raw))
     print(f"   │ Status: 3 Stories generated ({len(sec2_clean.split())} words generated)", flush=True)
     print("   └" + "─" * 50, flush=True)
 
     # ------------------------------------------------------------------
-    # Step 3: LLM Agent 3 - Buffett Owner Earnings DCF (100% BLIND)
+    # Step 3A: LLM Agent 3A - Story 1 DCF Valuation (100% BLIND)
     # ------------------------------------------------------------------
-    print(f"\n🧮 [AGENT 3/3: BLIND OWNER EARNINGS DCF] Calculating 3 valuations from First Principles (100% Blind Mode)...", flush=True)
-    agent_3_prompt = AGENT_3_DCF_EVALUATOR_PROMPT.format(
+    print(f"\n🧮 [AGENT 3A: STORY 1 DCF] Modeling Buffett DCF for Story 1 (100% Blind Mode)...", flush=True)
+    prompt_3a = AGENT_3_SINGLE_STORY_DCF_PROMPT.format(
         ticker=ticker_clean,
         company_name=company_name,
+        story_name="Story 1 (Base Case)",
+        story_num=1,
+        story_letter="A",
         premise_context=sec1_clean,
-        stories_context=sec2_clean
+        story_context=sec2_clean
     )
-    
-    sec3_raw = call_gemini_with_search(agent_3_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
-    dcf_data = extract_json_block(sec3_raw)
-    if not isinstance(dcf_data, dict):
-        dcf_data = {}
-
-    # Build 100% mathematically exact Section 3 in Python
-    sec3_clean, val_meta = build_deterministic_valuation_section(ticker_clean, company_name, current_price, dcf_data, sec1_text=sec1_clean)
-    
-    story1_val = val_meta["story1_val"]
-    story2_val = val_meta["story2_val"]
-    story3_val = val_meta["story3_val"]
-    story1_title = val_meta["story1_title"]
-    story2_title = val_meta["story2_title"]
-    story3_title = val_meta["story3_title"]
-
-    print(f"   │ Blind Valuations: Story 1 (${story1_val:.2f}), Story 2 (${story2_val:.2f}), Story 3 (${story3_val:.2f})", flush=True)
+    raw_3a = call_gemini_with_search(prompt_3a, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
+    dcf1 = extract_json_block(raw_3a)
+    story1_val = float(dcf1.get("fair_value_per_share") or 0.0)
+    story1_title = str(dcf1.get("story_title") or "Base Case Compounder")
+    print(f"   │ Story 1 Valuation: ${story1_val:.2f} / share ({story1_title})", flush=True)
     print("   └" + "─" * 50, flush=True)
 
     # ------------------------------------------------------------------
-    # Step 4: Assemble Full Dossier HTML & Extract Metadata
+    # Step 3B: LLM Agent 3B - Story 2 DCF Valuation (100% BLIND)
+    # ------------------------------------------------------------------
+    print(f"\n🧮 [AGENT 3B: STORY 2 DCF] Modeling Buffett DCF for Story 2 (100% Blind Mode)...", flush=True)
+    prompt_3b = AGENT_3_SINGLE_STORY_DCF_PROMPT.format(
+        ticker=ticker_clean,
+        company_name=company_name,
+        story_name="Story 2 (Bull Case)",
+        story_num=2,
+        story_letter="B",
+        premise_context=sec1_clean,
+        story_context=sec2_clean
+    )
+    raw_3b = call_gemini_with_search(prompt_3b, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
+    dcf2 = extract_json_block(raw_3b)
+    story2_val = float(dcf2.get("fair_value_per_share") or 0.0)
+    story2_title = str(dcf2.get("story_title") or "High-Margin Upside Engine")
+    print(f"   │ Story 2 Valuation: ${story2_val:.2f} / share ({story2_title})", flush=True)
+    print("   └" + "─" * 50, flush=True)
+
+    # ------------------------------------------------------------------
+    # Step 3C: LLM Agent 3C - Story 3 DCF Valuation (100% BLIND)
+    # ------------------------------------------------------------------
+    print(f"\n🧮 [AGENT 3C: STORY 3 DCF] Modeling Buffett DCF for Story 3 (100% Blind Mode)...", flush=True)
+    prompt_3c = AGENT_3_SINGLE_STORY_DCF_PROMPT.format(
+        ticker=ticker_clean,
+        company_name=company_name,
+        story_name="Story 3 (Bear / Defensive Case)",
+        story_num=3,
+        story_letter="C",
+        premise_context=sec1_clean,
+        story_context=sec2_clean
+    )
+    raw_3c = call_gemini_with_search(prompt_3c, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
+    dcf3 = extract_json_block(raw_3c)
+    story3_val = float(dcf3.get("fair_value_per_share") or 0.0)
+    story3_title = str(dcf3.get("story_title") or "Macro Friction & Defensive Floor")
+    print(f"   │ Story 3 Valuation: ${story3_val:.2f} / share ({story3_title})", flush=True)
+    print("   └" + "─" * 50, flush=True)
+
+    # Fallback sanity for values if zero
+    if story1_val <= 0.0:
+        story1_val = round(current_price * 1.25, 2)
+    if story2_val <= 0.0:
+        story2_val = round(story1_val * 1.35, 2)
+    if story3_val <= 0.0:
+        story3_val = round(story1_val * 0.60, 2)
+
+    # ------------------------------------------------------------------
+    # Step 4: LLM Agent 4 - Reverse DCF & Section 3 HTML Synthesis
+    # ------------------------------------------------------------------
+    print(f"\n🔍 [AGENT 4: REVERSE DCF & SYNTHESIS] Inverting Market Price (${current_price:.2f}) vs Story 1 and building Section 3...", flush=True)
+    agent_4_prompt = AGENT_4_REVERSE_DCF_PROMPT.format(
+        ticker=ticker_clean,
+        company_name=company_name,
+        current_price=current_price,
+        premise_context=sec1_clean,
+        story1_json=json.dumps(dcf1, indent=2),
+        story2_json=json.dumps(dcf2, indent=2),
+        story3_json=json.dumps(dcf3, indent=2)
+    )
+    sec3_raw = call_gemini_with_search(agent_4_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY)
+    sec3_clean = verify_and_repair_html_structure(clean_grounding_artifacts(sec3_raw))
+    print(f"   │ Status: Section 3 DCF & Reverse DCF built ({len(sec3_clean.split())} words generated)", flush=True)
+    print("   └" + "─" * 50, flush=True)
+
+    # ------------------------------------------------------------------
+    # Step 5: Assemble Full Dossier HTML & Extract Metadata
     # ------------------------------------------------------------------
     print(f"\n🛡️ [HARMONIZER & QA] Assembling thesis sections and verifying structural integrity...", flush=True)
     raw_full_html = f"{sec1_clean}\n\n{sec2_clean}\n\n{sec3_clean}"
@@ -1396,11 +1287,11 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     if upper_alert <= current_price:
         upper_alert = round(current_price * 1.15, 2)
 
-    raw_labels = dcf_data.get("labels") or ["Solid Conviction", "Owner Earnings", "Cash Generation"]
+    raw_labels = ["Solid Conviction", "Owner Earnings", "Cash Generation"]
     sanitized_labels = sanitize_labels(raw_labels, action_signal=action_signal, base_ret=mos1)
 
-    exec_summary = val_meta.get("executive_summary") or dcf_data.get("executive_summary") or f"Level-headed fundamental investment thesis established for {ticker_clean} across 3 distinct operating paths."
-    what_is_priced_in = val_meta.get("what_is_priced_in") or f"Market prices in {val_meta.get('base_implied_growth', '0.0%')} annual growth vs Story 1"
+    what_is_priced_in = f"Market prices in today's entry price of ${current_price:.2f} vs Story 1 Intrinsic Value of ${story1_val:.2f}"
+    exec_summary = f"Level-headed fundamental investment thesis established for {ticker_clean} across 3 distinct operating paths."
 
     # Dynamic Scenario Mapping: Ensure bear is lowest (floor), base is Story 1, bull is highest (ceiling)
     all_story_tuples = [
