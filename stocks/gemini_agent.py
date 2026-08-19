@@ -14,15 +14,7 @@ _CURRENT_ACTIVE_MODEL = DEFAULT_GEMINI_MODEL
 GEMINI_MODELS_LADDER = [
     "gemini-3.7-flash",
     "gemini-3.6-flash",
-    "gemini-3.5-flash",
-    "gemini-3.5-flash-lite",
-    "gemini-3.1-flash-lite",
-    "gemini-2.5-flash",
-    "gemini-2.5-flash-lite",
-    "gemini-2.0-flash",
-    "gemini-2.0-flash-lite",
-    "gemini-flash-latest",
-    "gemini-flash-lite-latest"
+    "gemini-3.5-flash"
 ]
 if DEFAULT_GEMINI_MODEL not in GEMINI_MODELS_LADDER:
     GEMINI_MODELS_LADDER.insert(0, DEFAULT_GEMINI_MODEL)
@@ -300,8 +292,9 @@ def call_gemini_with_search(prompt: str, system_instruction: str = "", temperatu
                     res_json = response.json()
                     candidate = res_json.get("candidates", [{}])[0]
                     parts = candidate.get("content", {}).get("parts", [])
-                    if parts and "text" in parts[0]:
-                        return clean_grounding_artifacts(parts[0]["text"])
+                    texts = [p["text"] for p in parts if "text" in p and not p.get("thought")]
+                    if texts:
+                        return clean_grounding_artifacts("\n".join(texts))
                     
                     if candidate.get("finishReason") == "RECITATION":
                         fallback_prompt = prompt + "\n\nCRITICAL: Paraphrase all data in your own original analytical words. Do NOT quote verbatim text."
@@ -311,8 +304,9 @@ def call_gemini_with_search(prompt: str, system_instruction: str = "", temperatu
                         if retry_res.status_code == 200:
                             retry_json = retry_res.json()
                             retry_parts = retry_json.get("candidates", [{}])[0].get("content", {}).get("parts", [])
-                            if retry_parts and "text" in retry_parts[0]:
-                                return clean_grounding_artifacts(retry_parts[0]["text"])
+                            retry_texts = [p["text"] for p in retry_parts if "text" in p and not p.get("thought")]
+                            if retry_texts:
+                                return clean_grounding_artifacts("\n".join(retry_texts))
                                 
                     return "Analysis completed."
                 elif response.status_code in (500, 502, 503, 504, 429):
@@ -758,20 +752,21 @@ CRITICAL AUDITED FINANCIAL REALITY & INTEGRITY CHECKS:
 1. Statement of Cash Flows Extraction & Owner Earnings Waterfall:
    - Search the ACTUAL Statement of Cash Flows for the latest completed fiscal year (e.g. Form 20-F / 10-K) and recent quarterly reports (Form 6-K / 10-Q).
    - Line 1: Net Cash Provided by Operating Activities (GAAP OCF) ($ Millions/Billions USD). NEVER use Financing Cash Flows (e.g. share buybacks or debt repayments) or Net Income as OCF!
-   - Line 2: Capital Expenditures (Additions to property, equipment, logistics facilities, software) ($ Millions/Billions USD). NEVER understate CapEx or use a single quarter for an annual rate. Heavy logistics networks require massive continuous CapEx.
+   - Line 2: Capital Expenditures (Additions to property, equipment, logistics facilities, software) ($ Millions/Billions USD). Explicitly distinguish between Maintenance CapEx (steady-state upkeep of logistics fleets, warehouses, and server clusters) vs Growth CapEx (new fulfillment hubs, regional datacenter expansion). For AI/Cloud Hyperscalers, recognize that GPU compute accelerators (e.g. H100/B200/custom ASICs) have a 3-to-4 year economic useful life due to rapid technical obsolescence; allocate an appropriate portion (35%–50%) of compute CapEx to Maintenance CapEx.
    - Line 3: Stock-Based Compensation (SBC) expense ($ Millions USD) treated as a 100% cash charge.
    - Line 4: Non-Operating Interest Income Deduction ($ Millions USD). If the company holds large cash deposits generating non-operating interest income (e.g. ~$1.3B USD for JD), that interest income MUST be deducted from OCF before deriving core Operating Owner Earnings to prevent double-counting when adding cash on the balance sheet bridge:
      * Core Operating Baseline Owner Earnings (OE₀) = GAAP OCF - Non-Operating Interest Income - Maintenance CapEx - SBC.
    - Line 5: Non-Cash Impairments & One-Off Exclusions: GAAP OCF already automatically adds back non-cash accounting charges (e.g. paper goodwill impairments, asset write-downs, non-cash investment mark-to-market swings). Additionally, normalize and exclude any material non-recurring one-off cash items (e.g. one-time litigation windfalls, asset divestiture gains, or extraordinary regulatory fines) to ensure Owner Earnings reflects true recurring steady-state cash power.
 2. Calibrated Working Capital Operational Cash Buffer & M&A Debt Consolidation:
-   - Direct-sales (1P) retailers operate with negative cash conversion cycles (collecting cash immediately from retail customers while paying suppliers on 50–60 day terms).
-   - Reserve an essential operational liquidity buffer of 2.5% to 3.5% of annual revenue (e.g. $4.5B–$6.5B for a $180B+ retailer).
-   - When deriving Net Balance Sheet Cash, deduct:
-     * Operational Cash Buffer (2.5%–3.5% of revenue)
-     * Total Funded Debt & Capital Leases
-     * Major Committed M&A Cash Outlays & Inherited Consolidated Net Debt (e.g. for Ceconomy AG: $2.05B cash outlay + ~$1.98B inherited net debt). Present the net cash per ADS under both Consolidated Close ($9.50/ADS) and Standalone ($12.50/ADS) conditions.
-   - Do NOT deduct Non-Controlling Interests (NCI) from cash (NCI is an equity claim on net subsidiary assets, not a cash debt).
-   - The resulting figure is the true Unencumbered Surplus Net Cash per Share/ADS.
+    - Direct-sales (1P) retailers operate with negative cash conversion cycles (collecting cash immediately from retail customers while paying suppliers on 50–60 day terms).
+    - Reserve an essential operational liquidity buffer of 2.5% to 3.5% of annual revenue (e.g. $4.5B–$6.5B for a $180B+ retailer).
+    - When deriving Net Balance Sheet Cash, deduct:
+      * Operational Cash Buffer (2.5%–3.5% of revenue)
+      * Total Funded Debt & Capital Leases
+      * 10% PRC Dividend Withholding Tax friction on restricted onshore RMB cash balances.
+      * Major Committed M&A Cash Outlays & Inherited Consolidated Net Debt (e.g. for Ceconomy AG: $2.05B cash outlay + ~$1.98B inherited net debt). Present the net cash per ADS under both Consolidated Close ($9.50/ADS) and Standalone ($12.50/ADS) conditions.
+    - Do NOT deduct Non-Controlling Interests (NCI) from cash (NCI is an equity claim on net subsidiary assets, not a cash debt).
+    - The resulting figure is the true Unencumbered Surplus Net Cash per Share/ADS.
 3. Foreign Private Issuer (FPI), VIE Structure & Governance Reality:
    - For foreign companies traded via ADRs/ADSs (e.g. JD, BABA, PDD, SE, ASML, TSM), recognize that insiders do not file domestic Section 16 Form 4s. Beneficial ownership is reported via SEC Form 20-F (Item 6.E), Schedule 13D/G, and Form 3 filings under the HFCAA.
    - For Variable Interest Entity (VIE) structures and dual-class shareholdings (e.g. Founder Richard Liu holding 73.1% voting power via Class B shares), explicitly analyze the corporate governance implications, minority shareholder rights, and onshore RMB cash repatriation mechanics.
@@ -957,8 +952,8 @@ def solve_implied_growth(target_ev: float, starting_oe: float, discount_rate: fl
     """Numerically solves for the exact 5-year growth rate implied by target Enterprise Value."""
     if starting_oe <= 0 or target_ev <= 0:
         return 0.0
-    low = -0.70
-    high = 0.70
+    low = -0.90
+    high = 3.00
     for _ in range(100):
         mid = (low + high) / 2.0
         current_oe = starting_oe
