@@ -789,17 +789,18 @@ CRITICAL AUDITED FINANCIAL REALITY & INTEGRITY CHECKS:
    - Line 5: Non-Operating Interest Income Deduction ($ Millions USD): Deduct non-operating corporate treasury cash deposit interest from OCF before deriving core Operating Owner Earnings to prevent double-counting when adding cash on the balance sheet bridge (distinguishing non-operating corporate cash yield from operational customer float interest in fintechs/wallets):
      * Core Operating Baseline Owner Earnings (OE₀) = GAAP OCF (Normalized) - Non-Operating Interest Income - Maintenance CapEx - SBC.
    - Line 6: Non-Cash Impairments & One-Off Exclusions: GAAP OCF already automatically adds back non-cash accounting charges (e.g. paper goodwill impairments, asset write-downs). Additionally, normalize and exclude any material non-recurring one-off cash items (e.g. one-time litigation windfalls, asset divestiture gains, extraordinary dividends, or regulatory fines) to ensure Owner Earnings reflects true recurring steady-state cash power.
-2. Calibrated Working Capital Operational Cash Buffer & ASC 842 Lease Obligations:
-   - Reserve an essential operational liquidity buffer of 2.5% to 3.5% of annual revenue.
-   - For companies with extensive leased physical infrastructure (warehouses, retail stores, fulfillment centers), explicitly document total **ASC 842 Contractual Operating Lease Liabilities** ($ Millions USD) alongside funded debt. Highlight that while there may be zero bank debt, contractual lease obligations represent fixed operating cost commitments that create operating leverage in a volume downturn.
-   - When deriving Net Balance Sheet Cash, deduct:
-     * Operational Cash Buffer (2.5%–3.5% of revenue)
-     * Total Funded Debt & Capital Leases
-     * Cross-border dividend withholding taxes or upstream cash repatriation friction from operating subsidiaries to the offshore parent.
-     * Committed M&A Cash Outlays & Inherited Net Debt.
-     * Non-Consolidated Equity Affiliates / SOTP Value: If the company holds major non-consolidated equity-method investments, associates, or joint ventures, explicitly value them conservatively as a dedicated non-operating equity asset line item on the balance sheet bridge ($ USD per share/ADS), applying a standard 20% to 25% holding company / illiquidity haircut to private or unlisted affiliate stakes.
-     * AI Hardware Obsolescence Treadmill: For AI hyperscalers and cloud operators, recognize that rapidly depreciating compute clusters (3-4 year replacement cycle) blur the line between Growth and Maintenance CapEx; audit ongoing maintenance reinvestment needs realistically.
-   - The resulting figure is the true Unencumbered Surplus Net Cash & Asset Value per Share/ADS.
+2. Calibrated Working Capital Operational Cash Buffer, Cash Flow Matching & Balance Sheet Bridge:
+   - Cash Flow Matching (FCFE Standard): Under US GAAP, Net Cash Provided by Operating Activities (GAAP OCF) is already net of cash interest paid to lenders. Therefore, core Owner Earnings represents Free Cash Flow to Equity (FCFE).
+   - When discounting FCFE at the equity cost of capital, the resulting present value represents Total Intrinsic Equity Value directly.
+   - When deriving Net Surplus Balance Sheet Cash per Share/ADS, calculate:
+     * Gross Cash & ST Marketable Investments ($ Millions USD)
+     * MINUS Operational Working Capital Buffer (2.5%–3.5% of annual revenue)
+     * MINUS Off-balance-sheet or ASC 842 lease debt commitments if not fully accounted for in operating expenses
+     * MINUS Cross-border dividend withholding taxes / repatriation friction (e.g. 5%–10% statutory tax on foreign cash)
+     * MINUS Committed M&A cash outlays
+     * PLUS Non-Consolidated Strategic Equity Affiliates / SOTP Value (applying a standard 20%–25% holding company / illiquidity haircut to private/unlisted stakes).
+   - If debt service is already net in OCF, do NOT double-penalize equity value by deducting funded debt a second time.
+   - The resulting figure is the true Unencumbered Surplus Net Cash & Strategic Asset Value per Share/ADS.
 3. Historical Corporate Trauma & Underwriting Post-Mortem:
    - If the company is trading down significantly (>50%) from historical highs or suffered a well-known operational crisis in the past (e.g. credit underwriting blowups, regulatory restructuring, short-seller litigation, failed acquisitions):
      * Explicitly address the historical root cause and contrast it with today's operational reality.
@@ -972,9 +973,9 @@ Calculate the intrinsic fair value per share (or per ADS for ADRs) in USD using 
 2. Compound Owner Earnings over 5 years based on the scenario growth rate.
 3. Discount the 5 years of cash flows at a ~9.5% discount rate.
 4. Calculate Terminal Value using ~2.0% terminal growth and discount it to present value.
-5. Add 5-year PV + Terminal Value PV to get Total Operating Enterprise Value (in $ Millions USD).
-6. Divide Enterprise Value by the Diluted Shares / ADSs count (in Millions) to get Operating Value per Share in USD.
-7. Add the Net Surplus Cash and Non-Operating Strategic Equity Affiliates per Share/ADS (in USD) from the balance sheet bridge to get the final Intrinsic Fair Value per Share in USD.
+5. Add 5-year PV + Terminal Value PV to get Total Present Value of Cash Flows (in $ Millions USD).
+6. Divide by Diluted Shares / ADSs count (in Millions), noting share repurchase compounding in Base/Bull cases if active buyback authorization exists, to get Operating Value per Share in USD.
+7. Add the Unencumbered Net Surplus Cash and Non-Operating Strategic Equity Affiliates per Share/ADS (in USD) from the balance sheet bridge to get the final Intrinsic Fair Value per Share in USD.
 
 SANITY CHECK:
 - Final fair value per share MUST be the realistic intrinsic per-share value in USD (divided by total diluted shares/ADSs, NOT the total company enterprise value in Millions/Billions).
