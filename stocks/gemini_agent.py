@@ -112,6 +112,11 @@ def clean_grounding_artifacts(text: str) -> str:
     # Strip any stray Wall Street sell-side analyst targets or broker ratings
     cleaned = re.sub(r"\b(?:Wall Street|sell-side|analyst|broker|consensus)\s+(?:price\s+target|target\s+price|consensus\s+target|PT)\s*(?:of|is|at|set\s+at)?\s*\$?\d+(?:\.\d+)?\b", "", cleaned, flags=re.IGNORECASE)
     
+    # Strip standalone search grounding timestamps (e.g. '2026-08-19 03:00:00 UTC')
+    cleaned = re.sub(r'^\s*\d{4}-\d{2}-\d{2}(?:\s+\d{2}:\d{2}(?::\d{2})?)?(?:\s+(?:UTC|GMT|[A-Z]{3,4}))?\s*$', '', cleaned, flags=re.MULTILINE)
+    cleaned = re.sub(r'<p>\s*\d{4}-\d{2}-\d{2}(?:\s+\d{2}:\d{2}(?::\d{2})?)?(?:\s+(?:UTC|GMT|[A-Z]{3,4}))?\s*</p>', '', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'\b\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}\s+(?:UTC|GMT|[A-Z]{3,4})\b', '', cleaned)
+    
     # Strip ALL inline style, bgcolor, and border attributes to enforce 100% theme consistency
     cleaned = re.sub(r'\s*style\s*=\s*"[^"]*"', '', cleaned, flags=re.IGNORECASE)
     cleaned = re.sub(r"\s*style\s*=\s*'[^']*'", '', cleaned, flags=re.IGNORECASE)
@@ -562,23 +567,16 @@ def verify_and_repair_html_structure(html: str) -> str:
     cleaned = re.sub(r'\bмиллион\b', 'million', cleaned, flags=re.IGNORECASE)
     cleaned = re.sub(r'[\u0400-\u04FF]+', '', cleaned) # Strip any remaining Cyrillic tokens
     
-    # 0.5 Strict USD Currency Standardization (Zero RMB, CNY, EUR, JPY, GBP)
-    # Convert and normalize currency labels into USD ($)
-    cleaned = re.sub(r'RMB\s*Millions\s*\(¥\)', '$ Millions USD', cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r'RMB\s*Billions\s*\(¥\)', '$ Billions USD', cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r'\$\s*Millions\s*CNY\b', '$ Millions USD', cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r'\$\s*Millions\s*RMB\b', '$ Millions USD', cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r'\$\s*Billions\s*CNY\b', '$ Billions USD', cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r'\$\s*Billions\s*RMB\b', '$ Billions USD', cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r'CNY\s*Millions\b', '$ Millions USD', cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r'CNY\s*Billions\b', '$ Billions USD', cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r'EUR\s*Millions\b', '$ Millions USD', cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r'EUR\s*Billions\b', '$ Billions USD', cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r'¥\s*([\d,]+(?:\.\d+)?)', r'$\1', cleaned)
-    cleaned = re.sub(r'€\s*([\d,]+(?:\.\d+)?)', r'$\1', cleaned)
-    cleaned = re.sub(r'£\s*([\d,]+(?:\.\d+)?)', r'$\1', cleaned)
-    cleaned = re.sub(r'\bRMB\s*([\d,]+(?:\.\d+)?)', r'$\1', cleaned)
-    cleaned = re.sub(r'\bCNY\s*([\d,]+(?:\.\d+)?)', r'$\1', cleaned)
+    # 0.5 Clean up foreign currency label formatting and fix symbol typos
+    cleaned = re.sub(r'\$\s*([\d,]+(?:\.\d+)?\s*(?:[BM]|billion|million)?)\s*(RMB|CNY)\b', r'¥\1 \2', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'\(\s*\$\s*([\d,]+(?:\.\d+)?\s*(?:[BM]|billion|million)?)\s*(RMB|CNY)\s*\)', r'(¥\1 \2)', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'\$\s*([\d,]+(?:\.\d+)?\s*(?:[BM]|billion|million)?)\s*(EUR|euros?)\b', r'€\1 \2', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'\(\s*\$\s*([\d,]+(?:\.\d+)?\s*(?:[BM]|billion|million)?)\s*(EUR|euros?)\s*\)', r'(€\1 \2)', cleaned, flags=re.IGNORECASE)
+    
+    # Strip standalone search grounding timestamps (e.g. '2026-08-19 03:00:00 UTC')
+    cleaned = re.sub(r'^\s*\d{4}-\d{2}-\d{2}(?:\s+\d{2}:\d{2}(?::\d{2})?)?(?:\s+(?:UTC|GMT|[A-Z]{3,4}))?\s*$', '', cleaned, flags=re.MULTILINE)
+    cleaned = re.sub(r'<p>\s*\d{4}-\d{2}-\d{2}(?:\s+\d{2}:\d{2}(?::\d{2})?)?(?:\s+(?:UTC|GMT|[A-Z]{3,4}))?\s*</p>', '', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'\b\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}\s+(?:UTC|GMT|[A-Z]{3,4})\b', '', cleaned)
     
     # 1. Strip code fences, json blocks
     cleaned = re.sub(r"```(?:html|json)?", "", cleaned, flags=re.IGNORECASE)
