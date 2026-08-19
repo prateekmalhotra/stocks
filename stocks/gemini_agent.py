@@ -3,11 +3,14 @@ import json
 import time
 import re
 import requests
+from pathlib import Path
 from datetime import datetime, timedelta
 from typing import Dict, Any, Tuple, Optional, List
 from dotenv import load_dotenv
 
 load_dotenv()
+
+DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 
 DEFAULT_GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.7-flash")
 _CURRENT_ACTIVE_MODEL = DEFAULT_GEMINI_MODEL
@@ -1097,6 +1100,190 @@ Format:
 Output pure HTML only (no markdown backticks, no inline styles)."""
 
 
+AGENT_5_IMPROVEMENT_PROMPT = """Target: {ticker} ({company_name})
+Current Market Price: ${current_price:.2f}
+
+You are LLM Agent 5: Investment Thesis Refinement & Adjudication Director at an elite value hedge fund.
+
+Your Role:
+Take the Draft Investment Thesis (Section 1, Section 2, Section 3) and the Independent Buy-Side Red-Team Critique Memo.
+Adjudicate every single point raised in the critique memo:
+
+1. [ACKNOWLEDGE & ADAPT]:
+   - Valid factual issues (e.g. neglected segment declines, acquired brand drops, single-silhouette risks).
+   - Supply chain concentration (% Vietnam/China factories, Section 301 tariff exposure).
+   - Cash flow matching & accounting adjustments (eliminating debt double-counting under FCFE, working capital normalization, realistic AI GPU depreciation cycles).
+   -> When an issue is acknowledged, UPDATE AND REMEDIATE the thesis narrative, metrics, and Section 3 DCF calculations accordingly.
+
+2. [PUSHBACK & DEFEND]:
+   - Demands to anchor valuation to current market stock price.
+   - Demands to add back Stock-Based Compensation as "non-cash" (Non-GAAP).
+   - Demands to lower discount rates based on academic CAPM Betas rather than true opportunity cost.
+   - Consensus herd-thinking that violates Graham/Buffett margin-of-safety principles.
+   -> When pushing back, DEFEND our disciplined value-investing methodology using first-principles financial logic.
+
+Draft Investment Thesis:
+======================================================================
+{thesis_html}
+======================================================================
+
+Red-Team Critique Memo:
+======================================================================
+{critique_memo}
+======================================================================
+
+Format your output EXACTLY into the following 3 sections:
+
+### ACKNOWLEDGED_REFINEMENTS
+- [List every valid factual or accounting flaw that was accepted and fixed in the thesis, or write "None" if 0 errors remain]
+
+### PUSHBACK_DEFENSES
+- [List every point that was pushed back against and defended with first-principles valuation logic]
+
+### REMEDIATED_THESIS_HTML
+[The complete, updated Semantic HTML containing Section 1, Section 2, Section 3, PLUS the appended callout block below]
+
+MANDATORY STRUCTURAL PRESERVATION:
+You MUST preserve all three core section headings and required subsections without omitting or altering them:
+- <h2>Section 1: Company Overview &amp; Audited Financial Baseline</h2>
+- <h2>Section 2: The Three Forward-Looking Operating Stories</h2>
+- <h2>Section 3: Valuation Across the 3 Stories</h2>
+- Inside Section 3, you MUST preserve:
+  1. The 3-Story summary DCF table with the exact row header 'Intrinsic Fair Value / Share' containing calculated per-share values.
+  2. <h3>Step-by-Step Mathematical Proofs Across the 3 Paths</h3>
+  3. <h3>Reverse DCF Sensitivity Matrix: What is Mr. Market Pricing In?</h3>
+  4. <h3>Reconciliation vs. Wall Street Consensus Price Targets</h3>
+
+<div class="callout audit-adjudication">
+  <h3>🛡️ Institutional Red-Team Adjudication &amp; Reconciliation Log</h3>
+  <p><strong>Acknowledged Refinements Adopted:</strong></p>
+  <ul>
+    <li>...</li>
+  </ul>
+  <p><strong>Methodological Pushbacks Defended:</strong></p>
+  <ul>
+    <li>...</li>
+  </ul>
+</div>
+"""
+
+
+def run_3_agent_critique_internal(ticker: str, company_name: str, thesis_html: str) -> str:
+    """Runs a 3-agent autonomous critique pipeline:
+    Agent 1 (Search Investigator): Actively searches latest 10-Q/10-K, segment drags, and supply chain risks.
+    Agent 2 (Valuation Auditor): Audits cash flow matching (FCFE vs FCFF), debt deductions, and working capital.
+    Agent 3 (Lead Red-Team PM): Synthesizes findings into an institutional Buy-Side Red-Team memo.
+    """
+    clean_t = ticker.upper().strip()
+    print(f"\n   🧐 [CRITIQUE AGENT 1: SEARCH INVESTIGATOR] Researching live filings & segment drags for {clean_t}...", flush=True)
+    agent_1_prompt = f"""Target Ticker: {clean_t} ({company_name})
+You are Critique Agent 1: Senior Investigative Research Analyst at a premier buy-side hedge fund.
+Search for:
+1. Segment & Brand Performance: YoY growth rates, margins, and volume trends for EACH operating division (especially declining acquired brands).
+2. Product Concentration: Silhouette fatigue, platform churn, consumer taste shifts.
+3. Supply Chain Concentration: Manufacturing hubs (% Vietnam, China, Indonesia, Mexico) and tariff exposure.
+4. Management Guidance & Commentary: Margin warnings and conservative guidance on the last 2 earnings calls.
+Deliver a structured factual audit briefing with numbers."""
+    
+    agent_1_out = call_gemini_with_search(agent_1_prompt, temperature=0.2, use_search=True)
+    agent_1_clean = clean_grounding_artifacts(agent_1_out)
+
+    print(f"   🧮 [CRITIQUE AGENT 2: QUANT & CASH FLOW AUDITOR] Stress-testing valuation math & capital allocation...", flush=True)
+    agent_2_prompt = f"""Target Ticker: {clean_t} ({company_name})
+Audit this thesis for valuation integrity:
+Thesis:
+======================================================================
+{thesis_html}
+======================================================================
+
+Investigative Findings from Agent 1:
+======================================================================
+{agent_1_clean}
+======================================================================
+
+Audit: Cash flow matching (FCFE vs FCFF debt double-counting), working capital normalization, share repurchases vs static share count, and exit multiples."""
+    
+    agent_2_out = call_gemini_with_search(agent_2_prompt, temperature=0.2, use_search=False)
+    agent_2_clean = clean_grounding_artifacts(agent_2_out)
+
+    print(f"   🧠 [CRITIQUE AGENT 3: LEAD RED-TEAM PM] Synthesizing institutional red-team memo...", flush=True)
+    agent_3_prompt = f"""Target Ticker: {clean_t} ({company_name})
+Synthesize Thesis, Fact Audit, and Quant Audit into an institutional Red-Team Memo (BUY/HOLD/AVOID with specific entry price thresholds, verified strengths, critical vulnerabilities, and actionable checklist).
+Thesis:
+======================================================================
+{thesis_html}
+======================================================================
+
+Fact Audit:
+======================================================================
+{agent_1_clean}
+======================================================================
+
+Quant Audit:
+======================================================================
+{agent_2_clean}
+======================================================================
+"""
+    agent_3_out = call_gemini_with_search(agent_3_prompt, temperature=0.2, use_search=False)
+    return clean_grounding_artifacts(agent_3_out)
+
+
+def run_improvement_agent(
+    ticker: str,
+    company_name: str,
+    current_price: float,
+    thesis_html: str,
+    critique_memo: str
+) -> Tuple[str, List[str], List[str]]:
+    """Runs the Improvement & Adjudication Agent to classify feedback and refine the thesis HTML."""
+    prompt = AGENT_5_IMPROVEMENT_PROMPT.format(
+        ticker=ticker,
+        company_name=company_name,
+        current_price=current_price,
+        thesis_html=thesis_html,
+        critique_memo=critique_memo
+    )
+    raw = call_gemini_with_search(prompt, temperature=0.2, use_search=False)
+    clean = clean_grounding_artifacts(raw)
+    
+    ack_items = []
+    push_items = []
+    remediated_html = thesis_html
+    
+    # 1. Parse Acknowledged Refinements
+    m_ack = re.search(r'###\s*ACKNOWLEDGED_REFINEMENTS\s*(.*?)(?=###|$)', clean, re.DOTALL | re.IGNORECASE)
+    if m_ack:
+        for line in m_ack.group(1).splitlines():
+            line = line.strip().lstrip("-*• ").strip()
+            if line and not line.lower().startswith("none") and len(line) > 5:
+                ack_items.append(line)
+                
+    # 2. Parse Pushback Defenses
+    m_push = re.search(r'###\s*PUSHBACK_DEFENSES\s*(.*?)(?=###|$)', clean, re.DOTALL | re.IGNORECASE)
+    if m_push:
+        for line in m_push.group(1).splitlines():
+            line = line.strip().lstrip("-*• ").strip()
+            if line and not line.lower().startswith("none") and len(line) > 5:
+                push_items.append(line)
+                
+    # 3. Parse Remediated HTML
+    m_html = re.search(r'###\s*REMEDIATED_THESIS_HTML\s*(.*?)$', clean, re.DOTALL | re.IGNORECASE)
+    if m_html:
+        h_str = m_html.group(1).strip()
+        # Clean any accidental code fences
+        if h_str.startswith("```html"):
+            h_str = h_str[7:]
+        elif h_str.startswith("```"):
+            h_str = h_str[3:]
+        if h_str.endswith("```"):
+            h_str = h_str[:-3]
+        h_str = h_str.strip()
+        if "<h2>Section 1:" in h_str:
+            remediated_html = h_str
+            
+    return remediated_html, ack_items, push_items
+
+
 def parse_float_safe(val: Any, default: float = 0.0) -> float:
     """Safely parses a float from string, int, float, or formatted currency ('$145.20', '145.20 / share')."""
     if val is None:
@@ -1282,10 +1469,47 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     print("   └" + "─" * 50, flush=True)
 
     # ------------------------------------------------------------------
-    # Step 5: Assemble Full Dossier HTML & Extract Metadata
+    # Step 5: Autonomous Critique & Improvement Convergence Loop
     # ------------------------------------------------------------------
-    print(f"\n🛡️ [HARMONIZER & QA] Assembling thesis sections and verifying structural integrity...", flush=True)
     raw_full_html = f"{sec1_clean}\n\n{sec2_clean}\n\n{sec3_clean}"
+    
+    print(f"\n======================================================================", flush=True)
+    print(f"🔄 INITIATING AUTONOMOUS CRITIQUE & IMPROVEMENT LOOP: {ticker_clean}", flush=True)
+    print(f"======================================================================", flush=True)
+    
+    max_refine_iterations = 2
+    for it in range(1, max_refine_iterations + 1):
+        print(f"\n🧐 [CRITIQUE & REFINEMENT PASS {it}/{max_refine_iterations}] Running 3-Agent Red-Team Critique...", flush=True)
+        critique_memo = run_3_agent_critique_internal(ticker_clean, company_name, raw_full_html)
+        
+        # Save critique to disk
+        critique_file = DATA_DIR / "critiques" / f"{ticker_clean}_critique.md"
+        critique_file.parent.mkdir(parents=True, exist_ok=True)
+        critique_file.write_text(critique_memo, encoding="utf-8")
+        
+        print(f"\n🛠️ [IMPROVEMENT AGENT] Adjudicating critique & remediating thesis...", flush=True)
+        remediated_html, ack_items, push_items = run_improvement_agent(
+            ticker=ticker_clean,
+            company_name=company_name,
+            current_price=current_price,
+            thesis_html=raw_full_html,
+            critique_memo=critique_memo
+        )
+        
+        print(f"   │ Acknowledged Refinements: {len(ack_items)}", flush=True)
+        for ack in ack_items:
+            print(f"   │   ✅ {ack}", flush=True)
+        print(f"   │ Pushed-Back Points: {len(push_items)}", flush=True)
+        for pb in push_items:
+            print(f"   │   🛡️ {pb}", flush=True)
+            
+        raw_full_html = remediated_html
+        
+        if len(ack_items) == 0:
+            print(f"\n🎯 [CONVERGENCE ACHIEVED] 0 unaddressed errors remain (all critique points successfully defended or already resolved)!", flush=True)
+            break
+
+    print(f"\n🛡️ [HARMONIZER & QA] Assembling thesis sections and verifying structural integrity...", flush=True)
     full_html = verify_and_repair_html_structure(raw_full_html)
 
     # Margins of safety vs current price
