@@ -844,8 +844,12 @@ Guidelines:
 - Primary Research: Search and inspect {company_name}'s latest filings and earnings transcripts.
 - Strategic Moat & Model Trade-Offs: If analyzing a 1P retail vs 3P marketplace transition, explicitly address the trade-offs (e.g. 3P improves gross margins but introduces quality control and fulfillment differentiation challenges vs pure 1P).
 - Rigorous Downside Stress Test: At least one story (Story 2 or Story 3) must be a rigorous downside stress test modeling severe competitive price wars, gross margin compression, negative cash flow CAGR (-5% to -15%), and minimal terminal expansion.
-- Negative Working Capital Unwind in Downside: For direct-sales (1P) retailers with large trade payables, explicitly account for working capital drain during revenue contraction (paying off supplier liabilities without sufficient new cash inflows, compressing owner earnings).
+- Negative Working Capital & Trade Payables Unwind in Downside: For direct-sales (1P) retailers with large trade payables, explicitly account for working capital drain during revenue contraction (Days Payable Outstanding / DPO contracting from 60 to 45 days as suppliers demand faster payment terms, creating operational cash drain).
 - Operational Metric Continuity: Explicitly carry forward and trace the primary operational metrics identified in Section 1 (e.g. 3P Marketplace Take Rate %, Active Customer growth %, Fulfillment Expense Ratio %, AOV) across EACH of the 3 stories to justify how margin expansion or contraction occurs.
+- Cross-Border M&A Scenario Segmentation: If the company is pursuing major cross-border retail acquisitions (e.g. Ceconomy AG / MediaMarkt-Saturn under EU FSR regulatory scrutiny):
+  * Base Case (Story 1): Focuses on domestic 3P service take-rate expansion and logistics efficiency with cash preserved at standalone levels (+$13.41/ADS).
+  * Bull Case (Story 2): Models successful transaction close ($4.40B cash + debt burden, net cash +$10.24/ADS), treating European retail realistically as a mature, low-margin (1.5%–2.5% EBIT) volume bridge optimized via automated supply chains.
+  * Downside Case (Story 3): Models transaction blocked under EU regulatory probes, domestic 1P revenue contraction (-3% to -5%), and supplier cash drain.
 
 FIRST-PRINCIPLES BUSINESS METRIC CHAIN (NO ARBITRARY GROWTH ASSUMPTIONS):
 - Revenue is driven by explicit operational business metrics reported by the company (e.g. active customer counts, unit volume, order frequency, pricing/AOV, capacity ramps, store/resort openings, or take rates).
