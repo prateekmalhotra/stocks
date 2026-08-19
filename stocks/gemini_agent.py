@@ -774,9 +774,10 @@ Your objective is to establish the single audited factual foundation ("The Premi
 
 Guidelines:
 - Blind Valuation: Analyze the business purely as an unlisted private enterprise with zero knowledge of current stock prices.
-- Currency & Denominator Integrity: ALL figures MUST strictly be in US DOLLARS ($ USD). Convert foreign currencies (e.g. RMB, EUR, BRL) at prevailing FX rates. On the first occurrence of a currency conversion, explicitly include the parenthetical exchange rate notation (e.g. "(converted at an exchange rate of R$ 5.21 / $1.00 USD)"). For foreign ADRs, strictly use the US-listed ADS (American Depositary Share) count.
+- Currency & Denominator Integrity: ALL figures MUST strictly be in US DOLLARS ($ USD) PER US-LISTED ADS (American Depositary Share). NEVER present figures in foreign currency per ordinary share (e.g. RMB¥ per ordinary share) while downstream sections use USD per ADS. Convert foreign currencies (e.g. RMB, EUR, BRL) at prevailing FX rates. On the first occurrence of a currency conversion, explicitly include the parenthetical exchange rate notation (e.g. "(converted at an exchange rate of RMB 7.25 / $1.00 USD; 1 ADS = 8 Ordinary Shares)").
 - Primary Research: Search audited SEC filings (10-K, 10-Q, 20-F, 6-K) and the last 4 quarterly earnings call transcripts.
 - Current Reporting Period: Explicitly state the latest reported fiscal year / quarter (e.g. "FY 2025 / Q2 2026 LTM").
+- Writing Style: Write natural, bespoke equity research prose. Avoid repetitive boilerplate phrases (e.g. do NOT repeatedly insert phrases like "under the executive leadership of..."). Focus directly on business unit economics and cash flow reality.
 
 CRITICAL AUDITED FINANCIAL REALITY & INTEGRITY CHECKS:
 1. Statement of Cash Flows Extraction & Owner Earnings Waterfall:
@@ -1073,6 +1074,17 @@ Format:
   <ul>
     <li><strong>Consolidated Full-Price Hurdle (Zero Cash Credit):</strong> At the full market price of ${current_price:.2f}/ADS ($XX,XXX.XM market cap), assuming zero balance sheet cash is distributed, Mr. Market is pricing in <strong>XX.X% annual Owner Earnings growth</strong> over 5 years.</li>
     <li><strong>Surplus Cash-Adjusted Hurdle:</strong> Backing out unencumbered balance sheet cash (+$XX.XX/ADS), the market values the core operating infrastructure at $XX.XX/ADS ($XX,XXX.XM operating EV), implying <strong>XX.X% annual growth</strong> against our baseline Owner Earnings ($XX,XXXM) at a 9.5% discount rate.</li>
+  </ul>
+</div>
+
+<div class="callout">
+  <h3>Reconciliation vs. Wall Street Consensus Price Targets</h3>
+  <p>Sell-side Wall Street consensus targets frequently diverge from conservative Buffett Owner Earnings intrinsic value. Here is why our disciplined framework arrives at a more cautious, grounded baseline:</p>
+  <ul>
+    <li><strong>100% Stock-Based Compensation Cash Deduction:</strong> Sell-side models routinely add back Stock-Based Compensation as a "non-cash" expense under Non-GAAP EBITDA. We treat SBC as an authentic cash cost that dilutes owner value.</li>
+    <li><strong>Maintenance vs. Growth CapEx & AI Hardware Obsolescence:</strong> While consensus models assume most CapEx generates future growth, our framework accounts for the rapid depreciation cycle of cloud/AI server clusters and ongoing infrastructure upkeep as mandatory Maintenance CapEx.</li>
+    <li><strong>Disciplined Hurdle Rates vs. Low CAPM Discount Rates:</strong> Sell-side DCF models often employ low 7.0%–8.0% discount rates based on academic CAPM Betas. We demand a disciplined 9.5%–11.5% equity hurdle rate reflecting true opportunity cost and cross-border risk.</li>
+    <li><strong>Multi-Layer Balance Sheet Haircuts:</strong> Consensus models credit gross cash without reserve deductions. We haircut balance sheet liquidity for operational working capital buffers, contractual lease obligations, and foreign repatriation friction.</li>
   </ul>
 </div>
 
