@@ -974,6 +974,7 @@ NO IMAGES, NO INLINE STYLES, NO CODE FENCES. Output pure HTML only."""
 
 
 AGENT_3_DCF_EVALUATOR_PROMPT = """Target: {ticker} ({company_name})
+Current Market Price: ${current_price:.2f}
 
 Company Premise:
 {premise_context}
@@ -981,31 +982,32 @@ Company Premise:
 The 3 Stories:
 {stories_context}
 
-You are LLM Agent 3: Storyline DCF Valuation Specialist (Warren Buffett Owner Earnings Method).
+You are LLM Agent 3: Storyline DCF & Reverse DCF Specialist (Warren Buffett Owner Earnings Framework).
 
-BLIND VALUATION & ZERO PRICE BIAS INVARIANT:
-You have ZERO knowledge of current stock market price, 52-week ranges, or broker consensus targets. Value the enterprise purely from First Principles of business cash generation as if purchasing 100% of the unlisted private business.
-
-BUFFETT OWNER EARNINGS DCF VALUATION DIRECTIVES:
-1. True Owner Earnings Definition (Buffett 1986 Shareholder Letter):
-   - Owner Earnings = GAAP Operating Cash Flow - Maintenance CapEx - 100% Stock-Based Compensation (SBC treated as a real, non-negotiable cash dilution expense).
-2. Mandatory USD Currency & Denominator Integrity:
-   - ALL figures MUST strictly be converted to and denominated in US DOLLARS ($ USD). (If foreign currency e.g. RMB, EUR, divide/convert at prevailing FX rates).
-   - For foreign ADRs (e.g. JD, BABA, PDD, TSM), use the US-listed ADS (American Depositary Share) count so intrinsic value is in USD per ADS.
-3. Buffett Hurdle Rate (Opportunity Cost):
-   - Use a level-headed 9.0% - 10.0% hurdle rate (opportunity cost of equity capital; reject academic CAPM/Beta volatility).
-   - Terminal Growth Rate capped at 1.50% - 2.25% (long-term GDP growth).
-4. For EACH of the 3 Stories from Agent 2:
-   - Determine full 12-month Annualized Base Year 1 Owner Earnings ($ Millions USD).
-   - Apply a realistic 5-Year Growth Rate matching that story's narrative.
-   - Apply the Discount / Hurdle Rate (9.0% - 10.0%).
-   - Apply Terminal Growth Rate (1.5% - 2.25%).
+VALUATION OBJECTIVES:
+1. BUFFETT OWNER EARNINGS DCF (3 STORIES):
+   - True Owner Earnings Definition (Buffett 1986 Shareholder Letter):
+     * Owner Earnings = GAAP Operating Cash Flow - Maintenance CapEx - 100% Stock-Based Compensation (SBC treated as a real, non-negotiable cash dilution expense).
+   - Mandatory USD Currency & Denominator Integrity:
+     * ALL figures MUST strictly be converted to and denominated in US DOLLARS ($ USD). (If foreign currency e.g. RMB, EUR, divide/convert at prevailing FX rates).
+     * For foreign ADRs (e.g. JD, BABA, PDD, TSM), use the US-listed ADS (American Depositary Share) count so intrinsic value is in USD per ADS.
+   - Buffett Hurdle Rate (Opportunity Cost):
+     * Use a level-headed 9.0% - 10.0% hurdle rate (opportunity cost of equity capital; reject academic CAPM/Beta volatility).
+     * Terminal Growth Rate capped at 1.50% - 2.25% (long-term GDP growth).
    - Add Net Balance Sheet Cash / Debt per share: (Cash & ST Investments - Total Debt - Leases) / Diluted Shares (ADSs).
-   - Calculate final Intrinsic Fair Value per share/ADS in USD ($).
+   - Calculate final Intrinsic Fair Value per share/ADS in USD ($) for Story 1, Story 2, and Story 3.
+
+2. REVERSE DCF STORYLINE ("WHAT IS MR. MARKET PRICING IN?"):
+   - Look at the current stock price (${current_price:.2f}).
+   - Invert the valuation equation: What 5-year Owner Earnings growth rate (g_implied) is Mr. Market currently embedding into today's price of ${current_price:.2f}?
+   - Write the Reverse DCF Storyline in plain English:
+     * What is the current stock price saying about the future of this business?
+     * Is the market pricing in permanent stagnation, severe moat erosion, steady compounding, or hyper-growth?
+     * How does the market's implied scenario compare to Story 1 (Modeled Base Case)? Where is the market's expectation disconnect?
 
 EDITORIAL & FORMATTING DIRECTIVES:
 Generate Section 3 in clean Semantic HTML:
-<h2>Section 3: Valuation Across the 3 Stories</h2>
+<h2>Section 3: Valuation &amp; Reverse DCF Across the 3 Stories</h2>
 <p>Translating each of the 3 business stories into Warren Buffett-style discounted cash flow valuations based on true Owner Earnings (GAAP Operating Cash Flow minus Maintenance CapEx minus 100% Stock-Based Compensation treated as a cash charge) plus audited balance sheet net cash per share:</p>
 
 <table class="data-table">
@@ -1034,6 +1036,13 @@ Generate Section 3 in clean Semantic HTML:
   <p><strong>Story 3 ($XX.XX):</strong> [Crisp rationale explaining how Story 3 operating dynamics produce this intrinsic value...]</p>
 </div>
 
+<div class="callout">
+  <h3>Reverse DCF Storyline: What is Mr. Market Pricing In?</h3>
+  <p><strong>Current Market Price:</strong> ${current_price:.2f} | <strong>Market-Implied 5-Yr Growth Rate:</strong> ~[+X.X% / -X.X%] per annum</p>
+  <p><strong>What the Current Price is Saying:</strong> [Full plain-English narrative explaining what assumptions, headwinds, or growth expectations the stock price embeds today...]</p>
+  <p><strong>Market Disconnect vs. Story 1:</strong> [Direct comparison showing where Mr. Market's implied expectations differ from our core operating premise...]</p>
+</div>
+
 At the very end of your response, output a JSON block in ```json ... ```:
 ```json
 {{
@@ -1043,6 +1052,8 @@ At the very end of your response, output a JSON block in ```json ... ```:
   "story1_title": "<Clean Title 1>",
   "story2_title": "<Clean Title 2>",
   "story3_title": "<Clean Title 3>",
+  "implied_growth_pct": "<e.g. +2.5% or -4.0%>",
+  "what_is_priced_in": "<Crisp 1-line summary e.g. Market prices in +2.0% growth vs Base +7.5%>",
   "labels": ["<Canonical Conviction Tier (High Conviction | Solid Conviction | Moderate Conviction | Cautious Stance | Turnaround Play | Speculative Risk)>", "<Play Driver 1>", "<Play Driver 2>"],
   "executive_summary": "<2-3 sentence crisp plain-English summary of premise, stories, and valuations in USD>"
 }}
@@ -1055,7 +1066,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     """Generates an investment thesis via the streamlined 3-Agent pipeline:
     1. Agent 1: Company Premise (Financial statements + last 4 earnings call transcripts).
     2. Agent 2: 3 Stories (3 distinct, probable future fundamental paths).
-    3. Agent 3: Buffett Owner Earnings DCF Valuation (3 valuations in USD).
+    3. Agent 3: Buffett Owner Earnings DCF Valuation + Reverse DCF Storyline (in USD).
     """
     ticker_clean = ticker.upper().strip()
     
@@ -1097,12 +1108,13 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     print("   └" + "─" * 50, flush=True)
 
     # ------------------------------------------------------------------
-    # Step 3: LLM Agent 3 / DCF Evaluator - Buffett Owner Earnings DCF
+    # Step 3: LLM Agent 3 / DCF Evaluator - Buffett Owner Earnings DCF & Reverse DCF
     # ------------------------------------------------------------------
-    print(f"\n🧮 [AGENT 3/3: DCF EVALUATOR] Calculating Buffett-style Owner Earnings DCF across 3 stories (Blind Valuation Mode)...", flush=True)
+    print(f"\n🧮 [AGENT 3/3: DCF & REVERSE DCF] Evaluating Owner Earnings DCF & Reverse DCF storyline...", flush=True)
     agent_3_prompt = AGENT_3_DCF_EVALUATOR_PROMPT.format(
         ticker=ticker_clean,
         company_name=company_name,
+        current_price=current_price,
         premise_context=sec1_clean,
         stories_context=sec2_clean
     )
@@ -1113,7 +1125,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     # Clean HTML: strip trailing JSON code block
     sec3_html_only = re.sub(r"```(?:json)?\s*\{.*?\}\s*```", "", sec3_raw, flags=re.DOTALL | re.IGNORECASE).strip()
     sec3_clean = verify_and_repair_html_structure(clean_grounding_artifacts(sec3_html_only))
-    print(f"   │ Status: 3 Valuations evaluated by LLM", flush=True)
+    print(f"   │ Status: 3 Valuations and Reverse DCF evaluated by LLM", flush=True)
     print("   └" + "─" * 50, flush=True)
 
     # ------------------------------------------------------------------
@@ -1174,6 +1186,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     sanitized_labels = sanitize_labels(raw_labels, action_signal=action_signal, base_ret=mos1)
 
     exec_summary = dcf_data.get("executive_summary") or f"Level-headed fundamental investment thesis established for {ticker_clean} across 3 distinct operating paths."
+    what_is_priced_in = dcf_data.get("what_is_priced_in") or f"g_implied: {dcf_data.get('implied_growth_pct', '0.0%')} vs Story 1"
 
     metadata = {
         "ticker": ticker_clean,
@@ -1197,7 +1210,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         "bear_target": f"${story2_val:.2f} ({mos2:+.1f}%)",
         "base_target": f"${story1_val:.2f} ({mos1:+.1f}%)",
         "bull_target": f"${story3_val:.2f} ({mos3:+.1f}%)",
-        "what_is_priced_in": f"Story 1: ${story1_val:.2f} ({mos1:+.1f}%) | Story 2: ${story2_val:.2f} | Story 3: ${story3_val:.2f}",
+        "what_is_priced_in": what_is_priced_in,
         "upper_alert_threshold": upper_alert,
         "lower_alert_threshold": lower_alert,
         "next_catalyst_date": normalize_catalyst_date(dcf_data.get("next_catalyst_date")),
