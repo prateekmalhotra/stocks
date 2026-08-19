@@ -751,24 +751,24 @@ Guidelines:
 - Current Reporting Period: Explicitly state the latest reported fiscal year / quarter (e.g. "FY 2025 / Q3 2025 LTM").
 
 CRITICAL AUDITED FINANCIAL REALITY & INTEGRITY CHECKS:
-1. Mathematical Waterfall Consistency (Zero Hallucinated Arithmetic):
-   - All quoted cash flow metrics MUST strictly reconcile mathematically:
-     * Free Cash Flow = GAAP Operating Cash Flow (OCF) - Total CapEx.
-     * Baseline Owner Earnings (OE₁) = GAAP Operating Cash Flow (OCF) - Maintenance CapEx - Stock-Based Compensation (SBC).
-   - If quoting CFO statements or LTM cash flows, the numbers must be 100% internally consistent. NEVER present contradictory figures where OCF minus CapEx does not equal the stated FCF.
-2. Foreign Private Issuer (FPI) Disclosure Reality:
-   - For foreign companies traded via ADRs/ADSs (e.g. JD, BABA, PDD, SE, ASML, TSM), recognize that insiders do not file domestic Section 16 Form 4s. Their beneficial ownership is reported via SEC Form 20-F (Item 6.E), Schedule 13D/G, and initial Form 3 filings under the HFIAA.
-3. Cash Flow Compression & Grounded Realism:
-   - Search the ACTUAL Statement of Cash Flows for the latest completed fiscal year and recent quarters.
-   - Ground Baseline Owner Earnings in the actual audited recent cash generation reality, accounting for margin pressure, working capital dynamics, and capital intensity.
-4. Balance Sheet Surplus Cash & Working Capital Reality:
-   - Search for any major recently announced or pending M&A transactions, capital commitments, or acquisitions (e.g. Ceconomy).
-   - High-volume retail and operating businesses require cash buffers (~2% of annual revenue) for working capital and inventory funding.
-   - When deriving Net Balance Sheet Cash, deduct required operating cash buffers, committed acquisition cash outlays, and non-controlling interests (NCI) to establish the true Unencumbered Surplus Net Cash per Share/ADS.
-   - For foreign issuers, evaluate cash through capital allocation realities (onshore operational reinvestment, dividend withholding, or offshore buyback execution).
-5. Currency Notation Rigor:
-   - NEVER use the dollar sign `$` when referring to RMB or foreign currencies. Use `¥` for Chinese Yuan / RMB, `€` for Euros, and `$` strictly for US Dollars. Always write conversions clearly (e.g. `¥19.0B RMB (~$2.72B USD)`).
-6. Buffett Country-Specific Valuation & Hurdle Rate:
+1. Statement of Cash Flows Extraction & Owner Earnings Waterfall:
+   - Search the ACTUAL Statement of Cash Flows for the latest completed fiscal year (e.g. Form 20-F / 10-K) and recent quarterly reports (Form 6-K / 10-Q).
+   - Line 1: Net Cash Provided by Operating Activities (GAAP OCF) ($ Millions/Billions USD). NEVER use Financing Cash Flows (e.g. share buybacks or debt repayments) or Net Income as OCF!
+   - Line 2: Capital Expenditures (Additions to property, equipment, logistics facilities, software) ($ Millions/Billions USD). NEVER understate CapEx or use a single quarter for an annual rate. Heavy logistics networks require massive continuous CapEx.
+   - Line 3: Stock-Based Compensation (SBC) expense ($ Millions USD) treated as a 100% cash charge.
+   - Line 4: Non-Operating Interest Income Deduction ($ Millions USD). If the company holds large cash deposits generating non-operating interest income (e.g. ~$1.3B USD for JD), that interest income MUST be deducted from OCF before deriving core Operating Owner Earnings to prevent double-counting when adding cash on the balance sheet bridge:
+     * Core Operating Baseline Owner Earnings (OE₀) = GAAP OCF - Non-Operating Interest Income - Maintenance CapEx - SBC.
+2. Realistic Working Capital Operational Cash Buffer (5%–8% of Revenue):
+   - Physical direct-sales (1P) retailers with massive supplier payables and logistics footprints require an essential operational working capital buffer of 5.0% to 8.0% of annual revenue (e.g. $10B–$14B for a $180B+ retailer).
+   - When deriving Net Balance Sheet Cash, deduct:
+     * Essential Operational Cash Buffer (5.0%–8.0% of revenue)
+     * Total Funded Debt & Capital Leases
+     * Major Committed M&A Cash Outlays (e.g. Ceconomy acquisition)
+     * Non-Controlling Interests (NCI)
+   - The resulting figure is the true Unencumbered Surplus Net Cash per Share/ADS (typically $3–$6/share, NOT $13–$17/share).
+3. Foreign Private Issuer (FPI) Disclosure Reality:
+   - For foreign companies traded via ADRs/ADSs (e.g. JD, BABA, PDD, SE, ASML, TSM), recognize that insiders do not file domestic Section 16 Form 4s. Beneficial ownership is reported via SEC Form 20-F (Item 6.E), Schedule 13D/G, and Form 3 filings under the HFIAA.
+4. Buffett Country-Specific Valuation & Hurdle Rate:
    - Use Warren Buffett's standard opportunity-cost hurdle rate (9.0%–10.5%), reflecting the local sovereign rate and equity hurdle. Do NOT apply artificial academic CAPM haircuts; risk is properly accounted for through conservative Owner Earnings projections and demanding a robust Margin of Safety.
 
 Core Topics to Cover:
@@ -778,9 +778,10 @@ Core Topics to Cover:
 2. Audited Financial Baseline (Single Source of Truth in $ Millions/Billions USD):
    - Latest Period Net Revenue ($ USD)
    - Latest GAAP Operating Cash Flow (OCF) ($ Millions USD)
+   - Non-Operating Interest Income stripped from OCF ($ Millions USD)
    - Annual CapEx ($ Millions USD) & Stock-Based Compensation (SBC) ($ Millions USD)
-   - Baseline Base Year 1 Owner Earnings: OE₁ = OCF - Maintenance CapEx - SBC ($ Millions USD)
-   - Balance Sheet Cash & ST Investments ($ Millions USD) vs Total Funded Debt & Leases ($ Millions USD), adjusted for working capital buffers and committed M&A cash outlays.
+   - Core Baseline Owner Earnings: OE₀ = OCF - Interest Income - Maintenance CapEx - SBC ($ Millions USD)
+   - Balance Sheet Cash & ST Investments ($ Millions USD) vs Total Funded Debt & Leases ($ Millions USD), minus Operational Cash Buffer (5%–8% Rev) and committed M&A cash outlays.
    - Diluted Shares / ADSs Outstanding (Millions)
    - Unencumbered Surplus Net Cash / (Debt) per Share/ADS in USD.
 3. Leadership Commentary & 4-Quarter Trajectory: Executive commentary and authentic quotes from the active CEO and CFO across the last 4 quarters.
@@ -792,9 +793,9 @@ Format Section 1 in clean Semantic HTML:
 
 <div class="metrics-grid">
   <div class="metric-card"><div class="metric-label">Latest Period / LTM Revenue</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">[e.g. FY 2025 / +XX% YoY]</div></div>
-  <div class="metric-card"><div class="metric-label">GAAP Operating Cash Flow</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">Latest Period ($ USD)</div></div>
-  <div class="metric-card"><div class="metric-label">Baseline Owner Earnings</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">OCF - CapEx - SBC</div></div>
-  <div class="metric-card"><div class="metric-label">Net Balance Sheet Cash</div><div class="metric-value">+$XX.XXB</div><div class="metric-delta pos">+$XX.XX / share (Unencumbered Surplus)</div></div>
+  <div class="metric-card"><div class="metric-label">GAAP Operating Cash Flow</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">Latest Audited Period</div></div>
+  <div class="metric-card"><div class="metric-label">Core Baseline Owner Earnings</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">OCF - Interest - CapEx - SBC</div></div>
+  <div class="metric-card"><div class="metric-label">Surplus Net Cash / ADS</div><div class="metric-value">+$XX.XX</div><div class="metric-delta pos">Net of 5-8% Working Capital Buffer</div></div>
 </div>
 
 <div class="callout">
@@ -821,6 +822,7 @@ Guidelines:
 - Primary Research: Search and inspect {company_name}'s latest filings and earnings transcripts.
 - Strategic Moat & Model Trade-Offs: If analyzing a 1P retail vs 3P marketplace transition, explicitly address the trade-offs (e.g. 3P improves gross margins but introduces quality control and fulfillment differentiation challenges vs pure 1P).
 - Rigorous Downside Stress Test: At least one story (Story 2 or Story 3) must be a rigorous downside stress test modeling severe competitive price wars, gross margin compression, negative cash flow CAGR (-5% to -15%), and minimal terminal expansion.
+- Negative Working Capital Unwind in Downside: For direct-sales (1P) retailers with large trade payables, explicitly account for working capital drain during revenue contraction (paying off supplier liabilities without sufficient new cash inflows, compressing owner earnings).
 
 FIRST-PRINCIPLES BUSINESS METRIC CHAIN (NO ARBITRARY GROWTH ASSUMPTIONS):
 - Revenue is driven by explicit operational business metrics reported by the company (e.g. active customer counts, unit volume, order frequency, pricing/AOV, capacity ramps, store/resort openings, or take rates).
@@ -953,17 +955,18 @@ You are LLM Agent 3: Storyline DCF Valuation Specialist.
 
 Your Objective:
 Extract and assign the exact fundamental valuation parameters for the 3 distinct business stories:
-1. Starting Year 0 Normalized Owner Earnings ($OE_0$) in $ Millions USD (grounded in actual audited recent cash flows, accounting for capex and price competition).
-2. 5-Year Organic Owner Earnings CAGR (e.g. 0.08 for +8.0%, -0.05 for -5.0%).
+1. Starting Year 0 Core Normalized Owner Earnings ($OE_0$) in $ Millions USD (strictly derived from audited cash flows: GAAP OCF minus Non-Operating Interest Income minus Maintenance CapEx minus SBC).
+2. 5-Year Organic Owner Earnings CAGR (e.g. 0.08 for +8.0%, -0.09 for -9.0% downside).
 3. Discount / Hurdle Rate (typically 0.095 for 9.5%, or 0.105 for higher risk).
 4. Terminal Growth Rate (typically 0.015 to 0.0225).
 5. Balance Sheet & Share Count Denominators:
    - Diluted Shares / ADSs in Millions
    - Gross Cash & ST Investments ($ Millions USD)
    - Total Debt ($ Millions USD)
+   - Operational Working Capital Buffer ($ Millions USD, 5.0%–8.0% of annual revenue)
    - Major Committed M&A Cash Outlays ($ Millions USD, e.g. Ceconomy)
    - Non-Controlling Interests (NCI) ($ Millions USD)
-   - Unencumbered Net Cash per Share / ADS ($ USD)
+   - Unencumbered Surplus Net Cash per Share / ADS ($ USD) = (Gross Cash - Total Debt - Working Capital Buffer - M&A - NCI) / Diluted Shares
 
 Output a strict JSON block in ```json ... ```:
 ```json

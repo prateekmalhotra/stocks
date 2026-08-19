@@ -277,31 +277,31 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
 
 
 
-    # 26. Balance Sheet Net Cash/Debt Plausibility Check (Plugged Number Prevention)
+    # 26. Balance Sheet Surplus Net Cash Plausibility Check (Plugged Number Prevention)
     if s3_match:
         s3_t = s3_match.group(1)
-        m_nd = re.search(r'(?:Net Balance Sheet Debt/Cash Adjustment|Net Debt/Cash Adjustment).*?([+-]?\$\s*[\d,]+(?:\.\d+)?\s*(?:/ADS|/sh|/share)?)', s3_t, re.IGNORECASE)
+        m_nd = re.search(r'(?:Net Balance Sheet Debt/Cash Adjustment|Net Debt/Cash Adjustment|Surplus Net Cash).*?([+-]?\$\s*[\d,]+(?:\.\d+)?\s*(?:/ADS|/sh|/share)?)', s3_t, re.IGNORECASE)
         if m_nd:
             try:
                 nd_v = float(re.sub(r"[^\d.-]", "", m_nd.group(1)))
-                if nd_v > 35.0:
-                    issues.append(f"Balance Sheet Cash Overstatement Failure: Net Cash Adjustment (${nd_v:.2f}/sh) exceeds plausible per-share liquidity bounds ($35.00/sh). Must strictly derive from audited SEC cash/debt.")
+                if nd_v > 25.0:
+                    issues.append(f"Balance Sheet Cash Overstatement Failure: Surplus Net Cash Adjustment (${nd_v:.2f}/sh) exceeds plausible per-share liquidity bounds ($25.00/sh). Must strictly deduct working capital buffer and debt from gross cash.")
             except Exception:
                 pass
 
-    # 27. Annualized Cash Flow vs Revenue Magnitude Sanity Check
+    # 27. Cash Flow vs Revenue Magnitude Sanity Check
     s1_match = re.search(r"<h2>Section 1:.*?</h2>(.*?)(?=<h2>Section 2|$)", html, re.DOTALL | re.IGNORECASE)
     if s1_match and s3_match:
         s1_t = s1_match.group(1)
         s3_t = s3_match.group(1)
         m_rev = re.search(r'(?:Annual / LTM Net Revenue|Net Revenue|Revenue).*?\$([\d,]+(?:\.\d+)?)\s*(?:B|billion)', s1_t, re.IGNORECASE)
-        m_oe = re.search(r'(?:Starting Normalized Owner Earnings|Year 1 Owner Earnings|Base Owner Earnings).*?\$([\d,]+(?:\.\d+)?)\s*(?:M|million)', s3_t, re.IGNORECASE)
+        m_oe = re.search(r'(?:Starting Normalized Owner Earnings|Year 1 Owner Earnings|Base Owner Earnings|Core Baseline Owner Earnings).*?\$([\d,]+(?:\.\d+)?)\s*(?:M|million)', s3_t, re.IGNORECASE)
         if m_rev and m_oe:
             try:
                 rev_b = float(re.sub(r"[^\d.-]", "", m_rev.group(1)))
                 oe_m = float(re.sub(r"[^\d.-]", "", m_oe.group(1)))
-                if rev_b >= 50.0 and oe_m < 200.0:
-                    issues.append(f"Owner Earnings Annualization Failure: Large-cap platform with ${rev_b:.1f}B revenue has Year 1 Owner Earnings of only ${oe_m:.1f}M (likely an un-annualized single quarterly figure).")
+                if rev_b >= 50.0 and oe_m < 50.0:
+                    issues.append(f"Owner Earnings Understatement Failure: Large-cap platform with ${rev_b:.1f}B revenue has Year 1 Owner Earnings of only ${oe_m:.1f}M (likely an un-annualized single quarterly figure).")
             except Exception:
                 pass
 
