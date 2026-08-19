@@ -112,7 +112,7 @@ def sync_live_market_data() -> Dict[str, Any]:
             
     # Save updated watchlist
     with open(WATCHLIST_FILE, "w", encoding="utf-8") as f:
-        json.dump(list(watchlist.values()), f, indent=2)
+        json.dump(watchlist, f, indent=2)
         
     # Save public live quotes
     with open(LIVE_QUOTES_FILE, "w", encoding="utf-8") as f:

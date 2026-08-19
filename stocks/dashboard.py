@@ -11,7 +11,7 @@ from stocks.tracker import fetch_all_chart_ranges
 from stocks.ownership_intelligence import build_ownership_tab_html, calculate_insider_sentiment_and_flow, load_cached_ownership
 from bs4 import BeautifulSoup, NavigableString, Tag
 
-PUBLIC_DIR = Path("public")
+PUBLIC_DIR = Path(__file__).resolve().parent.parent / "public"
 REPORTS_DIR = PUBLIC_DIR / "reports"
 
 

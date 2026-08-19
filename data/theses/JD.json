@@ -1,13 +1,14 @@
-{
-  "JD": {
-    "ticker": "JD",
-    "company_name": "JD.com, Inc.",
-    "baseline_price": 28.82,
-    "current_price": 28.82,
-    "return_pct": 0.0,
+[
+  {
+    "version": 1,
+    "date": "2026-08-18",
+    "price_at_version": 28.82,
     "status_label": "Solid Conviction",
     "labels": [],
     "action_signal": "BUY",
+    "summary_of_change": "Initial thesis.",
+    "what_was_before": "",
+    "what_changes_now": "",
     "fair_value_estimate": ".34",
     "story1_target": "",
     "story2_target": "",
@@ -15,20 +16,19 @@
     "story1_title": "",
     "story2_title": "",
     "story3_title": "",
-    "bear_target": ".10 (-12.9%)",
-    "base_target": ".34 (+50.4%)",
-    "bull_target": ".75 (+103.9%)",
-    "what_is_priced_in": "",
+    "bear_target": "",
+    "base_target": "",
+    "bull_target": "",
     "upper_alert_threshold": null,
     "lower_alert_threshold": null,
     "next_catalyst_date": "",
     "next_catalyst_event": "",
+    "trigger_reason": "",
+    "what_is_priced_in": "",
     "top_funds": [],
     "institutional_ownership_pct": "",
     "insider_signal": "Neutral (10b5-1)",
     "insider_summary": "",
-    "last_updated": "2026-08-18",
-    "total_versions": 1,
-    "report_path": "reports/JD.html"
+    "full_html_content": ""
   }
-}
+]
