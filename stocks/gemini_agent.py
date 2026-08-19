@@ -14,7 +14,9 @@ _CURRENT_ACTIVE_MODEL = DEFAULT_GEMINI_MODEL
 GEMINI_MODELS_LADDER = [
     "gemini-3.7-flash",
     "gemini-3.6-flash",
-    "gemini-3.5-flash"
+    "gemini-3.5-flash",
+    "gemini-3.1-flash-lite",
+    "gemini-2.5-flash-lite"
 ]
 if DEFAULT_GEMINI_MODEL not in GEMINI_MODELS_LADDER:
     GEMINI_MODELS_LADDER.insert(0, DEFAULT_GEMINI_MODEL)
@@ -310,26 +312,26 @@ def call_gemini_with_search(prompt: str, system_instruction: str = "", temperatu
                                 
                     return "Analysis completed."
                 elif response.status_code in (500, 502, 503, 504, 429):
-                    if model_name != GEMINI_MODELS_LADDER[-1]:
-                        switch_to_fallback_model(f"HTTP {response.status_code} on {model_name}")
-                        break
-                    elif attempt < max_retries:
-                        wait_time = 20
-                        print(f"  ⚠️ Gemini API ({model_name}) returned {response.status_code}. Waiting {wait_time}s before retry...", flush=True)
+                    if attempt < max_retries:
+                        wait_time = attempt * 4
+                        print(f"  ⚠️ Gemini API ({model_name}) returned {response.status_code}. Retrying in {wait_time}s (Attempt {attempt}/{max_retries})...", flush=True)
                         time.sleep(wait_time)
                         continue
+                    elif model_name != models_to_try[-1]:
+                        switch_to_fallback_model(f"HTTP {response.status_code} after {max_retries} attempts on {model_name}")
+                        break
                 else:
                     last_err = RuntimeError(f"Gemini API error ({response.status_code}): {response.text}")
                     break
             except requests.RequestException as req_err:
-                if model_name != GEMINI_MODELS_LADDER[-1]:
-                    switch_to_fallback_model(f"{req_err} on {model_name}")
-                    break
-                elif attempt < max_retries:
-                    wait_time = 20
-                    print(f"  ⚠️ Network error on {model_name} ({req_err}). Waiting {wait_time}s before retry...", flush=True)
+                if attempt < max_retries:
+                    wait_time = attempt * 4
+                    print(f"  ⚠️ Network/Connection error on {model_name} ({req_err}). Retrying in {wait_time}s (Attempt {attempt}/{max_retries})...", flush=True)
                     time.sleep(wait_time)
                     continue
+                elif model_name != models_to_try[-1]:
+                    switch_to_fallback_model(f"{req_err} after {max_retries} attempts on {model_name}")
+                    break
                 last_err = RuntimeError(f"Gemini API network error: {req_err}")
                 break
 
