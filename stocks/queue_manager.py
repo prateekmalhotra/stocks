@@ -123,15 +123,9 @@ def _handle_genesis_task(ticker: str, notes: str):
     if oi_trades:
         buy_val = sum([parse_trade_value(t.get("value", "")) for t in oi_trades if "Buy" in t.get("trade_type", "") or "P - Purchase" in t.get("trade_type", "")])
         sell_val = sum([parse_trade_value(t.get("value", "")) for t in oi_trades if "Sale" in t.get("trade_type", "") or "S - Sale" in t.get("trade_type", "")])
-        if buy_val > 500000 and buy_val > sell_val:
-            insider_signal = "Cluster Buying"
-            insider_summary = f"Aggressive insider open-market purchases totaling ${buy_val:,.0f} across executive leadership."
-        elif sell_val > buy_val:
-            insider_signal = "Net Selling"
-            insider_summary = f"Routine Form 4 sales under 10b5-1 plans totaling ${sell_val:,.0f}."
-        else:
-            insider_signal = "Neutral (10b5-1)"
-            insider_summary = "Standard executive equity incentive exercises and routine holding maintenance."
+        sentiment = ownership_data.get("sentiment", {})
+        insider_signal = sentiment.get("signal", "Neutral (10b5-1)")
+        insider_summary = sentiment.get("summary", "Audited SEC Form 3 / 20-F / Form 4 filings.")
 
     version_1 = ThesisVersion(
         version=1,

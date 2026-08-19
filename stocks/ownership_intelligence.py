@@ -659,7 +659,9 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
     if oi_trades:
         for t in oi_trades[:40]:  # Show up to 40 most recent detailed Form 4 trades
             ttype = t.get("trade_type", "")
-            if "P - Purchase" in ttype or "Purchase" in ttype:
+            if any(k in ttype.lower() for k in ["beneficial", "form 3", "hfiaa", "20-f", "annual audit", "director grant", "rsu", "class a", "class b"]):
+                t_badge = '<span style="color: var(--text-dim); font-weight: 500; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">⚪ Form 3 / 20-F</span>'
+            elif "P - Purchase" in ttype or "Purchase" in ttype:
                 t_badge = '<span style="color: var(--accent-green); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🟢 Purchase</span>'
             elif "S - Sale" in ttype or "Sale" in ttype:
                 t_badge = '<span style="color: var(--accent-red); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">🔴 Sale</span>'

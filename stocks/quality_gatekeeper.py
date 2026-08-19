@@ -128,6 +128,13 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
                 base_val = extracted_nums[0]
             break
 
+    # 10b. Arithmetic Sum Integrity Check (PV of Operating + Net Cash == Intrinsic Value)
+    proof_matches = re.findall(r"\$(\d+(?:\.\d+)?)\s*\+\s*\$(\d+(?:\.\d+)?)\s*=\s*\$(\d+(?:\.\d+)?)", html)
+    for op_s, cash_s, tot_s in proof_matches:
+        op_f, cash_f, tot_f = float(op_s), float(cash_s), float(tot_s)
+        if abs((op_f + cash_f) - tot_f) > 0.05:
+            issues.append(f"Arithmetic Error: Claimed ${op_s} + ${cash_s} = ${tot_s} (actual sum: ${op_f+cash_f:.2f}).")
+
     # 11. No Unexpanded Tokenizer / LLM Synthetic Artifacts & Foreign Script Leaks
     if re.search(r"««[A-Z_0-9]+»»", html) or "««" in html or "»»" in html:
         issues.append("Contains unexpanded tokenizer/LLM placeholder artifacts (e.g. ««CURRENCY...»» or ««INLINE_BLOCK...»»).")
