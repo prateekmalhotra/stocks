@@ -200,7 +200,12 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
         for tbl in s3_tables:
             for r in re.findall(r"<tr.*?</tr>", tbl, re.DOTALL | re.IGNORECASE):
                 r_txt = re.sub(r"<[^>]+>", " ", r).lower()
-                if any(k in r_txt for k in ["intrinsic fair value", "intrinsic value / share", "intrinsic value per share", "fair value / share", "fair value per share", "fair value target"]):
+                if any(k in r_txt for k in [
+                    "intrinsic fair value", "intrinsic value / share", "intrinsic value per share",
+                    "intrinsic value / ads", "intrinsic value per ads",
+                    "fair value / share", "fair value per share", "fair value / ads", "fair value per ads",
+                    "calculated intrinsic value", "total intrinsic value", "fair value target"
+                ]):
                     nums = re.findall(r"\$\s*[\d,]+(?:\.\d+)?", r)
                     if len(nums) >= 2:
                         has_fair_value_row = True
