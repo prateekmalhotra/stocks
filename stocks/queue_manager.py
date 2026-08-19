@@ -108,7 +108,13 @@ def _handle_genesis_task(ticker: str, notes: str):
         raw_funds = meta.get("top_funds") or []
         top_funds = [f if isinstance(f, str) else str(f) for f in raw_funds]
         
-    inst_pct = meta.get("institutional_ownership_pct") or "78.4%"
+    raw_inst = meta.get("institutional_ownership_pct")
+    if raw_inst and str(raw_inst).strip() not in ("N/A", "None", "", "TBD") and "%" in str(raw_inst):
+        inst_pct = str(raw_inst).strip()
+    elif dr_holders:
+        inst_pct = f"{len(dr_holders)} Whales" if len(dr_holders) > 1 else f"{len(dr_holders)} Whale"
+    else:
+        inst_pct = "Whale Backed"
     
     # Derive insider signal from Form 4 trades
     oi_trades = ownership_data.get("openinsider_trades", [])
@@ -235,8 +241,13 @@ def _handle_review_task(ticker: str, trigger_reason: str):
     today_str = datetime.now().strftime("%Y-%m-%d")
 
     # 1. Create New Thesis Version
-    top_funds = meta.get("top_funds") or stock.top_funds or []
-    inst_pct = meta.get("institutional_ownership_pct") or stock.institutional_ownership_pct or ""
+    raw_inst = meta.get("institutional_ownership_pct") or stock.institutional_ownership_pct or ""
+    if raw_inst and str(raw_inst).strip() not in ("N/A", "None", "", "TBD") and "%" in str(raw_inst):
+        inst_pct = str(raw_inst).strip()
+    elif top_funds:
+        inst_pct = f"{len(top_funds)} Whales" if len(top_funds) > 1 else f"{len(top_funds)} Whale"
+    else:
+        inst_pct = "Whale Backed"
     insider_signal = meta.get("insider_signal") or stock.insider_signal or "Neutral (10b5-1)"
     insider_summary = meta.get("insider_summary") or stock.insider_summary or ""
 

@@ -257,15 +257,24 @@ def clean_fund_name(name: str) -> str:
 
 
 def format_top_funds_card_html(stock: WatchlistStock) -> str:
-    """Renders a clean, minimalist float card."""
+    """Renders a clean, minimalist Superinvestor Whales / Institutional card with zero N/A."""
     funds = getattr(stock, "top_funds", None) or []
-    inst_pct = getattr(stock, "institutional_ownership_pct", None) or "70%+"
+    raw_inst = getattr(stock, "institutional_ownership_pct", None) or ""
     clean_names = [clean_fund_name(f) for f in funds if clean_fund_name(f)]
-    subtext = " · ".join(clean_names[:2]) if clean_names else ""
+    subtext = " · ".join(clean_names[:2]) if clean_names else "13F Institutional Backing"
+
+    # Format value: if valid pct exists and is not N/A, use it; otherwise show superinvestor whale count
+    if raw_inst and str(raw_inst).strip() not in ("N/A", "None", "", "TBD") and "%" in str(raw_inst):
+        display_val = str(raw_inst).strip()
+    elif len(funds) > 0:
+        display_val = f"{len(funds)} Whales" if len(funds) > 1 else f"{len(funds)} Whale"
+    else:
+        display_val = "Whale Backed"
+
     return f"""
     <div class="metric-cell">
-        <div class="metric-label">Float</div>
-        <div class="metric-value" style="white-space: nowrap !important;">{inst_pct}</div>
+        <div class="metric-label">Whales</div>
+        <div class="metric-value" style="font-size: 1.05rem !important; font-family: var(--font-sans) !important; font-weight: 600 !important; color: var(--text-title); white-space: nowrap !important;">{display_val}</div>
         {f'<div class="metric-subtext">{subtext}</div>' if subtext else ''}
     </div>
     """
@@ -283,19 +292,6 @@ def format_insider_activity_card_html(stock: WatchlistStock) -> str:
         <div class="metric-label">Insiders</div>
         <div class="metric-value" style="color: {intel['color']}; font-family: var(--font-sans) !important; font-size: 1.05rem !important; font-weight: 600 !important; white-space: nowrap !important; letter-spacing: -0.01em !important; overflow: hidden !important; text-overflow: ellipsis !important;">{intel['badge_html']}</div>
         <div class="metric-subtext">{summary}</div>
-    </div>
-    """
-
-
-def format_priced_in_card_html(stock: WatchlistStock) -> str:
-    """Renders a clean, high-conviction card showing what growth the current market price implies."""
-    priced_in = getattr(stock, "what_is_priced_in", "") or ""
-    if not priced_in:
-        return ""
-    return f"""
-    <div class="metric-cell">
-        <div class="metric-label">Priced In (Implied)</div>
-        <div class="metric-value" style="font-size: 0.85rem; font-family: var(--font-sans); color: var(--accent-warm); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{priced_in}">{priced_in}</div>
     </div>
     """
 
@@ -2277,7 +2273,6 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                     <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">{stock.next_catalyst_date or 'TBD'}</div>
                     {f'<div class="metric-delta" style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 2px;">{clean_cat_desc}</div>' if clean_cat_desc else ''}
                 </div>
-                {format_priced_in_card_html(stock)}
                 {format_top_funds_card_html(stock)}
                 {format_insider_activity_card_html(stock)}
             </div>
