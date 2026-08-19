@@ -937,6 +937,8 @@ def is_corrupted_math_html(text: str) -> bool:
 
 def extract_capital_structure_invariants(context_text: str) -> Tuple[float, float]:
     """Extracts Diluted Shares (in Millions, prioritizing ADS count for US ADRs) 
+def extract_capital_structure_invariants(context_text: str) -> Tuple[float, float]:
+    """Extracts Diluted Shares (in Millions, prioritizing ADS count for US ADRs) 
     and Net Cash / Net Debt per share in USD from Section 4 audited balance sheet."""
     shares_m = 100.0
     net_debt_adj = 0.0
@@ -957,164 +959,181 @@ def extract_capital_structure_invariants(context_text: str) -> Tuple[float, floa
             pass
 
     # 2. Net Cash / Net Debt per share extraction (USD)
-    # Check table rows first
-    for row in re.findall(r'<tr.*?</tr>', context_text, re.DOTALL):
-        if any(k in row.lower() for k in ['net cash fortress', 'net cash position', 'net cash', 'net debt']):
-            vals = re.findall(r'([+-]?\$?\s*[\d,]+(?:\.\d+)?)', row)
-            if vals:
-                try:
-                    v_str = re.sub(r'[^\d.-]', '', vals[-1])
-                    if v_str:
-                        v = float(v_str)
-                        if "net debt" in row.lower() and v > 0:
-                            v = -v
-                        if abs(v) < 500.0:
+    # Search for explicit $/sh or $/ADS or USD per ADS first
+    m_nd_sh = re.search(r'(?:Net Cash|Net Debt|Cash Fortress|Net Liquid Cash).*?([+-]?\$\s*[\d,]+(?:\.\d+)?\s*(?:/ADS|/sh|/share|\bper ADS\b|\bper share\b))', context_text, re.IGNORECASE)
+    if not m_nd_sh:
+        m_nd_sh = re.search(r'([+-]?\$\s*[\d,]+(?:\.\d+)?\s*(?:/ADS|/sh|/share|\bper ADS\b|\bper share\b))', context_text, re.IGNORECASE)
+        
+    if m_nd_sh:
+        try:
+            v_str = re.sub(r"[^\d.-]", "", m_nd_sh.group(1))
+            if v_str and v_str not in (".", "-"):
+                v = float(v_str)
+                if "net debt" in m_nd_sh.group(0).lower() and v > 0:
+                    v = -v
+                if abs(v) < 250.0:
+                    net_debt_adj = v
+        except Exception:
+            pass
+
+    # Fallback to Table row scan for Net Cash Fortress
+    if abs(net_debt_adj) < 0.001:
+        for row in re.findall(r'<tr.*?</tr>', context_text, re.DOTALL):
+            if any(k in row.lower() for k in ['net cash fortress', 'net cash position', 'net cash', 'net debt']):
+                # Extract all explicit dollar amounts ($XX.XX)
+                dollar_vals = re.findall(r'\$\s*([\d,]+(?:\.\d+)?)', row)
+                if dollar_vals:
+                    try:
+                        v = float(dollar_vals[-1].replace(',', ''))
+                        if abs(v) < 250.0:
+                            if "net debt" in row.lower() and v > 0:
+                                v = -v
                             net_debt_adj = v
                             break
-                except Exception:
-                    pass
-
-    if abs(net_debt_adj) < 0.001:
-        # Fallback to prose
-        nd_m = re.search(r'(?:Audited Net Balance Sheet Cash/Debt Per Share/ADS Adjustment|Net Cash Per (?:Diluted )?(?:ADS|Share)|Net Debt Per (?:Diluted )?(?:ADS|Share)|Net Cash Position|Net Cash Fortress).*?([+-]?\$?\s*\d+(?:\.\d+)?\s*(?:/ADS|/sh|/share|\bper ADS\b|\bper share\b)?)', context_text, re.IGNORECASE)
-        if nd_m:
-            try:
-                v_str = re.sub(r"[^\d.-]", "", nd_m.group(1))
-                if v_str:
-                    net_debt_adj = float(v_str)
-                    if "net debt" in nd_m.group(0).lower() and net_debt_adj > 0:
-                        net_debt_adj = -net_debt_adj
-            except Exception:
-                pass
+                    except Exception:
+                        pass
 
     return shares_m, net_debt_adj
 
 
+def extract_storyline_owner_earnings(table_html: str) -> List[float]:
+    """Extracts Year 1 Owner Earnings in USD ($ Millions) for each storyline from Table 1 cells."""
+    oe_row_m = re.search(r'(?:Normalized Year 1 Buffett Owner Earnings|Owner Earnings|OE_1).*?</tr>', table_html, re.DOTALL | re.IGNORECASE)
+    if not oe_row_m:
+        return [500.0, 300.0, 800.0]
+        
+    cells = re.findall(r'<td[^>]*>(.*?)</td>', oe_row_m.group(0), re.DOTALL)
+    data_cells = cells[1:] if len(cells) > 3 else cells
+    
+    parsed_oes = []
+    for cell in data_cells:
+        cell_clean = re.sub(r'<[^>]+>', ' ', cell).strip()
+        # 1. Check for explicit USD amount first: e.g. (~US$ 5.37B) or $5.37B or US$ 5.37B
+        usd_m = re.search(r'(?:US\$|\$)\s*([+-]?[\d,]+(?:\.\d+)?)\s*(B|M|billion|million)?', cell_clean, re.IGNORECASE)
+        if usd_m:
+            try:
+                v = float(re.sub(r"[^\d.-]", "", usd_m.group(1)))
+                unit = (usd_m.group(2) or "").lower()
+                if "b" in unit or abs(v) < 50.0:
+                    v = v * 1000.0
+                parsed_oes.append(v)
+                continue
+            except Exception:
+                pass
+                
+        # 2. Check for RMB / Foreign Currency amount: e.g. RMB 38.13B or ¥38.13B
+        rmb_m = re.search(r'(?:RMB|¥|CNY)\s*([+-]?[\d,]+(?:\.\d+)?)\s*(B|M|billion|million)?', cell_clean, re.IGNORECASE)
+        if rmb_m:
+            try:
+                v = float(re.sub(r"[^\d.-]", "", rmb_m.group(1)))
+                unit = (rmb_m.group(2) or "").lower()
+                if "b" in unit or abs(v) < 100.0:
+                    v = v * 1000.0
+                v = v / 7.15
+                parsed_oes.append(v)
+                continue
+            except Exception:
+                pass
+
+        # 3. Generic number fallback
+        gen_m = re.search(r'([+-]?[\d,]+(?:\.\d+)?)\s*(B|M|billion|million)?', cell_clean)
+        if gen_m:
+            try:
+                v = float(re.sub(r"[^\d.-]", "", gen_m.group(1)))
+                unit = (gen_m.group(2) or "").lower()
+                if "b" in unit or abs(v) < 50.0:
+                    v = v * 1000.0
+                parsed_oes.append(v)
+            except Exception:
+                pass
+
+    while len(parsed_oes) < 3:
+        parsed_oes.append(parsed_oes[-1] if parsed_oes else 500.0)
+        
+    return parsed_oes[:3]
+
+
+def extract_storyline_cagrs(table_html: str) -> List[float]:
+    """Extracts the 5-Year CAGR or YoY Revenue Growth rate for each storyline from Table 1."""
+    rev_row_m = re.search(r'(?:Top-Line Revenue|Revenue Trajectory|Revenue Growth).*?</tr>', table_html, re.DOTALL | re.IGNORECASE)
+    cagrs = [0.065, 0.020, -0.020]
+    if rev_row_m:
+        cells = re.findall(r'<td[^>]*>(.*?)</td>', rev_row_m.group(0), re.DOTALL)
+        data_cells = cells[1:] if len(cells) > 3 else cells
+        parsed_c = []
+        for cell in data_cells:
+            m = re.search(r'([+-]?\d+(?:\.\d+)?)\s*%', cell)
+            if m:
+                parsed_c.append(float(m.group(1)) / 100.0)
+        if len(parsed_c) >= 3:
+            cagrs = parsed_c[:3]
+    return cagrs[:3]
+
+
 def reconcile_and_repair_section_5_tables(ticker: str, current_price: float, section_5_html: str, bs_context: str = "") -> str:
     """Guarantees that Section 5 contains Table 1 (Unit Economics), Table 2 (Complete 10-Row DCF),
-    and Table 3 (2D Sensitivity Matrix) with 100% mathematical precision and zero truncation."""
+    Table 3 (2D Sensitivity Matrix), Reverse DCF, and 5-Year Market Closure Test with 100% mathematical precision."""
     if not section_5_html:
         return section_5_html
 
     # 1. Parse Net Debt per share/ADS and Diluted Shares strictly from bs_context (Section 4 Invariants)
     shares_m, net_debt_adj = extract_capital_structure_invariants(bs_context + " " + section_5_html)
             
-    # 2. Check Table 2 completion across all tables in section_5_html
-    s5_tables = re.findall(r"<table.*?</table>", section_5_html, re.DOTALL | re.IGNORECASE)
-    has_full_dcf_table = False
-    existing_dcf_table = ""
-    for tbl in s5_tables:
-        if any(k in tbl.lower() for k in ["intrinsic fair value", "intrinsic value / share", "fair value / share", "margin of safety"]):
-            nums = re.findall(r"([+-]?\$?\s*[\d,]+(?:\.\d+)?)", tbl)
-            if len(nums) >= 2:
-                has_full_dcf_table = True
-                existing_dcf_table = tbl
-                break
+    # 2. Extract Year 1 Owner Earnings and CAGRs cell-by-cell from Table 1
+    oes = extract_storyline_owner_earnings(section_5_html)
+    cagrs = extract_storyline_cagrs(section_5_html)
 
-    # If Table 2 exists, check if its Net Cash / Net Debt row contradicts Section 4 audited reality OR violates sanity floor
-    if has_full_dcf_table and existing_dcf_table:
-        nd_row_m = re.search(r'(?:Net Balance Sheet Debt/Cash Adjustment|Net Debt/Cash Adjustment).*?</tr>', existing_dcf_table, re.DOTALL | re.IGNORECASE)
-        fv_row_m = re.search(r'(?:Intrinsic Fair Value / Share|Intrinsic Value / Share|Fair Value / Share).*?</tr>', existing_dcf_table, re.DOTALL | re.IGNORECASE)
+    # 3. Extract custom titles from Table 1 or narrative
+    found_story_titles = ["Storyline 1", "Storyline 2", "Storyline 3"]
+    th_m = re.findall(r"<th[^>]*>(.*?)</th>", section_5_html, re.DOTALL | re.IGNORECASE)
+    th_filtered = []
+    for th in th_m:
+        th_c = re.sub(r"<[^>]+>", " ", th).strip()
+        if any(k in th_c.lower() for k in ["storyline", "trajectory"]):
+            th_filtered.append(th_c)
+    if len(th_filtered) >= 3:
+        found_story_titles = th_filtered[:3]
+
+    # Scenario parameters dynamically calibrated to each storyline's economic profile
+    scenarios = [
+        {"name": found_story_titles[0], "oe1": max(10.0, oes[0]), "cagr": cagrs[0], "r": 0.095, "g_term": 0.0225 if cagrs[0] >= 0.04 else 0.020},
+        {"name": found_story_titles[1], "oe1": max(10.0, oes[1]), "cagr": cagrs[1], "r": 0.095 if cagrs[1] >= 0 else 0.100, "g_term": 0.020 if cagrs[1] >= 0 else 0.015},
+        {"name": found_story_titles[2], "oe1": max(10.0, oes[2]), "cagr": cagrs[2], "r": 0.100 if cagrs[2] < 0 else 0.095, "g_term": 0.015 if cagrs[2] < 0 else 0.020}
+    ]
+    
+    cols = []
+    for s in scenarios:
+        oe = s["oe1"]
+        c = s["cagr"]
+        r = s["r"]
+        gt = s["g_term"]
         
-        # Check Net Cash row reconciliation
-        if nd_row_m and abs(net_debt_adj) > 0.01:
-            row_vals = re.findall(r'([+-]?\$?\s*\d+(?:\.\d+)?)', nd_row_m.group(0))
-            if row_vals:
-                try:
-                    first_v = float(re.sub(r"[^\d.-]", "", row_vals[0]))
-                    if "net debt" in nd_row_m.group(0).lower() and first_v > 0:
-                        first_v = -first_v
-                    if abs(first_v - net_debt_adj) > 0.50:
-                        print(f"   │ ⚠️ [DCF RECONCILIATION] Table 2 used Net Debt/Cash ${first_v:+.2f}/sh vs Section 4 Audited ${net_debt_adj:+.2f}/sh. Rebuilding Table 2...", flush=True)
-                        has_full_dcf_table = False # Force rebuild with correct balance sheet numbers
-                except Exception:
-                    pass
-
-        # Check Liquidity Floor Sanity (Fair Value cannot be < Net Cash per share or < 30% of current price on cash-rich compounder)
-        if fv_row_m and has_full_dcf_table:
-            fv_vals = re.findall(r'([+-]?\$?\s*\d+(?:\.\d+)?)', fv_row_m.group(0))
-            if fv_vals:
-                try:
-                    first_fv = float(re.sub(r"[^\d.-]", "", fv_vals[0]))
-                    if (net_debt_adj > 3.0 and first_fv < net_debt_adj) or (current_price > 10.0 and first_fv < (current_price * 0.35)):
-                        print(f"   │ ⚠️ [DCF RECONCILIATION] Table 2 produced irrational Fair Value (${first_fv:.2f} < Net Cash ${net_debt_adj:.2f} or 35% of Price). Rebuilding Table 2...", flush=True)
-                        has_full_dcf_table = False
-                except Exception:
-                    pass
-
-    # If Table 2 is incomplete, truncated, or inconsistent with audited balance sheet, build the deterministic 10-row DCF table
-    if not has_full_dcf_table:
-        print("   │ 🛠️ [DCF REPAIR] Rebuilding complete 10-row DCF Valuation Matrix from audited unit economics & balance sheet...", flush=True)
-        # Extract OE_1 from Table 1 or text
-        oe1_story1, oe1_story2, oe1_story3 = 500.0, 300.0, 800.0 # defaults in M USD
-        oe_row_m = re.search(r'(?:Normalized Year 1 Buffett Owner Earnings|Owner Earnings|OE_1).*?</tr>', section_5_html, re.DOTALL | re.IGNORECASE)
-        if oe_row_m:
-            is_rmb = any(k in oe_row_m.group(0).lower() for k in ["rmb", "¥", "cny"])
-            oe_nums = re.findall(r"(?:RMB|¥|\$)?\s*([+-]?[\d,]+(?:\.\d+)?)\s*(?:B|M|billion|million)?", oe_row_m.group(0))
-            parsed_oes = []
-            for n in oe_nums:
-                try:
-                    v = float(re.sub(r"[^\d.-]", "", n))
-                    if abs(v) < 100.0: # assume Billions
-                        v = v * 1000.0
-                    if is_rmb: # Convert RMB to USD at ~7.15
-                        v = v / 7.15
-                    parsed_oes.append(v)
-                except Exception:
-                    pass
-            if len(parsed_oes) >= 3:
-                oe1_story1, oe1_story2, oe1_story3 = parsed_oes[-3], parsed_oes[-2], parsed_oes[-1]
-
-        # Extract custom titles from Table 1 or narrative
-        found_story_titles = ["Storyline 1", "Storyline 2", "Storyline 3"]
-        th_m = re.findall(r"<th[^>]*>(.*?)</th>", section_5_html, re.DOTALL | re.IGNORECASE)
-        th_filtered = []
-        for th in th_m:
-            th_c = re.sub(r"<[^>]+>", " ", th).strip()
-            if any(k in th_c.lower() for k in ["storyline", "trajectory"]):
-                th_filtered.append(th_c)
-        if len(th_filtered) >= 3:
-            found_story_titles = th_filtered[:3]
-
-        # Scenario parameters
-        scenarios = [
-            {"name": found_story_titles[0], "oe1": max(10.0, oe1_story1), "cagr": 0.065, "r": 0.095, "g_term": 0.020},
-            {"name": found_story_titles[1], "oe1": max(10.0, oe1_story2), "cagr": 0.020, "r": 0.100, "g_term": 0.015},
-            {"name": found_story_titles[2], "oe1": max(10.0, oe1_story3), "cagr": 0.100, "r": 0.095, "g_term": 0.025}
-        ]
+        pvs = [oe * ((1 + c) ** i) / ((1 + r) ** i) for i in range(1, 6)]
+        pv_5yr = sum(pvs)
+        yr5_oe = oe * ((1 + c) ** 5)
+        tv = (yr5_oe * (1 + gt)) / (r - gt)
+        pv_tv = tv / ((1 + r) ** 5)
+        ev = pv_5yr + pv_tv
+        eq_val = ev + (net_debt_adj * shares_m)
+        fv_sh = max(0.00, eq_val / shares_m)
+        mos = ((fv_sh - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
         
-        cols = []
-        for s in scenarios:
-            oe = s["oe1"]
-            c = s["cagr"]
-            r = s["r"]
-            gt = s["g_term"]
-            
-            pvs = [oe * ((1 + c) ** i) / ((1 + r) ** i) for i in range(1, 6)]
-            pv_5yr = sum(pvs)
-            yr5_oe = oe * ((1 + c) ** 5)
-            tv = (yr5_oe * (1 + gt)) / (r - gt)
-            pv_tv = tv / ((1 + r) ** 5)
-            ev = pv_5yr + pv_tv
-            eq_val = ev + (net_debt_adj * shares_m)
-            fv_sh = max(0.00, eq_val / shares_m)
-            mos = ((fv_sh - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
-            
-            cols.append({
-                "oe1_str": f"${oe:.1f}M",
-                "cagr_str": f"{c*100:+.1f}%",
-                "r_str": f"{r*100:.1f}%",
-                "g_term_str": f"{gt*100:.2f}%",
-                "pv_5yr_str": f"${pv_5yr:.1f}M",
-                "pv_tv_str": f"${pv_tv:.1f}M",
-                "ev_str": f"${ev:.1f}M",
-                "nd_str": f"{net_debt_adj:+.2f}/sh" if net_debt_adj != 0 else "$0.00/sh",
-                "fv_str": f"${fv_sh:.2f}",
-                "mos_str": f"{mos:+.1f}%",
-                "fv_raw": fv_sh
-            })
-            
-        dcf_table_html = f"""<h3>Buffett Owner Earnings 3-Storyline DCF Valuation Matrix</h3>
+        cols.append({
+            "oe1_str": f"${oe:.1f}M",
+            "cagr_str": f"{c*100:+.1f}%",
+            "r_str": f"{r*100:.1f}%",
+            "g_term_str": f"{gt*100:.2f}%",
+            "pv_5yr_str": f"${pv_5yr:.1f}M",
+            "pv_tv_str": f"${pv_tv:.1f}M",
+            "ev_str": f"${ev:.1f}M",
+            "nd_str": f"{net_debt_adj:+.2f}/sh" if net_debt_adj != 0 else "$0.00/sh",
+            "fv_str": f"${fv_sh:.2f}",
+            "mos_str": f"{mos:+.1f}%",
+            "fv_raw": fv_sh,
+            "ev_raw": ev
+        })
+        
+    dcf_table_html = f"""<h3>Buffett Owner Earnings 3-Storyline DCF Valuation Matrix</h3>
 <table class="data-table">
   <thead>
     <tr>
@@ -1138,37 +1157,37 @@ def reconcile_and_repair_section_5_tables(ticker: str, current_price: float, sec
   </tbody>
 </table>"""
 
-        # Build 2D Sensitivity Grid (Table 3)
-        base_oe = scenarios[0]["oe1"]
-        base_c = scenarios[0]["cagr"]
-        r_base = scenarios[0]["r"]
-        gt_base = scenarios[0]["g_term"]
+    # Build 2D Sensitivity Grid (Table 3)
+    base_oe = scenarios[0]["oe1"]
+    base_c = scenarios[0]["cagr"]
+    r_base = scenarios[0]["r"]
+    gt_base = scenarios[0]["g_term"]
+    
+    r_shifts = [-0.01, 0.0, 0.01]
+    gt_shifts = [-0.005, -0.0025, 0.0, 0.005]
+    
+    grid_headers = "".join([f"<th>{(gt_base + gs)*100:.2f}%</th>" for gs in gt_shifts])
+    grid_rows_html = ""
+    for rs in r_shifts:
+        r_cur = r_base + rs
+        row_label = f"r - {abs(rs)*100:.1f}%" if rs < 0 else (f"r + {rs*100:.1f}%" if rs > 0 else "r Base")
+        cell_strs = []
+        for gs in gt_shifts:
+            gt_cur = gt_base + gs
+            pvs_g = [base_oe * ((1 + base_c) ** i) / ((1 + r_cur) ** i) for i in range(1, 6)]
+            pv_5_g = sum(pvs_g)
+            tv_g = (base_oe * ((1 + base_c) ** 5) * (1 + gt_cur)) / (r_cur - gt_cur)
+            pv_tv_g = tv_g / ((1 + r_cur) ** 5)
+            ev_g = pv_5_g + pv_tv_g
+            eq_g = ev_g + (net_debt_adj * shares_m)
+            fv_g = max(0.00, eq_g / shares_m)
+            if rs == 0.0 and gs == 0.0:
+                cell_strs.append(f"<td><strong>${fv_g:.2f} (Target)</strong></td>")
+            else:
+                cell_strs.append(f"<td>${fv_g:.2f}</td>")
+        grid_rows_html += f"<tr><td><strong>{row_label} ({r_cur*100:.1f}%)</strong></td>{''.join(cell_strs)}</tr>\n"
         
-        r_shifts = [-0.01, 0.0, 0.01]
-        gt_shifts = [-0.005, -0.0025, 0.0, 0.005]
-        
-        grid_headers = "".join([f"<th>{(gt_base + gs)*100:.2f}%</th>" for gs in gt_shifts])
-        grid_rows_html = ""
-        for rs in r_shifts:
-            r_cur = r_base + rs
-            row_label = f"r - {abs(rs)*100:.1f}%" if rs < 0 else (f"r + {rs*100:.1f}%" if rs > 0 else "r Base")
-            cell_strs = []
-            for gs in gt_shifts:
-                gt_cur = gt_base + gs
-                pvs_g = [base_oe * ((1 + base_c) ** i) / ((1 + r_cur) ** i) for i in range(1, 6)]
-                pv_5_g = sum(pvs_g)
-                tv_g = (base_oe * ((1 + base_c) ** 5) * (1 + gt_cur)) / (r_cur - gt_cur)
-                pv_tv_g = tv_g / ((1 + r_cur) ** 5)
-                ev_g = pv_5_g + pv_tv_g
-                eq_g = ev_g + (net_debt_adj * shares_m)
-                fv_g = max(0.00, eq_g / shares_m)
-                if rs == 0.0 and gs == 0.0:
-                    cell_strs.append(f"<td><strong>${fv_g:.2f} (Target)</strong></td>")
-                else:
-                    cell_strs.append(f"<td>${fv_g:.2f}</td>")
-            grid_rows_html += f"<tr><td><strong>{row_label} ({r_cur*100:.1f}%)</strong></td>{''.join(cell_strs)}</tr>\n"
-            
-        sensitivity_html = f"""<h3>2D Valuation Sensitivity Matrix</h3>
+    sensitivity_html = f"""<h3>2D Valuation Sensitivity Matrix</h3>
 <table class="data-table">
   <thead>
     <tr>
@@ -1181,11 +1200,16 @@ def reconcile_and_repair_section_5_tables(ticker: str, current_price: float, sec
   </tbody>
 </table>"""
 
-        # Compute Reverse DCF Implied Growth
-        ratio = current_price / cols[0]["fv_raw"] if cols[0]["fv_raw"] > 0 else 1.0
-        implied_g = round(base_c * 100.0 * ratio - (1.0 - ratio) * 4.0, 1)
-        
-        reverse_dcf_html = f"""<h3>Market-Implied Expectations &amp; &quot;What is Priced In?&quot; (Reverse DCF Audit)</h3>
+    # Compute Reverse DCF Implied Growth & 5-Year Cumulative Cash Return
+    ratio = current_price / cols[0]["fv_raw"] if cols[0]["fv_raw"] > 0 else 1.0
+    implied_g = round(base_c * 100.0 * ratio - (1.0 - ratio) * 4.0, 1)
+    
+    mkt_cap = current_price * shares_m
+    cum_cash_5yr = sum([base_oe * ((1 + base_c) ** i) for i in range(1, 6)])
+    cum_return_pct = (cum_cash_5yr / mkt_cap) * 100.0 if mkt_cap > 0 else 0.0
+    tot_liq_pct = ((cum_cash_5yr + (net_debt_adj * shares_m)) / mkt_cap) * 100.0 if mkt_cap > 0 else 0.0
+
+    reverse_dcf_html = f"""<h3>Market-Implied Expectations &amp; &quot;What is Priced In?&quot; (Reverse DCF Audit)</h3>
 <p>A reverse DCF analysis inverts the valuation equation: rather than forecasting arbitrary cash flows, we determine what 5-year Owner Earnings CAGR (\(g_{{\\text{{implied}}}}\)) Mr. Market is currently embedding into today's market price of ${current_price:.2f}.</p>
 <div class="callout">
 <p><strong>Market-Implied Growth Expectations vs. Storyline 1 Reality:</strong></p>
@@ -1197,23 +1221,23 @@ def reconcile_and_repair_section_5_tables(ticker: str, current_price: float, sec
 </ul>
 </div>"""
 
-        closure_html = f"""<h3>The 5-Year Market Closure Test</h3>
+    closure_html = f"""<h3>The 5-Year Market Closure Test</h3>
 <p>If the stock exchange were to shut down completely for 5 full years starting today, an investor purchasing 100% of the company at today's market price (${current_price:.2f}) would rely entirely on organic cash flow generated by the business:</p>
 <div class="callout">
 <ul>
-<li><strong>Current Share Price:</strong> ${current_price:.2f} (Storyline 1 Fair Value: {cols[0]['fv_str']})</li>
-<li><strong>5-Year Organic Cash Generation:</strong> Operating cash flow minus maintenance CapEx and SBC generates compounding distributable liquidity independent of equity market sentiment.</li>
+<li><strong>Current Market Capitalization:</strong> ${mkt_cap/1000.0:.2f}B (Current Price: ${current_price:.2f} &times; {shares_m:,.0f}M Diluted Shares/ADSs)</li>
+<li><strong>5-Year Cumulative Organic Cash Generation:</strong> <strong>${cum_cash_5yr/1000.0:.2f}B</strong> (Generating <strong>{cum_return_pct:.1f}%</strong> of today's entire equity valuation purely from business operations)</li>
+<li><strong>Balance Sheet Liquid Cash Cushion:</strong> <strong>${(net_debt_adj * shares_m)/1000.0:+.2f}B</strong> ({net_debt_adj:+.2f}/sh)</li>
+<li><strong>Total Organic 5-Year Liquidity Coverage:</strong> <strong>${(cum_cash_5yr + net_debt_adj * shares_m)/1000.0:.2f}B</strong> (Represents <strong>{tot_liq_pct:.1f}%</strong> of current market capitalization)</li>
 <li><strong>Market Closure Assessment:</strong> Without requiring a single share trade on Wall Street or multiple expansion, the private business engine generates sufficient owner cash flow to deliver an attractive compounding return.</li>
 </ul>
 </div>"""
 
-        # Combine Table 1 with deterministic Table 2, Table 3, Reverse DCF, and Closure test
-        t1_match = re.search(r'(.*?)(?=<h3>Buffett Owner Earnings|<h3>2D Valuation|$)', section_5_html, re.DOTALL | re.IGNORECASE)
-        t1_content = t1_match.group(1).strip() if t1_match else section_5_html
-        
-        section_5_html = f"{t1_content}\n\n{dcf_table_html}\n\n{sensitivity_html}\n\n{reverse_dcf_html}\n\n{closure_html}"
-
-    return section_5_html
+    # Combine Table 1 with deterministic Table 2, Table 3, Reverse DCF, and Closure test
+    t1_match = re.search(r'(.*?)(?=<h3>Buffett Owner Earnings|<h3>2D Valuation|$)', section_5_html, re.DOTALL | re.IGNORECASE)
+    t1_content = t1_match.group(1).strip() if t1_match else section_5_html
+    
+    return f"{t1_content}\n\n{dcf_table_html}\n\n{sensitivity_html}\n\n{reverse_dcf_html}\n\n{closure_html}"
 
 
 def audit_and_reconcile_dcf_math(ticker: str, company_name: str, current_price: float, section_5_html: str, bs_context: str = "") -> str:
@@ -1280,16 +1304,16 @@ Your Objective: {research_obj}
 CRITICAL BUSINESS MODEL & SEGMENT RECONCILIATION INVARIANTS:
 - SEGMENT PROFIT RECONCILIATION: If reporting segment profits / EBITA (e.g. Commerce, Cloud, Logistics), you MUST include unallocated corporate costs, corporate eliminations, and loss-making units to explicitly bridge to consolidated GAAP Operating Income (EBIT). Do NOT present isolated segment profits that don't reconcile to consolidated operating profit!
 - EXPLICIT MONETIZATION MECHANICS: Explain in plain English how the company makes money, customer switching costs, and concrete evidence of pricing power vs margin concessions.
-- PEER & CHALLENGER BENCHMARKING: Detailed comparison matrix contrasting against top 2-3 global peers AND 1-2 fast-growing agile/boutique challengers across unit economics, channel mix, and technology moats.
-- SECULAR TAILWINDS VS SUBSTITUTION THREATS: Contrast multi-year structural tailwinds against realistic competitive disruption vectors.
+- PEER & CHALLENGER BENCHMARKING WITH AUDITED CITATIONS: Detailed comparison matrix contrasting against top 2-3 global peers AND 1-2 fast-growing agile/boutique challengers across unit economics, channel mix, and technology moats. Peer operating margins (e.g. Alibaba, PDD, Meituan, Amazon) MUST cite specific SEC filings (Form 20-F / 10-K) or audited trailing quarterly releases, rather than unsourced vague ranges.
+- SECULAR TAILWINDS VS POLICY CYCLICALITY: Contrast structural tailwinds against realistic competitive disruption. If discussing government stimulus or trade-in subsidies, analyze the cyclical pull-forward and high-base YoY reversal risk with objective skepticism rather than treating it as a perpetual secular tailwind.
 
 Generate ONLY Section 2 in clean Semantic HTML with NO external images, NO inline styles, and NO code fences:
 
 <h2>Section 2: Business Model Reality, Unit Economics & Competitive Moat</h2>
 - Segment-by-segment revenue and operating profit breakdown table (with clean reconciliation to consolidated GAAP EBIT).
 - Plain-English monetization mechanics, switching costs, and pricing power audit.
-- Peer & agile challenger competitive matrix.
-- Structural tailwinds vs. competitive disruption threats.
+- Peer & agile challenger competitive matrix (with cited filing metrics).
+- Structural tailwinds vs. cyclical policy pull-forward & competitive disruption threats.
 
 DO NOT write Section 1, 3, 4, 5, or 6. Output pure HTML only."""
 
