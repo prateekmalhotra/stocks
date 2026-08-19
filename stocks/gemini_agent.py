@@ -985,9 +985,16 @@ You have ZERO knowledge of current stock market price, 52-week ranges, or broker
 
 MANDATORY USD CONVERSION & DENOMINATOR INTEGRITY INVARIANT:
 - ALL DCF numbers MUST strictly be evaluated in US DOLLARS ($ USD).
-- `year1_oe_m`: Base Year 1 Owner Earnings in MILLIONS OF US DOLLARS ($ Millions USD). (If reported in RMB, divide by ~7.15 to convert to USD).
-- `net_cash_debt_per_share`: Net Cash / Debt in US DOLLARS PER ADS/SHARE ($ USD per ADS/share).
+- `year1_oe_m`: Full 12-Month ANNUALized Base Year 1 Owner Earnings in MILLIONS OF US DOLLARS ($ Millions USD). (GAAP Operating Cash Flow minus Maintenance CapEx minus 100% SBC). NEVER use a single quarter's figure! For large enterprises ($10B+ revenue), annual OE is typically $500M - $25,000M USD.
+- `net_cash_debt_per_share`: Audited Net Balance Sheet Cash/Debt in US DOLLARS PER ADS/SHARE ($ USD per ADS/share). Calculated strictly as: (Cash & Short-Term Investments - Total Funded Debt - Capitalized Leases) / Diluted Shares (ADSs). For almost all companies, this is between -$30.00 to +$25.00/sh. NEVER plug an arbitrary round placeholder like $100.00.
 - `diluted_shares_m`: Diluted shares outstanding (in Millions). For US-listed foreign ADRs (e.g. JD, BABA, PDD, TSM, NIO), you MUST use the US-traded ADS (American Depositary Share) count, NOT the ordinary share count!
+
+STORYLINE PARAMETER CONSISTENCY & HIERARCHY:
+- Parameters MUST be strictly consistent with the specific operating narrative of each story:
+  * Story 1 (Modeled Base Path): Expected operational compounding parameters.
+  * Story 2 (Headwinds / Conservative Path): Lower Year 1 OE and LOWER 5-year CAGR than Story 1.
+  * Story 3 (Expansion / Accelerated Path): Higher Year 1 OE and HIGHER 5-year CAGR than Story 1.
+- NEVER copy-paste identical parameters across stories.
 
 MANDATORY FINANCIAL RESEARCH & AUDITING DIRECTIVES:
 - In addition to the Premise and 3 Stories, you can and MUST search and inspect {company_name}'s ({ticker}) audited SEC financial statements (10-K, 10-Q, 20-F), balance sheet cash/debt, cash flow statements (Operating Cash Flow, Maintenance CapEx, Stock-Based Compensation), and recent earnings call guidance.
@@ -1017,7 +1024,7 @@ Return your valuation evaluation as a JSON block in ```json ... ```:
   "net_cash_debt_per_share": <float (USD per share/ADS, positive for net cash, negative for net debt)>,
   "story1": {{
     "title": "<Clean Descriptive Title 1>",
-    "year1_oe_m": <float (USD Millions)>,
+    "year1_oe_m": <float (USD Millions, full annual 12-month figure)>,
     "cagr_5yr": <float (e.g. 0.075 for 7.5%)>,
     "discount_rate": <float (e.g. 0.095 for 9.5%)>,
     "terminal_growth": <float (e.g. 0.0225 for 2.25%)>,
@@ -1025,7 +1032,7 @@ Return your valuation evaluation as a JSON block in ```json ... ```:
   }},
   "story2": {{
     "title": "<Clean Descriptive Title 2>",
-    "year1_oe_m": <float (USD Millions)>,
+    "year1_oe_m": <float (USD Millions, full annual 12-month figure)>,
     "cagr_5yr": <float (e.g. 0.020 for 2.0%)>,
     "discount_rate": <float (e.g. 0.095 for 9.5%)>,
     "terminal_growth": <float (e.g. 0.020 for 2.0%)>,
@@ -1033,7 +1040,7 @@ Return your valuation evaluation as a JSON block in ```json ... ```:
   }},
   "story3": {{
     "title": "<Clean Descriptive Title 3>",
-    "year1_oe_m": <float (USD Millions)>,
+    "year1_oe_m": <float (USD Millions, full annual 12-month figure)>,
     "cagr_5yr": <float (e.g. 0.120 for 12.0%)>,
     "discount_rate": <float (e.g. 0.095 for 9.5%)>,
     "terminal_growth": <float (e.g. 0.025 for 2.5%)>,
@@ -1072,22 +1079,36 @@ def extract_capital_structure_invariants(context_text: str) -> Tuple[float, floa
         except Exception:
             pass
 
-    # 2. Net Cash / Net Debt per share extraction (USD)
-    m_nd_sh = re.search(r'(?:Net Cash|Net Debt|Cash Fortress|Net Liquid Cash).*?([+-]?\$\s*[\d,]+(?:\.\d+)?\s*(?:/ADS|/sh|/share|\bper ADS\b|\bper share\b))', context_text, re.IGNORECASE)
-    if not m_nd_sh:
-        m_nd_sh = re.search(r'([+-]?\$\s*[\d,]+(?:\.\d+)?\s*(?:/ADS|/sh|/share|\bper ADS\b|\bper share\b))', context_text, re.IGNORECASE)
-        
-    if m_nd_sh:
+    # 2. Derive Net Cash / Net Debt per share directly from Total Liquid Cash & Debt ($B USD)
+    cash_m = re.search(r'(?:Cash Fortress|Net Cash / Debt Fortress|Net Cash Fortress|Cash & ST Investments|Liquid Cash|Liquid).*?([+-]?\$\s*[\d,]+(?:\.\d+)?)\s*(?:B|billion)', context_text, re.IGNORECASE)
+    if cash_m:
         try:
-            v_str = re.sub(r"[^\d.-]", "", m_nd_sh.group(1))
-            if v_str and v_str not in (".", "-"):
-                v = float(v_str)
-                if "net debt" in m_nd_sh.group(0).lower() and v > 0:
-                    v = -v
-                if abs(v) < 250.0:
-                    net_debt_adj = v
+            total_cash_b = float(re.sub(r"[^\d.-]", "", cash_m.group(1)))
+            if total_cash_b > 0 and shares_m > 0:
+                calc_val = round((total_cash_b * 1000.0) / shares_m, 2)
+                if 0.5 <= calc_val <= 35.0:
+                    net_debt_adj = calc_val
         except Exception:
             pass
+
+    # 3. Fallback: Net Cash / Net Debt per share extraction (USD)
+    if abs(net_debt_adj) < 0.01:
+        m_nd_sh = re.search(r'(?:Net Cash|Net Debt|Cash Fortress|Net Liquid Cash).*?([+-]?\$\s*[\d,]+(?:\.\d+)?\s*(?:/ADS|/sh|/share|\bper ADS\b|\bper share\b))', context_text, re.IGNORECASE)
+        if not m_nd_sh:
+            m_nd_sh = re.search(r'([+-]?\$\s*[\d,]+(?:\.\d+)?\s*(?:/ADS|/sh|/share|\bper ADS\b|\bper share\b))', context_text, re.IGNORECASE)
+            
+        if m_nd_sh:
+            try:
+                v_str = re.sub(r"[^\d.-]", "", m_nd_sh.group(1))
+                if v_str and v_str not in (".", "-"):
+                    v = float(v_str)
+                    if "net debt" in m_nd_sh.group(0).lower() and v > 0:
+                        v = -v
+                    # Plausibility clamp: Net cash per share cannot be an arbitrary plug (e.g. $100/sh)
+                    if -80.0 <= v <= 35.0:
+                        net_debt_adj = v
+            except Exception:
+                pass
 
     return shares_m, net_debt_adj
 
@@ -1108,14 +1129,16 @@ def reconcile_and_repair_section_3_valuation(
     shares_m = float(dcf_data.get("diluted_shares_m") or 0.0)
     net_debt_adj = float(dcf_data.get("net_cash_debt_per_share") or 0.0)
     
-    if shares_m <= 0.0 or abs(net_debt_adj) < 0.001:
+    # Prevent hallucinated/plugged cash adjustments (e.g. $100/sh)
+    if net_debt_adj > 35.0 or net_debt_adj < -80.0 or abs(net_debt_adj) < 0.001 or shares_m <= 0.0:
         extracted_shares, extracted_nd = extract_capital_structure_invariants(f"{premise_context} {stories_context} {sec3_raw_html}")
         if shares_m <= 0.0:
             shares_m = extracted_shares
-        if abs(net_debt_adj) < 0.001:
+        if net_debt_adj > 35.0 or net_debt_adj < -80.0 or abs(net_debt_adj) < 0.001:
             net_debt_adj = extracted_nd
 
     shares_m = max(1.0, shares_m)
+    net_debt_adj = max(-80.0, min(35.0, net_debt_adj))
 
     # 2. Extract Story Titles & Parameters
     s1_dict = dcf_data.get("story1", {})
@@ -1141,15 +1164,37 @@ def reconcile_and_repair_section_3_valuation(
     s1_r = float(s1_dict.get("discount_rate") or 0.095)
     s1_gt = float(s1_dict.get("terminal_growth") or 0.0225)
 
-    s2_oe1 = float(s2_dict.get("year1_oe_m") or (s1_oe1 * 0.90))
+    s2_oe1 = float(s2_dict.get("year1_oe_m") or (s1_oe1 * 0.85))
     s2_c = float(s2_dict.get("cagr_5yr") or 0.020)
     s2_r = float(s2_dict.get("discount_rate") or s1_r)
     s2_gt = float(s2_dict.get("terminal_growth") or 0.020)
 
-    s3_oe1 = float(s3_dict.get("year1_oe_m") or (s1_oe1 * 1.10))
-    s3_c = float(s3_dict.get("cagr_5yr") or 0.120)
+    s3_oe1 = float(s3_dict.get("year1_oe_m") or (s1_oe1 * 1.15))
+    s3_c = float(s3_dict.get("cagr_5yr") or 0.110)
     s3_r = float(s3_dict.get("discount_rate") or s1_r)
     s3_gt = float(s3_dict.get("terminal_growth") or 0.025)
+
+    # Annual Cash Flow Sanity Guard: Check if Year 1 Owner Earnings was erroneously provided as a single quarter
+    m_rev = re.search(r'(?:Net Revenue|Annual Revenue|LTM Revenue).*?\$([\d,]+(?:\.\d+)?)\s*(?:B|billion)', premise_context, re.IGNORECASE)
+    if m_rev:
+        try:
+            rev_b = float(re.sub(r"[^\d.-]", "", m_rev.group(1)))
+            if rev_b >= 20.0 and s1_oe1 < 900.0:
+                s1_oe1 = s1_oe1 * 4.0
+                if s2_oe1 < 900.0:
+                    s2_oe1 = s2_oe1 * 4.0
+                if s3_oe1 < 900.0:
+                    s3_oe1 = s3_oe1 * 4.0
+        except Exception:
+            pass
+
+    # Ensure Storyline Scenario Ordering Integrity (Story 2 conservative vs Story 3 expansion)
+    if abs(s1_oe1 - s3_oe1) < 1.0 and abs(s1_c - s3_c) < 0.005:
+        s3_oe1 = round(s1_oe1 * 1.15, 1)
+        s3_c = round(s1_c + 0.04, 3)
+    if abs(s1_oe1 - s2_oe1) < 1.0 and abs(s1_c - s2_c) < 0.005:
+        s2_oe1 = round(s1_oe1 * 0.85, 1)
+        s2_c = round(max(-0.02, s1_c - 0.04), 3)
 
     story_configs = [
         {"title": clean_titles[0], "oe1": max(10.0, s1_oe1), "cagr": s1_c, "r": s1_r, "gt": s1_gt},
