@@ -782,16 +782,17 @@ AGENT_1_PREMISE_PROMPT = """Target: {ticker} ({company_name})
 User Focus / Research Notes: {notes}
 
 You are LLM Agent 1: Company Premise Specialist.
-Your objective is to establish the single audited factual foundation ("The Premise of the Company") for all downstream analysis and valuation.
+Your objective is to establish the single factual foundation ("The Premise of the Company") from statutory SEC filings for all downstream analysis and valuation.
 
 Guidelines:
-- Blind Valuation: Underwrite the operating business fundamentals strictly on audited cash generation with zero bias or knowledge of current stock market trading prices (100% Blind Mode).
+- Blind Valuation: Underwrite the operating business fundamentals strictly on statutory cash generation with zero bias or knowledge of current stock market trading prices (100% Blind Mode).
 - Currency & Denominator Integrity: ALL figures MUST strictly be in US DOLLARS ($ USD) PER US-LISTED ADS (American Depositary Share). NEVER present figures in foreign currency per ordinary share (e.g. RMB¥ per ordinary share) while downstream sections use USD per ADS. Convert foreign currencies (e.g. RMB, EUR, BRL) at prevailing FX rates. On the first occurrence of a currency conversion, explicitly include the parenthetical exchange rate notation (e.g. "(converted at an exchange rate of RMB 7.25 / $1.00 USD; 1 ADS = 8 Ordinary Shares)").
-- Primary Research: Search audited SEC filings (10-K, 10-Q, 20-F, 6-K) and the last 4 quarterly earnings call transcripts.
+- Primary Research: Search statutory SEC filings (10-K, 10-Q, 20-F, 6-K) and the last 4 quarterly earnings call transcripts.
 - Current Reporting Period: Explicitly state the latest reported fiscal year / quarter (e.g. "FY 2025 / Q2 2026 LTM").
+- Realistic Institutional Precision: Avoid false precision. Present large cash flow totals in clean rounded millions or billions (e.g. $139.0B or $139,006M, NEVER $139,005.68M). Round per-share values to clean whole dollars or $0.50 increments.
 - Writing Style: Write natural, bespoke equity research prose. Avoid repetitive boilerplate phrases (e.g. do NOT repeatedly insert phrases like "under the executive leadership of..."). Focus directly on business unit economics and cash flow reality.
 
-CRITICAL AUDITED FINANCIAL REALITY & INTEGRITY CHECKS:
+CRITICAL FINANCIAL REALITY & INTEGRITY CHECKS:
 1. Statement of Cash Flows Extraction & Owner Earnings Waterfall:
    - Search the ACTUAL Statement of Cash Flows for the latest completed fiscal year (e.g. Form 20-F / 10-K) and recent quarterly reports (Form 6-K / 10-Q).
    - Line 1: Net Cash Provided by Operating Activities (GAAP OCF) ($ Millions/Billions USD). NEVER use Financing Cash Flows (e.g. share buybacks or debt repayments) or Net Income as OCF!
@@ -802,7 +803,7 @@ CRITICAL AUDITED FINANCIAL REALITY & INTEGRITY CHECKS:
      * Core Operating Baseline Owner Earnings (OE₀) = GAAP OCF (Normalized) - Non-Operating Interest Income - Maintenance CapEx - SBC.
    - Line 6: Non-Cash Impairments & One-Off Exclusions: GAAP OCF already automatically adds back non-cash accounting charges (e.g. paper goodwill impairments, asset write-downs). Additionally, normalize and exclude any material non-recurring one-off cash items (e.g. one-time litigation windfalls, asset divestiture gains, extraordinary dividends, or regulatory fines) to ensure Owner Earnings reflects true recurring steady-state cash power.
 2. Calibrated Balance Sheet Bridge & Capital Structure Accounting:
-   - Calculate Audited Balance Sheet Net Cash or Net Debt:
+   - Calculate Balance Sheet Net Cash or Net Debt from SEC filings:
      * Total Unencumbered Cash = Gross Cash & ST Marketable Investments - Operational Working Capital Buffer (2.5%–3.5% of annual revenue) - Repatriation Tax Friction (5%–10%).
      * Total Funded Debt = Short-Term Debt + Long-Term Senior Notes + Term Loans.
      * Net Balance Sheet Position ($ Millions USD) = Total Unencumbered Cash - Total Funded Debt + (Non-Consolidated Equity Affiliates with 25% holding haircut).
@@ -812,7 +813,7 @@ CRITICAL AUDITED FINANCIAL REALITY & INTEGRITY CHECKS:
        Operating Enterprise Value - Net Debt = Total Equity Intrinsic Value.
        NEVER label a net debt position as a positive cash addition!
    - Diluted Share Count & Denominator: Divide by diluted share count (in Millions), factoring in modest buyback share retirement (e.g. 1%–3% annually in Base/Bull cases).
-   - Realistic Institutional Precision: Avoid illusory decimal precision on forward 5-year projections (round fair values to whole dollars or $0.50, round cash totals to millions/billions).
+   - Realistic Institutional Precision: Avoid illusory decimal precision on forward 5-year projections (round fair values to whole dollars or $0.50, round cash totals to clean millions/billions).
 3. Historical Corporate Trauma & Underwriting Post-Mortem:
    - If the company is trading down significantly (>50%) from historical highs or suffered a well-known operational crisis in the past (e.g. credit underwriting blowups, regulatory restructuring, short-seller litigation, failed acquisitions):
      * Explicitly address the historical root cause and contrast it with today's operational reality.
@@ -828,59 +829,42 @@ Core Topics to Cover:
 1. The Core Business Machine, Moat & Unit Economics:
    - Customer value proposition, monetization mechanics, pricing power, and durable economic moat.
    - Core operational volume drivers vs high-margin service streams.
-   - Multi-Brand & Segment Disaggregation: If the company operates distinct brand divisions or operating segments with divergent growth/margin trajectories (e.g. core flagship platform vs secondary/acquired brands), explicitly report their individual revenues and YoY growth rates separately. If an acquired division is falling double digits (e.g. -10% to -15% YoY) or taking inventory write-downs, explicitly document this drag.
-   - Product Concentration & Silhouette/Platform Risk: Audit product line concentration (e.g. over-dependence on a single product silhouette, single hardware model, or single app) and assess vulnerability to fashion fatigue or consumer taste shifts.
-   - Sourcing Footprint & Tooling Mobility: For consumer and hardware brands, audit supply chain geographic concentration (% of manufacturing in Vietnam, China, Indonesia, Americas) and evaluate exposure to tariffs and freight friction.
-   - Identify the 3–5 PRIMARY OPERATIONAL METRICS reported by the company (e.g. Active Clients/Buyers/Paying Users, 3P GMV %, Take Rate %, Spend per Buyer, ARPPU, Cost of Risk, ARPAC, Warehouse Space / Lease Footprint).
-2. Audited Financial Baseline (Single Source of Truth in $ Millions/Billions USD):
-   - Latest Period Net Revenue ($ USD)
-   - Latest GAAP Operating Cash Flow (OCF) ($ Millions USD)
-   - Non-Operating Interest Income stripped from OCF ($ Millions USD)
-   - Annual CapEx ($ Millions USD): Distinguish Maintenance CapEx vs Growth CapEx.
-   - Stock-Based Compensation (SBC) ($ Millions USD) treated as a cash charge.
-   - Core Baseline Owner Earnings: OE₀ = OCF (Normalized) - Interest Income - Maintenance CapEx - SBC ($ Millions USD)
-   - Balance Sheet Cash & ST Investments ($ Millions USD) vs Total Funded Debt, Operating Lease Commitments, minus Operational Buffer and M&A commitments.
-   - Diluted Shares / ADSs Outstanding (Millions)
-   - Unencumbered Surplus Net Cash / (Debt) per Share/ADS in USD.
-3. Leadership Commentary & 4-Quarter Trajectory: Executive commentary and authentic quotes from the active CEO and CFO across the last 4 quarters (including latest quarterly guidance).
-4. Corporate Governance, Regulatory Defenses & Historical Crisis Resolution: Structural defenses, capital adequacy / lease ratios, and historical underwriting post-mortem.
+   - Operating margin trajectory, gross margin resilience, and operating leverage.
+2. 4-Quarter Operating Reality & Management Call Commentary:
+   - Synthesis of key themes from the last 4 quarterly earnings reports and management call commentary.
+   - Transparent reporting on segment drags, deceleration, and margin headwinds alongside growth engines.
+3. Owner Earnings Derivation & Cash Flow Waterfall:
+   - Step-by-step table deriving Core Operating Owner Earnings (OE₀) in $ Millions USD:
+     GAAP OCF → less Working Capital noise → less Maintenance CapEx → less SBC → less Non-Operating Float Yield = Core OE₀.
+   - Diluted share count / ADSs count (in Millions).
+   - Audited Balance Sheet Bridge: Gross Cash, debt obligations, working capital buffer, and net cash/debt per share.
+4. Core Historical Financial Baseline Table:
+   - 3-Year table showing: Revenue ($M), Revenue YoY Growth (%), Gross Profit Margin (%), GAAP Operating Income ($M), GAAP OCF ($M), Maintenance CapEx ($M), SBC ($M), Derived Owner Earnings ($M).
+5. Comprehensive Segment Revenue & Profitability Breakdown:
+   - Full tabular breakdown of revenue and operating profit by major segment / product line / geographic region.
+6. Cash Conversion Cycle & Working Capital Velocity:
+   - DSO (Days Sales Outstanding), DIO (Days Inventory Outstanding), DPO (Days Payable Outstanding), and Net CCC over the last 3 years.
+7. Structural Balance Sheet Strength & Regulatory Capital:
+   - Debt-to-Equity, Net Debt/EBITDA, Interest Coverage, and regulatory capital ratios.
+8. Historical Corporate Trauma & Structural Remediation:
+   - Root-cause autopsy of past impairments or stock drawdowns and structural operational safeguards in place today.
 
-Format Section 1 in clean Semantic HTML:
+Pure semantic HTML format:
 <h2>Section 1: The Premise of the Company</h2>
-<p>[Plain-English explanation of how the business machine operates, its primary operational business metrics, its moat, and customer proposition...]</p>
-
-<div class="metrics-grid">
-  <div class="metric-card"><div class="metric-label">Latest Period / LTM Revenue</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">[e.g. FY 2025 / +XX% YoY]</div></div>
-  <div class="metric-card"><div class="metric-label">GAAP Operating Cash Flow</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">Latest Audited Period</div></div>
-  <div class="metric-card"><div class="metric-label">Core Baseline Owner Earnings</div><div class="metric-value">$XX.XXB</div><div class="metric-delta pos">OCF - Interest - CapEx - SBC</div></div>
-  <div class="metric-card"><div class="metric-label">Surplus Net Cash / ADS</div><div class="metric-value">+$XX.XX</div><div class="metric-delta pos">Net of Working Capital Buffer</div></div>
-</div>
-
-<div class="callout">
-  <h3>Executive Leadership Commentary &amp; 4-Quarter Trajectory</h3>
-  <p><strong>[CEO Name], Chief Executive Officer:</strong> "..."</p>
-  <p><strong>[CFO Name], Chief Financial Officer:</strong> "..."</p>
-</div>
-
-<div class="callout">
-  <h3>Corporate Governance, Regulatory Defenses &amp; Historical Post-Mortem</h3>
-  <p>[Analysis of corporate structure, regulatory/lease obligations, resolution of historical operational crises, and upstream cash repatriation mechanics...]</p>
-</div>
-
-<p>[Current state of play summary, including recent cash flow dynamics, capital expenditures, and major strategic commitments...]</p>
-
-Output pure HTML only (no code fences, no inline styles)."""
+<p>[Comprehensive bespoke analysis of business model, moat, and 4-quarter earnings reality]</p>
+...
+"""
 
 
 AGENT_2_STORIES_PROMPT = """Target: {ticker} ({company_name})
 
 You are LLM Agent 2: 3 Stories Strategist.
-Here is the Company Premise from Agent 1 (containing the audited financial baseline, operational metrics, cash flow compression reality, and unencumbered net cash per share):
+Here is the Company Premise from Agent 1 (containing the financial baseline, operational metrics, cash flow compression reality, and unencumbered net cash per share):
 {premise_context}
 
 Guidelines:
 - Blind Valuation: Formulate business trajectories based strictly on operational realities and competitive dynamics, with zero knowledge of stock market prices.
-- Currency & Financial Consistency: All figures in $ USD. Anchor all 3 stories directly to the audited baseline numbers (revenue, margins, cash flow) established in Agent 1's Company Premise above.
+- Currency & Financial Consistency: All figures in $ USD. Anchor all 3 stories directly to the baseline numbers (revenue, margins, cash flow) established in Agent 1's Company Premise above.
 - Guidance Realism & Non-Linear Trajectories: Factor in management's near-term quarterly forward guidance (e.g. Q3/Q4 cyclical dips due to macro/housing pressure) to model realistic trajectory shapes rather than smooth straight-line ramps.
 - Turnaround Realism & Segment Drag in Story 1 (Base Case): If an acquired brand or secondary segment is contracting double-digits, Story 1 (Base Case) MUST NOT assume an unearned miraculous V-shaped rebound. Model the struggling segment at flat to negative growth, requiring the core flagship business to carry the baseline enterprise.
 - Grounded Margin & Growth Realism: For thin-margin direct retail or financial spread businesses, do NOT assume heroic margin doubling. Model realistic, incremental operating progression.
@@ -967,13 +951,12 @@ Format Section 2 in clean Semantic HTML:
 
 Output pure HTML only (no code fences, no inline styles)."""
 
-
 AGENT_3_SINGLE_STORY_DCF_PROMPT = """You are a Warren Buffett DCF valuation analyst.
 
 Company: {company_name} ({ticker})
 Scenario to Value: {story_name} (Story {story_num}/3)
 
-Audited Financial Context:
+Financial Baseline Context:
 {premise_context}
 
 Scenario Description:
@@ -988,16 +971,17 @@ Valuation Steps (Execute via Python):
 2. Compound Owner Earnings over 5 years based on the scenario growth rate: OE_t = OE_0 * ((1 + g) ** t).
 3. Discount the 5 years of cash flows at a disciplined equity hurdle rate (9.5% Base/Bull, 10.5%–11.0% Bear): PV = OE_t / ((1 + r) ** t).
 4. Calculate Terminal Value using ~2.0% terminal growth: TV_5 = (OE_5 * (1 + g_term)) / (r - g_term), and discount to PV.
+   - Note: The Implied Exit Multiple is (1 + g_term) / (r - g_term) (e.g. 13.6x OE₅ at 9.5% discount / 2.0% terminal growth).
 5. Sum 5-year PV + PV of Terminal Value to get Operating Enterprise Value (in $ Millions USD).
 6. Divide by Diluted Shares / ADSs count (in Millions) to get Operating Business Value per Share in USD.
 7. Balance Sheet Bridge Adjustment (USD per share):
    - If company has Net Debt (Debt > Cash, e.g. Crocs): Net Debt is a NEGATIVE adjustment (-$XX.XX/share) and MUST BE SUBTRACTED (Operating EV - Net Debt = Equity Intrinsic Value).
-   - If company has Net Cash (Cash > Debt, e.g. Google, JD): Net Surplus Cash is a POSITIVE adjustment (+$XX.XX/share) and is ADDED (Operating EV + Net Cash = Equity Intrinsic Value).
+   - If company has Net Cash (Cash > Debt, e.g. Google, JD, Meta): Net Surplus Cash is a POSITIVE adjustment (+$XX.XX/share) and is ADDED (Operating EV + Net Cash = Equity Intrinsic Value).
 8. Add/subtract the adjustment to Operating Value per Share to derive the final Intrinsic Fair Value per Share in USD.
 
-SANITY CHECK:
+SANITY & PRECISION:
 - Final fair value per share MUST be the realistic intrinsic per-share value in USD (divided by total diluted shares/ADSs, NOT the total company enterprise value in Millions/Billions).
-- If net debt exists, fair value per share MUST be LESS than operating value per share!
+- Avoid false precision: Round large enterprise values to whole millions (e.g. 139006, not 139005.68) and per-share values to clean cents/halves.
 
 Respond ONLY with a JSON block:
 ```json
@@ -1007,7 +991,7 @@ Respond ONLY with a JSON block:
   "growth_rate_pct": <e.g. 10.0 for 10%>,
   "discount_rate_pct": <e.g. 9.5>,
   "terminal_growth_pct": <e.g. 2.0>,
-  "enterprise_value_millions": <number in $M>,
+  "enterprise_value_millions": <number in $M rounded to whole millions>,
   "diluted_shares_millions": <number in Millions>,
   "operating_value_per_share": <number in $ USD>,
   "net_cash_or_debt_per_share": <number in $ USD, NEGATIVE for debt e.g. -24.12, POSITIVE for cash e.g. +13.22>,
@@ -1022,7 +1006,7 @@ AGENT_4_REVERSE_DCF_PROMPT = """You are an institutional investment equity resea
 Company: {company_name} ({ticker})
 Current Market Stock Price: ${current_price:.2f}
 
-Audited Financial Context:
+Financial Baseline Context:
 {premise_context}
 
 Story 1 (Base Case) Valuation Model:
@@ -1040,22 +1024,24 @@ USE YOUR PYTHON CODE EXECUTION TOOL to execute the exact DCF table calculations,
 
 Requirements:
 1. A summary 3-Story DCF table comparing all 3 paths. Starting Owner Earnings (OE₀) MUST STRICTLY MATCH the OE₀ derived in Section 1!
-2. In the DCF summary table, include the Implied Terminal Exit Multiple row (e.g. 13.6x OE₅ = (1 + g_term) / (r - g_term)).
-3. In the DCF summary table, the balance sheet bridge line MUST be explicitly signed:
+2. Avoid false precision: Round large dollar totals to clean whole millions or billions (e.g. $139,006M or $139.0B), and per-share values to clean whole dollars or $0.50 increments.
+3. In the DCF summary table, include the Implied Terminal Exit Multiple row (e.g. 13.6x OE₅ = (1 + g_term) / (r - g_term)).
+4. In the DCF summary table, the balance sheet bridge line MUST be explicitly signed:
    - If Net Debt: 'Net Balance Sheet Debt Adjustment (-$XX.XX/sh)' (SUBTRACTED from Operating Value).
    - If Net Cash: 'Net Balance Sheet Surplus Cash Adjustment (+$XX.XX/sh)' (ADDED to Operating Value).
-4. Clear mathematical proofs for each of the 3 stories explaining the exact calculation: Operating Value/sh + Debt/Cash Adjustment = Intrinsic Fair Value/sh.
-5. A Probability-Weighted Expected Intrinsic Value Callout Box:
+5. Clear mathematical proofs for each of the 3 stories explaining the exact calculation: Operating Value/sh + Debt/Cash Adjustment = Intrinsic Fair Value/sh.
+6. A Probability-Weighted Expected Intrinsic Value Callout Box:
    - Weightings: Base Case (Story 1) 50%, Bull Case (Story 2) 25%, Bear Case (Story 3) 25%.
    - Expected Intrinsic Value = (0.50 * Story 1) + (0.25 * Story 2) + (0.25 * Story 3).
-   - State the Expected Value and its exact Margin of Safety vs. today's market price (${current_price:.2f}).
-6. A Reverse DCF sensitivity matrix table showing what annual growth rate Mr. Market is pricing in at today's stock price (${current_price:.2f}) across discount rates (9.5%, 10.5%, 11.5%) and cash flow baselines.
-7. Plain-English narrative explaining what Mr. Market is pricing in today versus Story 1.
-8. Seamless presentation: Write pure institutional research without any meta-commentary about drafts or past corrections.
+   - State the Expected Value, its exact Margin of Safety vs. today's market price (${current_price:.2f}), and a brief sensitivity note on how an equal-weighted (33/33/33) distribution shifts the value.
+7. A Reverse DCF sensitivity matrix table showing what annual growth rate Mr. Market is pricing in at today's stock price (${current_price:.2f}) across discount rates (9.5%, 10.5%, 11.5%) and cash flow baselines.
+   - Narrative framing: Explicitly highlight that because terminal value represents ~70% of a 5-year DCF for a high-growth compounder, the Reverse DCF eliminates perpetuity guesswork by isolating the exact 5-year growth hurdle priced in today.
+8. Plain-English narrative explaining what Mr. Market is pricing in today versus Story 1.
+9. Seamless presentation: Write pure institutional research without any meta-commentary about drafts or past corrections.
 
 Format:
 <h2>Section 3: Valuation Across the 3 Stories</h2>
-<p>Translating each of the 3 business stories into Warren Buffett-style discounted cash flow valuations based on true Core Owner Earnings plus audited balance sheet net debt/cash bridge per share:</p>
+<p>Translating each of the 3 business stories into Warren Buffett-style discounted cash flow valuations based on true Core Owner Earnings plus balance sheet net debt/cash bridge per share:</p>
 
 <table class="data-table">
   <thead>
@@ -1072,9 +1058,9 @@ Format:
     <tr><td>Discount / Hurdle Rate</td><td>9.5%</td><td>9.5%</td><td>10.5%</td></tr>
     <tr><td>Terminal Growth Rate</td><td>2.00%</td><td>2.25%</td><td>1.50%</td></tr>
     <tr><td>Implied Terminal Exit Multiple</td><td>13.6x OE₅</td><td>14.1x OE₅</td><td>11.3x OE₅</td></tr>
-    <tr><td>PV of 5-Year Cash Flows</td><td>$XX,XXX.XM</td><td>$XX,XXX.XM</td><td>$XX,XXX.XM</td></tr>
-    <tr><td>PV of Terminal Value</td><td>$XX,XXX.XM</td><td>$XX,XXX.XM</td><td>$XX,XXX.XM</td></tr>
-    <tr><td>Operating Business Enterprise Value</td><td>$XX,XXX.XM ($XX.XX/sh)</td><td>$XX,XXX.XM ($XX.XX/sh)</td><td>$XX,XXX.XM ($XX.XX/sh)</td></tr>
+    <tr><td>PV of 5-Year Cash Flows</td><td>$XX,XXXM</td><td>$XX,XXXM</td><td>$XX,XXXM</td></tr>
+    <tr><td>PV of Terminal Value</td><td>$XX,XXXM</td><td>$XX,XXXM</td><td>$XX,XXXM</td></tr>
+    <tr><td>Operating Business Enterprise Value</td><td>$XX,XXXM ($XX.XX/sh)</td><td>$XX,XXXM ($XX.XX/sh)</td><td>$XX,XXXM ($XX.XX/sh)</td></tr>
     <tr><td>Net Balance Sheet Cash / (Debt) Adjustment</td><td>+$XX.XX/sh or -$XX.XX/sh</td><td>+$XX.XX/sh or -$XX.XX/sh</td><td>+$XX.XX/sh or -$XX.XX/sh</td></tr>
     <tr><td><strong>Calculated Intrinsic Value / Share</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td></tr>
   </tbody>
@@ -1082,13 +1068,14 @@ Format:
 
 <div class="callout">
   <h3>🎯 Probability-Weighted Expected Value Synthesis</h3>
-  <p>To avoid anchoring solely on a single operational outcome, we calculate the institutional expected value across all three paths:</p>
+  <p>To avoid false precision or anchoring solely on a single operational path, we synthesize the three scenarios into an institutional expected value:</p>
   <ul>
-    <li><strong>Story 1 (Base Case - 50% Probability):</strong> $XX.XX / share</li>
-    <li><strong>Story 2 (Bull Case - 25% Probability):</strong> $XX.XX / share</li>
-    <li><strong>Story 3 (Bear Case - 25% Probability):</strong> $XX.XX / share</li>
+    <li><strong>Story 1 (Base Case - 50% Underwriting Probability):</strong> $XX.XX / share</li>
+    <li><strong>Story 2 (Bull Case - 25% High-Monetization Probability):</strong> $XX.XX / share</li>
+    <li><strong>Story 3 (Bear Case - 25% Structural Drag Probability):</strong> $XX.XX / share</li>
   </ul>
   <p><strong>Probability-Weighted Expected Fair Value:</strong> <strong>$XX.XX / share</strong> (Margin of Safety: <strong>XX.X%</strong> vs. today's market price of ${current_price:.2f}).</p>
+  <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 6px;"><em>Sensitivity Note: Under an equal-weighted 33/33/33 distribution, Expected Fair Value is $XX.XX / share.</em></p>
 </div>
 
 <div class="callout">
@@ -1099,9 +1086,9 @@ Format:
 </div>
 
 <div class="callout">
-  <h3>Reverse DCF Sensitivity Matrix: What is Mr. Market Pricing In?</h3>
+  <h3>Reverse DCF: Eliminating Terminal Value Guesswork</h3>
+  <p>Because terminal value accounts for ~70% of enterprise value in any 5-year DCF for a compounding business, we utilize the Reverse DCF to eliminate perpetuity guesswork. Rather than projecting decades into the future, the sensitivity matrix below isolates the exact 5-year Owner Earnings CAGR required to justify today's market price of <strong>${current_price:.2f}</strong> across varying discount rates:</p>
   <p><strong>Current Market Price:</strong> ${current_price:.2f} | <strong>Net Cash / ADS:</strong> +$[Net Cash] | <strong>Implied Operating EV:</strong> $[Implied EV]/ADS ($[Total EV]M total)</p>
-  <p>To avoid false precision, the table below inverts the valuation equation to solve for the exact 5-year Owner Earnings growth rate required to justify today's stock price across varying cash flow baselines and hurdle rates:</p>
 
   <table class="data-table">
     <thead>
@@ -1135,6 +1122,10 @@ Format:
     <li><strong>Disciplined Hurdle Rates vs. Low CAPM Discount Rates:</strong> Sell-side DCF models often employ low 7.0%–8.0% discount rates based on academic CAPM Betas. We demand a disciplined 9.5%–11.5% equity hurdle rate reflecting true opportunity cost and cross-border risk.</li>
     <li><strong>Multi-Layer Balance Sheet Haircuts:</strong> Consensus models credit gross cash without reserve deductions. We haircut balance sheet liquidity for operational working capital buffers, contractual lease obligations, and foreign repatriation friction.</li>
   </ul>
+</div>
+
+<div class="callout" style="background: rgba(255, 255, 255, 0.02); border-color: rgba(255, 255, 255, 0.1);">
+  <p style="font-size: 0.8rem; color: var(--text-dim); margin: 0;"><em>Independent Research Methodology &amp; Disclaimer:</em> This thesis is produced using an independent Graham &amp; Buffett intrinsic value framework based on statutory SEC filings. All projections, scenario weightings, and hurdle rates represent analytical stress tests rather than registered financial advice.</p>
 </div>
 
 Output pure HTML only (no markdown backticks, no inline styles)."""
