@@ -283,8 +283,15 @@ def get_gemini_session() -> requests.Session:
     return _GEMINI_SESSION
 
 
-def call_gemini_with_search(prompt: str, system_instruction: str = "", temperature: float = 0.4, use_search: bool = True, override_model: str = "") -> str:
-    """Calls Gemini via REST API with optional Google Search Grounding, exponential backoff with jitter, and automatic ladder failover."""
+def call_gemini_with_search(
+    prompt: str,
+    system_instruction: str = "",
+    temperature: float = 0.4,
+    use_search: bool = True,
+    use_code_execution: bool = False,
+    override_model: str = ""
+) -> str:
+    """Calls Gemini via REST API with optional Google Search Grounding or native Python Code Execution, exponential backoff with jitter, and automatic ladder failover."""
     import time
     import random
     api_key = get_api_key()
@@ -299,6 +306,8 @@ def call_gemini_with_search(prompt: str, system_instruction: str = "", temperatu
     }
     if use_search:
         payload["tools"] = [{"google_search": {}}]
+    elif use_code_execution:
+        payload["tools"] = [{"code_execution": {}}]
     
     if system_instruction:
         payload["systemInstruction"] = {
@@ -971,15 +980,18 @@ Scenario Description:
 {story_context}
 
 Your Task:
-Calculate the intrinsic fair value per share (or per ADS for ADRs) in USD using a 5-year Discounted Cash Flow (DCF):
+Calculate the intrinsic fair value per share (or per ADS for ADRs) in USD using a 5-year Discounted Cash Flow (DCF).
+USE YOUR PYTHON CODE EXECUTION TOOL to execute exact cash flow compounding, discount calculations, terminal value capitalization, and per-share divisions.
+
+Valuation Steps (Execute via Python):
 1. Start with Year 0 Normalized Owner Earnings (in $ Millions USD) strictly identical to the OE₀ derived in Section 1.
-2. Compound Owner Earnings over 5 years based on the scenario growth rate.
-3. Discount the 5 years of cash flows at a disciplined equity hurdle rate (9.5% Base/Bull, 10.5%–11.0% Bear).
-4. Calculate Terminal Value using ~2.0% terminal growth and discount it to present value.
-5. Add 5-year PV + Terminal Value PV to get Operating Enterprise Value (in $ Millions USD).
+2. Compound Owner Earnings over 5 years based on the scenario growth rate: OE_t = OE_0 * ((1 + g) ** t).
+3. Discount the 5 years of cash flows at a disciplined equity hurdle rate (9.5% Base/Bull, 10.5%–11.0% Bear): PV = OE_t / ((1 + r) ** t).
+4. Calculate Terminal Value using ~2.0% terminal growth: TV_5 = (OE_5 * (1 + g_term)) / (r - g_term), and discount to PV.
+5. Sum 5-year PV + PV of Terminal Value to get Operating Enterprise Value (in $ Millions USD).
 6. Divide by Diluted Shares / ADSs count (in Millions) to get Operating Business Value per Share in USD.
 7. Balance Sheet Bridge Adjustment (USD per share):
-   - If company has Net Debt (Debt > Cash, e.g. Crocs, Domino's): Net Debt is a NEGATIVE adjustment (-$XX.XX/share) and MUST BE SUBTRACTED (Operating EV - Net Debt = Equity Intrinsic Value).
+   - If company has Net Debt (Debt > Cash, e.g. Crocs): Net Debt is a NEGATIVE adjustment (-$XX.XX/share) and MUST BE SUBTRACTED (Operating EV - Net Debt = Equity Intrinsic Value).
    - If company has Net Cash (Cash > Debt, e.g. Google, JD): Net Surplus Cash is a POSITIVE adjustment (+$XX.XX/share) and is ADDED (Operating EV + Net Cash = Equity Intrinsic Value).
 8. Add/subtract the adjustment to Operating Value per Share to derive the final Intrinsic Fair Value per Share in USD.
 
@@ -1023,7 +1035,10 @@ Story 3 (Bear Case) Valuation Model:
 {story3_json}
 
 Your Task:
-Write Section 3 (Valuation & Reverse DCF) in clean, semantic HTML:
+Write Section 3 (Valuation & Reverse DCF) in clean, semantic HTML.
+USE YOUR PYTHON CODE EXECUTION TOOL to execute the exact DCF table calculations, mathematical proof walkthroughs, and Reverse DCF sensitivity matrix growth rates across all hurdle rates (9.5%, 10.5%, 11.5%).
+
+Requirements:
 1. A summary 3-Story DCF table comparing all 3 paths. Starting Owner Earnings (OE₀) MUST STRICTLY MATCH the OE₀ derived in Section 1!
 2. In the DCF summary table, the balance sheet bridge line MUST be explicitly signed:
    - If Net Debt: 'Net Balance Sheet Debt Adjustment (-$XX.XX/sh)' (SUBTRACTED from Operating Value).
@@ -1031,6 +1046,7 @@ Write Section 3 (Valuation & Reverse DCF) in clean, semantic HTML:
 3. Clear mathematical proofs for each of the 3 stories explaining the exact calculation: Operating Value/sh + Debt/Cash Adjustment = Intrinsic Fair Value/sh.
 4. A Reverse DCF sensitivity matrix table showing what annual growth rate Mr. Market is pricing in at today's stock price (${current_price:.2f}) across discount rates (9.5%, 10.5%, 11.5%) and cash flow baselines.
 5. Plain-English narrative explaining what Mr. Market is pricing in today versus Story 1.
+6. Seamless presentation: Write pure institutional research without any meta-commentary about drafts or past corrections.
 
 Format:
 <h2>Section 3: Valuation Across the 3 Stories</h2>
@@ -1251,9 +1267,26 @@ Deliver a structured factual audit briefing with numbers."""
     agent_1_out = call_gemini_with_search(agent_1_prompt, temperature=0.2, use_search=True)
     agent_1_clean = clean_grounding_artifacts(agent_1_out)
 
-    print(f"   🧮 [CRITIQUE AGENT 2: QUANT & CASH FLOW AUDITOR] Stress-testing valuation math & capital allocation...", flush=True)
+    print(f"   🧮 [CRITIQUE AGENT 2: QUANT & CASH FLOW AUDITOR] Stress-testing valuation math via Python Code Execution...", flush=True)
     agent_2_prompt = f"""Target Ticker: {clean_t} ({company_name})
-Audit this thesis for valuation integrity:
+You are Critique Agent 2: Chief Quantitative Risk & Cash Flow Auditor at a premier institutional fund.
+Your job is to ruthlessly stress-test the numbers in this thesis.
+
+USE YOUR PYTHON CODE EXECUTION TOOL to independently calculate and audit every calculation in the thesis:
+1. Owner Earnings Baseline Parity (OE₀ Audit):
+   - Check the exact OE₀ in Section 1 vs the Starting OE₀ in Section 3 DCF Table.
+   - Run Python to verify: do they match exactly? If Section 1 derives $585M but Section 3 uses $661.5M, flag this as a critical desynchronization failure!
+2. Balance Sheet Bridge & Debt vs Cash Sign Audit:
+   - Audit the audited balance sheet in Section 1: does the company have net debt (Debt > Cash) or net cash?
+   - Run Python to verify: if the company has $1.2B in net debt, did Section 3 SUBTRACT -$24/share, or did it mistakenly add a positive cash addition?
+   - Check for plug numbers: if the company has only $15/share of cash, is Section 3 claiming an un-sourced +$100/share adjustment? Flag any plug numbers.
+3. DCF Mathematical & Discounting Verification:
+   - Run Python code to independently compound the 5-year cash flows, calculate Present Values at the stated discount rate, and compute Terminal Value.
+   - Check if Operating Enterprise Value divided by Diluted Shares matches the table's Operating EV / share.
+   - Check if Operating EV / share + (Bridge Adjustment) == Intrinsic Fair Value / share.
+4. Reverse DCF Inversion Verification:
+   - Run Python code to verify what 5-year CAGR is actually implied by today's market price. Check if the sensitivity matrix table is responsive or flat.
+
 Thesis:
 ======================================================================
 {thesis_html}
@@ -1264,9 +1297,9 @@ Investigative Findings from Agent 1:
 {agent_1_clean}
 ======================================================================
 
-Audit: Cash flow matching (FCFE vs FCFF debt double-counting), working capital normalization, share repurchases vs static share count, and exit multiples."""
+Deliver a quantitative forensic audit memo showing the Python code execution results and flagging any broken math, sign errors, or desynchronized figures."""
     
-    agent_2_out = call_gemini_with_search(agent_2_prompt, temperature=0.2, use_search=False)
+    agent_2_out = call_gemini_with_search(agent_2_prompt, temperature=0.2, use_search=False, use_code_execution=True)
     agent_2_clean = clean_grounding_artifacts(agent_2_out)
 
     print(f"   🧠 [CRITIQUE AGENT 3: LEAD RED-TEAM PM] Synthesizing institutional red-team memo...", flush=True)
@@ -1390,7 +1423,7 @@ def run_improvement_agent(
             directives=dir_text,
             sec3_html=sec3_html
         )
-        r3 = call_gemini_with_search(p3, temperature=0.2, use_search=False)
+        r3 = call_gemini_with_search(p3, temperature=0.2, use_search=False, use_code_execution=True)
         c3 = verify_and_repair_html_structure(clean_grounding_artifacts(r3))
         # Validate that remediated Section 3 is complete and untruncated
         if "<h2>Section 3:" in c3 and "reverse dcf" in c3.lower() and "story 3" in c3.lower() and len(c3.split()) >= 600:
@@ -1517,9 +1550,9 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     print("   └" + "─" * 50, flush=True)
 
     # ------------------------------------------------------------------
-    # Step 3A: LLM Agent 3A - Story 1 DCF Valuation (100% BLIND)
+    # Step 3A: LLM Agent 3A - Story 1 DCF Valuation (100% BLIND - Python Code Execution)
     # ------------------------------------------------------------------
-    print(f"\n🧮 [AGENT 3A: STORY 1 DCF] Modeling Buffett DCF for Story 1 (100% Blind Mode)...", flush=True)
+    print(f"\n🧮 [AGENT 3A: STORY 1 DCF] Modeling Buffett DCF for Story 1 via Python Code Execution (100% Blind Mode)...", flush=True)
     prompt_3a = AGENT_3_SINGLE_STORY_DCF_PROMPT.format(
         ticker=ticker_clean,
         company_name=company_name,
@@ -1529,7 +1562,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         premise_context=sec1_clean,
         story_context=sec2_clean
     )
-    raw_3a = call_gemini_with_search(prompt_3a, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False)
+    raw_3a = call_gemini_with_search(prompt_3a, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False, use_code_execution=True)
     dcf1 = extract_json_block(raw_3a)
     story1_val = extract_story_valuation(dcf1, raw_3a, current_price=current_price)
     story1_title = str(dcf1.get("story_title") or "Base Case Compounder")
@@ -1537,9 +1570,9 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     print("   └" + "─" * 50, flush=True)
 
     # ------------------------------------------------------------------
-    # Step 3B: LLM Agent 3B - Story 2 DCF Valuation (100% BLIND)
+    # Step 3B: LLM Agent 3B - Story 2 DCF Valuation (100% BLIND - Python Code Execution)
     # ------------------------------------------------------------------
-    print(f"\n🧮 [AGENT 3B: STORY 2 DCF] Modeling Buffett DCF for Story 2 (100% Blind Mode)...", flush=True)
+    print(f"\n🧮 [AGENT 3B: STORY 2 DCF] Modeling Buffett DCF for Story 2 via Python Code Execution (100% Blind Mode)...", flush=True)
     prompt_3b = AGENT_3_SINGLE_STORY_DCF_PROMPT.format(
         ticker=ticker_clean,
         company_name=company_name,
@@ -1549,7 +1582,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         premise_context=sec1_clean,
         story_context=sec2_clean
     )
-    raw_3b = call_gemini_with_search(prompt_3b, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False)
+    raw_3b = call_gemini_with_search(prompt_3b, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False, use_code_execution=True)
     dcf2 = extract_json_block(raw_3b)
     story2_val = extract_story_valuation(dcf2, raw_3b, current_price=current_price)
     story2_title = str(dcf2.get("story_title") or "High-Margin Upside Engine")
@@ -1557,9 +1590,9 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     print("   └" + "─" * 50, flush=True)
 
     # ------------------------------------------------------------------
-    # Step 3C: LLM Agent 3C - Story 3 DCF Valuation (100% BLIND)
+    # Step 3C: LLM Agent 3C - Story 3 DCF Valuation (100% BLIND - Python Code Execution)
     # ------------------------------------------------------------------
-    print(f"\n🧮 [AGENT 3C: STORY 3 DCF] Modeling Buffett DCF for Story 3 (100% Blind Mode)...", flush=True)
+    print(f"\n🧮 [AGENT 3C: STORY 3 DCF] Modeling Buffett DCF for Story 3 via Python Code Execution (100% Blind Mode)...", flush=True)
     prompt_3c = AGENT_3_SINGLE_STORY_DCF_PROMPT.format(
         ticker=ticker_clean,
         company_name=company_name,
@@ -1569,7 +1602,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         premise_context=sec1_clean,
         story_context=sec2_clean
     )
-    raw_3c = call_gemini_with_search(prompt_3c, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False)
+    raw_3c = call_gemini_with_search(prompt_3c, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False, use_code_execution=True)
     dcf3 = extract_json_block(raw_3c)
     story3_val = extract_story_valuation(dcf3, raw_3c, current_price=current_price)
     story3_title = str(dcf3.get("story_title") or "Macro Friction & Defensive Floor")
@@ -1585,9 +1618,9 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         story3_val = round(story1_val * 0.60, 2)
 
     # ------------------------------------------------------------------
-    # Step 4: LLM Agent 4 - Reverse DCF & Section 3 HTML Synthesis
+    # Step 4: LLM Agent 4 - Reverse DCF & Section 3 HTML Synthesis (Python Code Execution)
     # ------------------------------------------------------------------
-    print(f"\n🔍 [AGENT 4: REVERSE DCF & SYNTHESIS] Inverting Market Price (${current_price:.2f}) vs Story 1 and building Section 3...", flush=True)
+    print(f"\n🔍 [AGENT 4: REVERSE DCF & SYNTHESIS] Inverting Market Price (${current_price:.2f}) vs Story 1 via Python Code Execution...", flush=True)
     agent_4_prompt = AGENT_4_REVERSE_DCF_PROMPT.format(
         ticker=ticker_clean,
         company_name=company_name,
@@ -1597,7 +1630,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         story2_json=json.dumps(dcf2, indent=2),
         story3_json=json.dumps(dcf3, indent=2)
     )
-    sec3_raw = call_gemini_with_search(agent_4_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False)
+    sec3_raw = call_gemini_with_search(agent_4_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False, use_code_execution=True)
     sec3_clean = verify_and_repair_html_structure(clean_grounding_artifacts(sec3_raw))
     print(f"   │ Status: Section 3 DCF & Reverse DCF built ({len(sec3_clean.split())} words generated)", flush=True)
     print("   └" + "─" * 50, flush=True)
@@ -1608,7 +1641,6 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     sec1_current = sec1_clean
     sec2_current = sec2_clean
     sec3_current = sec3_clean
-    callout_html = ""
     raw_full_html = f"{sec1_current}\n\n{sec2_current}\n\n{sec3_current}"
     
     print(f"\n======================================================================", flush=True)
@@ -1617,13 +1649,8 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     
     max_refine_iterations = 2
     for it in range(1, max_refine_iterations + 1):
-        print(f"\n🧐 [CRITIQUE & REFINEMENT PASS {it}/{max_refine_iterations}] Running 3-Agent Red-Team Critique...", flush=True)
+        print(f"\n🧐 [CRITIQUE & REFINEMENT PASS {it}/{max_refine_iterations}] Running 3-Agent Red-Team Critique (with Python Code Execution Auditor)...", flush=True)
         critique_memo = run_3_agent_critique_internal(ticker_clean, company_name, raw_full_html)
-        
-        # Save critique to disk
-        critique_file = DATA_DIR / "critiques" / f"{ticker_clean}_critique.md"
-        critique_file.parent.mkdir(parents=True, exist_ok=True)
-        critique_file.write_text(critique_memo, encoding="utf-8")
         
         print(f"\n🛠️ [IMPROVEMENT AGENT] Adjudicating critique & executing modular remediations...", flush=True)
         sec1_current, sec2_current, sec3_current, callout_html, ack_items, push_items = run_improvement_agent(
@@ -1642,14 +1669,34 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         print(f"   │ Pushed-Back Points: {len(push_items)}", flush=True)
         for pb in push_items:
             print(f"   │   🛡️ {pb}", flush=True)
+
+        # Save critique memo and adjudication breakdown to internal file (NOT leaked into public HTML)
+        critique_file = DATA_DIR / "critiques" / f"{ticker_clean}_critique.md"
+        critique_file.parent.mkdir(parents=True, exist_ok=True)
+        ack_log = "\n".join([f"- ✅ {a}" for a in ack_items]) or "- None (All issues resolved)"
+        push_log = "\n".join([f"- 🛡️ {p}" for p in push_items]) or "- Disciplined value-investing methodology defended"
+        critique_file.write_text(f"""# Autonomous Red-Team Critique & Adjudication Memo: {ticker_clean} ({company_name})
+Date: {datetime.now().strftime('%Y-%m-%d %H:%M')}
+Pass: {it}/{max_refine_iterations}
+
+## 3-Agent Red-Team Critique Memo
+{critique_memo}
+
+## Institutional Adjudication & Reconciliation Log
+### Acknowledged Refinements Adopted:
+{ack_log}
+
+### Methodological Pushbacks Defended:
+{push_log}
+""", encoding="utf-8")
             
-        raw_full_html = f"{sec1_current}\n\n{sec2_current}\n\n{sec3_current}\n\n{callout_html}"
+        raw_full_html = f"{sec1_current}\n\n{sec2_current}\n\n{sec3_current}"
         
         if len(ack_items) == 0:
             print(f"\n🎯 [CONVERGENCE ACHIEVED] 0 unaddressed errors remain (all critique points successfully defended or already resolved)!", flush=True)
             break
 
-    print(f"\n🛡️ [HARMONIZER & QA] Assembling thesis sections and verifying structural integrity...", flush=True)
+    print(f"\n🛡️ [HARMONIZER & QA] Assembling seamless thesis dossier and verifying structural integrity...", flush=True)
     full_html = verify_and_repair_html_structure(raw_full_html)
 
     # Margins of safety vs current price
