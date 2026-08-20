@@ -1119,19 +1119,28 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             v_labels_html = format_labels_pills(v.labels or [v.status_label])
 
             # Historical Target Badges
-            v_s1 = getattr(v, "story1_target", None) or getattr(v, "bear_target", "")
-            v_s2 = getattr(v, "story2_target", None) or getattr(v, "base_target", "")
-            v_s3 = getattr(v, "story3_target", None) or getattr(v, "bull_target", "")
-            
             targets_chips = []
             if v.fair_value_estimate:
                 targets_chips.append(f'<span style="color:var(--accent-warm); font-weight:600;">🎯 FV: {v.fair_value_estimate}</span>')
-            if v_s1:
-                targets_chips.append(f'<span style="color:#64B5F6;">Story 1: {v_s1}</span>')
-            if v_s2:
-                targets_chips.append(f'<span style="color:#D4A373;">Story 2: {v_s2}</span>')
-            if v_s3:
-                targets_chips.append(f'<span style="color:#81C784;">Story 3: {v_s3}</span>')
+            
+            palette_colors = ["#64B5F6", "#D4A373", "#81C784", "#B39DDB", "#FF8A65"]
+            v_stories = getattr(v, "stories", None) or []
+            if v_stories:
+                for s_idx, s in enumerate(v_stories):
+                    c = palette_colors[s_idx % len(palette_colors)]
+                    t_val = s.get("target") or (f"${s['val']:.2f}" if s.get("val") else "")
+                    if t_val:
+                        targets_chips.append(f'<span style="color:{c};">Story {s_idx+1}: {t_val}</span>')
+            else:
+                v_s1 = getattr(v, "story1_target", None) or getattr(v, "bear_target", "")
+                v_s2 = getattr(v, "story2_target", None) or getattr(v, "base_target", "")
+                v_s3 = getattr(v, "story3_target", None) or getattr(v, "bull_target", "")
+                if v_s1:
+                    targets_chips.append(f'<span style="color:#64B5F6;">Story 1: {v_s1}</span>')
+                if v_s2:
+                    targets_chips.append(f'<span style="color:#D4A373;">Story 2: {v_s2}</span>')
+                if v_s3:
+                    targets_chips.append(f'<span style="color:#81C784;">Story 3: {v_s3}</span>')
             targets_summary_html = f'<div style="display:flex; align-items:center; gap:10px; font-family:var(--font-mono); font-size:0.75rem; flex-wrap:wrap; margin-top:8px; padding:6px 12px; background:rgba(255,255,255,0.02); border-radius:6px; border:1px solid rgba(255,255,255,0.04);">{" • ".join(targets_chips)}</div>' if targets_chips else ""
 
             # Check if labels evolved in this version
@@ -4096,6 +4105,8 @@ def render_all():
                 labels=current_v.labels or [current_v.status_label or "ACTIVE RESEARCH"],
                 action_signal=current_v.action_signal or "BUY",
                 fair_value_estimate=current_v.fair_value_estimate or "$0.00",
+                expected_fair_value=getattr(current_v, "expected_fair_value", "") or current_v.fair_value_estimate or "$0.00",
+                stories=getattr(current_v, "stories", []),
                 story1_target=getattr(current_v, "story1_target", "") or current_v.bear_target or "$0.00",
                 story2_target=getattr(current_v, "story2_target", "") or current_v.base_target or "$0.00",
                 story3_target=getattr(current_v, "story3_target", "") or current_v.bull_target or "$0.00",

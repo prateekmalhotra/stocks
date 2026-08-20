@@ -1567,12 +1567,12 @@ Adjudicate every single point raised in the critique memo:
 1. [ACKNOWLEDGE & ADAPT]:
    - Valid factual issues (e.g. neglected segment declines, acquired brand drops, single-silhouette risks).
    - Supply chain & counterparty concentration (% Vietnam/China factories, Section 301 tariffs, >50% revenue from 1–3 buyers in nascent lines like AI data licensing).
-   - Dynamic Probability Space Partition (No Dogmatic Bull/Bear Triad): Ensure the 3 Stories span the realistic 90%–95% fundamental probability distribution of the company. For fortress monopolies, reject forced apocalyptic collapse cases and mandate realistic multiple de-rating / regulatory drag scenarios. For struggling turnarounds, mandate that drag/friction trajectories carry the bulk of the probability mass over unproven turnaround cases.
-   - 100% Bespoke Company Grounding Check: Reject any generic boilerplate, unearned international expansion (for domestic-only operators), or artificial synthetic drivers. Mandate that the 3 Stories reflect THAT specific company's actual operating segments, reported metrics, and the last 4 quarters of management commentary and guidance.
-   - Storyline Distinctness & Non-Overlap Check: Audit that the 3 Stories explore fundamentally distinct operational paths and causal mechanisms rather than minor percentage tweaks of the same narrative. Reject redundant drafts that fail to span different parts of the probability space.
-   - Live / Ongoing Headwinds in Story 1: Ensure active, observable disruptions (e.g. multi-quarter negative same-store sales, Google AI Overviews reducing search referral traffic) are integrated into Story 1 Base Case rather than dismissed as distant tail risks.
+   - Dynamic Probability Space Partition (No Dogmatic Bull/Bear Triad): Ensure the N storylines span the realistic 90%–95% fundamental probability distribution of the company. For fortress monopolies, reject forced apocalyptic collapse cases and mandate realistic multiple de-rating / regulatory drag scenarios. For struggling turnarounds, mandate that drag/friction trajectories carry the bulk of the probability mass over unproven turnaround cases.
+   - 100% Bespoke Company Grounding Check: Reject any generic boilerplate, unearned international expansion (for domestic-only operators), or artificial synthetic drivers. Mandate that the N storylines reflect THAT specific company's actual operating segments, reported metrics, and the last 4 quarters of management commentary and guidance.
+   - Storyline Distinctness & Non-Overlap Check: Audit that all N storylines explore fundamentally distinct operational paths and causal mechanisms rather than minor percentage tweaks of the same narrative. Reject redundant drafts that fail to span different parts of the probability space.
+   - Live / Ongoing Headwinds in Story 1: Ensure active, observable disruptions (e.g. multi-quarter negative same-store sales, Google AI Overviews reducing search referral traffic) are integrated into Story 1 Central Baseline rather than dismissed as distant tail risks.
    - Empirical Green Shoots & Turnaround Realism: If Story 1 assumes an operational turnaround (e.g. comp store sales pivoting positive, redesign cycle succeeding), audit whether there is trailing empirical data proof. If unproven, mandate that Story 1 model prolonged drag and probability weights reflect elevated downside risk.
-   - Dynamic Probability Weight Derivation: Reject and remediate arbitrary 50/25/25 symmetry. Ensure probability weights (p₁, p₂, p₃) are derived from observable evidence and sum to 100%.
+   - Dynamic Probability Weight Derivation: Reject and remediate arbitrary equal probability weighting or forced tail-risk inflation. Ensure probability weights (p₁, ..., pN) are derived strictly from observable filing evidence and sum to 100%.
    - Cash flow matching & accounting adjustments (eliminating debt double-counting under FCFE/FCFF, working capital normalization, realistic AI GPU depreciation cycles).
    - Form 4 Executive vs. Director Dollar Asymmetry: Reject false equivalence or 'Divergent Flow' claims where small director purchases ($100k–$500k) are claimed to offset tens of millions in C-Suite executive selling. State net dollar flows objectively.
    - Signal-to-Valuation Coherence: If Market Price > Expected Intrinsic Value, ensure the thesis tone is strictly objective and signals AVOID / TRIM / OVERVALUED.
@@ -2304,7 +2304,7 @@ def review_stock_thesis(
 Previous Thesis Stance: {previous_status}
 Previous Thesis Summary: {previous_thesis_summary}
 
-Execute a fresh, blind fundamental evaluation without reference to stock market prices. Re-verify financial statements and the last 4 quarterly earnings call transcripts. Re-evaluate the premise, formulate 3 distinct probable stories, and calculate the DCF valuation matrix."""
+Execute a fresh, blind fundamental evaluation without reference to stock market prices. Re-verify financial statements and the last 4 quarterly earnings call transcripts. Re-evaluate the premise, autonomously determine N distinct probable storylines spanning the company's full fundamental probability distribution, and calculate the independent DCF valuation matrix for each storyline."""
 
     metadata, full_html = generate_genesis_thesis(
         ticker=ticker,

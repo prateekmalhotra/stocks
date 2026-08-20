@@ -196,8 +196,12 @@ def get_enriched_portfolio(total_capital: Any = 200000.0, portfolio_type: str = 
     watchlist_data = {}
     if WATCHLIST_FILE.exists():
         try:
-            with open(WATCHLIST_FILE, "r") as f:
-                watchlist_data = json.load(f)
+            with open(WATCHLIST_FILE, "r", encoding="utf-8") as f:
+                raw_wl = json.load(f)
+                if isinstance(raw_wl, list):
+                    watchlist_data = {item["ticker"]: item for item in raw_wl if isinstance(item, dict) and "ticker" in item}
+                elif isinstance(raw_wl, dict):
+                    watchlist_data = raw_wl
         except Exception:
             pass
             
