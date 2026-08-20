@@ -332,19 +332,19 @@ def build_labels_legend_modal_html() -> str:
     return """
     <!-- Labels & Taxonomy Legend Modal -->
     <div id="labels-legend-modal" class="modal-shade" onclick="closeLegendModalOutside(event)">
-        <div class="modal-body-card" style="max-width: 540px; padding: 26px 28px; background: rgba(22, 21, 20, 0.98); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 14px; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7); font-family: var(--font-sans);">
+        <div class="modal-body-card" style="max-width: 580px; max-height: 88vh; overflow-y: auto; padding: 24px 26px; background: rgba(22, 21, 20, 0.98); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 14px; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7); font-family: var(--font-sans);">
             <button class="modal-x" onclick="closeLabelsLegendModal()" style="top: 20px; right: 20px; color: var(--text-dim); font-size: 1.1rem; cursor: pointer;">✕</button>
             
-            <div style="font-family: var(--font-sans); font-size: 1.15rem; font-weight: 600; color: var(--text-title); margin-bottom: 20px; letter-spacing: -0.02em;">
+            <div style="font-family: var(--font-sans); font-size: 1.15rem; font-weight: 600; color: var(--text-title); margin-bottom: 18px; letter-spacing: -0.02em;">
                 Taxonomy &amp; Signals
             </div>
 
             <!-- Section 1: Live Action Signals -->
-            <div style="margin-bottom: 18px;">
-                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 12px;">
+            <div style="margin-bottom: 16px;">
+                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 10px;">
                     Surveillance Signals
                 </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px;">
                     <div style="display: grid; grid-template-columns: 16px 62px 1fr; align-items: center; gap: 6px; font-size: 0.76rem;">
                         <span class="status-beacon beacon-buy"><span class="beacon-dot"></span></span>
                         <strong style="color: var(--accent-green);">BUY</strong>
@@ -368,35 +368,66 @@ def build_labels_legend_modal_html() -> str:
                 </div>
             </div>
 
-            <div style="height: 1px; background: var(--border-color); margin: 18px 0;"></div>
+            <div style="height: 1px; background: var(--border-color); margin: 16px 0;"></div>
 
-            <!-- Section 2: Conviction Tiers -->
-            <div>
-                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 12px;">
-                    Conviction Tiers
+            <!-- Section 2: Economic Moat Archetypes -->
+            <div style="margin-bottom: 16px;">
+                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 10px;">
+                    Economic Moat Archetypes (Primary Label)
                 </div>
-                <div style="display: grid; grid-template-columns: 150px 1fr; row-gap: 8px; column-gap: 16px; font-size: 0.76rem; align-items: center;">
-                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">High Conviction</span>
-                    <span style="color: var(--text-secondary);">Dominant moat &amp; fortress balance sheet</span>
+                <div style="display: grid; grid-template-columns: 155px 1fr; row-gap: 7px; column-gap: 14px; font-size: 0.75rem; align-items: center;">
+                    <span style="font-weight: 600; color: var(--accent-warm); white-space: nowrap;">🏰 Network Effects</span>
+                    <span style="color: var(--text-secondary);">Value compounds with user/developer density (e.g. Meta, Visa)</span>
 
-                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Solid Conviction</span>
-                    <span style="color: var(--text-secondary);">Recurring cash flow &amp; compounding runway</span>
+                    <span style="font-weight: 600; color: var(--accent-warm); white-space: nowrap;">🏰 Cost Advantage</span>
+                    <span style="color: var(--text-secondary);">Lowest structural cost via supply chain &amp; scale (e.g. Amazon, Costco)</span>
 
-                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Moderate Conviction</span>
-                    <span style="color: var(--text-secondary);">Attractive upside with cyclical exposure</span>
+                    <span style="font-weight: 600; color: var(--accent-warm); white-space: nowrap;">🏰 Switching Costs</span>
+                    <span style="color: var(--text-secondary);">Mission-critical workflow lock-in with high exit friction (e.g. Microsoft)</span>
 
-                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Cautious Stance</span>
-                    <span style="color: var(--text-secondary);">Navigating margin or temporary friction</span>
+                    <span style="font-weight: 600; color: var(--accent-warm); white-space: nowrap;">🏰 Brand Monopoly</span>
+                    <span style="color: var(--text-secondary);">Consumer mindshare &amp; luxury pricing power (e.g. Apple, Ferrari)</span>
 
-                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Turnaround Play</span>
-                    <span style="color: var(--text-secondary);">Operational reset or debt reduction</span>
+                    <span style="font-weight: 600; color: var(--accent-warm); white-space: nowrap;">🏰 Tollbridge Asset</span>
+                    <span style="color: var(--text-secondary);">Essential bottleneck infrastructure charging a toll (e.g. Google, Moody's)</span>
 
-                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Speculative Risk</span>
-                    <span style="color: var(--text-secondary);">High asymmetry with binary outcome</span>
+                    <span style="font-weight: 600; color: var(--accent-warm); white-space: nowrap;">🏰 Efficient Scale</span>
+                    <span style="color: var(--text-secondary);">Natural market capacity cap serving demand profitably (e.g. Railroads)</span>
+
+                    <span style="font-weight: 600; color: var(--accent-warm); white-space: nowrap;">🏰 Narrow Moat</span>
+                    <span style="color: var(--text-secondary);">Moderate or localized competitive edge</span>
+
+                    <span style="font-weight: 600; color: var(--accent-warm); white-space: nowrap;">🏰 No Moat</span>
+                    <span style="color: var(--text-secondary);">Commoditized price-taker with unprotected economics</span>
                 </div>
             </div>
 
-            <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
+            <div style="height: 1px; background: var(--border-color); margin: 16px 0;"></div>
+
+            <!-- Section 3: Buffett & Munger Pricing Power -->
+            <div>
+                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 10px;">
+                    Buffett &amp; Munger Pricing Power Tiers
+                </div>
+                <div style="display: grid; grid-template-columns: 155px 1fr; row-gap: 7px; column-gap: 14px; font-size: 0.75rem; align-items: center;">
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">👑 Absolute Power</span>
+                    <span style="color: var(--text-secondary);">Unilateral pricing without volume loss (See's Candies, Hermès)</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">💪 Strong Power</span>
+                    <span style="color: var(--text-secondary);">Dominant pricing ahead of CPI (Visa, Google, Meta, Microsoft)</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">⚖️ Inflation Pass-Thru</span>
+                    <span style="color: var(--text-secondary);">Cost-plus indexation &amp; friction-free pass-through (Costco, Waste Mgmt)</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">🛡️ Constrained Power</span>
+                    <span style="color: var(--text-secondary);">Moderate pricing power subject to pushback (Utilities, Defense)</span>
+
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">⚠️ Price Taker</span>
+                    <span style="color: var(--text-secondary);">Vulnerable to competitor price cuts &amp; margin compression</span>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; margin-top: 18px;">
                 <button onclick="closeLabelsLegendModal()" style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 500; color: var(--text-title); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border-color); border-radius: 6px; padding: 6px 16px; cursor: pointer; transition: all 0.15s;">Dismiss</button>
             </div>
         </div>

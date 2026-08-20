@@ -219,18 +219,40 @@ def map_to_canonical_moat_label(lbl: str = "", sec1_text: str = "", default: str
             if clean_lbl == m.upper():
                 return m
 
+    # 1. Check explicit "Primary Economic Moat Archetype:" statement first
+    if sec1_text:
+        m = re.search(r'Primary Economic Moat Archetype:\s*([^<\n\.]+)', sec1_text, re.IGNORECASE)
+        if m:
+            class_str = m.group(1).strip().upper()
+            if "COST ADVANTAGE" in class_str or "SCALE ECONOMIES" in class_str:
+                return "Cost Advantage"
+            if "NETWORK EFFECT" in class_str:
+                return "Network Effects"
+            if "SWITCHING" in class_str:
+                return "Switching Costs"
+            if "BRAND" in class_str:
+                return "Brand Monopoly"
+            if "EFFICIENT SCALE" in class_str:
+                return "Efficient Scale"
+            if "TOLLBRIDGE" in class_str or "TOLLBOOTH" in class_str:
+                return "Tollbridge Asset"
+            if "NARROW" in class_str:
+                return "Narrow Moat"
+            if "NO MOAT" in class_str or "COMMODITY" in class_str:
+                return "No Moat"
+
     combined_text = f"{lbl or ''} {sec1_text or ''}".upper()
     
-    if any(k in combined_text for k in ["NETWORK EFFECT", "NETWORK EFFECTS", "TWO SIDED", "SOCIAL GRAPH", "ECOSYSTEM DENSITY", "MARKETPLACE DENSITY"]):
+    if any(k in combined_text for k in ["COST ADVANTAGE", "SCALE ECONOMIES", "LOGISTICS DENSITY", "LOWEST COST", "SCALE ADVANTAGE", "LOW COST"]):
+        return "Cost Advantage"
+    elif any(k in combined_text for k in ["NETWORK EFFECT", "NETWORK EFFECTS", "TWO SIDED", "SOCIAL GRAPH", "ECOSYSTEM DENSITY", "MARKETPLACE DENSITY"]):
         return "Network Effects"
-    elif any(k in combined_text for k in ["TOLLBRIDGE", "TOLLBOOTH", "TOLL ASSET", "REGULATORY MONOPOLY", "EXCLUSIVE EXCHANGE", "INDEX STANDARD", "SEARCH MONOPOLY", "SEARCH TOLL"]):
-        return "Tollbridge Asset"
     elif any(k in combined_text for k in ["SWITCHING COST", "SWITCHING COSTS", "MISSION CRITICAL", "HIGH RETENTION", "EMBEDDED WORKFLOW", "ENTERPRISE LOCK IN"]):
         return "Switching Costs"
     elif any(k in combined_text for k in ["BRAND MONOPOLY", "INTANGIBLE ASSET", "INTANGIBLES", "CONSUMER MONOPOLY", "PRICING POWER", "LUXURY GOODWILL", "PATENT MOAT"]):
         return "Brand Monopoly"
-    elif any(k in combined_text for k in ["COST ADVANTAGE", "SCALE ECONOMIES", "LOGISTICS DENSITY", "LOWEST COST", "SCALE ADVANTAGE", "LOW COST"]):
-        return "Cost Advantage"
+    elif any(k in combined_text for k in ["TOLLBRIDGE", "TOLLBOOTH", "TOLL ASSET", "REGULATORY MONOPOLY", "EXCLUSIVE EXCHANGE", "INDEX STANDARD", "SEARCH MONOPOLY", "SEARCH TOLL"]):
+        return "Tollbridge Asset"
     elif any(k in combined_text for k in ["EFFICIENT SCALE", "NATURAL MONOPOLY", "GEOGRAPHIC MONOPOLY", "PIPELINE"]):
         return "Efficient Scale"
     elif any(k in combined_text for k in ["NO MOAT", "COMMODITY", "PRICE TAKER", "UNPROTECTED", "EROSION"]):
