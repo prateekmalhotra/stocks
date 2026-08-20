@@ -19,6 +19,8 @@ class ThesisVersion(BaseModel):
     what_was_before: Optional[str] = ""
     what_changes_now: Optional[str] = ""
     fair_value_estimate: Optional[str] = ""
+    expected_fair_value: Optional[str] = ""
+    stories: List[Dict[str, Any]] = Field(default_factory=list)
     story1_target: Optional[str] = ""
     story2_target: Optional[str] = ""
     story3_target: Optional[str] = ""
@@ -76,6 +78,9 @@ class WatchlistStock(BaseModel):
     labels: List[str] = Field(default_factory=list)  # Slot 1: Moat archetype, Slots 2-3: Drivers
     action_signal: str = "BUY"  # BUY, HOLD, CAUTION, AVOID
     fair_value_estimate: str
+    expected_fair_value: Optional[str] = ""
+    expected_val: Optional[float] = None
+    stories: List[Dict[str, Any]] = Field(default_factory=list)
     story1_target: Optional[str] = ""
     story2_target: Optional[str] = ""
     story3_target: Optional[str] = ""

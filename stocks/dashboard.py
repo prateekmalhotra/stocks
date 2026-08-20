@@ -503,9 +503,99 @@ def extract_numeric_price(val: Any) -> Optional[float]:
     return None
 
 
+def build_storylines_summary_widget_html(stock: WatchlistStock, stories: Optional[List[Dict[str, Any]]] = None) -> str:
+    """Builds a beautiful, responsive executive summary widget for all N operational storylines directly below the chart."""
+    palette = [
+        {"border": "#64B5F6", "badge_bg": "rgba(100, 181, 246, 0.12)", "text": "#64B5F6"},
+        {"border": "#D4A373", "badge_bg": "rgba(212, 163, 115, 0.14)", "text": "#D4A373"},
+        {"border": "#81C784", "badge_bg": "rgba(129, 199, 132, 0.12)", "text": "#81C784"},
+        {"border": "#B39DDB", "badge_bg": "rgba(179, 157, 219, 0.12)", "text": "#B39DDB"},
+        {"border": "#FF8A65", "badge_bg": "rgba(255, 138, 101, 0.12)", "text": "#FF8A65"},
+    ]
+    
+    # Normalize stories list from stock
+    story_list = []
+    if stories and len(stories) >= 1:
+        story_list = stories
+    elif getattr(stock, "stories", None) and len(stock.stories) >= 1:
+        story_list = stock.stories
+    else:
+        # Construct from legacy fields
+        s1_t = getattr(stock, "story1_target", "") or stock.bear_target
+        s2_t = getattr(stock, "story2_target", "") or stock.base_target
+        s3_t = getattr(stock, "story3_target", "") or stock.bull_target
+        if s1_t:
+            story_list.append({"id": 1, "story_title": getattr(stock, "story1_title", "Story 1") or "Story 1", "target": s1_t, "val": extract_numeric_price(s1_t), "short_summary": "Core operational compounding and baseline reinvestment."})
+        if s2_t:
+            story_list.append({"id": 2, "story_title": getattr(stock, "story2_title", "Story 2") or "Story 2", "target": s2_t, "val": extract_numeric_price(s2_t), "short_summary": "Accelerated vertical expansion and high-margin operating leverage."})
+        if s3_t:
+            story_list.append({"id": 3, "story_title": getattr(stock, "story3_title", "Story 3") or "Story 3", "target": s3_t, "val": extract_numeric_price(s3_t), "short_summary": "Defensive margin friction, customer budget drag, and multiple compression."})
+
+    if not story_list:
+        return ""
+
+    cur_p = stock.current_price or 1.0
+    cards_html = []
+    for idx, s in enumerate(story_list):
+        color = palette[idx % len(palette)]
+        val = s.get("val") or extract_numeric_price(s.get("target")) or cur_p
+        mos_pct = s.get("mos_pct")
+        if mos_pct is None:
+            mos_pct = ((val - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
+            
+        prob_pct = s.get("prob_pct")
+        prob_label = f" &bull; {prob_pct:.0f}% Prob" if prob_pct is not None else ""
+        
+        diff_color = "var(--accent-green)" if mos_pct >= 0 else "var(--accent-red)"
+        title = s.get("story_title") or s.get("title") or f"Story {idx+1}"
+        summary = s.get("short_summary") or s.get("summary") or "Underwritten via disciplined first-principles cash flow compounding."
+        
+        card = f"""
+        <div class="storyline-summary-card" style="background: var(--bg-subpanel); border: 1px solid var(--border-color); border-left: 3.5px solid {color['border']}; border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; min-width: 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;">
+                <span style="font-family: var(--font-mono); font-size: 0.70rem; color: {color['text']}; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;">
+                    Story {idx+1}{prob_label}
+                </span>
+                <span style="font-family: var(--font-mono); font-size: 0.88rem; font-weight: 600; color: {diff_color};">
+                    ${val:.2f} ({mos_pct:+.1f}%)
+                </span>
+            </div>
+            <div style="font-family: var(--font-sans); font-size: 0.90rem; font-weight: 600; color: var(--text-title); line-height: 1.35; letter-spacing: -0.01em;">
+                {title}
+            </div>
+            <p style="font-family: var(--font-sans); font-size: 0.80rem; color: var(--text-body); line-height: 1.5; margin: 0;">
+                {summary}
+            </p>
+        </div>
+        """
+        cards_html.append(card)
+        
+    expected_display = getattr(stock, 'expected_fair_value', '') or stock.fair_value_estimate
+    
+    return f"""
+    <div class="storylines-summary-deck" style="margin-top: 20px; margin-bottom: 24px; background: rgba(0, 0, 0, 0.18); border: 1px solid var(--border-color); border-radius: 12px; padding: 18px 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 1.05rem;">📖</span>
+                <span style="font-family: var(--font-sans); font-size: 0.88rem; font-weight: 700; color: var(--text-title); text-transform: uppercase; letter-spacing: 0.05em;">
+                    Operational Storylines &amp; Probability Space ({len(story_list)} Paths)
+                </span>
+            </div>
+            <div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-secondary);">
+                Expected Value: <strong style="color: var(--accent-warm);">{expected_display}</strong>
+            </div>
+        </div>
+        <div class="storylines-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
+            {''.join(cards_html)}
+        </div>
+    </div>
+    """
+
+
 def build_native_svg_chart(
     ticker: str,
     current_price: float,
+    stories: Optional[List[Dict[str, Any]]] = None,
     story1_target: Optional[float] = None,
     story2_target: Optional[float] = None,
     story3_target: Optional[float] = None,
@@ -516,7 +606,7 @@ def build_native_svg_chart(
     fair_target: Optional[float] = None,
     bull_target: Optional[float] = None
 ) -> str:
-    """Builds a lightweight, native interactive SVG area chart with 1Y, 5Y, 10Y, MAX ranges and Story 1, 2, 3 target lines."""
+    """Builds a lightweight, native interactive SVG area chart with 1Y, 5Y, 10Y, MAX ranges and dynamic Story 1..N target lines."""
     all_ranges_data = fetch_all_chart_ranges(ticker, current_price)
     ranges_json = json.dumps(all_ranges_data)
 
@@ -524,14 +614,43 @@ def build_native_svg_chart(
     prices = [p["price"] for p in initial_pts]
     eval_prices = list(prices)
     
-    # Fallback to legacy targets if story targets not set
-    if story1_target is None and bear_target is not None: story1_target = bear_target
-    if story2_target is None and fair_target is not None: story2_target = fair_target
-    if story3_target is None and bull_target is not None: story3_target = bull_target
+    # Color palette for up to 5 stories
+    palette = [
+        {"color": "#64B5F6", "name": "Story 1"},
+        {"color": "#D4A373", "name": "Story 2"},
+        {"color": "#81C784", "name": "Story 3"},
+        {"color": "#B39DDB", "name": "Story 4"},
+        {"color": "#FF8A65", "name": "Story 5"}
+    ]
+    
+    # Normalize stories list
+    chart_targets = []
+    if stories and len(stories) >= 1:
+        for idx, s in enumerate(stories):
+            val = s.get("val") or extract_numeric_price(s.get("target"))
+            if val is not None and val > 0:
+                color = palette[idx % len(palette)]["color"]
+                title = s.get("story_title") or s.get("title") or f"Story {idx+1}"
+                chart_targets.append({
+                    "id": idx + 1,
+                    "val": round(float(val), 2),
+                    "color": color,
+                    "title": title
+                })
+    else:
+        # Legacy fallback
+        s1 = story1_target if story1_target is not None else bear_target
+        s2 = story2_target if story2_target is not None else fair_target
+        s3 = story3_target if story3_target is not None else bull_target
+        if s1 is not None and s1 > 0:
+            chart_targets.append({"id": 1, "val": round(float(s1), 2), "color": "#64B5F6", "title": story1_title or "Story 1"})
+        if s2 is not None and s2 > 0:
+            chart_targets.append({"id": 2, "val": round(float(s2), 2), "color": "#D4A373", "title": story2_title or "Story 2"})
+        if s3 is not None and s3 > 0:
+            chart_targets.append({"id": 3, "val": round(float(s3), 2), "color": "#81C784", "title": story3_title or "Story 3"})
 
-    if story1_target is not None and story1_target >= 0: eval_prices.append(story1_target)
-    if story2_target is not None and story2_target >= 0: eval_prices.append(story2_target)
-    if story3_target is not None and story3_target >= 0: eval_prices.append(story3_target)
+    for ct in chart_targets:
+        eval_prices.append(ct["val"])
 
     min_p = min(eval_prices) if eval_prices else current_price * 0.9
     max_p = max(eval_prices) if eval_prices else current_price * 1.1
@@ -545,19 +664,27 @@ def build_native_svg_chart(
     padding_x = 20
     padding_y = 25
 
-    # Target Legend Badges matching EXACT 1:1 Storyline numbers
+    # Target Legend Badges
     target_legend_items = []
-    if story1_target is not None and current_price > 0:
-        s1_diff = ((story1_target - current_price) / current_price) * 100
-        target_legend_items.append(f'<span style="color: #64B5F6; display: inline-flex; align-items: center; gap: 4px;"><span style="display:inline-block; width:12px; height:0; border-top:1.8px dashed #64B5F6;"></span> Story 1: ${story1_target:.2f} ({s1_diff:+.1f}%)</span>')
-    if story2_target is not None and current_price > 0:
-        s2_diff = ((story2_target - current_price) / current_price) * 100
-        target_legend_items.append(f'<span style="color: #D4A373; display: inline-flex; align-items: center; gap: 4px; font-weight: 600;"><span style="display:inline-block; width:12px; height:0; border-top:1.8px dashed #D4A373;"></span> Story 2: ${story2_target:.2f} ({s2_diff:+.1f}%)</span>')
-    if story3_target is not None and current_price > 0:
-        s3_diff = ((story3_target - current_price) / current_price) * 100
-        target_legend_items.append(f'<span style="color: #81C784; display: inline-flex; align-items: center; gap: 4px;"><span style="display:inline-block; width:12px; height:0; border-top:1.8px dashed #81C784;"></span> Story 3: ${story3_target:.2f} ({s3_diff:+.1f}%)</span>')
+    for ct in chart_targets:
+        diff = ((ct["val"] - current_price) / current_price) * 100 if current_price > 0 else 0.0
+        target_legend_items.append(
+            f'<span style="color: {ct["color"]}; display: inline-flex; align-items: center; gap: 4px; font-weight: 600;">'
+            f'<span style="display:inline-block; width:12px; height:0; border-top:1.8px dashed {ct["color"]};"></span> '
+            f'Story {ct["id"]}: ${ct["val"]:.2f} ({diff:+.1f}%)</span>'
+        )
 
     targets_legend_html = f'<div class="chart-targets-legend" style="display: flex; align-items: center; gap: 12px; font-family: var(--font-mono); font-size: 0.72rem; flex-wrap: wrap;">{" ".join(target_legend_items)}</div>' if target_legend_items else ""
+
+    # Dynamic SVG target lines and labels
+    svg_target_elements = []
+    for ct in chart_targets:
+        svg_target_elements.append(
+            f'<line id="target-s{ct["id"]}-line" x1="{padding_x}" y1="0" x2="{width - padding_x}" y2="0" stroke="{ct["color"]}" stroke-width="1.4" stroke-dasharray="8 6" stroke-opacity="0.9" style="display:none;" />\n'
+            f'<text id="target-s{ct["id"]}-label" x="{width - padding_x - 6}" y="0" fill="{ct["color"]}" font-family="var(--font-mono)" font-size="9.5" font-weight="600" text-anchor="end" style="display:none;"></text>'
+        )
+    svg_targets_html = "\n".join(svg_target_elements)
+    targets_json = json.dumps(chart_targets)
 
     return f"""
     <div class="native-chart-wrap" id="chart-container" style="position: relative; overflow: hidden;">
@@ -591,16 +718,9 @@ def build_native_svg_chart(
                 <line x1="{padding_x}" y1="{height/2}" x2="{width - padding_x}" y2="{height/2}" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
                 <line x1="{padding_x}" y1="{height - padding_y}" x2="{width - padding_x}" y2="{height - padding_y}" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
 
-                <!-- Valuation Target Reference Dotted Lines (Sleek 8 6 dash pattern) -->
+                <!-- Valuation Target Reference Dotted Lines -->
                 <g id="valuation-targets-layer">
-                    <line id="target-s1-line" x1="{padding_x}" y1="0" x2="{width - padding_x}" y2="0" stroke="#64B5F6" stroke-width="1.4" stroke-dasharray="8 6" stroke-opacity="0.9" style="display:none;" />
-                    <text id="target-s1-label" x="{width - padding_x - 6}" y="0" fill="#64B5F6" font-family="var(--font-mono)" font-size="9.5" font-weight="600" text-anchor="end" style="display:none;"></text>
-
-                    <line id="target-s2-line" x1="{padding_x}" y1="0" x2="{width - padding_x}" y2="0" stroke="#D4A373" stroke-width="1.5" stroke-dasharray="8 6" stroke-opacity="0.95" style="display:none;" />
-                    <text id="target-s2-label" x="{width - padding_x - 6}" y="0" fill="#D4A373" font-family="var(--font-mono)" font-size="9.5" font-weight="700" text-anchor="end" style="display:none;"></text>
-
-                    <line id="target-s3-line" x1="{padding_x}" y1="0" x2="{width - padding_x}" y2="0" stroke="#81C784" stroke-width="1.4" stroke-dasharray="8 6" stroke-opacity="0.9" style="display:none;" />
-                    <text id="target-s3-label" x="{width - padding_x - 6}" y="0" fill="#81C784" font-family="var(--font-mono)" font-size="9.5" font-weight="600" text-anchor="end" style="display:none;"></text>
+                    {svg_targets_html}
                 </g>
 
                 <!-- Area & Line Paths -->
@@ -635,9 +755,7 @@ def build_native_svg_chart(
     <script>
     (function() {{
         const allDatasets = {ranges_json};
-        const targetS1 = {story1_target if story1_target is not None else 'null'};
-        const targetS2 = {story2_target if story2_target is not None else 'null'};
-        const targetS3 = {story3_target if story3_target is not None else 'null'};
+        const targets = {targets_json};
 
         let currentRangeKey = '1Y';
         let currentPoints = allDatasets[currentRangeKey] || [];
@@ -652,12 +770,6 @@ def build_native_svg_chart(
         const svg = document.getElementById('interactive-svg');
         const linePath = document.getElementById('chart-line-path');
         const areaPath = document.getElementById('chart-area-path');
-        const lineS1 = document.getElementById('target-s1-line');
-        const labelS1 = document.getElementById('target-s1-label');
-        const lineS2 = document.getElementById('target-s2-line');
-        const labelS2 = document.getElementById('target-s2-label');
-        const lineS3 = document.getElementById('target-s3-line');
-        const labelS3 = document.getElementById('target-s3-label');
 
         const tooltipDate = document.getElementById('tooltip-date');
         const tooltipPrice = document.getElementById('tooltip-price');
@@ -672,20 +784,13 @@ def build_native_svg_chart(
         const endLbl = document.getElementById('chart-end-lbl');
         const rangeTitle = document.getElementById('chart-range-title');
 
-        // Hero price elements
-        const heroPriceNum = document.querySelector('.price-number');
-        const heroPriceSub = document.querySelector('.price-sub');
-        const defaultHeroPrice = heroPriceNum ? heroPriceNum.innerText : '';
-        const defaultHeroSub = heroPriceSub ? heroPriceSub.innerText : '';
-        const defaultHeroSubClass = heroPriceSub ? heroPriceSub.className : '';
-
         function recalculatePaths(points) {{
             if (!points || points.length < 2) return;
             const prices = points.map(p => p.price);
             const evalPrices = [...prices];
-            if (targetS1 !== null && !isNaN(targetS1)) evalPrices.push(targetS1);
-            if (targetS2 !== null && !isNaN(targetS2)) evalPrices.push(targetS2);
-            if (targetS3 !== null && !isNaN(targetS3)) evalPrices.push(targetS3);
+            for (const t of targets) {{
+                if (t.val !== null && !isNaN(t.val)) evalPrices.push(t.val);
+            }}
 
             const rawMin = Math.min(...evalPrices);
             const rawMax = Math.max(...evalPrices);
@@ -716,50 +821,24 @@ def build_native_svg_chart(
 
             const liveTodayPrice = {current_price};
 
-            // Update Target Reference Dotted Lines with % relative to today's price (EXACT 1:1 Storyline lines)
-            if (targetS1 !== null && !isNaN(targetS1) && lineS1 && labelS1) {{
-                const y = getSvgY(targetS1);
-                lineS1.setAttribute('y1', y);
-                lineS1.setAttribute('y2', y);
-                lineS1.style.display = 'block';
-                labelS1.setAttribute('y', y - 4);
-                const s1Diff = liveTodayPrice > 0 ? ((targetS1 - liveTodayPrice) / liveTodayPrice * 100) : 0;
-                const s1Sign = s1Diff >= 0 ? '+' : '';
-                labelS1.textContent = 'Story 1 $' + targetS1.toFixed(2) + ' (' + s1Sign + s1Diff.toFixed(1) + '%)';
-                labelS1.style.display = 'block';
-            }} else if (lineS1) {{
-                lineS1.style.display = 'none';
-                if (labelS1) labelS1.style.display = 'none';
-            }}
-
-            if (targetS2 !== null && !isNaN(targetS2) && lineS2 && labelS2) {{
-                const y = getSvgY(targetS2);
-                lineS2.setAttribute('y1', y);
-                lineS2.setAttribute('y2', y);
-                lineS2.style.display = 'block';
-                labelS2.setAttribute('y', y - 4);
-                const s2Diff = liveTodayPrice > 0 ? ((targetS2 - liveTodayPrice) / liveTodayPrice * 100) : 0;
-                const s2Sign = s2Diff >= 0 ? '+' : '';
-                labelS2.textContent = 'Story 2 $' + targetS2.toFixed(2) + ' (' + s2Sign + s2Diff.toFixed(1) + '%)';
-                labelS2.style.display = 'block';
-            }} else if (lineS2) {{
-                lineS2.style.display = 'none';
-                if (labelS2) labelS2.style.display = 'none';
-            }}
-
-            if (targetS3 !== null && !isNaN(targetS3) && lineS3 && labelS3) {{
-                const y = getSvgY(targetS3);
-                lineS3.setAttribute('y1', y);
-                lineS3.setAttribute('y2', y);
-                lineS3.style.display = 'block';
-                labelS3.setAttribute('y', y - 4);
-                const s3Diff = liveTodayPrice > 0 ? ((targetS3 - liveTodayPrice) / liveTodayPrice * 100) : 0;
-                const s3Sign = s3Diff >= 0 ? '+' : '';
-                labelS3.textContent = 'Story 3 $' + targetS3.toFixed(2) + ' (' + s3Sign + s3Diff.toFixed(1) + '%)';
-                labelS3.style.display = 'block';
-            }} else if (lineS3) {{
-                lineS3.style.display = 'none';
-                if (labelS3) labelS3.style.display = 'none';
+            // Update Target Reference Dotted Lines for all N storylines
+            for (const t of targets) {{
+                const lineEl = document.getElementById('target-s' + t.id + '-line');
+                const labelEl = document.getElementById('target-s' + t.id + '-label');
+                if (t.val !== null && !isNaN(t.val) && lineEl && labelEl) {{
+                    const y = getSvgY(t.val);
+                    lineEl.setAttribute('y1', y);
+                    lineEl.setAttribute('y2', y);
+                    lineEl.style.display = 'block';
+                    labelEl.setAttribute('y', y - 4);
+                    const diff = liveTodayPrice > 0 ? ((t.val - liveTodayPrice) / liveTodayPrice * 100) : 0;
+                    const sign = diff >= 0 ? '+' : '';
+                    labelEl.textContent = 'Story ' + t.id + ' $' + t.val.toFixed(2) + ' (' + sign + diff.toFixed(1) + '%)';
+                    labelEl.style.display = 'block';
+                }} else if (lineEl) {{
+                    lineEl.style.display = 'none';
+                    if (labelEl) labelEl.style.display = 'none';
+                }}
             }}
 
             startLbl.innerText = points[0].date + ' ($' + Math.min(...prices).toFixed(2) + ')';
@@ -1172,17 +1251,41 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         """
 
     active_content = evolution_banner_html + raw_active_content
+    stories_data = getattr(stock, "stories", None) or []
     s1_num = extract_numeric_price(getattr(stock, "story1_target", None)) or extract_numeric_price(getattr(stock, "bear_target", None))
     s2_num = extract_numeric_price(getattr(stock, "story2_target", None)) or extract_numeric_price(getattr(stock, "base_target", None))
     s3_num = extract_numeric_price(getattr(stock, "story3_target", None)) or extract_numeric_price(getattr(stock, "bull_target", None))
     s1_title = getattr(stock, "story1_title", "Story 1") or "Story 1"
     s2_title = getattr(stock, "story2_title", "Story 2") or "Story 2"
     s3_title = getattr(stock, "story3_title", "Story 3") or "Story 3"
+    
     chart_html = build_native_svg_chart(
-        ticker, stock.current_price, 
+        ticker, stock.current_price,
+        stories=stories_data,
         story1_target=s1_num, story2_target=s2_num, story3_target=s3_num,
         story1_title=s1_title, story2_title=s2_title, story3_title=s3_title
     )
+    storylines_summary_widget_html = build_storylines_summary_widget_html(stock, stories=stories_data)
+    
+    palette_colors = ["#64B5F6", "#D4A373", "#81C784", "#B39DDB", "#FF8A65"]
+    metric_story_list = stories_data if len(stories_data) >= 1 else [
+        {"id": 1, "target": getattr(stock, "story1_target", "") or stock.bear_target},
+        {"id": 2, "target": getattr(stock, "story2_target", "") or stock.base_target},
+        {"id": 3, "target": getattr(stock, "story3_target", "") or stock.bull_target}
+    ]
+    story_metric_cells_list = []
+    for idx, s in enumerate(metric_story_list):
+        t_str = s.get("target") or (f"${s['val']:.2f}" if s.get("val") else "")
+        if t_str:
+            c = palette_colors[idx % len(palette_colors)]
+            story_metric_cells_list.append(f"""
+                <div class="metric-cell">
+                    <div class="metric-label">Story {idx+1}</div>
+                    {format_target_metric_html(t_str, c)}
+                </div>
+            """)
+    story_metric_cells_html = "".join(story_metric_cells_list)
+    
     dossier_beacon = format_action_beacon(getattr(stock, "action_signal", None)) if stock.total_versions > 1 else ""
     clean_cat_desc = sanitize_catalyst_desc(getattr(stock, "next_catalyst_event", "")).rstrip(".")
 
@@ -2368,24 +2471,16 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             <!-- Native Multi-Range Interactive Area Chart -->
             {chart_html}
 
+            <!-- Storylines Executive Summary & Probability Space Widget -->
+            {storylines_summary_widget_html}
+
             <!-- Key Metrics Grid -->
             <div class="metrics-grid">
                 <div class="metric-cell">
                     <div class="metric-label">Fair Value</div>
                     <div class="metric-value" style="color: var(--accent-warm);">{format_usd_target(stock.fair_value_estimate)}</div>
                 </div>
-                <div class="metric-cell">
-                    <div class="metric-label">Story 1</div>
-                    {format_target_metric_html(getattr(stock, "story1_target", None) or stock.bear_target, "#64B5F6")}
-                </div>
-                <div class="metric-cell">
-                    <div class="metric-label">Story 2</div>
-                    {format_target_metric_html(getattr(stock, "story2_target", None) or stock.base_target, "#D4A373")}
-                </div>
-                <div class="metric-cell">
-                    <div class="metric-label">Story 3</div>
-                    {format_target_metric_html(getattr(stock, "story3_target", None) or stock.bull_target, "#81C784")}
-                </div>
+                {story_metric_cells_html}
                 <div class="metric-cell">
                     <div class="metric-label">Corridor</div>
                     <div class="metric-value" style="font-size: 1.00rem; font-family: var(--font-mono); color: var(--text-title);">{f"${stock.lower_alert_threshold:.2f} ⇄ ${stock.upper_alert_threshold:.2f}" if stock.lower_alert_threshold is not None and stock.upper_alert_threshold is not None else "N/A"}</div>

@@ -139,6 +139,8 @@ def _handle_genesis_task(ticker: str, notes: str):
         what_was_before="Initial Genesis baseline.",
         what_changes_now=meta.get("executive_summary", "Initial coverage initiated."),
         fair_value_estimate=meta.get("fair_value_estimate", f"${current_price:.2f}"),
+        expected_fair_value=meta.get("expected_fair_value", ""),
+        stories=meta.get("stories", []),
         story1_target=meta.get("story1_target", ""),
         story2_target=meta.get("story2_target", ""),
         story3_target=meta.get("story3_target", ""),
@@ -181,6 +183,8 @@ def _handle_genesis_task(ticker: str, notes: str):
         labels=labels,
         action_signal=action_signal,
         fair_value_estimate=version_1.fair_value_estimate,
+        expected_fair_value=version_1.expected_fair_value,
+        stories=version_1.stories,
         story1_target=version_1.story1_target,
         story2_target=version_1.story2_target,
         story3_target=version_1.story3_target,
@@ -278,6 +282,8 @@ def _handle_review_task(ticker: str, trigger_reason: str):
         summary_of_change=meta.get("what_changes_now", "Living thesis updated with recent market developments."),
         what_was_before=meta.get("what_was_before", prev_summary),
         fair_value_estimate=meta.get("fair_value_estimate") or meta.get("new_fair_value") or stock.fair_value_estimate,
+        expected_fair_value=meta.get("expected_fair_value") or getattr(stock, "expected_fair_value", ""),
+        stories=meta.get("stories") or getattr(stock, "stories", []),
         story1_target=meta.get("story1_target", stock.story1_target or ""),
         story2_target=meta.get("story2_target", stock.story2_target or ""),
         story3_target=meta.get("story3_target", stock.story3_target or ""),
@@ -321,6 +327,8 @@ def _handle_review_task(ticker: str, trigger_reason: str):
     stock.labels = labels
     stock.action_signal = action_signal
     stock.fair_value_estimate = new_version.fair_value_estimate
+    stock.expected_fair_value = new_version.expected_fair_value
+    stock.stories = new_version.stories
     stock.story1_target = new_version.story1_target
     stock.story2_target = new_version.story2_target
     stock.story3_target = new_version.story3_target

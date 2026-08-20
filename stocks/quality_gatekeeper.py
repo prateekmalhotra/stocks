@@ -30,8 +30,8 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
     missing_sections = []
     alt_names = {
         1: ["Premise of the Company", "Premise", "Company Premise", "Executive Summary", "Operating Reality"],
-        2: ["3 Probable Business Stories", "3 Stories", "Business Stories", "Probable Stories", "Storylines"],
-        3: ["Valuation & DCF Matrix", "Valuation", "DCF Matrix", "Buffett Owner Earnings", "Scenario Valuation"]
+        2: ["Probable Business Stories", "Business Stories", "3 Probable Business Stories", "Probable Stories", "Storylines", "Operational Storylines"],
+        3: ["Valuation & DCF Matrix", "Valuation", "DCF Matrix", "Buffett Owner Earnings", "Scenario Valuation", "Reverse DCF"]
     }
     for s_num in range(1, 4):
         pattern = rf"(?:<h2>|<h3>|<h4>|<section>|\b)[Ss]ection\s*{s_num}\b|#+\s*Section\s*{s_num}\b"
@@ -216,10 +216,12 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
         issues.append("Missing mandatory Section 3 subsection: 'Reconciliation vs. Wall Street Consensus Price Targets'.")
 
     if not any(k in s3_lower for k in ["step-by-step mathematical proofs", "mathematical proofs", "mathematical walkthrough"]):
-        issues.append("Missing mandatory Section 3 subsection: 'Step-by-Step Mathematical Proofs Across the 3 Paths'.")
+        issues.append("Missing mandatory Section 3 subsection: 'Step-by-Step Mathematical Proofs Across Storylines'.")
     else:
-        # Verify that all 3 stories are present in the proofs
-        for st_idx in range(1, 4):
+        # Verify that all stories are present in the proofs
+        expected_stories_count = len(metadata.get("stories", [])) if metadata and metadata.get("stories") else 3
+        expected_stories_count = max(2, min(5, expected_stories_count))
+        for st_idx in range(1, expected_stories_count + 1):
             if f"story {st_idx}" not in s3_lower and f"storyline {st_idx}" not in s3_lower and f"path {st_idx}" not in s3_lower:
                 issues.append(f"Section 3 Mathematical Proofs is missing walkthrough for Story {st_idx}.")
 

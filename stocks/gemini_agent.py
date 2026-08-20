@@ -247,53 +247,116 @@ def map_to_canonical_predictability_tier(lbl: str = "", sec1_text: str = "", def
     return default
 
 
-def extract_probabilities_from_sec3(sec3_text: str) -> tuple:
-    """Extracts dynamically derived probability weights (p1, p2, p3) from Section 3 text.
-    Handles various LLM formatting styles (e.g., 'Story 1 (Base Case - 45% Probability)', '50% / 15% / 35%',
-    or tabular row '<tr><td>Probability Weight</td><td>45%</td><td>15%</td><td>40%</td></tr>').
+def extract_probabilities_from_sec3(sec3_text: str, num_stories: int = 3) -> list:
+    """Extracts dynamically derived probability weights (p1, ..., pN) for N stories from Section 3 text.
     Ensures weights sum strictly to 1.0 (100%)."""
-    if not sec3_text:
-        return 0.50, 0.25, 0.25
+    if not sec3_text or num_stories <= 0:
+        return [round(1.0 / max(1, num_stories), 4)] * num_stories
         
-    # Pattern A: Story 1 ... XX% ... Story 2 ... YY% ... Story 3 ... ZZ%
-    m1 = re.search(r'Story(?:line)?\s*1[^\n]*?(\d{1,2})\s*%', sec3_text, re.IGNORECASE)
-    m2 = re.search(r'Story(?:line)?\s*2[^\n]*?(\d{1,2})\s*%', sec3_text, re.IGNORECASE)
-    m3 = re.search(r'Story(?:line)?\s*3[^\n]*?(\d{1,2})\s*%', sec3_text, re.IGNORECASE)
-    
-    if m1 and m2 and m3:
-        try:
-            v1, v2, v3 = float(m1.group(1)), float(m2.group(1)), float(m3.group(1))
-            total = v1 + v2 + v3
-            if 80.0 <= total <= 120.0 and v1 > 0 and v2 > 0 and v3 > 0:
-                return round(v1 / total, 4), round(v2 / total, 4), round(v3 / total, 4)
-        except Exception:
-            pass
-
-    # Pattern B: Table row containing Probability Weight and 3 percentages
+    # 1. Look for explicit Story 1 ... XX% ... Story N ... YY%
+    story_probs = {}
+    for i in range(1, num_stories + 1):
+        m = re.search(rf'Story(?:line)?\s*{i}[^\n]*?(\d{{1,2}}(?:\.\d+)?)\s*%', sec3_text, re.IGNORECASE)
+        if m:
+            try:
+                story_probs[i] = float(m.group(1))
+            except Exception:
+                pass
+                
+    if len(story_probs) == num_stories:
+        vals = [story_probs[i] for i in range(1, num_stories + 1)]
+        total = sum(vals)
+        if 70.0 <= total <= 130.0 and all(v > 0 for v in vals):
+            return [round(v / total, 4) for v in vals]
+            
+    # 2. Look for table row or callout list with percentages
     for line in sec3_text.splitlines():
         if any(k in line.lower() for k in ['probability', 'weight', 'underwriting']):
-            nums = re.findall(r'(\d{1,2})\s*%', line)
-            if len(nums) >= 3:
+            nums = re.findall(r'(\d{1,2}(?:\.\d+)?)\s*%', line)
+            if len(nums) >= num_stories:
                 try:
-                    v1, v2, v3 = float(nums[0]), float(nums[1]), float(nums[2])
-                    total = v1 + v2 + v3
-                    if 80.0 <= total <= 120.0 and v1 > 0 and v2 > 0 and v3 > 0:
-                        return round(v1 / total, 4), round(v2 / total, 4), round(v3 / total, 4)
+                    vals = [float(nums[j]) for j in range(num_stories)]
+                    total = sum(vals)
+                    if 70.0 <= total <= 130.0 and all(v > 0 for v in vals):
+                        return [round(v / total, 4) for v in vals]
                 except Exception:
                     pass
 
-    # Pattern C: Generic find all occurrences of XX% probability / weight
-    m_alt = re.findall(r'(\d{1,2})\s*%\s*(?:probability|weight|underwriting|chance)', sec3_text, re.IGNORECASE)
-    if len(m_alt) >= 3:
+    # 3. Look for all percentage occurrences near probability keywords
+    m_alt = re.findall(r'(\d{1,2}(?:\.\d+)?)\s*%\s*(?:probability|weight|underwriting|chance)', sec3_text, re.IGNORECASE)
+    if len(m_alt) >= num_stories:
         try:
-            v1, v2, v3 = float(m_alt[0]), float(m_alt[1]), float(m_alt[2])
-            total = v1 + v2 + v3
-            if 80.0 <= total <= 120.0 and v1 > 0 and v2 > 0 and v3 > 0:
-                return round(v1 / total, 4), round(v2 / total, 4), round(v3 / total, 4)
+            vals = [float(m_alt[j]) for j in range(num_stories)]
+            total = sum(vals)
+            if 70.0 <= total <= 130.0 and all(v > 0 for v in vals):
+                return [round(v / total, 4) for v in vals]
         except Exception:
             pass
 
-    return 0.50, 0.25, 0.25
+    # Default fallback: dominant central story (e.g. 60%), with remainder split among other stories
+    if num_stories == 2:
+        return [0.70, 0.30]
+    elif num_stories == 3:
+        return [0.60, 0.25, 0.15]
+    elif num_stories == 4:
+        return [0.50, 0.25, 0.15, 0.10]
+    else:
+        rem = 0.40 / (num_stories - 1)
+        return [0.60] + [round(rem, 4)] * (num_stories - 1)
+
+
+def extract_stories_from_agent2(raw_text: str, clean_html: str) -> list:
+    """Extracts N stories from Agent 2 output (via JSON block or HTML parsing).
+    Returns a list of dicts with: story_num, story_title, short_summary, narrative."""
+    # 1. Try extracting structured JSON block
+    data = extract_json_block(raw_text)
+    if data and isinstance(data.get("stories"), list) and len(data["stories"]) >= 2:
+        res = []
+        for idx, s in enumerate(data["stories"], start=1):
+            res.append({
+                "story_num": int(s.get("story_num") or idx),
+                "story_title": str(s.get("story_title") or f"Story {idx}"),
+                "short_summary": str(s.get("short_summary") or ""),
+                "growth_cagr_pct": s.get("growth_cagr_pct"),
+                "narrative": s.get("narrative") or clean_html
+            })
+        return res
+        
+    # 2. Parse HTML callout blocks for Story headings
+    stories = []
+    callout_pattern = r'<div class="callout"[^>]*>[\s\S]*?<h3>\s*(?:📖\s*)?Story\s*(\d+)[:\s–-]+([^<]+)</h3>([\s\S]*?)</div>'
+    matches = list(re.finditer(callout_pattern, clean_html, re.IGNORECASE))
+    
+    for m in matches:
+        num = int(m.group(1))
+        title = m.group(2).strip()
+        body = m.group(3).strip()
+        
+        # Extract first paragraph as short summary
+        p_match = re.search(r'<p>(.*?)</p>', body, re.DOTALL)
+        summary = ""
+        if p_match:
+            clean_p = re.sub(r'<[^>]+>', '', p_match.group(1)).strip()
+            # First 1-2 sentences
+            sentences = [s.strip() for s in re.split(r'(?<=[.!?])\s+', clean_p) if s.strip()]
+            summary = " ".join(sentences[:2]) if sentences else clean_p[:220]
+            
+        stories.append({
+            "story_num": num,
+            "story_title": title,
+            "short_summary": summary,
+            "narrative": body
+        })
+        
+    if len(stories) >= 2:
+        return stories
+        
+    # Fallback to default stories if parsing fails
+    return [
+        {"story_num": 1, "story_title": "Core Baseline Compounding", "short_summary": "Steady operational execution and ongoing reinvestment under current guidance.", "narrative": clean_html},
+        {"story_num": 2, "story_title": "Accelerated Upside Engine", "short_summary": "High-margin expansion and unit volume acceleration across key verticals.", "narrative": clean_html},
+        {"story_num": 3, "story_title": "Defensive Friction & Margin Drag", "short_summary": "Macro friction and category deceleration test cost flexibility.", "narrative": clean_html}
+    ]
 
 
 def map_to_canonical_moat_label(lbl: str = "", sec1_text: str = "", default: str = "Narrow Moat") -> str:
@@ -1093,16 +1156,19 @@ Pure semantic HTML format:
 
 AGENT_2_STORIES_PROMPT = """Target: {ticker} ({company_name})
 
-You are LLM Agent 2: 3 Stories Strategist.
+You are LLM Agent 2: Adaptive Probability Strategist & Storyline Architect.
 Here is the Company Premise from Agent 1 (containing the financial baseline, operational metrics, cash flow compression reality, and unencumbered net cash per share):
 {premise_context}
 
 Guidelines:
 - Blind Valuation: Formulate business trajectories based strictly on operational realities and competitive dynamics, with zero knowledge of stock market prices.
-- Currency & Financial Consistency: All figures in $ USD. Anchor all 3 stories directly to the baseline numbers (revenue, margins, cash flow) established in Agent 1's Company Premise above.
+- Currency & Financial Consistency: All figures in $ USD. Anchor all storylines directly to the baseline numbers (revenue, margins, cash flow) established in Agent 1's Company Premise above.
+- DYNAMIC NUMBER OF DISTINCT STORYLINES (N in [2, 5]):
+  * You have COMPLETE FREEDOM to determine the exact number of distinct storylines N (typically 2 to 4, up to 5 for complex multi-segment conglomerates) that authentically partition THAT company's fundamental probability distribution without inventing redundant filler.
+  * Simple monopolies/utilities (e.g. Copart, Visa) might warrant 2 crisp paths; multi-segment platforms or complex turnarounds (e.g. Amazon, AppLovin, Bumble) might warrant 3 or 4 distinct operational paths.
 - 100% BESPOKE & IDIOSYNCRATIC PROBABILITY SPACE (GROUNDED EXCLUSIVELY IN THAT COMPANY):
   * Every single company has its own UNIQUE fundamental probability distribution. NEVER reuse generic boilerplate, template drivers, or synthetic narratives across different companies!
-  * Derive the 3 Stories EXCLUSIVELY from:
+  * Derive the Storylines EXCLUSIVELY from:
     1. The company's actual reported business lines, segments, product categories, and geographic footprint disclosed in their statutory SEC Form 10-K/10-Q/20-F filings.
     2. The exact operational priorities, friction points, forward guidance, and strategic debates discussed by management on the last 4 quarterly earnings calls.
     3. The real reported unit economics and operating metrics (e.g. comp store sales, store openings, unit volume, take rates, active clients, subscriber churn, loan provisions, server useful lives, capacity utilization).
@@ -1111,21 +1177,17 @@ Guidelines:
     - Do NOT invent synthetic "AI cloud monetization" buzzwords if the company sells athletic apparel, fast food, or auto parts.
     - Do NOT invent an apocalyptic "-50% cash flow collapse" bear case for a resilient, high-moat mission-critical monopoly (e.g. Microsoft, Visa, Copart, Constellation Software) where such an event is practically impossible (<2% tail risk). Instead, model the realistic downside distribution for THAT business (e.g. multiple compression, slower M&A deployment, antitrust/regulatory fee caps, or customer IT budget optimization).
     - Do NOT invent a symmetrical fantasy bull case for a struggling, brand-fatigued turnaround (e.g. Lululemon, Nike, Bumble). Model the realistic struggle and margin drag trajectories that represent the majority of THAT company's real distribution, alongside an unproven turnaround trajectory.
-  * The 3 Stories MUST collectively span and partition 90%–95% of THAT specific company's real-world probability distribution over the next 3–5 years.
+  * The N Stories MUST collectively span and partition 90%–95% of THAT specific company's real-world probability distribution over the next 3–5 years.
   * Explicitly name each story with a descriptive, operational, company-specific title reflecting its authentic economic driver (e.g. 'Story 1: Core Enterprise Cloud Workload Compounding', 'Story 2: Regulatory Interchange Fee Cap & Multiple De-Rating', 'Story 3: Americas Comp Drag & Markdown Friction').
 - MUTUAL DISTINCTNESS & ORTHOGONAL MECHANISMS (ZERO NARRATIVE OVERLAP):
-  * The 3 Stories must explore 3 FUNDAMENTALLY DISTINCT, idiosyncratic operational paths or strategic crossroads that you derive directly from the company's business model, filings, and earnings transcripts.
-  * COMPLETE FREEDOM OF SCENARIO STRUCTURE (NO PRESET TAXONOMY):
-    - You have complete freedom to define what each story represents based on THAT specific company's reality:
-      * For a struggling turnaround or challenged business, the 3 stories might consist of two different drag/friction paths and one conservative stabilization path.
-      * For a dominant high-ROIC compounder, the 3 stories might consist of two different reinvestment/expansion paths and one regulatory/multiple de-rating path.
-      * For an evolving platform, the 3 stories might explore three distinct strategic forks (e.g. core cash-cow harvesting vs new category monetization vs customer insourcing friction).
+  * The N Stories must explore FUNDAMENTALLY DISTINCT, idiosyncratic operational paths or strategic crossroads that you derive directly from the company's business model, filings, and earnings transcripts.
   * ZERO REDUNDANCY OR MERE PERCENTAGE TWEAKS:
     - Never generate stories that share the same narrative premise with minor percentage adjustments (e.g. Story 1 being "+8% growth with stable margins" and Story 2 being "+11% growth with slightly better margins" is an analytical failure of redundancy).
     - Each story MUST possess:
       1. A distinct causal thesis explaining WHY revenue, margins, and cash flow behave the way they do (driven by different product lines, customer dynamics, competitive shifts, or capital allocation).
       2. Divergent operational metric assumptions (e.g. separate paths for unit volumes, take rates, pricing power, gross margin %, OpEx leverage, and CapEx intensity).
-      3. Independent quarterly milestones and invalidation triggers.
+      3. A crisp 1–2 sentence executive summary explaining what this storyline is actually modeling and its core mechanism in plain English (for the executive overview summary widget).
+      4. Independent quarterly milestones and invalidation triggers.
 - Guidance Realism & Non-Linear Trajectories: Factor in management's near-term quarterly forward guidance (e.g. Q3/Q4 cyclical dips due to macro/housing pressure) to model realistic trajectory shapes rather than smooth straight-line ramps.
 - Turnaround Realism & Segment Drag in Story 1 (Base Case): If an acquired brand or secondary segment is contracting double-digits, Story 1 (Base Case) MUST NOT assume an unearned miraculous V-shaped rebound. Model the struggling segment at flat to negative growth, requiring the core flagship business to carry the baseline enterprise.
 - Grounded Margin & Growth Realism: For thin-margin direct retail or financial spread businesses, do NOT assume heroic margin doubling. Model realistic, incremental operating progression.
@@ -1136,7 +1198,7 @@ Guidelines:
   * If a story models an operational turnaround (e.g. comp store sales pivoting from negative to positive, merchandise redesign cycles succeeding, market share recovery against aggressive upstarts like Vuori/Alo), you MUST audit whether there is EMPIRICAL TRAILING EVIDENCE (e.g. sequential quarterly improvement, verified early product sell-through data, margin resilience) indicating early green shoots.
   * If NO empirical green shoots exist in trailing data (i.e. the turnaround is prospective and unproven):
     1. Story 1 must NOT assume an unearned, rapid operational fix. Model prolonged near-term friction and muted stabilization.
-    2. The turnaround scenario represents an upside possibility (Story 3) weighted conservatively.
+    2. The turnaround scenario represents an upside possibility weighted conservatively.
     3. The probability weighting in Section 3 must reflect this asymmetry by weighting confirmed drag over unproven turnaround execution.
 - Structural Decline, Negative Compounding & Distressed Business Modeling:
   * Do NOT dogmatically force positive growth or +2% perpetual inflation on struggling businesses.
@@ -1151,7 +1213,7 @@ Guidelines:
 - Nascent & Concentrated Revenue Stream Realism: For high-margin emerging lines (e.g. AI data licensing, API monetization) with customer concentration (e.g. 1–3 buyers) or near-term renewal dates:
   * Story 1 must model renewal friction, volume caps, or pricing concessions rather than unearned exponential growth.
   * Friction stories must model contract non-renewal, client insourcing, or synthetic data substitution.
-- Operational Metric Continuity: Explicitly carry forward and trace the primary operational metrics identified in Section 1 (e.g. Active Clients/DAUs, TPV/GMV growth, Take Rate %, Deposit Float, Cost of Risk / NPLs, ARPAC/ARPU, Fulfillment/Lease Expense Ratio) across EACH of the 3 stories to justify how margin expansion or contraction occurs.
+- Operational Metric Continuity: Explicitly carry forward and trace the primary operational metrics identified in Section 1 (e.g. Active Clients/DAUs, TPV/GMV growth, Take Rate %, Deposit Float, Cost of Risk / NPLs, ARPAC/ARPU, Fulfillment/Lease Expense Ratio) across EACH of the N stories to justify how margin expansion or contraction occurs.
 
 FIRST-PRINCIPLES BUSINESS METRIC CHAIN (NO ARBITRARY GROWTH ASSUMPTIONS):
 - Revenue is driven by explicit operational business metrics reported by the company.
@@ -1162,15 +1224,16 @@ FIRST-PRINCIPLES BUSINESS METRIC CHAIN (NO ARBITRARY GROWTH ASSUMPTIONS):
   4. CapEx & Cash Conversion: Maintenance vs Growth CapEx cycles, SBC dilution, and resulting Owner Earnings trajectory in $ USD.
 
 Your Objective:
-Formulate 3 PROBABLE, DISTINCT BUSINESS STORIES covering approximately 90%–95% of probable fundamental outcomes for the business over the next 3 to 5 years.
+Formulate N PROBABLE, DISTINCT BUSINESS STORIES covering approximately 90%–95% of probable fundamental outcomes for the business over the next 3 to 5 years.
 Include a dedicated "Actionable Quarterly Monitoring Checklist (Next 12–18 Months)" with explicit quantitative Green Light and Red Light triggers.
 
 Format Section 2 in clean Semantic HTML:
-<h2>Section 2: 3 Probable Business Stories</h2>
-<p>Based on the company's core premise, reported operational metrics, financial filings, and 4-quarter earnings trajectory, here are 3 distinct, probable fundamental paths that cover 90%–95% of probable business outcomes over the next 3–5 years:</p>
+<h2>Section 2: Probable Business Stories</h2>
+<p>Based on the company's core premise, reported operational metrics, financial filings, and 4-quarter earnings trajectory, here are the distinct, probable fundamental paths that cover 90%–95% of probable business outcomes over the next 3–5 years:</p>
 
 <div class="callout">
   <h3>📖 Story 1: [Descriptive Operational Title 1 - Central Baseline]</h3>
+  <p>[1-2 sentence executive summary of this storyline's operational premise and core mechanism...]</p>
   <p>[Full narrative explanation of this operational path, incorporating near-term guidance reality...]</p>
   <p><strong>Operational Metric Drivers &amp; Revenue:</strong> [Explicit business metric shifts (e.g. client volume, GMV, take rates, pricing) and how they drive top-line revenue in $ USD...]</p>
   <p><strong>Cost Dynamics, CapEx &amp; Owner Earnings:</strong> [Cost structure, lease commitments, provision/OpEx margins, CapEx cycle assumptions, and resulting Owner Earnings trajectory in $ USD...]</p>
@@ -1178,20 +1241,15 @@ Format Section 2 in clean Semantic HTML:
 </div>
 
 <div class="callout">
-  <h3>📖 Story 2: [Descriptive Operational Title 2 - Trajectory 2]</h3>
+  <h3>📖 Story 2: [Descriptive Operational Title 2]</h3>
+  <p>[1-2 sentence executive summary of this storyline's operational premise and core mechanism...]</p>
   <p>[Full narrative explanation of this operational path...]</p>
   <p><strong>Operational Metric Drivers &amp; Revenue:</strong> [Explicit business metric shifts and how they drive top-line revenue in $ USD...]</p>
   <p><strong>Cost Dynamics, CapEx &amp; Owner Earnings:</strong> [Cost structure, OpEx margins, CapEx cycle assumptions, and resulting Owner Earnings trajectory in $ USD...]</p>
   <p><strong>Key Milestones to Watch:</strong> [Specific indicators to monitor...]</p>
 </div>
 
-<div class="callout">
-  <h3>📖 Story 3: [Descriptive Operational Title 3 - Trajectory 3]</h3>
-  <p>[Full narrative explanation of this operational path, incorporating realistic local FX depreciation headwind in USD conversion or lease fixed-overhead leverage where appropriate...]</p>
-  <p><strong>Operational Metric Drivers &amp; Revenue:</strong> [Explicit business metric shifts and how they drive top-line revenue in $ USD...]</p>
-  <p><strong>Cost Dynamics, CapEx &amp; Owner Earnings:</strong> [Cost structure, credit/tariff/margin drag, CapEx assumptions, and resulting Owner Earnings trajectory in $ USD...]</p>
-  <p><strong>Key Milestones to Watch:</strong> [Specific indicators to monitor...]</p>
-</div>
+[Additional Story Callout Boxes for Story 3, Story 4 if applicable...]
 
 <div class="callout">
   <h3>Actionable Quarterly Monitoring Checklist (Next 12–18 Months)</h3>
@@ -1228,17 +1286,35 @@ Format Section 2 in clean Semantic HTML:
   </table>
 </div>
 
-Output pure HTML only (no code fences, no inline styles)."""
+```json
+{{
+  "total_stories": <number N in [2, 5]>,
+  "stories": [
+    {{
+      "story_num": 1,
+      "story_title": "<Descriptive Operational Title 1>",
+      "short_summary": "<1-2 sentence crisp executive summary explaining what this storyline models in plain English>",
+      "growth_cagr_pct": <number>
+    }},
+    {{
+      "story_num": 2,
+      "story_title": "<Descriptive Operational Title 2>",
+      "short_summary": "<1-2 sentence crisp executive summary explaining what this storyline models in plain English>",
+      "growth_cagr_pct": <number>
+    }}
+  ]
+}}
+```"""
 
 AGENT_3_SINGLE_STORY_DCF_PROMPT = """You are a Warren Buffett DCF valuation analyst.
 
 Company: {company_name} ({ticker})
-Scenario to Value: {story_name} (Story {story_num}/3)
+Scenario to Value: {story_name} (Story {story_num}/{total_stories})
 
 Financial Baseline Context:
 {premise_context}
 
-Scenario Description:
+Scenario Description & Operational Context:
 {story_context}
 
 Your Task:
@@ -1283,7 +1359,9 @@ SANITY & PRECISION:
 Respond ONLY with a JSON block:
 ```json
 {{
+  "story_num": {story_num},
   "story_title": "<Short descriptive title>",
+  "short_summary": "<1-2 sentence crisp executive summary explaining what this storyline models in plain English>",
   "starting_oe_millions": <number in $M matching Section 1 exactly>,
   "growth_rate_pct": <e.g. 10.0 for 10%>,
   "discount_rate_pct": <e.g. 9.5>,
@@ -1310,27 +1388,22 @@ AGENT_4_REVERSE_DCF_PROMPT = """You are an institutional investment equity resea
 
 Company: {company_name} ({ticker})
 Current Market Stock Price: ${current_price:.2f}
+Total Number of Operational Storylines: {total_stories}
 
 Financial Baseline Context:
 {premise_context}
 
-Story 1 Valuation Model:
-{story1_json}
-
-Story 2 Valuation Model:
-{story2_json}
-
-Story 3 Valuation Model:
-{story3_json}
+Valuation Models for the {total_stories} Storylines:
+{stories_dcf_context}
 
 Your Task:
 Write Section 3 (Valuation & Reverse DCF) in clean, semantic HTML.
 USE YOUR PYTHON CODE EXECUTION TOOL to execute the exact DCF table calculations, mathematical proof walkthroughs, Terminal Value Sensitivity & Exit Multiple Matrix, and Reverse DCF sensitivity matrix growth rates across all hurdle rates (9.5%, 10.5%, 11.5%).
 
 Requirements:
-1. A summary 3-Story DCF table comparing all 3 paths. Starting Owner Earnings (OE₀) MUST STRICTLY MATCH the OE₀ derived in Section 1!
+1. A summary DCF table comparing ALL {total_stories} storylines side-by-side. Starting Owner Earnings (OE₀) MUST STRICTLY MATCH the OE₀ derived in Section 1!
 2. Avoid false precision: Round large dollar totals to clean whole millions or billions (e.g. $139,006M or $139.0B), and per-share values to clean whole dollars or $0.50 increments.
-3. In the DCF summary table, explicitly break down:
+3. In the DCF summary table, explicitly break down for EACH of the {total_stories} stories:
    - PV of Explicit 5-Year Cash Flows ($M and $/share)
    - % of Operating Value from Explicit 5-Year Cash Flow
    - PV of Terminal Value ($M and $/share)
@@ -1341,19 +1414,19 @@ Requirements:
 4. In the DCF summary table, the balance sheet bridge line MUST be explicitly signed:
    - If Net Debt: 'Net Balance Sheet Debt Adjustment (-$XX.XX/sh)' (SUBTRACTED from Operating Value).
    - If Net Cash: 'Net Balance Sheet Surplus Cash Adjustment (+$XX.XX/sh)' (ADDED to Operating Value).
-5. Clear mathematical proofs for each of the 3 stories explaining the exact calculation: Operating Value/sh + Debt/Cash Adjustment = Intrinsic Fair Value/sh.
+5. Clear mathematical proofs for EACH of the {total_stories} stories explaining the exact calculation: Operating Value/sh + Debt/Cash Adjustment = Intrinsic Fair Value/sh.
 6. A Dynamically Derived Probability-Weighted Expected Intrinsic Value Callout Box:
    - First-Principles Derivation of Probability Weights (NO CANNED OR ASSERTED TEMPLATES):
-     * The probability weights (p₁, p₂, p₃) MUST strictly sum to 100% (1.00) and represent the realistic fundamental partition of THAT specific company's 90%–95% probability distribution.
-     * ZERO HARDCODED BRACKETS OR ARBITRARY SYMMETRY: Derive the exact probability distribution organically based on the weight of observable fundamental evidence:
-       - Assign the dominant probability weight to trajectories backed by confirmed trailing filings, observable operating momentum, management's near-term guidance, and proven structural moats.
-       - Assign conservative/subordinate probability weights to trajectories that rely on unproven prospective assertions, speculative turnaround pivots, or extreme low-probability tail events.
-       - For fortress utilities/monopolies (e.g. Visa, MSFT, CPRT), do not waste probability mass on impossible severe collapse cases; partition the distribution across realistic compounding, multiple de-rating, or regulatory friction paths.
-       - For brand-fatigued/struggling turnarounds (e.g. LULU, NKE, BMBL), assign the majority of probability mass to the observable drag and margin erosion paths, and weight unproven turnaround rebounds conservatively.
+     * The probability weights (p₁, ..., p_{total_stories}) MUST strictly sum to 100% (1.00) and represent the realistic fundamental partition of THAT specific company's probability distribution.
+     * ZERO ARTIFICIAL TAIL INFLATION (ASSIGN EMPIRICALLY REALISTIC WEIGHTS):
+       - Do NOT artificially assign high probability (e.g. 20%–30%) to extreme, low-probability tail risks!
+       - If a business is a high-moat compounder with proven cash flow generation and low leverage, an extreme collapse or severe impairment is a <5% tail risk; weight it accordingly (e.g. 3%–5%), NOT 25%!
+       - Assign the dominant probability weight to trajectories backed by confirmed trailing filings, observable operating momentum, management's near-term guidance, and proven customer retention.
+       - For struggling turnarounds, assign the bulk of probability mass to observable drag/erosion paths, and weight unproven turnaround rebounds conservatively.
      * Provide a clear 2-sentence rationale explicitly justifying why these exact probability weights were assigned based on THAT company's specific filings, unit metrics, and earnings commentary.
    - Expected Intrinsic Value Calculation:
-     * Mathematically compute: Expected Intrinsic Value = (p₁ * Story 1) + (p₂ * Story 2) + (p₃ * Story 3).
-     * State the Expected Value, its exact Margin of Safety vs. today's market price (${current_price:.2f}), and include a brief sensitivity note showing how an equal-weighted (33/33/33) distribution shifts the value.
+     * Mathematically compute: Expected Intrinsic Value = sum(p_i * Story_i for i in 1..{total_stories}).
+     * State the Expected Value, its exact Margin of Safety vs. today's market price (${current_price:.2f}), and include a brief sensitivity note showing how an equal-weighted distribution shifts the value.
    - Signal & Valuation Coherence: If the Margin of Safety is NEGATIVE (Current Price > Expected Fair Value, e.g. stock is overvalued), the tone and action signal MUST be strictly objective (e.g. "Trading at Premium to Intrinsic Value; Signal: AVOID / TRIM / WAIT FOR PULLBACK"). Never emit an enthusiastic buy tone when the model's own quantitative expected value is below market price!
 7. Terminal Value & Exit Multiple Sensitivity Matrix:
    - A dedicated 2D table mapping Fair Value across Discount Rates (8.5%, 9.5%, 10.5%) and Exit Multiples (8.0x, 10.0x, 12.0x, 14.0x, 16.0x).
@@ -1364,8 +1437,8 @@ Requirements:
 9. Seamless presentation: Write pure institutional research without any meta-commentary about drafts or past corrections.
 
 Format:
-<h2>Section 3: Valuation Across the 3 Stories</h2>
-<p>Translating each of the 3 business stories into Warren Buffett-style discounted cash flow valuations based on true Core Owner Earnings plus balance sheet net debt/cash bridge per share:</p>
+<h2>Section 3: Valuation Across the Storylines</h2>
+<p>Translating each of the business storylines into Warren Buffett-style discounted cash flow valuations based on true Core Owner Earnings plus balance sheet net debt/cash bridge per share:</p>
 
 <table class="data-table">
   <thead>
@@ -1373,44 +1446,43 @@ Format:
       <th>Valuation Parameter</th>
       <th>Story 1: [Title 1]</th>
       <th>Story 2: [Title 2]</th>
-      <th>Story 3: [Title 3]</th>
+      <!-- Columns for each storyline -->
     </tr>
   </thead>
   <tbody>
-    <tr><td>Starting Normalized Owner Earnings (OE₀)</td><td>$XX,XXXM</td><td>$XX,XXXM</td><td>$XX,XXXM</td></tr>
-    <tr><td>5-Year Owner Earnings CAGR</td><td>~XX%</td><td>~XX%</td><td>~XX%</td></tr>
-    <tr><td>Discount / Hurdle Rate</td><td>XX%</td><td>XX%</td><td>XX%</td></tr>
-    <tr><td>Terminal Growth Rate</td><td>XX%</td><td>XX%</td><td>XX%</td></tr>
-    <tr><td>Implied Terminal Exit Multiple</td><td>XX.Xx OE₅</td><td>XX.Xx OE₅</td><td>XX.Xx OE₅</td></tr>
-    <tr><td><strong>PV of Explicit 5-Year Cash Flows</strong></td><td><strong>$XX,XXXM ($XX.XX/sh)</strong></td><td><strong>$XX,XXXM ($XX.XX/sh)</strong></td><td><strong>$XX,XXXM ($XX.XX/sh)</strong></td></tr>
-    <tr><td>&nbsp;&nbsp;└─ % of Operating EV from Explicit 5-Year Cash</td><td>XX%</td><td>XX%</td><td>XX%</td></tr>
-    <tr><td><strong>PV of Terminal Value</strong></td><td><strong>$XX,XXXM ($XX.XX/sh)</strong></td><td><strong>$XX,XXXM ($XX.XX/sh)</strong></td><td><strong>$XX,XXXM ($XX.XX/sh)</strong></td></tr>
-    <tr><td>&nbsp;&nbsp;└─ % of Operating EV from Terminal Value</td><td>XX%</td><td>XX%</td><td>XX%</td></tr>
-    <tr><td>Operating Business Enterprise Value</td><td>$XX,XXXM ($XX.XX/sh)</td><td>$XX,XXXM ($XX.XX/sh)</td><td>$XX,XXXM ($XX.XX/sh)</td></tr>
-    <tr><td>Net Balance Sheet Cash / (Debt) Adjustment</td><td>+$XX.XX/sh or -$XX.XX/sh</td><td>+$XX.XX/sh or -$XX.XX/sh</td><td>+$XX.XX/sh or -$XX.XX/sh</td></tr>
-    <tr><td><strong>Calculated Intrinsic Value / Share</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td></tr>
-    <tr><td><em>Alternative Fair Value @ 10.0x Exit Multiple Benchmark</em></td><td><em>$XX.XX</em></td><td><em>$XX.XX</em></td><td><em>$XX.XX</em></td></tr>
-    <tr><td><em>5-Year Tangible Cash Payback Yield</em></td><td><em>XX% of Price</em></td><td><em>XX% of Price</em></td><td><em>XX% of Price</em></td></tr>
+    <tr><td>Starting Normalized Owner Earnings (OE₀)</td><td>$XX,XXXM</td><td>$XX,XXXM</td></tr>
+    <tr><td>5-Year Owner Earnings CAGR</td><td>~XX%</td><td>~XX%</td></tr>
+    <tr><td>Discount / Hurdle Rate</td><td>XX%</td><td>XX%</td></tr>
+    <tr><td>Terminal Growth Rate</td><td>XX%</td><td>XX%</td></tr>
+    <tr><td>Implied Terminal Exit Multiple</td><td>XX.Xx OE₅</td><td>XX.Xx OE₅</td></tr>
+    <tr><td><strong>PV of Explicit 5-Year Cash Flows</strong></td><td><strong>$XX,XXXM ($XX.XX/sh)</strong></td><td><strong>$XX,XXXM ($XX.XX/sh)</strong></td></tr>
+    <tr><td>&nbsp;&nbsp;└─ % of Operating EV from Explicit 5-Year Cash</td><td>XX%</td><td>XX%</td></tr>
+    <tr><td><strong>PV of Terminal Value</strong></td><td><strong>$XX,XXXM ($XX.XX/sh)</strong></td><td><strong>$XX,XXXM ($XX.XX/sh)</strong></td></tr>
+    <tr><td>&nbsp;&nbsp;└─ % of Operating EV from Terminal Value</td><td>XX%</td><td>XX%</td></tr>
+    <tr><td>Operating Business Enterprise Value</td><td>$XX,XXXM ($XX.XX/sh)</td><td>$XX,XXXM ($XX.XX/sh)</td></tr>
+    <tr><td>Net Balance Sheet Cash / (Debt) Adjustment</td><td>+$XX.XX/sh or -$XX.XX/sh</td><td>+$XX.XX/sh or -$XX.XX/sh</td></tr>
+    <tr><td><strong>Calculated Intrinsic Value / Share</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td></tr>
+    <tr><td><em>Alternative Fair Value @ 10.0x Exit Multiple Benchmark</em></td><td><em>$XX.XX</em></td><td><em>$XX.XX</em></td></tr>
+    <tr><td><em>5-Year Tangible Cash Payback Yield</em></td><td><em>XX% of Price</em></td><td><em>XX% of Price</em></td></tr>
   </tbody>
 </table>
 
 <div class="callout">
   <h3>🎯 Probability-Weighted Expected Value Synthesis</h3>
-  <p>To avoid false precision or anchoring solely on a single operational path, we synthesize the three scenarios into an institutional expected value:</p>
+  <p>To avoid false precision or anchoring solely on a single operational path, we synthesize the scenarios into an institutional expected value:</p>
   <ul>
     <li><strong>Story 1: [Title 1] (p₁% Probability):</strong> $XX.XX / share</li>
     <li><strong>Story 2: [Title 2] (p₂% Probability):</strong> $XX.XX / share</li>
-    <li><strong>Story 3: [Title 3] (p₃% Probability):</strong> $XX.XX / share</li>
+    <!-- List for each story -->
   </ul>
   <p><strong>Probability-Weighted Expected Fair Value:</strong> <strong>$XX.XX / share</strong> (Margin of Safety: <strong>~XX%</strong> vs. today's market price of ${current_price:.2f}).</p>
-  <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 6px;"><em>Sensitivity Note: Under an equal-weighted 33/33/33 distribution, Expected Fair Value is $XX.XX / share.</em></p>
+  <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 6px;"><em>Sensitivity Note: Under an equal-weighted distribution, Expected Fair Value is $XX.XX / share.</em></p>
 </div>
 
 <div class="callout">
-  <h3>Step-by-Step Mathematical Proofs Across the 3 Paths</h3>
-  [Story 1 Proof HTML showing PV(5yr) + PV(TV) = Operating Value + Adjustment = Intrinsic Value]
-  [Story 2 Proof HTML showing PV(5yr) + PV(TV) = Operating Value + Adjustment = Intrinsic Value]
-  [Story 3 Proof HTML showing PV(5yr) + PV(TV) = Operating Value + Adjustment = Intrinsic Value]
+  <h3>Step-by-Step Mathematical Proofs Across the Storylines</h3>
+  <!-- Story 1 Proof HTML showing PV(5yr) + PV(TV) = Operating Value + Adjustment = Intrinsic Value -->
+  <!-- Story 2 Proof HTML showing PV(5yr) + PV(TV) = Operating Value + Adjustment = Intrinsic Value -->
 </div>
 
 <div class="callout">
@@ -1580,7 +1652,7 @@ Output the complete, updated Section 1 HTML starting with <h2>Section 1: Company
 
 SECTION_2_REMEDIATOR_PROMPT = """Target: {ticker} ({company_name})
 You are Section 2 Specialized Remediator: Senior Equity Research Analyst.
-Task: Update Section 2 (The Three Forward-Looking Operating Stories) to incorporate the specific critique directives below while preserving the complete institutional depth, trajectory cards, and HTML structure.
+Task: Update Section 2 (The Forward-Looking Operating Storylines) to incorporate the specific critique directives below while preserving the complete institutional depth, trajectory cards, and HTML structure.
 
 Directives to Incorporate:
 {directives}
@@ -1590,12 +1662,12 @@ Current Section 2 HTML:
 {sec2_html}
 ======================================================================
 
-Output the complete, updated Section 2 HTML starting with <h2>Section 2: The Three Forward-Looking Operating Stories</h2>. Pure HTML only (no markdown code fences)."""
+Output the complete, updated Section 2 HTML starting with <h2>Section 2: Probable Business Stories</h2>. Pure HTML only (no markdown code fences)."""
 
 SECTION_3_REMEDIATOR_PROMPT = """Target: {ticker} ({company_name})
 Current Market Price: ${current_price:.2f}
 You are Section 3 Specialized Remediator: Lead Quantitative Valuation Director.
-Task: Update Section 3 (Valuation Across the 3 Stories) to incorporate the specific critique directives below.
+Task: Update Section 3 (Valuation Across the Storylines) to incorporate the specific critique directives below.
 
 Directives to Incorporate:
 {directives}
@@ -1607,12 +1679,10 @@ Current Section 3 HTML:
 
 CRITICAL REQUIREMENTS:
 You MUST output the complete, untruncated Section 3 HTML containing:
-1. <h2>Section 3: Valuation Across the 3 Stories</h2>
-2. The 3-Story DCF Summary Table (with explicit row header 'Intrinsic Fair Value / Share' or 'Intrinsic Fair Value / ADS' containing calculated per-share values).
-3. <h3>Step-by-Step Mathematical Proofs Across the 3 Paths</h3>
-   - Full walkthrough for Story 1
-   - Full walkthrough for Story 2
-   - Full walkthrough for Story 3
+1. <h2>Section 3: Valuation Across the Storylines</h2>
+2. The DCF Summary Table (with explicit row header 'Intrinsic Fair Value / Share' or 'Intrinsic Fair Value / ADS' containing calculated per-share values for ALL storylines).
+3. <h3>Step-by-Step Mathematical Proofs Across the Storylines</h3>
+   - Full walkthrough for each storyline
 4. <h3>Reverse DCF Sensitivity Matrix: What is Mr. Market Pricing In?</h3>
    - Full sensitivity matrix table and narrative analysis
 5. <h3>Reconciliation vs. Wall Street Consensus Price Targets</h3>
@@ -1917,9 +1987,9 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     print("   └" + "─" * 50, flush=True)
 
     # ------------------------------------------------------------------
-    # Step 2: LLM Agent 2 - 3 Stories Strategist (100% BLIND)
+    # Step 2: LLM Agent 2 - Dynamic Stories Strategist (100% BLIND)
     # ------------------------------------------------------------------
-    print(f"\n📖 [AGENT 2: 3 STORIES GENERATOR] Formulating 3 probable, distinct operational stories (100% Blind Mode)...", flush=True)
+    print(f"\n📖 [AGENT 2: DYNAMIC STORYLINES GENERATOR] Formulating distinct operational storylines (100% Blind Mode)...", flush=True)
     agent_2_prompt = AGENT_2_STORIES_PROMPT.format(
         ticker=ticker_clean,
         company_name=company_name,
@@ -1927,90 +1997,71 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     )
     sec2_raw = call_gemini_with_search(agent_2_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False)
     sec2_clean = verify_and_repair_html_structure(clean_grounding_artifacts(sec2_raw))
-    print(f"   │ Status: 3 Stories generated ({len(sec2_clean.split())} words generated)", flush=True)
+    
+    parsed_stories = extract_stories_from_agent2(sec2_raw, sec2_clean)
+    num_stories = len(parsed_stories)
+    print(f"   │ Status: {num_stories} bespoke storylines formulated ({len(sec2_clean.split())} words generated)", flush=True)
     print("   └" + "─" * 50, flush=True)
 
     # ------------------------------------------------------------------
+    # Step 3: Dynamic Valuation Loop - Agent 3 for each of the N Stories (100% BLIND - Python Code Execution)
     # ------------------------------------------------------------------
-    # Step 3A: LLM Agent 3A - Story 1 DCF Valuation (100% BLIND - Python Code Execution)
-    # ------------------------------------------------------------------
-    print(f"\n🧮 [AGENT 3A: STORY 1 DCF] Modeling Buffett DCF for Story 1 via Python Code Execution (100% Blind Mode)...", flush=True)
-    prompt_3a = AGENT_3_SINGLE_STORY_DCF_PROMPT.format(
-        ticker=ticker_clean,
-        company_name=company_name,
-        story_name="Story 1",
-        story_num=1,
-        story_letter="A",
-        premise_context=sec1_clean,
-        story_context=sec2_clean
-    )
-    raw_3a = call_gemini_with_search(prompt_3a, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False, use_code_execution=True)
-    dcf1 = extract_json_block(raw_3a)
-    story1_val = extract_story_valuation(dcf1, raw_3a, current_price=current_price)
-    story1_title = str(dcf1.get("story_title") or "Story 1")
-    print(f"   │ Story 1 Valuation: ${story1_val:.2f} / share ({story1_title})", flush=True)
-    print("   └" + "─" * 50, flush=True)
-
-    # ------------------------------------------------------------------
-    # Step 3B: LLM Agent 3B - Story 2 DCF Valuation (100% BLIND - Python Code Execution)
-    # ------------------------------------------------------------------
-    print(f"\n🧮 [AGENT 3B: STORY 2 DCF] Modeling Buffett DCF for Story 2 via Python Code Execution (100% Blind Mode)...", flush=True)
-    prompt_3b = AGENT_3_SINGLE_STORY_DCF_PROMPT.format(
-        ticker=ticker_clean,
-        company_name=company_name,
-        story_name="Story 2",
-        story_num=2,
-        story_letter="B",
-        premise_context=sec1_clean,
-        story_context=sec2_clean
-    )
-    raw_3b = call_gemini_with_search(prompt_3b, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False, use_code_execution=True)
-    dcf2 = extract_json_block(raw_3b)
-    story2_val = extract_story_valuation(dcf2, raw_3b, current_price=current_price)
-    story2_title = str(dcf2.get("story_title") or "Story 2")
-    print(f"   │ Story 2 Valuation: ${story2_val:.2f} / share ({story2_title})", flush=True)
-    print("   └" + "─" * 50, flush=True)
-
-    # ------------------------------------------------------------------
-    # Step 3C: LLM Agent 3C - Story 3 DCF Valuation (100% BLIND - Python Code Execution)
-    # ------------------------------------------------------------------
-    print(f"\n🧮 [AGENT 3C: STORY 3 DCF] Modeling Buffett DCF for Story 3 via Python Code Execution (100% Blind Mode)...", flush=True)
-    prompt_3c = AGENT_3_SINGLE_STORY_DCF_PROMPT.format(
-        ticker=ticker_clean,
-        company_name=company_name,
-        story_name="Story 3",
-        story_num=3,
-        story_letter="C",
-        premise_context=sec1_clean,
-        story_context=sec2_clean
-    )
-    raw_3c = call_gemini_with_search(prompt_3c, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False, use_code_execution=True)
-    dcf3 = extract_json_block(raw_3c)
-    story3_val = extract_story_valuation(dcf3, raw_3c, current_price=current_price)
-    story3_title = str(dcf3.get("story_title") or "Story 3")
-    print(f"   │ Story 3 Valuation: ${story3_val:.2f} / share ({story3_title})", flush=True)
-    print("   └" + "─" * 50, flush=True)
-
-    # Fallback sanity for values if zero
-    if story1_val <= 0.0:
-        story1_val = round(current_price * 1.25, 2)
-    if story2_val <= 0.0:
-        story2_val = round(story1_val * 1.35, 2)
-    if story3_val <= 0.0:
-        story3_val = round(story1_val * 0.60, 2)
+    dcf_results = []
+    for idx, story in enumerate(parsed_stories, start=1):
+        story_title = story.get("story_title") or f"Story {idx}"
+        print(f"\n🧮 [AGENT 3.{idx}: STORY {idx} DCF] Modeling Buffett DCF for Story {idx}: '{story_title}' (100% Blind Mode)...", flush=True)
+        prompt_3 = AGENT_3_SINGLE_STORY_DCF_PROMPT.format(
+            ticker=ticker_clean,
+            company_name=company_name,
+            story_name=f"Story {idx}: {story_title}",
+            story_num=idx,
+            total_stories=num_stories,
+            premise_context=sec1_clean,
+            story_context=story.get("narrative") or sec2_clean
+        )
+        raw_3 = call_gemini_with_search(prompt_3, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False, use_code_execution=True)
+        dcf_json = extract_json_block(raw_3)
+        val = extract_story_valuation(dcf_json, raw_3, current_price=current_price)
+        
+        # Fallback sanity for values if zero
+        if val <= 0.0:
+            if idx == 1:
+                val = round(current_price * 1.15, 2)
+            elif idx == 2:
+                val = round(current_price * 1.35, 2)
+            else:
+                val = round(current_price * 0.75, 2)
+                
+        clean_title = str(dcf_json.get("story_title") or story_title)
+        clean_summary = str(dcf_json.get("short_summary") or story.get("short_summary") or "")
+        
+        print(f"   │ Story {idx} Intrinsic Value: ${val:.2f} / share ({clean_title})", flush=True)
+        print("   └" + "─" * 50, flush=True)
+        
+        dcf_results.append({
+            "story_num": idx,
+            "story_title": clean_title,
+            "short_summary": clean_summary,
+            "val": val,
+            "json": dcf_json,
+            "raw": raw_3
+        })
 
     # ------------------------------------------------------------------
     # Step 4: LLM Agent 4 - Reverse DCF & Section 3 HTML Synthesis (Python Code Execution)
     # ------------------------------------------------------------------
-    print(f"\n🔍 [AGENT 4: REVERSE DCF & SYNTHESIS] Inverting Market Price (${current_price:.2f}) vs Story 1 via Python Code Execution...", flush=True)
+    print(f"\n🔍 [AGENT 4: REVERSE DCF & SYNTHESIS] Inverting Market Price (${current_price:.2f}) across {num_stories} storylines via Python Code Execution...", flush=True)
+    stories_dcf_context = "\n\n".join([
+        f"Story {s['story_num']} ({s['story_title']}) DCF Model:\n{json.dumps(s['json'], indent=2)}"
+        for s in dcf_results
+    ])
     agent_4_prompt = AGENT_4_REVERSE_DCF_PROMPT.format(
         ticker=ticker_clean,
         company_name=company_name,
         current_price=current_price,
+        total_stories=num_stories,
         premise_context=sec1_clean,
-        story1_json=json.dumps(dcf1, indent=2),
-        story2_json=json.dumps(dcf2, indent=2),
-        story3_json=json.dumps(dcf3, indent=2)
+        stories_dcf_context=stories_dcf_context
     )
     sec3_raw = call_gemini_with_search(agent_4_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False, use_code_execution=True)
     sec3_clean = verify_and_repair_html_structure(clean_grounding_artifacts(sec3_raw))
@@ -2081,10 +2132,35 @@ Pass: {it}/{max_refine_iterations}
     print(f"\n🛡️ [HARMONIZER & QA] Assembling seamless thesis dossier and verifying structural integrity...", flush=True)
     full_html = verify_and_repair_html_structure(raw_full_html)
 
-    # Margins of safety vs current price
-    mos1 = ((story1_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
-    mos2 = ((story2_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
-    mos3 = ((story3_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
+    # Dynamically derive probability weights (p1, ..., pN) from Section 3
+    probs = extract_probabilities_from_sec3(sec3_current, num_stories=num_stories)
+    
+    stories_metadata = []
+    for idx, (res, prob) in enumerate(zip(dcf_results, probs), start=1):
+        val = res["val"]
+        mos = ((val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
+        prob_pct = round(prob * 100.0, 1)
+        stories_metadata.append({
+            "story_num": idx,
+            "id": idx,
+            "story_title": res["story_title"],
+            "title": res["story_title"],
+            "short_summary": res.get("short_summary") or "",
+            "summary": res.get("short_summary") or "",
+            "val": val,
+            "mos_pct": round(mos, 1),
+            "target": f"${val:.2f} ({mos:+.1f}%)",
+            "prob_pct": prob_pct,
+            "prob_weight": prob
+        })
+
+    expected_val = round(sum(s["prob_weight"] * s["val"] for s in stories_metadata), 2)
+    expected_mos = ((expected_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
+
+    min_story = min(stories_metadata, key=lambda s: s["val"])
+    max_story = max(stories_metadata, key=lambda s: s["val"])
+    base_story = stories_metadata[0]  # Story 1 is always Central Baseline
+    mos1 = base_story["mos_pct"]
 
     # Action Signal Derivation from Story 1 Fair Value
     if mos1 >= 20.0:
@@ -2097,8 +2173,8 @@ Pass: {it}/{max_refine_iterations}
         action_signal = "AVOID"
 
     # Price alert corridors
-    lower_alert = round(min(story1_val, story2_val, story3_val), 2)
-    upper_alert = round(max(story1_val, story2_val, story3_val), 2)
+    lower_alert = round(min_story["val"], 2)
+    upper_alert = round(max_story["val"], 2)
     if lower_alert >= current_price:
         lower_alert = round(current_price * 0.90, 2)
     if upper_alert <= current_price:
@@ -2138,23 +2214,8 @@ Pass: {it}/{max_refine_iterations}
             pred_score = "Speculative · Binary"
     pred_summary = f"{predictability_tier}: Underwritten via Buffett & Munger 10-year visibility framework."
 
-    what_is_priced_in = f"Market prices in today's entry price of ${current_price:.2f} vs Story 1 Intrinsic Value of ${story1_val:.2f}"
-    exec_summary = f"Level-headed fundamental investment thesis established for {ticker_clean} across 3 distinct operating paths."
-
-    # Dynamic Scenario Mapping: Ensure bear is lowest (floor), base is Story 1, bull is highest (ceiling)
-    all_story_tuples = [
-        (story1_val, mos1, story1_title, "Story 1"),
-        (story2_val, mos2, story2_title, "Story 2"),
-        (story3_val, mos3, story3_title, "Story 3")
-    ]
-    min_story = min(all_story_tuples, key=lambda x: x[0])
-    max_story = max(all_story_tuples, key=lambda x: x[0])
-    base_story = all_story_tuples[0]  # Story 1 is always Base Case
-    
-    # Dynamically extract derived probability weights (p1, p2, p3) from Section 3
-    p1, p2, p3 = extract_probabilities_from_sec3(sec3_current)
-    expected_val = round((p1 * story1_val) + (p2 * story2_val) + (p3 * story3_val), 2)
-    expected_mos = ((expected_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
+    what_is_priced_in = f"Market prices in today's entry price of ${current_price:.2f} vs Story 1 Intrinsic Value of ${base_story['val']:.2f}"
+    exec_summary = f"Level-headed fundamental investment thesis established for {ticker_clean} across {num_stories} distinct operating paths."
 
     # Fetch verified next catalyst and earnings release date via Google Search subagent
     cat_intel = research_catalyst_intelligence(ticker_clean, company_name)
@@ -2175,21 +2236,23 @@ Pass: {it}/{max_refine_iterations}
         "predictability_summary": pred_summary,
         "labels": sanitized_labels,
         "action_signal": action_signal,
-        "fair_value_estimate": f"${story1_val:.2f}",
+        "fair_value_estimate": f"${base_story['val']:.2f}",
         "expected_fair_value": f"${expected_val:.2f} ({expected_mos:+.1f}%)",
         "expected_val": expected_val,
-        "story1_target": f"${story1_val:.2f} ({mos1:+.1f}%)",
-        "story2_target": f"${story2_val:.2f} ({mos2:+.1f}%)",
-        "story3_target": f"${story3_val:.2f} ({mos3:+.1f}%)",
-        "story1_title": story1_title,
-        "story2_title": story2_title,
-        "story3_title": story3_title,
-        "story1_val": story1_val,
-        "story2_val": story2_val,
-        "story3_val": story3_val,
-        "bear_target": f"${min_story[0]:.2f} ({min_story[1]:+.1f}%)",
-        "base_target": f"${base_story[0]:.2f} ({base_story[1]:+.1f}%)",
-        "bull_target": f"${max_story[0]:.2f} ({max_story[1]:+.1f}%)",
+        "stories": stories_metadata,
+        "bear_target": f"${min_story['val']:.2f} ({min_story['mos_pct']:+.1f}%)",
+        "base_target": f"${base_story['val']:.2f} ({base_story['mos_pct']:+.1f}%)",
+        "bull_target": f"${max_story['val']:.2f} ({max_story['mos_pct']:+.1f}%)",
+        # Legacy backward compatibility keys:
+        "story1_target": stories_metadata[0]["target"],
+        "story1_title": stories_metadata[0]["story_title"],
+        "story1_val": stories_metadata[0]["val"],
+        "story2_target": stories_metadata[1]["target"] if len(stories_metadata) > 1 else stories_metadata[0]["target"],
+        "story2_title": stories_metadata[1]["story_title"] if len(stories_metadata) > 1 else stories_metadata[0]["story_title"],
+        "story2_val": stories_metadata[1]["val"] if len(stories_metadata) > 1 else stories_metadata[0]["val"],
+        "story3_target": stories_metadata[2]["target"] if len(stories_metadata) > 2 else (stories_metadata[1]["target"] if len(stories_metadata) > 1 else stories_metadata[0]["target"]),
+        "story3_title": stories_metadata[2]["story_title"] if len(stories_metadata) > 2 else (stories_metadata[1]["story_title"] if len(stories_metadata) > 1 else stories_metadata[0]["story_title"]),
+        "story3_val": stories_metadata[2]["val"] if len(stories_metadata) > 2 else (stories_metadata[1]["val"] if len(stories_metadata) > 1 else stories_metadata[0]["val"]),
         "what_is_priced_in": what_is_priced_in,
         "upper_alert_threshold": upper_alert,
         "lower_alert_threshold": lower_alert,
@@ -2209,11 +2272,10 @@ Pass: {it}/{max_refine_iterations}
         print(f"   ⚠️ Quality Gatekeeper Audit flagged items: {issues}. Auto-healing...", flush=True)
 
     print("\n" + "=" * 70, flush=True)
-    print(f"✅ DOSSIER COMPLETE: {ticker_clean} ({metadata['status_label']}) [3 Valuations Evaluated]", flush=True)
-    print(f"   │ Signal: {metadata['action_signal']} | Fair Value: {metadata['fair_value_estimate']}", flush=True)
-    print(f"   │ Story 1 ({metadata['story1_title']}): {metadata['story1_target']}", flush=True)
-    print(f"   │ Story 2 ({metadata['story2_title']}): {metadata['story2_target']}", flush=True)
-    print(f"   │ Story 3 ({metadata['story3_title']}): {metadata['story3_target']}", flush=True)
+    print(f"✅ DOSSIER COMPLETE: {ticker_clean} ({metadata['status_label']}) [{len(stories_metadata)} Storylines Evaluated]", flush=True)
+    print(f"   │ Signal: {metadata['action_signal']} | Fair Value: {metadata['fair_value_estimate']} | Expected Value: {metadata['expected_fair_value']}", flush=True)
+    for s in stories_metadata:
+        print(f"   │ Story {s['story_num']} ({s['story_title']}): {s['target']} [{s['prob_pct']}% Prob]", flush=True)
     print("=" * 70 + "\n", flush=True)
 
     return metadata, full_html
