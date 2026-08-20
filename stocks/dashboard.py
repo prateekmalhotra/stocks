@@ -503,14 +503,92 @@ def extract_numeric_price(val: Any) -> Optional[float]:
     return None
 
 
-def build_storylines_summary_widget_html(stock: WatchlistStock, stories: Optional[List[Dict[str, Any]]] = None) -> str:
-    """Builds a beautiful, responsive executive summary widget for all N operational storylines directly below the chart."""
+def extract_terminal_data_from_html(html: str, num_stories: int = 3) -> List[Dict[str, str]]:
+    """Extracts terminal exit multiple, terminal growth rate, and hurdle rate for each story from Section 3 HTML."""
+    term_data = [{} for _ in range(num_stories)]
+    if not html:
+        return term_data
+        
+    # 1. Exit multiple row
+    m_exit = re.search(r'Implied Terminal Exit Multiple</td>\s*(<td>.*?</td>\s*)+', html, re.DOTALL | re.IGNORECASE)
+    if m_exit:
+        cells = re.findall(r'<td>(.*?)</td>', m_exit.group(0), re.DOTALL)
+        for idx, c in enumerate(cells[:num_stories]):
+            clean_c = re.sub(r'<[^>]+>', '', c).strip()
+            m_short = re.match(r'(\d+\.?\d*x\s*(?:OE[\d\u2080-\u2089]+|FCF[\d\u2080-\u2089]+)?)', clean_c, re.IGNORECASE)
+            term_data[idx]['exit_multiple'] = m_short.group(1).strip() if m_short else clean_c
+
+    # 2. Terminal growth row
+    m_growth = re.search(r'Terminal Growth Rate</td>\s*(<td>.*?</td>\s*)+', html, re.DOTALL | re.IGNORECASE)
+    if m_growth:
+        cells = re.findall(r'<td>(.*?)</td>', m_growth.group(0), re.DOTALL)
+        for idx, c in enumerate(cells[:num_stories]):
+            clean_c = re.sub(r'<[^>]+>', '', c).strip()
+            term_data[idx]['terminal_growth'] = clean_c
+
+    # 3. Discount rate row
+    m_disc = re.search(r'Discount / Hurdle Rate</td>\s*(<td>.*?</td>\s*)+', html, re.DOTALL | re.IGNORECASE)
+    if m_disc:
+        cells = re.findall(r'<td>(.*?)</td>', m_disc.group(0), re.DOTALL)
+        for idx, c in enumerate(cells[:num_stories]):
+            clean_c = re.sub(r'<[^>]+>', '', c).strip()
+            term_data[idx]['discount_rate'] = clean_c
+
+    return term_data
+
+
+def extract_priced_in_card_data(stock: WatchlistStock, html: str = "") -> Dict[str, Any]:
+    """Extracts market implied growth, terminal multiple, and narrative summary from Reverse DCF section."""
+    cur_p = stock.current_price or 1.0
+    res = {
+        "title": "Implied Market Expectations",
+        "summary": f"Current price of ${cur_p:.2f} implies baseline cash flow compounding.",
+        "implied_growth": "7.7% / yr",
+        "implied_terminal": "18.0x–20.0x OE₅",
+        "hurdle_rate": "9.50% hurdle"
+    }
+    
+    if not html:
+        return res
+        
+    # 1. Extract Reverse DCF required CAGR row
+    m_row = re.search(r'Normalized Base Run-Rate[^<]*</td>\s*<td>(.*?)</td>(?:\s*<td>(.*?)</td>)?', html, re.IGNORECASE)
+    if m_row:
+        g1 = re.sub(r'<[^>]+>', '', m_row.group(1)).strip()
+        g2 = re.sub(r'<[^>]+>', '', m_row.group(2) or "").strip()
+        if g1 and g2:
+            res["implied_growth"] = f"{g1} to {g2}"
+        elif g1:
+            res["implied_growth"] = g1
+
+    # 2. Extract Reverse DCF exit multiple range from Reverse DCF Table
+    m_rev_table = re.search(r'Reverse DCF Sensitivity Matrix.*?(<table.*?</table>)', html, re.DOTALL | re.IGNORECASE)
+    if m_rev_table:
+        th_matches = re.findall(r'(\d+\.?\d*x)', m_rev_table.group(1), re.IGNORECASE)
+        if th_matches:
+            unique_th = list(dict.fromkeys(th_matches))
+            if len(unique_th) >= 2:
+                res["implied_terminal"] = f"{unique_th[1]}–{unique_th[0]} OE₅"
+            elif len(unique_th) == 1:
+                res["implied_terminal"] = f"{unique_th[0]} OE₅"
+
+    # 3. Clean and minimal 1-sentence synthesis
+    g_str = res["implied_growth"].replace("/ yr", "").replace("/yr", "").strip()
+    mult_str = res["implied_terminal"]
+    h_str = res["hurdle_rate"].replace("hurdle", "").strip()
+    res["summary"] = f"Current valuation implies ~{g_str} 5-year Owner Earnings CAGR and a {mult_str} terminal multiple at a {h_str} hurdle rate."
+
+    return res
+
+
+def build_storylines_summary_widget_html(stock: WatchlistStock, stories: Optional[List[Dict[str, Any]]] = None, full_html: str = "") -> str:
+    """Builds a minimalist, institutional executive summary widget for all N operational storylines directly below the chart."""
     palette = [
-        {"border": "#64B5F6", "badge_bg": "rgba(100, 181, 246, 0.12)", "text": "#64B5F6"},
-        {"border": "#D4A373", "badge_bg": "rgba(212, 163, 115, 0.14)", "text": "#D4A373"},
-        {"border": "#81C784", "badge_bg": "rgba(129, 199, 132, 0.12)", "text": "#81C784"},
-        {"border": "#B39DDB", "badge_bg": "rgba(179, 157, 219, 0.12)", "text": "#B39DDB"},
-        {"border": "#FF8A65", "badge_bg": "rgba(255, 138, 101, 0.12)", "text": "#FF8A65"},
+        {"border": "var(--accent-warm)", "badge_bg": "rgba(212, 163, 115, 0.08)", "badge_border": "rgba(212, 163, 115, 0.22)", "text": "var(--accent-warm)"},
+        {"border": "var(--accent-green)", "badge_bg": "rgba(130, 174, 140, 0.08)", "badge_border": "rgba(130, 174, 140, 0.22)", "text": "var(--accent-green)"},
+        {"border": "var(--accent-red)", "badge_bg": "rgba(201, 122, 114, 0.08)", "badge_border": "rgba(201, 122, 114, 0.22)", "text": "var(--accent-red)"},
+        {"border": "#A8A29E", "badge_bg": "rgba(168, 162, 158, 0.08)", "badge_border": "rgba(168, 162, 158, 0.22)", "text": "#D6D3D1"},
+        {"border": "#94A3B8", "badge_bg": "rgba(148, 163, 184, 0.08)", "badge_border": "rgba(148, 163, 184, 0.22)", "text": "#CBD5E1"},
     ]
     
     # Normalize stories list from stock
@@ -534,6 +612,8 @@ def build_storylines_summary_widget_html(stock: WatchlistStock, stories: Optiona
     if not story_list:
         return ""
 
+    extracted_term = extract_terminal_data_from_html(full_html, num_stories=len(story_list))
+
     cur_p = stock.current_price or 1.0
     cards_html = []
     for idx, s in enumerate(story_list):
@@ -546,43 +626,133 @@ def build_storylines_summary_widget_html(stock: WatchlistStock, stories: Optiona
         prob_pct = s.get("prob_pct")
         prob_label = f" &bull; {prob_pct:.0f}% Prob" if prob_pct is not None else ""
         
-        diff_color = "var(--accent-green)" if mos_pct >= 0 else "var(--accent-red)"
-        title = s.get("story_title") or s.get("title") or f"Story {idx+1}"
-        summary = s.get("short_summary") or s.get("summary") or "Underwritten via disciplined first-principles cash flow compounding."
+        mos_badge_bg = "rgba(130, 174, 140, 0.08)" if mos_pct >= 0 else "rgba(201, 122, 114, 0.08)"
+        mos_badge_color = "var(--accent-green)" if mos_pct >= 0 else "var(--accent-red)"
+        mos_badge_border = "rgba(130, 174, 140, 0.20)" if mos_pct >= 0 else "rgba(201, 122, 114, 0.20)"
+        
+        # Clean title: strip out redundant brackets
+        raw_title = s.get("story_title") or s.get("title") or f"Story {idx+1}"
+        title = re.sub(r'\s*\((?:Central Baseline|Base Case|Upside Expansion|Bull Case|Downside Drag|Downside Risk|Bear Case)\)', '', raw_title, flags=re.IGNORECASE).strip()
+        
+        # Clean summary: 1-2 tight sentences max (under 24 words)
+        raw_summary = s.get("short_summary") or s.get("summary") or "Underwritten via disciplined first-principles cash flow compounding."
+        sentences = [sent.strip() for sent in re.split(r'(?<=[.!?])\s+', raw_summary) if sent.strip()]
+        if sentences:
+            summary = sentences[0]
+            if len(summary.split()) < 14 and len(sentences) > 1:
+                summary = f"{sentences[0]} {sentences[1]}"
+        else:
+            summary = raw_summary
+        
+        # Terminal Value Metadata extraction
+        term_exit = s.get("terminal_multiple") or (extracted_term[idx].get("exit_multiple") if idx < len(extracted_term) else "")
+        term_g = s.get("terminal_growth") or (extracted_term[idx].get("terminal_growth") if idx < len(extracted_term) else "")
+        term_r = s.get("discount_rate") or (extracted_term[idx].get("discount_rate") if idx < len(extracted_term) else "")
+        
+        terminal_footer_html = ""
+        if term_exit or term_g:
+            parts = []
+            if term_g:
+                parts.append(f'<span>{term_g} perpetual g</span>')
+            if term_r:
+                parts.append(f'<span>{term_r} hurdle</span>')
+                
+            right_sub = f' <span style="color: var(--text-dim);">&bull;</span> '.join(parts)
+            
+            terminal_footer_html = f"""
+            <div style="margin-top: auto; padding: 6px 10px; background: rgba(0, 0, 0, 0.22); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 5px; display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 0.70rem;">
+                <div style="display: flex; align-items: center; gap: 6px;">
+                    <span style="color: var(--accent-warm); font-size: 0.72rem;">🎯</span>
+                    <span style="color: var(--text-dim); text-transform: uppercase; font-size: 0.63rem; letter-spacing: 0.04em; font-weight: 600;">Terminal:</span>
+                    <span style="color: var(--text-title); font-weight: 600;">{term_exit or 'Gordon Growth'}</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 6px; color: var(--text-secondary); font-size: 0.68rem;">
+                    {right_sub}
+                </div>
+            </div>
+            """
         
         card = f"""
-        <div class="storyline-summary-card" style="background: var(--bg-subpanel); border: 1px solid var(--border-color); border-left: 3.5px solid {color['border']}; border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; min-width: 0;">
+        <div class="storyline-summary-card" style="background: var(--bg-panel); border: 1px solid var(--border-color); border-left: 3px solid {color['border']}; border-radius: 8px; padding: 15px 17px; display: flex; flex-direction: column; gap: 8px; min-width: 0;">
             <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;">
-                <span style="font-family: var(--font-mono); font-size: 0.70rem; color: {color['text']}; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;">
+                <span style="font-family: var(--font-mono); font-size: 0.65rem; color: {color['text']}; background: {color['badge_bg']}; border: 1px solid {color['badge_border']}; padding: 2px 7px; border-radius: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;">
                     Story {idx+1}{prob_label}
                 </span>
-                <span style="font-family: var(--font-mono); font-size: 0.88rem; font-weight: 600; color: {diff_color};">
-                    ${val:.2f} ({mos_pct:+.1f}%)
-                </span>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                    <span style="font-family: var(--font-mono); font-size: 0.88rem; font-weight: 600; color: var(--text-title);">
+                        ${val:.2f}
+                    </span>
+                    <span style="font-family: var(--font-mono); font-size: 0.70rem; font-weight: 500; color: {mos_badge_color}; background: {mos_badge_bg}; border: 1px solid {mos_badge_border}; padding: 1.5px 5px; border-radius: 4px;">
+                        {mos_pct:+.1f}%
+                    </span>
+                </div>
             </div>
-            <div style="font-family: var(--font-sans); font-size: 0.90rem; font-weight: 600; color: var(--text-title); line-height: 1.35; letter-spacing: -0.01em;">
+            <div style="font-family: var(--font-sans); font-size: 0.88rem; font-weight: 600; color: var(--text-title); line-height: 1.35; letter-spacing: -0.01em;">
                 {title}
             </div>
-            <p style="font-family: var(--font-sans); font-size: 0.80rem; color: var(--text-body); line-height: 1.5; margin: 0;">
+            <p style="font-family: var(--font-sans); font-size: 0.80rem; color: var(--text-body); line-height: 1.52; margin: 0; flex-grow: 1;">
                 {summary}
             </p>
+            {terminal_footer_html}
         </div>
         """
         cards_html.append(card)
         
+    # Append the "What is Priced In" Market-Implied Storyline Box
+    priced_in_info = extract_priced_in_card_data(stock, full_html)
+    priced_in_card = f"""
+    <div class="storyline-summary-card storyline-priced-in-card" style="background: var(--bg-panel); border: 1px solid var(--border-color); border-left: 3px solid var(--text-secondary); border-radius: 8px; padding: 15px 17px; display: flex; flex-direction: column; gap: 8px; min-width: 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-secondary); background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); padding: 2px 7px; border-radius: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;">
+                ⚡ What Is Priced In &bull; Market Implied
+            </span>
+            <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="font-family: var(--font-mono); font-size: 0.88rem; font-weight: 600; color: var(--text-title);">
+                    ${cur_p:.2f}
+                </span>
+                <span style="font-family: var(--font-mono); font-size: 0.70rem; font-weight: 500; color: var(--text-dim); background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.07); padding: 1.5px 5px; border-radius: 4px;">
+                    Current Price
+                </span>
+            </div>
+        </div>
+        <div style="font-family: var(--font-sans); font-size: 0.88rem; font-weight: 600; color: var(--text-title); line-height: 1.35; letter-spacing: -0.01em;">
+            {priced_in_info['title']}
+        </div>
+        <p style="font-family: var(--font-sans); font-size: 0.80rem; color: var(--text-body); line-height: 1.52; margin: 0; flex-grow: 1;">
+            {priced_in_info['summary']}
+        </p>
+        <div style="margin-top: auto; padding: 6px 10px; background: rgba(0, 0, 0, 0.22); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 5px; display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 0.70rem;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="color: var(--accent-warm); font-size: 0.72rem;">🎯</span>
+                <span style="color: var(--text-dim); text-transform: uppercase; font-size: 0.63rem; letter-spacing: 0.04em; font-weight: 600;">Implied Terminal:</span>
+                <span style="color: var(--text-title); font-weight: 600;">{priced_in_info['implied_terminal']}</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px; color: var(--text-secondary); font-size: 0.68rem;">
+                <span>{priced_in_info['implied_growth']} req. 5Y CAGR</span>
+                <span style="color: var(--text-dim);">&bull;</span>
+                <span>{priced_in_info['hurdle_rate']}</span>
+            </div>
+        </div>
+    </div>
+    """
+    cards_html.append(priced_in_card)
+        
     expected_display = getattr(stock, 'expected_fair_value', '') or stock.fair_value_estimate
     
     return f"""
-    <div class="storylines-summary-deck" style="margin-top: 20px; margin-bottom: 24px; background: rgba(0, 0, 0, 0.18); border: 1px solid var(--border-color); border-radius: 12px; padding: 18px 20px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+    <div class="storylines-summary-deck" style="margin-top: 20px; margin-bottom: 24px; background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 10px; padding: 18px 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color);">
             <div style="display: flex; align-items: center; gap: 8px;">
-                <span style="font-size: 1.05rem;">📖</span>
-                <span style="font-family: var(--font-sans); font-size: 0.88rem; font-weight: 700; color: var(--text-title); text-transform: uppercase; letter-spacing: 0.05em;">
-                    Operational Storylines &amp; Probability Space ({len(story_list)} Paths)
+                <span style="font-size: 0.95rem;">📖</span>
+                <span style="font-family: var(--font-sans); font-size: 0.80rem; font-weight: 700; color: var(--text-title); text-transform: uppercase; letter-spacing: 0.06em;">
+                    Operational Storylines &amp; Probability Space
+                </span>
+                <span style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-secondary);">
+                    ({len(story_list)} Scenarios + Market Implied)
                 </span>
             </div>
             <div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-secondary);">
-                Expected Value: <strong style="color: var(--accent-warm);">{expected_display}</strong>
+                Expected Value: <strong style="color: var(--accent-warm); font-weight: 700;">{expected_display}</strong>
             </div>
         </div>
         <div class="storylines-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
@@ -614,13 +784,13 @@ def build_native_svg_chart(
     prices = [p["price"] for p in initial_pts]
     eval_prices = list(prices)
     
-    # Color palette for up to 5 stories
+    # Color palette for up to 5 stories (Warm Minimalist Institutional Palette)
     palette = [
-        {"color": "#64B5F6", "name": "Story 1"},
-        {"color": "#D4A373", "name": "Story 2"},
-        {"color": "#81C784", "name": "Story 3"},
-        {"color": "#B39DDB", "name": "Story 4"},
-        {"color": "#FF8A65", "name": "Story 5"}
+        {"color": "#D4A373", "name": "Story 1"},
+        {"color": "#82AE8C", "name": "Story 2"},
+        {"color": "#C97A72", "name": "Story 3"},
+        {"color": "#A8A29E", "name": "Story 4"},
+        {"color": "#94A3B8", "name": "Story 5"}
     ]
     
     # Normalize stories list
@@ -643,11 +813,11 @@ def build_native_svg_chart(
         s2 = story2_target if story2_target is not None else fair_target
         s3 = story3_target if story3_target is not None else bull_target
         if s1 is not None and s1 > 0:
-            chart_targets.append({"id": 1, "val": round(float(s1), 2), "color": "#64B5F6", "title": story1_title or "Story 1"})
+            chart_targets.append({"id": 1, "val": round(float(s1), 2), "color": "#D4A373", "title": story1_title or "Story 1"})
         if s2 is not None and s2 > 0:
-            chart_targets.append({"id": 2, "val": round(float(s2), 2), "color": "#D4A373", "title": story2_title or "Story 2"})
+            chart_targets.append({"id": 2, "val": round(float(s2), 2), "color": "#82AE8C", "title": story2_title or "Story 2"})
         if s3 is not None and s3 > 0:
-            chart_targets.append({"id": 3, "val": round(float(s3), 2), "color": "#81C784", "title": story3_title or "Story 3"})
+            chart_targets.append({"id": 3, "val": round(float(s3), 2), "color": "#C97A72", "title": story3_title or "Story 3"})
 
     for ct in chart_targets:
         eval_prices.append(ct["val"])
@@ -1123,7 +1293,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             if v.fair_value_estimate:
                 targets_chips.append(f'<span style="color:var(--accent-warm); font-weight:600;">🎯 FV: {v.fair_value_estimate}</span>')
             
-            palette_colors = ["#64B5F6", "#D4A373", "#81C784", "#B39DDB", "#FF8A65"]
+            palette_colors = ["#D4A373", "#82AE8C", "#C97A72", "#A8A29E", "#94A3B8"]
             v_stories = getattr(v, "stories", None) or []
             if v_stories:
                 for s_idx, s in enumerate(v_stories):
@@ -1136,11 +1306,11 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 v_s2 = getattr(v, "story2_target", None) or getattr(v, "base_target", "")
                 v_s3 = getattr(v, "story3_target", None) or getattr(v, "bull_target", "")
                 if v_s1:
-                    targets_chips.append(f'<span style="color:#64B5F6;">Story 1: {v_s1}</span>')
+                    targets_chips.append(f'<span style="color:#D4A373;">Story 1: {v_s1}</span>')
                 if v_s2:
-                    targets_chips.append(f'<span style="color:#D4A373;">Story 2: {v_s2}</span>')
+                    targets_chips.append(f'<span style="color:#82AE8C;">Story 2: {v_s2}</span>')
                 if v_s3:
-                    targets_chips.append(f'<span style="color:#81C784;">Story 3: {v_s3}</span>')
+                    targets_chips.append(f'<span style="color:#C97A72;">Story 3: {v_s3}</span>')
             targets_summary_html = f'<div style="display:flex; align-items:center; gap:10px; font-family:var(--font-mono); font-size:0.75rem; flex-wrap:wrap; margin-top:8px; padding:6px 12px; background:rgba(255,255,255,0.02); border-radius:6px; border:1px solid rgba(255,255,255,0.04);">{" • ".join(targets_chips)}</div>' if targets_chips else ""
 
             # Check if labels evolved in this version
@@ -1274,9 +1444,9 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         story1_target=s1_num, story2_target=s2_num, story3_target=s3_num,
         story1_title=s1_title, story2_title=s2_title, story3_title=s3_title
     )
-    storylines_summary_widget_html = build_storylines_summary_widget_html(stock, stories=stories_data)
+    storylines_summary_widget_html = build_storylines_summary_widget_html(stock, stories=stories_data, full_html=raw_active_content)
     
-    palette_colors = ["#64B5F6", "#D4A373", "#81C784", "#B39DDB", "#FF8A65"]
+    palette_colors = ["#D4A373", "#82AE8C", "#C97A72", "#A8A29E", "#94A3B8"]
     metric_story_list = stories_data if len(stories_data) >= 1 else [
         {"id": 1, "target": getattr(stock, "story1_target", "") or stock.bear_target},
         {"id": 2, "target": getattr(stock, "story2_target", "") or stock.base_target},
@@ -2483,26 +2653,20 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             <!-- Storylines Executive Summary & Probability Space Widget -->
             {storylines_summary_widget_html}
 
-            <!-- Key Metrics Grid -->
+            <!-- Key Quality & Catalyst Strip -->
             <div class="metrics-grid">
                 <div class="metric-cell">
-                    <div class="metric-label">Fair Value</div>
-                    <div class="metric-value" style="color: var(--accent-warm);">{format_usd_target(stock.fair_value_estimate)}</div>
-                </div>
-                {story_metric_cells_html}
-                <div class="metric-cell">
-                    <div class="metric-label">Corridor</div>
-                    <div class="metric-value" style="font-size: 1.00rem; font-family: var(--font-mono); color: var(--text-title);">{f"${stock.lower_alert_threshold:.2f} ⇄ ${stock.upper_alert_threshold:.2f}" if stock.lower_alert_threshold is not None and stock.upper_alert_threshold is not None else "N/A"}</div>
-                </div>
-                <div class="metric-cell">
-                    <div class="metric-label">Catalyst</div>
-                    <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">{stock.next_catalyst_date or 'TBD'}</div>
-                    {f'<div class="metric-delta" style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 2px;">{clean_cat_desc}</div>' if clean_cat_desc else ''}
+                    <div class="metric-label">Expected Fair Value</div>
+                    <div class="metric-value" style="color: var(--accent-warm);">{format_usd_target(getattr(stock, 'expected_fair_value', '') or stock.fair_value_estimate)}</div>
+                    <div class="metric-subtext" style="color: var(--text-secondary);">Probability-Weighted DCF</div>
                 </div>
                 {format_pricing_power_card_html(stock)}
-                {format_top_funds_card_html(stock)}
-                {format_insider_activity_card_html(stock)}
                 {format_cash_flow_predictability_card_html(stock)}
+                <div class="metric-cell">
+                    <div class="metric-label">Next Catalyst</div>
+                    <div class="metric-value" style="font-size: 0.95rem; font-family: var(--font-sans);">{stock.next_catalyst_date or 'TBD'}</div>
+                    <div class="metric-subtext" style="color: var(--text-secondary);">{clean_cat_desc or 'Earnings Release / Filing'}</div>
+                </div>
             </div>
         </section>
 

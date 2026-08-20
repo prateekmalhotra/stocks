@@ -2141,6 +2141,13 @@ Pass: {it}/{max_refine_iterations}
         val = res["val"]
         mos = ((val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
         prob_pct = round(prob * 100.0, 1)
+        dcf_json = res.get("json", {})
+        exit_mult = dcf_json.get("implied_exit_multiple") or dcf_json.get("terminal_multiple") or ""
+        g_term = dcf_json.get("terminal_growth_rate")
+        g_term_str = f"{float(g_term)*100:.1f}%" if isinstance(g_term, (int, float)) and g_term < 1.0 else str(g_term or "")
+        r_disc = dcf_json.get("discount_rate")
+        r_disc_str = f"{float(r_disc)*100:.1f}%" if isinstance(r_disc, (int, float)) and r_disc < 1.0 else str(r_disc or "")
+        
         stories_metadata.append({
             "story_num": idx,
             "id": idx,
@@ -2152,7 +2159,10 @@ Pass: {it}/{max_refine_iterations}
             "mos_pct": round(mos, 1),
             "target": f"${val:.2f} ({mos:+.1f}%)",
             "prob_pct": prob_pct,
-            "prob_weight": prob
+            "prob_weight": prob,
+            "terminal_multiple": str(exit_mult),
+            "terminal_growth": g_term_str,
+            "discount_rate": r_disc_str
         })
 
     expected_val = round(sum(s["prob_weight"] * s["val"] for s in stories_metadata), 2)
@@ -2214,7 +2224,19 @@ Pass: {it}/{max_refine_iterations}
             pred_score = "Speculative · Binary"
     pred_summary = f"{predictability_tier}: Underwritten via Buffett & Munger 10-year visibility framework."
 
-    what_is_priced_in = f"Market prices in today's entry price of ${current_price:.2f} vs Expected Intrinsic Value of ${expected_val:.2f} ({expected_mos:+.1f}%)"
+    # Extract high-fidelity Reverse DCF narrative from Section 3
+    m_cash_adj = re.search(r'Surplus Cash-Adjusted Baseline Hurdle[^:]*:(.*?)(?:</ul>|<h3>|<div class="callout"|$)', sec3_current, re.DOTALL | re.IGNORECASE)
+    if m_cash_adj:
+        clean_bullets = re.sub(r'<[^>]+>', ' ', m_cash_adj.group(1))
+        clean_bullets = ' '.join(clean_bullets.split()).strip()
+        clean_bullets = re.sub(r'^[•\-\*]\s*', '', clean_bullets)
+        if len(clean_bullets) > 30:
+            what_is_priced_in = clean_bullets[:280].rstrip()
+        else:
+            what_is_priced_in = f"Market entry price of ${current_price:.2f} implies disciplined baseline cash flow compounding."
+    else:
+        what_is_priced_in = f"Market prices in today's entry price of ${current_price:.2f} vs Expected Intrinsic Value of ${expected_val:.2f} ({expected_mos:+.1f}%)"
+        
     exec_summary = f"Level-headed fundamental investment thesis established for {ticker_clean} across {num_stories} distinct operating paths."
 
     # Fetch verified next catalyst and earnings release date via Google Search subagent
