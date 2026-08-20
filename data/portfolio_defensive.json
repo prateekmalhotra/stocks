@@ -7,60 +7,32 @@
   "base_capital_usd": 200000.0,
   "holdings": [
     {
-      "ticker": "PDD",
-      "company_name": "PDD Holdings Inc.",
-      "sector": "Commerce & Logistics",
-      "industry": "Value Commerce & Cross-Border Supply Platform",
-      "quality_score": 92.0,
-      "target_weight": 0.7944,
-      "pillar": "A",
-      "cost_basis": 90.2,
-      "current_price": 87.7,
-      "fair_value": 158.92,
-      "margin_of_safety_pct": 81.2,
-      "allocated_dollars": 158880.0,
-      "shares_to_buy": 1761.4191,
-      "look_through_fcf_yield": 9.8,
-      "annual_owner_earnings": 15570.24,
-      "cannibal_rate_pct": 0.0,
-      "thesis_core": "Social group buying scale + global cross-border Temu with $35B+ net cash, 40%+ ROIC.",
-      "report_url": "reports/PDD.html"
-    },
-    {
       "ticker": "USD_CASH",
       "company_name": "USD Cash Reserve",
       "sector": "Cash & Cash Equivalents",
       "industry": "3-Month US Treasury Bills",
       "quality_score": 100.0,
-      "target_weight": 0.2056,
+      "target_weight": 1.0,
       "pillar": "CASH",
       "cost_basis": 1.0,
       "current_price": 1.0,
       "fair_value": 1.0,
       "margin_of_safety_pct": 0.0,
-      "allocated_dollars": 41120.0,
-      "shares_to_buy": 41120.0,
+      "allocated_dollars": 200000.0,
+      "shares_to_buy": 200000.0,
       "look_through_fcf_yield": 5.0,
-      "annual_owner_earnings": 2056.0,
+      "annual_owner_earnings": 10000.0,
       "cannibal_rate_pct": 0.0,
-      "thesis_core": "3-Month US Treasury Yield (5.00% risk-free). Shiller CAPE Macro Buffer.",
+      "thesis_core": "3-Month US Treasury Yield (5.00% risk-free). 100% Cash Reserve ($200,000 USD).",
       "report_url": "#"
     }
   ],
   "rebalance_log": [
     {
-      "date": "2026-08-19",
-      "action": "SURPLUS CASH DEPLOYMENT (BUY)",
-      "ticker": "PDD",
-      "reason": "Deployed surplus cash ($16,000 / 8.0%) into Tier-1 compounder PDD (Moat: 9.2/10, MoS: +76.2%, Kelly Edge: 32.09)",
-      "weight_delta": "+8.0%",
-      "verification_status": "Audited & Executed by Autonomous Surveillance Council"
-    },
-    {
-      "date": "2026-08-11",
-      "action": "CANNIBAL FORTRESS CALIBRATION",
-      "reason": "Senior US Treasury Buffer (19.58%) derived mathematically from S&P 500 Shiller CAPE (35.5x vs 18.0x baseline), Buffett Indicator (198.5%), and +25.00% weighted Margin of Safety.",
-      "verification_status": "Verified 3/3 Autonomous Council"
+      "date": "2026-08-20",
+      "action": "PORTFOLIO INITIALIZATION (100% CASH)",
+      "reason": "Initialized Fidelity portfolio with 100% USD Cash Reserve ($200,000.00) awaiting high-conviction margin of safety deployment.",
+      "verification_status": "Audited & Synchronized"
     }
   ],
   "historical_performance": [
@@ -71,152 +43,8 @@
       "spy_benchmark": 200000.0
     },
     {
-      "date": "2026-08-18",
-      "portfolio_value": 200000.0,
-      "owner_earnings_runrate": 15000.0,
-      "spy_benchmark": 200000.0
-    },
-    {
-      "date": "2026-08-19",
-      "portfolio_value": 200000.0,
-      "owner_earnings_runrate": 15000.0,
-      "spy_benchmark": 200000.0
-    },
-    {
-      "date": "2026-08-18",
-      "portfolio_value": 200000.0,
-      "owner_earnings_runrate": 15000.0,
-      "spy_benchmark": 200000.0
-    },
-    {
-      "date": "2026-08-19",
-      "portfolio_value": 200000.0,
-      "owner_earnings_runrate": 15000.0,
-      "spy_benchmark": 200000.0
-    },
-    {
-      "date": "2026-08-18",
-      "portfolio_value": 200000.0,
-      "owner_earnings_runrate": 15000.0,
-      "spy_benchmark": 200000.0
-    },
-    {
-      "date": "2026-08-19",
-      "portfolio_value": 200000.0,
-      "owner_earnings_runrate": 15000.0,
-      "spy_benchmark": 200000.0
-    },
-    {
-      "date": "2026-08-18",
-      "portfolio_value": 200000.0,
-      "owner_earnings_runrate": 15000.0,
-      "spy_benchmark": 200000.0
-    },
-    {
-      "date": "2026-08-19",
-      "portfolio_value": 200000.0,
-      "owner_earnings_runrate": 15000.0,
-      "spy_benchmark": 200000.0
-    },
-    {
-      "date": "2026-08-18",
-      "portfolio_value": 200000.0,
-      "owner_earnings_runrate": 15000.0,
-      "spy_benchmark": 200000.0
-    },
-    {
-      "date": "2026-08-19",
-      "portfolio_value": 200000.0,
-      "owner_earnings_runrate": 15000.0,
-      "spy_benchmark": 200000.0
-    },
-    {
-      "date": "2026-08-18",
-      "portfolio_value": 200000.0,
-      "owner_earnings_runrate": 15000.0,
-      "spy_benchmark": 200000.0
-    },
-    {
-      "date": "2026-08-19",
-      "portfolio_value": 200000.0,
-      "owner_earnings_runrate": 15000.0,
-      "spy_benchmark": 200000.0
-    },
-    {
-      "date": "2026-08-18",
-      "portfolio_value": 200000.0,
-      "owner_earnings_runrate": 15000.0,
-      "spy_benchmark": 200000.0
-    },
-    {
-      "date": "2026-08-19",
-      "portfolio_value": 200000.0,
-      "owner_earnings_runrate": 15000.0,
-      "spy_benchmark": 200000.0
-    },
-    {
       "date": "2026-08-20",
       "portfolio_value": 200000.0,
-      "owner_earnings_runrate": 15000.0,
-      "spy_benchmark": 200000.0
-    },
-    {
-      "date": "2026-08-19",
-      "portfolio_value": 200000.0,
-      "owner_earnings_runrate": 15000.0,
-      "spy_benchmark": 200000.0
-    },
-    {
-      "date": "2026-08-20",
-      "portfolio_value": 200000.0,
-      "owner_earnings_runrate": 15000.0,
-      "spy_benchmark": 200000.0
-    },
-    {
-      "date": "2026-08-19",
-      "portfolio_value": 200000.0,
-      "owner_earnings_runrate": 15000.0,
-      "spy_benchmark": 200000.0
-    },
-    {
-      "date": "2026-08-20",
-      "portfolio_value": 200000.0,
-      "owner_earnings_runrate": 15000.0,
-      "spy_benchmark": 200000.0
-    },
-    {
-      "date": "2026-08-19",
-      "portfolio_value": 200000.0,
-      "owner_earnings_runrate": 15000.0,
-      "spy_benchmark": 200000.0
-    },
-    {
-      "date": "2026-08-20",
-      "portfolio_value": 200000.0,
-      "owner_earnings_runrate": 15000.0,
-      "spy_benchmark": 200000.0
-    },
-    {
-      "date": "2026-08-19",
-      "portfolio_value": 200000.0,
-      "owner_earnings_runrate": 15000.0,
-      "spy_benchmark": 200000.0
-    },
-    {
-      "date": "2026-08-20",
-      "portfolio_value": 200000.0,
-      "owner_earnings_runrate": 15000.0,
-      "spy_benchmark": 200000.0
-    },
-    {
-      "date": "2026-08-19",
-      "portfolio_value": 200000.0,
-      "owner_earnings_runrate": 15000.0,
-      "spy_benchmark": 200000.0
-    },
-    {
-      "date": "2026-08-20",
-      "portfolio_value": 195596.46,
       "owner_earnings_runrate": 15000.0,
       "spy_benchmark": 200000.0
     }
