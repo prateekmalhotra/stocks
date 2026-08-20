@@ -393,55 +393,63 @@ def calculate_insider_sentiment_and_flow(oi_trades: List[Dict[str, Any]], stock_
                 seller_roles.add(title)
 
     net_flow = total_buy - total_sell
-    has_csuite_buyer = any(any(k in r.upper() for k in ["CEO", "CHIEF EXECUTIVE", "COB", "CHAIRMAN", "PRESIDENT", "CFO", "DIRECTOR", "FOUNDER"]) for r in buyer_roles) or any(any(k in n.upper() for k in ["CEO", "DIRECTOR"]) for n in buyers)
+    has_csuite_buyer = any(any(k in r.upper() for k in ["CEO", "CHIEF EXECUTIVE", "COB", "CHAIRMAN", "PRESIDENT", "CFO", "FOUNDER"]) for r in buyer_roles)
 
-    # Classification rules (Strictly balanced against recency, gross sales and net flow)
+    # Classification rules: Strictly compare C-suite vs Director dollar scale and hierarchical weight
     if len(buyers) >= 2 and total_buy >= 500000 and (total_sell <= total_buy * 1.5 or net_flow >= 0):
         sig = "Cluster Buying"
-        badge_html = "🟢 Cluster Buy"
+        badge_html = "Cluster Buy"
         color = "var(--accent-green)"
         summary = f"{len(buyers)} Insiders +${total_buy/1e6:.1f}M Recent Open Market Buys" if total_buy >= 1e6 else f"{len(buyers)} Insiders +${total_buy/1e3:.0f}K Buys"
     elif total_buy > 0 and net_flow > 0 and total_sell <= total_buy * 0.5:
         sig = "Net Buying"
-        badge_html = "🟢 Net Buying"
+        badge_html = "Net Buying"
         color = "var(--accent-green)"
         summary = f"+${net_flow/1e6:.1f}M Net Open Market Buys (12M)" if net_flow >= 1e6 else f"+${net_flow/1e3:.0f}K Net Buys"
+    elif total_sell >= 3.0 * max(total_buy, 1.0) and total_sell >= 2000000:
+        sig = "Net Executive Selling"
+        badge_html = "Executive Net Selling"
+        color = "#D48858"
+        if total_buy > 0:
+            summary = f"C-Suite sales (-${total_sell/1e6:.1f}M across {len(sellers)} officers) outweigh director dip-buying (+${total_buy/1e3:.0f}K)"
+        else:
+            summary = f"Heavy C-Suite sales (-${total_sell/1e6:.1f}M across {len(sellers)} officers via Rule 10b5-1 plans)"
     elif total_buy > 0 and total_sell > 0:
-        sig = "Divergent Executive Flow"
-        badge_html = "⚖️ Divergent Flow"
+        sig = "Mixed Insider Flow"
+        badge_html = "Mixed Flow"
         color = "var(--accent-warm)"
         if has_csuite_buyer:
-            summary = f"Key C-Suite/Director buying (+${total_buy/1e6:.1f}M) offset by executive selling (-${total_sell/1e6:.1f}M across {len(sellers)} officers)" if total_sell >= 1e6 else f"Key purchases (+${total_buy/1e3:.0f}K) offset by sales (-${total_sell/1e3:.0f}K)"
+            summary = f"C-Suite purchases (+${total_buy/1e6:.1f}M) alongside executive sales (-${total_sell/1e6:.1f}M across {len(sellers)} officers)" if total_sell >= 1e6 else f"Key purchases (+${total_buy/1e3:.0f}K) vs sales (-${total_sell/1e3:.0f}K)"
         else:
-            summary = f"Insider purchases (+${total_buy/1e6:.1f}M) offset by executive diversification (-${total_sell/1e6:.1f}M)" if total_sell >= 1e6 else f"Purchases (+${total_buy/1e3:.0f}K) vs sales (-${total_sell/1e3:.0f}K)"
+            summary = f"Director purchases (+${total_buy/1e3:.0f}K) alongside executive sales (-${total_sell/1e6:.1f}M)" if total_sell >= 1e6 else f"Purchases (+${total_buy/1e3:.0f}K) vs sales (-${total_sell/1e3:.0f}K)"
     elif total_sell >= 3000000 and total_buy == 0:
         sig = "Routine Sales (10b5-1)"
-        badge_html = "🟡 10b5-1 Sales"
+        badge_html = "10b5-1 Sales"
         color = "var(--accent-warm)"
         summary = f"Pre-scheduled Rule 10b5-1 executive sales (-${total_sell/1e6:.1f}M across {len(sellers)} officers)" if total_sell >= 1e6 else f"Executive sales -${total_sell/1e3:.0f}K"
     elif total_sell >= 500000 and total_buy == 0:
         sig = "Routine Sales (10b5-1)"
-        badge_html = "🟡 10b5-1 Sales"
+        badge_html = "10b5-1 Sales"
         color = "var(--accent-warm)"
         summary = f"Pre-scheduled Rule 10b5-1 executive plans (-${total_sell/1e6:.1f}M)" if total_sell >= 1e6 else f"Executive sales -${total_sell/1e3:.0f}K"
     elif total_sell > 0 and total_buy == 0:
         sig = "Routine Sales (10b5-1)"
-        badge_html = "🟡 10b5-1 Sales"
+        badge_html = "10b5-1 Sales"
         color = "var(--accent-warm)"
         summary = f"Executive sales -${total_sell/1e6:.1f}M" if total_sell >= 1e6 else f"Executive sales -${total_sell/1e3:.0f}K"
     elif is_fpi_initial_filing and total_buy == 0 and total_sell == 0:
         sig = "20-F FPI Ledger"
-        badge_html = "⚪ 20-F FPI Ledger"
+        badge_html = "20-F FPI Ledger"
         color = "var(--text-dim)"
         summary = "20-F beneficial filings; zero open-market trades (12M)"
     elif total_buy == 0 and total_sell == 0:
         sig = "No Activity"
-        badge_html = "⚪ Inactive"
+        badge_html = "Inactive"
         color = "var(--text-dim)"
         summary = "Zero Form 4 open market transactions (12M)"
     else:
         sig = "Routine Sales (10b5-1)"
-        badge_html = "🟡 Routine 10b5-1"
+        badge_html = "Routine 10b5-1"
         color = "var(--accent-warm)"
         summary = "Pre-scheduled 10b5-1 executive diversification plans"
 
