@@ -197,6 +197,15 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
         if pp_tier and pp_tier not in CANONICAL_PRICING_POWER_TIERS:
             issues.append(f"Invalid Pricing Power Tier '{pp_tier}'. Must strictly be one of: {sorted(list(CANONICAL_PRICING_POWER_TIERS))}.")
 
+        # 14c. Canonical Cash Flow Predictability Tier Check
+        CANONICAL_PREDICTABILITY_TIERS = {
+            "High Predictability", "Moderate Predictability",
+            "Low Predictability", "Highly Unpredictable"
+        }
+        pred_tier = metadata.get("predictability_tier")
+        if pred_tier and pred_tier not in CANONICAL_PREDICTABILITY_TIERS:
+            issues.append(f"Invalid Cash Flow Predictability Tier '{pred_tier}'. Must strictly be one of: {sorted(list(CANONICAL_PREDICTABILITY_TIERS))}.")
+
     # 15. Institutional Section 3 Completeness Check (All Required Subsections)
     s3_lower = html[html.lower().find("section 3"):].lower() if "section 3" in html.lower() else html.lower()
     

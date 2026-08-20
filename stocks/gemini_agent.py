@@ -198,6 +198,55 @@ def map_to_canonical_pricing_power_tier(lbl: str = "", sec1_text: str = "", defa
     return default
 
 
+CANONICAL_PREDICTABILITY_TIERS = [
+    "High Predictability",
+    "Moderate Predictability",
+    "Low Predictability",
+    "Highly Unpredictable",
+]
+
+
+def map_to_canonical_predictability_tier(lbl: str = "", sec1_text: str = "", default: str = "Moderate Predictability") -> str:
+    """Maps any input text or Section 1 audit to one of the 4 canonical Buffett-Munger Cash Flow Predictability tiers:
+    1. High Predictability: Mission-critical, contractual/recurring revenue, high 10-year visibility (e.g. Microsoft, Visa, Costco, See's Candies)
+    2. Moderate Predictability: Durable economic moat, but subject to macro ad cycles, platform transitions, or regulatory shifts (e.g. Alphabet, Meta, JD.com, MercadoLibre)
+    3. Low Predictability: Fast-moving technological shifts, nascent unproven revenue lines, volatile churn, or high capital intensity / Red Queen obsolescence risk (e.g. Reddit, turnaround situations, unproven AI hardware cycles)
+    4. Highly Unpredictable: Pure 'Too Hard' pile; binary outcomes, hit-driven consumer tastes, or commoditized price-taker economics (e.g. biotech, unhedged commodities, cyclical turnarounds)
+    """
+    if lbl and isinstance(lbl, str):
+        clean_lbl = lbl.strip().upper()
+        for p in CANONICAL_PREDICTABILITY_TIERS:
+            if clean_lbl == p.upper():
+                return p
+
+    # 1. Check explicit "Cash Flow Predictability Classification:" or "Predictability Classification:" statement first
+    if sec1_text:
+        m = re.search(r'(?:Cash Flow )?Predictability Classification:\s*([^<\n\.]+)', sec1_text, re.IGNORECASE)
+        if m:
+            class_str = m.group(1).strip().upper()
+            if "HIGHLY UNPREDICTABLE" in class_str or "BINARY" in class_str or "SPECULATIVE" in class_str:
+                return "Highly Unpredictable"
+            if "LOW" in class_str or "TOO HARD" in class_str or "VOLATILE" in class_str:
+                return "Low Predictability"
+            if "HIGH" in class_str or "PRISTINE" in class_str or "CONTRACTUAL" in class_str:
+                return "High Predictability"
+            if "MODERATE" in class_str or "DISCIPLINED" in class_str or "MANAGEABLE" in class_str:
+                return "Moderate Predictability"
+
+    combined_text = f"{lbl or ''} {sec1_text or ''}".upper()
+    
+    if any(k in combined_text for k in ["HIGHLY UNPREDICTABLE", "PURE SPECULATION", "BINARY OUTCOME", "PURE TOO HARD"]):
+        return "Highly Unpredictable"
+    elif any(k in combined_text for k in ["LOW PREDICTABILITY", "TOO HARD PILE", "VOLATILE CASH FLOW", "UNTESTED REVENUE", "RAPID OBSOLESCENCE"]):
+        return "Low Predictability"
+    elif any(k in combined_text for k in ["HIGH PREDICTABILITY", "PRISTINE VISIBILITY", "CONTRACTUAL RECURRING", "IN THE CIRCLE", "MISSION-CRITICAL LOCK-IN"]):
+        return "High Predictability"
+    elif any(k in combined_text for k in ["MODERATE PREDICTABILITY", "MANAGEABLE VISIBILITY", "AD CYCLICALITY", "PLATFORM TRANSITION"]):
+        return "Moderate Predictability"
+        
+    return default
+
+
 def map_to_canonical_moat_label(lbl: str = "", sec1_text: str = "", default: str = "Narrow Moat") -> str:
     """Maps any input string, moat description, or Section 1 text to one of the 4 canonical Moat ratings:
     1. Wide Moat (Strong Moat): Dominant structural advantage sustaining excess returns for 20+ years (e.g. Visa, Google, Apple, Microsoft, Hermès)
@@ -933,7 +982,14 @@ Core Topics to Cover:
    - Customer Share of Wallet & Value Surplus: Is the price a tiny, painless fraction of the customer's total budget/revenue while delivering mission-critical utility or emotional addiction?
    - 3-Year Audited Gross Margin Resilience: Tabular proof showing Gross Margin % across the last 3 fiscal years during inflation/cost spikes. Did gross margins expand, hold steady, or compress?
    - Inflation Capital Intensity (1981 Berkshire Letter): When revenue grows through price increases, does it drop 100% to Owner Earnings, or does it require heavy maintenance CapEx to replace depreciating equipment?
-3. 4-Quarter Operating Reality & Management Call Commentary:
+3. Buffett & Munger Cash Flow Predictability & "Too Hard" Pile Audit:
+   - Dedicated subsection header: <h3>Buffett &amp; Munger Cash Flow Predictability &amp; "Too Hard" Pile Audit</h3>
+   - Predictability Classification: Explicitly categorize the company into one of: [High Predictability, Moderate Predictability, Low Predictability, Highly Unpredictable].
+   - The 10-Year Visibility Test (Warren Buffett 1996 Shareholder Letter): Can a rational investor forecast the economic machine and cash generation corridor 5–10 years out with high confidence ("in the circle of competence"), or is the industry evolving too rapidly?
+   - Obsolescence & Reinvestment Drag: Does the company suffer from the 'Red Queen' trap (heavy continuous CapEx just to stay in place / rapid hardware obsolescence), or does its capital base compound without constant replacement?
+   - Recurring vs. Discretionary / Hit-Driven Demand: What % of revenue is contractually locked / subscription / habitual vs. transactional / fashion-driven?
+   - Margin of Safety Compensator Principle: If cash flows are volatile or low-predictability, explicitly evaluate whether Story 3 (Bear Case Floor) still trades at an attractive discount to current market price.
+4. 4-Quarter Operating Reality & Management Call Commentary:
    - Synthesis of key themes from the last 4 quarterly earnings reports and management call commentary.
    - Transparent reporting on segment drags, deceleration, and margin headwinds alongside growth engines.
 4. Owner Earnings Derivation & Cash Flow Waterfall:
@@ -953,6 +1009,13 @@ Core Topics to Cover:
    - Debt-to-Equity, Net Debt/EBITDA, Interest Coverage, and regulatory capital ratios.
 9. Historical Corporate Trauma & Structural Remediation:
    - Root-cause autopsy of past impairments or stock drawdowns and structural operational safeguards in place today.
+10. Nascent Revenue Stream & Counterparty Concentration Audit:
+    - If high-margin emerging revenue lines (e.g. AI data licensing, API monetization, cloud partnerships) represent a meaningful contributor to narrative upside:
+      * Audit customer counterparty concentration (e.g. are revenues concentrated in 1–3 buyers like Google or OpenAI?).
+      * Explicitly disclose contract durations, renewal timelines, and the vulnerability to customer insourcing or synthetic data substitution.
+11. Form 4 Insider Trading Framing & Objectivity:
+    - Audit SEC Form 4 insider transactions over the trailing 12–24 months.
+    - If net insider selling exceeds net buying by >5:1 (or >$50M net outflow), NEVER frame it as "divergent flow" or "partially offset by insider purchases". State objectively: "Heavy Net Insider Selling ($[Sell]M sold vs $[Buy]M bought) — predominantly scheduled 10b5-1 executive liquidity realization." Never sugarcoat one-sided executive cash-outs.
 
 Pure semantic HTML format:
 <h2>Section 1: The Premise of the Company</h2>
@@ -975,9 +1038,11 @@ Guidelines:
 - Grounded Margin & Growth Realism: For thin-margin direct retail or financial spread businesses, do NOT assume heroic margin doubling. Model realistic, incremental operating progression.
 - Primary Research: Search and inspect {company_name}'s latest filings and earnings transcripts.
 - Currency/FX Depreciation Stress in Emerging Markets: For companies operating in emerging market currencies (e.g. Brazil BRL, China RMB, Mexico MXN, India INR) with high local sovereign interest rates, Story 3 (Downside / Bear Floor) MUST incorporate realistic local FX depreciation against the USD (e.g. +10% to +15% FX headwind in the USD conversion) to stress-test the dollar-denominated fair value floor.
-- Cross-Border Trade & Customs Friction (For Global E-Commerce/Logistics): For international retail platforms (e.g. AIDC, AliExpress Choice, cross-border commerce), Story 3 MUST model potential revisions to international *de minimis* customs exemptions, cross-border tariffs, and delivery unit cost friction.
-- Downside Stress Realism in Story 3: Story 3 MUST explicitly model: (1) core product silhouette / platform fashion fatigue, (2) wholesale channel destocking / order cancellations, (3) supply chain tariffs / landed-cost inflation from concentrated manufacturing regions (e.g. Vietnam/China duties), and (4) FX depreciation.
-- Operational Metric Continuity: Explicitly carry forward and trace the primary operational metrics identified in Section 1 (e.g. Active Clients, TPV/GMV growth, Take Rate %, Deposit Float, Cost of Risk / NPLs, ARPAC, Fulfillment/Lease Expense Ratio) across EACH of the 3 stories to justify how margin expansion or contraction occurs.
+- Active vs. Contingent Headwinds in Story 1 (Base Case): If a structural disruption or channel friction is ALREADY OBSERVABLE TODAY (e.g. Google AI Overviews cannibalizing organic search referrals, active tariff increases, privacy tracking changes, post-COVID channel normalization), Story 1 (Base Case) MUST incorporate that friction as an ongoing baseline operational drag. Do NOT relegate live, ongoing headwinds solely to an abstract Story 3 bear case. Story 3 represents the severe compounding acceleration or worst-case manifestation of that risk.
+- Nascent & Concentrated Revenue Stream Realism: For high-margin emerging lines (e.g. AI data licensing, API monetization) with customer concentration (e.g. 1–3 buyers) or near-term renewal dates:
+  * Story 1 (Base Case) must model renewal friction, volume caps, or pricing concessions rather than unearned exponential growth.
+  * Story 3 (Bear Case) must model contract non-renewal, client insourcing, or synthetic data substitution.
+- Operational Metric Continuity: Explicitly carry forward and trace the primary operational metrics identified in Section 1 (e.g. Active Clients/DAUs, TPV/GMV growth, Take Rate %, Deposit Float, Cost of Risk / NPLs, ARPAC/ARPU, Fulfillment/Lease Expense Ratio) across EACH of the 3 stories to justify how margin expansion or contraction occurs.
 
 FIRST-PRINCIPLES BUSINESS METRIC CHAIN (NO ARBITRARY GROWTH ASSUMPTIONS):
 - Revenue is driven by explicit operational business metrics reported by the company.
@@ -1075,9 +1140,11 @@ Valuation Steps (Execute via Python):
 1. Start with Year 0 Normalized Owner Earnings (in $ Millions USD) strictly identical to the OE₀ derived in Section 1.
 2. Compound Owner Earnings over 5 years based on the scenario growth rate: OE_t = OE_0 * ((1 + g) ** t).
 3. Discount the 5 years of cash flows at a disciplined equity hurdle rate (9.5% Base/Bull, 10.5%–11.0% Bear): PV_t = OE_t / ((1 + r) ** t).
-   - Compute Explicit 5-Year Cash PV: PV_explicit = sum(PV_1 ... PV_5).
-4. Calculate Gordon Growth Terminal Value using ~2.0% terminal growth: TV_5 = (OE_5 * (1 + g_term)) / (r - g_term), and discount to PV: PV_TV = TV_5 / ((1 + r) ** 5).
-   - Implied Exit Multiple: (1 + g_term) / (r - g_term) (e.g. 13.6x OE₅ at 9.5% discount / 2.0% terminal growth).
+4. Calculate Storyline-Calibrated Terminal Value (Matching Story ROIC & Reinvestment Runway):
+   - Story 2 (Bull Case - High ROIC / Sustained Growth Runway): Calibrate terminal capitalization to an exit multiple of 16.0x–20.0x OE₅ (reflecting continued high-ROIC reinvestment; implied Gordon g_term ≈ 3.2%–4.5% at 9.5% hurdle). TV_5 = Exit_Multiple * OE_5 (or Gordon formula), discounted to PV: PV_TV = TV_5 / ((1 + r) ** 5).
+   - Story 1 (Base Case - Mature Steady Compounding): Calibrate terminal capitalization to an exit multiple of 12.5x–14.5x OE₅ (reflecting long-term market average; implied Gordon g_term ≈ 1.8%–2.5% at 9.5% hurdle).
+   - Story 3 (Bear Case - Disrupted / Commodity / Stagnant): Calibrate terminal capitalization to a compressed exit multiple of 7.0x–10.0x OE₅ (reflecting stagnant cash flow and multiple derating; implied Gordon g_term ≤ 0.0% at 10.5%–11.0% hurdle).
+   - State the exact Implied Exit Multiple (e.g. 18.0x OE₅ for Bull, 13.6x OE₅ for Base, 8.5x OE₅ for Bear).
 5. Compute Alternative Exit Multiple Valuation Floors:
    - Conservative 10.0x Exit Multiple Floor: Operating EV_10x = PV_explicit + (10.0 * OE_5 / ((1 + r) ** 5)).
    - Baseline 12.0x Exit Multiple: Operating EV_12x = PV_explicit + (12.0 * OE_5 / ((1 + r) ** 5)).
@@ -1161,9 +1228,10 @@ Requirements:
    - Weightings: Base Case (Story 1) 50%, Bull Case (Story 2) 25%, Bear Case (Story 3) 25%.
    - Expected Intrinsic Value = (0.50 * Story 1) + (0.25 * Story 2) + (0.25 * Story 3).
    - State the Expected Value, its exact Margin of Safety vs. today's market price (${current_price:.2f}), and a brief sensitivity note on how an equal-weighted (33/33/33) distribution shifts the value.
+   - Signal & Valuation Coherence: If the Margin of Safety is NEGATIVE (Current Price > Expected Fair Value, e.g. stock is overvalued by 10%–35%), the tone and action signal MUST be strictly objective (e.g. "Trading at Premium to Intrinsic Value; Signal: AVOID / TRIM / WAIT FOR PULLBACK"). Never emit an enthusiastic buy tone when the model's own quantitative expected value is below market price!
 7. Terminal Value & Exit Multiple Sensitivity Matrix:
    - A dedicated 2D table mapping Fair Value across Discount Rates (8.5%, 9.5%, 10.5%) and Exit Multiples (8.0x, 10.0x, 12.0x, 14.0x, 16.0x).
-   - Plain-English narrative explaining how much of the valuation is driven by multiple expansion vs. tangible cash generation.
+   - Explicit Terminal Value Multiple Reliance Disclosure: Plain-English narrative disclosing that because ~70%–85% of intrinsic value in high-growth compounders derives from the Year-5 terminal exit multiple rather than explicit 5-year cash math, the headline fair value incorporates multiple capitalization risk. Reference the 10.0x Exit Multiple Floor and 5-Year Tangible Cash Payback Yield as the downside anchor.
 8. Reverse DCF Sensitivity Matrix Table:
    - Isolates the exact 5-year Owner Earnings CAGR required to justify today's market price (${current_price:.2f}) across discount rates (9.5%, 10.5%, 11.5%) and starting cash flow baselines.
    - Narrative framing: Explicitly highlight that because terminal value represents ~70% of a 5-year DCF for a high-growth compounder, the Reverse DCF eliminates perpetuity guesswork by isolating the exact 5-year growth hurdle priced in today.
@@ -1300,9 +1368,11 @@ Adjudicate every single point raised in the critique memo:
 
 1. [ACKNOWLEDGE & ADAPT]:
    - Valid factual issues (e.g. neglected segment declines, acquired brand drops, single-silhouette risks).
-   - Supply chain concentration (% Vietnam/China factories, Section 301 tariff exposure).
+   - Supply chain & counterparty concentration (% Vietnam/China factories, Section 301 tariffs, >50% revenue from 1–3 buyers in nascent lines like AI data licensing).
+   - Live / Ongoing Headwinds in Story 1: Ensure active, observable disruptions (e.g. AI Overviews reducing search referral traffic) are integrated into Story 1 Base Case rather than dismissed as 25% tail risks.
    - Cash flow matching & accounting adjustments (eliminating debt double-counting under FCFE/FCFF, working capital normalization, realistic AI GPU depreciation cycles).
-   - Share count synchronization from buybacks.
+   - Form 4 Insider Selling Objectivity: Reject sugarcoating of massive executive selling ($50M+ net outflow); state net flows objectively.
+   - Signal-to-Valuation Coherence: If Market Price > Expected Intrinsic Value, ensure the thesis tone is strictly objective and signals AVOID / TRIM / OVERVALUED.
    - Scenario-Specific CapEx Efficiency: Ensure capex efficiency aligns with each scenario's operational story (e.g. Bull case custom silicon efficiency yielding higher FCF conversion vs Bear case hardware replacement drag).
 
 2. [PUSHBACK & DEFEND]:
@@ -1919,6 +1989,24 @@ Pass: {it}/{max_refine_iterations}
         pp_score = "Inelastic Demand · Low Churn" if "Absolute" in pricing_power_tier or "Strong" in pricing_power_tier else "Inflation Pass-Through"
     pp_summary = f"{pricing_power_tier}: Underwritten via Buffett & Munger pricing power framework."
 
+    # Extract Buffett & Munger Cash Flow Predictability from Section 1 text
+    predictability_tier = map_to_canonical_predictability_tier("", sec1_text=sec1_current)
+    m_pred_score = re.search(r'(?:10-Year Visibility|Visibility Test|Obsolescence Risk|Predictability Score|Reinvestment Drag).*?:\s*([^\n<]+)', sec1_current, re.IGNORECASE)
+    if m_pred_score:
+        raw_pred_sub = m_pred_score.group(1).strip()
+        words = [w for w in raw_pred_sub.replace("&", " ").replace("·", " ").split() if w.strip()]
+        pred_score = " ".join(words[:4]).title() if words else "High Visibility"
+    else:
+        if "High" in predictability_tier:
+            pred_score = "Pristine Visibility · In Circle"
+        elif "Moderate" in predictability_tier:
+            pred_score = "Manageable Visibility · Moat"
+        elif "Low" in predictability_tier:
+            pred_score = "Volatile Visibility · Too Hard"
+        else:
+            pred_score = "Speculative · Binary"
+    pred_summary = f"{predictability_tier}: Underwritten via Buffett & Munger 10-year visibility framework."
+
     what_is_priced_in = f"Market prices in today's entry price of ${current_price:.2f} vs Story 1 Intrinsic Value of ${story1_val:.2f}"
     exec_summary = f"Level-headed fundamental investment thesis established for {ticker_clean} across 3 distinct operating paths."
 
@@ -1948,6 +2036,9 @@ Pass: {it}/{max_refine_iterations}
         "pricing_power_tier": pricing_power_tier,
         "pricing_power_score": pp_score,
         "pricing_power_summary": pp_summary,
+        "predictability_tier": predictability_tier,
+        "predictability_score": pred_score,
+        "predictability_summary": pred_summary,
         "labels": sanitized_labels,
         "action_signal": action_signal,
         "fair_value_estimate": f"${story1_val:.2f}",

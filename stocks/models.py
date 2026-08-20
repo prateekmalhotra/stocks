@@ -94,6 +94,9 @@ class WatchlistStock(BaseModel):
     pricing_power_tier: Optional[str] = "Strong Pricing Power"
     pricing_power_score: Optional[str] = "High Inelasticity"
     pricing_power_summary: Optional[str] = ""
+    predictability_tier: Optional[str] = "Moderate Predictability"
+    predictability_score: Optional[str] = "Manageable Visibility · Moat Protected"
+    predictability_summary: Optional[str] = ""
     last_updated: str
     total_versions: int = 1
     report_path: str

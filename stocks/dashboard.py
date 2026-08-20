@@ -116,19 +116,15 @@ def format_labels_pills(labels: List[str]) -> str:
     moat_lbl = map_to_canonical_moat_label(" ".join(words))
     
     if moat_lbl == "Wide Moat":
-        icon = "🏰"
         css_class = "pill-moat-wide"
     elif moat_lbl == "Narrow Moat":
-        icon = "🛡️"
         css_class = "pill-moat-narrow"
     elif moat_lbl == "Weak Moat":
-        icon = "⚠️"
         css_class = "pill-moat-weak"
     else:
-        icon = "❌"
         css_class = "pill-moat-none"
         
-    return f'<span class="pill {css_class}" title="Economic Moat Rating: {moat_lbl}">{icon} {moat_lbl}</span>'
+    return f'<span class="pill {css_class}" title="Economic Moat Rating: {moat_lbl}">{moat_lbl}</span>'
 
 
 def format_usd_target(val: Any) -> str:
@@ -317,26 +313,46 @@ def format_pricing_power_card_html(stock: WatchlistStock) -> str:
     
     tier_lower = pp_tier.lower()
     if any(k in tier_lower for k in ["absolute", "unconstrained", "monopoly"]):
-        icon = "👑"
         color = "var(--accent-warm)"
     elif any(k in tier_lower for k in ["strong", "structural"]):
-        icon = "💪"
         color = "var(--accent-warm)"
     elif any(k in tier_lower for k in ["inflation", "cost-plus", "pass"]):
-        icon = "⚖️"
         color = "var(--accent-green)"
     elif any(k in tier_lower for k in ["constrained", "regulated"]):
-        icon = "🛡️"
         color = "var(--text-secondary)"
     else:
-        icon = "⚠️"
         color = "var(--accent-red)"
 
     return f"""
     <div class="metric-cell" title="Buffett & Munger Pricing Power Framework: {pp_summary}">
         <div class="metric-label">Pricing Power</div>
-        <div class="metric-value" style="color: {color}; font-family: var(--font-sans) !important; font-size: 0.88rem !important; font-weight: 600 !important; white-space: nowrap !important; letter-spacing: -0.01em !important; overflow: hidden !important; text-overflow: ellipsis !important;">{icon} {pp_tier}</div>
+        <div class="metric-value" style="color: {color}; font-family: var(--font-sans) !important; font-size: 0.88rem !important; font-weight: 600 !important; white-space: nowrap !important; letter-spacing: -0.01em !important; overflow: hidden !important; text-overflow: ellipsis !important;">{pp_tier}</div>
         <div class="metric-subtext">{pp_score}</div>
+    </div>
+    """
+
+
+def format_cash_flow_predictability_card_html(stock: WatchlistStock) -> str:
+    """Renders the Buffett-Munger Cash Flow Predictability ('Too Hard' Pile Audit) card in the hero metrics grid."""
+    pred_tier = getattr(stock, "predictability_tier", None) or "Moderate Predictability"
+    pred_score = getattr(stock, "predictability_score", None) or "Manageable Visibility · Moat Protected"
+    pred_summary = getattr(stock, "predictability_summary", None) or "Buffett & Munger 10-Year Cash Flow Visibility Assessment."
+    
+    tier_lower = pred_tier.lower()
+    if any(k in tier_lower for k in ["high", "pristine", "contractual"]):
+        color = "var(--accent-warm)"
+    elif any(k in tier_lower for k in ["moderate", "disciplined", "manageable"]):
+        color = "var(--accent-green)"
+    elif any(k in tier_lower for k in ["low", "too hard", "volatile"]):
+        color = "#D48858"
+    else:
+        color = "var(--accent-red)"
+
+    return f"""
+    <div class="metric-cell" title="Buffett & Munger Predictability Framework ('Too Hard' Pile Audit): {pred_summary}">
+        <div class="metric-label">Predictability</div>
+        <div class="metric-value" style="color: {color}; font-family: var(--font-sans) !important; font-size: 0.88rem !important; font-weight: 600 !important; white-space: nowrap !important; letter-spacing: -0.01em !important; overflow: hidden !important; text-overflow: ellipsis !important;">{pred_tier}</div>
+        <div class="metric-subtext">{pred_score}</div>
     </div>
     """
 
@@ -349,25 +365,52 @@ def build_labels_legend_modal_html(include_pricing_power: bool = False) -> str:
             <div style="height: 1px; background: var(--border-color); margin: 14px 0;"></div>
 
             <!-- Section 3: Buffett & Munger Pricing Power -->
-            <div>
+            <div style="margin-bottom: 14px;">
                 <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 9px;">
                     Buffett &amp; Munger Pricing Power Tiers
                 </div>
                 <div style="display: grid; grid-template-columns: 165px 1fr; row-gap: 6px; column-gap: 12px; font-size: 0.74rem; align-items: center;">
-                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">👑 Absolute Power</span>
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Absolute Power</span>
                     <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Unilateral pricing authority without volume loss</span>
 
-                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">💪 Strong Power</span>
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Strong Power</span>
                     <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Dominant structural pricing authority ahead of CPI</span>
 
-                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">⚖️ Inflation Pass-Thru</span>
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Inflation Pass-Thru</span>
                     <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Cost-plus indexation with contractual cost pass-through</span>
 
-                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">🛡️ Constrained Power</span>
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Constrained Power</span>
                     <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Moderate pricing power subject to customer pushback</span>
 
-                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">⚠️ Price Taker</span>
+                    <span style="font-weight: 600; color: var(--text-title); white-space: nowrap;">Price Taker</span>
                     <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Vulnerable to competitor price cuts and margin compression</span>
+                </div>
+            </div>
+
+            <div style="height: 1px; background: var(--border-color); margin: 14px 0;"></div>
+
+            <!-- Section 4: Buffett & Munger Cash Flow Predictability -->
+            <div>
+                <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 9px;">
+                    <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm);">
+                        Cash Flow Predictability ("Too Hard" Pile Audit)
+                    </div>
+                    <div style="font-family: var(--font-sans); font-size: 0.62rem; color: var(--text-dim);">
+                        1996 Berkshire Letter · 10-Yr Visibility
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 165px 1fr; row-gap: 6px; column-gap: 12px; font-size: 0.74rem; align-items: center;">
+                    <span style="font-weight: 600; color: var(--accent-warm); white-space: nowrap;">High Predictability</span>
+                    <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Contractual recurring cash flows; in the circle of competence</span>
+
+                    <span style="font-weight: 600; color: var(--accent-green); white-space: nowrap;">Moderate Predictability</span>
+                    <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Durable moat with macro cycle or platform transition exposure</span>
+
+                    <span style="font-weight: 600; color: #D48858; white-space: nowrap;">Low Predictability</span>
+                    <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Nascent lines, rapid tech shifts, or Red Queen CapEx drag</span>
+
+                    <span style="font-weight: 600; color: var(--accent-red); white-space: nowrap;">Highly Unpredictable</span>
+                    <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Binary outcomes or speculative volatility (strict 'Too Hard' pile)</span>
                 </div>
             </div>
         """
@@ -424,16 +467,16 @@ def build_labels_legend_modal_html(include_pricing_power: bool = False) -> str:
                     </div>
                 </div>
                 <div style="display: grid; grid-template-columns: 135px 1fr; row-gap: 7px; column-gap: 14px; font-size: 0.74rem; align-items: center;">
-                    <span style="font-weight: 600; color: var(--accent-warm); white-space: nowrap;">🏰 Wide Moat</span>
+                    <span style="font-weight: 600; color: var(--accent-warm); white-space: nowrap;">Wide Moat</span>
                     <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Dominant structural advantage sustaining excess returns for 20+ years (mega &amp; niche monopolies)</span>
 
-                    <span style="font-weight: 600; color: var(--accent-green); white-space: nowrap;">🛡️ Narrow Moat</span>
+                    <span style="font-weight: 600; color: var(--accent-green); white-space: nowrap;">Narrow Moat</span>
                     <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Durable competitive advantage sustaining excess returns for 10+ years</span>
 
-                    <span style="font-weight: 600; color: #D48858; white-space: nowrap;">⚠️ Weak Moat</span>
+                    <span style="font-weight: 600; color: #D48858; white-space: nowrap;">Weak Moat</span>
                     <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Fragile advantage vulnerable to price wars or disruption</span>
 
-                    <span style="font-weight: 600; color: var(--accent-red); white-space: nowrap;">❌ No Moat</span>
+                    <span style="font-weight: 600; color: var(--accent-red); white-space: nowrap;">No Moat</span>
                     <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Commoditized price-taker with zero structural barriers to entry</span>
                 </div>
             </div>
@@ -2355,6 +2398,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 {format_pricing_power_card_html(stock)}
                 {format_top_funds_card_html(stock)}
                 {format_insider_activity_card_html(stock)}
+                {format_cash_flow_predictability_card_html(stock)}
             </div>
         </section>
 
