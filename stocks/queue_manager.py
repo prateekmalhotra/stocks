@@ -158,6 +158,9 @@ def _handle_genesis_task(ticker: str, notes: str):
         institutional_ownership_pct=inst_pct,
         insider_signal=insider_signal,
         insider_summary=insider_summary,
+        pricing_power_tier=meta.get("pricing_power_tier", "Strong Pricing Power"),
+        pricing_power_score=meta.get("pricing_power_score", "Inelastic Demand · Low Churn"),
+        pricing_power_summary=meta.get("pricing_power_summary", ""),
         full_html_content=html_content
     )
 
@@ -171,6 +174,7 @@ def _handle_genesis_task(ticker: str, notes: str):
         current_price=current_price,
         return_pct=0.0,
         status_label=version_1.status_label,
+        moat_label=version_1.moat_label,
         labels=labels,
         action_signal=action_signal,
         fair_value_estimate=version_1.fair_value_estimate,
@@ -192,6 +196,9 @@ def _handle_genesis_task(ticker: str, notes: str):
         institutional_ownership_pct=inst_pct,
         insider_signal=insider_signal,
         insider_summary=insider_summary,
+        pricing_power_tier=version_1.pricing_power_tier,
+        pricing_power_score=version_1.pricing_power_score,
+        pricing_power_summary=version_1.pricing_power_summary,
         last_updated=today_str,
         total_versions=1,
         report_path=f"reports/{ticker}.html"
@@ -284,6 +291,9 @@ def _handle_review_task(ticker: str, trigger_reason: str):
         institutional_ownership_pct=inst_pct,
         insider_signal=insider_signal,
         insider_summary=insider_summary,
+        pricing_power_tier=meta.get("pricing_power_tier") or stock.pricing_power_tier or "Strong Pricing Power",
+        pricing_power_score=meta.get("pricing_power_score") or stock.pricing_power_score or "Inelastic Demand · Low Churn",
+        pricing_power_summary=meta.get("pricing_power_summary") or stock.pricing_power_summary or "",
         full_html_content=html_content
     )
     save_thesis_version(ticker, new_version)
@@ -292,6 +302,10 @@ def _handle_review_task(ticker: str, trigger_reason: str):
     stock.current_price = current_price
     stock.return_pct = round(((current_price - stock.baseline_price) / stock.baseline_price) * 100, 2)
     stock.status_label = new_version.status_label
+    stock.moat_label = new_version.moat_label
+    stock.pricing_power_tier = new_version.pricing_power_tier
+    stock.pricing_power_score = new_version.pricing_power_score
+    stock.pricing_power_summary = new_version.pricing_power_summary
     stock.labels = labels
     stock.action_signal = action_signal
     stock.fair_value_estimate = new_version.fair_value_estimate

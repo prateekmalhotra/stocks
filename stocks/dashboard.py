@@ -295,6 +295,38 @@ def format_insider_activity_card_html(stock: WatchlistStock) -> str:
     """
 
 
+def format_pricing_power_card_html(stock: WatchlistStock) -> str:
+    """Renders the Buffett-Munger Pricing Power intelligence card in the hero metrics grid."""
+    pp_tier = getattr(stock, "pricing_power_tier", None) or "Strong Pricing Power"
+    pp_score = getattr(stock, "pricing_power_score", None) or "Inelastic Demand · Low Churn"
+    pp_summary = getattr(stock, "pricing_power_summary", None) or "Demonstrated authority to pass input cost inflation without demand destruction."
+    
+    tier_lower = pp_tier.lower()
+    if any(k in tier_lower for k in ["absolute", "unconstrained", "monopoly"]):
+        icon = "👑"
+        color = "var(--accent-warm)"
+    elif any(k in tier_lower for k in ["strong", "structural"]):
+        icon = "💪"
+        color = "var(--accent-warm)"
+    elif any(k in tier_lower for k in ["inflation", "cost-plus", "pass"]):
+        icon = "⚖️"
+        color = "var(--accent-green)"
+    elif any(k in tier_lower for k in ["constrained", "regulated"]):
+        icon = "🛡️"
+        color = "var(--text-secondary)"
+    else:
+        icon = "⚠️"
+        color = "var(--accent-red)"
+
+    return f"""
+    <div class="metric-cell" title="Buffett & Munger Pricing Power Framework: {pp_summary}">
+        <div class="metric-label">Pricing Power</div>
+        <div class="metric-value" style="color: {color}; font-family: var(--font-sans) !important; font-size: 1.00rem !important; font-weight: 600 !important; white-space: nowrap !important; letter-spacing: -0.01em !important; overflow: hidden !important; text-overflow: ellipsis !important;">{icon} {pp_tier}</div>
+        <div class="metric-subtext">{pp_score}</div>
+    </div>
+    """
+
+
 def build_labels_legend_modal_html() -> str:
     """Builds the clean, minimalist, subtle modal explaining investment taxonomy and surveillance signals."""
     return """
@@ -2271,6 +2303,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                     <div class="metric-value" style="font-size: 0.88rem; font-family: var(--font-sans);">{stock.next_catalyst_date or 'TBD'}</div>
                     {f'<div class="metric-delta" style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 2px;">{clean_cat_desc}</div>' if clean_cat_desc else ''}
                 </div>
+                {format_pricing_power_card_html(stock)}
                 {format_top_funds_card_html(stock)}
                 {format_insider_activity_card_html(stock)}
             </div>

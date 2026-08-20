@@ -188,6 +188,15 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
         if not labels or labels[0] not in ALL_VALID_STATUS:
             issues.append(f"Label Slot 1 '{labels[0] if labels else None}' must strictly be a canonical Moat Archetype.")
 
+        # 14b. Canonical Pricing Power Tier Check
+        CANONICAL_PRICING_POWER_TIERS = {
+            "Absolute Pricing Power", "Strong Pricing Power", "Inflation Pass-Through",
+            "Constrained Pricing Power", "Price Taker"
+        }
+        pp_tier = metadata.get("pricing_power_tier")
+        if pp_tier and pp_tier not in CANONICAL_PRICING_POWER_TIERS:
+            issues.append(f"Invalid Pricing Power Tier '{pp_tier}'. Must strictly be one of: {sorted(list(CANONICAL_PRICING_POWER_TIERS))}.")
+
     # 15. Institutional Section 3 Completeness Check (All Required Subsections)
     s3_lower = html[html.lower().find("section 3"):].lower() if "section 3" in html.lower() else html.lower()
     

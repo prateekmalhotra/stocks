@@ -138,6 +138,14 @@ CANONICAL_MOAT_LABELS = [
     "No Moat"
 ]
 
+CANONICAL_PRICING_POWER_TIERS = [
+    "Absolute Pricing Power",
+    "Strong Pricing Power",
+    "Inflation Pass-Through",
+    "Constrained Pricing Power",
+    "Price Taker"
+]
+
 CANONICAL_CONVICTION_TIERS = [
     "High Conviction",
     "Solid Conviction",
@@ -146,6 +154,36 @@ CANONICAL_CONVICTION_TIERS = [
     "Turnaround Play",
     "Speculative Risk",
 ]
+
+
+def map_to_canonical_pricing_power_tier(lbl: str = "", sec1_text: str = "", default: str = "Strong Pricing Power") -> str:
+    """Maps any input text or Section 1 audit to one of the 5 canonical Buffett-Munger Pricing Power tiers:
+    1. Absolute Pricing Power: Unilateral pricing authority without volume loss (e.g. Hermès, Ferrari, Apple, See's Candies, ASML)
+    2. Strong Pricing Power: Dominant structural pricing ahead of CPI / input costs (e.g. Visa, Mastercard, Meta Ads, Google Search, Microsoft)
+    3. Inflation Pass-Through: Cost-plus indexation with contractual or friction-free cost pass-through (e.g. Costco, Waste Management, Union Pacific)
+    4. Constrained Pricing Power: Moderate or regulated pricing power subject to customer pushback or regulatory caps (e.g. Utilities, PBMs, Defense)
+    5. Price Taker: Commoditized price taker subject to competitor discounting and margin erosion (e.g. Airlines, commodity miners, un-differentiated retail)
+    """
+    if lbl and isinstance(lbl, str):
+        clean_lbl = lbl.strip().upper()
+        for p in CANONICAL_PRICING_POWER_TIERS:
+            if clean_lbl == p.upper():
+                return p
+
+    combined_text = f"{lbl or ''} {sec1_text or ''}".upper()
+    
+    if any(k in combined_text for k in ["ABSOLUTE PRICING", "UNCONSTRAINED PRICING", "MONOPOLY PRICING", "LUXURY PRICING", "SEE'S CANDIES"]):
+        return "Absolute Pricing Power"
+    elif any(k in combined_text for k in ["PRICE TAKER", "NEGATIVE PRICING", "COMMODITY PRICING", "PRICE WAR", "DESTRUCTIVE COMPETITION"]):
+        return "Price Taker"
+    elif any(k in combined_text for k in ["CONSTRAINED PRICING", "REGULATED PRICING", "PRICE CEILING", "MODERATE PRICING"]):
+        return "Constrained Pricing Power"
+    elif any(k in combined_text for k in ["INFLATION PASS", "COST-PLUS", "PASS THROUGH", "INDEXED ESCALATOR", "SURCHARGE"]):
+        return "Inflation Pass-Through"
+    elif any(k in combined_text for k in ["STRONG PRICING", "STRUCTURAL PRICING", "HIGH INELASTICITY", "PRICE MAKER", "PRICING POWER", "UNILATERAL PRICING"]):
+        return "Strong Pricing Power"
+        
+    return default
 
 
 def map_to_canonical_moat_label(lbl: str = "", sec1_text: str = "", default: str = "Narrow Moat") -> str:
@@ -861,25 +899,32 @@ Core Topics to Cover:
    - Customer value proposition, monetization mechanics, pricing power, and durable economic moat.
    - Core operational volume drivers vs high-margin service streams.
    - Operating margin trajectory, gross margin resilience, and operating leverage.
-2. 4-Quarter Operating Reality & Management Call Commentary:
+2. Buffett & Munger Pricing Power & Inflation Resistance Audit:
+   - Dedicated subsection header: <h3>Buffett &amp; Munger Pricing Power &amp; Inflation Resistance Audit</h3>
+   - Pricing Power Classification: Explicitly categorize the company into one of: [Absolute Pricing Power, Strong Pricing Power, Inflation Pass-Through, Constrained Pricing Power, Price Taker].
+   - The 'Prayer Session' Test (Warren Buffett 2010 FCIC Testimony): Does management set prices unilaterally without fearing volume destruction (like See's Candies, Apple, Hermès, Meta, Google, Microsoft), or do they need a prayer session before raising prices (commodity price-takers, retail price wars)?
+   - Customer Share of Wallet & Value Surplus: Is the price a tiny, painless fraction of the customer's total budget/revenue while delivering mission-critical utility or emotional addiction?
+   - 3-Year Audited Gross Margin Resilience: Tabular proof showing Gross Margin % across the last 3 fiscal years during inflation/cost spikes. Did gross margins expand, hold steady, or compress?
+   - Inflation Capital Intensity (1981 Berkshire Letter): When revenue grows through price increases, does it drop 100% to Owner Earnings, or does it require heavy maintenance CapEx to replace depreciating equipment?
+3. 4-Quarter Operating Reality & Management Call Commentary:
    - Synthesis of key themes from the last 4 quarterly earnings reports and management call commentary.
    - Transparent reporting on segment drags, deceleration, and margin headwinds alongside growth engines.
-3. Owner Earnings Derivation & Cash Flow Waterfall:
+4. Owner Earnings Derivation & Cash Flow Waterfall:
    - Step-by-step table deriving Core Operating Owner Earnings (OE₀) in $ Millions USD:
      GAAP OCF → less Working Capital noise → less Maintenance CapEx → less SBC → less Non-Operating Float Yield = Core OE₀.
    - Disclosed Useful Lives & Maintenance CapEx Reality: Search Note 1 (Property, Plant, and Equipment) of the latest Form 10-K for actual disclosed useful lives (e.g. servers 5–6 years, networking equipment 5–7 years, fulfillment equipment 5–10 years, buildings up to 40 years). Do NOT invent hypothetical useful life cuts (e.g. do not assume servers drop to 3 years unless explicitly disclosed in SEC filings). Maintenance CapEx must be calibrated to historical steady-state D&A and disclosed capital replacement (typically ~30%–45% of annual D&A during hyper-growth buildout phases), rather than treating all growth CapEx as maintenance.
    - Diluted share count / ADSs count (in Millions).
    - Balance Sheet Bridge: Gross Cash, debt obligations, working capital buffer, and net cash/debt per share.
-4. Core Historical Financial Baseline Table:
+5. Core Historical Financial Baseline Table:
    - 3-Year table showing: Revenue ($M), Revenue YoY Growth (%), Gross Profit Margin (%), GAAP Operating Income ($M), GAAP OCF ($M), Maintenance CapEx ($M), SBC ($M), Derived Owner Earnings ($M).
-5. Comprehensive Segment Revenue & Profitability Breakdown:
+6. Comprehensive Segment Revenue & Profitability Breakdown:
    - Full tabular breakdown of revenue and operating profit by major segment / product line / geographic region.
    - Segment Breakdown Arithmetic Reconciliation: The sum of all individual reported segment revenues (e.g. Online Stores + 3P Marketplace + AWS + Advertising + Subscriptions + Physical Stores + Other) MUST mathematically sum to 100.0% of the stated Total Net Revenue row. Never leave an unexplained multi-billion dollar discrepancy between the segment table sum and total net revenue.
-6. Cash Conversion Cycle & Working Capital Velocity:
+7. Cash Conversion Cycle & Working Capital Velocity:
    - DSO (Days Sales Outstanding), DIO (Days Inventory Outstanding), DPO (Days Payable Outstanding), and Net CCC over the last 3 years.
-7. Structural Balance Sheet Strength & Regulatory Capital:
+8. Structural Balance Sheet Strength & Regulatory Capital:
    - Debt-to-Equity, Net Debt/EBITDA, Interest Coverage, and regulatory capital ratios.
-8. Historical Corporate Trauma & Structural Remediation:
+9. Historical Corporate Trauma & Structural Remediation:
    - Root-cause autopsy of past impairments or stock drawdowns and structural operational safeguards in place today.
 
 Pure semantic HTML format:
@@ -1836,6 +1881,17 @@ Pass: {it}/{max_refine_iterations}
     raw_labels = [raw_moat, "Owner Earnings", "Cash Generation"]
     sanitized_labels = sanitize_labels(raw_labels, action_signal=action_signal, base_ret=mos1, sec1_text=sec1_current)
 
+    # Extract Buffett & Munger Pricing Power from Section 1 text
+    pricing_power_tier = map_to_canonical_pricing_power_tier("", sec1_text=sec1_current)
+    m_pp_score = re.search(r'(?:Prayer Session|Inelasticity|Pricing Power Score|Pricing Authority|Pricing Dynamics).*?:\s*([^\n<]+)', sec1_current, re.IGNORECASE)
+    if m_pp_score:
+        raw_pp_sub = m_pp_score.group(1).strip()
+        words = [w for w in raw_pp_sub.replace("&", " ").replace("·", " ").split() if w.strip()]
+        pp_score = " ".join(words[:4]).title() if words else "Inelastic Demand"
+    else:
+        pp_score = "Inelastic Demand · Low Churn" if "Absolute" in pricing_power_tier or "Strong" in pricing_power_tier else "Inflation Pass-Through"
+    pp_summary = f"{pricing_power_tier}: Underwritten via Buffett & Munger pricing power framework."
+
     what_is_priced_in = f"Market prices in today's entry price of ${current_price:.2f} vs Story 1 Intrinsic Value of ${story1_val:.2f}"
     exec_summary = f"Level-headed fundamental investment thesis established for {ticker_clean} across 3 distinct operating paths."
 
@@ -1859,6 +1915,9 @@ Pass: {it}/{max_refine_iterations}
         "return_pct": 0.0,
         "status_label": sanitized_labels[0],
         "moat_label": sanitized_labels[0],
+        "pricing_power_tier": pricing_power_tier,
+        "pricing_power_score": pp_score,
+        "pricing_power_summary": pp_summary,
         "labels": sanitized_labels,
         "action_signal": action_signal,
         "fair_value_estimate": f"${story1_val:.2f}",

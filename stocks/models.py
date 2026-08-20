@@ -38,6 +38,9 @@ class ThesisVersion(BaseModel):
     institutional_ownership_pct: Optional[str] = ""  # e.g. "78.4%"
     insider_signal: Optional[str] = "Neutral (10b5-1)"  # Net Buying, Cluster Buying, Neutral (10b5-1), Net Selling, No Activity
     insider_summary: Optional[str] = ""  # 1-line summary of recent Form 4 insider transactions
+    pricing_power_tier: Optional[str] = "Strong Pricing Power"  # Absolute, Strong, Inflation Pass-Through, Constrained, Price Taker
+    pricing_power_score: Optional[str] = "High Inelasticity"  # e.g. "Inelastic Demand · +5% Pricing Power"
+    pricing_power_summary: Optional[str] = ""  # 1-sentence synthesis of pricing authority
     full_html_content: str = ""
 
 
@@ -88,6 +91,9 @@ class WatchlistStock(BaseModel):
     institutional_ownership_pct: Optional[str] = ""
     insider_signal: Optional[str] = "Neutral (10b5-1)"
     insider_summary: Optional[str] = ""
+    pricing_power_tier: Optional[str] = "Strong Pricing Power"
+    pricing_power_score: Optional[str] = "High Inelasticity"
+    pricing_power_summary: Optional[str] = ""
     last_updated: str
     total_versions: int = 1
     report_path: str
