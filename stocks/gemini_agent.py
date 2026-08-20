@@ -128,13 +128,9 @@ def clean_grounding_artifacts(text: str) -> str:
 
 
 CANONICAL_MOAT_LABELS = [
-    "Network Effects",
-    "Cost Advantage",
-    "Switching Costs",
-    "Brand Monopoly",
-    "Tollbridge Asset",
-    "Efficient Scale",
+    "Wide Moat",
     "Narrow Moat",
+    "Weak Moat",
     "No Moat"
 ]
 
@@ -203,62 +199,54 @@ def map_to_canonical_pricing_power_tier(lbl: str = "", sec1_text: str = "", defa
 
 
 def map_to_canonical_moat_label(lbl: str = "", sec1_text: str = "", default: str = "Narrow Moat") -> str:
-    """Maps any input string, moat description, or Section 1 text to one of the 8 canonical Moat archetypes:
-    1. Network Effects: Social graphs, two-sided marketplaces, platform density (e.g. Meta, Visa, Bumble)
-    2. Cost Advantage: Lowest structural production cost, logistics scale, supply dominance (e.g. Amazon, Costco, TSMC)
-    3. Switching Costs: Mission-critical enterprise workflows, high customer friction/retention (e.g. Microsoft, Oracle, Salesforce)
-    4. Brand Monopoly: Consumer pricing power, luxury goodwill, protected IP/patents (e.g. Apple, Ferrari, Crocs)
-    5. Tollbridge Asset: Bottleneck infrastructure where all traffic pays a toll (e.g. Google Search, Verisign, Moody's, ASML)
-    6. Efficient Scale: Natural market capacity cap serving demand profitably (e.g. Railroads, Pipelines)
-    7. Narrow Moat: Moderate or localized competitive edge
-    8. No Moat: Commodity price-taker with unprotected economics
+    """Maps any input string, moat description, or Section 1 text to one of the 4 canonical Moat ratings:
+    1. Wide Moat (Strong Moat): Dominant structural advantage sustaining excess returns for 20+ years (e.g. Visa, Google, Apple, Microsoft, Hermès)
+    2. Narrow Moat (Moderate Moat): Durable competitive advantage sustaining excess returns for 10+ years (e.g. JD.com, Nike, Costco, Amazon)
+    3. Weak Moat (Fragile Moat): Limited or eroding competitive advantage vulnerable to price wars or disruption (e.g. commoditized consumer apps, cyclical hardware)
+    4. No Moat: Commoditized price-taker with zero structural barriers to entry
     """
     if lbl and isinstance(lbl, str):
         clean_lbl = lbl.strip().upper()
+        if clean_lbl in ["WIDE MOAT", "STRONG MOAT", "WIDE", "STRONG"]:
+            return "Wide Moat"
+        elif clean_lbl in ["NARROW MOAT", "MODERATE MOAT", "NARROW", "MODERATE"]:
+            return "Narrow Moat"
+        elif clean_lbl in ["WEAK MOAT", "VULNERABLE MOAT", "WEAK", "VULNERABLE", "FRAGILE"]:
+            return "Weak Moat"
+        elif clean_lbl in ["NO MOAT", "NONE", "COMMODITY", "ZERO MOAT"]:
+            return "No Moat"
         for m in CANONICAL_MOAT_LABELS:
             if clean_lbl == m.upper():
                 return m
 
-    # 1. Check explicit "Primary Economic Moat Archetype:" statement first
+    # 1. Check explicit "Primary Economic Moat Rating:" or "Primary Economic Moat Archetype:" statement first
     if sec1_text:
-        m = re.search(r'Primary Economic Moat Archetype:\s*([^<\n\.]+)', sec1_text, re.IGNORECASE)
+        m = re.search(r'Primary Economic Moat (?:Rating|Archetype|Classification):\s*([^<\n\.]+)', sec1_text, re.IGNORECASE)
         if m:
             class_str = m.group(1).strip().upper()
-            if "COST ADVANTAGE" in class_str or "SCALE ECONOMIES" in class_str:
-                return "Cost Advantage"
-            if "NETWORK EFFECT" in class_str:
-                return "Network Effects"
-            if "SWITCHING" in class_str:
-                return "Switching Costs"
-            if "BRAND" in class_str:
-                return "Brand Monopoly"
-            if "EFFICIENT SCALE" in class_str:
-                return "Efficient Scale"
-            if "TOLLBRIDGE" in class_str or "TOLLBOOTH" in class_str:
-                return "Tollbridge Asset"
-            if "NARROW" in class_str:
+            if "WIDE" in class_str or "STRONG" in class_str or "TOLLBRIDGE" in class_str or "NETWORK EFFECT" in class_str or "BRAND MONOPOLY" in class_str:
+                return "Wide Moat"
+            if "NARROW" in class_str or "MODERATE" in class_str or "COST ADVANTAGE" in class_str or "SWITCHING" in class_str or "EFFICIENT SCALE" in class_str:
                 return "Narrow Moat"
-            if "NO MOAT" in class_str or "COMMODITY" in class_str:
+            if "WEAK" in class_str or "VULNERABLE" in class_str or "FRAGILE" in class_str:
+                return "Weak Moat"
+            if "NO MOAT" in class_str or "COMMODITY" in class_str or "ZERO" in class_str:
                 return "No Moat"
 
     combined_text = f"{lbl or ''} {sec1_text or ''}".upper()
     
-    if any(k in combined_text for k in ["COST ADVANTAGE", "SCALE ECONOMIES", "LOGISTICS DENSITY", "LOWEST COST", "SCALE ADVANTAGE", "LOW COST"]):
-        return "Cost Advantage"
-    elif any(k in combined_text for k in ["NETWORK EFFECT", "NETWORK EFFECTS", "TWO SIDED", "SOCIAL GRAPH", "ECOSYSTEM DENSITY", "MARKETPLACE DENSITY"]):
-        return "Network Effects"
-    elif any(k in combined_text for k in ["SWITCHING COST", "SWITCHING COSTS", "MISSION CRITICAL", "HIGH RETENTION", "EMBEDDED WORKFLOW", "ENTERPRISE LOCK IN"]):
-        return "Switching Costs"
-    elif any(k in combined_text for k in ["BRAND MONOPOLY", "INTANGIBLE ASSET", "INTANGIBLES", "CONSUMER MONOPOLY", "PRICING POWER", "LUXURY GOODWILL", "PATENT MOAT"]):
-        return "Brand Monopoly"
-    elif any(k in combined_text for k in ["TOLLBRIDGE", "TOLLBOOTH", "TOLL ASSET", "REGULATORY MONOPOLY", "EXCLUSIVE EXCHANGE", "INDEX STANDARD", "SEARCH MONOPOLY", "SEARCH TOLL"]):
-        return "Tollbridge Asset"
-    elif any(k in combined_text for k in ["EFFICIENT SCALE", "NATURAL MONOPOLY", "GEOGRAPHIC MONOPOLY", "PIPELINE"]):
-        return "Efficient Scale"
-    elif any(k in combined_text for k in ["NO MOAT", "COMMODITY", "PRICE TAKER", "UNPROTECTED", "EROSION"]):
-        return "No Moat"
-    elif any(k in combined_text for k in ["NARROW MOAT", "NICHE MOAT", "REGIONAL MOAT", "MODERATE MOAT"]):
+    # 2. Wide Moat signals
+    if any(k in combined_text for k in ["WIDE MOAT", "STRONG MOAT", "DOMINANT MOAT", "TOLLBRIDGE", "NETWORK EFFECT", "BRAND MONOPOLY", "SEARCH MONOPOLY"]):
+        return "Wide Moat"
+    # 3. Narrow Moat signals
+    elif any(k in combined_text for k in ["NARROW MOAT", "MODERATE MOAT", "COST ADVANTAGE", "SWITCHING COST", "EFFICIENT SCALE", "SCALE ECONOMIES", "LOGISTICS DENSITY"]):
         return "Narrow Moat"
+    # 4. Weak Moat signals
+    elif any(k in combined_text for k in ["WEAK MOAT", "VULNERABLE MOAT", "PRICE WAR", "DESTRUCTIVE COMPETITION", "FRAGILE MOAT", "EROSION"]):
+        return "Weak Moat"
+    # 5. No Moat signals
+    elif any(k in combined_text for k in ["NO MOAT", "PRICE TAKER", "UNPROTECTED", "COMMODITY", "ZERO BARRIER"]):
+        return "No Moat"
         
     return default
 
@@ -299,9 +287,9 @@ def map_to_canonical_conviction_tier(lbl: str, action_signal: str = "", base_ret
 
 def sanitize_labels(labels: Any, action_signal: str = "", base_ret: float = 0.0, sec1_text: str = "") -> List[str]:
     """Sanitizes labels ensuring:
-    - Slot 1 is STRICTLY one of the 8 canonical Moat Archetypes:
-      * Network Effects, Cost Advantage, Switching Costs, Brand Monopoly, Tollbridge Asset, Efficient Scale, Narrow Moat, No Moat.
-    - Slots 2 & 3 are specific 2-word operating/catalyst drivers (e.g. "Cloud Scale", "Ad Monopoly").
+    - Slot 1 is STRICTLY one of the 4 canonical Moat ratings:
+      * Wide Moat, Narrow Moat, Weak Moat, No Moat.
+    - Slots 2 & 3 are specific 2-word operating/catalyst drivers (e.g. "Cloud Scale", "Fulfillment Scale").
     - Max 3 labels total.
     """
     if not isinstance(labels, list):
@@ -933,7 +921,7 @@ CRITICAL FINANCIAL REALITY & INTEGRITY CHECKS:
 
 Core Topics to Cover:
 1. The Core Business Machine, Moat & Unit Economics:
-   - Primary Economic Moat Archetype: Classify the business moat strictly as one of the 8 canonical archetypes: [Network Effects, Cost Advantage, Switching Costs, Brand Monopoly, Tollbridge Asset, Efficient Scale, Narrow Moat, No Moat]. Explicitly evaluate the structural durability and pricing power of this moat.
+   - Primary Economic Moat Rating: Classify the business moat durability strictly as one of the 4 canonical ratings: [Wide Moat, Narrow Moat, Weak Moat, No Moat]. Explicitly evaluate the structural durability and competitive advantages sustaining excess returns on capital over a 10–20 year horizon.
    - Customer value proposition, monetization mechanics, pricing power, and durable economic moat.
    - Core operational volume drivers vs high-margin service streams.
    - Operating margin trajectory, gross margin resilience, and operating leverage.

@@ -114,7 +114,21 @@ def format_labels_pills(labels: List[str]) -> str:
     
     from stocks.gemini_agent import map_to_canonical_moat_label
     moat_lbl = map_to_canonical_moat_label(" ".join(words))
-    return f'<span class="pill pill-moat" title="Economic Moat Archetype: {moat_lbl}">🏰 {moat_lbl}</span>'
+    
+    if moat_lbl == "Wide Moat":
+        icon = "🏰"
+        css_class = "pill-moat-wide"
+    elif moat_lbl == "Narrow Moat":
+        icon = "🛡️"
+        css_class = "pill-moat-narrow"
+    elif moat_lbl == "Weak Moat":
+        icon = "⚠️"
+        css_class = "pill-moat-weak"
+    else:
+        icon = "❌"
+        css_class = "pill-moat-none"
+        
+    return f'<span class="pill {css_class}" title="Economic Moat Rating: {moat_lbl}">{icon} {moat_lbl}</span>'
 
 
 def format_usd_target(val: Any) -> str:
@@ -399,35 +413,23 @@ def build_labels_legend_modal_html(include_pricing_power: bool = False) -> str:
 
             <div style="height: 1px; background: var(--border-color); margin: 14px 0;"></div>
 
-            <!-- Section 2: Economic Moat Archetypes -->
+            <!-- Section 2: Economic Moat Rating -->
             <div>
                 <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 9px;">
-                    Economic Moat Archetypes (Primary Label)
+                    Economic Moat Rating (Primary Label)
                 </div>
-                <div style="display: grid; grid-template-columns: 155px 1fr; row-gap: 6px; column-gap: 12px; font-size: 0.74rem; align-items: center;">
-                    <span style="font-weight: 600; color: var(--accent-warm); white-space: nowrap;">🏰 Network Effects</span>
-                    <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Value compounds with user and merchant density</span>
+                <div style="display: grid; grid-template-columns: 135px 1fr; row-gap: 7px; column-gap: 14px; font-size: 0.74rem; align-items: center;">
+                    <span style="font-weight: 600; color: var(--accent-warm); white-space: nowrap;">🏰 Wide Moat</span>
+                    <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Dominant structural advantage sustaining excess returns for 20+ years</span>
 
-                    <span style="font-weight: 600; color: var(--accent-warm); white-space: nowrap;">🏰 Cost Advantage</span>
-                    <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Lowest structural cost via supply chain &amp; scale</span>
+                    <span style="font-weight: 600; color: var(--accent-green); white-space: nowrap;">🛡️ Narrow Moat</span>
+                    <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Durable competitive advantage sustaining excess returns for 10+ years</span>
 
-                    <span style="font-weight: 600; color: var(--accent-warm); white-space: nowrap;">🏰 Switching Costs</span>
-                    <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Mission-critical workflow lock-in with high exit friction</span>
+                    <span style="font-weight: 600; color: #D48858; white-space: nowrap;">⚠️ Weak Moat</span>
+                    <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Fragile advantage vulnerable to price wars or disruption</span>
 
-                    <span style="font-weight: 600; color: var(--accent-warm); white-space: nowrap;">🏰 Brand Monopoly</span>
-                    <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Inelastic consumer mindshare and pricing power</span>
-
-                    <span style="font-weight: 600; color: var(--accent-warm); white-space: nowrap;">🏰 Tollbridge Asset</span>
-                    <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Bottleneck asset collecting non-discretionary tolls</span>
-
-                    <span style="font-weight: 600; color: var(--accent-warm); white-space: nowrap;">🏰 Efficient Scale</span>
-                    <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Natural capacity cap serving market demand profitably</span>
-
-                    <span style="font-weight: 600; color: var(--accent-warm); white-space: nowrap;">🏰 Narrow Moat</span>
-                    <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Moderate or localized competitive edge</span>
-
-                    <span style="font-weight: 600; color: var(--accent-warm); white-space: nowrap;">🏰 No Moat</span>
-                    <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Commoditized price-taker with unprotected economics</span>
+                    <span style="font-weight: 600; color: var(--accent-red); white-space: nowrap;">❌ No Moat</span>
+                    <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Commoditized price-taker with zero structural barriers to entry</span>
                 </div>
             </div>
             {pricing_power_section}
@@ -2145,6 +2147,10 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             white-space: nowrap;
         }}
         .pill-moat {{ background: rgba(212, 163, 115, 0.14); color: var(--accent-warm); border: 1px solid rgba(212, 163, 115, 0.4); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em; }}
+        .pill-moat-wide {{ background: rgba(212, 163, 115, 0.14); color: var(--accent-warm); border: 1px solid rgba(212, 163, 115, 0.4); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em; }}
+        .pill-moat-narrow {{ background: rgba(125, 157, 129, 0.14); color: var(--accent-green); border: 1px solid rgba(125, 157, 129, 0.35); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em; }}
+        .pill-moat-weak {{ background: rgba(212, 136, 88, 0.14); color: #D48858; border: 1px solid rgba(212, 136, 88, 0.35); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em; }}
+        .pill-moat-none {{ background: rgba(196, 114, 108, 0.14); color: var(--accent-red); border: 1px solid rgba(196, 114, 108, 0.35); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em; }}
         .pill-active {{ background: rgba(201, 154, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.45); font-weight: 600; box-shadow: 0 0 10px rgba(201, 154, 117, 0.06); }}
         .pill-neutral {{ background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); font-weight: 500; }}
         .pill-alert {{ background: rgba(191, 160, 117, 0.14); color: var(--accent-warm); border: 1px solid rgba(191, 160, 117, 0.28); }}
@@ -3240,6 +3246,10 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             white-space: nowrap;
         }}
         .pill-moat {{ background: rgba(212, 163, 115, 0.14); color: var(--accent-warm); border: 1px solid rgba(212, 163, 115, 0.4); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em; }}
+        .pill-moat-wide {{ background: rgba(212, 163, 115, 0.14); color: var(--accent-warm); border: 1px solid rgba(212, 163, 115, 0.4); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em; }}
+        .pill-moat-narrow {{ background: rgba(125, 157, 129, 0.14); color: var(--accent-green); border: 1px solid rgba(125, 157, 129, 0.35); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em; }}
+        .pill-moat-weak {{ background: rgba(212, 136, 88, 0.14); color: #D48858; border: 1px solid rgba(212, 136, 88, 0.35); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em; }}
+        .pill-moat-none {{ background: rgba(196, 114, 108, 0.14); color: var(--accent-red); border: 1px solid rgba(196, 114, 108, 0.35); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em; }}
         .pill-conviction {{ background: rgba(212, 163, 115, 0.12); color: var(--accent-warm); border: 1px solid rgba(212, 163, 115, 0.35); font-weight: 600; }}
         .pill-driver {{ background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); font-weight: 500; }}
         .pill-active {{ background: rgba(201, 154, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.45); font-weight: 600; box-shadow: 0 0 10px rgba(201, 154, 117, 0.06); }}

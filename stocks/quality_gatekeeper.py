@@ -168,10 +168,10 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
                 if bk in exec_summary:
                     issues.append(f"Signal Contradiction: Action signal is AVOID but executive summary contains '{bk}'.")
 
-        # 14. Canonical Moat Archetype & Label Quality Check
+        # 14. Canonical Moat Rating & Label Quality Check
         CANONICAL_MOAT_LABELS = {
-            "Network Effects", "Cost Advantage", "Switching Costs", "Brand Monopoly",
-            "Tollbridge Asset", "Efficient Scale", "Narrow Moat", "No Moat"
+            "Wide Moat", "Narrow Moat", "Weak Moat", "No Moat",
+            "Strong Moat", "Moderate Moat"
         }
         CANONICAL_CONVICTION_TIERS = {
             "High Conviction", "Solid Conviction", "Moderate Conviction",
@@ -186,7 +186,7 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
 
         labels = metadata.get("labels", [])
         if not labels or labels[0] not in ALL_VALID_STATUS:
-            issues.append(f"Label Slot 1 '{labels[0] if labels else None}' must strictly be a canonical Moat Archetype.")
+            issues.append(f"Label Slot 1 '{labels[0] if labels else None}' must strictly be a canonical Moat Rating.")
 
         # 14b. Canonical Pricing Power Tier Check
         CANONICAL_PRICING_POWER_TIERS = {
