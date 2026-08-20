@@ -261,7 +261,7 @@ def format_top_funds_card_html(stock: WatchlistStock) -> str:
     funds = getattr(stock, "top_funds", None) or []
     raw_inst = getattr(stock, "institutional_ownership_pct", None) or ""
     clean_names = [clean_fund_name(f) for f in funds if clean_fund_name(f)]
-    subtext = " · ".join(clean_names[:2]) if clean_names else "13F Institutional Backing"
+    subtext = " · ".join(clean_names[:2]) if clean_names else ("13F Superinvestors" if funds else "Zero 13F Whales")
 
     # Format value: if valid pct exists and is not N/A, use it; otherwise show superinvestor whale count
     if raw_inst and str(raw_inst).strip() not in ("N/A", "None", "", "TBD") and "%" in str(raw_inst):
@@ -269,7 +269,7 @@ def format_top_funds_card_html(stock: WatchlistStock) -> str:
     elif len(funds) > 0:
         display_val = f"{len(funds)} Whales" if len(funds) > 1 else f"{len(funds)} Whale"
     else:
-        display_val = "Whale Backed"
+        display_val = "0 Tracked"
 
     return f"""
     <div class="metric-cell">

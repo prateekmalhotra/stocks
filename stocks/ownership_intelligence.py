@@ -361,13 +361,17 @@ def calculate_insider_sentiment_and_flow(oi_trades: List[Dict[str, Any]], stock_
     total_buy = 0.0
     total_sell = 0.0
     buyers = set()
+    buyer_names = []
+    buyer_roles = set()
     sellers = set()
+    seller_roles = set()
     is_fpi_initial_filing = False
 
     for t in active_trades:
         ttype = (t.get("trade_type") or "").strip()
         v_num = parse_trade_value(t.get("value", ""))
         name = t.get("name", "")
+        title = (t.get("title") or "").strip()
 
         # Exclude initial Form 3 / HFIAA / 20-F beneficial ownership disclosures from active market buys/sells
         if any(marker in ttype.lower() for marker in ["beneficial", "initial", "form 3", "hfiaa", "20-f", "annual audit", "director grant", "rsu", "class a", "class b", "controlling"]):
@@ -378,11 +382,18 @@ def calculate_insider_sentiment_and_flow(oi_trades: List[Dict[str, Any]], stock_
         if ("purchase" in ttype.lower() or ttype.startswith("P -")) and "grant" not in ttype.lower():
             total_buy += abs(v_num)
             buyers.add(name)
+            if name and name not in buyer_names:
+                buyer_names.append(name)
+            if title:
+                buyer_roles.add(title)
         elif "sale" in ttype.lower() or ttype.startswith("S -"):
             total_sell += abs(v_num)
             sellers.add(name)
+            if title:
+                seller_roles.add(title)
 
     net_flow = total_buy - total_sell
+    has_csuite_buyer = any(any(k in r.upper() for k in ["CEO", "CHIEF EXECUTIVE", "COB", "CHAIRMAN", "PRESIDENT", "CFO", "DIRECTOR", "FOUNDER"]) for r in buyer_roles) or any(any(k in n.upper() for k in ["CEO", "DIRECTOR"]) for n in buyers)
 
     # Classification rules (Strictly balanced against recency, gross sales and net flow)
     if len(buyers) >= 2 and total_buy >= 500000 and (total_sell <= total_buy * 1.5 or net_flow >= 0):
@@ -390,16 +401,19 @@ def calculate_insider_sentiment_and_flow(oi_trades: List[Dict[str, Any]], stock_
         badge_html = "🟢 Cluster Buy"
         color = "var(--accent-green)"
         summary = f"{len(buyers)} Insiders +${total_buy/1e6:.1f}M Recent Open Market Buys" if total_buy >= 1e6 else f"{len(buyers)} Insiders +${total_buy/1e3:.0f}K Buys"
-    elif total_buy > 0 and net_flow > 0:
+    elif total_buy > 0 and net_flow > 0 and total_sell <= total_buy * 0.5:
         sig = "Net Buying"
         badge_html = "🟢 Net Buying"
         color = "var(--accent-green)"
         summary = f"+${net_flow/1e6:.1f}M Net Open Market Buys (12M)" if net_flow >= 1e6 else f"+${net_flow/1e3:.0f}K Net Buys"
-    elif total_buy > 0 and total_sell >= 3000000 and total_sell > total_buy * 2.0:
-        sig = "Neutral (10b5-1)"
-        badge_html = "🟡 Routine 10b5-1"
+    elif total_buy > 0 and total_sell > 0:
+        sig = "Divergent Executive Flow"
+        badge_html = "⚖️ Divergent Flow"
         color = "var(--accent-warm)"
-        summary = f"Routine pre-scheduled 10b5-1 executive diversification (-${total_sell/1e6:.1f}M) alongside ${total_buy/1e6:.1f}M open-market purchases"
+        if has_csuite_buyer:
+            summary = f"Key C-Suite/Director buying (+${total_buy/1e6:.1f}M) offset by executive selling (-${total_sell/1e6:.1f}M across {len(sellers)} officers)" if total_sell >= 1e6 else f"Key purchases (+${total_buy/1e3:.0f}K) offset by sales (-${total_sell/1e3:.0f}K)"
+        else:
+            summary = f"Insider purchases (+${total_buy/1e6:.1f}M) offset by executive diversification (-${total_sell/1e6:.1f}M)" if total_sell >= 1e6 else f"Purchases (+${total_buy/1e3:.0f}K) vs sales (-${total_sell/1e3:.0f}K)"
     elif total_sell >= 3000000 and total_buy == 0:
         sig = "Routine Sales (10b5-1)"
         badge_html = "🟡 10b5-1 Sales"
@@ -426,10 +440,10 @@ def calculate_insider_sentiment_and_flow(oi_trades: List[Dict[str, Any]], stock_
         color = "var(--text-dim)"
         summary = "Zero Form 4 open market transactions (12M)"
     else:
-        sig = "Neutral (10b5-1)"
-        badge_html = "🟡 Neutral"
+        sig = "Routine Sales (10b5-1)"
+        badge_html = "🟡 Routine 10b5-1"
         color = "var(--accent-warm)"
-        summary = "10b5-1 pre-scheduled plans"
+        summary = "Pre-scheduled 10b5-1 executive diversification plans"
 
     return {
         "signal": sig,
@@ -635,21 +649,30 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
 
     # Render Holders Table Rows
     holders_rows = ""
-    for h in combined_holders:
-        holders_rows += f"""
+    if combined_holders:
+        for h in combined_holders:
+            holders_rows += f"""
+            <tr>
+                <td>
+                    <div style="font-weight: 500; color: var(--text-title);">{h['name']}</div>
+                </td>
+                <td><span class="pill pill-neutral" style="font-size: 0.72rem;">{h['category']}</span></td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">{h['stake']}</td>
+                <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">{h['shares']}</td>
+                <td>{h['action']}</td>
+                <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">{h['value']}</td>
+                <td>
+                    <a href="{h['url']}" target="_blank" rel="noopener noreferrer" class="link-out">
+                        View 13F ↗
+                    </a>
+                </td>
+            </tr>
+            """
+    else:
+        holders_rows = f"""
         <tr>
-            <td>
-                <div style="font-weight: 500; color: var(--text-title);">{h['name']}</div>
-            </td>
-            <td><span class="pill pill-neutral" style="font-size: 0.72rem;">{h['category']}</span></td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">{h['stake']}</td>
-            <td style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.84rem;">{h['shares']}</td>
-            <td>{h['action']}</td>
-            <td style="font-family: var(--font-mono); color: var(--text-title); font-weight: 500;">{h['value']}</td>
-            <td>
-                <a href="{h['url']}" target="_blank" rel="noopener noreferrer" class="link-out">
-                    View 13F ↗
-                </a>
+            <td colspan="7" style="text-align: center; color: var(--text-dim); padding: 36px 16px; font-style: italic; font-size: 0.88rem;">
+                No 13F superinvestor positions currently reported on Dataroma / WhaleWisdom for {clean_t}.
             </td>
         </tr>
         """
@@ -774,7 +797,14 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
     elif len(dr_holders) > 0:
         whale_flow_note = f"🟡 {len(dr_holders)} Superinvestor Positions Monitored"
     else:
-        whale_flow_note = "Audited SEC Filings & Superinvestor Portfolios"
+        whale_flow_note = "Zero Superinvestor Positions Tracked"
+
+    if not combined_holders:
+        inst_float_display = "0 Tracked"
+        inst_float_note = "No 13F Superinvestor Filings"
+    else:
+        inst_float_display = inst_pct if inst_pct and inst_pct not in ("Whale Backed", "0 Tracked") else f"{len(combined_holders)} Funds"
+        inst_float_note = "Tracked across SEC 13F Filings"
 
     return f"""
     <div class="ownership-container">
@@ -783,8 +813,8 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
             <div class="ownership-stat-grid">
                 <div class="stat-box">
                     <span class="stat-label">Institutional Float</span>
-                    <span class="stat-num">{inst_pct}</span>
-                    <span class="stat-note">Tracked across SEC 13F Filings</span>
+                    <span class="stat-num">{inst_float_display}</span>
+                    <span class="stat-note">{inst_float_note}</span>
                 </div>
                 <div class="stat-box">
                     <span class="stat-label">Insider & Beneficial Sentiment</span>

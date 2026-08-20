@@ -114,7 +114,7 @@ def _handle_genesis_task(ticker: str, notes: str):
     elif dr_holders:
         inst_pct = f"{len(dr_holders)} Whales" if len(dr_holders) > 1 else f"{len(dr_holders)} Whale"
     else:
-        inst_pct = "Whale Backed"
+        inst_pct = "0 Tracked"
     
     # Derive insider signal from Form 4 trades
     oi_trades = ownership_data.get("openinsider_trades", [])
@@ -250,7 +250,7 @@ def _handle_review_task(ticker: str, trigger_reason: str):
     elif top_funds:
         inst_pct = f"{len(top_funds)} Whales" if len(top_funds) > 1 else f"{len(top_funds)} Whale"
     else:
-        inst_pct = "Whale Backed"
+        inst_pct = "0 Tracked"
     insider_signal = meta.get("insider_signal") or stock.insider_signal or "Neutral (10b5-1)"
     insider_summary = meta.get("insider_summary") or stock.insider_summary or ""
 
