@@ -996,25 +996,32 @@ Scenario Description:
 {story_context}
 
 Your Task:
-Calculate the intrinsic fair value per share (or per ADS for ADRs) in USD using a 5-year Discounted Cash Flow (DCF).
-USE YOUR PYTHON CODE EXECUTION TOOL to execute exact cash flow compounding, discount calculations, terminal value capitalization, and per-share divisions.
+Calculate the intrinsic fair value per share (or per ADS for ADRs) in USD using a disciplined 5-year Discounted Cash Flow (DCF) with explicit 5-year tangible cash payback and exit multiple floor analysis.
+USE YOUR PYTHON CODE EXECUTION TOOL to execute exact cash flow compounding, discount calculations, terminal value capitalization, exit multiple floors, and per-share divisions.
 
 Valuation Steps (Execute via Python):
 1. Start with Year 0 Normalized Owner Earnings (in $ Millions USD) strictly identical to the OE₀ derived in Section 1.
 2. Compound Owner Earnings over 5 years based on the scenario growth rate: OE_t = OE_0 * ((1 + g) ** t).
-3. Discount the 5 years of cash flows at a disciplined equity hurdle rate (9.5% Base/Bull, 10.5%–11.0% Bear): PV = OE_t / ((1 + r) ** t).
-4. Calculate Terminal Value using ~2.0% terminal growth: TV_5 = (OE_5 * (1 + g_term)) / (r - g_term), and discount to PV.
-   - Note: The Implied Exit Multiple is (1 + g_term) / (r - g_term) (e.g. 13.6x OE₅ at 9.5% discount / 2.0% terminal growth).
-5. Sum 5-year PV + PV of Terminal Value to get Operating Enterprise Value (in $ Millions USD).
-6. Divide by Diluted Shares / ADSs count (in Millions) to get Operating Business Value per Share in USD.
-7. Balance Sheet Bridge Adjustment (USD per share):
+3. Discount the 5 years of cash flows at a disciplined equity hurdle rate (9.5% Base/Bull, 10.5%–11.0% Bear): PV_t = OE_t / ((1 + r) ** t).
+   - Compute Explicit 5-Year Cash PV: PV_explicit = sum(PV_1 ... PV_5).
+4. Calculate Gordon Growth Terminal Value using ~2.0% terminal growth: TV_5 = (OE_5 * (1 + g_term)) / (r - g_term), and discount to PV: PV_TV = TV_5 / ((1 + r) ** 5).
+   - Implied Exit Multiple: (1 + g_term) / (r - g_term) (e.g. 13.6x OE₅ at 9.5% discount / 2.0% terminal growth).
+5. Compute Alternative Exit Multiple Valuation Floors:
+   - Conservative 10.0x Exit Multiple Floor: Operating EV_10x = PV_explicit + (10.0 * OE_5 / ((1 + r) ** 5)).
+   - Baseline 12.0x Exit Multiple: Operating EV_12x = PV_explicit + (12.0 * OE_5 / ((1 + r) ** 5)).
+6. Sum Operating Enterprise Value (PV_explicit + PV_TV) (in $ Millions USD).
+   - Calculate % of Operating EV from Explicit 5-Year Cash Flow: (PV_explicit / Operating EV) * 100.
+   - Calculate % of Operating EV from Terminal Value: (PV_TV / Operating EV) * 100.
+7. Divide by Diluted Shares / ADSs count (in Millions) to get Operating Business Value per Share in USD.
+   - Compute 5-Year Cumulative Cash Payback per share: PV_explicit / Diluted_Shares.
+8. Balance Sheet Bridge Adjustment (USD per share):
    - If company has Net Debt (Debt > Cash, e.g. Crocs): Net Debt is a NEGATIVE adjustment (-$XX.XX/share) and MUST BE SUBTRACTED (Operating EV - Net Debt = Equity Intrinsic Value).
    - If company has Net Cash (Cash > Debt, e.g. Google, JD, Meta): Net Surplus Cash is a POSITIVE adjustment (+$XX.XX/share) and is ADDED (Operating EV + Net Cash = Equity Intrinsic Value).
-8. Add/subtract the adjustment to Operating Value per Share to derive the final Intrinsic Fair Value per Share in USD.
+9. Derive the final Intrinsic Fair Value per Share, along with the 10.0x floor and 12.0x alternative values.
 
 SANITY & PRECISION:
-- Final fair value per share MUST be the realistic intrinsic per-share value in USD (divided by total diluted shares/ADSs, NOT the total company enterprise value in Millions/Billions).
-- Avoid false precision: Round large enterprise values to whole millions (e.g. 139006, not 139005.68) and per-share values to clean cents/halves.
+- Final fair value per share MUST be the realistic intrinsic per-share value in USD.
+- Avoid false precision: Round large totals to clean whole millions (e.g. 139006, not 139005.68) and per-share values to clean whole dollars or $0.50 increments.
 
 Respond ONLY with a JSON block:
 ```json
@@ -1024,12 +1031,20 @@ Respond ONLY with a JSON block:
   "growth_rate_pct": <e.g. 10.0 for 10%>,
   "discount_rate_pct": <e.g. 9.5>,
   "terminal_growth_pct": <e.g. 2.0>,
+  "implied_exit_multiple": "<e.g. 13.6x OE₅>",
+  "explicit_5yr_pv_millions": <number in $M>,
+  "terminal_pv_millions": <number in $M>,
+  "pct_value_from_explicit": <e.g. 24.5>,
+  "pct_value_from_terminal": <e.g. 75.5>,
+  "five_year_cash_payback_per_share": <number in $ USD>,
   "enterprise_value_millions": <number in $M rounded to whole millions>,
   "diluted_shares_millions": <number in Millions>,
   "operating_value_per_share": <number in $ USD>,
   "net_cash_or_debt_per_share": <number in $ USD, NEGATIVE for debt e.g. -24.12, POSITIVE for cash e.g. +13.22>,
   "fair_value_per_share": <number in $ USD equal to operating_value + net_cash_or_debt>,
-  "proof_summary": "<2-3 sentence mathematical explanation showing Operating Value + (Debt/Cash Adjustment) = Fair Value>"
+  "fair_value_10x_exit_floor": <number in $ USD>,
+  "fair_value_12x_exit_multiple": <number in $ USD>,
+  "proof_summary": "<2-3 sentence mathematical explanation showing Operating Value + (Debt/Cash Adjustment) = Fair Value, highlighting explicit 5-year cash contribution>"
 }}
 ```"""
 
@@ -1053,12 +1068,19 @@ Story 3 (Bear Case) Valuation Model:
 
 Your Task:
 Write Section 3 (Valuation & Reverse DCF) in clean, semantic HTML.
-USE YOUR PYTHON CODE EXECUTION TOOL to execute the exact DCF table calculations, mathematical proof walkthroughs, and Reverse DCF sensitivity matrix growth rates across all hurdle rates (9.5%, 10.5%, 11.5%).
+USE YOUR PYTHON CODE EXECUTION TOOL to execute the exact DCF table calculations, mathematical proof walkthroughs, Terminal Value Sensitivity & Exit Multiple Matrix, and Reverse DCF sensitivity matrix growth rates across all hurdle rates (9.5%, 10.5%, 11.5%).
 
 Requirements:
 1. A summary 3-Story DCF table comparing all 3 paths. Starting Owner Earnings (OE₀) MUST STRICTLY MATCH the OE₀ derived in Section 1!
 2. Avoid false precision: Round large dollar totals to clean whole millions or billions (e.g. $139,006M or $139.0B), and per-share values to clean whole dollars or $0.50 increments.
-3. In the DCF summary table, include the Implied Terminal Exit Multiple row (e.g. 13.6x OE₅ = (1 + g_term) / (r - g_term)).
+3. In the DCF summary table, explicitly break down:
+   - PV of Explicit 5-Year Cash Flows ($M and $/share)
+   - % of Operating Value from Explicit 5-Year Cash Flow
+   - PV of Terminal Value ($M and $/share)
+   - % of Operating Value from Terminal Value
+   - Implied Terminal Exit Multiple (e.g. 13.6x OE₅)
+   - Conservative 10.0x Exit Multiple Floor ($/share)
+   - 5-Year Tangible Cash Payback Yield (% of current market price recouped in pure cash over Years 1–5)
 4. In the DCF summary table, the balance sheet bridge line MUST be explicitly signed:
    - If Net Debt: 'Net Balance Sheet Debt Adjustment (-$XX.XX/sh)' (SUBTRACTED from Operating Value).
    - If Net Cash: 'Net Balance Sheet Surplus Cash Adjustment (+$XX.XX/sh)' (ADDED to Operating Value).
@@ -1067,9 +1089,12 @@ Requirements:
    - Weightings: Base Case (Story 1) 50%, Bull Case (Story 2) 25%, Bear Case (Story 3) 25%.
    - Expected Intrinsic Value = (0.50 * Story 1) + (0.25 * Story 2) + (0.25 * Story 3).
    - State the Expected Value, its exact Margin of Safety vs. today's market price (${current_price:.2f}), and a brief sensitivity note on how an equal-weighted (33/33/33) distribution shifts the value.
-7. A Reverse DCF sensitivity matrix table showing what annual growth rate Mr. Market is pricing in at today's stock price (${current_price:.2f}) across discount rates (9.5%, 10.5%, 11.5%) and cash flow baselines.
+7. Terminal Value & Exit Multiple Sensitivity Matrix:
+   - A dedicated 2D table mapping Fair Value across Discount Rates (8.5%, 9.5%, 10.5%) and Exit Multiples (8.0x, 10.0x, 12.0x, 14.0x, 16.0x).
+   - Plain-English narrative explaining how much of the valuation is driven by multiple expansion vs. tangible cash generation.
+8. Reverse DCF Sensitivity Matrix Table:
+   - Isolates the exact 5-year Owner Earnings CAGR required to justify today's market price (${current_price:.2f}) across discount rates (9.5%, 10.5%, 11.5%) and starting cash flow baselines.
    - Narrative framing: Explicitly highlight that because terminal value represents ~70% of a 5-year DCF for a high-growth compounder, the Reverse DCF eliminates perpetuity guesswork by isolating the exact 5-year growth hurdle priced in today.
-8. Plain-English narrative explaining what Mr. Market is pricing in today versus Story 1.
 9. Seamless presentation: Write pure institutional research without any meta-commentary about drafts or past corrections.
 
 Format:
@@ -1086,16 +1111,20 @@ Format:
     </tr>
   </thead>
   <tbody>
-    <tr><td>Starting Normalized Owner Earnings (OE₀)</td><td>$XX.XM</td><td>$XX.XM</td><td>$XX.XM</td></tr>
-    <tr><td>5-Year Organic CAGR</td><td>+XX.X%</td><td>+XX.X%</td><td>-XX.X%</td></tr>
+    <tr><td>Starting Normalized Owner Earnings (OE₀)</td><td>$XX,XXXM</td><td>$XX,XXXM</td><td>$XX,XXXM</td></tr>
+    <tr><td>5-Year Owner Earnings CAGR</td><td>~XX%</td><td>~XX%</td><td>~XX%</td></tr>
     <tr><td>Discount / Hurdle Rate</td><td>9.5%</td><td>9.5%</td><td>10.5%</td></tr>
-    <tr><td>Terminal Growth Rate</td><td>2.00%</td><td>2.25%</td><td>1.50%</td></tr>
+    <tr><td>Terminal Growth Rate</td><td>2.0%</td><td>2.25%</td><td>1.5%</td></tr>
     <tr><td>Implied Terminal Exit Multiple</td><td>13.6x OE₅</td><td>14.1x OE₅</td><td>11.3x OE₅</td></tr>
-    <tr><td>PV of 5-Year Cash Flows</td><td>$XX,XXXM</td><td>$XX,XXXM</td><td>$XX,XXXM</td></tr>
-    <tr><td>PV of Terminal Value</td><td>$XX,XXXM</td><td>$XX,XXXM</td><td>$XX,XXXM</td></tr>
+    <tr><td><strong>PV of Explicit 5-Year Cash Flows</strong></td><td><strong>$XX,XXXM ($XX.XX/sh)</strong></td><td><strong>$XX,XXXM ($XX.XX/sh)</strong></td><td><strong>$XX,XXXM ($XX.XX/sh)</strong></td></tr>
+    <tr><td>&nbsp;&nbsp;└─ % of Operating EV from Explicit 5-Year Cash</td><td>XX%</td><td>XX%</td><td>XX%</td></tr>
+    <tr><td><strong>PV of Terminal Value</strong></td><td><strong>$XX,XXXM ($XX.XX/sh)</strong></td><td><strong>$XX,XXXM ($XX.XX/sh)</strong></td><td><strong>$XX,XXXM ($XX.XX/sh)</strong></td></tr>
+    <tr><td>&nbsp;&nbsp;└─ % of Operating EV from Terminal Value</td><td>XX%</td><td>XX%</td><td>XX%</td></tr>
     <tr><td>Operating Business Enterprise Value</td><td>$XX,XXXM ($XX.XX/sh)</td><td>$XX,XXXM ($XX.XX/sh)</td><td>$XX,XXXM ($XX.XX/sh)</td></tr>
     <tr><td>Net Balance Sheet Cash / (Debt) Adjustment</td><td>+$XX.XX/sh or -$XX.XX/sh</td><td>+$XX.XX/sh or -$XX.XX/sh</td><td>+$XX.XX/sh or -$XX.XX/sh</td></tr>
     <tr><td><strong>Calculated Intrinsic Value / Share</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td></tr>
+    <tr><td><em>Alternative Fair Value @ 10.0x Exit Multiple Floor</em></td><td><em>$XX.XX</em></td><td><em>$XX.XX</em></td><td><em>$XX.XX</em></td></tr>
+    <tr><td><em>5-Year Tangible Cash Payback Yield</em></td><td><em>XX% of Price</em></td><td><em>XX% of Price</em></td><td><em>XX% of Price</em></td></tr>
   </tbody>
 </table>
 
@@ -1107,15 +1136,39 @@ Format:
     <li><strong>Story 2 (Bull Case - 25% High-Monetization Probability):</strong> $XX.XX / share</li>
     <li><strong>Story 3 (Bear Case - 25% Structural Drag Probability):</strong> $XX.XX / share</li>
   </ul>
-  <p><strong>Probability-Weighted Expected Fair Value:</strong> <strong>$XX.XX / share</strong> (Margin of Safety: <strong>XX.X%</strong> vs. today's market price of ${current_price:.2f}).</p>
+  <p><strong>Probability-Weighted Expected Fair Value:</strong> <strong>$XX.XX / share</strong> (Margin of Safety: <strong>~XX%</strong> vs. today's market price of ${current_price:.2f}).</p>
   <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 6px;"><em>Sensitivity Note: Under an equal-weighted 33/33/33 distribution, Expected Fair Value is $XX.XX / share.</em></p>
 </div>
 
 <div class="callout">
   <h3>Step-by-Step Mathematical Proofs Across the 3 Paths</h3>
-  [Story 1 Proof HTML showing Operating Value + Adjustment = Intrinsic Value]
-  [Story 2 Proof HTML showing Operating Value + Adjustment = Intrinsic Value]
-  [Story 3 Proof HTML showing Operating Value + Adjustment = Intrinsic Value]
+  [Story 1 Proof HTML showing PV(5yr) + PV(TV) = Operating Value + Adjustment = Intrinsic Value, including 10x exit multiple floor]
+  [Story 2 Proof HTML showing PV(5yr) + PV(TV) = Operating Value + Adjustment = Intrinsic Value]
+  [Story 3 Proof HTML showing PV(5yr) + PV(TV) = Operating Value + Adjustment = Intrinsic Value]
+</div>
+
+<div class="callout">
+  <h3>📊 Terminal Value &amp; Exit Multiple Sensitivity Matrix</h3>
+  <p>Because ~70%–75% of a 5-year DCF value derives from terminal capitalization, relying on a single perpetuity growth rate introduces exit multiple sensitivity. The matrix below stress-tests the Base Case intrinsic value across discount rates and terminal exit multiples:</p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Discount Rate (r)</th>
+        <th>8.0x Exit Multiple<br><small style="color:var(--text-dim);">(g = -0.5%)</small></th>
+        <th>10.0x Exit Multiple<br><small style="color:var(--text-dim);">(g = +0.5%)</small></th>
+        <th>12.0x Exit Multiple<br><small style="color:var(--text-dim);">(g = +1.5%)</small></th>
+        <th>13.6x Base Multiple<br><small style="color:var(--text-dim);">(g = +2.0%)</small></th>
+        <th>16.0x Bull Multiple<br><small style="color:var(--text-dim);">(g = +3.2%)</small></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>8.5% (Low Hurdle)</strong></td><td>$XX.XX</td><td>$XX.XX</td><td>$XX.XX</td><td>$XX.XX</td><td>$XX.XX</td></tr>
+      <tr><td><strong>9.5% (Base Hurdle)</strong></td><td>$XX.XX</td><td>$XX.XX</td><td>$XX.XX</td><td><strong>$XX.XX</strong></td><td>$XX.XX</td></tr>
+      <tr><td><strong>10.5% (High Hurdle)</strong></td><td>$XX.XX</td><td>$XX.XX</td><td>$XX.XX</td><td>$XX.XX</td><td>$XX.XX</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 6px;"><em>Takeaway: Even under a severe multiple compression floor of 10.0x OE₅ (assuming zero growth in perpetuity), the business supports a tangible floor of $XX.XX / share.</em></p>
 </div>
 
 <div class="callout">
@@ -1133,16 +1186,16 @@ Format:
       </tr>
     </thead>
     <tbody>
-      <tr><td>Trough / Compressed Cash Flow ($XX,XXXM)</td><td>XX.X% / yr</td><td>XX.X% / yr</td><td>XX.X% / yr</td></tr>
-      <tr><td>Normalized Base Run-Rate ($XX,XXXM)</td><td><strong>XX.X% / yr</strong></td><td>XX.X% / yr</td><td>XX.X% / yr</td></tr>
-      <tr><td>Peak / Re-Accelerated Capacity ($XX,XXXM)</td><td>XX.X% / yr</td><td>XX.X% / yr</td><td>XX.X% / yr</td></tr>
+      <tr><td>Trough / Compressed Cash Flow ($XX,XXXM)</td><td>~XX% / yr</td><td>~XX% / yr</td><td>~XX% / yr</td></tr>
+      <tr><td>Normalized Base Run-Rate ($XX,XXXM)</td><td><strong>~XX% / yr</strong></td><td>~XX% / yr</td><td>~XX% / yr</td></tr>
+      <tr><td>Peak / Re-Accelerated Capacity ($XX,XXXM)</td><td>~XX% / yr</td><td>~XX% / yr</td><td>~XX% / yr</td></tr>
     </tbody>
   </table>
 
   <p><strong>Market Narrative Analysis (Dual-Perspective Inversion):</strong></p>
   <ul>
-    <li><strong>Consolidated Full-Price Hurdle (Zero Cash Credit):</strong> At the full market price of ${current_price:.2f}/ADS ($XX,XXX.XM market cap), assuming zero balance sheet cash is distributed, Mr. Market is pricing in <strong>XX.X% annual Owner Earnings growth</strong> over 5 years.</li>
-    <li><strong>Surplus Cash-Adjusted Hurdle:</strong> Backing out unencumbered balance sheet cash (+$XX.XX/ADS), the market values the core operating infrastructure at $XX.XX/ADS ($XX,XXX.XM operating EV), implying <strong>XX.X% annual growth</strong> against our baseline Owner Earnings ($XX,XXXM) at a 9.5% discount rate.</li>
+    <li><strong>Consolidated Full-Price Hurdle (Zero Cash Credit):</strong> At the full market price of ${current_price:.2f}/ADS ($XX,XXX.XM market cap), assuming zero balance sheet cash is distributed, Mr. Market is pricing in <strong>~XX% annual Owner Earnings growth</strong> over 5 years.</li>
+    <li><strong>Surplus Cash-Adjusted Hurdle:</strong> Backing out unencumbered balance sheet cash (+$XX.XX/ADS), the market values the core operating infrastructure at $XX.XX/ADS ($XX,XXX.XM operating EV), implying <strong>~XX% annual growth</strong> against our baseline Owner Earnings ($XX,XXXM) at a 9.5% discount rate.</li>
   </ul>
 </div>
 
