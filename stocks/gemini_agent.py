@@ -305,9 +305,10 @@ def extract_probabilities_from_sec3(sec3_text: str, num_stories: int = 3) -> lis
         return [0.60] + [round(rem, 4)] * (num_stories - 1)
 
 
-def extract_stories_from_agent2(raw_text: str, clean_html: str) -> list:
+def extract_stories_from_agent2(raw_text: str, clean_html: str = "") -> list:
     """Extracts N stories from Agent 2 output (via JSON block or HTML parsing).
     Returns a list of dicts with: story_num, story_title, short_summary, narrative."""
+    clean_html = clean_html or raw_text
     # 1. Try extracting structured JSON block
     data = extract_json_block(raw_text)
     if data and isinstance(data.get("stories"), list) and len(data["stories"]) >= 2:
