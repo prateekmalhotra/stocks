@@ -2661,8 +2661,10 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         # Clean company name (preserve full name like JD.com, Inc. without cutting ticker prefix)
         clean_company = (stock.company_name or stock.ticker).strip().rstrip(".")
 
-        # Clean percentage delta for fair value
-        pct_delta_str = extract_pct_delta(stock.base_target, stock.current_price, stock.fair_value_estimate)
+        # Clean percentage delta and fair value display (prefer Probability-Weighted Expected Fair Value)
+        fv_raw = getattr(stock, "expected_fair_value", None) or stock.fair_value_estimate
+        fv_clean = format_usd_target(fv_raw)
+        pct_delta_str = extract_pct_delta(fv_raw, stock.current_price, fv_clean)
 
         # Clean catalyst description (max 4 words, no ellipses, wraps cleanly)
         safe_baseline = stock.baseline_price if stock.baseline_price > 0 else stock.current_price
@@ -2692,7 +2694,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             </td>
             <td>
                 <div class="tbl-val-cell">
-                    <span class="tbl-fv" style="color: var(--accent-warm);">{format_usd_target(stock.fair_value_estimate)}</span>
+                    <span class="tbl-fv" style="color: var(--accent-warm);">{fv_clean}</span>
                     {f'<span class="tbl-upside">{pct_delta_str}</span>' if pct_delta_str else ''}
                 </div>
             </td>
@@ -2726,7 +2728,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Fair Value</span>
-                    <span class="grid-stat-val" style="color: var(--accent-warm);">{format_usd_target(stock.fair_value_estimate)}</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">{fv_clean}</span>
                 </div>
                 <div class="grid-stat">
                     <span class="grid-stat-lbl">Target</span>
