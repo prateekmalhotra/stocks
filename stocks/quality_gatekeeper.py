@@ -304,7 +304,8 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
         cur_p = _parse_p(metadata.get("price_at_version") or metadata.get("current_price"))
         if cur_p and len(s_vals) >= 3:
             min_s = min(s_vals)
-            if min_s < (cur_p * 0.10) and "speculative risk" not in str(metadata.get("status_label", "")).lower():
+            status_low = str(metadata.get("status_label", "")).lower()
+            if min_s < (cur_p * 0.10) and not any(k in status_low for k in ["speculative", "turnaround", "weak moat", "no moat", "cautious"]):
                 issues.append(f"Economic Reality Failure: Storyline valuation target (${min_s:.2f}) represents an irrational {-((cur_p-min_s)/cur_p*100):.1f}% collapse on a going-concern business.")
 
     # 22. Storyline 1 Primary Target Harmonization Check

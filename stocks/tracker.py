@@ -108,6 +108,13 @@ def fetch_historical_chart_data(ticker: str, range_str: str = "1y") -> List[Dict
     """Fetches historical price series for chart plotting."""
     ticker_clean = ticker.upper().strip()
     range_map = {
+        "1m": ("1d", "1mo"),
+        "1mo": ("1d", "1mo"),
+        "1month": ("1d", "1mo"),
+        "3m": ("1d", "3mo"),
+        "3mo": ("1d", "3mo"),
+        "6m": ("1d", "6mo"),
+        "6mo": ("1d", "6mo"),
         "1y": ("1d", "1y"),
         "5y": ("1wk", "5y"),
         "10y": ("1mo", "10y"),
@@ -190,14 +197,18 @@ def check_watchlist_triggers() -> int:
 
     for ticker, stock in watchlist.items():
         name, current_price = fetch_live_stock_info(ticker)
-        stock.current_price = current_price
-        if stock.baseline_price > 0:
-            stock.return_pct = round(((current_price - stock.baseline_price) / stock.baseline_price) * 100, 2)
+        if current_price > 0:
+            stock.current_price = current_price
+            if stock.baseline_price > 0:
+                stock.return_pct = round(((current_price - stock.baseline_price) / stock.baseline_price) * 100, 2)
 
     save_watchlist(watchlist)
 
     for ticker, stock in watchlist.items():
         current_price = stock.current_price
+        if current_price <= 0:
+            continue
+
         today_iso = datetime.now().strftime("%Y-%m-%d")
         today_month = datetime.now().strftime("%B %Y").lower()
         today_short_month = datetime.now().strftime("%b %Y").lower()

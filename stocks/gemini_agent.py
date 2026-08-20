@@ -249,15 +249,16 @@ def map_to_canonical_predictability_tier(lbl: str = "", sec1_text: str = "", def
 
 def extract_probabilities_from_sec3(sec3_text: str) -> tuple:
     """Extracts dynamically derived probability weights (p1, p2, p3) from Section 3 text.
-    Handles various LLM formatting styles (e.g., 'Story 1 (Base Case - 45% Probability)', '50% / 15% / 35%').
+    Handles various LLM formatting styles (e.g., 'Story 1 (Base Case - 45% Probability)', '50% / 15% / 35%',
+    or tabular row '<tr><td>Probability Weight</td><td>45%</td><td>15%</td><td>40%</td></tr>').
     Ensures weights sum strictly to 1.0 (100%)."""
     if not sec3_text:
         return 0.50, 0.25, 0.25
         
-    # Search for explicit Story 1/2/3 probability percentages
-    m1 = re.search(r'Story 1[^\n\:]*?(\d{1,2})\s*%\s*(?:probability|underwriting|weight|chance)', sec3_text, re.IGNORECASE)
-    m2 = re.search(r'Story 2[^\n\:]*?(\d{1,2})\s*%\s*(?:probability|underwriting|weight|chance|high-monetization)', sec3_text, re.IGNORECASE)
-    m3 = re.search(r'Story 3[^\n\:]*?(\d{1,2})\s*%\s*(?:probability|underwriting|weight|chance|structural|drag|downside)', sec3_text, re.IGNORECASE)
+    # Pattern A: Story 1 ... XX% ... Story 2 ... YY% ... Story 3 ... ZZ%
+    m1 = re.search(r'Story(?:line)?\s*1[^\n]*?(\d{1,2})\s*%', sec3_text, re.IGNORECASE)
+    m2 = re.search(r'Story(?:line)?\s*2[^\n]*?(\d{1,2})\s*%', sec3_text, re.IGNORECASE)
+    m3 = re.search(r'Story(?:line)?\s*3[^\n]*?(\d{1,2})\s*%', sec3_text, re.IGNORECASE)
     
     if m1 and m2 and m3:
         try:
@@ -268,7 +269,20 @@ def extract_probabilities_from_sec3(sec3_text: str) -> tuple:
         except Exception:
             pass
 
-    # Alternative search: "(\d{1,2})%\s*Story 1", "(\d{1,2})%\s*Base"
+    # Pattern B: Table row containing Probability Weight and 3 percentages
+    for line in sec3_text.splitlines():
+        if any(k in line.lower() for k in ['probability', 'weight', 'underwriting']):
+            nums = re.findall(r'(\d{1,2})\s*%', line)
+            if len(nums) >= 3:
+                try:
+                    v1, v2, v3 = float(nums[0]), float(nums[1]), float(nums[2])
+                    total = v1 + v2 + v3
+                    if 80.0 <= total <= 120.0 and v1 > 0 and v2 > 0 and v3 > 0:
+                        return round(v1 / total, 4), round(v2 / total, 4), round(v3 / total, 4)
+                except Exception:
+                    pass
+
+    # Pattern C: Generic find all occurrences of XX% probability / weight
     m_alt = re.findall(r'(\d{1,2})\s*%\s*(?:probability|weight|underwriting|chance)', sec3_text, re.IGNORECASE)
     if len(m_alt) >= 3:
         try:

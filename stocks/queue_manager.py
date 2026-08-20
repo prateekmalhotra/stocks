@@ -161,6 +161,9 @@ def _handle_genesis_task(ticker: str, notes: str):
         pricing_power_tier=meta.get("pricing_power_tier", "Strong Pricing Power"),
         pricing_power_score=meta.get("pricing_power_score", "Inelastic Demand · Low Churn"),
         pricing_power_summary=meta.get("pricing_power_summary", ""),
+        predictability_tier=meta.get("predictability_tier", "Moderate Predictability"),
+        predictability_score=meta.get("predictability_score", "Manageable Visibility · Moat Protected"),
+        predictability_summary=meta.get("predictability_summary", ""),
         full_html_content=html_content
     )
 
@@ -199,6 +202,9 @@ def _handle_genesis_task(ticker: str, notes: str):
         pricing_power_tier=version_1.pricing_power_tier,
         pricing_power_score=version_1.pricing_power_score,
         pricing_power_summary=version_1.pricing_power_summary,
+        predictability_tier=version_1.predictability_tier,
+        predictability_score=version_1.predictability_score,
+        predictability_summary=version_1.predictability_summary,
         last_updated=today_str,
         total_versions=1,
         report_path=f"reports/{ticker}.html"
@@ -294,6 +300,9 @@ def _handle_review_task(ticker: str, trigger_reason: str):
         pricing_power_tier=meta.get("pricing_power_tier") or stock.pricing_power_tier or "Strong Pricing Power",
         pricing_power_score=meta.get("pricing_power_score") or stock.pricing_power_score or "Inelastic Demand · Low Churn",
         pricing_power_summary=meta.get("pricing_power_summary") or stock.pricing_power_summary or "",
+        predictability_tier=meta.get("predictability_tier") or getattr(stock, "predictability_tier", None) or "Moderate Predictability",
+        predictability_score=meta.get("predictability_score") or getattr(stock, "predictability_score", None) or "Manageable Visibility · Moat Protected",
+        predictability_summary=meta.get("predictability_summary") or getattr(stock, "predictability_summary", None) or "",
         full_html_content=html_content
     )
     save_thesis_version(ticker, new_version)
@@ -306,6 +315,9 @@ def _handle_review_task(ticker: str, trigger_reason: str):
     stock.pricing_power_tier = new_version.pricing_power_tier
     stock.pricing_power_score = new_version.pricing_power_score
     stock.pricing_power_summary = new_version.pricing_power_summary
+    stock.predictability_tier = new_version.predictability_tier
+    stock.predictability_score = new_version.predictability_score
+    stock.predictability_summary = new_version.predictability_summary
     stock.labels = labels
     stock.action_signal = action_signal
     stock.fair_value_estimate = new_version.fair_value_estimate

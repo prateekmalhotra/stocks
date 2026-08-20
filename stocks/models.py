@@ -15,7 +15,7 @@ class ThesisVersion(BaseModel):
     moat_label: Optional[str] = "Narrow Moat"
     labels: List[str] = Field(default_factory=list)  # Slot 1: Moat archetype, Slots 2-3: Drivers
     action_signal: str = "BUY"  # BUY, HOLD, CAUTION, AVOID
-    summary_of_change: str  # How the company/thesis changed in this version
+    summary_of_change: Optional[str] = ""  # How the company/thesis changed in this version
     what_was_before: Optional[str] = ""
     what_changes_now: Optional[str] = ""
     fair_value_estimate: Optional[str] = ""
@@ -41,6 +41,9 @@ class ThesisVersion(BaseModel):
     pricing_power_tier: Optional[str] = "Strong Pricing Power"  # Absolute, Strong, Inflation Pass-Through, Constrained, Price Taker
     pricing_power_score: Optional[str] = "High Inelasticity"  # e.g. "Inelastic Demand · +5% Pricing Power"
     pricing_power_summary: Optional[str] = ""  # 1-sentence synthesis of pricing authority
+    predictability_tier: Optional[str] = "Moderate Predictability"  # High, Moderate, Low, Highly Unpredictable
+    predictability_score: Optional[str] = "Manageable Visibility · Moat Protected"
+    predictability_summary: Optional[str] = ""  # 1-sentence synthesis of 10-year visibility
     full_html_content: str = ""
 
 

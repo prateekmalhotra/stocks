@@ -44,12 +44,15 @@ Example format:
     print("🌐 Querying Gemini with Google Search Grounding for r/ValueInvesting ticker mentions...")
     raw_response = call_gemini_with_search(prompt, system_instruction=system_instruction, temperature=0.2)
     
-    # Extract JSON list from response
-    match = re.search(r"\[\s*\"[A-Z0-9\.\-]+(?:\s*,\s*\"[A-Z0-9\.\-]+\")*\s*\]", raw_response)
+    # Extract JSON list from response (handles multi-line arrays cleanly)
+    match = re.search(r"\[\s*(?:\"[^\"]*\"\s*,?\s*)*\]", raw_response, re.DOTALL) or re.search(r"\[.*?\]", raw_response, re.DOTALL)
     if match:
         try:
             tickers = json.loads(match.group(0))
-            return [t.upper().strip().replace("$", "") for t in tickers if isinstance(t, str)]
+            if isinstance(tickers, list):
+                extracted = [t.upper().strip().replace("$", "") for t in tickers if isinstance(t, str) and t.strip()]
+                if extracted:
+                    return extracted
         except Exception:
             pass
 
