@@ -1178,12 +1178,16 @@ Adjudicate every single point raised in the critique memo:
    - Supply chain concentration (% Vietnam/China factories, Section 301 tariff exposure).
    - Cash flow matching & accounting adjustments (eliminating debt double-counting under FCFE/FCFF, working capital normalization, realistic AI GPU depreciation cycles).
    - Share count synchronization from buybacks.
+   - Scenario-Specific CapEx Efficiency: Ensure capex efficiency aligns with each scenario's operational story (e.g. Bull case custom silicon efficiency yielding higher FCF conversion vs Bear case hardware replacement drag).
 
 2. [PUSHBACK & DEFEND]:
    - Demands to anchor valuation to current market stock price.
    - Demands to add back Stock-Based Compensation as "non-cash" (Non-GAAP).
    - Demands to lower discount rates based on academic CAPM Betas rather than true opportunity cost.
    - Consensus herd-thinking that violates Graham/Buffett margin-of-safety principles.
+
+CRITICAL SYNCHRONIZATION DIRECTIVE:
+If you acknowledge any adjustment to Maintenance CapEx, Gross/Net Cash, or Starting Owner Earnings (OE₀), you MUST set BOTH SECTION_1_UPDATE: TRUE and SECTION_3_UPDATE: TRUE with explicit instructions to use the EXACT IDENTICAL dollar figure and maintenance capex baseline in both Section 1 and Section 3. Never permit Section 1 and Section 3 to use different baseline Owner Earnings (OE₀)!
 
 Draft Thesis Overview:
 ======================================================================
@@ -1243,6 +1247,10 @@ Current Section 1 HTML:
 {sec1_html}
 ======================================================================
 
+CRITICAL REQUIREMENTS:
+1. Owner Earnings Waterfall Parity: Ensure the final derived Core Operating Baseline Owner Earnings (OE₀) in Section 1 matches the exact dollar figure used as Starting OE₀ in Section 3 DCF tables.
+2. Segment Arithmetic Reconciliation: Ensure individual segment revenues sum to 100.0% of Total Net Revenue.
+
 Output the complete, updated Section 1 HTML starting with <h2>Section 1: Company Overview &amp; Audited Financial Baseline</h2>. Pure HTML only (no markdown code fences)."""
 
 SECTION_2_REMEDIATOR_PROMPT = """Target: {ticker} ({company_name})
@@ -1284,6 +1292,8 @@ You MUST output the complete, untruncated Section 3 HTML containing:
    - Full sensitivity matrix table and narrative analysis
 5. <h3>Reconciliation vs. Wall Street Consensus Price Targets</h3>
    - Table and narrative comparing our first-principles value vs sell-side consensus
+6. Owner Earnings Parity: The Starting Normalized Owner Earnings (OE₀) in Section 3 MUST be identical to the derived OE₀ in Section 1.
+7. Epistemic Humility & Realistic Precision: Avoid false precision. Present forward CAGRs, deltas, and expected values in clean, rounded percentages (e.g. ~26%, ~-55%, ~+40%), rather than single/double decimals on subjective forward forecasts.
 
 Output the complete Section 3 HTML. Pure HTML only (no markdown code fences)."""
 

@@ -381,7 +381,7 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
                     v3 *= 1000.0
                 if v1 > 0 and v3 > 0:
                     diff_pct = abs(v1 - v3) / v1
-                    if diff_pct > 0.10:
+                    if diff_pct > 0.015:
                         issues.append(f"Owner Earnings Desynchronization Failure: Section 1 derived OE₀ (${v1:.1f}M) differs by {diff_pct*100:.1f}% from Section 3 DCF starting OE₀ (${v3:.1f}M). All sections must use an identical starting cash flow baseline.")
             except Exception:
                 pass
