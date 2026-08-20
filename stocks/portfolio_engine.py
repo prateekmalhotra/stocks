@@ -514,9 +514,9 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
             
         sig = w_item.get("action_signal", "HOLD")
         cur_p = float(w_item.get("current_price", 100.0))
-        bear_p = parse_target_price(w_item.get("story2_target") or w_item.get("bear_target"), cur_p)
+        bear_p = parse_target_price(w_item.get("bear_target") or w_item.get("story3_target") or w_item.get("story2_target"), cur_p)
         base_p = parse_target_price(w_item.get("story1_target") or w_item.get("base_target") or w_item.get("fair_value_estimate"), cur_p)
-        bull_p = parse_target_price(w_item.get("story3_target") or w_item.get("bull_target"), cur_p)
+        bull_p = parse_target_price(w_item.get("bull_target") or w_item.get("story2_target") or w_item.get("story3_target"), cur_p)
         
         # Mathematical hurdle: must offer at least 15.0% Margin of Safety
         base_ret = ((base_p - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0

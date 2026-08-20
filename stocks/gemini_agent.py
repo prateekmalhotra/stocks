@@ -962,7 +962,7 @@ Core Principles of Business Valuation & Capital Allocation:
    - Unencumbered Net Cash (Gross Cash & Short-Term Investments minus Total Debt, committed M&A cash outlays, and Non-Controlling Interests) is credited dollar-for-dollar in intrinsic value.
 
 7. Opportunity Cost & Margin of Safety (Ben Graham & Buffett):
-   - Use a level-headed opportunity-cost hurdle rate (9.0%–10.0%) representing the equity hurdle rate (rejecting academic Beta and CAPM volatility models).
+   - Use a level-headed opportunity-cost equity hurdle rate reflecting true cost of capital and business predictability (rejecting academic Beta and CAPM volatility models).
    - Demand a meaningful Margin of Safety to protect principal against miscalculation, technological shifts, and competitive friction.
 
 8. Strict USD Currency Standardization:
@@ -1004,7 +1004,7 @@ CRITICAL FINANCIAL REALITY & INTEGRITY CHECKS:
      * If Net Position is NEGATIVE (Total Funded Debt > Total Cash, e.g. Crocs, Domino's, Home Depot): The company is in a NET DEBT position. In Section 1 and Section 3, the bridge row MUST be labeled 'Net Debt Adjustment' with a negative sign (-$XX.XX/share) and MUST BE SUBTRACTED from Operating Business Value:
        Operating Enterprise Value - Net Debt = Total Equity Intrinsic Value.
        NEVER label a net debt position as a positive cash addition!
-   - Diluted Share Count & Denominator: Divide by diluted share count (in Millions), factoring in modest buyback share retirement (e.g. 1%–3% annually in Base/Bull cases).
+   - Diluted Share Count & Denominator: Divide by diluted share count (in Millions), factoring in company-disclosed share repurchase pacing or dilution dynamics.
    - Realistic Institutional Precision: Avoid illusory decimal precision on forward 5-year projections (round fair values to whole dollars or $0.50, round cash totals to clean millions/billions).
 3. Historical Corporate Trauma & Underwriting Post-Mortem:
    - If the company is trading down significantly (>50%) from historical highs or suffered a well-known operational crisis in the past (e.g. credit underwriting blowups, regulatory restructuring, short-seller litigation, failed acquisitions):
@@ -1051,11 +1051,11 @@ Core Topics to Cover:
    - The 10-Year Visibility Test (Warren Buffett 1996 Shareholder Letter): Can a rational investor forecast the economic machine and cash generation corridor 5–10 years out with high confidence ("in the circle of competence"), or is the industry evolving too rapidly?
    - Obsolescence & Reinvestment Drag: Does the company suffer from the 'Red Queen' trap (heavy continuous CapEx just to stay in place / rapid hardware obsolescence), or does its capital base compound without constant replacement?
    - Recurring vs. Discretionary / Hit-Driven Demand: What % of revenue is contractually locked / subscription / habitual vs. transactional / fashion-driven?
-   - Margin of Safety Compensator Principle: If cash flows are volatile or low-predictability, explicitly evaluate whether Story 3 (Bear Case Floor) still trades at an attractive discount to current market price.
+   - Margin of Safety Compensator Principle: If cash flows are volatile or low-predictability, explicitly evaluate whether conservative downside trajectory floors still trade at an attractive discount to current market price.
 4. 4-Quarter Operating Reality & Management Call Commentary:
    - Synthesis of key themes from the last 4 quarterly earnings reports and management call commentary.
    - Transparent reporting on segment drags, deceleration, and margin headwinds alongside growth engines.
-4. Owner Earnings Derivation & Cash Flow Waterfall:
+5. Owner Earnings Derivation & Cash Flow Waterfall:
    - Step-by-step table deriving Core Operating Owner Earnings (OE₀) in $ Millions USD:
      GAAP OCF → less Working Capital noise → less Maintenance CapEx → less SBC → less Non-Operating Float Yield = Core OE₀.
    - Disclosed Useful Lives & Maintenance CapEx Reality: Search Note 1 (Property, Plant, and Equipment) of the latest Form 10-K for actual disclosed useful lives (e.g. servers 5–6 years, networking equipment 5–7 years, fulfillment equipment 5–10 years, buildings up to 40 years). Do NOT invent hypothetical useful life cuts (e.g. do not assume servers drop to 3 years unless explicitly disclosed in SEC filings). Maintenance CapEx must be calibrated to historical steady-state D&A and disclosed capital replacement (typically ~30%–45% of annual D&A during hyper-growth buildout phases), rather than treating all growth CapEx as maintenance.
@@ -1100,31 +1100,56 @@ Here is the Company Premise from Agent 1 (containing the financial baseline, ope
 Guidelines:
 - Blind Valuation: Formulate business trajectories based strictly on operational realities and competitive dynamics, with zero knowledge of stock market prices.
 - Currency & Financial Consistency: All figures in $ USD. Anchor all 3 stories directly to the baseline numbers (revenue, margins, cash flow) established in Agent 1's Company Premise above.
+- 100% BESPOKE & IDIOSYNCRATIC PROBABILITY SPACE (GROUNDED EXCLUSIVELY IN THAT COMPANY):
+  * Every single company has its own UNIQUE fundamental probability distribution. NEVER reuse generic boilerplate, template drivers, or synthetic narratives across different companies!
+  * Derive the 3 Stories EXCLUSIVELY from:
+    1. The company's actual reported business lines, segments, product categories, and geographic footprint disclosed in their statutory SEC Form 10-K/10-Q/20-F filings.
+    2. The exact operational priorities, friction points, forward guidance, and strategic debates discussed by management on the last 4 quarterly earnings calls.
+    3. The real reported unit economics and operating metrics (e.g. comp store sales, store openings, unit volume, take rates, active clients, subscriber churn, loan provisions, server useful lives, capacity utilization).
+  * ZERO GENERIC / STRETCHED NARRATIVES (NO ARTIFICIAL BULL/BASE/BEAR CARICATURES):
+    - Do NOT invent artificial "international expansion" if the business has no international ambitions (e.g. domestic US regional bank, UK housebuilder, local casino operator).
+    - Do NOT invent synthetic "AI cloud monetization" buzzwords if the company sells athletic apparel, fast food, or auto parts.
+    - Do NOT invent an apocalyptic "-50% cash flow collapse" bear case for a resilient, high-moat mission-critical monopoly (e.g. Microsoft, Visa, Copart, Constellation Software) where such an event is practically impossible (<2% tail risk). Instead, model the realistic downside distribution for THAT business (e.g. multiple compression, slower M&A deployment, antitrust/regulatory fee caps, or customer IT budget optimization).
+    - Do NOT invent a symmetrical fantasy bull case for a struggling, brand-fatigued turnaround (e.g. Lululemon, Nike, Bumble). Model the realistic struggle and margin drag trajectories that represent the majority of THAT company's real distribution, alongside an unproven turnaround trajectory.
+  * The 3 Stories MUST collectively span and partition 90%–95% of THAT specific company's real-world probability distribution over the next 3–5 years.
+  * Explicitly name each story with a descriptive, operational, company-specific title reflecting its authentic economic driver (e.g. 'Story 1: Core Enterprise Cloud Workload Compounding', 'Story 2: Regulatory Interchange Fee Cap & Multiple De-Rating', 'Story 3: Americas Comp Drag & Markdown Friction').
+- MUTUAL DISTINCTNESS & ORTHOGONAL MECHANISMS (ZERO NARRATIVE OVERLAP):
+  * The 3 Stories must explore 3 FUNDAMENTALLY DISTINCT economic mechanisms, operational trajectories, or strategic crossroads.
+  * ZERO RE-HASHING OR MERE PERCENTAGE TWEAKS:
+    - Never generate stories that share the same narrative thesis with minor percentage adjustments (e.g. Story 1 being "+8% growth with stable margins" and Story 2 being "+11% growth with slightly better margins" is an analytical failure of redundancy).
+    - Each story MUST explore a distinct fundamental vector affecting the company:
+      * Vector A (Core Baseline Operating Trajectory): The central tendency path under current guidance, existing business lines, and steady capital allocation.
+      * Vector B (Structural Friction, Regulatory Cap, Multiple De-Rating, or Category Drag): A distinct headwinds/friction thesis (e.g. tariff margin absorption, customer IT budget optimization, interchange cap, store lease fixed deleverage, or secondary brand runoff).
+      * Vector C (Asymmetric Reinvestment, Accelerated Monetization, Turnaround Inflection, or Capital Cannibalization): A distinct operational engine (e.g. new high-margin business line scaling, 7%+ annual share retirement cannibalizing share count, enterprise volume acceleration, or successful turnaround inflection).
+  * Each story must possess:
+    1. A distinct causal thesis explaining WHY revenue, margins, and cash flow behave the way they do.
+    2. Divergent operational metric assumptions (e.g. separate paths for take rates, comp store sales, unit capacity, gross margin %, OpEx efficiency, and CapEx intensity).
+    3. Independent quarterly milestones and invalidation triggers.
 - Guidance Realism & Non-Linear Trajectories: Factor in management's near-term quarterly forward guidance (e.g. Q3/Q4 cyclical dips due to macro/housing pressure) to model realistic trajectory shapes rather than smooth straight-line ramps.
 - Turnaround Realism & Segment Drag in Story 1 (Base Case): If an acquired brand or secondary segment is contracting double-digits, Story 1 (Base Case) MUST NOT assume an unearned miraculous V-shaped rebound. Model the struggling segment at flat to negative growth, requiring the core flagship business to carry the baseline enterprise.
 - Grounded Margin & Growth Realism: For thin-margin direct retail or financial spread businesses, do NOT assume heroic margin doubling. Model realistic, incremental operating progression.
 - Primary Research: Search and inspect {company_name}'s latest filings and earnings transcripts.
-- Currency/FX Depreciation Stress in Emerging Markets: For companies operating in emerging market currencies (e.g. Brazil BRL, China RMB, Mexico MXN, India INR) with high local sovereign interest rates, Story 3 (Downside / Bear Floor) MUST incorporate realistic local FX depreciation against the USD (e.g. +10% to +15% FX headwind in the USD conversion) to stress-test the dollar-denominated fair value floor.
-- Active vs. Contingent Headwinds in Story 1 (Base Case): If a structural disruption or channel friction is ALREADY OBSERVABLE TODAY (e.g. Google AI Overviews cannibalizing organic search referrals, active tariff increases, privacy tracking changes, post-COVID channel normalization, multi-quarter negative same-store sales), Story 1 (Base Case) MUST incorporate that friction as an ongoing baseline operational drag. Do NOT relegate live, ongoing headwinds solely to an abstract Story 3 bear case. Story 3 represents the severe compounding acceleration or worst-case manifestation of that risk.
+- Currency/FX Depreciation Stress in Emerging Markets: For companies operating in emerging market currencies (e.g. Brazil BRL, China RMB, Mexico MXN, India INR) with high local sovereign interest rates, downside/stress stories MUST incorporate realistic local FX depreciation against the USD to stress-test the dollar-denominated fair value floor.
+- Active vs. Contingent Headwinds in Story 1: If a structural disruption or channel friction is ALREADY OBSERVABLE TODAY (e.g. Google AI Overviews cannibalizing organic search referrals, active tariff increases, privacy tracking changes, post-COVID channel normalization, multi-quarter negative same-store sales), Story 1 MUST incorporate that friction as an ongoing baseline operational drag. Do NOT relegate live, ongoing headwinds solely to an abstract bear case.
 - Empirical Green Shoots vs. Unproven Turnaround Assertions:
-  * If Story 1 (Base Case) models an operational turnaround (e.g. comp store sales pivoting from negative to positive, merchandise redesign cycles succeeding, market share recovery against aggressive upstarts like Vuori/Alo), you MUST audit whether there is EMPIRICAL TRAILING EVIDENCE (e.g. sequential quarterly improvement, verified early product sell-through data, margin resilience) indicating early green shoots.
+  * If a story models an operational turnaround (e.g. comp store sales pivoting from negative to positive, merchandise redesign cycles succeeding, market share recovery against aggressive upstarts like Vuori/Alo), you MUST audit whether there is EMPIRICAL TRAILING EVIDENCE (e.g. sequential quarterly improvement, verified early product sell-through data, margin resilience) indicating early green shoots.
   * If NO empirical green shoots exist in trailing data (i.e. the turnaround is prospective and unproven):
     1. Story 1 must NOT assume an unearned, rapid operational fix. Model prolonged near-term friction and muted stabilization.
-    2. Story 2 (Upside) represents the scenario where the unproven turnaround succeeds.
-    3. The probability weighting in Section 3 must reflect this asymmetry by elevating the downside probability (Story 3) over the unproven upside (Story 2).
+    2. The turnaround scenario represents an upside possibility (Story 3) weighted conservatively.
+    3. The probability weighting in Section 3 must reflect this asymmetry by weighting confirmed drag over unproven turnaround execution.
 - Structural Decline, Negative Compounding & Distressed Business Modeling:
   * Do NOT dogmatically force positive growth or +2% perpetual inflation on struggling businesses.
   * If a company faces real structural decline, brand fatigue, technological displacement, or fixed-cost deleverage (e.g. high retail store leases, tariff hits, market share loss):
     - You have full analytical freedom to model negative compounding (e.g. -5%, -10%, -20% annual contraction), margin collapse, negative operating leverage, or cash burn.
-    - Story 3 (Downside) can model severe operational distress where cash flows shrink drastically, testing if balance sheet cash is depleted.
+    - Downside scenarios can model severe operational distress where cash flows shrink drastically, testing if balance sheet cash is depleted.
 - Specialized Scenario Protocols for Complex Archetypes:
-  * Pre-Profit Inflections: Story 1/Story 2 model the explicit year-by-year path to target revenue scale and positive operating margins; Story 3 models protracted cash burn requiring dilutive equity financing.
-  * Commercial Banks & Insurers: Story 3 models credit provision spikes, NPL surges, and margin compression; Story 2 models ROTCE expansion and wealth/fee growth.
-  * Conglomerates & SOTP: Story 2 models subsidiary IPO/spin-off unlock; Story 3 models holding company discount widening or subsidiary drag.
-  * Commodity Cyclicals: Story 1 models normalized mid-cycle cash generation; Story 2 models extended cycle peak; Story 3 models trough price cash burn / debt covenant pressure.
+  * Pre-Profit Inflections: Stories model explicit paths to target revenue scale and positive operating margins vs. protracted cash burn requiring dilutive equity financing.
+  * Commercial Banks & Insurers: Stress stories model credit provision spikes, NPL surges, and margin compression; expansion stories model ROTCE expansion and wealth/fee growth.
+  * Conglomerates & SOTP: Upside stories model subsidiary IPO/spin-off unlock; drag stories model holding company discount widening or subsidiary drag.
+  * Commodity Cyclicals: Story 1 models normalized mid-cycle cash generation; peak stories model extended cycle peak; trough stories model trough price cash burn / debt covenant pressure.
 - Nascent & Concentrated Revenue Stream Realism: For high-margin emerging lines (e.g. AI data licensing, API monetization) with customer concentration (e.g. 1–3 buyers) or near-term renewal dates:
-  * Story 1 (Base Case) must model renewal friction, volume caps, or pricing concessions rather than unearned exponential growth.
-  * Story 3 (Bear Case) must model contract non-renewal, client insourcing, or synthetic data substitution.
+  * Story 1 must model renewal friction, volume caps, or pricing concessions rather than unearned exponential growth.
+  * Friction stories must model contract non-renewal, client insourcing, or synthetic data substitution.
 - Operational Metric Continuity: Explicitly carry forward and trace the primary operational metrics identified in Section 1 (e.g. Active Clients/DAUs, TPV/GMV growth, Take Rate %, Deposit Float, Cost of Risk / NPLs, ARPAC/ARPU, Fulfillment/Lease Expense Ratio) across EACH of the 3 stories to justify how margin expansion or contraction occurs.
 
 FIRST-PRINCIPLES BUSINESS METRIC CHAIN (NO ARBITRARY GROWTH ASSUMPTIONS):
@@ -1144,7 +1169,7 @@ Format Section 2 in clean Semantic HTML:
 <p>Based on the company's core premise, reported operational metrics, financial filings, and 4-quarter earnings trajectory, here are 3 distinct, probable fundamental paths that cover 90%–95% of probable business outcomes over the next 3–5 years:</p>
 
 <div class="callout">
-  <h3>📖 Story 1: [Descriptive Operational Title 1 - Base Case]</h3>
+  <h3>📖 Story 1: [Descriptive Operational Title 1 - Central Baseline]</h3>
   <p>[Full narrative explanation of this operational path, incorporating near-term guidance reality...]</p>
   <p><strong>Operational Metric Drivers &amp; Revenue:</strong> [Explicit business metric shifts (e.g. client volume, GMV, take rates, pricing) and how they drive top-line revenue in $ USD...]</p>
   <p><strong>Cost Dynamics, CapEx &amp; Owner Earnings:</strong> [Cost structure, lease commitments, provision/OpEx margins, CapEx cycle assumptions, and resulting Owner Earnings trajectory in $ USD...]</p>
@@ -1152,7 +1177,7 @@ Format Section 2 in clean Semantic HTML:
 </div>
 
 <div class="callout">
-  <h3>📖 Story 2: [Descriptive Operational Title 2 - High-Margin Upside]</h3>
+  <h3>📖 Story 2: [Descriptive Operational Title 2 - Trajectory 2]</h3>
   <p>[Full narrative explanation of this operational path...]</p>
   <p><strong>Operational Metric Drivers &amp; Revenue:</strong> [Explicit business metric shifts and how they drive top-line revenue in $ USD...]</p>
   <p><strong>Cost Dynamics, CapEx &amp; Owner Earnings:</strong> [Cost structure, OpEx margins, CapEx cycle assumptions, and resulting Owner Earnings trajectory in $ USD...]</p>
@@ -1160,8 +1185,8 @@ Format Section 2 in clean Semantic HTML:
 </div>
 
 <div class="callout">
-  <h3>📖 Story 3: [Descriptive Operational Title 3 - Defensive Stress / Downside]</h3>
-  <p>[Full narrative explanation of this operational path, incorporating realistic local FX depreciation headwind in USD conversion and lease fixed-overhead leverage...]</p>
+  <h3>📖 Story 3: [Descriptive Operational Title 3 - Trajectory 3]</h3>
+  <p>[Full narrative explanation of this operational path, incorporating realistic local FX depreciation headwind in USD conversion or lease fixed-overhead leverage where appropriate...]</p>
   <p><strong>Operational Metric Drivers &amp; Revenue:</strong> [Explicit business metric shifts and how they drive top-line revenue in $ USD...]</p>
   <p><strong>Cost Dynamics, CapEx &amp; Owner Earnings:</strong> [Cost structure, credit/tariff/margin drag, CapEx assumptions, and resulting Owner Earnings trajectory in $ USD...]</p>
   <p><strong>Key Milestones to Watch:</strong> [Specific indicators to monitor...]</p>
@@ -1221,29 +1246,28 @@ USE YOUR PYTHON CODE EXECUTION TOOL to execute exact cash flow compounding, disc
 
 Valuation Steps (Execute via Python):
 1. Start with Year 0 Normalized Owner Earnings (in $ Millions USD) strictly identical to the OE₀ derived in Section 1.
-2. Compound Owner Earnings over 5 years based on the scenario growth rate: OE_t = OE_0 * ((1 + g) ** t). (Note: Growth rate g can be positive, zero, or NEGATIVE for declining/struggling businesses).
-3. Discount the 5 years of cash flows at a disciplined equity hurdle rate (9.5% Base/Bull, 10.5%–11.5% Bear): PV_t = OE_t / ((1 + r) ** t).
+2. Compound Owner Earnings over 5 years based on the story's fundamental growth or contraction trajectory: OE_t = OE_0 * ((1 + g) ** t). (Growth rate g can be positive, flat, or negative for contracting/struggling businesses).
+3. Discount the 5 years of cash flows at a disciplined equity hurdle rate (r) calibrated to the company's business model risk, balance sheet leverage, and cash flow predictability: PV_t = OE_t / ((1 + r) ** t).
    - Compute Explicit 5-Year Cash PV: PV_explicit = sum(PV_1 ... PV_5).
-4. Calculate Storyline-Calibrated Terminal Value (Matching Story ROIC, Reinvestment Runway, or Structural Decline):
-   - Story 2 (Bull Case - High ROIC / Sustained Growth Runway): Calibrate terminal capitalization to an exit multiple of 16.0x–20.0x OE₅ (reflecting continued high-ROIC reinvestment; implied Gordon g_term ≈ 3.2%–4.5% at 9.5% hurdle). TV_5 = Exit_Multiple * OE_5 (or Gordon formula), discounted to PV: PV_TV = TV_5 / ((1 + r) ** 5).
-   - Story 1 (Base Case - Mature Steady Compounding): Calibrate terminal capitalization to an exit multiple of 12.5x–14.5x OE₅ (reflecting long-term market average; implied Gordon g_term ≈ 1.8%–2.5% at 9.5% hurdle).
-   - Story 3 (Bear Case - Disrupted / Commodity / Stagnant / Structural Decline):
-     * Multiple Derating & Slowdown: Compressed exit multiple of 7.0x–10.0x OE₅ (implied Gordon g_term ≤ 0.0% at 10.5%–11.0% hurdle).
-     * Structural Terminal Decline: If the business faces secular contraction or brand/tech obsolescence, model negative terminal perpetuity (g_term = -2.0% to -8.0%, exit multiple 4.0x–6.0x OE₅).
-     * Run-Off / Liquidating Value Mode: In severe disruption, capitalize at 3.0x–5.0x OE₅ or set TV_5 = $0 (where intrinsic value is pure 5-year cash collected + balance sheet net cash).
-   - State the exact Implied Exit Multiple and Terminal Growth Rate (e.g. 18.0x OE₅ for Bull, 13.6x OE₅ for Base, 5.0x–8.5x OE₅ for Bear).
-5. Compute Alternative Exit Multiple Valuation Floors:
-   - Conservative 10.0x Exit Multiple Floor: Operating EV_10x = PV_explicit + (10.0 * OE_5 / ((1 + r) ** 5)).
-   - Baseline 12.0x Exit Multiple: Operating EV_12x = PV_explicit + (12.0 * OE_5 / ((1 + r) ** 5)).
+4. Calculate Storyline-Calibrated Terminal Value (Full Analytical Freedom):
+   - You have complete freedom to choose the terminal valuation method that accurately matches this specific story's economic machine, competitive advantage, and reinvestment capacity:
+     * Exit Multiple of Year 5 Cash Flow: TV_5 = Exit_Multiple * OE_5 (where you derive and justify the exit multiple based on the story's terminal ROIC, moat strength, and long-term durability).
+     * Gordon Growth Perpetuity: TV_5 = OE_5 * (1 + g_term) / (r - g_term).
+     * Structural Contraction / Negative Perpetuity: Model negative terminal growth (g_term < 0%) or compressed multiples for secularly challenged lines.
+     * Run-Off / Zero-Terminal Mode: If the business faces terminal obsolescence, capitalize at liquidation/run-off (TV_5 = $0), where value is explicit 5-year cash + balance sheet cash.
+   - Discount Terminal Value to Present Value: PV_TV = TV_5 / ((1 + r) ** 5).
+   - State your derived Implied Exit Multiple and Terminal Growth Rate.
+5. Compute Alternative Exit Multiple Valuation Reference Points:
+   - Calculate alternative operating enterprise values at conservative exit multiple benchmarks (e.g. 10.0x and 12.0x OE₅) for sensitivity context.
 6. Sum Operating Enterprise Value (PV_explicit + PV_TV) (in $ Millions USD).
    - Calculate % of Operating EV from Explicit 5-Year Cash Flow: (PV_explicit / Operating EV) * 100.
    - Calculate % of Operating EV from Terminal Value: (PV_TV / Operating EV) * 100.
 7. Divide by Diluted Shares / ADSs count (in Millions) to get Operating Business Value per Share in USD.
    - Compute 5-Year Cumulative Cash Payback per share: PV_explicit / Diluted_Shares.
 8. Balance Sheet Bridge Adjustment (USD per share):
-   - If company has Net Debt (Debt > Cash, e.g. Crocs): Net Debt is a NEGATIVE adjustment (-$XX.XX/share) and MUST BE SUBTRACTED (Operating EV - Net Debt = Equity Intrinsic Value).
-   - If company has Net Cash (Cash > Debt, e.g. Google, JD, Meta): Net Surplus Cash is a POSITIVE adjustment (+$XX.XX/share) and is ADDED (Operating EV + Net Cash = Equity Intrinsic Value).
-   - SOTP / Holding Companies: Credit non-operating equity investments (with 15%–20% holding haircut) alongside net cash.
+   - If company has Net Debt (Debt > Cash): Net Debt is a NEGATIVE adjustment (-$XX.XX/share) and MUST BE SUBTRACTED (Operating EV - Net Debt = Equity Intrinsic Value).
+   - If company has Net Cash (Cash > Debt): Net Surplus Cash is a POSITIVE adjustment (+$XX.XX/share) and is ADDED (Operating EV + Net Cash = Equity Intrinsic Value).
+   - SOTP / Holding Companies: Credit non-operating equity investments (with holding haircut) alongside net cash.
 9. Derive the final Intrinsic Fair Value per Share, along with the 10.0x floor and 12.0x alternative values.
 
 SPECIALIZED ARCHETYPE EXECUTION (IN PYTHON):
@@ -1289,13 +1313,13 @@ Current Market Stock Price: ${current_price:.2f}
 Financial Baseline Context:
 {premise_context}
 
-Story 1 (Base Case) Valuation Model:
+Story 1 Valuation Model:
 {story1_json}
 
-Story 2 (Bull Case) Valuation Model:
+Story 2 Valuation Model:
 {story2_json}
 
-Story 3 (Bear Case) Valuation Model:
+Story 3 Valuation Model:
 {story3_json}
 
 Your Task:
@@ -1311,29 +1335,31 @@ Requirements:
    - PV of Terminal Value ($M and $/share)
    - % of Operating Value from Terminal Value
    - Implied Terminal Exit Multiple (e.g. 13.6x OE₅)
-   - Conservative 10.0x Exit Multiple Floor ($/share)
+   - Alternative Exit Multiple Benchmark (10.0x OE₅) ($/share)
    - 5-Year Tangible Cash Payback Yield (% of current market price recouped in pure cash over Years 1–5)
 4. In the DCF summary table, the balance sheet bridge line MUST be explicitly signed:
    - If Net Debt: 'Net Balance Sheet Debt Adjustment (-$XX.XX/sh)' (SUBTRACTED from Operating Value).
    - If Net Cash: 'Net Balance Sheet Surplus Cash Adjustment (+$XX.XX/sh)' (ADDED to Operating Value).
 5. Clear mathematical proofs for each of the 3 stories explaining the exact calculation: Operating Value/sh + Debt/Cash Adjustment = Intrinsic Fair Value/sh.
 6. A Dynamically Derived Probability-Weighted Expected Intrinsic Value Callout Box:
-   - Fundamental Derivation of Probability Weights (NO ARBITRARY 50/25/25 FORCED SYMMETRY):
-     * Do NOT arbitrarily default to 50/25/25. You must explicitly determine and justify the specific probability distribution (p₁, p₂, p₃) summing to 100% based on empirical evidence:
-       - Base Case (p₁): Typically 45%–55%, reflecting central tendency execution.
-       - Upside / High-Monetization Case (p₂): Must be weighted strictly based on observable early momentum and green shoots. If an upside inflection or product reboot is purely unproven without trailing data proof, cap p₂ conservatively (e.g. 10%–20%).
-       - Downside / Structural Friction Case (p₃): If active headwinds (e.g. multiple consecutive quarters of negative comp store sales, share loss to upstarts, unabsorbed tariff burdens, client churn) are ALREADY VISIBLE in trailing reports, p₃ MUST BE ELEVATED (e.g. 30%–45%) rather than minimized as a distant 25% tail risk!
-     * Provide a clear 2-sentence rationale explicitly justifying why these exact probability weights were assigned based on observable data vs unproven turnaround execution.
+   - First-Principles Derivation of Probability Weights (NO CANNED OR ASSERTED TEMPLATES):
+     * The probability weights (p₁, p₂, p₃) MUST strictly sum to 100% (1.00) and represent the realistic fundamental partition of THAT specific company's 90%–95% probability distribution.
+     * ZERO HARDCODED BRACKETS OR ARBITRARY SYMMETRY: Derive the exact probability distribution organically based on the weight of observable fundamental evidence:
+       - Assign the dominant probability weight to trajectories backed by confirmed trailing filings, observable operating momentum, management's near-term guidance, and proven structural moats.
+       - Assign conservative/subordinate probability weights to trajectories that rely on unproven prospective assertions, speculative turnaround pivots, or extreme low-probability tail events.
+       - For fortress utilities/monopolies (e.g. Visa, MSFT, CPRT), do not waste probability mass on impossible severe collapse cases; partition the distribution across realistic compounding, multiple de-rating, or regulatory friction paths.
+       - For brand-fatigued/struggling turnarounds (e.g. LULU, NKE, BMBL), assign the majority of probability mass to the observable drag and margin erosion paths, and weight unproven turnaround rebounds conservatively.
+     * Provide a clear 2-sentence rationale explicitly justifying why these exact probability weights were assigned based on THAT company's specific filings, unit metrics, and earnings commentary.
    - Expected Intrinsic Value Calculation:
      * Mathematically compute: Expected Intrinsic Value = (p₁ * Story 1) + (p₂ * Story 2) + (p₃ * Story 3).
      * State the Expected Value, its exact Margin of Safety vs. today's market price (${current_price:.2f}), and include a brief sensitivity note showing how an equal-weighted (33/33/33) distribution shifts the value.
-   - Signal & Valuation Coherence: If the Margin of Safety is NEGATIVE (Current Price > Expected Fair Value, e.g. stock is overvalued by 10%–35%), the tone and action signal MUST be strictly objective (e.g. "Trading at Premium to Intrinsic Value; Signal: AVOID / TRIM / WAIT FOR PULLBACK"). Never emit an enthusiastic buy tone when the model's own quantitative expected value is below market price!
+   - Signal & Valuation Coherence: If the Margin of Safety is NEGATIVE (Current Price > Expected Fair Value, e.g. stock is overvalued), the tone and action signal MUST be strictly objective (e.g. "Trading at Premium to Intrinsic Value; Signal: AVOID / TRIM / WAIT FOR PULLBACK"). Never emit an enthusiastic buy tone when the model's own quantitative expected value is below market price!
 7. Terminal Value & Exit Multiple Sensitivity Matrix:
    - A dedicated 2D table mapping Fair Value across Discount Rates (8.5%, 9.5%, 10.5%) and Exit Multiples (8.0x, 10.0x, 12.0x, 14.0x, 16.0x).
-   - Explicit Terminal Value Multiple Reliance Disclosure: Plain-English narrative disclosing that because ~70%–85% of intrinsic value in high-growth compounders derives from the Year-5 terminal exit multiple rather than explicit 5-year cash math, the headline fair value incorporates multiple capitalization risk. Reference the 10.0x Exit Multiple Floor and 5-Year Tangible Cash Payback Yield as the downside anchor.
+   - Plain-English narrative explaining how intrinsic value shifts across multiples and discount rates.
 8. Reverse DCF Sensitivity Matrix Table:
    - Isolates the exact 5-year Owner Earnings CAGR required to justify today's market price (${current_price:.2f}) across discount rates (9.5%, 10.5%, 11.5%) and starting cash flow baselines.
-   - Narrative framing: Explicitly highlight that because terminal value represents ~70% of a 5-year DCF for a high-growth compounder, the Reverse DCF eliminates perpetuity guesswork by isolating the exact 5-year growth hurdle priced in today.
+   - Narrative framing: Isolates the exact 5-year growth hurdle priced into the market today.
 9. Seamless presentation: Write pure institutional research without any meta-commentary about drafts or past corrections.
 
 Format:
@@ -1352,9 +1378,9 @@ Format:
   <tbody>
     <tr><td>Starting Normalized Owner Earnings (OE₀)</td><td>$XX,XXXM</td><td>$XX,XXXM</td><td>$XX,XXXM</td></tr>
     <tr><td>5-Year Owner Earnings CAGR</td><td>~XX%</td><td>~XX%</td><td>~XX%</td></tr>
-    <tr><td>Discount / Hurdle Rate</td><td>9.5%</td><td>9.5%</td><td>10.5%</td></tr>
-    <tr><td>Terminal Growth Rate</td><td>2.0%</td><td>2.25%</td><td>1.5%</td></tr>
-    <tr><td>Implied Terminal Exit Multiple</td><td>13.6x OE₅</td><td>14.1x OE₅</td><td>11.3x OE₅</td></tr>
+    <tr><td>Discount / Hurdle Rate</td><td>XX%</td><td>XX%</td><td>XX%</td></tr>
+    <tr><td>Terminal Growth Rate</td><td>XX%</td><td>XX%</td><td>XX%</td></tr>
+    <tr><td>Implied Terminal Exit Multiple</td><td>XX.Xx OE₅</td><td>XX.Xx OE₅</td><td>XX.Xx OE₅</td></tr>
     <tr><td><strong>PV of Explicit 5-Year Cash Flows</strong></td><td><strong>$XX,XXXM ($XX.XX/sh)</strong></td><td><strong>$XX,XXXM ($XX.XX/sh)</strong></td><td><strong>$XX,XXXM ($XX.XX/sh)</strong></td></tr>
     <tr><td>&nbsp;&nbsp;└─ % of Operating EV from Explicit 5-Year Cash</td><td>XX%</td><td>XX%</td><td>XX%</td></tr>
     <tr><td><strong>PV of Terminal Value</strong></td><td><strong>$XX,XXXM ($XX.XX/sh)</strong></td><td><strong>$XX,XXXM ($XX.XX/sh)</strong></td><td><strong>$XX,XXXM ($XX.XX/sh)</strong></td></tr>
@@ -1362,7 +1388,7 @@ Format:
     <tr><td>Operating Business Enterprise Value</td><td>$XX,XXXM ($XX.XX/sh)</td><td>$XX,XXXM ($XX.XX/sh)</td><td>$XX,XXXM ($XX.XX/sh)</td></tr>
     <tr><td>Net Balance Sheet Cash / (Debt) Adjustment</td><td>+$XX.XX/sh or -$XX.XX/sh</td><td>+$XX.XX/sh or -$XX.XX/sh</td><td>+$XX.XX/sh or -$XX.XX/sh</td></tr>
     <tr><td><strong>Calculated Intrinsic Value / Share</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td></tr>
-    <tr><td><em>Alternative Fair Value @ 10.0x Exit Multiple Floor</em></td><td><em>$XX.XX</em></td><td><em>$XX.XX</em></td><td><em>$XX.XX</em></td></tr>
+    <tr><td><em>Alternative Fair Value @ 10.0x Exit Multiple Benchmark</em></td><td><em>$XX.XX</em></td><td><em>$XX.XX</em></td><td><em>$XX.XX</em></td></tr>
     <tr><td><em>5-Year Tangible Cash Payback Yield</em></td><td><em>XX% of Price</em></td><td><em>XX% of Price</em></td><td><em>XX% of Price</em></td></tr>
   </tbody>
 </table>
@@ -1371,9 +1397,9 @@ Format:
   <h3>🎯 Probability-Weighted Expected Value Synthesis</h3>
   <p>To avoid false precision or anchoring solely on a single operational path, we synthesize the three scenarios into an institutional expected value:</p>
   <ul>
-    <li><strong>Story 1 (Base Case - 50% Underwriting Probability):</strong> $XX.XX / share</li>
-    <li><strong>Story 2 (Bull Case - 25% High-Monetization Probability):</strong> $XX.XX / share</li>
-    <li><strong>Story 3 (Bear Case - 25% Structural Drag Probability):</strong> $XX.XX / share</li>
+    <li><strong>Story 1: [Title 1] (p₁% Probability):</strong> $XX.XX / share</li>
+    <li><strong>Story 2: [Title 2] (p₂% Probability):</strong> $XX.XX / share</li>
+    <li><strong>Story 3: [Title 3] (p₃% Probability):</strong> $XX.XX / share</li>
   </ul>
   <p><strong>Probability-Weighted Expected Fair Value:</strong> <strong>$XX.XX / share</strong> (Margin of Safety: <strong>~XX%</strong> vs. today's market price of ${current_price:.2f}).</p>
   <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 6px;"><em>Sensitivity Note: Under an equal-weighted 33/33/33 distribution, Expected Fair Value is $XX.XX / share.</em></p>
@@ -1381,24 +1407,24 @@ Format:
 
 <div class="callout">
   <h3>Step-by-Step Mathematical Proofs Across the 3 Paths</h3>
-  [Story 1 Proof HTML showing PV(5yr) + PV(TV) = Operating Value + Adjustment = Intrinsic Value, including 10x exit multiple floor]
+  [Story 1 Proof HTML showing PV(5yr) + PV(TV) = Operating Value + Adjustment = Intrinsic Value]
   [Story 2 Proof HTML showing PV(5yr) + PV(TV) = Operating Value + Adjustment = Intrinsic Value]
   [Story 3 Proof HTML showing PV(5yr) + PV(TV) = Operating Value + Adjustment = Intrinsic Value]
 </div>
 
 <div class="callout">
   <h3>📊 Terminal Value &amp; Exit Multiple Sensitivity Matrix</h3>
-  <p>Because ~70%–75% of a 5-year DCF value derives from terminal capitalization, relying on a single perpetuity growth rate introduces exit multiple sensitivity. The matrix below stress-tests the Base Case intrinsic value across discount rates and terminal exit multiples:</p>
+  <p>The matrix below stress-tests the intrinsic value across discount rates and terminal exit multiples:</p>
 
   <table class="data-table">
     <thead>
       <tr>
         <th>Discount Rate (r)</th>
-        <th>8.0x Exit Multiple<br><small style="color:var(--text-dim);">(g = -0.5%)</small></th>
-        <th>10.0x Exit Multiple<br><small style="color:var(--text-dim);">(g = +0.5%)</small></th>
-        <th>12.0x Exit Multiple<br><small style="color:var(--text-dim);">(g = +1.5%)</small></th>
-        <th>13.6x Base Multiple<br><small style="color:var(--text-dim);">(g = +2.0%)</small></th>
-        <th>16.0x Bull Multiple<br><small style="color:var(--text-dim);">(g = +3.2%)</small></th>
+        <th>8.0x Exit Multiple</th>
+        <th>10.0x Exit Multiple</th>
+        <th>12.0x Exit Multiple</th>
+        <th>14.0x Exit Multiple</th>
+        <th>16.0x Exit Multiple</th>
       </tr>
     </thead>
     <tbody>
@@ -1407,7 +1433,6 @@ Format:
       <tr><td><strong>10.5% (High Hurdle)</strong></td><td>$XX.XX</td><td>$XX.XX</td><td>$XX.XX</td><td>$XX.XX</td><td>$XX.XX</td></tr>
     </tbody>
   </table>
-  <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 6px;"><em>Takeaway: Even under a severe multiple compression floor of 10.0x OE₅ (assuming zero growth in perpetuity), the business supports a tangible floor of $XX.XX / share.</em></p>
 </div>
 
 <div class="callout">
@@ -1468,13 +1493,16 @@ Adjudicate every single point raised in the critique memo:
 1. [ACKNOWLEDGE & ADAPT]:
    - Valid factual issues (e.g. neglected segment declines, acquired brand drops, single-silhouette risks).
    - Supply chain & counterparty concentration (% Vietnam/China factories, Section 301 tariffs, >50% revenue from 1–3 buyers in nascent lines like AI data licensing).
-   - Live / Ongoing Headwinds in Story 1: Ensure active, observable disruptions (e.g. multi-quarter negative same-store sales, Google AI Overviews reducing search referral traffic) are integrated into Story 1 Base Case rather than dismissed as 25% tail risks.
+   - Dynamic Probability Space Partition (No Dogmatic Bull/Bear Triad): Ensure the 3 Stories span the realistic 90%–95% fundamental probability distribution of the company. For fortress monopolies, reject forced apocalyptic collapse cases and mandate realistic multiple de-rating / regulatory drag scenarios. For struggling turnarounds, mandate that drag/friction trajectories carry the bulk of the probability mass over unproven turnaround cases.
+   - 100% Bespoke Company Grounding Check: Reject any generic boilerplate, unearned international expansion (for domestic-only operators), or artificial synthetic drivers. Mandate that the 3 Stories reflect THAT specific company's actual operating segments, reported metrics, and the last 4 quarters of management commentary and guidance.
+   - Storyline Distinctness & Non-Overlap Check: Audit that the 3 Stories explore fundamentally distinct, orthogonal economic mechanisms (e.g. separate operational vectors like core compounding vs regulatory fee friction vs B2B volume ramp) rather than minor percentage tweaks of the same narrative. Reject redundant drafts that fail to span different parts of the probability space.
+   - Live / Ongoing Headwinds in Story 1: Ensure active, observable disruptions (e.g. multi-quarter negative same-store sales, Google AI Overviews reducing search referral traffic) are integrated into Story 1 Base Case rather than dismissed as distant tail risks.
    - Empirical Green Shoots & Turnaround Realism: If Story 1 assumes an operational turnaround (e.g. comp store sales pivoting positive, redesign cycle succeeding), audit whether there is trailing empirical data proof. If unproven, mandate that Story 1 model prolonged drag and probability weights reflect elevated downside risk.
-   - Dynamic Probability Weight Derivation: Reject and remediate arbitrary 50/25/25 symmetry. If active headwinds are already observable, ensure Downside Case (Story 3) probability is elevated (e.g. 35%–45%) over an unproven Bull Case (e.g. 10%–15%).
+   - Dynamic Probability Weight Derivation: Reject and remediate arbitrary 50/25/25 symmetry. Ensure probability weights (p₁, p₂, p₃) are derived from observable evidence and sum to 100%.
    - Cash flow matching & accounting adjustments (eliminating debt double-counting under FCFE/FCFF, working capital normalization, realistic AI GPU depreciation cycles).
    - Form 4 Executive vs. Director Dollar Asymmetry: Reject false equivalence or 'Divergent Flow' claims where small director purchases ($100k–$500k) are claimed to offset tens of millions in C-Suite executive selling. State net dollar flows objectively.
    - Signal-to-Valuation Coherence: If Market Price > Expected Intrinsic Value, ensure the thesis tone is strictly objective and signals AVOID / TRIM / OVERVALUED.
-   - Scenario-Specific CapEx Efficiency: Ensure capex efficiency aligns with each scenario's operational story (e.g. Bull case custom silicon efficiency yielding higher FCF conversion vs Bear case hardware replacement drag).
+   - Scenario-Specific CapEx Efficiency: Ensure capex efficiency aligns with each scenario's operational story (e.g. expansion case custom silicon efficiency yielding higher FCF conversion vs friction case hardware replacement drag).
 
 2. [PUSHBACK & DEFEND]:
    - Demands to anchor valuation to current market stock price.
@@ -1581,9 +1609,9 @@ You MUST output the complete, untruncated Section 3 HTML containing:
 1. <h2>Section 3: Valuation Across the 3 Stories</h2>
 2. The 3-Story DCF Summary Table (with explicit row header 'Intrinsic Fair Value / Share' or 'Intrinsic Fair Value / ADS' containing calculated per-share values).
 3. <h3>Step-by-Step Mathematical Proofs Across the 3 Paths</h3>
-   - Full walkthrough for Story 1 (Base Case)
-   - Full walkthrough for Story 2 (Bull Case)
-   - Full walkthrough for Story 3 (Bear Case)
+   - Full walkthrough for Story 1
+   - Full walkthrough for Story 2
+   - Full walkthrough for Story 3
 4. <h3>Reverse DCF Sensitivity Matrix: What is Mr. Market Pricing In?</h3>
    - Full sensitivity matrix table and narrative analysis
 5. <h3>Reconciliation vs. Wall Street Consensus Price Targets</h3>
@@ -1902,13 +1930,14 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     print("   └" + "─" * 50, flush=True)
 
     # ------------------------------------------------------------------
+    # ------------------------------------------------------------------
     # Step 3A: LLM Agent 3A - Story 1 DCF Valuation (100% BLIND - Python Code Execution)
     # ------------------------------------------------------------------
     print(f"\n🧮 [AGENT 3A: STORY 1 DCF] Modeling Buffett DCF for Story 1 via Python Code Execution (100% Blind Mode)...", flush=True)
     prompt_3a = AGENT_3_SINGLE_STORY_DCF_PROMPT.format(
         ticker=ticker_clean,
         company_name=company_name,
-        story_name="Story 1 (Base Case)",
+        story_name="Story 1",
         story_num=1,
         story_letter="A",
         premise_context=sec1_clean,
@@ -1917,7 +1946,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     raw_3a = call_gemini_with_search(prompt_3a, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False, use_code_execution=True)
     dcf1 = extract_json_block(raw_3a)
     story1_val = extract_story_valuation(dcf1, raw_3a, current_price=current_price)
-    story1_title = str(dcf1.get("story_title") or "Base Case Compounder")
+    story1_title = str(dcf1.get("story_title") or "Story 1")
     print(f"   │ Story 1 Valuation: ${story1_val:.2f} / share ({story1_title})", flush=True)
     print("   └" + "─" * 50, flush=True)
 
@@ -1928,7 +1957,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     prompt_3b = AGENT_3_SINGLE_STORY_DCF_PROMPT.format(
         ticker=ticker_clean,
         company_name=company_name,
-        story_name="Story 2 (Bull Case)",
+        story_name="Story 2",
         story_num=2,
         story_letter="B",
         premise_context=sec1_clean,
@@ -1937,7 +1966,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     raw_3b = call_gemini_with_search(prompt_3b, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False, use_code_execution=True)
     dcf2 = extract_json_block(raw_3b)
     story2_val = extract_story_valuation(dcf2, raw_3b, current_price=current_price)
-    story2_title = str(dcf2.get("story_title") or "High-Margin Upside Engine")
+    story2_title = str(dcf2.get("story_title") or "Story 2")
     print(f"   │ Story 2 Valuation: ${story2_val:.2f} / share ({story2_title})", flush=True)
     print("   └" + "─" * 50, flush=True)
 
@@ -1948,7 +1977,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     prompt_3c = AGENT_3_SINGLE_STORY_DCF_PROMPT.format(
         ticker=ticker_clean,
         company_name=company_name,
-        story_name="Story 3 (Bear / Defensive Case)",
+        story_name="Story 3",
         story_num=3,
         story_letter="C",
         premise_context=sec1_clean,
@@ -1957,7 +1986,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     raw_3c = call_gemini_with_search(prompt_3c, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False, use_code_execution=True)
     dcf3 = extract_json_block(raw_3c)
     story3_val = extract_story_valuation(dcf3, raw_3c, current_price=current_price)
-    story3_title = str(dcf3.get("story_title") or "Macro Friction & Defensive Floor")
+    story3_title = str(dcf3.get("story_title") or "Story 3")
     print(f"   │ Story 3 Valuation: ${story3_val:.2f} / share ({story3_title})", flush=True)
     print("   └" + "─" * 50, flush=True)
 
@@ -2376,15 +2405,16 @@ Analyze all recent officer and director transactions over the trailing 12 months
 3. Classify overall insider sentiment into one of:
    - "Cluster Buying" (Multiple officers making open market purchases)
    - "Net Buying" (Purchases exceed sales)
+   - "Heavy Net Executive Selling" (C-suite executive sales outweigh director purchases by >3:1 in total dollar volume)
    - "Net Selling" (Persistent open market sales with zero buying)
    - "Neutral (10b5-1)" (Routine pre-scheduled tax/RSU transactions)
    - "No Activity" (Zero Form 4 filings)
-4. Provide a crisp 1-line summary of executive flow.
+4. Provide a crisp 1-line summary of executive flow. If C-suite sold $10M+ while a director bought $200k, state the exact net dollar imbalance objectively (e.g. "C-Suite $15M sales outweigh $200k director purchase").
 
 Output ONLY a JSON object:
 ```json
 {{
-  "insider_signal": "<Cluster Buying | Net Buying | Net Selling | Neutral (10b5-1) | No Activity>",
+  "insider_signal": "<Cluster Buying | Net Buying | Heavy Net Executive Selling | Net Selling | Neutral (10b5-1) | No Activity>",
   "insider_summary": "<Crisp 1-line summary with executive names and dollar values, max 12 words>",
   "key_executives_tracked": ["<Name 1 (Title)>", "<Name 2 (Title)>"]
 }}
