@@ -14,7 +14,32 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <!-- Embedded Initial Live Quotes for 100% Guaranteed Zero-Lag Data Delivery -->
-    <script id="embedded-live-quotes" type="application/json">{}</script>
+    <script id="embedded-live-quotes" type="application/json">{
+  "YELP": {
+    "price": 23.66,
+    "prev_close": 23.66,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-20 18:04:19 UTC"
+  },
+  "DUOL": {
+    "price": 146.06,
+    "prev_close": 146.06,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "currency": "USD",
+    "updated_at": "2026-08-20 18:04:19 UTC"
+  },
+  "APP": {
+    "price": 309.64,
+    "prev_close": 309.67,
+    "change": -0.03,
+    "change_pct": -0.01,
+    "currency": "USD",
+    "updated_at": "2026-08-20 18:04:19 UTC"
+  }
+}</script>
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
@@ -793,7 +818,7 @@
         <!-- Navigation Controls -->
         <div class="hub-controls">
             <div class="hub-tabs">
-                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">0</span></button>
+                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">3</span></button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts <span class="tab-chip chip-alert">0</span></span></button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-defensive')">Fidelity</button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-aggressive')">Wealthsimple</button>
@@ -836,11 +861,104 @@
                     </thead>
                     <tbody>
                         
-        <tr>
-            <td colspan="5" style="border-bottom: none !important; padding: 0 !important;">
-                <div class="empty-state-box">
-                    <div class="empty-state-title">No Stocks Tracked</div>
-                    <div class="empty-state-sub">Ready for coverage</div>
+        <tr class="table-row" data-ticker="APP" data-baseline="310.61" onclick="location.href='reports/APP.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/APP" alt="APP" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">AP</span></div>
+                        <span class="tbl-symbol">APP</span>
+                    </div>
+                    <span class="tbl-company-hover">Applovin Corporation</span>
+                </div>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-APP">$309.64</span>
+                    <span class="tbl-return tbl-ret-APP neg">-0.31%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="pill pill-moat-wide" title="Economic Moat Rating: Wide Moat">Wide Moat</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-val-cell">
+                    <span class="tbl-fv" style="color: var(--accent-warm);">$279.52</span>
+                    <span class="tbl-upside">-10.0%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-date">2026-11-04</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
+                </div>
+            </td>
+        </tr>
+        
+        <tr class="table-row" data-ticker="DUOL" data-baseline="145.91" onclick="location.href='reports/DUOL.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/DUOL" alt="DUOL" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">DU</span></div>
+                        <span class="tbl-symbol">DUOL</span>
+                    </div>
+                    <span class="tbl-company-hover">Duolingo, Inc</span>
+                </div>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-DUOL">$146.06</span>
+                    <span class="tbl-return tbl-ret-DUOL pos">+0.10%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="pill pill-moat-narrow" title="Economic Moat Rating: Narrow Moat">Narrow Moat</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-val-cell">
+                    <span class="tbl-fv" style="color: var(--accent-warm);">$116.57</span>
+                    <span class="tbl-upside">-20.1%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-date">2026-11-04</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
+                </div>
+            </td>
+        </tr>
+        
+        <tr class="table-row" data-ticker="YELP" data-baseline="23.66" onclick="location.href='reports/YELP.html'">
+            <td>
+                <div class="tbl-ticker-cell">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/YELP" alt="YELP" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">YE</span></div>
+                        <span class="tbl-symbol">YELP</span>
+                    </div>
+                    <span class="tbl-company-hover">Yelp Inc</span>
+                </div>
+            <td>
+                <div class="tbl-price-cell">
+                    <span class="tbl-price tbl-price-YELP">$23.66</span>
+                    <span class="tbl-return tbl-ret-YELP pos">+0.00%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-labels-cell">
+                    <span class="pill pill-moat-weak" title="Economic Moat Rating: Weak Moat">Weak Moat</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-val-cell">
+                    <span class="tbl-fv" style="color: var(--accent-warm);">$37.26</span>
+                    <span class="tbl-upside">+57.5%</span>
+                </div>
+            </td>
+            <td>
+                <div class="tbl-catalyst-cell">
+                    <span class="tbl-cat-date">2026-11-05</span>
+                    <span class="tbl-cat-desc">Q3 '26 ER</span>
                 </div>
             </td>
         </tr>
@@ -852,10 +970,102 @@
             <!-- Grid Cards View -->
             <div id="stocks-grid-view" class="grid-cards-wrap" style="display: none;">
                 
-        <div style="grid-column: 1 / -1; background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px;">
-            <div class="empty-state-box">
-                <div class="empty-state-title">No Stocks Tracked</div>
-                <div class="empty-state-sub">Ready for coverage</div>
+        <div class="grid-card" data-ticker="APP" data-baseline="310.61" onclick="location.href='reports/APP.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/APP" alt="APP" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">AP</span></div>
+                    <span class="grid-symbol">APP</span>
+                </div>
+                <div class="grid-price grid-price-APP">$309.64</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <span class="pill pill-moat-wide" title="Economic Moat Rating: Wide Moat">Wide Moat</span>
+            </div>
+            <div class="grid-company">Applovin Corporation</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-APP neg">-0.31%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Fair Value</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">$279.52</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Target</span>
+                    <span class="grid-stat-val">$279.52 (-10.0%)</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val">2026-11-04</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid-card" data-ticker="DUOL" data-baseline="145.91" onclick="location.href='reports/DUOL.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/DUOL" alt="DUOL" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">DU</span></div>
+                    <span class="grid-symbol">DUOL</span>
+                </div>
+                <div class="grid-price grid-price-DUOL">$146.06</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <span class="pill pill-moat-narrow" title="Economic Moat Rating: Narrow Moat">Narrow Moat</span>
+            </div>
+            <div class="grid-company">Duolingo, Inc</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-DUOL pos">+0.10%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Fair Value</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">$116.57</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Target</span>
+                    <span class="grid-stat-val">$116.57 (-20.1%)</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val">2026-11-04</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid-card" data-ticker="YELP" data-baseline="23.66" onclick="location.href='reports/YELP.html'">
+            <div class="grid-card-top">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/YELP" alt="YELP" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">YE</span></div>
+                    <span class="grid-symbol">YELP</span>
+                </div>
+                <div class="grid-price grid-price-YELP">$23.66</div>
+            </div>
+            <div class="grid-labels-row" style="margin: 4px 0 8px;">
+                <span class="pill pill-moat-weak" title="Economic Moat Rating: Weak Moat">Weak Moat</span>
+            </div>
+            <div class="grid-company">Yelp Inc</div>
+            
+            <div class="grid-metrics-box">
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Return</span>
+                    <span class="grid-stat-val grid-ret-YELP pos">+0.00%</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Fair Value</span>
+                    <span class="grid-stat-val" style="color: var(--accent-warm);">$37.26</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Target</span>
+                    <span class="grid-stat-val">$37.26 (+57.5%)</span>
+                </div>
+                <div class="grid-stat">
+                    <span class="grid-stat-lbl">Catalyst</span>
+                    <span class="grid-stat-val">2026-11-05</span>
+                </div>
             </div>
         </div>
         
