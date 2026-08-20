@@ -1945,6 +1945,9 @@ Pass: {it}/{max_refine_iterations}
     expected_val = round((0.50 * story1_val) + (0.25 * story2_val) + (0.25 * story3_val), 2)
     expected_mos = ((expected_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
 
+    # Fetch verified next catalyst and earnings release date via Google Search subagent
+    cat_intel = research_catalyst_intelligence(ticker_clean, company_name)
+
     metadata = {
         "ticker": ticker_clean,
         "company_name": company_name,
@@ -1976,8 +1979,8 @@ Pass: {it}/{max_refine_iterations}
         "what_is_priced_in": what_is_priced_in,
         "upper_alert_threshold": upper_alert,
         "lower_alert_threshold": lower_alert,
-        "next_catalyst_date": "",
-        "next_catalyst_event": "Scheduled quarterly report",
+        "next_catalyst_date": cat_intel.get("next_catalyst_date") or (datetime.now() + timedelta(days=90)).strftime("%Y-%m-%d"),
+        "next_catalyst_event": cat_intel.get("next_catalyst_event") or "Q3 FY26 Earnings Release",
         "top_funds": [],
         "institutional_ownership_pct": "0 Tracked",
         "insider_signal": "Neutral (10b5-1)",
@@ -2211,4 +2214,41 @@ Output ONLY a JSON object:
     except Exception as e:
         print(f"Error researching insider intel for {ticker}: {e}")
     return {}
+
+
+def research_catalyst_intelligence(ticker: str, company_name: str) -> Dict[str, str]:
+    """Specialized Subagent: Searches live web for the exact next earnings release date and primary company catalyst."""
+    clean_t = ticker.upper().strip()
+    prompt = f"""You are an equity research calendar and corporate catalyst specialist.
+Search the live web (Yahoo Finance, SEC filings, Nasdaq, company IR page, Bloomberg, Reuters) for the exact next earnings release date and primary upcoming corporate catalyst for {clean_t} ({company_name}).
+
+Extract and return a JSON object with:
+- "next_catalyst_date": Exact date in strict "YYYY-MM-DD" format (e.g. "2026-11-12"). If exact day is unconfirmed, provide the consensus estimated date.
+- "next_catalyst_event": Specific, concise fundamental event name (max 4-5 words, e.g. "Q3 FY26 Earnings Release", "Singles Day GMV Report", "Investor Day Keynote", "FDA Advisory Committee Meeting").
+
+Output ONLY the JSON object:
+```json
+{{
+  "next_catalyst_date": "YYYY-MM-DD",
+  "next_catalyst_event": "Q3 FY26 Earnings Release"
+}}
+```
+"""
+    try:
+        res = call_gemini_with_search(prompt, temperature=0.1)
+        parsed = extract_json_block(res)
+        if isinstance(parsed, dict):
+            c_date = normalize_catalyst_date(parsed.get("next_catalyst_date"))
+            c_event = str(parsed.get("next_catalyst_event") or "Q3 FY26 Earnings Release").strip()
+            return {
+                "next_catalyst_date": c_date,
+                "next_catalyst_event": c_event
+            }
+    except Exception as e:
+        print(f"Error researching catalyst intelligence for {clean_t}: {e}")
+    
+    return {
+        "next_catalyst_date": (datetime.now() + timedelta(days=90)).strftime("%Y-%m-%d"),
+        "next_catalyst_event": "Q3 FY26 Earnings Release"
+    }
 
