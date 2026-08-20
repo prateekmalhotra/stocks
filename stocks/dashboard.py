@@ -102,20 +102,19 @@ def normalize_latex_typography(html: str) -> str:
 
 
 def format_labels_pills(labels: List[str]) -> str:
-    """Formats strictly 1 clean, single-line badge for absolute visual consistency across all rows."""
+    """Formats strictly 1 clean, single-line Moat badge for absolute visual consistency across all rows."""
     if not labels:
         return ''
     
-    # Pick the primary conviction/driver label
     primary_lbl = labels[0]
     cleaned = re.sub(r"&|/|-", " ", primary_lbl)
     words = [w for w in cleaned.split() if w.strip()]
     if not words:
         return ''
     
-    short_lbl = " ".join(words[:2]).title()
-    pill_cls = "pill-conviction"
-    return f'<span class="pill {pill_cls}">{short_lbl}</span>'
+    from stocks.gemini_agent import map_to_canonical_moat_label
+    moat_lbl = map_to_canonical_moat_label(" ".join(words))
+    return f'<span class="pill pill-moat" title="Economic Moat Archetype: {moat_lbl}">🏰 {moat_lbl}</span>'
 
 
 def format_usd_target(val: Any) -> str:
@@ -2077,6 +2076,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             letter-spacing: 0.03em;
             white-space: nowrap;
         }}
+        .pill-moat {{ background: rgba(212, 163, 115, 0.14); color: var(--accent-warm); border: 1px solid rgba(212, 163, 115, 0.4); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em; }}
         .pill-active {{ background: rgba(201, 154, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.45); font-weight: 600; box-shadow: 0 0 10px rgba(201, 154, 117, 0.06); }}
         .pill-neutral {{ background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); font-weight: 500; }}
         .pill-alert {{ background: rgba(191, 160, 117, 0.14); color: var(--accent-warm); border: 1px solid rgba(191, 160, 117, 0.28); }}
@@ -3168,6 +3168,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             letter-spacing: 0.03em;
             white-space: nowrap;
         }}
+        .pill-moat {{ background: rgba(212, 163, 115, 0.14); color: var(--accent-warm); border: 1px solid rgba(212, 163, 115, 0.4); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em; }}
         .pill-conviction {{ background: rgba(212, 163, 115, 0.12); color: var(--accent-warm); border: 1px solid rgba(212, 163, 115, 0.35); font-weight: 600; }}
         .pill-driver {{ background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); font-weight: 500; }}
         .pill-active {{ background: rgba(201, 154, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.45); font-weight: 600; box-shadow: 0 0 10px rgba(201, 154, 117, 0.06); }}

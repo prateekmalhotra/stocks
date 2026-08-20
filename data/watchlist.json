@@ -5,9 +5,9 @@
     "baseline_price": 546.03,
     "current_price": 546.03,
     "return_pct": 0.0,
-    "status_label": "Cautious Stance",
+    "status_label": "Network Effects",
     "labels": [
-      "Cautious Stance",
+      "Network Effects",
       "Owner Earnings",
       "Cash Generation"
     ],
@@ -44,7 +44,8 @@
     "insider_summary": "Audited SEC Form 3 / 20-F / Form 4 filings.",
     "last_updated": "2026-08-20",
     "total_versions": 1,
-    "report_path": "reports/META.html"
+    "report_path": "reports/META.html",
+    "moat_label": "Network Effects"
   },
   "GOOG": {
     "ticker": "GOOG",
@@ -52,9 +53,9 @@
     "baseline_price": 341.7,
     "current_price": 341.7,
     "return_pct": 0.0,
-    "status_label": "Cautious Stance",
+    "status_label": "Tollbridge Asset",
     "labels": [
-      "Cautious Stance",
+      "Tollbridge Asset",
       "Owner Earnings",
       "Cash Generation"
     ],
@@ -91,53 +92,7 @@
     "insider_summary": "Audited SEC Form 3 / 20-F / Form 4 filings.",
     "last_updated": "2026-08-20",
     "total_versions": 1,
-    "report_path": "reports/GOOG.html"
-  },
-  "AMZN": {
-    "ticker": "AMZN",
-    "company_name": "Amazon.com, Inc.",
-    "baseline_price": 265.84,
-    "current_price": 265.84,
-    "return_pct": 0.0,
-    "status_label": "Cautious Stance",
-    "labels": [
-      "Cautious Stance",
-      "Owner Earnings",
-      "Cash Generation"
-    ],
-    "action_signal": "AVOID",
-    "fair_value_estimate": "$156.78",
-    "story1_target": "$156.78 (-41.0%)",
-    "story2_target": "$212.65 (-20.0%)",
-    "story3_target": "$60.81 (-77.1%)",
-    "story1_title": "Story 1: Sustained Cloud AI Digestion & Regionalized Logistics Efficiency (Base Case)",
-    "story2_title": "AWS AI Infrastructure Monopoly & High-Margin Ad Monetization (Story 2 - Bull Case)",
-    "story3_title": "AI Capacity Overbuild, Cloud Price War & Trade/FX Friction (Defensive Stress / Downside)",
-    "bear_target": "$60.81 (-77.1%)",
-    "base_target": "$156.78 (-41.0%)",
-    "bull_target": "$212.65 (-20.0%)",
-    "what_is_priced_in": "Market prices in today's entry price of $265.84 vs Story 1 Intrinsic Value of $156.78",
-    "upper_alert_threshold": 305.72,
-    "lower_alert_threshold": 60.81,
-    "next_catalyst_date": "2026-11-18",
-    "next_catalyst_event": "Scheduled quarterly report",
-    "top_funds": [
-      "AltaRock Partners (32.21)",
-      "Josh Tarasoff - Greenlea Lane Capital (18.35)",
-      "Seth Klarman - Baupost Group (16.48)",
-      "Dennis Hong - ShawSpring Partners (16.13)",
-      "David Tepper - Appaloosa Management (15.95)",
-      "ValueAct Capital (12.44)",
-      "Bill Ackman - Pershing Square Capital Management (10.49)",
-      "Chase Coleman - Tiger Global Management (9.62)",
-      "Triple Frond Partners (9.20)",
-      "Daniel Loeb - Third Point (9.13)"
-    ],
-    "institutional_ownership_pct": "34 Whales",
-    "insider_signal": "Neutral (10b5-1)",
-    "insider_summary": "Audited SEC Form 3 / 20-F / Form 4 filings.",
-    "last_updated": "2026-08-20",
-    "total_versions": 1,
-    "report_path": "reports/AMZN.html"
+    "report_path": "reports/GOOG.html",
+    "moat_label": "Tollbridge Asset"
   }
 }

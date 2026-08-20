@@ -19,6 +19,7 @@ from stocks.gemini_agent import (
     sanitize_labels,
     normalize_catalyst_date,
     normalize_action_signal,
+    CANONICAL_MOAT_LABELS,
     CANONICAL_CONVICTION_TIERS
 )
 from stocks.dashboard import render_all
@@ -131,7 +132,7 @@ def _handle_genesis_task(ticker: str, notes: str):
         version=1,
         date=today_str,
         price_at_version=current_price,
-        status_label=labels[0] if labels else "Solid Conviction",
+        status_label=labels[0] if labels else "Narrow Moat",
         labels=labels,
         action_signal=action_signal,
         summary_of_change=meta.get("executive_summary", "Initial institutional thesis established."),
@@ -258,7 +259,7 @@ def _handle_review_task(ticker: str, trigger_reason: str):
         version=new_version_num,
         date=today_str,
         price_at_version=current_price,
-        status_label=labels[0] if labels else (prev_status if prev_status in CANONICAL_CONVICTION_TIERS else "Solid Conviction"),
+        status_label=labels[0] if labels else (prev_status if prev_status in CANONICAL_MOAT_LABELS else "Narrow Moat"),
         labels=labels,
         action_signal=action_signal,
         summary_of_change=meta.get("what_changes_now", "Living thesis updated with recent market developments."),

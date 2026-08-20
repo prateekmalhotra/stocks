@@ -21,7 +21,7 @@
     "change": 0.0,
     "change_pct": 0.0,
     "currency": "USD",
-    "updated_at": "2026-08-20 03:17:31 UTC"
+    "updated_at": "2026-08-20 03:30:29 UTC"
   },
   "GOOG": {
     "price": 341.7,
@@ -29,15 +29,7 @@
     "change": 0.0,
     "change_pct": 0.0,
     "currency": "USD",
-    "updated_at": "2026-08-20 03:17:31 UTC"
-  },
-  "AMZN": {
-    "price": 265.84,
-    "prev_close": 265.84,
-    "change": 0.0,
-    "change_pct": 0.0,
-    "currency": "USD",
-    "updated_at": "2026-08-20 03:17:31 UTC"
+    "updated_at": "2026-08-20 03:30:29 UTC"
   }
 }</script>
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
@@ -618,6 +610,7 @@
             letter-spacing: 0.03em;
             white-space: nowrap;
         }
+        .pill-moat { background: rgba(212, 163, 115, 0.14); color: var(--accent-warm); border: 1px solid rgba(212, 163, 115, 0.4); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em; }
         .pill-conviction { background: rgba(212, 163, 115, 0.12); color: var(--accent-warm); border: 1px solid rgba(212, 163, 115, 0.35); font-weight: 600; }
         .pill-driver { background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); font-weight: 500; }
         .pill-active { background: rgba(201, 154, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.45); font-weight: 600; box-shadow: 0 0 10px rgba(201, 154, 117, 0.06); }
@@ -813,7 +806,7 @@
         <!-- Navigation Controls -->
         <div class="hub-controls">
             <div class="hub-tabs">
-                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">3</span></button>
+                <button class="hub-tab-btn active" onclick="switchTab('stocks')">Coverage <span class="tab-chip">2</span></button>
                 <button class="hub-tab-btn" onclick="switchTab('alerts')"><span id="alerts-tab-count">Alerts <span class="tab-chip chip-alert">0</span></span></button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-defensive')">Fidelity</button>
                 <button class="hub-tab-btn" onclick="switchTab('portfolio-aggressive')">Wealthsimple</button>
@@ -856,40 +849,6 @@
                     </thead>
                     <tbody>
                         
-        <tr class="table-row" data-ticker="AMZN" data-baseline="265.84" onclick="location.href='reports/AMZN.html'">
-            <td>
-                <div class="tbl-ticker-cell">
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <div class="ticker-logo-wrap" style="width:20px; height:20px; min-width:20px; min-height:20px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/AMZN" alt="AMZN" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:8px;">AM</span></div>
-                        <span class="tbl-symbol">AMZN</span>
-                    </div>
-                    <span class="tbl-company-hover">Amazon.com, Inc</span>
-                </div>
-            <td>
-                <div class="tbl-price-cell">
-                    <span class="tbl-price tbl-price-AMZN">$265.84</span>
-                    <span class="tbl-return tbl-ret-AMZN pos">+0.00%</span>
-                </div>
-            </td>
-            <td>
-                <div class="tbl-labels-cell">
-                    <span class="pill pill-conviction">Cautious Stance</span>
-                </div>
-            </td>
-            <td>
-                <div class="tbl-val-cell">
-                    <span class="tbl-fv" style="color: var(--accent-warm);">$156.78</span>
-                    <span class="tbl-upside">-41.0%</span>
-                </div>
-            </td>
-            <td>
-                <div class="tbl-catalyst-cell">
-                    <span class="tbl-cat-date">2026-11-18</span>
-                    <span class="tbl-cat-desc">Scheduled quarterly report</span>
-                </div>
-            </td>
-        </tr>
-        
         <tr class="table-row" data-ticker="GOOG" data-baseline="341.7" onclick="location.href='reports/GOOG.html'">
             <td>
                 <div class="tbl-ticker-cell">
@@ -907,7 +866,7 @@
             </td>
             <td>
                 <div class="tbl-labels-cell">
-                    <span class="pill pill-conviction">Cautious Stance</span>
+                    <span class="pill pill-moat" title="Economic Moat Archetype: Tollbridge Asset">🏰 Tollbridge Asset</span>
                 </div>
             </td>
             <td>
@@ -941,7 +900,7 @@
             </td>
             <td>
                 <div class="tbl-labels-cell">
-                    <span class="pill pill-conviction">Cautious Stance</span>
+                    <span class="pill pill-moat" title="Economic Moat Archetype: Network Effects">🏰 Network Effects</span>
                 </div>
             </td>
             <td>
@@ -965,39 +924,6 @@
             <!-- Grid Cards View -->
             <div id="stocks-grid-view" class="grid-cards-wrap" style="display: none;">
                 
-        <div class="grid-card" data-ticker="AMZN" data-baseline="265.84" onclick="location.href='reports/AMZN.html'">
-            <div class="grid-card-top">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <div class="ticker-logo-wrap" style="width:24px; height:24px; min-width:24px; min-height:24px;"><img class="ticker-logo" src="https://assets.parqet.com/logos/symbol/AMZN" alt="AMZN" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"><span class="ticker-logo-fallback" style="display:none; font-size:10px;">AM</span></div>
-                    <span class="grid-symbol">AMZN</span>
-                </div>
-                <div class="grid-price grid-price-AMZN">$265.84</div>
-            </div>
-            <div class="grid-labels-row" style="margin: 4px 0 8px;">
-                <span class="pill pill-conviction">Cautious Stance</span>
-            </div>
-            <div class="grid-company">Amazon.com, Inc</div>
-            
-            <div class="grid-metrics-box">
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Return</span>
-                    <span class="grid-stat-val grid-ret-AMZN pos">+0.00%</span>
-                </div>
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Fair Value</span>
-                    <span class="grid-stat-val" style="color: var(--accent-warm);">$156.78</span>
-                </div>
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Target</span>
-                    <span class="grid-stat-val">$156.78 (-41.0%)</span>
-                </div>
-                <div class="grid-stat">
-                    <span class="grid-stat-lbl">Catalyst</span>
-                    <span class="grid-stat-val">2026-11-18</span>
-                </div>
-            </div>
-        </div>
-        
         <div class="grid-card" data-ticker="GOOG" data-baseline="341.7" onclick="location.href='reports/GOOG.html'">
             <div class="grid-card-top">
                 <div style="display: flex; align-items: center; gap: 8px;">
@@ -1007,7 +933,7 @@
                 <div class="grid-price grid-price-GOOG">$341.70</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
-                <span class="pill pill-conviction">Cautious Stance</span>
+                <span class="pill pill-moat" title="Economic Moat Archetype: Tollbridge Asset">🏰 Tollbridge Asset</span>
             </div>
             <div class="grid-company">Alphabet Inc</div>
             
@@ -1040,7 +966,7 @@
                 <div class="grid-price grid-price-META">$546.03</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
-                <span class="pill pill-conviction">Cautious Stance</span>
+                <span class="pill pill-moat" title="Economic Moat Archetype: Network Effects">🏰 Network Effects</span>
             </div>
             <div class="grid-company">Meta Platforms, Inc</div>
             
@@ -1288,7 +1214,7 @@
     <!-- Chart & Real-Time Sync Script -->
     <script>
         (function() {
-            const pData = {"dates": ["2026-08-11", "2026-08-18", "2026-08-19", "2026-08-18", "2026-08-19", "2026-08-18", "2026-08-19", "2026-08-18", "2026-08-19", "2026-08-18", "2026-08-19", "2026-08-18", "2026-08-19", "2026-08-18", "2026-08-19", "2026-08-20", "2026-08-19", "2026-08-20", "2026-08-19", "2026-08-20", "2026-08-19", "2026-08-20", "2026-08-19", "2026-08-20"], "portfolio": [200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0], "spy": [200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0]};
+            const pData = {"dates": ["2026-08-11", "2026-08-18", "2026-08-19", "2026-08-18", "2026-08-19", "2026-08-18", "2026-08-19", "2026-08-18", "2026-08-19", "2026-08-18", "2026-08-19", "2026-08-18", "2026-08-19", "2026-08-18", "2026-08-19", "2026-08-20", "2026-08-19", "2026-08-20", "2026-08-19", "2026-08-20", "2026-08-19", "2026-08-20", "2026-08-19", "2026-08-20", "2026-08-19"], "portfolio": [200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0], "spy": [200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0]};
             const ctx = document.getElementById('chart-defensive');
             if (ctx) {
                 const dates = pData.dates || ['Day 1'];
@@ -1803,7 +1729,7 @@
     <!-- Chart & Real-Time Sync Script -->
     <script>
         (function() {
-            const pData = {"dates": ["2026-08-11", "2026-08-18", "2026-08-19", "2026-08-18", "2026-08-19", "2026-08-18", "2026-08-19", "2026-08-18", "2026-08-19", "2026-08-18", "2026-08-19", "2026-08-18", "2026-08-19", "2026-08-18", "2026-08-19", "2026-08-20", "2026-08-19", "2026-08-20", "2026-08-19", "2026-08-20", "2026-08-19", "2026-08-20", "2026-08-19", "2026-08-20"], "portfolio": [200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0], "spy": [200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0]};
+            const pData = {"dates": ["2026-08-11", "2026-08-18", "2026-08-19", "2026-08-18", "2026-08-19", "2026-08-18", "2026-08-19", "2026-08-18", "2026-08-19", "2026-08-18", "2026-08-19", "2026-08-18", "2026-08-19", "2026-08-18", "2026-08-19", "2026-08-20", "2026-08-19", "2026-08-20", "2026-08-19", "2026-08-20", "2026-08-19", "2026-08-20", "2026-08-19", "2026-08-20", "2026-08-19"], "portfolio": [200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0], "spy": [200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0, 200000.0]};
             const ctx = document.getElementById('chart-aggressive');
             if (ctx) {
                 const dates = pData.dates || ['Day 1'];

@@ -127,6 +127,17 @@ def clean_grounding_artifacts(text: str) -> str:
     return cleaned.strip()
 
 
+CANONICAL_MOAT_LABELS = [
+    "Network Effects",
+    "Cost Advantage",
+    "Switching Costs",
+    "Brand Monopoly",
+    "Tollbridge Asset",
+    "Efficient Scale",
+    "Narrow Moat",
+    "No Moat"
+]
+
 CANONICAL_CONVICTION_TIERS = [
     "High Conviction",
     "Solid Conviction",
@@ -137,22 +148,52 @@ CANONICAL_CONVICTION_TIERS = [
 ]
 
 
-def map_to_canonical_conviction_tier(lbl: str, action_signal: str = "", base_ret: float = 0.0) -> str:
-    """Maps any input conviction string or fallback signal to one of the 6 canonical Conviction Tiers:
-    1. High Conviction: Dominant moat & fortress balance sheet
-    2. Solid Conviction: Recurring cash flow & compounding runway
-    3. Moderate Conviction: Attractive upside with cyclical exposure
-    4. Cautious Stance: Navigating margin or temporary friction / valuation premium
-    5. Turnaround Play: Operational reset or debt reduction
-    6. Speculative Risk: High asymmetry with binary outcome
+def map_to_canonical_moat_label(lbl: str = "", sec1_text: str = "", default: str = "Narrow Moat") -> str:
+    """Maps any input string, moat description, or Section 1 text to one of the 8 canonical Moat archetypes:
+    1. Network Effects: Social graphs, two-sided marketplaces, platform density (e.g. Meta, Visa, Bumble)
+    2. Cost Advantage: Lowest structural production cost, logistics scale, supply dominance (e.g. Amazon, Costco, TSMC)
+    3. Switching Costs: Mission-critical enterprise workflows, high customer friction/retention (e.g. Microsoft, Oracle, Salesforce)
+    4. Brand Monopoly: Consumer pricing power, luxury goodwill, protected IP/patents (e.g. Apple, Ferrari, Crocs)
+    5. Tollbridge Asset: Bottleneck infrastructure where all traffic pays a toll (e.g. Google Search, Verisign, Moody's, ASML)
+    6. Efficient Scale: Natural market capacity cap serving demand profitably (e.g. Railroads, Pipelines)
+    7. Narrow Moat: Moderate or localized competitive edge
+    8. No Moat: Commodity price-taker with unprotected economics
     """
     if lbl and isinstance(lbl, str):
+        clean_lbl = lbl.strip().upper()
+        for m in CANONICAL_MOAT_LABELS:
+            if clean_lbl == m.upper():
+                return m
+
+    combined_text = f"{lbl or ''} {sec1_text or ''}".upper()
+    
+    if any(k in combined_text for k in ["NETWORK EFFECT", "NETWORK EFFECTS", "TWO SIDED", "SOCIAL GRAPH", "ECOSYSTEM DENSITY", "MARKETPLACE DENSITY"]):
+        return "Network Effects"
+    elif any(k in combined_text for k in ["TOLLBRIDGE", "TOLLBOOTH", "TOLL ASSET", "REGULATORY MONOPOLY", "EXCLUSIVE EXCHANGE", "INDEX STANDARD", "SEARCH MONOPOLY", "SEARCH TOLL"]):
+        return "Tollbridge Asset"
+    elif any(k in combined_text for k in ["SWITCHING COST", "SWITCHING COSTS", "MISSION CRITICAL", "HIGH RETENTION", "EMBEDDED WORKFLOW", "ENTERPRISE LOCK IN"]):
+        return "Switching Costs"
+    elif any(k in combined_text for k in ["BRAND MONOPOLY", "INTANGIBLE ASSET", "INTANGIBLES", "CONSUMER MONOPOLY", "PRICING POWER", "LUXURY GOODWILL", "PATENT MOAT"]):
+        return "Brand Monopoly"
+    elif any(k in combined_text for k in ["COST ADVANTAGE", "SCALE ECONOMIES", "LOGISTICS DENSITY", "LOWEST COST", "SCALE ADVANTAGE", "LOW COST"]):
+        return "Cost Advantage"
+    elif any(k in combined_text for k in ["EFFICIENT SCALE", "NATURAL MONOPOLY", "GEOGRAPHIC MONOPOLY", "PIPELINE"]):
+        return "Efficient Scale"
+    elif any(k in combined_text for k in ["NO MOAT", "COMMODITY", "PRICE TAKER", "UNPROTECTED", "EROSION"]):
+        return "No Moat"
+    elif any(k in combined_text for k in ["NARROW MOAT", "NICHE MOAT", "REGIONAL MOAT", "MODERATE MOAT"]):
+        return "Narrow Moat"
+        
+    return default
+
+
+def map_to_canonical_conviction_tier(lbl: str, action_signal: str = "", base_ret: float = 0.0) -> str:
+    """Maps any input conviction string or fallback signal to one of the 6 canonical Conviction Tiers."""
+    if lbl and isinstance(lbl, str):
         clean = lbl.strip().upper()
-        # Direct exact match check
         for tier in CANONICAL_CONVICTION_TIERS:
             if clean == tier.upper():
                 return tier
-        # Keyword based matching
         if any(k in clean for k in ["TURNAROUND", "RESTRUCTURING", "OPERATIONAL RESET", "DEBT REDUCTION"]):
             return "Turnaround Play"
         elif any(k in clean for k in ["SPECULATIVE", "BINARY", "ASYMMETRY", "UNPROVEN", "HIGH RISK"]):
@@ -166,7 +207,6 @@ def map_to_canonical_conviction_tier(lbl: str, action_signal: str = "", base_ret
         elif any(k in clean for k in ["HIGH CONVICTION", "HIGH", "DOMINANT", "FORTRESS", "DEEP VALUE", "MOAT"]):
             return "High Conviction"
             
-    # Derive from action signal & return if not provided or matched generic
     sig = (action_signal or "").upper().strip()
     if sig in ["AVOID", "RED"] or base_ret < -15.0:
         return "Cautious Stance"
@@ -181,13 +221,12 @@ def map_to_canonical_conviction_tier(lbl: str, action_signal: str = "", base_ret
     return "Solid Conviction"
 
 
-def sanitize_labels(labels: Any, action_signal: str = "", base_ret: float = 0.0) -> List[str]:
+def sanitize_labels(labels: Any, action_signal: str = "", base_ret: float = 0.0, sec1_text: str = "") -> List[str]:
     """Sanitizes labels ensuring:
-    - Slot 1 is STRICTLY one of the 6 canonical Conviction Tiers:
-      * High Conviction, Solid Conviction, Moderate Conviction, Cautious Stance, Turnaround Play, Speculative Risk.
-    - Slots 2 & 3 are specific 2-word operating/catalyst drivers (e.g. "Cloud Leader", "Ad Monopoly").
+    - Slot 1 is STRICTLY one of the 8 canonical Moat Archetypes:
+      * Network Effects, Cost Advantage, Switching Costs, Brand Monopoly, Tollbridge Asset, Efficient Scale, Narrow Moat, No Moat.
+    - Slots 2 & 3 are specific 2-word operating/catalyst drivers (e.g. "Cloud Scale", "Ad Monopoly").
     - Max 3 labels total.
-    - Eliminates all generic placeholders like 'Active', 'Review', 'None', etc.
     """
     if not isinstance(labels, list):
         if isinstance(labels, str) and labels:
@@ -200,22 +239,13 @@ def sanitize_labels(labels: Any, action_signal: str = "", base_ret: float = 0.0)
         "NEW", "NONE", "PRICE", "CONVICTION", "TBD", "HOLD", "BUY", "AVOID", "CAUTION"
     }
     
-    # 1. Determine canonical conviction tier for Slot 1
+    # 1. Determine canonical Moat archetype for Slot 1
     raw_slot1 = labels[0] if labels and isinstance(labels[0], str) else ""
-    conviction_tier = map_to_canonical_conviction_tier(raw_slot1, action_signal=action_signal, base_ret=base_ret)
-    
-    # If action signal is AVOID/CAUTION, override bullish conviction in slot 1
-    sig = (action_signal or "").upper().strip()
-    if (sig == "AVOID" or base_ret < -15.0) and conviction_tier in ["High Conviction", "Solid Conviction"]:
-        conviction_tier = "Cautious Stance"
-    elif (sig == "CAUTION" or base_ret < 0.0) and conviction_tier in ["High Conviction", "Solid Conviction"]:
-        conviction_tier = "Cautious Stance"
+    moat_label = map_to_canonical_moat_label(raw_slot1, sec1_text=sec1_text)
 
     clean_drivers = []
-    # Check remaining elements for driver tags
     candidates = labels[1:] if len(labels) > 1 else []
-    # Also check if raw_slot1 was a driver instead of a conviction tier
-    if raw_slot1 and raw_slot1.upper() not in [t.upper() for t in CANONICAL_CONVICTION_TIERS] and raw_slot1.upper() not in GENERIC_BLACKLIST:
+    if raw_slot1 and raw_slot1.upper() not in [m.upper() for m in CANONICAL_MOAT_LABELS] and raw_slot1.upper() not in GENERIC_BLACKLIST:
         candidates = [raw_slot1] + candidates
 
     for item in candidates:
@@ -226,14 +256,14 @@ def sanitize_labels(labels: Any, action_signal: str = "", base_ret: float = 0.0)
             short_lbl = " ".join(words[:2]).title()
             if (
                 short_lbl.upper() not in GENERIC_BLACKLIST 
-                and short_lbl != conviction_tier 
+                and short_lbl != moat_label 
                 and short_lbl not in clean_drivers
             ):
                 clean_drivers.append(short_lbl)
         if len(clean_drivers) >= 2:
             break
 
-    result = [conviction_tier] + clean_drivers
+    result = [moat_label] + clean_drivers
     return result
 
 
@@ -827,6 +857,7 @@ CRITICAL FINANCIAL REALITY & INTEGRITY CHECKS:
 
 Core Topics to Cover:
 1. The Core Business Machine, Moat & Unit Economics:
+   - Primary Economic Moat Archetype: Classify the business moat strictly as one of the 8 canonical archetypes: [Network Effects, Cost Advantage, Switching Costs, Brand Monopoly, Tollbridge Asset, Efficient Scale, Narrow Moat, No Moat]. Explicitly evaluate the structural durability and pricing power of this moat.
    - Customer value proposition, monetization mechanics, pricing power, and durable economic moat.
    - Core operational volume drivers vs high-margin service streams.
    - Operating margin trajectory, gross margin resilience, and operating leverage.
@@ -1737,8 +1768,10 @@ Pass: {it}/{max_refine_iterations}
     if upper_alert <= current_price:
         upper_alert = round(current_price * 1.15, 2)
 
-    raw_labels = ["Solid Conviction", "Owner Earnings", "Cash Generation"]
-    sanitized_labels = sanitize_labels(raw_labels, action_signal=action_signal, base_ret=mos1)
+    # Extract Moat label from Section 1 text and sanitize
+    raw_moat = map_to_canonical_moat_label("", sec1_text=sec1_current)
+    raw_labels = [raw_moat, "Owner Earnings", "Cash Generation"]
+    sanitized_labels = sanitize_labels(raw_labels, action_signal=action_signal, base_ret=mos1, sec1_text=sec1_current)
 
     what_is_priced_in = f"Market prices in today's entry price of ${current_price:.2f} vs Story 1 Intrinsic Value of ${story1_val:.2f}"
     exec_summary = f"Level-headed fundamental investment thesis established for {ticker_clean} across 3 distinct operating paths."
@@ -1762,6 +1795,7 @@ Pass: {it}/{max_refine_iterations}
         "current_price": current_price,
         "return_pct": 0.0,
         "status_label": sanitized_labels[0],
+        "moat_label": sanitized_labels[0],
         "labels": sanitized_labels,
         "action_signal": action_signal,
         "fair_value_estimate": f"${story1_val:.2f}",
