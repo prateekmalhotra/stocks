@@ -360,6 +360,43 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
             except Exception:
                 pass
 
+    # 29. Owner Earnings (OE₀) Cross-Section Parity Check (Anti-Desynchronization Gate)
+    if s1_match and s3_match:
+        s1_t = s1_match.group(1)
+        s3_t = s3_match.group(1)
+        m_s1_oe = re.search(r'(?:Core Baseline Owner Earnings|Starting Baseline Owner Earnings|Owner Earnings \(OE₀\)|OE₀\s*=|Owner Earnings).*?\$([\d,]+(?:\.\d+)?)\s*(?:M|million|B|billion)', s1_t, re.IGNORECASE)
+        m_s3_oe = re.search(r'Starting Normalized Owner Earnings\s*\(OE₀\).*?\$([\d,]+(?:\.\d+)?)\s*(?:M|million|B|billion)?', s3_t, re.IGNORECASE)
+        if m_s1_oe and m_s3_oe:
+            try:
+                v1 = float(m_s1_oe.group(1).replace(",", ""))
+                if "B" in m_s1_oe.group(0) or "billion" in m_s1_oe.group(0).lower():
+                    v1 *= 1000.0
+                v3 = float(m_s3_oe.group(1).replace(",", ""))
+                if "B" in m_s3_oe.group(0) or "billion" in m_s3_oe.group(0).lower():
+                    v3 *= 1000.0
+                if v1 > 0 and v3 > 0:
+                    diff_pct = abs(v1 - v3) / v1
+                    if diff_pct > 0.10:
+                        issues.append(f"Owner Earnings Desynchronization Failure: Section 1 derived OE₀ (${v1:.1f}M) differs by {diff_pct*100:.1f}% from Section 3 DCF starting OE₀ (${v3:.1f}M). All sections must use an identical starting cash flow baseline.")
+            except Exception:
+                pass
+
+    # 30. Balance Sheet Bridge Sign & Debt Integrity Check (Anti-Debt Double-Count / Omission Gate)
+    if s1_match and s3_match:
+        s1_t = s1_match.group(1)
+        s3_t = s3_match.group(1)
+        # Check if Section 1 indicates material net debt (Debt exceeds cash by >= $100M)
+        m_debt_s1 = re.search(r'(?:Net Debt|Funded Debt|Total Debt|Senior Notes).*?\$([\d,]+(?:\.\d+)?)\s*(?:B|billion|M|million)', s1_t, re.IGNORECASE)
+        m_cash_s1 = re.search(r'(?:Cash & ST Investments|Gross Cash|Cash & Marketable|Surplus Net Cash).*?\$([\d,]+(?:\.\d+)?)\s*(?:B|billion|M|million)', s1_t, re.IGNORECASE)
+        is_net_debt_co = "net debt" in s1_t.lower() and "surplus cash" not in s1_t.lower()
+        
+        # Check Section 3 table row for debt adjustment
+        m_s3_bridge = re.search(r'(?:Net Balance Sheet Cash / \(Debt\) Adjustment|Net Debt Adjustment|Net Balance Sheet Debt Adjustment|Balance Sheet Adjustment).*?<td>(.*?)</td>', s3_t, re.DOTALL | re.IGNORECASE)
+        if m_s3_bridge:
+            bridge_td = m_s3_bridge.group(1).strip()
+            if is_net_debt_co and bridge_td.startswith("+") and not bridge_td.startswith("-$") and not bridge_td.startswith("-"):
+                issues.append("Balance Sheet Bridge Error: Company has net debt on balance sheet, but Section 3 DCF table applied a positive (+$XX.XX) cash addition instead of deducting net debt (-$XX.XX).")
+
     return len(issues) == 0, issues
 
 

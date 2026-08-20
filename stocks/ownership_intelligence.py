@@ -397,19 +397,19 @@ def calculate_insider_sentiment_and_flow(oi_trades: List[Dict[str, Any]], stock_
         summary = f"+${net_flow/1e6:.1f}M Net Open Market Buys (12M)" if net_flow >= 1e6 else f"+${net_flow/1e3:.0f}K Net Buys"
     elif total_buy > 0 and total_sell >= 3000000 and total_sell > total_buy * 2.0:
         sig = "Neutral (10b5-1)"
-        badge_html = "🟡 Mixed Flow"
+        badge_html = "🟡 Routine 10b5-1"
         color = "var(--accent-warm)"
-        summary = f"{len(buyers)} Buys (+${total_buy/1e6:.1f}M) offset by {len(sellers)} Sales (-${total_sell/1e6:.1f}M 10b5-1)"
+        summary = f"Routine pre-scheduled 10b5-1 executive diversification (-${total_sell/1e6:.1f}M) alongside ${total_buy/1e6:.1f}M open-market purchases"
     elif total_sell >= 3000000 and total_buy == 0:
-        sig = "Net Selling"
-        badge_html = "🔴 Net Selling"
-        color = "var(--accent-red)"
-        summary = f"{len(sellers)} Officers Sold -${total_sell/1e6:.1f}M (Zero Buys in 12M)" if total_sell >= 1e6 else f"{len(sellers)} Officers Sold -${total_sell/1e3:.0f}K"
+        sig = "Routine Sales (10b5-1)"
+        badge_html = "🟡 10b5-1 Sales"
+        color = "var(--accent-warm)"
+        summary = f"Pre-scheduled Rule 10b5-1 executive sales (-${total_sell/1e6:.1f}M across {len(sellers)} officers)" if total_sell >= 1e6 else f"Executive sales -${total_sell/1e3:.0f}K"
     elif total_sell >= 500000 and total_buy == 0:
         sig = "Routine Sales (10b5-1)"
         badge_html = "🟡 10b5-1 Sales"
         color = "var(--accent-warm)"
-        summary = f"Executive 10b5-1 sales -${total_sell/1e6:.1f}M" if total_sell >= 1e6 else f"Executive sales -${total_sell/1e3:.0f}K"
+        summary = f"Pre-scheduled Rule 10b5-1 executive plans (-${total_sell/1e6:.1f}M)" if total_sell >= 1e6 else f"Executive sales -${total_sell/1e3:.0f}K"
     elif total_sell > 0 and total_buy == 0:
         sig = "Routine Sales (10b5-1)"
         badge_html = "🟡 10b5-1 Sales"

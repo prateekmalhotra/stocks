@@ -792,18 +792,18 @@ CRITICAL AUDITED FINANCIAL REALITY & INTEGRITY CHECKS:
    - Line 5: Non-Operating Interest Income Deduction ($ Millions USD): Deduct non-operating corporate treasury cash deposit interest from OCF before deriving core Operating Owner Earnings to prevent double-counting when adding cash on the balance sheet bridge (distinguishing non-operating corporate cash yield from operational customer float interest in fintechs/wallets):
      * Core Operating Baseline Owner Earnings (OE₀) = GAAP OCF (Normalized) - Non-Operating Interest Income - Maintenance CapEx - SBC.
    - Line 6: Non-Cash Impairments & One-Off Exclusions: GAAP OCF already automatically adds back non-cash accounting charges (e.g. paper goodwill impairments, asset write-downs). Additionally, normalize and exclude any material non-recurring one-off cash items (e.g. one-time litigation windfalls, asset divestiture gains, extraordinary dividends, or regulatory fines) to ensure Owner Earnings reflects true recurring steady-state cash power.
-2. Calibrated Working Capital Operational Cash Buffer, Cash Flow Matching & Balance Sheet Bridge:
-   - Cash Flow Matching (FCFE Standard): Under US GAAP, Net Cash Provided by Operating Activities (GAAP OCF) is already net of cash interest paid to lenders. Therefore, core Owner Earnings represents Free Cash Flow to Equity (FCFE).
-   - When discounting FCFE at the equity cost of capital, the resulting present value represents Total Intrinsic Equity Value directly.
-   - When deriving Net Surplus Balance Sheet Cash per Share/ADS, calculate:
-     * Gross Cash & ST Marketable Investments ($ Millions USD)
-     * MINUS Operational Working Capital Buffer (2.5%–3.5% of annual revenue)
-     * MINUS Off-balance-sheet or ASC 842 lease debt commitments if not fully accounted for in operating expenses
-     * MINUS Cross-border dividend withholding taxes / repatriation friction (e.g. 5%–10% statutory tax on foreign cash)
-     * MINUS Committed M&A cash outlays
-     * PLUS Non-Consolidated Strategic Equity Affiliates / SOTP Value (applying a standard 20%–25% holding company / illiquidity haircut to private/unlisted stakes).
-   - If debt service is already net in OCF, do NOT double-penalize equity value by deducting funded debt a second time.
-   - The resulting figure is the true Unencumbered Surplus Net Cash & Strategic Asset Value per Share/ADS.
+2. Calibrated Balance Sheet Bridge & Capital Structure Accounting:
+   - Calculate Audited Balance Sheet Net Cash or Net Debt:
+     * Total Unencumbered Cash = Gross Cash & ST Marketable Investments - Operational Working Capital Buffer (2.5%–3.5% of annual revenue) - Repatriation Tax Friction (5%–10%).
+     * Total Funded Debt = Short-Term Debt + Long-Term Senior Notes + Term Loans.
+     * Net Balance Sheet Position ($ Millions USD) = Total Unencumbered Cash - Total Funded Debt + (Non-Consolidated Equity Affiliates with 25% holding haircut).
+   - Balance Sheet Bridge Rule (Strict & Unambiguous):
+     * If Net Position is POSITIVE (Total Cash > Total Funded Debt, e.g. Google, JD, BABA): The company is in a NET SURPLUS CASH position. In Section 1 and Section 3, the bridge row MUST be labeled 'Net Surplus Cash Adjustment' with a positive sign (+$XX.XX/share) and ADDED to Operating Business Value.
+     * If Net Position is NEGATIVE (Total Funded Debt > Total Cash, e.g. Crocs, Domino's, Home Depot): The company is in a NET DEBT position. In Section 1 and Section 3, the bridge row MUST be labeled 'Net Debt Adjustment' with a negative sign (-$XX.XX/share) and MUST BE SUBTRACTED from Operating Business Value:
+       Operating Enterprise Value - Net Debt = Total Equity Intrinsic Value.
+       NEVER label a net debt position as a positive cash addition!
+   - Diluted Share Count & Denominator: Divide by diluted share count (in Millions), factoring in modest buyback share retirement (e.g. 1%–3% annually in Base/Bull cases).
+   - Realistic Institutional Precision: Avoid illusory decimal precision on forward 5-year projections (round fair values to whole dollars or $0.50, round cash totals to millions/billions).
 3. Historical Corporate Trauma & Underwriting Post-Mortem:
    - If the company is trading down significantly (>50%) from historical highs or suffered a well-known operational crisis in the past (e.g. credit underwriting blowups, regulatory restructuring, short-seller litigation, failed acquisitions):
      * Explicitly address the historical root cause and contrast it with today's operational reality.
@@ -972,31 +972,35 @@ Scenario Description:
 
 Your Task:
 Calculate the intrinsic fair value per share (or per ADS for ADRs) in USD using a 5-year Discounted Cash Flow (DCF):
-1. Start with Year 0 Normalized Owner Earnings (in $ Millions USD) from the financial context.
+1. Start with Year 0 Normalized Owner Earnings (in $ Millions USD) strictly identical to the OE₀ derived in Section 1.
 2. Compound Owner Earnings over 5 years based on the scenario growth rate.
-3. Discount the 5 years of cash flows at a ~9.5% discount rate.
+3. Discount the 5 years of cash flows at a disciplined equity hurdle rate (9.5% Base/Bull, 10.5%–11.0% Bear).
 4. Calculate Terminal Value using ~2.0% terminal growth and discount it to present value.
-5. Add 5-year PV + Terminal Value PV to get Total Present Value of Cash Flows (in $ Millions USD).
-6. Divide by Diluted Shares / ADSs count (in Millions), noting share repurchase compounding in Base/Bull cases if active buyback authorization exists, to get Operating Value per Share in USD.
-7. Add the Unencumbered Net Surplus Cash and Non-Operating Strategic Equity Affiliates per Share/ADS (in USD) from the balance sheet bridge to get the final Intrinsic Fair Value per Share in USD.
+5. Add 5-year PV + Terminal Value PV to get Operating Enterprise Value (in $ Millions USD).
+6. Divide by Diluted Shares / ADSs count (in Millions) to get Operating Business Value per Share in USD.
+7. Balance Sheet Bridge Adjustment (USD per share):
+   - If company has Net Debt (Debt > Cash, e.g. Crocs, Domino's): Net Debt is a NEGATIVE adjustment (-$XX.XX/share) and MUST BE SUBTRACTED (Operating EV - Net Debt = Equity Intrinsic Value).
+   - If company has Net Cash (Cash > Debt, e.g. Google, JD): Net Surplus Cash is a POSITIVE adjustment (+$XX.XX/share) and is ADDED (Operating EV + Net Cash = Equity Intrinsic Value).
+8. Add/subtract the adjustment to Operating Value per Share to derive the final Intrinsic Fair Value per Share in USD.
 
 SANITY CHECK:
 - Final fair value per share MUST be the realistic intrinsic per-share value in USD (divided by total diluted shares/ADSs, NOT the total company enterprise value in Millions/Billions).
+- If net debt exists, fair value per share MUST be LESS than operating value per share!
 
 Respond ONLY with a JSON block:
 ```json
 {{
   "story_title": "<Short descriptive title>",
-  "starting_oe_millions": <number in $M>,
+  "starting_oe_millions": <number in $M matching Section 1 exactly>,
   "growth_rate_pct": <e.g. 10.0 for 10%>,
   "discount_rate_pct": <e.g. 9.5>,
   "terminal_growth_pct": <e.g. 2.0>,
   "enterprise_value_millions": <number in $M>,
   "diluted_shares_millions": <number in Millions>,
   "operating_value_per_share": <number in $ USD>,
-  "net_cash_per_share": <number in $ USD>,
-  "fair_value_per_share": <number in $ USD>,
-  "proof_summary": "<2-3 sentence mathematical explanation of the calculation and final per-share value>"
+  "net_cash_or_debt_per_share": <number in $ USD, NEGATIVE for debt e.g. -24.12, POSITIVE for cash e.g. +13.22>,
+  "fair_value_per_share": <number in $ USD equal to operating_value + net_cash_or_debt>,
+  "proof_summary": "<2-3 sentence mathematical explanation showing Operating Value + (Debt/Cash Adjustment) = Fair Value>"
 }}
 ```"""
 
@@ -1020,14 +1024,17 @@ Story 3 (Bear Case) Valuation Model:
 
 Your Task:
 Write Section 3 (Valuation & Reverse DCF) in clean, semantic HTML:
-1. A summary 3-Story DCF table comparing all 3 paths (Starting Owner Earnings, 5-Yr Growth, Discount Rate, Terminal Growth, Enterprise Value, Net Cash/sh, and Calculated Intrinsic Value/share).
-2. Clear paragraph proofs for each of the 3 stories explaining the math and operational logic in plain English.
-3. A Reverse DCF sensitivity matrix table showing what annual growth rate Mr. Market is pricing in at today's stock price (${current_price:.2f}) across discount rates (9.5%, 10.5%, 11.5%) and cash flow baselines.
-4. Plain-English narrative explaining what Mr. Market is pricing in today versus Story 1.
+1. A summary 3-Story DCF table comparing all 3 paths. Starting Owner Earnings (OE₀) MUST STRICTLY MATCH the OE₀ derived in Section 1!
+2. In the DCF summary table, the balance sheet bridge line MUST be explicitly signed:
+   - If Net Debt: 'Net Balance Sheet Debt Adjustment (-$XX.XX/sh)' (SUBTRACTED from Operating Value).
+   - If Net Cash: 'Net Balance Sheet Surplus Cash Adjustment (+$XX.XX/sh)' (ADDED to Operating Value).
+3. Clear mathematical proofs for each of the 3 stories explaining the exact calculation: Operating Value/sh + Debt/Cash Adjustment = Intrinsic Fair Value/sh.
+4. A Reverse DCF sensitivity matrix table showing what annual growth rate Mr. Market is pricing in at today's stock price (${current_price:.2f}) across discount rates (9.5%, 10.5%, 11.5%) and cash flow baselines.
+5. Plain-English narrative explaining what Mr. Market is pricing in today versus Story 1.
 
 Format:
 <h2>Section 3: Valuation Across the 3 Stories</h2>
-<p>Translating each of the 3 business stories into Warren Buffett-style discounted cash flow valuations based on true Core Owner Earnings plus audited balance sheet surplus net cash per share:</p>
+<p>Translating each of the 3 business stories into Warren Buffett-style discounted cash flow valuations based on true Core Owner Earnings plus audited balance sheet net debt/cash bridge per share:</p>
 
 <table class="data-table">
   <thead>
@@ -1046,16 +1053,16 @@ Format:
     <tr><td>PV of 5-Year Cash Flows</td><td>$XX,XXX.XM</td><td>$XX,XXX.XM</td><td>$XX,XXX.XM</td></tr>
     <tr><td>PV of Terminal Value</td><td>$XX,XXX.XM</td><td>$XX,XXX.XM</td><td>$XX,XXX.XM</td></tr>
     <tr><td>Operating Business Enterprise Value</td><td>$XX,XXX.XM ($XX.XX/sh)</td><td>$XX,XXX.XM ($XX.XX/sh)</td><td>$XX,XXX.XM ($XX.XX/sh)</td></tr>
-    <tr><td>Net Balance Sheet Cash / (Debt) Adjustment</td><td>+$XX.XX/sh</td><td>+$XX.XX/sh</td><td>+$XX.XX/sh</td></tr>
+    <tr><td>Net Balance Sheet Cash / (Debt) Adjustment</td><td>+$XX.XX/sh or -$XX.XX/sh</td><td>+$XX.XX/sh or -$XX.XX/sh</td><td>+$XX.XX/sh or -$XX.XX/sh</td></tr>
     <tr><td><strong>Calculated Intrinsic Value / Share</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td></tr>
   </tbody>
 </table>
 
 <div class="callout">
   <h3>Step-by-Step Mathematical Proofs Across the 3 Paths</h3>
-  [Story 1 Proof HTML]
-  [Story 2 Proof HTML]
-  [Story 3 Proof HTML]
+  [Story 1 Proof HTML showing Operating Value + Adjustment = Intrinsic Value]
+  [Story 2 Proof HTML showing Operating Value + Adjustment = Intrinsic Value]
+  [Story 3 Proof HTML showing Operating Value + Adjustment = Intrinsic Value]
 </div>
 
 <div class="callout">
