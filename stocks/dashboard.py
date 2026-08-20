@@ -273,7 +273,7 @@ def format_top_funds_card_html(stock: WatchlistStock) -> str:
     return f"""
     <div class="metric-cell">
         <div class="metric-label">Whales</div>
-        <div class="metric-value" style="font-size: 1.05rem !important; font-family: var(--font-sans) !important; font-weight: 600 !important; color: var(--text-title); white-space: nowrap !important;">{display_val}</div>
+        <div class="metric-value" style="font-size: 0.95rem !important; font-family: var(--font-sans) !important; font-weight: 600 !important; color: var(--text-title); white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important;">{display_val}</div>
         {f'<div class="metric-subtext">{subtext}</div>' if subtext else ''}
     </div>
     """
@@ -289,7 +289,7 @@ def format_insider_activity_card_html(stock: WatchlistStock) -> str:
     return f"""
     <div class="metric-cell">
         <div class="metric-label">Insiders</div>
-        <div class="metric-value" style="color: {intel['color']}; font-family: var(--font-sans) !important; font-size: 1.05rem !important; font-weight: 600 !important; white-space: nowrap !important; letter-spacing: -0.01em !important; overflow: hidden !important; text-overflow: ellipsis !important;">{intel['badge_html']}</div>
+        <div class="metric-value" style="color: {intel['color']}; font-family: var(--font-sans) !important; font-size: 0.88rem !important; font-weight: 600 !important; white-space: nowrap !important; letter-spacing: -0.01em !important; overflow: hidden !important; text-overflow: ellipsis !important;">{intel['badge_html']}</div>
         <div class="metric-subtext">{summary}</div>
     </div>
     """
@@ -321,7 +321,7 @@ def format_pricing_power_card_html(stock: WatchlistStock) -> str:
     return f"""
     <div class="metric-cell" title="Buffett & Munger Pricing Power Framework: {pp_summary}">
         <div class="metric-label">Pricing Power</div>
-        <div class="metric-value" style="color: {color}; font-family: var(--font-sans) !important; font-size: 1.00rem !important; font-weight: 600 !important; white-space: nowrap !important; letter-spacing: -0.01em !important; overflow: hidden !important; text-overflow: ellipsis !important;">{icon} {pp_tier}</div>
+        <div class="metric-value" style="color: {color}; font-family: var(--font-sans) !important; font-size: 0.88rem !important; font-weight: 600 !important; white-space: nowrap !important; letter-spacing: -0.01em !important; overflow: hidden !important; text-overflow: ellipsis !important;">{icon} {pp_tier}</div>
         <div class="metric-subtext">{pp_score}</div>
     </div>
     """

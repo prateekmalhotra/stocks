@@ -430,10 +430,10 @@ def calculate_insider_sentiment_and_flow(oi_trades: List[Dict[str, Any]], stock_
         color = "var(--accent-warm)"
         summary = f"Executive sales -${total_sell/1e6:.1f}M" if total_sell >= 1e6 else f"Executive sales -${total_sell/1e3:.0f}K"
     elif is_fpi_initial_filing and total_buy == 0 and total_sell == 0:
-        sig = "Initial Form 3 / 20-F Ledger"
-        badge_html = "⚪ Form 3 / FPI Ledger"
+        sig = "20-F FPI Ledger"
+        badge_html = "⚪ 20-F FPI Ledger"
         color = "var(--text-dim)"
-        summary = "HFIAA / 20-F initial beneficial ownership filings; zero open-market Form 4 trades in 12M"
+        summary = "20-F beneficial filings; zero open-market trades (12M)"
     elif total_buy == 0 and total_sell == 0:
         sig = "No Activity"
         badge_html = "⚪ Inactive"
