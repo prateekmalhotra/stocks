@@ -1100,13 +1100,13 @@ Format:
 Output pure HTML only (no markdown backticks, no inline styles)."""
 
 
-AGENT_5_IMPROVEMENT_PROMPT = """Target: {ticker} ({company_name})
+AGENT_5_ADJUDICATION_PROMPT = """Target: {ticker} ({company_name})
 Current Market Price: ${current_price:.2f}
 
-You are LLM Agent 5: Investment Thesis Refinement & Adjudication Director at an elite buy-side value fund.
+You are LLM Agent 5: Lead Investment Thesis Refinement & Adjudication Director at an elite buy-side value fund.
 
 Your Role:
-Take the Draft Investment Thesis and the Independent Buy-Side Red-Team Critique Memo.
+Evaluate the Draft Investment Thesis (Section 1, Section 2, Section 3) against the Independent Buy-Side Red-Team Critique Memo.
 Adjudicate every single point raised in the critique memo:
 
 1. [ACKNOWLEDGE & ADAPT]:
@@ -1121,9 +1121,16 @@ Adjudicate every single point raised in the critique memo:
    - Demands to lower discount rates based on academic CAPM Betas rather than true opportunity cost.
    - Consensus herd-thinking that violates Graham/Buffett margin-of-safety principles.
 
-Draft Investment Thesis:
+Draft Thesis Overview:
 ======================================================================
-{thesis_html}
+Premise & Operations (Section 1 Preview):
+{sec1_preview}
+
+Operating Stories (Section 2 Preview):
+{sec2_preview}
+
+Valuation & DCFs (Section 3 Preview):
+{sec3_preview}
 ======================================================================
 
 Red-Team Critique Memo:
@@ -1131,13 +1138,18 @@ Red-Team Critique Memo:
 {critique_memo}
 ======================================================================
 
-Format your output EXACTLY into the following 3 sections:
+Format your output EXACTLY into the following 4 sections:
 
 ### ACKNOWLEDGED_REFINEMENTS
 - [List each valid factual or accounting flaw accepted, or write "None" if 0 errors remain]
 
 ### PUSHBACK_DEFENSES
 - [List each point pushed back against and defended with first-principles valuation logic]
+
+### TARGET_MODULE_ACTION_DIRECTIVES
+- SECTION_1_UPDATE: [TRUE or FALSE] -> [Specific factual, segment, or financial baseline items to add/correct in Section 1, or NONE]
+- SECTION_2_UPDATE: [TRUE or FALSE] -> [Specific narrative, trajectory, or margin friction adjustments for Section 2 stories, or NONE]
+- SECTION_3_UPDATE: [TRUE or FALSE] -> [Specific DCF cash flow, net cash bridge, or exit multiple adjustments for Section 3, or NONE]
 
 ### ADJUDICATION_RECONCILIATION_LOG_HTML
 <div class="callout audit-adjudication">
@@ -1154,6 +1166,62 @@ Format your output EXACTLY into the following 3 sections:
   </ul>
 </div>
 """
+
+SECTION_1_REMEDIATOR_PROMPT = """Target: {ticker} ({company_name})
+You are Section 1 Specialized Remediator: Senior Investigative Financial Analyst.
+Task: Update Section 1 of the investment thesis to incorporate the specific critique directives below while preserving the complete institutional depth, segment tables, and HTML structure.
+
+Directives to Incorporate:
+{directives}
+
+Current Section 1 HTML:
+======================================================================
+{sec1_html}
+======================================================================
+
+Output the complete, updated Section 1 HTML starting with <h2>Section 1: Company Overview &amp; Audited Financial Baseline</h2>. Pure HTML only (no markdown code fences)."""
+
+SECTION_2_REMEDIATOR_PROMPT = """Target: {ticker} ({company_name})
+You are Section 2 Specialized Remediator: Senior Equity Research Analyst.
+Task: Update Section 2 (The Three Forward-Looking Operating Stories) to incorporate the specific critique directives below while preserving the complete institutional depth, trajectory cards, and HTML structure.
+
+Directives to Incorporate:
+{directives}
+
+Current Section 2 HTML:
+======================================================================
+{sec2_html}
+======================================================================
+
+Output the complete, updated Section 2 HTML starting with <h2>Section 2: The Three Forward-Looking Operating Stories</h2>. Pure HTML only (no markdown code fences)."""
+
+SECTION_3_REMEDIATOR_PROMPT = """Target: {ticker} ({company_name})
+Current Market Price: ${current_price:.2f}
+You are Section 3 Specialized Remediator: Lead Quantitative Valuation Director.
+Task: Update Section 3 (Valuation Across the 3 Stories) to incorporate the specific critique directives below.
+
+Directives to Incorporate:
+{directives}
+
+Current Section 3 HTML:
+======================================================================
+{sec3_html}
+======================================================================
+
+CRITICAL REQUIREMENTS:
+You MUST output the complete, untruncated Section 3 HTML containing:
+1. <h2>Section 3: Valuation Across the 3 Stories</h2>
+2. The 3-Story DCF Summary Table (with explicit row header 'Intrinsic Fair Value / Share' or 'Intrinsic Fair Value / ADS' containing calculated per-share values).
+3. <h3>Step-by-Step Mathematical Proofs Across the 3 Paths</h3>
+   - Full walkthrough for Story 1 (Base Case)
+   - Full walkthrough for Story 2 (Bull Case)
+   - Full walkthrough for Story 3 (Bear Case)
+4. <h3>Reverse DCF Sensitivity Matrix: What is Mr. Market Pricing In?</h3>
+   - Full sensitivity matrix table and narrative analysis
+5. <h3>Reconciliation vs. Wall Street Consensus Price Targets</h3>
+   - Table and narrative comparing our first-principles value vs sell-side consensus
+
+Output the complete Section 3 HTML. Pure HTML only (no markdown code fences)."""
 
 
 def run_3_agent_critique_internal(ticker: str, company_name: str, thesis_html: str) -> str:
@@ -1220,18 +1288,30 @@ def run_improvement_agent(
     ticker: str,
     company_name: str,
     current_price: float,
-    thesis_html: str,
+    sec1_html: str,
+    sec2_html: str,
+    sec3_html: str,
     critique_memo: str
-) -> Tuple[str, List[str], List[str]]:
-    """Runs the Improvement & Adjudication Agent to classify feedback and construct the reconciliation log."""
-    prompt = AGENT_5_IMPROVEMENT_PROMPT.format(
+) -> Tuple[str, str, str, str, List[str], List[str]]:
+    """Runs the Modular Targeted Improvement System:
+    1. Adjudication Director: Classifies feedback into Acknowledged vs Pushbacks and targets specific sections.
+    2. Section Remediators: Remediates only the specific section(s) requiring adjustments in dedicated sub-prompts.
+    3. Log Assembler: Constructs the institutional reconciliation callout.
+    """
+    sec1_prev = sec1_html[:1500] + "\n..." if len(sec1_html) > 1500 else sec1_html
+    sec2_prev = sec2_html[:1500] + "\n..." if len(sec2_html) > 1500 else sec2_html
+    sec3_prev = sec3_html[:1500] + "\n..." if len(sec3_html) > 1500 else sec3_html
+
+    adj_prompt = AGENT_5_ADJUDICATION_PROMPT.format(
         ticker=ticker,
         company_name=company_name,
         current_price=current_price,
-        thesis_html=thesis_html,
+        sec1_preview=sec1_prev,
+        sec2_preview=sec2_prev,
+        sec3_preview=sec3_prev,
         critique_memo=critique_memo
     )
-    raw = call_gemini_with_search(prompt, temperature=0.2, use_search=False)
+    raw = call_gemini_with_search(adj_prompt, temperature=0.2, use_search=False)
     clean = clean_grounding_artifacts(raw)
     
     ack_items = []
@@ -1252,15 +1332,70 @@ def run_improvement_agent(
             line = line.strip().lstrip("-*• ").strip()
             if line and not line.lower().startswith("none") and len(line) > 5:
                 push_items.append(line)
-                
-    # 3. Parse Adjudication Callout HTML
+
+    # 3. Parse Target Module Directives
+    m_dir = re.search(r'###\s*TARGET_MODULE_ACTION_DIRECTIVES\s*(.*?)(?=###|$)', clean, re.DOTALL | re.IGNORECASE)
+    dir_text = m_dir.group(1) if m_dir else ""
+    
+    update_sec1 = "SECTION_1_UPDATE: TRUE" in dir_text.upper() or "SECTION_1: TRUE" in dir_text.upper()
+    update_sec2 = "SECTION_2_UPDATE: TRUE" in dir_text.upper() or "SECTION_2: TRUE" in dir_text.upper()
+    update_sec3 = "SECTION_3_UPDATE: TRUE" in dir_text.upper() or "SECTION_3: TRUE" in dir_text.upper()
+
+    final_sec1 = sec1_html
+    final_sec2 = sec2_html
+    final_sec3 = sec3_html
+
+    # Targeted Section 1 Remediation
+    if update_sec1 and len(ack_items) > 0:
+        print(f"      🔧 [MODULAR REMEDIATOR] Updating Section 1 (Company Premise & Audited Baseline)...", flush=True)
+        p1 = SECTION_1_REMEDIATOR_PROMPT.format(
+            ticker=ticker,
+            company_name=company_name,
+            directives=dir_text,
+            sec1_html=sec1_html
+        )
+        r1 = call_gemini_with_search(p1, temperature=0.2, use_search=False)
+        c1 = verify_and_repair_html_structure(clean_grounding_artifacts(r1))
+        if "<h2>Section 1:" in c1 and len(c1.split()) >= 600:
+            final_sec1 = c1
+
+    # Targeted Section 2 Remediation
+    if update_sec2 and len(ack_items) > 0:
+        print(f"      🔧 [MODULAR REMEDIATOR] Updating Section 2 (The 3 Operating Stories)...", flush=True)
+        p2 = SECTION_2_REMEDIATOR_PROMPT.format(
+            ticker=ticker,
+            company_name=company_name,
+            directives=dir_text,
+            sec2_html=sec2_html
+        )
+        r2 = call_gemini_with_search(p2, temperature=0.2, use_search=False)
+        c2 = verify_and_repair_html_structure(clean_grounding_artifacts(r2))
+        if "<h2>Section 2:" in c2 and len(c2.split()) >= 600:
+            final_sec2 = c2
+
+    # Targeted Section 3 Remediation
+    if update_sec3 and len(ack_items) > 0:
+        print(f"      🔧 [MODULAR REMEDIATOR] Updating Section 3 (DCF Models & Mathematical Proofs)...", flush=True)
+        p3 = SECTION_3_REMEDIATOR_PROMPT.format(
+            ticker=ticker,
+            company_name=company_name,
+            current_price=current_price,
+            directives=dir_text,
+            sec3_html=sec3_html
+        )
+        r3 = call_gemini_with_search(p3, temperature=0.2, use_search=False)
+        c3 = verify_and_repair_html_structure(clean_grounding_artifacts(r3))
+        # Validate that remediated Section 3 is complete and untruncated
+        if "<h2>Section 3:" in c3 and "reverse dcf" in c3.lower() and "story 3" in c3.lower() and len(c3.split()) >= 600:
+            final_sec3 = c3
+
+    # 4. Parse Adjudication Callout HTML
     m_callout = re.search(r'(<div class="callout audit-adjudication">[\s\S]*?</div>)', clean, re.DOTALL | re.IGNORECASE)
     if m_callout:
         callout_html = m_callout.group(1).strip()
     else:
-        # Construct cleanly from parsed items
-        ack_lis = "\n".join([f"    <li>{item}</li>" for item in ack_items]) or "    <li>All previous feedback items verified and integrated.</li>"
-        push_lis = "\n".join([f"    <li>{item}</li>" for item in push_items]) or "    <li>Valuation discipline maintained against market price anchoring.</li>"
+        ack_lis = "\n".join([f"    <li>{item}</li>" for item in ack_items]) or "    <li>All feedback points verified and integrated.</li>"
+        push_lis = "\n".join([f"    <li>{item}</li>" for item in push_items]) or "    <li>Disciplined value-investing methodology defended.</li>"
         callout_html = f"""<div class="callout audit-adjudication">
   <h3>🛡️ Institutional Red-Team Adjudication &amp; Reconciliation Log</h3>
   <p><strong>Acknowledged Refinements Adopted:</strong></p>
@@ -1273,13 +1408,7 @@ def run_improvement_agent(
   </ul>
 </div>"""
 
-    # Remove any existing adjudication callout from thesis_html to avoid duplicates
-    base_html = re.sub(r'<div class="callout audit-adjudication">[\s\S]*?</div>', '', thesis_html, flags=re.IGNORECASE).strip()
-    
-    # Append the clean adjudication callout block at the very end of the dossier
-    remediated_html = f"{base_html}\n\n{callout_html}"
-            
-    return remediated_html, ack_items, push_items
+    return final_sec1, final_sec2, final_sec3, callout_html, ack_items, push_items
 
 
 def parse_float_safe(val: Any, default: float = 0.0) -> float:
@@ -1467,12 +1596,16 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     print("   └" + "─" * 50, flush=True)
 
     # ------------------------------------------------------------------
-    # Step 5: Autonomous Critique & Improvement Convergence Loop
+    # Step 5: Autonomous Critique & Modular Improvement Convergence Loop
     # ------------------------------------------------------------------
-    raw_full_html = f"{sec1_clean}\n\n{sec2_clean}\n\n{sec3_clean}"
+    sec1_current = sec1_clean
+    sec2_current = sec2_clean
+    sec3_current = sec3_clean
+    callout_html = ""
+    raw_full_html = f"{sec1_current}\n\n{sec2_current}\n\n{sec3_current}"
     
     print(f"\n======================================================================", flush=True)
-    print(f"🔄 INITIATING AUTONOMOUS CRITIQUE & IMPROVEMENT LOOP: {ticker_clean}", flush=True)
+    print(f"🔄 INITIATING AUTONOMOUS CRITIQUE & MODULAR IMPROVEMENT LOOP: {ticker_clean}", flush=True)
     print(f"======================================================================", flush=True)
     
     max_refine_iterations = 2
@@ -1485,12 +1618,14 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         critique_file.parent.mkdir(parents=True, exist_ok=True)
         critique_file.write_text(critique_memo, encoding="utf-8")
         
-        print(f"\n🛠️ [IMPROVEMENT AGENT] Adjudicating critique & remediating thesis...", flush=True)
-        remediated_html, ack_items, push_items = run_improvement_agent(
+        print(f"\n🛠️ [IMPROVEMENT AGENT] Adjudicating critique & executing modular remediations...", flush=True)
+        sec1_current, sec2_current, sec3_current, callout_html, ack_items, push_items = run_improvement_agent(
             ticker=ticker_clean,
             company_name=company_name,
             current_price=current_price,
-            thesis_html=raw_full_html,
+            sec1_html=sec1_current,
+            sec2_html=sec2_current,
+            sec3_html=sec3_current,
             critique_memo=critique_memo
         )
         
@@ -1501,7 +1636,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         for pb in push_items:
             print(f"   │   🛡️ {pb}", flush=True)
             
-        raw_full_html = remediated_html
+        raw_full_html = f"{sec1_current}\n\n{sec2_current}\n\n{sec3_current}\n\n{callout_html}"
         
         if len(ack_items) == 0:
             print(f"\n🎯 [CONVERGENCE ACHIEVED] 0 unaddressed errors remain (all critique points successfully defended or already resolved)!", flush=True)
