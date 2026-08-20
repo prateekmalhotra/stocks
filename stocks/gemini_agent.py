@@ -785,7 +785,7 @@ You are LLM Agent 1: Company Premise Specialist.
 Your objective is to establish the single audited factual foundation ("The Premise of the Company") for all downstream analysis and valuation.
 
 Guidelines:
-- Blind Valuation: Analyze the business purely as an unlisted private enterprise with zero knowledge of current stock prices.
+- Blind Valuation: Underwrite the operating business fundamentals strictly on audited cash generation with zero bias or knowledge of current stock market trading prices (100% Blind Mode).
 - Currency & Denominator Integrity: ALL figures MUST strictly be in US DOLLARS ($ USD) PER US-LISTED ADS (American Depositary Share). NEVER present figures in foreign currency per ordinary share (e.g. RMB¥ per ordinary share) while downstream sections use USD per ADS. Convert foreign currencies (e.g. RMB, EUR, BRL) at prevailing FX rates. On the first occurrence of a currency conversion, explicitly include the parenthetical exchange rate notation (e.g. "(converted at an exchange rate of RMB 7.25 / $1.00 USD; 1 ADS = 8 Ordinary Shares)").
 - Primary Research: Search audited SEC filings (10-K, 10-Q, 20-F, 6-K) and the last 4 quarterly earnings call transcripts.
 - Current Reporting Period: Explicitly state the latest reported fiscal year / quarter (e.g. "FY 2025 / Q2 2026 LTM").
@@ -1040,13 +1040,18 @@ USE YOUR PYTHON CODE EXECUTION TOOL to execute the exact DCF table calculations,
 
 Requirements:
 1. A summary 3-Story DCF table comparing all 3 paths. Starting Owner Earnings (OE₀) MUST STRICTLY MATCH the OE₀ derived in Section 1!
-2. In the DCF summary table, the balance sheet bridge line MUST be explicitly signed:
+2. In the DCF summary table, include the Implied Terminal Exit Multiple row (e.g. 13.6x OE₅ = (1 + g_term) / (r - g_term)).
+3. In the DCF summary table, the balance sheet bridge line MUST be explicitly signed:
    - If Net Debt: 'Net Balance Sheet Debt Adjustment (-$XX.XX/sh)' (SUBTRACTED from Operating Value).
    - If Net Cash: 'Net Balance Sheet Surplus Cash Adjustment (+$XX.XX/sh)' (ADDED to Operating Value).
-3. Clear mathematical proofs for each of the 3 stories explaining the exact calculation: Operating Value/sh + Debt/Cash Adjustment = Intrinsic Fair Value/sh.
-4. A Reverse DCF sensitivity matrix table showing what annual growth rate Mr. Market is pricing in at today's stock price (${current_price:.2f}) across discount rates (9.5%, 10.5%, 11.5%) and cash flow baselines.
-5. Plain-English narrative explaining what Mr. Market is pricing in today versus Story 1.
-6. Seamless presentation: Write pure institutional research without any meta-commentary about drafts or past corrections.
+4. Clear mathematical proofs for each of the 3 stories explaining the exact calculation: Operating Value/sh + Debt/Cash Adjustment = Intrinsic Fair Value/sh.
+5. A Probability-Weighted Expected Intrinsic Value Callout Box:
+   - Weightings: Base Case (Story 1) 50%, Bull Case (Story 2) 25%, Bear Case (Story 3) 25%.
+   - Expected Intrinsic Value = (0.50 * Story 1) + (0.25 * Story 2) + (0.25 * Story 3).
+   - State the Expected Value and its exact Margin of Safety vs. today's market price (${current_price:.2f}).
+6. A Reverse DCF sensitivity matrix table showing what annual growth rate Mr. Market is pricing in at today's stock price (${current_price:.2f}) across discount rates (9.5%, 10.5%, 11.5%) and cash flow baselines.
+7. Plain-English narrative explaining what Mr. Market is pricing in today versus Story 1.
+8. Seamless presentation: Write pure institutional research without any meta-commentary about drafts or past corrections.
 
 Format:
 <h2>Section 3: Valuation Across the 3 Stories</h2>
@@ -1066,6 +1071,7 @@ Format:
     <tr><td>5-Year Organic CAGR</td><td>+XX.X%</td><td>+XX.X%</td><td>-XX.X%</td></tr>
     <tr><td>Discount / Hurdle Rate</td><td>9.5%</td><td>9.5%</td><td>10.5%</td></tr>
     <tr><td>Terminal Growth Rate</td><td>2.00%</td><td>2.25%</td><td>1.50%</td></tr>
+    <tr><td>Implied Terminal Exit Multiple</td><td>13.6x OE₅</td><td>14.1x OE₅</td><td>11.3x OE₅</td></tr>
     <tr><td>PV of 5-Year Cash Flows</td><td>$XX,XXX.XM</td><td>$XX,XXX.XM</td><td>$XX,XXX.XM</td></tr>
     <tr><td>PV of Terminal Value</td><td>$XX,XXX.XM</td><td>$XX,XXX.XM</td><td>$XX,XXX.XM</td></tr>
     <tr><td>Operating Business Enterprise Value</td><td>$XX,XXX.XM ($XX.XX/sh)</td><td>$XX,XXX.XM ($XX.XX/sh)</td><td>$XX,XXX.XM ($XX.XX/sh)</td></tr>
@@ -1073,6 +1079,17 @@ Format:
     <tr><td><strong>Calculated Intrinsic Value / Share</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td></tr>
   </tbody>
 </table>
+
+<div class="callout">
+  <h3>🎯 Probability-Weighted Expected Value Synthesis</h3>
+  <p>To avoid anchoring solely on a single operational outcome, we calculate the institutional expected value across all three paths:</p>
+  <ul>
+    <li><strong>Story 1 (Base Case - 50% Probability):</strong> $XX.XX / share</li>
+    <li><strong>Story 2 (Bull Case - 25% Probability):</strong> $XX.XX / share</li>
+    <li><strong>Story 3 (Bear Case - 25% Probability):</strong> $XX.XX / share</li>
+  </ul>
+  <p><strong>Probability-Weighted Expected Fair Value:</strong> <strong>$XX.XX / share</strong> (Margin of Safety: <strong>XX.X%</strong> vs. today's market price of ${current_price:.2f}).</p>
+</div>
 
 <div class="callout">
   <h3>Step-by-Step Mathematical Proofs Across the 3 Paths</h3>
@@ -1737,6 +1754,8 @@ Pass: {it}/{max_refine_iterations}
     min_story = min(all_story_tuples, key=lambda x: x[0])
     max_story = max(all_story_tuples, key=lambda x: x[0])
     base_story = all_story_tuples[0]  # Story 1 is always Base Case
+    expected_val = round((0.50 * story1_val) + (0.25 * story2_val) + (0.25 * story3_val), 2)
+    expected_mos = ((expected_val - current_price) / current_price) * 100.0 if current_price > 0 else 0.0
 
     metadata = {
         "ticker": ticker_clean,
@@ -1748,6 +1767,8 @@ Pass: {it}/{max_refine_iterations}
         "labels": sanitized_labels,
         "action_signal": action_signal,
         "fair_value_estimate": f"${story1_val:.2f}",
+        "expected_fair_value": f"${expected_val:.2f} ({expected_mos:+.1f}%)",
+        "expected_val": expected_val,
         "story1_target": f"${story1_val:.2f} ({mos1:+.1f}%)",
         "story2_target": f"${story2_val:.2f} ({mos2:+.1f}%)",
         "story3_target": f"${story3_val:.2f} ({mos3:+.1f}%)",
@@ -1766,7 +1787,7 @@ Pass: {it}/{max_refine_iterations}
         "next_catalyst_date": "",
         "next_catalyst_event": "Scheduled quarterly report",
         "top_funds": [],
-        "institutional_ownership_pct": "N/A",
+        "institutional_ownership_pct": "0 Tracked",
         "insider_signal": "Neutral (10b5-1)",
         "insider_summary": "Audited from official SEC Form 4 filings.",
         "executive_summary": exec_summary.strip()
