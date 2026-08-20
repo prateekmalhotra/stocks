@@ -836,12 +836,14 @@ Core Topics to Cover:
 3. Owner Earnings Derivation & Cash Flow Waterfall:
    - Step-by-step table deriving Core Operating Owner Earnings (OE₀) in $ Millions USD:
      GAAP OCF → less Working Capital noise → less Maintenance CapEx → less SBC → less Non-Operating Float Yield = Core OE₀.
+   - Disclosed Useful Lives & Maintenance CapEx Reality: Search Note 1 (Property, Plant, and Equipment) of the latest Form 10-K for actual disclosed useful lives (e.g. servers 5–6 years, networking equipment 5–7 years, fulfillment equipment 5–10 years, buildings up to 40 years). Do NOT invent hypothetical useful life cuts (e.g. do not assume servers drop to 3 years unless explicitly disclosed in SEC filings). Maintenance CapEx must be calibrated to historical steady-state D&A and disclosed capital replacement (typically ~30%–45% of annual D&A during hyper-growth buildout phases), rather than treating all growth CapEx as maintenance.
    - Diluted share count / ADSs count (in Millions).
-   - Audited Balance Sheet Bridge: Gross Cash, debt obligations, working capital buffer, and net cash/debt per share.
+   - Balance Sheet Bridge: Gross Cash, debt obligations, working capital buffer, and net cash/debt per share.
 4. Core Historical Financial Baseline Table:
    - 3-Year table showing: Revenue ($M), Revenue YoY Growth (%), Gross Profit Margin (%), GAAP Operating Income ($M), GAAP OCF ($M), Maintenance CapEx ($M), SBC ($M), Derived Owner Earnings ($M).
 5. Comprehensive Segment Revenue & Profitability Breakdown:
    - Full tabular breakdown of revenue and operating profit by major segment / product line / geographic region.
+   - Segment Breakdown Arithmetic Reconciliation: The sum of all individual reported segment revenues (e.g. Online Stores + 3P Marketplace + AWS + Advertising + Subscriptions + Physical Stores + Other) MUST mathematically sum to 100.0% of the stated Total Net Revenue row. Never leave an unexplained multi-billion dollar discrepancy between the segment table sum and total net revenue.
 6. Cash Conversion Cycle & Working Capital Velocity:
    - DSO (Days Sales Outstanding), DIO (Days Inventory Outstanding), DPO (Days Payable Outstanding), and Net CCC over the last 3 years.
 7. Structural Balance Sheet Strength & Regulatory Capital:
@@ -1285,7 +1287,7 @@ USE YOUR PYTHON CODE EXECUTION TOOL to independently calculate and audit every c
    - Check the exact OE₀ in Section 1 vs the Starting OE₀ in Section 3 DCF Table.
    - Run Python to verify: do they match exactly? If Section 1 derives $585M but Section 3 uses $661.5M, flag this as a critical desynchronization failure!
 2. Balance Sheet Bridge & Debt vs Cash Sign Audit:
-   - Audit the audited balance sheet in Section 1: does the company have net debt (Debt > Cash) or net cash?
+   - Audit the balance sheet in Section 1: does the company have net debt (Debt > Cash) or net cash?
    - Run Python to verify: if the company has $1.2B in net debt, did Section 3 SUBTRACT -$24/share, or did it mistakenly add a positive cash addition?
    - Check for plug numbers: if the company has only $15/share of cash, is Section 3 claiming an un-sourced +$100/share adjustment? Flag any plug numbers.
 3. DCF Mathematical & Discounting Verification:
@@ -1294,6 +1296,11 @@ USE YOUR PYTHON CODE EXECUTION TOOL to independently calculate and audit every c
    - Check if Operating EV / share + (Bridge Adjustment) == Intrinsic Fair Value / share.
 4. Reverse DCF Inversion Verification:
    - Run Python code to verify what 5-year CAGR is actually implied by today's market price. Check if the sensitivity matrix table is responsive or flat.
+5. Section 1 Segment Breakdown Table Arithmetic Audit:
+   - Run Python code to extract every numeric revenue row in Section 1's Segment Revenue Table, compute sum(segments), and compare it against the stated Total Net Revenue.
+   - If sum(segments) differs from Total Net Revenue by >0.5% (e.g. segments sum to $190.6B vs $200.6B stated total), flag this as an Unreconciled Segment Breakdown Table error that must be corrected!
+6. Useful Life & Maintenance CapEx Grounding Audit:
+   - Check whether Maintenance CapEx is calibrated to actual disclosed 10-K depreciation notes (e.g. 5–6 year server useful lives) rather than ungrounded speculative 3-year burnout narratives. Flag any tens-of-billions over-penalization that contradicts official 10-K Note 1 disclosures.
 
 Thesis:
 ======================================================================
