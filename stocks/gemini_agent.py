@@ -170,16 +170,32 @@ def map_to_canonical_pricing_power_tier(lbl: str = "", sec1_text: str = "", defa
             if clean_lbl == p.upper():
                 return p
 
+    # 1. Check explicit "Pricing Power Classification:" statement first
+    if sec1_text:
+        m = re.search(r'Pricing Power Classification:\s*([^<\n\.]+)', sec1_text, re.IGNORECASE)
+        if m:
+            class_str = m.group(1).strip().upper()
+            if "CONSTRAIN" in class_str or "REGULAT" in class_str or "MODERATE" in class_str:
+                return "Constrained Pricing Power"
+            if "PASS" in class_str or "COST" in class_str:
+                return "Inflation Pass-Through"
+            if "TAKER" in class_str or "COMMODITY" in class_str:
+                return "Price Taker"
+            if "ABSOLUTE" in class_str and "NOT" not in class_str and "DOES NOT" not in class_str:
+                return "Absolute Pricing Power"
+            if "STRONG" in class_str or "STRUCTURAL" in class_str:
+                return "Strong Pricing Power"
+
     combined_text = f"{lbl or ''} {sec1_text or ''}".upper()
     
-    if any(k in combined_text for k in ["ABSOLUTE PRICING", "UNCONSTRAINED PRICING", "MONOPOLY PRICING", "LUXURY PRICING", "SEE'S CANDIES"]):
-        return "Absolute Pricing Power"
-    elif any(k in combined_text for k in ["PRICE TAKER", "NEGATIVE PRICING", "COMMODITY PRICING", "PRICE WAR", "DESTRUCTIVE COMPETITION"]):
-        return "Price Taker"
-    elif any(k in combined_text for k in ["CONSTRAINED PRICING", "REGULATED PRICING", "PRICE CEILING", "MODERATE PRICING"]):
+    if any(k in combined_text for k in ["CONSTRAINED PRICING", "REGULATED PRICING", "PRICE CEILING", "MODERATE PRICING"]):
         return "Constrained Pricing Power"
     elif any(k in combined_text for k in ["INFLATION PASS", "COST-PLUS", "PASS THROUGH", "INDEXED ESCALATOR", "SURCHARGE"]):
         return "Inflation Pass-Through"
+    elif any(k in combined_text for k in ["PRICE TAKER", "NEGATIVE PRICING", "COMMODITY PRICING", "PRICE WAR", "DESTRUCTIVE COMPETITION"]):
+        return "Price Taker"
+    elif any(k in combined_text for k in ["ABSOLUTE PRICING", "UNCONSTRAINED PRICING", "MONOPOLY PRICING", "LUXURY PRICING"]):
+        return "Absolute Pricing Power"
     elif any(k in combined_text for k in ["STRONG PRICING", "STRUCTURAL PRICING", "HIGH INELASTICITY", "PRICE MAKER", "PRICING POWER", "UNILATERAL PRICING"]):
         return "Strong Pricing Power"
         
