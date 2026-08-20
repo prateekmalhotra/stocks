@@ -921,7 +921,8 @@ CRITICAL FINANCIAL REALITY & INTEGRITY CHECKS:
 
 Core Topics to Cover:
 1. The Core Business Machine, Moat & Unit Economics:
-   - Primary Economic Moat Rating: Classify the business moat durability strictly as one of the 4 canonical ratings: [Wide Moat, Narrow Moat, Weak Moat, No Moat]. Explicitly evaluate the structural durability and competitive advantages sustaining excess returns on capital over a 10–20 year horizon.
+   - Primary Economic Moat Rating: Classify the business moat durability strictly as one of the 4 canonical ratings: [Wide Moat, Narrow Moat, Weak Moat, No Moat].
+     * SIZE-AGNOSTIC MOAT PRINCIPLE: An economic moat is strictly a measure of structural competitive advantage, high Return on Invested Capital (ROIC), switching costs, and pricing power over a 10–20 year horizon. Moat does NOT depend on market cap or revenue size! A small/mid-cap niche monopoly (e.g. See's Candies, FICO, Copart, TransDigm, specialized mission-critical software) can possess a Wide Moat, while a $100B revenue conglomerate (e.g. commodity automakers, contract assemblers, low-margin airlines) may have No Moat. Never penalize a company's moat rating simply because it is small or mid-cap, and never award a wide moat simply due to large revenue volume.
    - Customer value proposition, monetization mechanics, pricing power, and durable economic moat.
    - Core operational volume drivers vs high-margin service streams.
    - Operating margin trajectory, gross margin resilience, and operating leverage.

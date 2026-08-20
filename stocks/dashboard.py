@@ -415,12 +415,17 @@ def build_labels_legend_modal_html(include_pricing_power: bool = False) -> str:
 
             <!-- Section 2: Economic Moat Rating -->
             <div>
-                <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm); margin-bottom: 9px;">
-                    Economic Moat Rating (Primary Label)
+                <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 9px;">
+                    <div style="font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-warm);">
+                        Economic Moat Rating (Primary Label)
+                    </div>
+                    <div style="font-family: var(--font-sans); font-size: 0.62rem; color: var(--text-dim);">
+                        Size-agnostic · ROIC &amp; pricing durability
+                    </div>
                 </div>
                 <div style="display: grid; grid-template-columns: 135px 1fr; row-gap: 7px; column-gap: 14px; font-size: 0.74rem; align-items: center;">
                     <span style="font-weight: 600; color: var(--accent-warm); white-space: nowrap;">🏰 Wide Moat</span>
-                    <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Dominant structural advantage sustaining excess returns for 20+ years</span>
+                    <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Dominant structural advantage sustaining excess returns for 20+ years (mega &amp; niche monopolies)</span>
 
                     <span style="font-weight: 600; color: var(--accent-green); white-space: nowrap;">🛡️ Narrow Moat</span>
                     <span style="color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Durable competitive advantage sustaining excess returns for 10+ years</span>
