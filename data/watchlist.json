@@ -1,1 +1,47 @@
-{}
+{
+  "CELH": {
+    "ticker": "CELH",
+    "company_name": "Celsius Holdings, Inc.",
+    "baseline_price": 32.52,
+    "current_price": 32.54,
+    "return_pct": 0.06,
+    "status_label": "Narrow Moat",
+    "moat_label": "Narrow Moat",
+    "labels": [
+      "Narrow Moat",
+      "Owner Earnings",
+      "Cash Generation"
+    ],
+    "action_signal": "AVOID",
+    "fair_value_estimate": "$25.44",
+    "story1_target": "$25.44 (-21.8%)",
+    "story2_target": "$46.77 (+43.8%)",
+    "story3_target": "$9.20 (-71.7%)",
+    "story1_title": "Story 1: Portfolio Rebalancing & Gradual International Expansion (Base Case)",
+    "story2_title": "Multi-Brand DSD Synergy Acceleration & Global Scalability (Bull Case)",
+    "story3_title": "Category Saturation, Shelf-Space Compression & Promotional Erosion (Defensive Stress / Downside)",
+    "bear_target": "$9.20 (-71.7%)",
+    "base_target": "$25.44 (-21.8%)",
+    "bull_target": "$46.77 (+43.8%)",
+    "what_is_priced_in": "Market prices in today's entry price of $32.52 vs Story 1 Intrinsic Value of $25.44",
+    "upper_alert_threshold": 46.77,
+    "lower_alert_threshold": 9.2,
+    "next_catalyst_date": "2026-11-05",
+    "next_catalyst_event": "Q3 FY26 Earnings Release",
+    "top_funds": [
+      "First Eagle Investment Management (0.00)"
+    ],
+    "institutional_ownership_pct": "1 Whale",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Audited SEC Form 3 / 20-F / Form 4 filings.",
+    "pricing_power_tier": "Inflation Pass-Through",
+    "pricing_power_score": "Inflation Pass-Through",
+    "pricing_power_summary": "Inflation Pass-Through: Underwritten via Buffett & Munger pricing power framework.",
+    "predictability_tier": "Moderate Predictability",
+    "predictability_score": "Manageable Visibility \u00b7 Moat",
+    "predictability_summary": "Moderate Predictability: Underwritten via Buffett & Munger 10-year visibility framework.",
+    "last_updated": "2026-08-20",
+    "total_versions": 1,
+    "report_path": "reports/CELH.html"
+  }
+}
