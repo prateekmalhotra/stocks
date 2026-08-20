@@ -1,1 +1,46 @@
-{}
+{
+  "MELI": {
+    "ticker": "MELI",
+    "company_name": "MercadoLibre, Inc.",
+    "baseline_price": 1908.65,
+    "current_price": 1908.65,
+    "return_pct": 0.0,
+    "status_label": "Cautious Stance",
+    "labels": [
+      "Cautious Stance",
+      "Owner Earnings",
+      "Cash Generation"
+    ],
+    "action_signal": "AVOID",
+    "fair_value_estimate": "$1457.70",
+    "story1_target": "$1457.70 (-23.6%)",
+    "story2_target": "$2114.01 (+10.8%)",
+    "story3_target": "$535.58 (-71.9%)",
+    "story1_title": "Steady Monopolistic Ecosystem Expansion & Network Effect Scaling (Base Case)",
+    "story2_title": "High-Margin Retail Media Flywheel & Credit Super-App Scaling (Bull Case)",
+    "story3_title": "LatAm Macro Volatility, FX Depreciation & Credit Loss Stress (Defensive Stress / Downside)",
+    "bear_target": "$535.58 (-71.9%)",
+    "base_target": "$1457.70 (-23.6%)",
+    "bull_target": "$2114.01 (+10.8%)",
+    "what_is_priced_in": "Market prices in today's entry price of $1908.65 vs Story 1 Intrinsic Value of $1457.70",
+    "upper_alert_threshold": 2114.01,
+    "lower_alert_threshold": 535.58,
+    "next_catalyst_date": "2026-11-18",
+    "next_catalyst_event": "Scheduled quarterly report",
+    "top_funds": [
+      "Henry Ellenbogen - Durable Capital Partners (5.10)",
+      "Chase Coleman - Tiger Global Management (1.08)",
+      "Wallace Weitz - Weitz Investment Management (1.08)",
+      "Bill Miller - Miller Value Partners (0.69)",
+      "Polen Capital Management (0.38)",
+      "Thomas Gayner - Markel Group (0.31)",
+      "Dodge & Cox Funds (0.00)"
+    ],
+    "institutional_ownership_pct": "7 Whales",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Audited SEC Form 3 / 20-F / Form 4 filings.",
+    "last_updated": "2026-08-20",
+    "total_versions": 1,
+    "report_path": "reports/MELI.html"
+  }
+}
