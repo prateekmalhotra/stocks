@@ -1114,17 +1114,18 @@ Guidelines:
   * The 3 Stories MUST collectively span and partition 90%–95% of THAT specific company's real-world probability distribution over the next 3–5 years.
   * Explicitly name each story with a descriptive, operational, company-specific title reflecting its authentic economic driver (e.g. 'Story 1: Core Enterprise Cloud Workload Compounding', 'Story 2: Regulatory Interchange Fee Cap & Multiple De-Rating', 'Story 3: Americas Comp Drag & Markdown Friction').
 - MUTUAL DISTINCTNESS & ORTHOGONAL MECHANISMS (ZERO NARRATIVE OVERLAP):
-  * The 3 Stories must explore 3 FUNDAMENTALLY DISTINCT economic mechanisms, operational trajectories, or strategic crossroads.
-  * ZERO RE-HASHING OR MERE PERCENTAGE TWEAKS:
-    - Never generate stories that share the same narrative thesis with minor percentage adjustments (e.g. Story 1 being "+8% growth with stable margins" and Story 2 being "+11% growth with slightly better margins" is an analytical failure of redundancy).
-    - Each story MUST explore a distinct fundamental vector affecting the company:
-      * Vector A (Core Baseline Operating Trajectory): The central tendency path under current guidance, existing business lines, and steady capital allocation.
-      * Vector B (Structural Friction, Regulatory Cap, Multiple De-Rating, or Category Drag): A distinct headwinds/friction thesis (e.g. tariff margin absorption, customer IT budget optimization, interchange cap, store lease fixed deleverage, or secondary brand runoff).
-      * Vector C (Asymmetric Reinvestment, Accelerated Monetization, Turnaround Inflection, or Capital Cannibalization): A distinct operational engine (e.g. new high-margin business line scaling, 7%+ annual share retirement cannibalizing share count, enterprise volume acceleration, or successful turnaround inflection).
-  * Each story must possess:
-    1. A distinct causal thesis explaining WHY revenue, margins, and cash flow behave the way they do.
-    2. Divergent operational metric assumptions (e.g. separate paths for take rates, comp store sales, unit capacity, gross margin %, OpEx efficiency, and CapEx intensity).
-    3. Independent quarterly milestones and invalidation triggers.
+  * The 3 Stories must explore 3 FUNDAMENTALLY DISTINCT, idiosyncratic operational paths or strategic crossroads that you derive directly from the company's business model, filings, and earnings transcripts.
+  * COMPLETE FREEDOM OF SCENARIO STRUCTURE (NO PRESET TAXONOMY):
+    - You have complete freedom to define what each story represents based on THAT specific company's reality:
+      * For a struggling turnaround or challenged business, the 3 stories might consist of two different drag/friction paths and one conservative stabilization path.
+      * For a dominant high-ROIC compounder, the 3 stories might consist of two different reinvestment/expansion paths and one regulatory/multiple de-rating path.
+      * For an evolving platform, the 3 stories might explore three distinct strategic forks (e.g. core cash-cow harvesting vs new category monetization vs customer insourcing friction).
+  * ZERO REDUNDANCY OR MERE PERCENTAGE TWEAKS:
+    - Never generate stories that share the same narrative premise with minor percentage adjustments (e.g. Story 1 being "+8% growth with stable margins" and Story 2 being "+11% growth with slightly better margins" is an analytical failure of redundancy).
+    - Each story MUST possess:
+      1. A distinct causal thesis explaining WHY revenue, margins, and cash flow behave the way they do (driven by different product lines, customer dynamics, competitive shifts, or capital allocation).
+      2. Divergent operational metric assumptions (e.g. separate paths for unit volumes, take rates, pricing power, gross margin %, OpEx leverage, and CapEx intensity).
+      3. Independent quarterly milestones and invalidation triggers.
 - Guidance Realism & Non-Linear Trajectories: Factor in management's near-term quarterly forward guidance (e.g. Q3/Q4 cyclical dips due to macro/housing pressure) to model realistic trajectory shapes rather than smooth straight-line ramps.
 - Turnaround Realism & Segment Drag in Story 1 (Base Case): If an acquired brand or secondary segment is contracting double-digits, Story 1 (Base Case) MUST NOT assume an unearned miraculous V-shaped rebound. Model the struggling segment at flat to negative growth, requiring the core flagship business to carry the baseline enterprise.
 - Grounded Margin & Growth Realism: For thin-margin direct retail or financial spread businesses, do NOT assume heroic margin doubling. Model realistic, incremental operating progression.
@@ -1495,7 +1496,7 @@ Adjudicate every single point raised in the critique memo:
    - Supply chain & counterparty concentration (% Vietnam/China factories, Section 301 tariffs, >50% revenue from 1–3 buyers in nascent lines like AI data licensing).
    - Dynamic Probability Space Partition (No Dogmatic Bull/Bear Triad): Ensure the 3 Stories span the realistic 90%–95% fundamental probability distribution of the company. For fortress monopolies, reject forced apocalyptic collapse cases and mandate realistic multiple de-rating / regulatory drag scenarios. For struggling turnarounds, mandate that drag/friction trajectories carry the bulk of the probability mass over unproven turnaround cases.
    - 100% Bespoke Company Grounding Check: Reject any generic boilerplate, unearned international expansion (for domestic-only operators), or artificial synthetic drivers. Mandate that the 3 Stories reflect THAT specific company's actual operating segments, reported metrics, and the last 4 quarters of management commentary and guidance.
-   - Storyline Distinctness & Non-Overlap Check: Audit that the 3 Stories explore fundamentally distinct, orthogonal economic mechanisms (e.g. separate operational vectors like core compounding vs regulatory fee friction vs B2B volume ramp) rather than minor percentage tweaks of the same narrative. Reject redundant drafts that fail to span different parts of the probability space.
+   - Storyline Distinctness & Non-Overlap Check: Audit that the 3 Stories explore fundamentally distinct operational paths and causal mechanisms rather than minor percentage tweaks of the same narrative. Reject redundant drafts that fail to span different parts of the probability space.
    - Live / Ongoing Headwinds in Story 1: Ensure active, observable disruptions (e.g. multi-quarter negative same-store sales, Google AI Overviews reducing search referral traffic) are integrated into Story 1 Base Case rather than dismissed as distant tail risks.
    - Empirical Green Shoots & Turnaround Realism: If Story 1 assumes an operational turnaround (e.g. comp store sales pivoting positive, redesign cycle succeeding), audit whether there is trailing empirical data proof. If unproven, mandate that Story 1 model prolonged drag and probability weights reflect elevated downside risk.
    - Dynamic Probability Weight Derivation: Reject and remediate arbitrary 50/25/25 symmetry. Ensure probability weights (p₁, p₂, p₃) are derived from observable evidence and sum to 100%.
