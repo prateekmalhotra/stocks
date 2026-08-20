@@ -2574,6 +2574,7 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
                     </div>
                     <span class="tbl-company-hover">{clean_company}</span>
                 </div>
+            </td>
             <td>
                 <div class="tbl-price-cell">
                     <span class="tbl-price tbl-price-{stock.ticker}">${(stock.current_price if stock.current_price is not None else 0.0):.2f}</span>
