@@ -183,9 +183,28 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
         if not labels or labels[0] not in CANONICAL_CONVICTION_TIERS:
             issues.append(f"Label Slot 1 '{labels[0] if labels else None}' must strictly be a canonical Conviction Tier.")
 
-    # 15. Institutional Section 3 Completeness Check (Reverse DCF & Storyline Table)
-    if not any(k in html.lower() for k in ["priced in", "market-implied", "reverse dcf", "g_implied", "what is mr. market pricing in", "story 1"]):
-        issues.append("Missing mandatory Section 3 subsection: 'Market-Implied Expectations / Reverse DCF'.")
+    # 15. Institutional Section 3 Completeness Check (All Required Subsections)
+    s3_lower = html[html.lower().find("section 3"):].lower() if "section 3" in html.lower() else html.lower()
+    
+    if not any(k in s3_lower for k in ["reverse dcf", "what is mr. market pricing in", "sensitivity matrix", "market narrative analysis"]):
+        issues.append("Missing mandatory Section 3 subsection: 'Reverse DCF Sensitivity Matrix: What is Mr. Market Pricing In?'.")
+
+    if not any(k in s3_lower for k in ["wall street consensus", "sell-side", "reconciliation vs. wall street"]):
+        issues.append("Missing mandatory Section 3 subsection: 'Reconciliation vs. Wall Street Consensus Price Targets'.")
+
+    if not any(k in s3_lower for k in ["step-by-step mathematical proofs", "mathematical proofs", "mathematical walkthrough"]):
+        issues.append("Missing mandatory Section 3 subsection: 'Step-by-Step Mathematical Proofs Across the 3 Paths'.")
+    else:
+        # Verify that all 3 stories are present in the proofs
+        for st_idx in range(1, 4):
+            if f"story {st_idx}" not in s3_lower and f"storyline {st_idx}" not in s3_lower and f"path {st_idx}" not in s3_lower:
+                issues.append(f"Section 3 Mathematical Proofs is missing walkthrough for Story {st_idx}.")
+
+    # 15b. Strict Truncation & Dangling Formula Check in Section 3
+    if re.search(r"Year\s+\d+\s*\([^)]*[\+\-\*\/]\s*$", html, flags=re.MULTILINE):
+        issues.append("Section 3 contains an uncompleted/truncated mathematical formula at line end.")
+    if re.search(r"<li>[^<]*\([^)]*[\+\-\*\/]\s*</li>", html):
+        issues.append("Section 3 contains a cut-off calculation inside a list item.")
 
     # 16. Section 3 DCF Valuation Matrix Check
     s3_match = re.search(r"<h2>Section 3:.*?</h2>(.*?)$", html, re.DOTALL | re.IGNORECASE)

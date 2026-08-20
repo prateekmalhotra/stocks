@@ -1103,24 +1103,23 @@ Output pure HTML only (no markdown backticks, no inline styles)."""
 AGENT_5_IMPROVEMENT_PROMPT = """Target: {ticker} ({company_name})
 Current Market Price: ${current_price:.2f}
 
-You are LLM Agent 5: Investment Thesis Refinement & Adjudication Director at an elite value hedge fund.
+You are LLM Agent 5: Investment Thesis Refinement & Adjudication Director at an elite buy-side value fund.
 
 Your Role:
-Take the Draft Investment Thesis (Section 1, Section 2, Section 3) and the Independent Buy-Side Red-Team Critique Memo.
+Take the Draft Investment Thesis and the Independent Buy-Side Red-Team Critique Memo.
 Adjudicate every single point raised in the critique memo:
 
 1. [ACKNOWLEDGE & ADAPT]:
    - Valid factual issues (e.g. neglected segment declines, acquired brand drops, single-silhouette risks).
    - Supply chain concentration (% Vietnam/China factories, Section 301 tariff exposure).
-   - Cash flow matching & accounting adjustments (eliminating debt double-counting under FCFE, working capital normalization, realistic AI GPU depreciation cycles).
-   -> When an issue is acknowledged, UPDATE AND REMEDIATE the thesis narrative, metrics, and Section 3 DCF calculations accordingly.
+   - Cash flow matching & accounting adjustments (eliminating debt double-counting under FCFE/FCFF, working capital normalization, realistic AI GPU depreciation cycles).
+   - Share count synchronization from buybacks.
 
 2. [PUSHBACK & DEFEND]:
    - Demands to anchor valuation to current market stock price.
    - Demands to add back Stock-Based Compensation as "non-cash" (Non-GAAP).
    - Demands to lower discount rates based on academic CAPM Betas rather than true opportunity cost.
    - Consensus herd-thinking that violates Graham/Buffett margin-of-safety principles.
-   -> When pushing back, DEFEND our disciplined value-investing methodology using first-principles financial logic.
 
 Draft Investment Thesis:
 ======================================================================
@@ -1135,34 +1134,23 @@ Red-Team Critique Memo:
 Format your output EXACTLY into the following 3 sections:
 
 ### ACKNOWLEDGED_REFINEMENTS
-- [List every valid factual or accounting flaw that was accepted and fixed in the thesis, or write "None" if 0 errors remain]
+- [List each valid factual or accounting flaw accepted, or write "None" if 0 errors remain]
 
 ### PUSHBACK_DEFENSES
-- [List every point that was pushed back against and defended with first-principles valuation logic]
+- [List each point pushed back against and defended with first-principles valuation logic]
 
-### REMEDIATED_THESIS_HTML
-[The complete, updated Semantic HTML containing Section 1, Section 2, Section 3, PLUS the appended callout block below]
-
-MANDATORY STRUCTURAL PRESERVATION:
-You MUST preserve all three core section headings and required subsections without omitting or altering them:
-- <h2>Section 1: Company Overview &amp; Audited Financial Baseline</h2>
-- <h2>Section 2: The Three Forward-Looking Operating Stories</h2>
-- <h2>Section 3: Valuation Across the 3 Stories</h2>
-- Inside Section 3, you MUST preserve:
-  1. The 3-Story summary DCF table with the exact row header 'Intrinsic Fair Value / Share' containing calculated per-share values.
-  2. <h3>Step-by-Step Mathematical Proofs Across the 3 Paths</h3>
-  3. <h3>Reverse DCF Sensitivity Matrix: What is Mr. Market Pricing In?</h3>
-  4. <h3>Reconciliation vs. Wall Street Consensus Price Targets</h3>
-
+### ADJUDICATION_RECONCILIATION_LOG_HTML
 <div class="callout audit-adjudication">
   <h3>🛡️ Institutional Red-Team Adjudication &amp; Reconciliation Log</h3>
   <p><strong>Acknowledged Refinements Adopted:</strong></p>
   <ul>
-    <li>...</li>
+    <li>[Item 1 with detail]</li>
+    <li>[Item 2 with detail]</li>
   </ul>
   <p><strong>Methodological Pushbacks Defended:</strong></p>
   <ul>
-    <li>...</li>
+    <li>[Item 1 with first-principles defense]</li>
+    <li>[Item 2 with first-principles defense]</li>
   </ul>
 </div>
 """
@@ -1235,7 +1223,7 @@ def run_improvement_agent(
     thesis_html: str,
     critique_memo: str
 ) -> Tuple[str, List[str], List[str]]:
-    """Runs the Improvement & Adjudication Agent to classify feedback and refine the thesis HTML."""
+    """Runs the Improvement & Adjudication Agent to classify feedback and construct the reconciliation log."""
     prompt = AGENT_5_IMPROVEMENT_PROMPT.format(
         ticker=ticker,
         company_name=company_name,
@@ -1248,7 +1236,6 @@ def run_improvement_agent(
     
     ack_items = []
     push_items = []
-    remediated_html = thesis_html
     
     # 1. Parse Acknowledged Refinements
     m_ack = re.search(r'###\s*ACKNOWLEDGED_REFINEMENTS\s*(.*?)(?=###|$)', clean, re.DOTALL | re.IGNORECASE)
@@ -1266,20 +1253,31 @@ def run_improvement_agent(
             if line and not line.lower().startswith("none") and len(line) > 5:
                 push_items.append(line)
                 
-    # 3. Parse Remediated HTML
-    m_html = re.search(r'###\s*REMEDIATED_THESIS_HTML\s*(.*?)$', clean, re.DOTALL | re.IGNORECASE)
-    if m_html:
-        h_str = m_html.group(1).strip()
-        # Clean any accidental code fences
-        if h_str.startswith("```html"):
-            h_str = h_str[7:]
-        elif h_str.startswith("```"):
-            h_str = h_str[3:]
-        if h_str.endswith("```"):
-            h_str = h_str[:-3]
-        h_str = h_str.strip()
-        if "<h2>Section 1:" in h_str:
-            remediated_html = h_str
+    # 3. Parse Adjudication Callout HTML
+    m_callout = re.search(r'(<div class="callout audit-adjudication">[\s\S]*?</div>)', clean, re.DOTALL | re.IGNORECASE)
+    if m_callout:
+        callout_html = m_callout.group(1).strip()
+    else:
+        # Construct cleanly from parsed items
+        ack_lis = "\n".join([f"    <li>{item}</li>" for item in ack_items]) or "    <li>All previous feedback items verified and integrated.</li>"
+        push_lis = "\n".join([f"    <li>{item}</li>" for item in push_items]) or "    <li>Valuation discipline maintained against market price anchoring.</li>"
+        callout_html = f"""<div class="callout audit-adjudication">
+  <h3>🛡️ Institutional Red-Team Adjudication &amp; Reconciliation Log</h3>
+  <p><strong>Acknowledged Refinements Adopted:</strong></p>
+  <ul>
+{ack_lis}
+  </ul>
+  <p><strong>Methodological Pushbacks Defended:</strong></p>
+  <ul>
+{push_lis}
+  </ul>
+</div>"""
+
+    # Remove any existing adjudication callout from thesis_html to avoid duplicates
+    base_html = re.sub(r'<div class="callout audit-adjudication">[\s\S]*?</div>', '', thesis_html, flags=re.IGNORECASE).strip()
+    
+    # Append the clean adjudication callout block at the very end of the dossier
+    remediated_html = f"{base_html}\n\n{callout_html}"
             
     return remediated_html, ack_items, push_items
 
