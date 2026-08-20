@@ -2160,15 +2160,14 @@ Pass: {it}/{max_refine_iterations}
 
     min_story = min(stories_metadata, key=lambda s: s["val"])
     max_story = max(stories_metadata, key=lambda s: s["val"])
-    base_story = stories_metadata[0]  # Story 1 is always Central Baseline
-    mos1 = base_story["mos_pct"]
+    base_story = stories_metadata[0]  # Story 1 Central Baseline
 
-    # Action Signal Derivation from Story 1 Fair Value
-    if mos1 >= 20.0:
+    # Action Signal Derivation from Probability-Weighted Expected Fair Value
+    if expected_mos >= 20.0:
         action_signal = "BUY"
-    elif mos1 >= 0.0:
+    elif expected_mos >= 0.0:
         action_signal = "HOLD"
-    elif mos1 >= -15.0:
+    elif expected_mos >= -15.0:
         action_signal = "CAUTION"
     else:
         action_signal = "AVOID"
@@ -2184,7 +2183,7 @@ Pass: {it}/{max_refine_iterations}
     # Extract Moat label from Section 1 text and sanitize
     raw_moat = map_to_canonical_moat_label("", sec1_text=sec1_current)
     raw_labels = [raw_moat, "Owner Earnings", "Cash Generation"]
-    sanitized_labels = sanitize_labels(raw_labels, action_signal=action_signal, base_ret=mos1, sec1_text=sec1_current)
+    sanitized_labels = sanitize_labels(raw_labels, action_signal=action_signal, base_ret=expected_mos, sec1_text=sec1_current)
 
     # Extract Buffett & Munger Pricing Power from Section 1 text
     pricing_power_tier = map_to_canonical_pricing_power_tier("", sec1_text=sec1_current)
@@ -2215,7 +2214,7 @@ Pass: {it}/{max_refine_iterations}
             pred_score = "Speculative · Binary"
     pred_summary = f"{predictability_tier}: Underwritten via Buffett & Munger 10-year visibility framework."
 
-    what_is_priced_in = f"Market prices in today's entry price of ${current_price:.2f} vs Story 1 Intrinsic Value of ${base_story['val']:.2f}"
+    what_is_priced_in = f"Market prices in today's entry price of ${current_price:.2f} vs Expected Intrinsic Value of ${expected_val:.2f} ({expected_mos:+.1f}%)"
     exec_summary = f"Level-headed fundamental investment thesis established for {ticker_clean} across {num_stories} distinct operating paths."
 
     # Fetch verified next catalyst and earnings release date via Google Search subagent
@@ -2237,7 +2236,7 @@ Pass: {it}/{max_refine_iterations}
         "predictability_summary": pred_summary,
         "labels": sanitized_labels,
         "action_signal": action_signal,
-        "fair_value_estimate": f"${base_story['val']:.2f}",
+        "fair_value_estimate": f"${expected_val:.2f}",
         "expected_fair_value": f"${expected_val:.2f} ({expected_mos:+.1f}%)",
         "expected_val": expected_val,
         "stories": stories_metadata,
