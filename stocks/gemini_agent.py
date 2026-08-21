@@ -1057,10 +1057,16 @@ User Focus / Research Notes: {notes}
 You are the Chief Equity Research Director & Institutional Buy-Side Grounded Researcher.
 Your mission is to formulate Section 1 and Section 2 of the living investment thesis for {company_name} from audited SEC statutory filings (10-K, 10-Q, 20-F, 6-K) and the last 4 quarterly earnings call transcripts.
 
-STRICT MANDATES:
-1. NO PRESET TROPES OR CANNED TEMPLATES: Let the company's actual business segments, customer adoption, competitive friction, and 10-K disclosures organically dictate the number (2 to 5) and causal mechanisms of the probable future paths.
+STRICT OPERATIONAL REALISM MANDATES (NO NARRATIVE EXTREMES OR SCI-FI FICTION):
+1. ROOTED IN BUSINESS EXECUTION & MANAGEMENT GUIDANCE:
+   - The probable future paths must be strictly independent of narrative fiction and rooted in the reality of business execution, management expectations, and observable operational dynamics from recent filings.
+   - DO NOT invent crazy apocalyptic tail fiction (e.g. no "-70% total antitrust destruction") or sci-fi fantasies (e.g. no "Waymo replaces entire automotive industry").
+   - Frame the paths around realistic, level-headed operational execution deviations:
+     * Path 1 (Core Execution / Guidance Delivery): Company executes on management's stated operational guidance, current run-rate, and contracted backlog conversion (e.g. core segments grow at guided rate, normalized margins, disciplined CapEx).
+     * Path 2 (Mild Execution Friction / Moderate Margin Drag): Realistic operational bump (e.g. revenue growth misses guidance by 2%–4%, competitive pricing or compute costs compress operating margins by 150–250 bps, slightly elevated maintenance CapEx).
+     * Path 3 (Operating Leverage / Mild Outperformance): Realistic operational upside (e.g. revenue growth exceeds guidance by 2%–4%, unit costs decline faster than anticipated, operating margins expand by 150–250 bps).
 2. EMPIRICALLY GROUNDED PROBABILITY DISTRIBUTION (NO LAZY 50/25/25 SPLITS):
-   - For wide-moat compounders with massive contracted backlogs and high ROIC (e.g. Alphabet, Microsoft, Visa), the core execution compounding trajectory MUST carry the dominant empirical probability mass (typically 65% to 80%), with friction or tail scenarios weighted strictly in proportion to observable negative triggers in filings (10% to 20%).
+   - For wide-moat compounders with massive contracted backlogs and high ROIC (e.g. Alphabet, Microsoft, Visa), the core execution compounding trajectory MUST carry the dominant empirical probability mass (typically 65% to 80%), with mild friction or outperformance weighted strictly in proportion to observable filing trends (10% to 20%).
 3. NO EMOJIS ANYWHERE: Output pure, clean semantic HTML.
 4. STRICT CASH FLOW EXTRACTION:
    - GAAP Operating Cash Flow (OCF) ($ Millions USD). NEVER use Financing Cash Flows or Net Income as OCF.
@@ -1082,7 +1088,7 @@ Provide pure semantic HTML containing ONLY Section 1 and Section 2:
 
 <!-- Repeat callout box for each of the N paths (Path 1, Path 2, ... Path N) -->
 <div class="callout">
-  <h3>Path 1: [Bespoke Company-Specific Title]</h3>
+  <h3>Path 1: [Bespoke Company-Specific Title - Core Execution]</h3>
   <p>[1-2 sentence executive summary of this path's operational mechanism...]</p>
   <p>[Full narrative explanation of this operating trajectory...]</p>
   <p><strong>Operational Drivers &amp; Revenue:</strong> [Segment revenue drivers in $ USD...]</p>
@@ -1123,34 +1129,36 @@ RESEARCH DOSSIER CONTEXT:
 YOUR TASK:
 Formulate Section 3: Normalized Owner Earnings Multiple & Yield Inversion Valuation and the final structured JSON block.
 
-STRICT MULTI-YEAR COMPOUNDING VALUATION & FIRST-PRINCIPLES RULES:
-1. Multi-Year Compounding Alignment (NO CONTRADICTORY BULL CASE NEGATIVE RETURNS):
-   - For each Path i, explicitly define its 5-Year Owner Earnings Compounding Rate (CAGR_OE) derived directly from Section 2's operational narrative!
+STRICT LEVEL-HEADED MULTI-YEAR VALUATION RULES:
+1. STRICT ZERO-PRICE-ANCHORING MANDATE (BLIND FIRST-PRINCIPLES APPRAISAL):
+   - You MUST derive starting OE₀, projected 5-year CAGR, and terminal multiples 100% blind to today's market price (${current_price:.2f}).
+   - Under NO circumstances should you back-solve, anchor, cluster, or reverse-engineer intrinsic values to align with current market quotations.
+   - Intrinsic valuation must be an un-biased, fundamental capitalization of business cash flows and balance sheet strength. Market price is used strictly to calculate the comparative margin of safety.
+2. Multi-Year Compounding Alignment (REALISTIC OPERATIONAL DISPERSION):
+   - For each Path i, explicitly define its 5-Year Owner Earnings Compounding Rate (CAGR_OE) derived directly from Section 2's realistic operational parameters!
    - Compute Projected Year-5 Owner Earnings per Share (OE₅) = OE₀ * (1 + CAGR_OE)^5.
-     * Bull / Breakthrough paths MUST project accelerated earnings compounding (e.g. +15% to +25%/yr), resulting in a substantial positive 5Y expected target return (+40% to +120%, +8% to +20%/yr CAGR).
-     * Base / Compounding paths reflect normalized business execution (e.g. +8% to +14%/yr).
-     * Bear / Friction paths project margin contraction or stagnation (e.g. -2% to +4%/yr).
-2. Terminal Multiple & 5-Year Target Value:
-   - Assign terminal P/OE₅ multiple (e.g. 15x, 22x, 28x) commensurate with the steady-state ROIC and moat durability of that path at Year 5.
+     * Core Execution (Path 1): Steady baseline compounding matching management guidance and run-rate (e.g. +9% to +13%/yr OE CAGR).
+     * Mild Friction / Margin Drag (Path 2): A bit of revenue miss and mild margin compression (e.g. +3% to +6%/yr OE CAGR).
+     * Operating Leverage / Upside (Path 3): Realistic efficiency and revenue outperformance (e.g. +14% to +17%/yr OE CAGR).
+   - NEVER use wild, unrealistic CAGR swings (e.g. no -25% or +50%/yr).
+3. Terminal Multiple & 5-Year Target Value:
+   - Assign sober terminal P/OE₅ multiples (e.g. 17x–26x) commensurate with the steady-state ROIC and moat durability of that path at Year 5.
    - 5-Year Target Price per Share (P₅) = (Assigned Terminal Multiple * Projected OE₅ per share) + Net Surplus Cash per share (or - Net Debt per share).
    - 5-Year Annualized Price CAGR (%) = ((P₅ / Current Price)^(1/5) - 1) * 100%.
    - Total 5-Year Return (%) = ((P₅ - Current Price) / Current Price) * 100%.
-3. Discounted Present Fair Value (PV at 9.5% Hurdle Rate):
+4. Discounted Present Fair Value (PV at 9.5% Hurdle Rate):
    - Present Intrinsic Fair Value (P₀) = P₅ / (1.095)^5.
    - Margin of Safety (%) vs Current Price = ((P₀ - Current Price) / Current Price) * 100%.
-4. RIGOROUS EMPIRICAL PROBABILITY DISTRIBUTION MANDATE:
-   - You MUST assign probability weights (p₁, ..., pN summing strictly to 100%) grounded directly in empirical evidence from audited statutory filings (10-K, 10-Q), contracted backlog visibility, and recent management earnings commentary.
-   - NEVER default to lazy, arbitrary distributions like 50/25/25, 33/33/33, or symmetrical triads.
-   - For wide-moat compounders with massive backlogs (e.g. Alphabet, Microsoft, Visa):
-     * The primary compounding path carries the dominant empirical weight (65% to 80%).
-     * Friction paths carry realistic downside risk weight (10% to 20%).
-     * Breakthrough paths carry tail upside weight (10% to 15%).
-   - You MUST include a dedicated callout explicitly explaining the empirical filing basis for each assigned probability weight!
-5. Probability-Weighted Target & Expected Fair Value:
+5. RIGOROUS EMPIRICAL PROBABILITY DISTRIBUTION MANDATE:
+   - Assign probability weights (p₁, ..., pN summing strictly to 100%) grounded directly in empirical evidence from audited statutory filings (10-K, 10-Q), contracted backlog visibility, and recent management earnings commentary.
+   - Core compounding execution carries dominant empirical weight (65% to 80%).
+   - Mild friction and mild upside carry realistic risk/opportunity weights (10% to 20%).
+   - Include a dedicated callout explaining the empirical filing basis for each assigned probability weight!
+6. Probability-Weighted Target & Expected Fair Value:
    - Expected 5Y Target Price = sum(p_i * P₅_i).
    - Expected Present Fair Value = sum(p_i * P₀_i).
    - Expected Margin of Safety (%) = ((Expected Present Fair Value - Current Stock Price) / Current Stock Price) * 100%.
-6. NO EMOJIS ANYWHERE: Output pure semantic HTML.
+7. NO EMOJIS ANYWHERE: Output pure semantic HTML.
 
 OUTPUT FORMAT:
 Provide pure semantic HTML containing Section 3, followed by the complete structured JSON block:
@@ -1164,9 +1172,9 @@ Provide pure semantic HTML containing Section 3, followed by the complete struct
     <tr>
       <th>Valuation Metric / Driver</th>
       <!-- Dynamic columns for Path 1 .. Path N -->
-      <th>Path 1</th>
-      <th>Path 2</th>
-      <th>Path 3</th>
+      <th>Path 1: Core Execution</th>
+      <th>Path 2: Mild Friction</th>
+      <th>Path 3: Operating Leverage</th>
     </tr>
   </thead>
   <tbody>
@@ -1177,11 +1185,11 @@ Provide pure semantic HTML containing Section 3, followed by the complete struct
     <tr><td>Implied Terminal Owner Cash Yield (%)</td><td>X.X%</td><td>X.X%</td><td>X.X%</td></tr>
     <tr><td>Net Balance Sheet Cash / (Debt) per share Adjustment</td><td>+$XX.XX or -$XX.XX</td><td>+$XX.XX or -$XX.XX</td><td>+$XX.XX or -$XX.XX</td></tr>
     <tr><td><strong>5-Year Target Price / Share</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td><td><strong>$XX.XX</strong></td></tr>
-    <tr><td>Expected 5-Year Annualized CAGR (vs. ${current_price:.2f})</td><td>+XX.X% / yr</td><td>-XX.X% / yr</td><td>+XX.X% / yr</td></tr>
+    <tr><td>Expected 5-Year Annualized CAGR (vs. ${current_price:.2f})</td><td>+XX.X% / yr</td><td>-X.X% / yr</td><td>+XX.X% / yr</td></tr>
     <tr><td>Total 5-Year Expected Return (%)</td><td>+XX.X%</td><td>-XX.X%</td><td>+XX.X%</td></tr>
     <tr><td>Present Intrinsic Fair Value (at 9.5% hurdle rate)</td><td>$XX.XX</td><td>$XX.XX</td><td>$XX.XX</td></tr>
     <tr><td>Margin of Safety vs. Current Price (${current_price:.2f})</td><td>+XX.X% or -XX.X%</td><td>+XX.X% or -XX.X%</td><td>+XX.X% or -XX.X%</td></tr>
-    <tr><td>Probability Weight &amp; Empirical Basis (%)</td><td>XX% (Contracted Backlog / Core Execution)</td><td>XX% (Observable Friction Risk)</td><td>XX% (Upside Tail Inflection)</td></tr>
+    <tr><td>Probability Weight &amp; Empirical Basis (%)</td><td>XX% (Contracted Backlog / Core Guidance)</td><td>XX% (Mild CapEx / Pricing Drag)</td><td>XX% (Operational Efficiency Leverage)</td></tr>
   </tbody>
 </table>
 
@@ -1882,6 +1890,30 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     # Local Harmonization, QA & Structural Integrity
     # ------------------------------------------------------------------
     print(f"\n🛡️ [HARMONIZER & QA] Assembling seamless thesis dossier and verifying structural integrity...", flush=True)
+    
+    # Rigorous Thesis Completeness & Quality Gate
+    is_complete = True
+    issues = []
+    if len(sec1_clean.split()) < 300:
+        is_complete = False
+        issues.append(f"Section 1 word count too low ({len(sec1_clean.split())} words)")
+    if len(sec2_clean.split()) < 250:
+        is_complete = False
+        issues.append(f"Section 2 word count too low ({len(sec2_clean.split())} words)")
+    if len(sec3_clean.split()) < 100 or "<table" not in sec3_clean:
+        is_complete = False
+        issues.append("Section 3 Valuation Table missing or incomplete")
+    if len(stories_metadata) < 2:
+        is_complete = False
+        issues.append(f"Derived {len(stories_metadata)} paths (minimum 2 required)")
+        
+    if not is_complete:
+        print(f"  ⚠️ [THESIS INTEGRITY WARNING] Incomplete thesis detected: {', '.join(issues)}. Triggering instant valuation self-healing...", flush=True)
+        raw_agent2_output = call_gemini_with_search(agent2_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False)
+        sec3_clean, val_json, stories_metadata = parse_sec3_and_json(
+            raw_agent2_output, company_name, current_price, sec1_text=sec1_clean, sec2_text=sec2_clean
+        )
+    
     raw_full_html = f"{sec1_clean}\n\n{sec2_clean}\n\n{sec3_clean}"
     full_html = verify_and_repair_html_structure(raw_full_html)
 
