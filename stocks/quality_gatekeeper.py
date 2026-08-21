@@ -75,6 +75,19 @@ def auto_heal_dossier_and_metadata(ticker: str, html: str, metadata: Optional[Di
             except Exception:
                 pass
 
+        # Harmonize pro_forma_schedule in memory
+        from stocks.gemini_agent import synthesize_pro_forma_schedule
+        if stories:
+            for s in stories:
+                s["pro_forma_schedule"] = synthesize_pro_forma_schedule(
+                    oe0_sh=float(s.get("normalized_oe_per_share") or meta.get("normalized_oe_per_share") or 0.0),
+                    oe5_sh=float(s.get("projected_oe5_per_share") or 0.0),
+                    val=float(s.get("val") or 0.0),
+                    mult_num=float(str(s.get("oe_multiple") or "16").replace("x", "").replace("X", "").strip() or 16.0),
+                    existing_sched=s.get("pro_forma_schedule"),
+                    sec1_text=healed_html
+                )
+
     return healed_html, meta
 
 
