@@ -1,1 +1,376 @@
-{}
+{
+  "APP": {
+    "ticker": "APP",
+    "company_name": "Applovin Corporation",
+    "baseline_price": 308.77,
+    "current_price": 308.77,
+    "return_pct": 0.0,
+    "status_label": "Wide Moat",
+    "moat_label": "Narrow Moat",
+    "labels": [
+      "Wide Moat"
+    ],
+    "action_signal": "HOLD",
+    "fair_value_estimate": "$317.47",
+    "expected_fair_value": "$317.47",
+    "expected_val": 317.47,
+    "stories": [
+      {
+        "story_num": 1,
+        "id": 1,
+        "story_title": "AXON 2.0 Engine Compounding & Enterprise Self-Service Ad Network Expansion",
+        "title": "AXON 2.0 Engine Compounding & Enterprise Self-Service Ad Network Expansion",
+        "short_summary": "AppLovin leverages its wide-moat AXON 2.0 AI recommendation engine and MAX mediation platform to maintain leadership in mobile performance advertising while expanding self-service DTC and web advertiser channels. Steady, mature operational drift yields robust owner cash flows and steady share count reduction.",
+        "summary": "AppLovin leverages its wide-moat AXON 2.0 AI recommendation engine and MAX mediation platform to maintain leadership in mobile performance advertising while expanding self-service DTC and web advertiser channels. Steady, mature operational drift yields robust owner cash flows and steady share count reduction.",
+        "oe_multiple": "22.0x",
+        "oe_yield": "4.6%",
+        "terminal_multiple": "22.0x",
+        "val": 501.5,
+        "present_fair_value": 318.57,
+        "mos_pct": 3.2,
+        "target_5y_return_pct": 62.4,
+        "target_5y_cagr_pct": 10.2,
+        "target": "$501.50 (+62.4%)",
+        "prob_pct": 55.0,
+        "prob_weight": 0.55,
+        "net_cash_per_share": -3.0,
+        "normalized_oe_per_share": 10.96,
+        "projected_oe5_per_share": 22.95,
+        "projected_5y_cagr": "+12.8%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            5480.7,
+            6222.8,
+            7065.4,
+            8022.0,
+            9108.2,
+            10341.5
+          ],
+          "gross_margin_pct": [
+            87.9,
+            88.7,
+            89.5,
+            90.3,
+            91.1,
+            91.9
+          ],
+          "operating_income_mil": [
+            3562.5,
+            4044.8,
+            4592.5,
+            5214.3,
+            5920.3,
+            6722.0
+          ],
+          "operating_margin_pct": [
+            65.0,
+            65.0,
+            65.0,
+            65.0,
+            65.0,
+            65.0
+          ],
+          "normalized_net_income_mil": [
+            3935.7,
+            4454.7,
+            5038.9,
+            5703.0,
+            6453.2,
+            7301.5
+          ],
+          "owner_earnings_mil": [
+            3748.3,
+            4242.6,
+            4799.0,
+            5431.4,
+            6145.9,
+            6953.8
+          ],
+          "diluted_shares_mil": [
+            342.0,
+            333.8,
+            325.8,
+            318.0,
+            310.4,
+            303.0
+          ],
+          "oe_per_share": [
+            10.96,
+            12.71,
+            14.73,
+            17.08,
+            19.8,
+            22.95
+          ],
+          "roic_pct": [
+            25.0,
+            28.2,
+            31.4,
+            34.6,
+            37.7,
+            40.9
+          ]
+        },
+        "oe5": 22.95,
+        "cagr": "+12.8%",
+        "multiple": "22.0x"
+      },
+      {
+        "story_num": 2,
+        "id": 2,
+        "story_title": "AXON Non-Gaming Friction, Compute Cost Inflation & Take-Rate Compression",
+        "title": "AXON Non-Gaming Friction, Compute Cost Inflation & Take-Rate Compression",
+        "short_summary": "AppLovin experiences natural growth deceleration to +4.0% by Year 5 as non-gaming DTC expansion encounters competitive friction and core mobile gaming ad spend matures. Operating margins compress 580 bps to 70.0% under higher GPU compute infrastructure costs, generating $15.18 in Year-5 Owner Earnings per share.",
+        "summary": "AppLovin experiences natural growth deceleration to +4.0% by Year 5 as non-gaming DTC expansion encounters competitive friction and core mobile gaming ad spend matures. Operating margins compress 580 bps to 70.0% under higher GPU compute infrastructure costs, generating $15.18 in Year-5 Owner Earnings per share.",
+        "oe_multiple": "16.0x",
+        "oe_yield": "6.3%",
+        "terminal_multiple": "16.0x",
+        "val": 239.83,
+        "present_fair_value": 152.35,
+        "mos_pct": -50.7,
+        "target_5y_return_pct": -22.3,
+        "target_5y_cagr_pct": -4.9,
+        "target": "$239.83 (-22.3%)",
+        "prob_pct": 25.0,
+        "prob_weight": 0.25,
+        "net_cash_per_share": -3.0,
+        "normalized_oe_per_share": 10.96,
+        "projected_oe5_per_share": 15.18,
+        "projected_5y_cagr": "+6.7%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            5480.7,
+            5794.3,
+            6125.8,
+            6476.3,
+            6846.9,
+            7238.6
+          ],
+          "gross_margin_pct": [
+            87.9,
+            88.2,
+            88.6,
+            88.9,
+            89.2,
+            89.6
+          ],
+          "operating_income_mil": [
+            3562.5,
+            3766.3,
+            3981.8,
+            4209.6,
+            4450.5,
+            4705.1
+          ],
+          "operating_margin_pct": [
+            65.0,
+            65.0,
+            65.0,
+            65.0,
+            65.0,
+            65.0
+          ],
+          "normalized_net_income_mil": [
+            3935.7,
+            4158.4,
+            4394.7,
+            4642.7,
+            4903.3,
+            5181.8
+          ],
+          "owner_earnings_mil": [
+            3748.3,
+            3960.4,
+            4185.4,
+            4421.6,
+            4669.8,
+            4935.0
+          ],
+          "diluted_shares_mil": [
+            342.0,
+            338.5,
+            335.1,
+            331.7,
+            328.4,
+            325.1
+          ],
+          "oe_per_share": [
+            10.96,
+            11.7,
+            12.49,
+            13.33,
+            14.22,
+            15.18
+          ],
+          "roic_pct": [
+            25.0,
+            26.3,
+            27.7,
+            29.0,
+            30.4,
+            31.7
+          ]
+        },
+        "oe5": 15.18,
+        "cagr": "+6.7%",
+        "multiple": "16.0x"
+      },
+      {
+        "story_num": 3,
+        "id": 3,
+        "story_title": "AXON 2.0 Non-Gaming Expansion & Self-Serve Ad-Tech Flywheel Supercycle",
+        "title": "AXON 2.0 Non-Gaming Expansion & Self-Serve Ad-Tech Flywheel Supercycle",
+        "short_summary": "AXON 2.0 successfully expands from mobile gaming into direct-to-consumer e-commerce and open-web performance marketing, accelerating revenue growth to a 21.5% CAGR while asset-light operating leverage expands operating margins to 78.8% and Year-5 Owner Earnings to $34.31 per share.",
+        "summary": "AXON 2.0 successfully expands from mobile gaming into direct-to-consumer e-commerce and open-web performance marketing, accelerating revenue growth to a 21.5% CAGR while asset-light operating leverage expands operating margins to 78.8% and Year-5 Owner Earnings to $34.31 per share.",
+        "oe_multiple": "24.0x",
+        "oe_yield": "4.2%",
+        "terminal_multiple": "24.0x",
+        "val": 820.01,
+        "present_fair_value": 520.89,
+        "mos_pct": 68.7,
+        "target_5y_return_pct": 165.6,
+        "target_5y_cagr_pct": 21.6,
+        "target": "$820.01 (+165.6%)",
+        "prob_pct": 20.0,
+        "prob_weight": 0.2,
+        "net_cash_per_share": -3.0,
+        "normalized_oe_per_share": 10.96,
+        "projected_oe5_per_share": 34.31,
+        "projected_5y_cagr": "+21.5%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            5480.7,
+            6675.1,
+            8129.8,
+            9901.4,
+            12059.2,
+            14687.2
+          ],
+          "gross_margin_pct": [
+            87.9,
+            89.2,
+            90.5,
+            91.7,
+            92.0,
+            92.0
+          ],
+          "operating_income_mil": [
+            3562.5,
+            4338.8,
+            5284.4,
+            6435.9,
+            7838.5,
+            9546.7
+          ],
+          "operating_margin_pct": [
+            65.0,
+            65.0,
+            65.0,
+            65.0,
+            65.0,
+            65.0
+          ],
+          "normalized_net_income_mil": [
+            3935.7,
+            4754.0,
+            5743.8,
+            6939.5,
+            8381.8,
+            10126.7
+          ],
+          "owner_earnings_mil": [
+            3748.3,
+            4527.6,
+            5470.3,
+            6609.0,
+            7982.7,
+            9644.5
+          ],
+          "diluted_shares_mil": [
+            342.0,
+            328.8,
+            316.2,
+            304.0,
+            292.3,
+            281.1
+          ],
+          "oe_per_share": [
+            10.96,
+            13.77,
+            17.3,
+            21.74,
+            27.31,
+            34.31
+          ],
+          "roic_pct": [
+            25.0,
+            30.1,
+            35.3,
+            40.4,
+            45.5,
+            50.0
+          ]
+        },
+        "oe5": 34.31,
+        "cagr": "+21.5%",
+        "multiple": "24.0x"
+      }
+    ],
+    "story1_target": "$501.50 (+62.4%)",
+    "story2_target": "$239.83 (-22.3%)",
+    "story3_target": "$820.01 (+165.6%)",
+    "story1_title": "AXON 2.0 Engine Compounding & Enterprise Self-Service Ad Network Expansion",
+    "story2_title": "AXON Non-Gaming Friction, Compute Cost Inflation & Take-Rate Compression",
+    "story3_title": "AXON 2.0 Non-Gaming Expansion & Self-Serve Ad-Tech Flywheel Supercycle",
+    "bear_target": "$239.83",
+    "base_target": "$317.47",
+    "bull_target": "$820.01",
+    "what_is_priced_in": "28.2x",
+    "upper_alert_threshold": 820.01,
+    "lower_alert_threshold": 239.83,
+    "next_catalyst_date": "2026-11-04",
+    "next_catalyst_event": "Q3 FY26 Earnings Release",
+    "top_funds": [
+      "Pat Dorsey - Dorsey Asset Management (14.50)",
+      "Stephen Mandel - Lone Pine Capital (3.28)",
+      "Terry Smith - Fundsmith (2.63)",
+      "Christopher Davis - Davis Advisors (0.70)"
+    ],
+    "institutional_ownership_pct": "4 Whales",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Routine 10b5-1 transactions across 100 Form 4 filings.",
+    "pricing_power_tier": "Strong Pricing Power",
+    "pricing_power_score": "Inelastic Demand \u00b7 Low Churn",
+    "pricing_power_summary": "Strong Pricing Power: Underwritten via Buffett & Munger pricing power framework.",
+    "predictability_tier": "Moderate Predictability",
+    "predictability_score": "Manageable Visibility \u00b7 Moat Protected",
+    "predictability_summary": "Moderate Predictability: Underwritten via 10-year visibility framework.",
+    "last_updated": "2026-08-21",
+    "total_versions": 1,
+    "report_path": "reports/APP.html"
+  }
+}
