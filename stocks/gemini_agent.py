@@ -1243,6 +1243,59 @@ Provide pure semantic HTML containing Section 3, followed by the complete struct
 """
 
 
+AGENT_RED_TEAM_FEEDBACK_PROMPT = """Target: {ticker} ({company_name})
+Current Market Price: ${current_price:.2f}
+
+You are the Senior Buy-Side Red-Team Auditor.
+Your task is to ruthlessly critique the draft Premise (Section 1) and Forward-Looking Storylines & Operational Assumptions (Section 2) for {company_name}.
+
+DRAFT SECTION 1 & SECTION 2:
+======================================================================
+{sec1_and_sec2_draft}
+======================================================================
+
+Search Google, audited 10-K/10-Q filings, recent earnings call transcripts, and contracted customer backlogs to audit:
+1. STACKED HYPER-CONSERVATISM & GROWTH REALISM:
+   - Does Path 1 (Core Execution) assume an artificial growth cliff (e.g. 4%–6% growth when the company is actively compounding 15%–25% with record enterprise backlog)?
+   - Are Maintenance CapEx and SBC deductions realistic, or is growth/expansion CapEx being double-counted as maintenance?
+   - Are balance sheet marketable assets unfairly discounted?
+2. UNIT OPERATIONAL DRIVERS & MARGINS:
+   - Are revenue growth numbers backed by concrete operational unit metrics (volume * pricing, backlog conversion, seat pricing, unit cost declines)?
+   - Are margin shifts realistic given fixed-cost absorption or genuine cost headwinds?
+3. EMPIRICAL PROBABILITY WEIGHTING AUDIT:
+   - Does the core compounding path receive the dominant probability mass (65%–80%) for fortress, high-ROIC compounders?
+   - Are downside friction or upside paths weighted in direct proportion to real filing evidence rather than arbitrary splits?
+
+Deliver a crisp, actionable Buy-Side Red-Team Critique Memo with specific factual corrections and guidance for refining Section 1 and Section 2.
+"""
+
+AGENT_STORYLINE_REFINEMENT_PROMPT = """Target: {ticker} ({company_name})
+Current Market Price: ${current_price:.2f}
+
+You are the Lead Equity Research Director & Institutional Buy-Side Grounded Researcher.
+You are given the Draft Section 1 & Section 2 and the Independent Red-Team Critique Memo for {company_name}.
+
+DRAFT SECTION 1 & SECTION 2:
+======================================================================
+{sec1_and_sec2_draft}
+======================================================================
+
+RED-TEAM CRITIQUE MEMO:
+======================================================================
+{critique_memo}
+======================================================================
+
+YOUR TASK:
+Incorporate the red-team critique directives and produce the final, polished, and reality-grounded Section 1 (The Premise) and Section 2 (The Probable Future Paths).
+
+CRITICAL REQUIREMENTS:
+1. Ground every storyline strictly in concrete bottom-up operational unit metrics (volume * pricing, backlog conversion, cost leverage).
+2. Eliminate any stacked hyper-conservatism or artificial growth cliffs in the Core Base Case (Path 1).
+3. Ensure probability weights (p₁, ..., pN summing to 100%) are empirically grounded in contracted backlogs and 10-K disclosures.
+4. Output pure semantic HTML containing ONLY Section 1 and Section 2 starting with <h2>Section 1: The Premise of the Company</h2>.
+"""
+
+
 AGENT_5_ADJUDICATION_PROMPT = """Target: {ticker} ({company_name})
 Current Market Price: ${current_price:.2f}
 
@@ -1868,6 +1921,40 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     sec1_clean, sec2_clean = split_sec1_and_sec2(raw_agent1_output, company_name)
     words_agent1 = len(sec1_clean.split()) + len(sec2_clean.split())
     print(f"   │ Status: Section 1 & Section 2 drafted ({words_agent1} words)", flush=True)
+
+    # ------------------------------------------------------------------
+    # Agent 1.5: Search-Grounded Red-Team Feedback (Storylines & Assumptions)
+    # ------------------------------------------------------------------
+    print(f"\n🧐 [RED-TEAM FEEDBACK AGENT] Stress-testing storylines, unit assumptions & probability weights...", flush=True)
+    feedback_prompt = AGENT_RED_TEAM_FEEDBACK_PROMPT.format(
+        ticker=ticker_clean,
+        company_name=company_name,
+        current_price=current_price,
+        sec1_and_sec2_draft=f"{sec1_clean}\n\n{sec2_clean}"
+    )
+    critique_memo = call_gemini_with_search(feedback_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=True)
+    words_critique = len(critique_memo.split())
+    print(f"   │ Status: Red-Team Critique Memo generated ({words_critique} words)", flush=True)
+
+    # ------------------------------------------------------------------
+    # Agent 1.8: Search-Grounded Storyline Refinement & Improvement
+    # ------------------------------------------------------------------
+    print(f"\n🔧 [STORYLINE IMPROVEMENT AGENT] Refining Section 1 & Section 2 against Red-Team feedback...", flush=True)
+    refinement_prompt = AGENT_STORYLINE_REFINEMENT_PROMPT.format(
+        ticker=ticker_clean,
+        company_name=company_name,
+        current_price=current_price,
+        sec1_and_sec2_draft=f"{sec1_clean}\n\n{sec2_clean}",
+        critique_memo=critique_memo
+    )
+    raw_refined_output = call_gemini_with_search(refinement_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=True)
+    ref_sec1, ref_sec2 = split_sec1_and_sec2(raw_refined_output, company_name)
+    if len(ref_sec1.split()) >= 300 and len(ref_sec2.split()) >= 250:
+        sec1_clean, sec2_clean = ref_sec1, ref_sec2
+        words_refined = len(sec1_clean.split()) + len(sec2_clean.split())
+        print(f"   │ Status: Section 1 & Section 2 perfected ({words_refined} words)", flush=True)
+    else:
+        print(f"   │ Status: Preserved robust Agent 1 draft ({words_agent1} words)", flush=True)
 
     # ------------------------------------------------------------------
     # Agent 2: Buffett Owner Earnings Multiple Valuation Engine
