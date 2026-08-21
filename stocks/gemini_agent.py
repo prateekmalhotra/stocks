@@ -1256,19 +1256,19 @@ STRICT VALUATION & LINE-BY-LINE BUFFETT MODELING RULES:
      * Ground compounding in the observable business trend, guidance corridors, and realistic capacity limits.
      * Downside paths model realistic operational friction (e.g. -2% to -6% comp drag, 100-200 bps margin compression), NOT an artificial total collapse.
      * Upside paths model realistic execution outperformance (e.g. +2% to +5% above trend, 100-150 bps operating leverage), NOT an impossible moonshot.
-2. MANDATORY LINE-BY-LINE PYTHON CODE EXECUTION (YEARS 1 TO 5):
-   - You MUST write and execute Python code using your code execution tool to simulate every row across Years 1 through 5:
+2. MANDATORY BOTTOM-UP PYTHON CODE EXECUTION (YEARS 1 TO 5):
+   - You MUST write and execute Python code using your code execution tool to simulate every row from bottom-up operational unit drivers:
      * Year 0 (Trailing Baseline), Year 1, Year 2, Year 3, Year 4, Year 5.
-     * Line 1: Segment Revenues & Volume/Pricing Drivers -> Total Revenue ($M).
-     * Line 2: Cost of Goods Sold (COGS) & Gross Margin % (accounting for tariffs and product mix).
-     * Line 3: SG&A & Operating Expenses -> Operating Income (EBIT) & Operating Margin %.
-     * Line 4: Effective Taxes (20%-22%) & Net Interest -> Normalized Net Income.
-     * Line 5: Warren Buffett True Owner Earnings = GAAP Operating Cash Flow - Maintenance CapEx - 100% Stock-Based Compensation. (For retail store fleets, restaurants, and apparel, Maintenance CapEx MUST cover periodic store remodels and IT upkeep, empirically anchored to D&A at ~50%–70% of total CapEx; for pure software/platforms, ~25%–40% of CapEx)..
-     * Line 6: Capital Allocation & Share Count Roll-Forward: Retained free cash used for buybacks -> Diluted Shares Outstanding (Mil) from Y0 to Y5.
-     * Line 7: Per-Share Owner Earnings = Total Owner Earnings / Diluted Shares.
-     * Line 8: Invested Capital & Year-5 ROIC (NOPAT / Invested Capital).
+     * Line 1: Explicit Unit Drivers to Segment Revenue: Define comps %, store count rollout, unit volume, and ASP to derive Segment Revenues -> Consolidated Revenue ($M).
+     * Line 2: COGS & Gross Margin % (accounting for tariffs, freight, and product mix) -> Gross Profit ($M).
+     * Line 3: SG&A & Operating Expenses (modeling fixed overhead absorption/deleverage) -> Operating Income (EBIT) & Operating Margin %.
+     * Line 4: Effective Taxes (20%-22%) & Net Interest -> Normalized Net Income ($M).
+     * Line 5: Warren Buffett True Owner Earnings = GAAP Operating Cash Flow - Maintenance CapEx - 100% Stock-Based Compensation. (For retail store fleets, restaurants, and apparel, Maintenance CapEx MUST cover periodic store remodels and IT upkeep, empirically anchored to D&A at ~50%–70% of total CapEx; for pure software/platforms, ~25%–40% of CapEx).
+     * Line 6: Capital Allocation & Share Cannibalization: Retained Owner Earnings deployed into share buybacks at projected fair value -> Diluted Shares Outstanding (Mil) from Y0 to Y5.
+     * Line 7: Per-Share Owner Earnings = Total Owner Earnings_t / Diluted Shares_t ($ USD/share).
+     * Line 8: Invested Capital & Year-5 ROIC = NOPAT_5 / Invested Capital_5 (%).
 3. DERIVE JUSTIFIED EXIT MULTIPLE (M₅ = P/OE₅):
-   - Terminal capitalization multiple MUST be justified by Year-5 ROIC and terminal growth rate g: M₅ = (1 - g/ROIC_5) / (r - g) with r = 9.5%, bounded by sector multiple caps (12.0x - 15.0x for consumer retail/footwear; 18.0x - 22.0x for tech/platforms).
+   - Terminal capitalization multiple MUST be mathematically justified by Year-5 ROIC and terminal growth rate g: M₅ = (1 - g/ROIC_5) / (r - g) with r = 9.5% equity hurdle rate, bounded by sector multiple caps (12.0x - 15.0x for consumer retail/footwear; 18.0x - 22.0x for tech/platforms).
 4. 5-YEAR TARGET PRICE & PRESENT FAIR VALUE:
    - 5-Year Target Price / Share (P₅) = (M₅ * OE₅_per_share) + Net Surplus Cash per share (or - Net Debt per share).
    - Present Intrinsic Fair Value (P₀ at 9.5% Hurdle) = P₅ / (1.095)^5.
