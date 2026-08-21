@@ -15,6 +15,42 @@ from bs4 import BeautifulSoup, NavigableString, Tag
 PUBLIC_DIR = Path(__file__).resolve().parent.parent / "public"
 REPORTS_DIR = PUBLIC_DIR / "reports"
 
+CANONICAL_COMPANY_NAMES = {
+    "AMZN": "Amazon.com, Inc.",
+    "APP": "AppLovin Corporation",
+    "BABA": "Alibaba Group Holding Ltd.",
+    "BMBL": "Bumble Inc.",
+    "BVHMF": "Becle, S.A.B. de C.V. (Cuervo)",
+    "BYD": "BYD Company Limited",
+    "CELH": "Celsius Holdings, Inc.",
+    "CPRT": "Copart, Inc.",
+    "CROX": "Crocs, Inc.",
+    "EDU": "New Oriental Education & Tech",
+    "GCT": "GigaCloud Technology Inc.",
+    "GOOG": "Alphabet Inc.",
+    "GOOGL": "Alphabet Inc.",
+    "JD": "JD.com, Inc.",
+    "LGCY": "Legacy Education Inc.",
+    "LULU": "Lululemon Athletica Inc.",
+    "MELI": "MercadoLibre, Inc.",
+    "META": "Meta Platforms, Inc.",
+    "MSFT": "Microsoft Corporation",
+    "MTCH": "Match Group, Inc.",
+    "PDD": "PDD Holdings Inc. (Temu)",
+    "PYPL": "PayPal Holdings, Inc.",
+    "RDDT": "Reddit, Inc.",
+    "STNE": "StoneCo Ltd."
+}
+
+
+def get_canonical_company_name(ticker: str, fallback_name: str = "") -> str:
+    clean_t = (ticker or "").upper().strip()
+    if clean_t in CANONICAL_COMPANY_NAMES:
+        return CANONICAL_COMPANY_NAMES[clean_t]
+    if fallback_name and fallback_name.upper().strip() != clean_t:
+        return fallback_name.strip().rstrip(".")
+    return clean_t
+
 
 def _ensure_dirs():
     PUBLIC_DIR.mkdir(parents=True, exist_ok=True)
@@ -3209,7 +3245,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                             {labels_html}
                         </span>
                     </div>
-                    <div class="company-meta">{stock.company_name}</div>
+                    <div class="company-meta">{get_canonical_company_name(stock.ticker, stock.company_name)}</div>
                 </div>
                 <div class="price-callout">
                     <div class="price-number">${(stock.current_price if stock.current_price is not None else 0.0):.2f}</div>
@@ -3452,8 +3488,8 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
         labels_html = format_labels_pills(stock.labels or [stock.status_label])
         stock_beacon = format_action_beacon(getattr(stock, "action_signal", None)) if stock.total_versions > 1 else ""
         
-        # Clean company name (preserve full name like JD.com, Inc. without cutting ticker prefix)
-        clean_company = (stock.company_name or stock.ticker).strip().rstrip(".")
+        # Clean company name (preserve canonical full name like Amazon.com, Inc.)
+        clean_company = get_canonical_company_name(stock.ticker, stock.company_name)
 
         # Clean percentage delta and fair value display (prefer Present Fair Value)
         fv_raw = getattr(stock, "present_fair_value", None) or getattr(stock, "expected_fair_value", None) or stock.fair_value_estimate
