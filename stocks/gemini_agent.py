@@ -1630,7 +1630,7 @@ def strip_conversational_filler(html: str) -> str:
 
 
 def call_claude_evaluator(ticker: str, company_name: str, thesis_html: str) -> str:
-    """Submits the full draft thesis to Claude Sonnet 5 with medium thinking for an independent buy-side critique."""
+    """Submits the full draft thesis to Claude Sonnet 5 with medium thinking and Google Search tool capability for buy-side critique."""
     api_key = os.environ.get("ANTHROPIC_API_KEY")
     if not api_key:
         try:
@@ -1652,30 +1652,92 @@ def call_claude_evaluator(ticker: str, company_name: str, thesis_html: str) -> s
     
     prompt = f"Here is my thesis for {ticker} ({company_name}) stock what do you think?\n\n{thesis_html}"
     
-    payload = {
-        "model": "claude-sonnet-5",
-        "max_tokens": 4096,
-        "thinking": {
-            "type": "adaptive"
-        },
-        "output_config": {
-            "effort": "medium"
-        },
-        "messages": [
-            {"role": "user", "content": prompt}
-        ]
-    }
+    tools = [
+        {
+            "name": "google_search",
+            "description": "Searches Google for the latest stock filings, SEC 10-K/10-Q reports, earnings transcripts, market news, or competitor developments to fact-check or research the company.",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "query": {
+                        "type": "string",
+                        "description": "The search query to look up on Google"
+                    }
+                },
+                "required": ["query"]
+            }
+        }
+    ]
     
+    messages = [
+        {"role": "user", "content": prompt}
+    ]
+    
+    def _execute_search_query(q: str) -> str:
+        print(f"      🌐 [CLAUDE WEB SEARCH] Executing live search query: \"{q}\"...", flush=True)
+        try:
+            p = f"Search Google and provide an objective, factual summary with specific metrics, numbers, and dates for: {q}"
+            res = call_gemini_with_search(p, temperature=0.1, use_search=True)
+            return res[:3000]
+        except Exception as e:
+            return f"Search error: {str(e)}"
+
     try:
-        r = requests.post("https://api.anthropic.com/v1/messages", headers=headers, json=payload, timeout=120)
-        if r.status_code == 200:
+        max_tool_turns = 3
+        for turn in range(max_tool_turns):
+            payload = {
+                "model": "claude-sonnet-5",
+                "max_tokens": 4096,
+                "thinking": {
+                    "type": "adaptive"
+                },
+                "output_config": {
+                    "effort": "medium"
+                },
+                "tools": tools,
+                "messages": messages
+            }
+            
+            r = requests.post("https://api.anthropic.com/v1/messages", headers=headers, json=payload, timeout=120)
+            if r.status_code != 200:
+                print(f"   ⚠️ [CLAUDE API ERROR {r.status_code}] {r.text[:200]}", flush=True)
+                break
+                
             data = r.json()
-            content_blocks = data.get("content", [])
-            text_blocks = [b.get("text", "") for b in content_blocks if b.get("type") == "text"]
-            return "\n".join(text_blocks).strip()
-        else:
-            print(f"   ⚠️ [CLAUDE API ERROR {r.status_code}] {r.text[:200]}", flush=True)
-            return ""
+            stop_reason = data.get("stop_reason")
+            content = data.get("content", [])
+            
+            # Append assistant message
+            messages.append({"role": "assistant", "content": content})
+            
+            if stop_reason == "tool_use":
+                tool_results = []
+                for block in content:
+                    if block.get("type") == "tool_use":
+                        t_id = block.get("id")
+                        t_name = block.get("name")
+                        t_input = block.get("input", {})
+                        query = t_input.get("query", "")
+                        result_text = _execute_search_query(query)
+                        tool_results.append({
+                            "type": "tool_result",
+                            "tool_use_id": t_id,
+                            "content": result_text
+                        })
+                messages.append({"role": "user", "content": tool_results})
+            else:
+                text_blocks = [b.get("text", "") for b in content if b.get("type") == "text"]
+                return "\n".join(text_blocks).strip()
+                
+        # If loop finished through tool turns, extract any available text
+        for msg in reversed(messages):
+            if msg.get("role") == "assistant":
+                c = msg.get("content", [])
+                text_blocks = [b.get("text", "") for b in c if isinstance(b, dict) and b.get("type") == "text"]
+                if text_blocks:
+                    return "\n".join(text_blocks).strip()
+                    
+        return ""
     except Exception as e:
         print(f"   ⚠️ [CLAUDE API EXCEPTION] {str(e)}", flush=True)
         return ""
