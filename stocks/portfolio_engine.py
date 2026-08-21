@@ -612,13 +612,14 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
         })
 
     def_cash_dollars = round(total_capital - sum(h["allocated_dollars"] for h in def_holdings), 2)
+    def_cash_weight = round(def_cash_dollars / total_capital, 4) if total_capital > 0 else 1.0
     def_holdings.append({
         "ticker": "USD_CASH",
         "company_name": "USD Cash Reserve",
         "sector": "Cash & Cash Equivalents",
         "industry": "3-Month US Treasury Bills",
         "quality_score": 100.0,
-        "target_weight": exact_fid_cash,
+        "target_weight": def_cash_weight,
         "pillar": "CASH",
         "cost_basis": 1.0,
         "current_price": 1.0,
@@ -672,13 +673,14 @@ def construct_dual_portfolios(total_capital: float = 200000.0) -> Tuple[Dict[str
         })
 
     agg_cash_dollars = round(total_capital - sum(h["allocated_dollars"] for h in agg_holdings), 2)
+    agg_cash_weight = round(agg_cash_dollars / total_capital, 4) if total_capital > 0 else 1.0
     agg_holdings.append({
         "ticker": "USD_CASH",
         "company_name": "USD Cash Strike Reserve",
         "sector": "Cash & Cash Equivalents",
         "industry": "3-Month US Treasury Bills",
         "quality_score": 100.0,
-        "target_weight": exact_ws_cash,
+        "target_weight": agg_cash_weight,
         "pillar": "CASH",
         "cost_basis": 1.0,
         "current_price": 1.0,
