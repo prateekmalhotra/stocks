@@ -413,26 +413,16 @@ def extract_stories_from_agent2(raw_text: str, clean_html: str = "") -> list:
 
 def map_to_canonical_moat_label(lbl: str = "", sec1_text: str = "", default: str = "Narrow Moat") -> str:
     """Maps any input string, moat description, or Section 1 text to one of the 4 canonical Moat ratings:
-    1. Wide Moat: Insurmountable structural advantage (global 3B+ user social graphs like Meta, search monopolies like Alphabet, enterprise OS/cloud lock-in like Microsoft/Apple, payment tollbridges like Visa/Mastercard, rating duopolies like S&P Global/Moody's) sustaining excess returns for 20+ years (>30-40% operating margins).
-    2. Narrow Moat: Durable competitive advantage (retail fulfillment density like JD.com, social C2M aggregation like PDD/Temu, regional casino licenses like Boyd Gaming, brand affinity like Nike/Lululemon/Costco) sustaining excess returns for 10+ years. Consumer retail and competitive e-commerce platforms are bounded at Narrow Moat due to price competition and low switching costs.
+    1. Wide Moat: Insurmountable structural advantage (multi-sided digital network effects, search/OS monopolies, payment tollbridges, rating agency duopolies) sustaining excess returns for 20+ years (>30-40% operating margins).
+    2. Narrow Moat: Durable competitive advantage (scale density in logistics/fulfillment, regional licensing buffers, strong consumer brand equity) sustaining excess returns for 10+ years. Retail platforms, consumer apparel, and regional gaming are bounded at Narrow Moat due to price competition and low consumer switching costs.
     3. Weak Moat: Fragile or commoditized advantage vulnerable to fast-fashion decay or price wars.
     4. No Moat: Commoditized price-taker with zero structural barriers to entry.
     """
-    is_retail_or_gaming = False
-    combined_lower = f"{lbl or ''} {sec1_text or ''}".lower()
-    if any(w in combined_lower for w in ["apparel", "footwear", "athleisure", "clog", "shoes", "clothing", "fashion", "crocs", "lululemon", "heydude", "retail store", "casino", "gaming property", "regional casino"]):
-        is_retail_or_gaming = True
-
-    # 1. Structural Wide Moat digital graph / search / OS monopolies
-    if any(w in combined_lower for w in ["meta platforms", "facebook", "instagram", "whatsapp", "alphabet", "google search", "microsoft", "apple inc", "asml", "visa inc", "mastercard"]):
-        if not is_retail_or_gaming:
-            return "Wide Moat"
-
-    # 2. Direct explicit input label check
+    # 1. Direct explicit input label check
     if lbl and isinstance(lbl, str):
         clean_lbl = lbl.strip().upper()
         if clean_lbl in ["WIDE MOAT", "STRONG MOAT", "WIDE", "STRONG"]:
-            return "Narrow Moat" if is_retail_or_gaming else "Wide Moat"
+            return "Wide Moat"
         elif clean_lbl in ["NARROW MOAT", "MODERATE MOAT", "NARROW", "MODERATE"]:
             return "Narrow Moat"
         elif clean_lbl in ["WEAK MOAT", "VULNERABLE MOAT", "WEAK", "VULNERABLE", "FRAGILE"]:
@@ -441,16 +431,16 @@ def map_to_canonical_moat_label(lbl: str = "", sec1_text: str = "", default: str
             return "No Moat"
         for m in CANONICAL_MOAT_LABELS:
             if clean_lbl == m.upper():
-                return "Narrow Moat" if (m == "Wide Moat" and is_retail_or_gaming) else m
+                return m
 
-    # 3. Check explicit canonical phrases in Section 1 text
+    # 2. Check explicit canonical phrases and headers in Section 1 text
     if sec1_text:
-        # Search for exact primary moat statement header
+        # Search for exact primary moat statement header (e.g. 'Moat Assessment: WIDE MOAT' or 'Economic Moat Assessment (NARROW MOAT):')
         m_head = re.search(r'(?:Economic\s+Moat\s+Assessment|Moat\s+Assessment|Moat\s+Classification|Moat\s+Tier|Moat\s+Rating)[^\n<:]*?[:\s]*(?:<strong>)?\s*\(?([A-Za-z\s]+?Moat)\)?', sec1_text, re.IGNORECASE)
         if m_head:
             h_str = m_head.group(1).upper()
             if "WIDE" in h_str and "PROHIBIT" not in h_str and "NOT" not in h_str:
-                return "Narrow Moat" if is_retail_or_gaming else "Wide Moat"
+                return "Wide Moat"
             elif "NARROW" in h_str:
                 return "Narrow Moat"
             elif "WEAK" in h_str:
@@ -458,24 +448,21 @@ def map_to_canonical_moat_label(lbl: str = "", sec1_text: str = "", default: str
             elif "NO MOAT" in h_str:
                 return "No Moat"
 
-        # Check explicit Wide Moat phrases
+        # Check affirmative Wide Moat declarations
         if re.search(r'\b(?:wide-moat|wide\s+moat)\s+(?:cash\s+machine|high-margin|business|franchise|enterprise|platform|network)\b', sec1_text, re.IGNORECASE):
-            return "Narrow Moat" if is_retail_or_gaming else "Wide Moat"
+            return "Wide Moat"
 
         if re.search(r'\b(?:Wide\s+Economic\s+Moat|Wide-Moat|Wide\s+Moat)\b', sec1_text, re.IGNORECASE):
             if not re.search(r'(?:prohibit|prevent|fail|exclude|cannot|preclude)[^\.\n]*?Wide\s+Moat', sec1_text, re.IGNORECASE):
-                return "Narrow Moat" if is_retail_or_gaming else "Wide Moat"
+                return "Wide Moat"
 
-        # Search for standalone bold/header moat declarations
+        # Search for standalone bold/header Narrow / Weak / No Moat declarations
         if re.search(r'\b(?:Bounded\s+Narrow\s+Moat|Narrow\s+Economic\s+Moat|Narrow\s+Moat)\b', sec1_text, re.IGNORECASE):
             return "Narrow Moat"
         if re.search(r'\b(?:Weak\s+Economic\s+Moat|Weak\s+Moat|Vulnerable\s+Moat)\b', sec1_text, re.IGNORECASE):
             return "Weak Moat"
         if re.search(r'\b(?:No\s+Economic\s+Moat|No\s+Moat|Zero\s+Moat)\b', sec1_text, re.IGNORECASE):
             return "No Moat"
-
-    if is_retail_or_gaming:
-        return "Narrow Moat"
         
     return default
 
@@ -1047,17 +1034,17 @@ Core Principles of Business Valuation & Capital Allocation:
    - Owner Earnings = GAAP Operating Cash Flow - Maintenance CapEx - 100% Stock-Based Compensation.
    - Stock-Based Compensation MUST strictly be treated as a real cash charge (Buffett: "If options aren't expenses, what are they?").
    - SECTOR-SPECIFIC MAINTENANCE CAPEX RULES (NEVER use arbitrary blanket multipliers):
-     * Hyperscale Big Tech & AI Datacenter Builders (META, GOOG, MSFT, AMZN, AAPL):
-       - During massive AI infrastructure supercycles (e.g. Meta CapEx surging to $72.2B in 2025 and $130B+ in 2026 for custom datacenters, HBM memory, and Meta Superintelligence Labs), 65%–75% of CapEx is DISCRETIONARY GROWTH CAPEX.
-       - True Maintenance CapEx is strictly the capital required to sustain the existing steady-state server fleet (Family of Apps ad ranking), EMPIRICALLY ANCHORED TO STATUTORY DEPRECIATION & AMORTIZATION (~$20.9B for Meta in FY25, or ~25%–30% of total CapEx).
-       - NEVER deduct 50% or 60% of an AI CapEx supercycle as maintenance CapEx!
-       - Normalized Baseline Owner Earnings (OE₀) = Operating Cash Flow ($115.8B) - Maintenance CapEx ($20.9B D&A) - 100% SBC ($20.4B) + Working Capital (~$0.8B) = ~$75.3B (~$30.22 / share). Entry multiple at $545.83 is ~18.1x P/OE₀ (5.5% initial cash yield).
-     * Pure Software / Asset-Light SaaS Platforms (CRM, ADBE, NOW, INTU): Maintenance CapEx is typically 20%–35% of CapEx.
-     * Retail Store Networks, Apparel, Restaurants & Physical Fleets (LULU, NKE, SBUX, CROX, HD, CMG): Maintenance CapEx includes ongoing store remodel/refresh cycles (every 5-7 years), POS/IT upkeep, and supply chain maintenance. Maintenance CapEx is EMPIRICALLY ANCHORED TO DEPRECIATION & AMORTIZATION (typically 50%–75% of total CapEx, or ~$D&A). Growth CapEx is strictly the incremental capital spent on net new store openings.
+     * Hyperscale Tech & Digital Platform Compounders (Cloud platforms, digital advertising duopolies, search engines):
+       - During massive infrastructure supercycles (e.g. datacenter clusters, custom silicon, high-bandwidth memory buildouts), 60%–75% of total CapEx is DISCRETIONARY GROWTH CAPEX.
+       - True Maintenance CapEx is strictly the capital required to sustain the existing steady-state server fleet and core monetization engines, EMPIRICALLY ANCHORED TO STATUTORY DEPRECIATION & AMORTIZATION (~D&A, typically 25%–35% of total CapEx during peak buildouts).
+       - NEVER deduct 50% or 60% of an infrastructure buildout supercycle as maintenance CapEx!
+       - Normalized Baseline Owner Earnings (OE₀) = GAAP Operating Cash Flow - Maintenance CapEx (anchored to D&A) - 100% Stock-Based Compensation + Working Capital Normalization.
+     * Pure Software / Asset-Light SaaS Platforms: Maintenance CapEx is typically 20%–35% of total CapEx (chiefly capitalized internal software development).
+     * Retail Store Networks, Apparel, Restaurants & Physical Fleets: Maintenance CapEx includes ongoing store remodel/refresh cycles (every 5-7 years), POS/IT upkeep, and supply chain maintenance. Maintenance CapEx is EMPIRICALLY ANCHORED TO DEPRECIATION & AMORTIZATION (typically 50%–75% of total CapEx, or ~$D&A). Growth CapEx is strictly the incremental capital spent on net new store/unit openings.
 
 3. Economic Moat, Governance & C-Suite Key-Person Stability:
-   - WIDE MOAT (<15% of public companies): Insurmountable structural barriers (Meta Platforms 3.5B+ user social graph lock-in, Alphabet search monopoly, Visa/Mastercard network effects, S&P Global/Moody's rating duopoly, Microsoft/Apple ecosystem lock-in, ASML lithography).
-   - NARROW MOAT: Durable competitive scale or logistics/brand affinity (JD.com fulfillment density, PDD/Temu C2M aggregation, Boyd Gaming regional licenses, Nike, Lululemon, Crocs, Starbucks, Costco). STRICT RULE: Consumer retail, fashion apparel, regional casinos, and competitive e-commerce platforms are bounded at Narrow Moat due to low switching costs and continuous subsidy/price competition.
+   - WIDE MOAT (<15% of public companies): Insurmountable structural barriers (multi-sided digital network effects with billions of users, search/OS monopolies, payment tollbridges, rating agency duopolies, semiconductor lithography monopolies).
+   - NARROW MOAT: Durable competitive scale or logistics/brand affinity (fulfillment network density, C2M supply-chain aggregation, regional casino licenses, durable consumer brands like Nike/Lululemon/Costco). STRICT RULE: Consumer retail, fashion apparel, regional gaming, and competitive e-commerce marketplaces are bounded at Narrow Moat due to low switching costs and continuous price/subsidy competition.
    - WEAK / NO MOAT: Fragile or commoditized brands vulnerable to price wars or fast-fashion decay.
    - GOVERNANCE & C-SUITE STABILITY AUDIT: Always audit active activist campaigns (Elliott Management, Starboard, 13D filings), founder/board proxy battles, and executive turnover (CEO, CFO, Chief Brand Officer). Heavy C-suite churn directly increases key-person risk and lowers predictability.
 
@@ -1114,16 +1101,16 @@ STRICT RESEARCH, GOVERNANCE & BUSINESS INERTIA MANDATES:
 4. SECTOR-SPECIFIC MAINTENANCE CAPEX DECOMPOSITION:
    - Decompose total CapEx in Section 1's Owner Earnings table:
      * GAAP Operating Cash Flow
-     * Less: Maintenance CapEx (For hyperscalers like META/GOOG, anchor to D&A ~$20.9B, ~25%–30% of CapEx; for retail/store fleets, anchor to D&A / store refresh cycles, ~50%–70% of CapEx; for software, ~20%–35%)
+     * Less: Maintenance CapEx (For hyperscale tech platforms, anchor to statutory D&A, ~25%–35% of CapEx; for retail/store fleets, anchor to D&A / store refresh cycles, ~50%–70% of CapEx; for software, ~20%–35%)
      * Less: 100% Stock-Based Compensation (SBC)
      * Plus/Minus: Working Capital Normalization
      * Equals: True Normalized Baseline Owner Earnings (OE₀).
 
-5. SECULAR WIDE-MOAT GROWTH COMPOUNDERS MANDATE (META, GOOG, MSFT, AAPL, AMZN):
-   - For wide-moat digital monopolies currently expanding top-line revenue at >15%–28% YoY with >40% operating margins:
-     * Path 1 (Central Base Trend): Model the true operational run-rate. Top-line revenue compounds at +14%–18% / yr with ~39%–42% operating margins and ~1.5% annual buybacks, compounding per-share Owner Earnings at +15%–18% CAGR (reaching $62–$68 / share in Year 5). Capitalized at a disciplined 16.0x–19.0x P/OE terminal multiple.
-     * Path 2 (Downside Friction / CapEx Overhang Case): Model deceleration and margin drag under heavy datacenter depreciation. Revenue slows to +6%–9% / yr, operating margins compress to ~33%–35%, compounding Owner Earnings at +4%–7% CAGR (reaching $38–$44 / share in Year 5). Capitalized at 14.0x–16.5x P/OE. NEVER model negative secular contraction (-7%) for an advertising monopoly with 3.5B daily active users growing top-line 22-28%!
-     * Path 3 (AI Monetization Acceleration Upside): Advantage+ automated ads, AI recommendation feeds, and enterprise AI APIs drive revenue at +20%–25% / yr with operating leverage, compounding Owner Earnings at +20%–24% CAGR (reaching $78–$88 / share in Year 5). Capitalized at 18.0x–21.0x P/OE.
+5. SECULAR WIDE-MOAT GROWTH COMPOUNDERS MANDATE (Trailing Revenue Growth >15%–20% YoY & >35% Margins):
+   - For wide-moat businesses expanding top-line revenue at high double digits with dominant structural margins:
+     * Path 1 (Central Base Trend): Model realistic operational continuation. Top-line revenue compounds at a healthy rate with gradual, realistic drift (100–200 bps deceleration per year), maintaining structural operating margins and share buyback accretion, compounding per-share Owner Earnings at +14%–18% CAGR. Capitalized at a disciplined 16.0x–19.0x P/OE terminal multiple.
+     * Path 2 (Downside Friction / CapEx Overhang Case): Model macro deceleration and margin compression under higher depreciation/costs. Revenue slows to mid-single digits, operating margins compress by 400–700 bps, compounding Owner Earnings at +4%–7% CAGR. Capitalized at a disciplined 13.0x–16.0x P/OE. NEVER model negative secular contraction (< 0%) for an entrenched monopoly growing top-line >20% YoY unless facing irreversible technological substitution!
+     * Path 3 (AI Monetization Acceleration Upside): Product expansion, pricing power, and new monetization surfaces drive accelerated top-line expansion with operating leverage, compounding Owner Earnings at +20%–25% CAGR. Capitalized at 18.0x–22.0x P/OE.
 
 6. 5 OBSERVABLE OPERATIONAL VARIABLES PER STORYLINE:
    - Every storyline in Section 2 MUST explicitly state its assumptions across 5 observable variables:
