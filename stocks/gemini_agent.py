@@ -1986,8 +1986,9 @@ def parse_sec3_and_json(raw_text: str, company_name: str, current_price: float, 
         # Fallback to search inside full text
         json_block = extract_json_block(raw_text) or {}
         
-    stories = json_block.get("stories") if isinstance(json_block, dict) else []
-    if not stories and isinstance(json_block, list):
+    if isinstance(json_block, dict):
+        stories = json_block.get("stories") or []
+    elif isinstance(json_block, list):
         stories = json_block
         json_block = {"stories": stories}
     else:

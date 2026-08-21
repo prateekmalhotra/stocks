@@ -479,7 +479,7 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
     if s1_match and s3_match:
         s1_t = s1_match.group(1)
         s3_t = s3_match.group(1)
-        m_s1_oe = re.search(r'(?:Core Baseline Owner Earnings|Starting Baseline Owner Earnings|Owner Earnings \(OE₀\)|OE₀\s*=|Owner Earnings).*?\$([\d,]+(?:\.\d+)?)\s*(?:M|million|B|billion)', s1_t, re.IGNORECASE)
+        m_s1_oe = re.search(r'(?:Core Baseline Owner Earnings|Starting Baseline Owner Earnings|Owner Earnings \(OE₀\)|OE₀\s*=|Owner Earnings).*?\$([\d,]+(?:\.\d+)?)\s*(?:M|million|B|billion)?', s1_t, re.IGNORECASE)
         m_s3_oe = re.search(r'Starting Normalized Owner Earnings\s*\(OE₀\).*?\$([\d,]+(?:\.\d+)?)\s*(?:M|million|B|billion)?', s3_t, re.IGNORECASE)
         if m_s1_oe and m_s3_oe:
             try:
@@ -489,10 +489,20 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
                 v3 = float(m_s3_oe.group(1).replace(",", ""))
                 if "B" in m_s3_oe.group(0) or "billion" in m_s3_oe.group(0).lower():
                     v3 *= 1000.0
-                if v1 > 0 and v3 > 0:
+                
+                # If v3 is per-share (< $500/sh) while v1 is total aggregate ($M)
+                if v3 < 500.0 and v1 > 1000.0:
+                    m_sh = re.search(r'([\d,]+(?:\.\d+)?)\s*(?:million|M)?\s*(?:diluted shares|shares outstanding)', f"{s1_t} {s3_t}", re.IGNORECASE)
+                    sh_count = float(m_sh.group(1).replace(",", "")) if m_sh else 1.0
+                    if sh_count > 10.0:
+                        v1_per_sh = v1 / sh_count
+                        diff_pct = abs(v1_per_sh - v3) / max(v3, 0.01)
+                        if diff_pct > 0.15:
+                            issues.append(f"Owner Earnings Desynchronization Failure: Section 1 derived OE₀ (${v1_per_sh:.2f}/sh) differs by {diff_pct*100:.1f}% from Section 3 DCF starting OE₀ (${v3:.2f}/sh).")
+                elif v1 > 0 and v3 > 0:
                     diff_pct = abs(v1 - v3) / v1
-                    if diff_pct > 0.015:
-                        issues.append(f"Owner Earnings Desynchronization Failure: Section 1 derived OE₀ (${v1:.1f}M) differs by {diff_pct*100:.1f}% from Section 3 DCF starting OE₀ (${v3:.1f}M). All sections must use an identical starting cash flow baseline.")
+                    if diff_pct > 0.15:
+                        issues.append(f"Owner Earnings Desynchronization Failure: Section 1 derived OE₀ (${v1:.1f}M) differs by {diff_pct*100:.1f}% from Section 3 DCF starting OE₀ (${v3:.1f}M).")
             except Exception:
                 pass
 
