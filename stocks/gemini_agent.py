@@ -1219,12 +1219,11 @@ YOUR TASK:
 Incorporate the red-team critique directives and produce the final, polished, and reality-grounded Section 1 (The Premise) and Section 2 (The Probable Future Paths).
 
 CRITICAL REQUIREMENTS:
-1. Ensure the N storylines (N ∈ [2, 5]) are truly distinct, bespoke, and grounded in concrete operational unit metrics.
-2. Maintain trend realism: model realistic deviations from historical momentum, avoiding artificial extremes.
-3. Ground every storyline strictly in bottom-up operational unit drivers (volume * pricing, segment dynamics, cost leverage/friction).
-4. Ensure Downside Friction realistically integrates earnings transcript pushbacks and counter-theses.
-5. Ensure probability weights (p₁, ..., pN summing to 100%) reflect empirical filing realities.
-6. Output pure semantic HTML containing ONLY Section 1 and Section 2 starting with <h2>Section 1: The Premise of the Company</h2>.
+1. Enforce Business Inertia & Trend Bounding: Ensure top-line growth and operating margins model slow, gradual drift (Year 1 anchored to trailing 4-quarters; annual growth rate shift bounded within ±100 to 200 bps). For single-brand focused businesses, enforce N=2 paths (Steady-State Trend vs Competitive Friction) and strip out redundant fantasy moonshot paths.
+2. Ensure the N storylines are truly distinct, bespoke, and grounded in concrete operational unit metrics (Americas comps, gross margin bridge, segment breakdown, store productivity, buyback residual).
+3. Ensure Downside Friction realistically integrates earnings transcript pushbacks and competitive threats (e.g. Alo Yoga, Vuori).
+4. Ensure probability weights (p₁, ..., pN summing to 100%) reflect empirical filing realities.
+5. Output pure semantic HTML containing ONLY Section 1 and Section 2 starting with <h2>Section 1: The Premise of the Company</h2>.
 """
 
 
