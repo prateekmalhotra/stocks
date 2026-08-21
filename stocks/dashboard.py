@@ -725,10 +725,17 @@ def extract_priced_in_card_data(stock: Any, html: str = "", stories: Optional[Li
         oe0 = safe_float(s1.get("normalized_oe_per_share"), 0.0)
         net_cash = safe_float(s1.get("net_cash_per_share"), 0.0)
     
-    if (oe0 <= 0.0 or (oe0 > 50.0 and cur_p < 20.0)) and html:
-        m_oe = re.search(r'(?:Starting\s*Normalized\s*Owner\s*Earnings|Owner\s*Earnings\s*Per\s*Share|OE₀/Share|OE₀)[^$\n]*?\$?\s*([\d,]+(?:\.\d+)?)', html, re.IGNORECASE)
-        if m_oe:
-            oe0 = safe_float(m_oe.group(1), oe0)
+    # Scale-Aware Per-Share Guardrail: Detect if total enterprise cash flow ($M) was passed instead of per-share
+    is_scale_mismatch = (oe0 <= 0.0) or (cur_p > 0 and (cur_p / max(oe0, 0.001) < 2.5) and cur_p < 100.0) or (oe0 > 50.0 and cur_p < 20.0)
+    if is_scale_mismatch and html:
+        # Search specifically for per-share Owner Earnings metrics in tables
+        m_oe_sh = re.search(r'(?:Owner\s*Earnings\s*Per\s*Share|OE/Share|OE₀/Share|Starting\s*Normalized\s*Owner\s*Earnings\s*\(OE₀\)\s*/\s*share|Starting\s*Normalized\s*Owner\s*Earnings\s*\(OE₀\)\s*per\s*share).*?\$?\s*([0-9]+(?:\.[0-9]+)?)', html, re.IGNORECASE)
+        if m_oe_sh:
+            oe0 = safe_float(m_oe_sh.group(1), oe0)
+        else:
+            m_oe = re.search(r'(?:Starting\s*Normalized\s*Owner\s*Earnings|Owner\s*Earnings\s*Per\s*Share|OE₀/Share|OE₀)[^$\n]*?\$?\s*([\d,]+(?:\.\d+)?)', html, re.IGNORECASE)
+            if m_oe:
+                oe0 = safe_float(m_oe.group(1), oe0)
             
     if abs(net_cash) > 150 and cur_p < 500:
         net_cash = 0.0
