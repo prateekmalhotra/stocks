@@ -1506,7 +1506,9 @@
     "status_label": "Narrow Moat",
     "moat_label": "Narrow Moat",
     "labels": [
-      "Narrow Moat"
+      "Narrow Moat",
+      "Cost Advantage",
+      "Consumer Footwear"
     ],
     "action_signal": "CAUTION",
     "fair_value_estimate": "$115.20",
@@ -1852,10 +1854,17 @@
     "lower_alert_threshold": 89.87,
     "next_catalyst_date": "2026-10-29",
     "next_catalyst_event": "Q3 FY26 Earnings Release",
-    "top_funds": [],
-    "institutional_ownership_pct": "0 Tracked",
-    "insider_signal": "Net Buying",
-    "insider_summary": "+$1.0M net purchases across 14 Form 4 transactions",
+    "top_funds": [
+      "Norbert Lou - Punch Card Management (27.20%)",
+      "Samantha McLemore - Patient Capital Management (3.20%)",
+      "Li Lu - Himalaya Capital Management (2.89%)",
+      "David Einhorn - Greenlight Capital (2.07%)",
+      "Bill Miller - Miller Value Partners (0.82%)",
+      "Tweedy Browne (0.18%)"
+    ],
+    "institutional_ownership_pct": "6 Whales",
+    "insider_signal": "Executive Net Selling",
+    "insider_summary": "C-Suite selling (-$10.2M across CEO Andrew Rees, Brand Pres Anne Mehlman) with $0 buys.",
     "pricing_power_tier": "Strong Pricing Power",
     "pricing_power_score": "Inelastic Demand \u00b7 Low Churn",
     "pricing_power_summary": "Strong Pricing Power: Underwritten via Buffett & Munger pricing power framework.",
