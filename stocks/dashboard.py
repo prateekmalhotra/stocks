@@ -2084,6 +2084,30 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
     last_date = initial_pts[-1]["date"] if initial_pts else datetime.now().strftime("%b %d, %Y")
     last_price = initial_pts[-1]["price"] if initial_pts else current_price
     ranges_json = json.dumps(chart_data)
+    # Target price from Section 4 / thesis data
+    target_price = None
+    raw_target = getattr(stock, 'base_target', '') or getattr(stock, 'fair_value_estimate', '')
+    if not raw_target and current_v:
+        raw_target = getattr(current_v, 'base_target', '') or getattr(current_v, 'fair_value_estimate', '')
+    
+    if raw_target:
+        try:
+            clean_tgt = re.sub(r'[^\d\.]', '', str(raw_target))
+            if clean_tgt:
+                target_price = float(clean_tgt)
+        except Exception:
+            pass
+
+    if target_price is None and p4:
+        m = re.search(r'(?:target price|expected|fair value|target)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p4, re.IGNORECASE)
+        if m:
+            try:
+                target_price = float(m.group(1))
+            except Exception:
+                pass
+
+    if target_price is None or target_price <= 0:
+        target_price = round(current_price * 1.35, 2)
 
     logo_html = get_ticker_logo_html(ticker_clean, size=36)
     width = 900
@@ -2858,11 +2882,13 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 </div>
             </div>
 
-            <!-- Native SVG Area Chart (NO TARGET LINES) -->
+            <!-- Native SVG Area Chart with 5Y Continuation Target Line -->
             <div class="native-chart-wrap">
                 <div class="chart-top-bar">
                     <div class="chart-live-val">
-                        <span id="tooltip-date">{last_date}</span> &bull; <strong id="tooltip-price" style="color: var(--accent-warm);">${last_price:.2f}</strong>
+                        <span id="tooltip-date">{last_date}</span> &bull; <strong id="tooltip-price" style="color: #82AE8C;">${last_price:.2f}</strong>
+                        <span class="meta-sep" style="margin: 0 6px; color: var(--text-dim);">·</span>
+                        <span style="color: var(--accent-warm); font-size: 0.80rem;">5Y Target: <strong>${target_price:.2f}</strong></span>
                     </div>
                     <div class="chart-range-pills">
                         <button class="range-pill" onclick="switchRange('1D')">1D</button>
@@ -2890,6 +2916,10 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                         <text id="grid-price-low" x="{width - padding_x - 6}" y="{height - padding_y - 4}" text-anchor="end" fill="#6E685E" font-family="var(--font-mono)" font-size="10.5">$0.00</text>
                         <line x1="{padding_x}" y1="{height - padding_y}" x2="{width - padding_x}" y2="{height - padding_y}" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="2 4" />
                         
+                        <!-- 5Y Target Dotted Line & Tag -->
+                        <line id="target-line" x1="{padding_x}" y1="{padding_y}" x2="{width - padding_x}" y2="{padding_y}" stroke="#D4A373" stroke-width="1.6" stroke-dasharray="4 4" opacity="0.85" />
+                        <text id="target-label" x="{width - padding_x - 6}" y="{padding_y - 4}" text-anchor="end" fill="#D4A373" font-family="var(--font-mono)" font-size="10.5" font-weight="600">5Y Target: ${target_price:.2f}</text>
+
                         <!-- Dynamic Area & Stroke -->
                         <polygon id="chart-area" fill="url(#area-grad)" points="" />
                         <polyline id="chart-line" fill="none" stroke="#82AE8C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" points="" />
@@ -3070,9 +3100,14 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 return;
             }}
 
+            const targetPrice = {target_price};
             const prices = points.map(p => p.price);
             let minP = Math.min(...prices);
             let maxP = Math.max(...prices);
+            if (targetPrice && targetPrice > 0) {{
+                maxP = Math.max(maxP, targetPrice * 1.04);
+                minP = Math.min(minP, targetPrice * 0.96);
+            }}
             if (minP === maxP) {{ minP *= 0.95; maxP *= 1.05; }}
             const rangeP = maxP - minP;
 
@@ -3082,6 +3117,19 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             const padY = {padding_y};
             const drawW = width - (2 * padX);
             const drawH = height - (2 * padY);
+
+            // Dynamically position 5Y Target line and label
+            const targetLine = document.getElementById('target-line');
+            const targetLabel = document.getElementById('target-label');
+            if (targetLine && targetPrice > 0) {{
+                const targetY = padY + drawH - ((targetPrice - minP) / rangeP) * drawH;
+                targetLine.setAttribute('y1', targetY.toFixed(1));
+                targetLine.setAttribute('y2', targetY.toFixed(1));
+                if (targetLabel) {{
+                    targetLabel.setAttribute('y', (targetY - 5).toFixed(1));
+                    targetLabel.textContent = '5Y Target: $' + targetPrice.toFixed(2);
+                }}
+            }}
 
             const coords = points.map((p, idx) => {{
                 const x = padX + (idx / (points.length - 1)) * drawW;
