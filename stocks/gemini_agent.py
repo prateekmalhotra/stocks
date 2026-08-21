@@ -1046,32 +1046,36 @@ ZERO-PRICE-ANCHORING DIRECTIVE:
 You are conducting 100% blind fundamental research on the business itself. You do NOT look at or anchor to stock prices, target prices, or market consensus. Your mandate is to analyze historical statutory financials, operational segment dynamics, and realistic unit compounding mechanics.
 
 STRICT OPERATIONAL REALISM & STORYLINE GROUNDING MANDATES:
-1. DISTINCT OPERATIONAL STORYLINES (NO GENERIC "BULL / BEAR / BASE"):
-   - You MUST formulate 3 distinct operational storylines covering 90%–95% of the company's realistic fundamental operating probability distribution over the next 3–5 years.
+1. RESPECT THE TREND & DON'T FIGHT REAL MOMENTUM:
+   - You MUST respect the company's observable trailing run-rate, segment momentum, and backlog.
+   - If a company is actively compounding at 20%–25% YoY (e.g. Google Search/Cloud surge, high-growth enterprise platform), do NOT arbitrarily invent an artificial growth cliff down to 5%–10% in the central baseline! The central baseline should realistically bridge from current run-rate to sustainable medium-term rates (e.g. +16%–22% tapering to +14%–18%), grounded in actual capacity utilization, backlog burn, and TAM headroom.
+   - If a company is managing turnaround friction or negative comps (e.g. domestic retail comp drag), the central baseline should model stabilization (e.g. +4%–7%), while the friction case models persistent contraction (e.g. -3%–7%).
+2. DISTINCT OPERATIONAL STORYLINES (NO GENERIC "BULL / BEAR / BASE"):
+   - Formulate 3 distinct operational storylines covering 90%–95% of the company's realistic fundamental operating probability distribution over the next 3–5 years.
    - NEVER use generic titles like "Bull Case", "Bear Case", "Base Case", "Scenario 1", or "Optimistic Path".
    - Each storyline title MUST describe a concrete, bespoke operational mechanism grounded in reported segments, quarterly transcripts, and competitor dynamics (e.g. "Path 1: International DTC Expansion & Americas Assortment Stabilization", "Path 2: Domestic Saturation, Wholesale Destocking & Section 301 Tariff Squeeze", "Path 3: Category Breakthrough in Footwear & Rapid EMEA Franchising").
-   - STORYLINE 1 (Central Execution Baseline): Grounded in current management momentum, active guidance, and observable trailing execution.
-   - STORYLINE 2 (Downside Friction & Headwinds): Grounded in real quarterly transcript pushbacks, analyst Q&A friction, segment declines, channel destocking, tariff exposure, brand fatigue, or sell-side/short-seller critiques. (Management always talks big about their own company; Storyline 2 balances management cheerleading with cold statutory and competitive reality).
-   - STORYLINE 3 (Operating Acceleration & Leverage): Grounded in successful high-margin category expansion, operating leverage, and international market penetration.
-2. BOTTOM-UP OPERATIONAL UNIT METRICS (NO ABSTRACT RANDOM PERCENTAGES):
+   - STORYLINE 1 (Central Execution Baseline - Things Going According to Plan): Grounded in current management momentum, active guidance, and observable trailing execution within trend boundaries.
+   - STORYLINE 2 (Downside Friction & Headwinds - Things Going Against Plan): Grounded in real quarterly transcript pushbacks, analyst Q&A friction, segment declines, channel destocking, tariff exposure, brand fatigue, or sell-side/short-seller critiques. (Management always talks big about their own company; Storyline 2 balances management cheerleading with cold statutory and competitive reality).
+   - STORYLINE 3 (Operating Acceleration & Leverage - Tailwinds & Category Breakthroughs): Grounded in successful high-margin category expansion, operating leverage, and international market penetration outperforming baseline expectations.
+3. BOTTOM-UP OPERATIONAL UNIT METRICS (ALL ASSUMPTIONS BACKED BY BUSINESS METRICS):
    - Revenue and Owner Earnings growth MUST NEVER be stated in isolation without concrete operational unit drivers!
    - Derive financial trajectories from observable unit metrics:
      * Volume / Unit Drivers: (e.g. Store count rollout velocity, same-store comparable sales %, paid search clicks, units shipped, active subscriber counts).
      * Pricing / ARPU Drivers: (e.g. Full-price sell-through %, average selling price ASP, contract renewal rate, pricing realization).
      * Cost & Margin Drivers: (e.g. Supply chain freight/tariffs, gross margin %, SG&A fixed cost absorption, operating margin leverage/deleverage).
      * Reinvestment & CapEx Drivers: (e.g. Store remodel Maintenance CapEx vs new store Growth CapEx, SBC dilution).
-3. EMPIRICALLY GROUNDED PROBABILITY DISTRIBUTION:
+4. EMPIRICALLY GROUNDED PROBABILITY DISTRIBUTION:
    - For businesses managing active comp friction or brand turnarounds (e.g. negative same-store sales, brand declines), the Downside Friction storyline MUST carry a substantial probability mass (30% to 45%).
    - For wide-moat compounders with massive contracted backlogs and high ROIC, the core execution path carries 55% to 65%.
-4. NO EMOJIS ANYWHERE: Output pure, clean semantic HTML.
-5. STRICT CASH FLOW EXTRACTION:
+5. NO EMOJIS ANYWHERE: Output pure, clean semantic HTML.
+6. STRICT CASH FLOW EXTRACTION:
    - GAAP Operating Cash Flow (OCF) ($ Millions USD). NEVER use Financing Cash Flows or Net Income as OCF.
    - Maintenance CapEx vs. Growth CapEx.
    - Stock-Based Compensation (SBC) as a 100% real cash charge.
    - Derivation of Clean Normalized Baseline Owner Earnings (OE₀) and per diluted share ($ USD).
    - Calibrated Balance Sheet Bridge: Gross Cash & Liquid Marketable Securities (at 85% after tax buffer, less 2.5%-3.5% working capital buffer) minus Total Funded Debt = Total Net Cash ($M). DIVIDE BY DILUTED SHARES to get Net Surplus Cash (+) or Net Debt (-) per share ($ USD/share). Example: $4,500M net cash / 960M shares = +$4.68/share (NEVER enter aggregate $4,500M as per share!).
    - Fundamental Compounding Velocity: State 3-year normalized ROIC %, Reinvestment Rate %, and Compounding Velocity (ROIC * Reinvestment Rate).
-6. RIGOROUS MOAT CLASSIFICATION (BUFFETT & MORNINGSTAR STANDARDS):
+7. RIGOROUS MOAT CLASSIFICATION (BUFFETT & MORNINGSTAR STANDARDS):
    - Under 'Pricing Power & Moat Durability Audits', explicitly state:
      `<p><strong>Primary Economic Moat Rating:</strong> [Wide Moat | Narrow Moat | Weak Moat | No Moat]</p>`
    - WIDE MOAT: Only for structural monopolies/duopolies with permanent lock-in (Visa, Mastercard, Microsoft enterprise, Google Search, Copart salvage real estate, ASML).
@@ -1230,11 +1234,15 @@ STORY OPERATIONAL NARRATIVE & UNIT DRIVERS (Path {story_num}):
 ======================================================================
 
 STRICT VALUATION RULES:
-1. Projected 5-Year Owner Earnings CAGR:
+1. RESPECT THE TREND & DERIVE COMPOUNDING FROM UNIT DRIVERS:
    - Derive the 5-year compounding rate (CAGR_OE) directly from the story's operational unit drivers, volume, pricing, and margin shifts.
-   - For downside/friction scenarios, CAGR_OE should reflect realistic deceleration, margin compression, or stagnation (e.g. -5% to +2%).
-   - For core baseline scenarios, reflect realistic execution without speculative moonshots (e.g. +4% to +8% for mature apparel/retail, +10% to +14% for secular compounders).
-   - For bull/acceleration scenarios, reflect operating leverage and category expansion (e.g. +9% to +14% for apparel/retail, +15% to +20% for hyper-scalers).
+   - DO NOT FIGHT THE TREND:
+     * If a business is actively growing double-digits (e.g. 20%–25% YoY for hyper-scalers or high-growth compounders), do NOT artificially force a growth collapse down to 5%–10% in the central baseline. Keep assumptions realistic within the observable trend boundaries (e.g. +16%–22% baseline tapering to sustainable medium-term rates).
+     * If a business is managing turnaround friction or negative comps, the central baseline reflects stabilization (e.g. +4%–7%), the downside case reflects persistent contraction (e.g. -3%–7%), and the acceleration case reflects category breakthroughs.
+   - Storylines define the operational boundaries:
+     * Path 1 (Execution According to Plan): Delivers on stated operational unit metrics within current trajectory.
+     * Path 2 (Headwinds & Plans Facing Friction): Operational headwinds reduce growth below trend or compress margins via markdowns, tariffs, or higher unit compute/TAC.
+     * Path 3 (Tailwinds & Operating Leverage): Category outperformance and fixed cost leverage accelerate compounding above trend.
 2. MANDATORY PYTHON CODE EXECUTION:
    - You MUST write and execute Python code using your code execution tool to calculate every equation with exact mathematical precision:
      * Year-5 Projected Owner Earnings (OE₅) = OE₀ * (1 + CAGR_OE)^5
@@ -1299,11 +1307,11 @@ INDEPENDENT 3-STORY VALUATION MODELS:
 ======================================================================
 
 YOUR CRITICAL AUDIT MANDATE:
-1. RUTHLESS SANITY CHECK ON ASSUMPTIONS:
-   - Check if any terminal multiple is unrealistically high (e.g. >15x for apparel/retail, >24x for tech).
-   - Check if growth assumptions are detached from historical reality or segment trajectory.
-   - Check if the downside case is a genuine stress-test or just a disguised bull case.
-   - Adjust any overly optimistic multiples or growth rates to realistic, conservative levels.
+1. RUTHLESS SANITY CHECK ON ASSUMPTIONS (DON'T FIGHT THE TREND, ENFORCE REALISM):
+   - Check if growth rates and terminal multiples respect the company's actual trailing momentum, competitive positioning, and economic moat.
+   - For high-growth secular compounders (e.g. 20%+ run-rate with high ROIC), ensure baseline compounding realistically reflects momentum without artificial growth cliffs, while verifying that Path 2 tests concrete operational friction.
+   - For turnaround or comp-friction cases, ensure Path 2 reflects real downside risk rather than a disguised bull case.
+   - Enforce sector terminal multiple caps (e.g. <=15x for apparel/retail, <=24x for tech).
 2. EMPIRICAL PROBABILITY DISTRIBUTION (NO FANTASY WEIGHTING):
    - Assign probability weights (p₁, p₂, p₃ summing STRICTLY to 1.0 / 100%):
      * For companies facing active friction, negative comps, or brand turnaround risk (e.g. LULU domestic comp contraction, CROX HeyDude decline), the Downside / Friction path MUST carry substantial weight (e.g. 30%–45%), Core Execution (45%–55%), Bull Acceleration (10%–20%). NEVER assign 70%+ to an unproven turnaround case!
