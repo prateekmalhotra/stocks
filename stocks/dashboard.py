@@ -672,7 +672,10 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
         mult_txt = f"{oe_mult} P/OE" if "P/OE" not in str(oe_mult) else str(oe_mult)
         yield_txt = str(oe_yield) if oe_yield else (f"{(1.0/max(safe_float(oe_mult, 18.0), 1.0))*100:.1f}%" if oe_mult else "—")
         
+        oe_growth = s.get("projected_5y_cagr")
         meta_parts = []
+        if oe_growth:
+            meta_parts.append(f'<span>5Y OE Growth: {oe_growth}</span>')
         if net_cash_sh is not None and abs(net_cash_sh) > 0.01:
             meta_parts.append(f'<span>Net Cash: {net_cash_sh:+.2f}/sh</span>')
         if oe_per_sh and float(oe_per_sh) > 0.01:
@@ -705,7 +708,7 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
             <!-- Key Financial Metrics Strip -->
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 8px 10px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 6px; font-family: var(--font-mono); margin: 4px 0;">
                 <div>
-                    <div style="font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;">5Y Exp. CAGR</div>
+                    <div style="font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;">5Y Price IRR</div>
                     <div style="font-size: 0.80rem; font-weight: 600; color: {cagr_color};">{cagr_txt}</div>
                 </div>
                 <div>
