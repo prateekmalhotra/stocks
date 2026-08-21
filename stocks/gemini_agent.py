@@ -573,7 +573,7 @@ def call_gemini_with_search(
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {
             "temperature": temperature,
-            "maxOutputTokens": 8192
+            "maxOutputTokens": 32768
         }
     }
     if use_search:
@@ -1050,57 +1050,26 @@ Core Principles of Business Valuation & Capital Allocation:
    - For foreign ADRs, strictly use the US-traded ADS share count so per-share valuations are in USD per ADS.
 """
 
-MASTER_GENESIS_THESIS_PROMPT = """Target: {ticker} ({company_name})
+AGENT_1_GENESIS_PREMISE_AND_PATHS_PROMPT = """Target: {ticker} ({company_name})
 Current Market Price: ${current_price:.2f}
 User Focus / Research Notes: {notes}
 
-You are the Chief Equity Research Director & Institutional Buy-Side Analyst.
-Your mission is to formulate the complete, living investment thesis and valuation dossier for {company_name} in a SINGLE comprehensive, rigorous research pass from audited SEC statutory filings (10-K, 10-Q, 20-F, 6-K) and the last 4 quarterly earnings call transcripts.
+You are the Chief Equity Research Director & Institutional Buy-Side Grounded Researcher.
+Your mission is to formulate Section 1 and Section 2 of the living investment thesis for {company_name} from audited SEC statutory filings (10-K, 10-Q, 20-F, 6-K) and the last 4 quarterly earnings call transcripts.
 
-PHILOSOPHY & VALUATION FRAMEWORK (BUFFETT/MUNGER NORMALIZED OWNER EARNINGS MULTIPLES & YIELD INVERSION):
-Forget complex 5-year discounting algebra and speculative terminal growth models. Underwrite the business strictly on clean cash generation reality:
-
-STRICT ZERO-PRICE-ANCHORING & BLIND UNDERWRITING MANDATE:
-- ABSOLUTELY NO PRICE ANCHORING: You must underwrite the operating business fundamentals, derive clean Owner Earnings (OE₀), and assign normalized P/OE multiples to each path with 100% blind objectivity based ONLY on structural business economics (ROIC, competitive advantage durability, pricing power, balance sheet fortress, and reinvestment capacity).
-- NEVER back-solve, reverse-engineer, or artificially calibrate multiples or cash flows to match or cluster near today's stock price (${current_price:.2f}).
-- Today's market price is provided SOLELY for the final Step 3 Market Inversion (to compute what multiple Mr. Market is currently paying) and the final Margin of Safety comparison. It must NOT influence your intrinsic business multiple assessment!
-1. Statement of Cash Flows Extraction & Owner Earnings Waterfall:
-   - Line 1: Net Cash Provided by Operating Activities (GAAP OCF) ($ Millions USD). NEVER use Financing Cash Flows or Net Income as OCF.
-   - Line 2: Working Capital Normalization.
-   - Line 3: Capital Expenditures (distinguishing Maintenance CapEx from Growth CapEx).
-   - Line 4: Stock-Based Compensation (SBC) expense treated strictly as a 100% real cash charge.
-   - Line 5: Non-Operating Interest Income Deduction.
-   - Derivation: Clean Normalized Baseline Owner Earnings (OE₀) = GAAP OCF - Non-Operating Interest Income - Maintenance CapEx - SBC ± One-Off Distortions.
-   - Calculate Clean OE₀ per diluted share (or ADS in $ USD).
-2. Calibrated Balance Sheet Bridge:
-   - Unencumbered Cash (Gross Cash less 2.5%–3.5% working capital buffer) minus Total Funded Debt.
-   - Calculate Net Surplus Cash (+) or Net Debt (-) per diluted share.
-3. Market Inversion ("What Mr. Market Is Pricing In"):
-   - Implied Market P/OE Multiple = Current Stock Price / Clean OE₀ per share.
-   - Implied Owner Cash Yield = Clean OE₀ per share / Current Stock Price.
-4. Dynamic N Objective Probable Future Paths (NO PRESET NARRATIVE CONSTRAINTS):
-   - Formulate N distinct, un-biased operational trajectories (typically 2 to 5 paths) that organically span 90%–95% of {company_name}'s fundamental probability space.
-   - DO NOT USE CANNED NARRATIVES, PRESET TROPES (no Bull/Bear/Base, no forced baseline/upside/downside triad), OR PREDEFINED TEMPLATES.
-   - You MUST let the company's actual reported business segments, customer adoption dynamics, competitive friction points, and management guidance dictate the exact number and causal mechanisms of each path.
-   - For EACH path:
-     * Provide a bespoke, company-specific descriptive operational title.
-     * 1-2 sentence crisp executive summary.
-     * Detailed operational narrative explaining segment volume, pricing, and revenue drivers in $ USD.
-     * Cost structure, margins, and resulting Owner Earnings in $ USD.
-     * Adversarial Red-Team Stress-Test & Invalidation Trigger (what quantitative metric or competitor disruption breaks this path).
-     * Observable quarterly milestone triggers in 10-Q filings.
-5. Normalized Owner Earnings Multiple Assignment Across All N Paths:
-   - For EACH of the N paths, assign an intrinsic P/OE multiple reflecting that path's specific ROIC, moat durability, and reinvestment runway.
-   - Net Cash / Debt Bridge Integration:
-     * Fair Value per Share = (Assigned P/OE Multiple * Clean OE₀ per share) + Net Surplus Cash per share (or - Net Debt per share).
-   - Compute Implied Owner Cash Yield (%) = (1 / Assigned Multiple) * 100%.
-6. Probability-Weighted Expected Fair Value:
-   - Assign objective probability weights (p₁, ..., pN summing to 100%) based on filing evidence.
-   - Expected Fair Value = sum(p_i * Fair_Value_i).
-   - Expected Margin of Safety (%) = ((Expected Fair Value - Current Stock Price) / Current Stock Price) * 100%.
+STRICT MANDATES:
+1. NO PRESET TROPES OR CANNED TEMPLATES: Let the company's actual business segments, customer adoption, competitive friction, and 10-K disclosures organically dictate the number (2 to 5) and causal mechanisms of the probable future paths.
+2. NO EMOJIS ANYWHERE: Output pure, clean semantic HTML.
+3. STRICT CASH FLOW EXTRACTION:
+   - GAAP Operating Cash Flow (OCF) ($ Millions USD). NEVER use Financing Cash Flows or Net Income as OCF.
+   - Maintenance CapEx vs. Growth CapEx.
+   - Stock-Based Compensation (SBC) as a 100% real cash charge.
+   - Non-operating interest deductions.
+   - Derivation of Clean Normalized Baseline Owner Earnings (OE₀) and per diluted share ($ USD).
+   - Calibrated Balance Sheet Bridge: Gross Cash (less 2.5%-3.5% working capital buffer) minus Total Funded Debt = Net Surplus Cash (+) or Net Debt (-) per share.
 
 OUTPUT FORMAT:
-Provide pure semantic HTML containing Section 1, Section 2, and Section 3, followed by a structured JSON block:
+Provide pure semantic HTML containing ONLY Section 1 and Section 2:
 
 <h2>Section 1: The Premise of the Company</h2>
 <p>[Comprehensive fundamental analysis of business model, unit monetization, moat, and 4-quarter earnings reality...]</p>
@@ -1137,6 +1106,37 @@ Provide pure semantic HTML containing Section 1, Section 2, and Section 3, follo
     </tbody>
   </table>
 </div>
+"""
+
+
+AGENT_2_VALUATION_ENGINE_PROMPT = """Target: {ticker} ({company_name})
+Current Market Price: ${current_price:.2f}
+
+You are the Lead Buy-Side Valuation & Capital Allocation Director.
+You are given Section 1 (The Premise) and Section 2 (The Probable Future Paths) for {company_name}.
+
+RESEARCH DOSSIER CONTEXT:
+{sec1_and_sec2_text}
+
+YOUR TASK:
+Formulate Section 3: Normalized Owner Earnings Multiple & Yield Inversion Valuation and the final structured JSON block.
+
+STRICT ZERO-PRICE-ANCHORING & FIRST-PRINCIPLES VALUATION RULES:
+1. Blind Underwriting: Assign normalized P/OE multiples (e.g. 12x, 18x, 24x, 30x) to each of the N paths based strictly on that path's ROIC, competitive advantage durability, pricing power, and reinvestment runway. NEVER anchor or back-solve to today's market price (${current_price:.2f}).
+2. Net Cash / Debt Bridge Integration:
+   - Fair Value per Share = (Assigned P/OE Multiple * Clean OE₀ per share) + Net Surplus Cash per share (or - Net Debt per share).
+   - Implied Owner Cash Yield (%) = (1 / Assigned Multiple) * 100%.
+3. Market Inversion:
+   - Implied Market Multiple = Current Stock Price / Clean OE₀ per share.
+   - Implied Market Yield = Clean OE₀ per share / Current Stock Price.
+4. Probability-Weighted Expected Fair Value:
+   - Assign objective probability weights (p₁, ..., pN summing to 100%).
+   - Expected Fair Value = sum(p_i * Fair_Value_i).
+   - Expected Margin of Safety (%) = ((Expected Fair Value - Current Stock Price) / Current Stock Price) * 100%.
+5. NO EMOJIS ANYWHERE: Output pure semantic HTML.
+
+OUTPUT FORMAT:
+Provide pure semantic HTML containing Section 3, followed by the complete structured JSON block:
 
 <h2>Section 3: Normalized Owner Earnings Multiple &amp; Yield Inversion Valuation</h2>
 
@@ -1192,7 +1192,8 @@ Provide pure semantic HTML containing Section 1, Section 2, and Section 3, follo
     }}
   ]
 }}
-```"""
+```
+"""
 
 
 AGENT_5_ADJUDICATION_PROMPT = """Target: {ticker} ({company_name})
@@ -1602,17 +1603,40 @@ def extract_story_valuation(dcf_dict: Dict[str, Any], raw_text: str = "", curren
     return val
 
 
-def split_unified_premise_and_paths(raw_output: str, company_name: str) -> Tuple[str, str, List[Dict[str, Any]]]:
-    """Splits the unified Agent 1 output into Section 1 HTML, Section 2 HTML, and the parsed 3 paths."""
+def split_sec1_and_sec2(raw_output: str, company_name: str) -> Tuple[str, str]:
+    """Splits Agent 1 output into Section 1 HTML (The Premise) and Section 2 HTML (The Probable Future Paths)."""
+    clean_text = clean_grounding_artifacts(raw_output)
+    clean_html = re.sub(r'```(?:html|json)?[\s\S]*?```', '', clean_text).strip()
+    
+    m_sec2 = re.search(r'((?:<h[234][^>]*>|##+\s*)(?:Section\s*2\b|The\s*3\s*Probable|Probable\s*(?:Business\s*)?(?:Stories|Paths)|3\s*Probable|Future\s*Paths)[\s\S]*)', clean_html, re.IGNORECASE)
+    if m_sec2:
+        sec1_html = clean_html[:m_sec2.start()].strip()
+        sec2_html = clean_html[m_sec2.start():].strip()
+    else:
+        sec1_html = clean_html
+        sec2_html = ""
+        
+    if "<h2>Section 1:" not in sec1_html and "<h2>The Premise" not in sec1_html:
+        sec1_html = f"<h2>Section 1: The Premise of the Company</h2>\n{sec1_html}"
+    if sec2_html and "<h2>Section 2:" not in sec2_html:
+        sec2_html = f"<h2>Section 2: The Probable Future Paths</h2>\n{sec2_html}"
+        
+    sec1_clean = verify_and_repair_html_structure(sec1_html)
+    sec2_clean = verify_and_repair_html_structure(sec2_html) if sec2_html else ""
+    return sec1_clean, sec2_clean
+
+
+def parse_sec3_and_json(
+    raw_output: str,
+    company_name: str,
+    current_price: float,
+    sec1_text: str = "",
+    sec2_text: str = ""
+) -> Tuple[str, Dict[str, Any], List[Dict[str, Any]]]:
+    """Parses Agent 2 output into Section 3 HTML, JSON metadata, and structured stories."""
     clean_text = clean_grounding_artifacts(raw_output)
     
-    # 1. Extract JSON block for stories if present
-    json_block = extract_json_block(raw_output)
-def split_full_genesis_dossier(raw_output: str, company_name: str, current_price: float) -> Tuple[str, str, str, Dict[str, Any], List[Dict[str, Any]]]:
-    """Splits the unified Master Genesis Thesis output into Section 1 HTML, Section 2 HTML, Section 3 HTML, and parsed metadata."""
-    clean_text = clean_grounding_artifacts(raw_output)
-    
-    # 1. Extract JSON block
+    # Extract JSON block
     json_block = extract_json_block(raw_output)
     if isinstance(json_block, dict):
         stories = json_block.get("stories", [])
@@ -1623,49 +1647,25 @@ def split_full_genesis_dossier(raw_output: str, company_name: str, current_price
         stories = []
         json_block = {}
         
-    # Remove ```json ... ``` blocks from HTML
     clean_html = re.sub(r'```json[\s\S]*?```', '', clean_text)
     clean_html = re.sub(r'```[\s\S]*?```', '', clean_html).strip()
     
-    # Split Section 1, Section 2, Section 3
-    m_sec2 = re.search(r'((?:<h[234][^>]*>|##+\s*)(?:Section\s*2\b|The\s*3\s*Probable|Probable\s*(?:Business\s*)?(?:Stories|Paths)|3\s*Probable|Future\s*Paths)[\s\S]*)', clean_html, re.IGNORECASE)
-    m_sec3 = re.search(r'((?:<h[234][^>]*>|##+\s*)(?:Section\s*3\b|Normalized\s*Owner\s*Earnings|Owner\s*Earnings\s*Multiple|Valuation\s*(?:&|Across)|Scenario\s*Valuation)[\s\S]*)', clean_html, re.IGNORECASE)
-    
-    if m_sec2 and m_sec3 and m_sec3.start() > m_sec2.start():
-        sec1_html = clean_html[:m_sec2.start()].strip()
-        sec2_html = clean_html[m_sec2.start():m_sec3.start()].strip()
-        sec3_html = clean_html[m_sec3.start():].strip()
-    elif m_sec2:
-        sec1_html = clean_html[:m_sec2.start()].strip()
-        sec2_html = clean_html[m_sec2.start():].strip()
-        sec3_html = ""
-    else:
-        sec1_html = clean_html
-        sec2_html = ""
-        sec3_html = ""
-
-    if "<h2>Section 1:" not in sec1_html and "<h2>The Premise" not in sec1_html:
-        sec1_html = f"<h2>Section 1: The Premise of the Company</h2>\n{sec1_html}"
-    if sec2_html and "<h2>Section 2:" not in sec2_html:
-        sec2_html = f"<h2>Section 2: The 3 Probable Future Paths</h2>\n{sec2_html}"
-    if sec3_html and "<h2>Section 3:" not in sec3_html:
-        sec3_html = f"<h2>Section 3: Normalized Owner Earnings Multiple &amp; Yield Inversion Valuation</h2>\n{sec3_html}"
-
-    sec1_clean = verify_and_repair_html_structure(sec1_html)
-    sec2_clean = verify_and_repair_html_structure(sec2_html) if sec2_html else ""
-    sec3_clean = verify_and_repair_html_structure(sec3_html) if sec3_html else ""
+    if "<h2>Section 3:" not in clean_html:
+        clean_html = f"<h2>Section 3: Normalized Owner Earnings Multiple &amp; Yield Inversion Valuation</h2>\n{clean_html}"
+        
+    sec3_clean = verify_and_repair_html_structure(clean_html)
     
     # Net cash per share extraction from json_block or text
     net_cash_sh = safe_float(json_block.get("net_cash_per_share"), 0.0)
     if net_cash_sh == 0.0:
-        m_nc = re.search(r'(?:Net\s*(?:Surplus\s*)?Cash|Net\s*Debt)[^$\n]*?([+-]?\$\s*[\d,]+(?:\.\d+)?)\s*(?:/\s*sh|per\s*share|per\s*ADS)?', sec1_clean, re.IGNORECASE)
+        m_nc = re.search(r'(?:Net\s*(?:Surplus\s*)?Cash|Net\s*Debt)[^$\n]*?([+-]?\$\s*[\d,]+(?:\.\d+)?)\s*(?:/\s*sh|per\s*share|per\s*ADS)?', sec1_text or sec3_clean, re.IGNORECASE)
         if m_nc:
             net_cash_sh = safe_float(m_nc.group(1), 0.0)
             
     # Normalized OE per share
     oe_per_sh = safe_float(json_block.get("normalized_oe_per_share"), 0.0)
     if oe_per_sh <= 0.0:
-        m_oe = re.search(r'(?:Owner\s*Earnings|OE₀)[^$\n]*?\$?\s*([\d,]+(?:\.\d+)?)\s*(?:/\s*sh|per\s*share|per\s*ADS)?', sec1_clean, re.IGNORECASE)
+        m_oe = re.search(r'(?:Owner\s*Earnings|OE₀)[^$\n]*?\$?\s*([\d,]+(?:\.\d+)?)\s*(?:/\s*sh|per\s*share|per\s*ADS)?', sec1_text or sec3_clean, re.IGNORECASE)
         if m_oe:
             oe_per_sh = safe_float(m_oe.group(1), 0.0)
             
@@ -1770,14 +1770,23 @@ def split_full_genesis_dossier(raw_output: str, company_name: str, current_price
             }
         ]
 
+    return sec3_clean, json_block, stories_metadata
+
+
+def split_full_genesis_dossier(raw_output: str, company_name: str, current_price: float) -> Tuple[str, str, str, Dict[str, Any], List[Dict[str, Any]]]:
+    """Splits single-pass output into Section 1 HTML, Section 2 HTML, Section 3 HTML, and parsed metadata."""
+    clean_text = clean_grounding_artifacts(raw_output)
+    sec1_clean, sec2_clean = split_sec1_and_sec2(raw_output, company_name)
+    sec3_clean, json_block, stories_metadata = parse_sec3_and_json(raw_output, company_name, current_price, sec1_text=sec1_clean, sec2_text=sec2_clean)
     return sec1_clean, sec2_clean, sec3_clean, json_block, stories_metadata
 
 
 def generate_genesis_thesis(ticker: str, company_name: str, current_price: float, initial_notes: str = "") -> Tuple[Dict[str, Any], str]:
-    """Generates an investment thesis via the single-pass Master Grounded Research & Owner Earnings Multiple engine:
-    1. Single Search-Grounded Call: Formulates Premise (Sec 1), 3 Objective Paths (Sec 2), and Owner Earnings Multiple Valuation (Sec 3).
-    2. Concurrent Background Scrapes: Pre-fetches OpenInsider, Dataroma superinvestors, and catalyst timelines.
-    3. Instant Local In-Memory Auto-Healing & Quality Gate (<0.05s).
+    """Generates an investment thesis via the 2-Agent Grounded Research & Valuation Engine:
+    1. Agent 1 (Search Grounded): Researches audited 10-Ks, formulating Section 1 (Premise) and Section 2 (N Paths) with adversarial red-team stress tests (~25s).
+    2. Agent 2 (Valuation Engine): Dedicates 100% of generation budget to Section 3 Owner Earnings Multiple Valuation Table & JSON (~8s).
+    3. Concurrent Background Scrapes: Pre-fetches OpenInsider, Dataroma superinvestors, and catalyst timelines.
+    4. Instant Local In-Memory Auto-Healing & Quality Gate (<0.05s).
     """
     ticker_clean = ticker.upper().strip()
     
@@ -1793,20 +1802,40 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     fut_catalyst = bg_executor.submit(research_catalyst_intelligence, ticker_clean, company_name)
 
     # ------------------------------------------------------------------
-    # Single-Pass Master Genesis Thesis & Owner Earnings Valuation (100% Grounded Search)
+    # Agent 1: Search-Grounded Genesis Premise & Operational Paths
     # ------------------------------------------------------------------
-    print(f"\n🧠 [MASTER GENESIS AGENT] Researching 10-Ks, formulating 3 paths & Owner Earnings multiple valuation in 1 pass...", flush=True)
-    master_prompt = MASTER_GENESIS_THESIS_PROMPT.format(
+    print(f"\n🧠 [AGENT 1: SEARCH-GROUNDED RESEARCH] Researching 10-Ks, formulating Premise (Sec 1) & N Paths (Sec 2)...", flush=True)
+    agent1_prompt = AGENT_1_GENESIS_PREMISE_AND_PATHS_PROMPT.format(
         ticker=ticker_clean,
         company_name=company_name,
         current_price=current_price,
-        notes=initial_notes or "Synthesize core business model, unit economics, 4-quarter earnings commentary, 3 objective paths, and Owner Earnings multiple valuation."
+        notes=initial_notes or "Synthesize core business model, unit economics, 4-quarter earnings commentary, and distinct operational trajectories."
     )
-    raw_output = call_gemini_with_search(master_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=True)
-    sec1_clean, sec2_clean, sec3_clean, val_json, stories_metadata = split_full_genesis_dossier(raw_output, company_name, current_price)
-    
-    words_total = len(sec1_clean.split()) + len(sec2_clean.split()) + len(sec3_clean.split())
-    print(f"   │ Status: Complete 3-Section thesis and valuation generated ({words_total} words, {len(stories_metadata)} paths)", flush=True)
+    raw_agent1_output = call_gemini_with_search(agent1_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=True)
+    sec1_clean, sec2_clean = split_sec1_and_sec2(raw_agent1_output, company_name)
+    words_agent1 = len(sec1_clean.split()) + len(sec2_clean.split())
+    print(f"   │ Status: Section 1 & Section 2 drafted ({words_agent1} words)", flush=True)
+
+    # ------------------------------------------------------------------
+    # Agent 2: Buffett Owner Earnings Multiple Valuation Engine
+    # ------------------------------------------------------------------
+    print(f"\n💵 [AGENT 2: VALUATION ENGINE] Underwriting clean Owner Earnings & multiple assignment across all paths...", flush=True)
+    agent2_prompt = AGENT_2_VALUATION_ENGINE_PROMPT.format(
+        ticker=ticker_clean,
+        company_name=company_name,
+        current_price=current_price,
+        sec1_and_sec2_text=f"{sec1_clean}\n\n{sec2_clean}"
+    )
+    raw_agent2_output = call_gemini_with_search(agent2_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False)
+    sec3_clean, val_json, stories_metadata = parse_sec3_and_json(
+        raw_agent2_output,
+        company_name,
+        current_price,
+        sec1_text=sec1_clean,
+        sec2_text=sec2_clean
+    )
+    words_agent2 = len(sec3_clean.split())
+    print(f"   │ Status: Section 3 and JSON generated ({words_agent2} words, {len(stories_metadata)} paths)", flush=True)
     print("   └" + "─" * 50, flush=True)
 
     # ------------------------------------------------------------------
