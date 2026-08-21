@@ -1088,13 +1088,21 @@ STRICT RESEARCH, GOVERNANCE & 5-VARIABLE MODELING MANDATES:
      * Variable 4: Store Fleet Productivity & New Store Payback
      * Variable 5: Share Repurchases (funded strictly as a residual from free cash flow after maintenance CapEx).
 
-4. CONSTRAIN UPSIDE PATHS (NO MULTI-VARIABLE FANTASY MOONSHOTS):
+4. MANDATORY "MATURE STEADY-STATE / LOW-GROWTH CASH COW" REALITY:
+   - For mature consumer franchises, decelerating retail brands, and large-caps (e.g. Lululemon, Crocs, Nike, Starbucks), DO NOT invent elaborate turnaround miracles or explosive expansion leaps as the base case!
+   - The central baseline MUST evaluate the obvious, unsexy reality staring investors in the face:
+     * Flat to low-single-digit top-line revenue growth (0% to +3% CAGR) driven by North American comp saturation (-2% to +1%) balanced by modest international mid-single-digit expansion (4%–7%).
+     * Operating margins holding steady at ~19%–22% without heroic multiple or margin expansion.
+     * Pure cash-cow capital return: Deploying $1B+ of annual Owner Earnings into disciplined share repurchases (retiring 2.5%–4.0% of float per year).
+     * Value the business as a steady-state cash generator compounding per-share intrinsic value strictly through buybacks, without needing heroic product miracles.
+
+5. CONSTRAIN UPSIDE PATHS (NO MULTI-VARIABLE FANTASY MOONSHOTS):
    - The Upside/Leverage Path must isolate 1–2 specific observable outperformance levers (e.g. Americas comps normalize to +2% while Mainland China sustains 15% growth) rather than assuming simultaneous perfection across every single business variable.
 
-5. COMPETITIVE SHARE LOSS VS TEMPORARY PRODUCT FATIGUE:
+6. COMPETITIVE SHARE LOSS VS TEMPORARY PRODUCT FATIGUE:
    - In Section 1 and Section 2, evaluate competitive threats (e.g. Alo Yoga, Vuori, On, Skims) and specify concrete quarterly falsification signposts.
 
-6. NATURAL NUMBER OF DISTINCT STORYLINES (N ∈ [2, 5]):
+7. NATURAL NUMBER OF DISTINCT STORYLINES (N ∈ [2, 5]):
    - Determine N naturally from the business structure (2 to 4 paths).
 
 OUTPUT FORMAT:
