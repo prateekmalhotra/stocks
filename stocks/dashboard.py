@@ -1273,9 +1273,8 @@ def build_native_svg_chart(
             const prices = points.map(p => p.price);
             const evalPrices = [...prices];
             
-            // Show valuation target reference lines on 1Y (default view), 5Y, and MAX
-            // On short intraday timeframes (1D, 1M), hide target lines so intraday price curves are never squashed
-            const showTargetLines = (currentRangeKey === '1Y' || currentRangeKey === '5Y' || currentRangeKey === 'MAX');
+            // Show valuation target reference lines across all timelines (1D, 1M, 1Y, 5Y, MAX)
+            const showTargetLines = true;
             
             if (showTargetLines) {{
                 for (const t of targets) {{
@@ -1328,10 +1327,10 @@ def build_native_svg_chart(
                 }}
             }}
 
-            // Target legend display: show on 1Y/5Y/MAX, hide on 1D/1M
+            // Target legend display: show on all timeline ranges
             const targetsLegendEl = document.querySelector('.chart-targets-legend');
             if (targetsLegendEl) {{
-                targetsLegendEl.style.display = (currentRangeKey === '1D' || currentRangeKey === '1M') ? 'none' : 'flex';
+                targetsLegendEl.style.display = 'flex';
             }}
 
             updateXAxisTicks(points, currentRangeKey);
