@@ -799,7 +799,7 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
                 <span class="section-icon">🏛️</span>
                 <h3 class="section-heading">Institutional Funds & 13F Superinvestor Holdings ({fund_count_display})</h3>
             </div>
-            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings, Dataroma superinvestor portfolios, and regulatory ownership registries.</p>
+            <p class="section-desc">Reported positions from official SEC Form 13F quarterly filings and Dataroma superinvestor portfolios. <em>Note: Position values represent reported valuation as of the respective SEC Form 13F quarter-end filing date; market values fluctuate with live share price.</em></p>
             <div class="table-responsive">
                 <table class="ownership-table">
                     <thead>
@@ -809,7 +809,7 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
                             <th>Portfolio Weight / Stake</th>
                             <th>Reported Shares</th>
                             <th>Recent 13F Action</th>
-                            <th>Position Value</th>
+                            <th>13F Filing Value (Historic)</th>
                             <th>Filing Source</th>
                         </tr>
                     </thead>
