@@ -45,12 +45,9 @@ def auto_heal_dossier_and_metadata(ticker: str, html: str, metadata: Optional[Di
                 
         stories = meta.get("stories", [])
         if stories and len(stories) >= 1:
-            if not meta.get("story1_target"):
-                meta["story1_target"] = stories[0].get("target", "")
-            if len(stories) >= 2 and not meta.get("story2_target"):
-                meta["story2_target"] = stories[1].get("target", "")
-            if len(stories) >= 3 and not meta.get("story3_target"):
-                meta["story3_target"] = stories[2].get("target", "")
+            for idx, s in enumerate(stories, start=1):
+                if not meta.get(f"story{idx}_target"):
+                    meta[f"story{idx}_target"] = s.get("target", "")
 
     return healed_html, meta
 
