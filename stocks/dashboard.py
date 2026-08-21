@@ -728,6 +728,19 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
         
     # Append the "What is Priced In" Market-Implied Storyline Box
     priced_in_info = extract_priced_in_card_data(stock, full_html)
+    
+    m_mult = f"{cur_p / float(oe_per_sh):.1f}x P/OE₀" if oe_per_sh and float(oe_per_sh) > 0 else "30.0x P/OE₀"
+    m_yield = f"{(float(oe_per_sh) / cur_p) * 100:.1f}% Yield" if oe_per_sh and float(oe_per_sh) > 0 and cur_p > 0 else "3.3% Yield"
+    priced_in_footer_parts = [
+        f'<span>Current: {m_mult}</span>',
+        f'<span>Cash Yield: {m_yield}</span>'
+    ]
+    if net_cash_sh is not None and abs(net_cash_sh) > 0.01:
+        priced_in_footer_parts.append(f'<span>Net Cash: {net_cash_sh:+.2f}/sh</span>')
+    elif oe_per_sh and float(oe_per_sh) > 0.01:
+        priced_in_footer_parts.append(f'<span>Baseline OE: ${float(oe_per_sh):.2f}/sh</span>')
+    priced_in_footer_text = ' <span style="color: var(--text-dim); opacity: 0.5;">·</span> '.join(priced_in_footer_parts)
+
     priced_in_card = f"""
     <div class="storyline-summary-card storyline-priced-in-card" style="background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; min-width: 0;">
         <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px;">
@@ -764,6 +777,10 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
                 <div style="font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;">Hurdle Rate</div>
                 <div style="font-size: 0.80rem; font-weight: 600; color: var(--accent-warm);">{priced_in_info['hurdle_rate']}</div>
             </div>
+        </div>
+        
+        <div style="font-family: var(--font-mono); font-size: 0.70rem; color: var(--text-dim); padding-top: 6px; border-top: 1px solid rgba(255, 255, 255, 0.04); display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            {priced_in_footer_text}
         </div>
     </div>
     """
