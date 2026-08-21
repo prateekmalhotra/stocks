@@ -413,7 +413,7 @@ def extract_stories_from_agent2(raw_text: str, clean_html: str = "") -> list:
 def map_to_canonical_moat_label(lbl: str = "", sec1_text: str = "", default: str = "Narrow Moat") -> str:
     """Maps any input string, moat description, or Section 1 text to one of the 4 canonical Moat ratings:
     1. Wide Moat: Dominant structural advantage (switching costs, network effects, legal monopoly) sustaining excess returns for 20+ years.
-    2. Narrow Moat: Durable competitive advantage (scale, brand affinity) sustaining excess returns for 10+ years (Nike, Crocs, Lululemon, Starbucks, Costco).
+    2. Narrow Moat: Durable competitive advantage (scale, brand affinity) sustaining excess returns for 10+ years (Nike, Crocs, Lululemon, Starbucks, Costco, PayPal).
     3. Weak Moat: Fragile or commoditized advantage vulnerable to fashion decay or price competition.
     4. No Moat: Commoditized price-taker with zero structural barriers to entry.
     """
@@ -437,29 +437,37 @@ def map_to_canonical_moat_label(lbl: str = "", sec1_text: str = "", default: str
             if clean_lbl == m.upper():
                 return "Narrow Moat" if (m == "Wide Moat" and is_apparel_or_fashion) else m
 
-    # 2. Check explicit "Primary Economic Moat Rating:" statement from Section 1
+    # 2. Check explicit canonical phrases in Section 1 text
     if sec1_text:
-        m = re.search(r'Primary Economic Moat (?:Rating|Archetype|Classification|Tier):\s*([^<\n\.]+)', sec1_text, re.IGNORECASE)
-        if m:
-            class_str = m.group(1).strip().upper()
-            if "NARROW" in class_str or "MODERATE" in class_str or "COST ADVANTAGE" in class_str or "SCALE" in class_str:
+        # Search for exact primary moat statement
+        m_explicit = re.search(r'Primary Economic Moat (?:Rating|Archetype|Classification|Tier|Badge)?:\s*<strong>\s*([^<\n]+)\s*</strong>', sec1_text, re.IGNORECASE)
+        if not m_explicit:
+            m_explicit = re.search(r'Primary Economic Moat (?:Rating|Archetype|Classification|Tier|Badge)?:\s*([^<\n\.]+)', sec1_text, re.IGNORECASE)
+        if m_explicit:
+            class_str = m_explicit.group(1).strip().upper()
+            if "NARROW" in class_str or "MODERATE" in class_str:
                 return "Narrow Moat"
             if "WEAK" in class_str or "VULNERABLE" in class_str or "FRAGILE" in class_str:
                 return "Weak Moat"
             if "NO MOAT" in class_str or "COMMODITY" in class_str or "ZERO" in class_str:
                 return "No Moat"
-            if "WIDE" in class_str or "STRONG" in class_str or "TOLLBRIDGE" in class_str or "NETWORK EFFECT" in class_str:
+            if "WIDE" in class_str or "STRONG" in class_str or "TOLLBRIDGE" in class_str:
                 return "Narrow Moat" if is_apparel_or_fashion else "Wide Moat"
 
-    # 3. Contextual clues if no explicit header
-    if "WEAK MOAT" in combined_lower or "fragile moat" in combined_lower or "fad risk" in combined_lower:
-        return "Weak Moat"
-    if "no moat" in combined_lower or "zero moat" in combined_lower:
-        return "No Moat"
+        # Search for standalone bold/header moat declarations
+        if re.search(r'\b(?:Narrow\s+Economic\s+Moat|Narrow\s+Moat)\b', sec1_text, re.IGNORECASE):
+            # Check if Narrow Moat is declared as the verdict
+            if not re.search(r'\b(?:Wide\s+Economic\s+Moat|Wide\s+Moat)\b', sec1_text, re.IGNORECASE):
+                return "Narrow Moat"
+        if re.search(r'\b(?:Weak\s+Economic\s+Moat|Weak\s+Moat|Vulnerable\s+Moat)\b', sec1_text, re.IGNORECASE):
+            return "Weak Moat"
+        if re.search(r'\b(?:No\s+Economic\s+Moat|No\s+Moat|Zero\s+Moat)\b', sec1_text, re.IGNORECASE):
+            return "No Moat"
+        if re.search(r'\b(?:Wide\s+Economic\s+Moat|Wide\s+Moat)\b', sec1_text, re.IGNORECASE):
+            return "Narrow Moat" if is_apparel_or_fashion else "Wide Moat"
+
     if is_apparel_or_fashion:
         return "Narrow Moat"
-    if any(k in combined_lower for k in ["network effect", "switching cost", "regulatory monopoly", "tollbridge", "duopoly"]):
-        return "Wide Moat"
         
     return default
 
@@ -1107,6 +1115,13 @@ STRICT RESEARCH, GOVERNANCE & BUSINESS INERTIA MANDATES:
 6. COMPETITIVE SHARE LOSS VS TEMPORARY PRODUCT FATIGUE:
    - In Section 1 and Section 2, evaluate competitive threats (e.g. Alo Yoga, Vuori, On, Skims) and specify concrete quarterly falsification signposts.
 
+7. FINTECH, DIGITAL PAYMENTS & TAKE-RATE COMPRESSION MANDATE:
+   - For digital payment platforms and fintech processors (e.g. PayPal, Block, Adyen):
+     * Explicitly model take-rate and transaction margin trajectories:
+       - Unbranded payment processing (Braintree) margin compression vs branded checkout buttons (PayPal / Venmo).
+       - Competitive pricing and margin pressure from Adyen, Stripe, Apple Pay, Google Pay, and Shop Pay.
+     * Never assume take-rates stabilize without analyzing competitive checkout button displacement.
+
 OUTPUT FORMAT:
 Provide pure semantic HTML containing ONLY Section 1 and Section 2:
 
@@ -1332,7 +1347,9 @@ YOUR CRITICAL AUDIT MANDATE:
 2. EMPIRICAL PROBABILITY DISTRIBUTION ACROSS ALL N STORIES:
    - Assign probability weights (p₁, ..., pN summing STRICTLY to 1.0 / 100%):
      * For companies facing active friction or brand turnaround risks, ensure Downside Friction paths carry substantial weight (e.g. 30%–45%).
-     * For secular monopolies with deep moats, Core Execution carries 50%–65%.
+     * GOVERNANCE & CEO WHIPLASH PENALTY: If a company has experienced >= 2 CEO changes in the past 3 years or ongoing C-suite instability (e.g. PayPal, Starbucks), unproven turnaround execution paths CANNOT be assigned >40%–45% probability. Downside friction & competitive erosion MUST carry >= 55%–60% of the probability mass until multi-quarter execution is proven.
+     * INSIDER FLOW SKEPTICISM: If Form 4 filings detail persistent net insider selling (> $10M net sales with zero open-market purchases), factor this executive skepticism directly into the capital allocation commentary and demand a higher Margin of Safety hurdle (>= 25%) before recommending BUY.
+     * For secular monopolies with deep moats and stable management, Core Execution carries 50%–65%.
 3. MANDATORY PYTHON CODE EXECUTION FOR VERIFICATION & REVERSE DCF:
    - You MUST write and execute Python code using your code execution tool to compute all final synthesis numbers:
      * Probability-Weighted Expected 5Y Target (P₅_expected) = ∑ (p_i * P₅_i)
@@ -1341,7 +1358,7 @@ YOUR CRITICAL AUDIT MANDATE:
      * Probability-Weighted Expected 5Y Price CAGR % = ((P₅_expected / ${current_price:.2f})**(0.2) - 1) * 100%
      * Reverse DCF: Exact implied 5Y Owner Earnings CAGR priced in at ${current_price:.2f} under market multiple (M₀ = ${current_price:.2f} / ${oe0_per_share:.2f}) and baseline multiple (M_base).
 4. CAPITAL ALLOCATION RECOMMENDATION:
-   - BUY (if Expected MoS >= +20%), HOLD (if MoS 0% to +20%), CAUTION (if MoS -15% to 0%), AVOID (if MoS < -15%).
+   - BUY (if Expected MoS >= +20%, or >= +25% if heavy insider selling/CEO churn is present), HOLD (if MoS 0% to +20%), CAUTION (if MoS -15% to 0%), AVOID (if MoS < -15%).
 
 OUTPUT FORMAT:
 Provide pure semantic HTML containing Section 3 (with the complete {num_stories}-Path Valuation Table, Probability Weighting Rationale, and Market Inversion & Valuation Synthesis), followed by the complete structured JSON block:
