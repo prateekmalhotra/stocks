@@ -6,7 +6,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import List, Dict, Any, Optional
 from stocks.models import WatchlistStock, AlertItem, ThesisVersion
-from stocks.data_store import load_watchlist, load_alerts, load_thesis_history
+from stocks.data_store import load_watchlist, save_watchlist, load_alerts, load_thesis_history
 from stocks.tracker import fetch_all_chart_ranges, fetch_all_chart_ranges_cached
 from stocks.ownership_intelligence import build_ownership_tab_html, calculate_insider_sentiment_and_flow, load_cached_ownership
 from bs4 import BeautifulSoup, NavigableString, Tag
@@ -4631,29 +4631,38 @@ def render_all():
         for p in data_theses_dir.glob("*.json"):
             tickers.add(p.stem.upper())
             
+    synced_watchlist = {}
     for ticker in sorted(tickers):
-        stock = watchlist.get(ticker)
         history = load_thesis_history(ticker)
-        if not stock and history:
+        stock = watchlist.get(ticker)
+        
+        if history:
             current_v = history[-1]
+            comp_name = stock.company_name if stock else ticker
+            cur_price = current_v.price_at_version or (stock.current_price if stock else 0.0)
+            base_price = (stock.baseline_price if stock else cur_price) or cur_price
+            ret_pct = ((cur_price - base_price) / base_price * 100.0) if base_price > 0 else 0.0
+            
             stock = WatchlistStock(
                 ticker=ticker,
-                company_name=ticker,
-                baseline_price=current_v.price_at_version or 0.0,
-                current_price=current_v.price_at_version or 0.0,
-                return_pct=0.0,
-                status_label=current_v.status_label or "ACTIVE RESEARCH",
-                labels=current_v.labels or [current_v.status_label or "ACTIVE RESEARCH"],
+                company_name=comp_name,
+                baseline_price=base_price,
+                current_price=cur_price,
+                return_pct=ret_pct,
+                status_label=current_v.status_label or "Narrow Moat",
+                moat_label=current_v.moat_label or current_v.status_label or "Narrow Moat",
+                labels=current_v.labels or [current_v.status_label or "Narrow Moat"],
                 action_signal=current_v.action_signal or "BUY",
                 fair_value_estimate=current_v.fair_value_estimate or "$0.00",
-                expected_fair_value=getattr(current_v, "expected_fair_value", "") or current_v.fair_value_estimate or "$0.00",
-                stories=getattr(current_v, "stories", []),
-                story1_target=getattr(current_v, "story1_target", "") or current_v.bear_target or "$0.00",
-                story2_target=getattr(current_v, "story2_target", "") or current_v.base_target or "$0.00",
-                story3_target=getattr(current_v, "story3_target", "") or current_v.bull_target or "$0.00",
-                story1_title=getattr(current_v, "story1_title", "Story 1") or "Story 1",
-                story2_title=getattr(current_v, "story2_title", "Story 2") or "Story 2",
-                story3_title=getattr(current_v, "story3_title", "Story 3") or "Story 3",
+                expected_fair_value=current_v.expected_fair_value or current_v.fair_value_estimate or "$0.00",
+                expected_val=extract_numeric_price(current_v.expected_fair_value or current_v.fair_value_estimate),
+                stories=current_v.stories or [],
+                story1_target=current_v.story1_target or "",
+                story2_target=current_v.story2_target or "",
+                story3_target=current_v.story3_target or "",
+                story1_title=current_v.story1_title or "Path 1",
+                story2_title=current_v.story2_title or "Path 2",
+                story3_title=current_v.story3_title or "Path 3",
                 bear_target=current_v.bear_target or "$0.00",
                 base_target=current_v.base_target or "$0.00",
                 bull_target=current_v.bull_target or "$0.00",
@@ -4666,17 +4675,26 @@ def render_all():
                 institutional_ownership_pct=current_v.institutional_ownership_pct or "",
                 insider_signal=current_v.insider_signal or "Neutral (10b5-1)",
                 insider_summary=current_v.insider_summary or "",
+                pricing_power_tier=current_v.pricing_power_tier or "Strong Pricing Power",
+                pricing_power_score=current_v.pricing_power_score or "",
+                pricing_power_summary=current_v.pricing_power_summary or "",
+                predictability_tier=current_v.predictability_tier or "Moderate Predictability",
+                predictability_score=current_v.predictability_score or "",
+                predictability_summary=current_v.predictability_summary or "",
                 last_updated=current_v.date or datetime.now().strftime("%Y-%m-%d"),
                 total_versions=len(history),
                 report_path=f"reports/{ticker.upper()}.html"
             )
+        
         if stock:
+            synced_watchlist[ticker] = stock
             html = generate_company_dossier_html(ticker, stock, history)
             report_file = REPORTS_DIR / f"{ticker.upper()}.html"
             with open(report_file, "w", encoding="utf-8") as f:
                 f.write(html)
             
-    master_html = generate_master_dashboard_html(watchlist, alerts)
+    save_watchlist(synced_watchlist)
+    master_html = generate_master_dashboard_html(synced_watchlist, alerts)
     with open(PUBLIC_DIR / "index.html", "w", encoding="utf-8") as f:
         f.write(master_html)
 

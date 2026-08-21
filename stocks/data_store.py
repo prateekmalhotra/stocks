@@ -2,6 +2,7 @@
 
 import json
 import os
+from datetime import datetime
 from pathlib import Path
 from typing import List, Optional, Dict, Any
 from stocks.models import WatchlistStock, AlertItem, ThesisVersion, TaskItem
@@ -140,8 +141,62 @@ def load_thesis_history(ticker: str) -> List[ThesisVersion]:
     try:
         with open(file_path, "r", encoding="utf-8") as f:
             data = json.load(f)
-            return [ThesisVersion(**item) for item in data]
-    except Exception:
+            if not isinstance(data, list):
+                data = [data]
+            results = []
+            for item in data:
+                if not isinstance(item, dict):
+                    continue
+                if "metadata" in item and isinstance(item["metadata"], dict):
+                    meta = item["metadata"]
+                    cur_p = item.get("current_price") or meta.get("price_at_version") or meta.get("baseline_price") or 0.0
+                    tv = ThesisVersion(
+                        version=int(meta.get("version", 1)),
+                        date=str(meta.get("date") or meta.get("last_updated") or datetime.now().strftime("%Y-%m-%d")),
+                        price_at_version=float(cur_p),
+                        status_label=str(meta.get("status_label") or meta.get("moat") or "Narrow Moat"),
+                        moat_label=str(meta.get("moat_label") or meta.get("moat") or "Narrow Moat"),
+                        labels=list(meta.get("labels") or [meta.get("status_label", "Narrow Moat")]),
+                        action_signal=str(meta.get("action_signal", "BUY")),
+                        summary_of_change=str(meta.get("summary_of_change", "")),
+                        what_was_before=str(meta.get("what_was_before", "")),
+                        what_changes_now=str(meta.get("what_changes_now", "")),
+                        fair_value_estimate=str(meta.get("fair_value_estimate", "$0.00")),
+                        expected_fair_value=str(meta.get("expected_fair_value") or meta.get("fair_value_estimate", "$0.00")),
+                        stories=list(meta.get("stories", [])),
+                        story1_target=str(meta.get("story1_target", "")),
+                        story2_target=str(meta.get("story2_target", "")),
+                        story3_target=str(meta.get("story3_target", "")),
+                        story1_title=str(meta.get("story1_title", "")),
+                        story2_title=str(meta.get("story2_title", "")),
+                        story3_title=str(meta.get("story3_title", "")),
+                        bear_target=str(meta.get("bear_target", "$0.00")),
+                        base_target=str(meta.get("base_target", "$0.00")),
+                        bull_target=str(meta.get("bull_target", "$0.00")),
+                        upper_alert_threshold=float(meta["upper_alert_threshold"]) if meta.get("upper_alert_threshold") is not None else None,
+                        lower_alert_threshold=float(meta["lower_alert_threshold"]) if meta.get("lower_alert_threshold") is not None else None,
+                        next_catalyst_date=str(meta.get("next_catalyst_date", "")),
+                        next_catalyst_event=str(meta.get("next_catalyst_event", "")),
+                        trigger_reason=str(meta.get("trigger_reason", "")),
+                        what_is_priced_in=str(meta.get("what_is_priced_in", "")),
+                        top_funds=list(meta.get("top_funds", [])),
+                        institutional_ownership_pct=str(meta.get("institutional_ownership_pct", "")),
+                        insider_signal=str(meta.get("insider_signal", "Neutral (10b5-1)")),
+                        insider_summary=str(meta.get("insider_summary", "")),
+                        pricing_power_tier=str(meta.get("pricing_power_tier", "Strong Pricing Power")),
+                        pricing_power_score=str(meta.get("pricing_power_score", "")),
+                        pricing_power_summary=str(meta.get("pricing_power_summary", "")),
+                        predictability_tier=str(meta.get("predictability_tier", "Moderate Predictability")),
+                        predictability_score=str(meta.get("predictability_score", "")),
+                        predictability_summary=str(meta.get("predictability_summary", "")),
+                        full_html_content=str(item.get("full_html") or meta.get("full_html_content") or "")
+                    )
+                    results.append(tv)
+                else:
+                    results.append(ThesisVersion(**item))
+            return results
+    except Exception as e:
+        print(f"⚠️ Error loading thesis history for {ticker}: {e}")
         return []
 
 
