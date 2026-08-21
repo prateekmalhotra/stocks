@@ -2087,9 +2087,9 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 
     logo_html = get_ticker_logo_html(ticker_clean, size=36)
     width = 900
-    height = 220
+    height = 200
     padding_x = 10
-    padding_y = 15
+    padding_y = 12
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -2302,9 +2302,24 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 
         .chart-svg {{
             width: 100%;
-            height: 220px;
+            height: 200px;
             overflow: visible;
             display: block;
+        }}
+        .chart-x-axis {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1px solid var(--border-color);
+            font-family: var(--font-mono);
+            font-size: 0.70rem;
+            color: var(--text-dim);
+            user-select: none;
+        }}
+        .chart-x-tick {{
+            white-space: nowrap;
         }}
 
         /* Clean 3-Column Metrics Grid */
@@ -2312,7 +2327,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 14px;
-            margin-top: 24px;
+            margin-top: 20px;
         }}
         .metric-card {{
             background: var(--bg-subpanel);
@@ -2857,7 +2872,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                         <button class="range-pill" onclick="switchRange('MAX')">MAX</button>
                     </div>
                 </div>
-                <div style="position: relative; width: 100%; height: 220px;">
+                <div style="position: relative; width: 100%; height: 200px;">
                     <svg id="interactive-svg" class="chart-svg" viewBox="0 0 {width} {height}" preserveAspectRatio="none">
                         <defs>
                             <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
@@ -2865,9 +2880,15 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                                 <stop offset="100%" stop-color="#82AE8C" stop-opacity="0.0" />
                             </linearGradient>
                         </defs>
-                        <line x1="{padding_x}" y1="{padding_y}" x2="{width - padding_x}" y2="{padding_y}" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
-                        <line x1="{padding_x}" y1="{height / 2}" x2="{width - padding_x}" y2="{height / 2}" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
-                        <line x1="{padding_x}" y1="{height - padding_y}" x2="{width - padding_x}" y2="{height - padding_y}" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
+                        <!-- Horizontal Grid Lines & Y-Axis Prices -->
+                        <text id="grid-price-high" x="{width - padding_x - 6}" y="{padding_y + 11}" text-anchor="end" fill="#6E685E" font-family="var(--font-mono)" font-size="10.5">$0.00</text>
+                        <line x1="{padding_x}" y1="{padding_y}" x2="{width - padding_x}" y2="{padding_y}" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="2 4" />
+
+                        <text id="grid-price-mid" x="{width - padding_x - 6}" y="{height / 2 + 3}" text-anchor="end" fill="#6E685E" font-family="var(--font-mono)" font-size="10.5">$0.00</text>
+                        <line x1="{padding_x}" y1="{height / 2}" x2="{width - padding_x}" y2="{height / 2}" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="2 4" />
+
+                        <text id="grid-price-low" x="{width - padding_x - 6}" y="{height - padding_y - 4}" text-anchor="end" fill="#6E685E" font-family="var(--font-mono)" font-size="10.5">$0.00</text>
+                        <line x1="{padding_x}" y1="{height - padding_y}" x2="{width - padding_x}" y2="{height - padding_y}" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="2 4" />
                         
                         <!-- Dynamic Area & Stroke -->
                         <polygon id="chart-area" fill="url(#area-grad)" points="" />
@@ -2878,6 +2899,8 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                         <circle id="hover-dot" r="4.5" fill="#D4A373" stroke="#1B1A19" stroke-width="2" opacity="0" />
                     </svg>
                 </div>
+                <!-- X-Axis Timeline Dates -->
+                <div class="chart-x-axis" id="chart-x-axis"></div>
             </div>
 
             <!-- 6-Box Derived Financial Metrics Grid -->
@@ -3076,6 +3099,27 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             const lastPt = coords[coords.length - 1];
             tooltipDate.textContent = lastPt.date;
             tooltipPrice.textContent = '$' + lastPt.price.toFixed(2);
+
+            // Update Y-Axis Prices
+            const highEl = document.getElementById('grid-price-high');
+            const midEl = document.getElementById('grid-price-mid');
+            const lowEl = document.getElementById('grid-price-low');
+            if (highEl) highEl.textContent = '$' + maxP.toFixed(2);
+            if (midEl) midEl.textContent = '$' + ((maxP + minP) / 2).toFixed(2);
+            if (lowEl) lowEl.textContent = '$' + minP.toFixed(2);
+
+            // Populate X-Axis Ticks
+            const xAxis = document.getElementById('chart-x-axis');
+            if (xAxis && points.length > 0) {{
+                const tickCount = Math.min(5, points.length);
+                let ticksHtml = '';
+                for (let i = 0; i < tickCount; i++) {{
+                    const ptIdx = Math.floor((i / (tickCount - 1)) * (points.length - 1));
+                    const dStr = points[ptIdx].date;
+                    ticksHtml += `<span class="chart-x-tick">${{dStr}}</span>`;
+                }}
+                xAxis.innerHTML = ticksHtml;
+            }}
 
             // Interactive Crosshair Scrub
             svg.onmousemove = function(e) {{
