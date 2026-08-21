@@ -1116,65 +1116,112 @@ Provide pure semantic HTML containing ONLY Section 1 and Section 2:
 """
 
 
-AGENT_2_VALUATION_ENGINE_PROMPT = """Target: {ticker} ({company_name})
+STORY_VALUATION_PROMPT = """Target: {ticker} ({company_name})
+Story Number: Path {story_num} - {story_title}
 Benchmark Reference Price (For Margin of Safety & IRR Comparison Only): ${current_price:.2f}
 
-You are the Lead Buy-Side Valuation & Capital Allocation Director.
-You are given Section 1 (The Premise) and Section 2 (The Probable Future Paths) for {company_name}.
+You are the Lead Quantitative Valuation Analyst underwriting Path {story_num} for {company_name}.
+You must evaluate this specific operational trajectory in complete isolation, 100% blind to market noise or consensus.
 
-RESEARCH DOSSIER CONTEXT:
-{sec1_and_sec2_text}
+COMPANY BASELINE CONTEXT (From Section 1):
+======================================================================
+- Primary Economic Moat: {moat_tier}
+- Clean Normalized Baseline Owner Earnings (OE₀): ${oe0_per_share:.2f} / share
+- Net Balance Sheet Cash (+) or Debt (-) per share: {net_cash_str}
+- 3-Year Historical ROIC: {roic_str}
+======================================================================
 
-YOUR TASK:
-Formulate Section 3: Normalized Owner Earnings Multiple & Yield Inversion Valuation and the final structured JSON block.
+STORY OPERATIONAL NARRATIVE & UNIT DRIVERS (Path {story_num}):
+======================================================================
+{story_text}
+======================================================================
 
-STRICT FIRST-PRINCIPLES VALUATION & ZERO-PRICE-ANCHORING RULES:
-1. STRICT 100% BLIND INTRINSIC APPRAISAL (NO BACK-SOLVING):
-   - You MUST derive starting OE₀, projected 5-year CAGR (g_OE), and terminal multiples (M₅) 100% BLIND to the benchmark reference price (${current_price:.2f}).
-   - Under NO circumstances calculate backwards, anchor multiples, or tweak growth rates to match or justify market consensus. Intrinsic value is an independent property of the business's unit economics and cash flow compounding.
-   - The benchmark reference price (${current_price:.2f}) is used ONLY after intrinsic value is established to compute:
-     * Margin of Safety % = ((Present Fair Value - Benchmark Price) / Benchmark Price) * 100%
-     * 5Y Price IRR % = ((5Y Target Price / Benchmark Price)^(1/5) - 1) * 100%
-     * Reverse DCF Implied Reality = What CAGR is the market pricing in at ${current_price:.2f}?
-2. MULTIPLE ECONOMIC JUSTIFICATION (NO HIGH MULTIPLE WITHOUT HIGH GROWTH & MOAT):
-   - Terminal Multiple = (1 - g / ROIC) / (r - g), where r = 9.5% hurdle rate and g is the steady-state growth rate.
-   - WIDE-MOAT MONOPOLIES (Visa, Mastercard, Microsoft, Alphabet, Copart):
-     * High Growth (g = 12%–16% with monopoly ROIC >30%): Multiple is 20.0x–25.0x (Owner Cash Yield 4.0%–5.0%).
-     * Moderate Growth (g = 7%–10%): Multiple is 17.0x–20.0x (Owner Cash Yield 5.0%–5.9%).
-   - NARROW-MOAT CONSUMER / APPAREL / FOOTWEAR (Crocs, Lululemon, Nike, Starbucks, Costco):
-     * Core Base Case (g = 6%–10% with high brand ROIC): Multiple is 13.0x–16.0x (Owner Cash Yield 6.2%–7.7%).
-     * Downside Friction / Turnaround Drag (g <= 3% or negative): Multiple compresses to 9.0x–11.5x (Owner Cash Yield 8.7%–11.1%).
-     * Acceleration / Bull Case (g = 12%–15%): Multiple is 16.0x–18.0x (Owner Cash Yield 5.5%–6.2%).
-     * MANDATORY RULE: NEVER assign a 20x+ terminal multiple to an apparel, footwear, or retail brand!
-   - WEAK MOAT / TURNAROUND STOCKS:
-     * Baseline: Multiple is 10.0x–13.0x.
-     * Downside: Multiple is 7.0x–9.0x.
-   - REVERSE DCF MARKET REALITY:
-     * When analyzing what the market is pricing in under 'Market Inversion & Valuation Synthesis', calculate the required growth rate under the market's CURRENT multiple (M₀ = P₀ / OE₀).
-     * NEVER state that the market is pricing in a 18x–20x multiple if the stock is currently trading at 10x!
-3. Multi-Year Compounding Alignment:
-   - For each Path i, explicitly define its 5-Year Owner Earnings Compounding Rate (CAGR_OE) derived directly from Section 2's bottom-up unit metrics!
-   - Compute Projected Year-5 Owner Earnings per Share (OE₅) = OE₀ * (1 + CAGR_OE)^5.
-   - Net Balance Sheet Cash/(Debt) per Share: MUST strictly be divided by diluted shares (e.g. +$4.68/sh, NEVER aggregate millions).
-   - 5-Year Target Price per Share (P₅) = (Assigned Terminal Multiple * Projected OE₅ per share) + Net Surplus Cash per share (or - Net Debt per share).
-   - 5-Year Annualized Price CAGR (%) = ((P₅ / Current Price)^(1/5) - 1) * 100%.
-   - Total 5-Year Return (%) = ((P₅ - Current Price) / Current Price) * 100%.
-4. Discounted Present Fair Value (PV at 9.5% Hurdle Rate):
-   - Present Intrinsic Fair Value (P₀) = P₅ / (1.095)^5.
-   - Margin of Safety (%) vs Current Price = ((P₀ - Current Price) / Current Price) * 100%.
-5. RIGOROUS EMPIRICAL PROBABILITY DISTRIBUTION MANDATE:
-   - Assign probability weights (p₁, ..., pN summing strictly to 100%) grounded directly in empirical evidence from audited statutory filings (10-K, 10-Q), contracted backlog visibility, and recent management earnings commentary.
-   - Core compounding execution carries dominant empirical weight (65% to 80%).
-   - Mild friction and mild upside carry realistic risk/opportunity weights (10% to 20%).
-   - Include a dedicated callout explaining the empirical filing basis for each assigned probability weight!
-6. Probability-Weighted Target & Expected Fair Value:
-   - Expected 5Y Target Price = sum(p_i * P₅_i).
-   - Expected Present Fair Value = sum(p_i * P₀_i).
-   - Expected Margin of Safety (%) = ((Expected Present Fair Value - Current Stock Price) / Current Stock Price) * 100%.
-7. NO EMOJIS ANYWHERE: Output pure semantic HTML.
+STRICT VALUATION RULES:
+1. Projected 5-Year Owner Earnings CAGR:
+   - Derive the 5-year compounding rate (CAGR_OE) directly from the story's operational unit drivers, volume, pricing, and margin shifts.
+   - For downside/friction scenarios, CAGR_OE should reflect realistic deceleration, margin compression, or stagnation (e.g. -5% to +2%).
+   - For core baseline scenarios, reflect realistic execution without speculative moonshots (e.g. +4% to +8% for mature apparel/retail, +10% to +14% for secular compounders).
+   - For bull/acceleration scenarios, reflect operating leverage and category expansion (e.g. +9% to +14% for apparel/retail, +15% to +20% for hyper-scalers).
+2. Year-5 Projected Owner Earnings (OE₅) / share:
+   - OE₅ = OE₀ * (1 + CAGR_OE)^5.
+3. Terminal Valuation Multiple (M₅ = P/OE₅):
+   - Terminal multiples MUST reflect fundamental economic capitalization rules: M₅ = (1 - g/ROIC) / (r - g) with r = 9.5%.
+   - MANDATORY SECTOR MULTIPLE CAPS:
+     * Consumer Brands / Retail / Apparel / Footwear (Crocs, Lululemon, Nike, etc.):
+       - Core Baseline: 12.0x – 15.0x
+       - Downside Friction: 8.0x – 10.5x
+       - Acceleration / Bull: 15.0x – 17.0x
+       - NEVER assign a 17.5x+ multiple to a consumer retail/footwear stock!
+     * Secular Monopolies / High-Switching Platforms (Visa, Microsoft, Google):
+       - Core Baseline: 18.0x – 22.0x
+       - Downside Friction: 12.0x – 15.0x
+       - Acceleration / Bull: 22.0x – 25.0x
+4. 5-Year Target Price / Share (P₅):
+   - P₅ = (M₅ * OE₅) + Net Surplus Cash per share (or - Net Debt per share).
+5. Present Intrinsic Fair Value (P₀ at 9.5% Hurdle Rate):
+   - P₀ = P₅ / (1.095)^5.
+6. Margin of Safety % vs. Benchmark Price (${current_price:.2f}):
+   - MoS % = ((P₀ - ${current_price:.2f}) / ${current_price:.2f}) * 100%.
 
 OUTPUT FORMAT:
-Provide pure semantic HTML containing Section 3, followed by the complete structured JSON block:
+Provide ONLY a valid JSON object matching this exact schema:
+```json
+{{
+  "story_num": {story_num},
+  "story_title": "{story_title}",
+  "short_summary": "<1-2 sentence crisp operational summary>",
+  "projected_5y_cagr": "+XX.X%",
+  "projected_oe5_per_share": XX.XX,
+  "oe_multiple": "XX.Xx",
+  "oe_yield": "X.X%",
+  "net_cash_per_share": {net_cash_num},
+  "target_price_5y": XX.XX,
+  "present_fair_value": XX.XX,
+  "mos_pct": XX.X,
+  "target_5y_cagr_pct": XX.X,
+  "target_5y_return_pct": XX.X,
+  "valuation_rationale": "<2-3 sentence economic rationale for the chosen growth rate and terminal multiple>"
+}}
+```
+"""
+
+
+VALUATION_FEEDBACK_AND_SYNTHESIS_PROMPT = """Target: {ticker} ({company_name})
+Benchmark Reference Price: ${current_price:.2f}
+
+You are the Chief Risk Officer & Buy-Side Senior Audit Partner.
+You are conducting an independent sanity check on the 3 independent valuation models underwritten for {company_name}.
+
+COMPANY FINANCIAL BASELINE (From Section 1):
+======================================================================
+- Primary Economic Moat: {moat_tier}
+- Clean Baseline Owner Earnings (OE₀): ${oe0_per_share:.2f} / share
+- Net Balance Sheet Cash (+) or Debt (-) per share: {net_cash_str}
+- 3-Year Historical Growth & ROIC Profile: {historical_summary}
+======================================================================
+
+INDEPENDENT 3-STORY VALUATION MODELS:
+======================================================================
+{stories_json_text}
+======================================================================
+
+YOUR CRITICAL AUDIT MANDATE:
+1. RUTHLESS SANITY CHECK ON ASSUMPTIONS:
+   - Check if any terminal multiple is unrealistically high (e.g. >15x for apparel/retail, >24x for tech).
+   - Check if growth assumptions are detached from historical reality or segment trajectory.
+   - Check if the downside case is a genuine stress-test or just a disguised bull case.
+   - Adjust any overly optimistic multiples or growth rates to realistic, conservative levels.
+2. EMPIRICAL PROBABILITY DISTRIBUTION (NO FANTASY WEIGHTING):
+   - Assign probability weights (p₁, p₂, p₃ summing STRICTLY to 1.0 / 100%):
+     * For companies facing active friction, negative comps, or brand turnaround risk (e.g. LULU domestic comp contraction, CROX HeyDude decline), the Downside / Friction path MUST carry substantial weight (e.g. 30%–45%), Core Execution (45%–55%), Bull Acceleration (10%–20%). NEVER assign 70%+ to an unproven turnaround case!
+     * For secular monopolies with massive contracted backlogs and high ROIC, Core Execution carries 55%–65%, Downside 20%–30%, Bull 15%–20%.
+3. REVERSE DCF MARKET INVERSION:
+   - Calculate what Owner Earnings CAGR the market is pricing in at today's benchmark price (${current_price:.2f}) under the market's CURRENT multiple (M₀ = ${current_price:.2f} / ${oe0_per_share:.2f}).
+4. CAPITAL ALLOCATION RECOMMENDATION:
+   - BUY (if Expected MoS >= +20%), HOLD (if MoS 0% to +20%), CAUTION (if MoS -15% to 0%), AVOID (if MoS < -15%).
+
+OUTPUT FORMAT:
+Provide pure semantic HTML containing Section 3 (with the complete 3-Path Valuation Table, Probability Weighting Rationale, and Market Inversion & Valuation Synthesis), followed by the complete structured JSON block:
 
 <h2>Section 3: Normalized Owner Earnings Multiple &amp; Yield Inversion Valuation</h2>
 
@@ -1184,15 +1231,14 @@ Provide pure semantic HTML containing Section 3, followed by the complete struct
   <thead>
     <tr>
       <th>Valuation Metric / Driver</th>
-      <!-- Dynamic columns for Path 1 .. Path N -->
-      <th>Path 1: Core Execution</th>
-      <th>Path 2: Mild Friction</th>
-      <th>Path 3: Operating Leverage</th>
+      <th>Path 1: [Title 1]</th>
+      <th>Path 2: [Title 2]</th>
+      <th>Path 3: [Title 3]</th>
     </tr>
   </thead>
   <tbody>
     <tr><td>Starting Normalized Owner Earnings (OE₀) / share</td><td>$XX.XX</td><td>$XX.XX</td><td>$XX.XX</td></tr>
-    <tr><td>Projected 5-Year Owner Earnings CAGR (%)</td><td>+XX.X% / yr</td><td>+X.X% / yr</td><td>+XX.X% / yr</td></tr>
+    <tr><td>Projected 5-Year Owner Earnings CAGR (%)</td><td>+XX.X% / yr</td><td>-X.X% / yr</td><td>+XX.X% / yr</td></tr>
     <tr><td>Projected Year-5 Normalized Owner Earnings (OE₅) / share</td><td>$XX.XX</td><td>$XX.XX</td><td>$XX.XX</td></tr>
     <tr><td>Target Terminal Multiple (P/OE₅)</td><td>XX.Xx OE</td><td>XX.Xx OE</td><td>XX.Xx OE</td></tr>
     <tr><td>Implied Terminal Owner Cash Yield (%)</td><td>X.X%</td><td>X.X%</td><td>X.X%</td></tr>
@@ -1201,19 +1247,19 @@ Provide pure semantic HTML containing Section 3, followed by the complete struct
     <tr><td>Expected 5-Year Annualized CAGR (vs. ${current_price:.2f})</td><td>+XX.X% / yr</td><td>-X.X% / yr</td><td>+XX.X% / yr</td></tr>
     <tr><td>Total 5-Year Expected Return (%)</td><td>+XX.X%</td><td>-XX.X%</td><td>+XX.X%</td></tr>
     <tr><td>Present Intrinsic Fair Value (at 9.5% hurdle rate)</td><td>$XX.XX</td><td>$XX.XX</td><td>$XX.XX</td></tr>
-    <tr><td>Margin of Safety vs. Current Price (${current_price:.2f})</td><td>+XX.X% or -XX.X%</td><td>+XX.X% or -XX.X%</td><td>+XX.X% or -XX.X%</td></tr>
-    <tr><td>Probability Weight &amp; Empirical Basis (%)</td><td>XX% (Contracted Backlog / Core Guidance)</td><td>XX% (Mild CapEx / Pricing Drag)</td><td>XX% (Operational Efficiency Leverage)</td></tr>
+    <tr><td>Margin of Safety vs. Current Price (${current_price:.2f})</td><td>+XX.X%</td><td>-XX.X%</td><td>+XX.X%</td></tr>
+    <tr><td>Probability Weight &amp; Empirical Basis (%)</td><td>XX% ([Filing Basis])</td><td>XX% ([Risk Basis])</td><td>XX% ([Upside Basis])</td></tr>
   </tbody>
 </table>
 
 <div class="callout">
   <h3>Empirical Probability Weighting Rationale</h3>
-  <p>[Detailed explanation of why each probability weight was assigned based on audited filing backlog, historical ROIC stability, and management commentary...]</p>
+  <p>[Detailed justification of the assigned probability weights based on audited 10-Ks, segment trends, and management execution...]</p>
 </div>
 
 <div class="callout">
   <h3>Market Inversion &amp; Valuation Synthesis</h3>
-  <p><strong>Implied Market Reality:</strong> At today's market price of <strong>${current_price:.2f}</strong>, the market is pricing {company_name} at <strong>XX.Xx Normalized Owner Earnings</strong> (an implied Owner Cash Yield of <strong>X.X%</strong>).</p>
+  <p><strong>Implied Market Reality:</strong> At today's market price of <strong>${current_price:.2f}</strong>, the market is pricing {company_name} at <strong>XX.Xx Normalized Owner Earnings</strong> (an implied Owner Cash Yield of <strong>X.X%</strong>). This implies the market is pricing in an Owner Earnings CAGR of <strong>[+X.X% / -X.X%] / yr</strong> over the next 5 years.</p>
   <p><strong>Probability-Weighted 5-Year Target Price:</strong> <strong>$XX.XX / share</strong> (Expected 5-Year CAGR: <strong>+X.X% / yr</strong>).</p>
   <p><strong>Probability-Weighted Present Fair Value (9.5% Hurdle):</strong> <strong>$XX.XX / share</strong> (Margin of Safety: <strong>~XX%</strong> vs. today's market price).</p>
   <p><strong>Capital Allocation Recommendation:</strong> [Crisp buy-side verdict based on Graham-Buffett margin of safety hurdle...]</p>
@@ -1231,14 +1277,37 @@ Provide pure semantic HTML containing Section 3, followed by the complete struct
   "expected_5y_cagr": XX.X,
   "action_signal": "BUY",
   "moat": "Narrow Moat",
-  "key_catalyst_drivers": ["<Bespoke Driver 1>", "<Bespoke Driver 2>"],
-  "pricing_power_tier": "Strong Pricing Power",
-  "predictability_tier": "High Predictability",
   "stories": [
     {{
       "story_num": 1,
-      "story_title": "Path 1: <Bespoke Title 1>",
-      "short_summary": "<1-2 sentence executive summary>",
+      "story_title": "Path 1: <Title 1>",
+      "short_summary": "<summary>",
+      "projected_5y_cagr": "+XX.X%",
+      "projected_oe5_per_share": XX.XX,
+      "oe_multiple": "XX.Xx",
+      "oe_yield": "X.X%",
+      "target_price_5y": XX.XX,
+      "present_fair_value": XX.XX,
+      "mos_pct": XX.X,
+      "probability_weight": 0.XX
+    }},
+    {{
+      "story_num": 2,
+      "story_title": "Path 2: <Title 2>",
+      "short_summary": "<summary>",
+      "projected_5y_cagr": "-XX.X%",
+      "projected_oe5_per_share": XX.XX,
+      "oe_multiple": "XX.Xx",
+      "oe_yield": "X.X%",
+      "target_price_5y": XX.XX,
+      "present_fair_value": XX.XX,
+      "mos_pct": XX.X,
+      "probability_weight": 0.XX
+    }},
+    {{
+      "story_num": 3,
+      "story_title": "Path 3: <Title 3>",
+      "short_summary": "<summary>",
       "projected_5y_cagr": "+XX.X%",
       "projected_oe5_per_share": XX.XX,
       "oe_multiple": "XX.Xx",
@@ -1950,12 +2019,56 @@ def split_full_genesis_dossier(raw_output: str, company_name: str, current_price
     return sec1_clean, sec2_clean, sec3_clean, json_block, stories_metadata
 
 
+def extract_financial_baseline(sec1_html: str) -> Tuple[float, float, str]:
+    """Extracts starting Normalized Owner Earnings (OE₀), Net Cash/Debt per share, and ROIC from Section 1 HTML."""
+    oe_per_sh = 0.0
+    m_oe_row = re.search(r'<tr>[\s\S]*?Owner Earnings Per (?:Diluted )?Share[\s\S]*?</tr>', sec1_html, re.IGNORECASE)
+    if m_oe_row:
+        td_vals = re.findall(r'<td[^>]*>([\s\S]*?)</td>', m_oe_row.group(0))
+        for td in reversed(td_vals):
+            m_val = re.search(r'\$?\s*([\d,]+(?:\.\d+)?)', td)
+            if m_val:
+                val = float(m_val.group(1).replace(',', ''))
+                if val > 0:
+                    oe_per_sh = val
+                    break
+
+    net_cash_sh = 0.0
+    m_nc_row = re.search(r'<tr>[\s\S]*?Total\s*Net\s*(?:Surplus\s*Cash\s*Bridge|Debt\s*Surplus)[\s\S]*?</tr>', sec1_html, re.IGNORECASE)
+    if not m_nc_row:
+        m_nc_row = re.search(r'<tr>[\s\S]*?(?:Unencumbered\s*Liquid\s*Surplus\s*Cash|Funded\s*Net\s*Debt\s*Position)[\s\S]*?</tr>', sec1_html, re.IGNORECASE)
+    if m_nc_row:
+        td_vals = re.findall(r'<td[^>]*>([\s\S]*?)</td>', m_nc_row.group(0))
+        if td_vals:
+            last_td = td_vals[-1]
+            m_val = re.search(r'([+-]?\(?\$?\s*[\d,]+(?:\.\d+)?\)?)', last_td)
+            if m_val:
+                raw_val = m_val.group(1).replace('$', '').replace(' ', '').replace(',', '').strip()
+                try:
+                    if raw_val.startswith('(') and raw_val.endswith(')'):
+                        net_cash_sh = -float(raw_val[1:-1])
+                    else:
+                        net_cash_sh = float(raw_val)
+                except:
+                    pass
+
+    roic_str = "25.0% - 30.0%"
+    m_roic = re.search(r'<tr>[\s\S]*?(?:3-Year\s*Normalized\s*ROIC|ROIC)[\s\S]*?</tr>', sec1_html, re.IGNORECASE)
+    if m_roic:
+        m_pct = re.search(r'([\d\.]+\s*%)', m_roic.group(0))
+        if m_pct:
+            roic_str = m_pct.group(1)
+
+    return oe_per_sh, net_cash_sh, roic_str
+
+
 def generate_genesis_thesis(ticker: str, company_name: str, current_price: float, initial_notes: str = "") -> Tuple[Dict[str, Any], str]:
-    """Generates an investment thesis via the 2-Agent Grounded Research & Valuation Engine:
+    """Generates an investment thesis via the Grounded Parallel-Storyline Valuation & Audit Engine:
     1. Agent 1 (Search Grounded): Researches audited 10-Ks, formulating Section 1 (Premise) and Section 2 (N Paths) with adversarial red-team stress tests (~25s).
-    2. Agent 2 (Valuation Engine): Dedicates 100% of generation budget to Section 3 Owner Earnings Multiple Valuation Table & JSON (~8s).
-    3. Concurrent Background Scrapes: Pre-fetches OpenInsider, Dataroma superinvestors, and catalyst timelines.
-    4. Instant Local In-Memory Auto-Healing & Quality Gate (<0.05s).
+    2. Agent 1.5 & 1.8: Buy-Side Red-Team Critique & Storyline Refinement Gate (~15s).
+    3. Parallel Story Underwriting: Spawns independent concurrent Gemini analysts to value each path in complete isolation (~6s).
+    4. Chief Risk Officer & Feedback Audit Agent: Sanity-checks multiples, growth realism, re-distributes probability mass, and synthesizes Section 3 & JSON (~8s).
+    5. Concurrent Background Scrapes: Pre-fetches OpenInsider, Dataroma superinvestors, and catalyst timelines.
     """
     ticker_clean = ticker.upper().strip()
     
@@ -2017,25 +2130,88 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         print(f"   │ Status: Preserved robust Agent 1 draft ({words_agent1} words)", flush=True)
 
     # ------------------------------------------------------------------
-    # Agent 2: Buffett Owner Earnings Multiple Valuation Engine
+    # Parallel Independent Story Valuation Engine (3 Independent Parallel Calls)
     # ------------------------------------------------------------------
-    print(f"\n💵 [AGENT 2: VALUATION ENGINE] Underwriting clean Owner Earnings & multiple assignment across all paths...", flush=True)
-    agent2_prompt = AGENT_2_VALUATION_ENGINE_PROMPT.format(
+    oe0, net_cash_sh, roic_str = extract_financial_baseline(sec1_clean)
+    moat_tier = map_to_canonical_moat_label("Narrow Moat", sec1_text=sec1_clean)
+    
+    # Extract Individual Stories from Section 2
+    story_blocks = []
+    for m in re.finditer(r'<div class="callout">\s*<h3>Path\s*(\d+)[:\s]*([^<]+)</h3>([\s\S]*?)</div>', sec2_clean, re.IGNORECASE):
+        num = int(m.group(1))
+        title = m.group(2).strip()
+        body = m.group(3).strip()
+        story_blocks.append({
+            "num": num,
+            "title": f"Path {num}: {title}",
+            "text": f"<h3>Path {num}: {title}</h3>\n{body}"
+        })
+        
+    if not story_blocks:
+        story_blocks = [
+            {"num": 1, "title": "Path 1: Core Execution", "text": "Core operational baseline compounding"},
+            {"num": 2, "title": "Path 2: Downside Friction", "text": "Competitive friction & tariff margin drag"},
+            {"num": 3, "title": "Path 3: Operating Leverage", "text": "Accelerated global category expansion"}
+        ]
+        
+    print(f"\n⚡ [PARALLEL VALUATION ENGINE] Spawning {len(story_blocks)} Independent Valuation Analysts (Zero Cross-Bias)...", flush=True)
+    
+    def _value_single_story(s_info):
+        prompt = STORY_VALUATION_PROMPT.format(
+            ticker=ticker_clean,
+            company_name=company_name,
+            story_num=s_info["num"],
+            story_title=s_info["title"],
+            current_price=current_price,
+            moat_tier=moat_tier,
+            oe0_per_share=oe0,
+            net_cash_str=f"{net_cash_sh:+.2f} USD/share",
+            net_cash_num=net_cash_sh,
+            roic_str=roic_str,
+            story_text=s_info["text"]
+        )
+        resp = call_gemini_with_search(prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False)
+        m_json = re.search(r'```json\s*(\{[\s\S]*?\})\s*```', resp)
+        if m_json:
+            try:
+                return json.loads(m_json.group(1))
+            except:
+                pass
+        return {
+            "story_num": s_info["num"],
+            "story_title": s_info["title"],
+            "raw": resp
+        }
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=len(story_blocks)) as executor:
+        story_val_results = list(executor.map(_value_single_story, story_blocks))
+
+    print(f"   │ Status: {len(story_val_results)} stories independently underwritten in parallel", flush=True)
+
+    # ------------------------------------------------------------------
+    # Chief Risk Officer & Valuation Feedback Audit Agent
+    # ------------------------------------------------------------------
+    print(f"\n🧐 [CHIEF RISK OFFICER & VALUATION AUDIT] Stress-testing multiples, growth realism & probability weights...", flush=True)
+    feedback_audit_prompt = VALUATION_FEEDBACK_AND_SYNTHESIS_PROMPT.format(
         ticker=ticker_clean,
         company_name=company_name,
         current_price=current_price,
-        sec1_and_sec2_text=f"{sec1_clean}\n\n{sec2_clean}"
+        moat_tier=moat_tier,
+        oe0_per_share=oe0,
+        net_cash_str=f"{net_cash_sh:+.2f} USD/share",
+        historical_summary=f"Normalized ROIC ~{roic_str}, Baseline OE₀=${oe0:.2f}/sh",
+        stories_json_text=json.dumps(story_val_results, indent=2)
     )
-    raw_agent2_output = call_gemini_with_search(agent2_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False)
+    raw_audit_output = call_gemini_with_search(feedback_audit_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False)
     sec3_clean, val_json, stories_metadata = parse_sec3_and_json(
-        raw_agent2_output,
+        raw_audit_output,
         company_name,
         current_price,
         sec1_text=sec1_clean,
         sec2_text=sec2_clean
     )
     words_agent2 = len(sec3_clean.split())
-    print(f"   │ Status: Section 3 and JSON generated ({words_agent2} words, {len(stories_metadata)} paths)", flush=True)
+    print(f"   │ Status: Section 3 and Audited JSON generated ({words_agent2} words, {len(stories_metadata)} paths)", flush=True)
     print("   └" + "─" * 50, flush=True)
 
     # ------------------------------------------------------------------
@@ -2061,9 +2237,9 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         
     if not is_complete:
         print(f"  ⚠️ [THESIS INTEGRITY WARNING] Incomplete thesis detected: {', '.join(issues)}. Triggering instant valuation self-healing...", flush=True)
-        raw_agent2_output = call_gemini_with_search(agent2_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False)
+        raw_audit_output = call_gemini_with_search(feedback_audit_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False)
         sec3_clean, val_json, stories_metadata = parse_sec3_and_json(
-            raw_agent2_output, company_name, current_price, sec1_text=sec1_clean, sec2_text=sec2_clean
+            raw_audit_output, company_name, current_price, sec1_text=sec1_clean, sec2_text=sec2_clean
         )
     
     raw_full_html = f"{sec1_clean}\n\n{sec2_clean}\n\n{sec3_clean}"
