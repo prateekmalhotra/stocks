@@ -10,33 +10,33 @@
     "labels": [
       "Wide Moat"
     ],
-    "action_signal": "BUY",
-    "fair_value_estimate": "$474.23",
-    "expected_fair_value": "$474.23",
-    "expected_val": 474.23,
+    "action_signal": "HOLD",
+    "fair_value_estimate": "$289.96",
+    "expected_fair_value": "$289.96",
+    "expected_val": 289.96,
     "stories": [
       {
         "story_num": 1,
         "id": 1,
-        "story_title": "Path 1: Steady Enterprise SaaS Compounding & Creative Cloud Monetization Expansion",
-        "title": "Path 1: Steady Enterprise SaaS Compounding & Creative Cloud Monetization Expansion",
-        "short_summary": "Adobe maintains its wide-moat dominant status in creative and document software, leveraging Firefly AI tiering and steady enterprise expansion to generate 9.0% revenue CAGR and $32.79 Owner Earnings per share by Year 5.",
-        "summary": "Adobe maintains its wide-moat dominant status in creative and document software, leveraging Firefly AI tiering and steady enterprise expansion to generate 9.0% revenue CAGR and $32.79 Owner Earnings per share by Year 5.",
-        "oe_multiple": "25.0x",
-        "oe_yield": "4.0%",
-        "terminal_multiple": "25.0x",
-        "val": 815.2,
-        "present_fair_value": 517.84,
-        "mos_pct": 89.8,
-        "target_5y_return_pct": 198.8,
-        "target_5y_cagr_pct": 24.5,
-        "target": "$815.20 (+198.8%)",
-        "prob_pct": 55.0,
-        "prob_weight": 0.55,
+        "story_title": "Path 1: Baseline Compounding",
+        "title": "Path 1: Baseline Compounding",
+        "short_summary": "Steady operational execution and baseline capital reinvestment.",
+        "summary": "Steady operational execution and baseline capital reinvestment.",
+        "oe_multiple": "16.0x",
+        "oe_yield": "6.2%",
+        "terminal_multiple": "16.0x",
+        "val": 438.28,
+        "present_fair_value": 278.41,
+        "mos_pct": 2.0,
+        "target_5y_return_pct": 60.6,
+        "target_5y_cagr_pct": 9.9,
+        "target": "$438.28 (+60.6%)",
+        "prob_pct": 65.0,
+        "prob_weight": 0.65,
         "net_cash_per_share": -4.12,
         "normalized_oe_per_share": 18.82,
-        "projected_oe5_per_share": 32.79,
-        "projected_5y_cagr": "+11.7%",
+        "projected_oe5_per_share": 27.65,
+        "projected_5y_cagr": "+8.0%",
         "pro_forma_schedule": {
           "years": [
             "Trailing (Y0)",
@@ -48,103 +48,100 @@
           ],
           "revenue_mil": [
             23769.0,
-            26141.7,
-            28751.3,
-            31621.4,
-            34778.0,
-            38249.7
+            25384.9,
+            27110.6,
+            28953.6,
+            30921.9,
+            33024.0
           ],
           "gross_margin_pct": [
             89.3,
-            89.9,
-            90.4,
-            91.0,
-            91.6,
-            92.0
+            89.7,
+            90.1,
+            90.5,
+            90.9,
+            91.3
           ],
           "operating_income_mil": [
             8699.5,
-            9829.3,
-            11069.3,
-            12458.8,
-            14050.3,
-            15797.1
+            9468.6,
+            10274.9,
+            11147.1,
+            12121.4,
+            13143.6
           ],
           "operating_margin_pct": [
             36.6,
-            37.6,
+            37.3,
+            37.9,
             38.5,
-            39.4,
-            40.4,
-            41.3
+            39.2,
+            39.8
           ],
           "normalized_net_income_mil": [
             8437.9,
-            9263.2,
-            10168.6,
-            11161.5,
-            12251.9,
-            13451.7
+            9006.1,
+            9606.2,
+            10252.0,
+            10937.4,
+            11671.1
           ],
           "owner_earnings_mil": [
             8036.1,
-            8822.1,
-            9684.4,
-            10630.0,
-            11668.5,
-            12811.1
+            8577.2,
+            9148.8,
+            9763.8,
+            10416.6,
+            11115.3
           ],
           "diluted_shares_mil": [
             427.0,
-            419.5,
-            412.1,
-            404.8,
-            397.7,
-            390.7
+            421.9,
+            416.8,
+            411.8,
+            406.9,
+            402.0
           ],
           "oe_per_share": [
             18.82,
-            21.03,
-            23.5,
-            26.26,
-            29.34,
-            32.79
+            20.33,
+            21.95,
+            23.71,
+            25.6,
+            27.65
           ],
           "roic_pct": [
             25.0,
-            27.3,
-            29.7,
-            32.0,
-            34.4,
-            36.7
+            26.6,
+            28.2,
+            29.8,
+            31.4,
+            33.0
           ]
-        },
-        "oe5": 32.79,
-        "cagr": "+9.0%",
-        "multiple": "25.0x"
+        }
       },
       {
         "story_num": 2,
         "id": 2,
-        "story_title": "Path 2: Downside Friction, Competitive Headwinds & Margin Drag",
-        "title": "Path 2: Downside Friction, Competitive Headwinds & Margin Drag",
-        "short_summary": "Adobe faces structural top-line deceleration to +4.0% by Year 5 and a 440 bps operating margin compression to 32.2% as generative AI cloud compute costs inflate COGS and prosumer competition slows subscription growth.",
-        "summary": "Adobe faces structural top-line deceleration to +4.0% by Year 5 and a 440 bps operating margin compression to 32.2% as generative AI cloud compute costs inflate COGS and prosumer competition slows subscription growth.",
-        "oe_multiple": "13.5x",
-        "oe_yield": "5.3%",
-        "terminal_multiple": "13.5x",
-        "val": 311.51,
-        "present_fair_value": 197.88,
-        "mos_pct": -27.5,
-        "target_5y_return_pct": 61.2,
-        "target_5y_cagr_pct": 10.0,
-        "target": "$311.51 (+14.2%)",
-        "prob_pct": 30.0,
-        "prob_weight": 0.3,
+        "story_title": "Path 2: High-Margin Expansion",
+        "title": "Path 2: High-Margin Expansion",
+        "short_summary": "Accelerated customer adoption and high-margin operating leverage.",
+        "summary": "Accelerated customer adoption and high-margin operating leverage.",
+        "oe_multiple": "20.0x",
+        "oe_yield": "5.0%",
+        "terminal_multiple": "20.0x",
+        "val": 720.68,
+        "present_fair_value": 457.8,
+        "mos_pct": 67.8,
+        "target_5y_return_pct": 164.1,
+        "target_5y_cagr_pct": 21.4,
+        "target": "$720.68 (+164.1%)",
+        "prob_pct": 20.0,
+        "prob_weight": 0.2,
         "net_cash_per_share": -4.12,
         "normalized_oe_per_share": 18.82,
-        "projected_oe5_per_share": 23.38,
-        "projected_5y_cagr": "+4.4%",
+        "projected_oe5_per_share": 36.24,
+        "projected_5y_cagr": "+14.0%",
         "pro_forma_schedule": {
           "years": [
             "Trailing (Y0)",
@@ -156,199 +153,193 @@
           ],
           "revenue_mil": [
             23769.0,
-            24665.0,
-            25594.7,
-            26559.5,
-            27560.7,
-            28599.6
+            26598.0,
+            29763.7,
+            33306.1,
+            37270.2,
+            41706.1
           ],
           "gross_margin_pct": [
             89.3,
-            89.5,
-            89.7,
-            89.9,
-            90.2,
-            90.4
-          ],
-          "operating_income_mil": [
-            8699.5,
-            9126.0,
-            9546.8,
-            10012.9,
-            10473.1,
-            10982.2
-          ],
-          "operating_margin_pct": [
-            36.6,
-            37.0,
-            37.3,
-            37.7,
-            38.0,
-            38.4
-          ],
-          "normalized_net_income_mil": [
-            8437.9,
-            8752.3,
-            9081.8,
-            9421.2,
-            9775.3,
-            10138.7
-          ],
-          "owner_earnings_mil": [
-            8036.1,
-            8335.5,
-            8649.3,
-            8972.6,
-            9309.8,
-            9655.9
-          ],
-          "diluted_shares_mil": [
-            427.0,
-            424.2,
-            421.3,
-            418.5,
-            415.8,
-            413.0
-          ],
-          "oe_per_share": [
-            18.82,
-            19.65,
-            20.53,
-            21.44,
-            22.39,
-            23.38
-          ],
-          "roic_pct": [
-            25.0,
-            25.9,
-            26.8,
-            27.7,
-            28.5,
-            29.4
-          ]
-        },
-        "oe5": 23.38,
-        "cagr": "+5.4%",
-        "multiple": "19.0x"
-      },
-      {
-        "story_num": 3,
-        "id": 3,
-        "story_title": "Path 3: Generative AI Monetization Supercycle, Enterprise Custom Model Scaling & Multi-Billion Dollar Operating Leverage",
-        "title": "Path 3: Generative AI Monetization Supercycle, Enterprise Custom Model Scaling & Multi-Billion Dollar Operating Leverage",
-        "short_summary": "Adobe leverages its copyright-safe Firefly platform and deep enterprise workflow lock-in to accelerate top-line growth to 12.6% CAGR while driving operating margins from 36.6% to 40.8%, generating $42.79 in Owner Earnings per share by Year 5.",
-        "summary": "Adobe leverages its copyright-safe Firefly platform and deep enterprise workflow lock-in to accelerate top-line growth to 12.6% CAGR while driving operating margins from 36.6% to 40.8%, generating $42.79 in Owner Earnings per share by Year 5.",
-        "oe_multiple": "24.0x",
-        "oe_yield": "3.8%",
-        "terminal_multiple": "24.0x",
-        "val": 1022.84,
-        "present_fair_value": 649.74,
-        "mos_pct": 138.1,
-        "target_5y_return_pct": 306.2,
-        "target_5y_cagr_pct": 32.4,
-        "target": "$1022.84 (+274.8%)",
-        "prob_pct": 15.0,
-        "prob_weight": 0.15,
-        "net_cash_per_share": -4.12,
-        "normalized_oe_per_share": 18.82,
-        "projected_oe5_per_share": 42.79,
-        "projected_5y_cagr": "+17.8%",
-        "pro_forma_schedule": {
-          "years": [
-            "Trailing (Y0)",
-            "Year 1",
-            "Year 2",
-            "Year 3",
-            "Year 4",
-            "Year 5"
-          ],
-          "revenue_mil": [
-            23769.0,
-            27376.2,
-            31530.8,
-            36315.9,
-            41827.1,
-            48174.8
-          ],
-          "gross_margin_pct": [
-            89.3,
-            90.2,
-            91.1,
-            91.9,
+            90.0,
+            90.7,
+            91.4,
             92.0,
             92.0
           ],
           "operating_income_mil": [
             8699.5,
-            10430.3,
-            12454.7,
-            14853.2,
-            17692.9,
-            21100.6
+            10054.0,
+            11578.1,
+            13322.4,
+            15318.1,
+            17600.0
           ],
           "operating_margin_pct": [
             36.6,
-            38.1,
-            39.5,
-            40.9,
-            42.3,
-            43.8
+            37.8,
+            38.9,
+            40.0,
+            41.1,
+            42.2
           ],
           "normalized_net_income_mil": [
             8437.9,
-            9678.9,
-            11099.6,
-            12733.1,
-            14605.9,
-            16749.7
+            9418.8,
+            10512.1,
+            11730.1,
+            13091.4,
+            14612.0
           ],
           "owner_earnings_mil": [
             8036.1,
-            9218.0,
-            10571.0,
-            12126.8,
-            13910.4,
-            15952.1
+            8970.3,
+            10011.5,
+            11171.5,
+            12468.0,
+            13916.2
           ],
           "diluted_shares_mil": [
             427.0,
-            415.6,
-            404.4,
-            393.6,
-            383.1,
-            372.8
+            418.0,
+            409.3,
+            400.7,
+            392.2,
+            384.0
           ],
           "oe_per_share": [
             18.82,
-            22.18,
-            26.14,
-            30.81,
-            36.31,
-            42.79
+            21.46,
+            24.46,
+            27.88,
+            31.79,
+            36.24
           ],
           "roic_pct": [
             25.0,
-            28.6,
-            32.1,
-            35.7,
-            39.3,
-            42.9
+            27.8,
+            30.6,
+            33.4,
+            36.2,
+            39.0
           ]
-        },
-        "oe5": 42.79,
-        "cagr": "+12.6%",
-        "multiple": "26.0x"
+        }
+      },
+      {
+        "story_num": 3,
+        "id": 3,
+        "story_title": "Path 3: Margin Friction & Multiple Drag",
+        "title": "Path 3: Margin Friction & Multiple Drag",
+        "short_summary": "Elevated competitive friction and margin contraction.",
+        "summary": "Elevated competitive friction and margin contraction.",
+        "oe_multiple": "11.0x",
+        "oe_yield": "9.1%",
+        "terminal_multiple": "11.0x",
+        "val": 182.99,
+        "present_fair_value": 116.24,
+        "mos_pct": -57.4,
+        "target_5y_return_pct": -32.9,
+        "target_5y_cagr_pct": -7.7,
+        "target": "$182.99 (-32.9%)",
+        "prob_pct": 15.0,
+        "prob_weight": 0.15,
+        "net_cash_per_share": -4.12,
+        "normalized_oe_per_share": 18.82,
+        "projected_oe5_per_share": 17.01,
+        "projected_5y_cagr": "-2.0%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            23769.0,
+            23364.5,
+            22966.9,
+            22576.1,
+            22191.9,
+            21814.2
+          ],
+          "gross_margin_pct": [
+            89.3,
+            89.2,
+            89.1,
+            89.0,
+            88.9,
+            88.8
+          ],
+          "operating_income_mil": [
+            8699.5,
+            8528.0,
+            8337.0,
+            8150.0,
+            7989.1,
+            7809.5
+          ],
+          "operating_margin_pct": [
+            36.6,
+            36.5,
+            36.3,
+            36.1,
+            36.0,
+            35.8
+          ],
+          "normalized_net_income_mil": [
+            8437.9,
+            8267.6,
+            8101.7,
+            7940.3,
+            7783.3,
+            7626.5
+          ],
+          "owner_earnings_mil": [
+            8036.1,
+            7873.9,
+            7715.9,
+            7562.2,
+            7412.7,
+            7263.3
+          ],
+          "diluted_shares_mil": [
+            427.0,
+            427.0,
+            427.0,
+            427.0,
+            427.0,
+            427.0
+          ],
+          "oe_per_share": [
+            18.82,
+            18.44,
+            18.07,
+            17.71,
+            17.36,
+            17.01
+          ],
+          "roic_pct": [
+            25.0,
+            24.6,
+            24.2,
+            23.8,
+            23.4,
+            23.0
+          ]
+        }
       }
     ],
-    "story1_target": "$815.20 (+198.8%)",
-    "story2_target": "$439.75 (+61.2%)",
-    "story3_target": "$1108.43 (+306.2%)",
-    "story1_title": "Path 1: Steady Enterprise SaaS Compounding & Creative Cloud Monetization Expansion",
-    "story2_title": "Path 2: Downside Friction, Competitive Headwinds & Margin Drag",
-    "story3_title": "Path 3: Generative AI Monetization Supercycle, Enterprise Custom Model Scaling & Multi-Billion Dollar Operating Leverage",
-    "bear_target": "$439.75",
-    "base_target": "$474.23",
-    "bull_target": "$1108.43",
+    "story1_target": "$438.28 (+60.6%)",
+    "story2_target": "$720.68 (+164.1%)",
+    "story3_target": "$182.99 (-32.9%)",
+    "story1_title": "Path 1: Baseline Compounding",
+    "story2_title": "Path 2: High-Margin Expansion",
+    "story3_title": "Path 3: Margin Friction & Multiple Drag",
+    "bear_target": "$182.99",
+    "base_target": "$289.96",
+    "bull_target": "$720.68",
     "what_is_priced_in": "14.5x",
     "upper_alert_threshold": 1108.43,
     "lower_alert_threshold": 245.58,
