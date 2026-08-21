@@ -905,10 +905,10 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
                         </span>
                     </div>
                 </div>
-                <div style="font-family: var(--font-sans); font-size: 0.92rem; font-weight: 600; color: var(--text-title); line-height: 1.35; letter-spacing: -0.01em; min-height: 42px; display: flex; align-items: center;">
+                <div style="font-family: var(--font-sans); font-size: 0.90rem; font-weight: 600; color: var(--text-title); line-height: 1.35; letter-spacing: -0.01em; min-height: 38px; max-height: 38px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
                     {title}
                 </div>
-                <p style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55; margin: 0; min-height: 68px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                <p style="font-family: var(--font-sans); font-size: 0.80rem; color: var(--text-secondary); line-height: 1.45; margin: 0; min-height: 52px; max-height: 52px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
                     {summary}
                 </p>
                 
@@ -970,10 +970,10 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
                     </span>
                 </div>
             </div>
-            <div style="font-family: var(--font-sans); font-size: 0.92rem; font-weight: 600; color: var(--text-title); line-height: 1.35; letter-spacing: -0.01em; min-height: 42px; display: flex; align-items: center;">
+            <div style="font-family: var(--font-sans); font-size: 0.90rem; font-weight: 600; color: var(--text-title); line-height: 1.35; letter-spacing: -0.01em; min-height: 38px; max-height: 38px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
                 {priced_in_info['title']}
             </div>
-            <p style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55; margin: 0; min-height: 68px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+            <p style="font-family: var(--font-sans); font-size: 0.80rem; color: var(--text-secondary); line-height: 1.45; margin: 0; min-height: 52px; max-height: 52px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
                 {priced_in_info['summary']}
             </p>
             
