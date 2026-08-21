@@ -1420,7 +1420,7 @@ Provide pure semantic HTML containing Section 3 (with the complete {num_stories}
   "expected_mos_pct": XX.X,
   "expected_5y_cagr": XX.X,
   "action_signal": "BUY",
-  "moat": "Narrow Moat",
+  "moat": "<Wide Moat | Narrow Moat | Weak Moat | No Moat>",
   "stories": [
     {{
       "story_num": 1,
@@ -2185,7 +2185,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     # Parallel Independent Story Valuation Engine (3 Independent Parallel Calls)
     # ------------------------------------------------------------------
     oe0, net_cash_sh, roic_str = extract_financial_baseline(sec1_clean)
-    moat_tier = map_to_canonical_moat_label("Narrow Moat", sec1_text=sec1_clean)
+    moat_tier = map_to_canonical_moat_label("", sec1_text=sec1_clean)
     
     # Extract Individual Stories from Section 2
     story_blocks = []
