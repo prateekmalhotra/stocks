@@ -1106,11 +1106,13 @@ STRICT RESEARCH, GOVERNANCE & BUSINESS INERTIA MANDATES:
      * Plus/Minus: Working Capital Normalization
      * Equals: True Normalized Baseline Owner Earnings (OE₀).
 
-5. SECULAR WIDE-MOAT GROWTH COMPOUNDERS MANDATE (Trailing Revenue Growth >15%–20% YoY & >35% Margins):
-   - For wide-moat businesses expanding top-line revenue at high double digits with dominant structural margins:
-     * Path 1 (Central Base Trend): Model realistic operational continuation. Top-line revenue compounds at a healthy rate with gradual, realistic drift (100–200 bps deceleration per year), maintaining structural operating margins and share buyback accretion, compounding per-share Owner Earnings at +14%–18% CAGR. Capitalized at a disciplined 16.0x–19.0x P/OE terminal multiple.
-     * Path 2 (Downside Friction / CapEx Overhang Case): Model macro deceleration and margin compression under higher depreciation/costs. Revenue slows to mid-single digits, operating margins compress by 400–700 bps, compounding Owner Earnings at +4%–7% CAGR. Capitalized at a disciplined 13.0x–16.0x P/OE. NEVER model negative secular contraction (< 0%) for an entrenched monopoly growing top-line >20% YoY unless facing irreversible technological substitution!
-     * Path 3 (AI Monetization Acceleration Upside): Product expansion, pricing power, and new monetization surfaces drive accelerated top-line expansion with operating leverage, compounding Owner Earnings at +20%–25% CAGR. Capitalized at 18.0x–22.0x P/OE.
+5. FIRST-PRINCIPLES OPERATIONAL COMPOUNDING & SCENARIO DYNAMICS:
+   - Growth rates across all storylines MUST be dynamically derived from the company's audited historical baseline, trailing 3-year run-rate, segment pipeline, and reinvestment economics (ROIC × Reinvestment Rate):
+     * Year 1 (Y1): Strictly grounded in the company's verified trailing run-rate and management guidance floor.
+     * Path 1 (Central Baseline Trend): Models organic operational continuation of current momentum, incorporating realistic economic drift (gradual convergence or mature deceleration of 50–150 bps/year). Earnings growth = (Revenue Growth ± Operating Margin Drift + Net Buyback Accretion).
+     * Path 2 (Downside Friction & Margin Drag): Models macro stress, competitive pricing pressure, or cost/depreciation inflation. Top-line growth decelerates proportionally (e.g. 30%–50% below trailing run-rate) and operating margins compress. Never model sudden secular collapse (< 0% growth) for an entrenched wide-moat business with stable volume unless facing verified technological obsolescence or structural loss of monopoly power.
+     * Path 3 (Upside Acceleration & Operating Leverage): Models high-margin segment outperformance, pricing power realization, and operating leverage (top-line accelerates 20%–40% above baseline with expanding margins).
+   - Terminal Multiples (M₅) MUST mathematically reflect the business's terminal return on capital (ROIC), moat durability, and long-term reinvestment runway.
 
 6. 5 OBSERVABLE OPERATIONAL VARIABLES PER STORYLINE:
    - Every storyline in Section 2 MUST explicitly state its assumptions across 5 observable variables:
