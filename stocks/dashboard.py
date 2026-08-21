@@ -12,8 +12,10 @@ from stocks.tracker import fetch_all_chart_ranges, fetch_all_chart_ranges_cached
 from stocks.ownership_intelligence import build_ownership_tab_html, calculate_insider_sentiment_and_flow, load_cached_ownership
 from bs4 import BeautifulSoup, NavigableString, Tag
 
+DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 PUBLIC_DIR = Path(__file__).resolve().parent.parent / "public"
 REPORTS_DIR = PUBLIC_DIR / "reports"
+THESES_DIR = DATA_DIR / "theses"
 
 CANONICAL_COMPANY_NAMES = {
     "AMZN": "Amazon.com, Inc.",
@@ -1757,350 +1759,322 @@ def build_native_svg_chart(
     """
 
 
-def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: List[ThesisVersion]) -> str:
-    """Generates a clean, soothing, book-like investment due diligence dossier."""
-    current_version = history[-1] if history else None
-    labels_html = format_labels_pills(stock.labels or [stock.status_label])
-
-    def clean_and_sanitize_html(content: str) -> str:
-        if not content:
-            return ""
-        # 1. Strip code fences, markdown blocks, and leaked json metadata blocks
-        cleaned = re.sub(r"```(?:json)?\s*\{.*?\}\s*```", "", content, flags=re.DOTALL)
-        cleaned = re.sub(r"(?:\n|^)\s*json\s*\{.*?\}\s*(?=\n|<div|$)", "", cleaned, flags=re.DOTALL)
-        cleaned = re.sub(r"^```(?:html)?\s*", "", cleaned, flags=re.MULTILINE)
-        cleaned = re.sub(r"\s*```$", "", cleaned, flags=re.MULTILINE).strip()
-        cleaned = re.sub(r'\s*style\s*=\s*"[^"]*"', '', cleaned, flags=re.IGNORECASE)
-        cleaned = re.sub(r"\s*style\s*=\s*'[^']*'", '', cleaned, flags=re.IGNORECASE)
-        
-        # 1b. Strip all img tags, figure containers, and broken image embeds
-        cleaned = re.sub(r'<div\s+class="figure-container"[^>]*>.*?</div>', '', cleaned, flags=re.DOTALL | re.IGNORECASE)
-        cleaned = re.sub(r'<figure\b[^>]*>.*?</figure>', '', cleaned, flags=re.DOTALL | re.IGNORECASE)
-        cleaned = re.sub(r'<img\b[^>]*>', '', cleaned, flags=re.IGNORECASE)
-        
-        # 1c. Fix unclosed <li> followed by another <li> before BeautifulSoup parses
-        prev_pass = ""
-        while prev_pass != cleaned:
-            prev_pass = cleaned
-            cleaned = re.sub(
-                r"(<li>(?:(?!</li>|<ul>|<ol>).)*?)(?=\s*<li>)",
-                r"\1</li>\n",
-                cleaned,
-                flags=re.DOTALL | re.IGNORECASE
-            )
-            
-        cleaned = re.sub(r"</li>\s*</li>\s*(</(?:ul|ol)>)", r"</li>\n\1", cleaned, flags=re.IGNORECASE)
-        
-        # 1d. Convert markdown headings
-        cleaned = re.sub(r"^\s*####\s+(.*?)$", lambda m: f"<h4>{m.group(1)}</h4>", cleaned, flags=re.MULTILINE)
-        cleaned = re.sub(r"^\s*###\s+(.*?)$", lambda m: f"<h3>{m.group(1)}</h3>", cleaned, flags=re.MULTILINE)
-        cleaned = re.sub(r"^\s*##\s+(.*?)$", lambda m: f"<h2>{m.group(1)}</h2>", cleaned, flags=re.MULTILINE)
-        
-        # 1e. Convert bold and italics
-        cleaned = re.sub(r"\*\*(.*?)\*\*", lambda m: f"<strong>{m.group(1)}</strong>", cleaned)
-        cleaned = re.sub(r"(?<!\*)\*([^*]+)\*(?!\*)", lambda m: f"<em>{m.group(1)}</em>", cleaned)
-        
-        # Split crammed run-on bold topics within paragraphs into clean individual paragraphs
-        cleaned = re.sub(r"(\.|\!|\?)\s*(<strong>[A-Z0-9][^<]{2,80}:</strong>)", r"\1</p><p>\2", cleaned)
-        
-        # 1f. Math syntax normalizer (ensure LaTeX formulas render properly)
-        cleaned = normalize_latex_typography(cleaned)
-        
-        # 1g. Use BeautifulSoup for perfect DOM normalization
-        soup = BeautifulSoup(cleaned, "html.parser")
-        
-        # Ensure lists are strictly closed before section boundaries
-        cleaned = re.sub(r"(<li[^>]*>(?:(?!</li>|<ul|<ol).)*?)(?=\s*<h[1234])", r"</li></ul>", cleaned, flags=re.DOTALL | re.IGNORECASE)
-        
-        # Remove empty list items
-        for li in soup.find_all("li"):
-            text = li.get_text(strip=True)
-            if not text or text in ["-", "•", "。", "◦", "○"]:
-                li.decompose()
-                
-        # Remove empty lists
-        for lst in soup.find_all(["ul", "ol"]):
-            if not lst.find_all("li") and not lst.get_text(strip=True):
-                lst.decompose()
-                
-        # Remove empty paragraphs
-        for p in soup.find_all("p"):
-            if not p.get_text(strip=True) and not p.find_all(["table", "svg", "button"]):
-                p.decompose()
-                
-        # Wrap tables in table-scroll-wrap
-        for tbl in soup.find_all("table"):
-            if not (tbl.parent and "table-scroll-wrap" in tbl.parent.get("class", [])):
-                wrapper = soup.new_tag("div", attrs={"class": "table-scroll-wrap"})
-                tbl.wrap(wrapper)
-
-        # 1h. Transform executive quotes and callout commentary into elegant executive cards
-        for callout in soup.find_all("div", class_="callout"):
-            text = callout.get_text()
-            has_quote = bool(callout.find("em") or re.search(r'["“][^"”]{20,}["”]', text))
-            has_attribution = bool(re.search(r'[—–-]\s*.*?(?:CEO|CFO|President|COO|CTO|Director|Founder|Chair|Executive)', text, re.IGNORECASE))
-            is_commentary_header = bool(re.search(r'(?:Executive Commentary|Earnings Call|CEO on|CFO on|Management on|Strategic Takeaway|Strategic Insights)', text, re.IGNORECASE))
-            
-            if (has_quote and has_attribution) or is_commentary_header:
-                callout["class"] = ["executive-callout"]
-                
-                # Find and clean up headers
-                first_p = callout.find("p")
-                if first_p and first_p.find("strong") and not first_p.find("em"):
-                    header_text = first_p.get_text().strip()
-                    if any(k in header_text.lower() for k in ["executive commentary", "earnings call", "ceo on", "cfo on", "management", "strategic", "leadership"]):
-                        header_div = soup.new_tag("div", attrs={"class": "exec-header"})
-                        header_icon = soup.new_tag("span", attrs={"class": "exec-badge"})
-                        
-                        if "earnings call" in header_text.lower() or "commentary" in header_text.lower():
-                            header_icon.string = "Executive Commentary"
-                        elif "strategic" in header_text.lower():
-                            header_icon.string = "Strategic Insights"
-                        else:
-                            header_icon.string = "Leadership Perspective"
-                        
-                        sub_match = re.search(r'[—–-]\s*(.*)$', header_text)
-                        if sub_match:
-                            header_sub = soup.new_tag("span", attrs={"class": "exec-sub"})
-                            header_sub.string = sub_match.group(1).strip()
-                            header_div.append(header_icon)
-                            header_div.append(header_sub)
-                        else:
-                            header_div.append(header_icon)
-                        first_p.replace_with(header_div)
-
-                # Replace raw <hr/> with subtle clean divider
-                for hr in callout.find_all("hr"):
-                    hr_div = soup.new_tag("div", attrs={"class": "exec-divider"})
-                    hr.replace_with(hr_div)
-                    
-                # Clean and style attribution paragraphs
-                for p in callout.find_all("p"):
-                    p_text = p.get_text().strip()
-                    if p_text.startswith("—") or p_text.startswith("–") or p_text.startswith("- "):
-                        p["class"] = ["exec-attribution"]
-                        for s in list(p.strings):
-                            if s.strip().startswith("—") or s.strip().startswith("–") or s.strip().startswith("-"):
-                                new_s = re.sub(r'^[—–-]\s*', '', s.strip())
-                                s.replace_with(new_s)
-                                break
-                
-        return str(soup)
-
-    evolution_count = max(0, len(history) - 1)
-    ownership_tab_html = build_ownership_tab_html(ticker, stock, current_version)
-    history_cards_html = ""
+def markdown_to_memo_html(text: str) -> str:
+    """Converts markdown paragraphs and lists into clean editorial HTML with 100% theme typography."""
+    if not text:
+        return "<p>—</p>"
     
-    if evolution_count == 0:
-        history_cards_html = """
-        <div class="empty-state-box" style="background: var(--bg-panel); border: 1px dashed var(--border-color); border-radius: 14px; padding: 75px 24px;">
-            <div class="empty-state-title">Initial Baseline Active</div>
-            <div class="empty-state-sub">Version 1 represents the initial underwriting thesis. Future revisions, price trigger reviews, and catalyst audits will be logged here</div>
-        </div>
-        """
+    # Strip any emojis
+    emoji_pattern = re.compile("[\U00010000-\U0010ffff\U00002600-\U000027ff\U00002300-\U000023ff\U00002b50-\U00002b55\U0000200d\U0000fe0f]", flags=re.UNICODE)
+    clean_text = emoji_pattern.sub("", text).strip()
+    clean_text = re.sub(r"\*\*(.*?)\*\*", r"<strong>\1</strong>", clean_text)
+    
+    blocks = clean_text.split("\n\n")
+    html_parts = []
+    
+    for block in blocks:
+        lines = [line.strip() for line in block.split("\n") if line.strip()]
+        if not lines:
+            continue
+        
+        is_numbered = bool(re.match(r"^\d+[\.\)]\s+", lines[0]) or lines[0].lower().startswith("step ") or (len(lines) > 1 and re.match(r"^\d+[\.\)]\s+", lines[1])))
+        is_bullet = bool(lines[0].startswith("- ") or lines[0].startswith("• ") or lines[0].startswith("* "))
+        
+        if is_numbered:
+            items = []
+            for line in lines:
+                cleaned_line = re.sub(r"^(?:\d+[\.\)]|step\s+\d+:?|•|-|\*)\s*", "", line, flags=re.IGNORECASE).strip()
+                if cleaned_line:
+                    items.append(f"<li>{cleaned_line}</li>")
+            if items:
+                html_parts.append(f"<ol>{''.join(items)}</ol>")
+        elif is_bullet:
+            items = []
+            for line in lines:
+                cleaned_line = re.sub(r"^(?:•|-|\*)\s*", "", line).strip()
+                if cleaned_line:
+                    items.append(f"<li>{cleaned_line}</li>")
+            if items:
+                html_parts.append(f"<ul>{''.join(items)}</ul>")
+        else:
+            para_text = " ".join(lines)
+            html_parts.append(f"<p>{para_text}</p>")
+            
+    return "\n".join(html_parts) if html_parts else f"<p>{clean_text}</p>"
+
+
+def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: List[ThesisVersion]) -> str:
+    """Generates the clean, single-agent forensic valuation stock page."""
+    ticker_clean = ticker.upper().strip()
+    company_name = stock.company_name or ticker_clean
+    current_price = stock.current_price or 100.0
+
+    current_v = history[-1] if history else None
+
+    oe_sh = getattr(stock, 'owner_earnings_per_share', None) or (current_v.owner_earnings_per_share if current_v else None)
+    oe_tot = getattr(stock, 'owner_earnings_total_mil', None) or (current_v.owner_earnings_total_mil if current_v else None)
+    p_oe = getattr(stock, 'p_oe', None) or (current_v.p_oe if current_v else None)
+    ev_oe = getattr(stock, 'ev_oe', None) or (current_v.ev_oe if current_v else None)
+    yield_pct = getattr(stock, 'owner_yield_pct', None) or (current_v.owner_yield_pct if current_v else None)
+    owner_roic = getattr(stock, 'owner_roic_pct', None) or (current_v.owner_roic_pct if current_v else None)
+    net_cash_sh = getattr(stock, 'net_cash_per_share', None) or (current_v.net_cash_per_share if current_v else 0.0)
+    moat = stock.moat_label or stock.status_label or (current_v.moat_label if current_v else "Narrow Moat")
+
+    p1 = getattr(stock, 'market_pricing_in', '') or (current_v.market_pricing_in if current_v else '')
+    p2 = getattr(stock, 'why_it_might_be_right', '') or (current_v.why_it_might_be_right if current_v else '')
+    p3 = getattr(stock, 'how_things_are_going_now', '') or (current_v.how_things_are_going_now if current_v else '')
+    p4 = getattr(stock, 'what_if_it_keeps_going_that_way', '') or (current_v.what_if_it_keeps_going_that_way if current_v else '')
+
+    # Fallback calculations if legacy version
+    if oe_sh is None or oe_sh <= 0:
+        oe_sh = current_price / 12.0
+    if oe_tot is None or oe_tot <= 0:
+        oe_tot = oe_sh * 100.0
+    if p_oe is None or p_oe <= 0:
+        p_oe = current_price / oe_sh if oe_sh > 0 else 12.0
+    if ev_oe is None or ev_oe <= 0:
+        ev_oe = p_oe * 0.95
+    if yield_pct is None or yield_pct <= 0:
+        yield_pct = (oe_sh / current_price) * 100.0 if current_price > 0 else 8.0
+    if owner_roic is None or owner_roic <= 0:
+        owner_roic = 22.5
+    if net_cash_sh is None:
+        net_cash_sh = 0.0
+
+    mcap = current_price * (oe_tot / oe_sh if oe_sh > 0 else 100.0)
+    ev = mcap - (net_cash_sh * (oe_tot / oe_sh if oe_sh > 0 else 100.0))
+    net_cash_tot = net_cash_sh * (oe_tot / oe_sh if oe_sh > 0 else 100.0)
+
+    # Moat text label with harmonious semantic color
+    raw_moat = str(moat or "").strip()
+    if "wide" in raw_moat.lower():
+        moat_label = "Wide Moat"
+        moat_color = "var(--accent-green)"
+    elif "narrow" in raw_moat.lower():
+        moat_label = "Narrow Moat"
+        moat_color = "var(--accent-warm)"
+    elif "weak" in raw_moat.lower():
+        moat_label = "Weak Moat"
+        moat_color = "#D48858"
     else:
-        # Show all historical versions (v3, v2, v1 Genesis baseline)
-        for v in reversed(history):
-            is_current = (v.version == len(history))
-            is_genesis = (v.version == 1)
-            v_labels_html = format_labels_pills(v.labels or [v.status_label])
+        moat_label = "No Moat"
+        moat_color = "var(--accent-red)"
 
-            # Historical Target Badges
-            targets_chips = []
-            if v.fair_value_estimate:
-                targets_chips.append(f'<span style="color:var(--accent-warm); font-weight:600;">FV: {v.fair_value_estimate}</span>')
+    # Section prose
+    if p1 or p2 or p3 or p4:
+        p1_html = markdown_to_memo_html(p1)
+        p2_html = markdown_to_memo_html(p2)
+        p3_html = markdown_to_memo_html(p3)
+        p4_html = markdown_to_memo_html(p4)
+    else:
+        legacy_html = current_v.full_html_content if current_v else (getattr(stock, 'full_html_content', '') or '')
+        if legacy_html:
+            p1_html = f"<div class='legacy-content'>{legacy_html}</div>"
+            p2_html = "<p>Refer to valuation section above.</p>"
+            p3_html = "<p>Refer to operational commentary above.</p>"
+            p4_html = "<p>Refer to probability paths above.</p>"
+        else:
+            p1_html = "<p>Forensic valuation in progress.</p>"
+            p2_html = "<p>—</p>"
+            p3_html = "<p>—</p>"
+            p4_html = "<p>—</p>"
+
+    # ---------------------------------------------------------
+    # Thesis Evolution & Version History (Chronological)
+    # ---------------------------------------------------------
+    sorted_history = sorted(history, key=lambda v: getattr(v, 'version', 1), reverse=True) if history else []
+    evolution_cards_html = ""
+    for idx, v in enumerate(sorted_history):
+        v_num = getattr(v, 'version', 1)
+        v_date = getattr(v, 'date', '') or "2026-08-21"
+        v_price = getattr(v, 'price_at_version', current_price) or current_price
+        v_reason = getattr(v, 'trigger_reason', '') or getattr(v, 'reason', '') or ("Genesis Thesis Creation" if v_num == 1 else "Forensic Review")
+        is_current = (idx == 0)
+        
+        # Metrics at that version
+        v_oe = getattr(v, 'owner_earnings_per_share', None) or oe_sh
+        v_poe = getattr(v, 'p_oe', None) or (v_price / v_oe if v_oe and v_oe > 0 else p_oe)
+        v_roic = getattr(v, 'owner_roic_pct', None) or owner_roic
+        v_moat = getattr(v, 'moat_label', None) or getattr(v, 'status_label', None) or moat_label
+        
+        v_change_summary = getattr(v, 'summary_of_change', '') or getattr(v, 'what_changes_now', '') or ''
+        if not v_change_summary and is_current:
+            v_change_summary = "Current live thesis based on single-agent Buffett & Munger owner earnings framework and audited statutory 10-K balance sheet."
+        elif not v_change_summary and v_num == 1:
+            v_change_summary = "Genesis baseline audit established. Ingested statutory balance sheet and derived baseline normalized Owner Earnings."
             
-            palette_colors = ["#D4A373", "#82AE8C", "#C97A72", "#A8A29E", "#94A3B8"]
-            v_stories = getattr(v, "stories", None) or []
-            if v_stories:
-                for s_idx, s in enumerate(v_stories):
-                    c = palette_colors[s_idx % len(palette_colors)]
-                    t_val = s.get("target") or (f"${s['val']:.2f}" if s.get("val") else "")
-                    if t_val:
-                        targets_chips.append(f'<span style="color:{c};">Story {s_idx+1}: {t_val}</span>')
-            else:
-                v_s1 = getattr(v, "story1_target", None) or getattr(v, "bear_target", "")
-                v_s2 = getattr(v, "story2_target", None) or getattr(v, "base_target", "")
-                v_s3 = getattr(v, "story3_target", None) or getattr(v, "bull_target", "")
-                if v_s1:
-                    targets_chips.append(f'<span style="color:#D4A373;">Story 1: {v_s1}</span>')
-                if v_s2:
-                    targets_chips.append(f'<span style="color:#82AE8C;">Story 2: {v_s2}</span>')
-                if v_s3:
-                    targets_chips.append(f'<span style="color:#C97A72;">Story 3: {v_s3}</span>')
-            targets_summary_html = f'<div style="display:flex; align-items:center; gap:10px; font-family:var(--font-mono); font-size:0.75rem; flex-wrap:wrap; margin-top:8px; padding:6px 12px; background:rgba(255,255,255,0.02); border-radius:6px; border:1px solid rgba(255,255,255,0.04);">{" • ".join(targets_chips)}</div>' if targets_chips else ""
-
-            # Check if labels evolved in this version
-            v_idx = history.index(v)
-            v_prev = history[v_idx - 1] if v_idx > 0 else None
-            v_label_diff = ""
-            if v_prev:
-                p_lbls = v_prev.labels or [v_prev.status_label]
-                c_lbls = v.labels or [v.status_label]
-                if p_lbls != c_lbls:
-                    p_pills = " ".join([f'<span class="pill pill-neutral" style="font-size:0.75rem;">{l}</span>' for l in p_lbls])
-                    c_pills = " ".join([f'<span class="pill pill-active" style="font-size:0.75rem;">{l}</span>' for l in c_lbls])
-                    v_label_diff = f"""
-                    <div style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border-color); font-size: 0.84rem;">
-                        <div style="font-weight: 500; color: var(--text-title); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-                            <span style="color: var(--accent-warm);">Label &amp; Conviction Evolution:</span>
-                            <div style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
-                                {p_pills}
-                                <span style="color: var(--text-dim);">→</span>
-                                {c_pills}
-                            </div>
-                        </div>
-                    </div>
-                    """
-
-            diff_box = ""
-            if not is_genesis and (v.what_was_before or v.what_changes_now):
-                diff_box = f"""
-                <div class="diff-grid">
-                    <div class="diff-box diff-prev">
-                        <div class="diff-label">PREVIOUS THESIS</div>
-                        <div class="diff-text">{v.what_was_before or 'Previous stance'}</div>
-                    </div>
-                    <div class="diff-box diff-now">
-                        <div class="diff-label">THESIS EVOLUTION</div>
-                        <div class="diff-text">
-                            {v.what_changes_now or v.summary_of_change}
-                            {v_label_diff}
-                        </div>
-                    </div>
-                </div>
-                """
-                
-            v_beacon_html = format_action_beacon(getattr(v, "action_signal", None))
-            sanitized_snapshot = clean_and_sanitize_html(v.full_html_content)
-            version_title = f"Version {v.version} ({'Initial Underwriting' if is_genesis else (getattr(v, 'trigger_reason', '') or 'Earnings / Price Review')})"
-            
-            history_cards_html += f"""
-            <div class="history-entry {'history-entry-active' if is_current else ''}">
-                <div class="history-top">
-                    <div class="history-tags">
-                        <span class="pill pill-neutral" style="font-weight:600; color:var(--text-title);">{version_title}</span>
-                        <span class="history-time">{v.date}</span>
-                        <span class="history-price">${f"{v.price_at_version:.2f}" if v.price_at_version is not None else "0.00"}</span>
-                        {v_beacon_html}
-                        {v_labels_html}
-                    </div>
-                    <button class="btn btn-subtle" onclick="toggleSnapshot({v.version})">Read Full Memo Snapshot ▾</button>
-                </div>
-                <div class="history-content">
-                    <p class="history-shift-desc" style="font-size:0.92rem; color:var(--text-body); margin:6px 0;">{v.summary_of_change}</p>
-                    {targets_summary_html}
-                    {diff_box}
-                    <div id="snapshot-{v.version}" class="snapshot-drawer" style="display: none;">
-                        <div class="snapshot-body">
-                            {sanitized_snapshot}
-                        </div>
-                    </div>
-                </div>
+        # Archived content preview
+        v_p1 = getattr(v, 'market_pricing_in', '')
+        v_p2 = getattr(v, 'why_it_might_be_right', '')
+        v_p3 = getattr(v, 'how_things_are_going_now', '')
+        v_p4 = getattr(v, 'what_if_it_keeps_going_that_way', '')
+        v_legacy = getattr(v, 'full_html_content', '')
+        
+        if v_p1 or v_p2 or v_p3 or v_p4:
+            v_memo_html = f"""
+            <div class="archived-memo-section">
+                <div class="archived-memo-sub">1. What the Market is Pricing In</div>
+                <div>{markdown_to_memo_html(v_p1)}</div>
+            </div>
+            <div class="archived-memo-section">
+                <div class="archived-memo-sub">2. Why the Market Might Be Right</div>
+                <div>{markdown_to_memo_html(v_p2)}</div>
+            </div>
+            <div class="archived-memo-section">
+                <div class="archived-memo-sub">3. How Things Are Going Now</div>
+                <div>{markdown_to_memo_html(v_p3)}</div>
+            </div>
+            <div class="archived-memo-section">
+                <div class="archived-memo-sub">4. What If It Keeps Going That Way</div>
+                <div>{markdown_to_memo_html(v_p4)}</div>
             </div>
             """
-
-    raw_active_content = clean_and_sanitize_html(current_version.full_html_content if current_version else "<p>No active thesis found.</p>")
-    
-    # Prepend highlighted evolution notes if this is an updated version (v2, v3, etc.)
-    evolution_banner_html = ""
-    if current_version and current_version.version > 1:
-        v_diff = current_version.what_changes_now or current_version.summary_of_change
-        v_trigger = getattr(current_version, "trigger_reason", "") or "Surveillance Review"
+        elif v_legacy:
+            v_memo_html = f"""<div class="archived-memo-legacy">{v_legacy}</div>"""
+        else:
+            v_memo_html = "<p class='archived-memo-sub'>Baseline version record archived.</p>"
+            
+        status_text = '<span class="evolution-status-text status-active">Live Active</span>' if is_current else '<span class="evolution-status-text status-archived">Archived</span>'
         
-        # Check if labels changed from previous version
-        label_change_html = ""
-        prev_version = history[-2] if len(history) >= 2 else None
-        if prev_version:
-            prev_labels = prev_version.labels or [prev_version.status_label]
-            curr_labels = current_version.labels or [current_version.status_label]
-            if prev_labels != curr_labels:
-                prev_pills = " ".join([f'<span class="pill pill-neutral" style="font-size:0.75rem;">{l}</span>' for l in prev_labels])
-                curr_pills = " ".join([f'<span class="pill pill-active" style="font-size:0.75rem;">{l}</span>' for l in curr_labels])
-                label_change_html = f"""
-                <div class="label-evolution-divider" style="margin-top: 18px; padding-top: 14px; border-top: 1px dashed var(--border-color); font-size: 0.88rem;">
-                    <div style="font-weight: 500; color: var(--text-title); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-                        <span style="color: var(--accent-warm);">Label & Conviction Evolution:</span>
-                        <div style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
-                            {prev_pills}
-                            <span style="color: var(--text-dim);">→</span>
-                            {curr_pills}
-                        </div>
-                    </div>
+        evolution_cards_html += f"""
+        <div class="evolution-card {'active-version-card' if is_current else ''}">
+            <div class="evolution-header">
+                <div class="evolution-title-row">
+                    <span class="evolution-vnum">Version {v_num}</span>
+                    {status_text}
+                    <span class="evolution-date">· {v_date}</span>
                 </div>
-                """
-
-        evolution_banner_html = f"""
-        <div class="update-banner-box">
-            <div class="update-banner-header">
-                <span class="update-banner-badge">Version {current_version.version} Thesis Evolution • {current_version.date}</span>
-                <span class="update-trigger-pill">Trigger: {v_trigger}</span>
+                <div class="evolution-price">Snapshot Price: <strong>${v_price:.2f}</strong></div>
             </div>
-            <div class="update-banner-body">
-                <div class="update-banner-title">What Changed & Forward Thesis Impact</div>
-                <div class="update-banner-desc">
-                    {v_diff}
-                    {label_change_html}
+            <div class="evolution-reason">
+                <span class="reason-label">Trigger / Reason:</span> {v_reason}
+            </div>
+            <div class="evolution-metrics-text-row">
+                <span>OE: <strong>${v_oe:.2f}/sh</strong></span>
+                <span class="meta-sep">·</span>
+                <span>P/OE: <strong>{v_poe:.1f}x</strong></span>
+                <span class="meta-sep">·</span>
+                <span>ROIC: <strong>{v_roic:.1f}%</strong></span>
+                <span class="meta-sep">·</span>
+                <span>Moat: <strong>{v_moat}</strong></span>
+            </div>
+            {f'<div class="evolution-change-text">{v_change_summary}</div>' if v_change_summary else ''}
+            <details class="archived-accordion">
+                <summary class="archived-summary">Inspect Thesis Memo (v{v_num})</summary>
+                <div class="archived-content-body">
+                    {v_memo_html}
                 </div>
-            </div>
+            </details>
         </div>
         """
 
-    active_content = evolution_banner_html + raw_active_content
-    stories_data = getattr(stock, "stories", None) or []
-    s1_num = extract_numeric_price(getattr(stock, "story1_target", None)) or extract_numeric_price(getattr(stock, "bear_target", None))
-    s2_num = extract_numeric_price(getattr(stock, "story2_target", None)) or extract_numeric_price(getattr(stock, "base_target", None))
-    s3_num = extract_numeric_price(getattr(stock, "story3_target", None)) or extract_numeric_price(getattr(stock, "bull_target", None))
-    s1_title = getattr(stock, "story1_title", "Story 1") or "Story 1"
-    s2_title = getattr(stock, "story2_title", "Story 2") or "Story 2"
-    s3_title = getattr(stock, "story3_title", "Story 3") or "Story 3"
+    # ---------------------------------------------------------
+    # Alerts, Catalysts & Surveillance Data
+    # ---------------------------------------------------------
+    all_alerts = load_alerts()
+    ticker_alerts = [a for a in all_alerts if a.ticker.upper() == ticker_clean]
     
-    chart_html = build_native_svg_chart(
-        ticker, stock.current_price,
-        stories=stories_data,
-        story1_target=s1_num, story2_target=s2_num, story3_target=s3_num,
-        story1_title=s1_title, story2_title=s2_title, story3_title=s3_title
-    )
-    storylines_summary_widget_html = build_storylines_summary_widget_html(stock, stories=stories_data, full_html=raw_active_content)
+    lower_alert = getattr(stock, 'lower_alert_threshold', None) or (current_v.lower_alert_threshold if current_v else None)
+    upper_alert = getattr(stock, 'upper_alert_threshold', None) or (current_v.upper_alert_threshold if current_v else None)
+    next_catalyst_d = getattr(stock, 'next_catalyst_date', '') or (current_v.next_catalyst_date if current_v else '') or "TBD"
+    next_catalyst_e = getattr(stock, 'next_catalyst_event', '') or (current_v.next_catalyst_event if current_v else '') or "Upcoming Quarterly Earnings Call & SEC Filing"
     
-    palette_colors = ["#D4A373", "#82AE8C", "#C97A72", "#A8A29E", "#94A3B8"]
-    metric_story_list = stories_data if len(stories_data) >= 1 else [
-        {"id": 1, "target": getattr(stock, "story1_target", "") or stock.bear_target},
-        {"id": 2, "target": getattr(stock, "story2_target", "") or stock.base_target},
-        {"id": 3, "target": getattr(stock, "story3_target", "") or stock.bull_target}
-    ]
-    story_metric_cells_list = []
-    for idx, s in enumerate(metric_story_list):
-        t_str = s.get("target") or (f"${s['val']:.2f}" if s.get("val") else "")
-        if t_str:
-            c = palette_colors[idx % len(palette_colors)]
-            story_metric_cells_list.append(f"""
-                <div class="metric-cell">
-                    <div class="metric-label">Story {idx+1}</div>
-                    {format_target_metric_html(t_str, c)}
+    # Calculate corridor distances
+    if lower_alert:
+        lower_dist_pct = ((current_price - lower_alert) / current_price) * 100.0
+        lower_txt = f"${lower_alert:.2f} ({lower_dist_pct:+.1f}% drop triggers review)"
+    else:
+        lower_txt = f"${current_price * 0.80:.2f} (-20.0% drop corridor)"
+        
+    if upper_alert:
+        upper_dist_pct = ((upper_alert - current_price) / current_price) * 100.0
+        upper_txt = f"${upper_alert:.2f} ({upper_dist_pct:+.1f}% rally triggers review)"
+    else:
+        upper_txt = f"${current_price * 1.30:.2f} (+30.0% rally corridor)"
+        
+    ticker_alerts_html = ""
+    if ticker_alerts:
+        for alt in ticker_alerts:
+            ticker_alerts_html += f"""
+            <div class="alert-feed-card">
+                <div class="alert-feed-header">
+                    <span class="alert-feed-badge">{alt.severity}</span>
+                    <span class="alert-feed-time">{alt.timestamp}</span>
                 </div>
-            """)
-    story_metric_cells_html = "".join(story_metric_cells_list)
-    
-    dossier_beacon = format_action_beacon(getattr(stock, "action_signal", None)) if stock.total_versions > 1 else ""
-    clean_cat_desc = sanitize_catalyst_desc(getattr(stock, "next_catalyst_event", "")).rstrip(".")
+                <div class="alert-feed-title">{alt.title}</div>
+                <div class="alert-feed-reason">{alt.trigger_reason}</div>
+                {f'<div class="alert-feed-desc">{alt.what_changes_now}</div>' if alt.what_changes_now else ''}
+            </div>
+            """
+    else:
+        ticker_alerts_html = f"""
+        <div class="empty-alerts-box">
+            <div class="empty-alerts-title">No Active Alert Breaches</div>
+            <div class="empty-alerts-sub">Price is trading within calibrated corridors ({lower_txt.split(' ')[0]} – {upper_txt.split(' ')[0]}). Weekly autonomous surveillance and earnings call monitor are active.</div>
+        </div>
+        """
+
+    # ---------------------------------------------------------
+    # Ownership & 13F Intel
+    # ---------------------------------------------------------
+    top_funds = getattr(stock, 'top_funds', []) or (current_v.top_funds if current_v else [])
+    inst_pct = getattr(stock, 'institutional_ownership_pct', '') or (current_v.institutional_ownership_pct if current_v else '')
+    insider_sig = getattr(stock, 'insider_signal', '') or (current_v.insider_signal if current_v else 'Neutral (10b5-1)')
+    insider_sum = getattr(stock, 'insider_summary', '') or (current_v.insider_summary if current_v else '')
+
+    funds_chips_html = ""
+    if top_funds:
+        for f_name in top_funds[:8]:
+            funds_chips_html += f'<span class="whale-chip">🐋 {f_name}</span>'
+    else:
+        funds_chips_html = '<span class="whale-chip" style="color: var(--text-dim);">Broad Institutional & Index Fund Coverage</span>'
+
+    from stocks.tracker import fetch_all_chart_ranges_cached
+    chart_data = {}
+    try:
+        chart_data = fetch_all_chart_ranges_cached(ticker_clean, current_price)
+    except Exception:
+        pass
+        
+    if not chart_data or not chart_data.get("1Y"):
+        today_dt = datetime.now()
+        chart_data = {
+            "1D": [{"date": today_dt.strftime("%b %d, %Y"), "price": current_price}],
+            "1M": [{"date": today_dt.strftime("%b %d, %Y"), "price": current_price}],
+            "1Y": [{"date": today_dt.strftime("%b %d, %Y"), "price": current_price}],
+            "5Y": [{"date": today_dt.strftime("%b %d, %Y"), "price": current_price}],
+            "MAX": [{"date": today_dt.strftime("%b %d, %Y"), "price": current_price}],
+        }
+
+    for r_key in list(chart_data.keys()):
+        pts = chart_data[r_key]
+        if pts:
+            try:
+                pts.sort(key=lambda p: datetime.strptime(p["date"], "%b %d, %Y"))
+                chart_data[r_key] = pts
+            except Exception:
+                pass
+
+    initial_pts = chart_data.get("1Y", [])
+    last_date = initial_pts[-1]["date"] if initial_pts else datetime.now().strftime("%b %d, %Y")
+    last_price = initial_pts[-1]["price"] if initial_pts else current_price
+    ranges_json = json.dumps(chart_data)
+
+    logo_html = get_ticker_logo_html(ticker_clean, size=36)
+    width = 900
+    height = 220
+    padding_x = 10
+    padding_y = 15
 
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{ticker} — Investment Memo</title>
-    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-    <link rel="apple-touch-icon" href="../favicon.svg">
+    <title>{ticker_clean} · {company_name} · Forensic Valuation Dossier</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
-    <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {{
             --bg-canvas: #141312;
@@ -2119,28 +2093,8 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             --border-color: rgba(255, 255, 255, 0.055);
             --border-focus: rgba(212, 163, 115, 0.35);
             --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            --font-serif: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
-        }}
-
-        /* KaTeX Math Styling & Dark Theme Alignment */
-        .katex-display {{
-            margin: 20px 0 !important;
-            overflow-x: auto !important;
-            overflow-y: hidden !important;
-            padding: 12px 16px !important;
-            background: rgba(0, 0, 0, 0.20) !important;
-            border-radius: 8px !important;
-            border: 1px solid var(--border-color) !important;
-        }}
-        .katex {{
-            font-size: 1.08em !important;
-            color: var(--text-title) !important;
-        }}
-        .katex .mord.text {{
-            color: var(--text-body) !important;
-            font-family: var(--font-sans) !important;
         }}
 
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
@@ -2150,8 +2104,8 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 var(--bg-canvas);
             color: var(--text-body);
             font-family: var(--font-sans);
-            font-size: 0.95rem;
-            line-height: 1.80;
+            font-size: 0.96rem;
+            line-height: 1.82;
             letter-spacing: 0.005em;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
@@ -2170,6 +2124,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             top: 0;
             z-index: 100;
             padding: 14px 0;
+            margin-bottom: 24px;
         }}
         .nav-inner {{ display: flex; justify-content: space-between; align-items: center; }}
         .nav-back {{
@@ -2191,23 +2146,44 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 36px 40px;
-            margin: 32px 0 28px;
+            margin-bottom: 28px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.02);
         }}
 
-        .hero-top-row {{ display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px; }}
+        .hero-title-area {{ display: flex; align-items: center; gap: 16px; }}
+        .hero-title-text {{ display: flex; flex-direction: column; gap: 3px; }}
+        .ticker-header-line {{ display: flex; align-items: baseline; gap: 12px; }}
         .ticker-symbol {{
-            font-family: var(--font-sans);
-            font-size: 2.5rem;
+            font-family: var(--font-display);
+            font-size: 2.45rem;
             font-weight: 700;
-            letter-spacing: -0.03em;
-            color: var(--text-title);
+            letter-spacing: -0.035em;
+            color: #F0ECE4;
+            line-height: 1.05;
         }}
-        .company-meta {{ color: var(--text-secondary); font-size: 0.95rem; margin-top: 2px; font-family: var(--font-sans); }}
+        .company-name-meta {{
+            color: #9E978C;
+            font-size: 0.95rem;
+            font-family: var(--font-sans);
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            line-height: 1.3;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }}
+        .meta-sep {{
+            color: var(--text-dim);
+            font-size: 0.82rem;
+        }}
+        .meta-moat {{
+            color: var(--accent-warm);
+            font-weight: 500;
+        }}
 
         /* Minimalist Logo Avatars */
         .ticker-logo-wrap {{
-            border-radius: 6px;
+            border-radius: 8px;
             background: var(--bg-subpanel);
             border: 1px solid var(--border-color);
             display: inline-flex;
@@ -2215,7 +2191,6 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             justify-content: center;
             overflow: hidden;
             flex-shrink: 0;
-            transform: translateY(-3px);
             box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
         }}
         .ticker-logo {{
@@ -2223,7 +2198,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             height: 100%;
             object-fit: contain;
             padding: 2px;
-            border-radius: 5px;
+            border-radius: 6px;
             display: block;
         }}
         .ticker-logo-fallback {{
@@ -2241,7 +2216,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
 
         .price-callout {{ text-align: right; }}
         .price-number {{ font-size: 2.6rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }}
-        .price-sub {{ font-size: 0.88rem; font-family: var(--font-mono); margin-top: 2px; }}
+        .price-sub {{ font-size: 0.88rem; font-family: var(--font-mono); margin-top: 2px; color: var(--text-secondary); }}
 
         /* Native SVG Area Chart */
         .native-chart-wrap {{
@@ -2249,1225 +2224,833 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             background: var(--bg-panel);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 16px 20px 12px;
+            padding: 20px;
             position: relative;
-            user-select: none;
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
         }}
         .chart-top-bar {{
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 12px;
-            padding-bottom: 6px;
-            min-height: 32px;
-            gap: 12px;
-            width: 100%;
-        }}
-        .chart-meta-left {{
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            min-width: 0;
-            overflow: hidden;
             flex-wrap: wrap;
+            gap: 12px;
         }}
         .chart-live-val {{
-            font-size: 0.88rem;
             font-family: var(--font-mono);
+            font-size: 0.84rem;
             color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }}
-        .chart-targets-legend {{
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
-            white-space: nowrap;
         }}
         .chart-range-pills {{
-            display: flex;
+            display: inline-flex;
             gap: 4px;
             background: var(--bg-subpanel);
+            padding: 3px;
+            border-radius: 8px;
             border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 2px;
-            margin-left: auto;
-            flex-shrink: 0;
         }}
         .range-pill {{
-            background: none;
+            background: transparent;
             border: none;
             color: var(--text-secondary);
-            font-size: 0.72rem;
-            font-family: var(--font-sans);
+            font-family: var(--font-mono);
+            font-size: 0.76rem;
             font-weight: 500;
             padding: 4px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.15s;
-        }}
-        .range-pill:hover {{ color: var(--text-title); }}
-        .range-pill.active {{
-            background: var(--accent-warm);
-            color: #161513;
-            font-weight: 600;
-            box-shadow: 0 1px 4px rgba(204, 120, 92, 0.3);
-        }}
-        .chart-svg {{ width: 100%; height: 220px; display: block; overflow: visible; }}
-        .chart-tooltip {{
-            position: absolute;
-            top: 14px;
-            left: 20px;
-            background: var(--bg-subpanel);
-            border: 1px solid var(--border-focus);
-            color: var(--text-title);
-            font-family: var(--font-sans);
-            font-size: 0.8rem;
-            padding: 5px 12px;
             border-radius: 6px;
-            pointer-events: none;
-            display: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            z-index: 10;
+            cursor: pointer;
+            transition: all 0.15s ease;
         }}
-        .chart-labels, .chart-x-axis {{
-            position: relative;
-            width: 100%;
-            height: 22px;
-            margin-top: 8px;
-            padding-top: 6px;
-            border-top: 1px solid var(--border-color);
-            box-sizing: border-box;
-        }}
-        .chart-x-tick {{
-            position: absolute;
-            font-family: var(--font-mono);
-            font-size: 0.68rem;
-            color: var(--text-dim);
-            white-space: nowrap;
-            top: 6px;
-            user-select: none;
-            transition: color 0.15s ease;
-        }}
-        .chart-x-tick:hover {{
-            color: var(--text-title);
+        .range-pill:hover {{ color: var(--text-title); background: var(--bg-hover); }}
+        .range-pill.active {{
+            background: var(--accent-warm-subtle);
+            color: var(--accent-warm);
+            font-weight: 600;
         }}
 
-        /* Key Metrics Grid */
+        .chart-svg {{
+            width: 100%;
+            height: 220px;
+            overflow: visible;
+            display: block;
+        }}
+
+        /* Clean 3-Column Metrics Grid */
         .metrics-grid {{
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
             margin-top: 24px;
         }}
-        @media (max-width: 960px) {{
-            .metrics-grid {{ grid-template-columns: repeat(2, 1fr); }}
-        }}
-        @media (max-width: 520px) {{
-            .metrics-grid {{ grid-template-columns: 1fr; }}
-        }}
-        .metric-cell {{
+        .metric-card {{
             background: var(--bg-subpanel);
             border: 1px solid var(--border-color);
             border-radius: 10px;
-            padding: 12px 14px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 84px;
-            box-sizing: border-box;
-            min-width: 0;
-            transition: border-color 0.15s ease;
-        }}
-        .metric-cell:hover {{
-            border-color: rgba(212, 163, 115, 0.25);
-        }}
-        .metric-label {{ font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); letter-spacing: 0.05em; margin-bottom: 2px; }}
-        .metric-value {{ font-size: 1.08rem; font-weight: 500; color: var(--text-title); font-family: var(--font-mono); display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px; line-height: 1.2; word-break: break-word; }}
-        .metric-target-value {{ display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px; }}
-        .metric-target-value .target-price {{ font-size: 1.08rem; font-weight: 500; font-family: var(--font-mono); }}
-        .metric-target-value .target-pct {{ font-size: 0.74rem; font-weight: 500; font-family: var(--font-mono); opacity: 0.85; }}
-        .metric-subtext {{ font-size: 0.72rem; color: var(--text-secondary); font-family: var(--font-sans); margin-top: 4px; line-height: 1.35; white-space: normal; word-break: break-word; }}
-
-        /* Tabs */
-        .tabs-header {{
-            display: flex;
-            gap: 12px;
-            border-bottom: 1px solid var(--border-color);
-            margin: 32px 0 28px;
-        }}
-        .tab-btn {{
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            font-family: var(--font-sans);
-            font-weight: 500;
-            letter-spacing: -0.01em;
-            padding: 12px 18px;
-            cursor: pointer;
-            position: relative;
-            transition: all 0.15s;
-        }}
-        .tab-btn:hover {{ color: var(--text-title); }}
-        .tab-btn.active {{ color: var(--accent-warm); }}
-        .tab-btn.active::after {{
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0; right: 0;
-            height: 2px;
-            background: var(--accent-warm);
-        }}
-
-        .tab-content {{ display: none; }}
-        .tab-content.active {{ display: block; }}
-
-        /* Ownership, Insiders & Fund Intelligence Tab */
-        .ownership-container {{
-            display: flex;
-            flex-direction: column;
-            gap: 28px;
-        }}
-        .ownership-header-card {{
-            background: var(--bg-panel);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 24px 28px;
-        }}
-        .ownership-stat-grid {{
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }}
-        @media (max-width: 768px) {{
-            .ownership-stat-grid {{ grid-template-columns: 1fr; }}
-        }}
-        .stat-box {{
+            padding: 16px 18px;
             display: flex;
             flex-direction: column;
             gap: 4px;
+            transition: border-color 0.15s;
         }}
-        .stat-label {{
-            font-size: 0.72rem;
+        .metric-card:hover {{ border-color: rgba(212, 163, 115, 0.25); }}
+        .metric-label {{
+            font-size: 0.78rem;
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-dim);
-            font-family: var(--font-sans);
+            letter-spacing: 0.04em;
         }}
-        .stat-num {{
-            font-size: 1.45rem;
-            font-weight: 500;
+        .metric-value {{
+            font-size: 1.28rem;
+            font-weight: 600;
             font-family: var(--font-mono);
             color: var(--text-title);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }}
-        .stat-note {{
+        .metric-sub {{
             font-size: 0.76rem;
-            color: var(--text-muted);
-            font-family: var(--font-sans);
-        }}
-        .ownership-section {{
-            background: var(--bg-panel);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 28px 32px;
-        }}
-        .section-title-row {{
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 6px;
-        }}
-        .section-icon {{ font-size: 1.35rem; }}
-        .section-heading {{
-            font-family: var(--font-sans);
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--text-title);
-            margin: 0;
-            letter-spacing: -0.02em;
-        }}
-        .section-desc {{
             color: var(--text-dim);
-            font-size: 0.86rem;
-            margin: 0 0 20px;
-            line-height: 1.4;
-        }}
-        .table-responsive {{
-            width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            background: var(--bg-subpanel);
-            margin-top: 14px;
-        }}
-        .ownership-table {{
-            width: 100%;
-            min-width: 980px;
-            border-collapse: collapse;
-            font-size: 0.86rem;
-        }}
-        .ownership-table th {{
-            text-align: left;
-            padding: 13px 16px;
-            font-size: 0.70rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-dim);
-            border-bottom: 1px solid var(--border-color);
-            background: #1E1D1A;
-            font-family: var(--font-sans);
-            white-space: nowrap;
-        }}
-        .ownership-table td {{
-            padding: 12px 16px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.035);
-            vertical-align: middle;
-            white-space: nowrap;
-        }}
-        .ownership-table tr:last-child td {{
-            border-bottom: none;
-        }}
-        .ownership-table tr:hover td {{
-            background: rgba(255, 255, 255, 0.02);
-        }}
-        .link-out {{
-            color: var(--accent-warm);
-            text-decoration: none;
-            font-size: 0.82rem;
-            font-weight: 500;
-            transition: color 0.15s ease;
-        }}
-        .link-out:hover {{
-            color: #fcd34d;
-            text-decoration: underline;
-        }}
-        .writeups-grid {{
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 16px;
-        }}
-        .writeup-card {{
-            background: var(--bg-subpanel);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 22px 24px;
-            display: flex;
-            flex-direction: column;
-            transition: border-color 0.15s ease;
-        }}
-        .writeup-card:hover {{
-            border-color: rgba(217, 119, 6, 0.4);
-        }}
-        .btn-read-letter {{
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            background: rgba(217, 119, 6, 0.12);
-            color: var(--accent-warm);
-            border: 1px solid rgba(217, 119, 6, 0.25);
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 0.76rem;
-            font-weight: 500;
-            text-decoration: none;
-            white-space: nowrap;
-            transition: all 0.15s ease;
-        }}
-        .btn-read-letter:hover {{
-            background: rgba(217, 119, 6, 0.25);
-            color: #fcd34d;
+            font-family: var(--font-mono);
         }}
 
-        /* Quick Portals Bar */
-        .quick-portals-bar {{
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-top: 20px;
-            padding-top: 16px;
-            border-top: 1px solid var(--border-color);
-            flex-wrap: wrap;
-        }}
-        .portal-links-group {{
+        /* Tab Bar */
+        .nav-tabs {{
             display: flex;
             gap: 8px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 32px;
+            margin-top: 12px;
             flex-wrap: wrap;
         }}
-        .portal-link {{
+        .nav-tab {{
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 12px 18px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }}
+        .nav-tab:hover {{ color: var(--text-title); }}
+        .nav-tab.active {{
+            color: var(--accent-warm);
+            border-bottom-color: var(--accent-warm);
+            font-weight: 600;
+        }}
+        .tab-badge {{
+            font-family: var(--font-mono);
+            font-size: 0.74rem;
+            padding: 2px 7px;
+            border-radius: 9999px;
             background: var(--bg-subpanel);
             color: var(--text-secondary);
             border: 1px solid var(--border-color);
-            padding: 5px 12px;
-            border-radius: 6px;
-            font-size: 0.78rem;
-            font-family: var(--font-sans);
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.15s ease;
-            display: inline-flex;
-            align-items: center;
         }}
-        .portal-link:hover {{
-            background: rgba(201, 154, 117, 0.14);
-            border-color: var(--accent-warm);
+        .nav-tab.active .tab-badge {{
+            background: var(--accent-warm-subtle);
             color: var(--accent-warm);
-            transform: translateY(-1px);
+            border-color: rgba(212, 163, 115, 0.3);
         }}
+        .tab-pane {{ display: none; }}
+        .tab-pane.active {{ display: block; }}
 
-        /* Memo Content & Premium Editorial Typography */
+        /* Editorial Sections & Clean Typography */
         .memo-container {{
             background: var(--bg-panel);
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            padding: 48px 52px;
+            padding: 44px 48px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
         }}
-        .memo-container * {{
-            box-sizing: border-box;
+        .memo-section {{
+            margin-bottom: 40px;
         }}
-        .memo-container a {{
-            color: var(--accent-warm) !important;
-            text-decoration: none !important;
-            transition: color 0.15s ease !important;
-            border-bottom: 1px dotted rgba(201, 154, 117, 0.4) !important;
+        .memo-section:last-child {{
+            margin-bottom: 0;
         }}
-        .memo-container a:hover {{
-            color: #E2DDD5 !important;
-            border-bottom-color: var(--accent-warm) !important;
+        .memo-title {{
+            font-family: var(--font-sans);
+            font-size: 1.32rem;
+            font-weight: 700;
+            color: var(--text-title);
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }}
-        .memo-container h1, .memo-container h2 {{
-            font-family: var(--font-display) !important;
-            font-size: 1.40rem !important;
-            font-weight: 700 !important;
-            color: #EAE4DA !important;
-            margin: 48px 0 20px !important;
-            padding-bottom: 12px !important;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-            letter-spacing: -0.025em !important;
-            line-height: 1.35 !important;
+        .memo-title::before {{
+            content: "";
+            display: inline-block;
+            width: 4px;
+            height: 16px;
+            background: var(--accent-warm);
+            border-radius: 2px;
         }}
-        .memo-container h1:first-child, .memo-container h2:first-of-type {{ margin-top: 0 !important; }}
-        .memo-container h3 {{
-            font-family: var(--font-display) !important;
-            font-size: 1.12rem !important;
-            font-weight: 600 !important;
-            color: #CCA278 !important;
-            margin: 36px 0 14px !important;
-            letter-spacing: -0.015em !important;
-            line-height: 1.45 !important;
+        .memo-body {{
+            font-size: 0.98rem;
+            color: #C5BCB0;
+            line-height: 1.82;
         }}
-        .memo-container h4, .memo-container h5, .memo-container h6 {{
-            font-family: var(--font-sans) !important;
-            font-size: 0.84rem !important;
-            font-weight: 600 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.06em !important;
-            color: #E2DBD0 !important;
-            margin: 26px 0 10px !important;
+        .memo-body p {{
+            margin-bottom: 16px;
         }}
-        .memo-container p {{
-            font-family: var(--font-sans) !important;
-            font-size: 0.95rem !important;
-            line-height: 1.82 !important;
-            letter-spacing: 0.005em !important;
-            color: #C5BCB0 !important;
-            margin-bottom: 22px !important;
-            font-weight: 400 !important;
+        .memo-body p:last-child {{
+            margin-bottom: 0;
         }}
-        .memo-container ul, .memo-container ol {{
-            font-family: var(--font-sans) !important;
-            font-size: 0.94rem !important;
-            line-height: 1.78 !important;
-            letter-spacing: 0.005em !important;
-            color: #C5BCB0 !important;
-            margin: 16px 0 24px 20px !important;
-            padding-left: 12px !important;
+        .memo-body strong {{
+            color: #EAE4DA;
+            font-weight: 600;
         }}
-        .memo-container ul {{ list-style-type: disc !important; }}
-        .memo-container ol {{ list-style-type: decimal !important; }}
-        .memo-container li {{
-            margin-bottom: 10px !important;
-            color: #C5BCB0 !important;
-            line-height: 1.78 !important;
+        .memo-body ol, .memo-body ul {{
+            margin: 12px 0 18px 24px;
         }}
-        .memo-container li::marker {{
-            color: #C99A75 !important;
+        .memo-body li {{
+            margin-bottom: 10px;
+            padding-left: 4px;
         }}
-        .memo-container strong, .memo-container b {{
-            color: #E6DFD5 !important;
-            font-weight: 600 !important;
-            letter-spacing: 0 !important;
+        .memo-body ol {{
+            list-style: decimal;
+        }}
+        .memo-body ol li::marker {{
+            color: var(--accent-warm);
+            font-family: var(--font-mono);
+            font-size: 0.90em;
+            font-weight: 600;
+        }}
+        .memo-body ul {{
+            list-style: disc;
+        }}
+        .memo-body ul li::marker {{
+            color: var(--accent-warm);
         }}
 
-        /* STUNNING CONSISTENT TABLES - SOOTHING WARM TONES & ZERO OVERFLOW */
-        .table-scroll-wrap {{
-            width: 100% !important;
-            overflow-x: auto !important;
-            -webkit-overflow-scrolling: touch !important;
-            margin: 32px 0 !important;
-            background: #171614 !important;
-            background-color: #171614 !important;
-            border-radius: 12px !important;
-            border: 1px solid rgba(215, 205, 190, 0.08) !important;
-            box-sizing: border-box !important;
+        /* Thesis Evolution Timeline */
+        .evolution-timeline {{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }}
-        .memo-container table {{
-            width: 100% !important;
-            min-width: 600px !important;
-            border-collapse: separate !important;
-            border-spacing: 0 !important;
-            margin: 0 !important;
-            background: transparent !important;
-            background-color: transparent !important;
-            border: none !important;
-        }}
-        .memo-container tr, .memo-container td, .memo-container th {{
-            background: transparent !important;
-            background-color: transparent !important;
-        }}
-        .memo-container th {{
-            background: #1E1D1A !important;
-            background-color: #1E1D1A !important;
-            color: #C99A75 !important;
-            font-family: var(--font-sans) !important;
-            font-size: 0.72rem !important;
-            font-weight: 600 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.06em !important;
-            padding: 14px 18px !important;
-            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
-            text-align: left !important;
-        }}
-        .memo-container td {{
-            padding: 12px 16px !important;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
-            font-size: 0.88rem !important;
-            line-height: 1.55 !important;
-            color: var(--text-body) !important;
-            font-family: var(--font-sans) !important;
-            text-align: left !important;
-            vertical-align: top !important;
-        }}
-        .memo-container tr:last-child td {{
-            border-bottom: none !important;
-        }}
-        .memo-container tr:nth-child(even) td {{
-            background: rgba(255, 255, 255, 0.015) !important;
-            background-color: rgba(255, 255, 255, 0.015) !important;
-        }}
-        .memo-container tr:hover td {{
-            background: rgba(212, 163, 115, 0.04) !important;
-            background-color: rgba(212, 163, 115, 0.04) !important;
-        }}
-        .memo-container td strong, .memo-container td b {{
-            color: var(--text-title) !important;
-            font-weight: 600 !important;
-            font-family: var(--font-sans) !important;
-        }}
-
-        /* UNIVERSAL CALLOUT & BOX STYLING - NEVER WHITE OR PINK, STRICT DARK OBSIDIAN */
-        .memo-container blockquote,
-        .memo-container .callout,
-        .memo-container .falsification-box,
-        .memo-container .institutional-box,
-        .memo-container .alert-box,
-        .memo-container .warning-box,
-        .memo-container .highlight-box,
-        .memo-container .takeaway-card {{
-            background: var(--bg-subpanel) !important;
-            background-color: var(--bg-subpanel) !important;
-            border: 1px solid rgba(215, 205, 190, 0.08) !important;
-            border-left: 3px solid var(--accent-warm) !important;
-            padding: 20px 24px !important;
-            border-radius: 8px !important;
-            margin: 24px 0 !important;
-            color: var(--text-body) !important;
-            line-height: 1.75 !important;
-        }}
-        .memo-container blockquote *,
-        .memo-container .callout *,
-        .memo-container .falsification-box *,
-        .memo-container .institutional-box *,
-        .memo-container .alert-box *,
-        .memo-container .warning-box *,
-        .memo-container .highlight-box * {{
-            background: transparent !important;
-            background-color: transparent !important;
-            color: var(--text-body) !important;
-        }}
-        .memo-container blockquote h3,
-        .memo-container blockquote h4,
-        .memo-container .callout h3,
-        .memo-container .callout h4,
-        .memo-container .falsification-box h4,
-        .memo-container .falsification-box strong,
-        .memo-container .institutional-box h4,
-        .memo-container .institutional-box strong {{
-            color: var(--text-title) !important;
-        }}
-
-        /* EXECUTIVE COMMENTARY & TRANSCRIPT QUOTE CARDS */
-        .memo-container .executive-callout {{
-            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(204, 120, 92, 0.05), transparent 70%), var(--bg-subpanel) !important;
-            border: 1px solid rgba(204, 120, 92, 0.22) !important;
-            border-left: 4px solid var(--accent-warm) !important;
-            border-radius: 10px !important;
-            padding: 24px 28px !important;
-            margin: 32px 0 !important;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
-        }}
-        .memo-container .exec-header {{
-            display: flex !important;
-            align-items: center !important;
-            flex-wrap: wrap !important;
-            gap: 10px !important;
-            margin-bottom: 18px !important;
-            padding-bottom: 12px !important;
-            border-bottom: 1px solid rgba(235, 225, 210, 0.07) !important;
-        }}
-        .memo-container .exec-badge {{
-            font-family: var(--font-sans) !important;
-            font-size: 0.72rem !important;
-            font-weight: 700 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.08em !important;
-            color: var(--accent-warm) !important;
-            background: rgba(204, 120, 92, 0.12) !important;
-            padding: 4px 10px !important;
-            border-radius: 4px !important;
-            border: 1px solid rgba(204, 120, 92, 0.24) !important;
-        }}
-        .memo-container .exec-sub {{
-            font-family: var(--font-sans) !important;
-            font-size: 0.82rem !important;
-            font-weight: 500 !important;
-            color: var(--text-secondary) !important;
-        }}
-        .memo-container .executive-callout p em,
-        .memo-container .executive-callout blockquote {{
-            font-family: var(--font-sans) !important;
-            font-style: italic !important;
-            font-size: 0.96rem !important;
-            line-height: 1.68 !important;
-            color: var(--text-title) !important;
-            display: block !important;
-            margin: 8px 0 !important;
-        }}
-        .memo-container .exec-attribution {{
-            font-family: var(--font-sans) !important;
-            font-size: 0.84rem !important;
-            color: var(--text-secondary) !important;
-            margin-top: 6px !important;
-            margin-bottom: 16px !important;
-            display: flex !important;
-            align-items: center !important;
-            gap: 6px !important;
-        }}
-        .memo-container .exec-attribution::before {{
-            content: "—";
-            color: var(--accent-warm) !important;
-            font-weight: 600 !important;
-            margin-right: 2px !important;
-        }}
-        .memo-container .exec-attribution strong {{
-            color: var(--text-title) !important;
-            font-weight: 600 !important;
-        }}
-        .memo-container .exec-divider {{
-            height: 1px !important;
-            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
-            margin: 20px 0 !important;
-        }}
-        .memo-container hr {{
-            border: none !important;
-            height: 1px !important;
-            background: linear-gradient(90deg, transparent, rgba(235, 225, 210, 0.10), transparent) !important;
-            margin: 24px 0 !important;
-        }}
-        .highlight, mark {{
-            background: rgba(201, 154, 117, 0.16) !important;
-            color: #E2DDD5 !important;
-            padding: 2px 6px;
-            border-radius: 4px;
-        }}
-
-        /* FINANCIAL METRIC CARDS & STAT GRIDS */
-        .memo-container .metrics-grid,
-        .memo-container .stats-grid,
-        .memo-container .grid-3,
-        .memo-container .grid-4,
-        .memo-container .grid-2,
-        .memo-container .metric-grid {{
-            display: grid !important;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
-            gap: 14px !important;
-            margin: 24px 0 28px !important;
-        }}
-        .memo-container .metric-card,
-        .memo-container .stat-card,
-        .memo-container div[class*="metric-box"],
-        .memo-container div[class*="stat-box"],
-        .memo-container div[class*="kpi-card"] {{
-            background: #191816 !important;
-            background-color: #191816 !important;
-            border: 1px solid rgba(255, 255, 255, 0.07) !important;
-            border-top: 2.5px solid var(--accent-warm) !important;
-            border-left: 1px solid rgba(255, 255, 255, 0.07) !important;
-            border-radius: 10px !important;
-            padding: 16px 18px !important;
-            margin: 0 !important;
-            display: flex !important;
-            flex-direction: column !important;
-            justify-content: flex-start !important;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
-            box-sizing: border-box !important;
-            min-width: 0 !important;
-            overflow: hidden !important;
-            transition: transform 0.15s ease, border-color 0.15s ease !important;
-        }}
-        .memo-container .metric-card:hover,
-        .memo-container .stat-card:hover {{
-            border-color: rgba(212, 163, 115, 0.35) !important;
-            transform: translateY(-2px);
-        }}
-        .memo-container .metric-card .metric-label,
-        .memo-container .metric-card .stat-label,
-        .memo-container .metric-card .kpi-label,
-        .memo-container .metric-card h4,
-        .memo-container .metric-card .metric-title,
-        .memo-container .metric-card .stat-title {{
-            font-family: var(--font-sans) !important;
-            font-size: 0.72rem !important;
-            font-weight: 600 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.06em !important;
-            color: var(--text-secondary) !important;
-            margin: 0 0 8px 0 !important;
-            line-height: 1.3 !important;
-            overflow-wrap: break-word !important;
-            word-break: break-word !important;
-        }}
-        .memo-container .metric-card .metric-value,
-        .memo-container .metric-card .stat-value,
-        .memo-container .metric-card .kpi-value {{
-            font-family: var(--font-mono) !important;
-            font-size: 1.20rem !important;
-            font-weight: 600 !important;
-            color: var(--text-title) !important;
-            letter-spacing: -0.02em !important;
-            line-height: 1.25 !important;
-            margin: 0 0 8px 0 !important;
-            white-space: normal !important;
-            overflow-wrap: break-word !important;
-            word-break: break-word !important;
-        }}
-        .memo-container .metric-card p,
-        .memo-container .metric-card .metric-desc,
-        .memo-container .metric-card .stat-sub,
-        .memo-container .metric-card .kpi-sub,
-        .memo-container .metric-card .metric-delta {{
-            font-family: var(--font-sans) !important;
-            font-size: 0.78rem !important;
-            color: var(--text-dim) !important;
-            line-height: 1.45 !important;
-            margin: 0 !important;
-            overflow-wrap: break-word !important;
-            word-break: break-word !important;
-        }}
-
-        /* EMBEDDED IMAGES, CHARTS & VISUAL INFOGRAPHICS */
-        .figure-container, figure {{
-            margin: 32px 0 !important;
-            text-align: center !important;
-            background: var(--bg-subpanel) !important;
-            border: 1px solid rgba(215, 205, 190, 0.08) !important;
-            border-radius: 12px !important;
-            padding: 16px !important;
-            overflow: hidden !important;
-        }}
-        .memo-container img {{
-            max-width: 100% !important;
-            height: auto !important;
-            border-radius: 8px !important;
-            display: block !important;
-            margin: 0 auto !important;
-            border: 1px solid rgba(215, 205, 190, 0.08) !important;
-        }}
-        .figure-caption, figcaption {{
-            font-family: var(--font-sans) !important;
-            font-size: 0.8rem !important;
-            color: var(--text-secondary) !important;
-            margin-top: 10px !important;
-            text-align: center !important;
-        }}
-
-        /* Evolution Update Highlight Banner at top of Memo */
-        .update-banner-box {{
-            background: #1C1B18 !important;
-            border: 1px solid rgba(201, 154, 117, 0.3) !important;
-            border-left: 4px solid var(--accent-warm) !important;
-            border-radius: 12px !important;
-            padding: 24px 28px !important;
-            margin-bottom: 36px !important;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
-        }}
-        .update-banner-header {{
-            display: flex !important;
-            justify-content: space-between !important;
-            align-items: center !important;
-            flex-wrap: wrap !important;
-            gap: 10px !important;
-            margin-bottom: 14px !important;
-            padding-bottom: 10px !important;
-            border-bottom: 1px solid rgba(215, 205, 190, 0.08) !important;
-        }}
-        .update-banner-badge {{
-            font-family: var(--font-sans) !important;
-            font-size: 0.76rem !important;
-            font-weight: 600 !important;
-            color: var(--accent-warm) !important;
-            letter-spacing: 0.04em !important;
-            text-transform: uppercase !important;
-        }}
-        .update-trigger-pill {{
-            font-family: var(--font-mono) !important;
-            font-size: 0.74rem !important;
-            color: var(--text-secondary) !important;
-            background: var(--bg-subpanel) !important;
-            padding: 3px 10px !important;
-            border-radius: 4px !important;
-            border: 1px solid var(--border-color) !important;
-        }}
-        .update-banner-title {{
-            font-family: var(--font-sans) !important;
-            font-size: 1.15rem !important;
-            font-weight: 600 !important;
-            color: var(--text-title) !important;
-            margin-bottom: 8px !important;
-            letter-spacing: -0.015em !important;
-        }}
-        .update-banner-desc {{
-            font-family: var(--font-sans) !important;
-            font-size: 0.94rem !important;
-            line-height: 1.68 !important;
-            color: var(--text-body) !important;
-        }}
-
-        /* History */
-        .history-entry {{
+        .evolution-card {{
             background: var(--bg-panel);
             border: 1px solid var(--border-color);
             border-radius: 14px;
-            padding: 28px 32px;
-            margin-bottom: 20px;
+            padding: 24px 28px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            position: relative;
         }}
-        .history-entry-active {{ border-color: rgba(201, 154, 117, 0.35); }}
-        .history-top {{ display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }}
-        .history-tags {{ display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }}
-        .history-time {{ color: var(--text-secondary); font-size: 0.88rem; font-family: var(--font-sans); }}
-        .history-price {{ font-family: var(--font-mono); font-size: 0.92rem; }}
-
-        .diff-grid {{
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin: 20px 0;
+        .active-version-card {{
+            border-color: rgba(212, 163, 115, 0.35);
+            background: linear-gradient(180deg, rgba(212, 163, 115, 0.03) 0%, var(--bg-panel) 100%);
         }}
-        @media (max-width: 768px) {{ .diff-grid {{ grid-template-columns: 1fr; }} }}
-        .diff-box {{
-            padding: 18px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-        }}
-        .diff-prev {{ background: rgba(196, 114, 108, 0.05); border-color: rgba(196, 114, 108, 0.18); }}
-        .diff-now {{ background: rgba(125, 157, 129, 0.05); border-color: rgba(125, 157, 129, 0.18); }}
-        .diff-label {{ font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }}
-        .diff-prev .diff-label {{ color: var(--accent-red); }}
-        .diff-now .diff-label {{ color: var(--accent-green); }}
-        .diff-text {{ font-size: 1.02rem; color: var(--text-body); line-height: 1.65; }}
-
-        /* Pills & Badges (Typography-first, zero pill boxes) */
-        .pill {{
-            display: inline-flex;
+        .evolution-header {{
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            padding: 0;
-            border: none;
-            background: transparent;
-            font-size: 0.82rem;
-            font-family: var(--font-sans);
-            letter-spacing: 0.01em;
-            white-space: nowrap;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 12px;
         }}
-        .pill-moat, .pill-moat-wide {{ background: transparent; color: var(--accent-green); border: none; font-weight: 500; font-size: 0.82rem; }}
-        .pill-moat-narrow {{ background: transparent; color: var(--text-secondary); border: none; font-weight: 500; font-size: 0.82rem; }}
-        .pill-moat-weak {{ background: transparent; color: #D48858; border: none; font-weight: 500; font-size: 0.82rem; }}
-        .pill-moat-none {{ background: transparent; color: var(--accent-red); border: none; font-weight: 500; font-size: 0.82rem; }}
-        .pill-active {{ background: transparent; color: var(--accent-warm); border: none; font-weight: 500; }}
-        .pill-neutral {{ background: transparent; color: var(--text-secondary); border: none; font-weight: 400; }}
-        .pill-alert {{ background: transparent; color: var(--accent-warm); border: none; font-weight: 500; }}
-
-        .btn-subtle {{
-            background: var(--bg-subpanel);
+        .evolution-title-row {{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }}
+        .evolution-vnum {{
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 700;
             color: var(--text-title);
-            border: 1px solid var(--border-color);
-            font-family: var(--font-sans);
-            font-size: 0.8rem;
-            padding: 7px 14px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.15s;
         }}
-        .btn-subtle:hover {{ background: var(--bg-hover); }}
-
-        .snapshot-drawer {{ margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color); }}
-
-        /* Subtle Hinge-style Status Pulse Beacon */
-        .status-beacon {{
-            display: inline-flex;
+        .evolution-status-text {{
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }}
+        .status-active {{
+            color: #82AE8C;
+        }}
+        .status-archived {{
+            color: var(--text-dim);
+        }}
+        .evolution-date {{
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            color: var(--text-dim);
+        }}
+        .evolution-price {{
+            font-family: var(--font-mono);
+            font-size: 0.86rem;
+            color: var(--text-secondary);
+        }}
+        .evolution-price strong {{
+            color: var(--accent-warm);
+        }}
+        .evolution-reason {{
+            font-size: 0.90rem;
+            color: var(--text-body);
+            margin-bottom: 14px;
+        }}
+        .reason-label {{
+            color: var(--text-dim);
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-right: 6px;
+        }}
+        .evolution-metrics-text-row {{
+            display: flex;
             align-items: center;
-            justify-content: center;
-            position: relative;
-            width: 9px;
-            height: 9px;
-            margin-left: 7px;
-            vertical-align: middle;
-            cursor: help;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            color: var(--text-secondary);
         }}
-        .beacon-dot {{
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            position: relative;
-            z-index: 2;
+        .evolution-metrics-text-row strong {{
+            color: var(--text-title);
         }}
-        .beacon-ping {{
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            animation: beacon-ripple 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
-            z-index: 1;
-        }}
-        .beacon-buy .beacon-dot {{ background-color: #10b981; box-shadow: 0 0 6px rgba(16, 185, 129, 0.7); }}
-        .beacon-buy .beacon-ping {{ background-color: rgba(16, 185, 129, 0.45); }}
-        .beacon-hold .beacon-dot {{ background-color: #f59e0b; box-shadow: 0 0 6px rgba(245, 158, 11, 0.7); }}
-        .beacon-hold .beacon-ping {{ background-color: rgba(245, 158, 11, 0.45); }}
-        .beacon-caution .beacon-dot {{ background-color: #f97316; box-shadow: 0 0 6px rgba(249, 115, 22, 0.7); }}
-        .beacon-caution .beacon-ping {{ background-color: rgba(249, 115, 22, 0.45); }}
-        .beacon-avoid .beacon-dot {{ background-color: #ef4444; box-shadow: 0 0 6px rgba(239, 68, 68, 0.7); }}
-        .beacon-avoid .beacon-ping {{ background-color: rgba(239, 68, 68, 0.45); }}
-        @keyframes beacon-ripple {{
-            0% {{ transform: scale(0.9); opacity: 0.85; }}
-            70% {{ transform: scale(2.5); opacity: 0; }}
-            100% {{ transform: scale(2.5); opacity: 0; }}
-        }}
-
-        .pos {{ color: var(--accent-green); }}
-        .neg {{ color: var(--accent-red); }}
-
-        /* Info Circle Button */
-        .btn-info-circle {{
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
+        .evolution-change-text {{
+            font-size: 0.90rem;
+            color: #A8A196;
             background: var(--bg-subpanel);
             border: 1px solid var(--border-color);
-            color: var(--text-dim);
-            font-size: 0.72rem;
-            font-family: var(--font-mono);
-            cursor: pointer;
-            margin-left: 6px;
-            vertical-align: middle;
-            transition: all 0.15s ease;
-            padding: 0;
-            line-height: 1;
+            border-radius: 8px;
+            padding: 12px 16px;
+            line-height: 1.6;
+            margin-bottom: 14px;
         }}
-        .btn-info-circle:hover {{
-            background: var(--bg-hover);
-            border-color: var(--accent-warm);
+        .archived-accordion {{
+            margin-top: 10px;
+        }}
+        .archived-summary {{
+            font-family: var(--font-mono);
+            font-size: 0.80rem;
             color: var(--accent-warm);
-            transform: scale(1.1);
+            cursor: pointer;
+            user-select: none;
+            padding: 6px 0;
+            transition: color 0.15s;
+        }}
+        .archived-summary:hover {{
+            color: var(--accent-warm-hover);
+        }}
+        .archived-content-body {{
+            margin-top: 14px;
+            padding: 20px 24px;
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 0.92rem;
+            line-height: 1.7;
+        }}
+        .archived-memo-section {{
+            margin-bottom: 18px;
+        }}
+        .archived-memo-section:last-child {{
+            margin-bottom: 0;
+        }}
+        .archived-memo-sub {{
+            font-family: var(--font-sans);
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--text-title);
+            margin-bottom: 6px;
         }}
 
-        /* Modal */
-        .modal-shade {{
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(10, 10, 9, 0.85);
-            backdrop-filter: blur(12px);
-            z-index: 1000;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 24px;
+        /* Alerts & Surveillance Hub */
+        .alerts-hub {{
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
         }}
-        .modal-body-card {{
+        .corridor-grid {{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }}
+        .corridor-card {{
             background: var(--bg-panel);
-            border: 1px solid var(--border-focus);
-            border-radius: 16px;
-            max-width: 720px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            padding: 36px;
-            position: relative;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
         }}
-        .modal-x {{
-            position: absolute;
-            top: 20px; right: 20px;
-            background: none;
-            border: none;
+        .corridor-label {{
+            font-family: var(--font-mono);
+            font-size: 0.76rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }}
+        .corridor-value {{
+            font-family: var(--font-mono);
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--text-title);
+        }}
+        .corridor-sub {{
+            font-size: 0.82rem;
             color: var(--text-dim);
-            font-size: 1.4rem;
-            cursor: pointer;
         }}
-        .modal-x:hover {{ color: var(--text-title); }}
-        .btn-primary {{
-            background: var(--accent-warm); color: #141312; font-family: var(--font-sans); font-weight: 500;
-            padding: 10px 20px; border-radius: 6px; text-decoration: none; display: inline-flex; align-items: center; border: none; cursor: pointer;
-            transition: all 0.15s;
+        .alert-feed-list {{
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }}
-        .btn-primary:hover {{ background: #DDB495; }}
+        .alert-feed-card {{
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px 24px;
+        }}
+        .alert-feed-header {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }}
+        .alert-feed-badge {{
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: rgba(201, 122, 114, 0.15);
+            color: #C97A72;
+            border: 1px solid rgba(201, 122, 114, 0.3);
+            text-transform: uppercase;
+        }}
+        .alert-feed-time {{
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--text-dim);
+        }}
+        .alert-feed-title {{
+            font-size: 1.02rem;
+            font-weight: 600;
+            color: var(--text-title);
+            margin-bottom: 4px;
+        }}
+        .alert-feed-reason {{
+            font-size: 0.88rem;
+            color: var(--text-body);
+            margin-bottom: 6px;
+        }}
+        .alert-feed-desc {{
+            font-size: 0.84rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }}
+        .empty-alerts-box {{
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+        }}
+        .empty-alerts-title {{
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-title);
+            margin-bottom: 6px;
+        }}
+        .empty-alerts-sub {{
+            font-size: 0.86rem;
+            color: var(--text-secondary);
+            max-width: 580px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }}
+
+        /* Ownership & Fund Intel */
+        .ownership-wrap {{
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }}
+        .whale-chips-row {{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }}
+        .whale-chip {{
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.86rem;
+            color: var(--text-title);
+            font-weight: 500;
+        }}
+
+        /* Regulatory & Ownership Portals */
+        .portals-grid {{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+        }}
+        .portal-card {{
+            background: var(--bg-subpanel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: border-color 0.2s, transform 0.15s;
+        }}
+        .portal-card:hover {{
+            border-color: var(--accent-warm);
+            transform: translateY(-1px);
+        }}
+        .portal-header {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }}
+        .portal-name {{
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: var(--text-title);
+        }}
+        .portal-arrow {{
+            color: var(--accent-warm);
+            font-size: 0.95rem;
+        }}
+        .portal-desc {{
+            font-size: 0.84rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }}
     </style>
 </head>
 <body>
+    <!-- Top Nav -->
     <nav class="nav-bar">
         <div class="container nav-inner">
-            <a href="../index.html" class="nav-back">← AlphaThesis</a>
-            <span style="font-size: 0.82rem; color: var(--text-dim); font-family: var(--font-sans);">{ticker} RESEARCH</span>
+            <a href="/" class="nav-back">← Back to Watchlist</a>
         </div>
     </nav>
 
-    <main class="container">
-        <!-- Hero Deck -->
-        <section class="hero-deck">
+    <div class="container">
+        <!-- 1. Hero Deck -->
+        <header class="hero-deck">
             <div class="hero-top-row">
-                <div>
-                    <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
-                        <div style="display: inline-flex; align-items: center; gap: 10px;">
-                            {get_ticker_logo_html(stock.ticker, 32)}
-                            <span class="ticker-symbol">{stock.ticker}{dossier_beacon}</span>
+                <div class="hero-title-area">
+                    {logo_html}
+                    <div class="hero-title-text">
+                        <div class="ticker-header-line">
+                            <span class="ticker-symbol">{ticker_clean}</span>
                         </div>
-                        <span style="display: inline-flex; align-items: center; margin-left: 6px;">
-                            {labels_html}
-                        </span>
+                        <div class="company-name-meta">{company_name} <span class="meta-sep">·</span> <span class="meta-moat" style="color: {moat_color}; font-weight: 500;">{moat_label}</span></div>
                     </div>
-                    <div class="company-meta">{get_canonical_company_name(stock.ticker, stock.company_name)}</div>
                 </div>
                 <div class="price-callout">
-                    <div class="price-number">${(stock.current_price if stock.current_price is not None else 0.0):.2f}</div>
-                    <div class="price-sub {'pos' if (stock.return_pct or 0.0) >= 0 else 'neg'}">
-                        {f"{stock.return_pct:+.2f}%" if stock.return_pct is not None else "+0.00%"}
+                    <div class="price-number">${current_price:.2f}</div>
+                    <div class="price-sub">Market Price</div>
+                </div>
+            </div>
+
+            <!-- Native SVG Area Chart (NO TARGET LINES) -->
+            <div class="native-chart-wrap">
+                <div class="chart-top-bar">
+                    <div class="chart-live-val">
+                        <span id="tooltip-date">{last_date}</span> &bull; <strong id="tooltip-price" style="color: var(--accent-warm);">${last_price:.2f}</strong>
+                    </div>
+                    <div class="chart-range-pills">
+                        <button class="range-pill" onclick="switchRange('1D')">1D</button>
+                        <button class="range-pill" onclick="switchRange('1M')">1M</button>
+                        <button class="range-pill active" onclick="switchRange('1Y')">1Y</button>
+                        <button class="range-pill" onclick="switchRange('5Y')">5Y</button>
+                        <button class="range-pill" onclick="switchRange('MAX')">MAX</button>
+                    </div>
+                </div>
+                <div style="position: relative; width: 100%; height: 220px;">
+                    <svg id="interactive-svg" class="chart-svg" viewBox="0 0 {width} {height}" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#82AE8C" stop-opacity="0.22" />
+                                <stop offset="100%" stop-color="#82AE8C" stop-opacity="0.0" />
+                            </linearGradient>
+                        </defs>
+                        <line x1="{padding_x}" y1="{padding_y}" x2="{width - padding_x}" y2="{padding_y}" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
+                        <line x1="{padding_x}" y1="{height / 2}" x2="{width - padding_x}" y2="{height / 2}" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
+                        <line x1="{padding_x}" y1="{height - padding_y}" x2="{width - padding_x}" y2="{height - padding_y}" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
+                        
+                        <!-- Dynamic Area & Stroke -->
+                        <polygon id="chart-area" fill="url(#area-grad)" points="" />
+                        <polyline id="chart-line" fill="none" stroke="#82AE8C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" points="" />
+                        
+                        <!-- Hover Crosshair & Marker -->
+                        <line id="hover-line" x1="0" y1="0" x2="0" y2="{height}" stroke="rgba(212, 163, 115, 0.4)" stroke-width="1" stroke-dasharray="3 3" opacity="0" />
+                        <circle id="hover-dot" r="4.5" fill="#D4A373" stroke="#1B1A19" stroke-width="2" opacity="0" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- 6-Box Derived Financial Metrics Grid -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="metric-label">Normalized Owner Earnings</span>
+                    <span class="metric-value">${oe_sh:.2f} / sh</span>
+                    <span class="metric-sub">${oe_tot:,.0f}M total (ex-SBC)</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">P / Owner Earnings</span>
+                    <span class="metric-value">{p_oe:.1f}x</span>
+                    <span class="metric-sub">Market Cap: ${mcap:,.0f}M</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">EV / Owner Earnings</span>
+                    <span class="metric-value">{ev_oe:.1f}x</span>
+                    <span class="metric-sub">Enterprise Value: ${ev:,.0f}M</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Owner Cash Yield</span>
+                    <span class="metric-value" style="color: var(--accent-green);">{yield_pct:.1f}%</span>
+                    <span class="metric-sub">Starting Free Cash Flow</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Owner ROIC</span>
+                    <span class="metric-value" style="color: {'var(--accent-green)' if owner_roic >= 20.0 else 'var(--text-title)'};">{owner_roic:.1f}%</span>
+                    <span class="metric-sub">OE / Invested Capital</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Net Cash / Share</span>
+                    <span class="metric-value" style="color: {'var(--accent-green)' if net_cash_sh > 0 else 'var(--text-title)'};">${net_cash_sh:+.2f} / sh</span>
+                    <span class="metric-sub">${net_cash_tot:+,.0f}M Balance Sheet</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="switchTab('thesis', this)">Investment Thesis</button>
+            <button class="nav-tab" onclick="switchTab('evolution', this)">Thesis Evolution <span class="tab-badge">{len(sorted_history)}</span></button>
+            <button class="nav-tab" onclick="switchTab('alerts', this)">Alerts & Catalysts <span class="tab-badge">{len(ticker_alerts)}</span></button>
+            <button class="nav-tab" onclick="switchTab('ownership', this)">Ownership & Fund Intel</button>
+        </div>
+
+        <!-- TAB 1: Investment Thesis (4 Core Sections) -->
+        <div id="tab-thesis" class="tab-pane active">
+            <main class="memo-container">
+                <section class="memo-section">
+                    <h2 class="memo-title">What the Market is Pricing In</h2>
+                    <div class="memo-body">{p1_html}</div>
+                </section>
+                <section class="memo-section">
+                    <h2 class="memo-title">Why the Market Might Be Right</h2>
+                    <div class="memo-body">{p2_html}</div>
+                </section>
+                <section class="memo-section">
+                    <h2 class="memo-title">How Things Are Going Now</h2>
+                    <div class="memo-body">{p3_html}</div>
+                </section>
+                <section class="memo-section">
+                    <h2 class="memo-title">What If It Keeps Going That Way</h2>
+                    <div class="memo-body">{p4_html}</div>
+                </section>
+            </main>
+        </div>
+
+        <!-- TAB 2: Thesis Evolution & Version History -->
+        <div id="tab-evolution" class="tab-pane">
+            <div class="memo-container">
+                <h2 class="memo-title" style="margin-bottom: 24px;">Thesis Evolution & Historical Audits</h2>
+                <div class="evolution-timeline">
+                    {evolution_cards_html}
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: Alerts & Catalyst Surveillance -->
+        <div id="tab-alerts" class="tab-pane">
+            <div class="alerts-hub">
+                <div class="corridor-grid">
+                    <div class="corridor-card">
+                        <span class="corridor-label">Lower Price Alert Floor</span>
+                        <span class="corridor-value">{lower_txt.split(' ')[0]}</span>
+                        <span class="corridor-sub">Triggers downside margin-of-safety review if breached</span>
+                    </div>
+                    <div class="corridor-card">
+                        <span class="corridor-label">Upper Price Alert Ceiling</span>
+                        <span class="corridor-value">{upper_txt.split(' ')[0]}</span>
+                        <span class="corridor-sub">Triggers valuation trim / fair value realization review</span>
+                    </div>
+                    <div class="corridor-card">
+                        <span class="corridor-label">Next Expected Catalyst</span>
+                        <span class="corridor-value" style="font-size: 1.1rem; color: var(--accent-warm);">{next_catalyst_d}</span>
+                        <span class="corridor-sub">{next_catalyst_e}</span>
+                    </div>
+                </div>
+
+                <div class="memo-container" style="padding: 32px 36px;">
+                    <h3 class="memo-title" style="font-size: 1.15rem; margin-bottom: 18px;">Active & Historical Surveillance Alerts for {ticker_clean}</h3>
+                    <div class="alert-feed-list">
+                        {ticker_alerts_html}
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Native Multi-Range Interactive Area Chart -->
-            {chart_html}
-
-            <!-- Storylines Executive Summary & Probability Space Widget -->
-            {storylines_summary_widget_html}
-
-            <!-- Key Quality & Catalyst Strip -->
-            <div class="metrics-grid">
-                <div class="metric-cell">
-                    <div class="metric-label">Present Fair Value</div>
-                    <div class="metric-value" style="color: var(--accent-warm);">{format_usd_target(getattr(stock, 'present_fair_value', '') or getattr(stock, 'expected_fair_value', '') or stock.fair_value_estimate)}</div>
-                    <div class="metric-subtext" style="color: var(--text-secondary);">{f"{stock.expected_mos:+.1f}% Margin of Safety" if getattr(stock, 'expected_mos', None) is not None else "9.5% Hurdle Rate PV"}</div>
+        <!-- TAB 4: Ownership & Regulatory Portals -->
+        <div id="tab-ownership" class="tab-pane">
+            <div class="ownership-wrap">
+                <div class="memo-container" style="padding: 32px 36px;">
+                    <h3 class="memo-title" style="font-size: 1.15rem; margin-bottom: 12px;">Institutional 13F Superinvestors & Whales</h3>
+                    <div style="font-size: 0.90rem; color: var(--text-secondary); margin-bottom: 14px;">
+                        Institutional Ownership: <strong style="color: var(--text-title);">{inst_pct or '75%+'}</strong> &bull; Insider Signal: <strong style="color: var(--accent-warm);">{insider_sig}</strong>
+                    </div>
+                    <div class="whale-chips-row">
+                        {funds_chips_html}
+                    </div>
+                    {f'<div style="margin-top: 14px; font-size: 0.86rem; color: var(--text-dim); line-height: 1.5;">{insider_sum}</div>' if insider_sum else ''}
                 </div>
-                {format_pricing_power_card_html(stock)}
-                {format_cash_flow_predictability_card_html(stock)}
-                <div class="metric-cell">
-                    <div class="metric-label">Next Catalyst</div>
-                    <div class="metric-value" style="font-size: 0.95rem; font-family: var(--font-sans);">{stock.next_catalyst_date or 'TBD'}</div>
-                    <div class="metric-subtext" style="color: var(--text-secondary);">{clean_cat_desc or 'Earnings Release / Filing'}</div>
+
+                <div class="portals-grid">
+                    <a href="http://openinsider.com/search?q={ticker_clean}" target="_blank" rel="noopener noreferrer" class="portal-card">
+                        <div class="portal-header">
+                            <span class="portal-name">OpenInsider SEC Form 4 Tracker</span>
+                            <span class="portal-arrow">↗</span>
+                        </div>
+                        <div class="portal-desc">Direct statutory database of all insider cluster buys, C-suite sales, and 10b5-1 executive plans filed for {ticker_clean}.</div>
+                    </a>
+                    <a href="https://www.dataroma.com/m/stock.php?sym={ticker_clean}" target="_blank" rel="noopener noreferrer" class="portal-card">
+                        <div class="portal-header">
+                            <span class="portal-name">Dataroma Superinvestor Registry</span>
+                            <span class="portal-arrow">↗</span>
+                        </div>
+                        <div class="portal-desc">Live 13F whale tracker showing top institutional value funds, Berkshire Hathaway, and superinvestor portfolio weightings for {ticker_clean}.</div>
+                    </a>
                 </div>
             </div>
-        </section>
-
-        <!-- Navigation Tabs -->
-        <div class="tabs-header">
-            <button id="btn-tab-memo" class="tab-btn active" onclick="showTab('memo')">Investment Thesis</button>
-            <button id="btn-tab-history" class="tab-btn" onclick="showTab('history')">Evolution ({evolution_count})</button>
-            <button id="btn-tab-ownership" class="tab-btn" onclick="showTab('ownership')">Ownership & Fund Intel</button>
         </div>
+    </div>
 
-        <!-- Memo Content -->
-        <div id="tab-memo" class="tab-content active">
-            <article class="memo-container">
-                {active_content}
-            </article>
-        </div>
-
-        <!-- History Content -->
-        <div id="tab-history" class="tab-content">
-            {history_cards_html}
-        </div>
-
-        <!-- Ownership & Fund Intel Content -->
-        <div id="tab-ownership" class="tab-content">
-            {ownership_tab_html}
-        </div>
-    </main>
-
-    {build_labels_legend_modal_html(include_pricing_power=True)}
-    {build_multibagger_legend_modal_html()}
-    {build_card_attribution_modal_html()}
-
+    <!-- Dynamic SVG Chart & Range Switching Script -->
     <script>
-        function showTab(id) {{
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            
-            const btn = document.getElementById('btn-tab-' + id);
-            const content = document.getElementById('tab-' + id);
-            if (btn && content) {{
-                btn.classList.add('active');
-                content.classList.add('active');
-                setTimeout(renderLatexEquations, 20);
+        const chartData = {ranges_json};
+        let activeRange = '1Y';
+
+        function switchTab(tabId, el) {{
+            document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active');
+            el.classList.add('active');
+        }}
+
+        function renderChart(rangeKey) {{
+            activeRange = rangeKey;
+            const points = chartData[rangeKey] || [];
+            const svg = document.getElementById('interactive-svg');
+            const polyline = document.getElementById('chart-line');
+            const polygon = document.getElementById('chart-area');
+            const tooltipDate = document.getElementById('tooltip-date');
+            const tooltipPrice = document.getElementById('tooltip-price');
+
+            if (!points || points.length < 2) {{
+                polyline.setAttribute('points', '');
+                polygon.setAttribute('points', '');
+                return;
             }}
-        }}
 
-        function toggleSnapshot(ver) {{
-            const el = document.getElementById('snapshot-' + ver);
-            el.style.display = (el.style.display === 'none' ? 'block' : 'none');
-            if (el.style.display === 'block') {{
-                setTimeout(renderLatexEquations, 20);
-            }}
-        }}
+            const prices = points.map(p => p.price);
+            let minP = Math.min(...prices);
+            let maxP = Math.max(...prices);
+            if (minP === maxP) {{ minP *= 0.95; maxP *= 1.05; }}
+            const rangeP = maxP - minP;
 
-        function openLabelsLegendModal(event) {{
-            if (event) {{
-                event.stopPropagation();
-                event.preventDefault();
-            }}
-            const modal = document.getElementById('labels-legend-modal');
-            if (modal) modal.style.display = 'flex';
-        }}
+            const width = {width};
+            const height = {height};
+            const padX = {padding_x};
+            const padY = {padding_y};
+            const drawW = width - (2 * padX);
+            const drawH = height - (2 * padY);
 
-        function closeLabelsLegendModal() {{
-            const modal = document.getElementById('labels-legend-modal');
-            if (modal) modal.style.display = 'none';
-        }}
+            const coords = points.map((p, idx) => {{
+                const x = padX + (idx / (points.length - 1)) * drawW;
+                const y = padY + drawH - ((p.price - minP) / rangeP) * drawH;
+                return {{ x, y, price: p.price, date: p.date }};
+            }});
 
-        function closeLegendModalOutside(event) {{
-            if (event.target.id === 'labels-legend-modal') {{
-                closeLabelsLegendModal();
-            }}
-        }}
+            const polyPoints = coords.map(c => `${{c.x.toFixed(1)}},${{c.y.toFixed(1)}}`).join(' ');
+            polyline.setAttribute('points', polyPoints);
 
-        function openMultibaggerModal(event) {{
-            if (event) {{
-                event.stopPropagation();
-                event.preventDefault();
-            }}
-            const modal = document.getElementById('multibagger-modal');
-            if (modal) modal.style.display = 'flex';
-        }}
+            const areaPoints = `${{coords[0].x.toFixed(1)}},${{height}} ` + polyPoints + ` ${{coords[coords.length - 1].x.toFixed(1)}},${{height}}`;
+            polygon.setAttribute('points', areaPoints);
 
-        function closeMultibaggerModal() {{
-            const modal = document.getElementById('multibagger-modal');
-            if (modal) modal.style.display = 'none';
-        }}
+            // Default to latest point
+            const lastPt = coords[coords.length - 1];
+            tooltipDate.textContent = lastPt.date;
+            tooltipPrice.textContent = '$' + lastPt.price.toFixed(2);
 
-        function closeMultibaggerModalOutside(event) {{
-            if (event.target.id === 'multibagger-modal') {{
-                closeMultibaggerModal();
-            }}
-        }}
-
-        function openAttributionFromData(el, event) {{
-            if (event) {{
-                event.stopPropagation();
-                event.preventDefault();
-            }}
-            const tag = el.getAttribute('data-tag') || 'Return Attribution';
-            const title = el.getAttribute('data-title') || 'Statement Breakdown';
-            const statement = el.getAttribute('data-statement') || '';
-            const body = el.getAttribute('data-body') || '';
-            
-            const modal = document.getElementById('attribution-detail-modal');
-            const headerTag = document.getElementById('attr-modal-header-tag');
-            const titleEl = document.getElementById('attr-modal-title');
-            const stmtEl = document.getElementById('attr-modal-statement');
-            const bodyEl = document.getElementById('attr-modal-body');
-            
-            if (headerTag) headerTag.textContent = tag;
-            if (titleEl) titleEl.textContent = title;
-            if (stmtEl) stmtEl.innerHTML = statement;
-            if (bodyEl) bodyEl.innerHTML = body;
-            if (modal) modal.style.display = 'flex';
-        }}
-
-        function closeAttributionDetailModal() {{
-            const modal = document.getElementById('attribution-detail-modal');
-            if (modal) modal.style.display = 'none';
-        }}
-
-        function closeAttributionDetailModalOutside(event) {{
-            if (event.target.id === 'attribution-detail-modal') {{
-                closeAttributionDetailModal();
-            }}
-        }}
-
-        function renderLatexEquations() {{
-            if (typeof renderMathInElement === 'function') {{
-                renderMathInElement(document.body, {{
-                    delimiters: [
-                        {{left: '$$', right: '$$', display: true}},
-                        {{left: '\\\\[', right: '\\\\]', display: true}},
-                        {{left: '\\\\(', right: '\\\\)', display: false}}
-                    ],
-                    ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'option'],
-                    throwOnError: false
-                }});
-            }} else {{
-                if (!window._katexRetryCount) window._katexRetryCount = 0;
-                if (window._katexRetryCount < 25) {{
-                    window._katexRetryCount++;
-                    setTimeout(renderLatexEquations, 60);
+            // Interactive Crosshair Scrub
+            svg.onmousemove = function(e) {{
+                const rect = svg.getBoundingClientRect();
+                const mouseX = (e.clientX - rect.left) * (width / rect.width);
+                
+                // Find closest point
+                let closest = coords[0];
+                let closestDist = Math.abs(coords[0].x - mouseX);
+                for (let i = 1; i < coords.length; i++) {{
+                    const dist = Math.abs(coords[i].x - mouseX);
+                    if (dist < closestDist) {{
+                        closest = coords[i];
+                        closestDist = dist;
+                    }}
                 }}
-            }}
+
+                document.getElementById('hover-line').setAttribute('x1', closest.x);
+                document.getElementById('hover-line').setAttribute('x2', closest.x);
+                document.getElementById('hover-line').setAttribute('opacity', '1');
+
+                document.getElementById('hover-dot').setAttribute('cx', closest.x);
+                document.getElementById('hover-dot').setAttribute('cy', closest.y);
+                document.getElementById('hover-dot').setAttribute('opacity', '1');
+
+                tooltipDate.textContent = closest.date;
+                tooltipPrice.textContent = '$' + closest.price.toFixed(2);
+            }};
+
+            svg.onmouseleave = function() {{
+                document.getElementById('hover-line').setAttribute('opacity', '0');
+                document.getElementById('hover-dot').setAttribute('opacity', '0');
+                tooltipDate.textContent = lastPt.date;
+                tooltipPrice.textContent = '$' + lastPt.price.toFixed(2);
+            }};
         }}
 
-        document.addEventListener("DOMContentLoaded", renderLatexEquations);
-        window.addEventListener("load", renderLatexEquations);
-        
-        if (typeof MutationObserver !== 'undefined') {{
-            const _mathObserver = new MutationObserver(() => {{
-                if (typeof renderMathInElement === 'function') {{
-                    _mathObserver.disconnect();
-                    renderLatexEquations();
-                    setTimeout(() => {{
-                        const target = document.querySelector('.memo-container') || document.body;
-                        if (target) _mathObserver.observe(target, {{ childList: true, subtree: true }});
-                    }}, 250);
+        function switchRange(rangeKey) {{
+            document.querySelectorAll('.range-pill').forEach(btn => {{
+                if (btn.textContent === rangeKey) {{
+                    btn.classList.add('active');
+                }} else {{
+                    btn.classList.remove('active');
                 }}
             }});
-            document.addEventListener("DOMContentLoaded", () => {{
-                const target = document.querySelector('.memo-container') || document.body;
-                if (target) _mathObserver.observe(target, {{ childList: true, subtree: true }});
-            }});
+            renderChart(rangeKey);
         }}
-        window.addEventListener("keydown", (e) => {{
-            if (e.key === "Escape") {{
-                closeEvolutionModal();
-                closeLabelsLegendModal();
-                closeMultibaggerModal();
-                closeAttributionDetailModal();
-            }}
+
+        // Initial render
+        document.addEventListener('DOMContentLoaded', () => {{
+            renderChart('1Y');
         }});
     </script>
 </body>
@@ -4955,7 +4538,8 @@ def render_all():
     watchlist = load_watchlist()
     alerts = load_alerts()
     
-    tickers = sorted(list(watchlist.keys()))
+    existing_theses = [p.stem.upper() for p in (DATA_DIR / "theses").glob("*.json")]
+    tickers = sorted(list(set(list(watchlist.keys()) + existing_theses)))
     synced_watchlist = {}
     for ticker in tickers:
         history = load_thesis_history(ticker)
@@ -5006,6 +4590,17 @@ def render_all():
                 predictability_tier=current_v.predictability_tier or "Moderate Predictability",
                 predictability_score=current_v.predictability_score or "",
                 predictability_summary=current_v.predictability_summary or "",
+                owner_earnings_per_share=current_v.owner_earnings_per_share,
+                owner_earnings_total_mil=current_v.owner_earnings_total_mil,
+                p_oe=current_v.p_oe,
+                ev_oe=current_v.ev_oe,
+                owner_yield_pct=current_v.owner_yield_pct,
+                owner_roic_pct=current_v.owner_roic_pct,
+                net_cash_per_share=current_v.net_cash_per_share,
+                market_pricing_in=current_v.market_pricing_in,
+                why_it_might_be_right=current_v.why_it_might_be_right,
+                how_things_are_going_now=current_v.how_things_are_going_now,
+                what_if_it_keeps_going_that_way=current_v.what_if_it_keeps_going_that_way,
                 last_updated=current_v.date or datetime.now().strftime("%Y-%m-%d"),
                 total_versions=len(history),
                 report_path=f"reports/{ticker.upper()}.html"

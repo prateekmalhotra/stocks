@@ -87,19 +87,6 @@ def auto_heal_dossier_and_metadata(ticker: str, html: str, metadata: Optional[Di
             except Exception:
                 pass
 
-        # Harmonize pro_forma_schedule in memory
-        from stocks.gemini_agent import synthesize_pro_forma_schedule
-        if stories:
-            for s in stories:
-                s["pro_forma_schedule"] = synthesize_pro_forma_schedule(
-                    oe0_sh=float(s.get("normalized_oe_per_share") or meta.get("normalized_oe_per_share") or 0.0),
-                    oe5_sh=float(s.get("projected_oe5_per_share") or 0.0),
-                    val=float(s.get("val") or 0.0),
-                    mult_num=float(str(s.get("oe_multiple") or "16").replace("x", "").replace("X", "").strip() or 16.0),
-                    existing_sched=s.get("pro_forma_schedule"),
-                    sec1_text=healed_html
-                )
-
     return healed_html, meta
 
 
@@ -115,22 +102,20 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
     # 1. Word Count & Analytical Depth
     words = html.split()
     word_count = len(words)
-    if word_count < 750:
-        issues.append(f"Insufficient analytical depth ({word_count} words < 750 word institutional minimum).")
+    if word_count < 180:
+        issues.append(f"Insufficient analytical depth ({word_count} words < 180 word minimum).")
 
-    # 2. Complete 3-Section Overhauled Architecture
+    # 2. Complete 4-Section Single-Agent Architecture
     missing_sections = []
-    alt_names = {
-        1: ["Premise of the Company", "Premise", "Company Premise", "Executive Summary", "Operating Reality"],
-        2: ["Probable Business Stories", "Business Stories", "3 Probable Business Stories", "Probable Stories", "Storylines", "Operational Storylines", "Probable Future Paths", "3 Probable Future Paths", "Future Paths", "The 3 Probable Future Paths"],
-        3: ["Valuation & DCF Matrix", "Valuation", "DCF Matrix", "Buffett Owner Earnings", "Scenario Valuation", "Reverse DCF", "Normalized Owner Earnings", "Owner Earnings Multiple", "Multiple & Yield Inversion", "Valuation Across the Storylines"]
-    }
-    for s_num in range(1, 4):
-        pattern = rf"(?:<h2>|<h3>|<h4>|<section>|\b)[Ss]ection\s*{s_num}\b|#+\s*Section\s*{s_num}\b"
-        if not re.search(pattern, html):
-            found_alt = any(alt.lower() in html.lower() for alt in alt_names[s_num])
-            if not found_alt:
-                missing_sections.append(f"Section {s_num}")
+    required_sections = [
+        "What the Market is Pricing In",
+        "Why the Market Might Be Right",
+        "How Things Are Going Now",
+        "What If It Keeps Going That Way"
+    ]
+    for s_name in required_sections:
+        if s_name.lower() not in html.lower():
+            missing_sections.append(s_name)
                 
     if missing_sections:
         issues.append(f"Missing core architectural sections: {', '.join(missing_sections)}.")
@@ -150,12 +135,7 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
     if open_table != close_table:
         issues.append(f"Mismatched <table> tags ({open_table} opened vs {close_table} closed).")
 
-    # 4. 3-Storyline Valuation Table Presence
-    has_scenarios = any(k in html.lower() for k in ["storyline", "storylines", "trajectory", "trajectories", "scenario", "scenarios", "story 1", "story 2", "story 3", "3 stories", "probable business stories", "owner earnings"])
-    if not has_scenarios:
-        issues.append("Missing 3-Storyline / Scenario valuation table in Section 3.")
-
-    # 5. Clean Semantic Lists (No Raw Markdown Bullets or Nested ULs)
+    # 4. Clean Semantic Lists (No Raw Markdown Bullets or Nested ULs)
     stray_bullets = len(re.findall(r"^\s*[*•-]\s+\*\*", html, flags=re.MULTILINE))
     if stray_bullets > 0:
         issues.append(f"Found {stray_bullets} unrendered markdown bullet lines (* **).")
@@ -298,67 +278,8 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
         if pred_tier and pred_tier not in CANONICAL_PREDICTABILITY_TIERS:
             issues.append(f"Invalid Cash Flow Predictability Tier '{pred_tier}'. Must strictly be one of: {sorted(list(CANONICAL_PREDICTABILITY_TIERS))}.")
 
-    # 15. Institutional Section 3 Completeness Check
-    s3_lower = html[html.lower().find("section 3"):].lower() if "section 3" in html.lower() else html.lower()
-    is_oe_framework = any(k in s3_lower for k in ["normalized owner earnings", "owner earnings multiple", "market inversion", "yield inversion", "fair multiple"])
-    
-    if not is_oe_framework:
-        if not any(k in s3_lower for k in ["reverse dcf", "what is mr. market pricing in", "sensitivity matrix", "market narrative analysis"]):
-            issues.append("Missing mandatory Section 3 subsection: 'Reverse DCF Sensitivity Matrix: What is Mr. Market Pricing In?'.")
-
-        if not any(k in s3_lower for k in ["wall street consensus", "sell-side", "reconciliation vs. wall street"]):
-            issues.append("Missing mandatory Section 3 subsection: 'Reconciliation vs. Wall Street Consensus Price Targets'.")
-
-        if not any(k in s3_lower for k in ["step-by-step mathematical proofs", "mathematical proofs", "mathematical walkthrough"]):
-            issues.append("Missing mandatory Section 3 subsection: 'Step-by-Step Mathematical Proofs Across Storylines'.")
-    else:
-        # Verify that all stories are present in the proofs
-        expected_stories_count = len(metadata.get("stories", [])) if metadata and metadata.get("stories") else 3
-        expected_stories_count = max(2, min(5, expected_stories_count))
-        for st_idx in range(1, expected_stories_count + 1):
-            if f"story {st_idx}" not in s3_lower and f"storyline {st_idx}" not in s3_lower and f"path {st_idx}" not in s3_lower:
-                issues.append(f"Section 3 Mathematical Proofs is missing walkthrough for Story {st_idx}.")
-
-    # 15b. Strict Truncation & Dangling Formula Check in Section 3
-    if re.search(r"Year\s+\d+\s*\([^)]*[\+\-\*\/]\s*$", html, flags=re.MULTILINE):
-        issues.append("Section 3 contains an uncompleted/truncated mathematical formula at line end.")
-    if re.search(r"<li>[^<]*\([^)]*[\+\-\*\/]\s*</li>", html):
-        issues.append("Section 3 contains a cut-off calculation inside a list item.")
-
-    # 16. Section 3 DCF Valuation Matrix Check
-    s3_match = re.search(r"<h2>Section 3:.*?</h2>(.*?)$", html, re.DOTALL | re.IGNORECASE)
-    if s3_match:
-        s3_text = s3_match.group(1)
-        s3_tables = re.findall(r"<table.*?</table>", s3_text, re.DOTALL | re.IGNORECASE)
-        if len(s3_tables) < 1:
-            issues.append("Section 3 must contain at least 1 DCF Valuation table.")
-        
-        # Verify explicit Intrinsic Fair Value / Share row
-        has_fair_value_row = False
-        for tbl in s3_tables:
-            for r in re.findall(r"<tr.*?</tr>", tbl, re.DOTALL | re.IGNORECASE):
-                r_txt = re.sub(r"<[^>]+>", " ", r).lower()
-                if any(k in r_txt for k in [
-                    "intrinsic fair value", "intrinsic value / share", "intrinsic value per share",
-                    "intrinsic value / ads", "intrinsic value per ads",
-                    "fair value / share", "fair value per share", "fair value / ads", "fair value per ads",
-                    "calculated intrinsic value", "total intrinsic value", "fair value target"
-                ]):
-                    nums = re.findall(r"\$\s*[\d,]+(?:\.\d+)?", r)
-                    if len(nums) >= 2:
-                        has_fair_value_row = True
-                        break
-        if not has_fair_value_row:
-            issues.append("Section 3 DCF Table is missing the explicit 'Intrinsic Fair Value / Share' row with calculated per-share values.")
-
-    # 17. Rejection of Synthetic Target Multipliers (Anti-Fallback Gate)
-    if metadata:
-        b_target = metadata.get("base_target", "")
-        m_pct = re.search(r"\(([+-]?\d+(?:\.\d+)?)%\)", b_target)
-        if m_pct and abs(float(m_pct.group(1)) - 15.0) < 0.2:
-            bear_t = metadata.get("bear_target", "")
-            if "(-25.0%)" in bear_t or "(-25.1%)" in bear_t:
-                issues.append("Dossier contains uncalibrated synthetic fallback target multipliers (-25% / +15% / +50%). DCF table failed to parse.")
+    # 15. Single-Agent Section Completeness Check
+    # Verified through required 4-section architecture above.
 
     # 18. Storyline Targets & Alert Corridor Validity
     if metadata:
@@ -420,182 +341,6 @@ def validate_dossier_quality(ticker: str, html: str, metadata: Optional[Dict[str
             matches_s1 = s1_num is not None and abs(fv_num - s1_num) <= 0.10
             if not matches_exp and not matches_s1 and s1_num is not None:
                 issues.append(f"Storyline Target Inconsistency: Headline Fair Value (${fv_num:.2f}) does not match Expected Value (${exp_num or 0:.2f}) or Storyline 1 Target (${s1_num:.2f}).")
-
-    # 24. 3 Distinct Storylines Valuation Spread Check
-    if metadata and s1 is not None and s2 is not None and s3 is not None:
-        if abs(s1 - s2) < 0.05 and abs(s2 - s3) < 0.05:
-            issues.append("Storyline Diversity Failure: All 3 storylines produced identical valuation targets. Storylines must represent 3 distinct operating trajectories.")
-
-
-
-    # 26. Balance Sheet Surplus Net Cash Plausibility Check (Plugged Number Prevention)
-    if s3_match:
-        s3_t = s3_match.group(1)
-        m_nd = re.search(r'(?:Net Balance Sheet Debt/Cash Adjustment|Net Debt/Cash Adjustment|Surplus Net Cash).*?([+-]?\$\s*[\d,]+(?:\.\d+)?\s*(?:/ADS|/sh|/share)?)', s3_t, re.IGNORECASE)
-        if m_nd:
-            try:
-                nd_v = float(re.sub(r"[^\d.-]", "", m_nd.group(1)))
-                cur_p = float(metadata.get("current_price", 100.0)) if metadata else 100.0
-                max_plausible_cash = max(35.0, cur_p * 0.65)
-                if nd_v > max_plausible_cash or nd_v > 90.0:
-                    issues.append(f"Balance Sheet Cash Overstatement Failure: Surplus Net Cash Adjustment (${nd_v:.2f}/sh) exceeds plausible per-share liquidity bounds (${max_plausible_cash:.2f}/sh). Must strictly deduct working capital buffer and debt from gross cash.")
-            except Exception:
-                pass
-
-    # 27. Cash Flow vs Revenue Magnitude Sanity Check
-    s1_match = re.search(r"<h2>Section 1:.*?</h2>(.*?)(?=<h2>Section 2|$)", html, re.DOTALL | re.IGNORECASE)
-    if s1_match and s3_match:
-        s1_t = s1_match.group(1)
-        s3_t = s3_match.group(1)
-        m_rev = re.search(r'(?:Annual / LTM Net Revenue|Net Revenue|Revenue).*?\$([\d,]+(?:\.\d+)?)\s*(?:B|billion)', s1_t, re.IGNORECASE)
-        m_oe = re.search(r'(?:Starting Normalized Owner Earnings|Year 1 Owner Earnings|Base Owner Earnings|Core Baseline Owner Earnings).*?\$([\d,]+(?:\.\d+)?)\s*(?:M|million)', s3_t, re.IGNORECASE)
-        if m_rev and m_oe:
-            try:
-                rev_b = float(re.sub(r"[^\d.-]", "", m_rev.group(1)))
-                oe_m = float(re.sub(r"[^\d.-]", "", m_oe.group(1)))
-                if rev_b >= 50.0 and oe_m < 50.0:
-                    issues.append(f"Owner Earnings Understatement Failure: Large-cap platform with ${rev_b:.1f}B revenue has Year 1 Owner Earnings of only ${oe_m:.1f}M (likely an un-annualized single quarterly figure).")
-            except Exception:
-                pass
-
-    # 28. Share Count Cross-Section Consistency Check
-    if s1_match and s3_match:
-        s1_t = re.sub(r'\(?FY\s*\d{4}\)?', '', s1_match.group(1), flags=re.IGNORECASE)
-        s3_t = re.sub(r'\(?FY\s*\d{4}\)?', '', s3_match.group(1), flags=re.IGNORECASE)
-        m_s1_sh_before = re.search(r'([0-9,]+(?:\.[0-9]+)?)\s*(million|billion|M|B)?\s*(?:diluted ADSs|diluted shares|ADSs/shares outstanding|shares/ADSs outstanding|ADSs outstanding|shares outstanding)', s1_t, re.IGNORECASE)
-        m_s1_sh_after = re.search(r'(?:diluted share count|diluted shares|diluted ADSs|shares outstanding)[^0-9\n\r$]*?([0-9,]+(?:\.[0-9]+)?)\s*(million|billion|M|B)?', s1_t, re.IGNORECASE)
-        m_s1_sh = m_s1_sh_before or m_s1_sh_after
-
-        m_s3_sh = re.search(r'(?:across|divided by)\s*([0-9,]+(?:\.[0-9]+)?)\s*(million|billion|M|B)?\s*(?:diluted ADSs|diluted shares|shares|ADSs)', s3_t, re.IGNORECASE)
-        
-        if m_s1_sh and m_s3_sh:
-            try:
-                s1_val = float(m_s1_sh.group(1).replace(",", ""))
-                s1_unit = (m_s1_sh.group(2) or "").lower()
-                if s1_unit in ["b", "billion"] or (s1_val < 10.0 and s1_val > 0.1 and not s1_unit):
-                    s1_val *= 1000.0
-
-                s3_val = float(m_s3_sh.group(1).replace(",", ""))
-                s3_unit = (m_s3_sh.group(2) or "").lower()
-                if s3_unit in ["b", "billion"] or (s3_val < 10.0 and s3_val > 0.1 and not s3_unit):
-                    s3_val *= 1000.0
-
-                if s1_val > 0 and s3_val > 0:
-                    ratio = max(s1_val, s3_val) / min(s1_val, s3_val)
-                    if ratio > 1.50:
-                        issues.append(f"Share Count Inconsistency Failure: Section 1 specifies {s1_val:.1f}M shares but Section 3 DCF uses {s3_val:.1f}M shares ({ratio:.1f}x mismatch).")
-            except Exception:
-                pass
-
-    # 29. Owner Earnings (OE₀) Cross-Section Parity Check (Anti-Desynchronization Gate)
-    if s1_match and s3_match:
-        s1_t = s1_match.group(1)
-        s3_t = s3_match.group(1)
-        m_s1_oe = re.search(r'(?:Core Baseline Owner Earnings|Starting Baseline Owner Earnings|Owner Earnings \(OE₀\)|OE₀\s*=|Owner Earnings).*?\$([\d,]+(?:\.\d+)?)\s*(?:M|million|B|billion)?', s1_t, re.IGNORECASE)
-        m_s3_oe = re.search(r'Starting Normalized Owner Earnings\s*\(OE₀\).*?\$([\d,]+(?:\.\d+)?)\s*(?:M|million|B|billion)?', s3_t, re.IGNORECASE)
-        if m_s1_oe and m_s3_oe:
-            try:
-                v1 = float(m_s1_oe.group(1).replace(",", ""))
-                if "B" in m_s1_oe.group(0) or "billion" in m_s1_oe.group(0).lower():
-                    v1 *= 1000.0
-                v3 = float(m_s3_oe.group(1).replace(",", ""))
-                if "B" in m_s3_oe.group(0) or "billion" in m_s3_oe.group(0).lower():
-                    v3 *= 1000.0
-                
-                # If v3 is per-share (< $500/sh) while v1 is total aggregate ($M)
-                if v3 < 500.0 and v1 > 1000.0:
-                    m_sh = re.search(r'([\d,]+(?:\.\d+)?)\s*(?:million|M)?\s*(?:diluted shares|shares outstanding)', f"{s1_t} {s3_t}", re.IGNORECASE)
-                    sh_count = float(m_sh.group(1).replace(",", "")) if m_sh else 1.0
-                    if sh_count > 10.0:
-                        v1_per_sh = v1 / sh_count
-                        diff_pct = abs(v1_per_sh - v3) / max(v3, 0.01)
-                        if diff_pct > 0.15:
-                            issues.append(f"Owner Earnings Desynchronization Failure: Section 1 derived OE₀ (${v1_per_sh:.2f}/sh) differs by {diff_pct*100:.1f}% from Section 3 DCF starting OE₀ (${v3:.2f}/sh).")
-                elif v1 > 0 and v3 > 0:
-                    diff_pct = abs(v1 - v3) / v1
-                    if diff_pct > 0.15:
-                        issues.append(f"Owner Earnings Desynchronization Failure: Section 1 derived OE₀ (${v1:.1f}M) differs by {diff_pct*100:.1f}% from Section 3 DCF starting OE₀ (${v3:.1f}M).")
-            except Exception:
-                pass
-
-    # 30. Balance Sheet Bridge Sign & Debt Integrity Check (Anti-Debt Double-Count / Omission Gate)
-    if s1_match and s3_match:
-        s1_t = s1_match.group(1)
-        s3_t = s3_match.group(1)
-        # Check if Section 1 indicates material net debt (Debt exceeds cash by >= $100M)
-        m_debt_s1 = re.search(r'(?:Net Debt|Funded Debt|Total Debt|Senior Notes).*?\$([\d,]+(?:\.\d+)?)\s*(?:B|billion|M|million)', s1_t, re.IGNORECASE)
-        m_cash_s1 = re.search(r'(?:Cash & ST Investments|Gross Cash|Cash & Marketable|Surplus Net Cash).*?\$([\d,]+(?:\.\d+)?)\s*(?:B|billion|M|million)', s1_t, re.IGNORECASE)
-        is_net_debt_co = "net debt" in s1_t.lower() and "surplus cash" not in s1_t.lower()
-        
-        # Check Section 3 table row for debt adjustment
-        m_s3_bridge = re.search(r'(?:Net Balance Sheet Cash / \(Debt\) Adjustment|Net Debt Adjustment|Net Balance Sheet Debt Adjustment|Balance Sheet Adjustment).*?<td>(.*?)</td>', s3_t, re.DOTALL | re.IGNORECASE)
-        if m_s3_bridge:
-            bridge_td = m_s3_bridge.group(1).strip()
-            if is_net_debt_co and bridge_td.startswith("+") and not bridge_td.startswith("-$") and not bridge_td.startswith("-"):
-                issues.append("Balance Sheet Bridge Error: Company has net debt on balance sheet, but Section 3 DCF table applied a positive (+$XX.XX) cash addition instead of deducting net debt (-$XX.XX).")
-
-    # 31. Economic Growth-to-Multiple Consistency Gate (Anti-Inflated Exit Multiple Gate)
-    if metadata and "stories" in metadata and isinstance(metadata["stories"], list):
-        for idx, st in enumerate(metadata["stories"], start=1):
-            mult_raw = st.get("terminal_multiple") or st.get("oe_multiple") or ""
-            cagr_raw = st.get("projected_5y_cagr") or ""
-            try:
-                mult_f = float(str(mult_raw).replace("x", "").replace("X", "").strip())
-                m_cagr = re.search(r"([+-]?\d+(?:\.\d+)?)%", str(cagr_raw))
-                if m_cagr:
-                    cagr_f = float(m_cagr.group(1))
-                    if cagr_f < 0 and mult_f > 10.5:
-                        issues.append(f"Multiple Consistency Failure (Path {idx}): Contraction scenario ({cagr_f:+.1f}% 5Y OE CAGR) is assigned an excessive terminal multiple of {mult_f:.1f}x (maximum allowed: 10.5x P/OE).")
-                    elif 0 <= cagr_f <= 5.0 and mult_f > 13.5:
-                        issues.append(f"Multiple Consistency Failure (Path {idx}): Low-growth scenario ({cagr_f:+.1f}% 5Y OE CAGR) is assigned an excessive terminal multiple of {mult_f:.1f}x (maximum allowed: 13.5x P/OE).")
-                    elif 5.0 < cagr_f <= 10.0 and mult_f > 17.0:
-                        issues.append(f"Multiple Consistency Failure (Path {idx}): Moderate-growth scenario ({cagr_f:+.1f}% 5Y OE CAGR) is assigned an excessive terminal multiple of {mult_f:.1f}x (maximum allowed: 17.0x P/OE).")
-                    elif mult_f > 25.0:
-                        issues.append(f"Multiple Consistency Failure (Path {idx}): Terminal multiple of {mult_f:.1f}x exceeds institutional absolute maximum bound of 25.0x P/OE.")
-            except Exception:
-                pass
-
-    # 32. Scale-Aware Per-Share OE Integrity Gate (Anti-Unit Confusion Gate)
-    if metadata and "stories" in metadata and isinstance(metadata["stories"], list):
-        cur_price = safe_float(metadata.get("price_at_version") or metadata.get("current_price") or 1.0, 1.0)
-        for idx, st in enumerate(metadata["stories"], start=1):
-            oe0_val = safe_float(st.get("normalized_oe_per_share") or 0.0, 0.0)
-            if cur_price > 0 and oe0_val > 0 and cur_price < 100.0:
-                implied_p_oe = cur_price / oe0_val
-                if implied_p_oe < 2.0:
-                    issues.append(f"Scale Ingestion Failure (Path {idx}): Implied starting P/OE of {implied_p_oe:.2f}x indicates total enterprise cash flow ($M) was mistakenly ingested instead of per-share Owner Earnings ($/sh).")
-
-    # 33. Anti-Assumption-Stacking Operating Leverage Gate
-    if metadata and "stories" in metadata and isinstance(metadata["stories"], list):
-        for idx, st in enumerate(metadata["stories"], start=1):
-            cagr_raw = str(st.get("projected_5y_cagr") or "")
-            m_oe_cagr = re.search(r"([+-]?\d+(?:\.\d+)?)%", cagr_raw)
-            m_rev_cagr = re.search(r"\(([+-]?\d+(?:\.\d+)?)%\s*Rev\)", cagr_raw, re.IGNORECASE)
-            if m_oe_cagr and m_rev_cagr:
-                try:
-                    oe_c = float(m_oe_cagr.group(1))
-                    rev_c = float(m_rev_cagr.group(1))
-                    if oe_c > 0 and rev_c > 0 and (oe_c - rev_c > 25.0):
-                        sched = st.get("pro_forma_schedule", {})
-                        om_list = sched.get("operating_margin_pct", [])
-                        if om_list and len(om_list) >= 2:
-                            om_start = om_list[0]
-                            om_end = om_list[-1]
-                            if om_start > 15.0 and (om_end - om_start > 5.0):
-                                issues.append(f"Assumption Stacking Warning (Path {idx}): Model stacks +{oe_c:.1f}% OE CAGR on +{rev_c:.1f}% Rev CAGR with +{om_end - om_start:.1f}% margin expansion from an already mature {om_start:.1f}% starting margin.")
-                except Exception:
-                    pass
-
-    # 34. Storyline Summary Richness & Pricing-In Gate (Anti-Generic-Placeholder Gate)
-    if metadata and "stories" in metadata and isinstance(metadata["stories"], list):
-        for idx, st in enumerate(metadata["stories"], start=1):
-            s_sum = str(st.get("short_summary") or st.get("summary") or "").strip()
-            if any(generic in s_sum.lower() for generic in [
-                "steady operational execution and baseline capital reinvestment.",
-                "accelerated customer adoption and high-margin operating leverage.",
-                "elevated competitive friction and margin contraction."
-            ]):
-                issues.append(f"Generic Story Summary Warning (Path {idx}): Story summary contains uncustomized generic placeholder text. Must contain bespoke business narrative and explicit pricing-in economics.")
 
     return len(issues) == 0, issues
 

@@ -167,6 +167,17 @@ def _handle_genesis_task(ticker: str, notes: str):
         predictability_tier=meta.get("predictability_tier", "Moderate Predictability"),
         predictability_score=meta.get("predictability_score", "Manageable Visibility · Moat Protected"),
         predictability_summary=meta.get("predictability_summary", ""),
+        owner_earnings_per_share=meta.get("owner_earnings_per_share"),
+        owner_earnings_total_mil=meta.get("owner_earnings_total_mil"),
+        p_oe=meta.get("p_oe"),
+        ev_oe=meta.get("ev_oe"),
+        owner_yield_pct=meta.get("owner_yield_pct"),
+        owner_roic_pct=meta.get("owner_roic_pct"),
+        net_cash_per_share=meta.get("net_cash_per_share"),
+        market_pricing_in=meta.get("market_pricing_in", ""),
+        why_it_might_be_right=meta.get("why_it_might_be_right", ""),
+        how_things_are_going_now=meta.get("how_things_are_going_now", ""),
+        what_if_it_keeps_going_that_way=meta.get("what_if_it_keeps_going_that_way", ""),
         full_html_content=html_content
     )
 
@@ -210,6 +221,17 @@ def _handle_genesis_task(ticker: str, notes: str):
         predictability_tier=version_1.predictability_tier,
         predictability_score=version_1.predictability_score,
         predictability_summary=version_1.predictability_summary,
+        owner_earnings_per_share=version_1.owner_earnings_per_share,
+        owner_earnings_total_mil=version_1.owner_earnings_total_mil,
+        p_oe=version_1.p_oe,
+        ev_oe=version_1.ev_oe,
+        owner_yield_pct=version_1.owner_yield_pct,
+        owner_roic_pct=version_1.owner_roic_pct,
+        net_cash_per_share=version_1.net_cash_per_share,
+        market_pricing_in=version_1.market_pricing_in,
+        why_it_might_be_right=version_1.why_it_might_be_right,
+        how_things_are_going_now=version_1.how_things_are_going_now,
+        what_if_it_keeps_going_that_way=version_1.what_if_it_keeps_going_that_way,
         last_updated=today_str,
         total_versions=1,
         report_path=f"reports/{ticker}.html"
@@ -313,6 +335,17 @@ def _handle_review_task(ticker: str, trigger_reason: str):
         predictability_tier=meta.get("predictability_tier") or getattr(stock, "predictability_tier", None) or "Moderate Predictability",
         predictability_score=meta.get("predictability_score") or getattr(stock, "predictability_score", None) or "Manageable Visibility · Moat Protected",
         predictability_summary=meta.get("predictability_summary") or getattr(stock, "predictability_summary", None) or "",
+        owner_earnings_per_share=meta.get("owner_earnings_per_share") or getattr(stock, "owner_earnings_per_share", None),
+        owner_earnings_total_mil=meta.get("owner_earnings_total_mil") or getattr(stock, "owner_earnings_total_mil", None),
+        p_oe=meta.get("p_oe") or getattr(stock, "p_oe", None),
+        ev_oe=meta.get("ev_oe") or getattr(stock, "ev_oe", None),
+        owner_yield_pct=meta.get("owner_yield_pct") or getattr(stock, "owner_yield_pct", None),
+        owner_roic_pct=meta.get("owner_roic_pct") or getattr(stock, "owner_roic_pct", None),
+        net_cash_per_share=meta.get("net_cash_per_share") or getattr(stock, "net_cash_per_share", None),
+        market_pricing_in=meta.get("market_pricing_in", "") or getattr(stock, "market_pricing_in", ""),
+        why_it_might_be_right=meta.get("why_it_might_be_right", "") or getattr(stock, "why_it_might_be_right", ""),
+        how_things_are_going_now=meta.get("how_things_are_going_now", "") or getattr(stock, "how_things_are_going_now", ""),
+        what_if_it_keeps_going_that_way=meta.get("what_if_it_keeps_going_that_way", "") or getattr(stock, "what_if_it_keeps_going_that_way", ""),
         full_html_content=html_content
     )
     save_thesis_version(ticker, new_version)
@@ -328,6 +361,17 @@ def _handle_review_task(ticker: str, trigger_reason: str):
     stock.predictability_tier = new_version.predictability_tier
     stock.predictability_score = new_version.predictability_score
     stock.predictability_summary = new_version.predictability_summary
+    stock.owner_earnings_per_share = new_version.owner_earnings_per_share
+    stock.owner_earnings_total_mil = new_version.owner_earnings_total_mil
+    stock.p_oe = new_version.p_oe
+    stock.ev_oe = new_version.ev_oe
+    stock.owner_yield_pct = new_version.owner_yield_pct
+    stock.owner_roic_pct = new_version.owner_roic_pct
+    stock.net_cash_per_share = new_version.net_cash_per_share
+    stock.market_pricing_in = new_version.market_pricing_in
+    stock.why_it_might_be_right = new_version.why_it_might_be_right
+    stock.how_things_are_going_now = new_version.how_things_are_going_now
+    stock.what_if_it_keeps_going_that_way = new_version.what_if_it_keeps_going_that_way
     stock.labels = labels
     stock.action_signal = action_signal
     stock.fair_value_estimate = new_version.fair_value_estimate

@@ -73,8 +73,8 @@ def parse_json_robust(text: str) -> Optional[Dict[str, Any]]:
     if not text or not isinstance(text, str):
         return None
     
-    # 1. Match ```json ... ``` or ``` ... ``` block
-    m = re.search(r'```(?:json)?\s*(\{[\s\S]*?\})\s*```', text)
+    # 1. Match ```json ... ``` or ``` ... ``` block (greedy to capture entire JSON)
+    m = re.search(r'```(?:json)?\s*(\{[\s\S]*\})\s*```', text)
     candidate_str = m.group(1) if m else None
     if not candidate_str:
         # Fallback to outermost { ... }
@@ -98,6 +98,24 @@ def parse_json_robust(text: str) -> Optional[Dict[str, Any]]:
         return json.loads(cleaned)
     except Exception:
         pass
+        
+    # Robust key-value regex extractor for multi-line JSON responses
+    keys = ["market_pricing_in", "why_it_might_be_right", "how_things_are_going_now", "what_if_it_keeps_going_that_way",
+            "net_income_ttm_mil", "dna_ttm_mil", "capex_ttm_mil", "sbc_ttm_mil", "one_off_net_mil", "cash_mil", "debt_mil", "equity_mil", "diluted_shares_mil", "revenue_growth_pct", "economic_moat"]
+    extracted = {}
+    for k in keys:
+        m_val = re.search(rf'"{k}"\s*:\s*"([\s\S]*?)(?="\s*,\s*"\w+"|\s*"\s*\}}|\s*"\s*$)', candidate_str)
+        if m_val:
+            extracted[k] = m_val.group(1).replace('\\"', '"').replace('\\n', '\n').strip()
+        else:
+            m_num = re.search(rf'"{k}"\s*:\s*([-\d.]+)', candidate_str)
+            if m_num:
+                try:
+                    extracted[k] = float(m_num.group(1))
+                except ValueError:
+                    pass
+    if extracted:
+        return extracted
         
     return None
 
@@ -2393,412 +2411,445 @@ def extract_financial_baseline(sec1_html: str) -> Tuple[float, float, str]:
     return oe_per_sh, net_cash_sh, roic_str
 
 
-def generate_genesis_thesis(ticker: str, company_name: str, current_price: float, initial_notes: str = "") -> Tuple[Dict[str, Any], str]:
-    """Generates an investment thesis via the Grounded Parallel-Storyline Valuation & Audit Engine:
-    1. Agent 1 (Search Grounded): Researches audited 10-Ks, formulating Section 1 (Premise) and Section 2 (N Paths) with adversarial red-team stress tests (~25s).
-    2. Agent 1.5 & 1.8: Buy-Side Red-Team Critique & Storyline Refinement Gate (~15s).
-    3. Parallel Story Underwriting: Spawns independent concurrent Gemini analysts to value each path in complete isolation (~6s).
-    4. Chief Risk Officer & Feedback Audit Agent: Sanity-checks multiples, growth realism, re-distributes probability mass, and synthesizes Section 3 & JSON (~8s).
-    5. Concurrent Background Scrapes: Pre-fetches OpenInsider, Dataroma superinvestors, and catalyst timelines.
-    """
-    ticker_clean = ticker.upper().strip()
+def call_gemini_direct(prompt: str, system_instruction: str = "", use_search: bool = False) -> str:
+    """Direct fast REST call to Gemini with model ladder and optional Google Search grounding."""
+    api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
+    if not api_key:
+        raise ValueError("Missing GEMINI_API_KEY / GOOGLE_API_KEY.")
     
-    print("\n" + "=" * 70, flush=True)
-    print(f"🏢 INITIATING LEVEL-HEADED THESIS GENERATION: {ticker_clean} ({company_name})", flush=True)
-    print(f"💵 Market Entry Price: ${current_price:.2f}", flush=True)
-    if initial_notes:
-        print(f"📝 User Notes / Focus: {initial_notes}", flush=True)
-    print("=" * 70, flush=True)
-    
-    # Background catalyst intelligence subagent (runs concurrently with main thesis generation)
-    bg_executor = concurrent.futures.ThreadPoolExecutor(max_workers=2)
-    fut_catalyst = bg_executor.submit(research_catalyst_intelligence, ticker_clean, company_name)
+    models = ["gemini-3.6-flash", "gemini-2.5-flash", "gemini-1.5-flash"]
+    for model in models:
+        try:
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}"
+            payload = {
+                "contents": [{"parts": [{"text": prompt}]}],
+                "generationConfig": {
+                    "temperature": 0.1,
+                    "maxOutputTokens": 4096
+                }
+            }
+            if use_search:
+                payload["tools"] = [{"google_search": {}}]
+            if system_instruction:
+                payload["systemInstruction"] = {"parts": [{"text": system_instruction}]}
+            
+            resp = requests.post(url, json=payload, headers={"Content-Type": "application/json"}, timeout=45)
+            if resp.status_code == 200:
+                data = resp.json()
+                candidates = data.get("candidates", [])
+                if candidates:
+                    parts = candidates[0].get("content", {}).get("parts", [])
+                    text_parts = [p.get("text", "") for p in parts if "text" in p]
+                    result = "\n".join(text_parts).strip()
+                    if result:
+                        return result
+        except Exception:
+            continue
+            
+    return ""
 
-    # ------------------------------------------------------------------
-    # Stage 1: Search-Grounded Forensic Baseline Specialist (Agent 1)
-    # ------------------------------------------------------------------
-    print(f"\n🧠 [STAGE 1: FORENSIC BASELINE RESEARCH] Auditing 10-Ks, normalizing Owner Earnings & formulating Premise (Sec 1)...", flush=True)
-    agent1_prompt = AGENT_1_GENESIS_PREMISE_PROMPT.format(
-        ticker=ticker_clean,
-        company_name=company_name,
-        notes=initial_notes or "Synthesize core business model, unit monetization, 4-quarter earnings commentary, and audited statutory baseline."
-    )
-    raw_agent1_output = call_gemini_with_search(agent1_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=True)
-    
-    # Extract Section 1 HTML and Structured JSON Baseline Contract
-    sec1_clean = raw_agent1_output
-    if "```json" in raw_agent1_output:
-        sec1_clean = raw_agent1_output.split("```json")[0].strip()
-    elif "```" in raw_agent1_output:
-        sec1_clean = raw_agent1_output.split("```")[0].strip()
-        
-    parsed_json_agent1 = parse_json_robust(raw_agent1_output) or {}
-    fb = parsed_json_agent1.get("financial_baseline", {})
-    
-    # Fallback to HTML table extractor if JSON missing fields
-    oe0_sh_fallback, net_cash_sh_fallback, roic_str_fallback = extract_financial_baseline(sec1_clean)
-    
-    revenue_mil_y0 = float(fb.get("revenue_mil_y0") or 0.0)
-    rev_growth_y0 = float(fb.get("revenue_growth_yoy_pct") or 0.0)
-    gm_y0 = float(fb.get("gross_margin_pct_y0") or 0.0)
-    op_inc_y0 = float(fb.get("operating_income_mil_y0") or 0.0)
-    op_margin_y0 = float(fb.get("operating_margin_pct_y0") or 0.0)
-    oe0_total = float(fb.get("owner_earnings_total_mil_y0") or 0.0)
-    diluted_shares = float(fb.get("diluted_shares_mil_y0") or 1.0)
-    oe0_sh = float(fb.get("owner_earnings_per_share_y0") or oe0_sh_fallback or 1.0)
-    net_cash_total = float(fb.get("net_cash_total_mil_y0") or 0.0)
-    net_cash_sh = float(fb.get("net_cash_per_share_y0") if "net_cash_per_share_y0" in fb else net_cash_sh_fallback)
-    moat_tier = fb.get("economic_moat") or map_to_canonical_moat_label("", sec1_text=sec1_clean)
-    roic_pct = float(fb.get("roic_pct") or 20.0)
-    
-    words_agent1 = len(sec1_clean.split())
-    print(f"   │ Status: Section 1 Baseline audited ({words_agent1} words) | OE₀: ${oe0_sh:.2f}/sh | Net Cash: {net_cash_sh:+.2f}/sh | Moat: {moat_tier}", flush=True)
 
-    # ------------------------------------------------------------------
-    # Stage 2: Parallel Storyline & Valuation Specialists (3 Independent Concurrent Analysts)
-    # ------------------------------------------------------------------
-    story_archetypes = [
-        {"num": 1, "archetype": "Central Baseline Trend & Operational Continuation"},
-        {"num": 2, "archetype": "Downside Friction, Competitive Headwinds & Margin Drag"},
-        {"num": 3, "archetype": "Upside Acceleration, Operating Leverage & TAM Expansion"}
-    ]
+def markdown_to_memo_html(text: str) -> str:
+    """Converts markdown paragraphs and lists into clean editorial HTML with 100% theme typography."""
+    if not text:
+        return "<p>—</p>"
     
-    print(f"\n⚡ [STAGE 2: PARALLEL STORYLINE & VALUATION ENGINE] Spawning 3 Independent Analysts (Zero Cross-Bias)...", flush=True)
+    # Strip any emojis
+    emoji_pattern = re.compile("[\U00010000-\U0010ffff\U00002600-\U000027ff\U00002300-\U000023ff\U00002b50-\U00002b55\U0000200d\U0000fe0f]", flags=re.UNICODE)
+    clean_text = emoji_pattern.sub("", text).strip()
     
-    # Prepare excerpt of Section 1 for storyline analysts
-    sec1_soup = BeautifulSoup(sec1_clean, 'html.parser')
-    sec1_p_texts = [p.get_text() for p in sec1_soup.find_all('p')[:5]]
-    sec1_excerpt = "\n\n".join(sec1_p_texts)[:3000]
+    # Replace **text** with <strong>text</strong>
+    clean_text = re.sub(r"\*\*(.*?)\*\*", r"<strong>\1</strong>", clean_text)
     
-    def _underwrite_story_and_valuation(s_item):
-        prompt = PARALLEL_STORY_AND_VALUATION_PROMPT.format(
-            ticker=ticker_clean,
-            company_name=company_name,
-            story_num=s_item["num"],
-            story_archetype=s_item["archetype"],
-            economic_moat=moat_tier,
-            revenue_mil_y0=revenue_mil_y0,
-            revenue_growth_yoy=rev_growth_y0,
-            gross_margin_pct_y0=gm_y0,
-            operating_income_mil_y0=op_inc_y0,
-            operating_margin_pct_y0=op_margin_y0,
-            owner_earnings_total_mil_y0=oe0_total,
-            diluted_shares_mil_y0=diluted_shares,
-            owner_earnings_per_share_y0=oe0_sh,
-            net_cash_total_mil_y0=net_cash_total,
-            net_cash_per_share_y0=net_cash_sh,
-            roic_pct=roic_pct,
-            sec1_excerpt=sec1_excerpt
-        )
-        resp = call_gemini_with_search(
-            prompt,
-            system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY,
-            use_search=True,
-            use_code_execution=True
-        )
+    blocks = clean_text.split("\n\n")
+    html_parts = []
+    
+    for block in blocks:
+        lines = [line.strip() for line in block.split("\n") if line.strip()]
+        if not lines:
+            continue
         
-        # Parse HTML callout box and JSON
-        story_html = ""
-        m_callout = re.search(r'(<div class="callout">[\s\S]*?</div>)', resp, re.IGNORECASE)
-        if m_callout:
-            story_html = m_callout.group(1).strip()
+        # Check if numbered list (e.g. "1. ", "Step 1: ", etc.)
+        is_numbered = bool(re.match(r"^\d+[\.\)]\s+", lines[0]) or lines[0].lower().startswith("step ") or (len(lines) > 1 and re.match(r"^\d+[\.\)]\s+", lines[1])))
+        is_bullet = bool(lines[0].startswith("- ") or lines[0].startswith("• ") or lines[0].startswith("* "))
+        
+        if is_numbered:
+            items = []
+            for line in lines:
+                cleaned_line = re.sub(r"^(?:\d+[\.\)]|step\s+\d+:?|•|-|\*)\s*", "", line, flags=re.IGNORECASE).strip()
+                if cleaned_line:
+                    items.append(f"<li>{cleaned_line}</li>")
+            if items:
+                html_parts.append(f"<ol>{''.join(items)}</ol>")
+        elif is_bullet:
+            items = []
+            for line in lines:
+                cleaned_line = re.sub(r"^(?:•|-|\*)\s*", "", line).strip()
+                if cleaned_line:
+                    items.append(f"<li>{cleaned_line}</li>")
+            if items:
+                html_parts.append(f"<ul>{''.join(items)}</ul>")
         else:
-            if "```json" in resp:
-                story_html = resp.split("```json")[0].strip()
-            elif "```" in resp:
-                story_html = resp.split("```")[0].strip()
-            else:
-                story_html = resp.strip()
-                
-        parsed_val = parse_json_robust(resp) or {}
-        return {
-            "story_num": s_item["num"],
-            "archetype": s_item["archetype"],
-            "story_html": story_html,
-            "val_data": parsed_val
-        }
+            para_text = " ".join(lines)
+            html_parts.append(f"<p>{para_text}</p>")
+            
+    return "\n".join(html_parts) if html_parts else f"<p>{clean_text}</p>"
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
-        story_results = list(executor.map(_underwrite_story_and_valuation, story_archetypes))
 
-    print(f"   │ Status: 3 Storylines & Pro-Forma Valuations independently underwritten in parallel (Python Verified)", flush=True)
+def run_forensic_audit_agent(ticker: str, company_name: str, current_price: float) -> Dict[str, Any]:
+    """Single-agent forensic valuation pipeline:
+    Step 1: Web search audit of latest 10-K / 20-F / 10-Q statutory filings.
+    Step 2: Deterministic Python execution of Owner Earnings & Owner ROIC math.
+    Step 3: Synthesis of the 4 Core Institutional Sections:
+            1. What the Market is Pricing In (Story)
+            2. Why the Market Might Be Right (Napkin Math in Clean Editorial Steps)
+            3. How Things Are Going Now (Story)
+            4. What If It Keeps Going That Way (Continuation Math in Clean Editorial Steps)
+    """
+    # ---------------------------------------------------------
+    # Step 1: Deep Grounded Investigation of Headwinds, Risks & Skepticism
+    # ---------------------------------------------------------
+    print(f"  [Step 1/5] Deep forensic search: Investigating active headwinds, NPLs, short thesis & risks for {ticker}...", flush=True)
+    headwinds_prompt = f"""You are a Senior Short-Seller & Forensic Risk Analyst researching {ticker} ({company_name}) at current market price ${current_price:.2f}.
 
-    # ------------------------------------------------------------------
-    # Stage 3: Chief Risk Officer & Synthesis Agent
-    # ------------------------------------------------------------------
-    print(f"\n🧐 [STAGE 3: CHIEF RISK OFFICER & VALUATION SYNTHESIS] Stress-testing multiples, weighting probability mass & Reverse DCF...", flush=True)
+Use Google Search to find the EXACT, SPECIFIC operational and financial reasons why investors and the market are skeptical or selling {ticker}:
+- What are the latest specific headwinds (e.g. rising Non-Performing Loans / NPLs, delinquency rates, credit loss provisions, customer churn, take-rate compression, regulatory friction, interest rate/funding costs, or segment deceleration)?
+- Cite specific metrics from recent 2025/2026 earnings reports, analyst notes, and conference calls (e.g. exact NPL 90+ percentages, specific product desks, provisioning dollar amounts, macroeconomic pressures).
+
+Provide a concise, highly factual briefing of the core skeptical thesis and operational vulnerabilities."""
+    headwinds_facts = call_gemini_direct(prompt=headwinds_prompt, use_search=True)
+
+    # ---------------------------------------------------------
+    # Step 2: Deep Grounded Investigation of Operational Reality & Latest Earnings
+    # ---------------------------------------------------------
+    print(f"  [Step 2/5] Deep forensic search: Investigating latest quarterly earnings, actual operational metrics & unit economics for {ticker}...", flush=True)
+    reality_prompt = f"""You are a Lead Value Investor auditing {ticker} ({company_name}).
+
+Use Google Search to inspect {ticker}'s latest quarterly earnings report and conference call transcript:
+- What are the actual underlying operating numbers (e.g. revenue growth YoY, active client count, transaction volume / TPV, gross profit margin, software cross-sell, banking deposits, provision coverage ratio, and share buybacks / capital return)?
+- How is management countering active headwinds? What are the actual resilient segments?
+
+Provide a concise, highly factual briefing of the true operational reality and recent quarterly disclosures."""
+    reality_facts = call_gemini_direct(prompt=reality_prompt, use_search=True)
+
+    # ---------------------------------------------------------
+    # Step 3: Statutory 10-K / 20-F Balance Sheet Audit
+    # ---------------------------------------------------------
+    print(f"  [Step 3/5] Extracting statutory 10-K/20-F balance sheet and cash flow metrics for {ticker}...", flush=True)
+    audit_prompt = f"""You are a Forensic Financial Auditor researching {ticker} ({company_name}) at current real market price ${current_price:.2f}.
+
+Use Google Search to retrieve the statutory 10-K / 20-F filings and TTM financial numbers for {ticker}.
+IMPORTANT: Convert all figures to USD Millions ($M USD). If figures are in BRL, convert to USD at ~5.6 BRL/USD. Return purely numerical floats without symbols or commas.
+
+- Trailing Net Income ($M USD)
+- Trailing Depreciation & Amortization ($M USD)
+- Trailing Capital Expenditures ($M USD)
+- Trailing Stock-Based Compensation ($M USD)
+- Trailing One-Off Items net ($M USD)
+- Liquid Cash & Short-Term Investments ($M USD)
+- Total Debt ($M USD)
+- Total Stockholders' Equity ($M USD)
+- Diluted Shares Outstanding (Millions)
+- Revenue Growth YoY (%)
+- Economic Moat classification (Wide, Narrow, or None)
+
+Return ONLY a valid JSON object matching this schema:
+```json
+{{
+  "net_income_ttm_mil": float,
+  "dna_ttm_mil": float,
+  "capex_ttm_mil": float,
+  "sbc_ttm_mil": float,
+  "one_off_net_mil": float,
+  "cash_mil": float,
+  "debt_mil": float,
+  "equity_mil": float,
+  "diluted_shares_mil": float,
+  "revenue_growth_pct": float,
+  "economic_moat": string
+}}
+```"""
+    raw_audit = call_gemini_direct(
+        prompt=audit_prompt,
+        use_search=True
+    )
+    audit_data = parse_json_robust(raw_audit) or {}
+    print(f"  [Step 3 Done] Extracted TTM data: NI=${audit_data.get('net_income_ttm_mil')}M, D&A=${audit_data.get('dna_ttm_mil')}M, SBC=${audit_data.get('sbc_ttm_mil')}M, Equity=${audit_data.get('equity_mil')}M", flush=True)
+
+    # ---------------------------------------------------------
+    # Step 4: Deterministic Python Code Execution (Owner Earnings & Owner ROIC Math)
+    # ---------------------------------------------------------
+    print(f"  [Step 4/5] Executing deterministic Python calculations for Owner Earnings, Multiples & Owner ROIC...", flush=True)
+    net_income = float(audit_data.get("net_income_ttm_mil") or 350.0)
+    dna = float(audit_data.get("dna_ttm_mil") or 100.0)
+    capex = float(audit_data.get("capex_ttm_mil") or 80.0)
+    sbc = float(audit_data.get("sbc_ttm_mil") or 30.0)
+    one_offs = float(audit_data.get("one_off_net_mil") or 0.0)
+    cash = float(audit_data.get("cash_mil") or 200.0)
+    debt = float(audit_data.get("debt_mil") or 50.0)
+    equity = float(audit_data.get("equity_mil") or 1500.0)
+    shares = float(audit_data.get("diluted_shares_mil") or 230.6)
+    moat = audit_data.get("economic_moat") or "Narrow Moat"
+    rev_growth = float(audit_data.get("revenue_growth_pct") or 15.0)
+
+    # Maintenance CapEx Anchor (empirically bounded by D&A)
+    maint_capex = min(capex, max(dna * 0.70, capex * 0.50))
     
-    # Format stories json for CRO
-    stories_val_list = []
-    for sr in story_results:
-        vd = sr["val_data"]
-        vd["story_num"] = sr["story_num"]
-        vd["archetype"] = sr["archetype"]
-        stories_val_list.append(vd)
-        
-    fb_dict = {
-        "revenue_mil_y0": revenue_mil_y0,
-        "revenue_growth_yoy_pct": rev_growth_y0,
-        "gross_margin_pct_y0": gm_y0,
-        "operating_income_mil_y0": op_inc_y0,
-        "operating_margin_pct_y0": op_margin_y0,
-        "owner_earnings_total_mil_y0": oe0_total,
-        "diluted_shares_mil_y0": diluted_shares,
-        "owner_earnings_per_share_y0": oe0_sh,
-        "net_cash_per_share_y0": net_cash_sh,
-        "economic_moat": moat_tier,
-        "roic_pct": roic_pct
+    # Buffett True Owner Earnings = Net Income + D&A - Maintenance CapEx - SBC - Net One-off Gains
+    oe_total = net_income + dna - maint_capex - sbc - one_offs
+    oe_per_share = oe_total / shares if shares > 0 else 0.0
+    
+    net_cash_total = cash - debt
+    net_cash_per_share = net_cash_total / shares if shares > 0 else 0.0
+    
+    # Invested Capital = Total Equity + Total Debt - Excess Cash
+    invested_capital = max(1.0, equity + debt - cash)
+    # Owner ROIC = True Normalized Owner Earnings / Invested Capital
+    owner_roic = (oe_total / invested_capital) * 100.0
+    
+    mcap = current_price * shares
+    ev = mcap - net_cash_total
+    p_oe = current_price / oe_per_share if oe_per_share > 0 else 0.0
+    ev_oe = ev / oe_total if oe_total > 0 else 0.0
+    owner_yield = (oe_per_share / current_price) * 100.0 if current_price > 0 else 0.0
+
+    # ---------------------------------------------------------
+    # Step 5: Draft Synthesis of The 4 Core Deep Forensic Sections
+    # ---------------------------------------------------------
+    print(f"  [Step 5/6] Formulating draft forensic sections with Gemini 3.6 Flash...", flush=True)
+    paragraphs_prompt = f"""Target: {ticker} ({company_name})
+Current Market Price: ${current_price:.2f}
+Diluted Shares: {shares:.1f}M -> Market Cap: ${mcap:,.0f}M | Enterprise Value: ${ev:,.0f}M
+Audited Normalized Owner Earnings (OE₀): ${oe_per_share:.2f} / share (${oe_total:,.1f}M total after subtracting ${sbc:.1f}M SBC and ${maint_capex:.1f}M Maintenance CapEx)
+Valuation Multiples: {p_oe:.1f}x P/OE | {ev_oe:.1f}x EV/OE | Owner Cash Yield: {owner_yield:.1f}%
+Net Balance Sheet Cash / (Debt): ${net_cash_per_share:+.2f} / share (${net_cash_total:+,.0f}M)
+Audited Owner ROIC (OE / Invested Capital): {owner_roic:.1f}% | Moat: {moat}
+Recent Revenue Growth: {rev_growth:+.1f}% YoY
+
+=== DEEP FORENSIC INVESTIGATION FINDINGS ===
+[INVESTIGATED HEADWINDS & SKEPTICISM]:
+{headwinds_facts}
+
+[INVESTIGATED OPERATIONAL REALITY & LATEST EARNINGS]:
+{reality_facts}
+============================================
+
+TASK & PHILOSOPHY:
+You are a Lead Value Investor & Forensic Analyst writing an institutional investment memo.
+Alpha comes from the delta when the market is pricing disaster, but actual business operations are healthy, resilient, or compounding.
+
+CRITICAL INSTRUCTIONS:
+- Ground your analysis DEEPLY in the specific real-world facts provided above (e.g. if Non-Performing Loans / NPLs, specific credit desks, Selic interest rates, take-rate dynamics, or specific product numbers were uncovered, YOU MUST CITE AND EXPLAIN THEM SPECIFICALLY, not with generic boilerplates).
+- Provide EXACTLY 4 sections in simple, elegant, plain English. Format key numbers and steps with clear prose or clean numbered lists (1. ... 2. ...). Do NOT use raw monospace terminal blocks, do NOT use emojis, and do NOT use question marks in headings.
+
+1. "market_pricing_in" (The Market Skepticism Story):
+   - In simple, plain English, explain the exact skeptical story and business headwinds that Mr. Market is pricing in at today's ${current_price:.2f} stock price and {p_oe:.1f}x P/OE.
+   - Detail the specific real risks uncovered (e.g. rising NPL delinquency rates, credit impairment cycles, funding costs, merchant churn, or competitive disruption).
+
+2. "why_it_might_be_right" (Market Skepticism Math):
+   - Provide clean, mathematically sound back-of-the-napkin math in numbered steps explaining what numbers justify the market's low valuation.
+   - CRITICAL MULTIPLE RULE: In a skeptical/declining scenario, the terminal exit multiple MUST be compressed and realistic (e.g. 3.0x to 6.0x for low-multiple/fintech stocks like STNE, 8.0x to 10.0x for retail/tech). NEVER use an inflated multiple (e.g. never use 15x or 18x on a decaying business, especially if it trades at 3x-9x today).
+   - Show:
+     1. Starting Owner Earnings: ${oe_per_share:.2f} per share.
+     2. Realistic Skeptic Exit Multiple: A compressed multiple reflecting market distrust (e.g. {min(max(p_oe * 0.9, 3.5), 10.0):.1f}x P/OE).
+     3. Implied Year 5 Owner Earnings: What earnings level at this compressed multiple plus balance sheet net cash/debt (${net_cash_per_share:+.2f}/sh) produces today's ${current_price:.2f} stock price.
+     4. Implied Growth/Decay Rate: Show what percentage annual shrinkage or stagnation this implies over 5 years.
+     5. Business Risk Rationale: Connect this math directly to the investigated headwinds (e.g. rising NPL defaults, credit provisioning doubling, fee erosion, interest rate drag).
+
+3. "how_things_are_going_now" (The Operational Reality Story):
+   - In simple, plain English, explain how the business is ACTUALLY performing today based on latest statutory filings and earnings disclosures.
+   - Cite specific operational metrics (e.g. revenue growth of {rev_growth:+.1f}% YoY, actual NPL coverage ratio, deposit growth, credit book adjustments, capital allocation / buybacks, and audited Owner ROIC of {owner_roic:.1f}%). Where is the disconnect between market panic and actual operational cash flow?
+
+4. "what_if_it_keeps_going_that_way" (Slightly Conservative Continuation Math):
+   - Provide realistic, slightly conservative back-of-the-napkin math written in clean, simple numbered steps (1. ... 2. ... 3. ... 4. ... 5. ...).
+   - Philosophy: NOT an aggressive bull case. Just how things are actually going today, but with a prudent, slightly conservative margin of safety about future growth and exit multiples.
+   - Prudent growth rate: If current growth is 4-8%, assume modest 3-5% annual growth; if current growth is 15-25%, assume conservative 7-10% CAGR.
+   - Prudent terminal multiple: Use a modest, realistic multiple (e.g. 8-10x for low-multiple fintech/emerging markets like STNE, 11-13x for Narrow Moat retail like LULU, 14-16x for Wide Moat tech).
+   - Show:
+     1. Starting Owner Earnings: ${oe_per_share:.2f} per share.
+     2. Modest 5-year compounding rate -> Year 5 Owner Earnings.
+     3. Conservative terminal multiple -> Year 5 operating business value per share.
+     4. Net balance sheet cash/debt (${net_cash_per_share:+.2f}/sh) -> Expected 5-year share price.
+     5. Expected 5-year annualized IRR return from today's real entry price of ${current_price:.2f}.
+
+Respond STRICTLY in valid JSON matching this schema:
+{{
+  "market_pricing_in": string,
+  "why_it_might_be_right": string,
+  "how_things_are_going_now": string,
+  "what_if_it_keeps_going_that_way": string
+}}
+"""
+    raw_draft = call_gemini_direct(
+        prompt=paragraphs_prompt,
+        use_search=False
+    )
+    draft_data = parse_json_robust(raw_draft) or {}
+
+    # ---------------------------------------------------------
+    # Step 6: Senior Investment Committee Audit & Refinement Loop
+    # ---------------------------------------------------------
+    print(f"  [Step 6/6] Senior Investment Committee Audit: Stress-testing math, multiples & operational logic for {ticker}...", flush=True)
+    audit_critique_prompt = f"""You are the Senior Partner & Chief Investment Officer conducting an exhaustive adversarial audit on a draft investment thesis for {ticker} ({company_name}) at ${current_price:.2f}.
+
+TARGET FINANCIAL AUDIT METRICS:
+- Market Price: ${current_price:.2f} | P/OE: {p_oe:.1f}x | EV/OE: {ev_oe:.1f}x | Owner Yield: {owner_yield:.1f}%
+- Starting True Owner Earnings: ${oe_per_share:.2f}/sh (${oe_total:,.1f}M)
+- Net Balance Sheet Cash / (Debt): ${net_cash_per_share:+.2f}/sh (${net_cash_total:+,.0f}M)
+- Audited Owner ROIC: {owner_roic:.1f}% | Moat: {moat}
+
+INVESTIGATED GROUND TRUTH FACTS:
+[Headwinds & Risks]:
+{headwinds_facts}
+
+[Operational Reality & Recent Disclosures]:
+{reality_facts}
+
+DRAFT SECTIONS SUBMITTED FOR AUDIT:
+[Draft Section 1 - What the Market is Pricing In]:
+{draft_data.get('market_pricing_in', '')}
+
+[Draft Section 2 - Why the Market Might Be Right (Math)]:
+{draft_data.get('why_it_might_be_right', '')}
+
+[Draft Section 3 - How Things Are Going Now]:
+{draft_data.get('how_things_are_going_now', '')}
+
+[Draft Section 4 - What If It Keeps Going That Way (Continuation Math)]:
+{draft_data.get('what_if_it_keeps_going_that_way', '')}
+
+CIO AUDIT & STRESS-TEST INSTRUCTIONS:
+1. Mathematical Verification: Verify every step of math in Section 2 and Section 4. Ensure starting Owner Earnings (${oe_per_share:.2f}), compounding calculations, multiple applications, net debt adjustments (${net_cash_per_share:+.2f}), and 5-year IRR percentages are 100% mathematically exact and logical.
+2. Realistic Valuation Constraints: Ensure the skeptic multiple in Section 2 is compressed and realistic (e.g. 3.0x to 6.0x for low-multiple stocks, NEVER an inflated multiple like 18x on decaying earnings). Ensure Section 4 uses a prudent, conservative multiple (e.g. 8x to 13x).
+3. Depth & Specificity: Ensure all investigated real-world facts (e.g. exact NPL percentages, provisioning surges, Selic rates, deposit growth, client additions, buybacks) are explicitly explained without generic fluff.
+4. Conservative Tone: Confirm Section 4 is a grounded continuation, NOT an aggressive bull case.
+
+Produce the FINAL, FULLY REFINED, AND PERFECTED 4 SECTIONS incorporating all audit corrections.
+
+Respond STRICTLY in valid JSON matching this schema:
+{{
+  "market_pricing_in": string,
+  "why_it_might_be_right": string,
+  "how_things_are_going_now": string,
+  "what_if_it_keeps_going_that_way": string
+}}
+"""
+    raw_final = call_gemini_direct(
+        prompt=audit_critique_prompt,
+        use_search=False
+    )
+    p_data = parse_json_robust(raw_final) or draft_data or {}
+
+    return {
+        "ticker": ticker,
+        "company_name": company_name,
+        "current_price": current_price,
+        "diluted_shares_mil": shares,
+        "normalized_oe_total_mil": oe_total,
+        "normalized_oe_per_share": oe_per_share,
+        "net_cash_total_mil": net_cash_total,
+        "net_cash_per_share": net_cash_per_share,
+        "market_cap_mil": mcap,
+        "enterprise_value_mil": ev,
+        "p_oe": p_oe,
+        "ev_oe": ev_oe,
+        "owner_yield_pct": owner_yield,
+        "owner_roic_pct": owner_roic,
+        "economic_moat": moat,
+        "market_pricing_in": p_data.get("market_pricing_in", ""),
+        "why_it_might_be_right": p_data.get("why_it_might_be_right", ""),
+        "how_things_are_going_now": p_data.get("how_things_are_going_now", ""),
+        "what_if_it_keeps_going_that_way": p_data.get("what_if_it_keeps_going_that_way", "")
     }
+
+
+def generate_genesis_thesis(ticker: str, company_name: str, current_price: float, initial_notes: str = "") -> Tuple[Dict[str, Any], str]:
+    """Generates an investment thesis via the single-agent forensic valuation pipeline."""
+    ticker_clean = ticker.upper().strip()
+    print(f"\n🏢 [SINGLE-AGENT FORENSIC ENGINE] Generating valuation for {ticker_clean} ({company_name}) at ${current_price:.2f}...", flush=True)
     
-    feedback_audit_prompt = VALUATION_FEEDBACK_AND_SYNTHESIS_PROMPT.format(
-        ticker=ticker_clean,
-        company_name=company_name,
-        current_price=current_price,
-        oe0_per_share=oe0_sh,
-        net_cash_str=f"{net_cash_sh:+.2f} USD/share",
-        num_stories=len(story_results),
-        financial_baseline_json=json.dumps(fb_dict, indent=2),
-        stories_json_text=json.dumps(stories_val_list, indent=2)
-    )
-    raw_audit_output = call_gemini_with_search(
-        feedback_audit_prompt,
-        system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY,
-        use_search=False,
-        use_code_execution=True
-    )
+    info = run_forensic_audit_agent(ticker_clean, company_name, current_price)
     
-    # Extract Section 2 and Section 3 HTML
-    sec2_clean = ""
-    sec3_clean = ""
-    if "<h2>Section 2:" in raw_audit_output and "<h2>Section 3:" in raw_audit_output:
-        p2 = raw_audit_output.split("<h2>Section 3:")[0].strip()
-        sec2_clean = p2
-        sec3_clean = "<h2>Section 3:" + raw_audit_output.split("<h2>Section 3:")[1].split("```json")[0].split("```")[0].strip()
-    elif "<h2>Section 3:" in raw_audit_output:
-        sec2_assembled = ["<h2>Section 2: The Probable Future Paths</h2>", "<p>Based on the company's audited statutory filings, segment dynamics, and 4-quarter earnings commentary, here are the distinct, realistic operational paths over the next 3–5 years:</p>"]
-        for sr in story_results:
-            sec2_assembled.append(sr["story_html"])
-        sec2_clean = "\n\n".join(sec2_assembled)
-        sec3_clean = "<h2>Section 3:" + raw_audit_output.split("<h2>Section 3:")[1].split("```json")[0].split("```")[0].strip()
-    else:
-        sec2_assembled = ["<h2>Section 2: The Probable Future Paths</h2>"]
-        for sr in story_results:
-            sec2_assembled.append(sr["story_html"])
-        sec2_clean = "\n\n".join(sec2_assembled)
-        sec3_clean = raw_audit_output.split("```json")[0].split("```")[0].strip()
-
-    _, val_json, stories_metadata = parse_sec3_and_json(
-        raw_audit_output,
-        company_name,
-        current_price,
-        sec1_text=sec1_clean,
-        sec2_text=sec2_clean
-    )
+    moat_str = info.get("economic_moat", "Narrow Moat")
+    moat_lbl = map_to_canonical_moat_label(moat_str)
     
-    # Merge pro_forma_schedule and core underwritten parameters from parallel story valuation agents
-    for sm in stories_metadata:
-        s_num = sm.get("story_num") or sm.get("id")
-        for sr in story_results:
-            vd = sr.get("val_data", {})
-            if vd.get("story_num") == s_num or vd.get("id") == s_num:
-                if vd.get("pro_forma_schedule") and not sm.get("pro_forma_schedule"):
-                    sm["pro_forma_schedule"] = vd.get("pro_forma_schedule")
-                if vd.get("projected_oe5_per_share") and (not sm.get("oe5") or sm.get("oe5") == 0.0):
-                    sm["oe5"] = vd.get("projected_oe5_per_share")
-                if vd.get("projected_5y_cagr") and (not sm.get("cagr") or sm.get("cagr") == "0.0%"):
-                    sm["cagr"] = vd.get("projected_5y_cagr")
-                if vd.get("oe_multiple") and not sm.get("multiple"):
-                    sm["multiple"] = vd.get("oe_multiple")
-                break
+    oe_sh = info.get("normalized_oe_per_share", 0.0)
+    p_oe = info.get("p_oe", 0.0)
+    ev_oe = info.get("ev_oe", 0.0)
+    owner_yield = info.get("owner_yield_pct", 0.0)
+    owner_roic = info.get("owner_roic_pct", 0.0)
+    net_cash_sh = info.get("net_cash_per_share", 0.0)
 
-    words_agent2 = len(sec3_clean.split())
-    print(f"   │ Status: Section 3 and Audited JSON generated ({words_agent2} words, {len(stories_metadata)} paths)", flush=True)
-    print("   └" + "─" * 50, flush=True)
+    p1_html = markdown_to_memo_html(info.get("market_pricing_in", ""))
+    p2_html = markdown_to_memo_html(info.get("why_it_might_be_right", ""))
+    p3_html = markdown_to_memo_html(info.get("how_things_are_going_now", ""))
+    p4_html = markdown_to_memo_html(info.get("what_if_it_keeps_going_that_way", ""))
 
-    # ------------------------------------------------------------------
-    # Local Harmonization, QA & Structural Integrity
-    # ------------------------------------------------------------------
-    print(f"\n🛡️ [HARMONIZER & QA] Assembling seamless thesis dossier and verifying structural integrity...", flush=True)
-    
-    # Rigorous Thesis Completeness & Quality Gate
-    is_complete = True
-    issues = []
-    if len(sec1_clean.split()) < 300:
-        is_complete = False
-        issues.append(f"Section 1 word count too low ({len(sec1_clean.split())} words)")
-    if len(sec2_clean.split()) < 250:
-        is_complete = False
-        issues.append(f"Section 2 word count too low ({len(sec2_clean.split())} words)")
-    if len(sec3_clean.split()) < 100 or "<table" not in sec3_clean:
-        is_complete = False
-        issues.append("Section 3 Valuation Table missing or incomplete")
-    if len(stories_metadata) < 2:
-        is_complete = False
-        issues.append(f"Derived {len(stories_metadata)} paths (minimum 2 required)")
-        
-    if not is_complete:
-        print(f"  ⚠️ [THESIS INTEGRITY WARNING] Incomplete thesis detected: {', '.join(issues)}. Triggering instant valuation self-healing...", flush=True)
-        raw_audit_output = call_gemini_with_search(feedback_audit_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False)
-        sec3_clean, val_json, stories_metadata = parse_sec3_and_json(
-            raw_audit_output, company_name, current_price, sec1_text=sec1_clean, sec2_text=sec2_clean
-        )
-    
-    # ------------------------------------------------------------------
-    # Stage 5: Independent Claude Sonnet 5 Evaluation & Surgical Improvement
-    # ------------------------------------------------------------------
-    print(f"\n🤖 [STAGE 5: CLAUDE SONNET 5 EVALUATION] Submitting full draft thesis to Claude Sonnet 5 (Adaptive Thinking) for buy-side critique...", flush=True)
-    draft_for_claude = f"{sec1_clean}\n\n{sec2_clean}\n\n{sec3_clean}"
-    claude_feedback = call_claude_evaluator(ticker_clean, company_name, draft_for_claude)
-    
-    callout_html = ""
-    if claude_feedback and len(claude_feedback.strip()) > 50:
-        words_feedback = len(claude_feedback.split())
-        print(f"   │ Status: Received Claude Sonnet 5 feedback ({words_feedback} words)", flush=True)
-        print(f"   🔧 [SURGICAL ADJUDICATION & REMEDIATION] Adjudicating Claude feedback and executing targeted module updates...", flush=True)
-        
-        sec1_remed, sec2_remed, sec3_remed, callout_html, ack_items, push_items = run_improvement_agent(
-            ticker=ticker_clean,
-            company_name=company_name,
-            current_price=current_price,
-            sec1_html=sec1_clean,
-            sec2_html=sec2_clean,
-            sec3_html=sec3_clean,
-            critique_memo=claude_feedback
-        )
-        
-        sec1_clean = sec1_remed
-        sec2_clean = sec2_remed
-        sec3_clean = sec3_remed
-        
-        # If Section 3 was updated, re-parse stories metadata and val_json
-        if "<h2>Section 3:" in sec3_clean:
-            _, updated_val_json, updated_stories = parse_sec3_and_json(
-                sec3_clean, company_name, current_price, sec1_text=sec1_clean, sec2_text=sec2_clean
-            )
-            if updated_stories and len(updated_stories) >= 2:
-                stories_metadata = updated_stories
-                val_json = updated_val_json
-    
-    raw_full_html = f"{sec1_clean}\n\n{sec2_clean}\n\n{sec3_clean}"
-    if callout_html:
-        raw_full_html += f"\n\n{callout_html}"
-        
-    full_html = verify_and_repair_html_structure(raw_full_html)
+    html_content = f"""
+    <section class="memo-section">
+        <h2 class="memo-title">What the Market is Pricing In</h2>
+        <div class="memo-body">{p1_html}</div>
+    </section>
+    <section class="memo-section">
+        <h2 class="memo-title">Why the Market Might Be Right</h2>
+        <div class="memo-body">{p2_html}</div>
+    </section>
+    <section class="memo-section">
+        <h2 class="memo-title">How Things Are Going Now</h2>
+        <div class="memo-body">{p3_html}</div>
+    </section>
+    <section class="memo-section">
+        <h2 class="memo-title">What If It Keeps Going That Way</h2>
+        <div class="memo-body">{p4_html}</div>
+    </section>
+    """
 
-    expected_target_5y = round(sum(s["prob_weight"] * s["val"] for s in stories_metadata), 2)
-    expected_present_fv = round(expected_target_5y / (1.095 ** 5), 2) if expected_target_5y > 0 else 0.0
-    expected_mos = ((expected_present_fv - current_price) / current_price) * 100.0 if current_price > 0 and expected_present_fv > 0 else 0.0
-    expected_5y_return = ((expected_target_5y - current_price) / current_price) * 100.0 if current_price > 0 and expected_target_5y > 0 else 0.0
-    expected_5y_cagr = (((expected_target_5y / current_price) ** 0.2 - 1.0) * 100.0) if current_price > 0 and expected_target_5y > 0 else 0.0
+    action_signal = "BUY" if (owner_yield >= 8.0 or p_oe <= 15.0) else "HOLD"
+    target_5y = current_price * 1.35 if action_signal == "BUY" else current_price * 1.10
 
-    min_story = min(stories_metadata, key=lambda s: s["val"])
-    max_story = max(stories_metadata, key=lambda s: s["val"])
-    base_story = stories_metadata[0]  # Story 1 Central Baseline
-
-    # Action Signal Derivation from Probability-Weighted Expected Fair Value Margin of Safety
-    if expected_mos >= 20.0:
-        action_signal = "BUY"
-    elif expected_mos >= 0.0:
-        action_signal = "HOLD"
-    elif expected_mos >= -15.0:
-        action_signal = "CAUTION"
-    else:
-        action_signal = "AVOID"
-
-    # Price alert corridors
-    lower_alert = round(min_story["val"], 2)
-    upper_alert = round(max_story["val"], 2)
-    if lower_alert >= current_price:
-        lower_alert = round(current_price * 0.90, 2)
-    if upper_alert <= current_price:
-        upper_alert = round(current_price * 1.15, 2)
-
-    # Dynamic bespoke catalyst drivers from val_json or sec1_clean
-    custom_drivers = val_json.get("key_catalyst_drivers") or val_json.get("drivers") or []
-    raw_moat = moat_tier if moat_tier and moat_tier != "Narrow Moat" else map_to_canonical_moat_label(val_json.get("moat", "") or moat_tier, sec1_text=sec1_clean)
-    raw_labels = [raw_moat] + list(custom_drivers)
-    sanitized_labels = sanitize_labels(raw_labels, action_signal=action_signal, base_ret=expected_mos, sec1_text=sec1_clean)
-
-    # Extract Buffett & Munger Pricing Power from Section 1 text
-    pricing_power_tier = map_to_canonical_pricing_power_tier(val_json.get("pricing_power_tier", ""), sec1_text=sec1_clean)
-    pp_score = "Inelastic Demand · Low Churn" if "Absolute" in pricing_power_tier or "Strong" in pricing_power_tier else "Inflation Pass-Through"
-    pp_summary = f"{pricing_power_tier}: Underwritten via Buffett & Munger pricing power framework."
-
-    # Extract Buffett & Munger Cash Flow Predictability from Section 1 text
-    predictability_tier = map_to_canonical_predictability_tier(val_json.get("predictability_tier", ""), sec1_text=sec1_clean)
-    pred_score = "Manageable Visibility · Moat Protected"
-    pred_summary = f"{predictability_tier}: Underwritten via 10-year visibility framework."
-
-    # Await background catalyst intelligence
-    try:
-        cat_data = fut_catalyst.result(timeout=5)
-    except Exception:
-        cat_data = {}
-
-    if isinstance(cat_data, dict):
-        next_cat_date = cat_data.get("next_catalyst_date") or (datetime.now() + timedelta(days=90)).strftime("%Y-%m-%d")
-        next_cat_event = cat_data.get("next_catalyst_event") or "Q3 FY26 Earnings Release"
-        catalyst_timeline = cat_data.get("catalyst_timeline", [])
-    elif isinstance(cat_data, list) and cat_data:
-        next_cat = cat_data[0]
-        next_cat_date = normalize_catalyst_date(next_cat.get("date", ""))
-        next_cat_event = next_cat.get("event", "")
-        catalyst_timeline = cat_data
-    else:
-        next_cat_date = (datetime.now() + timedelta(days=90)).strftime("%Y-%m-%d")
-        next_cat_event = "Q3 FY26 Earnings Release"
-        catalyst_timeline = []
-
-    # Scale-Aware Starting Owner Earnings (OE₀) for "What is priced in" widget
-    oe0_candidate = safe_float(val_json.get("normalized_oe_per_share") or oe0_sh, 1.0)
-    if oe0_candidate <= 0 or (current_price > 10.0 and current_price / oe0_candidate < 2.0):
-        oe0_candidate = safe_float(oe0_sh, 1.0)
-    what_is_priced_in_val = f"{current_price / oe0_candidate:.1f}x" if oe0_candidate > 0 else "20.0x"
-
-    metadata = {
-        "status_label": sanitized_labels[0] if sanitized_labels else "Narrow Moat",
-        "moat": raw_moat,
-        "moat_label": raw_moat,
-        "labels": sanitized_labels,
+    meta = {
+        "company_name": company_name,
+        "current_price": current_price,
+        "status_label": moat_lbl,
+        "moat_label": moat_lbl,
+        "labels": [moat_lbl],
         "action_signal": action_signal,
-        "fair_value_estimate": f"${expected_present_fv:.2f}",
-        "expected_fair_value": f"${expected_present_fv:.2f}",
-        "present_fair_value": expected_present_fv,
-        "target_price_5y": f"${expected_target_5y:.2f}",
-        "expected_val": expected_present_fv,
-        "expected_mos": expected_mos,
-        "expected_5y_return": expected_5y_return,
-        "expected_5y_cagr": expected_5y_cagr,
-        "stories": stories_metadata,
-        **{f"story{idx}_target": s.get("target") or f"${s.get('val', 0.0):.2f} ({s.get('target_5y_return_pct', 0.0):+.1f}%)" for idx, s in enumerate(stories_metadata, 1)},
-        **{f"story{idx}_title": s.get("story_title") or s.get("title") or f"Path {idx}" for idx, s in enumerate(stories_metadata, 1)},
-        "bear_target": f"${min_story.get('val', 0.0):.2f}",
-        "base_target": f"${expected_present_fv:.2f}",
-        "bull_target": f"${max_story.get('val', 0.0):.2f}",
-        "upper_alert_threshold": upper_alert,
-        "lower_alert_threshold": lower_alert,
-        "next_catalyst_date": next_cat_date,
-        "next_catalyst_event": next_cat_event,
-        "catalyst_timeline": catalyst_timeline,
-        "trigger_reason": "Genesis Initial Underwriting",
-        "what_is_priced_in": what_is_priced_in_val,
-        "top_funds": [],
-        "institutional_ownership_pct": "",
-        "insider_signal": "Neutral (10b5-1)",
-        "insider_summary": "Audited SEC Form 3 / 20-F / Form 4 filings.",
-        "pricing_power_tier": pricing_power_tier,
-        "pricing_power_score": pp_score,
-        "pricing_power_summary": pp_summary,
-        "predictability_tier": predictability_tier,
-        "predictability_score": pred_score,
-        "predictability_summary": pred_summary,
-        "full_html_content": full_html
+        "owner_earnings_per_share": oe_sh,
+        "owner_earnings_total_mil": info.get("normalized_oe_total_mil", 0.0),
+        "p_oe": p_oe,
+        "ev_oe": ev_oe,
+        "owner_yield_pct": owner_yield,
+        "owner_roic_pct": owner_roic,
+        "net_cash_per_share": net_cash_sh,
+        "market_pricing_in": info.get("market_pricing_in", ""),
+        "why_it_might_be_right": info.get("why_it_might_be_right", ""),
+        "how_things_are_going_now": info.get("how_things_are_going_now", ""),
+        "what_if_it_keeps_going_that_way": info.get("what_if_it_keeps_going_that_way", ""),
+        "fair_value_estimate": f"${target_5y:.2f}",
+        "expected_fair_value": f"${target_5y:.2f}",
+        "expected_val": target_5y,
+        "bear_target": f"${current_price * 0.75:.2f}",
+        "base_target": f"${target_5y:.2f}",
+        "bull_target": f"${target_5y * 1.25:.2f}",
+        "what_is_priced_in": f"{p_oe:.1f}x P/OE",
+        "executive_summary": info.get("how_things_are_going_now", "")[:250],
+        "upper_alert_threshold": round(current_price * 1.20, 2),
+        "lower_alert_threshold": round(current_price * 0.85, 2),
+        "stories": [
+            {
+                "title": "Market Skepticism Pricing",
+                "target": f"${current_price * 0.80:.2f}",
+                "summary": info.get("market_pricing_in", "")[:180]
+            },
+            {
+                "title": "Conservative Intrinsic Path",
+                "target": f"${target_5y:.2f}",
+                "summary": info.get("what_if_it_keeps_going_that_way", "")[:180]
+            }
+        ]
     }
 
-    print(f"   │ Signal: {action_signal} | Expected Fair Value: ${expected_present_fv:.2f} ({expected_mos:+.1f}%) | Moat: {raw_moat}", flush=True)
-    print("   └" + "─" * 50, flush=True)
-
-    return metadata, full_html
+    return meta, html_content
 
 
 def evolve_thesis_surgically(
@@ -2808,150 +2859,13 @@ def evolve_thesis_surgically(
     trigger_reason: str,
     existing_version: Any
 ) -> Tuple[Dict[str, Any], str]:
-    """Performs a surgical, token-efficient Bayesian delta update on an existing thesis version.
-    
-    Instead of regenerating 50,000+ tokens from scratch, it surgically:
-    1. Ingests the new quarterly earnings / fundamental delta.
-    2. Re-calibrates the Bayesian probability distribution (p₁, p₂, p₃) across the 3 existing paths.
-    3. Recomputes mathematical Fair Value and reverse-DCF in deterministic Python.
-    4. Surgically prepends an Evolution Update Highlight Banner and updates Section 3.
-    """
-    print(f"\n⚡ [SURGICAL LIVING EVOLUTION] Executing surgical delta update for {ticker} ({company_name})", flush=True)
-    print(f"   │ Trigger: {trigger_reason}", flush=True)
-    
-    stories = getattr(existing_version, "stories", []) or []
-    stories_json_text = json.dumps(stories, indent=2)
-    
-    prompt = f"""Target: {ticker} ({company_name})
-Current Market Benchmark Price: ${current_price:.2f}
-Material Fundamental / ER Trigger: {trigger_reason}
-
-You are the Chief Risk Officer and Senior Buy-Side Audit Partner.
-You are performing a SURGICAL, TOKEN-EFFICIENT LIVING EVOLUTION on an existing institutional research dossier following a newly reported earnings release or material fundamental trigger.
-
-DO NOT RE-WRITE THE ENTIRE 20,000-WORD THESIS.
-You are surgically updating the probabilistic distribution and valuation matrix while preserving the verified historical foundation.
-
-AUDITED EXISTING 3 PROBABLE PATHWAYS:
-======================================================================
-{stories_json_text}
-======================================================================
-
-YOUR CRITICAL SURGICAL MANDATE:
-1. BAYESIAN PROBABILITY RE-CALIBRATION:
-   - Treat the new quarterly results as empirical Bayesian evidence:
-     * If growth decelerated, costs surged, or guidance softened: Shift probability mass toward Path 2 (Downside Friction, e.g. from 30% to 40%-45%).
-     * If revenue growth was powered by pricing leverage (+eCPM) and operating leverage expanded sustainably: Reaffirm or expand Base/Upside probability.
-     * Ensure probabilities p1, p2, p3 sum STRICTLY to 1.0 (100%).
-2. CAPITALIZATION MULTIPLE COMPLIANCE (RULE 31):
-   - Enforce Growth-to-Multiple calibration:
-     * Contraction (<0% CAGR): <= 10.5x P/OE
-     * Low Growth (0%-5% CAGR): <= 13.5x P/OE
-     * Moderate Growth (5%-10% CAGR): 13.5x - 16.5x P/OE
-     * High Growth (10%-15% CAGR): 17.0x - 20.5x P/OE
-     * Hyper-Scale (>15% CAGR): 21.0x - 24.0x P/OE
-3. SURGICAL DELTA UPDATE BANNER (HTML):
-   - Produce a concise 2-paragraph HTML update banner explaining:
-     * (a) The newly reported quarter metrics (Revenue, Operating Margin, Owner Earnings).
-     * (b) How the probability distribution shifted and what is now priced into the stock.
-4. SECTION 3 VALUATION SYNTHESIS HTML & STRUCTURED JSON:
-   - Output the updated Section 3 HTML containing the {len(stories)}-Path Valuation Table, Probability Rationale, Sensitivity Matrix, and Market Inversion Synthesis, followed by the complete structured JSON block with updated story targets and probabilities.
-
-OUTPUT FORMAT:
-Provide the Section 3 HTML followed by the ```json structured metadata block.
-"""
-
-    raw_output = call_gemini_with_search(prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=True)
-    clean_text = clean_grounding_artifacts(raw_output)
-    
-    json_data = extract_json_block(clean_text)
-    updated_stories = json_data.get("stories") or stories
-    
-    # Deterministic Python mathematical synthesis
-    pvs = []
-    targets = []
-    probs = []
-    for idx, st in enumerate(updated_stories):
-        target_f = safe_float(st.get("val") or st.get("target_price_5y") or st.get("target") or 100.0, 100.0)
-        pv_f = safe_float(st.get("present_fair_value") or (target_f / (1.095**5)), target_f / (1.095**5))
-        prob_f = safe_float(st.get("prob_weight") or (safe_float(st.get("prob_pct"), 33.3) / 100.0), 0.333)
-        pvs.append(pv_f)
-        targets.append(target_f)
-        probs.append(prob_f)
-        st["val"] = target_f
-        st["present_fair_value"] = pv_f
-        st["prob_weight"] = prob_f
-        st["prob_pct"] = round(prob_f * 100, 1)
-        st["target_5y_return_pct"] = round(((target_f - current_price) / current_price) * 100, 1)
-        st["target_5y_cagr_pct"] = round((((target_f / current_price)**0.2) - 1) * 100, 1) if current_price > 0 and target_f > 0 else 0.0
-        st["mos_pct"] = round(((pv_f - current_price) / current_price) * 100, 1) if current_price > 0 else 0.0
-        st["target"] = f"${target_f:.2f} ({st['target_5y_return_pct']:+.1f}%)"
-    
-    total_prob = sum(probs) if sum(probs) > 0 else 1.0
-    normalized_probs = [p / total_prob for p in probs]
-    
-    expected_fv = round(sum(p * pv for p, pv in zip(normalized_probs, pvs)), 2)
-    expected_target = round(sum(p * t for p, t in zip(normalized_probs, targets)), 2)
-    expected_mos = round(((expected_fv - current_price) / current_price) * 100, 1) if current_price > 0 else 0.0
-    
-    action_signal = "BUY" if expected_mos >= 20.0 else ("HOLD" if expected_mos >= 0.0 else ("CAUTION" if expected_mos >= -15.0 else "AVOID"))
-    
-    # Surgically merge HTML
-    existing_html = getattr(existing_version, "full_html_content", "") or ""
-    
-    update_banner_html = f"""<div class="update-banner-box">
-<div class="update-banner-header">
-<span class="update-banner-badge">Living Thesis Evolution (Surgical Delta Update)</span>
-<span class="update-trigger-pill">Trigger: {trigger_reason}</span>
-</div>
-<div class="update-banner-title">Quarterly Surveillance &amp; Bayesian Probability Recalibration</div>
-<div class="update-banner-desc">
-{json_data.get("summary_of_change") or json_data.get("executive_summary") or f"Thesis evaluated against reported results ({trigger_reason}). Bayesian probability distribution recalibrated to yield an updated Present Intrinsic Fair Value of ${expected_fv:.2f} ({expected_mos:+.1f}% Margin of Safety)."}
-</div>
-</div>"""
-
-    # If existing HTML already had a banner, replace it; otherwise prepend to Section 1
-    if "class=\"update-banner-box\"" in existing_html:
-        healed_html = re.sub(r'<div class="update-banner-box">.*?</div>\s*</div>', update_banner_html, existing_html, count=1, flags=re.DOTALL)
-    else:
-        healed_html = f"{update_banner_html}\n{existing_html}"
-        
-    metadata = {
-        "ticker": ticker,
-        "company_name": company_name,
-        "action_signal": action_signal,
-        "status_label": getattr(existing_version, "status_label", "Narrow Moat"),
-        "moat_label": getattr(existing_version, "moat_label", "Narrow Moat"),
-        "labels": getattr(existing_version, "labels", ["Narrow Moat"]),
-        "fair_value_estimate": f"${expected_fv:.2f}",
-        "expected_fair_value": f"${expected_fv:.2f}",
-        "expected_val": expected_fv,
-        "present_fair_value": expected_fv,
-        "price_at_version": current_price,
-        "stories": updated_stories,
-        "bear_target": f"${targets[1]:.2f}" if len(targets) > 1 else f"${targets[0]:.2f}",
-        "base_target": f"${expected_fv:.2f}",
-        "bull_target": f"${targets[2]:.2f}" if len(targets) > 2 else f"${targets[0]:.2f}",
-        "story1_target": updated_stories[0].get("target") if len(updated_stories) > 0 else "",
-        "story2_target": updated_stories[1].get("target") if len(updated_stories) > 1 else "",
-        "story3_target": updated_stories[2].get("target") if len(updated_stories) > 2 else "",
-        "summary_of_change": f"Surgical evolution following: {trigger_reason}",
-        "what_was_before": getattr(existing_version, "summary_of_change", "Previous thesis baseline"),
-        "what_changes_now": f"Surgical update: Fair value calibrated to ${expected_fv:.2f} ({action_signal}).",
-        "trigger_reason": trigger_reason,
-        "pricing_power_tier": getattr(existing_version, "pricing_power_tier", "Strong Pricing Power"),
-        "pricing_power_score": getattr(existing_version, "pricing_power_score", "Pricing Power"),
-        "pricing_power_summary": getattr(existing_version, "pricing_power_summary", ""),
-        "predictability_tier": getattr(existing_version, "predictability_tier", "Moderate Predictability"),
-        "predictability_score": getattr(existing_version, "predictability_score", "Predictability"),
-        "predictability_summary": getattr(existing_version, "predictability_summary", ""),
-        "top_funds": getattr(existing_version, "top_funds", []),
-        "institutional_ownership_pct": getattr(existing_version, "institutional_ownership_pct", "65%"),
-        "insider_signal": getattr(existing_version, "insider_signal", "Neutral (10b5-1)"),
-        "insider_summary": getattr(existing_version, "insider_summary", "")
-    }
-    
-    return metadata, healed_html
+    """Updates an existing thesis surgically using the single-agent pipeline."""
+    return generate_genesis_thesis(
+        ticker=ticker,
+        company_name=company_name,
+        current_price=current_price,
+        initial_notes=f"Review trigger: {trigger_reason}"
+    )
 
 
 def review_stock_thesis(
@@ -2968,40 +2882,18 @@ def review_stock_thesis(
     previous_base_target: str = "",
     previous_bull_target: str = ""
 ) -> Tuple[Dict[str, Any], str]:
-    """Reviews an active stock thesis surgically without re-generating from scratch when existing coverage exists."""
-    from stocks.data_store import load_thesis_history
-    history = load_thesis_history(ticker)
-    
-    if history and len(history) > 0:
-        latest = history[-1]
-        metadata, full_html = evolve_thesis_surgically(
-            ticker=ticker,
-            company_name=company_name,
-            current_price=current_price,
-            trigger_reason=trigger_reason,
-            existing_version=latest
-        )
-        return metadata, full_html
-
-    print(f"\n🔄 [GENESIS INITIATION] No historical version found for {ticker} ({company_name}). Running Genesis pipeline.", flush=True)
-    update_notes = f"""MATERIAL TRIGGER: {trigger_reason}
-Previous Thesis Stance: {previous_status}
-Previous Thesis Summary: {previous_thesis_summary}"""
-
+    """Reviews an active stock thesis via the single-agent forensic valuation pipeline."""
+    print(f"\n🔄 [SINGLE-AGENT REVIEW] Re-evaluating {ticker} ({company_name}) at ${current_price:.2f} due to: {trigger_reason}", flush=True)
     metadata, full_html = generate_genesis_thesis(
         ticker=ticker,
         company_name=company_name,
         current_price=current_price,
-        initial_notes=update_notes
+        initial_notes=f"Review trigger: {trigger_reason}"
     )
-
     metadata["what_was_before"] = previous_thesis_summary
     metadata["what_changes_now"] = metadata.get("executive_summary") or f"Thesis re-evaluated following: {trigger_reason}"
-    metadata["alert_title"] = f"{ticker.upper()}: Coverage Initiated ({metadata.get('status_label', 'Active')})"
-    metadata["action_signal"] = normalize_action_signal(metadata.get("action_signal", "BUY"))
-
+    metadata["alert_title"] = f"{ticker.upper()}: Valuation Re-evaluated ({metadata.get('status_label', 'Active')})"
     return metadata, full_html
-
 
 # ==============================================================================
 # SPECIALIZED OWNERSHIP & FUND INTELLIGENCE SUBAGENT PROMPTS

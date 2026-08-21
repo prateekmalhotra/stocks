@@ -49,6 +49,17 @@ class ThesisVersion(BaseModel):
     predictability_tier: Optional[str] = "Moderate Predictability"  # High, Moderate, Low, Highly Unpredictable
     predictability_score: Optional[str] = "Manageable Visibility · Moat Protected"
     predictability_summary: Optional[str] = ""  # 1-sentence synthesis of 10-year visibility
+    owner_earnings_per_share: Optional[float] = None
+    owner_earnings_total_mil: Optional[float] = None
+    p_oe: Optional[float] = None
+    ev_oe: Optional[float] = None
+    owner_yield_pct: Optional[float] = None
+    owner_roic_pct: Optional[float] = None
+    net_cash_per_share: Optional[float] = None
+    market_pricing_in: Optional[str] = ""
+    why_it_might_be_right: Optional[str] = ""
+    how_things_are_going_now: Optional[str] = ""
+    what_if_it_keeps_going_that_way: Optional[str] = ""
     full_html_content: str = ""
 
 
@@ -108,6 +119,17 @@ class WatchlistStock(BaseModel):
     predictability_tier: Optional[str] = "Moderate Predictability"
     predictability_score: Optional[str] = "Manageable Visibility · Moat Protected"
     predictability_summary: Optional[str] = ""
+    owner_earnings_per_share: Optional[float] = None
+    owner_earnings_total_mil: Optional[float] = None
+    p_oe: Optional[float] = None
+    ev_oe: Optional[float] = None
+    owner_yield_pct: Optional[float] = None
+    owner_roic_pct: Optional[float] = None
+    net_cash_per_share: Optional[float] = None
+    market_pricing_in: Optional[str] = ""
+    why_it_might_be_right: Optional[str] = ""
+    how_things_are_going_now: Optional[str] = ""
+    what_if_it_keeps_going_that_way: Optional[str] = ""
     last_updated: str
     total_versions: int = 1
     report_path: str
