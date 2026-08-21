@@ -59,6 +59,22 @@ def auto_heal_dossier_and_metadata(ticker: str, html: str, metadata: Optional[Di
                 if not meta.get(f"story{idx}_target"):
                     meta[f"story{idx}_target"] = s.get("target", "")
 
+        # Harmonize net debt row in Section 3 table if $0.00 was plugged
+        net_cash_val = meta.get("net_cash_per_share")
+        if net_cash_val is not None:
+            try:
+                nc_f = float(net_cash_val)
+                if abs(nc_f) >= 0.50:
+                    nc_formatted = f"+${nc_f:.2f}/share" if nc_f > 0 else f"-${abs(nc_f):.2f}/share"
+                    def _fix_nc_row(m_row):
+                        row_txt = m_row.group(0)
+                        if "$0.00" in row_txt:
+                            return re.sub(r'<td>\s*\$0\.00\s*(?:/share)?\s*</td>', f'<td>{nc_formatted}</td>', row_txt, flags=re.IGNORECASE)
+                        return row_txt
+                    healed_html = re.sub(r'<tr>\s*<td>\s*(?:Net\s+Balance\s+Sheet\s+Cash\s*/\s*\(Debt\)|Net\s+Debt/Cash\s+Adjustment).*?</tr>', _fix_nc_row, healed_html, flags=re.DOTALL | re.IGNORECASE)
+            except Exception:
+                pass
+
     return healed_html, meta
 
 

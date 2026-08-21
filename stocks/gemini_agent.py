@@ -1135,6 +1135,7 @@ Provide pure semantic HTML containing ONLY Section 1 and Section 2:
 <p>Based on the company's audited statutory filings, segment dynamics, 4-quarter earnings call commentary, and institutional counter-theses, here are the distinct, realistic operational paths covering 90%–95% of the fundamental probability space over the next 3–5 years:</p>
 
 <!-- Repeat callout box for each of the N natural paths (Path 1 through Path N) with bespoke operational titles -->
+<!-- IMPORTANT: DO NOT hardcode probability percentages in Section 2 titles or narrative text (the Chief Risk Officer sets and audits unified probability weights in Section 3) -->
 <div class="callout">
   <h3>Path 1: [Bespoke Operational Title - Central Trend Execution]</h3>
   <p>[1-2 sentence executive summary of this path's operational mechanism...]</p>
@@ -1354,6 +1355,7 @@ YOUR CRITICAL AUDIT MANDATE:
      * For secular monopolies with deep moats and stable management, Core Execution carries 50%–65%.
 3. MANDATORY PYTHON CODE EXECUTION FOR VERIFICATION & REVERSE DCF:
    - You MUST write and execute Python code using your code execution tool to compute all final synthesis numbers:
+     * BALANCE SHEET ADJUSTMENT MANDATE: You MUST include the exact Net Balance Sheet Cash / (Debt) per share ({net_cash_str}) in the 'Net Balance Sheet Cash / (Debt) per share Adjustment' row for every path. 5-Year Target Price / Share MUST mathematically equal: (OE₅ * Multiple) + Net_Cash_per_share (or - Net_Debt_per_share). NEVER write $0.00 if net cash/debt is non-zero!
      * Probability-Weighted Expected 5Y Target (P₅_expected) = ∑ (p_i * P₅_i)
      * Probability-Weighted Present Fair Value (P₀_expected) = ∑ (p_i * P₀_i)
      * Probability-Weighted Expected Margin of Safety % = ((P₀_expected - ${current_price:.2f}) / ${current_price:.2f}) * 100%
