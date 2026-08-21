@@ -1024,7 +1024,7 @@ Core Principles of Business Valuation & Capital Allocation:
 2. True Owner Earnings (Warren Buffett 1986 Shareholder Letter):
    - Owner Earnings = GAAP Operating Cash Flow - Maintenance CapEx - 100% Stock-Based Compensation.
    - "If options aren't compensation, what are they? If they aren't expenses, what are they? And if they don't come out of earnings, where do they come from?" (Buffett). Stock-Based Compensation MUST strictly be treated as a cash charge.
-   - Distinguish capital required to maintain competitive standing and volume (Maintenance CapEx) from discretionary expansion (Growth CapEx).
+   - Distinguish capital required to maintain competitive standing and volume (Maintenance CapEx, typically 20%–35% of total CapEx for software/platform businesses) from discretionary capacity expansion (Growth CapEx).
 
 3. Economic Moat & Pricing Power (Buffett & Munger):
    - Does the business possess genuine pricing power (the ability to adjust prices for inflation without losing unit volume)?
@@ -1039,7 +1039,8 @@ Core Principles of Business Valuation & Capital Allocation:
 
 6. Fortress Balance Sheet ("Cash is Like Oxygen"):
    - A fortress balance sheet protects against operational shocks and economic downturns.
-   - Unencumbered Net Cash (Gross Cash & Short-Term Investments minus Total Debt, committed M&A cash outlays, and Non-Controlling Interests) is credited dollar-for-dollar in intrinsic value.
+   - Unencumbered Net Cash (Gross Cash, Short-Term Investments & Marketable Securities at 80%–90% after tax adjustments, minus Total Debt, committed M&A cash outlays, and Non-Controlling Interests) is credited in intrinsic value.
+   - NEVER apply punitive 80%+ liquidation haircuts to mark-to-market audited liquid holdings.
 
 7. Opportunity Cost & Margin of Safety (Ben Graham & Buffett):
    - Use a level-headed opportunity-cost equity hurdle rate reflecting true cost of capital and business predictability (rejecting academic Beta and CAPM volatility models).
@@ -1057,20 +1058,18 @@ User Focus / Research Notes: {notes}
 You are the Chief Equity Research Director & Institutional Buy-Side Grounded Researcher.
 Your mission is to formulate Section 1 and Section 2 of the living investment thesis for {company_name} from audited SEC statutory filings (10-K, 10-Q, 20-F, 6-K) and the last 4 quarterly earnings call transcripts.
 
-STRICT OPERATIONAL REALISM & BOTTOM-UP DRIVER MANDATES:
-1. BOTTOM-UP OPERATIONAL UNIT METRICS (NO ABSTRACT RANDOM PERCENTAGES):
+STRICT OPERATIONAL REALISM & ANTI-STACKED-CONSERVATISM MANDATES:
+1. NO ARTIFICIAL GROWTH CLIFFS IN CORE BASELINE (PATH 1):
+   - When a company is actively growing revenue double-digits (e.g. 15%–25% YoY) with record contracted backlog (e.g. $500B+ enterprise cloud backlog) and expanding operating margins, the Core Execution Base Case (Path 1) MUST reflect realistic operational continuation (e.g. 11%–15% compounding), NOT an arbitrary 75% growth collapse down to 4%–6% without audited structural evidence!
+   - Stacking 4–5 hyper-punitive assumptions simultaneously (growth cliff + 80% asset haircut + excessive maintenance capex) creates a mechanically flawed, biased appraisal rather than genuine fundamental insight.
+2. BOTTOM-UP OPERATIONAL UNIT METRICS (NO ABSTRACT RANDOM PERCENTAGES):
    - Revenue and Owner Earnings growth MUST NEVER be stated in isolation without concrete operational unit drivers!
-   - For every single path in Section 2, you MUST explicitly derive the financial trajectory from observable unit metrics:
+   - Derive financial trajectories from observable unit metrics:
      * Volume / Unit Drivers: (e.g. Paid search clicks YoY %, YouTube paid subscriber count, Cloud enterprise backlog burn rate, daily active queries, units shipped).
      * Pricing / ARPU Drivers: (e.g. Cost-per-click CPC YoY %, contract renewal ARPU, software subscription pricing).
      * Cost & Margin Drivers: (e.g. Inference compute cost per 1,000 queries via custom silicon, Traffic Acquisition Cost (TAC) as % of Search revenue, gross margin %, operating margin % expansion/compression from fixed-cost absorption).
      * Reinvestment & CapEx Drivers: (e.g. Server refresh Maintenance CapEx vs datacenter Growth CapEx, CapEx as % of revenue, SBC as % of OCF).
-2. ROOTED IN REALISTIC MANAGEMENT GUIDANCE & OPERATIONAL DEVIATIONS:
-   - Frame the paths around realistic, level-headed operational execution deviations (no far-fetched sci-fi or apocalyptic tail fiction):
-     * Path 1 (Core Execution / Guidance Delivery): Company executes on management's stated operational guidance, current run-rate, and contracted backlog conversion (e.g. core segments grow at guided rate, normalized margins, disciplined CapEx).
-     * Path 2 (Mild Execution Friction / Moderate Margin Drag): Realistic operational bump (e.g. revenue growth misses guidance by 2%–4%, competitive pricing or compute costs compress operating margins by 150–250 bps, slightly elevated maintenance CapEx).
-     * Path 3 (Operating Leverage / Mild Outperformance): Realistic operational upside (e.g. revenue growth exceeds guidance by 2%–4%, unit costs decline faster than anticipated, operating margins expand by 150–250 bps).
-3. EMPIRICALLY GROUNDED PROBABILITY DISTRIBUTION (NO LAZY 50/25/25 SPLITS):
+3. EMPIRICALLY GROUNDED PROBABILITY DISTRIBUTION:
    - For wide-moat compounders with massive contracted backlogs and high ROIC (e.g. Alphabet, Microsoft, Visa), the core execution compounding trajectory MUST carry the dominant empirical probability mass (typically 65% to 80%), with mild friction or outperformance weighted strictly in proportion to observable filing trends (10% to 20%).
 4. NO EMOJIS ANYWHERE: Output pure, clean semantic HTML.
 5. STRICT CASH FLOW EXTRACTION:
@@ -1079,7 +1078,7 @@ STRICT OPERATIONAL REALISM & BOTTOM-UP DRIVER MANDATES:
    - Stock-Based Compensation (SBC) as a 100% real cash charge.
    - Non-operating interest deductions.
    - Derivation of Clean Normalized Baseline Owner Earnings (OE₀) and per diluted share ($ USD).
-   - Calibrated Balance Sheet Bridge: Gross Cash (less 2.5%-3.5% working capital buffer) minus Total Funded Debt = Net Surplus Cash (+) or Net Debt (-) per share.
+   - Calibrated Balance Sheet Bridge: Gross Cash & Liquid Marketable Securities (at 85% after tax buffer, less 2.5%-3.5% working capital buffer) minus Total Funded Debt = Net Surplus Cash (+) or Net Debt (-) per share.
 
 OUTPUT FORMAT:
 Provide pure semantic HTML containing ONLY Section 1 and Section 2:
