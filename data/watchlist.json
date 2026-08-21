@@ -1133,7 +1133,9 @@
     "status_label": "Narrow Moat",
     "moat_label": "Narrow Moat",
     "labels": [
-      "Narrow Moat"
+      "Narrow Moat",
+      "Local Monopoly",
+      "Regional Gaming"
     ],
     "action_signal": "AVOID",
     "fair_value_estimate": "$63.48",
@@ -1479,10 +1481,12 @@
     "lower_alert_threshold": 45.57,
     "next_catalyst_date": "2026-10-22",
     "next_catalyst_event": "Q3 FY26 Earnings Release",
-    "top_funds": [],
-    "institutional_ownership_pct": "0 Tracked",
-    "insider_signal": "Neutral (10b5-1)",
-    "insider_summary": "Routine 10b5-1 transactions across 36 Form 4 filings.",
+    "top_funds": [
+      "John Rogers - Ariel Investments (1.92%)"
+    ],
+    "institutional_ownership_pct": "1 Whale",
+    "insider_signal": "Executive Net Selling",
+    "insider_summary": "Broad C-Suite & Chairwoman selling (-$28.5M across Keith Smith, Marianne Boyd Johnson, Josh Hirsberg) with $0 buys.",
     "pricing_power_tier": "Strong Pricing Power",
     "pricing_power_score": "Inelastic Demand \u00b7 Low Churn",
     "pricing_power_summary": "Strong Pricing Power: Underwritten via Buffett & Munger pricing power framework.",

@@ -449,6 +449,11 @@ def calculate_insider_sentiment_and_flow(oi_trades: List[Dict[str, Any]], stock_
                 summary = f"C-Suite purchases (+${total_buy/1e6:.1f}M) alongside executive sales (-${total_sell/1e6:.1f}M across {len(sellers)} officers)" if total_sell >= 1e6 else f"Key purchases (+${total_buy/1e3:.0f}K) vs sales (-${total_sell/1e3:.0f}K)"
             else:
                 summary = f"Director purchases (+${total_buy/1e3:.0f}K) alongside executive sales (-${total_sell/1e6:.1f}M)" if total_sell >= 1e6 else f"Purchases (+${total_buy/1e3:.0f}K) vs sales (-${total_sell/1e3:.0f}K)"
+    elif total_sell >= 15000000 and total_buy == 0 and len(sellers) >= 3:
+        sig = "Net Executive Selling"
+        badge_html = "Executive Net Selling"
+        color = "#D48858"
+        summary = f"Broad C-Suite & Director selling (-${total_sell/1e6:.1f}M across {len(sellers)} insiders) with zero buying"
     elif total_sell > 0 and total_buy == 0:
         sig = "Routine Sales (10b5-1)"
         badge_html = "Routine 10b5-1"
