@@ -441,9 +441,7 @@ def map_to_canonical_moat_label(lbl: str = "", sec1_text: str = "", default: str
     # 2. Check explicit canonical phrases in Section 1 text
     if sec1_text:
         # Search for exact primary moat statement
-        m_explicit = re.search(r'Primary Economic Moat (?:Rating|Archetype|Classification|Tier|Badge)?:\s*<strong>\s*([^<\n]+)\s*</strong>', sec1_text, re.IGNORECASE)
-        if not m_explicit:
-            m_explicit = re.search(r'Primary Economic Moat (?:Rating|Archetype|Classification|Tier|Badge)?:\s*([^<\n\.]+)', sec1_text, re.IGNORECASE)
+        m_explicit = re.search(r'(?:Primary Economic Moat|Economic Moat Assessment|Moat Classification|Moat Tier|Moat Rating)[^<\n]*?:\s*(?:<strong>)?\s*([^<\n\.]+?)(?:</strong>|\.|\n|<)', sec1_text, re.IGNORECASE)
         if m_explicit:
             class_str = m_explicit.group(1).strip().upper()
             if "NARROW" in class_str or "MODERATE" in class_str:
@@ -453,19 +451,20 @@ def map_to_canonical_moat_label(lbl: str = "", sec1_text: str = "", default: str
             if "NO MOAT" in class_str or "COMMODITY" in class_str or "ZERO" in class_str:
                 return "No Moat"
             if "WIDE" in class_str or "STRONG" in class_str or "TOLLBRIDGE" in class_str:
+                if "PROHIBITED" in class_str or "NOT" in class_str:
+                    return "Narrow Moat"
                 return "Narrow Moat" if is_apparel_or_fashion else "Wide Moat"
 
         # Search for standalone bold/header moat declarations
-        if re.search(r'\b(?:Narrow\s+Economic\s+Moat|Narrow\s+Moat)\b', sec1_text, re.IGNORECASE):
-            # Check if Narrow Moat is declared as the verdict
-            if not re.search(r'\b(?:Wide\s+Economic\s+Moat|Wide\s+Moat)\b', sec1_text, re.IGNORECASE):
-                return "Narrow Moat"
+        if re.search(r'\b(?:Bounded\s+Narrow\s+Moat|Narrow\s+Economic\s+Moat|Narrow\s+Moat)\b', sec1_text, re.IGNORECASE):
+            return "Narrow Moat"
         if re.search(r'\b(?:Weak\s+Economic\s+Moat|Weak\s+Moat|Vulnerable\s+Moat)\b', sec1_text, re.IGNORECASE):
             return "Weak Moat"
         if re.search(r'\b(?:No\s+Economic\s+Moat|No\s+Moat|Zero\s+Moat)\b', sec1_text, re.IGNORECASE):
             return "No Moat"
         if re.search(r'\b(?:Wide\s+Economic\s+Moat|Wide\s+Moat)\b', sec1_text, re.IGNORECASE):
-            return "Narrow Moat" if is_apparel_or_fashion else "Wide Moat"
+            if not re.search(r'prohibited from\s+Wide\s+Moat', sec1_text, re.IGNORECASE):
+                return "Narrow Moat" if is_apparel_or_fashion else "Wide Moat"
 
     if is_apparel_or_fashion:
         return "Narrow Moat"
@@ -1960,23 +1959,30 @@ def synthesize_pro_forma_schedule(
                             elif 'operating margin' in lbl:
                                 if 1.0 < num <= 100.0:
                                     op_margin_base = num
-                            elif any(k in lbl for k in ['diluted weighted shares', 'diluted shares', 'shares outstanding', 'ordinary shares', 'adss']):
-                                if num > 5.0:
+                            elif any(k in lbl for k in ['diluted weighted share', 'diluted share', 'shares outstanding', 'ordinary share', 'adss']):
+                                if 5.0 <= num <= 35000.0:
                                     sh_base = num
                         except Exception:
                             pass
                             
             if sh_base == 100.0:
-                m_sh = re.search(r'\[?([\d,]+(?:\.\d+)?)\s*(?:M|million|B|billion)?\s*(?:diluted\s*)?(?:shares|ordinary shares|adss)\]?', sec1_text, re.I)
-                if m_sh:
-                    cand = float(m_sh.group(1).replace(',', ''))
-                    if cand > 10.0:
+                # Match explicit share count basis in tables or text
+                m_basis = re.search(r'(?:share\s+count\s+basis|diluted\s+shares\s+basis)[^$\n]*?([\d,]+(?:\.\d+)?)\s*(?:million|M)?', sec1_text, re.I)
+                if m_basis:
+                    cand = float(m_basis.group(1).replace(',', ''))
+                    if 5.0 <= cand <= 35000.0:
                         sh_base = cand
+                else:
+                    m_sh = re.search(r'\[?([\d,]+(?:\.\d+)?)\s*(?:M|million|B|billion)\s*(?:diluted\s*)?(?:shares|ordinary shares|adss)\]?', sec1_text, re.I)
+                    if m_sh:
+                        cand = float(m_sh.group(1).replace(',', ''))
+                        if 5.0 <= cand <= 35000.0:
+                            sh_base = cand
         except Exception:
             pass
 
-    # If shares still default but we have revenue and per-share figures, estimate reasonable share base
-    if sh_base == 100.0 and rev_base > 1000.0 and oe0_sh > 0:
+    # If shares still default or unreasonable, estimate from total OE ($M) / per-share OE ($)
+    if (sh_base == 100.0 or sh_base > 35000.0) and rev_base > 100.0 and oe0_sh > 0:
         est_oe_tot = rev_base * (op_margin_base / 100.0) * 0.85
         sh_base = round(est_oe_tot / oe0_sh, 1)
 
@@ -2245,19 +2251,20 @@ def extract_financial_baseline(sec1_html: str) -> Tuple[float, float, str]:
 
     soup = BeautifulSoup(sec1_html, 'html.parser')
 
-    # 1. Parse Starting Normalized Owner Earnings (OE₀) per share
+    # 1. Parse Starting Normalized Owner Earnings (OE₀) per share (taking trailing/latest column)
     oe_per_sh = 0.0
     for tr in soup.find_all('tr'):
         tr_text = tr.get_text()
         if 'Owner Earnings' in tr_text and ('OE_0' in tr_text or 'OE₀' in tr_text or 'Per Share' in tr_text or 'Per Diluted' in tr_text):
+            candidates = []
             for td in tr.find_all('td'):
                 m = re.search(r'\$\s*([\d,]+(?:\.\d+)?)\s*(?:/sh|/share|/ADS|per\s*share)?', td.get_text())
                 if m:
                     v = float(m.group(1).replace(',', ''))
-                    if 0.20 <= v <= 100.0:
-                        oe_per_sh = v
-                        break
-            if oe_per_sh > 0:
+                    if 0.20 <= v <= 500.0:
+                        candidates.append(v)
+            if candidates:
+                oe_per_sh = candidates[-1]  # Take trailing / latest column
                 break
 
     if oe_per_sh == 0.0:
