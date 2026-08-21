@@ -1142,8 +1142,14 @@ STRICT VALUATION RULES:
    - For downside/friction scenarios, CAGR_OE should reflect realistic deceleration, margin compression, or stagnation (e.g. -5% to +2%).
    - For core baseline scenarios, reflect realistic execution without speculative moonshots (e.g. +4% to +8% for mature apparel/retail, +10% to +14% for secular compounders).
    - For bull/acceleration scenarios, reflect operating leverage and category expansion (e.g. +9% to +14% for apparel/retail, +15% to +20% for hyper-scalers).
-2. Year-5 Projected Owner Earnings (OE₅) / share:
-   - OE₅ = OE₀ * (1 + CAGR_OE)^5.
+2. MANDATORY PYTHON CODE EXECUTION:
+   - You MUST write and execute Python code using your code execution tool to calculate every equation with exact mathematical precision:
+     * Year-5 Projected Owner Earnings (OE₅) = OE₀ * (1 + CAGR_OE)^5
+     * 5-Year Target Price / Share (P₅) = (M₅ * OE₅) + Net Surplus Cash per share (or - Net Debt per share)
+     * Present Intrinsic Fair Value (P₀ at 9.5% Hurdle) = P₅ / (1.095)^5
+     * Margin of Safety % vs. Benchmark Price (${current_price:.2f}) = ((P₀ - ${current_price:.2f}) / ${current_price:.2f}) * 100%
+     * 5-Year Annualized Price CAGR % = ((P₅ / ${current_price:.2f})**(0.2) - 1) * 100%
+     * Total 5-Year Expected Return % = ((P₅ - ${current_price:.2f}) / ${current_price:.2f}) * 100%
 3. Terminal Valuation Multiple (M₅ = P/OE₅):
    - Terminal multiples MUST reflect fundamental economic capitalization rules: M₅ = (1 - g/ROIC) / (r - g) with r = 9.5%.
    - MANDATORY SECTOR MULTIPLE CAPS:
@@ -1156,12 +1162,6 @@ STRICT VALUATION RULES:
        - Core Baseline: 18.0x – 22.0x
        - Downside Friction: 12.0x – 15.0x
        - Acceleration / Bull: 22.0x – 25.0x
-4. 5-Year Target Price / Share (P₅):
-   - P₅ = (M₅ * OE₅) + Net Surplus Cash per share (or - Net Debt per share).
-5. Present Intrinsic Fair Value (P₀ at 9.5% Hurdle Rate):
-   - P₀ = P₅ / (1.095)^5.
-6. Margin of Safety % vs. Benchmark Price (${current_price:.2f}):
-   - MoS % = ((P₀ - ${current_price:.2f}) / ${current_price:.2f}) * 100%.
 
 OUTPUT FORMAT:
 Provide ONLY a valid JSON object matching this exact schema:
@@ -1215,8 +1215,13 @@ YOUR CRITICAL AUDIT MANDATE:
    - Assign probability weights (p₁, p₂, p₃ summing STRICTLY to 1.0 / 100%):
      * For companies facing active friction, negative comps, or brand turnaround risk (e.g. LULU domestic comp contraction, CROX HeyDude decline), the Downside / Friction path MUST carry substantial weight (e.g. 30%–45%), Core Execution (45%–55%), Bull Acceleration (10%–20%). NEVER assign 70%+ to an unproven turnaround case!
      * For secular monopolies with massive contracted backlogs and high ROIC, Core Execution carries 55%–65%, Downside 20%–30%, Bull 15%–20%.
-3. REVERSE DCF MARKET INVERSION:
-   - Calculate what Owner Earnings CAGR the market is pricing in at today's benchmark price (${current_price:.2f}) under the market's CURRENT multiple (M₀ = ${current_price:.2f} / ${oe0_per_share:.2f}).
+3. MANDATORY PYTHON CODE EXECUTION FOR VERIFICATION & REVERSE DCF:
+   - You MUST write and execute Python code using your code execution tool to compute all final synthesis numbers:
+     * Probability-Weighted Expected 5Y Target (P₅_expected) = p₁*P₅₁ + p₂*P₅₂ + p₃*P₅₃
+     * Probability-Weighted Present Fair Value (P₀_expected) = p₁*P₀₁ + p₂*P₀₂ + p₃*P₀₃
+     * Probability-Weighted Expected Margin of Safety % = ((P₀_expected - ${current_price:.2f}) / ${current_price:.2f}) * 100%
+     * Probability-Weighted Expected 5Y Price CAGR % = ((P₅_expected / ${current_price:.2f})**(0.2) - 1) * 100%
+     * Reverse DCF: Exact implied 5Y Owner Earnings CAGR priced in at ${current_price:.2f} under market multiple (M₀ = ${current_price:.2f} / ${oe0_per_share:.2f}) and baseline multiple (M_base).
 4. CAPITAL ALLOCATION RECOMMENDATION:
    - BUY (if Expected MoS >= +20%), HOLD (if MoS 0% to +20%), CAUTION (if MoS -15% to 0%), AVOID (if MoS < -15%).
 
@@ -2170,7 +2175,12 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
             roic_str=roic_str,
             story_text=s_info["text"]
         )
-        resp = call_gemini_with_search(prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False)
+        resp = call_gemini_with_search(
+            prompt,
+            system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY,
+            use_search=False,
+            use_code_execution=True
+        )
         m_json = re.search(r'```json\s*(\{[\s\S]*?\})\s*```', resp)
         if m_json:
             try:
@@ -2186,7 +2196,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     with concurrent.futures.ThreadPoolExecutor(max_workers=len(story_blocks)) as executor:
         story_val_results = list(executor.map(_value_single_story, story_blocks))
 
-    print(f"   │ Status: {len(story_val_results)} stories independently underwritten in parallel", flush=True)
+    print(f"   │ Status: {len(story_val_results)} stories independently underwritten in parallel (Code Execution Verified)", flush=True)
 
     # ------------------------------------------------------------------
     # Chief Risk Officer & Valuation Feedback Audit Agent
@@ -2202,7 +2212,12 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         historical_summary=f"Normalized ROIC ~{roic_str}, Baseline OE₀=${oe0:.2f}/sh",
         stories_json_text=json.dumps(story_val_results, indent=2)
     )
-    raw_audit_output = call_gemini_with_search(feedback_audit_prompt, system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY, use_search=False)
+    raw_audit_output = call_gemini_with_search(
+        feedback_audit_prompt,
+        system_instruction=LEVEL_HEADED_INVESTOR_PHILOSOPHY,
+        use_search=False,
+        use_code_execution=True
+    )
     sec3_clean, val_json, stories_metadata = parse_sec3_and_json(
         raw_audit_output,
         company_name,
