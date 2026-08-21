@@ -205,29 +205,41 @@ Output JSON only in ```json ... ```."""
 
 
 def fetch_and_cache_complete_ownership(ticker: str, company_name: str) -> Dict[str, Any]:
-    """Unified Pipeline: Scrapes OpenInsider, Dataroma, runs Gemini Reddit/Substack/VIC write-up research, and caches."""
+    """Unified Pipeline: Concurrently scrapes OpenInsider, Dataroma, runs Gemini Reddit/Substack/VIC write-up research, and caches."""
+    import concurrent.futures
     from stocks.gemini_agent import research_ownership_writeups
     import time
     
     clean_t = ticker.upper().strip()
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     cache_file = CACHE_DIR / f"{clean_t}.json"
-    
-    # 1. Fetch live OpenInsider Form 4 transactions (up to 100)
-    oi_trades = fetch_openinsider_live(clean_t)
-    if not oi_trades:
-        print(f"  ℹ️ Form 4 table empty or foreign issuer ({clean_t}). Auditing SEC 20-F / 10-K / 13D executive ownership ledger...")
-        oi_trades = fetch_sec_officers_ownership_live(clean_t, company_name)
-    
-    # 2. Fetch live Dataroma Superinvestors
-    dr_holders = fetch_dataroma_live(clean_t)
-    
-    # 3. Research real Reddit/Substack/VIC/letters with direct URLs
-    writeups = []
-    try:
-        writeups = research_ownership_writeups(clean_t, company_name)
-    except Exception as e:
-        print(f"  ⚠️ Error researching writeups for {clean_t}: {e}")
+
+    def _get_oi_trades():
+        trades = fetch_openinsider_live(clean_t)
+        if not trades:
+            print(f"  ℹ️ Form 4 table empty or foreign issuer ({clean_t}). Auditing SEC 20-F / 10-K / 13D executive ownership ledger...")
+            trades = fetch_sec_officers_ownership_live(clean_t, company_name)
+        return trades
+
+    def _get_dr_holders():
+        return fetch_dataroma_live(clean_t)
+
+    def _get_writeups():
+        try:
+            return research_ownership_writeups(clean_t, company_name)
+        except Exception as e:
+            print(f"  ⚠️ Error researching writeups for {clean_t}: {e}")
+            return []
+
+    # Concurrently execute OpenInsider, Dataroma, and Writeups research
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+        fut_oi = executor.submit(_get_oi_trades)
+        fut_dr = executor.submit(_get_dr_holders)
+        fut_wu = executor.submit(_get_writeups)
+
+        oi_trades = fut_oi.result()
+        dr_holders = fut_dr.result()
+        writeups = fut_wu.result()
         
     if not writeups or len(writeups) < 2:
         # High-conviction 100% verified 200 OK links
@@ -266,9 +278,8 @@ def fetch_and_cache_complete_ownership(ticker: str, company_name: str) -> Dict[s
             }
         ]
     
-    # 4. Rigorously test and sanitize every URL before caching (Zero-404 Guarantee)
-    sanitized_writeups = []
-    for w in writeups:
+    # 4. Rigorously test and sanitize every URL concurrently before caching (Zero-404 Guarantee)
+    def _sanitize_single(w):
         raw_url = w.get("url", "")
         link_info = verify_and_sanitize_url(
             raw_url,
@@ -277,11 +288,14 @@ def fetch_and_cache_complete_ownership(ticker: str, company_name: str) -> Dict[s
             w.get("fund", ""),
             w.get("title", "")
         )
-        sanitized_writeups.append({
+        return {
             **w,
             "url": link_info["url"],
             "btn_label": link_info["label"]
-        })
+        }
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=min(len(writeups), 6)) as executor:
+        sanitized_writeups = list(executor.map(_sanitize_single, writeups))
 
     # 5. Save verified cache
     cached_data = {
@@ -840,11 +854,11 @@ def build_ownership_tab_html(ticker: str, stock: Any, latest_version: Any) -> st
             <div class="quick-portals-bar">
                 <span style="font-size: 0.76rem; text-transform: uppercase; color: var(--text-dim); font-weight: 600; letter-spacing: 0.05em;">Direct Research Portals:</span>
                 <div class="portal-links-group">
-                    <a href="http://openinsider.com/search?q={clean_t}" target="_blank" rel="noopener noreferrer" class="portal-link">📊 OpenInsider Form 4s ↗</a>
-                    <a href="https://www.dataroma.com/m/stock.php?sym={clean_t}" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ Dataroma Superinvestors ↗</a>
-                    <a href="https://whalewisdom.com/stock/{clean_t}" target="_blank" rel="noopener noreferrer" class="portal-link">🐋 WhaleWisdom 13F ↗</a>
-                    <a href="https://valueinvestorsclub.com/search?q={clean_t}" target="_blank" rel="noopener noreferrer" class="portal-link">📑 Value Investors Club (VIC) ↗</a>
-                    <a href="https://www.sec.gov/edgar/browse/?CIK={clean_t}" target="_blank" rel="noopener noreferrer" class="portal-link">🏛️ SEC EDGAR Filings ↗</a>
+                    <a href="http://openinsider.com/search?q={clean_t}" target="_blank" rel="noopener noreferrer" class="portal-link">OpenInsider Form 4s ↗</a>
+                    <a href="https://www.dataroma.com/m/stock.php?sym={clean_t}" target="_blank" rel="noopener noreferrer" class="portal-link">Dataroma Superinvestors ↗</a>
+                    <a href="https://whalewisdom.com/stock/{clean_t}" target="_blank" rel="noopener noreferrer" class="portal-link">WhaleWisdom 13F ↗</a>
+                    <a href="https://valueinvestorsclub.com/search?q={clean_t}" target="_blank" rel="noopener noreferrer" class="portal-link">Value Investors Club (VIC) ↗</a>
+                    <a href="https://www.sec.gov/edgar/browse/?CIK={clean_t}" target="_blank" rel="noopener noreferrer" class="portal-link">SEC EDGAR Filings ↗</a>
                 </div>
             </div>
         </div>

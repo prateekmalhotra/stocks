@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import List, Dict, Any, Optional
 from stocks.models import WatchlistStock, AlertItem, ThesisVersion
 from stocks.data_store import load_watchlist, load_alerts, load_thesis_history
-from stocks.tracker import fetch_all_chart_ranges
+from stocks.tracker import fetch_all_chart_ranges, fetch_all_chart_ranges_cached
 from stocks.ownership_intelligence import build_ownership_tab_html, calculate_insider_sentiment_and_flow, load_cached_ownership
 from bs4 import BeautifulSoup, NavigableString, Tag
 
@@ -537,9 +537,12 @@ def extract_terminal_data_from_html(html: str, num_stories: int = 3) -> List[Dic
     return term_data
 
 
-def extract_priced_in_card_data(stock: WatchlistStock, html: str = "") -> Dict[str, Any]:
+def extract_priced_in_card_data(stock: Any, html: str = "") -> Dict[str, Any]:
     """Extracts market implied growth, terminal multiple, and narrative summary from Reverse DCF section."""
-    cur_p = stock.current_price or 1.0
+    if isinstance(stock, dict):
+        cur_p = float(stock.get("current_price") or stock.get("baseline_price") or 1.0)
+    else:
+        cur_p = float(getattr(stock, "current_price", 1.0) or getattr(stock, "baseline_price", 1.0) or 1.0)
     res = {
         "title": "Implied Market Expectations",
         "summary": f"Current price of ${cur_p:.2f} implies baseline cash flow compounding.",
@@ -581,7 +584,7 @@ def extract_priced_in_card_data(stock: WatchlistStock, html: str = "") -> Dict[s
     return res
 
 
-def build_storylines_summary_widget_html(stock: WatchlistStock, stories: Optional[List[Dict[str, Any]]] = None, full_html: str = "") -> str:
+def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict[str, Any]]] = None, full_html: str = "") -> str:
     """Builds a minimalist, institutional executive summary widget for all N operational storylines directly below the chart."""
     palette = [
         {"border": "var(--accent-warm)", "badge_bg": "rgba(212, 163, 115, 0.08)", "badge_border": "rgba(212, 163, 115, 0.22)", "text": "var(--accent-warm)"},
@@ -595,44 +598,48 @@ def build_storylines_summary_widget_html(stock: WatchlistStock, stories: Optiona
     story_list = []
     if stories and len(stories) >= 1:
         story_list = stories
+    elif isinstance(stock, dict) and stock.get("stories"):
+        story_list = stock.get("stories", [])
     elif getattr(stock, "stories", None) and len(stock.stories) >= 1:
         story_list = stock.stories
     else:
         # Construct from legacy fields
-        s1_t = getattr(stock, "story1_target", "") or stock.bear_target
-        s2_t = getattr(stock, "story2_target", "") or stock.base_target
-        s3_t = getattr(stock, "story3_target", "") or stock.bull_target
+        s1_t = getattr(stock, "story1_target", "") if not isinstance(stock, dict) else stock.get("story1_target", "")
+        s2_t = getattr(stock, "story2_target", "") if not isinstance(stock, dict) else stock.get("story2_target", "")
+        s3_t = getattr(stock, "story3_target", "") if not isinstance(stock, dict) else stock.get("story3_target", "")
         if s1_t:
-            story_list.append({"id": 1, "story_title": getattr(stock, "story1_title", "Story 1") or "Story 1", "target": s1_t, "val": extract_numeric_price(s1_t), "short_summary": "Core operational compounding and baseline reinvestment."})
+            story_list.append({"id": 1, "story_title": "Story 1", "target": s1_t, "val": extract_numeric_price(s1_t), "short_summary": "Core operational compounding and baseline reinvestment."})
         if s2_t:
-            story_list.append({"id": 2, "story_title": getattr(stock, "story2_title", "Story 2") or "Story 2", "target": s2_t, "val": extract_numeric_price(s2_t), "short_summary": "Accelerated vertical expansion and high-margin operating leverage."})
+            story_list.append({"id": 2, "story_title": "Story 2", "target": s2_t, "val": extract_numeric_price(s2_t), "short_summary": "Accelerated vertical expansion and high-margin operating leverage."})
         if s3_t:
-            story_list.append({"id": 3, "story_title": getattr(stock, "story3_title", "Story 3") or "Story 3", "target": s3_t, "val": extract_numeric_price(s3_t), "short_summary": "Defensive margin friction, customer budget drag, and multiple compression."})
+            story_list.append({"id": 3, "story_title": "Story 3", "target": s3_t, "val": extract_numeric_price(s3_t), "short_summary": "Defensive margin friction, customer budget drag, and multiple compression."})
 
     if not story_list:
         return ""
 
     extracted_term = extract_terminal_data_from_html(full_html, num_stories=len(story_list))
 
-    cur_p = stock.current_price or 1.0
+    if isinstance(stock, dict):
+        cur_p = float(stock.get("current_price") or stock.get("baseline_price") or 1.0)
+    else:
+        cur_p = float(getattr(stock, "current_price", 1.0) or getattr(stock, "baseline_price", 1.0) or 1.0)
     cards_html = []
     for idx, s in enumerate(story_list):
-        color = palette[idx % len(palette)]
+        color = palette[idx % len(palette)]["border"] if "border" in palette[idx % len(palette)] else palette[idx % len(palette)].get("color", "var(--accent-warm)")
         val = s.get("val") or extract_numeric_price(s.get("target")) or cur_p
         mos_pct = s.get("mos_pct")
         if mos_pct is None:
             mos_pct = ((val - cur_p) / cur_p) * 100.0 if cur_p > 0 else 0.0
             
         prob_pct = s.get("prob_pct")
-        prob_label = f" &bull; {prob_pct:.0f}% Prob" if prob_pct is not None else ""
+        prob_label = f" · {prob_pct:.0f}%" if prob_pct is not None else ""
         
-        mos_badge_bg = "rgba(130, 174, 140, 0.08)" if mos_pct >= 0 else "rgba(201, 122, 114, 0.08)"
-        mos_badge_color = "var(--accent-green)" if mos_pct >= 0 else "var(--accent-red)"
-        mos_badge_border = "rgba(130, 174, 140, 0.20)" if mos_pct >= 0 else "rgba(201, 122, 114, 0.20)"
+        mos_color = "var(--accent-green)" if mos_pct >= 0 else "var(--accent-red)"
         
-        # Clean title: strip out redundant brackets
-        raw_title = s.get("story_title") or s.get("title") or f"Story {idx+1}"
+        # Clean title
+        raw_title = s.get("story_title") or s.get("title") or f"Path {idx+1}"
         title = re.sub(r'\s*\((?:Central Baseline|Base Case|Upside Expansion|Bull Case|Downside Drag|Downside Risk|Bear Case)\)', '', raw_title, flags=re.IGNORECASE).strip()
+        title = re.sub(r'^(?:📖\s*|Path\s*\d+\s*:\s*)', '', title).strip()
         
         # Clean summary: 1-2 tight sentences max (under 24 words)
         raw_summary = s.get("short_summary") or s.get("summary") or "Underwritten via disciplined first-principles cash flow compounding."
@@ -644,56 +651,44 @@ def build_storylines_summary_widget_html(stock: WatchlistStock, stories: Optiona
         else:
             summary = raw_summary
         
-        # Terminal Value Metadata extraction
-        term_exit = s.get("terminal_multiple") or (extracted_term[idx].get("exit_multiple") if idx < len(extracted_term) else "")
-        term_g = s.get("terminal_growth") or (extracted_term[idx].get("terminal_growth") if idx < len(extracted_term) else "")
-        term_r = s.get("discount_rate") or (extracted_term[idx].get("discount_rate") if idx < len(extracted_term) else "")
+        # Valuation Multiple & Yield Extraction
+        oe_mult = s.get("oe_multiple") or s.get("terminal_multiple") or (extracted_term[idx].get("exit_multiple") if idx < len(extracted_term) else "")
+        oe_yield = s.get("oe_yield") or ""
+        net_cash_sh = s.get("net_cash_per_share")
         
-        terminal_footer_html = ""
-        if term_exit or term_g:
-            parts = []
-            if term_g:
-                parts.append(f'<span>{term_g} perpetual g</span>')
-            if term_r:
-                parts.append(f'<span>{term_r} hurdle</span>')
-                
-            right_sub = f' <span style="color: var(--text-dim);">&bull;</span> '.join(parts)
+        meta_parts = []
+        if oe_mult:
+            mult_txt = f"{oe_mult} P/OE" if "P/OE" not in str(oe_mult) else str(oe_mult)
+            meta_parts.append(f'<span style="color:var(--text-title); font-weight:600;">{mult_txt}</span>')
+        if oe_yield:
+            meta_parts.append(f'<span>{oe_yield} yield</span>')
+        if net_cash_sh is not None and abs(net_cash_sh) > 0.01:
+            meta_parts.append(f'<span>Net Cash: {net_cash_sh:+.2f}/sh</span>')
             
-            terminal_footer_html = f"""
-            <div style="margin-top: auto; padding: 6px 10px; background: rgba(0, 0, 0, 0.22); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 5px; display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 0.70rem;">
-                <div style="display: flex; align-items: center; gap: 6px;">
-                    <span style="color: var(--accent-warm); font-size: 0.72rem;">🎯</span>
-                    <span style="color: var(--text-dim); text-transform: uppercase; font-size: 0.63rem; letter-spacing: 0.04em; font-weight: 600;">Terminal:</span>
-                    <span style="color: var(--text-title); font-weight: 600;">{term_exit or 'Gordon Growth'}</span>
-                </div>
-                <div style="display: flex; align-items: center; gap: 6px; color: var(--text-secondary); font-size: 0.68rem;">
-                    {right_sub}
-                </div>
-            </div>
-            """
+        footer_text = ' <span style="color: var(--text-dim); opacity: 0.5;">·</span> '.join(meta_parts) if meta_parts else ""
         
         card = f"""
-        <div class="storyline-summary-card" style="background: var(--bg-panel); border: 1px solid var(--border-color); border-left: 3px solid {color['border']}; border-radius: 8px; padding: 15px 17px; display: flex; flex-direction: column; gap: 8px; min-width: 0;">
-            <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;">
-                <span style="font-family: var(--font-mono); font-size: 0.65rem; color: {color['text']}; background: {color['badge_bg']}; border: 1px solid {color['badge_border']}; padding: 2px 7px; border-radius: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;">
-                    Story {idx+1}{prob_label}
+        <div class="storyline-summary-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; min-width: 0;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px;">
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: {color}; font-weight: 600; letter-spacing: 0.02em;">
+                    Path {idx+1}{prob_label}
                 </span>
-                <div style="display: flex; align-items: center; gap: 6px;">
-                    <span style="font-family: var(--font-mono); font-size: 0.88rem; font-weight: 600; color: var(--text-title);">
+                <div style="display: flex; align-items: baseline; gap: 6px; font-family: var(--font-mono);">
+                    <span style="font-size: 0.95rem; font-weight: 600; color: var(--text-title);">
                         ${val:.2f}
                     </span>
-                    <span style="font-family: var(--font-mono); font-size: 0.70rem; font-weight: 500; color: {mos_badge_color}; background: {mos_badge_bg}; border: 1px solid {mos_badge_border}; padding: 1.5px 5px; border-radius: 4px;">
+                    <span style="font-size: 0.75rem; font-weight: 500; color: {mos_color};">
                         {mos_pct:+.1f}%
                     </span>
                 </div>
             </div>
-            <div style="font-family: var(--font-sans); font-size: 0.88rem; font-weight: 600; color: var(--text-title); line-height: 1.35; letter-spacing: -0.01em;">
+            <div style="font-family: var(--font-sans); font-size: 0.92rem; font-weight: 600; color: var(--text-title); line-height: 1.35; letter-spacing: -0.01em;">
                 {title}
             </div>
-            <p style="font-family: var(--font-sans); font-size: 0.80rem; color: var(--text-body); line-height: 1.52; margin: 0; flex-grow: 1;">
+            <p style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55; margin: 0; flex-grow: 1;">
                 {summary}
             </p>
-            {terminal_footer_html}
+            {f'<div style="font-family: var(--font-mono); font-size: 0.70rem; color: var(--text-dim); padding-top: 8px; border-top: 1px solid rgba(255, 255, 255, 0.04); display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">{footer_text}</div>' if footer_text else ''}
         </div>
         """
         cards_html.append(card)
@@ -701,61 +696,53 @@ def build_storylines_summary_widget_html(stock: WatchlistStock, stories: Optiona
     # Append the "What is Priced In" Market-Implied Storyline Box
     priced_in_info = extract_priced_in_card_data(stock, full_html)
     priced_in_card = f"""
-    <div class="storyline-summary-card storyline-priced-in-card" style="background: var(--bg-panel); border: 1px solid var(--border-color); border-left: 3px solid var(--text-secondary); border-radius: 8px; padding: 15px 17px; display: flex; flex-direction: column; gap: 8px; min-width: 0;">
-        <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;">
-            <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-secondary); background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); padding: 2px 7px; border-radius: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;">
-                ⚡ What Is Priced In &bull; Market Implied
+    <div class="storyline-summary-card storyline-priced-in-card" style="background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; min-width: 0;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px;">
+            <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dim); font-weight: 600; letter-spacing: 0.02em;">
+                Market Implied
             </span>
-            <div style="display: flex; align-items: center; gap: 6px;">
-                <span style="font-family: var(--font-mono); font-size: 0.88rem; font-weight: 600; color: var(--text-title);">
+            <div style="display: flex; align-items: baseline; gap: 6px; font-family: var(--font-mono);">
+                <span style="font-size: 0.95rem; font-weight: 600; color: var(--text-title);">
                     ${cur_p:.2f}
                 </span>
-                <span style="font-family: var(--font-mono); font-size: 0.70rem; font-weight: 500; color: var(--text-dim); background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.07); padding: 1.5px 5px; border-radius: 4px;">
-                    Current Price
+                <span style="font-size: 0.75rem; color: var(--text-dim);">
+                    Market Price
                 </span>
             </div>
         </div>
-        <div style="font-family: var(--font-sans); font-size: 0.88rem; font-weight: 600; color: var(--text-title); line-height: 1.35; letter-spacing: -0.01em;">
+        <div style="font-family: var(--font-sans); font-size: 0.92rem; font-weight: 600; color: var(--text-title); line-height: 1.35; letter-spacing: -0.01em;">
             {priced_in_info['title']}
         </div>
-        <p style="font-family: var(--font-sans); font-size: 0.80rem; color: var(--text-body); line-height: 1.52; margin: 0; flex-grow: 1;">
+        <p style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55; margin: 0; flex-grow: 1;">
             {priced_in_info['summary']}
         </p>
-        <div style="margin-top: auto; padding: 6px 10px; background: rgba(0, 0, 0, 0.22); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 5px; display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 0.70rem;">
-            <div style="display: flex; align-items: center; gap: 6px;">
-                <span style="color: var(--accent-warm); font-size: 0.72rem;">🎯</span>
-                <span style="color: var(--text-dim); text-transform: uppercase; font-size: 0.63rem; letter-spacing: 0.04em; font-weight: 600;">Implied Terminal:</span>
-                <span style="color: var(--text-title); font-weight: 600;">{priced_in_info['implied_terminal']}</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 6px; color: var(--text-secondary); font-size: 0.68rem;">
-                <span>{priced_in_info['implied_growth']} req. 5Y CAGR</span>
-                <span style="color: var(--text-dim);">&bull;</span>
-                <span>{priced_in_info['hurdle_rate']}</span>
-            </div>
+        <div style="font-family: var(--font-mono); font-size: 0.70rem; color: var(--text-dim); padding-top: 8px; border-top: 1px solid rgba(255, 255, 255, 0.04); display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <span style="color: var(--text-title); font-weight: 600;">{priced_in_info['implied_terminal']}</span>
+            <span style="color: var(--text-dim); opacity: 0.5;">·</span>
+            <span>{priced_in_info['implied_growth']} req. 5Y CAGR</span>
+            <span style="color: var(--text-dim); opacity: 0.5;">·</span>
+            <span>{priced_in_info['hurdle_rate']}</span>
         </div>
     </div>
     """
     cards_html.append(priced_in_card)
         
-    expected_display = getattr(stock, 'expected_fair_value', '') or stock.fair_value_estimate
+    if isinstance(stock, dict):
+        expected_display = stock.get('expected_fair_value') or stock.get('fair_value_estimate') or ''
+    else:
+        expected_display = getattr(stock, 'expected_fair_value', '') or getattr(stock, 'fair_value_estimate', '')
     
     return f"""
-    <div class="storylines-summary-deck" style="margin-top: 20px; margin-bottom: 24px; background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 10px; padding: 18px 20px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color);">
-            <div style="display: flex; align-items: center; gap: 8px;">
-                <span style="font-size: 0.95rem;">📖</span>
-                <span style="font-family: var(--font-sans); font-size: 0.80rem; font-weight: 700; color: var(--text-title); text-transform: uppercase; letter-spacing: 0.06em;">
-                    Operational Storylines &amp; Probability Space
-                </span>
-                <span style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-secondary);">
-                    ({len(story_list)} Scenarios + Market Implied)
-                </span>
+    <div class="storylines-summary-deck" style="margin-top: 24px; margin-bottom: 28px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 12px; margin-bottom: 14px;">
+            <div style="font-family: var(--font-sans); font-size: 0.82rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.08em;">
+                Future Operating Trajectories
             </div>
-            <div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-secondary);">
-                Expected Value: <strong style="color: var(--accent-warm); font-weight: 700;">{expected_display}</strong>
+            <div style="font-family: var(--font-mono); font-size: 0.80rem; color: var(--text-dim);">
+                Expected Value: <span style="color: var(--accent-warm); font-weight: 600;">{expected_display}</span>
             </div>
         </div>
-        <div class="storylines-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
+        <div class="storylines-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px;">
             {''.join(cards_html)}
         </div>
     </div>
@@ -777,7 +764,7 @@ def build_native_svg_chart(
     bull_target: Optional[float] = None
 ) -> str:
     """Builds a lightweight, native interactive SVG area chart with 1Y, 5Y, 10Y, MAX ranges and dynamic Story 1..N target lines."""
-    all_ranges_data = fetch_all_chart_ranges(ticker, current_price)
+    all_ranges_data = fetch_all_chart_ranges_cached(ticker, current_price)
     ranges_json = json.dumps(all_ranges_data)
 
     initial_pts = all_ranges_data.get("1Y", [])
@@ -798,14 +785,16 @@ def build_native_svg_chart(
     if stories and len(stories) >= 1:
         for idx, s in enumerate(stories):
             val = s.get("val") or extract_numeric_price(s.get("target"))
+            mult = s.get("oe_multiple") or s.get("terminal_multiple") or ""
             if val is not None and val > 0:
                 color = palette[idx % len(palette)]["color"]
-                title = s.get("story_title") or s.get("title") or f"Story {idx+1}"
+                title = s.get("story_title") or s.get("title") or f"Path {idx+1}"
                 chart_targets.append({
                     "id": idx + 1,
                     "val": round(float(val), 2),
                     "color": color,
-                    "title": title
+                    "title": title,
+                    "mult": str(mult).replace("x", "").strip() if mult else ""
                 })
     else:
         # Legacy fallback
@@ -813,11 +802,11 @@ def build_native_svg_chart(
         s2 = story2_target if story2_target is not None else fair_target
         s3 = story3_target if story3_target is not None else bull_target
         if s1 is not None and s1 > 0:
-            chart_targets.append({"id": 1, "val": round(float(s1), 2), "color": "#D4A373", "title": story1_title or "Story 1"})
+            chart_targets.append({"id": 1, "val": round(float(s1), 2), "color": "#D4A373", "title": story1_title or "Story 1", "mult": ""})
         if s2 is not None and s2 > 0:
-            chart_targets.append({"id": 2, "val": round(float(s2), 2), "color": "#82AE8C", "title": story2_title or "Story 2"})
+            chart_targets.append({"id": 2, "val": round(float(s2), 2), "color": "#82AE8C", "title": story2_title or "Story 2", "mult": ""})
         if s3 is not None and s3 > 0:
-            chart_targets.append({"id": 3, "val": round(float(s3), 2), "color": "#C97A72", "title": story3_title or "Story 3"})
+            chart_targets.append({"id": 3, "val": round(float(s3), 2), "color": "#C97A72", "title": story3_title or "Story 3", "mult": ""})
 
     for ct in chart_targets:
         eval_prices.append(ct["val"])
@@ -838,10 +827,12 @@ def build_native_svg_chart(
     target_legend_items = []
     for ct in chart_targets:
         diff = ((ct["val"] - current_price) / current_price) * 100 if current_price > 0 else 0.0
+        mult_str = f" · {ct['mult']}x OE" if ct.get("mult") else ""
+        c_title = ct.get("title") or f"Path {ct.get('id', 1)}"
         target_legend_items.append(
             f'<span style="color: {ct["color"]}; display: inline-flex; align-items: center; gap: 4px; font-weight: 600;">'
             f'<span style="display:inline-block; width:12px; height:0; border-top:1.8px dashed {ct["color"]};"></span> '
-            f'Story {ct["id"]}: ${ct["val"]:.2f} ({diff:+.1f}%)</span>'
+            f'{c_title}: ${ct["val"]:.2f} ({diff:+.1f}%{mult_str})</span>'
         )
 
     targets_legend_html = f'<div class="chart-targets-legend" style="display: flex; align-items: center; gap: 12px; font-family: var(--font-mono); font-size: 0.72rem; flex-wrap: wrap;">{" ".join(target_legend_items)}</div>' if target_legend_items else ""
@@ -1002,8 +993,9 @@ def build_native_svg_chart(
                     lineEl.style.display = 'block';
                     labelEl.setAttribute('y', y - 4);
                     const diff = liveTodayPrice > 0 ? ((t.val - liveTodayPrice) / liveTodayPrice * 100) : 0;
-                    const sign = diff >= 0 ? '+' : '';
-                    labelEl.textContent = 'Story ' + t.id + ' $' + t.val.toFixed(2) + ' (' + sign + diff.toFixed(1) + '%)';
+                    const multTxt = t.mult ? ' · ' + t.mult + 'x OE' : '';
+                    const titleTxt = t.title ? t.title : ('Path ' + t.id);
+                    labelEl.textContent = titleTxt + ' $' + t.val.toFixed(2) + ' (' + sign + diff.toFixed(1) + '%' + multTxt + ')';
                     labelEl.style.display = 'block';
                 }} else if (lineEl) {{
                     lineEl.style.display = 'none';
@@ -1291,7 +1283,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             # Historical Target Badges
             targets_chips = []
             if v.fair_value_estimate:
-                targets_chips.append(f'<span style="color:var(--accent-warm); font-weight:600;">🎯 FV: {v.fair_value_estimate}</span>')
+                targets_chips.append(f'<span style="color:var(--accent-warm); font-weight:600;">FV: {v.fair_value_estimate}</span>')
             
             palette_colors = ["#D4A373", "#82AE8C", "#C97A72", "#A8A29E", "#94A3B8"]
             v_stories = getattr(v, "stories", None) or []
@@ -1326,7 +1318,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                     v_label_diff = f"""
                     <div style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border-color); font-size: 0.84rem;">
                         <div style="font-weight: 500; color: var(--text-title); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-                            <span style="color: var(--accent-warm);">🏷️ Label &amp; Conviction Evolution:</span>
+                            <span style="color: var(--accent-warm);">Label &amp; Conviction Evolution:</span>
                             <div style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
                                 {p_pills}
                                 <span style="color: var(--text-dim);">→</span>
@@ -1403,7 +1395,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                 label_change_html = f"""
                 <div class="label-evolution-divider" style="margin-top: 18px; padding-top: 14px; border-top: 1px dashed var(--border-color); font-size: 0.88rem;">
                     <div style="font-weight: 500; color: var(--text-title); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-                        <span style="color: var(--accent-warm);">🏷️ Label & Conviction Evolution:</span>
+                        <span style="color: var(--accent-warm);">Label & Conviction Evolution:</span>
                         <div style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
                             {prev_pills}
                             <span style="color: var(--text-dim);">→</span>
@@ -1416,7 +1408,7 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         evolution_banner_html = f"""
         <div class="update-banner-box">
             <div class="update-banner-header">
-                <span class="update-banner-badge">⚡ Version {current_version.version} Thesis Evolution • {current_version.date}</span>
+                <span class="update-banner-badge">Version {current_version.version} Thesis Evolution • {current_version.date}</span>
                 <span class="update-trigger-pill">Trigger: {v_trigger}</span>
             </div>
             <div class="update-banner-body">

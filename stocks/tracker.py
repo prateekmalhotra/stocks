@@ -165,12 +165,14 @@ def fetch_historical_chart_data(ticker: str, range_str: str = "1y") -> List[Dict
 
 
 def fetch_all_chart_ranges(ticker: str, current_price: float) -> Dict[str, List[Dict[str, Any]]]:
-    """Fetches historical chart datasets for 1Y, 5Y, 10Y, and MAX ranges."""
+    """Fetches historical chart datasets for 1Y, 5Y, 10Y, and MAX ranges concurrently."""
+    import concurrent.futures
     ranges = ["1y", "5y", "10y", "max"]
     labels = ["1Y", "5Y", "10Y", "MAX"]
     all_data = {}
 
-    for r_str, lbl in zip(ranges, labels):
+    def _fetch_range(r_tuple):
+        r_str, lbl = r_tuple
         pts = fetch_historical_chart_data(ticker, r_str)
         if not pts or len(pts) < 2:
             pts = [
@@ -178,9 +180,44 @@ def fetch_all_chart_ranges(ticker: str, current_price: float) -> Dict[str, List[
                 {"date": "Mid", "price": round(current_price * 0.95, 2)},
                 {"date": "Today", "price": round(current_price, 2)}
             ]
-        all_data[lbl] = pts
+        return lbl, pts
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+        results = executor.map(_fetch_range, zip(ranges, labels))
+        for lbl, pts in results:
+            all_data[lbl] = pts
 
     return all_data
+
+
+def fetch_all_chart_ranges_cached(ticker: str, current_price: float, max_age_hours: int = 12) -> Dict[str, List[Dict[str, Any]]]:
+    """Fetches historical chart datasets with high-performance disk caching (12h TTL)."""
+    from pathlib import Path
+    data_dir = Path(__file__).resolve().parent.parent / "data"
+    cache_dir = data_dir / "chart_cache"
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    cache_file = cache_dir / f"{ticker.upper().strip()}.json"
+
+    if cache_file.exists():
+        try:
+            mtime = datetime.fromtimestamp(cache_file.stat().st_mtime)
+            if (datetime.now() - mtime).total_seconds() < max_age_hours * 3600:
+                with open(cache_file, "r", encoding="utf-8") as f:
+                    cached_data = json.load(f)
+                    if isinstance(cached_data, dict) and all(k in cached_data for k in ["1Y", "5Y", "10Y", "MAX"]):
+                        return cached_data
+        except Exception:
+            pass
+
+    data = fetch_all_chart_ranges(ticker, current_price)
+    try:
+        with open(cache_file, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2)
+    except Exception:
+        pass
+
+    return data
+
 
 
 def check_watchlist_triggers() -> int:

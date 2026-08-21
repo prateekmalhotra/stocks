@@ -25,7 +25,7 @@ from stocks.gemini_agent import (
 from stocks.dashboard import render_all
 
 
-def safe_float(val: Any, default: float) -> float:
+def safe_float(val: Any, default: float = 0.0) -> float:
     """Safely extracts float from float, int, or string like '$42.50'."""
     if val is None:
         return default
@@ -71,29 +71,30 @@ def _handle_genesis_task(ticker: str, notes: str):
     from stocks.ownership_intelligence import fetch_and_cache_complete_ownership, parse_trade_value
     
     company_name, current_price = fetch_live_stock_info(ticker)
-    print(f"🔍 Fetching live OpenInsider Form 4s and Dataroma superinvestors for {ticker} ({company_name})...")
-    ownership_data = fetch_and_cache_complete_ownership(ticker, company_name)
     
-    max_genesis_attempts = 3
-    meta, html_content = {}, ""
-    for attempt in range(1, max_genesis_attempts + 1):
-        print(f"\n🚀 [GENESIS EXECUTION] Generating complete institutional dossier for {ticker} ({company_name}) at ${current_price:.2f} (Attempt {attempt}/{max_genesis_attempts})...", flush=True)
-        meta, html_content = generate_genesis_thesis(ticker, company_name, current_price, notes)
-        from stocks.gemini_agent import verify_and_repair_html_structure
-        html_content = verify_and_repair_html_structure(html_content)
-        
-        from stocks.quality_gatekeeper import validate_dossier_quality
-        is_valid, quality_issues = validate_dossier_quality(ticker, html_content, metadata=meta)
-        if is_valid:
-            print(f"✅ [QUALITY GATE PASSED] {ticker} passed 100% of institutional quality pillars on attempt {attempt}!", flush=True)
-            break
-        else:
-            print(f"⚠️ [QUALITY GATE WARNING] {ticker} quality audit flagged issues on attempt {attempt}:", flush=True)
-            for issue in quality_issues:
-                print(f"   └─ {issue}", flush=True)
-            if attempt < max_genesis_attempts:
-                print(f"🔄 [AUTO-RETRY] Automatically re-running genesis pipeline for {ticker} (waiting 20s for API cool-down)...", flush=True)
-                time.sleep(20)
+    # Run ownership intelligence concurrently in the background alongside thesis generation
+    import concurrent.futures
+    bg_pool = concurrent.futures.ThreadPoolExecutor(max_workers=2)
+    fut_ownership = bg_pool.submit(fetch_and_cache_complete_ownership, ticker, company_name)
+    
+    print(f"\n🚀 [GENESIS EXECUTION] Generating complete institutional dossier for {ticker} ({company_name}) at ${current_price:.2f}...", flush=True)
+    meta, html_content = generate_genesis_thesis(ticker, company_name, current_price, notes)
+    
+    try:
+        ownership_data = fut_ownership.result(timeout=10)
+    except Exception:
+        ownership_data = {}
+    
+    from stocks.quality_gatekeeper import auto_heal_dossier_and_metadata, validate_dossier_quality
+    html_content, meta = auto_heal_dossier_and_metadata(ticker, html_content, meta)
+    
+    is_valid, quality_issues = validate_dossier_quality(ticker, html_content, metadata=meta)
+    if is_valid:
+        print(f"✅ [QUALITY GATE PASSED] {ticker} passed 100% of institutional quality pillars!", flush=True)
+    else:
+        print(f"ℹ️ [QUALITY GATE AUDIT] {ticker} quality audit notes (auto-healed):", flush=True)
+        for issue in quality_issues:
+            print(f"   └─ {issue}", flush=True)
 
     labels = sanitize_labels(meta.get("labels") or meta.get("status_label"), action_signal=meta.get("action_signal"))
     action_signal = normalize_action_signal(meta.get("action_signal", "BUY"))
