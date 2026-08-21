@@ -27,6 +27,7 @@ CANONICAL_COMPANY_NAMES = {
     "CPRT": "Copart, Inc.",
     "CROX": "Crocs, Inc.",
     "EDU": "New Oriental Education & Tech",
+    "FICO": "Fair Isaac Corporation",
     "GCT": "GigaCloud Technology Inc.",
     "GOOG": "Alphabet Inc.",
     "GOOGL": "Alphabet Inc.",

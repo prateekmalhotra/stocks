@@ -1617,6 +1617,70 @@ Quant Audit:
     return clean_grounding_artifacts(agent_3_out)
 
 
+def strip_conversational_filler(html: str) -> str:
+    """Strips conversational AI preamble, self-narration, and code fences."""
+    if not html:
+        return ""
+    cleaned = html.replace("```html", "").replace("```json", "").replace("```", "").strip()
+    cleaned = re.sub(r'^(?:Here is the (?:updated|remediated|improved)|Certainly!|Sure,|Below is the|Okay,? I am improving|Understood,? here is)[^\n]*\n+', '', cleaned, flags=re.IGNORECASE)
+    m_h2 = re.search(r'(<h2\b[\s\S]*)$', cleaned, re.IGNORECASE)
+    if m_h2:
+        cleaned = m_h2.group(1).strip()
+    return cleaned
+
+
+def call_claude_evaluator(ticker: str, company_name: str, thesis_html: str) -> str:
+    """Submits the full draft thesis to Claude Sonnet 5 with medium thinking for an independent buy-side critique."""
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
+        try:
+            from dotenv import load_dotenv
+            load_dotenv()
+            api_key = os.environ.get("ANTHROPIC_API_KEY")
+        except Exception:
+            pass
+            
+    if not api_key:
+        print("   ⚠️ [CLAUDE EVALUATOR SKIPPED] No ANTHROPIC_API_KEY found in environment or .env", flush=True)
+        return ""
+        
+    headers = {
+        "x-api-key": api_key,
+        "anthropic-version": "2023-06-01",
+        "content-type": "application/json"
+    }
+    
+    prompt = f"Here is my thesis for {ticker} ({company_name}) stock what do you think?\n\n{thesis_html}"
+    
+    payload = {
+        "model": "claude-sonnet-5",
+        "max_tokens": 4096,
+        "thinking": {
+            "type": "adaptive"
+        },
+        "output_config": {
+            "effort": "medium"
+        },
+        "messages": [
+            {"role": "user", "content": prompt}
+        ]
+    }
+    
+    try:
+        r = requests.post("https://api.anthropic.com/v1/messages", headers=headers, json=payload, timeout=120)
+        if r.status_code == 200:
+            data = r.json()
+            content_blocks = data.get("content", [])
+            text_blocks = [b.get("text", "") for b in content_blocks if b.get("type") == "text"]
+            return "\n".join(text_blocks).strip()
+        else:
+            print(f"   ⚠️ [CLAUDE API ERROR {r.status_code}] {r.text[:200]}", flush=True)
+            return ""
+    except Exception as e:
+        print(f"   ⚠️ [CLAUDE API EXCEPTION] {str(e)}", flush=True)
+        return ""
+
+
 def run_improvement_agent(
     ticker: str,
     company_name: str,
@@ -1712,18 +1776,19 @@ def run_improvement_agent(
         sec_idx, prompt, u_search, u_code = task_tuple
         print(f"      🔧 [MODULAR REMEDIATOR] Concurrently updating Section {sec_idx}...", flush=True)
         r = call_gemini_with_search(prompt, temperature=0.2, use_search=u_search, use_code_execution=u_code)
-        c = verify_and_repair_html_structure(clean_grounding_artifacts(r))
+        c = verify_and_repair_html_structure(clean_grounding_artifacts(strip_conversational_filler(r)))
         return sec_idx, c
 
     if remediation_tasks:
         with concurrent.futures.ThreadPoolExecutor(max_workers=len(remediation_tasks)) as executor:
             rem_results = list(executor.map(_execute_remediation, remediation_tasks))
             for sec_idx, c in rem_results:
-                if sec_idx == 1 and "<h2>Section 1:" in c and len(c.split()) >= 600:
+                words_c = len(c.split())
+                if sec_idx == 1 and "<h2>section 1:" in c.lower() and words_c >= 300:
                     final_sec1 = c
-                elif sec_idx == 2 and "<h2>Section 2:" in c and len(c.split()) >= 600:
+                elif sec_idx == 2 and "<h2>section 2:" in c.lower() and words_c >= 250:
                     final_sec2 = c
-                elif sec_idx == 3 and "<h2>Section 3:" in c and "reverse dcf" in c.lower() and "story 3" in c.lower() and len(c.split()) >= 600:
+                elif sec_idx == 3 and "<h2>section 3:" in c.lower() and "<table" in c.lower() and words_c >= 200:
                     final_sec3 = c
 
     # 4. Parse Adjudication Callout HTML
@@ -2502,7 +2567,46 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
             raw_audit_output, company_name, current_price, sec1_text=sec1_clean, sec2_text=sec2_clean
         )
     
+    # ------------------------------------------------------------------
+    # Stage 5: Independent Claude Sonnet 5 Evaluation & Surgical Improvement
+    # ------------------------------------------------------------------
+    print(f"\n🤖 [STAGE 5: CLAUDE SONNET 5 EVALUATION] Submitting full draft thesis to Claude Sonnet 5 (Adaptive Thinking) for buy-side critique...", flush=True)
+    draft_for_claude = f"{sec1_clean}\n\n{sec2_clean}\n\n{sec3_clean}"
+    claude_feedback = call_claude_evaluator(ticker_clean, company_name, draft_for_claude)
+    
+    callout_html = ""
+    if claude_feedback and len(claude_feedback.strip()) > 50:
+        words_feedback = len(claude_feedback.split())
+        print(f"   │ Status: Received Claude Sonnet 5 feedback ({words_feedback} words)", flush=True)
+        print(f"   🔧 [SURGICAL ADJUDICATION & REMEDIATION] Adjudicating Claude feedback and executing targeted module updates...", flush=True)
+        
+        sec1_remed, sec2_remed, sec3_remed, callout_html, ack_items, push_items = run_improvement_agent(
+            ticker=ticker_clean,
+            company_name=company_name,
+            current_price=current_price,
+            sec1_html=sec1_clean,
+            sec2_html=sec2_clean,
+            sec3_html=sec3_clean,
+            critique_memo=claude_feedback
+        )
+        
+        sec1_clean = sec1_remed
+        sec2_clean = sec2_remed
+        sec3_clean = sec3_remed
+        
+        # If Section 3 was updated, re-parse stories metadata and val_json
+        if "<h2>Section 3:" in sec3_clean:
+            _, updated_val_json, updated_stories = parse_sec3_and_json(
+                sec3_clean, company_name, current_price, sec1_text=sec1_clean, sec2_text=sec2_clean
+            )
+            if updated_stories and len(updated_stories) >= 2:
+                stories_metadata = updated_stories
+                val_json = updated_val_json
+    
     raw_full_html = f"{sec1_clean}\n\n{sec2_clean}\n\n{sec3_clean}"
+    if callout_html:
+        raw_full_html += f"\n\n{callout_html}"
+        
     full_html = verify_and_repair_html_structure(raw_full_html)
 
     expected_target_5y = round(sum(s["prob_weight"] * s["val"] for s in stories_metadata), 2)
@@ -2569,6 +2673,12 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         next_cat_event = "Q3 FY26 Earnings Release"
         catalyst_timeline = []
 
+    # Scale-Aware Starting Owner Earnings (OE₀) for "What is priced in" widget
+    oe0_candidate = safe_float(val_json.get("normalized_oe_per_share") or oe0_sh, 1.0)
+    if oe0_candidate <= 0 or (current_price > 10.0 and current_price / oe0_candidate < 2.0):
+        oe0_candidate = safe_float(oe0_sh, 1.0)
+    what_is_priced_in_val = f"{current_price / oe0_candidate:.1f}x" if oe0_candidate > 0 else "20.0x"
+
     metadata = {
         "status_label": sanitized_labels[0] if sanitized_labels else "Narrow Moat",
         "moat": raw_moat,
@@ -2595,7 +2705,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         "next_catalyst_event": next_cat_event,
         "catalyst_timeline": catalyst_timeline,
         "trigger_reason": "Genesis Initial Underwriting",
-        "what_is_priced_in": f"{current_price / safe_float(val_json.get('normalized_oe_per_share'), 1.0):.1f}x",
+        "what_is_priced_in": what_is_priced_in_val,
         "top_funds": [],
         "institutional_ownership_pct": "",
         "insider_signal": "Neutral (10b5-1)",
