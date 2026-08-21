@@ -881,49 +881,51 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
             attribution_label = "Return Source"
         
         card = f"""
-        <div class="storyline-summary-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; justify-content: space-between; min-width: 0;">
-            <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px;">
-                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: {color}; font-weight: 600; letter-spacing: 0.02em;">
-                    Path {idx+1}{prob_label}
-                </span>
-                <div style="display: flex; align-items: baseline; gap: 6px; font-family: var(--font-mono);">
-                    <span style="font-size: 0.95rem; font-weight: 600; color: var(--text-title);">
-                        ${val:.2f}
+        <div class="storyline-summary-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 8px; padding: 18px 20px; display: flex; flex-direction: column; justify-content: space-between; height: 100%; box-sizing: border-box; min-width: 0;">
+            <div style="display: flex; flex-direction: column; gap: 10px; flex-grow: 1;">
+                <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px; min-height: 22px;">
+                    <span style="font-family: var(--font-mono); font-size: 0.72rem; color: {color}; font-weight: 600; letter-spacing: 0.02em;">
+                        Path {idx+1}{prob_label}
                     </span>
-                    <span style="font-size: 0.75rem; font-weight: 500; color: {mos_color};">
-                        {mos_pct:+.1f}%
-                    </span>
+                    <div style="display: flex; align-items: baseline; gap: 6px; font-family: var(--font-mono);">
+                        <span style="font-size: 0.95rem; font-weight: 600; color: var(--text-title);">
+                            ${val:.2f}
+                        </span>
+                        <span style="font-size: 0.75rem; font-weight: 500; color: {mos_color};">
+                            {mos_pct:+.1f}%
+                        </span>
+                    </div>
                 </div>
-            </div>
-            <div style="font-family: var(--font-sans); font-size: 0.92rem; font-weight: 600; color: var(--text-title); line-height: 1.35; letter-spacing: -0.01em;">
-                {title}
-            </div>
-            <p style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55; margin: 0; flex-grow: 1;">
-                {summary}
-            </p>
-            
-            <!-- Key Financial Metrics Strip -->
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 8px 10px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 6px; font-family: var(--font-mono); margin: 4px 0;">
-                <div>
-                    <div style="font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;">5Y Price IRR</div>
-                    <div style="font-size: 0.80rem; font-weight: 600; color: {cagr_color};">{cagr_txt}</div>
+                <div style="font-family: var(--font-sans); font-size: 0.92rem; font-weight: 600; color: var(--text-title); line-height: 1.35; letter-spacing: -0.01em; min-height: 42px; display: flex; align-items: center;">
+                    {title}
                 </div>
-                <div>
-                    <div style="font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;">Target Multiple</div>
-                    <div style="font-size: 0.80rem; font-weight: 600; color: var(--text-title);">{mult_txt}</div>
+                <p style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55; margin: 0; min-height: 68px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                    {summary}
+                </p>
+                
+                <!-- Key Financial Metrics Strip -->
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 8px 10px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 6px; font-family: var(--font-mono); margin: 2px 0;">
+                    <div>
+                        <div style="font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;">5Y Price IRR</div>
+                        <div style="font-size: 0.80rem; font-weight: 600; color: {cagr_color}; white-space: nowrap;">{cagr_txt}</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;">Target Multiple</div>
+                        <div style="font-size: 0.80rem; font-weight: 600; color: var(--text-title); white-space: nowrap;">{mult_txt}</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;">Owner Cash Yield</div>
+                        <div style="font-size: 0.80rem; font-weight: 600; color: var(--accent-warm); white-space: nowrap;">{yield_txt}</div>
+                    </div>
                 </div>
-                <div>
-                    <div style="font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;">Owner Cash Yield</div>
-                    <div style="font-size: 0.80rem; font-weight: 600; color: var(--accent-warm);">{yield_txt}</div>
-                </div>
-            </div>
 
-            <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-dim); display: flex; align-items: center; justify-content: space-between; padding: 2px 0; min-height: 20px;">
-                <span>{attribution_label}: <strong style="color: var(--text-secondary); font-weight: 500;">{attribution_txt}</strong></span>
-                <button type="button" class="btn-info-circle" onclick="openMultibaggerModal(event)" title="Empirical Multibagger Return Drivers" style="cursor: pointer; background: transparent; border: none; color: var(--text-dim); opacity: 0.6; font-size: 0.68rem; padding: 0 4px;">ⓘ</button>
+                <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-dim); display: flex; align-items: center; justify-content: space-between; padding: 2px 0; min-height: 20px;">
+                    <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{attribution_label}: <strong style="color: var(--text-secondary); font-weight: 500;">{attribution_txt}</strong></span>
+                    <button type="button" class="btn-info-circle" onclick="openMultibaggerModal(event)" title="Empirical Multibagger Return Drivers" style="cursor: pointer; background: transparent; border: none; color: var(--text-dim); opacity: 0.6; font-size: 0.68rem; padding: 0 4px; flex-shrink: 0;">ⓘ</button>
+                </div>
             </div>
             
-            <div style="font-family: var(--font-mono); font-size: 0.70rem; color: var(--text-dim); padding-top: 6px; border-top: 1px solid rgba(255, 255, 255, 0.04); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; min-height: 24px;">
+            <div style="font-family: var(--font-mono); font-size: 0.70rem; color: var(--text-dim); padding-top: 6px; border-top: 1px solid rgba(255, 255, 255, 0.04); display: flex; align-items: center; gap: 8px; min-height: 20px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                 {footer_text if footer_text else '&nbsp;'}
             </div>
         </div>
@@ -933,11 +935,9 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
     # Append the "What is Priced In" Market-Implied Storyline Box
     priced_in_info = extract_priced_in_card_data(stock, full_html, stories=story_list)
     
-    m_mult = f"{cur_p / float(oe_per_sh):.1f}x P/OE₀" if oe_per_sh and float(oe_per_sh) > 0 else "30.0x P/OE₀"
-    m_yield = f"{(float(oe_per_sh) / cur_p) * 100:.1f}% Yield" if oe_per_sh and float(oe_per_sh) > 0 and cur_p > 0 else "3.3% Yield"
+    m_mult = f"{cur_p / float(oe_per_sh):.1f}x P/OE₀" if oe_per_sh and float(oe_per_sh) > 0 else "10.0x P/OE₀"
     priced_in_footer_parts = [
-        f'<span>Current: {m_mult}</span>',
-        f'<span>Cash Yield: {m_yield}</span>'
+        f'<span>Current: {m_mult}</span>'
     ]
     if net_cash_sh is not None and abs(net_cash_sh) > 0.01:
         priced_in_footer_parts.append(f'<span>Net Cash: {net_cash_sh:+.2f}/sh</span>')
@@ -946,49 +946,51 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
     priced_in_footer_text = ' <span style="color: var(--text-dim); opacity: 0.5;">·</span> '.join(priced_in_footer_parts)
 
     priced_in_card = f"""
-    <div class="storyline-summary-card storyline-priced-in-card" style="background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; justify-content: space-between; min-width: 0;">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px;">
-            <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dim); font-weight: 600; letter-spacing: 0.02em;">
-                Market Implied
-            </span>
-            <div style="display: flex; align-items: baseline; gap: 6px; font-family: var(--font-mono);">
-                <span style="font-size: 0.95rem; font-weight: 600; color: var(--text-title);">
-                    ${cur_p:.2f}
+    <div class="storyline-summary-card storyline-priced-in-card" style="background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 18px 20px; display: flex; flex-direction: column; justify-content: space-between; height: 100%; box-sizing: border-box; min-width: 0;">
+        <div style="display: flex; flex-direction: column; gap: 10px; flex-grow: 1;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px; min-height: 22px;">
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dim); font-weight: 600; letter-spacing: 0.02em;">
+                    Market Implied
                 </span>
-                <span style="font-size: 0.75rem; color: var(--text-dim);">
-                    Market Price
-                </span>
+                <div style="display: flex; align-items: baseline; gap: 6px; font-family: var(--font-mono);">
+                    <span style="font-size: 0.95rem; font-weight: 600; color: var(--text-title);">
+                        ${cur_p:.2f}
+                    </span>
+                    <span style="font-size: 0.75rem; color: var(--text-dim);">
+                        Market Price
+                    </span>
+                </div>
             </div>
-        </div>
-        <div style="font-family: var(--font-sans); font-size: 0.92rem; font-weight: 600; color: var(--text-title); line-height: 1.35; letter-spacing: -0.01em;">
-            {priced_in_info['title']}
-        </div>
-        <p style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55; margin: 0; flex-grow: 1;">
-            {priced_in_info['summary']}
-        </p>
-        
-        <!-- Key Market-Implied Metrics Strip -->
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 8px 10px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 6px; font-family: var(--font-mono); margin: 4px 0;">
-            <div>
-                <div style="font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;">Req. 5Y CAGR</div>
-                <div style="font-size: 0.78rem; font-weight: 600; color: var(--text-title); white-space: nowrap;">{priced_in_info['implied_growth']}</div>
+            <div style="font-family: var(--font-sans); font-size: 0.92rem; font-weight: 600; color: var(--text-title); line-height: 1.35; letter-spacing: -0.01em; min-height: 42px; display: flex; align-items: center;">
+                {priced_in_info['title']}
             </div>
-            <div>
-                <div style="font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;">Market Multiple</div>
-                <div style="font-size: 0.78rem; font-weight: 600; color: var(--text-title); white-space: nowrap;">{priced_in_info['implied_terminal']}</div>
+            <p style="font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55; margin: 0; min-height: 68px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                {priced_in_info['summary']}
+            </p>
+            
+            <!-- Key Market-Implied Metrics Strip -->
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 8px 10px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 6px; font-family: var(--font-mono); margin: 2px 0;">
+                <div>
+                    <div style="font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;">Req. 5Y CAGR</div>
+                    <div style="font-size: 0.78rem; font-weight: 600; color: var(--text-title); white-space: nowrap;">{priced_in_info['implied_growth']}</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;">Market Multiple</div>
+                    <div style="font-size: 0.78rem; font-weight: 600; color: var(--text-title); white-space: nowrap;">{priced_in_info['implied_terminal']}</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;">Hurdle Rate</div>
+                    <div style="font-size: 0.78rem; font-weight: 600; color: var(--accent-warm); white-space: nowrap;">{priced_in_info['hurdle_rate']}</div>
+                </div>
             </div>
-            <div>
-                <div style="font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px;">Hurdle Rate</div>
-                <div style="font-size: 0.78rem; font-weight: 600; color: var(--accent-warm); white-space: nowrap;">{priced_in_info['hurdle_rate']}</div>
-            </div>
-        </div>
 
-        <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-dim); display: flex; align-items: center; justify-content: space-between; padding: 2px 0; min-height: 20px;">
-            <span>Implied Return Source: <strong style="color: var(--text-secondary); font-weight: 500;">100% Earnings Compounding (Constant Multiple)</strong></span>
-            <button type="button" class="btn-info-circle" onclick="openMultibaggerModal(event)" title="Empirical Multibagger Return Drivers" style="cursor: pointer; background: transparent; border: none; color: var(--text-dim); opacity: 0.6; font-size: 0.68rem; padding: 0 4px;">ⓘ</button>
+            <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-dim); display: flex; align-items: center; justify-content: space-between; padding: 2px 0; min-height: 20px;">
+                <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Implied Return Source: <strong style="color: var(--text-secondary); font-weight: 500;">100% Earnings Compounding (Constant Multiple)</strong></span>
+                <button type="button" class="btn-info-circle" onclick="openMultibaggerModal(event)" title="Empirical Multibagger Return Drivers" style="cursor: pointer; background: transparent; border: none; color: var(--text-dim); opacity: 0.6; font-size: 0.68rem; padding: 0 4px; flex-shrink: 0;">ⓘ</button>
+            </div>
         </div>
         
-        <div style="font-family: var(--font-mono); font-size: 0.70rem; color: var(--text-dim); padding-top: 6px; border-top: 1px solid rgba(255, 255, 255, 0.04); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; min-height: 24px;">
+        <div style="font-family: var(--font-mono); font-size: 0.70rem; color: var(--text-dim); padding-top: 6px; border-top: 1px solid rgba(255, 255, 255, 0.04); display: flex; align-items: center; gap: 8px; min-height: 20px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
             {priced_in_footer_text}
         </div>
     </div>
