@@ -2450,15 +2450,13 @@ def call_gemini_direct(prompt: str, system_instruction: str = "", use_search: bo
 
 
 def markdown_to_memo_html(text: str) -> str:
-    """Converts markdown paragraphs and lists into clean editorial HTML with 100% theme typography."""
+    """Converts markdown paragraphs and lists into clean editorial HTML with structured math cards."""
     if not text:
         return "<p>—</p>"
     
     # Strip any emojis
     emoji_pattern = re.compile("[\U00010000-\U0010ffff\U00002600-\U000027ff\U00002300-\U000023ff\U00002b50-\U00002b55\U0000200d\U0000fe0f]", flags=re.UNICODE)
     clean_text = emoji_pattern.sub("", text).strip()
-    
-    # Replace **text** with <strong>text</strong>
     clean_text = re.sub(r"\*\*(.*?)\*\*", r"<strong>\1</strong>", clean_text)
     
     blocks = clean_text.split("\n\n")
@@ -2469,18 +2467,32 @@ def markdown_to_memo_html(text: str) -> str:
         if not lines:
             continue
         
-        # Check if numbered list (e.g. "1. ", "Step 1: ", etc.)
         is_numbered = bool(re.match(r"^\d+[\.\)]\s+", lines[0]) or lines[0].lower().startswith("step ") or (len(lines) > 1 and re.match(r"^\d+[\.\)]\s+", lines[1])))
         is_bullet = bool(lines[0].startswith("- ") or lines[0].startswith("• ") or lines[0].startswith("* "))
         
         if is_numbered:
-            items = []
-            for line in lines:
+            cards = []
+            for idx, line in enumerate(lines, start=1):
                 cleaned_line = re.sub(r"^(?:\d+[\.\)]|step\s+\d+:?|•|-|\*)\s*", "", line, flags=re.IGNORECASE).strip()
-                if cleaned_line:
-                    items.append(f"<li>{cleaned_line}</li>")
-            if items:
-                html_parts.append(f"<ol>{''.join(items)}</ol>")
+                if not cleaned_line:
+                    continue
+                if ":" in cleaned_line:
+                    lbl, val = cleaned_line.split(":", 1)
+                    lbl = lbl.strip()
+                    val = val.strip()
+                else:
+                    lbl = f"Step {idx}"
+                    val = cleaned_line
+                cards.append(f"""
+                <div class="math-step-item">
+                    <div class="math-step-badge">{idx}</div>
+                    <div class="math-step-main">
+                        <div class="math-step-label">{lbl}</div>
+                        <div class="math-step-body">{val}</div>
+                    </div>
+                </div>""")
+            if cards:
+                html_parts.append(f'<div class="math-steps-ledger">{"".join(cards)}</div>')
         elif is_bullet:
             items = []
             for line in lines:
@@ -2804,8 +2816,35 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
     </section>
     """
 
-    action_signal = "BUY" if (owner_yield >= 8.0 or p_oe <= 15.0) else "HOLD"
-    target_5y = current_price * 1.35 if action_signal == "BUY" else current_price * 1.10
+    p4_text = info.get("what_if_it_keeps_going_that_way", "")
+    extracted_target = None
+    if p4_text:
+        m = re.search(r'(?:target price|expected|fair value|target|share price)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p4_text, re.IGNORECASE)
+        if m:
+            try:
+                extracted_target = float(m.group(1))
+            except Exception:
+                pass
+
+    if extracted_target and extracted_target > 0:
+        target_5y = extracted_target
+    else:
+        action_signal = "BUY" if (owner_yield >= 8.0 or p_oe <= 15.0) else "HOLD"
+        target_5y = current_price * 1.35 if action_signal == "BUY" else current_price * 1.10
+
+    p2_text = info.get("why_it_might_be_right", "")
+    extracted_bear = None
+    if p2_text:
+        m_b = re.search(r'(?:target price|implied price|fair value|downside|exit price)[^\$\d]*\$([0-9]+(?:\.[0-9]+)?)', p2_text, re.IGNORECASE)
+        if m_b:
+            try:
+                extracted_bear = float(m_b.group(1))
+            except Exception:
+                pass
+    bear_target_val = extracted_bear if (extracted_bear and extracted_bear > 0) else round(current_price * 0.75, 2)
+    bull_target_val = round(target_5y * 1.25, 2)
+
+    action_signal = "BUY" if (target_5y > current_price * 1.15 or owner_yield >= 10.0) else "HOLD"
 
     meta = {
         "company_name": company_name,
@@ -2828,13 +2867,13 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         "fair_value_estimate": f"${target_5y:.2f}",
         "expected_fair_value": f"${target_5y:.2f}",
         "expected_val": target_5y,
-        "bear_target": f"${current_price * 0.75:.2f}",
+        "bear_target": f"${bear_target_val:.2f}",
         "base_target": f"${target_5y:.2f}",
-        "bull_target": f"${target_5y * 1.25:.2f}",
+        "bull_target": f"${bull_target_val:.2f}",
         "what_is_priced_in": f"{p_oe:.1f}x P/OE",
         "executive_summary": info.get("how_things_are_going_now", "")[:250],
-        "upper_alert_threshold": round(current_price * 1.20, 2),
-        "lower_alert_threshold": round(current_price * 0.85, 2),
+        "upper_alert_threshold": round(max(current_price * 1.20, target_5y * 0.95), 2),
+        "lower_alert_threshold": round(min(current_price * 0.85, bear_target_val * 1.05), 2),
         "stories": [
             {
                 "title": "Market Skepticism Pricing",

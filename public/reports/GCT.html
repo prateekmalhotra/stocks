@@ -77,17 +77,25 @@
             background: var(--bg-panel);
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            padding: 36px 40px;
-            margin-bottom: 28px;
+            padding: 26px 30px 28px;
+            margin-bottom: 24px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.02);
         }
 
-        .hero-title-area { display: flex; align-items: center; gap: 16px; }
-        .hero-title-text { display: flex; flex-direction: column; gap: 3px; }
-        .ticker-header-line { display: flex; align-items: baseline; gap: 12px; }
+        .hero-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .hero-title-area { display: flex; align-items: center; gap: 14px; }
+        .hero-title-text { display: flex; flex-direction: column; gap: 2px; }
+        .ticker-header-line { display: flex; align-items: baseline; gap: 10px; }
         .ticker-symbol {
             font-family: var(--font-display);
-            font-size: 2.45rem;
+            font-size: 2.35rem;
             font-weight: 700;
             letter-spacing: -0.035em;
             color: #F0ECE4;
@@ -95,7 +103,7 @@
         }
         .company-name-meta {
             color: #9E978C;
-            font-size: 0.95rem;
+            font-size: 0.94rem;
             font-family: var(--font-sans);
             font-weight: 400;
             letter-spacing: -0.01em;
@@ -147,16 +155,16 @@
         }
 
         .price-callout { text-align: right; }
-        .price-number { font-size: 2.6rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); }
-        .price-sub { font-size: 0.88rem; font-family: var(--font-mono); margin-top: 2px; color: var(--text-secondary); }
+        .price-number { font-size: 2.35rem; font-weight: 500; font-family: var(--font-mono); color: var(--text-title); line-height: 1.05; }
+        .price-sub { font-size: 0.78rem; font-family: var(--font-mono); margin-top: 3px; color: var(--text-secondary); }
 
         /* Native SVG Area Chart */
         .native-chart-wrap {
-            margin-top: 28px;
-            background: var(--bg-panel);
+            margin-top: 0;
+            background: var(--bg-subpanel);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 20px;
+            padding: 16px 18px 12px;
             position: relative;
         }
         .chart-top-bar {
@@ -201,9 +209,24 @@
 
         .chart-svg {
             width: 100%;
-            height: 220px;
+            height: 200px;
             overflow: visible;
             display: block;
+        }
+        .chart-x-axis {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1px solid var(--border-color);
+            font-family: var(--font-mono);
+            font-size: 0.70rem;
+            color: var(--text-dim);
+            user-select: none;
+        }
+        .chart-x-tick {
+            white-space: nowrap;
         }
 
         /* Clean 3-Column Metrics Grid */
@@ -211,7 +234,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 14px;
-            margin-top: 24px;
+            margin-top: 20px;
         }
         .metric-card {
             background: var(--bg-subpanel);
@@ -719,7 +742,7 @@
     <!-- Top Nav -->
     <nav class="nav-bar">
         <div class="container nav-inner">
-            <a href="/" class="nav-back">← Back to Watchlist</a>
+            <a href="../" class="nav-back">← Back to Watchlist</a>
         </div>
     </nav>
 
@@ -742,11 +765,13 @@
                 </div>
             </div>
 
-            <!-- Native SVG Area Chart (NO TARGET LINES) -->
+            <!-- Native SVG Area Chart with 5Y Continuation Target Line -->
             <div class="native-chart-wrap">
                 <div class="chart-top-bar">
                     <div class="chart-live-val">
-                        <span id="tooltip-date">Aug 21, 2026</span> &bull; <strong id="tooltip-price" style="color: var(--accent-warm);">$49.65</strong>
+                        <span id="tooltip-date">Aug 21, 2026</span> &bull; <strong id="tooltip-price" style="color: #82AE8C;">$49.65</strong>
+                        <span class="meta-sep" style="margin: 0 6px; color: var(--text-dim);">·</span>
+                        <span style="color: var(--accent-warm); font-size: 0.80rem;">5Y Target: <strong>$67.03</strong></span>
                     </div>
                     <div class="chart-range-pills">
                         <button class="range-pill" onclick="switchRange('1D')">1D</button>
@@ -756,27 +781,39 @@
                         <button class="range-pill" onclick="switchRange('MAX')">MAX</button>
                     </div>
                 </div>
-                <div style="position: relative; width: 100%; height: 220px;">
-                    <svg id="interactive-svg" class="chart-svg" viewBox="0 0 900 220" preserveAspectRatio="none">
+                <div style="position: relative; width: 100%; height: 200px;">
+                    <svg id="interactive-svg" class="chart-svg" viewBox="0 0 900 200" preserveAspectRatio="none">
                         <defs>
                             <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
                                 <stop offset="0%" stop-color="#82AE8C" stop-opacity="0.22" />
                                 <stop offset="100%" stop-color="#82AE8C" stop-opacity="0.0" />
                             </linearGradient>
                         </defs>
-                        <line x1="10" y1="15" x2="890" y2="15" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
-                        <line x1="10" y1="110.0" x2="890" y2="110.0" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
-                        <line x1="10" y1="205" x2="890" y2="205" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="2 4" />
+                        <!-- Horizontal Grid Lines & Y-Axis Prices -->
+                        <text id="grid-price-high" x="884" y="23" text-anchor="end" fill="#6E685E" font-family="var(--font-mono)" font-size="10.5">$0.00</text>
+                        <line x1="10" y1="12" x2="890" y2="12" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="2 4" />
+
+                        <text id="grid-price-mid" x="884" y="103.0" text-anchor="end" fill="#6E685E" font-family="var(--font-mono)" font-size="10.5">$0.00</text>
+                        <line x1="10" y1="100.0" x2="890" y2="100.0" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="2 4" />
+
+                        <text id="grid-price-low" x="884" y="184" text-anchor="end" fill="#6E685E" font-family="var(--font-mono)" font-size="10.5">$0.00</text>
+                        <line x1="10" y1="188" x2="890" y2="188" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="2 4" />
                         
+                        <!-- 5Y Target Dotted Line & Tag -->
+                        <line id="target-line" x1="10" y1="12" x2="890" y2="12" stroke="#D4A373" stroke-width="1.6" stroke-dasharray="4 4" opacity="0.85" />
+                        <text id="target-label" x="884" y="8" text-anchor="end" fill="#D4A373" font-family="var(--font-mono)" font-size="10.5" font-weight="600">5Y Target: $67.03</text>
+
                         <!-- Dynamic Area & Stroke -->
                         <polygon id="chart-area" fill="url(#area-grad)" points="" />
                         <polyline id="chart-line" fill="none" stroke="#82AE8C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" points="" />
                         
                         <!-- Hover Crosshair & Marker -->
-                        <line id="hover-line" x1="0" y1="0" x2="0" y2="220" stroke="rgba(212, 163, 115, 0.4)" stroke-width="1" stroke-dasharray="3 3" opacity="0" />
+                        <line id="hover-line" x1="0" y1="0" x2="0" y2="200" stroke="rgba(212, 163, 115, 0.4)" stroke-width="1" stroke-dasharray="3 3" opacity="0" />
                         <circle id="hover-dot" r="4.5" fill="#D4A373" stroke="#1B1A19" stroke-width="2" opacity="0" />
                     </svg>
                 </div>
+                <!-- X-Axis Timeline Dates -->
+                <div class="chart-x-axis" id="chart-x-axis"></div>
             </div>
 
             <!-- 6-Box Derived Financial Metrics Grid -->
@@ -817,7 +854,7 @@
         <!-- Navigation Tabs -->
         <div class="nav-tabs">
             <button class="nav-tab active" onclick="switchTab('thesis', this)">Investment Thesis</button>
-            <button class="nav-tab" onclick="switchTab('evolution', this)">Thesis Evolution <span class="tab-badge">1</span></button>
+            <button class="nav-tab" onclick="switchTab('evolution', this)">Thesis Evolution <span class="tab-badge">0</span></button>
             <button class="nav-tab" onclick="switchTab('alerts', this)">Alerts & Catalysts <span class="tab-badge">0</span></button>
             <button class="nav-tab" onclick="switchTab('ownership', this)">Ownership & Fund Intel</button>
         </div>
@@ -939,128 +976,9 @@
                 <h2 class="memo-title" style="margin-bottom: 24px;">Thesis Evolution & Historical Audits</h2>
                 <div class="evolution-timeline">
                     
-        <div class="evolution-card active-version-card">
-            <div class="evolution-header">
-                <div class="evolution-title-row">
-                    <span class="evolution-vnum">Version 1</span>
-                    <span class="evolution-status-text status-active">Live Active</span>
-                    <span class="evolution-date">· 2026-08-21</span>
-                </div>
-                <div class="evolution-price">Snapshot Price: <strong>$49.65</strong></div>
-            </div>
-            <div class="evolution-reason">
-                <span class="reason-label">Trigger / Reason:</span> Genesis Initial Underwriting
-            </div>
-            <div class="evolution-metrics-text-row">
-                <span>OE: <strong>$4.02/sh</strong></span>
-                <span class="meta-sep">·</span>
-                <span>P/OE: <strong>12.4x</strong></span>
-                <span class="meta-sep">·</span>
-                <span>ROIC: <strong>22.2%</strong></span>
-                <span class="meta-sep">·</span>
-                <span>Moat: <strong>Narrow Moat</strong></span>
-            </div>
-            <div class="evolution-change-text">Despite short-seller skepticism, GigaCloud's statutory filings and Q2 2026 earnings show robust operational health and widening platform scale. Total revenue grew +27.6% YoY to $411.6M, while Gross Margin expanded 170 basis points YoY to 25.6%, drivi</div>
-            <details class="archived-accordion">
-                <summary class="archived-summary">Inspect Thesis Memo (v1)</summary>
-                <div class="archived-content-body">
-                    
-            <div class="archived-memo-section">
-                <div class="archived-memo-sub">1. What the Market is Pricing In</div>
-                <div><p>At today's share price of $49.65 and a modest 12.4x P/OE multiple, Mr. Market is pricing in substantial forensic accounting risks, margin degradation, and structural organic slowdown. The skeptical narrative—championed by prominent short-seller reports—claims that GigaCloud's impressive top-line numbers are bolstered by an undisclosed network of employee-linked Chinese shell entities (such as J&A International and General Sherman International) acting as artificial 1P buyers to recycle inventory and inflate Gross Merchandise Value (GMV). Furthermore, critics assert that GCT's revenue growth is driven by low-margin gross-versus-net delivery pass-through fees under ASC 606 and distressed physical furniture distributor acquisitions (e.g., Noble House and New Classic) rather than organic software marketplace expansion. Investors are also discounting the stock due to geopolitical risks around U.S.-China cross-border trade tariffs, potential PRC outbound capital control frictions, past federal securities class-action litigation ($2.75M settlement), auditor transitions, and persistent executive insider stock sales during rallies.</p></div>
-            </div>
-            <div class="archived-memo-section">
-                <div class="archived-memo-sub">2. Why the Market Might Be Right</div>
-                <div><div class="math-steps-ledger">
-                <div class="math-step-item">
-                    <div class="math-step-badge">1</div>
-                    <div class="math-step-main">
-                        <div class="math-step-label">Starting Owner Earnings</div>
-                        <div class="math-step-body">$4.02 per share.</div>
-                    </div>
-                </div>
-                <div class="math-step-item">
-                    <div class="math-step-badge">2</div>
-                    <div class="math-step-main">
-                        <div class="math-step-label">Realistic Skeptic Exit Multiple</div>
-                        <div class="math-step-body">10.0x P/OE, reflecting persistent market distrust regarding Chinese cross-border trade risks, regulatory overhangs, and low-margin logistics distribution mix.</div>
-                    </div>
-                </div>
-                <div class="math-step-item">
-                    <div class="math-step-badge">3</div>
-                    <div class="math-step-main">
-                        <div class="math-step-label">Implied Year 5 Owner Earnings</div>
-                        <div class="math-step-body">To match today's stock price of $49.65 at a 10.0x exit multiple after subtracting balance sheet net debt/cash of $-3.50 per share, the implied operating business value must be $53.15 per share ($49.65 - ($-3.50)). Dividing $53.15 by 10.0x requires Year 5 Owner Earnings of $5.32 per share.</div>
-                    </div>
-                </div>
-                <div class="math-step-item">
-                    <div class="math-step-badge">4</div>
-                    <div class="math-step-main">
-                        <div class="math-step-label">Implied Growth/Decay Rate</div>
-                        <div class="math-step-body">Generating $5.32 in Year 5 Owner Earnings from a baseline of $4.02 implies an annual earnings growth rate of just 5.8% CAGR over the next 5 years.</div>
-                    </div>
-                </div>
-                <div class="math-step-item">
-                    <div class="math-step-badge">5</div>
-                    <div class="math-step-main">
-                        <div class="math-step-label">Business Risk Rationale</div>
-                        <div class="math-step-body">This severe growth deceleration would be justified if short-seller claims prove partially true, if core 3P marketplace volumes stagnate, or if spikes in ocean container freight rates and new U.S. cross-border tariffs compress gross margins while macro weakness in U.S. home furnishings triggers inventory write-downs.</div>
-                    </div>
-                </div></div></div>
-            </div>
-            <div class="archived-memo-section">
-                <div class="archived-memo-sub">3. How Things Are Going Now</div>
-                <div><p>Despite short-seller skepticism, GigaCloud's statutory filings and Q2 2026 earnings show robust operational health and widening platform scale. Total revenue grew +27.6% YoY to $411.6M, while Gross Margin expanded 170 basis points YoY to 25.6%, driving Q2 net income up +22.3% YoY to $42.3M ($1.16 GAAP EPS / $1.65 Non-GAAP Adjusted EPS). Crucially, the growth is quality-driven: total TTM marketplace GMV reached $1.745B (+21.3% YoY), powered by higher-margin 3P marketplace GMV which surged +27.0% YoY to $962.3M (55.2% of total GMV). Platform network effects continue to broaden, with active 3P sellers expanding +26.1% YoY to 1,465 and active buyers rising +17.1% YoY to 12,823 (averaging $136,069 in spend per buyer). Geographic diversification is accelerating as European quarterly GMV surged +66% YoY. Management generates an audited Owner ROIC of 22.2% and is aggressively defending intrinsic value, repurchasing $47.7M in stock YTD in 2026 and approving a fresh $120.0M share buyback authorization.</p></div>
-            </div>
-            <div class="archived-memo-section">
-                <div class="archived-memo-sub">4. What If It Keeps Going That Way</div>
-                <div><div class="math-steps-ledger">
-                <div class="math-step-item">
-                    <div class="math-step-badge">1</div>
-                    <div class="math-step-main">
-                        <div class="math-step-label">Starting Owner Earnings</div>
-                        <div class="math-step-body">$4.02 per share.</div>
-                    </div>
-                </div>
-                <div class="math-step-item">
-                    <div class="math-step-badge">2</div>
-                    <div class="math-step-main">
-                        <div class="math-step-label">Modest 5-year compounding rate</div>
-                        <div class="math-step-body">Assuming annual earnings growth decelerates conservatively to 10.0% CAGR (well below recent 27.6% top-line growth), Year 5 Owner Earnings reach $6.47 per share ($4.02 x 1.10^5).</div>
-                    </div>
-                </div>
-                <div class="math-step-item">
-                    <div class="math-step-badge">3</div>
-                    <div class="math-step-main">
-                        <div class="math-step-label">Conservative terminal multiple</div>
-                        <div class="math-step-body">13.0x P/OE, representing a slight valuation multiple for a business with a 22.2% ROIC and asset-light 3P marketplace network effects.</div>
-                    </div>
-                </div>
-                <div class="math-step-item">
-                    <div class="math-step-badge">4</div>
-                    <div class="math-step-main">
-                        <div class="math-step-label">Year 5 operating business value</div>
-                        <div class="math-step-body">$6.47 x 13.0x = $84.11 per share.</div>
-                    </div>
-                </div>
-                <div class="math-step-item">
-                    <div class="math-step-badge">5</div>
-                    <div class="math-step-main">
-                        <div class="math-step-label">Expected 5-year share price</div>
-                        <div class="math-step-body">Adding the balance sheet net debt/cash metric of $-3.50 per share yields an expected Year 5 stock price of $80.61 per share ($84.11 + ($-3.50)).</div>
-                    </div>
-                </div>
-                <div class="math-step-item">
-                    <div class="math-step-badge">6</div>
-                    <div class="math-step-main">
-                        <div class="math-step-label">Expected 5-year annualized IRR</div>
-                        <div class="math-step-body">Measured from today's entry price of $49.65, this scenario generates a solid 10.2% annualized return, providing a meaningful margin of safety even under conservative growth assumptions.</div>
-                    </div>
-                </div></div></div>
-            </div>
-            
-                </div>
-            </details>
+        <div style="background: var(--bg-subpanel); border: 1px solid var(--border-color); border-radius: 12px; padding: 32px 36px; text-align: center;">
+            <div style="font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; color: var(--text-title); margin-bottom: 6px;">Genesis Baseline Thesis Active (Version 1)</div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; max-width: 580px; margin: 0 auto;">No historical evolution revisions yet. When earnings results, guidance shifts, or major fundamental events trigger a model update, the previous baseline will be archived here with full metric diffs.</div>
         </div>
         
                 </div>
@@ -1105,7 +1023,7 @@
         <!-- TAB 4: Ownership & Regulatory Portals -->
         <div id="tab-ownership" class="tab-pane">
             <div class="ownership-wrap">
-                <div class="portals-grid">
+                <div class="portals-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
                     <a href="http://openinsider.com/search?q=GCT" target="_blank" rel="noopener noreferrer" class="portal-card">
                         <div class="portal-header">
                             <span class="portal-name">OpenInsider SEC Form 4 Tracker</span>
@@ -1118,21 +1036,7 @@
                             <span class="portal-name">Dataroma Superinvestor Registry</span>
                             <span class="portal-arrow">↗</span>
                         </div>
-                        <div class="portal-desc">Live 13F superinvestor tracking showing top institutional value funds, Berkshire Hathaway, and hedge fund portfolio weightings.</div>
-                    </a>
-                    <a href="https://whalewisdom.com/stock/gct" target="_blank" rel="noopener noreferrer" class="portal-card">
-                        <div class="portal-header">
-                            <span class="portal-name">WhaleWisdom 13F Ownership</span>
-                            <span class="portal-arrow">↗</span>
-                        </div>
-                        <div class="portal-desc">Comprehensive institutional holders, top 100 hedge fund concentration, and quarterly portfolio positioning changes for GCT.</div>
-                    </a>
-                    <a href="https://www.sec.gov/edgar/searchedgar/companysearch?company=GCT" target="_blank" rel="noopener noreferrer" class="portal-card">
-                        <div class="portal-header">
-                            <span class="portal-name">SEC EDGAR Official Filings</span>
-                            <span class="portal-arrow">↗</span>
-                        </div>
-                        <div class="portal-desc">Direct SEC repository for statutory 10-K/20-F annual reports, quarterly 10-Q disclosures, and 8-K material event filings.</div>
+                        <div class="portal-desc">Live 13F superinvestor tracking showing top institutional value funds, Berkshire Hathaway, and hedge fund portfolio weightings for GCT.</div>
                     </a>
                 </div>
             </div>
@@ -1166,18 +1070,36 @@
                 return;
             }
 
+            const targetPrice = 67.03;
             const prices = points.map(p => p.price);
             let minP = Math.min(...prices);
             let maxP = Math.max(...prices);
+            if (targetPrice && targetPrice > 0) {
+                maxP = Math.max(maxP, targetPrice * 1.04);
+                minP = Math.min(minP, targetPrice * 0.96);
+            }
             if (minP === maxP) { minP *= 0.95; maxP *= 1.05; }
             const rangeP = maxP - minP;
 
             const width = 900;
-            const height = 220;
+            const height = 200;
             const padX = 10;
-            const padY = 15;
+            const padY = 12;
             const drawW = width - (2 * padX);
             const drawH = height - (2 * padY);
+
+            // Dynamically position 5Y Target line and label
+            const targetLine = document.getElementById('target-line');
+            const targetLabel = document.getElementById('target-label');
+            if (targetLine && targetPrice > 0) {
+                const targetY = padY + drawH - ((targetPrice - minP) / rangeP) * drawH;
+                targetLine.setAttribute('y1', targetY.toFixed(1));
+                targetLine.setAttribute('y2', targetY.toFixed(1));
+                if (targetLabel) {
+                    targetLabel.setAttribute('y', (targetY - 5).toFixed(1));
+                    targetLabel.textContent = '5Y Target: $' + targetPrice.toFixed(2);
+                }
+            }
 
             const coords = points.map((p, idx) => {
                 const x = padX + (idx / (points.length - 1)) * drawW;
@@ -1195,6 +1117,27 @@
             const lastPt = coords[coords.length - 1];
             tooltipDate.textContent = lastPt.date;
             tooltipPrice.textContent = '$' + lastPt.price.toFixed(2);
+
+            // Update Y-Axis Prices
+            const highEl = document.getElementById('grid-price-high');
+            const midEl = document.getElementById('grid-price-mid');
+            const lowEl = document.getElementById('grid-price-low');
+            if (highEl) highEl.textContent = '$' + maxP.toFixed(2);
+            if (midEl) midEl.textContent = '$' + ((maxP + minP) / 2).toFixed(2);
+            if (lowEl) lowEl.textContent = '$' + minP.toFixed(2);
+
+            // Populate X-Axis Ticks
+            const xAxis = document.getElementById('chart-x-axis');
+            if (xAxis && points.length > 0) {
+                const tickCount = Math.min(5, points.length);
+                let ticksHtml = '';
+                for (let i = 0; i < tickCount; i++) {
+                    const ptIdx = Math.floor((i / (tickCount - 1)) * (points.length - 1));
+                    const dStr = points[ptIdx].date;
+                    ticksHtml += `<span class="chart-x-tick">${dStr}</span>`;
+                }
+                xAxis.innerHTML = ticksHtml;
+            }
 
             // Interactive Crosshair Scrub
             svg.onmousemove = function(e) {
