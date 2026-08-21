@@ -945,12 +945,18 @@ def build_native_svg_chart(
         const endLbl = document.getElementById('chart-end-lbl');
         const rangeTitle = document.getElementById('chart-range-title');
 
+        const heroPriceNum = document.querySelector('.price-number');
+        const heroPriceSub = document.querySelector('.price-sub');
+        const defaultHeroPrice = heroPriceNum ? heroPriceNum.innerText : '';
+        const defaultHeroSub = heroPriceSub ? heroPriceSub.innerText : '';
+        const defaultHeroSubClass = heroPriceSub ? heroPriceSub.className : '';
+
         function recalculatePaths(points) {{
             if (!points || points.length < 2) return;
             const prices = points.map(p => p.price);
             const evalPrices = [...prices];
             for (const t of targets) {{
-                if (t.val !== null && !isNaN(t.val)) evalPrices.push(t.val);
+                if (t.val !== null && !isNaN(t.val) && t.val > 0) evalPrices.push(t.val);
             }}
 
             const rawMin = Math.min(...evalPrices);
@@ -993,6 +999,7 @@ def build_native_svg_chart(
                     lineEl.style.display = 'block';
                     labelEl.setAttribute('y', y - 4);
                     const diff = liveTodayPrice > 0 ? ((t.val - liveTodayPrice) / liveTodayPrice * 100) : 0;
+                    const sign = diff >= 0 ? '+' : '';
                     const multTxt = t.mult ? ' · ' + t.mult + 'x OE' : '';
                     const titleTxt = t.title ? t.title : ('Path ' + t.id);
                     labelEl.textContent = titleTxt + ' $' + t.val.toFixed(2) + ' (' + sign + diff.toFixed(1) + '%' + multTxt + ')';
@@ -1003,15 +1010,15 @@ def build_native_svg_chart(
                 }}
             }}
 
-            startLbl.innerText = points[0].date + ' ($' + Math.min(...prices).toFixed(2) + ')';
-            endLbl.innerText = points[n - 1].date + ' ($' + points[n - 1].price.toFixed(2) + ')';
+            if (startLbl && points.length) startLbl.innerText = points[0].date + ' ($' + points[0].price.toFixed(2) + ')';
+            if (endLbl && points.length) endLbl.innerText = points[n - 1].date + ' ($' + points[n - 1].price.toFixed(2) + ')';
             
-            tooltipDate.innerText = points[n - 1].date;
-            tooltipPrice.innerText = '$' + points[n - 1].price.toFixed(2);
+            if (tooltipDate && points.length) tooltipDate.innerText = points[n - 1].date;
+            if (tooltipPrice && points.length) tooltipPrice.innerText = '$' + points[n - 1].price.toFixed(2);
             if (tooltipDelta) tooltipDelta.innerText = '';
 
             const titles = {{ '1Y': '1-Year Range', '5Y': '5-Year Range', '10Y': '10-Year Range', 'MAX': 'All-Time Historical Range' }};
-            rangeTitle.innerText = titles[currentRangeKey] || currentRangeKey + ' Range';
+            if (rangeTitle) rangeTitle.innerText = titles[currentRangeKey] || currentRangeKey + ' Range';
         }}
 
         window.switchChartRange = function(rangeKey) {{
