@@ -6,7 +6,7 @@
     "current_price": 308.77,
     "return_pct": 0.0,
     "status_label": "Wide Moat",
-    "moat_label": "Wide Moat",
+    "moat_label": "Narrow Moat",
     "labels": [
       "Wide Moat"
     ],
@@ -372,5 +372,754 @@
     "last_updated": "2026-08-21",
     "total_versions": 1,
     "report_path": "reports/APP.html"
+  },
+  "LULU": {
+    "ticker": "LULU",
+    "company_name": "lululemon athletica inc.",
+    "baseline_price": 115.69,
+    "current_price": 115.69,
+    "return_pct": 0.0,
+    "status_label": "Narrow Moat",
+    "moat_label": "Narrow Moat",
+    "labels": [
+      "Narrow Moat"
+    ],
+    "action_signal": "BUY",
+    "fair_value_estimate": "$176.28",
+    "expected_fair_value": "$176.28",
+    "expected_val": 176.28,
+    "stories": [
+      {
+        "story_num": 1,
+        "id": 1,
+        "story_title": "Path 1: International Compounding & Core Athleisure Fleet Stability",
+        "title": "Path 1: International Compounding & Core Athleisure Fleet Stability",
+        "short_summary": "Lululemon continues its steady growth trajectory powered by mid-teens international store expansion and stable North American replacement comps. Operating margins gently expand to 20.4% as high-margin DTC penetration and disciplined cost management yield $15.63 in Year-5 Owner Earnings per share.",
+        "summary": "Lululemon continues its steady growth trajectory powered by mid-teens international store expansion and stable North American replacement comps. Operating margins gently expand to 20.4% as high-margin DTC penetration and disciplined cost management yield $15.63 in Year-5 Owner Earnings per share.",
+        "oe_multiple": "18.5x",
+        "oe_yield": "5.4%",
+        "terminal_multiple": "18.5x",
+        "val": 304.34,
+        "present_fair_value": 193.33,
+        "mos_pct": 67.1,
+        "target_5y_return_pct": 163.1,
+        "target_5y_cagr_pct": 21.3,
+        "target": "$304.34 (+163.1%)",
+        "prob_pct": 50.0,
+        "prob_weight": 0.5,
+        "net_cash_per_share": 15.18,
+        "normalized_oe_per_share": 8.77,
+        "projected_oe5_per_share": 15.63,
+        "projected_5y_cagr": "+12.3% (+4.9% Rev)",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            11102.6,
+            12258.8,
+            13535.4,
+            14944.9,
+            16501.2,
+            18219.6
+          ],
+          "gross_margin_pct": [
+            50.0,
+            50.6,
+            51.2,
+            51.8,
+            52.5,
+            53.1
+          ],
+          "operating_income_mil": [
+            2209.4,
+            2562.1,
+            2964.3,
+            3422.4,
+            3927.3,
+            4518.5
+          ],
+          "operating_margin_pct": [
+            19.9,
+            20.9,
+            21.9,
+            22.9,
+            23.8,
+            24.8
+          ],
+          "normalized_net_income_mil": [
+            1096.7,
+            1207.8,
+            1330.8,
+            1466.0,
+            1616.6,
+            1780.7
+          ],
+          "owner_earnings_mil": [
+            1044.5,
+            1150.3,
+            1267.4,
+            1396.2,
+            1539.6,
+            1695.9
+          ],
+          "diluted_shares_mil": [
+            119.1,
+            116.9,
+            114.7,
+            112.6,
+            110.6,
+            108.5
+          ],
+          "oe_per_share": [
+            8.77,
+            9.84,
+            11.05,
+            12.4,
+            13.92,
+            15.63
+          ],
+          "roic_pct": [
+            25.0,
+            27.5,
+            29.9,
+            32.4,
+            34.8,
+            37.3
+          ]
+        },
+        "oe5": 15.63,
+        "cagr": "+4.9%",
+        "multiple": "18.5x"
+      },
+      {
+        "story_num": 2,
+        "id": 2,
+        "story_title": "Path 2: Domestic Saturation, Premium Competition & Operating Margin Compression",
+        "title": "Path 2: Domestic Saturation, Premium Competition & Operating Margin Compression",
+        "short_summary": "Lululemon faces intensified market share competition in North America from emerging premium activewear rivals, causing same-store sales deceleration, inventory promotional markdowns, and SG&A deleverage that compresses operating margins to 15.5%.",
+        "summary": "Lululemon faces intensified market share competition in North America from emerging premium activewear rivals, causing same-store sales deceleration, inventory promotional markdowns, and SG&A deleverage that compresses operating margins to 15.5%.",
+        "oe_multiple": "17.0x",
+        "oe_yield": "5.9%",
+        "terminal_multiple": "17.0x",
+        "val": 154.07,
+        "present_fair_value": 97.87,
+        "mos_pct": -15.4,
+        "target_5y_return_pct": 33.2,
+        "target_5y_cagr_pct": 5.9,
+        "target": "$154.07 (+33.2%)",
+        "prob_pct": 35.0,
+        "prob_weight": 0.35,
+        "net_cash_per_share": 15.18,
+        "normalized_oe_per_share": 8.77,
+        "projected_oe5_per_share": 8.17,
+        "projected_5y_cagr": "-1.4% (+2.1% Rev)",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            11102.6,
+            10969.8,
+            10838.6,
+            10708.9,
+            10580.8,
+            10454.2
+          ],
+          "gross_margin_pct": [
+            50.0,
+            49.9,
+            49.9,
+            49.8,
+            49.7,
+            49.6
+          ],
+          "operating_income_mil": [
+            2209.4,
+            2172.0,
+            2135.2,
+            2098.9,
+            2063.3,
+            2017.7
+          ],
+          "operating_margin_pct": [
+            19.9,
+            19.8,
+            19.7,
+            19.6,
+            19.5,
+            19.3
+          ],
+          "normalized_net_income_mil": [
+            1096.7,
+            1081.7,
+            1065.4,
+            1050.4,
+            1036.7,
+            1021.7
+          ],
+          "owner_earnings_mil": [
+            1044.5,
+            1030.2,
+            1014.7,
+            1000.4,
+            987.3,
+            973.0
+          ],
+          "diluted_shares_mil": [
+            119.1,
+            119.1,
+            119.1,
+            119.1,
+            119.1,
+            119.1
+          ],
+          "oe_per_share": [
+            8.77,
+            8.65,
+            8.52,
+            8.4,
+            8.29,
+            8.17
+          ],
+          "roic_pct": [
+            25.0,
+            24.7,
+            24.4,
+            24.2,
+            23.9,
+            23.6
+          ]
+        },
+        "oe5": 8.17,
+        "cagr": "+2.1%",
+        "multiple": "17.0x"
+      },
+      {
+        "story_num": 3,
+        "id": 3,
+        "story_title": "Path 3: Greater China Hyper-Expansion, Men's Category Penetration, and Omnichannel Operating Leverage Re-acceleration",
+        "title": "Path 3: Greater China Hyper-Expansion, Men's Category Penetration, and Omnichannel Operating Leverage Re-acceleration",
+        "short_summary": "Lululemon accelerates 5-year top-line CAGR to +9.3% and expands operating margins by 310 bps to 23.0%, driven by international DTC scaling in Greater China, core fabric franchise refresh in North America, and consistent share buybacks.",
+        "summary": "Lululemon accelerates 5-year top-line CAGR to +9.3% and expands operating margins by 310 bps to 23.0%, driven by international DTC scaling in Greater China, core fabric franchise refresh in North America, and consistent share buybacks.",
+        "oe_multiple": "22.0x",
+        "oe_yield": "4.5%",
+        "terminal_multiple": "22.0x",
+        "val": 476.08,
+        "present_fair_value": 302.42,
+        "mos_pct": 161.4,
+        "target_5y_return_pct": 311.5,
+        "target_5y_cagr_pct": 32.7,
+        "target": "$476.08 (+311.5%)",
+        "prob_pct": 15.0,
+        "prob_weight": 0.15,
+        "net_cash_per_share": 15.18,
+        "normalized_oe_per_share": 8.77,
+        "projected_oe5_per_share": 20.95,
+        "projected_5y_cagr": "+19.0% (+9.3% Rev)",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            11102.6,
+            12898.0,
+            14983.7,
+            17406.7,
+            20221.6,
+            23491.6
+          ],
+          "gross_margin_pct": [
+            50.0,
+            51.0,
+            51.9,
+            52.9,
+            53.8,
+            54.8
+          ],
+          "operating_income_mil": [
+            2209.4,
+            2760.2,
+            3446.3,
+            4264.6,
+            5257.6,
+            6460.2
+          ],
+          "operating_margin_pct": [
+            19.9,
+            21.4,
+            23.0,
+            24.5,
+            26.0,
+            27.5
+          ],
+          "normalized_net_income_mil": [
+            1096.7,
+            1268.3,
+            1465.8,
+            1695.9,
+            1958.9,
+            2265.7
+          ],
+          "owner_earnings_mil": [
+            1044.5,
+            1207.9,
+            1396.0,
+            1615.1,
+            1865.6,
+            2157.8
+          ],
+          "diluted_shares_mil": [
+            119.1,
+            115.7,
+            112.4,
+            109.2,
+            106.0,
+            103.0
+          ],
+          "oe_per_share": [
+            8.77,
+            10.44,
+            12.42,
+            14.79,
+            17.6,
+            20.95
+          ],
+          "roic_pct": [
+            25.0,
+            28.8,
+            32.6,
+            36.4,
+            40.2,
+            44.0
+          ]
+        },
+        "oe5": 20.95,
+        "cagr": "+9.3%",
+        "multiple": "22.0x"
+      }
+    ],
+    "story1_target": "$304.34 (+163.1%)",
+    "story2_target": "$154.07 (+33.2%)",
+    "story3_target": "$476.08 (+311.5%)",
+    "story1_title": "Path 1: International Compounding & Core Athleisure Fleet Stability",
+    "story2_title": "Path 2: Domestic Saturation, Premium Competition & Operating Margin Compression",
+    "story3_title": "Path 3: Greater China Hyper-Expansion, Men's Category Penetration, and Omnichannel Operating Leverage Re-acceleration",
+    "bear_target": "$154.07",
+    "base_target": "$176.28",
+    "bull_target": "$476.08",
+    "what_is_priced_in": "13.2x",
+    "upper_alert_threshold": 476.08,
+    "lower_alert_threshold": 104.12,
+    "next_catalyst_date": "2026-09-03",
+    "next_catalyst_event": "Q2 FY26 Earnings Release",
+    "top_funds": [
+      "Michael Burry - Scion Asset Management (32.35)",
+      "Francois Rochon - Giverny Capital (0.49)",
+      "Tweedy Browne (0.16)",
+      "Prem Watsa - Fairfax Financial Holdings (0.05)"
+    ],
+    "institutional_ownership_pct": "4 Whales",
+    "insider_signal": "Net Buying",
+    "insider_summary": "+$3.0M net purchases across 12 Form 4 transactions",
+    "pricing_power_tier": "Strong Pricing Power",
+    "pricing_power_score": "Inelastic Demand \u00b7 Low Churn",
+    "pricing_power_summary": "Strong Pricing Power: Underwritten via Buffett & Munger pricing power framework.",
+    "predictability_tier": "Moderate Predictability",
+    "predictability_score": "Manageable Visibility \u00b7 Moat Protected",
+    "predictability_summary": "Moderate Predictability: Underwritten via 10-year visibility framework.",
+    "last_updated": "2026-08-21",
+    "total_versions": 1,
+    "report_path": "reports/LULU.html"
+  },
+  "PYPL": {
+    "ticker": "PYPL",
+    "company_name": "PayPal Holdings, Inc.",
+    "baseline_price": 62.3,
+    "current_price": 62.3,
+    "return_pct": 0.0,
+    "status_label": "Narrow Moat",
+    "moat_label": "Narrow Moat",
+    "labels": [
+      "Narrow Moat"
+    ],
+    "action_signal": "CAUTION",
+    "fair_value_estimate": "$55.09",
+    "expected_fair_value": "$55.09",
+    "expected_val": 55.09,
+    "stories": [
+      {
+        "story_num": 1,
+        "id": 1,
+        "story_title": "Path 1: Central Baseline Trend: Branded Checkout Stabilization & Moderate Unbranded Take-Rate Normalization",
+        "title": "Path 1: Central Baseline Trend: Branded Checkout Stabilization & Moderate Unbranded Take-Rate Normalization",
+        "short_summary": "PayPal maintains core branded checkout volume while gradually stabilizing Braintree transaction margins and leveraging cost efficiencies under Alex Chriss, supporting moderate per-share cash growth via share buybacks.",
+        "summary": "PayPal maintains core branded checkout volume while gradually stabilizing Braintree transaction margins and leveraging cost efficiencies under Alex Chriss, supporting moderate per-share cash growth via share buybacks.",
+        "oe_multiple": "15.0x",
+        "oe_yield": "6.7%",
+        "terminal_multiple": "15.0x",
+        "val": 89.39,
+        "present_fair_value": 56.78,
+        "mos_pct": -8.9,
+        "target_5y_return_pct": 43.5,
+        "target_5y_cagr_pct": 7.5,
+        "target": "$89.39 (+43.5%)",
+        "prob_pct": 45.0,
+        "prob_weight": 0.45,
+        "net_cash_per_share": 0.59,
+        "normalized_oe_per_share": 4.22,
+        "projected_oe5_per_share": 5.92,
+        "projected_5y_cagr": "+7.0%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            10000.0,
+            10595.4,
+            11226.2,
+            11894.6,
+            12602.8,
+            13353.1
+          ],
+          "gross_margin_pct": [
+            50.0,
+            50.4,
+            50.7,
+            51.1,
+            51.4,
+            51.8
+          ],
+          "operating_income_mil": [
+            2500.0,
+            2712.4,
+            2930.0,
+            3175.9,
+            3428.0,
+            3712.2
+          ],
+          "operating_margin_pct": [
+            25.0,
+            25.6,
+            26.1,
+            26.7,
+            27.2,
+            27.8
+          ],
+          "normalized_net_income_mil": [
+            381.0,
+            403.9,
+            427.0,
+            452.2,
+            478.5,
+            507.3
+          ],
+          "owner_earnings_mil": [
+            362.9,
+            384.7,
+            406.7,
+            430.7,
+            455.7,
+            483.1
+          ],
+          "diluted_shares_mil": [
+            86.0,
+            85.1,
+            84.2,
+            83.3,
+            82.4,
+            81.6
+          ],
+          "oe_per_share": [
+            4.22,
+            4.52,
+            4.83,
+            5.17,
+            5.53,
+            5.92
+          ],
+          "roic_pct": [
+            25.0,
+            26.4,
+            27.8,
+            29.2,
+            30.6,
+            32.0
+          ]
+        }
+      },
+      {
+        "story_num": 2,
+        "id": 2,
+        "story_title": "Path 2: Unbranded Dilution & Wallet Disintermediation: Structural Margin Compression via Braintree Mix Shift and Pay-Button Disintermediation",
+        "title": "Path 2: Unbranded Dilution & Wallet Disintermediation: Structural Margin Compression via Braintree Mix Shift and Pay-Button Disintermediation",
+        "short_summary": "PayPal faces persistent transaction margin compression as low-margin Braintree unbranded volume outpaces high-margin branded checkout, while Apple Pay and Shop Pay disintermediate core pay buttons.",
+        "summary": "PayPal faces persistent transaction margin compression as low-margin Braintree unbranded volume outpaces high-margin branded checkout, while Apple Pay and Shop Pay disintermediate core pay buttons.",
+        "oe_multiple": "12.0x",
+        "oe_yield": "8.3%",
+        "terminal_multiple": "12.0x",
+        "val": 50.16,
+        "present_fair_value": 31.86,
+        "mos_pct": -48.9,
+        "target_5y_return_pct": -19.5,
+        "target_5y_cagr_pct": -4.2,
+        "target": "$50.16 (-19.5%)",
+        "prob_pct": 35.0,
+        "prob_weight": 0.35,
+        "net_cash_per_share": 0.59,
+        "normalized_oe_per_share": 4.22,
+        "projected_oe5_per_share": 4.13,
+        "projected_5y_cagr": "-0.4%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            10000.0,
+            9963.4,
+            9927.0,
+            9890.7,
+            9854.5,
+            9818.5
+          ],
+          "gross_margin_pct": [
+            50.0,
+            50.0,
+            50.0,
+            49.9,
+            49.9,
+            49.9
+          ],
+          "operating_income_mil": [
+            2500.0,
+            2490.8,
+            2471.8,
+            2462.8,
+            2453.8,
+            2435.0
+          ],
+          "operating_margin_pct": [
+            25.0,
+            25.0,
+            24.9,
+            24.9,
+            24.9,
+            24.8
+          ],
+          "normalized_net_income_mil": [
+            381.0,
+            379.3,
+            377.5,
+            376.5,
+            374.7,
+            373.0
+          ],
+          "owner_earnings_mil": [
+            362.9,
+            361.2,
+            359.5,
+            358.6,
+            356.9,
+            355.2
+          ],
+          "diluted_shares_mil": [
+            86.0,
+            86.0,
+            86.0,
+            86.0,
+            86.0,
+            86.0
+          ],
+          "oe_per_share": [
+            4.22,
+            4.2,
+            4.18,
+            4.17,
+            4.15,
+            4.13
+          ],
+          "roic_pct": [
+            25.0,
+            24.9,
+            24.8,
+            24.7,
+            24.7,
+            24.6
+          ]
+        },
+        "oe5": 4.13,
+        "cagr": "+2.1%",
+        "multiple": "12.0x"
+      },
+      {
+        "story_num": 3,
+        "id": 3,
+        "story_title": "Path 3: Fastlane Acceleration, Venmo Monetization & Enterprise Take-Rate Expansion",
+        "title": "Path 3: Fastlane Acceleration, Venmo Monetization & Enterprise Take-Rate Expansion",
+        "short_summary": "PayPal leverages Fastlane passwordless checkout, accelerated Venmo monetization, and value-added enterprise services to lift gross transaction margins, accelerating top-line growth to a 7.3% CAGR and expanding operating margins to 21.5%.",
+        "summary": "PayPal leverages Fastlane passwordless checkout, accelerated Venmo monetization, and value-added enterprise services to lift gross transaction margins, accelerating top-line growth to a 7.3% CAGR and expanding operating margins to 21.5%.",
+        "oe_multiple": "18.0x",
+        "oe_yield": "5.6%",
+        "terminal_multiple": "18.0x",
+        "val": 144.74,
+        "present_fair_value": 91.94,
+        "mos_pct": 47.6,
+        "target_5y_return_pct": 132.3,
+        "target_5y_cagr_pct": 18.4,
+        "target": "$144.74 (+132.3%)",
+        "prob_pct": 20.0,
+        "prob_weight": 0.2,
+        "net_cash_per_share": 0.59,
+        "normalized_oe_per_share": 4.22,
+        "projected_oe5_per_share": 8.01,
+        "projected_5y_cagr": "+13.7%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            10000.0,
+            11162.4,
+            12459.8,
+            13908.1,
+            15524.7,
+            17329.2
+          ],
+          "gross_margin_pct": [
+            50.0,
+            50.7,
+            51.4,
+            52.1,
+            52.7,
+            53.4
+          ],
+          "operating_income_mil": [
+            2500.0,
+            2913.4,
+            3389.1,
+            3936.0,
+            4564.3,
+            5285.4
+          ],
+          "operating_margin_pct": [
+            25.0,
+            26.1,
+            27.2,
+            28.3,
+            29.4,
+            30.5
+          ],
+          "normalized_net_income_mil": [
+            381.0,
+            424.4,
+            472.1,
+            526.1,
+            586.3,
+            651.8
+          ],
+          "owner_earnings_mil": [
+            362.9,
+            404.2,
+            449.6,
+            501.0,
+            558.4,
+            620.8
+          ],
+          "diluted_shares_mil": [
+            86.0,
+            84.2,
+            82.5,
+            80.8,
+            79.2,
+            77.5
+          ],
+          "oe_per_share": [
+            4.22,
+            4.8,
+            5.45,
+            6.2,
+            7.05,
+            8.01
+          ],
+          "roic_pct": [
+            25.0,
+            27.7,
+            30.5,
+            33.2,
+            35.9,
+            38.7
+          ]
+        },
+        "oe5": 8.01,
+        "cagr": "+7.3%",
+        "multiple": "18.0x"
+      }
+    ],
+    "story1_target": "$89.39 (+43.5%)",
+    "story2_target": "$50.16 (-19.5%)",
+    "story3_target": "$144.74 (+132.3%)",
+    "story1_title": "Path 1: Central Baseline Trend: Branded Checkout Stabilization & Moderate Unbranded Take-Rate Normalization",
+    "story2_title": "Path 2: Unbranded Dilution & Wallet Disintermediation: Structural Margin Compression via Braintree Mix Shift and Pay-Button Disintermediation",
+    "story3_title": "Path 3: Fastlane Acceleration, Venmo Monetization & Enterprise Take-Rate Expansion",
+    "bear_target": "$50.16",
+    "base_target": "$55.09",
+    "bull_target": "$144.74",
+    "what_is_priced_in": "14.8x",
+    "upper_alert_threshold": 144.74,
+    "lower_alert_threshold": 50.16,
+    "next_catalyst_date": "2026-10-27",
+    "next_catalyst_event": "Q3 FY26 Earnings Release",
+    "top_funds": [
+      "Norbert Lou - Punch Card Management (10.61)",
+      "Lindsell Train (5.19)",
+      "Francis Chou - Chou Associates (3.34)",
+      "David Einhorn - Greenlight Capital (1.57)",
+      "Yacktman Asset Management (1.24)",
+      "First Pacific Advisors (1.16)",
+      "David Katz - Matrix Asset Advisors (0.92)",
+      "Mason Hawkins - Southeastern Asset Management (0.05)"
+    ],
+    "institutional_ownership_pct": "8 Whales",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Routine 10b5-1 transactions across 29 Form 4 filings.",
+    "pricing_power_tier": "Strong Pricing Power",
+    "pricing_power_score": "Inelastic Demand \u00b7 Low Churn",
+    "pricing_power_summary": "Strong Pricing Power: Underwritten via Buffett & Munger pricing power framework.",
+    "predictability_tier": "Moderate Predictability",
+    "predictability_score": "Manageable Visibility \u00b7 Moat Protected",
+    "predictability_summary": "Moderate Predictability: Underwritten via 10-year visibility framework.",
+    "last_updated": "2026-08-21",
+    "total_versions": 1,
+    "report_path": "reports/PYPL.html"
   }
 }
