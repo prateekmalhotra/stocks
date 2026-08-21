@@ -645,51 +645,70 @@ def extract_terminal_data_from_html(html: str, num_stories: int = 3) -> List[Dic
     return term_data
 
 
-def extract_priced_in_card_data(stock: Any, html: str = "") -> Dict[str, Any]:
-    """Extracts market implied growth, terminal multiple, and narrative summary from Reverse DCF section."""
+def extract_priced_in_card_data(stock: Any, html: str = "", stories: Optional[List[Dict[str, Any]]] = None) -> Dict[str, Any]:
+    """Calculates the exact first-principles reverse-DCF implied 5-year CAGR required by today's market price."""
     if isinstance(stock, dict):
-        cur_p = float(stock.get("current_price") or stock.get("baseline_price") or 1.0)
+        cur_p = safe_float(stock.get("current_price") or stock.get("baseline_price"), 1.0)
+        stories_list = stories or stock.get("stories") or []
     else:
-        cur_p = float(getattr(stock, "current_price", 1.0) or getattr(stock, "baseline_price", 1.0) or 1.0)
-    res = {
-        "title": "Implied Market Expectations",
-        "summary": f"Current price of ${cur_p:.2f} implies baseline cash flow compounding.",
-        "implied_growth": "7.7% / yr",
-        "implied_terminal": "18x–20x OE",
-        "hurdle_rate": "9.50% hurdle"
-    }
-    
-    if not html:
-        return res
+        cur_p = safe_float(getattr(stock, "current_price", 1.0) or getattr(stock, "baseline_price", 1.0), 1.0)
+        stories_list = stories or getattr(stock, "stories", None) or []
         
-    # 1. Extract Reverse DCF required CAGR row
-    m_row = re.search(r'Normalized Base Run-Rate[^<]*</td>\s*<td>(.*?)</td>(?:\s*<td>(.*?)</td>)?', html, re.IGNORECASE)
-    if m_row:
-        g1 = re.sub(r'<[^>]+>', '', m_row.group(1)).strip()
-        g2 = re.sub(r'<[^>]+>', '', m_row.group(2) or "").strip()
-        if g1 and g2:
-            res["implied_growth"] = f"{g1} to {g2}"
-        elif g1:
-            res["implied_growth"] = g1
-
-    # 2. Extract Reverse DCF exit multiple range from Reverse DCF Table
-    m_rev_table = re.search(r'Reverse DCF Sensitivity Matrix.*?(<table.*?</table>)', html, re.DOTALL | re.IGNORECASE)
-    if m_rev_table:
-        th_matches = re.findall(r'(\d+\.?\d*x)', m_rev_table.group(1), re.IGNORECASE)
-        if th_matches:
-            unique_th = [m.replace('.0x', 'x') for m in list(dict.fromkeys(th_matches))]
-            if len(unique_th) >= 2:
-                res["implied_terminal"] = f"{unique_th[1]}–{unique_th[0]} OE"
-            elif len(unique_th) == 1:
-                res["implied_terminal"] = f"{unique_th[0]} OE"
-
-    # 3. Clean and minimal 1-sentence synthesis
-    g_str = res["implied_growth"].replace("/ yr", "").replace("/yr", "").strip()
-    mult_str = res["implied_terminal"]
-    h_str = res["hurdle_rate"].replace("hurdle", "").strip()
-    res["summary"] = f"Current valuation implies ~{g_str} 5-year Owner Earnings CAGR and a {mult_str} terminal multiple at a {h_str} hurdle rate."
-
-    return res
+    oe0 = 0.0
+    net_cash = 0.0
+    term_mult = 18.0
+    
+    if stories_list and len(stories_list) >= 1:
+        s1 = stories_list[0]
+        oe0 = safe_float(s1.get("normalized_oe_per_share"), 0.0)
+        net_cash = safe_float(s1.get("net_cash_per_share"), 0.0)
+        term_mult = safe_float(s1.get("oe_multiple") or s1.get("terminal_multiple"), 18.0)
+    
+    if oe0 <= 0.0 and html:
+        m_oe = re.search(r'(?:Starting\s*Normalized\s*Owner\s*Earnings|Owner\s*Earnings|OE₀)[^$\n]*?\$?\s*([\d,]+(?:\.\d+)?)', html, re.IGNORECASE)
+        if m_oe:
+            oe0 = safe_float(m_oe.group(1), 0.0)
+            
+    if abs(net_cash) > 150 and cur_p < 500:
+        net_cash = 0.0
+        
+    r = 0.095  # 9.5% opportunity cost hurdle rate
+    
+    # Reverse DCF Formula:
+    # Present Value = P5 / (1 + r)^5 = P0
+    # P5 = P0 * (1 + r)^5
+    # P5 = (M5 * OE5_req) + NetCash
+    # OE5_req = (P5 - NetCash) / M5
+    # (1 + g)^5 = OE5_req / OE0
+    # g = (OE5_req / OE0)^(1/5) - 1
+    
+    if cur_p > 0 and oe0 > 0 and term_mult > 0:
+        p5 = cur_p * ((1.0 + r) ** 5)
+        oe5_req = (p5 - net_cash) / max(term_mult, 1.0)
+        if oe5_req > 0:
+            growth_ratio = oe5_req / oe0
+            if growth_ratio > 0:
+                implied_g = (growth_ratio ** (1.0 / 5.0) - 1.0) * 100.0
+                sign = "+" if implied_g >= 0 else ""
+                implied_growth_str = f"{sign}{implied_g:.1f}% / yr"
+            else:
+                implied_growth_str = "0.0% / yr"
+        else:
+            implied_growth_str = "—"
+    else:
+        implied_growth_str = "—"
+        
+    mult_str = f"{term_mult:.1f}x OE".replace(".0x", "x")
+    hurdle_str = "9.50% hurdle"
+    clean_g = implied_growth_str.replace("/ yr", "").replace("/yr", "").strip()
+    
+    return {
+        "title": "Implied Market Expectations",
+        "summary": f"Current valuation implies ~{clean_g} 5-year Owner Earnings CAGR and a {mult_str} terminal multiple at a 9.50% hurdle rate.",
+        "implied_growth": implied_growth_str,
+        "implied_terminal": mult_str,
+        "hurdle_rate": hurdle_str
+    }
 
 
 def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict[str, Any]]] = None, full_html: str = "") -> str:
@@ -866,7 +885,7 @@ def build_storylines_summary_widget_html(stock: Any, stories: Optional[List[Dict
         cards_html.append(card)
         
     # Append the "What is Priced In" Market-Implied Storyline Box
-    priced_in_info = extract_priced_in_card_data(stock, full_html)
+    priced_in_info = extract_priced_in_card_data(stock, full_html, stories=story_list)
     
     m_mult = f"{cur_p / float(oe_per_sh):.1f}x P/OE₀" if oe_per_sh and float(oe_per_sh) > 0 else "30.0x P/OE₀"
     m_yield = f"{(float(oe_per_sh) / cur_p) * 100:.1f}% Yield" if oe_per_sh and float(oe_per_sh) > 0 and cur_p > 0 else "3.3% Yield"
