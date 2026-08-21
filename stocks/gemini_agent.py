@@ -1078,7 +1078,7 @@ STRICT OPERATIONAL REALISM & ANTI-STACKED-CONSERVATISM MANDATES:
    - Stock-Based Compensation (SBC) as a 100% real cash charge.
    - Non-operating interest deductions.
    - Derivation of Clean Normalized Baseline Owner Earnings (OE₀) and per diluted share ($ USD).
-   - Calibrated Balance Sheet Bridge: Gross Cash & Liquid Marketable Securities (at 85% after tax buffer, less 2.5%-3.5% working capital buffer) minus Total Funded Debt = Net Surplus Cash (+) or Net Debt (-) per share.
+   - Calibrated Balance Sheet Bridge: Gross Cash & Liquid Marketable Securities (at 85% after tax buffer, less 2.5%-3.5% working capital buffer) minus Total Funded Debt = Total Net Cash ($M). DIVIDE BY DILUTED SHARES to get Net Surplus Cash (+) or Net Debt (-) per share ($ USD/share). Example: $4,500M net cash / 960M shares = +$4.68/share (NEVER enter aggregate $4,500M as per share!).
 
 OUTPUT FORMAT:
 Provide pure semantic HTML containing ONLY Section 1 and Section 2:
@@ -1148,6 +1148,7 @@ STRICT FIRST-PRINCIPLES VALUATION & MULTIPLE JUSTIFICATION RULES:
 3. Multi-Year Compounding Alignment:
    - For each Path i, explicitly define its 5-Year Owner Earnings Compounding Rate (CAGR_OE) derived directly from Section 2's bottom-up unit metrics!
    - Compute Projected Year-5 Owner Earnings per Share (OE₅) = OE₀ * (1 + CAGR_OE)^5.
+   - Net Balance Sheet Cash/(Debt) per Share: MUST strictly be divided by diluted shares (e.g. +$4.68/sh, NEVER aggregate millions).
    - 5-Year Target Price per Share (P₅) = (Assigned Terminal Multiple * Projected OE₅ per share) + Net Surplus Cash per share (or - Net Debt per share).
    - 5-Year Annualized Price CAGR (%) = ((P₅ / Current Price)^(1/5) - 1) * 100%.
    - Total 5-Year Return (%) = ((P₅ - Current Price) / Current Price) * 100%.
@@ -1255,14 +1256,16 @@ DRAFT SECTION 1 & SECTION 2:
 ======================================================================
 
 Search Google, audited 10-K/10-Q filings, recent earnings call transcripts, and contracted customer backlogs to audit:
-1. STACKED HYPER-CONSERVATISM & GROWTH REALISM:
+1. BALANCE SHEET PER-SHARE AUDIT (NO AGGREGATE MILLIONS IN PER-SHARE FIELDS):
+   - Check that Net Surplus Cash / Net Debt is strictly PER SHARE (e.g. +$4.68/sh) and was correctly divided by the diluted share count (e.g. $4,500M net cash / 960M shares = +$4.68/sh, NOT $4500.00/sh).
+2. STACKED HYPER-CONSERVATISM & GROWTH REALISM:
    - Does Path 1 (Core Execution) assume an artificial growth cliff (e.g. 4%–6% growth when the company is actively compounding 15%–25% with record enterprise backlog)?
    - Are Maintenance CapEx and SBC deductions realistic, or is growth/expansion CapEx being double-counted as maintenance?
    - Are balance sheet marketable assets unfairly discounted?
-2. UNIT OPERATIONAL DRIVERS & MARGINS:
+3. UNIT OPERATIONAL DRIVERS & MARGINS:
    - Are revenue growth numbers backed by concrete operational unit metrics (volume * pricing, backlog conversion, seat pricing, unit cost declines)?
    - Are margin shifts realistic given fixed-cost absorption or genuine cost headwinds?
-3. EMPIRICAL PROBABILITY WEIGHTING AUDIT:
+4. EMPIRICAL PROBABILITY WEIGHTING AUDIT:
    - Does the core compounding path receive the dominant probability mass (65%–80%) for fortress, high-ROIC compounders?
    - Are downside friction or upside paths weighted in direct proportion to real filing evidence rather than arbitrary splits?
 
@@ -1761,6 +1764,19 @@ def parse_sec3_and_json(
         m_nc = re.search(r'(?:Net\s*(?:Surplus\s*)?Cash|Net\s*Debt)[^$\n]*?([+-]?\$\s*[\d,]+(?:\.\d+)?)\s*(?:/\s*sh|per\s*share|per\s*ADS)?', sec1_text or sec3_clean, re.IGNORECASE)
         if m_nc:
             net_cash_sh = safe_float(m_nc.group(1), 0.0)
+            
+    # Auto-normalize if net cash was given as aggregate millions instead of per-share
+    max_plausible_cash = max(35.0, current_price * 0.65)
+    if net_cash_sh > max_plausible_cash or net_cash_sh > 90.0:
+        m_sh = re.search(r'([\d,]+(?:\.\d+)?)\s*(?:million|M)?\s*(?:diluted shares|shares outstanding)', f"{sec1_text} {sec3_clean}", re.IGNORECASE)
+        if m_sh:
+            sh_count = safe_float(m_sh.group(1), 1.0)
+            if sh_count > 10.0:
+                net_cash_sh = round(net_cash_sh / sh_count, 2)
+            else:
+                net_cash_sh = round(net_cash_sh / 1000.0, 2)
+        else:
+            net_cash_sh = 0.0
             
     # Normalized OE per share
     oe_per_sh = safe_float(json_block.get("normalized_oe_per_share"), 0.0)
