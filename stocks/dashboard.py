@@ -865,13 +865,11 @@ def build_native_svg_chart(
     # Target Legend Badges
     target_legend_items = []
     for ct in chart_targets:
-        diff = ((ct["val"] - current_price) / current_price) * 100 if current_price > 0 else 0.0
-        mult_str = f" · {ct['mult']}x OE" if ct.get("mult") else ""
-        c_title = ct.get("title") or f"Path {ct.get('id', 1)}"
+        p_id = ct.get("id", 1)
         target_legend_items.append(
             f'<span style="color: {ct["color"]}; display: inline-flex; align-items: center; gap: 4px; font-weight: 600;">'
-            f'<span style="display:inline-block; width:12px; height:0; border-top:1.8px dashed {ct["color"]};"></span> '
-            f'{c_title}: ${ct["val"]:.2f} ({diff:+.1f}%{mult_str})</span>'
+            f'<span style="display:inline-block; width:10px; height:0; border-top:1.8px dashed {ct["color"]};"></span> '
+            f'Path {p_id}: ${ct["val"]:.2f}</span>'
         )
 
     targets_legend_html = f'<div class="chart-targets-legend" style="display: flex; align-items: center; gap: 12px; font-family: var(--font-mono); font-size: 0.72rem; flex-wrap: wrap;">{" ".join(target_legend_items)}</div>' if target_legend_items else ""
@@ -1078,11 +1076,7 @@ def build_native_svg_chart(
                     lineEl.setAttribute('y2', y);
                     lineEl.style.display = 'block';
                     labelEl.setAttribute('y', y - 4);
-                    const diff = liveTodayPrice > 0 ? ((t.val - liveTodayPrice) / liveTodayPrice * 100) : 0;
-                    const sign = diff >= 0 ? '+' : '';
-                    const multTxt = t.mult ? ' · ' + t.mult + 'x OE' : '';
-                    const titleTxt = t.title ? t.title : ('Path ' + t.id);
-                    labelEl.textContent = titleTxt + ' $' + t.val.toFixed(2) + ' (' + sign + diff.toFixed(1) + '%' + multTxt + ')';
+                    labelEl.textContent = 'Path ' + t.id + ' · $' + t.val.toFixed(2);
                     labelEl.style.display = 'block';
                 }} else if (lineEl) {{
                     lineEl.style.display = 'none';
