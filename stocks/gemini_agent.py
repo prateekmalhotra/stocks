@@ -378,15 +378,21 @@ def extract_stories_from_agent2(raw_text: str, clean_html: str = "") -> list:
 
 def map_to_canonical_moat_label(lbl: str = "", sec1_text: str = "", default: str = "Narrow Moat") -> str:
     """Maps any input string, moat description, or Section 1 text to one of the 4 canonical Moat ratings:
-    1. Wide Moat (Strong Moat): Dominant structural advantage sustaining excess returns for 20+ years (e.g. Visa, Google, Apple, Microsoft, Hermès)
-    2. Narrow Moat (Moderate Moat): Durable competitive advantage sustaining excess returns for 10+ years (e.g. JD.com, Nike, Costco, Amazon)
-    3. Weak Moat (Fragile Moat): Limited or eroding competitive advantage vulnerable to price wars or disruption (e.g. commoditized consumer apps, cyclical hardware)
-    4. No Moat: Commoditized price-taker with zero structural barriers to entry
+    1. Wide Moat: Dominant structural advantage (switching costs, network effects, legal monopoly) sustaining excess returns for 20+ years.
+    2. Narrow Moat: Durable competitive advantage (scale, brand affinity) sustaining excess returns for 10+ years (Nike, Crocs, Lululemon, Starbucks, Costco).
+    3. Weak Moat: Fragile or commoditized advantage vulnerable to fashion decay or price competition.
+    4. No Moat: Commoditized price-taker with zero structural barriers to entry.
     """
+    is_apparel_or_fashion = False
+    combined_lower = f"{lbl or ''} {sec1_text or ''}".lower()
+    if any(w in combined_lower for w in ["apparel", "footwear", "athleisure", "clog", "shoes", "clothing", "fashion", "crocs", "lululemon", "heydude", "retail store"]):
+        is_apparel_or_fashion = True
+
+    # 1. Direct explicit input label check
     if lbl and isinstance(lbl, str):
         clean_lbl = lbl.strip().upper()
         if clean_lbl in ["WIDE MOAT", "STRONG MOAT", "WIDE", "STRONG"]:
-            return "Wide Moat"
+            return "Narrow Moat" if is_apparel_or_fashion else "Wide Moat"
         elif clean_lbl in ["NARROW MOAT", "MODERATE MOAT", "NARROW", "MODERATE"]:
             return "Narrow Moat"
         elif clean_lbl in ["WEAK MOAT", "VULNERABLE MOAT", "WEAK", "VULNERABLE", "FRAGILE"]:
@@ -395,36 +401,31 @@ def map_to_canonical_moat_label(lbl: str = "", sec1_text: str = "", default: str
             return "No Moat"
         for m in CANONICAL_MOAT_LABELS:
             if clean_lbl == m.upper():
-                return m
+                return "Narrow Moat" if (m == "Wide Moat" and is_apparel_or_fashion) else m
 
-    # 1. Check explicit "Primary Economic Moat Rating:" or "Primary Economic Moat Archetype:" statement first
+    # 2. Check explicit "Primary Economic Moat Rating:" statement from Section 1
     if sec1_text:
-        m = re.search(r'Primary Economic Moat (?:Rating|Archetype|Classification):\s*([^<\n\.]+)', sec1_text, re.IGNORECASE)
+        m = re.search(r'Primary Economic Moat (?:Rating|Archetype|Classification|Tier):\s*([^<\n\.]+)', sec1_text, re.IGNORECASE)
         if m:
             class_str = m.group(1).strip().upper()
-            if "WIDE" in class_str or "STRONG" in class_str or "TOLLBRIDGE" in class_str or "NETWORK EFFECT" in class_str or "BRAND MONOPOLY" in class_str:
-                return "Wide Moat"
-            if "NARROW" in class_str or "MODERATE" in class_str or "COST ADVANTAGE" in class_str or "SWITCHING" in class_str or "EFFICIENT SCALE" in class_str:
+            if "NARROW" in class_str or "MODERATE" in class_str or "COST ADVANTAGE" in class_str or "SCALE" in class_str:
                 return "Narrow Moat"
             if "WEAK" in class_str or "VULNERABLE" in class_str or "FRAGILE" in class_str:
                 return "Weak Moat"
             if "NO MOAT" in class_str or "COMMODITY" in class_str or "ZERO" in class_str:
                 return "No Moat"
+            if "WIDE" in class_str or "STRONG" in class_str or "TOLLBRIDGE" in class_str or "NETWORK EFFECT" in class_str:
+                return "Narrow Moat" if is_apparel_or_fashion else "Wide Moat"
 
-    combined_text = f"{lbl or ''} {sec1_text or ''}".upper()
-    
-    # 2. Wide Moat signals
-    if any(k in combined_text for k in ["WIDE MOAT", "STRONG MOAT", "DOMINANT MOAT", "TOLLBRIDGE", "NETWORK EFFECT", "BRAND MONOPOLY", "SEARCH MONOPOLY"]):
-        return "Wide Moat"
-    # 3. Narrow Moat signals
-    elif any(k in combined_text for k in ["NARROW MOAT", "MODERATE MOAT", "COST ADVANTAGE", "SWITCHING COST", "EFFICIENT SCALE", "SCALE ECONOMIES", "LOGISTICS DENSITY"]):
-        return "Narrow Moat"
-    # 4. Weak Moat signals
-    elif any(k in combined_text for k in ["WEAK MOAT", "VULNERABLE MOAT", "PRICE WAR", "DESTRUCTIVE COMPETITION", "FRAGILE MOAT", "EROSION"]):
+    # 3. Contextual clues if no explicit header
+    if "WEAK MOAT" in combined_lower or "fragile moat" in combined_lower or "fad risk" in combined_lower:
         return "Weak Moat"
-    # 5. No Moat signals
-    elif any(k in combined_text for k in ["NO MOAT", "PRICE TAKER", "UNPROTECTED", "COMMODITY", "ZERO BARRIER"]):
+    if "no moat" in combined_lower or "zero moat" in combined_lower:
         return "No Moat"
+    if is_apparel_or_fashion:
+        return "Narrow Moat"
+    if any(k in combined_lower for k in ["network effect", "switching cost", "regulatory monopoly", "tollbridge", "duopoly"]):
+        return "Wide Moat"
         
     return default
 
@@ -1026,12 +1027,21 @@ Core Principles of Business Valuation & Capital Allocation:
    - "If options aren't compensation, what are they? If they aren't expenses, what are they? And if they don't come out of earnings, where do they come from?" (Buffett). Stock-Based Compensation MUST strictly be treated as a cash charge.
    - Distinguish capital required to maintain competitive standing and volume (Maintenance CapEx, typically 20%–35% of total CapEx for software/platform businesses) from discretionary capacity expansion (Growth CapEx).
 
-3. Economic Moat & Pricing Power (Buffett & Munger):
-   - Does the business possess genuine pricing power (the ability to adjust prices for inflation without losing unit volume)?
-   - Is the business protected by durable structural moats: low-cost producer advantages, high customer switching costs, network effects, or tollbridge scale economics?
+3. Economic Moat & Pricing Power (Buffett, Munger & Morningstar Standards):
+   - WIDE MOAT (<15% of all public companies): Demands an insurmountable structural barrier to entry sustaining high excess ROIC for 20+ years.
+     * High switching costs with mission-critical enterprise lock-in (Microsoft, SAP, Oracle, Bloomberg).
+     * Multi-sided network effects (Visa, Mastercard, Alphabet Search, Apple iOS).
+     * Regulatory/legal tollbridge monopolies (Moody's, S&P Global, Copart salvage real estate, Verisign).
+     * Irreplaceable scale infrastructure or low-cost monopoly (ASML EUV lithography, TSMC leading-edge, Union Pacific).
+     * Ultra-luxury artificial scarcity (Hermès, Ferrari).
+   - NARROW MOAT: Durable competitive advantage sustaining excess returns for 10+ years, but subject to consumer competition, fashion risk, or retail shifts (Nike, Lululemon, Crocs, Starbucks, Costco, Home Depot, Chipotle).
+   - WEAK MOAT: Fragile or commoditized advantage vulnerable to price wars, fashion obsolescence, or wholesaler inventory decay (HeyDude, fast fashion, restaurant chains, cyclical auto).
+   - NO MOAT: Pure commodity price-takers with zero differentiation.
+   - STRICT SECTOR GUARDRAIL: Apparel, footwear, athleisure, restaurants, and retail fashion brands MUST NEVER be classified as "Wide Moat". They are strictly "Narrow Moat" (if leading global brand) or "Weak Moat" (if fad/turnaround).
 
 4. Charlie Munger's Inversion Principle ("Invert, Always Invert"):
-   - Do not pretend to predict the unpredictable or model 10-year linear perfection. Invert the equation: What fundamental operational performance and cash generation is Mr. Market embedding into today's share price? Where does that expectation diverge from operational reality?
+   - Do not pretend to predict the unpredictable or model 10-year linear perfection. Invert the equation: What fundamental operational performance and cash generation is Mr. Market embedding into today's share price?
+   - When solving Reverse DCF, derive market-implied growth under the market's CURRENT multiple (M₀), NEVER assuming unearned multiple re-rating expansion on shrinking or stagnating earnings!
 
 5. Rational Capital Allocation & Share Buyback Discipline:
    - Every dollar retained by management must create at least one dollar of market value over time.
@@ -1089,6 +1099,13 @@ STRICT OPERATIONAL REALISM & ANTI-STACKED-CONSERVATISM MANDATES:
    - Derivation of Clean Normalized Baseline Owner Earnings (OE₀) and per diluted share ($ USD).
    - Calibrated Balance Sheet Bridge: Gross Cash & Liquid Marketable Securities (at 85% after tax buffer, less 2.5%-3.5% working capital buffer) minus Total Funded Debt = Total Net Cash ($M). DIVIDE BY DILUTED SHARES to get Net Surplus Cash (+) or Net Debt (-) per share ($ USD/share). Example: $4,500M net cash / 960M shares = +$4.68/share (NEVER enter aggregate $4,500M as per share!).
    - Fundamental Compounding Velocity: State 3-year normalized ROIC %, Reinvestment Rate %, and Compounding Velocity (ROIC * Reinvestment Rate).
+6. RIGOROUS MOAT CLASSIFICATION (BUFFETT & MORNINGSTAR STANDARDS):
+   - Under 'Pricing Power & Moat Durability Audits', explicitly state:
+     `<p><strong>Primary Economic Moat Rating:</strong> [Wide Moat | Narrow Moat | Weak Moat | No Moat]</p>`
+   - WIDE MOAT: Only for structural monopolies/duopolies with permanent lock-in (Visa, Mastercard, Microsoft enterprise, Google Search, Copart salvage real estate, ASML).
+   - NARROW MOAT: High-quality consumer/scale brands with strong brand loyalty but subject to competition and substitution (Nike, Lululemon, Crocs, Starbucks, Costco).
+   - WEAK MOAT: Consumer brands subject to fashion risk, fad obsolescence, or wholesaler inventory decay (HeyDude, fast fashion, restaurant chains, auto).
+   - MANDATORY GUARDRAIL: Apparel, footwear, athleisure, and fashion retailers MUST strictly be rated Narrow Moat or Weak Moat. NEVER classify an apparel/footwear brand as Wide Moat!
 
 OUTPUT FORMAT:
 Provide pure semantic HTML containing ONLY Section 1 and Section 2:
@@ -1151,14 +1168,22 @@ STRICT FIRST-PRINCIPLES VALUATION & ZERO-PRICE-ANCHORING RULES:
      * Margin of Safety % = ((Present Fair Value - Benchmark Price) / Benchmark Price) * 100%
      * 5Y Price IRR % = ((5Y Target Price / Benchmark Price)^(1/5) - 1) * 100%
      * Reverse DCF Implied Reality = What CAGR is the market pricing in at ${current_price:.2f}?
-2. MULTIPLE ECONOMIC JUSTIFICATION (NO HIGH MULTIPLE WITHOUT HIGH GROWTH & ROIC):
+2. MULTIPLE ECONOMIC JUSTIFICATION (NO HIGH MULTIPLE WITHOUT HIGH GROWTH & MOAT):
    - Terminal Multiple = (1 - g / ROIC) / (r - g), where r = 9.5% hurdle rate and g is the steady-state growth rate.
-   - Economic Multiple Rules:
-     * Stagnant / Low Growth (g = 2%–4%): Multiple compresses to 11.0x–14.0x (Owner Cash Yield 7.0%–9.0%). The market will NEVER pay 20x+ for GDP growth!
-     * Moderate Growth (g = 7%–10% with high ROIC >25%): Multiple is 16.0x–20.0x (Owner Cash Yield 5.0%–6.2%).
-     * Durable Compounding (g = 12%–16% with wide-moat ROIC >30%): Multiple is 21.0x–25.0x (Owner Cash Yield 4.0%–4.8%).
-     * Accelerated Breakthrough (g = 18%+ with monopoly ROIC): Multiple is 25.0x–28.0x (Owner Cash Yield 3.5%–4.0%).
-   - NEVER assign an unearned 25x multiple to a slow-growing trajectory!
+   - WIDE-MOAT MONOPOLIES (Visa, Mastercard, Microsoft, Alphabet, Copart):
+     * High Growth (g = 12%–16% with monopoly ROIC >30%): Multiple is 20.0x–25.0x (Owner Cash Yield 4.0%–5.0%).
+     * Moderate Growth (g = 7%–10%): Multiple is 17.0x–20.0x (Owner Cash Yield 5.0%–5.9%).
+   - NARROW-MOAT CONSUMER / APPAREL / FOOTWEAR (Crocs, Lululemon, Nike, Starbucks, Costco):
+     * Core Base Case (g = 6%–10% with high brand ROIC): Multiple is 13.0x–16.0x (Owner Cash Yield 6.2%–7.7%).
+     * Downside Friction / Turnaround Drag (g <= 3% or negative): Multiple compresses to 9.0x–11.5x (Owner Cash Yield 8.7%–11.1%).
+     * Acceleration / Bull Case (g = 12%–15%): Multiple is 16.0x–18.0x (Owner Cash Yield 5.5%–6.2%).
+     * MANDATORY RULE: NEVER assign a 20x+ terminal multiple to an apparel, footwear, or retail brand!
+   - WEAK MOAT / TURNAROUND STOCKS:
+     * Baseline: Multiple is 10.0x–13.0x.
+     * Downside: Multiple is 7.0x–9.0x.
+   - REVERSE DCF MARKET REALITY:
+     * When analyzing what the market is pricing in under 'Market Inversion & Valuation Synthesis', calculate the required growth rate under the market's CURRENT multiple (M₀ = P₀ / OE₀).
+     * NEVER state that the market is pricing in a 18x–20x multiple if the stock is currently trading at 10x!
 3. Multi-Year Compounding Alignment:
    - For each Path i, explicitly define its 5-Year Owner Earnings Compounding Rate (CAGR_OE) derived directly from Section 2's bottom-up unit metrics!
    - Compute Projected Year-5 Owner Earnings per Share (OE₅) = OE₀ * (1 + CAGR_OE)^5.
@@ -1284,7 +1309,11 @@ Search Google, audited 10-K/10-Q filings, recent earnings call transcripts, and 
 4. EMPIRICAL PROBABILITY WEIGHTING AUDIT:
    - Does the core compounding path receive the dominant probability mass (65%–80%) for fortress, high-ROIC compounders?
    - Are downside friction or upside paths weighted in direct proportion to real filing evidence rather than arbitrary splits?
-5. GROSS MARGIN MOAT & MULTIBAGGER RETURN ENGINES:
+5. MOAT TIER & SECTOR GUARDRAIL AUDIT (NO UNJUSTIFIED WIDE MOATS):
+   - Check if an apparel, footwear, athleisure, or retail brand (e.g. Crocs, Lululemon, Nike, Gap) was erroneously classified as 'Wide Moat'.
+   - Demands immediate correction to 'Narrow Moat' (or 'Weak Moat') based on fashion obsolescence, substitute competition, and wholesale volatility.
+   - Only structural monopolies/duopolies with high switching costs or regulatory tollbridges (Visa, Microsoft, Google, Copart) may hold 'Wide Moat'.
+6. GROSS MARGIN MOAT & MULTIBAGGER RETURN ENGINES:
    - Check if gross margin is durable (>50%) and if operating margins reflect fixed SG&A cost absorption.
    - Audit whether long-term compounding velocity (ROIC * Reinvestment Rate) is properly credited.
 

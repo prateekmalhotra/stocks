@@ -666,7 +666,8 @@ def extract_terminal_data_from_html(html: str, num_stories: int = 3) -> List[Dic
 
 
 def extract_priced_in_card_data(stock: Any, html: str = "", stories: Optional[List[Dict[str, Any]]] = None) -> Dict[str, Any]:
-    """Calculates the exact first-principles reverse-DCF implied 5-year CAGR required by today's market price."""
+    """Calculates the exact first-principles reverse-DCF implied 5-year CAGR required by today's market price
+    under the market's current valuation multiple (M₀ = P₀ / OE₀)."""
     if isinstance(stock, dict):
         cur_p = safe_float(stock.get("current_price") or stock.get("baseline_price"), 1.0)
         stories_list = stories or stock.get("stories") or []
@@ -676,13 +677,11 @@ def extract_priced_in_card_data(stock: Any, html: str = "", stories: Optional[Li
         
     oe0 = 0.0
     net_cash = 0.0
-    term_mult = 18.0
     
     if stories_list and len(stories_list) >= 1:
         s1 = stories_list[0]
         oe0 = safe_float(s1.get("normalized_oe_per_share"), 0.0)
         net_cash = safe_float(s1.get("net_cash_per_share"), 0.0)
-        term_mult = safe_float(s1.get("oe_multiple") or s1.get("terminal_multiple"), 18.0)
     
     if oe0 <= 0.0 and html:
         m_oe = re.search(r'(?:Starting\s*Normalized\s*Owner\s*Earnings|Owner\s*Earnings|OE₀)[^$\n]*?\$?\s*([\d,]+(?:\.\d+)?)', html, re.IGNORECASE)
@@ -695,16 +694,18 @@ def extract_priced_in_card_data(stock: Any, html: str = "", stories: Optional[Li
     r = 0.095  # 9.5% opportunity cost hurdle rate
     
     # Reverse DCF Formula:
-    # Present Value = P5 / (1 + r)^5 = P0
+    # At today's market price P0, the market's current valuation multiple is M0 = P0 / OE0.
+    # To determine what operational growth rate the market is pricing in without assuming unearned multiple expansion:
     # P5 = P0 * (1 + r)^5
-    # P5 = (M5 * OE5_req) + NetCash
-    # OE5_req = (P5 - NetCash) / M5
+    # OE5_req = (P5 - NetCash) / M0
     # (1 + g)^5 = OE5_req / OE0
     # g = (OE5_req / OE0)^(1/5) - 1
     
-    if cur_p > 0 and oe0 > 0 and term_mult > 0:
+    market_mult = cur_p / oe0 if (cur_p > 0 and oe0 > 0) else 15.0
+    
+    if cur_p > 0 and oe0 > 0 and market_mult > 0:
         p5 = cur_p * ((1.0 + r) ** 5)
-        oe5_req = (p5 - net_cash) / max(term_mult, 1.0)
+        oe5_req = (p5 - net_cash) / max(market_mult, 1.0)
         if oe5_req > 0:
             growth_ratio = oe5_req / oe0
             if growth_ratio > 0:
@@ -718,13 +719,13 @@ def extract_priced_in_card_data(stock: Any, html: str = "", stories: Optional[Li
     else:
         implied_growth_str = "—"
         
-    mult_str = f"{term_mult:.1f}x OE".replace(".0x", "x")
+    mult_str = f"{market_mult:.1f}x OE (Current)"
     hurdle_str = "9.50% hurdle"
     clean_g = implied_growth_str.replace("/ yr", "").replace("/yr", "").strip()
     
     return {
         "title": "Implied Market Expectations",
-        "summary": f"Current valuation implies ~{clean_g} 5-year Owner Earnings CAGR and a {mult_str} terminal multiple at a 9.50% hurdle rate.",
+        "summary": f"At ${cur_p:.2f}, the market prices in {clean_g} annual Owner Earnings compounding at its current {market_mult:.1f}x multiple (9.50% hurdle rate).",
         "implied_growth": implied_growth_str,
         "implied_terminal": mult_str,
         "hurdle_rate": hurdle_str
