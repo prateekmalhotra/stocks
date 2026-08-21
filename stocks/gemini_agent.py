@@ -1981,10 +1981,10 @@ def parse_sec3_and_json(raw_text: str, company_name: str, current_price: float, 
     clean_text = clean_grounding_artifacts(raw_text)
     
     # Extract JSON Block
-    json_block = extract_robust_json_from_text(clean_text)
+    json_block = extract_json_block(clean_text)
     if not json_block:
         # Fallback to search inside full text
-        json_block = extract_robust_json_from_text(raw_text) or {}
+        json_block = extract_json_block(raw_text) or {}
         
     stories = json_block.get("stories") if isinstance(json_block, dict) else []
     if not stories and isinstance(json_block, list):
@@ -2111,6 +2111,13 @@ def parse_sec3_and_json(raw_text: str, company_name: str, current_price: float, 
         p2_val = round(p2_oe5 * 20.0 + net_cash_sh, 2)
         p3_val = round(p3_oe5 * 11.0 + net_cash_sh, 2)
         
+        p1_ret = round(((p1_val - current_price) / current_price) * 100.0, 1) if current_price > 0 else 0.0
+        p2_ret = round(((p2_val - current_price) / current_price) * 100.0, 1) if current_price > 0 else 0.0
+        p3_ret = round(((p3_val - current_price) / current_price) * 100.0, 1) if current_price > 0 else 0.0
+        p1_cagr = round((((p1_val / current_price) ** 0.2 - 1.0) * 100.0), 1) if current_price > 0 else 0.0
+        p2_cagr = round((((p2_val / current_price) ** 0.2 - 1.0) * 100.0), 1) if current_price > 0 else 0.0
+        p3_cagr = round((((p3_val / current_price) ** 0.2 - 1.0) * 100.0), 1) if current_price > 0 else 0.0
+        
         stories_metadata = [
             {
                 "story_num": 1,
@@ -2125,13 +2132,16 @@ def parse_sec3_and_json(raw_text: str, company_name: str, current_price: float, 
                 "val": p1_val,
                 "present_fair_value": round(p1_val / (1.095 ** 5), 2),
                 "mos_pct": round(((p1_val / (1.095 ** 5) - current_price) / current_price) * 100.0, 1) if current_price > 0 else 0.0,
-                "target": f"${p1_val:.2f}",
+                "target_5y_return_pct": p1_ret,
+                "target_5y_cagr_pct": p1_cagr,
+                "target": f"${p1_val:.2f} ({p1_ret:+.1f}%)",
                 "prob_pct": 65.0,
                 "prob_weight": 0.65,
                 "net_cash_per_share": net_cash_sh,
                 "normalized_oe_per_share": oe_per_sh,
                 "projected_oe5_per_share": p1_oe5,
-                "projected_5y_cagr": "+8.0%"
+                "projected_5y_cagr": "+8.0%",
+                "pro_forma_schedule": synthesize_pro_forma_schedule(oe_per_sh, p1_oe5, p1_val, 16.0, sec1_text=sec1_text)
             },
             {
                 "story_num": 2,
@@ -2146,13 +2156,16 @@ def parse_sec3_and_json(raw_text: str, company_name: str, current_price: float, 
                 "val": p2_val,
                 "present_fair_value": round(p2_val / (1.095 ** 5), 2),
                 "mos_pct": round(((p2_val / (1.095 ** 5) - current_price) / current_price) * 100.0, 1) if current_price > 0 else 0.0,
-                "target": f"${p2_val:.2f}",
+                "target_5y_return_pct": p2_ret,
+                "target_5y_cagr_pct": p2_cagr,
+                "target": f"${p2_val:.2f} ({p2_ret:+.1f}%)",
                 "prob_pct": 20.0,
                 "prob_weight": 0.20,
                 "net_cash_per_share": net_cash_sh,
                 "normalized_oe_per_share": oe_per_sh,
                 "projected_oe5_per_share": p2_oe5,
-                "projected_5y_cagr": "+14.0%"
+                "projected_5y_cagr": "+14.0%",
+                "pro_forma_schedule": synthesize_pro_forma_schedule(oe_per_sh, p2_oe5, p2_val, 20.0, sec1_text=sec1_text)
             },
             {
                 "story_num": 3,
@@ -2167,13 +2180,16 @@ def parse_sec3_and_json(raw_text: str, company_name: str, current_price: float, 
                 "val": p3_val,
                 "present_fair_value": round(p3_val / (1.095 ** 5), 2),
                 "mos_pct": round(((p3_val / (1.095 ** 5) - current_price) / current_price) * 100.0, 1) if current_price > 0 else 0.0,
-                "target": f"${p3_val:.2f}",
+                "target_5y_return_pct": p3_ret,
+                "target_5y_cagr_pct": p3_cagr,
+                "target": f"${p3_val:.2f} ({p3_ret:+.1f}%)",
                 "prob_pct": 15.0,
                 "prob_weight": 0.15,
                 "net_cash_per_share": net_cash_sh,
                 "normalized_oe_per_share": oe_per_sh,
                 "projected_oe5_per_share": p3_oe5,
-                "projected_5y_cagr": "-2.0%"
+                "projected_5y_cagr": "-2.0%",
+                "pro_forma_schedule": synthesize_pro_forma_schedule(oe_per_sh, p3_oe5, p3_val, 11.0, sec1_text=sec1_text)
             }
         ]
 
@@ -2538,11 +2554,11 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
         "expected_5y_return": expected_5y_return,
         "expected_5y_cagr": expected_5y_cagr,
         "stories": stories_metadata,
-        **{f"story{idx}_target": f"${s['val']:.2f} ({s['target_5y_return_pct']:+.1f}%)" for idx, s in enumerate(stories_metadata, 1)},
-        **{f"story{idx}_title": s["story_title"] for idx, s in enumerate(stories_metadata, 1)},
-        "bear_target": f"${min_story['val']:.2f}",
+        **{f"story{idx}_target": s.get("target") or f"${s.get('val', 0.0):.2f} ({s.get('target_5y_return_pct', 0.0):+.1f}%)" for idx, s in enumerate(stories_metadata, 1)},
+        **{f"story{idx}_title": s.get("story_title") or s.get("title") or f"Path {idx}" for idx, s in enumerate(stories_metadata, 1)},
+        "bear_target": f"${min_story.get('val', 0.0):.2f}",
         "base_target": f"${expected_present_fv:.2f}",
-        "bull_target": f"${max_story['val']:.2f}",
+        "bull_target": f"${max_story.get('val', 0.0):.2f}",
         "upper_alert_threshold": upper_alert,
         "lower_alert_threshold": lower_alert,
         "next_catalyst_date": next_cat_date,

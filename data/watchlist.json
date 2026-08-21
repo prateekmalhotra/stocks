@@ -1,1 +1,373 @@
-{}
+{
+  "META": {
+    "ticker": "META",
+    "company_name": "Meta Platforms, Inc.",
+    "baseline_price": 545.83,
+    "current_price": 545.83,
+    "return_pct": 0.0,
+    "status_label": "Wide Moat",
+    "moat_label": "Narrow Moat",
+    "labels": [
+      "Wide Moat"
+    ],
+    "action_signal": "AVOID",
+    "fair_value_estimate": "$443.27",
+    "expected_fair_value": "$443.27",
+    "expected_val": 443.27,
+    "stories": [
+      {
+        "story_num": 1,
+        "id": 1,
+        "story_title": "Path 1: Baseline Compounding",
+        "title": "Path 1: Baseline Compounding",
+        "short_summary": "Steady operational execution and baseline capital reinvestment.",
+        "summary": "Steady operational execution and baseline capital reinvestment.",
+        "oe_multiple": "16.0x",
+        "oe_yield": "6.2%",
+        "terminal_multiple": "16.0x",
+        "val": 670.64,
+        "present_fair_value": 426.01,
+        "mos_pct": -22.0,
+        "target_5y_return_pct": 22.9,
+        "target_5y_cagr_pct": 4.2,
+        "target": "$670.64 (+22.9%)",
+        "prob_pct": 65.0,
+        "prob_weight": 0.65,
+        "net_cash_per_share": 8.88,
+        "normalized_oe_per_share": 28.15,
+        "projected_oe5_per_share": 41.36,
+        "projected_5y_cagr": "+8.0%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            200970.0,
+            212223.2,
+            224106.4,
+            236655.1,
+            249906.4,
+            263899.7
+          ],
+          "gross_margin_pct": [
+            50.0,
+            50.8,
+            51.6,
+            52.4,
+            53.2,
+            54.0
+          ],
+          "operating_income_mil": [
+            3800.3,
+            4021.9,
+            4254.8,
+            4504.7,
+            4767.3,
+            5047.5
+          ],
+          "operating_margin_pct": [
+            1.9,
+            1.9,
+            1.9,
+            1.9,
+            1.9,
+            1.9
+          ],
+          "normalized_net_income_mil": [
+            3096.5,
+            3277.1,
+            3466.9,
+            3670.5,
+            3884.4,
+            4112.8
+          ],
+          "owner_earnings_mil": [
+            2815.0,
+            2979.2,
+            3151.7,
+            3336.8,
+            3531.3,
+            3738.9
+          ],
+          "diluted_shares_mil": [
+            100.0,
+            98.0,
+            96.0,
+            94.1,
+            92.2,
+            90.4
+          ],
+          "oe_per_share": [
+            28.15,
+            30.4,
+            32.83,
+            35.46,
+            38.3,
+            41.36
+          ],
+          "roic_pct": [
+            18.0,
+            19.2,
+            20.4,
+            21.6,
+            22.8,
+            24.0
+          ]
+        }
+      },
+      {
+        "story_num": 2,
+        "id": 2,
+        "story_title": "Path 2: High-Margin Expansion",
+        "title": "Path 2: High-Margin Expansion",
+        "short_summary": "Accelerated customer adoption and high-margin operating leverage.",
+        "summary": "Accelerated customer adoption and high-margin operating leverage.",
+        "oe_multiple": "20.0x",
+        "oe_yield": "5.0%",
+        "terminal_multiple": "20.0x",
+        "val": 1092.88,
+        "present_fair_value": 694.23,
+        "mos_pct": 27.2,
+        "target_5y_return_pct": 100.2,
+        "target_5y_cagr_pct": 14.9,
+        "target": "$1092.88 (+100.2%)",
+        "prob_pct": 20.0,
+        "prob_weight": 0.2,
+        "net_cash_per_share": 8.88,
+        "normalized_oe_per_share": 28.15,
+        "projected_oe5_per_share": 54.2,
+        "projected_5y_cagr": "+14.0%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            200970.0,
+            220664.8,
+            242289.7,
+            266033.8,
+            292104.8,
+            320730.7
+          ],
+          "gross_margin_pct": [
+            50.0,
+            51.4,
+            52.8,
+            54.2,
+            55.6,
+            57.0
+          ],
+          "operating_income_mil": [
+            3800.3,
+            4180.5,
+            4597.6,
+            5062.1,
+            5564.3,
+            6124.3
+          ],
+          "operating_margin_pct": [
+            1.9,
+            1.9,
+            1.9,
+            1.9,
+            1.9,
+            1.9
+          ],
+          "normalized_net_income_mil": [
+            3096.5,
+            3406.4,
+            3746.2,
+            4124.7,
+            4533.9,
+            4990.2
+          ],
+          "owner_earnings_mil": [
+            2815.0,
+            3096.7,
+            3405.6,
+            3749.7,
+            4121.7,
+            4536.5
+          ],
+          "diluted_shares_mil": [
+            100.0,
+            96.5,
+            93.1,
+            89.9,
+            86.7,
+            83.7
+          ],
+          "oe_per_share": [
+            28.15,
+            32.09,
+            36.58,
+            41.71,
+            47.54,
+            54.2
+          ],
+          "roic_pct": [
+            18.0,
+            20.1,
+            22.2,
+            24.3,
+            26.4,
+            28.5
+          ]
+        }
+      },
+      {
+        "story_num": 3,
+        "id": 3,
+        "story_title": "Path 3: Margin Friction & Multiple Drag",
+        "title": "Path 3: Margin Friction & Multiple Drag",
+        "short_summary": "Elevated competitive friction and margin contraction.",
+        "summary": "Elevated competitive friction and margin contraction.",
+        "oe_multiple": "11.0x",
+        "oe_yield": "9.1%",
+        "terminal_multiple": "11.0x",
+        "val": 288.83,
+        "present_fair_value": 183.47,
+        "mos_pct": -66.4,
+        "target_5y_return_pct": -47.1,
+        "target_5y_cagr_pct": -12.0,
+        "target": "$288.83 (-47.1%)",
+        "prob_pct": 15.0,
+        "prob_weight": 0.15,
+        "net_cash_per_share": 8.88,
+        "normalized_oe_per_share": 28.15,
+        "projected_oe5_per_share": 25.45,
+        "projected_5y_cagr": "-2.0%",
+        "pro_forma_schedule": {
+          "years": [
+            "Trailing (Y0)",
+            "Year 1",
+            "Year 2",
+            "Year 3",
+            "Year 4",
+            "Year 5"
+          ],
+          "revenue_mil": [
+            200970.0,
+            198161.4,
+            195392.1,
+            192661.5,
+            189969.1,
+            187314.2
+          ],
+          "gross_margin_pct": [
+            50.0,
+            49.8,
+            49.6,
+            49.4,
+            49.2,
+            49.0
+          ],
+          "operating_income_mil": [
+            3800.3,
+            3724.7,
+            3650.4,
+            3577.5,
+            3506.0,
+            3435.8
+          ],
+          "operating_margin_pct": [
+            1.9,
+            1.9,
+            1.9,
+            1.9,
+            1.8,
+            1.8
+          ],
+          "normalized_net_income_mil": [
+            3096.5,
+            3034.9,
+            2974.4,
+            2915.0,
+            2856.7,
+            2799.5
+          ],
+          "owner_earnings_mil": [
+            2815.0,
+            2759.0,
+            2704.0,
+            2650.0,
+            2597.0,
+            2545.0
+          ],
+          "diluted_shares_mil": [
+            100.0,
+            100.0,
+            100.0,
+            100.0,
+            100.0,
+            100.0
+          ],
+          "oe_per_share": [
+            28.15,
+            27.59,
+            27.04,
+            26.5,
+            25.97,
+            25.45
+          ],
+          "roic_pct": [
+            18.0,
+            17.7,
+            17.4,
+            17.1,
+            16.8,
+            16.5
+          ]
+        }
+      }
+    ],
+    "story1_target": "$670.64 (+22.9%)",
+    "story2_target": "$1092.88 (+100.2%)",
+    "story3_target": "$288.83 (-47.1%)",
+    "story1_title": "Path 1: Baseline Compounding",
+    "story2_title": "Path 2: High-Margin Expansion",
+    "story3_title": "Path 3: Margin Friction & Multiple Drag",
+    "bear_target": "$288.83",
+    "base_target": "$443.27",
+    "bull_target": "$1092.88",
+    "what_is_priced_in": "545.8x",
+    "upper_alert_threshold": 1092.88,
+    "lower_alert_threshold": 288.83,
+    "next_catalyst_date": "2026-09-23",
+    "next_catalyst_event": "Meta Connect 2026 Keynote",
+    "top_funds": [
+      "Robert Vinall - RV Capital GmbH (20.45)",
+      "Bill Ackman - Pershing Square Capital Management (9.25)",
+      "ValueAct Capital (9.15)",
+      "David Rolfe - Wedgewood Partners (8.89)",
+      "Pat Dorsey - Dorsey Asset Management (7.21)",
+      "Chase Coleman - Tiger Global Management (6.63)",
+      "Triple Frond Partners (5.91)",
+      "Francois Rochon - Giverny Capital (5.74)",
+      "David Tepper - Appaloosa Management (5.09)",
+      "First Pacific Advisors (4.81)"
+    ],
+    "institutional_ownership_pct": "31 Whales",
+    "insider_signal": "Neutral (10b5-1)",
+    "insider_summary": "Routine 10b5-1 transactions across 100 Form 4 filings.",
+    "pricing_power_tier": "Strong Pricing Power",
+    "pricing_power_score": "Inelastic Demand \u00b7 Low Churn",
+    "pricing_power_summary": "Strong Pricing Power: Underwritten via Buffett & Munger pricing power framework.",
+    "predictability_tier": "Moderate Predictability",
+    "predictability_score": "Manageable Visibility \u00b7 Moat Protected",
+    "predictability_summary": "Moderate Predictability: Underwritten via 10-year visibility framework.",
+    "last_updated": "2026-08-21",
+    "total_versions": 1,
+    "report_path": "reports/META.html"
+  }
+}
