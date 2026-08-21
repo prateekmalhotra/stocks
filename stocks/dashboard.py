@@ -725,10 +725,10 @@ def extract_priced_in_card_data(stock: Any, html: str = "", stories: Optional[Li
         oe0 = safe_float(s1.get("normalized_oe_per_share"), 0.0)
         net_cash = safe_float(s1.get("net_cash_per_share"), 0.0)
     
-    if oe0 <= 0.0 and html:
-        m_oe = re.search(r'(?:Starting\s*Normalized\s*Owner\s*Earnings|Owner\s*Earnings|OE₀)[^$\n]*?\$?\s*([\d,]+(?:\.\d+)?)', html, re.IGNORECASE)
+    if (oe0 <= 0.0 or (oe0 > 50.0 and cur_p < 20.0)) and html:
+        m_oe = re.search(r'(?:Starting\s*Normalized\s*Owner\s*Earnings|Owner\s*Earnings\s*Per\s*Share|OE₀/Share|OE₀)[^$\n]*?\$?\s*([\d,]+(?:\.\d+)?)', html, re.IGNORECASE)
         if m_oe:
-            oe0 = safe_float(m_oe.group(1), 0.0)
+            oe0 = safe_float(m_oe.group(1), oe0)
             
     if abs(net_cash) > 150 and cur_p < 500:
         net_cash = 0.0

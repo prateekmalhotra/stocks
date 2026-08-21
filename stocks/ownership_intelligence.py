@@ -408,9 +408,24 @@ def calculate_insider_sentiment_and_flow(oi_trades: List[Dict[str, Any]], stock_
 
     net_flow = total_buy - total_sell
     has_csuite_buyer = any(any(k in r.upper() for k in ["CEO", "CHIEF EXECUTIVE", "COB", "CHAIRMAN", "PRESIDENT", "CFO", "FOUNDER"]) for r in buyer_roles)
+    has_sponsor_seller = any(any(k in s.lower() for k in ["blackstone", "sponsor", "bx ", "partners l.p.", "private equity"]) for s in sellers) or ("sponsor" in (stock_signal_hint or "").lower())
 
     # Classification rules: Strictly compare C-suite vs Director dollar scale and hierarchical weight
-    if len(buyers) >= 2 and total_buy >= 500000 and (total_sell <= total_buy * 1.5 or net_flow >= 0):
+    if has_sponsor_seller and total_sell >= 5000000:
+        sig = "Sponsor Liquidation (Blackstone Exit)" if "blackstone" in str(sellers).lower() or "blackstone" in (stock_signal_hint or "").lower() else "Sponsor Liquidation"
+        badge_html = "Sponsor Exit"
+        color = "var(--accent-red)"
+        summary = f"Controlling sponsor liquidating equity position (-${total_sell/1e6:.1f}M)"
+        return {
+            "signal": sig,
+            "badge_html": badge_html,
+            "color": color,
+            "summary": summary,
+            "total_buy_usd": total_buy,
+            "total_sell_usd": total_sell,
+            "net_flow_usd": net_flow
+        }
+    elif len(buyers) >= 2 and total_buy >= 500000 and (total_sell <= total_buy * 1.5 or net_flow >= 0):
         sig = "Cluster Buying"
         badge_html = "Cluster Buy"
         color = "var(--accent-green)"
