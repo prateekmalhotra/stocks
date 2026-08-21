@@ -1,19 +1,22 @@
-{
-  "GCT": {
-    "ticker": "GCT",
-    "company_name": "GigaCloud Technology Inc",
-    "baseline_price": 49.65,
-    "current_price": 49.65,
-    "return_pct": 0.0,
+[
+  {
+    "version": 1,
+    "date": "2026-08-21",
+    "price_at_version": 49.65,
+    "company_name": "",
     "status_label": "Narrow Moat",
     "moat_label": "Narrow Moat",
     "labels": [
       "Narrow Moat"
     ],
     "action_signal": "BUY",
+    "summary_of_change": "Despite short-seller skepticism, GigaCloud's statutory filings and Q2 2026 earnings show robust operational health and widening platform scale. Total revenue grew +27.6% YoY to $411.6M, while Gross Margin expanded 170 basis points YoY to 25.6%, drivi",
+    "what_was_before": "Initial Genesis baseline.",
+    "what_changes_now": "Despite short-seller skepticism, GigaCloud's statutory filings and Q2 2026 earnings show robust operational health and widening platform scale. Total revenue grew +27.6% YoY to $411.6M, while Gross Margin expanded 170 basis points YoY to 25.6%, drivi",
     "fair_value_estimate": "$67.03",
     "expected_fair_value": "$67.03",
-    "expected_val": 67.03,
+    "expected_val": 67.0275,
+    "present_fair_value": null,
     "stories": [
       {
         "title": "Market Skepticism Pricing",
@@ -29,17 +32,18 @@
     "story1_target": "$39.72",
     "story2_target": "$67.03",
     "story3_target": "",
-    "story1_title": "Path 1",
-    "story2_title": "Path 2",
-    "story3_title": "Path 3",
+    "story1_title": "",
+    "story2_title": "",
+    "story3_title": "",
     "bear_target": "$37.24",
     "base_target": "$67.03",
     "bull_target": "$83.78",
-    "what_is_priced_in": "12.4x P/OE",
     "upper_alert_threshold": 59.58,
     "lower_alert_threshold": 42.2,
     "next_catalyst_date": "2026-11-19",
     "next_catalyst_event": "",
+    "trigger_reason": "Genesis Initial Underwriting",
+    "what_is_priced_in": "12.4x P/OE",
     "top_funds": [],
     "institutional_ownership_pct": "13F Registry",
     "insider_signal": "Net Executive Selling",
@@ -61,8 +65,6 @@
     "why_it_might_be_right": "1. Starting Owner Earnings: $4.02 per share.\n2. Realistic Skeptic Exit Multiple: 10.0x P/OE, reflecting persistent market distrust regarding Chinese cross-border trade risks, regulatory overhangs, and low-margin logistics distribution mix.\n3. Implied Year 5 Owner Earnings: To match today's stock price of $49.65 at a 10.0x exit multiple after subtracting balance sheet net debt/cash of $-3.50 per share, the implied operating business value must be $53.15 per share ($49.65 - ($-3.50)). Dividing $53.15 by 10.0x requires Year 5 Owner Earnings of $5.32 per share.\n4. Implied Growth/Decay Rate: Generating $5.32 in Year 5 Owner Earnings from a baseline of $4.02 implies an annual earnings growth rate of just 5.8% CAGR over the next 5 years.\n5. Business Risk Rationale: This severe growth deceleration would be justified if short-seller claims prove partially true, if core 3P marketplace volumes stagnate, or if spikes in ocean container freight rates and new U.S. cross-border tariffs compress gross margins while macro weakness in U.S. home furnishings triggers inventory write-downs.",
     "how_things_are_going_now": "Despite short-seller skepticism, GigaCloud's statutory filings and Q2 2026 earnings show robust operational health and widening platform scale. Total revenue grew +27.6% YoY to $411.6M, while Gross Margin expanded 170 basis points YoY to 25.6%, driving Q2 net income up +22.3% YoY to $42.3M ($1.16 GAAP EPS / $1.65 Non-GAAP Adjusted EPS). Crucially, the growth is quality-driven: total TTM marketplace GMV reached $1.745B (+21.3% YoY), powered by higher-margin 3P marketplace GMV which surged +27.0% YoY to $962.3M (55.2% of total GMV). Platform network effects continue to broaden, with active 3P sellers expanding +26.1% YoY to 1,465 and active buyers rising +17.1% YoY to 12,823 (averaging $136,069 in spend per buyer). Geographic diversification is accelerating as European quarterly GMV surged +66% YoY. Management generates an audited Owner ROIC of 22.2% and is aggressively defending intrinsic value, repurchasing $47.7M in stock YTD in 2026 and approving a fresh $120.0M share buyback authorization.",
     "what_if_it_keeps_going_that_way": "1. Starting Owner Earnings: $4.02 per share.\n2. Modest 5-year compounding rate: Assuming annual earnings growth decelerates conservatively to 10.0% CAGR (well below recent 27.6% top-line growth), Year 5 Owner Earnings reach $6.47 per share ($4.02 x 1.10^5).\n3. Conservative terminal multiple: 13.0x P/OE, representing a slight valuation multiple for a business with a 22.2% ROIC and asset-light 3P marketplace network effects.\n4. Year 5 operating business value: $6.47 x 13.0x = $84.11 per share.\n5. Expected 5-year share price: Adding the balance sheet net debt/cash metric of $-3.50 per share yields an expected Year 5 stock price of $80.61 per share ($84.11 + ($-3.50)).\n6. Expected 5-year annualized IRR: Measured from today's entry price of $49.65, this scenario generates a solid 10.2% annualized return, providing a meaningful margin of safety even under conservative growth assumptions.",
-    "last_updated": "2026-08-21",
-    "total_versions": 1,
-    "report_path": "reports/GCT.html"
+    "full_html_content": "<section class=\"memo-section\">\n<h2 class=\"memo-title\">What the Market is Pricing In</h2>\n<div class=\"memo-body\"><p>At today's share price of $49.65 and a modest 12.4x P/OE multiple, Mr. Market is pricing in substantial forensic accounting risks, margin degradation, and structural organic slowdown. The skeptical narrative\u2014championed by prominent short-seller reports\u2014claims that GigaCloud's impressive top-line numbers are bolstered by an undisclosed network of employee-linked Chinese shell entities (such as J&amp;A International and General Sherman International) acting as artificial 1P buyers to recycle inventory and inflate Gross Merchandise Value (GMV). Furthermore, critics assert that GCT's revenue growth is driven by low-margin gross-versus-net delivery pass-through fees under ASC 606 and distressed physical furniture distributor acquisitions (e.g., Noble House and New Classic) rather than organic software marketplace expansion. Investors are also discounting the stock due to geopolitical risks around U.S.-China cross-border trade tariffs, potential PRC outbound capital control frictions, past federal securities class-action litigation ($2.75M settlement), auditor transitions, and persistent executive insider stock sales during rallies.</p></div>\n</section>\n<section class=\"memo-section\">\n<h2 class=\"memo-title\">Why the Market Might Be Right</h2>\n<div class=\"memo-body\"><ol><li>Starting Owner Earnings: $4.02 per share.</li><li>Realistic Skeptic Exit Multiple: 10.0x P/OE, reflecting persistent market distrust regarding Chinese cross-border trade risks, regulatory overhangs, and low-margin logistics distribution mix.</li><li>Implied Year 5 Owner Earnings: To match today's stock price of $49.65 at a 10.0x exit multiple after subtracting balance sheet net debt/cash of \\(-3.50 per share, the implied operating business value must be $53.15 per share ($49.65 - (\\)-3.50)). Dividing $53.15 by 10.0x requires Year 5 Owner Earnings of $5.32 per share.</li><li>Implied Growth/Decay Rate: Generating $5.32 in Year 5 Owner Earnings from a baseline of $4.02 implies an annual earnings growth rate of just 5.8% CAGR over the next 5 years.</li><li>Business Risk Rationale: This severe growth deceleration would be justified if short-seller claims prove partially true, if core 3P marketplace volumes stagnate, or if spikes in ocean container freight rates and new U.S. cross-border tariffs compress gross margins while macro weakness in U.S. home furnishings triggers inventory write-downs.</li></ol></div>\n</section>\n<section class=\"memo-section\">\n<h2 class=\"memo-title\">How Things Are Going Now</h2>\n<div class=\"memo-body\"><p>Despite short-seller skepticism, GigaCloud's statutory filings and Q2 2026 earnings show robust operational health and widening platform scale. Total revenue grew +27.6% YoY to $411.6M, while Gross Margin expanded 170 basis points YoY to 25.6%, driving Q2 net income up +22.3% YoY to $42.3M ($1.16 GAAP EPS / $1.65 Non-GAAP Adjusted EPS). Crucially, the growth is quality-driven: total TTM marketplace GMV reached $1.745B (+21.3% YoY), powered by higher-margin 3P marketplace GMV which surged +27.0% YoY to $962.3M (55.2% of total GMV). Platform network effects continue to broaden, with active 3P sellers expanding +26.1% YoY to 1,465 and active buyers rising +17.1% YoY to 12,823 (averaging $136,069 in spend per buyer). Geographic diversification is accelerating as European quarterly GMV surged +66% YoY. Management generates an audited Owner ROIC of 22.2% and is aggressively defending intrinsic value, repurchasing $47.7M in stock YTD in 2026 and approving a fresh $120.0M share buyback authorization.</p></div>\n</section>\n<section class=\"memo-section\">\n<h2 class=\"memo-title\">What If It Keeps Going That Way</h2>\n<div class=\"memo-body\"><ol><li>Starting Owner Earnings: $4.02 per share.</li><li>Modest 5-year compounding rate: Assuming annual earnings growth decelerates conservatively to 10.0% CAGR (well below recent 27.6% top-line growth), Year 5 Owner Earnings reach $6.47 per share ($4.02 x 1.10^5).</li><li>Conservative terminal multiple: 13.0x P/OE, representing a slight valuation multiple for a business with a 22.2% ROIC and asset-light 3P marketplace network effects.</li><li>Year 5 operating business value: $6.47 x 13.0x = $84.11 per share.</li><li>Expected 5-year share price: Adding the balance sheet net debt/cash metric of \\(-3.50 per share yields an expected Year 5 stock price of $80.61 per share ($84.11 + (\\)-3.50)).</li><li>Expected 5-year annualized IRR: Measured from today's entry price of $49.65, this scenario generates a solid 10.2% annualized return, providing a meaningful margin of safety even under conservative growth assumptions.</li></ol></div>\n</section>"
   }
-}
+]
