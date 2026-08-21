@@ -277,25 +277,24 @@
             background: var(--bg-subpanel);
             border: 1px solid var(--border-color);
             border-radius: 10px;
-            padding: 13px 15px;
+            padding: 12px 14px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
-            min-height: 80px;
+            justify-content: space-between;
+            min-height: 84px;
             box-sizing: border-box;
-            overflow: hidden;
             min-width: 0;
             transition: border-color 0.15s ease;
         }
         .metric-cell:hover {
             border-color: rgba(212, 163, 115, 0.25);
         }
-        .metric-label { font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); letter-spacing: 0.05em; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .metric-value { font-size: 1.15rem; font-weight: 500; color: var(--text-title); font-family: var(--font-mono); display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px; line-height: 1.2; }
+        .metric-label { font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); letter-spacing: 0.05em; margin-bottom: 2px; }
+        .metric-value { font-size: 1.08rem; font-weight: 500; color: var(--text-title); font-family: var(--font-mono); display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px; line-height: 1.2; word-break: break-word; }
         .metric-target-value { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px; }
-        .metric-target-value .target-price { font-size: 1.15rem; font-weight: 500; font-family: var(--font-mono); white-space: nowrap; }
-        .metric-target-value .target-pct { font-size: 0.76rem; font-weight: 500; font-family: var(--font-mono); opacity: 0.85; white-space: nowrap; }
-        .metric-subtext { font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-sans); margin-top: 4px; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .metric-target-value .target-price { font-size: 1.08rem; font-weight: 500; font-family: var(--font-mono); }
+        .metric-target-value .target-pct { font-size: 0.74rem; font-weight: 500; font-family: var(--font-mono); opacity: 0.85; }
+        .metric-subtext { font-size: 0.72rem; color: var(--text-secondary); font-family: var(--font-sans); margin-top: 4px; line-height: 1.35; white-space: normal; word-break: break-word; }
 
         /* Tabs */
         .tabs-header {
@@ -1598,14 +1597,14 @@
                 
     <div class="metric-cell" title="Buffett & Munger Pricing Power Framework: Strong Pricing Power: Underwritten via Buffett & Munger pricing power framework.">
         <div class="metric-label">Pricing Power</div>
-        <div class="metric-value" style="color: var(--accent-warm); font-family: var(--font-sans) !important; font-size: 0.88rem !important; font-weight: 600 !important; white-space: nowrap !important; letter-spacing: -0.01em !important; overflow: hidden !important; text-overflow: ellipsis !important;">Strong Pricing Power</div>
+        <div class="metric-value" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 0.88rem; font-weight: 600;">Strong Pricing Power</div>
         <div class="metric-subtext">Inelastic Demand · Low Churn</div>
     </div>
     
                 
     <div class="metric-cell" title="Buffett & Munger Predictability Framework ('Too Hard' Pile Audit): High Predictability: Underwritten via 10-year visibility framework.">
         <div class="metric-label">Predictability</div>
-        <div class="metric-value" style="color: var(--accent-warm); font-family: var(--font-sans) !important; font-size: 0.88rem !important; font-weight: 600 !important; white-space: nowrap !important; letter-spacing: -0.01em !important; overflow: hidden !important; text-overflow: ellipsis !important;">High Predictability</div>
+        <div class="metric-value" style="color: var(--accent-warm); font-family: var(--font-sans); font-size: 0.88rem; font-weight: 600;">High Predictability</div>
         <div class="metric-subtext">Manageable Visibility · Moat Protected</div>
     </div>
     

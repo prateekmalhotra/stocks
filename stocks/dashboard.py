@@ -283,7 +283,7 @@ def format_top_funds_card_html(stock: WatchlistStock) -> str:
     return f"""
     <div class="metric-cell">
         <div class="metric-label">Whales</div>
-        <div class="metric-value" style="font-size: 0.95rem !important; font-family: var(--font-sans) !important; font-weight: 600 !important; color: var(--text-title); white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important;">{display_val}</div>
+        <div class="metric-value" style="font-size: 0.95rem; font-family: var(--font-sans); font-weight: 600; color: var(--text-title);">{display_val}</div>
         {f'<div class="metric-subtext">{subtext}</div>' if subtext else ''}
     </div>
     """
@@ -299,7 +299,7 @@ def format_insider_activity_card_html(stock: WatchlistStock) -> str:
     return f"""
     <div class="metric-cell">
         <div class="metric-label">Insiders</div>
-        <div class="metric-value" style="color: {intel['color']}; font-family: var(--font-sans) !important; font-size: 0.88rem !important; font-weight: 600 !important; white-space: nowrap !important; letter-spacing: -0.01em !important; overflow: hidden !important; text-overflow: ellipsis !important;">{intel['badge_html']}</div>
+        <div class="metric-value" style="color: {intel['color']}; font-family: var(--font-sans); font-size: 0.88rem; font-weight: 600;">{intel['badge_html']}</div>
         <div class="metric-subtext">{summary}</div>
     </div>
     """
@@ -308,7 +308,7 @@ def format_insider_activity_card_html(stock: WatchlistStock) -> str:
 def format_pricing_power_card_html(stock: WatchlistStock) -> str:
     """Renders the Buffett-Munger Pricing Power intelligence card in the hero metrics grid."""
     pp_tier = getattr(stock, "pricing_power_tier", None) or "Strong Pricing Power"
-    pp_score = getattr(stock, "pricing_power_score", None) or "Inelastic Demand · Low Churn"
+    pp_score = getattr(stock, "pricing_power_score", None) or "Inelastic Demand"
     pp_summary = getattr(stock, "pricing_power_summary", None) or "Demonstrated authority to pass input cost inflation without demand destruction."
     
     tier_lower = pp_tier.lower()
@@ -326,7 +326,7 @@ def format_pricing_power_card_html(stock: WatchlistStock) -> str:
     return f"""
     <div class="metric-cell" title="Buffett & Munger Pricing Power Framework: {pp_summary}">
         <div class="metric-label">Pricing Power</div>
-        <div class="metric-value" style="color: {color}; font-family: var(--font-sans) !important; font-size: 0.88rem !important; font-weight: 600 !important; white-space: nowrap !important; letter-spacing: -0.01em !important; overflow: hidden !important; text-overflow: ellipsis !important;">{pp_tier}</div>
+        <div class="metric-value" style="color: {color}; font-family: var(--font-sans); font-size: 0.88rem; font-weight: 600;">{pp_tier}</div>
         <div class="metric-subtext">{pp_score}</div>
     </div>
     """
@@ -335,7 +335,7 @@ def format_pricing_power_card_html(stock: WatchlistStock) -> str:
 def format_cash_flow_predictability_card_html(stock: WatchlistStock) -> str:
     """Renders the Buffett-Munger Cash Flow Predictability ('Too Hard' Pile Audit) card in the hero metrics grid."""
     pred_tier = getattr(stock, "predictability_tier", None) or "Moderate Predictability"
-    pred_score = getattr(stock, "predictability_score", None) or "Manageable Visibility · Moat Protected"
+    pred_score = getattr(stock, "predictability_score", None) or "Manageable Visibility"
     pred_summary = getattr(stock, "predictability_summary", None) or "Buffett & Munger 10-Year Cash Flow Visibility Assessment."
     
     tier_lower = pred_tier.lower()
@@ -351,7 +351,7 @@ def format_cash_flow_predictability_card_html(stock: WatchlistStock) -> str:
     return f"""
     <div class="metric-cell" title="Buffett & Munger Predictability Framework ('Too Hard' Pile Audit): {pred_summary}">
         <div class="metric-label">Predictability</div>
-        <div class="metric-value" style="color: {color}; font-family: var(--font-sans) !important; font-size: 0.88rem !important; font-weight: 600 !important; white-space: nowrap !important; letter-spacing: -0.01em !important; overflow: hidden !important; text-overflow: ellipsis !important;">{pred_tier}</div>
+        <div class="metric-value" style="color: {color}; font-family: var(--font-sans); font-size: 0.88rem; font-weight: 600;">{pred_tier}</div>
         <div class="metric-subtext">{pred_score}</div>
     </div>
     """
@@ -1746,25 +1746,24 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
             background: var(--bg-subpanel);
             border: 1px solid var(--border-color);
             border-radius: 10px;
-            padding: 13px 15px;
+            padding: 12px 14px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
-            min-height: 80px;
+            justify-content: space-between;
+            min-height: 84px;
             box-sizing: border-box;
-            overflow: hidden;
             min-width: 0;
             transition: border-color 0.15s ease;
         }}
         .metric-cell:hover {{
             border-color: rgba(212, 163, 115, 0.25);
         }}
-        .metric-label {{ font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); letter-spacing: 0.05em; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
-        .metric-value {{ font-size: 1.15rem; font-weight: 500; color: var(--text-title); font-family: var(--font-mono); display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px; line-height: 1.2; }}
+        .metric-label {{ font-size: 0.68rem; text-transform: uppercase; color: var(--text-dim); font-family: var(--font-sans); letter-spacing: 0.05em; margin-bottom: 2px; }}
+        .metric-value {{ font-size: 1.08rem; font-weight: 500; color: var(--text-title); font-family: var(--font-mono); display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px; line-height: 1.2; word-break: break-word; }}
         .metric-target-value {{ display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px; }}
-        .metric-target-value .target-price {{ font-size: 1.15rem; font-weight: 500; font-family: var(--font-mono); white-space: nowrap; }}
-        .metric-target-value .target-pct {{ font-size: 0.76rem; font-weight: 500; font-family: var(--font-mono); opacity: 0.85; white-space: nowrap; }}
-        .metric-subtext {{ font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-sans); margin-top: 4px; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
+        .metric-target-value .target-price {{ font-size: 1.08rem; font-weight: 500; font-family: var(--font-mono); }}
+        .metric-target-value .target-pct {{ font-size: 0.74rem; font-weight: 500; font-family: var(--font-mono); opacity: 0.85; }}
+        .metric-subtext {{ font-size: 0.72rem; color: var(--text-secondary); font-family: var(--font-sans); margin-top: 4px; line-height: 1.35; white-space: normal; word-break: break-word; }}
 
         /* Tabs */
         .tabs-header {{
