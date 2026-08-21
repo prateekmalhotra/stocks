@@ -102,7 +102,7 @@ def normalize_latex_typography(html: str) -> str:
 
 
 def format_labels_pills(labels: List[str]) -> str:
-    """Formats strictly 1 clean, single-line Moat badge for absolute visual consistency across all rows."""
+    """Formats strictly 1 clean, beautiful text label without badge pill containers."""
     if not labels:
         return ''
     
@@ -116,15 +116,15 @@ def format_labels_pills(labels: List[str]) -> str:
     moat_lbl = map_to_canonical_moat_label(" ".join(words))
     
     if moat_lbl == "Wide Moat":
-        css_class = "pill-moat-wide"
+        color = "var(--accent-warm)"
     elif moat_lbl == "Narrow Moat":
-        css_class = "pill-moat-narrow"
+        color = "var(--accent-green)"
     elif moat_lbl == "Weak Moat":
-        css_class = "pill-moat-weak"
+        color = "#D48858"
     else:
-        css_class = "pill-moat-none"
+        color = "var(--accent-red)"
         
-    return f'<span class="pill {css_class}" title="Economic Moat Rating: {moat_lbl}">{moat_lbl}</span>'
+    return f'<span style="color: {color}; font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans);">{moat_lbl}</span>'
 
 
 def format_usd_target(val: Any) -> str:
@@ -2457,25 +2457,25 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
         .diff-now .diff-label {{ color: var(--accent-green); }}
         .diff-text {{ font-size: 1.02rem; color: var(--text-body); line-height: 1.65; }}
 
-        /* Pills */
+        /* Pills & Badges (Typography-first, zero pill boxes) */
         .pill {{
             display: inline-flex;
             align-items: center;
-            padding: 3px 11px;
-            border-radius: 9999px;
-            font-size: 0.72rem;
+            padding: 0;
+            border: none;
+            background: transparent;
+            font-size: 0.82rem;
             font-family: var(--font-sans);
-            letter-spacing: 0.03em;
+            letter-spacing: 0.01em;
             white-space: nowrap;
         }}
-        .pill-moat {{ background: rgba(212, 163, 115, 0.14); color: var(--accent-warm); border: 1px solid rgba(212, 163, 115, 0.4); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em; }}
-        .pill-moat-wide {{ background: rgba(212, 163, 115, 0.14); color: var(--accent-warm); border: 1px solid rgba(212, 163, 115, 0.4); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em; }}
-        .pill-moat-narrow {{ background: rgba(125, 157, 129, 0.14); color: var(--accent-green); border: 1px solid rgba(125, 157, 129, 0.35); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em; }}
-        .pill-moat-weak {{ background: rgba(212, 136, 88, 0.14); color: #D48858; border: 1px solid rgba(212, 136, 88, 0.35); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em; }}
-        .pill-moat-none {{ background: rgba(196, 114, 108, 0.14); color: var(--accent-red); border: 1px solid rgba(196, 114, 108, 0.35); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em; }}
-        .pill-active {{ background: rgba(201, 154, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.45); font-weight: 600; box-shadow: 0 0 10px rgba(201, 154, 117, 0.06); }}
-        .pill-neutral {{ background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); font-weight: 500; }}
-        .pill-alert {{ background: rgba(191, 160, 117, 0.14); color: var(--accent-warm); border: 1px solid rgba(191, 160, 117, 0.28); }}
+        .pill-moat, .pill-moat-wide {{ background: transparent; color: var(--accent-warm); border: none; font-weight: 500; font-size: 0.82rem; }}
+        .pill-moat-narrow {{ background: transparent; color: var(--accent-green); border: none; font-weight: 500; font-size: 0.82rem; }}
+        .pill-moat-weak {{ background: transparent; color: #D48858; border: none; font-weight: 500; font-size: 0.82rem; }}
+        .pill-moat-none {{ background: transparent; color: var(--accent-red); border: none; font-weight: 500; font-size: 0.82rem; }}
+        .pill-active {{ background: transparent; color: var(--accent-warm); border: none; font-weight: 500; }}
+        .pill-neutral {{ background: transparent; color: var(--text-secondary); border: none; font-weight: 400; }}
+        .pill-alert {{ background: transparent; color: var(--accent-warm); border: none; font-weight: 500; }}
 
         .btn-subtle {{
             background: var(--bg-subpanel);
@@ -2624,9 +2624,8 @@ def generate_company_dossier_html(ticker: str, stock: WatchlistStock, history: L
                             {get_ticker_logo_html(stock.ticker, 32)}
                             <span class="ticker-symbol">{stock.ticker}{dossier_beacon}</span>
                         </div>
-                        <span style="display: inline-flex; align-items: center; gap: 10px; margin-left: 4px;">
+                        <span style="display: inline-flex; align-items: center; margin-left: 6px;">
                             {labels_html}
-                            <button type="button" class="btn-info-circle" onclick="openLabelsLegendModal(event)" title="View Investment Taxonomy & Labels Legend">ⓘ</button>
                         </span>
                     </div>
                     <div class="company-meta">{stock.company_name}</div>
@@ -3546,27 +3545,25 @@ def generate_master_dashboard_html(watchlist: Dict[str, WatchlistStock], alerts:
             transform: scale(1.08);
         }}
 
-        /* Pills */
+        /* Pills & Badges (Typography-first, zero pill boxes) */
         .pill {{
             display: inline-flex;
             align-items: center;
-            padding: 3px 11px;
-            border-radius: 9999px;
-            font-size: 0.72rem;
+            padding: 0;
+            border: none;
+            background: transparent;
+            font-size: 0.82rem;
             font-family: var(--font-sans);
-            letter-spacing: 0.03em;
+            letter-spacing: 0.01em;
             white-space: nowrap;
         }}
-        .pill-moat {{ background: rgba(212, 163, 115, 0.14); color: var(--accent-warm); border: 1px solid rgba(212, 163, 115, 0.4); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em; }}
-        .pill-moat-wide {{ background: rgba(212, 163, 115, 0.14); color: var(--accent-warm); border: 1px solid rgba(212, 163, 115, 0.4); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em; }}
-        .pill-moat-narrow {{ background: rgba(125, 157, 129, 0.14); color: var(--accent-green); border: 1px solid rgba(125, 157, 129, 0.35); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em; }}
-        .pill-moat-weak {{ background: rgba(212, 136, 88, 0.14); color: #D48858; border: 1px solid rgba(212, 136, 88, 0.35); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em; }}
-        .pill-moat-none {{ background: rgba(196, 114, 108, 0.14); color: var(--accent-red); border: 1px solid rgba(196, 114, 108, 0.35); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em; }}
-        .pill-conviction {{ background: rgba(212, 163, 115, 0.12); color: var(--accent-warm); border: 1px solid rgba(212, 163, 115, 0.35); font-weight: 600; }}
-        .pill-driver {{ background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); font-weight: 500; }}
-        .pill-active {{ background: rgba(201, 154, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.45); font-weight: 600; box-shadow: 0 0 10px rgba(201, 154, 117, 0.06); }}
-        .pill-neutral {{ background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); font-weight: 500; }}
-        .pill-alert {{ background: rgba(191, 160, 117, 0.14); color: var(--accent-warm); border: 1px solid rgba(191, 160, 117, 0.28); }}
+        .pill-moat, .pill-moat-wide {{ background: transparent; color: var(--accent-warm); border: none; font-weight: 500; font-size: 0.82rem; }}
+        .pill-moat-narrow {{ background: transparent; color: var(--accent-green); border: none; font-weight: 500; font-size: 0.82rem; }}
+        .pill-moat-weak {{ background: transparent; color: #D48858; border: none; font-weight: 500; font-size: 0.82rem; }}
+        .pill-moat-none {{ background: transparent; color: var(--accent-red); border: none; font-weight: 500; font-size: 0.82rem; }}
+        .pill-conviction, .pill-active {{ background: transparent; color: var(--accent-warm); border: none; font-weight: 500; }}
+        .pill-driver, .pill-neutral {{ background: transparent; color: var(--text-secondary); border: none; font-weight: 400; }}
+        .pill-alert {{ background: transparent; color: var(--accent-warm); border: none; font-weight: 500; }}
 
         .pos {{ color: var(--accent-green); }}
         .neg {{ color: var(--accent-red); }}

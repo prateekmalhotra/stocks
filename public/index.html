@@ -21,7 +21,7 @@
     "change": 0.0,
     "change_pct": 0.0,
     "currency": "USD",
-    "updated_at": "2026-08-21 00:01:45 UTC"
+    "updated_at": "2026-08-21 00:03:58 UTC"
   }
 }</script>
     <!-- KaTeX Math Engine for Typography-Grade LaTeX Equations -->
@@ -591,27 +591,25 @@
             transform: scale(1.08);
         }
 
-        /* Pills */
+        /* Pills & Badges (Typography-first, zero pill boxes) */
         .pill {
             display: inline-flex;
             align-items: center;
-            padding: 3px 11px;
-            border-radius: 9999px;
-            font-size: 0.72rem;
+            padding: 0;
+            border: none;
+            background: transparent;
+            font-size: 0.82rem;
             font-family: var(--font-sans);
-            letter-spacing: 0.03em;
+            letter-spacing: 0.01em;
             white-space: nowrap;
         }
-        .pill-moat { background: rgba(212, 163, 115, 0.14); color: var(--accent-warm); border: 1px solid rgba(212, 163, 115, 0.4); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em; }
-        .pill-moat-wide { background: rgba(212, 163, 115, 0.14); color: var(--accent-warm); border: 1px solid rgba(212, 163, 115, 0.4); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em; }
-        .pill-moat-narrow { background: rgba(125, 157, 129, 0.14); color: var(--accent-green); border: 1px solid rgba(125, 157, 129, 0.35); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em; }
-        .pill-moat-weak { background: rgba(212, 136, 88, 0.14); color: #D48858; border: 1px solid rgba(212, 136, 88, 0.35); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em; }
-        .pill-moat-none { background: rgba(196, 114, 108, 0.14); color: var(--accent-red); border: 1px solid rgba(196, 114, 108, 0.35); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em; }
-        .pill-conviction { background: rgba(212, 163, 115, 0.12); color: var(--accent-warm); border: 1px solid rgba(212, 163, 115, 0.35); font-weight: 600; }
-        .pill-driver { background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); font-weight: 500; }
-        .pill-active { background: rgba(201, 154, 117, 0.12); color: var(--accent-warm); border: 1px solid rgba(201, 154, 117, 0.45); font-weight: 600; box-shadow: 0 0 10px rgba(201, 154, 117, 0.06); }
-        .pill-neutral { background: var(--bg-subpanel); color: var(--text-secondary); border: 1px solid var(--border-color); font-weight: 500; }
-        .pill-alert { background: rgba(191, 160, 117, 0.14); color: var(--accent-warm); border: 1px solid rgba(191, 160, 117, 0.28); }
+        .pill-moat, .pill-moat-wide { background: transparent; color: var(--accent-warm); border: none; font-weight: 500; font-size: 0.82rem; }
+        .pill-moat-narrow { background: transparent; color: var(--accent-green); border: none; font-weight: 500; font-size: 0.82rem; }
+        .pill-moat-weak { background: transparent; color: #D48858; border: none; font-weight: 500; font-size: 0.82rem; }
+        .pill-moat-none { background: transparent; color: var(--accent-red); border: none; font-weight: 500; font-size: 0.82rem; }
+        .pill-conviction, .pill-active { background: transparent; color: var(--accent-warm); border: none; font-weight: 500; }
+        .pill-driver, .pill-neutral { background: transparent; color: var(--text-secondary); border: none; font-weight: 400; }
+        .pill-alert { background: transparent; color: var(--accent-warm); border: none; font-weight: 500; }
 
         .pos { color: var(--accent-green); }
         .neg { color: var(--accent-red); }
@@ -863,7 +861,7 @@
             </td>
             <td>
                 <div class="tbl-labels-cell">
-                    <span class="pill pill-moat-wide" title="Economic Moat Rating: Wide Moat">Wide Moat</span>
+                    <span style="color: var(--accent-warm); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans);">Wide Moat</span>
                 </div>
             </td>
             <td>
@@ -896,7 +894,7 @@
                 <div class="grid-price grid-price-GOOG">$338.20</div>
             </div>
             <div class="grid-labels-row" style="margin: 4px 0 8px;">
-                <span class="pill pill-moat-wide" title="Economic Moat Rating: Wide Moat">Wide Moat</span>
+                <span style="color: var(--accent-warm); font-size: 0.84rem; font-weight: 500; font-family: var(--font-sans);">Wide Moat</span>
             </div>
             <div class="grid-company">Alphabet Inc</div>
             
