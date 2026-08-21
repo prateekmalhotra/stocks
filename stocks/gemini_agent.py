@@ -1246,6 +1246,7 @@ YOUR CRITICAL SYNTHESIS MANDATE:
      * For secular monopolies with deep moats and stable management, Core Execution carries 50%–65%.
 3. MANDATORY PYTHON CODE EXECUTION FOR VERIFICATION & REVERSE DCF:
    - You MUST write and execute Python code using your code execution tool to compute all final synthesis numbers:
+     * In the 'Projected 5-Year Per-Share OE CAGR (Top-Line Rev CAGR)' row, explicitly format both the Per-Share Owner Earnings CAGR and the Top-Line Revenue CAGR (e.g. `+15.9% (+12.8% Rev)`).
      * BALANCE SHEET ADJUSTMENT MANDATE: You MUST include the exact Net Balance Sheet Cash / (Debt) per share ({net_cash_str}) in the 'Net Balance Sheet Cash / (Debt) per share Adjustment' row for every path. 5-Year Target Price / Share MUST mathematically equal: (OE₅ * Multiple) + Net_Cash_per_share (or - Net_Debt_per_share).
      * Probability-Weighted Expected 5Y Target (P₅_expected) = ∑ (p_i * P₅_i)
      * Probability-Weighted Present Fair Value (P₀_expected) = ∑ (p_i * P₀_i)
@@ -1296,7 +1297,7 @@ Provide pure semantic HTML containing Section 2 (the combined storyline callouts
   </thead>
   <tbody>
     <tr><td>Starting Normalized Owner Earnings (OE₀) / share</td>...</tr>
-    <tr><td>Projected 5-Year Owner Earnings CAGR (%)</td>...</tr>
+    <tr><td>Projected 5-Year Per-Share OE CAGR (Top-Line Rev CAGR)</td>...</tr>
     <tr><td>Projected Year-5 Normalized Owner Earnings (OE₅) / share</td>...</tr>
     <tr><td>Target Terminal Multiple (P/OE₅)</td>...</tr>
     <tr><td>Implied Terminal Owner Cash Yield (%)</td>...</tr>
@@ -2509,7 +2510,7 @@ def generate_genesis_thesis(ticker: str, company_name: str, current_price: float
 
     # Dynamic bespoke catalyst drivers from val_json or sec1_clean
     custom_drivers = val_json.get("key_catalyst_drivers") or val_json.get("drivers") or []
-    raw_moat = map_to_canonical_moat_label(val_json.get("moat", ""), sec1_text=sec1_clean)
+    raw_moat = moat_tier if moat_tier and moat_tier != "Narrow Moat" else map_to_canonical_moat_label(val_json.get("moat", "") or moat_tier, sec1_text=sec1_clean)
     raw_labels = [raw_moat] + list(custom_drivers)
     sanitized_labels = sanitize_labels(raw_labels, action_signal=action_signal, base_ret=expected_mos, sec1_text=sec1_clean)
 
