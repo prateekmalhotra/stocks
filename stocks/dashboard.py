@@ -1263,9 +1263,9 @@ def build_native_svg_chart(
             const prices = points.map(p => p.price);
             const evalPrices = [...prices];
             
-            // Only scale Y-axis to 5Y valuation target lines on multi-year timeframes (5Y, MAX)
-            // On short/medium timeframes (1D, 1M, 1Y), scale Y-axis to actual price action so the chart is dynamic and never flattened!
-            const showTargetLines = (currentRangeKey === '5Y' || currentRangeKey === 'MAX');
+            // Show valuation target reference lines on 1Y (default view), 5Y, and MAX
+            // On short intraday timeframes (1D, 1M), hide target lines so intraday price curves are never squashed
+            const showTargetLines = (currentRangeKey === '1Y' || currentRangeKey === '5Y' || currentRangeKey === 'MAX');
             
             if (showTargetLines) {{
                 for (const t of targets) {{
